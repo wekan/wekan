@@ -112,11 +112,11 @@ Checklists.helpers({
 
   },
   firstItem() {
-    const ret = _.first(this.items());
+    const ret = this.items()[0];
     return ret;
   },
   lastItem() {
-    const ret = _.last(this.items());
+    const ret = this.items().at(-1);
     return ret;
   },
   finishedCount() {
@@ -163,7 +163,7 @@ Checklists.helpers({
   },
   itemIndex(itemId) {
     const items = ReactiveCache.getChecklist({ _id: this._id }).items;
-    return _.pluck(items, '_id').indexOf(itemId);
+    return items.map(item => item._id).indexOf(itemId);
   },
 
   async setTitle(title) {
@@ -474,7 +474,7 @@ if (Meteor.isServer) {
       });
       if (id) {
         let items = req.body.items || [];
-        if (_.isString(items)) {
+        if (typeof items === 'string') {
           if (items === '') {
             items = [];
           } else {

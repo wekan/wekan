@@ -29,6 +29,7 @@ import {
 import Attachments, { fileStoreStrategyFactory } from "./attachments";
 import { copyFile } from './lib/fileStoreStrategy.js';
 import PositionHistory from './positionHistory';
+import { debounce } from '/imports/lib/collectionHelpers';
 
 Cards = new Mongo.Collection('cards');
 
@@ -523,11 +524,11 @@ canUpdateCard = function(userId, doc, fields) {
   if (!userId) return false;
   const fieldNames = fields || [];
   // Block direct updates to voting fields; voting must go through Meteor method 'cards.vote'
-  if (_.some(fieldNames, f => typeof f === 'string' && (f === 'vote' || f.indexOf('vote.') === 0))) {
+  if (fieldNames.some(f => typeof f === 'string' && (f === 'vote' || f.indexOf('vote.') === 0))) {
     return false;
   }
   // Block direct updates to poker fields; poker must go through Meteor methods
-  if (_.some(fieldNames, f => typeof f === 'string' && (f === 'poker' || f.indexOf('poker.') === 0))) {
+  if (fieldNames.some(f => typeof f === 'string' && (f === 'poker' || f.indexOf('poker.') === 0))) {
     return false;
   }
   // ReadOnly users cannot edit cards
@@ -596,7 +597,7 @@ Cards.helpers({
 
         if (newCf) {
             cf._id = newCf._id;
-        } else if (!_.contains(oldCf.boardIds, boardId)) {
+        } else if (!(oldCf.boardIds || []).includes(boardId)) {
             oldCf.addBoard(boardId);
         }
 
@@ -626,21 +627,15 @@ Cards.helpers({
       const oldBoardLabels = oldBoard.labels;
 
       // Get old label names
-      const oldCardLabels = _.pluck(
-        _.filter(oldBoardLabels, label => {
-          return _.contains(this.labelIds, label._id);
-        }),
-        'name',
-      );
+      const oldCardLabels = oldBoardLabels.filter(label => {
+          return (this.labelIds || []).includes(label._id);
+        }).map(x => x.name);
 
       const newBoard = ReactiveCache.getBoard(boardId);
       const newBoardLabels = newBoard.labels;
-      const newCardLabels = _.pluck(
-        _.filter(newBoardLabels, label => {
-          return _.contains(oldCardLabels, label.name);
-        }),
-        '_id',
-      );
+      const newCardLabels = newBoardLabels.filter(label => {
+          return oldCardLabels.includes(label.name);
+        }).map(x => x._id);
       cardData.labelIds = newCardLabels;
 
       this.customFields = this.mapCustomFieldsToBoard(newBoard._id);
@@ -765,14 +760,14 @@ Cards.helpers({
 
   labels() {
     const boardLabels = this.board().labels;
-    const cardLabels = _.filter(boardLabels, label => {
-      return _.contains(this.labelIds, label._id);
+    const cardLabels = (boardLabels || []).filter(label => {
+      return (this.labelIds || []).includes(label._id);
     });
     return cardLabels;
   },
 
   hasLabel(labelId) {
-    return _.contains(this.labelIds, labelId);
+    return (this.labelIds || []).includes(labelId);
   },
 
   /** returns the sort number of a list
@@ -781,7 +776,7 @@ Cards.helpers({
    * top sorting of the card at the top if true, or from the bottom if false
    */
   getSort(listId, swimlaneId, top) {
-    if (!_.isBoolean(top)) {
+    if (typeof top !== 'boolean') {
       top = true;
     }
     if (!listId) {
@@ -827,11 +822,11 @@ Cards.helpers({
   },
 
   isAssigned(memberId) {
-    return _.contains(this.getMembers(), memberId);
+    return (this.getMembers() || []).includes(memberId);
   },
 
   isAssignee(assigneeId) {
-    return _.contains(this.getAssignees(), assigneeId);
+    return (this.getAssignees() || []).includes(assigneeId);
   },
 
   activities() {
@@ -888,13 +883,13 @@ Cards.helpers({
 
   firstChecklist() {
     const checklists = this.checklists();
-    const ret = _.first(checklists);
+    const ret = checklists[0];
     return ret;
   },
 
   lastChecklist() {
     const checklists = this.checklists();
-    const ret = _.last(checklists);
+    const ret = checklists.at(-1);
     return ret;
   },
 
@@ -977,7 +972,7 @@ Cards.helpers({
   },
 
   customFieldIndex(customFieldId) {
-    return _.pluck(this.customFields, '_id').indexOf(customFieldId);
+    return (this.customFields || []).map(x => x._id).indexOf(customFieldId);
   },
 
   // customFields with definitions
@@ -1573,11 +1568,11 @@ Cards.helpers({
     let state;
     if (this.vote) {
       if (this.vote.positive) {
-        state = _.contains(this.vote.positive, userId);
+        state = this.vote.positive.includes(userId);
         if (state === true) return true;
       }
       if (this.vote.negative) {
-        state = _.contains(this.vote.negative, userId);
+        state = this.vote.negative.includes(userId);
         if (state === true) return false;
       }
     }
@@ -1706,61 +1701,61 @@ Cards.helpers({
     let state;
     if (this.poker) {
       if (this.poker.one) {
-        state = _.contains(this.poker.one, userId);
+        state = this.poker.one.includes(userId);
         if (state === true) {
           return 'one';
         }
       }
       if (this.poker.two) {
-        state = _.contains(this.poker.two, userId);
+        state = this.poker.two.includes(userId);
         if (state === true) {
           return 'two';
         }
       }
       if (this.poker.three) {
-        state = _.contains(this.poker.three, userId);
+        state = this.poker.three.includes(userId);
         if (state === true) {
           return 'three';
         }
       }
       if (this.poker.five) {
-        state = _.contains(this.poker.five, userId);
+        state = this.poker.five.includes(userId);
         if (state === true) {
           return 'five';
         }
       }
       if (this.poker.eight) {
-        state = _.contains(this.poker.eight, userId);
+        state = this.poker.eight.includes(userId);
         if (state === true) {
           return 'eight';
         }
       }
       if (this.poker.thirteen) {
-        state = _.contains(this.poker.thirteen, userId);
+        state = this.poker.thirteen.includes(userId);
         if (state === true) {
           return 'thirteen';
         }
       }
       if (this.poker.twenty) {
-        state = _.contains(this.poker.twenty, userId);
+        state = this.poker.twenty.includes(userId);
         if (state === true) {
           return 'twenty';
         }
       }
       if (this.poker.forty) {
-        state = _.contains(this.poker.forty, userId);
+        state = this.poker.forty.includes(userId);
         if (state === true) {
           return 'forty';
         }
       }
       if (this.poker.oneHundred) {
-        state = _.contains(this.poker.oneHundred, userId);
+        state = this.poker.oneHundred.includes(userId);
         if (state === true) {
           return 'oneHundred';
         }
       }
       if (this.poker.unsure) {
-        state = _.contains(this.poker.unsure, userId);
+        state = this.poker.unsure.includes(userId);
         if (state === true) {
           return 'unsure';
         }
@@ -2094,25 +2089,16 @@ Cards.helpers({
     if (this.boardId !== boardId) {
       const oldBoard = ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = oldBoard.labels;
-      const oldCardLabels = _.pluck(
-        _.filter(oldBoardLabels, label => {
-          return _.contains(this.labelIds, label._id);
-        }),
-        'name',
-      );
+      const oldCardLabels = oldBoardLabels.filter(label => {
+          return (this.labelIds || []).includes(label._id);
+        }).map(x => x.name);
 
       const newBoard = ReactiveCache.getBoard(boardId);
-      const allowedMemberIds = _.pluck(
-        _.filter(newBoard.members || [], member => member.isActive === true),
-        'userId',
-      );
+      const allowedMemberIds = (newBoard.members || []).filter(member => member.isActive === true).map(x => x.userId);
       const newBoardLabels = newBoard.labels;
-      const newCardLabelIds = _.pluck(
-        _.filter(newBoardLabels, label => {
-          return label.name && _.contains(oldCardLabels, label.name);
-        }),
-        '_id',
-      );
+      const newCardLabelIds = newBoardLabels.filter(label => {
+          return label.name && oldCardLabels.includes(label.name);
+        }).map(x => x._id);
 
       const newCardNumber = newBoard.getNextCardNumber();
 
@@ -2130,13 +2116,13 @@ Cards.helpers({
 
       const currentMembers = Array.isArray(this.members) ? this.members : [];
       const filteredMembers = currentMembers.filter(memberId => allowedMemberIds.includes(memberId));
-      if (_.difference(currentMembers, filteredMembers).length > 0) {
+      if (currentMembers.filter(x => !filteredMembers.includes(x)).length > 0) {
         mutatedFields.members = filteredMembers;
       }
 
       const currentWatchers = Array.isArray(this.watchers) ? this.watchers : [];
       const filteredWatchers = currentWatchers.filter(watcherId => allowedMemberIds.includes(watcherId));
-      if (_.difference(currentWatchers, filteredWatchers).length > 0) {
+      if (currentWatchers.filter(x => !filteredWatchers.includes(x)).length > 0) {
         mutatedFields.watchers = filteredWatchers;
       }
     }
@@ -2190,7 +2176,7 @@ Cards.helpers({
   },
 
   removeLabel(labelId) {
-    this.labelIds = _.without(this.labelIds, labelId);
+    this.labelIds = (this.labelIds || []).filter(x => x !== labelId);
     return Cards.updateAsync(this._id, { $pull: { labelIds: labelId } });
   },
 
@@ -2446,7 +2432,7 @@ Cards.helpers({
 //FUNCTIONS FOR creation of Activities
 
 async function updateActivities(doc, fieldNames, modifier) {
-  if (_.contains(fieldNames, 'labelIds') && _.contains(fieldNames, 'boardId')) {
+  if (fieldNames.includes('labelIds') && fieldNames.includes('boardId')) {
     const activities = await ReactiveCache.getActivities({
       activityType: 'addedLabel',
       cardId: doc._id,
@@ -2464,7 +2450,7 @@ async function updateActivities(doc, fieldNames, modifier) {
         await Activities.removeAsync(a._id);
       }
     }
-  } else if (_.contains(fieldNames, 'boardId')) {
+  } else if (fieldNames.includes('boardId')) {
     await Activities.removeAsync({
       activityType: 'addedLabel',
       cardId: doc._id,
@@ -2480,7 +2466,7 @@ async function cardMove(
   oldSwimlaneId,
   oldBoardId,
 ) {
-  if (_.contains(fieldNames, 'boardId') && doc.boardId !== oldBoardId) {
+  if (fieldNames.includes('boardId') && doc.boardId !== oldBoardId) {
     const newBoard = await ReactiveCache.getBoard(doc.boardId);
     const oldBoard = await ReactiveCache.getBoard(oldBoardId);
     const swimlane = await ReactiveCache.getSwimlane(doc.swimlaneId);
@@ -2497,8 +2483,8 @@ async function cardMove(
       oldSwimlaneId,
     });
   } else if (
-    (_.contains(fieldNames, 'listId') && doc.listId !== oldListId) ||
-    (_.contains(fieldNames, 'swimlaneId') && doc.swimlaneId !== oldSwimlaneId)
+    (fieldNames.includes('listId') && doc.listId !== oldListId) ||
+    (fieldNames.includes('swimlaneId') && doc.swimlaneId !== oldSwimlaneId)
   ) {
     const list = await ReactiveCache.getList(doc.listId);
     const swimlane = await ReactiveCache.getSwimlane(doc.swimlaneId);
@@ -2519,7 +2505,7 @@ async function cardMove(
 }
 
 async function cardState(userId, doc, fieldNames) {
-  if (_.contains(fieldNames, 'archived')) {
+  if (fieldNames.includes('archived')) {
     const list = await ReactiveCache.getList(doc.listId);
     if (doc.archived) {
       await Activities.insertAsync({
@@ -2546,14 +2532,14 @@ async function cardState(userId, doc, fieldNames) {
 }
 
 async function cardMembers(userId, doc, fieldNames, modifier) {
-  if (!_.contains(fieldNames, 'members')) return;
+  if (!fieldNames.includes('members')) return;
   let memberId;
   // Say hello to the new member
   if (modifier.$addToSet && modifier.$addToSet.members) {
     memberId = modifier.$addToSet.members;
     const user = await ReactiveCache.getUser(memberId);
     const username = user.username;
-    if (!_.contains(doc.members, memberId)) {
+    if (!(doc.members || []).includes(memberId)) {
       await Activities.insertAsync({
         userId,
         username,
@@ -2573,7 +2559,7 @@ async function cardMembers(userId, doc, fieldNames, modifier) {
     const user = await ReactiveCache.getUser(memberId);
     const username = user.username;
     // Check that the former member is member of the card
-    if (_.contains(doc.members, memberId)) {
+    if ((doc.members || []).includes(memberId)) {
       await Activities.insertAsync({
         userId,
         username,
@@ -2589,14 +2575,14 @@ async function cardMembers(userId, doc, fieldNames, modifier) {
 }
 
 async function cardAssignees(userId, doc, fieldNames, modifier) {
-  if (!_.contains(fieldNames, 'assignees')) return;
+  if (!fieldNames.includes('assignees')) return;
   let assigneeId;
   // Say hello to the new assignee
   if (modifier.$addToSet && modifier.$addToSet.assignees) {
     assigneeId = modifier.$addToSet.assignees;
     const user = await ReactiveCache.getUser(assigneeId);
     const username = user.username;
-    if (!_.contains(doc.assignees, assigneeId)) {
+    if (!(doc.assignees || []).includes(assigneeId)) {
       await Activities.insertAsync({
         userId,
         username,
@@ -2615,7 +2601,7 @@ async function cardAssignees(userId, doc, fieldNames, modifier) {
     const user = await ReactiveCache.getUser(assigneeId);
     const username = user.username;
     // Check that the former assignee is assignee of the card
-    if (_.contains(doc.assignees, assigneeId)) {
+    if ((doc.assignees || []).includes(assigneeId)) {
       await Activities.insertAsync({
         userId,
         username,
@@ -2631,13 +2617,13 @@ async function cardAssignees(userId, doc, fieldNames, modifier) {
 }
 
 function cardLabels(userId, doc, fieldNames, modifier) {
-  if (!_.contains(fieldNames, 'labelIds')) return;
+  if (!fieldNames.includes('labelIds')) return;
   let labelId;
   // Say hello to the new label
   if (modifier.$addToSet && modifier.$addToSet.labelIds) {
     labelId = modifier.$addToSet.labelIds;
     //const label = labels(labelId).name;
-    if (!_.contains(doc.labelIds, labelId)) {
+    if (!(doc.labelIds || []).includes(labelId)) {
       const act = {
         userId,
         labelId,
@@ -2655,7 +2641,7 @@ function cardLabels(userId, doc, fieldNames, modifier) {
   if (modifier.$pull && modifier.$pull.labelIds) {
     labelId = modifier.$pull.labelIds;
     // Check that the former member is member of the card
-    if (_.contains(doc.labelIds, labelId)) {
+    if ((doc.labelIds || []).includes(labelId)) {
       Activities.insert({
         userId,
         labelId,
@@ -2670,11 +2656,11 @@ function cardLabels(userId, doc, fieldNames, modifier) {
 }
 
 function cardCustomFields(userId, doc, fieldNames, modifier) {
-  if (!_.contains(fieldNames, 'customFields')) return;
+  if (!fieldNames.includes('customFields')) return;
 
   // Say hello to the new customField value
   if (modifier.$set) {
-    _.each(modifier.$set, (value, key) => {
+    Object.entries(modifier.$set).forEach(([key, value]) => {
       if (key.startsWith('customFields')) {
         const dotNotation = key.split('.');
 
@@ -2699,7 +2685,7 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
 
   // Say goodbye to the former customField value
   if (modifier.$unset) {
-    _.each(modifier.$unset, (value, key) => {
+    Object.entries(modifier.$unset).forEach(([key, value]) => {
       if (key.startsWith('customFields')) {
         const dotNotation = key.split('.');
 
@@ -2816,7 +2802,7 @@ const findDueCards = async days => {
     await seekDue(...args);
   }
 };
-const addCronJob = _.debounce(
+const addCronJob = debounce(
   Meteor.bindEnvironment(function findDueCardsDebounced() {
     const envValue = process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER;
     if (!envValue) {
@@ -3227,7 +3213,7 @@ if (Meteor.isServer) {
     const fields = fieldNames.filter(name => name !== dla);
     const timingaction = ['receivedAt', 'dueAt', 'startAt', 'endAt'];
     const action = fields[0];
-    if (fields.length > 0 && _.contains(timingaction, action)) {
+    if (fields.length > 0 && timingaction.includes(action)) {
       // add activities for user change these attributes
       const value = modifier.$set[action];
       const oldvalue = doc[action] || '';
@@ -3448,8 +3434,7 @@ if (Meteor.isServer) {
 
     let customFieldsArr = [];
     const customFields = await ReactiveCache.getCustomFields({'boardIds': paramBoardId});
-    _.forEach(
-      customFields,
+    (customFields || []).forEach(
       function (field) {
         if (field.automaticallyOnCard || field.alwaysOnCard)
           customFieldsArr.push({ _id: field._id, value: null });
@@ -3766,7 +3751,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', async function(
       }
       if (req.body.labelIds) {
         let newlabelIds = req.body.labelIds;
-        if (_.isString(newlabelIds)) {
+        if (typeof newlabelIds === 'string') {
           if (newlabelIds === '') {
             newlabelIds = null;
           } else {
@@ -3907,7 +3892,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', async function(
       }
       if (req.body.members) {
         let newmembers = req.body.members;
-        if (_.isString(newmembers)) {
+        if (typeof newmembers === 'string') {
           if (newmembers === '') {
             newmembers = null;
           } else {
@@ -3927,7 +3912,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', async function(
       }
       if (req.body.assignees) {
         let newassignees = req.body.assignees;
-        if (_.isString(newassignees)) {
+        if (typeof newassignees === 'string') {
           if (newassignees === '') {
             newassignees = null;
           } else {

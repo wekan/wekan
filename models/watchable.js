@@ -17,7 +17,7 @@ const simpleWatchable = collection => {
     },
 
     findWatcher(userId) {
-      return _.contains(this.watchers, userId);
+      return (this.watchers || []).includes(userId);
     },
 
     async setWatcher(userId, level) {
@@ -55,11 +55,11 @@ const complexWatchable = collection => {
     },
 
     watcherIndex(userId) {
-      return _.pluck(this.watchers, 'userId').indexOf(userId);
+      return (this.watchers || []).map(x => x.userId).indexOf(userId);
     },
 
     findWatcher(userId) {
-      return _.findWhere(this.watchers, { userId });
+      return (this.watchers || []).find(w => w.userId === userId);
     },
 
     getWatchLevel(userId) {

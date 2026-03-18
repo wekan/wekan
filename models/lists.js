@@ -499,7 +499,7 @@ Meteor.methods({
         fields: { title: 1 },
       },
     );
-    return _.uniq(lists.map(list => list.title)).sort();
+    return [...new Set(lists.map(list => list.title))].sort();
   },
 
   async updateListSort(listId, boardId, updateData) {

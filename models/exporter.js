@@ -53,7 +53,7 @@ export class Exporter {
     const result = {
       _format: 'wekan-board-1.0.0',
     };
-    _.extend(
+    Object.assign(
       result,
       await ReactiveCache.getBoard(this._boardId, {
         fields: {

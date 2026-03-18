@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { findWhere, where } from '/imports/lib/collectionHelpers';
 
 // Activities don't need a schema because they are always set from the a trusted
 // environment - the server - and there is no risk that a user change the logic
@@ -117,7 +118,7 @@ if (Meteor.isServer) {
     };
     if (activity.userId) {
       // No need send notification to user of activity
-      // participants = _.union(participants, [activity.userId]);
+      // participants = [...new Set([...participants, activity.userId])];
       const user = await activity.user();
       if (user) {
         if (user.getName()) {
@@ -148,20 +149,20 @@ if (Meteor.isServer) {
     if (activity.oldBoardId) {
       const oldBoard = await activity.oldBoard();
       if (oldBoard) {
-        watchers = _.union(watchers, oldBoard.watchers || []);
+        watchers = [...new Set([...watchers, ...(oldBoard.watchers || [])])];
         params.oldBoard = oldBoard.title;
         params.oldBoardId = activity.oldBoardId;
       }
     }
     if (activity.memberId) {
-      participants = _.union(participants, [activity.memberId]);
+      participants = [...new Set([...participants, activity.memberId])];
       params.member = (await activity.member()).getName();
     }
     if (activity.listId) {
       const list = await activity.list();
       if (list) {
         if (list.watchers !== undefined) {
-          watchers = _.union(watchers, list.watchers || []);
+          watchers = [...new Set([...watchers, ...(list.watchers || [])])];
         }
         params.list = list.title;
         params.listId = activity.listId;
@@ -170,7 +171,7 @@ if (Meteor.isServer) {
     if (activity.oldListId) {
       const oldList = await activity.oldList();
       if (oldList) {
-        watchers = _.union(watchers, oldList.watchers || []);
+        watchers = [...new Set([...watchers, ...(oldList.watchers || [])])];
         params.oldList = oldList.title;
         params.oldListId = activity.oldListId;
       }
@@ -178,15 +179,15 @@ if (Meteor.isServer) {
     if (activity.oldSwimlaneId) {
       const oldSwimlane = await activity.oldSwimlane();
       if (oldSwimlane) {
-        watchers = _.union(watchers, oldSwimlane.watchers || []);
+        watchers = [...new Set([...watchers, ...(oldSwimlane.watchers || [])])];
         params.oldSwimlane = oldSwimlane.title;
         params.oldSwimlaneId = activity.oldSwimlaneId;
       }
     }
     if (activity.cardId) {
       const card = await activity.card();
-      participants = _.union(participants, [card.userId], card.members || []);
-      watchers = _.union(watchers, card.watchers || []);
+      participants = [...new Set([...participants, card.userId, ...(card.members || [])])];
+      watchers = [...new Set([...watchers, ...(card.watchers || [])])];
       params.card = card.title;
       title = 'act-withCardTitle';
       params.url = card.absoluteUrl();
@@ -234,7 +235,7 @@ if (Meteor.isServer) {
                 validUserIds.push(u.userId);
               }
             }
-            watchers = _.union(watchers, validUserIds);
+            watchers = [...new Set([...watchers, ...validUserIds])];
             title = 'act-atUserComment';
             hasMentions = true;
           } else if (activity.boardId && username === 'board_assignees') {
@@ -246,13 +247,13 @@ if (Meteor.isServer) {
                 for (const assigneeId of card.assignees) {
                   // Only add if the user exists and is a board member
                   const user = await ReactiveCache.getUser(assigneeId);
-                  if (user && _.findWhere(knownUsers, { userId: assigneeId })) {
+                  if (user && findWhere(knownUsers, { userId: assigneeId })) {
                     assigneeIds.push(assigneeId);
                   }
                 }
               }
             }
-            watchers = _.union(watchers, assigneeIds);
+            watchers = [...new Set([...watchers, ...assigneeIds])];
             title = 'act-atUserComment';
             hasMentions = true;
           } else if (activity.cardId && username === 'card_members') {
@@ -263,11 +264,11 @@ if (Meteor.isServer) {
               const validMembers = [];
               for (const memberId of card.members) {
                 const user = await ReactiveCache.getUser(memberId);
-                if (user && user._id && _.findWhere(knownUsers, { userId: memberId })) {
+                if (user && user._id && findWhere(knownUsers, { userId: memberId })) {
                   validMembers.push(memberId);
                 }
               }
-              watchers = _.union(watchers, validMembers);
+              watchers = [...new Set([...watchers, ...validMembers])];
             }
             title = 'act-atUserComment';
             hasMentions = true;
@@ -279,16 +280,16 @@ if (Meteor.isServer) {
               const validAssignees = [];
               for (const assigneeId of card.assignees) {
                 const user = await ReactiveCache.getUser(assigneeId);
-                if (user && user._id && _.findWhere(knownUsers, { userId: assigneeId })) {
+                if (user && user._id && findWhere(knownUsers, { userId: assigneeId })) {
                   validAssignees.push(assigneeId);
                 }
               }
-              watchers = _.union(watchers, validAssignees);
+              watchers = [...new Set([...watchers, ...validAssignees])];
             }
             title = 'act-atUserComment';
             hasMentions = true;
           } else {
-            const atUser = _.findWhere(knownUsers, { username });
+            const atUser = findWhere(knownUsers, { username });
             if (!atUser) {
               continue;
             }
@@ -297,7 +298,7 @@ if (Meteor.isServer) {
             params.atUsername = username;
             params.atEmails = atUser.emails;
             title = 'act-atUserComment';
-            watchers = _.union(watchers, [uid]);
+            watchers = [...new Set([...watchers, uid])];
             hasMentions = true;
           }
         }
@@ -363,39 +364,33 @@ if (Meteor.isServer) {
       if (value) params[key] = value;
     });
     if (board) {
-      const activeMemberIds = _.filter(board.members || [], m => m.isActive === true).map(m => m.userId);
+      const activeMemberIds = (board.members || []).filter(m => m.isActive === true).map(m => m.userId);
       const BIGEVENTS = process.env.BIGEVENTS_PATTERN; // if environment BIGEVENTS_PATTERN is set, any activityType matching it is important
       if (BIGEVENTS) {
         try {
           const atype = activity.activityType;
           if (new RegExp(BIGEVENTS).exec(atype)) {
-            watchers = _.union(watchers, activeMemberIds); // notify all active members for important events
+            watchers = [...new Set([...watchers, ...activeMemberIds])]; // notify all active members for important events
           }
         } catch (e) {
           // passed env var BIGEVENTS_PATTERN is not a valid regex
         }
       }
 
-      const watchingUsers = _.pluck(
-        _.where(board.watchers, { level: 'watching' }),
-        'userId',
-      );
-      const trackingUsers = _.pluck(
-        _.where(board.watchers, { level: 'tracking' }),
-        'userId',
-      );
+      const watchingUsers = where(board.watchers, { level: 'watching' }).map(x => x.userId);
+      const trackingUsers = where(board.watchers, { level: 'tracking' }).map(x => x.userId);
       // Only add board watchers if there were no @mentions in the comment
       // When users are explicitly @mentioned, only notify those users
       if (!params.hasMentions) {
-        watchers = _.union(
-          watchers,
-          watchingUsers,
-          _.intersection(participants, trackingUsers),
-        );
+        watchers = [...new Set([
+          ...watchers,
+          ...watchingUsers,
+          ...participants.filter(x => trackingUsers.includes(x)),
+        ])];
       }
 
       // Ensure notifications only go to active members of the current board.
-      watchers = _.intersection(watchers, activeMemberIds);
+      watchers = watchers.filter(x => activeMemberIds.includes(x));
     }
     (await Notifications.getUsers(watchers)).forEach((user) => {
       // Skip if user is undefined or doesn't have an _id (e.g., deleted user or invalid ID)

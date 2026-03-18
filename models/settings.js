@@ -273,7 +273,7 @@ if (Meteor.isServer) {
     // At Sandstorm Wekan Admin Panel, save SMTP settings.
     Settings.after.update((userId, doc, fieldNames) => {
       // assign new values to mail-from & MAIL_URL in environment
-      if (_.contains(fieldNames, 'mailServer') && doc.mailServer.host) {
+      if (fieldNames.includes('mailServer') && doc.mailServer.host) {
         const protocol = doc.mailServer.enableTLS ? 'smtps://' : 'smtp://';
         if (!doc.mailServer.username && !doc.mailServer.password) {
           process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
