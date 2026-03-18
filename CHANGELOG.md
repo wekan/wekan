@@ -74,6 +74,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Changed colors of Add Rule and Back buttons from black to theme color](https://github.com/wekan/wekan/commit/a3ac2195037c182367fb744ba6d3ef9ed1863792).
   Thanks to xet7.
+- [Fix more Rules buttons styling](https://github.com/wekan/wekan/commit/e6fbfa87f036d81ca63c71216a9804bf93979657).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
