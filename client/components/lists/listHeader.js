@@ -304,7 +304,7 @@ Template.listMorePopup.events({
     const list = Lists.findOne(this._id);
     if (!list) return;
     const allCards = list.allCards();
-    const allCardIds = _.pluck(allCards, '_id');
+    const allCardIds = allCards.map(c => c._id);
     // it's okay if the linked cards are on the same list
     if (
       ReactiveCache.getCards({

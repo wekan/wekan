@@ -24,7 +24,7 @@ Template.notificationsDrawer.helpers({
   readNotifications() {
     const user = ReactiveCache.getCurrentUser();
     const list = user ? user.notifications() : [];
-    const readNotifications = _.filter(list, v => !!v.read);
+    const readNotifications = list.filter(v => !!v.read);
     return readNotifications.length;
   },
 });

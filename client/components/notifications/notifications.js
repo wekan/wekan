@@ -15,7 +15,7 @@ Template.body.events({
 Template.notifications.helpers({
   unreadNotifications() {
     const notifications = ReactiveCache.getCurrentUser().notifications();
-    const unreadNotifications = _.filter(notifications, v => !v.read);
+    const unreadNotifications = notifications.filter(v => !v.read);
     return unreadNotifications.length;
   },
 });

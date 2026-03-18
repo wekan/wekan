@@ -38,8 +38,8 @@ Template.createLabelPopup.helpers({
   // labels have the same color).
   defaultColor() {
     const labels = Utils.getCurrentBoard().labels;
-    const usedColors = _.pluck(labels, 'color');
-    const availableColors = _.difference(labelColors, usedColors);
+    const usedColors = labels.map(l => l.color);
+    const availableColors = labelColors.filter(c => !usedColors.includes(c));
     return availableColors.length > 1 ? availableColors[0] : labelColors[0];
   },
 });
@@ -91,7 +91,7 @@ Template.cardLabelsPopup.onRendered(function () {
 
 Template.cardLabelsPopup.helpers({
   isLabelSelected(cardId) {
-    return _.contains(ReactiveCache.getCard(cardId).labelIds, this._id);
+    return (ReactiveCache.getCard(cardId).labelIds || []).includes(this._id);
   },
 });
 

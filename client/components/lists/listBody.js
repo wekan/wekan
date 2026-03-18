@@ -361,14 +361,12 @@ Template.addCardForm.onCreated(function () {
 
   const currentBoardId = Session.get('currentBoard');
   const arr = [];
-  _.forEach(
-    ReactiveCache.getBoard(currentBoardId)
-      .customFields(),
-    function (field) {
+  ReactiveCache.getBoard(currentBoardId)
+    .customFields()
+    .forEach(function (field) {
       if (field.automaticallyOnCard || field.alwaysOnCard)
         arr.push({ _id: field._id, value: null });
-    },
-  );
+    });
   this.customFields.set(arr);
 
   this.reset = () => {

@@ -78,7 +78,7 @@ Template.sidebar.onCreated(function() {
   };
 
   this.setView = function(view) {
-    view = _.isString(view) ? view : defaultView;
+    view = typeof view === 'string' ? view : defaultView;
     if (this._view.get() !== view) {
       this._view.set(view);
       this.scrollTop();

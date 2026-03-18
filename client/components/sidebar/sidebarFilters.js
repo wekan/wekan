@@ -191,11 +191,11 @@ Template.multiselectionSidebar.helpers({
   },
   allSelectedElementHave(kind, _id) {
     if (MultiSelection.isEmpty()) return false;
-    else return _.every(mapSelection(kind, _id));
+    else return mapSelection(kind, _id).every(Boolean);
   },
   someSelectedElementHave(kind, _id) {
     if (MultiSelection.isEmpty()) return false;
-    else return _.some(mapSelection(kind, _id));
+    else return mapSelection(kind, _id).some(Boolean);
   },
 });
 
@@ -204,9 +204,9 @@ Template.multiselectionSidebar.events({
     const labelId = Template.currentData()._id;
     const mappedSelection = mapSelection('label', labelId);
 
-    if (_.every(mappedSelection)) {
+    if (mappedSelection.every(Boolean)) {
       mutateSelectedCards('removeLabel', labelId);
-    } else if (_.every(mappedSelection, bool => !bool)) {
+    } else if (mappedSelection.every(bool => !bool)) {
       mutateSelectedCards('addLabel', labelId);
     } else {
       const popup = Popup.open('disambiguateMultiLabel');
@@ -218,9 +218,9 @@ Template.multiselectionSidebar.events({
   'click .js-toggle-member-multiselection'(evt) {
     const memberId = Template.currentData()._id;
     const mappedSelection = mapSelection('member', memberId);
-    if (_.every(mappedSelection)) {
+    if (mappedSelection.every(Boolean)) {
       mutateSelectedCards('unassignMember', memberId);
-    } else if (_.every(mappedSelection, bool => !bool)) {
+    } else if (mappedSelection.every(bool => !bool)) {
       mutateSelectedCards('assignMember', memberId);
     } else {
       const popup = Popup.open('disambiguateMultiMember');

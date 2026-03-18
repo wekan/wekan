@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { once } from '/imports/lib/collectionHelpers';
 import dragscroll from '@wekanteam/dragscroll';
 const { calculateIndex } = Utils;
 
@@ -239,7 +240,7 @@ function initSortable(boardComponent, $listsDom) {
   // transition for the actual animation.
   $listsDom._uihooks = {
     removeElement(node) {
-      const removeNode = _.once(() => {
+      const removeNode = once(() => {
         node.parentNode.removeChild(node);
       });
       if ($(node).hasClass('js-card-details')) {

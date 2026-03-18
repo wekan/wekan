@@ -42,7 +42,7 @@ Template.statistics.helpers({
 
   fileSize(size) {
     let ret = "";
-    if (_.isNumber(size)) {
+    if (typeof size === 'number') {
       ret = filesize(size);
     }
     return ret;
