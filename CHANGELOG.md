@@ -68,6 +68,8 @@ and fixes the following bugs:
   Thanks to FK-PATZ3 and xet7.
 - [Fix Error reading default file .well-known/assetlinks.json.default](https://github.com/wekan/wekan/commit/36741d7ae5018693f51215b01924a8f7cc709477).
   Thanks to gre3x and xet7.
+- [Fix can not close opened card](https://github.com/wekan/wekan/commit/b6a6180dc31c82115418e363057a4cd5ba7b7e4e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
