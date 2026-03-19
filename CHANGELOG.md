@@ -51,6 +51,8 @@ This release adds the following updates:
   Thanks to MongoDB developers.
 - [Replace underscore with native JavaScript utilities](https://github.com/wekan/wekan/pull/6190).
   Thanks to harryadel.
+- [Removed not needed input fields from GitHub Bug report issue template](https://github.com/wekan/wekan/commit/7d0a42271467cbf203adc6ca15fd5b02a1cd0053).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
