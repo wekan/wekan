@@ -92,6 +92,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed view, restore and delete of Archived Cards, Lists and Swimlanes. If delete list, it does not delete card of that list that was archived before archive list](https://github.com/wekan/wekan/commit/c989c21d4fcee6f095134176410e5811343d6923).
   Thanks to xet7.
+- [Fixed add remove checklist and checklist item](https://github.com/wekan/wekan/commit/2f07eb70974b40a463ae9f1daddc829e1b5ae468).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
