@@ -1,4 +1,5 @@
 import { DataCache } from '@wekanteam/meteor-reactive-cache';
+import { groupBy, indexBy } from '/imports/lib/collectionHelpers';
 import Settings from '../models/settings';
 
 // Server isn't reactive, so search for the data always.
@@ -1472,7 +1473,7 @@ ReactiveMiniMongoIndexClient = {
             { parentId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_subTasks, 'parentId');
+          const _ret = groupBy(_subTasks, 'parentId');
           return _ret;
         });
       }
@@ -1494,7 +1495,7 @@ ReactiveMiniMongoIndexClient = {
             { cardId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_checklists, 'cardId');
+          const _ret = groupBy(_checklists, 'cardId');
           return _ret;
         });
       }
@@ -1516,7 +1517,7 @@ ReactiveMiniMongoIndexClient = {
             { checklistId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_checklistItems, 'checklistId');
+          const _ret = groupBy(_checklistItems, 'checklistId');
           return _ret;
         });
       }
@@ -1538,7 +1539,7 @@ ReactiveMiniMongoIndexClient = {
             { cardId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_cardComments, 'cardId');
+          const _ret = groupBy(_cardComments, 'cardId');
           return _ret;
         });
       }
@@ -1560,7 +1561,7 @@ ReactiveMiniMongoIndexClient = {
             { _id: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.indexBy(_activities, '_id');
+          const _ret = indexBy(_activities, '_id');
           return _ret;
         });
       }

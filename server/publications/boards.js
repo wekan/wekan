@@ -4,6 +4,7 @@
 // 2. the user has starred
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { findWhere } from '/imports/lib/collectionHelpers';
 import Users from "../../models/users";
 import Org from "../../models/org";
 import Team from "../../models/team";
@@ -270,7 +271,7 @@ publishComposite('board', async function(boardId, isArchived) {
 
           // Check if current user has assigned-only permissions
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               // User with assigned-only permissions should only see cards assigned to them
               cardSelector.assignees = { $in: [thisUserId] };
@@ -289,7 +290,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -311,7 +312,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -335,7 +336,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -357,7 +358,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -379,7 +380,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -403,7 +404,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -427,7 +428,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -451,7 +452,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -476,7 +477,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -500,7 +501,7 @@ publishComposite('board', async function(boardId, isArchived) {
           };
 
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               cardSelector.assignees = { $in: [thisUserId] };
             }
@@ -522,14 +523,14 @@ publishComposite('board', async function(boardId, isArchived) {
             // Board members. This publication also includes former board members that
             // aren't members anymore but may have some activities attached to them in
             // the history.
-            const memberIds = _.pluck(board.members, 'userId');
+            const memberIds = board.members.map(x => x.userId);
 
             // We omit the current user because the client should already have that data,
             // and sending it triggers a subtle bug:
             // https://github.com/wefork/wekan/issues/15
             return await ReactiveCache.getUsers(
               {
-                _id: { $in: _.without(memberIds, thisUserId) },
+                _id: { $in: memberIds.filter(x => x !== thisUserId) },
               },
               {
                 fields: {

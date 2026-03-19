@@ -19,7 +19,7 @@ function yesOrNo(value) {
 
 function fileSizeHelper(size) {
   let ret = "";
-  if (_.isNumber(size)) {
+  if (typeof size === 'number') {
     ret = filesize(size);
   }
   return ret;

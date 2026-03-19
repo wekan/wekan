@@ -29,25 +29,22 @@ EscapeActions = {
     }
 
     let enabledOnClick = options.enabledOnClick;
-    if (_.isUndefined(enabledOnClick)) {
+    if (enabledOnClick === undefined) {
       enabledOnClick = true;
     }
 
     const noClickEscapeOn = options.noClickEscapeOn;
 
-    this._actions = _.sortBy(
-      [
-        ...this._actions,
-        {
-          priority,
-          condition,
-          action,
-          noClickEscapeOn,
-          enabledOnClick,
-        },
-      ],
-      action => action.priority,
-    );
+    this._actions = [
+      ...this._actions,
+      {
+        priority,
+        condition,
+        action,
+        noClickEscapeOn,
+        enabledOnClick,
+      },
+    ].sort((a, b) => a.priority - b.priority);
   },
 
   executeLowest() {
@@ -88,7 +85,7 @@ EscapeActions = {
   },
 
   _stopClick(action, clickTarget) {
-    if (!_.isString(action.noClickEscapeOn)) return false;
+    if (typeof action.noClickEscapeOn !== 'string') return false;
     else return $(clickTarget).closest(action.noClickEscapeOn).length > 0;
   },
 

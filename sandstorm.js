@@ -198,10 +198,8 @@ if (isSandstorm && Meteor.isServer) {
           if (doc.activityType === 'addComment') {
             const comment = ReactiveCache.getCardComment(doc.commentId);
             caption = { defaultText: comment.text };
-            const activeMembers = _.pluck(
-              ReactiveCache.getBoard(sandstormBoard._id).activeMembers(),
-              'userId',
-            );
+            const activeMembers = ReactiveCache.getBoard(sandstormBoard._id).activeMembers()
+              .map(x => x.userId);
             const mentions = comment.text.match(/\B@([\w.]*)/g) || [];
             for (const username of mentions) {
               const user = await Meteor.users.findOneAsync({
@@ -213,7 +211,7 @@ if (isSandstorm && Meteor.isServer) {
             }
           }
 
-          await reportActivity(sessionId, path, defIdx, _.values(users), caption);
+          await reportActivity(sessionId, path, defIdx, Object.values(users), caption);
         }
       }
     });
@@ -235,7 +233,7 @@ if (isSandstorm && Meteor.isServer) {
     };
 
     const boardMembers = ReactiveCache.getBoard(sandstormBoard._id).members;
-    const memberIndex = _.pluck(boardMembers, 'userId').indexOf(userId);
+    const memberIndex = boardMembers.map(x => x.userId).indexOf(userId);
 
     let modifier;
     if (memberIndex > -1)

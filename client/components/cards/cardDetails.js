@@ -35,6 +35,7 @@ import Users from '/models/users';
 import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
+import { uniqBy } from '/imports/lib/collectionHelpers';
 import { UserAvatar } from '../users/userAvatar';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
 import { handleFileUpload } from './attachments';
@@ -1008,15 +1009,18 @@ Template.cardMembersPopup.helpers({
     if (!card) return false;
     const cardMembers = card.getMembers();
 
-    return _.contains(cardMembers, this.userId);
+    return (cardMembers || []).includes(this.userId);
   },
 
   members() {
     const members = Template.instance().members.get();
-    const uniqueMembers = _.uniq(members, 'userId');
-    return _.sortBy(uniqueMembers, member => {
-      const user = ReactiveCache.getUser(member.userId);
-      return user ? user.profile.fullname : '';
+    const uniqueMembers = uniqBy(members, 'userId');
+    return [...uniqueMembers].sort((a, b) => {
+      const userA = ReactiveCache.getUser(a.userId);
+      const userB = ReactiveCache.getUser(b.userId);
+      const nameA = userA ? userA.profile.fullname : '';
+      const nameB = userB ? userB.profile.fullname : '';
+      return nameA.localeCompare(nameB);
     });
   },
   userData() {
@@ -1793,15 +1797,18 @@ Template.cardAssigneesPopup.helpers({
     if (!card) return false;
     const cardAssignees = card.getAssignees();
 
-    return _.contains(cardAssignees, this.userId);
+    return (cardAssignees || []).includes(this.userId);
   },
 
   members() {
     const members = Template.instance().members.get();
-    const uniqueMembers = _.uniq(members, 'userId');
-    return _.sortBy(uniqueMembers, member => {
-      const user = ReactiveCache.getUser(member.userId);
-      return user ? user.profile.fullname : '';
+    const uniqueMembers = uniqBy(members, 'userId');
+    return [...uniqueMembers].sort((a, b) => {
+      const userA = ReactiveCache.getUser(a.userId);
+      const userB = ReactiveCache.getUser(b.userId);
+      const nameA = userA ? userA.profile.fullname : '';
+      const nameB = userB ? userB.profile.fullname : '';
+      return nameA.localeCompare(nameB);
     });
   },
 
@@ -1830,7 +1837,7 @@ Template.cardAssigneePopup.helpers({
     if (!card) return false;
     const cardAssignees = card.getAssignees();
 
-    return _.contains(cardAssignees, this.userId);
+    return (cardAssignees || []).includes(this.userId);
   },
 
   user() {

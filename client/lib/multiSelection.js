@@ -15,9 +15,7 @@ function getCardsBetween(idA, idB) {
     }).map(pluckId);
   }
 
-  const cards = _.sortBy([ReactiveCache.getCard(idA), ReactiveCache.getCard(idB)], c => {
-    return c.sort;
-  });
+  const cards = [ReactiveCache.getCard(idA), ReactiveCache.getCard(idB)].sort((a, b) => a.sort - b.sort);
 
   let selector;
   if (cards[0].listId === cards[1].listId) {
@@ -137,7 +135,7 @@ MultiSelection = {
   },
 
   toggle(cardIds, options = {}) {
-    cardIds = _.isString(cardIds) ? [cardIds] : cardIds;
+    cardIds = typeof cardIds === 'string' ? [cardIds] : cardIds;
     options = {
       add: true,
       remove: true,

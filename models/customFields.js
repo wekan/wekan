@@ -243,7 +243,7 @@ if (Meteor.isServer) {
   });
 
   CustomFields.before.update(async (userId, doc, fieldNames, modifier) => {
-    if (_.contains(fieldNames, 'boardIds') && modifier.$pull) {
+    if (fieldNames.includes('boardIds') && modifier.$pull) {
       Cards.update(
         { boardId: modifier.$pull.boardIds, 'customFields._id': doc._id },
         { $pull: { customFields: { _id: doc._id } } },
@@ -256,7 +256,7 @@ if (Meteor.isServer) {
         listId: doc.listId,
         swimlaneId: doc.swimlaneId,
       });
-    } else if (_.contains(fieldNames, 'boardIds') && modifier.$push) {
+    } else if (fieldNames.includes('boardIds') && modifier.$push) {
       Activities.insert({
         userId,
         activityType: 'createCustomField',

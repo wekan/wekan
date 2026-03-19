@@ -52,7 +52,7 @@ BoardMultiSelection = {
   },
 
   toggle(boardIds, { add, remove } = {}) {
-    boardIds = _.isString(boardIds) ? [boardIds] : boardIds;
+    boardIds = typeof boardIds === 'string' ? [boardIds] : boardIds;
     let selectedBoards = this._selectedBoards.get();
 
     boardIds.forEach(boardId => {

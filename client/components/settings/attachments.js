@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { groupBy } from '/imports/lib/collectionHelpers';
 import Attachments, { fileStoreStrategyFactory } from '/models/attachments';
 const filesize = require('filesize');
 
@@ -51,15 +52,13 @@ Template.moveAttachments.helpers({
   getBoardsWithAttachments() {
     const tpl = Template.instance();
     tpl.attachments = ReactiveCache.getAttachments();
-    const attachmentsByBoardId = _.chain(tpl.attachments)
-      .groupBy(fileObj => fileObj.meta.boardId)
-      .value();
+    const attachmentsByBoardId = groupBy(tpl.attachments, fileObj => fileObj.meta.boardId);
 
     const ret = Object.keys(attachmentsByBoardId)
       .map(boardId => {
         const boardAttachments = attachmentsByBoardId[boardId];
 
-        _.each(boardAttachments, _attachment => {
+        boardAttachments.forEach(_attachment => {
           _attachment.flatVersion = Object.keys(_attachment.versions)
             .map(_versionName => {
               const _version = Object.assign(_attachment.versions[_versionName], {"versionName": _versionName});

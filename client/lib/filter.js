@@ -698,7 +698,7 @@ Filter = {
 
   isActive() {
     return (
-      _.any(this._fields, fieldName => {
+      this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
       this.advanced._isActive() ||
@@ -741,7 +741,7 @@ Filter = {
     const selectors = [exceptionsSelector];
 
     if (
-      _.any(this._fields, fieldName => {
+      this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       })
     )
@@ -768,7 +768,7 @@ Filter = {
 
   mongoSelector(additionalSelector) {
     const filterSelector = this._getMongoSelector();
-    if (_.isUndefined(additionalSelector)) return filterSelector;
+    if (additionalSelector === undefined) return filterSelector;
     else
       return {
         $and: [filterSelector, additionalSelector],

@@ -182,7 +182,7 @@ class FileStoreStrategy {
    * @return the new file path
    */
   getNewPath(storagePath, name) {
-    if (!_.isString(name)) {
+    if (typeof name !== 'string') {
       name = this.fileObj.name;
     }
     // Sanitize filename to prevent path traversal attacks
@@ -440,7 +440,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * @return the write stream
    */
   getWriteStream(filePath) {
-    if (!_.isString(filePath)) {
+    if (typeof filePath !== 'string') {
       filePath = this.fileObj.versions[this.versionName].path;
     }
     const ret = fs.createWriteStream(filePath);

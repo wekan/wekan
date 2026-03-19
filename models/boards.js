@@ -13,6 +13,7 @@ import Users from "./users";
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import TableVisibilityModeSettings from "./tableVisibilityModeSettings";
 import getSlug from 'limax';
+import { findWhere, where, groupBy } from '/imports/lib/collectionHelpers';
 
 // const escapeForRegex = require('escape-string-regexp');
 
@@ -125,7 +126,7 @@ Boards.attachSchema(
         if (this.isInsert && !this.isSet) {
           const colors = Boards.simpleSchema()._schema['labels.$.color']
             .allowedValues;
-          const defaultLabelsColors = _.clone(colors).splice(0, 6);
+          const defaultLabelsColors = [...colors].splice(0, 6);
           return defaultLabelsColors.map(color => ({
             color,
             _id: Random.id(6),
@@ -941,15 +942,15 @@ Boards.helpers({
 
   activeMembers(){
     // Depend on the users collection for reactivity when users are loaded
-    const memberUserIds = _.pluck(this.members, 'userId');
+    const memberUserIds = this.members.map(x => x.userId);
     // Use findOne with limit for reactivity trigger instead of count() which loads all users
     const dummy = Meteor.users.findOne({ _id: { $in: memberUserIds } }, { fields: { _id: 1 }, limit: 1 });
-    const members = _.filter(this.members, m => m.isActive === true);
+    const members = (this.members || []).filter(m => m.isActive === true);
     // Group by userId to handle duplicates
-    const grouped = _.groupBy(members, 'userId');
-    const uniqueMembers = _.values(grouped).map(group => {
+    const grouped = groupBy(members, 'userId');
+    const uniqueMembers = Object.values(grouped).map(group => {
       // Prefer admin member if exists, otherwise take the first
-      const selected = _.find(group, m => m.isAdmin) || group[0];
+      const selected = group.find(m => m.isAdmin) || group[0];
       return selected;
     });
     // Filter out members where user is not loaded
@@ -959,7 +960,7 @@ Boards.helpers({
     });
 
     // Sort by role priority first (admin, normal, normal-assigned, no-comments, comment-only, comment-assigned, worker, read-only, read-assigned), then by fullname
-    return _.sortBy(filteredMembers, member => {
+    const sortKey = member => {
       const user = ReactiveCache.getUser(member.userId);
       let rolePriority = 8; // Default for normal
 
@@ -975,11 +976,12 @@ Boards.helpers({
 
       const fullname = user ? user.profile.fullname : '';
       return rolePriority + '-' + fullname;
-    });
+    };
+    return [...filteredMembers].sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
   },
 
   activeOrgs() {
-    return _.where(this.orgs, { isActive: true });
+    return where(this.orgs, { isActive: true });
   },
 
   // hasNotAnyOrg(){
@@ -987,7 +989,7 @@ Boards.helpers({
   // },
 
   activeTeams() {
-    return _.where(this.teams, { isActive: true });
+    return where(this.teams, { isActive: true });
   },
 
   // hasNotAnyTeam(){
@@ -995,35 +997,35 @@ Boards.helpers({
   // },
 
   activeAdmins() {
-    return _.where(this.members, { isActive: true, isAdmin: true });
+    return where(this.members, { isActive: true, isAdmin: true });
   },
 
   memberUsers() {
-    return ReactiveCache.getUsers({ _id: { $in: _.pluck(this.members, 'userId') } });
+    return ReactiveCache.getUsers({ _id: { $in: this.members.map(x => x.userId) } });
   },
 
   getLabel(name, color) {
-    return _.findWhere(this.labels, { name, color });
+    return findWhere(this.labels, { name, color });
   },
 
   getLabelById(labelId) {
-    return _.findWhere(this.labels, { _id: labelId });
+    return findWhere(this.labels, { _id: labelId });
   },
 
   labelIndex(labelId) {
-    return _.pluck(this.labels, '_id').indexOf(labelId);
+    return this.labels.map(x => x._id).indexOf(labelId);
   },
 
   memberIndex(memberId) {
-    return _.pluck(this.members, 'userId').indexOf(memberId);
+    return this.members.map(x => x.userId).indexOf(memberId);
   },
 
   hasMember(memberId) {
-    return !!_.findWhere(this.members, { userId: memberId, isActive: true });
+    return !!findWhere(this.members, { userId: memberId, isActive: true });
   },
 
   hasAdmin(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: true,
@@ -1031,7 +1033,7 @@ Boards.helpers({
   },
 
   hasNoComments(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: false,
@@ -1041,7 +1043,7 @@ Boards.helpers({
   },
 
   hasCommentOnly(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: false,
@@ -1051,7 +1053,7 @@ Boards.helpers({
   },
 
   hasWorker(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: false,
@@ -1061,7 +1063,7 @@ Boards.helpers({
   },
 
   hasNormalAssignedOnly(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: false,
@@ -1071,7 +1073,7 @@ Boards.helpers({
   },
 
   hasCommentAssignedOnly(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: false,
@@ -1081,7 +1083,7 @@ Boards.helpers({
   },
 
   hasReadOnly(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: false,
@@ -1090,7 +1092,7 @@ Boards.helpers({
   },
 
   hasReadAssignedOnly(memberId) {
-    return !!_.findWhere(this.members, {
+    return !!findWhere(this.members, {
       userId: memberId,
       isActive: true,
       isAdmin: false,
@@ -1141,7 +1143,7 @@ Boards.helpers({
   setNewLabelOrder(newLabelOrderOnlyIds) {
     if (this.labels.length == newLabelOrderOnlyIds.length) {
       if (this.labels.every(_label => newLabelOrderOnlyIds.indexOf(_label._id) >= 0)) {
-        const newLabels = _.sortBy(this.labels, _label => newLabelOrderOnlyIds.indexOf(_label._id));
+        const newLabels = [...this.labels].sort((a, b) => newLabelOrderOnlyIds.indexOf(a._id) - newLabelOrderOnlyIds.indexOf(b._id));
         if (this.labels.length == newLabels.length) {
           Boards.direct.update(this._id, {$set: {labels: newLabels}});
         }
@@ -1858,7 +1860,7 @@ if (Meteor.isServer) {
   // and the user is not allowed to update it
   Boards.deny({
     update(userId, board, fieldNames) {
-      return _.contains(fieldNames, 'stars');
+      return (fieldNames || []).includes('stars');
     },
     fetch: [],
   });
@@ -1866,13 +1868,14 @@ if (Meteor.isServer) {
   // We can't remove a member if it is the last administrator
   Boards.deny({
     update(userId, doc, fieldNames, modifier) {
-      if (!_.contains(fieldNames, 'members')) return false;
+      if (!(fieldNames || []).includes('members')) return false;
 
       // We only care in case of a $pull operation, ie remove a member
-      if (!_.isObject(modifier.$pull && modifier.$pull.members)) return false;
+      const pullMembers = modifier.$pull && modifier.$pull.members;
+      if (!(typeof pullMembers === 'object' && pullMembers !== null)) return false;
 
       // If there is more than one admin, it's ok to remove anyone
-      const nbAdmins = _.where(doc.members, { isActive: true, isAdmin: true })
+      const nbAdmins = where(doc.members, { isActive: true, isAdmin: true })
         .length;
       if (nbAdmins > 1) return false;
 
@@ -1880,7 +1883,7 @@ if (Meteor.isServer) {
       // a user if it's an admin
       const removedMemberId = modifier.$pull.members.userId;
       return Boolean(
-        _.findWhere(doc.members, {
+        findWhere(doc.members, {
           userId: removedMemberId,
           isAdmin: true,
         }),
@@ -1892,7 +1895,7 @@ if (Meteor.isServer) {
   // Deny changing permission to public if allowPrivateOnly is enabled
   Boards.deny({
     update(userId, doc, fieldNames, modifier) {
-      if (!_.contains(fieldNames, 'permission')) return false;
+      if (!(fieldNames || []).includes('permission')) return false;
 
       const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
       if (allowPrivateOnly && modifier.$set && modifier.$set.permission === 'public') {
@@ -1960,15 +1963,15 @@ if (Meteor.isServer) {
           );
         }
       }
-      return _.uniq(names).sort();
+      return [...new Set(names)].sort();
     },
     async myBoardNames() {
       const boards = await Boards.userBoards(Meteor.userId());
-      return _.uniq(
+      return [...new Set(
         boards.map(board => {
           return board.title;
         }),
-      ).sort();
+      )].sort();
     },
     async setAllBoardsHideActivities() {
       const currentUser = await ReactiveCache.getCurrentUser();
@@ -2116,7 +2119,7 @@ if (Meteor.isServer) {
   // this label in any card of this board.
   Boards.after.update((userId, doc, fieldNames, modifier) => {
     if (
-      !_.contains(fieldNames, 'labels') ||
+      !(fieldNames || []).includes('labels') ||
       !modifier.$pull ||
       !modifier.$pull.labels ||
       !modifier.$pull.labels._id
@@ -2155,7 +2158,7 @@ if (Meteor.isServer) {
 
   // Remove a member from all objects of the board before leaving the board
   Boards.before.update((userId, doc, fieldNames, modifier) => {
-    if (!_.contains(fieldNames, 'members')) {
+    if (!(fieldNames || []).includes('members')) {
       return;
     }
     if (modifier.$set) {
@@ -2222,7 +2225,7 @@ if (Meteor.isServer) {
         title: doc.title,
       });
     }
-    if (!_.contains(fieldNames, 'members')) {
+    if (!(fieldNames || []).includes('members')) {
       return;
     }
     // Say hello to the new member

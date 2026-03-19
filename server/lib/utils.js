@@ -7,7 +7,7 @@ allowIsBoardMember = function(userId, board) {
 };
 
 allowIsAnyBoardMember = function(userId, boards) {
-  return _.some(boards, board => {
+  return boards.some(board => {
     return board && board.hasMember(userId);
   });
 };
@@ -42,5 +42,5 @@ allowIsBoardMemberByCard = function(userId, card) {
 //  - update must include 'sort' field
 //  - user must be a member of the board
 canUpdateBoardSort = function(userId, board, fieldNames) {
-  return !!userId && _.contains(fieldNames || [], 'sort') && allowIsBoardMember(userId, board);
+  return !!userId && (fieldNames || []).includes('sort') && allowIsBoardMember(userId, board);
 };

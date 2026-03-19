@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { findWhere } from '/imports/lib/collectionHelpers';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
 import {
@@ -96,7 +97,7 @@ Meteor.publish('card', async cardId => {
 
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
-    const member = _.findWhere(board.members, { userId: userId, isActive: true });
+    const member = findWhere(board.members, { userId: userId, isActive: true });
     if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
       // User with assigned-only permissions can only view cards assigned to them
       if (!card.assignees || !card.assignees.includes(userId)) {
@@ -133,7 +134,7 @@ publishComposite('popupCardData', async function(cardId) {
 
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
-    const member = _.findWhere(board.members, { userId: userId, isActive: true });
+    const member = findWhere(board.members, { userId: userId, isActive: true });
     if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
       // User with assigned-only permissions can only view cards assigned to them
       if (!card.assignees || !card.assignees.includes(userId)) {
@@ -656,7 +657,7 @@ async function buildSelector(queryParams) {
       if (queryLabels.length) {
         // eslint-disable-next-line no-console
         // console.log('queryLabels:', queryLabels);
-        selector.labelIds = { $in: _.uniq(queryLabels) };
+        selector.labelIds = { $in: [...new Set(queryLabels)] };
       }
     }
 

@@ -541,7 +541,7 @@ const redirections = {
   '/import': '/import/trello',
 };
 
-_.each(redirections, (newPath, oldPath) => {
+Object.entries(redirections).forEach(([oldPath, newPath]) => {
   FlowRouter.route(oldPath, {
     triggersEnter: [
       (context, redirect) => {

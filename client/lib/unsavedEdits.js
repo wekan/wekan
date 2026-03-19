@@ -65,7 +65,7 @@ UnsavedEdits = {
 Blaze.registerHelper('getUnsavedValue', (fieldName, docId, defaultTo) => {
   // Workaround some blaze feature that pass a list of keywords arguments as the
   // last parameter (even if the caller didn't specify any).
-  if (!_.isString(defaultTo)) {
+  if (typeof defaultTo !== 'string') {
     defaultTo = '';
   }
   return UnsavedEdits.get({ fieldName, docId }, defaultTo);

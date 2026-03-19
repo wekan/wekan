@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { findWhere } from '/imports/lib/collectionHelpers';
 import { TAPi18n } from '/imports/i18n';
 var converter = require('@wekanteam/html-to-markdown');
 
@@ -66,7 +67,7 @@ Template.editor.onRendered(function () {
             })
             .filter(Boolean);
           // Order: 1. Users, 2. Card-specific options, 3. Board-wide options
-          callback(_.union(users, cardSpecialHandles, boardSpecialHandles));
+          callback([...new Set([...users, ...cardSpecialHandles, ...boardSpecialHandles])]);
         },
         template(user) {
           if (user.profile && user.profile.fullname) {
@@ -383,7 +384,7 @@ Blaze.Template.registerHelper(
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
       return HTML.Raw(sanitizeHTML(content));
-    const knowedUsers = _.union(currentBoard.members
+    const knowedUsers = [...new Set([...currentBoard.members
       .filter(member => member.isActive)
       .map(member => {
         const u = ReactiveCache.getUser(member.userId);
@@ -391,14 +392,14 @@ Blaze.Template.registerHelper(
           member.username = u.username;
         }
         return member;
-      }), [...specialHandles]);
+      }), ...specialHandles])];
     const mentionRegex = /\B@([\w.-]*)/gi;
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
       const [fullMention, quoteduser, simple] = currentMention;
       const username = quoteduser || simple;
-      const knowedUser = _.findWhere(knowedUsers, { username });
+      const knowedUser = findWhere(knowedUsers, { username });
       if (!knowedUser) {
         continue;
       }

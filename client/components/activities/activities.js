@@ -185,8 +185,7 @@ Template.activity.helpers({
       lastCustomField.settings.dropdownItems &&
       lastCustomField.settings.dropdownItems.length > 0
     ) {
-      const dropDownValue = _.find(
-        lastCustomField.settings.dropdownItems,
+      const dropDownValue = lastCustomField.settings.dropdownItems.find(
         item => {
           return item._id === value;
         },

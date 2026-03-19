@@ -141,7 +141,7 @@ hotkeys('down,up', (event, handler) => {
 });
 
 // Shift + number keys to remove labels in multiselect
-const shiftNums = _.range(1, 10).map(x => `shift+${x}`).join(',');
+const shiftNums = Array.from({length: 9}, (_, i) => `shift+${i + 1}`).join(',');
 hotkeys(shiftNums, (event, handler) => {
   event.preventDefault();
   const num = parseInt(handler.key.split('+')[1]);
@@ -164,7 +164,7 @@ hotkeys(shiftNums, (event, handler) => {
 });
 
 // Number keys to toggle labels
-const nums = _.range(1, 10).join(',');
+const nums = Array.from({length: 9}, (_, i) => i + 1).join(',');
 hotkeys(nums, (event, handler) => {
   event.preventDefault();
   const num = parseInt(handler.key);
@@ -199,7 +199,7 @@ hotkeys(nums, (event, handler) => {
 });
 
 // Ctrl+Alt + number keys to toggle assignees
-const ctrlAltNums = _.range(1, 10).map(x => `ctrl+alt+${x}`).join(',');
+const ctrlAltNums = Array.from({length: 9}, (_, i) => `ctrl+alt+${i + 1}`).join(',');
 hotkeys(ctrlAltNums, (event, handler) => {
   event.preventDefault();
   // Make sure the current user is defined
