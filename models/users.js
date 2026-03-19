@@ -2793,7 +2793,8 @@ if (Meteor.isServer) {
     // To calculate a diff of board starred ids, we get both the previous
     // and the newly board ids list
     function getStarredBoardsIds(doc) {
-      return doc.profile && doc.profile.starredBoards;
+      const starredBoards = doc.profile && doc.profile.starredBoards;
+      return Array.isArray(starredBoards) ? starredBoards : [];
     }
 
     const oldIds = getStarredBoardsIds(this.previous);
