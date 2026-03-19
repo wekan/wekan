@@ -5,13 +5,22 @@ Meteor.startup(() => {
   labelColors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
 });
 
+const getFallbackLabelColor = () => {
+  if (Array.isArray(labelColors) && labelColors.length > 0) {
+    return labelColors[0];
+  }
+  return 'green';
+};
+
 Template.formLabel.onCreated(function () {
-  this.currentColor = new ReactiveVar(this.data.color);
+  const initialColor = this.data?.color || getFallbackLabelColor();
+  this.currentColor = new ReactiveVar(initialColor);
 });
 
 Template.formLabel.helpers({
   labels() {
-    return labelColors.map(color => ({ color, name: '' }));
+    const colors = Array.isArray(labelColors) ? labelColors : [getFallbackLabelColor()];
+    return colors.map(color => ({ color, name: '' }));
   },
   isSelected(color) {
     return Template.instance().currentColor.get() === color;
@@ -37,10 +46,12 @@ Template.createLabelPopup.helpers({
   // is not already used in the board (although it's not a problem if two
   // labels have the same color).
   defaultColor() {
-    const labels = Utils.getCurrentBoard().labels;
+    const board = Utils.getCurrentBoard();
+    const colors = Array.isArray(labelColors) ? labelColors : [getFallbackLabelColor()];
+    const labels = Array.isArray(board?.labels) ? board.labels : [];
     const usedColors = labels.map(l => l.color);
-    const availableColors = labelColors.filter(c => !usedColors.includes(c));
-    return availableColors.length > 1 ? availableColors[0] : labelColors[0];
+    const availableColors = colors.filter(c => !usedColors.includes(c));
+    return availableColors.length > 0 ? availableColors[0] : colors[0];
   },
 });
 
@@ -111,11 +122,16 @@ Template.createLabelPopup.events({
   'submit .create-label'(event, templateInstance) {
     event.preventDefault();
     const board = Utils.getCurrentBoard();
+    if (!board) {
+      return;
+    }
     const name = templateInstance
       .$('#labelName')
       .val()
       .trim();
-    const color = Blaze.getData(templateInstance.find('.fa-check')).color;
+    const selectedColorIcon = templateInstance.find('.fa-check');
+    const selectedColorData = selectedColorIcon && Blaze.getData(selectedColorIcon);
+    const color = selectedColorData?.color || templateInstance.currentColor?.get() || getFallbackLabelColor();
     board.addLabel(name, color);
     Popup.back();
   },
@@ -130,11 +146,16 @@ Template.editLabelPopup.events({
   'submit .edit-label'(event, templateInstance) {
     event.preventDefault();
     const board = Utils.getCurrentBoard();
+    if (!board) {
+      return;
+    }
     const name = templateInstance
       .$('#labelName')
       .val()
       .trim();
-    const color = Blaze.getData(templateInstance.find('.fa-check')).color;
+    const selectedColorIcon = templateInstance.find('.fa-check');
+    const selectedColorData = selectedColorIcon && Blaze.getData(selectedColorIcon);
+    const color = selectedColorData?.color || templateInstance.currentColor?.get() || getFallbackLabelColor();
     board.editLabel(this._id, name, color);
     Popup.back();
   },

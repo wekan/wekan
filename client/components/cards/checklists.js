@@ -5,7 +5,7 @@ import Boards from '/models/boards';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
 
 const subManager = new SubsManager();
-const { calculateIndexData, capitalize } = Utils;
+const { calculateIndexData } = Utils;
 
 function initSorting(items) {
   items.sortable({
@@ -136,24 +136,42 @@ Template.checklists.events({
   'submit .js-add-checklist-item'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-checklist-item');
+    if (!textarea) {
+      return;
+    }
     const newlineBecomesNewChecklistItem = tpl.find('input#toggleNewlineBecomesNewChecklistItem');
     const newlineBecomesNewChecklistItemOriginOrder = tpl.find('input#toggleNewlineBecomesNewChecklistItemOriginOrder');
     const title = textarea.value.trim();
-    const checklist = Template.currentData().checklist;
+    const currentData = Template.currentData() || {};
+    let resolvedData = currentData;
+    let checklist = currentData.checklist;
+    if (!checklist) {
+      const form = event.currentTarget?.closest
+        ? event.currentTarget.closest('form')
+        : $(event.target).closest('form').get(0);
+      const formData = form ? Blaze.getData(form) : null;
+      if (formData) {
+        resolvedData = formData;
+      }
+      checklist = formData?.checklist;
+    }
+    if (!checklist) {
+      return;
+    }
 
     if (title) {
       let checklistItems = [title];
-      if (newlineBecomesNewChecklistItem.checked) {
+      if (newlineBecomesNewChecklistItem?.checked) {
         checklistItems = title.split('\n').map(_value => _value.trim());
-        if (Template.currentData().position === 'top') {
-          if (newlineBecomesNewChecklistItemOriginOrder.checked === false) {
+        if (resolvedData.position === 'top') {
+          if (newlineBecomesNewChecklistItemOriginOrder?.checked === false) {
             checklistItems = checklistItems.reverse();
           }
         }
       }
       let addIndex;
       let sortIndex;
-      if (Template.currentData().position === 'top') {
+      if (resolvedData.position === 'top') {
         sortIndex = Utils.calculateIndexData(null, checklist.firstItem()).base;
         addIndex = -1;
       } else {
@@ -182,20 +200,32 @@ Template.checklists.events({
     item.setTitle(title);
   },
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
-  async 'click .js-delete-checklist-item'() {
-    const checklist = Template.currentData().checklist;
-    const item = Template.currentData().item;
-    if (checklist && item && item._id) {
+  'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {
+    Popup.back();
+    const item = this?.item || this;
+    if (item && item._id) {
       ChecklistItems.remove(item._id);
     }
-  },
+  }),
   'focus .js-add-checklist-item'(event) {
     // If a new checklist is created, pre-fill the title and select it.
     const checklist = Template.currentData().checklist;
     if (!checklist) {
-      const textarea = event.target;
-      textarea.value = capitalize(TAPi18n.__('r-checklist'));
-      textarea.select();
+      const form = event.currentTarget?.closest
+        ? event.currentTarget.closest('form')
+        : $(event.target).closest('form').get(0);
+      const isAddChecklistForm = !!(form && form.classList && form.classList.contains('js-add-checklist'));
+      const translationKey = isAddChecklistForm ? 'add-checklist' : 'add-checklist-item';
+      const textarea = event.target?.tagName === 'TEXTAREA'
+        ? event.target
+        : event.currentTarget?.querySelector?.('textarea.js-add-checklist-item') ||
+          $(event.currentTarget).closest('form').find('textarea.js-add-checklist-item').get(0);
+      if (textarea) {
+        textarea.value = TAPi18n.__(translationKey);
+        if (typeof textarea.select === 'function') {
+          textarea.select();
+        }
+      }
     }
   },
   // add and delete checklist / checklist-item

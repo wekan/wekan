@@ -1,5 +1,8 @@
 import DOMPurify from 'dompurify';
 import { getSecureDOMPurifyConfig } from './secureDOMPurify';
+import { Blaze } from 'meteor/blaze';
+import { HTML } from 'meteor/htmljs';
+import { Template } from 'meteor/templating';
 
 var Markdown = require('markdown-it')({
   html: true,
@@ -212,30 +215,23 @@ Markdown.use(function(md) {
 //  maxTextSize: 200000,
 //});
 
-if (Package.ui) {
-  const Template = Package.templating.Template;
-  const UI = Package.ui.UI;
-  const HTML = Package.htmljs.HTML;
-  const Blaze = Package.blaze.Blaze; // implied by `ui`
-
-  UI.registerHelper('markdown', new Template('markdown', function () {
-    const self = this;
-    let text = '';
-    if (self.templateContentBlock) {
-      text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
-    }
-    if (text.includes("[]")) {
-      // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
-      // If markdown link does not have description, do not render markdown, instead show all of markdown source code using preformatted text.
-      // Also show html comments.
-      return HTML.Raw('<pre style="background-color: red;" title="Warning! Hidden markdown link description!" aria-label="Warning! Hidden markdown link description!">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;'), getSecureDOMPurifyConfig()) + '</pre>');
-    } else {
-      // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
-      // If text does not have hidden markdown link, render all markdown.
-      // Also show html comments.
-      const renderedMarkdown = Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
-      const sanitized = DOMPurify.sanitize(renderedMarkdown, getSecureDOMPurifyConfig());
-      return HTML.Raw(sanitized);
-    }
-  }));
-}
+Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
+  const self = this;
+  let text = '';
+  if (self.templateContentBlock) {
+    text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
+  }
+  if (text.includes("[]")) {
+    // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
+    // If markdown link does not have description, do not render markdown, instead show all of markdown source code using preformatted text.
+    // Also show html comments.
+    return HTML.Raw('<pre style="background-color: red;" title="Warning! Hidden markdown link description!" aria-label="Warning! Hidden markdown link description!">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;'), getSecureDOMPurifyConfig()) + '</pre>');
+  } else {
+    // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
+    // If text does not have hidden markdown link, render all markdown.
+    // Also show html comments.
+    const renderedMarkdown = Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
+    const sanitized = DOMPurify.sanitize(renderedMarkdown, getSecureDOMPurifyConfig());
+    return HTML.Raw(sanitized);
+  }
+}));

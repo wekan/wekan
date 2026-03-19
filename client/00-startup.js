@@ -5,6 +5,9 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Import Blaze helpers (replaces removed raix:handlebar-helpers package)
+import '/client/config/blazeHelpers';
+
 // Import board converter for on-demand conversion
 import '/client/lib/boardConverter';
 import '/client/components/boardConversionProgress';
