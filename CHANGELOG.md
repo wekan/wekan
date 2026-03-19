@@ -86,6 +86,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed Add after list to add after selected list. Added Confirm to Archive List and Archive Swimlane](https://github.com/wekan/wekan/commit/872dd578c84d629e804566802524100983095b4a).
   Thanks to xet7.
+- [Fixed view, restore and delete of Archived Cards, Lists and Swimlanes. If delete list, it does not delete card of that list that was archived before archive list](https://github.com/wekan/wekan/commit/c989c21d4fcee6f095134176410e5811343d6923).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
