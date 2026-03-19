@@ -2,7 +2,7 @@ template(name="basicTabs")
   .basicTabs-container(class="{{name}}")
     ul.tabs-list
       each tabs
-        li.tab-item(class="{{isActiveTab slug}} {{class}}") {{name}}
+        li.tab-item(class="{{isActiveTab slug}} {{class}}" data-tab="{{slug}}") {{name}}
     .tabs-content-container
       +Template.contentBlock
 

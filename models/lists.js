@@ -421,6 +421,127 @@ Lists.archivedListIds = async () => {
 };
 
 Meteor.methods({
+  async createListAfter(params) {
+    check(params, {
+      title: String,
+      boardId: String,
+      swimlaneId: Match.OneOf(String, null, undefined),
+      afterListId: Match.OneOf(String, null, undefined),
+      nextListId: Match.OneOf(String, null, undefined),
+      type: Match.Maybe(String),
+    });
+
+    const {
+      title,
+      boardId,
+      swimlaneId = null,
+      afterListId = null,
+      nextListId = null,
+      type = 'list',
+    } = params;
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('board-not-found', 'Board not found');
+    }
+
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized', 'Access denied');
+    }
+
+    const normalizeSwimlaneId = value => value || '';
+    const getResolvedSwimlaneId = (list, fallback = '') => {
+      if (!list) return normalizeSwimlaneId(fallback);
+      if (typeof list.getEffectiveSwimlaneId === 'function') {
+        return normalizeSwimlaneId(list.getEffectiveSwimlaneId() || fallback);
+      }
+      return normalizeSwimlaneId(list.swimlaneId || fallback);
+    };
+
+    const defaultSwimlane = board.getDefaultSwimline ? board.getDefaultSwimline() : null;
+    let targetSwimlaneId = normalizeSwimlaneId(swimlaneId || (defaultSwimlane && defaultSwimlane._id));
+
+    let sort = 0;
+    if (afterListId) {
+      const selectedList = await ReactiveCache.getList({
+        _id: afterListId,
+        boardId,
+        archived: false,
+      });
+
+      if (!selectedList) {
+        throw new Meteor.Error('list-not-found', 'Selected list not found');
+      }
+
+      targetSwimlaneId = getResolvedSwimlaneId(selectedList, targetSwimlaneId);
+
+      const swimlaneLists = (await ReactiveCache.getLists({
+        boardId,
+        archived: false,
+      }))
+        .filter(list => getResolvedSwimlaneId(list, targetSwimlaneId) === targetSwimlaneId)
+        .sort((a, b) => a.sort - b.sort);
+
+      let nextList = null;
+      if (nextListId) {
+        nextList = await ReactiveCache.getList({
+          _id: nextListId,
+          boardId,
+          archived: false,
+        });
+        if (nextList) {
+          const nextSwimlaneId = getResolvedSwimlaneId(nextList, targetSwimlaneId);
+          if (nextSwimlaneId !== targetSwimlaneId) {
+            nextList = null;
+          }
+        }
+      }
+
+      if (!nextList) {
+        const selectedIndex = swimlaneLists.findIndex(list => list._id === selectedList._id);
+        nextList = selectedIndex >= 0 ? swimlaneLists[selectedIndex + 1] : null;
+      }
+
+      if (
+        nextList &&
+        Number.isFinite(nextList.sort) &&
+        Number.isFinite(selectedList.sort) &&
+        nextList.sort > selectedList.sort
+      ) {
+        sort = selectedList.sort + (nextList.sort - selectedList.sort) / 2;
+      } else if (Number.isFinite(selectedList.sort)) {
+        sort = selectedList.sort + 1;
+      } else {
+        const last = swimlaneLists[swimlaneLists.length - 1];
+        sort = Number.isFinite(last?.sort) ? last.sort + 1 : 0;
+      }
+    } else {
+      const swimlaneLists = (await ReactiveCache.getLists({
+        boardId,
+        archived: false,
+      }))
+        .filter(list => getResolvedSwimlaneId(list, targetSwimlaneId) === targetSwimlaneId)
+        .sort((a, b) => a.sort - b.sort);
+
+      const last = swimlaneLists[swimlaneLists.length - 1];
+      sort = Number.isFinite(last?.sort) ? last.sort + 1 : 0;
+    }
+
+    const listId = await Lists.insertAsync({
+      title,
+      boardId,
+      sort,
+      type,
+      swimlaneId: targetSwimlaneId,
+    });
+
+    return listId;
+  },
+
   async applyWipLimit(listId, limit) {
     check(listId, String);
     check(limit, Number);

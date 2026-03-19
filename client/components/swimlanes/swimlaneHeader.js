@@ -98,16 +98,15 @@ Template.swimlaneActionPopup.events({
   'click .js-add-list-from-swimlane': Popup.open('addList'),
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-set-swimlane-height': Popup.open('setSwimlaneHeight'),
-  async 'click .js-close-swimlane'(event) {
-    event.preventDefault();
+  'click .js-close-swimlane': Popup.afterConfirm('swimlaneArchive', async function() {
     await this.archive();
-    Popup.back();
-  },
+    Popup.close();
+  }),
   'click .js-move-swimlane': Popup.open('moveSwimlane'),
   'click .js-copy-swimlane': Popup.open('copySwimlane'),
 });
 
-Template.swimlaneActionPopup.events({
+Template.swimlaneActionPopup.helpers({
   isCommentOnly() {
     return ReactiveCache.getCurrentUser().isCommentOnly();
   },

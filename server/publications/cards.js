@@ -162,63 +162,85 @@ publishComposite('popupCardData', async function(cardId) {
   };
 });
 
-Meteor.publish('archiveSidebar', async function(boardId, cardsLimit = 30) {
+Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', cardsLimit = 30, listsLimit = 30, swimlanesLimit = 30) {
   check(boardId, String);
+  check(activeTab, String);
   check(cardsLimit, Match.Integer);
+  check(listsLimit, Match.Integer);
+  check(swimlanesLimit, Match.Integer);
 
   const userId = this.userId;
   if (!userId) {
     return this.ready();
   }
 
-  const safeLimit = Math.max(1, Math.min(cardsLimit, 500));
+  const safeCardsLimit = Math.max(1, Math.min(cardsLimit, 500));
+  const safeListsLimit = Math.max(1, Math.min(listsLimit, 500));
+  const safeSwimlaneLimit = Math.max(1, Math.min(swimlanesLimit, 500));
+
   const board = await ReactiveCache.getBoard({ _id: boardId });
   if (!board || !board.isVisibleBy(userId)) {
     return [];
   }
 
-  const cardSelector = {
-    boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
-    archived: true,
-  };
+  if (activeTab === 'cards') {
+    const cardSelector = {
+      boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+      archived: true,
+    };
 
-  // Respect assigned-only board permissions for archived cards as well.
-  if (board.members) {
-    const member = _.findWhere(board.members, { userId, isActive: true });
-    if (
-      member &&
-      (member.isNormalAssignedOnly ||
-        member.isCommentAssignedOnly ||
-        member.isReadAssignedOnly)
-    ) {
-      cardSelector.assignees = { $in: [userId] };
+    // Respect assigned-only board permissions for archived cards as well.
+    if (board.members) {
+      const member = _.findWhere(board.members, { userId, isActive: true });
+      if (
+        member &&
+        (member.isNormalAssignedOnly ||
+          member.isCommentAssignedOnly ||
+          member.isReadAssignedOnly)
+      ) {
+        cardSelector.assignees = { $in: [userId] };
+      }
     }
+
+    return [
+      Cards.find(cardSelector, {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+        limit: safeCardsLimit,
+      }),
+    ];
   }
 
-  return [
-    Cards.find(cardSelector, {
-      sort: { archivedAt: -1, modifiedAt: -1 },
-      limit: safeLimit,
-    }),
-    Lists.find(
-      {
-        boardId,
-        archived: true,
-      },
-      {
-        sort: { archivedAt: -1, modifiedAt: -1 },
-      },
-    ),
-    Swimlanes.find(
-      {
-        boardId,
-        archived: true,
-      },
-      {
-        sort: { archivedAt: -1, modifiedAt: -1 },
-      },
-    ),
-  ];
+  if (activeTab === 'lists') {
+    return [
+      Lists.find(
+        {
+          boardId,
+          archived: true,
+        },
+        {
+          sort: { archivedAt: -1, modifiedAt: -1 },
+          limit: safeListsLimit,
+        },
+      ),
+    ];
+  }
+
+  if (activeTab === 'swimlanes') {
+    return [
+      Swimlanes.find(
+        {
+          boardId,
+          archived: true,
+        },
+        {
+          sort: { archivedAt: -1, modifiedAt: -1 },
+          limit: safeSwimlaneLimit,
+        },
+      ),
+    ];
+  }
+
+  return this.ready();
 });
 
 Meteor.publish('myCards', async function(sessionId) {

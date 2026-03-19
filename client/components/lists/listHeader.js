@@ -235,11 +235,10 @@ Template.listActionPopup.events({
       if (!err && ret) Popup.back();
     });
   },
-  async 'click .js-close-list'(event) {
-    event.preventDefault();
+  'click .js-close-list': Popup.afterConfirm('listArchive', async function() {
     await this.archive();
-    Popup.back();
-  },
+    Popup.close();
+  }),
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
   'click .js-more': Popup.open('listMore'),
 });
@@ -467,7 +466,7 @@ Template.addListPopup.helpers({
 });
 
 Template.addListPopup.events({
-  'submit .js-add-list-form'(evt, tpl) {
+  async 'submit .js-add-list-form'(evt, tpl) {
     evt.preventDefault();
 
     const titleInput = tpl.find('.list-name-input');
@@ -475,53 +474,33 @@ Template.addListPopup.events({
 
     if (!title) return;
 
-    let sortIndex = 0;
-    const boardId = Utils.getCurrentBoardId();
-    let swimlaneId = tpl.currentSwimlane?._id;
-
     const positionInput = tpl.find('.list-position-input');
+    const afterListId =
+      positionInput && positionInput.value ? positionInput.value.trim() : null;
+    const nextListId =
+      positionInput &&
+      positionInput.selectedIndex >= 0 &&
+      positionInput.options[positionInput.selectedIndex + 1]
+        ? positionInput.options[positionInput.selectedIndex + 1].value
+        : null;
+    const targetSwimlaneId =
+      (tpl.currentSwimlaneId && tpl.currentSwimlaneId.get && tpl.currentSwimlaneId.get()) ||
+      (tpl.currentSwimlane && tpl.currentSwimlane._id) ||
+      null;
 
-    if (positionInput && positionInput.value) {
-      const positionId = positionInput.value.trim();
-      const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
-
-      if (selectedList) {
-        sortIndex = selectedList.sort + 1;
-        // Use the swimlane ID from the selected list to ensure the new list
-        // is added to the same swimlane as the selected list
-        swimlaneId = selectedList.swimlaneId;
-      } else {
-        // No specific position, add at end of swimlane
-        if (swimlaneId) {
-          const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
-          const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
-          sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
-        } else {
-          const lastList = tpl.currentBoard.getLastList();
-          sortIndex = Utils.calculateIndexData(lastList, null).base;
-        }
-      }
-    } else {
-      // No position input, add at end of swimlane
-      if (swimlaneId) {
-        const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
-        const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
-        sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
-      } else {
-        const lastList = tpl.currentBoard.getLastList();
-        sortIndex = Utils.calculateIndexData(lastList, null).base;
-      }
+    try {
+      await Meteor.callAsync('createListAfter', {
+        title,
+        boardId: Session.get('currentBoard'),
+        swimlaneId: targetSwimlaneId,
+        afterListId,
+        nextListId,
+        type: 'list',
+      });
+      Popup.back();
+    } catch (error) {
+      console.error('Failed to create list after selected list:', error);
     }
-
-    Lists.insert({
-      title,
-      boardId: Session.get('currentBoard'),
-      sort: sortIndex,
-      type: 'list',
-      swimlaneId: swimlaneId,
-    });
-
-    Popup.back();
   },
   'click .js-list-template': Popup.open('searchElement'),
 });

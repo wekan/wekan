@@ -200,6 +200,11 @@ template(name="listMorePopup")
     //
         a.js-delete {{_ 'delete'}}
 
+template(name="listArchivePopup")
+  p {{_ "list-archive-pop"}}
+  p {{_ "list-archive-suggest"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
+
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}
   unless archived

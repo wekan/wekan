@@ -139,6 +139,11 @@ template(name="swimlaneHeightErrorPopup")
     p {{_ 'swimlane-height-error-message'}} '&gt;=100'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
+template(name="swimlaneArchivePopup")
+  p {{_ "swimlane-archive-pop"}}
+  p {{_ "swimlane-archive-suggest"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
+
 template(name="swimlaneDeletePopup")
   p {{_ "swimlane-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

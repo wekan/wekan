@@ -709,7 +709,7 @@ Template.addListForm.helpers({
 });
 
 Template.addListForm.events({
-  submit(evt, tpl) {
+  async submit(evt, tpl) {
     evt.preventDefault();
 
     const titleInput = tpl.find('.list-name-input');
@@ -717,41 +717,31 @@ Template.addListForm.events({
 
     if (!title) return;
 
-    let sortIndex = 0;
-    const boardId = Utils.getCurrentBoardId();
-    const swimlaneId = tpl.currentSwimlane._id;
-
     const positionInput = tpl.find('.list-position-input');
+    const afterListId =
+      positionInput && positionInput.value ? positionInput.value.trim() : null;
+    const nextListId =
+      positionInput &&
+      positionInput.selectedIndex >= 0 &&
+      positionInput.options[positionInput.selectedIndex + 1]
+        ? positionInput.options[positionInput.selectedIndex + 1].value
+        : null;
 
-    if (positionInput) {
-      const positionId = positionInput.value.trim();
-      const selectedList = ReactiveCache.getList({ boardId, swimlaneId, _id: positionId, archived: false });
+    try {
+      await Meteor.callAsync('createListAfter', {
+        title,
+        boardId: Session.get('currentBoard'),
+        swimlaneId: tpl.currentSwimlane._id,
+        afterListId,
+        nextListId,
+        type: tpl.isListTemplatesSwimlane ? 'template-list' : 'list',
+      });
 
-      if (selectedList) {
-        sortIndex = selectedList.sort + 1;
-      } else {
-        // Position list not found in this swimlane; append after last swimlane list.
-        const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
-        const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
-        sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
-      }
-    } else {
-      // No position dropdown (empty swimlane) — append after last swimlane list if any.
-      const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
-      const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
-      sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
+      titleInput.value = '';
+      titleInput.focus();
+    } catch (error) {
+      console.error('Failed to create list after selected list:', error);
     }
-
-    Lists.insert({
-      title,
-      boardId: Session.get('currentBoard'),
-      sort: sortIndex,
-      type: tpl.isListTemplatesSwimlane ? 'template-list' : 'list',
-      swimlaneId: swimlaneId, // Always set swimlaneId for per-swimlane list titles
-    });
-
-    titleInput.value = '';
-    titleInput.focus();
   },
   'click .js-list-template': Popup.open('searchElement'),
 });

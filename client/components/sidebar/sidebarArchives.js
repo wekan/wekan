@@ -6,6 +6,29 @@ import Swimlanes from '/models/swimlanes';
 const ARCHIVE_PAGE_SIZE = 30;
 const ARCHIVE_SCROLL_THRESHOLD_PX = 120;
 
+function throttle(func, wait) {
+  let timeoutId = null;
+  let lastRan = 0;
+
+  return function throttled(...args) {
+    const now = Date.now();
+    const run = () => {
+      lastRan = Date.now();
+      timeoutId = null;
+      func.apply(this, args);
+    };
+
+    if (!lastRan || now - lastRan >= wait) {
+      run();
+      return;
+    }
+
+    if (!timeoutId) {
+      timeoutId = setTimeout(run, wait - (now - lastRan));
+    }
+  };
+}
+
 function getArchivedCards() {
   const ret = ReactiveCache.getCards(
     {
@@ -45,50 +68,74 @@ function getArchivedSwimlanes() {
 
 Template.archivesSidebar.onCreated(function () {
   this.isArchiveReady = new ReactiveVar(false);
+  this.activeTab = new ReactiveVar('cards');
   this.archivedCardsLimit = new ReactiveVar(ARCHIVE_PAGE_SIZE);
-  this.isLoadingMoreCards = false;
+  this.archivedListsLimit = new ReactiveVar(ARCHIVE_PAGE_SIZE);
+  this.archivedSwimlanesLimit = new ReactiveVar(ARCHIVE_PAGE_SIZE);
+  this.isLoadingMore = false;
 
   this.autorun(() => {
     const currentBoardId = Session.get('currentBoard');
     if (!currentBoardId) return;
-    const currentLimit = this.archivedCardsLimit.get();
-    const handle = this.subscribe('archiveSidebar', currentBoardId, currentLimit);
+    const tab = this.activeTab.get();
+    const cardsLimit = this.archivedCardsLimit.get();
+    const listsLimit = this.archivedListsLimit.get();
+    const swimlanesLimit = this.archivedSwimlanesLimit.get();
+    const handle = this.subscribe(
+      'archiveSidebar',
+      currentBoardId,
+      tab,
+      cardsLimit,
+      listsLimit,
+      swimlanesLimit,
+    );
     this.isArchiveReady.set(handle.ready());
     if (handle.ready()) {
-      this.isLoadingMoreCards = false;
+      this.isLoadingMore = false;
     }
   });
 });
 
 Template.archivesSidebar.onRendered(function () {
-  const container = this.find('.js-board-sidebar-content');
+  // The scrollable sidebar container is the parent element, not inside this template.
+  const container = document.querySelector('.js-board-sidebar-content');
   if (!container) return;
+  this._scrollContainer = container;
 
-  this.loadMoreArchivedCardsOnScroll = _.throttle(() => {
-    if (this.isLoadingMoreCards || !this.isArchiveReady.get()) return;
+  this.loadMoreOnScroll = throttle(() => {
+    if (this.isLoadingMore || !this.isArchiveReady.get()) return;
 
     const nearBottom =
       container.scrollTop + container.clientHeight >=
       container.scrollHeight - ARCHIVE_SCROLL_THRESHOLD_PX;
     if (!nearBottom) return;
 
-    const loadedCardCount = getArchivedCards().length;
-    const currentLimit = this.archivedCardsLimit.get();
+    const tab = this.activeTab.get();
 
-    // If there are fewer cards than requested, we've likely reached the end.
-    if (loadedCardCount < currentLimit) return;
-
-    this.isLoadingMoreCards = true;
-    this.archivedCardsLimit.set(currentLimit + ARCHIVE_PAGE_SIZE);
+    if (tab === 'cards') {
+      const currentLimit = this.archivedCardsLimit.get();
+      if (getArchivedCards().length < currentLimit) return;
+      this.isLoadingMore = true;
+      this.archivedCardsLimit.set(currentLimit + ARCHIVE_PAGE_SIZE);
+    } else if (tab === 'lists') {
+      const currentLimit = this.archivedListsLimit.get();
+      if (getArchivedLists().length < currentLimit) return;
+      this.isLoadingMore = true;
+      this.archivedListsLimit.set(currentLimit + ARCHIVE_PAGE_SIZE);
+    } else if (tab === 'swimlanes') {
+      const currentLimit = this.archivedSwimlanesLimit.get();
+      if (getArchivedSwimlanes().length < currentLimit) return;
+      this.isLoadingMore = true;
+      this.archivedSwimlanesLimit.set(currentLimit + ARCHIVE_PAGE_SIZE);
+    }
   }, 200);
 
-  container.addEventListener('scroll', this.loadMoreArchivedCardsOnScroll);
+  container.addEventListener('scroll', this.loadMoreOnScroll);
 });
 
 Template.archivesSidebar.onDestroyed(function() {
-  const container = this.find('.js-board-sidebar-content');
-  if (container && this.loadMoreArchivedCardsOnScroll) {
-    container.removeEventListener('scroll', this.loadMoreArchivedCardsOnScroll);
+  if (this._scrollContainer && this.loadMoreOnScroll) {
+    this._scrollContainer.removeEventListener('scroll', this.loadMoreOnScroll);
   }
 });
 
@@ -133,6 +180,18 @@ Template.archivesSidebar.helpers({
 });
 
 Template.archivesSidebar.events({
+  'click .tab-item'(e, t) {
+    const slug = e.currentTarget?.getAttribute('data-tab') || this.slug;
+    if (slug) {
+      t.activeTab.set(slug);
+      // Reset limits when switching tabs so fresh data is loaded
+      t.archivedCardsLimit.set(ARCHIVE_PAGE_SIZE);
+      t.archivedListsLimit.set(ARCHIVE_PAGE_SIZE);
+      t.archivedSwimlanesLimit.set(ARCHIVE_PAGE_SIZE);
+      t.isLoadingMore = false;
+    }
+  },
+
   async 'click .js-restore-card'() {
     const card = Template.currentData();
     if (card.canBeRestored()) {
@@ -211,3 +270,4 @@ Template.archivesSidebar.events({
     },
   ),
 });
+
