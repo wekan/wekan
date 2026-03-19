@@ -101,6 +101,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed adding label and select color causes color not checkmarked and wrong color choosed](https://github.com/wekan/wekan/commit/4dea702ff28ef4a1fe94abc26b96f666eeaa4aad).
   Thanks to xet7.
+- [Fix Copy Card and Move Card](https://github.com/wekan/wekan/commit/d0c44bded81d07e5bc9a90c89efca797e331d5eb).
+  Thanks to BlobbyBob and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
