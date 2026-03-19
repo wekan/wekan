@@ -6,6 +6,7 @@ import {
   DEFAULT_SITE_MANIFEST,
 } from '/imports/lib/customHeadDefaults';
 import { Blaze } from 'meteor/blaze';
+import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import {
   formatDateTime,
@@ -116,3 +117,25 @@ Blaze.registerHelper('canModifyBoard', () => Utils.canModifyBoard());
 Blaze.registerHelper('add', (a, b) => a + b);
 
 Blaze.registerHelper('increment', (n) => (n || 0) + 1);
+
+// Operator helpers (replacement for raix:handlebar-helpers)
+Blaze.registerHelper('$eq', (a, b) => a === b);
+Blaze.registerHelper('$neq', (a, b) => a !== b);
+Blaze.registerHelper('$gt', (a, b) => a > b);
+Blaze.registerHelper('$lt', (a, b) => a < b);
+Blaze.registerHelper('$gte', (a, b) => a >= b);
+Blaze.registerHelper('$lte', (a, b) => a <= b);
+Blaze.registerHelper('$and', (a, b) => a && b);
+Blaze.registerHelper('$or', (a, b) => a || b);
+Blaze.registerHelper('$not', (a) => !a);
+Blaze.registerHelper('$in', (...args) => {
+  args.pop(); // Blaze hash argument
+  const value = args.shift();
+  return args.some((arg) => value === arg);
+});
+Blaze.registerHelper('$nin', (...args) => {
+  args.pop(); // Blaze hash argument
+  const value = args.shift();
+  return args.every((arg) => value !== arg);
+});
+Blaze.registerHelper('$', () => ({ Session, Meteor }));
