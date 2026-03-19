@@ -29,15 +29,9 @@ Template.formLabel.helpers({
 
 Template.formLabel.events({
   'click .js-palette-color'(event, tpl) {
-    tpl.currentColor.set(Template.currentData().color);
-
-    const $this = $(event.currentTarget);
-
-    // hide selected ll colors
-    $('.js-palette-select').addClass('hide');
-
-    // show select color
-    $this.find('.js-palette-select').removeClass('hide');
+    const paletteData = Blaze.getData(event.currentTarget);
+    const selectedColor = paletteData?.color || Template.currentData()?.color || getFallbackLabelColor();
+    tpl.currentColor.set(selectedColor);
   },
 });
 
@@ -129,9 +123,12 @@ Template.createLabelPopup.events({
       .$('#labelName')
       .val()
       .trim();
-    const selectedColorIcon = templateInstance.find('.fa-check');
-    const selectedColorData = selectedColorIcon && Blaze.getData(selectedColorIcon);
-    const color = selectedColorData?.color || templateInstance.currentColor?.get() || getFallbackLabelColor();
+    const selectedColorIcon = templateInstance.find('.js-palette-color .fa-check');
+    const selectedPaletteNode = selectedColorIcon?.closest
+      ? selectedColorIcon.closest('.js-palette-color')
+      : null;
+    const selectedColorData = selectedPaletteNode && Blaze.getData(selectedPaletteNode);
+    const color = selectedColorData?.color || getFallbackLabelColor();
     board.addLabel(name, color);
     Popup.back();
   },
@@ -153,9 +150,12 @@ Template.editLabelPopup.events({
       .$('#labelName')
       .val()
       .trim();
-    const selectedColorIcon = templateInstance.find('.fa-check');
-    const selectedColorData = selectedColorIcon && Blaze.getData(selectedColorIcon);
-    const color = selectedColorData?.color || templateInstance.currentColor?.get() || getFallbackLabelColor();
+    const selectedColorIcon = templateInstance.find('.js-palette-color .fa-check');
+    const selectedPaletteNode = selectedColorIcon?.closest
+      ? selectedColorIcon.closest('.js-palette-color')
+      : null;
+    const selectedColorData = selectedPaletteNode && Blaze.getData(selectedPaletteNode);
+    const color = selectedColorData?.color || getFallbackLabelColor();
     board.editLabel(this._id, name, color);
     Popup.back();
   },
