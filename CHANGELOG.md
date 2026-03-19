@@ -92,7 +92,9 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed view, restore and delete of Archived Cards, Lists and Swimlanes. If delete list, it does not delete card of that list that was archived before archive list](https://github.com/wekan/wekan/commit/c989c21d4fcee6f095134176410e5811343d6923).
   Thanks to xet7.
-- [Fixed add remove checklist and checklist item](https://github.com/wekan/wekan/commit/2f07eb70974b40a463ae9f1daddc829e1b5ae468).
+- [Fixed add remove checklist and checklist item, and checklist item translation not used](https://github.com/wekan/wekan/commit/2f07eb70974b40a463ae9f1daddc829e1b5ae468).
+  Thanks to xet7.
+- [Fixed adding label and select color causes color not checkmarked and wrong color choosed](https://github.com/wekan/wekan/commit/4dea702ff28ef4a1fe94abc26b96f666eeaa4aad).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
