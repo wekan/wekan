@@ -420,6 +420,26 @@ Lists.archivedListIds = async () => {
   });
 };
 
+const hasBoardWriteAccess = (userId, board) => {
+  if (!userId || !board) {
+    return false;
+  }
+
+  if (typeof allowIsBoardMemberWithWriteAccess === 'function') {
+    return allowIsBoardMemberWithWriteAccess(userId, board);
+  }
+
+  // Fallback for client method simulation where server-only globals are unavailable.
+  return (
+    board.hasMember(userId) &&
+    !board.hasNoComments(userId) &&
+    !board.hasCommentOnly(userId) &&
+    !board.hasWorker(userId) &&
+    !board.hasReadOnly(userId) &&
+    !board.hasReadAssignedOnly(userId)
+  );
+};
+
 Meteor.methods({
   async createListAfter(params) {
     check(params, {
@@ -444,12 +464,27 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
+    // Avoid client-side stub writes; server method call is authoritative.
+    if (Meteor.isClient && this.isSimulation) {
+      return null;
+    }
+
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    if (!allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+    if (Meteor.isServer) {
+      try {
+        if (typeof Authentication !== 'undefined' && Authentication?.checkBoardWriteAccess) {
+          await Authentication.checkBoardWriteAccess(this.userId, boardId);
+        } else if (!hasBoardWriteAccess(this.userId, board)) {
+          throw new Meteor.Error('not-authorized', 'Access denied');
+        }
+      } catch (error) {
+        throw new Meteor.Error('not-authorized', 'Access denied');
+      }
+    } else if (!hasBoardWriteAccess(this.userId, board)) {
       throw new Meteor.Error('not-authorized', 'Access denied');
     }
 
@@ -688,6 +723,10 @@ if (Meteor.isServer) {
 }
 
 Lists.after.insert((userId, doc) => {
+  if (Meteor.isClient) {
+    return;
+  }
+
   Activities.insert({
     userId,
     type: 'list',
@@ -709,10 +748,35 @@ Lists.after.insert((userId, doc) => {
 });
 
 Lists.before.remove(async (userId, doc) => {
+  if (Meteor.isClient) {
+    return;
+  }
+
   const cards = await ReactiveCache.getCards({ listId: doc._id });
   if (cards) {
     for (const card of cards) {
-      await Cards.removeAsync(card._id);
+      // For non-archived lists, preserve existing behavior: deleting the list
+      // deletes all its cards.
+      if (!doc.archived) {
+        await Cards.removeAsync(card._id);
+        continue;
+      }
+
+      // For archived lists, only delete cards that were archived together with
+      // the list (or after it). Keep cards that were archived before the list
+      // was archived so deleting the list does not remove independently
+      // archived cards.
+      const listArchivedAt = doc.archivedAt;
+      const cardArchivedAt = card.archivedAt;
+      const shouldDeleteCard =
+        !listArchivedAt ||
+        !card.archived ||
+        !cardArchivedAt ||
+        cardArchivedAt >= listArchivedAt;
+
+      if (shouldDeleteCard) {
+        await Cards.removeAsync(card._id);
+      }
     }
   }
   await Activities.insertAsync({
@@ -729,6 +793,10 @@ Lists.before.remove(async (userId, doc) => {
 Lists.hookOptions.after.update = { fetchPrevious: false };
 
 Lists.after.update((userId, doc, fieldNames) => {
+  if (Meteor.isClient) {
+    return;
+  }
+
   if (fieldNames.includes('title')) {
     Activities.insert({
       userId,

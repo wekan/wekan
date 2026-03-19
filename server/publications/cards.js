@@ -91,7 +91,7 @@ Meteor.publish('card', async cardId => {
   }
 
   const board = await ReactiveCache.getBoard({ _id: card.boardId });
-  if (!board || !board.isVisibleBy(userId)) {
+  if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
 
@@ -128,7 +128,7 @@ publishComposite('popupCardData', async function(cardId) {
   }
 
   const board = await ReactiveCache.getBoard({ _id: card.boardId });
-  if (!board || !board.isVisibleBy(userId)) {
+  if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
 
@@ -179,68 +179,51 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
   const safeSwimlaneLimit = Math.max(1, Math.min(swimlanesLimit, 500));
 
   const board = await ReactiveCache.getBoard({ _id: boardId });
-  if (!board || !board.isVisibleBy(userId)) {
+  if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
 
-  if (activeTab === 'cards') {
-    const cardSelector = {
-      boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
-      archived: true,
-    };
+  const cardSelector = {
+    boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+    archived: true,
+  };
 
-    // Respect assigned-only board permissions for archived cards as well.
-    if (board.members) {
-      const member = _.findWhere(board.members, { userId, isActive: true });
-      if (
-        member &&
-        (member.isNormalAssignedOnly ||
-          member.isCommentAssignedOnly ||
-          member.isReadAssignedOnly)
-      ) {
-        cardSelector.assignees = { $in: [userId] };
-      }
+  // Respect assigned-only board permissions for archived cards as well.
+  if (board.members) {
+    const member = findWhere(board.members, { userId, isActive: true });
+    if (
+      member &&
+      (member.isNormalAssignedOnly ||
+        member.isCommentAssignedOnly ||
+        member.isReadAssignedOnly)
+    ) {
+      cardSelector.assignees = { $in: [userId] };
     }
-
-    return [
-      Cards.find(cardSelector, {
-        sort: { archivedAt: -1, modifiedAt: -1 },
-        limit: safeCardsLimit,
-      }),
-    ];
   }
 
-  if (activeTab === 'lists') {
-    return [
-      Lists.find(
-        {
-          boardId,
-          archived: true,
-        },
-        {
-          sort: { archivedAt: -1, modifiedAt: -1 },
-          limit: safeListsLimit,
-        },
-      ),
-    ];
-  }
+  const archivedListsSelector = {
+    boardId,
+    archived: true,
+  };
+  const archivedSwimlanesSelector = {
+    boardId,
+    archived: true,
+  };
 
-  if (activeTab === 'swimlanes') {
-    return [
-      Swimlanes.find(
-        {
-          boardId,
-          archived: true,
-        },
-        {
-          sort: { archivedAt: -1, modifiedAt: -1 },
-          limit: safeSwimlaneLimit,
-        },
-      ),
-    ];
-  }
+  const cardsCursor = Cards.find(cardSelector, {
+    sort: { archivedAt: -1, modifiedAt: -1 },
+    limit: safeCardsLimit,
+  });
+  const listsCursor = Lists.find(archivedListsSelector, {
+    sort: { archivedAt: -1, modifiedAt: -1 },
+    limit: safeListsLimit,
+  });
+  const swimlanesCursor = Swimlanes.find(archivedSwimlanesSelector, {
+    sort: { archivedAt: -1, modifiedAt: -1 },
+    limit: safeSwimlaneLimit,
+  });
 
-  return this.ready();
+  return [cardsCursor, listsCursor, swimlanesCursor];
 });
 
 Meteor.publish('myCards', async function(sessionId) {
@@ -1024,7 +1007,7 @@ async function findCards(sessionId, query) {
     const limit = query.projection.limit || 25;
     const page = fetched.slice(skip, skip + limit);
     orderedIds = page.map(c => c._id);
-    
+
     // override the cursor to only contain the paginated results for this page
     cards = await ReactiveCache.getCards({ _id: { $in: orderedIds } }, { fields: query.projection.fields }, true);
   }
@@ -1053,7 +1036,7 @@ async function findCards(sessionId, query) {
       query.projection.skip + query.projection.limit < totalCardsCount
         ? query.projection.skip + query.projection.limit
         : totalCardsCount;
-    
+
     // For text search preserve our sorted IDs, else grab from db order
     if (isTextSearch) {
       update.$set.cards = orderedIds;

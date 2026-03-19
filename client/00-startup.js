@@ -62,6 +62,7 @@ Meteor.startup(() => {
       syncCookie();
     }
   });
+
 });
 
 // Subscribe to per-user small publications
@@ -72,7 +73,7 @@ Meteor.startup(() => {
       Meteor.subscribe('userDesktopDragHandles');
     }
   });
-  
+
   // Initialize mobile mode on startup for iOS devices
   // This ensures mobile mode is applied correctly on page load
   Tracker.afterFlush(() => {
