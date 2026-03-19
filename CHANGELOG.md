@@ -84,6 +84,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed crash at sign-up page, when registering new user, happened after some PR](https://github.com/wekan/wekan/commit/ccd23f6cdea8b012e492674491969271cbbad842).
   Thanks to xet7.
+- [Fixed Add after list to add after selected list. Added Confirm to Archive List and Archive Swimlane](https://github.com/wekan/wekan/commit/872dd578c84d629e804566802524100983095b4a).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
