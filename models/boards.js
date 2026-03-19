@@ -1374,8 +1374,8 @@ Boards.helpers({
     return result;
   },
 
-  getNextCardNumber() {
-    const boardCards = ReactiveCache.getCard(
+  async getNextCardNumber() {
+    const boardCards = await ReactiveCache.getCard(
       {
         boardId: this._id
       },

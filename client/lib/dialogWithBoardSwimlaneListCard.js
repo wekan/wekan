@@ -23,7 +23,7 @@ export class BoardSwimlaneListCardDialog extends BoardSwimlaneListDialog {
   /** Override to also set cardId if available */
   setOption(boardId) {
     super.setOption(boardId);
-    if (this.cardOption && this.cardOption.cardId) {
+    if (this.cardOption && this.cardOption.cardId && this.selectedCardId) {
       this.selectedCardId.set(this.cardOption.cardId);
     }
   }
@@ -58,7 +58,9 @@ export class BoardSwimlaneListCardDialog extends BoardSwimlaneListDialog {
         if (!sameBoardId) {
           self.setFirstSwimlaneId();
           self.setFirstListId();
-          self.selectedCardId.set('');
+          if (self.selectedCardId) {
+            self.selectedCardId.set('');
+          }
         }
       },
     });

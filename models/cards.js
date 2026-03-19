@@ -607,9 +607,9 @@ Cards.helpers({
 },
 
 
-  copy(boardId, swimlaneId, listId) {
+  async copy(boardId, swimlaneId, listId) {
     const oldId = this._id;
-    const oldCard = ReactiveCache.getCard(oldId);
+    const oldCard = await ReactiveCache.getCard(oldId);
 
     // Work on a shallow copy to avoid mutating the source card in ReactiveCache
     const cardData = { ...this };
@@ -623,7 +623,7 @@ Cards.helpers({
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
     if (this.boardId !== boardId) {
-      const oldBoard = ReactiveCache.getBoard(this.boardId);
+      const oldBoard = await ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = oldBoard.labels;
 
       // Get old label names
@@ -631,7 +631,7 @@ Cards.helpers({
           return (this.labelIds || []).includes(label._id);
         }).map(x => x.name);
 
-      const newBoard = ReactiveCache.getBoard(boardId);
+      const newBoard = await ReactiveCache.getBoard(boardId);
       const newBoardLabels = newBoard.labels;
       const newCardLabels = newBoardLabels.filter(label => {
           return oldCardLabels.includes(label.name);
@@ -643,34 +643,34 @@ Cards.helpers({
 
     delete this._id;
     this.boardId = boardId;
-    const board = ReactiveCache.getBoard(boardId);
-    this.cardNumber = board.getNextCardNumber();
+    const board = await ReactiveCache.getBoard(boardId);
+    this.cardNumber = await board.getNextCardNumber();
     this.swimlaneId = swimlaneId;
     this.listId = listId;
-    const _id = Cards.insertAsync(this);
+    const _id = await Cards.insertAsync(this);
 
     // Copy attachments
-    oldCard.attachments()
-      .forEach(att => {
-        copyFile(att, _id, fileStoreStrategyFactory);
-      });
+    const attachmentList = await ReactiveCache.getAttachments({ 'meta.cardId': oldId });
+    for (const att of attachmentList) {
+      copyFile(att, _id, fileStoreStrategyFactory);
+    }
 
     // copy checklists
-    const checklists = ReactiveCache.getChecklists({ cardId: oldId });
+    const checklists = await ReactiveCache.getChecklists({ cardId: oldId });
     for (const ch of checklists) {
-      ch.copy(_id);
+      await ch.copy(_id);
     }
 
     // copy subtasks
-    const subtasks = ReactiveCache.getCards({ parentId: oldId });
+    const subtasks = await ReactiveCache.getCards({ parentId: oldId });
     for (const subtask of subtasks) {
       subtask.parentId = _id;
       subtask._id = null;
-      Cards.insertAsync(subtask);
+      await Cards.insertAsync(subtask);
     }
 
     // copy card comments
-    const comments = ReactiveCache.getCardComments({ cardId: oldId });
+    const comments = await ReactiveCache.getCardComments({ cardId: oldId });
     for (const cmt of comments) {
       cmt.copy(_id);
     }
@@ -775,7 +775,7 @@ Cards.helpers({
    * @param swimlaneId a swimlane id
    * top sorting of the card at the top if true, or from the bottom if false
    */
-  getSort(listId, swimlaneId, top) {
+  async getSort(listId, swimlaneId, top) {
     if (typeof top !== 'boolean') {
       top = true;
     }
@@ -791,7 +791,7 @@ Cards.helpers({
       archived: false,
     };
     const sorting = top ? 1 : -1;
-    const card = ReactiveCache.getCard(selector, { sort: { sort: sorting } }, true);
+    const card = await ReactiveCache.getCard(selector, { sort: { sort: sorting } }, true);
     let ret = null
     if (card) {
       ret = card.sort;
@@ -803,8 +803,8 @@ Cards.helpers({
    * @param listId a list id
    * @param swimlaneId a swimlane id
    */
-  getMinSort(listId, swimlaneId) {
-    const ret = this.getSort(listId, swimlaneId, true);
+  async getMinSort(listId, swimlaneId) {
+    const ret = await this.getSort(listId, swimlaneId, true);
     return ret;
   },
 
@@ -812,8 +812,8 @@ Cards.helpers({
    * @param listId a list id
    * @param swimlaneId a swimlane id
    */
-  getMaxSort(listId, swimlaneId) {
-    const ret = this.getSort(listId, swimlaneId, false);
+  async getMaxSort(listId, swimlaneId) {
+    const ret = await this.getSort(listId, swimlaneId, false);
     return ret;
   },
 

@@ -553,7 +553,7 @@ Template.cardDetails.events({
     const listSelect = tpl.$('.js-select-card-details-lists')[0];
     const listId = listSelect.options[listSelect.selectedIndex].value;
 
-    const minOrder = card.getMinSort(listId, card.swimlaneId);
+    const minOrder = await card.getMinSort(listId, card.swimlaneId);
     await card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
   },
   'click .js-go-to-linked-card'() {
@@ -925,7 +925,7 @@ Template.cardDetailsActionsPopup.events({
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    const minOrder = card.getMinSort() || 0;
+    const minOrder = await card.getMinSort() || 0;
     await card.move(card.boardId, card.swimlaneId, card.listId, minOrder - 1);
     Popup.back();
   },
@@ -933,7 +933,7 @@ Template.cardDetailsActionsPopup.events({
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    const maxOrder = card.getMaxSort() || 0;
+    const maxOrder = await card.getMaxSort() || 0;
     await card.move(card.boardId, card.swimlaneId, card.listId, maxOrder + 1);
     Popup.back();
   },
@@ -1141,10 +1141,14 @@ function registerCardDialogTemplate(templateName) {
     },
     'change .js-select-lists'(event, tpl) {
       tpl.dialog.selectedListId.set($(event.currentTarget).val());
-      tpl.dialog.selectedCardId.set('');
+      if (tpl.dialog.selectedCardId) {
+        tpl.dialog.selectedCardId.set('');
+      }
     },
     'change .js-select-cards'(event, tpl) {
-      tpl.dialog.selectedCardId.set($(event.currentTarget).val());
+      if (tpl.dialog.selectedCardId) {
+        tpl.dialog.selectedCardId.set($(event.currentTarget).val());
+      }
     },
   });
 }
@@ -1174,7 +1178,7 @@ Template.moveCardPopup.onCreated(function () {
           }
         }
       } else {
-        const maxSort = card.getMaxSort(options.listId, options.swimlaneId);
+        const maxSort = await card.getMaxSort(options.listId, options.swimlaneId);
         sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
       }
 
@@ -1218,7 +1222,7 @@ Template.copyCardPopup.onCreated(function () {
                 }
               }
             } else {
-              const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+              const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
               sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
             }
 
@@ -1274,7 +1278,7 @@ Template.convertChecklistItemToCardPopup.onCreated(function () {
             }
           }
         } else {
-          const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+          const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
           sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
         }
 
@@ -1322,7 +1326,7 @@ Template.copyManyCardsPopup.onCreated(function () {
                 }
               }
             } else {
-              const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+              const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
               sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
             }
 
