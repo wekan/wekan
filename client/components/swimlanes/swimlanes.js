@@ -421,23 +421,30 @@ Template.swimlane.onRendered(function () {
   }, 100);
 });
 
-function initializeSwimlaneResize(tpl) {
-  // Check if we're still in a valid template context
-  if (!Template.currentData()) {
-    console.warn('No current template data available for swimlane resize initialization');
+function initializeSwimlaneResize(tpl, retryCount = 0) {
+  // Avoid accessing Template.currentData() here: this function can run in setTimeout
+  // callbacks outside a current Blaze view context.
+  if (!tpl || tpl.isDestroyed) {
     return;
   }
 
-  const swimlane = Template.currentData();
+  const swimlane = tpl.data;
+  if (!swimlane || !swimlane._id) {
+    return;
+  }
+
   const $swimlane = $(`#swimlane-${swimlane._id}`);
   const $resizeHandle = $swimlane.find('.js-swimlane-resize-handle');
 
   // Check if elements exist
   if (!$swimlane.length || !$resizeHandle.length) {
-    console.warn('Swimlane or resize handle not found, retrying in 100ms');
+    // Retry briefly while DOM settles, then stop to avoid noisy loops.
+    if (retryCount >= 20) {
+      return;
+    }
     Meteor.setTimeout(() => {
       if (!tpl.isDestroyed) {
-        initializeSwimlaneResize(tpl);
+        initializeSwimlaneResize(tpl, retryCount + 1);
       }
     }, 100);
     return;
@@ -864,18 +871,57 @@ function swimlaneToBoards(excludeCurrentBoard) {
   );
 }
 
+function getSwimlanesForBoard(boardId) {
+  if (!boardId) {
+    return [];
+  }
+  return ReactiveCache.getSwimlanes(
+    { boardId, archived: false },
+    { sort: { sort: 1 } },
+  );
+}
+
+function setFirstSelectedSwimlane(tpl) {
+  const swimlanes = getSwimlanesForBoard(tpl.selectedBoardId.get());
+  const firstSwimlaneId = swimlanes[0]?._id || '';
+  tpl.selectedSwimlaneId.set(firstSwimlaneId);
+}
+
 function swimlaneDoneEvent(serverMethod, tpl) {
   const bSelect = tpl.$('.js-select-boards')[0];
-  let boardId;
-  if (bSelect) {
-    boardId = bSelect.options[bSelect.selectedIndex].value;
-    Meteor.call(serverMethod, tpl.currentSwimlane._id, boardId);
+  const sSelect = tpl.$('.js-select-swimlanes')[0];
+  if (!bSelect) {
+    Popup.back();
+    return;
   }
-  Popup.back();
+
+  const boardId = bSelect.options[bSelect.selectedIndex].value;
+  const swimlaneId = sSelect?.options[sSelect.selectedIndex]?.value || null;
+  const position = tpl.$('input[name="swimlane-position"]:checked').val() || 'below';
+  const titleInputId = serverMethod === 'copySwimlane' ? '#copy-swimlane-title' : '#move-swimlane-title';
+  const title = tpl.$(titleInputId).val().trim();
+  Meteor.call(
+    serverMethod,
+    tpl.currentSwimlane._id,
+    boardId,
+    swimlaneId,
+    position,
+    title,
+    err => {
+      if (err) {
+        console.error(`${serverMethod} failed`, err);
+        return;
+      }
+      Popup.back();
+    },
+  );
 }
 
 Template.moveSwimlanePopup.onCreated(function () {
   this.currentSwimlane = Template.currentData();
+  this.selectedBoardId = new ReactiveVar(Utils.getCurrentBoard()._id);
+  this.selectedSwimlaneId = new ReactiveVar('');
+  setFirstSelectedSwimlane(this);
 });
 
 Template.moveSwimlanePopup.helpers({
@@ -883,7 +929,16 @@ Template.moveSwimlanePopup.helpers({
     return Utils.getCurrentBoard();
   },
   toBoards() {
-    return swimlaneToBoards(true);
+    return swimlaneToBoards(false);
+  },
+  toSwimlanes() {
+    return getSwimlanesForBoard(Template.instance().selectedBoardId.get());
+  },
+  isSelectedBoard(boardId) {
+    return Template.instance().selectedBoardId.get() === boardId;
+  },
+  isSelectedSwimlane(swimlaneId) {
+    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
   },
 });
 
@@ -891,10 +946,20 @@ Template.moveSwimlanePopup.events({
   'click .js-done'(event, tpl) {
     swimlaneDoneEvent('moveSwimlane', tpl);
   },
+  'change .js-select-boards'(event, tpl) {
+    tpl.selectedBoardId.set($(event.currentTarget).val());
+    setFirstSelectedSwimlane(tpl);
+  },
+  'change .js-select-swimlanes'(event, tpl) {
+    tpl.selectedSwimlaneId.set($(event.currentTarget).val());
+  },
 });
 
 Template.copySwimlanePopup.onCreated(function () {
   this.currentSwimlane = Template.currentData();
+  this.selectedBoardId = new ReactiveVar(Utils.getCurrentBoard()._id);
+  this.selectedSwimlaneId = new ReactiveVar('');
+  setFirstSelectedSwimlane(this);
 });
 
 Template.copySwimlanePopup.helpers({
@@ -904,10 +969,26 @@ Template.copySwimlanePopup.helpers({
   toBoards() {
     return swimlaneToBoards(false);
   },
+  toSwimlanes() {
+    return getSwimlanesForBoard(Template.instance().selectedBoardId.get());
+  },
+  isSelectedBoard(boardId) {
+    return Template.instance().selectedBoardId.get() === boardId;
+  },
+  isSelectedSwimlane(swimlaneId) {
+    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
+  },
 });
 
 Template.copySwimlanePopup.events({
   'click .js-done'(event, tpl) {
     swimlaneDoneEvent('copySwimlane', tpl);
+  },
+  'change .js-select-boards'(event, tpl) {
+    tpl.selectedBoardId.set($(event.currentTarget).val());
+    setFirstSelectedSwimlane(tpl);
+  },
+  'change .js-select-swimlanes'(event, tpl) {
+    tpl.selectedSwimlaneId.set($(event.currentTarget).val());
   },
 });

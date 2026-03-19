@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Lists from '../../../models/lists';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
+import { BoardSwimlaneListDialog } from '/client/lib/dialogWithBoardSwimlaneList';
 
 let listsColors;
 Meteor.startup(() => {
@@ -240,6 +241,8 @@ Template.listActionPopup.events({
     Popup.close();
   }),
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
+  'click .js-copy-list': Popup.open('copyList'),
+  'click .js-move-list': Popup.open('moveList'),
   'click .js-more': Popup.open('listMore'),
 });
 
@@ -326,6 +329,92 @@ Template.listMorePopup.events({
     Utils.goBoardId(list.boardId);
   }),
 });
+
+function registerListDialogTemplate(templateName) {
+  Template[templateName].helpers({
+    boards() {
+      return Template.instance().dialog.boards();
+    },
+    swimlanes() {
+      return Template.instance().dialog.swimlanes();
+    },
+    lists() {
+      return Template.instance().dialog.lists();
+    },
+    isDialogOptionBoardId(boardId) {
+      return Template.instance().dialog.isDialogOptionBoardId(boardId);
+    },
+    isDialogOptionSwimlaneId(swimlaneId) {
+      return Template.instance().dialog.isDialogOptionSwimlaneId(swimlaneId);
+    },
+    isDialogOptionListId(listId) {
+      return Template.instance().dialog.isDialogOptionListId(listId);
+    },
+    isTitleDefault(title) {
+      return Template.instance().dialog.isTitleDefault(title);
+    },
+  });
+
+  Template[templateName].events({
+    async 'click .js-done'(event, tpl) {
+      const dialog = tpl.dialog;
+      const boardSelect = tpl.$('.js-select-boards')[0];
+      const boardId = boardSelect?.options[boardSelect?.selectedIndex]?.value;
+      const swimlaneSelect = tpl.$('.js-select-swimlanes')[0];
+      const swimlaneId = swimlaneSelect?.options[swimlaneSelect?.selectedIndex]?.value;
+      const listSelect = tpl.$('.js-select-lists')[0];
+      const listId = listSelect?.options[listSelect?.selectedIndex]?.value || null;
+      const position = tpl.$('input[name="list-position"]:checked').val() || 'right';
+      try {
+        await dialog.setDone({ boardId, swimlaneId, listId, position });
+      } catch (e) {
+        console.error('Error in list dialog operation:', e);
+      }
+      Popup.back(2);
+    },
+    'change .js-select-boards'(event, tpl) {
+      tpl.dialog.getBoardData($(event.currentTarget).val());
+    },
+    'change .js-select-swimlanes'(event, tpl) {
+      tpl.dialog.selectedSwimlaneId.set($(event.currentTarget).val());
+      tpl.dialog.setFirstListId();
+    },
+    'change .js-select-lists'(event, tpl) {
+      tpl.dialog.selectedListId.set($(event.currentTarget).val());
+    },
+  });
+}
+
+Template.copyListPopup.onCreated(function () {
+  this.dialog = new BoardSwimlaneListDialog(this, {
+    getDialogOptions() {
+      return null;
+    },
+    async setDone(options) {
+      const tpl = Template.instance();
+      const title = tpl.$('#copy-list-title').val().trim();
+      if (!title) return;
+      const list = Template.currentData();
+      await Meteor.callAsync('copyList', list._id, options.boardId, options.swimlaneId, title, options.listId, options.position);
+    },
+  });
+});
+registerListDialogTemplate('copyListPopup');
+
+Template.moveListPopup.onCreated(function () {
+  this.dialog = new BoardSwimlaneListDialog(this, {
+    getDialogOptions() {
+      return null;
+    },
+    async setDone(options) {
+      const tpl = Template.instance();
+      const title = tpl.$('#move-list-title').val().trim();
+      const list = Template.currentData();
+      await Meteor.callAsync('moveList', list._id, options.boardId, options.swimlaneId, options.listId, options.position, title);
+    },
+  });
+});
+registerListDialogTemplate('moveListPopup');
 
 Template.setListColorPopup.onCreated(function () {
   const data = Template.currentData();

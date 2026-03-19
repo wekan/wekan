@@ -2089,14 +2089,17 @@ Cards.helpers({
 
     if (this.boardId !== boardId) {
       const oldBoard = ReactiveCache.getBoard(this.boardId);
-      const oldBoardLabels = oldBoard.labels;
+      const oldBoardLabels = Array.isArray(oldBoard?.labels) ? oldBoard.labels : [];
       const oldCardLabels = oldBoardLabels.filter(label => {
           return (this.labelIds || []).includes(label._id);
         }).map(x => x.name);
 
       const newBoard = ReactiveCache.getBoard(boardId);
+      if (!newBoard) {
+        throw new Meteor.Error('board-not-found', 'Destination board not found while moving card.');
+      }
       const allowedMemberIds = (newBoard.members || []).filter(member => member.isActive === true).map(x => x.userId);
-      const newBoardLabels = newBoard.labels;
+      const newBoardLabels = Array.isArray(newBoard.labels) ? newBoard.labels : [];
       const newCardLabelIds = newBoardLabels.filter(label => {
           return label.name && oldCardLabels.includes(label.name);
         }).map(x => x._id);

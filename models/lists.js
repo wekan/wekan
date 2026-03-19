@@ -265,7 +265,11 @@ Lists.helpers({
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), { sort: ['sort'] });
+    const filterSelector =
+      typeof Filter !== 'undefined' && typeof Filter.mongoSelector === 'function'
+        ? Filter.mongoSelector(selector)
+        : selector;
+    const ret = ReactiveCache.getCards(filterSelector, { sort: ['sort'] });
     return ret;
   },
 
@@ -290,7 +294,7 @@ Lists.helpers({
 
   getWipLimit(option) {
     const list = ReactiveCache.getList(this._id);
-    if (!list.wipLimit) {
+    if (!list || !list.wipLimit) {
       // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
       return 0;
     } else if (!option) {
@@ -575,6 +579,129 @@ Meteor.methods({
     });
 
     return listId;
+  },
+
+  async copyList(listId, boardId, swimlaneId, title, neighborListId, position) {
+    check(listId, String);
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(title, String);
+    check(neighborListId, Match.OneOf(String, null, undefined));
+    check(position, Match.OneOf(String, null, undefined));
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
+    if (Meteor.isClient) return null;
+
+    const list = await ReactiveCache.getList(listId);
+    if (!list) {
+      throw new Meteor.Error('list-not-found', 'List not found');
+    }
+
+    const targetBoard = await ReactiveCache.getBoard(boardId);
+    if (!targetBoard) {
+      throw new Meteor.Error('board-not-found', 'Target board not found');
+    }
+
+    // Compute sort value relative to neighbor list
+    let sort = (await ReactiveCache.getLists({ boardId, archived: false })).length;
+    if (neighborListId) {
+      const neighborList = await ReactiveCache.getList({ _id: neighborListId, boardId, archived: false });
+      if (neighborList && Number.isFinite(neighborList.sort)) {
+        const allLists = (await ReactiveCache.getLists({ boardId, swimlaneId, archived: false }))
+          .sort((a, b) => a.sort - b.sort);
+        const neighborIndex = allLists.findIndex(l => l._id === neighborListId);
+        if (position === 'left') {
+          const prev = allLists[neighborIndex - 1];
+          sort = prev && Number.isFinite(prev.sort)
+            ? (prev.sort + neighborList.sort) / 2
+            : neighborList.sort - 1;
+        } else {
+          const next = allLists[neighborIndex + 1];
+          sort = next && Number.isFinite(next.sort)
+            ? (neighborList.sort + next.sort) / 2
+            : neighborList.sort + 1;
+        }
+      }
+    }
+
+    const newListId = await Lists.insertAsync({
+      title: title || list.title,
+      boardId,
+      swimlaneId,
+      type: list.type,
+      archived: false,
+      wipLimit: list.wipLimit,
+      sort,
+    });
+
+    const cards = await ReactiveCache.getCards({ listId: list._id, archived: false });
+    for (const card of cards) {
+      await card.copy(boardId, swimlaneId, newListId);
+    }
+
+    return newListId;
+  },
+
+  async moveList(listId, boardId, swimlaneId, neighborListId, position, title) {
+    check(listId, String);
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(neighborListId, Match.OneOf(String, null, undefined));
+    check(position, Match.OneOf(String, null, undefined));
+    check(title, Match.OneOf(String, null, undefined));
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
+    if (Meteor.isClient) return null;
+
+    const list = await ReactiveCache.getList(listId);
+    if (!list) {
+      throw new Meteor.Error('list-not-found', 'List not found');
+    }
+    const desiredTitle = typeof title === 'string' && title.trim().length > 0
+      ? title.trim()
+      : list.title;
+
+    const targetBoard = await ReactiveCache.getBoard(boardId);
+    if (!targetBoard) {
+      throw new Meteor.Error('board-not-found', 'Target board not found');
+    }
+
+    // list.move() relies on this.title to determine destination list identity.
+    list.title = desiredTitle;
+    await list.move(boardId, swimlaneId);
+
+    // Update sort of resulting list when a neighbor is specified
+    if (neighborListId) {
+      const movedList = await ReactiveCache.getList({ boardId, title: desiredTitle, archived: false });
+      const neighborList = await ReactiveCache.getList({ _id: neighborListId, boardId, archived: false });
+      if (movedList && neighborList && Number.isFinite(neighborList.sort)) {
+        const allLists = (await ReactiveCache.getLists({ boardId, swimlaneId, archived: false }))
+          .filter(l => l._id !== movedList._id)
+          .sort((a, b) => a.sort - b.sort);
+        const neighborIndex = allLists.findIndex(l => l._id === neighborListId);
+        let newSort;
+        if (position === 'left') {
+          const prev = allLists[neighborIndex - 1];
+          newSort = prev && Number.isFinite(prev.sort)
+            ? (prev.sort + neighborList.sort) / 2
+            : neighborList.sort - 1;
+        } else {
+          const next = allLists[neighborIndex + 1];
+          newSort = next && Number.isFinite(next.sort)
+            ? (neighborList.sort + next.sort) / 2
+            : neighborList.sort + 1;
+        }
+        await Lists.updateAsync(movedList._id, { $set: { sort: newSort } });
+      }
+    }
+
+    await list.archive();
   },
 
   async applyWipLimit(listId, limit) {

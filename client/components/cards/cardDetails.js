@@ -1161,6 +1161,7 @@ Template.moveCardPopup.onCreated(function () {
     },
     async setDone(cardId, options) {
       const tpl = Template.instance();
+      const title = tpl.$('#move-card-title').val().trim();
       const position = tpl.$('input[name="position"]:checked').val();
 
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
@@ -1183,6 +1184,9 @@ Template.moveCardPopup.onCreated(function () {
       }
 
       await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+      if (title && title !== card.title) {
+        await card.setTitle(title);
+      }
     },
   });
 });

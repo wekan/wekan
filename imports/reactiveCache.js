@@ -126,7 +126,8 @@ ReactiveCacheServer = {
     // Try new structure first
     let ret = Attachments.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      // FilesCollection cursors (ostrio:files) only have .fetch(), not .fetchAsync()
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
       // If no results and we have a cardId selector, try old structure
       if (ret.length === 0 && selector['meta.cardId']) {
         ret = await Attachments.getAttachmentsWithBackwardCompatibility(selector);
