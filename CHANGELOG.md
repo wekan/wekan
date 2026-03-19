@@ -55,6 +55,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Remove raix:handlebar-helpers, replace with native Blaze helpers](https://github.com/wekan/wekan/pull/6191).
   Thanks to harryadel.
+- [Updated flatted](https://github.com/wekan/wekan/commit/c3f66cce55dec0d4154f41aa869eed75f9278f43).
+  Thanks to developers of flatted.
 
 and fixes the following bugs:
 
