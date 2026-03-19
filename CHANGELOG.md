@@ -49,6 +49,8 @@ This release adds the following updates:
   Thanks to MongoDB developers.
 - [Helm Chart: Updated to MongoDB 7.0.31](https://github.com/wekan/charts/commit/6818b7fa5e7371b3777f49a7460102a1e1685746).
   Thanks to MongoDB developers.
+- [Replace underscore with native JavaScript utilities](https://github.com/wekan/wekan/pull/6190).
+  Thanks to harryadel.
 
 and fixes the following bugs:
 
