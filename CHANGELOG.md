@@ -76,6 +76,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix more Rules buttons styling](https://github.com/wekan/wekan/commit/e6fbfa87f036d81ca63c71216a9804bf93979657).
   Thanks to xet7.
+- [Fixed crash when IFTTT Rules archived card, but cards etc are not visible at archive yet. Fixed "Add After List" to show lists only from current Swimlane](https://github.com/wekan/wekan/commit/0c29fa3cbee49f054591ce421d790d364f4f28af).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
