@@ -356,6 +356,7 @@
   "computer": "Ordinateur",
   "confirm-subtask-delete-popup": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
   "confirm-checklist-delete-popup": "Êtes-vous sûr de vouloir supprimer la checklist ?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Supprimer la sous-tâche ?",
   "checklistDeletePopup-title": "Supprimer la checklist ?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

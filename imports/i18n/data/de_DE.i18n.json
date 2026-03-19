@@ -356,6 +356,7 @@
   "computer": "Computer",
   "confirm-subtask-delete-popup": "Wollen Sie die Teilaufgabe wirklich löschen?",
   "confirm-checklist-delete-popup": "Wollen Sie diese Checkliste wirklich löschen?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Teilaufgabe löschen?",
   "checklistDeletePopup-title": "Checkliste löschen?",
   "checklistItemDeletePopup-title": "Element der Checkliste löschen?",

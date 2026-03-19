@@ -356,6 +356,7 @@
   "computer": "Datamaskin",
   "confirm-subtask-delete-popup": "Er du sikker på at du vil slette underoppgaven?",
   "confirm-checklist-delete-popup": "Er du sikker på at du vil slette sjekklisten?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Delete Subtask?",
   "checklistDeletePopup-title": "Slette sjekklisten?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

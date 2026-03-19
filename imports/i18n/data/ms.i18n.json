@@ -356,6 +356,7 @@
   "computer": "Komputer",
   "confirm-subtask-delete-popup": "Anda pasti untuk  hapus subtugas?",
   "confirm-checklist-delete-popup": "Anda pasti untuk hapus senarai semak?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Hapus subtugas?",
   "checklistDeletePopup-title": "Hapus Senarai semak?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

@@ -356,6 +356,7 @@
   "computer": "Ordenagailua",
   "confirm-subtask-delete-popup": "Ziur zaude azpiataza ezabatu nahi duzula?",
   "confirm-checklist-delete-popup": "Ziur kontrol-zerrenda ezabatu nahi duzula?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Ezabatu azpi-ataza?",
   "checklistDeletePopup-title": "Ezabatu kontrol-zerrenda?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

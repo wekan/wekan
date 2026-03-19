@@ -356,6 +356,7 @@
   "computer": "Bilgisayar",
   "confirm-subtask-delete-popup": "Alt görevi silmek istediğinizden emin misiniz?",
   "confirm-checklist-delete-popup": "Kontrol listesini silmek istediğinizden emin misiniz?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Alt Görev Silinsin mi?",
   "checklistDeletePopup-title": "Kontrol Listesi Silinsin mi?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

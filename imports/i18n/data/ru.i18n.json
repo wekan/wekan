@@ -356,6 +356,7 @@
   "computer": "Загрузить с компьютера",
   "confirm-subtask-delete-popup": "Вы уверены, что хотите удалить подзадачу?",
   "confirm-checklist-delete-popup": "Вы уверены, что хотите удалить чек-лист?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Удалить Подзадачу?",
   "checklistDeletePopup-title": "Удалить Чек-лист?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

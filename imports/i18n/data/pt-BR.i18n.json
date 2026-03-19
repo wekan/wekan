@@ -356,6 +356,7 @@
   "computer": "Computador",
   "confirm-subtask-delete-popup": "Tem certeza que deseja excluir a subtarefa?",
   "confirm-checklist-delete-popup": "Você tem certeza que deseja excluir a lista de verificação?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Excluir subtarefa?",
   "checklistDeletePopup-title": "Excluir lista de verificação?",
   "checklistItemDeletePopup-title": "Excluir Item da Lista de Verificação?",

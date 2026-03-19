@@ -356,6 +356,7 @@
   "computer": "내 컴퓨터",
   "confirm-subtask-delete-popup": "Are you sure you want to delete subtask?",
   "confirm-checklist-delete-popup": "체크리스트를 삭제하시겠습니까?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "하위태스크를 삭제합니까?",
   "checklistDeletePopup-title": "체크리스트를 삭제합니까?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

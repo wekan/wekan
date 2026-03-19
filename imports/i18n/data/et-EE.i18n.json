@@ -356,6 +356,7 @@
   "computer": "Arvuti",
   "confirm-subtask-delete-popup": "Kas olete kindel, et soovite alamülesannet kustutada?",
   "confirm-checklist-delete-popup": "Kas olete kindel, et soovite kontrollnimekirja kustutada?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Delete Subtask?",
   "checklistDeletePopup-title": "Kustuta kontrollnimekiri?",
   "checklistItemDeletePopup-title": "Delete Checklist Item?",

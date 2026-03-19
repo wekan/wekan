@@ -356,6 +356,7 @@
   "computer": "Tietokone",
   "confirm-subtask-delete-popup": "Haluatko varmasti poistaa alitehtävän?",
   "confirm-checklist-delete-popup": "Haluatko varmasti poistaa tarkistuslistan?",
+  "confirm-checklist-item-delete-popup": "Haluatko varmasti poistaa tarkistuslistan kohdan?",
   "subtaskDeletePopup-title": "Poista alitehtävä?",
   "checklistDeletePopup-title": "Poista tarkistuslista?",
   "checklistItemDeletePopup-title": "Poista tarkistuslistan kohta?",

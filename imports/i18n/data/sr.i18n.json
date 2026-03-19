@@ -356,6 +356,7 @@
   "computer": "Рачунар",
   "confirm-subtask-delete-popup": "Да ли сте сигурни да желите да избришете овај издвојени посао?",
   "confirm-checklist-delete-popup": "Да ли сте сигурни да желите да избришете ову предметну радњу?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Избрисаћете издвојени посао?",
   "checklistDeletePopup-title": "Избрисаћете предметну радњу?",
   "checklistItemDeletePopup-title": "Избрисаћете ставку из предметне радње?",

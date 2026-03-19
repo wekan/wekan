@@ -356,6 +356,7 @@
   "computer": "Dator",
   "confirm-subtask-delete-popup": "Är du säker på att du vill radera deluppgift?",
   "confirm-checklist-delete-popup": "Är du säker på att du vill radera checklistan?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Radera deluppgift?",
   "checklistDeletePopup-title": "Radera checklistan?",
   "checklistItemDeletePopup-title": "Radera checklistpost?",

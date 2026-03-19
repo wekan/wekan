@@ -356,6 +356,7 @@
   "computer": "Bestandbeheer",
   "confirm-subtask-delete-popup": "Weet je zeker dat je de subtaak wilt verwijderen?",
   "confirm-checklist-delete-popup": "Weet je zeker dat je de checklist wilt verwijderen?",
+  "confirm-checklist-item-delete-popup": "Are you sure you want to delete the checklist item?",
   "subtaskDeletePopup-title": "Subtaak Verwijderen?",
   "checklistDeletePopup-title": "Checklist Verwijderen?",
   "checklistItemDeletePopup-title": "Checklist Item Verwijderen?",
