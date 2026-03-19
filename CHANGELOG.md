@@ -36,6 +36,11 @@ This release fixes the following CRITICAL SECURITY ISSUES of [IntegrationBleed](
 - [Fix RebindBleed of IntegrationBleed](https://github.com/wekan/wekan/commit/92beaa313706bc26fbea7e1cc8cfaf836609e038).
   Thanks to Rodolphe GHIO and xet7.
 
+and adds the following new features:
+
+- [Add remaining features of Copy and Move of Swimlanes, Lists and Cards](https://github.com/wekan/wekan/commit/610849ab0bcfb72c92cf9cf512c51b8cede55dad).
+  Thanks to xet7.
+
 and adds the following updates:
 
 - [Bump docker/build-push-action from 6.19.2 to 7.0.0](https://github.com/wekan/wekan/pull/6181).
