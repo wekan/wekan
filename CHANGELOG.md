@@ -31,7 +31,12 @@ Upgrading to Meteor 3 progress:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES of [IntegrationBleed](https://wekan.fi/hall-of-fame/integrationBleed/):
+
+- [Fix RebindBleed of IntegrationBleed](https://github.com/wekan/wekan/commit/92beaa313706bc26fbea7e1cc8cfaf836609e038).
+  Thanks to Rodolphe GHIO and xet7.
+
+and adds the following updates:
 
 - [Bump docker/build-push-action from 6.19.2 to 7.0.0](https://github.com/wekan/wekan/pull/6181).
   Thanks to dependabot.
@@ -101,7 +106,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.35 2026-03-05 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES of [IntegrationBleed](https://wekan.fi/hall-of-fame/integrationBleed/):
+This release fixes the following CRITICAL SECURITY ISSUES of [IntegrationBleed](https://wekan.fi/hall-of-fame/integrationBleed/):
 
 - [Fix IntegrationBleed](https://github.com/wekan/wekan/commit/2cd702f48df2b8aef0e7381685f8e089986a18a4).
   Thanks to Rodolphe GHIO and xet7.
@@ -138,7 +143,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.34 2026-02-20 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES of [AnchorBleed](https://wekan.fi/hall-of-fame/anchorBleed/):
+This release fixes the following CRITICAL SECURITY ISSUES of [AnchorBleed](https://wekan.fi/hall-of-fame/anchorBleed/):
 
 - [Fix GHSL-2026-035_Wekan CursorBleed of AnchorBleed](https://github.com/wekan/wekan/commit/1c8667eae8b28739e43569b612ffdb2693c6b1ce).
   Thanks to GHSL and xet7.
@@ -605,7 +610,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.18 2025-12-28 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Upgraded MongoDB to 7.0.28 to fix MongoBleed at Snap Candidate](https://github.com/wekan/wekan/commit/e210c9973be55a4fa4e7dd15aefc24e06dbc3e7f).
   Thanks to developers of MongoDB.
@@ -1043,7 +1048,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v7.98 2025-10-11 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Security Fix: IDOR CWE-639 that affected WeKan 7.80-7.93](https://github.com/wekan/wekan/commit/b87cff1289d2c98ef84d69e171f112ecedb4d843).
   Thanks to Romain Korpas at apitech.fr and xet7.
@@ -3710,7 +3715,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v6.86 2023-04-26 WeKan ® release
 
-This release fixes the following CRITICAL SECURITY FIXES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Security fix to InvisibleBleed in WeKan. Escape HTML comment tags so that HTML comments are visible](https://github.com/wekan/wekan/commit/167863d95711249e69bb3511175d73b34acbbdb3).
   Thanks to xet7 for fixing.
@@ -3746,7 +3751,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v6.85 2023-04-18 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Security fix to ReactionBleed in WeKan. It is XSS in feature "Reaction to comment"](https://github.com/wekan/wekan/commit/47ac33d6c234359c31d9b5eae49ed3e793907279).
   Thanks to Alexander Starikov at Jet Infosystems (https://jetinfosystems.com/) for reporting and fixing.
@@ -5608,7 +5613,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v5.88 2021-12-22 WeKan ® release
 
-This release adds to following CRITICAL SECURITY FIXES:
+This release fixes to following CRITICAL SECURITY ISSUES:
 
 - [User now should only see archived cards belonging to boards to which he has permission](https://github.com/wekan/wekan/pull/4252).
   Thanks to jrsupplee.
@@ -7296,7 +7301,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v4.98 2021-02-24 Wekan release
 
-This release adds the following CRITICAL SECURITY FIXES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Updated Node.js to v12.21.0](https://github.com/wekan/wekan/commit/fde6a6593379277d601408ec83f6f5a4347afef0).
   Thanks to Node.js developers.
@@ -7834,7 +7839,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v4.75 2021-01-11 Wekan release
 
-This release adds the following CRITICAL SECURITY FIXES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Due Cards and Broken Cards: In All Users view, fixed to show cards only from other users Public Boards. Not anymore from private
   boards](https://github.com/wekan/wekan/commit/801d0aacf00eace05ec70d6f0229f2a752f119cd).
@@ -7916,7 +7921,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v4.70 2021-01-04 Wekan release
 
-This release adds the following CRITICAL SECURITY FIXES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Upgrade to Node.js 12.20.1](https://github.com/wekan/wekan/commit/4bfe017b08f573991fd1f9229ae53573798f475e).
   Thanks to Node developers.
