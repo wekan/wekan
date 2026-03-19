@@ -1,53 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { fetchSafe } from '/server/lib/ssrfGuard';
 
 if (Meteor.isServer) {
-  const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
-    HTTP.post(url, options, (err, res) => {
-      if (err) {
-        resolve(null, err.response);
-      } else {
-        resolve(null, res);
-      }
-    });
-  });
-
-  // SSRF Protection: Validate webhook URLs before posting
-  const isValidWebhookUrl = (urlString) => {
-    try {
-      const u = new URL(urlString);
-
-      // Only allow http and https protocols
-      if (!['http:', 'https:'].includes(u.protocol)) {
-        return false;
-      }
-
-      // Block private/loopback IP ranges and hostnames
-      const hostname = u.hostname.toLowerCase();
-      const blockedPatterns = [
-        /^127\./, // 127.x.x.x (loopback)
-        /^10\./, // 10.x.x.x (private)
-        /^172\.(1[6-9]|2\d|3[01])\./, // 172.16-31.x.x (private)
-        /^192\.168\./, // 192.168.x.x (private)
-        /^0\./, // 0.x.x.x (current network)
-        /^::1$/, // IPv6 loopback
-        /^fe80:/, // IPv6 link-local
-        /^fc00:/, // IPv6 unique local
-        /^fd00:/, // IPv6 unique local
-        /^localhost$/i,
-        /\.local$/i,
-        /^169\.254\./, // link-local IP (AWS metadata)
-      ];
-
-      if (blockedPatterns.some(pattern => pattern.test(hostname))) {
-        return false;
-      }
-
-      return true;
-    } catch {
-      return false;
-    }
-  };
 
   const Lock = {
     _lock: {},
@@ -199,23 +154,14 @@ if (Meteor.isServer) {
         //integrations.forEach(integration => {
         const is2way = integration.type === Integrations.Const.TWOWAY;
         const token = integration.token || '';
-        const headers = {
+        const fetchHeaders = {
           'Content-Type': 'application/json',
         };
-        if (token) headers['X-Wekan-Token'] = token;
-        const options = {
-          headers,
-          data: is2way ? { description, ...clonedParams } : value,
-        };
+        if (token) fetchHeaders['X-Wekan-Token'] = token;
 
         if (!(await ReactiveCache.getIntegration({ url: integration.url }))) return;
 
         const url = integration.url;
-
-        // SSRF Protection: Validate webhook URL before posting
-        if (!isValidWebhookUrl(url)) {
-          throw new Meteor.Error('invalid-webhook-url', 'Webhook URL is invalid or points to a private/internal address');
-        }
 
         if (is2way) {
           const cid = params.commentId;
@@ -228,16 +174,32 @@ if (Meteor.isServer) {
             Lock.set(cid, comment); // set a lock here
           }
         }
-        const response = postCatchError(url, options);
 
-        if (
-          response &&
-          response.statusCode &&
-          response.statusCode >= 200 &&
-          response.statusCode < 300
-        ) {
+        // fetchSafe resolves DNS once, pins the connection to the resolved IP,
+        // and blocks redirects — fully preventing DNS-rebinding SSRF attacks.
+        let response;
+        try {
+          response = await fetchSafe(url, {
+            method: 'POST',
+            headers: fetchHeaders,
+            body: JSON.stringify(is2way ? { description, ...clonedParams } : value),
+          });
+        } catch (err) {
+          throw new Meteor.Error(
+            'invalid-webhook-url',
+            `Webhook request failed: ${err.message}`,
+          );
+        }
+
+        if (response && response.status >= 200 && response.status < 300) {
           if (is2way) {
-            const data = response.data; // only an JSON encoded response will be actioned
+            // Only act on a JSON-encoded response body
+            let data = null;
+            try {
+              data = await response.json();
+            } catch {
+              data = null;
+            }
             if (data) {
               try {
                 await responseFunc(data, integration);
