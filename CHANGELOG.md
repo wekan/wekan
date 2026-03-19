@@ -82,6 +82,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed crash when IFTTT Rules archived card, but cards etc are not visible at archive yet. Fixed "Add After List" to show lists only from current Swimlane](https://github.com/wekan/wekan/commit/0c29fa3cbee49f054591ce421d790d364f4f28af).
   Thanks to xet7.
+- [Fixed crash at sign-up page, when registering new user, happened after some PR](https://github.com/wekan/wekan/commit/ccd23f6cdea8b012e492674491969271cbbad842).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
