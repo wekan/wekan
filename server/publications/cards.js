@@ -161,6 +161,65 @@ publishComposite('popupCardData', async function(cardId) {
   };
 });
 
+Meteor.publish('archiveSidebar', async function(boardId, cardsLimit = 30) {
+  check(boardId, String);
+  check(cardsLimit, Match.Integer);
+
+  const userId = this.userId;
+  if (!userId) {
+    return this.ready();
+  }
+
+  const safeLimit = Math.max(1, Math.min(cardsLimit, 500));
+  const board = await ReactiveCache.getBoard({ _id: boardId });
+  if (!board || !board.isVisibleBy(userId)) {
+    return [];
+  }
+
+  const cardSelector = {
+    boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+    archived: true,
+  };
+
+  // Respect assigned-only board permissions for archived cards as well.
+  if (board.members) {
+    const member = _.findWhere(board.members, { userId, isActive: true });
+    if (
+      member &&
+      (member.isNormalAssignedOnly ||
+        member.isCommentAssignedOnly ||
+        member.isReadAssignedOnly)
+    ) {
+      cardSelector.assignees = { $in: [userId] };
+    }
+  }
+
+  return [
+    Cards.find(cardSelector, {
+      sort: { archivedAt: -1, modifiedAt: -1 },
+      limit: safeLimit,
+    }),
+    Lists.find(
+      {
+        boardId,
+        archived: true,
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    ),
+    Swimlanes.find(
+      {
+        boardId,
+        archived: true,
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    ),
+  ];
+});
+
 Meteor.publish('myCards', async function(sessionId) {
   check(sessionId, String);
 

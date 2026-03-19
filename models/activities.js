@@ -75,9 +75,13 @@ Activities.before.insert((userId, doc) => {
 });
 
 if (Meteor.isServer) {
-  Activities.after.insert((userId, doc) => {
+  Activities.after.insert(async (userId, doc) => {
     const activity = Activities._transform(doc);
-    RulesHelper.executeRules(activity);
+    try {
+      await RulesHelper.executeRules(activity);
+    } catch (e) {
+      console.error('RulesHelper.executeRules error for activity', doc._id, e);
+    }
   });
 
   // For efficiency create indexes on the date of creation, and on the date of

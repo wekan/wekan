@@ -2015,25 +2015,26 @@ Cards.helpers({
     return pokerWinnersListMap[0].pokerCard;
   },
 
-  applyToChildren(funct) {
-    const cards = ReactiveCache.getCards({ parentId: this._id });
+  async applyToChildren(funct) {
+    const cards = await ReactiveCache.getCards({ parentId: this._id });
+    if (!cards) return;
     for (const card of cards) {
-      funct(card);
+      await funct(card);
     }
   },
 
-  archive() {
-    this.applyToChildren(card => {
-      card.archive();
+  async archive() {
+    await this.applyToChildren(async card => {
+      await card.archive();
     });
     return Cards.updateAsync(this._id, {
       $set: { archived: true, archivedAt: new Date() },
     });
   },
 
-  restore() {
-    this.applyToChildren(card => {
-      card.restore();
+  async restore() {
+    await this.applyToChildren(async card => {
+      await card.restore();
     });
     return Cards.updateAsync(this._id, {
       $set: { archived: false },
@@ -3193,9 +3194,12 @@ if (Meteor.isServer) {
 
   //New activity for card moves
   Cards.after.update(async function(userId, doc, fieldNames) {
-    const oldListId = this.previous.listId;
-    const oldSwimlaneId = this.previous.swimlaneId;
-    const oldBoardId = this.previous.boardId;
+    // Some runtimes may not provide `this.previous` reliably for all updates.
+    // Fall back to current values so non-move updates are never treated as moves.
+    const previous = this.previous || {};
+    const oldListId = previous.listId || doc.listId;
+    const oldSwimlaneId = previous.swimlaneId || doc.swimlaneId;
+    const oldBoardId = previous.boardId || doc.boardId;
     await cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId);
   });
 

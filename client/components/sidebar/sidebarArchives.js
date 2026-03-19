@@ -3,8 +3,8 @@ import { TAPi18n } from '/imports/i18n';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 
-//archivedRequested = false;
-const subManager = new SubsManager();
+const ARCHIVE_PAGE_SIZE = 30;
+const ARCHIVE_SCROLL_THRESHOLD_PX = 120;
 
 function getArchivedCards() {
   const ret = ReactiveCache.getCards(
@@ -45,26 +45,51 @@ function getArchivedSwimlanes() {
 
 Template.archivesSidebar.onCreated(function () {
   this.isArchiveReady = new ReactiveVar(false);
+  this.archivedCardsLimit = new ReactiveVar(ARCHIVE_PAGE_SIZE);
+  this.isLoadingMoreCards = false;
 
-  // The pattern we use to manually handle data loading is described here:
-  // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
-  // XXX The boardId should be readed from some sort the component "props",
-  // unfortunatly, Blaze doesn't have this notion.
   this.autorun(() => {
     const currentBoardId = Session.get('currentBoard');
     if (!currentBoardId) return;
-    const handle = subManager.subscribe('board', currentBoardId, true);
-    //archivedRequested = true;
-    Tracker.nonreactive(() => {
-      Tracker.autorun(() => {
-        this.isArchiveReady.set(handle.ready());
-      });
-    });
+    const currentLimit = this.archivedCardsLimit.get();
+    const handle = this.subscribe('archiveSidebar', currentBoardId, currentLimit);
+    this.isArchiveReady.set(handle.ready());
+    if (handle.ready()) {
+      this.isLoadingMoreCards = false;
+    }
   });
 });
 
 Template.archivesSidebar.onRendered(function () {
-  // XXX We should support dragging a card from the sidebar to the board
+  const container = this.find('.js-board-sidebar-content');
+  if (!container) return;
+
+  this.loadMoreArchivedCardsOnScroll = _.throttle(() => {
+    if (this.isLoadingMoreCards || !this.isArchiveReady.get()) return;
+
+    const nearBottom =
+      container.scrollTop + container.clientHeight >=
+      container.scrollHeight - ARCHIVE_SCROLL_THRESHOLD_PX;
+    if (!nearBottom) return;
+
+    const loadedCardCount = getArchivedCards().length;
+    const currentLimit = this.archivedCardsLimit.get();
+
+    // If there are fewer cards than requested, we've likely reached the end.
+    if (loadedCardCount < currentLimit) return;
+
+    this.isLoadingMoreCards = true;
+    this.archivedCardsLimit.set(currentLimit + ARCHIVE_PAGE_SIZE);
+  }, 200);
+
+  container.addEventListener('scroll', this.loadMoreArchivedCardsOnScroll);
+});
+
+Template.archivesSidebar.onDestroyed(function() {
+  const container = this.find('.js-board-sidebar-content');
+  if (container && this.loadMoreArchivedCardsOnScroll) {
+    container.removeEventListener('scroll', this.loadMoreArchivedCardsOnScroll);
+  }
 });
 
 Template.archivesSidebar.helpers({
@@ -102,7 +127,8 @@ Template.archivesSidebar.helpers({
   },
 
   cardIsInArchivedList() {
-    return Template.currentData().list().archived;
+    const list = Template.currentData().list();
+    return list ? list.archived : false;
   },
 });
 

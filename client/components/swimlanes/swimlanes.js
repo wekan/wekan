@@ -696,6 +696,17 @@ Template.addListForm.onCreated(function () {
   this.currentSwimlane = Template.currentData();
 });
 
+Template.addListForm.helpers({
+  swimlaneLists() {
+    const swimlane = Template.instance().currentSwimlane;
+    if (!swimlane?._id) return [];
+    return ReactiveCache.getLists(
+      { swimlaneId: swimlane._id, archived: false },
+      { sort: { sort: 1 } },
+    );
+  },
+});
+
 Template.addListForm.events({
   submit(evt, tpl) {
     evt.preventDefault();
@@ -706,26 +717,28 @@ Template.addListForm.events({
     if (!title) return;
 
     let sortIndex = 0;
-    const lastList = tpl.currentBoard.getLastList();
     const boardId = Utils.getCurrentBoardId();
-    let swimlaneId = tpl.currentSwimlane._id;
+    const swimlaneId = tpl.currentSwimlane._id;
 
     const positionInput = tpl.find('.list-position-input');
 
     if (positionInput) {
       const positionId = positionInput.value.trim();
-      const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
+      const selectedList = ReactiveCache.getList({ boardId, swimlaneId, _id: positionId, archived: false });
 
       if (selectedList) {
         sortIndex = selectedList.sort + 1;
-        // Use the swimlane ID from the selected list to ensure the new list
-        // is added to the same swimlane as the selected list
-        swimlaneId = selectedList.swimlaneId;
       } else {
-        sortIndex = Utils.calculateIndexData(lastList, null).base;
+        // Position list not found in this swimlane; append after last swimlane list.
+        const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
+        const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
+        sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
       }
     } else {
-      sortIndex = Utils.calculateIndexData(lastList, null).base;
+      // No position dropdown (empty swimlane) — append after last swimlane list if any.
+      const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
+      const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
+      sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
     }
 
     Lists.insert({

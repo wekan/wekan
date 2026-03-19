@@ -59,6 +59,7 @@ RulesHelper = {
   },
   async performAction(activity, action) {
     const card = await ReactiveCache.getCard(activity.cardId);
+    if (!card) return;
     const boardId = activity.boardId;
     if (
       action.actionType === 'moveCardToTop' ||
@@ -247,10 +248,14 @@ RulesHelper = {
       }
     }
     if (action.actionType === 'archive') {
-      await card.archive();
+      if (!card.archived) {
+        await card.archive();
+      }
     }
     if (action.actionType === 'unarchive') {
-      await card.restore();
+      if (card.archived) {
+        await card.restore();
+      }
     }
     if (action.actionType === 'setColor') {
       await card.setColor(action.selectedColor);
