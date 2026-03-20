@@ -6,17 +6,20 @@ Not paid:
   - Security reports, see [SECURITY.md](SECURITY.md)
   - Pull requests
   - xet7 checking pull requests
-- Public Community Support
+  - This is because full-featured WeKan FLOSS kanban with MIT license is free to use
+    also for Commercial Use without any payment, with full source code at
+    https://github.com/wekan/wekan for all platforms at https://wekan.fi/install/ .
+    There is nothing propietary. WeKan is NOT Big Tech.
+    WeKan is maintained by https://github.com/xet7 at Finland https://wekan.fi .     
+- Public FLOSS Developer Community Support:
   - https://github.com/wekan/wekan/issues
 
-Paid by customers of WeKan Team:
+Paid by customers of WeKan to WeKan:
 
-- Commercial Support at https://wekan.fi/commercial-support/
-  - Support
+- Optional Private Paid Commercial Support at https://wekan.fi/commercial-support/
+  - Optional Paid Support/Features/Fixes/PrivateChat
+  - Optional Official SaaS Hosting https://wekan.fi/saas/ , if you need more features than free app https://wekan.fi/app/
   - Private Chat
-  - Features
-  - Fixes
-  - Hosting
 
 ## Contributing Security related
 

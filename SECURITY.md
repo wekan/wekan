@@ -1,3 +1,6 @@
+## About money
+
+See [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Responsible Security Disclosure
 
