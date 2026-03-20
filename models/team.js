@@ -254,6 +254,14 @@ if (Meteor.isServer) {
         await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
       }
     },
+    async getTeamsCollectionCount(query = {}) {
+      if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
+        throw new Meteor.Error('not-authorized');
+      }
+      check(query, Match.OneOf(Object, null, undefined));
+      const count = await (await ReactiveCache.getTeams(query, {}, true)).count();
+      return count;
+    },
   });
 }
 

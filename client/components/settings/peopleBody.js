@@ -25,10 +25,61 @@ Template.people.onCreated(function () {
   this.numberTeams = new ReactiveVar(0);
   this.numberPeople = new ReactiveVar(0);
   this.userFilterType = new ReactiveVar('all');
+  this.peoplePage = new ReactiveVar(1);
+  this.orgPage = new ReactiveVar(1);
+  this.teamPage = new ReactiveVar(1);
 
   this.page = new ReactiveVar(1);
   this.loadNextPageLocked = false;
   this.infiniteScrolling.resetNextPeak();
+
+  this.refreshUsersCount = () => {
+    const query = this.findUsersOptions.get();
+    Meteor.call('getUsersCollectionCount', query, (error, count) => {
+      if (error) {
+        console.error('Failed to load users collection count:', error);
+        return;
+      }
+      const total = count || 0;
+      const totalPages = Math.max(1, Math.ceil(total / usersPerPage));
+      if (this.peoplePage.get() > totalPages) {
+        this.peoplePage.set(totalPages);
+      }
+      this.numberPeople.set(total);
+    });
+  };
+
+  this.refreshOrgsCount = () => {
+    const query = this.findOrgsOptions.get();
+    Meteor.call('getOrgsCollectionCount', query, (error, count) => {
+      if (error) {
+        console.error('Failed to load orgs collection count:', error);
+        return;
+      }
+      const total = count || 0;
+      const totalPages = Math.max(1, Math.ceil(total / orgsPerPage));
+      if (this.orgPage.get() > totalPages) {
+        this.orgPage.set(totalPages);
+      }
+      this.numberOrgs.set(total);
+    });
+  };
+
+  this.refreshTeamsCount = () => {
+    const query = this.findTeamsOptions.get();
+    Meteor.call('getTeamsCollectionCount', query, (error, count) => {
+      if (error) {
+        console.error('Failed to load teams collection count:', error);
+        return;
+      }
+      const total = count || 0;
+      const totalPages = Math.max(1, Math.ceil(total / teamsPerPage));
+      if (this.teamPage.get() > totalPages) {
+        this.teamPage.set(totalPages);
+      }
+      this.numberTeams.set(total);
+    });
+  };
 
   this.calculateNextPeak = () => {
     const element = this.find('.main-body');
@@ -58,6 +109,8 @@ Template.people.onCreated(function () {
     } else {
       this.findOrgsOptions.set({});
     }
+    this.orgPage.set(1);
+    this.refreshOrgsCount();
   };
 
   this.filterTeam = () => {
@@ -73,6 +126,8 @@ Template.people.onCreated(function () {
     } else {
       this.findTeamsOptions.set({});
     }
+    this.teamPage.set(1);
+    this.refreshTeamsCount();
   };
 
   this.filterPeople = () => {
@@ -119,13 +174,14 @@ Template.people.onCreated(function () {
     }
 
     this.findUsersOptions.set(query);
+    this.peoplePage.set(1);
   };
 
   this.switchMenu = (event) => {
-    const target = $(event.target);
+    const target = $(event.currentTarget);
     if (!target.hasClass('active')) {
       $('.side-menu li.active').removeClass('active');
-      target.parent().addClass('active');
+      target.closest('li').addClass('active');
       const targetID = target.data('id');
       this.orgSetting.set('org-setting' === targetID);
       this.teamSetting.set('team-setting' === targetID);
@@ -144,11 +200,14 @@ Template.people.onCreated(function () {
   };
 
   this.autorun(() => {
-    const limitOrgs = this.page.get() * orgsPerPage;
-    const limitTeams = this.page.get() * teamsPerPage;
-    const limitUsers = this.page.get() * usersPerPage;
+    const limitOrgs = orgsPerPage;
+    const skipOrgs = (this.orgPage.get() - 1) * orgsPerPage;
+    const limitTeams = teamsPerPage;
+    const skipTeams = (this.teamPage.get() - 1) * teamsPerPage;
+    const limitUsers = usersPerPage;
+    const skipUsers = (this.peoplePage.get() - 1) * usersPerPage;
 
-    this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {
+    this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, skipOrgs, () => {
       this.loadNextPageLocked = false;
       const nextPeakBefore = this.infiniteScrolling.getNextPeak();
       this.calculateNextPeak();
@@ -156,9 +215,10 @@ Template.people.onCreated(function () {
       if (nextPeakBefore === nextPeakAfter) {
         this.infiniteScrolling.resetNextPeak();
       }
+      this.refreshOrgsCount();
     });
 
-    this.subscribe('team', this.findTeamsOptions.get(), limitTeams, () => {
+    this.subscribe('team', this.findTeamsOptions.get(), limitTeams, skipTeams, () => {
       this.loadNextPageLocked = false;
       const nextPeakBefore = this.infiniteScrolling.getNextPeak();
       this.calculateNextPeak();
@@ -166,9 +226,10 @@ Template.people.onCreated(function () {
       if (nextPeakBefore === nextPeakAfter) {
         this.infiniteScrolling.resetNextPeak();
       }
+      this.refreshTeamsCount();
     });
 
-    this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {
+    this.subscribe('people', this.findUsersOptions.get(), limitUsers, skipUsers, () => {
       this.loadNextPageLocked = false;
       const nextPeakBefore = this.infiniteScrolling.getNextPeak();
       this.calculateNextPeak();
@@ -176,6 +237,8 @@ Template.people.onCreated(function () {
       if (nextPeakBefore === nextPeakAfter) {
         this.infiniteScrolling.resetNextPeak();
       }
+
+      this.refreshUsersCount();
     });
   });
 });
@@ -198,38 +261,62 @@ Template.people.helpers({
   },
   orgList() {
     const tpl = Template.instance();
-    const limitOrgs = tpl.page.get() * orgsPerPage;
-    const orgs = ReactiveCache.getOrgs(tpl.findOrgsOptions.get(), {
+    const page = tpl.orgPage.get();
+    const skipOrgs = (page - 1) * orgsPerPage;
+    const orgs = Org.find(tpl.findOrgsOptions.get(), {
       sort: { orgDisplayName: 1 },
-      limit: limitOrgs,
-      fields: { _id: true },
-    });
-    // Count only the items currently loaded to browser, not total from database
-    tpl.numberOrgs.set(orgs.length);
+      skip: skipOrgs,
+      limit: orgsPerPage,
+      fields: {
+        _id: 1,
+        orgDisplayName: 1,
+        orgDesc: 1,
+        orgShortName: 1,
+        orgWebsite: 1,
+        createdAt: 1,
+        orgIsActive: 1,
+      },
+    }).fetch();
     return orgs;
   },
   teamList() {
     const tpl = Template.instance();
-    const limitTeams = tpl.page.get() * teamsPerPage;
-    const teams = ReactiveCache.getTeams(tpl.findTeamsOptions.get(), {
+    const page = tpl.teamPage.get();
+    const skipTeams = (page - 1) * teamsPerPage;
+    const teams = Team.find(tpl.findTeamsOptions.get(), {
       sort: { teamDisplayName: 1 },
-      limit: limitTeams,
-      fields: { _id: true },
-    });
-    // Count only the items currently loaded to browser, not total from database
-    tpl.numberTeams.set(teams.length);
+      skip: skipTeams,
+      limit: teamsPerPage,
+      fields: {
+        _id: 1,
+        teamDisplayName: 1,
+        teamDesc: 1,
+        teamShortName: 1,
+        teamWebsite: 1,
+        createdAt: 1,
+        teamIsActive: 1,
+      },
+    }).fetch();
     return teams;
   },
   peopleList() {
     const tpl = Template.instance();
-    const limitUsers = tpl.page.get() * usersPerPage;
-    const users = ReactiveCache.getUsers(tpl.findUsersOptions.get(), {
+    const page = tpl.peoplePage.get();
+    const skipUsers = (page - 1) * usersPerPage;
+    const users = Users.find(tpl.findUsersOptions.get(), {
       sort: { username: 1 },
-      limit: limitUsers,
-      fields: { _id: true },
-    });
-    // Count only the items currently loaded to browser, not total from database
-    tpl.numberPeople.set(users.length);
+      skip: skipUsers,
+      limit: usersPerPage,
+      fields: {
+        _id: 1,
+        username: 1,
+        emails: 1,
+        isAdmin: 1,
+        createdAt: 1,
+        loginDisabled: 1,
+        services: 1,
+      },
+    }).fetch();
     return users;
   },
   orgNumber() {
@@ -241,10 +328,61 @@ Template.people.helpers({
   peopleNumber() {
     return Template.instance().numberPeople.get();
   },
+  peopleCurrentPage() {
+    return Template.instance().peoplePage.get();
+  },
+  peopleTotalPages() {
+    const totalUsers = Template.instance().numberPeople.get() || 0;
+    return Math.max(1, Math.ceil(totalUsers / usersPerPage));
+  },
+  hasPeoplePrevPage() {
+    return Template.instance().peoplePage.get() > 1;
+  },
+  hasPeopleNextPage() {
+    const tpl = Template.instance();
+    const totalUsers = tpl.numberPeople.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalUsers / usersPerPage));
+    return tpl.peoplePage.get() < totalPages;
+  },
+  orgCurrentPage() {
+    return Template.instance().orgPage.get();
+  },
+  orgTotalPages() {
+    const totalOrgs = Template.instance().numberOrgs.get() || 0;
+    return Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
+  },
+  hasOrgPrevPage() {
+    return Template.instance().orgPage.get() > 1;
+  },
+  hasOrgNextPage() {
+    const tpl = Template.instance();
+    const totalOrgs = tpl.numberOrgs.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
+    return tpl.orgPage.get() < totalPages;
+  },
+  teamCurrentPage() {
+    return Template.instance().teamPage.get();
+  },
+  teamTotalPages() {
+    const totalTeams = Template.instance().numberTeams.get() || 0;
+    return Math.max(1, Math.ceil(totalTeams / teamsPerPage));
+  },
+  hasTeamPrevPage() {
+    return Template.instance().teamPage.get() > 1;
+  },
+  hasTeamNextPage() {
+    const tpl = Template.instance();
+    const totalTeams = tpl.numberTeams.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalTeams / teamsPerPage));
+    return tpl.teamPage.get() < totalPages;
+  },
 });
 
 Template.people.events({
   'scroll .main-body'(event, tpl) {
+    if (tpl.peopleSetting.get()) {
+      return;
+    }
     tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {
       tpl.loadNextPage();
     });
@@ -281,6 +419,54 @@ Template.people.events({
     tpl.userFilterType.set(filterType);
     tpl.filterPeople();
   },
+  'click .js-people-prev-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.peoplePage.get();
+    if (current > 1) {
+      tpl.peoplePage.set(current - 1);
+    }
+  },
+  'click .js-people-next-page'(event, tpl) {
+    event.preventDefault();
+    const totalUsers = tpl.numberPeople.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalUsers / usersPerPage));
+    const current = tpl.peoplePage.get();
+    if (current < totalPages) {
+      tpl.peoplePage.set(current + 1);
+    }
+  },
+  'click .js-org-prev-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.orgPage.get();
+    if (current > 1) {
+      tpl.orgPage.set(current - 1);
+    }
+  },
+  'click .js-org-next-page'(event, tpl) {
+    event.preventDefault();
+    const totalOrgs = tpl.numberOrgs.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
+    const current = tpl.orgPage.get();
+    if (current < totalPages) {
+      tpl.orgPage.set(current + 1);
+    }
+  },
+  'click .js-team-prev-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.teamPage.get();
+    if (current > 1) {
+      tpl.teamPage.set(current - 1);
+    }
+  },
+  'click .js-team-next-page'(event, tpl) {
+    event.preventDefault();
+    const totalTeams = tpl.numberTeams.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalTeams / teamsPerPage));
+    const current = tpl.teamPage.get();
+    if (current < totalPages) {
+      tpl.teamPage.set(current + 1);
+    }
+  },
   'click #unlockAllUsers'(event) {
     event.preventDefault();
     if (confirm(TAPi18n.__('accounts-lockout-confirm-unlock-all'))) {
@@ -315,12 +501,18 @@ Template.people.events({
   },
   'click a.js-org-menu'(event, tpl) {
     tpl.switchMenu(event);
+    tpl.orgPage.set(1);
+    tpl.refreshOrgsCount();
   },
   'click a.js-team-menu'(event, tpl) {
     tpl.switchMenu(event);
+    tpl.teamPage.set(1);
+    tpl.refreshTeamsCount();
   },
   'click a.js-people-menu'(event, tpl) {
     tpl.switchMenu(event);
+    tpl.peoplePage.set(1);
+    tpl.refreshUsersCount();
   },
   'click a.js-locked-users-menu'(event, tpl) {
     tpl.switchMenu(event);
@@ -329,22 +521,22 @@ Template.people.events({
 
 Template.orgRow.helpers({
   orgData() {
-    return ReactiveCache.getOrg(this.orgId);
+    return this.org || ReactiveCache.getOrg(this.orgId);
   },
 });
 
 Template.teamRow.helpers({
   teamData() {
-    return ReactiveCache.getTeam(this.teamId);
+    return this.team || ReactiveCache.getTeam(this.teamId);
   },
 });
 
 Template.peopleRow.helpers({
   userData() {
-    return ReactiveCache.getUser(this.userId);
+    return this.user || ReactiveCache.getUser(this.userId);
   },
   isUserLocked() {
-    const user = ReactiveCache.getUser(this.userId);
+    const user = this.user || ReactiveCache.getUser(this.userId);
     if (!user) return false;
 
     // Check if user has accounts-lockout with unlockTime property
@@ -555,7 +747,7 @@ Template.peopleRow.events({
   },
   'click .js-toggle-active-status': function(ev) {
       ev.preventDefault();
-      const userId = this.userId;
+      const userId = this.userId || this.user?._id;
       const user = ReactiveCache.getUser(userId);
 
       if (!user) return;
@@ -572,7 +764,7 @@ Template.peopleRow.events({
   },
   'click .js-toggle-lock-status': function(ev){
       ev.preventDefault();
-      const userId = this.userId;
+      const userId = this.userId || this.user?._id;
       const user = ReactiveCache.getUser(userId);
 
       if (!user) return;

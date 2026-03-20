@@ -3596,6 +3596,24 @@ if (Meteor.isServer) {
       check(userData, Object);
       return sanitizeUserForSearch(userData);
     },
+    async getUsersCollectionCount(query = {}) {
+      check(query, Match.OneOf(Object, null, undefined));
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-logged-in', 'User must be logged in');
+      }
+
+      const currentUser = await ReactiveCache.getUser(
+        { _id: this.userId },
+        { fields: { isAdmin: 1 } },
+      );
+
+      if (!currentUser || !currentUser.isAdmin) {
+        throw new Meteor.Error('not-authorized', 'Admin access required');
+      }
+
+      return (await ReactiveCache.getUsers(query || {}, {}, true)).count();
+    },
     async searchUsers(query, boardId) {
       check(query, String);
       check(boardId, String);

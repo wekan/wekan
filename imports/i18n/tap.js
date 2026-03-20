@@ -70,7 +70,18 @@ export const TAPi18n = {
       custom_translations = ReactiveCache.getTranslations({language: language}, {fields: { text: true, translationText: true }});
 
       if (custom_translations && custom_translations.length > 0) {
-        data = custom_translations.reduce((acc, cur) => (acc[cur.text]=cur.translationText, acc), data);
+        data = custom_translations.reduce((acc, cur) => {
+          const key = typeof cur?.text === 'string' ? cur.text.trim() : '';
+          const value = typeof cur?.translationText === 'string' ? cur.translationText.trim() : '';
+
+          // Ignore invalid overrides so built-in file translations stay visible.
+          if (!key || !value || key === value) {
+            return acc;
+          }
+
+          acc[key] = value;
+          return acc;
+        }, data);
       }
 
       this.i18n.addResourceBundle(language, DEFAULT_NAMESPACE, data);
@@ -86,9 +97,24 @@ export const TAPi18n = {
   // Return translation by key
   __(key, options, language) {
     this.current.dep.depend();
-    return this.i18n.t(key, {
+    const translation = this.i18n.t(key, {
       ...options,
       lng: language,
     });
+
+    // If the selected language misses the key, fallback explicitly to English.
+    if (translation === key) {
+      const englishFallback = this.i18n.t(key, {
+        ...options,
+        lng: DEFAULT_LANGUAGE,
+        fallbackLng: false,
+      });
+
+      if (englishFallback !== key) {
+        return englishFallback;
+      }
+    }
+
+    return translation;
   }
 };

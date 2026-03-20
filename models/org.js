@@ -287,6 +287,14 @@ if (Meteor.isServer) {
         await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
       }
     },
+    async getOrgsCollectionCount(query = {}) {
+      if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
+        throw new Meteor.Error('not-authorized');
+      }
+      check(query, Match.OneOf(Object, null, undefined));
+      const count = await (await ReactiveCache.getOrgs(query, {}, true)).count();
+      return count;
+    },
   });
 }
 

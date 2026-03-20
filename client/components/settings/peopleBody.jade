@@ -88,52 +88,70 @@ template(name="people")
           if loading.get
             +spinner
           else if orgSetting.get
-            +orgGeneral
+            +orgGeneral(orgList=orgList orgCurrentPage=orgCurrentPage orgTotalPages=orgTotalPages hasOrgPrevPage=hasOrgPrevPage hasOrgNextPage=hasOrgNextPage)
           else if teamSetting.get
-            +teamGeneral
+            +teamGeneral(teamList=teamList teamCurrentPage=teamCurrentPage teamTotalPages=teamTotalPages hasTeamPrevPage=hasTeamPrevPage hasTeamNextPage=hasTeamNextPage)
           else if peopleSetting.get
-            +peopleGeneral
+            +peopleGeneral(peopleList=peopleList peopleCurrentPage=peopleCurrentPage peopleTotalPages=peopleTotalPages hasPeoplePrevPage=hasPeoplePrevPage hasPeopleNextPage=hasPeopleNextPage)
           else if lockedUsersSetting.get
             +lockedUsersGeneral
 
 
 template(name="orgGeneral")
+  .org-pagination
+    button.js-org-prev-page(class="{{#if hasOrgPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.org-page-info {{orgCurrentPage}} / {{orgTotalPages}}
+    button.js-org-next-page(class="{{#if hasOrgNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   table
     thead
       tr
+        th
+          +newOrgRow
         th {{_ 'displayName'}}
         th {{_ 'description'}}
         th {{_ 'shortName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
         th {{_ 'active'}}
-        th
-          +newOrgRow
     tbody
       tr
       each org in orgList
-        +orgRow(orgId=org._id)
+        +orgRow(org=org)
 
 template(name="teamGeneral")
+  .team-pagination
+    button.js-team-prev-page(class="{{#if hasTeamPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.team-page-info {{teamCurrentPage}} / {{teamTotalPages}}
+    button.js-team-next-page(class="{{#if hasTeamNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   table
     thead
       tr
+        th
+          +newTeamRow
         th {{_ 'displayName'}}
         th {{_ 'description'}}
         th {{_ 'shortName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
         th {{_ 'active'}}
-        th
-          +newTeamRow
     tbody
       tr
       each team in teamList
-        +teamRow(teamId=team._id)
+        +teamRow(team=team)
 
 template(name="peopleGeneral")
   #divAddOrRemoveTeamContainer
     +modifyTeamsUsers
+  .people-pagination
+    button.js-people-prev-page(class="{{#if hasPeoplePrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.people-page-info {{peopleCurrentPage}} / {{peopleTotalPages}}
+    button.js-people-next-page(class="{{#if hasPeopleNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   table
     thead
       tr
@@ -150,7 +168,7 @@ template(name="peopleGeneral")
     tbody
       tr
       each user in peopleList
-        +peopleRow(userId=user._id)
+        +peopleRow(user=user)
 
 template(name="selectAllUser")
   | {{_ 'dueCardsViewChange-choice-all'}}
@@ -173,6 +191,12 @@ template(name="newUserRow")
 
 template(name="orgRow")
   tr
+    td
+      a.edit-org
+        i.fa.fa-pencil-square-o
+        | {{_ 'edit'}}
+      a.more-settings-org
+        | ⋯
     if orgData.orgIsActive
       td {{ orgData.orgDisplayName }}
     else
@@ -198,15 +222,15 @@ template(name="orgRow")
         | {{_ 'yes'}}
       else
         | {{_ 'no'}}
-    td
-      a.edit-org
-        i.fa.fa-pencil-square-o
-        | {{_ 'edit'}}
-      a.more-settings-org
-        | ⋯
 
 template(name="teamRow")
   tr
+    td
+      a.edit-team
+        i.fa.fa-pencil-square-o
+        | {{_ 'edit'}}
+      a.more-settings-team
+        | ⋯
     if teamData.teamIsActive
       td {{ teamData.teamDisplayName }}
     else
@@ -232,12 +256,6 @@ template(name="teamRow")
         | {{_ 'yes'}}
       else
         | {{_ 'no'}}
-    td
-      a.edit-team
-        i.fa.fa-pencil-square-o
-        | {{_ 'edit'}}
-      a.more-settings-team
-        | ⋯
 
 template(name="peopleRow")
   tr

@@ -1,8 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-Meteor.publish('org', async function(query, limit) {
+Meteor.publish('org', async function(query, limit, skip = 0) {
   check(query, Match.OneOf(Object, null));
   check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
 
   let ret = [];
   const user = await ReactiveCache.getCurrentUser();
@@ -11,6 +12,7 @@ Meteor.publish('org', async function(query, limit) {
     ret = await ReactiveCache.getOrgs(query,
       {
         limit,
+        skip: skip || 0,
         sort: { createdAt: -1 },
         fields: {
           orgDisplayName: 1,
