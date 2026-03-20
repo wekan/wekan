@@ -42,6 +42,10 @@ This release adds the following updates:
   [Part 4](https://github.com/wekan/wekan/commit/e705df663487b7d394d327168628402ad9b93ba2),
   [Part 5](https://github.com/wekan/wekan/commit/e50b9f211de7d6b7b9c7ec1e5027015e136093a6),
   [Part 6](https://github.com/wekan/wekan/commit/7ed26f437d07ff520eb4a8d0fd8f205ea2d1e49e).
+
+and fixes the following bugs:
+
+- [Fix List of users is empty, some translations not visible, count of orgs/teams/people, theme of some buttons, New org/team to be leftmost column](https://github.com/wekan/wekan/commit/803eb452e96945383f480a8cd532233e17263d38).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
