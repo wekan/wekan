@@ -22,8 +22,7 @@ Paid by customers of WeKan to WeKan:
 
 ## Contributing Security related
 
-For responsible security disclosure, please follow this process:
-https://github.com/wekan/wekan/blob/main/SECURITY.md
+For responsible security disclosure, please follow this process: [SECURITY.md](SECURITY.md)
 
 CVE Hall of Fame is at https://wekan.fi/hall-of-fame/
 
@@ -46,7 +45,7 @@ Changes can be like typo fixes, bugfixes, features, or anything else
 like for example at open GitHub issues https://github.com/wekan/wekan/issues .
 Closed issues are already fixed or implemented.
 
-Also see other docs at wiki, for example:
+Also see other docs:
 
 https://github.com/wekan/wekan/tree/main/docs/DeveloperDocs
 
