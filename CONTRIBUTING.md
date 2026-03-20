@@ -25,7 +25,7 @@ Paid by customers of WeKan to WeKan:
 For responsible security disclosure, please follow this process:
 https://github.com/wekan/wekan/blob/main/SECURITY.md
 
-CVE Hall of Fame is at https://wekan.github.io/hall-of-fame/
+CVE Hall of Fame is at https://wekan.fi/hall-of-fame/
 
 ## Contributing to Documentation Wiki
 
@@ -35,7 +35,7 @@ and click send PR.
 
 ## Contributing code
 
-[Building WeKan and sending PR](https://github.com/wekan/wekan/wiki/Emoji).
+[Building WeKan and sending PR](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md).
 
 WeKan code contributors Hall of Fame is at ChangeLog, where
 GitHub usernames are mentioned with changes added:
@@ -48,7 +48,7 @@ Closed issues are already fixed or implemented.
 
 Also see other docs at wiki, for example:
 
-https://github.com/wekan/wekan/wiki/Developer-Documentation
+https://github.com/wekan/wekan/tree/main/docs/DeveloperDocs
 
 Do not use code formatting or linting like eslist or prettier.
 
@@ -66,7 +66,7 @@ so that WeKan code will still work OK.
 ## Contributing translations
 
 Non-English translations are contributed only at
-https://transifex.com/wekan/wekan
+https://app.transifex.com/wekan/wekan
 
 When adding new features, in your PR to
 https://github.com/wekan/wekan/pulls
