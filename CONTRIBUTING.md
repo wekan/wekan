@@ -19,7 +19,6 @@ Paid by customers of WeKan to WeKan:
 - Optional Private Paid Commercial Support at https://wekan.fi/commercial-support/
   - Optional Paid Support/Features/Fixes/PrivateChat
   - Optional Official SaaS Hosting https://wekan.fi/saas/ , if you need more features than free app https://wekan.fi/app/
-  - Private Chat
 
 ## Contributing Security related
 
