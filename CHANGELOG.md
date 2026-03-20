@@ -29,6 +29,15 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix card save does not work](https://github.com/wekan/wekan/commit/37142f3bb9f4f10a3049a9837456c0753e6e329a).
+  Thanks to comunidadplayasdetijuana, Janfy and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.36 2026-03-20 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [IntegrationBleed](https://wekan.fi/hall-of-fame/integrationBleed/):
