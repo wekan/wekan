@@ -63,6 +63,10 @@ template(name="checklistDeletePopup")
   p {{_ 'confirm-checklist-delete-popup'}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
+template(name="checklistItemDeletePopup")
+  p {{_ 'confirm-checklist-item-delete-popup'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
 template(name="addChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
   span.copied-tooltip {{_ 'copied'}}

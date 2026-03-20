@@ -477,9 +477,39 @@ a:not(.disabled).is-active i.fa {
 .viewer a:hover {
   color: #333;
 }
+.basicTabs-container .tabs-list {
+  text-align: left;
+  width: 100%;
+}
+.basicTabs-container .tabs-list .tab-item {
+  font-weight: 600;
+  font-size: 13px;
+  display: inline-block;
+  padding: 13px 15px;
+  margin: 0;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+.basicTabs-container .tabs-list .tab-item.active {
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  margin-bottom: -1px !important;
+  padding: 12px 14px 14px 14px !important;
+  background-color: #fff;
+  color: #333;
+}
 .basicTabs-container .tabs-content-container {
   padding: 0;
   padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+.basicTabs-container .tabs-content {
+  display: none;
+}
+.basicTabs-container .tabs-content.active {
+  display: block;
 }
 .no-scrollbars {
   scrollbar-width: none;

@@ -147,34 +147,143 @@ Swimlanes.allow({
 });
 
 Swimlanes.helpers({
-  async copy(boardId) {
+  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '') {
     const oldId = this._id;
     const oldBoardId = this.boardId;
+    const desiredTitle = typeof title === 'string' && title.trim().length > 0
+      ? title.trim()
+      : this.title;
     this.boardId = boardId;
-    delete this._id;
-    const _id = await Swimlanes.insertAsync(this);
 
-    const query = {
-      swimlaneId: { $in: [oldId, ''] },
-      archived: false,
-    };
-    if (oldBoardId) {
-      query.boardId = oldBoardId;
+    if (process.env.DEBUG === 'true') {
+      console.log('[copySwimlane] start', {
+        oldSwimlaneId: oldId,
+        oldBoardId,
+        boardId,
+        targetSwimlaneId,
+        position,
+        desiredTitle,
+      });
     }
+
+    const boardSwimlanes = (await ReactiveCache.getSwimlanes(
+      { boardId, archived: false },
+      { sort: { sort: 1 } },
+    ))
+      .sort((a, b) => a.sort - b.sort);
+
+    let targetSort = boardSwimlanes.length;
+    if (targetSwimlaneId) {
+      const targetIndex = boardSwimlanes.findIndex(
+        swimlane => swimlane._id === targetSwimlaneId,
+      );
+      if (targetIndex >= 0) {
+        const selected = boardSwimlanes[targetIndex];
+        if (position === 'above') {
+          const prev = boardSwimlanes[targetIndex - 1];
+          targetSort =
+            prev && Number.isFinite(prev.sort)
+              ? (prev.sort + selected.sort) / 2
+              : selected.sort - 1;
+        } else {
+          const next = boardSwimlanes[targetIndex + 1];
+          targetSort =
+            next && Number.isFinite(next.sort)
+              ? (selected.sort + next.sort) / 2
+              : selected.sort + 1;
+        }
+      }
+    }
+
+    this.sort = targetSort;
+    this.title = desiredTitle;
+    delete this._id;
+    const newSwimlaneId = await Swimlanes.insertAsync(this);
+
+    const sourceBoard = oldBoardId ? await ReactiveCache.getBoard(oldBoardId) : null;
+    const sourceDefaultSwimlaneId = sourceBoard?.getDefaultSwimline?.()?._id;
+    const isDefaultSourceSwimlane = sourceDefaultSwimlaneId === oldId;
+
+    const listQuery = {
+      boardId: oldBoardId,
+      archived: false,
+      swimlaneId: isDefaultSourceSwimlane ? { $in: [oldId, '', null] } : oldId,
+    };
 
     // Copy all lists in swimlane
-    const lists = await ReactiveCache.getLists(query);
-    for (const list of lists) {
-      list.type = 'list';
-      list.swimlaneId = oldId;
-      list.boardId = boardId;
-      await list.copy(boardId, _id);
+    const sourceLists = (await ReactiveCache.getLists(listQuery, { sort: { sort: 1 } }))
+      .sort((a, b) => a.sort - b.sort);
+
+    if (process.env.DEBUG === 'true') {
+      console.log('[copySwimlane] source lists found', {
+        count: sourceLists.length,
+        listQuery,
+      });
     }
 
-    return _id;
+    for (const sourceList of sourceLists) {
+      // Always create a new list for the copied swimlane, even if title already exists.
+      const newListId = await Lists.insertAsync({
+        title: sourceList.title,
+        boardId,
+        sort: sourceList.sort,
+        type: sourceList.type || 'list',
+        archived: false,
+        wipLimit: sourceList.wipLimit,
+        swimlaneId: newSwimlaneId,
+        color: sourceList.color,
+        width: sourceList.width,
+      });
+
+      const cardQuery = {
+        listId: sourceList._id,
+        archived: false,
+        swimlaneId: isDefaultSourceSwimlane ? { $in: [oldId, '', null] } : oldId,
+      };
+      const cards = await ReactiveCache.getCards(cardQuery, { sort: { sort: 1 } });
+
+      for (const card of cards) {
+        await card.copy(boardId, newSwimlaneId, newListId);
+      }
+    }
+
+    return newSwimlaneId;
   },
 
-  async move(toBoardId) {
+  async move(toBoardId, targetSwimlaneId = null, position = 'below', title = '') {
+    const desiredTitle = typeof title === 'string' && title.trim().length > 0
+      ? title.trim()
+      : this.title;
+    const boardSwimlanes = (await ReactiveCache.getSwimlanes(
+      { boardId: toBoardId, archived: false },
+      { sort: { sort: 1 } },
+    ))
+      .filter(swimlane => swimlane._id !== this._id)
+      .sort((a, b) => a.sort - b.sort);
+
+    let targetSort = boardSwimlanes.length;
+    if (targetSwimlaneId) {
+      const targetIndex = boardSwimlanes.findIndex(
+        swimlane => swimlane._id === targetSwimlaneId,
+      );
+      if (targetIndex >= 0) {
+        const selected = boardSwimlanes[targetIndex];
+        if (position === 'above') {
+          const prev = boardSwimlanes[targetIndex - 1];
+          targetSort =
+            prev && Number.isFinite(prev.sort)
+              ? (prev.sort + selected.sort) / 2
+              : selected.sort - 1;
+        } else {
+          const next = boardSwimlanes[targetIndex + 1];
+          targetSort =
+            next && Number.isFinite(next.sort)
+              ? (selected.sort + next.sort) / 2
+              : selected.sort + 1;
+        }
+      }
+    }
+
     for (const list of await this.lists()) {
       const toList = await ReactiveCache.getList({
         boardId: toBoardId,
@@ -208,6 +317,8 @@ Swimlanes.helpers({
     await Swimlanes.updateAsync(this._id, {
       $set: {
         boardId: toBoardId,
+        sort: targetSort,
+        title: desiredTitle,
       },
     });
 

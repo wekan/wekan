@@ -5,6 +5,9 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Import Blaze helpers (replaces removed raix:handlebar-helpers package)
+import '/client/config/blazeHelpers';
+
 // Import board converter for on-demand conversion
 import '/client/lib/boardConverter';
 import '/client/components/boardConversionProgress';
@@ -62,6 +65,7 @@ Meteor.startup(() => {
       syncCookie();
     }
   });
+
 });
 
 // Subscribe to per-user small publications
@@ -72,7 +76,7 @@ Meteor.startup(() => {
       Meteor.subscribe('userDesktopDragHandles');
     }
   });
-  
+
   // Initialize mobile mode on startup for iOS devices
   // This ensures mobile mode is applied correctly on page load
   Tracker.afterFlush(() => {

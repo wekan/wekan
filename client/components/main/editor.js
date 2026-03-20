@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { findWhere } from '/imports/lib/collectionHelpers';
 import { TAPi18n } from '/imports/i18n';
 var converter = require('@wekanteam/html-to-markdown');
 
@@ -19,8 +20,8 @@ const boardSpecialHandles = [
 const specialHandleNames = specialHandles.map(m => m.username);
 
 
-BlazeComponent.extendComponent({
-  onRendered() {
+Template.editor.onRendered(function () {
+    const tpl = this;
     // Start: Copy <pre> code https://github.com/wekan/wekan/issues/5149
     // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
     //       - Also this same TODO below at event, if someone gets it working.
@@ -66,7 +67,7 @@ BlazeComponent.extendComponent({
             })
             .filter(Boolean);
           // Order: 1. Users, 2. Card-specific options, 3. Board-wide options
-          callback(_.union(users, cardSpecialHandles, boardSpecialHandles));
+          callback([...new Set([...users, ...cardSpecialHandles, ...boardSpecialHandles])]);
         },
         template(user) {
           if (user.profile && user.profile.fullname) {
@@ -89,7 +90,7 @@ BlazeComponent.extendComponent({
     ];
 
     const enableTextarea = function() {
-      const $textarea = this.$(textareaSelector);
+      const $textarea = tpl.$(textareaSelector);
       autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
@@ -314,29 +315,25 @@ BlazeComponent.extendComponent({
       enableTextarea();
     }
     enableTextarea();
-  },
-  events() {
-    return [
-      {
-        'click a.fa.fa-copy'(event) {
-          const $editor = this.$('textarea.editor');
-          const promise = Utils.copyTextToClipboard($editor[0].value);
+});
 
-          const $tooltip = this.$('.copied-tooltip');
-          Utils.showCopied(promise, $tooltip);
-        },
-        'click a.fa.fa-brands.fa-markdown'(event) {
-          const $editor = this.$('textarea.editor');
-          $editor[0].value = converter.convert($editor[0].value);
-        },
-        // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
-        //'click .js-close-inlined-form'(event) {
-        //  Utils.copyPre();
-        //},
-      }
-    ]
-  }
-}).register('editor');
+Template.editor.events({
+    'click a.fa.fa-copy'(event, tpl) {
+      const $editor = tpl.$('textarea.editor');
+      const promise = Utils.copyTextToClipboard($editor[0].value);
+
+      const $tooltip = tpl.$('.copied-tooltip');
+      Utils.showCopied(promise, $tooltip);
+    },
+    'click a.fa.fa-brands.fa-markdown'(event, tpl) {
+      const $editor = tpl.$('textarea.editor');
+      $editor[0].value = converter.convert($editor[0].value);
+    },
+    // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
+    //'click .js-close-inlined-form'(event) {
+    //  Utils.copyPre();
+    //},
+});
 
 import DOMPurify from 'dompurify';
 import { sanitizeHTML } from '/imports/lib/secureDOMPurify';
@@ -387,7 +384,7 @@ Blaze.Template.registerHelper(
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
       return HTML.Raw(sanitizeHTML(content));
-    const knowedUsers = _.union(currentBoard.members
+    const knowedUsers = [...new Set([...currentBoard.members
       .filter(member => member.isActive)
       .map(member => {
         const u = ReactiveCache.getUser(member.userId);
@@ -395,14 +392,14 @@ Blaze.Template.registerHelper(
           member.username = u.username;
         }
         return member;
-      }), [...specialHandles]);
+      }), ...specialHandles])];
     const mentionRegex = /\B@([\w.-]*)/gi;
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
       const [fullMention, quoteduser, simple] = currentMention;
       const username = quoteduser || simple;
-      const knowedUser = _.findWhere(knowedUsers, { username });
+      const knowedUser = findWhere(knowedUsers, { username });
       if (!knowedUser) {
         continue;
       }

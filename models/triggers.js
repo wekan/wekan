@@ -56,8 +56,8 @@ Triggers.helpers({
 
   labels() {
     const boardLabels = this.board().labels;
-    const cardLabels = _.filter(boardLabels, label => {
-      return _.contains(this.labelIds, label._id);
+    const cardLabels = boardLabels.filter(label => {
+      return (this.labelIds || []).includes(label._id);
     });
     return cardLabels;
   },

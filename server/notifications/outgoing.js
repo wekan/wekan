@@ -1,16 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { fetchSafe } from '/server/lib/ssrfGuard';
 
 if (Meteor.isServer) {
-  const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
-    HTTP.post(url, options, (err, res) => {
-      if (err) {
-        resolve(null, err.response);
-      } else {
-        resolve(null, res);
-      }
-    });
-  });
 
   const Lock = {
     _lock: {},
@@ -70,13 +62,24 @@ if (Meteor.isServer) {
     'label',
     'attachmentId',
   ];
-  const responseFunc = async data => {
+  const responseFunc = async (data, integration) => {
     const paramCommentId = data.commentId;
     const paramCardId = data.cardId;
     const paramBoardId = data.boardId;
     const newComment = data.comment;
-    if (paramCardId && paramBoardId && newComment) {
-      // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
+
+    // Authorization: Verify the request is from a bidirectional webhook
+    if (!integration || integration.type !== Integrations.Const.TWOWAY) {
+      return; // Only bidirectional webhooks can update comments
+    }
+
+    // Authorization: Prevent cross-board comment injection
+    if (paramBoardId !== integration.boardId) {
+      return; // Webhook can only modify comments in its own board
+    }
+
+    if (paramCardId && paramBoardId && newComment && paramCommentId) {
+      // only process data with the commentId, cardId, boardId and comment text
       const comment = await ReactiveCache.getCardComment({
         _id: paramCommentId,
         cardId: paramCardId,
@@ -84,26 +87,15 @@ if (Meteor.isServer) {
       });
       const board = await ReactiveCache.getBoard(paramBoardId);
       const card = await ReactiveCache.getCard(paramCardId);
-      if (board && card) {
-        if (comment) {
-          Lock.set(comment._id, newComment);
-          CardComments.direct.update(comment._id, {
-            $set: {
-              text: newComment,
-            },
-          });
-        }
-      } else {
-        const userId = data.userId;
-        if (userId) {
-          const inserted = CardComments.direct.insert({
+
+      if (board && card && comment) {
+        // Only update existing comments - do not create new comments from webhook responses
+        Lock.set(comment._id, newComment);
+        CardComments.direct.update(comment._id, {
+          $set: {
             text: newComment,
-            userId,
-            cardId,
-            boardId,
-          });
-          Lock.set(inserted._id, newComment);
-        }
+          },
+        });
       }
     }
   };
@@ -116,8 +108,8 @@ if (Meteor.isServer) {
         this.unblock();
 
         // label activity did not work yet, see wekan/models/activities.js
-        const quoteParams = _.clone(params);
-        const clonedParams = _.clone(params);
+        const quoteParams = { ...params };
+        const clonedParams = { ...params };
         [
           'card',
           'list',
@@ -162,14 +154,10 @@ if (Meteor.isServer) {
         //integrations.forEach(integration => {
         const is2way = integration.type === Integrations.Const.TWOWAY;
         const token = integration.token || '';
-        const headers = {
+        const fetchHeaders = {
           'Content-Type': 'application/json',
         };
-        if (token) headers['X-Wekan-Token'] = token;
-        const options = {
-          headers,
-          data: is2way ? { description, ...clonedParams } : value,
-        };
+        if (token) fetchHeaders['X-Wekan-Token'] = token;
 
         if (!(await ReactiveCache.getIntegration({ url: integration.url }))) return;
 
@@ -186,19 +174,35 @@ if (Meteor.isServer) {
             Lock.set(cid, comment); // set a lock here
           }
         }
-        const response = postCatchError(url, options);
 
-        if (
-          response &&
-          response.statusCode &&
-          response.statusCode >= 200 &&
-          response.statusCode < 300
-        ) {
+        // fetchSafe resolves DNS once, pins the connection to the resolved IP,
+        // and blocks redirects — fully preventing DNS-rebinding SSRF attacks.
+        let response;
+        try {
+          response = await fetchSafe(url, {
+            method: 'POST',
+            headers: fetchHeaders,
+            body: JSON.stringify(is2way ? { description, ...clonedParams } : value),
+          });
+        } catch (err) {
+          throw new Meteor.Error(
+            'invalid-webhook-url',
+            `Webhook request failed: ${err.message}`,
+          );
+        }
+
+        if (response && response.status >= 200 && response.status < 300) {
           if (is2way) {
-            const data = response.data; // only an JSON encoded response will be actioned
+            // Only act on a JSON-encoded response body
+            let data = null;
+            try {
+              data = await response.json();
+            } catch {
+              data = null;
+            }
             if (data) {
               try {
-                await responseFunc(data);
+                await responseFunc(data, integration);
               } catch (e) {
                 throw new Meteor.Error('error-process-data');
               }

@@ -36,11 +36,45 @@ Integrations.attachSchema(
       defaultValue: ['all'],
     },
     url: {
-      // URL validation regex (https://mathiasbynens.be/demo/url-regex)
+      // URL validation with SSRF protection
       /**
        * URL validation regex (https://mathiasbynens.be/demo/url-regex)
+       * Includes validation to block private/loopback addresses and ensure safe protocols
        */
       type: String,
+      custom() {
+        try {
+          const u = new URL(this.value);
+
+          // Only allow http and https protocols
+          if (!['http:', 'https:'].includes(u.protocol)) {
+            return 'invalidProtocol';
+          }
+
+          // Block private/loopback IP ranges and hostnames
+          const hostname = u.hostname.toLowerCase();
+          const blockedPatterns = [
+            /^127\./, // 127.x.x.x (loopback)
+            /^10\./, // 10.x.x.x (private)
+            /^172\.(1[6-9]|2\d|3[01])\./, // 172.16-31.x.x (private)
+            /^192\.168\./, // 192.168.x.x (private)
+            /^0\./, // 0.x.x.x (current network)
+            /^::1$/, // IPv6 loopback
+            /^fe80:/, // IPv6 link-local
+            /^fc00:/, // IPv6 unique local
+            /^fd00:/, // IPv6 unique local
+            /^localhost$/i,
+            /\.local$/i,
+            /^169\.254\./, // link-local IP
+          ];
+
+          if (blockedPatterns.some(pattern => pattern.test(hostname))) {
+            return 'privateAddress';
+          }
+        } catch {
+          return 'invalidUrl';
+        }
+      },
     },
     token: {
       /**
@@ -198,13 +232,13 @@ if (Meteor.isServer) {
    * @param {string} url the URL of the integration
    * @return_type {_id: string}
    */
-  JsonRoutes.add('POST', '/api/boards/:boardId/integrations', function(
+  JsonRoutes.add('POST', '/api/boards/:boardId/integrations', async function(
     req,
     res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
       const id = Integrations.insert({
         userId: req.userId,
@@ -239,14 +273,14 @@ if (Meteor.isServer) {
    * @param {string} [activities] new list of activities of the integration
    * @return_type {_id: string}
    */
-  JsonRoutes.add('PUT', '/api/boards/:boardId/integrations/:intId', function(
+  JsonRoutes.add('PUT', '/api/boards/:boardId/integrations/:intId', async function(
     req,
     res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
       const paramIntId = req.params.intId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
       if (req.body.hasOwnProperty('enabled')) {
         const newEnabled = req.body.enabled;
@@ -315,7 +349,7 @@ if (Meteor.isServer) {
         const paramBoardId = req.params.boardId;
         const paramIntId = req.params.intId;
         const newActivities = req.body.activities;
-        Authentication.checkBoardAccess(req.userId, paramBoardId);
+        await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
@@ -355,7 +389,7 @@ if (Meteor.isServer) {
         const paramBoardId = req.params.boardId;
         const paramIntId = req.params.intId;
         const newActivities = req.body.activities;
-        Authentication.checkBoardAccess(req.userId, paramBoardId);
+        await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
@@ -386,14 +420,14 @@ if (Meteor.isServer) {
    * @param {string} intId the integration ID
    * @return_type {_id: string}
    */
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/integrations/:intId', function(
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/integrations/:intId', async function(
     req,
     res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
       const paramIntId = req.params.intId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
       Integrations.direct.remove({ _id: paramIntId, boardId: paramBoardId });
       JsonRoutes.sendResult(res, {

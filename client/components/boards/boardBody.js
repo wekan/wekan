@@ -12,54 +12,17 @@ const subManager = new SubsManager();
 const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.isBoardReady = new ReactiveVar(false);
-    this.isConverting = new ReactiveVar(false);
-    this._swimlaneCreated = new Set(); // Track boards where we've created swimlanes
-    this._boardProcessed = false; // Track if board has been processed
-    this._lastProcessedBoardId = null; // Track last processed board ID
+// Global reference so child components (swimlanes, cards) can access boardBody instance
+BoardBody = null;
 
-    // The pattern we use to manually handle data loading is described here:
-    // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
-    // XXX The boardId should be readed from some sort the component "props",
-    // unfortunatly, Blaze doesn't have this notion.
-    this.autorun(() => {
-      const currentBoardId = Session.get('currentBoard');
-      if (!currentBoardId) return;
+Template.board.onCreated(function () {
+  this.isBoardReady = new ReactiveVar(false);
+  this.isConverting = new ReactiveVar(false);
+  this._swimlaneCreated = new Set(); // Track boards where we've created swimlanes
+  this._boardProcessed = false; // Track if board has been processed
+  this._lastProcessedBoardId = null; // Track last processed board ID
 
-      const handle = subManager.subscribe('board', currentBoardId, false);
-
-      // Use a separate autorun for subscription ready state to avoid reactive loops
-      this.subscriptionReadyAutorun = Tracker.autorun(() => {
-        if (handle.ready()) {
-          if (
-            !this._boardProcessed ||
-            this._lastProcessedBoardId !== currentBoardId
-          ) {
-            this._boardProcessed = true;
-            this._lastProcessedBoardId = currentBoardId;
-
-            // Ensure default swimlane exists (only once per board)
-            this.ensureDefaultSwimlane(currentBoardId);
-            // Check if board needs conversion
-            this.checkAndConvertBoard(currentBoardId);
-          }
-        } else {
-          this.isBoardReady.set(false);
-        }
-      });
-    });
-  },
-
-  onDestroyed() {
-    // Clean up the subscription ready autorun to prevent memory leaks
-    if (this.subscriptionReadyAutorun) {
-      this.subscriptionReadyAutorun.stop();
-    }
-  },
-
-  ensureDefaultSwimlane(boardId) {
+  this.ensureDefaultSwimlane = (boardId) => {
     // Only create swimlane once per board
     if (this._swimlaneCreated.has(boardId)) {
       return;
@@ -92,9 +55,9 @@ BlazeComponent.extendComponent({
     } catch (error) {
       console.error('Error creating default swimlane:', error);
     }
-  },
+  };
 
-  async checkAndConvertBoard(boardId) {
+  this.checkAndConvertBoard = async (boardId) => {
     try {
       const board = ReactiveCache.getBoard(boardId);
       if (!board) {
@@ -108,8 +71,48 @@ BlazeComponent.extendComponent({
       this.isConverting.set(false);
       this.isBoardReady.set(true); // Show board even if conversion check failed
     }
-  },
+  };
 
+  // The pattern we use to manually handle data loading is described here:
+  // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
+  // XXX The boardId should be readed from some sort the component "props",
+  // unfortunatly, Blaze doesn't have this notion.
+  this.autorun(() => {
+    const currentBoardId = Session.get('currentBoard');
+    if (!currentBoardId) return;
+
+    const handle = subManager.subscribe('board', currentBoardId, false);
+
+    // Use a separate autorun for subscription ready state to avoid reactive loops
+    this.subscriptionReadyAutorun = Tracker.autorun(() => {
+      if (handle.ready()) {
+        if (
+          !this._boardProcessed ||
+          this._lastProcessedBoardId !== currentBoardId
+        ) {
+          this._boardProcessed = true;
+          this._lastProcessedBoardId = currentBoardId;
+
+          // Ensure default swimlane exists (only once per board)
+          this.ensureDefaultSwimlane(currentBoardId);
+          // Check if board needs conversion
+          this.checkAndConvertBoard(currentBoardId);
+        }
+      } else {
+        this.isBoardReady.set(false);
+      }
+    });
+  });
+});
+
+Template.board.onDestroyed(function () {
+  // Clean up the subscription ready autorun to prevent memory leaks
+  if (this.subscriptionReadyAutorun) {
+    this.subscriptionReadyAutorun.stop();
+  }
+});
+
+Template.board.helpers({
   onlyShowCurrentCard() {
     const isMiniScreen = Utils.isMiniScreen();
     const currentCardId = Utils.getCurrentCardId(true);
@@ -133,429 +136,490 @@ BlazeComponent.extendComponent({
   },
 
   isConverting() {
-    return this.isConverting.get();
+    return Template.instance().isConverting.get();
   },
 
   isBoardReady() {
-    return this.isBoardReady.get();
+    return Template.instance().isBoardReady.get();
   },
 
   currentBoard() {
     return Utils.getCurrentBoard();
   },
-}).register('board');
+});
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('tableVisibilityModeSettings');
-    this.showOverlay = new ReactiveVar(false);
-    this.draggingActive = new ReactiveVar(false);
-    this._isDragging = false;
-    // Used to set the overlay
-    this.mouseHasEnterCardDetails = false;
-    this._sortFieldsFixed = new Set(); // Track which boards have had sort fields fixed
+Template.boardBody.onCreated(function () {
+  Meteor.subscribe('tableVisibilityModeSettings');
+  this.showOverlay = new ReactiveVar(false);
+  this.draggingActive = new ReactiveVar(false);
+  this._isDragging = false;
+  // Used to set the overlay
+  this.mouseHasEnterCardDetails = false;
+  this._sortFieldsFixed = new Set(); // Track which boards have had sort fields fixed
 
-    // fix swimlanes sort field if there are null values
-    const currentBoardData = Utils.getCurrentBoard();
-    if (currentBoardData && Swimlanes) {
-      const boardId = currentBoardData._id;
-      // Only fix sort fields once per board to prevent reactive loops
-      if (!this._sortFieldsFixed.has(`swimlanes-${boardId}`)) {
-        const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
-        if (nullSortSwimlanes.length > 0) {
-          const swimlanes = currentBoardData.swimlanes();
-          let count = 0;
-          swimlanes.forEach((s) => {
-            Swimlanes.update(s._id, {
-              $set: {
-                sort: count,
-              },
-            });
-            count += 1;
+  // Store global reference for external access (swimlanes, cardDetails, etc.)
+  BoardBody = this;
+
+  // Methods on the template instance for programmatic access
+  this.setIsDragging = (bool) => {
+    this.draggingActive.set(bool);
+  };
+
+  this.scrollLeft = (position = 0) => {
+    const swimlanes = this.$('.js-swimlanes');
+    swimlanes &&
+      swimlanes.animate({
+        scrollLeft: position,
+      });
+  };
+
+  this.scrollTop = (position = 0) => {
+    const swimlanes = this.$('.js-swimlanes');
+    swimlanes &&
+      swimlanes.animate({
+        scrollTop: position,
+      });
+  };
+
+  this.isViewSwimlanes = () => {
+    const currentUser = ReactiveCache.getCurrentUser();
+    let boardView;
+
+    if (currentUser) {
+      boardView = (currentUser.profile || {}).boardView;
+    } else {
+      boardView = window.localStorage.getItem('boardView');
+    }
+
+    // If no board view is set, default to swimlanes
+    if (!boardView) {
+      boardView = 'board-view-swimlanes';
+    }
+
+    return boardView === 'board-view-swimlanes';
+  };
+
+  this.isViewLists = () => {
+    const currentUser = ReactiveCache.getCurrentUser();
+    let boardView;
+
+    if (currentUser) {
+      boardView = (currentUser.profile || {}).boardView;
+    } else {
+      boardView = window.localStorage.getItem('boardView');
+    }
+
+    return boardView === 'board-view-lists';
+  };
+
+  // fix swimlanes sort field if there are null values
+  const currentBoardData = Utils.getCurrentBoard();
+  if (currentBoardData && Swimlanes) {
+    const boardId = currentBoardData._id;
+    // Only fix sort fields once per board to prevent reactive loops
+    if (!this._sortFieldsFixed.has(`swimlanes-${boardId}`)) {
+      const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
+      if (nullSortSwimlanes.length > 0) {
+        const swimlanes = currentBoardData.swimlanes();
+        let count = 0;
+        swimlanes.forEach((s) => {
+          Swimlanes.update(s._id, {
+            $set: {
+              sort: count,
+            },
           });
-        }
-        this._sortFieldsFixed.add(`swimlanes-${boardId}`);
+          count += 1;
+        });
       }
+      this._sortFieldsFixed.add(`swimlanes-${boardId}`);
     }
+  }
 
-    // fix lists sort field if there are null values
-    if (currentBoardData && Lists) {
-      const boardId = currentBoardData._id;
-      // Only fix sort fields once per board to prevent reactive loops
-      if (!this._sortFieldsFixed.has(`lists-${boardId}`)) {
-        const nullSortLists = currentBoardData.nullSortLists();
-        if (nullSortLists.length > 0) {
-          const lists = currentBoardData.lists();
-          let count = 0;
-          lists.forEach((l) => {
-            Lists.update(l._id, {
-              $set: {
-                sort: count,
-              },
-            });
-            count += 1;
+  // fix lists sort field if there are null values
+  if (currentBoardData && Lists) {
+    const boardId = currentBoardData._id;
+    // Only fix sort fields once per board to prevent reactive loops
+    if (!this._sortFieldsFixed.has(`lists-${boardId}`)) {
+      const nullSortLists = currentBoardData.nullSortLists();
+      if (nullSortLists.length > 0) {
+        const lists = currentBoardData.lists();
+        let count = 0;
+        lists.forEach((l) => {
+          Lists.update(l._id, {
+            $set: {
+              sort: count,
+            },
           });
-        }
-        this._sortFieldsFixed.add(`lists-${boardId}`);
-      }
-    }
-  },
-  onRendered() {
-    // Initialize user settings (zoom and mobile mode)
-    Utils.initializeUserSettings();
-
-    // Detect iPhone devices and add class for better CSS targeting
-    const isIPhone = /iPhone|iPod/.test(navigator.userAgent);
-    if (isIPhone) {
-      document.body.classList.add('iphone-device');
-    }
-
-    // Accessibility: Focus management for popups and menus
-    function focusFirstInteractive(container) {
-      if (!container) return;
-      // Find first focusable element
-      const focusable = container.querySelectorAll(
-        'button, [role="button"], a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-      );
-      for (let i = 0; i < focusable.length; i++) {
-        if (!focusable[i].disabled && focusable[i].offsetParent !== null) {
-          focusable[i].focus();
-          break;
-        }
-      }
-    }
-
-    // Observe for new popups/menus and set focus (but exclude swimlane content)
-    const popupObserver = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        mutation.addedNodes.forEach(function (node) {
-          if (
-            node.nodeType === 1 &&
-            (node.classList.contains('popup') ||
-              node.classList.contains('modal') ||
-              node.classList.contains('menu')) &&
-            !node.closest('.js-swimlanes') &&
-            !node.closest('.swimlane') &&
-            !node.closest('.list') &&
-            !node.closest('.minicard')
-          ) {
-            setTimeout(function () {
-              focusFirstInteractive(node);
-            }, 10);
-          }
+          count += 1;
         });
-      });
-    });
-    popupObserver.observe(document.body, { childList: true, subtree: true });
+      }
+      this._sortFieldsFixed.add(`lists-${boardId}`);
+    }
+  }
+});
 
-    // Remove tabindex from non-interactive elements (e.g., user abbreviations, labels)
-    document
-      .querySelectorAll(
-        '.user-abbreviation, .user-label, .card-header-label, .edit-label, .private-label',
-      )
-      .forEach(function (el) {
-        if (el.hasAttribute('tabindex')) {
-          el.removeAttribute('tabindex');
+Template.boardBody.onRendered(function () {
+  // Initialize user settings (zoom and mobile mode)
+  Utils.initializeUserSettings();
+
+  // Detect iPhone devices and add class for better CSS targeting
+  const isIPhone = /iPhone|iPod/.test(navigator.userAgent);
+  if (isIPhone) {
+    document.body.classList.add('iphone-device');
+  }
+
+  // Accessibility: Focus management for popups and menus
+  function focusFirstInteractive(container) {
+    if (!container) return;
+    // Find first focusable element
+    const focusable = container.querySelectorAll(
+      'button, [role="button"], a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    for (let i = 0; i < focusable.length; i++) {
+      if (!focusable[i].disabled && focusable[i].offsetParent !== null) {
+        focusable[i].focus();
+        break;
+      }
+    }
+  }
+
+  // Observe for new popups/menus and set focus (but exclude swimlane content)
+  const popupObserver = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      mutation.addedNodes.forEach(function (node) {
+        if (
+          node.nodeType === 1 &&
+          (node.classList.contains('popup') ||
+            node.classList.contains('modal') ||
+            node.classList.contains('menu')) &&
+          !node.closest('.js-swimlanes') &&
+          !node.closest('.swimlane') &&
+          !node.closest('.list') &&
+          !node.closest('.minicard')
+        ) {
+          setTimeout(function () {
+            focusFirstInteractive(node);
+          }, 10);
         }
       });
-    /*
-    // Add a toggle button for keyboard shortcuts accessibility
-    if (!document.getElementById('wekan-shortcuts-toggle')) {
-      const toggleContainer = document.createElement('div');
-      toggleContainer.id = 'wekan-shortcuts-toggle';
-      toggleContainer.style.position = 'fixed';
-      toggleContainer.style.top = '10px';
-      toggleContainer.style.right = '10px';
-      toggleContainer.style.zIndex = '1000';
-      toggleContainer.style.background = '#fff';
-      toggleContainer.style.border = '2px solid #005fcc';
-      toggleContainer.style.borderRadius = '6px';
-      toggleContainer.style.padding = '8px 12px';
-      toggleContainer.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      toggleContainer.style.fontSize = '16px';
-      toggleContainer.style.color = '#005fcc';
-      toggleContainer.setAttribute('role', 'region');
-      toggleContainer.setAttribute('aria-label', 'Keyboard Shortcuts Settings');
-      toggleContainer.innerHTML = `
-        <label for="shortcuts-toggle-checkbox" style="cursor:pointer;">
-          <input type="checkbox" id="shortcuts-toggle-checkbox" ${window.wekanShortcutsEnabled ? 'checked' : ''} style="margin-right:8px;" />
-          Enable keyboard shortcuts
-        </label>
-      `;
-      document.body.appendChild(toggleContainer);
-      const checkbox = document.getElementById('shortcuts-toggle-checkbox');
-      checkbox.addEventListener('change', function(e) {
-        window.toggleWekanShortcuts(e.target.checked);
-      });
-    }
-    */
-    // Ensure toggle-buttons, color choices, reactions, renaming, and calendar controls are focusable and have ARIA roles
-    document.querySelectorAll('.js-toggle').forEach(function (el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      // Short, descriptive label for favorite/star toggle
-      if (el.classList.contains('js-favorite-toggle')) {
-        el.setAttribute('aria-label', TAPi18n.__('favorite-toggle-label'));
-      } else {
-        el.setAttribute('aria-label', 'Toggle');
+    });
+  });
+  popupObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Remove tabindex from non-interactive elements (e.g., user abbreviations, labels)
+  document
+    .querySelectorAll(
+      '.user-abbreviation, .user-label, .card-header-label, .edit-label, .private-label',
+    )
+    .forEach(function (el) {
+      if (el.hasAttribute('tabindex')) {
+        el.removeAttribute('tabindex');
       }
     });
-    document.querySelectorAll('.js-color-choice').forEach(function (el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'Choose color');
+  /*
+  // Add a toggle button for keyboard shortcuts accessibility
+  if (!document.getElementById('wekan-shortcuts-toggle')) {
+    const toggleContainer = document.createElement('div');
+    toggleContainer.id = 'wekan-shortcuts-toggle';
+    toggleContainer.style.position = 'fixed';
+    toggleContainer.style.top = '10px';
+    toggleContainer.style.right = '10px';
+    toggleContainer.style.zIndex = '1000';
+    toggleContainer.style.background = '#fff';
+    toggleContainer.style.border = '2px solid #005fcc';
+    toggleContainer.style.borderRadius = '6px';
+    toggleContainer.style.padding = '8px 12px';
+    toggleContainer.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    toggleContainer.style.fontSize = '16px';
+    toggleContainer.style.color = '#005fcc';
+    toggleContainer.setAttribute('role', 'region');
+    toggleContainer.setAttribute('aria-label', 'Keyboard Shortcuts Settings');
+    toggleContainer.innerHTML = `
+      <label for="shortcuts-toggle-checkbox" style="cursor:pointer;">
+        <input type="checkbox" id="shortcuts-toggle-checkbox" ${window.wekanShortcutsEnabled ? 'checked' : ''} style="margin-right:8px;" />
+        Enable keyboard shortcuts
+      </label>
+    `;
+    document.body.appendChild(toggleContainer);
+    const checkbox = document.getElementById('shortcuts-toggle-checkbox');
+    checkbox.addEventListener('change', function(e) {
+      window.toggleWekanShortcuts(e.target.checked);
     });
-    document.querySelectorAll('.js-reaction').forEach(function (el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'React');
-    });
-    document.querySelectorAll('.js-rename-swimlane').forEach(function (el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'Rename swimlane');
-    });
-    document.querySelectorAll('.js-rename-list').forEach(function (el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'Rename list');
-    });
-    document.querySelectorAll('.fc-button').forEach(function (el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-    });
-    // Set the language attribute on the <html> element for accessibility
-    document.documentElement.lang = TAPi18n.getLanguage();
+  }
+  */
+  // Ensure toggle-buttons, color choices, reactions, renaming, and calendar controls are focusable and have ARIA roles
+  document.querySelectorAll('.js-toggle').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    // Short, descriptive label for favorite/star toggle
+    if (el.classList.contains('js-favorite-toggle')) {
+      el.setAttribute('aria-label', TAPi18n.__('favorite-toggle-label'));
+    } else {
+      el.setAttribute('aria-label', 'Toggle');
+    }
+  });
+  document.querySelectorAll('.js-color-choice').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', 'Choose color');
+  });
+  document.querySelectorAll('.js-reaction').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', 'React');
+  });
+  document.querySelectorAll('.js-rename-swimlane').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', 'Rename swimlane');
+  });
+  document.querySelectorAll('.js-rename-list').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', 'Rename list');
+  });
+  document.querySelectorAll('.fc-button').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+  });
+  // Set the language attribute on the <html> element for accessibility
+  document.documentElement.lang = TAPi18n.getLanguage();
 
-    // Ensure the accessible name for the board view switcher matches the visible label "Swimlanes"
-    // This fixes WCAG 2.5.3: Label in Name
-    const swimlanesSwitcher = this.$('.js-board-view-swimlanes');
-    if (swimlanesSwitcher.length) {
-      swimlanesSwitcher.attr(
-        'aria-label',
-        swimlanesSwitcher.text().trim() || 'Swimlanes',
+  // Ensure the accessible name for the board view switcher matches the visible label "Swimlanes"
+  // This fixes WCAG 2.5.3: Label in Name
+  const swimlanesSwitcher = this.$('.js-board-view-swimlanes');
+  if (swimlanesSwitcher.length) {
+    swimlanesSwitcher.attr(
+      'aria-label',
+      swimlanesSwitcher.text().trim() || 'Swimlanes',
+    );
+  }
+
+  // Add a highly visible focus indicator and improve contrast for interactive elements
+  if (!document.getElementById('wekan-accessible-focus-style')) {
+    const style = document.createElement('style');
+    style.id = 'wekan-accessible-focus-style';
+    style.innerHTML = `
+      /* Focus indicator */
+      button:focus, [role="button"]:focus, a:focus, input:focus, select:focus, textarea:focus, .dropdown-menu:focus, .js-board-view-swimlanes:focus, .js-add-card:focus {
+        outline: 3px solid #005fcc !important;
+        outline-offset: 2px !important;
+      }
+      /* Input borders */
+      input, textarea, select {
+        border: 2px solid #222 !important;
+      }
+      /* Plus icon for adding a new card */
+      .js-add-card {
+        color: #005fcc !important; /* dark blue for contrast */
+        cursor: pointer;
+        outline: none;
+      }
+      .js-add-card[tabindex] {
+        outline: none;
+      }
+      /* Sidebar hamburger menu button in header */
+      .js-toggle-sidebar .fa-bars {
+        color: #fff !important;
+      }
+      /* Grey icons in card detail header */
+      .card-detail-header .fa, .card-detail-header .icon {
+        color: #444 !important;
+      }
+      /* Grey operating elements in card detail */
+      .card-detail .fa, .card-detail .icon {
+        color: #444 !important;
+      }
+      /* Blue bar in checklists */
+      .checklist-progress-bar {
+        background-color: #005fcc !important;
+      }
+      /* Green checkmark in checklists */
+      .checklist .fa-check {
+        color: #007a33 !important;
+      }
+      /* X-Button and arrow button in menus */
+      .close, .fa-arrow-left, .icon-arrow-left {
+        color: #005fcc !important;
+      }
+      /* Cross icon to move boards */
+      .js-move-board {
+        color: #005fcc !important;
+      }
+      /* Current date background */
+      .current-date {
+        background-color: #005fcc !important;
+        color: #fff !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  // Ensure plus/add elements are focusable and have ARIA roles
+  document.querySelectorAll('.js-add-card').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', 'Add new card');
+  });
+
+  const tpl = this;
+  const $swimlanesDom = tpl.$('.js-swimlanes');
+
+  $swimlanesDom.sortable({
+    tolerance: 'pointer',
+    appendTo: '.board-canvas',
+    helper(evt, item) {
+      const helper = $(`<div class="swimlane"
+                             style="flex-direction: column;
+                                    height: ${swimlaneWhileSortingHeight}px;
+                                    width: $(tpl.width)px;
+                                    overflow: hidden;"/>`);
+      helper.append(item.clone());
+      // Also grab the list of lists of cards
+      const list = item.next();
+      helper.append(list.clone());
+      return helper;
+    },
+    items: '.swimlane:not(.placeholder)',
+    placeholder: 'swimlane placeholder',
+    distance: 7,
+    start(evt, ui) {
+      const listDom = ui.placeholder.next('.js-swimlane');
+      const parentOffset = ui.item.parent().offset();
+
+      ui.placeholder.height(ui.helper.height());
+      EscapeActions.executeUpTo('popup-close');
+      listDom.addClass('moving-swimlane');
+      tpl.setIsDragging(true);
+
+      ui.placeholder.insertAfter(ui.placeholder.next());
+      tpl.origPlaceholderIndex = ui.placeholder.index();
+
+      // resize all swimlanes + headers to be a total of 150 px per row
+      // this could be achieved by setIsDragging(true) but we want immediate
+      // result
+      ui.item
+        .siblings('.js-swimlane')
+        .css('height', `${swimlaneWhileSortingHeight - 26}px`);
+
+      // set the new scroll height after the resize and insertion of
+      // the placeholder. We want the element under the cursor to stay
+      // at the same place on the screen
+      ui.item.parent().get(0).scrollTop =
+        ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
+    },
+    beforeStop(evt, ui) {
+      const parentOffset = ui.item.parent().offset();
+      const siblings = ui.item.siblings('.js-swimlane');
+      siblings.css('height', '');
+
+      // compute the new scroll height after the resize and removal of
+      // the placeholder
+      const scrollTop =
+        ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
+
+      // then reset the original view of the swimlane
+      siblings.removeClass('moving-swimlane');
+
+      // and apply the computed scrollheight
+      ui.item.parent().get(0).scrollTop = scrollTop;
+    },
+    stop(evt, ui) {
+      // To attribute the new index number, we need to get the DOM element
+      // of the previous and the following card -- if any.
+      const prevSwimlaneDom = ui.item.prevAll('.js-swimlane').get(0);
+      const nextSwimlaneDom = ui.item.nextAll('.js-swimlane').get(0);
+      const sortIndex = calculateIndex(prevSwimlaneDom, nextSwimlaneDom, 1);
+
+      $swimlanesDom.sortable('cancel');
+      const swimlaneDomElement = ui.item.get(0);
+      const swimlane = Blaze.getData(swimlaneDomElement);
+
+      Swimlanes.update(swimlane._id, {
+        $set: {
+          sort: sortIndex.base,
+        },
+      });
+
+      tpl.setIsDragging(false);
+    },
+    sort(evt, ui) {
+      // get the mouse position in the sortable
+      const parentOffset = ui.item.parent().offset();
+      const cursorY =
+        evt.pageY - parentOffset.top + ui.item.parent().scrollTop();
+
+      // compute the intended index of the placeholder (we need to skip the
+      // slots between the headers and the list of cards)
+      const newplaceholderIndex = Math.floor(
+        cursorY / swimlaneWhileSortingHeight,
       );
-    }
+      let destPlaceholderIndex = (newplaceholderIndex + 1) * 2;
 
-    // Add a highly visible focus indicator and improve contrast for interactive elements
-    if (!document.getElementById('wekan-accessible-focus-style')) {
-      const style = document.createElement('style');
-      style.id = 'wekan-accessible-focus-style';
-      style.innerHTML = `
-        /* Focus indicator */
-        button:focus, [role="button"]:focus, a:focus, input:focus, select:focus, textarea:focus, .dropdown-menu:focus, .js-board-view-swimlanes:focus, .js-add-card:focus {
-          outline: 3px solid #005fcc !important;
-          outline-offset: 2px !important;
-        }
-        /* Input borders */
-        input, textarea, select {
-          border: 2px solid #222 !important;
-        }
-        /* Plus icon for adding a new card */
-        .js-add-card {
-          color: #005fcc !important; /* dark blue for contrast */
-          cursor: pointer;
-          outline: none;
-        }
-        .js-add-card[tabindex] {
-          outline: none;
-        }
-        /* Sidebar hamburger menu button in header */
-        .js-toggle-sidebar .fa-bars {
-          color: #fff !important;
-        }
-        /* Grey icons in card detail header */
-        .card-detail-header .fa, .card-detail-header .icon {
-          color: #444 !important;
-        }
-        /* Grey operating elements in card detail */
-        .card-detail .fa, .card-detail .icon {
-          color: #444 !important;
-        }
-        /* Blue bar in checklists */
-        .checklist-progress-bar {
-          background-color: #005fcc !important;
-        }
-        /* Green checkmark in checklists */
-        .checklist .fa-check {
-          color: #007a33 !important;
-        }
-        /* X-Button and arrow button in menus */
-        .close, .fa-arrow-left, .icon-arrow-left {
-          color: #005fcc !important;
-        }
-        /* Cross icon to move boards */
-        .js-move-board {
-          color: #005fcc !important;
-        }
-        /* Current date background */
-        .current-date {
-          background-color: #005fcc !important;
-          color: #fff !important;
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    // Ensure plus/add elements are focusable and have ARIA roles
-    document.querySelectorAll('.js-add-card').forEach(function (el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'Add new card');
-    });
+      // if we are scrolling far away from the bottom of the list
+      if (destPlaceholderIndex >= ui.item.parent().get(0).childElementCount) {
+        destPlaceholderIndex = ui.item.parent().get(0).childElementCount - 1;
+      }
 
-    const boardComponent = this;
-    const $swimlanesDom = boardComponent.$('.js-swimlanes');
-
-    $swimlanesDom.sortable({
-      tolerance: 'pointer',
-      appendTo: '.board-canvas',
-      helper(evt, item) {
-        const helper = $(`<div class="swimlane"
-                               style="flex-direction: column;
-                                      height: ${swimlaneWhileSortingHeight}px;
-                                      width: $(boardComponent.width)px;
-                                      overflow: hidden;"/>`);
-        helper.append(item.clone());
-        // Also grab the list of lists of cards
-        const list = item.next();
-        helper.append(list.clone());
-        return helper;
-      },
-      items: '.swimlane:not(.placeholder)',
-      placeholder: 'swimlane placeholder',
-      distance: 7,
-      start(evt, ui) {
-        const listDom = ui.placeholder.next('.js-swimlane');
-        const parentOffset = ui.item.parent().offset();
-
-        ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup-close');
-        listDom.addClass('moving-swimlane');
-        boardComponent.setIsDragging(true);
-
-        ui.placeholder.insertAfter(ui.placeholder.next());
-        boardComponent.origPlaceholderIndex = ui.placeholder.index();
-
-        // resize all swimlanes + headers to be a total of 150 px per row
-        // this could be achieved by setIsDragging(true) but we want immediate
-        // result
-        ui.item
-          .siblings('.js-swimlane')
-          .css('height', `${swimlaneWhileSortingHeight - 26}px`);
-
-        // set the new scroll height after the resize and insertion of
-        // the placeholder. We want the element under the cursor to stay
-        // at the same place on the screen
-        ui.item.parent().get(0).scrollTop =
-          ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
-      },
-      beforeStop(evt, ui) {
-        const parentOffset = ui.item.parent().offset();
-        const siblings = ui.item.siblings('.js-swimlane');
-        siblings.css('height', '');
-
-        // compute the new scroll height after the resize and removal of
-        // the placeholder
-        const scrollTop =
-          ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
-
-        // then reset the original view of the swimlane
-        siblings.removeClass('moving-swimlane');
-
-        // and apply the computed scrollheight
-        ui.item.parent().get(0).scrollTop = scrollTop;
-      },
-      stop(evt, ui) {
-        // To attribute the new index number, we need to get the DOM element
-        // of the previous and the following card -- if any.
-        const prevSwimlaneDom = ui.item.prevAll('.js-swimlane').get(0);
-        const nextSwimlaneDom = ui.item.nextAll('.js-swimlane').get(0);
-        const sortIndex = calculateIndex(prevSwimlaneDom, nextSwimlaneDom, 1);
-
-        $swimlanesDom.sortable('cancel');
-        const swimlaneDomElement = ui.item.get(0);
-        const swimlane = Blaze.getData(swimlaneDomElement);
-
-        Swimlanes.update(swimlane._id, {
-          $set: {
-            sort: sortIndex.base,
-          },
-        });
-
-        boardComponent.setIsDragging(false);
-      },
-      sort(evt, ui) {
-        // get the mouse position in the sortable
-        const parentOffset = ui.item.parent().offset();
-        const cursorY =
-          evt.pageY - parentOffset.top + ui.item.parent().scrollTop();
-
-        // compute the intended index of the placeholder (we need to skip the
-        // slots between the headers and the list of cards)
-        const newplaceholderIndex = Math.floor(
-          cursorY / swimlaneWhileSortingHeight,
-        );
-        let destPlaceholderIndex = (newplaceholderIndex + 1) * 2;
-
-        // if we are scrolling far away from the bottom of the list
-        if (destPlaceholderIndex >= ui.item.parent().get(0).childElementCount) {
-          destPlaceholderIndex = ui.item.parent().get(0).childElementCount - 1;
-        }
-
-        // update the placeholder position in the DOM tree
-        if (destPlaceholderIndex !== ui.placeholder.index()) {
-          if (destPlaceholderIndex < boardComponent.origPlaceholderIndex) {
-            ui.placeholder.insertBefore(
-              ui.placeholder
-                .siblings()
-                .slice(destPlaceholderIndex - 2, destPlaceholderIndex - 1),
-            );
-          } else {
-            ui.placeholder.insertAfter(
-              ui.placeholder
-                .siblings()
-                .slice(destPlaceholderIndex - 1, destPlaceholderIndex),
-            );
-          }
-        }
-      },
-    });
-
-    this.autorun(() => {
-      // Always reset dragscroll on view switch
-      dragscroll.reset();
-
-      if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
-        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-          $swimlanesDom.sortable(
-            'option',
-            'handle',
-            '.js-swimlane-header-handle',
+      // update the placeholder position in the DOM tree
+      if (destPlaceholderIndex !== ui.placeholder.index()) {
+        if (destPlaceholderIndex < tpl.origPlaceholderIndex) {
+          ui.placeholder.insertBefore(
+            ui.placeholder
+              .siblings()
+              .slice(destPlaceholderIndex - 2, destPlaceholderIndex - 1),
           );
         } else {
-          $swimlanesDom.sortable('option', 'handle', '.swimlane-header');
+          ui.placeholder.insertAfter(
+            ui.placeholder
+              .siblings()
+              .slice(destPlaceholderIndex - 1, destPlaceholderIndex),
+          );
         }
+      }
+    },
+  });
 
-        // Disable drag-dropping if the current user is not a board member
+  this.autorun(() => {
+    // Always reset dragscroll on view switch
+    dragscroll.reset();
+
+    if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
+      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $swimlanesDom.sortable(
           'option',
-          'disabled',
-          !ReactiveCache.getCurrentUser()?.isBoardAdmin(),
+          'handle',
+          '.js-swimlane-header-handle',
         );
+      } else {
+        $swimlanesDom.sortable('option', 'handle', '.swimlane-header');
       }
-    });
 
-    // If there is no data in the board (ie, no lists) we autofocus the list
-    // creation form by clicking on the corresponding element.
-    const currentBoard = Utils.getCurrentBoard();
-    if (Utils.canModifyBoard() && currentBoard.lists().length === 0) {
-      boardComponent.openNewListForm();
+      // Disable drag-dropping if the current user is not a board member
+      $swimlanesDom.sortable(
+        'option',
+        'disabled',
+        !ReactiveCache.getCurrentUser()?.isBoardAdmin(),
+      );
     }
+  });
 
-    dragscroll.reset();
-    Utils.setBackgroundImage();
+  dragscroll.reset();
+  Utils.setBackgroundImage();
+});
+
+Template.boardBody.onDestroyed(function () {
+  if (BoardBody === this) {
+    BoardBody = null;
+  }
+});
+
+Template.boardBody.helpers({
+  draggingActive() {
+    return Template.instance().draggingActive.get();
   },
-
+  showOverlay() {
+    return Template.instance().showOverlay.get();
+  },
   notDisplayThisBoard() {
     let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne(
       'tableVisibilityMode-allowPrivateOnly',
@@ -670,8 +734,9 @@ BlazeComponent.extendComponent({
   debugBoardStateData() {
     const currentBoard = Utils.getCurrentBoard();
     const currentBoardId = Session.get('currentBoard');
-    const isBoardReady = this.isBoardReady.get();
-    const isConverting = this.isConverting.get();
+    const tpl = Template.instance();
+    const isBoardReady = tpl.isBoardReady.get();
+    const isConverting = tpl.isConverting.get();
     const boardView = Utils.boardView();
 
     if (process.env.DEBUG === 'true') {
@@ -697,94 +762,55 @@ BlazeComponent.extendComponent({
       boardView,
     };
   },
+});
 
-  openNewListForm() {
-    if (this.isViewSwimlanes()) {
-      // The form had been removed in 416b17062e57f215206e93a85b02ef9eb1ab4902
-      // this.childComponents('swimlane')[0]
-      //   .childComponents('addListAndSwimlaneForm')[0]
-      //   .open();
-    } else if (this.isViewLists()) {
-      this.childComponents('listsGroup')[0]
-        .childComponents('addListForm')[0]
-        .open();
+Template.boardBody.events({
+  // XXX The board-overlay div should probably be moved to the parent
+  // component.
+  mouseup(event, tpl) {
+    if (tpl._isDragging) {
+      tpl._isDragging = false;
     }
   },
-  events() {
-    return [
-      {
-        // XXX The board-overlay div should probably be moved to the parent
-        // component.
-        mouseup() {
-          if (this._isDragging) {
-            this._isDragging = false;
-          }
-        },
-        'click .js-empty-board-add-swimlane': Popup.open('swimlaneAdd'),
-        // Global drag and drop file upload handlers for better visual feedback
-        'dragover .board-canvas'(event) {
-          const dataTransfer = event.originalEvent.dataTransfer;
-          if (
-            dataTransfer &&
-            dataTransfer.types &&
-            dataTransfer.types.includes('Files')
-          ) {
-            event.preventDefault();
-            // Add visual indicator that files can be dropped
-            $('.board-canvas').addClass('file-drag-over');
-          }
-        },
-        'dragleave .board-canvas'(event) {
-          const dataTransfer = event.originalEvent.dataTransfer;
-          if (
-            dataTransfer &&
-            dataTransfer.types &&
-            dataTransfer.types.includes('Files')
-          ) {
-            // Only remove class if we're leaving the board canvas entirely
-            if (!event.currentTarget.contains(event.relatedTarget)) {
-              $('.board-canvas').removeClass('file-drag-over');
-            }
-          }
-        },
-        'drop .board-canvas'(event) {
-          const dataTransfer = event.originalEvent.dataTransfer;
-          if (
-            dataTransfer &&
-            dataTransfer.types &&
-            dataTransfer.types.includes('Files')
-          ) {
-            event.preventDefault();
-            $('.board-canvas').removeClass('file-drag-over');
-          }
-        },
-      },
-    ];
+  'click .js-empty-board-add-swimlane': Popup.open('swimlaneAdd'),
+  // Global drag and drop file upload handlers for better visual feedback
+  'dragover .board-canvas'(event) {
+    const dataTransfer = event.originalEvent.dataTransfer;
+    if (
+      dataTransfer &&
+      dataTransfer.types &&
+      dataTransfer.types.includes('Files')
+    ) {
+      event.preventDefault();
+      // Add visual indicator that files can be dropped
+      $('.board-canvas').addClass('file-drag-over');
+    }
   },
-
-  // XXX Flow components allow us to avoid creating these two setter methods by
-  // exposing a public API to modify the component state. We need to investigate
-  // best practices here.
-  setIsDragging(bool) {
-    this.draggingActive.set(bool);
+  'dragleave .board-canvas'(event) {
+    const dataTransfer = event.originalEvent.dataTransfer;
+    if (
+      dataTransfer &&
+      dataTransfer.types &&
+      dataTransfer.types.includes('Files')
+    ) {
+      // Only remove class if we're leaving the board canvas entirely
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        $('.board-canvas').removeClass('file-drag-over');
+      }
+    }
   },
-
-  scrollLeft(position = 0) {
-    const swimlanes = this.$('.js-swimlanes');
-    swimlanes &&
-      swimlanes.animate({
-        scrollLeft: position,
-      });
+  'drop .board-canvas'(event) {
+    const dataTransfer = event.originalEvent.dataTransfer;
+    if (
+      dataTransfer &&
+      dataTransfer.types &&
+      dataTransfer.types.includes('Files')
+    ) {
+      event.preventDefault();
+      $('.board-canvas').removeClass('file-drag-over');
+    }
   },
-
-  scrollTop(position = 0) {
-    const swimlanes = this.$('.js-swimlanes');
-    swimlanes &&
-      swimlanes.animate({
-        scrollTop: position,
-      });
-  },
-}).register('boardBody');
+});
 
 // Accessibility: Allow users to enable/disable keyboard shortcuts
 window.wekanShortcutsEnabled = true;
@@ -898,18 +924,19 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-BlazeComponent.extendComponent({
-  onRendered() {
-    // Set the language attribute on the <html> element for accessibility
-    document.documentElement.lang = TAPi18n.getLanguage();
+Template.calendarView.onRendered(function () {
+  // Set the language attribute on the <html> element for accessibility
+  document.documentElement.lang = TAPi18n.getLanguage();
 
-    this.autorun(function () {
-      const calendarEl = document.getElementById('calendar-view');
-      if (calendarEl && calendarEl._wekanCalendar) {
-        calendarEl._wekanCalendar.refetchEvents();
-      }
-    });
-  },
+  this.autorun(function () {
+    const calendarEl = document.getElementById('calendar-view');
+    if (calendarEl && calendarEl._wekanCalendar) {
+      calendarEl._wekanCalendar.refetchEvents();
+    }
+  });
+});
+
+Template.calendarView.helpers({
   calendarOptions() {
     const t = (key, fallback) => {
       const translated = TAPi18n.__(key);
@@ -1117,7 +1144,8 @@ BlazeComponent.extendComponent({
       return window.localStorage.getItem('boardView') === 'board-view-cal';
     }
   },
-}).register('calendarView');
+});
+
 /**
  * Gantt View Component
  * Displays cards as a Gantt chart with start/due dates

@@ -4,10 +4,23 @@ See [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Responsible Security Disclosure
 
-- To send email, use [ProtonMail](https://proton.me) email address or use PGP key [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
-- Send info about security issue ONLY to security@wekan.fi (that is Protomail email address). NOT TO ANYWHERE ELSE. NO CC, NO BCC.
-- Wait for new WeKan release that fixes security issue
-- If you approve, we thank you by adding you to Hall of Fame: https://wekan.fi/hall-of-fame/
+1. To send email, if possible, use PGP key [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
+2. Send info about security issue ONLY to security@wekan.fi . NOT TO ANYWHERE ELSE. NO CC, NO BCC.
+3. Wait for new WeKan release that fixes security issue to appear to top of
+   https://github.com/wekan/wekan/blob/main/CHANGELOG.md
+4. We will thank you by adding you to Hall of Fame: https://wekan.fi/hall-of-fame/
+5. All vulnerability details will be private to security@wekan.fi ,
+   unless you help all WeKan platforms to have a way to upgrade, like sending
+   database migrations code to security@wekan.fi or PRs to https://github.com/wekan/wekan/pulls .
+   There is no benefit to Wordwide Security Community to have more details about vulnerabilities,
+   if Worldwide Security Community does not help to make upgrades possible.
+6. If there some day becomes available a way to upgrade all WeKan platforms,
+   this page will be updated to add permission for security researchers
+   to request new GHSA or CVE ID and publish your vulnerability details at your blog, talks, etc,
+   and send that info also to security@wekan.fi to be added to
+   Hall of Fame: https://wekan.fi/hall-of-fame/ to get Upgrade Bonus Point Stars.
+   In that case, it will become possible for security@wekan.fi to publish all
+   remaining private security details, and publicly thank Worldwide Security Community.
 
 ## Bonus Points
 

@@ -844,11 +844,13 @@ template(name="cardDetailsActionsPopup")
 template(name="exportCardPopup")
   ul.pop-over-list
     li
-      a(href="{{exportUrlCardPDF}}",, download="{{exportFilenameCardPDF}}")
+      a(href="{{exportUrlCardPDF}}", download="{{exportFilenameCardPDF}}")
         i.fa.fa-upload
         | {{_ 'export-card-pdf'}}
 
 template(name="moveCardPopup")
+  label(for='move-card-title') {{_ 'title'}}:
+  input#move-card-title.full-line(type="text" value="{{getTitle}}" autofocus)
   unless currentUser.isWorker
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)

@@ -2,6 +2,7 @@ import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { Random } from 'meteor/random';
 import { SyncedCron } from 'meteor/quave:synced-cron';
 import { TAPi18n } from '/imports/i18n';
+import { debounce } from '/imports/lib/collectionHelpers';
 import ImpersonatedUsers from './impersonatedUsers';
 // import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
 
@@ -991,7 +992,7 @@ Users.helpers({
 
   hasStarred(boardId) {
     const { starredBoards = [] } = this.profile || {};
-    return _.contains(starredBoards, boardId);
+    return starredBoards.includes(boardId);
   },
 
   isAutoWidth(boardId) {
@@ -1006,7 +1007,7 @@ Users.helpers({
 
   isInvitedTo(boardId) {
     const { invitedBoards = [] } = this.profile || {};
-    return _.contains(invitedBoards, boardId);
+    return invitedBoards.includes(boardId);
   },
 
   _getListSortBy() {
@@ -1179,12 +1180,12 @@ Users.helpers({
 
   hasTag(tag) {
     const { tags = [] } = this.profile || {};
-    return _.contains(tags, tag);
+    return tags.includes(tag);
   },
 
   hasNotification(activityId) {
     const { notifications = [] } = this.profile || {};
-    return _.contains(notifications, activityId);
+    return notifications.includes(activityId);
   },
 
   notifications() {
@@ -2365,11 +2366,11 @@ if (Meteor.isServer) {
       }
       const inviter = await ReactiveCache.getCurrentUser();
       const board = await ReactiveCache.getBoard(boardId);
-      const member = _.find(board.members, function(member) { return member.userId === inviter._id; });
+      const member = board.members.find(function(member) { return member.userId === inviter._id; });
       if (!member) throw new Meteor.Error('error-board-notAMember');
       const allowInvite = member.isActive;
       // GitHub issue 2060
-      //_.where(board.members, { userId: inviter._id })[0].isAdmin;
+      //board.members.filter(m => m.userId === inviter._id)[0].isAdmin;
       if (!allowInvite) throw new Meteor.Error('error-board-notAMember');
 
       this.unblock();
@@ -2622,7 +2623,7 @@ if (Meteor.isServer) {
       if (!existingUser) return user;
 
       // copy across new service info
-      const service = _.keys(user.services)[0];
+      const service = Object.keys(user.services)[0];
       existingUser.services[service] = user.services[service];
       existingUser.emails = user.emails;
       existingUser.username = user.username;
@@ -2692,7 +2693,7 @@ if (Meteor.isServer) {
   });
 }
 
-const addCronJob = _.debounce(
+const addCronJob = debounce(
   Meteor.bindEnvironment(function notificationCleanupDebounced() {
     // passed in the removeAge has to be a number standing for the number of days after a notification is read before we remove it
     const envRemoveAge =
@@ -2787,20 +2788,20 @@ if (Meteor.isServer) {
   Users.after.update(function (userId, user, fieldNames) {
     // The `starredBoards` list is hosted on the `profile` field. If this
     // field hasn't been modificated we don't need to run this hook.
-    if (!_.contains(fieldNames, 'profile')) return;
+    if (!fieldNames.includes('profile')) return;
 
     // To calculate a diff of board starred ids, we get both the previous
     // and the newly board ids list
     function getStarredBoardsIds(doc) {
-      return doc.profile && doc.profile.starredBoards;
+      const starredBoards = doc.profile && doc.profile.starredBoards;
+      return Array.isArray(starredBoards) ? starredBoards : [];
     }
 
     const oldIds = getStarredBoardsIds(this.previous);
     const newIds = getStarredBoardsIds(user);
 
-    // The _.difference(a, b) method returns the values from a that are not in
-    // b. We use it to find deleted and newly inserted ids by using it in one
-    // direction and then in the other.
+    // Filter values from a that are not in b to find deleted and newly
+    // inserted ids by filtering in one direction and then in the other.
     function incrementBoards(boardsIds, inc) {
       boardsIds.forEach((boardId) => {
         Boards.update(boardId, {
@@ -2811,8 +2812,8 @@ if (Meteor.isServer) {
       });
     }
 
-    incrementBoards(_.difference(oldIds, newIds), -1);
-    incrementBoards(_.difference(newIds, oldIds), +1);
+    incrementBoards(oldIds.filter(x => !newIds.includes(x)), -1);
+    incrementBoards(newIds.filter(x => !oldIds.includes(x)), +1);
   });
 
   // Override getUserId so that we can TODO get the current userId
@@ -3607,7 +3608,7 @@ if (Meteor.isServer) {
       const board = await ReactiveCache.getBoard(boardId);
 
       // Check if current user is a member of the board
-      const member = _.find(board.members, function(member) { return member.userId === currentUser._id; });
+      const member = board.members.find(function(member) { return member.userId === currentUser._id; });
       if (!member || !member.isActive) {
         throw new Meteor.Error('not-authorized', 'User is not a member of this board');
       }

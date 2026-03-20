@@ -7,11 +7,9 @@ Template.headerUserBar.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('setting');
-  },
-}).register('memberMenuPopup');
+Template.memberMenuPopup.onCreated(function () {
+  Meteor.subscribe('setting');
+});
 
 Template.memberMenuPopup.helpers({
   templatesBoardId() {
@@ -114,12 +112,6 @@ Template.memberMenuPopup.events({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('setting');
-  },
-}).register('editProfilePopup');
-
 Template.invitePeoplePopup.events({
   'click a.js-toggle-board-choose'(event){
     let target = $(event.target);
@@ -169,6 +161,7 @@ Template.invitePeoplePopup.events({
 });
 
 Template.editProfilePopup.onCreated(function() {
+  Meteor.subscribe('setting');
   this.subscribe('accountSettings');
 });
 

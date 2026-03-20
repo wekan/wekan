@@ -15,9 +15,7 @@ function getCardsBetween(idA, idB) {
     }).map(pluckId);
   }
 
-  const cards = _.sortBy([ReactiveCache.getCard(idA), ReactiveCache.getCard(idB)], c => {
-    return c.sort;
-  });
+  const cards = [ReactiveCache.getCard(idA), ReactiveCache.getCard(idB)].sort((a, b) => a.sort - b.sort);
 
   let selector;
   if (cards[0].listId === cards[1].listId) {
@@ -91,14 +89,16 @@ MultiSelection = {
 
   activate() {
     if (!this.isActive()) {
-      this._sidebarWasOpen = Sidebar.isOpen();
+      this._sidebarWasOpen = Sidebar && Sidebar.isOpen();
       EscapeActions.executeUpTo('detailsPane');
       this._isActive.set(true);
       Tracker.flush();
     }
-    Sidebar.setView(this.sidebarView);
-    if(Utils.isMiniScreen()) {
-      Sidebar.hide();
+    if (Sidebar) {
+      Sidebar.setView(this.sidebarView);
+      if(Utils.isMiniScreen()) {
+        Sidebar.hide();
+      }
     }
   },
 
@@ -135,7 +135,7 @@ MultiSelection = {
   },
 
   toggle(cardIds, options = {}) {
-    cardIds = _.isString(cardIds) ? [cardIds] : cardIds;
+    cardIds = typeof cardIds === 'string' ? [cardIds] : cardIds;
     options = {
       add: true,
       remove: true,

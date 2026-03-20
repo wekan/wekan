@@ -354,7 +354,6 @@
   box-sizing: border-box;
   /* Ensure content is not shifted left */
   margin-left: 0 !important;
-  transform: none !important;
 }
 
 /* Utility: remove left gutter inside specific popups */
@@ -388,30 +387,15 @@
   margin-bottom: 2px;
 }
 
-/* Global fix for all popup content to prevent left shifting */
-.pop-over .content * {
-  margin-left: 0 !important;
-  transform: none !important;
-}
 
-/* Override any potential left shifting for specific elements */
-.pop-over .content form,
-.pop-over .content .palette-colors,
-.pop-over .content .pop-over-list,
-.pop-over .content .flush-left {
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-  transform: none !important;
-}
 
-/* Fix popup depth containers that cause left shifting */
+/* Fix popup depth containers - don't block transforms which are needed for popup navigation */
 .pop-over .popup-container-depth-1,
 .pop-over .popup-container-depth-2,
 .pop-over .popup-container-depth-3,
 .pop-over .popup-container-depth-4,
 .pop-over .popup-container-depth-5,
 .pop-over .popup-container-depth-6 {
-  transform: none !important;
   margin-left: 0 !important;
   padding-left: 0 !important;
 }
@@ -457,22 +441,22 @@
   margin: 40px auto;
 }
 .pop-over .popup-container-depth-1 {
-  transform: translateX(-300px);
+  transform: none;
 }
 .pop-over .popup-container-depth-2 {
-  transform: translateX(-600px);
+  transform: none;
 }
 .pop-over .popup-container-depth-3 {
-  transform: translateX(-900px);
+  transform: none;
 }
 .pop-over .popup-container-depth-4 {
-  transform: translateX(-1200px);
+  transform: none;
 }
 .pop-over .popup-container-depth-5 {
-  transform: translateX(-1500px);
+  transform: none;
 }
 .pop-over .popup-container-depth-6 {
-  transform: translateX(-1800px);
+  transform: none;
 }
 .select-members-list,
 .select-avatars-list {

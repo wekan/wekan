@@ -8,8 +8,9 @@ const isSandstorm =
 
 if (Meteor.isServer) {
   Meteor.methods({
-    getStatistics() {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async getStatistics() {
+      const currentUser = await ReactiveCache.getCurrentUser();
+      if (currentUser?.isAdmin) {
         const os = require('os');
         const pjson = require('/package.json');
         const statistics = {};
@@ -79,18 +80,14 @@ if (Meteor.isServer) {
           oplogEnabled = Boolean(
             mongo._oplogHandle && mongo._oplogHandle.onOplogEntry,
           );
-          const { version, storageEngine } = Promise.await(
-            mongo.db.command({ serverStatus: 1 }),
-          );
+          const { version, storageEngine } = await mongo.db.command({ serverStatus: 1 });
           mongoVersion = version;
           mongoStorageEngine = storageEngine.name;
           mongoOplogEnabled = oplogEnabled;
         } catch (e) {
           try {
             const { mongo } = MongoInternals.defaultRemoteCollectionDriver();
-            const { version } = Promise.await(
-              mongo.db.command({ buildinfo: 1 }),
-            );
+            const { version } = await mongo.db.command({ buildinfo: 1 });
             mongoVersion = version;
             mongoStorageEngine = 'unknown';
           } catch (e) {

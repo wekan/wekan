@@ -30,7 +30,7 @@ template(name="listHeader")
             | &nbsp;
             span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
-        a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
+        a.list-collapse-indicator.js-collapse(title="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}" aria-label="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}")
           if collapsed
             i.fa.fa-caret-right
           else
@@ -161,6 +161,18 @@ template(name="listActionPopup")
               a.js-set-wip-limit
                 i.fa.fa-ban
                 | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+        hr
+        ul.pop-over-list
+          unless currentUser.isWorker
+            li
+              a.js-copy-list
+                i.fa.fa-clipboard
+                | {{_ 'copyListPopup-title'}}
+          if currentUser.isBoardAdmin
+            li
+              a.js-move-list
+                i.fa.fa-arrow-right
+                | {{_ 'moveListPopup-title'}}
         unless currentUser.isWorker
           hr
           ul.pop-over-list
@@ -199,6 +211,11 @@ template(name="listMorePopup")
       if currentUser.isBoardAdmin
     //
         a.js-delete {{_ 'delete'}}
+
+template(name="listArchivePopup")
+  p {{_ "list-archive-pop"}}
+  p {{_ "list-archive-suggest"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}
@@ -257,6 +274,54 @@ template(name="setListColorPopup")
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+template(name="copyListPopup")
+  label(for='copy-list-title') {{_ 'title'}}:
+  input#copy-list-title.full-line(type="text" value="{{title}}" autofocus)
+  label {{_ 'boards'}}:
+  select.js-select-boards
+    each boards
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  div
+    input(type="radio" name="list-position" value="left" checked id="list-position-left" style="display: inline")
+    label(for="list-position-left") {{_ 'left-of-list'}}
+  div
+    input(type="radio" name="list-position" value="right" id="list-position-right" style="display: inline")
+    label(for="list-position-right") {{_ 'right-of-list'}}
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="moveListPopup")
+  label(for='move-list-title') {{_ 'title'}}:
+  input#move-list-title.full-line(type="text" value="{{title}}" autofocus)
+  label {{_ 'boards'}}:
+  select.js-select-boards
+    each boards
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  div
+    input(type="radio" name="list-position" value="left" checked id="list-position-left" style="display: inline")
+    label(for="list-position-left") {{_ 'left-of-list'}}
+  div
+    input(type="radio" name="list-position" value="right" id="list-position-right" style="display: inline")
+    label(for="list-position-right") {{_ 'right-of-list'}}
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="addListPopup")
   form.js-add-list-form

@@ -8,7 +8,7 @@ import EmailLocalization from '../lib/emailLocalization';
 Meteor.startup(() => {
   Notifications.subscribe('email', (user, title, description, params) => {
     // add quote to make titles easier to read in email text
-    const quoteParams = _.clone(params);
+    const quoteParams = { ...params };
     ['card', 'list', 'oldList', 'board', 'comment'].forEach(key => {
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });

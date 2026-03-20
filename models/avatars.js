@@ -27,7 +27,7 @@ if (Meteor.isServer) {
   if (process.env.AVATARS_UPLOAD_MAX_SIZE) {
     avatarsUploadSize_ = parseInt(process.env.AVATARS_UPLOAD_MAX_SIZE);
 
-    if (_.isNumber(avatarsUploadSize_) && avatarsUploadSize_ > 0) {
+    if (typeof avatarsUploadSize_ === 'number' && avatarsUploadSize_ > 0) {
       avatarsUploadSize = avatarsUploadSize_;
     }
   }
@@ -129,9 +129,11 @@ Avatars = new FilesCollection({
     const ret = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).interceptDownload(http, this.cacheControl);
     return ret;
   },
-  async onBeforeRemove(files) {
+  async onBeforeRemove(filesInput) {
+    const files = normalizeRemovedFiles(filesInput);
+
     for (const fileObj of files) {
-      if (fileObj.userId) {
+      if (fileObj && fileObj.userId) {
         const user = await ReactiveCache.getUser(fileObj.userId);
         user.setAvatarUrl('');
       }
@@ -139,14 +141,52 @@ Avatars = new FilesCollection({
 
     return true;
   },
-  onAfterRemove(files) {
+  onAfterRemove(filesInput) {
+    const files = normalizeRemovedFiles(filesInput);
+
     files.forEach(fileObj => {
+      if (!fileObj || !fileObj.versions) {
+        return;
+      }
+
       Object.keys(fileObj.versions).forEach(versionName => {
         fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).onAfterRemove();
       });
     });
   },
 });
+
+function normalizeRemovedFiles(filesInput) {
+  if (!filesInput) {
+    return [];
+  }
+
+  if (Array.isArray(filesInput)) {
+    return filesInput;
+  }
+
+  if (typeof filesInput.fetch === 'function') {
+    return filesInput.fetch();
+  }
+
+  if (Array.isArray(filesInput.files)) {
+    return filesInput.files;
+  }
+
+  if (typeof filesInput === 'string') {
+    return Avatars.find({ _id: filesInput }).fetch();
+  }
+
+  if (filesInput && typeof filesInput === 'object') {
+    if (filesInput._id && (filesInput.versions || filesInput.userId)) {
+      return [filesInput];
+    }
+
+    return Avatars.find(filesInput).fetch();
+  }
+
+  return [];
+}
 
 function isOwner(userId, doc) {
   return userId && userId === doc.userId;

@@ -1,4 +1,4 @@
-template(name="editCardSpentTime")
+template(name="editCardSpentTimePopup")
   .edit-card-time
     form.edit-time
       .fields
@@ -13,7 +13,7 @@ template(name="editCardSpentTime")
       button.primary.wide.left.js-submit-time(type="submit") {{_ 'save'}}
       button.js-delete-time.negate.wide.right {{_ 'delete'}}
 
-template(name="timeBadge")
+template(name="cardSpentTime")
   if canModifyCard
     a.js-edit-time.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
       | ⏱️ {{showTime}}

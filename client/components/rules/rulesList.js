@@ -1,10 +1,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.subscribe('allRules');
-  },
+Template.rulesList.onCreated(function () {
+  this.subscribe('allRules');
+});
 
+Template.rulesList.helpers({
   rules() {
     const boardId = Session.get('currentBoard');
     const ret = ReactiveCache.getRules({
@@ -12,7 +12,4 @@ BlazeComponent.extendComponent({
     });
     return ret;
   },
-  events() {
-    return [{}];
-  },
-}).register('rulesList');
+});

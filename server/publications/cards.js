@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { findWhere } from '/imports/lib/collectionHelpers';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
 import {
@@ -51,6 +52,11 @@ import {
   OPERATOR_STATUS,
   OPERATOR_SWIMLANE, OPERATOR_TEAM,
   OPERATOR_USER,
+  OPERATOR_TITLE,
+  OPERATOR_DESCRIPTION,
+  OPERATOR_CUSTOMFIELD,
+  OPERATOR_ATTACHMENT_TEXT,
+  OPERATOR_CHECKLIST_TEXT,
   ORDER_ASCENDING,
   PREDICATE_ALL,
   PREDICATE_ARCHIVED,
@@ -85,13 +91,13 @@ Meteor.publish('card', async cardId => {
   }
 
   const board = await ReactiveCache.getBoard({ _id: card.boardId });
-  if (!board || !board.isVisibleBy(userId)) {
+  if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
 
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
-    const member = _.findWhere(board.members, { userId: userId, isActive: true });
+    const member = findWhere(board.members, { userId: userId, isActive: true });
     if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
       // User with assigned-only permissions can only view cards assigned to them
       if (!card.assignees || !card.assignees.includes(userId)) {
@@ -122,13 +128,13 @@ publishComposite('popupCardData', async function(cardId) {
   }
 
   const board = await ReactiveCache.getBoard({ _id: card.boardId });
-  if (!board || !board.isVisibleBy(userId)) {
+  if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
 
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
-    const member = _.findWhere(board.members, { userId: userId, isActive: true });
+    const member = findWhere(board.members, { userId: userId, isActive: true });
     if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
       // User with assigned-only permissions can only view cards assigned to them
       if (!card.assignees || !card.assignees.includes(userId)) {
@@ -154,6 +160,70 @@ publishComposite('popupCardData', async function(cardId) {
       }
     ]
   };
+});
+
+Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', cardsLimit = 30, listsLimit = 30, swimlanesLimit = 30) {
+  check(boardId, String);
+  check(activeTab, String);
+  check(cardsLimit, Match.Integer);
+  check(listsLimit, Match.Integer);
+  check(swimlanesLimit, Match.Integer);
+
+  const userId = this.userId;
+  if (!userId) {
+    return this.ready();
+  }
+
+  const safeCardsLimit = Math.max(1, Math.min(cardsLimit, 500));
+  const safeListsLimit = Math.max(1, Math.min(listsLimit, 500));
+  const safeSwimlaneLimit = Math.max(1, Math.min(swimlanesLimit, 500));
+
+  const board = await ReactiveCache.getBoard({ _id: boardId });
+  if (!board || !board.isVisibleBy({ _id: userId })) {
+    return [];
+  }
+
+  const cardSelector = {
+    boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+    archived: true,
+  };
+
+  // Respect assigned-only board permissions for archived cards as well.
+  if (board.members) {
+    const member = findWhere(board.members, { userId, isActive: true });
+    if (
+      member &&
+      (member.isNormalAssignedOnly ||
+        member.isCommentAssignedOnly ||
+        member.isReadAssignedOnly)
+    ) {
+      cardSelector.assignees = { $in: [userId] };
+    }
+  }
+
+  const archivedListsSelector = {
+    boardId,
+    archived: true,
+  };
+  const archivedSwimlanesSelector = {
+    boardId,
+    archived: true,
+  };
+
+  const cardsCursor = Cards.find(cardSelector, {
+    sort: { archivedAt: -1, modifiedAt: -1 },
+    limit: safeCardsLimit,
+  });
+  const listsCursor = Lists.find(archivedListsSelector, {
+    sort: { archivedAt: -1, modifiedAt: -1 },
+    limit: safeListsLimit,
+  });
+  const swimlanesCursor = Swimlanes.find(archivedSwimlanesSelector, {
+    sort: { archivedAt: -1, modifiedAt: -1 },
+    limit: safeSwimlaneLimit,
+  });
+
+  return [cardsCursor, listsCursor, swimlanesCursor];
 });
 
 Meteor.publish('myCards', async function(sessionId) {
@@ -592,7 +662,7 @@ async function buildSelector(queryParams) {
       if (queryLabels.length) {
         // eslint-disable-next-line no-console
         // console.log('queryLabels:', queryLabels);
-        selector.labelIds = { $in: _.uniq(queryLabels) };
+        selector.labelIds = { $in: [...new Set(queryLabels)] };
       }
     }
 
@@ -675,6 +745,57 @@ async function buildSelector(queryParams) {
         cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text === "true" } } } );
       }
       selector.$and.push({ $or: cardsSelector });
+    }
+
+    if (queryParams.hasOperator(OPERATOR_TITLE)) {
+      const regexes = queryParams.getPredicates(OPERATOR_TITLE).map(t => new RegExp(escapeForRegex(t), 'i'));
+      selector.$and.push({ $or: regexes.map(regex => ({ title: regex })) });
+    }
+
+    if (queryParams.hasOperator(OPERATOR_DESCRIPTION)) {
+      const regexes = queryParams.getPredicates(OPERATOR_DESCRIPTION).map(t => new RegExp(escapeForRegex(t), 'i'));
+      selector.$and.push({ $or: regexes.map(regex => ({ description: regex })) });
+    }
+
+    if (queryParams.hasOperator(OPERATOR_CUSTOMFIELD)) {
+      const regexes = queryParams.getPredicates(OPERATOR_CUSTOMFIELD).map(t => new RegExp(escapeForRegex(t), 'i'));
+      selector.$and.push({ $or: regexes.map(regex => ({ customFields: { $elemMatch: { value: regex } } })) });
+    }
+
+    if (queryParams.hasOperator(OPERATOR_ATTACHMENT_TEXT)) {
+      for (const t of queryParams.getPredicates(OPERATOR_ATTACHMENT_TEXT)) {
+        const regex = new RegExp(escapeForRegex(t), 'i');
+        const attachments = await ReactiveCache.getAttachments({ 'original.name': regex });
+        if (attachments.length) {
+          selector.$and.push({ _id: { $in: attachments.map(attach => attach.cardId) } });
+        } else {
+          selector.$and.push({ _id: null });
+        }
+      }
+    }
+
+    if (queryParams.hasOperator(OPERATOR_CHECKLIST_TEXT)) {
+      for (const t of queryParams.getPredicates(OPERATOR_CHECKLIST_TEXT)) {
+        const regex = new RegExp(escapeForRegex(t), 'i');
+        const items = await ReactiveCache.getChecklistItems(
+          { title: regex },
+          { fields: { cardId: 1, checklistId: 1 } },
+        );
+        const checklists = await ReactiveCache.getChecklists(
+          {
+            $or: [
+              { title: regex },
+              { _id: { $in: items.map(item => item.checklistId) } },
+            ],
+          },
+          { fields: { cardId: 1 } },
+        );
+        if (checklists.length) {
+          selector.$and.push({ _id: { $in: checklists.map(list => list.cardId) } });
+        } else {
+          selector.$and.push({ _id: null });
+        }
+      }
     }
 
     if (selector.$and.length === 0) {
@@ -855,9 +976,44 @@ async function findCards(sessionId, query) {
     console.log('findCards - projection:', query.projection);
   }
 
-  const cards = await ReactiveCache.getCards(query.selector, query.projection, true);
+  let textMatches = query.getQueryParams().text;
+  let isTextSearch = !!textMatches;
+  let dbProjection = query.projection;
+  if (isTextSearch) {
+    dbProjection = Object.assign({}, query.projection);
+    delete dbProjection.limit;
+    delete dbProjection.skip;
+  }
+
+  let cards = await ReactiveCache.getCards(query.selector, dbProjection, true);
+  let totalCardsCount = cards ? cards.count() : 0;
+  let orderedIds = [];
+
+  if (isTextSearch && totalCardsCount > 0) {
+    let fetched = cards.fetch();
+    const regex = new RegExp(escapeForRegex(textMatches), 'i');
+    fetched.forEach(c => {
+      c._score = 0;
+      if (c.title && regex.test(c.title)) c._score += 10;
+      else if (c.description && regex.test(c.description)) c._score += 5;
+      else if (c.customFields && c.customFields.some(f => f.value && regex.test(String(f.value)))) c._score += 1;
+    });
+    fetched.sort((a, b) => {
+      if (b._score !== a._score) return b._score - a._score;
+      return (a.title || '').localeCompare(b.title || '');
+    });
+
+    const skip = query.projection.skip || 0;
+    const limit = query.projection.limit || 25;
+    const page = fetched.slice(skip, skip + limit);
+    orderedIds = page.map(c => c._id);
+
+    // override the cursor to only contain the paginated results for this page
+    cards = await ReactiveCache.getCards({ _id: { $in: orderedIds } }, { fields: query.projection.fields }, true);
+  }
+
   if (process.env.DEBUG === 'true') {
-    console.log('findCards - cards count:', cards ? cards.count() : 0);
+    console.log('findCards - cards count:', totalCardsCount);
   }
 
   const update = {
@@ -875,14 +1031,18 @@ async function findCards(sessionId, query) {
   };
 
   if (cards) {
-    update.$set.totalHits = cards.count();
+    update.$set.totalHits = totalCardsCount;
     update.$set.lastHit =
-      query.projection.skip + query.projection.limit < cards.count()
+      query.projection.skip + query.projection.limit < totalCardsCount
         ? query.projection.skip + query.projection.limit
-        : cards.count();
-    update.$set.cards = cards.map(card => {
-      return card._id;
-    });
+        : totalCardsCount;
+
+    // For text search preserve our sorted IDs, else grab from db order
+    if (isTextSearch) {
+      update.$set.cards = orderedIds;
+    } else {
+      update.$set.cards = cards.map(card => card._id);
+    }
     update.$set.resultsCount = update.$set.cards.length;
   }
 

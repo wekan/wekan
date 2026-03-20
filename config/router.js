@@ -2,6 +2,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 let previousPath;
+
 FlowRouter.triggers.exit([
   ({ path }) => {
     previousPath = path;
@@ -540,7 +541,7 @@ const redirections = {
   '/import': '/import/trello',
 };
 
-_.each(redirections, (newPath, oldPath) => {
+Object.entries(redirections).forEach(([oldPath, newPath]) => {
   FlowRouter.route(oldPath, {
     triggersEnter: [
       (context, redirect) => {

@@ -59,6 +59,9 @@
   margin: auto;
   margin-right: 14px;
 }
+.rules-back .js-goback .fa-arrow-left {
+  color: #fff !important;
+}
 .flex,
 .triggers-content .triggers-body .triggers-side-menu ul li a {
   display: -webkit-box;

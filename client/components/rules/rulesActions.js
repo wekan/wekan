@@ -1,46 +1,25 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentActions = new ReactiveVar('board');
+Template.rulesActions.onCreated(function () {
+  this.currentActions = new ReactiveVar('board');
+});
+
+Template.rulesActions.helpers({
+  currentActions() {
+    return Template.instance().currentActions;
+  },
+
+  data() {
+    return Template.currentData();
   },
 
   ruleNameStr() {
-    const rn = this.data() && this.data().ruleName;
+    const rn = Template.currentData() && Template.currentData().ruleName;
     try {
       return rn && typeof rn.get === 'function' ? rn.get() : '';
     } catch (_) {
       return '';
     }
-  },
-
-  setBoardActions() {
-    this.currentActions.set('board');
-    $('.js-set-card-actions').removeClass('active');
-    $('.js-set-board-actions').addClass('active');
-    $('.js-set-checklist-actions').removeClass('active');
-    $('.js-set-mail-actions').removeClass('active');
-  },
-  setCardActions() {
-    this.currentActions.set('card');
-    $('.js-set-card-actions').addClass('active');
-    $('.js-set-board-actions').removeClass('active');
-    $('.js-set-checklist-actions').removeClass('active');
-    $('.js-set-mail-actions').removeClass('active');
-  },
-  setChecklistActions() {
-    this.currentActions.set('checklist');
-    $('.js-set-card-actions').removeClass('active');
-    $('.js-set-board-actions').removeClass('active');
-    $('.js-set-checklist-actions').addClass('active');
-    $('.js-set-mail-actions').removeClass('active');
-  },
-  setMailActions() {
-    this.currentActions.set('mail');
-    $('.js-set-card-actions').removeClass('active');
-    $('.js-set-board-actions').removeClass('active');
-    $('.js-set-checklist-actions').removeClass('active');
-    $('.js-set-mail-actions').addClass('active');
   },
 
   rules() {
@@ -49,24 +28,53 @@ BlazeComponent.extendComponent({
   },
 
   name() {
-    // console.log(this.data());
+    // console.log(Template.currentData());
   },
-  events() {
-    return [
-      {
-        'click .js-set-board-actions'() {
-          this.setBoardActions();
-        },
-        'click .js-set-card-actions'() {
-          this.setCardActions();
-        },
-        'click .js-set-mail-actions'() {
-          this.setMailActions();
-        },
-        'click .js-set-checklist-actions'() {
-          this.setChecklistActions();
-        },
-      },
-    ];
+});
+
+function setBoardActions(tpl) {
+  tpl.currentActions.set('board');
+  $('.js-set-card-actions').removeClass('active');
+  $('.js-set-board-actions').addClass('active');
+  $('.js-set-checklist-actions').removeClass('active');
+  $('.js-set-mail-actions').removeClass('active');
+}
+
+function setCardActions(tpl) {
+  tpl.currentActions.set('card');
+  $('.js-set-card-actions').addClass('active');
+  $('.js-set-board-actions').removeClass('active');
+  $('.js-set-checklist-actions').removeClass('active');
+  $('.js-set-mail-actions').removeClass('active');
+}
+
+function setChecklistActions(tpl) {
+  tpl.currentActions.set('checklist');
+  $('.js-set-card-actions').removeClass('active');
+  $('.js-set-board-actions').removeClass('active');
+  $('.js-set-checklist-actions').addClass('active');
+  $('.js-set-mail-actions').removeClass('active');
+}
+
+function setMailActions(tpl) {
+  tpl.currentActions.set('mail');
+  $('.js-set-card-actions').removeClass('active');
+  $('.js-set-board-actions').removeClass('active');
+  $('.js-set-checklist-actions').removeClass('active');
+  $('.js-set-mail-actions').addClass('active');
+}
+
+Template.rulesActions.events({
+  'click .js-set-board-actions'(event, tpl) {
+    setBoardActions(tpl);
   },
-}).register('rulesActions');
+  'click .js-set-card-actions'(event, tpl) {
+    setCardActions(tpl);
+  },
+  'click .js-set-mail-actions'(event, tpl) {
+    setMailActions(tpl);
+  },
+  'click .js-set-checklist-actions'(event, tpl) {
+    setChecklistActions(tpl);
+  },
+});

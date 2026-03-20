@@ -27,6 +27,19 @@ At Roadmap of some other Wekan Contributors:
 
 ***
 
+# If you get "Board not Found" after archieving Template Board
+
+From: https://github.com/wekan/wekan/issues/4632
+
+You can use MongoDB GUI like [DBGate or nosqlbooster](../Backup/Backup.md#dbgate-open-source-mongodb-gui).
+
+With that MongoDB GUI, look what is userID of that user
+at users table/collection, and add that userID to
+members of boards table/collection where board type is
+Template and also set that board Archive to False.
+
+***
+
 # Current Per-User Templates Feature
 
 ## 1) All Boards page, top right: Templates

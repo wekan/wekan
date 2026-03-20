@@ -76,51 +76,36 @@ Template.userAvatarInitials.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
+Template.boardOrgRow.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
 
-    this.page = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
-    });
-  },
+  this.page = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+  });
+});
 
-  onRendered() {
-    this.setLoading(false);
-  },
-
-  setError(error) {
-    this.error.set(error);
-  },
-
-  setLoading(w) {
-    this.loading.set(w);
-  },
-
-  isLoading() {
-    return this.loading.get();
-  },
-
-  events() {
-    return [
-      {
-        'keyup input'() {
-          this.setError('');
-        },
-        'click .js-manage-board-removeOrg': Popup.open('removeBoardOrg'),
-      },
-    ];
-  },
-}).register('boardOrgRow');
+Template.boardOrgRow.onRendered(function () {
+  this.loading.set(false);
+});
 
 Template.boardOrgRow.helpers({
+  isLoading() {
+    return Template.instance().loading.get();
+  },
   orgData() {
     return ReactiveCache.getOrg(this.orgId);
   },
+});
+
+Template.boardOrgRow.events({
+  'keyup input'(event, tpl) {
+    tpl.error.set('');
+  },
+  'click .js-manage-board-removeOrg': Popup.open('removeBoardOrg'),
 });
 
 Template.boardOrgName.helpers({
@@ -135,51 +120,36 @@ Template.boardOrgName.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
+Template.boardTeamRow.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
 
-    this.page = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
-    });
-  },
+  this.page = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+  });
+});
 
-  onRendered() {
-    this.setLoading(false);
-  },
-
-  setError(error) {
-    this.error.set(error);
-  },
-
-  setLoading(w) {
-    this.loading.set(w);
-  },
-
-  isLoading() {
-    return this.loading.get();
-  },
-
-  events() {
-    return [
-      {
-        'keyup input'() {
-          this.setError('');
-        },
-        'click .js-manage-board-removeTeam': Popup.open('removeBoardTeam'),
-      },
-    ];
-  },
-}).register('boardTeamRow');
+Template.boardTeamRow.onRendered(function () {
+  this.loading.set(false);
+});
 
 Template.boardTeamRow.helpers({
+  isLoading() {
+    return Template.instance().loading.get();
+  },
   teamData() {
     return ReactiveCache.getTeam(this.teamId);
   },
+});
+
+Template.boardTeamRow.events({
+  'keyup input'(event, tpl) {
+    tpl.error.set('');
+  },
+  'click .js-manage-board-removeTeam': Popup.open('removeBoardTeam'),
 });
 
 Template.boardTeamName.helpers({
@@ -194,88 +164,79 @@ Template.boardTeamName.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
+Template.changeAvatarPopup.onCreated(function () {
+  this.error = new ReactiveVar('');
+  Meteor.subscribe('my-avatars');
+});
 
-    Meteor.subscribe('my-avatars');
+Template.changeAvatarPopup.helpers({
+  error() {
+    return Template.instance().error;
   },
-
   uploadedAvatars() {
     const ret = ReactiveCache.getAvatars({ userId: Meteor.userId() }, {}, true);
     return ret;
   },
-
   isSelected() {
     const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
-    const currentAvatarUrl = this.currentData().link();
+    const currentAvatarUrl = Template.currentData().link();
     return avatarUrl === currentAvatarUrl;
   },
-
   noAvatarUrl() {
     const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     return !avatarUrl;
   },
+});
 
-  setAvatar(avatarUrl) {
-    Meteor.call('setAvatarUrl', avatarUrl, (err) => {
-      if (err) {
-        this.setError(err.reason || 'Error setting avatar');
-      }
-    });
-  },
+function changeAvatarSetAvatar(tpl, avatarUrl) {
+  Meteor.call('setAvatarUrl', avatarUrl, (err) => {
+    if (err) {
+      tpl.error.set(err.reason || 'Error setting avatar');
+    }
+  });
+}
 
-  setError(error) {
-    this.error.set(error);
+Template.changeAvatarPopup.events({
+  'click .js-upload-avatar'(event, tpl) {
+    tpl.$('.js-upload-avatar-input').click();
   },
-
-  events() {
-    return [
-      {
-        'click .js-upload-avatar'() {
-          this.$('.js-upload-avatar-input').click();
+  'change .js-upload-avatar-input'(event, tpl) {
+    if (event.currentTarget.files && event.currentTarget.files[0]) {
+      const uploader = Avatars.insert(
+        {
+          file: event.currentTarget.files[0],
+          chunkSize: 'dynamic',
         },
-        'change .js-upload-avatar-input'(event) {
-          const self = this;
-          if (event.currentTarget.files && event.currentTarget.files[0]) {
-            const uploader = Avatars.insert(
-              {
-                file: event.currentTarget.files[0],
-                chunkSize: 'dynamic',
-              },
-              false,
-            );
-            uploader.on('error', (error, fileData) => {
-              self.setError(error.reason);
-            });
-            uploader.start();
-          }
-        },
-        'click .js-select-avatar'(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          const data = Blaze.getData(event.currentTarget);
-          if (data && typeof data.link === 'function') {
-            const avatarUrl = data.link();
-            this.setAvatar(avatarUrl);
-          }
-        },
-        'click .js-select-initials'(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          this.setAvatar('');
-        },
-        'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', function(event) {
-          Avatars.remove(this._id);
-          Popup.back();
-          event.stopPropagation();
-        }),
-      },
-    ];
+        false,
+      );
+      uploader.on('error', (error, fileData) => {
+        tpl.error.set(error.reason);
+      });
+      uploader.start();
+    }
   },
-}).register('changeAvatarPopup');
+  'click .js-select-avatar'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const data = Blaze.getData(event.currentTarget);
+    if (data && typeof data.link === 'function') {
+      const avatarUrl = data.link();
+      changeAvatarSetAvatar(tpl, avatarUrl);
+    }
+  },
+  'click .js-select-initials'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    changeAvatarSetAvatar(tpl, '');
+  },
+  'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', function (event) {
+    Avatars.remove(this._id);
+    Popup.back();
+    event.stopPropagation();
+  }),
+});
 
 Template.cardMemberPopup.helpers({
   user() {

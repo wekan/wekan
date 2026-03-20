@@ -1,4 +1,5 @@
 import { DataCache } from '@wekanteam/meteor-reactive-cache';
+import { groupBy, indexBy } from '/imports/lib/collectionHelpers';
 import Settings from '../models/settings';
 
 // Server isn't reactive, so search for the data always.
@@ -59,7 +60,14 @@ ReactiveCacheServer = {
     }
     return ret;
   },
-  async getCard(idOrFirstObjectSelector = {}, options = {}) {
+  async getCard(idOrFirstObjectSelector = null, options = {}) {
+    if (
+      idOrFirstObjectSelector === null ||
+      idOrFirstObjectSelector === undefined ||
+      idOrFirstObjectSelector === ''
+    ) {
+      return null;
+    }
     const ret = await Cards.findOneAsync(idOrFirstObjectSelector, options);
     return ret;
   },
@@ -105,7 +113,7 @@ ReactiveCacheServer = {
   },
   async getAttachment(idOrFirstObjectSelector = {}, options = {}) {
     // Try new structure first
-    let ret = await Attachments.findOneAsync(idOrFirstObjectSelector, options);
+    let ret = Attachments.findOne(idOrFirstObjectSelector, options);
     if (!ret && typeof idOrFirstObjectSelector === 'string') {
       // Fall back to old structure for single attachment lookup
       ret = await Attachments.getAttachmentWithBackwardCompatibility(
@@ -118,7 +126,8 @@ ReactiveCacheServer = {
     // Try new structure first
     let ret = Attachments.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      // FilesCollection cursors (ostrio:files) only have .fetch(), not .fetchAsync()
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
       // If no results and we have a cardId selector, try old structure
       if (ret.length === 0 && selector['meta.cardId']) {
         ret = await Attachments.getAttachmentsWithBackwardCompatibility(selector);
@@ -127,7 +136,7 @@ ReactiveCacheServer = {
     return ret;
   },
   async getAvatar(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Avatars.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = Avatars.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getAvatars(selector = {}, options = {}, getQuery = false) {
@@ -435,7 +444,14 @@ ReactiveCacheClient = {
     const ret = this.__checklistItems.get(EJSON.stringify(select));
     return ret;
   },
-  getCard(idOrFirstObjectSelector = {}, options = {}) {
+  getCard(idOrFirstObjectSelector = null, options = {}) {
+    if (
+      idOrFirstObjectSelector === null ||
+      idOrFirstObjectSelector === undefined ||
+      idOrFirstObjectSelector === ''
+    ) {
+      return null;
+    }
     const idOrFirstObjectSelect = { idOrFirstObjectSelector, options };
     if (!this.__card) {
       this.__card = new DataCache((_idOrFirstObjectSelect) => {
@@ -1077,7 +1093,7 @@ ReactiveCache = {
       return ReactiveCacheClient.getChecklistItems(selector, options, getQuery);
     }
   },
-  getCard(idOrFirstObjectSelector = {}, options = {}, noCache = false) {
+  getCard(idOrFirstObjectSelector = null, options = {}, noCache = false) {
     if (Meteor.isServer || noCache === true) {
       return ReactiveCacheServer.getCard(idOrFirstObjectSelector, options);
     } else {
@@ -1458,7 +1474,7 @@ ReactiveMiniMongoIndexClient = {
             { parentId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_subTasks, 'parentId');
+          const _ret = groupBy(_subTasks, 'parentId');
           return _ret;
         });
       }
@@ -1480,7 +1496,7 @@ ReactiveMiniMongoIndexClient = {
             { cardId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_checklists, 'cardId');
+          const _ret = groupBy(_checklists, 'cardId');
           return _ret;
         });
       }
@@ -1502,7 +1518,7 @@ ReactiveMiniMongoIndexClient = {
             { checklistId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_checklistItems, 'checklistId');
+          const _ret = groupBy(_checklistItems, 'checklistId');
           return _ret;
         });
       }
@@ -1524,7 +1540,7 @@ ReactiveMiniMongoIndexClient = {
             { cardId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.groupBy(_cardComments, 'cardId');
+          const _ret = groupBy(_cardComments, 'cardId');
           return _ret;
         });
       }
@@ -1546,7 +1562,7 @@ ReactiveMiniMongoIndexClient = {
             { _id: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = _.indexBy(_activities, '_id');
+          const _ret = indexBy(_activities, '_id');
           return _ret;
         });
       }

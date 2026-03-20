@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Tracker } from 'meteor/tracker';
+import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imports/lib/collectionHelpers';
 
 Utils = {
   async setBackgroundImage(url) {
@@ -50,6 +51,9 @@ Utils = {
   },
   getCurrentCard(ignorePopupCard) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
+    if (!cardId) {
+      return null;
+    }
     const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
@@ -503,6 +507,8 @@ Utils = {
         cardId: card._id,
         boardId: board._id,
         slug: board.slug,
+        swimlaneId: card.swimlaneId,
+        listId: card.listId,
       })
     );
   },
@@ -519,6 +525,15 @@ Utils = {
     }
     return meta;
   },
+  // Collection helpers (replacing underscore.js)
+  findWhere,
+  where,
+  uniqBy,
+  groupBy,
+  indexBy,
+  debounce,
+  once,
+
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
   shrinkImage(options) {

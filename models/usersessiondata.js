@@ -1,3 +1,5 @@
+import { incrementCounter } from './counters';
+
 SessionData = new Mongo.Collection('sessiondata');
 
 /**
@@ -14,7 +16,7 @@ SessionData.attachSchema(
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return incrementCounter('counters', 'orgId', 1);
+          return incrementCounter('orgId', 1);
         }
       },
     },

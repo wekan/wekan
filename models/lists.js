@@ -265,7 +265,11 @@ Lists.helpers({
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), { sort: ['sort'] });
+    const filterSelector =
+      typeof Filter !== 'undefined' && typeof Filter.mongoSelector === 'function'
+        ? Filter.mongoSelector(selector)
+        : selector;
+    const ret = ReactiveCache.getCards(filterSelector, { sort: ['sort'] });
     return ret;
   },
 
@@ -290,7 +294,7 @@ Lists.helpers({
 
   getWipLimit(option) {
     const list = ReactiveCache.getList(this._id);
-    if (!list.wipLimit) {
+    if (!list || !list.wipLimit) {
       // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
       return 0;
     } else if (!option) {
@@ -420,7 +424,286 @@ Lists.archivedListIds = async () => {
   });
 };
 
+const hasBoardWriteAccess = (userId, board) => {
+  if (!userId || !board) {
+    return false;
+  }
+
+  if (typeof allowIsBoardMemberWithWriteAccess === 'function') {
+    return allowIsBoardMemberWithWriteAccess(userId, board);
+  }
+
+  // Fallback for client method simulation where server-only globals are unavailable.
+  return (
+    board.hasMember(userId) &&
+    !board.hasNoComments(userId) &&
+    !board.hasCommentOnly(userId) &&
+    !board.hasWorker(userId) &&
+    !board.hasReadOnly(userId) &&
+    !board.hasReadAssignedOnly(userId)
+  );
+};
+
 Meteor.methods({
+  async createListAfter(params) {
+    check(params, {
+      title: String,
+      boardId: String,
+      swimlaneId: Match.OneOf(String, null, undefined),
+      afterListId: Match.OneOf(String, null, undefined),
+      nextListId: Match.OneOf(String, null, undefined),
+      type: Match.Maybe(String),
+    });
+
+    const {
+      title,
+      boardId,
+      swimlaneId = null,
+      afterListId = null,
+      nextListId = null,
+      type = 'list',
+    } = params;
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
+    // Avoid client-side stub writes; server method call is authoritative.
+    if (Meteor.isClient && this.isSimulation) {
+      return null;
+    }
+
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('board-not-found', 'Board not found');
+    }
+
+    if (Meteor.isServer) {
+      try {
+        if (typeof Authentication !== 'undefined' && Authentication?.checkBoardWriteAccess) {
+          await Authentication.checkBoardWriteAccess(this.userId, boardId);
+        } else if (!hasBoardWriteAccess(this.userId, board)) {
+          throw new Meteor.Error('not-authorized', 'Access denied');
+        }
+      } catch (error) {
+        throw new Meteor.Error('not-authorized', 'Access denied');
+      }
+    } else if (!hasBoardWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized', 'Access denied');
+    }
+
+    const normalizeSwimlaneId = value => value || '';
+    const getResolvedSwimlaneId = (list, fallback = '') => {
+      if (!list) return normalizeSwimlaneId(fallback);
+      if (typeof list.getEffectiveSwimlaneId === 'function') {
+        return normalizeSwimlaneId(list.getEffectiveSwimlaneId() || fallback);
+      }
+      return normalizeSwimlaneId(list.swimlaneId || fallback);
+    };
+
+    const defaultSwimlane = board.getDefaultSwimline ? board.getDefaultSwimline() : null;
+    let targetSwimlaneId = normalizeSwimlaneId(swimlaneId || (defaultSwimlane && defaultSwimlane._id));
+
+    let sort = 0;
+    if (afterListId) {
+      const selectedList = await ReactiveCache.getList({
+        _id: afterListId,
+        boardId,
+        archived: false,
+      });
+
+      if (!selectedList) {
+        throw new Meteor.Error('list-not-found', 'Selected list not found');
+      }
+
+      targetSwimlaneId = getResolvedSwimlaneId(selectedList, targetSwimlaneId);
+
+      const swimlaneLists = (await ReactiveCache.getLists({
+        boardId,
+        archived: false,
+      }))
+        .filter(list => getResolvedSwimlaneId(list, targetSwimlaneId) === targetSwimlaneId)
+        .sort((a, b) => a.sort - b.sort);
+
+      let nextList = null;
+      if (nextListId) {
+        nextList = await ReactiveCache.getList({
+          _id: nextListId,
+          boardId,
+          archived: false,
+        });
+        if (nextList) {
+          const nextSwimlaneId = getResolvedSwimlaneId(nextList, targetSwimlaneId);
+          if (nextSwimlaneId !== targetSwimlaneId) {
+            nextList = null;
+          }
+        }
+      }
+
+      if (!nextList) {
+        const selectedIndex = swimlaneLists.findIndex(list => list._id === selectedList._id);
+        nextList = selectedIndex >= 0 ? swimlaneLists[selectedIndex + 1] : null;
+      }
+
+      if (
+        nextList &&
+        Number.isFinite(nextList.sort) &&
+        Number.isFinite(selectedList.sort) &&
+        nextList.sort > selectedList.sort
+      ) {
+        sort = selectedList.sort + (nextList.sort - selectedList.sort) / 2;
+      } else if (Number.isFinite(selectedList.sort)) {
+        sort = selectedList.sort + 1;
+      } else {
+        const last = swimlaneLists[swimlaneLists.length - 1];
+        sort = Number.isFinite(last?.sort) ? last.sort + 1 : 0;
+      }
+    } else {
+      const swimlaneLists = (await ReactiveCache.getLists({
+        boardId,
+        archived: false,
+      }))
+        .filter(list => getResolvedSwimlaneId(list, targetSwimlaneId) === targetSwimlaneId)
+        .sort((a, b) => a.sort - b.sort);
+
+      const last = swimlaneLists[swimlaneLists.length - 1];
+      sort = Number.isFinite(last?.sort) ? last.sort + 1 : 0;
+    }
+
+    const listId = await Lists.insertAsync({
+      title,
+      boardId,
+      sort,
+      type,
+      swimlaneId: targetSwimlaneId,
+    });
+
+    return listId;
+  },
+
+  async copyList(listId, boardId, swimlaneId, title, neighborListId, position) {
+    check(listId, String);
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(title, String);
+    check(neighborListId, Match.OneOf(String, null, undefined));
+    check(position, Match.OneOf(String, null, undefined));
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
+    if (Meteor.isClient) return null;
+
+    const list = await ReactiveCache.getList(listId);
+    if (!list) {
+      throw new Meteor.Error('list-not-found', 'List not found');
+    }
+
+    const targetBoard = await ReactiveCache.getBoard(boardId);
+    if (!targetBoard) {
+      throw new Meteor.Error('board-not-found', 'Target board not found');
+    }
+
+    // Compute sort value relative to neighbor list
+    let sort = (await ReactiveCache.getLists({ boardId, archived: false })).length;
+    if (neighborListId) {
+      const neighborList = await ReactiveCache.getList({ _id: neighborListId, boardId, archived: false });
+      if (neighborList && Number.isFinite(neighborList.sort)) {
+        const allLists = (await ReactiveCache.getLists({ boardId, swimlaneId, archived: false }))
+          .sort((a, b) => a.sort - b.sort);
+        const neighborIndex = allLists.findIndex(l => l._id === neighborListId);
+        if (position === 'left') {
+          const prev = allLists[neighborIndex - 1];
+          sort = prev && Number.isFinite(prev.sort)
+            ? (prev.sort + neighborList.sort) / 2
+            : neighborList.sort - 1;
+        } else {
+          const next = allLists[neighborIndex + 1];
+          sort = next && Number.isFinite(next.sort)
+            ? (neighborList.sort + next.sort) / 2
+            : neighborList.sort + 1;
+        }
+      }
+    }
+
+    const newListId = await Lists.insertAsync({
+      title: title || list.title,
+      boardId,
+      swimlaneId,
+      type: list.type,
+      archived: false,
+      wipLimit: list.wipLimit,
+      sort,
+    });
+
+    const cards = await ReactiveCache.getCards({ listId: list._id, archived: false });
+    for (const card of cards) {
+      await card.copy(boardId, swimlaneId, newListId);
+    }
+
+    return newListId;
+  },
+
+  async moveList(listId, boardId, swimlaneId, neighborListId, position, title) {
+    check(listId, String);
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(neighborListId, Match.OneOf(String, null, undefined));
+    check(position, Match.OneOf(String, null, undefined));
+    check(title, Match.OneOf(String, null, undefined));
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
+    if (Meteor.isClient) return null;
+
+    const list = await ReactiveCache.getList(listId);
+    if (!list) {
+      throw new Meteor.Error('list-not-found', 'List not found');
+    }
+    const desiredTitle = typeof title === 'string' && title.trim().length > 0
+      ? title.trim()
+      : list.title;
+
+    const targetBoard = await ReactiveCache.getBoard(boardId);
+    if (!targetBoard) {
+      throw new Meteor.Error('board-not-found', 'Target board not found');
+    }
+
+    // list.move() relies on this.title to determine destination list identity.
+    list.title = desiredTitle;
+    await list.move(boardId, swimlaneId);
+
+    // Update sort of resulting list when a neighbor is specified
+    if (neighborListId) {
+      const movedList = await ReactiveCache.getList({ boardId, title: desiredTitle, archived: false });
+      const neighborList = await ReactiveCache.getList({ _id: neighborListId, boardId, archived: false });
+      if (movedList && neighborList && Number.isFinite(neighborList.sort)) {
+        const allLists = (await ReactiveCache.getLists({ boardId, swimlaneId, archived: false }))
+          .filter(l => l._id !== movedList._id)
+          .sort((a, b) => a.sort - b.sort);
+        const neighborIndex = allLists.findIndex(l => l._id === neighborListId);
+        let newSort;
+        if (position === 'left') {
+          const prev = allLists[neighborIndex - 1];
+          newSort = prev && Number.isFinite(prev.sort)
+            ? (prev.sort + neighborList.sort) / 2
+            : neighborList.sort - 1;
+        } else {
+          const next = allLists[neighborIndex + 1];
+          newSort = next && Number.isFinite(next.sort)
+            ? (neighborList.sort + next.sort) / 2
+            : neighborList.sort + 1;
+        }
+        await Lists.updateAsync(movedList._id, { $set: { sort: newSort } });
+      }
+    }
+
+    await list.archive();
+  },
+
   async applyWipLimit(listId, limit) {
     check(listId, String);
     check(limit, Number);
@@ -499,7 +782,7 @@ Meteor.methods({
         fields: { title: 1 },
       },
     );
-    return _.uniq(lists.map(list => list.title)).sort();
+    return [...new Set(lists.map(list => list.title))].sort();
   },
 
   async updateListSort(listId, boardId, updateData) {
@@ -567,6 +850,10 @@ if (Meteor.isServer) {
 }
 
 Lists.after.insert((userId, doc) => {
+  if (Meteor.isClient) {
+    return;
+  }
+
   Activities.insert({
     userId,
     type: 'list',
@@ -588,10 +875,35 @@ Lists.after.insert((userId, doc) => {
 });
 
 Lists.before.remove(async (userId, doc) => {
+  if (Meteor.isClient) {
+    return;
+  }
+
   const cards = await ReactiveCache.getCards({ listId: doc._id });
   if (cards) {
     for (const card of cards) {
-      await Cards.removeAsync(card._id);
+      // For non-archived lists, preserve existing behavior: deleting the list
+      // deletes all its cards.
+      if (!doc.archived) {
+        await Cards.removeAsync(card._id);
+        continue;
+      }
+
+      // For archived lists, only delete cards that were archived together with
+      // the list (or after it). Keep cards that were archived before the list
+      // was archived so deleting the list does not remove independently
+      // archived cards.
+      const listArchivedAt = doc.archivedAt;
+      const cardArchivedAt = card.archivedAt;
+      const shouldDeleteCard =
+        !listArchivedAt ||
+        !card.archived ||
+        !cardArchivedAt ||
+        cardArchivedAt >= listArchivedAt;
+
+      if (shouldDeleteCard) {
+        await Cards.removeAsync(card._id);
+      }
     }
   }
   await Activities.insertAsync({
@@ -608,6 +920,10 @@ Lists.before.remove(async (userId, doc) => {
 Lists.hookOptions.after.update = { fetchPrevious: false };
 
 Lists.after.update((userId, doc, fieldNames) => {
+  if (Meteor.isClient) {
+    return;
+  }
+
   if (fieldNames.includes('title')) {
     Activities.insert({
       userId,

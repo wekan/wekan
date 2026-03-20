@@ -99,6 +99,21 @@ template(name="cardCustomField-date")
                 b
                 | {{showWeek}}
 
+template(name="cardCustomField-datePopup")
+  .datepicker-container
+    form.edit-date
+      .fields
+        .left
+          label(for="date") {{_ 'date'}}
+          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
+        .right
+          label(for="time") {{_ 'time'}}
+          input.js-time-field#time(type="time" name="time" value=showTime)
+      if error.get
+        .warning {{_ error.get}}
+      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
+
 template(name="cardCustomField-dropdown")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-dropdown")

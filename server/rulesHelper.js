@@ -59,6 +59,7 @@ RulesHelper = {
   },
   async performAction(activity, action) {
     const card = await ReactiveCache.getCard(activity.cardId);
+    if (!card) return;
     const boardId = activity.boardId;
     if (
       action.actionType === 'moveCardToTop' ||
@@ -109,13 +110,13 @@ RulesHelper = {
       }
 
       if (action.actionType === 'moveCardToTop') {
-        const minOrder = _.min(
-          (await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
+        const minOrder = Math.min(
+          ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
         await card.move(action.boardId, swimlaneId, listId, minOrder - 1);
       } else {
-        const maxOrder = _.max(
-          (await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
+        const maxOrder = Math.max(
+          ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
         await card.move(action.boardId, swimlaneId, listId, maxOrder + 1);
       }
@@ -247,10 +248,14 @@ RulesHelper = {
       }
     }
     if (action.actionType === 'archive') {
-      await card.archive();
+      if (!card.archived) {
+        await card.archive();
+      }
     }
     if (action.actionType === 'unarchive') {
-      await card.restore();
+      if (card.archived) {
+        await card.restore();
+      }
     }
     if (action.actionType === 'setColor') {
       await card.setColor(action.selectedColor);

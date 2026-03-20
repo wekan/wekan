@@ -163,7 +163,7 @@ window.Popup = new (class {
         // restore the old popup scroll position
         $contentWrapper.scrollTop(stack.scrollTop);
       }
-      _.times(n, () => this._stack.pop());
+      for (let i = 0; i < n; i++) this._stack.pop();
       this._dep.changed();
     } else {
       this.close();
@@ -187,7 +187,14 @@ window.Popup = new (class {
 
   getOpenerComponent(n=4) {
     const { openerElement } = Template.parentData(n);
-    return BlazeComponent.getComponentForElement(openerElement);
+    if (!openerElement) return null;
+    const view = Blaze.getView(openerElement);
+    let current = view;
+    while (current) {
+      if (current.templateInstance) return current.templateInstance();
+      current = current.parentView;
+    }
+    return null;
   }
 
   // An utility function that returns the top element of the internal stack
