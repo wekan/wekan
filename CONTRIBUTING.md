@@ -17,7 +17,7 @@ Not paid:
 Paid by customers of WeKan to WeKan:
 
 - Optional Private Paid Commercial Support at https://wekan.fi/commercial-support/
-  - Optional Paid Support/Features/Fixes/PrivateChat
+  - Optional Paid Support/Features/Fixes/PrivateChat . All Paid Features and Fixes are added directly to FLOSS WeKan https://github.com/wekan/wekan
   - Optional Paid Official SaaS Hosting https://wekan.fi/saas/ , if you need full-featured hosting, that is more than free app https://wekan.fi/app/
 
 ## Contributing Security related
