@@ -3,7 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.subtasks.events({
   'click .js-open-subtask-details-menu': Popup.open('subtaskActions'),
-  'submit .js-add-subtask'(event, tpl) {
+  async 'submit .js-add-subtask'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-subtask-item');
     const title = textarea.value.trim();
@@ -30,7 +30,7 @@ Template.subtasks.events({
         ? targetBoard.getDefaultSwimline()._id
         : targetSwimlane._id;
 
-    const nextCardNumber = targetBoard.getNextCardNumber();
+    const nextCardNumber = await targetBoard.getNextCardNumber();
 
     if (title) {
       const _id = Cards.insert({

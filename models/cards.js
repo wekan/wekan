@@ -2073,7 +2073,7 @@ Cards.helpers({
     return this.move(boardId, swimlaneId, listId, sort);
   },
 
-  move(boardId, swimlaneId, listId, sort = null) {
+  async move(boardId, swimlaneId, listId, sort = null) {
     const previousState = {
       boardId: this.boardId,
       swimlaneId: this.swimlaneId,
@@ -2104,7 +2104,7 @@ Cards.helpers({
           return label.name && oldCardLabels.includes(label.name);
         }).map(x => x._id);
 
-      const newCardNumber = newBoard.getNextCardNumber();
+      const newCardNumber = await newBoard.getNextCardNumber();
 
       Object.assign(mutatedFields, {
         labelIds: newCardLabelIds,
@@ -3437,7 +3437,7 @@ if (Meteor.isServer) {
     Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramListId = req.params.listId;
     const paramParentId = req.params.parentId;
-    const nextCardNumber = board.getNextCardNumber();
+    const nextCardNumber = await board.getNextCardNumber();
 
     let customFieldsArr = [];
     const customFields = await ReactiveCache.getCustomFields({'boardIds': paramBoardId});

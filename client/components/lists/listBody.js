@@ -68,7 +68,7 @@ Template.listBody.onCreated(function () {
     return undefined;
   };
 
-  this.addCard = (evt) => {
+  this.addCard = async (evt) => {
     evt.preventDefault();
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
@@ -124,7 +124,7 @@ Template.listBody.onCreated(function () {
       )
       swimlaneId = board.getDefaultSwimline()._id;
 
-      const nextCardNumber = board.getNextCardNumber();
+      const nextCardNumber = await board.getNextCardNumber();
 
       const _id = Cards.insert({
         title,
@@ -692,7 +692,7 @@ Template.linkCardPopup.events({
   'change .js-select-lists'(evt, tpl) {
     tpl.selectedListId.set($(evt.currentTarget).val());
   },
-  'click .js-done'(evt, tpl) {
+  async 'click .js-done'(evt, tpl) {
     // LINK CARD
     evt.stopPropagation();
     evt.preventDefault();
@@ -701,7 +701,7 @@ Template.linkCardPopup.events({
       Popup.back();
       return;
     }
-    const nextCardNumber = tpl.board.getNextCardNumber();
+    const nextCardNumber = await tpl.board.getNextCardNumber();
     const sortIndex = tpl.getSortIndex();
     const _id = Cards.insert({
       title: $('.js-select-cards option:selected').text(), //dummy
@@ -716,7 +716,7 @@ Template.linkCardPopup.events({
     Filter.addException(_id);
     Popup.back();
   },
-  'click .js-link-board'(evt, tpl) {
+  async 'click .js-link-board'(evt, tpl) {
     //LINK BOARD
     evt.stopPropagation();
     evt.preventDefault();
@@ -728,7 +728,7 @@ Template.linkCardPopup.events({
       Popup.back();
       return;
     }
-    const nextCardNumber = tpl.board.getNextCardNumber();
+    const nextCardNumber = await tpl.board.getNextCardNumber();
     const sortIndex = tpl.getSortIndex();
     const _id = Cards.insert({
       title: $('.js-select-boards option:selected').text(), //dummy
@@ -873,7 +873,7 @@ Template.searchElementPopup.events({
     if (!tpl.isTemplateSearch || tpl.isCardTemplateSearch) {
       // Card insertion
       // 1. Common
-      element.cardNumber = tpl.board.getNextCardNumber();
+      element.cardNumber = await tpl.board.getNextCardNumber();
       element.sort = tpl.getSortIndex();
       // 1.A From template
       if (tpl.isTemplateSearch) {
