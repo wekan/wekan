@@ -29,6 +29,23 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated CONTRIBUTING.md and SECURITY.md](https://github.com/wekan/wekan/commit/6acc7c95ff53d90918eb98259e1e93fbd616212c).
+  Thanks to xet7.
+- Updated CONTRIBUTING.md
+  [Part 1](https://github.com/wekan/wekan/commit/a4a4fc1cf218089e4a2aab8b4941f0d90e8771b1),
+  [Part 2](https://github.com/wekan/wekan/commit/6249af041c77091d7aa83d6f11f35ccccb8c3b24),
+  [Part 3](https://github.com/wekan/wekan/commit/e669a9fe64a2c2c709c118cdb9128125c039193b),
+  [Part 4](https://github.com/wekan/wekan/commit/e705df663487b7d394d327168628402ad9b93ba2),
+  [Part 5](https://github.com/wekan/wekan/commit/e50b9f211de7d6b7b9c7ec1e5027015e136093a6),
+  [Part 6](https://github.com/wekan/wekan/commit/7ed26f437d07ff520eb4a8d0fd8f205ea2d1e49e).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.37 2026-03-20 WeKan ® release
 
 This release fixes the following bugs:
