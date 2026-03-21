@@ -29,7 +29,7 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
-# Upcoming WeKan ® release
+# v8.38 2026-03-21 WeKan ® release
 
 This release adds the following updates:
 
