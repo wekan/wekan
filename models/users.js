@@ -1,11 +1,6 @@
 if (Meteor.isServer) {
-  console.log('SERVER: Rekisteröidyt Meteor.methods:', Object.keys(Meteor.server.method_handlers));
-}
-
-if (Meteor.isServer) {
   Meteor.methods({
     deleteWorkspace(workspaceId) {
-      console.log('SERVER DEBUG: deleteWorkspace called', {userId: this.userId, workspaceId});
       check(workspaceId, String);
       if (!this.userId) throw new Meteor.Error('not-logged-in');
 
@@ -63,7 +58,6 @@ if (Meteor.isServer) {
         },
       });
 
-      console.log('SERVER DEBUG: deleteWorkspace finished', {userId: this.userId, workspaceId});
       return true;
     },
   });
@@ -2059,7 +2053,6 @@ Meteor.methods({
     Users.update(this.userId, { $set: { 'profile.boardWorkspacesTree': newTree } });
     return true;
   },
-  // ...existing code...
   // Assign a board to a space
   assignBoardToWorkspace(boardId, spaceId) {
     check(boardId, String);

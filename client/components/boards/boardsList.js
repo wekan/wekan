@@ -54,6 +54,18 @@ function addSubworkspace(parentId, name) {
   }
 }
 
+function saveWorkspace(workspaceId, { name, icon }) {
+  if (!workspaceId || !name || !name.trim()) return;
+  const tree = getCurrentWorkspacesTree();
+  const updatedTree = updateSpaceInTree(tree, workspaceId, {
+    name: name.trim(),
+    icon: icon || DEFAULT_WORKSPACE_ICON,
+  });
+  Meteor.call('setWorkspacesTree', updatedTree, (err) => {
+    if (err) console.error(err);
+  });
+}
+
 Template.boardList.helpers({
   hideCardCounterList() {
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
@@ -165,11 +177,18 @@ Template.boardList.onCreated(function () {
     }
   };
 
-  // Load workspaces tree reactively
+  // Load workspaces tree reactively; reset selection if selected workspace was deleted
   this.autorun(() => {
     const u = ReactiveCache.getCurrentUser();
     const tree = (u && u.profile && u.profile.boardWorkspacesTree) || [];
     this.workspacesTreeVar.set(tree);
+    const sel = this.selectedMenu.get();
+    if (sel && sel !== 'starred' && sel !== 'templates' && sel !== 'remaining') {
+      if (!findSpace(tree, sel)) {
+        this.selectedMenu.set('remaining');
+        this.selectedWorkspaceIdVar.set(null);
+      }
+    }
   });
 });
 
@@ -969,25 +988,16 @@ Template.workspaceActionsPopup.events({
     Popup.back();
   },
   'click .js-delete-workspace'(evt, tpl) {
-    alert('Delete handler triggered!');
     evt.preventDefault();
-    let workspaceId = tpl.data && (tpl.data.id || tpl.data._id);
-    const buttonId = evt.currentTarget.getAttribute('data-id');
-    alert('DEBUG: workspaceId=' + workspaceId + '\ntpl.data=' + JSON.stringify(tpl.data) + '\nbutton data-id=' + buttonId);
-    console.log('DEBUG: workspaceId', workspaceId, 'tpl.data', tpl.data, 'button data-id', buttonId);
-    const isConfirmed = tpl.find('.js-delete-workspace-confirm')?.checked;
-    if (!isConfirmed) {
+    if (!confirm(TAPi18n.__('allboards.delete-workspace-confirm') || 'Delete this workspace and return its boards to Remaining?')) {
       return;
     }
-    if (!workspaceId) {
-      // Fallback: get from button attribute
-      workspaceId = buttonId;
-    }
+    const workspaceId =
+      (tpl.data && (tpl.data.id || tpl.data._id)) ||
+      evt.currentTarget.getAttribute('data-id');
+    if (!workspaceId) return;
     tpl.$('.js-delete-workspace').prop('disabled', true);
-    console.log('DEBUG: Calling deleteWorkspace for', workspaceId);
-    Meteor.call('deleteWorkspace', workspaceId, (err, res) => {
-      alert('Meteor.call callback!');
-      console.log('DEBUG: deleteWorkspace callback', {err, res});
+    Meteor.call('deleteWorkspace', workspaceId, (err) => {
       tpl.$('.js-delete-workspace').prop('disabled', false);
       if (err) {
         tpl.$('.js-workspace-delete-error').text(TAPi18n.__(err.reason || 'delete-workspace-failed'));

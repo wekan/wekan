@@ -255,8 +255,5 @@ template(name="workspaceActionsPopup")
     button.primary.wide(type="submit") {{_ 'allboards.add-subworkspace'}}
   hr
   .workspace-delete-block
-    label.workspace-delete-confirm
-      input.js-delete-workspace-confirm(type="checkbox")
-      | {{_ 'allboards.delete-workspace-confirm-check'}}
     span.js-workspace-delete-error(style="color: #c00; display: block; margin: 4px 0;")
     button.js-delete-workspace.negate.wide(type="button" data-id="{{id}}") {{_ 'delete'}}
