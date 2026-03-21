@@ -128,6 +128,14 @@ Template.subtaskActionsPopup.events({
       });
     }
   },
+  'click .js-go-to-subtask-board'() {
+    const subtask = Template.currentData().subtask;
+    const board = subtask.board();
+    if (board) {
+      Popup.close();
+      FlowRouter.go('board', { id: board._id, slug: board.slug });
+    }
+  },
   'click .js-delete-subtask' : Popup.afterConfirm('subtaskDelete', async function () {
     Popup.back(2);
     const subtask = this.subtask;

@@ -785,10 +785,27 @@ Template.cardDetailsPopup.helpers({
   },
 });
 
+// Ordered list of Excel export field keys and their i18n label keys.
+// Must match ALL_FIELDS in models/server/ExporterExcelCard.js.
+const EXCEL_EXPORT_FIELDS = [
+  { field: 'people',      label: 'export-card-field-people' },
+  { field: 'board-info',  label: 'export-card-field-board-info' },
+  { field: 'dates',       label: 'export-card-field-dates' },
+  { field: 'description', label: 'description' },
+  { field: 'checklists',  label: 'checklist' },
+  { field: 'subtasks',    label: 'export-card-subtasks' },
+  { field: 'comments',    label: 'comment' },
+  { field: 'attachments', label: 'export-card-attachments' },
+];
+
+Template.exportCardPopup.onCreated(function () {
+  // Track which Excel sections the user wants to include (all on by default)
+  const initial = {};
+  EXCEL_EXPORT_FIELDS.forEach(({ field }) => { initial[field] = true; });
+  this.excelFields = new ReactiveDict(initial);
+});
+
 Template.exportCardPopup.helpers({
-  withApi() {
-    return Template.instance().apiEnabled.get();
-  },
   exportUrlCardPDF() {
     const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
     const params = {
@@ -796,13 +813,10 @@ Template.exportCardPopup.helpers({
       listId: card.listId,
       cardId: card._id || card.cardId,
     };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-    };
     return FlowRouter.path(
       '/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF',
       params,
-      queryParams,
+      { authToken: Accounts._storedLoginToken() },
     );
   },
   exportFilenameCardPDF() {
@@ -811,6 +825,47 @@ Template.exportCardPopup.helpers({
       .replace(/[^a-z0-9._-]+/gi, '-')
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '') || 'export-card'}.pdf`;
+  },
+  // Returns the field list with current checked state — reactive
+  excelExportFields() {
+    const instance = Template.instance();
+    return EXCEL_EXPORT_FIELDS.map(f => ({
+      field:   f.field,
+      label:   f.label,
+      checked: instance.excelFields.get(f.field),
+    }));
+  },
+  exportUrlCardExcel() {
+    const instance = Template.instance();
+    const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
+    const params = {
+      boardId: card.boardId || Session.get('currentBoard'),
+      listId:  card.listId,
+      cardId:  card._id || card.cardId,
+    };
+    const selectedFields = EXCEL_EXPORT_FIELDS
+      .map(f => f.field)
+      .filter(f => instance.excelFields.get(f));
+    return FlowRouter.path(
+      '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel',
+      params,
+      { authToken: Accounts._storedLoginToken(), fields: selectedFields.join(',') },
+    );
+  },
+  exportFilenameCardExcel() {
+    const card = getCurrentCardFromContext({ ignorePopupCard: true }) || this;
+    return `${String(card.title || 'export-card')
+      .replace(/[^a-z0-9._-]+/gi, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '') || 'export-card'}.xlsx`;
+  },
+});
+
+Template.exportCardPopup.events({
+  'click .js-excel-field-toggle'(event, instance) {
+    event.preventDefault();
+    const field = event.currentTarget.dataset.field;
+    instance.excelFields.set(field, !instance.excelFields.get(field));
   },
 });
 

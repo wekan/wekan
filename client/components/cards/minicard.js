@@ -86,6 +86,17 @@ Template.minicard.helpers({
       return false;
     }
   },
+  cover() {
+    if (!this.coverId) return null;
+    const attachment = ReactiveCache.getAttachment(this.coverId);
+    if (!attachment) return null;
+    const coverId = this.coverId;
+    return {
+      link() {
+        return `/cdn/storage/attachments/${coverId}`;
+      },
+    };
+  },
   // XXX resolve this nasty hack for https://github.com/veliovgroup/Meteor-Files/issues/763
   sess() {
     return Meteor.connection && Meteor.connection._lastSessionId

@@ -845,8 +845,21 @@ template(name="exportCardPopup")
   ul.pop-over-list
     li
       a(href="{{exportUrlCardPDF}}", download="{{exportFilenameCardPDF}}")
-        i.fa.fa-upload
+        i.fa.fa-file-pdf-o
         | {{_ 'export-card-pdf'}}
+  hr
+  p.quiet {{_ 'export-card-excel-fields'}}
+  ul.pop-over-list
+    each excelExportFields
+      li(class="{{#if checked}}active{{/if}}")
+        a.js-excel-field-toggle(data-field="{{field}}" href="#")
+          i.fa.fa-check
+          | {{_ label}}
+  ul.pop-over-list
+    li
+      a(href="{{exportUrlCardExcel}}", download="{{exportFilenameCardExcel}}")
+        i.fa.fa-file-excel-o
+        | {{_ 'download'}}
 
 template(name="moveCardPopup")
   label(for='move-card-title') {{_ 'title'}}:

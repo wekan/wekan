@@ -185,17 +185,21 @@ Attachments = new FilesCollection({
   // We authorize the attachment download either:
   // - if the board is public, everyone (even unconnected) can download it
   // - if the board is private, only board members can download it
-  async protected(fileObj) {
+  protected(fileObj) {
     // file may have been deleted already again after upload validation failed
     if (!fileObj) {
       return false;
     }
-
-    const board = await ReactiveCache.getBoard(fileObj.meta.boardId);
+    // ostrio:files calls this synchronously inside _checkAccess (no await support),
+    // so use synchronous Boards.findOne which works within the Fiber context
+    // that ostrio:files sets up via Meteor.bindEnvironment.
+    const board = Boards.findOne(fileObj.meta.boardId);
+    if (!board) {
+      return false;
+    }
     if (board.isPublic()) {
       return true;
     }
-
     return board.hasMember(this.userId);
   },
 });
@@ -457,39 +461,24 @@ if (Meteor.isServer) {
 Attachments.getAttachmentWithBackwardCompatibility = getAttachmentWithBackwardCompatibility;
 Attachments.getAttachmentsWithBackwardCompatibility = getAttachmentsWithBackwardCompatibility;
 
-// Override the link method to use universal URLs
+// Override Attachments.link to use universal short URLs and to bypass
+// the `check(fileRef, Object)` inside the original which fails when fileRef is
+// a collection-helpers class instance (not a plain object).
+// Uses short URL format handled by universalFileServer.js.
 if (Meteor.isClient) {
-  // Override the original FilesCollection link method to use universal URLs
-  // This must override the ostrio:files method to avoid "Match error: Expected plain object"
-  const originalLink = Attachments.link;
-  Attachments.link = function(versionName) {
-    // Accept both direct calls and collection.helpers style calls
-    const fileRef = this._id ? this : (versionName && versionName._id ? versionName : this);
-    const version = (typeof versionName === 'string') ? versionName : 'original';
-
-    if (fileRef && fileRef._id) {
-      const url = generateUniversalAttachmentUrl(fileRef._id, version);
-      if (process.env.DEBUG === 'true') {
-        console.log('Attachment link generated:', url, 'for ID:', fileRef._id);
-      }
-      return url;
+  Attachments.link = function () {
+    let fileRef;
+    if (this && this._id) {
+      // Called as instance method: doc.link(version)
+      fileRef = this;
+    } else if (arguments[0] && arguments[0]._id) {
+      // Called as static from FileCursor: Attachments.link(fileRef, version)
+      fileRef = arguments[0];
+    } else {
+      return '';
     }
-    // Fallback to original if somehow we don't have an ID
-    return originalLink ? originalLink.call(this, versionName) : '';
+    return generateUniversalAttachmentUrl(fileRef._id);
   };
-
-  // Also add as collection helper for document instances
-  Attachments.collection.helpers({
-    link(version) {
-      // Handle both no-argument and string argument cases
-      const ver = (typeof version === 'string') ? version : 'original';
-      const url = generateUniversalAttachmentUrl(this._id, ver);
-      if (process.env.DEBUG === 'true') {
-        console.log('Attachment link (helper) generated:', url, 'for ID:', this._id);
-      }
-      return url;
-    }
-  });
 }
 
 export default Attachments;

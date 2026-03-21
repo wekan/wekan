@@ -196,8 +196,11 @@ Template.checklists.events({
     event.preventDefault();
     const textarea = tpl.find('textarea.js-edit-checklist-item');
     const title = textarea.value.trim();
-    const item = Template.currentData().item;
-    item.setTitle(title);
+    const formData = Blaze.getData(event.currentTarget) || Blaze.getData(event.target);
+    const item = formData?.item;
+    if (item) {
+      item.setTitle(title);
+    }
   },
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {
@@ -207,27 +210,6 @@ Template.checklists.events({
       ChecklistItems.remove(item._id);
     }
   }),
-  'focus .js-add-checklist-item'(event) {
-    // If a new checklist is created, pre-fill the title and select it.
-    const checklist = Template.currentData().checklist;
-    if (!checklist) {
-      const form = event.currentTarget?.closest
-        ? event.currentTarget.closest('form')
-        : $(event.target).closest('form').get(0);
-      const isAddChecklistForm = !!(form && form.classList && form.classList.contains('js-add-checklist'));
-      const translationKey = isAddChecklistForm ? 'add-checklist' : 'add-checklist-item';
-      const textarea = event.target?.tagName === 'TEXTAREA'
-        ? event.target
-        : event.currentTarget?.querySelector?.('textarea.js-add-checklist-item') ||
-          $(event.currentTarget).closest('form').find('textarea.js-add-checklist-item').get(0);
-      if (textarea) {
-        textarea.value = TAPi18n.__(translationKey);
-        if (typeof textarea.select === 'function') {
-          textarea.select();
-        }
-      }
-    }
-  },
   // add and delete checklist / checklist-item
   'click .js-open-inlined-form'(event, tpl) {
     tpl.$('.js-close-inlined-form').click();
