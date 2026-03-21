@@ -33,7 +33,7 @@ Upgrading to Meteor 3 progress:
 
 This release adds the following new features:
 
-- Delete workspace.
+- Delete workspace. Workspace Settings.
   [Part 1](https://github.com/wekan/wekan/commit/8513b2e456ce27c54b9316a8fb52a87a94ab0e7f),
   [Part 2](https://github.com/wekan/wekan/commit/ac33d8012b79ce8c4e92a472f8f2ff5aef488022).
   Thanks to mimZD and xet7.
