@@ -148,12 +148,13 @@ table td:first-child {
 }
 
 .unlock-all-btn {
+  margin-top: 20px;
   margin-left: 15px;
   background-color: #01628c;
   color: #fff;
   border: none;
   border-radius: 0.4vw;
-  padding: 0 14px 0 10px;
+  padding: 0 14px 0 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
