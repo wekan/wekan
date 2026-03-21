@@ -13,7 +13,9 @@ const DEFAULT_LANGUAGE = 'en';
 export const TAPi18n = {
   i18n: null,
   current: new ReactiveVar(DEFAULT_LANGUAGE),
+  ready: new ReactiveVar(false),
   async init() {
+    this.ready.set(false);
     this.i18n = i18next.createInstance().use(sprintf);
     await this.i18n.init({
       fallbackLng: DEFAULT_LANGUAGE,
@@ -35,6 +37,7 @@ export const TAPi18n = {
     });
     // Load the current language data
     await TAPi18n.loadLanguage(DEFAULT_LANGUAGE);
+    this.ready.set(true);
   },
   isLanguageSupported(language) {
     return Object.values(languages).some(({ tag }) => tag === language);

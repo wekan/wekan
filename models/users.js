@@ -1,3 +1,73 @@
+if (Meteor.isServer) {
+  console.log('SERVER: Rekisteröidyt Meteor.methods:', Object.keys(Meteor.server.method_handlers));
+}
+
+if (Meteor.isServer) {
+  Meteor.methods({
+    deleteWorkspace(workspaceId) {
+      console.log('SERVER DEBUG: deleteWorkspace called', {userId: this.userId, workspaceId});
+      check(workspaceId, String);
+      if (!this.userId) throw new Meteor.Error('not-logged-in');
+
+      const user = Users.findOne(this.userId, {
+        fields: {
+          'profile.boardWorkspacesTree': 1,
+          'profile.boardWorkspaceAssignments': 1,
+        },
+      }) || {};
+
+      const tree =
+        (user.profile && user.profile.boardWorkspacesTree)
+          ? EJSON.clone(user.profile.boardWorkspacesTree)
+          : [];
+      const assignments = {
+        ...((user.profile && user.profile.boardWorkspaceAssignments) || {}),
+      };
+      const removedWorkspaceIds = [];
+
+      const collectWorkspaceIds = (node) => {
+        removedWorkspaceIds.push(node.id);
+        if (node.children && node.children.length) {
+          node.children.forEach(collectWorkspaceIds);
+        }
+      };
+
+      const removeWorkspaceFromTree = (nodes) => {
+        for (let i = 0; i < nodes.length; i++) {
+          if (nodes[i].id === workspaceId) {
+            collectWorkspaceIds(nodes[i]);
+            nodes.splice(i, 1);
+            return true;
+          }
+          if (nodes[i].children && nodes[i].children.length) {
+            if (removeWorkspaceFromTree(nodes[i].children)) {
+              return true;
+            }
+          }
+        }
+        return false;
+      };
+
+      removeWorkspaceFromTree(tree);
+
+      Object.keys(assignments).forEach((boardId) => {
+        if (removedWorkspaceIds.includes(assignments[boardId])) {
+          delete assignments[boardId];
+        }
+      });
+
+      Users.update(this.userId, {
+        $set: {
+          'profile.boardWorkspacesTree': tree,
+          'profile.boardWorkspaceAssignments': assignments,
+        },
+      });
+
+      console.log('SERVER DEBUG: deleteWorkspace finished', {userId: this.userId, workspaceId});
+      return true;
+    },
+  });
+}
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { Random } from 'meteor/random';
 import { SyncedCron } from 'meteor/quave:synced-cron';
@@ -1989,6 +2059,7 @@ Meteor.methods({
     Users.update(this.userId, { $set: { 'profile.boardWorkspacesTree': newTree } });
     return true;
   },
+  // ...existing code...
   // Assign a board to a space
   assignBoardToWorkspace(boardId, spaceId) {
     check(boardId, String);

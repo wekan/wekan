@@ -1,3 +1,4 @@
+import '../models/users';
 const fs = require('fs');
 const os = require('os');
 
@@ -52,6 +53,9 @@ import './routes/customHeadAssets';
 
 // Import server-side custom head rendering
 import './lib/customHeadRender';
+
+// Import users for methods
+import './import-users-for-methods';
 
 // Note: Automatic migrations are disabled - migrations only run when opening boards
 // import './boardMigrationDetector';

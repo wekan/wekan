@@ -5,6 +5,55 @@ import getSlug from 'limax';
 
 const subManager = new SubsManager();
 
+const DEFAULT_WORKSPACE_ICON = '📁';
+
+function getCurrentWorkspacesTree() {
+  const currentUser = ReactiveCache.getCurrentUser();
+  const tree =
+    (currentUser &&
+      currentUser.profile &&
+      currentUser.profile.boardWorkspacesTree) ||
+    [];
+  return EJSON.clone(tree);
+}
+
+function findSpace(nodes, id) {
+  for (const node of nodes) {
+    if (node.id === id) return node;
+    if (node.children) {
+      const found = findSpace(node.children, id);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+function updateSpaceInTree(nodes, id, updates) {
+  return nodes.map((node) => {
+    if (node.id === id) {
+      return { ...node, ...updates };
+    }
+    if (node.children) {
+      return {
+        ...node,
+        children: updateSpaceInTree(node.children, id, updates),
+      };
+    }
+    return node;
+  });
+}
+function addSubworkspace(parentId, name) {
+  if (name && name.trim()) {
+    Meteor.call(
+      'createWorkspace',
+      { parentId, name: name.trim() },
+      (err) => {
+        if (err) console.error(err);
+      },
+    );
+  }
+}
+
 Template.boardList.helpers({
   hideCardCounterList() {
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
@@ -327,18 +376,17 @@ Template.boardList.helpers({
         currentUser.profile.boardWorkspaceAssignments) ||
       {};
     if (sel === 'starred') {
+      // Starred boards are always visible in Starred.
       list = list.filter((b) => currentUser && currentUser.hasStarred(b._id));
     } else if (sel === 'templates') {
       list = list.filter((b) => b.type === 'template-container');
     } else if (sel === 'remaining') {
-      // Show boards not in any workspace AND not templates
-      // Keep starred boards visible in Remaining too
+      // Remaining only shows boards not assigned to any workspace.
       list = list.filter(
         (b) => !assignments[b._id] && b.type !== 'template-container',
       );
     } else {
-      // assume sel is a workspaceId
-      // Keep starred boards visible in their workspace too
+      // Workspace view includes all boards in that workspace, including starred.
       list = list.filter((b) => assignments[b._id] === sel);
     }
 
@@ -504,6 +552,7 @@ Template.boardList.events({
     tpl.selectedWorkspaceIdVar.set(id);
     tpl.selectedMenu.set(id);
   },
+  'click .js-open-workspace-menu': Popup.open('workspaceActions'),
   'click .js-add-workspace'(evt, tpl) {
     evt.preventDefault();
     const name = prompt(
@@ -751,83 +800,6 @@ Template.boardList.events({
       }
     }
   },
-  'click .js-edit-workspace'(evt, tpl) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const workspaceId = evt.currentTarget.getAttribute('data-id');
-
-    // Find the space in the tree
-    const findSpace = (nodes, id) => {
-      for (const node of nodes) {
-        if (node.id === id) return node;
-        if (node.children) {
-          const found = findSpace(node.children, id);
-          if (found) return found;
-        }
-      }
-      return null;
-    };
-
-    const tree = tpl.workspacesTreeVar.get();
-    const space = findSpace(tree, workspaceId);
-
-    if (space) {
-      const newName = prompt(
-        TAPi18n.__('allboards.edit-workspace-name') || 'Space name:',
-        space.name,
-      );
-      const newIcon = prompt(
-        TAPi18n.__('allboards.edit-workspace-icon') ||
-          'Space icon (markdown):',
-        space.icon || '📁',
-      );
-
-      if (newName !== null && newName.trim()) {
-        // Update space in tree
-        const updateSpaceInTree = (nodes, id, updates) => {
-          return nodes.map((node) => {
-            if (node.id === id) {
-              return { ...node, ...updates };
-            }
-            if (node.children) {
-              return {
-                ...node,
-                children: updateSpaceInTree(node.children, id, updates),
-              };
-            }
-            return node;
-          });
-        };
-
-        const updatedTree = updateSpaceInTree(tree, workspaceId, {
-          name: newName.trim(),
-          icon: newIcon || '📁',
-        });
-
-        Meteor.call('setWorkspacesTree', updatedTree, (err) => {
-          if (err) console.error(err);
-        });
-      }
-    }
-  },
-  'click .js-add-subworkspace'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const parentId = evt.currentTarget.getAttribute('data-id');
-    const name = prompt(
-      TAPi18n.__('allboards.add-subworkspace-prompt') || 'Subspace name:',
-    );
-
-    if (name && name.trim()) {
-      Meteor.call(
-        'createWorkspace',
-        { parentId, name: name.trim() },
-        (err) => {
-          if (err) console.error(err);
-        },
-      );
-    }
-  },
   'dragstart .workspace-node'(evt) {
     const workspaceId =
       evt.currentTarget.getAttribute('data-workspace-id');
@@ -970,3 +942,64 @@ Template.boardList.events({
     }
   },
 });
+
+Template.workspaceActionsPopup.helpers({
+  workspaceName() {
+    return this.name || '';
+  },
+  workspaceIcon() {
+    return this.icon || DEFAULT_WORKSPACE_ICON;
+  },
+});
+
+Template.workspaceActionsPopup.events({
+  'submit .js-workspace-actions-form'(evt) {
+    evt.preventDefault();
+    const workspaceId = evt.currentTarget.getAttribute('data-id');
+    const name = evt.currentTarget.querySelector('.js-workspace-name').value;
+    const icon = evt.currentTarget.querySelector('.js-workspace-icon').value;
+    saveWorkspace(workspaceId, { name, icon });
+    Popup.back();
+  },
+  'submit .js-workspace-subspace-form'(evt) {
+    evt.preventDefault();
+    const workspaceId = evt.currentTarget.getAttribute('data-id');
+    const name = evt.currentTarget.querySelector('.js-subworkspace-name').value;
+    addSubworkspace(workspaceId, name);
+    Popup.back();
+  },
+  'click .js-delete-workspace'(evt, tpl) {
+    alert('Delete handler triggered!');
+    evt.preventDefault();
+    let workspaceId = tpl.data && (tpl.data.id || tpl.data._id);
+    const buttonId = evt.currentTarget.getAttribute('data-id');
+    alert('DEBUG: workspaceId=' + workspaceId + '\ntpl.data=' + JSON.stringify(tpl.data) + '\nbutton data-id=' + buttonId);
+    console.log('DEBUG: workspaceId', workspaceId, 'tpl.data', tpl.data, 'button data-id', buttonId);
+    const isConfirmed = tpl.find('.js-delete-workspace-confirm')?.checked;
+    if (!isConfirmed) {
+      return;
+    }
+    if (!workspaceId) {
+      // Fallback: get from button attribute
+      workspaceId = buttonId;
+    }
+    tpl.$('.js-delete-workspace').prop('disabled', true);
+    console.log('DEBUG: Calling deleteWorkspace for', workspaceId);
+    Meteor.call('deleteWorkspace', workspaceId, (err, res) => {
+      alert('Meteor.call callback!');
+      console.log('DEBUG: deleteWorkspace callback', {err, res});
+      tpl.$('.js-delete-workspace').prop('disabled', false);
+      if (err) {
+        tpl.$('.js-workspace-delete-error').text(TAPi18n.__(err.reason || 'delete-workspace-failed'));
+        return;
+      }
+      Popup.back();
+    });
+  },
+});
+
+Template.workspaceActionsPopup.onRendered(function() {
+  this.$('.js-workspace-delete-error').text('');
+});
+
+

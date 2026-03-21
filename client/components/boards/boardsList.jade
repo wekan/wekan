@@ -221,19 +221,42 @@ template(name="workspaceTree")
               span.emoji-icon
                 i.fa.fa-arrows
 
-            a.js-select-workspace(data-id="{{id}}")
+            a.js-select-workspace.js-select-space(data-id="{{id}}")
               span.workspace-icon
                 if icon
-                  +viewer
-                    = icon
+                  span.workspace-icon-value(style="{{#if iconColor}}color: {{iconColor}};{{/if}}")
+                    +viewer
+                      = icon
                 else
-                  span.emoji-icon
+                  span.emoji-icon(style="{{#if iconColor}}color: {{iconColor}};{{/if}}")
                     i.fa.fa-folder
               span.workspace-name= name
-            a.js-edit-workspace(data-id="{{id}}" title="{{_ 'allboards.edit-workspace'}}")
+            a.js-open-workspace-menu(data-id="{{id}}" title="{{_ 'allboards.workspace-menu'}}")
               span.emoji-icon
-                i.fa.fa-pencil-square-o
+                i.fa.fa-bars
             span.workspace-count {{workspaceCount id}}
-            a.js-add-subworkspace(data-id="{{id}}" title="{{_ 'allboards.add-subworkspace'}}") +
           if children
             +workspaceTree(nodes=children selectedWorkspaceId=selectedWorkspaceId)
+
+template(name="workspaceActionsPopup")
+  form.workspace-actions-form.js-workspace-actions-form(data-id="{{id}}")
+    label
+      | {{_ 'allboards.edit-workspace-name'}}
+      input.js-workspace-name(type="text" value="{{workspaceName}}" required)
+    label
+      | {{_ 'allboards.edit-workspace-icon'}}
+      input.js-workspace-icon(type="text" value="{{workspaceIcon}}")
+    input.primary.wide(type="submit" value="{{_ 'save'}}")
+  hr
+  form.workspace-subspace-form.js-workspace-subspace-form(data-id="{{id}}")
+    label
+      | {{_ 'allboards.add-subworkspace-prompt'}}
+      input.js-subworkspace-name(type="text")
+    button.primary.wide(type="submit") {{_ 'allboards.add-subworkspace'}}
+  hr
+  .workspace-delete-block
+    label.workspace-delete-confirm
+      input.js-delete-workspace-confirm(type="checkbox")
+      | {{_ 'allboards.delete-workspace-confirm-check'}}
+    span.js-workspace-delete-error(style="color: #c00; display: block; margin: 4px 0;")
+    button.js-delete-workspace.negate.wide(type="button" data-id="{{id}}") {{_ 'delete'}}
