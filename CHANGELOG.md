@@ -29,6 +29,15 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Export Card to Excel and related fixes. Part 1](https://github.com/wekan/wekan/commit/be5bdbe3142f54f571fcef79cac064cec6da17d2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.39 2026-03-21 WeKan ® release
 
 This release adds the following new features:
