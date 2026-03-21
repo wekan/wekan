@@ -472,7 +472,7 @@
   "export-card-attachments": "Attachments",
   "export-card-field-people": "People (Creator, Owner, Members, Assignees)",
   "export-card-field-board-info": "Board Info (Board, List, Swimlane)",
-  "export-card-field-dates": "Dates (Start, Due, End, Received, Created)",
+  "export-card-field-dates": "Dates (Created, Received, Start, Due, End)",
   "export-card-attachment-filename": "Filename",
   "export-card-attachment-size": "Size",
   "export-card-attachment-type": "Type",
