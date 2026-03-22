@@ -34,27 +34,27 @@ function accessToken(req) {
   );
 }
 
-const getBoardTitleWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
-  return Promise.await(
-    Activities.rawCollection()
-      .aggregate([
+const getBoardTitleWithMostActivities = async (dateWithXdaysAgo, nbLimit) => {
+  return await Activities.rawCollection()
+    .aggregate([
       {
-          $match: { modifiedAt: { $gte: dateWithXdaysAgo }}
+        $match: { modifiedAt: { $gte: dateWithXdaysAgo } },
       },
       {
-       $group: { _id: '$boardId', count: { $sum: 1 } }
+        $group: { _id: '$boardId', count: { $sum: 1 } },
       },
       {
-       $sort: { count: -1 }
+        $sort: { count: -1 },
       },
       {
-       $lookup: { from: 'boards', localField: '_id', foreignField: '_id', as: 'lookup'}
+        $lookup: { from: 'boards', localField: '_id', foreignField: '_id', as: 'lookup' },
       },
       {
-       $project: { "lookup.title":1, "count":1}
-      }])
-      .limit(nbLimit).toArray()
-      );
+        $project: { 'lookup.title': 1, count: 1 },
+      },
+    ])
+    .limit(nbLimit)
+    .toArray();
 };
 
 const getBoards = async (boardIds) => {
@@ -196,7 +196,7 @@ Meteor.startup(() => {
         metricsRes +=
           '# Top 10 boards with most activities dated 30 days ago\n';
         //Get top 10 table with most activities in current month
-        const boardTitleWithMostActivities = getBoardTitleWithMostActivities(
+        const boardTitleWithMostActivities = await getBoardTitleWithMostActivities(
           dateWithXdaysAgo,
           xdays,
         );
