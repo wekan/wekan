@@ -1460,7 +1460,7 @@ Boards.helpers({
   },
 
   async setColor(color) {
-    return await Boards.updateAsync(this._id, { $set: { color } });
+    return await Meteor.callAsync('setBoardColor', this._id, color);
   },
 
   async setBackgroundImageURL(backgroundImageURL) {
@@ -1993,6 +1993,19 @@ if (Meteor.isServer) {
       } else {
         return false;
       }
+    },
+    async setBoardColor(boardId, color) {
+      check(boardId, String);
+      check(color, String);
+      if (!ALLOWED_BOARD_COLORS.includes(color)) {
+        throw new Meteor.Error('invalid-color', 'Invalid board color');
+      }
+      const userId = Meteor.userId();
+      if (!userId) throw new Meteor.Error('not-authorized');
+      const board = await ReactiveCache.getBoard(boardId);
+      if (!board) throw new Meteor.Error('board-not-found');
+      if (!allowIsBoardAdmin(userId, board)) throw new Meteor.Error('not-authorized');
+      await Boards.updateAsync(boardId, { $set: { color, modifiedAt: new Date() } }, { bypassCollection2: true });
     },
   });
 

@@ -788,13 +788,14 @@ Template.cardDetailsPopup.helpers({
 // Ordered list of Excel export field keys and their i18n label keys.
 // Must match ALL_FIELDS in models/server/ExporterExcelCard.js.
 const EXCEL_EXPORT_FIELDS = [
+  { field: 'labels',      label: 'labels' },
   { field: 'people',      label: 'export-card-field-people' },
   { field: 'board-info',  label: 'export-card-field-board-info' },
   { field: 'dates',       label: 'export-card-field-dates' },
   { field: 'description', label: 'description' },
-  { field: 'checklists',  label: 'checklist' },
+  { field: 'checklists',  label: 'checklists' },
   { field: 'subtasks',    label: 'export-card-subtasks' },
-  { field: 'comments',    label: 'comment' },
+  { field: 'comments',    label: 'comments' },
   { field: 'attachments', label: 'export-card-attachments' },
 ];
 
@@ -849,7 +850,7 @@ Template.exportCardPopup.helpers({
     return FlowRouter.path(
       '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel',
       params,
-      { authToken: Accounts._storedLoginToken(), fields: selectedFields.join(',') },
+      { authToken: Accounts._storedLoginToken(), fields: selectedFields.join(','), lang: TAPi18n.getLanguage() },
     );
   },
   exportFilenameCardExcel() {

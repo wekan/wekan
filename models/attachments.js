@@ -155,7 +155,7 @@ Attachments = new FilesCollection({
 
     this._now = new Date();
     Attachments.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
-    Attachments.update({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio" : this._now } });
+    Attachments.update({ _id: fileObj._id }, { $set: { "uploadedAt" : this._now, "uploadedAtOstrio" : this._now } });
 
     // Use selected storage backend or copy storage if specified
     let storageDestination = fileObj.meta.copyStorage || defaultStorage;

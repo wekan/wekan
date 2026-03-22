@@ -2,14 +2,13 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
 import { fileStoreStrategyFactory } from '/models/attachments';
-import fs from 'fs';
-import path from 'path';
-import { execSync } from 'node:child_process';
+import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
 /** All selectable field section keys (order determines display order). */
 const ALL_FIELDS = [
+  'labels',
   'people',
   'board-info',
   'dates',
@@ -20,6 +19,60 @@ const ALL_FIELDS = [
   'attachments',
 ];
 
+/**
+ * Map WeKan label color names to opaque ARGB hex strings for ExcelJS.
+ * Colours not in this map fall back to a neutral silver.
+ */
+const LABEL_COLOR_ARGB = {
+  white:         'FFFFFFFF',
+  green:         'FF008000',
+  yellow:        'FFFFFF00',
+  orange:        'FFFFA500',
+  red:           'FFFF0000',
+  purple:        'FF800080',
+  blue:          'FF0000FF',
+  sky:           'FF87CEEB',
+  lime:          'FF00FF00',
+  pink:          'FFFFC0CB',
+  black:         'FF000000',
+  silver:        'FFC0C0C0',
+  peachpuff:     'FFFFDAB9',
+  crimson:       'FFDC143C',
+  plum:          'FFDDA0DD',
+  darkgreen:     'FF006400',
+  slateblue:     'FF6A5ACD',
+  magenta:       'FFFF00FF',
+  gold:          'FFFFD700',
+  navy:          'FF000080',
+  gray:          'FF808080',
+  saddlebrown:   'FF8B4513',
+  paleturquoise: 'FFAFEEEE',
+  mistyrose:     'FFFFE4E1',
+  indigo:        'FF4B0082',
+};
+
+/** Convert a WeKan color name to ARGB, falling back to silver. */
+function labelColorToArgb(colorName) {
+  return LABEL_COLOR_ARGB[colorName] || 'FFC0C0C0';
+}
+
+/**
+ * Return FFFFFFFF (white) or FF000000 (black) text colour based on the
+ * relative luminance of the background ARGB string.
+ */
+function labelTextArgb(bgArgb) {
+  const hex = bgArgb.slice(2); // strip leading AA byte
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  const toLinear = c => {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  };
+  const lum = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+  return lum > 0.179 ? 'FF000000' : 'FFFFFFFF';
+}
+
 /** MIME types that ExcelJS can embed as inline images. */
 const EMBEDDABLE_IMAGE_MIME = new Map([
   ['image/jpeg', 'jpeg'],
@@ -29,13 +82,42 @@ const EMBEDDABLE_IMAGE_MIME = new Map([
   ['image/bmp',  'bmp'],
 ]);
 
+/**
+ * Checklist progress-bar colour per board theme, matching boardColors.css.
+ * Values are opaque ARGB strings for ExcelJS (FF + 6-digit hex).
+ */
+const THEME_PROGRESS_COLOR = {
+  nephritis:   'FF27AE60',
+  pomegranate: 'FFC0392B',
+  belize:      'FF2980B9',
+  wisteria:    'FF8E44AD',
+  midnight:    'FF2C3E50',
+  pumpkin:     'FFE67E22',
+  moderatepink:'FFCD5A91',
+  strongcyan:  'FF00AECC',
+  limegreen:   'FF4BBF6B',
+  dark:        'FF2C3E51',
+  relax:       'FF27AE61',
+  corteza:     'FF568BA2',
+  clearblue:   'FF499BEA',
+  natural:     'FF596557',
+  modern:      'FF2A80B8',
+  moderndark:  'FF2A2A2A',
+  exodark:     'FF222222',
+  cleandark:   'FF23232B',
+  cleanlight:  'FFC0C0C0',
+};
+
+/** Return the progress-bar ARGB colour for a given board colour/theme name. */
+function progressColorArgb(boardColor) {
+  return THEME_PROGRESS_COLOR[boardColor] || 'FF2980B9'; // default: belize blue
+}
+
 const IMG_WIDTH_PX       = 150;   // embedded image width in pixels
 const IMG_HEIGHT_PX      = 115;   // embedded image height in pixels
 const IMG_ROW_HEIGHT     = 95;    // row height (pt) for image rows
 const IMAGES_PER_ROW     = 4;     // maximum images side-by-side
 const IMG_COLS_PER_IMAGE = 1.5;   // fractional column units each image occupies (cols: 0, 1.5, 3.0, 4.5)
-
-const MIN_FREE_BYTES   = 100 * 1024 * 1024; // 100 MB minimum free disk space
 
 // ── Pure helper functions ────────────────────────────────────────────────────
 
@@ -53,42 +135,11 @@ function sanitizeFilename(value) {
   );
 }
 
-/** Build a filesystem-safe ASCII username from a user object. */
-function sanitizeUsername(user) {
-  if (!user) return 'anonymous';
-  const raw =
-    user.username ||
-    (user.profile && (user.profile.fullname || user.profile.name)) ||
-    (user.emails && user.emails[0] && user.emails[0].address) ||
-    'anonymous';
-  return (
-    String(raw)
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // strip diacritics
-      .replace(/[^a-zA-Z0-9._-]/g, '_')
-      .replace(/_+/g, '_')
-      .replace(/^_|_$/g, '')
-      .slice(0, 60) || 'anonymous'
-  );
-}
-
 function normalizeText(value) {
   return String(value ?? '')
     .replace(/<[^>]*>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-}
-
-function formatDate(d) {
-  if (!d) return '';
-  const dt = new Date(d);
-  return isNaN(dt.getTime()) ? '' : dt.toISOString().slice(0, 10);
-}
-
-function formatDateTime(d) {
-  if (!d) return '';
-  const dt = new Date(d);
-  return isNaN(dt.getTime()) ? '' : dt.toISOString().slice(0, 16).replace('T', ' ');
 }
 
 function formatFileSize(bytes) {
@@ -109,87 +160,30 @@ function streamToBuffer(stream) {
   });
 }
 
-/**
- * Return free bytes on the filesystem containing dirPath.
- * Falls back to Infinity if it cannot be determined.
- */
-function getFreeDiskSpaceBytes(dirPath) {
-  // Try Node 18.15+ statfsSync
-  try {
-    if (typeof fs.statfsSync === 'function') {
-      const st = fs.statfsSync(dirPath);
-      return (st.bavail ?? st.bfree ?? 0) * (st.bsize ?? 4096);
-    }
-  } catch (_) { /* fall through */ }
-
-  // Try POSIX df command (Linux / macOS)
-  try {
-    const out = execSync(
-      `df -k -- "${dirPath.replace(/"/g, '\\"')}" 2>/dev/null`,
-      { timeout: 4000 },
-    ).toString();
-    const lines = out.trim().split('\n');
-    const parts = lines[lines.length - 1].trim().split(/\s+/);
-    // df -k output: Filesystem 1K-blocks Used Available Use% Mountpoint
-    const availKB = parseInt(parts[3], 10);
-    if (!isNaN(availKB) && availKB >= 0) return availKB * 1024;
-  } catch (_) { /* fall through */ }
-
-  return Infinity; // Cannot determine – allow export
-}
-
-/**
- * Ensure a directory (and all parents) exist.
- * Returns the resolved path.
- */
-function ensureDir(dirPath) {
-  fs.mkdirSync(dirPath, { recursive: true });
-  return dirPath;
-}
-
-/**
- * Build a unique file path inside dir for a given basename + ext.
- * If `base.ext` is already used, tries `base_1.ext`, `base_2.ext`, etc.
- */
-function uniqueFilePath(dir, base, ext, usedNames) {
-  const candidate = (suffix) => path.join(dir, suffix ? `${base}_${suffix}${ext}` : `${base}${ext}`);
-  let name = `${base}${ext}`;
-  if (!usedNames.has(name) && !fs.existsSync(candidate())) {
-    usedNames.add(name);
-    return candidate();
-  }
-  let i = 1;
-  while (true) {
-    name = `${base}_${i}${ext}`;
-    if (!usedNames.has(name) && !fs.existsSync(candidate(i))) {
-      usedNames.add(name);
-      return candidate(i);
-    }
-    i++;
-  }
-}
-
 // ── ExporterExcelCard ────────────────────────────────────────────────────────
 
 class ExporterExcelCard {
   /**
-   * @param {string}     boardId
-   * @param {string}     listId
-   * @param {string}     cardId
-   * @param {string}     userLanguage  BCP-47 tag, e.g. 'en', 'de'
-   * @param {string[]|null} fields     Sections to include; null = all
-   * @param {object|null}   user       Meteor user object (for temp path naming)
+   * @param {string}        boardId
+   * @param {string}        listId
+   * @param {string}        cardId
+   * @param {string}        userLanguage  BCP-47 tag, e.g. 'en', 'fi'
+   * @param {string[]|null} fields        Sections to include; null = all
+   * @param {string}        dateFormat    User date format: 'YYYY-MM-DD' | 'DD-MM-YYYY' | 'MM-DD-YYYY'
    */
-  constructor(boardId, listId, cardId, userLanguage, fields, user) {
+  constructor(boardId, listId, cardId, userLanguage, fields, dateFormat) {
     this._boardId     = boardId;
     this._listId      = listId;
     this._cardId      = cardId;
     this.userLanguage = userLanguage || 'en';
     this._fields      = fields && fields.length > 0 ? new Set(fields) : new Set(ALL_FIELDS);
-    this._user        = user || null;
+    this.dateFormat   = dateFormat || 'YYYY-MM-DD';
   }
 
   __(key) { return TAPi18n.__(key, '', this.userLanguage); }
+
+  /** Format a date value using the user's preferred format, always including time. */
+  fmtDate(d) { return d ? formatDateByUserPreference(d, this.dateFormat, true) : ''; }
 
   hasField(key) { return this._fields.has(key); }
 
@@ -201,64 +195,10 @@ class ExporterExcelCard {
   // ── Build ────────────────────────────────────────────────────────────────
 
   async build(res) {
-    const writablePath = process.env.WRITABLE_PATH || process.cwd();
-
-    // ── Temp directory ───────────────────────────────────────────────────
-    const now = new Date();
-    const ts = now.toISOString()
-      .slice(0, 19)
-      .replace(/:/g, '-')
-      .replace('T', '_');
-    const safeUser = sanitizeUsername(this._user);
-    const tempDir  = path.join(writablePath, 'files', 'export-to-excel', ts);
-    const tempFile = path.join(tempDir, `${safeUser}.xlsx`);
-
-    // ── Disk-space check ─────────────────────────────────────────────────
-    // Check against parent dirs that already exist
-    const checkDir = [tempDir, path.dirname(tempDir), writablePath].find(p => {
-      try { return fs.existsSync(p); } catch (_) { return false; }
-    }) || writablePath;
-
-    let estimatedBytes = MIN_FREE_BYTES;
-    if (this.hasField('attachments')) {
-      try {
-        const attSizes = await ReactiveCache.getAttachments(
-          { 'meta.cardId': this._cardId },
-          { fields: { size: 1 } },
-        );
-        const totalAttSize = (attSizes || []).reduce((s, a) => s + (a.size || 0), 0);
-        estimatedBytes = Math.max(MIN_FREE_BYTES, totalAttSize * 2 + 20 * 1024 * 1024);
-      } catch (_) { /* ignore */ }
-    }
-
-    const freeBytes = getFreeDiskSpaceBytes(checkDir);
-    if (freeBytes < estimatedBytes) {
-      const mbNeeded = Math.ceil(estimatedBytes / (1024 * 1024));
-      const mbFree   = Math.floor(freeBytes / (1024 * 1024));
-      res.writeHead(507, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end(
-        `${this.__('export-card-excel-no-disk-space')} ` +
-        `(${this.__('export-card-excel-free')}: ${mbFree} MB, ` +
-        `${this.__('export-card-excel-needed')}: ~${mbNeeded} MB)`,
-      );
-      return;
-    }
-
-    // ── Ensure temp dir exists ───────────────────────────────────────────
     try {
-      ensureDir(tempDir);
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end(`Failed to create export directory: ${err.message}`);
-      return;
-    }
-
-    try {
-      await this._buildAndWrite(res, tempDir, tempFile);
+      await this._buildAndWrite(res);
     } catch (err) {
       console.error('ExporterExcelCard: build error', err);
-      // Clean up on error
-      try { fs.rmSync(tempDir, { recursive: true, force: true }); } catch (_) {}
       if (!res.headersSent) {
         res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(`Export failed: ${err.message}`);
@@ -268,7 +208,7 @@ class ExporterExcelCard {
 
   // ── Internal build ───────────────────────────────────────────────────────
 
-  async _buildAndWrite(res, tempDir, tempFile) {
+  async _buildAndWrite(res) {
     const card = await ReactiveCache.getCard(this._cardId);
     if (!card) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -276,6 +216,7 @@ class ExporterExcelCard {
       return;
     }
 
+    const needsLabels      = this.hasField('labels');
     const needsPeople      = this.hasField('people');
     const needsBoardInfo   = this.hasField('board-info');
     const needsDates       = this.hasField('dates');
@@ -286,12 +227,12 @@ class ExporterExcelCard {
     const needsAttachments = this.hasField('attachments');
 
     // ── Fetch data ───────────────────────────────────────────────────────
-    const board    = needsBoardInfo ? await ReactiveCache.getBoard(this._boardId)            : null;
+    const board    = (needsBoardInfo || needsLabels || needsChecklists) ? await ReactiveCache.getBoard(this._boardId) : null;
     const list     = needsBoardInfo ? await ReactiveCache.getList(card.listId)               : null;
     const swimlane = needsBoardInfo ? await ReactiveCache.getSwimlane(card.swimlaneId)        : null;
 
     const userMap = {};
-    if (needsPeople || needsComments || needsAttachments) {
+    if (needsPeople || needsDates || needsComments || needsAttachments) {
       const userIds = new Set();
       if (card.userId) userIds.add(card.userId);
       if (needsPeople) {
@@ -478,15 +419,84 @@ class ExporterExcelCard {
     });
 
     // ════════════════════════════════════════════════════════════════════
-    // PEOPLE — Creator | Owner | Assignee + Members
+    // LABELS — coloured label badges
+    // ════════════════════════════════════════════════════════════════════
+    if (needsLabels) {
+      const cardLabels = board
+        ? (board.labels || []).filter(l => (card.labelIds || []).includes(l._id))
+        : [];
+
+      // Up to 5 label cells per row (columns B–F); column A holds the key.
+      const labelValueCols = ['B', 'C', 'D', 'E', 'F'];
+      const batchSize = labelValueCols.length;
+
+      if (cardLabels.length === 0) {
+        // Always render the row so the section is visible even with no labels.
+        setLabel(`A${row}`, `${this.__('labels')}:`);
+        ws.mergeCells(`B${row}:F${row}`);
+        ws.getCell(`B${row}`).border = thinBdr;
+        ws.getRow(row).height = 20;
+        row++;
+      } else {
+        for (let batchStart = 0; batchStart < cardLabels.length; batchStart += batchSize) {
+          const batch = cardLabels.slice(batchStart, batchStart + batchSize);
+
+          if (batchStart === 0) {
+            setLabel(`A${row}`, `${this.__('labels')}:`);
+          } else {
+            // Continuation row – leave A empty but bordered.
+            const ac = ws.getCell(`A${row}`);
+            ac.border = thinBdr;
+          }
+
+          for (let i = 0; i < batch.length; i++) {
+            const label  = batch[i];
+            const bgArgb = labelColorToArgb(label.color);
+            const fgArgb = labelTextArgb(bgArgb);
+            const c = ws.getCell(`${labelValueCols[i]}${row}`);
+            c.value     = label.name || '';
+            c.font      = { name: fontName, size: 10, bold: true, color: { argb: fgArgb } };
+            c.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
+            c.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgArgb } };
+            c.border    = thinBdr;
+          }
+
+          // Fill any remaining cells in the row with a plain border.
+          for (let i = batch.length; i < batchSize; i++) {
+            ws.getCell(`${labelValueCols[i]}${row}`).border = thinBdr;
+          }
+
+          ws.getRow(row).height = 20;
+          row++;
+        }
+      }
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // PEOPLE — Creator | Owner  /  Assignees  /  Members
     // ════════════════════════════════════════════════════════════════════
     if (needsPeople) {
+      // Row 1: Creator (A:B) | Owner (C:D) | E:F merged and empty
       metaRow([
-        ['creator',  creatorName],
-        ['owner',    ownerName],
-        ['assignee', assigneeNames],
+        ['creator', creatorName],
+        ['owner',   ownerName],
       ]);
-      // Members: A = label, B:F = value (could be a long comma-separated list)
+      // metaRow only fills pairs provided — border the unused E:F cells
+      ws.mergeCells(`E${row - 1}:F${row - 1}`);
+      ws.getCell(`E${row - 1}`).border = thinBdr;
+
+      // Row 2: Assignees spanning B:F
+      setLabel(`A${row}`, `${this.__('assignees')}:`);
+      ws.mergeCells(`B${row}:F${row}`);
+      const ac = ws.getCell(`B${row}`);
+      ac.value     = assigneeNames;
+      ac.font      = { name: fontName, size: 10 };
+      ac.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      ac.border    = thinBdr;
+      ws.getRow(row).height = 20;
+      row++;
+
+      // Row 3: Members spanning B:F
       setLabel(`A${row}`, `${this.__('members')}:`);
       ws.mergeCells(`B${row}:F${row}`);
       const mc = ws.getCell(`B${row}`);
@@ -499,28 +509,29 @@ class ExporterExcelCard {
     }
 
     // ════════════════════════════════════════════════════════════════════
-    // BOARD INFO — Board | List | Swimlane
+    // BOARD INFO — Board | Swimlane | List
     // ════════════════════════════════════════════════════════════════════
     if (needsBoardInfo) {
       metaRow([
         ['board',    (board    && board.title)    || ''],
-        ['list',     (list     && list.title)     || ''],
         ['swimlane', (swimlane && swimlane.title) || ''],
+        ['list',     (list     && list.title)     || ''],
       ]);
     }
 
     // ════════════════════════════════════════════════════════════════════
-    // DATES — Start | Due | End  +  Received | Created
+    // DATES — Created at | Received | Start  +  Created by | Due | End
     // ════════════════════════════════════════════════════════════════════
     if (needsDates) {
       metaRow([
-        ['card-start',    formatDate(card.startAt)],
-        ['card-due',      formatDate(card.dueAt)],
-        ['card-end',      formatDate(card.endAt)],
+        ['createdAt',     this.fmtDate(card.createdAt)],
+        ['card-received', this.fmtDate(card.receivedAt)],
+        ['card-start',    this.fmtDate(card.startAt)],
       ]);
       metaRow([
-        ['card-received', formatDate(card.receivedAt)],
-        ['createdAt',     formatDate(card.createdAt)],
+        ['creator', creatorName],
+        ['card-due',   this.fmtDate(card.dueAt)],
+        ['card-end',   this.fmtDate(card.endAt)],
       ]);
     }
 
@@ -547,10 +558,22 @@ class ExporterExcelCard {
     // CHECKLISTS
     // ════════════════════════════════════════════════════════════════════
     if (needsChecklists) {
-      sectionHeader(this.__('checklist'), true);
+      sectionHeader(this.__('checklists'), true);
       if (checklists && checklists.length > 0) {
+        const fillProgressDone  = { type: 'pattern', pattern: 'solid', fgColor: { argb: progressColorArgb(board && board.color) } };
+        const fillProgressEmpty = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9D9D9' } }; // gray
+
         const sorted = [...checklists].sort((a, b) => (a.sort || 0) - (b.sort || 0));
         for (const cl of sorted) {
+          // Items (needed for progress calculation before rendering title)
+          const items = (checklistItems || [])
+            .filter(i => i.checklistId === cl._id)
+            .sort((a, b) => (a.sort || 0) - (b.sort || 0));
+
+          const total    = items.length;
+          const finished = items.filter(i => i.isFinished).length;
+          const percent  = total > 0 ? Math.round(finished / total * 100) : 0;
+
           // Checklist name
           ws.mergeCells(`A${row}:F${row}`);
           const clc = ws.getCell(`A${row}`);
@@ -560,10 +583,24 @@ class ExporterExcelCard {
           clc.border    = thinBdr;
           ws.getRow(row).height = 18;
           row++;
+
+          // Progress row: A = "X/Y (N%)", B–F = 5-segment visual bar (each segment = 20%)
+          const pc = ws.getCell(`A${row}`);
+          pc.value     = `${finished}/${total} (${percent}%)`;
+          pc.font      = { name: fontName, size: 9, italic: true };
+          pc.alignment = { vertical: 'middle', horizontal: 'right', wrapText: false };
+          pc.border    = thinBdr;
+          const barCols  = ['B', 'C', 'D', 'E', 'F'];
+          const filledSegs = Math.round(percent / 100 * barCols.length);
+          barCols.forEach((col, idx) => {
+            const bc  = ws.getCell(`${col}${row}`);
+            bc.fill   = idx < filledSegs ? fillProgressDone : fillProgressEmpty;
+            bc.border = thinBdr;
+          });
+          ws.getRow(row).height = 10;
+          row++;
+
           // Items
-          const items = (checklistItems || [])
-            .filter(i => i.checklistId === cl._id)
-            .sort((a, b) => (a.sort || 0) - (b.sort || 0));
           for (const item of items) {
             ws.mergeCells(`A${row}:F${row}`);
             const ic = ws.getCell(`A${row}`);
@@ -606,7 +643,7 @@ class ExporterExcelCard {
     // COMMENTS
     // ════════════════════════════════════════════════════════════════════
     if (needsComments) {
-      sectionHeader(this.__('comment'), true);
+      sectionHeader(this.__('comments'), true);
       // Sub-header
       ws.mergeCells(`A${row}:B${row}`);
       ws.mergeCells(`C${row}:F${row}`);
@@ -624,7 +661,7 @@ class ExporterExcelCard {
         for (const c of comments) {
           const author = userMap[c.userId] || '';
           const text   = normalizeText(c.text || '');
-          splitRow(formatDateTime(c.createdAt), author ? `${author}: ${text}` : text);
+          splitRow(this.fmtDate(c.createdAt), author ? `${author}: ${text}` : text);
         }
       } else {
         ws.mergeCells(`A${row}:F${row}`);
@@ -648,8 +685,8 @@ class ExporterExcelCard {
           ['B', this.__('export-card-attachment-filename')],
           ['C', this.__('export-card-attachment-size')],
           ['D', this.__('export-card-attachment-type')],
-          ['E', this.__('export-card-attachment-uploaded-by')],
-          ['F', this.__('export-card-attachment-uploaded-at')],
+          ['E', this.__('export-card-attachment-uploaded-at')],
+          ['F', this.__('export-card-attachment-uploaded-by')],
         ];
         for (const [col, label] of attHdrCols) {
           const hc = ws.getCell(`${col}${row}`);
@@ -669,21 +706,27 @@ class ExporterExcelCard {
         for (let ai = 0; ai < attachments.length; ai++) {
           const att     = attachments[ai];
           const uploader = userMap[att.userId || (att.meta && att.meta.userId)] || '';
-          const uploadedAt = formatDate(att.uploadedAt || att.uploadedAtOstrio || att.createdAt);
+          const uploadedAt = this.fmtDate(att.uploadedAt || att.uploadedAtOstrio || att.createdAt);
           const mimeType = att.type || '';
 
-          // Build display filename (unique per export)
+          // Build display filename (unique per export, in-memory dedup)
           const ext      = att.extensionWithDot || (att.extension ? `.${att.extension}` : '');
           const baseName = (att.name || 'file').replace(new RegExp(`${ext.replace('.', '\\.')}$`, 'i'), '') || 'file';
-          const dispName = uniqueFilePath('', baseName, ext, usedFilenames).replace(/^[/\\]/, '');
+          let dispName   = `${baseName}${ext}`;
+          if (usedFilenames.has(dispName)) {
+            let i = 1;
+            while (usedFilenames.has(`${baseName}_${i}${ext}`)) i++;
+            dispName = `${baseName}_${i}${ext}`;
+          }
+          usedFilenames.add(dispName);
 
           const cells = [
             [`A${row}`, String(ai + 1)],
             [`B${row}`, dispName],
             [`C${row}`, formatFileSize(att.size)],
             [`D${row}`, mimeType],
-            [`E${row}`, uploader],
-            [`F${row}`, uploadedAt],
+            [`E${row}`, uploadedAt],
+            [`F${row}`, uploader],
           ];
           for (const [ref, val] of cells) {
             const c = ws.getCell(ref);
@@ -782,25 +825,12 @@ class ExporterExcelCard {
       ws.pageSetup.rowBreaks = pageBreakRows.map(r => ({ man: 1, id: r }));
     }
 
-    // ── Write workbook to temp file ──────────────────────────────────────
-    await workbook.xlsx.writeFile(tempFile);
-
-    // ── Stream temp file to HTTP response ───────────────────────────────
+    // ── Stream workbook directly to HTTP response (no temp file) ────────
     const filename = `${sanitizeFilename(card.title)}.xlsx`;
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-
-    const fileStream = fs.createReadStream(tempFile);
-    fileStream.pipe(res);
-
-    // Cleanup temp directory after response finishes
-    res.on('finish', () => {
-      try { fs.rmSync(tempDir, { recursive: true, force: true }); } catch (_) {}
-    });
-    res.on('close', () => {
-      // Also clean up if client disconnects
-      try { fs.rmSync(tempDir, { recursive: true, force: true }); } catch (_) {}
-    });
+    await workbook.xlsx.write(res);
+    res.end();
   }
 }
 

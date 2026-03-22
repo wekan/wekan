@@ -788,10 +788,11 @@ Template.boardChangeColorPopup.helpers({
 
 Template.boardChangeColorPopup.events({
   async 'click .js-select-background'(evt) {
-    const currentBoard = Utils.getCurrentBoard();
-    const newColor = Template.currentData().toString();
-    await currentBoard.setColor(newColor);
     evt.preventDefault();
+    evt.stopPropagation();
+    const currentBoard = Utils.getCurrentBoard();
+    const newColor = this.toString();
+    await currentBoard.setColor(newColor);
   },
 });
 
