@@ -42,37 +42,6 @@ function sanitizeFilename(filename) {
   return safe;
 }
 
-/**
- * Sanitize filename to prevent path traversal attacks
- * @param {string} filename - User-provided filename
- * @return {string} Sanitized filename safe for filesystem operations
- */
-function sanitizeFilename(filename) {
-  if (!filename || typeof filename !== 'string') {
-    return 'unnamed';
-  }
-
-  // Use path.basename to strip any directory components
-  let safe = path.basename(filename);
-
-  // Remove null bytes
-  safe = safe.replace(/\0/g, '');
-
-  // Remove any remaining path traversal sequences
-  safe = safe.replace(/\.\.[\/\\]/g, '');
-  safe = safe.replace(/^\.\.$/g, '');
-
-  // Trim whitespace
-  safe = safe.trim();
-
-  // If empty after sanitization, use default
-  if (!safe || safe === '.' || safe === '..') {
-    return 'unnamed';
-  }
-
-  return safe;
-}
-
 /** Factory for FileStoreStrategy */
 export default class FileStoreStrategyFactory {
 

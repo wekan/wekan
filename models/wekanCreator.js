@@ -497,7 +497,7 @@ export class WekanCreator {
       const attachments = this.attachments[card._id];
       const wekanCoverId = card.coverId;
       if (attachments && Meteor.isServer) {
-        attachments.forEach(att => {
+        for (const att of attachments) {
           const self = this;
           const opts = {
             type: att.type ? att.type : undefined,
@@ -535,7 +535,7 @@ export class WekanCreator {
           } else if (att.file) {
             Attachments.insert(att.file, opts, cb, true);
           }
-        });
+        }
       }
       result.push(cardId);
     }

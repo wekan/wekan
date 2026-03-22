@@ -2887,14 +2887,14 @@ if (Meteor.isServer) {
     return fakeUserId.get() || getUserId();
   };
   if (!isSandstorm) {
-    Users.after.insert((userId, doc) => {
+    Users.after.insert(async (userId, doc) => {
       const fakeUser = {
         extendAutoValueContext: {
           userId: doc._id,
         },
       };
 
-      fakeUserId.withValue(doc._id, () => {
+      await fakeUserId.withValue(doc._id, async () => {
         /*
 
         // Insert the Welcome Board
@@ -2916,90 +2916,69 @@ if (Meteor.isServer) {
         */
 
         // Insert Template Container
-        const Future = require('fibers/future');
-        const future1 = new Future();
-        const future2 = new Future();
-        const future3 = new Future();
-        Boards.insert(
+        const boardId = await Boards.insertAsync(
           {
             title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('templates') : 'Templates',
             permission: 'private',
             type: 'template-container',
           },
           fakeUser,
-          (err, boardId) => {
-            // Insert the reference to our templates board
-            Users.update(fakeUserId.get(), {
-              $set: {
-                'profile.templatesBoardId': boardId,
-              },
-            });
-
-            // Insert the card templates swimlane
-            Swimlanes.insert(
-              {
-                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('card-templates-swimlane') : 'Card Templates',
-                boardId,
-                sort: 1,
-                type: 'template-container',
-              },
-              fakeUser,
-              (err, swimlaneId) => {
-                // Insert the reference to out card templates swimlane
-                Users.update(fakeUserId.get(), {
-                  $set: {
-                    'profile.cardTemplatesSwimlaneId': swimlaneId,
-                  },
-                });
-                future1.return();
-              },
-            );
-
-            // Insert the list templates swimlane
-            Swimlanes.insert(
-              {
-                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('list-templates-swimlane') : 'List Templates',
-                boardId,
-                sort: 2,
-                type: 'template-container',
-              },
-              fakeUser,
-              (err, swimlaneId) => {
-                // Insert the reference to out list templates swimlane
-                Users.update(fakeUserId.get(), {
-                  $set: {
-                    'profile.listTemplatesSwimlaneId': swimlaneId,
-                  },
-                });
-                future2.return();
-              },
-            );
-
-            // Insert the board templates swimlane
-            Swimlanes.insert(
-              {
-                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('board-templates-swimlane') : 'Board Templates',
-                boardId,
-                sort: 3,
-                type: 'template-container',
-              },
-              fakeUser,
-              (err, swimlaneId) => {
-                // Insert the reference to out board templates swimlane
-                Users.update(fakeUserId.get(), {
-                  $set: {
-                    'profile.boardTemplatesSwimlaneId': swimlaneId,
-                  },
-                });
-                future3.return();
-              },
-            );
-          },
         );
-        // HACK
-        future1.wait();
-        future2.wait();
-        future3.wait();
+
+        // Insert the reference to our templates board
+        await Users.updateAsync(fakeUserId.get(), {
+          $set: {
+            'profile.templatesBoardId': boardId,
+          },
+        });
+
+        // Insert the card templates swimlane
+        const cardSwimlaneId = await Swimlanes.insertAsync(
+          {
+            title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('card-templates-swimlane') : 'Card Templates',
+            boardId,
+            sort: 1,
+            type: 'template-container',
+          },
+          fakeUser,
+        );
+        await Users.updateAsync(fakeUserId.get(), {
+          $set: {
+            'profile.cardTemplatesSwimlaneId': cardSwimlaneId,
+          },
+        });
+
+        // Insert the list templates swimlane
+        const listSwimlaneId = await Swimlanes.insertAsync(
+          {
+            title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('list-templates-swimlane') : 'List Templates',
+            boardId,
+            sort: 2,
+            type: 'template-container',
+          },
+          fakeUser,
+        );
+        await Users.updateAsync(fakeUserId.get(), {
+          $set: {
+            'profile.listTemplatesSwimlaneId': listSwimlaneId,
+          },
+        });
+
+        // Insert the board templates swimlane
+        const boardSwimlaneId = await Swimlanes.insertAsync(
+          {
+            title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('board-templates-swimlane') : 'Board Templates',
+            boardId,
+            sort: 3,
+            type: 'template-container',
+          },
+          fakeUser,
+        );
+        await Users.updateAsync(fakeUserId.get(), {
+          $set: {
+            'profile.boardTemplatesSwimlaneId': boardSwimlaneId,
+          },
+        });
         // End of Insert Template Container
       });
     });
