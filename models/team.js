@@ -78,8 +78,8 @@ Team.attachSchema(
 
 if (Meteor.isServer) {
   Team.allow({
-    insert(userId, doc) {
-      const user = Meteor.users.findOne(userId);
+    async insert(userId, doc) {
+      const user = await Meteor.users.findOneAsync(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -87,8 +87,8 @@ if (Meteor.isServer) {
       }
       return doc._id === userId;
     },
-    update(userId, doc) {
-      const user = Meteor.users.findOne(userId);
+    async update(userId, doc) {
+      const user = await Meteor.users.findOneAsync(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -96,8 +96,8 @@ if (Meteor.isServer) {
       }
       return doc._id === userId;
     },
-    remove(userId, doc) {
-      const user = Meteor.users.findOne(userId);
+    async remove(userId, doc) {
+      const user = await Meteor.users.findOneAsync(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {

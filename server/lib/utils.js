@@ -26,13 +26,13 @@ allowIsBoardMemberWithWriteAccess = function(userId, board) {
 };
 
 // Check if user has write access via a card's board
-allowIsBoardMemberWithWriteAccessByCard = function(userId, card) {
-  const board = card && Boards.findOne(card.boardId);
+allowIsBoardMemberWithWriteAccessByCard = async function(userId, card) {
+  const board = card && await Boards.findOneAsync(card.boardId);
   return allowIsBoardMemberWithWriteAccess(userId, board);
 };
 
-allowIsBoardMemberByCard = function(userId, card) {
-  const board = card && Boards.findOne(card.boardId);
+allowIsBoardMemberByCard = async function(userId, card) {
+  const board = card && await Boards.findOneAsync(card.boardId);
   return board && board.hasMember(userId);
 };
 

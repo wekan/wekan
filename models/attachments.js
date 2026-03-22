@@ -238,11 +238,11 @@ function normalizeRemovedFiles(filesInput) {
 
 if (Meteor.isServer) {
   Attachments.allow({
-    insert(userId, fileObj) {
+    async insert(userId, fileObj) {
       // ReadOnly users cannot upload attachments
-      return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.boardId));
     },
-    update(userId, fileObj, fields) {
+    async update(userId, fileObj, fields) {
       // SECURITY: The 'name' field is sanitized in onBeforeUpload and server-side methods,
       // but we block direct client-side $set operations on 'versions.*.path' to prevent
       // path traversal attacks via storage migration exploits.
@@ -272,9 +272,9 @@ if (Meteor.isServer) {
       }
 
       // ReadOnly users cannot update attachments
-      return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.boardId));
     },
-    remove(userId, fileObj) {
+    async remove(userId, fileObj) {
       // Additional security check: ensure the file belongs to the board the user has access to
       if (!fileObj || !fileObj.boardId) {
         if (process.env.DEBUG === 'true') {
@@ -283,7 +283,7 @@ if (Meteor.isServer) {
         return false;
       }
 
-      const board = Boards.findOne(fileObj.boardId);
+      const board = await Boards.findOneAsync(fileObj.boardId);
       if (!board) {
         if (process.env.DEBUG === 'true') {
           console.warn('Blocked attachment removal: board not found');

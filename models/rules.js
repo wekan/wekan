@@ -72,14 +72,14 @@ Rules.helpers({
 });
 
 Rules.allow({
-  insert(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  async insert(userId, doc) {
+    return allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
   },
-  update(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  async update(userId, doc) {
+    return allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
   },
-  remove(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  async remove(userId, doc) {
+    return allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
   },
 });
 

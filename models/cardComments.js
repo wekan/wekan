@@ -81,15 +81,15 @@ CardComments.attachSchema(
 );
 
 CardComments.allow({
-  insert(userId, doc) {
+  async insert(userId, doc) {
     // ReadOnly users cannot add comments. Only members who can comment are allowed.
-    return allowIsBoardMemberCommentOnly(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberCommentOnly(userId, await Boards.findOneAsync(doc.boardId));
   },
-  update(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  async update(userId, doc) {
+    return userId === doc.userId || allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
   },
-  remove(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  async remove(userId, doc) {
+    return userId === doc.userId || allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
   },
   fetch: ['userId', 'boardId'],
 });

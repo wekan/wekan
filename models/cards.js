@@ -520,7 +520,7 @@ Cards.attachSchema(
 
 // Centralized update policy for Cards
 // Security: deny any direct client updates to 'vote' fields; require write access otherwise
-canUpdateCard = function(userId, doc, fields) {
+canUpdateCard = async function(userId, doc, fields) {
   if (!userId) return false;
   const fieldNames = fields || [];
   // Block direct updates to voting fields; voting must go through Meteor method 'cards.vote'
@@ -532,20 +532,20 @@ canUpdateCard = function(userId, doc, fields) {
     return false;
   }
   // ReadOnly users cannot edit cards
-  return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
+  return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
 };
 
 Cards.allow({
-  insert(userId, doc) {
+  async insert(userId, doc) {
     // ReadOnly users cannot create cards
-    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
   },
-  update(userId, doc, fields) {
-    return canUpdateCard(userId, doc, fields);
+  async update(userId, doc, fields) {
+    return await canUpdateCard(userId, doc, fields);
   },
-  remove(userId, doc) {
+  async remove(userId, doc) {
     // ReadOnly users cannot delete cards
-    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
   },
   fetch: ['boardId'],
 });

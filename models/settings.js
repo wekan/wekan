@@ -223,8 +223,8 @@ Settings.helpers({
   },
 });
 Settings.allow({
-  update(userId) {
-    const user = Meteor.users.findOne(userId);
+  async update(userId) {
+    const user = await Meteor.users.findOneAsync(userId);
     return user && user.isAdmin;
   },
 });

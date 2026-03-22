@@ -1830,12 +1830,12 @@ Boards.labelColors = () => {
 
 if (Meteor.isServer) {
   Boards.allow({
-    insert(userId, doc) {
+    async insert(userId, doc) {
       // Check if user is logged in
       if (!userId) return false;
 
       // If allowPrivateOnly is enabled, only allow private boards
-      const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
+      const allowPrivateOnly = (await TableVisibilityModeSettings.findOneAsync('tableVisibilityMode-allowPrivateOnly'))?.booleanValue;
       if (allowPrivateOnly && doc.permission === 'public') {
         return false;
       }
@@ -1894,10 +1894,10 @@ if (Meteor.isServer) {
 
   // Deny changing permission to public if allowPrivateOnly is enabled
   Boards.deny({
-    update(userId, doc, fieldNames, modifier) {
+    async update(userId, doc, fieldNames, modifier) {
       if (!(fieldNames || []).includes('permission')) return false;
 
-      const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
+      const allowPrivateOnly = (await TableVisibilityModeSettings.findOneAsync('tableVisibilityMode-allowPrivateOnly'))?.booleanValue;
       if (allowPrivateOnly && modifier.$set && modifier.$set.permission === 'public') {
         return true;
       }

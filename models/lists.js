@@ -180,17 +180,17 @@ Lists.attachSchema(
 );
 
 Lists.allow({
-  insert(userId, doc) {
+  async insert(userId, doc) {
     // ReadOnly and CommentOnly users cannot create lists
-    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
   },
-  update(userId, doc) {
+  async update(userId, doc) {
     // ReadOnly and CommentOnly users cannot edit lists
-    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
   },
-  remove(userId, doc) {
+  async remove(userId, doc) {
     // ReadOnly and CommentOnly users cannot delete lists
-    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
   },
   fetch: ['boardId'],
 });

@@ -135,21 +135,21 @@ Integrations.Const = {
   },
 };
 const permissionHelper = {
-  allow(userId, doc) {
-    const user = Meteor.users.findOne(userId);
+  async allow(userId, doc) {
+    const user = await Meteor.users.findOneAsync(userId);
     const isAdmin = user && user.isAdmin;
-    return isAdmin || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return isAdmin || allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
   },
 };
 Integrations.allow({
-  insert(userId, doc) {
-    return permissionHelper.allow(userId, doc);
+  async insert(userId, doc) {
+    return await permissionHelper.allow(userId, doc);
   },
-  update(userId, doc) {
-    return permissionHelper.allow(userId, doc);
+  async update(userId, doc) {
+    return await permissionHelper.allow(userId, doc);
   },
-  remove(userId, doc) {
-    return permissionHelper.allow(userId, doc);
+  async remove(userId, doc) {
+    return await permissionHelper.allow(userId, doc);
   },
   fetch: ['boardId'],
 });

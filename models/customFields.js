@@ -164,28 +164,28 @@ CustomFields.helpers({
 });
 
 CustomFields.allow({
-  insert(userId, doc) {
+  async insert(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      await Boards.find({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }).fetchAsync(),
     );
   },
-  update(userId, doc) {
+  async update(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      await Boards.find({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }).fetchAsync(),
     );
   },
-  remove(userId, doc) {
+  async remove(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      await Boards.find({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }).fetchAsync(),
     );
   },
   fetch: ['userId', 'boardIds'],
