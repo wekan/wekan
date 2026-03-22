@@ -37,7 +37,7 @@ sudo snap set wekan mail-url='smtp://USER%40DOMAIN:PASSWORD@127.0.0.1:1025?ignor
 ```
 let htmlText = Assets.getText("emailTemplate.html");
 let modifiedText = htmlText.replace(new RegExp("{{variable}}", 'g'), variable);
-Email.send({
+await Email.sendAsync({
             from: "nobody@example.com",
             to: email,
             subject: `subject`,

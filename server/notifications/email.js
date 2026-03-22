@@ -46,7 +46,7 @@ Meteor.startup(() => {
       user.clearEmailBuffer();
       try {
         // Use EmailLocalization utility to ensure the correct language is used
-        EmailLocalization.sendEmail({
+        await EmailLocalization.sendEmail({
           to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
           subject,
