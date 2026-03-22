@@ -65,7 +65,7 @@ else
   sudo -u wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor;
 fi;
 
-sudo sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js
+
 sudo -u wekan /home/wekan/.meteor/meteor -- help
 
 # Build app
