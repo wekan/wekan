@@ -9,13 +9,7 @@
 import '/imports/collectionHelpers';
 import '/imports/lib/collectionHelpers';
 
-// SimpleSchema global — previously provided by aldeed:simple-schema package
-import SimpleSchema from 'meteor/aldeed:simple-schema';
-if (typeof window !== 'undefined') window.SimpleSchema = SimpleSchema;
-else if (typeof global !== 'undefined') global.SimpleSchema = SimpleSchema;
-
-// Register collection2 schema extensions that were built-in in older versions
-SimpleSchema.extendOptions(['denyUpdate', 'denyInsert']);
+// SimpleSchema global + collection2 + denyUpdate/denyInsert handled by collectionHelpers shim above
 
 // ----------------------------------------------------------------------------
 // 2. Shared imports (i18n, utilities, reactive cache)
