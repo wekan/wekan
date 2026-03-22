@@ -35,6 +35,13 @@ ehthumbs.db
 .devcontainer/volumes*/
 .coverage
 
+# Rspack build artifacts
+_build/
+public/build-assets/
+public/build-chunks/
+private/build-assets/
+private/build-chunks/
+
 # Helm chart
 # Chart dependencies
 /helm/wekan/**/*.tgz

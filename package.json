@@ -58,5 +58,11 @@
     "source-map-support": "^0.5.20",
     "to-buffer": "^1.2.1",
     "uuid": "^8.3.2"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    }
   }
 }
