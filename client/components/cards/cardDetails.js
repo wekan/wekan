@@ -46,7 +46,7 @@ import {
 } from '/client/lib/currentCard';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 
-const subManager = new SubsManager();
+// SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
 
 function getCardId() {
@@ -1592,7 +1592,7 @@ Template.cardMorePopup.events({
     if (selection === 'none') {
       tpl.parentBoard.set(null);
     } else {
-      subManager.subscribe('board', $(event.currentTarget).val(), false);
+      Meteor.subscribe('board', $(event.currentTarget).val(), false);
       tpl.parentBoard.set(selection);
       list.prop('disabled', false);
     }

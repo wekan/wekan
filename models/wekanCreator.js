@@ -367,9 +367,9 @@ export class WekanCreator {
    * @param boardId
    * @returns {Array}
    */
-  createCards(wekanCards, boardId) {
+  async createCards(wekanCards, boardId) {
     const result = [];
-    wekanCards.forEach(card => {
+    for (const card of wekanCards) {
       const cardToCreate = {
         archived: card.archived,
         boardId,
@@ -520,7 +520,7 @@ export class WekanCreator {
             }
           };
           if (att.url) {
-            const validation = validateAttachmentUrl(att.url);
+            const validation = await validateAttachmentUrl(att.url);
             if (!validation.valid) {
               if (process.env.DEBUG === 'true') {
                 console.warn(
@@ -538,7 +538,7 @@ export class WekanCreator {
         });
       }
       result.push(cardId);
-    });
+    }
     return result;
   }
 
@@ -998,7 +998,7 @@ export class WekanCreator {
     this.createLists(board.lists, boardId);
     this.createSwimlanes(board.swimlanes, boardId);
     this.createCustomFields(board.customFields, boardId);
-    this.createCards(board.cards, boardId);
+    await this.createCards(board.cards, boardId);
     await this.createSubtasks(board.cards);
     this.createChecklists(board.checklists);
     this.createChecklistItems(board.checklistItems);

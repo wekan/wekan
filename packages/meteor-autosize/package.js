@@ -7,5 +7,6 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
+  api.versionsFrom(['2.16', '3.0']);
   api.addFiles(['lib/autosize.js'], 'client');
 });

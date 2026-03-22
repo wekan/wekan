@@ -4,7 +4,7 @@ import Cards from '/models/cards';
 import Boards from '/models/boards';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
 
-const subManager = new SubsManager();
+// SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
 
 function initSorting(items) {

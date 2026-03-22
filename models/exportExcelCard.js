@@ -4,7 +4,7 @@ import { runOnServer } from './runOnServer';
 
 runOnServer(function() {
   import { ExporterExcelCard, ALL_FIELDS } from './server/ExporterExcelCard';
-  import { Picker } from 'meteor/communitypackages:picker';
+  import { WebApp } from 'meteor/webapp';
 
   /**
    * @operation exportExcelCard
@@ -25,12 +25,12 @@ runOnServer(function() {
    * @param {string} authToken the loginToken
    * @param {string} fields comma-separated list of sections to include
    */
-  Picker.route(
+  WebApp.handlers.get(
     '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel',
-    async function (params, req, res) {
-      const boardId = params.boardId;
-      const paramListId = params.listId;
-      const paramCardId = params.cardId;
+    async function (req, res) {
+      const boardId = req.params.boardId;
+      const paramListId = req.params.listId;
+      const paramCardId = req.params.cardId;
       let user = null;
       let impersonateDone = false;
       let adminId = null;

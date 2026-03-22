@@ -13,13 +13,13 @@ import path from 'path';
 
 if (Meteor.isServer) {
   // Handle avatar file downloads
-  WebApp.connectHandlers.use('/cdn/storage/avatars/([^/]+)', async (req, res, next) => {
+  WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
-      const fileName = req.params[0];
+      const fileName = req.params.fileName;
 
       if (!fileName) {
         res.writeHead(400);
@@ -99,13 +99,13 @@ if (Meteor.isServer) {
   });
 
   // Handle legacy avatar URLs (from CollectionFS)
-  WebApp.connectHandlers.use('/cfs/files/avatars/([^/]+)', (req, res, next) => {
+  WebApp.handlers.use('/cfs/files/avatars/:fileName', (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
-      const fileName = req.params[0];
+      const fileName = req.params.fileName;
 
       // Redirect to new avatar URL format
       const newUrl = `/cdn/storage/avatars/${fileName}`;

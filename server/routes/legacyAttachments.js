@@ -58,7 +58,7 @@ function buildContentDispositionHeader(disposition, sanitizedFilename) {
 
 if (Meteor.isServer) {
   // Handle legacy attachment downloads
-  WebApp.connectHandlers.use('/cfs/files/attachments', async (req, res, next) => {
+  WebApp.handlers.use('/cfs/files/attachments', async (req, res, next) => {
     const attachmentId = req.url.split('/').pop();
 
     if (!attachmentId) {

@@ -9,6 +9,7 @@ Package.describe({
 });
 
 Package.onUse((api) => {
+  api.versionsFrom(['2.16', '3.0']);
   api.use([
     'ecmascript',
     'accounts-password',

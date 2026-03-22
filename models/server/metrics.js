@@ -62,7 +62,7 @@ const getBoards = async (boardIds) => {
   return ret;
 };
 Meteor.startup(() => {
-  WebApp.connectHandlers.use('/metrics', async (req, res, next) => {
+  WebApp.handlers.use('/metrics', async (req, res, next) => {
     try {
       const ipAddress =
         req.headers['x-forwarded-for'] || req.socket.remoteAddress;

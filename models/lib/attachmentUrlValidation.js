@@ -1,13 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 
-let dnsModule;
+let dnsPromises;
 let netModule;
-let lookupSync;
 
 if (Meteor.isServer) {
-  dnsModule = require('dns');
+  dnsPromises = require('dns').promises;
   netModule = require('net');
-  lookupSync = Meteor.wrapAsync(dnsModule.lookup);
 }
 
 const BLOCKED_HOSTNAMES = new Set([
@@ -99,12 +97,12 @@ function isIpBlocked(ip) {
   return true;
 }
 
-function resolveHostname(hostname) {
-  if (!lookupSync) {
+async function resolveHostname(hostname) {
+  if (!dnsPromises) {
     return [];
   }
   try {
-    const results = lookupSync(hostname, { all: true });
+    const results = await dnsPromises.lookup(hostname, { all: true });
     if (Array.isArray(results)) {
       return results.map(result => result.address);
     }
@@ -117,7 +115,7 @@ function resolveHostname(hostname) {
   }
 }
 
-export function validateAttachmentUrl(urlString) {
+export async function validateAttachmentUrl(urlString) {
   if (!urlString || typeof urlString !== 'string') {
     return { valid: false, reason: 'Empty URL' };
   }
@@ -153,7 +151,7 @@ export function validateAttachmentUrl(urlString) {
       : { valid: true };
   }
 
-  const addresses = resolveHostname(lowerHostname);
+  const addresses = await resolveHostname(lowerHostname);
   if (!addresses || addresses.length === 0) {
     return { valid: false, reason: 'Hostname did not resolve' };
   }

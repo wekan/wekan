@@ -93,24 +93,25 @@ export class Exporter {
       });
       readStream.pipe(tmpWriteable);
     };
-    const getBase64DataSync = Meteor.wrapAsync(getBase64Data);
+    const getBase64DataAsync = (doc) => new Promise((resolve, reject) => {
+      getBase64Data(doc, (err, res) => err ? reject(err) : resolve(res));
+    });
     const byBoardAndAttachment = this._attachmentId
       ? { boardId: this._boardId, _id: this._attachmentId }
       : byBoard;
-    result.attachments = (await ReactiveCache.getAttachments(byBoardAndAttachment))
-      .map((attachment) => {
-        let filebase64 = null;
-        filebase64 = getBase64DataSync(attachment);
-
-        return {
-          _id: attachment._id,
-          cardId: attachment.meta.cardId,
-          //url: FlowRouter.url(attachment.url()),
-          file: filebase64,
-          name: attachment.name,
-          type: attachment.type,
-        };
+    const attachmentDocs = await ReactiveCache.getAttachments(byBoardAndAttachment);
+    result.attachments = [];
+    for (const attachment of attachmentDocs) {
+      const filebase64 = await getBase64DataAsync(attachment);
+      result.attachments.push({
+        _id: attachment._id,
+        cardId: attachment.meta.cardId,
+        //url: FlowRouter.url(attachment.url()),
+        file: filebase64,
+        name: attachment.name,
+        type: attachment.type,
       });
+    }
     //When has a especific valid attachment return the single element
     if (this._attachmentId) {
       return result.attachments.length > 0 ? result.attachments[0] : {};

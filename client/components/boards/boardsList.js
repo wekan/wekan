@@ -3,7 +3,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
 
-const subManager = new SubsManager();
+// SubsManager removed for Meteor 3 migration
 
 const DEFAULT_WORKSPACE_ICON = '📁';
 
@@ -657,7 +657,7 @@ Template.boardList.events({
             console.error(err);
           } else {
             Session.set('fromBoard', null);
-            subManager.subscribe('board', res, false);
+            Meteor.subscribe('board', res, false);
             FlowRouter.go('board', {
               id: res,
               slug: title,

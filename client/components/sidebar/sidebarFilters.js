@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
-const subManager = new SubsManager();
+// SubsManager removed for Meteor 3 migration
 
 Template.filterSidebar.events({
   'submit .js-list-filter'(evt, tpl) {
@@ -64,7 +64,7 @@ Template.filterSidebar.events({
     Filter.resetExceptions();
     const currentBoardId = Session.get('currentBoard');
     if (!currentBoardId) return;
-    subManager.subscribe(
+    Meteor.subscribe(
       'board',
       currentBoardId,
       Filter.archive.isSelected(),

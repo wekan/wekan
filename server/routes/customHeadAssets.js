@@ -35,7 +35,7 @@ const respondWithText = (res, contentType, body) => {
   res.end(body);
 };
 
-WebApp.connectHandlers.use('/site.webmanifest', (req, res, next) => {
+WebApp.handlers.use('/site.webmanifest', (req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next();
   const setting = Settings.findOne(
     {},
@@ -62,7 +62,7 @@ WebApp.connectHandlers.use('/site.webmanifest', (req, res, next) => {
   return next();
 });
 
-WebApp.connectHandlers.use('/.well-known/assetlinks.json', (req, res, next) => {
+WebApp.handlers.use('/.well-known/assetlinks.json', (req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next();
   const setting = Settings.findOne(
     {},

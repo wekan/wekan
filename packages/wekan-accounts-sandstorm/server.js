@@ -116,7 +116,7 @@ if (__meteor_runtime_config__.SANDSTORM) {
     }
   });
 
-  WebApp.rawConnectHandlers.use(function (req, res, next) {
+  WebApp.rawHandlers.use(function (req, res, next) {
     if (req.url === "/.sandstorm-login") {
       handlePostToken(req, res);
       return;

@@ -309,9 +309,9 @@ export class TrelloCreator {
    * @param boardId
    * @returns {Array}
    */
-  createCards(trelloCards, boardId) {
+  async createCards(trelloCards, boardId) {
     const result = [];
-    trelloCards.forEach(card => {
+    for (const card of trelloCards) {
       const cardToCreate = {
         archived: card.closed,
         boardId,
@@ -449,7 +449,7 @@ export class TrelloCreator {
       const attachments = this.attachments[card.id];
       const trelloCoverId = card.idAttachmentCover;
       if (attachments && Meteor.isServer) {
-        attachments.forEach(att => {
+        for (const att of attachments) {
           const self = this;
           const opts = {
             type: att.type ? att.type : undefined,
@@ -472,7 +472,7 @@ export class TrelloCreator {
             }
           };
           if (att.url) {
-            const validation = validateAttachmentUrl(att.url);
+            const validation = await validateAttachmentUrl(att.url);
             if (!validation.valid) {
               if (process.env.DEBUG === 'true') {
                 console.warn(
@@ -487,7 +487,7 @@ export class TrelloCreator {
           } else if (att.file) {
             Attachments.insert(att.file, opts, cb, true);
           }
-        });
+        }
 
         if (links) {
           if (links.length) {
@@ -508,7 +508,7 @@ export class TrelloCreator {
         }
       }
       result.push(cardId);
-    });
+    }
     return result;
   }
 
@@ -794,7 +794,7 @@ export class TrelloCreator {
     const boardId = await this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
     this.createSwimlanes(boardId);
-    this.createCards(board.cards, boardId);
+    await this.createCards(board.cards, boardId);
     this.createChecklists(board.checklists);
     this.importActions(board.actions, boardId);
     // XXX add members

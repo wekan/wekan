@@ -4,7 +4,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { getSpinnerName, getSpinnerTemplate } from '/client/lib/spinner';
 import getSlug from 'limax';
 
-const subManager = new SubsManager();
+// SubsManager removed for Meteor 3 migration
 const InfiniteScrollIter = 10;
 
 Template.listBody.onCreated(function () {
@@ -550,7 +550,7 @@ Template.linkCardPopup.onCreated(function () {
 
   this.boardId = Session.get('currentBoard');
   // In order to get current board info
-  subManager.subscribe('board', this.boardId, false);
+  Meteor.subscribe('board', this.boardId, false);
   this.board = ReactiveCache.getBoard(this.boardId);
   // List where to insert card
   this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
@@ -680,7 +680,7 @@ Template.linkCardPopup.helpers({
 Template.linkCardPopup.events({
   'change .js-select-boards'(evt, tpl) {
     const val = $(evt.currentTarget).val();
-    subManager.subscribe('board', val, false);
+    Meteor.subscribe('board', val, false);
     // Clear selections to allow linking only board or re-choose swimlane/list
     tpl.selectedSwimlaneId.set('');
     tpl.selectedListId.set('');
@@ -768,7 +768,7 @@ Template.searchElementPopup.onCreated(function () {
   if (this.isTemplateSearch) {
     const boardId = (ReactiveCache.getCurrentUser().profile || {}).templatesBoardId;
     if (boardId) {
-      subManager.subscribe('board', boardId, false);
+      Meteor.subscribe('board', boardId, false);
       this.board = ReactiveCache.getBoard(boardId);
     }
   } else {
@@ -780,7 +780,7 @@ Template.searchElementPopup.onCreated(function () {
   }
   this.boardId = this.board._id;
   // Subscribe to this board
-  subManager.subscribe('board', this.boardId, false);
+  Meteor.subscribe('board', this.boardId, false);
   this.selectedBoardId = new ReactiveVar(this.boardId);
   this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
 
@@ -843,7 +843,7 @@ Template.searchElementPopup.helpers({
     } else if (tpl.isBoardTemplateSearch) {
       const boards = board.searchBoards(tpl.term.get());
       boards.forEach(board => {
-        subManager.subscribe('board', board.linkedId, false);
+        Meteor.subscribe('board', board.linkedId, false);
       });
       return boards;
     } else {
@@ -854,7 +854,7 @@ Template.searchElementPopup.helpers({
 
 Template.searchElementPopup.events({
   'change .js-select-boards'(evt, tpl) {
-    subManager.subscribe('board', $(evt.currentTarget).val(), false);
+    Meteor.subscribe('board', $(evt.currentTarget).val(), false);
     tpl.selectedBoardId.set($(evt.currentTarget).val());
   },
   'submit .js-search-term-form'(evt, tpl) {
@@ -909,7 +909,7 @@ Template.searchElementPopup.events({
         },
         (err, data) => {
           _id = data;
-          subManager.subscribe('board', _id, false);
+          Meteor.subscribe('board', _id, false);
           FlowRouter.go('board', {
             id: _id,
             slug: getSlug(element.title),

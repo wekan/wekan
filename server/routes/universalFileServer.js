@@ -389,7 +389,7 @@ if (Meteor.isServer) {
    * Serve attachments from new Meteor-Files structure
    * Route: /cdn/storage/attachments/{fileId} or /cdn/storage/attachments/{fileId}/original/{filename}
    */
-  WebApp.connectHandlers.use('/cdn/storage/attachments', async (req, res, next) => {
+  WebApp.handlers.use('/cdn/storage/attachments', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -476,7 +476,7 @@ if (Meteor.isServer) {
    * Serve avatars from new Meteor-Files structure
    * Route: /cdn/storage/avatars/{fileId} or /cdn/storage/avatars/{fileId}/original/{filename}
    */
-  WebApp.connectHandlers.use('/cdn/storage/avatars', async (req, res, next) => {
+  WebApp.handlers.use('/cdn/storage/avatars', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -541,7 +541,7 @@ if (Meteor.isServer) {
    * Serve legacy attachments from CollectionFS structure
    * Route: /cfs/files/attachments/{attachmentId}
    */
-  WebApp.connectHandlers.use('/cfs/files/attachments', async (req, res, next) => {
+  WebApp.handlers.use('/cfs/files/attachments', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -617,7 +617,7 @@ if (Meteor.isServer) {
    * Serve legacy avatars from CollectionFS structure
    * Route: /cfs/files/avatars/{avatarId}
    */
-  WebApp.connectHandlers.use('/cfs/files/avatars', async (req, res, next) => {
+  WebApp.handlers.use('/cfs/files/avatars', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -686,7 +686,7 @@ if (Meteor.isServer) {
    * Alternative attachment route for different URL patterns
    * Route: /attachments/{fileId}
    */
-  WebApp.connectHandlers.use('/attachments', (req, res, next) => {
+  WebApp.handlers.use('/attachments', (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -702,7 +702,7 @@ if (Meteor.isServer) {
    * Alternative avatar route for different URL patterns
    * Route: /avatars/{fileId}
    */
-  WebApp.connectHandlers.use('/avatars', (req, res, next) => {
+  WebApp.handlers.use('/avatars', (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }

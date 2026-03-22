@@ -7,7 +7,7 @@ runOnServer(function() {
   // it here we use runOnServer to have it inside a function instead of an
   // if (Meteor.isServer) block
   import { ExporterExcel } from './server/ExporterExcel';
-  import { Picker } from 'meteor/communitypackages:picker';
+  import { WebApp } from 'meteor/webapp';
 
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
@@ -30,8 +30,8 @@ runOnServer(function() {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  Picker.route('/api/boards/:boardId/exportExcel', async function (params, req, res) {
-    const boardId = params.boardId;
+  WebApp.handlers.get('/api/boards/:boardId/exportExcel', async function (req, res) {
+    const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
     let adminId = null;

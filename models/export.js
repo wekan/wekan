@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 /* global JsonRoutes */
 if (Meteor.isServer) {
-  import { Picker } from 'meteor/communitypackages:picker';
+  import { WebApp } from 'meteor/webapp';
 
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
@@ -203,8 +203,8 @@ if (Meteor.isServer) {
    * @param {string} authToken the loginToken
    * @param {string} delimiter delimiter to use while building export. Default is comma ','
    */
-  Picker.route('/api/boards/:boardId/export/csv', async function (params, req, res) {
-    const boardId = params.boardId;
+  WebApp.handlers.get('/api/boards/:boardId/export/csv', async function (req, res) {
+    const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
     let adminId = null;

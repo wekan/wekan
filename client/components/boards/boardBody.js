@@ -8,7 +8,7 @@ import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
 
-const subManager = new SubsManager();
+// SubsManager removed for Meteor 3 migration
 const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;
 
@@ -81,7 +81,7 @@ Template.board.onCreated(function () {
     const currentBoardId = Session.get('currentBoard');
     if (!currentBoardId) return;
 
-    const handle = subManager.subscribe('board', currentBoardId, false);
+    const handle = Meteor.subscribe('board', currentBoardId, false);
 
     // Use a separate autorun for subscription ready state to avoid reactive loops
     this.subscriptionReadyAutorun = Tracker.autorun(() => {

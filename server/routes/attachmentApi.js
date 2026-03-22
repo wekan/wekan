@@ -48,7 +48,7 @@ if (Meteor.isServer) {
   }
 
   // Upload attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/upload', async (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -207,14 +207,14 @@ if (Meteor.isServer) {
   });
 
   // Download attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/download/([^/]+)', async (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/download/:attachmentId', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const userId = authenticateApiRequest(req);
-      const attachmentId = req.params[0];
+      const attachmentId = req.params.attachmentId;
 
       // Get attachment
       const attachment = await ReactiveCache.getAttachment(attachmentId);
@@ -267,17 +267,17 @@ if (Meteor.isServer) {
   });
 
   // List attachments endpoint
-  WebApp.connectHandlers.use('/api/attachment/list/([^/]+)/([^/]+)/([^/]+)/([^/]+)', async (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/list/:boardId/:swimlaneId/:listId/:cardId', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const userId = authenticateApiRequest(req);
-      const boardId = req.params[0];
-      const swimlaneId = req.params[1];
-      const listId = req.params[2];
-      const cardId = req.params[3];
+      const boardId = req.params.boardId;
+      const swimlaneId = req.params.swimlaneId;
+      const listId = req.params.listId;
+      const cardId = req.params.cardId;
 
       // Check permissions
       const board = await ReactiveCache.getBoard(boardId);
@@ -337,7 +337,7 @@ if (Meteor.isServer) {
   });
 
   // Copy attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/copy', async (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/copy', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -493,7 +493,7 @@ if (Meteor.isServer) {
   });
 
   // Move attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/move', async (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/move', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -610,14 +610,14 @@ if (Meteor.isServer) {
   });
 
   // Delete attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/delete/([^/]+)', async (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/delete/:attachmentId', async (req, res, next) => {
     if (req.method !== 'DELETE') {
       return next();
     }
 
     try {
       const userId = authenticateApiRequest(req);
-      const attachmentId = req.params[0];
+      const attachmentId = req.params.attachmentId;
 
       // Get attachment
       const attachment = await ReactiveCache.getAttachment(attachmentId);
@@ -646,14 +646,14 @@ if (Meteor.isServer) {
   });
 
   // Get attachment info endpoint
-  WebApp.connectHandlers.use('/api/attachment/info/([^/]+)', async (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/info/:attachmentId', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const userId = authenticateApiRequest(req);
-      const attachmentId = req.params[0];
+      const attachmentId = req.params.attachmentId;
 
       // Get attachment
       const attachment = await ReactiveCache.getAttachment(attachmentId);

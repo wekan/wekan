@@ -1,6 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
-import { Picker } from 'meteor/communitypackages:picker';
+import { WebApp } from 'meteor/webapp';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
@@ -244,7 +244,7 @@ if (isSandstorm && Meteor.isServer) {
     await Boards.updateAsync(sandstormBoard._id, modifier);
   }
 
-  Picker.route('/', (params, req, res) => {
+  WebApp.handlers.get('/', (req, res) => {
     // Redirect the user to the hard-coded board. On the first launch the user
     // will be redirected to the board before its creation. But that's not a
     // problem thanks to the reactive board publication. We used to do this
