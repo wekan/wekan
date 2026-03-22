@@ -141,7 +141,7 @@ RulesHelper = {
 
         // Use EmailLocalization if available
         if (typeof EmailLocalization !== 'undefined') {
-          EmailLocalization.sendEmail({
+          await EmailLocalization.sendEmail({
             to,
             from: Accounts.emailTemplates.from,
             subject,
@@ -151,7 +151,7 @@ RulesHelper = {
           });
         } else {
           // Fallback to standard Email.send
-          Email.send({
+          await Email.sendAsync({
             to,
             from: Accounts.emailTemplates.from,
             subject,
