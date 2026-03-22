@@ -2,11 +2,6 @@
 // settings.js → ReactiveCache → i18n/tap → translation.js → ReactiveCache → settings.js
 // All dependencies use require() so Settings collection is defined first.
 
-// Ensure collection2 is loaded (provides attachSchema) before any model code runs.
-// Must be require() not import — this file is loaded early via circular dep chain
-// before the entry point's imports finish.
-require('meteor/aldeed:collection2');
-
 Settings = new Mongo.Collection('settings');
 const { FlowRouter } = require('meteor/ostrio:flow-router-extra');
 const { ReactiveCache } = require('/imports/reactiveCache');
