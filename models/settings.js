@@ -5,6 +5,11 @@
 Settings = new Mongo.Collection('settings');
 
 const SimpleSchema = require('meteor/aldeed:simple-schema').default;
+
+// Register collection2 schema extensions (moved from built-in in older simple-schema versions)
+if (SimpleSchema.extendOptions) {
+  SimpleSchema.extendOptions(['denyUpdate', 'denyInsert']);
+}
 const { FlowRouter } = require('meteor/ostrio:flow-router-extra');
 const { ReactiveCache } = require('/imports/reactiveCache');
 const { TAPi18n } = require('/imports/i18n');
