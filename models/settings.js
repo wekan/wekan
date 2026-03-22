@@ -1,11 +1,13 @@
-// Define collection before other imports to break circular dependency:
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
+// Define collection before ReactiveCache/i18n imports to break circular dependency:
 // settings.js → ReactiveCache → i18n/tap → translation.js → ReactiveCache → settings.js
 Settings = new Mongo.Collection('settings');
 
-// Use require() instead of import to defer evaluation until after the collection exists
+// Use require() to defer evaluation until after the collection exists
 const { ReactiveCache } = require('/imports/reactiveCache');
 const { TAPi18n } = require('/imports/i18n');
-const { FlowRouter } = require('meteor/ostrio:flow-router-extra');
 //var nodemailer = require('nodemailer');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable

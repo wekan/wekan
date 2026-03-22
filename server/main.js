@@ -9,6 +9,10 @@
 import '/imports/collectionHelpers';
 import '/imports/lib/collectionHelpers';
 
+// SimpleSchema global — previously provided by aldeed:simple-schema package
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+global.SimpleSchema = SimpleSchema;
+
 // ----------------------------------------------------------------------------
 // 2. Shared imports (i18n, utilities, reactive cache)
 // ----------------------------------------------------------------------------
