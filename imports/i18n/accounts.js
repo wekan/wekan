@@ -1,6 +1,6 @@
 // Load all useraccounts translations at once
 import { Tracker } from 'meteor/tracker';
-import { T9n } from 'meteor/useraccounts:core';
+import { T9n } from 'meteor/communitypackages:core';
 import { TAPi18n } from './tap';
 
 T9n.setTracker({ Tracker });
