@@ -1,6 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreStrategy';
 // DISABLED: S3 storage removed due to Node.js compatibility
 // import { STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';

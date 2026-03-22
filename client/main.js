@@ -10,7 +10,7 @@ import '/imports/collectionHelpers';
 import '/imports/lib/collectionHelpers';
 
 // SimpleSchema global — previously provided by aldeed:simple-schema package
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 if (typeof window !== 'undefined') window.SimpleSchema = SimpleSchema;
 else if (typeof global !== 'undefined') global.SimpleSchema = SimpleSchema;
 

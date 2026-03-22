@@ -4,7 +4,7 @@
 
 Settings = new Mongo.Collection('settings');
 
-const { SimpleSchema } = require('meteor/aldeed:simple-schema');
+const SimpleSchema = require('meteor/aldeed:simple-schema').default;
 const { FlowRouter } = require('meteor/ostrio:flow-router-extra');
 const { ReactiveCache } = require('/imports/reactiveCache');
 const { TAPi18n } = require('/imports/i18n');
