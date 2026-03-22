@@ -44,7 +44,7 @@ EmailLocalization = {
     }
 
     // Send the email with translated content
-    return Email.send({
+    return await Email.sendAsync({
       to: options.to,
       from: options.from || Accounts.emailTemplates.from,
       subject: subject,
