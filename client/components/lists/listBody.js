@@ -94,6 +94,11 @@ Template.listBody.onCreated(function () {
     let swimlaneId = '';
     let cardType = 'cardType-card';
     if (title) {
+      // Clear the textarea immediately so the next card starts empty,
+      // before any async operations that would leave the old text visible.
+      textarea.val('').focus();
+      autosize.update(textarea);
+
       if (board.isTemplatesBoard()) {
         const swimlaneEl = this.$('.js-minicards').closest('.swimlane').get(0);
         swimlaneId = swimlaneEl && Blaze.getData(swimlaneEl)?._id; // Always swimlanes view
@@ -156,9 +161,7 @@ Template.listBody.onCreated(function () {
       // See https://github.com/wekan/wekan/issues/80
       Filter.addException(_id);
 
-      // We keep the form opened, empty it, and scroll to it.
-      textarea.val('').focus();
-      autosize.update(textarea);
+      // We keep the form opened and scroll to it.
       if (position === 'bottom') {
         this.scrollToBottom();
       }
