@@ -473,7 +473,7 @@ if (Meteor.isServer) {
             text: TAPi18n.__('email-smtp-test-text', { lng: lang }),
           })
         } else {
-          Email.send({
+          await Email.sendAsync({
             to: user.emails[0].address,
             from: Accounts.emailTemplates.from,
             subject: TAPi18n.__('email-smtp-test-subject', { lng: lang }),
@@ -481,7 +481,7 @@ if (Meteor.isServer) {
           });
         }
 */
-        Email.send({
+        await Email.sendAsync({
           to: user.emails[0].address,
           from: Accounts.emailTemplates.from,
           subject: TAPi18n.__('email-smtp-test-subject', { lng: lang }),
