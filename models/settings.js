@@ -329,7 +329,7 @@ if (Meteor.isServer) {
       const lang = author.getLanguage();
       // Use EmailLocalization utility to handle email in the proper language
       if (typeof EmailLocalization !== 'undefined') {
-        EmailLocalization.sendEmail({
+        await EmailLocalization.sendEmail({
           to: icode.email,
           from: Accounts.emailTemplates.from,
           subject: 'email-invite-register-subject',
@@ -339,7 +339,7 @@ if (Meteor.isServer) {
         });
       } else {
         // Fallback if EmailLocalization is not available
-        Email.send({
+        await Email.sendAsync({
           to: icode.email,
           from: Accounts.emailTemplates.from,
           subject: TAPi18n.__('email-invite-register-subject', params, lang),
@@ -473,7 +473,7 @@ if (Meteor.isServer) {
             text: TAPi18n.__('email-smtp-test-text', { lng: lang }),
           })
         } else {
-          Email.send({
+          await Email.sendAsync({
             to: user.emails[0].address,
             from: Accounts.emailTemplates.from,
             subject: TAPi18n.__('email-smtp-test-subject', { lng: lang }),
@@ -481,7 +481,7 @@ if (Meteor.isServer) {
           });
         }
 */
-        Email.send({
+        await Email.sendAsync({
           to: user.emails[0].address,
           from: Accounts.emailTemplates.from,
           subject: TAPi18n.__('email-smtp-test-subject', { lng: lang }),

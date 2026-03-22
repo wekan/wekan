@@ -2536,7 +2536,7 @@ if (Meteor.isServer) {
 
           // Add code to send invitation with EmailLocalization
           if (typeof EmailLocalization !== 'undefined') {
-            EmailLocalization.sendEmail({
+            await EmailLocalization.sendEmail({
               to: user.emails[0].address,
               from: Accounts.emailTemplates.from,
               subject: 'email-invite-subject',
@@ -2547,7 +2547,7 @@ if (Meteor.isServer) {
             });
           } else {
             // Fallback if EmailLocalization is not available
-            Email.send({
+            await Email.sendAsync({
               to: user.emails[0].address,
               from: Accounts.emailTemplates.from,
               subject: TAPi18n.__('email-invite-subject', params, lang),
