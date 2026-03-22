@@ -267,7 +267,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
 
-      let settings = AttachmentStorageSettings.findOne({});
+      let settings = await AttachmentStorageSettings.findOneAsync({});
 
       if (!settings) {
         // Create default settings
@@ -300,8 +300,8 @@ if (Meteor.isServer) {
           updatedBy: this.userId
         };
 
-        AttachmentStorageSettings.insert(settings);
-        settings = AttachmentStorageSettings.findOne({});
+        await AttachmentStorageSettings.insertAsync(settings);
+        settings = await AttachmentStorageSettings.findOneAsync({});
       }
 
       return settings;
@@ -322,7 +322,7 @@ if (Meteor.isServer) {
       schema.validate(settings);
 
       // Update settings
-      const result = AttachmentStorageSettings.upsert(
+      const result = await AttachmentStorageSettings.upsertAsync(
         {},
         {
           $set: {
@@ -336,12 +336,12 @@ if (Meteor.isServer) {
       return result;
     },
 
-    'getDefaultAttachmentStorage'() {
+    async 'getDefaultAttachmentStorage'() {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
-      const settings = AttachmentStorageSettings.findOne({});
+      const settings = await AttachmentStorageSettings.findOneAsync({});
       return settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
     },
     
@@ -359,7 +359,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('invalid-storage', 'Invalid storage backend');
       }
 
-      const result = AttachmentStorageSettings.upsert(
+      const result = await AttachmentStorageSettings.upsertAsync(
         {},
         {
           $set: {

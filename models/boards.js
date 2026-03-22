@@ -1931,14 +1931,14 @@ if (Meteor.isServer) {
         throw new Meteor.Error('error-board-doesNotExist');
       }
 
-      Meteor.users.update(Meteor.userId(), {
+      await Meteor.users.updateAsync(Meteor.userId(), {
         $pull: {
           'profile.invitedBoards': boardId,
         },
       });
 
       // Ensure the user is active on the board
-      Boards.update({
+      await Boards.updateAsync({
         _id: boardId,
         'members.userId': Meteor.userId()
       }, {
@@ -2117,7 +2117,7 @@ if (Meteor.isServer) {
 
   // If the user remove one label from a board, we cant to remove reference of
   // this label in any card of this board.
-  Boards.after.update((userId, doc, fieldNames, modifier) => {
+  Boards.after.update(async (userId, doc, fieldNames, modifier) => {
     if (
       !(fieldNames || []).includes('labels') ||
       !modifier.$pull ||
@@ -2128,7 +2128,7 @@ if (Meteor.isServer) {
     }
 
     const removedLabelId = modifier.$pull.labels._id;
-    Cards.update(
+    await Cards.updateAsync(
       { boardId: doc._id },
       {
         $pull: {
@@ -2164,7 +2164,7 @@ if (Meteor.isServer) {
     if (modifier.$set) {
       const boardId = doc._id;
       foreachRemovedMember(doc, modifier.$set, async memberId => {
-        Cards.update(
+        await Cards.updateAsync(
           { boardId },
           {
             $pull: {
@@ -2175,7 +2175,7 @@ if (Meteor.isServer) {
           { multi: true },
         );
 
-        Lists.update(
+        await Lists.updateAsync(
           { boardId },
           {
             $pull: {
@@ -2190,7 +2190,7 @@ if (Meteor.isServer) {
 
         // Remove board from users starred list
         if (!board.isPublic()) {
-          Users.update(memberId, {
+          await Users.updateAsync(memberId, {
             $pull: {
               'profile.starredBoards': boardId,
             },

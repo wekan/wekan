@@ -136,11 +136,11 @@ Attachments = new FilesCollection({
 
     return true;
   },
-  onAfterUpload(fileObj) {
+  async onAfterUpload(fileObj) {
     // Get default storage backend from settings
     let defaultStorage = STORAGE_NAME_FILESYSTEM;
     try {
-      const settings = AttachmentStorageSettings.findOne({});
+      const settings = await AttachmentStorageSettings.findOneAsync({});
       if (settings) {
         defaultStorage = settings.getDefaultStorage();
       }
@@ -154,8 +154,8 @@ Attachments = new FilesCollection({
     });
 
     this._now = new Date();
-    Attachments.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
-    Attachments.update({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio" : this._now } });
+    await Attachments.updateAsync({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
+    await Attachments.updateAsync({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio" : this._now } });
 
     // Use selected storage backend or copy storage if specified
     let storageDestination = fileObj.meta.copyStorage || defaultStorage;

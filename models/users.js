@@ -1,10 +1,10 @@
 if (Meteor.isServer) {
   Meteor.methods({
-    deleteWorkspace(workspaceId) {
+    async deleteWorkspace(workspaceId) {
       check(workspaceId, String);
       if (!this.userId) throw new Meteor.Error('not-logged-in');
 
-      const user = Users.findOne(this.userId, {
+      const user = await Users.findOneAsync(this.userId, {
         fields: {
           'profile.boardWorkspacesTree': 1,
           'profile.boardWorkspaceAssignments': 1,
@@ -51,7 +51,7 @@ if (Meteor.isServer) {
         }
       });
 
-      Users.update(this.userId, {
+      await Users.updateAsync(this.userId, {
         $set: {
           'profile.boardWorkspacesTree': tree,
           'profile.boardWorkspaceAssignments': assignments,

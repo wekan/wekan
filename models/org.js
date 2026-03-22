@@ -139,7 +139,7 @@ if (Meteor.isServer) {
         if (nOrgNames > 0) {
           throw new Meteor.Error('orgname-already-taken');
         } else {
-          Org.insert({
+          await Org.insertAsync({
             orgDisplayName,
             orgDesc,
             orgShortName,
@@ -169,7 +169,7 @@ if (Meteor.isServer) {
       if (nOrgNames > 0) {
         throw new Meteor.Error('orgname-already-taken');
       } else {
-        Org.insert({
+        await Org.insertAsync({
           orgDisplayName,
           orgDesc,
           orgShortName,

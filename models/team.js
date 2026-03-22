@@ -127,7 +127,7 @@ if (Meteor.isServer) {
         if (nTeamNames > 0) {
           throw new Meteor.Error('teamname-already-taken');
         } else {
-          Team.insert({
+          await Team.insertAsync({
             teamDisplayName,
             teamDesc,
             teamShortName,
@@ -153,7 +153,7 @@ if (Meteor.isServer) {
       if (nTeamNames > 0) {
         throw new Meteor.Error('teamname-already-taken');
       } else {
-        Team.insert({
+        await Team.insertAsync({
           teamDisplayName,
           teamDesc,
           teamShortName,

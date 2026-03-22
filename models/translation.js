@@ -106,7 +106,7 @@ if (Meteor.isServer) {
       if (nTexts > 0) {
         throw new Meteor.Error('text-already-taken');
       } else {
-        Translation.insert({
+        await Translation.insertAsync({
           language,
           text,
           translationText,

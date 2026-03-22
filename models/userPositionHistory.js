@@ -388,7 +388,7 @@ if (Meteor.isServer) {
 
 // Meteor Methods for client interaction
 Meteor.methods({
-  'userPositionHistory.createCheckpoint'(boardId, checkpointName) {
+  async 'userPositionHistory.createCheckpoint'(boardId, checkpointName) {
     check(boardId, String);
     check(checkpointName, String);
 
@@ -397,7 +397,7 @@ Meteor.methods({
     }
 
     // Create a checkpoint entry
-    return UserPositionHistory.insert({
+    return await UserPositionHistory.insertAsync({
       userId: this.userId,
       boardId,
       entityType: 'checkpoint',
@@ -426,7 +426,7 @@ Meteor.methods({
     return await history.undo();
   },
 
-  'userPositionHistory.getRecent'(boardId, limit = 50) {
+  async 'userPositionHistory.getRecent'(boardId, limit = 50) {
     check(boardId, String);
     check(limit, Number);
 
@@ -434,23 +434,23 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
 
-    return UserPositionHistory.find(
+    return await UserPositionHistory.find(
       { userId: this.userId, boardId },
       { sort: { createdAt: -1 }, limit: Math.min(limit, 100) }
-    ).fetch();
+    ).fetchAsync();
   },
 
-  'userPositionHistory.getCheckpoints'(boardId) {
+  async 'userPositionHistory.getCheckpoints'(boardId) {
     check(boardId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
 
-    return UserPositionHistory.find(
+    return await UserPositionHistory.find(
       { userId: this.userId, boardId, isCheckpoint: true },
       { sort: { createdAt: -1 } }
-    ).fetch();
+    ).fetchAsync();
   },
 
   async 'userPositionHistory.restoreToCheckpoint'(checkpointId) {

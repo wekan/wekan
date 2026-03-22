@@ -414,13 +414,13 @@ if (Meteor.isServer) {
           // Checks if the email is already link to an invitation.
           const invitation = await ReactiveCache.getInvitationCode({ email });
           if (invitation) {
-            InvitationCodes.update(invitation, {
+            await InvitationCodes.updateAsync(invitation, {
               $set: { boardsToBeInvited: boards },
             });
             await sendInvitationEmail(invitation._id);
           } else {
             const code = getRandomNum(100000, 999999);
-            InvitationCodes.insert(
+            const _id = await InvitationCodes.insertAsync(
               {
                 code,
                 email,
@@ -428,18 +428,16 @@ if (Meteor.isServer) {
                 createdAt: new Date(),
                 authorId: Meteor.userId(),
               },
-              async function(err, _id) {
-                if (!err && _id) {
-                  await sendInvitationEmail(_id);
-                } else {
-                  rc = -1;
-                  throw new Meteor.Error(
-                    'invitation-generated-fail',
-                    err.message,
-                  );
-                }
-              },
             );
+            if (_id) {
+              await sendInvitationEmail(_id);
+            } else {
+              rc = -1;
+              throw new Meteor.Error(
+                'invitation-generated-fail',
+                'Failed to create invitation code',
+              );
+            }
           }
         }
       }
