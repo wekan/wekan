@@ -49,6 +49,8 @@ and fixes the following bugs:
 
 - [Fixed 2nd new card should not have text of 1st card, it should be empty](https://github.com/wekan/wekan/commit/7b2128b3565ecf793a780980c71e5ab9cde0a3b2).
   Thanks to xet7.
+- [Fix: prevent cards from disappearing after dragging in List view](https://github.com/wekan/wekan/pull/6199).
+  Thanks to KhaoulaMaleh.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
