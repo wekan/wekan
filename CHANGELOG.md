@@ -29,6 +29,15 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix SSO login is broken](https://github.com/wekan/wekan/commit/2dce7a84cd0ce011972d377a05f5b26ff12daba7).
+  Thanks to sbaecker, vladimirdulov and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.41 2026-03-23 WeKan ® release
 
 This release adds the following new features:
