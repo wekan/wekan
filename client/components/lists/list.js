@@ -75,7 +75,8 @@ Template.list.onRendered(function () {
       const nextCardDom = ui.item.next('.js-minicard').get(0);
       const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
       const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
-      const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
+      const listData = Blaze.getData(ui.item.parents('.list').get(0));
+      const listId = listData._id;
       const currentBoard = Utils.getCurrentBoard();
       const defaultSwimlaneId = currentBoard.getDefaultSwimline()._id;
       let targetSwimlaneId = null;
@@ -84,9 +85,12 @@ Template.list.onRendered(function () {
       if (
         Utils.boardView() === 'board-view-swimlanes' ||
         currentBoard.isTemplatesBoard()
-      )
+      ) {
         targetSwimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))
           ._id;
+      } else if (listData.swimlaneId) {
+        targetSwimlaneId = listData.swimlaneId;
+      }
 
       // Normally the jquery-ui sortable library moves the dragged DOM element
       // to its new position, which disrupts Blaze reactive updates mechanism
