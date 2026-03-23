@@ -1,6 +1,12 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { isEmptyObject } from 'jquery';
+import Activities from '/models/activities';
 import Boards from './boards';
+import Cards from '/models/cards';
+import CustomFields from '/models/customFields';
+import Lists from '/models/lists';
+import Swimlanes from '/models/swimlanes';
 
 export class CsvCreator {
   constructor(data) {
@@ -127,8 +133,8 @@ export class CsvCreator {
     }
     this.fieldIndex = index;
   }
-  createCustomFields(boardId) {
-    this.fieldIndex.customFields.forEach(customField => {
+  async createCustomFields(boardId) {
+    for (const customField of this.fieldIndex.customFields) {
       let settings = {};
       if (customField.type === 'dropdown') {
         settings = {
@@ -143,7 +149,7 @@ export class CsvCreator {
       } else {
         settings = {};
       }
-      const id = CustomFields.direct.insert({
+      const id = await CustomFields.direct.insertAsync({
         name: customField.name,
         type: customField.type,
         settings,
@@ -155,10 +161,10 @@ export class CsvCreator {
       });
       customField.id = id;
       customField.settings = settings;
-    });
+    }
   }
 
-  createBoard(csvData) {
+  async createBoard(csvData) {
     const boardToCreate = {
       archived: false,
       color: 'belize',
@@ -212,14 +218,14 @@ export class CsvCreator {
       boardToCreate.labels.push(labelToCreate);
     }
 
-    const boardId = Boards.direct.insert(boardToCreate);
-    Boards.direct.update(boardId, {
+    const boardId = await Boards.direct.insertAsync(boardToCreate);
+    await Boards.direct.updateAsync(boardId, {
       $set: {
         modifiedAt: this._now(),
       },
     });
     // log activity
-    Activities.direct.insert({
+    await Activities.direct.insertAsync({
       activityType: 'importBoard',
       boardId,
       createdAt: this._now(),
@@ -234,7 +240,7 @@ export class CsvCreator {
     return boardId;
   }
 
-  createSwimlanes(boardId) {
+  async createSwimlanes(boardId) {
     const swimlaneToCreate = {
       archived: false,
       boardId,
@@ -242,8 +248,8 @@ export class CsvCreator {
       title: 'Default',
       sort: 1,
     };
-    const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
-    Swimlanes.direct.update(swimlaneId, { $set: { updatedAt: this._now() } });
+    const swimlaneId = await Swimlanes.direct.insertAsync(swimlaneToCreate);
+    await Swimlanes.direct.updateAsync(swimlaneId, { $set: { updatedAt: this._now() } });
     this.swimlane = swimlaneId;
   }
 
@@ -267,10 +273,10 @@ export class CsvCreator {
         }
       } else listToCreate.title = `Imported List ${this._now()}`;
 
-      const listId = Lists.direct.insert(listToCreate);
+      const listId = await Lists.direct.insertAsync(listToCreate);
       this.lists[csvData[i][this.fieldIndex.stage]] = listId;
       numOfCreatedLists++;
-      Lists.direct.update(listId, {
+      await Lists.direct.updateAsync(listId, {
         $set: {
           updatedAt: this._now(),
           sort: numOfCreatedLists,
@@ -378,7 +384,7 @@ export class CsvCreator {
           cardToCreate.customFields = customFields;
         });
       }
-      Cards.direct.insert(cardToCreate);
+      await Cards.direct.insertAsync(cardToCreate);
     }
   }
 
@@ -392,10 +398,10 @@ export class CsvCreator {
       await currentBoard.archive();
     }
     this.mapHeadertoCardFieldIndex(board[0]);
-    const boardId = this.createBoard(board);
+    const boardId = await this.createBoard(board);
     await this.createLists(board, boardId);
-    this.createSwimlanes(boardId);
-    this.createCustomFields(boardId);
+    await this.createSwimlanes(boardId);
+    await this.createCustomFields(boardId);
     await this.createCards(board, boardId);
     return boardId;
   }

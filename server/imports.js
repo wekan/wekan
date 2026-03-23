@@ -4,6 +4,12 @@
 // ============================================================================
 
 // ----------------------------------------------------------------------------
+// 0. API middleware & auth routes (must register before model routes)
+// ----------------------------------------------------------------------------
+import '/server/apiMiddleware';
+import '/server/apiAuthRoutes';
+
+// ----------------------------------------------------------------------------
 // 1. Shared imports (i18n, utilities, reactive cache)
 // ----------------------------------------------------------------------------
 import '/imports/i18n/index';
@@ -15,50 +21,19 @@ import '/imports/i18n/tap';
 import '/imports/lib/customHeadDefaults';
 import '/imports/lib/dateUtils';
 import '/imports/lib/secureDOMPurify';
-import '/imports/reactiveCache';
 
 // ----------------------------------------------------------------------------
-// 2. Models — shared collections (loaded on both client and server)
+// 2. Models — shared collections + server-only extensions
 // ----------------------------------------------------------------------------
-import '/models/accessibilitySettings';
-import '/models/accountSettings';
-import '/models/actions';
-import '/models/activities';
-import '/models/announcements';
-import '/models/attachments';
-import '/models/attachmentStorageSettings';
-import '/models/avatars';
-import '/models/boards';
-import '/models/cardCommentReactions';
-import '/models/cardComments';
-import '/models/cards';
-import '/models/checklistItems';
-import '/models/checklists';
-import '/models/counters';
-import '/models/customFields';
+import '/imports/startup/shared-models';
+import '/models/attachments.server';
+import '/models/avatars.server';
 import '/models/fileValidation';
-import '/models/impersonatedUsers';
-import '/models/integrations';
-import '/models/invitationCodes';
-import '/models/lists';
-import '/models/lockoutSettings';
-import '/models/org';
-import '/models/orgUser';
-import '/models/positionHistory';
-import '/models/presences';
-import '/models/rules';
-import '/models/runOnServer';
-import '/models/settings';
-import '/models/swimlanes';
-import '/models/tableVisibilityModeSettings';
-import '/models/team';
-import '/models/translation';
-import '/models/triggers';
-import '/models/unsavedEdits';
-import '/models/userPositionHistory';
-import '/models/usersessiondata';
-import '/models/users';
-import '/models/watchable';
+
+// ----------------------------------------------------------------------------
+// 3. Shared runtime services
+// ----------------------------------------------------------------------------
+import '/imports/reactiveCache';
 
 // Models — server-only exporters
 import '/models/csvCreator';
@@ -83,9 +58,6 @@ import '/models/lib/fsHooks/createOnAfterUpload';
 import '/models/lib/grid/createBucket';
 import '/models/lib/grid/createObjectId';
 import '/models/lib/httpStream';
-import '/models/lib/meteorMongoIntegration';
-import '/models/lib/mongodbConnectionManager';
-import '/models/lib/mongodbDriverManager';
 import '/models/lib/universalUrlGenerator';
 import '/models/lib/userStorageHelpers';
 
@@ -95,19 +67,38 @@ import '/models/server/ExporterCardPDF';
 import '/models/server/ExporterExcelCard';
 import '/models/server/ExporterExcel';
 import '/models/server/metrics';
+import '/server/models/actions';
+import '/server/models/activities';
+import '/server/models/attachmentStorageSettings';
+import '/server/models/boards';
+import '/server/models/cards';
+import '/server/models/cardComments';
+import '/server/models/checklistItems';
+import '/server/models/checklists';
+import '/server/models/collectionBootstrap';
+import '/server/models/customFields';
+import '/server/models/integrations';
+import '/server/models/lists';
+import '/server/models/org';
+import '/server/models/settings';
+import '/server/models/swimlanes';
+import '/server/models/team';
+import '/server/models/translation';
+import '/server/models/users';
+import '/server/models/userPositionHistory';
 
 // ----------------------------------------------------------------------------
-// 3. Config (shared)
+// 4. Config (shared)
 // ----------------------------------------------------------------------------
 import '/config/accounts';
 import '/config/const';
 import '/config/models';
 import '/config/query-classes';
-import '/config/router';
+// router.js is client-only (FlowRouter route actions use client-only modules)
 import '/config/search-const';
 
 // ----------------------------------------------------------------------------
-// 4. Server — core startup & configuration
+// 5. Server — core startup & configuration
 // ----------------------------------------------------------------------------
 import '/server/00checkStartup';
 import '/server/accounts-common';
@@ -117,7 +108,6 @@ import '/server/cors';
 import '/server/header-login';
 import '/server/max-image-pixel';
 import '/server/max-size';
-import '/server/mongodb-driver-startup';
 import '/server/policy';
 import '/server/richer-editor-setting-helper';
 import '/server/saml';
@@ -142,6 +132,7 @@ import '/server/cronMigrationManager';
 // 7. Server — webhooks
 // ----------------------------------------------------------------------------
 import '/server/card-opened-webhook';
+import '/server/cron/syncedCron';
 
 // ----------------------------------------------------------------------------
 // 8. Server — import helpers
@@ -235,6 +226,38 @@ import '/server/rulesHelper';
 import '/server/triggersDef';
 
 // ----------------------------------------------------------------------------
-// 16. Sandstorm integration
+// 16. Server — collection permissions (allow/deny rules)
+// ----------------------------------------------------------------------------
+import '/server/permissions/accessibilitySettings';
+import '/server/permissions/accountSettings';
+import '/server/permissions/actions';
+import '/server/permissions/announcements';
+import '/server/permissions/attachments';
+import '/server/permissions/avatars';
+import '/server/permissions/boards';
+import '/server/permissions/cardCommentReactions';
+import '/server/permissions/cardComments';
+import '/server/permissions/cards';
+import '/server/permissions/checklistItems';
+import '/server/permissions/checklists';
+import '/server/permissions/customFields';
+import '/server/permissions/integrations';
+import '/server/permissions/invitationCodes';
+import '/server/permissions/lists';
+import '/server/permissions/lockoutSettings';
+import '/server/permissions/org';
+import '/server/permissions/rules';
+import '/server/permissions/settings';
+import '/server/permissions/swimlanes';
+import '/server/permissions/tableVisibilityModeSettings';
+import '/server/permissions/team';
+import '/server/permissions/translation';
+import '/server/permissions/triggers';
+import '/server/permissions/unsavedEdits';
+import '/server/permissions/userPositionHistory';
+import '/server/permissions/users';
+
+// ----------------------------------------------------------------------------
+// 17. Sandstorm integration
 // ----------------------------------------------------------------------------
 import '/sandstorm';

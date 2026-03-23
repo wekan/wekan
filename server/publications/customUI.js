@@ -1,3 +1,5 @@
+import Settings from '/models/settings';
+
 // Publish custom UI configuration
 Meteor.publish('customUI', function() {
   // Published to all users (public configuration)

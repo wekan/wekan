@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { MongoInternals } from 'meteor/mongo';
+import { Mongo, MongoInternals } from 'meteor/mongo';
 
 /**
  * Backward compatibility layer for CollectionFS to Meteor-Files migration

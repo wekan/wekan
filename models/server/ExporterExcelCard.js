@@ -1,7 +1,8 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
-import { fileStoreStrategyFactory } from '/models/attachments';
+import { fileStoreStrategyFactory } from '/models/attachments.server';
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'node:child_process';

@@ -1,6 +1,9 @@
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { incrementCounter } from './counters';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-SessionData = new Mongo.Collection('sessiondata');
+const SessionData = new Mongo.Collection('sessiondata');
 
 /**
  * A UserSessionData in Wekan. Organization in Trello.
@@ -56,8 +59,11 @@ SessionData.attachSchema(
       optional: true,
     },
     cards: {
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'cards.$': {
+      type: String,
     },
     selector: {
       type: String,
@@ -71,11 +77,14 @@ SessionData.attachSchema(
       defaultValue: {},
     },
     errorMessages: {
-      type: [String],
+      type: Array,
       optional: true,
     },
+    'errorMessages.$': {
+      type: String,
+    },
     errors: {
-      type: [Object],
+      type: Array,
       optional: true,
       defaultValue: [],
     },
@@ -125,7 +134,6 @@ SessionData.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {

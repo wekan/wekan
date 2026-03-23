@@ -1,10 +1,12 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Exporter } from './exporter';
 import { Meteor } from 'meteor/meteor';
+import ImpersonatedUsers from '/models/impersonatedUsers';
 
-/* global JsonRoutes */
 if (Meteor.isServer) {
-  import { WebApp } from 'meteor/webapp';
+  const { WebApp } = require('meteor/webapp');
+  const { sendJsonResult } = require('/server/apiMiddleware');
+  const { Authentication } = require('/server/authentication');
 
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
@@ -27,7 +29,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  JsonRoutes.add('get', '/api/boards/:boardId/export', async function (req, res) {
+  WebApp.handlers.get('/api/boards/:boardId/export', async function (req, res) {
     const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
@@ -36,7 +38,7 @@ if (Meteor.isServer) {
     // First check if board exists and is public to avoid unnecessary authentication
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
-      JsonRoutes.sendResult(res, 404);
+      sendJsonResult(res, 404);
       return;
     }
 
@@ -44,7 +46,7 @@ if (Meteor.isServer) {
     if (board.isPublic()) {
       // Public boards don't require authentication - skip hash operations
       const exporter = new Exporter(boardId);
-      JsonRoutes.sendResult(res, {
+      sendJsonResult(res, {
         code: 200,
         data: await exporter.build(),
       });
@@ -59,7 +61,7 @@ if (Meteor.isServer) {
         if (process.env.DEBUG === 'true') {
           console.warn('Suspiciously long auth token received, rejecting to prevent resource abuse');
         }
-        JsonRoutes.sendResult(res, 400);
+        sendJsonResult(res, 400);
         return;
       }
 
@@ -77,21 +79,21 @@ if (Meteor.isServer) {
     const exporter = new Exporter(boardId);
     if (await exporter.canExport(user) || impersonateDone) {
       if (impersonateDone) {
-        ImpersonatedUsers.insert({
+        await ImpersonatedUsers.insertAsync({
           adminId: adminId,
           boardId: boardId,
           reason: 'exportJSON',
         });
       }
 
-      JsonRoutes.sendResult(res, {
+      sendJsonResult(res, {
         code: 200,
         data: await exporter.build(),
       });
     } else {
       // we could send an explicit error message, but on the other hand the only
       // way to get there is by hacking the UI so let's keep it raw.
-      JsonRoutes.sendResult(res, 403);
+      sendJsonResult(res, 403);
     }
   });
 
@@ -115,8 +117,7 @@ if (Meteor.isServer) {
    * @param {string} attachmentId the ID of the attachment we are exporting
    * @param {string} authToken the loginToken
    */
-  JsonRoutes.add(
-    'get',
+  WebApp.handlers.get(
     '/api/boards/:boardId/attachments/:attachmentId/export',
     async function (req, res) {
       const boardId = req.params.boardId;
@@ -128,7 +129,7 @@ if (Meteor.isServer) {
       // First check if board exists and is public to avoid unnecessary authentication
       const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
-        JsonRoutes.sendResult(res, 404);
+        sendJsonResult(res, 404);
         return;
       }
 
@@ -136,7 +137,7 @@ if (Meteor.isServer) {
       if (board.isPublic()) {
         // Public boards don't require authentication - skip hash operations
         const exporter = new Exporter(boardId, attachmentId);
-        JsonRoutes.sendResult(res, {
+        sendJsonResult(res, {
           code: 200,
           data: await exporter.build(),
         });
@@ -151,7 +152,7 @@ if (Meteor.isServer) {
           if (process.env.DEBUG === 'true') {
             console.warn('Suspiciously long auth token received, rejecting to prevent resource abuse');
           }
-          JsonRoutes.sendResult(res, 400);
+          sendJsonResult(res, 400);
           return;
         }
 
@@ -169,21 +170,21 @@ if (Meteor.isServer) {
       const exporter = new Exporter(boardId, attachmentId);
       if (await exporter.canExport(user) || impersonateDone) {
         if (impersonateDone) {
-          ImpersonatedUsers.insert({
+          await ImpersonatedUsers.insertAsync({
             adminId: adminId,
             boardId: boardId,
             attachmentId: attachmentId,
             reason: 'exportJSONattachment',
           });
         }
-        JsonRoutes.sendResult(res, {
+        sendJsonResult(res, {
           code: 200,
           data: await exporter.build(),
         });
       } else {
         // we could send an explicit error message, but on the other hand the only
         // way to get there is by hacking the UI so let's keep it raw.
-        JsonRoutes.sendResult(res, 403);
+        sendJsonResult(res, 403);
       }
     },
   );
@@ -276,7 +277,7 @@ if (Meteor.isServer) {
         if( params.query.delimiter == "\t" ) {
           exportType = 'exportTSV';
         }
-        ImpersonatedUsers.insert({
+        await ImpersonatedUsers.insertAsync({
           adminId: adminId,
           boardId: boardId,
           reason: exportType,

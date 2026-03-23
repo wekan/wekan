@@ -162,7 +162,7 @@ class FixAllFileUrlsMigration {
 
             if (cleanUrl && cleanUrl !== avatarUrl) {
               // Update user's avatar URL
-              Users.update(user._id, {
+              await Users.updateAsync(user._id, {
                 $set: {
                   'profile.avatarUrl': cleanUrl,
                   modifiedAt: new Date()
@@ -203,7 +203,7 @@ class FixAllFileUrlsMigration {
 
           if (cleanUrl && cleanUrl !== attachment.url) {
             // Update attachment URL
-            Attachments.update(attachment._id, {
+            await Attachments.updateAsync(attachment._id, {
               $set: {
                 url: cleanUrl,
                 modifiedAt: new Date()
@@ -242,7 +242,7 @@ class FixAllFileUrlsMigration {
 
           if (cleanUrl && cleanUrl !== attachment.url) {
             // Update attachment with fixed URL
-            Attachments.update(attachment._id, {
+            await Attachments.updateAsync(attachment._id, {
               $set: {
                 url: cleanUrl,
                 modifiedAt: new Date()

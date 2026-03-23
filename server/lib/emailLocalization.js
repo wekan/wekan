@@ -5,7 +5,7 @@ import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 
 // Main object for email localization utilities
-EmailLocalization = {
+const EmailLocalization = {
   /**
    * Send an email using the recipient's preferred language
    * @param {Object} options - Standard email sending options plus language options
@@ -55,4 +55,4 @@ EmailLocalization = {
 };
 
 // Add module.exports to make it accessible from other files
-module.exports = EmailLocalization;
+export default EmailLocalization;

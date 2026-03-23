@@ -1,10 +1,13 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { runOnServer } from './runOnServer';
+import ImpersonatedUsers from '/models/impersonatedUsers';
 
 runOnServer(function() {
-  import { ExporterExcelCard, ALL_FIELDS } from './server/ExporterExcelCard';
-  import { WebApp } from 'meteor/webapp';
+  const { ExporterExcelCard, ALL_FIELDS } = require('./server/ExporterExcelCard');
+  const { WebApp } = require('meteor/webapp');
+  const { Authentication } = require('/server/authentication');
 
   /**
    * @operation exportExcelCard
@@ -95,7 +98,7 @@ runOnServer(function() {
       const exporter = new ExporterExcelCard(boardId, paramListId, paramCardId, userLanguage, fields, user);
       if ((await exporter.canExport(user)) || impersonateDone) {
         if (impersonateDone) {
-          ImpersonatedUsers.insert({
+          await ImpersonatedUsers.insertAsync({
             adminId,
             boardId,
             reason: 'exportExcelCard',

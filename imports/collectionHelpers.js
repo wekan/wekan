@@ -1,53 +1,123 @@
 /**
  * Collection extensions shim (Meteor 3.4 migration).
  *
- * CRITICAL: This file must use ONLY require() — NO import statements.
- * import statements are hoisted and can trigger evaluation chains that
- * reach model files (via reactiveCache → i18n → translation.js) BEFORE
- * collection2 has patched Mongo.Collection.prototype.attachSchema.
- *
- * With require(), each call completes synchronously before the next,
- * guaranteeing this execution order:
- *   1. Mongo loaded
- *   2. SimpleSchema loaded + set as global
- *   3. collection2 loaded (patches attachSchema onto Mongo.Collection)
- *   4. Collection.helpers() shim installed
- *
- * Only THEN can model files safely call attachSchema/helpers.
+ * This module only patches collection prototype helpers that older app code
+ * still relies on. SimpleSchema now lives in `/imports/simpleSchema`.
  */
+const MeteorPackage = typeof Package !== 'undefined' ? Package.meteor : undefined;
+const MongoPackage = typeof Package !== 'undefined' ? Package.mongo : undefined;
+const CollectionHooksPackage =
+  typeof Package !== 'undefined' ? Package['matb33:collection-hooks'] : undefined;
+const Meteor = MeteorPackage && MeteorPackage.Meteor;
+const Mongo = MongoPackage && MongoPackage.Mongo;
+const CollectionHooks = CollectionHooksPackage && CollectionHooksPackage.CollectionHooks;
 
-const { Mongo } = require('meteor/mongo');
-
-// Load SimpleSchema and set as global (used by 30+ model files without importing)
-const SimpleSchema = require('meteor/aldeed:simple-schema').default;
-if (typeof window !== 'undefined') window.SimpleSchema = SimpleSchema;
-else if (typeof global !== 'undefined') global.SimpleSchema = SimpleSchema;
-
-// Register collection2 schema extensions removed from simple-schema v2
-SimpleSchema.extendOptions(['denyUpdate', 'denyInsert']);
-
-// Ensure collection2 augments Mongo.Collection.prototype with attachSchema
-require('meteor/aldeed:collection2');
-
-// Shim for dburles:collection-helpers (removed — absorbed into Meteor 3.4 core)
-if (!Mongo.Collection.prototype.helpers) {
-  Mongo.Collection.prototype.helpers = function (helpers) {
-    if (this._transform && !this._helpers)
-      throw new Meteor.Error(
-        "Can't apply helpers to '" +
-          this._name +
-          "' a transform function already exists!",
+if (Mongo && Mongo.Collection && Mongo.Collection.prototype && !Mongo.Collection.prototype.helpers) {
+  Mongo.Collection.prototype.helpers = function helpers(helpersMap) {
+    if (this._transform && !this._helpersConstructor) {
+      throw new Error(
+        `Can't apply helpers to '${this._name}': a transform function already exists.`,
       );
-
-    if (!this._helpers) {
-      this._helpers = function Document(doc) {
-        return Object.assign(this, doc);
-      };
-      this._transform = (doc) => new this._helpers(doc);
     }
 
-    Object.keys(helpers).forEach(
-      (key) => (this._helpers.prototype[key] = helpers[key]),
-    );
+    if (!this._helpersConstructor) {
+      this._helpersConstructor = function CollectionDocument(doc) {
+        Object.assign(this, doc);
+      };
+      this._transform = doc => new this._helpersConstructor(doc);
+    }
+
+    Object.keys(helpersMap).forEach(key => {
+      this._helpersConstructor.prototype[key] = helpersMap[key];
+    });
   };
 }
+
+if (Mongo && Mongo.Collection && Mongo.Collection.prototype && !Mongo.Collection.prototype.attachSchema) {
+  Mongo.Collection.prototype.attachSchema = function attachSchema(schema) {
+    if (schema && schema._schemaDefinition) {
+      schema._schema = schema._schemaDefinition;
+    }
+    this._simpleSchema = schema;
+    return this;
+  };
+}
+
+if (Mongo && Mongo.Collection && Mongo.Collection.prototype && !Mongo.Collection.prototype.simpleSchema) {
+  Mongo.Collection.prototype.simpleSchema = function simpleSchema() {
+    return this._simpleSchema;
+  };
+}
+
+if (Mongo && Mongo.Collection && CollectionHooks && !Mongo.Collection._wekanHookBootstrapPatched) {
+  const OriginalCollection = Mongo.Collection;
+  const originalExtendCollectionInstance = CollectionHooks.extendCollectionInstance;
+
+  function ensureHookSurface(collection, constructor) {
+    if (!collection || collection._wekanHookSurfaceReady) {
+      return collection;
+    }
+
+    const safeConstructor =
+      constructor && constructor.prototype ? constructor : OriginalCollection;
+
+    if (
+      Meteor &&
+      Meteor.isServer &&
+      (!collection._collection ||
+        typeof collection._collection.insertAsync !== 'function' ||
+        typeof collection._collection.updateAsync !== 'function' ||
+        typeof collection._collection.removeAsync !== 'function')
+    ) {
+      Object.defineProperty(collection, '_collection', {
+        value: collection,
+        configurable: true,
+        enumerable: false,
+        writable: true,
+      });
+    }
+
+    originalExtendCollectionInstance.call(CollectionHooks, collection, safeConstructor);
+    Object.defineProperty(collection, '_wekanHookSurfaceReady', {
+      value: true,
+      configurable: true,
+      enumerable: false,
+      writable: true,
+    });
+    return collection;
+  }
+
+  CollectionHooks.extendCollectionInstance = function extendCollectionInstance(collection, constructor) {
+    return ensureHookSurface(collection, constructor);
+  };
+
+  function PatchedCollection(...args) {
+    const ret = OriginalCollection.apply(this, args);
+    const collection =
+      ret && typeof ret === 'object' ? ret : this;
+
+    ensureHookSurface(collection, OriginalCollection);
+    return ret;
+  }
+
+  PatchedCollection.prototype = OriginalCollection.prototype;
+  PatchedCollection.prototype.constructor = PatchedCollection;
+
+  Object.keys(OriginalCollection).forEach(key => {
+    PatchedCollection[key] = OriginalCollection[key];
+  });
+
+  Object.defineProperty(PatchedCollection, '_wekanHookBootstrapPatched', {
+    value: true,
+    configurable: true,
+    enumerable: false,
+    writable: true,
+  });
+
+  Mongo.Collection = PatchedCollection;
+  if (Meteor) {
+    Meteor.Collection = PatchedCollection;
+  }
+}
+
+module.exports = {};

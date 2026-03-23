@@ -139,7 +139,7 @@ if (__meteor_runtime_config__.SANDSTORM) {
     });
   }
 
-  var handlePostToken = Meteor.bindEnvironment(async function (req, res) {
+  var handlePostToken = async function (req, res) {
     try {
       // Note that cross-origin POSTs cannot set arbitrary Content-Types without explicit CORS
       // permission, so this effectively prevents XSRF.
@@ -198,5 +198,5 @@ if (__meteor_runtime_config__.SANDSTORM) {
       });
       res.end(err.stack);
     }
-  });
+  };
 }

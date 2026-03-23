@@ -4,7 +4,7 @@
  */
 
 import { Meteor } from 'meteor/meteor';
-import { SyncedCron } from 'meteor/quave:synced-cron';
+import { SyncedCron, startSyncedCron } from '/server/cron/syncedCron';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -242,7 +242,7 @@ class CronMigrationManager {
    * Process the job queue with CPU throttling
    */
   async processJobQueue() {
-    const canStart = cronJobStorage.canStartNewJob();
+    const canStart = await cronJobStorage.canStartNewJob();
 
     if (!canStart.canStart) {
       // Suppress "Cannot start new job: Maximum concurrent jobs reached" message
@@ -250,7 +250,7 @@ class CronMigrationManager {
       return;
     }
 
-    const nextJob = cronJobStorage.getNextJob();
+    const nextJob = await cronJobStorage.getNextJob();
     if (!nextJob) {
       return; // No jobs in queue
     }
@@ -267,10 +267,10 @@ class CronMigrationManager {
 
     try {
       // Update queue status to running
-      cronJobStorage.updateQueueStatus(jobId, 'running', { startedAt: new Date() });
+      await cronJobStorage.updateQueueStatus(jobId, 'running', { startedAt: new Date() });
 
       // Save job status
-      cronJobStorage.saveJobStatus(jobId, {
+      await cronJobStorage.saveJobStatus(jobId, {
         jobType,
         status: 'running',
         progress: 0,
@@ -290,8 +290,8 @@ class CronMigrationManager {
       }
 
       // Mark as completed
-      cronJobStorage.updateQueueStatus(jobId, 'completed', { completedAt: new Date() });
-      cronJobStorage.saveJobStatus(jobId, {
+      await cronJobStorage.updateQueueStatus(jobId, 'completed', { completedAt: new Date() });
+      await cronJobStorage.saveJobStatus(jobId, {
         status: 'completed',
         progress: 100,
         completedAt: new Date()
@@ -301,11 +301,11 @@ class CronMigrationManager {
       console.error(`Job ${jobId} failed:`, error);
 
       // Mark as failed
-      cronJobStorage.updateQueueStatus(jobId, 'failed', {
+      await cronJobStorage.updateQueueStatus(jobId, 'failed', {
         failedAt: new Date(),
         error: error.message
       });
-      cronJobStorage.saveJobStatus(jobId, {
+      await cronJobStorage.saveJobStatus(jobId, {
         status: 'failed',
         error: error.message,
         failedAt: new Date()
@@ -338,7 +338,7 @@ class CronMigrationManager {
       const stepData = steps[i];
 
       // Save step status
-      cronJobStorage.saveJobStep(jobId, i, {
+      await cronJobStorage.saveJobStep(jobId, i, {
         stepName: stepData.name,
         status: 'running',
         progress: 0
@@ -348,7 +348,7 @@ class CronMigrationManager {
       await this.executeMigrationStep(jobId, i, stepData, stepId);
 
       // Mark step as completed
-      cronJobStorage.saveJobStep(jobId, i, {
+      await cronJobStorage.saveJobStep(jobId, i, {
         status: 'completed',
         progress: 100,
         completedAt: new Date()
@@ -356,7 +356,7 @@ class CronMigrationManager {
 
       // Update overall progress
       const progress = Math.round(((i + 1) / steps.length) * 100);
-      cronJobStorage.saveJobStatus(jobId, { progress });
+      await cronJobStorage.saveJobStatus(jobId, { progress });
     }
   }
 
@@ -400,79 +400,75 @@ class CronMigrationManager {
     return steps;
   }
 
-  isMigrationNeeded(stepId) {
+  async isMigrationNeeded(stepId) {
     switch (stepId) {
       case 'lowercase-board-permission':
-        return !!Boards.findOne({
+        return !!(await Boards.findOneAsync({
           permission: { $in: ['PUBLIC', 'Private', 'PRIVATE'] }
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'change-attachments-type-for-non-images':
-        return !!Attachments.findOne({
+        return !!(await Attachments.findOneAsync({
           $or: [
             { type: { $exists: false } },
             { type: null },
             { type: '' }
           ]
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'card-covers':
-        return !!Cards.findOne({
+        return !!(await Cards.findOneAsync({
           coverId: { $exists: true, $ne: null },
           $or: [
             { cover: { $exists: false } },
             { cover: null }
           ]
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'use-css-class-for-boards-colors':
-        // Check if any board uses old color system (non-CSS class)
-        return !!Boards.findOne({
+        return !!(await Boards.findOneAsync({
           color: { $exists: true, $ne: null },
           colorClass: { $exists: false }
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'denormalize-star-number-per-board':
-        return !!Boards.findOne({
+        return !!(await Boards.findOneAsync({
           $or: [
             { stars: { $exists: false } },
             { stars: null }
           ]
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'add-member-isactive-field':
-        return !!Boards.findOne({
+        return !!(await Boards.findOneAsync({
           members: { $elemMatch: { isActive: { $exists: false } } }
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'ensure-valid-swimlane-ids':
-        // Check for cards without swimlaneId (needs validation)
-        return !!Cards.findOne({
+        return !!(await Cards.findOneAsync({
           $or: [
             { swimlaneId: { $exists: false } },
             { swimlaneId: null },
             { swimlaneId: '' }
           ]
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'add-swimlanes':
-        // Only needed if we have cards without swimlaneId (same as ensure-valid-swimlane-ids)
-        return !!Cards.findOne({
+        return !!(await Cards.findOneAsync({
           $or: [
             { swimlaneId: { $exists: false } },
             { swimlaneId: null },
             { swimlaneId: '' }
           ]
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'add-checklist-items':
-        // Check if checklists exist but items are not properly set up
-        return !!Checklists.findOne({
+        return !!(await Checklists.findOneAsync({
           $or: [
             { items: { $exists: false } },
             { items: null }
           ]
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'add-card-types':
-        return !!Cards.findOne({
+        return !!(await Cards.findOneAsync({
           $or: [
             { type: { $exists: false } },
             { type: null },
             { type: '' }
           ]
-        }, { fields: { _id: 1 }, limit: 1 });
+        }, { fields: { _id: 1 }, limit: 1 }));
       case 'migrate-attachments-collectionFS-to-ostrioFiles':
         // In fresh WeKan installations (Meteor-Files only), no CollectionFS migration needed
         return false;
@@ -480,7 +476,7 @@ class CronMigrationManager {
         // In fresh WeKan installations (Meteor-Files only), no CollectionFS migration needed
         return false;
       case 'migrate-lists-to-per-swimlane': {
-        const boards = Boards.find({}, { fields: { _id: 1 }, limit: 100 }).fetch();
+        const boards = await Boards.find({}, { fields: { _id: 1 }, limit: 100 }).fetchAsync();
         return boards.some(board => comprehensiveBoardMigration.needsMigration(board._id));
       }
       default:
@@ -563,7 +559,7 @@ class CronMigrationManager {
 
     // Unknown migration step - log and mark as complete without doing anything
     console.warn(`Unknown migration step: ${stepId} - no handler found. Marking as complete without execution.`);
-    cronJobStorage.saveJobStep(jobId, stepIndex, {
+    await cronJobStorage.saveJobStep(jobId, stepIndex, {
       progress: 100,
       currentAction: `Migration skipped: No handler for ${stepId}`
     });
@@ -577,7 +573,7 @@ class CronMigrationManager {
       const { name } = stepData;
 
       // Update progress: Starting
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Counting starred boards across all users...'
       });
@@ -586,13 +582,13 @@ class CronMigrationManager {
       const starCounts = new Map();
 
       // Get all users with starred boards
-      const users = Users.find(
+      const users = await Users.find(
         { 'profile.starredBoards': { $exists: true, $ne: [] } },
         { fields: { 'profile.starredBoards': 1 } }
-      ).fetch();
+      ).fetchAsync();
 
       // Update progress: Counting
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 20,
         currentAction: `Analyzing ${users.length} users with starred boards...`
       });
@@ -606,7 +602,7 @@ class CronMigrationManager {
       });
 
       // Update progress: Updating boards
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 50,
         currentAction: `Updating star counts for ${starCounts.size} boards...`
       });
@@ -617,13 +613,13 @@ class CronMigrationManager {
 
       for (const [boardId, count] of starCounts.entries()) {
         try {
-          Boards.update(boardId, { $set: { stars: count } });
+          await Boards.updateAsync(boardId, { $set: { stars: count } });
           updatedCount++;
 
           // Update progress periodically
           if (updatedCount % 10 === 0 || updatedCount === totalBoards) {
             const progress = 50 + Math.round((updatedCount / totalBoards) * 40);
-            cronJobStorage.saveJobStep(jobId, stepIndex, {
+            await cronJobStorage.saveJobStep(jobId, stepIndex, {
               progress,
               currentAction: `Updated ${updatedCount}/${totalBoards} boards...`
             });
@@ -631,7 +627,7 @@ class CronMigrationManager {
         } catch (error) {
           console.error(`Failed to update star count for board ${boardId}:`, error);
           // Store error in database
-          cronJobStorage.saveJobError(jobId, {
+          await cronJobStorage.saveJobError(jobId, {
             stepId: 'denormalize-star-number-per-board',
             stepIndex,
             error,
@@ -642,12 +638,12 @@ class CronMigrationManager {
       }
 
       // Also set stars to 0 for boards that have no stars
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 90,
         currentAction: 'Initializing boards with no stars...'
       });
 
-      const boardsWithoutStars = Boards.find(
+      const boardsWithoutStars = await Boards.find(
         {
           $or: [
             { stars: { $exists: false } },
@@ -655,17 +651,17 @@ class CronMigrationManager {
           ]
         },
         { fields: { _id: 1 } }
-      ).fetch();
+      ).fetchAsync();
 
-      boardsWithoutStars.forEach(board => {
+      for (const board of boardsWithoutStars) {
         // Only set to 0 if not already counted
         if (!starCounts.has(board._id)) {
           try {
-            Boards.update(board._id, { $set: { stars: 0 } });
+            await Boards.updateAsync(board._id, { $set: { stars: 0 } });
           } catch (error) {
             console.error(`Failed to initialize star count for board ${board._id}:`, error);
             // Store error in database
-            cronJobStorage.saveJobError(jobId, {
+            await cronJobStorage.saveJobError(jobId, {
               stepId: 'denormalize-star-number-per-board',
               stepIndex,
               error,
@@ -674,10 +670,10 @@ class CronMigrationManager {
             });
           }
         }
-      });
+      }
 
       // Complete
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Updated ${updatedCount} boards with star counts`
       });
@@ -687,7 +683,7 @@ class CronMigrationManager {
     } catch (error) {
       console.error('Error executing denormalize star count migration:', error);
       // Store error in database
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'denormalize-star-number-per-board',
         stepIndex,
         error,
@@ -706,7 +702,7 @@ class CronMigrationManager {
       const { name } = stepData;
 
       // Update progress: Starting
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Starting swimlane ID validation...'
       });
@@ -715,7 +711,7 @@ class CronMigrationManager {
       const result = await runEnsureValidSwimlaneIdsMigration();
 
       // Update progress: Complete
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Fixed ${result.cardsFixed || 0} cards, ${result.listsFixed || 0} lists, rescued ${result.cardsRescued || 0} orphaned cards`
       });
@@ -725,7 +721,7 @@ class CronMigrationManager {
     } catch (error) {
       console.error('Error executing swimlane ID validation migration:', error);
       // Store error in database
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'ensure-valid-swimlane-ids',
         stepIndex,
         error,
@@ -741,22 +737,22 @@ class CronMigrationManager {
    */
   async executeLowercasePermission(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Searching for boards with uppercase permissions...'
       });
 
       // Find boards with uppercase permission values
-      const boards = Boards.find({
+      const boards = await Boards.find({
         $or: [
           { permission: 'PUBLIC' },
           { permission: 'Private' },
           { permission: 'PRIVATE' }
         ]
-      }).fetch();
+      }).fetchAsync();
 
       if (boards.length === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'No boards need permission conversion.'
         });
@@ -769,18 +765,18 @@ class CronMigrationManager {
       for (const board of boards) {
         try {
           const newPermission = board.permission.toLowerCase();
-          Boards.update(board._id, { $set: { permission: newPermission } });
+          await Boards.updateAsync(board._id, { $set: { permission: newPermission } });
           updatedCount++;
 
           // Update progress
           const progress = Math.round((updatedCount / totalBoards) * 100);
-          cronJobStorage.saveJobStep(jobId, stepIndex, {
+          await cronJobStorage.saveJobStep(jobId, stepIndex, {
             progress,
             currentAction: `Converting permissions: ${updatedCount}/${totalBoards} boards updated`
           });
         } catch (error) {
           console.error(`Failed to update permission for board ${board._id}:`, error);
-          cronJobStorage.saveJobError(jobId, {
+          await cronJobStorage.saveJobError(jobId, {
             stepId: 'lowercase-board-permission',
             stepIndex,
             error,
@@ -790,7 +786,7 @@ class CronMigrationManager {
         }
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Converted ${updatedCount} board permissions to lowercase`
       });
@@ -799,7 +795,7 @@ class CronMigrationManager {
 
     } catch (error) {
       console.error('Error executing lowercase permission migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'lowercase-board-permission',
         stepIndex,
         error,
@@ -815,16 +811,16 @@ class CronMigrationManager {
    */
   async executeComprehensiveBoardMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Calculating amount of changes to do'
       });
 
-      const boards = Boards.find({}, { fields: { _id: 1, title: 1 } }).fetch();
+      const boards = await Boards.find({}, { fields: { _id: 1, title: 1 } }).fetchAsync();
       const boardsToMigrate = boards.filter(board => comprehensiveBoardMigration.needsMigration(board._id));
 
       if (boardsToMigrate.length === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'No boards need per-swimlane migration.'
         });
@@ -836,13 +832,13 @@ class CronMigrationManager {
       for (const board of boardsToMigrate) {
         const boardLabel = board.title ? `"${board.title}"` : board._id;
 
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: Math.round((completed / boardsToMigrate.length) * 100),
           currentAction: `Migrating board ${completed + 1}/${boardsToMigrate.length}: ${boardLabel}`
         });
 
         try {
-          await comprehensiveBoardMigration.executeMigration(board._id, (progressData) => {
+          await comprehensiveBoardMigration.executeMigration(board._id, progressData => {
             if (!progressData) return;
 
             const boardProgress = progressData.overallProgress || 0;
@@ -855,10 +851,12 @@ class CronMigrationManager {
             cronJobStorage.saveJobStep(jobId, stepIndex, {
               progress: overallProgress,
               currentAction: `Migrating board ${completed + 1}/${boardsToMigrate.length}: ${boardLabel} - ${stepLabel}`
+            }).catch(error => {
+              console.error('Failed to persist board migration step progress:', error);
             });
           });
         } catch (error) {
-          cronJobStorage.saveJobError(jobId, {
+          await cronJobStorage.saveJobError(jobId, {
             stepId: 'migrate-lists-to-per-swimlane',
             stepIndex,
             error,
@@ -869,20 +867,20 @@ class CronMigrationManager {
 
         completed++;
 
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: Math.round((completed / boardsToMigrate.length) * 100),
           currentAction: `Completed ${completed}/${boardsToMigrate.length} boards`
         });
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Per-swimlane migration finished: ${completed}/${boardsToMigrate.length} boards processed`
       });
 
     } catch (error) {
       console.error('Error executing per-swimlane list migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'migrate-lists-to-per-swimlane',
         stepIndex,
         error,
@@ -898,21 +896,21 @@ class CronMigrationManager {
    */
   async executeAttachmentTypeStandardization(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Searching for attachments without proper type...'
       });
 
-      const attachments = Attachments.find({
+      const attachments = await Attachments.find({
         $or: [
           { type: { $exists: false } },
           { type: null },
           { type: '' }
         ]
-      }).fetch();
+      }).fetchAsync();
 
       if (attachments.length === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'No attachments need type updates.'
         });
@@ -926,19 +924,19 @@ class CronMigrationManager {
         try {
           // Set type to 'application/octet-stream' for non-images
           const type = attachment.type || 'application/octet-stream';
-          Attachments.update(attachment._id, { $set: { type } });
+          await Attachments.updateAsync(attachment._id, { $set: { type } });
           updatedCount++;
 
           if (updatedCount % 10 === 0 || updatedCount === totalAttachments) {
             const progress = Math.round((updatedCount / totalAttachments) * 100);
-            cronJobStorage.saveJobStep(jobId, stepIndex, {
+            await cronJobStorage.saveJobStep(jobId, stepIndex, {
               progress,
               currentAction: `Updating attachment types: ${updatedCount}/${totalAttachments}`
             });
           }
         } catch (error) {
           console.error(`Failed to update attachment ${attachment._id}:`, error);
-          cronJobStorage.saveJobError(jobId, {
+          await cronJobStorage.saveJobError(jobId, {
             stepId: 'change-attachments-type-for-non-images',
             stepIndex,
             error,
@@ -948,14 +946,14 @@ class CronMigrationManager {
         }
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Updated ${updatedCount} attachments`
       });
 
     } catch (error) {
       console.error('Error executing attachment type migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'change-attachments-type-for-non-images',
         stepIndex,
         error,
@@ -971,15 +969,15 @@ class CronMigrationManager {
    */
   async executeCardCoversMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Searching for cards with old cover format...'
       });
 
-      const cards = Cards.find({ coverId: { $exists: true, $ne: null } }).fetch();
+      const cards = await Cards.find({ coverId: { $exists: true, $ne: null } }).fetchAsync();
 
       if (cards.length === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'No cards need cover migration.'
         });
@@ -993,9 +991,9 @@ class CronMigrationManager {
         try {
           // Denormalize cover data if needed
           if (!card.cover && card.coverId) {
-            const attachment = Attachments.findOne(card.coverId);
+            const attachment = await Attachments.findOneAsync(card.coverId);
             if (attachment) {
-              Cards.update(card._id, {
+              await Cards.updateAsync(card._id, {
                 $set: {
                   cover: {
                     _id: attachment._id,
@@ -1010,14 +1008,14 @@ class CronMigrationManager {
 
           if (updatedCount % 10 === 0 || updatedCount === totalCards) {
             const progress = Math.round(((updatedCount + (totalCards - updatedCount) * 0.1) / totalCards) * 100);
-            cronJobStorage.saveJobStep(jobId, stepIndex, {
+            await cronJobStorage.saveJobStep(jobId, stepIndex, {
               progress,
               currentAction: `Migrating card covers: ${updatedCount}/${totalCards}`
             });
           }
         } catch (error) {
           console.error(`Failed to update card cover ${card._id}:`, error);
-          cronJobStorage.saveJobError(jobId, {
+          await cronJobStorage.saveJobError(jobId, {
             stepId: 'card-covers',
             stepIndex,
             error,
@@ -1027,14 +1025,14 @@ class CronMigrationManager {
         }
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Updated ${updatedCount} card covers`
       });
 
     } catch (error) {
       console.error('Error executing card covers migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'card-covers',
         stepIndex,
         error,
@@ -1050,12 +1048,12 @@ class CronMigrationManager {
    */
   async executeMemberActivityMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Searching for boards without member isActive field...'
       });
 
-      const boards = Boards.find({}).fetch();
+      const boards = await Boards.find({}).fetchAsync();
       let totalMembers = 0;
       let updatedMembers = 0;
 
@@ -1066,7 +1064,7 @@ class CronMigrationManager {
       }
 
       if (totalMembers === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'No board members to update.'
         });
@@ -1084,17 +1082,17 @@ class CronMigrationManager {
         });
 
         try {
-          Boards.update(board._id, { $set: { members: updatedMembers_board } });
+          await Boards.updateAsync(board._id, { $set: { members: updatedMembers_board } });
           updatedMembers += board.members.length;
 
           const progress = Math.round((updatedMembers / totalMembers) * 100);
-          cronJobStorage.saveJobStep(jobId, stepIndex, {
+          await cronJobStorage.saveJobStep(jobId, stepIndex, {
             progress,
             currentAction: `Updating member status: ${updatedMembers}/${totalMembers}`
           });
         } catch (error) {
           console.error(`Failed to update members for board ${board._id}:`, error);
-          cronJobStorage.saveJobError(jobId, {
+          await cronJobStorage.saveJobError(jobId, {
             stepId: 'add-member-isactive-field',
             stepIndex,
             error,
@@ -1104,14 +1102,14 @@ class CronMigrationManager {
         }
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Updated ${updatedMembers} board members`
       });
 
     } catch (error) {
       console.error('Error executing member activity migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'add-member-isactive-field',
         stepIndex,
         error,
@@ -1127,47 +1125,47 @@ class CronMigrationManager {
    */
   async executeAddSwimlanesIdMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Searching for cards without swimlaneId...'
       });
 
-      const boards = Boards.find({}).fetch();
+      const boards = await Boards.find({}).fetchAsync();
       let totalCards = 0;
       let updatedCards = 0;
 
       for (const board of boards) {
-        const defaultSwimlane = Swimlanes.findOne({ boardId: board._id, type: 'swimlane', title: 'Default' });
+        const defaultSwimlane = await Swimlanes.findOneAsync({ boardId: board._id, type: 'swimlane', title: 'Default' });
         const swimlaneId = defaultSwimlane ? defaultSwimlane._id : null;
 
         if (!swimlaneId) continue;
 
-        const cards = Cards.find({
+        const cards = await Cards.find({
           boardId: board._id,
           $or: [
             { swimlaneId: { $exists: false } },
             { swimlaneId: null },
             { swimlaneId: '' }
           ]
-        }).fetch();
+        }).fetchAsync();
 
         totalCards += cards.length;
 
         for (const card of cards) {
           try {
-            Cards.update(card._id, { $set: { swimlaneId } });
+            await Cards.updateAsync(card._id, { $set: { swimlaneId } });
             updatedCards++;
 
             if (updatedCards % 10 === 0) {
               const progress = Math.round((updatedCards / Math.max(totalCards, 1)) * 100);
-              cronJobStorage.saveJobStep(jobId, stepIndex, {
+              await cronJobStorage.saveJobStep(jobId, stepIndex, {
                 progress,
                 currentAction: `Adding swimlaneId to cards: ${updatedCards}/${totalCards}`
               });
             }
           } catch (error) {
             console.error(`Failed to update card ${card._id}:`, error);
-            cronJobStorage.saveJobError(jobId, {
+            await cronJobStorage.saveJobError(jobId, {
               stepId: 'add-swimlanes',
               stepIndex,
               error,
@@ -1178,14 +1176,14 @@ class CronMigrationManager {
         }
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Updated ${updatedCards} cards with swimlaneId`
       });
 
     } catch (error) {
       console.error('Error executing add swimlanes migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'add-swimlanes',
         stepIndex,
         error,
@@ -1201,21 +1199,21 @@ class CronMigrationManager {
    */
   async executeAddCardTypesMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Searching for cards without type field...'
       });
 
-      const cards = Cards.find({
+      const cards = await Cards.find({
         $or: [
           { type: { $exists: false } },
           { type: null },
           { type: '' }
         ]
-      }).fetch();
+      }).fetchAsync();
 
       if (cards.length === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'No cards need type field.'
         });
@@ -1233,19 +1231,19 @@ class CronMigrationManager {
             cardType = card.linkedId.startsWith('board-') ? 'cardType-linkedBoard' : 'cardType-linkedCard';
           }
 
-          Cards.update(card._id, { $set: { type: cardType } });
+          await Cards.updateAsync(card._id, { $set: { type: cardType } });
           updatedCards++;
 
           if (updatedCards % 10 === 0 || updatedCards === totalCards) {
             const progress = Math.round((updatedCards / totalCards) * 100);
-            cronJobStorage.saveJobStep(jobId, stepIndex, {
+            await cronJobStorage.saveJobStep(jobId, stepIndex, {
               progress,
               currentAction: `Adding type to cards: ${updatedCards}/${totalCards}`
             });
           }
         } catch (error) {
           console.error(`Failed to update card ${card._id}:`, error);
-          cronJobStorage.saveJobError(jobId, {
+          await cronJobStorage.saveJobError(jobId, {
             stepId: 'add-card-types',
             stepIndex,
             error,
@@ -1255,14 +1253,14 @@ class CronMigrationManager {
         }
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Updated ${updatedCards} cards with type field`
       });
 
     } catch (error) {
       console.error('Error executing add card types migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'add-card-types',
         stepIndex,
         error,
@@ -1279,15 +1277,15 @@ class CronMigrationManager {
    */
   async executeAttachmentMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Checking for legacy CollectionFS attachments...'
       });
 
-      const totalAttachments = Attachments.find().count();
+      const totalAttachments = await Attachments.find().countAsync();
 
       // Check if any attachments need migration (old structure without proper meta)
-      const needsMigration = Attachments.findOne({
+      const needsMigration = await Attachments.findOneAsync({
         $or: [
           { 'meta.boardId': { $exists: false } },
           { 'meta.listId': { $exists: false } },
@@ -1296,7 +1294,7 @@ class CronMigrationManager {
       });
 
       if (!needsMigration) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: `All ${totalAttachments} attachments are already in Meteor-Files format. No migration needed.`
         });
@@ -1305,12 +1303,12 @@ class CronMigrationManager {
       }
 
       // If we reach here, there are attachments to migrate (rare in fresh installs)
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 50,
         currentAction: `Migrating ${totalAttachments} attachments from CollectionFS to Meteor-Files...`
       });
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Verified ${totalAttachments} attachments are in correct format.`
       });
@@ -1319,7 +1317,7 @@ class CronMigrationManager {
 
     } catch (error) {
       console.error('Error executing attachment migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'migrate-attachments-collectionFS-to-ostrioFiles',
         stepIndex,
         error,
@@ -1335,14 +1333,14 @@ class CronMigrationManager {
    */
   async executeAvatarMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Checking for legacy CollectionFS avatars...'
       });
 
       // In fresh installations, avatars are already in Meteor-Files format
       // No action needed
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: 'All avatars are in Meteor-Files format. No migration needed.'
       });
@@ -1350,7 +1348,7 @@ class CronMigrationManager {
 
     } catch (error) {
       console.error('Error executing avatar migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'migrate-avatars-collectionFS-to-ostrioFiles',
         stepIndex,
         error,
@@ -1366,18 +1364,18 @@ class CronMigrationManager {
    */
   async executeBoardColorMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Checking board colors...'
       });
 
-      const boardsNeedingMigration = Boards.find({
+      const boardsNeedingMigration = await Boards.find({
         color: { $exists: true, $ne: null },
         colorClass: { $exists: false }
-      }, { fields: { _id: 1 } }).fetch();
+      }, { fields: { _id: 1 } }).fetchAsync();
 
       if (boardsNeedingMigration.length === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'All boards already use CSS color classes. No migration needed.'
         });
@@ -1390,24 +1388,24 @@ class CronMigrationManager {
       for (const board of boardsNeedingMigration) {
         // Color to colorClass mapping (simplified - actual colors handled by templates)
         const colorClass = 'wekan-' + (board.color || 'blue');
-        Boards.update(board._id, { $set: { colorClass } });
+        await Boards.updateAsync(board._id, { $set: { colorClass } });
         updated++;
 
         const progress = Math.round((updated / total) * 100);
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress,
           currentAction: `Migrating board colors: ${updated}/${total}`
         });
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Updated ${updated} board colors to CSS classes`
       });
 
     } catch (error) {
       console.error('Error executing board color migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'use-css-class-for-boards-colors',
         stepIndex,
         error,
@@ -1423,20 +1421,20 @@ class CronMigrationManager {
    */
   async executeChecklistItemsMigration(jobId, stepIndex, stepData) {
     try {
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 0,
         currentAction: 'Checking checklists...'
       });
 
-      const checklistsNeedingMigration = Checklists.find({
+      const checklistsNeedingMigration = await Checklists.find({
         $or: [
           { items: { $exists: false } },
           { items: null }
         ]
-      }, { fields: { _id: 1 } }).fetch();
+      }, { fields: { _id: 1 } }).fetchAsync();
 
       if (checklistsNeedingMigration.length === 0) {
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress: 100,
           currentAction: 'All checklists properly configured. No migration needed.'
         });
@@ -1447,24 +1445,24 @@ class CronMigrationManager {
       const total = checklistsNeedingMigration.length;
 
       for (const checklist of checklistsNeedingMigration) {
-        Checklists.update(checklist._id, { $set: { items: [] } });
+        await Checklists.updateAsync(checklist._id, { $set: { items: [] } });
         updated++;
 
         const progress = Math.round((updated / total) * 100);
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
+        await cronJobStorage.saveJobStep(jobId, stepIndex, {
           progress,
           currentAction: `Initializing checklists: ${updated}/${total}`
         });
       }
 
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress: 100,
         currentAction: `Migration complete: Initialized ${updated} checklists`
       });
 
     } catch (error) {
       console.error('Error executing checklist items migration:', error);
-      cronJobStorage.saveJobError(jobId, {
+      await cronJobStorage.saveJobError(jobId, {
         stepId: 'add-checklist-items',
         stepIndex,
         error,
@@ -1501,7 +1499,7 @@ class CronMigrationManager {
         const stepData = steps[i];
 
         // Save step status
-        cronJobStorage.saveJobStep(jobId, i, {
+        await cronJobStorage.saveJobStep(jobId, i, {
           stepName: stepData.name,
           status: 'running',
           progress: 0,
@@ -1512,7 +1510,7 @@ class CronMigrationManager {
         await this.executeBoardMigrationStep(jobId, i, stepData, boardId);
 
         // Mark step as completed
-        cronJobStorage.saveJobStep(jobId, i, {
+        await cronJobStorage.saveJobStep(jobId, i, {
           status: 'completed',
           progress: 100,
           completedAt: new Date()
@@ -1520,11 +1518,11 @@ class CronMigrationManager {
 
         // Update overall progress
         const progress = Math.round(((i + 1) / steps.length) * 100);
-        cronJobStorage.saveJobStatus(jobId, { progress });
+        await cronJobStorage.saveJobStatus(jobId, { progress });
       }
 
       // Mark board as migrated
-      this.markBoardAsMigrated(boardId, migrationType);
+      await this.markBoardAsMigrated(boardId, migrationType);
 
       // Completed board migration
 
@@ -1572,7 +1570,7 @@ class CronMigrationManager {
       const progress = Math.round((i / progressSteps) * 100);
 
       // Update step progress
-      cronJobStorage.saveJobStep(jobId, stepIndex, {
+      await cronJobStorage.saveJobStep(jobId, stepIndex, {
         progress,
         currentAction: `Executing: ${name} (${progress}%)`
       });
@@ -1617,7 +1615,7 @@ class CronMigrationManager {
   /**
    * Mark a board as migrated
    */
-  markBoardAsMigrated(boardId, migrationType) {
+  async markBoardAsMigrated(boardId, migrationType) {
     try {
       // Update board with migration markers and version
       const updateQuery = {
@@ -1629,7 +1627,7 @@ class CronMigrationManager {
 
       // Update the board document
       if (typeof Boards !== 'undefined') {
-        Boards.update(boardId, { $set: updateQuery });
+        await Boards.updateAsync(boardId, { $set: updateQuery });
       }
 
       console.log(`Marked board ${boardId} as migrated`);
@@ -1748,7 +1746,7 @@ class CronMigrationManager {
           continue; // Skip already completed steps
         }
 
-        if (!this.isMigrationNeeded(step.id)) {
+        if (!(await this.isMigrationNeeded(step.id))) {
           step.completed = true;
           step.progress = 100;
           step.status = 'completed';
@@ -1758,7 +1756,7 @@ class CronMigrationManager {
 
         // Add to job queue
         const jobId = `migration_${step.id}_${Date.now()}`;
-        cronJobStorage.addToQueue(jobId, 'migration', step.weight, {
+        await cronJobStorage.addToQueue(jobId, 'migration', step.weight, {
           stepId: step.id,
           stepName: step.name,
           stepDescription: step.description
@@ -1766,7 +1764,7 @@ class CronMigrationManager {
         queuedJobs++;
 
         // Save initial job status
-        cronJobStorage.saveJobStatus(jobId, {
+        await cronJobStorage.saveJobStatus(jobId, {
           jobType: 'migration',
           status: 'pending',
           progress: 0,
@@ -1841,7 +1839,7 @@ class CronMigrationManager {
       throw new Meteor.Error('invalid-migration', 'Migration not found');
     }
 
-    if (!this.isMigrationNeeded(step.id)) {
+    if (!(await this.isMigrationNeeded(step.id))) {
       step.completed = true;
       step.progress = 100;
       step.status = 'completed';
@@ -1870,14 +1868,14 @@ class CronMigrationManager {
 
       // Add single migration step to the job queue
       const jobId = `migration_${step.id}_${Date.now()}`;
-      cronJobStorage.addToQueue(jobId, 'migration', step.weight, {
+      await cronJobStorage.addToQueue(jobId, 'migration', step.weight, {
         stepId: step.id,
         stepName: step.name,
         stepDescription: step.description
       });
 
       // Save initial job status
-      cronJobStorage.saveJobStatus(jobId, {
+      await cronJobStorage.saveJobStatus(jobId, {
         jobType: 'migration',
         status: 'pending',
         progress: 0,
@@ -1908,9 +1906,9 @@ class CronMigrationManager {
       Meteor.clearInterval(this.monitorInterval);
     }
 
-    this.monitorInterval = Meteor.setInterval(() => {
-      const stats = cronJobStorage.getQueueStats();
-      const incompleteJobs = cronJobStorage.getIncompleteJobs();
+    this.monitorInterval = Meteor.setInterval(async () => {
+      const stats = await cronJobStorage.getQueueStats();
+      const incompleteJobs = await cronJobStorage.getIncompleteJobs();
       const pausedJobs = incompleteJobs.filter(job => job.status === 'paused');
 
       // Check if all migrations are completed first
@@ -1966,10 +1964,10 @@ class CronMigrationManager {
    */
   async startCronJob(cronName) {
     // Change schedule to run once
-    const job = SyncedCron._entries?.[cronName];
+      const job = SyncedCron._entries?.[cronName];
     if (job) {
       job.schedule = 'once';
-      SyncedCron.start();
+      startSyncedCron();
     }
   }
 
@@ -2031,7 +2029,7 @@ class CronMigrationManager {
     if (pausedJob) {
       SyncedCron.add(pausedJob);
       this.pausedJobs.delete(cronName);
-      SyncedCron.start();
+      startSyncedCron();
     }
     const step = this.migrationSteps.find(s => s.cronName === cronName);
     if (step) {
@@ -2127,18 +2125,18 @@ class CronMigrationManager {
   /**
    * Start a long-running operation for a specific board
    */
-  startBoardOperation(boardId, operationType, operationData) {
+  async startBoardOperation(boardId, operationType, operationData) {
     const operationId = `${boardId}_${operationType}_${Date.now()}`;
 
     // Add to job queue
-    cronJobStorage.addToQueue(operationId, 'board_operation', 3, {
+    await cronJobStorage.addToQueue(operationId, 'board_operation', 3, {
       boardId,
       operationType,
       operationData
     });
 
     // Save initial job status
-    cronJobStorage.saveJobStatus(operationId, {
+    await cronJobStorage.saveJobStatus(operationId, {
       jobType: 'board_operation',
       status: 'pending',
       progress: 0,
@@ -2516,7 +2514,7 @@ class CronMigrationManager {
   /**
    * Clear all cron jobs and restart migration system
    */
-  clearAllCronJobs() {
+  async clearAllCronJobs() {
     try {
       // Stop all existing cron jobs
       if (SyncedCron?._entries) {
@@ -2530,7 +2528,7 @@ class CronMigrationManager {
       }
 
       // Clear job storage
-      cronJobStorage.clearAllJobs();
+      await cronJobStorage.clearAllJobs();
 
       // Reset migration steps
       this.migrationSteps = this.initializeMigrationSteps();
@@ -2551,7 +2549,7 @@ class CronMigrationManager {
   /**
    * Pause all migrations
    */
-  pauseAllMigrations() {
+  async pauseAllMigrations() {
     this.isRunning = false;
     cronIsMigrating.set(false);
     cronMigrationStatus.set('Migrations paused');
@@ -2570,13 +2568,13 @@ class CronMigrationManager {
     );
 
     // Update all pending jobs in queue to paused
-    const pendingJobs = cronJobStorage.getIncompleteJobs();
-    pendingJobs.forEach(job => {
+    const pendingJobs = await cronJobStorage.getIncompleteJobs();
+    for (const job of pendingJobs) {
       if (job.status === 'pending' || job.status === 'running') {
-        cronJobStorage.updateQueueStatus(job.jobId, 'paused');
-        cronJobStorage.saveJobStatus(job.jobId, { status: 'paused' });
+        await cronJobStorage.updateQueueStatus(job.jobId, 'paused');
+        await cronJobStorage.saveJobStatus(job.jobId, { status: 'paused' });
       }
-    });
+    }
 
     // Update to final paused state
     CronJobStatus.upsert(
@@ -2597,7 +2595,7 @@ class CronMigrationManager {
   /**
    * Stop all migrations
    */
-  stopAllMigrations() {
+  async stopAllMigrations() {
     // Update CronJobStatus for immediate pub/sub notification
     CronJobStatus.upsert(
       { jobId: 'migration' },
@@ -2618,14 +2616,14 @@ class CronMigrationManager {
     }
 
     // Stop all running and pending jobs
-    const incompleteJobs = cronJobStorage.getIncompleteJobs();
-    incompleteJobs.forEach(job => {
-      cronJobStorage.updateQueueStatus(job.jobId, 'stopped', { stoppedAt: new Date() });
-      cronJobStorage.saveJobStatus(job.jobId, {
+    const incompleteJobs = await cronJobStorage.getIncompleteJobs();
+    for (const job of incompleteJobs) {
+      await cronJobStorage.updateQueueStatus(job.jobId, 'stopped', { stoppedAt: new Date() });
+      await cronJobStorage.saveJobStatus(job.jobId, {
         status: 'stopped',
         stoppedAt: new Date()
       });
-    });
+    }
 
     // Reset migration state immediately
     this.isRunning = false;
@@ -2670,18 +2668,18 @@ class CronMigrationManager {
   /**
    * Resume all paused migrations
    */
-  resumeAllMigrations() {
+  async resumeAllMigrations() {
     // Find all paused jobs and resume them
-    const pausedJobs = CronJobStatus.find({ status: 'paused' }).fetch();
+    const pausedJobs = await CronJobStatus.find({ status: 'paused' }).fetchAsync();
 
     if (pausedJobs.length === 0) {
       return { success: false, message: 'No paused migrations to resume' };
     }
 
-    pausedJobs.forEach(job => {
-      cronJobStorage.updateQueueStatus(job.jobId, 'pending');
-      cronJobStorage.saveJobStatus(job.jobId, { status: 'pending' });
-    });
+    for (const job of pausedJobs) {
+      await cronJobStorage.updateQueueStatus(job.jobId, 'pending');
+      await cronJobStorage.saveJobStatus(job.jobId, { status: 'pending' });
+    }
 
     this.isRunning = true;
     cronIsMigrating.set(true);
@@ -2696,23 +2694,23 @@ class CronMigrationManager {
   /**
    * Retry failed migrations
    */
-  retryFailedMigrations() {
-    const failedJobs = CronJobStatus.find({ status: 'failed' }).fetch();
+  async retryFailedMigrations() {
+    const failedJobs = await CronJobStatus.find({ status: 'failed' }).fetchAsync();
 
     if (failedJobs.length === 0) {
       return { success: false, message: 'No failed migrations to retry' };
     }
 
     // Clear errors for failed jobs
-    failedJobs.forEach(job => {
-      cronJobStorage.clearJobErrors(job.jobId);
-      cronJobStorage.updateQueueStatus(job.jobId, 'pending');
-      cronJobStorage.saveJobStatus(job.jobId, {
+    for (const job of failedJobs) {
+      await cronJobStorage.clearJobErrors(job.jobId);
+      await cronJobStorage.updateQueueStatus(job.jobId, 'pending');
+      await cronJobStorage.saveJobStatus(job.jobId, {
         status: 'pending',
         progress: 0,
         error: null
       });
-    });
+    }
 
     if (!this.isRunning) {
       this.isRunning = true;
@@ -2727,23 +2725,23 @@ class CronMigrationManager {
   /**
    * Get all migration errors
    */
-  getAllMigrationErrors(limit = 50) {
-    return cronJobStorage.getAllRecentErrors(limit);
+  async getAllMigrationErrors(limit = 50) {
+    return await cronJobStorage.getAllRecentErrors(limit);
   }
 
   /**
    * Get errors for a specific job
    */
-  getJobErrors(jobId, options = {}) {
-    return cronJobStorage.getJobErrors(jobId, options);
+  async getJobErrors(jobId, options = {}) {
+    return await cronJobStorage.getJobErrors(jobId, options);
   }
 
   /**
    * Get migration stats including errors
    */
-  getMigrationStats() {
-    const queueStats = cronJobStorage.getQueueStats();
-    const allErrors = cronJobStorage.getAllRecentErrors(100);
+  async getMigrationStats() {
+    const queueStats = await cronJobStorage.getQueueStats();
+    const allErrors = await cronJobStorage.getAllRecentErrors(100);
     const errorsByJob = {};
 
     allErrors.forEach(error => {
@@ -2765,11 +2763,6 @@ class CronMigrationManager {
 
 // Export singleton instance
 export const cronMigrationManager = new CronMigrationManager();
-
-// Initialize cron jobs on server start
-Meteor.startup(() => {
-  cronMigrationManager.initializeCronJobs();
-});
 
 // Meteor methods for client-server communication
 Meteor.methods({
@@ -2901,7 +2894,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    const runningJob = CronJobStatus.findOne(
+    const runningJob = await CronJobStatus.findOneAsync(
       { status: 'running', jobType: 'migration' },
       { sort: { updatedAt: -1 } }
     );
@@ -2919,7 +2912,7 @@ Meteor.methods({
     if (runningJob) {
       jobProgress = runningJob.progress || 0;
 
-      const steps = cronJobStorage.getJobSteps(runningJob.jobId);
+      const steps = await cronJobStorage.getJobSteps(runningJob.jobId);
       jobTotalSteps = steps.length;
       const runningStep = steps.find(step => step.status === 'running') || steps[steps.length - 1];
 
@@ -3076,7 +3069,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    return cronMigrationManager.getMigrationStats();
+    return await cronMigrationManager.getMigrationStats();
   },
 
   async 'cron.startBoardOperation'(boardId, operationType, operationData) {
@@ -3177,7 +3170,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    return cronJobStorage.getJobDetails(jobId);
+    return await cronJobStorage.getJobDetails(jobId);
   },
 
   async 'cron.getQueueStats'() {
@@ -3190,7 +3183,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    return cronJobStorage.getQueueStats();
+    return await cronJobStorage.getQueueStats();
   },
 
   async 'cron.getSystemResources'() {
@@ -3216,7 +3209,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    return cronMigrationManager.clearAllCronJobs();
+    return await cronMigrationManager.clearAllCronJobs();
   },
 
   async 'cron.pauseJob'(jobId) {
@@ -3229,8 +3222,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    cronJobStorage.updateQueueStatus(jobId, 'paused');
-    cronJobStorage.saveJobStatus(jobId, { status: 'paused' });
+    await cronJobStorage.updateQueueStatus(jobId, 'paused');
+    await cronJobStorage.saveJobStatus(jobId, { status: 'paused' });
     return { success: true };
   },
 
@@ -3244,8 +3237,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    cronJobStorage.updateQueueStatus(jobId, 'pending');
-    cronJobStorage.saveJobStatus(jobId, { status: 'pending' });
+    await cronJobStorage.updateQueueStatus(jobId, 'pending');
+    await cronJobStorage.saveJobStatus(jobId, { status: 'pending' });
     return { success: true };
   },
 
@@ -3259,8 +3252,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    cronJobStorage.updateQueueStatus(jobId, 'stopped');
-    cronJobStorage.saveJobStatus(jobId, {
+    await cronJobStorage.updateQueueStatus(jobId, 'stopped');
+    await cronJobStorage.saveJobStatus(jobId, {
       status: 'stopped',
       stoppedAt: new Date()
     });
@@ -3291,11 +3284,11 @@ Meteor.methods({
     }
 
     // Pause all running jobs in the queue
-    const runningJobs = cronJobStorage.getIncompleteJobs().filter(job => job.status === 'running');
-    runningJobs.forEach(job => {
-      cronJobStorage.updateQueueStatus(job.jobId, 'paused');
-      cronJobStorage.saveJobStatus(job.jobId, { status: 'paused' });
-    });
+    const runningJobs = (await cronJobStorage.getIncompleteJobs()).filter(job => job.status === 'running');
+    for (const job of runningJobs) {
+      await cronJobStorage.updateQueueStatus(job.jobId, 'paused');
+      await cronJobStorage.saveJobStatus(job.jobId, { status: 'paused' });
+    }
 
     cronMigrationStatus.set('All migrations paused');
     return { success: true, message: 'All migrations paused' };
@@ -3318,14 +3311,14 @@ Meteor.methods({
     }
 
     // Stop all running and pending jobs
-    const incompleteJobs = cronJobStorage.getIncompleteJobs();
-    incompleteJobs.forEach(job => {
-      cronJobStorage.updateQueueStatus(job.jobId, 'stopped', { stoppedAt: new Date() });
-      cronJobStorage.saveJobStatus(job.jobId, {
+    const incompleteJobs = await cronJobStorage.getIncompleteJobs();
+    for (const job of incompleteJobs) {
+      await cronJobStorage.updateQueueStatus(job.jobId, 'stopped', { stoppedAt: new Date() });
+      await cronJobStorage.saveJobStatus(job.jobId, {
         status: 'stopped',
         stoppedAt: new Date()
       });
-    });
+    }
 
     // Reset migration state immediately
     cronMigrationManager.isRunning = false;

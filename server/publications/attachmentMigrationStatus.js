@@ -1,14 +1,16 @@
-import { AttachmentMigrationStatus } from '../attachmentMigrationStatus';
+import AttachmentMigrationStatus from '/models/attachmentMigrationStatus';
+import Boards from '/models/boards';
+import Users from '/models/users';
 
 // Publish attachment migration status for boards user has access to
-Meteor.publish('attachmentMigrationStatus', function(boardId) {
+Meteor.publish('attachmentMigrationStatus', async function(boardId) {
   if (!this.userId) {
     return this.ready();
   }
 
   check(boardId, String);
 
-  const board = Boards.findOne(boardId);
+  const board = await Boards.findOneAsync(boardId);
   if (!board || !board.isVisibleBy({ _id: this.userId })) {
     return this.ready();
   }
@@ -18,23 +20,23 @@ Meteor.publish('attachmentMigrationStatus', function(boardId) {
 });
 
 // Publish all attachment migration statuses for user's boards
-Meteor.publish('attachmentMigrationStatuses', function() {
+Meteor.publish('attachmentMigrationStatuses', async function() {
   if (!this.userId) {
     return this.ready();
   }
 
-  const user = Users.findOne(this.userId);
+  const user = await Users.findOneAsync(this.userId);
   if (!user) {
     return this.ready();
   }
 
   // Get all boards user has access to
-  const boards = Boards.find({
+  const boards = await Boards.find({
     $or: [
       { 'members.userId': this.userId },
       { isPublic: true }
     ]
-  }, { fields: { _id: 1 } }).fetch();
+  }, { fields: { _id: 1 } }).fetchAsync();
 
   const boardIds = boards.map(b => b._id);
 

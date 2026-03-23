@@ -100,7 +100,7 @@ class FixAvatarUrlsMigration {
 
         if (needsUpdate) {
           // Update user's avatar URL
-          Users.update(user._id, {
+          await Users.updateAsync(user._id, {
             $set: {
               'profile.avatarUrl': cleanUrl,
               modifiedAt: new Date()

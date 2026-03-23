@@ -1,5 +1,5 @@
 import Attachments from '/models/attachments';
-import { ObjectID } from 'bson';
+
 
 Meteor.publish('attachmentsList', async function(limit) {
   const userId = this.userId;

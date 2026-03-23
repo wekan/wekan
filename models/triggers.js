@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
-Triggers = new Mongo.Collection('triggers');
+const Triggers = new Mongo.Collection('triggers');
 
 Triggers.before.insert((userId, doc) => {
   doc.createdAt = new Date();
@@ -11,18 +11,6 @@ Triggers.before.insert((userId, doc) => {
 Triggers.before.update((userId, doc, fieldNames, modifier) => {
   modifier.$set = modifier.$set || {};
   modifier.$set.updatedAt = new Date();
-});
-
-Triggers.allow({
-  async insert(userId, doc) {
-    return allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  async update(userId, doc) {
-    return allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  async remove(userId, doc) {
-    return allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
-  },
 });
 
 Triggers.helpers({
@@ -62,11 +50,5 @@ Triggers.helpers({
     return cardLabels;
   },
 });
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await Triggers._collection.createIndexAsync({ modifiedAt: -1 });
-  });
-}
 
 export default Triggers;

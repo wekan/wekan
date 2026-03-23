@@ -8,9 +8,11 @@ import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Accounts } from 'meteor/accounts-base';
-import Attachments, { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments';
-import Avatars, { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars';
-import '/models/boards';
+import Attachments from '/models/attachments';
+import { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments.server';
+import Avatars from '/models/avatars';
+import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.server';
+import Boards from '/models/boards';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import fs from 'fs';
 import path from 'path';
@@ -185,19 +187,24 @@ if (Meteor.isServer) {
 
         // If private board is specified, require membership of requester
         const token = extractLoginToken(req);
-        const user = token ? getUserFromToken(token) : null;
+        const user = token ? await getUserFromToken(token) : null;
         if (user && board && board.hasMember && board.hasMember(user._id)) return true;
         return false;
       }
 
       // 2) Authenticated request without explicit board context
       const token = extractLoginToken(req);
-      const user = token ? getUserFromToken(token) : null;
+      const user = token ? await getUserFromToken(token) : null;
       if (user) return true;
 
       // 3) Allow if avatar owner is on any public board (so avatars are public only when on public boards)
       // Use a lightweight query against Boards
-      const found = Boards && Boards.findOne({ permission: 'public', 'members.userId': avatar.userId }, { fields: { _id: 1 } });
+      const found =
+        Boards &&
+        (await Boards.findOneAsync(
+          { permission: 'public', 'members.userId': avatar.userId },
+          { fields: { _id: 1 } },
+        ));
       return !!found;
     } catch (e) {
       if (process.env.DEBUG === 'true') {
@@ -278,11 +285,14 @@ if (Meteor.isServer) {
   /**
    * Resolve a user from a raw login token string
    */
-  function getUserFromToken(rawToken) {
+  async function getUserFromToken(rawToken) {
     try {
       if (!rawToken || typeof rawToken !== 'string' || rawToken.length < 10) return null;
       const hashed = Accounts._hashLoginToken(rawToken);
-      return Meteor.users.findOne({ 'services.resume.loginTokens.hashedToken': hashed }, { fields: { _id: 1 } });
+      return await Meteor.users.findOneAsync(
+        { 'services.resume.loginTokens.hashedToken': hashed },
+        { fields: { _id: 1 } },
+      );
     } catch (e) {
       // In case accounts-base is not available or any error occurs
       if (process.env.DEBUG === 'true') {
@@ -302,7 +312,7 @@ if (Meteor.isServer) {
       if (!board) return false;
       if (board.isPublic && board.isPublic()) return true;
       const token = extractLoginToken(req);
-      const user = token ? getUserFromToken(token) : null;
+      const user = token ? await getUserFromToken(token) : null;
       return !!(user && board.hasMember && board.hasMember(user._id));
     } catch (e) {
       if (process.env.DEBUG === 'true') {

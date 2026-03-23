@@ -119,9 +119,9 @@ let _userData = {};
 //RoutePolicy.declare('/_cas/', 'network');
 
 // Listen to incoming OAuth http requests
-WebApp.handlers.use(Meteor.bindEnvironment((req, res, next) => {
+WebApp.handlers.use((req, res, next) => {
   middleware(req, res, next);
-}));
+});
 
 const middleware = (req, res, next) => {
   // Make sure to catch any exceptions because otherwise we'd crash

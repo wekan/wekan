@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
 import { CsvCreator } from './csvCreator';

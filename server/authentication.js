@@ -1,21 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import Fiber from 'fibers';
 
-Meteor.startup(() => {
-  // Node Fibers 100% CPU usage issue
-  // https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
-  // https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
-  // https://github.com/sandstorm-io/sandstorm/blob/0f1fec013fe7208ed0fd97eb88b31b77e3c61f42/shell/server/00-startup.js#L99-L129
-  Fiber.poolSize = 1e9;
-
-  Accounts.validateLoginAttempt(function(options) {
-    const user = options.user || {};
-    return !user.loginDisabled;
-  });
-
-  Authentication = {};
-
-  Authentication.checkUserId = async function(userId) {
+// Authentication helpers — exported for use by API routes and model files
+export const Authentication = {
+  async checkUserId(userId) {
     if (userId === undefined) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
@@ -28,21 +15,21 @@ Meteor.startup(() => {
       error.statusCode = 403;
       throw error;
     }
-  };
+  },
 
   // This will only check if the user is logged in.
   // The authorization checks for the user will have to be done inside each API endpoint
-  Authentication.checkLoggedIn = function(userId) {
+  checkLoggedIn(userId) {
     if (userId === undefined) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
       throw error;
     }
-  };
+  },
 
   // An admin should be authorized to access everything, so we use a separate check for admins
   // This throws an error if otherReq is false and the user is not an admin
-  Authentication.checkAdminOrCondition = async function(userId, otherReq) {
+  async checkAdminOrCondition(userId, otherReq) {
     if (otherReq) return;
     const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
     if (admin === undefined) {
@@ -50,31 +37,38 @@ Meteor.startup(() => {
       error.statusCode = 403;
       throw error;
     }
-  };
+  },
 
   // Helper function. Will throw an error if the user is not active BoardAdmin or active Normal user of the board.
-  Authentication.checkBoardAccess = async function(userId, boardId) {
+  async checkBoardAccess(userId, boardId) {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
     const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker);
     await Authentication.checkAdminOrCondition(userId, normalAccess);
-  };
+  },
 
   // Helper function. Will throw an error if the user does not have write access to the board (excludes read-only users).
-  Authentication.checkBoardWriteAccess = async function(userId, boardId) {
+  async checkBoardWriteAccess(userId, boardId) {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
     const writeAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
     await Authentication.checkAdminOrCondition(userId, writeAccess);
-  };
+  },
 
   // Helper function. Will throw an error if the user is not a board admin.
-  Authentication.checkBoardAdmin = async function(userId, boardId) {
+  async checkBoardAdmin(userId, boardId) {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
     const adminAccess = board.members.some(e => e.userId === userId && e.isActive && e.isAdmin);
     await Authentication.checkAdminOrCondition(userId, adminAccess);
-  };
+  },
+};
+
+Meteor.startup(() => {
+  Accounts.validateLoginAttempt(function(options) {
+    const user = options.user || {};
+    return !user.loginDisabled;
+  });
 
   if (Meteor.isServer) {
     if (

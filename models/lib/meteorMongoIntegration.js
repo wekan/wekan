@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { DDP } from 'meteor/ddp';
 import { mongodbConnectionManager } from './mongodbConnectionManager';
 import { mongodbDriverManager } from './mongodbDriverManager';

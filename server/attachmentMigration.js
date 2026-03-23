@@ -8,7 +8,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
-import { AttachmentMigrationStatus } from './attachmentMigrationStatus';
+import AttachmentMigrationStatus from '/models/attachmentMigrationStatus';
 
 // Reactive variables for tracking migration progress
 const migrationProgress = new ReactiveVar(0);
@@ -61,9 +61,9 @@ class AttachmentMigrationService {
       console.log(`Starting attachment migration for board: ${boardId}`);
 
       // Get all attachments for the board
-      const attachments = Attachments.find({
+      const attachments = await Attachments.find({
         'meta.boardId': boardId
-      }).fetch();
+      }).fetchAsync();
 
       const totalAttachments = attachments.length;
       let migratedCount = 0;
@@ -90,7 +90,7 @@ class AttachmentMigrationService {
       }
 
       // Update unconverted attachments list
-      const remainingUnconverted = this.getUnconvertedAttachments(boardId);
+      const remainingUnconverted = await this.getUnconvertedAttachments(boardId);
       unconvertedAttachments.set(remainingUnconverted);
 
       migrationStatus.set('Attachment migration completed');
@@ -183,7 +183,7 @@ class AttachmentMigrationService {
         };
       }
 
-      Attachments.update(attachment._id, { $set: updateData });
+      await Attachments.updateAsync(attachment._id, { $set: updateData });
 
       console.log(`Migrated attachment ${attachment._id}`);
 
@@ -198,11 +198,11 @@ class AttachmentMigrationService {
    * @param {string} boardId - The board ID
    * @returns {Array} - Array of unconverted attachments
    */
-  getUnconvertedAttachments(boardId) {
+  async getUnconvertedAttachments(boardId) {
     try {
-      const attachments = Attachments.find({
+      const attachments = await Attachments.find({
         'meta.boardId': boardId
-      }).fetch();
+      }).fetchAsync();
 
       return attachments.filter(attachment => this.needsMigration(attachment));
     } catch (error) {
@@ -216,11 +216,11 @@ class AttachmentMigrationService {
    * @param {string} boardId - The board ID
    * @returns {Object} - Migration progress data
    */
-  getMigrationProgress(boardId) {
+  async getMigrationProgress(boardId) {
     const progress = migrationProgress.get();
     const status = migrationStatus.get();
-    const unconverted = this.getUnconvertedAttachments(boardId);
-    const total = Attachments.find({ 'meta.boardId': boardId }).count();
+    const unconverted = await this.getUnconvertedAttachments(boardId);
+    const total = await Attachments.find({ 'meta.boardId': boardId }).countAsync();
     const migratedCount = total - unconverted.length;
 
     // Update status collection for pub/sub
@@ -287,7 +287,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
 
-    return attachmentMigrationService.getMigrationProgress(boardId);
+    return await attachmentMigrationService.getMigrationProgress(boardId);
   },
 
   async 'attachmentMigration.getUnconvertedAttachments'(boardId) {

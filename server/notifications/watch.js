@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 
 Meteor.methods({
@@ -6,7 +8,7 @@ Meteor.methods({
     check(id, String);
     check(level, Match.OneOf(String, null));
 
-    const userId = Meteor.userId();
+    const userId = this.userId;
 
     let watchableObj = null;
     let board = null;

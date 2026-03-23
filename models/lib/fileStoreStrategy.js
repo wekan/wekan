@@ -1,15 +1,20 @@
 import fs from 'fs';
 import path from 'path';
+import { Meteor } from 'meteor/meteor';
 import { createObjectId } from './grid/createObjectId';
 import { httpStreamOutput } from './httpStream.js';
+import {
+  STORAGE_NAME_FILESYSTEM,
+  STORAGE_NAME_GRIDFS,
+  STORAGE_NAME_S3,
+} from './fileStoreConstants';
 //import {} from './s3/Server-side-file-store.js';
-import { ObjectID } from 'bson';
+import { ObjectId } from 'bson';
 // DISABLED: Minio support removed due to Node.js compatibility issues
 // var Minio = require('minio');
 
-export const STORAGE_NAME_FILESYSTEM = "fs";
-export const STORAGE_NAME_GRIDFS     = "gridfs";
-export const STORAGE_NAME_S3         = "s3";
+// Re-export constants from shared module (keeps existing import paths working)
+export { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from './fileStoreConstants';
 
 /**
  * Sanitize filename to prevent path traversal attacks
@@ -246,7 +251,12 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    */
   writeStreamFinished(finishedData) {
     const gridFsFileIdName = this.getGridFsFileIdName();
-    Attachments.update({ _id: this.fileObj._id }, { $set: { [gridFsFileIdName]: finishedData._id.toHexString(), } });
+    Attachments.updateAsync(
+      { _id: this.fileObj._id },
+      { $set: { [gridFsFileIdName]: finishedData._id.toHexString() } },
+    ).catch(error => {
+      console.error('Failed to persist GridFS file id:', error);
+    });
   }
 
   /** remove the file */
@@ -261,7 +271,12 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
     }
 
     const gridFsFileIdName = this.getGridFsFileIdName();
-    Attachments.update({ _id: this.fileObj._id }, { $unset: { [gridFsFileIdName]: 1 } });
+    Attachments.updateAsync(
+      { _id: this.fileObj._id },
+      { $unset: { [gridFsFileIdName]: 1 } },
+    ).catch(error => {
+      console.error('Failed to clear GridFS file id:', error);
+    });
   }
 
   /** return the storage name
@@ -508,7 +523,9 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
   const safeName = sanitizeFilename(fileObj.name);
   if (safeName !== fileObj.name) {
     // Update the database with the sanitized name
-    Attachments.update({ _id: fileObj._id }, { $set: { name: safeName } });
+    Attachments.updateAsync({ _id: fileObj._id }, { $set: { name: safeName } }).catch(error => {
+      console.error('Failed to persist sanitized attachment name:', error);
+    });
     // Update the local object for use in this function
     fileObj.name = safeName;
   }
@@ -531,18 +548,20 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
         console.error('[readStream error]: ', error, fileObj._id);
       });
 
-      writeStream.on('finish', Meteor.bindEnvironment((finishedData) => {
+      writeStream.on('finish', finishedData => {
         strategyWrite.writeStreamFinished(finishedData);
-      }));
+      });
 
       // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-      readStream.on('end', Meteor.bindEnvironment(() => {
-        Attachments.update({ _id: fileObj._id }, { $set: {
+      readStream.on('end', () => {
+        Attachments.updateAsync({ _id: fileObj._id }, { $set: {
           [`versions.${versionName}.storage`]: strategyWrite.getStorageName(),
           [`versions.${versionName}.path`]: filePath,
-        } });
+        } }).catch(error => {
+          console.error('Failed to update attachment storage metadata:', error);
+        });
         strategyRead.unlink();
-      }));
+      });
 
       readStream.pipe(writeStream);
     }
@@ -569,8 +588,8 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
     });
 
     // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-    readStream.on('end', Meteor.bindEnvironment(() => {
-      const fileId = new ObjectID().toString();
+    readStream.on('end', () => {
+      const fileId = new ObjectId().toString();
       Attachments.addFile(
         tempPath,
         {
@@ -594,12 +613,14 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
             console.log(err);
           } else {
             // Set the userId again
-            Attachments.update({ _id: fileRef._id }, { $set: { userId: fileObj.userId } });
+            Attachments.updateAsync({ _id: fileRef._id }, { $set: { userId: fileObj.userId } }).catch(error => {
+              console.error('Failed to update copied attachment userId:', error);
+            });
           }
         },
         true,
       );
-    }));
+    });
 
     readStream.pipe(writeStream);
   });
@@ -614,9 +635,11 @@ export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
     const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, safeName);
     strategy.rename(newFilePath);
 
-    Attachments.update({ _id: fileObj._id }, { $set: {
+    Attachments.updateAsync({ _id: fileObj._id }, { $set: {
       "name": safeName,
       [`versions.${versionName}.path`]: newFilePath,
-    } });
+    } }).catch(error => {
+      console.error('Failed to persist renamed attachment path:', error);
+    });
   });
 };

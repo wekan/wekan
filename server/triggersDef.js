@@ -1,4 +1,4 @@
-TriggersDef = {
+export const TriggersDef = {
   createCard: {
     matchingFields: [
       'boardId',

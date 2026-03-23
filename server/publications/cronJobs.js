@@ -1,12 +1,13 @@
 import { CronJobStatus } from '/server/cronJobStorage';
+import Users from '/models/users';
 
 // Publish cron jobs status for admin users only
-Meteor.publish('cronJobs', function() {
+Meteor.publish('cronJobs', async function() {
   if (!this.userId) {
     return this.ready();
   }
 
-  const user = Users.findOne(this.userId);
+  const user = await Users.findOneAsync(this.userId);
   if (!user || !user.isAdmin) {
     return this.ready();
   }

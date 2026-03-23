@@ -107,7 +107,7 @@ class RestoreLostCardsMigration {
       // Find or create "Lost Cards" swimlane (only if there is actual work)
       let lostCardsSwimlane = swimlanes.find(s => s.title === TAPi18n.__('lost-cards'));
       if (!lostCardsSwimlane) {
-        const swimlaneId = Swimlanes.insert({
+        const swimlaneId = await Swimlanes.insertAsync({
           title: TAPi18n.__('lost-cards'),
           boardId: boardId,
           sort: 999999, // Put at the end
@@ -126,7 +126,7 @@ class RestoreLostCardsMigration {
       // Restore lost lists (lists without swimlaneId)
       if (hasListsWork) {
         for (const list of lostLists) {
-          Lists.update(list._id, {
+          await Lists.updateAsync(list._id, {
             $set: {
               swimlaneId: lostCardsSwimlane._id,
               updatedAt: new Date()
@@ -147,7 +147,7 @@ class RestoreLostCardsMigration {
           l.title === TAPi18n.__('lost-cards-list')
         );
         if (!defaultList) {
-          const listId = Lists.insert({
+          const listId = await Lists.insertAsync({
             title: TAPi18n.__('lost-cards-list'),
             boardId: boardId,
             swimlaneId: lostCardsSwimlane._id,
@@ -169,7 +169,7 @@ class RestoreLostCardsMigration {
           const updateFields = { updatedAt: new Date() };
           if (!card.swimlaneId) updateFields.swimlaneId = lostCardsSwimlane._id;
           if (!card.listId) updateFields.listId = defaultList._id;
-          Cards.update(card._id, { $set: updateFields });
+          await Cards.updateAsync(card._id, { $set: updateFields });
           results.cardsRestored++;
           if (process.env.DEBUG === 'true') {
             console.log(`Restored lost card: ${card.title}`);
@@ -178,7 +178,7 @@ class RestoreLostCardsMigration {
 
         // Restore orphaned cards (cards whose list doesn't exist)
         for (const card of orphanedCards) {
-          Cards.update(card._id, {
+          await Cards.updateAsync(card._id, {
             $set: {
               listId: defaultList._id,
               swimlaneId: lostCardsSwimlane._id,

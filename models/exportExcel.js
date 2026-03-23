@@ -1,13 +1,16 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { runOnServer } from './runOnServer';
+import ImpersonatedUsers from '/models/impersonatedUsers';
 
 runOnServer(function() {
   // the ExporterExcel class is only available on server and in order to import
   // it here we use runOnServer to have it inside a function instead of an
   // if (Meteor.isServer) block
-  import { ExporterExcel } from './server/ExporterExcel';
-  import { WebApp } from 'meteor/webapp';
+  const { ExporterExcel } = require('./server/ExporterExcel');
+  const { WebApp } = require('meteor/webapp');
+  const { Authentication } = require('/server/authentication');
 
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
@@ -85,7 +88,7 @@ runOnServer(function() {
     const exporterExcel = new ExporterExcel(boardId, userLanguage);
     if (exporterExcel.canExport(user) || impersonateDone) {
       if (impersonateDone) {
-        ImpersonatedUsers.insert({
+        await ImpersonatedUsers.insertAsync({
           adminId: adminId,
           boardId: boardId,
           reason: 'exportExcel',

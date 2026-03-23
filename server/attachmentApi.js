@@ -1,16 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { Attachments, fileStoreStrategyFactory } from '/models/attachments';
+import Attachments from '/models/attachments';
+import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { moveToStorage } from '/models/lib/fileStoreStrategy';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import fs from 'fs';
 import path from 'path';
-import { ObjectID } from 'bson';
+import { ObjectId } from 'bson';
 
 // Attachment API methods
-if (Meteor.isServer) {
-  Meteor.methods({
+Meteor.methods({
     // Upload attachment via API
     async 'api.attachment.upload'(boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend) {
       if (!this.userId) {
@@ -47,7 +47,7 @@ if (Meteor.isServer) {
       let targetStorage = storageBackend;
       if (!targetStorage) {
         try {
-          const settings = AttachmentStorageSettings.findOne({});
+          const settings = await AttachmentStorageSettings.findOneAsync({});
           targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
         } catch (error) {
           targetStorage = STORAGE_NAME_FILESYSTEM;
@@ -65,7 +65,7 @@ if (Meteor.isServer) {
         const file = new File([fileBuffer], fileName, { type: fileType || 'application/octet-stream' });
 
         // Create attachment metadata
-        const fileId = new ObjectID().toString();
+        const fileId = new ObjectId().toString();
         const meta = {
           boardId: boardId,
           swimlaneId: swimlaneId,
@@ -77,7 +77,7 @@ if (Meteor.isServer) {
         };
 
         // Create attachment
-        const uploader = Attachments.insert({
+        const uploader = await Attachments.insertAsync({
           file: file,
           meta: meta,
           isBase64: false,
@@ -274,13 +274,13 @@ if (Meteor.isServer) {
             chunks.push(chunk);
           });
 
-          readStream.on('end', () => {
+          readStream.on('end', async () => {
             try {
               const fileBuffer = Buffer.concat(chunks);
               const file = new File([fileBuffer], sourceAttachment.name, { type: sourceAttachment.type });
 
               // Create new attachment metadata
-              const fileId = new ObjectID().toString();
+              const fileId = new ObjectId().toString();
               const meta = {
                 boardId: targetBoardId,
                 swimlaneId: targetSwimlaneId,
@@ -293,7 +293,7 @@ if (Meteor.isServer) {
               };
 
               // Create new attachment
-              const uploader = Attachments.insert({
+              const uploader = await Attachments.insertAsync({
                 file: file,
                 meta: meta,
                 isBase64: false,
@@ -358,7 +358,7 @@ if (Meteor.isServer) {
 
       try {
         // Update attachment metadata
-        Attachments.update(attachmentId, {
+        await Attachments.updateAsync(attachmentId, {
           $set: {
             'meta.boardId': targetBoardId,
             'meta.swimlaneId': targetSwimlaneId,
@@ -404,7 +404,7 @@ if (Meteor.isServer) {
 
       try {
         // Delete attachment
-        Attachments.remove(attachmentId);
+        await Attachments.removeAsync(attachmentId);
 
         return {
           success: true,
@@ -465,4 +465,3 @@ if (Meteor.isServer) {
       }
     }
   });
-}

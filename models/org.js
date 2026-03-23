@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-Org = new Mongo.Collection('org');
+const Org = new Mongo.Collection('org');
 
 /**
  * A Organization in Wekan. A Enterprise in Trello.
@@ -58,7 +60,6 @@ Org.attachSchema(
        * creation date of the organization
        */
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert) {
@@ -72,7 +73,6 @@ Org.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -84,226 +84,5 @@ Org.attachSchema(
     },
   }),
 );
-
-if (Meteor.isServer) {
-  Org.allow({
-    async insert(userId, doc) {
-      const user = await Meteor.users.findOneAsync(userId);
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    async update(userId, doc) {
-      const user = await Meteor.users.findOneAsync(userId);
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    async remove(userId, doc) {
-      const user = await Meteor.users.findOneAsync(userId);
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    fetch: [],
-  });
-
-
-  Meteor.methods({
-    async setCreateOrg(
-      orgDisplayName,
-      orgDesc,
-      orgShortName,
-      orgAutoAddUsersWithDomainName,
-      orgWebsite,
-      orgIsActive,
-    ) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(orgDisplayName, String);
-        check(orgDesc, String);
-        check(orgShortName, String);
-        check(orgAutoAddUsersWithDomainName, String);
-        check(orgWebsite, String);
-        check(orgIsActive, Boolean);
-
-        const nOrgNames = (await ReactiveCache.getOrgs({ orgShortName })).length;
-        if (nOrgNames > 0) {
-          throw new Meteor.Error('orgname-already-taken');
-        } else {
-          await Org.insertAsync({
-            orgDisplayName,
-            orgDesc,
-            orgShortName,
-            orgAutoAddUsersWithDomainName,
-            orgWebsite,
-            orgIsActive,
-          });
-        }
-      }
-    },
-    async setCreateOrgFromOidc(
-      orgDisplayName,
-      orgDesc,
-      orgShortName,
-      orgAutoAddUsersWithDomainName,
-      orgWebsite,
-      orgIsActive,
-    ) {
-      check(orgDisplayName, String);
-      check(orgDesc, String);
-      check(orgShortName, String);
-      check(orgAutoAddUsersWithDomainName, String);
-      check(orgWebsite, String);
-      check(orgIsActive, Boolean);
-
-      const nOrgNames = (await ReactiveCache.getOrgs({ orgShortName })).length;
-      if (nOrgNames > 0) {
-        throw new Meteor.Error('orgname-already-taken');
-      } else {
-        await Org.insertAsync({
-          orgDisplayName,
-          orgDesc,
-          orgShortName,
-          orgAutoAddUsersWithDomainName,
-          orgWebsite,
-          orgIsActive,
-        });
-      }
-    },
-    async setOrgDisplayName(org, orgDisplayName) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(org, Object);
-        check(orgDisplayName, String);
-        Org.update(org, {
-          $set: { orgDisplayName: orgDisplayName },
-        });
-        await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
-      }
-    },
-
-    async setOrgDesc(org, orgDesc) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(org, Object);
-        check(orgDesc, String);
-        Org.update(org, {
-          $set: { orgDesc: orgDesc },
-        });
-      }
-    },
-
-    async setOrgShortName(org, orgShortName) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(org, Object);
-        check(orgShortName, String);
-        Org.update(org, {
-          $set: { orgShortName: orgShortName },
-        });
-      }
-    },
-
-    async setAutoAddUsersWithDomainName(org, orgAutoAddUsersWithDomainName) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(org, Object);
-        check(orgAutoAddUsersWithDomainName, String);
-        Org.update(org, {
-          $set: { orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName },
-        });
-      }
-    },
-
-    async setOrgIsActive(org, orgIsActive) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(org, Object);
-        check(orgIsActive, Boolean);
-        Org.update(org, {
-          $set: { orgIsActive: orgIsActive },
-        });
-      }
-    },
-    async setOrgAllFieldsFromOidc(
-      org,
-      orgDisplayName,
-      orgDesc,
-      orgShortName,
-      orgAutoAddUsersWithDomainName,
-      orgWebsite,
-      orgIsActive,
-    ) {
-      check(org, Object);
-      check(orgDisplayName, String);
-      check(orgDesc, String);
-      check(orgShortName, String);
-      check(orgAutoAddUsersWithDomainName, String);
-      check(orgWebsite, String);
-      check(orgIsActive, Boolean);
-      Org.update(org, {
-        $set: {
-          orgDisplayName: orgDisplayName,
-          orgDesc: orgDesc,
-          orgShortName: orgShortName,
-          orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName,
-          orgWebsite: orgWebsite,
-          orgIsActive: orgIsActive,
-        },
-      });
-      await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
-    },
-    async setOrgAllFields(
-      org,
-      orgDisplayName,
-      orgDesc,
-      orgShortName,
-      orgAutoAddUsersWithDomainName,
-      orgWebsite,
-      orgIsActive,
-    ) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(org, Object);
-        check(orgDisplayName, String);
-        check(orgDesc, String);
-        check(orgShortName, String);
-        check(orgAutoAddUsersWithDomainName, String);
-        check(orgWebsite, String);
-        check(orgIsActive, Boolean);
-        Org.update(org, {
-          $set: {
-            orgDisplayName: orgDisplayName,
-            orgDesc: orgDesc,
-            orgShortName: orgShortName,
-            orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName,
-            orgWebsite: orgWebsite,
-            orgIsActive: orgIsActive,
-          },
-        });
-        await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
-      }
-    },
-    async getOrgsCollectionCount(query = {}) {
-      if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
-        throw new Meteor.Error('not-authorized');
-      }
-      check(query, Match.OneOf(Object, null, undefined));
-      const count = await (await ReactiveCache.getOrgs(query, {}, true)).count();
-      return count;
-    },
-  });
-}
-
-if (Meteor.isServer) {
-  // Index for Organization name.
-  Meteor.startup(async () => {
-    // Org._collection.createIndexAsync({ name: -1 });
-    await Org._collection.createIndexAsync({ orgDisplayName: 1 });
-  });
-}
 
 export default Org;

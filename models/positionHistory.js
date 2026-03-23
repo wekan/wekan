@@ -1,10 +1,12 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
 /**
  * PositionHistory collection to track original positions of swimlanes, lists, and cards
  * before the list naming feature was added in commit 719ef87efceacfe91461a8eeca7cf74d11f4cc0a
  */
-PositionHistory = new Mongo.Collection('positionHistory');
+const PositionHistory = new Mongo.Collection('positionHistory');
 
 PositionHistory.attachSchema(
   new SimpleSchema({
@@ -158,13 +160,5 @@ PositionHistory.helpers({
     return 'Unknown position';
   }
 });
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await PositionHistory._collection.createIndexAsync({ boardId: 1, entityType: 1, entityId: 1 });
-    await PositionHistory._collection.createIndexAsync({ boardId: 1, entityType: 1 });
-    await PositionHistory._collection.createIndexAsync({ createdAt: -1 });
-  });
-}
 
 export default PositionHistory;

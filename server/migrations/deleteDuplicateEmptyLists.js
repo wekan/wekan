@@ -145,7 +145,7 @@ class DeleteDuplicateEmptyListsMigration {
 
           if (!existingList) {
             // Create new per-swimlane list
-            const newListId = Lists.insert({
+            const newListId = await Lists.insertAsync({
               title: sharedList.title,
               boardId: boardId,
               swimlaneId: swimlane._id,
@@ -157,7 +157,7 @@ class DeleteDuplicateEmptyListsMigration {
 
             // Move cards to the new list
             for (const card of swimlaneCards) {
-              Cards.update(card._id, {
+              await Cards.updateAsync(card._id, {
                 $set: {
                   listId: newListId,
                   swimlaneId: swimlane._id
@@ -171,7 +171,7 @@ class DeleteDuplicateEmptyListsMigration {
           } else {
             // Move cards to existing per-swimlane list
             for (const card of swimlaneCards) {
-              Cards.update(card._id, {
+              await Cards.updateAsync(card._id, {
                 $set: {
                   listId: existingList._id,
                   swimlaneId: swimlane._id
@@ -187,7 +187,7 @@ class DeleteDuplicateEmptyListsMigration {
       }
 
       // Remove the shared list (now that all cards are moved)
-      Lists.remove(sharedList._id);
+      await Lists.removeAsync(sharedList._id);
       listsConverted++;
 
       if (process.env.DEBUG === 'true') {
@@ -253,7 +253,7 @@ class DeleteDuplicateEmptyListsMigration {
       }
 
       // All safety checks passed - delete the empty per-swimlane list
-      Lists.remove(list._id);
+      await Lists.removeAsync(list._id);
       listsDeleted++;
 
       if (process.env.DEBUG === 'true') {

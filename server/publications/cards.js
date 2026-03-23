@@ -270,11 +270,11 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     console.log('dueCards userBoards count:', userBoards.length);
 
     // Also check if there are any cards with due dates in the system at all
-    const allCardsWithDueDates = Cards.find({
+    const allCardsWithDueDates = await Cards.find({
       type: 'cardType-card',
       archived: false,
       dueAt: { $exists: true, $nin: [null, ''] }
-    }).count();
+    }).countAsync();
     console.log('dueCards: total cards with due dates in system:', allCardsWithDueDates);
   }
 
@@ -327,10 +327,10 @@ Meteor.publish('dueCards', async function(allUsers = false) {
   const result = Cards.find(selector, options);
 
   if (process.env.DEBUG === 'true') {
-    const count = result.count();
+    const count = await result.countAsync();
     console.log('dueCards publication: returning', count, 'cards');
     if (count > 0) {
-      const sampleCards = result.fetch().slice(0, 3);
+      const sampleCards = (await result.fetchAsync()).slice(0, 3);
       console.log('dueCards publication: sample cards:', sampleCards.map(c => ({
         id: c._id,
         title: c.title,
@@ -368,7 +368,9 @@ Meteor.publish('sessionData', function(sessionId) {
 
   const cursor = SessionData.find({ userId, sessionId });
   if (process.env.DEBUG === 'true') {
-    console.log('sessionData publication returning cursor with count:', cursor.count());
+    cursor.countAsync().then(count => {
+      console.log('sessionData publication returning cursor with count:', count);
+    });
   }
   return cursor;
 });
@@ -986,11 +988,11 @@ async function findCards(sessionId, query) {
   }
 
   let cards = await ReactiveCache.getCards(query.selector, dbProjection, true);
-  let totalCardsCount = cards ? cards.count() : 0;
+  let totalCardsCount = cards ? await cards.countAsync() : 0;
   let orderedIds = [];
 
   if (isTextSearch && totalCardsCount > 0) {
-    let fetched = cards.fetch();
+    let fetched = await cards.fetchAsync();
     const regex = new RegExp(escapeForRegex(textMatches), 'i');
     fetched.forEach(c => {
       c._score = 0;
@@ -1057,14 +1059,14 @@ async function findCards(sessionId, query) {
   }
 
   // Check if the session data was actually stored
-  const storedSessionData = SessionData.findOne({ userId, sessionId });
+  const storedSessionData = await SessionData.findOneAsync({ userId, sessionId });
   if (process.env.DEBUG === 'true') {
     console.log('findCards - stored session data:', storedSessionData);
     console.log('findCards - stored session data count:', storedSessionData ? 1 : 0);
   }
 
   // remove old session data
-  SessionData.remove({
+  await SessionData.removeAsync({
     userId,
     modifiedAt: {
       $lt: new Date(
@@ -1117,14 +1119,18 @@ async function findCards(sessionId, query) {
     const sessionDataCursor = SessionData.find({ userId, sessionId });
     if (process.env.DEBUG === 'true') {
       console.log('findCards - publishing session data cursor (after delay):', sessionDataCursor);
-      console.log('findCards - session data count (after delay):', sessionDataCursor.count());
+      sessionDataCursor.countAsync().then(count => {
+        console.log('findCards - session data count (after delay):', count);
+      });
     }
   }, 100);
 
   const sessionDataCursor = SessionData.find({ userId, sessionId });
   if (process.env.DEBUG === 'true') {
     console.log('findCards - publishing session data cursor:', sessionDataCursor);
-    console.log('findCards - session data count:', sessionDataCursor.count());
+    sessionDataCursor.countAsync().then(count => {
+      console.log('findCards - session data count:', count);
+    });
   }
 
     return [
@@ -1153,7 +1159,9 @@ async function findCards(sessionId, query) {
   const sessionDataCursor = SessionData.find({ userId, sessionId });
   if (process.env.DEBUG === 'true') {
     console.log('findCards - publishing session data cursor (no cards):', sessionDataCursor);
-    console.log('findCards - session data count (no cards):', sessionDataCursor.count());
+    sessionDataCursor.countAsync().then(count => {
+      console.log('findCards - session data count (no cards):', count);
+    });
   }
   return [sessionDataCursor];
 }

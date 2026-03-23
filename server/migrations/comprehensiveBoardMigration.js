@@ -22,6 +22,7 @@ import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
 import Swimlanes from '/models/swimlanes';
+import Users from '/models/users';
 import Attachments from '/models/attachments';
 import { generateUniversalAttachmentUrl, isUniversalFileUrl } from '/models/lib/universalUrlGenerator';
 
@@ -261,7 +262,7 @@ class ComprehensiveBoardMigration {
       });
 
       // Mark board as processed
-      Boards.update(boardId, {
+      await Boards.updateAsync(boardId, {
         $set: {
           comprehensiveMigrationCompleted: true,
           comprehensiveMigrationCompletedAt: new Date(),
@@ -329,7 +330,7 @@ class ComprehensiveBoardMigration {
 
         if (!defaultList) {
           // Create a default list for this swimlane
-          const newListId = Lists.insert({
+          const newListId = await Lists.insertAsync({
             title: 'Default',
             boardId: boardId,
             swimlaneId: swimlaneId,
@@ -347,7 +348,7 @@ class ComprehensiveBoardMigration {
       }
 
       if (needsUpdate) {
-        Cards.update(card._id, {
+        await Cards.updateAsync(card._id, {
           $set: {
             ...updates,
             modifiedAt: new Date()
@@ -449,14 +450,14 @@ class ComprehensiveBoardMigration {
           if (originalList.collapsed) newListData.collapsed = originalList.collapsed;
 
           // Insert the new list
-          const newListId = Lists.insert(newListData);
+          const newListId = await Lists.insertAsync(newListData);
           targetList = { _id: newListId, ...newListData };
           listsCreated++;
         }
 
         // Update all cards in this group to use the correct listId
         for (const card of cardsInList) {
-          Cards.update(card._id, {
+          await Cards.updateAsync(card._id, {
             $set: {
               listId: targetList._id,
               modifiedAt: new Date()
@@ -484,7 +485,7 @@ class ComprehensiveBoardMigration {
     for (const list of lists) {
       if (!list.swimlaneId || list.swimlaneId === '') {
         // Assign to default swimlane
-        Lists.update(list._id, {
+        await Lists.updateAsync(list._id, {
           $set: {
             swimlaneId: defaultSwimlane._id,
             modifiedAt: new Date()
@@ -511,7 +512,7 @@ class ComprehensiveBoardMigration {
 
       if (listCards.length === 0) {
         // Remove empty list
-        Lists.remove(list._id);
+        await Lists.removeAsync(list._id);
         listsRemoved++;
 
         if (process.env.DEBUG === 'true') {
@@ -591,7 +592,7 @@ class ComprehensiveBoardMigration {
 
         if (needsUpdate) {
           // Update user's avatar URL
-          Users.update(user._id, {
+          await Users.updateAsync(user._id, {
             $set: {
               'profile.avatarUrl': cleanUrl,
               modifiedAt: new Date()
@@ -651,7 +652,7 @@ class ComprehensiveBoardMigration {
 
         if (needsUpdate) {
           // Update attachment URL
-          Attachments.update(attachment._id, {
+          await Attachments.updateAsync(attachment._id, {
             $set: {
               url: cleanUrl,
               modifiedAt: new Date()

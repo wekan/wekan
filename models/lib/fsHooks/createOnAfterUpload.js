@@ -27,7 +27,7 @@ export const createOnAfterUpload = bucket =>
         // that occurred during the upload to prevent zombie files
         .on('error', err => {
           // console.error("[createOnAfterUpload error]", err);
-          self.unlink(this.collection.findOne(file._id), versionName); // Unlink files from FS
+          self.unlink(file, versionName); // Unlink files from FS
         })
 
         // once we are finished, we attach the gridFS Object id on the
@@ -35,17 +35,19 @@ export const createOnAfterUpload = bucket =>
         // upload file from the filesystem
         .on(
           'finish',
-          Meteor.bindEnvironment(ver => {
+          ver => {
             const property = `versions.${versionName}.meta.gridFsFileId`;
 
-            self.collection.update(file._id, {
+            self.collection.updateAsync(file._id, {
               $set: {
                 [property]: ver._id.toHexString(),
               },
+            }).catch(err => {
+              console.error('[createOnAfterUpload update error]', err);
             });
 
-            self.unlink(this.collection.findOne(file._id), versionName); // Unlink files from FS
-          }),
+            self.unlink(file, versionName); // Unlink files from FS
+          },
         );
     });
   };

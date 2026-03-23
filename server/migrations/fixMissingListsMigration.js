@@ -165,7 +165,7 @@ class FixMissingListsMigration {
             if (originalList.collapsed) newListData.collapsed = originalList.collapsed;
 
             // Insert the new list
-            const newListId = Lists.insert(newListData);
+            const newListId = await Lists.insertAsync(newListData);
             targetList = { _id: newListId, ...newListData };
             createdLists++;
 
@@ -176,7 +176,7 @@ class FixMissingListsMigration {
 
           // Update all cards in this group to use the correct listId
           for (const card of cardsInList) {
-            Cards.update(card._id, {
+            await Cards.updateAsync(card._id, {
               $set: {
                 listId: targetList._id,
                 modifiedAt: new Date()
@@ -188,7 +188,7 @@ class FixMissingListsMigration {
       }
 
       // Mark board as processed
-      Boards.update(boardId, {
+      await Boards.updateAsync(boardId, {
         $set: {
           fixMissingListsCompleted: true,
           fixMissingListsCompletedAt: new Date()

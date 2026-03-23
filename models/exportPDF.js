@@ -1,13 +1,16 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { runOnServer } from './runOnServer';
+import ImpersonatedUsers from '/models/impersonatedUsers';
 
 runOnServer(function() {
   // the ExporterCardPDF class is only available on server and in order to import
   // it here we use runOnServer to have it inside a function instead of an
   // if (Meteor.isServer) block
-  import { ExporterCardPDF } from './server/ExporterCardPDF';
-  import { WebApp } from 'meteor/webapp';
+  const { ExporterCardPDF } = require('./server/ExporterCardPDF');
+  const { WebApp } = require('meteor/webapp');
+  const { Authentication } = require('/server/authentication');
 
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
@@ -95,7 +98,7 @@ runOnServer(function() {
     );
     if (await exporterCardPDF.canExport(user) || impersonateDone) {
       if (impersonateDone) {
-        ImpersonatedUsers.insert({
+        await ImpersonatedUsers.insertAsync({
           adminId: adminId,
           boardId: boardId,
           reason: 'exportCardPDF',

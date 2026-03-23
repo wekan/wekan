@@ -1,10 +1,12 @@
 import DOMPurify from 'dompurify';
+import MarkdownIt from 'markdown-it';
+import * as markdownItEmoji from 'markdown-it-emoji';
 import { getSecureDOMPurifyConfig } from './secureDOMPurify';
 import { Blaze } from 'meteor/blaze';
 import { HTML } from 'meteor/htmljs';
 import { Template } from 'meteor/templating';
 
-var Markdown = require('markdown-it')({
+const Markdown = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
@@ -39,20 +41,9 @@ for(var i=0; i<urlschemes.length;i++){
   Markdown.linkify.add(urlschemes[i]+":",'http:');
 }
 
-// Try to load emoji support, but don't fail if it's not available
-try {
-  var emoji = require('markdown-it-emoji');
-  Markdown.use(emoji);
-} catch (e) {
-  console.warn('markdown-it-emoji not available, emoji rendering disabled:', e.message);
-}
-
-// Try to load mathjax3, but don't fail if it's not available
-try {
-  var mathjax = require('markdown-it-mathjax3');
-  Markdown.use(mathjax);
-} catch (e) {
-  console.warn('markdown-it-mathjax3 not available, math rendering disabled:', e.message);
+const emojiPlugin = markdownItEmoji.full || markdownItEmoji.default || markdownItEmoji;
+if (emojiPlugin) {
+  Markdown.use(emojiPlugin);
 }
 
 // Custom plugin to prevent SVG-based DoS attacks

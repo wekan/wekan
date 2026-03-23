@@ -1,10 +1,12 @@
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { fetchSafe } from '/server/lib/ssrfGuard';
+import CardComments from '/models/cardComments';
+import Integrations from '/models/integrations';
 
-if (Meteor.isServer) {
-
-  const Lock = {
+const Lock = {
     _lock: {},
     _timer: {},
     echoDelay: 500, // echo should be happening much faster
@@ -91,7 +93,7 @@ if (Meteor.isServer) {
       if (board && card && comment) {
         // Only update existing comments - do not create new comments from webhook responses
         Lock.set(comment._id, newComment);
-        CardComments.direct.update(comment._id, {
+        await CardComments.direct.updateAsync(comment._id, {
           $set: {
             text: newComment,
           },
@@ -99,9 +101,9 @@ if (Meteor.isServer) {
       }
     }
   };
-  Meteor.methods({
+Meteor.methods({
     async outgoingWebhooks(integration, description, params) {
-      if (await ReactiveCache.getCurrentUser()) {
+      if (this.userId) {
         check(integration, Object);
         check(description, String);
         check(params, Object);
@@ -128,8 +130,11 @@ if (Meteor.isServer) {
           if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
         });
 
-        const userId = params.userId ? params.userId : integrations[0].userId;
+        const userId = params.userId || integration.userId || this.userId;
         const user = await ReactiveCache.getUser(userId);
+        if (!user || typeof user.getLanguage !== 'function') {
+          return;
+        }
         const descriptionText = TAPi18n.__(
           description,
           quoteParams,
@@ -215,4 +220,3 @@ if (Meteor.isServer) {
       }
     },
   });
-}

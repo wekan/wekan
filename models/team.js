@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-Team = new Mongo.Collection('team');
+const Team = new Mongo.Collection('team');
 
 /**
  * A Team in Wekan. Organization in Trello.
@@ -63,7 +65,6 @@ Team.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -75,201 +76,5 @@ Team.attachSchema(
     },
   }),
 );
-
-if (Meteor.isServer) {
-  Team.allow({
-    async insert(userId, doc) {
-      const user = await Meteor.users.findOneAsync(userId);
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    async update(userId, doc) {
-      const user = await Meteor.users.findOneAsync(userId);
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    async remove(userId, doc) {
-      const user = await Meteor.users.findOneAsync(userId);
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    fetch: [],
-  });
-
-  Meteor.methods({
-    async setCreateTeam(
-      teamDisplayName,
-      teamDesc,
-      teamShortName,
-      teamWebsite,
-      teamIsActive,
-    ) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(teamDisplayName, String);
-        check(teamDesc, String);
-        check(teamShortName, String);
-        check(teamWebsite, String);
-        check(teamIsActive, Boolean);
-
-        const nTeamNames = (await ReactiveCache.getTeams({ teamShortName })).length;
-        if (nTeamNames > 0) {
-          throw new Meteor.Error('teamname-already-taken');
-        } else {
-          await Team.insertAsync({
-            teamDisplayName,
-            teamDesc,
-            teamShortName,
-            teamWebsite,
-            teamIsActive,
-          });
-        }
-      }
-    },
-    async setCreateTeamFromOidc(
-      teamDisplayName,
-      teamDesc,
-      teamShortName,
-      teamWebsite,
-      teamIsActive,
-    ) {
-      check(teamDisplayName, String);
-      check(teamDesc, String);
-      check(teamShortName, String);
-      check(teamWebsite, String);
-      check(teamIsActive, Boolean);
-      const nTeamNames = (await ReactiveCache.getTeams({ teamShortName })).length;
-      if (nTeamNames > 0) {
-        throw new Meteor.Error('teamname-already-taken');
-      } else {
-        await Team.insertAsync({
-          teamDisplayName,
-          teamDesc,
-          teamShortName,
-          teamWebsite,
-          teamIsActive,
-        });
-      }
-    },
-    async setTeamDisplayName(team, teamDisplayName) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(team, Object);
-        check(teamDisplayName, String);
-        Team.update(team, {
-          $set: { teamDisplayName: teamDisplayName },
-        });
-        await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
-      }
-    },
-
-    async setTeamDesc(team, teamDesc) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(team, Object);
-        check(teamDesc, String);
-        Team.update(team, {
-          $set: { teamDesc: teamDesc },
-        });
-      }
-    },
-
-    async setTeamShortName(team, teamShortName) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(team, Object);
-        check(teamShortName, String);
-        Team.update(team, {
-          $set: { teamShortName: teamShortName },
-        });
-      }
-    },
-
-    async setTeamIsActive(team, teamIsActive) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(team, Object);
-        check(teamIsActive, Boolean);
-        Team.update(team, {
-          $set: { teamIsActive: teamIsActive },
-        });
-      }
-    },
-    async setTeamAllFieldsFromOidc(
-      team,
-      teamDisplayName,
-      teamDesc,
-      teamShortName,
-      teamWebsite,
-      teamIsActive,
-    ) {
-        check(team, Object);
-        check(teamDisplayName, String);
-        check(teamDesc, String);
-        check(teamShortName, String);
-        check(teamWebsite, String);
-        check(teamIsActive, Boolean);
-        Team.update(team, {
-          $set: {
-            teamDisplayName: teamDisplayName,
-            teamDesc: teamDesc,
-            teamShortName: teamShortName,
-            teamWebsite: teamWebsite,
-            teamIsActive: teamIsActive,
-          },
-        });
-        await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
-      },
-    async setTeamAllFields(
-      team,
-      teamDisplayName,
-      teamDesc,
-      teamShortName,
-      teamWebsite,
-      teamIsActive,
-    ) {
-      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-        check(team, Object);
-        check(teamDisplayName, String);
-        check(teamDesc, String);
-        check(teamShortName, String);
-        check(teamWebsite, String);
-        check(teamIsActive, Boolean);
-        Team.update(team, {
-          $set: {
-            teamDisplayName: teamDisplayName,
-            teamDesc: teamDesc,
-            teamShortName: teamShortName,
-            teamWebsite: teamWebsite,
-            teamIsActive: teamIsActive,
-          },
-        });
-        await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
-      }
-    },
-    async getTeamsCollectionCount(query = {}) {
-      if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
-        throw new Meteor.Error('not-authorized');
-      }
-      check(query, Match.OneOf(Object, null, undefined));
-      const count = await (await ReactiveCache.getTeams(query, {}, true)).count();
-      return count;
-    },
-  });
-}
-
-if (Meteor.isServer) {
-  // Index for Team name.
-  Meteor.startup(async () => {
-    await Team._collection.createIndexAsync({ teamDisplayName: 1 });
-  });
-}
 
 export default Team;

@@ -35,9 +35,9 @@ const respondWithText = (res, contentType, body) => {
   res.end(body);
 };
 
-WebApp.handlers.use('/site.webmanifest', (req, res, next) => {
+WebApp.handlers.use('/site.webmanifest', async (req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-  const setting = Settings.findOne(
+  const setting = await Settings.findOneAsync(
     {},
     {
       fields: {
@@ -62,9 +62,9 @@ WebApp.handlers.use('/site.webmanifest', (req, res, next) => {
   return next();
 });
 
-WebApp.handlers.use('/.well-known/assetlinks.json', (req, res, next) => {
+WebApp.handlers.use('/.well-known/assetlinks.json', async (req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-  const setting = Settings.findOne(
+  const setting = await Settings.findOneAsync(
     {},
     {
       fields: {

@@ -15,6 +15,11 @@ import Lists from '/models/lists';
 import Cards from '/models/cards';
 import Swimlanes from '/models/swimlanes';
 
+function getTranslatedString(key, fallback, options) {
+  const translated = TAPi18n.__(key, options);
+  return typeof translated === 'string' ? translated : fallback;
+}
+
 class RestoreAllArchivedMigration {
   constructor() {
     this.name = 'restoreAllArchived';
@@ -66,7 +71,7 @@ class RestoreAllArchivedMigration {
 
       // Restore all archived swimlanes
       for (const swimlane of archivedSwimlanes) {
-        Swimlanes.update(swimlane._id, {
+        await Swimlanes.updateAsync(swimlane._id, {
           $set: {
             archived: false,
             updatedAt: new Date()
@@ -93,8 +98,8 @@ class RestoreAllArchivedMigration {
 
           if (!targetSwimlane) {
             // No active swimlane found, create default
-            const swimlaneId = Swimlanes.insert({
-              title: TAPi18n.__('default'),
+            const swimlaneId = await Swimlanes.insertAsync({
+              title: getTranslatedString('default', 'Default'),
               boardId: boardId,
               sort: 0,
               createdAt: new Date(),
@@ -112,7 +117,7 @@ class RestoreAllArchivedMigration {
           }
         }
 
-        Lists.update(list._id, {
+        await Lists.updateAsync(list._id, {
           $set: updateFields
         });
         results.listsRestored++;
@@ -144,8 +149,8 @@ class RestoreAllArchivedMigration {
             // No active list found, create one
             const defaultSwimlane = allSwimlanes.find(s => !s.archived) || allSwimlanes[0];
 
-            const listId = Lists.insert({
-              title: TAPi18n.__('default'),
+            const listId = await Lists.insertAsync({
+              title: getTranslatedString('default', 'Default'),
               boardId: boardId,
               swimlaneId: defaultSwimlane._id,
               sort: 0,
@@ -188,7 +193,7 @@ class RestoreAllArchivedMigration {
           }
         }
 
-        Cards.update(card._id, {
+        await Cards.updateAsync(card._id, {
           $set: updateFields
         });
         results.cardsRestored++;

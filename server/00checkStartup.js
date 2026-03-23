@@ -2,18 +2,6 @@ import '../models/users';
 const fs = require('fs');
 const os = require('os');
 
-// Configure SyncedCron to suppress console logging
-// This must be done before any SyncedCron operations
-if (Meteor.isServer) {
-  const { SyncedCron } = require('meteor/quave:synced-cron');
-  SyncedCron.config({
-    log: false, // Disable console logging
-    collectionName: 'cronJobs', // Use custom collection name
-    utc: false, // Use local time
-    collectionTTL: 172800 // 2 days TTL
-  });
-}
-
 let errors = [];
 if (!process.env.WRITABLE_PATH) {
   errors.push("WRITABLE_PATH environment variable missing and/or unset, please configure !");

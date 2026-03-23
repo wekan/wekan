@@ -1,8 +1,15 @@
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { ALLOWED_COLORS } from '/config/const';
+import { SWIMLANE_COLORS } from '/models/metadata/colors';
 import PositionHistory from './positionHistory';
+import Activities from '/models/activities';
+import Boards from '/models/boards';
+import Cards from '/models/cards';
+import Lists from '/models/lists';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-Swimlanes = new Mongo.Collection('swimlanes');
+const Swimlanes = new Mongo.Collection('swimlanes');
 
 /**
  * A swimlane is an line in the kaban board.
@@ -61,7 +68,6 @@ Swimlanes.attachSchema(
        * the sort value of the swimlane
        */
       type: Number,
-      decimal: true,
       // XXX We should probably provide a default
       optional: true,
     },
@@ -72,7 +78,7 @@ Swimlanes.attachSchema(
       type: String,
       optional: true,
       // silver is the default
-      allowedValues: ALLOWED_COLORS,
+      allowedValues: SWIMLANE_COLORS,
     },
     updatedAt: {
       /**
@@ -91,7 +97,6 @@ Swimlanes.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -129,22 +134,6 @@ Swimlanes.attachSchema(
     // NOTE: height is per-board (shared with all users), stored in swimlanes.height
   }),
 );
-
-Swimlanes.allow({
-  async insert(userId, doc) {
-    // ReadOnly and CommentOnly users cannot create swimlanes
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  async update(userId, doc) {
-    // ReadOnly and CommentOnly users cannot edit swimlanes
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  async remove(userId, doc) {
-    // ReadOnly and CommentOnly users cannot delete swimlanes
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  fetch: ['boardId'],
-});
 
 Swimlanes.helpers({
   async copy(boardId, targetSwimlaneId = null, position = 'below', title = '') {
@@ -488,302 +477,42 @@ Swimlanes.archivedSwimlaneIds = async () => {
 
 Swimlanes.hookOptions.after.update = { fetchPrevious: false };
 
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await Swimlanes._collection.createIndexAsync({ modifiedAt: -1 });
-    await Swimlanes._collection.createIndexAsync({ boardId: 1 });
-  });
-
-  Swimlanes.after.insert((userId, doc) => {
-    Activities.insert({
-      userId,
-      type: 'swimlane',
-      activityType: 'createSwimlane',
-      boardId: doc.boardId,
-      swimlaneId: doc._id,
-    });
-
-    // Track original position for new swimlanes
-    Meteor.setTimeout(() => {
-      const swimlane = Swimlanes.findOne(doc._id);
-      if (swimlane) {
-        swimlane.trackOriginalPosition();
-      }
-    }, 100);
-  });
-
-  Swimlanes.before.remove(async function(userId, doc) {
-    const lists = await ReactiveCache.getLists(
-      {
-        boardId: doc.boardId,
-        swimlaneId: { $in: [doc._id, ''] },
-        archived: false,
-      },
-      { sort: ['sort'] },
-    );
-
-    if (lists.length < 2) {
-      for (const list of lists) {
-        await list.remove();
-      }
-    } else {
-      await Cards.removeAsync({ swimlaneId: doc._id });
-    }
-
-    await Activities.insertAsync({
-      userId,
-      type: 'swimlane',
-      activityType: 'removeSwimlane',
-      boardId: doc.boardId,
-      swimlaneId: doc._id,
-      title: doc.title,
-    });
-  });
-
-  Swimlanes.after.update((userId, doc, fieldNames) => {
-    if (fieldNames.includes('title')) {
-      Activities.insert({
-        userId,
-        type: 'swimlane',
-        activityType: 'changedSwimlaneTitle',
-        listId: doc._id,
-        boardId: doc.boardId,
-        // this preserves the name so that the activity can be useful after the
-        // list is deleted
-        title: doc.title,
-      });
-    } else if (doc.archived)  {
-      Activities.insert({
-        userId,
-        type: 'swimlane',
-        activityType: 'archivedSwimlane',
-        listId: doc._id,
-        boardId: doc.boardId,
-        // this preserves the name so that the activity can be useful after the
-        // list is deleted
-        title: doc.title,
-      });
-    } else if (fieldNames.includes('archived'))  {
-      Activities.insert({
-        userId,
-        type: 'swimlane',
-        activityType: 'restoredSwimlane',
-        listId: doc._id,
-        boardId: doc.boardId,
-        // this preserves the name so that the activity can be useful after the
-        // list is deleted
-        title: doc.title,
-      });
-    }
-  });
-}
-
-//SWIMLANE REST API
-if (Meteor.isServer) {
-  /**
-   * @operation get_all_swimlanes
-   *
-   * @summary Get the list of swimlanes attached to a board
-   *
-   * @param {string} boardId the ID of the board
-   * @return_type [{_id: string,
-   *                title: string}]
-   */
-  JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes', async function(req, res) {
-    try {
-      const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
-      const swimlanes = await ReactiveCache.getSwimlanes({ boardId: paramBoardId, archived: false });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: swimlanes.map(
-          function(doc) {
-            return {
-              _id: doc._id,
-              title: doc.title,
-            };
-          },
-        ),
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation get_swimlane
-   *
-   * @summary Get a swimlane
-   *
-   * @param {string} boardId the ID of the board
-   * @param {string} swimlaneId the ID of the swimlane
-   * @return_type Swimlanes
-   */
-  JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes/:swimlaneId', async function(
-    req,
-    res,
-  ) {
-    try {
-      const paramBoardId = req.params.boardId;
-      const paramSwimlaneId = req.params.swimlaneId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: await ReactiveCache.getSwimlane({
-          _id: paramSwimlaneId,
-          boardId: paramBoardId,
-          archived: false,
-        }),
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation new_swimlane
-   *
-   * @summary Add a swimlane to a board
-   *
-   * @param {string} boardId the ID of the board
-   * @param {string} title the new title of the swimlane
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('POST', '/api/boards/:boardId/swimlanes', async function(req, res) {
-    try {
-      const paramBoardId = req.params.boardId;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-
-      const board = await ReactiveCache.getBoard(paramBoardId);
-      const id = await Swimlanes.insertAsync({
-        title: req.body.title,
-        boardId: paramBoardId,
-        sort: board.swimlanes().length,
-      });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: id,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation edit_swimlane
-   *
-   * @summary Edit the title of a swimlane
-   *
-   * @param {string} boardId the ID of the board
-   * @param {string} swimlaneId the ID of the swimlane to edit
-   * @param {string} title the new title of the swimlane
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('PUT', '/api/boards/:boardId/swimlanes/:swimlaneId', async function(req, res) {
-    try {
-      const paramBoardId = req.params.boardId;
-      const paramSwimlaneId = req.params.swimlaneId;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-      const board = await ReactiveCache.getBoard(paramBoardId);
-      const swimlane = await ReactiveCache.getSwimlane({
-        _id: paramSwimlaneId,
-        boardId: paramBoardId,
-      });
-      if (!swimlane) {
-        throw new Meteor.Error('not-found', 'Swimlane not found');
-      }
-      Swimlanes.direct.update(
-        { _id: paramSwimlaneId },
-        { $set: { title: req.body.title } }
-      );
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramSwimlaneId,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation delete_swimlane
-   *
-   * @summary Delete a swimlane
-   *
-   * @description The swimlane will be deleted, not moved to the recycle bin
-   *
-   * @param {string} boardId the ID of the board
-   * @param {string} swimlaneId the ID of the swimlane
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add(
-    'DELETE',
-    '/api/boards/:boardId/swimlanes/:swimlaneId',
-    function(req, res) {
-      try {
-        const paramBoardId = req.params.boardId;
-        const paramSwimlaneId = req.params.swimlaneId;
-        Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-        Swimlanes.remove({ _id: paramSwimlaneId, boardId: paramBoardId });
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: {
-            _id: paramSwimlaneId,
-          },
-        });
-      } catch (error) {
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: error,
-        });
-      }
-    },
-  );
-}
-
 // Position history tracking methods
 Swimlanes.helpers({
   /**
    * Track the original position of this swimlane
    */
   trackOriginalPosition() {
-    const existingHistory = PositionHistory.findOne({
+    const selector = {
       boardId: this.boardId,
       entityType: 'swimlane',
       entityId: this._id,
-    });
+    };
+    const document = {
+      boardId: this.boardId,
+      entityType: 'swimlane',
+      entityId: this._id,
+      originalPosition: {
+        sort: this.sort,
+        title: this.title,
+      },
+      originalTitle: this.title,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
-    if (!existingHistory) {
-      PositionHistory.insert({
-        boardId: this.boardId,
-        entityType: 'swimlane',
-        entityId: this._id,
-        originalPosition: {
-          sort: this.sort,
-          title: this.title,
-        },
-        originalTitle: this.title,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+    if (Meteor.isServer) {
+      return PositionHistory.findOneAsync(selector).then(existingHistory => {
+        if (!existingHistory) {
+          return PositionHistory.insertAsync(document);
+        }
+        return existingHistory;
       });
+    }
+
+    const existingHistory = PositionHistory.findOne(selector);
+    if (!existingHistory) {
+      PositionHistory.insert(document);
     }
   },
 
@@ -791,11 +520,15 @@ Swimlanes.helpers({
    * Get the original position history for this swimlane
    */
   getOriginalPosition() {
-    return PositionHistory.findOne({
+    const selector = {
       boardId: this.boardId,
       entityType: 'swimlane',
       entityId: this._id,
-    });
+    };
+    if (Meteor.isServer) {
+      return PositionHistory.findOneAsync(selector);
+    }
+    return PositionHistory.findOne(selector);
   },
 
   /**

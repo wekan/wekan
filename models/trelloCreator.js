@@ -1,6 +1,17 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { CustomFields } from './customFields';
+import Activities from '/models/activities';
+import Attachments from '/models/attachments';
+import Boards from '/models/boards';
+import { BOARD_COLORS } from '/models/metadata/colors';
+import CardComments from '/models/cardComments';
+import Cards from '/models/cards';
+import ChecklistItems from '/models/checklistItems';
+import Checklists from '/models/checklists';
+import CustomFields from './customFields';
+import Lists from '/models/lists';
+import Swimlanes from '/models/swimlanes';
 import {
   formatDateTime,
   formatDate,
@@ -252,10 +263,10 @@ export class TrelloCreator {
         boardToCreate.labels.push(labelToCreate);
       });
     }
-    const boardId = Boards.direct.insert(boardToCreate);
-    Boards.direct.update(boardId, { $set: { modifiedAt: this._now() } });
+    const boardId = await Boards.direct.insertAsync(boardToCreate);
+    await Boards.direct.updateAsync(boardId, { $set: { modifiedAt: this._now() } });
     // log activity
-    Activities.direct.insert({
+    await Activities.direct.insertAsync({
       activityType: 'importBoard',
       boardId,
       createdAt: this._now(),
@@ -269,7 +280,7 @@ export class TrelloCreator {
       userId: this._user(),
     });
     if (trelloBoard.customFields) {
-      trelloBoard.customFields.forEach(field => {
+      for (const field of trelloBoard.customFields) {
         const fieldToCreate = {
           // trelloId: field.id,
           name: field.name,
@@ -296,8 +307,8 @@ export class TrelloCreator {
 
         // We need to remember them by Trello ID, as this is the only ref we have
         // when importing cards.
-        this.customFields[field.id] = CustomFields.direct.insert(fieldToCreate);
-      });
+        this.customFields[field.id] = await CustomFields.direct.insertAsync(fieldToCreate);
+      }
     }
     return boardId;
   }
@@ -398,7 +409,7 @@ export class TrelloCreator {
       }
 
       // insert card
-      const cardId = Cards.direct.insert(cardToCreate);
+      const cardId = await Cards.direct.insertAsync(cardToCreate);
       // keep track of Trello id => Wekan id
       this.cards[card.id] = cardId;
       // log activity
@@ -420,7 +431,7 @@ export class TrelloCreator {
       // add comments
       const comments = this.comments[card.id];
       if (comments) {
-        comments.forEach(comment => {
+        for (const comment of comments) {
           const commentToCreate = {
             boardId,
             cardId,
@@ -431,10 +442,10 @@ export class TrelloCreator {
           };
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
-          const commentId = CardComments.direct.insert(commentToCreate);
+          const commentId = await CardComments.direct.insertAsync(commentToCreate);
           // We need to keep adding comment activities this way with Trello
           // because it doesn't provide a comment ID
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             activityType: 'addComment',
             boardId: commentToCreate.boardId,
             cardId: commentToCreate.cardId,
@@ -444,7 +455,7 @@ export class TrelloCreator {
             // to the original author - it is needed by some UI elements.
             userId: commentToCreate.userId,
           });
-        });
+        }
       }
       const attachments = this.attachments[card.id];
       const trelloCoverId = card.idAttachmentCover;
@@ -460,13 +471,13 @@ export class TrelloCreator {
               source: 'import',
             },
           };
-          const cb = (error, fileObj) => {
+          const cb = async (error, fileObj) => {
             if (error) {
               throw error;
             }
             self.attachmentIds[att._id] = fileObj._id;
             if (trelloCoverId === att._id) {
-              Cards.direct.update(cardId, {
+              await Cards.direct.updateAsync(cardId, {
                 $set: { coverId: fileObj._id },
               });
             }
@@ -499,7 +510,7 @@ export class TrelloCreator {
             links.forEach(link => {
               desc += `* ${link}\n`;
             });
-            Cards.direct.update(cardId, {
+            await Cards.direct.updateAsync(cardId, {
               $set: {
                 description: desc,
               },
@@ -527,8 +538,8 @@ export class TrelloCreator {
     });
   }
 
-  createLists(trelloLists, boardId) {
-    trelloLists.forEach(list => {
+  async createLists(trelloLists, boardId) {
+    for (const list of trelloLists) {
       const listToCreate = {
         archived: list.closed,
         boardId,
@@ -540,8 +551,8 @@ export class TrelloCreator {
         title: list.name,
         sort: list.pos,
       };
-      const listId = Lists.direct.insert(listToCreate);
-      Lists.direct.update(listId, { $set: { updatedAt: this._now() } });
+      const listId = await Lists.direct.insertAsync(listToCreate);
+      await Lists.direct.updateAsync(listId, { $set: { updatedAt: this._now() } });
       this.lists[list.id] = listId;
       // log activity
       // Activities.direct.insert({
@@ -557,10 +568,10 @@ export class TrelloCreator {
       //   // not the creator of the original object
       //   userId: this._user(),
       // });
-    });
+    }
   }
 
-  createSwimlanes(boardId) {
+  async createSwimlanes(boardId) {
     const swimlaneToCreate = {
       archived: false,
       boardId,
@@ -572,13 +583,13 @@ export class TrelloCreator {
       title: 'Default',
       sort: 1,
     };
-    const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
-    Swimlanes.direct.update(swimlaneId, { $set: { updatedAt: this._now() } });
+    const swimlaneId = await Swimlanes.direct.insertAsync(swimlaneToCreate);
+    await Swimlanes.direct.updateAsync(swimlaneId, { $set: { updatedAt: this._now() } });
     this.swimlane = swimlaneId;
   }
 
-  createChecklists(trelloChecklists) {
-    trelloChecklists.forEach(checklist => {
+  async createChecklists(trelloChecklists) {
+    for (const checklist of trelloChecklists) {
       if (this.cards[checklist.idCard]) {
         // Create the checklist
         const checklistToCreate = {
@@ -587,12 +598,12 @@ export class TrelloCreator {
           createdAt: this._now(),
           sort: checklist.pos,
         };
-        const checklistId = Checklists.direct.insert(checklistToCreate);
+        const checklistId = await Checklists.direct.insertAsync(checklistToCreate);
         // keep track of Trello id => Wekan id
         this.checklists[checklist.id] = checklistId;
         // Now add the items to the checklistItems
         let counter = 0;
-        checklist.checkItems.forEach(item => {
+        for (const item of checklist.checkItems) {
           counter++;
           const checklistItemTocreate = {
             _id: checklistId + counter,
@@ -602,10 +613,10 @@ export class TrelloCreator {
             sort: item.pos,
             isFinished: item.state === 'complete',
           };
-          ChecklistItems.direct.insert(checklistItemTocreate);
-        });
+          await ChecklistItems.direct.insertAsync(checklistItemTocreate);
+        }
       }
-    });
+    }
   }
 
   getAdmin(trelloMemberType) {
@@ -626,7 +637,7 @@ export class TrelloCreator {
       grey: 'midnight',
     };
     const wekanColor = mapColors[trelloColorCode];
-    return wekanColor || Boards.simpleSchema()._schema.color.allowedValues[0];
+    return wekanColor || BOARD_COLORS[0];
   }
 
   getPermission(trelloPermissionCode) {
@@ -676,13 +687,13 @@ export class TrelloCreator {
     });
   }
 
-  importActions(actions, boardId) {
-    actions.forEach(action => {
+  async importActions(actions, boardId) {
+    for (const action of actions) {
       switch (action.type) {
         // Board related actions
         // TODO: addBoardMember, removeBoardMember
         case 'createBoard': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(action.idMemberCreator),
             type: 'board',
             activityTypeId: boardId,
@@ -695,7 +706,7 @@ export class TrelloCreator {
         // List related activities
         // TODO: removeList, archivedList
         case 'createList': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(action.idMemberCreator),
             type: 'list',
             activityType: 'createList',
@@ -708,7 +719,7 @@ export class TrelloCreator {
         // Card related activities
         // TODO: archivedCard, restoredCard, joinMember, unjoinMember
         case 'createCard': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(action.idMemberCreator),
             activityType: 'createCard',
             listId: this.lists[action.data.list.id],
@@ -720,7 +731,7 @@ export class TrelloCreator {
         }
         case 'updateCard': {
           if (action.data.old.idList) {
-            Activities.direct.insert({
+            await Activities.direct.insertAsync({
               userId: this._user(action.idMemberCreator),
               oldListId: this.lists[action.data.old.idList],
               activityType: 'moveCard',
@@ -736,7 +747,7 @@ export class TrelloCreator {
         // Trello doesn't export the comment id
         // Attachment related activities
         case 'addAttachmentToCard': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(action.idMemberCreator),
             type: 'card',
             activityType: 'addAttachment',
@@ -749,7 +760,7 @@ export class TrelloCreator {
         }
         // Checklist related activities
         case 'addChecklistToCard': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(action.idMemberCreator),
             activityType: 'addChecklist',
             cardId: this.cards[action.data.card.id],
@@ -761,7 +772,7 @@ export class TrelloCreator {
         }
       }
       // Trello doesn't have an add checklist item action
-    });
+    }
   }
 
   check(board) {
@@ -792,11 +803,11 @@ export class TrelloCreator {
     }
     this.parseActions(board.actions);
     const boardId = await this.createBoardAndLabels(board);
-    this.createLists(board.lists, boardId);
-    this.createSwimlanes(boardId);
+    await this.createLists(board.lists, boardId);
+    await this.createSwimlanes(boardId);
     await this.createCards(board.cards, boardId);
-    this.createChecklists(board.checklists);
-    this.importActions(board.actions, boardId);
+    await this.createChecklists(board.checklists);
+    await this.importActions(board.actions, boardId);
     // XXX add members
     return boardId;
   }

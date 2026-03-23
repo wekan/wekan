@@ -1,9 +1,16 @@
+import Boards from '/models/boards';
+import Lists from '/models/lists';
+import Cards from '/models/cards';
+
 // simple version, only toggle watch / unwatch
 const simpleWatchable = collection => {
   collection.attachSchema({
     watchers: {
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'watchers.$': {
+      type: String,
     },
   });
 
@@ -37,8 +44,11 @@ const complexWatchDefault = 'muted';
 const complexWatchable = collection => {
   collection.attachSchema({
     watchers: {
-      type: [Object],
+      type: Array,
       optional: true,
+    },
+    'watchers.$': {
+      type: Object,
     },
     'watchers.$.userId': {
       type: String,

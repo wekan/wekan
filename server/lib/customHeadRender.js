@@ -2,11 +2,24 @@ import { WebApp } from 'meteor/webapp';
 import { WebAppInternals } from 'meteor/webapp';
 import Settings from '/models/settings';
 
-Meteor.startup(() => {
+// Cache the setting since the boilerplate callback is synchronous
+let cachedSetting = null;
+
+Meteor.startup(async () => {
+  // Load initial setting
+  cachedSetting = await Settings.findOneAsync();
+
+  // Keep cache updated reactively
+  Settings.find().observeChanges({
+    added() { Settings.findOneAsync().then(s => { cachedSetting = s; }); },
+    changed() { Settings.findOneAsync().then(s => { cachedSetting = s; }); },
+    removed() { Settings.findOneAsync().then(s => { cachedSetting = s; }); },
+  });
+
   // Use Meteor's official API to modify the HTML boilerplate
   WebAppInternals.registerBoilerplateDataCallback('wekan-custom-head', (request, data) => {
     try {
-      const setting = Settings.findOne();
+      const setting = cachedSetting;
 
       // Initialize head array if it doesn't exist
       if (!data.head) {

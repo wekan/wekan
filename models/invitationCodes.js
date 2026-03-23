@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-InvitationCodes = new Mongo.Collection('invitation_codes');
+const InvitationCodes = new Mongo.Collection('invitation_codes');
 
 InvitationCodes.attachSchema(
   new SimpleSchema({
@@ -14,7 +16,6 @@ InvitationCodes.attachSchema(
     },
     createdAt: {
       type: Date,
-      denyUpdate: false,
       optional: true,
       // eslint-disable-next-line consistent-return
       autoValue() {
@@ -29,7 +30,6 @@ InvitationCodes.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -44,8 +44,11 @@ InvitationCodes.attachSchema(
       type: String,
     },
     boardsToBeInvited: {
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'boardsToBeInvited.$': {
+      type: String,
     },
     valid: {
       type: Boolean,
@@ -64,14 +67,5 @@ InvitationCodes.helpers({
 // doc.createdAt = new Date();
 // doc.authorId = userId;
 // });
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await InvitationCodes._collection.createIndexAsync({ modifiedAt: -1 });
-  });
-  Boards.deny({
-    fetch: ['members'],
-  });
-}
 
 export default InvitationCodes;

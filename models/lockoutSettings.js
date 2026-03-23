@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-LockoutSettings = new Mongo.Collection('lockoutSettings');
+const LockoutSettings = new Mongo.Collection('lockoutSettings');
 
 LockoutSettings.attachSchema(
   new SimpleSchema({
@@ -9,14 +11,12 @@ LockoutSettings.attachSchema(
     },
     value: {
       type: Number,
-      decimal: false,
     },
     category: {
       type: String,
     },
     sort: {
       type: Number,
-      decimal: true,
     },
     createdAt: {
       type: Date,
@@ -34,7 +34,6 @@ LockoutSettings.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -46,96 +45,6 @@ LockoutSettings.attachSchema(
     },
   }),
 );
-
-LockoutSettings.allow({
-  async update(userId) {
-    const user = await Meteor.users.findOneAsync(userId);
-    return user && user.isAdmin;
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await LockoutSettings._collection.createIndexAsync({ modifiedAt: -1 });
-
-    // Known users settings
-    await LockoutSettings.upsertAsync(
-      { _id: 'known-failuresBeforeLockout' },
-      {
-        $setOnInsert: {
-          value: process.env.ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE
-            ? parseInt(process.env.ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE, 10) : 3,
-          category: 'known',
-          sort: 0,
-        },
-      },
-    );
-
-    await LockoutSettings.upsertAsync(
-      { _id: 'known-lockoutPeriod' },
-      {
-        $setOnInsert: {
-          value: process.env.ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD
-            ? parseInt(process.env.ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD, 10) : 60,
-          category: 'known',
-          sort: 1,
-        },
-      },
-    );
-
-    await LockoutSettings.upsertAsync(
-      { _id: 'known-failureWindow' },
-      {
-        $setOnInsert: {
-          value: process.env.ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW
-            ? parseInt(process.env.ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW, 10) : 15,
-          category: 'known',
-          sort: 2,
-        },
-      },
-    );
-
-    // Unknown users settings
-    const typoVar = process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE;
-    const correctVar = process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BEFORE;
-
-    await LockoutSettings.upsertAsync(
-      { _id: 'unknown-failuresBeforeLockout' },
-      {
-        $setOnInsert: {
-          value: (correctVar || typoVar)
-            ? parseInt(correctVar || typoVar, 10) : 3,
-          category: 'unknown',
-          sort: 0,
-        },
-      },
-    );
-
-    await LockoutSettings.upsertAsync(
-      { _id: 'unknown-lockoutPeriod' },
-      {
-        $setOnInsert: {
-          value: process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD
-            ? parseInt(process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD, 10) : 60,
-          category: 'unknown',
-          sort: 1,
-        },
-      },
-    );
-
-    await LockoutSettings.upsertAsync(
-      { _id: 'unknown-failureWindow' },
-      {
-        $setOnInsert: {
-          value: process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW
-            ? parseInt(process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW, 10) : 15,
-          category: 'unknown',
-          sort: 2,
-        },
-      },
-    );
-  });
-}
 
 LockoutSettings.helpers({
   getKnownConfig() {

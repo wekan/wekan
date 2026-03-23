@@ -1,4 +1,6 @@
-Counters = new Mongo.Collection('counters');
+import { Mongo } from 'meteor/mongo';
+
+const Counters = new Mongo.Collection('counters');
 
 async function incrementCounterAsync(counterName, amount = 1) {
   const result = await Counters.rawCollection().findOneAndUpdate(
@@ -12,4 +14,5 @@ async function incrementCounterAsync(counterName, amount = 1) {
 // Alias for backward compatibility — all callers should use the async version
 const incrementCounter = incrementCounterAsync;
 
-export { incrementCounter, incrementCounterAsync };
+export { Counters, incrementCounter, incrementCounterAsync };
+export default Counters;

@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 /**
  * Executes a function only if we are on the server. Use in combination
  * with package-sepcific loader functions to create a "nested" import that

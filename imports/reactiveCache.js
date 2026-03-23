@@ -1,10 +1,79 @@
-import { DataCache } from '@wekanteam/meteor-reactive-cache';
+import { Meteor } from 'meteor/meteor';
+import { EJSON } from 'meteor/ejson';
+import { DataCache } from '/imports/lib/dataCache';
 import { groupBy, indexBy } from '/imports/lib/collectionHelpers';
-import Settings from '../models/settings';
+
+function lazyCollectionProxy(loadCollection) {
+  return new Proxy(
+    {},
+    {
+      get(_target, prop) {
+        const collection = loadCollection();
+        const value = collection[prop];
+        return typeof value === 'function' ? value.bind(collection) : value;
+      },
+      set(_target, prop, value) {
+        const collection = loadCollection();
+        collection[prop] = value;
+        return true;
+      },
+      has(_target, prop) {
+        return prop in loadCollection();
+      },
+      ownKeys() {
+        return Reflect.ownKeys(loadCollection());
+      },
+      getOwnPropertyDescriptor(_target, prop) {
+        const descriptor = Object.getOwnPropertyDescriptor(
+          loadCollection(),
+          prop,
+        );
+        if (descriptor) {
+          return descriptor;
+        }
+        return {
+          configurable: true,
+          enumerable: true,
+          writable: true,
+          value: loadCollection()[prop],
+        };
+      },
+    },
+  );
+}
+
+const Actions = lazyCollectionProxy(() => require('/models/actions').default);
+const Activities = lazyCollectionProxy(() => require('/models/activities').default);
+const Attachments = lazyCollectionProxy(() => require('/models/attachments').default);
+const Avatars = lazyCollectionProxy(() => require('/models/avatars').default);
+const Boards = lazyCollectionProxy(() => require('/models/boards').default);
+const CardCommentReactions = lazyCollectionProxy(
+  () => require('/models/cardCommentReactions').default,
+);
+const CardComments = lazyCollectionProxy(() => require('/models/cardComments').default);
+const Cards = lazyCollectionProxy(() => require('/models/cards').default);
+const ChecklistItems = lazyCollectionProxy(() => require('/models/checklistItems').default);
+const Checklists = lazyCollectionProxy(() => require('/models/checklists').default);
+const CustomFields = lazyCollectionProxy(() => require('/models/customFields').default);
+const ImpersonatedUsers = lazyCollectionProxy(
+  () => require('/models/impersonatedUsers').default,
+);
+const Integrations = lazyCollectionProxy(() => require('/models/integrations').default);
+const InvitationCodes = lazyCollectionProxy(() => require('/models/invitationCodes').default);
+const Lists = lazyCollectionProxy(() => require('/models/lists').default);
+const Org = lazyCollectionProxy(() => require('/models/org').default);
+const Rules = lazyCollectionProxy(() => require('/models/rules').default);
+const SessionData = lazyCollectionProxy(() => require('/models/usersessiondata').default);
+const Settings = lazyCollectionProxy(() => require('/models/settings').default);
+const Swimlanes = lazyCollectionProxy(() => require('/models/swimlanes').default);
+const Team = lazyCollectionProxy(() => require('/models/team').default);
+const Translation = lazyCollectionProxy(() => require('/models/translation').default);
+const Triggers = lazyCollectionProxy(() => require('/models/triggers').default);
+const Users = lazyCollectionProxy(() => require('/models/users').default);
 
 // Server isn't reactive, so search for the data always.
 // All methods are async for Meteor 3.0 compatibility.
-ReactiveCacheServer = {
+const ReactiveCacheServer = {
   async getBoard(idOrFirstObjectSelector = {}, options = {}) {
     const ret = await Boards.findOneAsync(idOrFirstObjectSelector, options);
     return ret;
@@ -136,7 +205,7 @@ ReactiveCacheServer = {
     return ret;
   },
   async getAvatar(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = Avatars.findOne(idOrFirstObjectSelector, options);
+    const ret = await Avatars.findOneAsync(idOrFirstObjectSelector, options);
     return ret;
   },
   async getAvatars(selector = {}, options = {}, getQuery = false) {
@@ -291,7 +360,7 @@ ReactiveCacheServer = {
 // only the Client is reactive
 // saving the result has a big advantage if the query is big and often searched for the same data again and again
 // if the data is changed in the client, the data is saved to the server and depending code is reactive called again
-ReactiveCacheClient = {
+const ReactiveCacheClient = {
   getBoard(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = { idOrFirstObjectSelector, options };
     if (!this.__board) {
@@ -1016,7 +1085,7 @@ ReactiveCacheClient = {
 // Methods are NOT async - they return a Promise on server (from async ReactiveCacheServer)
 // and synchronous data on client (from ReactiveCacheClient).
 // Server callers must await; client code uses the return value directly.
-ReactiveCache = {
+const ReactiveCache = {
   getBoard(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
       return ReactiveCacheServer.getBoard(idOrFirstObjectSelector, options);
@@ -1417,7 +1486,7 @@ ReactiveCache = {
 };
 
 // Server isn't reactive, so search for the data always.
-ReactiveMiniMongoIndexServer = {
+const ReactiveMiniMongoIndexServer = {
   async getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
     let ret = [];
     if (parentId) {
@@ -1462,7 +1531,7 @@ ReactiveMiniMongoIndexServer = {
 };
 
 // Client side little MiniMongo DB "Index"
-ReactiveMiniMongoIndexClient = {
+const ReactiveMiniMongoIndexClient = {
   getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
     let ret = [];
     if (parentId) {
@@ -1581,7 +1650,7 @@ ReactiveMiniMongoIndexClient = {
 // having this class here has several advantages:
 // - The Programmer hasn't to care about in which context he call's this class
 // - having all queries together in 1 class to make it possible to see which queries in Wekan happens, e.g. with console.log
-ReactiveMiniMongoIndex = {
+const ReactiveMiniMongoIndex = {
   getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
     let ret;
     if (Meteor.isServer) {

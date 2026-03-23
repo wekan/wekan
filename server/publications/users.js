@@ -1,3 +1,5 @@
+import Users from '/models/users';
+
 Meteor.publish('user-miniprofile', async function (usernames) {
   check(usernames, Array);
 
@@ -167,10 +169,14 @@ I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
     Meteor.server.stream_server.open_sockets.forEach(
       (socket) => {
         if (socket?._meteorSession?.userId) {
-          Users.update(socket._meteorSession.userId, {
+          Users.updateAsync(socket._meteorSession.userId, {
             $set: {
               lastConnectionDate: new Date(),
             },
+          }).catch(error => {
+            if (process.env.DEBUG === 'true') {
+              console.error('Failed to update lastConnectionDate:', error);
+            }
           });
         }
       });

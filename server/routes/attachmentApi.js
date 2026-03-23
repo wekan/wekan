@@ -2,53 +2,53 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { Attachments, fileStoreStrategyFactory } from '/models/attachments';
+import Attachments from '/models/attachments';
+import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { Settings } from '../../models/settings';
 import { moveToStorage } from '/models/lib/fileStoreStrategy';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import fs from 'fs';
 import path from 'path';
-import { ObjectID } from 'bson';
+import { ObjectId } from 'bson';
 
 // Attachment API HTTP routes
-if (Meteor.isServer) {
-  // Helper function to authenticate API requests using X-User-Id and X-Auth-Token
-  function authenticateApiRequest(req) {
-    const userId = req.headers['x-user-id'];
-    const authToken = req.headers['x-auth-token'];
+// Helper function to authenticate API requests using X-User-Id and X-Auth-Token
+async function authenticateApiRequest(req) {
+  const userId = req.headers['x-user-id'];
+  const authToken = req.headers['x-auth-token'];
 
-    if (!userId || !authToken) {
-      throw new Meteor.Error('unauthorized', 'Missing X-User-Id or X-Auth-Token headers');
-    }
-
-    // Hash the token and validate against stored login tokens
-    const hashedToken = Accounts._hashLoginToken(authToken);
-    const user = Meteor.users.findOne({
-      _id: userId,
-      'services.resume.loginTokens.hashedToken': hashedToken,
-    });
-
-    if (!user) {
-      throw new Meteor.Error('unauthorized', 'Invalid credentials');
-    }
-
-    return userId;
+  if (!userId || !authToken) {
+    throw new Meteor.Error('unauthorized', 'Missing X-User-Id or X-Auth-Token headers');
   }
 
-  // Helper function to send JSON response
-  function sendJsonResponse(res, statusCode, data) {
-    res.writeHead(statusCode, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(data));
+  // Hash the token and validate against stored login tokens
+  const hashedToken = Accounts._hashLoginToken(authToken);
+  const user = await Meteor.users.findOneAsync({
+    _id: userId,
+    'services.resume.loginTokens.hashedToken': hashedToken,
+  });
+
+  if (!user) {
+    throw new Meteor.Error('unauthorized', 'Invalid credentials');
   }
 
-  // Helper function to send error response
-  function sendErrorResponse(res, statusCode, message) {
-    sendJsonResponse(res, statusCode, { success: false, error: message });
-  }
+  return userId;
+}
 
-  // Upload attachment endpoint
-  WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
+// Helper function to send JSON response
+function sendJsonResponse(res, statusCode, data) {
+  res.writeHead(statusCode, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify(data));
+}
+
+// Helper function to send error response
+function sendErrorResponse(res, statusCode, message) {
+  sendJsonResponse(res, statusCode, { success: false, error: message });
+}
+
+// Upload attachment endpoint
+WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -61,7 +61,7 @@ if (Meteor.isServer) {
     }, 30000); // 30 second timeout
 
     try {
-      const userId = authenticateApiRequest(req);
+      const userId = await authenticateApiRequest(req);
 
       let body = '';
       let bodyComplete = false;
@@ -128,7 +128,7 @@ if (Meteor.isServer) {
           let targetStorage = storageBackend;
           if (!targetStorage) {
             try {
-              const settings = AttachmentStorageSettings.findOne({});
+              const settings = await AttachmentStorageSettings.findOneAsync({});
               targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
             } catch (error) {
               targetStorage = STORAGE_NAME_FILESYSTEM;
@@ -145,7 +145,7 @@ if (Meteor.isServer) {
           const file = new File([fileBuffer], fileName, { type: fileType || 'application/octet-stream' });
 
           // Create attachment metadata
-          const fileId = new ObjectID().toString();
+          const fileId = new ObjectId().toString();
           const meta = {
             boardId: boardId,
             swimlaneId: swimlaneId,
@@ -157,7 +157,7 @@ if (Meteor.isServer) {
           };
 
           // Create attachment
-          const uploader = Attachments.insert({
+          const uploader = await Attachments.insertAsync({
             file: file,
             meta: meta,
             isBase64: false,
@@ -213,7 +213,7 @@ if (Meteor.isServer) {
     }
 
     try {
-      const userId = authenticateApiRequest(req);
+      const userId = await authenticateApiRequest(req);
       const attachmentId = req.params.attachmentId;
 
       // Get attachment
@@ -273,7 +273,7 @@ if (Meteor.isServer) {
     }
 
     try {
-      const userId = authenticateApiRequest(req);
+      const userId = await authenticateApiRequest(req);
       const boardId = req.params.boardId;
       const swimlaneId = req.params.swimlaneId;
       const listId = req.params.listId;
@@ -349,7 +349,7 @@ if (Meteor.isServer) {
     }, 30000);
 
     try {
-      const userId = authenticateApiRequest(req);
+      const userId = await authenticateApiRequest(req);
 
       let body = '';
       let bodyComplete = false;
@@ -427,13 +427,13 @@ if (Meteor.isServer) {
             chunks.push(chunk);
           });
 
-          readStream.on('end', () => {
+          readStream.on('end', async () => {
             try {
               const fileBuffer = Buffer.concat(chunks);
               const file = new File([fileBuffer], sourceAttachment.name, { type: sourceAttachment.type });
 
               // Create new attachment metadata
-              const fileId = new ObjectID().toString();
+              const fileId = new ObjectId().toString();
               const meta = {
                 boardId: targetBoardId,
                 swimlaneId: targetSwimlaneId,
@@ -446,7 +446,7 @@ if (Meteor.isServer) {
               };
 
               // Create new attachment
-              const uploader = Attachments.insert({
+              const uploader = await Attachments.insertAsync({
                 file: file,
                 meta: meta,
                 isBase64: false,
@@ -505,7 +505,7 @@ if (Meteor.isServer) {
     }, 30000);
 
     try {
-      const userId = authenticateApiRequest(req);
+      const userId = await authenticateApiRequest(req);
 
       let body = '';
       let bodyComplete = false;
@@ -570,7 +570,7 @@ if (Meteor.isServer) {
           }
 
           // Update attachment metadata
-          Attachments.update(attachmentId, {
+          await Attachments.updateAsync(attachmentId, {
             $set: {
               'meta.boardId': targetBoardId,
               'meta.swimlaneId': targetSwimlaneId,
@@ -616,7 +616,7 @@ if (Meteor.isServer) {
     }
 
     try {
-      const userId = authenticateApiRequest(req);
+      const userId = await authenticateApiRequest(req);
       const attachmentId = req.params.attachmentId;
 
       // Get attachment
@@ -632,7 +632,7 @@ if (Meteor.isServer) {
       }
 
       // Delete attachment
-      Attachments.remove(attachmentId);
+      await Attachments.removeAsync(attachmentId);
 
       sendJsonResponse(res, 200, {
         success: true,
@@ -652,7 +652,7 @@ if (Meteor.isServer) {
     }
 
     try {
-      const userId = authenticateApiRequest(req);
+      const userId = await authenticateApiRequest(req);
       const attachmentId = req.params.attachmentId;
 
       // Get attachment
@@ -693,4 +693,3 @@ if (Meteor.isServer) {
       sendErrorResponse(res, 401, error.message);
     }
   });
-}

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getOldAttachmentData, getOldAttachmentDataBuffer } from '/models/lib/attachmentBackwardCompatibility';
+import Attachments from '/models/attachments';
 
 /**
  * Migration script to convert old CollectionFS attachments to new Meteor-Files structure
@@ -43,7 +44,7 @@ if (Meteor.isServer) {
           type: oldAttachment.type
         });
 
-        const uploader = Attachments.insert({
+        const uploader = await Attachments.insertAsync({
           file: fileObj,
           meta: oldAttachment.meta,
           isBase64: false,
@@ -88,7 +89,7 @@ if (Meteor.isServer) {
         const oldAttachments = await ReactiveCache.getAttachments({ 'meta.cardId': cardId });
 
         for (const attachment of oldAttachments) {
-          const result = Meteor.call('migrateAttachment', attachment._id);
+          const result = await Meteor.callAsync('migrateAttachment', attachment._id);
           if (result.success) {
             results.success++;
           } else {

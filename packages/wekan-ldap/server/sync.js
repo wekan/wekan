@@ -440,7 +440,7 @@ function debounce(fn, wait) {
   };
 }
 
-const addCronJob = debounce(Meteor.bindEnvironment(function addCronJobDebounced() {
+const addCronJob = debounce(function addCronJobDebounced() {
   let sc = SyncedCron;
   if (LDAP.settings_get('LDAP_BACKGROUND_SYNC') !== true) {
     log_info('Disabling LDAP Background Sync');
@@ -466,7 +466,7 @@ const addCronJob = debounce(Meteor.bindEnvironment(function addCronJobDebounced(
   });
   sc.start();
 
-}), 500);
+}, 500);
 
 Meteor.startup(() => {
   Meteor.defer(() => {

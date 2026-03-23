@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import {
@@ -21,17 +23,23 @@ import {
   calendar
 } from '/imports/lib/dateUtils';
 import {
-  ALLOWED_COLORS,
   TYPE_CARD,
   TYPE_LINKED_BOARD,
   TYPE_LINKED_CARD,
 } from '../config/const';
-import Attachments, { fileStoreStrategyFactory } from "./attachments";
-import { copyFile } from './lib/fileStoreStrategy.js';
+import { CARD_COLORS } from '/models/metadata/colors';
+import Attachments from "./attachments";
 import PositionHistory from './positionHistory';
+import Activities from '/models/activities';
+import Boards from '/models/boards';
+import CardComments from '/models/cardComments';
+import ChecklistItems from '/models/checklistItems';
+import Checklists from '/models/checklists';
+import Lists from '/models/lists';
 import { debounce } from '/imports/lib/collectionHelpers';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-Cards = new Mongo.Collection('cards');
+const Cards = new Mongo.Collection('cards');
 
 // XXX To improve pub/sub performances a card document should include a
 // de-normalized number of comments so we don't have to publish the whole list
@@ -110,7 +118,7 @@ Cards.attachSchema(
     color: {
       type: String,
       optional: true,
-      allowedValues: ALLOWED_COLORS,
+      allowedValues: CARD_COLORS,
     },
     createdAt: {
       /**
@@ -130,7 +138,6 @@ Cards.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -144,7 +151,7 @@ Cards.attachSchema(
       /**
        * list of custom fields
        */
-      type: [Object],
+      type: Array,
       optional: true,
       defaultValue: [],
     },
@@ -209,26 +216,35 @@ Cards.attachSchema(
       /**
        * list of labels ID the card has
        */
-      type: [String],
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'labelIds.$': {
+      type: String,
     },
     members: {
       /**
        * list of members (user IDs)
        */
-      type: [String],
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'members.$': {
+      type: String,
     },
     assignees: {
       /**
        * who is assignee of the card (user ID),
        * maximum one ID of assignee in array.
        */
-      type: [String],
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'assignees.$': {
+      type: String,
     },
     receivedAt: {
       /**
@@ -263,7 +279,6 @@ Cards.attachSchema(
        * How much time has been spent on this
        */
       type: Number,
-      decimal: true,
       optional: true,
       defaultValue: 0,
     },
@@ -295,7 +310,6 @@ Cards.attachSchema(
        * Sort value
        */
       type: Number,
-      decimal: true,
       defaultValue: 0,
       optional: true,
     },
@@ -304,7 +318,6 @@ Cards.attachSchema(
        * subtask sort value
        */
       type: Number,
-      decimal: true,
       defaultValue: -1,
       optional: true,
     },
@@ -339,17 +352,23 @@ Cards.attachSchema(
       /**
        * list of members (user IDs)
        */
-      type: [String],
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'vote.positive.$': {
+      type: String,
     },
     'vote.negative': {
       /**
        * list of members (user IDs)
        */
-      type: [String],
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'vote.negative.$': {
+      type: String,
     },
     'vote.end': {
       type: Date,
@@ -379,71 +398,101 @@ Cards.attachSchema(
       /**
        * poker card one
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.one.$': {
+      type: String,
     },
     'poker.two': {
       /**
        * poker card two
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.two.$': {
+      type: String,
     },
     'poker.three': {
       /**
        * poker card three
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.three.$': {
+      type: String,
     },
     'poker.five': {
       /**
        * poker card five
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.five.$': {
+      type: String,
     },
     'poker.eight': {
       /**
        * poker card eight
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.eight.$': {
+      type: String,
     },
     'poker.thirteen': {
       /**
        * poker card thirteen
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.thirteen.$': {
+      type: String,
     },
     'poker.twenty': {
       /**
        * poker card twenty
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.twenty.$': {
+      type: String,
     },
     'poker.forty': {
       /**
        * poker card forty
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.forty.$': {
+      type: String,
     },
     'poker.oneHundred': {
       /**
        * poker card oneHundred
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.oneHundred.$': {
+      type: String,
     },
     'poker.unsure': {
       /**
        * poker card unsure
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'poker.unsure.$': {
+      type: String,
     },
     'poker.end': {
       type: Date,
@@ -464,26 +513,34 @@ Cards.attachSchema(
       /**
        * ID of card which is the child link in gantt view
        */
-      type: [String],
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'targetId_gantt.$': {
+      type: String,
     },
     linkType_gantt: {
       /**
        * ID of card which is the parent link in gantt view
        */
-      type: [Number],
-      decimal: false,
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'linkType_gantt.$': {
+      type: Number,
     },
     linkId_gantt: {
       /**
        * ID of card which is the parent link in gantt view
        */
-      type: [String],
+      type: Array,
       optional: true,
       defaultValue: [],
+    },
+    'linkId_gantt.$': {
+      type: String,
     },
     cardNumber: {
       /**
@@ -491,7 +548,6 @@ Cards.attachSchema(
        * to every newly created card
        */
       type: Number,
-      decimal: true,
       optional: true,
       defaultValue: 0,
     },
@@ -515,45 +571,21 @@ Cards.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    hideFinishedChecklistIfItemsAreHidden: {
+      /**
+       * hide completed checklist sections when checklist items are hidden?
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
   }),
 );
 
-// Centralized update policy for Cards
-// Security: deny any direct client updates to 'vote' fields; require write access otherwise
-canUpdateCard = async function(userId, doc, fields) {
-  if (!userId) return false;
-  const fieldNames = fields || [];
-  // Block direct updates to voting fields; voting must go through Meteor method 'cards.vote'
-  if (fieldNames.some(f => typeof f === 'string' && (f === 'vote' || f.indexOf('vote.') === 0))) {
-    return false;
-  }
-  // Block direct updates to poker fields; poker must go through Meteor methods
-  if (fieldNames.some(f => typeof f === 'string' && (f === 'poker' || f.indexOf('poker.') === 0))) {
-    return false;
-  }
-  // ReadOnly users cannot edit cards
-  return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-};
-
-Cards.allow({
-  async insert(userId, doc) {
-    // ReadOnly users cannot create cards
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  async update(userId, doc, fields) {
-    return await canUpdateCard(userId, doc, fields);
-  },
-  async remove(userId, doc) {
-    // ReadOnly users cannot delete cards
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  fetch: ['boardId'],
-});
-
 Cards.helpers({
   // Gantt https://github.com/wekan/wekan/issues/2870#issuecomment-857171127
-  setGanttTargetId(sourceId, targetId, linkType, linkId){
-    return Cards.update({ _id: sourceId}, {
+  async setGanttTargetId(sourceId, targetId, linkType, linkId){
+    return await Cards.updateAsync({ _id: sourceId}, {
       $push: {
         targetId_gantt: targetId,
         linkType_gantt : linkType,
@@ -562,8 +594,8 @@ Cards.helpers({
     });
   },
 
-  removeGanttTargetId(sourceId, targetId, linkType, linkId){
-    return Cards.update({ _id: sourceId}, {
+  async removeGanttTargetId(sourceId, targetId, linkType, linkId){
+    return await Cards.updateAsync({ _id: sourceId}, {
       $pull: {
         targetId_gantt: targetId,
         linkType_gantt : linkType,
@@ -649,10 +681,14 @@ Cards.helpers({
     this.listId = listId;
     const _id = await Cards.insertAsync(this);
 
-    // Copy attachments
-    const attachmentList = await ReactiveCache.getAttachments({ 'meta.cardId': oldId });
-    for (const att of attachmentList) {
-      copyFile(att, _id, fileStoreStrategyFactory);
+    // Copy attachments (server-only — requires filesystem access)
+    if (Meteor.isServer) {
+      const { copyFile } = require('./lib/fileStoreStrategy.js');
+      const { fileStoreStrategyFactory } = require('./attachments.server');
+      const attachmentList = await ReactiveCache.getAttachments({ 'meta.cardId': oldId });
+      for (const att of attachmentList) {
+        copyFile(att, _id, fileStoreStrategyFactory);
+      }
     }
 
     // copy checklists
@@ -672,7 +708,7 @@ Cards.helpers({
     // copy card comments
     const comments = await ReactiveCache.getCardComments({ cardId: oldId });
     for (const cmt of comments) {
-      cmt.copy(_id);
+      await cmt.copy(_id);
     }
     // restore the id, otherwise new copies will fail
     this._id = oldId;
@@ -680,7 +716,7 @@ Cards.helpers({
     return _id;
   },
 
-  link(boardId, swimlaneId, listId) {
+  async link(boardId, swimlaneId, listId) {
     // TODO is there a better method to create a deepcopy?
     linkCard = JSON.parse(JSON.stringify(this));
     // TODO is this how it is meant to be?
@@ -692,7 +728,7 @@ Cards.helpers({
     delete linkCard._id;
     // TODO shall we copy the labels for a linked card?!
     delete linkCard.labelIds;
-    return Cards.insert(linkCard);
+    return await Cards.insertAsync(linkCard);
   },
 
   list() {
@@ -1153,9 +1189,9 @@ Cards.helpers({
 
   setDescription(description) {
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { description } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { description } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { description } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { description } });
     }
   },
 
@@ -1321,9 +1357,9 @@ Cards.helpers({
 
   setReceived(receivedAt) {
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { receivedAt } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { receivedAt } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { receivedAt } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { receivedAt } });
     }
   },
 
@@ -1349,9 +1385,9 @@ Cards.helpers({
 
   setStart(startAt) {
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { startAt } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { startAt } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { startAt } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { startAt } });
     }
   },
 
@@ -1377,9 +1413,9 @@ Cards.helpers({
 
   setDue(dueAt) {
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { dueAt } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { dueAt } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { dueAt } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { dueAt } });
     }
   },
 
@@ -1405,9 +1441,9 @@ Cards.helpers({
 
   setEnd(endAt) {
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { endAt } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { endAt } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { endAt } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { endAt } });
     }
   },
 
@@ -1433,9 +1469,9 @@ Cards.helpers({
 
   setIsOvertime(isOvertime) {
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { isOvertime } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { isOvertime } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { isOvertime } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { isOvertime } });
     }
   },
 
@@ -1461,9 +1497,9 @@ Cards.helpers({
 
   setSpentTime(spentTime) {
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { spentTime } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { spentTime } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { spentTime } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { spentTime } });
     }
   },
 
@@ -1831,9 +1867,9 @@ Cards.helpers({
     }
 
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { title: sanitizedTitle } });
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { title: sanitizedTitle } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { title: sanitizedTitle } });
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { title: sanitizedTitle } });
     }
   },
 
@@ -1858,7 +1894,7 @@ Cards.helpers({
   },
 
   setRequestedBy(requestedBy) {
-    return Cards.update({ _id: this.getRealId() }, { $set: { requestedBy } });
+    return Cards.updateAsync({ _id: this.getRealId() }, { $set: { requestedBy } });
   },
 
   getRequestedBy() {
@@ -1875,7 +1911,7 @@ Cards.helpers({
   },
 
   setAssignedBy(assignedBy) {
-    return Cards.update({ _id: this.getRealId() }, { $set: { assignedBy } });
+    return Cards.updateAsync({ _id: this.getRealId() }, { $set: { assignedBy } });
   },
 
   getAssignedBy() {
@@ -2263,6 +2299,15 @@ Cards.helpers({
     });
   },
 
+  toggleHideFinishedChecklist() {
+    return Cards.updateAsync(this._id, {
+      $set: {
+        hideFinishedChecklistIfItemsAreHidden:
+          !this.hideFinishedChecklistIfItemsAreHidden,
+      },
+    });
+  },
+
   setCustomField(customFieldId, value) {
     const index = this.customFieldIndex(customFieldId);
     if (index > -1) {
@@ -2620,7 +2665,7 @@ async function cardAssignees(userId, doc, fieldNames, modifier) {
   }
 }
 
-function cardLabels(userId, doc, fieldNames, modifier) {
+async function cardLabels(userId, doc, fieldNames, modifier) {
   if (!fieldNames.includes('labelIds')) return;
   let labelId;
   // Say hello to the new label
@@ -2637,7 +2682,7 @@ function cardLabels(userId, doc, fieldNames, modifier) {
         listId: doc.listId,
         swimlaneId: doc.swimlaneId,
       };
-      Activities.insert(act);
+      await Activities.insertAsync(act);
     }
   }
 
@@ -2646,7 +2691,7 @@ function cardLabels(userId, doc, fieldNames, modifier) {
     labelId = modifier.$pull.labelIds;
     // Check that the former member is member of the card
     if ((doc.labelIds || []).includes(labelId)) {
-      Activities.insert({
+      await Activities.insertAsync({
         userId,
         labelId,
         activityType: 'removedLabel',
@@ -2659,12 +2704,12 @@ function cardLabels(userId, doc, fieldNames, modifier) {
   }
 }
 
-function cardCustomFields(userId, doc, fieldNames, modifier) {
+async function cardCustomFields(userId, doc, fieldNames, modifier) {
   if (!fieldNames.includes('customFields')) return;
 
   // Say hello to the new customField value
   if (modifier.$set) {
-    Object.entries(modifier.$set).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(modifier.$set)) {
       if (key.startsWith('customFields')) {
         const dotNotation = key.split('.');
 
@@ -2681,15 +2726,15 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
             listId: doc.listId,
             swimlaneId: doc.swimlaneId,
           };
-          Activities.insert(act);
+          await Activities.insertAsync(act);
         }
       }
-    });
+    }
   }
 
   // Say goodbye to the former customField value
   if (modifier.$unset) {
-    Object.entries(modifier.$unset).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(modifier.$unset)) {
       if (key.startsWith('customFields')) {
         const dotNotation = key.split('.');
 
@@ -2703,10 +2748,10 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
             boardId: doc.boardId,
             cardId: doc._id,
           };
-          Activities.insert(act);
+          await Activities.insertAsync(act);
         }
       }
-    });
+    }
   }
 }
 
@@ -2726,42 +2771,20 @@ async function cardCreation(userId, doc) {
   });
 }
 
-Meteor.methods({
-  createCardWithDueDate: function(boardId, listId, title, dueDate, swimlaneId) {
-    check(boardId, String);
-    check(listId, String);
-    check(title, String);
-    check(dueDate, Date);
-    check(swimlaneId, String);
-    const card = {
-      title,
-      listId,
-      boardId,
-      swimlaneId,
-      createdAt: new Date(),
-      dueAt: dueDate,
-      sort: 0,
-      usedId: Meteor.userId(),
-    };
-    const cardId = Cards.insert(card);
-    return cardId;
-  },
-});
-
-function cardRemover(userId, doc) {
-  ChecklistItems.remove({
+async function cardRemover(userId, doc) {
+  await ChecklistItems.removeAsync({
     cardId: doc._id,
   });
-  Checklists.remove({
+  await Checklists.removeAsync({
     cardId: doc._id,
   });
-  Cards.remove({
+  await Cards.removeAsync({
     parentId: doc._id,
   });
-  CardComments.remove({
+  await CardComments.removeAsync({
     cardId: doc._id,
   });
-  Attachments.remove({
+  await Attachments.removeAsync({
     cardId: doc._id,
   });
 }
@@ -2807,7 +2830,7 @@ const findDueCards = async days => {
   }
 };
 const addCronJob = debounce(
-  Meteor.bindEnvironment(function findDueCardsDebounced() {
+  function findDueCardsDebounced() {
     const envValue = process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER;
     if (!envValue) {
       return;
@@ -2837,1471 +2860,42 @@ const addCronJob = debounce(
       }
       Meteor.setTimeout(scheduler, hour);
     })(() => {
-      findDueCards(notifydays);
+      findDueCards(notifydays).catch(error => {
+        console.error('Due card notification scan failed:', error);
+      });
     });
     scheduler();
-  }),
+  },
   500,
 );
 
-if (Meteor.isServer) {
-  Meteor.methods({
-    // Secure poker voting: only the caller's userId is modified
-    async 'cards.pokerVote'(cardId, state) {
-      check(cardId, String);
-      if (state !== undefined && state !== null) check(state, String);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!board) throw new Meteor.Error('not-found');
-
-      const isMember = allowIsBoardMember(this.userId, board);
-      const allowNBM = !!(card.poker && card.poker.allowNonBoardMembers);
-      if (!(isMember || allowNBM /* && board.permission === 'public' */)) {
-        throw new Meteor.Error('not-authorized');
-      }
-
-      let mod = card.setPoker(this.userId, state);
-      if (!mod || typeof mod !== 'object') mod = {};
-      mod.$set = Object.assign({}, mod.$set, { modifiedAt: new Date(), dateLastActivity: new Date() });
-      return await Cards.updateAsync({ _id: cardId }, mod);
-    },
-
-    // Configure planning poker on a card (members only)
-    async 'cards.setPokerQuestion'(cardId, question, allowNonBoardMembers) {
-      check(cardId, String);
-      check(question, Boolean);
-      check(allowNonBoardMembers, Boolean);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $set: {
-          poker: {
-            question,
-            allowNonBoardMembers,
-            one: [], two: [], three: [], five: [], eight: [], thirteen: [], twenty: [], forty: [], oneHundred: [], unsure: [],
-          },
-          modifiedAt: new Date(),
-          dateLastActivity: new Date(),
-        },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.setPokerEnd'(cardId, end) {
-      check(cardId, String);
-      check(end, Date);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $set: { 'poker.end': end, modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.unsetPokerEnd'(cardId) {
-      check(cardId, String);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $unset: { 'poker.end': '' },
-        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.unsetPoker'(cardId) {
-      check(cardId, String);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $unset: { poker: '' },
-        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.setPokerEstimation'(cardId, estimation) {
-      check(cardId, String);
-      check(estimation, Number);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $set: { 'poker.estimation': estimation, modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.unsetPokerEstimation'(cardId) {
-      check(cardId, String);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $unset: { 'poker.estimation': '' },
-        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.replayPoker'(cardId) {
-      check(cardId, String);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      // Reset all poker votes arrays
-      const modifier = {
-        $set: {
-          'poker.one': [], 'poker.two': [], 'poker.three': [], 'poker.five': [], 'poker.eight': [], 'poker.thirteen': [], 'poker.twenty': [], 'poker.forty': [], 'poker.oneHundred': [], 'poker.unsure': [],
-          modifiedAt: new Date(),
-          dateLastActivity: new Date(),
-        },
-        $unset: { 'poker.end': '' },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-    // Configure voting on a card (members only)
-    async 'cards.setVoteQuestion'(cardId, question, publicVote, allowNonBoardMembers) {
-      check(cardId, String);
-      check(question, String);
-      check(publicVote, Boolean);
-      check(allowNonBoardMembers, Boolean);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $set: {
-          vote: {
-            question,
-            public: publicVote,
-            allowNonBoardMembers,
-            positive: [],
-            negative: [],
-          },
-          modifiedAt: new Date(),
-          dateLastActivity: new Date(),
-        },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.setVoteEnd'(cardId, end) {
-      check(cardId, String);
-      check(end, Date);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $set: { 'vote.end': end, modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.unsetVoteEnd'(cardId) {
-      check(cardId, String);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $unset: { 'vote.end': '' },
-        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-
-    async 'cards.unsetVote'(cardId) {
-      check(cardId, String);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
-
-      const modifier = {
-        $unset: { vote: '' },
-        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-      };
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-    // Secure voting: only the caller can set/unset their vote; non-members can vote only when allowed
-    async 'cards.vote'(cardId, forIt) {
-      check(cardId, String);
-      // forIt may be true (upvote), false (downvote), or null/undefined (clear)
-      if (forIt !== undefined && forIt !== null) check(forIt, Boolean);
-      if (!this.userId) throw new Meteor.Error('not-authorized');
-
-      const card = await ReactiveCache.getCard(cardId) || await Cards.findOneAsync(cardId);
-      if (!card) throw new Meteor.Error('not-found');
-      const board = await ReactiveCache.getBoard(card.boardId) || await Boards.findOneAsync(card.boardId);
-      if (!board) throw new Meteor.Error('not-found');
-
-      const isMember = allowIsBoardMember(this.userId, board);
-      const allowNBM = !!(card.vote && card.vote.allowNonBoardMembers);
-      if (!(isMember || allowNBM /* && board.permission === 'public' */)) {
-        throw new Meteor.Error('not-authorized');
-      }
-
-      // Only modify the caller's own userId in vote arrays
-      let modifier;
-      if (forIt === true) {
-        modifier = {
-          $pull: { 'vote.negative': this.userId },
-          $addToSet: { 'vote.positive': this.userId },
-          $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-        };
-      } else if (forIt === false) {
-        modifier = {
-          $pull: { 'vote.positive': this.userId },
-          $addToSet: { 'vote.negative': this.userId },
-          $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-        };
-      } else {
-        // Clear vote
-        modifier = {
-          $pull: { 'vote.positive': this.userId, 'vote.negative': this.userId },
-          $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
-        };
-      }
-
-      return await Cards.updateAsync({ _id: cardId }, modifier);
-    },
-    /** copies a card
-     * <li> this method is needed on the server because attachments can only be copied on the server (access to file system)
-     * @param card id to copy
-     * @param boardId copy to this board
-     * @param swimlandeId copy to this swimlane id
-     * @param listId copy to this list id
-     * @param insertAtTop insert the card at the top?
-     * @param mergeCardValues this values into the copied card
-     * @return the new card id
-     */
-    async copyCard(cardId, boardId, swimlaneId, listId, insertAtTop, mergeCardValues) {
-      check(cardId, String);
-      check(boardId, String);
-      check(swimlaneId, String);
-      check(listId, String);
-      check(insertAtTop, Boolean);
-      check(mergeCardValues, Object);
-
-      const card = await ReactiveCache.getCard(cardId);
-      Object.assign(card, mergeCardValues);
-
-      const sort = await card.getSort(listId, swimlaneId, insertAtTop);
-      if (insertAtTop) {
-        card.sort = sort - 1;
-      } else
-      {
-        card.sort = sort + 1;
-      }
-
-      const ret = await card.copy(boardId, swimlaneId, listId);
-      return ret;
-    },
-  });
-  // Cards are often fetched within a board, so we create an index to make these
-  // queries more efficient.
-  Meteor.startup(async () => {
-    await Cards._collection.createIndexAsync({ modifiedAt: -1 });
-    await Cards._collection.createIndexAsync({ boardId: 1, createdAt: -1 });
-    // https://github.com/wekan/wekan/issues/1863
-    // Swimlane added a new field in the cards collection of mongodb named parentId.
-    // When loading a board, mongodb is searching for every cards, the id of the parent (in the swinglanes collection).
-    // With a huge database, this result in a very slow app and high CPU on the mongodb side.
-    // To correct it, add Index to parentId:
-    await Cards._collection.createIndexAsync({ parentId: 1 });
-    // let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER) || 2; // default as 2 days b4 and after
-    // let notifyitvl = parseInt(process.env.NOTIFY_DUE_AT_HOUR_OF_DAY) || 3600 * 24 * 1e3; // default interval as one day
-    // Meteor.call("findDueCards",notifydays,notifyitvl);
-    Meteor.defer(() => {
-      addCronJob();
-    });
-  });
-
-  Cards.after.insert(async (userId, doc) => {
-    await cardCreation(userId, doc);
-
-    // Track original position for new cards
-    Meteor.setTimeout(async () => {
-      const card = await Cards.findOneAsync(doc._id);
-      if (card) {
-        card.trackOriginalPosition();
-      }
-    }, 100);
-  });
-  // New activity for card (un)archivage
-  Cards.after.update(async (userId, doc, fieldNames) => {
-    await cardState(userId, doc, fieldNames);
-  });
-
-  //New activity for card moves
-  Cards.after.update(async function(userId, doc, fieldNames) {
-    // Some runtimes may not provide `this.previous` reliably for all updates.
-    // Fall back to current values so non-move updates are never treated as moves.
-    const previous = this.previous || {};
-    const oldListId = previous.listId || doc.listId;
-    const oldSwimlaneId = previous.swimlaneId || doc.swimlaneId;
-    const oldBoardId = previous.boardId || doc.boardId;
-    await cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId);
-  });
-
-  // Add a new activity if we add or remove a member to the card
-  Cards.before.update(async (userId, doc, fieldNames, modifier) => {
-    await cardMembers(userId, doc, fieldNames, modifier);
-    await updateActivities(doc, fieldNames, modifier);
-  });
-
-  // Add a new activity if we add or remove a assignee to the card
-  Cards.before.update(async (userId, doc, fieldNames, modifier) => {
-    await cardAssignees(userId, doc, fieldNames, modifier);
-    await updateActivities(doc, fieldNames, modifier);
-  });
-
-  // Add a new activity if we add or remove a label to the card
-  Cards.before.update((userId, doc, fieldNames, modifier) => {
-    cardLabels(userId, doc, fieldNames, modifier);
-  });
-
-  // Add a new activity if we edit a custom field
-  Cards.before.update((userId, doc, fieldNames, modifier) => {
-    cardCustomFields(userId, doc, fieldNames, modifier);
-  });
-
-  // Add a new activity if modify time related field like dueAt startAt etc
-  Cards.before.update(async (userId, doc, fieldNames, modifier) => {
-    const dla = 'dateLastActivity';
-    const fields = fieldNames.filter(name => name !== dla);
-    const timingaction = ['receivedAt', 'dueAt', 'startAt', 'endAt'];
-    const action = fields[0];
-    if (fields.length > 0 && timingaction.includes(action)) {
-      // add activities for user change these attributes
-      const value = modifier.$set[action];
-      const oldvalue = doc[action] || '';
-      const activityType = `a-${action}`;
-      const card = await ReactiveCache.getCard(doc._id);
-      const list = await card.list();
-      if (list) {
-        // change list modifiedAt, when user modified the key values in
-        // timingaction array, if it's endAt, put the modifiedAt of list
-        // back to one year ago for sorting purpose
-        const modifiedAt = add(now(), -1, 'year').toISOString();
-        const boardId = list.boardId;
-        await Lists.direct.updateAsync(
-          {
-            _id: list._id,
-          },
-          {
-            $set: {
-              modifiedAt,
-              boardId,
-            },
-          },
-        );
-      }
-      const user = await ReactiveCache.getUser(userId);
-      const username = user.username;
-      const activity = {
-        userId,
-        username,
-        activityType,
-        boardId: doc.boardId,
-        cardId: doc._id,
-        cardTitle: doc.title,
-        timeKey: action,
-        timeValue: value,
-        timeOldValue: oldvalue,
-        listId: card.listId,
-        swimlaneId: card.swimlaneId,
-      };
-      await Activities.insertAsync(activity);
-    }
-  });
-  // Remove all activities associated with a card if we remove the card
-  // Remove also card_comments / checklists / attachments
-  Cards.before.remove((userId, doc) => {
-    cardRemover(userId, doc);
-  });
-}
-//SWIMLANES REST API
-if (Meteor.isServer) {
-  /**
-   * @operation get_swimlane_cards
-   * @summary get all cards attached to a swimlane
-   *
-   * @param {string} boardId the board ID
-   * @param {string} swimlaneId the swimlane ID
-   * @return_type [{_id: string,
-   *                title: string,
-   *                description: string,
-   *                listId: string}]
-   */
-  JsonRoutes.add(
-    'GET',
-    '/api/boards/:boardId/swimlanes/:swimlaneId/cards',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramSwimlaneId = req.params.swimlaneId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const cards = await ReactiveCache.getCards({
-        boardId: paramBoardId,
-        swimlaneId: paramSwimlaneId,
-        archived: false,
-      },
-      { sort: ['sort'] });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: cards.map(function(doc) {
-          return {
-            _id: doc._id,
-            title: doc.title,
-            description: doc.description,
-            listId: doc.listId,
-            receivedAt: doc.receivedAt,
-            startAt: doc.startAt,
-            dueAt: doc.dueAt,
-            endAt: doc.endAt,
-            assignees: doc.assignees,
-            sort: doc.sort,
-          };
-        }),
-      });
-    },
-  );
-}
-//LISTS REST API
-if (Meteor.isServer) {
-  /**
-   * @operation get_all_cards
-   * @summary Get all Cards attached to a List
-   *
-   * @param {string} boardId the board ID
-   * @param {string} listId the list ID
-   * @return_type [{_id: string,
-   *                title: string,
-   *                description: string}]
-   */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', async function(
-    req,
-    res,
-  ) {
-    const paramBoardId = req.params.boardId;
-    const paramListId = req.params.listId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
-    const cards = await ReactiveCache.getCards({
-      boardId: paramBoardId,
-      listId: paramListId,
-      archived: false,
-    },
-    { sort: ['sort'] });
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: cards.map(function(doc) {
-        return {
-          _id: doc._id,
-          title: doc.title,
-          description: doc.description,
-          swimlaneId: doc.swimlaneId,
-          receivedAt: doc.receivedAt,
-          startAt: doc.startAt,
-          dueAt: doc.dueAt,
-          endAt: doc.endAt,
-          assignees: doc.assignees,
-          sort: doc.sort,
-        };
-      }),
-    });
-  });
-
-  /**
-   * @operation get_card_by_id
-   * @summary Get a Card by Card ID
-   *
-   * @param {string} cardId the card ID
-   * @return_type Cards
-   */
-  JsonRoutes.add(
-    'GET',
-    '/api/cards/:cardId',
-    async function(req, res) {
-      const paramCardId = req.params.cardId;
-      const card = await ReactiveCache.getCard(paramCardId);
-      Authentication.checkBoardAccess(req.userId, card.boardId);
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: card,
-      });
-    },
-  );
-
-  /**
-   * @operation get_card
-   * @summary Get a Card
-   *
-   * @param {string} boardId the board ID
-   * @param {string} listId the list ID of the card
-   * @param {string} cardId the card ID
-   * @return_type Cards
-   */
-  JsonRoutes.add(
-    'GET',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramListId = req.params.listId;
-      const paramCardId = req.params.cardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: await ReactiveCache.getCard({
-          _id: paramCardId,
-          listId: paramListId,
-          boardId: paramBoardId,
-          archived: false,
-        }),
-      });
-    },
-  );
-
-  /**
-   * @operation new_card
-   * @summary Create a new Card
-   *
-   * @param {string} boardId the board ID of the new card
-   * @param {string} listId the list ID of the new card
-   * @param {string} authorID the user ID of the person owning the card
-   * @param {string} parentId the parent ID of the new card
-   * @param {string} title the title of the new card
-   * @param {string} description the description of the new card
-   * @param {string} swimlaneId the swimlane ID of the new card
-   * @param {string} [members] the member IDs list of the new card
-   * @param {string} [assignees] the assignee IDs list of the new card
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', async function(
-    req,
-    res,
-  ) {
-    // Check user is logged in
-    Authentication.checkLoggedIn(req.userId);
-    const paramBoardId = req.params.boardId;
-    // Check user has permission to add card to the board
-    const board = await ReactiveCache.getBoard(paramBoardId);
-    const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
-    Authentication.checkAdminOrCondition(req.userId, addPermission);
-    const paramListId = req.params.listId;
-    const paramParentId = req.params.parentId;
-    const nextCardNumber = await board.getNextCardNumber();
-
-    let customFieldsArr = [];
-    const customFields = await ReactiveCache.getCustomFields({'boardIds': paramBoardId});
-    (customFields || []).forEach(
-      function (field) {
-        if (field.automaticallyOnCard || field.alwaysOnCard)
-          customFieldsArr.push({ _id: field._id, value: null });
-      },
-    );
-
-    const currentCards = await ReactiveCache.getCards(
-      {
-        listId: paramListId,
-        archived: false,
-      },
-      { sort: ['sort'] },
-    );
-    const checkUser = await ReactiveCache.getUser(req.body.authorId);
-    const members = req.body.members;
-    const assignees = req.body.assignees;
-    if (typeof checkUser !== 'undefined') {
-      const id = await Cards.direct.insertAsync({
-        title: req.body.title,
-        boardId: paramBoardId,
-        listId: paramListId,
-        parentId: paramParentId,
-        description: req.body.description,
-        userId: req.body.authorId,
-        swimlaneId: req.body.swimlaneId,
-        sort: currentCards.length,
-        cardNumber: nextCardNumber,
-        customFields: customFieldsArr,
-        members,
-        assignees,
-      });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: id,
-        },
-      });
-
-      const card = await ReactiveCache.getCard(id);
-      await cardCreation(req.body.authorId, card);
-    } else {
-      JsonRoutes.sendResult(res, {
-        code: 401,
-      });
-    }
-  });
-
-/**
- * @operation get_board_cards_count
- * @summary Get a cards count to a board
- *
- * @param {string} boardId the board ID
- * @return_type {board_cards_count: integer}
- */
-JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', async function(
-  req,
-  res,
-) {
-  try {
-    const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
-    const cards = await ReactiveCache.getCards({
-      boardId: paramBoardId,
-      archived: false,
-    });
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: {
-        board_cards_count: cards.length,
-      }
-    });
-  } catch (error) {
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: error,
-    });
-  }
-});
-
-/**
- * @operation get_list_cards_count
- * @summary Get a cards count to a list
- *
- * @param {string} boardId the board ID
- * @param {string} listId the List ID
- * @return_type {list_cards_count: integer}
- */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards_count', async function(
-    req,
-    res,
-  ) {
-    try {
-      const paramBoardId = req.params.boardId;
-      const paramListId = req.params.listId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const cards = await ReactiveCache.getCards({
-        boardId: paramBoardId,
-        listId: paramListId,
-        archived: false,
-      });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          list_cards_count: cards.length,
-        }
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-
-  /*
-   * Note for the JSDoc:
-   * 'list' will be interpreted as the path parameter
-   * 'listID' will be interpreted as the body parameter
-   */
-  /**
-   * @operation edit_card
-   * @summary Edit Fields in a Card
-   *
-   * @description Edit a card
-   *
-   * The color has to be chosen between `white`, `green`, `yellow`, `orange`,
-   * `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`,
-   * `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`,
-   * `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`,
-   * `indigo`:
-   *
-   * <img src="/card-colors.png" width="40%" alt="Wekan card colors" />
-   *
-   * Note: setting the color to white has the same effect than removing it.
-   *
-   * @param {string} boardId the board ID of the card
-   * @param {string} list the list ID of the card
-   * @param {string} cardId the ID of the card
-   * @param {string} [title] the new title of the card
-   * @param {string} [sort] the new sort value of the card
-   * @param {string} [listId] the new list ID of the card (move operation)
-   * @param {string} [description] the new description of the card
-   * @param {string} [authorId] change the owner of the card
-   * @param {string} [parentId] change the parent of the card
-   * @param {string} [labelIds] the new list of label IDs attached to the card
-   * @param {string} [swimlaneId] the new swimlane ID of the card
-   * @param {string} [members] the new list of member IDs attached to the card
-   * @param {string} [assignees] the array of maximum one ID of assignee attached to the card
-   * @param {string} [requestedBy] the new requestedBy field of the card
-   * @param {string} [assignedBy] the new assignedBy field of the card
-   * @param {string} [receivedAt] the new receivedAt field of the card
-   * @param {string} [assignBy] the new assignBy field of the card
-   * @param {string} [startAt] the new startAt field of the card
-   * @param {string} [dueAt] the new dueAt field of the card
-   * @param {string} [endAt] the new endAt field of the card
-   * @param {string} [spentTime] the new spentTime field of the card
-   * @param {boolean} [isOverTime] the new isOverTime field of the card
-   * @param {string} [customFields] the new customFields value of the card
-   * @param {string} [color] the new color of the card
-   * @param {Object} [vote] the vote object
-   * @param {string} vote.question the vote question
-   * @param {boolean} vote.public show who voted what
-   * @param {boolean} vote.allowNonBoardMembers allow all logged in users to vote?
-   * @param {Object} [poker] the poker object
-   * @param {string} poker.question the vote question
-   * @param {boolean} poker.allowNonBoardMembers allow all logged in users to vote?
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add(
-    'PUT',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramListId = req.params.listId;
-      const newBoardId = req.body.newBoardId;
-      const newSwimlaneId = req.body.newSwimlaneId;
-      const newListId = req.body.newListId;
-      let updated = false;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-
-      if (req.body.title) {
-        // Basic client-side validation - server will handle full sanitization
-        const newTitle = req.body.title.length > 1000 ? req.body.title.substring(0, 1000) : req.body.title;
-
-        if (process.env.DEBUG === 'true' && newTitle !== req.body.title) {
-          console.warn('Sanitized card title input:', req.body.title, '->', newTitle);
-        }
-
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              title: newTitle,
-            },
-          },
-        );
-        updated = true;
-      }
-      if (req.body.sort) {
-        const newSort = req.body.sort;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              sort: newSort,
-            },
-          },
-        );
-        updated = true;
-      }
-      if (req.body.parentId) {
-        const newParentId = req.body.parentId;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              parentId: newParentId,
-            },
-          },
-        );
-        updated = true;
-      }
-      if (req.body.description) {
-        const newDescription = req.body.description;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              description: newDescription,
-            },
-          },
-        );
-        updated = true;
-      }
-      if (req.body.color) {
-        const newColor = req.body.color;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { color: newColor } },
-        );
-        updated = true;
-      }
-      if (req.body.vote) {
-        const newVote = req.body.vote;
-        newVote.positive = [];
-        newVote.negative = [];
-        if (!newVote.hasOwnProperty('public')) newVote.public = false;
-        if (!newVote.hasOwnProperty('allowNonBoardMembers'))
-          newVote.allowNonBoardMembers = false;
-
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { vote: newVote } },
-        );
-        updated = true;
-      }
-      if (req.body.poker) {
-        const newPoker = req.body.poker;
-        newPoker.one = [];
-        newPoker.two = [];
-        newPoker.three = [];
-        newPoker.five = [];
-        newPoker.eight = [];
-        newPoker.thirteen = [];
-        newPoker.twenty = [];
-        newPoker.forty = [];
-        newPoker.oneHundred = [];
-        newPoker.unsure = [];
-        if (!newPoker.hasOwnProperty('allowNonBoardMembers'))
-          newPoker.allowNonBoardMembers = false;
-
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { poker: newPoker } },
-        );
-        updated = true;
-      }
-      if (req.body.labelIds) {
-        let newlabelIds = req.body.labelIds;
-        if (typeof newlabelIds === 'string') {
-          if (newlabelIds === '') {
-            newlabelIds = null;
-          } else {
-            newlabelIds = [newlabelIds];
-          }
-        }
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              labelIds: newlabelIds,
-            },
-          },
-        );
-        updated = true;
-      }
-      if (req.body.requestedBy) {
-        const newrequestedBy = req.body.requestedBy;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { requestedBy: newrequestedBy } },
-        );
-        updated = true;
-      }
-      if (req.body.assignedBy) {
-        const newassignedBy = req.body.assignedBy;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { assignedBy: newassignedBy } },
-        );
-        updated = true;
-      }
-      if (req.body.receivedAt) {
-        const newreceivedAt = req.body.receivedAt;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { receivedAt: newreceivedAt } },
-        );
-        updated = true;
-      }
-      if (req.body.startAt) {
-        const newstartAt = req.body.startAt;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { startAt: newstartAt } },
-        );
-        updated = true;
-      }
-      if (req.body.dueAt) {
-        const newdueAt = req.body.dueAt;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { dueAt: newdueAt } },
-        );
-        updated = true;
-      }
-      if (req.body.endAt) {
-        const newendAt = req.body.endAt;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { endAt: newendAt } },
-        );
-        updated = true;
-      }
-      if (req.body.spentTime) {
-        const newspentTime = req.body.spentTime;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { spentTime: newspentTime } },
-        );
-        updated = true;
-      }
-      if (req.body.isOverTime) {
-        const newisOverTime = req.body.isOverTime;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { isOverTime: newisOverTime } },
-        );
-        updated = true;
-      }
-      if (req.body.customFields) {
-        const newcustomFields = req.body.customFields;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { customFields: newcustomFields } },
-        );
-        updated = true;
-      }
-      if (req.body.members) {
-        let newmembers = req.body.members;
-        if (typeof newmembers === 'string') {
-          if (newmembers === '') {
-            newmembers = null;
-          } else {
-            newmembers = [newmembers];
-          }
-        }
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { members: newmembers } },
-        );
-        updated = true;
-      }
-      if (req.body.assignees) {
-        let newassignees = req.body.assignees;
-        if (typeof newassignees === 'string') {
-          if (newassignees === '') {
-            newassignees = null;
-          } else {
-            newassignees = [newassignees];
-          }
-        }
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { assignees: newassignees } },
-        );
-        updated = true;
-      }
-      if (req.body.swimlaneId) {
-        const newParamSwimlaneId = req.body.swimlaneId;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          { $set: { swimlaneId: newParamSwimlaneId } },
-        );
-        updated = true;
-      }
-      if (req.body.listId) {
-        const newParamListId = req.body.listId;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              listId: newParamListId,
-            },
-          },
-        );
-        updated = true;
-
-        const card = await ReactiveCache.getCard(paramCardId);
-        await cardMove(
-          req.body.authorId,
-          card,
-          {
-            fieldName: 'listId',
-          },
-          paramListId,
-        );
-      }
-      if (newBoardId && newSwimlaneId && newListId) {
-        // Validate destination board write access
-        Authentication.checkBoardWriteAccess(req.userId, newBoardId);
-
-        // Validate that the destination list exists and belongs to the destination board
-        const destList = await ReactiveCache.getList({
-          _id: newListId,
-          boardId: newBoardId,
-          archived: false,
-        });
-        if (!destList) {
-          JsonRoutes.sendResult(res, {
-            code: 404,
-            data: { error: 'Destination list not found or does not belong to destination board' },
-          });
-          return;
-        }
-
-        // Validate that the destination swimlane exists and belongs to the destination board
-        const destSwimlane = await ReactiveCache.getSwimlane({
-          _id: newSwimlaneId,
-          boardId: newBoardId,
-          archived: false,
-        });
-        if (!destSwimlane) {
-          JsonRoutes.sendResult(res, {
-            code: 404,
-            data: { error: 'Destination swimlane not found or does not belong to destination board' },
-          });
-          return;
-        }
-
-        // Move the card to the new board, swimlane, and list
-        await Cards.direct.updateAsync(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              boardId: newBoardId,
-              swimlaneId: newSwimlaneId,
-              listId: newListId,
-            },
-          },
-        );
-        updated = true;
-
-        const card = await ReactiveCache.getCard(paramCardId);
-        await cardMove(
-          req.userId,
-          card,
-          ['boardId', 'swimlaneId', 'listId'],
-          newListId,
-          newSwimlaneId,
-          newBoardId,
-        );
-      }
-      if (req.body.archive) {
-        function isTrue(data) {
-          return String(data).toLowerCase() === 'true';
-        }
-        var archive = isTrue(req.body.archive);
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: !archive,
-          },
-          {
-            $set: {
-              archived: archive,
-            },
-          },
-        );
-        updated = true;
-      }
-    // Check if update is true or false
-    if (!updated) {
-      JsonRoutes.sendResult(res, {
-        code: 404,
-        data: {
-          message: 'Error',
-        },
-      });
-      return;
-    }
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-        },
-      });
-    },
-  );
-
-  /**
-   * @operation delete_card
-   * @summary Delete a card from a board
-   *
-   * @description This operation **deletes** a card, and therefore the card
-   * is not put in the recycle bin.
-   *
-   * @param {string} boardId the board ID of the card
-   * @param {string} list the list ID of the card
-   * @param {string} cardId the ID of the card
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add(
-    'DELETE',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramListId = req.params.listId;
-      const paramCardId = req.params.cardId;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-
-      const card = await ReactiveCache.getCard(paramCardId);
-      Cards.direct.remove({
-        _id: paramCardId,
-        listId: paramListId,
-        boardId: paramBoardId,
-      });
-      cardRemover(req.body.authorId, card);
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-        },
-      });
-    },
-  );
-
-  /**
-   * @operation get_cards_by_custom_field
-   * @summary Get all Cards that matchs a value of a specific custom field
-   *
-   * @param {string} boardId the board ID
-   * @param {string} customFieldId the list ID
-   * @param {string} customFieldValue the value to look for
-   * @return_type [{_id: string,
-   *                title: string,
-   *                description: string,
-   *                listId: string,
-   *                swinlaneId: string}]
-   */
-  JsonRoutes.add(
-    'GET',
-    '/api/boards/:boardId/cardsByCustomField/:customFieldId/:customFieldValue',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCustomFieldId = req.params.customFieldId;
-      const paramCustomFieldValue = req.params.customFieldValue;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: await ReactiveCache.getCards({
-          boardId: paramBoardId,
-          customFields: {
-            $elemMatch: {
-              _id: paramCustomFieldId,
-              value: paramCustomFieldValue,
-            },
-          },
-          archived: false,
-        }),
-      });
-    },
-  );
-
-  /**
-  * @operation edit_card_custom_field
-  * @summary Edit Custom Field in a Card
-  *
-  * @description Edit a custom field value in a card
-  * @param {string} boardId the board ID of the card
-  * @param {string} listId the list ID of the card
-  * @param {string} cardId the ID of the card
-  * @param {string} customFieldId the ID of the custom field
-  * @param {string} value the new custom field value
-  * @return_type {_id: string, customFields: [{_id: string, value: object}]}
-  */
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId/customFields/:customFieldId',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramListId = req.params.listId;
-      const paramCustomFieldId = req.params.customFieldId;
-      const paramCustomFieldValue = req.body.value;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-      const card = await ReactiveCache.getCard({
-        _id: paramCardId,
-        listId: paramListId,
-        boardId: paramBoardId,
-        archived: false,
-      });
-      if (!card) {
-        throw new Meteor.Error(404, 'Card not found');
-      }
-      const customFields = card.customFields || [];
-      const updatedCustomFields = customFields.map(cf => {
-        if (cf._id === paramCustomFieldId) {
-          return {
-            _id: cf._id,
-            value: paramCustomFieldValue,
-          };
-        }
-        return cf;
-      });
-      Cards.direct.update(
-        {
-          _id: paramCardId,
-          listId: paramListId,
-          boardId: paramBoardId,
-          archived: false,
-        },
-        { $set: { customFields: updatedCustomFields } },
-      );
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-          customFields: updatedCustomFields,
-        },
-      });
-    },
-  );
-
-  /**
-  * @operation archive_card
-  * @summary Archive a card
-  *
-  * @description Archive a card
-  * @param {string} boardId the board ID of the card
-  * @param {string} listId the list ID of the card
-  * @param {string} cardId the ID of the card
-  * @return_type {_id: string, archived: boolean, archivedAt: Date}
-  */
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId/archive',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramListId = req.params.listId;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-      const card = await ReactiveCache.getCard({
-        _id: paramCardId,
-        listId: paramListId,
-        boardId: paramBoardId,
-        archived: false,
-      });
-      if (!card) {
-        throw new Meteor.Error(404, 'Card not found');
-      }
-      await card.archive();
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-          archived: true,
-          archivedAt: new Date(),
-        },
-      });
-    },
-  );
-
-  /**
-  * @operation unarchive_card
-  * @summary Unarchive card
-  *
-  * @description Unarchive card
-  * @param {string} boardId the board ID of the card
-  * @param {string} listId the list ID of the card
-  * @param {string} cardId the ID of the card
-  * @return_type {_id: string, archived: boolean}
-  */
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId/unarchive',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramListId = req.params.listId;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-      const card = await ReactiveCache.getCard({
-        _id: paramCardId,
-        listId: paramListId,
-        boardId: paramBoardId,
-        archived: true,
-      });
-      if (!card) {
-        throw new Meteor.Error(404, 'Card not found');
-      }
-      await card.restore();
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-          archived: false,
-        },
-      });
-    },
-  );
-}
+export {
+  updateActivities,
+  cardMove,
+  cardState,
+  cardMembers,
+  cardAssignees,
+  cardLabels,
+  cardCustomFields,
+  cardCreation,
+  cardRemover,
+  addCronJob,
+};
 
 // Position history tracking methods
 Cards.helpers({
   /**
    * Track the original position of this card
    */
-  trackOriginalPosition() {
-    const existingHistory = PositionHistory.findOne({
+  async trackOriginalPosition() {
+    const existingHistory = await PositionHistory.findOneAsync({
       boardId: this.boardId,
       entityType: 'card',
       entityId: this._id,
     });
 
     if (!existingHistory) {
-      PositionHistory.insert({
+      await PositionHistory.insertAsync({
         boardId: this.boardId,
         entityType: 'card',
         entityId: this._id,
@@ -4321,8 +2915,8 @@ Cards.helpers({
   /**
    * Get the original position history for this card
    */
-  getOriginalPosition() {
-    return PositionHistory.findOne({
+  async getOriginalPosition() {
+    return await PositionHistory.findOneAsync({
       boardId: this.boardId,
       entityType: 'card',
       entityId: this._id,
@@ -4332,8 +2926,8 @@ Cards.helpers({
   /**
    * Check if this card has moved from its original position
    */
-  hasMovedFromOriginalPosition() {
-    const history = this.getOriginalPosition();
+  async hasMovedFromOriginalPosition() {
+    const history = await this.getOriginalPosition();
     if (!history) return false;
 
     const currentSwimlaneId = this.swimlaneId || null;

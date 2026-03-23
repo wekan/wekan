@@ -1,6 +1,10 @@
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+import Activities from '/models/activities';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-ChecklistItems = new Mongo.Collection('checklistItems');
+const ChecklistItems = new Mongo.Collection('checklistItems');
 
 /**
  * An item in a checklist
@@ -18,7 +22,6 @@ ChecklistItems.attachSchema(
        * the sorting field of the item
        */
       type: Number,
-      decimal: true,
     },
     isFinished: {
       /**
@@ -55,7 +58,6 @@ ChecklistItems.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -67,22 +69,6 @@ ChecklistItems.attachSchema(
     },
   }),
 );
-
-ChecklistItems.allow({
-  async insert(userId, doc) {
-    // ReadOnly users cannot create checklist items
-    return await allowIsBoardMemberWithWriteAccessByCard(userId, await Cards.findOneAsync(doc.cardId));
-  },
-  async update(userId, doc) {
-    // ReadOnly users cannot edit checklist items
-    return await allowIsBoardMemberWithWriteAccessByCard(userId, await Cards.findOneAsync(doc.cardId));
-  },
-  async remove(userId, doc) {
-    // ReadOnly users cannot delete checklist items
-    return await allowIsBoardMemberWithWriteAccessByCard(userId, await Cards.findOneAsync(doc.cardId));
-  },
-  fetch: ['userId', 'cardId'],
-});
 
 ChecklistItems.before.insert((userId, doc) => {
   if (!doc.userId) {
@@ -113,10 +99,10 @@ ChecklistItems.helpers({
 });
 
 // Activities helper
-async function itemCreation(userId, doc) {
+export async function itemCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
-  Activities.insert({
+  await Activities.insertAsync({
     userId,
     activityType: 'addChecklistItem',
     cardId: doc.cardId,
@@ -129,13 +115,13 @@ async function itemCreation(userId, doc) {
   });
 }
 
-function itemRemover(userId, doc) {
-  Activities.remove({
+export async function itemRemover(userId, doc) {
+  await Activities.removeAsync({
     checklistItemId: doc._id,
   });
 }
 
-async function publishCheckActivity(userId, doc) {
+export async function publishCheckActivity(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   let activityType;
@@ -155,10 +141,10 @@ async function publishCheckActivity(userId, doc) {
     listId: card.listId,
     swimlaneId: card.swimlaneId,
   };
-  Activities.insert(act);
+  await Activities.insertAsync(act);
 }
 
-async function publishChekListCompleted(userId, doc) {
+export async function publishChekListCompleted(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
@@ -177,11 +163,11 @@ async function publishChekListCompleted(userId, doc) {
       listId: card.listId,
       swimlaneId: card.swimlaneId,
     };
-    Activities.insert(act);
+    await Activities.insertAsync(act);
   }
 }
 
-async function publishChekListUncompleted(userId, doc) {
+export async function publishChekListUncompleted(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
@@ -213,258 +199,8 @@ async function publishChekListUncompleted(userId, doc) {
       listId: card.listId,
       swimlaneId: card.swimlaneId,
     };
-    Activities.insert(act);
+    await Activities.insertAsync(act);
   }
-}
-
-// Activities
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await ChecklistItems._collection.createIndexAsync({ modifiedAt: -1 });
-    await ChecklistItems._collection.createIndexAsync({ checklistId: 1 });
-    await ChecklistItems._collection.createIndexAsync({ cardId: 1 });
-  });
-
-  ChecklistItems.after.update(async (userId, doc, fieldNames) => {
-    await publishCheckActivity(userId, doc);
-    await publishChekListCompleted(userId, doc, fieldNames);
-  });
-
-  ChecklistItems.before.update(async (userId, doc, fieldNames) => {
-    await publishChekListUncompleted(userId, doc, fieldNames);
-  });
-
-  ChecklistItems.after.insert(async (userId, doc) => {
-    await itemCreation(userId, doc);
-  });
-
-  ChecklistItems.before.remove(async (userId, doc) => {
-    itemRemover(userId, doc);
-    const card = await ReactiveCache.getCard(doc.cardId);
-    const boardId = card.boardId;
-    Activities.insert({
-      userId,
-      activityType: 'removedChecklistItem',
-      cardId: doc.cardId,
-      boardId,
-      checklistId: doc.checklistId,
-      checklistItemId: doc._id,
-      checklistItemName: doc.title,
-      listId: card.listId,
-      swimlaneId: card.swimlaneId,
-    });
-  });
-}
-
-if (Meteor.isServer) {
-  /**
-   * @operation get_checklist_item
-   * @tag Checklists
-   * @summary Get a checklist item
-   *
-   * @param {string} boardId the board ID
-   * @param {string} cardId the card ID
-   * @param {string} checklistId the checklist ID
-   * @param {string} itemId the ID of the item
-   * @return_type ChecklistItems
-   */
-  JsonRoutes.add(
-    'GET',
-    '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramChecklistId = req.params.checklistId;
-      const paramItemId = req.params.itemId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
-      if (checklistItem && checklistItem.cardId === paramCardId && checklistItem.checklistId === paramChecklistId) {
-        const card = await ReactiveCache.getCard(checklistItem.cardId);
-        if (card && card.boardId === paramBoardId) {
-          JsonRoutes.sendResult(res, {
-            code: 200,
-            data: checklistItem,
-          });
-        } else {
-          JsonRoutes.sendResult(res, {
-            code: 404,
-          });
-        }
-      } else {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-        });
-      }
-    },
-  );
-
-  /**
-  * @operation new_checklist_item
-  * @summary add a new item to a checklist
-  *
-  * @param {string} boardId the board ID
-  * @param {string} cardId the card ID
-  * @param {string} checklistId the ID of the checklist
-  * @param {string} title the title of the new item
-  * @return_type {_id: string}
-  */
-
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramChecklistId = req.params.checklistId;
-      const paramCardId = req.params.cardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklist = await ReactiveCache.getChecklist({
-        _id: paramChecklistId,
-        cardId: paramCardId,
-      });
-      if (checklist) {
-        const card = await ReactiveCache.getCard(paramCardId);
-        if (card && card.boardId === paramBoardId) {
-          const id = ChecklistItems.insert({
-            cardId: paramCardId,
-            checklistId: paramChecklistId,
-            title: req.body.title,
-            isFinished: false,
-            sort: 0,
-          });
-          JsonRoutes.sendResult(res, {
-            code: 200,
-            data: {
-              _id: id,
-            },
-          });
-        } else {
-          JsonRoutes.sendResult(res, {
-            code: 404,
-          });
-        }
-      } else {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-        });
-      }
-    },
-  );
-
-  /**
-   * @operation edit_checklist_item
-   * @tag Checklists
-   * @summary Edit a checklist item
-   *
-   * @param {string} boardId the board ID
-   * @param {string} cardId the card ID
-   * @param {string} checklistId the checklist ID
-   * @param {string} itemId the ID of the item
-   * @param {string} [isFinished] is the item checked?
-   * @param {string} [title] the new text of the item
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add(
-    'PUT',
-    '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramChecklistId = req.params.checklistId;
-      const paramItemId = req.params.itemId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
-      const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
-      if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-        });
-        return;
-      }
-      const card = await ReactiveCache.getCard(checklistItem.cardId);
-      if (!card || card.boardId !== paramBoardId) {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-        });
-        return;
-      }
-
-      function isTrue(data) {
-        try {
-          return data.toLowerCase() === 'true';
-        } catch (error) {
-          return data;
-        }
-      }
-
-      if (req.body.hasOwnProperty('isFinished')) {
-        ChecklistItems.direct.update(
-          { _id: paramItemId },
-          { $set: { isFinished: isTrue(req.body.isFinished) } },
-        );
-      }
-      if (req.body.hasOwnProperty('title')) {
-        ChecklistItems.direct.update(
-          { _id: paramItemId },
-          { $set: { title: req.body.title } },
-        );
-      }
-
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramItemId,
-        },
-      });
-    },
-  );
-
-  /**
-   * @operation delete_checklist_item
-   * @tag Checklists
-   * @summary Delete a checklist item
-   *
-   * @description Note: this operation can't be reverted.
-   *
-   * @param {string} boardId the board ID
-   * @param {string} cardId the card ID
-   * @param {string} checklistId the checklist ID
-   * @param {string} itemId the ID of the item to be removed
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add(
-    'DELETE',
-    '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
-    async function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramChecklistId = req.params.checklistId;
-      const paramItemId = req.params.itemId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
-      const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
-      if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-        });
-        return;
-      }
-      const card = await ReactiveCache.getCard(checklistItem.cardId);
-      if (!card || card.boardId !== paramBoardId) {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-        });
-        return;
-      }
-
-      ChecklistItems.direct.remove({ _id: paramItemId });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramItemId,
-        },
-      });
-    },
-  );
 }
 
 export default ChecklistItems;

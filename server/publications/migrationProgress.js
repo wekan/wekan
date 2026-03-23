@@ -1,12 +1,13 @@
 import { CronJobStatus } from '/server/cronJobStorage';
+import Users from '/models/users';
 
 // Publish detailed migration progress data for admin users
-Meteor.publish('migrationProgress', function() {
+Meteor.publish('migrationProgress', async function() {
   if (!this.userId) {
     return this.ready();
   }
 
-  const user = Users.findOne(this.userId);
+  const user = await Users.findOneAsync(this.userId);
   if (!user || !user.isAdmin) {
     return this.ready();
   }

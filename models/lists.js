@@ -1,8 +1,13 @@
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { ALLOWED_COLORS } from '/config/const';
+import { LIST_COLORS } from '/models/metadata/colors';
 import PositionHistory from './positionHistory';
+import Boards from '/models/boards';
+import Cards from '/models/cards';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-Lists = new Mongo.Collection('lists');
+const Lists = new Mongo.Collection('lists');
 
 /**
  * A list (column) in the Wekan board.
@@ -78,7 +83,6 @@ Lists.attachSchema(
        * is the list sorted
        */
       type: Number,
-      decimal: true,
       // XXX We should probably provide a default
       optional: true,
     },
@@ -99,7 +103,6 @@ Lists.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         // this is redundant with updatedAt
@@ -125,7 +128,6 @@ Lists.attachSchema(
        * value of the WIP
        */
       type: Number,
-      decimal: false,
       defaultValue: 1,
     },
     'wipLimit.enabled': {
@@ -149,7 +151,7 @@ Lists.attachSchema(
       type: String,
       optional: true,
       // silver is the default
-      allowedValues: ALLOWED_COLORS,
+      allowedValues: LIST_COLORS,
     },
     type: {
       /**
@@ -178,22 +180,6 @@ Lists.attachSchema(
     // NOTE: width is per-board (shared with all users), stored in lists.width
   }),
 );
-
-Lists.allow({
-  async insert(userId, doc) {
-    // ReadOnly and CommentOnly users cannot create lists
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  async update(userId, doc) {
-    // ReadOnly and CommentOnly users cannot edit lists
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  async remove(userId, doc) {
-    // ReadOnly and CommentOnly users cannot delete lists
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(doc.boardId));
-  },
-  fetch: ['boardId'],
-});
 
 Lists.helpers({
   async copy(boardId, swimlaneId) {
@@ -424,856 +410,43 @@ Lists.archivedListIds = async () => {
   });
 };
 
-const hasBoardWriteAccess = (userId, board) => {
-  if (!userId || !board) {
-    return false;
-  }
-
-  if (typeof allowIsBoardMemberWithWriteAccess === 'function') {
-    return allowIsBoardMemberWithWriteAccess(userId, board);
-  }
-
-  // Fallback for client method simulation where server-only globals are unavailable.
-  return (
-    board.hasMember(userId) &&
-    !board.hasNoComments(userId) &&
-    !board.hasCommentOnly(userId) &&
-    !board.hasWorker(userId) &&
-    !board.hasReadOnly(userId) &&
-    !board.hasReadAssignedOnly(userId)
-  );
-};
-
-Meteor.methods({
-  async createListAfter(params) {
-    check(params, {
-      title: String,
-      boardId: String,
-      swimlaneId: Match.OneOf(String, null, undefined),
-      afterListId: Match.OneOf(String, null, undefined),
-      nextListId: Match.OneOf(String, null, undefined),
-      type: Match.Maybe(String),
-    });
-
-    const {
-      title,
-      boardId,
-      swimlaneId = null,
-      afterListId = null,
-      nextListId = null,
-      type = 'list',
-    } = params;
-
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in.');
-    }
-
-    // Avoid client-side stub writes; server method call is authoritative.
-    if (Meteor.isClient && this.isSimulation) {
-      return null;
-    }
-
-    const board = await ReactiveCache.getBoard(boardId);
-    if (!board) {
-      throw new Meteor.Error('board-not-found', 'Board not found');
-    }
-
-    if (Meteor.isServer) {
-      try {
-        if (typeof Authentication !== 'undefined' && Authentication?.checkBoardWriteAccess) {
-          await Authentication.checkBoardWriteAccess(this.userId, boardId);
-        } else if (!hasBoardWriteAccess(this.userId, board)) {
-          throw new Meteor.Error('not-authorized', 'Access denied');
-        }
-      } catch (error) {
-        throw new Meteor.Error('not-authorized', 'Access denied');
-      }
-    } else if (!hasBoardWriteAccess(this.userId, board)) {
-      throw new Meteor.Error('not-authorized', 'Access denied');
-    }
-
-    const normalizeSwimlaneId = value => value || '';
-    const getResolvedSwimlaneId = (list, fallback = '') => {
-      if (!list) return normalizeSwimlaneId(fallback);
-      if (typeof list.getEffectiveSwimlaneId === 'function') {
-        return normalizeSwimlaneId(list.getEffectiveSwimlaneId() || fallback);
-      }
-      return normalizeSwimlaneId(list.swimlaneId || fallback);
-    };
-
-    const defaultSwimlane = board.getDefaultSwimline ? board.getDefaultSwimline() : null;
-    let targetSwimlaneId = normalizeSwimlaneId(swimlaneId || (defaultSwimlane && defaultSwimlane._id));
-
-    let sort = 0;
-    if (afterListId) {
-      const selectedList = await ReactiveCache.getList({
-        _id: afterListId,
-        boardId,
-        archived: false,
-      });
-
-      if (!selectedList) {
-        throw new Meteor.Error('list-not-found', 'Selected list not found');
-      }
-
-      targetSwimlaneId = getResolvedSwimlaneId(selectedList, targetSwimlaneId);
-
-      const swimlaneLists = (await ReactiveCache.getLists({
-        boardId,
-        archived: false,
-      }))
-        .filter(list => getResolvedSwimlaneId(list, targetSwimlaneId) === targetSwimlaneId)
-        .sort((a, b) => a.sort - b.sort);
-
-      let nextList = null;
-      if (nextListId) {
-        nextList = await ReactiveCache.getList({
-          _id: nextListId,
-          boardId,
-          archived: false,
-        });
-        if (nextList) {
-          const nextSwimlaneId = getResolvedSwimlaneId(nextList, targetSwimlaneId);
-          if (nextSwimlaneId !== targetSwimlaneId) {
-            nextList = null;
-          }
-        }
-      }
-
-      if (!nextList) {
-        const selectedIndex = swimlaneLists.findIndex(list => list._id === selectedList._id);
-        nextList = selectedIndex >= 0 ? swimlaneLists[selectedIndex + 1] : null;
-      }
-
-      if (
-        nextList &&
-        Number.isFinite(nextList.sort) &&
-        Number.isFinite(selectedList.sort) &&
-        nextList.sort > selectedList.sort
-      ) {
-        sort = selectedList.sort + (nextList.sort - selectedList.sort) / 2;
-      } else if (Number.isFinite(selectedList.sort)) {
-        sort = selectedList.sort + 1;
-      } else {
-        const last = swimlaneLists[swimlaneLists.length - 1];
-        sort = Number.isFinite(last?.sort) ? last.sort + 1 : 0;
-      }
-    } else {
-      const swimlaneLists = (await ReactiveCache.getLists({
-        boardId,
-        archived: false,
-      }))
-        .filter(list => getResolvedSwimlaneId(list, targetSwimlaneId) === targetSwimlaneId)
-        .sort((a, b) => a.sort - b.sort);
-
-      const last = swimlaneLists[swimlaneLists.length - 1];
-      sort = Number.isFinite(last?.sort) ? last.sort + 1 : 0;
-    }
-
-    const listId = await Lists.insertAsync({
-      title,
-      boardId,
-      sort,
-      type,
-      swimlaneId: targetSwimlaneId,
-    });
-
-    return listId;
-  },
-
-  async copyList(listId, boardId, swimlaneId, title, neighborListId, position) {
-    check(listId, String);
-    check(boardId, String);
-    check(swimlaneId, String);
-    check(title, String);
-    check(neighborListId, Match.OneOf(String, null, undefined));
-    check(position, Match.OneOf(String, null, undefined));
-
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in.');
-    }
-
-    if (Meteor.isClient) return null;
-
-    const list = await ReactiveCache.getList(listId);
-    if (!list) {
-      throw new Meteor.Error('list-not-found', 'List not found');
-    }
-
-    const targetBoard = await ReactiveCache.getBoard(boardId);
-    if (!targetBoard) {
-      throw new Meteor.Error('board-not-found', 'Target board not found');
-    }
-
-    // Compute sort value relative to neighbor list
-    let sort = (await ReactiveCache.getLists({ boardId, archived: false })).length;
-    if (neighborListId) {
-      const neighborList = await ReactiveCache.getList({ _id: neighborListId, boardId, archived: false });
-      if (neighborList && Number.isFinite(neighborList.sort)) {
-        const allLists = (await ReactiveCache.getLists({ boardId, swimlaneId, archived: false }))
-          .sort((a, b) => a.sort - b.sort);
-        const neighborIndex = allLists.findIndex(l => l._id === neighborListId);
-        if (position === 'left') {
-          const prev = allLists[neighborIndex - 1];
-          sort = prev && Number.isFinite(prev.sort)
-            ? (prev.sort + neighborList.sort) / 2
-            : neighborList.sort - 1;
-        } else {
-          const next = allLists[neighborIndex + 1];
-          sort = next && Number.isFinite(next.sort)
-            ? (neighborList.sort + next.sort) / 2
-            : neighborList.sort + 1;
-        }
-      }
-    }
-
-    const newListId = await Lists.insertAsync({
-      title: title || list.title,
-      boardId,
-      swimlaneId,
-      type: list.type,
-      archived: false,
-      wipLimit: list.wipLimit,
-      sort,
-    });
-
-    const cards = await ReactiveCache.getCards({ listId: list._id, archived: false });
-    for (const card of cards) {
-      await card.copy(boardId, swimlaneId, newListId);
-    }
-
-    return newListId;
-  },
-
-  async moveList(listId, boardId, swimlaneId, neighborListId, position, title) {
-    check(listId, String);
-    check(boardId, String);
-    check(swimlaneId, String);
-    check(neighborListId, Match.OneOf(String, null, undefined));
-    check(position, Match.OneOf(String, null, undefined));
-    check(title, Match.OneOf(String, null, undefined));
-
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in.');
-    }
-
-    if (Meteor.isClient) return null;
-
-    const list = await ReactiveCache.getList(listId);
-    if (!list) {
-      throw new Meteor.Error('list-not-found', 'List not found');
-    }
-    const desiredTitle = typeof title === 'string' && title.trim().length > 0
-      ? title.trim()
-      : list.title;
-
-    const targetBoard = await ReactiveCache.getBoard(boardId);
-    if (!targetBoard) {
-      throw new Meteor.Error('board-not-found', 'Target board not found');
-    }
-
-    // list.move() relies on this.title to determine destination list identity.
-    list.title = desiredTitle;
-    await list.move(boardId, swimlaneId);
-
-    // Update sort of resulting list when a neighbor is specified
-    if (neighborListId) {
-      const movedList = await ReactiveCache.getList({ boardId, title: desiredTitle, archived: false });
-      const neighborList = await ReactiveCache.getList({ _id: neighborListId, boardId, archived: false });
-      if (movedList && neighborList && Number.isFinite(neighborList.sort)) {
-        const allLists = (await ReactiveCache.getLists({ boardId, swimlaneId, archived: false }))
-          .filter(l => l._id !== movedList._id)
-          .sort((a, b) => a.sort - b.sort);
-        const neighborIndex = allLists.findIndex(l => l._id === neighborListId);
-        let newSort;
-        if (position === 'left') {
-          const prev = allLists[neighborIndex - 1];
-          newSort = prev && Number.isFinite(prev.sort)
-            ? (prev.sort + neighborList.sort) / 2
-            : neighborList.sort - 1;
-        } else {
-          const next = allLists[neighborIndex + 1];
-          newSort = next && Number.isFinite(next.sort)
-            ? (neighborList.sort + next.sort) / 2
-            : neighborList.sort + 1;
-        }
-        await Lists.updateAsync(movedList._id, { $set: { sort: newSort } });
-      }
-    }
-
-    await list.archive();
-  },
-
-  async applyWipLimit(listId, limit) {
-    check(listId, String);
-    check(limit, Number);
-
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in.');
-    }
-
-    const list = await ReactiveCache.getList(listId);
-    if (!list) {
-      throw new Meteor.Error('list-not-found', 'List not found');
-    }
-
-    const board = await ReactiveCache.getBoard(list.boardId);
-    if (!board || !board.hasAdmin(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
-    }
-
-    if (limit === 0) {
-      limit = 1;
-    }
-    await list.setWipLimit(limit);
-  },
-
-  async enableWipLimit(listId) {
-    check(listId, String);
-
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in.');
-    }
-
-    const list = await ReactiveCache.getList(listId);
-    if (!list) {
-      throw new Meteor.Error('list-not-found', 'List not found');
-    }
-
-    const board = await ReactiveCache.getBoard(list.boardId);
-    if (!board || !board.hasAdmin(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
-    }
-
-    if ((await list.getWipLimit('value')) === 0) {
-      await list.setWipLimit(1);
-    }
-    await list.toggleWipLimit(!(await list.getWipLimit('enabled')));
-  },
-
-  async enableSoftLimit(listId) {
-    check(listId, String);
-
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in.');
-    }
-
-    const list = await ReactiveCache.getList(listId);
-    if (!list) {
-      throw new Meteor.Error('list-not-found', 'List not found');
-    }
-
-    const board = await ReactiveCache.getBoard(list.boardId);
-    if (!board || !board.hasAdmin(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
-    }
-
-    await list.toggleSoftLimit(!(await list.getWipLimit('soft')));
-  },
-
-  async myLists() {
-    // my lists
-    const lists = await ReactiveCache.getLists(
-      {
-        boardId: { $in: await Boards.userBoardIds(this.userId) },
-        archived: false,
-      },
-      {
-        fields: { title: 1 },
-      },
-    );
-    return [...new Set(lists.map(list => list.title))].sort();
-  },
-
-  async updateListSort(listId, boardId, updateData) {
-    check(listId, String);
-    check(boardId, String);
-    check(updateData, Object);
-
-    const board = await ReactiveCache.getBoard(boardId);
-    if (!board) {
-      throw new Meteor.Error('board-not-found', 'Board not found');
-    }
-
-    if (Meteor.isServer) {
-      if (typeof allowIsBoardMember === 'function') {
-        if (!allowIsBoardMember(this.userId, board)) {
-          throw new Meteor.Error('permission-denied', 'User does not have permission to modify this board');
-        }
-      }
-    }
-
-    const list = await ReactiveCache.getList(listId);
-    if (!list) {
-      throw new Meteor.Error('list-not-found', 'List not found');
-    }
-
-    const validUpdateFields = ['sort', 'swimlaneId', 'updatedAt', 'modifiedAt'];
-    Object.keys(updateData).forEach(field => {
-      if (!validUpdateFields.includes(field)) {
-        throw new Meteor.Error('invalid-field', `Field ${field} is not allowed`);
-      }
-    });
-
-    if (updateData.swimlaneId) {
-      const swimlane = await ReactiveCache.getSwimlane(updateData.swimlaneId);
-      if (!swimlane || swimlane.boardId !== boardId) {
-        throw new Meteor.Error('invalid-swimlane', 'Invalid swimlane for this board');
-      }
-    }
-
-    await Lists.updateAsync(
-      listId,
-      {
-        $set: {
-          ...updateData,
-          modifiedAt: new Date(),
-        },
-      },
-    );
-
-    return {
-      success: true,
-      listId,
-      updatedFields: Object.keys(updateData),
-      timestamp: new Date().toISOString(),
-    };
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await Lists._collection.rawCollection().createIndex({ modifiedAt: -1 });
-    await Lists._collection.rawCollection().createIndex({ boardId: 1 });
-    await Lists._collection.rawCollection().createIndex({ archivedAt: -1 });
-  });
-}
-
-Lists.after.insert((userId, doc) => {
-  if (Meteor.isClient) {
-    return;
-  }
-
-  Activities.insert({
-    userId,
-    type: 'list',
-    activityType: 'createList',
-    boardId: doc.boardId,
-    listId: doc._id,
-    // this preserves the name so that the activity can be useful after the
-    // list is deleted
-    title: doc.title,
-  });
-
-  // Track original position for new lists
-  Meteor.setTimeout(() => {
-    const list = Lists.findOne(doc._id);
-    if (list) {
-      list.trackOriginalPosition();
-    }
-  }, 100);
-});
-
-Lists.before.remove(async (userId, doc) => {
-  if (Meteor.isClient) {
-    return;
-  }
-
-  const cards = await ReactiveCache.getCards({ listId: doc._id });
-  if (cards) {
-    for (const card of cards) {
-      // For non-archived lists, preserve existing behavior: deleting the list
-      // deletes all its cards.
-      if (!doc.archived) {
-        await Cards.removeAsync(card._id);
-        continue;
-      }
-
-      // For archived lists, only delete cards that were archived together with
-      // the list (or after it). Keep cards that were archived before the list
-      // was archived so deleting the list does not remove independently
-      // archived cards.
-      const listArchivedAt = doc.archivedAt;
-      const cardArchivedAt = card.archivedAt;
-      const shouldDeleteCard =
-        !listArchivedAt ||
-        !card.archived ||
-        !cardArchivedAt ||
-        cardArchivedAt >= listArchivedAt;
-
-      if (shouldDeleteCard) {
-        await Cards.removeAsync(card._id);
-      }
-    }
-  }
-  await Activities.insertAsync({
-    userId,
-    type: 'list',
-    activityType: 'removeList',
-    boardId: doc.boardId,
-    listId: doc._id,
-    title: doc.title,
-  });
-});
-
-// Ensure we don't fetch previous doc in after.update hook
-Lists.hookOptions.after.update = { fetchPrevious: false };
-
-Lists.after.update((userId, doc, fieldNames) => {
-  if (Meteor.isClient) {
-    return;
-  }
-
-  if (fieldNames.includes('title')) {
-    Activities.insert({
-      userId,
-      type: 'list',
-      activityType: 'changedListTitle',
-      listId: doc._id,
-      boardId: doc.boardId,
-      // this preserves the name so that the activity can be useful after the
-      // list is deleted
-      title: doc.title,
-    });
-  } else if (doc.archived) {
-    Activities.insert({
-      userId,
-      type: 'list',
-      activityType: 'archivedList',
-      listId: doc._id,
-      boardId: doc.boardId,
-      // this preserves the name so that the activity can be useful after the
-      // list is deleted
-      title: doc.title,
-    });
-  } else if (fieldNames.includes('archived')) {
-    Activities.insert({
-      userId,
-      type: 'list',
-      activityType: 'restoredList',
-      listId: doc._id,
-      boardId: doc.boardId,
-      // this preserves the name so that the activity can be useful after the
-      // list is deleted
-      title: doc.title,
-    });
-  }
-
-  // When sort or swimlaneId change, trigger a pub/sub refresh marker
-  if (fieldNames.includes('sort') || fieldNames.includes('swimlaneId')) {
-    Lists.direct.update(
-      { _id: doc._id },
-      { $set: { _updatedAt: new Date() } },
-    );
-  }
-});
-
-//LISTS REST API
-if (Meteor.isServer) {
-  /**
-   * @operation get_all_lists
-   * @summary Get the list of Lists attached to a board
-   *
-   * @param {string} boardId the board ID
-   * @return_type [{_id: string,
-   *           title: string}]
-   */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists', async function(req, res) {
-    try {
-      const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: (await ReactiveCache.getLists({ boardId: paramBoardId, archived: false })).map(
-          function(doc) {
-            return {
-              _id: doc._id,
-              title: doc.title,
-            };
-          },
-        ),
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation get_list
-   * @summary Get a List attached to a board
-   *
-   * @param {string} boardId the board ID
-   * @param {string} listId the List ID
-   * @return_type Lists
-   */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', async function(
-    req,
-    res,
-  ) {
-    try {
-      const paramBoardId = req.params.boardId;
-      const paramListId = req.params.listId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: await ReactiveCache.getList({
-          _id: paramListId,
-          boardId: paramBoardId,
-          archived: false,
-        }),
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation new_list
-   * @summary Add a List to a board
-   *
-   * @param {string} boardId the board ID
-   * @param {string} title the title of the List
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists', async function(req, res) {
-    try {
-      const paramBoardId = req.params.boardId;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-      const board = await ReactiveCache.getBoard(paramBoardId);
-      const id = await Lists.insertAsync({
-        title: req.body.title,
-        boardId: paramBoardId,
-        sort: board.lists().length,
-        swimlaneId: req.body.swimlaneId || board.getDefaultSwimline()._id, // Use provided swimlaneId or default
-      });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: id,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation edit_list
-   * @summary Edit a List
-   *
-   * @description This updates a list on a board.
-   * You can update the title, color, wipLimit, starred, and collapsed properties.
-   *
-   * @param {string} boardId the board ID
-   * @param {string} listId the ID of the list to update
-   * @param {string} [title] the new title of the list
-   * @param {string} [color] the new color of the list
-   * @param {Object} [wipLimit] the WIP limit configuration
-   * @param {boolean} [starred] whether the list is starred
-   * @param {boolean} [collapsed] whether the list is collapsed
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId', async function(
-    req,
-    res,
-  ) {
-    try {
-      const paramBoardId = req.params.boardId;
-      const paramListId = req.params.listId;
-      let updated = false;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-
-      const list = await ReactiveCache.getList({
-        _id: paramListId,
-        boardId: paramBoardId,
-        archived: false,
-      });
-
-      if (!list) {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-          data: { error: 'List not found' },
-        });
-        return;
-      }
-
-      // Update title if provided
-      if (req.body.title) {
-        // Basic client-side validation - server will handle full sanitization
-        const newTitle = req.body.title.length > 1000 ? req.body.title.substring(0, 1000) : req.body.title;
-
-        if (process.env.DEBUG === 'true' && newTitle !== req.body.title) {
-          console.warn('Sanitized list title input:', req.body.title, '->', newTitle);
-        }
-
-        Lists.direct.update(
-          {
-            _id: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              title: newTitle,
-            },
-          },
-        );
-        updated = true;
-      }
-
-      // Update color if provided
-      if (req.body.color) {
-        const newColor = req.body.color;
-        Lists.direct.update(
-          {
-            _id: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              color: newColor,
-            },
-          },
-        );
-        updated = true;
-      }
-
-      // Update starred status if provided
-      if (req.body.hasOwnProperty('starred')) {
-        const newStarred = req.body.starred;
-        Lists.direct.update(
-          {
-            _id: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              starred: newStarred,
-            },
-          },
-        );
-        updated = true;
-      }
-
-      // NOTE: collapsed state removed from board-level
-      // It's per-user only - use user profile methods instead
-
-      // Update wipLimit if provided
-      if (req.body.wipLimit) {
-        const newWipLimit = req.body.wipLimit;
-        Lists.direct.update(
-          {
-            _id: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              wipLimit: newWipLimit,
-            },
-          },
-        );
-        updated = true;
-      }
-
-      // Check if update is true or false
-      if (!updated) {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-          data: {
-            message: 'Error',
-          },
-        });
-        return;
-      }
-
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramListId,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation delete_list
-   * @summary Delete a List
-   *
-   * @description This **deletes** a list from a board.
-   * The list is not put in the recycle bin.
-   *
-   * @param {string} boardId the board ID
-   * @param {string} listId the ID of the list to remove
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function(
-    req,
-    res,
-  ) {
-    try {
-      const paramBoardId = req.params.boardId;
-      const paramListId = req.params.listId;
-      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-      Lists.remove({ _id: paramListId, boardId: paramBoardId });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramListId,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-}
-
 // Position history tracking methods
 Lists.helpers({
   /**
    * Track the original position of this list
    */
   trackOriginalPosition() {
-    const existingHistory = PositionHistory.findOne({
+    const selector = {
       boardId: this.boardId,
       entityType: 'list',
       entityId: this._id,
-    });
+    };
+    const document = {
+      boardId: this.boardId,
+      entityType: 'list',
+      entityId: this._id,
+      originalPosition: {
+        sort: this.sort,
+        title: this.title,
+      },
+      originalSwimlaneId: this.swimlaneId || null,
+      originalTitle: this.title,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
-    if (!existingHistory) {
-      PositionHistory.insert({
-        boardId: this.boardId,
-        entityType: 'list',
-        entityId: this._id,
-        originalPosition: {
-          sort: this.sort,
-          title: this.title,
-        },
-        originalSwimlaneId: this.swimlaneId || null,
-        originalTitle: this.title,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+    if (Meteor.isServer) {
+      return PositionHistory.findOneAsync(selector).then(existingHistory => {
+        if (!existingHistory) {
+          return PositionHistory.insertAsync(document);
+        }
+        return existingHistory;
       });
+    }
+
+    const existingHistory = PositionHistory.findOne(selector);
+    if (!existingHistory) {
+      PositionHistory.insert(document);
     }
   },
 
@@ -1281,11 +454,15 @@ Lists.helpers({
    * Get the original position history for this list
    */
   getOriginalPosition() {
-    return PositionHistory.findOne({
+    const selector = {
       boardId: this.boardId,
       entityType: 'list',
       entityId: this._id,
-    });
+    };
+    if (Meteor.isServer) {
+      return PositionHistory.findOneAsync(selector);
+    }
+    return PositionHistory.findOne(selector);
   },
 
   /**

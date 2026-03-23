@@ -9,6 +9,7 @@ import Users from "../../models/users";
 import Org from "../../models/org";
 import Team from "../../models/team";
 import Attachments from '../../models/attachments';
+import Boards from '/models/boards';
 
 publishComposite('boards', function() {
   const userId = this.userId;

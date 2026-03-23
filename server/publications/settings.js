@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import Settings from '/models/settings';
+import Integrations from '/models/integrations';
 
 Meteor.publish('globalwebhooks', async function() {
   if (!this.userId) {
