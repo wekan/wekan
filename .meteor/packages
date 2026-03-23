@@ -3,20 +3,28 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-base@1.5.1
+meteor-base
 
 # Build system
 ecmascript
 standard-minifier-js
-# mquandalle:jade removed — replaced by meteor-jade-loader (Rspack loader)
+rspack
 
-blaze
+blaze@3.0.2
 
 # Collections
 aldeed:collection2
+aldeed:schema-index@4.0.0-beta.5
 reywood:publish-composite
-# dburles:collection-helpers removed — absorbed into Meteor 3.4 core (PR #13830)
 mongo
+
+# The holy trifecta - this is a replacement for subs-manager
+# for IndexedDB persistence and auto-sync
+jam:offline 
+# for optimistic methods with offline queuing
+jam:method 
+# global subscription caching
+jam:pub-sub
 
 # Account system
 accounts-password
@@ -25,7 +33,6 @@ communitypackages:unstyled
 communitypackages:flow-routing
 # Routing
 ostrio:flow-router-extra
-communitypackages:rest-accounts-password
 wekan-ldap
 wekan-accounts-cas
 wekan-accounts-sandstorm
@@ -44,7 +51,6 @@ audit-argument-checks
 # UI components
 ostrio:i18n
 reactive-var
-meteor-autosize
 shell-server
 email
 dynamic-import
@@ -52,12 +58,10 @@ wekan-markdown
 quave:synced-cron
 ostrio:cookies
 ostrio:files
-lmieulet:meteor-coverage
+# lmieulet:meteor-coverage
 meteortesting:mocha
 matb33:collection-hooks
-communitypackages:json-routes
 service-configuration
-# communitypackages:picker removed — Meteor 3 bundles Express, use WebApp.handlers
 minifier-css
 ejson
 logging

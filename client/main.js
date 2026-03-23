@@ -1,18 +1,15 @@
 // ============================================================================
 // WeKan Client Entry Point
 //
-// CRITICAL: This file uses require() — NOT import.
-// With ES module imports, ALL import statements are hoisted and evaluated
-// in dependency-graph order (not textual order). This means we cannot
-// guarantee that collection2/SimpleSchema load before model files.
-//
-// With require(), each call completes synchronously before the next:
-//   1. collectionHelpers → loads collection2, SimpleSchema, helpers shim
-//   2. App code → all models can safely use attachSchema/helpers
+// Side-effect imports keep bootstrap order explicit without relying on
+// browser-side CommonJS require().
 // ============================================================================
 
-// 1. Bootstrap — MUST complete before any model code runs
-require('/imports/collectionHelpers');
+// 1. Bootstrap — helpers polyfill (SimpleSchema is server-only)
+import '/imports/collectionHelpers';
 
-// 2. Load all application code
-require('/client/imports');
+// 2. Eagerly load all app styles
+import '/client/styles';
+
+// 3. Load all application code
+import '/client/imports';

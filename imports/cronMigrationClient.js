@@ -1,10 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { Mongo } from 'meteor/mongo';
 import { Tracker } from 'meteor/tracker';
+import CronJobStatus from '/models/cronJobStatus';
 
-// Client-side collection mirror
-export const CronJobStatus = new Mongo.Collection('cronJobStatus');
+export { CronJobStatus };
 
 export const cronMigrationProgress = new ReactiveVar(0);
 export const cronMigrationStatus = new ReactiveVar('');

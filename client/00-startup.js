@@ -10,7 +10,8 @@ import '/client/config/blazeHelpers';
 
 // Import board converter for on-demand conversion
 import '/client/lib/boardConverter';
-import '/client/components/boardConversionProgress';
+import '/client/features/boardConversion';
+import { Utils } from '/client/lib/utils';
 
 // Import migration manager and progress UI - COMMENTED OUT
 // import '/client/lib/attachmentMigrationManager';

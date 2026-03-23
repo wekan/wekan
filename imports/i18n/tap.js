@@ -1,13 +1,12 @@
-import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
-import Translation from '/models/translation';
 import i18next from 'i18next';
 import sprintf from 'i18next-sprintf-postprocessor';
 import languages from './languages';
 
 const DEFAULT_NAMESPACE = 'translation';
 const DEFAULT_LANGUAGE = 'en';
+const getTranslationCollection = () => require('/models/translation').default;
 
 // Carefully reproduced tap:i18n API
 export const TAPi18n = {
@@ -70,7 +69,13 @@ export const TAPi18n = {
 
       let custom_translations = [];
       await this.loadTranslation(language);
-      custom_translations = ReactiveCache.getTranslations({language: language}, {fields: { text: true, translationText: true }});
+      const Translation = getTranslationCollection();
+      const cursor = Translation.find(
+        { language },
+        { fields: { text: true, translationText: true } },
+      );
+      custom_translations =
+        typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
 
       if (custom_translations && custom_translations.length > 0) {
         data = custom_translations.reduce((acc, cur) => {

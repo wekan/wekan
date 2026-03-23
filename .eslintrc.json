@@ -93,7 +93,6 @@
     "Template": false,
     "$": false,
     "_": false,
-    "autosize": false,
     "Avatar": true,
     "Avatars": true,
 
@@ -145,7 +144,6 @@
     "Checklists": true,
     "Settings": true,
     "InvitationCodes": true,
-    "JsonRoutes": true,
     "Authentication": true,
     "Integrations": true,
     "HTTP": true,

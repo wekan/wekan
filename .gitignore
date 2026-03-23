@@ -46,3 +46,9 @@ private/build-chunks/
 # Chart dependencies
 /helm/wekan/**/*.tgz
 /helm/wekan/charts
+
+# Meteor Modern-Tools build context directories
+_build
+*/build-assets
+*/build-chunks
+.rsdoctor
