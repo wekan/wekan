@@ -51,6 +51,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix: prevent cards from disappearing after dragging in List view](https://github.com/wekan/wekan/pull/6199).
   Thanks to KhaoulaMaleh.
+- [Fixed Board lost its member list or permissions](https://github.com/wekan/wekan/commit/3d6797a3058875eb531aa006935ab69825975afd).
+  Thanks to marylinereumont, AymenHassini19, muabila and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
