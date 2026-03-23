@@ -1,6 +1,12 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TriggersDef } from '/server/triggersDef';
+import EmailLocalization from '/server/lib/emailLocalization';
+import Cards from '/models/cards';
+import ChecklistItems from '/models/checklistItems';
+import Checklists from '/models/checklists';
+import Swimlanes from '/models/swimlanes';
 
-RulesHelper = {
+export const RulesHelper = {
   async executeRules(activity) {
     const matchingRules = await this.findMatchingRules(activity);
     for (let i = 0; i < matchingRules.length; i++) {
@@ -318,28 +324,28 @@ RulesHelper = {
       await checkItem.uncheck();
     }
     if (action.actionType === 'addChecklist') {
-      Checklists.insert({
+      await Checklists.insertAsync({
         title: action.checklistName,
         cardId: card._id,
         sort: 0,
       });
     }
     if (action.actionType === 'removeChecklist') {
-      Checklists.remove({
+      await Checklists.removeAsync({
         title: action.checklistName,
         cardId: card._id,
         sort: 0,
       });
     }
     if (action.actionType === 'addSwimlane') {
-      Swimlanes.insert({
+      await Swimlanes.insertAsync({
         title: action.swimlaneName,
         boardId,
         sort: 0,
       });
     }
     if (action.actionType === 'addChecklistWithItems') {
-      const checkListId = Checklists.insert({
+      const checkListId = await Checklists.insertAsync({
         title: action.checklistName,
         cardId: card._id,
         sort: 0,
@@ -348,7 +354,7 @@ RulesHelper = {
       const existingItems = await ReactiveCache.getChecklistItems({ checklistId: checkListId });
       const sortBase = existingItems.length;
       for (let i = 0; i < itemsArray.length; i++) {
-        ChecklistItems.insert({
+        await ChecklistItems.insertAsync({
           title: itemsArray[i],
           checklistId: checkListId,
           cardId: card._id,
@@ -374,7 +380,7 @@ RulesHelper = {
       } else {
         swimlaneId = swimlane._id;
       }
-      Cards.insert({
+      await Cards.insertAsync({
         title: action.cardName,
         listId,
         swimlaneId,

@@ -1,5 +1,8 @@
 const closedValue = null;
+import { Blaze } from 'meteor/blaze';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { EscapeActions } from '/client/lib/escapeActions';
 
 window.Modal = new (class {
   constructor() {

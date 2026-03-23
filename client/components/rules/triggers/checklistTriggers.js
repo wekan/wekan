@@ -1,3 +1,5 @@
+import { Utils } from '/client/lib/utils';
+
 Template.checklistTriggers.onCreated(function () {
   this.subscribe('allRules');
 });

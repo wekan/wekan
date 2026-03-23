@@ -2,6 +2,9 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Org from '/models/org';
+import Team from '/models/team';
+import Users from '/models/users';
 
 const orgsPerPage = 25;
 const teamsPerPage = 25;
@@ -1180,7 +1183,7 @@ Template.editUserPopup.events({
   },
 });
 
-UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
+const UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
   let selectedElt;
   let selectedEltValue;
   let selectedEltValueId;

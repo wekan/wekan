@@ -1,5 +1,4 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import '../gantt/gantt.js';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
@@ -7,13 +6,16 @@ import { boardConverter } from '/client/lib/boardConverter';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;
 
 // Global reference so child components (swimlanes, cards) can access boardBody instance
-BoardBody = null;
+let BoardBody = null;
 
 Template.board.onCreated(function () {
   this.isBoardReady = new ReactiveVar(false);
@@ -22,7 +24,7 @@ Template.board.onCreated(function () {
   this._boardProcessed = false; // Track if board has been processed
   this._lastProcessedBoardId = null; // Track last processed board ID
 
-  this.ensureDefaultSwimlane = (boardId) => {
+  this.ensureDefaultSwimlane = async (boardId) => {
     // Only create swimlane once per board
     if (this._swimlaneCreated.has(boardId)) {
       return;
@@ -33,25 +35,15 @@ Template.board.onCreated(function () {
       if (!board) return;
 
       const swimlanes = board.swimlanes();
-
       if (swimlanes.length === 0) {
-        // Check if any swimlane exists in the database to avoid race conditions
-        const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId });
-        if (existingSwimlanes.length === 0) {
-          const swimlaneId = Swimlanes.insert({
-            title: 'Default',
-            boardId: boardId,
-          });
-          if (process.env.DEBUG === 'true') {
-            console.log(
-              `Created default swimlane ${swimlaneId} for board ${boardId}`,
-            );
-          }
+        const swimlaneId = await Meteor.callAsync('ensureDefaultSwimlane', boardId);
+        if (process.env.DEBUG === 'true' && swimlaneId) {
+          console.log(
+            `Ensured default swimlane ${swimlaneId} for board ${boardId}`,
+          );
         }
-        this._swimlaneCreated.add(boardId);
-      } else {
-        this._swimlaneCreated.add(boardId);
       }
+      this._swimlaneCreated.add(boardId);
     } catch (error) {
       console.error('Error creating default swimlane:', error);
     }
@@ -1091,11 +1083,33 @@ Template.calendarView.helpers({
         const createCardButton = modalElement.querySelector(
           '#create-card-button',
         );
-        createCardButton.addEventListener('click', function () {
+        createCardButton.addEventListener('click', async function () {
           const myTitle = modalElement.querySelector('#card-title-input').value;
           if (myTitle) {
-            const firstList = currentBoard.draggableLists()[0];
-            const firstSwimlane = currentBoard.swimlanes()[0];
+            let firstSwimlane = currentBoard.swimlanes()[0];
+            if (!firstSwimlane) {
+              const swimlaneId = await Swimlanes.insertAsync({
+                title: 'Default',
+                boardId: currentBoard._id,
+              });
+              firstSwimlane = ReactiveCache.getSwimlane(swimlaneId);
+            }
+
+            let firstList = currentBoard.draggableLists()[0];
+            if (!firstList && firstSwimlane) {
+              const defaultTitle = TAPi18n.__('default');
+              const listId = await Lists.insertAsync({
+                title: typeof defaultTitle === 'string' ? defaultTitle : 'Default',
+                boardId: currentBoard._id,
+                swimlaneId: firstSwimlane._id,
+              });
+              firstList = ReactiveCache.getList(listId);
+            }
+
+            if (!firstList || !firstSwimlane) {
+              return;
+            }
+
             Meteor.call(
               'createCardWithDueDate',
               currentBoard._id,

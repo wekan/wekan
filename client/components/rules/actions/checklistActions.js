@@ -1,3 +1,8 @@
+import Actions from '/models/actions';
+import Rules from '/models/rules';
+import Triggers from '/models/triggers';
+import { Utils } from '/client/lib/utils';
+
 Template.checklistActions.onCreated(function () {
   this.subscribe('allRules');
 });

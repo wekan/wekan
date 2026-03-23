@@ -1,4 +1,9 @@
+import { Blaze } from 'meteor/blaze';
+import { Template } from 'meteor/templating';
+import { Tracker } from 'meteor/tracker';
 import { TAPi18n } from '/imports/i18n';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
 
 window.Popup = new (class {
   constructor() {

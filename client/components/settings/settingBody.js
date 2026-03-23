@@ -2,6 +2,11 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import LockoutSettings from '/models/lockoutSettings';
+import AccessibilitySettings from '/models/accessibilitySettings';
+import AccountSettings from '/models/accountSettings';
+import Announcements from '/models/announcements';
+import Settings from '/models/settings';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 // import {
 //   cronMigrationProgress,
 //   cronMigrationStatus,
@@ -492,7 +497,7 @@ Template.setting.events({
     });
     const validEmails = [];
     emails.forEach((email) => {
-      if (email && SimpleSchema.RegEx.Email.test(email.trim())) {
+      if (email && /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email.trim())) {
         validEmails.push(email.trim());
       }
     });
@@ -1083,25 +1088,44 @@ Template.announcementSettings.helpers({
 });
 
 Template.announcementSettings.events({
-  'click a.js-toggle-activemessage'(event, tpl) {
+  async 'click a.js-toggle-activemessage'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     const announcements = Announcements.findOne();
+    if (!announcements) {
+      tpl.loading.set(false);
+      return;
+    }
     const isActive = announcements.enabled;
-    Announcements.update(announcements._id, {
-      $set: { enabled: !isActive },
-    });
-    tpl.loading.set(false);
-    if (isActive) {
-      $('.admin-announcement').slideUp();
-    } else {
-      $('.admin-announcement').slideDown();
+    try {
+      await Announcements.updateAsync(announcements._id, {
+        $set: { enabled: !isActive },
+      });
+      if (isActive) {
+        $('.admin-announcement').slideUp();
+      } else {
+        $('.admin-announcement').slideDown();
+      }
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to update announcement setting');
+    } finally {
+      tpl.loading.set(false);
     }
   },
-  'click button.js-announcement-save'() {
+  async 'click button.js-announcement-save'(event) {
+    event.preventDefault();
     const message = $('#admin-announcement').val().trim();
-    Announcements.update(Announcements.findOne()._id, {
-      $set: { body: message },
-    });
+    const announcement = Announcements.findOne();
+    if (!announcement) {
+      return;
+    }
+    try {
+      await Announcements.updateAsync(announcement._id, {
+        $set: { body: message },
+      });
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to save announcement');
+    }
   },
 });
 

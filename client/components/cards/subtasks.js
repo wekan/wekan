@@ -1,5 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Cards from '/models/cards';
+import { Filter } from '/client/lib/filter';
 
 Template.subtasks.events({
   'click .js-open-subtask-details-menu': Popup.open('subtaskActions'),
@@ -11,8 +13,16 @@ Template.subtasks.events({
     const card = ReactiveCache.getCard(cardId);
     const sortIndex = -1;
     const crtBoard = ReactiveCache.getBoard(card.boardId);
-    const targetBoard = crtBoard.getDefaultSubtasksBoard();
-    const listId = targetBoard.getDefaultSubtasksListId();
+    const targetBoard = await crtBoard.getDefaultSubtasksBoardAsync();
+    if (!targetBoard) {
+      return;
+    }
+
+    const targetList = await targetBoard.getDefaultSubtasksListAsync();
+    if (!targetList) {
+      return;
+    }
+    const listId = targetList._id;
 
     //Get the full swimlane data for the parent task.
     const parentSwimlane = ReactiveCache.getSwimlane({
@@ -33,7 +43,7 @@ Template.subtasks.events({
     const nextCardNumber = await targetBoard.getNextCardNumber();
 
     if (title) {
-      const _id = Cards.insert({
+      const _id = await Cards.insertAsync({
         title,
         parentId: cardId,
         members: [],
@@ -44,7 +54,7 @@ Template.subtasks.events({
         sort: sortIndex,
         swimlaneId,
         type: 'cardType-card',
-        cardNumber: nextCardNumber
+        cardNumber: nextCardNumber,
       });
 
       // In case the filter is active we need to add the newly inserted card in

@@ -1,3 +1,5 @@
+import { Utils } from '/client/lib/utils';
+
 Template.boardTriggers.onCreated(function () {
   this.provaVar = new ReactiveVar('');
   this.currentPopupTriggerId = 'def';

@@ -3,10 +3,14 @@ import Lists from '../../../models/lists';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
 import { BoardSwimlaneListDialog } from '/client/lib/dialogWithBoardSwimlaneList';
+import Cards from '/models/cards';
+import { LIST_COLORS } from '/models/metadata/colors';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { Utils } from '/client/lib/utils';
 
 let listsColors;
 Meteor.startup(() => {
-  listsColors = Lists.simpleSchema()._schema.color.allowedValues;
+  listsColors = LIST_COLORS;
 });
 
 Template.listHeader.helpers({

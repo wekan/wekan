@@ -1,13 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
+import Users from '/models/users';
 
 Template.notification.events({
-  'click .read-status .materialCheckBox'() {
+  async 'click .read-status .materialCheckBox'() {
     const update = {};
-    const newReadValue = this.read ? null : Date.now();
+    const newReadValue = this.read ? null : new Date();
     update[`profile.notifications.${this.index}.read`] = newReadValue;
 
-    Users.update(Meteor.userId(), { $set: update }, (error, result) => {
+    await Users.updateAsync(Meteor.userId(), { $set: update }).catch((error) => {
       if (error) {
         console.error('Error updating notification:', error);
       }

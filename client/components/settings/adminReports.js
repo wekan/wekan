@@ -1,11 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { AttachmentStorage } from '/models/attachments';
+import Attachments, { AttachmentStorage } from '/models/attachments';
 import { CardSearchPaged } from '/client/lib/cardSearch';
 import SessionData from '/models/usersessiondata';
 import { QueryParams } from '/config/query-classes';
 import { OPERATOR_LIMIT } from '/config/search-const';
-const filesize = require('filesize');
+import Boards from '/models/boards';
+import Cards from '/models/cards';
+import Rules from '/models/rules';
+const { filesize } = require('filesize');
 
 // --- Shared helper functions (formerly AdminReport base class methods) ---
 

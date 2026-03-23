@@ -29,6 +29,8 @@ import {
 } from '/imports/lib/dateUtils';
 import { CustomFieldStringTemplate } from '/client/lib/customFields'
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { getSidebarInstance } from '/client/features/sidebar/service';
 
 Template.cardCustomFieldsPopup.helpers({
   hasCustomField() {
@@ -49,7 +51,10 @@ Template.cardCustomFieldsPopup.events({
   },
   'click .js-settings'(event) {
     EscapeActions.executeUpTo('detailsPane');
-    Sidebar.setView('customFields');
+    const sidebar = getSidebarInstance();
+    if (sidebar) {
+      sidebar.setView('customFields');
+    }
     event.preventDefault();
   },
 });

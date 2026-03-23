@@ -1,3 +1,5 @@
+import { Utils } from '/client/lib/utils';
+
 Template.searchSidebar.onCreated(function () {
   this.term = new ReactiveVar('');
 });

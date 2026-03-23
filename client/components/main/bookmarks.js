@@ -1,3 +1,5 @@
+import Boards from '/models/boards';
+
 Template.bookmarks.helpers({
   hasStarredBoards() {
     const user = ReactiveCache.getCurrentUser();

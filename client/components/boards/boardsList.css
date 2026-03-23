@@ -1,4 +1,4 @@
-@import url("../../../css/reset.css") print, screen;
+@import url("../../../public/css/reset.css") print, screen;
 
 /* Board List Header with Zoom Controls */
 .board-list-header {

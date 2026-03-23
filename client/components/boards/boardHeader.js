@@ -2,6 +2,14 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import dragscroll from '@wekanteam/dragscroll';
+import getSlug from 'limax';
+import Boards from '/models/boards';
+import Swimlanes from '/models/swimlanes';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+import { Filter } from '/client/lib/filter';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { getSidebarInstance } from '/client/features/sidebar/service';
+import { Utils } from '/client/lib/utils';
 
 /*
 const DOWNCLS = 'fa-sort-down';
@@ -11,6 +19,7 @@ const sortCardsBy = new ReactiveVar('');
 
 Template.boardChangeTitlePopup.events({
   async submit(event, templateInstance) {
+    event.preventDefault();
     const newTitle = templateInstance
       .$('.js-board-name')
       .val()
@@ -27,7 +36,6 @@ Template.boardChangeTitlePopup.events({
       }
       Popup.back();
     }
-    event.preventDefault();
   },
 });
 
@@ -94,30 +102,32 @@ Template.boardHeaderBar.events({
       console.log('Hamburger menu clicked');
     }
     // Use the same approach as keyboard shortcuts
-    if (typeof Sidebar !== 'undefined' && Sidebar && typeof Sidebar.toggle === 'function') {
+    const sidebar = getSidebarInstance();
+    if (sidebar && typeof sidebar.toggle === 'function') {
       if (process.env.DEBUG === 'true') {
         console.log('Using Sidebar.toggle()');
       }
-      Sidebar.toggle();
+      sidebar.toggle();
     } else {
       if (process.env.DEBUG === 'true') {
         console.warn('Sidebar not available, trying alternative approach');
       }
       // Try to trigger the sidebar through the global Blaze helper
       if (typeof Blaze !== 'undefined' && Blaze._globalHelpers && Blaze._globalHelpers.Sidebar) {
-        const sidebar = Blaze._globalHelpers.Sidebar();
-        if (sidebar && typeof sidebar.toggle === 'function') {
+        const blazeSidebar = Blaze._globalHelpers.Sidebar();
+        if (blazeSidebar && typeof blazeSidebar.toggle === 'function') {
           if (process.env.DEBUG === 'true') {
             console.log('Using Blaze helper Sidebar.toggle()');
           }
-          sidebar.toggle();
+          blazeSidebar.toggle();
         }
       }
     }
   },
   'click .js-open-filter-view'() {
-    if (Sidebar) {
-      Sidebar.setView('filter');
+    const sidebar = getSidebarInstance();
+    if (sidebar) {
+      sidebar.setView('filter');
     } else {
       console.warn('Sidebar not available for setView');
     }
@@ -137,8 +147,9 @@ Template.boardHeaderBar.events({
   */
   'click .js-filter-reset'(event) {
     event.stopPropagation();
-    if (Sidebar) {
-      Sidebar.setView();
+    const sidebar = getSidebarInstance();
+    if (sidebar) {
+      sidebar.setView();
     } else {
       console.warn('Sidebar not available for setView');
     }
@@ -148,8 +159,9 @@ Template.boardHeaderBar.events({
     Session.set('sortBy', '');
   },
   'click .js-open-search-view'() {
-    if (Sidebar) {
-      Sidebar.setView('search');
+    const sidebar = getSidebarInstance();
+    if (sidebar) {
+      sidebar.setView('search');
     } else {
       console.warn('Sidebar not available for setView');
     }
@@ -214,55 +226,26 @@ function createBoardHelpers() {
   };
 }
 
-function createBoardSubmit(tpl, event) {
+async function createBoardSubmit(tpl, event) {
   event.preventDefault();
   const title = tpl.find('.js-new-board-title').value;
+  const slug = getSlug(title) || 'board';
 
   const addTemplateContainer = $('#add-template-container.is-checked').length > 0;
   if (addTemplateContainer) {
-    //const templateContainerId = Meteor.call('setCreateTemplateContainer');
-    //Utils.goBoardId(templateContainerId);
-    //alert('niinku template ' + Meteor.call('setCreateTemplateContainer'));
-
     tpl.boardId.set(
-      Boards.insert({
-          // title: TAPi18n.__('templates'),
-          title: title,
-          permission: 'private',
-          type: 'template-container',
-          migrationVersion: 1, // Latest version - no migration needed
-        }),
-     );
-
-    // Insert the card templates swimlane
-    Swimlanes.insert({
-        // title: TAPi18n.__('card-templates-swimlane'),
-        title: 'Card Templates',
-        boardId: tpl.boardId.get(),
-        sort: 1,
+      await Meteor.callAsync('createBoardWithInitialSwimlanes', {
+        title,
+        slug,
+        permission: 'private',
         type: 'template-container',
+        migrationVersion: 1,
+        swimlanes: [
+          { title: 'Card Templates', sort: 1, type: 'template-container' },
+          { title: 'List Templates', sort: 2, type: 'template-container' },
+          { title: 'Board Templates', sort: 3, type: 'template-container' },
+        ],
       }),
-
-    // Insert the list templates swimlane
-    Swimlanes.insert(
-      {
-        // title: TAPi18n.__('list-templates-swimlane'),
-        title: 'List Templates',
-        boardId: tpl.boardId.get(),
-        sort: 2,
-        type: 'template-container',
-      },
-    );
-
-    // Insert the board templates swimlane
-    Swimlanes.insert(
-      {
-        //title: TAPi18n.__('board-templates-swimlane'),
-        title: 'Board Templates',
-        boardId: tpl.boardId.get(),
-        sort: 3,
-        type: 'template-container',
-      },
     );
 
     // Assign to space if one was selected
@@ -274,23 +257,20 @@ function createBoardSubmit(tpl, event) {
       Session.set('createBoardInWorkspace', null); // Clear after use
     }
 
-    Utils.goBoardId(tpl.boardId.get());
+    FlowRouter.go('board', { id: tpl.boardId.get(), slug });
 
   } else {
     const visibility = tpl.visibility.get();
 
     tpl.boardId.set(
-      Boards.insert({
+      await Meteor.callAsync('createBoardWithInitialSwimlanes', {
         title,
+        slug,
         permission: visibility,
-        migrationVersion: 1, // Latest version - no migration needed
+        migrationVersion: 1,
+        swimlanes: [{ title: 'Default' }],
       }),
     );
-
-    Swimlanes.insert({
-      title: 'Default',
-      boardId: tpl.boardId.get(),
-    });
 
     // Assign to space if one was selected
     const spaceId = Session.get('createBoardInWorkspace');
@@ -301,7 +281,7 @@ function createBoardSubmit(tpl, event) {
       Session.set('createBoardInWorkspace', null); // Clear after use
     }
 
-    Utils.goBoardId(tpl.boardId.get());
+    FlowRouter.go('board', { id: tpl.boardId.get(), slug });
   }
 }
 
@@ -315,8 +295,8 @@ function createBoardEvents() {
       tpl.visibilityMenuIsOpen.set(!tpl.visibilityMenuIsOpen.get());
     },
     'click .js-import': Popup.open('boardImportBoard'),
-    'submit'(event, tpl) {
-      createBoardSubmit(tpl, event);
+    async 'submit'(event, tpl) {
+      await createBoardSubmit(tpl, event);
     },
     'click .js-import-board': Popup.open('chooseBoardSource'),
     'click .js-board-template': Popup.open('searchElement'),
@@ -375,7 +355,7 @@ Template.headerBarCreateBoardPopup.events({
   },
   'click .js-import': Popup.open('boardImportBoard'),
   async submit(event, tpl) {
-    createBoardSubmit(tpl, event);
+    await createBoardSubmit(tpl, event);
     // Immediately star boards created with the headerbar popup.
     await ReactiveCache.getCurrentUser().toggleBoardStar(tpl.boardId.get());
   },
@@ -403,9 +383,11 @@ Template.boardChangeVisibilityPopup.helpers({
 Template.boardChangeVisibilityPopup.events({
   'click .js-select-visibility'() {
     const currentBoard = Utils.getCurrentBoard();
-    const visibility = String(this);
-    currentBoard.setVisibility(visibility);
-    Popup.back();
+    const visibility = Template.currentData();
+    if (typeof visibility === 'string') {
+      currentBoard.setVisibility(visibility);
+      Popup.back();
+    }
   },
 });
 
@@ -423,16 +405,18 @@ Template.boardChangeWatchPopup.helpers({
 
 Template.boardChangeWatchPopup.events({
   'click .js-select-watch'() {
-    const level = String(this);
-    Meteor.call(
-      'watch',
-      'board',
-      Session.get('currentBoard'),
-      level,
-      (err, ret) => {
-        if (!err && ret) Popup.back();
-      },
-    );
+    const level = Template.currentData();
+    if (typeof level === 'string') {
+      Meteor.call(
+        'watch',
+        'board',
+        Session.get('currentBoard'),
+        level,
+        (err, ret) => {
+          if (!err && ret) Popup.back();
+        },
+      );
+    }
   },
 });
 

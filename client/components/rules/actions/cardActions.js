@@ -1,6 +1,12 @@
+import Actions from '/models/actions';
+import { CARD_COLORS } from '/models/metadata/colors';
+import Rules from '/models/rules';
+import Triggers from '/models/triggers';
+import { Utils } from '/client/lib/utils';
+
 let cardColors;
 Meteor.startup(() => {
-  cardColors = Cards.simpleSchema()._schema.color.allowedValues;
+  cardColors = CARD_COLORS;
 });
 
 // Module-level shared state so the color popup can read/write the

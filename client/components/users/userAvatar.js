@@ -1,9 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import Cards from '/models/cards';
 import Avatars from '/models/avatars';
-import Users from '/models/users';
-import Org from '/models/org';
-import Team from '/models/team';
+import Presences from '/models/presences';
+import { Utils } from '/client/lib/utils';
 
 Template.userAvatar.helpers({
   userData() {
@@ -202,9 +200,9 @@ Template.changeAvatarPopup.events({
   'click .js-upload-avatar'(event, tpl) {
     tpl.$('.js-upload-avatar-input').click();
   },
-  'change .js-upload-avatar-input'(event, tpl) {
+  async 'change .js-upload-avatar-input'(event, tpl) {
     if (event.currentTarget.files && event.currentTarget.files[0]) {
-      const uploader = Avatars.insert(
+      const uploader = await Avatars.insertAsync(
         {
           file: event.currentTarget.files[0],
           chunkSize: 'dynamic',
@@ -231,8 +229,8 @@ Template.changeAvatarPopup.events({
     event.stopPropagation();
     changeAvatarSetAvatar(tpl, '');
   },
-  'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', function (event) {
-    Avatars.remove(this._id);
+  'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', async function (event) {
+    await Avatars.removeAsync(this._id);
     Popup.back();
     event.stopPropagation();
   }),

@@ -1,12 +1,17 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Template } from 'meteor/templating';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import { TAPi18n } from '/imports/i18n';
+import { Utils } from '/client/lib/utils';
+import { getSidebarInstance } from '/client/features/sidebar/service';
 
 const activitiesPerPage = 500;
 
 Template.activities.onCreated(function () {
   // Register with sidebar so it can call loadNextPage on us
+  const Sidebar = getSidebarInstance();
   if (Sidebar) {
     Sidebar.activitiesInstance = this;
   }
@@ -22,7 +27,7 @@ Template.activities.onCreated(function () {
   };
 
   // TODO is sidebar always available? E.g. on small screens/mobile devices
-  const sidebar = Sidebar;
+  const sidebar = getSidebarInstance();
   if (sidebar && sidebar.infiniteScrolling) {
     sidebar.infiniteScrolling.resetNextPeak();
   }

@@ -12,6 +12,11 @@
 //   else
 //     // the content when the form is close (optional)
 
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Tracker } from 'meteor/tracker';
+import { EscapeActions } from '/client/lib/escapeActions';
+
 // We can only have one inlined form element opened at a time
 const currentlyOpenedForm = new ReactiveVar(null);
 

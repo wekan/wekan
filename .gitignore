@@ -41,6 +41,7 @@ public/build-assets/
 public/build-chunks/
 private/build-assets/
 private/build-chunks/
+public/client-rspack.js.map
 
 # Helm chart
 # Chart dependencies

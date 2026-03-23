@@ -4,6 +4,8 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
 import getSlug from 'limax';
+import { UserSearchIndex } from '/models/users';
+import { Utils } from '/client/lib/utils';
 
 const Papa = require('papaparse');
 

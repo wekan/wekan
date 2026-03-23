@@ -37,6 +37,7 @@ import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
 import { uniqBy } from '/imports/lib/collectionHelpers';
 import { UserAvatar } from '../users/userAvatar';
+import { Filter } from '/client/lib/filter';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
 import { handleFileUpload } from './attachments';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
@@ -45,6 +46,12 @@ import {
   getCurrentCardFromContext,
 } from '/client/lib/currentCard';
 import uploadProgressManager from '../../lib/uploadProgressManager';
+import { CSSEvents } from '/client/lib/cssEvents';
+import { UnsavedEdits } from '/client/lib/unsavedEdits';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { Utils } from '/client/lib/utils';
+import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -1445,7 +1452,9 @@ Template.setCardColorPopup.events({
 });
 
 Template.setSelectionColorPopup.onCreated(function () {
-  this.currentColor = new ReactiveVar(null);
+  const selectedCards = ReactiveCache.getCards(MultiSelection.getMongoSelector());
+  const uniqueColors = [...new Set(selectedCards.map(card => card.color || null))];
+  this.currentColor = new ReactiveVar(uniqueColors.length === 1 ? uniqueColors[0] : null);
 });
 
 Template.setSelectionColorPopup.helpers({
@@ -1466,22 +1475,32 @@ Template.setSelectionColorPopup.events({
     const color = colorClass ? colorClass.replace('card-details-', '') : null;
     tpl.currentColor.set(color);
   },
-  async 'click .js-submit'(event, tpl) {
+  async 'submit form.edit-label'(event, tpl) {
     event.preventDefault();
     const color = tpl.currentColor.get();
-    // Use MultiSelection to get selected cards and set color on each
-    for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
-      await card.setColor(color);
+    try {
+      for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
+        await card.setColor(color);
+      }
+      Popup.back();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to save selection color');
     }
-    Popup.back();
+  },
+  async 'click .js-submit'(event, tpl) {
+    event.preventDefault();
+    await tpl.$('form.edit-label').trigger('submit');
   },
   async 'click .js-remove-color'(event, tpl) {
     event.preventDefault();
-    // Use MultiSelection to get selected cards and remove color from each
-    for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
-      await card.setColor(null);
+    try {
+      for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
+        await card.setColor(null);
+      }
+      Popup.back();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to unset selection color');
     }
-    Popup.back();
   },
 });
 

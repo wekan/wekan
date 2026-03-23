@@ -1,4 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import Actions from '/models/actions';
+import Rules from '/models/rules';
+import Triggers from '/models/triggers';
 
 Template.rulesMain.onCreated(function () {
   this.rulesCurrentTab = new ReactiveVar('rulesList');

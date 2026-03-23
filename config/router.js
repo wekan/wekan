@@ -1,5 +1,12 @@
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { ReactiveCache } from '/imports/reactiveCache';
+import Settings from '/models/settings';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Filter } from '/client/lib/filter';
+import { Utils } from '/client/lib/utils';
 
 let previousPath;
 
@@ -110,29 +117,6 @@ FlowRouter.route('/support', {
   },
 });
 
-FlowRouter.route('/public', {
-  name: 'public',
-  action() {
-    Session.set('currentBoard', null);
-    Session.set('currentList', null);
-    Session.set('currentCard', null);
-    Session.set('popupCardId', null);
-    Session.set('popupCardBoardId', null);
-
-    Filter.reset();
-    Session.set('sortBy', '');
-    EscapeActions.executeAll();
-
-    Utils.manageCustomUI();
-    Utils.manageMatomo();
-
-    this.render('defaultLayout', {
-      headerBar: 'supportHeaderBar',
-      content: 'support',
-    });
-  },
-});
-
 // Card route MUST be registered BEFORE board route so it matches first
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
@@ -163,19 +147,34 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
 });
 
 
+FlowRouter.route('/b/:id', {
+  name: 'board-short',
+  action(params) {
+    const board = ReactiveCache.getBoard(params.id);
+
+    if (board && board.slug) {
+      FlowRouter.go('board', { id: board._id, slug: board.slug });
+      return;
+    }
+
+    Session.set('currentBoard', params.id);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      headerBar: 'boardHeaderBar',
+      content: 'board',
+    });
+  },
+});
+
 FlowRouter.route('/b/:id/:slug', {
   name: 'board',
   action(params) {
-    const pathSegments = FlowRouter.current().path.split('/').filter(s => s);
-
-    // If we have 4+ segments (b, boardId, slug, cardId), this is a card view
-    if (pathSegments.length >= 4) {
-      return;
-    }
-    // If slug contains "/" it means a cardId was matched by this greedy pattern
-    if (params.slug && params.slug.includes('/')) {
-      return;
-    }
     const currentBoard = params.id;
     const previousBoard = Session.get('currentBoard');
     Session.set('currentBoard', currentBoard);

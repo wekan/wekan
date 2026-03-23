@@ -1,6 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Users from '/models/users';
+import { EscapeActions } from '/client/lib/escapeActions';
 
 let alreadyCheck = 1;
 let isCheckDone = false;

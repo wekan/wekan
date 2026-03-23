@@ -28,6 +28,7 @@ import {
   fromNow,
   calendar,
 } from '/imports/lib/dateUtils';
+import { Utils } from '/client/lib/utils';
 
 Blaze.registerHelper('currentBoard', () => {
   const ret = Utils.getCurrentBoard();
@@ -139,3 +140,21 @@ Blaze.registerHelper('$nin', (...args) => {
   return args.every((arg) => value !== arg);
 });
 Blaze.registerHelper('$', () => ({ Session, Meteor }));
+
+// Expose module-scoped objects to Blaze templates (jade references)
+import { Filter } from '/client/lib/filter';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
+
+let _Sidebar;
+function getSidebar() {
+  if (!_Sidebar) {
+    _Sidebar = require('/client/features/sidebar/service').getSidebarInstance;
+  }
+  return _Sidebar();
+}
+
+Blaze.registerHelper('Filter', () => Filter);
+Blaze.registerHelper('MultiSelection', () => MultiSelection);
+Blaze.registerHelper('Sidebar', () => getSidebar());
+Blaze.registerHelper('BoardMultiSelection', () => BoardMultiSelection);

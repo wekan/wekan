@@ -1,10 +1,13 @@
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { SWIMLANE_COLORS } from '/models/metadata/colors';
+import Swimlanes from '/models/swimlanes';
+import { Utils } from '/client/lib/utils';
 const { calculateIndexData } = Utils;
 
 let swimlaneColors;
 Meteor.startup(() => {
-  swimlaneColors = Swimlanes.simpleSchema()._schema.color.allowedValues;
+  swimlaneColors = SWIMLANE_COLORS;
 });
 
 function swimlaneHeaderCollapsed(check = undefined) {
@@ -117,7 +120,7 @@ Template.swimlaneAddPopup.onCreated(function () {
 });
 
 Template.swimlaneAddPopup.events({
-  submit(event, tpl) {
+  async submit(event, tpl) {
     event.preventDefault();
     const currentBoard = Utils.getCurrentBoard();
     const nextSwimlane = currentBoard.nextSwimlane(tpl.currentSwimlane);
@@ -133,7 +136,7 @@ Template.swimlaneAddPopup.events({
       : 'swimlane';
 
     if (title) {
-      Swimlanes.insert({
+      await Swimlanes.insertAsync({
         title,
         boardId: Session.get('currentBoard'),
         sort: sortValue.base || 0,

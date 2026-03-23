@@ -1,5 +1,7 @@
+import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { Utils } from '/client/lib/utils';
 
 /**
  * Helper class for popup dialogs that let users select a board, swimlane, and list.

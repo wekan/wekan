@@ -4,6 +4,7 @@
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 import { ContenteditableEditor } from '@textcomplete/contenteditable';
+import { EscapeActions } from '/client/lib/escapeActions';
 
 let dropdownMenuIsOpened = false;
 

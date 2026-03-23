@@ -7,7 +7,7 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { AttachmentMigrationStatus } from '/imports/attachmentMigrationClient';
+import AttachmentMigrationStatus from '/models/attachmentMigrationStatus';
 
 // Reactive variables for attachment migration progress
 export const attachmentMigrationProgress = new ReactiveVar(0);

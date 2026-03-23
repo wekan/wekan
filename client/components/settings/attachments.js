@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { groupBy } from '/imports/lib/collectionHelpers';
-import Attachments, { fileStoreStrategyFactory } from '/models/attachments';
-const filesize = require('filesize');
+import Attachments from '/models/attachments';
+const { filesize } = require('filesize');
 
 Template.attachments.onCreated(function () {
   this.subscription = null;
@@ -62,7 +62,10 @@ Template.moveAttachments.helpers({
           _attachment.flatVersion = Object.keys(_attachment.versions)
             .map(_versionName => {
               const _version = Object.assign(_attachment.versions[_versionName], {"versionName": _versionName});
-              _version.storageName = fileStoreStrategyFactory.getFileStrategy(_attachment, _versionName).getStorageName();
+              // Read storage directly from the document (set by onAfterUpload on server)
+              _version.storageName = _version.storage || (
+                (_attachment.meta?.source === 'import' || _version.meta?.gridFsFileId) ? 'gridfs' : 'fs'
+              );
               return _version;
             });
         });

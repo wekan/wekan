@@ -1,4 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
+import { Utils } from '/client/lib/utils';
 
 Template.cardTriggers.onCreated(function () {
   this.subscribe('allRules');

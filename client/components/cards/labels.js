@@ -1,8 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { LABEL_COLORS } from '/models/metadata/colors';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
 
 let labelColors;
 Meteor.startup(() => {
-  labelColors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
+  labelColors = LABEL_COLORS;
 });
 
 const getFallbackLabelColor = () => {

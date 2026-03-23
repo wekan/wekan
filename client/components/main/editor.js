@@ -1,6 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import { TAPi18n } from '/imports/i18n';
+import Attachments from '/models/attachments';
+import { Utils } from '/client/lib/utils';
+import autosize from 'autosize';
 var converter = require('@wekanteam/html-to-markdown');
 
 const specialHandles = [
@@ -207,11 +210,11 @@ Template.editor.onRendered(function () {
                   const currentCard = Utils.getCurrentCard();
                   const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
                   const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
-                  const processUpload = function(file) {
-                    const uploader = Attachments.insert(
+                  const processUpload = async function(file) {
+                    const uploader = await Attachments.insertAsync(
                       {
                         file,
-                        meta: Utils.getCommonAttachmentMetaFrom(card),
+                        meta: Utils.getCommonAttachmentMetaFrom(currentCard),
                         chunkSize: 'dynamic',
                       },
                       false,

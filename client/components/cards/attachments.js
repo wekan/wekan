@@ -1,12 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { ObjectID } from 'bson';
+import { ObjectId } from 'bson';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
+import Attachments from '/models/attachments';
+import { Utils } from '/client/lib/utils';
 
-const filesize = require('filesize');
-const prettyMilliseconds = require('pretty-ms');
+const { filesize } = require('filesize');
+import prettyMilliseconds from 'pretty-ms';
 
 // We store current card ID and the ID of currently opened attachment in a
 // global var. This is used so that we know what's the next attachment to open
@@ -19,7 +21,7 @@ let touchStartCoords = null;
 let touchEndCoords = null;
 
 // Stores link to the attachment for which attachment actions popup was opened
-attachmentActionsLink = null;
+let attachmentActionsLink = null;
 
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
@@ -40,8 +42,8 @@ Template.attachmentGallery.events({
     attachmentActionsLink = event.currentTarget.getAttribute("data-attachment-link");
   },
   'click .js-rename': Popup.open('attachmentRename'),
-  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
-      Attachments.remove(this._id);
+  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', async function() {
+      await Attachments.removeAsync(this._id);
       Popup.back();
   }),
 });
@@ -294,12 +296,12 @@ Template.cardAttachmentsPopup.helpers({
 });
 
 Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(event, templateInstance) {
+  async 'change .js-attach-file'(event, templateInstance) {
     const card = this;
     const files = event.currentTarget.files;
     if (files) {
       let uploads = [];
-      const uploaders = handleFileUpload(card, files);
+      const uploaders = await handleFileUpload(card, files);
 
       uploaders.forEach(uploader => {
         uploader.on('start', function() {
@@ -328,7 +330,7 @@ const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
 let pastedResults = null;
 
 // Shared upload logic for drag-and-drop functionality
-export function handleFileUpload(card, files) {
+export async function handleFileUpload(card, files) {
   if (!files || files.length === 0) {
     return [];
   }
@@ -361,7 +363,7 @@ export function handleFileUpload(card, files) {
       continue;
     }
 
-    const fileId = new ObjectID().toString();
+    const fileId = new ObjectId().toString();
     let fileName = sanitizeText(file.name);
 
     // If sanitized filename is not same as original filename,
@@ -385,7 +387,7 @@ export function handleFileUpload(card, files) {
     config.meta.fileId = fileId;
 
     try {
-      const uploader = Attachments.insert(
+      const uploader = await Attachments.insertAsync(
         config,
         false,
       );
@@ -460,12 +462,12 @@ Template.previewClipboardImagePopup.onRendered(() => {
 });
 
 Template.previewClipboardImagePopup.events({
-  'click .js-upload-pasted-image'() {
+  async 'click .js-upload-pasted-image'() {
     const card = this;
     if (pastedResults && pastedResults.file) {
       const file = pastedResults.file;
       window.oPasted = pastedResults;
-      const fileId = new ObjectID().toString();
+      const fileId = new ObjectId().toString();
       const config = {
         file,
         fileId: fileId,
@@ -474,7 +476,7 @@ Template.previewClipboardImagePopup.events({
         chunkSize: 'dynamic',
       };
       config.meta.fileId = fileId;
-      const uploader = Attachments.insert(
+      const uploader = await Attachments.insertAsync(
         config,
         false,
       );

@@ -1,4 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import CardComments from '/models/cardComments';
+import { UnsavedEdits } from '/client/lib/unsavedEdits';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
+import autosize from 'autosize';
 
 const commentFormIsOpen = new ReactiveVar(false);
 

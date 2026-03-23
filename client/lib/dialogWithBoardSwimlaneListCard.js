@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { BoardSwimlaneListDialog } from '/client/lib/dialogWithBoardSwimlaneList';
 

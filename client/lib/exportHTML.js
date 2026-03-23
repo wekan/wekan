@@ -156,7 +156,7 @@ window.ExportHtml = Popup => {
   };
 
   const getWebFonts = () => {
-    fontUrls = [];
+    let fontUrls = [];
 
     for (let sheet of document.styleSheets) {
       // Get the base URL of the stylesheet

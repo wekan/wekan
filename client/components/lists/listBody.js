@@ -3,6 +3,13 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { getSpinnerName, getSpinnerTemplate } from '/client/lib/spinner';
 import getSlug from 'limax';
+import Boards from '/models/boards';
+import Cards from '/models/cards';
+import Swimlanes from '/models/swimlanes';
+import { Filter } from '/client/lib/filter';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { Utils } from '/client/lib/utils';
+import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
 const InfiniteScrollIter = 10;
@@ -59,7 +66,10 @@ Template.listBody.onCreated(function () {
   };
 
   this.idOrNull = (swimlaneId) => {
-    const data = Template.currentData();
+    const data = this.data;
+    if (!data) {
+      return undefined;
+    }
     if (
       Utils.boardView() === 'board-view-swimlanes' ||
       data.board().isTemplatesBoard()
@@ -88,7 +98,10 @@ Template.listBody.onCreated(function () {
     const labelIds = formComponent.labels.get();
     const customFields = formComponent.customFields.get();
 
-    const data = Template.currentData();
+    const data = this.data;
+    if (!data) {
+      return;
+    }
     const board = data.board();
     let linkedId = '';
     let swimlaneId = '';
@@ -102,13 +115,15 @@ Template.listBody.onCreated(function () {
         if (swimlane.isCardTemplatesSwimlane()) cardType = 'template-card';
         // If this is the board templates swimlane, insert a board template and a linked card
         else if (swimlane.isBoardTemplatesSwimlane()) {
-          linkedId = Boards.insert({
+          linkedId = await Boards.insertAsync({
             title,
+            slug: getSlug(title) || 'board',
             permission: 'private',
             type: 'template-board',
           });
-          Swimlanes.insert({
-            title: TAPi18n.__('default'),
+          const defaultTitle = TAPi18n.__('default');
+          await Swimlanes.insertAsync({
+            title: typeof defaultTitle === 'string' ? defaultTitle : 'Default',
             boardId: linkedId,
           });
           cardType = 'cardType-linkedBoard';

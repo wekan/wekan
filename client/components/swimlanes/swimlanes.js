@@ -1,6 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { once } from '/imports/lib/collectionHelpers';
 import dragscroll from '@wekanteam/dragscroll';
+import Lists from '/models/lists';
+import { CSSEvents } from '/client/lib/cssEvents';
+import { Filter } from '/client/lib/filter';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
 const { calculateIndex } = Utils;
 
 function saveSorting(ui) {

@@ -560,8 +560,8 @@ template(name="deleteDuplicateListsPopup")
 template(name="outgoingWebhooksPopup")
   each integrations
     form.integration-form
-      a.flex
-        i.fa(class="{{#unless enabled}}fa-check{{else}}fa-square-o{{/unless}}")
+      a.flex.js-toggle-webhook-enabled
+        .materialCheckBox(class="{{#unless enabled}}is-checked{{/unless}}")
         span {{_ 'disable-webhook'}}
       input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" value=title)
       input.js-outgoing-webhooks-url(type="text" name="url" value=url)

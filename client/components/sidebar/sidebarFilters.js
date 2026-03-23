@@ -1,5 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { Filter } from '/client/lib/filter';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { Utils } from '/client/lib/utils';
 
 // SubsManager removed for Meteor 3 migration
 

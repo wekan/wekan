@@ -1,3 +1,5 @@
+import { Blaze } from 'meteor/blaze';
+import { Template } from 'meteor/templating';
 import Cards from '/models/cards';
 
 function getCardIdFromData(data) {

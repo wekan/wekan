@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import AccessibilitySettings from '/models/accessibilitySettings';
 
 // Shared helpers for both accessibility templates
 const accessibilityHelpers = {

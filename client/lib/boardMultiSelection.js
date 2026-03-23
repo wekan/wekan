@@ -1,6 +1,8 @@
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
 
-BoardMultiSelection = {
+export const BoardMultiSelection = {
   _selectedBoards: new ReactiveVar([]),
 
   _isActive: new ReactiveVar(false),

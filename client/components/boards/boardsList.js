@@ -2,6 +2,10 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
 
 // SubsManager removed for Meteor 3 migration
 

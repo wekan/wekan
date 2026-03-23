@@ -2,7 +2,12 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
+import ChecklistItems from '/models/checklistItems';
+import Checklists from '/models/checklists';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
+import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;

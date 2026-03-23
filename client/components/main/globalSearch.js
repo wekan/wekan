@@ -1,6 +1,6 @@
 import { TAPi18n } from '/imports/i18n';
 import { CardSearchPaged } from '../../lib/cardSearch';
-import Boards from '../../../models/boards';
+import { LABEL_COLORS } from '/models/metadata/colors';
 import { Query, QueryErrors } from '../../../config/query-classes';
 
 // const subManager = new SubsManager();
@@ -246,7 +246,7 @@ Template.globalSearch.helpers({
   },
 
   labelColors() {
-    return Boards.simpleSchema()._schema['labels.$.color'].allowedValues.map(
+    return LABEL_COLORS.map(
       color => {
         return { color, name: TAPi18n.__(`color-${color}`) };
       },

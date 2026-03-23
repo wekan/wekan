@@ -1,5 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import Actions from '/models/actions';
+import Rules from '/models/rules';
+import Triggers from '/models/triggers';
+import { Utils } from '/client/lib/utils';
 
 Template.boardActions.onCreated(function () {
   this.subscribe('boards');

@@ -1,5 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { Utils } from '/client/lib/utils';
 require('/client/lib/jquery-ui.js')
 
 const { calculateIndex } = Utils;

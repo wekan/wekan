@@ -1,5 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Boards from '/models/boards';
+import { Utils } from '/client/lib/utils';
 
 Template.archivedBoards.onCreated(function () {
   this.subscribe('archivedBoards');

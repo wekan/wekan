@@ -1,5 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
-const filesize = require('filesize');
+const { filesize } = require('filesize');
 
 Template.statistics.onCreated(function () {
   this.info = new ReactiveVar({});

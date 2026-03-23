@@ -1,4 +1,4 @@
-const { ReactiveVar } = require('meteor/reactive-var');
+import { ReactiveVar } from 'meteor/reactive-var';
 
 Template.basicTabs.onCreated(function () {
   const activeTab = this.data.activeTab

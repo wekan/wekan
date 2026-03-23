@@ -2,8 +2,10 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Tracker } from 'meteor/tracker';
 import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imports/lib/collectionHelpers';
+import Settings from '/models/settings';
+import Users from '/models/users';
 
-Utils = {
+export const Utils = {
   async setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
@@ -327,7 +329,7 @@ Utils = {
   },
 
   boardView() {
-    currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
     } else if (

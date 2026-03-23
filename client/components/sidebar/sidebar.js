@@ -1,9 +1,24 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
+import AccessibilitySettings from '/models/accessibilitySettings';
+import Boards from '/models/boards';
+import Integrations from '/models/integrations';
+import Lists from '/models/lists';
+import { BOARD_COLORS } from '/models/metadata/colors';
+import { Filter } from '/client/lib/filter';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
+import {
+  clearSidebarInstance,
+  setSidebarInstance,
+} from '/client/features/sidebar/service';
 
-Sidebar = null;
+export let Sidebar = null;
 
 const defaultView = 'home';
 const MCB = '.materialCheckBox';
@@ -25,6 +40,7 @@ Template.sidebar.onCreated(function() {
   this.infiniteScrolling = new InfiniteScrolling();
   this.activitiesInstance = null;
   Sidebar = this;
+  setSidebarInstance(this);
 
   // Subscribe to accessibility settings
   Meteor.subscribe('accessibilitySettings');
@@ -106,6 +122,7 @@ Template.sidebar.onCreated(function() {
 });
 
 Template.sidebar.onDestroyed(function() {
+  clearSidebarInstance(this);
   Sidebar = null;
 });
 
@@ -153,7 +170,7 @@ Template.sidebar.events({
     tpl.setView();
   },
   'click .js-toggle-minicard-label-text'() {
-    currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       Meteor.call('toggleMinicardLabelText');
     } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
@@ -176,12 +193,12 @@ Template.sidebar.events({
   'click .js-show-week-of-year-toggle'() {
     ReactiveCache.getCurrentUser().toggleShowWeekOfYear();
   },
-  'click .sidebar-accessibility'() {
+  'click .sidebar-accessibility'(event, tpl) {
     FlowRouter.go('accessibility');
-    Sidebar.toggle();
+    tpl.toggle();
   },
-  'click .js-close-sidebar'() {
-    Sidebar.toggle()
+  'click .js-close-sidebar'(event, tpl) {
+    tpl.toggle();
   },
   'scroll .js-board-sidebar-content'(event, tpl) {
     tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {
@@ -194,7 +211,7 @@ Blaze.registerHelper('Sidebar', () => Sidebar);
 
 Template.homeSidebar.helpers({
   hiddenMinicardLabelText() {
-    currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
@@ -237,7 +254,9 @@ Template.boardInfoOnMyBoardsPopup.helpers({
 EscapeActions.register(
   'sidebarView',
   () => {
-    Sidebar.setView(defaultView);
+    if (Sidebar) {
+      Sidebar.setView(defaultView);
+    }
   },
   () => {
     return Sidebar && Sidebar.getView() !== defaultView;
@@ -296,11 +315,15 @@ Template.boardMenuPopup.events({
     Popup.back();
   },
   'click .js-custom-fields'() {
-    Sidebar.setView('customFields');
+    if (Sidebar) {
+      Sidebar.setView('customFields');
+    }
     Popup.back();
   },
   'click .js-open-archives'() {
-    Sidebar.setView('archives');
+    if (Sidebar) {
+      Sidebar.setView('archives');
+    }
     Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
@@ -544,10 +567,6 @@ Template.membersWidget.events({
   },
 });
 
-Template.outgoingWebhooksPopup.onCreated(function() {
-  this.disabled = new ReactiveVar(false);
-});
-
 Template.outgoingWebhooksPopup.helpers({
   boardId() {
     return Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
@@ -571,20 +590,23 @@ Template.outgoingWebhooksPopup.helpers({
 });
 
 Template.outgoingWebhooksPopup.events({
-  'click a.flex'(evt, tpl) {
-    tpl.disabled.set(!tpl.disabled.get());
-    $(evt.target).toggleClass(CKCLS, tpl.disabled.get());
-  },
-  submit(evt, tpl) {
+  'click .js-toggle-webhook-enabled'(evt) {
     evt.preventDefault();
-    const url = evt.target.url.value;
+    $(evt.currentTarget).find(MCB).toggleClass(CKCLS);
+  },
+  async submit(evt) {
+    evt.preventDefault();
+    const url = evt.target.url.value.trim();
     const boardId = Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
     let id = null;
     let integration = null;
-    const title = evt.target.title.value;
-    const token = evt.target.token.value;
-    const type = evt.target.type.value;
-    const enabled = !tpl.disabled.get();
+    const title = evt.target.title.value.trim();
+    const token = evt.target.token.value.trim();
+    const type = evt.target.type.value.trim();
+    const enabled = !$(evt.target)
+      .find('.js-toggle-webhook-enabled')
+      .find(MCB)
+      .hasClass(CKCLS);
     let remove = false;
     const values = {
       url,
@@ -609,22 +631,27 @@ Template.outgoingWebhooksPopup.events({
     } else if (url) {
       integration = findIntegration({ url, token });
     }
-    if (remove) {
-      Integrations.remove(integration._id);
-    } else if (integration && integration._id) {
-      Integrations.update(integration._id, {
-        $set: values,
-      });
-    } else if (url) {
-      Integrations.insert({
-        ...values,
-        userId: Meteor.userId(),
-        enabled: true,
-        boardId,
-        activities: ['all'],
-      });
+
+    try {
+      if (remove && integration && integration._id) {
+        await Integrations.removeAsync(integration._id);
+      } else if (integration && integration._id) {
+        await Integrations.updateAsync(integration._id, {
+          $set: values,
+        });
+      } else if (url) {
+        await Integrations.insertAsync({
+          ...values,
+          userId: Meteor.userId(),
+          enabled,
+          boardId,
+          activities: ['all'],
+        });
+      }
+      Popup.back();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to save webhook');
     }
-    Popup.back();
   },
 });
 
@@ -778,7 +805,7 @@ Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
 
 Template.boardChangeColorPopup.helpers({
   backgroundColors() {
-    return Boards.simpleSchema()._schema.color.allowedValues;
+    return BOARD_COLORS;
   },
   isSelected() {
     const currentBoard = Utils.getCurrentBoard();
@@ -1471,7 +1498,7 @@ Template.addMemberPopup.onCreated(function() {
   };
 
   this.isValidEmail = function(email) {
-    return SimpleSchema.RegEx.Email.test(email);
+    return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
   };
 
   this.performSearch = function(query) {
