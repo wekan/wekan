@@ -78,10 +78,12 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   if (accessToken) {
     var tokenContent = getTokenContent(accessToken);
     var config = await getConfiguration();
-    var fields = Object.fromEntries(
-      Object.entries(tokenContent).filter(([k]) => (config.idTokenWhitelistFields || []).includes(k))
-    );
-    Object.assign(serviceData, fields);
+    if (tokenContent) {
+      var fields = Object.fromEntries(
+        Object.entries(tokenContent).filter(([k]) => (config.idTokenWhitelistFields || []).includes(k))
+      );
+      Object.assign(serviceData, fields);
+    }
   }
 
   if (token.refresh_token)
