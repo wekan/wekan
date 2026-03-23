@@ -953,13 +953,9 @@ Boards.helpers({
       const selected = group.find(m => m.isAdmin) || group[0];
       return selected;
     });
-    // Filter out members where user is not loaded
-    const filteredMembers = uniqueMembers.filter(member => {
-      const user = ReactiveCache.getUser(member.userId);
-      return user !== undefined;
-    });
-
     // Sort by role priority first (admin, normal, normal-assigned, no-comments, comment-only, comment-assigned, worker, read-only, read-assigned), then by fullname
+    // Note: do NOT filter by whether user data is loaded - userAvatar handles missing data gracefully
+    const filteredMembers = uniqueMembers;
     const sortKey = member => {
       const user = ReactiveCache.getUser(member.userId);
       let rolePriority = 8; // Default for normal

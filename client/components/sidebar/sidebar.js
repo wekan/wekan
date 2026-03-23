@@ -1545,7 +1545,7 @@ Template.addMemberPopup.events({
     }, 300);
   },
   'click .js-select-member'(event, tpl) {
-    const userId = Template.currentData()._id;
+    const userId = this._id;
     tpl.inviteUser(userId);
   },
   'click .js-email-invite'(event, tpl) {
@@ -1804,7 +1804,7 @@ Template.addBoardTeamPopup.events({
               if(index == -1){
                 members.push({
                   "isActive": true,
-                  "isAdmin": u.isAdmin !== undefined ? u.isAdmin : false,
+                  "isAdmin": false,
                   "isCommentOnly" : false,
                   "isNoComments" : false,
                   "userId": u._id,
@@ -1893,7 +1893,7 @@ Template.removeBoardTeamPopup.events({
       if (boardTeamUsers && boardTeamUsers.length > 0) {
         boardTeamUsers.forEach((u) => {
           index = members.findIndex(function(m){ return m.userId == u._id});
-          if(index !== -1 && (u.isAdmin === undefined || u.isAdmin == false)){
+          if(index !== -1 && !members[index].isAdmin){
             members.splice(index, 1);
           }
         });

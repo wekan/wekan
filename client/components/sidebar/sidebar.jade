@@ -96,61 +96,29 @@ template(name="membersWidget")
       +tabContent(slug='organizations')
         unless currentUser.isWorker
           p.quiet
-        if AtLeastOneOrgWasCreated
-          .board-widget.board-widget-members
-            .board-widget-content
-              +boardOrgGeneral
-              .clearfix
+        .board-widget-content
+          +boardOrgGeneral
+          .clearfix
       +tabContent(slug="teams")
         unless currentUser.isWorker
           p.quiet
-        if AtLeastOneTeamWasCreated
-          .board-widget.board-widget-members
-            .board-widget-content
-              +boardTeamGeneral
-              .clearfix
+        .board-widget-content
+          +boardTeamGeneral
+          .clearfix
 
 template(name="boardOrgGeneral")
-  table
-    tbody
-      tr
-        th
-          | {{_ 'add-organizations'}}
-          br
-          i.addOrganizationsLabel
-            | {{_ 'to-create-organizations-contact-admin'}}
-          br
-          i.addOrganizationsLabel
-            | {{_ 'add-organizations-label'}}
-        th
-          if currentUser.isBoardAdmin
-            a.member.orgOrTeamMember.add-member.js-manage-board-addOrg(title="{{_ 'add-members'}}")
-              i.fa.fa-plus
-            .divaddfaplusminus
-              | {{_ 'add'}}
-      each org in currentBoard.activeOrgs
-        +boardOrgRow(orgId=org.orgId)
+  each org in currentBoard.activeOrgs
+    +boardOrgRow(orgId=org.orgId)
+  if currentUser.isBoardAdmin
+    a.member.orgOrTeamMember.add-member.js-manage-board-addOrg(title="{{_ 'add-members'}}")
+      i.fa.fa-plus
 
 template(name="boardTeamGeneral")
-  table
-    tbody
-      tr
-        th
-          | {{_ 'add-teams'}}
-          br
-          i.addTeamsLabel
-            | {{_ 'to-create-teams-contact-admin'}}
-          br
-          i.addTeamsLabel
-            | {{_ 'add-teams-label'}}
-        th
-          if currentUser.isBoardAdmin
-            a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
-              i.fa.fa-plus
-            .divaddfaplusminus
-              | {{_ 'add'}}
-      each currentBoard.activeTeams
-        +boardTeamRow(teamId=this.teamId)
+  each currentBoard.activeTeams
+    +boardTeamRow(teamId=this.teamId)
+  if currentUser.isBoardAdmin
+    a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
+      i.fa.fa-plus
 
 template(name="boardChangeColorPopup")
   .board-backgrounds-list.clearfix
