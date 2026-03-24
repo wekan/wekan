@@ -39,7 +39,7 @@ This release adds the following updates:
   Thanks to harryadel and xet7.
 - [Updated dependencies of npm package @wekanteam/exceljs](https://github.com/wekan/wekan/commit/95ff8ef1f2f119c713ffba72122d51b6569b9d42).
   Thanks to xet7.
-- [Updated @meteorjs/rspack](https://github.com/wekan/wekan/commit/701c10d618aae25dd8c74096510eb26741c123b3).
+- [Updated @meteorjs/rspack](https://github.com/wekan/wekan/commit/21ab640686d868ee46e16e812b36a1c3820952a5).
   Thanks to Meteor developers.
 
 and fixes the following bugs:
