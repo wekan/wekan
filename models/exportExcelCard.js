@@ -84,10 +84,24 @@ runOnServer(function() {
         });
       }
 
-      let userLanguage = 'en';
-      if (user && user.profile && user.profile.language) {
-        userLanguage = user.profile.language;
+      // Determine language: prefer the active UI language sent by the client
+      // (?lang=fi), then the profile setting, then English.  The client-side
+      // param is necessary because WeKan may use the browser locale without
+      // ever writing it to profile.language.
+      let userLanguage =
+        params.query.lang ||
+        (user && user.profile && user.profile.language) ||
+        'en';
+
+      // Ensure the chosen language bundle is loaded into i18next.
+      try {
+        await TAPi18n.loadLanguage(userLanguage);
+      } catch (_) {
+        // Unknown / unsupported language – fall back to English silently.
+        userLanguage = 'en';
       }
+
+      const dateFormat = (user && user.profile && user.profile.dateFormat) || 'YYYY-MM-DD';
 
       // Parse optional ?fields=people,dates,... query param
       const fieldsParam = params.query.fields;
@@ -95,7 +109,7 @@ runOnServer(function() {
         ? fieldsParam.split(',').map(f => f.trim()).filter(f => ALL_FIELDS.includes(f))
         : null;
 
-      const exporter = new ExporterExcelCard(boardId, paramListId, paramCardId, userLanguage, fields, user);
+      const exporter = new ExporterExcelCard(boardId, paramListId, paramCardId, userLanguage, fields, dateFormat);
       if ((await exporter.canExport(user)) || impersonateDone) {
         if (impersonateDone) {
           await ImpersonatedUsers.insertAsync({

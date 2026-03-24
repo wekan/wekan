@@ -44,14 +44,8 @@ function saveSorting(ui) {
     }
   } else {
     // List was dropped in lists view (not swimlanes view)
-    // In this case, assign to the default swimlane
-    const currentBoard = ReactiveCache.getBoard(Session.get('currentBoard'));
-    if (currentBoard) {
-      const defaultSwimlane = currentBoard.getDefaultSwimline();
-      if (defaultSwimlane) {
-        targetSwimlaneId = defaultSwimlane._id;
-      }
-    }
+    // In this case, keep the original swimlane
+    targetSwimlaneId = list.getEffectiveSwimlaneId ? list.getEffectiveSwimlaneId() : (list.swimlaneId || null);
   }
 
   // Get the original swimlane ID of the list (handle backward compatibility)

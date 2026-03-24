@@ -29,6 +29,42 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# v8.42 2026-03-23 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix SSO login is broken](https://github.com/wekan/wekan/commit/2dce7a84cd0ce011972d377a05f5b26ff12daba7).
+  Thanks to sbaecker, vladimirdulov and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v8.41 2026-03-23 WeKan ® release
+
+This release adds the following new features:
+
+- [Export Card to Excel. Part 2](https://github.com/wekan/wekan/commit/7de1b04ebc51269e37840e74ba8fa72eed59950e).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Replace useraccounts packages with communitypackages alternatives](https://github.com/wekan/wekan/pull/6195).
+  Thanks to harryadel.
+- [Remove unused meteorhacks:aggregate for Meteor 3.0 migration](https://github.com/wekan/wekan/pull/6196).
+  Thanks to harryadel.
+- [Replace Email.send with Email.sendAsync](https://github.com/wekan/wekan/pull/6197).
+  Thanks to harryadel.
+
+and fixes the following bugs:
+
+- [Fixed 2nd new card should not have text of 1st card, it should be empty](https://github.com/wekan/wekan/commit/7b2128b3565ecf793a780980c71e5ab9cde0a3b2).
+  Thanks to xet7.
+- [Fix: prevent cards from disappearing after dragging in List view](https://github.com/wekan/wekan/pull/6199).
+  Thanks to KhaoulaMaleh.
+- [Fixed Board lost its member list or permissions](https://github.com/wekan/wekan/commit/3d6797a3058875eb531aa006935ab69825975afd).
+  Thanks to marylinereumont, AymenHassini19, muabila and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.40 2026-03-21 WeKan ® release
 
 This release adds the following new features:

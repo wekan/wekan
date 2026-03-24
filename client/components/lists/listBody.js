@@ -107,6 +107,11 @@ Template.listBody.onCreated(function () {
     let swimlaneId = '';
     let cardType = 'cardType-card';
     if (title) {
+      // Clear the textarea immediately so the next card starts empty,
+      // before any async operations that would leave the old text visible.
+      textarea.val('').focus();
+      autosize.update(textarea);
+
       if (board.isTemplatesBoard()) {
         const swimlaneEl = this.$('.js-minicards').closest('.swimlane').get(0);
         swimlaneId = swimlaneEl && Blaze.getData(swimlaneEl)?._id; // Always swimlanes view
@@ -136,8 +141,9 @@ Template.listBody.onCreated(function () {
         Utils.boardView() === 'board-view-lists' ||
         Utils.boardView() === 'board-view-cal' ||
         !Utils.boardView()
-      )
-      swimlaneId = board.getDefaultSwimline()._id;
+      ) {
+        swimlaneId = data.swimlaneId || board.getDefaultSwimline()._id;
+      }
 
       const nextCardNumber = await board.getNextCardNumber();
 
@@ -171,9 +177,7 @@ Template.listBody.onCreated(function () {
       // See https://github.com/wekan/wekan/issues/80
       Filter.addException(_id);
 
-      // We keep the form opened, empty it, and scroll to it.
-      textarea.val('').focus();
-      autosize.update(textarea);
+      // We keep the form opened and scroll to it.
       if (position === 'bottom') {
         this.scrollToBottom();
       }
@@ -569,7 +573,8 @@ Template.linkCardPopup.onCreated(function () {
   this.board = ReactiveCache.getBoard(this.boardId);
   // List where to insert card
   this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
-  this.listId = Blaze.getData(this.list[0])._id;
+  const listData = Blaze.getData(this.list[0]);
+  this.listId = listData._id;
   // Swimlane where to insert card
   const swimlane = $(Popup._getTopStack().openerElement).closest(
     '.js-swimlane',
@@ -578,7 +583,7 @@ Template.linkCardPopup.onCreated(function () {
   if (Utils.boardView() === 'board-view-swimlanes')
     this.swimlaneId = Blaze.getData(swimlane[0])._id;
   else if (Utils.boardView() === 'board-view-lists' || !Utils.boardView)
-    this.swimlaneId = ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
+    this.swimlaneId = listData.swimlaneId || ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
 
   this.getSortIndex = () => {
     const position = Template.currentData().position;
@@ -799,17 +804,18 @@ Template.searchElementPopup.onCreated(function () {
   this.selectedBoardId = new ReactiveVar(this.boardId);
   this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
 
-  if (!this.isBoardTemplateSearch) {
-    this.swimlaneId = '';
-    // Swimlane where to insert card
-    const swimlane = $(Popup._getTopStack().openerElement).parents(
-      '.js-swimlane',
-    );
-    if (Utils.boardView() === 'board-view-swimlanes')
-      this.swimlaneId = Blaze.getData(swimlane[0])._id;
-    else this.swimlaneId = ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
-    // List where to insert card
-    this.listId = Blaze.getData(this.list[0])._id;
+    if (!this.isBoardTemplateSearch) {
+      this.swimlaneId = '';
+      // Swimlane where to insert card
+      const swimlane = $(Popup._getTopStack().openerElement).parents(
+        '.js-swimlane',
+      );
+      const listData = Blaze.getData(this.list[0]);
+      if (Utils.boardView() === 'board-view-swimlanes')
+        this.swimlaneId = Blaze.getData(swimlane[0])._id;
+      else this.swimlaneId = listData.swimlaneId || ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
+      // List where to insert card
+      this.listId = listData._id;
   }
   this.term = new ReactiveVar('');
 

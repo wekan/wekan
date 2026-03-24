@@ -1035,6 +1035,7 @@
   "hide-minicard-label-text": "ミニカードのラベル名を隠す",
   "show-desktop-drag-handles": "デスクトップへのドラッグハンドルを表示",
   "assignee": "担当者",
+  "assignees": "Assignees",
   "cardAssigneesPopup-title": "担当者",
   "addmore-detail": "詳細説明の追加",
   "show-on-card": "カードに表示する項目",

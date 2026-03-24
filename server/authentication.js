@@ -80,7 +80,7 @@ Meteor.startup(() => {
         { service: 'oidc' },
         {
           $set: {
-            loginStyle: process.env.OAUTH2_LOGIN_STYLE,
+            loginStyle: process.env.OAUTH2_LOGIN_STYLE || 'redirect',
             clientId: process.env.OAUTH2_CLIENT_ID,
             secret: process.env.OAUTH2_SECRET,
             serverUrl: process.env.OAUTH2_SERVER_URL,
@@ -102,7 +102,7 @@ Meteor.startup(() => {
         { service: 'oidc' },
         {
           $set: {
-            loginStyle: process.env.OAUTH2_LOGIN_STYLE,
+            loginStyle: process.env.OAUTH2_LOGIN_STYLE || 'redirect',
             clientId: process.env.OAUTH2_CLIENT_ID,
             secret: process.env.OAUTH2_SECRET,
             serverUrl: process.env.OAUTH2_SERVER_URL,

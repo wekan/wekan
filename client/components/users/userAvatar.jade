@@ -27,32 +27,12 @@ template(name="orgAvatar")
     +boardOrgName(orgId=orgData._id)
 
 template(name="boardOrgRow")
-  tr
-    if orgData.orgIsActive
-      td {{ orgData.orgDisplayName }}
-    else
-      td <s>{{ orgData.orgDisplayName }}</s>
-    td
-      if currentUser.isBoardAdmin
-        a.member.orgOrTeamMember.add-member.js-manage-board-removeOrg(title="{{_ 'remove-from-board'}}")
-          i.removeTeamFaMinus
-            | ➖
-        .divaddfaplusminus
-          | {{_ 'remove-btn'}}
+  a.member.orgOrTeamMember.js-manage-board-removeOrg(title="{{orgData.orgDisplayName}}")
+    +boardOrgName(orgId=orgData._id)
 
 template(name="boardTeamRow")
-  tr
-    if teamData.teamIsActive
-      td {{ teamData.teamDisplayName }}
-    else
-      td <s>{{ teamData.teamDisplayName }}</s>
-    td
-      if currentUser.isBoardAdmin
-        a.member.orgOrTeamMember.add-member.js-manage-board-removeTeam(title="{{_ 'remove-from-board'}}")
-          i.removeTeamFaMinus
-            | ➖
-        .divaddfaplusminus
-          | {{_ 'remove-btn'}}
+  a.member.orgOrTeamMember.js-manage-board-removeTeam(title="{{teamData.teamDisplayName}}")
+    +boardTeamName(teamId=teamData._id)
 
 template(name="boardOrgName")
   svg.avatar.avatar-initials(viewBox="0 0 {{orgViewPortWidth}} 15")
