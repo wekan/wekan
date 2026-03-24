@@ -413,7 +413,6 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     }
 
     if (!chosen) {
-      // No existing candidate found
       return undefined;
     }
     return fs.createReadStream(chosen);

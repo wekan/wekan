@@ -1,5 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo, MongoInternals } from 'meteor/mongo';
+// Import Attachments directly to avoid relying on an implicit global that
+// does not exist in Meteor's ES-module scope.
+import Attachments from '../attachments';
 
 /**
  * Backward compatibility layer for CollectionFS to Meteor-Files migration
@@ -17,8 +20,7 @@ const OldAttachmentsFileRecord = new Mongo.Collection('cfs.attachments.filerecor
  */
 export async function isNewAttachmentStructure(attachmentId) {
   if (Meteor.isServer) {
-    // Access global Attachments variable to avoid circular dependency
-    if (typeof Attachments !== 'undefined' && Attachments.collection) {
+    if (Attachments && Attachments.collection) {
       return !!(await Attachments.collection.findOneAsync({ _id: attachmentId }));
     }
   }
@@ -176,9 +178,9 @@ function isPDFFile(mimeType) {
  * @returns {Promise<Object|null>} - Attachment data or null if not found
  */
 export async function getAttachmentWithBackwardCompatibility(attachmentId) {
-  // First try new structure - access global to avoid circular dependency
+  // First try new structure
   if (Meteor.isServer) {
-    if (typeof Attachments !== 'undefined' && Attachments.collection) {
+    if (Attachments && Attachments.collection) {
       const newAttachment = await Attachments.collection.findOneAsync({ _id: attachmentId });
       if (newAttachment) {
         return newAttachment;
@@ -199,9 +201,9 @@ export async function getAttachmentWithBackwardCompatibility(attachmentId) {
 export async function getAttachmentsWithBackwardCompatibility(query) {
   let newAttachments = [];
 
-  // Get new attachments - access global to avoid circular dependency
+  // Get new attachments
   if (Meteor.isServer) {
-    if (typeof Attachments !== 'undefined' && Attachments.collection) {
+    if (Attachments && Attachments.collection) {
       newAttachments = await Attachments.collection.find(query).fetchAsync();
     }
   }

@@ -682,6 +682,14 @@ const ReactiveCacheClient = {
               __select.selector,
             );
           }
+        } else {
+          // Register a reactive dependency on the underlying Mongo cursor so the
+          // DataCache autorun re-runs (and callers see fresh data) when attachments
+          // are added/removed.  We discard the result and still return the
+          // FilesCursor so callers can use FileCursor helpers (.each(), etc.).
+          if (_ret && _ret.cursor) {
+            _ret.cursor.fetch();
+          }
         }
         return _ret;
       });

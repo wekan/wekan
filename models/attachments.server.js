@@ -80,15 +80,36 @@ Attachments.onAfterUpload = async function (fileObj) {
   });
 
   this._now = new Date();
-  await Attachments.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions } });
-  await Attachments.updateAsync({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio": this._now } });
+  await Attachments.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions, "uploadedAtOstrio": this._now } });
 
   // Use selected storage backend or copy storage if specified
   let storageDestination = fileObj.meta.copyStorage || defaultStorage;
 
   // Only migrate if the destination is different from filesystem
   if (storageDestination !== STORAGE_NAME_FILESYSTEM) {
-    Meteor.defer(() => Meteor.call('validateAttachmentAndMoveToStorage', fileObj._id, storageDestination));
+    const fileObjId = fileObj._id;
+    // Note: Meteor.call('validateAttachmentAndMoveToStorage', ...) cannot be used here
+    // because server-side calls have this.userId=null, triggering not-authorized.
+    // Call the validation and migration logic directly instead.
+    Meteor.defer(async () => {
+      try {
+        const currentFileObj = await ReactiveCache.getAttachment(fileObjId);
+        if (!currentFileObj) return;
+
+        const isValid = await isFileValid(currentFileObj, attachmentUploadMimeTypes, attachmentUploadSize, attachmentUploadExternalProgram);
+        if (!isValid) {
+          await Attachments.removeAsync(fileObjId);
+          return;
+        }
+
+        const fileObjAfterValidation = await ReactiveCache.getAttachment(fileObjId);
+        if (fileObjAfterValidation) {
+          moveToStorage(fileObjAfterValidation, storageDestination, fileStoreStrategyFactory);
+        }
+      } catch (error) {
+        console.error('[onAfterUpload] Error during validation and storage migration:', error);
+      }
+    });
   }
 };
 
@@ -114,14 +135,14 @@ Attachments.onAfterRemove = function (filesInput) {
 // We authorize the attachment download either:
 // - if the board is public, everyone (even unconnected) can download it
 // - if the board is private, only board members can download it
-Attachments.protected = function (fileObj) {
+// Note: ostrio:files v3.x uses `await this.protected.call(...)` in _checkAccess,
+// so this function can be async and use findOneAsync for Meteor 3.x compatibility.
+Attachments.protected = async function (fileObj) {
   // file may have been deleted already again after upload validation failed
   if (!fileObj) {
     return false;
   }
-  // ostrio:files calls this synchronously inside _checkAccess (no await support),
-  // so use synchronous Boards.findOne.
-  const board = Boards.findOne(fileObj.meta.boardId);
+  const board = await Boards.findOneAsync(fileObj.meta.boardId);
   if (!board) {
     return false;
   }

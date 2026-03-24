@@ -324,7 +324,6 @@ publishComposite('board', async function(boardId, isArchived) {
 
           const cardIds = cards.map(c => c._id);
           const result = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true);
-          // Handle both cursor and direct return
           return result.cursor || result;
         }
       },

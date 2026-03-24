@@ -47,7 +47,7 @@ runOnServer(function() {
 
       // Public boards skip authentication
       if (board.isPublic()) {
-        const fieldsParam = params.query.fields;
+        const fieldsParam = req.query.fields;
         const fields = fieldsParam
           ? fieldsParam.split(',').map(f => f.trim()).filter(f => ALL_FIELDS.includes(f))
           : null;
@@ -57,7 +57,7 @@ runOnServer(function() {
       }
 
       // Authenticate for private boards
-      const loginToken = params.query.authToken;
+      const loginToken = req.query.authToken;
       if (loginToken) {
         if (loginToken.length > 10000) {
           res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -89,7 +89,7 @@ runOnServer(function() {
       // param is necessary because WeKan may use the browser locale without
       // ever writing it to profile.language.
       let userLanguage =
-        params.query.lang ||
+        req.query.lang ||
         (user && user.profile && user.profile.language) ||
         'en';
 
@@ -104,7 +104,7 @@ runOnServer(function() {
       const dateFormat = (user && user.profile && user.profile.dateFormat) || 'YYYY-MM-DD';
 
       // Parse optional ?fields=people,dates,... query param
-      const fieldsParam = params.query.fields;
+      const fieldsParam = req.query.fields;
       const fields = fieldsParam
         ? fieldsParam.split(',').map(f => f.trim()).filter(f => ALL_FIELDS.includes(f))
         : null;

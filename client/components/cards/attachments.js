@@ -6,6 +6,7 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
 import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
+import { formatDateTime } from '/imports/lib/dateUtils';
 
 const { filesize } = require('filesize');
 import prettyMilliseconds from 'pretty-ms';
@@ -274,6 +275,26 @@ Template.attachmentGallery.helpers({
   },
   sanitize(value) {
     return sanitizeHTML(value);
+  },
+  uploaderName() {
+    const uploaderId = this.userId;
+    if (!uploaderId) return '';
+    const uploader = ReactiveCache.getUser(uploaderId);
+    if (!uploader) return '';
+    return uploader.profile && uploader.profile.fullname
+      ? uploader.profile.fullname
+      : uploader.username || '';
+  },
+  uploadedAt() {
+    if (this.uploadedAtOstrio) {
+      return formatDateTime(this.uploadedAtOstrio);
+    }
+    // Fall back to ObjectId timestamp (first 4 bytes = Unix seconds)
+    try {
+      const ts = parseInt(this._id.substring(0, 8), 16) * 1000;
+      if (!isNaN(ts)) return formatDateTime(new Date(ts));
+    } catch (_) {}
+    return '';
   },
 });
 

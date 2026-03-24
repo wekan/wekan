@@ -86,6 +86,10 @@ template(name="attachmentGallery")
               b
                 = name
               span.file-size ({{fileSize size}})
+            if uploaderName
+              div.attachment-uploader {{uploaderName}}
+            if uploadedAt
+              div.attachment-uploaded-at {{uploadedAt}}
             .attachment-actions
               a.js-download(href="{{link}}?download=true", download="{{name}}", title="{{_ 'download'}}")
                 i.fa.fa-arrow-down

@@ -430,7 +430,8 @@ if (Meteor.isServer) {
       }
 
       // Enforce cookie/header/query-based auth for private boards
-      if (!(await isAuthorizedForBoard(req, board))) {
+      const authorized = await isAuthorizedForBoard(req, board);
+      if (!authorized) {
         res.writeHead(403);
         res.end('Access denied');
         return;
