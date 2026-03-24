@@ -46,6 +46,8 @@ and fixes the following bugs:
 
 - [Fixed rebuild-wekan.sh to build WeKan correctly](https://github.com/wekan/wekan/commit/4a8293f8812276f08d8a77a2c8be56441d7e87c1).
   Thanks to xet7.
+- [Export Card to Excel. Part 3. Also, fixed uploading attachments](https://github.com/wekan/wekan/commit/5c5ed102cabd07e1be00d3fdb01ea599da0a5517).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
