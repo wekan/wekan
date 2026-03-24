@@ -37,6 +37,8 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/pull/6205),
   [Part 2](https://github.com/wekan/wekan/commit/7584afda6d28b75ae7bfa5388f71e8bcb5ab50a7).
   Thanks to harryadel and xet7.
+- [Updated dependencies of npm package @wekanteam/exceljs](https://github.com/wekan/wekan/commit/95ff8ef1f2f119c713ffba72122d51b6569b9d42).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
