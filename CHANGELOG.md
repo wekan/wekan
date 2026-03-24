@@ -29,6 +29,17 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- Updated to Meteor 3.4, Node.js 22.22, MongoDB 7.x.
+  [Part 1](https://github.com/wekan/wekan/pull/6205),
+  [Part 2](https://github.com/wekan/wekan/commit/7584afda6d28b75ae7bfa5388f71e8bcb5ab50a7).
+  Thanks to harryadel and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.42 2026-03-23 WeKan ® release
 
 This release fixes the following bugs:
