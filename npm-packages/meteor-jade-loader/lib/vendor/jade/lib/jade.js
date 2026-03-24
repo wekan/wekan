@@ -14,7 +14,9 @@ var Parser = require('./parser')
   , Lexer = require('./lexer')
   , Compiler = require('./compiler')
   , runtime = require('./runtime')
-  , addWith = require('with')
+  // 'with' is only used by jade.compile()/jade.render() which meteor-jade never
+  // calls (it uses only Lexer + Parser). Stub it to avoid the npm dependency.
+  , addWith = function() { throw new Error("jade.compile() is not supported in meteor-jade"); }
   , fs = require('fs');
 
 /**

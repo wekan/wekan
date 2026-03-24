@@ -23,37 +23,15 @@ do
 			echo "Linux";
 			# Debian, Ubuntu, Mint
 			sudo apt install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm p7zip-full
-			#curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-			#sudo apt-get install -y nodejs
-			#sudo apt-get install -y npm
-			# Volta Node and NPM install manager, made with Rust https://volta.sh
-			# Volta uses home directory also with "npm -g install", no sudo needed.
-			# Volta install script is broken, so using n.
-			#curl https://get.volta.sh | bash
-			#export VOLTA_HOME="$HOME/.volta"
-			#export PATH="$VOLTA_HOME/bin:$PATH"
-			#volta install node@14
-			# npm nodejs
-			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			# Using custom Node.js mirror with n Node.js version manager
-			# - Custom source: https://github.com/tj/n#custom-source
-			# - sudo -E uses existing environment variables, so that this can be used in build script:
-			#   https://github.com/tj/n/issues/584#issuecomment-523640742
-			export N_NODE_MIRROR=https://github.com/wekan/node-v14-esm/releases/download
-			sudo -E n 14.21.4
-			sudo npm -g uninstall node-pre-gyp
-			# Latest fibers for Meteor sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp sudo npm -g install fibers
-			sudo npm -g install @mapbox/node-pre-gyp
-			# Install Meteor, if it's not yet installed
-			sudo npm -g install meteor@2.16 --unsafe-perm
+			sudo n 22.22.0
+			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
 			softwareupdate --install-rosetta --agree-to-license
 			brew install npm
-			# Install n for home directory version of Node.js 14.21.4
 			npm -g install n
 			directory_name="~/.n"
 			if [ ! -d "$directory_name" ]; then
@@ -69,13 +47,6 @@ do
 			else
 				echo "Directory '$directory_name' already exists."
 			fi
-			if awk '/node-v14-esm/{found=1; exit} END{exit !found}' ~/.zshrc; then
-			  echo "The text node-v14-esm alread exists in .zshrc"
-			else
-			  echo "The text node-v14-esm does not exist in .zshrc, adding for install node v14"
-			  echo "export N_NODE_MIRROR=https://github.com/wekan/node-v14-esm/releases/download" >> ~/.zshrc
-			  export N_NODE_MIRROR="https://github.com/wekan/node-v14-esm/releases/download"
-			fi
                         if awk '/export N_PREFIX/{found=1; exit} END{exit !found}' ~/.zshrc; then
                           echo "The text export N_PREFIX for local ~/.n directory already exists in .zshrc"
                         else
@@ -85,11 +56,8 @@ do
 			fi
 			npm config set prefix '~/.npm'
 			npm -g install npm@latest
-			n 14.21.4
-			npm -g uninstall node-pre-gyp
-			npm -g install @mapbox/node-pre-gyp
-			npm -g install node-gyp
-			npm -g install meteor@2.16
+			n 22.22.0
+			npm -g install meteor
 			export PATH=~/.meteor:$PATH
 			exit;
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
@@ -130,18 +98,18 @@ do
 		rm -rf .build/bundle node_modules .meteor/local .build
 		meteor npm install --production
 		meteor build .build --directory --platforms=web.browser
-		rm -rf .build/bundle/programs/web.browser.legacy
-		(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install --production)
+		#rm -rf .build/bundle/programs/web.browser.legacy
+		#(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install --production)
 		#(cd .build/bundle/programs/server/node_modules/fibers && node build.js)
-		(cd .build/bundle/programs/server && npm install fibers --save-dev)
-		(cd .build/bundle/programs/server/npm/node_modules/meteor/accounts-password && meteor npm remove bcrypt && meteor npm install bcrypt --production)
+		#(cd .build/bundle/programs/server && npm install fibers --save-dev)
+		#(cd .build/bundle/programs/server/npm/node_modules/meteor/accounts-password && meteor npm remove bcrypt && meteor npm install bcrypt --production)
 		# Cleanup
-		cd .build/bundle
-		find . -type d -name '*-garbage*' | xargs rm -rf
-		find . -name '*phantom*' | xargs rm -rf
-		find . -name '.*.swp' | xargs rm -f
-		find . -name '*.swp' | xargs rm -f
-		cd ../..
+		#cd .build/bundle
+		#find . -type d -name '*-garbage*' | xargs rm -rf
+		#find . -name '*phantom*' | xargs rm -rf
+		#find . -name '.*.swp' | xargs rm -f
+		#find . -name '*.swp' | xargs rm -f
+		#cd ../..
 		# Add fibers multi arch
 		#cd .build/bundle/programs/server/node_modules/fibers/bin
 		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
@@ -240,11 +208,11 @@ do
                 break
                 ;;
 
-		"Run tests")
-								echo "Running tests (import regression)."
-								node tests/wekanCreator.import.test.js
-								break
-								;;
+    "Run tests")
+		echo "Running tests (import regression)."
+		node tests/wekanCreator.import.test.js
+		break
+		;;
 
     "Quit")
 		break

@@ -69,7 +69,7 @@ if (Meteor.isServer) {
 
     try {
       // Try to get attachment with backward compatibility
-      const attachment = getAttachmentWithBackwardCompatibility(attachmentId);
+      const attachment = await getAttachmentWithBackwardCompatibility(attachmentId);
 
       if (!attachment) {
         res.writeHead(404);

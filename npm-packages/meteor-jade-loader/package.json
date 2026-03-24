@@ -4,8 +4,5 @@
   "description": "Rspack/webpack loader that compiles Meteor .jade template files into JavaScript that registers Blaze templates",
   "main": "index.js",
   "private": true,
-  "license": "MIT",
-  "dependencies": {
-    "underscore": "^1.13.6"
-  }
+  "license": "MIT"
 }

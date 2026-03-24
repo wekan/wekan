@@ -1,6 +1,8 @@
 'use strict';
 
-var transformers = require('transformers');
+// 'transformers' is not used by meteor-jade (visitFilter throws an error).
+// Stub it to avoid the npm dependency on an old vulnerable package.
+var transformers = {};
 
 module.exports = filter;
 function filter(name, str, options) {

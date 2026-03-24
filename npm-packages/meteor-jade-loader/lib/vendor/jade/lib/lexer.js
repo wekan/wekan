@@ -1,7 +1,7 @@
 'use strict';
 
 var utils = require('./utils');
-var characterParser = require('character-parser');
+var characterParser = require('../../character-parser');
 var selfClosing = require('./self-closing');
 
 

@@ -13,7 +13,6 @@
 // (which silently fails in sloppy mode but throws in strict mode).
 
 var path = require('path');
-var _ = require('underscore');
 var loadMeteorPackages = require('./meteor-packages');
 
 // The forked jade 1.3.0 package bundled from mquandalle's fork
@@ -53,7 +52,7 @@ function getCompiler() {
   });
 
   var unwrap = function(value) {
-    if (_.isString(value) && value.trim())
+    if (typeof value === 'string' && value.trim())
       return /^\(?(.+?)\)?$/m.exec(value.replace(/\n/g, '').trim())[1];
   };
 
@@ -147,7 +146,7 @@ function getCompiler() {
   var startsWithNoNewLinePrefix = new RegExp('^' + noNewLinePrefix);
 
   var stringRepresentationToLiteral = function(val) {
-    if (!_.isString(val))
+    if (typeof val !== 'string')
       return null;
 
     var scanner = new HTMLTools.Scanner(val);
@@ -184,7 +183,7 @@ function getCompiler() {
     self.templates = {};
   };
 
-  _.extend(FileCompiler.prototype, {
+  Object.assign(FileCompiler.prototype, {
     compile: function() {
       var self = this;
       for (var i = 0; i < self.nodes.length; i++)
@@ -202,7 +201,7 @@ function getCompiler() {
       var self = this;
 
       if (node.type === 'Comment' || node.type === 'BlockComment' ||
-          node.type === 'TAG' && _.isUndefined(node.name)) {
+          node.type === 'TAG' && node.name === undefined) {
         return;
       } else if (node.type === 'Doctype') {
         throwError('Meteor sets the doctype for you', node);
@@ -223,7 +222,7 @@ function getCompiler() {
 
         var name = node.attrs[0].val.slice(1, -1);
 
-        if (_.has(self.templates, name))
+        if (Object.prototype.hasOwnProperty.call(self.templates, name))
           throwError('Template "' + name + '" is set twice', node);
 
         self.templates[name] = new TemplateCompiler(node.block).compile();
@@ -234,7 +233,7 @@ function getCompiler() {
 
     formatBodyAttrs: function(attrsList) {
       var attrsDict = {};
-      _.each(attrsList, function(attr) {
+      attrsList.forEach(function(attr) {
         if (attr.escaped)
           attr.val = attr.val.slice(1, -1);
         attrsDict[attr.name] = attr.val;
@@ -250,14 +249,14 @@ function getCompiler() {
     self.filename = options && options.filename || '';
   };
 
-  _.extend(TemplateCompiler.prototype, {
+  Object.assign(TemplateCompiler.prototype, {
     compile: function() {
       var self = this;
       return self._optimize(self.visitBlock(self.tree));
     },
 
     visitBlock: function(block) {
-      if (_.isUndefined(block) || _.isNull(block) || !_.has(block, 'nodes'))
+      if (block === undefined || block === null || !Object.prototype.hasOwnProperty.call(block, 'nodes'))
         return [];
 
       var self = this;
@@ -300,7 +299,7 @@ function getCompiler() {
 
     getRawText: function(block) {
       var self = this;
-      var parts = _(block.nodes).pluck('val');
+      var parts = block.nodes.map(function(n) { return n.val; });
       parts = self._interposeEOL(parts);
       return parts.reduce(function(a, b) { return a + b; }, '');
     },
@@ -371,10 +370,10 @@ function getCompiler() {
         content = self.parseText(content);
       }
 
-      if (!_.isArray(content))
+      if (!Array.isArray(content))
         content = content ? [content] : [];
 
-      if (!_.isEmpty(attrs))
+      if (Object.keys(attrs).length > 0)
         content.unshift(attrs);
 
       return HTML.getTag(tagName).apply(null, content);
@@ -402,7 +401,7 @@ function getCompiler() {
 
     visitBlockComment: function(comment) {
       var self = this;
-      comment.val = '\n' + _.pluck(comment.block.nodes, 'val').join('\n') + '\n';
+      comment.val = '\n' + comment.block.nodes.map(function(n) { return n.val; }).join('\n') + '\n';
       return self.visitComment(comment);
     },
 
@@ -415,28 +414,28 @@ function getCompiler() {
     },
 
     visitAttributes: function(attrs) {
-      if (_.isUndefined(attrs))
+      if (attrs === undefined)
         return;
 
-      if (_.isString(attrs))
+      if (typeof attrs === 'string')
         return attrs;
 
       var self = this;
       var dict = {};
 
       var concatAttributes = function(a, b) {
-        if (_.isString(a) && _.isString(b))
+        if (typeof a === 'string' && typeof b === 'string')
           return a + b;
-        if (_.isUndefined(a))
+        if (a === undefined)
           return b;
 
-        if (!_.isArray(a)) a = [a];
-        if (!_.isArray(b)) b = [b];
+        if (!Array.isArray(a)) a = [a];
+        if (!Array.isArray(b)) b = [b];
         return a.concat(b);
       };
       var dynamicAttrs = [];
 
-      _.each(attrs, function(attr) {
+      attrs.forEach(function(attr) {
         var val = attr.val;
         var key = attr.name;
 
@@ -493,10 +492,10 @@ function getCompiler() {
           return val;
       };
 
-      if (!_.isArray(array))
+      if (!Array.isArray(array))
         return removeNewLinePrefix(array);
       else
-        return _.map(array, removeNewLinePrefix);
+        return array.map(removeNewLinePrefix);
     },
 
     _interposeEOL: function(array) {
@@ -510,7 +509,7 @@ function getCompiler() {
     _optimize: function(content, interposeEOL) {
       var self = this;
 
-      if (!_.isArray(content))
+      if (!Array.isArray(content))
         return self._removeNewLinePrefixes(content);
 
       if (content.length === 0)

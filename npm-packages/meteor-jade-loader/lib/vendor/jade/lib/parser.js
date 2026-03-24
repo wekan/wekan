@@ -5,8 +5,12 @@ var nodes = require('./nodes');
 var utils = require('./utils');
 var filters = require('./filters');
 var path = require('path');
-var constantinople = require('constantinople');
-var parseJSExpression = require('character-parser').parseMax;
+// constantinople.toConstant is only used for Jade filters, which meteor-jade
+// does not support (visitFilter throws). Use a minimal native substitute.
+var constantinople = {
+  toConstant: function(src) { return (new Function('return (' + src + ')'))(); },
+};
+var parseJSExpression = require('../../character-parser').parseMax;
 var extname = path.extname;
 
 /**

@@ -5,8 +5,12 @@ var filters = require('./filters');
 var doctypes = require('./doctypes');
 var runtime = require('./runtime');
 var utils = require('./utils');
-var parseJSExpression = require('character-parser').parseMax;
-var constantinople = require('constantinople');
+var parseJSExpression = require('../../character-parser').parseMax;
+// Minimal constantinople stub — the jade Compiler is not used by meteor-jade
+// (only Lexer/Parser are used); stubs prevent load-time failures.
+var constantinople = {
+  toConstant: function(src) { return (new Function('return (' + src + ')'))(); },
+};
 
 function isConstant(src) {
   return constantinople(src, {jade: runtime, 'jade_interp': undefined});

@@ -414,7 +414,7 @@ if (Meteor.isServer) {
       }
 
       // Get attachment from database with backward compatibility
-      const attachment = getAttachmentWithBackwardCompatibility(fileId);
+      const attachment = await getAttachmentWithBackwardCompatibility(fileId);
       if (!attachment) {
         res.writeHead(404);
         res.end('Attachment not found');
@@ -566,7 +566,7 @@ if (Meteor.isServer) {
       }
 
       // Try to get attachment with backward compatibility
-      const attachment = getAttachmentWithBackwardCompatibility(attachmentId);
+      const attachment = await getAttachmentWithBackwardCompatibility(attachmentId);
       if (!attachment) {
         res.writeHead(404);
         res.end('Attachment not found');

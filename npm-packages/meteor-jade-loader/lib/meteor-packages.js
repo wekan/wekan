@@ -12,7 +12,6 @@
 var vm = require('vm');
 var fs = require('fs');
 var path = require('path');
-var _ = require('underscore');
 
 var vendorDir = path.join(__dirname, 'vendor');
 
@@ -30,9 +29,24 @@ function loadMeteorPackages() {
   };
 
   // The packages expect Package.meteor.Meteor, Package.underscore._,
-  // and Package.tracker.Tracker to exist
+  // and Package.tracker.Tracker to exist.
+  // blaze-tools.js uses _.each; spacebars-compiler.js uses _.each, _.extend,
+  // _.indexOf, _.map.  Provide native-JS implementations for all four.
   Package.meteor = { Meteor: Meteor };
-  Package.underscore = { _: _ };
+  Package.underscore = {
+    _: {
+      each: function(obj, fn) { obj.forEach(fn); },
+      map: function(obj, fn) { return obj.map(fn); },
+      indexOf: function(arr, val) { return arr.indexOf(val); },
+      extend: function(dest) {
+        for (var i = 1; i < arguments.length; i++) {
+          var src = arguments[i];
+          if (src) Object.assign(dest, src);
+        }
+        return dest;
+      },
+    },
+  };
   Package.tracker = { Tracker: { autorun: function() {}, nonreactive: function(f) { return f(); } }, Deps: {} };
 
   // Build a shared context for all the package files

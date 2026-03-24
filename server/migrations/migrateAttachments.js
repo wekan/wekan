@@ -22,7 +22,7 @@ if (Meteor.isServer) {
 
       try {
         // Get old attachment data
-        const oldAttachment = getOldAttachmentData(attachmentId);
+        const oldAttachment = await getOldAttachmentData(attachmentId);
         if (!oldAttachment) {
           return { success: false, error: 'Old attachment not found' };
         }
