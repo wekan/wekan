@@ -96,7 +96,8 @@ do
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		rm -rf .build/bundle node_modules .meteor/local .build
-		meteor npm install --production
+		#meteor npm install --production
+		npm install
 		meteor build .build --directory --platforms=web.browser
 		#rm -rf .build/bundle/programs/web.browser.legacy
 		#(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install --production)
