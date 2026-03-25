@@ -50,6 +50,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Removed temporary debug logs](https://github.com/wekan/wekan/commit/c1e3ce64a796fc8b921d1a30705b4aaf66c9c259).
   Thanks to xet7.
+- [Fixed typo](https://github.com/wekan/wekan/commit/23697d2a33ca527b29bcdadfe432fd9d1a180f9c).
+  Thanks to YosserDerbali and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
