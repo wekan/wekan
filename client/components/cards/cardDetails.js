@@ -1434,7 +1434,8 @@ Template.setCardColorPopup.helpers({
 
 Template.setCardColorPopup.events({
   'click .js-palette-color'(event, tpl) {
-    tpl.currentColor.set(Template.currentData().color);
+    const paletteData = Blaze.getData(event.currentTarget);
+    tpl.currentColor.set(paletteData?.color);
   },
   async 'click .js-submit'(event, tpl) {
     event.preventDefault();

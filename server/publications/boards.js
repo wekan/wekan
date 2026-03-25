@@ -47,6 +47,7 @@ publishComposite('boards', function() {
                 swimlaneId: 1,
                 archived: 1,
                 sort: 1,
+                color: 1,
                 modifiedAt: 1,
                 _updatedAt: 1,  // Hidden field to trigger updates
               }

@@ -1145,7 +1145,7 @@ async function findCards(sessionId, query) {
         { fields: { ...fields, color: 1 } },
         true,
       ),
-      await ReactiveCache.getLists({ _id: { $in: lists } }, { fields }, true),
+      await ReactiveCache.getLists({ _id: { $in: lists } }, { fields: { ...fields, color: 1 } }, true),
       await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
       await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
       await ReactiveCache.getChecklists({ cardId: { $in: cards.map(c => c._id) } }, {}, true),

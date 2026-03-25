@@ -175,13 +175,16 @@ Template.setSwimlaneColorPopup.events({
     Popup.back();
   },
   'click .js-palette-color'(event, tpl) {
-    tpl.currentColor.set(Template.currentData().color);
+    const paletteData = Blaze.getData(event.currentTarget);
+    tpl.currentColor.set(paletteData?.color);
   },
   async 'click .js-submit'(event, tpl) {
+    event.preventDefault();
     await tpl.currentSwimlane.setColor(tpl.currentColor.get());
     Popup.back();
   },
   async 'click .js-remove-color'(event, tpl) {
+    event.preventDefault();
     await tpl.currentSwimlane.setColor(null);
     Popup.back();
   },

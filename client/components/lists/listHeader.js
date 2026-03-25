@@ -443,14 +443,39 @@ Template.setListColorPopup.helpers({
 
 Template.setListColorPopup.events({
   'click .js-palette-color'(event, tpl) {
-    tpl.currentColor.set(Template.currentData().color);
+    const paletteData = Blaze.getData(event.currentTarget);
+    tpl.currentColor.set(paletteData?.color);
+  },
+  async 'submit form'(event, tpl) {
+    event.preventDefault();
+    console.log('[ListColor] submit form, color:', tpl.currentColor.get(), 'listId:', tpl.currentList?._id, 'setColor type:', typeof tpl.currentList?.setColor);
+    try {
+      const result = await tpl.currentList.setColor(tpl.currentColor.get());
+      console.log('[ListColor] submit form setColor result:', result);
+    } catch (err) {
+      console.error('[ListColor] submit form setColor error:', err);
+    }
+    Popup.close();
   },
   async 'click .js-submit'(event, tpl) {
-    await tpl.currentList.setColor(tpl.currentColor.get());
+    event.preventDefault();
+    console.log('[ListColor] click submit, color:', tpl.currentColor.get(), 'listId:', tpl.currentList?._id, 'setColor type:', typeof tpl.currentList?.setColor);
+    try {
+      const result = await tpl.currentList.setColor(tpl.currentColor.get());
+      console.log('[ListColor] click submit setColor result:', result);
+    } catch (err) {
+      console.error('[ListColor] click submit setColor error:', err);
+    }
     Popup.close();
   },
   async 'click .js-remove-color'(event, tpl) {
-    await tpl.currentList.setColor(null);
+    event.preventDefault();
+    console.log('[ListColor] remove color, listId:', tpl.currentList?._id);
+    try {
+      await tpl.currentList.setColor(null);
+    } catch (err) {
+      console.error('[ListColor] remove color error:', err);
+    }
     Popup.close();
   },
 });
