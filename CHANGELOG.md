@@ -54,6 +54,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed typo](https://github.com/wekan/wekan/commit/23697d2a33ca527b29bcdadfe432fd9d1a180f9c).
   Thanks to YosserDerbali and xet7.
+- [Fix Set Color of Swimlane, List and Card](https://github.com/wekan/wekan/commit/0630d62ad0a02d80ab77436ce9797e4390c5cae2).
+  Thanks to SVANNER, brlin-tw and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
