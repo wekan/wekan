@@ -41,6 +41,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated @meteorjs/rspack](https://github.com/wekan/wekan/commit/21ab640686d868ee46e16e812b36a1c3820952a5).
   Thanks to Meteor developers.
+- [Updated rebuild-wekan.sh for macOS 26.4](https://github.com/wekan/wekan/commit/f1e71247c70043634e040bd12f7d065b30ed6fc2).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
