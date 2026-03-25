@@ -1,6 +1,6 @@
 #cd ~/repos/wekan
 
-tx --config .tx/config pull -a -f
+../tx --config .tx/config pull -a -f
 
 # https://developers.transifex.com/docs/cli
 # New Go-based transifex client.
