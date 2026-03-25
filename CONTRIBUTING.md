@@ -9,7 +9,7 @@ Not paid:
   - This is because full-featured WeKan FLOSS kanban with MIT license is free to use
     also for Commercial Use without any payment, with full source code at
     https://github.com/wekan/wekan for all platforms at https://wekan.fi/install/ .
-    There is nothing propietary. WeKan is NOT Big Tech.
+    There is nothing proprietary. WeKan is NOT Big Tech.
     WeKan is maintained by https://github.com/xet7 at Finland https://wekan.fi .     
 - Public FLOSS Developer Community Support:
   - https://github.com/wekan/wekan/issues
