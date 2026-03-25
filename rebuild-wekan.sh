@@ -30,16 +30,9 @@ do
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
-			softwareupdate --install-rosetta --agree-to-license
+			#softwareupdate --install-rosetta --agree-to-license
 			brew install npm
-			npm -g install n
-			directory_name="~/.n"
-			if [ ! -d "$directory_name" ]; then
-			  mkdir "$directory_name"
-			  echo "Directory '$directory_name' created."
-			else
-			  echo "Directory '$directory_name' already exists."
-			fi
+			brew install node@22
 			directory_name="~/.npm"
 			if [ ! -d "$directory_name" ]; then
 				mkdir "$directory_name"
@@ -47,17 +40,8 @@ do
 			else
 				echo "Directory '$directory_name' already exists."
 			fi
-                        if awk '/export N_PREFIX/{found=1; exit} END{exit !found}' ~/.zshrc; then
-                          echo "The text export N_PREFIX for local ~/.n directory already exists in .zshrc"
-                        else
-                          # echo "The text export N_PREFIX for local ~/.n directory does not exist in .zshrc, adding."
-                          echo "export N_PREFIX=~/.n" >> ~/.zshrc
-			  export N_PREFIX=~/.n
-			fi
 			npm config set prefix '~/.npm'
-			npm -g install npm@latest
-			n 22.22.0
-			npm -g install meteor
+			npx -y meteor
 			export PATH=~/.meteor:$PATH
 			exit;
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
