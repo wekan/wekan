@@ -199,8 +199,6 @@ function processTouch(){
   xDist = touchEndCoords.x - touchStartCoords.x;
   yDist = touchEndCoords.y - touchStartCoords.y;
 
-  console.log("xDist: " + xDist);
-
   // Left swipe
   if (Math.abs(xDist) > Math.abs(yDist) && xDist < 0) {
     openNextAttachment();
@@ -220,14 +218,12 @@ function processTouch(){
 
 Template.attachmentViewer.events({
   'touchstart #viewer-container'(event) {
-    console.log("touchstart")
     touchStartCoords = {
       x: event.changedTouches[0].screenX,
       y: event.changedTouches[0].screenY
     }
   },
   'touchend #viewer-container'(event) {
-    console.log("touchend")
     touchEndCoords = {
       x: event.changedTouches[0].screenX,
       y: event.changedTouches[0].screenY
