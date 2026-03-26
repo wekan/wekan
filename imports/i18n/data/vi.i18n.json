@@ -460,6 +460,8 @@
   "export-board": "Xuất bảng",
   "export-board-json": "Xuất bảng sang JSON",
   "export-board-csv": "Xuất bảng sang CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Xuất bảng sang TSV",
   "export-board-excel": "Xuất bảng sang Excel",
   "user-can-not-export-excel": "Người dùng không thể xuất Excel",

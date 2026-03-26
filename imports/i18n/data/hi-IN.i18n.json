@@ -460,6 +460,8 @@
   "export-board": "Export बोर्ड",
   "export-board-json": "JSON को निर्यात बोर्ड",
   "export-board-csv": "निर्यात बोर्ड को सी.एस.वी.",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "टी.एस.वी. को निर्यात बोर्ड",
   "export-board-excel": "Export board to Excel",
   "user-can-not-export-excel": "User can not export Excel",

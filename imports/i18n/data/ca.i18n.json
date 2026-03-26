@@ -460,6 +460,8 @@
   "export-board": "Exporta tauler",
   "export-board-json": "Exporta el tauler a JSON",
   "export-board-csv": "Exporta el tauler a CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Exporta el tauler a TSV",
   "export-board-excel": "Exporta el tauler a Excel",
   "user-can-not-export-excel": "L'usuari no pot exportar Excel",

@@ -460,6 +460,8 @@
   "export-board": "Exportar quadro",
   "export-board-json": "Exportar quadro para JSON",
   "export-board-csv": "Exportar quadro para CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Exportar quadro para TSV",
   "export-board-excel": "Exportar quadro para Excel",
   "user-can-not-export-excel": "Usuário não pode exportar Excel",

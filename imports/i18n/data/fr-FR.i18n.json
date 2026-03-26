@@ -460,6 +460,8 @@
   "export-board": "Exporter le tableau",
   "export-board-json": "Exporter le tableau en JSON",
   "export-board-csv": "Exporter le tableau en CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Exporter le tableau en TSV",
   "export-board-excel": "Exporter le tableau vers Excel",
   "user-can-not-export-excel": "L'utilisateur ne peut pas exporter vers Excel",

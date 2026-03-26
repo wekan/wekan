@@ -460,6 +460,8 @@
   "export-board": "Экспортировать доску",
   "export-board-json": "Экспортировать доску в JSON",
   "export-board-csv": "Экспортировать доску в CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Экспортировать доску в TSV",
   "export-board-excel": "Экспортировать доску в Excel",
   "user-can-not-export-excel": "Пользователь не может экспортировать в Excel",

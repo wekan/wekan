@@ -460,6 +460,8 @@
   "export-board": "导出看板",
   "export-board-json": "看板导出为JSON",
   "export-board-csv": "看板导出为CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "看板导出为TSV",
   "export-board-excel": "看板导出为Excel",
   "user-can-not-export-excel": "用户无法导出Excel",

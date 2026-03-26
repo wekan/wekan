@@ -460,6 +460,8 @@
   "export-board": "Panoyu dışarı aktar",
   "export-board-json": "Panoyu JSON olarak dışarı aktar",
   "export-board-csv": "Panoyu CSV olarak dışarı aktar",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Panoyu TSV olarak dışarı aktar",
   "export-board-excel": "Tahtayı Excel olarak dışa aktar",
   "user-can-not-export-excel": "Bu kullanıcı Excel olarak dışa aktaramaz.",

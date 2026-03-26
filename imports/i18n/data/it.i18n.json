@@ -460,6 +460,8 @@
   "export-board": "Esporta bacheca",
   "export-board-json": "Esporta bacheca in JSON",
   "export-board-csv": "Esporta bacheca in CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Esporta bacheca in TSV",
   "export-board-excel": "Esporta bacheca in formato Excel",
   "user-can-not-export-excel": "L'utente non può effettuare l'esportazione in Excel",

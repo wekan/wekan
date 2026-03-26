@@ -460,6 +460,8 @@
   "export-board": "ייצוא לוח",
   "export-board-json": "ייצוא לוח ל־JSON",
   "export-board-csv": "ייצוא לוח ל־CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "ייצוא לוח ל־TSV",
   "export-board-excel": "ייצוא לוח ל־Excel",
   "user-can-not-export-excel": "המשתמש לא יכול לייצא ל־Excel",

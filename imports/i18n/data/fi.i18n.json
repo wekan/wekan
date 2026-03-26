@@ -460,6 +460,8 @@
   "export-board": "Vie taulu",
   "export-board-json": "Vie taulu JSON",
   "export-board-csv": "Vie taulu CSV",
+  "export-board-csv-comma": "Vie CSV-tiedostoon (erotin: ,)",
+  "export-board-csv-semicolon": "Vie CSV-tiedostoon (erotin: ;)",
   "export-board-tsv": "Vie taulu TSV",
   "export-board-excel": "Vie taulu Excel",
   "user-can-not-export-excel": "Käyttäjä ei voi viedä Excel tiedostoon",

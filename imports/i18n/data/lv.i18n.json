@@ -460,6 +460,8 @@
   "export-board": "Eksportēt dēli",
   "export-board-json": "Eksportēt dēli kā JSON",
   "export-board-csv": "Eksportēt dēli kā CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Eksportēt dēli kā TSV",
   "export-board-excel": "Export board to Excel",
   "user-can-not-export-excel": "User can not export Excel",

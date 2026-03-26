@@ -460,6 +460,8 @@
   "export-board": "Tábla exportálása",
   "export-board-json": "Exportáld a táblát JSON formátumba",
   "export-board-csv": "Exportáld a táblát CSV (vesszővel elválasztott) formátumba",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Exportáld a táblát TSV (tabulátorral elválasztott) formátumba",
   "export-board-excel": "Exportáld a Táblát Excelbe",
   "user-can-not-export-excel": "Felhasználó nem tud Excelbe exportálni",

@@ -460,6 +460,8 @@
   "export-board": "Ekspordilaudtee",
   "export-board-json": "Ekspordi pardal JSON",
   "export-board-csv": "Ekspordi juhatus CSV-sse",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Ekspordi pardal TSV",
   "export-board-excel": "Ekspordi tahvli eksportimine Excelisse",
   "user-can-not-export-excel": "Kasutaja ei saa eksportida Exceli",

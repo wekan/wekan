@@ -460,6 +460,8 @@
   "export-board": "Eksporter tavle",
   "export-board-json": "Eksporter tavle til JSON",
   "export-board-csv": "Eksporter tavle til CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Eksporter tavle til TSV",
   "export-board-excel": "Eksporter Tavle til Excel",
   "user-can-not-export-excel": "Bruker kan ikke eksportere til Excel",

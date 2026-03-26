@@ -460,6 +460,8 @@
   "export-board": "보드 내보내기",
   "export-board-json": "보드를 JSON 형태로 내보내기",
   "export-board-csv": "보드를 CSV 형태로 내보내기",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "보드를 TSV 형태로 내보내기",
   "export-board-excel": "보드를 엑셀로 내보내기",
   "user-can-not-export-excel": "엑셀로 내보낼 수 없습니다.",

@@ -460,6 +460,8 @@
   "export-board": "Exportovat tablo",
   "export-board-json": "Exportovat tablo do JSON",
   "export-board-csv": "Exportovat tablo do CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Exportovat tablo do TSV",
   "export-board-excel": "Exportovat tablo do Excelu",
   "user-can-not-export-excel": "Uživatel nemůže exportovat do Excelu",

@@ -460,6 +460,8 @@
   "export-board": "Ekport Papan",
   "export-board-json": "Eksport Papan kepada JSON",
   "export-board-csv": "Eksport papan kepada CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Eksport papan kepada TSV",
   "export-board-excel": "Eksport papan kepada Exce",
   "user-can-not-export-excel": "Pengguna tidak boleh eksport Exce",

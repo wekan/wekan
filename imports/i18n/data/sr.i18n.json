@@ -460,6 +460,8 @@
   "export-board": "Претвори списе",
   "export-board-json": "Претварање списа у JSON",
   "export-board-csv": "Претварање списа у CSV",
+  "export-board-csv-comma": "Export to CSV (separator: ,)",
+  "export-board-csv-semicolon": "Export to CSV (separator: ;)",
   "export-board-tsv": "Претварање списа у TSV",
   "export-board-excel": "Претварање списа у Excel",
   "user-can-not-export-excel": "Корисник не може да претвори списе у Excel облик",
