@@ -639,6 +639,8 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
 export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
   // Sanitize the new name to prevent path traversal
   const safeName = sanitizeFilename(newName);
+  const extensionWithDot = path.extname(safeName);
+  const extension = extensionWithDot ? extensionWithDot.slice(1).toLowerCase() : '';
 
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategy = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
@@ -647,6 +649,8 @@ export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
 
     Attachments.update({ _id: fileObj._id }, { $set: {
       "name": safeName,
+      "extension": extension,
+      "extensionWithDot": extensionWithDot,
       [`versions.${versionName}.path`]: newFilePath,
     } });
   });

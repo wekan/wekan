@@ -236,6 +236,13 @@ function normalizeRemovedFiles(filesInput) {
   return [];
 }
 
+function resolveAttachmentBoardId(fileObj) {
+  if (!fileObj) {
+    return null;
+  }
+  return fileObj.boardId || fileObj.meta?.boardId || null;
+}
+
 if (Meteor.isServer) {
   Attachments.allow({
     insert(userId, fileObj) {
@@ -348,7 +355,12 @@ if (Meteor.isServer) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
-      const board = await ReactiveCache.getBoard(fileObj.boardId);
+      const boardId = resolveAttachmentBoardId(fileObj);
+      if (!boardId) {
+        throw new Meteor.Error('board-not-found', 'Board not found');
+      }
+
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board || !board.isVisibleBy({ _id: this.userId })) {
         throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
       }
@@ -376,14 +388,19 @@ if (Meteor.isServer) {
       }
 
       // Verify the user has permission to modify this attachment
-      const board = await ReactiveCache.getBoard(fileObj.boardId);
+      const boardId = resolveAttachmentBoardId(fileObj);
+      if (!boardId) {
+        throw new Meteor.Error('board-not-found', 'Board not found');
+      }
+
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Meteor.Error('board-not-found', 'Board not found');
       }
 
       if (!allowIsBoardMember(currentUserId, board)) {
         if (process.env.DEBUG === 'true') {
-          console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${fileObj.boardId}`);
+          console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${boardId}`);
         }
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify this attachment');
       }
@@ -402,7 +419,12 @@ if (Meteor.isServer) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
-      const board = await ReactiveCache.getBoard(fileObj.boardId);
+      const boardId = resolveAttachmentBoardId(fileObj);
+      if (!boardId) {
+        throw new Meteor.Error('board-not-found', 'Board not found');
+      }
+
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board || !board.isVisibleBy({ _id: this.userId })) {
         throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
       }
@@ -426,7 +448,12 @@ if (Meteor.isServer) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
-      const board = await ReactiveCache.getBoard(fileObj.boardId);
+      const boardId = resolveAttachmentBoardId(fileObj);
+      if (!boardId) {
+        throw new Meteor.Error('board-not-found', 'Board not found');
+      }
+
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board || !board.isVisibleBy({ _id: this.userId })) {
         throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
       }
