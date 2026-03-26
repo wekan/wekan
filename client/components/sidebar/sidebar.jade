@@ -640,11 +640,11 @@ template(name="exportBoardPopup")
     li
       a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
         i.fa.fa-upload
-        | {{_ 'export-board-csv'}} ,
+        | {{_ 'export-board-csv-comma'}}
     li
       a(href="{{exportScsvUrl}}", download="{{exportCsvFilename}}")
         i.fa.fa-upload
-        | {{_ 'export-board-csv'}} ;
+        | {{_ 'export-board-csv-semicolon'}}
     li
       a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
         i.fa.fa-upload
