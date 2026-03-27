@@ -60,13 +60,36 @@ else
 fi
 
 # Use /usr/bin/env for python3 and pip3
-PYTHON=python3
-PIP=pip3
+PYTHON=$(command -v python3 || command -v /usr/bin/python3)
+PIP=$(command -v pip3 || echo "")
+
+# If pip3 is missing, try to install it
+if [ -z "$PIP" ]; then
+  echo "pip3 not found. Attempting to install pip3..."
+  if $PYTHON -m ensurepip --upgrade 2>/dev/null; then
+    PIP=$(command -v pip3 || echo "")
+  fi
+  if [ -z "$PIP" ]; then
+    if [ "$(uname)" = "Darwin" ]; then
+      if command -v brew >/dev/null 2>&1; then
+        brew install python
+      fi
+    else
+      sudo apt-get update && sudo apt-get install -y python3-pip
+    fi
+    PIP=$(command -v pip3 || echo "")
+  fi
+fi
 
 # Install esprima if missing
 if ! $PYTHON -c "import esprima" 2>/dev/null; then
   echo "  Installing Python package: esprima"
-  $PYTHON -m $PIP install --quiet --user --upgrade esprima
+  if [ -n "$PIP" ]; then
+    $PYTHON -m pip install --quiet --user --upgrade esprima
+  else
+    echo "pip3 is still not available. Please install pip3 for your Python 3 interpreter."
+    exit 1
+  fi
 fi
 
 # ── Generate OpenAPI 2.0 YAML from models/ ────────────────────────────────────
