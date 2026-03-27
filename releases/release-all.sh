@@ -12,11 +12,12 @@
 #   - Make sure all code changes are ready to ship
 #
 # What this script does:
-#   0. Rebuilds OpenAPI docs (wekan.yml + wekan.html) from current source
-#   1. Updates all version numbers in release files
-#   2. Commits and pushes the version bump
-#   3. Creates and pushes the git tag  <-- this triggers GitHub Actions
-#   4. Updates the website repo if ~/repos/w/wekan.fi exists
+#   0. Updates Node.js to the latest 22.x release across all files
+#   1. Rebuilds OpenAPI docs (wekan.yml + wekan.html) from current source
+#   2. Updates all WeKan version numbers in release files
+#   3. Commits and pushes the version bump
+#   4. Creates and pushes the git tag  <-- this triggers GitHub Actions
+#   5. Updates the website repo if ~/repos/w/wekan.fi exists
 #
 # GitHub Actions (release-all.yml) then automatically:
 #   - Builds amd64 bundle (full Meteor 3 build)
@@ -57,51 +58,60 @@ cd "$REPO_DIR"
 echo "=== WeKan release: v$OLD  ->  v$NEW ==="
 echo ""
 
-# ── Step 0: Rebuild API docs from current source ─────────────────────────────
+# ── Step 0: Update Node.js to the latest 22.x release ───────────────────────
+# Fetches https://nodejs.org/dist/latest-v22.x/ and updates Dockerfile,
+# snapcraft.yaml, GitHub Actions workflow, rebuild-wekan.sh, and
+# releases/test-download-urls.sh so all platforms use the same newest version.
+echo "--- Step 0: Updating Node.js to latest 22.x ---"
+"$RELEASES_DIR/update-node-version.sh"
+echo "Done."
+echo ""
+
+# ── Step 1: Rebuild API docs from current source ─────────────────────────────
 # Runs before the version bump so the freshly generated docs are included in
 # the commit and therefore in both the wekan repo and the wekan.fi website.
-echo "--- Step 0: Rebuilding API docs ---"
+echo "--- Step 1: Rebuilding API docs ---"
 "$RELEASES_DIR/rebuild-docs.sh" "$NEW"
 echo "Done."
 echo ""
 
-# ── Step 1: Update version numbers in all release files ─────────────────────
-echo "--- Step 1: Updating version numbers ---"
+# ── Step 2: Update WeKan version numbers in all release files ────────────────
+echo "--- Step 2: Updating WeKan version numbers ---"
 "$RELEASES_DIR/sed-release-versions.sh" "$OLD" "$NEW"
 echo "Done."
 echo ""
 
-# ── Step 2: Commit and push the version bump ────────────────────────────────
-echo "--- Step 2: Committing and pushing version bump ---"
+# ── Step 3: Commit and push ──────────────────────────────────────────────────
+echo "--- Step 3: Committing and pushing version bump ---"
 git add --all
 git commit -m "v$NEW"
 git push
 echo "Done."
 echo ""
 
-# ── Step 3: Tag and push (this triggers GitHub Actions release-all.yml) ──────
-echo "--- Step 3: Creating and pushing tag v$NEW ---"
+# ── Step 4: Tag and push (this triggers GitHub Actions release-all.yml) ──────
+echo "--- Step 4: Creating and pushing tag v$NEW ---"
 git tag -a "v$NEW" -m "v$NEW"
 git push origin "v$NEW"
 echo "Done."
 echo ""
 
 echo "=== GitHub Actions is now building and releasing v$NEW ==="
-echo "    Building:  amd64 (full Meteor build), arm64, s390x, win64 bundles"
+echo "    Building:  amd64 (full Meteor build), arm64, s390x, ppc64le, armhf, win64 bundles"
 echo "    Releasing: GitHub Release with CHANGELOG notes + all .zip bundles"
 echo "    Docker:    wekanteam/wekan, quay.io/wekan/wekan, ghcr.io/wekan/wekan"
-echo "    Snap:      published to Snap Store stable channel + uploaded to release"
+echo "    Snap:      published to candidate/beta/edge channels + uploaded to release"
 echo "    Follow at: https://github.com/wekan/wekan/actions"
 echo ""
 
-# ── Step 4: Update website repo (skipped if not present) ─────────────────────
+# ── Step 5: Update website repo (skipped if not present) ─────────────────────
 WEBSITE_DIR="$HOME/repos/w/wekan.fi"
 if [ -d "$WEBSITE_DIR" ]; then
-  echo "--- Step 4: Updating website ---"
+  echo "--- Step 5: Updating website ---"
   "$RELEASES_DIR/release-website.sh" "$OLD" "$NEW"
   echo "Done."
 else
-  echo "--- Step 4: Website repo not found at $WEBSITE_DIR, skipping ---"
+  echo "--- Step 5: Website repo not found at $WEBSITE_DIR, skipping ---"
   echo "    Run manually when ready: ./releases/release-website.sh $OLD $NEW"
 fi
 echo ""

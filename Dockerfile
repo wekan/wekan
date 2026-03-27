@@ -4,8 +4,9 @@ LABEL org.opencontainers.image.ref.name="ubuntu"
 LABEL org.opencontainers.image.version="24.04"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
-# TARGETARCH is automatically provided by Docker Buildx
+# TARGETARCH and TARGETVARIANT are automatically provided by Docker Buildx
 ARG TARGETARCH
+ARG TARGETVARIANT
 ARG VERSION=8.42
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -13,7 +14,7 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=v22.22.0 \
+    NODE_VERSION=v22.22.2 \
     METEOR_RELEASE=METEOR@3.4 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -169,11 +170,14 @@ apt-get update --assume-yes
 apt-get upgrade --assume-yes
 apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
-# Multi-arch mapping logic
+# Multi-arch mapping: Docker TARGETARCH -> Node.js arch name + WeKan bundle name
+# arm/v7 uses TARGETARCH=arm; armhf has no MongoDB Community -> uses FerretDB
 case "${TARGETARCH}" in
-    "amd64")  NODE_ARCH="x64"  WEKAN_ARCH="amd64" ;;
-    "arm64")  NODE_ARCH="arm64" WEKAN_ARCH="arm64" ;;
-    "s390x")  NODE_ARCH="s390x" WEKAN_ARCH="s390x" ;;
+    "amd64")   NODE_ARCH="x64"     WEKAN_ARCH="amd64"   ;;
+    "arm64")   NODE_ARCH="arm64"   WEKAN_ARCH="arm64"   ;;
+    "arm")     NODE_ARCH="armv7l"  WEKAN_ARCH="armhf"   ;;
+    "ppc64le") NODE_ARCH="ppc64le" WEKAN_ARCH="ppc64le" ;;
+    "s390x")   NODE_ARCH="s390x"   WEKAN_ARCH="s390x"   ;;
     *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;;
 esac
 

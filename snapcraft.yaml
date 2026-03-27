@@ -22,11 +22,29 @@ issues: https://github.com/wekan/wekan/issues
 source-code: https://github.com/wekan/wekan
 website: https://wekan.fi
 
-# Use platforms instead of architectures for core24 base
+# Platforms supported by the snap (database bundled inside):
+#   ALL platforms — FerretDB 2 + PostgreSQL 16
+#     amd64, arm64  — FerretDB 2 prebuilt static binary (GitHub Releases)
+#                     + mongosh + mongodb-database-tools (backup/restore/migrate)
+#     armhf, s390x, ppc64el — FerretDB 2 built from Go source
+#   Upgrading from an older snap that bundled MongoDB: mongodb-control
+#   automatically migrates existing WiredTiger data to FerretDB on first start.
 platforms:
   amd64:
     build-on: amd64
     build-for: amd64
+  arm64:
+    build-on: arm64
+    build-for: arm64
+  armhf:
+    build-on: armhf
+    build-for: armhf
+  s390x:
+    build-on: s390x
+    build-for: s390x
+  ppc64el:
+    build-on: ppc64el
+    build-for: ppc64el
 
 plugs:
   mongodb-plug:
@@ -77,43 +95,156 @@ apps:
 
 
 parts:
-    mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.31.tgz
-        plugin: dump
+    # database: FerretDB 2 + PostgreSQL 16 on ALL platforms.
+    #
+    # FerretDB speaks the MongoDB wire protocol so WeKan/Meteor connect to it
+    # identically to MongoDB.  OpLog is emulated via --replication-set-name=rs0
+    # which gives Meteor the real-time pub/sub it needs.
+    #
+    #   amd64, arm64  — FerretDB 2 prebuilt static binary (from GitHub Releases)
+    #                   + mongosh 2.8.2 and mongodb-database-tools 100.13.0
+    #                     (both work against FerretDB's MongoDB wire protocol,
+    #                      used for backup / restore / migration)
+    #                   + PostgreSQL 16 (storage backend, via stage-packages)
+    #
+    #   armhf, s390x, ppc64el — FerretDB 2 built from Go source (no prebuilt
+    #                   binaries exist for these platforms yet) + PostgreSQL 16
+    #
+    # Upgrade path from MongoDB (snap):
+    #   On first startup after snap refresh, mongodb-control detects whether
+    #   the SNAP_COMMON directory still contains WiredTiger (old MongoDB) data.
+    #   If found it:
+    #     1. Starts the previous snap revision's mongod briefly on a temp port.
+    #     2. Dumps all data with mongodump.
+    #     3. Stops old mongod.
+    #     4. Starts FerretDB + PostgreSQL.
+    #     5. Restores data with mongorestore.
+    #     6. Applies schema v8.43 upgrades via mongosh script.
+    #     7. Migrates GridFS files to $SNAP_COMMON/files/attachments|avatars/.
+    #     8. Renames WiredTiger → WiredTiger.migrated to mark completion.
+    #
+    # A DATABASE_BACKEND file (always "ferretdb") is written at build time so
+    # mongodb-control can confirm the expected backend without calling dpkg.
+    database:
+        plugin: nil
+        build-packages:
+            - wget
+            - ca-certificates
         stage-packages:
-            - libssl3
-            - libcurl4
-            - libstemmer0d
-            - zlib1g
-            - libsnappy1v5
-            - libyaml-cpp0.8
-            - libpcre3
-            - libpcrecpp0v5
-            - libboost-system1.74.0
-            - libboost-iostreams1.74.0
-            - libboost-filesystem1.74.0
-            - libboost-program-options1.74.0
-            - libgoogle-perftools4
+          # PostgreSQL 16 is the FerretDB storage backend on all platforms.
+          # FerretDB itself is a static Go binary with no runtime library deps.
+          - postgresql-16
+          - postgresql-client-16
+        override-build: |
+            SNAP_ARCH=$(dpkg --print-architecture)
+            mkdir -p $SNAPCRAFT_PART_INSTALL/bin $SNAPCRAFT_PART_INSTALL/usr
+
+            FERRETDB_VERSION="2.7.0"
+
+            # ── FerretDB binary ──────────────────────────────────────────────
+            case "$SNAP_ARCH" in
+              amd64)
+                # FerretDB 2 prebuilt static binary — amd64
+                wget -q -O "$SNAPCRAFT_PART_INSTALL/bin/ferretdb" \
+                  "https://github.com/FerretDB/FerretDB/releases/download/v${FERRETDB_VERSION}/ferretdb-linux-amd64"
+                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/ferretdb"
+                # mongosh 2.8.2 (MongoDB-shell, works against FerretDB)
+                wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
+                tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                rm mongosh-2.8.2-linux-x64.tgz
+                # mongodb-database-tools 100.13.0 (mongodump/mongorestore, work with FerretDB)
+                wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
+                tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                rm mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
+                ;;
+
+              arm64)
+                # FerretDB 2 prebuilt static binary — arm64
+                wget -q -O "$SNAPCRAFT_PART_INSTALL/bin/ferretdb" \
+                  "https://github.com/FerretDB/FerretDB/releases/download/v${FERRETDB_VERSION}/ferretdb-linux-arm64"
+                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/ferretdb"
+                # mongosh 2.8.2 arm64
+                wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-arm64.tgz
+                tar xzf mongosh-2.8.2-linux-arm64.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                rm mongosh-2.8.2-linux-arm64.tgz
+                # mongodb-database-tools 100.13.0 arm64
+                wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
+                tar xzf mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                rm mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
+                ;;
+
+              armhf|s390x|ppc64el)
+                # No prebuilt FerretDB 2 binaries for these architectures.
+                # Build from Go source using Go 1.24.13 (Ubuntu 24.04 ships Go 1.22, too old).
+                GOVERSION="1.24.13"
+                case "$SNAP_ARCH" in
+                  armhf)   GO_DL_ARCH="armv6l"  ;;
+                  s390x)   GO_DL_ARCH="s390x"   ;;
+                  ppc64el) GO_DL_ARCH="ppc64le" ;;
+                esac
+                wget -q "https://dl.google.com/go/go${GOVERSION}.linux-${GO_DL_ARCH}.tar.gz"
+                tar xzf "go${GOVERSION}.linux-${GO_DL_ARCH}.tar.gz" -C /tmp
+                rm "go${GOVERSION}.linux-${GO_DL_ARCH}.tar.gz"
+                export PATH="/tmp/go/bin:$PATH"
+                export GOPATH="$(mktemp -d)"
+                CGO_ENABLED=0 GOBIN="$SNAPCRAFT_PART_INSTALL/bin" \
+                  go install "github.com/FerretDB/FerretDB/v2/cmd/ferretdb@v${FERRETDB_VERSION}"
+                rm -rf "$GOPATH" /tmp/go
+                ;;
+            esac
+
+            # ── Shared mongod wrapper (all platforms) ────────────────────────
+            # mongodb-control execs bin/mongod; this wrapper starts PostgreSQL
+            # and FerretDB so no changes are needed in the control script.
+            cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'WRAPPER'
+#!/bin/sh
+# FerretDB 2 + PostgreSQL 16 startup wrapper (all snap platforms).
+# Called by mongodb-control; replaces the MongoDB mongod binary.
+PG_DATA="${SNAP_COMMON}/postgresql"
+PG_LOG="${SNAP_COMMON}/postgresql.log"
+PG_BIN="$SNAP/usr/lib/postgresql/16/bin"
+
+# Initialize PostgreSQL data directory on first run
+if [ ! -f "$PG_DATA/PG_VERSION" ]; then
+    mkdir -p "$PG_DATA"
+    "$PG_BIN/initdb" -D "$PG_DATA" --encoding=UTF8 --auth=trust
+    printf 'listen_addresses = '"'"'127.0.0.1'"'"'\n' >> "$PG_DATA/postgresql.conf"
+    printf 'unix_socket_directories = '"'"'%s'"'"'\n' "${SNAP_COMMON}" >> "$PG_DATA/postgresql.conf"
+fi
+
+# Start PostgreSQL (wait for readiness before continuing)
+"$PG_BIN/pg_ctl" -D "$PG_DATA" -l "$PG_LOG" start -w
+
+# Create FerretDB role and database (idempotent)
+"$PG_BIN/psql" -h 127.0.0.1 -U postgres \
+    -c "CREATE ROLE ferretdb WITH LOGIN PASSWORD 'ferretdb';" 2>/dev/null || true
+"$PG_BIN/psql" -h 127.0.0.1 -U postgres \
+    -c "CREATE DATABASE wekan OWNER ferretdb;" 2>/dev/null || true
+
+# Start FerretDB on MongoDB wire protocol port with OpLog emulation
+exec "$SNAP/bin/ferretdb" \
+    --listen-addr=127.0.0.1:27017 \
+    --replication-set-name=rs0 \
+    --postgresql-url="postgres://ferretdb:ferretdb@127.0.0.1:5432/wekan"
+WRAPPER
+            chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
+
+            # ── Build-time backend marker ────────────────────────────────────
+            echo "ferretdb" > "$SNAPCRAFT_PART_INSTALL/DATABASE_BACKEND"
         stage:
             - bin
             - usr
+            - DATABASE_BACKEND
         prime:
             - bin
             - usr
-
-    mongosh:
-        source: https://downloads.mongodb.com/compass/mongosh-2.5.3-linux-x64.tgz
-        plugin: dump
-
-    mongotools:
-        source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.12.2.tgz
-        plugin: dump
+            - DATABASE_BACKEND
 
 
     wekan:
         source: .
         plugin: npm
-        npm-node-version: 22.22.0
+        npm-node-version: 22.22.2
         npm-include-node: true
         build-packages:
             - build-essential
@@ -164,34 +295,40 @@ parts:
             ##node build.js
             ##cd ../../../../../..
             # Cleanup
+            # Read version from package.json and set snap version
             WEKAN_VERSION=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
             snapcraftctl set-version "${WEKAN_VERSION}"
+
+            # Detect target architecture and map to bundle/Node.js names
+            SNAP_ARCH=$(dpkg --print-architecture)
+            case "$SNAP_ARCH" in
+              amd64)   WEKAN_ARCH="amd64"   NODE_ARCH="x64"     ;;
+              arm64)   WEKAN_ARCH="arm64"   NODE_ARCH="arm64"   ;;
+              armhf)   WEKAN_ARCH="armhf"   NODE_ARCH="armv7l"  ;;
+              ppc64el) WEKAN_ARCH="ppc64le" NODE_ARCH="ppc64le" ;;
+              s390x)   WEKAN_ARCH="s390x"   NODE_ARCH="s390x"   ;;
+              *) echo "Unsupported snap architecture: $SNAP_ARCH"; exit 1 ;;
+            esac
+
+            # Download and extract the pre-built WeKan bundle for this architecture
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v${WEKAN_VERSION}/wekan-${WEKAN_VERSION}-amd64.zip
-            unzip wekan-${WEKAN_VERSION}-amd64.zip
-            rm wekan-${WEKAN_VERSION}-amd64.zip
+            wget -q https://github.com/wekan/wekan/releases/download/v${WEKAN_VERSION}/wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
+            unzip -q wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
+            rm wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
             cd ..
-            ##cd .build/bundle
-            ##find . -type d -name '*-garbage*' | xargs rm -rf
-            ##find . -name '*phantom*' | xargs rm -rf
-            ##find . -name '.*.swp' | xargs rm -f
-            ##find . -name '*.swp' | xargs rm -f
-            ##cd ../..
-            # Add fibers multi arch
-            #cd .build/bundle/programs/server/node_modules/fibers/bin
-            #curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
-            #7z x fibers-multi.7z
-            #rm fibers-multi.7z
-            #cd ../../../../../../..
-            # Copy Node.js 22 to Snap (matches Meteor 3 bundle requirements)
-            NODE_VERSION="22.22.0"
-            wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz
-            tar -xf node-v${NODE_VERSION}-linux-x64.tar.gz node-v${NODE_VERSION}-linux-x64/bin/node
-            rm node-v${NODE_VERSION}-linux-x64.tar.gz
+
+            # Download the matching Node.js 22.22.2 binary for this architecture
+            NODE_VERSION="22.22.2"
+            wget -q https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz
+            tar -xf node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz \
+              node-v${NODE_VERSION}-linux-${NODE_ARCH}/bin/node
+            rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz
             mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-            cp -p node-v${NODE_VERSION}-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
-            rm -rf node-v${NODE_VERSION}-linux-x64
+            cp -p node-v${NODE_VERSION}-linux-${NODE_ARCH}/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v${NODE_VERSION}-linux-${NODE_ARCH}
+
+            # Install the WeKan bundle into the snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
@@ -219,6 +356,25 @@ parts:
     helpers:
         source: snap-src
         plugin: dump
+
+    # migration-tools: bundles releases/migrate-mongodb-to-ferretdb.mjs and its
+    # only npm dependency (mongodb ^6) so mongodb-control can run it with the
+    # snap's bundled Node.js without requiring internet access at runtime.
+    migration-tools:
+        source: releases
+        plugin: nil
+        build-packages:
+            - nodejs
+            - npm
+        override-build: |
+            mkdir -p "$SNAPCRAFT_PART_INSTALL/migration"
+            cp migrate-mongodb-to-ferretdb.mjs package.json "$SNAPCRAFT_PART_INSTALL/migration/"
+            cd "$SNAPCRAFT_PART_INSTALL/migration"
+            npm install --omit=dev --prefer-offline 2>/dev/null || npm install --omit=dev
+        stage:
+            - migration
+        prime:
+            - migration
 
     caddy:
         plugin: nil
