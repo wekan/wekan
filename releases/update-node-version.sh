@@ -14,10 +14,23 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_DIR"
 
+
 # BSD sed (macOS) requires an empty string after -i; GNU sed (Linux) does not.
 if [ "$(uname)" = "Darwin" ]; then
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "curl not found. Installing curl with brew..."
+    brew install curl
+  fi
   sedi() { sed -i '' "$@"; }
 else
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "curl not found. Installing curl with apt-get..."
+    sudo apt-get update && sudo apt-get install -y curl
+  fi
   sedi() { sed -i "$@"; }
 fi
 

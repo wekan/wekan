@@ -30,9 +30,43 @@ mkdir -p public/api
 # ── Python dependency: esprima ────────────────────────────────────────────────
 # The OpenAPI generator (openapi/generate_openapi.py) uses the esprima package
 # to parse the JavaScript AST from models/*.js files.
-if ! python3 -c "import esprima" 2>/dev/null; then
+
+# Detect OS and ensure python3, pip3, and brew (on macOS) are available
+if [ "$(uname)" = "Darwin" ]; then
+  # macOS
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  if ! command -v python3 >/dev/null 2>&1; then
+    echo "python3 not found. Installing python3 with brew..."
+    brew install python
+  fi
+  if ! command -v pip3 >/dev/null 2>&1; then
+    echo "pip3 not found. Installing pip3 with brew..."
+    brew install pipx
+    pipx ensurepath
+  fi
+else
+  # Linux
+  if ! command -v python3 >/dev/null 2>&1; then
+    echo "python3 not found. Installing python3 with apt-get..."
+    sudo apt-get update && sudo apt-get install -y python3
+  fi
+  if ! command -v pip3 >/dev/null 2>&1; then
+    echo "pip3 not found. Installing pip3 with apt-get..."
+    sudo apt-get update && sudo apt-get install -y python3-pip
+  fi
+fi
+
+# Use /usr/bin/env for python3 and pip3
+PYTHON=python3
+PIP=pip3
+
+# Install esprima if missing
+if ! $PYTHON -c "import esprima" 2>/dev/null; then
   echo "  Installing Python package: esprima"
-  python3 -m pip install --quiet --user --upgrade esprima
+  $PYTHON -m $PIP install --quiet --user --upgrade esprima
 fi
 
 # ── Generate OpenAPI 2.0 YAML from models/ ────────────────────────────────────
