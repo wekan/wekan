@@ -43,6 +43,8 @@ This release adds the following updates:
   Thanks to Meteor developers.
 - [Updated rebuild-wekan.sh for macOS 26.4](https://github.com/wekan/wekan/commit/f1e71247c70043634e040bd12f7d065b30ed6fc2).
   Thanks to xet7.
+- [Moved Meteor 3 migration docs to docs/Upgrade/](https://github.com/wekan/wekan/commit/517d1483876926cdbf6ce4774c8c52540eaec593).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
