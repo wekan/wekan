@@ -14,7 +14,7 @@ Newest WeKan at these platforms:
 
 Fixing other platforms In Progress.
 
-- [Node.js 14.21.4](https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4) or  [Node.js 14.21.3](https://nodejs.org/dist/latest-v14.x/)
+- [Node.js 22.x](https://nodejs.org/dist/latest-v22.x/)
 - MongoDB 6.x and 7.x, or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs/Databases/FerretDB2-PostgreSQL.md)
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
@@ -66,6 +66,12 @@ and fixes the following bugs:
   Thanks to AymenHassini19 and aminsaidane.
 - [Fix attachment rename fails for clipboard uploads and keep extension metadata in sync](https://github.com/wekan/wekan/commit/38c670e08700f7b0ff185aadda40985bc71b1ac4).
   Thanks to snowsky, YosserDerbali and xet7.
+- [Fix card actions popup overflow](https://github.com/wekan/wekan/pull/6220).
+  Thanks to aminsaidane.
+- [Fix Search: Guard Async methods in ReactiveCache and search publications](https://github.com/wekan/wekan/pull/6222).
+  Thanks to KhaoulaMaleh.
+- [Fix/list actions popup overflow scroll](https://github.com/wekan/wekan/pull/6223).
+  Thanks to YosserDerbali.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
