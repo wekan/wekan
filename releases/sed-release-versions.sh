@@ -20,22 +20,30 @@ NEW="$2"
 OLD_NO_DOTS=$(echo "$OLD" | tr -d '.')
 NEW_NO_DOTS=$(echo "$NEW" | tr -d '.')
 
+sedi() {
+  if [ "$(uname)" = "Darwin" ]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
 # package.json and package-lock.json
 #   WeKan's own version entry always has a "v" prefix: "version": "v8.42.0"
 #   npm dependency versions never use a "v" prefix, so this pattern is WeKan-specific.
 #   The patch component (\1) is preserved as-is.
-sed -i 's|"version": "v'"$OLD"'\.\([0-9]*\)"|"version": "v'"$NEW"'.\1"|g' \
+sedi 's|"version": "v'"$OLD"'\.\([0-9]*\)"|"version": "v'"$NEW"'.\1"|g' \
   package.json package-lock.json
 
 # Stackerfile.yml
 #   appVersion field uses the same "v" prefix format.
-sed -i 's|appVersion: "v'"$OLD"'\.\([0-9]*\)"|appVersion: "v'"$NEW"'.\1"|g' \
+sedi 's|appVersion: "v'"$OLD"'\.\([0-9]*\)"|appVersion: "v'"$NEW"'.\1"|g' \
   Stackerfile.yml
 
 # Dockerfile
 #   Only the ARG VERSION line is updated. All other ENV values
 #   (Node.js version, npm version, etc.) are left untouched.
-sed -i "s|ARG VERSION=$OLD|ARG VERSION=$NEW|g" Dockerfile
+sedi "s|ARG VERSION=$OLD|ARG VERSION=$NEW|g" Dockerfile
 
 # snapcraft.yaml
 #   Three distinct WeKan-specific patterns, each too narrow to match
@@ -43,17 +51,17 @@ sed -i "s|ARG VERSION=$OLD|ARG VERSION=$NEW|g" Dockerfile
 #     1. The snap version: field (anchored to start of line)
 #     2. WeKan bundle filenames: wekan-8.42-<arch>.zip
 #     3. GitHub release URL path: /releases/download/v8.42/
-sed -i "s|^version: '$OLD'|version: '$NEW'|" snapcraft.yaml
-sed -i "s|wekan-$OLD-|wekan-$NEW-|g" snapcraft.yaml
-sed -i "s|/v$OLD/|/v$NEW/|g" snapcraft.yaml
+sedi "s|^version: '$OLD'|version: '$NEW'|" snapcraft.yaml
+sedi "s|wekan-$OLD-|wekan-$NEW-|g" snapcraft.yaml
+sedi "s|/v$OLD/|/v$NEW/|g" snapcraft.yaml
 
 # docs/Platforms/Propietary/Windows/Offline.md
 #   Same URL patterns as snapcraft.yaml. The file also contains
 #   MongoDB (7.0.31) and Node.js (14.x) version numbers which
 #   do not match either pattern.
-sed -i "s|wekan-$OLD-|wekan-$NEW-|g" \
+sedi "s|wekan-$OLD-|wekan-$NEW-|g" \
   docs/Platforms/Propietary/Windows/Offline.md
-sed -i "s|/v$OLD/|/v$NEW/|g" \
+sedi "s|/v$OLD/|/v$NEW/|g" \
   docs/Platforms/Propietary/Windows/Offline.md
 
 # sandstorm-pkgdef.capnp
@@ -61,6 +69,6 @@ sed -i "s|/v$OLD/|/v$NEW/|g" \
 #     1. appVersion integer (no dots): "appVersion = 842,"
 #     2. appMarketingVersion string: "8.42.0~<date>" — the tilde is the
 #        Sandstorm date separator and never appears in other version strings.
-sed -i "s|appVersion = $OLD_NO_DOTS,|appVersion = $NEW_NO_DOTS,|g" \
+sedi "s|appVersion = $OLD_NO_DOTS,|appVersion = $NEW_NO_DOTS,|g" \
   sandstorm-pkgdef.capnp
-sed -i 's|"'"$OLD"'\.0~|"'"$NEW"'.0~|g' sandstorm-pkgdef.capnp
+sedi 's|"'"$OLD"'\.0~|"'"$NEW"'.0~|g' sandstorm-pkgdef.capnp

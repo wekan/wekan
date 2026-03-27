@@ -14,6 +14,14 @@ fi
 OLD="$1"
 NEW="$2"
 
+sedi() {
+  if [ "$(uname)" = "Darwin" ]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
 # Go to website directory and pull latest changes
 cd ~/repos/w/wekan.fi
 git pull
@@ -21,7 +29,7 @@ git pull
 # install/index.html
 #   The version appears inside a specific HTML span tag.
 #   This pattern is already precise enough to match only the WeKan version.
-sed -i "s|>v$OLD<\/span>|>v$NEW<\/span>|g" install/index.html
+sedi "s|>v$OLD<\/span>|>v$NEW<\/span>|g" install/index.html
 
 # api/index.html
 #   The version appears in href attributes and as link text, e.g.:
@@ -32,7 +40,7 @@ sed -i "s|>v$OLD<\/span>|>v$NEW<\/span>|g" install/index.html
 #   The capture group \1 restores the character that follows the version.
 #   A second expression handles the rare case of the version at end of line.
 cd api
-sed -i "s|v$OLD\([^0-9]\)|v$NEW\1|g; s|v$OLD$|v$NEW|g" index.html
+sedi "s|v$OLD\([^0-9]\)|v$NEW\1|g; s|v$OLD$|v$NEW|g" index.html
 
 # Create directory for new API docs, copy from WeKan repo, rename entry point
 cd ..
