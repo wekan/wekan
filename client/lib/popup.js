@@ -224,16 +224,28 @@ window.Popup = new (class {
 
       if (Utils.isMiniScreen()) return { left: 0, top: 0 };
 
+      const viewportWidth = $(window).width();
+      const viewportHeight = $(window).height();
+      const viewportPadding = 10;
+      // Calculate actual popup width based on CSS: min(380px, 55vw)
+      const popupWidth = Math.min(380, viewportWidth * 0.55);
+
       // If the opener element is missing (e.g., programmatic open), fallback to viewport origin
       if (!$element || $element.length === 0) {
-        return { left: 10, top: 10, maxHeight: $(window).height() - 20 };
+        return {
+          left: viewportPadding,
+          top: viewportPadding,
+          maxHeight: viewportHeight - viewportPadding * 2,
+        };
       }
 
       const offset = $element.offset();
-      // Calculate actual popup width based on CSS: min(380px, 55vw)
-      const viewportWidth = $(window).width();
-      const viewportHeight = $(window).height();
-      const popupWidth = Math.min(380, viewportWidth * 0.55) + 15; // Add 15px for margin
+      const openerTop = offset.top;
+      const openerBottom = offset.top + $element.outerHeight();
+      const clampedLeft = Math.max(
+        viewportPadding,
+        Math.min(offset.left, viewportWidth - popupWidth - viewportPadding),
+      );
 
       // Check if this is an admin panel edit popup
       const isAdminEditPopup = $element.hasClass('edit-user') ||
@@ -245,38 +257,56 @@ window.Popup = new (class {
         const centeredLeft = (viewportWidth - popupWidth) / 2;
 
         return {
-          left: Math.max(10, centeredLeft), // Ensure popup doesn't go off screen
-          top: 10, // Start from top with small margin
-          maxHeight: viewportHeight - 20, // Use full height minus small margins
+          left: Math.max(viewportPadding, centeredLeft), // Ensure popup doesn't go off screen
+          top: viewportPadding, // Start from top with small margin
+          maxHeight: viewportHeight - viewportPadding * 2, // Use full height minus small margins
         };
       }
 
-      // Calculate available height for popup
-      const popupTop = offset.top + $element.outerHeight();
+      // Calculate available heights around the opener
+      const spaceBelow = viewportHeight - openerBottom - viewportPadding;
+      const spaceAbove = openerTop - viewportPadding;
+      const preferBelow = spaceBelow >= spaceAbove;
 
       // For language popup, don't use dynamic height to avoid overlapping board
       const isLanguagePopup = $element.hasClass('js-change-language');
-      let availableHeight, maxPopupHeight;
+      let availableHeight;
 
       if (isLanguagePopup) {
         // For language popup, position content area below right vertical scrollbar
-        const availableHeight = viewportHeight - popupTop - 20; // 20px margin from bottom (near scrollbar)
-        const calculatedHeight = Math.min(availableHeight, viewportHeight * 0.5); // Max 50% of viewport
+        const languageTop = openerBottom;
+        const languageAvailable = Math.max(
+          0,
+          viewportHeight - languageTop - viewportPadding,
+        );
+        const calculatedHeight = Math.min(
+          languageAvailable,
+          viewportHeight * 0.5,
+        ); // Max 50% of viewport
 
         return {
-          left: Math.min(offset.left, viewportWidth - popupWidth),
-          top: popupTop,
-          maxHeight: Math.max(calculatedHeight, 200), // Minimum 200px height
+          left: clampedLeft,
+          top: languageTop,
+          maxHeight: Math.max(calculatedHeight, 0),
         };
       } else {
-        // For other popups, use the dynamic height calculation
-        availableHeight = viewportHeight - popupTop - 20; // 20px margin from bottom
-        maxPopupHeight = Math.min(availableHeight, viewportHeight * 0.8); // Max 80% of viewport
+        // For other popups, choose the side with more space and keep popup fully in viewport.
+        if (preferBelow) {
+          availableHeight = Math.max(0, Math.min(spaceBelow, viewportHeight * 0.8));
+          return {
+            left: clampedLeft,
+            top: openerBottom,
+            maxHeight: availableHeight,
+          };
+        }
+
+        availableHeight = Math.max(0, Math.min(spaceAbove, viewportHeight * 0.8));
+        const top = Math.max(viewportPadding, openerTop - availableHeight);
 
         return {
-          left: Math.min(offset.left, viewportWidth - popupWidth),
-          top: popupTop,
-          maxHeight: Math.max(maxPopupHeight, 200), // Minimum 200px height
+          left: clampedLeft,
+          top,
+          maxHeight: availableHeight,
         };
       }
     };
