@@ -214,7 +214,7 @@ Meteor.methods({
       throw new Meteor.Error('attachment-not-found', 'Attachment not found');
     }
 
-    const board = await ReactiveCache.getBoard(fileObj.boardId);
+    const board = await ReactiveCache.getBoard(fileObj.meta?.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
@@ -242,14 +242,14 @@ Meteor.methods({
     }
 
     // Verify the user has permission to modify this attachment
-    const board = await ReactiveCache.getBoard(fileObj.boardId);
+    const board = await ReactiveCache.getBoard(fileObj.meta?.boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
     if (!allowIsBoardMember(currentUserId, board)) {
       if (process.env.DEBUG === 'true') {
-        console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${fileObj.boardId}`);
+        console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${fileObj.meta?.boardId}`);
       }
       throw new Meteor.Error('not-authorized', 'You do not have permission to modify this attachment');
     }
@@ -268,7 +268,7 @@ Meteor.methods({
       throw new Meteor.Error('attachment-not-found', 'Attachment not found');
     }
 
-    const board = await ReactiveCache.getBoard(fileObj.boardId);
+    const board = await ReactiveCache.getBoard(fileObj.meta?.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
@@ -292,7 +292,7 @@ Meteor.methods({
       throw new Meteor.Error('attachment-not-found', 'Attachment not found');
     }
 
-    const board = await ReactiveCache.getBoard(fileObj.boardId);
+    const board = await ReactiveCache.getBoard(fileObj.meta?.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }

@@ -629,6 +629,10 @@ export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
   // Sanitize the new name to prevent path traversal
   const safeName = sanitizeFilename(newName);
 
+  const lastDot = safeName.lastIndexOf('.');
+  const extension = lastDot === -1 ? '' : safeName.substring(lastDot + 1).toLowerCase();
+  const extensionWithDot = extension ? `.${extension}` : '';
+
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategy = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, safeName);
@@ -636,6 +640,8 @@ export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
 
     Attachments.updateAsync({ _id: fileObj._id }, { $set: {
       "name": safeName,
+      "extension": extension,
+      "extensionWithDot": extensionWithDot,
       [`versions.${versionName}.path`]: newFilePath,
     } }).catch(error => {
       console.error('Failed to persist renamed attachment path:', error);

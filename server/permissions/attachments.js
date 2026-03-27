@@ -5,7 +5,7 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 Attachments.allow({
   async insert(userId, fileObj) {
     // ReadOnly users cannot upload attachments
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.meta?.boardId));
   },
   async update(userId, fileObj, fields) {
     // SECURITY: The 'name' field is sanitized in onBeforeUpload and server-side methods,
@@ -37,18 +37,18 @@ Attachments.allow({
     }
 
     // ReadOnly users cannot update attachments
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.meta?.boardId));
   },
   async remove(userId, fileObj) {
     // Additional security check: ensure the file belongs to the board the user has access to
-    if (!fileObj || !fileObj.boardId) {
+    if (!fileObj || !fileObj.meta?.boardId) {
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attachment removal: file has no boardId');
       }
       return false;
     }
 
-    const board = await Boards.findOneAsync(fileObj.boardId);
+    const board = await Boards.findOneAsync(fileObj.meta?.boardId);
     if (!board) {
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attachment removal: board not found');
@@ -59,5 +59,5 @@ Attachments.allow({
     // ReadOnly users cannot delete attachments
     return allowIsBoardMemberWithWriteAccess(userId, board);
   },
-  fetch: ['meta', 'boardId'],
+  fetch: ['meta'],
 });
