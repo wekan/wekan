@@ -23,7 +23,14 @@ sedi() {
 }
 
 # Go to website directory and pull latest changes
-cd ~/repos/w/wekan.fi
+if [ -d "$HOME/repos/w/wekan.fi" ]; then
+  cd "$HOME/repos/w/wekan.fi" || exit 1
+elif [ -d "$HOME/Documents/repos/w/wekan.fi" ]; then
+  cd "$HOME/Documents/repos/w/wekan.fi" || exit 1
+else
+  echo "Website directory not found, ignoring."
+  exit 0
+fi
 git pull
 
 # install/index.html
@@ -45,7 +52,13 @@ sedi "s|v$OLD\([^0-9]\)|v$NEW\1|g; s|v$OLD$|v$NEW|g" index.html
 # Create directory for new API docs, copy from WeKan repo, rename entry point
 cd ..
 mkdir -p api/v$NEW
-cp ~/repos/wekan/public/api/* api/v$NEW/
+if [ -d "$HOME/repos/wekan" ]; then
+  cp "$HOME/repos/wekan/public/api/"* api/v$NEW/
+elif [ -d "$HOME/Documents/repos/wekan" ]; then
+  cp "$HOME/Documents/repos/wekan/public/api/"* api/v$NEW/
+else
+  cp public/api/* api/v$NEW/ || true
+fi
 mv api/v$NEW/wekan.html api/v$NEW/index.html
 
 # Commit and push website changes live
