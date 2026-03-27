@@ -12,7 +12,7 @@ Right click and download files 1-4:
 
 1. [wekan-8.43-amd64-windows.zip](https://github.com/wekan/wekan/releases/download/v8.43/wekan-8.43-amd64-windows.zip)
 
-2. [node.exe](https://nodejs.org/dist/latest-v14.x/win-x64/node.exe)
+2. [node.exe](https://nodejs.org/dist/latest-v22.x/win-x64/node.exe)
 
 3. [mongodb-windows-x86_64-7.0.31-signed.msi](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-7.0.31-signed.msi)
 
