@@ -45,7 +45,9 @@ This release adds the following updates:
   Thanks to xet7.
 - [Moved Meteor 3 migration docs to docs/Upgrade/](https://github.com/wekan/wekan/commit/517d1483876926cdbf6ce4774c8c52540eaec593).
   Thanks to xet7.
-- [Updated dependencies](https://github.com/wekan/wekan/commit/acfb081b907703c6846b8ccf71a9e2912b41713f).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/acfb081b907703c6846b8ccf71a9e2912b41713f),
+  [Part 2](https://github.com/wekan/wekan/commit/55660e0e69b7a283ab04ad408674d33eb71bb279).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:

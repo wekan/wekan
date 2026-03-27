@@ -181,7 +181,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
     check(query, Match.OneOf(Object, null, undefined));
-    return await (await ReactiveCache.getOrgs(query, {}, true)).countAsync();
+    const cursor = await ReactiveCache.getOrgs(query || {}, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });
 

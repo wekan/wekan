@@ -762,7 +762,8 @@ Meteor.methods({
 });
 
 Accounts.onCreateUser(async (options, user) => {
-  const userCount = await (await ReactiveCache.getUsers({}, {}, true)).countAsync();
+  const usersCursor = await ReactiveCache.getUsers({}, {}, true);
+  const userCount = typeof usersCursor.countAsync === 'function' ? await usersCursor.countAsync() : usersCursor.count();
   user.isAdmin = userCount === 0;
 
   if (user.services.oidc) {
@@ -1097,9 +1098,8 @@ WebApp.handlers.get('/api/user', async function(req, res) {
 WebApp.handlers.get('/api/users', async function(req, res) {
   try {
     Authentication.checkUserId(req.userId);
-    const users = await Meteor.users
-      .find({}, { fields: { _id: 1, username: 1 } })
-      .fetchAsync();
+    const usersCursor = Meteor.users.find({}, { fields: { _id: 1, username: 1 } });
+    const users = typeof usersCursor.fetchAsync === 'function' ? await usersCursor.fetchAsync() : usersCursor.fetch();
     sendJsonResult(res, {
       code: 200,
       data: users.map(doc => ({ _id: doc._id, username: doc.username })),
@@ -1414,7 +1414,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    return await (await ReactiveCache.getUsers(query || {}, {}, true)).countAsync();
+    const cursor = await ReactiveCache.getUsers(query || {}, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 
   async searchUsers(query, boardId) {

@@ -330,6 +330,26 @@
   overflow: visible !important; /* Overflow handled by parent */
 }
 
+/* Card Details Actions popup: ensure menu doesn't overflow viewport */
+.pop-over[data-popup="cardDetailsActionsPopup"] {
+  max-height: 80vh !important;
+  width: min(380px, 85vw) !important;
+}
+
+.pop-over[data-popup="cardDetailsActionsPopup"] .content-wrapper {
+  max-height: calc(80vh - 70px) !important; /* Subtract header height */
+  overflow-y: auto !important;
+}
+
+.pop-over[data-popup="cardDetailsActionsPopup"] .content-container {
+  max-height: calc(80vh - 70px) !important;
+}
+
+.pop-over[data-popup="cardDetailsActionsPopup"] .content {
+  max-height: none !important; /* Allow content to scroll within container */
+  overflow: visible !important; /* Overflow handled by parent */
+}
+
 .pop-over[data-popup='editCardReceivedDatePopup'] .datepicker-container,
 .pop-over[data-popup='editCardStartDatePopup'] .datepicker-container,
 .pop-over[data-popup='editCardDueDatePopup'] .datepicker-container,
