@@ -56,6 +56,8 @@ and fixes the following bugs:
   Thanks to YosserDerbali and xet7.
 - [Fix Set Color of Swimlane, List and Card](https://github.com/wekan/wekan/commit/0630d62ad0a02d80ab77436ce9797e4390c5cae2).
   Thanks to SVANNER, brlin-tw and xet7.
+- [Fix attachment rename fails for clipboard uploads and keep extension metadata in sync](https://github.com/wekan/wekan/commit/38c670e08700f7b0ff185aadda40985bc71b1ac4).
+  Thanks to snowsky, YosserDerbali and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
