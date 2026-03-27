@@ -159,7 +159,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
     check(query, Match.OneOf(Object, null, undefined));
-    return await (await ReactiveCache.getTeams(query, {}, true)).countAsync();
+    const cursor = await ReactiveCache.getTeams(query || {}, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });
 

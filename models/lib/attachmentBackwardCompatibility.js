@@ -21,7 +21,8 @@ const OldAttachmentsFileRecord = new Mongo.Collection('cfs.attachments.filerecor
 export async function isNewAttachmentStructure(attachmentId) {
   if (Meteor.isServer) {
     if (Attachments && Attachments.collection) {
-      return !!(await Attachments.collection.findOneAsync({ _id: attachmentId }));
+      const cursor = Attachments.collection;
+      return !!(typeof cursor.findOneAsync === 'function' ? await cursor.findOneAsync({ _id: attachmentId }) : cursor.findOne({ _id: attachmentId }));
     }
   }
   return false;
@@ -36,13 +37,13 @@ export async function getOldAttachmentData(attachmentId) {
   if (Meteor.isServer) {
     try {
       // First try to get from old filerecord collection
-      const fileRecord = await OldAttachmentsFileRecord.findOneAsync({ _id: attachmentId });
+      const fileRecord = typeof OldAttachmentsFileRecord.findOneAsync === 'function' ? await OldAttachmentsFileRecord.findOneAsync({ _id: attachmentId }) : OldAttachmentsFileRecord.findOne({ _id: attachmentId });
       if (!fileRecord) {
         return null;
       }
 
       // Get file data from old files collection
-      const fileData = await OldAttachmentsFiles.findOneAsync({ _id: attachmentId });
+      const fileData = typeof OldAttachmentsFiles.findOneAsync === 'function' ? await OldAttachmentsFiles.findOneAsync({ _id: attachmentId }) : OldAttachmentsFiles.findOne({ _id: attachmentId });
       if (!fileData) {
         return null;
       }
@@ -181,7 +182,8 @@ export async function getAttachmentWithBackwardCompatibility(attachmentId) {
   // First try new structure
   if (Meteor.isServer) {
     if (Attachments && Attachments.collection) {
-      const newAttachment = await Attachments.collection.findOneAsync({ _id: attachmentId });
+      const cursor = Attachments.collection;
+      const newAttachment = typeof cursor.findOneAsync === 'function' ? await cursor.findOneAsync({ _id: attachmentId }) : cursor.findOne({ _id: attachmentId });
       if (newAttachment) {
         return newAttachment;
       }
@@ -204,7 +206,8 @@ export async function getAttachmentsWithBackwardCompatibility(query) {
   // Get new attachments
   if (Meteor.isServer) {
     if (Attachments && Attachments.collection) {
-      newAttachments = await Attachments.collection.find(query).fetchAsync();
+      const cursor = Attachments.collection.find(query);
+      newAttachments = typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
     }
   }
 
@@ -215,7 +218,8 @@ export async function getAttachmentsWithBackwardCompatibility(query) {
       // Query old structure for the same card
       const cardId = query['meta.cardId'];
       if (cardId) {
-        const oldFileRecords = await OldAttachmentsFileRecord.find({ cardId }).fetchAsync();
+        const cursor = OldAttachmentsFileRecord.find({ cardId });
+        const oldFileRecords = typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
         for (const fileRecord of oldFileRecords) {
           const oldAttachment = await getOldAttachmentData(fileRecord._id);
           if (oldAttachment) {

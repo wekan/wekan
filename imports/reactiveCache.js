@@ -75,57 +75,57 @@ const Users = lazyCollectionProxy(() => require('/models/users').default);
 // All methods are async for Meteor 3.0 compatibility.
 const ReactiveCacheServer = {
   async getBoard(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Boards.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Boards.findOneAsync === 'function' ? await Boards.findOneAsync(idOrFirstObjectSelector, options) : Boards.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getBoards(selector = {}, options = {}, getQuery = false) {
     let ret = Boards.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getList(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Lists.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Lists.findOneAsync === 'function' ? await Lists.findOneAsync(idOrFirstObjectSelector, options) : Lists.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getLists(selector = {}, options = {}, getQuery = false) {
     let ret = Lists.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getSwimlane(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Swimlanes.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Swimlanes.findOneAsync === 'function' ? await Swimlanes.findOneAsync(idOrFirstObjectSelector, options) : Swimlanes.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getSwimlanes(selector = {}, options = {}, getQuery = false) {
     let ret = Swimlanes.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getChecklist(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Checklists.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Checklists.findOneAsync === 'function' ? await Checklists.findOneAsync(idOrFirstObjectSelector, options) : Checklists.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getChecklists(selector = {}, options = {}, getQuery = false) {
     let ret = Checklists.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getChecklistItem(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await ChecklistItems.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof ChecklistItems.findOneAsync === 'function' ? await ChecklistItems.findOneAsync(idOrFirstObjectSelector, options) : ChecklistItems.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getChecklistItems(selector = {}, options = {}, getQuery = false) {
     let ret = ChecklistItems.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
@@ -137,46 +137,46 @@ const ReactiveCacheServer = {
     ) {
       return null;
     }
-    const ret = await Cards.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Cards.findOneAsync === 'function' ? await Cards.findOneAsync(idOrFirstObjectSelector, options) : Cards.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getCards(selector = {}, options = {}, getQuery = false) {
     let ret = Cards.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getCardComment(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await CardComments.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof CardComments.findOneAsync === 'function' ? await CardComments.findOneAsync(idOrFirstObjectSelector, options) : CardComments.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getCardComments(selector = {}, options = {}, getQuery = false) {
     let ret = CardComments.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getCardCommentReaction(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await CardCommentReactions.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof CardCommentReactions.findOneAsync === 'function' ? await CardCommentReactions.findOneAsync(idOrFirstObjectSelector, options) : CardCommentReactions.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getCardCommentReactions(selector = {}, options = {}, getQuery = false) {
     let ret = CardCommentReactions.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getCustomField(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await CustomFields.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof CustomFields.findOneAsync === 'function' ? await CustomFields.findOneAsync(idOrFirstObjectSelector, options) : CustomFields.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getCustomFields(selector = {}, options = {}, getQuery = false) {
     let ret = CustomFields.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
@@ -205,153 +205,153 @@ const ReactiveCacheServer = {
     return ret;
   },
   async getAvatar(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Avatars.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Avatars.findOneAsync === 'function' ? await Avatars.findOneAsync(idOrFirstObjectSelector, options) : Avatars.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getAvatars(selector = {}, options = {}, getQuery = false) {
     let ret = Avatars.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getUser(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Users.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Users.findOneAsync === 'function' ? await Users.findOneAsync(idOrFirstObjectSelector, options) : Users.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getUsers(selector = {}, options = {}, getQuery = false) {
     let ret = Users.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getOrg(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Org.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Org.findOneAsync === 'function' ? await Org.findOneAsync(idOrFirstObjectSelector, options) : Org.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getOrgs(selector = {}, options = {}, getQuery = false) {
     let ret = Org.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getTeam(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Team.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Team.findOneAsync === 'function' ? await Team.findOneAsync(idOrFirstObjectSelector, options) : Team.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getTeams(selector = {}, options = {}, getQuery = false) {
     let ret = Team.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getActivity(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Activities.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Activities.findOneAsync === 'function' ? await Activities.findOneAsync(idOrFirstObjectSelector, options) : Activities.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getActivities(selector = {}, options = {}, getQuery = false) {
     let ret = Activities.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getRule(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Rules.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Rules.findOneAsync === 'function' ? await Rules.findOneAsync(idOrFirstObjectSelector, options) : Rules.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getRules(selector = {}, options = {}, getQuery = false) {
     let ret = Rules.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getAction(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Actions.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Actions.findOneAsync === 'function' ? await Actions.findOneAsync(idOrFirstObjectSelector, options) : Actions.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getActions(selector = {}, options = {}, getQuery = false) {
     let ret = Actions.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getTrigger(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Triggers.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Triggers.findOneAsync === 'function' ? await Triggers.findOneAsync(idOrFirstObjectSelector, options) : Triggers.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getTriggers(selector = {}, options = {}, getQuery = false) {
     let ret = Triggers.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getImpersonatedUser(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await ImpersonatedUsers.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof ImpersonatedUsers.findOneAsync === 'function' ? await ImpersonatedUsers.findOneAsync(idOrFirstObjectSelector, options) : ImpersonatedUsers.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getImpersonatedUsers(selector = {}, options = {}, getQuery = false) {
     let ret = ImpersonatedUsers.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getIntegration(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Integrations.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Integrations.findOneAsync === 'function' ? await Integrations.findOneAsync(idOrFirstObjectSelector, options) : Integrations.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getIntegrations(selector = {}, options = {}, getQuery = false) {
     let ret = Integrations.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getSessionData(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await SessionData.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof SessionData.findOneAsync === 'function' ? await SessionData.findOneAsync(idOrFirstObjectSelector, options) : SessionData.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getSessionDatas(selector = {}, options = {}, getQuery = false) {
     let ret = SessionData.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getInvitationCode(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await InvitationCodes.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof InvitationCodes.findOneAsync === 'function' ? await InvitationCodes.findOneAsync(idOrFirstObjectSelector, options) : InvitationCodes.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getInvitationCodes(selector = {}, options = {}, getQuery = false) {
     let ret = InvitationCodes.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
   async getCurrentSetting() {
-    const ret = await Settings.findOneAsync();
+    const ret = typeof Settings.findOneAsync === 'function' ? await Settings.findOneAsync() : Settings.findOne();
     return ret;
   },
   async getCurrentUser() {
-    const ret = await Meteor.userAsync();
+    const ret = typeof Meteor.userAsync === 'function' ? await Meteor.userAsync() : Meteor.user();
     return ret;
   },
   async getTranslation(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Translation.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = typeof Translation.findOneAsync === 'function' ? await Translation.findOneAsync(idOrFirstObjectSelector, options) : Translation.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getTranslations(selector = {}, options = {}, getQuery = false) {
     let ret = Translation.find(selector, options);
     if (getQuery !== true) {
-      ret = await ret.fetchAsync();
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
     return ret;
   },
