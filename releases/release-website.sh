@@ -1,47 +1,46 @@
 #!/bin/bash
 
-# Release website with new Wekan version number
-# and new API docs.
+# Release website with new WeKan version number and new API docs.
+#
+# Usage:
+#   ./releases/release-website.sh 8.42 8.43
 
-# 1) Check that there is only 2 parameters
-#    of Wekan previous and new version number:
-
-if [ $# -ne 2 ]
-  then
-    echo "Syntax with Wekan previous and new version number:"
-    echo "  ./release-website.sh 5.09 5.10"
-    exit 1
+if [ $# -ne 2 ]; then
+  echo "Syntax with Wekan previous and new version number:"
+  echo "  ./releases/release-website.sh 8.42 8.43"
+  exit 1
 fi
 
-# 2) Go to website directory
-cd ~/repos/w/wekan.fi
+OLD="$1"
+NEW="$2"
 
-# 3) Get latest changes to website
+# Go to website directory and pull latest changes
+cd ~/repos/w/wekan.fi
 git pull
 
-# 4) Change version number in website
-sed -i "s|>v$1<\/span>|>v$2<\/span>|g" install/index.html
+# install/index.html
+#   The version appears inside a specific HTML span tag.
+#   This pattern is already precise enough to match only the WeKan version.
+sed -i "s|>v$OLD<\/span>|>v$NEW<\/span>|g" install/index.html
 
-# 5) Change version number in API docs index page
+# api/index.html
+#   The version appears in href attributes and as link text, e.g.:
+#     <a href="v8.42/">v8.42</a>
+#   Replace "v8.42" only when followed by a non-digit character
+#   (/, <, ", space, etc.) so that a future version like "v8.421"
+#   would not be accidentally matched.
+#   The capture group \1 restores the character that follows the version.
+#   A second expression handles the rare case of the version at end of line.
 cd api
-sed -i "s|v$1|v$2|g" index.html
+sed -i "s|v$OLD\([^0-9]\)|v$NEW\1|g; s|v$OLD$|v$NEW|g" index.html
 
-# 6) Create directory for new docs
-mkdir v$2
+# Create directory for new API docs, copy from WeKan repo, rename entry point
+cd ..
+mkdir -p api/v$NEW
+cp ~/repos/wekan/public/api/* api/v$NEW/
+mv api/v$NEW/wekan.html api/v$NEW/index.html
 
-# 7) Go to new docs directory
-cd v$2
-
-# 8) Copy new docs from Wekan repo to new docs directory
-cp ~/repos/wekan/public/api/* .
-
-# 9) Move wekan.html to index.html
-mv wekan.html index.html
-
-# 10) Go to docs repo
-cd ~/repos/w/wekan.fi
-
-# 11) Commit all changes to git and push website changes live
+# Commit and push website changes live
 git add --all
-git commit -m "v$2"
+git commit -m "v$NEW"
 git push

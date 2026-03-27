@@ -6,18 +6,18 @@ LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
 # TARGETARCH is automatically provided by Docker Buildx
 ARG TARGETARCH
+ARG VERSION=8.42
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 unzip"
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=v14.21.4 \
-    METEOR_RELEASE=METEOR@2.16 \
+    NODE_VERSION=v22.22.0 \
+    METEOR_RELEASE=METEOR@3.4 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=6.14.17 \
-    FIBERS_VERSION=4.0.1 \
+    NPM_VERSION=10.9.2 \
     SRC_PATH=./ \
     WITH_API=true \
     MONGO_OPLOG_URL="" \
@@ -177,13 +177,13 @@ case "${TARGETARCH}" in
     *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;;
 esac
 
-# Node.js Installation
+# Node.js Installation (official nodejs.org builds for Node 22)
 cd /tmp
-wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
-wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
-grep "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt | shasum -a 256 -c -
+wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
+wget "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc"
+grep "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt.asc | shasum -a 256 -c -
 tar xzf "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt
+rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt.asc
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 
 # NPM configuration
@@ -197,9 +197,9 @@ ln -sf $(which bsdtar) $(which tar)
 # WeKan Bundle Installation
 mkdir -p /home/wekan/app
 cd /home/wekan/app
-wget "https://github.com/wekan/wekan/releases/download/v8.42/wekan-8.42-${WEKAN_ARCH}.zip"
-unzip "wekan-8.42-${WEKAN_ARCH}.zip"
-rm "wekan-8.42-${WEKAN_ARCH}.zip"
+wget "https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
+unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
+rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 mv /home/wekan/app/bundle /build
 
 # Restore original tar

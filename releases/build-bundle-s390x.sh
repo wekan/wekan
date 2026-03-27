@@ -1,79 +1,55 @@
 #!/bin/bash
 
-# This script is only for Wekan maintainer to
-# convert x64 bundle to s390x bundle.
+# Build WeKan s390x bundle - Meteor 3 style (no fibers needed).
+#
+# This script rebuilds only the native Node.js modules for s390x.
+# Run on an s390x machine (e.g. IBM LinuxONE), or use a QEMU s390x environment.
+#
+# Usage:
+#   ./releases/build-bundle-s390x.sh 8.43
 
-if [ $# -ne 1 ]
-  then
-    echo "Syntax with Wekan version number:"
-    echo "  ./maintainer-make-bundle-s.sh 5.10"
-    exit 1
+if [ $# -ne 1 ]; then
+  echo "Syntax with Wekan version number:"
+  echo "  ./releases/build-bundle-s390x.sh 8.43"
+  exit 1
 fi
 
-##sudo npm -g install node-gyp
-#
-## NEW:
-#sudo dnf install gcc python3 npm p7zip
-#sudo dnf groupinstall "Development Tools"
-#npm -g install n
-#
-# .bashrc:
-# # User specific environment
-# PATH="$HOME/.local/bin/bin:$HOME/bin:/usr/local/bin:$PATH"
-# export PATH
-#
-# N_PREFIX="$HOME/.local/bin"
-# export N_PREFIX
-#
-#rm -rf bundle
-#rm wekan-$1-s390x.zip
-#7za x wekan-$1-amd64.zip
+VERSION=$1
 
-# Install deps
-sudo apt -y install g++ build-essential p7zip-full
-sudo npm -g uninstall node-pre-gyp
-sudo npm -g install @mapbox/node-pre-gyp
+# Install build dependencies (Debian/Ubuntu or RHEL/Fedora)
+if command -v apt-get &>/dev/null; then
+  sudo apt-get update
+  sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip
+elif command -v dnf &>/dev/null; then
+  sudo dnf install -y gcc gcc-c++ make python3 curl wget zip unzip
+  sudo dnf groupinstall -y "Development Tools"
+fi
+
 # Remove old files
-rm -rf bundle 7.93
-rm wekan-$1-s390x.zip wekan-7.93-s390x.zip
+rm -rf bundle
+rm -f wekan-${VERSION}-s390x.zip wekan-${VERSION}-amd64.zip
 
-# Download newest WeKan, and WeKan v7.93 that has working fibers and bcrypt
-wget --no-check-certificate https://github.com/wekan/wekan/releases/download/v$1/wekan-$1-amd64.zip
-wget --no-check-certificate https://github.com/wekan/wekan/releases/download/v7.93/wekan-7.93-s390x.zip
+# Download the amd64 bundle as the base
+wget --no-check-certificate \
+  https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-amd64.zip
 
-# Unarchive newest WeKan and WeKan v7.93
-7z x wekan-$1-amd64.zip
-(mkdir 7.93 && cd 7.93 && 7z x ../wekan-7.93-s390x.zip)
+# Extract bundle
+unzip wekan-${VERSION}-amd64.zip
 
-# Add working bcrypt
-#rm -rf ~/repos/wekan/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt
-#cp -pR ~/repos/wekan/7.93/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt \
-#~/repos/wekan/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/
+# Rebuild native Node.js modules for s390x (no fibers or bcrypt patching needed with Meteor 3)
+cd bundle/programs/server
+npm rebuild
+cd ../../..
 
-# Add working fibers
-rm -rf ~/repos/wekan/bundle/programs/server/node_modules/fibers
-cp -pR ~/repos/wekan/7.93/bundle/programs/server/node_modules/fibers \
-~/repos/wekan/bundle/programs/server/node_modules/
-
-#(cd bundle/programs/server && chmod u+w *.json && cd node_modules/fibers && node build.js)
-#cd ../../../..
-(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm remove bcrypt && npm install bcrypt)
-
-# Requires building from source https://github.com/meteor/meteor/issues/11682
-#(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm rebuild --build-from-source)
-
+# Clean up temporary files
 cd bundle
-find . -type d -name '*-garbage*' | xargs rm -rf
-find . -name '*phantom*' | xargs rm -rf
-find . -name '.*.swp' | xargs rm -f
-find . -name '*.swp' | xargs rm -f
+find . -type d -name '*-garbage*' -exec rm -rf {} + 2>/dev/null || true
+find . -name '*phantom*' -exec rm -rf {} + 2>/dev/null || true
+find . -name '.*.swp' -delete 2>/dev/null || true
+find . -name '*.swp' -delete 2>/dev/null || true
 cd ..
 
-# Make newest WeKan bundle for Linux s390x
-7z a wekan-$1-s390x.zip bundle
+# Create s390x bundle
+zip -r wekan-${VERSION}-s390x.zip bundle
 
-#7za a wekan-$1-s390x.zip bundle
-
-#sudo snap start juju-db
-
-#./start-wekan.sh
+echo "Done: wekan-${VERSION}-s390x.zip"

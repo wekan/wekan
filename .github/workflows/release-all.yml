@@ -1,0 +1,372 @@
+name: Release All Platforms
+
+# Triggered when maintainer pushes a version tag, e.g.: git tag v8.43 && git push --tags
+# Required GitHub Secrets:
+#   DOCKERHUB_USERNAME   - Docker Hub username
+#   DOCKERHUB_TOKEN      - Docker Hub access token
+#   QUAY_USERNAME        - Quay.io username
+#   QUAY_PASSWORD        - Quay.io password or token
+#   SNAP_STORE_LOGIN     - Snapcraft store credentials: run 'snapcraft export-login --snaps wekan --channels stable -' and base64-encode the output
+
+on:
+  push:
+    tags:
+      - 'v*.*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  # ─── 1. Extract version and release notes ───────────────────────────────────
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      changelog: ${{ steps.changelog.outputs.content }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Extract release notes from CHANGELOG.md
+        id: changelog
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          # Try to find the version-specific section first, then fall back to Upcoming
+          NOTES=$(python3 - <<PYEOF
+          import re, sys
+          version = "$VERSION"
+          with open("CHANGELOG.md", encoding="utf-8") as f:
+              content = f.read()
+          # Pattern: section heading through (but not including) the next heading
+          patterns = [
+              rf"(# v{re.escape(version)} .*?)(?=\n# v[0-9]|\Z)",
+              r"(# Upcoming WeKan.*?)(?=\n# v[0-9]|\Z)",
+          ]
+          for pat in patterns:
+              m = re.search(pat, content, re.DOTALL)
+              if m:
+                  print(m.group(1).strip())
+                  sys.exit(0)
+          print(f"WeKan v{version}")
+          PYEOF
+          )
+          echo "content<<GHEOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "GHEOF" >> $GITHUB_OUTPUT
+
+  # ─── 2. Build amd64 bundle (full Meteor 3 build) ────────────────────────────
+  build-amd64:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Meteor installation
+        uses: actions/cache@v4
+        with:
+          path: ~/.meteor
+          key: meteor-${{ hashFiles('.meteor/release') }}-${{ hashFiles('.meteor/packages') }}
+          restore-keys: meteor-
+
+      - name: Cache npm packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip
+
+      - name: Install Node.js 22.22.0
+        run: |
+          sudo npm install -g n
+          sudo n 22.22.0
+          hash -r
+
+      - name: Install Meteor
+        run: |
+          if [ ! -f ~/.meteor/meteor ]; then
+            curl https://install.meteor.com/ | sh
+          fi
+          echo "$HOME/.meteor" >> $GITHUB_PATH
+
+      - name: Build WeKan bundle
+        run: |
+          rm -rf .build node_modules .meteor/local
+          npm install
+          meteor build .build --directory --platforms=web.browser
+          rm -rf .build/bundle/programs/web.browser.legacy
+
+      - name: Create amd64 zip
+        run: |
+          cd .build
+          zip -r wekan-${VERSION}-amd64.zip bundle
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-amd64
+          path: .build/wekan-${{ needs.prepare.outputs.version }}-amd64.zip
+          retention-days: 1
+
+  # ─── 3. Build arm64 bundle (rebuild native modules natively) ─────────────────
+  build-arm64:
+    needs: [prepare, build-amd64]
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential g++ make python3 curl unzip zip
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.0'
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: bundle-amd64
+
+      - name: Rebuild native modules for arm64
+        run: |
+          unzip wekan-${VERSION}-amd64.zip
+          cd bundle/programs/server
+          npm rebuild
+          cd ../../..
+
+      - name: Clean up and create arm64 zip
+        run: |
+          cd bundle
+          find . -type d -name '*-garbage*' -exec rm -rf {} + 2>/dev/null || true
+          find . -name '*phantom*' -exec rm -rf {} + 2>/dev/null || true
+          find . -name '.*.swp' -delete 2>/dev/null || true
+          find . -name '*.swp' -delete 2>/dev/null || true
+          cd ..
+          zip -r wekan-${VERSION}-arm64.zip bundle
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-arm64
+          path: wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+          retention-days: 1
+
+  # ─── 4. Build s390x bundle (rebuild native modules via QEMU container) ───────
+  build-s390x:
+    needs: [prepare, build-amd64]
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Set up QEMU for s390x
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: s390x
+
+      - name: Install unzip/zip
+        run: sudo apt-get update && sudo apt-get install -y unzip zip
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: bundle-amd64
+
+      - name: Rebuild native modules for s390x in container
+        run: |
+          unzip wekan-${VERSION}-amd64.zip
+          # Run npm rebuild inside a native s390x Node.js 22 container
+          docker run --rm --platform linux/s390x \
+            -v "$(pwd)/bundle:/bundle" \
+            -w /bundle/programs/server \
+            node:22-slim \
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm rebuild"
+
+      - name: Clean up and create s390x zip
+        run: |
+          cd bundle
+          find . -type d -name '*-garbage*' -exec rm -rf {} + 2>/dev/null || true
+          find . -name '*phantom*' -exec rm -rf {} + 2>/dev/null || true
+          find . -name '.*.swp' -delete 2>/dev/null || true
+          find . -name '*.swp' -delete 2>/dev/null || true
+          cd ..
+          zip -r wekan-${VERSION}-s390x.zip bundle
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-s390x
+          path: wekan-${{ needs.prepare.outputs.version }}-s390x.zip
+          retention-days: 1
+
+  # ─── 5. Build win64 bundle (rebuild native modules on Windows) ───────────────
+  build-win64:
+    needs: [prepare, build-amd64]
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.0'
+
+      - name: Install node-gyp and build tools
+        run: |
+          npm install -g node-gyp @mapbox/node-pre-gyp
+          npm install -g windows-build-tools --vs2019 2>$null; exit 0
+
+      - name: Install 7-zip
+        run: choco install -y 7zip
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: bundle-amd64
+
+      - name: Rebuild native modules for Windows
+        shell: cmd
+        run: |
+          7z x wekan-%VERSION%-amd64.zip
+          cd bundle\programs\server
+          npm rebuild
+          cd ..\..\..
+
+      - name: Create win64 zip
+        shell: cmd
+        run: 7z a wekan-%VERSION%-win64.zip bundle
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-win64
+          path: wekan-${{ needs.prepare.outputs.version }}-win64.zip
+          retention-days: 1
+
+  # ─── 6. Create GitHub Release and upload all bundles ────────────────────────
+  release:
+    needs: [prepare, build-amd64, build-arm64, build-s390x, build-win64]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Download all bundles
+        uses: actions/download-artifact@v4
+        with:
+          pattern: bundle-*
+          merge-multiple: true
+
+      - name: Create GitHub Release with all bundles
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ needs.prepare.outputs.version }}
+          body: ${{ needs.prepare.outputs.changelog }}
+          files: |
+            wekan-${{ needs.prepare.outputs.version }}-amd64.zip
+            wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+            wekan-${{ needs.prepare.outputs.version }}-s390x.zip
+            wekan-${{ needs.prepare.outputs.version }}-win64.zip
+
+  # ─── 7. Build and push multi-platform Docker image ──────────────────────────
+  docker:
+    needs: [prepare, release]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Log in to Quay.io
+        uses: docker/login-action@v3
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image to all registries
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/s390x
+          push: true
+          build-args: VERSION=${{ needs.prepare.outputs.version }}
+          tags: |
+            wekanteam/wekan:v${{ needs.prepare.outputs.version }}
+            wekanteam/wekan:latest
+            quay.io/wekan/wekan:v${{ needs.prepare.outputs.version }}
+            quay.io/wekan/wekan:latest
+            ghcr.io/wekan/wekan:v${{ needs.prepare.outputs.version }}
+            ghcr.io/wekan/wekan:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ─── 8. Build and publish snap package ──────────────────────────────────────
+  snap:
+    needs: [prepare, release]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update snapcraft.yaml version and download URLs
+        run: |
+          # Update the version field
+          sed -i "s/^version: '[0-9.]*'/version: '${VERSION}'/" snapcraft.yaml
+          # Update all download URLs that reference the old version
+          OLD_VER=$(grep -oP "download/v\K[0-9.]+" snapcraft.yaml | head -1)
+          if [ -n "$OLD_VER" ] && [ "$OLD_VER" != "$VERSION" ]; then
+            sed -i "s|download/v${OLD_VER}/wekan-${OLD_VER}|download/v${VERSION}/wekan-${VERSION}|g" snapcraft.yaml
+          fi
+
+      - name: Build snap
+        uses: snapcore/action-build@v1
+        id: snap-build
+
+      - name: Upload snap artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: snap-amd64
+          path: ${{ steps.snap-build.outputs.snap }}
+          retention-days: 30
+
+      - name: Publish snap to Snap Store (stable channel)
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_STORE_LOGIN }}
+        with:
+          snap: ${{ steps.snap-build.outputs.snap }}
+          release: stable
+
+      - name: Upload snap to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.snap-build.outputs.snap }}

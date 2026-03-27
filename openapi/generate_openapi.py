@@ -75,7 +75,8 @@ def get_req_body_elems(obj, elems):
     elif obj.type in ['Literal', 'FunctionDeclaration', 'ThrowStatement']:
         pass
     else:
-        print(obj)
+        # Log to stderr so it never contaminates the YAML written to stdout.
+        logger.debug('unhandled AST node type: %s', getattr(obj, 'type', type(obj).__name__))
     return ''
 
 
@@ -103,7 +104,7 @@ class JS2jsonDecoder(json.JSONDecoder):
         return self._decode(result)
 
     def _decode(self, o):
-        if isinstance(o, str) or isinstance(o, unicode):
+        if isinstance(o, str):
             try:
                 return int(o)
             except ValueError:
@@ -397,7 +398,7 @@ class EntryPoint(object):
             print('{}items:'.format(' ' * indent))
             self.print_openapi_return(obj[0], indent + 2)
 
-        elif isinstance(obj, str) or isinstance(obj, unicode):
+        elif isinstance(obj, str):
             rtype = 'type: ' + obj
             if obj == self.schema.name:
                 rtype = '$ref: "#/definitions/{}"'.format(obj)

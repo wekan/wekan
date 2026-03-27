@@ -1,5 +1,5 @@
 name: wekan
-version: '8.42'
+adopt-info: wekan
 base: core24
 summary: Open Source kanban
 description: |
@@ -113,7 +113,7 @@ parts:
     wekan:
         source: .
         plugin: npm
-        npm-node-version: 14.21.3
+        npm-node-version: 22.22.0
         npm-include-node: true
         build-packages:
             - build-essential
@@ -164,11 +164,13 @@ parts:
             ##node build.js
             ##cd ../../../../../..
             # Cleanup
+            WEKAN_VERSION=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
+            snapcraftctl set-version "${WEKAN_VERSION}"
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v8.42/wekan-8.42-amd64.zip
-            unzip wekan-8.42-amd64.zip
-            rm wekan-8.42-amd64.zip
+            wget https://github.com/wekan/wekan/releases/download/v${WEKAN_VERSION}/wekan-${WEKAN_VERSION}-amd64.zip
+            unzip wekan-${WEKAN_VERSION}-amd64.zip
+            rm wekan-${WEKAN_VERSION}-amd64.zip
             cd ..
             ##cd .build/bundle
             ##find . -type d -name '*-garbage*' | xargs rm -rf
@@ -182,13 +184,14 @@ parts:
             #7z x fibers-multi.7z
             #rm fibers-multi.7z
             #cd ../../../../../../..
-            # Copy to Snap
-            wget https://github.com/wekan/node-v14-esm/releases/download/v14.21.4/node-v14.21.4-linux-x64.tar.xz
-            tar -xf node-v14.21.4-linux-x64.tar.xz node-v14.21.4-linux-x64/bin/node
-            rm node-v14.21.4-linux-x64.tar.xz
-            mkdir $SNAPCRAFT_PART_INSTALL/bin
-            cp -p node-v14.21.4-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
-            rm -rf node-v14.21.4-linux-x64
+            # Copy Node.js 22 to Snap (matches Meteor 3 bundle requirements)
+            NODE_VERSION="22.22.0"
+            wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz
+            tar -xf node-v${NODE_VERSION}-linux-x64.tar.gz node-v${NODE_VERSION}-linux-x64/bin/node
+            rm node-v${NODE_VERSION}-linux-x64.tar.gz
+            mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+            cp -p node-v${NODE_VERSION}-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v${NODE_VERSION}-linux-x64
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
