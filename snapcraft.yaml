@@ -153,10 +153,10 @@ parts:
 
                 mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
 
-                # Fix: The closing QWRAP tag must be at the start of the line or indented with tabs if using <<-
+                # Use <<- to allow indented closing tag with tabs, or standard << and ensure tag is indented.
                 cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'QWRAP'
-exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"
-QWRAP
+                exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"
+                QWRAP
 
                 chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
 
@@ -282,7 +282,6 @@ QWRAP
             cp -pR migratemongo "$SNAPCRAFT_PART_INSTALL/"
             rm -rf migratemongo
 
-        # Correct alignment with parent parts
         organize:
             README: README.wekan
         prime:
