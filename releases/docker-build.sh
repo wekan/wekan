@@ -13,7 +13,7 @@ VERSION=$1
 docker buildx use mybuilder
 
 docker buildx build \
-  --platform linux/amd64,linux/arm64,linux/s390x \
+  --platform linux/amd64,linux/arm64,linux/armhf,linux/s390x,linux/ppc64le \
   -t wekanteam/wekan:v${VERSION} \
   -t wekanteam/wekan:latest \
   -t quay.io/wekan/wekan:v${VERSION} \
