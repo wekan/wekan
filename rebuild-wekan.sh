@@ -30,7 +30,6 @@ do
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
-			#softwareupdate --install-rosetta --agree-to-license
 			brew install npm
 			brew install node@22
 			directory_name="~/.npm"
@@ -70,37 +69,9 @@ do
 
     "Build Wekan")
 		echo "Building Wekan."
-		#if [[ "$OSTYPE" == "darwin"* ]]; then
-		#	echo "sed at macOS";
-		#	sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
-		#else
-		#	echo "sed at ${OSTYPE}"
-		#	sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
-		#fi
-		#cd ..
-		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		rm -rf .build/bundle node_modules .meteor/local .build
-		#meteor npm install --production
 		npm install
 		meteor build .build --directory --platforms=web.browser
-		#rm -rf .build/bundle/programs/web.browser.legacy
-		#(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install --production)
-		#(cd .build/bundle/programs/server/node_modules/fibers && node build.js)
-		#(cd .build/bundle/programs/server && npm install fibers --save-dev)
-		#(cd .build/bundle/programs/server/npm/node_modules/meteor/accounts-password && meteor npm remove bcrypt && meteor npm install bcrypt --production)
-		# Cleanup
-		#cd .build/bundle
-		#find . -type d -name '*-garbage*' | xargs rm -rf
-		#find . -name '*phantom*' | xargs rm -rf
-		#find . -name '.*.swp' | xargs rm -f
-		#find . -name '*.swp' | xargs rm -f
-		#cd ../..
-		# Add fibers multi arch
-		#cd .build/bundle/programs/server/node_modules/fibers/bin
-		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
-		#7z x fibers-multi.7z
-		#rm fibers-multi.7z
-		#cd ../../../../../../..
 		echo Done.
 		break
 		;;

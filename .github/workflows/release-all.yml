@@ -338,7 +338,6 @@ jobs:
 
       - name: Install node-gyp and build tools
         run: |
-          npm install -g node-gyp @mapbox/node-pre-gyp
           npm install -g windows-build-tools --vs2019 2>$null; exit 0
 
       - name: Install 7-zip
@@ -477,7 +476,7 @@ jobs:
           path: "*.snap"
           retention-days: 30
 
-      # Publish to candidate, beta, and edge — NOT stable.
+      # Publish to edge — NOT stable.
       # Stable channel holds the old WeKan version until database migrations are ready.
       # Promote to stable manually via the Snap Store dashboard when migrations exist.
       - name: Publish all snaps to Snap Store (candidate, beta, edge)
@@ -486,7 +485,7 @@ jobs:
         run: |
           for snap_file in *.snap; do
             echo "Publishing $snap_file ..."
-            snapcraft upload --release=candidate,beta,edge "$snap_file"
+            snapcraft upload --release=edge "$snap_file"
           done
 
       - name: Upload all snaps to GitHub Release
