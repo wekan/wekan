@@ -35,6 +35,8 @@ This release adds the following updates:
 
 - [From WeKan v8.43 FerretDB/PostgreSQL back to MongoDB 7.x](https://github.com/wekan/wekan/commit/cf2b3e4fc95ce4619c1ba13b63c3ad9d90bf59f6).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/82f1de078f16e87028ffd101e3f80550a4b18afa).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
