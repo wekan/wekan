@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1019.0",
+    "@babel/parser": "^7.29.2",
     "@babel/runtime": "^7.29.2",
     "@meteorjs/reify": "^0.25.4",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
@@ -55,7 +56,8 @@
     "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "^1.2.26",
     "papaparse": "^5.5.3",
-    "pretty-ms": "^9.3.0"
+    "pretty-ms": "^9.3.0",
+    "underscore": "^1.13.8"
   },
   "overrides": {
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.15"
