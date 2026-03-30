@@ -241,9 +241,13 @@ parts:
             - libfontconfig1
         override-build: |
             rm -rf .build
-            # Haetaan versio ja poistetaan mahdollinen 'v'-etuliite
+            # Haetaan versio package.jsonista
             RAW_VERSION=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
-            CLEAN_VERSION=$(echo $RAW_VERSION | sed 's/^v//')
+            
+            # Siivotaan versio: poistetaan 'v' alusta ja '.0' lopusta (esim. 8.44.0 -> 8.44)
+            # Wekan julkaisu-URLit ja tiedostonimet eivät käytä .0-päätettä.
+            CLEAN_VERSION=$(echo $RAW_VERSION | sed 's/^v//' | sed 's/\.0$//')
+            
             snapcraftctl set-version "${CLEAN_VERSION}"
 
             SNAP_ARCH=$(dpkg --print-architecture)
@@ -258,7 +262,7 @@ parts:
 
             mkdir .build
             cd .build
-            # Käytetään puhdistettua versiota URL-osoitteessa
+            # Käytetään siivottua versiota URL-osoitteessa ja tiedostonimessä
             wget -q "https://github.com/wekan/wekan/releases/download/v${CLEAN_VERSION}/wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
             unzip -q "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
             rm "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
