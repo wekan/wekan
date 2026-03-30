@@ -26,7 +26,7 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       changelog: ${{ steps.changelog.outputs.content }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Extract version from tag
         id: version
@@ -73,7 +73,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Cache Meteor installation
         uses: actions/cache@v4
@@ -400,7 +400,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -459,7 +459,7 @@ jobs:
   #  env:
   #    VERSION: ${{ needs.prepare.outputs.version }}
   #  steps:
-  #    - uses: actions/checkout@v4
+  #    - uses: actions/checkout@v6
   #
   #    - name: Install snapcraft
   #      run: sudo snap install snapcraft --classic
