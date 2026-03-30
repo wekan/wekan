@@ -152,9 +152,11 @@ parts:
                 rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
 
                 mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
+
                 cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'QWRAP'
-exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"
-QWRAP
+                    exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"
+                QWRAP
+
                 chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
 
                 wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
