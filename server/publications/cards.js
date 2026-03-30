@@ -233,7 +233,7 @@ Meteor.publish('myCards', async function(sessionId) {
   queryParams.addPredicate(OPERATOR_USER, (await ReactiveCache.getCurrentUser()).username);
   queryParams.setPredicate(OPERATOR_LIMIT, 200);
 
-  const query = buildQuery(queryParams);
+  const query = Promise.await(buildQuery(queryParams));
   query.projection.sort = {
     boardId: 1,
     swimlaneId: 1,
