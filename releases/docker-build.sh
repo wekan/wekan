@@ -16,8 +16,9 @@ docker buildx build \
   --platform linux/amd64,linux/arm64,linux/armhf,linux/s390x,linux/ppc64le \
   -t wekanteam/wekan:v${VERSION} \
   -t wekanteam/wekan:latest \
-  -t quay.io/wekan/wekan:v${VERSION} \
-  -t quay.io/wekan/wekan:latest \
   -t ghcr.io/wekan/wekan:v${VERSION} \
   -t ghcr.io/wekan/wekan:latest \
   --push .
+
+#  -t quay.io/wekan/wekan:v${VERSION} \
+#  -t quay.io/wekan/wekan:latest \
