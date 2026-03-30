@@ -42,6 +42,10 @@ and fixes the following bugs:
 
 - [Always show all data without migrations, like Shared Lists that were before Per-Swimlanes lists, Orphaned Swimlanes/Lists/Cards etc](https://github.com/wekan/wekan/commit/ef75b9ecac8210ff000439aca92765b53a1551a4).
   Thanks to xet7.
+- [Fix globalSearch](https://github.com/wekan/wekan/commit/b788d398b9b2cb0caad9c28f79acdceb5b577f25).
+  Thanks to snowsky.
+- [Fix myCards crash](https://github.com/wekan/wekan/commit/d5c9e402ce4ebe0318bc29d5b83784771cbe8ac3).
+  Thanks to cristomoya.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
