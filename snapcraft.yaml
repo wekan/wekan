@@ -153,7 +153,6 @@ parts:
 
                 mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
                 
-                # Using printf avoids the Heredoc/YAML indentation conflict entirely
                 printf 'exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"\n' \
                     > "$SNAPCRAFT_PART_INSTALL/bin/mongod"
                 chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
@@ -242,8 +241,10 @@ parts:
             - libfontconfig1
         override-build: |
             rm -rf .build
-            WEKAN_VERSION=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
-            snapcraftctl set-version "${WEKAN_VERSION}"
+            # Haetaan versio ja poistetaan mahdollinen 'v'-etuliite
+            RAW_VERSION=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
+            CLEAN_VERSION=$(echo $RAW_VERSION | sed 's/^v//')
+            snapcraftctl set-version "${CLEAN_VERSION}"
 
             SNAP_ARCH=$(dpkg --print-architecture)
             case "$SNAP_ARCH" in
@@ -257,9 +258,10 @@ parts:
 
             mkdir .build
             cd .build
-            wget -q https://github.com/wekan/wekan/releases/download/v${WEKAN_VERSION}/wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
-            unzip -q wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
-            rm wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
+            # Käytetään puhdistettua versiota URL-osoitteessa
+            wget -q "https://github.com/wekan/wekan/releases/download/v${CLEAN_VERSION}/wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
+            unzip -q "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
+            rm "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
             cd ..
 
             NODE_VERSION="22.22.2"
@@ -312,7 +314,6 @@ parts:
             echo "Caddy is licensed under the Apache License 2.0." > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
             mkdir -p $SNAPCRAFT_PART_INSTALL/etc
             
-            # Using printf here as well to avoid Heredoc issues
             printf ":8080 {\n    reverse_proxy localhost:3000\n}\n" > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile
         stage:
             - bin/caddy
