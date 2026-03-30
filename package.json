@@ -22,6 +22,7 @@
     "style-loader": "^4.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1019.0",
     "@babel/runtime": "^7.29.2",
     "@meteorjs/reify": "^0.25.4",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
@@ -34,11 +35,13 @@
     "@wekanteam/html-to-markdown": "^1.0.2",
     "@wekanteam/meteor-globals": "^1.1.6",
     "@wekanteam/meteor-reactive-cache": "^1.0.8",
+    "archiver": "^7.0.1",
     "autosize": "^6.0.1",
     "bson": "^7.2.0",
     "dompurify": "^3.3.3",
     "escape-string-regexp": "^5.0.0",
     "filesize": "^11.0.13",
+    "glob": "^13.0.6",
     "hotkeys-js": "^4.0.2",
     "i18next": "^25.10.4",
     "i18next-sprintf-postprocessor": "^0.2.2",
