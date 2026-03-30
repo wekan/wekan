@@ -105,7 +105,7 @@ echo "    Follow at: https://github.com/wekan/wekan/actions"
 echo ""
 
 # ── Step 5: Update website repo (skipped if not present) ─────────────────────
-WEBSITE_DIR="$HOME/repos/w/wekan.fi"
+WEBSITE_DIR="../w/wekan.fi"
 if [ -d "$WEBSITE_DIR" ]; then
   echo "--- Step 5: Updating website ---"
   "$RELEASES_DIR/release-website.sh" "$OLD" "$NEW"
