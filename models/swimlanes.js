@@ -351,12 +351,39 @@ Swimlanes.helpers({
   },
 
   myLists() {
-    // Return per-swimlane lists: provide lists specific to this swimlane
+    // Return per-swimlane lists: this swimlane's own lists.
+    // Also include "shared" / pre-migration lists whose swimlaneId is empty or
+    // null — they existed before the per-swimlane model and should remain
+    // visible in EVERY swimlane as a fallback (matching old shared-list
+    // behaviour) without requiring a database migration.
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        swimlaneId: this._id,
-        archived: false
+        $or: [
+          { swimlaneId: this._id },
+          { swimlaneId: null },   // null covers null AND missing field
+          { swimlaneId: '' },     // empty string from old shared-lists era
+        ],
+        archived: false,
+      },
+      { sort: ['sort'] },
+    );
+  },
+
+  // Lists whose swimlaneId references a swimlane that no longer exists
+  // (e.g. the swimlane was deleted after the per-swimlane migration).
+  // These are collected separately so the template can display them in the
+  // first swimlane as a fallback — keeping them visible without touching DB.
+  orphanedSwimlaneLists(validSwimlaneIds) {
+    // validSwimlaneIds: array of _id strings for currently-existing swimlanes.
+    // A list is "orphaned" when its swimlaneId is a non-empty string that is
+    // not among the valid IDs (so it can never appear via myLists()).
+    const excluded = [...validSwimlaneIds, null, ''];
+    return ReactiveCache.getLists(
+      {
+        boardId: this.boardId,
+        archived: false,
+        swimlaneId: { $nin: excluded },
       },
       { sort: ['sort'] },
     );

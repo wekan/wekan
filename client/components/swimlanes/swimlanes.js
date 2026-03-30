@@ -142,10 +142,23 @@ function saveSorting(ui) {
 
 function currentListIsInThisSwimlane(swimlaneId) {
   const currentList = Utils.getCurrentList();
-  return (
-    currentList &&
-    (currentList.swimlaneId === swimlaneId || currentList.swimlaneId === '')
+  if (!currentList) return false;
+  // Match the list's own swimlane, or shared/orphaned lists (empty/null
+  // swimlaneId are visible in every swimlane as a fallback).
+  if (currentList.swimlaneId === swimlaneId || !currentList.swimlaneId) {
+    return true;
+  }
+  // Also match when the list has an orphaned swimlaneId (references a deleted
+  // swimlane) and THIS is the first swimlane — orphaned lists are shown there.
+  const currentBoard = Utils.getCurrentBoard();
+  if (!currentBoard) return false;
+  const allSwimlanes = ReactiveCache.getSwimlanes(
+    { boardId: currentBoard._id, archived: false },
+    { sort: ['sort'] },
   );
+  if (!allSwimlanes.length || allSwimlanes[0]._id !== swimlaneId) return false;
+  const validIds = new Set(allSwimlanes.map(s => s._id));
+  return !validIds.has(currentList.swimlaneId);
 }
 
 function currentCardIsInThisList(listId, swimlaneId) {
@@ -159,7 +172,10 @@ function currentCardIsInThisList(listId, swimlaneId) {
     return (
       currentCard &&
       currentCard.listId === listId &&
-      currentCard.swimlaneId === swimlaneId
+      // Match cards for this swimlane, AND orphaned/shared cards that have no
+      // swimlaneId assigned (null/empty) — they are shown in every swimlane as
+      // a fallback so no content is ever invisible.
+      (currentCard.swimlaneId === swimlaneId || !currentCard.swimlaneId)
     );
   else if (
     //currentUser &&
@@ -582,8 +598,38 @@ Template.swimlane.helpers({
     return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   lists() {
-    // Return per-swimlane lists for this swimlane
-    return this.myLists();
+    const swimlane = this;
+    // myLists() already covers:
+    //   • lists owned by this swimlane (swimlaneId === this._id)
+    //   • shared / pre-migration lists (swimlaneId empty or null)
+    const regularLists = swimlane.myLists();
+
+    // Additionally, detect lists whose swimlaneId references a swimlane that
+    // no longer exists ("orphaned-swimlane" lists).  These would be invisible
+    // in every swimlane without this fallback.  Show them in the FIRST swimlane
+    // on the board so they are always accessible without a DB migration.
+    const allSwimlanes = ReactiveCache.getSwimlanes(
+      { boardId: swimlane.boardId, archived: false },
+      { sort: ['sort'] },
+    );
+    // Only the first swimlane picks up orphaned-swimlane lists.
+    if (!allSwimlanes.length || allSwimlanes[0]._id !== swimlane._id) {
+      return regularLists;
+    }
+    const validIds = allSwimlanes.map(s => s._id);
+    const orphaned = swimlane.orphanedSwimlaneLists(validIds);
+    if (!orphaned.length) return regularLists;
+
+    // Merge, deduplicating by _id (regularLists may already contain some).
+    const seen = new Set(regularLists.map(l => l._id));
+    const combined = [...regularLists];
+    for (const l of orphaned) {
+      if (!seen.has(l._id)) {
+        seen.add(l._id);
+        combined.push(l);
+      }
+    }
+    return combined;
   },
   collapseSwimlane() {
     return Utils.getSwimlaneCollapseState(this);
