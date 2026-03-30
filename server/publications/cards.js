@@ -479,8 +479,8 @@ async function buildSelector(queryParams) {
         selector.boardId = {
           $in: await Boards.userBoardIds(userId, false, boardsSelector),
         };
-        selector.swimlaneId = { $nin: Swimlanes.archivedSwimlaneIds() };
-        selector.listId = { $nin: Lists.archivedListIds() };
+        selector.swimlaneId = { $nin: await Swimlanes.archivedSwimlaneIds() };
+        selector.listId = { $nin: await Lists.archivedListIds() };
         selector.archived = false;
       }
     } else {
