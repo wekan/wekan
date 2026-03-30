@@ -192,11 +192,9 @@ parts:
                 # Wrap mongod with qemu.
                 mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
                 cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'QWRAP'
-#!/bin/sh
-# Runs MongoDB x86_64 binary via QEMU user-space emulation on non-x86_64 platforms.
-exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" \
-    "$SNAP/bin/mongod.x86_64" "$@"
-QWRAP
+
+                # Runs MongoDB x86_64 binary via QEMU user-space emulation on non-x86_64 platforms.
+                exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@" << 'QWRAP'
                 chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
 
                 # mongosh 2.8.2 (x64 via QEMU).
