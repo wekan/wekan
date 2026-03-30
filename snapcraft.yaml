@@ -22,13 +22,6 @@ issues: https://github.com/wekan/wekan/issues
 source-code: https://github.com/wekan/wekan
 website: https://wekan.fi
 
-# Platforms supported by the snap (database bundled inside):
-#   ALL platforms — MongoDB 7.x
-#     amd64, arm64  — MongoDB 7.x prebuilt binary (fastdl.mongodb.org)
-#                     + mongosh + mongodb-database-tools (backup/restore/migrate)
-#     armhf, s390x, ppc64el — no prebuilt MongoDB binaries exist for these arches;
-#                     qemu-x86_64-static is bundled so the amd64 mongod binary runs
-#                     transparently on these platforms via QEMU user-space emulation.
 platforms:
   amd64:
     build-on: amd64
@@ -93,22 +86,7 @@ apps:
         command: ./bin/mongodb-restore
         plugs: [network, network-bind]
 
-
 parts:
-    # mongodb: MongoDB 7.x on ALL platforms.
-    #
-    #   amd64, arm64  — MongoDB 7.x prebuilt native binary + mongosh + db-tools.
-    #                   qemu-x86_64-static (amd64) and qemu-aarch64-static (arm64)
-    #                   are also bundled so that the migratemongo/avx wrappers can
-    #                   fall back to QEMU on CPUs that lack required instructions:
-    #                     amd64 CPUs without AVX (e.g. Intel Core 2 Duo)
-    #                     arm64 CPUs without ARMv8.2-A (e.g. Raspberry Pi 4)
-    #
-    #   armhf, s390x, ppc64el — no prebuilt MongoDB binaries exist for these arches.
-    #                   qemu-x86_64-static is bundled and the amd64 MongoDB binary
-    #                   runs via QEMU user-space emulation unconditionally.
-    #                   A minimal x86_64 shared-library sysroot is extracted from
-    #                   amd64 .deb packages so the dynamic linker can load MongoDB.
     mongodb:
         plugin: nil
         build-packages:
@@ -136,68 +114,49 @@ parts:
 
             case "$SNAP_ARCH" in
               amd64)
-                # ── MongoDB 7.x native binary — amd64 ───────────────────────
                 wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
                 tar xzf "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz" \
                     --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
-                # mongosh 2.8.2 (x64)
                 wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
                 tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongosh-2.8.2-linux-x64.tgz
-                # mongodb-database-tools 100.13.0 (x86_64)
                 wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
                 tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz \
                     --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
-                # Bundle qemu-x86_64-static so migratemongo/avx can fall back to QEMU
-                # on x86_64 CPUs that lack AVX instructions (e.g. Intel Core 2 Duo).
                 cp /usr/bin/qemu-x86_64-static "$SNAPCRAFT_PART_INSTALL/bin/"
                 ;;
 
               arm64)
-                # ── MongoDB 7.x native binary — arm64 ───────────────────────
                 wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz"
                 tar xzf "mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz" \
                     --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm "mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz"
-                # mongosh 2.8.2 (arm64)
                 wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-arm64.tgz
                 tar xzf mongosh-2.8.2-linux-arm64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongosh-2.8.2-linux-arm64.tgz
-                # mongodb-database-tools 100.13.0 (arm64)
                 wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
                 tar xzf mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz \
                     --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
-                # Bundle qemu-aarch64-static so migratemongo/avx can fall back to QEMU
-                # on arm64 CPUs that lack ARMv8.2-A instructions (e.g. Raspberry Pi 4).
                 cp /usr/bin/qemu-aarch64-static "$SNAPCRAFT_PART_INSTALL/bin/"
                 ;;
 
               armhf|s390x|ppc64el)
-                # ── MongoDB 7.x via qemu-x86_64 — no native binaries exist ──
-                # Install qemu-user-static so qemu-x86_64-static is available.
                 apt-get install -y qemu-user-static
-
-                # Bundle qemu-x86_64-static in the snap.
                 cp /usr/bin/qemu-x86_64-static "$SNAPCRAFT_PART_INSTALL/bin/"
-
-                # Download MongoDB amd64 binary.
                 wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
                 tar xzf "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz" \
                     --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
 
-                # Wrap mongod with qemu.
                 mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
                 cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'QWRAP'
-# Runs MongoDB x86_64 binary via QEMU user-space emulation on non-x86_64 platforms.
 exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"
 QWRAP
                 chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
 
-                # mongosh 2.8.2 (x64 via QEMU).
                 wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
                 tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongosh-2.8.2-linux-x64.tgz
@@ -206,7 +165,6 @@ QWRAP
                     > "$SNAPCRAFT_PART_INSTALL/bin/mongosh"
                 chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongosh"
 
-                # mongodb-database-tools 100.13.0 (x86_64 via QEMU).
                 wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
                 tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz \
                     --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
@@ -222,10 +180,6 @@ QWRAP
                     fi
                 done
 
-                # Build a minimal x86_64 shared-library sysroot so QEMU can
-                # load the dynamically-linked MongoDB/mongosh/db-tools binaries.
-                # We add the amd64 architecture to dpkg, download the required
-                # packages and extract them into lib/x86_64-sysroot/.
                 SYSROOT="$SNAPCRAFT_PART_INSTALL/lib/x86_64-sysroot"
                 mkdir -p "$SYSROOT"
                 dpkg --add-architecture amd64
@@ -252,7 +206,6 @@ QWRAP
                 cd "$SNAPCRAFT_PART_INSTALL"
                 ;;
             esac
-
             echo "mongodb" > "$SNAPCRAFT_PART_INSTALL/DATABASE_BACKEND"
         stage:
             - bin
@@ -264,7 +217,6 @@ QWRAP
             - usr
             - lib
             - DATABASE_BACKEND
-
 
     wekan:
         source: .
@@ -284,48 +236,14 @@ QWRAP
             - execstack
             - nodejs
             - npm
-            - git  # needed to clone migratemongo (AVX/ARM CPU-feature QEMU wrappers)
+            - git
         stage-packages:
             - libfontconfig1
         override-build: |
-            echo "Cleaning environment first"
-            #rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             rm -rf .build
-            #echo "Using http npm packages so speedup install process https://stackoverflow.com/questions/39760113/callback-called-more-than-once-while-running-npm-install"
-            #echo "registry=http://registry.npmjs.org/" > ~/.npmrc
-            #echo "Installing npm, node-gyp, node-pre-gyp, fibers"
-            #npm -g install n --unsafe-perm
-            #n 14.21.4
-            #npm -g install node-gyp --unsafe-perm
-            #npm -g install node-pre-gyp --unsafe-perm
-            #npm -g install fibers --unsafe-perm
-            ##echo "Installing meteor"
-            ##curl https://install.meteor.com/ -o install_meteor.sh
-            ##chmod +x install_meteor.sh
-            ##sh install_meteor.sh
-            ##rm install_meteor.sh
-            #npm -g install meteor --unsafe-perm --allow-superuser
-            #rm -rf .build
-            ##chmod u+w *.json
-            #npm install --unsafe-perm
-            ##npm install
-            ##meteor build .build --directory --allow-superuser
-            # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
-            ##rm -rf .build/bundle/programs/web.browser.legacy
-            # Change to directory .build/bundle/programs/server
-            ##cd .build/bundle/programs/server
-            ##chmod u+w *.json
-            #npm install --unsafe-perm
-            ##npm install
-            ##cd node_modules/fibers
-            ##node build.js
-            ##cd ../../../../../..
-            # Cleanup
-            # Read version from package.json and set snap version
             WEKAN_VERSION=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
             snapcraftctl set-version "${WEKAN_VERSION}"
 
-            # Detect target architecture and map to bundle/Node.js names
             SNAP_ARCH=$(dpkg --print-architecture)
             case "$SNAP_ARCH" in
               amd64)   WEKAN_ARCH="amd64"   NODE_ARCH="x64"     ;;
@@ -336,7 +254,6 @@ QWRAP
               *) echo "Unsupported snap architecture: $SNAP_ARCH"; exit 1 ;;
             esac
 
-            # Download and extract the pre-built WeKan bundle for this architecture
             mkdir .build
             cd .build
             wget -q https://github.com/wekan/wekan/releases/download/v${WEKAN_VERSION}/wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
@@ -344,7 +261,6 @@ QWRAP
             rm wekan-${WEKAN_VERSION}-${WEKAN_ARCH}.zip
             cd ..
 
-            # Download the matching Node.js 22.22.2 binary for this architecture
             NODE_VERSION="22.22.2"
             wget -q https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz
             tar -xf node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz \
@@ -354,35 +270,14 @@ QWRAP
             cp -p node-v${NODE_VERSION}-linux-${NODE_ARCH}/bin/node $SNAPCRAFT_PART_INSTALL/bin/
             rm -rf node-v${NODE_VERSION}-linux-${NODE_ARCH}
 
-            # Install the WeKan bundle into the snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
 
-            # Clone migratemongo — provides migratemongo/avx/ wrapper scripts that
-            # detect whether the CPU supports AVX (x86_64) or ARMv8.2-A (arm64)
-            # and transparently re-run MongoDB commands via qemu-x86_64-static /
-            # qemu-aarch64-static when the CPU lacks the required instructions.
-            # See https://github.com/wekan/migratemongo
             echo "Cloning migratemongo (CPU-feature QEMU wrappers)..."
             git clone https://github.com/wekan/migratemongo.git
             cp -pR migratemongo "$SNAPCRAFT_PART_INSTALL/"
             rm -rf migratemongo
-
-
-            # Delete phantomjs that is in accounts-lockout
-            #rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt
-            # Delete temporary files
-            #rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
-            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
-            # Meteor 1.8.x additional .swp remove
-            #rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            # Delete fibers for other archs
-            #rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/fibers/bin/linux-ia32*
-            # ostrio tmp remove
-            #rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/ostrio_files/node_modules/request-libcurl/.node_modules-garbage*
-
         organize:
             README: README.wekan
         prime:
@@ -402,7 +297,6 @@ QWRAP
             - gnupg
             - curl
         override-build: |
-            # Add Caddy repository
             echo "Installing Caddy 2 from the official repository..."
             curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /tmp/caddy-stable-archive-keyring.gpg
             mkdir -p /etc/apt/keyrings
@@ -410,28 +304,13 @@ QWRAP
             echo "deb [signed-by=/etc/apt/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main" > /etc/apt/sources.list.d/caddy-stable.list
             apt update
             apt -y install caddy
-
-            # Display installed Caddy version for confirmation
-            echo "Installed Caddy version:"
-            /usr/bin/caddy version
-
-            # Create directory structure in the snap
             mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-
-            # Copy Caddy binary
             cp /usr/bin/caddy $SNAPCRAFT_PART_INSTALL/bin/
             chmod +x $SNAPCRAFT_PART_INSTALL/bin/caddy
-
-            # Create license files manually since they don't exist in the package
             mkdir -p $SNAPCRAFT_PART_INSTALL/license
-            echo "Caddy is licensed under the Apache License 2.0. See https://github.com/caddyserver/caddy/blob/master/LICENSE" > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
-
-            # Create a basic default Caddyfile for the snap
+            echo "Caddy is licensed under the Apache License 2.0." > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
             mkdir -p $SNAPCRAFT_PART_INSTALL/etc
             cat > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile << 'EOF'
-            # Default Caddyfile for Wekan
-            # This is loaded by caddy-control script if no other config is provided
-
             :8080 {
                 reverse_proxy localhost:3000
             }
