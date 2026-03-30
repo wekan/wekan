@@ -23,12 +23,12 @@ source-code: https://github.com/wekan/wekan
 website: https://wekan.fi
 
 # Platforms supported by the snap (database bundled inside):
-#   ALL platforms — FerretDB 2 + PostgreSQL 16
-#     amd64, arm64  — FerretDB 2 prebuilt static binary (GitHub Releases)
+#   ALL platforms — MongoDB 7.x
+#     amd64, arm64  — MongoDB 7.x prebuilt binary (fastdl.mongodb.org)
 #                     + mongosh + mongodb-database-tools (backup/restore/migrate)
-#     armhf, s390x, ppc64el — FerretDB 2 built from Go source
-#   Upgrading from an older snap that bundled MongoDB: mongodb-control
-#   automatically migrates existing WiredTiger data to FerretDB on first start.
+#     armhf, s390x, ppc64el — no prebuilt MongoDB binaries exist for these arches;
+#                     qemu-x86_64-static is bundled so the amd64 mongod binary runs
+#                     transparently on these platforms via QEMU user-space emulation.
 platforms:
   amd64:
     build-on: amd64
@@ -95,149 +95,176 @@ apps:
 
 
 parts:
-    # database: FerretDB 2 + PostgreSQL 16 on ALL platforms.
+    # mongodb: MongoDB 7.x on ALL platforms.
     #
-    # FerretDB speaks the MongoDB wire protocol so WeKan/Meteor connect to it
-    # identically to MongoDB.  OpLog is emulated via --replication-set-name=rs0
-    # which gives Meteor the real-time pub/sub it needs.
+    #   amd64, arm64  — MongoDB 7.x prebuilt native binary + mongosh + db-tools.
+    #                   qemu-x86_64-static (amd64) and qemu-aarch64-static (arm64)
+    #                   are also bundled so that the migratemongo/avx wrappers can
+    #                   fall back to QEMU on CPUs that lack required instructions:
+    #                     amd64 CPUs without AVX (e.g. Intel Core 2 Duo)
+    #                     arm64 CPUs without ARMv8.2-A (e.g. Raspberry Pi 4)
     #
-    #   amd64, arm64  — FerretDB 2 prebuilt static binary (from GitHub Releases)
-    #                   + mongosh 2.8.2 and mongodb-database-tools 100.13.0
-    #                     (both work against FerretDB's MongoDB wire protocol,
-    #                      used for backup / restore / migration)
-    #                   + PostgreSQL 16 (storage backend, via stage-packages)
-    #
-    #   armhf, s390x, ppc64el — FerretDB 2 built from Go source (no prebuilt
-    #                   binaries exist for these platforms yet) + PostgreSQL 16
-    #
-    # Upgrade path from MongoDB (snap):
-    #   On first startup after snap refresh, mongodb-control detects whether
-    #   the SNAP_COMMON directory still contains WiredTiger (old MongoDB) data.
-    #   If found it:
-    #     1. Starts the previous snap revision's mongod briefly on a temp port.
-    #     2. Dumps all data with mongodump.
-    #     3. Stops old mongod.
-    #     4. Starts FerretDB + PostgreSQL.
-    #     5. Restores data with mongorestore.
-    #     6. Applies schema v8.43 upgrades via mongosh script.
-    #     7. Migrates GridFS files to $SNAP_COMMON/files/attachments|avatars/.
-    #     8. Renames WiredTiger → WiredTiger.migrated to mark completion.
-    #
-    # A DATABASE_BACKEND file (always "ferretdb") is written at build time so
-    # mongodb-control can confirm the expected backend without calling dpkg.
-    database:
+    #   armhf, s390x, ppc64el — no prebuilt MongoDB binaries exist for these arches.
+    #                   qemu-x86_64-static is bundled and the amd64 MongoDB binary
+    #                   runs via QEMU user-space emulation unconditionally.
+    #                   A minimal x86_64 shared-library sysroot is extracted from
+    #                   amd64 .deb packages so the dynamic linker can load MongoDB.
+    mongodb:
         plugin: nil
         build-packages:
             - wget
             - ca-certificates
+            - qemu-user-static
         stage-packages:
-          # PostgreSQL 16 is the FerretDB storage backend on all platforms.
-          # FerretDB itself is a static Go binary with no runtime library deps.
-          - postgresql-16
-          - postgresql-client-16
+            - libssl3
+            - libcurl4
+            - libstemmer0d
+            - zlib1g
+            - libsnappy1v5
+            - libyaml-cpp0.8
+            - libpcre3
+            - libpcrecpp0v5
+            - libboost-system1.74.0
+            - libboost-iostreams1.74.0
+            - libboost-filesystem1.74.0
+            - libboost-program-options1.74.0
+            - libgoogle-perftools4
         override-build: |
             SNAP_ARCH=$(dpkg --print-architecture)
-            mkdir -p $SNAPCRAFT_PART_INSTALL/bin $SNAPCRAFT_PART_INSTALL/usr
+            MONGODB_VERSION="7.0.14"
+            mkdir -p "$SNAPCRAFT_PART_INSTALL/bin" "$SNAPCRAFT_PART_INSTALL/usr"
 
-            FERRETDB_VERSION="2.7.0"
-
-            # ── FerretDB binary ──────────────────────────────────────────────
             case "$SNAP_ARCH" in
               amd64)
-                # FerretDB 2 prebuilt static binary — amd64
-                wget -q -O "$SNAPCRAFT_PART_INSTALL/bin/ferretdb" \
-                  "https://github.com/FerretDB/FerretDB/releases/download/v${FERRETDB_VERSION}/ferretdb-linux-amd64"
-                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/ferretdb"
-                # mongosh 2.8.2 (MongoDB-shell, works against FerretDB)
+                # ── MongoDB 7.x native binary — amd64 ───────────────────────
+                wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
+                tar xzf "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz" \
+                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
+                rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
+                # mongosh 2.8.2 (x64)
                 wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
-                tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongosh-2.8.2-linux-x64.tgz
-                # mongodb-database-tools 100.13.0 (mongodump/mongorestore, work with FerretDB)
+                # mongodb-database-tools 100.13.0 (x86_64)
                 wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
-                tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz \
+                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
+                # Bundle qemu-x86_64-static so migratemongo/avx can fall back to QEMU
+                # on x86_64 CPUs that lack AVX instructions (e.g. Intel Core 2 Duo).
+                cp /usr/bin/qemu-x86_64-static "$SNAPCRAFT_PART_INSTALL/bin/"
                 ;;
 
               arm64)
-                # FerretDB 2 prebuilt static binary — arm64
-                wget -q -O "$SNAPCRAFT_PART_INSTALL/bin/ferretdb" \
-                  "https://github.com/FerretDB/FerretDB/releases/download/v${FERRETDB_VERSION}/ferretdb-linux-arm64"
-                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/ferretdb"
-                # mongosh 2.8.2 arm64
+                # ── MongoDB 7.x native binary — arm64 ───────────────────────
+                wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz"
+                tar xzf "mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz" \
+                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
+                rm "mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz"
+                # mongosh 2.8.2 (arm64)
                 wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-arm64.tgz
-                tar xzf mongosh-2.8.2-linux-arm64.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                tar xzf mongosh-2.8.2-linux-arm64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongosh-2.8.2-linux-arm64.tgz
-                # mongodb-database-tools 100.13.0 arm64
+                # mongodb-database-tools 100.13.0 (arm64)
                 wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
-                tar xzf mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz --strip-components=1 -C $SNAPCRAFT_PART_INSTALL
+                tar xzf mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz \
+                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
                 rm mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
+                # Bundle qemu-aarch64-static so migratemongo/avx can fall back to QEMU
+                # on arm64 CPUs that lack ARMv8.2-A instructions (e.g. Raspberry Pi 4).
+                cp /usr/bin/qemu-aarch64-static "$SNAPCRAFT_PART_INSTALL/bin/"
                 ;;
 
               armhf|s390x|ppc64el)
-                # No prebuilt FerretDB 2 binaries for these architectures.
-                # Build from Go source using Go 1.24.13 (Ubuntu 24.04 ships Go 1.22, too old).
-                GOVERSION="1.24.13"
-                case "$SNAP_ARCH" in
-                  armhf)   GO_DL_ARCH="armv6l"  ;;
-                  s390x)   GO_DL_ARCH="s390x"   ;;
-                  ppc64el) GO_DL_ARCH="ppc64le" ;;
-                esac
-                wget -q "https://dl.google.com/go/go${GOVERSION}.linux-${GO_DL_ARCH}.tar.gz"
-                tar xzf "go${GOVERSION}.linux-${GO_DL_ARCH}.tar.gz" -C /tmp
-                rm "go${GOVERSION}.linux-${GO_DL_ARCH}.tar.gz"
-                export PATH="/tmp/go/bin:$PATH"
-                export GOPATH="$(mktemp -d)"
-                CGO_ENABLED=0 GOBIN="$SNAPCRAFT_PART_INSTALL/bin" \
-                  go install "github.com/FerretDB/FerretDB/v2/cmd/ferretdb@v${FERRETDB_VERSION}"
-                rm -rf "$GOPATH" /tmp/go
+                # ── MongoDB 7.x via qemu-x86_64 — no native binaries exist ──
+                # Install qemu-user-static so qemu-x86_64-static is available.
+                apt-get install -y qemu-user-static
+
+                # Bundle qemu-x86_64-static in the snap.
+                cp /usr/bin/qemu-x86_64-static "$SNAPCRAFT_PART_INSTALL/bin/"
+
+                # Download MongoDB amd64 binary.
+                wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
+                tar xzf "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz" \
+                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
+                rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
+
+                # Wrap mongod with qemu.
+                mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
+                cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'QWRAP'
+#!/bin/sh
+# Runs MongoDB x86_64 binary via QEMU user-space emulation on non-x86_64 platforms.
+exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" \
+    "$SNAP/bin/mongod.x86_64" "$@"
+QWRAP
+                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
+
+                # mongosh 2.8.2 (x64 via QEMU).
+                wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
+                tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
+                rm mongosh-2.8.2-linux-x64.tgz
+                mv "$SNAPCRAFT_PART_INSTALL/bin/mongosh" "$SNAPCRAFT_PART_INSTALL/bin/mongosh.x86_64"
+                printf '#!/bin/sh\nexec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongosh.x86_64" "$@"\n' \
+                    > "$SNAPCRAFT_PART_INSTALL/bin/mongosh"
+                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongosh"
+
+                # mongodb-database-tools 100.13.0 (x86_64 via QEMU).
+                wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
+                tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz \
+                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
+                rm mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
+                for tool in mongodump mongorestore mongoexport mongoimport \
+                            mongostat mongotop mongofiles bsondump; do
+                    if [ -f "$SNAPCRAFT_PART_INSTALL/bin/$tool" ]; then
+                        mv "$SNAPCRAFT_PART_INSTALL/bin/$tool" \
+                           "$SNAPCRAFT_PART_INSTALL/bin/${tool}.x86_64"
+                        printf '#!/bin/sh\nexec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/%s.x86_64" "$@"\n' \
+                            "$tool" > "$SNAPCRAFT_PART_INSTALL/bin/$tool"
+                        chmod +x "$SNAPCRAFT_PART_INSTALL/bin/$tool"
+                    fi
+                done
+
+                # Build a minimal x86_64 shared-library sysroot so QEMU can
+                # load the dynamically-linked MongoDB/mongosh/db-tools binaries.
+                # We add the amd64 architecture to dpkg, download the required
+                # packages and extract them into lib/x86_64-sysroot/.
+                SYSROOT="$SNAPCRAFT_PART_INSTALL/lib/x86_64-sysroot"
+                mkdir -p "$SYSROOT"
+                dpkg --add-architecture amd64
+                apt-get update -qq
+                mkdir -p /tmp/amd64-debs
+                cd /tmp/amd64-debs
+                apt-get download \
+                    libc6:amd64 \
+                    libstdc++6:amd64 \
+                    libgcc-s1:amd64 \
+                    libssl3:amd64 \
+                    libcurl4:amd64 \
+                    zlib1g:amd64 \
+                    libsnappy1v5:amd64 \
+                    libyaml-cpp0.8:amd64 \
+                    libboost-filesystem1.74.0:amd64 \
+                    libboost-iostreams1.74.0:amd64 \
+                    libboost-program-options1.74.0:amd64 \
+                    libboost-system1.74.0:amd64 \
+                    2>/dev/null || true
+                for deb in /tmp/amd64-debs/*.deb; do
+                    [ -f "$deb" ] && dpkg-deb -x "$deb" "$SYSROOT/" || true
+                done
+                cd "$SNAPCRAFT_PART_INSTALL"
                 ;;
             esac
 
-            # ── Shared mongod wrapper (all platforms) ────────────────────────
-            # mongodb-control execs bin/mongod; this wrapper starts PostgreSQL
-            # and FerretDB so no changes are needed in the control script.
-            cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'WRAPPER'
-#!/bin/sh
-# FerretDB 2 + PostgreSQL 16 startup wrapper (all snap platforms).
-# Called by mongodb-control; replaces the MongoDB mongod binary.
-PG_DATA="${SNAP_COMMON}/postgresql"
-PG_LOG="${SNAP_COMMON}/postgresql.log"
-PG_BIN="$SNAP/usr/lib/postgresql/16/bin"
-
-# Initialize PostgreSQL data directory on first run
-if [ ! -f "$PG_DATA/PG_VERSION" ]; then
-    mkdir -p "$PG_DATA"
-    "$PG_BIN/initdb" -D "$PG_DATA" --encoding=UTF8 --auth=trust
-    printf 'listen_addresses = '"'"'127.0.0.1'"'"'\n' >> "$PG_DATA/postgresql.conf"
-    printf 'unix_socket_directories = '"'"'%s'"'"'\n' "${SNAP_COMMON}" >> "$PG_DATA/postgresql.conf"
-fi
-
-# Start PostgreSQL (wait for readiness before continuing)
-"$PG_BIN/pg_ctl" -D "$PG_DATA" -l "$PG_LOG" start -w
-
-# Create FerretDB role and database (idempotent)
-"$PG_BIN/psql" -h 127.0.0.1 -U postgres \
-    -c "CREATE ROLE ferretdb WITH LOGIN PASSWORD 'ferretdb';" 2>/dev/null || true
-"$PG_BIN/psql" -h 127.0.0.1 -U postgres \
-    -c "CREATE DATABASE wekan OWNER ferretdb;" 2>/dev/null || true
-
-# Start FerretDB on MongoDB wire protocol port with OpLog emulation
-exec "$SNAP/bin/ferretdb" \
-    --listen-addr=127.0.0.1:27017 \
-    --replication-set-name=rs0 \
-    --postgresql-url="postgres://ferretdb:ferretdb@127.0.0.1:5432/wekan"
-WRAPPER
-            chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
-
-            # ── Build-time backend marker ────────────────────────────────────
-            echo "ferretdb" > "$SNAPCRAFT_PART_INSTALL/DATABASE_BACKEND"
+            echo "mongodb" > "$SNAPCRAFT_PART_INSTALL/DATABASE_BACKEND"
         stage:
             - bin
             - usr
+            - lib
             - DATABASE_BACKEND
         prime:
             - bin
             - usr
+            - lib
             - DATABASE_BACKEND
 
 
@@ -259,6 +286,7 @@ WRAPPER
             - execstack
             - nodejs
             - npm
+            - git  # needed to clone migratemongo (AVX/ARM CPU-feature QEMU wrappers)
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -333,6 +361,16 @@ WRAPPER
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
 
+            # Clone migratemongo — provides migratemongo/avx/ wrapper scripts that
+            # detect whether the CPU supports AVX (x86_64) or ARMv8.2-A (arm64)
+            # and transparently re-run MongoDB commands via qemu-x86_64-static /
+            # qemu-aarch64-static when the CPU lacks the required instructions.
+            # See https://github.com/wekan/migratemongo
+            echo "Cloning migratemongo (CPU-feature QEMU wrappers)..."
+            git clone https://github.com/wekan/migratemongo.git
+            cp -pR migratemongo "$SNAPCRAFT_PART_INSTALL/"
+            rm -rf migratemongo
+
 
             # Delete phantomjs that is in accounts-lockout
             #rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt
@@ -356,25 +394,6 @@ WRAPPER
     helpers:
         source: snap-src
         plugin: dump
-
-    # migration-tools: bundles releases/migrate-mongodb-to-ferretdb.mjs and its
-    # only npm dependency (mongodb ^6) so mongodb-control can run it with the
-    # snap's bundled Node.js without requiring internet access at runtime.
-    migration-tools:
-        source: releases
-        plugin: nil
-        build-packages:
-            - nodejs
-            - npm
-        override-build: |
-            mkdir -p "$SNAPCRAFT_PART_INSTALL/migration"
-            cp migrate-mongodb-to-ferretdb.mjs package.json "$SNAPCRAFT_PART_INSTALL/migration/"
-            cd "$SNAPCRAFT_PART_INSTALL/migration"
-            npm install --omit=dev --prefer-offline 2>/dev/null || npm install --omit=dev
-        stage:
-            - migration
-        prime:
-            - migration
 
     caddy:
         plugin: nil

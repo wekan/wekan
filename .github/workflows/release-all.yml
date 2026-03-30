@@ -448,8 +448,9 @@ jobs:
   # ─── 8. Build and publish snap packages (all architectures via Launchpad) ────
   # Uses snapcraft remote-build on Launchpad's native builders (more reliable
   # than QEMU for snap builds). Each architecture bundles its own database:
-  #   amd64, arm64         — MongoDB Community 8.0 (OpLog via --replSet rs0)
-  #   armhf, s390x, ppc64el — FerretDB 2 + PostgreSQL 16 (OpLog via replica set)
+  #   amd64, arm64         — MongoDB 7.x prebuilt native binary
+  #   armhf, s390x, ppc64el — MongoDB 7.x amd64 binary run via qemu-x86_64-static
+  #                           (no prebuilt MongoDB binaries exist for these arches)
   snap:
     needs: [prepare, release]
     runs-on: ubuntu-latest

@@ -1,297 +1,135 @@
 #!/bin/bash
 
-# WeKan Database Control Script
-#
-# All snap platforms now use FerretDB 2 + PostgreSQL 16.
-# bin/mongod is a wrapper that initialises PostgreSQL and starts FerretDB.
-#
-# On first start after upgrading from an old snap that bundled MongoDB:
-#   1. Detects WiredTiger files at SNAP_COMMON (legacy MongoDB data).
-#   2. Temporarily starts the previous snap revision's mongod on port 27020.
-#   3. Dumps all data with mongodump.
-#   4. Stops old mongod.
-#   5. Starts FerretDB + PostgreSQL via bin/mongod.
-#   6. Restores data to FerretDB with mongorestore.
-#   7. Applies schema v8.43 upgrades (swimlaneId, orphan cards, file URLs).
-#   8. Migrates CollectionFS / GridFS binary files to
-#      $SNAP_COMMON/files/attachments/ and $SNAP_COMMON/files/avatars/.
-#   9. Renames WiredTiger → WiredTiger.migrated so the step is never repeated.
+# MongoDB Control Script
+# Starts MongoDB 7.x server only
 
-# ── Read snap settings ──────────────────────────────────────────────────────
+# get wekan/mongo settings
 echo "Reading snap settings..."
-source "$SNAP/bin/wekan-read-settings"
+source $SNAP/bin/wekan-read-settings
 
+# Debug: Show what we got from snap settings
 echo "Snap settings loaded:"
-echo "  MONGODB_BIND_IP:          '${MONGODB_BIND_IP}'"
-echo "  MONGODB_PORT:             '${MONGODB_PORT}'"
+echo "  MONGODB_BIND_IP: '${MONGODB_BIND_IP}'"
+echo "  MONGODB_PORT: '${MONGODB_PORT}'"
 echo "  MONGODB_BIND_UNIX_SOCKET: '${MONGODB_BIND_UNIX_SOCKET}'"
 
-if [ "true" = "${DISABLE_MONGODB}" ]; then
-    echo "Database service is disabled. Stopping."
-    snapctl stop --disable "${SNAP_NAME}.mongodb"
+# Debug: Check snap settings directly
+echo "Direct snap settings check:"
+echo "  mongodb-port: $(snapctl get mongodb-port 2>/dev/null || echo 'not set')"
+echo "  mongodb-bind-ip: $(snapctl get mongodb-bind-ip 2>/dev/null || echo 'not set')"
+echo "  mongodb-bind-unix-socket: $(snapctl get mongodb-bind-unix-socket 2>/dev/null || echo 'not set')"
+
+if [ "true" == "${DISABLE_MONGODB}" ]; then
+    echo "mongodb is disabled. Stop service"
+    snapctl stop --disable ${SNAP_NAME}.mongodb
     exit 0
 fi
 
-# ── Locale / path setup ─────────────────────────────────────────────────────
-[ -z "${LANG}" ] && export LANG=en_US.UTF-8
+# make sure we have set minimum env variables for locale
+if [ -z "${LANG}" ]; then
+    export LANG=en_US.UTF-8
+fi
+
 export LC_ALL=C
-export PATH="/snap/${SNAP_NAME}/current/bin:/snap/${SNAP_NAME}/current/usr/bin:${PATH}"
-export LD_LIBRARY_PATH="/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
+# If CPU does not support required instructions (AVX for x86_64, ARMv8.2-A for arm64),
+# migratemongo/avx wrapper scripts transparently re-run MongoDB commands via QEMU.
+# See https://github.com/wekan/migratemongo
+export PATH=/snap/${SNAP_NAME}/current/migratemongo/avx:/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:${PATH}
+export LD_LIBRARY_PATH=/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
-# Remove stale settings log
-[ -f "${SNAP_COMMON}/settings.log" ] && rm "${SNAP_COMMON}/settings.log"
+# If temporary settings log exists, delete it
+if [ -f ${SNAP_COMMON}/settings.log ]; then
+    rm ${SNAP_COMMON}/settings.log
+fi
 
-# ── Effective port ──────────────────────────────────────────────────────────
-FERRET_PORT="${MONGODB_PORT:-27017}"
+# Set MongoDB log destination to snapcommon for log file detection
+export MONGO_LOG_DESTINATION="snapcommon"
 
-# Prevent multiple instances
-check_port_in_use() {
-    if netstat -tuln 2>/dev/null | grep -q ":${FERRET_PORT} "; then
+# Set MongoDB data directory
+export MONGO_DATA_DIR="${SNAP_COMMON}"
+
+# Create MongoDB data directory if it doesn't exist
+if [ ! -d "$MONGO_DATA_DIR" ]; then
+    mkdir -p "$MONGO_DATA_DIR"
+    chmod 755 "$MONGO_DATA_DIR"
+fi
+
+# Set MongoDB log file path
+export MONGO_LOG_FILE="${SNAP_COMMON}/mongodb.log"
+
+# Build bind options from snap settings
+BIND_OPTIONS=""
+if [ "nill" != "${MONGODB_BIND_UNIX_SOCKET}" ] && [ -n "${MONGODB_BIND_UNIX_SOCKET}" ]; then
+    BIND_OPTIONS+=" --unixSocketPrefix ${MONGODB_BIND_UNIX_SOCKET}"
+fi
+if [ -n "${MONGODB_BIND_IP}" ]; then
+    BIND_OPTIONS+=" --bind_ip ${MONGODB_BIND_IP}"
+else
+    BIND_OPTIONS+=" --bind_ip 127.0.0.1"
+fi
+if [ -n "${MONGODB_PORT}" ]; then
+    BIND_OPTIONS+=" --port ${MONGODB_PORT}"
+else
+    BIND_OPTIONS+=" --port 27019"
+fi
+
+# Debug: Show what settings we're using
+echo "MongoDB settings:"
+echo "  MONGODB_BIND_IP: ${MONGODB_BIND_IP:-127.0.0.1}"
+echo "  MONGODB_PORT: ${MONGODB_PORT:-27017}"
+echo "  MONGODB_BIND_UNIX_SOCKET: ${MONGODB_BIND_UNIX_SOCKET:-not set}"
+echo "  BIND_OPTIONS: ${BIND_OPTIONS}"
+
+# Check if MongoDB is already running
+check_mongodb_running() {
+    local port="${MONGODB_PORT:-27017}"
+
+    # Check if MongoDB is already running on the configured port
+    if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
+        echo "MongoDB is already running on port ${port}"
         return 0
     fi
-    if command -v lsof >/dev/null 2>&1 && lsof -i ":${FERRET_PORT}" >/dev/null 2>&1; then
-        return 0
-    fi
-    if [ -f "${SNAP_COMMON}/ferretdb.pid" ]; then
-        local pid
-        pid=$(cat "${SNAP_COMMON}/ferretdb.pid" 2>/dev/null)
-        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+
+    # Alternative check using lsof if netstat is not available
+    if command -v lsof >/dev/null 2>&1; then
+        if lsof -i ":${port}" >/dev/null 2>&1; then
+            echo "MongoDB is already running on port ${port} (detected via lsof)"
             return 0
         fi
-        rm -f "${SNAP_COMMON}/ferretdb.pid"
     fi
+
+    # Check if there's a PID file and the process is still running
+    if [ -f "${SNAP_COMMON}/mongodb.pid" ]; then
+        local pid=$(cat "${SNAP_COMMON}/mongodb.pid" 2>/dev/null)
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+            echo "MongoDB is already running (PID: $pid)"
+            return 0
+        else
+            # Remove stale PID file
+            rm -f "${SNAP_COMMON}/mongodb.pid"
+        fi
+    fi
+
     return 1
 }
 
-if check_port_in_use; then
-    echo "Database already running on port ${FERRET_PORT}. Exiting."
-    exit 0
-fi
-
-# PID-file cleanup on exit
-cleanup() { rm -f "${SNAP_COMMON}/ferretdb.pid"; }
+# Cleanup function to remove PID file on exit
+cleanup() {
+    rm -f "${SNAP_COMMON}/mongodb.pid"
+}
 trap cleanup EXIT
 
-# ── Helper: wait for mongod-compatible port ─────────────────────────────────
-wait_for_mongo_port() {
-    local port="$1"
-    local label="$2"
-    echo "Waiting for ${label} on port ${port}..."
-    for i in $(seq 1 90); do
-        if "/snap/${SNAP_NAME}/current/bin/mongosh" \
-                --quiet --port "$port" \
-                --eval "db.adminCommand('ping')" >/dev/null 2>&1; then
-            echo "${label} is ready."
-            return 0
-        fi
-        sleep 1
-    done
-    echo "ERROR: ${label} did not become ready within 90 s." >&2
-    return 1
-}
-
-# ── Migration: MongoDB WiredTiger → FerretDB ────────────────────────────────
-WIREDTIGER_MARKER="${SNAP_COMMON}/WiredTiger"
-MIGRATION_DONE_MARKER="${SNAP_COMMON}/WiredTiger.migrated"
-DUMP_DIR="${SNAP_COMMON}/_migration_dump"
-MIGRATION_LOG="${SNAP_COMMON}/migration.log"
-ATTACH_DIR="${SNAP_COMMON}/files/attachments"
-AVATAR_DIR="${SNAP_COMMON}/files/avatars"
-
-run_mongodb_to_ferretdb_migration() {
-    echo "=== Starting MongoDB → FerretDB migration ===" | tee -a "$MIGRATION_LOG"
-    echo "$(date)" | tee -a "$MIGRATION_LOG"
-
-    # Find old mongod binary in the previous snap revision.
-    # 'snap refresh' keeps the previous revision in /snap/<name>/<rev>/.
-    OLD_MONGOD=""
-    if [ -f "/snap/${SNAP_NAME}/previous/bin/mongod" ]; then
-        # Check it is the real MongoDB binary (the new wrapper contains 'ferretdb')
-        if ! grep -q 'ferretdb' "/snap/${SNAP_NAME}/previous/bin/mongod" 2>/dev/null; then
-            OLD_MONGOD="/snap/${SNAP_NAME}/previous/bin/mongod"
-        fi
-    fi
-    # Also check by revision number (snap keeps at least 2 revisions)
-    if [ -z "$OLD_MONGOD" ]; then
-        for rev_dir in $(ls /snap/${SNAP_NAME}/ 2>/dev/null | grep -E '^[0-9]+$' | sort -rn); do
-            candidate="/snap/${SNAP_NAME}/${rev_dir}/bin/mongod"
-            if [ -f "$candidate" ] && ! grep -q 'ferretdb' "$candidate" 2>/dev/null; then
-                OLD_MONGOD="$candidate"
-                break
-            fi
-        done
-    fi
-
-    if [ -z "$OLD_MONGOD" ]; then
-        echo "WARNING: Cannot find old MongoDB binary in any previous snap revision." | tee -a "$MIGRATION_LOG"
-        echo "  Skipping data migration. Your old MongoDB data is preserved at:" | tee -a "$MIGRATION_LOG"
-        echo "  $SNAP_COMMON (WiredTiger format)" | tee -a "$MIGRATION_LOG"
-        echo "  To migrate manually:" | tee -a "$MIGRATION_LOG"
-        echo "    1. Install mongodb-community or use Docker: mongo:8" | tee -a "$MIGRATION_LOG"
-        echo "    2. mongodump --dbpath=$SNAP_COMMON --out=$DUMP_DIR" | tee -a "$MIGRATION_LOG"
-        echo "    3. mongorestore --uri=mongodb://127.0.0.1:${FERRET_PORT} $DUMP_DIR" | tee -a "$MIGRATION_LOG"
-        return 1
-    fi
-
-    echo "Found old MongoDB binary: $OLD_MONGOD" | tee -a "$MIGRATION_LOG"
-
-    # Start old MongoDB on a temp port (avoid conflict with FerretDB target port)
-    OLD_PORT=27020
-    rm -rf "$DUMP_DIR"
-    mkdir -p "$DUMP_DIR"
-
-    echo "Starting old MongoDB on port ${OLD_PORT}..." | tee -a "$MIGRATION_LOG"
-    "$OLD_MONGOD" \
-        --dbpath="$SNAP_COMMON" \
-        --port="$OLD_PORT" \
-        --bind_ip=127.0.0.1 \
-        --logpath="${SNAP_COMMON}/old_mongod_migration.log" \
-        --logappend \
-        --noauth &
-    OLD_MONGOD_PID=$!
-
-    # Wait for old MongoDB to start
-    for i in $(seq 1 90); do
-        if "/snap/${SNAP_NAME}/current/bin/mongosh" \
-                --quiet --port "$OLD_PORT" \
-                --eval "db.adminCommand('ping')" >/dev/null 2>&1; then
-            echo "Old MongoDB is ready on port ${OLD_PORT}." | tee -a "$MIGRATION_LOG"
-            break
-        fi
-        sleep 1
-        if [ "$i" -eq 90 ]; then
-            echo "ERROR: Old MongoDB failed to start within 90 s. Migration aborted." | tee -a "$MIGRATION_LOG"
-            kill "$OLD_MONGOD_PID" 2>/dev/null
-            return 1
-        fi
-    done
-
-    # Dump all data from old MongoDB
-    echo "Dumping data from old MongoDB..." | tee -a "$MIGRATION_LOG"
-    "/snap/${SNAP_NAME}/current/bin/mongodump" \
-        --port="$OLD_PORT" \
-        --out="$DUMP_DIR" \
-        --quiet 2>>"$MIGRATION_LOG"
-    DUMP_EXIT=$?
-
-    # Stop old MongoDB
-    echo "Stopping old MongoDB..." | tee -a "$MIGRATION_LOG"
-    kill "$OLD_MONGOD_PID" 2>/dev/null
-    wait "$OLD_MONGOD_PID" 2>/dev/null
-
-    if [ "$DUMP_EXIT" -ne 0 ]; then
-        echo "ERROR: mongodump failed (exit $DUMP_EXIT). Migration aborted." | tee -a "$MIGRATION_LOG"
-        return 1
-    fi
-    echo "Dump complete: $DUMP_DIR" | tee -a "$MIGRATION_LOG"
-    return 0
-}
-
-restore_dump_to_ferretdb() {
-    echo "Restoring dump to FerretDB on port ${FERRET_PORT}..." | tee -a "$MIGRATION_LOG"
-    "/snap/${SNAP_NAME}/current/bin/mongorestore" \
-        --uri="mongodb://127.0.0.1:${FERRET_PORT}" \
-        --drop \
-        --quiet \
-        "$DUMP_DIR" 2>>"$MIGRATION_LOG"
-    local exit_code=$?
-    if [ "$exit_code" -ne 0 ]; then
-        echo "ERROR: mongorestore failed (exit $exit_code)." | tee -a "$MIGRATION_LOG"
-        return 1
-    fi
-    echo "Restore complete." | tee -a "$MIGRATION_LOG"
-    return 0
-}
-
-apply_schema_and_migrate_files() {
-    # ── Phase A: mongosh schema upgrade script (swimlaneIds, CFS→Meteor-Files) ─
-    local mongosh_script="/snap/${SNAP_NAME}/current/bin/migrate-schema-v843.js"
-    if [ -f "$mongosh_script" ] && [ -f "/snap/${SNAP_NAME}/current/bin/mongosh" ]; then
-        echo "Applying schema v8.43 upgrades via mongosh..." | tee -a "$MIGRATION_LOG"
-        "/snap/${SNAP_NAME}/current/bin/mongosh" \
-            --quiet \
-            --port "$FERRET_PORT" \
-            --file "$mongosh_script" 2>>"$MIGRATION_LOG"
-        echo "Schema migration done." | tee -a "$MIGRATION_LOG"
-    else
-        echo "WARNING: mongosh schema script not found — skipping schema upgrade." | tee -a "$MIGRATION_LOG"
-    fi
-
-    # ── Phase B: GridFS / CollectionFS binary files → filesystem ──────────────
-    # Uses migrate-mongodb-to-ferretdb.mjs (bundled in the 'migration' directory
-    # together with its 'mongodb' npm dependency) and the snap's Node.js binary.
-    local node_bin="/snap/${SNAP_NAME}/current/usr/bin/node"
-    [ -f "$node_bin" ] || node_bin=$(which node 2>/dev/null)
-    local migrate_script="/snap/${SNAP_NAME}/current/migration/migrate-mongodb-to-ferretdb.mjs"
-
-    if [ ! -f "$node_bin" ] || [ ! -f "$migrate_script" ]; then
-        echo "WARNING: migration script or node not found — GridFS files stay in FerretDB." | tee -a "$MIGRATION_LOG"
-        echo "  WeKan's backward-compatibility layer will serve them until manually migrated." | tee -a "$MIGRATION_LOG"
-        return 0
-    fi
-
-    mkdir -p "$ATTACH_DIR" "$AVATAR_DIR"
-    echo "Migrating GridFS/CollectionFS files to filesystem ($ATTACH_DIR)..." | tee -a "$MIGRATION_LOG"
-
-    # SOURCE and TARGET both point to FerretDB — data is already there after
-    # mongorestore. The script reads GridFS chunks and writes them to filesystem,
-    # then updates the attachment/avatar records in place (idempotent).
-    NODE_PATH="/snap/${SNAP_NAME}/current/migration/node_modules" \
-    WRITABLE_PATH="$SNAP_COMMON" \
-    MIGRATION_PORT=8082 \
-    SOURCE_MONGO_URL="mongodb://127.0.0.1:${FERRET_PORT}/wekan" \
-    TARGET_MONGO_URL="mongodb://127.0.0.1:${FERRET_PORT}/wekan" \
-    FORCE_MIGRATE=true \
-        "$node_bin" "$migrate_script" 2>>"$MIGRATION_LOG"
-
-    echo "File migration done." | tee -a "$MIGRATION_LOG"
-}
-
-# ── Main startup logic ──────────────────────────────────────────────────────
-NEED_MIGRATION=false
-if [ -f "$WIREDTIGER_MARKER" ] && [ ! -f "$MIGRATION_DONE_MARKER" ]; then
-    NEED_MIGRATION=true
+# Check if MongoDB is already running
+if check_mongodb_running; then
+    echo "MongoDB is already running. Exiting to prevent multiple instances."
+    exit 0
 fi
 
-if [ "$NEED_MIGRATION" = "true" ]; then
-    echo "=== WiredTiger (MongoDB) data detected — migration required ==="
-    # Phase 1: dump from old MongoDB
-    if run_mongodb_to_ferretdb_migration; then
-        HAVE_DUMP=true
-    else
-        HAVE_DUMP=false
-        echo "Migration dump skipped or failed; starting FerretDB with existing data." | tee -a "$MIGRATION_LOG"
-    fi
-fi
-
-# ── Start FerretDB + PostgreSQL (always) ────────────────────────────────────
-echo "Starting FerretDB 2 + PostgreSQL 16..."
-echo $$ > "${SNAP_COMMON}/ferretdb.pid"
-
-# bin/mongod is the wrapper script written by snapcraft's database part
-"/snap/${SNAP_NAME}/current/bin/mongod" &
-FERRETDB_PID=$!
-
-# Wait for FerretDB to accept connections
-wait_for_mongo_port "$FERRET_PORT" "FerretDB"
-FERRET_READY=$?
-
-if [ "$NEED_MIGRATION" = "true" ] && [ "$FERRET_READY" -eq 0 ] && [ "$HAVE_DUMP" = "true" ]; then
-    # Phase 2: restore dump into FerretDB
-    if restore_dump_to_ferretdb; then
-        # Phase 3: schema upgrades + Phase 4: GridFS → filesystem (combined)
-        apply_schema_and_migrate_files
-        # Mark migration complete so we never re-run it
-        mv "$WIREDTIGER_MARKER" "$MIGRATION_DONE_MARKER"
-        echo "=== Migration complete. Old WiredTiger data renamed to WiredTiger.migrated ===" | tee -a "$MIGRATION_LOG"
-        rm -rf "$DUMP_DIR"
-    else
-        echo "ERROR: Restore failed. FerretDB running but data may be incomplete." | tee -a "$MIGRATION_LOG"
-        echo "       Manual intervention required. Dump preserved at: $DUMP_DIR" | tee -a "$MIGRATION_LOG"
-    fi
-fi
-
-echo "Database ready on port ${FERRET_PORT}."
-
-# Stay alive — snap service manager watches this process
-wait $FERRETDB_PID
+# Start MongoDB 7.x server
+echo "Starting MongoDB 7.x server..."
+# Create PID file
+echo $$ > "${SNAP_COMMON}/mongodb.pid"
+exec /snap/${SNAP_NAME}/current/bin/mongod \
+    --dbpath="$MONGO_DATA_DIR" \
+    --logpath="$MONGO_LOG_FILE" \
+    --logappend $BIND_OPTIONS

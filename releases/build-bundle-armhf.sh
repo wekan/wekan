@@ -3,8 +3,8 @@
 # Build WeKan armhf (arm/v7) bundle - Meteor 3 style (no fibers needed).
 #
 # This script rebuilds only the native Node.js modules for arm/v7 (armhf).
-# Note: MongoDB Community Edition is not available for armhf.
-# Use docker-compose-ferretdb.yml or the snap's built-in FerretDB as the database.
+# Note: MongoDB Community Edition has no prebuilt armhf binaries.
+# The WeKan snap bundles qemu-x86_64-static to run the MongoDB amd64 binary on armhf.
 #
 # Run on an armhf machine, or use a QEMU arm/v7 environment.
 #
@@ -53,5 +53,5 @@ cd ..
 zip -r wekan-${VERSION}-armhf.zip bundle
 
 echo "Done: wekan-${VERSION}-armhf.zip"
-echo "Note: MongoDB Community is not available for armhf."
-echo "      Use docker-compose-ferretdb.yml or the WeKan snap (built-in FerretDB) as the database."
+echo "Note: MongoDB Community has no prebuilt armhf binaries."
+echo "      The WeKan snap bundles qemu-x86_64-static to run the MongoDB amd64 binary on armhf."
