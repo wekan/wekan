@@ -152,12 +152,10 @@ parts:
                 rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
 
                 mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
-
-                # Use <<- to allow indented closing tag with tabs, or standard << and ensure tag is indented.
-                cat > "$SNAPCRAFT_PART_INSTALL/bin/mongod" << 'QWRAP'
-                exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"
-                QWRAP
-
+                
+                # Using printf avoids the Heredoc/YAML indentation conflict entirely
+                printf 'exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"\n' \
+                    > "$SNAPCRAFT_PART_INSTALL/bin/mongod"
                 chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
 
                 wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
@@ -281,7 +279,6 @@ parts:
             git clone https://github.com/wekan/migratemongo.git
             cp -pR migratemongo "$SNAPCRAFT_PART_INSTALL/"
             rm -rf migratemongo
-
         organize:
             README: README.wekan
         prime:
@@ -314,11 +311,9 @@ parts:
             mkdir -p $SNAPCRAFT_PART_INSTALL/license
             echo "Caddy is licensed under the Apache License 2.0." > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
             mkdir -p $SNAPCRAFT_PART_INSTALL/etc
-            cat > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile << 'EOF'
-            :8080 {
-                reverse_proxy localhost:3000
-            }
-            EOF
+            
+            # Using printf here as well to avoid Heredoc issues
+            printf ":8080 {\n    reverse_proxy localhost:3000\n}\n" > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile
         stage:
             - bin/caddy
             - license/CADDY_LICENSE
