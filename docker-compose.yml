@@ -295,7 +295,8 @@ services:
       #- S3_SECRET_FILE=/run/secrets/s3_secret
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
-      - MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
+      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
+      - MONGO_URL=mongodb://wekandb:27017/wekan
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -345,7 +346,8 @@ services:
       # See: https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
       # FerretDB emulates OpLog via --replication-set-name=rs0.
       # HIGHLY RECOMMENDED — enables real-time DDP updates (sub-100ms latency).
-      - MONGO_OPLOG_URL=mongodb://wekan-ferretdb:27017/local?replicaSet=rs0
+      #- MONGO_OPLOG_URL=mongodb://wekan-ferretdb:27017/local?replicaSet=rs0
+      - MONGO_OPLOG_URL=mongodb://wekandb:27017/local?replicaSet=rs0
       #---------------------------------------------------------------
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/edemaine/kadira-compose
