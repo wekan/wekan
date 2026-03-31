@@ -29,6 +29,15 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# v8.47 2026-03-31 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated attachments and avatar path to be at WRITABLE_PATH/files/attachments etc](https://github.com/wekan/wekan/commit/e58e99c2852dd81a040dcffc0f1f2798c4b8cf15).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.46 2026-03-31 WeKan ® release
 
 This release adds the following updates:
