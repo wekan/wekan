@@ -35,6 +35,8 @@ This release adds the following updates:
 
 - [Updated release scripts](https://github.com/wekan/wekan/commit/6bc68ba57bf15339b80011d131a7da65124e071d).
   Thanks to xet7.
+- [Updated docker-compose.yml to change from FerretDB/PostgreSQL to MongoDB](https://github.com/wekan/wekan/commit/02b75824e5dc24c968959d5a64f846efe33dee4f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
