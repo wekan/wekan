@@ -37,6 +37,8 @@ This release fixes the following bugs:
   Thanks to mzch and kovacs-andras.
 - [Fix docker-compose.yml](https://github.com/wekan/wekan/commit/d07fcceb6a884cf1ff0c9a2d36691af0304f36e7).
   Thanks to xet7.
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/8b4676175caa4af36bf11567676f3c3f522f9512).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
