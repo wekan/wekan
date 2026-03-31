@@ -29,6 +29,15 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: Missing module @meteorjs/reify/lib/runtime](https://github.com/wekan/wekan/pull/6237).
+  Thanks to mzch and kovacs-andras.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.48 2026-03-31 WeKan ® release
 
 This release adds the following updates:
