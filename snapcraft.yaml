@@ -261,7 +261,9 @@ parts:
             # Käytetään siivottua versiota URL-osoitteessa ja tiedostonimessä
             wget -q "https://github.com/wekan/wekan/releases/download/v${CLEAN_VERSION}/wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
             unzip -q "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
-            (cd bundle && npm install -g npm@10 && npm install --no-audit && npm install @babel/parser underscore)
+            #npm install -g npm@10
+            npm install --production --no-audit --prefix ./bundle/programs/server
+            #npm install --production --no-audit --prefix ./bundle/programs/server @babel/parser underscore
             rm "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
             cd ..
             NODE_VERSION="22.22.2"
