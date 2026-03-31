@@ -40,7 +40,7 @@ if (process.env.AVATARS_UPLOAD_EXTERNAL_PROGRAM) {
 }
 
 const avatarsBucket = createBucket('avatars');
-const storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'avatars');
+const storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'files', 'avatars');
 
 // ---------------------------------------------------------------------------
 // File store strategy factory

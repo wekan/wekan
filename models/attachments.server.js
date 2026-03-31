@@ -22,7 +22,7 @@ let attachmentUploadMimeTypes = [];
 let attachmentUploadSize = 0;
 
 const attachmentBucket = createBucket('attachments');
-const storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'attachments');
+const storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'files', 'attachments');
 
 if (process.env.ATTACHMENTS_UPLOAD_MIME_TYPES) {
   attachmentUploadMimeTypes = process.env.ATTACHMENTS_UPLOAD_MIME_TYPES.split(',');
