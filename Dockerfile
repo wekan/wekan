@@ -204,6 +204,7 @@ cd /home/wekan/app
 wget "https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
 unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
+npm install --production --prefix ./bundle/programs/server
 mv /home/wekan/app/bundle /build
 
 # Restore original tar
