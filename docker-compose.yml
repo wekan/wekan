@@ -108,54 +108,54 @@ services:
   #
   # If this is a fresh install, wekan-migrate exits instantly (nothing to migrate).
   #-------------------------------------------------------------------------------------
-
-  wekan-postgres:
-    image: postgres:16-alpine
-    container_name: wekan-postgres
-    restart: always
-    networks:
-      - wekan-tier
-    expose:
-      - 5432
-    environment:
-      - POSTGRES_DB=wekan
-      - POSTGRES_USER=wekan
-      - POSTGRES_PASSWORD=wekan
-      # Tune for a kanban workload (low connection count, moderate write rate)
-      - POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - wekan-postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U wekan -d wekan"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
-  wekan-ferretdb:
-    image: ghcr.io/ferretdb/ferretdb:2
-    container_name: wekan-ferretdb
-    restart: always
-    networks:
-      - wekan-tier
-    expose:
-      - 27017
-    environment:
-      # FerretDB stores everything in PostgreSQL
-      - FERRETDB_POSTGRESQL_URL=postgresql://wekan:wekan@wekan-postgres:5432/wekan
-      # Emulate MongoDB replica-set for Meteor OpLog (real-time updates)
-      - FERRETDB_REPLICATION_SET_NAME=rs0
-      # Suppress verbose debug output
-      - FERRETDB_LOG_LEVEL=warn
-    depends_on:
-      wekan-postgres:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "ferretdb", "--version"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
+  #
+  #wekan-postgres:
+  #  image: postgres:16-alpine
+  #  container_name: wekan-postgres
+  #  restart: always
+  #  networks:
+  #    - wekan-tier
+  #  expose:
+  #    - 5432
+  #  environment:
+  #    - POSTGRES_DB=wekan
+  #    - POSTGRES_USER=wekan
+  #    - POSTGRES_PASSWORD=wekan
+  #    # Tune for a kanban workload (low connection count, moderate write rate)
+  #    - POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C
+  #  volumes:
+  #    - /etc/localtime:/etc/localtime:ro
+  #    - wekan-postgres:/var/lib/postgresql/data
+  #  healthcheck:
+  #    test: ["CMD-SHELL", "pg_isready -U wekan -d wekan"]
+  #    interval: 5s
+  #    timeout: 5s
+  #    retries: 10
+  #
+  #wekan-ferretdb:
+  #  image: ghcr.io/ferretdb/ferretdb:2
+  #  container_name: wekan-ferretdb
+  #  restart: always
+  #  networks:
+  #    - wekan-tier
+  #  expose:
+  #    - 27017
+  #  environment:
+  #    # FerretDB stores everything in PostgreSQL
+  #    - FERRETDB_POSTGRESQL_URL=postgresql://wekan:wekan@wekan-postgres:5432/wekan
+  #    # Emulate MongoDB replica-set for Meteor OpLog (real-time updates)
+  #    - FERRETDB_REPLICATION_SET_NAME=rs0
+  #    # Suppress verbose debug output
+  #    - FERRETDB_LOG_LEVEL=warn
+  #  depends_on:
+  #    wekan-postgres:
+  #      condition: service_healthy
+  #  healthcheck:
+  #    test: ["CMD", "ferretdb", "--version"]
+  #    interval: 5s
+  #    timeout: 5s
+  #    retries: 10
+  #
   #-------------------------------------------------------------------------------------
   # ==== MIGRATION SERVICE ====
   # Runs once, before WeKan starts.  Exits 0 on success, 1 on fatal error.
@@ -170,71 +170,71 @@ services:
   #         mongodb://192.168.1.10:27017/wekan
   # Leave it unset or empty to skip migration.
   #-------------------------------------------------------------------------------------
-  wekan-migrate:
-    image: node:22.22.2-slim
-    container_name: wekan-migrate
-    restart: "no"
-    networks:
-      - wekan-tier
-    working_dir: /migrate
-    # Install the mongodb driver then run the migration script.
-    # npm ci is used if package-lock.json exists; npm install otherwise.
-    command: >
-      sh -c "
-        cd /migrate &&
-        npm install --omit=dev --prefer-offline 2>/dev/null || npm install --omit=dev &&
-        node migrate-mongodb-to-ferretdb.mjs
-      "
-    environment:
-      # ---- Source (old MongoDB) ----
-      # Set to your old MongoDB URL to trigger data migration.
-      # Leave empty for a fresh install (migration is skipped automatically).
-      - SOURCE_MONGO_URL=
-      #- SOURCE_MONGO_URL=mongodb://wekandb:27017/wekan
-
-      # ---- Target (FerretDB) ----
-      - TARGET_MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
-
-      # ---- File storage ----
-      # Must match the WRITABLE_PATH used by the wekan service.
-      - WRITABLE_PATH=/data
-
-      # ---- Progress dashboard ----
-      # Browse to http://localhost:8080/ while migration runs.
-      - MIGRATION_PORT=8080
-
-      # ---- Tuning (optional) ----
-      #- BATCH_SIZE=200
-      #- DRY_RUN=true          # Log only, no writes — useful for testing
-      #- FORCE_MIGRATE=true    # Re-run even if already marked complete
-    ports:
-      - 8080:8080
-    depends_on:
-      wekan-ferretdb:
-        condition: service_healthy
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - wekan-files:/data:rw
-      - ./releases:/migrate:ro
+  #wekan-migrate:
+  #  image: node:22.22.2-slim
+  #  container_name: wekan-migrate
+  #  restart: "no"
+  #  networks:
+  #    - wekan-tier
+  #  working_dir: /migrate
+  #  # Install the mongodb driver then run the migration script.
+  #  # npm ci is used if package-lock.json exists; npm install otherwise.
+  #  command: >
+  #    sh -c "
+  #      cd /migrate &&
+  #      npm install --omit=dev --prefer-offline 2>/dev/null || npm install --omit=dev &&
+  #      node migrate-mongodb-to-ferretdb.mjs
+  #    "
+  #  environment:
+  #    # ---- Source (old MongoDB) ----
+  #    # Set to your old MongoDB URL to trigger data migration.
+  #    # Leave empty for a fresh install (migration is skipped automatically).
+  #    - SOURCE_MONGO_URL=
+  #    #- SOURCE_MONGO_URL=mongodb://wekandb:27017/wekan
+  #
+  #    # ---- Target (FerretDB) ----
+  #    - TARGET_MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
+  #
+  #    # ---- File storage ----
+  #    # Must match the WRITABLE_PATH used by the wekan service.
+  #    - WRITABLE_PATH=/data
+  #
+  #    # ---- Progress dashboard ----
+  #    # Browse to http://localhost:8080/ while migration runs.
+  #    - MIGRATION_PORT=8080
+  #
+  #    # ---- Tuning (optional) ----
+  #    #- BATCH_SIZE=200
+  #    #- DRY_RUN=true          # Log only, no writes — useful for testing
+  #    #- FORCE_MIGRATE=true    # Re-run even if already marked complete
+  #  ports:
+  #    - 8080:8080
+  #  depends_on:
+  #    wekan-ferretdb:
+  #      condition: service_healthy
+  #  volumes:
+  #    - /etc/localtime:/etc/localtime:ro
+  #    - wekan-files:/data:rw
+  #    - ./releases:/migrate:ro
 
   #-------------------------------------------------------------------------------------
   # ==== LEGACY MONGODB (commented out) ====
   # Uncomment to keep old MongoDB running alongside FerretDB during migration.
   # After migration is verified, remove this block entirely.
   #-------------------------------------------------------------------------------------
-  #wekandb:
-  #  image: mongo:7
-  #  container_name: wekan-db
-  #  restart: always
-  #  command: mongod --logpath /dev/null --oplogSize 128 --quiet
-  #  networks:
-  #    - wekan-tier
-  #  expose:
-  #    - 27017
-  #  volumes:
-  #    - /etc/localtime:/etc/localtime:ro
-  #    - wekan-db:/data/db
-  #    - wekan-db-dump:/dump
+  wekandb:
+    image: mongo:7
+    container_name: wekan-db
+    restart: always
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    networks:
+      - wekan-tier
+    expose:
+      - 27017
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - wekan-db:/data/db
+      - wekan-db-dump:/dump
 
   wekan:
     #-------------------------------------------------------------------------------------
@@ -853,11 +853,11 @@ services:
       # Wait spinner to use
       # - WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
-    depends_on:
-      wekan-migrate:
-        condition: service_completed_successfully
-      wekan-ferretdb:
-        condition: service_healthy
+    #depends_on:
+    #  wekan-migrate:
+    #    condition: service_completed_successfully
+    #  wekan-ferretdb:
+    #    condition: service_healthy
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-files:/data:rw
@@ -921,8 +921,8 @@ services:
 volumes:
   wekan-files:
     driver: local
-  wekan-postgres:
-    driver: local
+  #wekan-postgres:
+  #  driver: local
   # Legacy MongoDB volumes — kept so existing data survives until migration is done.
   # Remove once migration is verified and old MongoDB is decommissioned.
   wekan-db:
