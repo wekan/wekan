@@ -29,6 +29,48 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- Updated release scripts.
+  [Part 1](https://github.com/wekan/wekan/commit/4223c2a79f4c276ab1c9734a94314f1d1d1ce033),
+  [Part 2](https://github.com/wekan/wekan/commit/6125822cf7244242832d1fe02f99150abb7350d0),
+  [Part 3](https://github.com/wekan/wekan/commit/e90b2e384c168fbb4cee389d8af9b54a5bc57734),
+  [Part 4](https://github.com/wekan/wekan/commit/29550cbd9335fc95e4f4ac399fe754ece8573450),
+  [Part 5](https://github.com/wekan/wekan/commit/8349fb6b63097970d06af73af388b030761967bd),
+  [Part 6](https://github.com/wekan/wekan/commit/f43b76c323c1f09cf1885251792b29229ef77d2b),
+  [Part 7](https://github.com/wekan/wekan/commit/e90b2e384c168fbb4cee389d8af9b54a5bc57734).
+  Thanks to xet7.
+- Updated GitHub Actions.
+  [Part 1](https://github.com/wekan/wekan/commit/4b8cc0683e9dfdffb7ff7896f622afe8f908a7f5),
+  [Part 2](https://github.com/wekan/wekan/commit/df067f01e894f43305ad36cebdf48a1bf55ff33a),
+  [Part 3](https://github.com/wekan/wekan/commit/ec1e3835586bdc09d93d5049794e8657b460acef),
+  [Part 4](https://github.com/wekan/wekan/commit/79853a2fb7efb738f2f10b6c2e9fef69def88c48),
+  [Part 5](https://github.com/wekan/wekan/commit/9ae2842fa4bedbd4c132943703ef462cc353ab1a),
+  [Part 6](https://github.com/wekan/wekan/commit/1a5e23617de98e6b65f78dfb25c233440f818d11),
+  [Part 7](https://github.com/wekan/wekan/commit/c38fa1c272c32323d8a164dfcf34b898127e6b1d),
+  [Part 8](https://github.com/wekan/wekan/commit/d8a2e06a95713e33e5676df38951dfd3f991ecb3),
+  [Part 9](https://github.com/wekan/wekan/commit/e6ccbfd3b88299c52fbaad9f85fc3b438e3cdc89),
+  [Part 10](https://github.com/wekan/wekan/commit/7666c6c0e1660b5aba300f4e465877bcf73d8066).
+  Thanks to dependabot.
+
+and fixes the following bugs:
+
+- Try to fix Snap.
+  [Part 1](https://github.com/wekan/wekan/commit/e5c551f0092ccb71fafa3433bfd99911f9a2e9c0),
+  [Part 2](https://github.com/wekan/wekan/commit/55ec0b5ff5594c10ebbc8cba74339de2ad0557a6),
+  [Part 3](https://github.com/wekan/wekan/commit/fd58bb9e4dd0f825237a50043a171fc223d44101),
+  [Part 4](https://github.com/wekan/wekan/commit/cdf1d3305bd738fe5357a5f3a9df2f7e6858d1d0),
+  [Part 5](https://github.com/wekan/wekan/commit/2aa8ecfc39a6f971134784817b46ba9867bb402d),
+  [Part 6](https://github.com/wekan/wekan/commit/ed718f083aa0c9f82e368a5badfe73393753a617),
+  [Part 7](https://github.com/wekan/wekan/commit/5c4130311a063340bd89dff571fbf685cda7a3ba),
+  [Part 8](https://github.com/wekan/wekan/commit/33267fa2e462fcc6cd2243ae1b5b39d59b03988f),
+  [Part 9](https://github.com/wekan/wekan/commit/87916c20bf579e16e21fa3bd9ac7687019b277eb),
+  [Part 10](https://github.com/wekan/wekan/commit/12c223d2260c9bd9547ae35a394869ef90e8bc83).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.44 2026-03-30 WeKan ® release
 
 This release adds the following updates:
