@@ -29,11 +29,13 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
-# Upcoming WeKan ® release
+# v8.46 2026-03-31 WeKan ® release
 
 This release adds the following updates:
 
-- [Updated release scripts](https://github.com/wekan/wekan/commit/6bc68ba57bf15339b80011d131a7da65124e071d).
+- Updated release scripts.
+  [Part 1](https://github.com/wekan/wekan/commit/6bc68ba57bf15339b80011d131a7da65124e071d),
+  [Part 2](https://github.com/wekan/wekan/commit/ce52b8a0ab29805c562a2af0b79e30d970594e17).
   Thanks to xet7.
 - [Updated docker-compose.yml to change from FerretDB/PostgreSQL to MongoDB](https://github.com/wekan/wekan/commit/02b75824e5dc24c968959d5a64f846efe33dee4f).
   Thanks to xet7.
