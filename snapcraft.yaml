@@ -243,13 +243,10 @@ parts:
             rm -rf .build
             # Haetaan versio package.jsonista
             RAW_VERSION=$(python3 -c "import json; print(json.load(open('package.json'))['version'])")
-            
             # Siivotaan versio: poistetaan 'v' alusta ja '.0' lopusta (esim. 8.44.0 -> 8.44)
             # Wekan julkaisu-URLit ja tiedostonimet eivät käytä .0-päätettä.
             CLEAN_VERSION=$(echo $RAW_VERSION | sed 's/^v//' | sed 's/\.0$//')
-            
             snapcraftctl set-version "${CLEAN_VERSION}"
-
             SNAP_ARCH=$(dpkg --print-architecture)
             case "$SNAP_ARCH" in
               amd64)   WEKAN_ARCH="amd64"   NODE_ARCH="x64"     ;;
@@ -259,15 +256,14 @@ parts:
               s390x)   WEKAN_ARCH="s390x"   NODE_ARCH="s390x"   ;;
               *) echo "Unsupported snap architecture: $SNAP_ARCH"; exit 1 ;;
             esac
-
             mkdir .build
             cd .build
             # Käytetään siivottua versiota URL-osoitteessa ja tiedostonimessä
             wget -q "https://github.com/wekan/wekan/releases/download/v${CLEAN_VERSION}/wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
             unzip -q "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
+            (cd bundle && npm install && npm install @babel/parser && npm install underscore)
             rm "wekan-${CLEAN_VERSION}-${WEKAN_ARCH}.zip"
             cd ..
-
             NODE_VERSION="22.22.2"
             wget -q https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz
             tar -xf node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz \
@@ -276,11 +272,9 @@ parts:
             mkdir -p $SNAPCRAFT_PART_INSTALL/bin
             cp -p node-v${NODE_VERSION}-linux-${NODE_ARCH}/bin/node $SNAPCRAFT_PART_INSTALL/bin/
             rm -rf node-v${NODE_VERSION}-linux-${NODE_ARCH}
-
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-
             echo "Cloning migratemongo (CPU-feature QEMU wrappers)..."
             git clone https://github.com/wekan/migratemongo.git
             cp -pR migratemongo "$SNAPCRAFT_PART_INSTALL/"
@@ -317,7 +311,6 @@ parts:
             mkdir -p $SNAPCRAFT_PART_INSTALL/license
             echo "Caddy is licensed under the Apache License 2.0." > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
             mkdir -p $SNAPCRAFT_PART_INSTALL/etc
-            
             printf ":8080 {\n    reverse_proxy localhost:3000\n}\n" > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile
         stage:
             - bin/caddy

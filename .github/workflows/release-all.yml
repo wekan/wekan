@@ -109,9 +109,10 @@ jobs:
       - name: Build WeKan bundle
         run: |
           rm -rf .build node_modules .meteor/local
-          npm install
+          meteor npm install
+          meteor npm install @babel/parser
+          meteor npm install underscore
           meteor build .build --directory --platforms=web.browser
-          rm -rf .build/bundle/programs/web.browser.legacy
 
       - name: Create amd64 zip
         run: |
