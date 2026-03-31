@@ -35,6 +35,8 @@ This release fixes the following bugs:
 
 - [Fix: Missing module @meteorjs/reify/lib/runtime](https://github.com/wekan/wekan/pull/6237).
   Thanks to mzch and kovacs-andras.
+- [Fix docker-compose.yml](https://github.com/wekan/wekan/commit/d07fcceb6a884cf1ff0c9a2d36691af0304f36e7).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
