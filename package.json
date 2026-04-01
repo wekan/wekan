@@ -66,6 +66,7 @@
     "mainModule": {
       "client": "client/main.js",
       "server": "server/main.js"
-    }
+    },
+    "modern": true
   }
 }
