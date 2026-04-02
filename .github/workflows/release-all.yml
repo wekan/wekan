@@ -415,28 +415,28 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-        - name: Log in to Quay.io
-          uses: docker/login-action@v4
-          with:
-            registry: quay.io
-            username: ${{ secrets.QUAY_USERNAME }}
+      - name: Log in to Quay.io
+        uses: docker/login-action@v4
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
 
-        - name: Log in to GitHub Container Registry
-          uses: docker/login-action@v4
-          with:
-            registry: ghcr.io
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Build and push Docker image to all registries
-          uses: docker/build-push-action@v7
-          with:
-            context: .
-            platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
-            push: true
-            build-args: VERSION=${{ needs.prepare.outputs.version }}
-            tags: |
+      - name: Build and push Docker image to all registries
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
+          push: true
+          build-args: VERSION=${{ needs.prepare.outputs.version }}
+          tags: |
             #wekanteam/wekan:v${{ needs.prepare.outputs.version }}
             #wekanteam/wekan:latest
             quay.io/wekan/wekan:v${{ needs.prepare.outputs.version }}
