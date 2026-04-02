@@ -36,6 +36,11 @@ This release adds the following updates:
 - [Uncommented build steps. Not yet tested are required dependencies included](https://github.com/wekan/wekan/commit/145a17fee5dc9430de7a60100657566a4a69bc7b).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix indentation for release-all.yml workflow](https://github.com/wekan/wekan/pull/6240).
+  Thanks to snowsky.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v8.49 2026-03-31 WeKan ® release
