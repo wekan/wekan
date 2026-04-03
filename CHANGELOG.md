@@ -37,6 +37,12 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated npm package @wekanteam/exceljs](https://github.com/wekan/wekan/commit/6e8589b1f96b5f0c2ddec0831b238096ce610b1e).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/bf02c9a453e27edba1c08830eb4783b9dfc7bbc2).
+  Thanks to developers of dependencies.
+  NOTE: Do not `npm audit --force`, it downgrades @meteorjs/rspack and breaks builds.
+  `npm audit` shows false info, it does not recognize that elliptic is
+  already updated to 6.6.1 with override at package.json like you can see with
+  `npm list elliptic`.
 
 and fixes the following bugs:
 
