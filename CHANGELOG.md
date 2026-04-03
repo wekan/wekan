@@ -29,6 +29,15 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# v8.52 2026-04-03 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Try to fix Docker and Snap](https://github.com/wekan/wekan/commit/03e0cfdc15c56ac0219f5e435034a1c0ad5006ae).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.51 2026-04-03 WeKan ® release
 
 This release adds the following updates:
