@@ -1,16 +1,35 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
+import path from 'path';
 
 const { filesize } = require('filesize');
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
 let avatarsUploadSize = 72000;
 
+// Compute storage path:
+// - Docker (WRITABLE_PATH=/data): /data/files/avatars
+// - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/avatars
+const computeAvatarStoragePath = () => {
+  const basePath = process.env.WRITABLE_PATH || process.cwd();
+  const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+  if (endsWithFiles) {
+    // Snap: WRITABLE_PATH already includes /files
+    return basePath + '/avatars';
+  } else {
+    // Docker & Dev: append /files/avatars
+    return basePath + '/files/avatars';
+  }
+};
+
+const storagePath = Meteor.isServer ? computeAvatarStoragePath() : 'assets/app/uploads/avatars';
+
 const Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
   allowClientCode: true,
+  storagePath: storagePath,
   namingFunction(opts) {
     let filenameWithoutExtension = ""
     let fileId = "";

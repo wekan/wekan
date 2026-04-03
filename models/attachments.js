@@ -1,14 +1,33 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
+import path from 'path';
 
 // XXX Enforce a schema for the Attachments FilesCollection
 // see: https://github.com/VeliovGroup/Meteor-Files/wiki/Schema
+
+// Compute storage path:
+// - Docker (WRITABLE_PATH=/data): /data/files/attachments
+// - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
+const computeAttachmentStoragePath = () => {
+  const basePath = process.env.WRITABLE_PATH || process.cwd();
+  const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+  if (endsWithFiles) {
+    // Snap: WRITABLE_PATH already includes /files
+    return basePath + '/attachments';
+  } else {
+    // Docker & Dev: append /files/attachments
+    return basePath + '/files/attachments';
+  }
+};
+
+const storagePath = Meteor.isServer ? computeAttachmentStoragePath() : 'assets/app/uploads/attachments';
 
 const Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: true,
+  storagePath: storagePath,
   namingFunction(opts) {
     let filenameWithoutExtension = ""
     let fileId = "";

@@ -40,7 +40,15 @@ if (process.env.AVATARS_UPLOAD_EXTERNAL_PROGRAM) {
 }
 
 const avatarsBucket = createBucket('avatars');
-const storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'files', 'avatars');
+
+// Compute storage path:
+// - Docker (WRITABLE_PATH=/data): /data/files/avatars
+// - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/avatars
+const basePath = process.env.WRITABLE_PATH || process.cwd();
+const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+const storagePath = endsWithFiles
+  ? path.join(basePath, 'avatars')
+  : path.join(basePath, 'files', 'avatars');
 
 // ---------------------------------------------------------------------------
 // File store strategy factory

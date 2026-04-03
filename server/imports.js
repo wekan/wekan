@@ -3,6 +3,10 @@
 // Loaded by server/main.js after bootstrap (collectionHelpers) completes.
 // ============================================================================
 
+// ****IMPORTANT**** Initialize upload directories BEFORE models are loaded
+// This ensures ostrio:files can create necessary directories without permission errors
+import '/server/initializeDirs';
+
 // ----------------------------------------------------------------------------
 // 0. API middleware & auth routes (must register before model routes)
 // ----------------------------------------------------------------------------

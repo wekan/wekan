@@ -22,7 +22,15 @@ let attachmentUploadMimeTypes = [];
 let attachmentUploadSize = 0;
 
 const attachmentBucket = createBucket('attachments');
-const storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'files', 'attachments');
+
+// Compute storage path:
+// - Docker (WRITABLE_PATH=/data): /data/files/attachments
+// - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
+const basePath = process.env.WRITABLE_PATH || process.cwd();
+const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+const storagePath = endsWithFiles
+  ? path.join(basePath, 'attachments')
+  : path.join(basePath, 'files', 'attachments');
 
 if (process.env.ATTACHMENTS_UPLOAD_MIME_TYPES) {
   attachmentUploadMimeTypes = process.env.ATTACHMENTS_UPLOAD_MIME_TYPES.split(',');
