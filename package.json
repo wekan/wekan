@@ -12,11 +12,18 @@
     "url": "https://github.com/wekan/wekan/issues"
   },
   "homepage": "https://wekan.fi",
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    },
+    "modern": true
+  },
   "devDependencies": {
-    "@meteorjs/rspack": "^1.0.1",
+    "@meteorjs/rspack": "^1.0.2",
     "@rsdoctor/rspack-plugin": "^1.2.3",
-    "@rspack/cli": "^1.7.9",
-    "@rspack/core": "^1.7.9",
+    "@rspack/cli": "^1.7.1",
+    "@rspack/core": "^1.7.1",
     "css-loader": "^7.1.4",
     "sinon": "^21.0.3",
     "style-loader": "^4.0.0"
@@ -60,12 +67,7 @@
     "underscore": "^1.13.8"
   },
   "overrides": {
-    "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.15"
-  },
-  "meteor": {
-    "mainModule": {
-      "client": "client/main.js",
-      "server": "server/main.js"
-    }
+    "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.15",
+    "elliptic": "^6.6.1"
   }
 }
