@@ -130,7 +130,7 @@ jobs:
           meteor-release: '2.2'
 
       - name: Install NPM Dependencies
-        run: meteor npm ci
+        run: meteor npm ci --no-audit
 
       - name: Run Tests
         run: sh ./test-wekan.sh -cv

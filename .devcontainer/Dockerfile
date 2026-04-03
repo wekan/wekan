@@ -251,7 +251,7 @@ gosu wekan:wekan /home/wekan/.meteor/meteor -- help
 # Build app (Development)
 cd /home/wekan/app
 gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js
-gosu wekan:wekan /home/wekan/.meteor/meteor npm install
+gosu wekan:wekan /home/wekan/.meteor/meteor npm install --no-audit
 
 # Put back the original tar
 mv $(which tar)~ $(which tar)

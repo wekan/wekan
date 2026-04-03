@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
-import path from 'path';
 
 const { filesize } = require('filesize');
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
