@@ -29,9 +29,14 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
-# Upcoming WeKan ® release
+# v8.51 2026-04-03 WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/4594711be41d1e9cf15b1f8bb070fcb36bf736ca).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix Bug: WeKan v8.50 WRITABLE_PATH](https://github.com/wekan/wekan/commit/edc6b18b5f77320e966e56c888575bcb764096dc).
   Thanks to snowsky and xet7.
