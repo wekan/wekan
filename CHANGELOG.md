@@ -35,6 +35,8 @@ This release adds the following updates:
 
 - [Uncommented build steps. Not yet tested are required dependencies included](https://github.com/wekan/wekan/commit/145a17fee5dc9430de7a60100657566a4a69bc7b).
   Thanks to xet7.
+- [Updated npm package @wekanteam/exceljs](https://github.com/wekan/wekan/commit/6e8589b1f96b5f0c2ddec0831b238096ce610b1e).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
