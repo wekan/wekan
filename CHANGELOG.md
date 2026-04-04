@@ -29,6 +29,15 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# v8.54 2026-04-04 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Revert v8.53 Refactor upsert calls to use async method](https://github.com/wekan/wekan/commit/811b79b641c765461f3d696ed00b5459a4747867).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.53 2026-04-04 WeKan ® release
 
 This release fixes the following bugs:
