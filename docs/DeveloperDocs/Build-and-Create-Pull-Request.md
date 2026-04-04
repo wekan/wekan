@@ -78,7 +78,17 @@ git clone git@github.com:YourGithubUsername/wekan.git
 
 cd wekan
 ```
+
+### IMPORTANT: Do NOT `npm audit --force`
+
+IMPORTANT: Do NOT `npm audit --force`, it downgrades @meteorjs/rspack and breaks builds.
+`npm audit` shows false info, it does not recognize that elliptic is already updated
+to 6.6.1 with override at package.json like you can see with  `npm list elliptic`.
+https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v850-2026-04-03-wekan--release
+
 ### 3. Select option 1 to install dependencies, and then Enter.
+
+
 ```
 ./rebuild-wekan.sh
 
