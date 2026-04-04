@@ -177,10 +177,10 @@ Meteor.methods({
   },
 
   async getOrgsCollectionCount(query = {}) {
+    check(query, Match.OneOf(Object, null, undefined));
     if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
-    check(query, Match.OneOf(Object, null, undefined));
     const cursor = await ReactiveCache.getOrgs(query || {}, {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },

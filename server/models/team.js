@@ -155,10 +155,10 @@ Meteor.methods({
   },
 
   async getTeamsCollectionCount(query = {}) {
+    check(query, Match.OneOf(Object, null, undefined));
     if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
-    check(query, Match.OneOf(Object, null, undefined));
     const cursor = await ReactiveCache.getTeams(query || {}, {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
