@@ -29,6 +29,17 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- Docs: IMPORTANT: Do NOT `npm audit fix --force`, it breaks builds.
+  [Part 1](https://github.com/wekan/wekan/commit/2bad17010cd445c004a228b732b17c68e18eb316),
+  [Part 2](https://github.com/wekan/wekan/commit/9fa6574c80589218569dc3c49782a1a8036aa542).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.54 2026-04-04 WeKan ® release
 
 This release fixes the following bugs:
