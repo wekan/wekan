@@ -75,7 +75,7 @@ Meteor.startup(() => {
       process.env.ORACLE_OIM_ENABLED === 'true' ||
       process.env.ORACLE_OIM_ENABLED === true
     ) {
-      await ServiceConfiguration.configurations.upsertAsync(
+      ServiceConfiguration.configurations.upsert(
         // eslint-disable-line no-undef
         { service: 'oidc' },
         {
@@ -97,7 +97,7 @@ Meteor.startup(() => {
       process.env.OAUTH2_ENABLED === 'true' ||
       process.env.OAUTH2_ENABLED === true
     ) {
-      await ServiceConfiguration.configurations.upsertAsync(
+      ServiceConfiguration.configurations.upsert(
         // eslint-disable-line no-undef
         { service: 'oidc' },
         {
@@ -121,7 +121,7 @@ Meteor.startup(() => {
       process.env.CAS_ENABLED === 'true' ||
       process.env.CAS_ENABLED === true
     ) {
-      await ServiceConfiguration.configurations.upsertAsync(
+      ServiceConfiguration.configurations.upsert(
         // eslint-disable-line no-undef
         { service: 'cas' },
         {
@@ -145,7 +145,7 @@ Meteor.startup(() => {
       process.env.SAML_ENABLED === 'true' ||
       process.env.SAML_ENABLED === true
     ) {
-      await ServiceConfiguration.configurations.upsertAsync(
+      ServiceConfiguration.configurations.upsert(
         // eslint-disable-line no-undef
         { service: 'saml' },
         {
