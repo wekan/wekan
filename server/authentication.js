@@ -64,7 +64,7 @@ export const Authentication = {
   },
 };
 
-Meteor.startup(() => {
+Meteor.startup(async () => {
   Accounts.validateLoginAttempt(function(options) {
     const user = options.user || {};
     return !user.loginDisabled;
