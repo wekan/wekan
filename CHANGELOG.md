@@ -80,7 +80,7 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/bf02c9a453e27edba1c08830eb4783b9dfc7bbc2).
   Thanks to developers of dependencies.
-  NOTE: Do not `npm audit --force`, it downgrades @meteorjs/rspack and breaks builds.
+  NOTE: Do not `npm audit fix --force`, it downgrades @meteorjs/rspack and breaks builds.
   `npm audit` shows false info, it does not recognize that elliptic is
   already updated to 6.6.1 with override at package.json like you can see with
   `npm list elliptic`.
