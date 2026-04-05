@@ -140,12 +140,16 @@ echo "Starting MongoDB for initialization..."
 # Waiting for MongoDB to start
 sleep 5
 
-# Trying to ninitialize replica set (only if it's not initialized yet)
-echo "Checking Replica Set status..."
-/snap/${SNAP_NAME}/current/bin/mongosh --eval "rs.initiate()" || echo "Replica Set already initialized or failed."
+# Initialize replica set (only if it's not initialized yet)
+echo "Initializing Replica Set..."
+/snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:${MONGODB_PORT:-27019}'}]})" 2>&1 | grep -v "already initialized" || true
 
-# Stop background process of MongoDB, to then run MongoDB at foreground
-/snap/${SNAP_NAME}/current/bin/mongosh --eval "db.getSiblingDB('admin').shutdownServer()"
+# Give replica set time to initialize
+sleep 3
+
+# Stop background MongoDB process gracefully
+echo "Stopping background MongoDB process..."
+/snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
 sleep 2
 
 # Final start of MongoDB (this keeps controlling MongoDB process)
