@@ -130,30 +130,41 @@ echo "Starting MongoDB 7.x server..."
 # Create PID file
 echo $$ > "${SNAP_COMMON}/mongodb.pid"
 
-# Starting MongoDB to background for a moment for initialization
-echo "Starting MongoDB for initialization..."
-/snap/${SNAP_NAME}/current/bin/mongod \
-    --dbpath="$MONGO_DATA_DIR" \
-    --logpath="$MONGO_LOG_FILE" \
-    --replSet rs0 --oplogSize 128 --fork
+# Check if this is the first time MongoDB is starting
+INIT_MARKER="${SNAP_COMMON}/.replica_set_initialized"
 
-# Waiting for MongoDB to start
-sleep 5
-
-# Initialize replica set (only if it's not initialized yet)
-echo "Initializing Replica Set..."
-/snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:${MONGODB_PORT:-27019}'}]})" 2>&1 | grep -v "already initialized" || true
-
-# Give replica set time to initialize
-sleep 3
-
-# Stop background MongoDB process gracefully
-echo "Stopping background MongoDB process..."
-/snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
-sleep 2
-
-# Final start of MongoDB (this keeps controlling MongoDB process)
+# Start MongoDB directly in foreground with replica set
+# The replica set will be initialized by the init marker check below
 echo "Starting MongoDB 7.x server in foreground..."
+
+# Start in background briefly to initialize replica set if needed
+if [ ! -f "$INIT_MARKER" ]; then
+    echo "First startup detected - initializing replica set..."
+    /snap/${SNAP_NAME}/current/bin/mongod \
+        --dbpath="$MONGO_DATA_DIR" \
+        --logpath="$MONGO_LOG_FILE" \
+        --logappend $BIND_OPTIONS \
+        --replSet rs0 --oplogSize 128 --fork
+
+    sleep 5
+
+    # Initialize replica set
+    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:${MONGODB_PORT:-27019}'}]})" 2>/dev/null || true
+
+    # Mark initialization as done
+    touch "$INIT_MARKER"
+
+    # Kill the forked process gracefully
+    echo "Stopping temporary MongoDB process..."
+    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
+    sleep 2
+
+    # Clean up any remaining process
+    pkill -f "mongod.*${MONGODB_PORT:-27019}" 2>/dev/null || true
+    sleep 1
+fi
+
+# Final start of MongoDB in foreground (this becomes the main process)
 exec /snap/${SNAP_NAME}/current/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
