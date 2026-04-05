@@ -30,6 +30,15 @@ WeKan 8.43 and newer uses Meteor 3.x, Node.js 22.x and MongoDB 7.x, huge thanks 
 - https://harryadel.com/dev-diary-25/
 - https://harryadel.com/dev-diary-26/
 
+# v8.60 2026-04-05 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated Docker build script](https://github.com/wekan/wekan/commit/0b59f87887c215dc34093409ccd12da9acd3ef02).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.59 2026-04-05 WeKan ® release
 
 This release fixes the following bugs:
