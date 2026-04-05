@@ -8,6 +8,10 @@ import CardComments from '/models/cardComments';
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[commentCreation] Card not found for cardId:', doc.cardId, '— skipping activity insert.');
+    return;
+  }
   await Activities.insertAsync({
     userId,
     activityType: 'addComment',
@@ -30,6 +34,10 @@ CardComments.after.insert(async (userId, doc) => {
 
 CardComments.after.update(async (userId, doc) => {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[CardComments.after.update] Card not found for cardId:', doc.cardId, '— skipping activity insert.');
+    return;
+  }
   await Activities.insertAsync({
     userId,
     activityType: 'editComment',
@@ -42,19 +50,27 @@ CardComments.after.update(async (userId, doc) => {
 });
 
 CardComments.before.remove(async (userId, doc) => {
-  const card = await ReactiveCache.getCard(doc.cardId);
-  await Activities.insertAsync({
-    userId,
-    activityType: 'deleteComment',
-    boardId: doc.boardId,
-    cardId: doc.cardId,
-    commentId: doc._id,
-    listId: card.listId,
-    swimlaneId: card.swimlaneId,
-  });
-  const activity = await ReactiveCache.getActivity({ commentId: doc._id });
-  if (activity) {
-    await Activities.removeAsync(activity._id);
+  try {
+    const card = await ReactiveCache.getCard(doc.cardId);
+    if (!card) {
+      console.warn('[CardComments.before.remove] Card not found for cardId:', doc.cardId, '— skipping deleteComment activity.');
+    } else {
+      await Activities.insertAsync({
+        userId,
+        activityType: 'deleteComment',
+        boardId: doc.boardId,
+        cardId: doc.cardId,
+        commentId: doc._id,
+        listId: card.listId,
+        swimlaneId: card.swimlaneId,
+      });
+    }
+    const activity = await ReactiveCache.getActivity({ commentId: doc._id });
+    if (activity) {
+      await Activities.removeAsync(activity._id);
+    }
+  } catch (e) {
+    console.error('[CardComments.before.remove] Error while processing comment deletion for doc._id:', doc._id, e);
   }
 });
 
