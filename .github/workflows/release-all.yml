@@ -112,6 +112,11 @@ jobs:
           meteor npm install --no-audit
           meteor build .build --directory --platforms=web.browser
 
+      - name: Install dependencies in bundle
+        run: |
+          cd .build/bundle/programs/server
+          npm install --no-audit
+
       - name: Create amd64 zip
         run: |
           cd .build
