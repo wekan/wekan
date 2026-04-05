@@ -14,6 +14,9 @@ if [ "nill" != "$MONGODB_BIND_UNIX_SOCKET" ] && [ "x" != "x$MONGODB_BIND_UNIX_SO
 else
     [ "x" == "x$MONGODB_BIND_IP" ] && MONGODB_BIND_IP="127.0.0.1"
     export MONGO_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan"
+    if [ -z "$MONGO_OPLOG_URL" ]; then
+        export MONGO_OPLOG_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/local?replicaSet=rs0"
+    fi
 fi
 
 # If uploads directory does not exist, create it.

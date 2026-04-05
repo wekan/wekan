@@ -129,7 +129,29 @@ fi
 echo "Starting MongoDB 7.x server..."
 # Create PID file
 echo $$ > "${SNAP_COMMON}/mongodb.pid"
+
+# Starting MongoDB to background for a moment for initialization
+echo "Starting MongoDB for initialization..."
+/snap/${SNAP_NAME}/current/bin/mongod \
+    --dbpath="$MONGO_DATA_DIR" \
+    --logpath="$MONGO_LOG_FILE" \
+    --replSet rs0 --oplogSize 128 --fork
+
+# Waiting for MongoDB to start
+sleep 5
+
+# Trying to ninitialize replica set (only if it's not initialized yet)
+echo "Checking Replica Set status..."
+/snap/${SNAP_NAME}/current/bin/mongosh --eval "rs.initiate()" || echo "Replica Set already initialized or failed."
+
+# Stop background process of MongoDB, to then run MongoDB at foreground
+/snap/${SNAP_NAME}/current/bin/mongosh --eval "db.getSiblingDB('admin').shutdownServer()"
+sleep 2
+
+# Final start of MongoDB (this keeps controlling MongoDB process)
+echo "Starting MongoDB 7.x server in foreground..."
 exec /snap/${SNAP_NAME}/current/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
-    --logappend $BIND_OPTIONS
+    --logappend $BIND_OPTIONS \
+    --replSet rs0 --oplogSize 128
