@@ -28,11 +28,11 @@ class AttachmentMigrationService {
    * @param {string} boardId - The board ID
    * @returns {boolean} - True if board has been migrated
    */
-  isBoardMigrated(boardId) {
+  async isBoardMigrated(boardId) {
     const isMigrated = migratedBoards.has(boardId);
 
     // Update status collection for pub/sub
-    AttachmentMigrationStatus.upsert(
+    await AttachmentMigrationStatus.upsertAsync(
       { boardId },
       {
         $set: {
@@ -53,7 +53,7 @@ class AttachmentMigrationService {
   async migrateBoardAttachments(boardId) {
     try {
       // Check if board has already been migrated
-      if (this.isBoardMigrated(boardId)) {
+      if (await this.isBoardMigrated(boardId)) {
         console.log(`Board ${boardId} has already been migrated, skipping`);
         return { success: true, message: 'Board already migrated' };
       }
@@ -102,7 +102,7 @@ class AttachmentMigrationService {
       console.log(`Marked board ${boardId} as migrated`);
 
       // Update status collection
-      AttachmentMigrationStatus.upsert(
+      await AttachmentMigrationStatus.upsertAsync(
         { boardId },
         {
           $set: {
@@ -224,7 +224,7 @@ class AttachmentMigrationService {
     const migratedCount = total - unconverted.length;
 
     // Update status collection for pub/sub
-    AttachmentMigrationStatus.upsert(
+    await AttachmentMigrationStatus.upsertAsync(
       { boardId },
       {
         $set: {

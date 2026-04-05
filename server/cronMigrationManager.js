@@ -1713,7 +1713,7 @@ class CronMigrationManager {
     this.startTime = Date.now();
 
     // Update CronJobStatus for immediate pub/sub notification
-    CronJobStatus.upsert(
+    await CronJobStatus.upsertAsync(
       { jobId: 'migration' },
       {
         $set: {
@@ -1784,7 +1784,7 @@ class CronMigrationManager {
         this.isRunning = false;
 
         // Update CronJobStatus
-        CronJobStatus.upsert(
+        await CronJobStatus.upsertAsync(
           { jobId: 'migration' },
           {
             $set: {
@@ -1800,7 +1800,7 @@ class CronMigrationManager {
       }
 
       // Update to running state
-      CronJobStatus.upsert(
+      await CronJobStatus.upsertAsync(
         { jobId: 'migration' },
         {
           $set: {
@@ -2555,7 +2555,7 @@ class CronMigrationManager {
     cronMigrationStatus.set('Migrations paused');
 
     // Update CronJobStatus for immediate pub/sub notification
-    CronJobStatus.upsert(
+    await CronJobStatus.upsertAsync(
       { jobId: 'migration' },
       {
         $set: {
@@ -2577,7 +2577,7 @@ class CronMigrationManager {
     }
 
     // Update to final paused state
-    CronJobStatus.upsert(
+    await CronJobStatus.upsertAsync(
       { jobId: 'migration' },
       {
         $set: {
@@ -2597,7 +2597,7 @@ class CronMigrationManager {
    */
   async stopAllMigrations() {
     // Update CronJobStatus for immediate pub/sub notification
-    CronJobStatus.upsert(
+    await CronJobStatus.upsertAsync(
       { jobId: 'migration' },
       {
         $set: {
@@ -2635,7 +2635,7 @@ class CronMigrationManager {
     cronMigrationStatus.set('All migrations stopped');
 
     // Update to final stopped state
-    CronJobStatus.upsert(
+    await CronJobStatus.upsertAsync(
       { jobId: 'migration' },
       {
         $set: {
@@ -2649,9 +2649,9 @@ class CronMigrationManager {
     );
 
     // Clear status message after delay
-    Meteor.setTimeout(() => {
+    Meteor.setTimeout(async () => {
       cronMigrationStatus.set('');
-      CronJobStatus.upsert(
+      await CronJobStatus.upsertAsync(
         { jobId: 'migration' },
         {
           $set: {
