@@ -124,13 +124,18 @@ jobs:
           restore-keys: |
             v1-meteor_build_cache-
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.2'
+
       - name: Setup meteor
         uses: meteorengineer/setup-meteor@v3
         with:
-          meteor-release: '2.2'
+          meteor-release: '3.4'
 
       - name: Install NPM Dependencies
-        run: meteor npm ci --no-audit
+        run: meteor npm install --no-audit
 
       - name: Run Tests
         run: sh ./test-wekan.sh -cv
