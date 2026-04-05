@@ -245,6 +245,9 @@ parts:
             VERSION=$(python3 -c "import json; v=json.load(open('package.json'))['version']; print(v.lstrip('v'))")
             snapcraftctl set-version "${VERSION}"
 
+            # Extract major.minor version for release download URL (8.55.0 -> 8.55)
+            RELEASE_VERSION=$(python3 -c "parts='${VERSION}'.split('.'); print('.'.join(parts[:2]))")
+
             # Architecture mapping: Snap architecture -> WeKan bundle name + Node.js arch
             SNAP_ARCH=$(dpkg --print-architecture)
             case "$SNAP_ARCH" in
@@ -259,8 +262,8 @@ parts:
             # Download pre-built WeKan release bundle (like Dockerfile)
             mkdir -p .build
             cd .build
-            echo "Downloading WeKan ${VERSION} for ${WEKAN_ARCH}..."
-            wget "https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
+            echo "Downloading WeKan ${RELEASE_VERSION} for ${WEKAN_ARCH}..."
+            wget "https://github.com/wekan/wekan/releases/download/v${RELEASE_VERSION}/wekan-${RELEASE_VERSION}-${WEKAN_ARCH}.zip"
             unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
             npm install --production --no-audit --prefix ./bundle/programs/server
             rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
