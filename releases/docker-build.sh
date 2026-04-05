@@ -9,6 +9,12 @@ fi
 
 VERSION=$1
 
+# Delete Docker containers
+(cd ../w/docker-cleanup-volumes && ./start.sh)
+
+# Install Docker build deps
+./releases/docker-build-deps.sh
+
 # Ensure you are using the correct builder
 docker buildx use mybuilder
 
