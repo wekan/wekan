@@ -37,8 +37,13 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/2bad17010cd445c004a228b732b17c68e18eb316),
   [Part 2](https://github.com/wekan/wekan/commit/9fa6574c80589218569dc3c49782a1a8036aa542).
   Thanks to xet7.
+
+and fixes the following bugs:
+
 - [Fix Cards Reports is not working](https://github.com/wekan/wekan/commit/2b02e7712ee6a8ae8af5d416ce2d288a25386fdf).
   Thanks to titver968 and xet7.
+- [Fix Search All Boards](https://github.com/wekan/wekan/commit/faf8453c6d10613edf32a734e549961860fcdd32).
+  Thanks to YosserDerbali and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
