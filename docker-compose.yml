@@ -226,7 +226,15 @@ services:
     image: mongo:7
     container_name: wekan-db
     restart: always
-    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    #command: mongod --logpath /dev/null --oplogSize 128 --replSet rs0 --quiet
+    #command: mongod --oplogSize 128 --replSet rs0 --quiet
+    command: >
+      sh -c "
+        mongod --oplogSize 128 --replSet rs0 --quiet --bind_ip_all &
+        until mongosh --eval 'rs.initiate()' > /dev/null 2>&1; do
+          sleep 2
+        done;
+        wait"
     networks:
       - wekan-tier
     expose:
