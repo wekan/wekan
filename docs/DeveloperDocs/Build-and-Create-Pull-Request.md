@@ -129,83 +129,17 @@ git push
 ```
 And then at your GitHub for `https://github.com/YOUR-GITHUB-USERNAME/wekan` click `Create pull request`.
 
-# Meteor 3
-
-At 2024-06-26, it looks like from https://nodejs.org/en that Node.js LTS version is 20.15.0 , so change to newest Node.js LTS, delete old Meteor:
-```
-sudo n 20.15.0
-
-sudo npm -g install npm
-
-cd
-
-rm -rf .meteor
-```
-Check how to install newest Meteor from Meteor 3 PR at https://github.com/meteor/meteor/pull/13163 , for example:
-```
-npx meteor@rc
-```
-Check what branches there are:
-```
-cd repos/wekan
-
-git branch -a
-```
-Change to Meteor 3 branch:
-```
-git checkout feature-meteor3
-```
-Build wekan:
-```
-./rebuild-wekan.sh
-
-2
-```
-If there are errors, try to fix them.
-
-Or try to run wekan:
-```
-./rebuild-wekan.sh
-
-3
-```
-# Updating
-
-There are usually updates both for npm packages and Meteor
-
-Updating npm packages:
-```
-npm update
-```
-Checking for vulnerable packages:
-```
-npm audit
-```
-Fixing vulnerable npm packages by updating to newer packages:
-```
-npm audit fix
-```
-If that did not help, use force:
-```
-npm audit fix --force
-```
-If that did not help, read links from that `npm audit` command did show, remove deprecated dependencies, update to other maintained dependencies.
+## Updating 
 
 Updating to next Meteor release:
 ```
 meteor update
+
+meteor npm update
 ```
 Updating to specific Meteor release:
 ```
-meteor update --release METEOR@3.0-rc.4
-```
-Trying to update all Meteor packages:
-```
-meteor update --release METEOR@3.0-rc.4 --all-packages
-```
-Allowing incompatible updates, that may sometime work:
-```
-meteor update --release METEOR@3.0-rc.4 --all-packages --allow-incompatible-update
+meteor update --release METEOR@3.4
 ```
 If you are changing Meteor and Node.js versions, you may need to reset Meteor:
 ```
