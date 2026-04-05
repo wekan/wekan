@@ -46,6 +46,9 @@ if ! echo "$OLD" | grep -qE '^[0-9]+\.[0-9]+$' || \
   exit 1
 fi
 
+# Delete all GitHub Actions Caches, so that old stuff does not break builds.
+gh cache delete --all
+
 # Resolve repo root from script location so this works regardless of CWD
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 RELEASES_DIR="$REPO_DIR/releases"
