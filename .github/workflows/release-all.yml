@@ -110,8 +110,6 @@ jobs:
         run: |
           rm -rf .build node_modules .meteor/local
           meteor npm install --no-audit
-          meteor npm install --no-audit @babel/parser
-          meteor npm install --no-audit underscore
           meteor build .build --directory --platforms=web.browser
 
       - name: Create amd64 zip
@@ -160,12 +158,6 @@ jobs:
 
       - name: Clean up and create arm64 zip
         run: |
-          cd bundle
-          find . -type d -name '*-garbage*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '*phantom*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '.*.swp' -delete 2>/dev/null || true
-          find . -name '*.swp' -delete 2>/dev/null || true
-          cd ..
           zip -r wekan-${VERSION}-arm64.zip bundle
 
       - uses: actions/upload-artifact@v4
@@ -211,12 +203,6 @@ jobs:
 
       - name: Clean up and create s390x zip
         run: |
-          cd bundle
-          find . -type d -name '*-garbage*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '*phantom*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '.*.swp' -delete 2>/dev/null || true
-          find . -name '*.swp' -delete 2>/dev/null || true
-          cd ..
           zip -r wekan-${VERSION}-s390x.zip bundle
 
       - uses: actions/upload-artifact@v4
@@ -261,12 +247,6 @@ jobs:
 
       - name: Clean up and create ppc64le zip
         run: |
-          cd bundle
-          find . -type d -name '*-garbage*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '*phantom*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '.*.swp' -delete 2>/dev/null || true
-          find . -name '*.swp' -delete 2>/dev/null || true
-          cd ..
           zip -r wekan-${VERSION}-ppc64le.zip bundle
 
       - uses: actions/upload-artifact@v4
@@ -312,12 +292,6 @@ jobs:
 
       - name: Clean up and create armhf zip
         run: |
-          cd bundle
-          find . -type d -name '*-garbage*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '*phantom*' -exec rm -rf {} + 2>/dev/null || true
-          find . -name '.*.swp' -delete 2>/dev/null || true
-          find . -name '*.swp' -delete 2>/dev/null || true
-          cd ..
           zip -r wekan-${VERSION}-armhf.zip bundle
 
       - uses: actions/upload-artifact@v4
