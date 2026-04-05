@@ -135,7 +135,7 @@ jobs:
           meteor-release: '3.4'
 
       - name: Install NPM Dependencies
-        run: meteor npm install --no-audit
+        run: meteor npm install
 
       - name: Run Tests
         run: sh ./test-wekan.sh -cv
