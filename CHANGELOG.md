@@ -30,11 +30,13 @@ WeKan 8.43 and newer uses Meteor 3.x, Node.js 22.x and MongoDB 7.x, huge thanks 
 - https://harryadel.com/dev-diary-25/
 - https://harryadel.com/dev-diary-26/
 
-# Upcoming WeKan ® release
+# v8.59 2026-04-05 WeKan ® release
 
 This release fixes the following bugs:
 
 - [Fix docker-compose.yml to use OpLog](https://github.com/wekan/wekan/commit/30a1792c92de9d485c0b9ed3970a1187ca974576).
+  Thanks to xet7.
+- [Fix Snap to use OpLog](https://github.com/wekan/wekan/commit/1fa72fd34ab4547e97e7e0c201bc3d50d478ef5e).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
