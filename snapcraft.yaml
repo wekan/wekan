@@ -1,5 +1,5 @@
 name: wekan
-adopt-info: wekan
+version: '8.57'
 base: core24
 summary: Open Source kanban
 description: |
@@ -22,22 +22,11 @@ issues: https://github.com/wekan/wekan/issues
 source-code: https://github.com/wekan/wekan
 website: https://wekan.fi
 
+# Use platforms instead of architectures for core24 base
 platforms:
   amd64:
     build-on: amd64
     build-for: amd64
-  arm64:
-    build-on: arm64
-    build-for: arm64
-  armhf:
-    build-on: armhf
-    build-for: armhf
-  s390x:
-    build-on: s390x
-    build-for: s390x
-  ppc64el:
-    build-on: ppc64el
-    build-for: ppc64el
 
 plugs:
   mongodb-plug:
@@ -86,13 +75,11 @@ apps:
         command: ./bin/mongodb-restore
         plugs: [network, network-bind]
 
+
 parts:
     mongodb:
-        plugin: nil
-        build-packages:
-            - wget
-            - ca-certificates
-            - qemu-user-static
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.31.tgz
+        plugin: dump
         stage-packages:
             - libssl3
             - libcurl4
@@ -107,116 +94,21 @@ parts:
             - libboost-filesystem1.74.0
             - libboost-program-options1.74.0
             - libgoogle-perftools4
-        override-build: |
-            SNAP_ARCH=$(dpkg --print-architecture)
-            MONGODB_VERSION="7.0.14"
-            mkdir -p "$SNAPCRAFT_PART_INSTALL/bin" "$SNAPCRAFT_PART_INSTALL/usr"
-
-            case "$SNAP_ARCH" in
-              amd64)
-                wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
-                tar xzf "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz" \
-                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
-                wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
-                tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm mongosh-2.8.2-linux-x64.tgz
-                wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
-                tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz \
-                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
-                cp /usr/bin/qemu-x86_64-static "$SNAPCRAFT_PART_INSTALL/bin/"
-                ;;
-
-              arm64)
-                wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz"
-                tar xzf "mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz" \
-                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm "mongodb-linux-aarch64-ubuntu2204-${MONGODB_VERSION}.tgz"
-                wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-arm64.tgz
-                tar xzf mongosh-2.8.2-linux-arm64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm mongosh-2.8.2-linux-arm64.tgz
-                wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
-                tar xzf mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz \
-                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz
-                cp /usr/bin/qemu-aarch64-static "$SNAPCRAFT_PART_INSTALL/bin/"
-                ;;
-
-              armhf|s390x|ppc64el)
-                apt-get install -y qemu-user-static
-                cp /usr/bin/qemu-x86_64-static "$SNAPCRAFT_PART_INSTALL/bin/"
-                wget -q "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
-                tar xzf "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz" \
-                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm "mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz"
-
-                mv "$SNAPCRAFT_PART_INSTALL/bin/mongod" "$SNAPCRAFT_PART_INSTALL/bin/mongod.x86_64"
-
-                printf 'exec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongod.x86_64" "$@"\n' \
-                    > "$SNAPCRAFT_PART_INSTALL/bin/mongod"
-                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongod"
-
-                wget -q https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
-                tar xzf mongosh-2.8.2-linux-x64.tgz --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm mongosh-2.8.2-linux-x64.tgz
-                mv "$SNAPCRAFT_PART_INSTALL/bin/mongosh" "$SNAPCRAFT_PART_INSTALL/bin/mongosh.x86_64"
-                printf '#!/bin/sh\nexec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/mongosh.x86_64" "$@"\n' \
-                    > "$SNAPCRAFT_PART_INSTALL/bin/mongosh"
-                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/mongosh"
-
-                wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
-                tar xzf mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz \
-                    --strip-components=1 -C "$SNAPCRAFT_PART_INSTALL"
-                rm mongodb-database-tools-ubuntu2404-x86_64-100.13.0.tgz
-                for tool in mongodump mongorestore mongoexport mongoimport \
-                            mongostat mongotop mongofiles bsondump; do
-                    if [ -f "$SNAPCRAFT_PART_INSTALL/bin/$tool" ]; then
-                        mv "$SNAPCRAFT_PART_INSTALL/bin/$tool" \
-                           "$SNAPCRAFT_PART_INSTALL/bin/${tool}.x86_64"
-                        printf '#!/bin/sh\nexec "$SNAP/bin/qemu-x86_64-static" -L "$SNAP/lib/x86_64-sysroot" "$SNAP/bin/%s.x86_64" "$@"\n' \
-                            "$tool" > "$SNAPCRAFT_PART_INSTALL/bin/$tool"
-                        chmod +x "$SNAPCRAFT_PART_INSTALL/bin/$tool"
-                    fi
-                done
-
-                SYSROOT="$SNAPCRAFT_PART_INSTALL/lib/x86_64-sysroot"
-                mkdir -p "$SYSROOT"
-                dpkg --add-architecture amd64
-                apt-get update -qq
-                mkdir -p /tmp/amd64-debs
-                cd /tmp/amd64-debs
-                apt-get download \
-                    libc6:amd64 \
-                    libstdc++6:amd64 \
-                    libgcc-s1:amd64 \
-                    libssl3:amd64 \
-                    libcurl4:amd64 \
-                    zlib1g:amd64 \
-                    libsnappy1v5:amd64 \
-                    libyaml-cpp0.8:amd64 \
-                    libboost-filesystem1.74.0:amd64 \
-                    libboost-iostreams1.74.0:amd64 \
-                    libboost-program-options1.74.0:amd64 \
-                    libboost-system1.74.0:amd64 \
-                    2>/dev/null || true
-                for deb in /tmp/amd64-debs/*.deb; do
-                    [ -f "$deb" ] && dpkg-deb -x "$deb" "$SYSROOT/" || true
-                done
-                cd "$SNAPCRAFT_PART_INSTALL"
-                ;;
-            esac
-            echo "mongodb" > "$SNAPCRAFT_PART_INSTALL/DATABASE_BACKEND"
         stage:
             - bin
             - usr
-            - lib
-            - DATABASE_BACKEND
         prime:
             - bin
             - usr
-            - lib
-            - DATABASE_BACKEND
+
+    mongosh:
+        source: https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
+        plugin: dump
+
+    mongotools:
+        source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.16.0.tgz
+        plugin: dump
+
 
     wekan:
         source: .
@@ -236,71 +128,33 @@ parts:
             - execstack
             - nodejs
             - npm
-            - git
         stage-packages:
             - libfontconfig1
         override-build: |
+            echo "Cleaning environment first"
             rm -rf .build
-            # Extract version from package.json (matches GitHub release tags)
-            VERSION=$(python3 -c "import json; v=json.load(open('package.json'))['version']; print(v.lstrip('v'))")
-            snapcraftctl set-version "${VERSION}"
-
-            # Extract major.minor version for release download URL (8.55.0 -> 8.55)
-            RELEASE_VERSION=$(python3 -c "parts='${VERSION}'.split('.'); print('.'.join(parts[:2]))")
-
-            # Architecture mapping: Snap architecture -> WeKan bundle name + Node.js arch
-            SNAP_ARCH=$(dpkg --print-architecture)
-            case "$SNAP_ARCH" in
-              amd64)   WEKAN_ARCH="amd64"   NODE_ARCH="x64"     ;;
-              arm64)   WEKAN_ARCH="arm64"   NODE_ARCH="arm64"   ;;
-              armhf)   WEKAN_ARCH="armhf"   NODE_ARCH="armv7l"  ;;
-              ppc64el) WEKAN_ARCH="ppc64le" NODE_ARCH="ppc64le" ;;
-              s390x)   WEKAN_ARCH="s390x"   NODE_ARCH="s390x"   ;;
-              *) echo "Unsupported snap architecture: $SNAP_ARCH"; exit 1 ;;
-            esac
-
-            # Download pre-built WeKan release bundle (like Dockerfile)
-            mkdir -p .build
+            mkdir .build
             cd .build
-            echo "Downloading WeKan ${RELEASE_VERSION} for ${WEKAN_ARCH}..."
-            wget "https://github.com/wekan/wekan/releases/download/v${RELEASE_VERSION}/wekan-${RELEASE_VERSION}-${WEKAN_ARCH}.zip"
-            unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
-            npm install --production --no-audit --prefix ./bundle/programs/server
-            rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
+            wget https://github.com/wekan/wekan/releases/download/v8.57/wekan-8.57-amd64.zip
+            unzip wekan-8.57-amd64.zip
+            rm wekan-8.57-amd64.zip
             cd ..
-
-            # Download and install Node.js binary
-            NODE_VERSION="22.22.2"
-            echo "Downloading Node.js ${NODE_VERSION} for ${NODE_ARCH}..."
-            wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz
-            tar -xf node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz \
-              node-v${NODE_VERSION}-linux-${NODE_ARCH}/bin/node
-            rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz
-
-            # Install to snap
-            mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-            cp -p node-v${NODE_VERSION}-linux-${NODE_ARCH}/bin/node $SNAPCRAFT_PART_INSTALL/bin/
-            rm -rf node-v${NODE_VERSION}-linux-${NODE_ARCH}
-
-            # Copy bundle
+            # Copy to Snap
+            wget https://nodejs.org/dist/latest-v22.x/node-v22.22.2-linux-x64.tar.xz
+            tar -xf node-v22.22.2-linux-x64.tar.xz node-v22.22.2-linux-x64/bin/node
+            rm node-v22.22.2-linux-x64.tar.xz
+            mkdir $SNAPCRAFT_PART_INSTALL/bin
+            cp -p node-v22.22.2-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v22.22.2-linux-x64
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
-            cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/ || true
+            cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
 
-            # TODO: Cloning migratemongo (CPU-feature QEMU wrappers) - currently disabled
-            # To re-enable for cross-architecture QEMU support, uncomment below:
-            # echo "Cloning migratemongo (CPU-feature QEMU wrappers)..."
-            # if git clone --depth 1 https://github.com/wekan/migratemongo.git; then
-            #     cp -pR migratemongo "$SNAPCRAFT_PART_INSTALL/"
-            #     rm -rf migratemongo
-            # else
-            #     echo "WARNING: migratemongo clone failed, continuing without it"
-            # fi
         organize:
             README: README.wekan
-        prime:
-            - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
-            - -lib/node_modules/weka*
+        #prime:
+        #    - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
+        #    - -lib/node_modules/weka*
 
     helpers:
         source: snap-src
@@ -315,6 +169,7 @@ parts:
             - gnupg
             - curl
         override-build: |
+            # Add Caddy repository
             echo "Installing Caddy 2 from the official repository..."
             curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /tmp/caddy-stable-archive-keyring.gpg
             mkdir -p /etc/apt/keyrings
@@ -322,13 +177,32 @@ parts:
             echo "deb [signed-by=/etc/apt/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main" > /etc/apt/sources.list.d/caddy-stable.list
             apt update
             apt -y install caddy
+
+            # Display installed Caddy version for confirmation
+            echo "Installed Caddy version:"
+            /usr/bin/caddy version
+
+            # Create directory structure in the snap
             mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+
+            # Copy Caddy binary
             cp /usr/bin/caddy $SNAPCRAFT_PART_INSTALL/bin/
             chmod +x $SNAPCRAFT_PART_INSTALL/bin/caddy
+
+            # Create license files manually since they don't exist in the package
             mkdir -p $SNAPCRAFT_PART_INSTALL/license
-            echo "Caddy is licensed under the Apache License 2.0." > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
+            echo "Caddy is licensed under the Apache License 2.0. See https://github.com/caddyserver/caddy/blob/master/LICENSE" > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
+
+            # Create a basic default Caddyfile for the snap
             mkdir -p $SNAPCRAFT_PART_INSTALL/etc
-            printf ":8080 {\n    reverse_proxy localhost:3000\n}\n" > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile
+            cat > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile << 'EOF'
+            # Default Caddyfile for Wekan
+            # This is loaded by caddy-control script if no other config is provided
+
+            :8080 {
+                reverse_proxy localhost:3000
+            }
+            EOF
         stage:
             - bin/caddy
             - license/CADDY_LICENSE
