@@ -153,7 +153,8 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           cd bundle/programs/server
-          npm install
+          rm -rf node_modules
+          npm ci
           cd ../..
 
       - name: Clean up and create arm64 zip
@@ -194,12 +195,13 @@ jobs:
       - name: Rebuild native modules for s390x in container
         run: |
           unzip wekan-${VERSION}-amd64.zip
+          rm -rf bundle/programs/server/node_modules
           # node:22.22.2-slim s390x — same Node.js version as Meteor 3.4 bundled
           docker run --rm --platform linux/s390x \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
             node:22.22.2-slim \
-            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm ci"
 
       - name: Clean up and create s390x zip
         run: |
@@ -238,12 +240,13 @@ jobs:
       - name: Rebuild native modules for ppc64le in container
         run: |
           unzip wekan-${VERSION}-amd64.zip
+          rm -rf bundle/programs/server/node_modules
           # node:22.22.2-slim ppc64le — same Node.js version as Meteor 3.4 bundled
           docker run --rm --platform linux/ppc64le \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
             node:22.22.2-slim \
-            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm ci"
 
       - name: Clean up and create ppc64le zip
         run: |
@@ -283,12 +286,13 @@ jobs:
       - name: Rebuild native modules for armhf in container
         run: |
           unzip wekan-${VERSION}-amd64.zip
+          rm -rf bundle/programs/server/node_modules
           # node:22.22.2-slim arm/v7 — same Node.js version as Meteor 3.4 bundled
           docker run --rm --platform linux/arm/v7 \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
             node:22.22.2-slim \
-            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm ci"
 
       - name: Clean up and create armhf zip
         run: |
@@ -329,7 +333,8 @@ jobs:
         run: |
           7z x wekan-%VERSION%-amd64.zip
           cd bundle\programs\server
-          npm install
+          rmdir /s /q node_modules
+          npm ci
           cd ..\..\..
 
       - name: Create win64 zip
