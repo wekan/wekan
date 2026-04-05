@@ -9,8 +9,17 @@ fi
 
 VERSION=$1
 
+# Check is there script for deleting Docker containers
+W_DIR="../w"
+CLEANUP_DIR="$W_DIR/docker-cleanup-volumes"
+if [ ! -d "$W_DIR" ]; then
+    mkdir -p "$W_DIR"
+fi
+if [ ! -d "$CLEANUP_DIR" ]; then
+    (cd "$W_DIR" && git clone https://github.com/wekan/docker-cleanup-volumes)
+fi
 # Delete Docker containers
-(cd ../w/docker-cleanup-volumes && ./start.sh)
+(cd ../w/docker-cleanup-volumes && git pull && ./start.sh)
 
 # Install Docker build deps
 ./releases/docker-build-deps.sh
