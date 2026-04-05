@@ -44,6 +44,8 @@ and fixes the following bugs:
   Thanks to titver968 and xet7.
 - [Fix Search All Boards](https://github.com/wekan/wekan/commit/faf8453c6d10613edf32a734e549961860fcdd32).
   Thanks to YosserDerbali and xet7.
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/8443e3511d61d8c1bb419ed5bca2e28483c5d133).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
