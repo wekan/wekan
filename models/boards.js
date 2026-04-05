@@ -1902,9 +1902,14 @@ Boards.userBoardIds = async (userId, archived = false, selector = {}) => {
 
 Boards.colorMap = () => {
   const colors = {};
-  const TAPi18n = getTAPi18n();
-  for (const color of Boards.labelColors()) {
-    colors[TAPi18n.__(`color-${color}`)] = color;
+  try {
+    const TAPi18n = getTAPi18n();
+    for (const color of Boards.labelColors()) {
+      colors[TAPi18n.__(`color-${color}`)] = color;
+    }
+  } catch (e) {
+    // i18n not ready yet, return empty map
+    // The colorMap will be regenerated when i18n is ready
   }
   return colors;
 };

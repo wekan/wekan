@@ -40,7 +40,6 @@ import {
   OPERATOR_COMMENT,
   OPERATOR_CREATED_AT,
   OPERATOR_CREATOR,
-  OPERATOR_DEBUG,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
@@ -240,7 +239,7 @@ Meteor.publish('myCards', async function(sessionId) {
     listId: 1,
   };
 
-  const ret = findCards(sessionId, query, this.userId);
+  const ret = await findCards(sessionId, query, this.userId);
   return ret;
 });
 
@@ -253,10 +252,6 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     return this.ready();
   }
 
-  if (process.env.DEBUG === 'true') {
-    console.log('dueCards publication called for user:', userId, 'allUsers:', allUsers);
-  }
-
   // Get user's board memberships for efficient filtering
   const userBoards = (await ReactiveCache.getBoards({
     $or: [
@@ -265,24 +260,7 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     ]
   })).map(board => board._id);
 
-  if (process.env.DEBUG === 'true') {
-    console.log('dueCards userBoards:', userBoards);
-    console.log('dueCards userBoards count:', userBoards.length);
-
-    // Also check if there are any cards with due dates in the system at all
-    const cursor = Cards.find({
-      type: 'cardType-card',
-      archived: false,
-      dueAt: { $exists: true, $nin: [null, ''] }
-    });
-    const allCardsWithDueDates = typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
-    console.log('dueCards: total cards with due dates in system:', allCardsWithDueDates);
-  }
-
   if (userBoards.length === 0) {
-    if (process.env.DEBUG === 'true') {
-      console.log('dueCards: No boards found for user, returning ready');
-    }
     return this.ready();
   }
 
@@ -320,26 +298,7 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     }
   };
 
-  if (process.env.DEBUG === 'true') {
-    console.log('dueCards selector:', JSON.stringify(selector, null, 2));
-    console.log('dueCards options:', JSON.stringify(options, null, 2));
-  }
-
   const result = Cards.find(selector, options);
-
-  if (process.env.DEBUG === 'true') {
-    const count = typeof result.countAsync === 'function' ? await result.countAsync() : result.count();
-    console.log('dueCards publication: returning', count, 'cards');
-    if (count > 0) {
-      const sampleCards = (typeof result.fetchAsync === 'function' ? await result.fetchAsync() : result.fetch()).slice(0, 3);
-      console.log('dueCards publication: sample cards:', sampleCards.map(c => ({
-        id: c._id,
-        title: c.title,
-        dueAt: c.dueAt,
-        boardId: c.boardId
-      })));
-    }
-  }
 
   return result;
 });
@@ -349,31 +308,38 @@ Meteor.publish('globalSearch', async function(sessionId, params, text) {
   check(params, Object);
   check(text, String);
 
-  if (process.env.DEBUG === 'true') {
-    console.log('globalSearch publication called with:', { sessionId, params, text });
+  const ret = await findCards(sessionId, await buildQuery(new QueryParams(params, text), this.userId), this.userId);
+
+  if (!Array.isArray(ret)) {
+    return ret;
   }
 
-  const ret = findCards(sessionId, await buildQuery(new QueryParams(params, text), this.userId), this.userId);
-  if (process.env.DEBUG === 'true') {
-    console.log('globalSearch publication returning:', ret);
+  // Check if last item is the sessiondata marker
+  let sessionDataToPublish = null;
+  if (ret.length > 0 && ret[ret.length - 1] && ret[ret.length - 1]._sessionDataToFetch) {
+    sessionDataToPublish = ret[ret.length - 1]._sessionDataToFetch;
+    ret.pop(); // Remove the marker
   }
+
+  // Manually publish sessiondata if it exists
+  if (sessionDataToPublish) {
+    this.added('sessiondata', sessionDataToPublish._id, sessionDataToPublish);
+  }
+
   return ret;
 });
 
-Meteor.publish('sessionData', function(sessionId) {
+Meteor.publish('sessionData', async function(sessionId) {
   check(sessionId, String);
   const userId = this.userId;
-  if (process.env.DEBUG === 'true') {
-    console.log('sessionData publication called with:', { sessionId, userId });
+
+  if (!userId) {
+    return [];
   }
 
+  // Return the cursor immediately - data should already be in the collection
+  // from the globalSearch publication or earlier searches
   const cursor = SessionData.find({ userId, sessionId });
-  const countPromise = typeof cursor.countAsync === 'function' ? cursor.countAsync() : Promise.resolve(cursor.count());
-  if (process.env.DEBUG === 'true') {
-    countPromise.then(count => {
-      console.log('sessionData publication returning cursor with count:', count);
-    });
-  }
   return cursor;
 });
 
@@ -381,9 +347,6 @@ async function buildSelector(queryParams, userId) {
   const errors = new QueryErrors();
 
   let selector = {};
-
-  // eslint-disable-next-line no-console
-  // console.log('queryParams:', queryParams);
 
   if (queryParams.selector) {
     selector = queryParams.selector;
@@ -483,9 +446,6 @@ async function buildSelector(queryParams, userId) {
       }
     } else {
       const userBoardIds = await Boards.userBoardIds(userId, null, boardsSelector);
-      if (process.env.DEBUG === 'true') {
-        console.log('buildSelector - userBoardIds:', userBoardIds);
-      }
       selector.boardId = {
         $in: userBoardIds,
       };
@@ -660,8 +620,6 @@ async function buildSelector(queryParams, userId) {
         }
       }
       if (queryLabels.length) {
-        // eslint-disable-next-line no-console
-        // console.log('queryLabels:', queryLabels);
         selector.labelIds = { $in: [...new Set(queryLabels)] };
       }
     }
@@ -803,10 +761,6 @@ async function buildSelector(queryParams, userId) {
     }
   }
 
-  if (process.env.DEBUG === 'true') {
-    console.log('buildSelector - final selector:', JSON.stringify(selector, null, 2));
-  }
-
   const query = new Query();
   query.selector = selector;
   query.setQueryParams(queryParams);
@@ -816,8 +770,7 @@ async function buildSelector(queryParams, userId) {
 }
 
 function buildProjection(query) {
-  // eslint-disable-next-line no-console
-  // console.log('query:', query);
+
   let skip = 0;
   if (query.getQueryParams().skip) {
     skip = query.getQueryParams().skip;
@@ -911,8 +864,7 @@ function buildProjection(query) {
     }
   }
 
-  // eslint-disable-next-line no-console
-  // console.log('projection:', projection);
+
 
   query.projection = projection;
 
@@ -937,9 +889,8 @@ Meteor.publish('brokenCards', async function(sessionId) {
     { listId: { $in: [null, ''] } },
     { type: { $nin: CARD_TYPES } },
   ];
-  // console.log('brokenCards selector:', query.selector);
 
-  const ret = findCards(sessionId, query, this.userId);
+  const ret = await findCards(sessionId, query, this.userId);
   return ret;
 });
 
@@ -950,7 +901,7 @@ Meteor.publish('nextPage', async function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
-  const ret = findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
+  const ret = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
   return ret;
 });
 
@@ -961,19 +912,11 @@ Meteor.publish('previousPage', async function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 
-  const ret = findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
+  const ret = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
   return ret;
 });
 
 async function findCards(sessionId, query, userId) {
-  // eslint-disable-next-line no-console
-  if (process.env.DEBUG === 'true') {
-    console.log('findCards - userId:', userId);
-    console.log('findCards - selector:', JSON.stringify(query.selector, null, 2));
-    console.log('findCards - selector.$and:', query.selector.$and);
-    console.log('findCards - projection:', query.projection);
-  }
-
   let textMatches = query.getQueryParams().text;
   let isTextSearch = !!textMatches;
   let dbProjection = query.projection;
@@ -1010,9 +953,7 @@ async function findCards(sessionId, query, userId) {
     cards = await ReactiveCache.getCards({ _id: { $in: orderedIds } }, { fields: query.projection.fields }, true);
   }
 
-  if (process.env.DEBUG === 'true') {
-    console.log('findCards - cards count:', totalCardsCount);
-  }
+
 
   const update = {
     $set: {
@@ -1023,7 +964,6 @@ async function findCards(sessionId, query, userId) {
       selector: SessionData.pickle(query.selector),
       projection: SessionData.pickle(query.projection),
       errors: query.errors(),
-      debug: query.getQueryParams().getPredicate(OPERATOR_DEBUG),
       modifiedAt: new Date()
     },
   };
@@ -1045,22 +985,11 @@ async function findCards(sessionId, query, userId) {
     update.$set.resultsCount = update.$set.cards.length;
   }
 
-  if (process.env.DEBUG === 'true') {
-    console.log('findCards - sessionId:', sessionId);
-    console.log('findCards - userId:', userId);
-    console.log('findCards - update:', JSON.stringify(update, null, 2));
-  }
+
   const upsertResult = typeof SessionData.upsertAsync === 'function' ? await SessionData.upsertAsync({ userId, sessionId }, update) : SessionData.upsert({ userId, sessionId }, update);
-  if (process.env.DEBUG === 'true') {
-    console.log('findCards - upsertResult:', upsertResult);
-  }
 
   // Check if the session data was actually stored
   const storedSessionData = typeof SessionData.findOneAsync === 'function' ? await SessionData.findOneAsync({ userId, sessionId }) : SessionData.findOne({ userId, sessionId });
-  if (process.env.DEBUG === 'true') {
-    console.log('findCards - stored session data:', storedSessionData);
-    console.log('findCards - stored session data count:', storedSessionData ? 1 : 0);
-  }
 
   // remove old session data
   const removeSelector = {
@@ -1119,15 +1048,7 @@ async function findCards(sessionId, query, userId) {
       type: 1,
     };
 
-    const sessionDataCursor = SessionData.find({ userId, sessionId });
-    if (process.env.DEBUG === 'true') {
-      console.log('findCards - publishing session data cursor:', sessionDataCursor);
-      const countPromise = typeof sessionDataCursor.countAsync === 'function' ? sessionDataCursor.countAsync() : Promise.resolve(sessionDataCursor.count());
-      countPromise.then(count => {
-        console.log('findCards - session data count:', count);
-      });
-    }
-
+    // Return all cursors except sessiondata - we'll add sessiondata separately after fetch
     return [
       cards,
       await ReactiveCache.getBoards(
@@ -1147,17 +1068,10 @@ async function findCards(sessionId, query, userId) {
       await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true),
       (await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true)).cursor,
       await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true),
-      sessionDataCursor,
+      { _sessionDataToFetch: storedSessionData }, // Pass sessiondata separately
     ];
   } else {
-    const sessionDataCursor = SessionData.find({ userId, sessionId });
-    if (process.env.DEBUG === 'true') {
-      console.log('findCards - publishing session data cursor (no cards):', sessionDataCursor);
-      const countPromise = typeof sessionDataCursor.countAsync === 'function' ? sessionDataCursor.countAsync() : Promise.resolve(sessionDataCursor.count());
-      countPromise.then(count => {
-        console.log('findCards - session data count (no cards):', count);
-      });
-    }
-    return [sessionDataCursor];
+    // Return just a marker for sessiondata
+    return [{ _sessionDataToFetch: storedSessionData }];
   }
 }

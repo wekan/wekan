@@ -302,7 +302,11 @@ FlowRouter.route('/global-search', {
     // Set title with product name
     const settings = Settings.findOne({});
     const productName = (settings && settings.productName) ? settings.productName : 'Wekan';
-    document.title = `${TAPi18n.__('globalSearch-title')} - ${productName}`;
+    try {
+      document.title = `${TAPi18n.__('globalSearch-title')} - ${productName}`;
+    } catch (e) {
+      document.title = `Search All Boards - ${productName}`;
+    }
 
     if (FlowRouter.getQueryParam('q')) {
       Session.set(

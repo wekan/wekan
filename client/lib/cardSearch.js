@@ -32,10 +32,7 @@ export class CardSearchPaged {
     const that = this;
     this.subscriptionCallbacks = {
       onReady() {
-        if (process.env.DEBUG === 'true') {
-          console.log('Subscription ready, getting results...');
-          console.log('Subscription ready - sessionId:', that.sessionId);
-        }
+        const cardsInCollection = Cards.find().count();
 
         // Wait for session data to be available (with timeout)
         let waitCount = 0;
@@ -44,21 +41,12 @@ export class CardSearchPaged {
         const waitForSessionData = () => {
           waitCount++;
           const sessionData = that.getSessionData();
-          if (process.env.DEBUG === 'true') {
-            console.log('waitForSessionData - attempt', waitCount, 'session data:', sessionData);
-          }
 
           if (sessionData) {
             const results = that.getResults();
-            if (process.env.DEBUG === 'true') {
-              console.log('Search results count:', results ? results.length : 0);
-            }
 
             // If no results and this is a due cards search, try to retry
             if ((!results || results.length === 0) && that.searchRetryCount !== undefined && that.searchRetryCount < that.maxRetries) {
-              if (process.env.DEBUG === 'true') {
-                console.log('No results found, retrying search...');
-              }
               that.searchRetryCount++;
               Meteor.setTimeout(() => {
                 if (that.performSearch) {
@@ -68,47 +56,37 @@ export class CardSearchPaged {
               return;
             }
 
+            // Set the results in the ReactiveVar so they display in the template
+            that.results.set(results);
+            that.resultsHeading.set(that.getResultsHeading());
             that.searching.set(false);
             that.hasResults.set(true);
             that.serverError.set(false);
-             } else if (waitCount < maxWaitCount) {
-               // Session data not available yet, wait a bit more
-               if (process.env.DEBUG === 'true') {
-                 console.log('Session data not available yet, waiting... (attempt', waitCount, 'of', maxWaitCount, ')');
-               }
-               Meteor.setTimeout(waitForSessionData, 200);
-             } else {
-               // Timeout reached, try fallback search
-               if (process.env.DEBUG === 'true') {
-                 console.log('Timeout reached waiting for session data, trying fallback search');
-               }
-               const results = that.getResults();
-               if (process.env.DEBUG === 'true') {
-                 console.log('Fallback search results count:', results ? results.length : 0);
-               }
+          } else if (waitCount < maxWaitCount) {
+            // Session data not available yet, wait a bit more
+            Meteor.setTimeout(waitForSessionData, 200);
+          } else {
+            // Timeout reached, try fallback search
+            const results = that.getResults();
 
-               if (results && results.length > 0) {
-                 that.searching.set(false);
-                 that.hasResults.set(true);
-                 that.serverError.set(false);
-               } else {
-                 that.searching.set(false);
-                 that.hasResults.set(false);
-                 that.serverError.set(true);
-               }
-             }
+            if (results && results.length > 0) {
+              that.results.set(results);
+              that.resultsHeading.set(that.getResultsHeading());
+              that.searching.set(false);
+              that.hasResults.set(true);
+              that.serverError.set(false);
+            } else {
+              that.searching.set(false);
+              that.hasResults.set(false);
+              that.serverError.set(true);
+            }
+          }
         };
 
         // Start waiting for session data
         Meteor.setTimeout(waitForSessionData, 100);
       },
       onError(error) {
-        if (process.env.DEBUG === 'true') {
-          console.log('Subscription error:', error);
-          console.log('Error.reason:', error.reason);
-          console.log('Error.message:', error.message);
-          console.log('Error.stack:', error.stack);
-        }
         that.searching.set(false);
         that.hasResults.set(false);
         that.serverError.set(true);
@@ -131,56 +109,41 @@ export class CardSearchPaged {
 
   getSessionData(sessionId) {
     const sessionIdToUse = sessionId || SessionData.getSessionId();
-    if (process.env.DEBUG === 'true') {
-      console.log('getSessionData - looking for sessionId:', sessionIdToUse);
-    }
 
-    // Try using the raw SessionData collection instead of ReactiveCache
+    // Use SessionData.findOne() directly - it's synchronous on the client
     const sessionData = SessionData.findOne({
+      userId: Meteor.userId(),
       sessionId: sessionIdToUse,
     });
-    if (process.env.DEBUG === 'true') {
-      console.log('getSessionData - found session data (raw):', sessionData);
-    }
 
-    // Also try ReactiveCache for comparison
-    const reactiveSessionData = ReactiveCache.getSessionData({
-      sessionId: sessionIdToUse,
-    });
-    if (process.env.DEBUG === 'true') {
-      console.log('getSessionData - found session data (reactive):', reactiveSessionData);
-    }
-
-    return sessionData || reactiveSessionData;
+    return sessionData;
   }
 
   getResults() {
-    // eslint-disable-next-line no-console
-    // console.log('getting results');
     this.sessionData = this.getSessionData();
-    // eslint-disable-next-line no-console
-    if (process.env.DEBUG === 'true') {
-      console.log('getResults - sessionId:', this.sessionId);
-      console.log('getResults - session data:', this.sessionData);
-    }
     const cards = [];
 
     if (this.sessionData && this.sessionData.cards) {
-      if (process.env.DEBUG === 'true') {
-        console.log('getResults - cards array length:', this.sessionData.cards.length);
-      }
       this.sessionData.cards.forEach(cardId => {
         const card = ReactiveCache.getCard(cardId);
-        if (process.env.DEBUG === 'true') {
-          console.log('getResults - card:', cardId, card);
+        if (card && card._id) {
+          cards.push(card);
         }
-        cards.push(card);
       });
+
+      // Fallback: if no cards found, try fetching directly from Cards collection
+      if (cards.length === 0 && this.sessionData.cards && this.sessionData.cards.length > 0) {
+        if (directCards && directCards.length > 0) {
+          directCards.forEach(card => {
+            if (card && card._id) {
+              cards.push(card);
+            }
+          });
+        }
+      }
+
       this.queryErrors = this.sessionData.errors || [];
     } else {
-      if (process.env.DEBUG === 'true') {
-        console.log('getResults - no sessionData or no cards array, trying direct card search');
-      }
       // Fallback: try to get cards directly from the client-side collection
       // Use a more efficient query with limit and sort
       const selector = {
@@ -192,9 +155,6 @@ export class CardSearchPaged {
         limit: 100 // Limit to 100 cards for performance
       };
       const allCards = Cards.find(selector, options).fetch();
-      if (process.env.DEBUG === 'true') {
-        console.log('getResults - direct card search found:', allCards ? allCards.length : 0, 'cards');
-      }
 
       if (allCards && allCards.length > 0) {
         allCards.forEach(card => {
@@ -212,11 +172,6 @@ export class CardSearchPaged {
       // return null;
     }
     this.debug.set(new QueryDebug(this.sessionData ? this.sessionData.debug : null));
-    if (process.env.DEBUG === 'true') {
-      console.log('debug:', this.debug.get().get());
-      console.log('debug.show():', this.debug.get().show());
-      console.log('debug.showSelector():', this.debug.get().showSelector());
-    }
 
     if (cards) {
       if (this.sessionData) {
@@ -254,15 +209,7 @@ export class CardSearchPaged {
   }
 
   getSubscription(queryParams) {
-    if (process.env.DEBUG === 'true') {
-      console.log('Subscribing to globalSearch with:', {
-        sessionId: this.sessionId,
-        params: queryParams.params,
-        text: queryParams.text
-      });
-    }
-
-    // Subscribe to both globalSearch and sessionData
+    // Subscribe to globalSearch which includes sessionData as the 11th cursor
     const globalSearchHandle = Meteor.subscribe(
       'globalSearch',
       this.sessionId,
@@ -270,11 +217,6 @@ export class CardSearchPaged {
       queryParams.text,
       this.subscriptionCallbacks,
     );
-
-    const sessionDataHandle = Meteor.subscribe('sessionData', this.sessionId);
-    if (process.env.DEBUG === 'true') {
-      console.log('Subscribed to sessionData with sessionId:', this.sessionId);
-    }
 
     return globalSearchHandle;
   }

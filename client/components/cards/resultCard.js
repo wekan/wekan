@@ -1,6 +1,51 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Template.resultCard.helpers({
   userId() {
     return Meteor.userId();
+  },
+  getBoard() {
+    const card = Template.currentData();
+    try {
+      if (card && card.boardId) {
+        const board = ReactiveCache.getBoard(card.boardId);
+        return board || null;
+      }
+    } catch (err) {
+      // Silently handle errors
+    }
+    return null;
+  },
+  getSwimlane() {
+    const card = Template.currentData();
+    try {
+      if (card && card.swimlaneId) {
+        const swimlane = ReactiveCache.getSwimlane(card.swimlaneId);
+        return swimlane || null;
+      }
+    } catch (err) {
+      // Silently handle errors
+    }
+    return null;
+  },
+  getList() {
+    const card = Template.currentData();
+    try {
+      if (card && card.listId) {
+        const list = ReactiveCache.getList(card.listId);
+        return list || null;
+      }
+    } catch (err) {
+      // Silently handle errors
+    }
+    return null;
+  },
+  originRelativeUrl() {
+    const card = Template.currentData();
+    if (card && card.boardId && card._id) {
+      return `/board/${card.boardId}?cardId=${card._id}`;
+    }
+    return '#';
   },
 });
 
