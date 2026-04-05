@@ -39,8 +39,6 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
-- [Disabled not working GitHub workflows](https://github.com/wekan/wekan/commit/af3361b35b5ed59715e1c4fa8f2149b247ff2d9c).
-  Thanks to xet7.
 - [Fix: Server crash during comment deletion](https://github.com/wekan/wekan/pull/6246).
   Thanks to KhaoulaMaleh.
 
