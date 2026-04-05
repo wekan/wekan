@@ -36,6 +36,8 @@ This release adds the following updates:
 
 - [Updated Docker build script to check directories and repos exist](https://github.com/wekan/wekan/commit/81319fc48bbd2a91553090428455bc11aff24fbc).
   Thanks to xet7.
+- [Disabled not working GitHub workflows](https://github.com/wekan/wekan/commit/af3361b35b5ed59715e1c4fa8f2149b247ff2d9c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
