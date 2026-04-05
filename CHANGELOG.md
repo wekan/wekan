@@ -30,6 +30,15 @@ WeKan 8.43 and newer uses Meteor 3.x, Node.js 22.x and MongoDB 7.x, huge thanks 
 - https://harryadel.com/dev-diary-25/
 - https://harryadel.com/dev-diary-26/
 
+# v8.57 2026-04-05 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/9f549dfcd2efa241a2ad3bdf5b0d2d942064d4e3).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.56 2026-04-05 WeKan ® release
 
 This release fixes the following bugs:
