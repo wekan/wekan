@@ -122,7 +122,7 @@ jobs:
           cd .build
           zip -r wekan-${VERSION}-amd64.zip bundle
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: bundle-amd64
           path: .build/wekan-${{ needs.prepare.outputs.version }}-amd64.zip
@@ -166,7 +166,7 @@ jobs:
         run: |
           zip -r wekan-${VERSION}-arm64.zip bundle
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: bundle-arm64
           path: wekan-${{ needs.prepare.outputs.version }}-arm64.zip
@@ -212,7 +212,7 @@ jobs:
         run: |
           zip -r wekan-${VERSION}-s390x.zip bundle
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: bundle-s390x
           path: wekan-${{ needs.prepare.outputs.version }}-s390x.zip
@@ -257,7 +257,7 @@ jobs:
         run: |
           zip -r wekan-${VERSION}-ppc64le.zip bundle
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: bundle-ppc64le
           path: wekan-${{ needs.prepare.outputs.version }}-ppc64le.zip
@@ -303,7 +303,7 @@ jobs:
         run: |
           zip -r wekan-${VERSION}-armhf.zip bundle
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: bundle-armhf
           path: wekan-${{ needs.prepare.outputs.version }}-armhf.zip
@@ -346,7 +346,7 @@ jobs:
         shell: cmd
         run: 7z a wekan-%VERSION%-win64.zip bundle
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: bundle-win64
           path: wekan-${{ needs.prepare.outputs.version }}-win64.zip
@@ -456,7 +456,7 @@ jobs:
   #          --launchpad-accept-public-upload
   #
   #    - name: Upload all snap files as artifacts
-  #      uses: actions/upload-artifact@v4
+  #      uses: actions/upload-artifact@v7
   #      with:
   #        name: snaps-all-arches
   #        path: "*.snap"
