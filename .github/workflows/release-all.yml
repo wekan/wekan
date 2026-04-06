@@ -150,7 +150,7 @@ jobs:
           node-version: '22.22.2'
 
       - name: Download amd64 bundle
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
@@ -193,7 +193,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y unzip zip
 
       - name: Download amd64 bundle
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
@@ -238,7 +238,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y unzip zip
 
       - name: Download amd64 bundle
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
@@ -284,7 +284,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y unzip zip
 
       - name: Download amd64 bundle
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
@@ -329,7 +329,7 @@ jobs:
         run: choco install -y 7zip
 
       - name: Download amd64 bundle
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
@@ -360,7 +360,7 @@ jobs:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
       - name: Download all bundles
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: bundle-*
           merge-multiple: true
