@@ -148,7 +148,10 @@ Activities.after.insert(async (userId, doc) => {
 
   if (activity.commentId) {
     const comment = await activity.comment();
-    params.comment = normalizeActivityText(comment.text);
+    if (!comment) {
+      console.warn('[Activities.after.insert] Comment not found for commentId:', activity.commentId, '— skipping comment params.');
+    }
+    params.comment = normalizeActivityText(comment?.text);
     let hasMentions = false;
     if (board) {
       const knownUsers = [];
@@ -237,7 +240,9 @@ Activities.after.insert(async (userId, doc) => {
         }
       }
     }
-    params.commentId = comment._id;
+    if (comment) {
+      params.commentId = comment._id;
+    }
     params.hasMentions = hasMentions;
   }
 
@@ -328,8 +333,11 @@ Activities.after.insert(async (userId, doc) => {
     }
   });
 
+  const integrationBoardIds = board
+    ? [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID]
+    : [Integrations.Const.GLOBAL_WEBHOOK_ID];
   const integrations = await ReactiveCache.getIntegrations({
-    boardId: { $in: [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID] },
+    boardId: { $in: integrationBoardIds },
     enabled: true,
     activities: { $in: [description, 'all'] },
   });
