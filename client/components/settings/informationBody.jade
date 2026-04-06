@@ -37,7 +37,7 @@ template(name='statistics')
           td {{statistics.mongo.mongoStorageEngine}}
         tr
           th {{_ 'MongoDB_Oplog_enabled'}}
-          td {{statistics.mongo.mongoOplogEnabled}}
+          td {{formatBoolean statistics.mongo.mongoOplogEnabled}}
         tr
           th {{_ 'OS_Type'}}
           td {{statistics.os.type}}

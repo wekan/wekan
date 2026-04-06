@@ -47,4 +47,8 @@ Template.statistics.helpers({
     }
     return ret;
   },
+
+  formatBoolean(value) {
+    return value ? TAPi18n.__('yes') : TAPi18n.__('no');
+  },
 });

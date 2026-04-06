@@ -68,22 +68,23 @@ Meteor.methods({
       let mongoOplogEnabled;
       try {
         const { mongo } = MongoInternals.defaultRemoteCollectionDriver();
-        oplogEnabled = Boolean(
+        mongoOplogEnabled = Boolean(
           mongo._oplogHandle && mongo._oplogHandle.onOplogEntry,
         );
         const { version, storageEngine } = await mongo.db.command({ serverStatus: 1 });
         mongoVersion = version;
         mongoStorageEngine = storageEngine.name;
-        mongoOplogEnabled = oplogEnabled;
       } catch (e) {
         try {
           const { mongo } = MongoInternals.defaultRemoteCollectionDriver();
           const { version } = await mongo.db.command({ buildinfo: 1 });
           mongoVersion = version;
           mongoStorageEngine = 'unknown';
+          mongoOplogEnabled = false;
         } catch (e2) {
           mongoVersion = 'unknown';
           mongoStorageEngine = 'unknown';
+          mongoOplogEnabled = false;
         }
       }
       statistics.mongo = {
