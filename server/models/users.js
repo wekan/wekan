@@ -858,7 +858,7 @@ const runNotificationCleanup = async function runNotificationCleanup() {
   for (const user of await ReactiveCache.getUsers()) {
     if (!user.profile || !user.profile.notifications) continue;
     for (const notification of user.profile.notifications) {
-      if (notification.read) {
+      if (notification && notification.read) {
         const removeDate = new Date(notification.read);
         removeDate.setDate(removeDate.getDate() + removeAge);
         if (removeDate <= new Date()) {
