@@ -44,6 +44,8 @@ This release fixes the following bugs:
   Thanks to poc-sm and xet7.
 - [Fix Error in choosing member or assignee in a card](https://github.com/wekan/wekan/commit/7f0c42cca555dd2dca04d3b6413c0080ea75e96e).
   Thanks to hmeunier95 and xet7.
+- [Fix Search All Boards result opened card missing Copy Card Link etc that can be used to open correct card](https://github.com/wekan/wekan/commit/304a007d078c04dac7de5074a856c4f0cc2c0aa7).
+  Thanks bcook-konza and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
