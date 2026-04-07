@@ -1,4 +1,5 @@
 import Users from '/models/users';
+import { ReactiveCache } from '/imports/reactiveCache';
 
 Meteor.publish('user-miniprofile', async function (usernames) {
   check(usernames, Array);
