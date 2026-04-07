@@ -1029,25 +1029,50 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsReceivedDate : false;
   },
+  allowsReceivedDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsReceivedDateOnMinicard : false;
+  },
   allowsStartDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsStartDate : false;
+  },
+  allowsStartDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsStartDateOnMinicard : false;
   },
   allowsDueDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsDueDate : false;
   },
+  allowsDueDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDueDateOnMinicard : false;
+  },
   allowsEndDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsEndDate : false;
   },
+  allowsEndDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsEndDateOnMinicard : false;
+  },
   allowsSubtasks() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsSubtasks : false;
+  },
+  allowsSubtasksOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsSubtasksOnMinicard : false;
   },
   allowsCreator() {
     const boardId = Session.get('currentBoard');
@@ -1064,20 +1089,40 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsMembers : false;
   },
+  allowsMembersOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsMembersOnMinicard : false;
+  },
   allowsAssignee() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsAssignee : false;
+  },
+  allowsAssigneeOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssigneeOnMinicard : false;
   },
   allowsAssignedBy() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsAssignedBy : false;
   },
+  allowsAssignedByOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignedByOnMinicard : false;
+  },
   allowsRequestedBy() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsRequestedBy : false;
+  },
+  allowsRequestedByOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsRequestedByOnMinicard : false;
   },
   allowsCardSortingByNumber() {
     const boardId = Session.get('currentBoard');
@@ -1094,6 +1139,11 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsLabels : false;
   },
+  allowsLabelsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsLabelsOnMinicard : false;
+  },
   allowsShowListsOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -1104,10 +1154,20 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsChecklists : false;
   },
+  allowsChecklistsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsChecklistsOnMinicard : false;
+  },
   allowsAttachments() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsAttachments : false;
+  },
+  allowsAttachmentsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAttachmentsOnMinicard : false;
   },
   allowsComments() {
     const boardId = Session.get('currentBoard');
@@ -1119,10 +1179,20 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsCardNumber : false;
   },
+  allowsCardNumberOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardNumberOnMinicard : false;
+  },
   allowsDescriptionTitle() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsDescriptionTitle : false;
+  },
+  allowsDescriptionTitleOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTitleOnMinicard : false;
   },
   allowsDescriptionText() {
     const boardId = Session.get('currentBoard');
@@ -1213,25 +1283,50 @@ Template.boardCardSettingsPopup.events({
     const newValue = !tpl.currentBoard.allowsReceivedDate;
     Boards.update(tpl.currentBoard._id, { $set: { allowsReceivedDate: newValue } });
   },
+  'click .js-field-has-receiveddate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsReceivedDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsReceivedDateOnMinicard: newValue } });
+  },
   'click .js-field-has-startdate'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsStartDate;
     Boards.update(tpl.currentBoard._id, { $set: { allowsStartDate: newValue } });
+  },
+  'click .js-field-has-startdate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsStartDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsStartDateOnMinicard: newValue } });
   },
   'click .js-field-has-enddate'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsEndDate;
     Boards.update(tpl.currentBoard._id, { $set: { allowsEndDate: newValue } });
   },
+  'click .js-field-has-enddate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsEndDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsEndDateOnMinicard: newValue } });
+  },
   'click .js-field-has-duedate'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsDueDate;
     Boards.update(tpl.currentBoard._id, { $set: { allowsDueDate: newValue } });
   },
+  'click .js-field-has-duedate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsDueDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDueDateOnMinicard: newValue } });
+  },
   'click .js-field-has-subtasks'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsSubtasks;
     Boards.update(tpl.currentBoard._id, { $set: { allowsSubtasks: newValue } });
+  },
+  'click .js-field-has-subtasks-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsSubtasksOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsSubtasksOnMinicard: newValue } });
   },
   'click .js-field-has-creator'(evt, tpl) {
     evt.preventDefault();
@@ -1248,20 +1343,40 @@ Template.boardCardSettingsPopup.events({
     const newValue = !tpl.currentBoard.allowsMembers;
     Boards.update(tpl.currentBoard._id, { $set: { allowsMembers: newValue } });
   },
+  'click .js-field-has-members-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsMembersOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsMembersOnMinicard: newValue } });
+  },
   'click .js-field-has-assignee'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsAssignee;
     Boards.update(tpl.currentBoard._id, { $set: { allowsAssignee: newValue } });
+  },
+  'click .js-field-has-assignee-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAssigneeOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAssigneeOnMinicard: newValue } });
   },
   'click .js-field-has-assigned-by'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsAssignedBy;
     Boards.update(tpl.currentBoard._id, { $set: { allowsAssignedBy: newValue } });
   },
+  'click .js-field-has-assigned-by-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAssignedByOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAssignedByOnMinicard: newValue } });
+  },
   'click .js-field-has-requested-by'(evt, tpl) {
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsRequestedBy;
     Boards.update(tpl.currentBoard._id, { $set: { allowsRequestedBy: newValue } });
+  },
+  'click .js-field-has-requested-by-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsRequestedByOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsRequestedByOnMinicard: newValue } });
   },
   'click .js-field-has-card-sorting-by-number'(evt, tpl) {
     evt.preventDefault();
@@ -1277,6 +1392,11 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsLabels;
     Boards.update(tpl.currentBoard._id, { $set: { allowsLabels: newValue } });
+  },
+  'click .js-field-has-labels-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsLabelsOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsLabelsOnMinicard: newValue } });
   },
   'click .js-field-has-card-show-lists-on-minicard'(evt, tpl) {
     evt.preventDefault();
@@ -1310,6 +1430,11 @@ Template.boardCardSettingsPopup.events({
       tpl.currentBoard.allowsDescriptionTitle,
     );
   },
+  'click .js-field-has-description-title-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsDescriptionTitleOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDescriptionTitleOnMinicard: newValue } });
+  },
   'click .js-field-has-card-number'(evt, tpl) {
     evt.preventDefault();
     tpl.currentBoard.allowsCardNumber = !tpl.currentBoard
@@ -1325,6 +1450,11 @@ Template.boardCardSettingsPopup.events({
       CKCLS,
       tpl.currentBoard.allowsCardNumber,
     );
+  },
+  'click .js-field-has-card-number-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsCardNumberOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCardNumberOnMinicard: newValue } });
   },
   'click .js-field-has-description-text-on-minicard'(evt, tpl) {
     evt.preventDefault();
@@ -1374,6 +1504,11 @@ Template.boardCardSettingsPopup.events({
       tpl.currentBoard.allowsChecklists,
     );
   },
+  'click .js-field-has-checklists-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsChecklistsOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistsOnMinicard: newValue } });
+  },
   'click .js-field-has-attachments'(evt, tpl) {
     evt.preventDefault();
     tpl.currentBoard.allowsAttachments = !tpl.currentBoard
@@ -1389,6 +1524,11 @@ Template.boardCardSettingsPopup.events({
       CKCLS,
       tpl.currentBoard.allowsAttachments,
     );
+  },
+  'click .js-field-has-attachments-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAttachmentsOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAttachmentsOnMinicard: newValue } });
   },
   'click .js-field-has-comments'(evt, tpl) {
     evt.preventDefault();
