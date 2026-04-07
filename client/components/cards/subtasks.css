@@ -15,7 +15,7 @@ textarea.js-edit-subtask-item {
   color: #8c8c8c;
   text-decoration: underline;
   word-wrap: break-word;
-  float: right;
+  flex-shrink: 0;
   padding-top: 6px;
 }
 .delete-text:hover,
@@ -24,8 +24,13 @@ textarea.js-edit-subtask-item {
 .js-delete-subtask-item:hover {
   color: inherit;
 }
+.subtask-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
 .subtask-title .checkbox {
-  float: left;
+  flex-shrink: 0;
   width: 30px;
   height: 30px;
   font-size: 18px;
@@ -34,16 +39,21 @@ textarea.js-edit-subtask-item {
 .subtask-title .title {
   font-size: 18px;
   line-height: 25px;
+  flex: 1;
+  order: 1;
 }
 .subtask-title .subtasks-stat {
   margin: 0 0.5em;
-  float: right;
+  flex-shrink: 0;
   padding-top: 6px;
 }
 .subtask-title .subtasks-stat.is-finished {
   color: #3cb500;
 }
 .subtask-title .js-delete-subtask {
+  margin: 0 0.5em;
+}
+.subtask-title .js-view-subtask {
   margin: 0 0.5em;
 }
 .js-confirm-subtask-delete {
@@ -175,6 +185,7 @@ body.grey-icons-enabled .subtasks-item .check-box-unicode {
   display: inline-block;
 }
 .subtask-details-menu {
-  float: right;
+  flex-shrink: 0;
   padding: 6px 10px 6px 10px;
+  order: 2;
 }

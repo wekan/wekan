@@ -223,7 +223,7 @@ Template.checklists.events({
     event.preventDefault();
     Template.currentData().card.toggleHideFinishedChecklist();
   },
-  keydown(event) {
+  'keydown textarea.js-add-checklist-item'(event) {
     //If user press enter key inside a form, submit it
     //Unless the user is also holding down the 'shift' key
     if (event.keyCode === 13 && !event.shiftKey) {

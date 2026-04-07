@@ -4,7 +4,14 @@ import Cards from '/models/cards';
 import { Filter } from '/client/lib/filter';
 
 Template.subtasks.events({
-  'click .js-open-subtask-details-menu': Popup.open('subtaskActions'),
+  'click .js-open-subtask-details-menu'(event) {
+    // Close any existing popup first to avoid accumulating content
+    if (Popup.isOpen()) {
+      Popup.close();
+    }
+    // Now open the popup for this specific subtask
+    Popup.open('subtaskActions').call(this, event);
+  },
   async 'submit .js-add-subtask'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-subtask-item');
@@ -30,10 +37,12 @@ Template.subtasks.events({
       _id: card.swimlaneId,
     });
     //find the swimlane of the same name in the target board.
-    const targetSwimlane = ReactiveCache.getSwimlane({
-      boardId: targetBoard._id,
-      title: parentSwimlane.title,
-    });
+    const targetSwimlane = parentSwimlane
+      ? ReactiveCache.getSwimlane({
+          boardId: targetBoard._id,
+          title: parentSwimlane.title,
+        })
+      : undefined;
     //If no swimlane with a matching title exists in the target board, fall back to the default swimlane.
     const swimlaneId =
       targetSwimlane === undefined

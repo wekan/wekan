@@ -207,22 +207,22 @@ Template.cardDetails.onRendered(function () {
       EscapeActions.executeUpTo('popup-close');
     },
     stop(evt, ui) {
-      let prevChecklist = ui.item.prev('.js-subtasks').get(0);
-      if (prevChecklist) {
-        prevChecklist = Blaze.getData(prevChecklist).subtask;
+      let prevSubtask = ui.item.prev('.js-subtasks').get(0);
+      if (prevSubtask) {
+        prevSubtask = Blaze.getData(prevSubtask).subtask;
       }
-      let nextChecklist = ui.item.next('.js-subtasks').get(0);
-      if (nextChecklist) {
-        nextChecklist = Blaze.getData(nextChecklist).subtask;
+      let nextSubtask = ui.item.next('.js-subtasks').get(0);
+      if (nextSubtask) {
+        nextSubtask = Blaze.getData(nextSubtask).subtask;
       }
-      const sortIndex = calculateIndexData(prevChecklist, nextChecklist, 1);
+      const sortIndex = calculateIndexData(prevSubtask, nextSubtask, 1);
 
       $subtasksDom.sortable('cancel');
       const subtask = Blaze.getData(ui.item.get(0)).subtask;
 
-      Subtasks.update(subtask._id, {
+      Cards.updateAsync(subtask._id, {
         $set: {
-          subtaskSort: sortIndex.base,
+          sort: sortIndex.base,
         },
       });
     },
@@ -272,8 +272,8 @@ Template.cardDetails.helpers({
   },
 
   showActivities() {
-    const user = ReactiveCache.getCurrentUser();
-    return user && user.hasShowActivities();
+    const card = Template.currentData();
+    return card && card.showActivities;
   },
 
   cardCollapsed() {
@@ -601,6 +601,10 @@ Template.cardDetails.events({
   async 'click #toggleHideCheckedChecklistItems'() {
     const card = Template.currentData();
     await card.toggleHideCheckedChecklistItems();
+  },
+  async 'change #toggleShowActivitiesCard'() {
+    const card = Template.currentData();
+    await card.toggleShowActivities();
   },
   'click #toggleCustomFieldsGridButton'() {
     Meteor.call('toggleCustomFieldsGrid');

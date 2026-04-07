@@ -85,6 +85,11 @@ function _showActivities(data) {
 }
 
 Template.activities.helpers({
+  showActivities() {
+    const data = Template.currentData();
+    return _showActivities(data);
+  },
+
   activities() {
     return this.card.activities();
   },
