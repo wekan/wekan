@@ -337,7 +337,12 @@ Template.cardDetails.helpers({
   },
 
   isCurrentListId(listId) {
-    const data = Template.currentData();
+    // When called from within 'each currentBoard.lists' block, we need the card from parent context
+    let data = Template.currentData();
+    if (!data || typeof data.listId === 'undefined') {
+      // Try parent context (for use within each loops)
+      data = Template.parentData(1);
+    }
     if (!data || typeof data.listId === 'undefined') return false;
     return data.listId == listId;
   },
@@ -556,9 +561,8 @@ Template.cardDetails.events({
     }
   },
   async 'change .js-select-card-details-lists'(event, tpl) {
+    const listId = event.target.value;
     let card = Template.currentData();
-    const listSelect = tpl.$('.js-select-card-details-lists')[0];
-    const listId = listSelect.options[listSelect.selectedIndex].value;
 
     const minOrder = await card.getMinSort(listId, card.swimlaneId);
     await card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
