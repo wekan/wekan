@@ -36,6 +36,10 @@ This release fixes the following bugs:
 
 - [Fix Link to Windows release doesn't work](https://github.com/wekan/wekan/commit/9c695302565073b971a3521c0a94a380641cc436).
   Thanks to hmeunier95 and xet7.
+- [Fix can not save Card Date](https://github.com/wekan/wekan/commit/8da0f34ee6ca66884ab8a2dcdf1a724a0c9fcc81).
+  Thanks to xet7.
+- [Removed exclude-archs from rebuild-wekan.sh, it is not necessary anymore](https://github.com/wekan/wekan/commit/028b404377651d34e334b048ecc960d3ff5b2eab).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
