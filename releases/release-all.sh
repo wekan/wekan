@@ -61,6 +61,26 @@ cd "$REPO_DIR"
 echo "=== WeKan release: v$OLD  ->  v$NEW ==="
 echo ""
 
+# ── Check if this is a resume from a previous interrupted run ────────────────
+if git tag -l | grep -q "^v$NEW$"; then
+  echo "--- Resume detected: Tag v$NEW already exists locally ---"
+
+  # Check if tag was already pushed
+  if git ls-remote --tags origin 2>/dev/null | grep -q "refs/tags/v$NEW"; then
+    echo "Tag v$NEW already exists on remote. Nothing to do!"
+    echo "GitHub Actions release is already in progress at: https://github.com/wekan/wekan/actions"
+    exit 0
+  else
+    echo "Tag exists locally but not on remote. Skipping to Step 4 (push only)..."
+    SKIP_TO_STEP_4=1
+  fi
+else
+  SKIP_TO_STEP_4=0
+fi
+echo ""
+
+if [ "$SKIP_TO_STEP_4" = "0" ]; then
+
 # ── Step 0: Update Node.js to the latest 22.x release ───────────────────────
 # Fetches https://nodejs.org/dist/latest-v22.x/ and updates Dockerfile,
 # snapcraft.yaml, GitHub Actions workflow, rebuild-wekan.sh, and
@@ -87,15 +107,42 @@ echo ""
 # ── Step 3: Commit and push ──────────────────────────────────────────────────
 echo "--- Step 3: Committing and pushing version bump ---"
 git add --all
-git commit -m "v$NEW"
-git push
+if git diff --cached --quiet; then
+  echo "No changes to commit (already at v$NEW). Skipping commit."
+else
+  git commit -m "v$NEW"
+fi
+timeout 60 git push || {
+  echo "Warning: git push failed (timeout or connection error), continuing to tag push..."
+}
 echo "Done."
 echo ""
 
+fi  # End of: if [ "$SKIP_TO_STEP_4" = "0" ]
+
 # ── Step 4: Tag and push (this triggers GitHub Actions release-all.yml) ──────
 echo "--- Step 4: Creating and pushing tag v$NEW ---"
-git tag -a "v$NEW" -m "v$NEW"
-git push origin "v$NEW"
+
+# Check if tag already exists locally
+if git tag -l | grep -q "^v$NEW$"; then
+  echo "Tag v$NEW already exists locally. Skipping tag creation."
+else
+  git tag -a "v$NEW" -m "v$NEW"
+  echo "Created tag v$NEW"
+fi
+
+# Push tag to remote (always do this, in case it was created but not pushed)
+echo "Pushing tag v$NEW to remote..."
+timeout 60 git push origin "v$NEW" || {
+  echo "Error: Failed to push tag v$NEW (timeout or connection error)"
+  exit 1
+}
+
+# Verify tag was pushed
+if ! git ls-remote --tags origin 2>/dev/null | grep -q "refs/tags/v$NEW"; then
+  echo "Error: Tag v$NEW was not found on remote after push"
+  exit 1
+fi
 echo "Done."
 echo ""
 
