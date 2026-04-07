@@ -235,8 +235,8 @@ Template.homeSidebar.helpers({
 });
 
 Template.homeSidebar.events({
-  'click .js-toggle-show-activities'() {
-    Utils.getCurrentBoard().toggleShowActivities();
+  async 'click .js-toggle-show-activities'() {
+    await Utils.getCurrentBoard().toggleShowActivities();
   },
 });
 

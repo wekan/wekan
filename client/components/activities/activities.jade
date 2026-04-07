@@ -9,11 +9,11 @@ template(name="activities")
         +cardActivities
 
 template(name="boardActivities")
-  each activityData in currentBoard.activities
+  each activityData in boardActivitiesList
     +activity(activity=activityData card=card mode=mode)
 
 template(name="cardActivities")
-  each activityData in activities
+  each activityData in cardActivitiesList
     +activity(activity=activityData card=card mode=mode)
 
 template(name="activity")

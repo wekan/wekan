@@ -76,7 +76,9 @@ function _showActivities(data) {
       const currentCard = Utils.getCurrentCard();
       ret = currentCard.showActivities ?? false;
     } else if (mode === 'card') {
-      ret = data?.card?.showActivities ?? false;
+      // For card mode, get showActivities from data context or fallback to current card
+      const card = data?.card || Utils.getCurrentCard();
+      ret = card?.showActivities ?? false;
     } else {
       ret = Utils.getCurrentBoard().showActivities ?? false;
     }
@@ -91,7 +93,25 @@ Template.activities.helpers({
   },
 
   activities() {
-    return this.card.activities();
+    const activities = this.card?.activities?.();
+    return activities || [];
+  },
+});
+
+Template.boardActivities.helpers({
+  boardActivitiesList() {
+    const board = Utils.getCurrentBoard();
+    const activities = board?.activities?.();
+    return activities || [];
+  },
+});
+
+Template.cardActivities.helpers({
+  cardActivitiesList() {
+    const data = Template.currentData();
+    const card = data?.card;
+    const activities = card?.activities?.();
+    return activities || [];
   },
 });
 
