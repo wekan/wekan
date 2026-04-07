@@ -282,7 +282,7 @@ template(name="peopleRow")
               img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
           else
             +userAvatarInitials(userId=userData._id)
-        {{ userData.username }}
+        | {{ userData.username }}
     else
       td.username
         a.js-edit-people-avatar(data-user-id=userData._id)
@@ -291,7 +291,7 @@ template(name="peopleRow")
               img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
           else
             +userAvatarInitials(userId=userData._id)
-        {{ userData.username }}
+        | {{ userData.username }}
     if userData.loginDisabled
       td <s>{{ userData.emails.[0].address }}</s>
     else
