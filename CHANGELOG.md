@@ -46,6 +46,8 @@ This release fixes the following bugs:
   Thanks to hmeunier95 and xet7.
 - [Fix Search All Boards result opened card missing Copy Card Link etc that can be used to open correct card](https://github.com/wekan/wekan/commit/304a007d078c04dac7de5074a856c4f0cc2c0aa7).
   Thanks bcook-konza and xet7.
+- [Fix Checklists add and Subtasks reorder. Fix Board Activity part 1](https://github.com/wekan/wekan/commit/08ebad0fe4a2b8a7b93d75a9a9c2317ce9374fea).
+  Thanks bcook-konza and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
