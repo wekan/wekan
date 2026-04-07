@@ -30,9 +30,25 @@ WeKan 8.43 and newer uses Meteor 3.x, Node.js 22.x and MongoDB 7.x, huge thanks 
 - https://harryadel.com/dev-diary-25/
 - https://harryadel.com/dev-diary-26/
 
-# Upcoming WeKan ® release
+# v8.72 2026-04-07 WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features and fixes:
+
+- [Fix Impersonate User. Show/Edit Avatar at Admin Panel/People/People](https://github.com/wekan/wekan/commit/3ac7c9057e1e53da9f285149ce832ad430b3bc30).
+  Thanks to ahlgrimma, DnT1mmer, robbagithub, norrig and xet7.
+
+and adds the following updates:
+
+- [Bump actions/download-artifact from 4 to 8](https://github.com/wekan/wekan/pull/6247).
+  Thanks to dependabot.
+- [Bump actions/upload-artifact from 4 to 7](https://github.com/wekan/wekan/pull/6248).
+  Thanks to dependabot.
+- [Bump actions/cache from 4 to 5](https://github.com/wekan/wekan/pull/6249).
+  Thanks to dependabot.
+- [Bump docker/login-action from 4.0.0 to 4.1.0](https://github.com/wekan/wekan/pull/6250).
+  Thanks to dependabot.
+
+and fixes the following bugs:
 
 - [Fix Admin Panel / Version not showing name of MongoDB storage engine and status of MongoDB Oplog enabled](https://github.com/wekan/wekan/commit/3b98f862bcda3e8a9b0d0131b91cdfa59986c2d8).
   Thanks to xet7.
