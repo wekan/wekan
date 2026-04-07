@@ -1096,14 +1096,21 @@ const filterMembers = (filterTerm) => {
   let members = currBoard.activeMembers();
 
   if (filterTerm) {
+    const searchTerm = filterTerm.toLowerCase();
     members = members
       .map(member => ({
         member,
         user: ReactiveCache.getUser(member.userId)
       }))
-      .filter(({ user }) =>
-        (user.profile.fullname !== undefined && user.profile.fullname.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
-        || user.profile.fullname === undefined && user.profile.username !== undefined && user.profile.username.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
+      .filter(({ user }) => {
+        // Check if user data is available
+        if (!user || !user.profile) {
+          return false;
+        }
+        const fullname = (user.profile.fullname || '').toLowerCase();
+        const username = (user.username || '').toLowerCase();
+        return fullname.indexOf(searchTerm) !== -1 || username.indexOf(searchTerm) !== -1;
+      })
       .map(({ member }) => member);
   }
   return members;
