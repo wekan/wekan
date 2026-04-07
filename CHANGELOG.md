@@ -47,6 +47,8 @@ and adds the following updates:
   Thanks to dependabot.
 - [Bump docker/login-action from 4.0.0 to 4.1.0](https://github.com/wekan/wekan/pull/6250).
   Thanks to dependabot.
+- [Updated release scripts](https://github.com/wekan/wekan/commit/87f592c67ffb1962ec8acb0d1676b8df6ac42a5d).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
