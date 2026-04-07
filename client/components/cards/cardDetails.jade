@@ -11,31 +11,30 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          unless isPopup
-            span.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
-              if cardCollapsed
-                i.fa.fa-caret-right
-              else
-                i.fa.fa-caret-down
-            a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
-              i.fa.fa-times-thin
-            if cardMaximized
-              a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+          span.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
+            if cardCollapsed
+              i.fa.fa-caret-right
             else
-              a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
-            a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-              i.fa.fa-bars
-            a.card-copy-button.js-copy-link(
-              id="cardURL_copy"
-              title="{{_ 'copy-card-link-to-clipboard'}}"
-              href="{{ originRelativeUrl }}"
-            )
-              span.emoji-icon
-                i.fa.fa-link
-            if canModifyCard
-              span.card-drag-handle.js-card-drag-handle(title="Drag card")
-                i.fa.fa-arrows
-            span.copied-tooltip {{_ 'copied'}}
+              i.fa.fa-caret-down
+          a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+            i.fa.fa-times-thin
+          if cardMaximized
+            a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+          else
+            a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+          a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+            i.fa.fa-bars
+          a.card-copy-button.js-copy-link(
+            id="cardURL_copy"
+            title="{{_ 'copy-card-link-to-clipboard'}}"
+            href="{{ originRelativeUrl }}"
+          )
+            span.emoji-icon
+              i.fa.fa-link
+          if canModifyCard
+            span.card-drag-handle.js-card-drag-handle(title="Drag card")
+              i.fa.fa-arrows
+          span.copied-tooltip {{_ 'copied'}}
         else
           a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
             i.fa.fa-times-thin
