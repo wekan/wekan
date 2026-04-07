@@ -48,6 +48,8 @@ This release fixes the following bugs:
   Thanks bcook-konza and xet7.
 - [Fix Checklists add and Subtasks reorder. Fix Board Activity part 1](https://github.com/wekan/wekan/commit/08ebad0fe4a2b8a7b93d75a9a9c2317ce9374fea).
   Thanks bcook-konza and xet7.
+- [Fix Change list inside or card](https://github.com/wekan/wekan/commit/aea8c285c246b490ac259ceafe7d9f733681c20f).
+  Thanks to mimZD and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
