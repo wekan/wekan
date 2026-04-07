@@ -42,6 +42,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix 8.72 Bug: LDAP login does not work. ReactiveCache is not defined](https://github.com/wekan/wekan/commit/bcbf4771ea88fb617ddc44650c8ac139b0cfc998).
   Thanks to poc-sm and xet7.
+- [Fix Error in choosing member or assignee in a card](https://github.com/wekan/wekan/commit/7f0c42cca555dd2dca04d3b6413c0080ea75e96e).
+  Thanks to hmeunier95 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
