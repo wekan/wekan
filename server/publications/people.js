@@ -17,6 +17,7 @@ Meteor.publish('people', async function(query, limit, skip = 0) {
         username: 1,
         'profile.fullname': 1,
         'profile.initials': 1,
+        'profile.avatarUrl': 1,
         isAdmin: 1,
         emails: 1,
         createdAt: 1,

@@ -80,7 +80,20 @@ Avatars.onAfterUpload = async function (fileObj) {
   if (isValid) {
     // Set avatar URL using universal URL generator (URL-agnostic)
     const universalUrl = generateUniversalAvatarUrl(fileObj._id);
-    const user = await ReactiveCache.getUser(fileObj.userId);
+
+    // Check if this is an admin uploading for another user
+    let targetUserId = fileObj.userId;
+    if (fileObj.meta && fileObj.meta.adminUploadForUserId) {
+      // Verify the uploader is an admin
+      const uploader = await Meteor.users.findOneAsync(fileObj.userId);
+      if (uploader && uploader.isAdmin) {
+        targetUserId = fileObj.meta.adminUploadForUserId;
+        // Update the file to belong to the target user
+        await Avatars.updateAsync({ _id: fileObj._id }, { $set: { userId: targetUserId } });
+      }
+    }
+
+    const user = await ReactiveCache.getUser(targetUserId);
     user.setAvatarUrl(universalUrl);
   } else {
     await Avatars.removeAsync(fileObj._id);
@@ -93,20 +106,56 @@ Avatars.interceptDownload = function (http, fileObj, versionName) {
 };
 
 Avatars.onBeforeRemove = async function (filesInput) {
-  const files = normalizeRemovedFiles(filesInput);
+  let files;
+  try {
+    files = normalizeRemovedFiles(filesInput);
+    // If normalizeRemovedFiles returns a Promise (from async fetch), await it
+    if (files && typeof files.then === 'function') {
+      console.warn('normalizeRemovedFiles returned a Promise, awaiting it');
+      files = await files;
+    }
+  } catch (e) {
+    console.error('Error normalizing removed files:', e, 'filesInput:', filesInput);
+    files = [];
+  }
+
+  // Ensure files is an array
+  if (!Array.isArray(files)) {
+    console.error('normalizeRemovedFiles did not return an array, got:', typeof files);
+    files = [];
+  }
 
   for (const fileObj of files) {
     if (fileObj && fileObj.userId) {
       const user = await ReactiveCache.getUser(fileObj.userId);
-      user.setAvatarUrl('');
+      if (user) {
+        await user.setAvatarUrl('');
+      }
     }
   }
 
   return true;
 };
 
-Avatars.onAfterRemove = function (filesInput) {
-  const files = normalizeRemovedFiles(filesInput);
+Avatars.onAfterRemove = async function (filesInput) {
+  let files;
+  try {
+    files = normalizeRemovedFiles(filesInput);
+    // If normalizeRemovedFiles returns a Promise (from async fetch), await it
+    if (files && typeof files.then === 'function') {
+      console.warn('normalizeRemovedFiles returned a Promise in onAfterRemove, awaiting it');
+      files = await files;
+    }
+  } catch (e) {
+    console.error('Error normalizing removed files in onAfterRemove:', e, 'filesInput:', filesInput);
+    files = [];
+  }
+
+  // Ensure files is an array
+  if (!Array.isArray(files)) {
+    console.error('normalizeRemovedFiles did not return an array in onAfterRemove, got:', typeof files);
+    files = [];
+  }
 
   files.forEach(fileObj => {
     if (!fileObj || !fileObj.versions) {

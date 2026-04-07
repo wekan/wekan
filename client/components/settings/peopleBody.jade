@@ -260,17 +260,38 @@ template(name="teamRow")
 template(name="peopleRow")
   tr
     td
-      a.edit-user
+      a.edit-user(data-user-id=userData._id)
         i.fa.fa-pencil-square-o
         | {{_ 'edit'}}
-      a.more-settings-user
+      a.more-settings-user(data-user-id=userData._id)
         | ⋯
     if userData.loginDisabled
-      td.username <s>{{ userData.username }}</s>
+      td.username
+        a.js-edit-people-avatar(data-user-id=userData._id)
+          if hasAvatarUrl
+            .avatar
+              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+          else
+            +userAvatarInitials(userId=userData._id)
+        <s>{{ userData.username }}</s>
     else if isUserLocked
-      td.username {{ userData.username }}
+      td.username
+        a.js-edit-people-avatar(data-user-id=userData._id)
+          if hasAvatarUrl
+            .avatar
+              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+          else
+            +userAvatarInitials(userId=userData._id)
+        {{ userData.username }}
     else
-      td.username {{ userData.username }}
+      td.username
+        a.js-edit-people-avatar(data-user-id=userData._id)
+          if hasAvatarUrl
+            .avatar
+              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+          else
+            +userAvatarInitials(userId=userData._id)
+        {{ userData.username }}
     if userData.loginDisabled
       td <s>{{ userData.emails.[0].address }}</s>
     else

@@ -223,7 +223,7 @@ if (Meteor.isServer) {
       // Public boards don't require authentication - skip hash operations
       const exporter = new Exporter(boardId);
 
-      if( params.query.delimiter == "\t" ) {
+      if( req.query.delimiter == "\t" ) {
         // TSV file
         res.writeHead(200, {
           'Content-Type': 'text/tsv',
@@ -238,13 +238,13 @@ if (Meteor.isServer) {
         // use Uint8Array to prevent from converting bytes to string
         res.write(new Uint8Array([0xEF, 0xBB, 0xBF]));
       }
-      res.write(await exporter.buildCsv(params.query.delimiter, 'en'));
+      res.write(await exporter.buildCsv(req.query.delimiter, 'en'));
       res.end();
       return;
     }
 
     // Only perform expensive authentication for private boards
-    const loginToken = params.query.authToken;
+    const loginToken = req.query.authToken;
     if (loginToken) {
       // Validate token length to prevent resource abuse
       if (loginToken.length > 10000) {
@@ -274,7 +274,7 @@ if (Meteor.isServer) {
     if (await exporter.canExport(user) || impersonateDone) {
       if (impersonateDone) {
         let exportType = 'exportCSV';
-        if( params.query.delimiter == "\t" ) {
+        if( req.query.delimiter == "\t" ) {
           exportType = 'exportTSV';
         }
         await ImpersonatedUsers.insertAsync({
@@ -289,7 +289,7 @@ if (Meteor.isServer) {
         userLanguage = user.profile.language
       }
 
-      if( params.query.delimiter == "\t" ) {
+      if( req.query.delimiter == "\t" ) {
         // TSV file
         res.writeHead(200, {
           'Content-Type': 'text/tsv',
@@ -304,7 +304,7 @@ if (Meteor.isServer) {
         // use Uint8Array to prevent from converting bytes to string
         res.write(new Uint8Array([0xEF, 0xBB, 0xBF]));
       }
-      res.write(await exporter.buildCsv(params.query.delimiter, userLanguage));
+      res.write(await exporter.buildCsv(req.query.delimiter, userLanguage));
       res.end();
     } else {
       res.writeHead(403);

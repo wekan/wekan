@@ -70,11 +70,11 @@ template(name="changeAvatarPopup")
     each uploadedAvatars
       li: a.js-select-avatar
         .member
-          img.avatar.avatar-image(src="{{link}}")
+          img.avatar.avatar-image(src="{{avatarLink}}")
         if isSelected
           i.fa.fa-check
           p.sub-name
-          a.js-delete-avatar {{_ 'delete'}}
+          a.js-delete-avatar(data-avatar-id="{{_id}}") {{_ 'delete'}}
           |  -
           = name
     li: a.js-select-initials
@@ -99,6 +99,41 @@ template(name="changeAvatarPopup")
 template(name="deleteAvatarPopup")
   p {{_ 'delete-avatar-confirm'}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="adminChangeAvatarPopup")
+  .admin-change-avatar-header
+    h3 {{_ 'change-avatar'}} - {{ username }}
+  if error.get
+    .warning {{_ error.get}}
+  ul.pop-over-list
+    each uploadedAvatars
+      li: a.js-select-avatar
+        .member
+          img.avatar.avatar-image(src="{{avatarLink}}")
+        if isSelected
+          i.fa.fa-check
+          p.sub-name
+          a.js-delete-avatar(data-avatar-id="{{_id}}") {{_ 'delete'}}
+          |  -
+          = name
+    li: a.js-select-initials
+      .member
+        +userAvatarInitials(userData=userData)
+      | {{_ 'initials' }}
+      if noAvatarUrl
+        i.fa.fa-check
+        p.sub-name {{_ 'default-avatar'}}
+  input.hide.js-upload-avatar-input(accept="image/*;capture=camera" type="file")
+  if Meteor.settings.public.avatarsUploadMaxSize
+    | {{_ 'max-avatar-filesize'}} {{Meteor.settings.public.avatarsUploadMaxSize}}
+    br
+  if Meteor.settings.public.avatarsUploadMimeTypes
+    | {{_ 'allowed-avatar-filetypes'}} {{Meteor.settings.public.avatarsUploadMimeTypes}}
+    br
+  | {{_ 'invalid-file'}}
+  button.full.js-upload-avatar
+    i.fa.fa-upload
+    | {{_ 'upload-avatar' }}
 
 template(name="cardMemberPopup")
   .board-member-menu

@@ -55,7 +55,7 @@ runOnServer(function() {
     }
 
     // Only perform expensive authentication for private boards
-    const loginToken = params.query.authToken;
+    const loginToken = req.query.authToken;
     if (loginToken) {
       // Validate token length to prevent resource abuse
       if (loginToken.length > 10000) {

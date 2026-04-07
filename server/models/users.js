@@ -166,6 +166,19 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.avatarUrl': avatarUrl } });
   },
 
+  async adminSetAvatarUrl(targetUserId, avatarUrl) {
+    check(targetUserId, String);
+    check(avatarUrl, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const currentUser = await Users.findOneAsync(this.userId);
+    if (!currentUser || !currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Only admins can change user avatars');
+    }
+    const targetUser = await Users.findOneAsync(targetUserId);
+    if (!targetUser) throw new Meteor.Error('user-not-found', 'Target user not found');
+    await Users.updateAsync(targetUserId, { $set: { 'profile.avatarUrl': avatarUrl } });
+  },
+
   async toggleBoardStar(boardId) {
     check(boardId, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');

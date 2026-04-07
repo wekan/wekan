@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import Avatars from '/models/avatars';
 import Presences from '/models/presences';
 import { Utils } from '/client/lib/utils';
@@ -164,6 +166,7 @@ Template.boardTeamName.helpers({
 
 Template.changeAvatarPopup.onCreated(function () {
   this.error = new ReactiveVar('');
+  this.avatarUpdateCounter = new ReactiveVar(0);  // Trigger to force helper re-evaluation
   Meteor.subscribe('my-avatars');
 });
 
@@ -172,16 +175,28 @@ Template.changeAvatarPopup.helpers({
     return Template.instance().error;
   },
   uploadedAvatars() {
+    Template.instance().avatarUpdateCounter.get();  // Create dependency on update counter
     const ret = ReactiveCache.getAvatars({ userId: Meteor.userId() }, {}, true);
     return ret;
   },
+  avatarLink() {
+    if (this && typeof this.link === 'function') {
+      return this.link();
+    }
+    return '';
+  },
   isSelected() {
+    Template.instance().avatarUpdateCounter.get();  // Create dependency on update counter
     const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
-    const currentAvatarUrl = Template.currentData().link();
-    return avatarUrl === currentAvatarUrl;
+    const currentAvatarUrl = this.link && typeof this.link === 'function' ? this.link() : '';
+    // Normalize URLs by removing query parameters for comparison
+    // (they may be added for boardId but shouldn't affect selection comparison)
+    const normalizeUrl = (url) => url ? url.split('?')[0] : '';
+    return normalizeUrl(avatarUrl) === normalizeUrl(currentAvatarUrl);
   },
   noAvatarUrl() {
+    Template.instance().avatarUpdateCounter.get();  // Create dependency on update counter
     const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     return !avatarUrl;
@@ -192,6 +207,14 @@ function changeAvatarSetAvatar(tpl, avatarUrl) {
   Meteor.call('setAvatarUrl', avatarUrl, (err) => {
     if (err) {
       tpl.error.set(err.reason || 'Error setting avatar');
+    } else {
+      // Trigger a re-evaluation of helpers to show updated avatar selection
+      const counter = tpl.avatarUpdateCounter.get();
+      tpl.avatarUpdateCounter.set(counter + 1);
+      // Also increment global counter for admin people list updates
+      avatarUpdateCounter.set(avatarUpdateCounter.get() + 1);
+      // Clear input for next upload
+      tpl.$('.js-upload-avatar-input').val('');
     }
   });
 }
@@ -212,15 +235,25 @@ Template.changeAvatarPopup.events({
       uploader.on('error', (error, fileData) => {
         tpl.error.set(error.reason);
       });
+      uploader.on('uploaded', (error, fileRef) => {
+        if (!error) {
+          // Trigger a re-evaluation of helpers to show new uploaded avatar
+          const counter = tpl.avatarUpdateCounter.get();
+          tpl.avatarUpdateCounter.set(counter + 1);
+          // Also increment global counter for admin people list updates
+          avatarUpdateCounter.set(avatarUpdateCounter.get() + 1);
+        } else {
+          tpl.error.set(error.reason);
+        }
+      });
       uploader.start();
     }
   },
   'click .js-select-avatar'(event, tpl) {
     event.preventDefault();
     event.stopPropagation();
-    const data = Blaze.getData(event.currentTarget);
-    if (data && typeof data.link === 'function') {
-      const avatarUrl = data.link();
+    if (this && typeof this.link === 'function') {
+      const avatarUrl = this.link();
       changeAvatarSetAvatar(tpl, avatarUrl);
     }
   },
@@ -229,10 +262,13 @@ Template.changeAvatarPopup.events({
     event.stopPropagation();
     changeAvatarSetAvatar(tpl, '');
   },
-  'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', async function (event) {
-    await Avatars.removeAsync(this._id);
+  'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', async function() {
+    // Inside the each loop, 'this' is the avatar object
+    const avatarId = this._id;
+    if (avatarId) {
+      await Avatars.removeAsync(avatarId);
+    }
     Popup.back();
-    event.stopPropagation();
   }),
 });
 
@@ -248,4 +284,147 @@ Template.cardMemberPopup.events({
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
+});
+
+Template.adminChangeAvatarPopup.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.avatarUpdateCounter = new ReactiveVar(0);
+  const userId = this.data._id || (this.data.user && this.data.user._id);
+  this.targetUserId = userId;
+  if (userId) {
+    Meteor.subscribe('avatars-for-user', userId);
+  }
+});
+
+Template.adminChangeAvatarPopup.helpers({
+  error() {
+    return Template.instance().error;
+  },
+  userId() {
+    const instance = Template.instance();
+    return instance.targetUserId || (this._id || (this.user && this.user._id));
+  },
+  userData() {
+    return this.user || this;
+  },
+  uploadedAvatars() {
+    Template.instance().avatarUpdateCounter.get();
+    const instance = Template.instance();
+    const userId = instance.targetUserId || (this._id || (this.user && this.user._id));
+    if (!userId) return [];
+    const ret = ReactiveCache.getAvatars({ userId: userId }, {}, true);
+    return ret;
+  },
+  avatarLink() {
+    if (this && typeof this.link === 'function') {
+      return this.link();
+    }
+    return '';
+  },
+  currentEditingUser() {
+    Template.instance().avatarUpdateCounter.get();
+    const instance = Template.instance();
+    const userId = instance.targetUserId;
+    if (!userId) return null;
+    return ReactiveCache.getUser(userId);
+  },
+  isSelected() {
+    Template.instance().avatarUpdateCounter.get();
+    const instance = Template.instance();
+    const userId = instance.targetUserId;
+    if (!userId) return false;
+    const user = ReactiveCache.getUser(userId);
+    if (!user) return false;
+    const userProfile = user.profile;
+    const avatarUrl = userProfile && userProfile.avatarUrl;
+    const currentAvatarUrl = this.link && typeof this.link === 'function' ? this.link() : '';
+    const normalizeUrl = (url) => url ? url.split('?')[0] : '';
+    return normalizeUrl(avatarUrl) === normalizeUrl(currentAvatarUrl);
+  },
+  noAvatarUrl() {
+    Template.instance().avatarUpdateCounter.get();
+    const instance = Template.instance();
+    const userId = instance.targetUserId;
+    if (!userId) return true;
+    const user = ReactiveCache.getUser(userId);
+    if (!user) return true;
+    const userProfile = user.profile;
+    const avatarUrl = userProfile && userProfile.avatarUrl;
+    return !avatarUrl;
+  },
+});
+
+function adminChangeAvatarSetAvatar(tpl, avatarUrl) {
+  const userId = tpl.targetUserId || (Template.currentData()._id || (Template.currentData().user && Template.currentData().user._id));
+  if (!userId) {
+    console.error('Cannot set avatar: no userId found');
+    return;
+  }
+  Meteor.call('adminSetAvatarUrl', userId, avatarUrl, (err) => {
+    if (err) {
+      tpl.error.set(err.reason || 'Error setting avatar');
+    } else {
+      const counter = tpl.avatarUpdateCounter.get();
+      tpl.avatarUpdateCounter.set(counter + 1);
+      // Also increment global counter to update admin people list
+      avatarUpdateCounter.set(avatarUpdateCounter.get() + 1);
+      tpl.$('.js-upload-avatar-input').val('');
+    }
+  });
+}
+
+Template.adminChangeAvatarPopup.events({
+  'click .js-upload-avatar'(event, tpl) {
+    tpl.$('.js-upload-avatar-input').click();
+  },
+  async 'change .js-upload-avatar-input'(event, tpl) {
+    if (event.currentTarget.files && event.currentTarget.files[0]) {
+      const userId = tpl.targetUserId || (this._id || (this.user && this.user._id));
+      const uploader = await Avatars.insertAsync(
+        {
+          file: event.currentTarget.files[0],
+          chunkSize: 'dynamic',
+          meta: {
+            adminUploadForUserId: userId,
+          },
+        },
+        false,
+      );
+      uploader.on('error', (error, fileData) => {
+        tpl.error.set(error.reason);
+      });
+      uploader.on('uploaded', (error, fileRef) => {
+        if (!error) {
+          const counter = tpl.avatarUpdateCounter.get();
+          tpl.avatarUpdateCounter.set(counter + 1);
+          // Also increment global counter to update admin people list
+          avatarUpdateCounter.set(avatarUpdateCounter.get() + 1);
+        } else {
+          tpl.error.set(error.reason);
+        }
+      });
+      uploader.start();
+    }
+  },
+  'click .js-select-avatar'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this && typeof this.link === 'function') {
+      const avatarUrl = this.link();
+      adminChangeAvatarSetAvatar(tpl, avatarUrl);
+    }
+  },
+  'click .js-select-initials'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    adminChangeAvatarSetAvatar(tpl, '');
+  },
+  'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', async function() {
+    // Inside the each loop, 'this' is the avatar object
+    const avatarId = this._id;
+    if (avatarId) {
+      await Avatars.removeAsync(avatarId);
+    }
+    Popup.back();
+  }),
 });

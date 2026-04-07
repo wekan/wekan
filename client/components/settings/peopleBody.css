@@ -311,3 +311,46 @@ table td:first-child {
   text-align: center;
   color: #333;
 }
+
+/* Avatar styling - removed people-avatar column */
+
+/* Username column styling - displays avatar inline with username */
+.username a.js-edit-people-avatar {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.username a.js-edit-people-avatar:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+}
+
+.username .avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.username .avatar.avatar-initials {
+  background-color: #dbdbdb;
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.username .avatar img.avatar-image {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
+  width: 100%;
+}

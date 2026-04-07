@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -536,7 +537,39 @@ Template.teamRow.helpers({
 
 Template.peopleRow.helpers({
   userData() {
-    return this.user || ReactiveCache.getUser(this.userId);
+    // Depend on global avatar update counter to reactively update when avatars change
+    avatarUpdateCounter.get();
+    // Get the user ID from either this._id or this.user._id
+    let userId;
+    if (this.user && this.user._id) {
+      userId = this.user._id;
+    } else if (this._id) {
+      userId = this._id;
+    }
+    // Always fetch from ReactiveCache to ensure latest data
+    if (userId) {
+      return ReactiveCache.getUser(userId);
+    }
+    return this.user || this;
+  },
+  hasAvatarUrl() {
+    // Depend on global avatar update counter to reactively update when avatars change
+    avatarUpdateCounter.get();
+    // Get the user ID from either this._id or this.user._id
+    let userId;
+    if (this.user && this.user._id) {
+      userId = this.user._id;
+    } else if (this._id) {
+      userId = this._id;
+    }
+    let user;
+    if (userId) {
+      user = ReactiveCache.getUser(userId);
+    } else {
+      user = this.user || this;
+    }
+    if (!user || !user.profile) return false;
+    return !!user.profile.avatarUrl;
   },
   isUserLocked() {
     const user = this.user || ReactiveCache.getUser(this.userId);
@@ -726,8 +759,20 @@ Template.teamRow.events({
 });
 
 Template.peopleRow.events({
-  'click a.edit-user': Popup.open('editUser'),
-  'click a.more-settings-user': Popup.open('settingsUser'),
+  'click a.edit-user'(event) {
+    // Get the user ID from the data attribute
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      Popup.open('editUser').call({ userId: userId }, event);
+    }
+  },
+  'click a.more-settings-user'(event) {
+    // Get the user ID from the data attribute
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      Popup.open('settingsUser').call({ userId: userId }, event);
+    }
+  },
   'click .selectUserChkBox': function(ev){
       if(ev.currentTarget){
         if(ev.currentTarget.checked){
@@ -790,6 +835,18 @@ Template.peopleRow.events({
         // If you want to implement locking too, you would need a server method for it
         // For now, we'll leave this as a no-op
       }
+  },
+  'click a.js-edit-people-avatar'(event) {
+    // Extract the user ID from the data attribute
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      // Get the user from cache to pass correct context
+      const user = ReactiveCache.getUser(userId);
+      if (user) {
+        // Call Popup.open with the correct user data context
+        Popup.open('adminChangeAvatar').call({ _id: userId, user: user }, event);
+      }
+    }
   },
 });
 
@@ -1462,19 +1519,23 @@ Template.settingsTeamPopup.events({
 Template.settingsUserPopup.events({
   'click .impersonate-user'(event) {
     event.preventDefault();
+    const userId = this.userId || this.user?._id;
 
-    Meteor.call('impersonate', this.userId, (err) => {
+    Meteor.call('impersonate', userId, (err) => {
       if (!err) {
+        // Meteor.connection.setUserId() triggers automatic cache invalidation
+        // No need to manually invalidate - let Meteor handle the user data refresh
+        Meteor.connection.setUserId(userId);
         FlowRouter.go('/');
-        Meteor.connection.setUserId(this.userId);
       }
     });
   },
   'click #deleteButton'(event) {
     event.preventDefault();
+    const userId = this.userId || this.user?._id;
 
     // Use secure server method instead of direct client-side removal
-    Meteor.call('removeUser', this.userId, (error, result) => {
+    Meteor.call('removeUser', userId, (error, result) => {
       if (error) {
         if (process.env.DEBUG === 'true') {
           console.error('Error removing user:', error);
@@ -1501,19 +1562,24 @@ Template.settingsUserPopup.events({
 
 Template.settingsUserPopup.helpers({
   user() {
-    return ReactiveCache.getUser(this.userId);
+    const userId = this.userId || this.user?._id;
+    return ReactiveCache.getUser(userId);
   },
   authentications() {
     return Template.instance().authenticationMethods.get();
   },
   isSelected(match) {
-    const userId = Template.instance().data.userId;
-    const selected = ReactiveCache.getUser(userId).authenticationMethod;
+    const userId = Template.instance().data.userId || Template.instance().data.user?._id;
+    const user = ReactiveCache.getUser(userId);
+    if (!user) return false;
+    const selected = user.authenticationMethod;
     return selected === match;
   },
   isLdap() {
-    const userId = Template.instance().data.userId;
-    const selected = ReactiveCache.getUser(userId).authenticationMethod;
+    const userId = Template.instance().data.userId || Template.instance().data.user?._id;
+    const user = ReactiveCache.getUser(userId);
+    if (!user) return false;
+    const selected = user.authenticationMethod;
     return selected === 'ldap';
   },
   errorMessage() {
