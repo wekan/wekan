@@ -37,6 +37,11 @@ This release adds the the following new features:
 - [Enhance translations with new key:value pairs](https://github.com/wekan/wekan/pull/6259).
   Thanks to KhaoulaMaleh.
 
+and fixes the following bugs:
+
+- [Fixed Card settings checkboxes](https://github.com/wekan/wekan/pull/6260).
+  Thanks to KhaoulaMaleh.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v8.74 2026-04-08 WeKan ® release
