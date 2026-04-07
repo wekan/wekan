@@ -48,7 +48,7 @@ Template.editCardReceivedDatePopup.helpers(datePickerHelpers());
 
 Template.editCardReceivedDatePopup.events(datePickerEvents({
   storeDate(date) {
-    this.datePicker.card.setReceived(formatDateTime(date));
+    this.datePicker.card.setReceived(date);
   },
   deleteDate() {
     this.datePicker.card.unsetReceived();
@@ -72,7 +72,7 @@ Template.editCardStartDatePopup.helpers(datePickerHelpers());
 
 Template.editCardStartDatePopup.events(datePickerEvents({
   storeDate(date) {
-    this.datePicker.card.setStart(formatDateTime(date));
+    this.datePicker.card.setStart(date);
   },
   deleteDate() {
     this.datePicker.card.unsetStart();
@@ -96,7 +96,7 @@ Template.editCardDueDatePopup.helpers(datePickerHelpers());
 
 Template.editCardDueDatePopup.events(datePickerEvents({
   storeDate(date) {
-    this.datePicker.card.setDue(formatDateTime(date));
+    this.datePicker.card.setDue(date);
   },
   deleteDate() {
     this.datePicker.card.unsetDue();
@@ -120,7 +120,7 @@ Template.editCardEndDatePopup.helpers(datePickerHelpers());
 
 Template.editCardEndDatePopup.events(datePickerEvents({
   storeDate(date) {
-    this.datePicker.card.setEnd(formatDateTime(date));
+    this.datePicker.card.setEnd(date);
   },
   deleteDate() {
     this.datePicker.card.unsetEnd();
