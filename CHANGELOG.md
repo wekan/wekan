@@ -30,6 +30,15 @@ WeKan 8.43 and newer uses Meteor 3.x, Node.js 22.x and MongoDB 7.x, huge thanks 
 - https://harryadel.com/dev-diary-25/
 - https://harryadel.com/dev-diary-26/
 
+# Upcoming WeKan ® release
+
+This release adds the the following new features:
+
+- [Enhance translations with new key:value pairs](https://github.com/wekan/wekan/pull/6259).
+  Thanks to KhaoulaMaleh.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.74 2026-04-08 WeKan ® release
 
 This release fixes the following bugs:
