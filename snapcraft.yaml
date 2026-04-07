@@ -1,5 +1,5 @@
 name: wekan
-version: '8.73'
+version: '8.74'
 base: core24
 summary: Open Source kanban
 description: |
@@ -135,9 +135,9 @@ parts:
             rm -rf .build
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v8.73/wekan-8.73-amd64.zip
-            unzip wekan-8.73-amd64.zip
-            rm wekan-8.73-amd64.zip
+            wget https://github.com/wekan/wekan/releases/download/v8.74/wekan-8.74-amd64.zip
+            unzip wekan-8.74-amd64.zip
+            rm wekan-8.74-amd64.zip
             cd ..
             # Copy to Snap
             wget https://nodejs.org/dist/latest-v22.x/node-v22.22.2-linux-x64.tar.xz

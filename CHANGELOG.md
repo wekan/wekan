@@ -30,6 +30,15 @@ WeKan 8.43 and newer uses Meteor 3.x, Node.js 22.x and MongoDB 7.x, huge thanks 
 - https://harryadel.com/dev-diary-25/
 - https://harryadel.com/dev-diary-26/
 
+# v8.74 2026-04-08 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix can not save Card Data. Part 2](https://github.com/wekan/wekan/commit/0328e70d5f4a277722635e3fd9ea78312d1359cf).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.73 2026-04-07 WeKan ® release
 
 This release fixes the following bugs:
