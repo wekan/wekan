@@ -50,31 +50,49 @@ Template.minicard.helpers({
   },
 
   showMembers() {
-    // cache "board" to reduce the mini-mongodb access
     const board = this.board();
     let ret = false;
     if (board) {
-      ret =
-        board.allowsMembers === null ||
-        board.allowsMembers === undefined ||
-        board.allowsMembers
-      ;
+      ret = board.allowsMembersOnMinicard ?? false;
     }
     return ret;
   },
 
   showAssignee() {
-    // cache "board" to reduce the mini-mongodb access
     const board = this.board();
     let ret = false;
     if (board) {
-      ret =
-        board.allowsAssignee === null ||
-        board.allowsAssignee === undefined ||
-        board.allowsAssignee
-      ;
+      ret = board.allowsAssigneeOnMinicard ?? false;
     }
     return ret;
+  },
+  showReceived() {
+    const board = this.board();
+    return board ? board.allowsReceivedDateOnMinicard : false;
+  },
+  showStart() {
+    const board = this.board();
+    return board ? board.allowsStartDateOnMinicard : false;
+  },
+  showDue() {
+    const board = this.board();
+    return board ? board.allowsDueDateOnMinicard : false;
+  },
+  showEnd() {
+    const board = this.board();
+    return board ? board.allowsEndDateOnMinicard : false;
+  },
+  showLabels() {
+    const board = this.board();
+    return board ? board.allowsLabelsOnMinicard : false;
+  },
+  showCardNumber() {
+    const board = this.board();
+    return board ? board.allowsCardNumberOnMinicard : false;
+  },
+  showSubtasks() {
+    const board = this.board();
+    return board ? board.allowsSubtasksOnMinicard : false;
   },
 
   hiddenMinicardLabelText() {

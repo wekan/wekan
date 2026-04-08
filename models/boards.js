@@ -450,6 +450,13 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsSubtasksOnMinicard: {
+      /**
+       * Does the board allows subtasks on minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
 
     allowsAttachments: {
       /**
@@ -458,10 +465,24 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsAttachmentsOnMinicard: {
+      /**
+       * Does the board allows attachments on minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
 
     allowsChecklists: {
       /**
        * Does the board allows checklists?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsChecklistsOnMinicard: {
+      /**
+       * Does the board allows checklists on minicard?
        */
       type: Boolean,
       defaultValue: true,
@@ -478,6 +499,13 @@ Boards.attachSchema(
     allowsDescriptionTitle: {
       /**
        * Does the board allows description title?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsDescriptionTitleOnMinicard: {
+      /**
+       * Does the board allows description title on minicard?
        */
       type: Boolean,
       defaultValue: true,
@@ -529,6 +557,13 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    allowsCardNumberOnMinicard: {
+      /**
+       * Does the board allows card numbers on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
 
     allowsActivities: {
       /**
@@ -541,6 +576,13 @@ Boards.attachSchema(
     allowsLabels: {
       /**
        * Does the board allows labels?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsLabelsOnMinicard: {
+      /**
+       * Does the board allows labels on minicard?
        */
       type: Boolean,
       defaultValue: true,
@@ -569,6 +611,13 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsAssigneeOnMinicard: {
+      /**
+       * Does the board allows assignee on minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
 
     allowsMembers: {
       /**
@@ -577,10 +626,24 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsMembersOnMinicard: {
+      /**
+       * Does the board allows members on minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
 
     allowsRequestedBy: {
       /**
        * Does the board allows requested by?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsRequestedByOnMinicard: {
+      /**
+       * Does the board allows requested by on minicard?
        */
       type: Boolean,
       defaultValue: true,
@@ -610,6 +673,13 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsAssignedByOnMinicard: {
+      /**
+       * Does the board allows requested by on minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
     allowsShowListsOnMinicard: {
       /**
        * Does the board allow showing list names on all minicards?
@@ -633,10 +703,24 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsReceivedDateOnMinicard: {
+      /**
+       * Does the board allows received date on minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
 
     allowsStartDate: {
       /**
        * Does the board allows start date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsStartDateOnMinicard: {
+      /**
+       * Does the board allows start date on minicard?
        */
       type: Boolean,
       defaultValue: true,
@@ -649,10 +733,24 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsEndDateOnMinicard: {
+      /**
+       * Does the board allows end date on minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
 
     allowsDueDate: {
       /**
        * Does the board allows due date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsDueDateOnMinicard: {
+      /**
+       * Does the board allows due date on minicard?
        */
       type: Boolean,
       defaultValue: true,
