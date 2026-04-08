@@ -346,7 +346,6 @@
   "comments": "Comments",
   "comment": "Comment",
   "comment-placeholder": "",
-  "desc-placeholder": "",
   "comment-only": "Comment only",
   "comment-only-desc": "Can comment on cards only.",
   "comment-assigned-only": "Only Assigned Comment",
@@ -1576,7 +1575,6 @@
   "run-fix-avatar-urls-migration-confirm": "This will update avatar URLs for board members to use the correct storage backend. Continue?",
   "run-fix-all-file-urls-migration-confirm": "This will update all file attachment URLs on this board to use the correct storage backend. Continue?",
   "restore-lost-cards-nothing-to-restore": "No lost swimlanes, lists, or cards to restore",
-
   "migration-progress-title": "Board Migration in Progress",
   "migration-progress-overall": "Overall Progress",
   "migration-progress-current-step": "Current Step",
@@ -1586,7 +1584,6 @@
   "steps": "steps",
   "view": "View",
   "has-swimlanes": "Has Swimlanes",
-
   "step-analyze-board-structure": "Analyze Board Structure",
   "step-fix-orphaned-cards": "Fix Orphaned Cards",
   "step-convert-shared-lists": "Convert Shared Lists",
