@@ -114,7 +114,7 @@ template(name="orgGeneral")
         th {{_ 'shortName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
-        th {{_ 'active'}}
+        th {{_ 'active-org'}}
     tbody
       tr
       each org in orgList
@@ -137,7 +137,7 @@ template(name="teamGeneral")
         th {{_ 'shortName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
-        th {{_ 'active'}}
+        th {{_ 'active-team'}}
     tbody
       tr
       each team in teamList
@@ -160,7 +160,7 @@ template(name="peopleGeneral")
         th {{_ 'username'}}
         th {{_ 'email'}}
         th {{_ 'admin'}}
-        th {{_ 'admin-people-active-status'}}
+        th {{_ 'active-person'}}
         th {{_ 'accounts-lockout-status'}}
         th {{_ 'createdAt'}}
         th
@@ -354,7 +354,7 @@ template(name="editOrgPopup")
       | {{_ 'website'}}
       input.js-orgWebsite(type="text" value=org.orgWebsite)
     label
-      | {{_ 'active'}}
+      | {{_ 'active-org'}}
       select.select-active.js-org-isactive
         option(value="false") {{_ 'no'}}
         option(value="true" selected="{{org.orgIsActive}}") {{_ 'yes'}}
@@ -380,7 +380,7 @@ template(name="editTeamPopup")
       | {{_ 'website'}}
       input.js-teamWebsite(type="text" value=team.teamWebsite)
     label
-      | {{_ 'active'}}
+      | {{_ 'active-team'}}
       select.select-active.js-team-isactive
         option(value="false") {{_ 'no'}}
         option(value="true" selected="{{team.teamIsActive}}") {{_ 'yes'}}
@@ -427,7 +427,7 @@ template(name="editUserPopup")
         option(value="false") {{_ 'no'}}
         option(value="true" selected="{{userData.emails.[0].verified}}") {{_ 'yes'}}
     label
-      | {{_ 'active'}}
+      | {{_ 'active-person'}}
       select.select-active.js-profile-isactive
         option(value="false") {{_ 'yes'}}
         option(value="true" selected="{{user.loginDisabled}}") {{_ 'no'}}
@@ -490,7 +490,7 @@ template(name="newOrgPopup")
       | {{_ 'website'}}
       input.js-orgWebsite(type="text" value="" required)
     label
-      | {{_ 'active'}}
+      | {{_ 'active-org'}}
       select.select-active.js-org-isactive
         option(value="false" selected="selected") {{_ 'no'}}
         option(value="true") {{_ 'yes'}}
@@ -514,7 +514,7 @@ template(name="newTeamPopup")
       | {{_ 'website'}}
       input.js-teamWebsite(type="text" value="")
     label
-      | {{_ 'active'}}
+      | {{_ 'active-team'}}
       select.select-active.js-team-isactive
         option(value="false" selected="selected") {{_ 'no'}}
         option(value="true") {{_ 'yes'}}
@@ -576,7 +576,7 @@ template(name="newUserPopup")
         option(value="false" selected="selected") {{_ 'no'}}
         option(value="true") {{_ 'yes'}}
     label
-      | {{_ 'active'}}
+      | {{_ 'active-person'}}
       select.select-active.js-profile-isactive
         option(value="false" selected="selected") {{_ 'yes'}}
         option(value="true") {{_ 'no'}}

@@ -7,7 +7,7 @@ template(name="editor")
     class="{{class}}"
     id=id
     autofocus=autofocus
-    placeholder="{{_ 'comment-placeholder'}}")
+    placeholder="{{#if placeholder}}{{_ placeholder}}{{else}}{{_ 'comment-placeholder'}}{{/if}}")
     +Template.contentBlock
 
 template(name="viewer")
