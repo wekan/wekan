@@ -41,6 +41,8 @@ and fixes the following bugs:
 
 - [Fixed Card settings checkboxes](https://github.com/wekan/wekan/pull/6260).
   Thanks to KhaoulaMaleh.
+- [Refine translations](https://github.com/wekan/wekan/pull/6261).
+  Thanks to KhaoulaMaleh.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
