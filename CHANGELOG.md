@@ -26,12 +26,14 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# v8.76 2026-04-09 WeKan ® release
+# v8.77 2026-04-09 WeKan ® release
 
 This release adds the the following updates:
 
-- [Upgraded to Meteor 3.5-beta.7 and Node.js 24.14.1. Now prefers MongoDB Change Streams at Snap Candidate and docker-compose.yml](https://github.com/wekan/wekan/commit/14f9ac39ad93db4f7c06721f1efd4c18e53cc5f8).
-  Thanks to Meteor developers and xet7.
+- Upgraded to Meteor 3.5-beta.7 and Node.js 24.14.1. Now prefers MongoDB Change Streams at Snap Candidate and docker-compose.yml.
+  [Part 1](https://github.com/wekan/wekan/commit/14f9ac39ad93db4f7c06721f1efd4c18e53cc5f8),
+  [Part 2](https://github.com/wekan/wekan/commit/b1707b8691d0ba5f355e78e250765c8a7657c3d7).
+  Thanks to Meteor developers.
 - [Enhance translations with new key:value pairs](https://github.com/wekan/wekan/pull/6259).
   Thanks to KhaoulaMaleh.
 - [Refine translations](https://github.com/wekan/wekan/pull/6261).
