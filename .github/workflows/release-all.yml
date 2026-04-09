@@ -108,14 +108,14 @@ jobs:
 
       - name: Build WeKan bundle
         run: |
-          rm -rf .build node_modules
+          rm -rf .build node_modules .meteor/local/bundler-cache
           meteor npm install
-          meteor build .build --directory --platforms=web.browser
+          meteor build .build --directory
 
       - name: Install dependencies in bundle
         run: |
           cd .build/bundle/programs/server
-          npm install
+          meteor npm install
 
       - name: Create amd64 zip
         run: |
