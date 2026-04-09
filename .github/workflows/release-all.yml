@@ -108,7 +108,7 @@ jobs:
 
       - name: Build WeKan bundle
         run: |
-          rm -rf .build node_modules .meteor/local
+          rm -rf .build node_modules
           meteor npm install
           meteor build .build --directory --platforms=web.browser
 
