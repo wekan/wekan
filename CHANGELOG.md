@@ -2,6 +2,7 @@
 
 Newest WeKan at these platforms:
 
+- [Upgrade WeKan](https://wekan.fi/upgrade/)
 - [bundle zip at releases](https://github.com/wekan/wekan/releases), docs at
   - [Linux amd64, arm64, s390x](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
   - [Windows amd64, works also at Windows arm64](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md)
@@ -11,37 +12,36 @@ Newest WeKan at these platforms:
   - Docker amd64/arm64/s390x
   - Kubernetes Docker amd64
     - Bitnami MongoDB Docker images do not exist anymore. [MongoDump/MongoRestore to groundhog2k MongoDB images](https://github.com/wekan/charts/issues/45)
+- Fixing other platforms In Progress.
 
-Fixing other platforms In Progress.
+Versions:
 
-- [Node.js 22.x](https://nodejs.org/dist/latest-v22.x/)
-- MongoDB 6.x and 7.x, or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs/Databases/FerretDB2-PostgreSQL.md)
+- WeKan 8.75 and newer uses Meteor 3.5-beta.7, [Node.js 24.x](https://nodejs.org/dist/latest-v24.x/),
+  MongoDB 7.x (or 6.x), or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs/Databases/FerretDB2-PostgreSQL.md)
+- WeKan 8.43 upgraded to Meteor 3.x, huge thanks to harryadel:
+  - https://harryadel.com/dev-diary-24/
+  - https://harryadel.com/dev-diary-25/
+  - https://harryadel.com/dev-diary-26/
+- WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
+- WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
+  it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-[Upgrade WeKan](https://wekan.fi/upgrade/)
+# v8.75 2026-04-09 WeKan ® release
 
-WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
-Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
+This release adds the the following updates:
 
-WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
-
-WeKan 8.43 and newer uses Meteor 3.x, Node.js 22.x and MongoDB 7.x, huge thanks to harryadel:
-
-- https://harryadel.com/dev-diary-24/
-- https://harryadel.com/dev-diary-25/
-- https://harryadel.com/dev-diary-26/
-
-# Upcoming WeKan ® release
-
-This release adds the the following new features:
-
+- [Upgraded to Meteor 3.5-beta.7 and Node.js 24.14.1. Now prefers MongoDB Change Streams at Snap Candidate and docker-compose.yml](https://github.com/wekan/wekan/commit/14f9ac39ad93db4f7c06721f1efd4c18e53cc5f8).
+  Thanks to Meteor developers and xet7.
 - [Enhance translations with new key:value pairs](https://github.com/wekan/wekan/pull/6259).
   Thanks to KhaoulaMaleh.
+- [Refine translations](https://github.com/wekan/wekan/pull/6261).
+  Thanks to KhaoulaMaleh.
+- [Updated to Node.js 24.x at release scripts](https://github.com/wekan/wekan/commit/bdb92744854cc211866631746c63d748d4a93cfa).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Fixed Card settings checkboxes](https://github.com/wekan/wekan/pull/6260).
-  Thanks to KhaoulaMaleh.
-- [Refine translations](https://github.com/wekan/wekan/pull/6261).
   Thanks to KhaoulaMaleh.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
