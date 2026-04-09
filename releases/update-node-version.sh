@@ -41,7 +41,7 @@ echo "  Fetching latest Node.js 24.x version from nodejs.org..."
 #   node-v24.14.1-linux-x64.tar.gz
 # Extract the version from the first x64 tarball listed.
 NEW_NODE=$(curl -fsSL https://nodejs.org/dist/latest-v24.x/ \
-  | grep -o 'node-v22\.[0-9][0-9]*\.[0-9][0-9]*-linux-x64\.tar\.gz' \
+  | grep -o 'node-v24\.[0-9][0-9]*\.[0-9][0-9]*-linux-x64\.tar\.gz' \
   | head -1 \
   | sed 's/node-v\(.*\)-linux-x64\.tar\.gz/\1/')
 
@@ -54,49 +54,49 @@ echo "  Latest Node.js 24.x: $NEW_NODE"
 
 # ── Dockerfile ────────────────────────────────────────────────────────────────
 # Matches:  NODE_VERSION=v24.14.1
-sedi "s|NODE_VERSION=v22\.[0-9][0-9]*\.[0-9][0-9]*|NODE_VERSION=v${NEW_NODE}|g" \
+sedi "s|NODE_VERSION=v24\.[0-9][0-9]*\.[0-9][0-9]*|NODE_VERSION=v${NEW_NODE}|g" \
   Dockerfile
 
 # ── snapcraft.yaml ───────────────────────────────────────────────────────────
 # Matches:  npm-node-version: 24.14.1
-sedi "s|npm-node-version: 22\.[0-9][0-9]*\.[0-9][0-9]*|npm-node-version: ${NEW_NODE}|g" \
+sedi "s|npm-node-version: 24\.[0-9][0-9]*\.[0-9][0-9]*|npm-node-version: ${NEW_NODE}|g" \
   snapcraft.yaml
 # Matches:  NODE_VERSION="24.14.1"   (in wekan override-build)
-sedi "s|NODE_VERSION=\"22\.[0-9][0-9]*\.[0-9][0-9]*\"|NODE_VERSION=\"${NEW_NODE}\"|g" \
+sedi "s|NODE_VERSION=\"24\.[0-9][0-9]*\.[0-9][0-9]*\"|NODE_VERSION=\"${NEW_NODE}\"|g" \
   snapcraft.yaml
 # Matches comment:  matching Node.js 24.14.1 binary
-sedi "s|Node\.js 22\.[0-9][0-9]*\.[0-9][0-9]* binary|Node.js ${NEW_NODE} binary|g" \
+sedi "s|Node\.js 24\.[0-9][0-9]*\.[0-9][0-9]* binary|Node.js ${NEW_NODE} binary|g" \
   snapcraft.yaml
 
 # ── .github/workflows/release-all.yml ────────────────────────────────────────
 WORKFLOW=".github/workflows/release-all.yml"
 # Matches:  node-version: '24.14.1'  (actions/setup-node, windows job)
-sedi "s|node-version: '22\.[0-9][0-9]*\.[0-9][0-9]*'|node-version: '${NEW_NODE}'|g" \
+sedi "s|node-version: '24\.[0-9][0-9]*\.[0-9][0-9]*'|node-version: '${NEW_NODE}'|g" \
   "$WORKFLOW"
 # Matches:  node:24.14.1-slim  (docker run commands and comments)
-sedi "s|node:22\.[0-9][0-9]*\.[0-9][0-9]*-slim|node:${NEW_NODE}-slim|g" \
+sedi "s|node:24\.[0-9][0-9]*\.[0-9][0-9]*-slim|node:${NEW_NODE}-slim|g" \
   "$WORKFLOW"
 # Matches version number in comments:  bundles: 24.14.1 (ABI
-sedi "s|bundles: 22\.[0-9][0-9]*\.[0-9][0-9]* (ABI|bundles: ${NEW_NODE} (ABI|g" \
+sedi "s|bundles: 24\.[0-9][0-9]*\.[0-9][0-9]* (ABI|bundles: ${NEW_NODE} (ABI|g" \
   "$WORKFLOW"
 # Matches:  Node 24.14.1 — the exact version bundled
-sedi "s|Node 22\.[0-9][0-9]*\.[0-9][0-9]* —|Node ${NEW_NODE} —|g" \
+sedi "s|Node 24\.[0-9][0-9]*\.[0-9][0-9]* —|Node ${NEW_NODE} —|g" \
   "$WORKFLOW"
 
 # ── rebuild-wekan.sh ──────────────────────────────────────────────────────────
 # Matches:  sudo n 24.14.1
-sedi "s|sudo n 22\.[0-9][0-9]*\.[0-9][0-9]*|sudo n ${NEW_NODE}|g" \
+sedi "s|sudo n 24\.[0-9][0-9]*\.[0-9][0-9]*|sudo n ${NEW_NODE}|g" \
   rebuild-wekan.sh
 
 # ── releases/test-download-urls.sh ───────────────────────────────────────────
 # Matches URL path:    /v24.14.1/
-sedi "s|/v22\.[0-9][0-9]*\.[0-9][0-9]*/|/v${NEW_NODE}/|g" \
+sedi "s|/v24\.[0-9][0-9]*\.[0-9][0-9]*/|/v${NEW_NODE}/|g" \
   releases/test-download-urls.sh
 # Matches tarball name:  node-v24.14.1-
-sedi "s|node-v22\.[0-9][0-9]*\.[0-9][0-9]*-|node-v${NEW_NODE}-|g" \
+sedi "s|node-v24\.[0-9][0-9]*\.[0-9][0-9]*-|node-v${NEW_NODE}-|g" \
   releases/test-download-urls.sh
 # Matches label text:  Node.js 24.14.1
-sedi "s|Node\.js 22\.[0-9][0-9]*\.[0-9][0-9]*|Node.js ${NEW_NODE}|g" \
+sedi "s|Node\.js 24\.[0-9][0-9]*\.[0-9][0-9]*|Node.js ${NEW_NODE}|g" \
   releases/test-download-urls.sh
 
 echo "  Updated all files to Node.js $NEW_NODE."
