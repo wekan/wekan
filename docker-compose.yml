@@ -171,7 +171,7 @@ services:
   # Leave it unset or empty to skip migration.
   #-------------------------------------------------------------------------------------
   #wekan-migrate:
-  #  image: node:22.22.2-slim
+  #  image: node:24.14.1-slim
   #  container_name: wekan-migrate
   #  restart: "no"
   #  networks:
@@ -289,6 +289,10 @@ services:
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
       - 80:8080
     environment:
+      #-------------------- CHANGE STREAMS --------------------
+      # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
+      # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
+      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====
       - WRITABLE_PATH=/data

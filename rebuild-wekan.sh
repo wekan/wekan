@@ -25,13 +25,13 @@ do
 			sudo apt install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm p7zip-full
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 22.22.2
+			sudo n 24.14.1
 			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
 			brew install npm
-			brew install node@22
+			brew install node@24
 			directory_name="~/.npm"
 			if [ ! -d "$directory_name" ]; then
 				mkdir "$directory_name"

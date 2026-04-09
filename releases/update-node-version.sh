@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Fetch the latest Node.js 22.x release and update all files that hardcode
+# Fetch the latest Node.js 24.x release and update all files that hardcode
 # the version number: Dockerfile, snapcraft.yaml, GitHub Actions workflow,
 # rebuild-wekan.sh, and releases/test-download-urls.sh.
 #
@@ -34,68 +34,68 @@ else
   sedi() { sed -i "$@"; }
 fi
 
-# ── Fetch latest Node.js 22.x version ────────────────────────────────────────
-echo "  Fetching latest Node.js 22.x version from nodejs.org..."
+# ── Fetch latest Node.js 24.x version ────────────────────────────────────────
+echo "  Fetching latest Node.js 24.x version from nodejs.org..."
 
 # The directory listing always contains a line like:
-#   node-v22.22.2-linux-x64.tar.gz
+#   node-v24.14.1-linux-x64.tar.gz
 # Extract the version from the first x64 tarball listed.
-NEW_NODE=$(curl -fsSL https://nodejs.org/dist/latest-v22.x/ \
+NEW_NODE=$(curl -fsSL https://nodejs.org/dist/latest-v24.x/ \
   | grep -o 'node-v22\.[0-9][0-9]*\.[0-9][0-9]*-linux-x64\.tar\.gz' \
   | head -1 \
   | sed 's/node-v\(.*\)-linux-x64\.tar\.gz/\1/')
 
 if [ -z "$NEW_NODE" ]; then
-  echo "Error: could not determine latest Node.js 22.x version." >&2
+  echo "Error: could not determine latest Node.js 24.x version." >&2
   exit 1
 fi
 
-echo "  Latest Node.js 22.x: $NEW_NODE"
+echo "  Latest Node.js 24.x: $NEW_NODE"
 
 # ── Dockerfile ────────────────────────────────────────────────────────────────
-# Matches:  NODE_VERSION=v22.22.2
+# Matches:  NODE_VERSION=v24.14.1
 sedi "s|NODE_VERSION=v22\.[0-9][0-9]*\.[0-9][0-9]*|NODE_VERSION=v${NEW_NODE}|g" \
   Dockerfile
 
 # ── snapcraft.yaml ───────────────────────────────────────────────────────────
-# Matches:  npm-node-version: 22.22.2
+# Matches:  npm-node-version: 24.14.1
 sedi "s|npm-node-version: 22\.[0-9][0-9]*\.[0-9][0-9]*|npm-node-version: ${NEW_NODE}|g" \
   snapcraft.yaml
-# Matches:  NODE_VERSION="22.22.2"   (in wekan override-build)
+# Matches:  NODE_VERSION="24.14.1"   (in wekan override-build)
 sedi "s|NODE_VERSION=\"22\.[0-9][0-9]*\.[0-9][0-9]*\"|NODE_VERSION=\"${NEW_NODE}\"|g" \
   snapcraft.yaml
-# Matches comment:  matching Node.js 22.22.2 binary
+# Matches comment:  matching Node.js 24.14.1 binary
 sedi "s|Node\.js 22\.[0-9][0-9]*\.[0-9][0-9]* binary|Node.js ${NEW_NODE} binary|g" \
   snapcraft.yaml
 
 # ── .github/workflows/release-all.yml ────────────────────────────────────────
 WORKFLOW=".github/workflows/release-all.yml"
-# Matches:  node-version: '22.22.0'  (actions/setup-node, windows job)
+# Matches:  node-version: '24.14.1'  (actions/setup-node, windows job)
 sedi "s|node-version: '22\.[0-9][0-9]*\.[0-9][0-9]*'|node-version: '${NEW_NODE}'|g" \
   "$WORKFLOW"
-# Matches:  node:22.22.0-slim  (docker run commands and comments)
+# Matches:  node:24.14.1-slim  (docker run commands and comments)
 sedi "s|node:22\.[0-9][0-9]*\.[0-9][0-9]*-slim|node:${NEW_NODE}-slim|g" \
   "$WORKFLOW"
-# Matches version number in comments:  bundles: 22.22.0 (ABI
+# Matches version number in comments:  bundles: 24.14.1 (ABI
 sedi "s|bundles: 22\.[0-9][0-9]*\.[0-9][0-9]* (ABI|bundles: ${NEW_NODE} (ABI|g" \
   "$WORKFLOW"
-# Matches:  Node 22.22.0 — the exact version bundled
+# Matches:  Node 24.14.1 — the exact version bundled
 sedi "s|Node 22\.[0-9][0-9]*\.[0-9][0-9]* —|Node ${NEW_NODE} —|g" \
   "$WORKFLOW"
 
 # ── rebuild-wekan.sh ──────────────────────────────────────────────────────────
-# Matches:  sudo n 22.22.0
+# Matches:  sudo n 24.14.1
 sedi "s|sudo n 22\.[0-9][0-9]*\.[0-9][0-9]*|sudo n ${NEW_NODE}|g" \
   rebuild-wekan.sh
 
 # ── releases/test-download-urls.sh ───────────────────────────────────────────
-# Matches URL path:    /v22.22.2/
+# Matches URL path:    /v24.14.1/
 sedi "s|/v22\.[0-9][0-9]*\.[0-9][0-9]*/|/v${NEW_NODE}/|g" \
   releases/test-download-urls.sh
-# Matches tarball name:  node-v22.22.2-
+# Matches tarball name:  node-v24.14.1-
 sedi "s|node-v22\.[0-9][0-9]*\.[0-9][0-9]*-|node-v${NEW_NODE}-|g" \
   releases/test-download-urls.sh
-# Matches label text:  Node.js 22.22.2
+# Matches label text:  Node.js 24.14.1
 sedi "s|Node\.js 22\.[0-9][0-9]*\.[0-9][0-9]*|Node.js ${NEW_NODE}|g" \
   releases/test-download-urls.sh
 

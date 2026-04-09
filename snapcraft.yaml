@@ -113,7 +113,7 @@ parts:
     wekan:
         source: .
         plugin: npm
-        npm-node-version: 22.22.2
+        npm-node-version: 24.14.1
         npm-include-node: true
         build-packages:
             - build-essential
@@ -140,12 +140,12 @@ parts:
             rm wekan-8.74-amd64.zip
             cd ..
             # Copy to Snap
-            wget https://nodejs.org/dist/latest-v22.x/node-v22.22.2-linux-x64.tar.xz
-            tar -xf node-v22.22.2-linux-x64.tar.xz node-v22.22.2-linux-x64/bin/node
-            rm node-v22.22.2-linux-x64.tar.xz
+            wget https://nodejs.org/dist/latest-v22.x/node-v24.14.1-linux-x64.tar.xz
+            tar -xf node-v24.14.1-linux-x64.tar.xz node-v24.14.1-linux-x64/bin/node
+            rm node-v24.14.1-linux-x64.tar.xz
             mkdir $SNAPCRAFT_PART_INSTALL/bin
-            cp -p node-v22.22.2-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
-            rm -rf node-v22.22.2-linux-x64
+            cp -p node-v24.14.1-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v24.14.1-linux-x64
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan

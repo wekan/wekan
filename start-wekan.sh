@@ -3,6 +3,10 @@
 # If you want to restart even on crash, uncomment while and done lines.
 #while true; do
       cd .build/bundle
+      #-------------------- CHANGE STREAMS --------------------
+      # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
+      # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
+      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
       #-------------------- REQUIRED SETTINGS START --------------------
       # WRITEABLE PATH REQUIRED TO EXISTS AND BE WRITABLE FOR ATTACHMENTS TO WORK
       export WRITABLE_PATH=..

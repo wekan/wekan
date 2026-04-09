@@ -12,7 +12,7 @@
 #   - Make sure all code changes are ready to ship
 #
 # What this script does:
-#   0. Updates Node.js to the latest 22.x release across all files
+#   0. Updates Node.js to the latest 24.x release across all files
 #   1. Rebuilds OpenAPI docs (wekan.yml + wekan.html) from current source
 #   2. Updates all WeKan version numbers in release files
 #   3. Commits and pushes the version bump
@@ -81,11 +81,11 @@ echo ""
 
 if [ "$SKIP_TO_STEP_4" = "0" ]; then
 
-# ── Step 0: Update Node.js to the latest 22.x release ───────────────────────
-# Fetches https://nodejs.org/dist/latest-v22.x/ and updates Dockerfile,
+# ── Step 0: Update Node.js to the latest 24.x release ───────────────────────
+# Fetches https://nodejs.org/dist/latest-v24.x/ and updates Dockerfile,
 # snapcraft.yaml, GitHub Actions workflow, rebuild-wekan.sh, and
 # releases/test-download-urls.sh so all platforms use the same newest version.
-echo "--- Step 0: Updating Node.js to latest 22.x ---"
+echo "--- Step 0: Updating Node.js to latest 24.x ---"
 "$RELEASES_DIR/update-node-version.sh"
 echo "Done."
 echo ""

@@ -60,12 +60,12 @@ jobs:
           echo "GHEOF" >> $GITHUB_OUTPUT
 
   # ─── 2. Build amd64 bundle (full Meteor 3 build) ────────────────────────────
-  # Meteor 3.4 installer supports only: Linux x86_64, Linux aarch64, macOS, Windows.
+  # Meteor 3.5-beta.7 installer supports only: Linux x86_64, Linux aarch64, macOS, Windows.
   # It explicitly rejects armhf, s390x, and ppc64le at install time.
   # Therefore the full Meteor build always runs here on x86_64.
   # All other Linux architectures then rebuild only the native npm modules
   # from this bundle (much faster than a full Meteor build).
-  # Node.js version must match what Meteor 3.4 bundles: 22.22.2 (ABI 127).
+  # Node.js version must match what Meteor 3.5-beta.7 bundles: 24.14.1 (ABI 143).
   build-amd64:
     needs: prepare
     runs-on: ubuntu-24.04
@@ -93,11 +93,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip
 
-      # Pin to Node 22.22.2 — the exact version bundled by Meteor 3.4.
+      # Pin to Node 24.14.1 — the exact version bundled by Meteor 3.5-beta.7.
       # Using the same version for build and npm rebuild ensures consistent native module ABI.
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.22.2'
+          node-version: '24.14.1'
 
       - name: Install Meteor
         run: |
@@ -129,7 +129,7 @@ jobs:
           retention-days: 1
 
   # ─── 3. Build arm64 bundle (rebuild native modules natively) ─────────────────
-  # Meteor 3.4 does support Linux aarch64, but running a full Meteor build a
+  # Meteor 3.5-beta.7 does support Linux aarch64, but running a full Meteor build a
   # second time would double the build time for the same result. npm rebuild on
   # the native arm64 GitHub Actions runner is much faster and produces the same
   # platform-specific native modules.
@@ -147,7 +147,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.22.2'
+          node-version: '24.14.1'
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
@@ -173,10 +173,10 @@ jobs:
           retention-days: 1
 
   # ─── 4. Build s390x bundle (rebuild native modules via QEMU container) ───────
-  # Meteor 3.4 does NOT support s390x (installer exits with error on that arch).
+  # Meteor 3.5-beta.7 does NOT support s390x (installer exits with error on that arch).
   # GitHub Actions has no native s390x runners.
-  # Solution: QEMU emulation + node:22.22.2-slim (s390x variant) for npm rebuild.
-  # node:22.22.2-slim is pinned to match Meteor 3.4's bundled Node.js version exactly.
+  # Solution: QEMU emulation + node:24.14.1-slim (s390x variant) for npm rebuild.
+  # node:24.14.1-slim is pinned to match Meteor 3.5-beta.7's bundled Node.js version exactly.
   build-s390x:
     needs: [prepare, build-amd64]
     runs-on: ubuntu-latest
@@ -201,11 +201,11 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           rm -rf bundle/programs/server/node_modules
-          # node:22.22.2-slim s390x — same Node.js version as Meteor 3.4 bundled
+          # node:24.14.1-slim s390x — same Node.js version as Meteor 3.5-beta.7 bundled
           docker run --rm --platform linux/s390x \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:22.22.2-slim \
+            node:24.14.1-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create s390x zip
@@ -219,9 +219,9 @@ jobs:
           retention-days: 1
 
   # ─── 4b. Build ppc64le bundle (rebuild native modules via QEMU container) ────
-  # Meteor 3.4 does NOT support ppc64le (installer exits with error on that arch).
+  # Meteor 3.5-beta.7 does NOT support ppc64le (installer exits with error on that arch).
   # GitHub Actions has no native ppc64le runners.
-  # Solution: QEMU emulation + node:22.22.2-slim (ppc64le variant) for npm rebuild.
+  # Solution: QEMU emulation + node:24.14.1-slim (ppc64le variant) for npm rebuild.
   build-ppc64le:
     needs: [prepare, build-amd64]
     runs-on: ubuntu-latest
@@ -246,11 +246,11 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           rm -rf bundle/programs/server/node_modules
-          # node:22.22.2-slim ppc64le — same Node.js version as Meteor 3.4 bundled
+          # node:24.14.1-slim ppc64le — same Node.js version as Meteor 3.5-beta.7 bundled
           docker run --rm --platform linux/ppc64le \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:22.22.2-slim \
+            node:24.14.1-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create ppc64le zip
@@ -264,9 +264,9 @@ jobs:
           retention-days: 1
 
   # ─── 4c. Build armhf bundle (rebuild native modules via QEMU container) ──────
-  # Meteor 3.4 does NOT support arm/v7 (armhf). Installer explicitly rejects it.
+  # Meteor 3.5-beta.7 does NOT support arm/v7 (armhf). Installer explicitly rejects it.
   # GitHub Actions has no native arm/v7 runners.
-  # Solution: QEMU emulation + node:22.22.2-slim (arm/v7 variant) for npm rebuild.
+  # Solution: QEMU emulation + node:24.14.1-slim (arm/v7 variant) for npm rebuild.
   # arm/v7 under QEMU is slowest — timeout set to 120 min.
   build-armhf:
     needs: [prepare, build-amd64]
@@ -292,11 +292,11 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           rm -rf bundle/programs/server/node_modules
-          # node:22.22.2-slim arm/v7 — same Node.js version as Meteor 3.4 bundled
+          # node:24.14.1-slim arm/v7 — same Node.js version as Meteor 3.5-beta.7 bundled
           docker run --rm --platform linux/arm/v7 \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:22.22.2-slim \
+            node:24.14.1-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create armhf zip
@@ -319,11 +319,12 @@ jobs:
     steps:
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.22.2'
+          node-version: '24.14.1'
 
-      - name: Install node-gyp and build tools
-        run: |
-          npm install -g windows-build-tools --vs2019 2>$null; exit 0
+      ## With Node 24 these are already preinstalled at GitHub Windows runners
+      #- name: Install node-gyp and build tools
+      #  run: |
+      #    npm install -g windows-build-tools --vs2019 2>$null; exit 0
 
       - name: Install 7-zip
         run: choco install -y 7zip

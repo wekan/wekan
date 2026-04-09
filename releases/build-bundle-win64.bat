@@ -3,7 +3,7 @@
 REM Build WeKan Windows (win64) bundle - Meteor 3 style (no fibers needed).
 REM
 REM Prerequisites:
-REM   1. Node.js 22.x from https://nodejs.org/
+REM   1. Node.js 24.x from https://nodejs.org/
 REM   2. 7-Zip from https://www.7-zip.org/
 REM   3. wget  (choco install wget) or use curl
 REM   4. Visual Studio Build Tools 2019 or later

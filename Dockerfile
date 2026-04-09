@@ -14,11 +14,10 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=v22.22.2 \
+    NODE_VERSION=v24.14.1 \
     METEOR_RELEASE=METEOR@3.4 \
     USE_EDGE=false \
-    METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=10.9.2 \
+    NPM_VERSION=11.11.0 \
     SRC_PATH=./ \
     WITH_API=true \
     MONGO_OPLOG_URL="" \
