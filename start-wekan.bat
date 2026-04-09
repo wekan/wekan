@@ -3,7 +3,41 @@
 REM # ------------------- HOWTO ---------------------
 REM # https://github.com/wekan/wekan/wiki/Offline
 
+REM #-------------------- INITIALIZE REPLICA SET IF NEEDED --------------------
+REM # Change Streams require MongoDB to run as a replica set.
+REM # This checks if the replica set is already initialized, and if not, initializes it.
+REM # MongoDB must already be running at 127.0.0.1:27017.
+where mongosh >NUL 2>NUL
+IF %ERRORLEVEL% NEQ 0 (
+    ECHO mongosh not found. Skipping replica set initialization. Using polling.
+    SET USE_CHANGE_STREAMS=false
+) ELSE (
+    ECHO Checking MongoDB replica set status...
+    mongosh --port 27017 --quiet --eval "if (rs.status().ok === 1) { print('REPSET_OK'); }" 2>NUL | find "REPSET_OK" >NUL
+    IF %ERRORLEVEL% NEQ 0 (
+        ECHO Initializing replica set rs0...
+        mongosh --port 27017 --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:27017'}]})"
+        timeout /t 3 /nobreak >NUL
+        ECHO Replica set rs0 initialized.
+    ) ELSE (
+        ECHO Replica set already initialized.
+    )
+    SET USE_CHANGE_STREAMS=true
+)
+REM #----------------------------------------------------------------------
+
 REM #-------------------- REQUIRED SETTINGS START --------------------
+
+REM #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
+REM # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
+REM #SET METEOR_REACTIVITY_ORDER=polling
+REM # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
+REM # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
+IF "%USE_CHANGE_STREAMS%"=="true" (
+    SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+) ELSE (
+    SET METEOR_REACTIVITY_ORDER=polling
+)
 
 REM # Writable path required to exist and be writable for attachments to migrate and work correctly
 SET WRITABLE_PATH=..
@@ -14,15 +48,14 @@ REM # MONGO_PASSWORD_FILE : MongoDB password file (Docker secrets)
 REM # example : SET MONGO_PASSWORD_FILE=/run/secrets/mongo_password
 REM SET MONGO_PASSWORD_FILE=
 
-REM # MONGO_OPLOG_URL: MongoDB oplog connection (highly recommended for pub/sub performance)
-REM # Required for Meteor reactive subscriptions to work efficiently
-REM # Must point to a MongoDB replica set (local oplog or remote)
-REM # For local MongoDB with replicaSet named 'rs0', use:
-REM #   SET MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+REM # MONGO_OPLOG_URL: MongoDB oplog connection for real-time reactivity
+REM # Required for Change Streams and OpLog tailing to work.
+REM # For local MongoDB replica set named 'rs0':
+IF "%USE_CHANGE_STREAMS%"=="true" (
+    SET MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+)
 REM # For production with credentials and remote MongoDB:
 REM #   SET MONGO_OPLOG_URL=mongodb://<user>:<password>@<host>:<port>/local?authSource=admin&replicaSet=rsWekan
-REM # Without this, Meteor falls back to polling which increases CPU usage and latency
-REM SET MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
 
 REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
 REM # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000

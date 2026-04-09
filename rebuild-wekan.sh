@@ -70,8 +70,8 @@ do
     "Build Wekan")
 		echo "Building Wekan."
 		rm -rf node_modules .meteor/local .build
-		meteor npm install --no-audit
-		meteor build .build --directory --platforms=web.browser
+		(meteor update --npm 2>/dev/null || true) && meteor npm install
+		meteor build .build --directory
 		echo Done.
 		break
 		;;

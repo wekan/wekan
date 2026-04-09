@@ -289,7 +289,9 @@ services:
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
       - 80:8080
     environment:
-      #-------------------- CHANGE STREAMS --------------------
+      #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
+      # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
+      #- METEOR_REACTIVITY_ORDER=polling
       # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
       # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
       - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
