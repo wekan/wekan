@@ -152,6 +152,20 @@ jobs:
       - name: Rebuild native modules for arm64
         run: |
           unzip wekan-${VERSION}-amd64.zip
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
           cd bundle/programs/server
           rm -rf node_modules
           npm install
@@ -196,6 +210,20 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           rm -rf bundle/programs/server/node_modules
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
           # node:24.14.1-slim s390x — same Node.js version as Meteor 3.5-beta.7 bundled
           docker run --rm --platform linux/s390x \
             -v "$(pwd)/bundle:/bundle" \
@@ -241,6 +269,20 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           rm -rf bundle/programs/server/node_modules
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
           # node:24.14.1-slim ppc64le — same Node.js version as Meteor 3.5-beta.7 bundled
           docker run --rm --platform linux/ppc64le \
             -v "$(pwd)/bundle:/bundle" \
@@ -287,6 +329,20 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           rm -rf bundle/programs/server/node_modules
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
           # node:24.14.1-slim arm/v7 — same Node.js version as Meteor 3.5-beta.7 bundled
           docker run --rm --platform linux/arm/v7 \
             -v "$(pwd)/bundle:/bundle" \
@@ -329,10 +385,28 @@ jobs:
         with:
           name: bundle-amd64
 
+      - name: Fix bcrypt for Node.js 24
+        shell: bash
+        run: |
+          7z x wekan-${VERSION}-amd64.zip
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -r bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+
       - name: Rebuild native modules for Windows
         shell: cmd
         run: |
-          7z x wekan-%VERSION%-amd64.zip
           cd bundle\programs\server
           rmdir /s /q node_modules
           npm install
