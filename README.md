@@ -103,7 +103,8 @@ By working directly with WeKan ® you get the benefit of active maintenance and 
 
 ## Getting Started with Development
 
-The default branch uses [Meteor 2 with Node.js 14](https://wekan.fi/install/).
+The default branch uses Meteor 3 with Node.js 22.22.
+See [CHANGELOG.md](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) for the latest runtime updates.
 
 To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
 
@@ -116,17 +117,17 @@ Please refer to the [developer documentation](https://github.com/wekan/wekan/blo
 Before building WeKan from source, ensure you have:
 
 - **Git** - for cloning the repository
-- **Node.js 14.x** - WeKan requires Node.js 14 (not newer versions)
+- **Node.js 22.22** - WeKan requires Node.js 22.22
 - **Meteor** - the JavaScript framework WeKan is built with
 
-### Installing Node.js 14
+### Installing Node.js 22.22
 
 ```bash
 # Using nvm (recommended)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 source ~/.zshrc  # or ~/.bashrc
-nvm install 14
-nvm use 14
+nvm install 22.22.0
+nvm use 22.22.0
 ```
 
 ### Installing Meteor
@@ -176,7 +177,12 @@ softwareupdate --install-rosetta
 arch -x86_64 ./rebuild-wekan.sh
 ```
 
+### WSL Users
+
+WSL users can use Snap Candidate. See [install docs](https://wekan.fi/install/).
+
 The development server will start at http://localhost:4000. Any changes you make to the source code will automatically trigger a rebuild and refresh your browser.
+
 
 ## Screenshot
 
