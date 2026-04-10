@@ -130,7 +130,7 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{_ 'drag-board'}}")
+                    span.board-handle(title="{{boardWorkspaceDragHint}}")
                       span.emoji-icon
                         i.fa.fa-arrows
 
@@ -158,13 +158,13 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{_ 'drag-board'}}")
+                    span.board-handle(title="{{boardWorkspaceDragHint}}")
                       span.emoji-icon
                         i.fa.fa-arrows
 
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
-                        span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
+                        span.board-list-item-name(title="{{boardOpenAndMoveHint}}")
                           +viewer
                             = title
                         unless currentSetting.hideBoardMemberList
