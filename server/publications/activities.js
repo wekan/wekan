@@ -25,12 +25,15 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
     return this.ready();
   }
 
+  // isVisibleBy() expects a user object with _id, not a raw userId string
+  const userForVisibility = { _id: this.userId };
+
   let linkedElmtId = [id];
   let board;
 
   if (kind === 'board') {
     board = await ReactiveCache.getBoard(id);
-    if (!board || !board.isVisibleBy(this.userId)) {
+    if (!board || !board.isVisibleBy(userForVisibility)) {
       return this.ready();
     }
 
@@ -41,7 +44,7 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
     });
     for (const card of linkedCards) {
       const linkedBoard = await ReactiveCache.getBoard(card.linkedId);
-      if (linkedBoard && linkedBoard.isVisibleBy(this.userId)) {
+      if (linkedBoard && linkedBoard.isVisibleBy(userForVisibility)) {
         linkedElmtId.push(card.linkedId);
       }
     }
@@ -51,7 +54,7 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
       return this.ready();
     }
     board = await ReactiveCache.getBoard(card.boardId);
-    if (!board || !board.isVisibleBy(this.userId)) {
+    if (!board || !board.isVisibleBy(userForVisibility)) {
       return this.ready();
     }
   }
@@ -59,6 +62,7 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
   const selector = showActivities
     ? { [`${kind}Id`]: { $in: linkedElmtId } }
     : { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] };
+
   const ret = await ReactiveCache.getActivities(selector,
     {
       limit,
@@ -66,5 +70,6 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
     },
     true,
   );
+
   return ret;
 });
