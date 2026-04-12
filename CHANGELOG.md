@@ -38,6 +38,8 @@ This release fixes the following bugs:
   Thanks to YosserDerbali.
 - [Clarify board drag tooltip text in Remaining and Workspaces](https://github.com/wekan/wekan/pull/6268).
   Thanks to YosserDerbali.
+- [Add migration for v7.95 due dates](https://github.com/wekan/wekan/pull/6262).
+  Thanks to Raawen-dev.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
