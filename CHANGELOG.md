@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to snowsky.
 - [Fix Link Card modal overflow in Docker environment](https://github.com/wekan/wekan/pull/6273).
   Thanks to AymenHassini19.
+- [Fix/readme node version and changes made](https://github.com/wekan/wekan/pull/6271).
+  Thanks to YosserDerbali.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
