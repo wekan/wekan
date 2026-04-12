@@ -78,23 +78,32 @@
   overflow-x: hidden;
 }
 
-/* Allow dynamic max-height to override default constraint */
+/* Bounded height: flex column + clip so inline max-height cannot spill past the shell.
+   Class pop-over--bounded matches popup.tpl.jade when max-height is set (more reliable
+   than attribute substring matching on the style attribute alone). */
+.pop-over.pop-over--bounded,
 .pop-over[style*='max-height'] {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
+.pop-over.pop-over--bounded .header,
 .pop-over[style*='max-height'] .header {
   flex: 0 0 auto;
 }
 
+.pop-over.pop-over--bounded .content-wrapper,
 .pop-over[style*='max-height'] .content-wrapper {
-  flex: 1 1 auto;
+  /* 0% basis: use remaining space under header, scroll inside (not past white bg) */
+  flex: 1 1 0%;
   min-height: 0;
   max-height: none;
   overflow-y: auto;
   overflow-x: hidden;
+  background: inherit;
 }
 .pop-over .content-container {
   width: 100%;
@@ -103,6 +112,7 @@
 }
 
 /* Allow dynamic max-height to override default constraint for content-container */
+.pop-over.pop-over--bounded .content-container,
 .pop-over[style*='max-height'] .content-container {
   max-height: none;
 }
