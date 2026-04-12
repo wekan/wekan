@@ -539,6 +539,26 @@ Template.boardList.helpers({
   hasBoardsSelected() {
     return BoardMultiSelection.count() > 0;
   },
+  boardWorkspaceDragHint() {
+    const drag = TAPi18n.__('drag-board') || 'Drag board';
+    const remaining = TAPi18n.__('allboards.remaining') || 'Remaining';
+    const workspaces = TAPi18n.__('allboards.workspaces') || 'Workspaces';
+    return `${drag}: ${remaining} <-> ${workspaces}`;
+  },
+  boardOpenAndMoveHint() {
+    const remaining = TAPi18n.__('allboards.remaining') || 'Remaining';
+    const workspaces = TAPi18n.__('allboards.workspaces') || 'Workspaces';
+    return (
+      TAPi18n.__(
+        'board-open-and-move-between-remaining-and-workspaces',
+        {
+          remaining,
+          workspaces,
+        },
+      ) ||
+      `Click board icon to open board. Drag board between ${remaining} and ${workspaces}.`
+    );
+  },
 });
 
 Template.workspaceTree.helpers({
