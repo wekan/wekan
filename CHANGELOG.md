@@ -32,6 +32,8 @@ This release fixes the following bugs:
 
 - [Fix activities are not showing](https://github.com/wekan/wekan/pull/6272).
   Thanks to snowsky.
+- [Fix Link Card modal overflow in Docker environment](https://github.com/wekan/wekan/pull/6273).
+  Thanks to AymenHassini19.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
