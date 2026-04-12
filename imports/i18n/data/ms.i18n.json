@@ -189,6 +189,7 @@
   "board-private-info": "Papan ini akan menjadi <strong>peribadi </strong>.",
   "board-public-info": "Panpan ini akan menjadi <strong>Umum </strong>.",
   "board-drag-drop-reorder-or-click-open": "Seret dan lepas untuk menyusun semula ikon papan. Klik pada ikon papan untuk papar.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Ubah latar belakang Papan",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Ubah Warna",

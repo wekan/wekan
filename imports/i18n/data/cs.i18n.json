@@ -189,6 +189,7 @@
   "board-private-info": "Toto tablo bude <strong>soukromé</strong>.",
   "board-public-info": "Toto tablo bude <strong>veřejné</strong>.",
   "board-drag-drop-reorder-or-click-open": "Přetažením změníte pořadí ikon tabel. Kliknutím otevřete tablo.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Změnit pozadí tabla",
   "boardChangeBackgroundImagePopup-title": "Změnit obrázek na pozadí",
   "allBoardsChangeColorPopup-title": "Změnit barvu",

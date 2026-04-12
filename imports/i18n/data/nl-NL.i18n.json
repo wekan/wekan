@@ -189,6 +189,7 @@
   "board-private-info": "Dit bord is nu <strong>privé</strong>.",
   "board-public-info": "Dit bord is nu <strong>openbaar</strong>.",
   "board-drag-drop-reorder-or-click-open": "Sleep en verplaats om iconen te herordenen. Klik bord-icoon om het bord te openen,",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Wijzig achtergrond van bord",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Wijzig kleur",

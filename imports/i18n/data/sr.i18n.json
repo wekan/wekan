@@ -189,6 +189,7 @@
   "board-private-info": "Ови списи су <strong>видљиви само сарадницима<strong>.",
   "board-public-info": "Ови списи су <strong>видљиви свима<strong>.",
   "board-drag-drop-reorder-or-click-open": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Промени боју омота ових списа",
   "boardChangeBackgroundImagePopup-title": "Списи на осликаној подлози",
   "allBoardsChangeColorPopup-title": "Зид у боји",

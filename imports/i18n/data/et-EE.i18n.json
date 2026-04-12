@@ -189,6 +189,7 @@
   "board-private-info": "See foorum on <strong>privaatne</strong>.",
   "board-public-info": "See foorum on <strong>avalik</strong>.",
   "board-drag-drop-reorder-or-click-open": "Lohistades saab tahvli ikoone ümber järjestada. Klõpsake tahvli ikoonil, et avada tahvel.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Muuda juhatuse tausta",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Värvi muutmine",

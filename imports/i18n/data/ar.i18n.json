@@ -189,6 +189,7 @@
   "board-private-info": "سوف تصبح هذه اللوحة <strong>خاصة</strong>",
   "board-public-info": "سوف تصبح هذه اللوحة <strong>عامّة</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "تعديل خلفية الشاشة",
   "boardChangeBackgroundImagePopup-title": "تغيير صورة الخلفية",
   "allBoardsChangeColorPopup-title": "تغيير اللومr",

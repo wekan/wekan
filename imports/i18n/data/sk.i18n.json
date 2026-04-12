@@ -189,6 +189,7 @@
   "board-private-info": "Táto nástenka bude <strong>súkromná</strong>.",
   "board-public-info": "Táto nástenka bude <strong>verejná</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Change Board Background",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Zmeniť farbu",

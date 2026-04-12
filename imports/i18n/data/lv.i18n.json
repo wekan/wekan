@@ -189,6 +189,7 @@
   "board-private-info": "Šis dēlis būs <strong>privāts</strong>.",
   "board-public-info": "Šis dēlis būs <strong>publisks</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Mainīt dēļa fonu",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Mainīt krāsu",

@@ -189,6 +189,7 @@
   "board-private-info": "Panel ini akan jadi  <strong>Pribadi<strong>",
   "board-public-info": "Panel ini akan jadi  <strong>Publik<strong",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Ubah Warna Latar",
   "boardChangeBackgroundImagePopup-title": "Ubah latar belakang gambar",
   "allBoardsChangeColorPopup-title": "Ubah warna",

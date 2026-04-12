@@ -189,6 +189,7 @@
   "board-private-info": "Această tabla va fi <strong>privată</strong>.",
   "board-public-info": "Această tabla va fi <strong>publică</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Schimbă Fundalul Tablei",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Schimbă culoare",

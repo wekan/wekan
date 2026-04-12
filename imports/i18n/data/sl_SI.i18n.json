@@ -189,6 +189,7 @@
   "board-private-info": "Ta tabla bo <strong>privatna</strong>.",
   "board-public-info": "Ta tabla bo <strong>javna</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Spremeni ozadje table",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Spremeni barvo",

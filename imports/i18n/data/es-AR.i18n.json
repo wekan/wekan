@@ -189,6 +189,7 @@
   "board-private-info": "Este tablero va a ser <strong>privado</strong>.",
   "board-public-info": "Este tablero va a ser <strong>público</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Cambiar Fondo del Tablero",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Cambiar color",

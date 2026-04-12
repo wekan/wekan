@@ -189,6 +189,7 @@
   "board-private-info": "Aquest tauler serà <strong> privat.",
   "board-public-info": "Aquest tauler serà <strong> públic.",
   "board-drag-drop-reorder-or-click-open": "Arrossegueu i deixeu anar per reordenar les icones del tauler. Feu clic a la icona del tauler per obrir el tauler.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Canvia fons del tauler",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Canvia el color",

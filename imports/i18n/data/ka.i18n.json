@@ -189,6 +189,7 @@
   "board-private-info": "ეს დაფა იქნება  <strong>პირადი</strong>.",
   "board-public-info": "ეს დაფა იქნება <strong>საჯარო</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "დაფის ფონის ცვლილება",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "ფერის შეცვლა",

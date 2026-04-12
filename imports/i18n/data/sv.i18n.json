@@ -189,6 +189,7 @@
   "board-private-info": "Denna tavla kommer vara <strong>privat</strong>.",
   "board-public-info": "Denna tavla kommer vara <strong>publik</strong>.",
   "board-drag-drop-reorder-or-click-open": "Dra och släpp för att ändra ordning på tavelsymboler. Klicka på tavelsymbolen för att öppna tavlan.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Ändra tavelbakgrund",
   "boardChangeBackgroundImagePopup-title": "Ändra bakgrundsbild",
   "allBoardsChangeColorPopup-title": "Ändra färg",

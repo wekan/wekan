@@ -189,6 +189,7 @@
   "board-private-info": "לוח זה יהיה <strong>פרטי</strong>.",
   "board-public-info": "לוח זה יהיה <strong>ציבורי</strong>.",
   "board-drag-drop-reorder-or-click-open": "יש לגרור ולסדר מחדש את סמלי הלוח. לחיצה על סמל הלוח תפתח אותו.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "שינוי רקע ללוח",
   "boardChangeBackgroundImagePopup-title": "החלפת תמונת רקע",
   "allBoardsChangeColorPopup-title": "שינוי צבע",

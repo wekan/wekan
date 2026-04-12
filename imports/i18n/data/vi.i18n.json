@@ -189,6 +189,7 @@
   "board-private-info": "Bảng này sẽ chuyển sang chế độ <strong>riêng tư</strong>.",
   "board-public-info": "Bảng này sẽ chuyển sang chế độ <strong>công khai</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Thay hình nền của bảng",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Đổi màu",

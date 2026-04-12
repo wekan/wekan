@@ -189,6 +189,7 @@
   "board-private-info": "Questa bacheca sarà <strong>privata</strong>.",
   "board-public-info": "Questa bacheca sarà <strong>pubblica</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Cambia sfondo della bacheca",
   "boardChangeBackgroundImagePopup-title": "Modificare immagine di sfondo",
   "allBoardsChangeColorPopup-title": "Cambia colore",

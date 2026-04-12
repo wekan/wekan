@@ -189,6 +189,7 @@
   "board-private-info": "Denne tavlen vil være <strong>privat</strong>.",
   "board-public-info": "Denne tavlen vil være <strong>offentlig</strong>.",
   "board-drag-drop-reorder-or-click-open": "Klikk og Dra for å omorganisere ikoner på tavlen. Klikk på ikon for å åpne tavlen.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Ende tavlens bakgrunnsfarge",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Endre farge",

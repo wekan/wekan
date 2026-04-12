@@ -189,6 +189,7 @@
   "board-private-info": "Это доска будет <strong>частной</strong>.",
   "board-public-info": "Эта доска будет <strong>доступной всем</strong>.",
   "board-drag-drop-reorder-or-click-open": "Перетаскивайте, чтобы упорядочить значки доски. Нажмите значок доски чтобы открыть доску.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Изменить фон доски",
   "boardChangeBackgroundImagePopup-title": "Изменить фон",
   "allBoardsChangeColorPopup-title": "Изменить цвет",

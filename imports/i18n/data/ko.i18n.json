@@ -189,6 +189,7 @@
   "board-private-info": "이 보드는 <strong>비공개</strong>입니다.",
   "board-public-info": "이 보드는 <strong>공개</strong>로 설정됩니다",
   "board-drag-drop-reorder-or-click-open": "보드 아이콘 순서를 변경하려면 끌어서 놓으십시오. 보드를 열려면 보드 아이콘을 클릭하세요.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "보드 배경 변경",
   "boardChangeBackgroundImagePopup-title": "배경 이미지 변경",
   "allBoardsChangeColorPopup-title": "보드 색 변경",

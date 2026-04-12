@@ -189,6 +189,7 @@
   "board-private-info": "Tämä taulu tulee olemaan <strong>yksityinen</strong>.",
   "board-public-info": "Tämä taulu tulee olemaan <strong>julkinen</strong>.",
   "board-drag-drop-reorder-or-click-open": "Järjestele taulu ikoneita vetämällä ja pudottamalla. Klikkaa taulu ikonia avataksesi taulun.",
+  "board-open-and-move-between-remaining-and-workspaces": "Klikkaa taulu ikonia avataksesi taulun. Vedä taulua __remaining__ ja __workspaces__ välillä.",
   "boardChangeColorPopup-title": "Muokkaa taulun taustaa",
   "boardChangeBackgroundImagePopup-title": "Vaihda taustakuva",
   "allBoardsChangeColorPopup-title": "Muokkaa väriä",

@@ -189,6 +189,7 @@
   "board-private-info": "This board will be <strong>private</strong>.",
   "board-public-info": "This board will be <strong>public</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Change Board Background",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Ŝanĝi koloron",

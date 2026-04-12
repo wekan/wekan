@@ -189,6 +189,7 @@
   "board-private-info": "Bu pano <strong>özel</strong> olacak.",
   "board-public-info": "Bu pano <strong>genel</strong>e açılacaktır.",
   "board-drag-drop-reorder-or-click-open": "Tahta ikonlarını yeniden sıralamak için sürükleyip bırakın. Tahtayı açmak için tahta ikonuna tıklayın.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Pano arkaplan rengini değiştir",
   "boardChangeBackgroundImagePopup-title": "Arkaplan Resmini Değiştir.",
   "allBoardsChangeColorPopup-title": "Renk değiştir",

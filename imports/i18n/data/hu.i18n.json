@@ -189,6 +189,7 @@
   "board-private-info": "Ez a tábla legyen <strong>személyes</strong>.",
   "board-public-info": "Ez a tábla legyen <strong>nyilvános</strong>.",
   "board-drag-drop-reorder-or-click-open": "Fogd és vidd az egérrel az ikonok sorba rendezéséhez. Kattints a Tábla ikonjára a megnyitáshoz.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Tábla hátterének megváltoztatása",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Szín megváltoztatása",

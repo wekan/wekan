@@ -189,6 +189,7 @@
   "board-private-info": "Denne tavle vil være <strong>privat</strong>.",
   "board-public-info": "Denne tavle vil være <strong>offentlig</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Skift tavlens baggrund",
   "boardChangeBackgroundImagePopup-title": "Skift baggrundsbillede",
   "allBoardsChangeColorPopup-title": "Skift farve",

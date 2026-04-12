@@ -189,6 +189,7 @@
   "board-private-info": "Ця дошка буде <strong>приватною</strong>.",
   "board-public-info": "Ця дошка буде <strong>публічною</strong>.",
   "board-drag-drop-reorder-or-click-open": "Перетягніть та відпустіть, щоб змінити порядок іконок дошок. Натисніть на іконку дошки, щоб відкрити дошку.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Змінити фон дошки",
   "boardChangeBackgroundImagePopup-title": "Змінити фонове зображення",
   "allBoardsChangeColorPopup-title": "Змінити колір",

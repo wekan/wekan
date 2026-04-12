@@ -189,6 +189,7 @@
   "board-private-info": "यह बोर्ड हो जाएगा <strong>निजी</strong>.",
   "board-public-info": "यह बोर्ड हो जाएगा <strong>सार्वजनिक</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "बोर्ड पृष्ठभूमि बदलें",
   "boardChangeBackgroundImagePopup-title": "पृष्ठभूमि छवि बदलें",
   "allBoardsChangeColorPopup-title": "रंग बदलना",

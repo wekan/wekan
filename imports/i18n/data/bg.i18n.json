@@ -189,6 +189,7 @@
   "board-private-info": "Това табло ще бъде <strong>лично</strong>",
   "board-public-info": "Това табло ще бъде <strong>публично</strong>",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Променете фона на таблото",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Промени цвета",

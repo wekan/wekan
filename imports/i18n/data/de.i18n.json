@@ -189,6 +189,7 @@
   "board-private-info": "Dieses Board wird <strong>privat</strong> sein.",
   "board-public-info": "Dieses Board wird <strong>öffentlich</strong> sein.",
   "board-drag-drop-reorder-or-click-open": "Benutze Drag-and-Drop, um Board-Icons neu anzuordnen. Klicke auf ein Board-Icon, um das Board zu öffnen.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "Farbe des Boards ändern",
   "boardChangeBackgroundImagePopup-title": "Hintergrundbild ändern",
   "allBoardsChangeColorPopup-title": "Farbe ändern",

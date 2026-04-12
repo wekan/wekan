@@ -189,6 +189,7 @@
   "board-private-info": "บอร์ดนี้จะเป็น <strong>ส่วนตัว</strong>.",
   "board-public-info": "บอร์ดนี้จะเป็น <strong>สาธารณะ</strong>.",
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
+  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
   "boardChangeColorPopup-title": "เปลี่ยนสีพื้นหลังบอร์ด",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "เปลี่ยนสี",
