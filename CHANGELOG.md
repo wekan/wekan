@@ -36,6 +36,8 @@ This release fixes the following bugs:
   Thanks to AymenHassini19.
 - [Fix/readme node version and changes made](https://github.com/wekan/wekan/pull/6271).
   Thanks to YosserDerbali.
+- [Clarify board drag tooltip text in Remaining and Workspaces](https://github.com/wekan/wekan/pull/6268).
+  Thanks to YosserDerbali.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
