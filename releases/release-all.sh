@@ -147,7 +147,7 @@ echo "Done."
 echo ""
 
 echo "=== GitHub Actions is now building and releasing v$NEW ==="
-echo "    Building:  amd64 (full Meteor build), arm64, s390x, ppc64le, armhf, win64 bundles"
+echo "    Building:  amd64 (full Meteor build), arm64, s390x, ppc64le, win64 bundles"
 echo "    Releasing: GitHub Release with CHANGELOG notes + all .zip bundles"
 echo "    Docker:    wekanteam/wekan, quay.io/wekan/wekan, ghcr.io/wekan/wekan"
 echo "    Snap:      published edge, released to candidate"
