@@ -28,7 +28,12 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/7b91439b0f9ec0e409c14ecebab389d41b40a990).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Fix activities are not showing](https://github.com/wekan/wekan/pull/6272).
   Thanks to snowsky.
