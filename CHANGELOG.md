@@ -45,6 +45,8 @@ and fixes the following bugs:
   Thanks to YosserDerbali.
 - [Add migration for v7.95 due dates](https://github.com/wekan/wekan/pull/6262).
   Thanks to Raawen-dev.
+- [Fix: include historical comments and activities in board exports](https://github.com/wekan/wekan/pull/6275).
+  Thanks to KhaoulaMaleh.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
