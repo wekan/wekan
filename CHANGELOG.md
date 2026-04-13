@@ -26,6 +26,19 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Release scripts: Removed armhf, there is no official Node.js binary for it](https://github.com/wekan/wekan/commit/d0a9fa9a71029a5586cf5bc87488619c7db9d0e3).
+  Thanks to xet7.
+- [Release scripts: Docker not for armhf, no official Node.js binary for it](https://github.com/wekan/wekan/commit/41db7b4ad18359283602b8bfdb42b15acf51782d).
+  Thanks to xet7.
+- [Release scripts: Fix Node.js 24.x download URL for Snap builds](https://github.com/wekan/wekan/commit/2c43aa463a0baadcae3db9f34066a9ddf6e77594).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.82 2026-04-14 WeKan ® release
 
 This release adds the following updates:
