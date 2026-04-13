@@ -30,8 +30,12 @@ Versions:
 
 This release adds the following updates:
 
-- [Updated dependencies](https://github.com/wekan/wekan/commit/7b91439b0f9ec0e409c14ecebab389d41b40a990).
+- Updated dependencies
+  [Part 1](https://github.com/wekan/wekan/commit/7b91439b0f9ec0e409c14ecebab389d41b40a990),
+  [Part 2](https://github.com/wekan/wekan/commit/1637a9c938134ef26846ba3c0cd53c065f434e3e).
   Thanks to developers of dependencies.
+- [Docs: Added History of Schema Migration Systems](https://github.com/wekan/wekan/commit/2e7565f9eb744bc59e454745e06fd43a85a02f97).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
