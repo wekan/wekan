@@ -433,7 +433,7 @@ jobs:
           merge-multiple: true
 
       - name: Create GitHub Release with all bundles
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: v${{ needs.prepare.outputs.version }}
           body: ${{ needs.prepare.outputs.changelog }}
@@ -541,6 +541,6 @@ jobs:
   #        done
   #
   #    - name: Upload all snaps to GitHub Release
-  #      uses: softprops/action-gh-release@v2
+  #      uses: softprops/action-gh-release@v3
   #      with:
   #        files: "*.snap"
