@@ -300,65 +300,62 @@ jobs:
           path: wekan-${{ needs.prepare.outputs.version }}-ppc64le.zip
           retention-days: 1
 
-  # ─── 4c. Build armhf bundle (rebuild native modules via QEMU container) ──────
-  # Meteor 3.5-beta.7 does NOT support arm/v7 (armhf). Installer explicitly rejects it.
-  # GitHub Actions has no native arm/v7 runners.
-  # Solution: QEMU emulation + node:24.14.1-slim (arm/v7 variant) for npm rebuild.
-  # arm/v7 under QEMU is slowest — timeout set to 120 min.
-  build-armhf:
-    needs: [prepare, build-amd64]
-    runs-on: ubuntu-latest
-    timeout-minutes: 120
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-    steps:
-      - name: Set up QEMU for arm/v7
-        uses: docker/setup-qemu-action@v4
-        with:
-          platforms: arm
-
-      - name: Install unzip/zip
-        run: sudo apt-get update && sudo apt-get install -y unzip zip
-
-      - name: Download amd64 bundle
-        uses: actions/download-artifact@v8
-        with:
-          name: bundle-amd64
-
-      - name: Rebuild native modules for armhf in container
-        run: |
-          unzip wekan-${VERSION}-amd64.zip
-          rm -rf bundle/programs/server/node_modules
-          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
-          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
-          if [ -d "$BCRYPT_DIR" ]; then
-            rm -rf "$BCRYPT_DIR"
-            TMP=$(mktemp -d)
-            pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
-            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
-            cp -a bcrypt "$BCRYPT_DIR"
-            popd > /dev/null
-            rm -rf "$TMP"
-          fi
-          # node:24.14.1-slim arm/v7 — same Node.js version as Meteor 3.5-beta.7 bundled
-          docker run --rm --platform linux/arm/v7 \
-            -v "$(pwd)/bundle:/bundle" \
-            -w /bundle/programs/server \
-            node:24.14.1-slim \
-            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
-
-      - name: Clean up and create armhf zip
-        run: |
-          zip -r wekan-${VERSION}-armhf.zip bundle
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: bundle-armhf
-          path: wekan-${{ needs.prepare.outputs.version }}-armhf.zip
-          retention-days: 1
+  # ─── 4c. Build armhf bundle — COMMENTED OUT ─────────────────────────────────
+  # No official Node.js binaries exist for armhf (arm/v7).
+  #build-armhf:
+  #  needs: [prepare, build-amd64]
+  #  runs-on: ubuntu-latest
+  #  timeout-minutes: 120
+  #  env:
+  #    VERSION: ${{ needs.prepare.outputs.version }}
+  #  steps:
+  #    - name: Set up QEMU for arm/v7
+  #      uses: docker/setup-qemu-action@v4
+  #      with:
+  #        platforms: arm
+  #
+  #    - name: Install unzip/zip
+  #      run: sudo apt-get update && sudo apt-get install -y unzip zip
+  #
+  #    - name: Download amd64 bundle
+  #      uses: actions/download-artifact@v8
+  #      with:
+  #        name: bundle-amd64
+  #
+  #    - name: Rebuild native modules for armhf in container
+  #      run: |
+  #        unzip wekan-${VERSION}-amd64.zip
+  #        rm -rf bundle/programs/server/node_modules
+  #        # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+  #        # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+  #        BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+  #        if [ -d "$BCRYPT_DIR" ]; then
+  #          rm -rf "$BCRYPT_DIR"
+  #          TMP=$(mktemp -d)
+  #          pushd "$TMP" > /dev/null
+  #          npm pack bcrypt@6.0.0
+  #          mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+  #          cd bcrypt && npm install --ignore-scripts && cd ..
+  #          cp -a bcrypt "$BCRYPT_DIR"
+  #          popd > /dev/null
+  #          rm -rf "$TMP"
+  #        fi
+  #        # node:24.14.1-slim arm/v7 — same Node.js version as Meteor 3.5-beta.7 bundled
+  #        docker run --rm --platform linux/arm/v7 \
+  #          -v "$(pwd)/bundle:/bundle" \
+  #          -w /bundle/programs/server \
+  #          node:24.14.1-slim \
+  #          sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+  #
+  #    - name: Clean up and create armhf zip
+  #      run: |
+  #        zip -r wekan-${VERSION}-armhf.zip bundle
+  #
+  #    - uses: actions/upload-artifact@v7
+  #      with:
+  #        name: bundle-armhf
+  #        path: wekan-${{ needs.prepare.outputs.version }}-armhf.zip
+  #        retention-days: 1
 
   # ─── 5. Build win64 bundle (rebuild native modules on Windows) ───────────────
   build-win64:
@@ -424,7 +421,7 @@ jobs:
 
   # ─── 6. Create GitHub Release and upload all bundles ────────────────────────
   release:
-    needs: [prepare, build-amd64, build-arm64, build-s390x, build-ppc64le, build-armhf, build-win64]
+    needs: [prepare, build-amd64, build-arm64, build-s390x, build-ppc64le, build-win64]
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -445,7 +442,6 @@ jobs:
             wekan-${{ needs.prepare.outputs.version }}-arm64.zip
             wekan-${{ needs.prepare.outputs.version }}-s390x.zip
             wekan-${{ needs.prepare.outputs.version }}-ppc64le.zip
-            wekan-${{ needs.prepare.outputs.version }}-armhf.zip
             wekan-${{ needs.prepare.outputs.version }}-win64.zip
 
   # ─── 7. Build and push multi-platform Docker image ──────────────────────────
