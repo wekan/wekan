@@ -250,16 +250,7 @@ Lists.helpers({
       listId: this._id,
       archived: false,
     };
-    if (swimlaneId) {
-      // Fallback: also surface cards with no swimlaneId (null/empty) so that
-      // pre-migration / orphaned cards are always visible in every swimlane
-      // without requiring a database migration.
-      selector.$or = [
-        { swimlaneId },
-        { swimlaneId: null },  // null covers null AND missing field
-        { swimlaneId: '' },    // empty string from shared-lists era
-      ];
-    }
+    if (swimlaneId) selector.swimlaneId = swimlaneId;
     const filterSelector =
       typeof Filter !== 'undefined' && typeof Filter.mongoSelector === 'function'
         ? Filter.mongoSelector(selector)
@@ -273,14 +264,7 @@ Lists.helpers({
       listId: this._id,
       archived: false,
     };
-    if (swimlaneId) {
-      // Same fallback as cards(): include orphaned cards with no swimlaneId.
-      selector.$or = [
-        { swimlaneId },
-        { swimlaneId: null },
-        { swimlaneId: '' },
-      ];
-    }
+    if (swimlaneId) selector.swimlaneId = swimlaneId;
     const ret = ReactiveCache.getCards(selector, { sort: ['sort'] });
     return ret;
   },

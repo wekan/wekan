@@ -351,19 +351,13 @@ Swimlanes.helpers({
   },
 
   myLists() {
-    // Return per-swimlane lists: this swimlane's own lists.
-    // Also include "shared" / pre-migration lists whose swimlaneId is empty or
-    // null — they existed before the per-swimlane model and should remain
-    // visible in EVERY swimlane as a fallback (matching old shared-list
-    // behaviour) without requiring a database migration.
+    // Only render lists that actually belong to this swimlane.
+    // Corrupted/shared list structures should be repaired through the board
+    // migration flow instead of being shown as normal swimlane data.
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        $or: [
-          { swimlaneId: this._id },
-          { swimlaneId: null },   // null covers null AND missing field
-          { swimlaneId: '' },     // empty string from old shared-lists era
-        ],
+        swimlaneId: this._id,
         archived: false,
       },
       { sort: ['sort'] },

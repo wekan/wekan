@@ -23,7 +23,23 @@ template(name="boardBody")
     if debugBoardState
       .debug-info(style="position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 9999; font-size: 12px;")
         | {{_ 'board'}}: {{currentBoard.title}} | {{_ 'view'}}: {{boardView}} | {{_ 'has-swimlanes'}}: {{hasSwimlanes}} | {{_ 'swimlanes'}}: {{currentBoard.swimlanes.length}}
-    .board-wrapper(class=currentBoard.colorClass class="{{#if isMiniScreen}}mobile-view{{/if}}")
+    .board-wrapper(class=currentBoard.colorClass class="{{#if isMiniScreen}}mobile-view{{/if}}" class="{{#if showBoardIntegrityBanner}}has-integrity-banner{{/if}}")
+      if showBoardIntegrityBanner
+        .board-integrity-banner(class="{{boardIntegrityBannerClass}}")
+          .board-integrity-copy
+            .board-integrity-title {{boardIntegrityTitle}}
+            .board-integrity-text {{boardIntegritySummary}}
+          .board-integrity-actions
+            if canRunBoardIntegrityRepair
+              a.board-integrity-action.primary.js-run-board-integrity-repair
+                if $eq boardIntegrityStatus "repairing"
+                  | {{_ 'migration-running'}}
+                else
+                  | {{_ 'run-migration'}}
+            else
+              span.board-integrity-note {{_ 'migrations-admin-only'}}
+            if isViewSwimlanes
+              a.board-integrity-action.js-switch-integrity-to-lists-view {{_ 'board-view-lists'}}
       .board-canvas.js-swimlanes(
         class="{{#if hasSwimlanes}}dragscroll{{/if}}"
         class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
