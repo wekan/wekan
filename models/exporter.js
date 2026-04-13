@@ -124,8 +124,17 @@ export class Exporter {
       { boardIds: this._boardId },
       { fields: { boardIds: 0 } },
     );
-    result.comments = await ReactiveCache.getCardComments(byBoard, noBoardId);
-    result.activities = await ReactiveCache.getActivities(byBoard, noBoardId);
+    const cardIds = result.cards.map(card => card._id);
+    result.comments = await ReactiveCache.getCardComments(
+      { cardId: { $in: cardIds } },
+      noBoardId,
+    );
+    result.activities = await ReactiveCache.getActivities(
+      {
+        $or: [{ boardId: this._boardId }, { cardId: { $in: cardIds } }],
+      },
+      noBoardId,
+    );
     result.rules = await ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
     result.checklistItems = [];

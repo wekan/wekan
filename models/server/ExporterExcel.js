@@ -68,7 +68,7 @@ class ExporterExcel {
     result.customFields = await ReactiveCache.getCustomFields(
       {
         boardIds: {
-          $in: [this.boardId],
+          $in: [this._boardId],
         },
       },
       {
@@ -77,8 +77,17 @@ class ExporterExcel {
         },
       },
     );
-    result.comments = await ReactiveCache.getCardComments(byBoard, noBoardId);
-    result.activities = await ReactiveCache.getActivities(byBoard, noBoardId);
+    const cardIds = result.cards.map(card => card._id);
+    result.comments = await ReactiveCache.getCardComments(
+      { cardId: { $in: cardIds } },
+      noBoardId,
+    );
+    result.activities = await ReactiveCache.getActivities(
+      {
+        $or: [{ boardId: this._boardId }, { cardId: { $in: cardIds } }],
+      },
+      noBoardId,
+    );
     result.rules = await ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
     result.checklistItems = [];
@@ -873,7 +882,7 @@ class ExporterExcel {
         commentcnt.toString(),
         jcomment.text,
         jcomment.cardTitle,
-        jmeml[jcomment.userId],
+        jmeml[jcomment.userId] || jcomment.userId || '',
         addTZhours(jcomment.createdAt),
         addTZhours(jcomment.modifiedAt),
       ];
