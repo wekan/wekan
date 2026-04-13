@@ -189,7 +189,7 @@
   "board-private-info": "此看板將被設為<strong>私有</strong>。",
   "board-public-info": "此看板將被設為<strong>公開</strong>。",
   "board-drag-drop-reorder-or-click-open": "拖放以重新排序看板圖示。點擊看板圖示開啟看板。",
-  "board-open-and-move-between-remaining-and-workspaces": "Click board icon to open board. Drag board between __remaining__ and __workspaces__.",
+  "board-open-and-move-between-remaining-and-workspaces": "點選看板圖示以開啟看板。在 __剩餘__ 與 __工作空間__ 間拖曳。",
   "boardChangeColorPopup-title": "變更看板背景",
   "boardChangeBackgroundImagePopup-title": "變更背景圖片",
   "allBoardsChangeColorPopup-title": "變更顏色",
