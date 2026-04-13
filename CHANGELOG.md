@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# v8.81 2026-04-13 WeKan ® release
+# v8.81 2026-04-14 WeKan ® release
 
 This release adds the following updates:
 
@@ -35,6 +35,8 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/1637a9c938134ef26846ba3c0cd53c065f434e3e).
   Thanks to developers of dependencies.
 - [Docs: Added History of Schema Migration Systems](https://github.com/wekan/wekan/commit/2e7565f9eb744bc59e454745e06fd43a85a02f97).
+  Thanks to xet7.
+- [Release scripts: Comment out build for armhf because no official Node.js 24.x binaries exist for armhf (arm/v7)](https://github.com/wekan/wekan/commit/5462fb06477bc3a83f1d5c754ecd60ebe7643ee6).
   Thanks to xet7.
 
 and fixes the following bugs:
