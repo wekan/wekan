@@ -51,6 +51,8 @@ and fixes the following bugs:
   Thanks to Raawen-dev.
 - [Fix: include historical comments and activities in board exports](https://github.com/wekan/wekan/pull/6275).
   Thanks to KhaoulaMaleh.
+- [Fix Exporter: Attachments always empty in board JSON export](https://github.com/wekan/wekan/pull/6279).
+  Thanks to kolaente.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
