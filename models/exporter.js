@@ -39,7 +39,7 @@ export class Exporter {
     const os = Npm.require('os');
     const path = Npm.require('path');
 
-    const byBoard = { boardId: this._boardId };
+    const byBoard = { 'meta.boardId': this._boardId };
     const byBoardNoLinked = {
       boardId: this._boardId,
       linkedId: { $in: ['', null] },
@@ -75,7 +75,7 @@ export class Exporter {
         `tmpexport${process.pid}${Math.random()}`,
       );
       const tmpWriteable = fs.createWriteStream(tmpFile);
-      const readStream = doc.createReadStream();
+      const readStream = fs.createReadStream(doc.versions.original.path);
       readStream.on('data', function (chunk) {
         buffer = Buffer.concat([buffer, chunk]);
       });
@@ -97,7 +97,7 @@ export class Exporter {
       getBase64Data(doc, (err, res) => err ? reject(err) : resolve(res));
     });
     const byBoardAndAttachment = this._attachmentId
-      ? { boardId: this._boardId, _id: this._attachmentId }
+      ? { 'meta.boardId': this._boardId, _id: this._attachmentId }
       : byBoard;
     const attachmentDocs = await ReactiveCache.getAttachments(byBoardAndAttachment);
     result.attachments = [];
