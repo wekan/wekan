@@ -36,6 +36,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Release scripts: Fix Node.js 24.x download URL for Snap builds](https://github.com/wekan/wekan/commit/2c43aa463a0baadcae3db9f34066a9ddf6e77594).
   Thanks to xet7.
+- [Changed start-wekan.sh and start-wekan.bat to not use Change Streams](https://github.com/wekan/wekan/commit/da4459304fe7d068b1db91938f7fd4ffd04c5bcb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
