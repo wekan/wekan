@@ -6,21 +6,21 @@
       # Change Streams require MongoDB to run as a replica set.
       # This checks if the replica set is already initialized, and if not, initializes it.
       # MongoDB must already be running at 127.0.0.1:27017.
-      if command -v mongosh > /dev/null 2>&1; then
-          echo "Checking MongoDB replica set status..."
-          if mongosh --port 27017 --quiet --eval 'rs.status().ok' 2>/dev/null | grep -q 1; then
-              echo "Replica set already initialized."
-          else
-              echo "Initializing replica set rs0..."
-              mongosh --port 27017 --eval 'rs.initiate({_id: "rs0", members: [{_id: 0, host: "127.0.0.1:27017"}]})'
-              sleep 3
-              echo "Replica set rs0 initialized."
-          fi
-          USE_CHANGE_STREAMS=true
-      else
-          echo "mongosh not found. Skipping replica set initialization. Using polling."
+      #if command -v mongosh > /dev/null 2>&1; then
+      #    echo "Checking MongoDB replica set status..."
+      #    if mongosh --port 27017 --quiet --eval 'rs.status().ok' 2>/dev/null | grep -q 1; then
+      #        echo "Replica set already initialized."
+      #    else
+      #        echo "Initializing replica set rs0..."
+      #        mongosh --port 27017 --eval 'rs.initiate({_id: "rs0", members: [{_id: 0, host: "127.0.0.1:27017"}]})'
+      #        sleep 3
+      ##        echo "Replica set rs0 initialized."
+      #    fi
+      #    USE_CHANGE_STREAMS=true
+      #else
+      #    echo "mongosh not found. Skipping replica set initialization. Using polling."
           USE_CHANGE_STREAMS=false
-      fi
+      #fi
       #----------------------------------------------------------------------
       cd .build/bundle
       #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
