@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Improve handling of ROOT_URL as an environement variable](https://github.com/wekan/wekan/pull/6286).
   Thanks to FlorentDotMe.
+- [UI: Enable the horizontal scroll in the quick access menu boards list](https://github.com/wekan/wekan/pull/6287).
+  Thanks to FlorentDotMe.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
