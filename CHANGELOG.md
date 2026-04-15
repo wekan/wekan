@@ -28,7 +28,12 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Helm Chart: Make readiness, liveness and startup probes configurable](https://github.com/wekan/charts/pull/51).
+  Thanks to snowsky.
+
+and fixes the following bugs:
 
 - [Fix SSO Login OIDC and OpenID Connect](https://github.com/wekan/wekan/pull/6284).
   Thanks to sbaecker and nebulade.
