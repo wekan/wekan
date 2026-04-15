@@ -32,6 +32,8 @@ This release fixes the following bugs:
 
 - [Removed jam:offline jam:method jam:pub-sub, because they are not used, and they cause too much database usage](https://github.com/wekan/wekan/commit/0dd924f14889100e74fbd5e8d17bb3a7209025ca).
   Thanks to xet7.
+- [Added GitHub Actions builds for Docker and Snap. Moved Helm Charts from charts repo to wekan repo](https://github.com/wekan/wekan/commit/f57ce521984f6f358410863c71fcaee342bb8107).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
