@@ -5,7 +5,7 @@
 To install the chart with the release name `my-release`:
 
 ```bash
-helm repo add wekan https://wekan.github.io/charts
+helm repo add wekan https://wekan.github.io/wekan/
 helm install my-release wekan/wekan
 ```
 
