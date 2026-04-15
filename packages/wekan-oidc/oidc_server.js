@@ -319,7 +319,7 @@ var getTokenContent = function (token) {
       var signature = Buffer.from(parts[2], 'base64');
       var signed = parts[0] + '.' + parts[1];
     } catch (err) {
-      this.content = {
+      content = {
         exp: 0
       };
     }
