@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Added GitHub Actions builds for Docker and Snap. Moved Helm Charts from charts repo to wekan repo](https://github.com/wekan/wekan/commit/f57ce521984f6f358410863c71fcaee342bb8107).
   Thanks to xet7.
+- [Changed ArtifactHub from wekan/charts repo to wekan/wekan repo](https://github.com/wekan/wekan/commit/99519af83adc45eca7beb40a4e82f5b73764b7fc).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
