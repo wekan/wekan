@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  {{- if .Values.service.annotations }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 4 }}
+  {{- end }}
+  name: {{ template "wekan.fullname" . }}
+  labels:
+    app: {{ template "wekan.name" . }}
+    chart: {{ template "wekan.chart" . }}
+    component: wekan
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "wekan.name" . }}
+    component: wekan
+    release: {{ .Release.Name }}

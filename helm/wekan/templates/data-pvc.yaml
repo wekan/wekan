@@ -1,0 +1,26 @@
+{{- if .Values.sharedDataFolder.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "wekan.fullname" . }}-shared-data
+  labels:
+    app: {{ template "wekan.name" . }}
+    chart: {{ template "wekan.chart" . }}
+    component: wekan
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  accessModes:
+  {{- if .Values.sharedDataFolder.accessMode }}
+    - {{ .Values.sharedDataFolder.accessMode }}
+  {{- else }}
+    - ReadWriteMany
+  {{- end }}
+  {{- if .Values.sharedDataFolder.storageClass }}
+  storageClassName: {{ .Values.sharedDataFolder.storageClass | quote }}
+  {{- end }}
+  {{- with .Values.sharedDataFolder.resources }}
+  resources:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{ end }}

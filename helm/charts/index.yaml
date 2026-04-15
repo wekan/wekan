@@ -1,0 +1,2083 @@
+apiVersion: v1
+entries:
+  wekan:
+  - apiVersion: v2
+    appVersion: "8.89.0"
+    created: "2026-04-15T23:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 657be0d132a03a8ceacff70fc2715a7d46334bc3aeb6ec4f9322ef0f812f8815
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.89.0.tgz
+    version: 8.89.0
+  - apiVersion: v2
+    appVersion: "8.88.0"
+    created: "2026-04-15T22:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 5bdfd809318ce7f3b77f7bf34a7caa5484819805912d5a54c08c79dd731ecac4
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.88.0.tgz
+    version: 8.88.0
+  - apiVersion: v2
+    appVersion: "8.87.0"
+    created: "2026-04-15T17:40:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 90b83e0a123024c6cd52581f3663476241a93353da787bff837934291cc16938
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.87.0.tgz
+    version: 8.87.0
+  - apiVersion: v2
+    appVersion: "8.86.0"
+    created: "2026-04-15T16:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 705f7cdc8d03ff455781efa0d0f56b3e32520aa1baa8436a88f1bdabaa6bd702
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.86.0.tgz
+    version: 8.86.0
+  - apiVersion: v2
+    appVersion: "8.85.0"
+    created: "2026-04-15T16:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 5707c69b1b321f159113f8ce746bea23e458bfb838d359d4edb861728574a66d
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.85.0.tgz
+    version: 8.85.0
+  - apiVersion: v2
+    appVersion: "8.84.0"
+    created: "2026-04-15T15:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: dada876c1bf06c2adc1c2564e35f44a4c865360d69af48b00476e0bd3d2099cd
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.84.0.tgz
+    version: 8.84.0
+  - apiVersion: v2
+    appVersion: "8.83.0"
+    created: "2026-04-14T23:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: c5728bfdc1ead9497903ec1def608a660c51acd6fd95b918f2dc6cfcfe9f3ae4
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.83.0.tgz
+    version: 8.83.0
+  - apiVersion: v2
+    appVersion: "8.82.0"
+    created: "2026-04-14T01:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 12608d3d0985992a1af93d78eede3f52b7f79788d9c82a4dc84211394ffb5f50
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.82.0.tgz
+    version: 8.82.0
+  - apiVersion: v2
+    appVersion: "8.74.0"
+    created: "2026-04-08T00:40:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 93d521374bb90457ce6a6c229c792884e97bf64c0f16493fde551c2ab524b0df
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.74.0.tgz
+    version: 8.74.0
+  - apiVersion: v2
+    appVersion: "8.73.0"
+    created: "2026-04-07T23:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 8f0fdd7943f9f952675d093188271c944ebac53313318b39078f45897ee65ee6
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.73.0.tgz
+    version: 8.73.0
+  - apiVersion: v2
+    appVersion: "8.72.0"
+    created: "2026-04-07T11:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 67fa9c47e2c57130963c1cce77b62b9fb68a8c8db56b3f3029cf7aad7696f80a
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.72.0.tgz
+    version: 8.72.0
+  - apiVersion: v2
+    appVersion: "8.71.0"
+    created: "2026-04-06T03:45:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 1ffbfca173c31890ddadc0b38591cc9249a55eddc86ba303b66c70662e818657
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.71.0.tgz
+    version: 8.71.0
+  - apiVersion: v2
+    appVersion: "8.70.0"
+    created: "2026-04-06T03:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 3da0e42fff82a94b63a58e5c3d4170d09bf4f7463a9a000005cb7c11bd95c202
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.70.0.tgz
+    version: 8.70.0
+  - apiVersion: v2
+    appVersion: "8.69.0"
+    created: "2026-04-06T01:40:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 3232967b322f2ac0c89186eabe744eaa2082758f7061ccfe3e00cb73a66dbf99
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.69.0.tgz
+    version: 8.69.0
+  - apiVersion: v2
+    appVersion: "8.68.0"
+    created: "2026-04-06T00:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 4f36edb96b013cb5a292eb9894cdff2918fe5684316e2f31416373552b9997f0
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.68.0.tgz
+    version: 8.68.0
+  - apiVersion: v2
+    appVersion: "8.67.0"
+    created: "2026-04-06T00:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: d48f5f67f7ec567c1e5aac83331718762eda0a48d58113153fab67ecfea02081
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.67.0.tgz
+    version: 8.67.0
+  - apiVersion: v2
+    appVersion: "8.60.0"
+    created: "2026-04-05T18:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 15b59e3ae7780a252ea9f28d5aa30a988b59033ef908726f6c6016fe15cc4845
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.60.0.tgz
+    version: 8.60.0
+  - apiVersion: v2
+    appVersion: "8.58.0"
+    created: "2026-04-05T17:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: cd48df3244540c28ffd292683ad97ae245d893b00060eb9365c3f3e786f7c852
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.58.0.tgz
+    version: 8.58.0
+  - apiVersion: v2
+    appVersion: "8.57.0"
+    created: "2026-04-05T15:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 482f2db62af26bbd633d23c29e417342720b598f079a01f657a6ebee7197dbf3
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.57.0.tgz
+    version: 8.57.0
+  - apiVersion: v2
+    appVersion: "8.56.0"
+    created: "2026-04-05T07:40:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 5cd853abf1f28859878f9db0214c62db3c1983c112aef9fd6776624386b22769
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.56.0.tgz
+    version: 8.56.0
+  - apiVersion: v2
+    appVersion: "8.55.0"
+    created: "2026-04-05T07:15:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 2ff15779cdaec0fb1b3733c40f861b627a8e4c25c7aa693048c9185d8ca0212a
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.55.0.tgz
+    version: 8.55.0
+  - apiVersion: v2
+    appVersion: "8.52.0"
+    created: "2026-04-03T21:10:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 059c1748363c43e0f61782a5a1e7a43abe8ef5675957e914f8a4e453afad3bed
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.52.0.tgz
+    version: 8.52.0
+  - apiVersion: v2
+    appVersion: "8.42.0"
+    created: "2026-03-23T20:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: ee9823cbf0fbcc65d85436f7fda3dc09713c3bda6f025fceae89284d74564a46
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.42.0.tgz
+    version: 8.42.0
+  - apiVersion: v2
+    appVersion: "8.40.0"
+    created: "2026-03-21T22:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: fd9d653a6fe47c025d0fa9c051b8b45808a8ea4c0601c61b00323960253e8654
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.40.0.tgz
+    version: 8.40.0
+  - apiVersion: v2
+    appVersion: "8.39.0"
+    created: "2026-03-21T16:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: e236249bf5bdc2bd4b9a854a7334a5ad4d02cc8b38334a8783099f50e83da63e
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.39.0.tgz
+    version: 8.39.0
+  - apiVersion: v2
+    appVersion: "8.38.0"
+    created: "2026-03-21T03:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: dfa49c4ac39b799dab92aaedad8515d17f5cf915cc2ba4826af531485d45494d
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.38.0.tgz
+    version: 8.38.0
+  - apiVersion: v2
+    appVersion: "8.37.0"
+    created: "2026-03-20T15:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: d096c22181a2d4ada31dc46dccb5386ad8811c5f297e53c28a7f86a5b2f6e805
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.37.0.tgz
+    version: 8.37.0
+  - apiVersion: v2
+    appVersion: "8.36.0"
+    created: "2026-03-20T01:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 29729c9b81b755c1aa68325f0f984c84d2370a6474bfa5e76ce2d7012199b781
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.36.0.tgz
+    version: 8.36.0
+  - apiVersion: v2
+    appVersion: "8.35.0"
+    created: "2026-03-05T23:45:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 866292730925648a7d4e03ebbe95e11fa76412923d4a7d3d130111955c528e06
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.35.0.tgz
+    version: 8.35.0
+  - apiVersion: v2
+    appVersion: "8.34.0"
+    created: "2026-02-20T01:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: cb50af7a962e5589866799180c55cb00fe61ee1fa0e02e80d9a65ebdb35adf5a
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.34.0.tgz
+    version: 8.34.0
+  - apiVersion: v2
+    appVersion: "8.33.0"
+    created: "2026-02-15T23:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: bc71ffbfbb0f31ec6849cf9f2b250258e66259224e3e0f3b72807be43bd590a6
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.33.0.tgz
+    version: 8.33.0
+  - apiVersion: v2
+    appVersion: "8.32.0"
+    created: "2026-02-13T11:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 273952ade0b11d32cb353c4aeb2f4b8b61be53b90bfa000992f55e8cef89929f
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.32.0.tgz
+    version: 8.32.0
+  - apiVersion: v2
+    appVersion: "8.31.0"
+    created: "2026-02-08T02:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 0d4a65b49bce2a0dad99d6c2344cb7ef20c49a7fff15d34ef1701b87a819d87a
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.31.0.tgz
+    version: 8.31.0
+  - apiVersion: v2
+    appVersion: "8.29.0"
+    created: "2026-02-07T21:40:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 64f22ed9868a1c0eada7678ae1e976b1ec6b2a6c981bb7e32726c3cc47e4d965
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.29.0.tgz
+    version: 8.29.0
+  - apiVersion: v2
+    appVersion: "8.28.0"
+    created: "2026-02-05T07:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 393edbb6369119b09b1aeeed82493e77fd715055f5d3017c17b340a483a1292e
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.28.0.tgz
+    version: 8.28.0
+  - apiVersion: v2
+    appVersion: "8.27.0"
+    created: "2026-01-31T21:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 4fc8868ec98988ac815e51adbcdd324669a614285574fcde8f83c9c2116fd2b2
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.27.0.tgz
+    version: 8.27.0
+  - apiVersion: v2
+    appVersion: "8.26.0"
+    created: "2026-01-31T10:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: b43d4eb01ed9ebc26a0f8133d429d118e931d782a5af8cc84ec0c00253bde6f5
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.26.0.tgz
+    version: 8.26.0
+  - apiVersion: v2
+    appVersion: "8.25.0"
+    created: "2026-01-28T22:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 771ad0f78a6c379458c2f9e88da522cd61f9f31a17892464f90b5c75bfc91f96
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.25.0.tgz
+    version: 8.25.0
+  - apiVersion: v2
+    appVersion: "8.24.0"
+    created: "2026-01-24T04:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 38d041a38709f124f41531c4e78226c05e24fae297a81dac141ba6047b630808
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.24.0.tgz
+    version: 8.24.0
+  - apiVersion: v2
+    appVersion: "8.23.0"
+    created: "2026-01-21T15:45:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 77737e6ff7a7299a01ce6eb885ba01e47a059cef4c3ff003c2f6328cbbad6223
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.23.0.tgz
+    version: 8.23.0
+  - apiVersion: v2
+    appVersion: "8.22.0"
+    created: "2026-01-20T03:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: e6a1e7243e2152979fa004339f8f25be256f2571266b91c62c6c9bdd607fbb23
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.22.0.tgz
+    version: 8.22.0
+  - apiVersion: v2
+    appVersion: "8.21.0"
+    created: "2026-01-18T21:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 01ea539358bf9f3dda4bcd2a8e23423b4fd9bd0cad6e5a8558435ce720dce5ee
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.21.0.tgz
+    version: 8.21.0
+  - apiVersion: v2
+    appVersion: "8.20.0"
+    created: "2026-01-16T20:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: da449f0a08ba6f5ba5aa9231943c4e3165b255044b7457c62a42ec1ab766c0b4
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.20.0.tgz
+    version: 8.20.0
+  - apiVersion: v2
+    appVersion: "8.19.0"
+    created: "2025-12-29T22:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 29e5eede89b942f8f008502917a13ab6555c4294355afde62c06338e90824fec
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.19.0.tgz
+    version: 8.19.0
+  - apiVersion: v2
+    appVersion: "8.18.0"
+    created: "2025-12-29T10:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: d3576562f0861c3138ad2cd9ee7b57d0df9acb76379c2a7a4dbf24365619aaa2
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.18.0.tgz
+    version: 8.18.0
+  - apiVersion: v2
+    appVersion: "8.17.0"
+    created: "2025-11-06T04:10:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 69fa555b944255e975d2795bcbf8f19050c63186eef37a7f81d5b97494c46b42
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.17.0.tgz
+    version: 8.17.0
+  - apiVersion: v2
+    appVersion: "8.16.0"
+    created: "2025-11-02T12:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: b5fd44f4ba9972c376cef1faf8d1c7a68c1fe0a4c6e9c3a8a19235c6c74cdd1c
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.16.0.tgz
+    version: 8.16.0
+  - apiVersion: v2
+    appVersion: "8.15.0"
+    created: "2025-10-23T04:50:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: ba04824078a62d6dc32771733f1fd777e94cf71bfe45745c2d499fdaa826d886
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.15.0.tgz
+    version: 8.15.0
+  - apiVersion: v2
+    appVersion: "8.14.0"
+    created: "2025-10-23T04:20:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 84128706da0fc38d67ef04e39864a3ef9a4feca6484e24cebf3bae63952bc157
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.14.0.tgz
+    version: 8.14.0
+  - apiVersion: v2
+    appVersion: "8.12.0"
+    created: "2025-10-23T03:45:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 0c2c1420b0afa0f97a040e2c6a6c636de7b3a566c5007000d88244d26576027c
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.12.0.tgz
+    version: 8.12.0
+  - apiVersion: v2
+    appVersion: "8.11.0"
+    created: "2025-10-21T15:45:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 0cfea0a23331b531fae261a25e02b9a135fadc8a1a457735e0892aaf05700c66
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.11.0.tgz
+    version: 8.11.0
+  - apiVersion: v2
+    appVersion: "8.10.0"
+    created: "2025-10-21T14:25:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 72ccdb731918476355154ac59fa4d1a27e203864088aff29ecb9e857247283c1
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.10.0.tgz
+    version: 8.10.0
+  - apiVersion: v2
+    appVersion: "8.09.0"
+    created: "2025-10-21T14:05:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: e4c477ac07789583f079f01702543924d6a3d513776f4a8b4340bdc6e0ae1ee6
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.09.0.tgz
+    version: 8.09.0
+  - apiVersion: v2
+    appVersion: "8.08.0"
+    created: "2025-10-21T11:15:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 88a93227cfd3f1c0bfdbe5f5da8b5776c464bb36710aed1d048eb13ab95fb2ee
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.08.0.tgz
+    version: 8.08.0
+  - apiVersion: v2
+    appVersion: "8.07.0"
+    created: "2025-10-20T18:25:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 26e80c2d63bf3d029bb1c49ea9d668799f8f5c6b01578bd4a638799f0a18150c
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.07.0.tgz
+    version: 8.07.0
+  - apiVersion: v2
+    appVersion: "8.06.0"
+    created: "2025-10-20T03:40:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 5723f852937cda1154b4337abd6cb8e668d7d7b4b0fcec7a4408a51f4e7f68a5
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.06.0.tgz
+    version: 8.06.0
+  - apiVersion: v2
+    appVersion: "8.05.0"
+    created: "2025-10-17T18:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: f55f9b25603aee2269af6afcd1be7d7cbed822965384c18c4416e29c4426f696
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.05.0.tgz
+    version: 8.05.0
+  - apiVersion: v2
+    appVersion: "8.04.0"
+    created: "2025-10-16T18:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: e54169f31b77a2f3ecd4ebf77f64f3b6a598a5af9b113b349c7329d146ca489a
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.04.0.tgz
+    version: 8.04.0
+  - apiVersion: v2
+    appVersion: "8.02.0"
+    created: "2025-10-14T12:10:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 583f636fb60a11ad3b752150f1e8ea4afd2dddcdef6272afffac89c81c413dd2
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.02.0.tgz
+    version: 8.02.0
+  - apiVersion: v2
+    appVersion: "8.00.0"
+    created: "2025-10-11T08:15:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 5d117a1fbd2b30e61340e05008e60e35bfd10822c9a97d55a19eba4427cc3c9c
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-8.00.0.tgz
+    version: 8.00.0
+  - apiVersion: v2
+    appVersion: "7.99.0"
+    created: "2025-10-11T07:00:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 8f34e9637e6fb3366d5767981bc4a3c53aaf7c445e35d634d5ad47a0228e5b3b
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-7.99.0.tgz
+    version: 7.99.0
+  - apiVersion: v2
+    appVersion: "7.98.0"
+    created: "2025-10-11T02:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: baadd5dc090024989424068e47ec17234986cbf5eb093fe53f311e49d104a38a
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-7.98.0.tgz
+    version: 7.98.0
+  - apiVersion: v2
+    appVersion: "7.97.0"
+    created: "2025-10-08T23:50:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 7ede7e52083ce0e828de0e8815b4600648d24408dc83557186a2c37734bfc74b
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-7.97.0.tgz
+    version: 7.97.0
+  - apiVersion: v2
+    appVersion: "7.96.0"
+    created: "2025-10-07T02:10:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 32cb90a2ab7c3eabe8f11e7f61bde52b19674d8c2314da01eb785369ee0bcc6f
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-7.96.0.tgz
+    version: 7.96.0
+  - apiVersion: v2
+    appVersion: "7.95.0"
+    created: "2025-09-18T22:30:00.352513218+02:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.2
+    description: Open Source kanban
+    digest: 00173cd99cbf40d7d15c51d00c0d421010e972d1d89be32ec449872f3fa0a39c
+    home: https://wekan.fi
+    icon: https://wekan.fi/wekan-logo.svg
+    keywords:
+    - kanban
+    maintainers:
+    - email: support@wekan.fi
+      name: wekan
+    - email: x@xet7.org
+      name: xet7
+    - email: github@randall.cc
+      name: technotaff
+    - email: jiangyt.cn@gmail.com
+      name: jiangytcn
+    - email: varac@varac.net
+      name: varac
+    name: wekan
+    sources:
+    - https://github.com/wekan/wekan
+    type: application
+    urls:
+    - https://wekan.github.io/wekan/wekan-7.95.0.tgz
+    version: 7.95.0

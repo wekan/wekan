@@ -17,6 +17,8 @@ on:
 permissions:
   contents: write
   packages: write
+  pages: write
+  id-token: write
 
 jobs:
   # ─── 1. Extract version and release notes ───────────────────────────────────
@@ -445,102 +447,160 @@ jobs:
             wekan-${{ needs.prepare.outputs.version }}-win64.zip
 
   # ─── 7. Build and push multi-platform Docker image ──────────────────────────
-  #docker:
-  #  needs: [prepare, release]
-  #  runs-on: ubuntu-latest
-  #  env:
-  #    VERSION: ${{ needs.prepare.outputs.version }}
-  #  steps:
-  #    - uses: actions/checkout@v6
-  #
-  #    - name: Set up QEMU
-  #      uses: docker/setup-qemu-action@v4
-  #
-  #    - name: Set up Docker Buildx
-  #      uses: docker/setup-buildx-action@v3
-  #
-  #    - name: Log in to Docker Hub
-  #      uses: docker/login-action@v4
-  #      with:
-  #        username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #        password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #
-  #    - name: Log in to Quay.io
-  #      uses: docker/login-action@v4
-  #      with:
-  #        registry: quay.io
-  #        username: ${{ secrets.QUAY_USERNAME }}
-  #        password: ${{ secrets.QUAY_PASSWORD }}
-  #
-  #    - name: Log in to GitHub Container Registry
-  #      uses: docker/login-action@v4
-  #      with:
-  #        registry: ghcr.io
-  #        username: ${{ github.actor }}
-  #        password: ${{ secrets.GITHUB_TOKEN }}
-  #
-  #    - name: Build and push Docker image to all registries
-  #      uses: docker/build-push-action@v7
-  #      with:
-  #        context: .
-  #        platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
-  #        push: true
-  #        build-args: VERSION=${{ needs.prepare.outputs.version }}
-  #        tags: |
-  #          #wekanteam/wekan:v${{ needs.prepare.outputs.version }}
-  #          #wekanteam/wekan:latest
-  #          quay.io/wekan/wekan:v${{ needs.prepare.outputs.version }}
-  #          quay.io/wekan/wekan:latest
-  #          ghcr.io/wekan/wekan:v${{ needs.prepare.outputs.version }}
-  #          ghcr.io/wekan/wekan:latest
-  #        cache-from: type=gha
-  #        cache-to: type=gha,mode=max
+  docker:
+    needs: [prepare, release]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
 
-  # ─── 8. Build and publish snap packages (all architectures via Launchpad) ────
-  # Uses snapcraft remote-build on Launchpad's native builders (more reliable
-  # than QEMU for snap builds). Each architecture bundles its own database:
-  #   amd64, arm64         — MongoDB 7.x prebuilt native binary
-  #   armhf, s390x, ppc64el — MongoDB 7.x amd64 binary run via qemu-x86_64-static
-  #                           (no prebuilt MongoDB binaries exist for these arches)
-  #snap:
-  #  needs: [prepare, release]
-  #  runs-on: ubuntu-latest
-  #  env:
-  #    VERSION: ${{ needs.prepare.outputs.version }}
-  #  steps:
-  #    - uses: actions/checkout@v6
-  #
-  #    - name: Install snapcraft
-  #      run: sudo snap install snapcraft --classic
-  #
-  #    - name: Remote-build snap for all architectures via Launchpad
-  #      env:
-  #        SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_STORE_LOGIN }}
-  #      run: |
-  #        snapcraft remote-build \
-  #          --build-for=amd64,arm64,armhf,s390x,ppc64el \
-  #          --launchpad-accept-public-upload
-  #
-  #    - name: Upload all snap files as artifacts
-  #      uses: actions/upload-artifact@v7
-  #      with:
-  #        name: snaps-all-arches
-  #        path: "*.snap"
-  #        retention-days: 30
-  #
-  #    # Publish to edge — NOT stable.
-  #    # Stable channel holds the old WeKan version until database migrations are ready.
-  #    # Promote to stable manually via the Snap Store dashboard when migrations exist.
-  #    - name: Publish all snaps to Snap Store (candidate, beta, edge)
-  #      env:
-  #        SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_STORE_LOGIN }}
-  #      run: |
-  #        for snap_file in *.snap; do
-  #          echo "Publishing $snap_file ..."
-  #          snapcraft upload --release=edge "$snap_file"
-  #        done
-  #
-  #    - name: Upload all snaps to GitHub Release
-  #      uses: softprops/action-gh-release@v3
-  #      with:
-  #        files: "*.snap"
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Create Docker config with registry credentials
+        run: |
+          mkdir -p ~/.docker
+          cat > ~/.docker/config.json <<EOF
+          {
+            "auths": {
+              "ghcr.io": {
+                "auth": "${{ secrets.GHCR_AUTH }}"
+              },
+              "https://index.docker.io/v1/": {
+                "auth": "${{ secrets.DOCKERHUB_AUTH }}"
+              },
+              "quay.io": {
+                "auth": "${{ secrets.QUAY_AUTH }}"
+              }
+            }
+          }
+          EOF
+
+      - name: Create and use buildx builder
+        run: |
+          docker buildx create --name mybuilder --driver docker-container --use
+          docker buildx inspect --bootstrap
+
+      - name: Build and push Docker image to all registries
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm64,linux/s390x,linux/ppc64le \
+            -t wekanteam/wekan:v${VERSION} \
+            -t wekanteam/wekan:latest \
+            -t quay.io/wekan/wekan:v${VERSION} \
+            -t quay.io/wekan/wekan:latest \
+            -t ghcr.io/wekan/wekan:v${VERSION} \
+            -t ghcr.io/wekan/wekan:latest \
+            --push .
+
+  # ─── 8. Build and publish snap packages ──────────────────────────────────────
+  # Build snap with snapcraft pack (like releases/snap-build.sh) using LXD,
+  # then push to Snap Store edge channel (like releases/snap-push-to-store.sh).
+  # Promote to stable manually via the Snap Store dashboard when ready.
+  snap:
+    needs: [prepare, release]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install snapcraft and LXD
+        run: |
+          sudo snap install snapcraft --classic
+          sudo snap install lxd
+          sudo lxd init --auto
+          sudo usermod -aG lxd "$USER"
+
+      - name: Build snap
+        run: |
+          sg lxd -c "snapcraft pack --use-lxd"
+
+      - name: Upload snap files as artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: snaps
+          path: "*.snap"
+          retention-days: 30
+
+      - name: Push all snaps to Snap Store edge channel
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+        run: |
+          for snap_file in *.snap; do
+            echo "Publishing $snap_file ..."
+            snapcraft upload --release=edge "$snap_file"
+          done
+
+      - name: Upload all snaps to GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: "*.snap"
+
+  # ─── 9. Update Helm charts and deploy to GitHub Pages ─────────────────────────
+  # Chart source is in helm/wekan/, published packages + index.yaml in helm/charts/.
+  # GitHub Pages deploys helm/charts/ via Actions, serving at https://wekan.github.io/wekan/
+  helm:
+    needs: [prepare, docker]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Update Chart.yaml and values.yaml with new version
+        run: |
+          cd helm/wekan
+          # Chart.yaml: update appVersion and version
+          sed -i "s/^appVersion: .*/appVersion: \"${VERSION}\"/" Chart.yaml
+          sed -i "s/^version: .*/version: ${VERSION}.0/" Chart.yaml
+          # values.yaml: update image tag
+          sed -i "s/^  tag: v.*/  tag: v${VERSION}/" values.yaml
+
+      - name: Build Helm dependencies
+        run: |
+          cd helm/wekan
+          helm repo add mongo https://groundhog2k.github.io/helm-charts/
+          helm dependency update
+          helm dependency build
+
+      - name: Package chart and update index
+        run: |
+          helm package helm/wekan -d helm/charts/
+          helm repo index helm/charts/ --url https://wekan.github.io/wekan/
+
+      - name: Commit updated chart
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add helm/
+          git commit -m "Helm chart ${VERSION}.0"
+          git push
+
+      - name: Upload helm/charts/ as Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: helm/charts/
+
+  # ─── 10. Deploy Helm chart to GitHub Pages ───────────────────────────────────
+  deploy-pages:
+    needs: helm
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
