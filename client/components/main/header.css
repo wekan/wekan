@@ -177,7 +177,6 @@
 }
 #header-quick-access ul.header-quick-access-list {
   transition: opacity 0.2s;
-  overflow: hidden;
   white-space: nowrap;
   padding: 10px;
   margin: -10px;
@@ -185,16 +184,18 @@
   min-width: 0; /* Allow shrinking below content size */
   display: flex; /* Use flexbox for better control */
   align-items: center;
+  overflow-x: auto;
+  scrollbar-color: white #2573a7;
 }
 
 /* Hide scrollbar completely */
 #header-quick-access ul.header-quick-access-list::-webkit-scrollbar {
-  display: none;
+  display: flex;
 }
 
 #header-quick-access ul.header-quick-access-list {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: thin; /* IE and Edge */
+  scrollbar-width: thin; /* Firefox */
 }
 #header-quick-access ul.header-quick-access-list li {
   display: inline-block; /* Keep inline-block for proper spacing */
