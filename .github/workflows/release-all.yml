@@ -600,16 +600,11 @@ jobs:
         with:
           ref: refs/tags/v${{ inputs.new_version }}
 
-      - name: Install snapcraft and LXD
-        run: |
-          sudo snap install snapcraft --classic
-          sudo snap install lxd
-          sudo lxd init --auto
-          sudo usermod -aG lxd "$USER"
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
 
       - name: Build snap
-        run: |
-          sg lxd -c "snapcraft pack --use-lxd"
+        run: snapcraft pack --destructive-mode
 
       - name: Upload snap files as artifacts
         uses: actions/upload-artifact@v7
