@@ -18,14 +18,6 @@ aldeed:schema-index@4.0.0-beta.5
 reywood:publish-composite
 mongo@2.3.0-beta350.7
 
-# The holy trifecta - this is a replacement for subs-manager
-# for IndexedDB persistence and auto-sync
-jam:offline 
-# for optimistic methods with offline queuing
-jam:method 
-# global subscription caching
-jam:pub-sub
-
 # Account system
 accounts-password@3.2.3-beta350.7
 communitypackages:core

@@ -1,13 +1,3 @@
-// Disable jam:offline keepAll to prevent full-collection COLLSCAN queries.
-// WeKan uses modifiedAt (not updatedAt) and archived (not deleted),
-// so the default offline sync generates queries on non-existent fields
-// causing massive collection scans on every sync cycle.
-if (typeof Offline !== 'undefined' && Offline.configure) {
-  Offline.configure({
-    keepAll: false,
-  });
-}
-
 // PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {

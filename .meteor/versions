@@ -45,9 +45,6 @@ htmljs@2.0.1
 http@1.4.4
 id-map@1.2.0
 inter-process-messaging@0.1.2
-jam:method@1.9.1
-jam:offline@0.4.1
-jam:pub-sub@0.5.1
 jquery@3.0.2
 lai:collection-extensions@1.0.0
 localstorage@1.2.1

@@ -71,6 +71,9 @@
   },
   "overrides": {
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.15",
-    "elliptic": "^6.6.1"
+    "elliptic": "^6.6.1",
+    "archiver-utils": {
+      "glob": "$glob"
+    }
   }
 }
