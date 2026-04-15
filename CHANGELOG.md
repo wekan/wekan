@@ -32,6 +32,8 @@ This release fixes the following bugs:
 
 - [Fix SSO Login OIDC and OpenID Connect](https://github.com/wekan/wekan/pull/6284).
   Thanks to sbaecker and nebulade.
+- [Try to fix Snap Candidate](https://github.com/wekan/wekan/commit/bc92978fa9c9373947de40fe9ca584e133825610).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
