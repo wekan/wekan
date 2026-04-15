@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
+import { MongoInternals } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { isFileValid } from './fileValidation';
 import { createBucket } from './lib/grid/createBucket';
@@ -327,6 +328,13 @@ Meteor.methods({
 
 Meteor.startup(async () => {
   await Attachments.collection.createIndexAsync({ 'meta.cardId': 1 });
+
+  // Ensure standard GridFS index on attachments.chunks for efficient chunk lookups.
+  // Without this, queries like find({files_id: ObjectId}) do full collection scans.
+  const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+  const chunksCollection = db.collection('attachments.chunks');
+  await chunksCollection.createIndex({ files_id: 1, n: 1 });
+
   const sp = fileStoreStrategyFactory.storagePath;
   if (!fs.existsSync(sp)) {
     console.log("create storagePath because it doesn't exist: " + sp);
