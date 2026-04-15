@@ -26,6 +26,16 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Disable jam:offline keepAll BEFORE any collections are created. Part 2](https://github.com/wekan/wekan/commit/f6a851a3d887ce9fa2fa5f62aad2a2ecf326c863).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.88 2026-04-15 WeKan ® release
 
 This release fixes the following bugs:
