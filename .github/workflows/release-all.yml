@@ -1,18 +1,29 @@
 name: Release All Platforms
 
-# Triggered when maintainer pushes a version tag, e.g.: git tag v8.43 && git push --tags
-# Does not work:
-#   Required GitHub Secrets:
-#   QUAY_USERNAME        - Quay.io username
-#   QUAY_PASSWORD        - Quay.io password or token
-#   DOCKERHUB_USERNAME   - Docker Hub username
-#   DOCKERHUB_TOKEN      - Docker Hub access token
-#   SNAP_STORE_LOGIN     - Snapcraft store credentials: run 'snapcraft export-login --snaps wekan --channels stable -' and base64-encode the output
+# Triggered manually via GitHub CLI or Actions UI.
+# Usage:
+#   gh workflow run release-all.yml -f old_version=8.42 -f new_version=8.43
+#
+# Or use the convenience script (commits pending changes, pushes, and triggers):
+#   ./releases/release-all.sh 8.42 8.43
+#
+# Required GitHub Secrets:
+#   GHCR_AUTH      - base64(username:token) for ghcr.io
+#   DOCKERHUB_AUTH - base64(username:token) for Docker Hub
+#   QUAY_AUTH      - base64(username:token) for Quay.io
+#   SNAP_AUTH      - Snapcraft store credentials
 
 on:
-  push:
-    tags:
-      - 'v*.*'
+  workflow_dispatch:
+    inputs:
+      old_version:
+        description: 'Previous version number (e.g. 8.42, without v prefix)'
+        required: true
+        type: string
+      new_version:
+        description: 'New version number (e.g. 8.43, without v prefix)'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -21,18 +32,91 @@ permissions:
   id-token: write
 
 jobs:
+  # ─── 0. Version bump, docs rebuild, and tag creation ────────────────────────
+  # Runs update-node-version.sh, rebuild-docs.sh, and sed-release-versions.sh,
+  # then commits, pushes, and creates the version tag.
+  # Skipped on re-run if the tag already exists.
+  version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check if tag already exists
+        id: check
+        run: |
+          if git ls-remote --tags origin | grep -q "refs/tags/v${{ inputs.new_version }}$"; then
+            echo "existed=true" >> $GITHUB_OUTPUT
+            echo "Tag v${{ inputs.new_version }} already exists. Skipping version bump."
+          else
+            echo "existed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: actions/setup-node@v6
+        if: steps.check.outputs.existed == 'false'
+        with:
+          node-version: '24.14.1'
+
+      - name: Install Python dependencies for API doc generation
+        if: steps.check.outputs.existed == 'false'
+        run: python3 -m pip install --break-system-packages esprima
+
+      - name: Delete GitHub Actions caches
+        if: steps.check.outputs.existed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh cache delete --all || true
+
+      - name: Update Node.js to latest 24.x
+        if: steps.check.outputs.existed == 'false'
+        run: ./releases/update-node-version.sh
+
+      - name: Rebuild API docs
+        if: steps.check.outputs.existed == 'false'
+        run: ./releases/rebuild-docs.sh "${{ inputs.new_version }}"
+
+      - name: Update version numbers in release files
+        if: steps.check.outputs.existed == 'false'
+        run: ./releases/sed-release-versions.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
+
+      - name: Commit and push version bump
+        if: steps.check.outputs.existed == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add --all
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "v${{ inputs.new_version }}"
+          fi
+          git push
+
+      - name: Create and push tag
+        if: steps.check.outputs.existed == 'false'
+        run: |
+          git tag -a "v${{ inputs.new_version }}" -m "v${{ inputs.new_version }}"
+          git push origin "v${{ inputs.new_version }}"
+
   # ─── 1. Extract version and release notes ───────────────────────────────────
   prepare:
+    needs: version-bump
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
       changelog: ${{ steps.changelog.outputs.content }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
 
-      - name: Extract version from tag
+      - name: Set version from input
         id: version
-        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+        run: |
+          VERSION="${{ inputs.new_version }}"
+          VERSION="${VERSION#v}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Extract release notes from CHANGELOG.md
         id: changelog
@@ -76,6 +160,8 @@ jobs:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
 
       - name: Cache Meteor installation
         uses: actions/cache@v5
@@ -437,6 +523,7 @@ jobs:
       - name: Create GitHub Release with all bundles
         uses: softprops/action-gh-release@v3
         with:
+          tag_name: v${{ needs.prepare.outputs.version }}
           name: v${{ needs.prepare.outputs.version }}
           body: ${{ needs.prepare.outputs.changelog }}
           files: |
@@ -454,6 +541,8 @@ jobs:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -508,6 +597,8 @@ jobs:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
 
       - name: Install snapcraft and LXD
         run: |
@@ -539,6 +630,7 @@ jobs:
       - name: Upload all snaps to GitHub Release
         uses: softprops/action-gh-release@v3
         with:
+          tag_name: v${{ needs.prepare.outputs.version }}
           files: "*.snap"
 
   # ─── 9. Update Helm charts and deploy to GitHub Pages ─────────────────────────
@@ -551,6 +643,8 @@ jobs:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
 
       - name: Install Helm
         run: |
@@ -583,7 +677,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add helm/
           git commit -m "Helm chart ${VERSION}.0"
-          git push
+          git push origin HEAD:refs/heads/main
 
       - name: Upload helm/charts/ as Pages artifact
         uses: actions/upload-pages-artifact@v4
