@@ -148,8 +148,8 @@ parts:
               npm pack bcrypt@6.0.0
               mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
               cd bcrypt && npm install --ignore-scripts && cd ..
-              cp -a bcrypt "$BCRYPT_DIR"
               popd > /dev/null
+              cp -a "$TMP/bcrypt" "$BCRYPT_DIR"
               rm -rf "$TMP"
             fi
             cd bundle/programs/server
