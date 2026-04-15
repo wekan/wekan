@@ -32,6 +32,8 @@ This release fixes the following bugs:
 
 - [Try to fix Snap](https://github.com/wekan/wekan/commit/fc02a15753badc8d06d020aa97daae28ac05a310).
   Thanks to xet7.
+- [Improve handling of ROOT_URL as an environement variable](https://github.com/wekan/wekan/pull/6286).
+  Thanks to FlorentDotMe.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
