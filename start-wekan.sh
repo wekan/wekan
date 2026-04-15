@@ -55,7 +55,7 @@
       # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
       # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
       # If ROOT_URL is not correct, these do not work: translations, uploading attachments.
-      export ROOT_URL=http://localhost:2000
+      export ROOT_URL=${ROOT_URL:-http://localhost:2000}
       # If at public Internet, required different SSL/TLS settings:
       # - https://github.com/wekan/wekan/wiki/Settings
       # - Also at wiki: SSL/TLS config for Caddy/Nginx/Apache
