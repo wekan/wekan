@@ -28,7 +28,12 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dompurify](https://github.com/wekan/wekan/commit/c27d5d04124f3eec659bbe5187a625c43176fc4f).
+  Thanks to developers of dompurify.
+
+and fixes the following bugs:
 
 - [Fix Can't start latest docker image because of MongoDB Index errors](https://github.com/wekan/wekan/commit/d537b7c9f3505fd4c1653f87d5f86d7e7729a514).
   Thanks to s8321414 and xet7.
