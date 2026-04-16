@@ -44,6 +44,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Commented out requirement to update website manually](https://github.com/wekan/wekan/commit/64d351d835628dad80062e3c362701b35ae5bb33).
   Thanks to xet7.
+- [Moved Helm Charts from helm directory to docs/wekan and docs/charts to be at wekan.fi/wekan and wekan.fi/charts](https://github.com/wekan/wekan/commit/38e488ee4a63d61159d8efcddb6e454347bce91a).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
