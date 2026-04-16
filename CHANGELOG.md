@@ -54,6 +54,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Release scripts: Require only newest version number when releasing](https://github.com/wekan/wekan/commit/052d8c15844dfc709dc3ac281795629c175869e0).
   Thanks to xet7.
+- [Release scripts: Use 24-slim fallback](https://github.com/wekan/wekan/commit/a0c190137dfe9fd8da71380f6c67344812561f9f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
