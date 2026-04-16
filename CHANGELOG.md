@@ -48,6 +48,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Release scripts: Fix indentation at release-all.yml](https://github.com/wekan/wekan/commit/10f009f5b15fd077577a71504b0e0c89c4e6fd95).
   Thanks to xet7.
+- [Release scripts: Use latest available Node.js slim docker images when building](https://github.com/wekan/wekan/commit/d998e8cb4a5280c93448d144ab01335ce29b43dc).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
