@@ -41,6 +41,48 @@ jobs:
     outputs:
       node_version: ${{ steps.detect_node.outputs.node_version }}
     steps:
+      - name: Update Stackerfile.yml version
+        if: steps.check.outputs.existed == 'false'
+        run: |
+          set -e
+          NEW_VERSION="${{ inputs.new_version }}"
+          NEW_VERSION_V="v${NEW_VERSION}.0"
+          sed -i "0,/appVersion: \"[^"]*\"/s/appVersion: \"[^"]*\"/appVersion: \"${NEW_VERSION_V}\"/" Stackerfile.yml
+
+      - name: Update WeKan version in all files
+        if: steps.check.outputs.existed == 'false'
+        run: |
+          set -e
+          # Inputs
+          OLD_VERSION="${{ inputs.old_version }}"
+          NEW_VERSION="${{ inputs.new_version }}"
+          NEW_VERSION_V="v${NEW_VERSION}"
+          NEW_VERSION_INT=$(echo "$NEW_VERSION" | tr -d '.')
+          NEW_VERSION_DATE=$(date +%Y-%m-%d)
+          NEW_VERSION_MARKETING="${NEW_VERSION}~${NEW_VERSION_DATE}"
+
+          # package.json (top-level only)
+          sed -i "0,/\"version\": \"[^"]*\"/s//\"version\": \"v${NEW_VERSION}\"/" package.json
+
+          # package-lock.json (top-level only)
+          sed -i "0,/\"version\": \"[^"]*\"/s//\"version\": \"v${NEW_VERSION}\"/" package-lock.json
+
+          # sandstorm-pkgdef.capnp
+          # appVersion = (integer, no dot)
+          sed -i "0,/appVersion = [0-9]\+/s/appVersion = [0-9]\+/appVersion = ${NEW_VERSION_INT}/" sandstorm-pkgdef.capnp
+          # appMarketingVersion = (string, with dot and date)
+          sed -i "0,/appMarketingVersion = (defaultText = \"[^"]*\")/s/appMarketingVersion = (defaultText = \"[^"]*\")/appMarketingVersion = (defaultText = \"${NEW_VERSION_MARKETING}\")/" sandstorm-pkgdef.capnp
+
+          # snapcraft.yaml
+          # version: (top-level)
+          sed -i "0,/^version: '[^']*'/s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml
+          # All URLs, filenames, and commands referencing the version
+          sed -i "s|v[0-9]\+\.[0-9]\+|v${NEW_VERSION}|g" snapcraft.yaml
+          sed -i "s|[0-9]\+\.[0-9]\+-amd64|${NEW_VERSION}-amd64|g" snapcraft.yaml
+          sed -i "s|[0-9]\+\.[0-9]\+\.zip|${NEW_VERSION}.zip|g" snapcraft.yaml
+          sed -i "s|[0-9]\+\.[0-9]\+\.[0-9]\+-amd64|${NEW_VERSION}.0-amd64|g" snapcraft.yaml
+          sed -i "s|[0-9]\+\.[0-9]\+\.[0-9]\+|${NEW_VERSION}.0|g" snapcraft.yaml
+          # node-vX.Y.Z-linux-x64.tar.xz (keep as is, handled elsewhere)
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
