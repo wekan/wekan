@@ -38,6 +38,8 @@ jobs:
   # Skipped on re-run if the tag already exists.
   version-bump:
     runs-on: ubuntu-latest
+    outputs:
+      node_version: ${{ steps.detect_node.outputs.node_version }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -53,10 +55,24 @@ jobs:
             echo "existed=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Detect latest Node.js 24.x version
+        id: detect_node
+        run: |
+          NODE_VER=$(curl -fsSL https://nodejs.org/dist/latest-v24.x/ \
+            | grep -o 'node-v24\.[0-9][0-9]*\.[0-9][0-9]*-linux-x64\.tar\.gz' \
+            | head -1 \
+            | sed 's/node-v\(.*\)-linux-x64\.tar\.gz/\1/')
+          if [ -z "$NODE_VER" ]; then
+            echo "Error: could not determine latest Node.js 24.x version." >&2
+            exit 1
+          fi
+          echo "node_version=$NODE_VER" >> $GITHUB_OUTPUT
+          echo "Detected latest Node.js 24.x: $NODE_VER"
+
       - uses: actions/setup-node@v6
         if: steps.check.outputs.existed == 'false'
         with:
-          node-version: '24.14.1'
+          node-version: '${{ steps.detect_node.outputs.node_version }}'
 
       - name: Install Python dependencies for API doc generation
         if: steps.check.outputs.existed == 'false'
@@ -109,6 +125,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
       changelog: ${{ steps.changelog.outputs.content }}
+      node_version: ${{ needs.version-bump.outputs.node_version }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -154,13 +171,14 @@ jobs:
   # Therefore the full Meteor build always runs here on x86_64.
   # All other Linux architectures then rebuild only the native npm modules
   # from this bundle (much faster than a full Meteor build).
-  # Node.js version must match what Meteor 3.5-beta.7 bundles: 24.14.1 (ABI 143).
+  # Node.js version must match what Meteor 3.5-beta.7 bundles (detected automatically).
   build-amd64:
     needs: prepare
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.node_version }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -184,11 +202,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip
 
-      # Pin to Node 24.14.1 — the exact version bundled by Meteor 3.5-beta.7.
+      # Pin to detected latest Node.js 24.x — must match Meteor's bundled version.
       # Using the same version for build and npm rebuild ensures consistent native module ABI.
       - uses: actions/setup-node@v6
         with:
-          node-version: '24.14.1'
+          node-version: '${{ needs.prepare.outputs.node_version }}'
 
       - name: Install Meteor
         run: |
@@ -233,7 +251,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '24.14.1'
+          node-version: '${{ needs.prepare.outputs.node_version }}'
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
@@ -275,14 +293,14 @@ jobs:
   # ─── 4. Build s390x bundle (rebuild native modules via QEMU container) ───────
   # Meteor 3.5-beta.7 does NOT support s390x (installer exits with error on that arch).
   # GitHub Actions has no native s390x runners.
-  # Solution: QEMU emulation + node:24.14.1-slim (s390x variant) for npm rebuild.
-  # node:24.14.1-slim is pinned to match Meteor 3.5-beta.7's bundled Node.js version exactly.
+  # Solution: QEMU emulation + node:<version>-slim (s390x variant) for npm rebuild.
   build-s390x:
     needs: [prepare, build-amd64]
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.node_version }}
     steps:
       - name: Set up QEMU for s390x
         uses: docker/setup-qemu-action@v4
@@ -315,11 +333,11 @@ jobs:
             popd > /dev/null
             rm -rf "$TMP"
           fi
-          # node:24.14.1-slim s390x — same Node.js version as Meteor 3.5-beta.7 bundled
+          # node:$NODE_VERSION-slim s390x — same Node.js version as Meteor bundled
           docker run --rm --platform linux/s390x \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:24.14.1-slim \
+            node:${NODE_VERSION}-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create s390x zip
@@ -335,13 +353,14 @@ jobs:
   # ─── 4b. Build ppc64le bundle (rebuild native modules via QEMU container) ────
   # Meteor 3.5-beta.7 does NOT support ppc64le (installer exits with error on that arch).
   # GitHub Actions has no native ppc64le runners.
-  # Solution: QEMU emulation + node:24.14.1-slim (ppc64le variant) for npm rebuild.
+  # Solution: QEMU emulation + node:<version>-slim (ppc64le variant) for npm rebuild.
   build-ppc64le:
     needs: [prepare, build-amd64]
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.node_version }}
     steps:
       - name: Set up QEMU for ppc64le
         uses: docker/setup-qemu-action@v4
@@ -374,11 +393,11 @@ jobs:
             popd > /dev/null
             rm -rf "$TMP"
           fi
-          # node:24.14.1-slim ppc64le — same Node.js version as Meteor 3.5-beta.7 bundled
+          # node:$NODE_VERSION-slim ppc64le — same Node.js version as Meteor bundled
           docker run --rm --platform linux/ppc64le \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:24.14.1-slim \
+            node:${NODE_VERSION}-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create ppc64le zip
@@ -431,11 +450,11 @@ jobs:
   #          popd > /dev/null
   #          rm -rf "$TMP"
   #        fi
-  #        # node:24.14.1-slim arm/v7 — same Node.js version as Meteor 3.5-beta.7 bundled
+  #        # node:<version>-slim arm/v7 — same Node.js version as Meteor bundled
   #        docker run --rm --platform linux/arm/v7 \
   #          -v "$(pwd)/bundle:/bundle" \
   #          -w /bundle/programs/server \
-  #          node:24.14.1-slim \
+  #          node:${NODE_VERSION}-slim \
   #          sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
   #
   #    - name: Clean up and create armhf zip
@@ -458,7 +477,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v6
         with:
-          node-version: '24.14.1'
+          node-version: '${{ needs.prepare.outputs.node_version }}'
 
       ## With Node 24 these are already preinstalled at GitHub Windows runners
       #- name: Install node-gyp and build tools

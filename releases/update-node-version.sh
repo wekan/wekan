@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Fetch the latest Node.js 24.x release and update all files that hardcode
-# the version number: Dockerfile, snapcraft.yaml, GitHub Actions workflow,
-# rebuild-wekan.sh, and releases/test-download-urls.sh.
+# the version number: Dockerfile, snapcraft.yaml, GitHub Actions workflows,
+# rebuild-wekan.sh, docker-compose.yml, and releases/test-download-urls.sh.
 #
 # Usage (standalone):
 #   ./releases/update-node-version.sh
@@ -82,6 +82,21 @@ sedi "s|bundles: 24\.[0-9][0-9]*\.[0-9][0-9]* (ABI|bundles: ${NEW_NODE} (ABI|g" 
 # Matches:  Node 24.14.1 — the exact version bundled
 sedi "s|Node 24\.[0-9][0-9]*\.[0-9][0-9]* —|Node ${NEW_NODE} —|g" \
   "$WORKFLOW"
+
+# ── .github/workflows/test_suite.yml ──────────────────────────────────────────
+# Matches:  node-version: '24.14.1'
+sedi "s|node-version: '24\.[0-9][0-9]*\.[0-9][0-9]*'|node-version: '${NEW_NODE}'|g" \
+  .github/workflows/test_suite.yml
+
+# ── snapcraft.yaml (wget/tar/cp node tarball lines) ─────────────────────────
+# Matches:  node-v24.14.1-linux-x64  (tarball download, extract, copy, rm)
+sedi "s|node-v24\.[0-9][0-9]*\.[0-9][0-9]*-linux-x64|node-v${NEW_NODE}-linux-x64|g" \
+  snapcraft.yaml
+
+# ── docker-compose.yml ───────────────────────────────────────────────────────
+# Matches:  node:24.14.1-slim  (commented-out image reference)
+sedi "s|node:24\.[0-9][0-9]*\.[0-9][0-9]*-slim|node:${NEW_NODE}-slim|g" \
+  docker-compose.yml
 
 # ── rebuild-wekan.sh ──────────────────────────────────────────────────────────
 # Matches:  sudo n 24.14.1
