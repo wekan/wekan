@@ -50,6 +50,10 @@ This release adds the following updates:
   Thanks to xet7.
 - [Release scripts: Use latest available Node.js slim docker images when building](https://github.com/wekan/wekan/commit/d998e8cb4a5280c93448d144ab01335ce29b43dc).
   Thanks to xet7.
+- [Release scripts: Fix updating version numbers](https://github.com/wekan/wekan/commit/7b0e2213cfbf0e2a17a143aa7ad9f979fb0fbf07).
+  Thanks to xet7.
+- [Release scripts: Require only newest version number when releasing](https://github.com/wekan/wekan/commit/052d8c15844dfc709dc3ac281795629c175869e0).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
