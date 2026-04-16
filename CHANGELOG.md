@@ -46,6 +46,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Moved Helm Charts from helm directory to docs/wekan and docs/charts to be at wekan.fi/wekan and wekan.fi/charts](https://github.com/wekan/wekan/commit/38e488ee4a63d61159d8efcddb6e454347bce91a).
   Thanks to xet7.
+- [Release scripts: Fix indentation at release-all.yml](https://github.com/wekan/wekan/commit/10f009f5b15fd077577a71504b0e0c89c4e6fd95).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
