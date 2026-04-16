@@ -26,6 +26,17 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Release scripts: Detect newest Node.js 24.x version](https://github.com/wekan/wekan/commit/fde59148dc8bd712e30cbf969d4007b2a7f01e6f).
+  Thanks to xet7.
+- [Release scripts: Update versions at website with release-website.sh script](https://github.com/wekan/wekan/commit/9174001862f1545626730b9a51754ab77b645338).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.97 2026-04-16 WeKan ® release
 
 This release adds the following updates:
