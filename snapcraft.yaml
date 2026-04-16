@@ -113,7 +113,7 @@ parts:
     wekan:
         source: .
         plugin: npm
-        npm-node-version: 24.14.1
+        npm-node-version: 24.15.0
         npm-include-node: true
         build-packages:
             - build-essential

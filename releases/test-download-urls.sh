@@ -58,17 +58,17 @@ check "db-tools 100.13.0  arm64" \
   "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.13.0.tgz"
 echo ""
 
-echo "=== Node.js 24.14.1 (all snap architectures) ==="
-check "Node.js 24.14.1  linux-x64     (amd64)" \
-  "https://nodejs.org/dist/v24.14.1/node-v24.14.1-linux-x64.tar.gz"
-check "Node.js 24.14.1  linux-arm64   (arm64)" \
-  "https://nodejs.org/dist/v24.14.1/node-v24.14.1-linux-arm64.tar.gz"
-check "Node.js 24.14.1  linux-armv7l  (armhf)" \
-  "https://nodejs.org/dist/v24.14.1/node-v24.14.1-linux-armv7l.tar.gz"
-check "Node.js 24.14.1  linux-s390x   (s390x)" \
-  "https://nodejs.org/dist/v24.14.1/node-v24.14.1-linux-s390x.tar.gz"
-check "Node.js 24.14.1  linux-ppc64le (ppc64el)" \
-  "https://nodejs.org/dist/v24.14.1/node-v24.14.1-linux-ppc64le.tar.gz"
+echo "=== Node.js 24.15.0 (all snap architectures) ==="
+check "Node.js 24.15.0  linux-x64     (amd64)" \
+  "https://nodejs.org/dist/v24.15.0/node-v24.15.0-linux-x64.tar.gz"
+check "Node.js 24.15.0  linux-arm64   (arm64)" \
+  "https://nodejs.org/dist/v24.15.0/node-v24.15.0-linux-arm64.tar.gz"
+check "Node.js 24.15.0  linux-armv7l  (armhf)" \
+  "https://nodejs.org/dist/v24.15.0/node-v24.15.0-linux-armv7l.tar.gz"
+check "Node.js 24.15.0  linux-s390x   (s390x)" \
+  "https://nodejs.org/dist/v24.15.0/node-v24.15.0-linux-s390x.tar.gz"
+check "Node.js 24.15.0  linux-ppc64le (ppc64el)" \
+  "https://nodejs.org/dist/v24.15.0/node-v24.15.0-linux-ppc64le.tar.gz"
 echo ""
 
 echo "=== Results ==="

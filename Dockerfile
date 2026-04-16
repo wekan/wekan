@@ -14,7 +14,7 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=v24.14.1 \
+    NODE_VERSION=v24.15.0 \
     METEOR_RELEASE=METEOR@3.5-beta.7 \
     USE_EDGE=false \
     NPM_VERSION=11.11.0 \
