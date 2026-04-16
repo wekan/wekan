@@ -32,6 +32,13 @@ This release adds the following new features:
 
 - [Helm Chart: Add single-node ReplicaSet support with auto MONGO_OPLOG_URL](https://github.com/wekan/wekan/pull/6292).
   Thanks to titver968.
+- [Helm Chart: Use current Finland time for created field at index.yaml for newest built Helm Chart release](https://github.com/wekan/wekan/commit/135af977af4a1c598d2e067de0facb6eae8f8de1).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix Cannot find module /build/main.js error in latest Docker image](https://github.com/wekan/wekan/commit/6dfe81cbcb0c6e2003b1984586d56042a6408e70).
+  Thanks to s8321414 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
