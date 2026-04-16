@@ -348,7 +348,6 @@ jobs:
         run: |
           set -e
           BASE="24"
-          # Get all available tags for node on Docker Hub (limit to 24.x)
           TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
           for tag in $TAGS; do
             if docker manifest inspect node:$tag-slim --platform linux/arm64 > /dev/null 2>&1; then
@@ -357,6 +356,12 @@ jobs:
               exit 0
             fi
           done
+          # Fallback to 24-slim if no patch version found
+          if docker manifest inspect node:24-slim --platform linux/arm64 > /dev/null 2>&1; then
+            echo "Falling back to 24-slim"
+            echo "NODE_VERSION_ARM64=24" >> $GITHUB_ENV
+            exit 0
+          fi
           echo "No available Node.js 24.x slim image for arm64 found!" >&2
           exit 1
 
@@ -430,7 +435,6 @@ jobs:
         run: |
           set -e
           BASE="24"
-          # Get all available tags for node on Docker Hub (limit to 24.x)
           TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
           for tag in $TAGS; do
             if docker manifest inspect node:$tag-slim --platform linux/s390x > /dev/null 2>&1; then
@@ -439,6 +443,12 @@ jobs:
               exit 0
             fi
           done
+          # Fallback to 24-slim if no patch version found
+          if docker manifest inspect node:24-slim --platform linux/s390x > /dev/null 2>&1; then
+            echo "Falling back to 24-slim"
+            echo "NODE_VERSION_S390X=24" >> $GITHUB_ENV
+            exit 0
+          fi
           echo "No available Node.js 24.x slim image for s390x found!" >&2
           exit 1
 
@@ -508,7 +518,6 @@ jobs:
         run: |
           set -e
           BASE="24"
-          # Get all available tags for node on Docker Hub (limit to 24.x)
           TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
           for tag in $TAGS; do
             if docker manifest inspect node:$tag-slim --platform linux/ppc64le > /dev/null 2>&1; then
@@ -517,6 +526,12 @@ jobs:
               exit 0
             fi
           done
+          # Fallback to 24-slim if no patch version found
+          if docker manifest inspect node:24-slim --platform linux/ppc64le > /dev/null 2>&1; then
+            echo "Falling back to 24-slim"
+            echo "NODE_VERSION_PPC64LE=24" >> $GITHUB_ENV
+            exit 0
+          fi
           echo "No available Node.js 24.x slim image for ppc64le found!" >&2
           exit 1
 
