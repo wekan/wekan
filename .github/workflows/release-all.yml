@@ -777,32 +777,65 @@ jobs:
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 
+
       - name: Update Chart.yaml and values.yaml with new version
         run: |
-          cd docs/wekan
-          # Chart.yaml: update appVersion and version
-          sed -i "s/^appVersion: .*/appVersion: \"${VERSION}\"/" Chart.yaml
-          sed -i "s/^version: .*/version: ${VERSION}.0/" Chart.yaml
-          # values.yaml: update image tag
-          sed -i "s/^  tag: v.*/  tag: v${VERSION}/" values.yaml
+          CHART_PATH=docs/wekan
+          CHART_FILE=$CHART_PATH/Chart.yaml
+          VALUES_FILE=$CHART_PATH/values.yaml
+          CHARTS_DIR=docs/charts
+          INDEX_FILE=$CHARTS_DIR/index.yaml
+          VERSION=${VERSION}
+          # Update Chart.yaml (appVersion and version)
+          sed -i "s/^appVersion: .*/appVersion: \"$VERSION\"/" "$CHART_FILE"
+          sed -i "s/^version: .*/version: $VERSION.0/" "$CHART_FILE"
+          # Update values.yaml (image.tag)
+          sed -i "s/^  tag: v.*/  tag: v$VERSION/" "$VALUES_FILE"
 
       - name: Build Helm dependencies
         run: |
           cd docs/wekan
-          helm repo add mongo https://groundhog2k.github.io/helm-charts/
+          helm repo add mongo https://groundhog2k.github.io/helm-charts/ || true
           helm dependency update
           helm dependency build
 
-      - name: Package chart and update index
+      - name: Package chart to docs/charts and update index.yaml
         run: |
-          mkdir -p docs/wekan/
-          helm package docs/wekan -d docs/wekan/
-          helm repo index docs/wekan/ --url https://wekan.fi/wekan/
+          CHART_PATH=docs/wekan
+          CHARTS_DIR=docs/charts
+          INDEX_FILE=$CHARTS_DIR/index.yaml
+          VERSION=${VERSION}
+          cd $CHARTS_DIR
+          helm package ../wekan -d .
+          ARCHIVE=wekan-$VERSION.0.tgz
+          SHA256=$(sha256sum "$ARCHIVE" | awk '{print $1}')
+          CREATED=$(TZ='Europe/Helsinki' date '+%Y-%m-%dT%H:%M:%S.000000000%:z')
+          if [ -f "$INDEX_FILE" ]; then
+            awk '/^- apiVersion: v2/{flag=1;print;next}/^- apiVersion: v2/{flag=0}flag' "$INDEX_FILE" | head -n 30 > /tmp/topentry.yaml
+            sed -i "s/appVersion: .*/appVersion: \"$VERSION\"/" /tmp/topentry.yaml
+            sed -i "s/created: .*/created: \"$CREATED\"/" /tmp/topentry.yaml
+            sed -i "s/digest: .*/digest: $SHA256/" /tmp/topentry.yaml
+            sed -i "s|urls:.*|urls:\n    - https://wekan.github.io/wekan/wekan-$VERSION.0.tgz|" /tmp/topentry.yaml
+            sed -i "s/version: .*/version: $VERSION.0/" /tmp/topentry.yaml
+            awk 'NR==1{print;system("cat /tmp/topentry.yaml");next} /^  - apiVersion: v2/ && !p{p=1;next} 1' "$INDEX_FILE" > /tmp/index.yaml
+            mv /tmp/index.yaml "$INDEX_FILE"
+            rm /tmp/topentry.yaml
+          else
+            echo "index.yaml not found, skipping index update."
+          fi
 
-      - name: Update created time to Finland time
+      - name: Commit updated chart and index
         run: |
-          FINLAND_TIME=$(TZ='Europe/Helsinki' date '+%Y-%m-%dT%H:%M:%S.000000000%:z')
-          sed -i "0,/^    created: .*/s/^    created: .*/    created: \"${FINLAND_TIME}\"/" docs/wekan/index.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/wekan/ docs/charts/
+          git commit -m "Helm chart ${VERSION}.0"
+          git push origin HEAD:refs/heads/main
+
+      - name: Upload docs/charts/ as Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/charts/
 
       - name: Commit updated chart
         run: |
