@@ -343,27 +343,10 @@ jobs:
           sudo apt-get install -y build-essential g++ make python3 curl unzip zip
 
 
-      - name: Find latest available Node.js 24.x slim image for arm64
+      - name: Set Node.js version for arm64
         id: node_arm64
         run: |
-          set -e
-          BASE="24"
-          TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
-          for tag in $TAGS; do
-            if docker manifest inspect node:$tag-slim --platform linux/arm64 > /dev/null 2>&1; then
-              echo "Found available: $tag"
-              echo "NODE_VERSION_ARM64=$tag" >> $GITHUB_ENV
-              exit 0
-            fi
-          done
-          # Fallback to 24-slim if no patch version found
-          if docker manifest inspect node:24-slim --platform linux/arm64 > /dev/null 2>&1; then
-            echo "Falling back to 24-slim"
-            echo "NODE_VERSION_ARM64=24" >> $GITHUB_ENV
-            exit 0
-          fi
-          echo "No available Node.js 24.x slim image for arm64 found!" >&2
-          exit 1
+          echo "NODE_VERSION_ARM64=24" >> $GITHUB_ENV
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
@@ -391,7 +374,7 @@ jobs:
           docker run --rm --platform linux/arm64 \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:${NODE_VERSION_ARM64}-slim \
+            node:24-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create arm64 zip
@@ -430,27 +413,10 @@ jobs:
         with:
           name: bundle-amd64
 
-      - name: Find latest available Node.js 24.x slim image for s390x
+      - name: Set Node.js version for s390x
         id: node_s390x
         run: |
-          set -e
-          BASE="24"
-          TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
-          for tag in $TAGS; do
-            if docker manifest inspect node:$tag-slim --platform linux/s390x > /dev/null 2>&1; then
-              echo "Found available: $tag"
-              echo "NODE_VERSION_S390X=$tag" >> $GITHUB_ENV
-              exit 0
-            fi
-          done
-          # Fallback to 24-slim if no patch version found
-          if docker manifest inspect node:24-slim --platform linux/s390x > /dev/null 2>&1; then
-            echo "Falling back to 24-slim"
-            echo "NODE_VERSION_S390X=24" >> $GITHUB_ENV
-            exit 0
-          fi
-          echo "No available Node.js 24.x slim image for s390x found!" >&2
-          exit 1
+          echo "NODE_VERSION_S390X=24" >> $GITHUB_ENV
 
       - name: Rebuild native modules for s390x in container
         run: |
@@ -474,7 +440,7 @@ jobs:
           docker run --rm --platform linux/s390x \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:${NODE_VERSION_S390X}-slim \
+            node:24-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create s390x zip
@@ -513,27 +479,10 @@ jobs:
         with:
           name: bundle-amd64
 
-      - name: Find latest available Node.js 24.x slim image for ppc64le
+      - name: Set Node.js version for ppc64le
         id: node_ppc64le
         run: |
-          set -e
-          BASE="24"
-          TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
-          for tag in $TAGS; do
-            if docker manifest inspect node:$tag-slim --platform linux/ppc64le > /dev/null 2>&1; then
-              echo "Found available: $tag"
-              echo "NODE_VERSION_PPC64LE=$tag" >> $GITHUB_ENV
-              exit 0
-            fi
-          done
-          # Fallback to 24-slim if no patch version found
-          if docker manifest inspect node:24-slim --platform linux/ppc64le > /dev/null 2>&1; then
-            echo "Falling back to 24-slim"
-            echo "NODE_VERSION_PPC64LE=24" >> $GITHUB_ENV
-            exit 0
-          fi
-          echo "No available Node.js 24.x slim image for ppc64le found!" >&2
-          exit 1
+          echo "NODE_VERSION_PPC64LE=24" >> $GITHUB_ENV
 
       - name: Rebuild native modules for ppc64le in container
         run: |
@@ -557,7 +506,7 @@ jobs:
           docker run --rm --platform linux/ppc64le \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:${NODE_VERSION_PPC64LE}-slim \
+            node:24-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create ppc64le zip
