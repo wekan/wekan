@@ -89,5 +89,8 @@ echo ""
 echo "=== Release workflow triggered for v$NEW ==="
 echo "    Follow at: https://github.com/wekan/wekan/actions"
 echo ""
-echo "After the workflow completes, optionally update the website:"
-echo "    ./releases/release-website.sh $OLD $NEW"
+# .github.com/workflows/release-all.yml automaticall updates
+# versions at website wekan.fi/install/
+# so manual website update is not needed:
+#echo "After the workflow completes, optionally update the website:"
+#echo "    ./releases/release-website.sh $OLD $NEW"
