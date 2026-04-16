@@ -26,6 +26,23 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v8.97 2026-04-16 WeKan ® release
+
+This release adds the following updates:
+
+- Release Scripts: Clean GitHub Cache.
+  [Part 1](https://github.com/wekan/wekan/commit/e59bc9cd86cc16333e24b2e7e8e5d5cf72f81e3e),
+  [Part 2](https://github.com/wekan/wekan/commit/13cdf08e223e83ef9a2f36417c11ad002e884f29),
+  [Part 3](https://github.com/wekan/wekan/commit/6d0978d0ede8316a1d9ac6afc0ecf7f02d9193d6).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix GitHub Actions builds](https://github.com/wekan/wekan/commit/6478d27d1ca2f6e27c025e0cc97b618bc255083f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.96 2026-04-16 WeKan ® release
 
 This release fixes the following bugs:
