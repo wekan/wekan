@@ -34,6 +34,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Release scripts: Update versions at website with release-website.sh script](https://github.com/wekan/wekan/commit/9174001862f1545626730b9a51754ab77b645338).
   Thanks to xet7.
+- [Release scripts: Detect newest MongoDB 7.x stable version and update to use it](https://github.com/wekan/wekan/commit/72f6d96dbc3becc2767eb6f88b0f218679d1ac78).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
