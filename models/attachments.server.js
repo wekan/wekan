@@ -333,7 +333,12 @@ Meteor.startup(async () => {
   // Without this, queries like find({files_id: ObjectId}) do full collection scans.
   const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
   const chunksCollection = db.collection('attachments.chunks');
-  await chunksCollection.createIndex({ files_id: 1, n: 1 });
+  try {
+    await chunksCollection.createIndex({ files_id: 1, n: 1 }, { unique: true });
+  } catch (e) {
+    // Index already exists, which is fine — skip the error.
+    if (e.code !== 86) throw e;
+  }
 
   const sp = fileStoreStrategyFactory.storagePath;
   if (!fs.existsSync(sp)) {
