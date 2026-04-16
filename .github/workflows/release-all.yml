@@ -666,6 +666,11 @@ jobs:
           helm package helm/wekan -d helm/charts/
           helm repo index helm/charts/ --url https://wekan.github.io/wekan/
 
+      - name: Update created time to Finland time
+        run: |
+          FINLAND_TIME=$(TZ='Europe/Helsinki' date '+%Y-%m-%dT%H:%M:%S.000000000%:z')
+          sed -i "0,/^    created: .*/s/^    created: .*/    created: \"${FINLAND_TIME}\"/" helm/charts/index.yaml
+
       - name: Commit updated chart
         run: |
           git config user.name "github-actions[bot]"
