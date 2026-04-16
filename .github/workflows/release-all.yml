@@ -30,7 +30,6 @@ permissions:
   packages: write
   pages: write
   id-token: write
-  workflows: write
 
 jobs:
   # ─── 0. Version bump, docs rebuild, and tag creation ────────────────────────
@@ -87,6 +86,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add --all
+          # GITHUB_TOKEN cannot push workflow file changes; exclude them
+          git reset HEAD -- .github/workflows/ || true
+          git checkout -- .github/workflows/ || true
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
