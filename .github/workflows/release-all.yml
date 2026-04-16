@@ -30,6 +30,7 @@ permissions:
   packages: write
   pages: write
   id-token: write
+  workflows: write
 
 jobs:
   # ─── 0. Version bump, docs rebuild, and tag creation ────────────────────────
