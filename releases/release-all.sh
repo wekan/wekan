@@ -50,7 +50,7 @@ fi
 set -e
 
 # Clean GitHub cache
-gh cache clean --all
+gh cache delete --all
 
 # Resolve repo root from script location so this works regardless of CWD
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
