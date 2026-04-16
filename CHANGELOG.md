@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix SSO Login broken. Part 2](https://github.com/wekan/wekan/commit/4aa7b6aa2034f27efeb67d5dfa8f6acbe0005786).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.92 2026-04-16 WeKan ® release
 
 This release adds the following updates:
