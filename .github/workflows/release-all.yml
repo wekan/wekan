@@ -776,9 +776,10 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+
       - name: Update Chart.yaml and values.yaml with new version
         run: |
-          cd helm/wekan
+          cd docs/wekan
           # Chart.yaml: update appVersion and version
           sed -i "s/^appVersion: .*/appVersion: \"${VERSION}\"/" Chart.yaml
           sed -i "s/^version: .*/version: ${VERSION}.0/" Chart.yaml
@@ -787,7 +788,7 @@ jobs:
 
       - name: Build Helm dependencies
         run: |
-          cd helm/wekan
+          cd docs/wekan
           helm repo add mongo https://groundhog2k.github.io/helm-charts/
           helm dependency update
           helm dependency build
@@ -795,7 +796,7 @@ jobs:
       - name: Package chart and update index
         run: |
           mkdir -p docs/wekan/
-          helm package helm/wekan -d docs/wekan/
+          helm package docs/wekan -d docs/wekan/
           helm repo index docs/wekan/ --url https://wekan.fi/wekan/
 
       - name: Update created time to Finland time
