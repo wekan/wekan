@@ -60,6 +60,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Fix Helm Chart parts to docs/wekan and docs/charts](https://github.com/wekan/wekan/commit/1820804b9f46e510c4bf05324755a5eeec5a3b13).
   Thanks to xet7.
+- [Release scripts: Updated creating Helm Charts to docs/wekan and docs/charts](https://github.com/wekan/wekan/commit/f6198dee30ed6514974d2e821997d340e67fc954).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
