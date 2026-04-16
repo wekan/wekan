@@ -104,7 +104,7 @@ sudo snap refresh wekan --channel=latest/candidate --amend
 ```
 5. [Restore Snap](#restore-wekan-snap)
 6. Copy back files directory, if it is there: `sudo cp -pR /root/common/files /var/snap/wekan/common/`
-7. If you use [Caddy](https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md), that is included in WeKan, edit /var/snap/wekan/Caddyfile to new syntax:
+7. If you use [Caddy](https://github.com/wekan/wekan/blob/main/docs2/Webserver/Caddy.md), that is included in WeKan, edit /var/snap/wekan/Caddyfile to new syntax:
 ```
 wekan.yourcompany.com {
         tls {
