@@ -26,6 +26,17 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v8.91 2026-04-16 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix building Snap at GitHub Actions](https://github.com/wekan/wekan/commit/89de05ee91612cef4f13fa8ad32d112dca5bdb43).
+  Thanks to xet7.
+- [Updated Helm Chart URL at readme](https://github.com/wekan/wekan/commit/529e0d25ef2ea84953d1c1e6a23b5798d34583fb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.90 2026-04-16 WeKan ® release
 
 This release adds the following updates:
