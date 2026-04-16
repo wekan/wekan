@@ -286,22 +286,38 @@ jobs:
     timeout-minutes: 60
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.node_version }}
+      NODE_VERSION_ARM64: ''
     steps:
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential g++ make python3 curl unzip zip
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '${{ needs.prepare.outputs.node_version }}'
+
+      - name: Find latest available Node.js 24.x slim image for arm64
+        id: node_arm64
+        run: |
+          set -e
+          BASE="24"
+          # Get all available tags for node on Docker Hub (limit to 24.x)
+          TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
+          for tag in $TAGS; do
+            if docker manifest inspect node:$tag-slim --platform linux/arm64 > /dev/null 2>&1; then
+              echo "Found available: $tag"
+              echo "NODE_VERSION_ARM64=$tag" >> $GITHUB_ENV
+              exit 0
+            fi
+          done
+          echo "No available Node.js 24.x slim image for arm64 found!" >&2
+          exit 1
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
 
-      - name: Rebuild native modules for arm64
+      - name: Rebuild native modules for arm64 in container
         run: |
           unzip wekan-${VERSION}-amd64.zip
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
@@ -318,10 +334,12 @@ jobs:
             popd > /dev/null
             rm -rf "$TMP"
           fi
-          cd bundle/programs/server
-          rm -rf node_modules
-          npm install
-          cd ../..
+          # Use the latest available Node.js 24.x slim image for arm64
+          docker run --rm --platform linux/arm64 \
+            -v "$(pwd)/bundle:/bundle" \
+            -w /bundle/programs/server \
+            node:${NODE_VERSION_ARM64}-slim \
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create arm64 zip
         run: |
@@ -344,6 +362,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
       NODE_VERSION: ${{ needs.prepare.outputs.node_version }}
+      NODE_VERSION_S390X: ''
     steps:
       - name: Set up QEMU for s390x
         uses: docker/setup-qemu-action@v4
@@ -357,6 +376,23 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
+
+      - name: Find latest available Node.js 24.x slim image for s390x
+        id: node_s390x
+        run: |
+          set -e
+          BASE="24"
+          # Get all available tags for node on Docker Hub (limit to 24.x)
+          TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
+          for tag in $TAGS; do
+            if docker manifest inspect node:$tag-slim --platform linux/s390x > /dev/null 2>&1; then
+              echo "Found available: $tag"
+              echo "NODE_VERSION_S390X=$tag" >> $GITHUB_ENV
+              exit 0
+            fi
+          done
+          echo "No available Node.js 24.x slim image for s390x found!" >&2
+          exit 1
 
       - name: Rebuild native modules for s390x in container
         run: |
@@ -376,11 +412,11 @@ jobs:
             popd > /dev/null
             rm -rf "$TMP"
           fi
-          # node:$NODE_VERSION-slim s390x — same Node.js version as Meteor bundled
+          # Use the latest available Node.js 24.x slim image for s390x
           docker run --rm --platform linux/s390x \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:${NODE_VERSION}-slim \
+            node:${NODE_VERSION_S390X}-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create s390x zip
@@ -404,6 +440,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
       NODE_VERSION: ${{ needs.prepare.outputs.node_version }}
+      NODE_VERSION_PPC64LE: ''
     steps:
       - name: Set up QEMU for ppc64le
         uses: docker/setup-qemu-action@v4
@@ -417,6 +454,23 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bundle-amd64
+
+      - name: Find latest available Node.js 24.x slim image for ppc64le
+        id: node_ppc64le
+        run: |
+          set -e
+          BASE="24"
+          # Get all available tags for node on Docker Hub (limit to 24.x)
+          TAGS=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/library/node/tags?page_size=1000" | grep -o '24\\.[0-9][0-9]*\\.[0-9][0-9]*-slim' | sort -Vr | uniq)
+          for tag in $TAGS; do
+            if docker manifest inspect node:$tag-slim --platform linux/ppc64le > /dev/null 2>&1; then
+              echo "Found available: $tag"
+              echo "NODE_VERSION_PPC64LE=$tag" >> $GITHUB_ENV
+              exit 0
+            fi
+          done
+          echo "No available Node.js 24.x slim image for ppc64le found!" >&2
+          exit 1
 
       - name: Rebuild native modules for ppc64le in container
         run: |
@@ -436,11 +490,11 @@ jobs:
             popd > /dev/null
             rm -rf "$TMP"
           fi
-          # node:$NODE_VERSION-slim ppc64le — same Node.js version as Meteor bundled
+          # Use the latest available Node.js 24.x slim image for ppc64le
           docker run --rm --platform linux/ppc64le \
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
-            node:${NODE_VERSION}-slim \
+            node:${NODE_VERSION_PPC64LE}-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Clean up and create ppc64le zip
