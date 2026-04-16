@@ -56,6 +56,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Release scripts: Use 24-slim fallback](https://github.com/wekan/wekan/commit/a0c190137dfe9fd8da71380f6c67344812561f9f).
   Thanks to xet7.
+- [Release scripts: use node:24-slim directly](https://github.com/wekan/wekan/commit/51ad6ed99df7ecdc925d314a6c5fab345f75d549).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
