@@ -33,9 +33,23 @@ else
 fi
 git pull
 
+# Update Meteor, Node.js, and NPM versions in install/index.html
+METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' ../../.meteor/release | head -1)
+NODE_VERSION=$(grep -o 'NODE_VERSION=[^ \\]*' ../../Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
+NPM_VERSION=$(grep -o 'NPM_VERSION=[^ \\]*' ../../Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
+
+sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" install/index.html
+sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" install/index.html
+sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" install/index.html
+
 # install/index.html
 #   The version appears inside a specific HTML span tag.
 #   This pattern is already precise enough to match only the WeKan version.
+sedi "s|>v$OLD<\/span>|>v$NEW<\/span>|g" install/index.html
+
+# Also update Meteor and Node.js versions in the <h2 class="fw-bold"> line
+sedi "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" install/index.html
+sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" install/index.html
 sedi "s|>v$OLD<\/span>|>v$NEW<\/span>|g" install/index.html
 
 # api/index.html
