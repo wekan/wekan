@@ -74,6 +74,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{/*
 Create the MongoDB URL. If MongoDB is installed as part of this chart, use k8s service discovery,
 else use user-provided URL.
+Supports single-node ReplicaSet via mongodb.replicaSet.name (e.g. for oplog tailing).
 */}}
 {{- define "mongodb.url" -}}
 {{- if (index .Values "mongodb" "enabled") -}}
@@ -83,10 +84,32 @@ else use user-provided URL.
   {{- if gt $count 1 -}}
     {{- $replicaSetName := (index .Values "mongodb" "replicaSetName") -}}
     mongodb://{{- range $v := until $count }}{{ $release }}-mongodb-{{ $v }}.{{ $mongodbSvcName }}:27017{{ if ne $v (sub $count 1) }},{{- end -}}{{- end -}}/{{ .Values.dbname }}?replicaSet={{ $replicaSetName }}
+  {{- else if (index .Values "mongodb" "replicaSet" "name") -}}
+    {{- $replicaSetName := (index .Values "mongodb" "replicaSet" "name") -}}
+    mongodb://{{ $mongodbSvcName }}:27017/{{ .Values.dbname }}?replicaSet={{ $replicaSetName }}
   {{- else -}}
-    mongodb://{{ $release }}-mongodb-0.{{ $mongodbSvcName }}:27017/{{ .Values.dbname }}
+    mongodb://{{ $mongodbSvcName }}:27017/{{ .Values.dbname }}
   {{- end -}}
 {{- else -}}
   {{- index .Values "mongodb" "url" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create the MongoDB Oplog URL for change stream support (requires ReplicaSet).
+Only rendered when mongodb.replicaSet.name is set or replicaCount > 1.
+*/}}
+{{- define "mongodb.oplog.url" -}}
+{{- if (index .Values "mongodb" "enabled") -}}
+  {{- $count := (int (index .Values "mongodb" "replicaCount")) -}}
+  {{- $release := .Release.Name -}}
+  {{- $mongodbSvcName := include "wekan.mongodb.svcname" . -}}
+  {{- if gt $count 1 -}}
+    {{- $replicaSetName := (index .Values "mongodb" "replicaSetName") -}}
+    mongodb://{{- range $v := until $count }}{{ $release }}-mongodb-{{ $v }}.{{ $mongodbSvcName }}:27017{{ if ne $v (sub $count 1) }},{{- end -}}{{- end -}}/local?replicaSet={{ $replicaSetName }}
+  {{- else if (index .Values "mongodb" "replicaSet" "name") -}}
+    {{- $replicaSetName := (index .Values "mongodb" "replicaSet" "name") -}}
+    mongodb://{{ $mongodbSvcName }}:27017/local?replicaSet={{ $replicaSetName }}
+  {{- end -}}
 {{- end -}}
 {{- end -}}

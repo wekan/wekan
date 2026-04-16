@@ -73,6 +73,11 @@ spec:
             - name: MONGO_URL
               value: "{{ template "mongodb.url" . }}"
           {{- end }}
+          {{- $oplogUrl := include "mongodb.oplog.url" . -}}
+          {{- if $oplogUrl }}
+            - name: MONGO_OPLOG_URL
+              value: {{ $oplogUrl | quote }}
+          {{- end }}
           {{- range $key := .Values.env }}
           {{- if .value }}
             - name: {{ .name }}
