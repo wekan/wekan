@@ -784,21 +784,22 @@ Accounts.onCreateUser(async (options, user) => {
     if (Array.isArray(email)) {
       email = email.shift();
     }
-    email = email.toLowerCase();
-    user.username = user.services.oidc.username;
+    email = (email || '').toLowerCase();
+    user.username = user.services.oidc.username || user.services.oidc.id || email.split('@')[0] || Random.id();
     user.emails = [{ address: email, verified: true }];
 
     if (user.username.includes('/') || email.includes('/')) {
       return false;
     }
 
-    const initials = user.services.oidc.fullname
+    const fullname = user.services.oidc.fullname || user.username;
+    const initials = fullname
       .split(/\s+/)
       .reduce((memo, word) => memo + word[0], '')
       .toUpperCase();
     user.profile = {
       initials,
-      fullname: user.services.oidc.fullname,
+      fullname,
       boardView: 'board-view-swimlanes',
     };
     user.authenticationMethod = 'oauth2';
