@@ -69,6 +69,25 @@ jobs:
           echo "node_version=$NODE_VER" >> $GITHUB_OUTPUT
           echo "Detected latest Node.js 24.x: $NODE_VER"
 
+        - name: Detect latest MongoDB 7.x version and update snapcraft.yaml
+          id: detect_mongodb
+          run: |
+            set -e
+            # Fetch all available Ubuntu versions for MongoDB 7.x
+            MONGO_LINE=$(curl -fsSL https://www.mongodb.com/try/download/community | grep -o 'mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*\.tgz' | sort -u | sort -t- -k4,4nr | head -1)
+            if [ -z "$MONGO_LINE" ]; then
+              echo "Error: could not determine latest MongoDB 7.x version." >&2
+              exit 1
+            fi
+            # Extract Ubuntu version and MongoDB version
+            UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
+            MONGO_VER=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/' | sed 's/\.tgz$//')
+            echo "mongodb_ubuntu=$UBUNTU_VER" >> $GITHUB_OUTPUT
+            echo "mongodb_version=$MONGO_VER" >> $GITHUB_OUTPUT
+            echo "Detected latest MongoDB 7.x: $MONGO_VER for Ubuntu $UBUNTU_VER"
+            # Update snapcraft.yaml source URL (replace any ubuntu version)
+            sed -i "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\\.[0-9][0-9]*\\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
+
       - uses: actions/setup-node@v6
         if: steps.check.outputs.existed == 'false'
         with:

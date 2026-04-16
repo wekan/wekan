@@ -32,6 +32,14 @@ else
   exit 0
 fi
 git pull
+# Update MongoDB version in install/index.html from snapcraft.yaml
+MONGO_LINE=$(grep -o 'mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*' ../../snapcraft.yaml | head -1)
+if [ -n "$MONGO_LINE" ]; then
+  UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
+  MONGODB_VERSION=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/')
+  # Update MongoDB version string (e.g. MongoDB 7.0.31 Ubuntu 2204)
+  sedi "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" install/index.html
+fi
 
 # Update Meteor, Node.js, and NPM versions in install/index.html
 METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' ../../.meteor/release | head -1)
