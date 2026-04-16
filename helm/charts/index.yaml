@@ -2247,7 +2247,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 47d12fc3425bae5819fc7d32ee627e106b4ad1c8184add6d554b251643e68294
@@ -2279,7 +2279,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: af33d837c20030b37c532ff31af3f9be534242e6a03b02d0f6f0caae5e4dfe48
@@ -2311,7 +2311,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: c13cfae5b52fff4e800b9c5786c24b9914bd5cbc3d6010a4e89823898e8e1146
@@ -2343,7 +2343,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 893732c229a03a082dc7443cedcdd6a0c374abb24dde254b37c4e023979e0fd4
@@ -2375,7 +2375,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 8e17d16ad77f4bcb86a9570e5aff8dbf1eb556176502dfe772cfe2df33993d38
@@ -2407,7 +2407,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: b8f4e5e2fb2543455165c01d18a931b021a6281cfd9fdcc8a8d34314a9b263de
@@ -2439,7 +2439,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 2b3a63a3787872a8f29ee6988249250886da4564db5a0e4cb6d715a1f7c94339
@@ -2471,7 +2471,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 8815c1e1a814a430423223681b2e37ae046f0824b7918c396028ad401f604998
@@ -2503,7 +2503,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: e5889fc3de2483a54a29a762c028067fda87a6c3abbf4e9cf6e371d662412616
@@ -2535,7 +2535,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 73b88fff46ef81eb528e0cb8e3e4c715f3006066e29bfdbda5a968af8c2f0f49
@@ -2567,7 +2567,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 779b8e57fbadd2db553c27ef116ca0467ad48387abc8d8f675342178f6727572
@@ -2599,7 +2599,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: b5af2c6a586ba1f0794f8df580dc9de2534873247ac3cc4e03d7a0665112bcdd
@@ -2631,7 +2631,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: c150bb16c72a5e0ec80ce8691fce6cf9df28dffa87f7f46bda8ab7ae23756bf3
@@ -2663,7 +2663,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 32c8869ed77704ae3b32a7b17aac346242e6bc2bdfef266f9f2513bdfb1ad29c
@@ -2695,7 +2695,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 8d67ce8ec3ac041860e1ad101515f2ac556e926532d3988e316f5fd4a3744c5a
@@ -2727,7 +2727,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 82c7162dadde63a709c7112f59add194c7c6adf1db3efc2fe92a49bbe1807987
@@ -2759,7 +2759,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: da53de7a3e88793f3313338c2ffb9cae08cf973384c3d4fe05cb405f151f249d
@@ -2791,7 +2791,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: cc6979527d568318c4d7c0f20e09c98371b3ef952ff1385a7169b29209ebfaa7
@@ -2823,7 +2823,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: fad26989b0b1b05f707fb060e0a31ff7aaaa914b1fb486312969e367f2f5c124
@@ -2855,7 +2855,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 561e80c8c0166a65d85e69e97c56db0bcbe158601f74a7fa08910ed2b5022aef
@@ -2887,7 +2887,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 1a24f1a94666211b913fea1ff0286e372fbc237c39621267916a9197e8b09721
@@ -2919,7 +2919,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 1a9e5df306f514f9704e35b71ca728822df9800629b7f854c98ac693794deaa2
@@ -2951,7 +2951,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: ce7ce5a840e80dd3e0826c1f9e177cfac9d8b13f3fa5634a0ccba400ad90f663
@@ -2983,7 +2983,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: bc7dd9356b4807044546c8d0c4901f4a2b870e5d29f69a1185ea50784fc30fac
@@ -3015,7 +3015,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 4db82b5efb83bc579746437b05c9c7545f4f402fc34ad955fd17b84d3ea85593
@@ -3047,7 +3047,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: c8caeac65cda542f60439b9adfd1b3b0c4b52abf02558868976c48cf0180c734
@@ -3079,7 +3079,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: a9624fb84fe4c3c76d42b3b3e84be392253d29ba1091240495b2d65c743f32a3
@@ -3111,7 +3111,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: b6e30311c15fda9d704649d189b3ca03211042052f5fb401580f508af1de39a7
@@ -3143,7 +3143,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 190a76293754c85a310760860a135ae42ea6d3145b233fb14f07da331ce68c1e
@@ -3175,7 +3175,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 819790e0d9d34a4efda45b2d0bc211e5e94ce04a75a5d06eab8fab4cea8840f1
@@ -3207,7 +3207,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 25bb4014c9cd5d31d16c3d559d751541c604eb09a29e9a77e2476723288e0d56
@@ -3239,7 +3239,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 37bcc3848f8087665455ad1030eb4f9e6af037030835d9d92740457d86ea2dad
@@ -3271,7 +3271,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 54af00f7c65cb6ab4d0c7133545feaf935f457c021c97d6a5c4b79c57a76418e
@@ -3303,7 +3303,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 11f338102dc44e5fd04496860d96f50553cab5227dd43b93e751f4e0819b7149
@@ -3335,7 +3335,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 19b974bff58398b752243198f034b6539ac313b8c17ef1780e9275d049994117
@@ -3367,7 +3367,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: f3c24b685f808f0b177f30c8ae318f37adb2f768a1fd1a10ae5962345a1ef7e6
@@ -3399,7 +3399,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 9400436cce699071b89d0848adec3afea2a9cc28acab8ac22fb111cb764bd763
@@ -3431,7 +3431,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 15.6.x
     description: Open Source kanban
     digest: 333e498cb3bdf959d99d37e83216a3db66ca8f855321398de1f0ddf042b28237
@@ -3463,8 +3463,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a39da8c2554907e03b70c03188e6ded8619288d4fdcb0dec6456042c6640069b
     home: https://wekan.github.io
@@ -3495,8 +3495,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 157fe7301ab46cbc3611325ae8b32393dae0dd389f85f7a5a9fefbdaa64b934c
     home: https://wekan.github.io
@@ -3527,8 +3527,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 1112d26369c0ccac766faef5d942e20598202bf7f86ed454ae7a4d3b100e8a6c
     home: https://wekan.github.io
@@ -3559,8 +3559,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a4a4c1eaa6e995d2453bdf452491ce2e57d81567723f539f641fcb11debe2bfe
     home: https://wekan.github.io
@@ -3591,8 +3591,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 63a4deb975caf010064ca0e7f6f6f69614501e642cf1047471b3912204816135
     home: https://wekan.github.io
@@ -3623,8 +3623,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: e4a1ae60f5cd5970b6652a4aa7963cad5ec9c3b15ddd1428187d2488997e3a06
     home: https://wekan.github.io
@@ -3655,8 +3655,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: e6234a5f422178c3722154842f731d3d44f134b44d992f3f8592ed857aa0c55e
     home: https://wekan.github.io
@@ -3687,8 +3687,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 9aebf88f782918ae0aebe4980672f48d5c24f0380b3204854aed3a637e9ee259
     home: https://wekan.github.io
@@ -3719,8 +3719,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 607b8845d3de21528d1a1b6ae47de5008724846a62149f80e114b3c1c9a11746
     home: https://wekan.github.io
@@ -3751,8 +3751,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a73a4008e8bbbafc394b1b53cc99c7d2a92d48b23a0d162fa6fbb5a112a7bace
     home: https://wekan.github.io
@@ -3783,8 +3783,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 51b89634acef95f7d75178beed46c5568e2ff5cee115016d594134848c668ec7
     home: https://wekan.github.io
@@ -3815,8 +3815,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a0e677460d475647bdded4a8636dae4c15e7885a4d180eb32489aea81451dd4b
     home: https://wekan.github.io
@@ -3847,8 +3847,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 7948aa065dd7beb6c1261f5b43e0d3c7e9ec0e3c15f574279c259273d649c7ac
     home: https://wekan.github.io
@@ -3879,8 +3879,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a4e806883f245aed7eda183bf734f95116d01afa29875e16ae6176b76feeeee0
     home: https://wekan.github.io
@@ -3911,8 +3911,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 802ad0ee6cebe02f9a855593c87a0b63cfa21fe12f8168444be16fb6c8588819
     home: https://wekan.github.io
@@ -3943,8 +3943,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: b7cabdb65d837543252225605f2568d8451533865eba134a3bbe1951e9cabea9
     home: https://wekan.github.io
@@ -3975,8 +3975,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 5c2f321500d5e19639d3642ee820c3a90c8b6bd48a756abd6e30e9e6675e848d
     home: https://wekan.github.io
@@ -4007,8 +4007,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: f196db1e6cdaa1a17246214e2a5cdf162ff81820153dea47da84c4ce82289f63
     home: https://wekan.github.io
@@ -4039,8 +4039,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 7feedd0ed742cce7b2e405d03db8fcbb1f3c56f85ed2099248f9aa21bd97ed6f
     home: https://wekan.github.io
@@ -4071,8 +4071,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 7715bc1e06d1508d916d5f9d2cb4b36a2c4a3eca246861f0e56ee0a1a7b3df39
     home: https://wekan.github.io
@@ -4103,8 +4103,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 34e53a12ebca89a84e680e35c163990cc90f1b5bf3359cad7f5d8480888a3d47
     home: https://wekan.github.io
@@ -4135,8 +4135,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: e68a4c016b64f63f0b8449aabe4cee50a74f7a646946b15b4fc2b2f9fc7ab195
     home: https://wekan.github.io
@@ -4167,8 +4167,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 695091caf74834029f72af45b1b0f6fa53acb750aa6a7029677ef2c5cf26cccb
     home: https://wekan.github.io
@@ -4199,8 +4199,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: e2b46996d1f362d0ceedc55801fd4496d94b9caf16bd64ca6be62be8ffc057d5
     home: https://wekan.github.io
@@ -4231,8 +4231,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 61fdf102c49b7cdf35431c7a7372c0fe8ea96798842f5d4af7208b1c1a4768c6
     home: https://wekan.github.io
@@ -4263,8 +4263,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 7ef52eb95f993cda84322a31c06d21309ece75ffc76d0d4615c717397170afb3
     home: https://wekan.github.io
@@ -4295,8 +4295,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 03a91762f879f379fd4705cb8ed34a7d5023bea2d4706f464dc12501e7597be6
     home: https://wekan.github.io
@@ -4327,8 +4327,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 1624af74d50c643a0a0e06f4879150f09f575b49aefa27d1f6d330bcdc6a7247
     home: https://wekan.github.io
@@ -4359,8 +4359,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 006f9f206a2ede05364b10db5d4a88f8a411c412dd8b3487eef1777cbc720977
     home: https://wekan.github.io
@@ -4391,8 +4391,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 18a61a69eaaab80629ceea588cc7c3f3c102e0596ceb43b6dce8d207f2a19f4f
     home: https://wekan.github.io
@@ -4423,8 +4423,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 6e859dd66cbee6cdad8f34241b20c5c1d12406419ec9e8ab9375d8d6151f9b3b
     home: https://wekan.github.io
@@ -4455,8 +4455,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 727124e95dcf6a833b89b877156e297cebb15482ad1c0989d90f0ac59b999215
     home: https://wekan.github.io
@@ -4487,8 +4487,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 499b96084841c5193305b1524665e90d66ac946fb3b9daba1cee504794f9af13
     home: https://wekan.github.io
@@ -4519,8 +4519,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: c93a7579945074a2692e3954a8afd5dca5dffbea8db21e1dfce37940f5e83038
     home: https://wekan.github.io
@@ -4551,8 +4551,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: c02556ae337df467716bf751e7dab167dabb6310dcb704a42907ff0d63a3c519
     home: https://wekan.github.io
@@ -4583,8 +4583,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: c9de1735ea057c39fd461d1306e07802ab606ae389075b7edd9c8785d28261a4
     home: https://wekan.github.io
@@ -4615,8 +4615,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 8078d312e063f4f205305ffade4bdf72b80fd33fe0ff537616017dd08e326a7a
     home: https://wekan.github.io
@@ -4647,8 +4647,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: e1a93a13b3f78ad06ed7634396a31a752a5bc324accac0818b4bc3f7ec8b4da7
     home: https://wekan.github.io
@@ -4679,8 +4679,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: ee5308cf1175bad28b134ce54f8114730c79264239e39a75bb0bb86d526ce564
     home: https://wekan.github.io
@@ -4711,8 +4711,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 609781f809fed3f641da9247c8349c439311ffc0db54dc5df9a3c8934ec3d28c
     home: https://wekan.github.io
@@ -4743,8 +4743,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 45fcd7cdd7405f91efaaa772e5044d7552bef21c48035cfc03337a84d06d4d1c
     home: https://wekan.github.io
@@ -4775,8 +4775,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 73179a2d1bcd9a66b448fa0fc0d11fb45304ce55fa006d6b65b706dc900e8764
     home: https://wekan.github.io
@@ -4807,8 +4807,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a4a98ca60858df93d8c58e76b26bef38ff1620ac632df11f08a9ae722bf78e3e
     home: https://wekan.github.io
@@ -4839,8 +4839,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: ca579d9fc99c1457fb421f5fe76d2576d07145d904cd55fc7dc22f8211e06352
     home: https://wekan.github.io
@@ -4871,8 +4871,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 08e60862b299c6baa068ad2637b1dcb5ebed21e520641496ac734a124ce88039
     home: https://wekan.github.io
@@ -4903,8 +4903,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: f6f66a484bc1ae2e7a0e01f5148adc4be058ffa7179fe973f3eccb7ef0dd3beb
     home: https://wekan.github.io
@@ -4935,8 +4935,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 828e7358bf95a554eee69fd648d27cf26446fb77a85d1637e3719f9d783568b3
     home: https://wekan.github.io
@@ -4967,8 +4967,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 0e3b7e320b97a7f7ffba46c223d0637da0992deb76a241ce9050a729966b9d31
     home: https://wekan.github.io
@@ -4999,8 +4999,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 04463af7fc140a4baa1c6cdba21d42fc8e34949805db7b0b4692d4aea542f695
     home: https://wekan.github.io
@@ -5031,8 +5031,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 740e17242264d9d62a3eb87f21de640f9c8163915deb133e314678dffb88bad6
     home: https://wekan.github.io
@@ -5063,8 +5063,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 4c93b2cf6164ab31efc9992272f2fa61c6f40ae4277af0060355c88fb68703a7
     home: https://wekan.github.io
@@ -5095,8 +5095,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 6ad0faaa8107a398004141d0ed00430681de237ea217da5816e089b44f814254
     home: https://wekan.github.io
@@ -5127,8 +5127,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a74ea98ce68b6df0a25063ead955148aff3e628a3f71a8a377d0aebde8f5c174
     home: https://wekan.github.io
@@ -5159,8 +5159,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 5b571db687bb64b583f7c3967d96da3691358565da67215b24c435990b6b2b16
     home: https://wekan.github.io
@@ -5191,8 +5191,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a10fe8d8280d4a2dfa08d44d4921b7a0c73ff1727e168203c1e25fbb105459ad
     home: https://wekan.github.io
@@ -5223,8 +5223,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 724d57538b2432f2035882ed9ffa1093d8597cb49ce78b0dcd602db34d0b8c7d
     home: https://wekan.github.io
@@ -5255,8 +5255,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 68112df43fe17ccbef241bddb53f2015ec917d2ffe12f34f5012645cc65815a0
     home: https://wekan.github.io
@@ -5287,8 +5287,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 53a7dd464187f3f1da8791033aea901fa1b50bb07991f406973d6b9b60cf7483
     home: https://wekan.github.io
@@ -5319,8 +5319,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 9ea77c22e436181a31b84a615fc815f34a743d5e65038c39e6c4b67521081359
     home: https://wekan.github.io
@@ -5351,8 +5351,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 3e66133873b8a94b3add74c13cbad138fd65e6ed3cd401ed7c0ed55db0576937
     home: https://wekan.github.io
@@ -5383,8 +5383,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: b231a33f3402d67040c3a281bf78baffac3665022d741b7f0e11ea65c70d7273
     home: https://wekan.github.io
@@ -5415,8 +5415,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 9c89196feba23ea58988adc5d0b6ec369cf1baa2e4404a272807a90e88e763fd
     home: https://wekan.github.io
@@ -5447,8 +5447,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: fc41e4234cb905d77dfc28498df8c31bee695eff4969b5e8d3ea245777264ce5
     home: https://wekan.github.io
@@ -5479,8 +5479,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 1c6f77c2fb7147f52c724e54e0a1ec0a252201105701ed015f7d4583df133574
     home: https://wekan.github.io
@@ -5511,8 +5511,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a9f38d029c7a0616b4be1f6c50e88a28e9a052f77adaf96cfaf37d0e78f86b87
     home: https://wekan.github.io
@@ -5543,8 +5543,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 861caa44227b87bfccfeaa1737d921b308f5c8fe6ab7703caaeff39ca03954bd
     home: https://wekan.github.io
@@ -5575,8 +5575,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 555a62f2106c63dd3147edf2012f80905a087698ce0622d029e2d1156ea91b8e
     home: https://wekan.github.io
@@ -5607,8 +5607,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: cbbf22e008e69a277cbff1052756717a24b7814368edae3bd15e4fe9059659dd
     home: https://wekan.github.io
@@ -5639,8 +5639,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 009bc77e923ef06fb04b2eae4fc8b84d8d40ea5704290e0897fc484a4d5ab1d7
     home: https://wekan.github.io
@@ -5671,8 +5671,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 5cdb6af325d2e9e4dd2e8d613fbd95f737caa69fc97a93ff22961e5ee53a3f8f
     home: https://wekan.github.io
@@ -5703,8 +5703,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: ef6ede2993f2e8371cc1d6fa4608d2712d2cc33b9e47fa16bbddb9c75a3a835c
     home: https://wekan.github.io
@@ -5735,8 +5735,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: f95f8642654edae91a8f5089e37fe52f3fba31031935d29b2190cc444091aabe
     home: https://wekan.github.io
@@ -5767,8 +5767,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: e50bf1f3b1c7ada85a15c7e73d49e50b937e8d135dd4c87a0d286f966c073723
     home: https://wekan.github.io
@@ -5799,8 +5799,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: d49465dae91f5d467083b3f8919ac5ade531af79c961b42fb7b8de41869cb413
     home: https://wekan.github.io
@@ -5831,8 +5831,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: cc39e92c6bda0a5e2c27d88cfb1dfce0ad3db61e3c6f9fda468ad12b10cdbf8c
     home: https://wekan.github.io
@@ -5863,8 +5863,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 2c6d30b2d0da0007baa0fdf45196e47c405be5dd20b0648e95a87676f7c2a9e4
     home: https://wekan.github.io
@@ -5895,8 +5895,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 59b23a98912d998ffd6fd9d82001dbb4dc654d613da23f69aad0e3584b3959f3
     home: https://wekan.github.io
@@ -5927,8 +5927,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 1bcf52593cc12c8932e98f84ece5df01339c8e385b74af3d106f2ffa537ed052
     home: https://wekan.github.io
@@ -5959,8 +5959,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: e63f97b88cb3d53e36875826bbb7c8ffd9cf48d610b5309c2e18abaa1dc10fae
     home: https://wekan.github.io
@@ -5991,8 +5991,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 5220d66d3828284b7b86ad719de64f5ffff5b2fbc775f34ddca66b009c71fe99
     home: https://wekan.github.io
@@ -6023,8 +6023,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: d75b89c9af99528acb671989adeba0f2f7309964f9c907dad97e70e858e940ca
     home: https://wekan.github.io
@@ -6055,8 +6055,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 45c367f36f940fda724d8a772a8a7cb8318efa403e7013067aae1f74f7709af4
     home: https://wekan.github.io
@@ -6087,7 +6087,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 12.1.x
     description: Open Source kanban
     digest: 17333569dc1e1023a6b43fc57c623bc6042475d28aa357c3dbe5ddc81687642f
@@ -6119,8 +6119,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 75bdbb9ee2cf81bd0d7e5b8a7bb4e38f13a472ba722bd8b39b98e8eba75cd3a3
     home: https://wekan.github.io
@@ -6151,8 +6151,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 07d3ea0ef3e976ecfdc363f7476190efc0f837b006c54a828e6df5ed2ddc720b
     home: https://wekan.github.io
@@ -6183,8 +6183,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: a14b5a60d428770c8dcf954aef70baf4ead952f0d0ec28d2c9ab1475a27b81ae
     home: https://wekan.github.io
@@ -6215,8 +6215,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 2beb0a1614cfa26a377b37333a409debc5d71a31b531cec18bf9fbec105edf11
     home: https://wekan.github.io
@@ -6247,7 +6247,7 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://groundhog2k.github.io/helm-charts/
       version: 12.1.x
     description: Open Source kanban
     digest: dd1d80ff050c53b59dc728d37f2307cacb7cc9e94e9325e95882b7a94141d3bf
@@ -6279,8 +6279,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 1ab563d8677dbc0855be557e769da2570f68deadc0cee7a63af67588134c4e02
     home: https://wekan.github.io
@@ -6311,8 +6311,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 6f9b7eea33acd909e6b13a159f7ea0e8773a353891db8d54741658267d369ecf
     home: https://wekan.github.io
@@ -6343,8 +6343,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 3ba367dcd313bbe7a0907a562de49f4a5073504afa177e1925a9c51ec5081b7f
     home: https://wekan.github.io
@@ -6375,8 +6375,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 9d8bfaed8cbb44a7110b1f4480621948fa888b58d2e5cb2c400ea9e49e994a8f
     home: https://wekan.github.io
@@ -6407,8 +6407,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 5549653ffa4ebc5655033d02b18a67d1f82e2724c55bde3251dc4f069ed48967
     home: https://wekan.github.io
@@ -6439,8 +6439,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: c241be2ae72ef8446327d8cce1b2ac6b164fb489ef4bdf2b5f1fbaf25f328fd7
     home: https://wekan.github.io
@@ -6471,8 +6471,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 3e402acad5ce562daaeb97135717443df613fd5c428da80c6846508ced82492f
     home: https://wekan.github.io
@@ -6499,8 +6499,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.0.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 02c48358df231a8c8e84cde93a6981b948630d448a1bac8e09cb43d8e3ec2658
     home: https://wekan.github.io
@@ -6527,8 +6527,8 @@ entries:
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.0.x
+      repository: https://groundhog2k.github.io/helm-charts/
+      version: 0.7.6
     description: Open Source kanban
     digest: 45a933dd079ba9387da9e22e330b89f22ed3f0b22ecd9e71559bb2b7019a92e9
     home: https://wekan.github.io
