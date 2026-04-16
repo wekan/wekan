@@ -69,24 +69,24 @@ jobs:
           echo "node_version=$NODE_VER" >> $GITHUB_OUTPUT
           echo "Detected latest Node.js 24.x: $NODE_VER"
 
-        - name: Detect latest MongoDB 7.x version and update snapcraft.yaml
-          id: detect_mongodb
-          run: |
-            set -e
-            # Fetch all available Ubuntu versions for MongoDB 7.x
-            MONGO_LINE=$(curl -fsSL https://www.mongodb.com/try/download/community | grep -o 'mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*\.tgz' | sort -u | sort -t- -k4,4nr | head -1)
-            if [ -z "$MONGO_LINE" ]; then
-              echo "Error: could not determine latest MongoDB 7.x version." >&2
-              exit 1
-            fi
-            # Extract Ubuntu version and MongoDB version
-            UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
-            MONGO_VER=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/' | sed 's/\.tgz$//')
-            echo "mongodb_ubuntu=$UBUNTU_VER" >> $GITHUB_OUTPUT
-            echo "mongodb_version=$MONGO_VER" >> $GITHUB_OUTPUT
-            echo "Detected latest MongoDB 7.x: $MONGO_VER for Ubuntu $UBUNTU_VER"
-            # Update snapcraft.yaml source URL (replace any ubuntu version)
-            sed -i "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\\.[0-9][0-9]*\\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
+      - name: Detect latest MongoDB 7.x version and update snapcraft.yaml
+        id: detect_mongodb
+        run: |
+          set -e
+          # Fetch all available Ubuntu versions for MongoDB 7.x
+          MONGO_LINE=$(curl -fsSL https://www.mongodb.com/try/download/community | grep -o 'mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*\.tgz' | sort -u | sort -t- -k4,4nr | head -1)
+          if [ -z "$MONGO_LINE" ]; then
+            echo "Error: could not determine latest MongoDB 7.x version." >&2
+            exit 1
+          fi
+          # Extract Ubuntu version and MongoDB version
+          UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
+          MONGO_VER=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/' | sed 's/\.tgz$//')
+          echo "mongodb_ubuntu=$UBUNTU_VER" >> $GITHUB_OUTPUT
+          echo "mongodb_version=$MONGO_VER" >> $GITHUB_OUTPUT
+          echo "Detected latest MongoDB 7.x: $MONGO_VER for Ubuntu $UBUNTU_VER"
+          # Update snapcraft.yaml source URL (replace any ubuntu version)
+          sed -i "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\\.[0-9][0-9]*\\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
 
       - uses: actions/setup-node@v6
         if: steps.check.outputs.existed == 'false'
@@ -115,29 +115,29 @@ jobs:
         if: steps.check.outputs.existed == 'false'
         run: ./releases/sed-release-versions.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
 
-        - name: Update website install/index.html versions
-          if: steps.check.outputs.existed == 'false'
-          run: |
-            set -e
-            # Update MongoDB version (and Ubuntu version) in docs/install/index.html from snapcraft.yaml
-            MONGO_LINE=$(grep -o 'mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*' snapcraft.yaml | head -1)
-            if [ -n "$MONGO_LINE" ]; then
-              UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
-              MONGODB_VERSION=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/')
-              sed -i "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" docs/install/index.html
-            fi
-            # Update Meteor, Node.js, and NPM versions in docs/install/index.html
-            METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1)
-            NODE_VERSION=$(grep -o 'NODE_VERSION=[^ \\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
-            NPM_VERSION=$(grep -o 'NPM_VERSION=[^ \\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
-            sed -i "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" docs/install/index.html
-            sed -i "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" docs/install/index.html
-            sed -i "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" docs/install/index.html
-            # Update WeKan version in docs/install/index.html
-            sed -i "s|<span class=\"version-number\">v${{ inputs.old_version }}</span>|<span class=\"version-number\">v${{ inputs.new_version }}</span>|g" docs/install/index.html
-            # Update Meteor and Node.js versions in the <h2 class=\"fw-bold\"> line
-            sed -i "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" docs/install/index.html
-            sed -i "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" docs/install/index.html
+      - name: Update website install/index.html versions
+        if: steps.check.outputs.existed == 'false'
+        run: |
+          set -e
+          # Update MongoDB version (and Ubuntu version) in docs/install/index.html from snapcraft.yaml
+          MONGO_LINE=$(grep -o 'mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*' snapcraft.yaml | head -1)
+          if [ -n "$MONGO_LINE" ]; then
+            UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
+            MONGODB_VERSION=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/')
+            sed -i "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" docs/install/index.html
+          fi
+          # Update Meteor, Node.js, and NPM versions in docs/install/index.html
+          METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1)
+          NODE_VERSION=$(grep -o 'NODE_VERSION=[^ \\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
+          NPM_VERSION=$(grep -o 'NPM_VERSION=[^ \\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
+          sed -i "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" docs/install/index.html
+          sed -i "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" docs/install/index.html
+          sed -i "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" docs/install/index.html
+          # Update WeKan version in docs/install/index.html
+          sed -i "s|<span class=\"version-number\">v${{ inputs.old_version }}</span>|<span class=\"version-number\">v${{ inputs.new_version }}</span>|g" docs/install/index.html
+          # Update Meteor and Node.js versions in the <h2 class=\"fw-bold\"> line
+          sed -i "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" docs/install/index.html
+          sed -i "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" docs/install/index.html
 
       - name: Commit and push version bump
         if: steps.check.outputs.existed == 'false'
