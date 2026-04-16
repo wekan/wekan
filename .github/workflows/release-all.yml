@@ -694,8 +694,8 @@ jobs:
           files: "*.snap"
 
   # ─── 9. Update Helm charts and deploy to GitHub Pages ─────────────────────────
-  # Chart source is in helm/wekan/, published packages + index.yaml in helm/charts/.
-  # GitHub Pages deploys helm/charts/ via Actions, serving at https://wekan.github.io/wekan/
+  # Chart source is in helm/wekan/, published packages + index.yaml in docs/wekan/.
+  # GitHub Pages deploys docs/wekan/ via Actions, serving at https://wekan.fi/wekan/
   helm:
     needs: [prepare, docker]
     runs-on: ubuntu-latest
@@ -728,26 +728,27 @@ jobs:
 
       - name: Package chart and update index
         run: |
-          helm package helm/wekan -d helm/charts/
-          helm repo index helm/charts/ --url https://wekan.github.io/wekan/
+          mkdir -p docs/wekan/
+          helm package helm/wekan -d docs/wekan/
+          helm repo index docs/wekan/ --url https://wekan.fi/wekan/
 
       - name: Update created time to Finland time
         run: |
           FINLAND_TIME=$(TZ='Europe/Helsinki' date '+%Y-%m-%dT%H:%M:%S.000000000%:z')
-          sed -i "0,/^    created: .*/s/^    created: .*/    created: \"${FINLAND_TIME}\"/" helm/charts/index.yaml
+          sed -i "0,/^    created: .*/s/^    created: .*/    created: \"${FINLAND_TIME}\"/" docs/wekan/index.yaml
 
       - name: Commit updated chart
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add helm/
+          git add docs/wekan/
           git commit -m "Helm chart ${VERSION}.0"
           git push origin HEAD:refs/heads/main
 
-      - name: Upload helm/charts/ as Pages artifact
+      - name: Upload docs/wekan/ as Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: helm/charts/
+          path: docs/wekan/
 
   # ─── 10. Deploy Helm chart to GitHub Pages ───────────────────────────────────
   deploy-pages:
