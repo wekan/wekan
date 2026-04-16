@@ -42,6 +42,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Update markdown docs links from docs to docs2](https://github.com/wekan/wekan/commit/c1639ea58973efcae0758385cc5d8d7ffbf1e8d9).
   Thanks to xet7.
+- [Commented out requirement to update website manually](https://github.com/wekan/wekan/commit/64d351d835628dad80062e3c362701b35ae5bb33).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
