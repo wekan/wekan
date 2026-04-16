@@ -32,6 +32,8 @@ This release adds the following updates:
 
 - [Updated Helm Charts versions](https://github.com/wekan/wekan/commit/24ebb4ba45344ad152747c31e7df76217e5b8909).
   Thanks to xet7.
+- [GitHub Actions: Added missing sudo to snap build](https://github.com/wekan/wekan/commit/2c8a6c8ec6e24b6b6bb153da3edd089e0f0087cc).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
