@@ -190,7 +190,7 @@ rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt.asc
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 
 # NPM configuration
-npm install -g npm@${NPM_VERSION} --omit=dev
+npm install -g npm@${NPM_VERSION}
 chown --recursive wekan:wekan /home/wekan/
 
 # Temporary Tar swap for Meteor bundle
@@ -203,7 +203,7 @@ cd /home/wekan/app
 wget "https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
 unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
-npm install --omit=dev --prefix ./bundle/programs/server
+npm install --prefix ./bundle/programs/server
 mv /home/wekan/app/bundle /build
 
 # Restore original tar
