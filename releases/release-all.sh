@@ -31,19 +31,26 @@
 #
 # Track progress at: https://github.com/wekan/wekan/actions
 
-if [ $# -ne 2 ]; then
-  echo "Usage:   ./releases/release-all.sh PREVIOUS-VERSION NEW-VERSION"
-  echo "Example: ./releases/release-all.sh 8.40 8.41"
+
+# Require only the new version as argument, extract old version from CHANGELOG.md
+if [ $# -ne 1 ]; then
+  echo "Usage:   ./releases/release-all.sh NEW-VERSION"
+  echo "Example: ./releases/release-all.sh 8.99"
   exit 1
 fi
 
-OLD="$1"
-NEW="$2"
+NEW="$1"
 
 # Validate version number format: digits.digits only
-if ! echo "$OLD" | grep -qE '^[0-9]+\.[0-9]+$' || \
-   ! echo "$NEW" | grep -qE '^[0-9]+\.[0-9]+$'; then
-  echo "Error: version numbers must be in X.Y format (e.g. 8.40)"
+if ! echo "$NEW" | grep -qE '^[0-9]+\.[0-9]+$'; then
+  echo "Error: version number must be in X.Y format (e.g. 8.99)"
+  exit 1
+fi
+
+# Extract previous version from top of CHANGELOG.md (e.g. # v8.98 - 2026-04-16)
+OLD=$(grep -m1 -oE '^# v[0-9]+\.[0-9]+' CHANGELOG.md | head -1 | sed 's/^# v//')
+if [ -z "$OLD" ]; then
+  echo "Error: could not determine previous version from CHANGELOG.md"
   exit 1
 fi
 
