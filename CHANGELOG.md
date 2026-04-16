@@ -58,6 +58,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Release scripts: use node:24-slim directly](https://github.com/wekan/wekan/commit/51ad6ed99df7ecdc925d314a6c5fab345f75d549).
   Thanks to xet7.
+- [Fix Helm Chart parts to docs/wekan and docs/charts](https://github.com/wekan/wekan/commit/1820804b9f46e510c4bf05324755a5eeec5a3b13).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
