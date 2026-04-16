@@ -40,6 +40,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Moved docs to docs2, and wekan.fi to docs, to be able publish with GitHub Pages](https://github.com/wekan/wekan/commit/1c0d8e9964af40be91eda9668dfeebd01b3a5720).
   Thanks to xet7.
+- [Update markdown docs links from docs to docs2](https://github.com/wekan/wekan/commit/c1639ea58973efcae0758385cc5d8d7ffbf1e8d9).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
