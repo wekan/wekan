@@ -1,0 +1,117 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Wekan — Hall of Fame / Emailbleed</title>
+  <link rel="icon" href="../../wekan-favicon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/main.css">
+  <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <img vAlign="center" src="../hof.svg" alt="Hall of Fame image from https://openclipart.org/detail/120343/trophy"
+    width="300px" height="auto" />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <div class="hof">
+    <h1 class="hof">Contents / Emailbleed</h1>
+
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="10%">CVE</th>
+        <th width="10%">Vulnerability name</th>
+        <th width="10%">Date</th>
+        <th width="20%">
+          <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md">Responsible Security Disclosure</a>
+          by
+        </th>
+        <th width="40%">Vulnerabilities</th>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>Emailbleed</b> <h2><i class="fa fa-envelope-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2021-01-26 12.42 EET</td>
+        <td valign="top">
+          <b><a href="https://www.georg-krause.net">Georg Krause</a></b><br />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: SMTP password visible to Admin at Admin Panel by using browser inspect to see behind asterisks</li>
+            <li>Affected Wekan v1.59-v4.98</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v499-2021-02-25-wekan-release">Wekan v4.99 2021-02-25</a></li>
+          </ul>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="hof">
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="5%">Timeline</th>
+        <th width="60%">Details</th>
+      </tr>
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2020-03-23 17:03 EET</b></td>
+        <td vAlign="top">
+          Report received.<br />
+          <br />
+          Georg Krause wrote:<br /><br />
+
+          Hello,<br />
+          today I noticed a security issue: Everyone with access to the admin panel is able to copy the SMTP
+          password. Its hidden behind **** in the password field, but copy actions are possible. Its better to
+          not expose the password in plain text to the frontend in any way. Please fix asap.<br />
+          <br />
+          Kind regards, Georg<br />
+        </td>
+      </tr>
+
+      <tr>
+        <td vAlign="top">
+          <b>2021-02-25</b>
+        </td>
+        <td vAlign="top">
+            <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v499-2021-02-25-wekan-release">Wekan v4.99 2021-02-25</a>
+            released by xet7 with fix.
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <h1>
+    <br />
+  </h1>
+
+</body>
+
+</html>

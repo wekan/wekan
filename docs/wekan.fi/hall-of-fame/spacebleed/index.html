@@ -1,0 +1,109 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>WeKan — Hall of Fame / SpaceBleed</title>
+  <link rel="icon" href="../../wekan-favicon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/main.css">
+  <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <img vAlign="center" src="../hof.svg" alt="Hall of Fame image from https://openclipart.org/detail/120343/trophy"
+    width="300px" height="auto" />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <div class="hof">
+    <h1 class="hof">Contents / SpaceBleed</h1>
+
+    <table border="1" margin="0" padding="10px" width="100%">
+      <tr>
+        <th width="10%">CVE</th>
+        <th width="10%">Vulnerability name</th>
+        <th width="10%">Date</th>
+        <th width="20%">
+          <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md" style="color: red;">Responsible Security Disclosure</a>
+          by
+        </th>
+        <th width="40%">Vulnerabilities</th>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+<br /> <br />
+        </td>
+        <td valign="top"><b>SpaceBleed</b> <h2><i class="fa fa-space-shuttle" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2025-11-02 03:29 EET</td>
+        <td valign="top">
+          <b><a href="https://sth.sh">Siam Thanat Hack (STH)</a></b><br />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. <i class="fa fa-files-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> File Attachments enables stored XSS (High)</li>
+            <li>2. <i class="fa fa-sitemap" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Access to boards of any Orgs/Teams (High)</li>
+            <li>3. <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Unauthenticated (or any) user can update board ‘sort’ (Low)</li>
+            <li>4. <i class="fa fa-comment-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Members can forge others’ votes (Low)<br />
+                Bonus: <i class="fa fa-credit-card" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Similar fixes to planning poker too done by xet7.</li>
+            <li>5. <i class="fa fa-file-code-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Attachment API uses bearer value as userId and DoS (Low)</li>
+            <li>Affected Wekan v8.15</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v816-2025-11-02-wekan--release">Wekan v8.16 2025-11-02</a></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="hof">
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="5%">Timeline</th>
+        <th width="60%">Details</th>
+      </tr>
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2025-11-02 03:29 EET</b></td>
+        <td vAlign="top">
+          Report received.<br />
+        </td>
+      </tr>
+
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2025-11-02 12:20 EET</b></td>
+        <td vAlign="top">
+          Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v816-2025-11-02-wekan--release">Wekan v8.16 2025-11-02</a><br />
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <h1>
+    <br />
+  </h1>
+
+</body>
+
+</html>
