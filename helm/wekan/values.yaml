@@ -237,3 +237,16 @@ mongodb:
     requestedSize: 2Gi
     # Optional specify an existing PVC. If you do, unset the `requestedSize`.
     # persistentVolumeClaimName:
+
+  # Single-node ReplicaSet support for oplog tailing (METEOR_REACTIVITY_ORDER=oplog).
+  # When set, MONGO_URL gets ?replicaSet=<name> appended and MONGO_OPLOG_URL is
+  # injected automatically. You must start mongod with --replSet <name> and run
+  # rs.initiate() once (e.g. via an extraContainer sidecar).
+  # Example:
+  #   replicaSet:
+  #     name: rs0
+  #   args:
+  #     - "--replSet rs0"
+  #     - "--oplogSize 128"
+  replicaSet:
+    name: ""
