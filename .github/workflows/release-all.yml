@@ -45,55 +45,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract latest version from CHANGELOG.md and update all version numbers
-        id: update_versions
-        run: |
-          set -e
-          # Extract latest version from top of CHANGELOG.md (e.g. # v8.98 2026-04-16)
-          CHANGELOG_LINE=$(grep -m1 -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md)
-          LATEST_VERSION=$(echo "$CHANGELOG_LINE" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
-          if [ -z "$LATEST_VERSION" ]; then
-            echo "Could not determine latest version from CHANGELOG.md" >&2
-            exit 1
-          fi
-          echo "Latest version from CHANGELOG.md: $LATEST_VERSION"
-          LATEST_VERSION_V="v${LATEST_VERSION}"
-          LATEST_VERSION_INT=$(echo "$LATEST_VERSION" | tr -d '.')
-          # Extract release date
-          RELEASE_DATE=$(echo "$CHANGELOG_LINE" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
-          if [ -z "$RELEASE_DATE" ]; then
-            RELEASE_DATE=$(date +%Y-%m-%d)
-          fi
-          LATEST_VERSION_MARKETING="${LATEST_VERSION}~${RELEASE_DATE}"
-          # Update all version numbers in key files
-          sed -i "0,/\"version\": \"[^"]*\"/s//\"version\": \"v${LATEST_VERSION}\"/" package.json
-          sed -i "0,/\"version\": \"[^"]*\"/s//\"version\": \"v${LATEST_VERSION}\"/" package-lock.json
-          sed -i "0,/appVersion: \"[^"]*\"/s/appVersion: \"[^"]*\"/appVersion: \"v${LATEST_VERSION}\"/" Stackerfile.yml
-          sed -i "0,/appVersion = [0-9]\+/s/appVersion = [0-9]\+/appVersion = ${LATEST_VERSION_INT}/" sandstorm-pkgdef.capnp
-          sed -i "0,/appMarketingVersion = (defaultText = \"[^"]*\")/s/appMarketingVersion = (defaultText = \"[^"]*\")/appMarketingVersion = (defaultText = \"${LATEST_VERSION_MARKETING}\")/" sandstorm-pkgdef.capnp
-          # snapcraft.yaml
-          sed -i "0,/^version: '[^']*'/s/^version: '[^']*'/version: '${LATEST_VERSION}'/" snapcraft.yaml
-          # All URLs, filenames, and commands referencing the version
-          sed -i "s|v[0-9]\+\.[0-9]\+|v${LATEST_VERSION}|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+-amd64|${LATEST_VERSION}-amd64|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+\.zip|${LATEST_VERSION}.zip|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+\.[0-9]\+-amd64|${LATEST_VERSION}.0-amd64|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+\.[0-9]\+|${LATEST_VERSION}.0|g" snapcraft.yaml
-          echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
-          # snapcraft.yaml
-          # version: (top-level)
-          sed -i "0,/^version: '[^']*'/s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml
-          # All URLs, filenames, and commands referencing the version
-          sed -i "s|v[0-9]\+\.[0-9]\+|v${NEW_VERSION}|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+-amd64|${NEW_VERSION}-amd64|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+\.zip|${NEW_VERSION}.zip|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+\.[0-9]\+-amd64|${NEW_VERSION}.0-amd64|g" snapcraft.yaml
-          sed -i "s|[0-9]\+\.[0-9]\+\.[0-9]\+|${NEW_VERSION}.0|g" snapcraft.yaml
-          # node-vX.Y.Z-linux-x64.tar.xz (keep as is, handled elsewhere)
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
       - name: Check if tag already exists
         id: check
         run: |

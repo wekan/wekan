@@ -31,33 +31,24 @@
 #
 # Track progress at: https://github.com/wekan/wekan/actions
 
-
-# Require only the new version as argument, extract old version from CHANGELOG.md
-if [ $# -ne 1 ]; then
-  echo "Usage:   ./releases/release-all.sh NEW-VERSION"
-  echo "Example: ./releases/release-all.sh 8.99"
-  exit 1
-fi
-
-NEW="$1"
-
-# Validate version number format: digits.digits only
-if ! echo "$NEW" | grep -qE '^[0-9]+\.[0-9]+$'; then
-  echo "Error: version number must be in X.Y format (e.g. 8.99)"
-  exit 1
-fi
-
-# Extract previous version from top of CHANGELOG.md (e.g. # v8.98 - 2026-04-16)
-OLD=$(grep -m1 -oE '^# v[0-9]+\.[0-9]+' CHANGELOG.md | head -1 | sed 's/^# v//')
-if [ -z "$OLD" ]; then
-  echo "Error: could not determine previous version from CHANGELOG.md"
-  exit 1
-fi
-
+# Version update logic moved to ./releases/update-all-versions.sh
 set -e
 
-# Clean GitHub cache
-gh cache delete --all || true
+# Extract latest and previous version from CHANGELOG.md (e.g. # v8.98 2026-04-16)
+RELEASE_LINES=( $(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2) )
+LATEST_VERSION=$(echo "${RELEASE_LINES[0]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
+PREVIOUS_VERSION=$(echo "${RELEASE_LINES[1]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
+if [ -z "$LATEST_VERSION" ] || [ -z "$PREVIOUS_VERSION" ]; then
+  echo "Could not determine both latest and previous version from CHANGELOG.md" >&2
+  exit 1
+fi
+echo "Latest version from CHANGELOG.md: $LATEST_VERSION"
+echo "Previous version from CHANGELOG.md: $PREVIOUS_VERSION"
+NEW="v${LATEST_VERSION}"
+OLD="v${PREVIOUS_VERSION}"
+
+# Update all versions
+./releases/update-all-versions.sh $OLD $NEW
 
 # Resolve repo root from script location so this works regardless of CWD
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -99,5 +90,5 @@ echo ""
 # .github.com/workflows/release-all.yml automaticall updates
 # versions at website wekan.fi/install/
 # so manual website update is not needed:
-#echo "After the workflow completes, optionally update the website:"
-#echo "    ./releases/release-website.sh $OLD $NEW"
+# Update the website:"
+./releases/release-website.sh $OLD $NEW
