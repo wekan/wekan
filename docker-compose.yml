@@ -229,12 +229,31 @@ services:
     #command: mongod --logpath /dev/null --oplogSize 128 --replSet rs0 --quiet
     #command: mongod --oplogSize 128 --replSet rs0 --quiet
     command: >
-      sh -c "
-        mongod --oplogSize 128 --replSet rs0 --quiet --bind_ip_all &
-        until mongosh --eval 'rs.initiate()' > /dev/null 2>&1; do
+      sh -c '
+        mongod --oplogSize 128 --replSet rs0 --bind_ip_all --quiet &
+        until mongosh --host 127.0.0.1 --quiet --eval "
+          try {
+            const status = rs.status();
+            quit(status.ok === 1 ? 0 : 1);
+          } catch (e) {
+            if (
+              e.codeName === \"NotYetInitialized\" ||
+              e.message.includes(\"no replset config has been received\") ||
+              e.message.includes(\"not yet initialized\")
+            ) {
+              rs.initiate({
+                _id: \"rs0\",
+                members: [{ _id: 0, host: \"wekandb:27017\" }]
+              });
+              quit(1);
+            }
+            quit(1);
+          }
+        " >/dev/null 2>&1; do
           sleep 2
-        done;
-        wait"
+        done
+        wait
+      '
     networks:
       - wekan-tier
     expose:
