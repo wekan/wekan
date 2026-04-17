@@ -32,6 +32,8 @@ This release fixes the following bugs:
 
 - [Update cards.js](https://github.com/wekan/wekan/pull/6299).
   Thanks to snowsky.
+- [Fix MongoDB replicaset setup at docker-compose.yml](https://github.com/wekan/wekan/commit/c4e084ffbbc5870a13e79f80a2982d2eb7f2f04e).
+  Thanks to C0rn3j.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
