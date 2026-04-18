@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to snowsky.
 - [Fix MongoDB replicaset setup at docker-compose.yml](https://github.com/wekan/wekan/commit/c4e084ffbbc5870a13e79f80a2982d2eb7f2f04e).
   Thanks to C0rn3j.
+- [Add permission checks to list width method](https://github.com/wekan/wekan/pull/6303).
+  Thanks to Raawen-dev.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
