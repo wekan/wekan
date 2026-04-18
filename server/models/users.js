@@ -319,14 +319,21 @@ Meteor.methods({
     (await ReactiveCache.getCurrentUser()).setDateFormat(dateFormat);
   },
 
-  async applyListWidth(boardId, listId, width, constraint) {
+  applyListWidth(boardId, listId, width, constraint) {
     check(boardId, String);
     check(listId, String);
     check(width, Number);
     check(constraint, Number);
-    const user = await ReactiveCache.getCurrentUser();
-    user.setListWidth(boardId, listId, width);
-    user.setListConstraint(boardId, listId, constraint);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    try {
+      Lists.updateAsync(listId, { $set: { width: width, constraint: constraint } });
+      return true;
+    } catch (error) {
+      console.error('Error updating list width:', error);
+      throw new Meteor.Error('update-failed', error.message);
+    }
   },
 
   async setListCollapsedState(boardId, listId, collapsed) {
