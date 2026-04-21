@@ -785,7 +785,7 @@ jobs:
           git push origin HEAD:refs/heads/main
 
       - name: Upload docs/charts/ as Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs/charts/
 
@@ -798,7 +798,7 @@ jobs:
           git push origin HEAD:refs/heads/main
 
       - name: Upload docs/wekan/ as Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs/wekan/
 
