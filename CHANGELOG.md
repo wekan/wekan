@@ -28,7 +28,26 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Bump actions/upload-pages-artifact from 4 to 5](https://github.com/wekan/wekan/pull/6304).
+  Thanks to dependabot.
+- [Bump docker/setup-buildx-action from 3 to 4](https://github.com/wekan/wekan/pull/6305).
+  Thanks to dependabot.
+- [Bump actions/deploy-pages from 4 to 5](https://github.com/wekan/wekan/pull/6306).
+  Thanks to dependabot.
+- [Update release scripts](https://github.com/wekan/wekan/commit/db2701f1d731898c80b44606a985d5d132f7f6ed).
+  Thanks to xet7.
+- [Added back jam packages. Updated dependencies](https://github.com/wekan/wekan/commit/bf5ca3d3ebef7f00778eb1a518fcfaf5b5fc5d5c).
+  Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/16832124ce169c823ab1f95a43a85bec22d5556f).
+  Thanks to xet7.
+- [Update security.md etc](https://github.com/wekan/wekan/commit/7700efde1fba8483a78c67d03e3a0d214cedb67b).
+  Thanks to xet7.
+- [Updated HoF](https://github.com/wekan/wekan/commit/675c6611146a4a47eee1e513b83152007e3b9aee).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Update cards.js](https://github.com/wekan/wekan/pull/6299).
   Thanks to snowsky.
