@@ -1,36 +1,19 @@
-## About Money
+## About Money: No bounty
 
-See [CONTRIBUTING](CONTRIBUTING.md)
+There is no bounty, like described at [CONTRIBUTING.md](CONTRIBUTING.md),
+because WeKan is NOT Big Tech. WeKan is FLOSS.
 
 ## Responsible Security Disclosure
 
-1. To send email, if possible, use PGP key [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
-2. Send info about security issue ONLY to security@wekan.fi . NOT TO ANYWHERE ELSE. NO CC, NO BCC.
-3. Wait for new WeKan release that fixes security issue to appear to top of
+1. Please email info about security issue to security@wekan.fi .
+   If possible, include code for fixing security issue.
+   Optional PGP key is at [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
+2. Wait for new WeKan release that fixes security issue to appear to top of
    https://github.com/wekan/wekan/blob/main/CHANGELOG.md
-4. We will thank you by adding you to Hall the of Fame: https://wekan.fi/hall-of-fame/
-5. All vulnerability details will be private to security@wekan.fi ,
-   unless you help all WeKan platforms to have a way to upgrade, like sending
-   database migrations code to security@wekan.fi or PRs to https://github.com/wekan/wekan/pulls .
-   There is no benefit to the Wordwide Security Community to have more details about vulnerabilities,
-   if Worldwide Security Community does not help to make upgrades possible.
-6. If some day a way becomes available to upgrade all WeKan platforms,
-   this page will be updated to add permission for security researchers
-   to request new GHSA or CVE ID and publish your vulnerability details at your blog, talks, etc,
-   and send that info also to security@wekan.fi to be added to
-   Hall of Fame: https://wekan.fi/hall-of-fame/ to get Upgrade Bonus Point Stars.
-   In that case, it will become possible for security@wekan.fi to publish all
-   remaining private security details, and publicly thank Worldwide Security Community.
-
-## Bonus Points
-
-- If you include code for fixing security issue
-
-## Losing Points
-
-- If you ask about [bounty](CONTRIBUTING.md). There is no bounty. WeKan is NOT Big Tech. WeKan is FLOSS.
-- If you forget to include vulnerability details.
-- If you send info about security issue to somewhere else than security@wekan.fi
+3. We will thank you by adding you to 
+   Hall the of Fame: https://wekan.fi/hall-of-fame/
+4. If you get CVE number assigned, please send it to security@wekan.fi, it will be added to
+   Hall the of Fame: https://wekan.fi/hall-of-fame/
 
 ## How Should Reports Be Formatted?
 
@@ -60,12 +43,12 @@ and we don't have any permissions to do security scans on those donated servers.
 Please don't perform research that could impact other users. Second, please keep
 the reports short and succinct. If we fail to understand the logic of your bug, we will tell you.
 
-You can [Install Wekan](https://github.com/wekan/wekan/releases) on your own computer
+You can [Install Wekan](https://wekan.fi/install/) on your own computer
 and scan it's vulnerabilities there.
 
 ## About Wekan Versions
 
-There are only 2 versions of Wekan: Standalone Wekan, and Sandstorm Wekan.
+There are 2 versions of Wekan: Standalone Wekan, and Sandstorm Wekan.
 
 ### Standalone Wekan Security
 
@@ -78,7 +61,8 @@ WeKan is used in most countries of the world https://snapcraft.io/wekan
 and by companies that have 30k users.
 
 - Wekan private board attachments are not accessible without logging in.
-- There is feature to set board public, so that board is visible without logging in in readonly mode, with realtime updates.
+- There is feature to set board public, so that board is visible without logging
+  in readonly mode, with realtime updates.
 - Admin Panel has feature to disable all public boards, so all boards are private.
 
 ## SSL/TLS
@@ -107,7 +91,8 @@ and by companies that have 30k users.
 Q:
 
 Hello,
-I have just seen the Meteor DevTools Evolved extension and was wondering if anyone had asked themselves the question of security.
+I have just seen the Meteor DevTools Evolved extension and was wondering if anyone
+had asked themselves the question of security.
 Insofar as all data is shown in the minimongo tab in plain text.
 How can data be hidden from this extension?
 
@@ -115,11 +100,14 @@ A:
 
 ## PubSub
 
-- It is not a security issue to show text or images that the user has permission to see. It is a security issue, if browserside is some text or image that user should not see.
+- It is not a security issue to show text or images that the user has permission to see.
+  It is a security issue, if browserside is some text or image that user should not see.
 - Meteor has browserside minimongo database, made with JavaScript, updated with Publish/Subscribe, PubSub.
-- Publish/Subscribe means, that realtime web framework reads database changes stream, and then immediately updates webpage,
-  like like dashboards, chat, kanban. That is the point of any realtime web framework in any programming language.
-- Yes, you should check with Meteor DevTools Evolved Chromium/Firefox extension that at minimongo is only text that user has permission to see.
+- Publish/Subscribe means, that realtime web framework reads database changes stream,
+  and then immediately updates webpage, like dashboards, chat, kanban.
+  That is the point of any realtime web framework in any programming language.
+- Yes, you should check with Meteor DevTools Evolved Chromium/Firefox extension that
+  at minimongo is only text that user has permission to see.
 - Check as a logged-in user and as a logged-out user.
 - Check permissions and sanitize before allowing some change, because someone could modify content of input field,
   PubSub/websocket data (for example with Burp Suite Community Edition), etc.
@@ -129,7 +117,8 @@ A:
 - PubSub uses WebSockets, so you need those to be enabled on the webserver like Caddy/Nginx/Apache etc, examples of settings
   at right menu of https://github.com/wekan/wekan/wiki
 - Clientside https://github.com/wekan/wekan/tree/main/client/components subscribes to
-  PubSub https://github.com/wekan/wekan/tree/main/server/publications or calls meteor methods at https://github.com/wekan/wekan/tree/main/models
+  PubSub https://github.com/wekan/wekan/tree/main/server/publications or calls meteor methods
+  at https://github.com/wekan/wekan/tree/main/models
 - For Admin:
   - You can have input field for password https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
   - You can save password to database https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
@@ -276,14 +265,9 @@ a security issue, we'd like to know about it, and also how to fix it:
 
 Typical already-known or 'no impact' bugs such as:
 
-- [Wekan API old tokens not replaced correctly](https://github.com/wekan/wekan/issues/1437)
-- Missing Cookie flags on non-session cookies or 3rd party cookies
-- Logout CSRF
 - Social engineering
 - Denial of service
-- SSL BEAST/CRIME/etc. WeKan does not have SSL built-in; it uses Caddy/Nginx/Apache, etc., on the front end.
-  Integrated Caddy support is updated often.
-- Email spoofing, SPF, DMARC & DKIM. Wekan does not include email server.
+- SSL BEAST/CRIME/etc. WeKan does not have SSL built-in; it uses Caddy/Nginx/Apache on the front end.
 
 Wekan is Open Source with MIT license, and free to use also for commercial use.
 We welcome all fixes to improve security by email to security@wekan.fi
