@@ -55,6 +55,8 @@ and fixes the following bugs:
   Thanks to C0rn3j.
 - [Add permission checks to list width method](https://github.com/wekan/wekan/pull/6303).
   Thanks to Raawen-dev.
+- [Fix UI hangs and data loss by disabling changeStreams, until there is new Meteor release that included bugfix to changeStreams](https://github.com/wekan/wekan/commit/c47eb013b4d8d0f2dea7b801adc60151f6e3aee1).
+  Thanks to bcook-konza and italojs.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
