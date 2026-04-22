@@ -45,6 +45,9 @@ htmljs@2.0.1
 http@1.4.4
 id-map@1.2.0
 inter-process-messaging@0.1.2
+jam:method@1.9.1
+jam:offline@0.4.1
+jam:pub-sub@0.5.1
 jquery@3.0.2
 lai:collection-extensions@1.0.0
 localstorage@1.2.1
@@ -73,7 +76,7 @@ ordered-dict@1.2.0
 ostrio:cookies@2.9.1
 ostrio:cstorage@4.0.1
 ostrio:files@3.0.1
-ostrio:flow-router-extra@3.12.1
+ostrio:flow-router-extra@3.13.0
 ostrio:i18n@3.2.1
 promise@1.0.0
 quave:synced-cron@2.4.0
