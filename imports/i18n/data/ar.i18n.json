@@ -1399,7 +1399,7 @@
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "تم تمكين صفحة إمكانية الوصول",
   "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
-  "accessibility-title": "Accessibility title",
+  "accessibility-title": "عنوان إمكانية الوصول",
   "accessibility-content": "محتوى إمكانية الوصول",
   "accounts-lockout-settings": "Brute Force Protection Settings",
   "accounts-lockout-info": "These settings control how login attempts are protected against brute force attacks.",
