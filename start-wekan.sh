@@ -28,8 +28,12 @@
       #export METEOR_REACTIVITY_ORDER=polling
       # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
       # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
+      # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
+      # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
+      # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
       if [ "$USE_CHANGE_STREAMS" = "true" ]; then
-          export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+          #export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+          export METEOR_REACTIVITY_ORDER=oplog,polling
       else
           export METEOR_REACTIVITY_ORDER=polling
       fi

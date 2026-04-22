@@ -34,8 +34,11 @@ REM # If you would not like to use Change Streams and replica set for improving 
 REM #SET METEOR_REACTIVITY_ORDER=polling
 REM # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
 REM # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
+REM # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
+REM # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
+REM # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
 REM #IF "%USE_CHANGE_STREAMS%"=="true" (
-REM #    SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+REM #    SET METEOR_REACTIVITY_ORDER=oplog,polling
 REM #) ELSE (
     SET METEOR_REACTIVITY_ORDER=polling
 REM #)
