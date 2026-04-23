@@ -113,7 +113,7 @@ class BoardConverter {
       }
 
       conversionStatus.set(`Converting ${listsToConvert.length} lists...`);
-      
+
       const startTime = Date.now();
       const totalLists = listsToConvert.length;
       let convertedLists = 0;
@@ -122,20 +122,20 @@ class BoardConverter {
       const batchSize = 10;
       for (let i = 0; i < listsToConvert.length; i += batchSize) {
         const batch = listsToConvert.slice(i, i + batchSize);
-        
+
         // Process batch
         await this.processBatch(batch, defaultSwimlane._id);
-        
+
         convertedLists += batch.length;
         const progress = Math.round((convertedLists / totalLists) * 100);
         conversionProgress.set(progress);
-        
+
         // Calculate estimated time remaining
         const elapsed = Date.now() - startTime;
         const rate = convertedLists / elapsed; // lists per millisecond
         const remaining = totalLists - convertedLists;
         const estimatedMs = remaining / rate;
-        
+
         conversionStatus.set(`Converting list ${convertedLists} of ${totalLists}...`);
         conversionEstimatedTime.set(this.formatTime(estimatedMs));
 
@@ -146,11 +146,11 @@ class BoardConverter {
       // Mark as converted
       this.conversionCache.set(boardId, true);
       globalConvertedBoards.add(boardId); // Mark board as converted
-      
+
       conversionStatus.set('Board conversion completed!');
       conversionProgress.set(100);
       console.log(`Board ${boardId} conversion completed and marked as converted`);
-      
+
       // Clear status after a delay
       setTimeout(() => {
         isConverting.set(false);

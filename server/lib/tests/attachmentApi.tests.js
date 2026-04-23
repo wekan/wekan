@@ -161,7 +161,7 @@ describe('attachmentApi authentication', function() {
   describe('request handler DoS prevention', function() {
     it('enforces timeout on hanging requests', function(done) {
       this.timeout(5000);
-      
+
       const req = createMockReq({ 'x-user-id': 'user1', 'x-auth-token': 'token1' });
       const res = createMockRes();
 

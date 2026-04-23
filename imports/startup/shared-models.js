@@ -1,0 +1,42 @@
+// Shared collection/bootstrap modules loaded on both client and server.
+// Keep this list limited to modules that are safe to evaluate in both contexts.
+
+import '/models/accessibilitySettings';
+import '/models/accountSettings';
+import '/models/actions';
+import '/models/activities';
+import '/models/announcements';
+import '/models/attachments';
+import '/models/attachmentStorageSettings';
+import '/models/avatars';
+import '/models/boards';
+import '/models/cardCommentReactions';
+import '/models/cardComments';
+import '/models/cards';
+import '/models/checklistItems';
+import '/models/checklists';
+import '/models/counters';
+import '/models/customFields';
+import '/models/impersonatedUsers';
+import '/models/integrations';
+import '/models/invitationCodes';
+import '/models/lists';
+import '/models/lockoutSettings';
+import '/models/org';
+import '/models/orgUser';
+import '/models/positionHistory';
+import '/models/presences';
+import '/models/rules';
+import '/models/runOnServer';
+import '/models/settings';
+import '/models/swimlanes';
+import '/models/tableVisibilityModeSettings';
+import '/models/team';
+import '/models/translation';
+import '/models/triggers';
+import '/models/unsavedEdits';
+import '/models/userPositionHistory';
+import '/models/usersessiondata';
+import '/models/users';
+import '/models/watchable';
+import '/models/lib/universalUrlGenerator';

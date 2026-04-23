@@ -1,3 +1,10 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: ./release-bundle.sh <version>"
+  exit 1
+fi
+
 cd ~/repos/wekan
 #sudo apt-get -y install parallel
 ./releases/rebuild-release.sh

@@ -1,0 +1,161 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>WeKan — Hall of Fame / AdminBleed</title>
+  <link rel="icon" href="../../wekan-favicon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/main.css">
+  <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <img vAlign="center" src="../hof.svg" alt="Hall of Fame image from https://openclipart.org/detail/120343/trophy"
+    width="300px" height="auto" />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <div class="hof">
+    <h1 class="hof">Contents / AdminBleed</h1>
+
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="10%">CVE</th>
+        <th width="10%">Vulnerability name</th>
+        <th width="10%">Date</th>
+        <th width="20%">
+          <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md">Responsible Security Disclosure</a>
+          by
+        </th>
+        <th width="40%">Vulnerabilities</th>
+      </tr>
+
+      <tr>
+       <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>AdminBleed</b>
+          <h2><i class="fa fa-unlock-alt" aria-hidden="true"></i>
+          <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2023-04-24 16.40 EET</td>
+        <td valign="top">
+          <b>Christian Pöschl of <a href="https://www.usd.de">usd AG Responsible Disclosure Team</a></b><br />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" /><br />
+          Sent report.</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: Non-Admin could change to Admin</li>
+            <li>Affected Wekan v6.85 and earlier</li>
+            <li>Fixed at Wekan v6.86 2023-04-26</a></li>
+          </ul>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="hof">
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="5%">Timeline</th>
+        <th width="60%">Details</th>
+      </tr>
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2023-04-24 16.40 EET</b></td>
+        <td vAlign="top">
+          Report received.<br />
+          <br />
+<pre>
+## usd-2023-0008 | WeKan 6.85.0 - Broken Access Control
+
+### Details
+**Advisory ID**: usd-2023-0008    
+**Product**: WeKan     
+**Affected Version**: <=6.85   
+**Vulnerability Type**: Broken Access Control (CWE-284)   
+**Security Risk**: High (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)   
+**Vendor URL**: https://github.com/wekan/wekan    
+**Vendor acknowledged vulnerability**: Yes / No    
+**Vendor Status**: Not fixed / Fixed    
+**Advisory Status**: Open/Published    
+**CVE number**: Not requested yet    
+**CVE Link**: Not requested yet    
+**First Published**: Not published yet   
+**Last Update**: 2023-04-24   
+
+### Description
+Wekan is a free and open-source collaborative Kanban board application that enables users to visualize their workflow and manage tasks.
+It is built with the Meteor JavaScript framework and is designed to be easy to use.
+
+A vulnerability in *WeKan* allows any user to escalate their privileges to admin user.
+
+### Proof of Concept
+(Waiting for every WeKan user at all platforms to upgrade)
+
+### Timeline
+* **2023-04-24**: First contact request via mail
+
+### Credits
+This security vulnerability was identified by Christian Pöschl of usd AG.
+
+### About usd Security Advisories
+In order to protect businesses against hackers and criminals, we always have to keep our skills and knowledge up to date.
+Thus, security research is just as important for our work as is building up a security community to promote the exchange of knowledge.
+After all, more security can only be achieved if many individuals take on the task.
+
+Our CST Academy and our usd HeroLab are essential parts of our security mission.
+We share the knowledge we gain in our practical work and our research through training courses and publications. 
+In this context, the usd HeroLab publishes a series of papers on new vulnerabilities and current security issues. 
+
+Always for the sake of our mission: "more security."
+
+https://www.usd.de
+
+### Disclaimer
+The information provided in this security advisory is provided "as is" and without warranty of any kind.
+Details of this security advisory may be updated in order to provide as accurate information as possible.
+</pre>
+
+        </td>
+      </tr>
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2023-04-26 23:30 EET</b></td>
+        <td valign="top">
+          <ul>
+            <li>Security: Non-Admin could change to Admin</li>
+            <li>Affected Wekan v6.85 and earlier</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v686-2023-04-26-wekan--release">Wekan v6.86</a> 2023-04-26</a></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <h1>
+    <br />
+  </h1>
+
+</body>
+
+</html>

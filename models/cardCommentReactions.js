@@ -1,4 +1,6 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
 const commentReactionSchema = new SimpleSchema({
   reactionCodepoint: {
@@ -11,10 +13,12 @@ const commentReactionSchema = new SimpleSchema({
       }
     },
   },
-  userIds: { type: [String], defaultValue: [] }
+  userIds: { type: Array, defaultValue: [] },
+  'userIds.$': { type: String }
 });
 
-CardCommentReactions = new Mongo.Collection('card_comment_reactions');
+const CardCommentReactions = new Mongo.Collection('card_comment_reactions');
+export default CardCommentReactions;
 
 /**
  * All reactions of a card comment
@@ -43,28 +47,11 @@ CardCommentReactions.attachSchema(
       optional: false
     },
     reactions: {
-      type: [commentReactionSchema],
+      type: Array,
       defaultValue: []
+    },
+    'reactions.$': {
+      type: commentReactionSchema,
     }
   }),
 );
-
-CardCommentReactions.allow({
-  insert(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-  update(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-  remove(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-  fetch: ['boardId'],
-});
-
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await CardCommentReactions._collection.createIndexAsync({ cardCommentId: 1 }, { unique: true });
-  });
-}

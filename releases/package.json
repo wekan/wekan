@@ -1,0 +1,17 @@
+{
+  "name": "wekan-migration-tools",
+  "version": "1.0.0",
+  "description": "Standalone migration tools for WeKan (MongoDB → FerretDB + PostgreSQL)",
+  "type": "module",
+  "scripts": {
+    "migrate":     "node migrate-mongodb-to-ferretdb.mjs",
+    "migrate-dry": "node migrate-mongodb-to-ferretdb.mjs --dry-run",
+    "test-urls":   "bash test-download-urls.sh"
+  },
+  "dependencies": {
+    "mongodb": "^6.16.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

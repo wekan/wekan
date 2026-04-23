@@ -86,7 +86,7 @@ function loginWithSandstorm(connection, apiHost, apiToken) {
   var sendXhr = function () {
     if (!waiting) return;  // Method call finished.
 
-    headers = {"Content-Type": "application/x-sandstorm-login-token"};
+    var headers = {"Content-Type": "application/x-sandstorm-login-token"};
 
     var testInfo = localStorage.sandstormTestUserInfo;
     if (testInfo) {
@@ -120,16 +120,20 @@ function loginWithSandstorm(connection, apiHost, apiToken) {
 
     // Send the token in an HTTP POST request which on the server side will allow us to receive the
     // Sandstorm headers.
-    HTTP.post(postUrl,
-        {content: token, headers: headers},
-        function (error, result) {
-      if (error) {
-        console.error("couldn't get /.sandstorm-login:", error);
+    fetch(postUrl, {
+      method: 'POST',
+      headers: headers,
+      body: token
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+    }).catch(function (error) {
+      console.error("couldn't get /.sandstorm-login:", error);
 
-        if (waiting) {
-          // Try again in a second.
-          Meteor.setTimeout(sendXhr, 1000);
-        }
+      if (waiting) {
+        // Try again in a second.
+        Meteor.setTimeout(sendXhr, 1000);
       }
     });
   };

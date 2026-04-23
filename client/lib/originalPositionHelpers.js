@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
 /**
  * Helper functions for integrating original position tracking into existing Wekan templates
  */

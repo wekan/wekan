@@ -1,0 +1,11 @@
+template(name="basicTabs")
+  .basicTabs-container(class="{{name}}")
+    ul.tabs-list
+      each tabs
+        li.tab-item(class="{{isActiveTab slug}} {{class}}" data-tab="{{slug}}") {{name}}
+    .tabs-content-container
+      +Template.contentBlock
+
+template(name="tabContent")
+  section.tabs-content(class="{{isActiveTab slug}}" data-tab="{{slug}}")
+    +Template.contentBlock

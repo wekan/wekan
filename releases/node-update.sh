@@ -12,29 +12,37 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
+sedi() {
+  if [ "$(uname)" = "Darwin" ]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
 # With replacing longer strings than only version number,
 # trying to make sure only Node.js version is updated.
 
 echo "1) Updating Snap node"
-sed -i "s|$1|$2|g" ~/repos/wekan/snapcraft.yaml
-sed -i "s|node-engine: $1|node-engine: $2|g" ~/repos/wekan/.future-snap/snapcraft.yaml
-sed -i "s|node-engine: $1|node-engine: $2|g" ~/repos/wekan/.future-snap/broken-snapcraft.yaml
+sedi "s|$1|$2|g" ~/repos/wekan/snapcraft.yaml
+sedi "s|node-engine: $1|node-engine: $2|g" ~/repos/wekan/.future-snap/snapcraft.yaml
+sedi "s|node-engine: $1|node-engine: $2|g" ~/repos/wekan/.future-snap/broken-snapcraft.yaml
 
 echo "2) Updating Docker node"
-sed -i "s|NODE_VERSION=v$1|NODE_VERSION=v$2|g" ~/repos/wekan/Dockerfile
-sed -i "s|NODE_VERSION=v$1|NODE_VERSION=v$2|g" ~/repos/wekan/Dockerfile.arm64v8
-sed -i "s|NODE_VERSION=v$1|NODE_VERSION=v$2|g" ~/repos/wekan/.devcontainer/Dockerfile
+sedi "s|NODE_VERSION=v$1|NODE_VERSION=v$2|g" ~/repos/wekan/Dockerfile
+sedi "s|NODE_VERSION=v$1|NODE_VERSION=v$2|g" ~/repos/wekan/Dockerfile.arm64v8
+sedi "s|NODE_VERSION=v$1|NODE_VERSION=v$2|g" ~/repos/wekan/.devcontainer/Dockerfile
 
 echo "3) Updating Rebuild scripts..."
-sed -i "s|sudo n $1|sudo n $2|g" ~/repos/wekan/rebuild-wekan.sh
-sed -i "s|nodejs.org/dist/v$1|nodejs.org/dist/v$2|g" ~/repos/wekan/rebuild-wekan.bat
-sed -i "s|node-v$1|node-v$2|g" ~/repos/wekan/rebuild-wekan.bat
+sedi "s|sudo n $1|sudo n $2|g" ~/repos/wekan/rebuild-wekan.sh
+sedi "s|nodejs.org/dist/v$1|nodejs.org/dist/v$2|g" ~/repos/wekan/rebuild-wekan.bat
+sedi "s|node-v$1|node-v$2|g" ~/repos/wekan/rebuild-wekan.bat
 
 echo "4) Updating Stacksmith"
-sed -i "s|$1|$2|g" ~/repos/wekan/stacksmith/user-scripts/build.sh
+sedi "s|$1|$2|g" ~/repos/wekan/stacksmith/user-scripts/build.sh
 
 echo "5) Updating Travis"
-sed -i "s|$1|$2|g" ~/repos/wekan/.travis.yml
+sedi "s|$1|$2|g" ~/repos/wekan/.travis.yml
 
 #echo "6) Adding changes to be committed."
 git add snapcraft.yaml .future-snap/snapcraft.yaml .future-snap/broken-snapcraft.yaml \

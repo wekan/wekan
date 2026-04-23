@@ -1,5 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import { MongoInternals } from 'meteor/mongo';
+import { Mongo, MongoInternals } from 'meteor/mongo';
+// Import Attachments directly to avoid relying on an implicit global that
+// does not exist in Meteor's ES-module scope.
+import Attachments from '../attachments';
 
 /**
  * Backward compatibility layer for CollectionFS to Meteor-Files migration
@@ -13,13 +16,13 @@ const OldAttachmentsFileRecord = new Mongo.Collection('cfs.attachments.filerecor
 /**
  * Check if an attachment exists in the new Meteor-Files structure
  * @param {string} attachmentId - The attachment ID to check
- * @returns {boolean} - True if exists in new structure
+ * @returns {Promise<boolean>} - True if exists in new structure
  */
-export function isNewAttachmentStructure(attachmentId) {
+export async function isNewAttachmentStructure(attachmentId) {
   if (Meteor.isServer) {
-    // Access global Attachments variable to avoid circular dependency
-    if (typeof Attachments !== 'undefined' && Attachments.collection) {
-      return !!Attachments.collection.findOne({ _id: attachmentId });
+    if (Attachments && Attachments.collection) {
+      const cursor = Attachments.collection;
+      return !!(typeof cursor.findOneAsync === 'function' ? await cursor.findOneAsync({ _id: attachmentId }) : cursor.findOne({ _id: attachmentId }));
     }
   }
   return false;
@@ -28,19 +31,19 @@ export function isNewAttachmentStructure(attachmentId) {
 /**
  * Get attachment data from old CollectionFS structure
  * @param {string} attachmentId - The attachment ID
- * @returns {Object|null} - Attachment data in new format or null if not found
+ * @returns {Promise<Object|null>} - Attachment data in new format or null if not found
  */
-export function getOldAttachmentData(attachmentId) {
+export async function getOldAttachmentData(attachmentId) {
   if (Meteor.isServer) {
     try {
       // First try to get from old filerecord collection
-      const fileRecord = OldAttachmentsFileRecord.findOne({ _id: attachmentId });
+      const fileRecord = typeof OldAttachmentsFileRecord.findOneAsync === 'function' ? await OldAttachmentsFileRecord.findOneAsync({ _id: attachmentId }) : OldAttachmentsFileRecord.findOne({ _id: attachmentId });
       if (!fileRecord) {
         return null;
       }
 
       // Get file data from old files collection
-      const fileData = OldAttachmentsFiles.findOne({ _id: attachmentId });
+      const fileData = typeof OldAttachmentsFiles.findOneAsync === 'function' ? await OldAttachmentsFiles.findOneAsync({ _id: attachmentId }) : OldAttachmentsFiles.findOne({ _id: attachmentId });
       if (!fileData) {
         return null;
       }
@@ -78,8 +81,8 @@ export function getOldAttachmentData(attachmentId) {
         versions: {
           original: {
             path: `/cfs/files/attachments/${this._id}`,
-            size: this.size,
-            type: this.type,
+            size: fileRecord.original?.size || fileData.length || 0,
+            type: fileRecord.original?.type || fileData.contentType || 'application/octet-stream',
             storage: 'gridfs'
           }
         }
@@ -173,13 +176,14 @@ function isPDFFile(mimeType) {
 /**
  * Get attachment with backward compatibility
  * @param {string} attachmentId - The attachment ID
- * @returns {Object|null} - Attachment data or null if not found
+ * @returns {Promise<Object|null>} - Attachment data or null if not found
  */
-export function getAttachmentWithBackwardCompatibility(attachmentId) {
-  // First try new structure - access global to avoid circular dependency
+export async function getAttachmentWithBackwardCompatibility(attachmentId) {
+  // First try new structure
   if (Meteor.isServer) {
-    if (typeof Attachments !== 'undefined' && Attachments.collection) {
-      const newAttachment = Attachments.collection.findOne({ _id: attachmentId });
+    if (Attachments && Attachments.collection) {
+      const cursor = Attachments.collection;
+      const newAttachment = typeof cursor.findOneAsync === 'function' ? await cursor.findOneAsync({ _id: attachmentId }) : cursor.findOne({ _id: attachmentId });
       if (newAttachment) {
         return newAttachment;
       }
@@ -187,22 +191,23 @@ export function getAttachmentWithBackwardCompatibility(attachmentId) {
   }
 
   // Fall back to old structure
-  const oldAttachment = getOldAttachmentData(attachmentId);
+  const oldAttachment = await getOldAttachmentData(attachmentId);
   return oldAttachment;
 }
 
 /**
  * Get attachments for a card with backward compatibility
  * @param {Object} query - Query object
- * @returns {Array} - Array of attachments
+ * @returns {Promise<Array>} - Array of attachments
  */
-export function getAttachmentsWithBackwardCompatibility(query) {
+export async function getAttachmentsWithBackwardCompatibility(query) {
   let newAttachments = [];
 
-  // Get new attachments - access global to avoid circular dependency
+  // Get new attachments
   if (Meteor.isServer) {
-    if (typeof Attachments !== 'undefined' && Attachments.collection) {
-      newAttachments = Attachments.collection.find(query).fetch();
+    if (Attachments && Attachments.collection) {
+      const cursor = Attachments.collection.find(query);
+      newAttachments = typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
     }
   }
 
@@ -213,9 +218,10 @@ export function getAttachmentsWithBackwardCompatibility(query) {
       // Query old structure for the same card
       const cardId = query['meta.cardId'];
       if (cardId) {
-        const oldFileRecords = OldAttachmentsFileRecord.find({ cardId }).fetch();
+        const cursor = OldAttachmentsFileRecord.find({ cardId });
+        const oldFileRecords = typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
         for (const fileRecord of oldFileRecords) {
-          const oldAttachment = getOldAttachmentData(fileRecord._id);
+          const oldAttachment = await getOldAttachmentData(fileRecord._id);
           if (oldAttachment) {
             oldAttachments.push(oldAttachment);
           }

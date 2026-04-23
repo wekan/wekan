@@ -5,7 +5,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // 2. The card activity tab
 // We use this publication to paginate for these two publications.
 
-Meteor.publish('activities', function(kind, id, limit, showActivities) {
+Meteor.publish('activities', async function(kind, id, limit, showActivities) {
   check(
     kind,
     Match.Where(x => {
@@ -25,32 +25,36 @@ Meteor.publish('activities', function(kind, id, limit, showActivities) {
     return this.ready();
   }
 
+  // isVisibleBy() expects a user object with _id, not a raw userId string
+  const userForVisibility = { _id: this.userId };
+
   let linkedElmtId = [id];
   let board;
 
   if (kind === 'board') {
-    board = ReactiveCache.getBoard(id);
-    if (!board || !board.isVisibleBy(this.userId)) {
+    board = await ReactiveCache.getBoard(id);
+    if (!board || !board.isVisibleBy(userForVisibility)) {
       return this.ready();
     }
 
     // Get linked boards, but only those visible to the user
-    ReactiveCache.getCards({
+    const linkedCards = await ReactiveCache.getCards({
       "type": "cardType-linkedBoard",
       "boardId": id
-    }).forEach(card => {
-      const linkedBoard = ReactiveCache.getBoard(card.linkedId);
-      if (linkedBoard && linkedBoard.isVisibleBy(this.userId)) {
+    });
+    for (const card of linkedCards) {
+      const linkedBoard = await ReactiveCache.getBoard(card.linkedId);
+      if (linkedBoard && linkedBoard.isVisibleBy(userForVisibility)) {
         linkedElmtId.push(card.linkedId);
       }
-    });
+    }
   } else if (kind === 'card') {
-    const card = ReactiveCache.getCard(id);
+    const card = await ReactiveCache.getCard(id);
     if (!card) {
       return this.ready();
     }
-    board = ReactiveCache.getBoard(card.boardId);
-    if (!board || !board.isVisibleBy(this.userId)) {
+    board = await ReactiveCache.getBoard(card.boardId);
+    if (!board || !board.isVisibleBy(userForVisibility)) {
       return this.ready();
     }
   }
@@ -58,12 +62,14 @@ Meteor.publish('activities', function(kind, id, limit, showActivities) {
   const selector = showActivities
     ? { [`${kind}Id`]: { $in: linkedElmtId } }
     : { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] };
-  const ret = ReactiveCache.getActivities(selector,
+
+  const ret = await ReactiveCache.getActivities(selector,
     {
       limit,
       sort: { createdAt: -1 },
     },
     true,
   );
+
   return ret;
 });

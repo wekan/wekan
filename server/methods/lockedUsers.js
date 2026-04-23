@@ -1,14 +1,15 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 
 // Method to find locked users and release them if needed
 Meteor.methods({
   async getLockedUsers() {
     // Check if user has admin rights
-    const userId = Meteor.userId();
+    const userId = this.userId;
     if (!userId) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user');
     }
-    const user = ReactiveCache.getUser(userId);
+    const user = await ReactiveCache.getUser(userId);
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('error-not-allowed', 'Not allowed');
     }
@@ -52,11 +53,11 @@ Meteor.methods({
 
   async unlockUser(userId) {
     // Check if user has admin rights
-    const adminId = Meteor.userId();
+    const adminId = this.userId;
     if (!adminId) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user');
     }
-    const admin = ReactiveCache.getUser(adminId);
+    const admin = await ReactiveCache.getUser(adminId);
     if (!admin || !admin.isAdmin) {
       throw new Meteor.Error('error-not-allowed', 'Not allowed');
     }
@@ -82,11 +83,11 @@ Meteor.methods({
 
   async unlockAllUsers() {
     // Check if user has admin rights
-    const adminId = Meteor.userId();
+    const adminId = this.userId;
     if (!adminId) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user');
     }
-    const admin = ReactiveCache.getUser(adminId);
+    const admin = await ReactiveCache.getUser(adminId);
     if (!admin || !admin.isAdmin) {
       throw new Meteor.Error('error-not-allowed', 'Not allowed');
     }

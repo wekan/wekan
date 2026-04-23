@@ -1,0 +1,82 @@
+# WeKan with FerretDB 2 + PostgreSQL (DocumentDB extension)
+#
+# Use this compose file instead of docker-compose.yml on platforms where
+# MongoDB Community Edition is not available, or when you prefer PostgreSQL
+# as the backing store.
+#
+# Supported on all platforms where Node.js 22 runs:
+#   linux/amd64, linux/arm64, linux/arm/v7, linux/ppc64le, linux/s390x
+#
+# Based on: docs/Databases/FerretDB2-PostgreSQL.md
+#
+# Setup:
+#   docker compose -f docker-compose-ferretdb.yml up -d
+#
+# To stop:
+#   docker compose -f docker-compose-ferretdb.yml stop
+
+version: '3.8'
+
+services:
+
+  # PostgreSQL 17 with DocumentDB extension (FerretDB 2 backing store)
+  # ghcr.io/ferretdb/postgres-documentdb is the official PostgreSQL image
+  # pre-installed with the pg_documentdb extension required by FerretDB 2.
+  postgres-documentdb:
+    image: ghcr.io/ferretdb/postgres-documentdb:17
+    restart: always
+    environment:
+      POSTGRES_USER: ferretdb
+      POSTGRES_PASSWORD: ${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}
+      POSTGRES_DB: ferretdb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - wekan-ferretdb
+
+  # FerretDB 2 — MongoDB-compatible protocol layer over PostgreSQL
+  ferretdb:
+    image: ghcr.io/ferretdb/ferretdb:2
+    restart: always
+    environment:
+      FERRETDB_POSTGRESQL_URL: postgres://ferretdb:${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}@postgres-documentdb/ferretdb
+    ports:
+      # Expose the MongoDB-compatible port only on localhost for security.
+      # Remove "127.0.0.1:" prefix if WeKan runs on a different host.
+      - 127.0.0.1:27017:27017
+    depends_on:
+      - postgres-documentdb
+    networks:
+      - wekan-ferretdb
+
+  # WeKan application
+  wekan-app:
+    image: ghcr.io/wekan/wekan:latest
+    restart: always
+    networks:
+      - wekan-ferretdb
+    ports:
+      - 8080:8080
+    environment:
+      # FerretDB speaks the MongoDB wire protocol on port 27017.
+      # The database name "wekan" is created automatically on first run.
+      MONGO_URL: mongodb://ferretdb:${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}@ferretdb:27017/wekan?authMechanism=PLAIN
+      ROOT_URL: ${ROOT_URL:-http://localhost:8080}
+      PORT: 8080
+      WITH_API: true
+      WRITABLE_PATH: /data
+      # Mail settings (optional)
+      MAIL_URL: ${MAIL_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+    volumes:
+      - wekan-data:/data
+    depends_on:
+      - ferretdb
+
+volumes:
+  postgres-data:
+  wekan-data:
+
+networks:
+  wekan-ferretdb:
+    driver: bridge

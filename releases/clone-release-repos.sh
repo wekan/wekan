@@ -10,7 +10,25 @@ if [ $# -ne 0 ]
     exit 1
 fi
 
-# 2) Create directories, clone repos
+
+# 2) Check for git and install if missing
+if [ "$(uname)" = "Darwin" ]; then
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  if ! command -v git >/dev/null 2>&1; then
+    echo "git not found. Installing git with brew..."
+    brew install git
+  fi
+else
+  if ! command -v git >/dev/null 2>&1; then
+    echo "git not found. Installing git with apt-get..."
+    sudo apt-get update && sudo apt-get install -y git
+  fi
+fi
+
+# 3) Create directories, clone repos
 mkdir ../w
 cd ../w
 git clone git@github.com:wekan/wekan.github.io.git

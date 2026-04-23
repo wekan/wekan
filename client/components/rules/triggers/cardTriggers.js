@@ -1,9 +1,11 @@
 import { TAPi18n } from '/imports/i18n';
+import { Utils } from '/client/lib/utils';
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.subscribe('allRules');
-  },
+Template.cardTriggers.onCreated(function () {
+  this.subscribe('allRules');
+});
+
+Template.cardTriggers.helpers({
   labels() {
     const labels = Utils.getCurrentBoard().labels;
     for (let i = 0; i < labels.length; i++) {
@@ -16,120 +18,117 @@ BlazeComponent.extendComponent({
     }
     return labels;
   },
-  events() {
-    return [
-      {
-        'click .js-add-gen-label-trigger'(event) {
-          const desc = Utils.getTriggerActionDesc(event, this);
-          const datas = this.data();
-          const actionSelected = this.find('#label-action').value;
-          const boardId = Session.get('currentBoard');
-          if (actionSelected === 'added') {
-            datas.triggerVar.set({
-              activityType: 'addedLabel',
-              boardId,
-              labelId: '*',
-              desc,
-            });
-          }
-          if (actionSelected === 'removed') {
-            datas.triggerVar.set({
-              activityType: 'removedLabel',
-              boardId,
-              labelId: '*',
-              desc,
-            });
-          }
-        },
-        'click .js-add-spec-label-trigger'(event) {
-          const desc = Utils.getTriggerActionDesc(event, this);
-          const datas = this.data();
-          const actionSelected = this.find('#spec-label-action').value;
-          const labelId = this.find('#spec-label').value;
-          const boardId = Session.get('currentBoard');
-          if (actionSelected === 'added') {
-            datas.triggerVar.set({
-              activityType: 'addedLabel',
-              boardId,
-              labelId,
-              desc,
-            });
-          }
-          if (actionSelected === 'removed') {
-            datas.triggerVar.set({
-              activityType: 'removedLabel',
-              boardId,
-              labelId,
-              desc,
-            });
-          }
-        },
-        'click .js-add-gen-member-trigger'(event) {
-          const desc = Utils.getTriggerActionDesc(event, this);
-          const datas = this.data();
-          const actionSelected = this.find('#gen-member-action').value;
-          const boardId = Session.get('currentBoard');
-          if (actionSelected === 'added') {
-            datas.triggerVar.set({
-              activityType: 'joinMember',
-              boardId,
-              username: '*',
-              desc,
-            });
-          }
-          if (actionSelected === 'removed') {
-            datas.triggerVar.set({
-              activityType: 'unjoinMember',
-              boardId,
-              username: '*',
-              desc,
-            });
-          }
-        },
-        'click .js-add-spec-member-trigger'(event) {
-          const desc = Utils.getTriggerActionDesc(event, this);
-          const datas = this.data();
-          const actionSelected = this.find('#spec-member-action').value;
-          const username = this.find('#spec-member').value;
-          const boardId = Session.get('currentBoard');
-          if (actionSelected === 'added') {
-            datas.triggerVar.set({
-              activityType: 'joinMember',
-              boardId,
-              username,
-              desc,
-            });
-          }
-          if (actionSelected === 'removed') {
-            datas.triggerVar.set({
-              activityType: 'unjoinMember',
-              boardId,
-              username,
-              desc,
-            });
-          }
-        },
-        'click .js-add-attachment-trigger'(event) {
-          const desc = Utils.getTriggerActionDesc(event, this);
-          const datas = this.data();
-          const actionSelected = this.find('#attach-action').value;
-          const boardId = Session.get('currentBoard');
-          if (actionSelected === 'added') {
-            datas.triggerVar.set({
-              activityType: 'addAttachment',
-              boardId,
-              desc,
-            });
-          }
-          if (actionSelected === 'removed') {
-            datas.triggerVar.set({
-              activityType: 'deleteAttachment',
-              boardId,
-              desc,
-            });
-          }
-        },
-      },
-    ];
+});
+
+Template.cardTriggers.events({
+  'click .js-add-gen-label-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const actionSelected = tpl.find('#label-action').value;
+    const boardId = Session.get('currentBoard');
+    if (actionSelected === 'added') {
+      datas.triggerVar.set({
+        activityType: 'addedLabel',
+        boardId,
+        labelId: '*',
+        desc,
+      });
+    }
+    if (actionSelected === 'removed') {
+      datas.triggerVar.set({
+        activityType: 'removedLabel',
+        boardId,
+        labelId: '*',
+        desc,
+      });
+    }
   },
-}).register('cardTriggers');
+  'click .js-add-spec-label-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const actionSelected = tpl.find('#spec-label-action').value;
+    const labelId = tpl.find('#spec-label').value;
+    const boardId = Session.get('currentBoard');
+    if (actionSelected === 'added') {
+      datas.triggerVar.set({
+        activityType: 'addedLabel',
+        boardId,
+        labelId,
+        desc,
+      });
+    }
+    if (actionSelected === 'removed') {
+      datas.triggerVar.set({
+        activityType: 'removedLabel',
+        boardId,
+        labelId,
+        desc,
+      });
+    }
+  },
+  'click .js-add-gen-member-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const actionSelected = tpl.find('#gen-member-action').value;
+    const boardId = Session.get('currentBoard');
+    if (actionSelected === 'added') {
+      datas.triggerVar.set({
+        activityType: 'joinMember',
+        boardId,
+        username: '*',
+        desc,
+      });
+    }
+    if (actionSelected === 'removed') {
+      datas.triggerVar.set({
+        activityType: 'unjoinMember',
+        boardId,
+        username: '*',
+        desc,
+      });
+    }
+  },
+  'click .js-add-spec-member-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const actionSelected = tpl.find('#spec-member-action').value;
+    const username = tpl.find('#spec-member').value;
+    const boardId = Session.get('currentBoard');
+    if (actionSelected === 'added') {
+      datas.triggerVar.set({
+        activityType: 'joinMember',
+        boardId,
+        username,
+        desc,
+      });
+    }
+    if (actionSelected === 'removed') {
+      datas.triggerVar.set({
+        activityType: 'unjoinMember',
+        boardId,
+        username,
+        desc,
+      });
+    }
+  },
+  'click .js-add-attachment-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const actionSelected = tpl.find('#attach-action').value;
+    const boardId = Session.get('currentBoard');
+    if (actionSelected === 'added') {
+      datas.triggerVar.set({
+        activityType: 'addAttachment',
+        boardId,
+        desc,
+      });
+    }
+    if (actionSelected === 'removed') {
+      datas.triggerVar.set({
+        activityType: 'deleteAttachment',
+        boardId,
+        desc,
+      });
+    }
+  },
+});

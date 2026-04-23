@@ -4,39 +4,68 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
 import getSlug from 'limax';
+import { UserSearchIndex } from '/models/users';
+import { Utils } from '/client/lib/utils';
 
 const Papa = require('papaparse');
 
-BlazeComponent.extendComponent({
+Template.importHeaderBar.helpers({
   title() {
     return `import-board-title-${Session.get('importSource')}`;
   },
-}).register('importHeaderBar');
+});
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.steps = ['importTextarea', 'importMapMembers'];
-    this._currentStepIndex = new ReactiveVar(0);
-    this.importedData = new ReactiveVar();
-    this.membersToMap = new ReactiveVar([]);
-    this.importSource = Session.get('importSource');
-  },
+// Helper to find the closest ancestor template instance by name
+function findParentTemplateInstance(childTemplateInstance, parentTemplateName) {
+  let view = childTemplateInstance.view;
+  while (view) {
+    if (view.name === `Template.${parentTemplateName}` && view.templateInstance) {
+      return view.templateInstance();
+    }
+    view = view.parentView;
+  }
+  return null;
+}
 
-  currentTemplate() {
-    return this.steps[this._currentStepIndex.get()];
-  },
+function _prepareAdditionalData(dataObject) {
+  const importSource = Session.get('importSource');
+  let membersToMap;
+  switch (importSource) {
+    case 'trello':
+      membersToMap = trelloGetMembersToMap(dataObject);
+      break;
+    case 'wekan':
+      membersToMap = wekanGetMembersToMap(dataObject);
+      break;
+    case 'csv':
+      membersToMap = csvGetMembersToMap(dataObject);
+      break;
+  }
+  return membersToMap;
+}
 
-  nextStep() {
+Template.import.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.steps = ['importTextarea', 'importMapMembers'];
+  this._currentStepIndex = new ReactiveVar(0);
+  this.importedData = new ReactiveVar();
+  this.membersToMap = new ReactiveVar([]);
+  this.importSource = Session.get('importSource');
+
+  this.nextStep = () => {
     const nextStepIndex = this._currentStepIndex.get() + 1;
     if (nextStepIndex >= this.steps.length) {
       this.finishImport();
     } else {
       this._currentStepIndex.set(nextStepIndex);
     }
-  },
+  };
 
-  importData(evt, dataSource) {
+  this.setError = (error) => {
+    this.error.set(error);
+  };
+
+  this.importData = (evt, dataSource) => {
     evt.preventDefault();
     const input = this.find('.js-import-json').value;
     if (dataSource === 'csv') {
@@ -44,7 +73,7 @@ BlazeComponent.extendComponent({
       const ret = Papa.parse(csv);
       if (ret && ret.data && ret.data.length) this.importedData.set(ret.data);
       else throw new Meteor.Error('error-csv-schema');
-      const membersToMap = this._prepareAdditionalData(ret.data);
+      const membersToMap = _prepareAdditionalData(ret.data);
       this.membersToMap.set(membersToMap);
       this.nextStep();
     } else {
@@ -52,7 +81,7 @@ BlazeComponent.extendComponent({
         const dataObject = JSON.parse(input);
         this.setError('');
         this.importedData.set(dataObject);
-        const membersToMap = this._prepareAdditionalData(dataObject);
+        const membersToMap = _prepareAdditionalData(dataObject);
         // store members data and mapping in Session
         // (we go deep and 2-way, so storing in data context is not a viable option)
         this.membersToMap.set(membersToMap);
@@ -61,13 +90,9 @@ BlazeComponent.extendComponent({
         this.setError('error-json-malformed');
       }
     }
-  },
+  };
 
-  setError(error) {
-    this.error.set(error);
-  },
-
-  finishImport() {
+  this.finishImport = () => {
     const additionalData = {};
     const membersMapping = this.membersToMap.get();
     if (membersMapping) {
@@ -95,44 +120,27 @@ BlazeComponent.extendComponent({
           FlowRouter.go('board', {
             id: res,
             slug: title,
-          })
+          });
           //Utils.goBoardId(res);
         }
       },
     );
-  },
+  };
+});
 
-  _prepareAdditionalData(dataObject) {
-    const importSource = Session.get('importSource');
-    let membersToMap;
-    switch (importSource) {
-      case 'trello':
-        membersToMap = trelloGetMembersToMap(dataObject);
-        break;
-      case 'wekan':
-        membersToMap = wekanGetMembersToMap(dataObject);
-        break;
-      case 'csv':
-        membersToMap = csvGetMembersToMap(dataObject);
-        break;
-    }
-    return membersToMap;
+Template.import.helpers({
+  error() {
+    return Template.instance().error;
   },
-
-  _screenAdditionalData() {
-    return 'mapMembers';
+  currentTemplate() {
+    return Template.instance().steps[Template.instance()._currentStepIndex.get()];
   },
-}).register('import');
+});
 
-BlazeComponent.extendComponent({
-  template() {
-    return 'importTextarea';
-  },
-
+Template.importTextarea.helpers({
   instruction() {
     return `import-board-instruction-${Session.get('importSource')}`;
   },
-
   importPlaceHolder() {
     const importSource = Session.get('importSource');
     if (importSource === 'csv') {
@@ -141,81 +149,37 @@ BlazeComponent.extendComponent({
       return 'import-json-placeholder';
     }
   },
+});
 
-  events() {
-    return [
-      {
-        submit(evt) {
-          return this.parentComponent().importData(
-            evt,
-            Session.get('importSource'),
-          );
-        },
-      },
-    ];
+Template.importTextarea.events({
+  submit(evt, tpl) {
+    const importTpl = findParentTemplateInstance(tpl, 'import');
+    if (importTpl) {
+      return importTpl.importData(evt, Session.get('importSource'));
+    }
   },
-}).register('importTextarea');
+});
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.usersLoaded = new ReactiveVar(false);
+// Module-level reference so popup children can access importMapMembers methods
+let _importMapMembersTpl = null;
 
-    this.autorun(() => {
-      const handle = this.subscribe(
-        'user-miniprofile',
-        this.members().map(member => {
-          return member.username;
-        }),
-      );
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (
-            handle.ready() &&
-            !this.usersLoaded.get() &&
-            this.members().length
-          ) {
-            this._refreshMembers(
-              this.members().map(member => {
-                if (!member.wekanId) {
-                  let user = ReactiveCache.getUser({ username: member.username });
-                  if (!user) {
-                    user = ReactiveCache.getUser({ importUsernames: member.username });
-                  }
-                  if (user) {
-                    // eslint-disable-next-line no-console
-                    // console.log('found username:', user.username);
-                    member.wekanId = user._id;
-                  }
-                }
-                return member;
-              }),
-            );
-          }
-          this.usersLoaded.set(handle.ready());
-        });
-      });
-    });
-  },
+Template.importMapMembers.onCreated(function () {
+  _importMapMembersTpl = this;
+  this.usersLoaded = new ReactiveVar(false);
 
-  members() {
-    return this.parentComponent().membersToMap.get();
-  },
+  this.members = () => {
+    const importTpl = findParentTemplateInstance(this, 'import');
+    return importTpl ? importTpl.membersToMap.get() : [];
+  };
 
-  _refreshMembers(listOfMembers) {
-    return this.parentComponent().membersToMap.set(listOfMembers);
-  },
+  this._refreshMembers = (listOfMembers) => {
+    const importTpl = findParentTemplateInstance(this, 'import');
+    if (importTpl) {
+      importTpl.membersToMap.set(listOfMembers);
+    }
+  };
 
-  /**
-   * Will look into the list of members to import for the specified memberId,
-   * then set its property to the supplied value.
-   * If unset is true, it will remove the property from the rest of the list as well.
-   *
-   * use:
-   * - memberId = null to use selected member
-   * - value = null to unset a property
-   * - unset = true to ensure property is only set on 1 member at a time
-   */
-  _setPropertyForMember(property, value, memberId, unset = false) {
+  this._setPropertyForMember = (property, value, memberId, unset = false) => {
     const listOfMembers = this.members();
     let finder = null;
     if (memberId) {
@@ -241,17 +205,13 @@ BlazeComponent.extendComponent({
     });
     // Session.get gives us a copy, we have to set it back so it sticks
     this._refreshMembers(listOfMembers);
-  },
+  };
 
-  setSelectedMember(memberId) {
+  this.setSelectedMember = (memberId) => {
     return this._setPropertyForMember('selected', true, memberId, true);
-  },
+  };
 
-  /**
-   * returns the member with specified id,
-   * or the selected member if memberId is not specified
-   */
-  getMember(memberId = null) {
+  this.getMember = (memberId = null) => {
     const allMembers = this.members();
     let finder = null;
     if (memberId) {
@@ -260,117 +220,154 @@ BlazeComponent.extendComponent({
       finder = user => user.selected;
     }
     return allMembers.find(finder);
-  },
+  };
 
-  mapSelectedMember(wekanId) {
+  this.mapSelectedMember = (wekanId) => {
     return this._setPropertyForMember('wekanId', wekanId, null);
-  },
+  };
 
-  unmapMember(memberId) {
+  this.unmapMember = (memberId) => {
     return this._setPropertyForMember('wekanId', null, memberId);
-  },
+  };
 
-  onSubmit(evt) {
+  this.autorun(() => {
+    const handle = this.subscribe(
+      'user-miniprofile',
+      this.members().map(member => {
+        return member.username;
+      }),
+    );
+    Tracker.nonreactive(() => {
+      Tracker.autorun(() => {
+        if (
+          handle.ready() &&
+          !this.usersLoaded.get() &&
+          this.members().length
+        ) {
+          this._refreshMembers(
+            this.members().map(member => {
+              if (!member.wekanId) {
+                let user = ReactiveCache.getUser({ username: member.username });
+                if (!user) {
+                  user = ReactiveCache.getUser({ importUsernames: member.username });
+                }
+                if (user) {
+                  member.wekanId = user._id;
+                }
+              }
+              return member;
+            }),
+          );
+        }
+        this.usersLoaded.set(handle.ready());
+      });
+    });
+  });
+});
+
+Template.importMapMembers.onDestroyed(function () {
+  if (_importMapMembersTpl === this) {
+    _importMapMembersTpl = null;
+  }
+});
+
+Template.importMapMembers.helpers({
+  usersLoaded() {
+    return Template.instance().usersLoaded;
+  },
+  members() {
+    return Template.instance().members();
+  },
+});
+
+Template.importMapMembers.events({
+  submit(evt, tpl) {
     evt.preventDefault();
-    this.parentComponent().nextStep();
+    const importTpl = findParentTemplateInstance(tpl, 'import');
+    if (importTpl) {
+      importTpl.nextStep();
+    }
   },
-
-  events() {
-    return [
-      {
-        submit: this.onSubmit,
-        'click .js-select-member'(evt) {
-          const memberToMap = this.currentData();
-          if (memberToMap.wekan) {
-            // todo xxx ask for confirmation?
-            this.unmapMember(memberToMap.id);
-          } else {
-            this.setSelectedMember(memberToMap.id);
-            Popup.open('importMapMembersAdd')(evt);
-          }
-        },
-      },
-    ];
+  'click .js-select-member'(evt, tpl) {
+    const memberToMap = Template.currentData();
+    if (memberToMap.wekan) {
+      // todo xxx ask for confirmation?
+      tpl.unmapMember(memberToMap.id);
+    } else {
+      tpl.setSelectedMember(memberToMap.id);
+      Popup.open('importMapMembersAdd')(evt);
+    }
   },
-}).register('importMapMembers');
-
-BlazeComponent.extendComponent({
-  onRendered() {
-    this.find('.js-map-member input').focus();
-  },
-
-  onSelectUser() {
-    Popup.getOpenerComponent(5).mapSelectedMember(this.currentData().__originalId);
-    Popup.back();
-  },
-
-  events() {
-    return [
-      {
-        'click .js-select-import': this.onSelectUser,
-      },
-    ];
-  },
-}).register('importMapMembersAddPopup');
+});
 
 // Global reactive variables for import member popup
 const importMemberPopupState = {
   searching: new ReactiveVar(false),
   searchResults: new ReactiveVar([]),
   noResults: new ReactiveVar(false),
-  searchTimeout: null
+  searchTimeout: null,
 };
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    // Use global state
-    this.searching = importMemberPopupState.searching;
-    this.searchResults = importMemberPopupState.searchResults;
-    this.noResults = importMemberPopupState.noResults;
-    this.searchTimeout = importMemberPopupState.searchTimeout;
-  },
+Template.importMapMembersAddPopup.onCreated(function () {
+  this.searching = importMemberPopupState.searching;
+  this.searchResults = importMemberPopupState.searchResults;
+  this.noResults = importMemberPopupState.noResults;
+  this.searchTimeout = null;
 
-  onRendered() {
-    this.find('.js-search-member-input').focus();
-  },
+  this.searching.set(false);
+  this.searchResults.set([]);
+  this.noResults.set(false);
+});
 
-  performSearch(query) {
-    if (!query || query.length < 2) {
-      this.searchResults.set([]);
-      this.noResults.set(false);
-      return;
+Template.importMapMembersAddPopup.onRendered(function () {
+  this.find('.js-search-member-input').focus();
+});
+
+Template.importMapMembersAddPopup.onDestroyed(function () {
+  if (this.searchTimeout) {
+    clearTimeout(this.searchTimeout);
+  }
+  this.searching.set(false);
+});
+
+function importPerformSearch(tpl, query) {
+  if (!query || query.length < 2) {
+    tpl.searchResults.set([]);
+    tpl.noResults.set(false);
+    return;
+  }
+
+  tpl.searching.set(true);
+  tpl.noResults.set(false);
+
+  const results = UserSearchIndex.search(query, { limit: 20 }).fetch();
+  tpl.searchResults.set(results);
+  tpl.searching.set(false);
+
+  if (results.length === 0) {
+    tpl.noResults.set(true);
+  }
+}
+
+Template.importMapMembersAddPopup.events({
+  'click .js-select-import'(event, tpl) {
+    if (_importMapMembersTpl) {
+      _importMapMembersTpl.mapSelectedMember(Template.currentData().__originalId);
+    }
+    Popup.back();
+  },
+  'keyup .js-search-member-input'(event, tpl) {
+    const query = event.target.value.trim();
+
+    if (tpl.searchTimeout) {
+      clearTimeout(tpl.searchTimeout);
     }
 
-    this.searching.set(true);
-    this.noResults.set(false);
-
-    const results = UserSearchIndex.search(query, { limit: 20 }).fetch();
-    this.searchResults.set(results);
-    this.searching.set(false);
-    
-    if (results.length === 0) {
-      this.noResults.set(true);
-    }
+    tpl.searchTimeout = setTimeout(() => {
+      importPerformSearch(tpl, query);
+    }, 300);
   },
-
-  events() {
-    return [
-      {
-        'keyup .js-search-member-input'(event) {
-          const query = event.target.value.trim();
-          
-          if (this.searchTimeout) {
-            clearTimeout(this.searchTimeout);
-          }
-          
-          this.searchTimeout = setTimeout(() => {
-            this.performSearch(query);
-          }, 300);
-        },
-      },
-    ];
-  },
-}).register('importMapMembersAddPopupSearch');
+});
 
 Template.importMapMembersAddPopup.helpers({
   searchResults() {
@@ -381,5 +378,5 @@ Template.importMapMembersAddPopup.helpers({
   },
   noResults() {
     return importMemberPopupState.noResults;
-  }
-})
+  },
+});

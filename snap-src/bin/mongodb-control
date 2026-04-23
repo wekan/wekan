@@ -31,7 +31,10 @@ if [ -z "${LANG}" ]; then
 fi
 
 export LC_ALL=C
-export PATH=/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:${PATH}
+# If CPU does not support required instructions (AVX for x86_64, ARMv8.2-A for arm64),
+# migratemongo/avx wrapper scripts transparently re-run MongoDB commands via QEMU.
+# See https://github.com/wekan/migratemongo
+export PATH=/snap/${SNAP_NAME}/current/migratemongo/avx:/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:${PATH}
 export LD_LIBRARY_PATH=/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 # If temporary settings log exists, delete it
@@ -80,14 +83,13 @@ echo "  BIND_OPTIONS: ${BIND_OPTIONS}"
 # Check if MongoDB is already running
 check_mongodb_running() {
     local port="${MONGODB_PORT:-27017}"
-    local bind_ip="${MONGODB_BIND_IP:-127.0.0.1}"
-    
+
     # Check if MongoDB is already running on the configured port
     if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
         echo "MongoDB is already running on port ${port}"
         return 0
     fi
-    
+
     # Alternative check using lsof if netstat is not available
     if command -v lsof >/dev/null 2>&1; then
         if lsof -i ":${port}" >/dev/null 2>&1; then
@@ -95,7 +97,7 @@ check_mongodb_running() {
             return 0
         fi
     fi
-    
+
     # Check if there's a PID file and the process is still running
     if [ -f "${SNAP_COMMON}/mongodb.pid" ]; then
         local pid=$(cat "${SNAP_COMMON}/mongodb.pid" 2>/dev/null)
@@ -107,7 +109,7 @@ check_mongodb_running() {
             rm -f "${SNAP_COMMON}/mongodb.pid"
         fi
     fi
-    
+
     return 1
 }
 
@@ -127,7 +129,44 @@ fi
 echo "Starting MongoDB 7.x server..."
 # Create PID file
 echo $$ > "${SNAP_COMMON}/mongodb.pid"
+
+# Check if this is the first time MongoDB is starting
+INIT_MARKER="${SNAP_COMMON}/.replica_set_initialized"
+
+# Start MongoDB directly in foreground with replica set
+# The replica set will be initialized by the init marker check below
+echo "Starting MongoDB 7.x server in foreground..."
+
+# Start in background briefly to initialize replica set if needed
+if [ ! -f "$INIT_MARKER" ]; then
+    echo "First startup detected - initializing replica set..."
+    /snap/${SNAP_NAME}/current/bin/mongod \
+        --dbpath="$MONGO_DATA_DIR" \
+        --logpath="$MONGO_LOG_FILE" \
+        --logappend $BIND_OPTIONS \
+        --replSet rs0 --oplogSize 128 --fork
+
+    sleep 5
+
+    # Initialize replica set
+    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:${MONGODB_PORT:-27019}'}]})" 2>/dev/null || true
+
+    # Mark initialization as done
+    touch "$INIT_MARKER"
+
+    # Kill the forked process gracefully
+    echo "Stopping temporary MongoDB process..."
+    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
+    sleep 2
+
+    # Clean up any remaining process
+    pkill -f "mongod.*${MONGODB_PORT:-27019}" 2>/dev/null || true
+    sleep 1
+fi
+
+# Final start of MongoDB in foreground (this becomes the main process)
 exec /snap/${SNAP_NAME}/current/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
-    --logappend $BIND_OPTIONS
+    --logappend $BIND_OPTIONS \
+    --replSet rs0 --oplogSize 128

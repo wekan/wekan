@@ -5,12 +5,45 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import CronJobStatus from '/models/cronJobStatus';
 
 // Collections for persistent storage
-export const CronJobStatus = new Mongo.Collection('cronJobStatus');
+export { CronJobStatus };
 export const CronJobSteps = new Mongo.Collection('cronJobSteps');
 export const CronJobQueue = new Mongo.Collection('cronJobQueue');
 export const CronJobErrors = new Mongo.Collection('cronJobErrors');
+
+// Allow/Deny rules
+// These collections are server-only and should not be modified by clients
+// Allow server-side operations (when userId is undefined) but deny all client operations
+if (Meteor.isServer) {
+  // Helper function to check if operation is server-only
+  const isServerOperation = (userId) => !userId;
+
+  CronJobStatus.allow({
+    insert: isServerOperation,
+    update: isServerOperation,
+    remove: isServerOperation,
+  });
+
+  CronJobSteps.allow({
+    insert: isServerOperation,
+    update: isServerOperation,
+    remove: isServerOperation,
+  });
+
+  CronJobQueue.allow({
+    insert: isServerOperation,
+    update: isServerOperation,
+    remove: isServerOperation,
+  });
+
+  CronJobErrors.allow({
+    insert: isServerOperation,
+    update: isServerOperation,
+    remove: isServerOperation,
+  });
+}
 
 // Indexes for performance
 if (Meteor.isServer) {
@@ -55,7 +88,7 @@ class CronJobStorage {
     if (envLimit) {
       return parseInt(envLimit, 10);
     }
-    
+
     // Auto-detect based on CPU cores
     const os = require('os');
     const cpuCores = os.cpus().length;
@@ -65,12 +98,12 @@ class CronJobStorage {
   /**
    * Save job status to persistent storage
    */
-  saveJobStatus(jobId, jobData) {
+  async saveJobStatus(jobId, jobData) {
     const now = new Date();
-    const existingJob = CronJobStatus.findOne({ jobId });
-    
+    const existingJob = await CronJobStatus.findOneAsync({ jobId });
+
     if (existingJob) {
-      CronJobStatus.update(
+      await CronJobStatus.updateAsync(
         { jobId },
         {
           $set: {
@@ -80,7 +113,7 @@ class CronJobStorage {
         }
       );
     } else {
-      CronJobStatus.insert({
+      await CronJobStatus.insertAsync({
         jobId,
         ...jobData,
         createdAt: now,
@@ -92,28 +125,28 @@ class CronJobStorage {
   /**
    * Get job status from persistent storage
    */
-  getJobStatus(jobId) {
-    return CronJobStatus.findOne({ jobId });
+  async getJobStatus(jobId) {
+    return await CronJobStatus.findOneAsync({ jobId });
   }
 
   /**
    * Get all incomplete jobs
    */
-  getIncompleteJobs() {
-    return CronJobStatus.find({
+  async getIncompleteJobs() {
+    return await CronJobStatus.find({
       status: { $in: ['pending', 'running', 'paused'] }
-    }).fetch();
+    }).fetchAsync();
   }
 
   /**
    * Save job step status
    */
-  saveJobStep(jobId, stepIndex, stepData) {
+  async saveJobStep(jobId, stepIndex, stepData) {
     const now = new Date();
-    const existingStep = CronJobSteps.findOne({ jobId, stepIndex });
-    
+    const existingStep = await CronJobSteps.findOneAsync({ jobId, stepIndex });
+
     if (existingStep) {
-      CronJobSteps.update(
+      await CronJobSteps.updateAsync(
         { jobId, stepIndex },
         {
           $set: {
@@ -123,7 +156,7 @@ class CronJobStorage {
         }
       );
     } else {
-      CronJobSteps.insert({
+      await CronJobSteps.insertAsync({
         jobId,
         stepIndex,
         ...stepData,
@@ -136,31 +169,31 @@ class CronJobStorage {
   /**
    * Get job steps
    */
-  getJobSteps(jobId) {
-    return CronJobSteps.find(
+  async getJobSteps(jobId) {
+    return await CronJobSteps.find(
       { jobId },
       { sort: { stepIndex: 1 } }
-    ).fetch();
+    ).fetchAsync();
   }
 
   /**
    * Get incomplete steps for a job
    */
-  getIncompleteSteps(jobId) {
-    return CronJobSteps.find({
+  async getIncompleteSteps(jobId) {
+    return await CronJobSteps.find({
       jobId,
       status: { $in: ['pending', 'running'] }
-    }, { sort: { stepIndex: 1 } }).fetch();
+    }, { sort: { stepIndex: 1 } }).fetchAsync();
   }
 
   /**
    * Save job error to persistent storage
    */
-  saveJobError(jobId, errorData) {
+  async saveJobError(jobId, errorData) {
     const now = new Date();
     const { stepId, stepIndex, error, severity = 'error', context = {} } = errorData;
-    
-    CronJobErrors.insert({
+
+    await CronJobErrors.insertAsync({
       jobId,
       stepId,
       stepIndex,
@@ -175,50 +208,50 @@ class CronJobStorage {
   /**
    * Get job errors from persistent storage
    */
-  getJobErrors(jobId, options = {}) {
+  async getJobErrors(jobId, options = {}) {
     const { limit = 100, severity = null } = options;
-    
+
     const query = { jobId };
     if (severity) {
       query.severity = severity;
     }
-    
-    return CronJobErrors.find(query, { 
+
+    return await CronJobErrors.find(query, {
       sort: { createdAt: -1 },
-      limit 
-    }).fetch();
+      limit
+    }).fetchAsync();
   }
 
   /**
    * Get all recent errors across all jobs
    */
-  getAllRecentErrors(limit = 50) {
-    return CronJobErrors.find({}, { 
+  async getAllRecentErrors(limit = 50) {
+    return await CronJobErrors.find({}, {
       sort: { createdAt: -1 },
-      limit 
-    }).fetch();
+      limit
+    }).fetchAsync();
   }
 
   /**
    * Clear errors for a specific job
    */
-  clearJobErrors(jobId) {
-    return CronJobErrors.remove({ jobId });
+  async clearJobErrors(jobId) {
+    return await CronJobErrors.removeAsync({ jobId });
   }
 
   /**
    * Add job to queue
    */
-  addToQueue(jobId, jobType, priority = 5, jobData = {}) {
+  async addToQueue(jobId, jobType, priority = 5, jobData = {}) {
     const now = new Date();
-    
+
     // Check if job already exists in queue
-    const existingJob = CronJobQueue.findOne({ jobId });
+    const existingJob = await CronJobQueue.findOneAsync({ jobId });
     if (existingJob) {
       return existingJob._id;
     }
-    
-    return CronJobQueue.insert({
+
+    return await CronJobQueue.insertAsync({
       jobId,
       jobType,
       priority,
@@ -232,8 +265,8 @@ class CronJobStorage {
   /**
    * Get next job from queue
    */
-  getNextJob() {
-    return CronJobQueue.findOne({
+  async getNextJob() {
+    return await CronJobQueue.findOneAsync({
       status: 'pending'
     }, {
       sort: { priority: 1, createdAt: 1 }
@@ -243,9 +276,9 @@ class CronJobStorage {
   /**
    * Update job queue status
    */
-  updateQueueStatus(jobId, status, additionalData = {}) {
+  async updateQueueStatus(jobId, status, additionalData = {}) {
     const now = new Date();
-    CronJobQueue.update(
+    await CronJobQueue.updateAsync(
       { jobId },
       {
         $set: {
@@ -260,8 +293,8 @@ class CronJobStorage {
   /**
    * Remove job from queue
    */
-  removeFromQueue(jobId) {
-    CronJobQueue.remove({ jobId });
+  async removeFromQueue(jobId) {
+    await CronJobQueue.removeAsync({ jobId });
   }
 
   /**
@@ -269,26 +302,26 @@ class CronJobStorage {
    */
   getSystemResources() {
     const os = require('os');
-    
+
     // Get CPU usage (simplified)
     const cpus = os.cpus();
     let totalIdle = 0;
     let totalTick = 0;
-    
+
     cpus.forEach(cpu => {
       for (const type in cpu.times) {
         totalTick += cpu.times[type];
       }
       totalIdle += cpu.times.idle;
     });
-    
+
     const cpuUsage = 100 - Math.round(100 * totalIdle / totalTick);
-    
+
     // Get memory usage
     const totalMem = os.totalmem();
     const freeMem = os.freemem();
     const memoryUsage = Math.round(100 * (totalMem - freeMem) / totalMem);
-    
+
     return {
       cpuUsage,
       memoryUsage,
@@ -301,37 +334,37 @@ class CronJobStorage {
   /**
    * Check if system can handle more jobs
    */
-  canStartNewJob() {
+  async canStartNewJob() {
     const resources = this.getSystemResources();
-    const runningJobs = CronJobQueue.find({ status: 'running' }).count();
-    
+    const runningJobs = await CronJobQueue.find({ status: 'running' }).countAsync();
+
     // Check CPU and memory thresholds
     if (resources.cpuUsage > this.cpuThreshold) {
       return { canStart: false, reason: 'CPU usage too high' };
     }
-    
+
     if (resources.memoryUsage > this.memoryThreshold) {
       return { canStart: false, reason: 'Memory usage too high' };
     }
-    
+
     // Check concurrent job limit
     if (runningJobs >= this.maxConcurrentJobs) {
       return { canStart: false, reason: 'Maximum concurrent jobs reached' };
     }
-    
+
     return { canStart: true, reason: 'System can handle new job' };
   }
 
   /**
    * Get queue statistics
    */
-  getQueueStats() {
-    const total = CronJobQueue.find().count();
-    const pending = CronJobQueue.find({ status: 'pending' }).count();
-    const running = CronJobQueue.find({ status: 'running' }).count();
-    const completed = CronJobQueue.find({ status: 'completed' }).count();
-    const failed = CronJobQueue.find({ status: 'failed' }).count();
-    
+  async getQueueStats() {
+    const total = await CronJobQueue.find().countAsync();
+    const pending = await CronJobQueue.find({ status: 'pending' }).countAsync();
+    const running = await CronJobQueue.find({ status: 'running' }).countAsync();
+    const completed = await CronJobQueue.find({ status: 'completed' }).countAsync();
+    const failed = await CronJobQueue.find({ status: 'failed' }).countAsync();
+
     return {
       total,
       pending,
@@ -345,28 +378,28 @@ class CronJobStorage {
   /**
    * Clean up old completed jobs
    */
-  cleanupOldJobs(daysOld = 7) {
+  async cleanupOldJobs(daysOld = 7) {
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - daysOld);
-    
+
     // Remove old completed jobs from queue
-    const removedQueue = CronJobQueue.remove({
+    const removedQueue = await CronJobQueue.removeAsync({
       status: 'completed',
       updatedAt: { $lt: cutoffDate }
     });
-    
+
     // Remove old job statuses
-    const removedStatus = CronJobStatus.remove({
+    const removedStatus = await CronJobStatus.removeAsync({
       status: 'completed',
       updatedAt: { $lt: cutoffDate }
     });
-    
+
     // Remove old job steps
-    const removedSteps = CronJobSteps.remove({
+    const removedSteps = await CronJobSteps.removeAsync({
       status: 'completed',
       updatedAt: { $lt: cutoffDate }
     });
-    
+
     return {
       removedQueue,
       removedStatus,
@@ -377,38 +410,38 @@ class CronJobStorage {
   /**
    * Resume incomplete jobs on startup
    */
-  resumeIncompleteJobs() {
-    const incompleteJobs = this.getIncompleteJobs();
+  async resumeIncompleteJobs() {
+    const incompleteJobs = await this.getIncompleteJobs();
     const resumedJobs = [];
-    
-    incompleteJobs.forEach(job => {
+
+    for (const job of incompleteJobs) {
       // Reset running jobs to pending
       if (job.status === 'running') {
-        this.saveJobStatus(job.jobId, {
+        await this.saveJobStatus(job.jobId, {
           ...job,
           status: 'pending',
           error: 'Job was interrupted during startup'
         });
         resumedJobs.push(job.jobId);
       }
-      
+
       // Add to queue if not already there
-      const queueJob = CronJobQueue.findOne({ jobId: job.jobId });
+      const queueJob = await CronJobQueue.findOneAsync({ jobId: job.jobId });
       if (!queueJob) {
-        this.addToQueue(job.jobId, job.jobType || 'unknown', job.priority || 5, job);
+        await this.addToQueue(job.jobId, job.jobType || 'unknown', job.priority || 5, job);
       }
-    });
-    
+    }
+
     return resumedJobs;
   }
 
   /**
    * Get job progress percentage
    */
-  getJobProgress(jobId) {
-    const steps = this.getJobSteps(jobId);
+  async getJobProgress(jobId) {
+    const steps = await this.getJobSteps(jobId);
     if (steps.length === 0) return 0;
-    
+
     const completedSteps = steps.filter(step => step.status === 'completed').length;
     return Math.round((completedSteps / steps.length) * 100);
   }
@@ -416,11 +449,11 @@ class CronJobStorage {
   /**
    * Get detailed job information
    */
-  getJobDetails(jobId) {
-    const jobStatus = this.getJobStatus(jobId);
-    const jobSteps = this.getJobSteps(jobId);
-    const progress = this.getJobProgress(jobId);
-    
+  async getJobDetails(jobId) {
+    const jobStatus = await this.getJobStatus(jobId);
+    const jobSteps = await this.getJobSteps(jobId);
+    const progress = await this.getJobProgress(jobId);
+
     return {
       ...jobStatus,
       steps: jobSteps,
@@ -433,14 +466,14 @@ class CronJobStorage {
   /**
    * Clear all jobs from storage
    */
-  clearAllJobs() {
+  async clearAllJobs() {
     try {
       // Clear all collections
-      CronJobStatus.remove({});
-      CronJobSteps.remove({});
-      CronJobQueue.remove({});
-      CronJobErrors.remove({});
-      
+      await CronJobStatus.removeAsync({});
+      await CronJobSteps.removeAsync({});
+      await CronJobQueue.removeAsync({});
+      await CronJobErrors.removeAsync({});
+
       console.log('All cron job data cleared from storage');
       return { success: true, message: 'All cron job data cleared' };
     } catch (error) {
@@ -454,15 +487,15 @@ class CronJobStorage {
 export const cronJobStorage = new CronJobStorage();
 
 // Cleanup old jobs on startup
-Meteor.startup(() => {
+Meteor.startup(async () => {
   // Resume incomplete jobs
-  const resumedJobs = cronJobStorage.resumeIncompleteJobs();
+  const resumedJobs = await cronJobStorage.resumeIncompleteJobs();
   if (resumedJobs.length > 0) {
     // Resumed incomplete cron jobs
   }
-  
+
   // Cleanup old jobs
-  const cleanup = cronJobStorage.cleanupOldJobs();
+  const cleanup = await cronJobStorage.cleanupOldJobs();
   if (cleanup.removedQueue > 0 || cleanup.removedStatus > 0 || cleanup.removedSteps > 0) {
     // Cleaned up old cron jobs
   }

@@ -1,19 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
-Actions = new Mongo.Collection('actions');
-
-Actions.allow({
-  insert(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-  update(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-  remove(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-});
+const Actions = new Mongo.Collection('actions');
 
 Actions.before.insert((userId, doc) => {
   doc.createdAt = new Date();
@@ -30,11 +18,5 @@ Actions.helpers({
     return this.desc;
   },
 });
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await Actions._collection.createIndexAsync({ modifiedAt: -1 });
-  });
-}
 
 export default Actions;

@@ -34,35 +34,35 @@ function accessToken(req) {
   );
 }
 
-const getBoardTitleWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
-  return Promise.await(
-    Activities.rawCollection()
-      .aggregate([
+const getBoardTitleWithMostActivities = async (dateWithXdaysAgo, nbLimit) => {
+  return await Activities.rawCollection()
+    .aggregate([
       {
-          $match: { modifiedAt: { $gte: dateWithXdaysAgo }}
+        $match: { modifiedAt: { $gte: dateWithXdaysAgo } },
       },
       {
-       $group: { _id: '$boardId', count: { $sum: 1 } }
+        $group: { _id: '$boardId', count: { $sum: 1 } },
       },
       {
-       $sort: { count: -1 }
+        $sort: { count: -1 },
       },
       {
-       $lookup: { from: 'boards', localField: '_id', foreignField: '_id', as: 'lookup'}
+        $lookup: { from: 'boards', localField: '_id', foreignField: '_id', as: 'lookup' },
       },
       {
-       $project: { "lookup.title":1, "count":1}
-      }])
-      .limit(nbLimit).toArray()
-      );
+        $project: { 'lookup.title': 1, count: 1 },
+      },
+    ])
+    .limit(nbLimit)
+    .toArray();
 };
 
-const getBoards = (boardIds) => {
-  const ret = ReactiveCache.getBoards({ _id: { $in: boardIds } });
+const getBoards = async (boardIds) => {
+  const ret = await ReactiveCache.getBoards({ _id: { $in: boardIds } });
   return ret;
 };
 Meteor.startup(() => {
-  WebApp.connectHandlers.use('/metrics', (req, res, next) => {
+  WebApp.handlers.use('/metrics', async (req, res, next) => {
     try {
       const ipAddress =
         req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -95,7 +95,7 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered users\n';
 
         // Get number of registered user
-        resCount = ReactiveCache.getUsers({}).length; // KPI 2
+        resCount = (await ReactiveCache.getUsers({})).length; // KPI 2
         metricsRes += 'wekan_registeredUsers ' + resCount + '\n';
         resCount = 0;
 
@@ -103,7 +103,7 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered boards\n';
 
         // Get number of registered boards
-        resCount = ReactiveCache.getBoards({ archived: false, type: 'board' }).length; // KPI 3
+        resCount = (await ReactiveCache.getBoards({ archived: false, type: 'board' })).length; // KPI 3
         metricsRes += 'wekan_registeredboards ' + resCount + '\n';
         resCount = 0;
 
@@ -112,8 +112,8 @@ Meteor.startup(() => {
 
         // Get number of registered boards by registered users
         resCount =
-          ReactiveCache.getBoards({ archived: false, type: 'board' }).length /
-          ReactiveCache.getUsers({}).length; // KPI 4
+          (await ReactiveCache.getBoards({ archived: false, type: 'board' })).length /
+          (await ReactiveCache.getUsers({})).length; // KPI 4
         metricsRes +=
           'wekan_registeredboardsBysRegisteredUsers ' + resCount + '\n';
         resCount = 0;
@@ -122,11 +122,11 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered boards\n';
 
         // Get board numbers with only one member
-        resCount = ReactiveCache.getBoards({
+        resCount = (await ReactiveCache.getBoards({
           archived: false,
           type: 'board',
           members: { $size: 1 },
-        }).length; // KPI 5
+        })).length; // KPI 5
         metricsRes +=
           'wekan_registeredboardsWithOnlyOneMember ' + resCount + '\n';
         resCount = 0;
@@ -144,9 +144,9 @@ Meteor.startup(() => {
         let dateWithXdaysAgo = new Date(
           new Date() - xdays * 24 * 60 * 60 * 1000,
         );
-        resCount = ReactiveCache.getUsers({
+        resCount = (await ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).length; // KPI 5
+        })).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated5DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -157,9 +157,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 10 days ago
         xdays = 10;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = ReactiveCache.getUsers({
+        resCount = (await ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).length; // KPI 5
+        })).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated10DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -170,9 +170,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 20 days ago
         xdays = 20;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = ReactiveCache.getUsers({
+        resCount = (await ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).length; // KPI 5
+        })).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated20DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -183,9 +183,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 20 days ago
         xdays = 30;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = ReactiveCache.getUsers({
+        resCount = (await ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).length; // KPI 5
+        })).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated30DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -196,7 +196,7 @@ Meteor.startup(() => {
         metricsRes +=
           '# Top 10 boards with most activities dated 30 days ago\n';
         //Get top 10 table with most activities in current month
-        const boardTitleWithMostActivities = getBoardTitleWithMostActivities(
+        const boardTitleWithMostActivities = await getBoardTitleWithMostActivities(
           dateWithXdaysAgo,
           xdays,
         );

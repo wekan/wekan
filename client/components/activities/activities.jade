@@ -9,11 +9,11 @@ template(name="activities")
         +cardActivities
 
 template(name="boardActivities")
-  each activityData in currentBoard.activities
+  each activityData in boardActivitiesList
     +activity(activity=activityData card=card mode=mode)
 
 template(name="cardActivities")
-  each activityData in activities
+  each activityData in cardActivitiesList
     +activity(activity=activityData card=card mode=mode)
 
 template(name="activity")
@@ -189,15 +189,15 @@ template(name="activity")
       if(currentData.timeKey)
         | {{_ activity.activityType }}
         = ' '
-        i(title=currentData.timeValue).activity-meta {{ moment currentData.timeValue 'LLL' }}
+        i(title=currentData.timeValue).activity-meta {{ displayDate currentData.timeValue 'LLL' }}
         if (currentData.timeOldValue)
           = ' '
             | {{{_ "previous_as" }}}
             = ' '
-            i(title=currentData.timeOldValue).activity-meta {{ moment currentData.timeOldValue 'LLL' }}
+            i(title=currentData.timeOldValue).activity-meta {{ displayDate currentData.timeOldValue 'LLL' }}
         = ' @'
       else if(currentData.timeValue)
         | {{_ activity.activityType currentData.timeValue}}
 
       if($neq mode 'none')
-        div(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}
+        div(title=activity.createdAt).activity-meta {{ displayDate activity.createdAt }}

@@ -2689,7 +2689,6 @@ if (Meteor.isServer) {
     }
   });
 }
-
 const addCronJob = _.debounce(
   Meteor.bindEnvironment(function notificationCleanupDebounced() {
     // passed in the removeAge has to be a number standing for the number of days after a notification is read before we remove it
@@ -2713,31 +2712,27 @@ const addCronJob = _.debounce(
           let totalRemoved = 0;
           
           for (const user of ReactiveCache.getUsers()) {
-            // FIXED: Check if user has profile and notifications (was backwards)
+            // Skip users without profile or notifications
             if (!user.profile || !user.profile.notifications) continue;
             
-            let modified = false;
-            const originalLength = user.profile.notifications.length;
-            
-            // Filter out old read notifications
             const keptNotifications = [];
             for (const notification of user.profile.notifications) {
               if (notification.read) {
-                // FIXED: Define removeDate properly
+                // Calculate when this notification should be removed
                 const removeDate = new Date(notification.read);
                 removeDate.setDate(removeDate.getDate() + removeAge);
                 
                 if (removeDate <= new Date()) {
                   // This notification is old enough to remove
                   totalRemoved++;
-                  modified = true;
-                  continue; // Skip adding this notification back
+                  continue; // Skip adding it back
                 }
               }
               keptNotifications.push(notification);
             }
             
-            if (modified) {
+            // Update user if notifications were removed
+            if (keptNotifications.length !== user.profile.notifications.length) {
               Users.update(user._id, {
                 $set: { 'profile.notifications': keptNotifications }
               });
@@ -2763,7 +2758,6 @@ const addCronJob = _.debounce(
   }),
   500,
 );
-
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
   Meteor.startup(async () => {

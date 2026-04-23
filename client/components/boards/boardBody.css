@@ -293,7 +293,7 @@ body.mobile-mode.iphone-device .card-details .card-details-item-title {
   .board-wrapper .board-canvas .board-overlay {
     z-index: 17 !important;
   }
-  
+
   /* In desktop mode on small screens, still keep overlay behind card */
   body.desktop-mode .board-wrapper .board-canvas .board-overlay {
     z-index: 17 !important;

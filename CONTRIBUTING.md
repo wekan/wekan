@@ -6,24 +6,25 @@ Not paid:
   - Security reports, see [SECURITY.md](SECURITY.md)
   - Pull requests
   - xet7 checking pull requests
-- Public Community Support
+  - This is because full-featured WeKan FLOSS kanban with MIT license is free to use
+    also for Commercial Use without any payment, with full source code at
+    https://github.com/wekan/wekan for all platforms at https://wekan.fi/install/ .
+    There is nothing proprietary. WeKan is NOT Big Tech.
+    WeKan is maintained by https://github.com/xet7 at Finland https://wekan.fi .     
+- Public FLOSS Developer Community Support:
   - https://github.com/wekan/wekan/issues
 
-Paid by customers of WeKan Team:
+Paid by customers of WeKan to WeKan:
 
-- Commercial Support at https://wekan.fi/commercial-support/
-  - Support
-  - Private Chat
-  - Features
-  - Fixes
-  - Hosting
+- Optional Private Paid Commercial Support at https://wekan.fi/commercial-support/
+  - Optional Paid Support/Features/Fixes/PrivateChat . All Paid Features and Fixes are added directly to FLOSS WeKan https://github.com/wekan/wekan
+  - Optional Paid Official SaaS Hosting https://wekan.fi/saas/ , if you need full-featured hosting, that is more than free app https://wekan.fi/app/
 
 ## Contributing Security related
 
-For responsible security disclosure, please follow this process:
-https://github.com/wekan/wekan/blob/main/SECURITY.md
+For responsible security disclosure, please follow this process: [SECURITY.md](SECURITY.md)
 
-CVE Hall of Fame is at https://wekan.github.io/hall-of-fame/
+CVE Hall of Fame is at https://wekan.fi/hall-of-fame/
 
 ## Contributing to Documentation Wiki
 
@@ -33,7 +34,7 @@ and click send PR.
 
 ## Contributing code
 
-[Building WeKan and sending PR](https://github.com/wekan/wekan/wiki/Emoji).
+[Building WeKan and sending PR](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md).
 
 WeKan code contributors Hall of Fame is at ChangeLog, where
 GitHub usernames are mentioned with changes added:
@@ -44,9 +45,9 @@ Changes can be like typo fixes, bugfixes, features, or anything else
 like for example at open GitHub issues https://github.com/wekan/wekan/issues .
 Closed issues are already fixed or implemented.
 
-Also see other docs at wiki, for example:
+Also see other docs:
 
-https://github.com/wekan/wekan/wiki/Developer-Documentation
+https://github.com/wekan/wekan/tree/main/docs2/DeveloperDocs
 
 Do not use code formatting or linting like eslist or prettier.
 
@@ -64,7 +65,7 @@ so that WeKan code will still work OK.
 ## Contributing translations
 
 Non-English translations are contributed only at
-https://transifex.com/wekan/wekan
+https://app.transifex.com/wekan/wekan
 
 When adding new features, in your PR to
 https://github.com/wekan/wekan/pulls

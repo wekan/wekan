@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "wekan.fullname" . }}
+  labels:
+    app: {{ template "wekan.name" . }}
+    chart: {{ template "wekan.chart" . }}
+    component: wekan
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    {{- if .Values.deploymentLabels }}
+    {{- toYaml .Values.deploymentLabels | nindent 4 }}
+    {{- end }}
+spec:
+  strategy:
+  {{ toYaml .Values.updateStrategy | nindent 4 }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "wekan.name" . }}
+      component: wekan
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.podAnnotations }}
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+        {{- end }}
+      labels:
+        app: {{ template "wekan.name" . }}
+        component: wekan
+        release: {{ .Release.Name }}
+        {{- if .Values.podLabels }}
+        {{- toYaml .Values.podLabels | nindent 8 }}
+        {{- end }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ template "wekan.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccounts.automount }}
+      {{- if ne .Values.platform "openshift" }}
+      initContainers:
+        - name: volume-permissions
+          image: "{{ .Values.init.image.repository }}:{{ .Values.init.image.tag }}"
+          imagePullPolicy: {{ .Values.init.image.pullPolicy }}
+          command: ['sh', '-c', 'chown -R 999:999 /data']
+          volumeMounts:
+            - name: shared-data-volume
+              mountPath: /data
+          resources:
+            {{- toYaml .Values.init.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.init.podSecurityContext | nindent 12 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          terminationMessagePolicy: FallbackToLogsOnError
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+          env:
+            - name: ROOT_URL
+              value: {{ .Values.root_url | quote }}
+          {{- $mongo_url_is_secret := false }}
+          {{- range $key := .Values.secretEnv }}
+            {{- if eq .name "MONGO_URL" }}
+              {{- $mongo_url_is_secret = true }}
+            {{- end }}
+          {{- end }}
+          {{- if not $mongo_url_is_secret }}
+            - name: MONGO_URL
+              value: "{{ template "mongodb.url" . }}"
+          {{- end }}
+          {{- $oplogUrl := include "mongodb.oplog.url" . -}}
+          {{- if $oplogUrl }}
+            - name: MONGO_OPLOG_URL
+              value: {{ $oplogUrl | quote }}
+          {{- end }}
+          {{- range $key := .Values.env }}
+          {{- if .value }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
+          {{- end }}
+          {{- range $key := .Values.secretEnv }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "wekan.fullname" $ }}-secret
+                  key: {{ .name }}
+          {{- end }}
+          envFrom:
+            {{- with .Values.extraEnvFrom }}
+            {{- tpl . $ | nindent 10 }}
+            {{- end }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            {{- omit .Values.startupProbe "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{ if .Values.sharedDataFolder.enabled }}
+          volumeMounts:
+            - name: shared-data-volume
+              mountPath: /data
+          {{ end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+{{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      {{ if .Values.sharedDataFolder.enabled }}
+      volumes:
+      - name: shared-data-volume
+        persistentVolumeClaim:
+          claimName: {{ template "wekan.fullname" . }}-shared-data
+      {{ end }}

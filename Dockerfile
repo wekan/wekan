@@ -4,22 +4,23 @@ LABEL org.opencontainers.image.ref.name="ubuntu"
 LABEL org.opencontainers.image.version="24.04"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
-# TARGETARCH is automatically provided by Docker Buildx
+# TARGETARCH and TARGETVARIANT are automatically provided by Docker Buildx
 ARG TARGETARCH
+ARG TARGETVARIANT
+ARG VERSION=8.94
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 unzip"
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=v14.21.4 \
-    METEOR_RELEASE=METEOR@2.16 \
+    NODE_VERSION=v24.15.0 \
+    METEOR_RELEASE=METEOR@3.5-beta.7 \
     USE_EDGE=false \
-    METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=6.14.17 \
-    FIBERS_VERSION=4.0.1 \
+    NPM_VERSION=11.11.0 \
     SRC_PATH=./ \
     WITH_API=true \
+    MONGO_OPLOG_URL="" \
     RESULTS_PER_PAGE="" \
     DEFAULT_BOARD_ID="" \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3 \
@@ -168,25 +169,28 @@ apt-get update --assume-yes
 apt-get upgrade --assume-yes
 apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
-# Multi-arch mapping logic
+# Multi-arch mapping: Docker TARGETARCH -> Node.js arch name + WeKan bundle name
+# arm/v7 uses TARGETARCH=arm; armhf has no MongoDB Community -> uses FerretDB
 case "${TARGETARCH}" in
-    "amd64")  NODE_ARCH="x64"  WEKAN_ARCH="amd64" ;;
-    "arm64")  NODE_ARCH="arm64" WEKAN_ARCH="arm64" ;;
-    "s390x")  NODE_ARCH="s390x" WEKAN_ARCH="s390x" ;;
+    "amd64")   NODE_ARCH="x64"     WEKAN_ARCH="amd64"   ;;
+    "arm64")   NODE_ARCH="arm64"   WEKAN_ARCH="arm64"   ;;
+    "arm")     NODE_ARCH="armv7l"  WEKAN_ARCH="armhf"   ;;
+    "ppc64le") NODE_ARCH="ppc64le" WEKAN_ARCH="ppc64le" ;;
+    "s390x")   NODE_ARCH="s390x"   WEKAN_ARCH="s390x"   ;;
     *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;;
 esac
 
-# Node.js Installation
+# Node.js Installation (official nodejs.org builds for Node 22)
 cd /tmp
-wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
-wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
-grep "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt | shasum -a 256 -c -
+wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
+wget "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc"
+grep "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt.asc | shasum -a 256 -c -
 tar xzf "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt
+rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt.asc
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 
 # NPM configuration
-npm install -g npm@${NPM_VERSION} --production
+npm install -g npm@${NPM_VERSION}
 chown --recursive wekan:wekan /home/wekan/
 
 # Temporary Tar swap for Meteor bundle
@@ -196,9 +200,10 @@ ln -sf $(which bsdtar) $(which tar)
 # WeKan Bundle Installation
 mkdir -p /home/wekan/app
 cd /home/wekan/app
-wget "https://github.com/wekan/wekan/releases/download/v8.27/wekan-8.27-${WEKAN_ARCH}.zip"
-unzip "wekan-8.27-${WEKAN_ARCH}.zip"
-rm "wekan-8.27-${WEKAN_ARCH}.zip"
+wget "https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
+unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
+rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
+npm install --prefix ./bundle/programs/server
 mv /home/wekan/app/bundle /build
 
 # Restore original tar

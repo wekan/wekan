@@ -4,7 +4,8 @@ template(name="checklists")
       i.fa.fa-check
       | {{_ 'checklists'}}
       if canModifyCard
-        +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId  position="top")
+        +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId
+          position="top")
           +addChecklistItemForm
         else
           a.add-checklist-top.js-open-inlined-form(title="{{_ 'add-checklist'}}")
@@ -62,6 +63,10 @@ template(name="checklistDeletePopup")
   p {{_ 'confirm-checklist-delete-popup'}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
+template(name="checklistItemDeletePopup")
+  p {{_ 'confirm-checklist-item-delete-popup'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
 template(name="addChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
   span.copied-tooltip {{_ 'copied'}}
@@ -91,7 +96,7 @@ template(name="editChecklistItemForm")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-checklist-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-edit-checklist-item'}}")
-    span(title=createdAt) {{ moment createdAt }}
+    span(title=createdAt) {{ displayDate createdAt }}
     if canModifyCard
       a.js-delete-checklist-item {{_ "delete"}}...
       a.js-convert-checklist-item-to-card

@@ -60,10 +60,10 @@ class BoardMigrationDetector {
   /**
    * Check if system is idle and can run migrations
    */
-  isSystemIdle() {
+  async isSystemIdle() {
     const resources = cronJobStorage.getSystemResources();
-    const queueStats = cronJobStorage.getQueueStats();
-    
+    const queueStats = await cronJobStorage.getQueueStats();
+
     // Check if no jobs are running
     if (queueStats.running > 0) {
       return false;
@@ -86,7 +86,7 @@ class BoardMigrationDetector {
    * Check for idle migration opportunities
    */
   async checkForIdleMigration() {
-    if (!this.isSystemIdle()) {
+    if (!(await this.isSystemIdle())) {
       return;
     }
 
@@ -97,7 +97,7 @@ class BoardMigrationDetector {
     }
 
     // Check if we can start a new job
-    const canStart = cronJobStorage.canStartNewJob();
+    const canStart = await cronJobStorage.canStartNewJob();
     if (!canStart.canStart) {
       return;
     }
@@ -120,9 +120,9 @@ class BoardMigrationDetector {
 
     try {
       // Scanning for unmigrated boards
-      
+
       // Get all boards from the database
-      const boards = this.getAllBoards();
+      const boards = await this.getAllBoards();
       const unmigrated = [];
 
       for (const board of boards) {
@@ -147,15 +147,15 @@ class BoardMigrationDetector {
   /**
    * Get all boards from the database
    */
-  getAllBoards() {
+  async getAllBoards() {
     // This would need to be implemented based on your board model
     // For now, we'll simulate getting boards
     try {
       // Assuming you have a Boards collection
       if (typeof Boards !== 'undefined') {
-        return Boards.find({}, { fields: { _id: 1, title: 1, createdAt: 1, modifiedAt: 1 } }).fetch();
+        return await Boards.find({}, { fields: { _id: 1, title: 1, createdAt: 1, modifiedAt: 1 } }).fetchAsync();
       }
-      
+
       // Fallback: return empty array if Boards collection not available
       return [];
     } catch (error) {
@@ -170,15 +170,15 @@ class BoardMigrationDetector {
   async needsMigration(board) {
     try {
       // Check if board has been migrated by looking for migration markers
-      const migrationMarkers = this.getMigrationMarkers(board._id);
-      
+      const migrationMarkers = await this.getMigrationMarkers(board._id);
+
       // Check for specific migration indicators
       const needsListMigration = !migrationMarkers.listsMigrated;
       const needsAttachmentMigration = !migrationMarkers.attachmentsMigrated;
       const needsSwimlaneMigration = !migrationMarkers.swimlanesMigrated;
-      
+
       return needsListMigration || needsAttachmentMigration || needsSwimlaneMigration;
-      
+
     } catch (error) {
       console.error(`Error checking migration status for board ${board._id}:`, error);
       return false;
@@ -188,11 +188,11 @@ class BoardMigrationDetector {
   /**
    * Get migration markers for a board
    */
-  getMigrationMarkers(boardId) {
+  async getMigrationMarkers(boardId) {
     try {
       // Check if board has migration metadata
-      const board = Boards.findOne(boardId, { fields: { migrationMarkers: 1 } });
-      
+      const board = await Boards.findOneAsync(boardId, { fields: { migrationMarkers: 1 } });
+
       if (!board || !board.migrationMarkers) {
         return {
           listsMigrated: false,
@@ -217,7 +217,7 @@ class BoardMigrationDetector {
    */
   async startBoardMigration(boardId) {
     try {
-      const board = Boards.findOne(boardId);
+      const board = await Boards.findOneAsync(boardId);
       if (!board) {
         throw new Error(`Board ${boardId} not found`);
       }
@@ -230,16 +230,16 @@ class BoardMigrationDetector {
 
       // Create migration job for this board
       const jobId = `board_migration_${board._id}_${Date.now()}`;
-      
+
       // Add to job queue with high priority
-      cronJobStorage.addToQueue(jobId, 'board_migration', 1, {
+      await cronJobStorage.addToQueue(jobId, 'board_migration', 1, {
         boardId: board._id,
         boardTitle: board.title,
         migrationType: 'full_board_migration'
       });
 
       // Save initial job status
-      cronJobStorage.saveJobStatus(jobId, {
+      await cronJobStorage.saveJobStatus(jobId, {
         jobType: 'board_migration',
         status: 'pending',
         progress: 0,
@@ -289,17 +289,17 @@ class BoardMigrationDetector {
   /**
    * Get detailed migration status for a specific board
    */
-  getBoardMigrationStatus(boardId) {
+  async getBoardMigrationStatus(boardId) {
     const unmigrated = unmigratedBoards.get();
     const isUnmigrated = unmigrated.some(b => b._id === boardId);
-    
+
     if (!isUnmigrated) {
       return { needsMigration: false, reason: 'Board is already migrated' };
     }
 
-    const migrationMarkers = this.getMigrationMarkers(boardId);
-    const needsMigration = !migrationMarkers.listsMigrated || 
-                          !migrationMarkers.attachmentsMigrated || 
+    const migrationMarkers = await this.getMigrationMarkers(boardId);
+    const needsMigration = !migrationMarkers.listsMigrated ||
+                          !migrationMarkers.attachmentsMigrated ||
                           !migrationMarkers.swimlanesMigrated;
 
     return {
@@ -312,7 +312,7 @@ class BoardMigrationDetector {
   /**
    * Mark a board as migrated
    */
-  markBoardAsMigrated(boardId, migrationType) {
+  async markBoardAsMigrated(boardId, migrationType) {
     try {
       // Update migration markers and version
       const updateQuery = {};
@@ -320,7 +320,7 @@ class BoardMigrationDetector {
       updateQuery['migrationMarkers.lastMigration'] = new Date();
       updateQuery['migrationVersion'] = 1;  // Set migration version to prevent re-migration
 
-      Boards.update(boardId, { $set: updateQuery });
+      await Boards.updateAsync(boardId, { $set: updateQuery });
 
       // Remove from unmigrated list if present
       const currentUnmigrated = unmigratedBoards.get();
@@ -352,7 +352,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.getMigrationStats();
   },
 
@@ -360,71 +360,71 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.forceScan();
   },
 
-  'boardMigration.getBoardStatus'(boardId) {
+  async 'boardMigration.getBoardStatus'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return boardMigrationDetector.getBoardMigrationStatus(boardId);
+
+    return await boardMigrationDetector.getBoardMigrationStatus(boardId);
   },
 
-  'boardMigration.markAsMigrated'(boardId, migrationType) {
+  async 'boardMigration.markAsMigrated'(boardId, migrationType) {
     check(boardId, String);
     check(migrationType, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return boardMigrationDetector.markBoardAsMigrated(boardId, migrationType);
+
+    return await boardMigrationDetector.markBoardAsMigrated(boardId, migrationType);
   },
 
   'boardMigration.startBoardMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.startBoardMigration(boardId);
   },
 
-  'boardMigration.fixStuckBoards'() {
+  async 'boardMigration.fixStuckBoards'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     // Find boards that have migration markers but no migrationVersion
-    const stuckBoards = Boards.find({
+    const stuckBoards = await Boards.find({
       'migrationMarkers.fullMigrationCompleted': true,
       $or: [
         { migrationVersion: { $exists: false } },
         { migrationVersion: { $lt: 1 } }
       ]
-    }).fetch();
-    
+    }).fetchAsync();
+
     let fixedCount = 0;
-    stuckBoards.forEach(board => {
+    for (const board of stuckBoards) {
       try {
-        Boards.update(board._id, { 
-          $set: { 
+        await Boards.updateAsync(board._id, {
+          $set: {
             migrationVersion: 1,
             'migrationMarkers.lastMigration': new Date()
-          } 
+          }
         });
         fixedCount++;
         console.log(`Fixed stuck board: ${board._id} (${board.title})`);
       } catch (error) {
         console.error(`Error fixing board ${board._id}:`, error);
       }
-    });
-    
+    }
+
     return {
       message: `Fixed ${fixedCount} stuck boards`,
       fixedCount,

@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<!-- SPDX-License-Identifier: CC0-1.0 -->
+<!-- SPDX-FileCopyrightText: 2022-2023 by The Foundation for Public Code <info@publiccode.net>, https://standard.publiccode.net/AUTHORS -->
+<head>
+<meta charset="UTF-8">
+<title>WeKan and the Standard for Public Code</title>
+<style>
+html, body {
+font-family: Mulish;
+font-size: 11pt;
+}
+h1, h2 {
+font-weight: normal;
+position: relative;
+}
+h1 {
+margin-top: 0;
+font-size: 1.5cm;
+border-bottom: none;
+}
+h2 {
+font-size: 1.5em;
+}
+@media print {
+a {
+color: #111;
+text-decoration: none;
+}
+th {
+font-weight: 600;
+}
+td {
+padding: 6px 13px;
+border: 1px solid #dfe2e5;
+}
+tr {
+background-color: #fff;
+border-top: 1px solid #c6cbd1;
+}
+tr:nth-child(2n) {
+background-color: #f6f8fa;
+}
+}
+</style>
+</head>
+<body>
+<h1>WeKan and the Standard for Public Code version <span class="standard-version">0.7.1</span></h1>
+
+Link to commitment to meet the Standard for Public Code:
+
+<h2><a href="https://standard.publiccode.net/criteria/code-in-the-open.html">Code in the open</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="code-in-the-open" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+N/A
+</td>
+<td>
+All source code for any policy in use (unless used for fraud detection) MUST be published and publicly accessible.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+All source code for any software in use (unless used for fraud detection) MUST be published and publicly accessible.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan">GitHub</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST NOT contain sensitive information regarding users, their organization or third parties.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Any source code not currently in use (such as new versions, proposals or older versions) SHOULD be published.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/releases">Releases</a>
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Documenting which source code or policy underpins any specific interaction the general public may have with an organization is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/bundle-policy-and-source-code.html">Bundle policy and source code</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="bundle-policy-and-source-code" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+N/A
+</td>
+<td>
+The codebase MUST include the policy that the source code is based on.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+If a policy is based on source code, that source code MUST be included in the codebase, unless used for fraud detection.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Policy SHOULD be provided in machine-readable and unambiguous formats.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Continuous integration tests SHOULD validate that the source code and the policy are executed coherently.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/make-the-codebase-reusable-and-portable.html">Make the codebase reusable and portable</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="make-the-codebase-reusable-and-portable" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST be developed to be reusable in different contexts.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+The codebase MUST be independent from any secret, undisclosed, proprietary or non-open licensed software or services for execution and understanding.
+</td>
+<td>
+It is possible to use Open Source <a href="https://github.com/wekan/wekan/blob/main/docs2/Databases/FerretDB2-PostgreSQL.md">FerretDB 2 / PostgreSQL</a>
+as complete replacement of non-open license MongoDB.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD be in use by multiple parties.
+</td>
+<td>
+<a href="https://snapcraft.io/wekan">Ubuntu Snap map</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The roadmap SHOULD be influenced by the needs of multiple parties.
+</td>
+<td>
+Features are commissioned by paying customers, and features are contributed by outside developers and merged. Roadmap link can be found on <a href="https://wekan.fi/">wekan.fi</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The development of the codebase SHOULD be a collaboration between multiple parties.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/graphs/contributors">contributors</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Configuration SHOULD be used to make source code adapt to context specific needs.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD be localizable.
+</td>
+<td>
+<a href="https://app.transifex.com/wekan/wekan/">Transifex translated</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Source code and its documentation SHOULD NOT contain situation-specific information.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Codebase modules SHOULD be documented in such a way as to enable reuse in codebases in other contexts.
+</td>
+<td>
+List of <a href="https://github.com/wekan/wekan/tree/main/packages">WeKan packages</a> and list of <a href="https://github.com/wekan/wekan/tree/main/client/components">client components</a>. Components are not explicitly documented for reuse.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+The software SHOULD NOT require services or platforms available from only a single vendor.
+</td>
+<td>
+The database is only available from one vendor, this will change within the coming year.
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/welcome-contributors.html">Welcome contributors</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="welcome-contributors" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST allow anyone to submit suggestions for changes to the codebase.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/pulls">Pull requests</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST include contribution guidelines explaining what kinds of contributions are welcome and how contributors can get involved, for example in a `CONTRIBUTING` file.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/CONTRIBUTING.md">CONTRIBUTING</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST document the governance of the codebase, contributions and its community, for example in a `GOVERNANCE` file.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/GOVERNANCE.md">GOVERNANCE</a> (and in <a href="https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md#what-is-wekan-team">FAQ</a>)
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The contribution guidelines SHOULD document who is expected to cover the costs of reviewing contributions.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/CONTRIBUTING.md#about-money">CONTRIBUTING</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD advertise the committed engagement of involved organizations in the development and maintenance.
+</td>
+<td>
+There is an <a href="https://github.com/wekan/wekan/blob/main/CONTRIBUTING.md#contributing-code">about section</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD have a publicly available roadmap.
+</td>
+<td>
+<a href="https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license">Roadmap</a> and <a href="https://github.com/wekan/wekan/blob/main/FUTURE.md">Future</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD publish codebase activity statistics.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/pulse">GitHub pulse</a> and <a href="https://openhub.net/p/wekan">OpenHub</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Including a code of conduct for contributors in the codebase is OPTIONAL.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/CODE_OF_CONDUCT.md">CODE OF CONDUCT</a> and <a href="https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md#etiquette">Etiquette section in FAQ</a>
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/make-contributing-easy.html">Make contributing easy</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="make-contributing-easy" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST have a public issue tracker that accepts suggestions from anyone.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/issues">issues</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The documentation MUST link to both the public issue tracker and submitted codebase changes, for example in a `README` file.
+</td>
+<td>
+GitHub
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST have communication channels for users and developers, for example email lists.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/issues">GitHub issues</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+There MUST be a way to report security issues for responsible disclosure over a closed channel.
+</td>
+<td>
+Explained in <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md">SECURITY</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The documentation MUST include instructions for how to report potentially security sensitive issues.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/SECURITY.md">SECURITY</a>
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/maintain-version-control.html">Maintain version control</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="maintain-version-control" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+All files in the codebase MUST be version controlled.
+</td>
+<td>
+Git
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+All decisions MUST be documented in commit messages.
+</td>
+<td>
+Often the decision is in the PR, which is mentioned as a "fixes #5187" in the commit message. CHANGELOG links to commits and PRs with discussions.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Every commit message MUST link to discussions and issues wherever possible.
+</td>
+<td>
+(see above)
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD be maintained in a distributed version control system.
+</td>
+<td>
+Git
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Contribution guidelines SHOULD require contributors to group relevant changes in commits.
+</td>
+<td>
+"Only send minimal changed code lines, that are related to feature or fix." in <a href="https://github.com/wekan/wekan/blob/main/CONTRIBUTING.md#contributing-code">CONTRIBUTING</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Maintainers SHOULD mark released versions of the codebase, for example using revision tags or textual labels.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/releases">Releases</a> and <a href="https://github.com/wekan/wekan/tags">Tags</a> and <a href="https://hub.docker.com/r/wekanteam/wekan/tags">docker tags</a> etc.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Contribution guidelines SHOULD encourage file formats where the changes within the files can be easily viewed and understood in the version control system.
+</td>
+<td>
+This could be a one line addition to the CONTRIBUTING file.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+It is OPTIONAL for contributors to sign their commits and provide an email address, so that future contributors are able to contact past contributors with questions about their work.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/require-review-of-contributions.html">Require review of contributions</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="require-review-of-contributions" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+
+</td>
+<td>
+All contributions that are accepted or committed to release versions of the codebase MUST be reviewed by another contributor.
+</td>
+<td>
+External contributions are reviewed by maintainer. There is not yet a second full-time maintainer able to review the primary maintainer's commits.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Reviews MUST include source, policy, tests and documentation.
+</td>
+<td>
+Documentation is updated separately by the maintainer. Testing is limited to dependency checks and build success.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Reviewers MUST provide feedback on all decisions to not accept a contribution.
+</td>
+<td>
+Maintainer, provides in the cases.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The review process SHOULD confirm that a contribution conforms to the standards, architecture and decisions set out in the codebase in order to pass review.
+</td>
+<td>
+Not explicitly documented, yet the maintainer ensures this during review, things need to be in the correct locations in order to work.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Reviews SHOULD include running both the software and the tests of the codebase.
+</td>
+<td>
+Maintainer tests locally if needed.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Contributions SHOULD be reviewed by someone in a different context than the contributor.
+</td>
+<td>
+True for external contributions, not yet a second full-time maintainer.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Version control systems SHOULD NOT accept non-reviewed contributions in release versions.
+</td>
+<td>
+No protected branch, single maintainer with commit rights.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Reviews SHOULD happen within two business days.
+</td>
+<td>
+No explicit policy, but maintainer is prompt with reviews and merges.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Performing reviews by multiple reviewers is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/document-codebase-objectives.html">Document codebase objectives</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="document-codebase-objectives" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST contain documentation of its objectives, like a mission and goal statement, that is understandable by developers and designers so that they can use or contribute to the codebase.
+</td>
+<td>
+In tagline and <a href="https://github.com/wekan/wekan#about-wekan-">README</a>
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Codebase documentation SHOULD clearly describe the connections between policy objectives and codebase objectives.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Documenting the objectives of the codebase for the general public is OPTIONAL.
+</td>
+<td>
+In tagline and <a href="https://github.com/wekan/wekan#about-wekan-">README</a>
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/document-the-code.html">Document the code</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="document-the-code" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+All of the functionality of the codebase, policy as well as source code, MUST be described in language clearly understandable for those that understand the purpose of the codebase.
+</td>
+<td>
+Docs for describing features; if someone raises a question, the answer usually is added to a docs page. It would be nice to have some more visual examples pictures and videos for things like install process and drag-and-drop features.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The documentation of the codebase MUST contain a description of how to install and run the software.
+</td>
+<td>
+<a href="https://wekan.fi/install/">Install section on the website</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The documentation of the codebase MUST contain examples demonstrating the key functionality.
+</td>
+<td>
+Under features in the <a href="https://github.com/wekan/wekan/tree/main/docs">docs</a>, e.g.: <a href="https://github.com/wekan/wekan/blob/main/docs2/DragDrop/Drag-Drop.md">Drag and drop for mobile</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The documentation of the codebase SHOULD contain a high level description that is clearly understandable for a wide audience of stakeholders, like the general public and journalists.
+</td>
+<td>
+On the <a href="https://github.com/wekan/wekan/tree/main/docs">docs</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The documentation of the codebase SHOULD contain a section describing how to install and run a standalone version of the source code, including, if necessary, a test dataset.
+</td>
+<td>
+<a href="https://wekan.fi/install/">Install section on the website</a>
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+The documentation of the codebase SHOULD contain examples for all functionality.
+</td>
+<td>
+Most of the functionality are covered on the <a href="https://github.com/wekan/wekan/tree/main/docs">docs</a>, but there are a few missing, these can be found in the changelog.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+The documentation SHOULD describe the key components or modules of the codebase and their relationships, for example as a high level architectural diagram.
+</td>
+<td>
+There is a logical directory structure, no high level architectural diagram/docs at the moment.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+There SHOULD be continuous integration tests for the quality of the documentation.
+</td>
+<td>
+Feedback indicates that the documention is very clear. There are plans to make additional documentation.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Including examples that make users want to immediately start using the codebase in the documentation of the codebase is OPTIONAL.
+</td>
+<td>
+Docs has good examples and <a href="https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license">Roadmap</a> shows it in use.
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/use-plain-english.html">Use plain English</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="use-plain-english" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+All codebase documentation MUST be in English.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+All source code MUST be in English, except where policy is machine interpreted as code.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+All bundled policy not available in English MUST have an accompanying summary in English.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Any translation MUST be up to date with the English version and vice versa.
+</td>
+<td>
+English and Finnish are the only "core" translations supported for releases. Other translations are "in tree", yet  contributed by the community, thus do not block releases. Perhaps this could be more clearly documented?
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+There SHOULD be no acronyms, abbreviations, puns or legal/non-English/domain specific terms in the codebase without an explanation preceding it or a link to an explanation.
+</td>
+<td>
+There are some.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Documentation SHOULD aim for a lower secondary education reading level, as recommended by the <a href="https://www.w3.org/WAI/WCAG21/quickref/?showtechniques=315#readable">Web Content Accessibility Guidelines 2</a>.
+</td>
+<td>
+In practice, clear language is the goal, however this is not explicitly documented. This could be a one line addition to the CONTRIBUTING file.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Providing a translation of any code, documentation or tests is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/use-open-standards.html">Use open standards</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="use-open-standards" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+For features of the codebase that facilitate the exchange of data the codebase MUST use an open standard that meets the <a href="https://opensource.org/osr">Open Source Initiative Open Standard Requirements</a>.
+</td>
+<td>
+XML, JSON, and many others are supported, <a href="https://github.com/wekan/wekan/blob/main/docs2/ImportExport/Sync.md">Sync</a>
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Any non-open standards used MUST be recorded clearly as such in the documentation.
+</td>
+<td>
+No non-open standards required.
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Any standard chosen for use within the codebase MUST be listed in the documentation with a link to where it is available.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Any non-open standards chosen for use within the codebase MUST NOT hinder collaboration and reuse.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+If no existing open standard is available, effort SHOULD be put into developing one.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Open standards that are machine testable SHOULD be preferred over open standards that are not.
+</td>
+<td>
+XML is preferred
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Non-open standards that are machine testable SHOULD be preferred over non-open standards that are not.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/use-continuous-integration.html">Use continuous integration</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="use-continuous-integration" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+
+</td>
+<td>
+All functionality in the source code MUST have automated tests.
+</td>
+<td>
+No test suite currently.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Contributions MUST pass all automated tests before they are admitted into the codebase.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST have guidelines explaining how to structure contributions.
+</td>
+<td>
+CONTRIBUTING encourages focused contributions: "Only send minimal changed code lines, that are related to feature or fix." Further documentation in <a href="https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Developer-Documentation.md#pull-request-workflow-please-read-before-submitting-prs">Developer guide</a>.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST have active contributors who can review contributions.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Automated test results for contributions SHOULD be public.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase guidelines SHOULD state that each contribution should focus on a single issue.
+</td>
+<td>
+CONTRIBUTING encourages focused contributions: "Only send minimal changed code lines, that are related to feature or fix.", and maintainer will review and may merge exceptions if of high quality and if appropriate.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Source code test and documentation coverage SHOULD be monitored.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Testing policy and documentation for consistency with the source and vice versa is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+N/A
+</td>
+<td>
+Testing policy and documentation for style and broken links is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Testing the software by using examples in the documentation is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/publish-with-an-open-license.html">Publish with an open license</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="publish-with-an-open-license" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+All source code and documentation MUST be licensed such that it may be freely reusable, changeable and redistributable.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/LICENSE">LICENSE</a>. Some <a href="https://github.com/wekan/wekan/tree/main/packages">wekan packages</a> have other licenses, that could be made more clear on a higher level (for instance in the License section in the README). 
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Software source code MUST be licensed under an <a href="https://spdx.org/licenses/">OSI-approved or FSF Free/Libre license</a>.
+</td>
+<td>
+The MIT License
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+All source code MUST be published with a license file.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Contributors MUST NOT be required to transfer copyright of their contributions to the codebase.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+All source code files in the codebase SHOULD include a copyright notice and a license header that are machine-readable.
+</td>
+<td>
+Maintainer would appreciate a pull request adding this. Adding license headers is straight-forward, copyright holders are not as clear.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Having multiple licenses for different types of source code and documentation is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/make-the-codebase-findable.html">Make the codebase findable</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="make-the-codebase-findable" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+The name of the codebase SHOULD be descriptive and free from acronyms, abbreviations, puns or organizational branding.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD have a short description that helps someone understand what the codebase is for or what it does.
+</td>
+<td>
+"WeKan ® is an completely Open Source and Free software collaborative kanban board application with MIT license." in <a href="https://github.com/wekan/wekan#about-wekan-">README</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Maintainers SHOULD submit the codebase to relevant software catalogs.
+</td>
+<td>
+Many, for example: <a href="https://offentligkod.se/#page-7">Offentligkod.se</a>, <a href="https://hub.docker.com/r/wekanteam/wekan">docker hub</a>, <a href="https://artifacthub.io/packages/helm/wekan/wekan">Artifacthub</a>, <a href="https://snapcraft.io/wekan">Snap store</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD have a website which describes the problem the codebase solves using the preferred jargon of different potential users of the codebase (including technologists, policy experts and managers).
+</td>
+<td>
+https://wekan.fi/
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD be findable using a search engine by codebase name.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD be findable using a search engine by describing the problem it solves in natural language.
+</td>
+<td>
+<a href="https://duckduckgo.com/?q=Open+Source+Free+software+collaborative+kanban+&t=newext&atb=v396-1&ia=web">duckduckgo</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD have a unique and persistent identifier where the entry mentions the major contributors, repository location and website.
+</td>
+<td>
+<a href="https://www.wikidata.org/wiki/Q50558592">wikidata</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD include a machine-readable metadata description, for example in a <a href="https://github.com/publiccodeyml/publiccode.yml">publiccode.yml</a> file.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/snapcraft.yaml">snapcraft.yaml</a>
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+A dedicated domain name for the codebase is OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Regular presentations at conferences by the community are OPTIONAL.
+</td>
+<td>
+
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/use-a-coherent-style.html">Use a coherent style</a></h2>
+
+&#9744;<!-- &#9745; --> criterion met.
+
+<table id="use-a-coherent-style" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST use a coding or writing style guide, either the codebase community's own or an existing one referred to in the codebase.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Developer-Documentation.md#style-guide">Follows Meteor style</a>
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Contributions SHOULD pass automated tests on style.
+</td>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+The style guide SHOULD include expectations for inline comments and documentation for non-trivial sections.
+</td>
+<td>
+Neither the codbase style guide, nor the meteor guide which it reference, specify inline comments. In practice, if something is non-trivial there are code comments. This could be a one line addition to the Developer Documentation.
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+Including expectations for <a href="https://standard.publiccode.net/criteria/use-plain-english.html">understandable English</a> in the style guide is OPTIONAL.
+</td>
+<td>
+This could be a one line addition to the Developer Documentation.
+</td>
+</tr>
+
+</table>
+
+<h2><a href="https://standard.publiccode.net/criteria/document-codebase-maturity.html">Document codebase maturity</a></h2>
+
+&#9745;<!-- &#9745; --> criterion met.
+
+<table id="document-codebase-maturity" style="width:100%">
+<tr><th>Meets</th><th>Requirement</th><th style="width:25%">Notes and links</th></tr>
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST be versioned.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/releases">Releases</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase MUST prominently document whether or not there are versions of the codebase that are ready to use.
+</td>
+<td>
+<a href="https://wekan.fi/install/">Install section on the website</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+Codebase versions that are ready to use MUST only depend on versions of other codebases that are also ready to use.
+</td>
+<td>
+WeKan uses newest possible that meets the functional requirements. Maintainer takes responsibility that dependencies work, regardless of how they are labeled.
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The codebase SHOULD contain a log of changes from version to version, for example in the `CHANGELOG`.
+</td>
+<td>
+<a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md">CHANGELOG</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Ok
+</td>
+<td>
+The method for assigning version identifiers SHOULD be documented.
+</td>
+<td>
+Releases are versioned as increments are 0.01, explained in <a href="https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md#what-wekan-version-number-means">FAQ</a>
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+<td>
+It is OPTIONAL to use semantic versioning.
+</td>
+<td>
+No major or minor versions.
+</td>
+</tr>
+
+</table>
+</body>
+</html>

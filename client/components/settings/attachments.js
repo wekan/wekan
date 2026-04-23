@@ -1,32 +1,33 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import Attachments, { fileStoreStrategyFactory } from '/models/attachments';
-const filesize = require('filesize');
+import { groupBy } from '/imports/lib/collectionHelpers';
+import Attachments from '/models/attachments';
+const { filesize } = require('filesize');
 
-BlazeComponent.extendComponent({
-  subscription: null,
-  showMoveAttachments: new ReactiveVar(false),
-  sessionId: null,
+Template.attachments.onCreated(function () {
+  this.subscription = null;
+  this.showMoveAttachments = new ReactiveVar(false);
+  this.sessionId = null;
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+});
 
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
+Template.attachments.helpers({
+  loading() {
+    return Template.instance().loading;
   },
-
-  events() {
-    return [
-      {
-        'click a.js-move-attachments': this.switchMenu,
-      },
-    ];
+  showMoveAttachments() {
+    return Template.instance().showMoveAttachments;
   },
+});
 
-  switchMenu(event) {
+Template.attachments.events({
+  'click a.js-move-attachments'(event, tpl) {
     const target = $(event.target);
     if (!target.hasClass('active')) {
-      this.loading.set(true);
-      this.showMoveAttachments.set(false);
-      if (this.subscription) {
-        this.subscription.stop();
+      tpl.loading.set(true);
+      tpl.showMoveAttachments.set(false);
+      if (tpl.subscription) {
+        tpl.subscription.stop();
       }
 
       $('.side-menu li.active').removeClass('active');
@@ -34,31 +35,37 @@ BlazeComponent.extendComponent({
       const targetID = target.data('id');
 
       if ('move-attachments' === targetID) {
-        this.showMoveAttachments.set(true);
-        this.subscription = Meteor.subscribe('attachmentsList', () => {
-          this.loading.set(false);
+        tpl.showMoveAttachments.set(true);
+        tpl.subscription = Meteor.subscribe('attachmentsList', () => {
+          tpl.loading.set(false);
         });
       }
     }
   },
-}).register('attachments');
+});
 
-BlazeComponent.extendComponent({
+Template.moveAttachments.onCreated(function () {
+  this.attachments = null;
+});
+
+Template.moveAttachments.helpers({
   getBoardsWithAttachments() {
-    this.attachments = ReactiveCache.getAttachments();
-    this.attachmentsByBoardId = _.chain(this.attachments)
-      .groupBy(fileObj => fileObj.meta.boardId)
-      .value();
+    const tpl = Template.instance();
+    tpl.attachments = ReactiveCache.getAttachments();
+    const attachmentsByBoardId = groupBy(tpl.attachments, fileObj => fileObj.meta.boardId);
 
-    const ret = Object.keys(this.attachmentsByBoardId)
+    const ret = Object.keys(attachmentsByBoardId)
       .map(boardId => {
-        const boardAttachments = this.attachmentsByBoardId[boardId];
+        const boardAttachments = attachmentsByBoardId[boardId];
 
-        _.each(boardAttachments, _attachment => {
+        boardAttachments.forEach(_attachment => {
           _attachment.flatVersion = Object.keys(_attachment.versions)
             .map(_versionName => {
               const _version = Object.assign(_attachment.versions[_versionName], {"versionName": _versionName});
-              _version.storageName = fileStoreStrategyFactory.getFileStrategy(_attachment, _versionName).getStorageName();
+              // Read storage directly from the document (set by onAfterUpload on server)
+              _version.storageName = _version.storage || (
+                (_attachment.meta?.source === 'import' || _version.meta?.gridFsFileId) ? 'gridfs' : 'fs'
+              );
               return _version;
             });
         });
@@ -72,71 +79,65 @@ BlazeComponent.extendComponent({
     const ret = ReactiveCache.getBoard(boardId);
     return ret;
   },
-  events() {
-    return [
-      {
-        'click button.js-move-all-attachments-to-fs'(event) {
-          this.attachments.forEach(_attachment => {
-            Meteor.call('moveAttachmentToStorage', _attachment._id, "fs");
-          });
-        },
-        'click button.js-move-all-attachments-to-gridfs'(event) {
-          this.attachments.forEach(_attachment => {
-            Meteor.call('moveAttachmentToStorage', _attachment._id, "gridfs");
-          });
-        },
-        'click button.js-move-all-attachments-to-s3'(event) {
-          this.attachments.forEach(_attachment => {
-            Meteor.call('moveAttachmentToStorage', _attachment._id, "s3");
-          });
-        },
-      }
-    ]
-  }
-}).register('moveAttachments');
+});
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click button.js-move-all-attachments-of-board-to-fs'(event) {
-          this.data().attachments.forEach(_attachment => {
-            Meteor.call('moveAttachmentToStorage', _attachment._id, "fs");
-          });
-        },
-        'click button.js-move-all-attachments-of-board-to-gridfs'(event) {
-          this.data().attachments.forEach(_attachment => {
-            Meteor.call('moveAttachmentToStorage', _attachment._id, "gridfs");
-          });
-        },
-        'click button.js-move-all-attachments-of-board-to-s3'(event) {
-          this.data().attachments.forEach(_attachment => {
-            Meteor.call('moveAttachmentToStorage', _attachment._id, "s3");
-          });
-        },
-      }
-    ]
+Template.moveAttachments.events({
+  'click button.js-move-all-attachments-to-fs'(event, tpl) {
+    tpl.attachments.forEach(_attachment => {
+      Meteor.call('moveAttachmentToStorage', _attachment._id, "fs");
+    });
   },
-}).register('moveBoardAttachments');
+  'click button.js-move-all-attachments-to-gridfs'(event, tpl) {
+    tpl.attachments.forEach(_attachment => {
+      Meteor.call('moveAttachmentToStorage', _attachment._id, "gridfs");
+    });
+  },
+  'click button.js-move-all-attachments-to-s3'(event, tpl) {
+    tpl.attachments.forEach(_attachment => {
+      Meteor.call('moveAttachmentToStorage', _attachment._id, "s3");
+    });
+  },
+});
 
-BlazeComponent.extendComponent({
+Template.moveBoardAttachments.events({
+  'click button.js-move-all-attachments-of-board-to-fs'() {
+    const data = Template.currentData();
+    data.attachments.forEach(_attachment => {
+      Meteor.call('moveAttachmentToStorage', _attachment._id, "fs");
+    });
+  },
+  'click button.js-move-all-attachments-of-board-to-gridfs'() {
+    const data = Template.currentData();
+    data.attachments.forEach(_attachment => {
+      Meteor.call('moveAttachmentToStorage', _attachment._id, "gridfs");
+    });
+  },
+  'click button.js-move-all-attachments-of-board-to-s3'() {
+    const data = Template.currentData();
+    data.attachments.forEach(_attachment => {
+      Meteor.call('moveAttachmentToStorage', _attachment._id, "s3");
+    });
+  },
+});
+
+Template.moveAttachment.helpers({
   fileSize(size) {
     const ret = filesize(size);
     return ret;
   },
-  events() {
-    return [
-      {
-        'click button.js-move-storage-fs'(event) {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "fs");
-        },
-        'click button.js-move-storage-gridfs'(event) {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "gridfs");
-        },
-        'click button.js-move-storage-s3'(event) {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "s3");
-        },
-      }
-    ]
+});
+
+Template.moveAttachment.events({
+  'click button.js-move-storage-fs'() {
+    const data = Template.currentData();
+    Meteor.call('moveAttachmentToStorage', data._id, "fs");
   },
-}).register('moveAttachment');
+  'click button.js-move-storage-gridfs'() {
+    const data = Template.currentData();
+    Meteor.call('moveAttachmentToStorage', data._id, "gridfs");
+  },
+  'click button.js-move-storage-s3'() {
+    const data = Template.currentData();
+    Meteor.call('moveAttachmentToStorage', data._id, "s3");
+  },
+});

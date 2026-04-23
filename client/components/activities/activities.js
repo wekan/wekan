@@ -1,168 +1,192 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Template } from 'meteor/templating';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import { TAPi18n } from '/imports/i18n';
+import { Utils } from '/client/lib/utils';
+import { getSidebarInstance } from '/client/features/sidebar/service';
 
 const activitiesPerPage = 500;
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    // XXX Should we use ReactiveNumber?
-    this.page = new ReactiveVar(1);
-    this.loadNextPageLocked = false;
-    // TODO is sidebar always available? E.g. on small screens/mobile devices
-    const sidebar = Sidebar;
-    sidebar && sidebar.callFirstWith(null, 'resetNextPeak');
-    this.autorun(() => {
-      let mode = this.data()?.mode;
-      if (mode) {
-        const capitalizedMode = Utils.capitalize(mode);
-        let searchId;
-        const showActivities = this.showActivities();
-        if (mode === 'linkedcard' || mode === 'linkedboard') {
-          const currentCard = Utils.getCurrentCard();
-          searchId = currentCard.linkedId;
-          mode = mode.replace('linked', '');
-        } else if (mode === 'card') {
-          searchId = Utils.getCurrentCardId();
-        } else {
-          searchId = Session.get(`current${capitalizedMode}`);
-        }
-        const limit = this.page.get() * activitiesPerPage;
-        if (searchId === null) return;
+Template.activities.onCreated(function () {
+  // Register with sidebar so it can call loadNextPage on us
+  const Sidebar = getSidebarInstance();
+  if (Sidebar) {
+    Sidebar.activitiesInstance = this;
+  }
 
-        this.subscribe('activities', mode, searchId, limit, showActivities, () => {
-          this.loadNextPageLocked = false;
-
-          // TODO the guard can be removed as soon as the TODO above is resolved
-          if (!sidebar) return;
-          // If the sibear peak hasn't increased, that mean that there are no more
-          // activities, and we can stop calling new subscriptions.
-          // XXX This is hacky! We need to know excatly and reactively how many
-          // activities there are, we probably want to denormalize this number
-          // dirrectly into card and board documents.
-          const nextPeakBefore = sidebar.callFirstWith(null, 'getNextPeak');
-          sidebar.calculateNextPeak();
-          const nextPeakAfter = sidebar.callFirstWith(null, 'getNextPeak');
-          if (nextPeakBefore === nextPeakAfter) {
-            sidebar.callFirstWith(null, 'resetNextPeak');
-          }
-        });
-      }
-    });
-  },
-  loadNextPage() {
+  // XXX Should we use ReactiveNumber?
+  this.page = new ReactiveVar(1);
+  this.loadNextPageLocked = false;
+  this.loadNextPage = () => {
     if (this.loadNextPageLocked === false) {
       this.page.set(this.page.get() + 1);
       this.loadNextPageLocked = true;
     }
-  },
-  showActivities() {
-    let ret = false;
-    let mode = this.data()?.mode;
+  };
+
+  // TODO is sidebar always available? E.g. on small screens/mobile devices
+  const sidebar = getSidebarInstance();
+  if (sidebar && sidebar.infiniteScrolling) {
+    sidebar.infiniteScrolling.resetNextPeak();
+  }
+  this.autorun(() => {
+    const data = Template.currentData();
+    let mode = data?.mode;
     if (mode) {
+      const capitalizedMode = Utils.capitalize(mode);
+      let searchId;
+      const showActivities = _showActivities(data);
       if (mode === 'linkedcard' || mode === 'linkedboard') {
         const currentCard = Utils.getCurrentCard();
-        ret = currentCard.showActivities ?? false;
+        searchId = currentCard.linkedId;
+        mode = mode.replace('linked', '');
       } else if (mode === 'card') {
-        ret = this.data()?.card?.showActivities ?? false;
+        searchId = Utils.getCurrentCardId();
       } else {
-        ret = Utils.getCurrentBoard().showActivities ?? false;
+        searchId = Session.get(`current${capitalizedMode}`);
       }
-    }
-    return ret;
-  },
-  activities() {
-    const ret = this.data().card.activities();
-    return ret;
-  },
-}).register('activities');
+      const limit = this.page.get() * activitiesPerPage;
+      if (searchId === null) return;
 
-BlazeComponent.extendComponent({
+      this.subscribe('activities', mode, searchId, limit, showActivities, () => {
+        this.loadNextPageLocked = false;
+
+        // TODO the guard can be removed as soon as the TODO above is resolved
+        if (!sidebar || !sidebar.infiniteScrolling) return;
+        // If the sidebar peak hasn't increased, that means that there are no more
+        // activities, and we can stop calling new subscriptions.
+        const nextPeakBefore = sidebar.infiniteScrolling.getNextPeak();
+        sidebar.calculateNextPeak();
+        const nextPeakAfter = sidebar.infiniteScrolling.getNextPeak();
+        if (nextPeakBefore === nextPeakAfter) {
+          sidebar.infiniteScrolling.resetNextPeak();
+        }
+      });
+    }
+  });
+});
+
+function _showActivities(data) {
+  let ret = false;
+  let mode = data?.mode;
+  if (mode) {
+    if (mode === 'linkedcard' || mode === 'linkedboard') {
+      const currentCard = Utils.getCurrentCard();
+      ret = currentCard.showActivities ?? false;
+    } else if (mode === 'card') {
+      // For card mode, get showActivities from data context or fallback to current card
+      const card = data?.card || Utils.getCurrentCard();
+      ret = card?.showActivities ?? false;
+    } else {
+      ret = Utils.getCurrentBoard().showActivities ?? false;
+    }
+  }
+  return ret;
+}
+
+Template.activities.helpers({
+  showActivities() {
+    const data = Template.currentData();
+    return _showActivities(data);
+  },
+
+  activities() {
+    const activities = this.card?.activities?.();
+    return activities || [];
+  },
+});
+
+Template.boardActivities.helpers({
+  boardActivitiesList() {
+    const board = Utils.getCurrentBoard();
+    const activities = board?.activities?.();
+    return activities || [];
+  },
+});
+
+Template.cardActivities.helpers({
+  cardActivitiesList() {
+    const data = Template.currentData();
+    const card = data?.card;
+    const activities = card?.activities?.();
+    return activities || [];
+  },
+});
+
+Template.activity.helpers({
   checkItem() {
-    const checkItemId = this.currentData().activity.checklistItemId;
+    const checkItemId = this.activity.checklistItemId;
     const checkItem = ReactiveCache.getChecklistItem(checkItemId);
     return checkItem && checkItem.title;
   },
 
   boardLabelLink() {
-    const data = this.currentData();
     const currentBoardId = Session.get('currentBoard');
-    if (data.mode !== 'board') {
-      // data.mode: card, linkedcard, linkedboard
-      return createBoardLink(data.activity.board(), data.activity.listName ? data.activity.listName : null);
+    if (this.mode !== 'board') {
+      return createBoardLink(this.activity.board(), this.activity.listName ? this.activity.listName : null);
     }
-    else if (currentBoardId != data.activity.boardId) {
-      // data.mode: board
-      // current activitie is linked
-      return createBoardLink(data.activity.board(), data.activity.listName ? data.activity.listName : null);
+    else if (currentBoardId != this.activity.boardId) {
+      return createBoardLink(this.activity.board(), this.activity.listName ? this.activity.listName : null);
     }
     return TAPi18n.__('this-board');
   },
 
   cardLabelLink() {
-    const data = this.currentData();
     const currentBoardId = Session.get('currentBoard');
-    if (data.mode == 'card') {
-      // data.mode: card
+    if (this.mode == 'card') {
       return TAPi18n.__('this-card');
     }
-    else if (data.mode !== 'board') {
-      // data.mode: linkedcard, linkedboard
-      return createCardLink(data.activity.card(), null);
+    else if (this.mode !== 'board') {
+      return createCardLink(this.activity.card(), null);
     }
-    else if (currentBoardId != data.activity.boardId) {
-      // data.mode: board
-      // current activitie is linked
-      return createCardLink(data.activity.card(), data.activity.board().title);
+    else if (currentBoardId != this.activity.boardId) {
+      return createCardLink(this.activity.card(), this.activity.board().title);
     }
-    return createCardLink(this.currentData().activity.card(), null);
+    return createCardLink(this.activity.card(), null);
   },
 
   cardLink() {
-    const data = this.currentData();
     const currentBoardId = Session.get('currentBoard');
-    if (data.mode !== 'board') {
-      // data.mode: card, linkedcard, linkedboard
-      return createCardLink(data.activity.card(), null);
+    if (this.mode !== 'board') {
+      return createCardLink(this.activity.card(), null);
     }
-    else if (currentBoardId != data.activity.boardId) {
-      // data.mode: board
-      // current activitie is linked
-      return createCardLink(data.activity.card(), data.activity.board().title);
+    else if (currentBoardId != this.activity.boardId) {
+      return createCardLink(this.activity.card(), this.activity.board().title);
     }
-    return createCardLink(this.currentData().activity.card(), null);
+    return createCardLink(this.activity.card(), null);
   },
 
   receivedDate() {
-    const receivedDate = this.currentData().activity.card();
-    if (!receivedDate) return null;
-    return receivedDate.receivedAt;
+    const card = this.activity.card();
+    if (!card) return null;
+    return card.receivedAt;
   },
 
   startDate() {
-    const startDate = this.currentData().activity.card();
-    if (!startDate) return null;
-    return startDate.startAt;
+    const card = this.activity.card();
+    if (!card) return null;
+    return card.startAt;
   },
 
   dueDate() {
-    const dueDate = this.currentData().activity.card();
-    if (!dueDate) return null;
-    return dueDate.dueAt;
+    const card = this.activity.card();
+    if (!card) return null;
+    return card.dueAt;
   },
 
   endDate() {
-    const endDate = this.currentData().activity.card();
-    if (!endDate) return null;
-    return endDate.endAt;
+    const card = this.activity.card();
+    if (!card) return null;
+    return card.endAt;
   },
 
   lastLabel() {
-    const lastLabelId = this.currentData().activity.labelId;
+    const lastLabelId = this.activity.labelId;
     if (!lastLabelId) return null;
     const lastLabel = ReactiveCache.getBoard(
-      this.currentData().activity.boardId,
+      this.activity.boardId,
     ).getLabelById(lastLabelId);
     if (lastLabel && (lastLabel.name === undefined || lastLabel.name === '')) {
       return lastLabel.color;
@@ -175,7 +199,7 @@ BlazeComponent.extendComponent({
 
   lastCustomField() {
     const lastCustomField = ReactiveCache.getCustomField(
-      this.currentData().activity.customFieldId,
+      this.activity.customFieldId,
     );
     if (!lastCustomField) return null;
     return lastCustomField.name;
@@ -183,16 +207,15 @@ BlazeComponent.extendComponent({
 
   lastCustomFieldValue() {
     const lastCustomField = ReactiveCache.getCustomField(
-      this.currentData().activity.customFieldId,
+      this.activity.customFieldId,
     );
     if (!lastCustomField) return null;
-    const value = this.currentData().activity.value;
+    const value = this.activity.value;
     if (
       lastCustomField.settings.dropdownItems &&
       lastCustomField.settings.dropdownItems.length > 0
     ) {
-      const dropDownValue = _.find(
-        lastCustomField.settings.dropdownItems,
+      const dropDownValue = lastCustomField.settings.dropdownItems.find(
         item => {
           return item._id === value;
         },
@@ -203,13 +226,13 @@ BlazeComponent.extendComponent({
   },
 
   listLabel() {
-    const activity = this.currentData().activity;
+    const activity = this.activity;
     const list = activity.list();
     return (list && list.title) || activity.title;
   },
 
   sourceLink() {
-    const source = this.currentData().activity.source;
+    const source = this.activity.source;
     if (source) {
       if (source.url) {
         return Blaze.toHTML(
@@ -229,12 +252,12 @@ BlazeComponent.extendComponent({
 
   memberLink() {
     return Blaze.toHTMLWithData(Template.memberName, {
-      user: this.currentData().activity.member(),
+      user: this.activity.member(),
     });
   },
 
   attachmentLink() {
-    const attachment = this.currentData().activity.attachment();
+    const attachment = this.activity.attachment();
     // trying to display url before file is stored generates js errors
     return (
       (attachment &&
@@ -248,17 +271,16 @@ BlazeComponent.extendComponent({
             sanitizeText(attachment.name),
           ),
         )) ||
-      sanitizeText(this.currentData().activity.attachmentName)
+      sanitizeText(this.activity.attachmentName)
     );
   },
 
   customField() {
-    const customField = this.currentData().activity.customField();
+    const customField = this.activity.customField();
     if (!customField) return null;
     return customField.name;
   },
-
-}).register('activity');
+});
 
 Template.activity.helpers({
   sanitize(value) {

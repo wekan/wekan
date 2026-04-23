@@ -37,7 +37,7 @@ It's better than at chat where details get lost when chat scrolls up.
 
 ## Discussions
 
-[IRC](https://github.com/wekan/wekan/blob/main/docs/FAQ/IRC-FAQ.md)
+[IRC](https://github.com/wekan/wekan/blob/main/docs2/FAQ/IRC-FAQ.md)
 
 ## Docker: Latest tag has newest release
 
@@ -47,12 +47,13 @@ See bottom of https://github.com/wekan/wekan/issues/3874
 ## FAQ
 
 **NOTE**:
-- Please read the [FAQ](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md) first
-- Please don't feed the [trolls](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
+
+- Please read the [FAQ](https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md) first
+- Please don't feed the [trolls](https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
 
 ## About WeKan ®
 
-WeKan ® is an completely [Open Source][open_source] and [Free software][free_software]
+WeKan ® is a completely [Open Source][open_source] and [Free software][free_software]
 collaborative kanban board application with MIT license.
 
 Whether you’re maintaining a personal todo list, planning your holidays with some friends,
@@ -76,15 +77,15 @@ that by providing one-click installation on various platforms.
 - 1 GB RAM minimum free for WeKan ®. Production server should have minimum total 4 GB RAM.
   For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/main/docker-compose.yml): 3 frontend servers,
   each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
-- Enough disk space and alerts about low disk space. If you run out disk space, MongoDB database gets corrupted.
+- Enough disk space and alerts about low disk space. If you run out of disk space, MongoDB database gets corrupted.
 - SECURITY: Updating to newest WeKan ® version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
   Old versions have security issues because of old versions Node.js etc. Only newest WeKan ® is supported.
   WeKan ® on Sandstorm is not usually affected by any Standalone WeKan ® (Snap/Docker/Source) security issues.
 - [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
   New features and fixes are added to WeKan ® [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
-- [Backups](https://github.com/wekan/wekan/blob/main/docs/Backup/Backup.md) of WeKan ® database once a day miminum.
+- [Backups](https://github.com/wekan/wekan/blob/main/docs2/Backup/Backup.md) of WeKan ® database once a day minimum.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
-  Some bug can cause WeKan ® board to not load at all, requiring manual fixing of database content.
+  Some bugs can cause WeKan ® board to not load at all, requiring manual fixing of database content.
 
 ## Roadmap and Demo
 
@@ -92,7 +93,7 @@ that by providing one-click installation on various platforms.
 
 [Developer Documentation][dev_docs]
 
-- There is many companies and individuals contributing code to WeKan ®, to add features and bugfixes
+- There are many companies and individuals contributing code to WeKan ®, to add features and bugfixes
   [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
 - [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
 - [Commercial Support](https://wekan.fi/commercial-support/).
@@ -102,15 +103,78 @@ By working directly with WeKan ® you get the benefit of active maintenance and 
 
 ## Getting Started with Development
 
-The default branch uses [Meteor 2 with Node.js 14](https://wekan.fi/install/).
+The default branch uses Meteor 3.5-beta.7 with Node.js 24.x.
+See [CHANGELOG.md](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) for the latest runtime updates.
 
-To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
+To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
 
-Please refer to the [developer documentation](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md) for more information.
+Please refer to the [developer documentation](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Developer-Documentation.md) for more information.
+
+## First-Time Setup for Development
+
+### Prerequisites
+
+Before building WeKan from source, ensure you have:
+
+- **Git** - for cloning the repository
+- **Node.js 24.x** - WeKan requires Node.js 24.x
+- **Meteor** - the JavaScript framework WeKan is built with
+
+### Installing Node.js 24.x
+
+```bash
+# Using nvm (recommended)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.zshrc  # or ~/.bashrc
+nvm install 24
+nvm use 24
+```
+
+### Installing Meteor
+
+```bash
+curl https://install.meteor.com/ | sh
+```
+
+### Building WeKan
+
+The `rebuild-wekan.sh` script guides you through a three-stage process:
+
+1. **Install dependencies (Option 1)** - Downloads all required Meteor packages and npm modules
+2. **Build WeKan (Option 2)** - Compiles the application
+3. **Run WeKan (Option 3)** - Starts the development server at http://localhost:4000
+
+```bash
+# Clone your fork
+git clone git@github.com:YOUR_USERNAME/wekan.git
+cd wekan
+
+# Make the script executable
+chmod +x rebuild-wekan.sh
+
+# Step 1: Install dependencies
+./rebuild-wekan.sh
+# Press 1 and Enter
+
+# Step 2: Build WeKan (after dependencies complete)
+./rebuild-wekan.sh
+# Press 2 and Enter
+
+# Step 3: Run WeKan in development mode
+./rebuild-wekan.sh
+# Press 3 and Enter
+```
+ 
+
+### WSL Users
+
+WSL users can use Snap Candidate. See [install docs](https://wekan.fi/install/).
+
+The development server will start at http://localhost:4000. Any changes you make to the source code will automatically trigger a rebuild and refresh your browser.
 
 ## Screenshot
 
-[More screenshots at Features page](https://github.com/wekan/wekan/tree/main/docs/Features)
+[More screenshots at Features page](https://github.com/wekan/wekan/tree/main/docs2/Features)
 
 [![Screenshot of WeKan ®][screenshot_wekan]][roadmap_wekan]
 
@@ -119,7 +183,7 @@ Please refer to the [developer documentation](https://github.com/wekan/wekan/blo
 WeKan ® is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
-[dev_docs]: https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md
+[dev_docs]: https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Developer-Documentation.md
 [screenshot_wekan]: https://wekan.fi/wekan-dark-mode.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license

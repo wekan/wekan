@@ -1,46 +1,48 @@
-allowIsBoardAdmin = function(userId, board) {
+import Boards from '/models/boards';
+
+export function allowIsBoardAdmin(userId, board) {
   return board && board.hasAdmin(userId);
-};
+}
 
-allowIsBoardMember = function(userId, board) {
+export function allowIsBoardMember(userId, board) {
   return board && board.hasMember(userId);
-};
+}
 
-allowIsAnyBoardMember = function(userId, boards) {
-  return _.some(boards, board => {
+export function allowIsAnyBoardMember(userId, boards) {
+  return boards.some(board => {
     return board && board.hasMember(userId);
   });
-};
+}
 
-allowIsBoardMemberCommentOnly = function(userId, board) {
+export function allowIsBoardMemberCommentOnly(userId, board) {
   return board && board.hasMember(userId) && !board.hasReadOnly(userId) && !board.hasReadAssignedOnly(userId) && !board.hasNoComments(userId);
-};
+}
 
-allowIsBoardMemberNoComments = function(userId, board) {
+export function allowIsBoardMemberNoComments(userId, board) {
   return board && board.hasMember(userId) && !board.hasNoComments(userId);
-};
+}
 
 // Check if user has write access to board (can create/edit cards and lists)
-allowIsBoardMemberWithWriteAccess = function(userId, board) {
+export function allowIsBoardMemberWithWriteAccess(userId, board) {
   return board && board.members && board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
-};
+}
 
 // Check if user has write access via a card's board
-allowIsBoardMemberWithWriteAccessByCard = function(userId, card) {
-  const board = card && card.board && card.board();
+export async function allowIsBoardMemberWithWriteAccessByCard(userId, card) {
+  const board = card && await Boards.findOneAsync(card.boardId);
   return allowIsBoardMemberWithWriteAccess(userId, board);
-};
+}
 
-allowIsBoardMemberByCard = function(userId, card) {
-  const board = card.board();
+export async function allowIsBoardMemberByCard(userId, card) {
+  const board = card && await Boards.findOneAsync(card.boardId);
   return board && board.hasMember(userId);
-};
+}
 
 // Policy: can a user update a board's 'sort' field?
 // Requirements:
 //  - user must be authenticated
 //  - update must include 'sort' field
 //  - user must be a member of the board
-canUpdateBoardSort = function(userId, board, fieldNames) {
-  return !!userId && _.contains(fieldNames || [], 'sort') && allowIsBoardMember(userId, board);
-};
+export function canUpdateBoardSort(userId, board, fieldNames) {
+  return !!userId && (fieldNames || []).includes('sort') && allowIsBoardMember(userId, board);
+}

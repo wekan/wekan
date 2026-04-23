@@ -1,47 +1,47 @@
 @ECHO OFF
 
-REM 1) Install newest Node.js and NPM version manager https://github.com/nodists/nodist/releases
-REM 2) nodist global 14.x
-REM 3) nodist npm global 6.
-REM 4) choco install -y 7zip curl wget git
+REM Build WeKan Windows (win64) bundle - Meteor 3 style (no fibers needed).
+REM
+REM Prerequisites:
+REM   1. Node.js 24.x from https://nodejs.org/
+REM   2. 7-Zip from https://www.7-zip.org/
+REM   3. wget  (choco install wget) or use curl
+REM   4. Visual Studio Build Tools 2019 or later
+REM      (or: npm install -g windows-build-tools)
+REM
+REM Usage: build-bundle-win64.bat 8.43
 
 IF [%1] == [] GOTO usage
 
-ECHO 1) Deleting old bundle
-CALL DEL /F /S /Q bundle
+SET VERSION=%1
 
-ECHO 2) Downloading new WeKan.zip
-DEL wekan-%1-amd64.zip
-wget --no-check-certificate https://github.com/wekan/wekan/releases/download/v%1/wekan-%1-amd64.zip
+ECHO 1) Installing build tools
+CALL npm install -g node-gyp @mapbox/node-pre-gyp
 
-ECHO 3) Unarchiving new WeKan
-CALL 7z x wekan-%1-amd64.zip
+ECHO 2) Deleting old bundle directory
+IF EXIST bundle (CALL DEL /F /S /Q bundle & RMDIR /S /Q bundle)
+IF EXIST wekan-%VERSION%-win64.zip DEL wekan-%VERSION%-win64.zip
 
-ECHO 4) Reinstalling bcrypt
-cmd /c "npm -g install @mapbox/node-pre-gyp"
-cmd /c "npm -g install node-gyp"
-cmd /c "npm -g install fibers"
-CALL DEL /F /S /Q bundle\programs\server\npm\node_modules\meteor\accounts-password\node_modules\bcrypt
-cmd /c "CD bundle\programs\server\npm\node_modules\meteor\accounts-password && npm install bcrypt"
-REM # Sometimes may require building from source https://github.com/meteor/meteor/issues/11682
-REM cmd /c "CD bundle\programs\server\npm\node_modules\meteor\accounts-password && npm rebuild --build-from-source && npm --build-from-source install bcrypt"
+ECHO 3) Downloading amd64 bundle v%VERSION%
+IF EXIST wekan-%VERSION%-amd64.zip DEL wekan-%VERSION%-amd64.zip
+curl -L --insecure -o wekan-%VERSION%-amd64.zip ^
+  https://github.com/wekan/wekan/releases/download/v%VERSION%/wekan-%VERSION%-amd64.zip
 
-ECHO 5) Packing new WeKan.zip
-CALL DEL wekan-%1-amd64-windows.zip
-CALL 7z a wekan-%1-amd64-windows.zip bundle
+ECHO 4) Extracting bundle
+CALL 7z x wekan-%VERSION%-amd64.zip
 
-REM ECHO 6) Copying WeKan.zip to sync directory
-REM CALL COPY wekan-%1-amd64-windows.zip Z:\
+ECHO 5) Rebuilding native Node.js modules for Windows
+CD bundle\programs\server
+CALL npm rebuild
+CD ..\..\..
 
-REM ECHO 7) Done. Starting WeKan.
-REM CD bundle
-REM CALL ..\start-wekan.bat
-REM CD ..
+ECHO 6) Creating Windows bundle zip
+CALL 7z a wekan-%VERSION%-win64.zip bundle
 
+ECHO Done: wekan-%VERSION%-win64.zip
 GOTO :eof
 
 :usage
-ECHO Usage: build-windows.bat VERSION-NUMBER
-ECHO Example: build-windows.bat 5.00 
-
+ECHO Usage: build-bundle-win64.bat VERSION
+ECHO Example: build-bundle-win64.bat 8.43
 :eof

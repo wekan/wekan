@@ -1,22 +1,22 @@
 template(name="boardTriggers")
   div.trigger-item#trigger-two
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-when-a-card'}}
-      div.trigger-inline-button.js-open-card-title-popup 
+      div.trigger-inline-button.js-open-card-title-popup
         i.fa.fa-search
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-is'}}
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-added-to'}}
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-list'}}
       div.trigger-dropdown
         input(id="create-list-name",type=text,placeholder="{{_'r-list-name'}}")
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
-        input(id="create-swimlane-name",type=text,placeholder="{{_'r-swimlane-name'}}") 
+        input(id="create-swimlane-name",type=text,placeholder="{{_'r-swimlane-name'}}")
       div.trigger-button.trigger-button-person.js-show-user-field
         i.fa.fa-user
       div.user-details.hide-element
@@ -29,11 +29,11 @@ template(name="boardTriggers")
 
   div.trigger-item#trigger-three
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-when-a-card'}}
-      div.trigger-inline-button.js-open-card-title-popup 
+      div.trigger-inline-button.js-open-card-title-popup
         i.fa.fa-search
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-is-moved'}}
       div.trigger-button.trigger-button-person.js-show-user-field
         i.fa.fa-user
@@ -47,24 +47,24 @@ template(name="boardTriggers")
 
   div.trigger-item#trigger-four
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-when-a-card'}}
-      div.trigger-inline-button.js-open-card-title-popup 
+      div.trigger-inline-button.js-open-card-title-popup
         i.fa.fa-search
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-is'}}
       div.trigger-dropdown
         select(id="move-action")
           option(value="moved-to") {{_'r-moved-to'}}
           option(value="moved-from") {{_'r-moved-from'}}
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-list'}}
       div.trigger-dropdown
         input(id="move-list-name",type=text,placeholder="{{_'r-list-name'}}")
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
-        input(id="create-swimlane-name-2",type=text,placeholder="{{_'r-swimlane-name'}}") 
+        input(id="create-swimlane-name-2",type=text,placeholder="{{_'r-swimlane-name'}}")
       div.trigger-button.trigger-button-person.js-show-user-field
         i.fa.fa-user
       div.user-details.hide-element
@@ -77,11 +77,11 @@ template(name="boardTriggers")
 
   div.trigger-item#trigger-five
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-when-a-card'}}
-      div.trigger-inline-button.js-open-card-title-popup 
+      div.trigger-inline-button.js-open-card-title-popup
         i.fa.fa-search
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-is'}}
       div.trigger-dropdown
         select(id="arch-action")
@@ -99,7 +99,7 @@ template(name="boardTriggers")
 
   div.trigger-item
       div.trigger-content
-        div.trigger-text 
+        div.trigger-text
           | {{_'r-board-note'}}
 
 template(name="boardCardTitlePopup")

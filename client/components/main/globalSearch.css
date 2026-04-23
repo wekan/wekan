@@ -84,6 +84,21 @@
   margin-right: auto;
   margin-left: auto;
 }
+.js-new-search {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.board-color-belize.js-new-search {
+  background-color: #216694 !important;
+  color: #fff !important;
+  border: none !important;
+}
+.board-color-belize.js-new-search:hover {
+  background-color: #1a4d6a !important;
+}
+.board-color-belize.js-new-search:active {
+  background-color: #0d334d !important;
+}
 .global-search-operator {
   font-family: Courier;
 }

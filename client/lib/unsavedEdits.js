@@ -1,3 +1,5 @@
+import UnsavedEditCollection from '/models/unsavedEdits';
+
 // `UnsavedEdits` is a global key-value store used to save drafts of user
 // inputs. We used to have the notion of a `cachedValue` that was local to a
 // component but the global store has multiple advantages:
@@ -17,7 +19,7 @@
 //
 // The value is a string containing the draft.
 
-UnsavedEdits = {
+export const UnsavedEdits = {
   // XXX Wanted to have the collection has an instance variable, but
   // unfortunately the collection isn't defined yet at this point. We need ES6
   // modules to solve the file order issue!
@@ -65,7 +67,7 @@ UnsavedEdits = {
 Blaze.registerHelper('getUnsavedValue', (fieldName, docId, defaultTo) => {
   // Workaround some blaze feature that pass a list of keywords arguments as the
   // last parameter (even if the caller didn't specify any).
-  if (!_.isString(defaultTo)) {
+  if (typeof defaultTo !== 'string') {
     defaultTo = '';
   }
   return UnsavedEdits.get({ fieldName, docId }, defaultTo);

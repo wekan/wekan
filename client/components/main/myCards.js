@@ -1,6 +1,7 @@
-import { CardSearchPagedComponent } from '../../lib/cardSearch';
+import { CardSearchPaged } from '../../lib/cardSearch';
+import { Utils } from '/client/lib/utils';
 
-BlazeComponent.extendComponent({
+Template.myCardsHeaderBar.helpers({
   myCardsSort() {
     // eslint-disable-next-line no-console
     // console.log('sort:', Utils.myCardsSort());
@@ -12,86 +13,69 @@ BlazeComponent.extendComponent({
     // console.log('sort:', Utils.myCardsView());
     return Utils.myCardsView();
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-toggle-my-cards-choose-sort': Popup.open(
-          'myCardsSortChange',
-        ),
-        'click .js-my-cards-view-change': Popup.open(
-          'myCardsViewChange'),
-      },
-    ];
-  },
-}).register('myCardsHeaderBar');
+Template.myCardsHeaderBar.events({
+  'click .js-toggle-my-cards-choose-sort': Popup.open(
+    'myCardsSortChange',
+  ),
+  'click .js-my-cards-view-change': Popup.open(
+    'myCardsViewChange'),
+});
+
+Template.myCards.onCreated(function () {
+  const search = new CardSearchPaged(this);
+  this.search = search;
+
+  // Override getSubscription for myCards
+  search.getSubscription = function (queryParams) {
+    return Meteor.subscribe(
+      'myCards',
+      search.sessionId,
+      search.subscriptionCallbacks,
+    );
+  };
+
+  search.runGlobalSearch(null);
+  Meteor.subscribe('setting');
+});
 
 Template.myCards.helpers({
   userId() {
     return Meteor.userId();
   },
-});
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click .js-my-cards-view-boards'() {
-          Utils.setMyCardsView('boards');
-          Popup.back();
-        },
-
-        'click .js-my-cards-view-table'() {
-          Utils.setMyCardsView('table');
-          Popup.back();
-        },
-      },
-    ];
+  // Return ReactiveVar so jade can use .get pattern
+  searching() {
+    return Template.instance().search.searching;
   },
-}).register('myCardsViewChangePopup');
-
-class MyCardsComponent extends CardSearchPagedComponent {
-  onCreated() {
-    super.onCreated();
-
-    this.runGlobalSearch(null);
-    Meteor.subscribe('setting');
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  getSubscription(queryParams) {
-    return Meteor.subscribe(
-      'myCards',
-      this.sessionId,
-      this.subscriptionCallbacks,
-    );
-  }
 
   myCardsView() {
     // eslint-disable-next-line no-console
     //console.log('sort:', Utils.myCardsView());
     return Utils.myCardsView();
-  }
+  },
 
   labelName(board, labelId) {
-    const label = board.getLabelById(labelId)
-    const name = label.name
-    return name
-  }
+    const label = board.getLabelById(labelId);
+    const name = label.name;
+    return name;
+  },
 
   labelColor(board, labelId) {
-    const label = board.getLabelById(labelId)
-    const color = label.color
-    return color
-  }
+    const label = board.getLabelById(labelId);
+    const color = label.color;
+    return color;
+  },
 
   myCardsList() {
+    const search = Template.instance().search;
     const boards = [];
     let board = null;
     let swimlane = null;
     let list = null;
 
-    const cursor = this.getResults();
+    const cursor = search.getResults();
 
     if (cursor) {
       cursor.forEach(card => {
@@ -177,6 +161,28 @@ class MyCardsComponent extends CardSearchPagedComponent {
     }
 
     return [];
-  }
-}
-MyCardsComponent.register('myCards');
+  },
+});
+
+Template.myCards.events({
+  'click .js-next-page'(evt, tpl) {
+    evt.preventDefault();
+    tpl.search.nextPage();
+  },
+  'click .js-previous-page'(evt, tpl) {
+    evt.preventDefault();
+    tpl.search.previousPage();
+  },
+});
+
+Template.myCardsViewChangePopup.events({
+  'click .js-my-cards-view-boards'() {
+    Utils.setMyCardsView('boards');
+    Popup.back();
+  },
+
+  'click .js-my-cards-view-table'() {
+    Utils.setMyCardsView('table');
+    Popup.back();
+  },
+});

@@ -93,6 +93,8 @@ Meteor.loginWithCas = function(options, callback) {
 };
 
 var openCenteredPopup = function(url, width, height) {
+  // #FIXME screenX and outerWidth are often different units on mobile screen or high DPI
+    // see https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio
   var screenX = typeof window.screenX !== 'undefined'
   ? window.screenX : window.screenLeft;
   var screenY = typeof window.screenY !== 'undefined'

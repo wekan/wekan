@@ -1,4 +1,5 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Cards from '/models/cards';
 
 // Add click handler to ganttView for card titles
 Template.ganttView.events({
@@ -14,6 +15,7 @@ Template.ganttView.events({
   },
 });
 import { Template } from 'meteor/templating';
+import { Utils } from '/client/lib/utils';
 
 // Blaze template helpers for ganttView
 function getISOWeekInfo(d) {

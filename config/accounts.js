@@ -42,10 +42,9 @@ Meteor.call('getOauthDashboardUrl', (_, result) => {
 Meteor.call('isDisableRegistration', (_, result) => {
   if (result) {
     disableRegistration = true;
-    // Reconfigure to apply the new setting
-    AccountsTemplates.configure({
-      forbidClientAccountCreation: true,
-    });
+    // Note: AccountsTemplates.configure() cannot be called here because
+    // init() has already been triggered by the time this async callback fires.
+    // The signup link is hidden via DOM in layouts.js instead.
   }
 });
 

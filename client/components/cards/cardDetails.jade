@@ -11,31 +11,30 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          unless isPopup
-            span.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
-              if cardCollapsed
-                i.fa.fa-caret-right
-              else
-                i.fa.fa-caret-down
-            a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
-              i.fa.fa-times-thin
-            if cardMaximized
-              a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+          span.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
+            if cardCollapsed
+              i.fa.fa-caret-right
             else
-              a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
-            a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-              i.fa.fa-bars
-            a.card-copy-button.js-copy-link(
-              id="cardURL_copy"
-              title="{{_ 'copy-card-link-to-clipboard'}}"
-              href="{{ originRelativeUrl }}"
-            )
-              span.emoji-icon
-                i.fa.fa-link
-            if canModifyCard
-              span.card-drag-handle.js-card-drag-handle(title="Drag card")
-                i.fa.fa-arrows
-            span.copied-tooltip {{_ 'copied'}}
+              i.fa.fa-caret-down
+          a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+            i.fa.fa-times-thin
+          if cardMaximized
+            a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+          else
+            a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+          a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+            i.fa.fa-bars
+          a.card-copy-button.js-copy-link(
+            id="cardURL_copy"
+            title="{{_ 'copy-card-link-to-clipboard'}}"
+            href="{{ originRelativeUrl }}"
+          )
+            span.emoji-icon
+              i.fa.fa-link
+          if canModifyCard
+            span.card-drag-handle.js-card-drag-handle(title="Drag card")
+              i.fa.fa-arrows
+          span.copied-tooltip {{_ 'copied'}}
         else
           a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
             i.fa.fa-times-thin
@@ -351,7 +350,8 @@ template(name="cardDetails")
               .card-label.card-label-green {{ voteCountPositive }}
               .card-label.card-label-red {{ voteCountNegative }}
             unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
-              .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+              .card-label.card-label-gray
+                | {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
         +viewer
           = getVoteQuestion
         if showVotingButtons
@@ -377,7 +377,8 @@ template(name="cardDetails")
             .poker-result
               if expiredPoker
                 unless ($and currentBoard.isPublic pokerAllowNonBoardMembers )
-                  .card-label.card-label-gray  {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+                  .card-label.card-label-gray
+                    | {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
         if showPlanningPokerButtons
           .poker-result
             .poker-deck
@@ -842,32 +843,131 @@ template(name="cardDetailsActionsPopup")
 template(name="exportCardPopup")
   ul.pop-over-list
     li
-      a(href="{{exportUrlCardPDF}}",, download="{{exportFilenameCardPDF}}")
-        i.fa.fa-upload
+      a(href="{{exportUrlCardPDF}}", download="{{exportFilenameCardPDF}}")
+        i.fa.fa-file-pdf-o
         | {{_ 'export-card-pdf'}}
+  hr
+  p.quiet {{_ 'export-card-excel-fields'}}
+  ul.pop-over-list
+    each excelExportFields
+      li(class="{{#if checked}}active{{/if}}")
+        a.js-excel-field-toggle(data-field="{{field}}" href="#")
+          i.fa.fa-check
+          | {{_ label}}
+  ul.pop-over-list
+    li
+      a(href="{{exportUrlCardExcel}}", download="{{exportFilenameCardExcel}}")
+        i.fa.fa-file-excel-o
+        | {{_ 'download'}}
 
 template(name="moveCardPopup")
-  +copyAndMoveCard
+  label(for='move-card-title') {{_ 'title'}}:
+  input#move-card-title.full-line(type="text" value="{{getTitle}}" autofocus)
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
+    label(for="position-above") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
+    label(for="position-below") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = getTitle
-  +copyAndMoveCard
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
+    label(for="position-above") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
+    label(for="position-below") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="copyManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyManyCardsPopup-instructions'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     | {{_ 'copyManyCardsPopup-format'}}
-  +copyAndMoveCard
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
+    label(for="position-above") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
+    label(for="position-below") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="convertChecklistItemToCardPopup")
   label(for='convert-checklist-item-to-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = item.title
-  +copyAndMoveCard
-
-template(name="copyAndMoveCard")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
@@ -925,7 +1025,8 @@ template(name="cardAssigneesPopup")
               if userData.username
                 | (#{userData.username})
             if isCardAssignee
-              i.fa.fa-check  if currentUser.isWorker
+              i.fa.fa-check
+  if currentUser.isWorker
     ul.pop-over-list.js-card-assignee-list
       li.item(class="{{#if currentUser.isCardAssignee}}active{{/if}}")
         a.name.js-select-assignee(href="#")
@@ -990,7 +1091,7 @@ template(name="cardMorePopup")
               option(value="{{_id}}") {{title}}
     br
     | {{_ 'added'}}
-    span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
+    span.date(title=card.createdAt) {{ displayDate createdAt 'LLL' }}
     if currentUser.isBoardAdmin
       a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
 

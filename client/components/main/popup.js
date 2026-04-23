@@ -1,3 +1,5 @@
+import { CSSEvents } from '/client/lib/cssEvents';
+
 Popup.template.events({
   'click .js-back-view'() {
     Popup.back();
@@ -26,8 +28,11 @@ Popup.template.events({
 // When a popup content is removed (ie, when the user press the "back" button),
 // we need to wait for the container translation to end before removing the
 // actual DOM element. For that purpose we use the undocumented `_uihooks` API.
-Popup.template.onRendered(() => {
+Popup.template.onRendered(function () {
   const container = this.find('.content-container');
+  if (!container) {
+    return;
+  }
   container._uihooks = {
     removeElement(node) {
       $(node).addClass('no-height');

@@ -5,7 +5,7 @@ import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 
 // Main object for email localization utilities
-EmailLocalization = {
+const EmailLocalization = {
   /**
    * Send an email using the recipient's preferred language
    * @param {Object} options - Standard email sending options plus language options
@@ -17,13 +17,13 @@ EmailLocalization = {
    * @param {String} options.language - Language code to use (if not provided, will try to detect)
    * @param {String} options.userId - User ID to determine language (if not provided with language)
    */
-  sendEmail(options) {
+  async sendEmail(options) {
     // Determine the language to use
     let lang = options.language;
 
     // If no language is specified but we have a userId, try to get the user's language
     if (!lang && options.userId) {
-      const user = ReactiveCache.getUser(options.userId);
+      const user = await ReactiveCache.getUser(options.userId);
       if (user) {
         lang = user.getLanguage();
       }
@@ -44,7 +44,7 @@ EmailLocalization = {
     }
 
     // Send the email with translated content
-    return Email.send({
+    return await Email.sendAsync({
       to: options.to,
       from: options.from || Accounts.emailTemplates.from,
       subject: subject,
@@ -55,4 +55,4 @@ EmailLocalization = {
 };
 
 // Add module.exports to make it accessible from other files
-module.exports = EmailLocalization;
+export default EmailLocalization;

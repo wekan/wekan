@@ -1,5 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { toggleNotificationsDrawer } from './notifications.js';
+import Users from '/models/users';
 
 Template.notificationsDrawer.onCreated(function() {
   Meteor.subscribe('notificationActivities');
@@ -24,7 +26,7 @@ Template.notificationsDrawer.helpers({
   readNotifications() {
     const user = ReactiveCache.getCurrentUser();
     const list = user ? user.notifications() : [];
-    const readNotifications = _.filter(list, v => !!v.read);
+    const readNotifications = list.filter(v => !!v.read);
     return readNotifications.length;
   },
 });
@@ -34,16 +36,18 @@ Template.notificationsDrawer.events({
     event.stopPropagation();
     Session.set('showNotificationMenu', !Session.get('showNotificationMenu'));
   },
-  'click .notification-menu .menu-item'(event) {
+  async 'click .notification-menu .menu-item'(event) {
     const target = event.currentTarget;
-    
+
     if (target.classList.contains('mark-all-read')) {
       const notifications = ReactiveCache.getCurrentUser().profile.notifications;
       for (const index in notifications) {
         if (notifications.hasOwnProperty(index) && !notifications[index].read) {
           const update = {};
-          update[`profile.notifications.${index}.read`] = Date.now();
-          Users.update(Meteor.userId(), { $set: update });
+          update[`profile.notifications.${index}.read`] = new Date();
+          await Users.updateAsync(Meteor.userId(), { $set: update }).catch((error) => {
+            console.error('Error marking notification as read:', error);
+          });
         }
       }
       Session.set('showNotificationMenu', false);
@@ -53,7 +57,9 @@ Template.notificationsDrawer.events({
         if (notifications.hasOwnProperty(index) && notifications[index].read) {
           const update = {};
           update[`profile.notifications.${index}.read`] = null;
-          Users.update(Meteor.userId(), { $set: update });
+          await Users.updateAsync(Meteor.userId(), { $set: update }).catch((error) => {
+            console.error('Error marking notification as unread:', error);
+          });
         }
       }
       Session.set('showNotificationMenu', false);

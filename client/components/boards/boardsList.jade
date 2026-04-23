@@ -130,10 +130,10 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{_ 'drag-board'}}")
+                    span.board-handle(title="{{boardWorkspaceDragHint}}")
                       span.emoji-icon
                         i.fa.fa-arrows
-                    
+
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
                         span.board-list-item-name(title="{{_ 'template-container'}}")
@@ -158,13 +158,13 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{_ 'drag-board'}}")
+                    span.board-handle(title="{{boardWorkspaceDragHint}}")
                       span.emoji-icon
                         i.fa.fa-arrows
-                    
+
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
-                        span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
+                        span.board-list-item-name(title="{{boardOpenAndMoveHint}}")
                           +viewer
                             = title
                         unless currentSetting.hideBoardMemberList
@@ -197,12 +197,18 @@ template(name="boardList")
 template(name="boardListHeaderBar")
   h1 {{_ title }}
   //.board-header-btns.right
-  //  a.board-header-btn.js-open-archived-board
-  //    i.fa.fa-archive
-  //    span {{_ 'archives'}}
-  //  a.board-header-btn(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
-  //    i.fa.fa-clone
-  //    span {{_ 'templates'}}
+  //
+    a.board-header-btn.js-open-archived-board
+  //
+      i.fa.fa-archive
+  //
+      span {{_ 'archives'}}
+  //
+    a.board-header-btn(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
+  //
+      i.fa.fa-clone
+  //
+      span {{_ 'templates'}}
 
 // Recursive template for workspaces tree
 template(name="workspaceTree")
@@ -214,20 +220,40 @@ template(name="workspaceTree")
             span.workspace-drag-handle
               span.emoji-icon
                 i.fa.fa-arrows
-            
-            a.js-select-workspace(data-id="{{id}}")
+
+            a.js-select-workspace.js-select-space(data-id="{{id}}")
               span.workspace-icon
                 if icon
-                  +viewer
-                    = icon
+                  span.workspace-icon-value(style="{{#if iconColor}}color: {{iconColor}};{{/if}}")
+                    +viewer
+                      = icon
                 else
-                  span.emoji-icon
+                  span.emoji-icon(style="{{#if iconColor}}color: {{iconColor}};{{/if}}")
                     i.fa.fa-folder
               span.workspace-name= name
-            a.js-edit-workspace(data-id="{{id}}" title="{{_ 'allboards.edit-workspace'}}")
+            a.js-open-workspace-menu(data-id="{{id}}" title="{{_ 'allboards.workspace-menu'}}")
               span.emoji-icon
-                i.fa.fa-pencil-square-o
+                i.fa.fa-bars
             span.workspace-count {{workspaceCount id}}
-            a.js-add-subworkspace(data-id="{{id}}" title="{{_ 'allboards.add-subworkspace'}}") +
           if children
             +workspaceTree(nodes=children selectedWorkspaceId=selectedWorkspaceId)
+
+template(name="workspaceActionsPopup")
+  form.workspace-actions-form.js-workspace-actions-form(data-id="{{id}}")
+    label
+      | {{_ 'allboards.edit-workspace-name'}}
+      input.js-workspace-name(type="text" value="{{workspaceName}}" required)
+    label
+      | {{_ 'allboards.edit-workspace-icon'}}
+      input.js-workspace-icon(type="text" value="{{workspaceIcon}}")
+    input.primary.wide(type="submit" value="{{_ 'save'}}")
+  hr
+  form.workspace-subspace-form.js-workspace-subspace-form(data-id="{{id}}")
+    label
+      | {{_ 'allboards.add-subworkspace-prompt'}}
+      input.js-subworkspace-name(type="text")
+    button.primary.wide(type="submit") {{_ 'allboards.add-subworkspace'}}
+  hr
+  .workspace-delete-block
+    span.js-workspace-delete-error(style="color: #c00; display: block; margin: 4px 0;")
+    button.js-delete-workspace.negate.wide(type="button" data-id="{{id}}") {{_ 'delete'}}

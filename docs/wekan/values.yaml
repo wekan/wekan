@@ -1,0 +1,252 @@
+# ------------------------------------------------------------------------------
+# Wekan:
+# ------------------------------------------------------------------------------
+## Define platform where helm chart is deployed (set to 'openshift' to disable initContainer with chown command) 
+platform: kubernetes
+
+## Define serviceAccount names to create or use. Defaults to component's fully
+## qualified name.
+##
+serviceAccounts:
+  create: true
+  name: ""
+  annotations: ""
+  automount: false
+
+## Wekan image configuration
+##
+image:
+  repository: ghcr.io/wekan/wekan
+  tag: v8.98
+  pullPolicy: IfNotPresent
+
+## Configuration for wekan component
+##
+
+replicaCount: 1
+dbname: wekan
+
+## Specify additional environmental variables for the Deployment
+##
+## https://github.com/wekan/charts/issues/34
+env:
+  - name: "MONGO_URL"
+    value: "mongodb://wekan-mongodb:27017"
+
+# Additional environment variables for Wekan mapped from Secret or ConfigMap
+extraEnvFrom: ""
+# extraEnvFrom: |
+#    - secretRef:
+#        name: "{{ template "wekan.fullname" $ }}-test-secret"
+
+## Specify additional secret environmental variables for the
+## Deployment. These can e.g. be provided by a Secret and allow
+## to store passwords separately
+##
+secretEnv: {}
+  # - name: ""
+  ##  value: ""
+## Secret created by Helm if true, or managed externally if false
+secretManaged: true
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+    # prometheus.io/scrape: "true"
+    # prometheus.io/port: "8000"
+    # prometheus.io/path: "/_/monitoring/metrics"
+
+## Comma-separated string of allowed virtual hosts for external access.
+## This should match the ingress hosts
+##
+endpoint: wekan.local
+
+## Main URL (including http:// or https://) where your Wekan
+## instance is accessible
+##
+root_url: https://wekan.local
+
+## Note: WeKan is usually run at subdomain. Using a subpath is not tested.
+## https://github.com/wekan/charts/issues/30
+## If configuring the Helm values to run wekan under a subpath,
+## the readiness and liveliness probes are still configured
+## to call the root path /. This returns a 404 Not Found and
+## results in the probe(s) failing, which ultimately results in Kubernetes killing the pod.
+##
+## Relevent config:
+##
+##  endpoint: yourcompany.com
+##  root_url: https://yourcompany.com/wekan
+##  ingress:
+##    path: /wekan
+##    hosts: [ yourcompany.com ]
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  pathtype: ImplementationSpecific
+  # This must match 'endpoint', unless your client supports different
+  # hostnames.
+  hosts: [ wekan.local ]
+    # - wekan.local
+  tls: []
+  #  - secretName: wekan-example-tls
+  #    hosts:
+  #      - wekan-example.local
+
+route:
+  enabled: false
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 300m
+  limits:
+    memory: 1Gi
+    cpu: 500m
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 20
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+
+startupProbe:
+  enabled: false
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 30
+
+init:
+  enabled: true
+  image:
+    repository: docker.io/busybox
+    tag: latest
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 50m
+    limits:
+      memory: 256Mi
+      cpu: 100m
+  securityContext: {}
+
+test:
+  image:
+    repository: docker.io/busybox
+    tag: latest
+## Node labels for pod assignment
+## ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+
+## Tolerations for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: []
+
+## Affinity for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}
+
+## Configure an horizontal pod autoscaler
+##
+autoscaling:
+  enabled: true
+  config:
+    minReplicas: 1
+    maxReplicas: 16
+    ## Note: when setting this, a `resources.request.cpu` is required. You
+    ## likely want to set it to `1` or some lower value.
+    ##
+    targetCPUUtilizationPercentage: 80
+
+# Optional custom labels for the deployment resource.
+deploymentLabels: {}
+
+# Optional custom labels for the pods created by the deployment.
+podLabels: {}
+
+# Optional custom annotations for the pods created by the deployment.
+podAnnotations: {}
+
+sharedDataFolder:
+  enabled: true
+  path: /data
+  accessMode: ReadWriteOnce
+  storageClass:
+  resources:
+    requests:
+      storage: 5Gi
+
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 1
+
+podSecurityContext: {}
+securityContext: {}
+
+extraDeploy: []
+# ------------------------------------------------------------------------------
+# MongoDB:
+# ref: https://github.com/groundhog2k/helm-charts/tree/master/charts/mongodb
+# ------------------------------------------------------------------------------
+
+mongodb:
+  enabled: true
+  image:
+    # At the time of writing the mongodb chart defaults to version 8, but WeKan
+    # needs 7.
+    tag: 7.0.31
+  # settings:
+  #   rootUsername: admin
+  #   rootPassword:
+  # userDatabase:
+  #   name:
+  #   user:
+  #   password:
+  storage:
+    requestedSize: 2Gi
+    # Optional specify an existing PVC. If you do, unset the `requestedSize`.
+    # persistentVolumeClaimName:
+
+  # Single-node ReplicaSet support for oplog tailing (METEOR_REACTIVITY_ORDER=oplog).
+  # When set, MONGO_URL gets ?replicaSet=<name> appended and MONGO_OPLOG_URL is
+  # injected automatically. You must start mongod with --replSet <name> and run
+  # rs.initiate() once (e.g. via an extraContainer sidecar).
+  # Example:
+  #   replicaSet:
+  #     name: rs0
+  #   args:
+  #     - "--replSet rs0"
+  #     - "--oplogSize 128"
+  replicaSet:
+    name: ""

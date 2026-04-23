@@ -2,7 +2,41 @@
 
 # If you want to restart even on crash, uncomment while and done lines.
 #while true; do
+      #-------------------- INITIALIZE REPLICA SET IF NEEDED --------------------
+      # Change Streams require MongoDB to run as a replica set.
+      # This checks if the replica set is already initialized, and if not, initializes it.
+      # MongoDB must already be running at 127.0.0.1:27017.
+      #if command -v mongosh > /dev/null 2>&1; then
+      #    echo "Checking MongoDB replica set status..."
+      #    if mongosh --port 27017 --quiet --eval 'rs.status().ok' 2>/dev/null | grep -q 1; then
+      #        echo "Replica set already initialized."
+      #    else
+      #        echo "Initializing replica set rs0..."
+      #        mongosh --port 27017 --eval 'rs.initiate({_id: "rs0", members: [{_id: 0, host: "127.0.0.1:27017"}]})'
+      #        sleep 3
+      ##        echo "Replica set rs0 initialized."
+      #    fi
+      #    USE_CHANGE_STREAMS=true
+      #else
+      #    echo "mongosh not found. Skipping replica set initialization. Using polling."
+          USE_CHANGE_STREAMS=false
+      #fi
+      #----------------------------------------------------------------------
       cd .build/bundle
+      #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
+      # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
+      #export METEOR_REACTIVITY_ORDER=polling
+      # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
+      # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
+      # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
+      # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
+      # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      if [ "$USE_CHANGE_STREAMS" = "true" ]; then
+          #export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+          export METEOR_REACTIVITY_ORDER=oplog,polling
+      else
+          export METEOR_REACTIVITY_ORDER=polling
+      fi
       #-------------------- REQUIRED SETTINGS START --------------------
       # WRITEABLE PATH REQUIRED TO EXISTS AND BE WRITABLE FOR ATTACHMENTS TO WORK
       export WRITABLE_PATH=..
@@ -13,10 +47,19 @@
       # example : export MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #export MONGO_PASSWORD_FILE=
       #-----------------------------------------------------------------
+      # MONGO_OPLOG_URL: MongoDB oplog connection for real-time reactivity
+      # Required for Change Streams and OpLog tailing to work.
+      # For local MongoDB replica set named 'rs0':
+      if [ "$USE_CHANGE_STREAMS" = "true" ]; then
+          export MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+      fi
+      # For production with credentials and remote MongoDB:
+      #   export MONGO_OPLOG_URL=mongodb://<user>:<password>@<host>:<port>/local?authSource=admin&replicaSet=rsWekan
+      #-----------------------------------------------------------------
       # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
       # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
       # If ROOT_URL is not correct, these do not work: translations, uploading attachments.
-      export ROOT_URL=http://localhost:2000
+      export ROOT_URL=${ROOT_URL:-http://localhost:2000}
       # If at public Internet, required different SSL/TLS settings:
       # - https://github.com/wekan/wekan/wiki/Settings
       # - Also at wiki: SSL/TLS config for Caddy/Nginx/Apache

@@ -46,14 +46,9 @@ article, aside, canvas, details, figcaption,
   display: block;
 }
 audio, canvas, video {
-  display inline-block;
-  *display inline;
-  *zoom 1;
+  display: inline-block;
+  zoom: 1;
 }
 audio:not([controls]),[hidden] {
   display: none;
 }
-
-
-
-

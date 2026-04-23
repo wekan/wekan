@@ -1,4 +1,26 @@
+
 #!/bin/bash
+
+# Check dependencies for macOS/Linux
+if [ "$(uname)" = "Darwin" ]; then
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  for dep in git awk; do
+    if ! command -v $dep >/dev/null 2>&1; then
+      echo "$dep not found. Installing $dep with brew..."
+      brew install $dep
+    fi
+  done
+else
+  for dep in git awk; do
+    if ! command -v $dep >/dev/null 2>&1; then
+      echo "$dep not found. Installing $dep with apt-get..."
+      sudo apt-get update && sudo apt-get install -y $dep
+    fi
+  done
+fi
 
 # At 2024, GitHub removed feature of counting lines of code from
 # https://github.com/wekan/wekan/graphs/contributors

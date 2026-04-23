@@ -38,6 +38,20 @@ table tr:nth-child(even) {
 }
 .ext-box button {
   min-width: 90px;
+  background: #01628c;
+  color: #fff;
+  border: none;
+  border-radius: 0.4vw;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.ext-box button:hover {
+  background: #005377;
+}
+
+.ext-box button:active {
+  background: #004766;
 }
 .content-wrapper {
   margin-top: 10px;
@@ -79,24 +93,30 @@ table td:first-child {
   min-width: auto;
 }
 #divAddOrRemoveTeam {
-  background: #008000;
+  background: #01628c;
   display: none;
 }
 #addOrRemoveTeam {
-  background: #008000;
+  background: #01628c;
   color: #fff;
+}
+#addOrRemoveTeam:hover {
+  background: #005377;
 }
 #divAddOrRemoveTeamContainer {
   display: none;
   margin: auto;
   width: 50%;
-  border: 3px solid #008000;
+  border: 3px solid #01628c;
   padding: 10px;
 }
 #cancelBtn {
   margin-left: 5% !important;
-  background: #ffa500;
+  background: #01628c;
   color: #fff;
+}
+#cancelBtn:hover {
+  background: #005377;
 }
 #deleteAction {
   margin-left: 5% !important;
@@ -128,23 +148,27 @@ table td:first-child {
 }
 
 .unlock-all-btn {
+  margin-top: 20px;
   margin-left: 15px;
-  background-color: white;
-  color: #4d4d4d;
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: 2px;
-  padding: 0 10px;
+  background-color: #01628c;
+  color: #fff;
+  border: none;
+  border-radius: 0.4vw;
+  padding: 0 14px 0 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   height: 28px;
   min-width: 90px;
-  /* box-shadow: 0 1px 6px rgba(0,0,0,.3); */
 }
 
 .unlock-all-btn:hover {
-  background-color: #f2f2f2;
+  background-color: #005377;
+}
+
+.unlock-all-btn .fa {
+  color: #fff;
 }
 
 .account-active-status {
@@ -161,7 +185,7 @@ table td:first-child {
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #27ae60;
+  background-color: #01628c;
   color: white;
   padding: 10px 20px;
   border-radius: 4px;
@@ -182,13 +206,151 @@ table td:first-child {
 }
 
 .text-green {
-  color: #27ae60;
+  color: #01628c;
 }
 
 .js-toggle-lock-status {
   cursor: pointer;
 }
 
-.unlock-all-btn .fa {
-  color: #4d4d4d;
+.people-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.people-pagination button {
+  min-width: 32px;
+  height: 30px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.people-pagination button.active {
+  background: #01628c;
+  border-color: #01628c;
+  color: #fff;
+}
+
+.people-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.people-page-info {
+  min-width: 72px;
+  text-align: center;
+  color: #333;
+}
+
+.org-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.org-pagination button {
+  min-width: 32px;
+  height: 30px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.org-pagination button.active {
+  background: #01628c;
+  border-color: #01628c;
+  color: #fff;
+}
+
+.org-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.org-page-info {
+  min-width: 72px;
+  text-align: center;
+  color: #333;
+}
+
+.team-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.team-pagination button {
+  min-width: 32px;
+  height: 30px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.team-pagination button.active {
+  background: #01628c;
+  border-color: #01628c;
+  color: #fff;
+}
+
+.team-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.team-page-info {
+  min-width: 72px;
+  text-align: center;
+  color: #333;
+}
+
+/* Avatar styling - removed people-avatar column */
+
+/* Username column styling - displays avatar inline with username */
+.username a.js-edit-people-avatar {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.username a.js-edit-people-avatar:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+}
+
+.username .avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.username .avatar.avatar-initials {
+  background-color: #dbdbdb;
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.username .avatar img.avatar-image {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
+  width: 100%;
 }

@@ -1,14 +1,14 @@
 # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
 #---------------------------------------------------------------------------------------------------------
 # ==== CREATING USERS AND LOGGING IN TO WEKAN ====
-# https://github.com/wekan/wekan/blob/main/docs/Login/Adding-users.md
+# https://github.com/wekan/wekan/blob/main/docs2/Login/Adding-users.md
 #---------------------------------------------------------------------------------------------------------
 # ==== FORGOT PASSWORD ====
-# https://github.com/wekan/wekan/blob/main/docs/Login/Forgot-Password.md
+# https://github.com/wekan/wekan/blob/main/docs2/Login/Forgot-Password.md
 #---------------------------------------------------------------------------------------------------------
 # ==== Upgrading Wekan to new version =====
 # NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
-#       see https://github.com/wekan/wekan/tree/main/docs/Backup
+#       see https://github.com/wekan/wekan/tree/main/docs2/Backup
 # 1) Stop Wekan:
 #      docker compose stop
 # 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
@@ -46,7 +46,7 @@
 #     docker compose stop
 # ----------------------------------------------------------------------------------
 # ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
-# https://github.com/wekan/wekan/tree/main/docs/Backup
+# https://github.com/wekan/wekan/tree/main/docs2/Backup
 # If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
 # 1) Going inside containers:
 #    a) Wekan app, does not contain data
@@ -86,17 +86,174 @@
 
 services:
 
+  #-------------------------------------------------------------------------------------
+  # ==== DATABASE: FerretDB 2 + PostgreSQL 16 ====
+  # FerretDB is a MongoDB-compatible proxy that stores data in PostgreSQL.
+  # It supports the full MongoDB wire protocol used by Meteor/WeKan,
+  # including OpLog via replication-set emulation (--replication-set-name=rs0).
+  #
+  # Upgrade path from MongoDB:
+  #   The wekan-migrate service below runs ONCE before wekan starts.
+  #   It copies all data from an existing MongoDB instance (if reachable at
+  #   SOURCE_MONGO_URL) to FerretDB, upgrades the schema to v8.43, and
+  #   moves GridFS / CollectionFS binary files to the filesystem.
+  #   Progress is visible in a browser while migration runs.
+  #
+  # If you are upgrading from a MongoDB-based install:
+  #   1. Keep your old MongoDB container running (or start it separately).
+  #   2. Set SOURCE_MONGO_URL in the wekan-migrate environment below.
+  #   3. Run:  docker compose up -d
+  #   4. Watch migration at http://localhost:8080/ until "completed".
+  #   5. Shut down old MongoDB once satisfied.
+  #
+  # If this is a fresh install, wekan-migrate exits instantly (nothing to migrate).
+  #-------------------------------------------------------------------------------------
+  #
+  #wekan-postgres:
+  #  image: postgres:16-alpine
+  #  container_name: wekan-postgres
+  #  restart: always
+  #  networks:
+  #    - wekan-tier
+  #  expose:
+  #    - 5432
+  #  environment:
+  #    - POSTGRES_DB=wekan
+  #    - POSTGRES_USER=wekan
+  #    - POSTGRES_PASSWORD=wekan
+  #    # Tune for a kanban workload (low connection count, moderate write rate)
+  #    - POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C
+  #  volumes:
+  #    - /etc/localtime:/etc/localtime:ro
+  #    - wekan-postgres:/var/lib/postgresql/data
+  #  healthcheck:
+  #    test: ["CMD-SHELL", "pg_isready -U wekan -d wekan"]
+  #    interval: 5s
+  #    timeout: 5s
+  #    retries: 10
+  #
+  #wekan-ferretdb:
+  #  image: ghcr.io/ferretdb/ferretdb:2
+  #  container_name: wekan-ferretdb
+  #  restart: always
+  #  networks:
+  #    - wekan-tier
+  #  expose:
+  #    - 27017
+  #  environment:
+  #    # FerretDB stores everything in PostgreSQL
+  #    - FERRETDB_POSTGRESQL_URL=postgresql://wekan:wekan@wekan-postgres:5432/wekan
+  #    # Emulate MongoDB replica-set for Meteor OpLog (real-time updates)
+  #    - FERRETDB_REPLICATION_SET_NAME=rs0
+  #    # Suppress verbose debug output
+  #    - FERRETDB_LOG_LEVEL=warn
+  #  depends_on:
+  #    wekan-postgres:
+  #      condition: service_healthy
+  #  healthcheck:
+  #    test: ["CMD", "ferretdb", "--version"]
+  #    interval: 5s
+  #    timeout: 5s
+  #    retries: 10
+  #
+  #-------------------------------------------------------------------------------------
+  # ==== MIGRATION SERVICE ====
+  # Runs once, before WeKan starts.  Exits 0 on success, 1 on fatal error.
+  # WeKan only starts after this service exits successfully
+  # (depends_on condition: service_completed_successfully).
+  #
+  # On a FRESH install (no SOURCE_MONGO_URL or source unreachable) it exits
+  # immediately — no penalty for new deployments.
+  #
+  # SOURCE_MONGO_URL: point to your old MongoDB container/host.
+  #   e.g.  mongodb://wekandb:27017/wekan
+  #         mongodb://192.168.1.10:27017/wekan
+  # Leave it unset or empty to skip migration.
+  #-------------------------------------------------------------------------------------
+  #wekan-migrate:
+  #  image: node:24.15.0-slim
+  #  container_name: wekan-migrate
+  #  restart: "no"
+  #  networks:
+  #    - wekan-tier
+  #  working_dir: /migrate
+  #  # Install the mongodb driver then run the migration script.
+  #  # npm ci is used if package-lock.json exists; npm install otherwise.
+  #  command: >
+  #    sh -c "
+  #      cd /migrate &&
+  #      npm install --omit=dev --prefer-offline 2>/dev/null || npm install --omit=dev &&
+  #      node migrate-mongodb-to-ferretdb.mjs
+  #    "
+  #  environment:
+  #    # ---- Source (old MongoDB) ----
+  #    # Set to your old MongoDB URL to trigger data migration.
+  #    # Leave empty for a fresh install (migration is skipped automatically).
+  #    - SOURCE_MONGO_URL=
+  #    #- SOURCE_MONGO_URL=mongodb://wekandb:27017/wekan
+  #
+  #    # ---- Target (FerretDB) ----
+  #    - TARGET_MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
+  #
+  #    # ---- File storage ----
+  #    # Must match the WRITABLE_PATH used by the wekan service.
+  #    - WRITABLE_PATH=/data
+  #
+  #    # ---- Progress dashboard ----
+  #    # Browse to http://localhost:8080/ while migration runs.
+  #    - MIGRATION_PORT=8080
+  #
+  #    # ---- Tuning (optional) ----
+  #    #- BATCH_SIZE=200
+  #    #- DRY_RUN=true          # Log only, no writes — useful for testing
+  #    #- FORCE_MIGRATE=true    # Re-run even if already marked complete
+  #  ports:
+  #    - 8080:8080
+  #  depends_on:
+  #    wekan-ferretdb:
+  #      condition: service_healthy
+  #  volumes:
+  #    - /etc/localtime:/etc/localtime:ro
+  #    - wekan-files:/data:rw
+  #    - ./releases:/migrate:ro
+
+  #-------------------------------------------------------------------------------------
+  # ==== LEGACY MONGODB (commented out) ====
+  # Uncomment to keep old MongoDB running alongside FerretDB during migration.
+  # After migration is verified, remove this block entirely.
+  #-------------------------------------------------------------------------------------
   wekandb:
-    #-------------------------------------------------------------------------------------
-    # ==== MONGODB FROM DOCKER HUB ====
     image: mongo:7
-    #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
-    # command: mongod --oplogSize 128
-    # Syslog: mongod --syslog --oplogSize 128 --quiet
-    # Disable MongoDB logs:
-    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    #command: mongod --logpath /dev/null --oplogSize 128 --replSet rs0 --quiet
+    #command: mongod --oplogSize 128 --replSet rs0 --quiet
+    command: >
+      sh -c '
+        mongod --oplogSize 128 --replSet rs0 --bind_ip_all --quiet &
+        until mongosh --host 127.0.0.1 --quiet --eval "
+          try {
+            const status = rs.status();
+            quit(status.ok === 1 ? 0 : 1);
+          } catch (e) {
+            if (
+              e.codeName === \"NotYetInitialized\" ||
+              e.message.includes(\"no replset config has been received\") ||
+              e.message.includes(\"not yet initialized\")
+            ) {
+              rs.initiate({
+                _id: \"rs0\",
+                members: [{ _id: 0, host: \"wekandb:27017\" }]
+              });
+              quit(1);
+            }
+            quit(1);
+          }
+        " >/dev/null 2>&1; do
+          sleep 2
+        done
+        wait
+      '
     networks:
       - wekan-tier
     expose:
@@ -105,7 +262,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - wekan-db:/data/db
       - wekan-db-dump:/dump
-      #- /etc/timezone:/etc/timezone:ro # Do not use https://github.com/wekan/wekan/issues/5123
 
   wekan:
     #-------------------------------------------------------------------------------------
@@ -152,6 +308,15 @@ services:
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
       - 80:8080
     environment:
+      #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
+      # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
+      #- METEOR_REACTIVITY_ORDER=polling
+      # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
+      # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
+      # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
+      # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
+      # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      - METEOR_REACTIVITY_ORDER=oplog,polling
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====
       - WRITABLE_PATH=/data
@@ -165,9 +330,9 @@ services:
       #- S3='{"s3":{"key": "xxx", "secret": "xxx", "bucket": "xxx", "region": "xxx"}}'
       #- S3_SECRET_FILE=/run/secrets/s3_secret
       #-----------------------------------------------------------------
-      # ==== MONGO_URL ====
+      # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
+      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
       - MONGO_URL=mongodb://wekandb:27017/wekan
-      #- MONGO_URL=mongodb://username:password@wekandb:27017/wekan
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -186,7 +351,7 @@ services:
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.
       # Admin Panel has test button, but it's not used for settings.
-      #   see https://github.com/wekan/wekan/blob/main/docs/Email/Troubleshooting-Mail.md
+      #   see https://github.com/wekan/wekan/blob/main/docs2/Email/Troubleshooting-Mail.md
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #       You can encode those characters for example at: https://www.urlencoder.org
@@ -207,21 +372,18 @@ services:
       #---------------------------------------------------------------
       # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
       # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
-      # We've fixed our CPU usage problem today with an environment
-      # change around Wekan. I wasn't aware during implementation
-      # that if you're using more than 1 instance of Wekan
-      # (or any MeteorJS based tool) you're supposed to set
-      # MONGO_OPLOG_URL as an environment variable.
-      # Without setting it, Meteor will perform a poll-and-diff
-      # update of it's dataset. With it, Meteor will update from
-      # the OPLOG. See here
-      #   https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
-      # After setting
-      # MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
-      # the CPU usage for all Wekan instances dropped to an average
-      # of less than 10% with only occasional spikes to high usage
-      # (I guess when someone is doing a lot of work)
-      # - MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
+      # HIGHLY RECOMMENDED for pub/sub performance!
+      # MongoDB oplog is used by Meteor for real-time data synchronization.
+      # Without oplog, Meteor falls back to polling which increases:
+      #   - CPU usage by 3-5x
+      #   - Network traffic significantly
+      #   - Latency from 50ms to 2000ms
+      # Must configure MongoDB replica set first
+      # See: https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
+      # FerretDB emulates OpLog via --replication-set-name=rs0.
+      # HIGHLY RECOMMENDED — enables real-time DDP updates (sub-100ms latency).
+      #- MONGO_OPLOG_URL=mongodb://wekan-ferretdb:27017/local?replicaSet=rs0
+      - MONGO_OPLOG_URL=mongodb://wekandb:27017/local?replicaSet=rs0
       #---------------------------------------------------------------
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/edemaine/kadira-compose
@@ -232,7 +394,7 @@ services:
       #- APM_APP_SECRET=
       #---------------------------------------------------------------
       # ==== OPTIONAL: LOGS AND STATS ====
-      # https://github.com/wekan/wekan/blob/main/docs/Features/Logs.md
+      # https://github.com/wekan/wekan/blob/main/docs2/Features/Logs.md
       #
       # Daily export of Wekan changes as JSON to Logstash and ElasticSearch / Kibana (ELK)
       # https://github.com/wekan/wekan-logstash
@@ -256,7 +418,7 @@ services:
       #---------------------------------------------------------------
       # ==== WEKAN API AND EXPORT BOARD ====
       # Wekan Export Board works when WITH_API=true.
-      # https://github.com/wekan/wekan/blob/main/docs/API/REST-API.md
+      # https://github.com/wekan/wekan/blob/main/docs2/API/REST-API.md
       # https://github.com/wekan/wekan-gogs
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
@@ -365,7 +527,7 @@ services:
       #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
       # ==== METRICS ALLOWED IP ADDRESSES ====
-      # https://github.com/wekan/wekan/blob/main/docs/Features/Metrics.md
+      # https://github.com/wekan/wekan/blob/main/docs2/Features/Metrics.md
       #- METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
@@ -376,14 +538,14 @@ services:
       #- DEBUG=true
       #---------------------------------------------
       # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/autologin.md
+      # https://github.com/wekan/wekan/blob/main/docs2/Login/autologin.md
       #- OIDC_REDIRECTION_ENABLED=true
       #-----------------------------------------------------------------
       # ==== OAUTH2 ORACLE on premise identity manager OIM ====
       #- ORACLE_OIM_ENABLED=true
       #-----------------------------------------------------------------
       # ==== OAUTH2 AZURE ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/Azure/Azure.md
+      # https://github.com/wekan/wekan/blob/main/docs2/Login/Azure/Azure.md
       # 1) Register the application with Azure. Make sure you capture
       #    the application ID as well as generate a secret key.
       # 2) Configure the environment variables. This differs slightly
@@ -443,7 +605,7 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
+      # https://github.com/wekan/wekan/blob/main/docs2/Login/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
       #- OAUTH2_ENABLED=true
       # OAuth2 login style: popup or redirect.
       #- OAUTH2_LOGIN_STYLE=redirect
@@ -461,10 +623,10 @@ services:
       #-----------------------------------------------------------------
       # ==== OAUTH2 DOORKEEPER ====
       # https://github.com/wekan/wekan/issues/1874
-      # https://github.com/wekan/wekan/blob/main/docs/Login/OAuth2.md2
+      # https://github.com/wekan/wekan/blob/main/docs2/Login/OAuth2.md2
       # Enable the OAuth2 connection
       #- OAUTH2_ENABLED=true
-      # OAuth2 docs: https://github.com/wekan/wekan/blob/main/docs/Login/OAuth2.md
+      # OAuth2 docs: https://github.com/wekan/wekan/blob/main/docs2/Login/OAuth2.md
       # OAuth2 login style: popup or redirect.
       #- OAUTH2_LOGIN_STYLE=redirect
       # OAuth2 Client ID.
@@ -494,8 +656,8 @@ services:
       #- OAUTH2_EMAIL_MAP=
       #-----------------------------------------------------------------
       # ==== LDAP: UNCOMMENT ALL TO ENABLE LDAP ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/LDAP.md
-      # For Snap settings see https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Snap/Supported-settings-keys.md
+      # https://github.com/wekan/wekan/blob/main/docs2/Login/LDAP.md
+      # For Snap settings see https://github.com/wekan/wekan/blob/main/docs2/Platforms/FOSS/Snap/Supported-settings-keys.md
       # Most settings work both on Snap and Docker below.
       # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
       #
@@ -729,8 +891,11 @@ services:
       # Wait spinner to use
       # - WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
-    depends_on:
-      - wekandb
+    #depends_on:
+    #  wekan-migrate:
+    #    condition: service_completed_successfully
+    #  wekan-ferretdb:
+    #    condition: service_healthy
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-files:/data:rw
@@ -794,6 +959,10 @@ services:
 volumes:
   wekan-files:
     driver: local
+  #wekan-postgres:
+  #  driver: local
+  # Legacy MongoDB volumes — kept so existing data survives until migration is done.
+  # Remove once migration is verified and old MongoDB is decommissioned.
   wekan-db:
     driver: local
   wekan-db-dump:

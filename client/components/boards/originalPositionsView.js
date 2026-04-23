@@ -1,99 +1,78 @@
-import { BlazeComponent } from 'meteor/peerlibrary:blaze-components';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import './originalPositionsView.html';
 
 /**
  * Component to display original positions for all entities on a board
  */
-class OriginalPositionsViewComponent extends BlazeComponent {
-  onCreated() {
-    super.onCreated();
-    this.showOriginalPositions = new ReactiveVar(false);
-    this.boardHistory = new ReactiveVar([]);
-    this.isLoading = new ReactiveVar(false);
-    this.filterType = new ReactiveVar('all'); // 'all', 'swimlane', 'list', 'card'
-  }
 
-  onRendered() {
-    super.onRendered();
-    this.loadBoardHistory();
-  }
+Template.originalPositionsView.onCreated(function () {
+  this.showOriginalPositions = new ReactiveVar(false);
+  this.boardHistory = new ReactiveVar([]);
+  this.isLoading = new ReactiveVar(false);
+  this.filterType = new ReactiveVar('all'); // 'all', 'swimlane', 'list', 'card'
 
-  loadBoardHistory() {
+  const tpl = this;
+
+  this.loadBoardHistory = function () {
     const boardId = Session.get('currentBoard');
     if (!boardId) return;
 
-    this.isLoading.set(true);
-    
+    tpl.isLoading.set(true);
+
     Meteor.call('positionHistory.getBoardHistory', boardId, (error, result) => {
-      this.isLoading.set(false);
+      tpl.isLoading.set(false);
       if (error) {
         console.error('Error loading board history:', error);
-        this.boardHistory.set([]);
+        tpl.boardHistory.set([]);
       } else {
-        this.boardHistory.set(result);
+        tpl.boardHistory.set(result);
       }
     });
-  }
+  };
+});
 
-  toggleOriginalPositions() {
-    this.showOriginalPositions.set(!this.showOriginalPositions.get());
-  }
+Template.originalPositionsView.onRendered(function () {
+  this.loadBoardHistory();
+});
 
+Template.originalPositionsView.helpers({
   isShowingOriginalPositions() {
-    return this.showOriginalPositions.get();
-  }
+    return Template.instance().showOriginalPositions.get();
+  },
 
   isLoading() {
-    return this.isLoading.get();
-  }
+    return Template.instance().isLoading.get();
+  },
 
   getBoardHistory() {
-    return this.boardHistory.get();
-  }
+    return Template.instance().boardHistory.get();
+  },
 
   getFilteredHistory() {
-    const history = this.getBoardHistory();
-    const filterType = this.filterType.get();
-    
+    const tpl = Template.instance();
+    const history = tpl.boardHistory.get();
+    const filterType = tpl.filterType.get();
+
     if (filterType === 'all') {
       return history;
     }
-    
+
     return history.filter(item => item.entityType === filterType);
-  }
+  },
 
-  getSwimlanesHistory() {
-    return this.getBoardHistory().filter(item => item.entityType === 'swimlane');
-  }
-
-  getListsHistory() {
-    return this.getBoardHistory().filter(item => item.entityType === 'list');
-  }
-
-  getCardsHistory() {
-    return this.getBoardHistory().filter(item => item.entityType === 'card');
-  }
-
-  setFilterType(type) {
-    this.filterType.set(type);
-  }
-
-  getFilterType() {
-    return this.filterType.get();
-  }
+  isFilterType(type) {
+    return Template.instance().filterType.get() === type;
+  },
 
   getEntityDisplayName(entity) {
     const position = entity.originalPosition || {};
     return position.title || `Entity ${entity.entityId}`;
-  }
+  },
 
   getEntityOriginalPositionDescription(entity) {
     const position = entity.originalPosition || {};
     let description = `Position: ${position.sort || 0}`;
-    
+
     if (entity.entityType === 'list' && entity.originalSwimlaneId) {
       description += ` in swimlane ${entity.originalSwimlaneId}`;
     } else if (entity.entityType === 'card') {
@@ -104,9 +83,9 @@ class OriginalPositionsViewComponent extends BlazeComponent {
         description += ` in list ${entity.originalListId}`;
       }
     }
-    
+
     return description;
-  }
+  },
 
   getEntityTypeIcon(entityType) {
     switch (entityType) {
@@ -119,7 +98,7 @@ class OriginalPositionsViewComponent extends BlazeComponent {
       default:
         return 'fa-question';
     }
-  }
+  },
 
   getEntityTypeLabel(entityType) {
     switch (entityType) {
@@ -132,17 +111,24 @@ class OriginalPositionsViewComponent extends BlazeComponent {
       default:
         return 'Unknown';
     }
-  }
+  },
 
   formatDate(date) {
     return new Date(date).toLocaleString();
-  }
+  },
+});
 
-  refreshHistory() {
-    this.loadBoardHistory();
-  }
-}
+Template.originalPositionsView.events({
+  'click .js-toggle-original-positions'(evt, tpl) {
+    tpl.showOriginalPositions.set(!tpl.showOriginalPositions.get());
+  },
 
-OriginalPositionsViewComponent.register('originalPositionsView');
+  'click .js-refresh-history'(evt, tpl) {
+    tpl.loadBoardHistory();
+  },
 
-export default OriginalPositionsViewComponent;
+  'click .js-filter-type'(evt, tpl) {
+    const type = evt.currentTarget.dataset.filterType;
+    tpl.filterType.set(type);
+  },
+});

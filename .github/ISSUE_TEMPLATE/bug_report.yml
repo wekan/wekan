@@ -13,32 +13,6 @@ body:
       description: A clear and concise description of what the bug is. Mention versions of WeKan, Node.js, database name and version, frontend webserver version like Caddy etc.
     validations:
       required: true
-  - type: dropdown
-    id: platform
-    attributes:
-      label: Platform / Installation Method
-      options:
-        - Snap Stable
-        - Snap Candidate
-        - Docker
-        - Sandstorm
-        - Source (Meteor)
-        - Windows
-        - Mac
-        - Other
-    validations:
-      required: true
-  - type: dropdown 
-    id: CPU
-    attributes:    
-      label: CPU
-      options:
-        - amd64
-        - arm64
-        - s390x
-        - Other
-    validations:
-      required: true
   - type: textarea
     id: reproduction
     attributes:
@@ -66,4 +40,3 @@ body:
     attributes: 
       label: Additional Context
       description: Add any other context, anonymized screenshots or GIF video about the bug, and screenshot mockups about how it should work.
-

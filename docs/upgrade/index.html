@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upgrade WeKan ® — Open-Source kanban</title>
+
+    <link rel="icon" href="../wekan-favicon.png">
+    <link rel="shortcut icon" href="../wekan-favicon.png">
+    <link rel="apple-touch-icon" href="../wekan-favicon.png">
+    <link rel="mask-icon" href="../wekan-150.svg">
+    <link rel="alternate" type="application/atom+xml" title="RSS Feed for WeKan ChangeLog" href="https://github.com/wekan/wekan/releases.atom" />
+  <link rel="stylesheet" type="text/css" href="../css/main.css" />
+  <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrape framework -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+
+
+    <!-- Use same styles as WeKan board -->
+    <style>
+        body {
+            font: 16px Roboto,Poppins,Helvetica Neue,Arial,Helvetica,sans-serif;
+            background: #dedede;
+        }
+
+        p {
+            font: 14px Roboto,Poppins,Helvetica Neue,Arial,Helvetica,sans-serif;
+        }
+
+        .wekan-light-blue {
+            background: #2980b9;
+        }
+
+        .wekan-dark-blue {
+            background: #2573a7;
+        }
+
+        .wekan-grey {
+            background: #dedede;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<a name="home"></a>
+<div class="container-fluid wekan-dark-blue">
+    <header class="container mb-auto site-header py-1">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <div class="mb-3 mt-3">
+                    <a class="navbar-brand" href="/"><img src="https://wekan.fi/wekan-logo.png" alt="WeKan ®" height="100px" border="1" />&nbsp;</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 text-end">
+                    <a class="btn btn-link text-white" href="../">Home</a>
+                    <a class="btn btn-link text-white" href="../status/">Status</a>
+                    <a class="btn btn-link text-white" href="../docs/">Docs</a>
+                    <a class="btn btn-link text-white" href="../install/">Install</a>
+                    <a class="btn btn-link text-white" aria-current="page" href="."><b>Upgrade</b></a>
+                    <a class="btn btn-link text-white" href="../saas/">SaaS</a>
+                    <a class="btn btn-link text-white" href="../app/">App</a>  
+                    <a class="btn btn-link text-white" href="../sponsors/">Sponsors</a>
+                    <a class="btn btn-link text-white" href="../awards/">Awards</a>
+                    <a class="btn btn-link text-white" href="../success/">Success</a>
+                    <a class="btn btn-link text-white" href="https://github.com/wekan/wekan">FLOSS Developers Only</a>
+                    <a class="btn btn-link text-white" href="../commercial-support/">Private Paid Commercial Support</a>
+                    <a class="btn btn-link text-white" href="../sponsor/">Sponsor</a>
+                    <a class="btn btn-link text-white" href="../privacy/">Privacy Policy</a>
+                    <a class="btn btn-link text-white" href="../blog/">Blog</a>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="container-fluid bg-white">
+    <div class="container px-4 py-5">
+
+     <h1 class="fw-bold">Upgrade</h1>
+
+    <br />
+
+  <div class="hof">
+
+    <table border="1" margin="0" padding="10px" width="100%">
+      <tr>
+        <th width="20%">Platform</th>
+        <th width="30%">Rating</th>
+        <th width="20%">Version</th>
+        <th width="30%">Details</th>
+      </tr>
+      <tr>
+       <td valign="top"><a href="../install/">Snap Candidate</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Newest<br />
+        <code>sudo snap list</code>
+        </td>
+        <td valign="top">Already up-to-date.<br />Automatic updates.</td>
+      </tr>
+      <tr>
+       <td valign="top">Snap Stable</td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">6.09<br />
+        <code>sudo snap list</code>
+        </td>
+        <td valign="top">
+          <a href="https://github.com/wekan/wekan/blob/main/docs2/Backup/Backup.md">Manual upgrade info</a>
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a name="Kubernetes" href="../install/">Docker, Kubernetes, OpenShift</a>
+       <br /><br />
+       <a href="https://github.com/wekan/wekan/releases">.zip Bundle
+       Windows/Linux/Mac</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Newest</td>
+        <td valign="top">If installing now, newest available.<br /><br />
+
+          Bitnami MongoDB Docker images do not exist anymore.
+          <a href="https://github.com/wekan/charts/issues/45">MongoDump/MongoRestore to groundhog2k MongoDB images</a><br /><br />
+          <a href="https://github.com/wekan/wekan/blob/main/docs2/Backup/Backup.md">Manual upgrade info</a>
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan/blob/main/docs2/Platforms/FOSS/Sandstorm/Sandstorm.md">Sandstorm</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Old</td>
+        <td valign="top">Wait for new WeKan version.<br /><br />
+        New WeKan version development In Progress right now.<br /><br />
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/sandstorm-org/tempest">Sandstorm Tempest</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Not available yet</td>
+        <td valign="top">Tempest is still In Development.
+        <br /><br />
+        It will be tried how to run Tempest, and see what it would require to have WeKan at Tempest<br /><br />
+        <ul>
+        <li><a href="https://sandstorm.org/news/2023-10-23-sandstorm-tempest-and-the-future">Tempest Blog post</a></li>
+        <li><a href="https://sandstorm.zulipchat.com/#narrow/channel/477894-tempest">Tempest Forum</a></li>
+        <li><a href="https://github.com/sandstorm-org/tempest">Tempest Repo</a></li>
+        </ul>
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan/blob/main/docs2/Platforms/FOSS/UCS/UCS.md">UCS</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Old</td>
+        <td valign="top">Wait for new WeKan version.<br /><br />
+        New WeKan version development In Progress right now.<br /><br />
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan/blob/main/docs2/Platforms/FOSS/Friend/Friend.md">Friend</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Old</td>
+        <td valign="top">Friend development continues at <a href="https://os-kin.com">Kin</a>.
+        Current version is Kin-Legacy, and version in development is Kin-2.
+        When it will be available, it will be tried what would it require
+        to have WeKan at Kin-2.
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan/tree/main/docs2/Databases/ToroDB-PostgreSQL">ToroDB</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Old</td>
+        <td valign="top">ToroDB is not developed anymore.<br /><br />
+        To replace MongoDB, instead use
+        <a href="https://blog.ferretdb.io/building-project-management-stack-wekan-ferretdb/">FerretDB/PostgreSQL</a>.
+        </td>
+      </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-white">
+    <div class="container px-4 py-5">
+
+     <h2 class="fw-bold">Versions of WeKan</h2>
+
+    <br />
+
+    <p>All of these are versions of WeKan, with similar web interface,
+       same API, same features, same URLs, same environment variables.</p>
+
+  <div class="hof">
+
+    <table border="1" margin="0" padding="10px" width="100%">
+      <tr>
+        <th width="20%">Name</th>
+        <th width="30%">Rating</th>
+        <th width="20%">Status</th>
+        <th width="30%">Details</th>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan">Meteor 2 Jade WeKan</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Current</td>
+        <td valign="top">Current version of WeKan.</td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan-meteor3">Wami WeKan</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">In Progress</td>
+        <td valign="top">One of the upcoming versions of WeKan. Made with FreePascal. This works at all browsers.
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan-meteor3">Meteor 3 React WeKan</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Waiting for Meteor 3.3</td>
+        <td valign="top">One of upcoming versions of WeKan. Made with newest Meteor 3, Node.js and MongoDB.
+        Waiting for Meteor 3.3 that may have fix for bug
+        <a href="https://github.com/wekan/wekan-meteor3/issues/3">Uncaught RangeError: Maximum call stack size exceeded</a>
+        that also happened with Meteor 2 WeKan.
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekanstudio">WeKan Studio</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">In Progress</td>
+        <td valign="top">One of upcoming versions of WeKan.
+        Made with <a href="https://redbean.dev">https://redbean.dev</a>.
+        Currently testing code for large file uploads.
+        </td>
+      </tr>
+      <tr>
+       <td valign="top"><a href="https://github.com/wekan/wekan/blob/main/docs2/Design/Multiverse/WeKan-Multiverse-Roadmap.md">WeKan Multiverse</a></td>
+       <td valign="top">
+          <img src="../hall-of-fame/GoldStar.png" width="30px" height="auto" />
+       </td>
+        <td valign="top">Paused</td>
+        <td valign="top">Other versions of WeKan. Paused, while working on above upcoming versions of WeKan.</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid wekan-dark-blue">
+    <div class="container px-4 py-5">
+        <div class="row">
+            <div class="col-12 text-white">
+                <a href="https://www.tmdn.org/tmview/#/tmview/detail/FI50202100052006A" class="text-white">Registered trademark in Finland</a>.
+                Other countries usually honor trademarks of one country.
+                <a href="https://github.com/wekan/wekan/blob/main/docs2/FAQ/Hall-of-Shame.md" class="text-white">Hall of Shame of fake non-WeKan companies</a>.
+                <br /><br />
+                WeKan is MIT License (MIT)
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

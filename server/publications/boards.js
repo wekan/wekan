@@ -4,10 +4,12 @@
 // 2. the user has starred
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { findWhere } from '/imports/lib/collectionHelpers';
 import Users from "../../models/users";
 import Org from "../../models/org";
 import Team from "../../models/team";
 import Attachments from '../../models/attachments';
+import Boards from '/models/boards';
 
 publishComposite('boards', function() {
   const userId = this.userId;
@@ -18,11 +20,11 @@ publishComposite('boards', function() {
   }
 
   return {
-    find() {
-      return ReactiveCache.getBoards(
+    async find() {
+      return await ReactiveCache.getBoards(
         {
           archived: false,
-          _id: { $in: Boards.userBoardIds(userId, false) },
+          _id: { $in: await Boards.userBoardIds(userId, false) },
         },
         {
           sort: { sort: 1 /* boards default sorting */ },
@@ -32,10 +34,10 @@ publishComposite('boards', function() {
     },
     children: [
       {
-        find(board) {
+        async find(board) {
           // Publish lists with extended fields for proper sync
           // Including swimlaneId, modifiedAt, and _updatedAt for list order changes
-          return ReactiveCache.getLists(
+          return await ReactiveCache.getLists(
             { boardId: board._id, archived: false },
             {
               fields: {
@@ -45,6 +47,7 @@ publishComposite('boards', function() {
                 swimlaneId: 1,
                 archived: 1,
                 sort: 1,
+                color: 1,
                 modifiedAt: 1,
                 _updatedAt: 1,  // Hidden field to trigger updates
               }
@@ -54,8 +57,8 @@ publishComposite('boards', function() {
         }
       },
       {
-        find(board) {
-          return ReactiveCache.getCards(
+        async find(board) {
+          return await ReactiveCache.getCards(
             { boardId: board._id, archived: false },
             {
               fields: {
@@ -74,15 +77,15 @@ publishComposite('boards', function() {
   };
 });
 
-Meteor.publish('boardsReport', function() {
+Meteor.publish('boardsReport', async function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
   if (!Match.test(userId, String) || !userId) return [];
 
-  const boards = ReactiveCache.getBoards(
+  const boards = await ReactiveCache.getBoards(
     {
-      _id: { $in: Boards.userBoardIds(userId, null) },
+      _id: { $in: await Boards.userBoardIds(userId, null) },
     },
     {
       fields: {
@@ -129,20 +132,20 @@ Meteor.publish('boardsReport', function() {
 
   const ret = [
     boards,
-    ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
-    ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, true),
-    ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
+    await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
+    await ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, true),
+    await ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
   ]
   return ret;
 });
 
-Meteor.publish('archivedBoards', function() {
+Meteor.publish('archivedBoards', async function() {
   const userId = this.userId;
   if (!Match.test(userId, String)) return [];
 
-  const ret = ReactiveCache.getBoards(
+  const ret = await ReactiveCache.getBoards(
     {
-      _id: { $in: Boards.userBoardIds(userId, true)},
+      _id: { $in: await Boards.userBoardIds(userId, true)},
       archived: true,
       members: {
          $elemMatch: {
@@ -168,16 +171,28 @@ Meteor.publish('archivedBoards', function() {
   return ret;
 });
 
+// OPTIMIZED BOARD PUBLICATION
+//
+// Performance improvements implemented to reduce N+1 query problem:
+// - Batches card-related queries (comments, attachments, checklists) instead of querying per-card
+// - Uses field projections to minimize data transfer
+// - Removed automatic loading of entire linked boards (cardType-linkedBoard)
+// - Only loads visible data: cards, comments, attachments, checklists for current board
+//
+// Estimated improvement:
+// - Before: ~800-1000 queries for board with 100 cards
+// - After: ~15-20 batched queries for same board (40-50x reduction)
+//
 // If isArchived = false, this will only return board elements which are not archived.
 // If isArchived = true, this will only return board elements which are archived.
-publishComposite('board', function(boardId, isArchived) {
+publishComposite('board', async function(boardId, isArchived) {
   check(boardId, String);
   check(isArchived, Boolean);
 
   const thisUserId = this.userId;
   const $or = [{ permission: 'public' }];
 
-  let currUser = (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : ReactiveCache.getUser(thisUserId);
+  let currUser = (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : await ReactiveCache.getUser(thisUserId);
   let orgIdsUserBelongs = currUser !== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
   let teamIdsUserBelongs = currUser !== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
   let orgsIds = [];
@@ -197,8 +212,8 @@ publishComposite('board', function(boardId, isArchived) {
   }
 
   return {
-    find() {
-      return ReactiveCache.getBoards(
+    async find() {
+      return await ReactiveCache.getBoards(
         {
           _id: boardId,
           archived: false,
@@ -212,41 +227,45 @@ publishComposite('board', function(boardId, isArchived) {
     children: [
       // Lists
       {
-        find(board) {
-          return ReactiveCache.getLists({ boardId: board._id, archived: isArchived }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getLists({ boardId: board._id, archived: isArchived }, {}, true);
         }
       },
       // Swimlanes
       {
-        find(board) {
-          return ReactiveCache.getSwimlanes({ boardId: board._id, archived: isArchived }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getSwimlanes({ boardId: board._id, archived: isArchived }, {}, true);
         }
       },
       // Integrations
       {
-        find(board) {
-          return ReactiveCache.getIntegrations({ boardId: board._id }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getIntegrations(
+            { boardId: board._id },
+            { fields: { token: 0 } },
+            true,
+          );
         }
       },
       // CardCommentReactions at board level
       {
-        find(board) {
-          return ReactiveCache.getCardCommentReactions({ boardId: board._id }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getCardCommentReactions({ boardId: board._id }, {}, true);
         }
       },
       // CustomFields
       {
-        find(board) {
-          return ReactiveCache.getCustomFields(
+        async find(board) {
+          return await ReactiveCache.getCustomFields(
             { boardIds: { $in: [board._id] } },
             { sort: { name: 1 } },
             true,
           );
         }
       },
-      // Cards and their related data
+      // Cards
       {
-        find(board) {
+        async find(board) {
           const cardSelector = {
             boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
             archived: isArchived,
@@ -254,131 +273,265 @@ publishComposite('board', function(boardId, isArchived) {
 
           // Check if current user has assigned-only permissions
           if (thisUserId && board.members) {
-            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
               // User with assigned-only permissions should only see cards assigned to them
               cardSelector.assignees = { $in: [thisUserId] };
             }
           }
 
-          return ReactiveCache.getCards(cardSelector, {}, true);
-        },
-        children: [
-          // CardComments for each card
-          {
-            find(card) {
-              return CardComments.find({ cardId: card._id });
-            }
-          },
-          // CardCommentReactions for each card
-          {
-            find(card) {
-              return CardCommentReactions.find({ cardId: card._id });
-            }
-          },
-          // Attachments for each card
-          {
-            find(card) {
-              return Attachments.collection.find({ 'meta.cardId': card._id });
-            }
-          },
-          // Checklists for each card
-          {
-            find(card) {
-              return Checklists.find({ cardId: card._id });
-            }
-          },
-          // ChecklistItems for each card
-          {
-            find(card) {
-              return ChecklistItems.find({ cardId: card._id });
-            }
-          },
-          // Parent cards (cards that have this card as parentId)
-          {
-            find(card) {
-              return Cards.find({ parentId: card._id });
-            }
-          },
-          // Linked card data (for cardType-linkedCard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedCard' && card.linkedId) {
-                return Cards.find({ _id: card.linkedId, archived: isArchived });
-              }
-              return null;
-            },
-            children: [
-              // Comments for linked card
-              {
-                find(linkedCard) {
-                  return CardComments.find({ cardId: linkedCard._id });
-                }
-              },
-              // Attachments for linked card
-              {
-                find(linkedCard) {
-                  return Attachments.collection.find({ 'meta.cardId': linkedCard._id });
-                }
-              },
-              // Checklists for linked card
-              {
-                find(linkedCard) {
-                  return Checklists.find({ cardId: linkedCard._id });
-                }
-              },
-              // ChecklistItems for linked card
-              {
-                find(linkedCard) {
-                  return ChecklistItems.find({ cardId: linkedCard._id });
-                }
-              }
-            ]
-          },
-          // Linked board (for cardType-linkedBoard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedBoard' && card.linkedId) {
-                return Boards.find({ _id: card.linkedId });
-              }
-              return null;
-            }
-          },
-          // Cards in linked board (for cardType-linkedBoard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedBoard' && card.linkedId) {
-                return Cards.find({ boardId: card.linkedId });
-              }
-              return null;
-            }
-          },
-          // Comments for linked board cards (for cardType-linkedBoard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedBoard' && card.linkedId) {
-                return CardComments.find({ boardId: card.linkedId });
-              }
-              return null;
+          return await ReactiveCache.getCards(cardSelector, {}, true);
+        }
+      },
+      // Batch CardComments for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
             }
           }
-        ]
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          return await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true);
+        }
+      },
+      // Batch Attachments for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          const result = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true);
+          return result.cursor || result;
+        }
+      },
+      // Batch Checklists for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          return await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true);
+        }
+      },
+      // Batch ChecklistItems for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          return await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true);
+        }
+      },
+      // Parent cards (for subtasks)
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, parentId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const parentIds = cards.filter(c => c.parentId).map(c => c.parentId);
+          if (parentIds.length === 0) return null;
+
+          return await ReactiveCache.getCards({ _id: { $in: parentIds } }, {}, true);
+        }
+      },
+      // Linked cards (cardType-linkedCard)
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getCards({ _id: { $in: linkedCardIds }, archived: isArchived }, {}, true);
+        }
+      },
+      // Comments for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getCardComments({ cardId: { $in: linkedCardIds } }, {}, true);
+        }
+      },
+      // Attachments for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          const result = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: linkedCardIds } }, {}, true);
+          return result.cursor || result;
+        }
+      },
+      // Checklists for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getChecklists({ cardId: { $in: linkedCardIds } }, {}, true);
+        }
+      },
+      // ChecklistItems for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getChecklistItems({ cardId: { $in: linkedCardIds } }, {}, true);
+        }
       },
       // Board members/Users
       {
-        find(board) {
+        async find(board) {
           if (board.members) {
             // Board members. This publication also includes former board members that
             // aren't members anymore but may have some activities attached to them in
             // the history.
-            const memberIds = _.pluck(board.members, 'userId');
+            const memberIds = board.members.map(x => x.userId);
 
             // We omit the current user because the client should already have that data,
             // and sending it triggers a subtle bug:
             // https://github.com/wefork/wekan/issues/15
-            return ReactiveCache.getUsers(
+            return await ReactiveCache.getUsers(
               {
-                _id: { $in: _.without(memberIds, thisUserId) },
+                _id: { $in: memberIds.filter(x => x !== thisUserId) },
               },
               {
                 fields: {
@@ -399,12 +552,12 @@ publishComposite('board', function(boardId, isArchived) {
 });
 
 Meteor.methods({
-  copyBoard(boardId, properties) {
+  async copyBoard(boardId, properties) {
     check(boardId, String);
     check(properties, Object);
 
     let ret = null;
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (board) {
       for (const key in properties) {
         board[key] = properties[key];

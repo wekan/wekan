@@ -26,7 +26,7 @@ template(name="subtaskDetail")
       .subtask-title
         span
         if canModifyCard
-          a.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
+          a.fa.fa-navicon.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
             +viewer
@@ -40,7 +40,7 @@ template(name="addSubtaskItemForm")
   textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-subtask-item-form(type="submit") {{_ 'save'}}
-    a.js-close-inlined-form
+    a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-add-checklist-item'}}")
 
 template(name="editSubtaskItemForm")
   textarea.js-edit-subtask-item(rows='1' autofocus dir="auto")
@@ -50,8 +50,8 @@ template(name="editSubtaskItemForm")
       = subtask.title
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-subtask-item-form(type="submit") {{_ 'save'}}
-    a.js-close-inlined-form
-    span(title=createdAt) {{ moment createdAt }}
+    a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-edit-checklist-item'}}")
+    span(title=createdAt) {{ displayDate createdAt }}
     if canModifyCard
       if currentUser.isBoardAdmin
         a.js-delete-subtask-item {{_ "delete"}}...
@@ -96,6 +96,10 @@ template(name="subtaskActionsPopup")
       a.js-view-subtask(title="{{ subtask.title }}")
         i.fa.fa-eye
         | {{_ "view-it"}}
+    li
+      a.js-go-to-subtask-board
+        i.fa.fa-folder
+        | {{_ "go-to-board"}}
       if currentUser.isBoardAdmin
         a.js-delete-subtask.delete-subtask
           i.fa.fa-trash

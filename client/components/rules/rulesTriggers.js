@@ -1,14 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.showBoardTrigger = new ReactiveVar(true);
-    this.showCardTrigger = new ReactiveVar(false);
-    this.showChecklistTrigger = new ReactiveVar(false);
-  },
+Template.rulesTriggers.onCreated(function () {
+  this.showBoardTrigger = new ReactiveVar(true);
+  this.showCardTrigger = new ReactiveVar(false);
+  this.showChecklistTrigger = new ReactiveVar(false);
+});
 
+Template.rulesTriggers.helpers({
   ruleNameStr() {
-    const rn = this.data() && this.data().ruleName;
+    const rn = Template.currentData() && Template.currentData().ruleName;
     try {
       return rn && typeof rn.get === 'function' ? rn.get() : '';
     } catch (_) {
@@ -16,29 +16,16 @@ BlazeComponent.extendComponent({
     }
   },
 
-  setBoardTriggers() {
-    this.showBoardTrigger.set(true);
-    this.showCardTrigger.set(false);
-    this.showChecklistTrigger.set(false);
-    $('.js-set-card-triggers').removeClass('active');
-    $('.js-set-board-triggers').addClass('active');
-    $('.js-set-checklist-triggers').removeClass('active');
+  showBoardTrigger() {
+    return Template.instance().showBoardTrigger;
   },
-  setCardTriggers() {
-    this.showBoardTrigger.set(false);
-    this.showCardTrigger.set(true);
-    this.showChecklistTrigger.set(false);
-    $('.js-set-card-triggers').addClass('active');
-    $('.js-set-board-triggers').removeClass('active');
-    $('.js-set-checklist-triggers').removeClass('active');
+
+  showCardTrigger() {
+    return Template.instance().showCardTrigger;
   },
-  setChecklistTriggers() {
-    this.showBoardTrigger.set(false);
-    this.showCardTrigger.set(false);
-    this.showChecklistTrigger.set(true);
-    $('.js-set-card-triggers').removeClass('active');
-    $('.js-set-board-triggers').removeClass('active');
-    $('.js-set-checklist-triggers').addClass('active');
+
+  showChecklistTrigger() {
+    return Template.instance().showChecklistTrigger;
   },
 
   rules() {
@@ -47,21 +34,45 @@ BlazeComponent.extendComponent({
   },
 
   name() {
-    // console.log(this.data());
+    // console.log(Template.currentData());
   },
-  events() {
-    return [
-      {
-        'click .js-set-board-triggers'() {
-          this.setBoardTriggers();
-        },
-        'click .js-set-card-triggers'() {
-          this.setCardTriggers();
-        },
-        'click .js-set-checklist-triggers'() {
-          this.setChecklistTriggers();
-        },
-      },
-    ];
+});
+
+function setBoardTriggers(tpl) {
+  tpl.showBoardTrigger.set(true);
+  tpl.showCardTrigger.set(false);
+  tpl.showChecklistTrigger.set(false);
+  $('.js-set-card-triggers').removeClass('active');
+  $('.js-set-board-triggers').addClass('active');
+  $('.js-set-checklist-triggers').removeClass('active');
+}
+
+function setCardTriggers(tpl) {
+  tpl.showBoardTrigger.set(false);
+  tpl.showCardTrigger.set(true);
+  tpl.showChecklistTrigger.set(false);
+  $('.js-set-card-triggers').addClass('active');
+  $('.js-set-board-triggers').removeClass('active');
+  $('.js-set-checklist-triggers').removeClass('active');
+}
+
+function setChecklistTriggers(tpl) {
+  tpl.showBoardTrigger.set(false);
+  tpl.showCardTrigger.set(false);
+  tpl.showChecklistTrigger.set(true);
+  $('.js-set-card-triggers').removeClass('active');
+  $('.js-set-board-triggers').removeClass('active');
+  $('.js-set-checklist-triggers').addClass('active');
+}
+
+Template.rulesTriggers.events({
+  'click .js-set-board-triggers'(event, tpl) {
+    setBoardTriggers(tpl);
   },
-}).register('rulesTriggers');
+  'click .js-set-card-triggers'(event, tpl) {
+    setCardTriggers(tpl);
+  },
+  'click .js-set-checklist-triggers'(event, tpl) {
+    setChecklistTriggers(tpl);
+  },
+});

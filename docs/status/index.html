@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Status of WeKan ® — Open-Source kanban</title>
+
+    <link rel="icon" href="../wekan-favicon.png">
+    <link rel="shortcut icon" href="../wekan-favicon.png">
+    <link rel="apple-touch-icon" href="../wekan-favicon.png">
+    <link rel="mask-icon" href="../wekan-150.svg">
+    <link rel="alternate" type="application/atom+xml" title="RSS Feed for WeKan ChangeLog" href="https://github.com/wekan/wekan/releases.atom" />
+
+
+    <!-- Bootstrape framework -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+
+
+    <!-- Use same styles as WeKan board -->
+    <style>
+        body {
+            font: 16px Roboto,Poppins,Helvetica Neue,Arial,Helvetica,sans-serif;
+            background: #dedede;
+        }
+
+        p {
+            font: 14px Roboto,Poppins,Helvetica Neue,Arial,Helvetica,sans-serif;
+        }
+
+        .wekan-light-blue {
+            background: #2980b9;
+        }
+
+        .wekan-dark-blue {
+            background: #2573a7;
+        }
+
+        .wekan-grey {
+            background: #dedede;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<a name="home"></a>
+<div class="container-fluid wekan-dark-blue">
+    <header class="container mb-auto site-header py-1">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <div class="mb-3 mt-3">
+                    <a class="navbar-brand" href="/"><img src="https://wekan.fi/wekan-logo.png" alt="WeKan ®" height="100px" border="1" />&nbsp;</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 text-end">
+                    <a class="btn btn-link text-white" href="../">Home</a>
+                    <a class="btn btn-link text-white" aria-current="page" href="."><b>Status</b></a>
+                    <a class="btn btn-link text-white" href="../docs/">Docs</a>
+                    <a class="btn btn-link text-white" href="../install/">Install</a>
+                    <a class="btn btn-link text-white" href="../upgrade/">Upgrade</a>
+                    <a class="btn btn-link text-white" href="../saas/">SaaS</a>
+                    <a class="btn btn-link text-white" href="../app/">App</a>
+                    <a class="btn btn-link text-white" href="../sponsors/">Sponsors</a>
+                    <a class="btn btn-link text-white" href="../awards/">Awards</a>
+                    <a class="btn btn-link text-white" href="../success/">Success</a>
+                    <a class="btn btn-link text-white" href="https://github.com/wekan/wekan">FLOSS Developers Only</a>
+                    <a class="btn btn-link text-white" href="../commercial-support/">Private Paid Commercial Support</a>
+                    <a class="btn btn-link text-white" href="../sponsor/">Sponsor</a>
+                    <a class="btn btn-link text-white" href="../privacy/">Privacy Policy</a>
+                    <a class="btn btn-link text-white" href="../blog/">Blog</a>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="container-fluid bg-white">
+    <div class="container px-4 py-5">
+        <h2 id="devstatus">WeKan Development Status</h2>
+        <a class="btn btn-link" href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md">ChangeLog</a>
+        <a class="btn btn-link" href="https://github.com/wekan/wekan/releases.atom"><img src="https://wekan.fi/feed-icon.svg" width="20px" height="20px" alt="RSS Feed"> RSS feed of releases</a>
+        <a class="btn btn-link" href="https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license">Roadmap</a><br />
+
+        <br />
+
+        <h2 id="stats">WeKan Stats</h2>
+        <ul>
+          <li>2026-01-24 <a href="https://github.com/wekan/wekan">GitHub repo</a>: 20.8K stars, 543 watchers, 3K forks</li>
+          <li>2026-01-24 WeKan <a href="https://www.openhub.net/p/wekan">Code Analysis at Open Hub</a>: About 359 contributors total, estimated 39 years of effort (COCOMO model), first commit in May 2015.</li>
+          <li>2026-01-24 Meteor <a href="https://www.openhub.net/p/meteor-js">Code Analysis at Open Hub</a>: About 819 contributors total, estimated 59 years of effort (COCOMO model), first commit in November 2011. WeKan is made with Meteor.</li>
+          <li>2023-12-09 Largest installation known: 30K users, using Kubernetes</li>
+          <li>2023-12-09 <a href="https://snapcraft.io/wekan">Snap</a>: 10K active installs. Note: Non-snap versions (Source/Docker/etc) don't have count of active installs.</li>
+          <li>2021-11-22 <a href="https://hub.docker.com/r/wekanteam/wekan">Docker Hub</a>: 32M pulls total</li>
+          <li>2017-10-32 <a href="https://groups.google.com/forum/#!searchin/sandstorm-dev/wekan$20ethercalc%Csort:relevance/sandstorm-dev/_JpC1Xze6q0/VvJG5yNhAQAJ">Sandstorm</a>: Owners 7.7K, sharedUsers 1.7K, grains 10K</li>
+        </ul>
+
+        <br />
+
+        <h2 id="about">About WeKan Cloud</h2>
+
+        <p><a href="https://wekan.fi/saas/#about">About WeKan Cloud</a></p>
+
+        <h2 id="cloudstatus">WeKan Cloud Status at Finland time</h2>
+
+            <h3>2026-02-23 04:08-11:57</h3>
+            <ul>
+              <li>04:08 Downtime Started: WeKan kanban hosting went down at night, when support was sleeping.</li>
+              <li>11:57 Downtime Ended: Updated and rebooted server, now it works.</li>
+              <li>Total Downtime: 7h 49min 57sec.
+              <li>In Progress: Investigating what is root cause, and improving automatic recovery.</li>
+            </ul>
+
+            <h3>2025-08-18 21:00-22:30</h3>
+            <ul>
+              <li>21:00 After releasing WeKan v7.94, some hosted WeKan kanban went offline. Fixing In Progress.</li>
+              <li>22:30 All hosted WeKan kanban works now.</li>
+              <li>Root cause: Snap Candidate WeKan required reboot of server after updates.</li>
+            </ul>
+
+            <h3>2025-06-28</h3>
+            <ul>
+              <li>Combined websites wekan.github.io/wekan.team/blog.wekan.team etc to wekan.fi
+                  that is hosted at GitHub Pages with website source code at <a href="https://github.com/wekan/wekan.fi">github.com/wekan/wekan.fi</a>.
+                  There was small downtime while moving stuff around, updating redirects
+                  and configuring SSL/TLS.</li>
+            </ul>
+
+
+            <h3>2024-11-25</h3>
+            <ul>
+              <li>At morning, SaaS hosting was moved to different server, because there was notification
+                  that there will be 6 hours downtime at network of server where hosting
+                  was previously, because they are making some changes to improve network quality.
+                  Moving had minimal downtime.
+              <li>Later at evening, there was some downtime.</li>
+              <li>20:15 Fixing done, all services back online.</li>
+              <li>Root cause:</li>
+              <li>1) For Snap, reboot of server made them work.</li>
+              <li>2) For RocketChat, lxc containers did not have any network connectivity. Fix was these commands
+                  from this webpage: <a href="https://discuss.linuxcontainers.org/t/containers-do-not-have-outgoing-internet-access/10844/3">
+                  https://discuss.linuxcontainers.org/t/containers-do-not-have-outgoing-internet-access/10844/3</a></li>
+           </ul>
+<pre>
+for ipt in iptables iptables-legacy ip6tables ip6tables-legacy; do $ipt --flush; $ipt --flush -t nat; $ipt --delete-chain; $ipt --delete-chain -t nat; $ipt -P FORWARD ACCEPT; $ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT; done
+
+systemctl reload snap.lxd.daemon
+
+</pre>
+
+            <h3>2024-10-16</h3>
+            <ul>
+              <li>2024-10-16 22:04 Adding new WeKan hosting customer. Some downtime.</li>
+              <li>2024-10-17 02:18 All hosting services online</li>
+              <li>Root cause: To get new custom domain kanban.somecompany.com
+                  CNAME TLS cert, had to disable and remove Origin Cert
+                  from CloudFlare, so that Caddy can get Let's Encrypt cert.
+                  Changed Sandstorm domain because it works with
+                  CloudFlare wildcard Origin cert. Had to also reboot router and
+                  server, to get all working.</li>
+            </ul>
+
+            <h3>2024-10-05</h3>
+            <ul>
+              <li>16:00 SSL/TLS errors at some hosting services.</li>
+              <li>16:30 Fixing done, all services back online.</li>
+              <li>Root cause: Had to restart router, it was stuck.</li>
+            </ul>
+
+            <h3>2024-09-23</h3>
+            <ul>
+              <li>16:00 SSL/TLS errors at some hosting services.</li>
+              <li>16:30 Fixing done, all services back online.</li>
+              <li>General info: Any WeKan hosting uses custom domain CNAME record (at customer nameserver).</li>
+              <li>Root cause: Getting Let's Encrypt TLS cert did not work with CNAME record (at customer nameserver)
+                  to CNAME record (at WeKan hosting nameserver), it required CNAME record (at customer nameserver) to
+                  A record (at WeKan hosting nameserver) to IP address.</li>
+            </ul>
+
+            <h3>2024-05-21</h3>
+            <ul>
+              <li>2024-05-21: SSL/TLS issues at many hosting services.</li>
+              <li>Notes: <a href="https://github.com/wekan/wekan/issues/5415">https://github.com/wekan/wekan/issues/5415</a></li>
+              <li>2024-05-22: Fixing done, all services back online.</li>
+              <li>Root cause: CloudFlare changed their SSL/TLS features, had to find correct working settings by trial and error.</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="container-fluid wekan-dark-blue">
+        <div class="container px-4 py-5">
+            <div class="row">
+                <div class="col-12 text-white">
+                    <a href="https://www.tmdn.org/tmview/#/tmview/detail/FI50202100052006A" class="text-white">Registered trademark in Finland</a>.
+                    Other countries usually honor trademarks of one country.
+                    <br /><br />
+                    <small>&copy; WeKan</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

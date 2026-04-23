@@ -16,7 +16,7 @@ template(name="listHeader")
             span.cardCount {{cardsCount}}
       if isMiniScreen
         h2.list-header-name(
-          title="{{ moment modifiedAt 'LLL' }}"
+          title="{{ displayDate modifiedAt 'LLL' }}"
           class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
           +viewer
             = title
@@ -30,14 +30,14 @@ template(name="listHeader")
             | &nbsp;
             span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
-        a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
+        a.list-collapse-indicator.js-collapse(title="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}" aria-label="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}")
           if collapsed
             i.fa.fa-caret-right
           else
             i.fa.fa-caret-down
         div(class="{{#if collapsed}}list-rotated{{/if}}")
           h2.list-header-name(
-            title="{{ moment modifiedAt 'LLL' }}"
+            title="{{ displayDate modifiedAt 'LLL' }}"
             class="{{#unless collapsed}}{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}{{/unless}}")
             +viewer
               = title
@@ -59,6 +59,9 @@ template(name="listHeader")
             unless currentUser.isCommentOnly
               unless currentUser.isReadOnly
                 unless currentUser.isReadAssignedOnly
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                      i.fa.fa-plus
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
         else
@@ -83,7 +86,14 @@ template(name="listHeader")
               unless currentUser.isReadOnly
                 unless currentUser.isReadAssignedOnly
                   //if isBoardAdmin
-                  //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
+                  //
+                    a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
+                  if isTouchScreenOrShowDesktopDragHandles
+                    a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
+                      i.fa.fa-arrows
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                      i.fa.fa-plus
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
 
@@ -151,6 +161,18 @@ template(name="listActionPopup")
               a.js-set-wip-limit
                 i.fa.fa-ban
                 | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+        hr
+        ul.pop-over-list
+          unless currentUser.isWorker
+            li
+              a.js-copy-list
+                i.fa.fa-clipboard
+                | {{_ 'copyListPopup-title'}}
+          if currentUser.isBoardAdmin
+            li
+              a.js-move-list
+                i.fa.fa-arrow-right
+                | {{_ 'moveListPopup-title'}}
         unless currentUser.isWorker
           hr
           ul.pop-over-list
@@ -183,10 +205,17 @@ template(name="listMorePopup")
       i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
-    span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
+    span.date(title=list.createdAt) {{ displayDate createdAt 'LLL' }}
     //unless currentUser.isWorker
-    //  if currentUser.isBoardAdmin
-    //    a.js-delete {{_ 'delete'}}
+    //
+      if currentUser.isBoardAdmin
+    //
+        a.js-delete {{_ 'delete'}}
+
+template(name="listArchivePopup")
+  p {{_ "list-archive-pop"}}
+  p {{_ "list-archive-suggest"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}
@@ -221,8 +250,8 @@ template(name="setListWidthPopup")
   #js-list-width-edit
     label {{_ 'set-list-width-value'}}
       p
-        input.list-width-value(type="number" value="{{ listWidthValue }}" min="100")
-        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="100")
+        input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
+        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="270")
         input.list-width-apply(type="submit" value="{{_ 'apply'}}")
         input.list-width-error
         br
@@ -233,7 +262,7 @@ template(name="setListWidthPopup")
 
 template(name="listWidthErrorPopup")
   .list-width-invalid
-    p {{_ 'list-width-error-message'}} '&gt;=100'
+    p {{_ 'list-width-error-message'}} '&gt;=270'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")
@@ -245,6 +274,54 @@ template(name="setListColorPopup")
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+template(name="copyListPopup")
+  label(for='copy-list-title') {{_ 'title'}}:
+  input#copy-list-title.full-line(type="text" value="{{title}}" autofocus)
+  label {{_ 'boards'}}:
+  select.js-select-boards
+    each boards
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  div
+    input(type="radio" name="list-position" value="left" checked id="list-position-left" style="display: inline")
+    label(for="list-position-left") {{_ 'left-of-list'}}
+  div
+    input(type="radio" name="list-position" value="right" id="list-position-right" style="display: inline")
+    label(for="list-position-right") {{_ 'right-of-list'}}
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="moveListPopup")
+  label(for='move-list-title') {{_ 'title'}}:
+  input#move-list-title.full-line(type="text" value="{{title}}" autofocus)
+  label {{_ 'boards'}}:
+  select.js-select-boards
+    each boards
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  div
+    input(type="radio" name="list-position" value="left" checked id="list-position-left" style="display: inline")
+    label(for="list-position-left") {{_ 'left-of-list'}}
+  div
+    input(type="radio" name="list-position" value="right" id="list-position-right" style="display: inline")
+    label(for="list-position-right") {{_ 'right-of-list'}}
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="addListPopup")
   form.js-add-list-form

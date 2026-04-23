@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Meteor } from 'meteor/meteor';
-import '/models/cards';
+import Cards from '/models/cards';
 
 // Helpers to access method handlers
 const voteHandler = () => Meteor.server.method_handlers['cards.vote'];

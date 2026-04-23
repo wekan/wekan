@@ -1,4 +1,4 @@
-@import url("../../../css/reset.css") print, screen;
+@import url("../../../public/css/reset.css") print, screen;
 
 /* Board List Header with Zoom Controls */
 .board-list-header {
@@ -69,12 +69,14 @@
   font-weight: bold;
   margin-top: 12px;
 }
-.workspaces-header .js-add-space {
+.workspaces-header .js-add-space,
+.workspaces-header .js-add-workspace {
   text-decoration: none;
   font-weight: bold;
-  border: 1px solid #ccc;
+  border: none;
   padding: 2px 8px;
   border-radius: 4px;
+  margin-right: 10px;
 }
 
 .workspace-tree {
@@ -130,8 +132,23 @@
 }
 
 .workspace-node .workspace-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
   line-height: 1;
+  vertical-align: middle;
+}
+
+.workspace-node .workspace-icon .workspace-icon-value,
+.workspace-node .workspace-icon .workspace-icon-value p {
+  display: inline;
+  margin: 0;
+  margin-top: 12px;
+}
+
+.workspace-node .workspace-icon .emoji-icon {
+  margin-top: 0px;
 }
 
 .workspace-node .workspace-name {
@@ -163,6 +180,55 @@
 .workspace-node .js-add-subspace:hover {
   opacity: 1;
   background: #e0e0e0;
+}
+
+.workspace-node .js-open-workspace-menu {
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.workspace-node .js-open-workspace-menu:hover {
+  opacity: 1;
+  background: #e0e0e0;
+}
+
+.workspace-actions-form label,
+.workspace-subspace-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.workspace-actions-form input[type='text'],
+.workspace-subspace-form input[type='text'] {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.workspace-actions-form .workspace-color-label {
+  margin-bottom: 6px;
+}
+
+.workspace-actions-form .workspace-color-list {
+  margin-bottom: 10px;
+}
+
+.workspace-delete-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.workspace-delete-confirm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
 }
 
 .workspace-node.active > .workspace-node-content .js-select-space,

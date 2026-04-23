@@ -1,0 +1,69 @@
+{
+  "name": "jade",
+  "description": "Jade template engine",
+  "version": "1.3.0",
+  "author": {
+    "name": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/visionmedia/jade"
+  },
+  "main": "./index.js",
+  "bin": {
+    "jade": "./bin/jade.js"
+  },
+  "man": [
+    "./jade.1"
+  ],
+  "dependencies": {
+    "commander": "2.1.0",
+    "mkdirp": "~0.3.5",
+    "transformers": "2.1.0",
+    "character-parser": "1.2.0",
+    "monocle": "1.1.51",
+    "with": "~3.0.0",
+    "constantinople": "~2.0.0"
+  },
+  "devDependencies": {
+    "coffee-script": "*",
+    "mocha": "*",
+    "istanbul": "*",
+    "markdown": "*",
+    "stylus": "*",
+    "should": "*",
+    "less": "*",
+    "uglify-js": "*",
+    "browserify": "*",
+    "linify": "*"
+  },
+  "component": {
+    "scripts": {
+      "jade": "runtime.js"
+    }
+  },
+  "scripts": {
+    "test": "mocha -R spec && npm run coverage",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha",
+    "prepublish": "npm prune && linify transform bin && npm run build",
+    "build": "npm run compile",
+    "compile": "npm run compile-full && npm run compile-runtime",
+    "compile-full": "browserify ./lib/jade.js --standalone jade -x ./node_modules/transformers > jade.js",
+    "compile-runtime": "browserify ./lib/runtime.js --standalone jade > runtime.js"
+  },
+  "browser": {
+    "./lib/filters.js": "./lib/filters-client.js"
+  },
+  "readme": "# [![Jade - template engine ](http://i.imgur.com/5zf2aVt.png)](http://jade-lang.com/)\n\nFull documentation is at [jade-lang.com](http://jade-lang.com/)\n\n Jade is a high performance template engine heavily influenced by [Haml](http://haml-lang.com)\n and implemented with JavaScript for [node](http://nodejs.org). For discussion join the [Google Group](http://groups.google.com/group/jadejs).\n\n You can test drive Jade online [here](http://naltatis.github.com/jade-syntax-docs).\n\n [![Build Status](https://travis-ci.org/visionmedia/jade.png?branch=master)](https://travis-ci.org/visionmedia/jade)\n [![Dependency Status](https://gemnasium.com/visionmedia/jade.png)](https://gemnasium.com/visionmedia/jade)\n [![NPM version](https://badge.fury.io/js/jade.png)](http://badge.fury.io/js/jade)\n\n## Announcements\n\n**Deprecation of implicit script/style text-only:**\n\n Jade version 0.31.0 deprecated implicit text only support for scripts and styles.  To fix this all you need to do is add a `.` character after the script or style tag.\n\n It is hoped that this change will make Jade easier for newcomers to learn without affecting the power of the language or leading to excessive verboseness.\n\n If you have a lot of Jade files that need fixing you can use [fix-jade](https://github.com/ForbesLindesay/fix-jade) to attempt to automate the process.\n\n**Command line option change:**\n\nsince `v0.31.0`, `-o` is preferred for `--out` where we used `-O` before.\n\n## Installation\n\nvia npm:\n\n```bash\n$ npm install jade\n```\n\n## Syntax\n\nJade is a clean, whitespace sensitive syntax for writing html.  Here is a simple example:\n\n```jade\ndoctype html\nhtml(lang=\"en\")\n  head\n    title= pageTitle\n    script(type='text/javascript').\n      if (foo) bar(1 + 5)\n  body\n    h1 Jade - node template engine\n    #container.col\n      if youAreUsingJade\n        p You are amazing\n      else\n        p Get on it!\n      p.\n        Jade is a terse and simple templating language with a\n        strong focus on performance and powerful features.\n```\n\nbecomes\n\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <title>Jade</title>\n    <script type=\"text/javascript\">\n      if (foo) bar(1 + 5)\n    </script>\n  </head>\n  <body>\n    <h1>Jade - node template engine</h1>\n    <div id=\"container\" class=\"col\">\n      <p>You are amazing</p>\n      <p>Jade is a terse and simple templating language with a strong focus on performance and powerful features.</p>\n    </div>\n  </body>\n</html>\n```\n\nThe official [jade tutorial](http://jade-lang.com/tutorial/) is a great place to start.  While that (and the syntax documentation) is being finished, you can view some of the old documentation [here](https://github.com/visionmedia/jade/blob/master/jade.md) and [here](https://github.com/visionmedia/jade/blob/master/jade-language.md)\n\n## API\n\nFor full API, see [jade-lang.com/api](http://jade-lang.com/api/)\n\n```js\nvar jade = require('jade');\n\n// compile\nvar fn = jade.compile('string of jade', options);\nvar html = fn(locals);\n\n// render\nvar html = jade.render('string of jade', merge(options, locals));\n\n// renderFile\nvar html = jade.renderFile('filename.jade', merge(options, locals));\n```\n\n### Options\n\n - `filename`  Used in exceptions, and required when using includes\n - `compileDebug`  When `false` no debug instrumentation is compiled\n - `pretty`    Add pretty-indentation whitespace to output _(false by default)_\n\n## Browser Support\n\n The latest version of jade can be download for the browser in standalone form from [here](https://github.com/visionmedia/jade/raw/master/jade.js).  It only supports the very latest browsers though, and is a large file.  It is recommended that you pre-compile your jade templates to JavaScript and then just use the [runtime.js](https://github.com/visionmedia/jade/raw/master/runtime.js) library on the client.\n\n To compile a template for use on the client using the command line, do:\n\n```console\n$ jade --client --no-debug filename.jade\n```\n\nwhich will produce `filename.js` containing the compiled template.\n\n## Command Line\n\nAfter installing the latest version of [node](http://nodejs.org/), install with:\n\n```console\n$ npm install jade -g\n```\n\nand run with\n\n```console\n$ jade --help\n```\n\n## Additional Resources\n\nTutorials:\n\n  - cssdeck interactive [Jade syntax tutorial](http://cssdeck.com/labs/learning-the-jade-templating-engine-syntax)\n  - cssdeck interactive [Jade logic tutorial](http://cssdeck.com/labs/jade-templating-tutorial-codecast-part-2)\n  - in [Japanese](http://blog.craftgear.net/4f501e97c1347ec934000001/title/10%E5%88%86%E3%81%A7%E3%82%8F%E3%81%8B%E3%82%8Bjade%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3)\n\n\nImplementations in other languages:\n\n  - [php](http://github.com/everzet/jade.php)\n  - [scala](http://scalate.fusesource.org/versions/snapshot/documentation/scaml-reference.html)\n  - [ruby](https://github.com/slim-template/slim)\n  - [python](https://github.com/SyrusAkbary/pyjade)\n  - [java](https://github.com/neuland/jade4j)\n\nOther:\n\n  - [Emacs Mode](https://github.com/brianc/jade-mode)\n  - [Vim Syntax](https://github.com/digitaltoad/vim-jade)\n  - [TextMate Bundle](http://github.com/miksago/jade-tmbundle)\n  - [Coda/SubEtha syntax Mode](https://github.com/aaronmccall/jade.mode)\n  - [Screencasts](http://tjholowaychuk.com/post/1004255394/jade-screencast-template-engine-for-nodejs)\n  - [html2jade](https://github.com/donpark/html2jade) converter\n\n## License\n\nMIT\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/visionmedia/jade/issues"
+  },
+  "homepage": "https://github.com/visionmedia/jade",
+  "_id": "jade@1.3.0",
+  "_shasum": "1d2afc59de1a0ee9c06d3b364833ac0d009886ac",
+  "_from": "https://github.com/mquandalle/jade/tarball/f3f956fa1031e05f85be7bc7b67f12e9ec80ba37",
+  "_resolved": "https://github.com/mquandalle/jade/tarball/f3f956fa1031e05f85be7bc7b67f12e9ec80ba37"
+}

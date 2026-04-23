@@ -2,53 +2,53 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { Attachments, fileStoreStrategyFactory } from '/models/attachments';
+import Attachments from '/models/attachments';
+import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { Settings } from '../../models/settings';
 import { moveToStorage } from '/models/lib/fileStoreStrategy';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import fs from 'fs';
 import path from 'path';
-import { ObjectID } from 'bson';
+import { ObjectId } from 'bson';
 
 // Attachment API HTTP routes
-if (Meteor.isServer) {
-  // Helper function to authenticate API requests using X-User-Id and X-Auth-Token
-  function authenticateApiRequest(req) {
-    const userId = req.headers['x-user-id'];
-    const authToken = req.headers['x-auth-token'];
+// Helper function to authenticate API requests using X-User-Id and X-Auth-Token
+async function authenticateApiRequest(req) {
+  const userId = req.headers['x-user-id'];
+  const authToken = req.headers['x-auth-token'];
 
-    if (!userId || !authToken) {
-      throw new Meteor.Error('unauthorized', 'Missing X-User-Id or X-Auth-Token headers');
-    }
-
-    // Hash the token and validate against stored login tokens
-    const hashedToken = Accounts._hashLoginToken(authToken);
-    const user = Meteor.users.findOne({
-      _id: userId,
-      'services.resume.loginTokens.hashedToken': hashedToken,
-    });
-
-    if (!user) {
-      throw new Meteor.Error('unauthorized', 'Invalid credentials');
-    }
-
-    return userId;
+  if (!userId || !authToken) {
+    throw new Meteor.Error('unauthorized', 'Missing X-User-Id or X-Auth-Token headers');
   }
 
-  // Helper function to send JSON response
-  function sendJsonResponse(res, statusCode, data) {
-    res.writeHead(statusCode, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(data));
+  // Hash the token and validate against stored login tokens
+  const hashedToken = Accounts._hashLoginToken(authToken);
+  const user = await Meteor.users.findOneAsync({
+    _id: userId,
+    'services.resume.loginTokens.hashedToken': hashedToken,
+  });
+
+  if (!user) {
+    throw new Meteor.Error('unauthorized', 'Invalid credentials');
   }
 
-  // Helper function to send error response
-  function sendErrorResponse(res, statusCode, message) {
-    sendJsonResponse(res, statusCode, { success: false, error: message });
-  }
+  return userId;
+}
 
-  // Upload attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/upload', (req, res, next) => {
+// Helper function to send JSON response
+function sendJsonResponse(res, statusCode, data) {
+  res.writeHead(statusCode, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify(data));
+}
+
+// Helper function to send error response
+function sendErrorResponse(res, statusCode, message) {
+  sendJsonResponse(res, statusCode, { success: false, error: message });
+}
+
+// Upload attachment endpoint
+WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -61,11 +61,11 @@ if (Meteor.isServer) {
     }, 30000); // 30 second timeout
 
     try {
-      const userId = authenticateApiRequest(req);
-      
+      const userId = await authenticateApiRequest(req);
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         // Prevent excessive payload
@@ -75,11 +75,11 @@ if (Meteor.isServer) {
         }
       });
 
-      req.on('end', () => {
+      req.on('end', async () => {
         if (bodyComplete) return; // Already processed
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend } = data;
@@ -90,12 +90,12 @@ if (Meteor.isServer) {
           }
 
           // Check if user has permission to modify the card
-          const card = ReactiveCache.getCard(cardId);
+          const card = await ReactiveCache.getCard(cardId);
           if (!card) {
             return sendErrorResponse(res, 404, 'Card not found');
           }
 
-          const board = ReactiveCache.getBoard(boardId);
+          const board = await ReactiveCache.getBoard(boardId);
           if (!board) {
             return sendErrorResponse(res, 404, 'Board not found');
           }
@@ -128,7 +128,7 @@ if (Meteor.isServer) {
           let targetStorage = storageBackend;
           if (!targetStorage) {
             try {
-              const settings = AttachmentStorageSettings.findOne({});
+              const settings = await AttachmentStorageSettings.findOneAsync({});
               targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
             } catch (error) {
               targetStorage = STORAGE_NAME_FILESYSTEM;
@@ -145,7 +145,7 @@ if (Meteor.isServer) {
           const file = new File([fileBuffer], fileName, { type: fileType || 'application/octet-stream' });
 
           // Create attachment metadata
-          const fileId = new ObjectID().toString();
+          const fileId = new ObjectId().toString();
           const meta = {
             boardId: boardId,
             swimlaneId: swimlaneId,
@@ -157,7 +157,7 @@ if (Meteor.isServer) {
           };
 
           // Create attachment
-          const uploader = Attachments.insert({
+          const uploader = await Attachments.insertAsync({
             file: file,
             meta: meta,
             isBase64: false,
@@ -192,7 +192,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -207,23 +207,23 @@ if (Meteor.isServer) {
   });
 
   // Download attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/download/([^/]+)', (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/download/:attachmentId', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
-      const userId = authenticateApiRequest(req);
-      const attachmentId = req.params[0];
+      const userId = await authenticateApiRequest(req);
+      const attachmentId = req.params.attachmentId;
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         return sendErrorResponse(res, 404, 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this attachment');
       }
@@ -245,7 +245,7 @@ if (Meteor.isServer) {
       readStream.on('end', () => {
         const fileBuffer = Buffer.concat(chunks);
         const base64Data = fileBuffer.toString('base64');
-        
+
         sendJsonResponse(res, 200, {
           success: true,
           attachmentId: attachmentId,
@@ -267,27 +267,27 @@ if (Meteor.isServer) {
   });
 
   // List attachments endpoint
-  WebApp.connectHandlers.use('/api/attachment/list/([^/]+)/([^/]+)/([^/]+)/([^/]+)', (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/list/:boardId/:swimlaneId/:listId/:cardId', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
-      const userId = authenticateApiRequest(req);
-      const boardId = req.params[0];
-      const swimlaneId = req.params[1];
-      const listId = req.params[2];
-      const cardId = req.params[3];
+      const userId = await authenticateApiRequest(req);
+      const boardId = req.params.boardId;
+      const swimlaneId = req.params.swimlaneId;
+      const listId = req.params.listId;
+      const cardId = req.params.cardId;
 
       // Check permissions
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this board');
       }
 
       // If cardId is provided, verify it belongs to the board
       if (cardId && cardId !== 'null') {
-        const card = ReactiveCache.getCard(cardId);
+        const card = await ReactiveCache.getCard(cardId);
         if (!card || card.boardId !== boardId) {
           return sendErrorResponse(res, 404, 'Card not found or does not belong to the specified board');
         }
@@ -307,7 +307,7 @@ if (Meteor.isServer) {
         query['meta.cardId'] = cardId;
       }
 
-      const attachments = ReactiveCache.getAttachments(query);
+      const attachments = await ReactiveCache.getAttachments(query);
       
       const attachmentList = attachments.map(attachment => {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
@@ -337,7 +337,7 @@ if (Meteor.isServer) {
   });
 
   // Copy attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/copy', (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/copy', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -349,11 +349,11 @@ if (Meteor.isServer) {
     }, 30000);
 
     try {
-      const userId = authenticateApiRequest(req);
-      
+      const userId = await authenticateApiRequest(req);
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         if (body.length > 10 * 1024 * 1024) { // 10MB limit for metadata
@@ -362,35 +362,35 @@ if (Meteor.isServer) {
         }
       });
 
-      req.on('end', () => {
+      req.on('end', async () => {
         if (bodyComplete) return;
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId } = data;
 
           // Get source attachment
-          const sourceAttachment = ReactiveCache.getAttachment(attachmentId);
+          const sourceAttachment = await ReactiveCache.getAttachment(attachmentId);
           if (!sourceAttachment) {
             return sendErrorResponse(res, 404, 'Source attachment not found');
           }
 
           // Check source permissions
-          const sourceBoard = ReactiveCache.getBoard(sourceAttachment.meta.boardId);
+          const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
           if (!sourceBoard || !sourceBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
           // Check target permissions
-          const targetBoard = ReactiveCache.getBoard(targetBoardId);
+          const targetBoard = await ReactiveCache.getBoard(targetBoardId);
           if (!targetBoard || !targetBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
           // Verify that the target card belongs to the target board
-          const targetCard = ReactiveCache.getCard(targetCardId);
+          const targetCard = await ReactiveCache.getCard(targetCardId);
           if (!targetCard) {
             return sendErrorResponse(res, 404, 'Target card not found');
           }
@@ -427,13 +427,13 @@ if (Meteor.isServer) {
             chunks.push(chunk);
           });
 
-          readStream.on('end', () => {
+          readStream.on('end', async () => {
             try {
               const fileBuffer = Buffer.concat(chunks);
               const file = new File([fileBuffer], sourceAttachment.name, { type: sourceAttachment.type });
 
               // Create new attachment metadata
-              const fileId = new ObjectID().toString();
+              const fileId = new ObjectId().toString();
               const meta = {
                 boardId: targetBoardId,
                 swimlaneId: targetSwimlaneId,
@@ -446,7 +446,7 @@ if (Meteor.isServer) {
               };
 
               // Create new attachment
-              const uploader = Attachments.insert({
+              const uploader = await Attachments.insertAsync({
                 file: file,
                 meta: meta,
                 isBase64: false,
@@ -478,7 +478,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -493,7 +493,7 @@ if (Meteor.isServer) {
   });
 
   // Move attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/move', (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/move', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -505,11 +505,11 @@ if (Meteor.isServer) {
     }, 30000);
 
     try {
-      const userId = authenticateApiRequest(req);
-      
+      const userId = await authenticateApiRequest(req);
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         if (body.length > 10 * 1024 * 1024) {
@@ -518,35 +518,35 @@ if (Meteor.isServer) {
         }
       });
 
-      req.on('end', () => {
+      req.on('end', async () => {
         if (bodyComplete) return;
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId } = data;
 
           // Get source attachment
-          const sourceAttachment = ReactiveCache.getAttachment(attachmentId);
+          const sourceAttachment = await ReactiveCache.getAttachment(attachmentId);
           if (!sourceAttachment) {
             return sendErrorResponse(res, 404, 'Source attachment not found');
           }
 
           // Check source permissions
-          const sourceBoard = ReactiveCache.getBoard(sourceAttachment.meta.boardId);
+          const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
           if (!sourceBoard || !sourceBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
           // Check target permissions
-          const targetBoard = ReactiveCache.getBoard(targetBoardId);
+          const targetBoard = await ReactiveCache.getBoard(targetBoardId);
           if (!targetBoard || !targetBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
           // Verify that the target card belongs to the target board
-          const targetCard = ReactiveCache.getCard(targetCardId);
+          const targetCard = await ReactiveCache.getCard(targetCardId);
           if (!targetCard) {
             return sendErrorResponse(res, 404, 'Target card not found');
           }
@@ -570,7 +570,7 @@ if (Meteor.isServer) {
           }
 
           // Update attachment metadata
-          Attachments.update(attachmentId, {
+          await Attachments.updateAsync(attachmentId, {
             $set: {
               'meta.boardId': targetBoardId,
               'meta.swimlaneId': targetSwimlaneId,
@@ -595,7 +595,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -610,29 +610,29 @@ if (Meteor.isServer) {
   });
 
   // Delete attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/delete/([^/]+)', (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/delete/:attachmentId', async (req, res, next) => {
     if (req.method !== 'DELETE') {
       return next();
     }
 
     try {
-      const userId = authenticateApiRequest(req);
-      const attachmentId = req.params[0];
+      const userId = await authenticateApiRequest(req);
+      const attachmentId = req.params.attachmentId;
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         return sendErrorResponse(res, 404, 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
       }
 
       // Delete attachment
-      Attachments.remove(attachmentId);
+      await Attachments.removeAsync(attachmentId);
 
       sendJsonResponse(res, 200, {
         success: true,
@@ -646,29 +646,29 @@ if (Meteor.isServer) {
   });
 
   // Get attachment info endpoint
-  WebApp.connectHandlers.use('/api/attachment/info/([^/]+)', (req, res, next) => {
+  WebApp.handlers.use('/api/attachment/info/:attachmentId', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
-      const userId = authenticateApiRequest(req);
-      const attachmentId = req.params[0];
+      const userId = await authenticateApiRequest(req);
+      const attachmentId = req.params.attachmentId;
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         return sendErrorResponse(res, 404, 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this attachment');
       }
 
       const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
-      
+
       sendJsonResponse(res, 200, {
         success: true,
         attachmentId: attachment._id,
@@ -693,4 +693,3 @@ if (Meteor.isServer) {
       sendErrorResponse(res, 401, error.message);
     }
   });
-}

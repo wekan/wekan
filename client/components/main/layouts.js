@@ -1,6 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Users from '/models/users';
+import { EscapeActions } from '/client/lib/escapeActions';
 
 let alreadyCheck = 1;
 let isCheckDone = false;
@@ -85,7 +87,7 @@ Template.userFormsLayout.onRendered(() => {
       validator,
     );
     EscapeActions.executeAll();
-    
+
     // Set up MutationObserver for OIDC button instead of deprecated DOMSubtreeModified
     const oidcButton = document.getElementById('at-oidc');
     if (oidcButton) {
@@ -115,7 +117,7 @@ Template.userFormsLayout.onRendered(() => {
       });
       observer.observe(oidcButton, { childList: true, subtree: true });
     }
-    
+
     // Set up MutationObserver for .at-form instead of deprecated DOMSubtreeModified
     const atForm = document.querySelector('.at-form');
     if (atForm) {
@@ -312,9 +314,9 @@ function getAuthenticationMethod(
   if (!settings) {
     return getUserAuthenticationMethod(undefined, match);
   }
-  
+
   const { displayAuthenticationMethod, defaultAuthenticationMethod } = settings;
-  
+
   if (displayAuthenticationMethod) {
     return $('.select-authentication').val();
   }

@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-AccessibilitySettings = new Mongo.Collection('accessibilitySettings');
+const AccessibilitySettings = new Mongo.Collection('accessibilitySettings');
 
 AccessibilitySettings.attachSchema(
   new SimpleSchema({
@@ -32,7 +34,6 @@ AccessibilitySettings.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -44,22 +45,5 @@ AccessibilitySettings.attachSchema(
     },
   }),
 );
-
-AccessibilitySettings.allow({
-  update(userId) {
-    const user = ReactiveCache.getUser(userId);
-    return user && user.isAdmin;
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await AccessibilitySettings._collection.createIndexAsync({ modifiedAt: -1 });
-    const accessibilitySetting = AccessibilitySettings.findOne({});
-    if (!accessibilitySetting) {
-      AccessibilitySettings.insert({ enabled: false, sort: 0 });
-    }
-  });
-}
 
 export default AccessibilitySettings;

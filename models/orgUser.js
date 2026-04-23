@@ -1,4 +1,8 @@
-OrgUser = new Mongo.Collection('orgUser');
+import { Mongo } from 'meteor/mongo';
+import { incrementCounter } from './counters';
+const { SimpleSchema } = require('/imports/simpleSchema');
+
+const OrgUser = new Mongo.Collection('orgUser');
 
 /**
  * A Organization User in wekan
@@ -14,7 +18,7 @@ OrgUser.attachSchema(
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return incrementCounter('counters', 'orgUserId', 1);
+          return incrementCounter('orgUserId', 1);
         }
       },
     },
@@ -58,7 +62,6 @@ OrgUser.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -70,13 +73,5 @@ OrgUser.attachSchema(
     },
   }),
 );
-
-if (Meteor.isServer) {
-  // Index for Organization User.
-  Meteor.startup(async () => {
-    await OrgUser._collection.createIndexAsync({ orgId: -1 });
-    await OrgUser._collection.createIndexAsync({ orgId: -1, userId: -1 });
-  });
-}
 
 export default OrgUser;

@@ -198,7 +198,7 @@ body.list-resizing-active * {
 .list-header .list-header-plus-top {
   position: absolute !important;
   top: 5px !important;
-  right: 10px !important;
+  right: 30px !important;
   z-index: 15 !important;
   display: inline-block !important;
   padding: 4px !important;
@@ -207,7 +207,7 @@ body.list-resizing-active * {
 .list-header .list-header-handle-desktop {
   position: absolute !important;
   top: 5px !important;
-  right: 40px !important;
+  right: 80px !important;
   z-index: 15 !important;
   display: inline-block !important;
   cursor: move !important;
@@ -273,11 +273,39 @@ body.list-resizing-active * {
   max-width: 30px;
   margin: 0;
 }
+
+/* In collapsed lists, keep controls inside the 30px column.
+   The inlined wrapper is normally display: contents; convert it to a real
+   flex container so control ordering and centering apply reliably. */
+.list.list-collapsed .list-header > .js-inlined-form-wrapper {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  padding-top: 0 !important;
+}
+
+/* Keep collapsed header controls in a deterministic vertical order:
+   collapse toggle, drag handle, then rotated title. */
+.list.list-collapsed .list-header > .js-inlined-form-wrapper > .list-header-handle-desktop,
+.list.list-collapsed .list-header > .js-inlined-form-wrapper > .list-header-handle {
+  order: 2;
+}
+
+.list.list-collapsed .list-header > .js-inlined-form-wrapper > .js-collapse {
+  order: 1;
+}
+
+.list.list-collapsed .list-header > .js-inlined-form-wrapper > .list-rotated {
+  order: 3;
+}
 .list.list-collapsed .list-header .js-collapse {
   position: relative !important;
-  left: -10px !important;
   margin: 5px auto;
-  z-index: 10;
+  z-index: 30;
   padding: 5px;
   font-size: 16px;
   white-space: nowrap;
@@ -287,55 +315,69 @@ body.list-resizing-active * {
   top: auto !important;
 }
 .list.list-collapsed .list-header .list-header-handle {
-  position: static !important;
+  position: relative !important;
   margin: 5px auto;
-  z-index: 10;
+  z-index: 31;
   padding: 5px;
   display: block;
   width: auto;
   top: auto !important;
   right: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .list.list-collapsed .list-header .list-header-handle-desktop {
-  position: static !important;
+  position: relative !important;
   margin: 5px auto;
-  z-index: 10;
+  z-index: 31;
   padding: 5px;
   display: block;
   width: auto;
   top: auto !important;
   right: auto !important;
+  left: auto !important;
+  transform: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 .list.list-collapsed .list-header .list-rotated {
-  width: auto !important;
+  width: 100% !important;
+  max-width: 100%;
   height: auto !important;
-  margin: 20px 0 0 0 !important;
+  margin: 10px 0 0 0 !important;
   position: relative !important;
-  overflow: visible !important;
-  transform: rotate(90deg);
+  overflow: hidden !important;
+  transform: none;
   transform-origin: center center;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
+  pointer-events: none;
 }
 .list.list-collapsed .list-header .list-rotated h2.list-header-name {
   text-align: center;
-  overflow: visible;
-  white-space: nowrap;
+  overflow: hidden;
+  white-space: normal;
   display: block !important;
   font-size: 12px;
   line-height: 1.2;
   color: #333;
-  padding: 4px 8px;
+  padding: 0;
   margin: 0;
-  width: auto;
-  height: auto;
+  width: 100%;
+  max-height: 100%;
+  height: 100%;
   position: static;
   left: auto;
   top: auto;
-  transform: none;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
   z-index: 10;
   visibility: visible !important;
   opacity: 1 !important;
@@ -473,12 +515,24 @@ form.inlined-form .list-composer {
   color: #333;
 }
 
-/* Title text container - full width below buttons */
+/* Title text container */
 .list-header > div {
-  padding-top: 25px;
+  padding-top: 0;
   width: 100%;
   display: block;
   clear: both;
+}
+
+/* Expanded desktop collapse button — static, participates in flex row 1. */
+.list:not(.list-collapsed):not(.mobile-view) .list-header .js-collapse {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  min-width: 24px;
+  padding: 2px 4px !important;
 }
 .list.list-collapsed .list-header .js-collapse {
   display: inline-block !important;
@@ -509,25 +563,28 @@ form.inlined-form .list-composer {
     height: 100% !important;
   }
   .list.list-collapsed .list-header .list-rotated {
-    width: auto !important;
+    width: 100% !important;
     height: auto !important;
-    margin: 20px 0 0 0 !important;
+    margin: 10px 0 0 0 !important;
     position: relative !important;
-    transform: rotate(90deg);
+    overflow: hidden !important;
+    transform: none;
     flex: 1;
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: auto;
+    width: 100%;
     font-size: 12px;
-    height: auto;
+    height: 100%;
     line-height: 1.2;
-    padding: 4px 8px;
+    padding: 0;
     margin: 0;
-    overflow: visible;
+    overflow: hidden;
     position: static;
     left: auto;
     top: auto;
-    transform: none;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
     text-align: center;
     visibility: visible !important;
     opacity: 1 !important;
@@ -557,25 +614,28 @@ form.inlined-form .list-composer {
     height: 100% !important;
   }
   .list.list-collapsed .list-header .list-rotated {
-    width: auto !important;
+    width: 100% !important;
     height: auto !important;
-    margin: 20px 0 0 0 !important;
+    margin: 10px 0 0 0 !important;
     position: relative !important;
-    transform: rotate(90deg);
+    overflow: hidden !important;
+    transform: none;
     flex: 1;
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: auto;
+    width: 100%;
     font-size: 12px;
-    height: auto;
+    height: 100%;
     line-height: 1.2;
-    padding: 4px 8px;
+    padding: 0;
     margin: 0;
-    overflow: visible;
+    overflow: hidden;
     position: static;
     left: auto;
     top: auto;
-    transform: none;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
     text-align: center;
     visibility: visible !important;
     opacity: 1 !important;
@@ -605,25 +665,28 @@ form.inlined-form .list-composer {
     height: 100% !important;
   }
   .list.list-collapsed .list-header .list-rotated {
-    width: auto !important;
+    width: 100% !important;
     height: auto !important;
-    margin: 20px 0 0 0 !important;
+    margin: 10px 0 0 0 !important;
     position: relative !important;
-    transform: rotate(90deg);
+    overflow: hidden !important;
+    transform: none;
     flex: 1;
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: auto;
+    width: 100%;
     font-size: 12px;
-    height: auto;
+    height: 100%;
     line-height: 1.2;
-    padding: 4px 8px;
+    padding: 0;
     margin: 0;
-    overflow: visible;
+    overflow: hidden;
     position: static;
     left: auto;
     top: auto;
-    transform: none;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
     text-align: center;
     visibility: visible !important;
     opacity: 1 !important;
@@ -1133,6 +1196,7 @@ form.inlined-form .list-composer {
 
 /* Allow long list titles to expand on desktop (non-mobile, non-collapsed) */
 .list:not(.mobile-view):not(.list-collapsed) .list-header {
+  padding-top: calc(2.5vh - 6px) !important;
   overflow: visible !important;
 }
 
@@ -1162,79 +1226,184 @@ form.inlined-form .list-composer {
   margin-top: unset !important;
 }
 .list-header-white {
-  border-bottom: 6px solid #fff;
+  border-bottom: 6px solid #fff !important;
 }
 .list-header-green {
-  border-bottom: 6px solid #3cb500;
+  border-bottom: 6px solid #3cb500 !important;
 }
 .list-header-yellow {
-  border-bottom: 6px solid #fad900;
+  border-bottom: 6px solid #fad900 !important;
 }
 .list-header-orange {
-  border-bottom: 6px solid #ff9f19;
+  border-bottom: 6px solid #ff9f19 !important;
 }
 .list-header-red {
-  border-bottom: 6px solid #eb4646;
+  border-bottom: 6px solid #eb4646 !important;
 }
 .list-header-purple {
-  border-bottom: 6px solid #a632db;
+  border-bottom: 6px solid #a632db !important;
 }
 .list-header-blue {
-  border-bottom: 6px solid #0079bf;
+  border-bottom: 6px solid #0079bf !important;
 }
 .list-header-pink {
-  border-bottom: 6px solid #ff78cb;
+  border-bottom: 6px solid #ff78cb !important;
 }
 .list-header-sky {
-  border-bottom: 6px solid #00c2e0;
+  border-bottom: 6px solid #00c2e0 !important;
 }
 .list-header-black {
-  border-bottom: 6px solid #4d4d4d;
+  border-bottom: 6px solid #4d4d4d !important;
 }
 .list-header-lime {
-  border-bottom: 6px solid #51e898;
+  border-bottom: 6px solid #51e898 !important;
 }
 .list-header-silver {
-  border-bottom: 6px solid #e4e4e4;
+  border-bottom: 6px solid #e4e4e4 !important;
 }
 .list-header-peachpuff {
-  border-bottom: 6px solid #ffdab9;
+  border-bottom: 6px solid #ffdab9 !important;
 }
 .list-header-crimson {
-  border-bottom: 6px solid #dc143c;
+  border-bottom: 6px solid #dc143c !important;
 }
 .list-header-plum {
-  border-bottom: 6px solid #dda0dd;
+  border-bottom: 6px solid #dda0dd !important;
 }
 .list-header-darkgreen {
-  border-bottom: 6px solid #006400;
+  border-bottom: 6px solid #006400 !important;
+}
+
+/* Final collapsed desktop overrides:
+   keep drag handle visible in every collapsed list and preserve rotated title. */
+.list.list-collapsed:not(.mobile-view) {
+  overflow: visible !important;
+  z-index: 1;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30px !important;
+  max-width: 30px !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  padding: 5px 0 !important;
+  overflow: visible !important;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header > .js-inlined-form-wrapper {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100% !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header > .js-inlined-form-wrapper > .list-header-handle-desktop,
+.list.list-collapsed:not(.mobile-view) .list-header > .js-inlined-form-wrapper > .list-header-handle {
+  order: 2;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header > .js-inlined-form-wrapper > .js-collapse {
+  order: 1;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header > .js-inlined-form-wrapper > .list-rotated {
+  order: 3;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header .list-header-handle-desktop,
+.list.list-collapsed:not(.mobile-view) .list-header .list-header-handle {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  transform: none !important;
+  display: block !important;
+  margin: 4px auto 2px auto !important;
+  padding: 5px !important;
+  z-index: 500 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  color: #4d4d4d !important;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header .js-collapse {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  display: block !important;
+  margin: 2px auto !important;
+  z-index: 400 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header .list-rotated {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 4px 0 0 0 !important;
+  transform: none !important;
+  transform-origin: initial !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  display: block !important;
+  flex: 0 0 auto !important;
+  align-self: flex-start;
+}
+
+.list.list-collapsed:not(.mobile-view) .list-header .list-rotated h2.list-header-name {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  max-height: 100% !important;
+  padding: 2px 0 !important;
+  white-space: normal !important;
+  overflow: hidden !important;
+  transform: none !important;
+  writing-mode: vertical-lr !important;
+  text-orientation: mixed !important;
+  text-align: left !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 .list-header-slateblue {
-  border-bottom: 6px solid #6a5acd;
+  border-bottom: 6px solid #6a5acd !important;
 }
 .list-header-magenta {
-  border-bottom: 6px solid #f0f;
+  border-bottom: 6px solid #f0f !important;
 }
 .list-header-gold {
-  border-bottom: 6px solid #ffd700;
+  border-bottom: 6px solid #ffd700 !important;
 }
 .list-header-navy {
-  border-bottom: 6px solid #000080;
+  border-bottom: 6px solid #000080 !important;
 }
 .list-header-gray {
-  border-bottom: 6px solid #808080;
+  border-bottom: 6px solid #808080 !important;
 }
 .list-header-saddlebrown {
-  border-bottom: 6px solid #8b4513;
+  border-bottom: 6px solid #8b4513 !important;
 }
 .list-header-paleturquoise {
-  border-bottom: 6px solid #afeeee;
+  border-bottom: 6px solid #afeeee !important;
 }
 .list-header-mistyrose {
-  border-bottom: 6px solid #ffe4e1;
+  border-bottom: 6px solid #ffe4e1 !important;
 }
 .list-header-indigo {
-  border-bottom: 6px solid #4b0082;
+  border-bottom: 6px solid #4b0082 !important;
 }
 
 .list.list-collapsed .collapsed-list-drag-area {
@@ -1248,6 +1417,106 @@ form.inlined-form .list-composer {
 }
 .list.list-collapsed .collapsed-list-drag-area:active {
   cursor: grabbing;
+}
+
+/* Final expanded desktop header layout:
+   collapse, title, drag handle, add-to-top, menu. */
+/* Final expanded desktop header layout:
+   Row 1: collapse | drag handle | + add card | menu
+   Row 2: list title (full width) */
+.list:not(.list-collapsed):not(.mobile-view) .list-header {
+  display: block !important;
+  /* Match collapsed header top anchor for toolbar controls. */
+  padding-top: 5px !important;
+}
+
+.list:not(.list-collapsed):not(.mobile-view) .list-header > .js-inlined-form-wrapper {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+  gap: 0;
+}
+
+/* Collapse button — first item in toolbar row */
+.list:not(.list-collapsed):not(.mobile-view) .list-header > .js-inlined-form-wrapper > .js-collapse {
+  order: 1;
+  flex: 0 0 auto;
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  margin: 2px 2px 0 0 !important;
+  padding: 2px 4px !important;
+  min-width: 24px;
+  width: auto;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 20 !important;
+}
+
+/* Title div — second row, full width */
+.list:not(.list-collapsed):not(.mobile-view) .list-header > .js-inlined-form-wrapper > div:not(.list-header-menu) {
+  order: 10;
+  flex: 1 0 100%;
+  min-width: 0;
+  padding-top: 4px !important;
+  padding-right: 0 !important;
+}
+
+/* Hide standalone duplicate drag handle outside the menu group */
+.list:not(.list-collapsed):not(.mobile-view) .list-header > .js-inlined-form-wrapper > .list-header-handle-desktop {
+  display: none !important;
+}
+
+/* Watch icon in toolbar row */
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-watch-icon {
+  order: 2;
+  flex: 0 0 auto;
+  padding-left: 0;
+  align-self: center;
+}
+
+/* Menu group — right side of toolbar row */
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu {
+  order: 5;
+  float: none;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  margin-top: 2px;
+  flex: 0 0 auto;
+}
+
+/* Reset absolute positioning on all menu-group items */
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu .list-header-handle-desktop,
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu .list-header-plus-top,
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu .js-open-list-menu {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  transform: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 2px 6px !important;
+}
+
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu .list-header-handle-desktop {
+  order: 1;
+}
+
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu .list-header-plus-top {
+  order: 2;
+}
+
+.list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu .js-open-list-menu {
+  order: 3;
 }
 .list.list-collapsed .list-header-name-collapsed {
   writing-mode: vertical-rl;

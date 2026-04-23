@@ -1,0 +1,6 @@
+dependencies:
+- name: mongodb
+  repository: https://groundhog2k.github.io/helm-charts/
+  version: 0.7.6
+digest: sha256:72681253e308951cf3a8f95245a46fa010ff3cdb7883a139ba3207d9efb9bf27
+generated: "2025-11-25T17:26:10.080809965+01:00"

@@ -11,17 +11,21 @@ template(name="minicard")
       a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
         i.fa.fa-bars
     .dates
-      if getReceived
-        .date
-          +minicardReceivedDate
-      if getStart
-        .date
-          +minicardStartDate
-      if getDue
-        .date
-          +minicardDueDate
-      if getEnd
-         +minicardEndDate
+      if showReceived
+        if getReceived
+          .date
+            +minicardReceivedDate
+      if showStart
+        if getStart
+          .date
+            +minicardStartDate
+      if showDue
+        if getDue
+          .date
+            +minicardDueDate
+      if showEnd
+        if getEnd
+           +minicardEndDate
       if getSpentTime
         .date
           +cardSpentTime
@@ -46,7 +50,8 @@ template(name="minicard")
                 span {{_ 'upload-failed'}}
             else if $eq status 'completed'
               .upload-progress-success
-                i.fa.fa-check                span {{_ 'upload-completed'}}
+                i.fa.fa-check
+                span {{_ 'upload-completed'}}
 
     .minicard-title
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
@@ -67,19 +72,20 @@ template(name="minicard")
         span.linked-icon.linked-archived
           i.fa.fa-archive
       +viewer
-        if currentBoard.allowsCardNumber
+        if showCardNumber
           span.card-number
             | ##{getCardNumber}
         = getTitle
-    if labels
-      .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
-        each labels
-          unless hiddenMinicardLabelText
-            span.js-card-label.card-label(class="card-label-{{color}}" title=name)
-              +viewer
-                = name
-          if hiddenMinicardLabelText
-            .minicard-label(class="card-label-{{color}}" title="{{name}}")
+    if showLabels
+      if labels
+        .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
+          each labels
+            unless hiddenMinicardLabelText
+              span.js-card-label.card-label(class="card-label-{{color}}" title=name)
+                +viewer
+                  = name
+            if hiddenMinicardLabelText
+              .minicard-label(class="card-label-{{color}}" title="{{name}}")
 
     .minicard-custom-fields
       each customFieldsWD
@@ -151,7 +157,8 @@ template(name="minicard")
               = ' '
               = comments.length
             //span.badge-comment.badge-text
-            //|  {{_ 'comment'}}
+            //|
+              {{_ 'comment'}}
       if getDescription
         unless currentBoard.allowsDescriptionTextOnMinicard
           .badge.badge-state-image-only(title=getDescription)
@@ -177,12 +184,13 @@ template(name="minicard")
             span.badge-icon
               i.fa.fa-paperclip
             span.badge-text= attachments.length
-      if allSubtasks.count
-        .badge
-          span.badge-icon
-            i.fa.fa-globe
-          span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
-          //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
+      if showSubtasks
+        if allSubtasks.count
+          .badge
+            span.badge-icon
+              i.fa.fa-globe
+            span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
+            //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
       if currentBoard.allowsCardSortingByNumber
         if currentBoard.allowsCardSortingByNumberOnMinicard
           .badge

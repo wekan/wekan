@@ -4,17 +4,17 @@ Template.passwordInput.onRendered(function() {
   const template = this;
   const input = template.find('input.password-field');
   const label = template.find('label');
-  
+
   // Set the dynamic id and name based on the field _id
   if (template.data && template.data._id) {
     const fieldId = `at-field-${template.data._id}`;
     input.id = fieldId;
     input.name = fieldId;
     label.setAttribute('for', fieldId);
-    
+
     // Ensure the input starts as password type for password fields
     input.type = 'password';
-    
+
     // Initially show eye icon (password is hidden) and hide eye-slash icon
     const eyeIcon = template.find('.eye-icon');
     const eyeSlashIcon = template.find('.eye-slash-icon');
@@ -33,7 +33,7 @@ Template.passwordInput.events({
     const input = template.find('input.password-field');
     const eyeIcon = template.find('.eye-icon');
     const eyeSlashIcon = template.find('.eye-slash-icon');
-    
+
     if (input.type === 'password') {
       input.type = 'text';
       // Show eye-slash icon when password is visible

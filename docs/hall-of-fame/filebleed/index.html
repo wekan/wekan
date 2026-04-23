@@ -1,0 +1,253 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Wekan — Hall of Fame / FileBleed</title>
+  <link rel="icon" href="../../wekan-favicon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/main.css">
+  <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <img vAlign="center" src="../hof.svg" alt="Hall of Fame image from https://openclipart.org/detail/120343/trophy"
+    width="300px" height="auto" />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <div class="hof">
+    <h1 class="hof">Contents / FileBleed</h1>
+
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="10%">CVE</th>
+        <th width="10%">Vulnerability name</th>
+        <th width="10%">Date</th>
+        <th width="20%">
+          <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md">Responsible Security Disclosure</a>
+          by
+        </th>
+        <th width="40%">Vulnerabilities</th>
+      </tr>
+
+     <tr>
+       <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>FileBleed</b> <h2><i class="fa fa-file-text-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2023-02-16 17.35 EET</td>
+        <td valign="top">
+          <b><a href="https://sec-consult.com">SEC Consult</a>, an Atos company</b><br />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: XSS in filename</li>
+            <li>Affected Wekan v6.74 and earlier</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v675-2023-02-21-wekan--release">Wekan v6.75 2023-02-21</a></li>
+          </ul>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="hof">
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="5%">Timeline</th>
+        <th width="60%">Details</th>
+      </tr>
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2023-02-16 17.35 EET</b></td>
+        <td vAlign="top">
+          Report received.<br />
+          <br />
+<pre>
+              title: Stored XSS vulnerability in rename functionality
+            product: WeKan (Open-Source kanban)
+ vulnerable version: <=6.74
+      fixed version: 
+         CVE number: 
+             impact: Medium
+           homepage: https://wekan.fi
+              found: 2022-12-30
+                 by: Heiner Liesegang (Office Berlin)
+                     SEC Consult Vulnerability Lab
+                     An integrated part of SEC Consult, an Atos company
+                     Europe | Asia | North America
+                     https://www.sec-consult.com
+
+Vendor description:
+------------------- 
+WeKan ® is an completely Open Source and Free software collaborative
+kanban board application with MIT license.
+
+Whether you’re maintaining a personal todo list,
+planning your holidays with some friends,
+or working in a team on your next revolutionary idea, Kanban boards
+are an unbeatable tool to keep your things organized.
+They give you a visual overview of the current state of your project,
+and make you productive by allowing you to focus on the few items that
+matter the most.
+
+Source: https://github.com/wekan/wekan
+
+Business recommendation:
+------------------------
+Patch the application with the latest update supplied by the vendor.
+
+Vulnerability overview/description:
+-----------------------------------
+1) Stored Cross-Site Scripting
+
+An authenticated attacker with the role 'BoardAdmin' is able to rename
+file attachments of Kanban cards. Being an admin of the Wekan instance
+is not required in order for this exploit to work, as any user can
+obtain 'BoardAdmin' privileges by creating a new Kanban board.
+
+The 'renameAttachment' method does not sanitise user input and allows
+embedding XSS payloads in the specified filename. The stored XSS payload is
+triggered by opening the attachment as the modified filename is displayed in
+the header bar of the file preview.
+
+Proof of concept:
+-----------------
+1) Stored Cross-Site Scripting
+The following steps are necessary to exploit the vulnerability:
+1. Log into the application with at least "user" privileges
+2a. Open a Kanban board in which you have 'BoardAdmin' privileges
+2b. Or, create a new Kanban board otherwise
+3. Create a Kanban card if none exist
+4. Open Kanban card to edit it
+5. If there is no attachment in the card, upload one
+6. Click on "Attachment Actions" under the attachment and select "Rename"
+7. Include arbitrary XSS payload such as the following inside the filename:
+
+"[script]alert('Stored XSS')[/script]" (where change [] to open close tags)
+
+8. Select "Save" to embed the XSS payload
+
+Any user with access to the board clicking on the attachment preview
+triggers the stored XSS. In case the used Kanban board is set to "public"
+any person with a link to the board can access the targeted card and 
+trigger the payload inside the attachments' filename.
+
+Vulnerable / tested versions:
+-----------------------------
+The following versions have been tested to be vulnerable:
+* v6.64
+* v6.69
+* v6.71
+
+TBD: According to the vendor, all previous versions are affected as well.
+
+Vendor contact timeline:
+------------------------
+2023-02-16: Contacting vendor through email.
+
+Solution:
+---------
+TBD: The vendor provides a patched version which should be installed immediately.
+TBD: Link to vendor update & version information
+
+Workaround:
+-----------
+None
+
+Advisory URL:
+-------------
+https://sec-consult.com/vulnerability-lab/
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SEC Consult Vulnerability Lab
+
+SEC Consult, an Atos company
+Europe | Asia | North America
+
+About SEC Consult Vulnerability Lab
+
+The SEC Consult Vulnerability Lab is an integrated part of SEC Consult, an
+Atos company. It ensures the continued knowledge gain of SEC Consult in the
+field of network and application security to stay ahead of the attacker. The
+SEC Consult Vulnerability Lab supports high-quality penetration testing and
+the evaluation of new offensive and defensive technologies for our customers.
+Hence our customers obtain the most current information about vulnerabilities
+and valid recommendation about the risk profile of new technologies.
+
+Web: https://www.sec-consult.com
+Blog: http://blog.sec-consult.com
+Twitter: https://twitter.com/sec_consult
+
+EOF Heiner Liesegang / @2023
+</pre>
+
+        </td>
+      </tr>
+
+      <tr>
+        <td vAlign="top">
+          <b>2023-02-21</b>
+        </td>
+        <td vAlign="top">
+          <ul>
+            <li>Affected WeKan v6.74 and earlier</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v675-2023-02-21-wekan--release">WeKan v6.75 2023-02-21</a></li>
+            <li>In this version:</li>
+            <ul>
+              <li>It is not possible to upload file that has XSS in filename</li>
+              <li>It is not possible rename file when new filename has XSS</li>
+              <li>If there is existing filenames with XSS, there is no alert popup, Javascript does not run</li>
+            </ul>
+            <li>Please check did I fix everything properly. Thanks!</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td vAlign="top">
+          <b>2023-02-27</b>
+        </td>
+        <td vAlign="top">
+          <ul>
+            <li>SEC Consult sent email to WeKan Support.</li>
+            <li>SEC Consult has verified WeKan 6.75 and newer is fixed.</li>
+            <li>Newest fix at <a href="https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312">https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312</a></li>
+            <li>SEC Consult will request CVE number.</li>
+            <li>WeKan Support added this FileBleed vulnerability to WeKan Hall of Fame.</li>
+          </ul>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <h1>
+    <br />
+  </h1>
+
+</body>
+
+</html>

@@ -1,17 +1,17 @@
 /**
  * Fix Missing Lists Migration
- * 
+ *
  * This migration fixes the issue where cards have incorrect listId references
  * due to the per-swimlane lists change. It detects cards with mismatched
  * listId/swimlaneId and creates the missing lists.
- * 
+ *
  * Issue: When upgrading from v7.94 to v8.02, cards that were in different
  * swimlanes but shared the same list now have wrong listId references.
- * 
+ *
  * Example:
  * - Card1: listId: 'HB93dWNnY5bgYdtxc', swimlaneId: 'sK69SseWkh3tMbJvg'
  * - Card2: listId: 'HB93dWNnY5bgYdtxc', swimlaneId: 'XeecF9nZxGph4zcT4'
- * 
+ *
  * Card2 should have a different listId that corresponds to its swimlane.
  */
 
@@ -31,9 +31,9 @@ class FixMissingListsMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     try {
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) return false;
 
       // Check if board has already been processed
@@ -42,8 +42,8 @@ class FixMissingListsMigration {
       }
 
       // Check if there are cards with mismatched listId/swimlaneId
-      const cards = ReactiveCache.getCards({ boardId });
-      const lists = ReactiveCache.getLists({ boardId });
+      const cards = await ReactiveCache.getCards({ boardId });
+      const lists = await ReactiveCache.getLists({ boardId });
       
       // Create a map of listId -> swimlaneId for existing lists
       const listSwimlaneMap = new Map();
@@ -77,20 +77,20 @@ class FixMissingListsMigration {
       if (process.env.DEBUG === 'true') {
         console.log(`Starting fix missing lists migration for board ${boardId}`);
       }
-      
-      const board = ReactiveCache.getBoard(boardId);
+
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Error(`Board ${boardId} not found`);
       }
 
-      const cards = ReactiveCache.getCards({ boardId });
-      const lists = ReactiveCache.getLists({ boardId });
-      const swimlanes = ReactiveCache.getSwimlanes({ boardId });
+      const cards = await ReactiveCache.getCards({ boardId });
+      const lists = await ReactiveCache.getLists({ boardId });
+      const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
 
       // Create maps for efficient lookup
       const listSwimlaneMap = new Map();
       const swimlaneListsMap = new Map();
-      
+
       lists.forEach(list => {
         listSwimlaneMap.set(list._id, list.swimlaneId || '');
         if (!swimlaneListsMap.has(list.swimlaneId || '')) {
@@ -142,7 +142,7 @@ class FixMissingListsMigration {
 
           // Check if we already have a list with the same title in this swimlane
           let targetList = existingLists.find(list => list.title === originalList.title);
-          
+
           if (!targetList) {
             // Create a new list for this swimlane
             const newListData = {
@@ -165,10 +165,10 @@ class FixMissingListsMigration {
             if (originalList.collapsed) newListData.collapsed = originalList.collapsed;
 
             // Insert the new list
-            const newListId = Lists.insert(newListData);
+            const newListId = await Lists.insertAsync(newListData);
             targetList = { _id: newListId, ...newListData };
             createdLists++;
-            
+
             if (process.env.DEBUG === 'true') {
               console.log(`Created new list "${originalList.title}" for swimlane ${swimlaneId}`);
             }
@@ -176,7 +176,7 @@ class FixMissingListsMigration {
 
           // Update all cards in this group to use the correct listId
           for (const card of cardsInList) {
-            Cards.update(card._id, {
+            await Cards.updateAsync(card._id, {
               $set: {
                 listId: targetList._id,
                 modifiedAt: new Date()
@@ -188,7 +188,7 @@ class FixMissingListsMigration {
       }
 
       // Mark board as processed
-      Boards.update(boardId, {
+      await Boards.updateAsync(boardId, {
         $set: {
           fixMissingListsCompleted: true,
           fixMissingListsCompletedAt: new Date()
@@ -198,7 +198,7 @@ class FixMissingListsMigration {
       if (process.env.DEBUG === 'true') {
         console.log(`Fix missing lists migration completed for board ${boardId}: created ${createdLists} lists, updated ${updatedCards} cards`);
       }
-      
+
       return {
         success: true,
         createdLists,
@@ -214,21 +214,21 @@ class FixMissingListsMigration {
   /**
    * Get migration status for a board
    */
-  getMigrationStatus(boardId) {
+  async getMigrationStatus(boardId) {
     try {
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         return { status: 'board_not_found' };
       }
 
       if (board.fixMissingListsCompleted) {
-        return { 
+        return {
           status: 'completed',
           completedAt: board.fixMissingListsCompletedAt
         };
       }
 
-      const needsMigration = this.needsMigration(boardId);
+      const needsMigration = await this.needsMigration(boardId);
       return {
         status: needsMigration ? 'needed' : 'not_needed'
       };
@@ -245,33 +245,33 @@ export const fixMissingListsMigration = new FixMissingListsMigration();
 
 // Meteor methods
 Meteor.methods({
-  'fixMissingListsMigration.check'(boardId) {
+  async 'fixMissingListsMigration.check'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return fixMissingListsMigration.getMigrationStatus(boardId);
+
+    return await fixMissingListsMigration.getMigrationStatus(boardId);
   },
 
-  'fixMissingListsMigration.execute'(boardId) {
+  async 'fixMissingListsMigration.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return fixMissingListsMigration.executeMigration(boardId);
+
+    return await fixMissingListsMigration.executeMigration(boardId);
   },
 
-  'fixMissingListsMigration.needsMigration'(boardId) {
+  async 'fixMissingListsMigration.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return fixMissingListsMigration.needsMigration(boardId);
+
+    return await fixMissingListsMigration.needsMigration(boardId);
   }
 });

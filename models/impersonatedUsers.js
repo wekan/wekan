@@ -1,4 +1,7 @@
-ImpersonatedUsers = new Mongo.Collection('impersonatedUsers');
+import { Mongo } from 'meteor/mongo';
+const { SimpleSchema } = require('/imports/simpleSchema');
+
+const ImpersonatedUsers = new Mongo.Collection('impersonatedUsers');
 
 /**
  * A Impersonated User in wekan
@@ -63,7 +66,6 @@ ImpersonatedUsers.attachSchema(
        * modified date of the impersonation
        */
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {

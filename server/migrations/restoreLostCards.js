@@ -1,6 +1,6 @@
 /**
  * Restore Lost Cards Migration
- * 
+ *
  * Finds and restores cards and lists that have missing swimlaneId, listId, or are orphaned.
  * Creates a "Lost Cards" swimlane and restores visibility of lost items.
  * Only processes non-archived items.
@@ -24,10 +24,10 @@ class RestoreLostCardsMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     try {
-      const cards = ReactiveCache.getCards({ boardId, archived: false });
-      const lists = ReactiveCache.getLists({ boardId, archived: false });
+      const cards = await ReactiveCache.getCards({ boardId, archived: false });
+      const lists = await ReactiveCache.getLists({ boardId, archived: false });
 
       // Check for cards missing swimlaneId or listId
       const lostCards = cards.filter(card => !card.swimlaneId || !card.listId);
@@ -70,15 +70,15 @@ class RestoreLostCardsMigration {
         errors: []
       };
 
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Error('Board not found');
       }
 
       // Get all non-archived items
-      const cards = ReactiveCache.getCards({ boardId, archived: false });
-      const lists = ReactiveCache.getLists({ boardId, archived: false });
-      const swimlanes = ReactiveCache.getSwimlanes({ boardId, archived: false });
+      const cards = await ReactiveCache.getCards({ boardId, archived: false });
+      const lists = await ReactiveCache.getLists({ boardId, archived: false });
+      const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false });
 
       // Detect items to restore BEFORE creating anything
       const lostLists = lists.filter(list => !list.swimlaneId);
@@ -107,7 +107,7 @@ class RestoreLostCardsMigration {
       // Find or create "Lost Cards" swimlane (only if there is actual work)
       let lostCardsSwimlane = swimlanes.find(s => s.title === TAPi18n.__('lost-cards'));
       if (!lostCardsSwimlane) {
-        const swimlaneId = Swimlanes.insert({
+        const swimlaneId = await Swimlanes.insertAsync({
           title: TAPi18n.__('lost-cards'),
           boardId: boardId,
           sort: 999999, // Put at the end
@@ -116,7 +116,7 @@ class RestoreLostCardsMigration {
           updatedAt: new Date(),
           archived: false
         });
-        lostCardsSwimlane = ReactiveCache.getSwimlane(swimlaneId);
+        lostCardsSwimlane = await ReactiveCache.getSwimlane(swimlaneId);
         results.lostCardsSwimlaneCreated = true;
         if (process.env.DEBUG === 'true') {
           console.log(`Created "Lost Cards" swimlane for board ${boardId}`);
@@ -126,7 +126,7 @@ class RestoreLostCardsMigration {
       // Restore lost lists (lists without swimlaneId)
       if (hasListsWork) {
         for (const list of lostLists) {
-          Lists.update(list._id, {
+          await Lists.updateAsync(list._id, {
             $set: {
               swimlaneId: lostCardsSwimlane._id,
               updatedAt: new Date()
@@ -147,7 +147,7 @@ class RestoreLostCardsMigration {
           l.title === TAPi18n.__('lost-cards-list')
         );
         if (!defaultList) {
-          const listId = Lists.insert({
+          const listId = await Lists.insertAsync({
             title: TAPi18n.__('lost-cards-list'),
             boardId: boardId,
             swimlaneId: lostCardsSwimlane._id,
@@ -156,7 +156,7 @@ class RestoreLostCardsMigration {
             updatedAt: new Date(),
             archived: false
           });
-          defaultList = ReactiveCache.getList(listId);
+          defaultList = await ReactiveCache.getList(listId);
           if (process.env.DEBUG === 'true') {
             console.log(`Created default list in Lost Cards swimlane`);
           }
@@ -169,7 +169,7 @@ class RestoreLostCardsMigration {
           const updateFields = { updatedAt: new Date() };
           if (!card.swimlaneId) updateFields.swimlaneId = lostCardsSwimlane._id;
           if (!card.listId) updateFields.listId = defaultList._id;
-          Cards.update(card._id, { $set: updateFields });
+          await Cards.updateAsync(card._id, { $set: updateFields });
           results.cardsRestored++;
           if (process.env.DEBUG === 'true') {
             console.log(`Restored lost card: ${card.title}`);
@@ -178,7 +178,7 @@ class RestoreLostCardsMigration {
 
         // Restore orphaned cards (cards whose list doesn't exist)
         for (const card of orphanedCards) {
-          Cards.update(card._id, {
+          await Cards.updateAsync(card._id, {
             $set: {
               listId: defaultList._id,
               swimlaneId: lostCardsSwimlane._id,
@@ -215,30 +215,30 @@ const restoreLostCardsMigration = new RestoreLostCardsMigration();
 
 // Register Meteor methods
 Meteor.methods({
-  'restoreLostCards.needsMigration'(boardId) {
+  async 'restoreLostCards.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
-    return restoreLostCardsMigration.needsMigration(boardId);
+    return await restoreLostCardsMigration.needsMigration(boardId);
   },
 
-  'restoreLostCards.execute'(boardId) {
+  async 'restoreLostCards.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
     // Check if user is board admin
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user) {
       throw new Meteor.Error('user-not-found', 'User not found');
     }
@@ -252,7 +252,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
     }
 
-    return restoreLostCardsMigration.executeMigration(boardId);
+    return await restoreLostCardsMigration.executeMigration(boardId);
   }
 });
 

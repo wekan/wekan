@@ -1,49 +1,43 @@
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { SWIMLANE_COLORS } from '/models/metadata/colors';
+import Swimlanes from '/models/swimlanes';
+import { Utils } from '/client/lib/utils';
 const { calculateIndexData } = Utils;
 
 let swimlaneColors;
 Meteor.startup(() => {
-  swimlaneColors = Swimlanes.simpleSchema()._schema.color.allowedValues;
+  swimlaneColors = SWIMLANE_COLORS;
 });
 
-BlazeComponent.extendComponent({
-  async editTitle(event) {
+function swimlaneHeaderCollapsed(check = undefined) {
+  const swimlane = Template.currentData();
+  const status = Utils.getSwimlaneCollapseState(swimlane);
+  if (check === undefined) {
+    return status;
+  } else {
+    const next = typeof check === 'boolean' ? check : !status;
+    Utils.setSwimlaneCollapseState(swimlane, next);
+    return next;
+  }
+}
+
+Template.swimlaneHeader.events({
+  'click .js-collapse-swimlane'(event) {
     event.preventDefault();
-    const newTitle = this.childComponents('inlinedForm')[0]
-      .getValue()
-      .trim();
-    const swimlane = this.currentData();
+    swimlaneHeaderCollapsed(!swimlaneHeaderCollapsed());
+  },
+  'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
+  'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
+  async submit(event, tpl) {
+    event.preventDefault();
+    const newTitle = tpl.$('.list-name-input').val().trim();
+    const swimlane = Template.currentData();
     if (newTitle) {
       await swimlane.rename(newTitle.trim());
     }
   },
-  collapsed(check = undefined) {
-    const swimlane = Template.currentData();
-    const status = Utils.getSwimlaneCollapseState(swimlane);
-    if (check === undefined) {
-      // just check
-      return status;
-    } else {
-      const next = typeof check === 'boolean' ? check : !status;
-      Utils.setSwimlaneCollapseState(swimlane, next);
-      return next;
-    }
-  },
-
-  events() {
-    return [
-      {
-        'click .js-collapse-swimlane'(event) {
-          event.preventDefault();
-          this.collapsed(!this.collapsed());
-        },
-        'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
-        submit: this.editTitle,
-      },
-    ];
-  },
-}).register('swimlaneHeader');
+});
 
 Template.swimlaneFixedHeader.helpers({
   isBoardAdmin() {
@@ -85,7 +79,7 @@ Template.editSwimlaneTitleForm.helpers({
     // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
     // This can happen, if swimlane does not have name.
     // Yes, this is fixing the symptom (Swimlane title does not have title)
-    // instead of fixing the problem (Add Swimlane title when creating swimlane) 
+    // instead of fixing the problem (Add Swimlane title when creating swimlane)
     // because there could be thousands of swimlanes, adding name Default to all of them
     // would be very slow.
     if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
@@ -107,143 +101,122 @@ Template.swimlaneActionPopup.events({
   'click .js-add-list-from-swimlane': Popup.open('addList'),
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-set-swimlane-height': Popup.open('setSwimlaneHeight'),
-  async 'click .js-close-swimlane'(event) {
-    event.preventDefault();
+  'click .js-close-swimlane': Popup.afterConfirm('swimlaneArchive', async function() {
     await this.archive();
-    Popup.back();
-  },
+    Popup.close();
+  }),
   'click .js-move-swimlane': Popup.open('moveSwimlane'),
   'click .js-copy-swimlane': Popup.open('copySwimlane'),
 });
 
-Template.swimlaneActionPopup.events({
+Template.swimlaneActionPopup.helpers({
   isCommentOnly() {
     return ReactiveCache.getCurrentUser().isCommentOnly();
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentSwimlane = this.currentData();
+Template.swimlaneAddPopup.onCreated(function () {
+  this.currentSwimlane = Template.currentData();
+});
+
+Template.swimlaneAddPopup.events({
+  async submit(event, tpl) {
+    event.preventDefault();
+    const currentBoard = Utils.getCurrentBoard();
+    const nextSwimlane = currentBoard.nextSwimlane(tpl.currentSwimlane);
+    const titleInput = tpl.find('.swimlane-name-input');
+    const title = titleInput.value.trim();
+    const sortValue = calculateIndexData(
+      tpl.currentSwimlane,
+      nextSwimlane,
+      1,
+    );
+    const swimlaneType = currentBoard.isTemplatesBoard()
+      ? 'template-swimlane'
+      : 'swimlane';
+
+    if (title) {
+      await Swimlanes.insertAsync({
+        title,
+        boardId: Session.get('currentBoard'),
+        sort: sortValue.base || 0,
+        type: swimlaneType,
+      });
+
+      titleInput.value = '';
+      titleInput.focus();
+    }
+    // XXX ideally, we should move the popup to the newly
+    // created swimlane so a user can add more than one swimlane
+    // with a minimum of interactions
+    Popup.back();
   },
+  'click .js-swimlane-template': Popup.open('searchElement'),
+});
 
-  events() {
-    return [
-      {
-        submit(event) {
-          event.preventDefault();
-          const currentBoard = Utils.getCurrentBoard();
-          const nextSwimlane = currentBoard.nextSwimlane(this.currentSwimlane);
-          const titleInput = this.find('.swimlane-name-input');
-          const title = titleInput.value.trim();
-          const sortValue = calculateIndexData(
-            this.currentSwimlane,
-            nextSwimlane,
-            1,
-          );
-          const swimlaneType = currentBoard.isTemplatesBoard()
-            ? 'template-swimlane'
-            : 'swimlane';
+Template.setSwimlaneColorPopup.onCreated(function () {
+  this.currentSwimlane = Template.currentData();
+  this.currentColor = new ReactiveVar(this.currentSwimlane.color);
+});
 
-          if (title) {
-            Swimlanes.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: sortValue.base || 0,
-              type: swimlaneType,
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
-          }
-          // XXX ideally, we should move the popup to the newly
-          // created swimlane so a user can add more than one swimlane
-          // with a minimum of interactions
-          Popup.back();
-        },
-        'click .js-swimlane-template': Popup.open('searchElement'),
-      },
-    ];
-  },
-}).register('swimlaneAddPopup');
-
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentSwimlane = this.currentData();
-    this.currentColor = new ReactiveVar(this.currentSwimlane.color);
-  },
-
+Template.setSwimlaneColorPopup.helpers({
   colors() {
     return swimlaneColors.map(color => ({ color, name: '' }));
   },
-
   isSelected(color) {
-    return this.currentColor.get() === color;
+    return Template.instance().currentColor.get() === color;
   },
+});
 
-  events() {
-    return [
-      {
-        async 'submit form'(event) {
-          event.preventDefault();
-          await this.currentSwimlane.setColor(this.currentColor.get());
-          Popup.back();
-        },
-        'click .js-palette-color'() {
-          this.currentColor.set(this.currentData().color);
-        },
-        async 'click .js-submit'() {
-          await this.currentSwimlane.setColor(this.currentColor.get());
-          Popup.back();
-        },
-        async 'click .js-remove-color'() {
-          await this.currentSwimlane.setColor(null);
-          Popup.back();
-        },
-      },
-    ];
+Template.setSwimlaneColorPopup.events({
+  async 'submit form'(event, tpl) {
+    event.preventDefault();
+    await tpl.currentSwimlane.setColor(tpl.currentColor.get());
+    Popup.back();
   },
-}).register('setSwimlaneColorPopup');
-
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentSwimlane = this.currentData();
+  'click .js-palette-color'(event, tpl) {
+    const paletteData = Blaze.getData(event.currentTarget);
+    tpl.currentColor.set(paletteData?.color);
   },
+  async 'click .js-submit'(event, tpl) {
+    event.preventDefault();
+    await tpl.currentSwimlane.setColor(tpl.currentColor.get());
+    Popup.back();
+  },
+  async 'click .js-remove-color'(event, tpl) {
+    event.preventDefault();
+    await tpl.currentSwimlane.setColor(null);
+    Popup.back();
+  },
+});
 
-  applySwimlaneHeight() {
-    const swimlane = this.currentData();
+Template.setSwimlaneHeightPopup.onCreated(function () {
+  this.currentSwimlane = Template.currentData();
+});
+
+Template.setSwimlaneHeightPopup.helpers({
+  swimlaneHeightValue() {
+    const swimlane = Template.currentData();
+    const board = swimlane.boardId;
+    return ReactiveCache.getCurrentUser().getSwimlaneHeight(board, swimlane._id);
+  },
+});
+
+Template.setSwimlaneHeightPopup.events({
+  'click .swimlane-height-apply'(event, tpl) {
+    const swimlane = Template.currentData();
     const board = swimlane.boardId;
     const height = parseInt(
-      Template.instance()
-        .$('.swimlane-height-value')
-        .val(),
+      tpl.$('.swimlane-height-value').val(),
       10,
     );
 
-    // FIXME(mark-i-m): where do we put constants?
-    //                  also in imports/i18n/data/en.i18n.json
     if (height != -1 && (height < 100 || !height)) {
-      Template.instance()
-        .$('.swimlane-height-error')
-        .click();
+      tpl.$('.swimlane-height-error').click();
     } else {
       Meteor.call('applySwimlaneHeight', board, swimlane._id, height);
       Popup.back();
     }
   },
-
-  swimlaneHeightValue() {
-    const swimlane = this.currentData();
-    const board = swimlane.boardId;
-    return ReactiveCache.getCurrentUser().getSwimlaneHeight(board, swimlane._id);
-  },
-
-  events() {
-    return [
-      {
-        'click .swimlane-height-apply': this.applySwimlaneHeight,
-        'click .swimlane-height-error': Popup.open('swimlaneHeightError'),
-      },
-    ];
-  },
-}).register('setSwimlaneHeightPopup');
+  'click .swimlane-height-error': Popup.open('swimlaneHeightError'),
+});

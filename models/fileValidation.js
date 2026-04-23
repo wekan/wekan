@@ -2,12 +2,27 @@ import { Meteor } from 'meteor/meteor';
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import fs from 'fs';
-import FileType from 'file-type';
 
 let asyncExec;
 
 if (Meteor.isServer) {
   asyncExec = promisify(exec);
+}
+
+async function detectMimeFromFile(filePath) {
+  if (!Meteor.isServer) return undefined;
+
+  try {
+    const escapedPath = String(filePath).replace(/"/g, '\\"');
+    const { stdout } = await asyncExec(`file --mime-type -b "${escapedPath}"`);
+    const mime = (stdout || '').trim().toLowerCase();
+    if (!mime) return undefined;
+    return { mime };
+  } catch (e) {
+    // Fall through to filename/type fallback handled by caller.
+  }
+
+  return undefined;
 }
 
 export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, externalCommandLine) {
@@ -78,7 +93,7 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
     };
 
     // Detect MIME type from file content when possible
-    const mimeTypeResult = await FileType.fromFile(fileObj.path).catch(() => undefined);
+    const mimeTypeResult = await detectMimeFromFile(fileObj.path);
     const detectedMime = mimeTypeResult?.mime || (fileObj.type || '').toLowerCase();
     const baseMimeType = detectedMime.split('/', 1)[0] || '';
 

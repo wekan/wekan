@@ -1,12 +1,15 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { ObjectID } from 'bson';
+import { ObjectId } from 'bson';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
+import Attachments from '/models/attachments';
+import { Utils } from '/client/lib/utils';
+import { formatDateTime } from '/imports/lib/dateUtils';
 
-const filesize = require('filesize');
-const prettyMilliseconds = require('pretty-ms');
+const { filesize } = require('filesize');
+import prettyMilliseconds from 'pretty-ms';
 
 // We store current card ID and the ID of currently opened attachment in a
 // global var. This is used so that we know what's the next attachment to open
@@ -19,7 +22,7 @@ let touchStartCoords = null;
 let touchEndCoords = null;
 
 // Stores link to the attachment for which attachment actions popup was opened
-attachmentActionsLink = null;
+let attachmentActionsLink = null;
 
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
@@ -40,8 +43,8 @@ Template.attachmentGallery.events({
     attachmentActionsLink = event.currentTarget.getAttribute("data-attachment-link");
   },
   'click .js-rename': Popup.open('attachmentRename'),
-  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
-      Attachments.remove(this._id);
+  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', async function() {
+      await Attachments.removeAsync(this._id);
       Popup.back();
   }),
 });
@@ -196,8 +199,6 @@ function processTouch(){
   xDist = touchEndCoords.x - touchStartCoords.x;
   yDist = touchEndCoords.y - touchStartCoords.y;
 
-  console.log("xDist: " + xDist);
-
   // Left swipe
   if (Math.abs(xDist) > Math.abs(yDist) && xDist < 0) {
     openNextAttachment();
@@ -217,14 +218,12 @@ function processTouch(){
 
 Template.attachmentViewer.events({
   'touchstart #viewer-container'(event) {
-    console.log("touchstart")
     touchStartCoords = {
       x: event.changedTouches[0].screenX,
       y: event.changedTouches[0].screenY
     }
   },
   'touchend #viewer-container'(event) {
-    console.log("touchend")
     touchEndCoords = {
       x: event.changedTouches[0].screenX,
       y: event.changedTouches[0].screenY
@@ -273,6 +272,26 @@ Template.attachmentGallery.helpers({
   sanitize(value) {
     return sanitizeHTML(value);
   },
+  uploaderName() {
+    const uploaderId = this.userId;
+    if (!uploaderId) return '';
+    const uploader = ReactiveCache.getUser(uploaderId);
+    if (!uploader) return '';
+    return uploader.profile && uploader.profile.fullname
+      ? uploader.profile.fullname
+      : uploader.username || '';
+  },
+  uploadedAt() {
+    if (this.uploadedAtOstrio) {
+      return formatDateTime(this.uploadedAtOstrio);
+    }
+    // Fall back to ObjectId timestamp (first 4 bytes = Unix seconds)
+    try {
+      const ts = parseInt(this._id.substring(0, 8), 16) * 1000;
+      if (!isNaN(ts)) return formatDateTime(new Date(ts));
+    } catch (_) {}
+    return '';
+  },
 });
 
 Template.cardAttachmentsPopup.onCreated(function() {
@@ -294,12 +313,12 @@ Template.cardAttachmentsPopup.helpers({
 });
 
 Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(event, templateInstance) {
+  async 'change .js-attach-file'(event, templateInstance) {
     const card = this;
     const files = event.currentTarget.files;
     if (files) {
       let uploads = [];
-      const uploaders = handleFileUpload(card, files);
+      const uploaders = await handleFileUpload(card, files);
 
       uploaders.forEach(uploader => {
         uploader.on('start', function() {
@@ -328,7 +347,7 @@ const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
 let pastedResults = null;
 
 // Shared upload logic for drag-and-drop functionality
-export function handleFileUpload(card, files) {
+export async function handleFileUpload(card, files) {
   if (!files || files.length === 0) {
     return [];
   }
@@ -361,7 +380,7 @@ export function handleFileUpload(card, files) {
       continue;
     }
 
-    const fileId = new ObjectID().toString();
+    const fileId = new ObjectId().toString();
     let fileName = sanitizeText(file.name);
 
     // If sanitized filename is not same as original filename,
@@ -385,7 +404,7 @@ export function handleFileUpload(card, files) {
     config.meta.fileId = fileId;
 
     try {
-      const uploader = Attachments.insert(
+      const uploader = await Attachments.insertAsync(
         config,
         false,
       );
@@ -460,12 +479,12 @@ Template.previewClipboardImagePopup.onRendered(() => {
 });
 
 Template.previewClipboardImagePopup.events({
-  'click .js-upload-pasted-image'() {
+  async 'click .js-upload-pasted-image'() {
     const card = this;
     if (pastedResults && pastedResults.file) {
       const file = pastedResults.file;
       window.oPasted = pastedResults;
-      const fileId = new ObjectID().toString();
+      const fileId = new ObjectId().toString();
       const config = {
         file,
         fileId: fileId,
@@ -474,7 +493,7 @@ Template.previewClipboardImagePopup.events({
         chunkSize: 'dynamic',
       };
       config.meta.fileId = fileId;
-      const uploader = Attachments.insert(
+      const uploader = await Attachments.insertAsync(
         config,
         false,
       );
@@ -495,9 +514,9 @@ Template.previewClipboardImagePopup.events({
   },
 });
 
-BlazeComponent.extendComponent({
+Template.attachmentActionsPopup.helpers({
   isCover() {
-    const ret = ReactiveCache.getCard(this.data().meta.cardId).coverId == this.data()._id;
+    const ret = ReactiveCache.getCard(this.meta.cardId).coverId == this._id;
     return ret;
   },
   isBackgroundImage() {
@@ -505,78 +524,72 @@ BlazeComponent.extendComponent({
     //return currentBoard.backgroundImageURL === $(".attachment-thumbnail-img").attr("src");
     return false;
   },
-  events() {
-    return [
-      {
-        'click .js-add-cover'() {
-          ReactiveCache.getCard(this.data().meta.cardId).setCover(this.data()._id);
-          Popup.back();
-        },
-        'click .js-remove-cover'() {
-          ReactiveCache.getCard(this.data().meta.cardId).unsetCover();
-          Popup.back();
-        },
-        'click .js-add-background-image'() {
-          const currentBoard = Utils.getCurrentBoard();
-          currentBoard.setBackgroundImageURL(attachmentActionsLink);
-          Utils.setBackgroundImage(attachmentActionsLink);
-          Popup.back();
-          event.preventDefault();
-        },
-        'click .js-remove-background-image'() {
-          const currentBoard = Utils.getCurrentBoard();
-          currentBoard.setBackgroundImageURL("");
-          Utils.setBackgroundImage("");
-          Popup.back();
-          Utils.reload();
-          event.preventDefault();
-        },
-        'click .js-move-storage-fs'() {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "fs");
-          Popup.back();
-        },
-        'click .js-move-storage-gridfs'() {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "gridfs");
-          Popup.back();
-        },
-        'click .js-move-storage-s3'() {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "s3");
-          Popup.back();
-        },
-      }
-    ]
-  }
-}).register('attachmentActionsPopup');
+});
 
-BlazeComponent.extendComponent({
+Template.attachmentActionsPopup.events({
+  'click .js-add-cover'() {
+    ReactiveCache.getCard(this.meta.cardId).setCover(this._id);
+    Popup.back();
+  },
+  'click .js-remove-cover'() {
+    ReactiveCache.getCard(this.meta.cardId).unsetCover();
+    Popup.back();
+  },
+  'click .js-add-background-image'(event) {
+    const currentBoard = Utils.getCurrentBoard();
+    currentBoard.setBackgroundImageURL(attachmentActionsLink);
+    Utils.setBackgroundImage(attachmentActionsLink);
+    Popup.back();
+    event.preventDefault();
+  },
+  'click .js-remove-background-image'(event) {
+    const currentBoard = Utils.getCurrentBoard();
+    currentBoard.setBackgroundImageURL("");
+    Utils.setBackgroundImage("");
+    Popup.back();
+    Utils.reload();
+    event.preventDefault();
+  },
+  'click .js-move-storage-fs'() {
+    Meteor.call('moveAttachmentToStorage', this._id, "fs");
+    Popup.back();
+  },
+  'click .js-move-storage-gridfs'() {
+    Meteor.call('moveAttachmentToStorage', this._id, "gridfs");
+    Popup.back();
+  },
+  'click .js-move-storage-s3'() {
+    Meteor.call('moveAttachmentToStorage', this._id, "s3");
+    Popup.back();
+  },
+});
+
+Template.attachmentRenamePopup.helpers({
   getNameWithoutExtension() {
-    const ret = this.data().name.replace(new RegExp("\." + this.data().extension + "$"), "");
+    const ret = this.name.replace(new RegExp("\." + this.extension + "$"), "");
     return ret;
   },
-  events() {
-    return [
-      {
-        'keydown input.js-edit-attachment-name'(evt) {
-          // enter = save
-          if (evt.keyCode === 13) {
-            this.find('button[type=submit]').click();
-          }
-        },
-        'click button.js-submit-edit-attachment-name'(event) {
-          // save button pressed
-          event.preventDefault();
-          const name = this.$('.js-edit-attachment-name')[0]
-            .value
-            .trim() + this.data().extensionWithDot;
-          if (name === sanitizeText(name)) {
-            Meteor.call('renameAttachment', this.data()._id, name);
-          }
-          Popup.back();
-        },
-      }
-    ]
-  }
-}).register('attachmentRenamePopup');
+});
+
+Template.attachmentRenamePopup.events({
+  'keydown input.js-edit-attachment-name'(evt, tpl) {
+    // enter = save
+    if (evt.keyCode === 13) {
+      tpl.find('button[type=submit]').click();
+    }
+  },
+  'click button.js-submit-edit-attachment-name'(event, tpl) {
+    // save button pressed
+    event.preventDefault();
+    const name = tpl.$('.js-edit-attachment-name')[0]
+      .value
+      .trim() + this.extensionWithDot;
+    if (name === sanitizeText(name)) {
+      Meteor.call('renameAttachment', this._id, name);
+    }
+    Popup.back();
+  },
+});
 
 // Template helpers for attachment migration status
 Template.registerHelper('attachmentMigrationStatus', function(attachmentId) {

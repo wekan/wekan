@@ -1,7 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Tracker } from 'meteor/tracker';
+import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imports/lib/collectionHelpers';
+import Settings from '/models/settings';
+import Users from '/models/users';
 
-Utils = {
+export const Utils = {
   async setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
@@ -49,6 +53,9 @@ Utils = {
   },
   getCurrentCard(ignorePopupCard) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
+    if (!cardId) {
+      return null;
+    }
     const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
@@ -85,13 +92,13 @@ Utils = {
     if (stored !== null) {
       return stored === 'true';
     }
-    
+
     // Then check user profile
     const user = ReactiveCache.getCurrentUser();
     if (user && user.profile && user.profile.mobileMode !== undefined) {
       return user.profile.mobileMode;
     }
-    
+
     // Default to mobile mode for iPhone/iPod
     const isIPhone = /iPhone|iPod/i.test(navigator.userAgent);
     return isIPhone;
@@ -284,11 +291,11 @@ Utils = {
   },
   setBoardView(view) {
     const currentUser = ReactiveCache.getCurrentUser();
-    
+
     if (currentUser) {
       // Update localStorage first
       window.localStorage.setItem('boardView', view);
-      
+
       // Update user profile via Meteor method
       Meteor.call('setBoardView', view, (error) => {
         if (error) {
@@ -322,7 +329,7 @@ Utils = {
   },
 
   boardView() {
-    currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
     } else if (
@@ -502,6 +509,8 @@ Utils = {
         cardId: card._id,
         boardId: board._id,
         slug: board.slug,
+        swimlaneId: card.swimlaneId,
+        listId: card.listId,
       })
     );
   },
@@ -518,6 +527,15 @@ Utils = {
     }
     return meta;
   },
+  // Collection helpers (replacing underscore.js)
+  findWhere,
+  where,
+  uniqBy,
+  groupBy,
+  indexBy,
+  debounce,
+  once,
+
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
   shrinkImage(options) {
@@ -583,7 +601,7 @@ Utils = {
     this.windowResizeDep.depend();
     // Also depend on mobile mode changes to make this reactive
     Session.get('wekan-mobile-mode');
-    
+
     // Show mobile view when:
     // 1. Screen width is 800px or less (matches CSS media queries)
     // 2. Mobile phones in portrait mode
@@ -599,7 +617,7 @@ Utils = {
 
     // Check if user has explicitly set mobile mode preference
     const userMobileMode = this.getMobileMode();
-    
+
     // For iPhone: default to mobile view, but respect user's mobile mode toggle preference
     // This ensures all iPhone models (including iPhone 15 Pro Max, 14 Pro Max, etc.) start with mobile view
     // but users can still switch to desktop mode if they prefer
@@ -745,22 +763,24 @@ Utils = {
   },
 
   manageCustomUI() {
-    Meteor.call('getCustomUI', (err, data) => {
-      if (err && err.error[0] === 'var-not-exist') {
-        Session.set('customUI', false); // siteId || address server not defined
-      }
-      if (!err) {
-        Utils.setCustomUI(data);
+    // Subscribe to custom UI settings (published from server)
+    Meteor.subscribe('customUI');
+    // Reactive helper will be called when Settings data changes
+    Tracker.autorun(() => {
+      const settings = Settings.findOne({});
+      if (settings) {
+        Utils.setCustomUI(settings);
       }
     });
   },
 
   setCustomUI(data) {
+    const productName = (data && data.productName) ? data.productName : 'Wekan';
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
-      document.title = `${currentBoard.title} - ${data.productName}`;
+      document.title = `${currentBoard.title} - ${productName}`;
     } else {
-      document.title = `${data.productName}`;
+      document.title = productName;
     }
   },
 
@@ -794,19 +814,29 @@ Utils = {
   },
 
   manageMatomo() {
-    const matomo = Session.get('matomo');
-    if (matomo === undefined) {
-      Meteor.call('getMatomoConf', (err, data) => {
-        if (err && err.error[0] === 'var-not-exist') {
-          Session.set('matomo', false); // siteId || address server not defined
+    // Subscribe to Matomo configuration (published from server)
+    Meteor.subscribe('matomoConfig');
+    // Reactive helper will be called when Settings data changes
+    Tracker.autorun(() => {
+      const matomo = Session.get('matomo');
+      if (matomo === undefined) {
+        const settings = Settings.findOne({});
+        if (settings && settings.matomoURL && settings.matomoSiteId) {
+          const matomoConfig = {
+            address: settings.matomoURL,
+            siteId: settings.matomoSiteId,
+            doNotTrack: settings.matomoDoNotTrack || false,
+            withUserName: settings.matomoWithUserName || false
+          };
+          Utils.setMatomo(matomoConfig);
+        } else {
+          Session.set('matomo', false);
         }
-        if (!err) {
-          Utils.setMatomo(data);
-        }
-      });
-    } else if (matomo) {
-      window._paq.push(['trackPageView']);
-    }
+      } else if (matomo) {
+        window._paq = window._paq || [];
+        window._paq.push(['trackPageView']);
+      }
+    });
   },
 
   getTriggerActionDesc(event, tempInstance) {

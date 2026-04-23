@@ -35,6 +35,8 @@ template(name="swimlaneFixedHeader")
                   i.fa.fa-caret-down
               a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
                 i.fa.fa-bars
+              a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
+                i.fa.fa-plus
               if isTouchScreenOrShowDesktopDragHandles
                 unless isTouchScreen
                   a.swimlane-header-handle.handle.js-swimlane-header-handle
@@ -59,12 +61,14 @@ template(name="swimlaneActionPopup")
           ul.pop-over-list
              li: a.js-add-swimlane
                i.fa.fa-plus
-               span  {{_ 'add-swimlane'}}
+               span
+                 | {{_ 'add-swimlane'}}
           hr
           ul.pop-over-list
              li: a.js-add-list-from-swimlane
                i.fa.fa-plus
-               span  {{_ 'add-list'}}
+               span
+                 | {{_ 'add-list'}}
           hr
           ul.pop-over-list
              if currentUser.isBoardAdmin
@@ -78,10 +82,6 @@ template(name="swimlaneActionPopup")
             unless this.isTemplateContainer
               hr
               ul.pop-over-list
-                li: a.js-close-swimlane
-                  i.fa.fa-archive
-                  | {{_ 'archive-swimlane'}}
-              ul.pop-over-list
                 li: a.js-copy-swimlane
                   i.fa.fa-clipboard
                   | {{_ 'copy-swimlane'}}
@@ -89,6 +89,11 @@ template(name="swimlaneActionPopup")
                 li: a.js-move-swimlane
                   i.fa.fa-arrow-up
                   | {{_ 'move-swimlane'}}
+              hr
+              ul.pop-over-list
+                li: a.js-close-swimlane
+                  i.fa.fa-archive
+                  | {{_ 'archive-swimlane'}}
 
 template(name="swimlaneAddPopup")
   if currentUser
@@ -114,7 +119,8 @@ template(name="setSwimlaneColorPopup")
         each colors
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
-              i.fa.fa-check    // Buttons aligned left too
+              i.fa.fa-check
+    // Buttons aligned left too
     .flush-left
       button.primary.confirm.js-submit(style="margin-left:0") {{_ 'save'}}
       button.js-remove-color.negate.wide.right(style="margin-left:8px") {{_ 'unset-color'}}
@@ -133,6 +139,11 @@ template(name="swimlaneHeightErrorPopup")
   .swimlane-height-invalid
     p {{_ 'swimlane-height-error-message'}} '&gt;=100'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
+
+template(name="swimlaneArchivePopup")
+  p {{_ "swimlane-archive-pop"}}
+  p {{_ "swimlane-archive-suggest"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
 
 template(name="swimlaneDeletePopup")
   p {{_ "swimlane-delete-pop"}}

@@ -1,15 +1,20 @@
 import fs from 'fs';
 import path from 'path';
+import { Meteor } from 'meteor/meteor';
 import { createObjectId } from './grid/createObjectId';
 import { httpStreamOutput } from './httpStream.js';
+import {
+  STORAGE_NAME_FILESYSTEM,
+  STORAGE_NAME_GRIDFS,
+  STORAGE_NAME_S3,
+} from './fileStoreConstants';
 //import {} from './s3/Server-side-file-store.js';
-import { ObjectID } from 'bson';
+import { ObjectId } from 'bson';
 // DISABLED: Minio support removed due to Node.js compatibility issues
 // var Minio = require('minio');
 
-export const STORAGE_NAME_FILESYSTEM = "fs";
-export const STORAGE_NAME_GRIDFS     = "gridfs";
-export const STORAGE_NAME_S3         = "s3";
+// Re-export constants from shared module (keeps existing import paths working)
+export { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from './fileStoreConstants';
 
 /**
  * Sanitize filename to prevent path traversal attacks
@@ -30,37 +35,6 @@ function sanitizeFilename(filename) {
   // Remove any remaining path traversal sequences
   safe = safe.replace(/\.\.[\\/\\]/g, '');
   safe = safe.replace(/^\.\.$/, '');
-
-  // Trim whitespace
-  safe = safe.trim();
-
-  // If empty after sanitization, use default
-  if (!safe || safe === '.' || safe === '..') {
-    return 'unnamed';
-  }
-
-  return safe;
-}
-
-/**
- * Sanitize filename to prevent path traversal attacks
- * @param {string} filename - User-provided filename
- * @return {string} Sanitized filename safe for filesystem operations
- */
-function sanitizeFilename(filename) {
-  if (!filename || typeof filename !== 'string') {
-    return 'unnamed';
-  }
-
-  // Use path.basename to strip any directory components
-  let safe = path.basename(filename);
-
-  // Remove null bytes
-  safe = safe.replace(/\0/g, '');
-
-  // Remove any remaining path traversal sequences
-  safe = safe.replace(/\.\.[\/\\]/g, '');
-  safe = safe.replace(/^\.\.$/g, '');
 
   // Trim whitespace
   safe = safe.trim();
@@ -182,7 +156,7 @@ class FileStoreStrategy {
    * @return the new file path
    */
   getNewPath(storagePath, name) {
-    if (!_.isString(name)) {
+    if (typeof name !== 'string') {
       name = this.fileObj.name;
     }
     // Sanitize filename to prevent path traversal attacks
@@ -277,7 +251,12 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    */
   writeStreamFinished(finishedData) {
     const gridFsFileIdName = this.getGridFsFileIdName();
-    Attachments.update({ _id: this.fileObj._id }, { $set: { [gridFsFileIdName]: finishedData._id.toHexString(), } });
+    Attachments.updateAsync(
+      { _id: this.fileObj._id },
+      { $set: { [gridFsFileIdName]: finishedData._id.toHexString() } },
+    ).catch(error => {
+      console.error('Failed to persist GridFS file id:', error);
+    });
   }
 
   /** remove the file */
@@ -292,7 +271,12 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
     }
 
     const gridFsFileIdName = this.getGridFsFileIdName();
-    Attachments.update({ _id: this.fileObj._id }, { $unset: { [gridFsFileIdName]: 1 } });
+    Attachments.updateAsync(
+      { _id: this.fileObj._id },
+      { $unset: { [gridFsFileIdName]: 1 } },
+    ).catch(error => {
+      console.error('Failed to clear GridFS file id:', error);
+    });
   }
 
   /** return the storage name
@@ -429,7 +413,6 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     }
 
     if (!chosen) {
-      // No existing candidate found
       return undefined;
     }
     return fs.createReadStream(chosen);
@@ -440,7 +423,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * @return the write stream
    */
   getWriteStream(filePath) {
-    if (!_.isString(filePath)) {
+    if (typeof filePath !== 'string') {
       filePath = this.fileObj.versions[this.versionName].path;
     }
     const ret = fs.createWriteStream(filePath);
@@ -539,7 +522,9 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
   const safeName = sanitizeFilename(fileObj.name);
   if (safeName !== fileObj.name) {
     // Update the database with the sanitized name
-    Attachments.update({ _id: fileObj._id }, { $set: { name: safeName } });
+    Attachments.updateAsync({ _id: fileObj._id }, { $set: { name: safeName } }).catch(error => {
+      console.error('Failed to persist sanitized attachment name:', error);
+    });
     // Update the local object for use in this function
     fileObj.name = safeName;
   }
@@ -562,26 +547,28 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
         console.error('[readStream error]: ', error, fileObj._id);
       });
 
-      writeStream.on('finish', Meteor.bindEnvironment((finishedData) => {
+      writeStream.on('finish', finishedData => {
         strategyWrite.writeStreamFinished(finishedData);
-      }));
+      });
 
       // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-      readStream.on('end', Meteor.bindEnvironment(() => {
-        Attachments.update({ _id: fileObj._id }, { $set: {
+      readStream.on('end', () => {
+        Attachments.updateAsync({ _id: fileObj._id }, { $set: {
           [`versions.${versionName}.storage`]: strategyWrite.getStorageName(),
           [`versions.${versionName}.path`]: filePath,
-        } });
+        } }).catch(error => {
+          console.error('Failed to update attachment storage metadata:', error);
+        });
         strategyRead.unlink();
-      }));
+      });
 
       readStream.pipe(writeStream);
     }
   });
 };
 
-export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
-  const newCard = ReactiveCache.getCard(newCardId);
+export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFactory) {
+  const newCard = await ReactiveCache.getCard(newCardId);
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const readStream = strategyRead.getReadStream();
@@ -600,8 +587,8 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
     });
 
     // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-    readStream.on('end', Meteor.bindEnvironment(() => {
-      const fileId = new ObjectID().toString();
+    readStream.on('end', () => {
+      const fileId = new ObjectId().toString();
       Attachments.addFile(
         tempPath,
         {
@@ -625,12 +612,14 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
             console.log(err);
           } else {
             // Set the userId again
-            Attachments.update({ _id: fileRef._id }, { $set: { userId: fileObj.userId } });
+            Attachments.updateAsync({ _id: fileRef._id }, { $set: { userId: fileObj.userId } }).catch(error => {
+              console.error('Failed to update copied attachment userId:', error);
+            });
           }
         },
         true,
       );
-    }));
+    });
 
     readStream.pipe(writeStream);
   });
@@ -640,14 +629,22 @@ export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
   // Sanitize the new name to prevent path traversal
   const safeName = sanitizeFilename(newName);
 
+  const lastDot = safeName.lastIndexOf('.');
+  const extension = lastDot === -1 ? '' : safeName.substring(lastDot + 1).toLowerCase();
+  const extensionWithDot = extension ? `.${extension}` : '';
+
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategy = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, safeName);
     strategy.rename(newFilePath);
 
-    Attachments.update({ _id: fileObj._id }, { $set: {
+    Attachments.updateAsync({ _id: fileObj._id }, { $set: {
       "name": safeName,
+      "extension": extension,
+      "extensionWithDot": extensionWithDot,
       [`versions.${versionName}.path`]: newFilePath,
-    } });
+    } }).catch(error => {
+      console.error('Failed to persist renamed attachment path:', error);
+    });
   });
 };

@@ -1,16 +1,12 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import LockoutSettings from '/models/lockoutSettings';
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.lockedUsers = new ReactiveVar([]);
-    this.isLoadingLockedUsers = new ReactiveVar(false);
+Template.lockedUsersGeneral.onCreated(function () {
+  this.lockedUsers = new ReactiveVar([]);
+  this.isLoadingLockedUsers = new ReactiveVar(false);
 
-    // Don't load immediately to prevent unnecessary spinner
-    // The data will be loaded when the tab is selected in peopleBody.js switchMenu
-  },
-
-  refreshLockedUsers() {
+  // Store refreshLockedUsers on the instance so it can be called from event handlers
+  this.refreshLockedUsers = () => {
     // Set loading state initially, but we'll hide it if no users are found
     this.isLoadingLockedUsers.set(true);
 
@@ -44,9 +40,54 @@ BlazeComponent.extendComponent({
       this.lockedUsers.set(users);
       this.isLoadingLockedUsers.set(false);
     });
+  };
+
+  // Don't load immediately to prevent unnecessary spinner
+  // The data will be loaded when the tab is selected in peopleBody.js switchMenu
+});
+
+Template.lockedUsersGeneral.helpers({
+  knownFailuresBeforeLockout() {
+    return LockoutSettings.findOne('known-failuresBeforeLockout')?.value || 3;
   },
 
-  unlockUser(event) {
+  knownLockoutPeriod() {
+    return LockoutSettings.findOne('known-lockoutPeriod')?.value || 60;
+  },
+
+  knownFailureWindow() {
+    return LockoutSettings.findOne('known-failureWindow')?.value || 15;
+  },
+
+  unknownFailuresBeforeLockout() {
+    return LockoutSettings.findOne('unknown-failuresBeforeLockout')?.value || 3;
+  },
+
+  unknownLockoutPeriod() {
+    return LockoutSettings.findOne('unknown-lockoutPeriod')?.value || 60;
+  },
+
+  unknownFailureWindow() {
+    return LockoutSettings.findOne('unknown-failureWindow')?.value || 15;
+  },
+
+  lockedUsers() {
+    return Template.instance().lockedUsers.get();
+  },
+
+  isLoadingLockedUsers() {
+    return Template.instance().isLoadingLockedUsers.get();
+  },
+});
+
+Template.lockedUsersGeneral.events({
+  'click button.js-refresh-locked-users'(event, tpl) {
+    tpl.refreshLockedUsers();
+  },
+  'click button#refreshLockedUsers'(event, tpl) {
+    tpl.refreshLockedUsers();
+  },
+  'click button.js-unlock-user'(event, tpl) {
     const userId = $(event.currentTarget).data('user-id');
     if (!userId) return;
 
@@ -61,13 +102,12 @@ BlazeComponent.extendComponent({
 
         if (result) {
           alert(TAPi18n.__('accounts-lockout-user-unlocked'));
-          this.refreshLockedUsers();
+          tpl.refreshLockedUsers();
         }
       });
     }
   },
-
-  unlockAllUsers() {
+  'click button.js-unlock-all-users'(event, tpl) {
     if (confirm(TAPi18n.__('accounts-lockout-confirm-unlock-all'))) {
       Meteor.call('unlockAllUsers', (err, result) => {
         if (err) {
@@ -79,13 +119,12 @@ BlazeComponent.extendComponent({
 
         if (result) {
           alert(TAPi18n.__('accounts-lockout-user-unlocked'));
-          this.refreshLockedUsers();
+          tpl.refreshLockedUsers();
         }
       });
     }
   },
-
-  saveLockoutSettings() {
+  'click button.js-lockout-save'() {
     // Get values from form
     const knownFailuresBeforeLockout = parseInt($('#known-failures-before-lockout').val(), 10) || 3;
     const knownLockoutPeriod = parseInt($('#known-lockout-period').val(), 10) || 60;
@@ -128,48 +167,4 @@ BlazeComponent.extendComponent({
       }
     });
   },
-
-  knownFailuresBeforeLockout() {
-    return LockoutSettings.findOne('known-failuresBeforeLockout')?.value || 3;
-  },
-
-  knownLockoutPeriod() {
-    return LockoutSettings.findOne('known-lockoutPeriod')?.value || 60;
-  },
-
-  knownFailureWindow() {
-    return LockoutSettings.findOne('known-failureWindow')?.value || 15;
-  },
-
-  unknownFailuresBeforeLockout() {
-    return LockoutSettings.findOne('unknown-failuresBeforeLockout')?.value || 3;
-  },
-
-  unknownLockoutPeriod() {
-    return LockoutSettings.findOne('unknown-lockoutPeriod')?.value || 60;
-  },
-
-  unknownFailureWindow() {
-    return LockoutSettings.findOne('unknown-failureWindow')?.value || 15;
-  },
-
-  lockedUsers() {
-    return this.lockedUsers.get();
-  },
-
-  isLoadingLockedUsers() {
-    return this.isLoadingLockedUsers.get();
-  },
-
-  events() {
-    return [
-      {
-        'click button.js-refresh-locked-users': this.refreshLockedUsers,
-        'click button#refreshLockedUsers': this.refreshLockedUsers,
-        'click button.js-unlock-user': this.unlockUser,
-        'click button.js-unlock-all-users': this.unlockAllUsers,
-        'click button.js-lockout-save': this.saveLockoutSettings,
-      },
-    ];
-  },
-}).register('lockedUsersGeneral');
+});

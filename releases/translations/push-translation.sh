@@ -1,1 +1,1 @@
-tx push -t -l $1
+../tx push -t -l $1

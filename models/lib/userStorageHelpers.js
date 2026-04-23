@@ -26,11 +26,11 @@ export function isValidBoolean(value) {
  */
 export function getValidatedNumber(key, boardId, itemId, defaultValue, min, max) {
   if (typeof localStorage === 'undefined') return defaultValue;
-  
+
   try {
     const stored = localStorage.getItem(key);
     if (!stored) return defaultValue;
-    
+
     const data = JSON.parse(stored);
     if (data[boardId] && typeof data[boardId][itemId] === 'number') {
       const value = data[boardId][itemId];
@@ -41,7 +41,7 @@ export function getValidatedNumber(key, boardId, itemId, defaultValue, min, max)
   } catch (e) {
     console.warn(`Error reading ${key} from localStorage:`, e);
   }
-  
+
   return defaultValue;
 }
 
@@ -50,22 +50,22 @@ export function getValidatedNumber(key, boardId, itemId, defaultValue, min, max)
  */
 export function setValidatedNumber(key, boardId, itemId, value, min, max) {
   if (typeof localStorage === 'undefined') return false;
-  
+
   // Validate value
   if (typeof value !== 'number' || isNaN(value) || !isFinite(value) || value < min || value > max) {
     console.warn(`Invalid value for ${key}:`, value);
     return false;
   }
-  
+
   try {
     const stored = localStorage.getItem(key);
     const data = stored ? JSON.parse(stored) : {};
-    
+
     if (!data[boardId]) {
       data[boardId] = {};
     }
     data[boardId][itemId] = value;
-    
+
     localStorage.setItem(key, JSON.stringify(data));
     return true;
   } catch (e) {
@@ -79,11 +79,11 @@ export function setValidatedNumber(key, boardId, itemId, value, min, max) {
  */
 export function getValidatedBoolean(key, boardId, itemId, defaultValue) {
   if (typeof localStorage === 'undefined') return defaultValue;
-  
+
   try {
     const stored = localStorage.getItem(key);
     if (!stored) return defaultValue;
-    
+
     const data = JSON.parse(stored);
     if (data[boardId] && typeof data[boardId][itemId] === 'boolean') {
       return data[boardId][itemId];
@@ -91,7 +91,7 @@ export function getValidatedBoolean(key, boardId, itemId, defaultValue) {
   } catch (e) {
     console.warn(`Error reading ${key} from localStorage:`, e);
   }
-  
+
   return defaultValue;
 }
 
@@ -100,22 +100,22 @@ export function getValidatedBoolean(key, boardId, itemId, defaultValue) {
  */
 export function setValidatedBoolean(key, boardId, itemId, value) {
   if (typeof localStorage === 'undefined') return false;
-  
+
   // Validate value
   if (typeof value !== 'boolean') {
     console.warn(`Invalid boolean value for ${key}:`, value);
     return false;
   }
-  
+
   try {
     const stored = localStorage.getItem(key);
     const data = stored ? JSON.parse(stored) : {};
-    
+
     if (!data[boardId]) {
       data[boardId] = {};
     }
     data[boardId][itemId] = value;
-    
+
     localStorage.setItem(key, JSON.stringify(data));
     return true;
   } catch (e) {

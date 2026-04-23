@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-TableVisibilityModeSettings = new Mongo.Collection('tableVisibilityModeSettings');
+const TableVisibilityModeSettings = new Mongo.Collection('tableVisibilityModeSettings');
 
 TableVisibilityModeSettings.attachSchema(
   new SimpleSchema({
@@ -13,7 +15,6 @@ TableVisibilityModeSettings.attachSchema(
     },
     sort: {
       type: Number,
-      decimal: true,
     },
     createdAt: {
       type: Date,
@@ -31,7 +32,6 @@ TableVisibilityModeSettings.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -43,28 +43,6 @@ TableVisibilityModeSettings.attachSchema(
     },
   }),
 );
-
-TableVisibilityModeSettings.allow({
-  update(userId) {
-    const user = ReactiveCache.getUser(userId);
-    return user && user.isAdmin;
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await TableVisibilityModeSettings._collection.createIndexAsync({ modifiedAt: -1 });
-    TableVisibilityModeSettings.upsert(
-      { _id: 'tableVisibilityMode-allowPrivateOnly' },
-      {
-        $setOnInsert: {
-          booleanValue: false,
-          sort: 0,
-        },
-      },
-    );
-  });
-}
 
 TableVisibilityModeSettings.helpers({
   allowPrivateOnly() {

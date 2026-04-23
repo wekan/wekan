@@ -1,0 +1,591 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>WeKan — CVE Hall of Fame</title>
+  <link rel="icon" href="../wekan-favicon.png" />
+  <link rel="stylesheet" type="text/css" href="../css/main.css" />
+  <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+  <img vAlign="center" src="hof.svg" alt="Hall of Fame image from https://openclipart.org/detail/120343/trophy"
+    width="300px" height="auto" />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi">Back to WeKan Website</a>
+  </div>
+
+  <div class="hof">
+    <h1 class="hof">Contents</h1>
+
+    <h3 class="hof">
+      See <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md" style="color: red;">SECURITY.md</a>
+      how to do Responsible Security Disclosure by email to security@wekan.fi
+    </h3>
+
+    <table border="1" margin="0" padding="10px" width="100%">
+      <tr>
+        <th width="10%">CVE</th>
+        <th width="10%">Vulnerability name</th>
+        <th width="10%">Date</th>
+        <th width="20%">
+          <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md" style="color: red;">Responsible Security Disclosure</a>
+          by
+        </th>
+        <th width="40%">Vulnerabilities</th>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          IntegrationBleed FileBleed <a href="https://www.cve.org/CVERecord?id=CVE-2026-41455">CVE-2026-41455</a>,
+          IntegrationBleed RebindBleed <a href="https://www.cve.org/cverecord?id=CVE-2026-41454">CVE-2026-41454</a>
+          <br /> <br />
+        </td>
+        <td valign="top"><b>IntegrationBleed</b> <h2><i class="fa fa-link" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2026-02-24 15:09 EET</td>
+        <td valign="top">
+          <b>Rodolphe GHIO</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report and fix!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. <i class="fa fa-file-text-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> FileBleed</li>
+            <li>Affected Wekan v8.34 and earlier</li>
+            <li>Fixed at
+               <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v835-2026-03-05-wekan--release">Wekan v8.35 2026-03-05</a>
+            </li>
+            <li><a href="integrationbleed/">More details</a></li>
+            <li>2. <i class="fa fa-recycle" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> RebindBleed</li>
+            <li>Affected Wekan v8.35 and earlier</li>
+            <li>Fixed at
+               <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v836-2026-03-20-wekan--release">Wekan v8.36 2026-03-20</a>
+            </li>
+            <li><a href="integrationbleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+<br /> <br />
+        </td>
+        <td valign="top"><b>AnchorBleed</b> <h2><i class="fa fa-anchor" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2026-02-12 11:16 EET</td>
+        <td valign="top">
+          <b>The <a href="https://securitylab.github.com">GitHub Security Lab</a> team</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report and fix!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. GHSL-2026-035_Wekan <i class="fa fa-i-cursor" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> CursorBleed</li>
+            <li>2. GHSL-2026-036_Wekan <i class="fa fa-eye" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> WatchBleed</li>
+            <li>3. GHSL-2026-037_Wekan <i class="fa fa-globe" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> GlobalBleed</li>
+            <li>4. GHSL-2026-044_Wekan <i class="fa fa-id-card-o" aria-hidden="true"></i> <i class="fa fa-repeat" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> CustomFieldBleed</li>
+            <li>5. GHSL-2026-045_Wekan <i class="fa fa-upload" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> ImportBleed</li>
+            <li>Affected Wekan v8.33 and earlier</li>
+            <li>Fixed at
+               <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v834-2026-02-20-wekan--release">Wekan v8.34 2026-02-20</a>
+            </li>
+            <li><a href="AnchorBleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+<br /> <br />
+        </td>
+        <td valign="top"><b>FloppyBleed</b> <h2><i class="fa fa-floppy-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2026-01-24 18:30 EET</td>
+        <td valign="top">
+          <b>Luke Hebenstreit of Twitter lheben_</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. <i class="fa fa-file-text-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> FileBleed</li>
+            <li>Affected Wekan v8.24 and earlier</li>
+            <li>Fixed at
+               <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v825-2026-01-28-wekan--release">Wekan v8.25 2026-01-28</a>
+            </li>
+            <li><a href="FloppyBleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+<br /> <br />
+        </td>
+        <td valign="top"><b>SnowBleed</b> <h2><i class="fa fa-snowflake-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2026-01-05 15:46 EET</td>
+        <td valign="top">
+          <b><a href="https://joshua.hu">Joshua Rogers</a> of <a href="https://aisle.com">Aisle Research</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. <i class="fa fa-plane" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> MigrationsBleed</li>
+            <li>2. <i class="fa fa-sitemap" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> OrgsTeamsBleed</li>
+            <li>3. <i class="fa fa-check-square-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> ChecklistRESTBleed</li>
+            <li>4. <i class="fa fa-plane" aria-hidden="true"></i> <i class="fa fa-repeat" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> MigrationsBleed2</li>
+            <li>5. <i class="fa fa-mouse-pointer" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> PositionHistoryBleed</li>
+            <li>6. <i class="fa fa-refresh" aria-hidden="true"></i> <i class="fa fa-users" aria-hidden="true"></i>  <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> SyncLDAPBleed</li>
+            <li>7. <i class="fa fa-paperclip" aria-hidden="true"></i> <i class="fa fa-plane" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> AttachmentMigrationBleed</li>
+            <li>8. <i class="fa fa-file" aria-hidden="true"></i> <i class="fa fa-plane" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> MoveStorageBleed</li>
+            <li>9. <i class="fa fa-list-ol" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> ListWIPBleed</li>
+            <li>10. <i class="fa fa-pencil" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> BoardTitleRESTBleed</li>
+            <li>11. <i class="fa fa-id-card-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> CardPubSubBleed</li>
+            <li>12. <i class="fa fa-files-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> FixDuplicateBleed</li>
+            <li>13. <i class="fa fa-link" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> LinkedBoardActivitiesBleed</li>
+            <li>14. <i class="fa fa-step-forward" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> RulesBleed</li>
+            <li>Affected Wekan v8.19</li>
+            <li>Fixed at
+               <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v820-2026-01-16-wekan--release">Wekan v8.20 2026-01-16</a> and
+               <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v821-2026-01-18-wekan--release">Wekan v8.21 2026-01-18</a>
+            </li>
+            <li><a href="SnowBleed/">More details</a></li>
+
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+<br /> <br />
+        </td>
+        <td valign="top"><b>MegaBleed</b> <h2><i class="fa fa-flash" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2025-12-26 18:39 EET</td>
+        <td valign="top">
+          <b><a href="https://joshua.hu">Joshua Rogers</a> of <a href="https://aisle.com">Aisle Research</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. <i class="fa fa-flag" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> IDOR in setCreateTranslation. Non-admin could change Custom Translation</li>
+            <li>2. <i class="fa fa-user-secret" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Private-only board setting can be bypassed</li>
+            <li>3. <i class="fa fa-comment" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Card comment author spoofing (IDOR) via API</li>
+            <li>4. <i class="fa fa-plane" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Cross-board card move without destination authorization</li>
+            <li>5. <i class="fa fa-pencil" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Read-only roles can still update cards</li>
+            <li>6. <i class="fa fa-trash" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Checklist delete IDOR: checklist not verified against board/card</li>
+            <li>7. <i class="fa fa-check-square-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Checklist create IDOR: cardId not verified against boardId</li>
+            <li>8. <i class="fa fa-file" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Attachments publication leaks metadata without auth</li>
+            <li>9. <i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Attachment upload not scoped to card/board relationship</li>
+            <li>10. <i class="fa fa-filter" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> LDAP filter injection in LDAP auth</li>
+            <li>Affected Wekan v8.18</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v819-2025-12-29-wekan--release">Wekan v8.19 2025-12-29</a></li>
+            <li><a href="MegaBleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+<br /> <br />
+        </td>
+        <td valign="top"><b>SpaceBleed</b> <h2><i class="fa fa-space-shuttle" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2025-11-02 03:29 EET</td>
+        <td valign="top">
+          <b><a href="https://sth.sh">Siam Thanat Hack (STH)</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. <i class="fa fa-files-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> File Attachments enables stored XSS (High)</li>
+            <li>2. <i class="fa fa-sitemap" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Access to boards of any Orgs/Teams (High)</li>
+            <li>3. <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Unauthenticated (or any) user can update board ‘sort’ (Low)</li>
+            <li>4. <i class="fa fa-comment-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Members can forge others’ votes (Low)<br />
+                Bonus: <i class="fa fa-credit-card" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Similar fixes to planning poker too done by xet7.</li>
+            <li>5. <i class="fa fa-file-code-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Attachment API uses bearer value as userId and DoS (Low)</li>
+            <li>Affected Wekan v8.15</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v816-2025-11-02-wekan--release">Wekan v8.16 2025-11-02</a></li>
+            <li><a href="SpaceBleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-20654">CVE-2021-20654</a><br /> <br />
+          JVN: Many fixed.<br /> <br />
+        </td>
+        <td valign="top"><b>FieldBleed</b> <h2><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">JVN: 2021-2025 Many fixed.<br /></td>
+        <td valign="top">
+          <b>Cyb3rjunky</b> and <b>swsjona</b> about <a href="fieldbleed/#FIELD">input fields</a>.
+          <b>Ryoya Koyama</b> at Mitsui Bussan Secure Directions, Inc. (<a href="https://www.mbsd.jp/">https://www.mbsd.jp/</a>) about
+          <a href="fieldbleed/#SVG">Javascript inside .SVG attachment</a><br />
+          <b>Romain Korpas</b> at apitech.fr about IDOR.
+          <b>Nguyen Thanh Nguyen of Fortinet's FortiGuard Labs</b> about SVG.
+          <b>Sho Sugiyama</b> about XSS. And some anonymous security researchers.<br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>XSS: <a href="fieldbleed/#FIELD">Javascript saved to field</a>, and <a href="fieldbleed/#SVG">Javascript inside .SVG attachment</a>, is run when page is reloaded</li>
+            <li>Affected Wekan v3.12-v4.11</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v412-2020-06-08-wekan-release">Wekan v4.12 2020-06-08</a></li>
+            <li><a href="fieldbleed/">More details</a></li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/releases/tag/v7.98">WeKan v7.98</a> or earlier:
+              <ul>
+                <li>IDOR CWE-639 that affected WeKan 7.80-7.93: Romain Korpas at apitech.fr.</li>
+                <li>Computational Resource Abuse in Export endpoints: Anynymous Security Researcher.</li>
+                <li>FG-VD-22-078 Prevent SVG Billion Laughs Attack: Nguyen Thanh Nguyen of Fortinet's FortiGuard Labs.</li>
+                <li>usd-2022-0041 CWE-284 Improper Access Control: Christian Pöschl of usd AG.</li>
+                <li>JVN#14269684 Broken access control, JVN#74210258 Stored XSS, JVN#86586539 Stored XSS: Ryoua Koyama.</li>
+                <li>JVN#15385465 CWE-79 XSS: Sho Sugiyama.</li>
+                <li>JVN#80785288 CWE-79 XSS: Already previously fixed.</li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+       <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>SocialBleed</b>
+          <h2><i class="fa fa-comments" aria-hidden="true"></i>
+          <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2023-05-11 19.14 EET</td>
+        <td valign="top">
+          <b>Rajesh Thapa</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: Links to Social Media at <a href="https://wekan.fi">wekan.fi</a> could lead to theft of sensitive information</li>
+            <li>Affected Wekan website before 2024-05-12 05.34 EET</li>
+            <li>Fixed at Wekan website 2023-05-12 05.34 EET</a></li>
+            <li><a href="socialbleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+       <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>AdminBleed</b>
+          <h2><i class="fa fa-unlock-alt" aria-hidden="true"></i>
+          <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2023-04-24 16.40 EET</td>
+        <td valign="top">
+          <b>Christian Pöschl of <a href="https://www.usd.de">usd AG Responsible Disclosure Team</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: Non-Admin could change to Admin</li>
+            <li>Affected Wekan v6.85 and earlier</li>
+            <li>Fixed at Wekan v6.86 2023-04-26</a></li>
+            <li><a href="adminbleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+       <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>InvisibleBleed</b>
+          <h2><i class="fa fa-eye-slash" aria-hidden="true"></i>
+          <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2023-04-24 03.35 EET</td>
+        <td valign="top">
+          <b>Someone at chat</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Sent report and disappeared.</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: HTML comments not visible</li>
+            <li>Affected Wekan v6.85 and earlier</li>
+            <li>Fixed at Wekan v6.86 2023-04-26</a></li>
+            <li><a href="invisiblebleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+       <td valign="top">
+         <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-31779">CVE-2023-31779</a>
+        </td>
+        <td valign="top"><b>ReactionBleed</b> <h2><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2023-02-28 12.36 EET</td>
+        <td valign="top">
+          <b>Alexander Starikov at <a href="https://jetinfosystems.com">Jet Infosystems</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report and fix!</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: XSS in feature "Reaction to comment"</li>
+            <li>Affected Wekan v5.49 - v6.84</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v685-2023-04-18-wekan--release">Wekan v6.85 2023-04-18</a></li>
+            <li><a href="reactionbleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+       <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>FileBleed</b> <h2><i class="fa fa-file-text-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2023-02-16 17.35 EET</td>
+        <td valign="top">
+          <b><a href="https://sec-consult.com">SEC Consult</a>, an Atos company</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: XSS in filename</li>
+            <li>Affected Wekan v6.74 and earlier</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v675-2023-02-21-wekan--release">Wekan v6.75 2023-02-21</a></li>
+            <li><a href="filebleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>Emailbleed</b> <h2><i class="fa fa-envelope-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2021-01-26 12.42 EET</td>
+        <td valign="top">
+          <b><a href="https://www.georg-krause.net">Georg Krause</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: SMTP password visible to Admin at Admin Panel by using browser inspect to see behind asterisks</li>
+            <li>Affected Wekan v1.59-v4.98</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v499-2021-02-25-wekan-release">Wekan v4.99 2021-02-25</a></li>
+            <li><a href="emailbleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3309">CVE-2021-3309</a>
+        </td>
+        <td valign="top"><b>LDAPBleed</b> <h2><i class="fa fa-sitemap" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2021-01-26 0:42 EET</td>
+        <td valign="top">
+          <b><a href="https://github.com/robert-scheck">robert-scheck</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send report and sent fix! Although, report was at <a href="https://github.com/wekan/wekan/issues/3482">public GitHub issue</a>, not via <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md" style="color: red;">Responsible Security Disclosure</a>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Security: SSL/TLS certificate validation for LDAP disabled by default</li>
+            <li>Affected Wekan v1.53.1-v4.87</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v488-2021-01-28-wekan-release">Wekan v4.88 2021-01-28</a></li>
+            <li><a href="ldapbleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+        </td>
+        <td valign="top"><b>DUEBleed</b> <h2><i class="fa fa-calendar" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2021-01-11 EET</td>
+        <td valign="top">
+          <b><a href="https://github.com/xet7">xet7 - maintainer of Wekan</a></b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did not notice security issue originally when merging new feature from pull request. Did fix issue when finally noticed it at production at Wekan demo server.
+        </td>
+        <td valign="top">
+          <ul>
+            <li>Due Cards and Broken Cards: As Admin user, at All Users view of Due Cards and Broken Cards,
+                fixed to not show cards from other users private boards. This affected only logged in Admin user,
+                not logged in other users.</li>
+            <li>Affected Wekan v4.73-v4.74</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v475-2021-01-11-wekan-release">Wekan v4.75 2021-01-11</a></li>
+            <li><a href="duebleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <td valign="top">
+        VRF#20-08-SGSSC.
+      </td>
+      <td valign="top"><b>BypassBleed</b> <h2><i class="fa fa-sign-in" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+      <td valign="top">2020-02-26 01:36 EET</td>
+      <td valign="top">
+        <b><a href="https://twitter.com/dejandayoff">Dejan Zelic</a>, Justin Benjamin and others</b> at <a
+          href="https://twitter.com/offsectraining">Offensive Security</a><br />
+        <img src="GoldStar.png" width="30px" height="auto" />
+        <img src="GoldStar.png" width="30px" height="auto" />
+        <img src="GoldStar.png" width="30px" height="auto" />
+        <img src="GoldStar.png" width="30px" height="auto" />
+        <img src="GoldStar.png" width="30px" height="auto" /><br />
+        Did send detailed report and helped fixing!
+      </td>
+      <td valign="top">
+        <ul>
+          <li>Auth Bypass</li>
+          <li>Unauthenticated SSRF</li>
+          <li>DoS</li>
+          <li>Unauthenticated Username Change</li>
+          <li>Unauthenticated Os Statistics</li>
+          <li>Affected Wekan v0.7-v3.80</li>
+          <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v381-2020-03-01-wekan-release">Wekan v3.81 2020-03-01</a></li>
+          <li><a href="bypassbleed/">More details</a></li>
+        </ul>
+      </td>
+
+      <tr>
+        <td valign="top">
+          VRF#20-08-DDFJJ.
+        </td>
+
+        <td valign="top"><b>UserBleed</b> <h2><i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+
+        <td valign="top">2018-06-12</td>
+
+        <td valign="top">
+          <b>Adrian Genaid</b> at <a href="https://www.planta.de">PLANTA Projektmanagement-Systeme GmbH</a><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report and fix!
+        </td>
+
+        <td valign="top">
+          <ul>
+            <li>User data is published unconditionally</li>
+            <li>Sessions can be taken over</li>
+            <li>Affected Wekan v0.11.1-rc2 - v1.03</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v104-2018-06-12-wekan-release">Wekan v1.04 2018-06-12</a></li>
+            <li><a href="userbleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          <a href="https://www.cvedetails.com/cve/CVE-2018-1000549/">CVE-2018-1000549</a>,<br /> In Progress Update Request 938446
+        </td>
+
+        <td valign="top"><b>BruteBleed</b> <h2><i class="fa fa-repeat" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+
+        <td valign="top">2018-06-12</td>
+
+        <td valign="top">
+          <b>Shadow Vault</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did not report to Wekan, was found later from CVE
+        </td>
+
+        <td valign="top">
+          <ul>
+            <li>Email / Username Enumeration</li>
+            <li>Affected Wekan v1.04-v2.43</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v244-2019-03-11-wekan-release">Wekan v2.44 2019-03-11</a>.</li>
+            <li><a href="brutebleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          VRF#20-08-LZGVF.
+        </td>
+
+        <td valign="top"><b>FrameBleed</b> <h2><i class="fa fa-window-maximize" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+
+        <td valign="top">2018-03-25</td>
+
+        <td valign="top">
+          <b>Team</b><br />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" />
+          <img src="GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+
+        <td valign="top">
+          <ul>
+            <li>Cross Frame Scripting</li>
+            <li>Clickjacking</li>
+            <li>Improper Cache Control</li>
+            <li>Affected Wekan v0.7-v0.79</li>
+            <li><a href="framebleed/">More details</a></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+    <br />
+    <br />
+    <br />
+</body>
+
+</html>

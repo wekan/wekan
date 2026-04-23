@@ -1,0 +1,153 @@
+swagger: '2.0'
+info:
+  title: Wekan REST API
+  version: v8.75
+  description: |
+    The REST API allows you to control and extend Wekan with ease.
+
+    If you are an end-user and not a dev or a tester, [create an issue](https://github.com/wekan/wekan/issues/new) to request new APIs.
+
+    > All API calls in the documentation are made using `curl`.  However, you are free to use Java / Python / PHP / Golang / Ruby / Swift / Objective-C / Rust / Scala / C# or any other programming languages.
+
+    # Production Security Concerns
+    When calling a production Wekan server, ensure it is running via HTTPS and has a valid SSL Certificate. The login method requires you to post your username and password in plaintext, which is why we highly suggest only calling the REST login api over HTTPS. Also, few things to note:
+
+    * Only call via HTTPS
+    * Implement a timed authorization token expiration strategy
+    * Ensure the calling user only has permissions for what they are calling and no more
+
+schemes:
+  - http
+
+securityDefinitions:
+  UserSecurity:
+    type: apiKey
+    in: header
+    name: Authorization
+
+paths:
+  /users/login:
+    post:
+      operationId: login
+      summary: Login with REST API
+      consumes:
+        - application/json
+        - application/x-www-form-urlencoded
+      tags:
+        - Login
+      parameters:
+        - name: loginRequest
+          in: body
+          required: true
+          description: Login credentials
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                description: |
+                  Your username
+                type: string
+              password:
+                description: |
+                  Your password
+                type: string
+                format: password
+      responses:
+        200:
+          description: |-
+            Successful authentication
+          schema:
+            type: object
+            required:
+              - id
+              - token
+              - tokenExpires
+            properties:
+              id:
+                type: string
+                description: User ID
+              token:
+                type: string
+                description: |
+                  Authentication token
+              tokenExpires:
+                type: string
+                format: date-time
+                description: |
+                  Token expiration date
+        400:
+          description: |
+            Error in authentication
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+              reason:
+                type: string
+        default:
+          description: |
+            Error in authentication
+  /users/register:
+    post:
+      operationId: register
+      summary: Register with REST API
+      description: |
+        Notes:
+          - You will need to provide the token for any of the authenticated methods.
+      consumes:
+        - application/x-www-form-urlencoded
+        - application/json
+      tags:
+        - Login
+      parameters:
+        - name: username
+          in: formData
+          required: true
+          description: |
+            Your username
+          type: string
+        - name: password
+          in: formData
+          required: true
+          description: |
+            Your password
+          type: string
+          format: password
+        - name: email
+          in: formData
+          required: true
+          description: |
+            Your email
+          type: string
+      responses:
+        200:
+          description: |-
+            Successful registration
+          schema:
+            items:
+              properties:
+                id:
+                  type: string
+                token:
+                  type: string
+                tokenExpires:
+                  type: string
+        400:
+          description: |
+            Error in registration
+          schema:
+            items:
+              properties:
+                error:
+                  type: number
+                reason:
+                  type: string
+        default:
+          description: |
+            Error in registration
+
+definitions:
