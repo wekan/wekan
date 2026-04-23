@@ -48,6 +48,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Update releases scripts](https://github.com/wekan/wekan/commit/64f58455ff471b5a5567d7230850124cf0afacb0).
   Thanks to xet7.
+- [Update release and version scripts](https://github.com/wekan/wekan/commit/699b9a9c712f01068324c051be4fb149dfc6f100).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
