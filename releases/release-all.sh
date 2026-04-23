@@ -48,7 +48,7 @@ NEW="v${LATEST_VERSION}"
 OLD="v${PREVIOUS_VERSION}"
 
 # Update all versions
-./releases/update-all-versions.sh $OLD $NEW
+./releases/version.sh $OLD $NEW
 
 # Resolve repo root from script location so this works regardless of CWD
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
