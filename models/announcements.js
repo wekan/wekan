@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-Announcements = new Mongo.Collection('announcements');
+const Announcements = new Mongo.Collection('announcements');
 
 Announcements.attachSchema(
   new SimpleSchema({
@@ -18,7 +20,6 @@ Announcements.attachSchema(
     },
     sort: {
       type: Number,
-      decimal: true,
     },
     createdAt: {
       type: Date,
@@ -36,7 +37,6 @@ Announcements.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -48,22 +48,5 @@ Announcements.attachSchema(
     },
   }),
 );
-
-Announcements.allow({
-  update(userId) {
-    const user = ReactiveCache.getUser(userId);
-    return user && user.isAdmin;
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await Announcements._collection.createIndexAsync({ modifiedAt: -1 });
-    const announcements = Announcements.findOne({});
-    if (!announcements) {
-      Announcements.insert({ enabled: false, sort: 0 });
-    }
-  });
-}
 
 export default Announcements;

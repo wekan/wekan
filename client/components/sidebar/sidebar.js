@@ -1,8 +1,24 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
+import AccessibilitySettings from '/models/accessibilitySettings';
+import Boards from '/models/boards';
+import Integrations from '/models/integrations';
+import Lists from '/models/lists';
+import { BOARD_COLORS } from '/models/metadata/colors';
+import { Filter } from '/client/lib/filter';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
+import {
+  clearSidebarInstance,
+  setSidebarInstance,
+} from '/client/features/sidebar/service';
 
-Sidebar = null;
+export let Sidebar = null;
 
 const defaultView = 'home';
 const MCB = '.materialCheckBox';
@@ -16,163 +32,186 @@ const viewTitles = {
   archives: 'archives',
 };
 
-BlazeComponent.extendComponent({
-  mixins() {
-    return [Mixins.InfiniteScrolling];
-  },
+Template.sidebar.onCreated(function() {
+  this._isOpen = new ReactiveVar(false);
+  this._view = new ReactiveVar(defaultView);
+  this._hideCardCounterList = new ReactiveVar(false);
+  this._hideBoardMemberList = new ReactiveVar(false);
+  this.infiniteScrolling = new InfiniteScrolling();
+  this.activitiesInstance = null;
+  Sidebar = this;
+  setSidebarInstance(this);
 
-  onCreated() {
-    this._isOpen = new ReactiveVar(false);
-    this._view = new ReactiveVar(defaultView);
-    this._hideCardCounterList = new ReactiveVar(false);
-    this._hideBoardMemberList = new ReactiveVar(false);
-    Sidebar = this;
+  // Subscribe to accessibility settings
+  Meteor.subscribe('accessibilitySettings');
 
-    // Subscribe to accessibility settings
-    Meteor.subscribe('accessibilitySettings');
-  },
-
-  onDestroyed() {
-    Sidebar = null;
-  },
-
-  isOpen() {
+  // Methods on the template instance for programmatic access via the Sidebar global
+  this.isOpen = function() {
     return this._isOpen.get();
-  },
+  };
 
-  open() {
+  this.open = function() {
     if (!this._isOpen.get()) {
       this._isOpen.set(true);
       EscapeActions.executeUpTo('detailsPane');
     }
-  },
+  };
 
-  hide() {
+  this.hide = function() {
     if (this._isOpen.get()) {
       this._isOpen.set(false);
     }
-  },
+  };
 
-  toggle() {
+  this.toggle = function() {
     this._isOpen.set(!this._isOpen.get());
-  },
+  };
 
-  calculateNextPeak() {
+  this.calculateNextPeak = function() {
     const sidebarElement = this.find('.js-board-sidebar-content');
     if (sidebarElement) {
       const altitude = sidebarElement.scrollHeight;
-      this.callFirstWith(this, 'setNextPeak', altitude);
+      this.infiniteScrolling.setNextPeak(altitude);
     }
-  },
+  };
 
-  reachNextPeak() {
-    const activitiesChildren = this.childComponents('activities');
-    if (activitiesChildren && activitiesChildren.length > 0 && activitiesChildren[0] && typeof activitiesChildren[0].loadNextPage === 'function') {
-      activitiesChildren[0].loadNextPage();
+  this.reachNextPeak = function() {
+    if (this.activitiesInstance && typeof this.activitiesInstance.loadNextPage === 'function') {
+      this.activitiesInstance.loadNextPage();
     }
-  },
+  };
 
-  isTongueHidden() {
+  this.isTongueHidden = function() {
     return this.isOpen() && this.getView() !== defaultView;
-  },
+  };
 
-  scrollTop() {
+  this.scrollTop = function() {
     this.$('.js-board-sidebar-content').scrollTop(0);
-  },
+  };
 
-  getView() {
+  this.getView = function() {
     return this._view.get();
-  },
+  };
 
-  setView(view) {
-    view = _.isString(view) ? view : defaultView;
+  this.setView = function(view) {
+    view = typeof view === 'string' ? view : defaultView;
     if (this._view.get() !== view) {
       this._view.set(view);
       this.scrollTop();
       EscapeActions.executeUpTo('detailsPane');
     }
     this.open();
-  },
+  };
 
-  isDefaultView() {
+  this.isDefaultView = function() {
     return this.getView() === defaultView;
-  },
+  };
 
-  getViewTemplate() {
+  this.getViewTemplate = function() {
     return `${this.getView()}Sidebar`;
-  },
+  };
 
-  getViewTitle() {
+  this.getViewTitle = function() {
     return TAPi18n.__(viewTitles[this.getView()]);
-  },
+  };
 
-  showTongueTitle() {
+  this.showTongueTitle = function() {
     if (this.isOpen()) return `${TAPi18n.__('sidebar-close')}`;
     else return `${TAPi18n.__('sidebar-open')}`;
-  },
+  };
+});
 
+Template.sidebar.onDestroyed(function() {
+  clearSidebarInstance(this);
+  Sidebar = null;
+});
+
+Template.sidebar.helpers({
+  isOpen() {
+    return Sidebar && Sidebar.isOpen();
+  },
+  isTongueHidden() {
+    return Sidebar && Sidebar.isTongueHidden();
+  },
+  isDefaultView() {
+    return Sidebar && Sidebar.isDefaultView();
+  },
+  getViewTemplate() {
+    return Sidebar && Sidebar.getViewTemplate();
+  },
+  getViewTitle() {
+    return Sidebar && Sidebar.getViewTitle();
+  },
+  showTongueTitle() {
+    return Sidebar && Sidebar.showTongueTitle();
+  },
   isKeyboardShortcuts() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isKeyboardShortcuts();
   },
-
   isVerticalScrollbars() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isVerticalScrollbars();
   },
-
   isAccessibilityEnabled() {
     const setting = AccessibilitySettings.findOne({});
     return setting && setting.enabled;
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-hide-sidebar': this.hide,
-        'click .js-toggle-sidebar': this.toggle,
-        'click .js-back-home': this.setView,
-        'click .js-toggle-minicard-label-text'() {
-          currentUser = ReactiveCache.getCurrentUser();
-          if (currentUser) {
-            Meteor.call('toggleMinicardLabelText');
-          } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
-            window.localStorage.removeItem('hiddenMinicardLabelText');
-            location.reload();
-          } else {
-            window.localStorage.setItem('hiddenMinicardLabelText', 'true');
-            location.reload();
-          }
-        },
-        'click .js-shortcuts'() {
-          FlowRouter.go('shortcuts');
-        },
-        'click .js-keyboard-shortcuts-toggle'() {
-          ReactiveCache.getCurrentUser().toggleKeyboardShortcuts();
-        },
-        'click .js-vertical-scrollbars-toggle'() {
-          ReactiveCache.getCurrentUser().toggleVerticalScrollbars();
-        },
-        'click .js-show-week-of-year-toggle'() {
-          ReactiveCache.getCurrentUser().toggleShowWeekOfYear();
-        },
-        'click .sidebar-accessibility'() {
-          FlowRouter.go('accessibility');
-          Sidebar.toggle();
-        },
-        'click .js-close-sidebar'() {
-          Sidebar.toggle()
-        },
-      },
-    ];
+Template.sidebar.events({
+  'click .js-hide-sidebar'(event, tpl) {
+    tpl.hide();
   },
-}).register('sidebar');
+  'click .js-toggle-sidebar'(event, tpl) {
+    tpl.toggle();
+  },
+  'click .js-back-home'(event, tpl) {
+    tpl.setView();
+  },
+  'click .js-toggle-minicard-label-text'() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser) {
+      Meteor.call('toggleMinicardLabelText');
+    } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
+      window.localStorage.removeItem('hiddenMinicardLabelText');
+      location.reload();
+    } else {
+      window.localStorage.setItem('hiddenMinicardLabelText', 'true');
+      location.reload();
+    }
+  },
+  'click .js-shortcuts'() {
+    FlowRouter.go('shortcuts');
+  },
+  'click .js-keyboard-shortcuts-toggle'() {
+    ReactiveCache.getCurrentUser().toggleKeyboardShortcuts();
+  },
+  'click .js-vertical-scrollbars-toggle'() {
+    ReactiveCache.getCurrentUser().toggleVerticalScrollbars();
+  },
+  'click .js-show-week-of-year-toggle'() {
+    ReactiveCache.getCurrentUser().toggleShowWeekOfYear();
+  },
+  'click .sidebar-accessibility'(event, tpl) {
+    FlowRouter.go('accessibility');
+    tpl.toggle();
+  },
+  'click .js-close-sidebar'(event, tpl) {
+    tpl.toggle();
+  },
+  'scroll .js-board-sidebar-content'(event, tpl) {
+    tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {
+      tpl.reachNextPeak();
+    });
+  },
+});
 
 Blaze.registerHelper('Sidebar', () => Sidebar);
 
-BlazeComponent.extendComponent({
+Template.homeSidebar.helpers({
   hiddenMinicardLabelText() {
-    currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
@@ -193,16 +232,13 @@ BlazeComponent.extendComponent({
     let ret = Utils.getCurrentBoard().showActivities ?? false;
     return ret;
   },
-  events() {
-    return [
-      {
-        'click .js-toggle-show-activities'() {
-          Utils.getCurrentBoard().toggleShowActivities();
-        },
-      },
-    ];
+});
+
+Template.homeSidebar.events({
+  async 'click .js-toggle-show-activities'() {
+    await Utils.getCurrentBoard().toggleShowActivities();
   },
-}).register('homeSidebar');
+});
 
 
 
@@ -218,7 +254,9 @@ Template.boardInfoOnMyBoardsPopup.helpers({
 EscapeActions.register(
   'sidebarView',
   () => {
-    Sidebar.setView(defaultView);
+    if (Sidebar) {
+      Sidebar.setView(defaultView);
+    }
   },
   () => {
     return Sidebar && Sidebar.getView() !== defaultView;
@@ -277,11 +315,15 @@ Template.boardMenuPopup.events({
     Popup.back();
   },
   'click .js-custom-fields'() {
-    Sidebar.setView('customFields');
+    if (Sidebar) {
+      Sidebar.setView('customFields');
+    }
     Popup.back();
   },
   'click .js-open-archives'() {
-    Sidebar.setView('archives');
+    if (Sidebar) {
+      Sidebar.setView('archives');
+    }
     Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
@@ -291,10 +333,10 @@ Template.boardMenuPopup.events({
   'click .js-delete-duplicate-lists': Popup.afterConfirm('deleteDuplicateLists', function() {
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard) return;
-    
+
     // Get all lists in the current board
     const allLists = ReactiveCache.getLists({ boardId: currentBoard._id, archived: false });
-    
+
     // Group lists by title to find duplicates
     const listsByTitle = {};
     allLists.forEach(list => {
@@ -303,7 +345,7 @@ Template.boardMenuPopup.events({
       }
       listsByTitle[list.title].push(list);
     });
-    
+
     // Find and delete duplicate lists that have no cards
     let deletedCount = 0;
     Object.keys(listsByTitle).forEach(title => {
@@ -313,7 +355,7 @@ Template.boardMenuPopup.events({
         for (let i = 1; i < listsWithSameTitle.length; i++) {
           const list = listsWithSameTitle[i];
           const cardsInList = ReactiveCache.getCards({ listId: list._id, archived: false });
-          
+
           if (cardsInList.length === 0) {
             Lists.remove(list._id);
             deletedCount++;
@@ -321,7 +363,7 @@ Template.boardMenuPopup.events({
         }
       }
     });
-    
+
     // Show notification
     if (deletedCount > 0) {
       // You could add a toast notification here if available
@@ -402,7 +444,7 @@ Template.memberPopup.events({
       FlowRouter.go('home');
     });
   }),
-  
+
 });
 
 Template.removeMemberPopup.helpers({
@@ -419,50 +461,42 @@ Template.leaveBoardPopup.helpers({
     return Utils.getCurrentBoard();
   },
 });
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
-    this.findTeamsOptions = new ReactiveVar({});
 
-    this.page = new ReactiveVar(1);
-    this.teamPage = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
-    });
+Template.membersWidget.onCreated(function() {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
+  this.findTeamsOptions = new ReactiveVar({});
 
-    this.autorun(() => {
-      const limitTeams = this.teamPage.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('team', this.findTeamsOptions.get(), limitTeams, () => {});
-    });
-  },
+  this.page = new ReactiveVar(1);
+  this.teamPage = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+  });
 
-  onRendered() {
-    this.setLoading(false);
-  },
+  this.autorun(() => {
+    const limitTeams = this.teamPage.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('team', this.findTeamsOptions.get(), limitTeams, () => {});
+  });
 
-  setError(error) {
+  this.setError = function(error) {
     this.error.set(error);
-  },
+  };
 
-  setLoading(w) {
+  this.setLoading = function(w) {
     this.loading.set(w);
-  },
+  };
 
-  isLoading() {
+  this.isLoading = function() {
     return this.loading.get();
-  },
+  };
+});
 
-  tabs() {
-    return [
-      { name: TAPi18n.__('people'), slug: 'people' },
-      { name: TAPi18n.__('organizations'), slug: 'organizations' },
-      { name: TAPi18n.__('teams'), slug: 'teams' },
-    ];
-  },
-}).register('membersWidget');
+Template.membersWidget.onRendered(function() {
+  const tpl = Template.instance();
+  if (tpl.setLoading) tpl.setLoading(false);
+});
 
 Template.membersWidget.helpers({
   isInvited() {
@@ -495,6 +529,13 @@ Template.membersWidget.helpers({
 
     return teams.length > 0;
   },
+  tabs() {
+    return [
+      { name: TAPi18n.__('people'), slug: 'people' },
+      { name: TAPi18n.__('organizations'), slug: 'organizations' },
+      { name: TAPi18n.__('teams'), slug: 'teams' },
+    ];
+  },
 });
 
 Template.membersWidget.events({
@@ -504,7 +545,6 @@ Template.membersWidget.events({
   'click .js-manage-board-addOrg': Popup.open('addBoardOrg'),
   'click .js-manage-board-addTeam': Popup.open('addBoardTeam'),
   'click .js-import': Popup.open('boardImportBoard'),
-  submit: this.onSubmit,
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
@@ -527,12 +567,12 @@ Template.membersWidget.events({
   },
 });
 
-BlazeComponent.extendComponent({
+Template.outgoingWebhooksPopup.helpers({
   boardId() {
     return Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
   },
   integrations() {
-    const boardId = this.boardId();
+    const boardId = Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
     const ret = ReactiveCache.getIntegrations({ boardId });
     return ret;
   },
@@ -540,80 +580,82 @@ BlazeComponent.extendComponent({
     return Integrations.Const.WEBHOOK_TYPES;
   },
   integration(cond) {
-    const boardId = this.boardId();
+    const boardId = Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
     const condition = { boardId, ...cond };
     for (const k in condition) {
       if (!condition[k]) delete condition[k];
     }
     return ReactiveCache.getIntegration(condition);
   },
-  onCreated() {
-    this.disabled = new ReactiveVar(false);
-  },
-  events() {
-    return [
-      {
-        'click a.flex'(evt) {
-          this.disabled.set(!this.disabled.get());
-          $(evt.target).toggleClass(CKCLS, this.disabled.get());
-        },
-        submit(evt) {
-          evt.preventDefault();
-          const url = evt.target.url.value;
-          const boardId = this.boardId();
-          let id = null;
-          let integration = null;
-          const title = evt.target.title.value;
-          const token = evt.target.token.value;
-          const type = evt.target.type.value;
-          const enabled = !this.disabled.get();
-          let remove = false;
-          const values = {
-            url,
-            type,
-            token,
-            title,
-            enabled,
-          };
-          if (evt.target.id) {
-            id = evt.target.id.value;
-            integration = this.integration({ _id: id });
-            remove = !url;
-          } else if (url) {
-            integration = this.integration({ url, token });
-          }
-          if (remove) {
-            Integrations.remove(integration._id);
-          } else if (integration && integration._id) {
-            Integrations.update(integration._id, {
-              $set: values,
-            });
-          } else if (url) {
-            Integrations.insert({
-              ...values,
-              userId: Meteor.userId(),
-              enabled: true,
-              boardId,
-              activities: ['all'],
-            });
-          }
-          Popup.back();
-        },
-      },
-    ];
-  },
-}).register('outgoingWebhooksPopup');
+});
 
-BlazeComponent.extendComponent({
-  template() {
-    return 'chooseBoardSource';
+Template.outgoingWebhooksPopup.events({
+  'click .js-toggle-webhook-enabled'(evt) {
+    evt.preventDefault();
+    $(evt.currentTarget).find(MCB).toggleClass(CKCLS);
   },
-}).register('chooseBoardSourcePopup');
+  async submit(evt) {
+    evt.preventDefault();
+    const url = evt.target.url.value.trim();
+    const boardId = Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
+    let id = null;
+    let integration = null;
+    const title = evt.target.title.value.trim();
+    const token = evt.target.token.value.trim();
+    const type = evt.target.type.value.trim();
+    const enabled = !$(evt.target)
+      .find('.js-toggle-webhook-enabled')
+      .find(MCB)
+      .hasClass(CKCLS);
+    let remove = false;
+    const values = {
+      url,
+      type,
+      token,
+      title,
+      enabled,
+    };
 
-BlazeComponent.extendComponent({
-  template() {
-    return 'exportBoard';
+    const findIntegration = function(cond) {
+      const condition = { boardId, ...cond };
+      for (const k in condition) {
+        if (!condition[k]) delete condition[k];
+      }
+      return ReactiveCache.getIntegration(condition);
+    };
+
+    if (evt.target.id) {
+      id = evt.target.id.value;
+      integration = findIntegration({ _id: id });
+      remove = !url;
+    } else if (url) {
+      integration = findIntegration({ url, token });
+    }
+
+    try {
+      if (remove && integration && integration._id) {
+        await Integrations.removeAsync(integration._id);
+      } else if (integration && integration._id) {
+        await Integrations.updateAsync(integration._id, {
+          $set: values,
+        });
+      } else if (url) {
+        await Integrations.insertAsync({
+          ...values,
+          userId: Meteor.userId(),
+          enabled,
+          boardId,
+          activities: ['all'],
+        });
+      }
+      Popup.back();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to save webhook');
+    }
   },
+});
+
+Template.exportBoardPopup.helpers({
   withApi() {
     return Template.instance().apiEnabled.get();
   },
@@ -697,9 +739,9 @@ BlazeComponent.extendComponent({
     const boardId = Session.get('currentBoard');
     return `export-board-${boardId}.tsv`;
   },
-}).register('exportBoardPopup');
+});
 
-Template.exportBoard.events({
+Template.exportBoardPopup.events({
   'click .html-export-board': async event => {
     event.preventDefault();
     await ExportHtml(Popup)();
@@ -761,53 +803,43 @@ function draggableMembersLabelsWidgets() {
 Template.membersWidget.onRendered(draggableMembersLabelsWidgets);
 Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
 
-BlazeComponent.extendComponent({
+Template.boardChangeColorPopup.helpers({
   backgroundColors() {
-    return Boards.simpleSchema()._schema.color.allowedValues;
+    return BOARD_COLORS;
   },
-
   isSelected() {
     const currentBoard = Utils.getCurrentBoard();
-    return currentBoard.color === this.currentData().toString();
+    return currentBoard.color === Template.currentData().toString();
   },
+});
 
-  events() {
-    return [
-      {
-        async 'click .js-select-background'(evt) {
-          const currentBoard = Utils.getCurrentBoard();
-          const newColor = this.currentData().toString();
-          await currentBoard.setColor(newColor);
-          evt.preventDefault();
-        },
-      },
-    ];
+Template.boardChangeColorPopup.events({
+  async 'click .js-select-background'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const currentBoard = Utils.getCurrentBoard();
+    const newColor = this.toString();
+    await currentBoard.setColor(newColor);
   },
-}).register('boardChangeColorPopup');
+});
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        async submit(event) {
-          const currentBoard = Utils.getCurrentBoard();
-          const backgroundImageURL = this.find('.js-board-background-image-url').value.trim();
-          await currentBoard.setBackgroundImageURL(backgroundImageURL);
-          Utils.setBackgroundImage();
-          Popup.back();
-          event.preventDefault();
-        },
-        'click .js-remove-background-image'() {
-          const currentBoard = Utils.getCurrentBoard();
-          currentBoard.setBackgroundImageURL("");
-          Popup.back();
-          Utils.reload();
-          event.preventDefault();
-        },
-      },
-    ];
+Template.boardChangeBackgroundImagePopup.events({
+  async submit(event, tpl) {
+    const currentBoard = Utils.getCurrentBoard();
+    const backgroundImageURL = tpl.find('.js-board-background-image-url').value.trim();
+    await currentBoard.setBackgroundImageURL(backgroundImageURL);
+    Utils.setBackgroundImage();
+    Popup.back();
+    event.preventDefault();
   },
-}).register('boardChangeBackgroundImagePopup');
+  'click .js-remove-background-image'() {
+    const currentBoard = Utils.getCurrentBoard();
+    currentBoard.setBackgroundImageURL("");
+    Popup.back();
+    Utils.reload();
+    event.preventDefault();
+  },
+});
 
 Template.boardChangeBackgroundImagePopup.helpers({
   backgroundImageURL() {
@@ -816,64 +848,67 @@ Template.boardChangeBackgroundImagePopup.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentBoard = Utils.getCurrentBoard();
-  },
+Template.boardInfoOnMyBoardsPopup.onCreated(function() {
+  this.currentBoard = Utils.getCurrentBoard();
+});
 
+Template.boardInfoOnMyBoardsPopup.helpers({
+  hideCardCounterList() {
+    return Utils.isMiniScreen() && Session.get('currentBoard');
+  },
+  hideBoardMemberList() {
+    return Utils.isMiniScreen() && Session.get('currentBoard');
+  },
   allowsCardCounterList() {
-    return this.currentBoard.allowsCardCounterList;
+    const tpl = Template.instance();
+    return tpl.currentBoard.allowsCardCounterList;
   },
-
   allowsBoardMemberList() {
-    return this.currentBoard.allowsBoardMemberList;
+    const tpl = Template.instance();
+    return tpl.currentBoard.allowsBoardMemberList;
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-field-has-cardcounterlist'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsCardCounterList = !this.currentBoard
-            .allowsCardCounterList;
-            this.currentBoard.setAllowsCardCounterList(
-              this.currentBoard.allowsCardCounterList,
-          );
-          $(`.js-field-has-cardcounterlist ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardCounterList,
-          );
-          $('.js-field-has-cardcounterlist').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardCounterList,
-          );
-        },
-        'click .js-field-has-boardmemberlist'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsBoardMemberList = !this.currentBoard
-            .allowsBoardMemberList;
-            this.currentBoard.setAllowsBoardMemberList(
-              this.currentBoard.allowsBoardMemberList,
-          );
-          $(`.js-field-has-boardmemberlist ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsBoardMemberList,
-          );
-          $('.js-field-has-boardmemberlist').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsBoardMemberList,
-          );
-        },
-      },
-    ];
+Template.boardInfoOnMyBoardsPopup.events({
+  'click .js-field-has-cardcounterlist'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsCardCounterList = !tpl.currentBoard
+      .allowsCardCounterList;
+      tpl.currentBoard.setAllowsCardCounterList(
+        tpl.currentBoard.allowsCardCounterList,
+    );
+    $(`.js-field-has-cardcounterlist ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCardCounterList,
+    );
+    $('.js-field-has-cardcounterlist').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCardCounterList,
+    );
   },
-}).register('boardInfoOnMyBoardsPopup');
-
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentBoard = Utils.getCurrentBoard();
+  'click .js-field-has-boardmemberlist'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsBoardMemberList = !tpl.currentBoard
+      .allowsBoardMemberList;
+      tpl.currentBoard.setAllowsBoardMemberList(
+        tpl.currentBoard.allowsBoardMemberList,
+    );
+    $(`.js-field-has-boardmemberlist ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsBoardMemberList,
+    );
+    $('.js-field-has-boardmemberlist').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsBoardMemberList,
+    );
   },
+});
 
+Template.boardSubtaskSettingsPopup.onCreated(function() {
+  this.currentBoard = Utils.getCurrentBoard();
+});
+
+Template.boardSubtaskSettingsPopup.helpers({
   allowsSubtasks() {
     // Get the current board reactively using board ID from Session
     const boardId = Session.get('currentBoard');
@@ -881,22 +916,21 @@ BlazeComponent.extendComponent({
     const result = currentBoard ? currentBoard.allowsSubtasks : false;
     return result;
   },
-
   allowsReceivedDate() {
-    return this.currentBoard.allowsReceivedDate;
+    const tpl = Template.instance();
+    return tpl.currentBoard.allowsReceivedDate;
   },
-
   isBoardSelected() {
-    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+    const tpl = Template.instance();
+    return tpl.currentBoard.subtasksDefaultBoardId === Template.currentData()._id;
   },
-
   isNullBoardSelected() {
+    const tpl = Template.instance();
     return (
-      this.currentBoard.subtasksDefaultBoardId === null ||
-      this.currentBoard.subtasksDefaultBoardId === undefined
+      tpl.currentBoard.subtasksDefaultBoardId === null ||
+      tpl.currentBoard.subtasksDefaultBoardId === undefined
     );
   },
-
   boards() {
     const ret = ReactiveCache.getBoards(
       {
@@ -909,11 +943,11 @@ BlazeComponent.extendComponent({
     );
     return ret;
   },
-
   lists() {
+    const tpl = Template.instance();
     return ReactiveCache.getLists(
       {
-        boardId: this.currentBoard._id,
+        boardId: tpl.currentBoard._id,
         archived: false,
       },
       {
@@ -921,203 +955,255 @@ BlazeComponent.extendComponent({
       },
     );
   },
-
   hasLists() {
-    return this.lists().length > 0;
+    const tpl = Template.instance();
+    const lists = ReactiveCache.getLists(
+      {
+        boardId: tpl.currentBoard._id,
+        archived: false,
+      },
+      {
+        sort: ['title'],
+      },
+    );
+    return lists.length > 0;
   },
-
   isListSelected() {
-    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+    const tpl = Template.instance();
+    return tpl.currentBoard.subtasksDefaultBoardId === Template.currentData()._id;
   },
-
   presentParentTask() {
     // Get the current board reactively using board ID from Session
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
-    
+
     let result = currentBoard ? currentBoard.presentParentTask : null;
     if (result === null || result === undefined) {
       result = 'no-parent';
     }
     return result;
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-field-has-subtasks'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsSubtasks;
-          Boards.update(this.currentBoard._id, { $set: { allowsSubtasks: newValue } });
-          $('.js-field-deposit-board').prop(
-            'disabled',
-            !newValue,
-          );
-        },
-        'change .js-field-deposit-board'(evt) {
-          let value = evt.target.value;
-          if (value === 'null') {
-            value = null;
-          }
-          this.currentBoard.setSubtasksDefaultBoardId(value);
-          evt.preventDefault();
-        },
-        'change .js-field-deposit-list'(evt) {
-          this.currentBoard.setSubtasksDefaultListId(evt.target.value);
-          evt.preventDefault();
-        },
-        'click .js-field-show-parent-in-minicard'(evt) {
-          // Get the ID from the anchor element, not the span
-          const anchorElement = $(evt.target).closest('.js-field-show-parent-in-minicard')[0];
-          const value = anchorElement ? anchorElement.id : null;
-          
-          if (value) {
-            Boards.update(this.currentBoard._id, { $set: { presentParentTask: value } });
-          }
-          evt.preventDefault();
-        },
-      },
-    ];
+Template.boardSubtaskSettingsPopup.events({
+  'click .js-field-has-subtasks'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsSubtasks;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsSubtasks: newValue } });
+    $('.js-field-deposit-board').prop(
+      'disabled',
+      !newValue,
+    );
   },
-}).register('boardSubtaskSettingsPopup');
-
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentBoard = Utils.getCurrentBoard();
+  'change .js-field-deposit-board'(evt, tpl) {
+    let value = evt.target.value;
+    if (value === 'null') {
+      value = null;
+    }
+    tpl.currentBoard.setSubtasksDefaultBoardId(value);
+    evt.preventDefault();
   },
+  'change .js-field-deposit-list'(evt, tpl) {
+    tpl.currentBoard.setSubtasksDefaultListId(evt.target.value);
+    evt.preventDefault();
+  },
+  'click .js-field-show-parent-in-minicard'(evt, tpl) {
+    // Get the ID from the anchor element, not the span
+    const anchorElement = $(evt.target).closest('.js-field-show-parent-in-minicard')[0];
+    const value = anchorElement ? anchorElement.id : null;
 
+    if (value) {
+      Boards.update(tpl.currentBoard._id, { $set: { presentParentTask: value } });
+    }
+    evt.preventDefault();
+  },
+});
+
+Template.boardCardSettingsPopup.onCreated(function() {
+  this.currentBoard = Utils.getCurrentBoard();
+});
+
+Template.boardCardSettingsPopup.helpers({
   allowsReceivedDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsReceivedDate : false;
   },
-
+  allowsReceivedDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsReceivedDateOnMinicard : false;
+  },
   allowsStartDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsStartDate : false;
   },
-
+  allowsStartDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsStartDateOnMinicard : false;
+  },
   allowsDueDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsDueDate : false;
   },
-
+  allowsDueDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDueDateOnMinicard : false;
+  },
   allowsEndDate() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsEndDate : false;
   },
-
+  allowsEndDateOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsEndDateOnMinicard : false;
+  },
   allowsSubtasks() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsSubtasks : false;
   },
-
+  allowsSubtasksOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsSubtasksOnMinicard : false;
+  },
   allowsCreator() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? (currentBoard.allowsCreator ?? false) : false;
   },
-
   allowsCreatorOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? (currentBoard.allowsCreatorOnMinicard ?? false) : false;
   },
-
   allowsMembers() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsMembers : false;
   },
-
+  allowsMembersOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsMembersOnMinicard : false;
+  },
   allowsAssignee() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsAssignee : false;
   },
-
+  allowsAssigneeOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssigneeOnMinicard : false;
+  },
   allowsAssignedBy() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsAssignedBy : false;
   },
-
+  allowsAssignedByOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignedByOnMinicard : false;
+  },
   allowsRequestedBy() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsRequestedBy : false;
   },
-
+  allowsRequestedByOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsRequestedByOnMinicard : false;
+  },
   allowsCardSortingByNumber() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsCardSortingByNumber : false;
   },
-
   allowsShowLists() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsShowLists : false;
   },
-
   allowsLabels() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsLabels : false;
   },
-
+  allowsLabelsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsLabelsOnMinicard : false;
+  },
   allowsShowListsOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsShowListsOnMinicard : false;
   },
-
   allowsChecklists() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsChecklists : false;
   },
-
+  allowsChecklistsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsChecklistsOnMinicard : false;
+  },
   allowsAttachments() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsAttachments : false;
   },
-
+  allowsAttachmentsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAttachmentsOnMinicard : false;
+  },
   allowsComments() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsComments : false;
   },
-
   allowsCardNumber() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsCardNumber : false;
   },
-
+  allowsCardNumberOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardNumberOnMinicard : false;
+  },
   allowsDescriptionTitle() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsDescriptionTitle : false;
   },
-
+  allowsDescriptionTitleOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTitleOnMinicard : false;
+  },
   allowsDescriptionText() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsDescriptionText : false;
   },
-
   isBoardSelected() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.dateSettingsDefaultBoardID : false;
   },
-
   isNullBoardSelected() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -1126,31 +1212,26 @@ BlazeComponent.extendComponent({
       currentBoard.dateSettingsDefaultBoardId === undefined
     ) : true;
   },
-
   allowsDescriptionTextOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsDescriptionTextOnMinicard : false;
   },
-
   allowsCoverAttachmentOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsCoverAttachmentOnMinicard : false;
   },
-
   allowsBadgeAttachmentOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsBadgeAttachmentOnMinicard : false;
   },
-
   allowsCardSortingByNumberOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsCardSortingByNumberOnMinicard : false;
   },
-
   boards() {
     const ret = ReactiveCache.getBoards(
       {
@@ -1163,11 +1244,11 @@ BlazeComponent.extendComponent({
     );
     return ret;
   },
-
   lists() {
+    const tpl = Template.instance();
     return ReactiveCache.getLists(
       {
-        boardId: this.currentBoard._id,
+        boardId: tpl.currentBoard._id,
         archived: false,
       },
       {
@@ -1175,283 +1256,358 @@ BlazeComponent.extendComponent({
       },
     );
   },
-
   hasLists() {
-    return this.lists().length > 0;
+    const tpl = Template.instance();
+    const lists = ReactiveCache.getLists(
+      {
+        boardId: tpl.currentBoard._id,
+        archived: false,
+      },
+      {
+        sort: ['title'],
+      },
+    );
+    return lists.length > 0;
   },
-
   isListSelected() {
+    const tpl = Template.instance();
     return (
-      this.currentBoard.dateSettingsDefaultBoardId === this.currentData()._id
+      tpl.currentBoard.dateSettingsDefaultBoardId === Template.currentData()._id
     );
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-field-has-receiveddate'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsReceivedDate;
-          Boards.update(this.currentBoard._id, { $set: { allowsReceivedDate: newValue } });
-        },
-        'click .js-field-has-startdate'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsStartDate;
-          Boards.update(this.currentBoard._id, { $set: { allowsStartDate: newValue } });
-        },
-        'click .js-field-has-enddate'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsEndDate;
-          Boards.update(this.currentBoard._id, { $set: { allowsEndDate: newValue } });
-        },
-        'click .js-field-has-duedate'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsDueDate;
-          Boards.update(this.currentBoard._id, { $set: { allowsDueDate: newValue } });
-        },
-        'click .js-field-has-subtasks'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsSubtasks;
-          Boards.update(this.currentBoard._id, { $set: { allowsSubtasks: newValue } });
-        },
-        'click .js-field-has-creator'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsCreator;
-          Boards.update(this.currentBoard._id, { $set: { allowsCreator: newValue } });
-        },
-        'click .js-field-has-creator-on-minicard'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsCreatorOnMinicard;
-          Boards.update(this.currentBoard._id, { $set: { allowsCreatorOnMinicard: newValue } });
-        },
-        'click .js-field-has-members'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsMembers;
-          Boards.update(this.currentBoard._id, { $set: { allowsMembers: newValue } });
-        },
-        'click .js-field-has-assignee'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsAssignee;
-          Boards.update(this.currentBoard._id, { $set: { allowsAssignee: newValue } });
-        },
-        'click .js-field-has-assigned-by'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsAssignedBy;
-          Boards.update(this.currentBoard._id, { $set: { allowsAssignedBy: newValue } });
-        },
-        'click .js-field-has-requested-by'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsRequestedBy;
-          Boards.update(this.currentBoard._id, { $set: { allowsRequestedBy: newValue } });
-        },
-        'click .js-field-has-card-sorting-by-number'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsCardSortingByNumber;
-          Boards.update(this.currentBoard._id, { $set: { allowsCardSortingByNumber: newValue } });
-        },
-        'click .js-field-has-card-show-lists'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsShowLists;
-          Boards.update(this.currentBoard._id, { $set: { allowsShowLists: newValue } });
-        },
-        'click .js-field-has-labels'(evt) {
-          evt.preventDefault();
-          const newValue = !this.currentBoard.allowsLabels;
-          Boards.update(this.currentBoard._id, { $set: { allowsLabels: newValue } });
-        },
-        'click .js-field-has-card-show-lists-on-minicard'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsShowListsOnMinicard = !this.currentBoard
-            .allowsShowListsOnMinicard;
-          this.currentBoard.setAllowsShowListsOnMinicard(
-            this.currentBoard.allowsShowListsOnMinicard,
-          );
-          $(`.js-field-has-card-show-lists-on-minicard ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsShowListsOnMinicard,
-          );
-          $('.js-field-has-card-show-lists-on-minicard').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsShowListsOnMinicard,
-          );
-        },
-        'click .js-field-has-description-title'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsDescriptionTitle = !this.currentBoard
-            .allowsDescriptionTitle;
-          this.currentBoard.setAllowsDescriptionTitle(
-            this.currentBoard.allowsDescriptionTitle,
-          );
-          $(`.js-field-has-description-title ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionTitle,
-          );
-          $('.js-field-has-description-title').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionTitle,
-          );
-        },
-        'click .js-field-has-card-number'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsCardNumber = !this.currentBoard
-            .allowsCardNumber;
-          this.currentBoard.setAllowsCardNumber(
-            this.currentBoard.allowsCardNumber,
-          );
-          $(`.js-field-has-card-number ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardNumber,
-          );
-          $('.js-field-has-card-number').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardNumber,
-          );
-        },
-        'click .js-field-has-description-text-on-minicard'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsDescriptionTextOnMinicard = !this.currentBoard
-            .allowsDescriptionTextOnMinicard;
-          this.currentBoard.setallowsDescriptionTextOnMinicard(
-            this.currentBoard.allowsDescriptionTextOnMinicard,
-          );
-          $(`.js-field-has-description-text-on-minicard ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionTextOnMinicard,
-          );
-          $('.js-field-has-description-text-on-minicard').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionTextOnMinicard,
-          );
-        },
-        'click .js-field-has-description-text'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsDescriptionText = !this.currentBoard
-            .allowsDescriptionText;
-          this.currentBoard.setAllowsDescriptionText(
-            this.currentBoard.allowsDescriptionText,
-          );
-          $(`.js-field-has-description-text ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionText,
-          );
-          $('.js-field-has-description-text').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionText,
-          );
-        },
-        'click .js-field-has-checklists'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsChecklists = !this.currentBoard
-            .allowsChecklists;
-          this.currentBoard.setAllowsChecklists(
-            this.currentBoard.allowsChecklists,
-          );
-          $(`.js-field-has-checklists ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsChecklists,
-          );
-          $('.js-field-has-checklists').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsChecklists,
-          );
-        },
-        'click .js-field-has-attachments'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsAttachments = !this.currentBoard
-            .allowsAttachments;
-          this.currentBoard.setAllowsAttachments(
-            this.currentBoard.allowsAttachments,
-          );
-          $(`.js-field-has-attachments ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsAttachments,
-          );
-          $('.js-field-has-attachments').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsAttachments,
-          );
-        },
-        'click .js-field-has-comments'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsComments = !this.currentBoard.allowsComments;
-          this.currentBoard.setAllowsComments(this.currentBoard.allowsComments);
-          $(`.js-field-has-comments ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsComments,
-          );
-          $('.js-field-has-comments').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsComments,
-          );
-        },
-        'click .js-field-has-activities'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsActivities = !this.currentBoard
-            .allowsActivities;
-          this.currentBoard.setAllowsActivities(
-            this.currentBoard.allowsActivities,
-          );
-          $(`.js-field-has-activities ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsActivities,
-          );
-          $('.js-field-has-activities').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsActivities,
-          );
-        },
-        'click .js-field-has-cover-attachment-on-minicard'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsCoverAttachmentOnMinicard = !this.currentBoard
-            .allowsCoverAttachmentOnMinicard;
-          this.currentBoard.setallowsCoverAttachmentOnMinicard(
-            this.currentBoard.allowsCoverAttachmentOnMinicard,
-          );
-          $(`.js-field-has-cover-attachment-on-minicard ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCoverAttachmentOnMinicard,
-          );
-          $('.js-field-has-cover-attachment-on-minicard').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCoverAttachmentOnMinicard,
-          );
-        },
-        'click .js-field-has-badge-attachment-on-minicard'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsBadgeAttachmentOnMinicard = !this.currentBoard
-            .allowsBadgeAttachmentOnMinicard;
-          this.currentBoard.setallowsBadgeAttachmentOnMinicard(
-            this.currentBoard.allowsBadgeAttachmentOnMinicard,
-          );
-          $(`.js-field-has-badge-attachment-on-minicard ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsBadgeAttachmentOnMinicard,
-          );
-          $('.js-field-has-badge-attachment-on-minicard').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsBadgeAttachmentOnMinicard,
-          );
-        },
-        'click .js-field-has-card-sorting-by-number-on-minicard'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsCardSortingByNumberOnMinicard = !this.currentBoard
-            .allowsCardSortingByNumberOnMinicard;
-          this.currentBoard.setallowsCardSortingByNumberOnMinicard(
-            this.currentBoard.allowsCardSortingByNumberOnMinicard,
-          );
-          $(`.js-field-has-card-sorting-by-number-on-minicard ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardSortingByNumberOnMinicard,
-          );
-          $('.js-field-has-card-sorting-by-number-on-minicard').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardSortingByNumberOnMinicard,
-          );
-        },
-      },
-    ];
+Template.boardCardSettingsPopup.events({
+  'click .js-field-has-receiveddate'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsReceivedDate;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsReceivedDate: newValue } });
   },
-}).register('boardCardSettingsPopup');
+  'click .js-field-has-receiveddate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsReceivedDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsReceivedDateOnMinicard: newValue } });
+  },
+  'click .js-field-has-startdate'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsStartDate;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsStartDate: newValue } });
+  },
+  'click .js-field-has-startdate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsStartDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsStartDateOnMinicard: newValue } });
+  },
+  'click .js-field-has-enddate'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsEndDate;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsEndDate: newValue } });
+  },
+  'click .js-field-has-enddate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsEndDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsEndDateOnMinicard: newValue } });
+  },
+  'click .js-field-has-duedate'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsDueDate;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDueDate: newValue } });
+  },
+  'click .js-field-has-duedate-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsDueDateOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDueDateOnMinicard: newValue } });
+  },
+  'click .js-field-has-subtasks'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsSubtasks;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsSubtasks: newValue } });
+  },
+  'click .js-field-has-subtasks-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsSubtasksOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsSubtasksOnMinicard: newValue } });
+  },
+  'click .js-field-has-creator'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsCreator;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCreator: newValue } });
+  },
+  'click .js-field-has-creator-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsCreatorOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCreatorOnMinicard: newValue } });
+  },
+  'click .js-field-has-members'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsMembers;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsMembers: newValue } });
+  },
+  'click .js-field-has-members-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsMembersOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsMembersOnMinicard: newValue } });
+  },
+  'click .js-field-has-assignee'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAssignee;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAssignee: newValue } });
+  },
+  'click .js-field-has-assignee-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAssigneeOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAssigneeOnMinicard: newValue } });
+  },
+  'click .js-field-has-assigned-by'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAssignedBy;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAssignedBy: newValue } });
+  },
+  'click .js-field-has-assigned-by-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAssignedByOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAssignedByOnMinicard: newValue } });
+  },
+  'click .js-field-has-requested-by'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsRequestedBy;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsRequestedBy: newValue } });
+  },
+  'click .js-field-has-requested-by-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsRequestedByOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsRequestedByOnMinicard: newValue } });
+  },
+  'click .js-field-has-card-sorting-by-number'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsCardSortingByNumber;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCardSortingByNumber: newValue } });
+  },
+  'click .js-field-has-card-show-lists'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsShowLists;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsShowLists: newValue } });
+  },
+  'click .js-field-has-labels'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsLabels;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsLabels: newValue } });
+  },
+  'click .js-field-has-labels-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsLabelsOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsLabelsOnMinicard: newValue } });
+  },
+  'click .js-field-has-card-show-lists-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsShowListsOnMinicard = !tpl.currentBoard
+      .allowsShowListsOnMinicard;
+    tpl.currentBoard.setAllowsShowListsOnMinicard(
+      tpl.currentBoard.allowsShowListsOnMinicard,
+    );
+    $(`.js-field-has-card-show-lists-on-minicard ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsShowListsOnMinicard,
+    );
+    $('.js-field-has-card-show-lists-on-minicard').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsShowListsOnMinicard,
+    );
+  },
+  'click .js-field-has-description-title'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsDescriptionTitle = !tpl.currentBoard
+      .allowsDescriptionTitle;
+    tpl.currentBoard.setAllowsDescriptionTitle(
+      tpl.currentBoard.allowsDescriptionTitle,
+    );
+    $(`.js-field-has-description-title ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsDescriptionTitle,
+    );
+    $('.js-field-has-description-title').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsDescriptionTitle,
+    );
+  },
+  'click .js-field-has-description-title-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsDescriptionTitleOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDescriptionTitleOnMinicard: newValue } });
+  },
+  'click .js-field-has-card-number'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsCardNumber = !tpl.currentBoard
+      .allowsCardNumber;
+    tpl.currentBoard.setAllowsCardNumber(
+      tpl.currentBoard.allowsCardNumber,
+    );
+    $(`.js-field-has-card-number ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCardNumber,
+    );
+    $('.js-field-has-card-number').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCardNumber,
+    );
+  },
+  'click .js-field-has-card-number-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsCardNumberOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCardNumberOnMinicard: newValue } });
+  },
+  'click .js-field-has-description-text-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsDescriptionTextOnMinicard = !tpl.currentBoard
+      .allowsDescriptionTextOnMinicard;
+    tpl.currentBoard.setallowsDescriptionTextOnMinicard(
+      tpl.currentBoard.allowsDescriptionTextOnMinicard,
+    );
+    $(`.js-field-has-description-text-on-minicard ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsDescriptionTextOnMinicard,
+    );
+    $('.js-field-has-description-text-on-minicard').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsDescriptionTextOnMinicard,
+    );
+  },
+  'click .js-field-has-description-text'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsDescriptionText = !tpl.currentBoard
+      .allowsDescriptionText;
+    tpl.currentBoard.setAllowsDescriptionText(
+      tpl.currentBoard.allowsDescriptionText,
+    );
+    $(`.js-field-has-description-text ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsDescriptionText,
+    );
+    $('.js-field-has-description-text').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsDescriptionText,
+    );
+  },
+  'click .js-field-has-checklists'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsChecklists = !tpl.currentBoard
+      .allowsChecklists;
+    tpl.currentBoard.setAllowsChecklists(
+      tpl.currentBoard.allowsChecklists,
+    );
+    $(`.js-field-has-checklists ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsChecklists,
+    );
+    $('.js-field-has-checklists').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsChecklists,
+    );
+  },
+  'click .js-field-has-checklists-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsChecklistsOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistsOnMinicard: newValue } });
+  },
+  'click .js-field-has-attachments'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsAttachments = !tpl.currentBoard
+      .allowsAttachments;
+    tpl.currentBoard.setAllowsAttachments(
+      tpl.currentBoard.allowsAttachments,
+    );
+    $(`.js-field-has-attachments ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsAttachments,
+    );
+    $('.js-field-has-attachments').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsAttachments,
+    );
+  },
+  'click .js-field-has-attachments-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAttachmentsOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAttachmentsOnMinicard: newValue } });
+  },
+  'click .js-field-has-comments'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsComments = !tpl.currentBoard.allowsComments;
+    tpl.currentBoard.setAllowsComments(tpl.currentBoard.allowsComments);
+    $(`.js-field-has-comments ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsComments,
+    );
+    $('.js-field-has-comments').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsComments,
+    );
+  },
+  'click .js-field-has-activities'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsActivities = !tpl.currentBoard
+      .allowsActivities;
+    tpl.currentBoard.setAllowsActivities(
+      tpl.currentBoard.allowsActivities,
+    );
+    $(`.js-field-has-activities ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsActivities,
+    );
+    $('.js-field-has-activities').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsActivities,
+    );
+  },
+  'click .js-field-has-cover-attachment-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsCoverAttachmentOnMinicard = !tpl.currentBoard
+      .allowsCoverAttachmentOnMinicard;
+    tpl.currentBoard.setallowsCoverAttachmentOnMinicard(
+      tpl.currentBoard.allowsCoverAttachmentOnMinicard,
+    );
+    $(`.js-field-has-cover-attachment-on-minicard ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCoverAttachmentOnMinicard,
+    );
+    $('.js-field-has-cover-attachment-on-minicard').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCoverAttachmentOnMinicard,
+    );
+  },
+  'click .js-field-has-badge-attachment-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsBadgeAttachmentOnMinicard = !tpl.currentBoard
+      .allowsBadgeAttachmentOnMinicard;
+    tpl.currentBoard.setallowsBadgeAttachmentOnMinicard(
+      tpl.currentBoard.allowsBadgeAttachmentOnMinicard,
+    );
+    $(`.js-field-has-badge-attachment-on-minicard ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsBadgeAttachmentOnMinicard,
+    );
+    $('.js-field-has-badge-attachment-on-minicard').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsBadgeAttachmentOnMinicard,
+    );
+  },
+  'click .js-field-has-card-sorting-by-number-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.allowsCardSortingByNumberOnMinicard = !tpl.currentBoard
+      .allowsCardSortingByNumberOnMinicard;
+    tpl.currentBoard.setallowsCardSortingByNumberOnMinicard(
+      tpl.currentBoard.allowsCardSortingByNumberOnMinicard,
+    );
+    $(`.js-field-has-card-sorting-by-number-on-minicard ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCardSortingByNumberOnMinicard,
+    );
+    $('.js-field-has-card-sorting-by-number-on-minicard').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsCardSortingByNumberOnMinicard,
+    );
+  },
+});
 
 // Use Session variables instead of global ReactiveVars
 Session.setDefault('addMemberPopup.searchResults', []);
@@ -1461,41 +1617,32 @@ Session.setDefault('addMemberPopup.loading', false);
 Session.setDefault('addMemberPopup.error', '');
 
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    // Use Session variables
-    this.searchTimeout = null;
-  },
+Template.addMemberPopup.onCreated(function() {
+  // Use Session variables
+  this.searchTimeout = null;
+  Session.set('addMemberPopup.searchResults', []);
+  Session.set('addMemberPopup.searching', false);
+  Session.set('addMemberPopup.noResults', false);
+  Session.set('addMemberPopup.loading', false);
+  Session.set('addMemberPopup.error', '');
 
-  onRendered() {
-    this.find('.js-search-member-input').focus();
-    this.setLoading(false);
-  },
-
-  isBoardMember() {
-    const userId = this.currentData()._id;
-    const boardId = Session.get('currentBoard');
-    const board = ReactiveCache.getBoard(boardId);
-    return board && board.hasMember(userId);
-  },
-
-  isValidEmail(email) {
-    return SimpleSchema.RegEx.Email.test(email);
-  },
-
-  setError(error) {
+  this.setError = function(error) {
     Session.set('addMemberPopup.error', error);
-  },
+  };
 
-  setLoading(w) {
+  this.setLoading = function(w) {
     Session.set('addMemberPopup.loading', w);
-  },
+  };
 
-  isLoading() {
+  this.isLoading = function() {
     return Session.get('addMemberPopup.loading');
-  },
+  };
 
-  performSearch(query) {
+  this.isValidEmail = function(email) {
+    return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
+  };
+
+  this.performSearch = function(query) {
     if (!query || query.length < 2) {
       Session.set('addMemberPopup.searchResults', []);
       Session.set('addMemberPopup.noResults', false);
@@ -1519,9 +1666,9 @@ BlazeComponent.extendComponent({
         }
       }
     });
-  },
+  };
 
-  inviteUser(idNameEmail) {
+  this.inviteUser = function(idNameEmail) {
     const boardId = Session.get('currentBoard');
     this.setLoading(true);
     const self = this;
@@ -1533,39 +1680,48 @@ BlazeComponent.extendComponent({
         Popup.back();
       }
     });
-  },
+  };
+});
 
-  events() {
-    return [
-      {
-        'keyup .js-search-member-input'(event) {
-          Session.set('addMemberPopup.error', '');
-          const query = event.target.value.trim();
-          
-          // Clear previous timeout
-          if (this.searchTimeout) {
-            clearTimeout(this.searchTimeout);
-          }
-          
-          // Debounce search
-          this.searchTimeout = setTimeout(() => {
-            this.performSearch(query);
-          }, 300);
-        },
-        'click .js-select-member'() {
-          const userId = this.currentData()._id;
-          this.inviteUser(userId);
-        },
-        'click .js-email-invite'() {
-          const idNameEmail = $('.js-search-member-input').val();
-          if (idNameEmail.indexOf('@') < 0 || this.isValidEmail(idNameEmail)) {
-            this.inviteUser(idNameEmail);
-          } else Session.set('addMemberPopup.error', 'email-invalid');
-        },
-      },
-    ];
+Template.addMemberPopup.onDestroyed(function() {
+  if (this.searchTimeout) {
+    clearTimeout(this.searchTimeout);
+  }
+  Session.set('addMemberPopup.searching', false);
+  Session.set('addMemberPopup.loading', false);
+});
+
+Template.addMemberPopup.onRendered(function() {
+  this.find('.js-search-member-input').focus();
+  this.setLoading(false);
+});
+
+Template.addMemberPopup.events({
+  'keyup .js-search-member-input'(event, tpl) {
+    Session.set('addMemberPopup.error', '');
+    const query = event.target.value.trim();
+
+    // Clear previous timeout
+    if (tpl.searchTimeout) {
+      clearTimeout(tpl.searchTimeout);
+    }
+
+    // Debounce search
+    tpl.searchTimeout = setTimeout(() => {
+      tpl.performSearch(query);
+    }, 300);
   },
-}).register('addMemberPopup');
+  'click .js-select-member'(event, tpl) {
+    const userId = this._id;
+    tpl.inviteUser(userId);
+  },
+  'click .js-email-invite'(event, tpl) {
+    const idNameEmail = $('.js-search-member-input').val();
+    if (idNameEmail.indexOf('@') < 0 || tpl.isValidEmail(idNameEmail)) {
+      tpl.inviteUser(idNameEmail);
+    } else Session.set('addMemberPopup.error', 'email-invalid');
+  },
+});
 
 Template.addMemberPopup.helpers({
   searchResults() {
@@ -1579,10 +1735,10 @@ Template.addMemberPopup.helpers({
     return Session.get('addMemberPopup.noResults');
   },
   loading() {
-    return Session.get('addMemberPopup.loading');
+    return { get() { return Session.get('addMemberPopup.loading'); } };
   },
   error() {
-    return Session.get('addMemberPopup.error');
+    return { get() { return Session.get('addMemberPopup.error'); } };
   },
   isBoardMember() {
     const userId = this._id;
@@ -1598,71 +1754,33 @@ Template.addMemberPopupTest.helpers({
   }
 })
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
+Template.addBoardOrgPopup.onCreated(function() {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
 
-    this.page = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
-    });
-  },
+  this.page = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+  });
 
-  onRendered() {
-    this.setLoading(false);
-  },
-
-  setError(error) {
+  this.setError = function(error) {
     this.error.set(error);
-  },
+  };
 
-  setLoading(w) {
+  this.setLoading = function(w) {
     this.loading.set(w);
-  },
+  };
 
-  isLoading() {
+  this.isLoading = function() {
     return this.loading.get();
-  },
+  };
+});
 
-  events() {
-    return [
-      {
-        'keyup input'() {
-          this.setError('');
-        },
-        'change #jsBoardOrgs'() {
-          let currentBoard = Utils.getCurrentBoard();
-          let selectElt = document.getElementById("jsBoardOrgs");
-          let selectedOrgId = selectElt.options[selectElt.selectedIndex].value;
-          let selectedOrgDisplayName = selectElt.options[selectElt.selectedIndex].text;
-          let boardOrganizations = [];
-          if(currentBoard.orgs !== undefined){
-            for(let i = 0; i < currentBoard.orgs.length; i++){
-              boardOrganizations.push(currentBoard.orgs[i]);
-            }
-          }
-
-          if(!boardOrganizations.some((org) => org.orgDisplayName == selectedOrgDisplayName)){
-            boardOrganizations.push({
-              "orgId": selectedOrgId,
-              "orgDisplayName": selectedOrgDisplayName,
-              "isActive" : true,
-            })
-
-            if (selectedOrgId != "-1") {
-              Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
-            }
-          }
-
-          Popup.back();
-        },
-      },
-    ];
-  },
-}).register('addBoardOrgPopup');
+Template.addBoardOrgPopup.onRendered(function() {
+  this.setLoading(false);
+});
 
 Template.addBoardOrgPopup.helpers({
   orgsDatas() {
@@ -1671,71 +1789,72 @@ Template.addBoardOrgPopup.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
-
-    this.page = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
-    });
-
-    this.findUsersOptions = new ReactiveVar({});
-    this.userPage = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
-    });
+Template.addBoardOrgPopup.events({
+  'keyup input'(event, tpl) {
+    tpl.setError('');
   },
+  'change #jsBoardOrgs'() {
+    let currentBoard = Utils.getCurrentBoard();
+    let selectElt = document.getElementById("jsBoardOrgs");
+    let selectedOrgId = selectElt.options[selectElt.selectedIndex].value;
+    let selectedOrgDisplayName = selectElt.options[selectElt.selectedIndex].text;
+    let boardOrganizations = [];
+    if(currentBoard.orgs !== undefined){
+      for(let i = 0; i < currentBoard.orgs.length; i++){
+        boardOrganizations.push(currentBoard.orgs[i]);
+      }
+    }
 
-  onRendered() {
-    this.setLoading(false);
+    if(!boardOrganizations.some((org) => org.orgDisplayName == selectedOrgDisplayName)){
+      boardOrganizations.push({
+        "orgId": selectedOrgId,
+        "orgDisplayName": selectedOrgDisplayName,
+        "isActive" : true,
+      })
+
+      if (selectedOrgId != "-1") {
+        Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
+      }
+    }
+
+    Popup.back();
   },
+});
 
-  setError(error) {
+Template.removeBoardOrgPopup.onCreated(function() {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
+
+  this.page = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+  });
+
+  this.findUsersOptions = new ReactiveVar({});
+  this.userPage = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
+  });
+
+  this.setError = function(error) {
     this.error.set(error);
-  },
+  };
 
-  setLoading(w) {
+  this.setLoading = function(w) {
     this.loading.set(w);
-  },
+  };
 
-  isLoading() {
+  this.isLoading = function() {
     return this.loading.get();
-  },
+  };
+});
 
-  events() {
-    return [
-      {
-        'keyup input'() {
-          this.setError('');
-        },
-        'click #leaveBoardBtn'(){
-          let stringOrgId = document.getElementById('hideOrgId').value;
-          let currentBoard = Utils.getCurrentBoard();
-          let boardOrganizations = [];
-          if(currentBoard.orgs !== undefined){
-            for(let i = 0; i < currentBoard.orgs.length; i++){
-              if(currentBoard.orgs[i].orgId != stringOrgId){
-                boardOrganizations.push(currentBoard.orgs[i]);
-              }
-            }
-          }
-
-          Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
-
-          Popup.back();
-        },
-        'click #cancelLeaveBoardBtn'(){
-          Popup.back();
-        },
-      },
-    ];
-  },
-}).register('removeBoardOrgPopup');
+Template.removeBoardOrgPopup.onRendered(function() {
+  this.setLoading(false);
+});
 
 Template.removeBoardOrgPopup.helpers({
   org() {
@@ -1743,106 +1862,65 @@ Template.removeBoardOrgPopup.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
-
-    this.page = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
-    });
-
-    this.findUsersOptions = new ReactiveVar({});
-    this.userPage = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
-    });
+Template.removeBoardOrgPopup.events({
+  'keyup input'(event, tpl) {
+    tpl.setError('');
   },
+  'click #leaveBoardBtn'(){
+    let stringOrgId = document.getElementById('hideOrgId').value;
+    let currentBoard = Utils.getCurrentBoard();
+    let boardOrganizations = [];
+    if(currentBoard.orgs !== undefined){
+      for(let i = 0; i < currentBoard.orgs.length; i++){
+        if(currentBoard.orgs[i].orgId != stringOrgId){
+          boardOrganizations.push(currentBoard.orgs[i]);
+        }
+      }
+    }
 
-  onRendered() {
-    this.setLoading(false);
+    Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
+
+    Popup.back();
   },
+  'click #cancelLeaveBoardBtn'(){
+    Popup.back();
+  },
+});
 
-  setError(error) {
+Template.addBoardTeamPopup.onCreated(function() {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
+
+  this.page = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+  });
+
+  this.findUsersOptions = new ReactiveVar({});
+  this.userPage = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
+  });
+
+  this.setError = function(error) {
     this.error.set(error);
-  },
+  };
 
-  setLoading(w) {
+  this.setLoading = function(w) {
     this.loading.set(w);
-  },
+  };
 
-  isLoading() {
+  this.isLoading = function() {
     return this.loading.get();
-  },
+  };
+});
 
-  events() {
-    return [
-      {
-        'keyup input'() {
-          this.setError('');
-        },
-        'change #jsBoardTeams'() {
-          let currentBoard = Utils.getCurrentBoard();
-          let selectElt = document.getElementById("jsBoardTeams");
-          let selectedTeamId = selectElt.options[selectElt.selectedIndex].value;
-          let selectedTeamDisplayName = selectElt.options[selectElt.selectedIndex].text;
-          let boardTeams = [];
-          if(currentBoard.teams !== undefined){
-            for(let i = 0; i < currentBoard.teams.length; i++){
-              boardTeams.push(currentBoard.teams[i]);
-            }
-          }
-
-          if(!boardTeams.some((team) => team.teamDisplayName == selectedTeamDisplayName)){
-            boardTeams.push({
-              "teamId": selectedTeamId,
-              "teamDisplayName": selectedTeamDisplayName,
-              "isActive" : true,
-            })
-
-            if (selectedTeamId != "-1") {
-              let members = currentBoard.members;
-
-              let query = {
-                "teams.teamId": { $in: boardTeams.map(t => t.teamId) },
-              };
-
-              const boardTeamUsers = ReactiveCache.getUsers(query, {
-                sort: { sort: 1 },
-              });
-
-              if(boardTeams !== undefined && boardTeams.length > 0){
-                let index;
-                if (boardTeamUsers && boardTeamUsers.length > 0) {
-                  boardTeamUsers.forEach((u) => {
-                    index = members.findIndex(function(m){ return m.userId == u._id});
-                    if(index == -1){
-                      members.push({
-                        "isActive": true,
-                        "isAdmin": u.isAdmin !== undefined ? u.isAdmin : false,
-                        "isCommentOnly" : false,
-                        "isNoComments" : false,
-                        "userId": u._id,
-                      });
-                    }
-                  });
-                }
-              }
-
-              Meteor.call('setBoardTeams', boardTeams, members, currentBoard._id);
-            }
-          }
-
-          Popup.back();
-        },
-      },
-    ];
-  },
-}).register('addBoardTeamPopup');
+Template.addBoardTeamPopup.onRendered(function() {
+  this.setLoading(false);
+});
 
 Template.addBoardTeamPopup.helpers({
   teamsDatas() {
@@ -1851,96 +1929,150 @@ Template.addBoardTeamPopup.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
-
-    this.page = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
-    });
-
-    this.findUsersOptions = new ReactiveVar({});
-    this.userPage = new ReactiveVar(1);
-    this.autorun(() => {
-      const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
-    });
+Template.addBoardTeamPopup.events({
+  'keyup input'(event, tpl) {
+    tpl.setError('');
   },
+  'change #jsBoardTeams'() {
+    let currentBoard = Utils.getCurrentBoard();
+    let selectElt = document.getElementById("jsBoardTeams");
+    let selectedTeamId = selectElt.options[selectElt.selectedIndex].value;
+    let selectedTeamDisplayName = selectElt.options[selectElt.selectedIndex].text;
+    let boardTeams = [];
+    if(currentBoard.teams !== undefined){
+      for(let i = 0; i < currentBoard.teams.length; i++){
+        boardTeams.push(currentBoard.teams[i]);
+      }
+    }
 
-  onRendered() {
-    this.setLoading(false);
-  },
+    if(!boardTeams.some((team) => team.teamDisplayName == selectedTeamDisplayName)){
+      boardTeams.push({
+        "teamId": selectedTeamId,
+        "teamDisplayName": selectedTeamDisplayName,
+        "isActive" : true,
+      })
 
-  setError(error) {
-    this.error.set(error);
-  },
+      if (selectedTeamId != "-1") {
+        let members = currentBoard.members;
 
-  setLoading(w) {
-    this.loading.set(w);
-  },
+        let query = {
+          "teams.teamId": { $in: boardTeams.map(t => t.teamId) },
+        };
 
-  isLoading() {
-    return this.loading.get();
-  },
+        const boardTeamUsers = ReactiveCache.getUsers(query, {
+          sort: { sort: 1 },
+        });
 
-  events() {
-    return [
-      {
-        'keyup input'() {
-          this.setError('');
-        },
-        'click #leaveBoardTeamBtn'(){
-          let stringTeamId = document.getElementById('hideTeamId').value;
-          let currentBoard = Utils.getCurrentBoard();
-          let boardTeams = [];
-          if(currentBoard.teams !== undefined){
-            for(let i = 0; i < currentBoard.teams.length; i++){
-              if(currentBoard.teams[i].teamId != stringTeamId){
-                boardTeams.push(currentBoard.teams[i]);
+        if(boardTeams !== undefined && boardTeams.length > 0){
+          let index;
+          if (boardTeamUsers && boardTeamUsers.length > 0) {
+            boardTeamUsers.forEach((u) => {
+              index = members.findIndex(function(m){ return m.userId == u._id});
+              if(index == -1){
+                members.push({
+                  "isActive": true,
+                  "isAdmin": false,
+                  "isCommentOnly" : false,
+                  "isNoComments" : false,
+                  "userId": u._id,
+                });
               }
-            }
+            });
           }
+        }
 
-          let members = currentBoard.members;
-          let query = {
-            "teams.teamId": stringTeamId
-          };
+        Meteor.call('setBoardTeams', boardTeams, members, currentBoard._id);
+      }
+    }
 
-          const boardTeamUsers = ReactiveCache.getUsers(query, {
-            sort: { sort: 1 },
-          });
-
-          if(currentBoard.teams !== undefined && currentBoard.teams.length > 0){
-            let index;
-            if (boardTeamUsers && boardTeamUsers.length > 0) {
-              boardTeamUsers.forEach((u) => {
-                index = members.findIndex(function(m){ return m.userId == u._id});
-                if(index !== -1 && (u.isAdmin === undefined || u.isAdmin == false)){
-                  members.splice(index, 1);
-                }
-              });
-            }
-          }
-
-          Meteor.call('setBoardTeams', boardTeams, members, currentBoard._id);
-
-          Popup.back();
-        },
-        'click #cancelLeaveBoardTeamBtn'(){
-          Popup.back();
-        },
-      },
-    ];
+    Popup.back();
   },
-}).register('removeBoardTeamPopup');
+});
+
+Template.removeBoardTeamPopup.onCreated(function() {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
+
+  this.page = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+  });
+
+  this.findUsersOptions = new ReactiveVar({});
+  this.userPage = new ReactiveVar(1);
+  this.autorun(() => {
+    const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
+    this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
+  });
+
+  this.setError = function(error) {
+    this.error.set(error);
+  };
+
+  this.setLoading = function(w) {
+    this.loading.set(w);
+  };
+
+  this.isLoading = function() {
+    return this.loading.get();
+  };
+});
+
+Template.removeBoardTeamPopup.onRendered(function() {
+  this.setLoading(false);
+});
 
 Template.removeBoardTeamPopup.helpers({
   team() {
     return ReactiveCache.getTeam(this.teamId);
+  },
+});
+
+Template.removeBoardTeamPopup.events({
+  'keyup input'(event, tpl) {
+    tpl.setError('');
+  },
+  'click #leaveBoardTeamBtn'(){
+    let stringTeamId = document.getElementById('hideTeamId').value;
+    let currentBoard = Utils.getCurrentBoard();
+    let boardTeams = [];
+    if(currentBoard.teams !== undefined){
+      for(let i = 0; i < currentBoard.teams.length; i++){
+        if(currentBoard.teams[i].teamId != stringTeamId){
+          boardTeams.push(currentBoard.teams[i]);
+        }
+      }
+    }
+
+    let members = currentBoard.members;
+    let query = {
+      "teams.teamId": stringTeamId
+    };
+
+    const boardTeamUsers = ReactiveCache.getUsers(query, {
+      sort: { sort: 1 },
+    });
+
+    if(currentBoard.teams !== undefined && currentBoard.teams.length > 0){
+      let index;
+      if (boardTeamUsers && boardTeamUsers.length > 0) {
+        boardTeamUsers.forEach((u) => {
+          index = members.findIndex(function(m){ return m.userId == u._id});
+          if(index !== -1 && !members[index].isAdmin){
+            members.splice(index, 1);
+          }
+        });
+      }
+    }
+
+    Meteor.call('setBoardTeams', boardTeams, members, currentBoard._id);
+
+    Popup.back();
+  },
+  'click #cancelLeaveBoardTeamBtn'(){
+    Popup.back();
   },
 });
 
@@ -2061,4 +2193,3 @@ Template.changePermissionsPopup.helpers({
     );
   },
 });
-

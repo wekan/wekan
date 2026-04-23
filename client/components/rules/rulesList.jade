@@ -1,5 +1,5 @@
 template(name="rulesList")
-  .rules
+  .rules(class=currentBoard.colorClass)
     h2
       i.fa.fa-magic
       | {{_ 'r-board-rules' }}
@@ -7,31 +7,31 @@ template(name="rulesList")
     ul.rules-list
       each rules
         li.rules-lists-item
-          p 
+          p
             = title
           div.rules-btns-group
-            button.js-goto-details
+            button.primary.wide.js-goto-details(type="submit")
               i.fa.fa-eye
               | {{_ 'r-view-rule'}}
             if currentUser.isAdmin
-              button.js-delete-rule
+              button.primary.wide.js-delete-rule(type="submit")
                 i.fa.fa-trash
                 | {{_ 'r-delete-rule'}}
             else if currentUser.isBoardAdmin
-              button.js-delete-rule
+              button.primary.wide.js-delete-rule(type="submit")
                 i.fa.fa-trash
                 | {{_ 'r-delete-rule'}}
       else
         li.no-items-message {{_ 'r-no-rules' }}
     if currentUser.isAdmin
       div.rules-add
-        button.js-goto-trigger
+        button.primary.wide.rules-add-trigger.js-goto-trigger(type="submit")
           i.fa.fa-plus
           | {{_ 'r-add-rule'}}
         input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
     else if currentUser.isBoardAdmin
       div.rules-add
-        button.js-goto-trigger
+        button.primary.wide.rules-add-trigger.js-goto-trigger(type="submit")
           i.fa.fa-plus
           | {{_ 'r-add-rule'}}
         input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")

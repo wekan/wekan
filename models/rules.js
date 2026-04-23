@@ -1,7 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-Rules = new Mongo.Collection('rules');
+const Rules = new Mongo.Collection('rules');
 
 Rules.attachSchema(
   new SimpleSchema({
@@ -37,7 +38,6 @@ Rules.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -70,23 +70,5 @@ Rules.helpers({
     return ReactiveCache.getAction(this.actionId);
   },
 });
-
-Rules.allow({
-  insert(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-  update(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-  remove(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await Rules._collection.createIndexAsync({ modifiedAt: -1 });
-  });
-}
 
 export default Rules;

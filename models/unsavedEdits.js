@@ -1,6 +1,9 @@
 // This collection shouldn't be manipulated directly by instead throw the
 // `UnsavedEdits` API on the client.
-UnsavedEditCollection = new Mongo.Collection('unsaved-edits');
+import { Mongo } from 'meteor/mongo';
+const { SimpleSchema } = require('/imports/simpleSchema');
+
+const UnsavedEditCollection = new Mongo.Collection('unsaved-edits');
 
 UnsavedEditCollection.attachSchema(
   new SimpleSchema({
@@ -38,7 +41,6 @@ UnsavedEditCollection.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -50,21 +52,5 @@ UnsavedEditCollection.attachSchema(
     },
   }),
 );
-
-if (Meteor.isServer) {
-  function isAuthor(userId, doc, fieldNames = []) {
-    return userId === doc.userId && fieldNames.indexOf('userId') === -1;
-  }
-  Meteor.startup(async () => {
-    await UnsavedEditCollection._collection.createIndexAsync({ modifiedAt: -1 });
-    await UnsavedEditCollection._collection.createIndexAsync({ userId: 1 });
-  });
-  UnsavedEditCollection.allow({
-    insert: isAuthor,
-    update: isAuthor,
-    remove: isAuthor,
-    fetch: ['userId'],
-  });
-}
 
 export default UnsavedEditCollection;

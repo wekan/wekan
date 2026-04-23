@@ -57,7 +57,8 @@ template(name="filterSidebar")
               = profile.fullname
               | (<span class="username">{{ username }}</span>)
             if Filter.members.isSelected _id
-              i.fa.fa-check  hr
+              i.fa.fa-check
+  hr
   h3
     i.fa.fa-user
     | {{_ 'filter-assignee-label'}}

@@ -12,98 +12,85 @@
 //   else
 //     // the content when the form is close (optional)
 
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Tracker } from 'meteor/tracker';
+import { EscapeActions } from '/client/lib/escapeActions';
+
 // We can only have one inlined form element opened at a time
 const currentlyOpenedForm = new ReactiveVar(null);
 
-InlinedForm = BlazeComponent.extendComponent({
-  template() {
-    return 'inlinedForm';
-  },
+Template.inlinedForm.onCreated(function () {
+  this.isOpen = new ReactiveVar(false);
+});
 
-  onCreated() {
-    this.isOpen = new ReactiveVar(false);
-  },
-
-  onRendered() {
-    // Autofocus when form becomes open
-    this.autorun(() => {
-      if (this.isOpen.get()) {
-        Tracker.afterFlush(() => {
-          const input = this.find('textarea,input[type=text]');
-          if (input && typeof input.focus === 'function') {
-            setTimeout(() => {
-              input.focus();
-              // Select content if it exists (useful for editing)
-              if (input.value && input.select) {
-                input.select();
-              }
-            }, 50);
-          }
-        });
-      }
-    });
-  },
-
-  onDestroyed() {
-    currentlyOpenedForm.set(null);
-  },
-
-  open(evt) {
-    if (evt) {
-      evt.preventDefault();
-      // Close currently opened form, if any
-      EscapeActions.clickExecute(evt.target, 'inlinedForm');
-    } else {
-      // Close currently opened form, if any
-      EscapeActions.executeUpTo('inlinedForm');
+Template.inlinedForm.onRendered(function () {
+  const tpl = this;
+  tpl.autorun(() => {
+    if (tpl.isOpen.get()) {
+      Tracker.afterFlush(() => {
+        const input = tpl.find('textarea,input[type=text]');
+        if (input && typeof input.focus === 'function') {
+          setTimeout(() => {
+            input.focus();
+            if (input.value && input.select) {
+              input.select();
+            }
+          }, 50);
+        }
+      });
     }
+  });
+});
 
-    this.isOpen.set(true);
-    currentlyOpenedForm.set(this);
+Template.inlinedForm.onDestroyed(function () {
+  currentlyOpenedForm.set(null);
+});
+
+Template.inlinedForm.helpers({
+  isOpen() {
+    return Template.instance().isOpen;
   },
+});
 
-  close() {
-    this.isOpen.set(false);
+Template.inlinedForm.events({
+  'click .js-close-inlined-form'(evt, tpl) {
+    tpl.isOpen.set(false);
     currentlyOpenedForm.set(null);
   },
-
-  getValue() {
-    const input = this.find('textarea,input[type=text]');
-    // \s without \n + unicode (https://developer.mozilla.org/de/docs/Web/JavaScript/Guide/Regular_Expressions#special-white-space)
-    return this.isOpen.get() && input && input.value.replaceAll(/[ \f\r\t\v]+$/gm, '');
+  'click .js-open-inlined-form'(evt, tpl) {
+    evt.preventDefault();
+    EscapeActions.clickExecute(evt.target, 'inlinedForm');
+    tpl.isOpen.set(true);
+    currentlyOpenedForm.set(tpl);
   },
-
-  events() {
-    return [
-      {
-        'click .js-close-inlined-form': this.close,
-        'click .js-open-inlined-form': this.open,
-
-        // Pressing Ctrl+Enter should submit the form
-        'keydown form textarea'(evt) {
-          if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
-            this.find('button[type=submit]').click();
-          }
-        },
-
-        // Close the inlined form when after its submission
-        submit() {
-          if (this.currentData().autoclose !== false) {
-            Tracker.afterFlush(() => {
-              this.close();
-            });
-          }
-        },
-      },
-    ];
+  'keydown form textarea'(evt, tpl) {
+    if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
+      tpl.find('button[type=submit]').click();
+    }
   },
-}).register('inlinedForm');
+  submit(evt, tpl) {
+    const data = Template.currentData();
+    if (data.autoclose !== false) {
+      Tracker.afterFlush(() => {
+        tpl.isOpen.set(false);
+        currentlyOpenedForm.set(null);
+      });
+    }
+  },
+});
 
 // Press escape to close the currently opened inlinedForm
 EscapeActions.register(
   'inlinedForm',
   () => {
-    currentlyOpenedForm.get().close();
+    const form = currentlyOpenedForm.get();
+    if (form) {
+      if (form.isOpen) {
+        form.isOpen.set(false);
+        currentlyOpenedForm.set(null);
+      }
+    }
   },
   () => {
     return currentlyOpenedForm.get() !== null;
@@ -112,13 +99,3 @@ EscapeActions.register(
     enabledOnClick: false,
   },
 );
-
-// submit on click outside
-//document.addEventListener('click', function(evt) {
-//  const openedForm = currentlyOpenedForm.get();
-//  const isClickOutside = $(evt.target).closest('.js-inlined-form').length === 0;
-//  if (openedForm && isClickOutside) {
-//    $('.js-inlined-form button[type=submit]').click();
-//    openedForm.close();
-//  }
-//}, true);

@@ -5,16 +5,21 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Import Blaze helpers (replaces removed raix:handlebar-helpers package)
+import '/client/config/blazeHelpers';
+
 // Import board converter for on-demand conversion
 import '/client/lib/boardConverter';
-import '/client/components/boardConversionProgress';
+import '/client/features/boardConversion';
+import { Utils } from '/client/lib/utils';
 
-// Import migration manager and progress UI
-import '/client/lib/attachmentMigrationManager';
-import '/client/components/settings/migrationProgress';
+// Import migration manager and progress UI - COMMENTED OUT
+// import '/client/lib/attachmentMigrationManager';
+// import '/client/components/settings/migrationProgress';
 
-// Import cron settings
-import '/client/components/settings/cronSettings';
+// Import cron settings - COMMENTED OUT
+// import '/client/components/settings/cronSettings';
+// Custom head tags
 
 // Mirror Meteor login token into a cookie for server-side file route auth
 // This enables cookie-based auth for /cdn/storage/* without leaking ROOT_URL
@@ -61,6 +66,7 @@ Meteor.startup(() => {
       syncCookie();
     }
   });
+
 });
 
 // Subscribe to per-user small publications
@@ -71,7 +77,7 @@ Meteor.startup(() => {
       Meteor.subscribe('userDesktopDragHandles');
     }
   });
-  
+
   // Initialize mobile mode on startup for iOS devices
   // This ensures mobile mode is applied correctly on page load
   Tracker.afterFlush(() => {

@@ -81,11 +81,11 @@
     font-size: 11px;
     padding: 6px;
   }
-  
+
   .original-position-details {
     padding: 4px 6px;
   }
-  
+
   .original-position-moved,
   .original-position-unchanged {
     padding: 3px 5px;
@@ -99,24 +99,24 @@
     border-color: #4a5568;
     color: #e2e8f0;
   }
-  
+
   .original-position-moved {
     background-color: #744210;
     border-color: #b7791f;
     color: #fbd38d;
   }
-  
+
   .original-position-unchanged {
     background-color: #22543d;
     border-color: #38a169;
     color: #9ae6b4;
   }
-  
+
   .original-title {
     color: #a0aec0;
     border-color: #4a5568;
   }
-  
+
   .original-title strong {
     color: #e2e8f0;
   }

@@ -1,8 +1,8 @@
-import fs from 'fs';
+import Activities from '/models/activities';
 import FileStoreStrategy, {FileStoreStrategyFilesystem, FileStoreStrategyGridFs, FileStoreStrategyS3} from './fileStoreStrategy'
 
 const insertActivity = (fileObj, activityType) =>
-  Activities.insert({
+  Activities.insertAsync({
     userId: fileObj.userId,
     type: 'card',
     activityType,
@@ -12,6 +12,8 @@ const insertActivity = (fileObj, activityType) =>
     cardId: fileObj.meta.cardId,
     listId: fileObj.meta.listId,
     swimlaneId: fileObj.meta.swimlaneId,
+  }).catch(error => {
+    console.error('Failed to insert attachment activity:', error);
   });
 
 /** Strategy to store attachments at GridFS (MongoDB) */

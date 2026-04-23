@@ -1,4 +1,10 @@
-# Usage: ./release.sh 1.36
+#!/bin/bash
+# Usage: ./release-snap.sh 1.36
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: ./release-snap.sh <version>"
+  exit 1
+fi
 
 # Cleanup
 cd ~/repos/wekan/releases

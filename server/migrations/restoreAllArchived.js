@@ -1,8 +1,8 @@
 /**
  * Restore All Archived Migration
- * 
+ *
  * Restores all archived swimlanes, lists, and cards.
- * If any restored items are missing swimlaneId, listId, or cardId, 
+ * If any restored items are missing swimlaneId, listId, or cardId,
  * creates/assigns proper IDs to make them visible.
  */
 
@@ -15,6 +15,11 @@ import Lists from '/models/lists';
 import Cards from '/models/cards';
 import Swimlanes from '/models/swimlanes';
 
+function getTranslatedString(key, fallback, options) {
+  const translated = TAPi18n.__(key, options);
+  return typeof translated === 'string' ? translated : fallback;
+}
+
 class RestoreAllArchivedMigration {
   constructor() {
     this.name = 'restoreAllArchived';
@@ -24,11 +29,11 @@ class RestoreAllArchivedMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     try {
-      const archivedSwimlanes = ReactiveCache.getSwimlanes({ boardId, archived: true });
-      const archivedLists = ReactiveCache.getLists({ boardId, archived: true });
-      const archivedCards = ReactiveCache.getCards({ boardId, archived: true });
+      const archivedSwimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: true });
+      const archivedLists = await ReactiveCache.getLists({ boardId, archived: true });
+      const archivedCards = await ReactiveCache.getCards({ boardId, archived: true });
 
       return archivedSwimlanes.length > 0 || archivedLists.length > 0 || archivedCards.length > 0;
     } catch (error) {
@@ -50,23 +55,23 @@ class RestoreAllArchivedMigration {
         errors: []
       };
 
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Error('Board not found');
       }
 
       // Get archived items
-      const archivedSwimlanes = ReactiveCache.getSwimlanes({ boardId, archived: true });
-      const archivedLists = ReactiveCache.getLists({ boardId, archived: true });
-      const archivedCards = ReactiveCache.getCards({ boardId, archived: true });
+      const archivedSwimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: true });
+      const archivedLists = await ReactiveCache.getLists({ boardId, archived: true });
+      const archivedCards = await ReactiveCache.getCards({ boardId, archived: true });
 
       // Get active items for reference
-      const activeSwimlanes = ReactiveCache.getSwimlanes({ boardId, archived: false });
-      const activeLists = ReactiveCache.getLists({ boardId, archived: false });
+      const activeSwimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false });
+      const activeLists = await ReactiveCache.getLists({ boardId, archived: false });
 
       // Restore all archived swimlanes
       for (const swimlane of archivedSwimlanes) {
-        Swimlanes.update(swimlane._id, {
+        await Swimlanes.updateAsync(swimlane._id, {
           $set: {
             archived: false,
             updatedAt: new Date()
@@ -90,18 +95,18 @@ class RestoreAllArchivedMigration {
         if (!list.swimlaneId) {
           // Try to find a suitable swimlane or use default
           let targetSwimlane = activeSwimlanes.find(s => !s.archived);
-          
+
           if (!targetSwimlane) {
             // No active swimlane found, create default
-            const swimlaneId = Swimlanes.insert({
-              title: TAPi18n.__('default'),
+            const swimlaneId = await Swimlanes.insertAsync({
+              title: getTranslatedString('default', 'Default'),
               boardId: boardId,
               sort: 0,
               createdAt: new Date(),
               updatedAt: new Date(),
               archived: false
             });
-            targetSwimlane = ReactiveCache.getSwimlane(swimlaneId);
+            targetSwimlane = await ReactiveCache.getSwimlane(swimlaneId);
           }
 
           updateFields.swimlaneId = targetSwimlane._id;
@@ -112,7 +117,7 @@ class RestoreAllArchivedMigration {
           }
         }
 
-        Lists.update(list._id, {
+        await Lists.updateAsync(list._id, {
           $set: updateFields
         });
         results.listsRestored++;
@@ -123,8 +128,8 @@ class RestoreAllArchivedMigration {
       }
 
       // Refresh lists after restoration
-      const allLists = ReactiveCache.getLists({ boardId, archived: false });
-      const allSwimlanes = ReactiveCache.getSwimlanes({ boardId, archived: false });
+      const allLists = await ReactiveCache.getLists({ boardId, archived: false });
+      const allSwimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false });
 
       // Restore all archived cards and fix missing IDs
       for (const card of archivedCards) {
@@ -139,13 +144,13 @@ class RestoreAllArchivedMigration {
         if (!card.listId) {
           // Find or create a default list
           let targetList = allLists.find(l => !l.archived);
-          
+
           if (!targetList) {
             // No active list found, create one
             const defaultSwimlane = allSwimlanes.find(s => !s.archived) || allSwimlanes[0];
-            
-            const listId = Lists.insert({
-              title: TAPi18n.__('default'),
+
+            const listId = await Lists.insertAsync({
+              title: getTranslatedString('default', 'Default'),
               boardId: boardId,
               swimlaneId: defaultSwimlane._id,
               sort: 0,
@@ -153,7 +158,7 @@ class RestoreAllArchivedMigration {
               updatedAt: new Date(),
               archived: false
             });
-            targetList = ReactiveCache.getList(listId);
+            targetList = await ReactiveCache.getList(listId);
           }
 
           updateFields.listId = targetList._id;
@@ -188,7 +193,7 @@ class RestoreAllArchivedMigration {
           }
         }
 
-        Cards.update(card._id, {
+        await Cards.updateAsync(card._id, {
           $set: updateFields
         });
         results.cardsRestored++;
@@ -222,30 +227,30 @@ const restoreAllArchivedMigration = new RestoreAllArchivedMigration();
 
 // Register Meteor methods
 Meteor.methods({
-  'restoreAllArchived.needsMigration'(boardId) {
+  async 'restoreAllArchived.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
-    return restoreAllArchivedMigration.needsMigration(boardId);
+    return await restoreAllArchivedMigration.needsMigration(boardId);
   },
 
-  'restoreAllArchived.execute'(boardId) {
+  async 'restoreAllArchived.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
     // Check if user is board admin
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user) {
       throw new Meteor.Error('user-not-found', 'User not found');
     }
@@ -259,7 +264,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
     }
 
-    return restoreAllArchivedMigration.executeMigration(boardId);
+    return await restoreAllArchivedMigration.executeMigration(boardId);
   }
 });
 

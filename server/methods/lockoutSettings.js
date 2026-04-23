@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { AccountsLockout } from 'meteor/wekan-accounts-lockout';
 import { ReactiveCache } from '/imports/reactiveCache';
 import LockoutSettings from '/models/lockoutSettings';
@@ -5,11 +6,11 @@ import LockoutSettings from '/models/lockoutSettings';
 Meteor.methods({
   async reloadAccountsLockout() {
     // Check if user has admin rights
-    const userId = Meteor.userId();
+    const userId = this.userId;
     if (!userId) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user');
     }
-    const user = ReactiveCache.getUser(userId);
+    const user = await ReactiveCache.getUser(userId);
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('error-not-allowed', 'Not allowed');
     }

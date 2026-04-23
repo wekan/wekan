@@ -1,0 +1,686 @@
+name: Release All Platforms
+
+# Triggered manually via GitHub CLI or Actions UI.
+# Usage:
+#   gh workflow run release-all.yml -f old_version=8.42 -f new_version=8.43
+#
+# Or use the convenience script (commits pending changes, pushes, and triggers):
+#   ./releases/release-all.sh 8.42 8.43
+#
+# Required GitHub Secrets:
+#   GHCR_AUTH      - base64(username:token) for ghcr.io
+#   DOCKERHUB_AUTH - base64(username:token) for Docker Hub
+#   QUAY_AUTH      - base64(username:token) for Quay.io
+#   SNAP_AUTH      - Snapcraft store credentials
+
+on:
+  workflow_dispatch:
+    inputs:
+      old_version:
+        description: 'Previous version number (e.g. 8.42, without v prefix)'
+        required: true
+        type: string
+      new_version:
+        description: 'New version number (e.g. 8.43, without v prefix)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+  pages: write
+  id-token: write
+
+jobs:
+
+  # ─── 1. Extract version and release notes ───────────────────────────────────
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      changelog: ${{ steps.changelog.outputs.content }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - name: Set version from input
+        id: version
+        run: |
+          VERSION="${{ needs.prepare.outputs.version }}"
+          VERSION="${VERSION#v}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Extract release notes from CHANGELOG.md
+        id: changelog
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          # Try to find the version-specific section first, then fall back to Upcoming
+          NOTES=$(python3 - <<PYEOF
+          import re, sys
+          version = "$VERSION"
+          with open("CHANGELOG.md", encoding="utf-8") as f:
+              content = f.read()
+          # Pattern: section heading through (but not including) the next heading
+          patterns = [
+              rf"(# v{re.escape(version)} .*?)(?=\n# v[0-9]|\Z)",
+              r"(# Upcoming WeKan.*?)(?=\n# v[0-9]|\Z)",
+          ]
+          for pat in patterns:
+              m = re.search(pat, content, re.DOTALL)
+              if m:
+                  print(m.group(1).strip())
+                  sys.exit(0)
+          print(f"WeKan v{version}")
+          PYEOF
+          )
+          echo "content<<GHEOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "GHEOF" >> $GITHUB_OUTPUT
+
+  # ─── 2. Build amd64 bundle (full Meteor 3 build) ────────────────────────────
+  # Meteor 3.5-beta.7 installer supports only: Linux x86_64, Linux aarch64, macOS, Windows.
+  # It explicitly rejects armhf, s390x, and ppc64le at install time.
+  # Therefore the full Meteor build always runs here on x86_64.
+  # All other Linux architectures then rebuild only the native npm modules
+  # from this bundle (much faster than a full Meteor build).
+  # Node.js version must match what Meteor 3.5-beta.7 bundles (detected automatically).
+  build-amd64:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
+
+      - name: Cache Meteor installation
+        uses: actions/cache@v5
+        with:
+          path: ~/.meteor
+          key: meteor-${{ hashFiles('.meteor/release') }}-${{ hashFiles('.meteor/packages') }}
+          restore-keys: meteor-
+
+      - name: Cache npm packages
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip
+
+      # Pin to detected latest Node.js 24.x — must match Meteor's bundled version.
+      # Using the same version for build and npm rebuild ensures consistent native module ABI.
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '${{ needs.prepare.outputs.version }}'
+
+      - name: Install Meteor
+        run: |
+          if [ ! -f ~/.meteor/meteor ]; then
+            curl https://install.meteor.com/ | sh
+          fi
+          echo "$HOME/.meteor" >> $GITHUB_PATH
+
+      - name: Build WeKan bundle
+        run: |
+          rm -rf .build node_modules .meteor/local
+          (meteor update --npm 2>/dev/null || true) && meteor npm install
+          meteor build .build --directory
+
+      - name: Create amd64 zip
+        run: |
+          cd .build
+          zip -r wekan-${VERSION}-amd64.zip bundle
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bundle-amd64
+          path: .build/wekan-${{ needs.prepare.outputs.version }}-amd64.zip
+          retention-days: 1
+
+  # ─── 3. Build arm64 bundle (rebuild native modules natively) ─────────────────
+  # Meteor 3.5-beta.7 does support Linux aarch64, but running a full Meteor build a
+  # second time would double the build time for the same result. npm rebuild on
+  # the native arm64 GitHub Actions runner is much faster and produces the same
+  # platform-specific native modules.
+  build-arm64:
+    needs: [prepare, build-amd64]
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION_ARM64: ''
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential g++ make python3 curl unzip zip
+
+
+      - name: Set Node.js version for arm64
+        id: node_arm64
+        run: |
+          echo "NODE_VERSION_ARM64=24" >> $GITHUB_ENV
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Rebuild native modules for arm64 in container
+        run: |
+          unzip wekan-${VERSION}-amd64.zip
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+          # Use the latest available Node.js 24.x slim image for arm64
+          docker run --rm --platform linux/arm64 \
+            -v "$(pwd)/bundle:/bundle" \
+            -w /bundle/programs/server \
+            node:24-slim \
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+
+      - name: Clean up and create arm64 zip
+        run: |
+          zip -r wekan-${VERSION}-arm64.zip bundle
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bundle-arm64
+          path: wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+          retention-days: 1
+
+  # ─── 4. Build s390x bundle (rebuild native modules via QEMU container) ───────
+  # Meteor 3.5-beta.7 does NOT support s390x (installer exits with error on that arch).
+  # GitHub Actions has no native s390x runners.
+  # Solution: QEMU emulation + node:<version>-slim (s390x variant) for npm rebuild.
+  build-s390x:
+    needs: [prepare, build-amd64]
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION_S390X: ''
+    steps:
+      - name: Set up QEMU for s390x
+        uses: docker/setup-qemu-action@v4
+        with:
+          platforms: s390x
+
+      - name: Install unzip/zip
+        run: sudo apt-get update && sudo apt-get install -y unzip zip
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Set Node.js version for s390x
+        id: node_s390x
+        run: |
+          echo "NODE_VERSION_S390X=24" >> $GITHUB_ENV
+
+      - name: Rebuild native modules for s390x in container
+        run: |
+          unzip wekan-${VERSION}-amd64.zip
+          rm -rf bundle/programs/server/node_modules
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+          # Use the latest available Node.js 24.x slim image for s390x
+          docker run --rm --platform linux/s390x \
+            -v "$(pwd)/bundle:/bundle" \
+            -w /bundle/programs/server \
+            node:24-slim \
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+
+      - name: Clean up and create s390x zip
+        run: |
+          zip -r wekan-${VERSION}-s390x.zip bundle
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bundle-s390x
+          path: wekan-${{ needs.prepare.outputs.version }}-s390x.zip
+          retention-days: 1
+
+  # ─── 4b. Build ppc64le bundle (rebuild native modules via QEMU container) ────
+  # Meteor 3.5-beta.7 does NOT support ppc64le (installer exits with error on that arch).
+  # GitHub Actions has no native ppc64le runners.
+  # Solution: QEMU emulation + node:<version>-slim (ppc64le variant) for npm rebuild.
+  build-ppc64le:
+    needs: [prepare, build-amd64]
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION: ${{ needs.prepare.outputs.version }}
+      NODE_VERSION_PPC64LE: ''
+    steps:
+      - name: Set up QEMU for ppc64le
+        uses: docker/setup-qemu-action@v4
+        with:
+          platforms: ppc64le
+
+      - name: Install unzip/zip
+        run: sudo apt-get update && sudo apt-get install -y unzip zip
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Set Node.js version for ppc64le
+        id: node_ppc64le
+        run: |
+          echo "NODE_VERSION_PPC64LE=24" >> $GITHUB_ENV
+
+      - name: Rebuild native modules for ppc64le in container
+        run: |
+          unzip wekan-${VERSION}-amd64.zip
+          rm -rf bundle/programs/server/node_modules
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+          # Use the latest available Node.js 24.x slim image for ppc64le
+          docker run --rm --platform linux/ppc64le \
+            -v "$(pwd)/bundle:/bundle" \
+            -w /bundle/programs/server \
+            node:24-slim \
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+
+      - name: Clean up and create ppc64le zip
+        run: |
+          zip -r wekan-${VERSION}-ppc64le.zip bundle
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bundle-ppc64le
+          path: wekan-${{ needs.prepare.outputs.version }}-ppc64le.zip
+          retention-days: 1
+
+  # ─── 4c. Build armhf bundle — COMMENTED OUT ─────────────────────────────────
+  # No official Node.js binaries exist for armhf (arm/v7).
+  #build-armhf:
+  #  needs: [prepare, build-amd64]
+  #  runs-on: ubuntu-latest
+  #  timeout-minutes: 120
+  #  env:
+  #    VERSION: ${{ needs.prepare.outputs.version }}
+  #  steps:
+  #    - name: Set up QEMU for arm/v7
+  #      uses: docker/setup-qemu-action@v4
+  #      with:
+  #        platforms: arm
+  #
+  #    - name: Install unzip/zip
+  #      run: sudo apt-get update && sudo apt-get install -y unzip zip
+  #
+  #    - name: Download amd64 bundle
+  #      uses: actions/download-artifact@v8
+  #      with:
+  #        name: bundle-amd64
+  #
+  #    - name: Rebuild native modules for armhf in container
+  #      run: |
+  #        unzip wekan-${VERSION}-amd64.zip
+  #        rm -rf bundle/programs/server/node_modules
+  #        # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+  #        # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+  #        BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+  #        if [ -d "$BCRYPT_DIR" ]; then
+  #          rm -rf "$BCRYPT_DIR"
+  #          TMP=$(mktemp -d)
+  #          pushd "$TMP" > /dev/null
+  #          npm pack bcrypt@6.0.0
+  #          mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+  #          cd bcrypt && npm install --ignore-scripts && cd ..
+  #          cp -a bcrypt "$BCRYPT_DIR"
+  #          popd > /dev/null
+  #          rm -rf "$TMP"
+  #        fi
+  #        # node:<version>-slim arm/v7 — same Node.js version as Meteor bundled
+  #        docker run --rm --platform linux/arm/v7 \
+  #          -v "$(pwd)/bundle:/bundle" \
+  #          -w /bundle/programs/server \
+  #          node:${NODE_VERSION}-slim \
+  #          sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+  #
+  #    - name: Clean up and create armhf zip
+  #      run: |
+  #        zip -r wekan-${VERSION}-armhf.zip bundle
+  #
+  #    - uses: actions/upload-artifact@v7
+  #      with:
+  #        name: bundle-armhf
+  #        path: wekan-${{ needs.prepare.outputs.version }}-armhf.zip
+  #        retention-days: 1
+
+  # ─── 5. Build win64 bundle (rebuild native modules on Windows) ───────────────
+  build-win64:
+    needs: [prepare, build-amd64]
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '${{ needs.prepare.outputs.version }}'
+
+      ## With Node 24 these are already preinstalled at GitHub Windows runners
+      #- name: Install node-gyp and build tools
+      #  run: |
+      #    npm install -g windows-build-tools --vs2019 2>$null; exit 0
+
+      - name: Install 7-zip
+        run: choco install -y 7zip
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Fix bcrypt for Node.js 24
+        shell: bash
+        run: |
+          7z x wekan-${VERSION}-amd64.zip
+          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -r bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+
+      - name: Rebuild native modules for Windows
+        shell: cmd
+        run: |
+          cd bundle\programs\server
+          rmdir /s /q node_modules
+          npm install
+          cd ..\..\..
+
+      - name: Create win64 zip
+        shell: cmd
+        run: 7z a wekan-%VERSION%-win64.zip bundle
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bundle-win64
+          path: wekan-${{ needs.prepare.outputs.version }}-win64.zip
+          retention-days: 1
+
+  # ─── 6. Create GitHub Release and upload all bundles ────────────────────────
+  release:
+    needs: [prepare, build-amd64, build-arm64, build-s390x, build-ppc64le, build-win64]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Download all bundles
+        uses: actions/download-artifact@v8
+        with:
+          pattern: bundle-*
+          merge-multiple: true
+
+      - name: Create GitHub Release with all bundles
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ needs.prepare.outputs.version }}
+          name: v${{ needs.prepare.outputs.version }}
+          body: ${{ needs.prepare.outputs.changelog }}
+          files: |
+            wekan-${{ needs.prepare.outputs.version }}-amd64.zip
+            wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+            wekan-${{ needs.prepare.outputs.version }}-s390x.zip
+            wekan-${{ needs.prepare.outputs.version }}-ppc64le.zip
+            wekan-${{ needs.prepare.outputs.version }}-win64.zip
+
+  # ─── 7. Build and push multi-platform Docker image ──────────────────────────
+  docker:
+    needs: [prepare, release]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Create Docker config with registry credentials
+        run: |
+          mkdir -p ~/.docker
+          cat > ~/.docker/config.json <<EOF
+          {
+            "auths": {
+              "ghcr.io": {
+                "auth": "${{ secrets.GHCR_AUTH }}"
+              },
+              "https://index.docker.io/v1/": {
+                "auth": "${{ secrets.DOCKERHUB_AUTH }}"
+              },
+              "quay.io": {
+                "auth": "${{ secrets.QUAY_AUTH }}"
+              }
+            }
+          }
+          EOF
+
+      - name: Create and use buildx builder
+        run: |
+          docker buildx create --name mybuilder --driver docker-container --use
+          docker buildx inspect --bootstrap
+
+      - name: Build and push Docker image to all registries
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm64,linux/s390x,linux/ppc64le \
+            -t wekanteam/wekan:v${VERSION} \
+            -t wekanteam/wekan:latest \
+            -t quay.io/wekan/wekan:v${VERSION} \
+            -t quay.io/wekan/wekan:latest \
+            -t ghcr.io/wekan/wekan:v${VERSION} \
+            -t ghcr.io/wekan/wekan:latest \
+            --push .
+
+  # ─── 8. Build and publish snap packages ──────────────────────────────────────
+  # Build snap with snapcraft pack (like releases/snap-build.sh) using LXD,
+  # then push to Snap Store edge channel (like releases/snap-push-to-store.sh).
+  # Promote to stable manually via the Snap Store dashboard when ready.
+  snap:
+    needs: [prepare, release]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
+
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Build snap
+        run: sudo snapcraft pack --destructive-mode
+
+      - name: Upload snap files as artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: snaps
+          path: "*.snap"
+          retention-days: 30
+
+      - name: Push all snaps to Snap Store edge channel
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+        run: |
+          for snap_file in *.snap; do
+            echo "Publishing $snap_file ..."
+            snapcraft upload --release=edge "$snap_file"
+          done
+
+      - name: Upload all snaps to GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ needs.prepare.outputs.version }}
+          files: "*.snap"
+
+  # ─── 9. Update Helm charts and deploy to GitHub Pages ─────────────────────────
+  # Chart source is in helm/wekan/, published packages + index.yaml in docs/wekan/.
+  # GitHub Pages deploys docs/wekan/ via Actions, serving at https://wekan.fi/wekan/
+  helm:
+    needs: [prepare, docker]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: refs/tags/v${{ inputs.new_version }}
+
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Update Chart.yaml and values.yaml with new version
+        run: |
+          CHART_PATH=docs/wekan
+          CHART_FILE=$CHART_PATH/Chart.yaml
+          VALUES_FILE=$CHART_PATH/values.yaml
+          CHARTS_DIR=docs/charts
+          INDEX_FILE=$CHARTS_DIR/index.yaml
+          VERSION=${VERSION}
+          # Update Chart.yaml (appVersion and version)
+          sed -i "s/^appVersion: .*/appVersion: \"$VERSION\"/" "$CHART_FILE"
+          sed -i "s/^version: .*/version: $VERSION.0/" "$CHART_FILE"
+          # Update values.yaml (image.tag)
+          sed -i "s/^  tag: v.*/  tag: v$VERSION/" "$VALUES_FILE"
+
+      - name: Build Helm dependencies
+        run: |
+          cd docs/wekan
+          helm repo add mongo https://groundhog2k.github.io/helm-charts/ || true
+          helm dependency update
+          helm dependency build
+
+      - name: Package chart to docs/charts and update index.yaml
+        run: |
+          CHART_PATH=docs/wekan
+          CHARTS_DIR=docs/charts
+          INDEX_FILE=$CHARTS_DIR/index.yaml
+          VERSION=${VERSION}
+          cd $CHARTS_DIR
+          helm package ../wekan -d .
+          ARCHIVE=wekan-$VERSION.0.tgz
+          SHA256=$(sha256sum "$ARCHIVE" | awk '{print $1}')
+          CREATED=$(TZ='Europe/Helsinki' date '+%Y-%m-%dT%H:%M:%S.000000000%:z')
+          if [ -f "$INDEX_FILE" ]; then
+            awk '/^- apiVersion: v2/{flag=1;print;next}/^- apiVersion: v2/{flag=0}flag' "$INDEX_FILE" | head -n 30 > /tmp/topentry.yaml
+            sed -i "s/appVersion: .*/appVersion: \"$VERSION\"/" /tmp/topentry.yaml
+            sed -i "s/created: .*/created: \"$CREATED\"/" /tmp/topentry.yaml
+            sed -i "s/digest: .*/digest: $SHA256/" /tmp/topentry.yaml
+            sed -i "s|urls:.*|urls:\n    - https://wekan.github.io/wekan/wekan-$VERSION.0.tgz|" /tmp/topentry.yaml
+            sed -i "s/version: .*/version: $VERSION.0/" /tmp/topentry.yaml
+            awk 'NR==1{print;system("cat /tmp/topentry.yaml");next} /^  - apiVersion: v2/ && !p{p=1;next} 1' "$INDEX_FILE" > /tmp/index.yaml
+            mv /tmp/index.yaml "$INDEX_FILE"
+            rm /tmp/topentry.yaml
+          else
+            echo "index.yaml not found, skipping index update."
+          fi
+
+      - name: Commit updated chart and index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/wekan/ docs/charts/
+          git commit -m "${VERSION}.0"
+          git push origin HEAD:refs/heads/main
+
+      - name: Upload docs/charts/ as Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs/charts/
+
+      - name: Commit updated chart
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/wekan/
+          git commit -m "${VERSION}.0"
+          git push origin HEAD:refs/heads/main
+
+      - name: Upload docs/wekan/ as Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs/wekan/
+
+  # ─── 10. Deploy Helm chart to GitHub Pages ───────────────────────────────────
+  deploy-pages:
+    needs: helm
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,17 +1,18 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import AccountSettings from '/models/accountSettings';
+import Users from '/models/users';
+import { Utils } from '/client/lib/utils';
 
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('setting');
-  },
-}).register('memberMenuPopup');
+Template.memberMenuPopup.onCreated(function () {
+  Meteor.subscribe('setting');
+});
 
 Template.memberMenuPopup.helpers({
   templatesBoardId() {
@@ -39,7 +40,7 @@ Template.memberMenuPopup.helpers({
   isSameDomainNameSettingValue(){
     const currSett = ReactiveCache.getCurrentSetting();
     if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
-      currentUser = ReactiveCache.getCurrentUser();
+      const currentUser = ReactiveCache.getCurrentUser();
       if (currentUser) {
         let found = false;
         for(let i = 0; i < currentUser.emails.length; i++) {
@@ -59,7 +60,8 @@ Template.memberMenuPopup.helpers({
   isNotOAuth2AuthenticationMethod(){
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      return currentUser.authenticationMethod.toLowerCase() != 'oauth2';
+      const method = (currentUser.authenticationMethod || '').toLowerCase();
+      return method !== 'oauth2';
     } else {
       return true;
     }
@@ -114,12 +116,6 @@ Template.memberMenuPopup.events({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('setting');
-  },
-}).register('editProfilePopup');
-
 Template.invitePeoplePopup.events({
   'click a.js-toggle-board-choose'(event){
     let target = $(event.target);
@@ -144,7 +140,7 @@ Template.invitePeoplePopup.events({
     });
     const validEmails = [];
     emails.forEach(email => {
-      if (email && SimpleSchema.RegEx.Email.test(email.trim())) {
+      if (email && /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email.trim())) {
         validEmails.push(email.trim());
       }
     });
@@ -168,33 +164,23 @@ Template.invitePeoplePopup.events({
   },
 });
 
+Template.editProfilePopup.onCreated(function() {
+  Meteor.subscribe('setting');
+  this.subscribe('accountSettings');
+});
+
 Template.editProfilePopup.helpers({
   allowEmailChange() {
-    Meteor.call('AccountSettings.allowEmailChange', (_, result) => {
-      if (result) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const setting = AccountSettings.findOne('accounts-allowEmailChange');
+    return setting && setting.booleanValue;
   },
   allowUserNameChange() {
-    Meteor.call('AccountSettings.allowUserNameChange', (_, result) => {
-      if (result) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const setting = AccountSettings.findOne('accounts-allowUserNameChange');
+    return setting && setting.booleanValue;
   },
   allowUserDelete() {
-    Meteor.call('AccountSettings.allowUserDelete', (_, result) => {
-      if (result) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const setting = AccountSettings.findOne('accounts-allowUserDelete');
+    return setting && setting.booleanValue;
   },
 });
 
@@ -379,7 +365,7 @@ Template.changeSettingsPopup.helpers({
     });
   },
   startDayOfWeek() {
-    currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return currentUser.getStartDayOfWeek();
     } else {

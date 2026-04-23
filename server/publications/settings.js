@@ -1,12 +1,27 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import Settings from '/models/settings';
+import Integrations from '/models/integrations';
 
-Meteor.publish('globalwebhooks', () => {
+Meteor.publish('globalwebhooks', async function() {
+  if (!this.userId) {
+    return this.ready();
+  }
+
+  const user = await ReactiveCache.getCurrentUser();
+  if (!user || !user.isAdmin) {
+    return this.ready();
+  }
+
   const boardId = Integrations.Const.GLOBAL_WEBHOOK_ID;
-  const ret = ReactiveCache.getIntegrations(
+  const ret = await ReactiveCache.getIntegrations(
     {
       boardId,
     },
-    {},
+    {
+      fields: {
+        token: 0,
+      },
+    },
     true,
   );
   return ret;
@@ -38,6 +53,13 @@ Meteor.publish('setting', () => {
         oidcBtnText: 1,
         mailDomainName: 1,
         legalNotice: 1,
+        customHeadEnabled: 1,
+        customHeadMetaTags: 1,
+        customHeadLinkTags: 1,
+        customManifestEnabled: 1,
+        customManifestContent: 1,
+        customAssetLinksEnabled: 1,
+        customAssetLinksContent: 1,
         accessibilityPageEnabled: 1,
         accessibilityTitle: 1,
         accessibilityContent: 1,
@@ -47,8 +69,8 @@ Meteor.publish('setting', () => {
   return ret;
 });
 
-Meteor.publish('mailServer', function() {
-  const user = ReactiveCache.getCurrentUser();
+Meteor.publish('mailServer', async function() {
+  const user = await ReactiveCache.getCurrentUser();
 
   let ret = []
   if (user && user.isAdmin) {

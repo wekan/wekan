@@ -1,5 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { findWhere } from '/imports/lib/collectionHelpers';
 import { TAPi18n } from '/imports/i18n';
+import Attachments from '/models/attachments';
+import { Utils } from '/client/lib/utils';
+import autosize from 'autosize';
 var converter = require('@wekanteam/html-to-markdown');
 
 const specialHandles = [
@@ -19,8 +23,8 @@ const boardSpecialHandles = [
 const specialHandleNames = specialHandles.map(m => m.username);
 
 
-BlazeComponent.extendComponent({
-  onRendered() {
+Template.editor.onRendered(function () {
+    const tpl = this;
     // Start: Copy <pre> code https://github.com/wekan/wekan/issues/5149
     // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
     //       - Also this same TODO below at event, if someone gets it working.
@@ -66,7 +70,7 @@ BlazeComponent.extendComponent({
             })
             .filter(Boolean);
           // Order: 1. Users, 2. Card-specific options, 3. Board-wide options
-          callback(_.union(users, cardSpecialHandles, boardSpecialHandles));
+          callback([...new Set([...users, ...cardSpecialHandles, ...boardSpecialHandles])]);
         },
         template(user) {
           if (user.profile && user.profile.fullname) {
@@ -89,7 +93,7 @@ BlazeComponent.extendComponent({
     ];
 
     const enableTextarea = function() {
-      const $textarea = this.$(textareaSelector);
+      const $textarea = tpl.$(textareaSelector);
       autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
@@ -206,11 +210,11 @@ BlazeComponent.extendComponent({
                   const currentCard = Utils.getCurrentCard();
                   const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
                   const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
-                  const processUpload = function(file) {
-                    const uploader = Attachments.insert(
+                  const processUpload = async function(file) {
+                    const uploader = await Attachments.insertAsync(
                       {
                         file,
-                        meta: Utils.getCommonAttachmentMetaFrom(card),
+                        meta: Utils.getCommonAttachmentMetaFrom(currentCard),
                         chunkSize: 'dynamic',
                       },
                       false,
@@ -314,29 +318,25 @@ BlazeComponent.extendComponent({
       enableTextarea();
     }
     enableTextarea();
-  },
-  events() {
-    return [
-      {
-        'click a.fa.fa-copy'(event) {
-          const $editor = this.$('textarea.editor');
-          const promise = Utils.copyTextToClipboard($editor[0].value);
+});
 
-          const $tooltip = this.$('.copied-tooltip');
-          Utils.showCopied(promise, $tooltip);
-        },
-        'click a.fa.fa-brands.fa-markdown'(event) {
-          const $editor = this.$('textarea.editor');
-          $editor[0].value = converter.convert($editor[0].value);
-        },
-        // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
-        //'click .js-close-inlined-form'(event) {
-        //  Utils.copyPre();
-        //},
-      }
-    ]
-  }
-}).register('editor');
+Template.editor.events({
+    'click a.fa.fa-copy'(event, tpl) {
+      const $editor = tpl.$('textarea.editor');
+      const promise = Utils.copyTextToClipboard($editor[0].value);
+
+      const $tooltip = tpl.$('.copied-tooltip');
+      Utils.showCopied(promise, $tooltip);
+    },
+    'click a.fa.fa-brands.fa-markdown'(event, tpl) {
+      const $editor = tpl.$('textarea.editor');
+      $editor[0].value = converter.convert($editor[0].value);
+    },
+    // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
+    //'click .js-close-inlined-form'(event) {
+    //  Utils.copyPre();
+    //},
+});
 
 import DOMPurify from 'dompurify';
 import { sanitizeHTML } from '/imports/lib/secureDOMPurify';
@@ -387,20 +387,22 @@ Blaze.Template.registerHelper(
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
       return HTML.Raw(sanitizeHTML(content));
-    const knowedUsers = _.union(currentBoard.members.map(member => {
-      const u = ReactiveCache.getUser(member.userId);
-      if (u) {
-        member.username = u.username;
-      }
-      return member;
-    }), [...specialHandles]);
+    const knowedUsers = [...new Set([...currentBoard.members
+      .filter(member => member.isActive)
+      .map(member => {
+        const u = ReactiveCache.getUser(member.userId);
+        if (u) {
+          member.username = u.username;
+        }
+        return member;
+      }), ...specialHandles])];
     const mentionRegex = /\B@([\w.-]*)/gi;
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
       const [fullMention, quoteduser, simple] = currentMention;
       const username = quoteduser || simple;
-      const knowedUser = _.findWhere(knowedUsers, { username });
+      const knowedUser = findWhere(knowedUsers, { username });
       if (!knowedUser) {
         continue;
       }
@@ -410,14 +412,14 @@ Blaze.Template.registerHelper(
       if (knowedUser.userId === Meteor.userId()) {
         linkClass += ' me';
       }
-      
+
       // For special group mentions, display translated text
       let displayText = knowedUser.username;
       if (specialHandleNames.includes(knowedUser.username)) {
         displayText = TAPi18n.__(knowedUser.username);
         linkClass = 'atMention'; // Remove js-open-member for special handles
       }
-      
+
       // This @user mention link generation did open same Wekan
       // window in new tab, so now A is changed to U so it's
       // underlined and there is no link popup. This way also

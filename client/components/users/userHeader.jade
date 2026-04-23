@@ -188,7 +188,8 @@ template(name="changeSettingsPopup")
         i.fa.fa-arrows
         | {{_ 'show-desktop-drag-handles'}}
         if isShowDesktopDragHandles
-          i.fa.fa-check    unless currentUser.isWorker
+          i.fa.fa-check
+    unless currentUser.isWorker
       li
         label.bold.clear
           i.fa.fa-sort-numeric-asc

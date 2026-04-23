@@ -1,57 +1,51 @@
-[FullCalendar](http://fullcalendar.io/) JQuery plugin packaged for Meteor 1.0
+[FullCalendar](https://fullcalendar.io/) packaged for Wekan as a Blaze wrapper.
 
-### Instalation ###
+### Installation
 
-    meteor add rzymek:fullcalendar
+This package is bundled in Wekan (`wekan-fullcalendar`).
 
-### Usage ###
+### Usage
 
-    {{> fullcalendar }}
+```handlebars
+{{> fullcalendar calendarOptions}}
+```
 
-Options to FullCalendar can be passed as attributes:
+Options can be passed directly from a helper:
 
-    {{> fullcalendar defaultView='agendaWeek'}}
-    
-If you want to have options defined in JS (or have them reactive), you can do:
+```js
+Template.example.helpers({
+  calendarOptions() {
+    return {
+      id: 'myCalendar',
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'title today prev,next',
+        center: 'timeGridDay,timeGridWeek,dayGridMonth,listMonth',
+        right: '',
+      },
+      events(fetchInfo, successCallback) {
+        successCallback([]);
+      },
+    };
+  },
+});
+```
 
-    <template name="example">
-        {{>fullcalendar options}}
-    </template>
+### Compatibility notes
 
-    Template.example.helpers({
-        options: function() {
-            return {
-                defaultView: 'basicWeek'
-            };
-        }
-    });
+- Uses FullCalendar v5 modules (`@fullcalendar/*`) and no longer uses jQuery plugin APIs.
+- Legacy options are mapped for compatibility:
+  - `defaultView` -> `initialView`
+  - `header` -> `headerToolbar`
 
-To access the `.fullcalendar` method assign an `id` or a `class` first
+### Refetching events
 
-    {{> fullcalendar id="myCalendar" ...}}
+If you provide an `id`, the wrapper stores the calendar instance on the container
+element as `_wekanCalendar`:
 
-Then you can for example do
-
-    $('#myCalendar').fullCalendar('refetchEvents');
-
-### Updating fullcalendar ###
-
-To update fullcalendar version run
-
-    ./update.sh
-This will update to the newest fullcalendar's tag.
-To update to a specific version do
-
-    ./update.sh 2.2.6
-
-If you want me to publish a new package version just [create an issue](https://github.com/rzymek/meteor-fullcalendar/issues/new).
-In case you can't wait to use a new fullcalendar version in your project, you can update the package locally:
-
-    cd your_meteor_project
-    mkdir -p packages
-    git clone https://github.com/rzymek/meteor-fullcalendar packages/rzymek:fullcalendar
-    ./packages/rzymek:fullcalendar/update.sh
-
-After the desired version gets published just remove the local package:
-
-    rm -r packages/rzymek:fullcalendar
+```js
+const el = document.getElementById('myCalendar');
+if (el && el._wekanCalendar) {
+  el._wekanCalendar.refetchEvents();
+}
+```

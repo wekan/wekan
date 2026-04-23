@@ -124,19 +124,24 @@ jobs:
           restore-keys: |
             v1-meteor_build_cache-
 
-      - name: Setup meteor
-        uses: meteorengineer/setup-meteor@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          meteor-release: '2.2'
+          node-version: '24.15.0'
+
+      - name: Setup meteor
+        uses: meteorengineer/setup-meteor@v3
+        with:
+          meteor-release: '3.5-beta.7'
 
       - name: Install NPM Dependencies
-        run: meteor npm ci
+        run: meteor npm install
 
       - name: Run Tests
         run: sh ./test-wekan.sh -cv
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-folder
           path: .coverage/
@@ -150,7 +155,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Download coverage
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: coverage-folder
           path: .coverage/

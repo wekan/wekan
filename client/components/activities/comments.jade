@@ -32,7 +32,7 @@ template(name="comment")
           +viewer
             = text
         +commentReactions(reactions=reactions commentId=_id)
-        span(title=createdAt).comment-meta {{ moment createdAt }}
+        span(title=createdAt).comment-meta {{ displayDate createdAt }}
           if($eq currentUser._id userId)
             +editOrDeleteComment
           else if currentUser.isBoardAdmin

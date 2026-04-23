@@ -1,5 +1,18 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Cards from '/models/cards';
+import { Filter } from '/client/lib/filter';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { Utils } from '/client/lib/utils';
+
+// Late-bind Sidebar to avoid circular dependency (sidebar.js needs its template first)
+let _Sidebar;
+function getSidebar() {
+  if (!_Sidebar) _Sidebar = require('/client/features/sidebar/service').getSidebarInstance;
+  return _Sidebar();
+}
 const hotkeys = require('hotkeys-js').default;
 
 // XXX There is no reason to define these shortcuts globally, they should be
@@ -74,10 +87,10 @@ hotkeys('?', (event) => {
 
 hotkeys('w', (event) => {
   event.preventDefault();
-  if (Sidebar.isOpen() && Sidebar.getView() === 'home') {
-    Sidebar.toggle();
+  if (getSidebar().isOpen() && getSidebar().getView() === 'home') {
+    getSidebar().toggle();
   } else {
-    Sidebar.setView();
+    getSidebar().setView();
   }
 });
 
@@ -108,19 +121,19 @@ hotkeys('x', (event) => {
 
 hotkeys('f', (event) => {
   event.preventDefault();
-  if (Sidebar.isOpen() && Sidebar.getView() === 'filter') {
-    Sidebar.toggle();
+  if (getSidebar().isOpen() && getSidebar().getView() === 'filter') {
+    getSidebar().toggle();
   } else {
-    Sidebar.setView('filter');
+    getSidebar().setView('filter');
   }
 });
 
 hotkeys('/', (event) => {
   event.preventDefault();
-  if (Sidebar.isOpen() && Sidebar.getView() === 'search') {
-    Sidebar.toggle();
+  if (getSidebar().isOpen() && getSidebar().getView() === 'search') {
+    getSidebar().toggle();
   } else {
-    Sidebar.setView('search');
+    getSidebar().setView('search');
   }
 });
 
@@ -141,7 +154,7 @@ hotkeys('down,up', (event, handler) => {
 });
 
 // Shift + number keys to remove labels in multiselect
-const shiftNums = _.range(1, 10).map(x => `shift+${x}`).join(',');
+const shiftNums = Array.from({length: 9}, (_, i) => `shift+${i + 1}`).join(',');
 hotkeys(shiftNums, (event, handler) => {
   event.preventDefault();
   const num = parseInt(handler.key.split('+')[1]);
@@ -164,7 +177,7 @@ hotkeys(shiftNums, (event, handler) => {
 });
 
 // Number keys to toggle labels
-const nums = _.range(1, 10).join(',');
+const nums = Array.from({length: 9}, (_, i) => i + 1).join(',');
 hotkeys(nums, (event, handler) => {
   event.preventDefault();
   const num = parseInt(handler.key);
@@ -199,7 +212,7 @@ hotkeys(nums, (event, handler) => {
 });
 
 // Ctrl+Alt + number keys to toggle assignees
-const ctrlAltNums = _.range(1, 10).map(x => `ctrl+alt+${x}`).join(',');
+const ctrlAltNums = Array.from({length: 9}, (_, i) => `ctrl+alt+${i + 1}`).join(',');
 hotkeys(ctrlAltNums, (event, handler) => {
   event.preventDefault();
   // Make sure the current user is defined

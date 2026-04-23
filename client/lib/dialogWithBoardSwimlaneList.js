@@ -1,38 +1,54 @@
+import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { Utils } from '/client/lib/utils';
 
-export class DialogWithBoardSwimlaneList extends BlazeComponent {
-  /** returns the card dialog options
-   * @return Object with properties { boardId, swimlaneId, listId }
+/**
+ * Helper class for popup dialogs that let users select a board, swimlane, and list.
+ * Not a BlazeComponent — instantiated by each Template's onCreated callback.
+ */
+export class BoardSwimlaneListDialog {
+  /**
+   * @param {Blaze.TemplateInstance} tpl - the template instance
+   * @param {Object} callbacks
+   * @param {Function} callbacks.getDialogOptions - returns saved options from card/user
+   * @param {Function} callbacks.setDone - performs the action (boardId, swimlaneId, listId, options)
+   * @param {Function} [callbacks.getDefaultOption] - override default option shape
    */
-  getDialogOptions() {
-  }
-
-  /** list is done
-   * @param listId the selected list id
-   * @param options the selected options (Object with properties { boardId, swimlaneId, listId })
-   */
-  setDone(listId, options) {
-  }
-
-  /** get the default options
-   * @return the options
-   */
-  getDefaultOption(boardId) {
-    const ret = {
-      'boardId' : "",
-      'swimlaneId' : "",
-      'listId' : "",
+  constructor(tpl, callbacks = {}) {
+    this.tpl = tpl;
+    this._getDialogOptions = callbacks.getDialogOptions || (() => undefined);
+    this._setDone = callbacks.setDone || (() => {});
+    if (callbacks.getDefaultOption) {
+      this.getDefaultOption = callbacks.getDefaultOption;
     }
-    return ret;
-  }
 
-  onCreated() {
     this.currentBoardId = Utils.getCurrentBoardId();
     this.selectedBoardId = new ReactiveVar(this.currentBoardId);
     this.selectedSwimlaneId = new ReactiveVar('');
     this.selectedListId = new ReactiveVar('');
     this.setOption(this.currentBoardId);
+  }
+
+  /** get the default options
+   * @return the options
+   */
+  getDefaultOption() {
+    return {
+      boardId: '',
+      swimlaneId: '',
+      listId: '',
+    };
+  }
+
+  /** returns the card dialog options (delegates to callback) */
+  getDialogOptions() {
+    return this._getDialogOptions();
+  }
+
+  /** performs the done action (delegates to callback) */
+  async setDone(...args) {
+    return this._setDone(...args);
   }
 
   /** set the last confirmed dialog field values
@@ -41,27 +57,40 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   setOption(boardId) {
     this.cardOption = this.getDefaultOption();
 
-    let currentOptions = this.getDialogOptions();
+    const currentOptions = this.getDialogOptions();
     if (currentOptions && boardId && currentOptions[boardId]) {
       this.cardOption = currentOptions[boardId];
-      if (this.cardOption.boardId &&
-          this.cardOption.swimlaneId &&
-          this.cardOption.listId
-      )
-      {
-        this.selectedBoardId.set(this.cardOption.boardId)
+      if (
+        this.cardOption.boardId &&
+        this.cardOption.swimlaneId &&
+        this.cardOption.listId
+      ) {
+        this.selectedBoardId.set(this.cardOption.boardId);
         this.selectedSwimlaneId.set(this.cardOption.swimlaneId);
         this.selectedListId.set(this.cardOption.listId);
       }
     }
     this.getBoardData(this.selectedBoardId.get());
-    if (!this.selectedSwimlaneId.get() || !ReactiveCache.getSwimlane({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
+    if (
+      !this.selectedSwimlaneId.get() ||
+      !ReactiveCache.getSwimlane({
+        _id: this.selectedSwimlaneId.get(),
+        boardId: this.selectedBoardId.get(),
+      })
+    ) {
       this.setFirstSwimlaneId();
     }
-    if (!this.selectedListId.get() || !ReactiveCache.getList({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
+    if (
+      !this.selectedListId.get() ||
+      !ReactiveCache.getList({
+        _id: this.selectedListId.get(),
+        boardId: this.selectedBoardId.get(),
+      })
+    ) {
       this.setFirstListId();
     }
   }
+
   /** sets the first swimlane id */
   setFirstSwimlaneId() {
     try {
@@ -70,45 +99,60 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
   }
+
   /** sets the first list id */
   setFirstListId() {
     try {
-      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const listId = board.lists()[0]._id;
+      const boardId = this.selectedBoardId.get();
+      const swimlaneId = this.selectedSwimlaneId.get();
+      const lists = this.getListsForBoardSwimlane(boardId, swimlaneId);
+      const listId = lists[0] ? lists[0]._id : '';
       this.selectedListId.set(listId);
     } catch (e) {}
   }
 
-  /** returns if the board id was the last confirmed one
-   * @param boardId check this board id
-   * @return if the board id was the last confirmed one
-   */
+  /** get lists filtered by board and swimlane */
+  getListsForBoardSwimlane(boardId, swimlaneId) {
+    if (!boardId) return [];
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board) return [];
+
+    const selector = {
+      boardId,
+      archived: false,
+    };
+
+    if (swimlaneId) {
+      const defaultSwimlane =
+        board.getDefaultSwimline && board.getDefaultSwimline();
+      if (defaultSwimlane && defaultSwimlane._id === swimlaneId) {
+        selector.swimlaneId = { $in: [swimlaneId, null, ''] };
+      } else {
+        selector.swimlaneId = swimlaneId;
+      }
+    }
+
+    return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
+  }
+
+  /** returns if the board id was the last confirmed one */
   isDialogOptionBoardId(boardId) {
-    let ret = this.cardOption.boardId == boardId;
-    return ret;
+    return this.cardOption.boardId == boardId;
   }
 
-  /** returns if the swimlane id was the last confirmed one
-   * @param swimlaneId check this swimlane id
-   * @return if the swimlane id was the last confirmed one
-   */
+  /** returns if the swimlane id was the last confirmed one */
   isDialogOptionSwimlaneId(swimlaneId) {
-    let ret = this.cardOption.swimlaneId == swimlaneId;
-    return ret;
+    return this.cardOption.swimlaneId == swimlaneId;
   }
 
-  /** returns if the list id was the last confirmed one
-   * @param listId check this list id
-   * @return if the list id was the last confirmed one
-   */
+  /** returns if the list id was the last confirmed one */
   isDialogOptionListId(listId) {
-    let ret = this.cardOption.listId == listId;
-    return ret;
+    return this.cardOption.listId == listId;
   }
 
-  /** returns all available board */
+  /** returns all available boards */
   boards() {
-    const ret = ReactiveCache.getBoards(
+    return ReactiveCache.getBoards(
       {
         archived: false,
         'members.userId': Meteor.userId(),
@@ -118,53 +162,46 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
         sort: { sort: 1 },
       },
     );
-    return ret;
   }
 
   /** returns all available swimlanes of the current board */
   swimlanes() {
     const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-    const ret = board.swimlanes();
-    return ret;
+    return board.swimlanes();
   }
 
   /** returns all available lists of the current board */
   lists() {
-    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-    const ret = board.lists();
-    return ret;
+    return this.getListsForBoardSwimlane(
+      this.selectedBoardId.get(),
+      this.selectedSwimlaneId.get(),
+    );
   }
 
-  /** Fix swimlane title translation issue for "Default" swimlane
-   * @param title the swimlane title
-   * @return the properly translated title
-   */
+  /** Fix swimlane title translation issue for "Default" swimlane */
   isTitleDefault(title) {
-    // https://github.com/wekan/wekan/issues/4763
-    // https://github.com/wekan/wekan/issues/4742
-    // Translation text for "default" does not work, it returns an object.
-    // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
-    // This can happen, if swimlane does not have name.
-    // Yes, this is fixing the symptom (Swimlane title does not have title)
-    // instead of fixing the problem (Add Swimlane title when creating swimlane)
-    // because there could be thousands of swimlanes, adding name Default to all of them
-    // would be very slow.
-    if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
-      if (`${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") && `${TAPi18n.__('defaultdefault')}`.endsWith('returned an object instead of string.')) {
+    if (
+      title.startsWith("key 'default") &&
+      title.endsWith('returned an object instead of string.')
+    ) {
+      if (
+        `${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") &&
+        `${TAPi18n.__('defaultdefault')}`.endsWith(
+          'returned an object instead of string.',
+        )
+      ) {
         return 'Default';
-      } else  {
+      } else {
         return `${TAPi18n.__('defaultdefault')}`;
       }
     } else if (title === 'Default') {
       return `${TAPi18n.__('defaultdefault')}`;
-    } else  {
+    } else {
       return title;
     }
   }
 
-  /** get the board data from the server
-   * @param boardId get the board data of this board id
-   */
+  /** get the board data from the server */
   getBoardData(boardId) {
     const self = this;
     Meteor.subscribe('board', boardId, false, {
@@ -173,46 +210,11 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
         self.selectedBoardId.set(boardId);
 
         if (!sameBoardId) {
-          // reset swimlane id (for selection in cards())
           self.setFirstSwimlaneId();
-
-          // reset list id (for selection in cards())
           self.setFirstListId();
         }
       },
     });
   }
 
-  events() {
-    return [
-      {
-        'click .js-done'() {
-          const boardSelect = this.$('.js-select-boards')[0];
-          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
-
-          const listSelect = this.$('.js-select-lists')[0];
-          const listId = listSelect.options[listSelect.selectedIndex].value;
-
-          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
-          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
-
-          const options = {
-            'boardId' : boardId,
-            'swimlaneId' : swimlaneId,
-            'listId' : listId,
-          }
-          this.setDone(boardId, swimlaneId, listId, options);
-          Popup.back(2);
-        },
-        'change .js-select-boards'(event) {
-          const boardId = $(event.currentTarget).val();
-          this.getBoardData(boardId);
-        },
-        'change .js-select-swimlanes'(event) {
-          this.selectedSwimlaneId.set($(event.currentTarget).val());
-        },
-      },
-    ];
-  }
 }
-

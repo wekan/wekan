@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
 import { CsvCreator } from './csvCreator';
@@ -5,7 +6,7 @@ import { Exporter } from './exporter';
 import { getMembersToMap } from './wekanmapper';
 
 Meteor.methods({
-  importBoard(board, data, importSource, currentBoard) {
+  async importBoard(board, data, importSource, currentBoard) {
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
@@ -32,16 +33,16 @@ Meteor.methods({
     // authorized) nothing to check, everyone can import boards in their account
 
     // 3. create all elements
-    return creator.create(board, currentBoard);
+    return await creator.create(board, currentBoard);
   },
 });
 
 Meteor.methods({
-  cloneBoard(sourceBoardId, currentBoardId) {
+  async cloneBoard(sourceBoardId, currentBoardId) {
     check(sourceBoardId, String);
     check(currentBoardId, Match.Maybe(String));
     const exporter = new Exporter(sourceBoardId);
-    const data = exporter.build();
+    const data = await exporter.build();
     const additionalData = {};
 
     //get the members to map
@@ -61,6 +62,6 @@ Meteor.methods({
     const creator = new WekanCreator(additionalData);
     //data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
     data.title = `${data.title}`;
-    return creator.create(data, currentBoardId);
+    return await creator.create(data, currentBoardId);
   },
 });

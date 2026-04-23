@@ -1,5 +1,18 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { CustomFields } from './customFields';
+import Actions from '/models/actions';
+import Activities from '/models/activities';
+import Attachments from '/models/attachments';
+import Boards from '/models/boards';
+import CardComments from '/models/cardComments';
+import Cards from '/models/cards';
+import ChecklistItems from '/models/checklistItems';
+import Checklists from '/models/checklists';
+import CustomFields from './customFields';
+import Lists from '/models/lists';
+import Rules from '/models/rules';
+import Swimlanes from '/models/swimlanes';
+import Triggers from '/models/triggers';
 import {
   formatDateTime,
   formatDate,
@@ -21,6 +34,7 @@ import {
   calendar
 } from '/imports/lib/dateUtils';
 import getSlug from 'limax';
+import { validateAttachmentUrl } from './lib/attachmentUrlValidation';
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
@@ -244,14 +258,14 @@ export class WekanCreator {
     ]);
   }
 
-  getMembersToMap(data) {
+  async getMembersToMap(data) {
     // we will work on the list itself (an ordered array of objects) when a
     // mapping is done, we add a 'wekan' field to the object representing the
     // imported member
     const membersToMap = data.members;
     const users = data.users;
     // auto-map based on username
-    membersToMap.forEach(importedMember => {
+    for (const importedMember of membersToMap) {
       importedMember.id = importedMember.userId;
       delete importedMember.userId;
       const user = users.filter(user => {
@@ -261,11 +275,11 @@ export class WekanCreator {
         importedMember.fullName = user.profile.fullname;
       }
       importedMember.username = user.username;
-      const wekanUser = ReactiveCache.getUser({ username: importedMember.username });
+      const wekanUser = await ReactiveCache.getUser({ username: importedMember.username });
       if (wekanUser) {
         importedMember.wekanId = wekanUser._id;
       }
-    });
+    }
     return membersToMap;
   }
 
@@ -280,7 +294,7 @@ export class WekanCreator {
   }
 
   // You must call parseActions before calling this one.
-  createBoardAndLabels(boardToImport) {
+  async createBoardAndLabels(boardToImport) {
     const boardToCreate = {
       archived: boardToImport.archived,
       color: boardToImport.color,
@@ -304,7 +318,7 @@ export class WekanCreator {
       permission: boardToImport.permission,
       slug: getSlug(boardToImport.title) || 'board',
       stars: 0,
-      title: Boards.uniqueTitle(boardToImport.title),
+      title: await Boards.uniqueTitle(boardToImport.title),
     };
     // now add other members
     if (boardToImport.members) {
@@ -337,14 +351,14 @@ export class WekanCreator {
       });
     }
 
-    const boardId = Boards.direct.insert(boardToCreate);
-    Boards.direct.update(boardId, {
+    const boardId = await Boards.direct.insertAsync(boardToCreate);
+    await Boards.direct.updateAsync(boardId, {
       $set: {
         modifiedAt: this._now(),
       },
     });
     // log activity
-    Activities.direct.insert({
+    await Activities.direct.insertAsync({
       activityType: 'importBoard',
       boardId,
       createdAt: this._now(),
@@ -366,9 +380,9 @@ export class WekanCreator {
    * @param boardId
    * @returns {Array}
    */
-  createCards(wekanCards, boardId) {
+  async createCards(wekanCards, boardId) {
     const result = [];
-    wekanCards.forEach(card => {
+    for (const card of wekanCards) {
       const cardToCreate = {
         archived: card.archived,
         boardId,
@@ -447,7 +461,7 @@ export class WekanCreator {
       }
 
       // insert card
-      const cardId = Cards.direct.insert(cardToCreate);
+      const cardId = await Cards.direct.insertAsync(cardToCreate);
       // keep track of Wekan id => Wekan id
       this.cards[card._id] = cardId;
       // // log activity
@@ -468,7 +482,7 @@ export class WekanCreator {
       // add comments
       const comments = this.comments[card._id];
       if (comments) {
-        comments.forEach(comment => {
+        for (const comment of comments) {
           const commentToCreate = {
             boardId,
             cardId,
@@ -479,7 +493,7 @@ export class WekanCreator {
           };
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
-          const commentId = CardComments.direct.insert(commentToCreate);
+          const commentId = await CardComments.direct.insertAsync(commentToCreate);
           this.commentIds[comment._id] = commentId;
           // Activities.direct.insert({
           //   activityType: 'addComment',
@@ -491,12 +505,12 @@ export class WekanCreator {
           //   // to the original author - it is needed by some UI elements.
           //   userId: commentToCreate.userId,
           // });
-        });
+        }
       }
       const attachments = this.attachments[card._id];
       const wekanCoverId = card.coverId;
       if (attachments && Meteor.isServer) {
-        attachments.forEach(att => {
+        for (const att of attachments) {
           const self = this;
           const opts = {
             type: att.type ? att.type : undefined,
@@ -507,26 +521,37 @@ export class WekanCreator {
               source: 'import',
             },
           };
-          const cb = (error, fileObj) => {
+          const cb = async (error, fileObj) => {
             if (error) {
               throw error;
             }
             self.attachmentIds[att._id] = fileObj._id;
             if (wekanCoverId === att._id) {
-              Cards.direct.update(cardId, {
+              await Cards.direct.updateAsync(cardId, {
                 $set: { coverId: fileObj._id },
               });
             }
           };
           if (att.url) {
+            const validation = await validateAttachmentUrl(att.url);
+            if (!validation.valid) {
+              if (process.env.DEBUG === 'true') {
+                console.warn(
+                  'Blocked attachment URL during Wekan import:',
+                  validation.reason,
+                  att.url,
+                );
+              }
+              return;
+            }
             Attachments.load(att.url, opts, cb, true);
           } else if (att.file) {
             Attachments.insert(att.file, opts, cb, true);
           }
-        });
+        }
       }
       result.push(cardId);
-    });
+    }
     return result;
   }
 
@@ -536,8 +561,8 @@ export class WekanCreator {
    * @param wekanCustomFields
    * @param boardId
    */
-  createCustomFields(wekanCustomFields, boardId) {
-    wekanCustomFields.forEach((field, fieldIndex) => {
+  async createCustomFields(wekanCustomFields, boardId) {
+    for (const field of wekanCustomFields) {
       const fieldToCreate = {
         boardIds: [boardId],
         name: field.name,
@@ -552,16 +577,16 @@ export class WekanCreator {
         modifiedAt: field.modifiedAt,
       };
       //insert copy of custom field
-      const fieldId = CustomFields.direct.insert(fieldToCreate);
+      const fieldId = await CustomFields.direct.insertAsync(fieldToCreate);
       //set modified date to now
-      CustomFields.direct.update(fieldId, {
+      await CustomFields.direct.updateAsync(fieldId, {
         $set: {
           modifiedAt: this._now(),
         },
       });
       //store mapping of old id to new id
       this.customFields[field._id] = fieldId;
-    });
+    }
   }
 
   // Create labels if they do not exist and load this.labels.
@@ -579,8 +604,8 @@ export class WekanCreator {
     });
   }
 
-  createLists(wekanLists, boardId) {
-    wekanLists.forEach((list, listIndex) => {
+  async createLists(wekanLists, boardId) {
+    for (const [listIndex, list] of wekanLists.entries()) {
       const listToCreate = {
         archived: list.archived,
         boardId,
@@ -592,8 +617,8 @@ export class WekanCreator {
         title: list.title,
         sort: list.sort ? list.sort : listIndex,
       };
-      const listId = Lists.direct.insert(listToCreate);
-      Lists.direct.update(listId, {
+      const listId = await Lists.direct.insertAsync(listToCreate);
+      await Lists.direct.updateAsync(listId, {
         $set: {
           updatedAt: this._now(),
         },
@@ -613,10 +638,10 @@ export class WekanCreator {
       //   // not the creator of the original object
       //   userId: this._user(),
       // });
-    });
+    }
   }
 
-  createSwimlanes(wekanSwimlanes, boardId) {
+  async createSwimlanes(wekanSwimlanes, boardId) {
     // If no swimlanes provided, create a default so cards still render
     if (!wekanSwimlanes || wekanSwimlanes.length === 0) {
       const swimlaneToCreate = {
@@ -626,8 +651,8 @@ export class WekanCreator {
         title: 'Default',
         sort: 0,
       };
-      const created = Swimlanes.direct.insert(swimlaneToCreate);
-      Swimlanes.direct.update(created, {
+      const created = await Swimlanes.direct.insertAsync(swimlaneToCreate);
+      await Swimlanes.direct.updateAsync(created, {
         $set: {
           updatedAt: this._now(),
         },
@@ -636,7 +661,7 @@ export class WekanCreator {
       return;
     }
 
-    wekanSwimlanes.forEach((swimlane, swimlaneIndex) => {
+    for (const [swimlaneIndex, swimlane] of wekanSwimlanes.entries()) {
       const swimlaneToCreate = {
         archived: swimlane.archived,
         boardId,
@@ -652,8 +677,8 @@ export class WekanCreator {
       if (swimlane.color) {
         swimlaneToCreate.color = swimlane.color;
       }
-      const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
-      Swimlanes.direct.update(swimlaneId, {
+      const swimlaneId = await Swimlanes.direct.insertAsync(swimlaneToCreate);
+      await Swimlanes.direct.updateAsync(swimlaneId, {
         $set: {
           updatedAt: this._now(),
         },
@@ -662,11 +687,11 @@ export class WekanCreator {
       if (!this._defaultSwimlaneId) {
         this._defaultSwimlaneId = swimlaneId;
       }
-    });
+    }
   }
 
-  createSubtasks(wekanCards) {
-    wekanCards.forEach(card => {
+  async createSubtasks(wekanCards) {
+    for (const card of wekanCards) {
       // get new id of card (in created / new board)
       const cardIdInNewBoard = this.cards[card._id];
 
@@ -683,20 +708,20 @@ export class WekanCreator {
         : card.parentId;
 
       //if the parent card exists, proceed
-      if (ReactiveCache.getCard(parentIdInNewBoard)) {
+      if (await ReactiveCache.getCard(parentIdInNewBoard)) {
         //set parent id of the card in the new board to the new id of the parent
-        Cards.direct.update(cardIdInNewBoard, {
+        await Cards.direct.updateAsync(cardIdInNewBoard, {
           $set: {
             parentId: parentIdInNewBoard,
           },
         });
       }
-    });
+    }
   }
 
-  createChecklists(wekanChecklists) {
+  async createChecklists(wekanChecklists) {
     const result = [];
-    wekanChecklists.forEach((checklist, checklistIndex) => {
+    for (const [checklistIndex, checklist] of wekanChecklists.entries()) {
       // Create the checklist
       const checklistToCreate = {
         cardId: this.cards[checklist.cardId],
@@ -704,15 +729,15 @@ export class WekanCreator {
         createdAt: checklist.createdAt,
         sort: checklist.sort ? checklist.sort : checklistIndex,
       };
-      const checklistId = Checklists.direct.insert(checklistToCreate);
+      const checklistId = await Checklists.direct.insertAsync(checklistToCreate);
       this.checklists[checklist._id] = checklistId;
       result.push(checklistId);
-    });
+    }
     return result;
   }
 
-  createTriggers(wekanTriggers, boardId) {
-    wekanTriggers.forEach(trigger => {
+  async createTriggers(wekanTriggers, boardId) {
+    for (const trigger of wekanTriggers) {
       if (trigger.hasOwnProperty('labelId')) {
         trigger.labelId = this.labels[trigger.labelId];
       }
@@ -722,12 +747,12 @@ export class WekanCreator {
       trigger.boardId = boardId;
       const oldId = trigger._id;
       delete trigger._id;
-      this.triggers[oldId] = Triggers.direct.insert(trigger);
-    });
+      this.triggers[oldId] = await Triggers.direct.insertAsync(trigger);
+    }
   }
 
-  createActions(wekanActions, boardId) {
-    wekanActions.forEach(action => {
+  async createActions(wekanActions, boardId) {
+    for (const action of wekanActions) {
       if (action.hasOwnProperty('labelId')) {
         action.labelId = this.labels[action.labelId];
       }
@@ -737,23 +762,23 @@ export class WekanCreator {
       action.boardId = boardId;
       const oldId = action._id;
       delete action._id;
-      this.actions[oldId] = Actions.direct.insert(action);
-    });
+      this.actions[oldId] = await Actions.direct.insertAsync(action);
+    }
   }
 
-  createRules(wekanRules, boardId) {
-    wekanRules.forEach(rule => {
+  async createRules(wekanRules, boardId) {
+    for (const rule of wekanRules) {
       // Create the rule
       rule.boardId = boardId;
       rule.triggerId = this.triggers[rule.triggerId];
       rule.actionId = this.actions[rule.actionId];
       delete rule._id;
-      Rules.direct.insert(rule);
-    });
+      await Rules.direct.insertAsync(rule);
+    }
   }
 
-  createChecklistItems(wekanChecklistItems) {
-    wekanChecklistItems.forEach((checklistitem, checklistitemIndex) => {
+  async createChecklistItems(wekanChecklistItems) {
+    for (const [checklistitemIndex, checklistitem] of wekanChecklistItems.entries()) {
       //Check if the checklist for this item (still) exists
       //If a checklist was deleted, but items remain, the import would error out here
       //Leading to no further checklist items being imported
@@ -767,12 +792,12 @@ export class WekanCreator {
           isFinished: checklistitem.isFinished,
         };
 
-        const checklistItemId = ChecklistItems.direct.insert(
+        const checklistItemId = await ChecklistItems.direct.insertAsync(
           checklistItemTocreate,
         );
         this.checklistItems[checklistitem._id] = checklistItemId;
       }
-    });
+    }
   }
 
   parseActivities(wekanBoard) {
@@ -839,13 +864,13 @@ export class WekanCreator {
     });
   }
 
-  importActivities(activities, boardId) {
-    activities.forEach(activity => {
+  async importActivities(activities, boardId) {
+    for (const activity of activities) {
       switch (activity.activityType) {
         // Board related activities
         // TODO: addBoardMember, removeBoardMember
         case 'createBoard': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             type: 'board',
             activityTypeId: boardId,
@@ -858,7 +883,7 @@ export class WekanCreator {
         // List related activities
         // TODO: removeList, archivedList
         case 'createList': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             type: 'list',
             activityType: activity.activityType,
@@ -871,7 +896,7 @@ export class WekanCreator {
         // Card related activities
         // TODO: archivedCard, restoredCard, joinMember, unjoinMember
         case 'createCard': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             activityType: activity.activityType,
             listId: this.lists[activity.listId],
@@ -882,7 +907,7 @@ export class WekanCreator {
           break;
         }
         case 'moveCard': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             oldListId: this.lists[activity.oldListId],
             activityType: activity.activityType,
@@ -895,7 +920,7 @@ export class WekanCreator {
         }
         // Comment related activities
         case 'addComment': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             activityType: activity.activityType,
             cardId: this.cards[activity.cardId],
@@ -907,7 +932,7 @@ export class WekanCreator {
         }
         // Attachment related activities
         case 'addAttachment': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             type: 'card',
             activityType: activity.activityType,
@@ -920,7 +945,7 @@ export class WekanCreator {
         }
         // Checklist related activities
         case 'addChecklist': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             activityType: activity.activityType,
             cardId: this.cards[activity.cardId],
@@ -931,7 +956,7 @@ export class WekanCreator {
           break;
         }
         case 'addChecklistItem': {
-          Activities.direct.insert({
+          await Activities.direct.insertAsync({
             userId: this._user(activity.userId),
             activityType: activity.activityType,
             cardId: this.cards[activity.cardId],
@@ -946,7 +971,7 @@ export class WekanCreator {
           break;
         }
       }
-    });
+    }
   }
 
   //check(board) {
@@ -978,22 +1003,22 @@ export class WekanCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = ReactiveCache.getBoard(currentBoardId);
+      const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
     this.parseActivities(board);
-    const boardId = this.createBoardAndLabels(board);
-    this.createLists(board.lists, boardId);
-    this.createSwimlanes(board.swimlanes, boardId);
-    this.createCustomFields(board.customFields, boardId);
-    this.createCards(board.cards, boardId);
-    this.createSubtasks(board.cards);
-    this.createChecklists(board.checklists);
-    this.createChecklistItems(board.checklistItems);
-    this.importActivities(board.activities, boardId);
-    this.createTriggers(board.triggers, boardId);
-    this.createActions(board.actions, boardId);
-    this.createRules(board.rules, boardId);
+    const boardId = await this.createBoardAndLabels(board);
+    await this.createLists(board.lists, boardId);
+    await this.createSwimlanes(board.swimlanes, boardId);
+    await this.createCustomFields(board.customFields, boardId);
+    await this.createCards(board.cards, boardId);
+    await this.createSubtasks(board.cards);
+    await this.createChecklists(board.checklists);
+    await this.createChecklistItems(board.checklistItems);
+    await this.importActivities(board.activities, boardId);
+    await this.createTriggers(board.triggers, boardId);
+    await this.createActions(board.actions, boardId);
+    await this.createRules(board.rules, boardId);
     // XXX add members
     return boardId;
   }

@@ -1,3 +1,5 @@
+import { Blaze } from 'meteor/blaze';
+import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { 
   formatDateTime, 
@@ -19,6 +21,15 @@ import {
   fromNow, 
   calendar 
 } from '/imports/lib/dateUtils';
+// Sidebar is imported late to avoid circular dependency (sidebar.js needs its
+// jade template loaded first, but router.js → filter.js would load it too early)
+let _Sidebar;
+function getSidebar() {
+  if (!_Sidebar) {
+    _Sidebar = require('/client/features/sidebar/service').getSidebarInstance;
+  }
+  return _Sidebar();
+}
 
 // Filtered view manager
 // We define local filter objects for each different type of field (SetFilter,
@@ -26,7 +37,7 @@ import {
 // goal is to filter complete documents by using the local filters for each
 // fields.
 function showFilterSidebar() {
-  Sidebar.setView('filter');
+  getSidebar().setView('filter');
 }
 
 class DateFilter {
@@ -664,7 +675,7 @@ class AdvancedFilter {
 // XXX It would be possible to re-write this object more elegantly, and removing
 // the need to provide a list of `_fields`. We also should move methods into the
 // object prototype.
-Filter = {
+export const Filter = {
   // XXX I would like to rename this field into `labels` to be consistent with
   // the rest of the schema, but we need to set some migrations architecture
   // before changing the schema.
@@ -698,7 +709,7 @@ Filter = {
 
   isActive() {
     return (
-      _.any(this._fields, fieldName => {
+      this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
       this.advanced._isActive() ||
@@ -741,7 +752,7 @@ Filter = {
     const selectors = [exceptionsSelector];
 
     if (
-      _.any(this._fields, fieldName => {
+      this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       })
     )
@@ -768,7 +779,7 @@ Filter = {
 
   mongoSelector(additionalSelector) {
     const filterSelector = this._getMongoSelector();
-    if (_.isUndefined(additionalSelector)) return filterSelector;
+    if (additionalSelector === undefined) return filterSelector;
     else
       return {
         $and: [filterSelector, additionalSelector],

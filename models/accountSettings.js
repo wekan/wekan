@@ -1,6 +1,8 @@
+import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { SimpleSchema } = require('/imports/simpleSchema');
 
-AccountSettings = new Mongo.Collection('accountSettings');
+const AccountSettings = new Mongo.Collection('accountSettings');
 
 AccountSettings.attachSchema(
   new SimpleSchema({
@@ -13,7 +15,6 @@ AccountSettings.attachSchema(
     },
     sort: {
       type: Number,
-      decimal: true,
     },
     createdAt: {
       type: Date,
@@ -31,7 +32,6 @@ AccountSettings.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -43,46 +43,6 @@ AccountSettings.attachSchema(
     },
   }),
 );
-
-AccountSettings.allow({
-  update(userId) {
-    const user = ReactiveCache.getUser(userId);
-    return user && user.isAdmin;
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(async () => {
-    await AccountSettings._collection.createIndexAsync({ modifiedAt: -1 });
-    AccountSettings.upsert(
-      { _id: 'accounts-allowEmailChange' },
-      {
-        $setOnInsert: {
-          booleanValue: false,
-          sort: 0,
-        },
-      },
-    );
-    AccountSettings.upsert(
-      { _id: 'accounts-allowUserNameChange' },
-      {
-        $setOnInsert: {
-          booleanValue: false,
-          sort: 1,
-        },
-      },
-    );
-    AccountSettings.upsert(
-      { _id: 'accounts-allowUserDelete' },
-      {
-        $setOnInsert: {
-          booleanValue: false,
-          sort: 0,
-        },
-      },
-    );
-  });
-}
 
 AccountSettings.helpers({
   allowEmailChange() {

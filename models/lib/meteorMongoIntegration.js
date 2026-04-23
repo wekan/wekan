@@ -1,15 +1,16 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { DDP } from 'meteor/ddp';
 import { mongodbConnectionManager } from './mongodbConnectionManager';
 import { mongodbDriverManager } from './mongodbDriverManager';
 
 /**
  * Meteor MongoDB Integration
- * 
+ *
  * This module integrates the MongoDB driver manager with Meteor's
  * built-in MongoDB connection system to provide automatic driver
  * selection and version detection.
- * 
+ *
  * Features:
  * - Hooks into Meteor's MongoDB connection process
  * - Automatic driver selection based on detected version
@@ -58,7 +59,7 @@ class MeteorMongoIntegration {
    */
   overrideMeteorConnection() {
     const self = this;
-    
+
     // Override Meteor.connect if it exists
     if (typeof Meteor.connect === 'function') {
       Meteor.connect = async function(url, options) {
@@ -110,16 +111,16 @@ class MeteorMongoIntegration {
   async createCustomConnection(url, options = {}) {
     try {
       console.log('Creating custom MongoDB connection...');
-      
+
       // Use our connection manager
       const connection = await mongodbConnectionManager.createConnection(url, options);
-      
+
       // Store the custom connection
       this.customConnection = connection;
-      
+
       // Create a Meteor-compatible connection object
       const meteorConnection = this.createMeteorCompatibleConnection(connection);
-      
+
       console.log('Custom MongoDB connection created successfully');
       return meteorConnection;
 
@@ -141,7 +142,7 @@ class MeteorMongoIntegration {
       // Basic connection properties
       _driver: connection,
       _name: 'custom-mongodb-connection',
-      
+
       // Collection creation method
       createCollection: function(name, options = {}) {
         const db = connection.db();
@@ -242,7 +243,7 @@ class MeteorMongoIntegration {
     if (this.originalMongoConnect) {
       Meteor.connect = this.originalMongoConnect;
     }
-    
+
     if (this.originalMongoCollection) {
       Mongo.Collection = this.originalMongoCollection;
     }
@@ -269,7 +270,7 @@ class MeteorMongoIntegration {
 
       const db = this.customConnection.db();
       const result = await db.admin().ping();
-      
+
       return {
         success: true,
         result,

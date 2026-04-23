@@ -1,61 +1,55 @@
+import { Meteor } from 'meteor/meteor';
+import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlaneList';
+import { BoardSwimlaneListDialog } from '/client/lib/dialogWithBoardSwimlaneList';
 
-export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList {
-  constructor() {
-    super();
+/**
+ * Extension of BoardSwimlaneListDialog that adds card selection.
+ * Used by popup templates that need board + swimlane + list + card selectors.
+ */
+export class BoardSwimlaneListCardDialog extends BoardSwimlaneListDialog {
+  constructor(tpl, callbacks = {}) {
+    super(tpl, callbacks);
     this.selectedCardId = new ReactiveVar('');
   }
 
-  getDefaultOption(boardId) {
-    const ret = {
-      'boardId' : "",
-      'swimlaneId' : "",
-      'listId' : "",
-      'cardId': "",
-    }
-    return ret;
+  getDefaultOption() {
+    return {
+      boardId: '',
+      swimlaneId: '',
+      listId: '',
+      cardId: '',
+    };
   }
 
-  onCreated() {
-    super.onCreated();
-    this.selectedCardId = new ReactiveVar('');
-  }
-
-  /** set the last confirmed dialog field values
-   * @param boardId the current board id
-   */
+  /** Override to also set cardId if available */
   setOption(boardId) {
     super.setOption(boardId);
-    
-    // Also set cardId if available
-    if (this.cardOption && this.cardOption.cardId) {
+    if (this.cardOption && this.cardOption.cardId && this.selectedCardId) {
       this.selectedCardId.set(this.cardOption.cardId);
     }
   }
 
   /** returns all available cards of the current list */
   cards() {
-    const list = ReactiveCache.getList({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()});
-    if (list) {
-      return list.cards();
+    const list = ReactiveCache.getList({
+      _id: this.selectedListId.get(),
+      boardId: this.selectedBoardId.get(),
+    });
+    const swimlaneId = this.selectedSwimlaneId.get();
+    if (list && swimlaneId) {
+      return list.cards(swimlaneId).sort((a, b) => a.sort - b.sort);
     } else {
       return [];
     }
   }
 
-  /** returns if the card id was the last confirmed one
-   * @param cardId check this card id
-   * @return if the card id was the last confirmed one
-   */
+  /** returns if the card id was the last confirmed one */
   isDialogOptionCardId(cardId) {
-    let ret = this.cardOption.cardId == cardId;
-    return ret;
+    return this.cardOption.cardId == cardId;
   }
 
-  /** get the board data from the server
-   * @param boardId get the board data of this board id
-   */
+  /** Override to also reset card id on board change */
   getBoardData(boardId) {
     const self = this;
     Meteor.subscribe('board', boardId, false, {
@@ -64,57 +58,14 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
         self.selectedBoardId.set(boardId);
 
         if (!sameBoardId) {
-          // reset swimlane id
           self.setFirstSwimlaneId();
-
-          // reset list id
           self.setFirstListId();
-          
-          // reset card id
-          self.selectedCardId.set('');
+          if (self.selectedCardId) {
+            self.selectedCardId.set('');
+          }
         }
       },
     });
   }
 
-  events() {
-    return [
-      {
-        'click .js-done'() {
-          const boardSelect = this.$('.js-select-boards')[0];
-          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
-
-          const listSelect = this.$('.js-select-lists')[0];
-          const listId = listSelect.options[listSelect.selectedIndex].value;
-
-          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
-          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
-
-          const cardSelect = this.$('.js-select-cards')[0];
-          const cardId = cardSelect.options.length > 0 ? cardSelect.options[cardSelect.selectedIndex].value : null;
-
-          const options = {
-            'boardId' : boardId,
-            'swimlaneId' : swimlaneId,
-            'listId' : listId,
-            'cardId': cardId,
-          }
-          this.setDone(cardId, options);
-          Popup.back(2);
-        },
-        'change .js-select-boards'(event) {
-          const boardId = $(event.currentTarget).val();
-          this.getBoardData(boardId);
-        },
-        'change .js-select-swimlanes'(event) {
-          this.selectedSwimlaneId.set($(event.currentTarget).val());
-        },
-        'change .js-select-lists'(event) {
-          this.selectedListId.set($(event.currentTarget).val());
-          // Reset card selection when list changes
-          this.selectedCardId.set('');
-        },
-      },
-    ];
-  }
 }

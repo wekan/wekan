@@ -1,5 +1,9 @@
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Announcements from '/models/announcements';
+import { Utils } from '/client/lib/utils';
 
 Meteor.subscribe('user-admin');
 Meteor.subscribe('boards');
@@ -43,7 +47,27 @@ Template.header.helpers({
   },
 
   appIsOffline() {
-    return !Meteor.status().connected;
+    const status = Meteor.status();
+    return ['waiting', 'failed', 'offline'].includes(status.status);
+  },
+
+  appOfflineMessage() {
+    const status = Meteor.status();
+
+    if (status.status === 'failed' && status.reason) {
+      return status.reason;
+    }
+
+    if (status.status === 'offline') {
+      return 'Connection is paused.';
+    }
+
+    return null;
+  },
+
+  canReconnectNow() {
+    const status = Meteor.status();
+    return ['waiting', 'failed', 'offline'].includes(status.status);
   },
 
   hasAnnouncement() {
@@ -132,7 +156,7 @@ Template.header.events({
     Session.set('currentCard', null);
   },
   'click .js-toggle-desktop-drag-handles'() {
-    currentUser = Meteor.user();
+    const currentUser = Meteor.user();
     if (currentUser) {
       Meteor.call('toggleDesktopDragHandles');
     } else if (window.localStorage.getItem('showDesktopDragHandles')) {

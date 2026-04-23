@@ -2,10 +2,10 @@ import { Meteor } from 'meteor/meteor';
 
 /**
  * MongoDB Driver Manager
- * 
+ *
  * This module provides automatic MongoDB version detection and driver selection
  * to support MongoDB versions 3.0 through 8.0 with compatible Node.js drivers.
- * 
+ *
  * Features:
  * - Automatic MongoDB version detection from wire protocol errors
  * - Dynamic driver selection based on detected version
@@ -113,7 +113,7 @@ class MongoDBDriverManager {
     }
 
     const errorMessage = error.message.toLowerCase();
-    
+
     // Check specific version patterns
     for (const [version, patterns] of Object.entries(VERSION_ERROR_PATTERNS)) {
       for (const pattern of patterns) {

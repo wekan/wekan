@@ -1,4 +1,7 @@
-Translation = new Mongo.Collection('translation');
+import { Mongo } from 'meteor/mongo';
+const { SimpleSchema } = require('/imports/simpleSchema');
+
+const Translation = new Mongo.Collection('translation');
 
 /**
  * A Organization User in wekan
@@ -43,7 +46,6 @@ Translation.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -55,93 +57,5 @@ Translation.attachSchema(
     },
   }),
 );
-
-if (Meteor.isServer) {
-  Translation.allow({
-    insert(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    update(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    remove(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
-      if (user?.isAdmin)
-        return true;
-      if (!user) {
-        return false;
-      }
-      return doc._id === userId;
-    },
-    fetch: [],
-  });
-
-  Meteor.methods({
-    setCreateTranslation(
-      language,
-      text,
-      translationText,
-    ) {
-      check(language, String);
-      check(text, String);
-      check(translationText, String);
-
-      if (!ReactiveCache.getCurrentUser()?.isAdmin) {
-        throw new Meteor.Error('not-authorized');
-      }
-
-      const nTexts = ReactiveCache.getTranslations({ language, text }).length;
-      if (nTexts > 0) {
-        throw new Meteor.Error('text-already-taken');
-      } else {
-        Translation.insert({
-          language,
-          text,
-          translationText,
-        });
-      }
-    },
-    setTranslationText(translation, translationText) {
-      check(translation, Object);
-      check(translationText, String);
-
-      if (!ReactiveCache.getCurrentUser()?.isAdmin) {
-        throw new Meteor.Error('not-authorized');
-      }
-
-      Translation.update(translation, {
-        $set: { translationText: translationText },
-      });
-    },
-    deleteTranslation(translationId) {
-      check(translationId, String);
-
-      if (!ReactiveCache.getCurrentUser()?.isAdmin) {
-        throw new Meteor.Error('not-authorized');
-      }
-
-      Translation.remove(translationId);
-    },
-  });
-}
-
-if (Meteor.isServer) {
-  // Index for Organization User.
-  Meteor.startup(async () => {
-    await Translation._collection.createIndexAsync({ modifiedAt: -1 });
-  });
-}
 
 export default Translation;

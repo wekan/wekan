@@ -1,6 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
+import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import Org from '/models/org';
+import Team from '/models/team';
+import Users from '/models/users';
 
 const orgsPerPage = 25;
 const teamsPerPage = 25;
@@ -8,139 +13,128 @@ const usersPerPage = 25;
 let userOrgsTeamsAction = ""; //poosible actions 'addOrg', 'addTeam', 'removeOrg' or 'removeTeam' when adding or modifying a user
 let selectedUserChkBoxUserIds = [];
 
-BlazeComponent.extendComponent({
-  mixins() {
-    return [Mixins.InfiniteScrolling];
-  },
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.orgSetting = new ReactiveVar(true);
-    this.teamSetting = new ReactiveVar(false);
-    this.peopleSetting = new ReactiveVar(false);
-    this.lockedUsersSetting = new ReactiveVar(false);
-    this.findOrgsOptions = new ReactiveVar({});
-    this.findTeamsOptions = new ReactiveVar({});
-    this.findUsersOptions = new ReactiveVar({});
-    this.numberOrgs = new ReactiveVar(0);
-    this.numberTeams = new ReactiveVar(0);
-    this.numberPeople = new ReactiveVar(0);
-    this.userFilterType = new ReactiveVar('all');
+Template.people.onCreated(function () {
+  this.infiniteScrolling = new InfiniteScrolling();
 
-    this.page = new ReactiveVar(1);
-    this.loadNextPageLocked = false;
-    this.callFirstWith(null, 'resetNextPeak');
-    this.autorun(() => {
-      const limitOrgs = this.page.get() * orgsPerPage;
-      const limitTeams = this.page.get() * teamsPerPage;
-      const limitUsers = this.page.get() * usersPerPage;
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.orgSetting = new ReactiveVar(true);
+  this.teamSetting = new ReactiveVar(false);
+  this.peopleSetting = new ReactiveVar(false);
+  this.lockedUsersSetting = new ReactiveVar(false);
+  this.findOrgsOptions = new ReactiveVar({});
+  this.findTeamsOptions = new ReactiveVar({});
+  this.findUsersOptions = new ReactiveVar({});
+  this.numberOrgs = new ReactiveVar(0);
+  this.numberTeams = new ReactiveVar(0);
+  this.numberPeople = new ReactiveVar(0);
+  this.userFilterType = new ReactiveVar('all');
+  this.peoplePage = new ReactiveVar(1);
+  this.orgPage = new ReactiveVar(1);
+  this.teamPage = new ReactiveVar(1);
 
-      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {
-        this.loadNextPageLocked = false;
-        const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
-        this.calculateNextPeak();
-        const nextPeakAfter = this.callFirstWith(null, 'getNextPeak');
-        if (nextPeakBefore === nextPeakAfter) {
-          this.callFirstWith(null, 'resetNextPeak');
-        }
-      });
+  this.page = new ReactiveVar(1);
+  this.loadNextPageLocked = false;
+  this.infiniteScrolling.resetNextPeak();
 
-      this.subscribe('team', this.findTeamsOptions.get(), limitTeams, () => {
-        this.loadNextPageLocked = false;
-        const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
-        this.calculateNextPeak();
-        const nextPeakAfter = this.callFirstWith(null, 'getNextPeak');
-        if (nextPeakBefore === nextPeakAfter) {
-          this.callFirstWith(null, 'resetNextPeak');
-        }
-      });
-
-      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {
-        this.loadNextPageLocked = false;
-        const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
-        this.calculateNextPeak();
-        const nextPeakAfter = this.callFirstWith(null, 'getNextPeak');
-        if (nextPeakBefore === nextPeakAfter) {
-          this.callFirstWith(null, 'resetNextPeak');
-        }
-      });
+  this.refreshUsersCount = () => {
+    const query = this.findUsersOptions.get();
+    Meteor.call('getUsersCollectionCount', query, (error, count) => {
+      if (error) {
+        console.error('Failed to load users collection count:', error);
+        return;
+      }
+      const total = count || 0;
+      const totalPages = Math.max(1, Math.ceil(total / usersPerPage));
+      if (this.peoplePage.get() > totalPages) {
+        this.peoplePage.set(totalPages);
+      }
+      this.numberPeople.set(total);
     });
-  },
-  events() {
-    return [
-      {
-        'click #searchOrgButton'() {
-          this.filterOrg();
-        },
-        'keydown #searchOrgInput'(event) {
-          if (event.keyCode === 13 && !event.shiftKey) {
-            this.filterOrg();
-          }
-        },
-        'click #searchTeamButton'() {
-          this.filterTeam();
-        },
-        'keydown #searchTeamInput'(event) {
-          if (event.keyCode === 13 && !event.shiftKey) {
-            this.filterTeam();
-          }
-        },
-        'click #searchButton'() {
-          this.filterPeople();
-        },
-        'click #addOrRemoveTeam'(){
-          document.getElementById("divAddOrRemoveTeamContainer").style.display = 'block';
-        },
-        'keydown #searchInput'(event) {
-          if (event.keyCode === 13 && !event.shiftKey) {
-            this.filterPeople();
-          }
-        },
-        'change #userFilterSelect'(event) {
-          const filterType = $(event.target).val();
-          this.userFilterType.set(filterType);
-          this.filterPeople();
-        },
-        'click #unlockAllUsers'(event) {
-          event.preventDefault();
-          if (confirm(TAPi18n.__('accounts-lockout-confirm-unlock-all'))) {
-            Meteor.call('unlockAllUsers', (error) => {
-              if (error) {
-                console.error('Error unlocking all users:', error);
-              } else {
-                // Show a brief success message
-                const message = document.createElement('div');
-                message.className = 'unlock-all-success';
-                message.textContent = TAPi18n.__('accounts-lockout-all-users-unlocked');
-                document.body.appendChild(message);
+  };
 
-                // Remove the message after a short delay
-                setTimeout(() => {
-                  if (message.parentNode) {
-                    message.parentNode.removeChild(message);
-                  }
-                }, 3000);
-              }
-            });
-          }
-        },
-        'click #newOrgButton'() {
-          Popup.open('newOrg');
-        },
-        'click #newTeamButton'() {
-          Popup.open('newTeam');
-        },
-        'click #newUserButton'() {
-          Popup.open('newUser');
-        },
-        'click a.js-org-menu': this.switchMenu,
-        'click a.js-team-menu': this.switchMenu,
-        'click a.js-people-menu': this.switchMenu,
-        'click a.js-locked-users-menu': this.switchMenu,
-      },
-    ];
-  },
-  filterPeople() {
+  this.refreshOrgsCount = () => {
+    const query = this.findOrgsOptions.get();
+    Meteor.call('getOrgsCollectionCount', query, (error, count) => {
+      if (error) {
+        console.error('Failed to load orgs collection count:', error);
+        return;
+      }
+      const total = count || 0;
+      const totalPages = Math.max(1, Math.ceil(total / orgsPerPage));
+      if (this.orgPage.get() > totalPages) {
+        this.orgPage.set(totalPages);
+      }
+      this.numberOrgs.set(total);
+    });
+  };
+
+  this.refreshTeamsCount = () => {
+    const query = this.findTeamsOptions.get();
+    Meteor.call('getTeamsCollectionCount', query, (error, count) => {
+      if (error) {
+        console.error('Failed to load teams collection count:', error);
+        return;
+      }
+      const total = count || 0;
+      const totalPages = Math.max(1, Math.ceil(total / teamsPerPage));
+      if (this.teamPage.get() > totalPages) {
+        this.teamPage.set(totalPages);
+      }
+      this.numberTeams.set(total);
+    });
+  };
+
+  this.calculateNextPeak = () => {
+    const element = this.find('.main-body');
+    if (element) {
+      const altitude = element.scrollHeight;
+      this.infiniteScrolling.setNextPeak(altitude);
+    }
+  };
+
+  this.loadNextPage = () => {
+    if (this.loadNextPageLocked === false) {
+      this.page.set(this.page.get() + 1);
+      this.loadNextPageLocked = true;
+    }
+  };
+
+  this.filterOrg = () => {
+    const value = $('#searchOrgInput').first().val();
+    if (value !== '') {
+      const regex = new RegExp(value, 'i');
+      this.findOrgsOptions.set({
+        $or: [
+          { orgDisplayName: regex },
+          { orgShortName: regex },
+        ],
+      });
+    } else {
+      this.findOrgsOptions.set({});
+    }
+    this.orgPage.set(1);
+    this.refreshOrgsCount();
+  };
+
+  this.filterTeam = () => {
+    const value = $('#searchTeamInput').first().val();
+    if (value !== '') {
+      const regex = new RegExp(value, 'i');
+      this.findTeamsOptions.set({
+        $or: [
+          { teamDisplayName: regex },
+          { teamShortName: regex },
+        ],
+      });
+    } else {
+      this.findTeamsOptions.set({});
+    }
+    this.teamPage.set(1);
+    this.refreshTeamsCount();
+  };
+
+  this.filterPeople = () => {
     const value = $('#searchInput').first().val();
     const filterType = this.userFilterType.get();
     const currentTime = Number(new Date());
@@ -184,76 +178,14 @@ BlazeComponent.extendComponent({
     }
 
     this.findUsersOptions.set(query);
-  },
-  loadNextPage() {
-    if (this.loadNextPageLocked === false) {
-      this.page.set(this.page.get() + 1);
-      this.loadNextPageLocked = true;
-    }
-  },
-  calculateNextPeak() {
-    const element = this.find('.main-body');
-    if (element) {
-      const altitude = element.scrollHeight;
-      this.callFirstWith(this, 'setNextPeak', altitude);
-    }
-  },
-  reachNextPeak() {
-    this.loadNextPage();
-  },
-  setError(error) {
-    this.error.set(error);
-  },
-  setLoading(w) {
-    this.loading.set(w);
-  },
-  orgList() {
-    const limitOrgs = this.page.get() * orgsPerPage;
-    const orgs = ReactiveCache.getOrgs(this.findOrgsOptions.get(), {
-      sort: { orgDisplayName: 1 },
-      limit: limitOrgs,
-      fields: { _id: true },
-    });
-    // Count only the items currently loaded to browser, not total from database
-    this.numberOrgs.set(orgs.length);
-    return orgs;
-  },
-  teamList() {
-    const limitTeams = this.page.get() * teamsPerPage;
-    const teams = ReactiveCache.getTeams(this.findTeamsOptions.get(), {
-      sort: { teamDisplayName: 1 },
-      limit: limitTeams,
-      fields: { _id: true },
-    });
-    // Count only the items currently loaded to browser, not total from database
-    this.numberTeams.set(teams.length);
-    return teams;
-  },
-  peopleList() {
-    const limitUsers = this.page.get() * usersPerPage;
-    const users = ReactiveCache.getUsers(this.findUsersOptions.get(), {
-      sort: { username: 1 },
-      limit: limitUsers,
-      fields: { _id: true },
-    });
-    // Count only the items currently loaded to browser, not total from database
-    this.numberPeople.set(users.length);
-    return users;
-  },
-  orgNumber() {
-    return this.numberOrgs.get();
-  },
-  teamNumber() {
-    return this.numberTeams.get();
-  },
-  peopleNumber() {
-    return this.numberPeople.get();
-  },
-  switchMenu(event) {
-    const target = $(event.target);
+    this.peoplePage.set(1);
+  };
+
+  this.switchMenu = (event) => {
+    const target = $(event.currentTarget);
     if (!target.hasClass('active')) {
       $('.side-menu li.active').removeClass('active');
-      target.parent().addClass('active');
+      target.closest('li').addClass('active');
       const targetID = target.data('id');
       this.orgSetting.set('org-setting' === targetID);
       this.teamSetting.set('team-setting' === targetID);
@@ -269,27 +201,378 @@ BlazeComponent.extendComponent({
         }
       }
     }
+  };
+
+  this.autorun(() => {
+    const limitOrgs = orgsPerPage;
+    const skipOrgs = (this.orgPage.get() - 1) * orgsPerPage;
+    const limitTeams = teamsPerPage;
+    const skipTeams = (this.teamPage.get() - 1) * teamsPerPage;
+    const limitUsers = usersPerPage;
+    const skipUsers = (this.peoplePage.get() - 1) * usersPerPage;
+
+    this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, skipOrgs, () => {
+      this.loadNextPageLocked = false;
+      const nextPeakBefore = this.infiniteScrolling.getNextPeak();
+      this.calculateNextPeak();
+      const nextPeakAfter = this.infiniteScrolling.getNextPeak();
+      if (nextPeakBefore === nextPeakAfter) {
+        this.infiniteScrolling.resetNextPeak();
+      }
+      this.refreshOrgsCount();
+    });
+
+    this.subscribe('team', this.findTeamsOptions.get(), limitTeams, skipTeams, () => {
+      this.loadNextPageLocked = false;
+      const nextPeakBefore = this.infiniteScrolling.getNextPeak();
+      this.calculateNextPeak();
+      const nextPeakAfter = this.infiniteScrolling.getNextPeak();
+      if (nextPeakBefore === nextPeakAfter) {
+        this.infiniteScrolling.resetNextPeak();
+      }
+      this.refreshTeamsCount();
+    });
+
+    this.subscribe('people', this.findUsersOptions.get(), limitUsers, skipUsers, () => {
+      this.loadNextPageLocked = false;
+      const nextPeakBefore = this.infiniteScrolling.getNextPeak();
+      this.calculateNextPeak();
+      const nextPeakAfter = this.infiniteScrolling.getNextPeak();
+      if (nextPeakBefore === nextPeakAfter) {
+        this.infiniteScrolling.resetNextPeak();
+      }
+
+      this.refreshUsersCount();
+    });
+  });
+});
+
+Template.people.helpers({
+  loading() {
+    return Template.instance().loading;
   },
-}).register('people');
+  orgSetting() {
+    return Template.instance().orgSetting;
+  },
+  teamSetting() {
+    return Template.instance().teamSetting;
+  },
+  peopleSetting() {
+    return Template.instance().peopleSetting;
+  },
+  lockedUsersSetting() {
+    return Template.instance().lockedUsersSetting;
+  },
+  orgList() {
+    const tpl = Template.instance();
+    const page = tpl.orgPage.get();
+    const skipOrgs = (page - 1) * orgsPerPage;
+    const orgs = Org.find(tpl.findOrgsOptions.get(), {
+      sort: { orgDisplayName: 1 },
+      skip: skipOrgs,
+      limit: orgsPerPage,
+      fields: {
+        _id: 1,
+        orgDisplayName: 1,
+        orgDesc: 1,
+        orgShortName: 1,
+        orgWebsite: 1,
+        createdAt: 1,
+        orgIsActive: 1,
+      },
+    }).fetch();
+    return orgs;
+  },
+  teamList() {
+    const tpl = Template.instance();
+    const page = tpl.teamPage.get();
+    const skipTeams = (page - 1) * teamsPerPage;
+    const teams = Team.find(tpl.findTeamsOptions.get(), {
+      sort: { teamDisplayName: 1 },
+      skip: skipTeams,
+      limit: teamsPerPage,
+      fields: {
+        _id: 1,
+        teamDisplayName: 1,
+        teamDesc: 1,
+        teamShortName: 1,
+        teamWebsite: 1,
+        createdAt: 1,
+        teamIsActive: 1,
+      },
+    }).fetch();
+    return teams;
+  },
+  peopleList() {
+    const tpl = Template.instance();
+    const page = tpl.peoplePage.get();
+    const skipUsers = (page - 1) * usersPerPage;
+    const users = Users.find(tpl.findUsersOptions.get(), {
+      sort: { username: 1 },
+      skip: skipUsers,
+      limit: usersPerPage,
+      fields: {
+        _id: 1,
+        username: 1,
+        emails: 1,
+        isAdmin: 1,
+        createdAt: 1,
+        loginDisabled: 1,
+        services: 1,
+      },
+    }).fetch();
+    return users;
+  },
+  orgNumber() {
+    return Template.instance().numberOrgs.get();
+  },
+  teamNumber() {
+    return Template.instance().numberTeams.get();
+  },
+  peopleNumber() {
+    return Template.instance().numberPeople.get();
+  },
+  peopleCurrentPage() {
+    return Template.instance().peoplePage.get();
+  },
+  peopleTotalPages() {
+    const totalUsers = Template.instance().numberPeople.get() || 0;
+    return Math.max(1, Math.ceil(totalUsers / usersPerPage));
+  },
+  hasPeoplePrevPage() {
+    return Template.instance().peoplePage.get() > 1;
+  },
+  hasPeopleNextPage() {
+    const tpl = Template.instance();
+    const totalUsers = tpl.numberPeople.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalUsers / usersPerPage));
+    return tpl.peoplePage.get() < totalPages;
+  },
+  orgCurrentPage() {
+    return Template.instance().orgPage.get();
+  },
+  orgTotalPages() {
+    const totalOrgs = Template.instance().numberOrgs.get() || 0;
+    return Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
+  },
+  hasOrgPrevPage() {
+    return Template.instance().orgPage.get() > 1;
+  },
+  hasOrgNextPage() {
+    const tpl = Template.instance();
+    const totalOrgs = tpl.numberOrgs.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
+    return tpl.orgPage.get() < totalPages;
+  },
+  teamCurrentPage() {
+    return Template.instance().teamPage.get();
+  },
+  teamTotalPages() {
+    const totalTeams = Template.instance().numberTeams.get() || 0;
+    return Math.max(1, Math.ceil(totalTeams / teamsPerPage));
+  },
+  hasTeamPrevPage() {
+    return Template.instance().teamPage.get() > 1;
+  },
+  hasTeamNextPage() {
+    const tpl = Template.instance();
+    const totalTeams = tpl.numberTeams.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalTeams / teamsPerPage));
+    return tpl.teamPage.get() < totalPages;
+  },
+});
+
+Template.people.events({
+  'scroll .main-body'(event, tpl) {
+    if (tpl.peopleSetting.get()) {
+      return;
+    }
+    tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {
+      tpl.loadNextPage();
+    });
+  },
+  'click #searchOrgButton'(event, tpl) {
+    tpl.filterOrg();
+  },
+  'keydown #searchOrgInput'(event, tpl) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      tpl.filterOrg();
+    }
+  },
+  'click #searchTeamButton'(event, tpl) {
+    tpl.filterTeam();
+  },
+  'keydown #searchTeamInput'(event, tpl) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      tpl.filterTeam();
+    }
+  },
+  'click #searchButton'(event, tpl) {
+    tpl.filterPeople();
+  },
+  'click #addOrRemoveTeam'(){
+    document.getElementById("divAddOrRemoveTeamContainer").style.display = 'block';
+  },
+  'keydown #searchInput'(event, tpl) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      tpl.filterPeople();
+    }
+  },
+  'change #userFilterSelect'(event, tpl) {
+    const filterType = $(event.target).val();
+    tpl.userFilterType.set(filterType);
+    tpl.filterPeople();
+  },
+  'click .js-people-prev-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.peoplePage.get();
+    if (current > 1) {
+      tpl.peoplePage.set(current - 1);
+    }
+  },
+  'click .js-people-next-page'(event, tpl) {
+    event.preventDefault();
+    const totalUsers = tpl.numberPeople.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalUsers / usersPerPage));
+    const current = tpl.peoplePage.get();
+    if (current < totalPages) {
+      tpl.peoplePage.set(current + 1);
+    }
+  },
+  'click .js-org-prev-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.orgPage.get();
+    if (current > 1) {
+      tpl.orgPage.set(current - 1);
+    }
+  },
+  'click .js-org-next-page'(event, tpl) {
+    event.preventDefault();
+    const totalOrgs = tpl.numberOrgs.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalOrgs / orgsPerPage));
+    const current = tpl.orgPage.get();
+    if (current < totalPages) {
+      tpl.orgPage.set(current + 1);
+    }
+  },
+  'click .js-team-prev-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.teamPage.get();
+    if (current > 1) {
+      tpl.teamPage.set(current - 1);
+    }
+  },
+  'click .js-team-next-page'(event, tpl) {
+    event.preventDefault();
+    const totalTeams = tpl.numberTeams.get() || 0;
+    const totalPages = Math.max(1, Math.ceil(totalTeams / teamsPerPage));
+    const current = tpl.teamPage.get();
+    if (current < totalPages) {
+      tpl.teamPage.set(current + 1);
+    }
+  },
+  'click #unlockAllUsers'(event) {
+    event.preventDefault();
+    if (confirm(TAPi18n.__('accounts-lockout-confirm-unlock-all'))) {
+      Meteor.call('unlockAllUsers', (error) => {
+        if (error) {
+          console.error('Error unlocking all users:', error);
+        } else {
+          // Show a brief success message
+          const message = document.createElement('div');
+          message.className = 'unlock-all-success';
+          message.textContent = TAPi18n.__('accounts-lockout-all-users-unlocked');
+          document.body.appendChild(message);
+
+          // Remove the message after a short delay
+          setTimeout(() => {
+            if (message.parentNode) {
+              message.parentNode.removeChild(message);
+            }
+          }, 3000);
+        }
+      });
+    }
+  },
+  'click #newOrgButton'() {
+    Popup.open('newOrg');
+  },
+  'click #newTeamButton'() {
+    Popup.open('newTeam');
+  },
+  'click #newUserButton'() {
+    Popup.open('newUser');
+  },
+  'click a.js-org-menu'(event, tpl) {
+    tpl.switchMenu(event);
+    tpl.orgPage.set(1);
+    tpl.refreshOrgsCount();
+  },
+  'click a.js-team-menu'(event, tpl) {
+    tpl.switchMenu(event);
+    tpl.teamPage.set(1);
+    tpl.refreshTeamsCount();
+  },
+  'click a.js-people-menu'(event, tpl) {
+    tpl.switchMenu(event);
+    tpl.peoplePage.set(1);
+    tpl.refreshUsersCount();
+  },
+  'click a.js-locked-users-menu'(event, tpl) {
+    tpl.switchMenu(event);
+  },
+});
 
 Template.orgRow.helpers({
   orgData() {
-    return ReactiveCache.getOrg(this.orgId);
+    return this.org || ReactiveCache.getOrg(this.orgId);
   },
 });
 
 Template.teamRow.helpers({
   teamData() {
-    return ReactiveCache.getTeam(this.teamId);
+    return this.team || ReactiveCache.getTeam(this.teamId);
   },
 });
 
 Template.peopleRow.helpers({
   userData() {
-    return ReactiveCache.getUser(this.userId);
+    // Depend on global avatar update counter to reactively update when avatars change
+    avatarUpdateCounter.get();
+    // Get the user ID from either this._id or this.user._id
+    let userId;
+    if (this.user && this.user._id) {
+      userId = this.user._id;
+    } else if (this._id) {
+      userId = this._id;
+    }
+    // Always fetch from ReactiveCache to ensure latest data
+    if (userId) {
+      return ReactiveCache.getUser(userId);
+    }
+    return this.user || this;
+  },
+  hasAvatarUrl() {
+    // Depend on global avatar update counter to reactively update when avatars change
+    avatarUpdateCounter.get();
+    // Get the user ID from either this._id or this.user._id
+    let userId;
+    if (this.user && this.user._id) {
+      userId = this.user._id;
+    } else if (this._id) {
+      userId = this._id;
+    }
+    let user;
+    if (userId) {
+      user = ReactiveCache.getUser(userId);
+    } else {
+      user = this.user || this;
+    }
+    if (!user || !user.profile) return false;
+    return !!user.profile.avatarUrl;
   },
   isUserLocked() {
-    const user = ReactiveCache.getUser(this.userId);
+    const user = this.user || ReactiveCache.getUser(this.userId);
     if (!user) return false;
 
     // Check if user has accounts-lockout with unlockTime property
@@ -465,259 +748,225 @@ Template.newUserPopup.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {},
-  org() {
-    return ReactiveCache.getOrg(this.orgId);
+Template.orgRow.events({
+  'click a.edit-org': Popup.open('editOrg'),
+  'click a.more-settings-org': Popup.open('settingsOrg'),
+});
+
+Template.teamRow.events({
+  'click a.edit-team': Popup.open('editTeam'),
+  'click a.more-settings-team': Popup.open('settingsTeam'),
+});
+
+Template.peopleRow.events({
+  'click a.edit-user'(event) {
+    // Get the user ID from the data attribute
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      Popup.open('editUser').call({ userId: userId }, event);
+    }
   },
-  events() {
-    return [
-      {
-        'click a.edit-org': Popup.open('editOrg'),
-        'click a.more-settings-org': Popup.open('settingsOrg'),
-      },
-    ];
+  'click a.more-settings-user'(event) {
+    // Get the user ID from the data attribute
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      Popup.open('settingsUser').call({ userId: userId }, event);
+    }
   },
-}).register('orgRow');
-
-BlazeComponent.extendComponent({
-  onCreated() {},
-  team() {
-    return ReactiveCache.getTeam(this.teamId);
+  'click .selectUserChkBox': function(ev){
+      if(ev.currentTarget){
+        if(ev.currentTarget.checked){
+          if(!selectedUserChkBoxUserIds.includes(ev.currentTarget.id)){
+            selectedUserChkBoxUserIds.push(ev.currentTarget.id);
+          }
+        }
+        else{
+          if(selectedUserChkBoxUserIds.includes(ev.currentTarget.id)){
+            let index = selectedUserChkBoxUserIds.indexOf(ev.currentTarget.id);
+            if(index > -1)
+              selectedUserChkBoxUserIds.splice(index, 1);
+          }
+        }
+      }
+      if(selectedUserChkBoxUserIds.length > 0)
+        document.getElementById("divAddOrRemoveTeam").style.display = 'block';
+      else
+        document.getElementById("divAddOrRemoveTeam").style.display = 'none';
   },
-  events() {
-    return [
-      {
-        'click a.edit-team': Popup.open('editTeam'),
-        'click a.more-settings-team': Popup.open('settingsTeam'),
-      },
-    ];
+  'click .js-toggle-active-status': function(ev) {
+      ev.preventDefault();
+      const userId = this.userId || this.user?._id;
+      const user = ReactiveCache.getUser(userId);
+
+      if (!user) return;
+
+      // Toggle loginDisabled status
+      const isActive = !(user.loginDisabled === true);
+
+      // Update the user's active status
+      Users.update(userId, {
+        $set: {
+          loginDisabled: isActive
+        }
+      });
   },
-}).register('teamRow');
+  'click .js-toggle-lock-status': function(ev){
+      ev.preventDefault();
+      const userId = this.userId || this.user?._id;
+      const user = ReactiveCache.getUser(userId);
 
-BlazeComponent.extendComponent({
-  onCreated() {},
-  user() {
-    return ReactiveCache.getUser(this.userId);
+      if (!user) return;
+
+      // Check if user is currently locked
+      const isLocked = user.services &&
+          user.services['accounts-lockout'] &&
+          user.services['accounts-lockout'].unlockTime &&
+          user.services['accounts-lockout'].unlockTime > Number(new Date());
+
+      if (isLocked) {
+        // Unlock the user
+        Meteor.call('unlockUser', userId, (error) => {
+          if (error) {
+            console.error('Error unlocking user:', error);
+          }
+        });
+      } else {
+        // Lock the user - this is optional, you may want to only allow unlocking
+        // If you want to implement locking too, you would need a server method for it
+        // For now, we'll leave this as a no-op
+      }
   },
-  events() {
-    return [
-      {
-        'click a.edit-user': Popup.open('editUser'),
-        'click a.more-settings-user': Popup.open('settingsUser'),
-        'click .selectUserChkBox': function(ev){
-            if(ev.currentTarget){
-              if(ev.currentTarget.checked){
-                if(!selectedUserChkBoxUserIds.includes(ev.currentTarget.id)){
-                  selectedUserChkBoxUserIds.push(ev.currentTarget.id);
-                }
-              }
-              else{
-                if(selectedUserChkBoxUserIds.includes(ev.currentTarget.id)){
-                  let index = selectedUserChkBoxUserIds.indexOf(ev.currentTarget.id);
-                  if(index > -1)
-                    selectedUserChkBoxUserIds.splice(index, 1);
-                }
-              }
-            }
-            if(selectedUserChkBoxUserIds.length > 0)
-              document.getElementById("divAddOrRemoveTeam").style.display = 'block';
-            else
-              document.getElementById("divAddOrRemoveTeam").style.display = 'none';
-        },
-        'click .js-toggle-active-status': function(ev) {
-            ev.preventDefault();
-            const userId = this.userId;
-            const user = ReactiveCache.getUser(userId);
-
-            if (!user) return;
-
-            // Toggle loginDisabled status
-            const isActive = !(user.loginDisabled === true);
-
-            // Update the user's active status
-            Users.update(userId, {
-              $set: {
-                loginDisabled: isActive
-              }
-            });
-        },
-        'click .js-toggle-lock-status': function(ev){
-            ev.preventDefault();
-            const userId = this.userId;
-            const user = ReactiveCache.getUser(userId);
-
-            if (!user) return;
-
-            // Check if user is currently locked
-            const isLocked = user.services &&
-                user.services['accounts-lockout'] &&
-                user.services['accounts-lockout'].unlockTime &&
-                user.services['accounts-lockout'].unlockTime > Number(new Date());
-
-            if (isLocked) {
-              // Unlock the user
-              Meteor.call('unlockUser', userId, (error) => {
-                if (error) {
-                  console.error('Error unlocking user:', error);
-                }
-              });
-            } else {
-              // Lock the user - this is optional, you may want to only allow unlocking
-              // If you want to implement locking too, you would need a server method for it
-              // For now, we'll leave this as a no-op
-            }
-        },
-      },
-    ];
+  'click a.js-edit-people-avatar'(event) {
+    // Extract the user ID from the data attribute
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      // Get the user from cache to pass correct context
+      const user = ReactiveCache.getUser(userId);
+      if (user) {
+        // Call Popup.open with the correct user data context
+        Popup.open('adminChangeAvatar').call({ _id: userId, user: user }, event);
+      }
+    }
   },
-}).register('peopleRow');
+});
 
-BlazeComponent.extendComponent({
-  onCreated() {},
+Template.modifyTeamsUsers.helpers({
   teamsDatas() {
     const ret = ReactiveCache.getTeams({}, {sort: { teamDisplayName: 1 }});
     return ret;
   },
-  events() {
-    return [
-      {
-        'click #cancelBtn': function(){
-          let selectedElt = document.getElementById("jsteamsUser");
-          document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
-        },
-        'click #addTeamBtn': function(){
-          let selectedElt;
-          let selectedEltValue;
-          let selectedEltValueId;
-          let userTms = [];
-          let currentUser;
-          let currUserTeamIndex;
+});
 
-          selectedElt = document.getElementById("jsteamsUser");
-          selectedEltValue = selectedElt.options[selectedElt.selectedIndex].text;
-          selectedEltValueId = selectedElt.options[selectedElt.selectedIndex].value;
+Template.modifyTeamsUsers.events({
+  'click #cancelBtn': function(){
+    let selectedElt = document.getElementById("jsteamsUser");
+    document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
+  },
+  'click #addTeamBtn': function(){
+    let selectedElt;
+    let selectedEltValue;
+    let selectedEltValueId;
+    let userTms = [];
+    let currentUser;
+    let currUserTeamIndex;
 
-          if(document.getElementById('addAction').checked){
-            for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
-              currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
-              userTms = currentUser.teams;
-              if(userTms == undefined || userTms.length == 0){
-                userTms = [];
-                userTms.push({
-                  "teamId": selectedEltValueId,
-                  "teamDisplayName": selectedEltValue,
-                })
-              }
-              else if(userTms.length > 0)
-              {
-                currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
-                if(currUserTeamIndex == -1){
-                  userTms.push({
-                    "teamId": selectedEltValueId,
-                    "teamDisplayName": selectedEltValue,
-                  });
-                }
-              }
+    selectedElt = document.getElementById("jsteamsUser");
+    selectedEltValue = selectedElt.options[selectedElt.selectedIndex].text;
+    selectedEltValueId = selectedElt.options[selectedElt.selectedIndex].value;
 
-              Users.update(selectedUserChkBoxUserIds[i], {
-                $set:{
-                  teams: userTms
-                }
-              });
-            }
+    if(document.getElementById('addAction').checked){
+      for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
+        currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
+        userTms = currentUser.teams;
+        if(userTms == undefined || userTms.length == 0){
+          userTms = [];
+          userTms.push({
+            "teamId": selectedEltValueId,
+            "teamDisplayName": selectedEltValue,
+          })
+        }
+        else if(userTms.length > 0)
+        {
+          currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+          if(currUserTeamIndex == -1){
+            userTms.push({
+              "teamId": selectedEltValueId,
+              "teamDisplayName": selectedEltValue,
+            });
           }
-          else{
-            for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
-              currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
-              userTms = currentUser.teams;
-              if(userTms !== undefined || userTms.length > 0)
-              {
-                currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
-                if(currUserTeamIndex != -1){
-                  userTms.splice(currUserTeamIndex, 1);
-                }
-              }
+        }
 
-              Users.update(selectedUserChkBoxUserIds[i], {
-                $set:{
-                  teams: userTms
-                }
-              });
-            }
+        Users.update(selectedUserChkBoxUserIds[i], {
+          $set:{
+            teams: userTms
           }
-
-          document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
-        },
-      },
-    ];
-  },
-}).register('modifyTeamsUsers');
-
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click a.new-org': Popup.open('newOrg'),
-      },
-    ];
-  },
-}).register('newOrgRow');
-
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click a.new-team': Popup.open('newTeam'),
-      },
-    ];
-  },
-}).register('newTeamRow');
-
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click a.new-user': Popup.open('newUser'),
-      },
-    ];
-  },
-}).register('newUserRow');
-
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click .allUserChkBox': function(ev){
-          selectedUserChkBoxUserIds = [];
-          const checkboxes = document.getElementsByClassName("selectUserChkBox");
-          if(ev.currentTarget){
-            if(ev.currentTarget.checked){
-              for (let i=0; i<checkboxes.length; i++) {
-                if (!checkboxes[i].disabled) {
-                 selectedUserChkBoxUserIds.push(checkboxes[i].id);
-                 checkboxes[i].checked = true;
-                }
-             }
-            }
-            else{
-              for (let i=0; i<checkboxes.length; i++) {
-                if (!checkboxes[i].disabled) {
-                 checkboxes[i].checked = false;
-                }
-             }
-            }
+        });
+      }
+    }
+    else{
+      for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
+        currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
+        userTms = currentUser.teams;
+        if(userTms !== undefined || userTms.length > 0)
+        {
+          currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+          if(currUserTeamIndex != -1){
+            userTms.splice(currUserTeamIndex, 1);
           }
+        }
 
-          if(selectedUserChkBoxUserIds.length > 0)
-            document.getElementById("divAddOrRemoveTeam").style.display = 'block';
-          else
-            document.getElementById("divAddOrRemoveTeam").style.display = 'none';
-        },
-      },
-    ];
+        Users.update(selectedUserChkBoxUserIds[i], {
+          $set:{
+            teams: userTms
+          }
+        });
+      }
+    }
+
+    document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
   },
-}).register('selectAllUser');
+});
+
+Template.newOrgRow.events({
+  'click a.new-org': Popup.open('newOrg'),
+});
+
+Template.newTeamRow.events({
+  'click a.new-team': Popup.open('newTeam'),
+});
+
+Template.newUserRow.events({
+  'click a.new-user': Popup.open('newUser'),
+});
+
+Template.selectAllUser.events({
+  'click .allUserChkBox': function(ev){
+    selectedUserChkBoxUserIds = [];
+    const checkboxes = document.getElementsByClassName("selectUserChkBox");
+    if(ev.currentTarget){
+      if(ev.currentTarget.checked){
+        for (let i=0; i<checkboxes.length; i++) {
+          if (!checkboxes[i].disabled) {
+           selectedUserChkBoxUserIds.push(checkboxes[i].id);
+           checkboxes[i].checked = true;
+          }
+       }
+      }
+      else{
+        for (let i=0; i<checkboxes.length; i++) {
+          if (!checkboxes[i].disabled) {
+           checkboxes[i].checked = false;
+          }
+       }
+      }
+    }
+
+    if(selectedUserChkBoxUserIds.length > 0)
+      document.getElementById("divAddOrRemoveTeam").style.display = 'block';
+    else
+      document.getElementById("divAddOrRemoveTeam").style.display = 'none';
+  },
+});
 
 Template.editOrgPopup.events({
   submit(event, templateInstance) {
@@ -991,7 +1240,7 @@ Template.editUserPopup.events({
   },
 });
 
-UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
+const UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
   let selectedElt;
   let selectedEltValue;
   let selectedEltValueId;
@@ -1270,19 +1519,23 @@ Template.settingsTeamPopup.events({
 Template.settingsUserPopup.events({
   'click .impersonate-user'(event) {
     event.preventDefault();
+    const userId = this.userId || this.user?._id;
 
-    Meteor.call('impersonate', this.userId, (err) => {
+    Meteor.call('impersonate', userId, (err) => {
       if (!err) {
+        // Meteor.connection.setUserId() triggers automatic cache invalidation
+        // No need to manually invalidate - let Meteor handle the user data refresh
+        Meteor.connection.setUserId(userId);
         FlowRouter.go('/');
-        Meteor.connection.setUserId(this.userId);
       }
     });
   },
   'click #deleteButton'(event) {
     event.preventDefault();
+    const userId = this.userId || this.user?._id;
 
     // Use secure server method instead of direct client-side removal
-    Meteor.call('removeUser', this.userId, (error, result) => {
+    Meteor.call('removeUser', userId, (error, result) => {
       if (error) {
         if (process.env.DEBUG === 'true') {
           console.error('Error removing user:', error);
@@ -1309,19 +1562,24 @@ Template.settingsUserPopup.events({
 
 Template.settingsUserPopup.helpers({
   user() {
-    return ReactiveCache.getUser(this.userId);
+    const userId = this.userId || this.user?._id;
+    return ReactiveCache.getUser(userId);
   },
   authentications() {
     return Template.instance().authenticationMethods.get();
   },
   isSelected(match) {
-    const userId = Template.instance().data.userId;
-    const selected = ReactiveCache.getUser(userId).authenticationMethod;
+    const userId = Template.instance().data.userId || Template.instance().data.user?._id;
+    const user = ReactiveCache.getUser(userId);
+    if (!user) return false;
+    const selected = user.authenticationMethod;
     return selected === match;
   },
   isLdap() {
-    const userId = Template.instance().data.userId;
-    const selected = ReactiveCache.getUser(userId).authenticationMethod;
+    const userId = Template.instance().data.userId || Template.instance().data.user?._id;
+    const user = ReactiveCache.getUser(userId);
+    if (!user) return false;
+    const selected = user.authenticationMethod;
     return selected === 'ldap';
   },
   errorMessage() {

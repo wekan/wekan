@@ -1,11 +1,13 @@
-import { Spinner } from '/client/lib/spinner';
+import { getSpinnerTemplate } from '/client/lib/spinner';
 
-(class extends Spinner {
-}.register('spinner'));
+Template.spinner.helpers({
+  getSpinnerTemplate() {
+    return getSpinnerTemplate();
+  },
+});
 
-(class extends Spinner {
+Template.spinnerRaw.helpers({
   getSpinnerTemplateRaw() {
-    let ret = super.getSpinnerTemplate() + 'Raw';
-    return ret;
-  }
-}.register('spinnerRaw'));
+    return getSpinnerTemplate() + 'Raw';
+  },
+});

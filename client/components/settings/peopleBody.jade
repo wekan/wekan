@@ -88,52 +88,70 @@ template(name="people")
           if loading.get
             +spinner
           else if orgSetting.get
-            +orgGeneral
+            +orgGeneral(orgList=orgList orgCurrentPage=orgCurrentPage orgTotalPages=orgTotalPages hasOrgPrevPage=hasOrgPrevPage hasOrgNextPage=hasOrgNextPage)
           else if teamSetting.get
-            +teamGeneral
+            +teamGeneral(teamList=teamList teamCurrentPage=teamCurrentPage teamTotalPages=teamTotalPages hasTeamPrevPage=hasTeamPrevPage hasTeamNextPage=hasTeamNextPage)
           else if peopleSetting.get
-            +peopleGeneral
+            +peopleGeneral(peopleList=peopleList peopleCurrentPage=peopleCurrentPage peopleTotalPages=peopleTotalPages hasPeoplePrevPage=hasPeoplePrevPage hasPeopleNextPage=hasPeopleNextPage)
           else if lockedUsersSetting.get
             +lockedUsersGeneral
 
 
 template(name="orgGeneral")
+  .org-pagination
+    button.js-org-prev-page(class="{{#if hasOrgPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.org-page-info {{orgCurrentPage}} / {{orgTotalPages}}
+    button.js-org-next-page(class="{{#if hasOrgNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   table
     thead
       tr
+        th
+          +newOrgRow
         th {{_ 'displayName'}}
         th {{_ 'description'}}
         th {{_ 'shortName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
-        th {{_ 'active'}}
-        th
-          +newOrgRow
+        th {{_ 'active-org'}}
     tbody
       tr
       each org in orgList
-        +orgRow(orgId=org._id)
+        +orgRow(org=org)
 
 template(name="teamGeneral")
+  .team-pagination
+    button.js-team-prev-page(class="{{#if hasTeamPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.team-page-info {{teamCurrentPage}} / {{teamTotalPages}}
+    button.js-team-next-page(class="{{#if hasTeamNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   table
     thead
       tr
+        th
+          +newTeamRow
         th {{_ 'displayName'}}
         th {{_ 'description'}}
         th {{_ 'shortName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
-        th {{_ 'active'}}
-        th
-          +newTeamRow
+        th {{_ 'active-team'}}
     tbody
       tr
       each team in teamList
-        +teamRow(teamId=team._id)
+        +teamRow(team=team)
 
 template(name="peopleGeneral")
   #divAddOrRemoveTeamContainer
     +modifyTeamsUsers
+  .people-pagination
+    button.js-people-prev-page(class="{{#if hasPeoplePrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.people-page-info {{peopleCurrentPage}} / {{peopleTotalPages}}
+    button.js-people-next-page(class="{{#if hasPeopleNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   table
     thead
       tr
@@ -142,7 +160,7 @@ template(name="peopleGeneral")
         th {{_ 'username'}}
         th {{_ 'email'}}
         th {{_ 'admin'}}
-        th {{_ 'admin-people-active-status'}}
+        th {{_ 'active-person'}}
         th {{_ 'accounts-lockout-status'}}
         th {{_ 'createdAt'}}
         th
@@ -150,7 +168,7 @@ template(name="peopleGeneral")
     tbody
       tr
       each user in peopleList
-        +peopleRow(userId=user._id)
+        +peopleRow(user=user)
 
 template(name="selectAllUser")
   | {{_ 'dueCardsViewChange-choice-all'}}
@@ -173,6 +191,12 @@ template(name="newUserRow")
 
 template(name="orgRow")
   tr
+    td
+      a.edit-org
+        i.fa.fa-pencil-square-o
+        | {{_ 'edit'}}
+      a.more-settings-org
+        | ⋯
     if orgData.orgIsActive
       td {{ orgData.orgDisplayName }}
     else
@@ -190,23 +214,23 @@ template(name="orgRow")
     else
       td <s>{{ orgData.orgWebsite }}</s>
     if orgData.orgIsActive
-      td {{ moment orgData.createdAt 'LLL' }}
+      td {{ displayDate orgData.createdAt 'LLL' }}
     else
-      td <s>{{ moment orgData.createdAt 'LLL' }}</s>
+      td <s>{{ displayDate orgData.createdAt 'LLL' }}</s>
     td
       if orgData.orgIsActive
         | {{_ 'yes'}}
       else
         | {{_ 'no'}}
-    td
-      a.edit-org
-        i.fa.fa-pencil-square-o
-        | {{_ 'edit'}}
-      a.more-settings-org
-        | ⋯
 
 template(name="teamRow")
   tr
+    td
+      a.edit-team
+        i.fa.fa-pencil-square-o
+        | {{_ 'edit'}}
+      a.more-settings-team
+        | ⋯
     if teamData.teamIsActive
       td {{ teamData.teamDisplayName }}
     else
@@ -224,35 +248,50 @@ template(name="teamRow")
     else
       td <s>{{ teamData.teamWebsite }}</s>
     if teamData.teamIsActive
-      td {{ moment teamData.createdAt 'LLL' }}
+      td {{ displayDate teamData.createdAt 'LLL' }}
     else
-      td <s>{{ moment teamData.createdAt 'LLL' }}</s>
+      td <s>{{ displayDate teamData.createdAt 'LLL' }}</s>
     td
       if teamData.teamIsActive
         | {{_ 'yes'}}
       else
         | {{_ 'no'}}
-    td
-      a.edit-team
-        i.fa.fa-pencil-square-o
-        | {{_ 'edit'}}
-      a.more-settings-team
-        | ⋯
 
 template(name="peopleRow")
   tr
     td
-      a.edit-user
+      a.edit-user(data-user-id=userData._id)
         i.fa.fa-pencil-square-o
         | {{_ 'edit'}}
-      a.more-settings-user
+      a.more-settings-user(data-user-id=userData._id)
         | ⋯
     if userData.loginDisabled
-      td.username <s>{{ userData.username }}</s>
+      td.username
+        a.js-edit-people-avatar(data-user-id=userData._id)
+          if hasAvatarUrl
+            .avatar
+              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+          else
+            +userAvatarInitials(userId=userData._id)
+        <s>{{ userData.username }}</s>
     else if isUserLocked
-      td.username {{ userData.username }}
+      td.username
+        a.js-edit-people-avatar(data-user-id=userData._id)
+          if hasAvatarUrl
+            .avatar
+              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+          else
+            +userAvatarInitials(userId=userData._id)
+        | {{ userData.username }}
     else
-      td.username {{ userData.username }}
+      td.username
+        a.js-edit-people-avatar(data-user-id=userData._id)
+          if hasAvatarUrl
+            .avatar
+              img.avatar-image(src="{{userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
+          else
+            +userAvatarInitials(userId=userData._id)
+        | {{ userData.username }}
     if userData.loginDisabled
       td <s>{{ userData.emails.[0].address }}</s>
     else
@@ -284,9 +323,9 @@ template(name="peopleRow")
         span.text-green.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}")
           i.fa.fa-unlock
     if userData.loginDisabled
-      td <s>{{ moment userData.createdAt 'LLL' }}</s>
+      td <s>{{ displayDate userData.createdAt 'LLL' }}</s>
     else
-      td {{ moment userData.createdAt 'LLL' }}
+      td {{ displayDate userData.createdAt 'LLL' }}
     if userData.loginDisabled
       td
         input.selectUserChkBox(type="checkbox", disabled="disabled", id="{{userData._id}}")
@@ -315,7 +354,7 @@ template(name="editOrgPopup")
       | {{_ 'website'}}
       input.js-orgWebsite(type="text" value=org.orgWebsite)
     label
-      | {{_ 'active'}}
+      | {{_ 'active-org'}}
       select.select-active.js-org-isactive
         option(value="false") {{_ 'no'}}
         option(value="true" selected="{{org.orgIsActive}}") {{_ 'yes'}}
@@ -341,7 +380,7 @@ template(name="editTeamPopup")
       | {{_ 'website'}}
       input.js-teamWebsite(type="text" value=team.teamWebsite)
     label
-      | {{_ 'active'}}
+      | {{_ 'active-team'}}
       select.select-active.js-team-isactive
         option(value="false") {{_ 'no'}}
         option(value="true" selected="{{team.teamIsActive}}") {{_ 'yes'}}
@@ -388,7 +427,7 @@ template(name="editUserPopup")
         option(value="false") {{_ 'no'}}
         option(value="true" selected="{{userData.emails.[0].verified}}") {{_ 'yes'}}
     label
-      | {{_ 'active'}}
+      | {{_ 'active-person'}}
       select.select-active.js-profile-isactive
         option(value="false") {{_ 'yes'}}
         option(value="true" selected="{{user.loginDisabled}}") {{_ 'no'}}
@@ -451,7 +490,7 @@ template(name="newOrgPopup")
       | {{_ 'website'}}
       input.js-orgWebsite(type="text" value="" required)
     label
-      | {{_ 'active'}}
+      | {{_ 'active-org'}}
       select.select-active.js-org-isactive
         option(value="false" selected="selected") {{_ 'no'}}
         option(value="true") {{_ 'yes'}}
@@ -475,7 +514,7 @@ template(name="newTeamPopup")
       | {{_ 'website'}}
       input.js-teamWebsite(type="text" value="")
     label
-      | {{_ 'active'}}
+      | {{_ 'active-team'}}
       select.select-active.js-team-isactive
         option(value="false" selected="selected") {{_ 'no'}}
         option(value="true") {{_ 'yes'}}
@@ -512,7 +551,8 @@ template(name="newUserPopup")
       span.error.hide.username-taken
         | {{_ 'error-username-taken'}}
       //if isLdap
-      //  input.js-profile-username(type="text" value=user.username readonly)
+      //
+        input.js-profile-username(type="text" value=user.username readonly)
       //else
       input.js-profile-username(type="text" value="" required)
     label
@@ -523,7 +563,8 @@ template(name="newUserPopup")
       span.error.hide.email-taken
         | {{_ 'error-email-taken'}}
       //if isLdap
-      //  input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
+      //
+        input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
       //else
       input.js-profile-email(type="email" value="" required)
     label
@@ -535,7 +576,7 @@ template(name="newUserPopup")
         option(value="false" selected="selected") {{_ 'no'}}
         option(value="true") {{_ 'yes'}}
     label
-      | {{_ 'active'}}
+      | {{_ 'active-person'}}
       select.select-active.js-profile-isactive
         option(value="false" selected="selected") {{_ 'yes'}}
         option(value="true") {{_ 'no'}}
@@ -596,10 +637,14 @@ template(name="settingsOrgPopup")
   // It's not yet possible to impersonate organization. Only impersonate user,
   // because that changes current user ID. What would it mean in practice
   // to impersonate organization?
-  //  li
-  //    a.impersonate-org
-  //      i.fa.fa-user
-  //      | {{_ 'impersonate-org'}}
+  //
+    li
+  //
+      a.impersonate-org
+  //
+        i.fa.fa-user
+  //
+        | {{_ 'impersonate-org'}}
   //
   //
 
@@ -640,8 +685,10 @@ template(name="settingsUserPopup")
   // - wekan/client/components/settings/peopleBody.jade deleteButton
   // - wekan/client/components/settings/peopleBody.js deleteButton
   // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
-  //   that does now remove member from board, card members and assignees correctly,
-  //   but that should be used to remove user from all boards similarly
+  //
+     that does now remove member from board, card members and assignees correctly,
+  //
+     but that should be used to remove user from all boards similarly
   // - wekan/models/users.js Delete is not enabled
 
 template(name="lockedUsersGeneral")

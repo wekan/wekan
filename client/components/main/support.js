@@ -22,20 +22,18 @@ const supportHelpers = {
 };
 
 // Main support page component
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
+Template.support.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
 
-    Meteor.subscribe('setting');
-  },
-  ...supportHelpers
-}).register('support');
+  Meteor.subscribe('setting');
+});
+
+Template.support.helpers(supportHelpers);
 
 // Header bar component
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('setting');
-  },
-  ...supportHelpers
-}).register('supportHeaderBar');
+Template.supportHeaderBar.onCreated(function () {
+  Meteor.subscribe('setting');
+});
+
+Template.supportHeaderBar.helpers(supportHelpers);

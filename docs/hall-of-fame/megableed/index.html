@@ -1,0 +1,111 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>WeKan — Hall of Fame / MegaBleed</title>
+  <link rel="icon" href="../../wekan-favicon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/main.css">
+  <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <img vAlign="center" src="../hof.svg" alt="Hall of Fame image from https://openclipart.org/detail/120343/trophy"
+    width="300px" height="auto" />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <div class="hof">
+    <h1 class="hof">Contents / MegaBleed</h1>
+
+    <table border="1" margin="0" padding="10px" width="100%">
+      <tr>
+        <th width="10%">CVE</th>
+        <th width="10%">Vulnerability name</th>
+        <th width="10%">Date</th>
+        <th width="20%">
+          <a href="https://github.com/wekan/wekan/blob/main/SECURITY.md" style="color: red;">Responsible Security Disclosure</a>
+          by
+        </th>
+        <th width="40%">Vulnerabilities</th>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          -
+<br /> <br />
+        </td>
+        <td valign="top"><b>MegaBleed</b> <h2><i class="fa fa-flash" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i></h2></td>
+        <td valign="top">2025-12-26 18:39 EET</td>
+        <td valign="top">
+          <b><a href="https://joshua.hu">Joshua Rogers</a> of <a href="https://aisle.com">Aisle Research</a></b><br />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" />
+          <img src="../GoldStar.png" width="30px" height="auto" /><br />
+          Did send detailed report!
+        </td>
+        <td valign="top">
+          <ul>
+            <li>1. <i class="fa fa-flag" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> IDOR in setCreateTranslation. Non-admin could change Custom Translation</li>
+            <li>2. <i class="fa fa-user-secret" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Private-only board setting can be bypassed</li>
+            <li>3. <i class="fa fa-comment" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Card comment author spoofing (IDOR) via API</li>
+            <li>4. <i class="fa fa-plane" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Cross-board card move without destination authorization</li>
+            <li>5. <i class="fa fa-pencil" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Read-only roles can still update cards</li>
+            <li>6. <i class="fa fa-trash" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Checklist delete IDOR: checklist not verified against board/card</li>
+            <li>7. <i class="fa fa-check-square-o" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Checklist create IDOR: cardId not verified against boardId</li>
+            <li>8. <i class="fa fa-file" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Attachments publication leaks metadata without auth</li>
+            <li>9. <i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> Attachment upload not scoped to card/board relationship</li>
+            <li>10. <i class="fa fa-filter" aria-hidden="true"></i> <i class="fa fa-tint" style="color: red;" aria-hidden="true"></i> LDAP filter injection in LDAP auth</li>
+            <li>Affected Wekan v8.18</li>
+            <li>Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v819-2025-12-29-wekan--release">Wekan v8.19 2025-12-29</a></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="hof">
+    <table border="1" margin="0" padding="10px" width="100%">
+
+      <tr>
+        <th width="5%">Timeline</th>
+        <th width="60%">Details</th>
+      </tr>
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2025-12-26 18:39 EET</b></td>
+        <td vAlign="top">
+          Report received.<br />
+        </td>
+      </tr>
+      <tr>
+        <td vAlign="top"><a name="FIELD"></a><b>2025-12-29 22:00 EET</b></td>
+        <td vAlign="top">
+          Fixed at <a href="https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v819-2025-12-29-wekan--release">Wekan v8.19 2025-12-29</a><br />
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="action-buttons">
+    <a class="button" href="https://wekan.fi/hall-of-fame">Back to Hall of Fame Contents</a>
+    <a class="button" href="https://wekan.fi">Back to Wekan Website</a>
+  </div>
+
+  <h1>
+    <br />
+  </h1>
+
+</body>
+
+</html>

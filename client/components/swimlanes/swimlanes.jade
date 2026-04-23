@@ -9,9 +9,15 @@ template(name="swimlane")
         if currentListIsInThisSwimlane _id
           +list(currentList)
         unless currentList
+          if currentUser.isBoardMember
+            unless currentUser.isCommentOnly
+              +addListForm
           each lists
             +miniList(this)
       else
+        if currentUser.isBoardMember
+          unless currentUser.isCommentOnly
+            +addListForm
         each lists
           if visible this
             +list(this)
@@ -43,11 +49,11 @@ template(name="addListForm")
           +inlinedForm(autoclose=false)
             input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
               autocomplete="off" autofocus)
-            if currentBoard.getLastList
+            if swimlaneLists.length
               | {{_ 'add-after-list'}}
               select.list-position-input.full-line
-                each currentBoard.lists
-                  option(value="{{_id}}" selected=currentBoard.getLastList.title) {{title}}
+                each swimlaneLists
+                  option(value="{{_id}}") {{title}}
             .edit-controls.clearfix
               button.primary.confirm(type="submit") {{_ 'save'}}
               .js-close-inlined-form
@@ -64,10 +70,24 @@ template(name="addListForm")
 template(name="moveSwimlanePopup")
   if currentUser
     unless currentUser.isWorker
+      label(for='move-swimlane-title') {{_ 'title'}}:
+      input#move-swimlane-title.full-line(type="text" value="{{title}}" autofocus)
       label {{_ 'boards'}}:
       select.js-select-boards(autofocus)
         each toBoard in toBoards
-          option(value="{{toBoard._id}}") {{toBoard.title}}
+          option(value="{{toBoard._id}}" selected="{{#if isSelectedBoard toBoard._id}}selected{{/if}}") {{toBoard.title}}
+
+      label {{_ 'swimlanes'}}:
+      select.js-select-swimlanes
+        each swimlane in toSwimlanes
+          option(value="{{swimlane._id}}" selected="{{#if isSelectedSwimlane swimlane._id}}selected{{/if}}") {{swimlane.title}}
+
+      div
+        input(type="radio" name="swimlane-position" value="above" checked id="swimlane-position-above" style="display: inline")
+        label(for="swimlane-position-above") {{_ 'above-selected-swimlane'}}
+      div
+        input(type="radio" name="swimlane-position" value="below" id="swimlane-position-below" style="display: inline")
+        label(for="swimlane-position-below") {{_ 'below-selected-swimlane'}}
 
       .edit-controls.clearfix
         button.primary.confirm.js-done {{_ 'done'}}
@@ -75,10 +95,24 @@ template(name="moveSwimlanePopup")
 template(name="copySwimlanePopup")
   if currentUser
     unless currentUser.isWorker
+      label(for='copy-swimlane-title') {{_ 'title'}}:
+      input#copy-swimlane-title.full-line(type="text" value="{{title}}" autofocus)
       label {{_ 'boards'}}:
       select.js-select-boards(autofocus)
         each toBoard in toBoards
-          option(value="{{toBoard._id}}" selected="{{#if $eq toBoard.title board.title}}1{{/if}}") {{toBoard.title}}
+          option(value="{{toBoard._id}}" selected="{{#if isSelectedBoard toBoard._id}}selected{{/if}}") {{toBoard.title}}
+
+      label {{_ 'swimlanes'}}:
+      select.js-select-swimlanes
+        each swimlane in toSwimlanes
+          option(value="{{swimlane._id}}" selected="{{#if isSelectedSwimlane swimlane._id}}selected{{/if}}") {{swimlane.title}}
+
+      div
+        input(type="radio" name="swimlane-position" value="above" checked id="swimlane-position-above" style="display: inline")
+        label(for="swimlane-position-above") {{_ 'above-selected-swimlane'}}
+      div
+        input(type="radio" name="swimlane-position" value="below" id="swimlane-position-below" style="display: inline")
+        label(for="swimlane-position-below") {{_ 'below-selected-swimlane'}}
 
       .edit-controls.clearfix
         button.primary.confirm.js-done {{_ 'done'}}

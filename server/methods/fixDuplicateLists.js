@@ -11,29 +11,29 @@ import { ReactiveCache } from '/imports/reactiveCache';
  * This method identifies and removes duplicate lists while preserving cards
  */
 Meteor.methods({
-  'fixDuplicateLists.fixAllBoards'() {
+  async 'fixDuplicateLists.fixAllBoards'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    if (!ReactiveCache.getUser(this.userId).isAdmin) {
+    if (!(await ReactiveCache.getUser(this.userId)).isAdmin) {
       throw new Meteor.Error('not-authorized', 'Admin required');
     }
 
     if (process.env.DEBUG === 'true') {
       console.log('Starting duplicate lists fix for all boards...');
     }
-    
-    const allBoards = Boards.find({}).fetch();
+
+    const allBoards = await Boards.find({}).fetchAsync();
     let totalFixed = 0;
     let totalBoardsProcessed = 0;
 
     for (const board of allBoards) {
       try {
-        const result = fixDuplicateListsForBoard(board._id);
+        const result = await fixDuplicateListsForBoard(board._id);
         totalFixed += result.fixed;
         totalBoardsProcessed++;
-        
+
         if (result.fixed > 0 && process.env.DEBUG === 'true') {
           console.log(`Fixed ${result.fixed} duplicate lists in board "${board.title}" (${board._id})`);
         }
@@ -45,7 +45,7 @@ Meteor.methods({
     if (process.env.DEBUG === 'true') {
       console.log(`Duplicate lists fix completed. Processed ${totalBoardsProcessed} boards, fixed ${totalFixed} duplicate lists.`);
     }
-    
+
     return {
       message: `Fixed ${totalFixed} duplicate lists across ${totalBoardsProcessed} boards`,
       totalFixed,
@@ -53,34 +53,34 @@ Meteor.methods({
     };
   },
 
-  'fixDuplicateLists.fixBoard'(boardId) {
+  async 'fixDuplicateLists.fixBoard'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized');
     }
 
-    return fixDuplicateListsForBoard(boardId);
+    return await fixDuplicateListsForBoard(boardId);
   }
 });
 
 // Helper functions defined outside of Meteor.methods
-function fixDuplicateListsForBoard(boardId) {
+async function fixDuplicateListsForBoard(boardId) {
     if (process.env.DEBUG === 'true') {
       console.log(`Fixing duplicate lists for board ${boardId}...`);
     }
-    
+
     // First, fix duplicate swimlanes
-    const swimlaneResult = fixDuplicateSwimlanes(boardId);
-    
+    const swimlaneResult = await fixDuplicateSwimlanes(boardId);
+
     // Then, fix duplicate lists
-    const listResult = fixDuplicateLists(boardId);
-    
+    const listResult = await fixDuplicateLists(boardId);
+
     return {
       boardId,
       fixedSwimlanes: swimlaneResult.fixed,
@@ -90,8 +90,8 @@ function fixDuplicateListsForBoard(boardId) {
 }
 
 // Helper functions defined outside of Meteor.methods
-function fixDuplicateSwimlanes(boardId) {
-    const swimlanes = Swimlanes.find({ boardId }).fetch();
+async function fixDuplicateSwimlanes(boardId) {
+    const swimlanes = await Swimlanes.find({ boardId }).fetchAsync();
     const swimlaneGroups = {};
     let fixed = 0;
 
@@ -105,7 +105,7 @@ function fixDuplicateSwimlanes(boardId) {
     });
 
     // For each group with duplicates, keep the oldest and remove the rest
-    Object.keys(swimlaneGroups).forEach(title => {
+    for (const title of Object.keys(swimlaneGroups)) {
       const group = swimlaneGroups[title];
       if (group.length > 1) {
         // Sort by creation date, keep the oldest
@@ -118,11 +118,11 @@ function fixDuplicateSwimlanes(boardId) {
         }
 
         // Move all lists from duplicate swimlanes to the kept swimlane
-        removeSwimlanes.forEach(swimlane => {
-          const lists = Lists.find({ swimlaneId: swimlane._id }).fetch();
-          lists.forEach(list => {
+        for (const swimlane of removeSwimlanes) {
+          const lists = await Lists.find({ swimlaneId: swimlane._id }).fetchAsync();
+          for (const list of lists) {
             // Check if a list with the same title already exists in the kept swimlane
-            const existingList = Lists.findOne({
+            const existingList = await Lists.findOneAsync({
               boardId,
               swimlaneId: keepSwimlane._id,
               title: list.title
@@ -130,37 +130,37 @@ function fixDuplicateSwimlanes(boardId) {
 
             if (existingList) {
               // Move cards to existing list
-              Cards.update(
+              await Cards.updateAsync(
                 { listId: list._id },
                 { $set: { listId: existingList._id } },
                 { multi: true }
               );
               // Remove duplicate list
-              Lists.remove(list._id);
+              await Lists.removeAsync(list._id);
               if (process.env.DEBUG === 'true') {
                 console.log(`Moved cards from duplicate list "${list.title}" to existing list in kept swimlane`);
               }
             } else {
               // Move list to kept swimlane
-              Lists.update(list._id, { $set: { swimlaneId: keepSwimlane._id } });
+              await Lists.updateAsync(list._id, { $set: { swimlaneId: keepSwimlane._id } });
               if (process.env.DEBUG === 'true') {
                 console.log(`Moved list "${list.title}" to kept swimlane`);
               }
             }
-          });
+          }
 
           // Remove duplicate swimlane
-          Swimlanes.remove(swimlane._id);
+          await Swimlanes.removeAsync(swimlane._id);
           fixed++;
-        });
+        }
       }
-    });
+    }
 
     return { fixed };
 }
 
-function fixDuplicateLists(boardId) {
-    const lists = Lists.find({ boardId }).fetch();
+async function fixDuplicateLists(boardId) {
+    const lists = await Lists.find({ boardId }).fetchAsync();
     const listGroups = {};
     let fixed = 0;
 
@@ -174,7 +174,7 @@ function fixDuplicateLists(boardId) {
     });
 
     // For each group with duplicates, keep the oldest and remove the rest
-    Object.keys(listGroups).forEach(key => {
+    for (const key of Object.keys(listGroups)) {
       const group = listGroups[key];
       if (group.length > 1) {
         // Sort by creation date, keep the oldest
@@ -187,43 +187,43 @@ function fixDuplicateLists(boardId) {
         }
 
         // Move all cards from duplicate lists to the kept list
-        removeLists.forEach(list => {
-          Cards.update(
+        for (const list of removeLists) {
+          await Cards.updateAsync(
             { listId: list._id },
             { $set: { listId: keepList._id } },
             { multi: true }
           );
-          
+
           // Remove duplicate list
-          Lists.remove(list._id);
+          await Lists.removeAsync(list._id);
           fixed++;
           if (process.env.DEBUG === 'true') {
             console.log(`Moved cards from duplicate list "${list.title}" to kept list`);
           }
-        });
+        }
       }
-    });
+    }
 
     return { fixed };
 }
 
 Meteor.methods({
-  'fixDuplicateLists.getReport'() {
+  async 'fixDuplicateLists.getReport'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    if (!ReactiveCache.getUser(this.userId).isAdmin) {
+    if (!(await ReactiveCache.getUser(this.userId)).isAdmin) {
       throw new Meteor.Error('not-authorized', 'Admin required');
     }
 
-    const allBoards = Boards.find({}).fetch();
+    const allBoards = await Boards.find({}).fetchAsync();
     const report = [];
 
     for (const board of allBoards) {
-      const swimlanes = Swimlanes.find({ boardId: board._id }).fetch();
-      const lists = Lists.find({ boardId: board._id }).fetch();
-      
+      const swimlanes = await Swimlanes.find({ boardId: board._id }).fetchAsync();
+      const lists = await Lists.find({ boardId: board._id }).fetchAsync();
+
       // Check for duplicate swimlanes
       const swimlaneGroups = {};
       swimlanes.forEach(swimlane => {
@@ -266,4 +266,3 @@ Meteor.methods({
     };
   }
 });
-

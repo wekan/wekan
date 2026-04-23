@@ -1,9 +1,12 @@
-Meteor.publish('user-miniprofile', function (usernames) {
+import Users from '/models/users';
+import { ReactiveCache } from '/imports/reactiveCache';
+
+Meteor.publish('user-miniprofile', async function (usernames) {
   check(usernames, Array);
 
   // eslint-disable-next-line no-console
   // console.log('usernames:', usernames);
-  const ret = ReactiveCache.getUsers(
+  const ret = await ReactiveCache.getUsers(
     {
       $or: [
         { username: { $in: usernames } },
@@ -33,9 +36,9 @@ Meteor.publish('user-admin', function () {
   return ret;
 });
 
-Meteor.publish('user-authenticationMethod', function (match) {
+Meteor.publish('user-authenticationMethod', async function (match) {
   check(match, String);
-  const ret = ReactiveCache.getUsers(
+  const ret = await ReactiveCache.getUsers(
     { $or: [{ _id: match }, { email: match }, { username: match }] },
     {
       fields: {
@@ -50,7 +53,7 @@ Meteor.publish('user-authenticationMethod', function (match) {
 });
 
 // Secure user search publication for board sharing
-Meteor.publish('user-search', function (searchTerm) {
+Meteor.publish('user-search', async function (searchTerm) {
   check(searchTerm, String);
 
   // Only allow logged-in users to search for other users
@@ -62,7 +65,7 @@ Meteor.publish('user-search', function (searchTerm) {
   const searchRegex = new RegExp(searchTerm, 'i');
 
   // Search for users by username, fullname, or email
-  const ret = ReactiveCache.getUsers(
+  const ret = await ReactiveCache.getUsers(
     {
       $or: [
         { username: searchRegex },
@@ -167,10 +170,14 @@ I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
     Meteor.server.stream_server.open_sockets.forEach(
       (socket) => {
         if (socket?._meteorSession?.userId) {
-          Users.update(socket._meteorSession.userId, {
+          Users.updateAsync(socket._meteorSession.userId, {
             $set: {
               lastConnectionDate: new Date(),
             },
+          }).catch(error => {
+            if (process.env.DEBUG === 'true') {
+              console.error('Failed to update lastConnectionDate:', error);
+            }
           });
         }
       });

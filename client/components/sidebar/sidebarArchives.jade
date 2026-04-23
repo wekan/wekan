@@ -1,95 +1,114 @@
 template(name="archivesSidebar")
   if isArchiveReady.get
-    +basicTabs(tabs=tabs)
-      +tabContent(slug="cards")
-        unless isWorker
-          unless currentUser.isReadOnly
-            unless currentUser.isReadAssignedOnly
-              p.quiet
-                a.js-restore-all-cards {{_ 'restore-all'}}
-                if currentUser.isBoardAdmin
-                  | -
-                  a.js-delete-all-cards {{_ 'delete-all'}}
-        each archivedCards
-          .minicard-wrapper.js-minicard
-            +minicard(this)
-          if currentUser.isBoardMember
-            unless isWorker
-              unless currentUser.isReadOnly
-                unless currentUser.isReadAssignedOnly
-                  p.quiet
-                    if this.archivedAt
-                      | {{_ 'archived-at' }}
-                      | 
-                      | {{ moment this.archivedAt 'LLL' }}
-                      br
-                    a.js-restore-card {{_ 'restore'}}
-                    if currentUser.isBoardAdmin
-                      | -
-                      a.js-delete-card {{_ 'delete'}}
-            if cardIsInArchivedList
-              p.quiet.small ({{_ 'warn-list-archived'}})
-        else
-          p.no-items-message {{_ 'no-archived-cards'}}
-
-      +tabContent(slug="lists")
-        unless isWorker
-          unless currentUser.isReadOnly
-            unless currentUser.isReadAssignedOnly
-              p.quiet
-                a.js-restore-all-lists {{_ 'restore-all'}}
-                if currentUser.isBoardAdmin
-                  | -
-                  a.js-delete-all-lists {{_ 'delete-all'}}
-        ul.archived-lists
-          each archivedLists
-            li.archived-lists-item
-              = title
-              if currentUser.isBoardMember
-                unless isWorker
-                  unless currentUser.isReadOnly
-                    unless currentUser.isReadAssignedOnly
-                      p.quiet
-                        if this.archivedAt
-                          | {{_ 'archived-at' }}
-                          | 
-                          | {{ moment this.archivedAt 'LLL' }}
-                          br
-                        a.js-restore-list {{_ 'restore'}}
-                        if currentUser.isBoardAdmin
-                          | -
-                          a.js-delete-list {{_ 'delete'}}
+    .basicTabs-container
+      ul.tabs-list
+        each tabs
+          li.tab-item(class="{{isArchiveTabActive slug}} {{class}}" data-tab="{{slug}}") {{name}}
+      .tabs-content-container
+        section.tabs-content(class="{{isArchiveTabActive 'cards'}}" data-tab="cards")
+          unless isWorker
+            unless currentUser.isReadOnly
+              unless currentUser.isReadAssignedOnly
+                p.quiet
+                  a.js-restore-all-cards {{_ 'restore-all'}}
+                  if currentUser.isBoardAdmin
+                    | -
+                    a.js-delete-all-cards {{_ 'delete-all'}}
+          each archivedCards
+            .minicard-wrapper.js-minicard
+              +minicard(this)
+            if currentUser.isBoardMember
+              unless isWorker
+                unless currentUser.isReadOnly
+                  unless currentUser.isReadAssignedOnly
+                    p.quiet
+                      if this.archivedAt
+                        | {{_ 'archived-at' }}
+                        |  | {{ displayDate this.archivedAt 'LLL' }}
+                        br
+                      a.js-restore-card {{_ 'restore'}}
+                      if currentUser.isBoardAdmin
+                        | -
+                        a.js-delete-card {{_ 'delete'}}
+              if cardIsInArchivedList
+                p.quiet.small ({{_ 'warn-list-archived'}})
           else
-            li.no-items-message {{_ 'no-archived-lists'}}
+            p.no-items-message {{_ 'no-archived-cards'}}
 
-      +tabContent(slug="swimlanes")
-        unless isWorker
-          unless currentUser.isReadOnly
-            unless currentUser.isReadAssignedOnly
-              p.quiet
-                a.js-restore-all-swimlanes {{_ 'restore-all'}}
-                if currentUser.isBoardAdmin
-                  | -
-                  a.js-delete-all-swimlanes {{_ 'delete-all'}}
-        ul.archived-lists
-          each archivedSwimlanes
-            li.archived-lists-item
-              = title
-              if currentUser.isBoardMember
-                unless isWorker
-                  unless currentUser.isReadOnly
-                    unless currentUser.isReadAssignedOnly
-                      p.quiet
-                        if this.archivedAt
-                          | {{_ 'archived-at' }}
-                          | 
-                          | {{ moment this.archivedAt 'LLL' }}
-                          br
-                        a.js-restore-swimlane {{_ 'restore'}}
-                        if currentUser.isBoardAdmin
-                          | -
-                          a.js-delete-swimlane {{_ 'delete'}}
-          else
-            li.no-items-message {{_ 'no-archived-swimlanes'}}
+        section.tabs-content(class="{{isArchiveTabActive 'lists'}}" data-tab="lists")
+          unless isWorker
+            unless currentUser.isReadOnly
+              unless currentUser.isReadAssignedOnly
+                p.quiet
+                  a.js-restore-all-lists {{_ 'restore-all'}}
+                  if currentUser.isBoardAdmin
+                    | -
+                    a.js-delete-all-lists {{_ 'delete-all'}}
+          ul.archived-lists
+            each archivedLists
+              li.archived-lists-item
+                = title
+                if currentUser.isBoardMember
+                  unless isWorker
+                    unless currentUser.isReadOnly
+                      unless currentUser.isReadAssignedOnly
+                        p.quiet
+                          if this.archivedAt
+                            | {{_ 'archived-at' }}
+                            |  | {{ displayDate this.archivedAt 'LLL' }}
+                            br
+                          a.js-restore-list {{_ 'restore'}}
+                          if currentUser.isBoardAdmin
+                            | -
+                            a.js-delete-list {{_ 'delete'}}
+            else
+              li.no-items-message {{_ 'no-archived-lists'}}
+
+        section.tabs-content(class="{{isArchiveTabActive 'swimlanes'}}" data-tab="swimlanes")
+          unless isWorker
+            unless currentUser.isReadOnly
+              unless currentUser.isReadAssignedOnly
+                p.quiet
+                  a.js-restore-all-swimlanes {{_ 'restore-all'}}
+                  if currentUser.isBoardAdmin
+                    | -
+                    a.js-delete-all-swimlanes {{_ 'delete-all'}}
+          ul.archived-lists
+            each archivedSwimlanes
+              li.archived-lists-item
+                = title
+                if currentUser.isBoardMember
+                  unless isWorker
+                    unless currentUser.isReadOnly
+                      unless currentUser.isReadAssignedOnly
+                        p.quiet
+                          if this.archivedAt
+                            | {{_ 'archived-at' }}
+                            |  | {{ displayDate this.archivedAt 'LLL' }}
+                            br
+                          a.js-restore-swimlane {{_ 'restore'}}
+                          if currentUser.isBoardAdmin
+                            | -
+                            a.js-delete-swimlane {{_ 'delete'}}
+            else
+              li.no-items-message {{_ 'no-archived-swimlanes'}}
   else
     +spinner
+
+template(name="restoreArchivedCardToListPopup")
+  p {{_ 'no-list-found'}}, {{_ 'select-list'}}:
+  select.js-select-restore-target-list(autofocus)
+    each availableLists
+      option(value="{{_id}}" selected="{{#if isSelectedList _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-restore-card-to-list {{_ 'restore'}}
+
+template(name="restoreArchivedListToSwimlanePopup")
+  p {{_ 'no-swimlane-found'}}, {{_ 'select-swimlane'}}:
+  select.js-select-restore-target-swimlane(autofocus)
+    each availableSwimlanes
+      option(value="{{_id}}" selected="{{#if isSelectedSwimlane _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-restore-list-to-swimlane {{_ 'restore'}}

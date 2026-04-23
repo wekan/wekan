@@ -2,6 +2,14 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import dragscroll from '@wekanteam/dragscroll';
+import getSlug from 'limax';
+import Boards from '/models/boards';
+import Swimlanes from '/models/swimlanes';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+import { Filter } from '/client/lib/filter';
+import { MultiSelection } from '/client/lib/multiSelection';
+import { getSidebarInstance } from '/client/features/sidebar/service';
+import { Utils } from '/client/lib/utils';
 
 /*
 const DOWNCLS = 'fa-sort-down';
@@ -11,6 +19,7 @@ const sortCardsBy = new ReactiveVar('');
 
 Template.boardChangeTitlePopup.events({
   async submit(event, templateInstance) {
+    event.preventDefault();
     const newTitle = templateInstance
       .$('.js-board-name')
       .val()
@@ -20,21 +29,21 @@ Template.boardChangeTitlePopup.events({
       .val()
       .trim();
     if (newTitle) {
-      await this.rename(newTitle);
-      await this.setDescription(newDesc);
+      const board = Utils.getCurrentBoard();
+      if (board) {
+        await board.rename(newTitle);
+        await board.setDescription(newDesc);
+      }
       Popup.back();
     }
-    event.preventDefault();
   },
 });
 
-BlazeComponent.extendComponent({
+Template.boardHeaderBar.helpers({
   watchLevel() {
     const currentBoard = Utils.getCurrentBoard();
     return currentBoard && currentBoard.getWatchLevel(Meteor.userId());
   },
-
-
 
   isStarred() {
     const boardId = Session.get('currentBoard');
@@ -47,130 +56,7 @@ BlazeComponent.extendComponent({
     const currentBoard = Utils.getCurrentBoard();
     return currentBoard && currentBoard.stars >= 2;
   },
-  /*
-  showSort() {
-    return ReactiveCache.getCurrentUser().hasSortBy();
-  },
-  directionClass() {
-    return this.currentDirection() === -1 ? DOWNCLS : UPCLS;
-  },
-  changeDirection() {
-    const direction = 0 - this.currentDirection() === -1 ? '-' : '';
-    Meteor.call('setListSortBy', direction + this.currentListSortBy());
-  },
-  currentDirection() {
-    return ReactiveCache.getCurrentUser().getListSortByDirection();
-  },
-  currentListSortBy() {
-    return ReactiveCache.getCurrentUser().getListSortBy();
-  },
-  listSortShortDesc() {
-    return `list-label-short-${this.currentListSortBy()}`;
-  },
-  */
-  events() {
-    return [
-      {
-        'click .js-edit-board-title': Popup.open('boardChangeTitle'),
-        'click .js-star-board'() {
-          const boardId = Session.get('currentBoard');
-          if (boardId) {
-            Meteor.call('toggleBoardStar', boardId);
-          }
-        },
-        'click .js-open-board-menu': Popup.open('boardMenu'),
-        'click .js-change-visibility': Popup.open('boardChangeVisibility'),
-        'click .js-watch-board': Popup.open('boardChangeWatch'),
-        'click .js-open-archived-board'() {
-          Modal.open('archivedBoards');
-        },
-        'click .js-toggle-board-view': Popup.open('boardChangeView'),
-        'click .js-toggle-sidebar'() {
-          if (process.env.DEBUG === 'true') {
-            console.log('Hamburger menu clicked');
-          }
-          // Use the same approach as keyboard shortcuts
-          if (typeof Sidebar !== 'undefined' && Sidebar && typeof Sidebar.toggle === 'function') {
-            if (process.env.DEBUG === 'true') {
-              console.log('Using Sidebar.toggle()');
-            }
-            Sidebar.toggle();
-          } else {
-            if (process.env.DEBUG === 'true') {
-              console.warn('Sidebar not available, trying alternative approach');
-            }
-            // Try to trigger the sidebar through the global Blaze helper
-            if (typeof Blaze !== 'undefined' && Blaze._globalHelpers && Blaze._globalHelpers.Sidebar) {
-              const sidebar = Blaze._globalHelpers.Sidebar();
-              if (sidebar && typeof sidebar.toggle === 'function') {
-                if (process.env.DEBUG === 'true') {
-                  console.log('Using Blaze helper Sidebar.toggle()');
-                }
-                sidebar.toggle();
-              }
-            }
-          }
-        },
-        'click .js-open-filter-view'() {
-          if (Sidebar) {
-            Sidebar.setView('filter');
-          } else {
-            console.warn('Sidebar not available for setView');
-          }
-        },
-        'click .js-sort-cards': Popup.open('cardsSort'),
-        /*
-        'click .js-open-sort-view'(evt) {
-          const target = evt.target;
-          if (target.tagName === 'I') {
-            // click on the text, popup choices
-            this.changeDirection();
-          } else {
-            // change the sort order
-            Popup.open('listsort')(evt);
-          }
-        },
-        */
-        'click .js-filter-reset'(event) {
-          event.stopPropagation();
-          if (Sidebar) {
-            Sidebar.setView();
-          } else {
-            console.warn('Sidebar not available for setView');
-          }
-          Filter.reset();
-        },
-        'click .js-sort-reset'() {
-          Session.set('sortBy', '');
-        },
-        'click .js-open-search-view'() {
-          if (Sidebar) {
-            Sidebar.setView('search');
-          } else {
-            console.warn('Sidebar not available for setView');
-          }
-        },
-        'click .js-multiselection-activate'() {
-          const currentCard = Utils.getCurrentCardId();
-          MultiSelection.activate();
-          if (currentCard) {
-            MultiSelection.add(currentCard);
-          }
-        },
-        'click .js-multiselection-reset'(event) {
-          event.stopPropagation();
-          MultiSelection.disable();
-        },
-        'click .js-log-in'() {
-          FlowRouter.go('atSignIn');
-        },
-      },
-    ];
-  },
 
-}).register('boardHeaderBar');
-
-Template.boardHeaderBar.helpers({
   boardView() {
     return Utils.boardView();
   },
@@ -182,7 +68,7 @@ Template.boardHeaderBar.helpers({
     if (!sortBy) {
       return '🃏'; // Card icon when nothing is selected
     }
-    
+
     // Determine which sort option is active based on sortBy object
     if (sortBy.dueAt) {
       return '📅'; // Due date icon
@@ -191,8 +77,108 @@ Template.boardHeaderBar.helpers({
     } else if (sortBy.createdAt) {
       return sortBy.createdAt === 1 ? '⬆️' : '⬇️'; // Up/down arrow based on direction
     }
-    
+
     return '🃏'; // Default card icon
+  },
+});
+
+Template.boardHeaderBar.events({
+  'click .js-edit-board-title': Popup.open('boardChangeTitle'),
+  'click .js-star-board'() {
+    const boardId = Session.get('currentBoard');
+    if (boardId) {
+      Meteor.call('toggleBoardStar', boardId);
+    }
+  },
+  'click .js-open-board-menu': Popup.open('boardMenu'),
+  'click .js-change-visibility': Popup.open('boardChangeVisibility'),
+  'click .js-watch-board': Popup.open('boardChangeWatch'),
+  'click .js-open-archived-board'() {
+    Modal.open('archivedBoards');
+  },
+  'click .js-toggle-board-view': Popup.open('boardChangeView'),
+  'click .js-toggle-sidebar'() {
+    if (process.env.DEBUG === 'true') {
+      console.log('Hamburger menu clicked');
+    }
+    // Use the same approach as keyboard shortcuts
+    const sidebar = getSidebarInstance();
+    if (sidebar && typeof sidebar.toggle === 'function') {
+      if (process.env.DEBUG === 'true') {
+        console.log('Using Sidebar.toggle()');
+      }
+      sidebar.toggle();
+    } else {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Sidebar not available, trying alternative approach');
+      }
+      // Try to trigger the sidebar through the global Blaze helper
+      if (typeof Blaze !== 'undefined' && Blaze._globalHelpers && Blaze._globalHelpers.Sidebar) {
+        const blazeSidebar = Blaze._globalHelpers.Sidebar();
+        if (blazeSidebar && typeof blazeSidebar.toggle === 'function') {
+          if (process.env.DEBUG === 'true') {
+            console.log('Using Blaze helper Sidebar.toggle()');
+          }
+          blazeSidebar.toggle();
+        }
+      }
+    }
+  },
+  'click .js-open-filter-view'() {
+    const sidebar = getSidebarInstance();
+    if (sidebar) {
+      sidebar.setView('filter');
+    } else {
+      console.warn('Sidebar not available for setView');
+    }
+  },
+  'click .js-sort-cards': Popup.open('cardsSort'),
+  /*
+  'click .js-open-sort-view'(evt) {
+    const target = evt.target;
+    if (target.tagName === 'I') {
+      // click on the text, popup choices
+      this.changeDirection();
+    } else {
+      // change the sort order
+      Popup.open('listsort')(evt);
+    }
+  },
+  */
+  'click .js-filter-reset'(event) {
+    event.stopPropagation();
+    const sidebar = getSidebarInstance();
+    if (sidebar) {
+      sidebar.setView();
+    } else {
+      console.warn('Sidebar not available for setView');
+    }
+    Filter.reset();
+  },
+  'click .js-sort-reset'() {
+    Session.set('sortBy', '');
+  },
+  'click .js-open-search-view'() {
+    const sidebar = getSidebarInstance();
+    if (sidebar) {
+      sidebar.setView('search');
+    } else {
+      console.warn('Sidebar not available for setView');
+    }
+  },
+  'click .js-multiselection-activate'() {
+    const currentCard = Utils.getCurrentCardId();
+    MultiSelection.activate();
+    if (currentCard) {
+      MultiSelection.add(currentCard);
+    }
+  },
+  'click .js-multiselection-reset'(event) {
+    event.stopPropagation();
+    MultiSelection.disable();
+  },
+  'click .js-log-in'() {
+    FlowRouter.go('atSignIn');
   },
 });
 
@@ -215,219 +201,229 @@ Template.boardChangeViewPopup.events({
   },
 });
 
-const CreateBoard = BlazeComponent.extendComponent({
-  template() {
-    return 'createBoard';
-  },
+// Shared setup for all create board popups
+function setupCreateBoardState(tpl) {
+  tpl.visibilityMenuIsOpen = new ReactiveVar(false);
+  tpl.visibility = new ReactiveVar('private');
+  tpl.boardId = new ReactiveVar('');
+  Meteor.subscribe('tableVisibilityModeSettings');
+}
 
-  onCreated() {
-    this.visibilityMenuIsOpen = new ReactiveVar(false);
-    this.visibility = new ReactiveVar('private');
-    this.boardId = new ReactiveVar('');
-    Meteor.subscribe('tableVisibilityModeSettings');
-  },
+function createBoardHelpers() {
+  return {
+    visibilityMenuIsOpen() {
+      return Template.instance().visibilityMenuIsOpen.get();
+    },
+    visibility() {
+      return Template.instance().visibility.get();
+    },
+    notAllowPrivateVisibilityOnly() {
+      return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
+    },
+    visibilityCheck() {
+      return Template.currentData() === Template.instance().visibility.get();
+    },
+  };
+}
 
-  notAllowPrivateVisibilityOnly(){
-    return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
-  },
+async function createBoardSubmit(tpl, event) {
+  event.preventDefault();
+  const title = tpl.find('.js-new-board-title').value;
+  const slug = getSlug(title) || 'board';
 
-  visibilityCheck() {
-    return this.currentData() === this.visibility.get();
-  },
+  const addTemplateContainer = $('#add-template-container.is-checked').length > 0;
+  if (addTemplateContainer) {
+    tpl.boardId.set(
+      await Meteor.callAsync('createBoardWithInitialSwimlanes', {
+        title,
+        slug,
+        permission: 'private',
+        type: 'template-container',
+        migrationVersion: 1,
+        swimlanes: [
+          { title: 'Card Templates', sort: 1, type: 'template-container' },
+          { title: 'List Templates', sort: 2, type: 'template-container' },
+          { title: 'Board Templates', sort: 3, type: 'template-container' },
+        ],
+      }),
+    );
 
-  setVisibility(visibility) {
-    this.visibility.set(visibility);
-    this.visibilityMenuIsOpen.set(false);
-  },
+    // Assign to space if one was selected
+    const spaceId = Session.get('createBoardInWorkspace');
+    if (spaceId) {
+      Meteor.call('assignBoardToWorkspace', tpl.boardId.get(), spaceId, (err) => {
+        if (err) console.error('Error assigning board to space:', err);
+      });
+      Session.set('createBoardInWorkspace', null); // Clear after use
+    }
 
-  toggleVisibilityMenu() {
-    this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
-  },
+    FlowRouter.go('board', { id: tpl.boardId.get(), slug });
 
-  toggleAddTemplateContainer() {
+  } else {
+    const visibility = tpl.visibility.get();
+
+    tpl.boardId.set(
+      await Meteor.callAsync('createBoardWithInitialSwimlanes', {
+        title,
+        slug,
+        permission: visibility,
+        migrationVersion: 1,
+        swimlanes: [{ title: 'Default' }],
+      }),
+    );
+
+    // Assign to space if one was selected
+    const spaceId = Session.get('createBoardInWorkspace');
+    if (spaceId) {
+      Meteor.call('assignBoardToWorkspace', tpl.boardId.get(), spaceId, (err) => {
+        if (err) console.error('Error assigning board to space:', err);
+      });
+      Session.set('createBoardInWorkspace', null); // Clear after use
+    }
+
+    FlowRouter.go('board', { id: tpl.boardId.get(), slug });
+  }
+}
+
+function createBoardEvents() {
+  return {
+    'click .js-select-visibility'(event, tpl) {
+      tpl.visibility.set(Template.currentData());
+      tpl.visibilityMenuIsOpen.set(false);
+    },
+    'click .js-change-visibility'(event, tpl) {
+      tpl.visibilityMenuIsOpen.set(!tpl.visibilityMenuIsOpen.get());
+    },
+    'click .js-import': Popup.open('boardImportBoard'),
+    async 'submit'(event, tpl) {
+      await createBoardSubmit(tpl, event);
+    },
+    'click .js-import-board': Popup.open('chooseBoardSource'),
+    'click .js-board-template': Popup.open('searchElement'),
+    'click .js-toggle-add-template-container'() {
+      $('#add-template-container').toggleClass('is-checked');
+    },
+  };
+}
+
+// createBoard (non-popup version)
+Template.createBoard.onCreated(function () {
+  setupCreateBoardState(this);
+});
+
+Template.createBoard.helpers(createBoardHelpers());
+
+Template.createBoard.events(createBoardEvents());
+
+// createBoardPopup
+Template.createBoardPopup.onCreated(function () {
+  setupCreateBoardState(this);
+});
+
+Template.createBoardPopup.helpers(createBoardHelpers());
+
+Template.createBoardPopup.events(createBoardEvents());
+
+// createTemplateContainerPopup
+Template.createTemplateContainerPopup.onCreated(function () {
+  setupCreateBoardState(this);
+});
+
+Template.createTemplateContainerPopup.onRendered(function () {
+  // Always pre-check the template container checkbox for this popup
+  $('#add-template-container').addClass('is-checked');
+});
+
+Template.createTemplateContainerPopup.helpers(createBoardHelpers());
+
+Template.createTemplateContainerPopup.events(createBoardEvents());
+
+// headerBarCreateBoardPopup
+Template.headerBarCreateBoardPopup.onCreated(function () {
+  setupCreateBoardState(this);
+});
+
+Template.headerBarCreateBoardPopup.helpers(createBoardHelpers());
+
+Template.headerBarCreateBoardPopup.events({
+  'click .js-select-visibility'(event, tpl) {
+    tpl.visibility.set(Template.currentData());
+    tpl.visibilityMenuIsOpen.set(false);
+  },
+  'click .js-change-visibility'(event, tpl) {
+    tpl.visibilityMenuIsOpen.set(!tpl.visibilityMenuIsOpen.get());
+  },
+  'click .js-import': Popup.open('boardImportBoard'),
+  async submit(event, tpl) {
+    await createBoardSubmit(tpl, event);
+    // Immediately star boards created with the headerbar popup.
+    await ReactiveCache.getCurrentUser().toggleBoardStar(tpl.boardId.get());
+  },
+  'click .js-import-board': Popup.open('chooseBoardSource'),
+  'click .js-board-template': Popup.open('searchElement'),
+  'click .js-toggle-add-template-container'() {
     $('#add-template-container').toggleClass('is-checked');
   },
+});
 
-  onSubmit(event) {
-    event.preventDefault();
-    const title = this.find('.js-new-board-title').value;
+Template.boardChangeVisibilityPopup.onCreated(function () {
+  Meteor.subscribe('tableVisibilityModeSettings');
+});
 
-    const addTemplateContainer = $('#add-template-container.is-checked').length > 0;
-    if (addTemplateContainer) {
-      //const templateContainerId = Meteor.call('setCreateTemplateContainer');
-      //Utils.goBoardId(templateContainerId);
-      //alert('niinku template ' + Meteor.call('setCreateTemplateContainer'));
-
-      this.boardId.set(
-        Boards.insert({
-            // title: TAPi18n.__('templates'),
-            title: title,
-            permission: 'private',
-            type: 'template-container',
-            migrationVersion: 1, // Latest version - no migration needed
-          }),
-       );
-
-      // Insert the card templates swimlane
-      Swimlanes.insert({
-          // title: TAPi18n.__('card-templates-swimlane'),
-          title: 'Card Templates',
-          boardId: this.boardId.get(),
-          sort: 1,
-          type: 'template-container',
-        }),
-
-      // Insert the list templates swimlane
-      Swimlanes.insert(
-        {
-          // title: TAPi18n.__('list-templates-swimlane'),
-          title: 'List Templates',
-          boardId: this.boardId.get(),
-          sort: 2,
-          type: 'template-container',
-        },
-      );
-
-      // Insert the board templates swimlane
-      Swimlanes.insert(
-        {
-          //title: TAPi18n.__('board-templates-swimlane'),
-          title: 'Board Templates',
-          boardId: this.boardId.get(),
-          sort: 3,
-          type: 'template-container',
-        },
-      );
-
-      // Assign to space if one was selected
-      const spaceId = Session.get('createBoardInWorkspace');
-      if (spaceId) {
-        Meteor.call('assignBoardToWorkspace', this.boardId.get(), spaceId, (err) => {
-          if (err) console.error('Error assigning board to space:', err);
-        });
-        Session.set('createBoardInWorkspace', null); // Clear after use
-      }
-
-      Utils.goBoardId(this.boardId.get());
-
-    } else {
-      const visibility = this.visibility.get();
-
-      this.boardId.set(
-        Boards.insert({
-          title,
-          permission: visibility,
-          migrationVersion: 1, // Latest version - no migration needed
-        }),
-      );
-
-      Swimlanes.insert({
-        title: 'Default',
-        boardId: this.boardId.get(),
-      });
-
-      // Assign to space if one was selected
-      const spaceId = Session.get('createBoardInWorkspace');
-      if (spaceId) {
-        Meteor.call('assignBoardToWorkspace', this.boardId.get(), spaceId, (err) => {
-          if (err) console.error('Error assigning board to space:', err);
-        });
-        Session.set('createBoardInWorkspace', null); // Clear after use
-      }
-
-      Utils.goBoardId(this.boardId.get());
-    }
-  },
-
-  events() {
-    return [
-      {
-        'click .js-select-visibility'() {
-          this.setVisibility(this.currentData());
-        },
-        'click .js-change-visibility': this.toggleVisibilityMenu,
-        'click .js-import': Popup.open('boardImportBoard'),
-        submit: this.onSubmit,
-        'click .js-import-board': Popup.open('chooseBoardSource'),
-        'click .js-board-template': Popup.open('searchElement'),
-        'click .js-toggle-add-template-container': this.toggleAddTemplateContainer,
-      },
-    ];
-  },
-}).register('createBoardPopup');
-
-(class CreateTemplateContainerPopup extends CreateBoard {
-  onRendered() {
-    // Always pre-check the template container checkbox for this popup
-    $('#add-template-container').addClass('is-checked');
-  }
-}).register('createTemplateContainerPopup');
-
-(class HeaderBarCreateBoard extends CreateBoard {
-  async onSubmit(event) {
-    super.onSubmit(event);
-    // Immediately star boards crated with the headerbar popup.
-    await ReactiveCache.getCurrentUser().toggleBoardStar(this.boardId.get());
-  }
-}.register('headerBarCreateBoardPopup'));
-
-BlazeComponent.extendComponent({
+Template.boardChangeVisibilityPopup.helpers({
   notAllowPrivateVisibilityOnly(){
     return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
   },
   visibilityCheck() {
     const currentBoard = Utils.getCurrentBoard();
-    return this.currentData() === currentBoard.permission;
+    return this === currentBoard.permission;
   },
+});
 
-  selectBoardVisibility() {
+Template.boardChangeVisibilityPopup.events({
+  'click .js-select-visibility'() {
     const currentBoard = Utils.getCurrentBoard();
-    const visibility = this.currentData();
-    currentBoard.setVisibility(visibility);
-    Popup.back();
+    const visibility = Template.currentData();
+    if (typeof visibility === 'string') {
+      currentBoard.setVisibility(visibility);
+      Popup.back();
+    }
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-select-visibility': this.selectBoardVisibility,
-      },
-    ];
-  },
-}).register('boardChangeVisibilityPopup');
-
-BlazeComponent.extendComponent({
+Template.boardChangeWatchPopup.helpers({
   watchLevel() {
     const currentBoard = Utils.getCurrentBoard();
     return currentBoard.getWatchLevel(Meteor.userId());
   },
 
   watchCheck() {
-    return this.currentData() === this.watchLevel();
+    const currentBoard = Utils.getCurrentBoard();
+    return this === currentBoard.getWatchLevel(Meteor.userId());
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-select-watch'() {
-          const level = this.currentData();
-          Meteor.call(
-            'watch',
-            'board',
-            Session.get('currentBoard'),
-            level,
-            (err, ret) => {
-              if (!err && ret) Popup.back();
-            },
-          );
+Template.boardChangeWatchPopup.events({
+  'click .js-select-watch'() {
+    const level = Template.currentData();
+    if (typeof level === 'string') {
+      Meteor.call(
+        'watch',
+        'board',
+        Session.get('currentBoard'),
+        level,
+        (err, ret) => {
+          if (!err && ret) Popup.back();
         },
-      },
-    ];
+      );
+    }
   },
-}).register('boardChangeWatchPopup');
+});
 
 /*
-BlazeComponent.extendComponent({
+// BlazeComponent.extendComponent was removed - this code is unused.
+// Original listsortPopup component:
+// {
   onCreated() {
     //this.sortBy = new ReactiveVar();
     ////this.sortDirection = new ReactiveVar();
@@ -495,46 +491,40 @@ BlazeComponent.extendComponent({
       },
     ];
   },
-}).register('listsortPopup');
+// }.register('listsortPopup');
 */
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click .js-sort-due'() {
-          const sortBy = {
-            dueAt: 1,
-          };
-          Session.set('sortBy', sortBy);
-          sortCardsBy.set(TAPi18n.__('due-date'));
-          Popup.back();
-        },
-        'click .js-sort-title'() {
-          const sortBy = {
-            title: 1,
-          };
-          Session.set('sortBy', sortBy);
-          sortCardsBy.set(TAPi18n.__('title'));
-          Popup.back();
-        },
-        'click .js-sort-created-asc'() {
-          const sortBy = {
-            createdAt: 1,
-          };
-          Session.set('sortBy', sortBy);
-          sortCardsBy.set(TAPi18n.__('date-created-newest-first'));
-          Popup.back();
-        },
-        'click .js-sort-created-desc'() {
-          const sortBy = {
-            createdAt: -1,
-          };
-          Session.set('sortBy', sortBy);
-          sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
-          Popup.back();
-        },
-      },
-    ];
+Template.cardsSortPopup.events({
+  'click .js-sort-due'() {
+    const sortBy = {
+      dueAt: 1,
+    };
+    Session.set('sortBy', sortBy);
+    sortCardsBy.set(TAPi18n.__('due-date'));
+    Popup.back();
   },
-}).register('cardsSortPopup');
+  'click .js-sort-title'() {
+    const sortBy = {
+      title: 1,
+    };
+    Session.set('sortBy', sortBy);
+    sortCardsBy.set(TAPi18n.__('title'));
+    Popup.back();
+  },
+  'click .js-sort-created-asc'() {
+    const sortBy = {
+      createdAt: 1,
+    };
+    Session.set('sortBy', sortBy);
+    sortCardsBy.set(TAPi18n.__('date-created-newest-first'));
+    Popup.back();
+  },
+  'click .js-sort-created-desc'() {
+    const sortBy = {
+      createdAt: -1,
+    };
+    Session.set('sortBy', sortBy);
+    sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
+    Popup.back();
+  },
+});

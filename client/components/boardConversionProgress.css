@@ -170,14 +170,14 @@
     width: 95%;
     margin: 20px;
   }
-  
+
   .board-conversion-header,
   .board-conversion-content,
   .board-conversion-footer {
     padding-left: 16px;
     padding-right: 16px;
   }
-  
+
   .board-conversion-header h3 {
     font-size: 18px;
   }

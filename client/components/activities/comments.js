@@ -1,95 +1,85 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import CardComments from '/models/cardComments';
+import { UnsavedEdits } from '/client/lib/unsavedEdits';
+import { EscapeActions } from '/client/lib/escapeActions';
+import { Utils } from '/client/lib/utils';
+import autosize from 'autosize';
 
 const commentFormIsOpen = new ReactiveVar(false);
 
-BlazeComponent.extendComponent({
-  onDestroyed() {
-    commentFormIsOpen.set(false);
-    $('.note-popover').hide();
-  },
+Template.commentForm.onDestroyed(function () {
+  commentFormIsOpen.set(false);
+  $('.note-popover').hide();
+});
 
+Template.commentForm.helpers({
   commentFormIsOpen() {
     return commentFormIsOpen.get();
   },
+});
 
-  getInput() {
-    return this.$('.js-new-comment-input');
+Template.commentForm.events({
+  'submit .js-new-comment-form'(evt, tpl) {
+    const input = tpl.$('.js-new-comment-input');
+    const text = input.val().trim();
+    const card = Template.currentData();
+    let boardId = card.boardId;
+    let cardId = card._id;
+    if (card.isLinkedCard()) {
+      boardId = ReactiveCache.getCard(card.linkedId).boardId;
+      cardId = card.linkedId;
+    } else if (card.isLinkedBoard()) {
+      boardId = card.linkedId;
+    }
+    if (text) {
+      CardComments.insert({
+        text,
+        boardId,
+        cardId,
+      });
+      resetCommentInput(input);
+      Tracker.flush();
+      autosize.update(input);
+      input.trigger('submitted');
+    }
+    evt.preventDefault();
   },
-
-  events() {
-    return [
-      {
-        'submit .js-new-comment-form'(evt) {
-          const input = this.getInput();
-          const text = input.val().trim();
-          const card = this.currentData();
-          let boardId = card.boardId;
-          let cardId = card._id;
-          if (card.isLinkedCard()) {
-            boardId = ReactiveCache.getCard(card.linkedId).boardId;
-            cardId = card.linkedId;
-          } else if (card.isLinkedBoard()) {
-            boardId = card.linkedId;
-          }
-          if (text) {
-            CardComments.insert({
-              text,
-              boardId,
-              cardId,
-            });
-            resetCommentInput(input);
-            Tracker.flush();
-            autosize.update(input);
-            input.trigger('submitted');
-          }
-          evt.preventDefault();
-        },
-        // Pressing Ctrl+Enter should submit the form
-        'keydown form textarea'(evt) {
-          if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
-            this.find('button[type=submit]').click();
-          }
-        },
-      },
-    ];
+  // Pressing Ctrl+Enter should submit the form
+  'keydown form textarea'(evt, tpl) {
+    if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
+      tpl.find('button[type=submit]').click();
+    }
   },
-}).register('commentForm');
+});
 
-BlazeComponent.extendComponent({
+Template.comments.helpers({
   getComments() {
-    const data = this.data();
+    const data = Template.currentData();
     if (!data || typeof data.comments !== 'function') return [];
     return data.comments();
   },
-}).register("comments");
+});
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click .js-delete-comment': Popup.afterConfirm('deleteComment', () => {
-          const commentId = this.data()._id;
-          CardComments.remove(commentId);
-          Popup.back();
-        }),
-        'submit .js-edit-comment'(evt) {
-          evt.preventDefault();
-          const commentText = this.currentComponent()
-            .getValue()
-            .trim();
-          const commentId = this.data()._id;
-          if (commentText) {
-            CardComments.update(commentId, {
-              $set: {
-                text: commentText,
-              },
-            });
-          }
+Template.comment.events({
+  'click .js-delete-comment': Popup.afterConfirm('deleteComment', function () {
+    const commentId = this._id;
+    CardComments.remove(commentId);
+    Popup.back();
+  }),
+  'submit .js-edit-comment'(evt, tpl) {
+    evt.preventDefault();
+    const textarea = tpl.find('.js-edit-comment textarea,input[type=text]');
+    const commentText = textarea && textarea.value ? textarea.value.trim() : '';
+    const commentId = this._id;
+    if (commentText) {
+      CardComments.update(commentId, {
+        $set: {
+          text: commentText,
         },
-      },
-    ];
+      });
+    }
   },
-}).register("comment");
+});
 
 // XXX This should be a static method of the `commentForm` component
 function resetCommentInput(input) {

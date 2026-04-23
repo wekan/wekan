@@ -1,0 +1,19 @@
+template(name="originalPosition")
+  .original-position-info
+    if isLoading
+      .original-position-loading
+        | ⏳ Loading original position...
+    else
+      if showOriginalPosition
+        .original-position-details
+          if hasMovedFromOriginal
+            .original-position-moved
+              span.original-position-text ℹ️ {{getOriginalPositionDescription}}
+          else
+            .original-position-unchanged
+              span.original-position-text ✅ In original position
+
+          if getOriginalTitle
+            .original-title
+              strong Original title:
+              |  {{getOriginalTitle}}

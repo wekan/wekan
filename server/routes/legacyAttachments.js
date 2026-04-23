@@ -33,7 +33,7 @@ function sanitizeFilenameForHeader(filename) {
   // For non-ASCII filenames, provide a fallback and RFC 5987 encoded version
   const fallback = sanitized.replace(/[^\x20-\x7E]/g, '_').slice(0, 100) || 'download';
   const encoded = encodeURIComponent(sanitized);
-  
+
   // Return special marker format that will be handled by buildContentDispositionHeader
   // Format: "fallback|RFC5987:encoded"
   return `${fallback}|RFC5987:${encoded}`;
@@ -58,7 +58,7 @@ function buildContentDispositionHeader(disposition, sanitizedFilename) {
 
 if (Meteor.isServer) {
   // Handle legacy attachment downloads
-  WebApp.connectHandlers.use('/cfs/files/attachments', (req, res, next) => {
+  WebApp.handlers.use('/cfs/files/attachments', async (req, res, next) => {
     const attachmentId = req.url.split('/').pop();
 
     if (!attachmentId) {
@@ -69,7 +69,7 @@ if (Meteor.isServer) {
 
     try {
       // Try to get attachment with backward compatibility
-      const attachment = getAttachmentWithBackwardCompatibility(attachmentId);
+      const attachment = await getAttachmentWithBackwardCompatibility(attachmentId);
 
       if (!attachment) {
         res.writeHead(404);
@@ -78,7 +78,7 @@ if (Meteor.isServer) {
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board) {
         res.writeHead(404);
         res.end('Board not found');

@@ -2,6 +2,7 @@
   class="{{#unless title}}miniprofile{{/unless}}"
   class=currentBoard.colorClass
   class="{{#unless title}}no-title{{/unless}}"
+  class="{{#if offset.maxHeight}}pop-over--bounded{{/if}}"
   data-popup="{{popupName}}"
   style="left:{{offset.left}}px; top:{{offset.top}}px;{{#if offset.maxHeight}} max-height:{{offset.maxHeight}}px;{{/if}}")
   .header

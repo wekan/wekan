@@ -79,7 +79,7 @@ class MigrationProgressManager {
     isMigrating.set(false);
     migrationProgress.set(100);
     migrationStatus.set('Migration completed successfully!');
-    
+
     // Clear step details after a delay
     setTimeout(() => {
       migrationStepName.set('');
@@ -178,7 +178,7 @@ Template.migrationProgress.helpers({
   stepNameFormatted() {
     const stepName = migrationStepName.get();
     if (!stepName) return '';
-    
+
     // Convert snake_case to Title Case
     return stepName
       .split('_')
@@ -189,7 +189,7 @@ Template.migrationProgress.helpers({
   stepDetailsFormatted() {
     const details = migrationStepDetails.get();
     if (!details) return '';
-    
+
     const formatted = [];
     for (const [key, value] of Object.entries(details)) {
       const formattedKey = key
@@ -199,7 +199,7 @@ Template.migrationProgress.helpers({
         .replace(/^\w/, c => c.toUpperCase());
       formatted.push(`${formattedKey}: ${value}`);
     }
-    
+
     return formatted.join(', ');
   }
 });

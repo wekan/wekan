@@ -1,4 +1,5 @@
 // a map of notification service, like email, web, IM, qq, etc.
+import { ReactiveCache } from '/imports/reactiveCache';
 
 // serviceName -> callback(user, title, description, params)
 // expected arguments to callback:
@@ -9,7 +10,7 @@
 //   see example call to Notifications.notify() in models/activities.js
 const notifyServices = {};
 
-Notifications = {
+export const Notifications = {
   subscribe: (serviceName, callback) => {
     notifyServices[serviceName] = callback;
   },
@@ -19,23 +20,32 @@ Notifications = {
       delete notifyServices[serviceName];
   },
 
-  getUsers: watchers => {
+  getUsers: async watchers => {
     const users = [];
-    watchers.forEach(userId => {
-      const user = ReactiveCache.getUser(userId);
+    for (const userId of watchers) {
+      const user = await ReactiveCache.getUser(userId);
       if (user && user._id) users.push(user);
-    });
+    }
     return users;
   },
 
   notify: (user, title, description, params) => {
     // Skip if user is invalid
     if (!user || !user._id) return;
-    
+
     for (const k in notifyServices) {
       const notifyImpl = notifyServices[k];
-      if (notifyImpl && typeof notifyImpl === 'function')
-        notifyImpl(user, title, description, params);
+      if (notifyImpl && typeof notifyImpl === 'function') {
+        try {
+          Promise.resolve(
+            notifyImpl(user, title, description, params),
+          ).catch(error => {
+            console.error(`Notification service "${k}" failed:`, error);
+          });
+        } catch (error) {
+          console.error(`Notification service "${k}" failed:`, error);
+        }
+      }
     }
   },
 };

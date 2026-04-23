@@ -1,0 +1,8 @@
+{
+  "name": "meteor-jade-loader",
+  "version": "1.0.0",
+  "description": "Rspack/webpack loader that compiles Meteor .jade template files into JavaScript that registers Blaze templates",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT"
+}

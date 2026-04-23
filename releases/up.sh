@@ -10,8 +10,23 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
+
 # 2) Install parallel if it's not installed yet
-sudo apt-get -y install parallel
+if [ "$(uname)" = "Darwin" ]; then
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  if ! command -v parallel >/dev/null 2>&1; then
+    echo "GNU parallel not found. Installing with brew..."
+    brew install parallel
+  fi
+else
+  if ! command -v parallel >/dev/null 2>&1; then
+    echo "GNU parallel not found. Installing with apt-get..."
+    sudo apt-get -y install parallel
+  fi
+fi
 
 # 3) Download releases from build servers and
 #    upload releases to download server,

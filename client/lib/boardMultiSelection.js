@@ -1,6 +1,8 @@
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
 
-BoardMultiSelection = {
+export const BoardMultiSelection = {
   _selectedBoards: new ReactiveVar([]),
 
   _isActive: new ReactiveVar(false),
@@ -52,7 +54,7 @@ BoardMultiSelection = {
   },
 
   toggle(boardIds, { add, remove } = {}) {
-    boardIds = _.isString(boardIds) ? [boardIds] : boardIds;
+    boardIds = typeof boardIds === 'string' ? [boardIds] : boardIds;
     let selectedBoards = this._selectedBoards.get();
 
     boardIds.forEach(boardId => {

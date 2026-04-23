@@ -1,12 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { formatDateByUserPreference } from '/imports/lib/dateUtils';
+import Users from '/models/users';
 
 Template.notification.events({
-  'click .read-status .materialCheckBox'() {
+  async 'click .read-status .materialCheckBox'() {
     const update = {};
-    const newReadValue = this.read ? null : Date.now();
+    const newReadValue = this.read ? null : new Date();
     update[`profile.notifications.${this.index}.read`] = newReadValue;
-    
-    Users.update(Meteor.userId(), { $set: update }, (error, result) => {
+
+    await Users.updateAsync(Meteor.userId(), { $set: update }).catch((error) => {
       if (error) {
         console.error('Error updating notification:', error);
       }
@@ -34,13 +36,19 @@ Template.notification.helpers({
   activityDate() {
     const activity = this.activityData;
     if (!activity || !activity.createdAt) return '';
-    
+
     const user = ReactiveCache.getCurrentUser();
     if (!user) return '';
-    
-    const dateFormat = user.getDateFormat ? user.getDateFormat() : 'L';
-    const timeFormat = user.getTimeFormat ? user.getTimeFormat() : 'LT';
-    
-    return moment(activity.createdAt).format(`${dateFormat} ${timeFormat}`);
+
+    const dateObj = new Date(activity.createdAt);
+    if (Number.isNaN(dateObj.getTime())) return '';
+
+    const dateFormat = user.getDateFormat ? user.getDateFormat() : 'YYYY-MM-DD';
+    const datePart = formatDateByUserPreference(dateObj, dateFormat, false);
+    const timePart = dateObj.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+    return `${datePart} ${timePart}`.trim();
   },
 });

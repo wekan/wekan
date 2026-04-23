@@ -1,111 +1,118 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 
 const translationsPerPage = 25;
 
-BlazeComponent.extendComponent({
-  mixins() {
-    return [Mixins.InfiniteScrolling];
-  },
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-    this.translationSetting = new ReactiveVar(true);
-    this.findTranslationsOptions = new ReactiveVar({});
-    this.numberTranslations = new ReactiveVar(0);
+Template.translation.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.translationSetting = new ReactiveVar(true);
+  this.findTranslationsOptions = new ReactiveVar({});
+  this.numberTranslations = new ReactiveVar(0);
 
-    this.page = new ReactiveVar(1);
-    this.loadNextPageLocked = false;
-    this.callFirstWith(null, 'resetNextPeak');
-    this.autorun(() => {
-      const limitTranslations = this.page.get() * translationsPerPage;
+  this.page = new ReactiveVar(1);
+  this.loadNextPageLocked = false;
+  this.infiniteScrolling = new InfiniteScrolling();
 
-      this.subscribe('translation', this.findTranslationsOptions.get(), 0, () => {
-        this.loadNextPageLocked = false;
-        const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
-        this.calculateNextPeak();
-        const nextPeakAfter = this.callFirstWith(null, 'getNextPeak');
-        if (nextPeakBefore === nextPeakAfter) {
-          this.callFirstWith(null, 'resetNextPeak');
-        }
-      });
-    });
-  },
-  events() {
-    return [
-      {
-        'click #searchTranslationButton'() {
-          this.filterTranslation();
-        },
-        'keydown #searchTranslationInput'(event) {
-          if (event.keyCode === 13 && !event.shiftKey) {
-            this.filterTranslation();
-          }
-        },
-        'click #newTranslationButton'() {
-          Popup.open('newTranslation');
-        },
-        'click a.js-translation-menu': this.switchMenu,
-      },
-    ];
-  },
-  filterTranslation() {
-    const value = $('#searchTranslationInput').first().val();
-    if (value === '') {
-      this.findTranslationsOptions.set({});
-    } else {
-      const regex = new RegExp(value, 'i');
-      this.findTranslationsOptions.set({
-        $or: [
-          { language: regex },
-          { text: regex },
-          { translationText: regex },
-        ],
-      });
-    }
-  },
-  loadNextPage() {
+  this.loadNextPage = () => {
     if (this.loadNextPageLocked === false) {
       this.page.set(this.page.get() + 1);
       this.loadNextPageLocked = true;
     }
-  },
-  calculateNextPeak() {
+  };
+
+  this.calculateNextPeak = () => {
     const element = this.find('.main-body');
     if (element) {
-      const altitude = element.scrollHeight;
-      this.callFirstWith(this, 'setNextPeak', altitude);
+      this.infiniteScrolling.setNextPeak(element.scrollHeight);
     }
+  };
+
+  this.autorun(() => {
+    const limitTranslations = this.page.get() * translationsPerPage;
+
+    this.subscribe('translation', this.findTranslationsOptions.get(), 0, () => {
+      this.loadNextPageLocked = false;
+      const nextPeakBefore = this.infiniteScrolling.getNextPeak();
+      this.calculateNextPeak();
+      const nextPeakAfter = this.infiniteScrolling.getNextPeak();
+      if (nextPeakBefore === nextPeakAfter) {
+        this.infiniteScrolling.resetNextPeak();
+      }
+    });
+  });
+});
+
+Template.translation.helpers({
+  loading() {
+    return Template.instance().loading;
   },
-  reachNextPeak() {
-    this.loadNextPage();
-  },
-  setError(error) {
-    this.error.set(error);
-  },
-  setLoading(w) {
-    this.loading.set(w);
+  translationSetting() {
+    return Template.instance().translationSetting;
   },
   translationList() {
-    const translations = ReactiveCache.getTranslations(this.findTranslationsOptions.get(), {
+    const tpl = Template.instance();
+    const translations = ReactiveCache.getTranslations(tpl.findTranslationsOptions.get(), {
       sort: { modifiedAt: 1 },
       fields: { _id: true },
     });
-    this.numberTranslations.set(translations.length);
+    tpl.numberTranslations.set(translations.length);
     return translations;
   },
   translationNumber() {
-    return this.numberTranslations.get();
+    return Template.instance().numberTranslations.get();
   },
-  switchMenu(event) {
+  setError(error) {
+    Template.instance().error.set(error);
+  },
+  setLoading(w) {
+    Template.instance().loading.set(w);
+  },
+});
+
+Template.translation.events({
+  'click #searchTranslationButton'(event, tpl) {
+    _filterTranslation(tpl);
+  },
+  'keydown #searchTranslationInput'(event, tpl) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      _filterTranslation(tpl);
+    }
+  },
+  'click #newTranslationButton'() {
+    Popup.open('newTranslation');
+  },
+  'click a.js-translation-menu'(event, tpl) {
     const target = $(event.target);
     if (!target.hasClass('active')) {
       $('.side-menu li.active').removeClass('active');
       target.parent().addClass('active');
       const targetID = target.data('id');
-      this.translationSetting.set('translation-setting' === targetID);
+      tpl.translationSetting.set('translation-setting' === targetID);
     }
   },
-}).register('translation');
+  'scroll .main-body'(event, tpl) {
+    tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {
+      tpl.loadNextPage();
+    });
+  },
+});
+
+function _filterTranslation(tpl) {
+  const value = $('#searchTranslationInput').first().val();
+  if (value === '') {
+    tpl.findTranslationsOptions.set({});
+  } else {
+    const regex = new RegExp(value, 'i');
+    tpl.findTranslationsOptions.set({
+      $or: [
+        { language: regex },
+        { text: regex },
+        { translationText: regex },
+      ],
+    });
+  }
+}
 
 Template.translationRow.helpers({
   translationData() {
@@ -135,30 +142,20 @@ Template.newTranslationPopup.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {},
+Template.translationRow.helpers({
   translation() {
     return ReactiveCache.getTranslation(this.translationId);
   },
-  events() {
-    return [
-      {
-        'click a.edit-translation': Popup.open('editTranslation'),
-        'click a.more-settings-translation': Popup.open('settingsTranslation'),
-      },
-    ];
-  },
-}).register('translationRow');
+});
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click a.new-translation': Popup.open('newTranslation'),
-      },
-    ];
-  },
-}).register('newTranslationRow');
+Template.translationRow.events({
+  'click a.edit-translation': Popup.open('editTranslation'),
+  'click a.more-settings-translation': Popup.open('settingsTranslation'),
+});
+
+Template.newTranslationRow.events({
+  'click a.new-translation': Popup.open('newTranslation'),
+});
 
 Template.editTranslationPopup.events({
   submit(event, templateInstance) {

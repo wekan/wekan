@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getOldAttachmentData, getOldAttachmentDataBuffer } from '/models/lib/attachmentBackwardCompatibility';
+import Attachments from '/models/attachments';
 
 /**
  * Migration script to convert old CollectionFS attachments to new Meteor-Files structure
@@ -14,20 +15,20 @@ if (Meteor.isServer) {
      * @param {string} attachmentId - The old attachment ID
      * @returns {Object} - Migration result
      */
-    migrateAttachment(attachmentId) {
+    async migrateAttachment(attachmentId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       try {
         // Get old attachment data
-        const oldAttachment = getOldAttachmentData(attachmentId);
+        const oldAttachment = await getOldAttachmentData(attachmentId);
         if (!oldAttachment) {
           return { success: false, error: 'Old attachment not found' };
         }
 
         // Check if already migrated
-        const existingAttachment = ReactiveCache.getAttachment(attachmentId);
+        const existingAttachment = await ReactiveCache.getAttachment(attachmentId);
         if (existingAttachment) {
           return { success: true, message: 'Already migrated', attachmentId };
         }
@@ -43,7 +44,7 @@ if (Meteor.isServer) {
           type: oldAttachment.type
         });
 
-        const uploader = Attachments.insert({
+        const uploader = await Attachments.insertAsync({
           file: fileObj,
           meta: oldAttachment.meta,
           isBase64: false,
@@ -72,7 +73,7 @@ if (Meteor.isServer) {
      * @param {string} cardId - The card ID
      * @returns {Object} - Migration results
      */
-    migrateCardAttachments(cardId) {
+    async migrateCardAttachments(cardId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
@@ -85,10 +86,10 @@ if (Meteor.isServer) {
 
       try {
         // Get all old attachments for this card
-        const oldAttachments = ReactiveCache.getAttachments({ 'meta.cardId': cardId });
+        const oldAttachments = await ReactiveCache.getAttachments({ 'meta.cardId': cardId });
 
         for (const attachment of oldAttachments) {
-          const result = Meteor.call('migrateAttachment', attachment._id);
+          const result = await Meteor.callAsync('migrateAttachment', attachment._id);
           if (result.success) {
             results.success++;
           } else {
@@ -113,14 +114,14 @@ if (Meteor.isServer) {
      * @param {string} cardId - The card ID (optional)
      * @returns {Object} - Migration status
      */
-    getAttachmentMigrationStatus(cardId) {
+    async getAttachmentMigrationStatus(cardId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       try {
         const selector = cardId ? { 'meta.cardId': cardId } : {};
-        const allAttachments = ReactiveCache.getAttachments(selector);
+        const allAttachments = await ReactiveCache.getAttachments(selector);
 
         const status = {
           total: allAttachments.length,

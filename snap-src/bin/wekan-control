@@ -4,8 +4,10 @@
 source $SNAP/bin/wekan-read-settings
 
 export NODE_PATH=$SNAP/bin
-# if possible we prefer to bind over unix socket
-if [ "nill" != "$MONGODB_BIND_UNIX_SOCKET" ] && [ "x" != "x$MONGODB_BIND_UNIX_SOCKET" ]; then
+# Use user-provided MONGO_URL if set, otherwise build from components
+if [ -n "$MONGO_URL" ]; then
+    echo "Using user-provided MONGO_URL"
+elif [ "nill" != "$MONGODB_BIND_UNIX_SOCKET" ] && [ "x" != "x$MONGODB_BIND_UNIX_SOCKET" ]; then
     if [ -d $MONGODB_BIND_UNIX_SOCKET ]; then
         export MONGO_URL="mongodb://$MONGODB_BIND_UNIX_SOCKET/mongodb-${MONGODB_PORT}.sock/wekan"
     else
@@ -13,7 +15,10 @@ if [ "nill" != "$MONGODB_BIND_UNIX_SOCKET" ] && [ "x" != "x$MONGODB_BIND_UNIX_SO
     fi
 else
     [ "x" == "x$MONGODB_BIND_IP" ] && MONGODB_BIND_IP="127.0.0.1"
-    export MONGO_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan"
+    export MONGO_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan?tls=false"
+    if [ -z "$MONGO_OPLOG_URL" ]; then
+        export MONGO_OPLOG_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/local?replicaSet=rs0&tls=false"
+    fi
 fi
 
 # If uploads directory does not exist, create it.

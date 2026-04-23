@@ -1,84 +1,86 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import Fiber from 'fibers';
+
+// Authentication helpers — exported for use by API routes and model files
+export const Authentication = {
+  async checkUserId(userId) {
+    if (userId === undefined) {
+      const error = new Meteor.Error('Unauthorized', 'Unauthorized');
+      error.statusCode = 401;
+      throw error;
+    }
+    const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
+
+    if (admin === undefined) {
+      const error = new Meteor.Error('Forbidden', 'Forbidden');
+      error.statusCode = 403;
+      throw error;
+    }
+  },
+
+  // This will only check if the user is logged in.
+  // The authorization checks for the user will have to be done inside each API endpoint
+  checkLoggedIn(userId) {
+    if (userId === undefined) {
+      const error = new Meteor.Error('Unauthorized', 'Unauthorized');
+      error.statusCode = 401;
+      throw error;
+    }
+  },
+
+  // An admin should be authorized to access everything, so we use a separate check for admins
+  // This throws an error if otherReq is false and the user is not an admin
+  async checkAdminOrCondition(userId, otherReq) {
+    if (otherReq) return;
+    const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
+    if (admin === undefined) {
+      const error = new Meteor.Error('Forbidden', 'Forbidden');
+      error.statusCode = 403;
+      throw error;
+    }
+  },
+
+  // Helper function. Will throw an error if the user is not active BoardAdmin or active Normal user of the board.
+  async checkBoardAccess(userId, boardId) {
+    Authentication.checkLoggedIn(userId);
+    const board = await ReactiveCache.getBoard(boardId);
+    const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker);
+    await Authentication.checkAdminOrCondition(userId, normalAccess);
+  },
+
+  // Helper function. Will throw an error if the user does not have write access to the board (excludes read-only users).
+  async checkBoardWriteAccess(userId, boardId) {
+    Authentication.checkLoggedIn(userId);
+    const board = await ReactiveCache.getBoard(boardId);
+    const writeAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
+    await Authentication.checkAdminOrCondition(userId, writeAccess);
+  },
+
+  // Helper function. Will throw an error if the user is not a board admin.
+  async checkBoardAdmin(userId, boardId) {
+    Authentication.checkLoggedIn(userId);
+    const board = await ReactiveCache.getBoard(boardId);
+    const adminAccess = board.members.some(e => e.userId === userId && e.isActive && e.isAdmin);
+    await Authentication.checkAdminOrCondition(userId, adminAccess);
+  },
+};
 
 Meteor.startup(() => {
-  // Node Fibers 100% CPU usage issue
-  // https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
-  // https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
-  // https://github.com/sandstorm-io/sandstorm/blob/0f1fec013fe7208ed0fd97eb88b31b77e3c61f42/shell/server/00-startup.js#L99-L129
-  Fiber.poolSize = 1e9;
-
   Accounts.validateLoginAttempt(function(options) {
     const user = options.user || {};
     return !user.loginDisabled;
   });
-
-  Authentication = {};
-
-  Authentication.checkUserId = function(userId) {
-    if (userId === undefined) {
-      const error = new Meteor.Error('Unauthorized', 'Unauthorized');
-      error.statusCode = 401;
-      throw error;
-    }
-    const admin = ReactiveCache.getUser({ _id: userId, isAdmin: true });
-
-    if (admin === undefined) {
-      const error = new Meteor.Error('Forbidden', 'Forbidden');
-      error.statusCode = 403;
-      throw error;
-    }
-  };
-
-  // This will only check if the user is logged in.
-  // The authorization checks for the user will have to be done inside each API endpoint
-  Authentication.checkLoggedIn = function(userId) {
-    if (userId === undefined) {
-      const error = new Meteor.Error('Unauthorized', 'Unauthorized');
-      error.statusCode = 401;
-      throw error;
-    }
-  };
-
-  // An admin should be authorized to access everything, so we use a separate check for admins
-  // This throws an error if otherReq is false and the user is not an admin
-  Authentication.checkAdminOrCondition = function(userId, otherReq) {
-    if (otherReq) return;
-    const admin = ReactiveCache.getUser({ _id: userId, isAdmin: true });
-    if (admin === undefined) {
-      const error = new Meteor.Error('Forbidden', 'Forbidden');
-      error.statusCode = 403;
-      throw error;
-    }
-  };
-
-  // Helper function. Will throw an error if the user is not active BoardAdmin or active Normal user of the board.
-  Authentication.checkBoardAccess = function(userId, boardId) {
-    Authentication.checkLoggedIn(userId);
-    const board = ReactiveCache.getBoard(boardId);
-    const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker);
-    Authentication.checkAdminOrCondition(userId, normalAccess);
-  };
-
-  // Helper function. Will throw an error if the user does not have write access to the board (excludes read-only users).
-  Authentication.checkBoardWriteAccess = function(userId, boardId) {
-    Authentication.checkLoggedIn(userId);
-    const board = ReactiveCache.getBoard(boardId);
-    const writeAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
-    Authentication.checkAdminOrCondition(userId, writeAccess);
-  };
 
   if (Meteor.isServer) {
     if (
       process.env.ORACLE_OIM_ENABLED === 'true' ||
       process.env.ORACLE_OIM_ENABLED === true
     ) {
-      ServiceConfiguration.configurations.upsert(
+      ServiceConfiguration.configurations.upsertAsync(
         // eslint-disable-line no-undef
         { service: 'oidc' },
         {
           $set: {
-            loginStyle: process.env.OAUTH2_LOGIN_STYLE,
+            loginStyle: process.env.OAUTH2_LOGIN_STYLE || 'redirect',
             clientId: process.env.OAUTH2_CLIENT_ID,
             secret: process.env.OAUTH2_SECRET,
             serverUrl: process.env.OAUTH2_SERVER_URL,
@@ -95,12 +97,12 @@ Meteor.startup(() => {
       process.env.OAUTH2_ENABLED === 'true' ||
       process.env.OAUTH2_ENABLED === true
     ) {
-      ServiceConfiguration.configurations.upsert(
+      ServiceConfiguration.configurations.upsertAsync(
         // eslint-disable-line no-undef
         { service: 'oidc' },
         {
           $set: {
-            loginStyle: process.env.OAUTH2_LOGIN_STYLE,
+            loginStyle: process.env.OAUTH2_LOGIN_STYLE || 'redirect',
             clientId: process.env.OAUTH2_CLIENT_ID,
             secret: process.env.OAUTH2_SECRET,
             serverUrl: process.env.OAUTH2_SERVER_URL,
@@ -119,7 +121,7 @@ Meteor.startup(() => {
       process.env.CAS_ENABLED === 'true' ||
       process.env.CAS_ENABLED === true
     ) {
-      ServiceConfiguration.configurations.upsert(
+      ServiceConfiguration.configurations.upsertAsync(
         // eslint-disable-line no-undef
         { service: 'cas' },
         {
@@ -143,7 +145,7 @@ Meteor.startup(() => {
       process.env.SAML_ENABLED === 'true' ||
       process.env.SAML_ENABLED === true
     ) {
-      ServiceConfiguration.configurations.upsert(
+      ServiceConfiguration.configurations.upsertAsync(
         // eslint-disable-line no-undef
         { service: 'saml' },
         {
