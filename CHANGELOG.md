@@ -46,6 +46,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated HoF](https://github.com/wekan/wekan/commit/675c6611146a4a47eee1e513b83152007e3b9aee).
   Thanks to xet7.
+- [Update releases scripts](https://github.com/wekan/wekan/commit/64f58455ff471b5a5567d7230850124cf0afacb0).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
