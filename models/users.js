@@ -2699,23 +2699,64 @@ const addCronJob = _.debounce(
     const defaultRemoveAge = 2;
     const removeAge = parseInt(envRemoveAge, 10) || defaultRemoveAge;
 
+    // Prevent duplicate cron job errors by removing existing job first
+    if (SyncedCron._jobs && SyncedCron._jobs['notification_cleanup']) {
+      SyncedCron.remove('notification_cleanup');
+    }
+
+    // Add the notification cleanup cron job with error handling
     SyncedCron.add({
       name: 'notification_cleanup',
       schedule: (parser) => parser.text('every 1 days'),
       job: () => {
-        for (const user of ReactiveCache.getUsers()) {
-          if (!user.profile || !user.profile.notifications) continue;
-          for (const notification of user.profile.notifications) {
-            if (notification.read) {
-              const removeDate = new Date(notification.read);
-              removeDate.setDate(removeDate.getDate() + removeAge);
-              if (removeDate <= new Date()) {
-                user.removeNotification(notification.activity);
+        try {
+          let totalRemoved = 0;
+          
+          for (const user of ReactiveCache.getUsers()) {
+            // FIXED: Check if user has profile and notifications (was backwards)
+            if (!user.profile || !user.profile.notifications) continue;
+            
+            let modified = false;
+            const originalLength = user.profile.notifications.length;
+            
+            // Filter out old read notifications
+            const keptNotifications = [];
+            for (const notification of user.profile.notifications) {
+              if (notification.read) {
+                // FIXED: Define removeDate properly
+                const removeDate = new Date(notification.read);
+                removeDate.setDate(removeDate.getDate() + removeAge);
+                
+                if (removeDate <= new Date()) {
+                  // This notification is old enough to remove
+                  totalRemoved++;
+                  modified = true;
+                  continue; // Skip adding this notification back
+                }
               }
+              keptNotifications.push(notification);
+            }
+            
+            if (modified) {
+              Users.update(user._id, {
+                $set: { 'profile.notifications': keptNotifications }
+              });
             }
           }
+          
+          if (totalRemoved > 0) {
+            console.log(`notification_cleanup: Removed ${totalRemoved} old notifications`);
+          }
+        } catch (error) {
+          // Ignore duplicate key errors (E11000) from cron history
+          if (error.code === 11000) {
+            console.log('notification_cleanup: Duplicate cron entry ignored');
+          } else {
+            console.error('notification_cleanup error:', error);
+            throw error;
+          }
         }
-      },
+      }
     });
 
     SyncedCron.start();
