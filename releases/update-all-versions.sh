@@ -13,8 +13,9 @@ sedi() {
 # --- Version bump logic from release-all.yml ---
 
 # Auto-detect versions from CHANGELOG.md if not provided as arguments
+
 if [ -z "$1" ] || [ -z "$2" ]; then
-  RELEASE_LINES=( $(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2) )
+  mapfile -t RELEASE_LINES < <(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2)
   NEW_VERSION=$(echo "${RELEASE_LINES[0]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
   OLD_VERSION=$(echo "${RELEASE_LINES[1]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
   if [ -z "$NEW_VERSION" ] || [ -z "$OLD_VERSION" ]; then
