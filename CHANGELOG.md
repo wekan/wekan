@@ -61,6 +61,10 @@ and fixes the following bugs:
   Thanks to Raawen-dev.
 - [Fix UI hangs and data loss by disabling changeStreams, until there is new Meteor release that included bugfix to changeStreams](https://github.com/wekan/wekan/commit/c47eb013b4d8d0f2dea7b801adc60151f6e3aee1).
   Thanks to bcook-konza and italojs.
+- [Fix list actions popup overflow](https://github.com/wekan/wekan/pull/6310).
+  Thanks to Raawen-dev.
+- [Fix MongoDB duplicate key error in notification_cleanup cron job](https://github.com/wekan/wekan/pull/6311).
+  Thanks to Raawen-dev.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
