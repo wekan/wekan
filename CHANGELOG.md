@@ -63,8 +63,6 @@ and fixes the following bugs:
   Thanks to bcook-konza and italojs.
 - [Fix list actions popup overflow](https://github.com/wekan/wekan/pull/6310).
   Thanks to Raawen-dev.
-- [Fix MongoDB duplicate key error in notification_cleanup cron job](https://github.com/wekan/wekan/pull/6311).
-  Thanks to Raawen-dev.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
