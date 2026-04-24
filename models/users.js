@@ -1,15 +1,10 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
-import { Random } from 'meteor/random';
-import { SyncedCron } from 'meteor/quave:synced-cron';
-import { TAPi18n } from '/imports/i18n';
-import ImpersonatedUsers from './impersonatedUsers';
+import Boards from '/models/boards';
 // import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
-
-// Sandstorm context is detected using the METEOR_SETTINGS environment variable
-// in the package definition.
-const isSandstorm =
-  Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
-Users = Meteor.users;
+const { SimpleSchema } = require('/imports/simpleSchema');
+const Users = Meteor.users;
+const getUtils = () => require('/client/lib/utils').Utils;
 
 // Public-board collapse persistence helpers (cookie-based for non-logged-in users)
 if (Meteor.isClient) {
@@ -88,7 +83,7 @@ if (Meteor.isClient) {
   };
 }
 
-const allowedSortValues = [
+export const allowedSortValues = [
   '-modifiedAt',
   'modifiedAt',
   '-title',
@@ -123,8 +118,11 @@ Users.attachSchema(
       /**
        * the list of organizations that a user belongs to
        */
-      type: [Object],
+      type: Array,
       optional: true,
+    },
+    'orgs.$': {
+      type: Object,
     },
     'orgs.$.orgId': {
       /**
@@ -142,8 +140,11 @@ Users.attachSchema(
       /**
        * the list of teams that a user belongs to
        */
-      type: [Object],
+      type: Array,
       optional: true,
+    },
+    'teams.$': {
+      type: Object,
     },
     'teams.$.teamId': {
       /**
@@ -161,8 +162,11 @@ Users.attachSchema(
       /**
        * the list of emails attached to a user
        */
-      type: [Object],
+      type: Array,
       optional: true,
+    },
+    'emails.$': {
+      type: Object,
     },
     'emails.$.address': {
       /**
@@ -197,7 +201,6 @@ Users.attachSchema(
     },
     modifiedAt: {
       type: Date,
-      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert || this.isUpsert || this.isUpdate) {
@@ -233,8 +236,11 @@ Users.attachSchema(
       /**
        * list of email buffers of the user
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'profile.emailBuffer.$': {
+      type: String,
     },
     'profile.fullname': {
       /**
@@ -326,8 +332,11 @@ Users.attachSchema(
       /**
        * board IDs the user has been invited to
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'profile.invitedBoards.$': {
+      type: String,
     },
     'profile.language': {
       /**
@@ -344,24 +353,6 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.moveAndCopyDialog.$.boardId': {
-      /**
-       * last selected board id
-       */
-      type: String,
-    },
-    'profile.moveAndCopyDialog.$.swimlaneId': {
-      /**
-       * last selected swimlane id
-       */
-      type: String,
-    },
-    'profile.moveAndCopyDialog.$.listId': {
-      /**
-       * last selected list id
-       */
-      type: String,
-    },
     'profile.moveChecklistDialog': {
       /**
        * move checklist dialog
@@ -369,30 +360,6 @@ Users.attachSchema(
       type: Object,
       optional: true,
       blackbox: true,
-    },
-    'profile.moveChecklistDialog.$.boardId': {
-      /**
-       * last selected board id
-       */
-      type: String,
-    },
-    'profile.moveChecklistDialog.$.swimlaneId': {
-      /**
-       * last selected swimlane id
-       */
-      type: String,
-    },
-    'profile.moveChecklistDialog.$.listId': {
-      /**
-       * last selected list id
-       */
-      type: String,
-    },
-    'profile.moveChecklistDialog.$.cardId': {
-      /**
-       * last selected card id
-       */
-      type: String,
     },
     'profile.copyChecklistDialog': {
       /**
@@ -402,36 +369,15 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.copyChecklistDialog.$.boardId': {
-      /**
-       * last selected board id
-       */
-      type: String,
-    },
-    'profile.copyChecklistDialog.$.swimlaneId': {
-      /**
-       * last selected swimlane id
-       */
-      type: String,
-    },
-    'profile.copyChecklistDialog.$.listId': {
-      /**
-       * last selected list id
-       */
-      type: String,
-    },
-    'profile.copyChecklistDialog.$.cardId': {
-      /**
-       * last selected card id
-       */
-      type: String,
-    },
     'profile.notifications': {
       /**
        * enabled notifications for the user
        */
-      type: [Object],
+      type: Array,
       optional: true,
+    },
+    'profile.notifications.$': {
+      type: Object,
     },
     'profile.notifications.$.activity': {
       /**
@@ -471,8 +417,11 @@ Users.attachSchema(
       /**
        * list of starred board IDs
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'profile.starredBoards.$': {
+      type: String,
     },
     'profile.icode': {
       /**
@@ -709,8 +658,11 @@ Users.attachSchema(
       /**
        * username for imported
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'importUsernames.$': {
+      type: String,
     },
     lastConnectionDate: {
       type: Date,
@@ -747,42 +699,6 @@ export function hasForbiddenUserUpdateField(fields) {
   return result;
 }
 
-Users.allow({
-  update(userId, doc, fields /*, modifier */) {
-    // Only the owner can update, and only for allowed fields
-    if (!userId || doc._id !== userId) {
-      return false;
-    }
-    if (!Array.isArray(fields) || fields.length === 0) {
-      return false;
-    }
-    // Disallow if any forbidden field present
-    if (hasForbiddenUserUpdateField(fields)) {
-      return false;
-    }
-    // Allow only username and profile.*
-    const allowed = isUserUpdateAllowed(fields);
-    return allowed;
-  },
-  remove(userId, doc) {
-    // Disable direct client-side user removal for security
-    // All user removal should go through the secure server method 'removeUser'
-    // This prevents IDOR vulnerabilities and ensures proper authorization checks
-    return false;
-  },
-  fetch: [],
-});
-
-// Deny any attempts to touch forbidden fields from client updates
-Users.deny({
-  update(userId, doc, fields /*, modifier */) {
-    const denied = hasForbiddenUserUpdateField(fields);
-    return denied;
-  },
-  fetch: [],
-});
-
-
 // Custom MongoDB engine that enforces field restrictions
 // TODO: Re-enable when easy:search compatibility is fixed
 // class SecureMongoDBEngine extends MongoDBEngine {
@@ -815,7 +731,7 @@ Users.deny({
 // });
 
 // Temporary fallback - create a simple search index object
-UserSearchIndex = {
+export const UserSearchIndex = {
   search: function(query, options) {
     // Simple fallback search using MongoDB find
     const searchRegex = new RegExp(query, 'i');
@@ -854,11 +770,13 @@ Users.safeFields = {
 if (Meteor.isClient) {
   Users.helpers({
     isBoardMember() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id);
     },
 
     isNotNoComments() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasNoComments(this._id)
@@ -866,11 +784,13 @@ if (Meteor.isClient) {
     },
 
     isNoComments() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return board && board.hasNoComments(this._id);
     },
 
     isNotCommentOnly() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasCommentOnly(this._id)
@@ -878,26 +798,31 @@ if (Meteor.isClient) {
     },
 
     isCommentOnly() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return board && board.hasCommentOnly(this._id);
     },
 
     isReadOnly() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return board && board.hasReadOnly(this._id);
     },
 
     isReadAssignedOnly() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return board && board.hasReadAssignedOnly(this._id);
     },
 
     isNotWorker() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id) && !board.hasWorker(this._id);
     },
 
     isWorker() {
+      const Utils = getUtils();
       const board = Utils.getCurrentBoard();
       return board && board.hasWorker(this._id);
     },
@@ -907,6 +832,7 @@ if (Meteor.isClient) {
       if (boardId) {
         board = ReactiveCache.getBoard(boardId);
       } else {
+        const Utils = getUtils();
         board = Utils.getCurrentBoard();
       }
       return board && board.hasAdmin(this._id);
@@ -991,7 +917,7 @@ Users.helpers({
 
   hasStarred(boardId) {
     const { starredBoards = [] } = this.profile || {};
-    return _.contains(starredBoards, boardId);
+    return starredBoards.includes(boardId);
   },
 
   isAutoWidth(boardId) {
@@ -1006,7 +932,7 @@ Users.helpers({
 
   isInvitedTo(boardId) {
     const { invitedBoards = [] } = this.profile || {};
-    return _.contains(invitedBoards, boardId);
+    return invitedBoards.includes(boardId);
   },
 
   _getListSortBy() {
@@ -1103,7 +1029,7 @@ Users.helpers({
     if (this._id) {
       return this.getSwimlaneHeight(boardId, swimlaneId);
     }
-    
+
     // For non-logged-in users, get from localStorage
     try {
       const stored = localStorage.getItem('wekan-swimlane-heights');
@@ -1116,7 +1042,7 @@ Users.helpers({
     } catch (e) {
       console.warn('Error reading swimlane heights from localStorage:', e);
     }
-    
+
     return -1;
   },
 
@@ -1125,17 +1051,17 @@ Users.helpers({
     if (this._id) {
       return this.setSwimlaneHeight(boardId, swimlaneId, height);
     }
-    
+
     // For non-logged-in users, save to localStorage
     try {
       const stored = localStorage.getItem('wekan-swimlane-heights');
       let heights = stored ? JSON.parse(stored) : {};
-      
+
       if (!heights[boardId]) {
         heights[boardId] = {};
       }
       heights[boardId][swimlaneId] = height;
-      
+
       localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
       return true;
     } catch (e) {
@@ -1179,12 +1105,12 @@ Users.helpers({
 
   hasTag(tag) {
     const { tags = [] } = this.profile || {};
-    return _.contains(tags, tag);
+    return tags.includes(tag);
   },
 
   hasNotification(activityId) {
     const { notifications = [] } = this.profile || {};
-    return _.contains(notifications, activityId);
+    return notifications.includes(activityId);
   },
 
   notifications() {
@@ -1312,7 +1238,7 @@ Users.helpers({
   },
 
   remove() {
-    User.remove({
+    return User.removeAsync({
       _id: this._id,
     });
   },
@@ -1322,7 +1248,7 @@ Users.helpers({
     if (this._id) {
       return this.getListWidth(boardId, listId);
     }
-    
+
     // For non-logged-in users, get from validated localStorage
     if (typeof localStorage !== 'undefined' && typeof getValidatedLocalStorageData === 'function') {
       try {
@@ -1330,7 +1256,7 @@ Users.helpers({
         if (widths[boardId] && widths[boardId][listId]) {
           const width = widths[boardId][listId];
           // Validate it's a valid number
-          if (validators.isValidNumber(width, 100, 1000)) {
+          if (validators.isValidNumber(width, 270, 1000)) {
             return width;
           }
         }
@@ -1338,7 +1264,7 @@ Users.helpers({
         console.warn('Error reading list widths from localStorage:', e);
       }
     }
-    
+
     return 270; // Return default width
   },
 
@@ -1347,23 +1273,23 @@ Users.helpers({
     if (this._id) {
       return this.setListWidth(boardId, listId, width);
     }
-    
+
     // Validate width before storing
-    if (!validators.isValidNumber(width, 100, 1000)) {
+    if (!validators.isValidNumber(width, 270, 1000)) {
       console.warn('Invalid list width:', width);
       return false;
     }
-    
+
     // For non-logged-in users, save to validated localStorage
     if (typeof localStorage !== 'undefined' && typeof setValidatedLocalStorageData === 'function') {
       try {
         const widths = getValidatedLocalStorageData('wekan-list-widths', validators.listWidths);
-        
+
         if (!widths[boardId]) {
           widths[boardId] = {};
         }
         widths[boardId][listId] = width;
-        
+
         return setValidatedLocalStorageData('wekan-list-widths', widths, validators.listWidths);
       } catch (e) {
         console.warn('Error saving list width to localStorage:', e);
@@ -1378,7 +1304,7 @@ Users.helpers({
     if (this._id) {
       return this.getListConstraint(boardId, listId);
     }
-    
+
     // For non-logged-in users, get from localStorage
     try {
       const stored = localStorage.getItem('wekan-list-constraints');
@@ -1391,7 +1317,7 @@ Users.helpers({
     } catch (e) {
       console.warn('Error reading list constraints from localStorage:', e);
     }
-    
+
     return 550; // Return default constraint instead of -1
   },
 
@@ -1400,17 +1326,17 @@ Users.helpers({
     if (this._id) {
       return this.setListConstraint(boardId, listId, constraint);
     }
-    
+
     // For non-logged-in users, save to localStorage
     try {
       const stored = localStorage.getItem('wekan-list-constraints');
       let constraints = stored ? JSON.parse(stored) : {};
-      
+
       if (!constraints[boardId]) {
         constraints[boardId] = {};
       }
       constraints[boardId][listId] = constraint;
-      
+
       localStorage.setItem('wekan-list-constraints', JSON.stringify(constraints));
       return true;
     } catch (e) {
@@ -1424,7 +1350,7 @@ Users.helpers({
     if (this._id) {
       return this.getSwimlaneHeight(boardId, swimlaneId);
     }
-    
+
     // For non-logged-in users, get from localStorage
     try {
       const stored = localStorage.getItem('wekan-swimlane-heights');
@@ -1437,7 +1363,7 @@ Users.helpers({
     } catch (e) {
       console.warn('Error reading swimlane heights from localStorage:', e);
     }
-    
+
     return -1; // Return -1 if not found
   },
 
@@ -1446,17 +1372,17 @@ Users.helpers({
     if (this._id) {
       return this.setSwimlaneHeight(boardId, swimlaneId, height);
     }
-    
+
     // For non-logged-in users, save to localStorage
     try {
       const stored = localStorage.getItem('wekan-swimlane-heights');
       let heights = stored ? JSON.parse(stored) : {};
-      
+
       if (!heights[boardId]) {
         heights[boardId] = {};
       }
       heights[boardId][swimlaneId] = height;
-      
+
       localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
       return true;
     } catch (e) {
@@ -1795,1886 +1721,5 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.cardZoom': level } });
   },
 });
-
-Meteor.methods({
-  // Secure user removal method with proper authorization checks
-  removeUser(targetUserId) {
-    check(targetUserId, String);
-
-    const currentUserId = Meteor.userId();
-    if (!currentUserId) {
-      throw new Meteor.Error('not-authorized', 'User must be logged in');
-    }
-
-    const currentUser = ReactiveCache.getUser(currentUserId);
-    if (!currentUser) {
-      throw new Meteor.Error('not-authorized', 'Current user not found');
-    }
-
-    const targetUser = ReactiveCache.getUser(targetUserId);
-    if (!targetUser) {
-      throw new Meteor.Error('user-not-found', 'Target user not found');
-    }
-
-    // Check if user is trying to delete themselves
-    if (currentUserId === targetUserId) {
-      // User can delete themselves
-      Users.remove(targetUserId);
-      return { success: true, message: 'User deleted successfully' };
-    }
-
-    // Check if current user is admin
-    if (!currentUser.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Only administrators can delete other users');
-    }
-
-    // Check if target user is the last admin
-    const adminsNumber = ReactiveCache.getUsers({
-      isAdmin: true,
-    }).length;
-
-    if (adminsNumber === 1 && targetUser.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Cannot delete the last administrator');
-    }
-
-    // Admin can delete non-admin users
-    Users.remove(targetUserId);
-    return { success: true, message: 'User deleted successfully' };
-  },
-  editUser(targetUserId, updateData) {
-    check(targetUserId, String);
-    check(updateData, Object);
-
-    const currentUserId = Meteor.userId();
-    if (!currentUserId) {
-      throw new Meteor.Error('not-authorized', 'User must be logged in');
-    }
-
-    const currentUser = ReactiveCache.getUser(currentUserId);
-    if (!currentUser) {
-      throw new Meteor.Error('not-authorized', 'Current user not found');
-    }
-
-    // Check if current user is admin
-    if (!currentUser.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Only administrators can edit other users');
-    }
-
-    const targetUser = ReactiveCache.getUser(targetUserId);
-    if (!targetUser) {
-      throw new Meteor.Error('user-not-found', 'Target user not found');
-    }
-
-    // Only allow updating specific fields
-    const updateObject = {};
-    if (updateData.fullname !== undefined) {
-      updateObject['profile.fullname'] = updateData.fullname;
-    }
-    if (updateData.initials !== undefined) {
-      updateObject['profile.initials'] = updateData.initials;
-    }
-    if (updateData.isAdmin !== undefined) {
-      updateObject.isAdmin = updateData.isAdmin;
-    }
-    if (updateData.loginDisabled !== undefined) {
-      updateObject.loginDisabled = updateData.loginDisabled;
-    }
-    if (updateData.authenticationMethod !== undefined) {
-      updateObject.authenticationMethod = updateData.authenticationMethod;
-    }
-    if (updateData.importUsernames !== undefined) {
-      updateObject.importUsernames = updateData.importUsernames;
-    }
-    if (updateData.teams !== undefined) {
-      updateObject.teams = updateData.teams;
-    }
-    if (updateData.orgs !== undefined) {
-      updateObject.orgs = updateData.orgs;
-    }
-
-    Users.update(targetUserId, { $set: updateObject });
-  },
-  setListSortBy(value) {
-    check(value, String);
-    ReactiveCache.getCurrentUser().setListSortBy(value);
-  },
-  setAvatarUrl(avatarUrl) {
-    check(avatarUrl, String);
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-    Users.update(this.userId, { $set: { 'profile.avatarUrl': avatarUrl } });
-  },
-  toggleBoardStar(boardId) {
-    check(boardId, String);
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-    const user = Users.findOne(this.userId);
-    if (!user) {
-      throw new Meteor.Error('user-not-found', 'User not found');
-    }
-    
-    // Check if board is already starred
-    const starredBoards = (user.profile && user.profile.starredBoards) || [];
-    const isStarred = starredBoards.includes(boardId);
-    
-    // Build update object
-    const updateObject = isStarred 
-      ? { $pull: { 'profile.starredBoards': boardId } }
-      : { $addToSet: { 'profile.starredBoards': boardId } };
-    
-    Users.update(this.userId, updateObject);
-  },
-  toggleGreyIcons(value) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-    if (value !== undefined) check(value, Boolean);
-
-    const user = Users.findOne(this.userId);
-    if (!user) {
-      throw new Meteor.Error('user-not-found', 'User not found');
-    }
-
-    const current = (user.profile && user.profile.GreyIcons) || false;
-    const newValue = value !== undefined ? value : !current;
-
-    Users.update(this.userId, { $set: { 'profile.GreyIcons': newValue } });
-    return newValue;
-  },
-  toggleDesktopDragHandles() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
-  },
-  // Spaces: create a new space under parentId (or root when null)
-  createWorkspace({ parentId = null, name }) {
-    check(parentId, Match.OneOf(String, null));
-    check(name, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in');
-    const user = Users.findOne(this.userId) || {};
-    const tree = (user.profile && user.profile.boardWorkspacesTree) ? EJSON.clone(user.profile.boardWorkspacesTree) : [];
-
-    const newNode = { id: Random.id(), name, children: [] };
-
-    if (!parentId) {
-      tree.push(newNode);
-    } else {
-      const insertInto = (nodes) => {
-        for (let n of nodes) {
-          if (n.id === parentId) {
-            n.children = n.children || [];
-            n.children.push(newNode);
-            return true;
-          }
-          if (n.children && n.children.length) {
-            if (insertInto(n.children)) return true;
-          }
-        }
-        return false;
-      };
-      insertInto(tree);
-    }
-
-    Users.update(this.userId, { $set: { 'profile.boardWorkspacesTree': tree } });
-    return newNode;
-  },
-  // Spaces: set entire tree (used for drag-drop reordering)
-  setWorkspacesTree(newTree) {
-    check(newTree, Array);
-    if (!this.userId) throw new Meteor.Error('not-logged-in');
-    Users.update(this.userId, { $set: { 'profile.boardWorkspacesTree': newTree } });
-    return true;
-  },
-  // Assign a board to a space
-  assignBoardToWorkspace(boardId, spaceId) {
-    check(boardId, String);
-    check(spaceId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in');
-    
-    const user = Users.findOne(this.userId);
-    const assignments = user.profile?.boardWorkspaceAssignments || {};
-    assignments[boardId] = spaceId;
-    
-    Users.update(this.userId, {
-      $set: { 'profile.boardWorkspaceAssignments': assignments }
-    });
-    return true;
-  },
-  // Remove a board assignment (moves it back to Remaining)
-  unassignBoardFromWorkspace(boardId) {
-    check(boardId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in');
-    
-    const user = Users.findOne(this.userId);
-    const assignments = user.profile?.boardWorkspaceAssignments || {};
-    delete assignments[boardId];
-    
-    Users.update(this.userId, {
-      $set: { 'profile.boardWorkspaceAssignments': assignments }
-    });
-    return true;
-  },
-  toggleHideCheckedItems() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleHideCheckedItems();
-  },
-  toggleCustomFieldsGrid() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleFieldsGrid(user.hasCustomFieldsGrid());
-  },
-  toggleCardMaximized() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleCardMaximized(user.hasCardMaximized());
-  },
-  setCardCollapsed(value) {
-    check(value, Boolean);
-    if (!this.userId) throw new Meteor.Error('not-logged-in');
-    Users.update(this.userId, { $set: { 'profile.cardCollapsed': value } });
-  },
-  toggleMinicardLabelText() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleLabelText(user.hasHiddenMinicardLabelText());
-  },
-  toggleRescueCardDescription() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleRescueCardDescription(user.hasRescuedCardDescription());
-  },
-  changeLimitToShowCardsCount(limit) {
-    check(limit, Number);
-    ReactiveCache.getCurrentUser().setShowCardsCountAt(limit);
-  },
-  changeStartDayOfWeek(startDay) {
-    check(startDay, Number);
-    ReactiveCache.getCurrentUser().setStartDayOfWeek(startDay);
-  },
-  changeDateFormat(dateFormat) {
-    check(dateFormat, String);
-    ReactiveCache.getCurrentUser().setDateFormat(dateFormat);
-  },
-  applyListWidth(boardId, listId, width, constraint) {
-    check(boardId, String);
-    check(listId, String);
-    check(width, Number);
-    check(constraint, Number);
-    const user = ReactiveCache.getCurrentUser();
-    user.setListWidth(boardId, listId, width);
-    user.setListConstraint(boardId, listId, constraint);
-  },
-  setListCollapsedState(boardId, listId, collapsed) {
-    check(boardId, String);
-    check(listId, String);
-    check(collapsed, Boolean);
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-    const user = Users.findOne(this.userId);
-    if (!user) {
-      throw new Meteor.Error('user-not-found', 'User not found');
-    }
-    const current = (user.profile && user.profile.collapsedLists) || {};
-    if (!current[boardId]) current[boardId] = {};
-    current[boardId][listId] = !!collapsed;
-    Users.update(this.userId, {
-      $set: {
-        'profile.collapsedLists': current,
-      },
-    });
-  },
-  applySwimlaneHeight(boardId, swimlaneId, height) {
-    check(boardId, String);
-    check(swimlaneId, String);
-    check(height, Number);
-    const user = ReactiveCache.getCurrentUser();
-    user.setSwimlaneHeight(boardId, swimlaneId, height);
-  },
-
-  setSwimlaneCollapsedState(boardId, swimlaneId, collapsed) {
-    check(boardId, String);
-    check(swimlaneId, String);
-    check(collapsed, Boolean);
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-    const user = Users.findOne(this.userId);
-    if (!user) {
-      throw new Meteor.Error('user-not-found', 'User not found');
-    }
-    const current = (user.profile && user.profile.collapsedSwimlanes) || {};
-    if (!current[boardId]) current[boardId] = {};
-    current[boardId][swimlaneId] = !!collapsed;
-    Users.update(this.userId, {
-      $set: {
-        'profile.collapsedSwimlanes': current,
-      },
-    });
-  },
-
-  applySwimlaneHeightToStorage(boardId, swimlaneId, height) {
-    check(boardId, String);
-    check(swimlaneId, String);
-    check(height, Number);
-    const user = ReactiveCache.getCurrentUser();
-    if (user) {
-      user.setSwimlaneHeightToStorage(boardId, swimlaneId, height);
-    }
-    // For non-logged-in users, the client-side code will handle localStorage
-  },
-
-  applyListWidthToStorage(boardId, listId, width, constraint) {
-    check(boardId, String);
-    check(listId, String);
-    check(width, Number);
-    check(constraint, Number);
-    const user = ReactiveCache.getCurrentUser();
-    if (user) {
-      user.setListWidthToStorage(boardId, listId, width);
-      user.setListConstraintToStorage(boardId, listId, constraint);
-    }
-    // For non-logged-in users, the client-side code will handle localStorage
-  },
-  setZoomLevel(level) {
-    check(level, Number);
-    const user = ReactiveCache.getCurrentUser();
-    user.setZoomLevel(level);
-  },
-  setMobileMode(enabled) {
-    check(enabled, Boolean);
-    const user = ReactiveCache.getCurrentUser();
-    user.setMobileMode(enabled);
-  },
-  setBoardView(view) {
-    check(view, String);
-    const user = ReactiveCache.getCurrentUser();
-    if (!user) {
-      throw new Meteor.Error('not-authorized', 'Must be logged in');
-    }
-    user.setBoardView(view);
-  },
-});
-
-if (Meteor.isServer) {
-  Meteor.methods({
-    setCreateUser(
-      fullname,
-      username,
-      initials,
-      password,
-      isAdmin,
-      isActive,
-      email,
-      importUsernames,
-      userOrgsArray,
-      userTeamsArray,
-    ) {
-      check(fullname, String);
-      check(username, String);
-      check(initials, String);
-      check(password, String);
-      check(isAdmin, String);
-      check(isActive, String);
-      check(email, String);
-      check(importUsernames, Array);
-      check(userOrgsArray, Array);
-      check(userTeamsArray, Array);
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (fullname.includes('/') ||
-         username.includes('/') ||
-         email.includes('/') ||
-         initials.includes('/')) {
-         return false;
-      }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        const nUsersWithUsername = ReactiveCache.getUsers({
-          username,
-        }).length;
-        const nUsersWithEmail = ReactiveCache.getUsers({
-          email,
-        }).length;
-        if (nUsersWithUsername > 0) {
-          throw new Meteor.Error('username-already-taken');
-        } else if (nUsersWithEmail > 0) {
-          throw new Meteor.Error('email-already-taken');
-        } else {
-          Accounts.createUser({
-            username,
-            password,
-            isAdmin,
-            isActive,
-            email: email.toLowerCase(),
-            from: 'admin',
-          });
-          const user =
-            ReactiveCache.getUser(username) ||
-            ReactiveCache.getUser({ username });
-          if (user) {
-            Users.update(user._id, {
-              $set: {
-                'profile.fullname': fullname,
-                importUsernames,
-                'profile.initials': initials,
-                orgs: userOrgsArray,
-                teams: userTeamsArray,
-              },
-            });
-          }
-        }
-      }
-    },
-    setUsername(username, userId) {
-      check(username, String);
-      check(userId, String);
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-         userId.includes('/')) {
-         return false;
-      }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        const nUsersWithUsername = ReactiveCache.getUsers({
-          username,
-        }).length;
-        if (nUsersWithUsername > 0) {
-          throw new Meteor.Error('username-already-taken');
-        } else {
-          Users.update(userId, {
-            $set: {
-              username,
-            },
-          });
-        }
-      }
-    },
-    setEmail(email, userId) {
-      check(email, String);
-      check(username, String);
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-         email.includes('/')) {
-         return false;
-      }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        if (Array.isArray(email)) {
-          email = email.shift();
-        }
-        const existingUser = ReactiveCache.getUser(
-          {
-            'emails.address': email,
-          },
-          {
-            fields: {
-              _id: 1,
-            },
-          },
-        );
-        if (existingUser) {
-          throw new Meteor.Error('email-already-taken');
-        } else {
-          Users.update(userId, {
-            $set: {
-              emails: [
-                {
-                  address: email,
-                  verified: false,
-                },
-              ],
-            },
-          });
-        }
-      }
-    },
-    setUsernameAndEmail(username, email, userId) {
-      check(username, String);
-      check(email, String);
-      check(userId, String);
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-         email.includes('/') ||
-         userId.includes('/')) {
-         return false;
-      }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        if (Array.isArray(email)) {
-          email = email.shift();
-        }
-        Meteor.call('setUsername', username, userId);
-        Meteor.call('setEmail', email, userId);
-      }
-    },
-    setPassword(newPassword, userId) {
-      check(userId, String);
-      check(newPassword, String);
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        Accounts.setPassword(userId, newPassword);
-      }
-    },
-    setEmailVerified(email, verified, userId) {
-      check(email, String);
-      check(verified, Boolean);
-      check(userId, String);
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (email.includes('/') ||
-         userId.includes('/')) {
-         return false;
-      }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        Users.update(userId, {
-          $set: {
-            emails: [
-              {
-                address: email,
-                verified,
-              },
-            ],
-          },
-        });
-      }
-    },
-    setInitials(initials, userId) {
-      check(initials, String);
-      check(userId, String);
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (initials.includes('/') ||
-         userId.includes('/')) {
-         return false;
-      }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        Users.update(userId, {
-          $set: {
-            'profile.initials': initials,
-          },
-        });
-      }
-    },
-    // we accept userId, username, email
-    inviteUserToBoard(username, boardId) {
-      check(username, String);
-      check(boardId, String);
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-          boardId.includes('/')) {
-         return false;
-      }
-      const inviter = ReactiveCache.getCurrentUser();
-      const board = ReactiveCache.getBoard(boardId);
-      const member = _.find(board.members, function(member) { return member.userId === inviter._id; });
-      if (!member) throw new Meteor.Error('error-board-notAMember');
-      const allowInvite = member.isActive;
-      // GitHub issue 2060
-      //_.where(board.members, { userId: inviter._id })[0].isAdmin;
-      if (!allowInvite) throw new Meteor.Error('error-board-notAMember');
-
-      this.unblock();
-
-      const posAt = username.indexOf('@');
-      let user = null;
-      if (posAt >= 0) {
-        user = ReactiveCache.getUser({
-          emails: {
-            $elemMatch: {
-              address: username,
-            },
-          },
-        });
-      } else {
-        user =
-          ReactiveCache.getUser(username) ||
-          ReactiveCache.getUser({ username });
-      }
-      if (user) {
-        if (user._id === inviter._id)
-          throw new Meteor.Error('error-user-notAllowSelf');
-      } else {
-        if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-        if (ReactiveCache.getCurrentSetting().disableRegistration) {
-          throw new Meteor.Error('error-user-notCreated');
-        }
-        // Set in lowercase email before creating account
-        const email = username.toLowerCase();
-        username = email.substring(0, posAt);
-        // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-        // Thanks to mc-marcy and xet7 !
-        if (username.includes('/') ||
-           email.includes('/')) {
-           return false;
-        }
-        const newUserId = Accounts.createUser({
-          username,
-          email,
-        });
-        if (!newUserId) throw new Meteor.Error('error-user-notCreated');
-        // assume new user speak same language with inviter
-        if (inviter.profile && inviter.profile.language) {
-          Users.update(newUserId, {
-            $set: {
-              'profile.language': inviter.profile.language,
-            },
-          });
-        }
-        Accounts.sendEnrollmentEmail(newUserId);
-        user = ReactiveCache.getUser(newUserId);
-      }
-
-      const memberIndex = board.members.findIndex(m => m.userId === user._id);
-      if (memberIndex >= 0) {
-        Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true, modifiedAt: new Date() } });
-      } else {
-        Boards.update(boardId, { $push: { members: { userId: user._id, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } }, $set: { modifiedAt: new Date() } });
-      }
-      Users.update(user._id, { $push: { 'profile.invitedBoards': boardId } });
-
-      //Check if there is a subtasks board
-      if (board.subtasksDefaultBoardId) {
-        const subBoard = ReactiveCache.getBoard(board.subtasksDefaultBoardId);
-        //If there is, also add user to that board
-        if (subBoard) {
-          const subMemberIndex = subBoard.members.findIndex(m => m.userId === user._id);
-          if (subMemberIndex >= 0) {
-            Boards.update(board.subtasksDefaultBoardId, { $set: { [`members.${subMemberIndex}.isActive`]: true, modifiedAt: new Date() } });
-          } else {
-            Boards.update(board.subtasksDefaultBoardId, { $push: { members: { userId: user._id, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } }, $set: { modifiedAt: new Date() } });
-          }
-          Users.update(user._id, { $push: { 'profile.invitedBoards': subBoard._id } });
-        }
-      }        try {
-          const fullName =
-            inviter.profile !== undefined &&
-              inviter.profile.fullname !== undefined
-              ? inviter.profile.fullname
-              : '';
-          const userFullName =
-            user.profile !== undefined && user.profile.fullname !== undefined
-              ? user.profile.fullname
-              : '';
-          const params = {
-            user:
-              userFullName != ''
-                ? userFullName + ' (' + user.username + ' )'
-                : user.username,
-            inviter:
-              fullName != ''
-                ? fullName + ' (' + inviter.username + ' )'
-                : inviter.username,
-            board: board.title,
-            url: board.absoluteUrl(),
-          };
-          // Get the recipient user's language preference for the email
-          const lang = user.getLanguage();
-
-          // Add code to send invitation with EmailLocalization
-          if (typeof EmailLocalization !== 'undefined') {
-            EmailLocalization.sendEmail({
-              to: user.emails[0].address,
-              from: Accounts.emailTemplates.from,
-              subject: 'email-invite-subject',
-              text: 'email-invite-text',
-              params: params,
-              language: lang,
-              userId: user._id
-            });
-          } else {
-            // Fallback if EmailLocalization is not available
-            Email.send({
-              to: user.emails[0].address,
-              from: Accounts.emailTemplates.from,
-              subject: TAPi18n.__('email-invite-subject', params, lang),
-              text: TAPi18n.__('email-invite-text', params, lang),
-            });
-          }
-      } catch (e) {
-        throw new Meteor.Error('email-fail', e.message);
-      }
-      return {
-        username: user.username,
-        email: user.emails[0].address,
-      };
-    },
-    impersonate(userId) {
-      check(userId, String);
-
-      if (!ReactiveCache.getUser(userId))
-        throw new Meteor.Error(404, 'User not found');
-      if (!ReactiveCache.getCurrentUser().isAdmin)
-        throw new Meteor.Error(403, 'Permission denied');
-
-      ImpersonatedUsers.insert({
-        adminId: ReactiveCache.getCurrentUser()._id,
-        userId: userId,
-        reason: 'clickedImpersonate',
-      });
-      this.setUserId(userId);
-    },
-    isImpersonated(userId) {
-      check(userId, String);
-      const isImpersonated = ReactiveCache.getImpersonatedUser({ userId: userId });
-      return isImpersonated;
-    },
-    setUsersTeamsTeamDisplayName(teamId, teamDisplayName) {
-      check(teamId, String);
-      check(teamDisplayName, String);
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        ReactiveCache.getUsers({
-          teams: {
-            $elemMatch: { teamId: teamId },
-          },
-        }).forEach((user) => {
-          Users.update(
-            {
-              _id: user._id,
-              teams: {
-                $elemMatch: { teamId: teamId },
-              },
-            },
-            {
-              $set: {
-                'teams.$.teamDisplayName': teamDisplayName,
-              },
-            },
-          );
-        });
-      }
-    },
-    setUsersOrgsOrgDisplayName(orgId, orgDisplayName) {
-      check(orgId, String);
-      check(orgDisplayName, String);
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        ReactiveCache.getUsers({
-          orgs: {
-            $elemMatch: { orgId: orgId },
-          },
-        }).forEach((user) => {
-          Users.update(
-            {
-              _id: user._id,
-              orgs: {
-                $elemMatch: { orgId: orgId },
-              },
-            },
-            {
-              $set: {
-                'orgs.$.orgDisplayName': orgDisplayName,
-              },
-            },
-          );
-        });
-      }
-    },
-  });
-  Accounts.onCreateUser((options, user) => {
-    const userCount = ReactiveCache.getUsers({}, {}, true).count();
-    user.isAdmin = userCount === 0;
-
-    if (user.services.oidc) {
-      let email = user.services.oidc.email;
-      if (Array.isArray(email)) {
-        email = email.shift();
-      }
-      email = email.toLowerCase();
-      user.username = user.services.oidc.username;
-      user.emails = [
-        {
-          address: email,
-          verified: true,
-        },
-      ];
-
-
-      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
-      // Thanks to mc-marcy and xet7 !
-      if (user.username.includes('/') ||
-         email.includes('/')) {
-         return false;
-      }
-
-
-      const initials = user.services.oidc.fullname
-        .split(/\s+/)
-        .reduce((memo, word) => {
-          return memo + word[0];
-        }, '')
-        .toUpperCase();
-      user.profile = {
-        initials,
-        fullname: user.services.oidc.fullname,
-        boardView: 'board-view-swimlanes',
-      };
-      user.authenticationMethod = 'oauth2';
-
-      // see if any existing user has this email address or username, otherwise create new
-      const existingUser = ReactiveCache.getUser({
-        $or: [
-          {
-            'emails.address': email,
-          },
-          {
-            username: user.username,
-          },
-        ],
-      });
-      if (!existingUser) return user;
-
-      // copy across new service info
-      const service = _.keys(user.services)[0];
-      existingUser.services[service] = user.services[service];
-      existingUser.emails = user.emails;
-      existingUser.username = user.username;
-      existingUser.profile = user.profile;
-      existingUser.authenticationMethod = user.authenticationMethod;
-
-      Meteor.users.remove({
-        _id: user._id,
-      });
-      Meteor.users.remove({
-        _id: existingUser._id,
-      }); // is going to be created again
-      return existingUser;
-    }
-
-    if (options.from === 'admin') {
-      user.createdThroughApi = true;
-      return user;
-    }
-
-    const disableRegistration = ReactiveCache.getCurrentSetting().disableRegistration;
-    // If this is the first Authentication by the ldap and self registration disabled
-    if (disableRegistration && options && options.ldap) {
-      user.authenticationMethod = 'ldap';
-      return user;
-    }
-
-    // If self registration enabled
-    if (!disableRegistration) {
-      return user;
-    }
-
-    if (!options || !options.profile) {
-      throw new Meteor.Error(
-        'error-invitation-code-blank',
-        'The invitation code is required',
-      );
-    }
-    const invitationCode = ReactiveCache.getInvitationCode({
-      code: options.profile.invitationcode,
-      email: options.email,
-      valid: true,
-    });
-    if (!invitationCode) {
-      throw new Meteor.Error(
-        'error-invitation-code-not-exist',
-        // eslint-disable-next-line quotes
-        "The invitation code doesn't exist",
-      );
-    } else {
-      user.profile = {
-        icode: options.profile.invitationcode,
-      };
-      user.profile.boardView = 'board-view-swimlanes';
-
-      // Deletes the invitation code after the user was created successfully.
-      setTimeout(
-        Meteor.bindEnvironment(() => {
-          InvitationCodes.remove({
-            _id: invitationCode._id,
-          });
-        }),
-        200,
-      );
-      return user;
-    }
-  });
-}
-
-const addCronJob = _.debounce(
-  Meteor.bindEnvironment(function notificationCleanupDebounced() {
-    // passed in the removeAge has to be a number standing for the number of days after a notification is read before we remove it
-    const envRemoveAge =
-      process.env.NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE;
-    // default notifications will be removed 2 days after they are read
-    const defaultRemoveAge = 2;
-    const removeAge = parseInt(envRemoveAge, 10) || defaultRemoveAge;
-
-    // Prevent duplicate cron job errors by removing existing job first
-    if (SyncedCron._jobs && SyncedCron._jobs['notification_cleanup']) {
-      SyncedCron.remove('notification_cleanup');
-    }
-
-    // Add the notification cleanup cron job with error handling
-    SyncedCron.add({
-      name: 'notification_cleanup',
-      schedule: (parser) => parser.text('every 1 days'),
-      job: () => {
-        try {
-          let totalRemoved = 0;
-          
-          for (const user of ReactiveCache.getUsers()) {
-            // FIXED: Check if user has profile and notifications (was backwards)
-            if (!user.profile || !user.profile.notifications) continue;
-            
-            let modified = false;
-            const originalLength = user.profile.notifications.length;
-            
-            // Filter out old read notifications
-            const keptNotifications = [];
-            for (const notification of user.profile.notifications) {
-              if (notification.read) {
-                // FIXED: Define removeDate properly
-                const removeDate = new Date(notification.read);
-                removeDate.setDate(removeDate.getDate() + removeAge);
-                
-                if (removeDate <= new Date()) {
-                  // This notification is old enough to remove
-                  totalRemoved++;
-                  modified = true;
-                  continue; // Skip adding this notification back
-                }
-              }
-              keptNotifications.push(notification);
-            }
-            
-            if (modified) {
-              Users.update(user._id, {
-                $set: { 'profile.notifications': keptNotifications }
-              });
-            }
-          }
-          
-          if (totalRemoved > 0) {
-            console.log(`notification_cleanup: Removed ${totalRemoved} old notifications`);
-          }
-        } catch (error) {
-          // Ignore duplicate key errors (E11000) from cron history
-          if (error.code === 11000) {
-            console.log('notification_cleanup: Duplicate cron entry ignored');
-          } else {
-            console.error('notification_cleanup error:', error);
-            throw error;
-          }
-        }
-      }
-    });
-
-    SyncedCron.start();
-  }),
-  500,
-);
-
-if (Meteor.isServer) {
-  // Let mongoDB ensure username unicity
-  Meteor.startup(async () => {
-    for (const value of allowedSortValues) {
-      await Lists._collection.createIndexAsync(value);
-    }
-    await Users._collection.createIndexAsync({
-      modifiedAt: -1,
-    });
-    // Avatar URLs from CollectionFS to Meteor-Files, at users collection avatarUrl field:
-    Users.find({ "profile.avatarUrl": { $regex: "/cfs/files/avatars/" } }).forEach(function (doc) {
-        doc.profile.avatarUrl = doc.profile.avatarUrl.replace("/cfs/files/avatars/", "/cdn/storage/avatars/");
-      // Try to fix Users.save is not a fuction, by commenting it out:
-      //Users.save(doc);
-    });
-    /* TODO: Optionally, for additional complexity:
-       a) Support SubURLs with parthname from ROOT_URL
-       b) Remove beginning or avatar URL, replace it with pathname and new avatar URL
-       c) Does all avatar and attachment URLs need to be fixed every time when starting or restarting?
-       d) What if avatar URL is at some other server? In that case, links would point incorrectly to this instance, if ROOT_URL and path part is removed.
-       doc.profile.avatarUrl = process.env.ROOT_URL.pathname + doc.profile.avatarUrl.replace("/cfs/files/avatars/", "/cdn/storage/avatars/").substring(str.indexOf("/cdn/storage/avatars"));
-    */
-    /* Commented out extra index because of IndexOptionsConflict.
-    Users._collection.createIndex(
-      {
-        username: 1,
-      },
-      {
-        unique: true,
-      },
-    );
-*/
-    Meteor.defer(() => {
-      addCronJob();
-    });
-  });
-
-  // OLD WAY THIS CODE DID WORK: When user is last admin of board,
-  // if admin is removed, board is removed.
-  // NOW THIS IS COMMENTED OUT, because other board users still need to be able
-  // to use that board, and not have board deleted.
-  // Someone can be later changed to be admin of board, by making change to database.
-  // TODO: Add UI for changing someone as board admin.
-  //Users.before.remove((userId, doc) => {
-  //  Boards
-  //    .find({members: {$elemMatch: {userId: doc._id, isAdmin: true}}})
-  //    .forEach((board) => {
-  //      // If only one admin for the board
-  //      if (board.members.filter((e) => e.isAdmin).length === 1) {
-  //        Boards.remove(board._id);
-  //      }
-  //    });
-  //});
-
-  // Each board document contains the de-normalized number of users that have
-  // starred it. If the user star or unstar a board, we need to update this
-  // counter.
-  // We need to run this code on the server only, otherwise the incrementation
-  // will be done twice.
-  Users.after.update(function (userId, user, fieldNames) {
-    // The `starredBoards` list is hosted on the `profile` field. If this
-    // field hasn't been modificated we don't need to run this hook.
-    if (!_.contains(fieldNames, 'profile')) return;
-
-    // To calculate a diff of board starred ids, we get both the previous
-    // and the newly board ids list
-    function getStarredBoardsIds(doc) {
-      return doc.profile && doc.profile.starredBoards;
-    }
-
-    const oldIds = getStarredBoardsIds(this.previous);
-    const newIds = getStarredBoardsIds(user);
-
-    // The _.difference(a, b) method returns the values from a that are not in
-    // b. We use it to find deleted and newly inserted ids by using it in one
-    // direction and then in the other.
-    function incrementBoards(boardsIds, inc) {
-      boardsIds.forEach((boardId) => {
-        Boards.update(boardId, {
-          $inc: {
-            stars: inc,
-          },
-        });
-      });
-    }
-
-    incrementBoards(_.difference(oldIds, newIds), -1);
-    incrementBoards(_.difference(newIds, oldIds), +1);
-  });
-
-  // Override getUserId so that we can TODO get the current userId
-  const fakeUserId = new Meteor.EnvironmentVariable();
-  const getUserId = CollectionHooks.getUserId;
-  CollectionHooks.getUserId = () => {
-    return fakeUserId.get() || getUserId();
-  };
-  if (!isSandstorm) {
-    Users.after.insert((userId, doc) => {
-      const fakeUser = {
-        extendAutoValueContext: {
-          userId: doc._id,
-        },
-      };
-
-      fakeUserId.withValue(doc._id, () => {
-        /*
-
-        // Insert the Welcome Board
-        Boards.insert({
-          title: TAPi18n.__('welcome-board'),
-          permission: 'private',
-        }, fakeUser, (err, boardId) => {
-
-          Swimlanes.insert({
-            title: TAPi18n.__('welcome-swimlane'),
-            boardId,
-            sort: 1,
-          }, fakeUser);
-
-          ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
-            Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
-          });
-        });
-        */
-
-        // Insert Template Container
-        const Future = require('fibers/future');
-        const future1 = new Future();
-        const future2 = new Future();
-        const future3 = new Future();
-        Boards.insert(
-          {
-            title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('templates') : 'Templates',
-            permission: 'private',
-            type: 'template-container',
-          },
-          fakeUser,
-          (err, boardId) => {
-            // Insert the reference to our templates board
-            Users.update(fakeUserId.get(), {
-              $set: {
-                'profile.templatesBoardId': boardId,
-              },
-            });
-
-            // Insert the card templates swimlane
-            Swimlanes.insert(
-              {
-                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('card-templates-swimlane') : 'Card Templates',
-                boardId,
-                sort: 1,
-                type: 'template-container',
-              },
-              fakeUser,
-              (err, swimlaneId) => {
-                // Insert the reference to out card templates swimlane
-                Users.update(fakeUserId.get(), {
-                  $set: {
-                    'profile.cardTemplatesSwimlaneId': swimlaneId,
-                  },
-                });
-                future1.return();
-              },
-            );
-
-            // Insert the list templates swimlane
-            Swimlanes.insert(
-              {
-                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('list-templates-swimlane') : 'List Templates',
-                boardId,
-                sort: 2,
-                type: 'template-container',
-              },
-              fakeUser,
-              (err, swimlaneId) => {
-                // Insert the reference to out list templates swimlane
-                Users.update(fakeUserId.get(), {
-                  $set: {
-                    'profile.listTemplatesSwimlaneId': swimlaneId,
-                  },
-                });
-                future2.return();
-              },
-            );
-
-            // Insert the board templates swimlane
-            Swimlanes.insert(
-              {
-                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('board-templates-swimlane') : 'Board Templates',
-                boardId,
-                sort: 3,
-                type: 'template-container',
-              },
-              fakeUser,
-              (err, swimlaneId) => {
-                // Insert the reference to out board templates swimlane
-                Users.update(fakeUserId.get(), {
-                  $set: {
-                    'profile.boardTemplatesSwimlaneId': swimlaneId,
-                  },
-                });
-                future3.return();
-              },
-            );
-          },
-        );
-        // HACK
-        future1.wait();
-        future2.wait();
-        future3.wait();
-        // End of Insert Template Container
-      });
-    });
-  }
-
-  Users.after.insert((userId, doc) => {
-    // HACK
-    doc = ReactiveCache.getUser(doc._id);
-    if (doc.createdThroughApi) {
-      // The admin user should be able to create a user despite disabling registration because
-      // it is two different things (registration and creation).
-      // So, when a new user is created via the api (only admin user can do that) one must avoid
-      // the disableRegistration check.
-      // Issue : https://github.com/wekan/wekan/issues/1232
-      // PR    : https://github.com/wekan/wekan/pull/1251
-      Users.update(doc._id, {
-        $set: {
-          createdThroughApi: '',
-        },
-      });
-      return;
-    }
-
-    //invite user to corresponding boards
-    const disableRegistration = ReactiveCache.getCurrentSetting().disableRegistration;
-    // If ldap, bypass the inviation code if the self registration isn't allowed.
-    // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
-    if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
-      let invitationCode = null;
-      if (doc.authenticationMethod.toLowerCase() == 'oauth2') {
-        // OIDC authentication mode
-        invitationCode = ReactiveCache.getInvitationCode({
-          email: doc.emails[0].address.toLowerCase(),
-          valid: true,
-        });
-      } else {
-        invitationCode = ReactiveCache.getInvitationCode({
-          code: doc.profile.icode,
-          valid: true,
-        });
-      }
-      if (!invitationCode) {
-        throw new Meteor.Error('error-invitation-code-not-exist');
-      } else {
-        invitationCode.boardsToBeInvited.forEach((boardId) => {
-          const board = ReactiveCache.getBoard(boardId);
-          const memberIndex = board.members.findIndex(m => m.userId === doc._id);
-          if (memberIndex >= 0) {
-            Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
-          } else {
-            Boards.update(boardId, { $push: { members: { userId: doc._id, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } } });
-          }
-        });
-        if (!doc.profile) {
-          doc.profile = {};
-        }
-        doc.profile.invitedBoards = invitationCode.boardsToBeInvited;
-        Users.update(doc._id, {
-          $set: {
-            profile: doc.profile,
-          },
-        });
-        InvitationCodes.update(invitationCode._id, {
-          $set: {
-            valid: false,
-          },
-        });
-      }
-    }
-  });
-}
-
-// USERS REST API
-if (Meteor.isServer) {
-  // Middleware which checks that API is enabled.
-  JsonRoutes.Middleware.use(function (req, res, next) {
-    const api = req.url.startsWith('/api');
-    if ((api === true && process.env.WITH_API === 'true') || api === false) {
-      return next();
-    } else {
-      res.writeHead(301, {
-        Location: '/',
-      });
-      return res.end();
-    }
-  });
-
-  /**
-   * @operation get_current_user
-   *
-   * @summary returns the current user
-   * @return_type Users
-   */
-  JsonRoutes.add('GET', '/api/user', function (req, res) {
-    try {
-      Authentication.checkLoggedIn(req.userId);
-      const data = ReactiveCache.getUser({
-        _id: req.userId,
-      });
-      delete data.services;
-
-      // get all boards where the user is member of
-      let boards = ReactiveCache.getBoards(
-        {
-          type: 'board',
-          'members.userId': req.userId,
-        },
-        {
-          fields: {
-            _id: 1,
-            members: 1,
-          },
-        },
-      );
-      boards = boards.map((b) => {
-        const u = b.members.find((m) => m.userId === req.userId);
-        delete u.userId;
-        u.boardId = b._id;
-        return u;
-      });
-
-      data.boards = boards;
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data,
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation get_all_users
-   *
-   * @summary return all the users
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   * @return_type [{ _id: string,
-   *                 username: string}]
-   */
-  JsonRoutes.add('GET', '/api/users', function (req, res) {
-    try {
-      Authentication.checkUserId(req.userId);
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: Meteor.users.find({}).map(function (doc) {
-          return {
-            _id: doc._id,
-            username: doc.username,
-          };
-        }),
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation get_user
-   *
-   * @summary get a given user
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * @param {string} userId the user ID or username
-   * @return_type Users
-   */
-  JsonRoutes.add('GET', '/api/users/:userId', function (req, res) {
-    try {
-      Authentication.checkUserId(req.userId);
-      let id = req.params.userId;
-      let user = ReactiveCache.getUser({
-        _id: id,
-      });
-      if (!user) {
-        user = ReactiveCache.getUser({
-          username: id,
-        });
-        id = user._id;
-      }
-
-      // get all boards where the user is member of
-      let boards = ReactiveCache.getBoards(
-        {
-          type: 'board',
-          'members.userId': id,
-        },
-        {
-          fields: {
-            _id: 1,
-            members: 1,
-          },
-        },
-      );
-      boards = boards.map((b) => {
-        const u = b.members.find((m) => m.userId === id);
-        delete u.userId;
-        u.boardId = b._id;
-        return u;
-      });
-
-      user.boards = boards;
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: user,
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation edit_user
-   *
-   * @summary edit a given user
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * Possible values for *action*:
-   * - `takeOwnership`: The admin takes the ownership of ALL boards of the user (archived and not archived) where the user is admin on.
-   * - `disableLogin`: Disable a user (the user is not allowed to login and his login tokens are purged)
-   * - `enableLogin`: Enable a user
-   *
-   * @param {string} userId the user ID
-   * @param {string} action the action
-   * @return_type {_id: string,
-   *               title: string}
-   */
-  JsonRoutes.add('PUT', '/api/users/:userId', async function (req, res) {
-    try {
-      Authentication.checkUserId(req.userId);
-      const id = req.params.userId;
-      const action = req.body.action;
-      let data = ReactiveCache.getUser({
-        _id: id,
-      });
-      if (data !== undefined) {
-        if (action === 'takeOwnership') {
-          const boards = ReactiveCache.getBoards(
-            {
-              'members.userId': id,
-              'members.isAdmin': true,
-            },
-            {
-              sort: {
-                sort: 1 /* boards default sorting */,
-              },
-            },
-          );
-          data = [];
-          for (const board of boards) {
-            if (board.hasMember(req.userId)) {
-              await board.removeMember(req.userId);
-            }
-            board.changeOwnership(id, req.userId);
-            data.push({
-              _id: board._id,
-              title: board.title,
-            });
-          }
-        } else {
-          if (action === 'disableLogin' && id !== req.userId) {
-            Users.update(
-              {
-                _id: id,
-              },
-              {
-                $set: {
-                  loginDisabled: true,
-                  'services.resume.loginTokens': '',
-                },
-              },
-            );
-          } else if (action === 'enableLogin') {
-            Users.update(
-              {
-                _id: id,
-              },
-              {
-                $set: {
-                  loginDisabled: '',
-                },
-              },
-            );
-          }
-          data = ReactiveCache.getUser(id);
-        }
-      }
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data,
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation add_board_member
-   * @tag Boards
-   *
-   * @summary Add New Board Member with Role
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * **Note**: see [Boards.set_board_member_permission](#set_board_member_permission)
-   * to later change the permissions.
-   *
-   * @param {string} boardId the board ID
-   * @param {string} userId the user ID
-   * @param {string} action the action (needs to be `add`)
-   * @param {boolean} isAdmin is the user an admin of the board
-   * @param {boolean} isNoComments disable comments
-   * @param {boolean} isCommentOnly only enable comments
-   * @param {boolean} isWorker is the user a board worker
-   * @param {boolean} isNormalAssignedOnly only see assigned cards (Normal permission)
-   * @param {boolean} isCommentAssignedOnly only comment on assigned cards
-   * @param {boolean} isReadOnly read-only access (no comments or editing)
-   * @param {boolean} isReadAssignedOnly read-only assigned cards only
-   * @return_type {_id: string,
-   *               title: string}
-   */
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/members/:userId/add',
-    function (req, res) {
-      try {
-        Authentication.checkUserId(req.userId);
-        const userId = req.params.userId;
-        const boardId = req.params.boardId;
-        const action = req.body.action;
-        const { isAdmin, isNoComments, isCommentOnly, isWorker, isNormalAssignedOnly, isCommentAssignedOnly, isReadOnly, isReadAssignedOnly } = req.body;
-        let data = ReactiveCache.getUser(userId);
-        if (data !== undefined) {
-          if (action === 'add') {
-            data = ReactiveCache.getBoards({
-              _id: boardId,
-            }).map(function (board) {
-              const hasMember = board.members.some(m => m.userId === userId && m.isActive);
-              if (!hasMember) {
-                const memberIndex = board.members.findIndex(m => m.userId === userId);
-                if (memberIndex >= 0) {
-                  Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
-                } else {
-                  Boards.update(boardId, { $push: { members: { userId: userId, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } } });
-                }
-
-                function isTrue(data) {
-                  return data.toLowerCase() === 'true';
-                }
-                const memberIndex2 = board.members.findIndex(m => m.userId === userId);
-                if (memberIndex2 >= 0) {
-                  Boards.update(boardId, {
-                    $set: {
-                      [`members.${memberIndex2}.isAdmin`]: isTrue(isAdmin),
-                      [`members.${memberIndex2}.isNoComments`]: isTrue(isNoComments),
-                      [`members.${memberIndex2}.isCommentOnly`]: isTrue(isCommentOnly),
-                      [`members.${memberIndex2}.isWorker`]: isTrue(isWorker),
-                      [`members.${memberIndex2}.isNormalAssignedOnly`]: isTrue(isNormalAssignedOnly),
-                      [`members.${memberIndex2}.isCommentAssignedOnly`]: isTrue(isCommentAssignedOnly),
-                      [`members.${memberIndex2}.isReadOnly`]: isTrue(isReadOnly),
-                      [`members.${memberIndex2}.isReadAssignedOnly`]: isTrue(isReadAssignedOnly),
-                    }
-                  });
-                }
-              }
-              return {
-                _id: board._id,
-                title: board.title,
-              };
-            });
-          }
-        }
-        JsonRoutes.sendResult(res, { code: 200, data });
-      } catch (error) {
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: error,
-        });
-      }
-    },
-  );
-
-  /**
-   * @operation remove_board_member
-   * @tag Boards
-   *
-   * @summary Remove Member from Board
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * @param {string} boardId the board ID
-   * @param {string} userId the user ID
-   * @param {string} action the action (needs to be `remove`)
-   * @return_type {_id: string,
-   *               title: string}
-   */
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/members/:userId/remove',
-    function (req, res) {
-      try {
-        Authentication.checkUserId(req.userId);
-        const userId = req.params.userId;
-        const boardId = req.params.boardId;
-        const action = req.body.action;
-        let data = ReactiveCache.getUser(userId);
-        if (data !== undefined) {
-          if (action === 'remove') {
-            data = ReactiveCache.getBoards({
-              _id: boardId,
-            }).map(function (board) {
-              const hasMember = board.members.some(m => m.userId === userId && m.isActive);
-              if (hasMember) {
-                const memberIndex = board.members.findIndex(m => m.userId === userId);
-                if (memberIndex >= 0) {
-                  const member = board.members[memberIndex];
-                  const activeAdmins = board.members.filter(m => m.isActive && m.isAdmin);
-                  const allowRemove = !member.isAdmin || activeAdmins.length > 1;
-                  if (!allowRemove) {
-                    Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
-                  } else {
-                    Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: false, [`members.${memberIndex}.isAdmin`]: false } });
-                  }
-                }
-              }
-              return {
-                _id: board._id,
-                title: board.title,
-              };
-            });
-          }
-        }
-        JsonRoutes.sendResult(res, { code: 200, data });
-      } catch (error) {
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: error,
-        });
-      }
-    },
-  );
-
-  /**
-   * @operation new_user
-   *
-   * @summary Create a new user
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * @param {string} username the new username
-   * @param {string} email the email of the new user
-   * @param {string} password the password of the new user
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('POST', '/api/users/', function (req, res) {
-    try {
-      Authentication.checkUserId(req.userId);
-      const id = Accounts.createUser({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        from: 'admin',
-      });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: id,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation delete_user
-   *
-   * @summary Delete a user
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * @param {string} userId the ID of the user to delete
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('DELETE', '/api/users/:userId', function (req, res) {
-    try {
-      Authentication.checkUserId(req.userId);
-      const id = req.params.userId;
-      // Delete user is enabled, but is still has bug of leaving empty user avatars
-      // to boards: boards members, card members and assignees have
-      // empty users. So it would be better to delete user from all boards before
-      // deleting user.
-      // See:
-      // - wekan/client/components/settings/peopleBody.jade deleteButton
-      // - wekan/client/components/settings/peopleBody.js deleteButton
-      // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
-      //   that does now remove member from board, card members and assignees correctly,
-      //   but that should be used to remove user from all boards similarly
-      // - wekan/models/users.js Delete is not enabled
-      Meteor.users.remove({ _id: id });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: id,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation create_user_token
-   *
-   * @summary Create a user token
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * @param {string} userId the ID of the user to create token for.
-   * @return_type {_id: string}
-   */
-  JsonRoutes.add('POST', '/api/createtoken/:userId', function (req, res) {
-    try {
-      Authentication.checkUserId(req.userId);
-      const id = req.params.userId;
-      const token = Accounts._generateStampedLoginToken();
-      Accounts._insertLoginToken(id, token);
-
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: id,
-          authToken: token.token,
-        },
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  /**
-   * @operation delete_user_token
-   *
-   * @summary Delete one or all user token.
-   *
-   * @description Only the admin user (the first user) can call the REST API.
-   *
-   * @param {string} userId the user ID
-   * @param {string} token the user hashedToken
-   * @return_type {message: string}
-   */
-  JsonRoutes.add('POST', '/api/deletetoken', function (req, res) {
-    try {
-      const { userId, token } = req.body;
-      Authentication.checkUserId(req.userId);
-
-      let data = {
-        message: 'Expected a userId to be set but received none.',
-      };
-
-      if (token && userId) {
-        Accounts.destroyToken(userId, token);
-        data.message = 'Delete token: [' + token + '] from user: ' + userId;
-      } else if (userId) {
-        check(userId, String);
-        Users.update(
-          {
-            _id: userId,
-          },
-          {
-            $set: {
-              'services.resume.loginTokens': '',
-            },
-          },
-        );
-        data.message = 'Delete all token from user: ' + userId;
-      }
-
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data,
-      });
-    } catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
-
-  // Server-side method to sanitize user data for search results
-  const sanitizeUserForSearch = (userData) => {
-    // Only allow safe fields for user search
-    const safeFields = {
-      _id: 1,
-      username: 1,
-      'profile.fullname': 1,
-      'profile.avatarUrl': 1,
-      'profile.initials': 1,
-      'emails.address': 1,
-      'emails.verified': 1,
-      authenticationMethod: 1,
-      isAdmin: 1,
-      loginDisabled: 1,
-      teams: 1,
-      orgs: 1,
-    };
-
-    const sanitized = {};
-    for (const field of Object.keys(safeFields)) {
-      if (userData[field] !== undefined) {
-        sanitized[field] = userData[field];
-      }
-    }
-
-    // Ensure sensitive fields are never included
-    delete sanitized.services;
-    delete sanitized.resume;
-    delete sanitized.email;
-    delete sanitized.createdAt;
-    delete sanitized.modifiedAt;
-    delete sanitized.sessionData;
-    delete sanitized.importUsernames;
-
-    if (process.env.DEBUG === 'true') {
-      console.log('Sanitized user data for search:', Object.keys(sanitized));
-    }
-
-    return sanitized;
-  };
-
-  Meteor.methods({
-    sanitizeUserForSearch(userData) {
-      check(userData, Object);
-      return sanitizeUserForSearch(userData);
-    },
-    searchUsers(query, boardId) {
-      check(query, String);
-      check(boardId, String);
-
-      if (!this.userId) {
-        throw new Meteor.Error('not-logged-in', 'User must be logged in');
-      }
-
-      const currentUser = ReactiveCache.getCurrentUser();
-      const board = ReactiveCache.getBoard(boardId);
-
-      // Check if current user is a member of the board
-      const member = _.find(board.members, function(member) { return member.userId === currentUser._id; });
-      if (!member || !member.isActive) {
-        throw new Meteor.Error('not-authorized', 'User is not a member of this board');
-      }
-
-      if (query.length < 2) {
-        return [];
-      }
-
-      const searchRegex = new RegExp(query, 'i');
-      const users = ReactiveCache.getUsers({
-        $or: [
-          { username: searchRegex },
-          { 'profile.fullname': searchRegex },
-          { 'emails.address': searchRegex }
-        ]
-      }, {
-        fields: {
-          _id: 1,
-          username: 1,
-          'profile.fullname': 1,
-          'profile.avatarUrl': 1,
-          'profile.initials': 1,
-          'emails.address': 1
-        },
-        limit: 5
-      });
-
-      return users.map(user => sanitizeUserForSearch(user));
-    }
-  });
-}
 
 export default Users;
