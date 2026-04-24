@@ -865,3 +865,26 @@ body.mobile-mode .pop-over .content-wrapper {
   max-height: 350px !important;
   overflow-y: auto !important;
 }
+
+/* ============================================
+   FIX: List actions popup overflow (Issue #6221)
+   ============================================ */
+
+/* Force list popups to have a max height and scroll */
+.pop-over .pop-over-list {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+}
+
+/* Make sure the popup doesn't grow too tall */
+.pop-over:has(.pop-over-list) {
+  max-height: 400px !important;
+  height: auto !important;
+}
+
+/* For the list actions menu specifically */
+[data-popup="listActionsPopup"] .pop-over-list,
+.js-open-list-menu + .pop-over .pop-over-list {
+  max-height: 350px !important;
+  overflow-y: auto !important;
+}
