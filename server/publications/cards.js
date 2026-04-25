@@ -79,20 +79,25 @@ import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 
+
 Meteor.publish('card', async function(cardId) {
   check(cardId, String);
 
+
   const userId = this.userId;
   const card = await ReactiveCache.getCard({ _id: cardId });
+
 
   if (!card || !card.boardId) {
     return [];
   }
 
+
   const board = await ReactiveCache.getBoard({ _id: card.boardId });
   if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
+
 
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
@@ -104,6 +109,7 @@ Meteor.publish('card', async function(cardId) {
       }
     }
   }
+
 
   const ret = await ReactiveCache.getCards(
     { _id: cardId },
@@ -113,23 +119,28 @@ Meteor.publish('card', async function(cardId) {
   return ret;
 });
 
+
 /** publish all data which is necessary to display card details as popup
  * @returns array of cursors
  */
 publishComposite('popupCardData', async function(cardId) {
   check(cardId, String);
 
+
   const userId = this.userId;
   const card = await ReactiveCache.getCard({ _id: cardId });
+
 
   if (!card || !card.boardId) {
     return [];
   }
 
+
   const board = await ReactiveCache.getBoard({ _id: card.boardId });
   if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
+
 
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
@@ -141,6 +152,7 @@ publishComposite('popupCardData', async function(cardId) {
       }
     }
   }
+
 
   return {
     async find() {
@@ -161,6 +173,7 @@ publishComposite('popupCardData', async function(cardId) {
   };
 });
 
+
 Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', cardsLimit = 30, listsLimit = 30, swimlanesLimit = 30) {
   check(boardId, String);
   check(activeTab, String);
@@ -168,24 +181,29 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
   check(listsLimit, Match.Integer);
   check(swimlanesLimit, Match.Integer);
 
+
   const userId = this.userId;
   if (!userId) {
     return this.ready();
   }
 
+
   const safeCardsLimit = Math.max(1, Math.min(cardsLimit, 500));
   const safeListsLimit = Math.max(1, Math.min(listsLimit, 500));
   const safeSwimlaneLimit = Math.max(1, Math.min(swimlanesLimit, 500));
+
 
   const board = await ReactiveCache.getBoard({ _id: boardId });
   if (!board || !board.isVisibleBy({ _id: userId })) {
     return [];
   }
 
+
   const cardSelector = {
     boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
     archived: true,
   };
+
 
   // Respect assigned-only board permissions for archived cards as well.
   if (board.members) {
@@ -200,6 +218,7 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
     }
   }
 
+
   const archivedListsSelector = {
     boardId,
     archived: true,
@@ -208,6 +227,7 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
     boardId,
     archived: true,
   };
+
 
   const cardsCursor = Cards.find(cardSelector, {
     sort: { archivedAt: -1, modifiedAt: -1 },
@@ -222,35 +242,70 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
     limit: safeSwimlaneLimit,
   });
 
+
   return [cardsCursor, listsCursor, swimlanesCursor];
 });
+
 
 Meteor.publish('myCards', async function(sessionId) {
   check(sessionId, String);
 
+
+  const userId = this.userId;
+
+
+  if (!userId) {
+    return this.ready();
+  }
+
+
+  const currentUser = await ReactiveCache.getCurrentUser();
+
+
+  if (!currentUser) {
+    return this.ready();
+  }
+
+
   const queryParams = new QueryParams();
-  queryParams.addPredicate(OPERATOR_USER, (await ReactiveCache.getCurrentUser()).username);
+  // Removed OPERATOR_USER predicate — we want all cards on my boards
   queryParams.setPredicate(OPERATOR_LIMIT, 200);
 
-  const query = await buildQuery(queryParams, this.userId);
+
+  const query = await buildQuery(queryParams, userId);
+
+
+  // Remove the members/assignees filter entirely
+  delete query.selector.$and;
+
+
   query.projection.sort = {
     boardId: 1,
     swimlaneId: 1,
     listId: 1,
   };
 
-  const ret = await findCards(sessionId, query, this.userId);
-  return ret;
-});
 
+  const { cursors, sessionData } = await findCards(sessionId, query, userId);
+
+
+  if (sessionData) {
+    this.added('sessiondata', sessionData._id, sessionData);
+  }
+
+
+  return cursors;
+});
 // Optimized due cards publication for better performance
 Meteor.publish('dueCards', async function(allUsers = false) {
   check(allUsers, Boolean);
+
 
   const userId = this.userId;
   if (!userId) {
     return this.ready();
   }
+
 
   // Get user's board memberships for efficient filtering
   const userBoards = (await ReactiveCache.getBoards({
@@ -260,9 +315,11 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     ]
   })).map(board => board._id);
 
+
   if (userBoards.length === 0) {
     return this.ready();
   }
+
 
   // Build optimized selector
   const selector = {
@@ -272,6 +329,7 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     boardId: { $in: userBoards }
   };
 
+
   // Add user filtering if not showing all users
   if (!allUsers) {
     selector.$or = [
@@ -280,6 +338,7 @@ Meteor.publish('dueCards', async function(allUsers = false) {
       { userId: userId }
     ];
   }
+
 
   const options = {
     sort: { dueAt: 1 }, // Sort by due date ascending (oldest first)
@@ -298,44 +357,45 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     }
   };
 
+
   const result = Cards.find(selector, options);
+
 
   return result;
 });
+
 
 Meteor.publish('globalSearch', async function(sessionId, params, text) {
   check(sessionId, String);
   check(params, Object);
   check(text, String);
 
-  const ret = await findCards(sessionId, await buildQuery(new QueryParams(params, text), this.userId), this.userId);
 
-  if (!Array.isArray(ret)) {
-    return ret;
+  const { cursors, sessionData } = await findCards(
+    sessionId,
+    await buildQuery(new QueryParams(params, text), this.userId),
+    this.userId,
+  );
+
+
+  if (sessionData) {
+    this.added('sessiondata', sessionData._id, sessionData);
   }
 
-  // Check if last item is the sessiondata marker
-  let sessionDataToPublish = null;
-  if (ret.length > 0 && ret[ret.length - 1] && ret[ret.length - 1]._sessionDataToFetch) {
-    sessionDataToPublish = ret[ret.length - 1]._sessionDataToFetch;
-    ret.pop(); // Remove the marker
-  }
 
-  // Manually publish sessiondata if it exists
-  if (sessionDataToPublish) {
-    this.added('sessiondata', sessionDataToPublish._id, sessionDataToPublish);
-  }
-
-  return ret;
+  return cursors;
 });
+
 
 Meteor.publish('sessionData', async function(sessionId) {
   check(sessionId, String);
   const userId = this.userId;
 
+
   if (!userId) {
     return [];
   }
+
 
   // Return the cursor immediately - data should already be in the collection
   // from the globalSearch publication or earlier searches
@@ -343,15 +403,19 @@ Meteor.publish('sessionData', async function(sessionId) {
   return cursor;
 });
 
+
 async function buildSelector(queryParams, userId) {
   const errors = new QueryErrors();
 
+
   let selector = {};
+
 
   if (queryParams.selector) {
     selector = queryParams.selector;
   } else {
     const boardsSelector = {};
+
 
     let archived = false;
     let endAt = null;
@@ -368,6 +432,7 @@ async function buildSelector(queryParams, userId) {
         }
       });
     }
+
 
     if (queryParams.hasOperator(OPERATOR_ORG)) {
       const orgs = [];
@@ -391,6 +456,7 @@ async function buildSelector(queryParams, userId) {
       }
     }
 
+
     if (queryParams.hasOperator(OPERATOR_TEAM)) {
       const teams = [];
       for (const name of queryParams.getPredicates(OPERATOR_TEAM)) {
@@ -413,11 +479,13 @@ async function buildSelector(queryParams, userId) {
       }
     }
 
+
     selector = {
       type: 'cardType-card',
       // boardId: { $in: Boards.userBoardIds(userId) },
       $and: [],
     };
+
 
     if (archived !== null) {
       if (archived) {
@@ -454,6 +522,7 @@ async function buildSelector(queryParams, userId) {
       selector.endAt = endAt;
     }
 
+
     if (queryParams.hasOperator(OPERATOR_BOARD)) {
       const queryBoards = [];
       for (const query of queryParams.getPredicates(OPERATOR_BOARD)) {
@@ -469,8 +538,10 @@ async function buildSelector(queryParams, userId) {
         }
       }
 
+
       selector.boardId.$in = queryBoards;
     }
+
 
     if (queryParams.hasOperator(OPERATOR_SWIMLANE)) {
       const querySwimlanes = [];
@@ -487,12 +558,14 @@ async function buildSelector(queryParams, userId) {
         }
       }
 
+
       // eslint-disable-next-line no-prototype-builtins
       if (!selector.swimlaneId.hasOwnProperty('swimlaneId')) {
         selector.swimlaneId = { $in: [] };
       }
       selector.swimlaneId.$in = querySwimlanes;
     }
+
 
     if (queryParams.hasOperator(OPERATOR_LIST)) {
       const queryLists = [];
@@ -509,12 +582,14 @@ async function buildSelector(queryParams, userId) {
         }
       }
 
+
       // eslint-disable-next-line no-prototype-builtins
       if (!selector.hasOwnProperty('listId')) {
         selector.listId = { $in: [] };
       }
       selector.listId.$in = queryLists;
     }
+
 
     if (queryParams.hasOperator(OPERATOR_COMMENT)) {
       const commentsFound = typeof CardComments.textSearch === 'function' ? await CardComments.textSearch(
@@ -531,6 +606,7 @@ async function buildSelector(queryParams, userId) {
       }
     }
 
+
     [OPERATOR_DUE, OPERATOR_CREATED_AT, OPERATOR_MODIFIED_AT].forEach(field => {
       if (queryParams.hasOperator(field)) {
         selector[field] = {};
@@ -539,10 +615,12 @@ async function buildSelector(queryParams, userId) {
       }
     });
 
+
     const queryUsers = {};
     queryUsers[OPERATOR_ASSIGNEE] = [];
     queryUsers[OPERATOR_MEMBER] = [];
     queryUsers[OPERATOR_CREATOR] = [];
+
 
     if (queryParams.hasOperator(OPERATOR_USER)) {
       const users = [];
@@ -561,6 +639,7 @@ async function buildSelector(queryParams, userId) {
       }
     }
 
+
     for (const key of [OPERATOR_MEMBER, OPERATOR_ASSIGNEE, OPERATOR_CREATOR]) {
       if (queryParams.hasOperator(key)) {
         const users = [];
@@ -578,12 +657,14 @@ async function buildSelector(queryParams, userId) {
       }
     }
 
+
     if (queryParams.hasOperator(OPERATOR_LABEL)) {
       const queryLabels = [];
       for (const label of queryParams.getPredicates(OPERATOR_LABEL)) {
         let boards = await Boards.userBoards(userId, null, {
           labels: { $elemMatch: { color: label.toLowerCase() } },
         });
+
 
         if (boards.length) {
           boards.forEach(board => {
@@ -600,6 +681,7 @@ async function buildSelector(queryParams, userId) {
           boards = await Boards.userBoards(userId, null, {
             labels: { $elemMatch: { name: reLabel } },
           });
+
 
           if (boards.length) {
             boards.forEach(board => {
@@ -623,6 +705,7 @@ async function buildSelector(queryParams, userId) {
         selector.labelIds = { $in: [...new Set(queryLabels)] };
       }
     }
+
 
     if (queryParams.hasOperator(OPERATOR_HAS)) {
       for (const has of queryParams.getPredicates(OPERATOR_HAS)) {
@@ -667,8 +750,10 @@ async function buildSelector(queryParams, userId) {
       }
     }
 
+
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
+
 
       const items = await ReactiveCache.getChecklistItems(
         { title: regex },
@@ -684,12 +769,15 @@ async function buildSelector(queryParams, userId) {
         { fields: { cardId: 1 } },
       );
 
+
       const attachments = await ReactiveCache.getAttachments({ 'original.name': regex });
+
 
       const comments = await ReactiveCache.getCardComments(
         { text: regex },
         { fields: { cardId: 1 } },
       );
+
 
       let cardsSelector = [
           { title: regex },
@@ -705,20 +793,24 @@ async function buildSelector(queryParams, userId) {
       selector.$and.push({ $or: cardsSelector });
     }
 
+
     if (queryParams.hasOperator(OPERATOR_TITLE)) {
       const regexes = queryParams.getPredicates(OPERATOR_TITLE).map(t => new RegExp(escapeForRegex(t), 'i'));
       selector.$and.push({ $or: regexes.map(regex => ({ title: regex })) });
     }
+
 
     if (queryParams.hasOperator(OPERATOR_DESCRIPTION)) {
       const regexes = queryParams.getPredicates(OPERATOR_DESCRIPTION).map(t => new RegExp(escapeForRegex(t), 'i'));
       selector.$and.push({ $or: regexes.map(regex => ({ description: regex })) });
     }
 
+
     if (queryParams.hasOperator(OPERATOR_CUSTOMFIELD)) {
       const regexes = queryParams.getPredicates(OPERATOR_CUSTOMFIELD).map(t => new RegExp(escapeForRegex(t), 'i'));
       selector.$and.push({ $or: regexes.map(regex => ({ customFields: { $elemMatch: { value: regex } } })) });
     }
+
 
     if (queryParams.hasOperator(OPERATOR_ATTACHMENT_TEXT)) {
       for (const t of queryParams.getPredicates(OPERATOR_ATTACHMENT_TEXT)) {
@@ -731,6 +823,7 @@ async function buildSelector(queryParams, userId) {
         }
       }
     }
+
 
     if (queryParams.hasOperator(OPERATOR_CHECKLIST_TEXT)) {
       for (const t of queryParams.getPredicates(OPERATOR_CHECKLIST_TEXT)) {
@@ -756,20 +849,25 @@ async function buildSelector(queryParams, userId) {
       }
     }
 
+
     if (selector.$and.length === 0) {
       delete selector.$and;
     }
   }
+
 
   const query = new Query();
   query.selector = selector;
   query.setQueryParams(queryParams);
   query._errors = errors;
 
+
   return query;
 }
 
+
 function buildProjection(query) {
+
 
   let skip = 0;
   if (query.getQueryParams().skip) {
@@ -781,9 +879,11 @@ function buildProjection(query) {
     limit = configLimit;
   }
 
+
   if (query.getQueryParams().hasOperator(OPERATOR_LIMIT)) {
     limit = query.getQueryParams().getPredicate(OPERATOR_LIMIT);
   }
+
 
   const projection = {
     fields: {
@@ -817,6 +917,7 @@ function buildProjection(query) {
   if (limit > 0) {
     projection.limit = limit;
   }
+
 
   if (query.getQueryParams().hasOperator(OPERATOR_SORT)) {
     const order =
@@ -866,19 +967,27 @@ function buildProjection(query) {
 
 
 
+
+
+
   query.projection = projection;
+
 
   return query;
 }
 
+
 async function buildQuery(queryParams, userId) {
   const query = await buildSelector(queryParams, userId);
+
 
   return buildProjection(query);
 }
 
+
 Meteor.publish('brokenCards', async function(sessionId) {
   check(sessionId, String);
+
 
   const params = new QueryParams();
   params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
@@ -890,31 +999,39 @@ Meteor.publish('brokenCards', async function(sessionId) {
     { type: { $nin: CARD_TYPES } },
   ];
 
+
   const ret = await findCards(sessionId, query, this.userId);
   return ret;
 });
 
+
 Meteor.publish('nextPage', async function(sessionId) {
   check(sessionId, String);
+
 
   const session = await ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
+
   const ret = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
   return ret;
 });
 
+
 Meteor.publish('previousPage', async function(sessionId) {
   check(sessionId, String);
+
 
   const session = await ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 
+
   const ret = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
   return ret;
 });
+
 
 async function findCards(sessionId, query, userId) {
   let textMatches = query.getQueryParams().text;
@@ -926,9 +1043,11 @@ async function findCards(sessionId, query, userId) {
     delete dbProjection.skip;
   }
 
+
   let cards = await ReactiveCache.getCards(query.selector, dbProjection, true);
   let totalCardsCount = cards ? (typeof cards.countAsync === 'function' ? await cards.countAsync() : cards.count()) : 0;
   let orderedIds = [];
+
 
   if (isTextSearch && totalCardsCount > 0) {
     let fetched = typeof cards.fetchAsync === 'function' ? await cards.fetchAsync() : cards.fetch();
@@ -944,15 +1063,15 @@ async function findCards(sessionId, query, userId) {
       return (a.title || '').localeCompare(b.title || '');
     });
 
+
     const skip = query.projection.skip || 0;
     const limit = query.projection.limit || 25;
     const page = fetched.slice(skip, skip + limit);
     orderedIds = page.map(c => c._id);
 
-    // override the cursor to only contain the paginated results for this page
+
     cards = await ReactiveCache.getCards({ _id: { $in: orderedIds } }, { fields: query.projection.fields }, true);
   }
-
 
 
   const update = {
@@ -968,6 +1087,7 @@ async function findCards(sessionId, query, userId) {
     },
   };
 
+
   if (cards && totalCardsCount > 0) {
     update.$set.totalHits = totalCardsCount;
     update.$set.lastHit =
@@ -975,7 +1095,7 @@ async function findCards(sessionId, query, userId) {
         ? query.projection.skip + query.projection.limit
         : totalCardsCount;
 
-    // For text search preserve our sorted IDs, else grab from db order
+
     if (isTextSearch) {
       update.$set.cards = orderedIds;
     } else {
@@ -986,18 +1106,20 @@ async function findCards(sessionId, query, userId) {
   }
 
 
-  const upsertResult = typeof SessionData.upsertAsync === 'function' ? await SessionData.upsertAsync({ userId, sessionId }, update) : SessionData.upsert({ userId, sessionId }, update);
+  const upsertResult = typeof SessionData.upsertAsync === 'function'
+    ? await SessionData.upsertAsync({ userId, sessionId }, update)
+    : SessionData.upsert({ userId, sessionId }, update);
 
-  // Check if the session data was actually stored
-  const storedSessionData = typeof SessionData.findOneAsync === 'function' ? await SessionData.findOneAsync({ userId, sessionId }) : SessionData.findOne({ userId, sessionId });
 
-  // remove old session data
+  const storedSessionData = typeof SessionData.findOneAsync === 'function'
+    ? await SessionData.findOneAsync({ userId, sessionId })
+    : SessionData.findOne({ userId, sessionId });
+
+
   const removeSelector = {
     userId,
     modifiedAt: {
-      $lt: new Date(
-        subtract(now(), 1, 'day').toISOString(),
-      ),
+      $lt: new Date(subtract(now(), 1, 'day').toISOString()),
     },
   };
   if (typeof SessionData.removeAsync === 'function') {
@@ -1006,6 +1128,7 @@ async function findCards(sessionId, query, userId) {
     SessionData.remove(removeSelector);
   }
 
+
   if (cards && totalCardsCount > 0) {
     const boards = [];
     const swimlanes = [];
@@ -1013,32 +1136,21 @@ async function findCards(sessionId, query, userId) {
     const customFieldIds = [];
     const users = [userId];
 
+
     const cardArray = typeof cards.fetchAsync === 'function' ? await cards.fetchAsync() : cards.fetch();
     const cardIds = cardArray.map(c => c._id);
+
 
     cardArray.forEach(card => {
       if (card.boardId) boards.push(card.boardId);
       if (card.swimlaneId) swimlanes.push(card.swimlaneId);
       if (card.listId) lists.push(card.listId);
-      if (card.userId) {
-        users.push(card.userId);
-      }
-      if (card.members) {
-        card.members.forEach(userId => {
-          users.push(userId);
-        });
-      }
-      if (card.assignees) {
-        card.assignees.forEach(userId => {
-          users.push(userId);
-        });
-      }
-      if (card.customFields) {
-        card.customFields.forEach(field => {
-          customFieldIds.push(field._id);
-        });
-      }
+      if (card.userId) users.push(card.userId);
+      if (card.members) card.members.forEach(userId => users.push(userId));
+      if (card.assignees) card.assignees.forEach(userId => users.push(userId));
+      if (card.customFields) card.customFields.forEach(field => customFieldIds.push(field._id));
     });
+
 
     const fields = {
       _id: 1,
@@ -1048,30 +1160,37 @@ async function findCards(sessionId, query, userId) {
       type: 1,
     };
 
-    // Return all cursors except sessiondata - we'll add sessiondata separately after fetch
-    return [
-      cards,
-      await ReactiveCache.getBoards(
-        { _id: { $in: boards } },
-        { fields: { ...fields, labels: 1, color: 1 } },
-        true,
-      ),
-      await ReactiveCache.getSwimlanes(
-        { _id: { $in: swimlanes } },
-        { fields: { ...fields, color: 1 } },
-        true,
-      ),
-      await ReactiveCache.getLists({ _id: { $in: lists } }, { fields: { ...fields, color: 1 } }, true),
-      await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
-      await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
-      await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true),
-      await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true),
-      (await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true)).cursor,
-      await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true),
-      { _sessionDataToFetch: storedSessionData }, // Pass sessiondata separately
-    ];
+
+    return {
+      cursors: [
+        cards,
+        await ReactiveCache.getBoards(
+          { _id: { $in: boards } },
+          { fields: { ...fields, labels: 1, color: 1 } },
+          true,
+        ),
+        await ReactiveCache.getSwimlanes(
+          { _id: { $in: swimlanes } },
+          { fields: { ...fields, color: 1 } },
+          true,
+        ),
+        await ReactiveCache.getLists({ _id: { $in: lists } }, { fields: { ...fields, color: 1 } }, true),
+        await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
+        await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
+        await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true),
+        await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true),
+        (await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true)).cursor,
+        await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true),
+      ],
+      sessionData: storedSessionData,
+    };
   } else {
-    // Return just a marker for sessiondata
-    return [{ _sessionDataToFetch: storedSessionData }];
+    return {
+      cursors: [],
+      sessionData: storedSessionData,
+    };
   }
 }
+
+
+
