@@ -54,6 +54,8 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/b459151798d9808b4243d230ff6759a58d4016f5),
   [Part 2](https://github.com/wekan/wekan/commit/74965f5f95ba4e4dfd7381becd55184731a60fca).
   Thanks to developers of dependencies.
+- [Updated website](https://github.com/wekan/wekan/commit/ef4161889af58827f105749362196fd471e3e38c).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
