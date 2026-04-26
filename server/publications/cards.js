@@ -228,8 +228,13 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
 Meteor.publish('myCards', async function(sessionId) {
   check(sessionId, String);
 
+  if (!this.userId) return this.ready();
+
+  const currentUser = await ReactiveCache.getCurrentUser();
+  if (!currentUser) return this.ready();
+
   const queryParams = new QueryParams();
-  queryParams.addPredicate(OPERATOR_USER, (await ReactiveCache.getCurrentUser()).username);
+  queryParams.addPredicate(OPERATOR_USER, currentUser.username);
   queryParams.setPredicate(OPERATOR_LIMIT, 200);
 
   const query = await buildQuery(queryParams, this.userId);
@@ -239,8 +244,9 @@ Meteor.publish('myCards', async function(sessionId) {
     listId: 1,
   };
 
-  const ret = await findCards(sessionId, query, this.userId);
-  return ret;
+  const { cursors, sessionData } = await findCards(sessionId, query, this.userId);
+  if (sessionData) this.added('sessiondata', sessionData._id, sessionData);
+  return cursors;
 });
 
 // Optimized due cards publication for better performance
@@ -313,20 +319,14 @@ Meteor.publish('globalSearch', async function(sessionId, params, text) {
   if (!Array.isArray(ret)) {
     return ret;
   }
-
-  // Check if last item is the sessiondata marker
-  let sessionDataToPublish = null;
-  if (ret.length > 0 && ret[ret.length - 1] && ret[ret.length - 1]._sessionDataToFetch) {
-    sessionDataToPublish = ret[ret.length - 1]._sessionDataToFetch;
-    ret.pop(); // Remove the marker
-  }
-
-  // Manually publish sessiondata if it exists
-  if (sessionDataToPublish) {
-    this.added('sessiondata', sessionDataToPublish._id, sessionDataToPublish);
-  }
-
-  return ret;
+  
+  const { cursors, sessionData } = await findCards(
+    sessionId,
+    await buildQuery(new QueryParams(params, text), this.userId),
+    this.userId,
+  );
+  if (sessionData) this.added('sessiondata', sessionData._id, sessionData);
+  return cursors;
 });
 
 Meteor.publish('sessionData', async function(sessionId) {
@@ -1047,31 +1047,26 @@ async function findCards(sessionId, query, userId) {
       sort: 1,
       type: 1,
     };
-
     // Return all cursors except sessiondata - we'll add sessiondata separately after fetch
-    return [
-      cards,
-      await ReactiveCache.getBoards(
-        { _id: { $in: boards } },
-        { fields: { ...fields, labels: 1, color: 1 } },
-        true,
-      ),
-      await ReactiveCache.getSwimlanes(
-        { _id: { $in: swimlanes } },
-        { fields: { ...fields, color: 1 } },
-        true,
-      ),
-      await ReactiveCache.getLists({ _id: { $in: lists } }, { fields: { ...fields, color: 1 } }, true),
-      await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
-      await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
-      await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true),
-      await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true),
-      (await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true)).cursor,
-      await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true),
-      { _sessionDataToFetch: storedSessionData }, // Pass sessiondata separately
-    ];
+    return {
+      cursors: [
+        cards,
+        await ReactiveCache.getBoards({ _id: { $in: boards } }, { fields: { ...fields, labels: 1, color: 1 } }, true),
+        await ReactiveCache.getSwimlanes({ _id: { $in: swimlanes } }, { fields: { ...fields, color: 1 } }, true),
+        await ReactiveCache.getLists({ _id: { $in: lists } }, { fields: { ...fields, color: 1 } }, true),
+        await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
+        await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
+        await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true),
+        await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true),
+        (await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true)).cursor,
+        await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true),
+      ],
+      sessionData: storedSessionData,
+    };
   } else {
-    // Return just a marker for sessiondata
-    return [{ _sessionDataToFetch: storedSessionData }];
+    return {
+      cursors: [],
+      sessionData: storedSessionData,
+    };
   }
 }
