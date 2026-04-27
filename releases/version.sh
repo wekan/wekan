@@ -72,7 +72,7 @@ version_bump_logic() {
   # Only update MongoDB version in snapcraft.yaml and docs if detected, not with app version
   if [[ -n "$MONGO_VER" && -n "$UBUNTU_VER" ]]; then
     sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
-    sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs/Platforms/Propietary/Windows/Offline.md
+    sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs2/Platforms/Propietary/Windows/Offline.md
   fi
 
   # Only update mongosh and mongotools if detected (do not use app version)
@@ -155,7 +155,7 @@ version_bump_logic() {
   # Only update MongoDB download URL if a new MongoDB 7.x version is detected
   if [[ -n "$MONGO_VER" && -n "$UBUNTU_VER" ]]; then
     sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
-    sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs/Platforms/Propietary/Windows/Offline.md
+    sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs2/Platforms/Propietary/Windows/Offline.md
   fi
 
   # Only update mongosh if a new version is detected
@@ -172,8 +172,8 @@ version_bump_logic() {
     sedi "s|mongodb-database-tools-ubuntu[0-9]\+-x86_64-[0-9]\+\.[0-9]\+\.[0-9]\+\.tgz|mongodb-database-tools-ubuntu2404-x86_64-${MONGOTOOLS_VER}.tgz|g" snapcraft.yaml
   fi
   sedi "s|ARG VERSION=$OLD_VERSION|ARG VERSION=$NEW_VERSION|g" Dockerfile
-  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" docs/Platforms/Propietary/Windows/Offline.md
-  sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs/Platforms/Propietary/Windows/Offline.md
+  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" docs2/Platforms/Propietary/Windows/Offline.md
+  sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs2/Platforms/Propietary/Windows/Offline.md
   sedi "s|appVersion = $OLD_NO_DOTS,|appVersion = $NEW_NO_DOTS,|g" sandstorm-pkgdef.capnp
   sedi "s|\"$OLD_VERSION.0~|\"$NEW_VERSION.0~|g" sandstorm-pkgdef.capnp
 
@@ -271,7 +271,7 @@ version_bump_logic() {
   MONGO_VER=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/' | sed 's/\.tgz$//')
   echo "Detected latest MongoDB 7.x: $MONGO_VER for Ubuntu $UBUNTU_VER"
   sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
-  sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs/Platforms/Propietary/Windows/Offline.md
+  sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs2/Platforms/Propietary/Windows/Offline.md
 
   # Update Node.js version in Dockerfile and snapcraft.yaml
     echo "[DEBUG] (function) NEW_NODE='$NEW_NODE'"
@@ -299,8 +299,8 @@ version_bump_logic() {
   sedi "s|[0-9]\+\.[0-9]\+\.[0-9]\+-amd64|${NEW_VERSION}.0-amd64|g" snapcraft.yaml
   sedi "s|[0-9]\+\.[0-9]\+\.[0-9]\+|${NEW_VERSION}.0|g" snapcraft.yaml
   sedi "s|ARG VERSION=$OLD_VERSION|ARG VERSION=$NEW_VERSION|g" Dockerfile
-  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" docs/Platforms/Propietary/Windows/Offline.md
-  sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs/Platforms/Propietary/Windows/Offline.md
+  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" docs2/Platforms/Propietary/Windows/Offline.md
+  sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs2/Platforms/Propietary/Windows/Offline.md
   sedi "s|appVersion = $OLD_NO_DOTS,|appVersion = $NEW_NO_DOTS,|g" sandstorm-pkgdef.capnp
   sedi "s|\"$OLD_VERSION.0~|\"$NEW_VERSION.0~|g" sandstorm-pkgdef.capnp
 

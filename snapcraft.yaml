@@ -1,5 +1,5 @@
 name: wekan
-version: '8.94'
+version: '9.00'
 base: core24
 summary: Open Source kanban
 description: |

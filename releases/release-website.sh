@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Release website with new WeKan version number and new API docs.
+# Release website with new WeKan version number and new API $HOME/repos/wekan/docs.
 #
 # Usage:
 #   ./releases/release-website.sh 8.42 8.43
@@ -23,10 +23,10 @@ sedi() {
 }
 
 # Go to website directory and pull latest changes
-if [ -d "$HOME/repos/w/wekan.fi" ]; then
-  cd "$HOME/repos/w/wekan.fi" || exit 1
-elif [ -d "$HOME/Documents/repos/w/wekan.fi" ]; then
-  cd "$HOME/Documents/repos/w/wekan.fi" || exit 1
+if [ -d "$HOME/repos/wekan/docs" ]; then
+  cd "$HOME/repos/wekan/docs" || exit 1
+elif [ -d "$HOME/Documents/repos/wekan/docs" ]; then
+  cd "$HOME/Documents/repos/wekan/docs" || exit 1
 else
   echo "Website directory not found, ignoring."
   exit 0
@@ -71,7 +71,7 @@ sedi "s|>v$OLD<\/span>|>v$NEW<\/span>|g" install/index.html
 cd api
 sedi "s|v$OLD\([^0-9]\)|v$NEW\1|g; s|v$OLD$|v$NEW|g" index.html
 
-# Create directory for new API docs, copy from WeKan repo, rename entry point
+# Create directory for new API $HOME/repos/wekan/docs, copy from WeKan repo, rename entry point
 cd ..
 mkdir -p api/v$NEW
 if [ -d "$HOME/repos/wekan" ]; then
