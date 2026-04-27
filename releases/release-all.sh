@@ -35,17 +35,19 @@
 set -e
 
 # Extract latest and previous version from CHANGELOG.md (e.g. # v8.98 2026-04-16)
-RELEASE_LINES=( $(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2) )
-LATEST_VERSION=$(echo "${RELEASE_LINES[0]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
-PREVIOUS_VERSION=$(echo "${RELEASE_LINES[1]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
-if [ -z "$LATEST_VERSION" ] || [ -z "$PREVIOUS_VERSION" ]; then
-  echo "Could not determine both latest and previous version from CHANGELOG.md" >&2
-  exit 1
-fi
-echo "Latest version from CHANGELOG.md: $LATEST_VERSION"
-echo "Previous version from CHANGELOG.md: $PREVIOUS_VERSION"
-NEW="v${LATEST_VERSION}"
-OLD="v${PREVIOUS_VERSION}"
+#RELEASE_LINES=( $(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2) )
+#LATEST_VERSION=$(echo "${RELEASE_LINES[0]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
+#PREVIOUS_VERSION=$(echo "${RELEASE_LINES[1]}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
+#if [ -z "$LATEST_VERSION" ] || [ -z "$PREVIOUS_VERSION" ]; then
+#  echo "Could not determine both latest and previous version from CHANGELOG.md" >&2
+#  exit 1
+#fi
+#echo "Latest version from CHANGELOG.md: $LATEST_VERSION"
+#echo "Previous version from CHANGELOG.md: $PREVIOUS_VERSION"
+#NEW="v${LATEST_VERSION}"
+#OLD="v${PREVIOUS_VERSION}"
+NEW=$2
+OLD=$1
 
 # Update all versions
 ./releases/version.sh $OLD $NEW
