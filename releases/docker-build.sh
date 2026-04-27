@@ -27,8 +27,10 @@ fi
 # Ensure you are using the correct builder
 docker buildx use mybuilder
 
+#  --platform linux/amd64,linux/arm64,linux/s390x,linux/ppc64le \
+
 docker buildx build \
-  --platform linux/amd64,linux/arm64,linux/s390x,linux/ppc64le \
+  --platform linux/amd64,linux/arm64 \
   -t wekanteam/wekan:v${VERSION} \
   -t wekanteam/wekan:latest \
   -t quay.io/wekan/wekan:v${VERSION} \
@@ -36,4 +38,3 @@ docker buildx build \
   -t ghcr.io/wekan/wekan:v${VERSION} \
   -t ghcr.io/wekan/wekan:latest \
   --push .
-
