@@ -32,6 +32,8 @@ This release adds the following updates:
 
 - [Updated Docker platforms for what currently builds successfully](https://github.com/wekan/wekan/commit/fdb477f3517383eb17169b1dfff2ef94c12b6296).
   Thanks to xet7.
+- [Docs: Updated s390x page](https://github.com/wekan/wekan/commit/855cb86088c7c54734eddb1ddc5a007b432a0d91).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
