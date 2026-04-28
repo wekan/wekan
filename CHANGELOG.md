@@ -34,6 +34,12 @@ This release adds the following updates:
   Thanks to xet7.
 - [Docs: Updated s390x page](https://github.com/wekan/wekan/commit/855cb86088c7c54734eddb1ddc5a007b432a0d91).
   Thanks to xet7.
+- [Removed charts, that are moved back to github.com/wekan/charts](https://github.com/wekan/wekan/commit/b49aa050e91b4bd560512af1beece791c6e39114).
+  Thanks to xet7.
+- [Moved website to separate repo. Moved docs2 back to docs](https://github.com/wekan/wekan/commit/f6d8befb56c88eb0867c70bac708f867fe731a5a).
+  Thanks to xet7.
+- [Disable not working GitHub workflows](https://github.com/wekan/wekan/commit/58de6bb73714e6c6d4010de5c72499f429bd9a41).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
