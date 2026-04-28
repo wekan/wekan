@@ -8,4 +8,4 @@
 ## Here / in charts.git (gh-pages branch)
 
     helm package ../wekan.git/helm/wekan
-    helm repo index . --url https://wekan.github.io/charts
+    helm repo index . --url https://wekan.fi/charts

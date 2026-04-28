@@ -7,7 +7,7 @@ Once Helm has been set up correctly, add the repo as follows:
 
 ```
 
-  helm repo add wekan https://wekan.github.io/charts
+  helm repo add wekan https://wekan.fi/charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve

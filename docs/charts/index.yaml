@@ -10,7 +10,7 @@ entries:
       repository: https://groundhog2k.github.io/helm-charts/
       version: 0.7.2
     description: Open Source kanban
-    digest: e39f99b18f907ea35bf65e5bf5d864ba1db72676f4ce229ea63fd6466f8071bf
+    digest: 99aee2834bea0d74b2b6a47a9483a4fc5125b1732634449f99c65fc9f9a7c472
     home: https://wekan.fi
     icon: https://wekan.fi/wekan-logo.svg
     keywords:
