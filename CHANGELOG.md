@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix mongodb in snap 9.01 on Ubuntu 24.04 crashes because of missing libcrypto.so.1.1](https://github.com/wekan/wekan/commit/a4b5ac6c4e2cfba6983b81ff0282e1c787576d06).
+  Thanks to sbaecker.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.01 2026-04-28 WeKan ® release
 
 This release adds the following updates:
