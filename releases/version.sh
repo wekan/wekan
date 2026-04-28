@@ -51,7 +51,6 @@ version_bump_logic() {
   # 3. Update Configuration Files: MongoDB & Tools
   echo "[DEBUG] Updating snapcraft.yaml and documentation..."
   sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
-  sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs/Platforms/Propietary/Windows/Offline.md
 
   # Ensure database tools point to the correct Ubuntu version
   sedi -E "s|mongodb-database-tools-ubuntu[0-9]+-x86_64|mongodb-database-tools-ubuntu2204-x86_64|g" snapcraft.yaml
@@ -74,6 +73,8 @@ version_bump_logic() {
   sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package-lock.json
   sedi "0,/appVersion: \"[^\"]*\"/s/appVersion: \"[^\"]*\"/appVersion: \"${PKG_VER}\"/" Stackerfile.yml
   sedi "2s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml
+  sedi "s|v$OLD_VERSION/|v$NEW_VERSION/|g" snapcraft.yaml
+  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" snapcraft.yaml
 
   # Sandstorm Specifics
   sedi "0,/appVersion = [0-9]\+/s/appVersion = [0-9]\+/appVersion = ${NEW_NO_DOTS}/" sandstorm-pkgdef.capnp
@@ -81,8 +82,8 @@ version_bump_logic() {
   sedi "s|appVersion = $OLD_NO_DOTS,|appVersion = $NEW_NO_DOTS,|g" sandstorm-pkgdef.capnp
 
   # Docker and Documentation
-  sedi "s|ARG VERSION=$OLD_VERSION|ARG VERSION=$NEW_VERSION|g" Dockerfile
-  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" docs/Platforms/Propietary/Windows/Offline.md
+  sedi "s|ARG VERSION=$OLD_VERSION-|ARG VERSION=$NEW_VERSION-|g" Dockerfile
+  sedi "s|wekan-$OLD_VERSION|wekan-$NEW_VERSION|g" docs/Platforms/Propietary/Windows/Offline.md
   sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs/Platforms/Propietary/Windows/Offline.md
 
   # 6. Update Wekan website (if applicable)
@@ -97,7 +98,7 @@ version_bump_logic() {
     #sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">v$NEW_NODE</span>|g" "$INSTALL_PAGE"
     #sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VER</span>|g" "$INSTALL_PAGE"
     sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" "$INSTALL_PAGE"
-    (cd ../w/wekan.fi && git add --all -m "Updates" && git push)
+    (cd ../w/wekan.fi && git add --all && git commit -m "Updates" && git push)
   fi
 
   echo "--- Version bump complete ---"
