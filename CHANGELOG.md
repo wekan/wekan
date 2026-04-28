@@ -40,6 +40,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Disable not working GitHub workflows](https://github.com/wekan/wekan/commit/58de6bb73714e6c6d4010de5c72499f429bd9a41).
   Thanks to xet7.
+- [Fix Snap mongodb port wrong](https://github.com/wekan/wekan/commit/11a2c95ea70a3dcf9243369f8feeaea301a93bb6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
