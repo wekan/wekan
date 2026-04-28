@@ -72,6 +72,8 @@ version_bump_logic() {
   # Only update MongoDB version in snapcraft.yaml and docs if detected, not with app version
   if [[ -n "$MONGO_VER" && -n "$UBUNTU_VER" ]]; then
     sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
+    # All lines that start with wget or unzip or rm
+    sedi -E "/(wget|unzip|rm).*wekan/s/[0-9]+\.[0-9]+(\.[0-9]+)?/$NEW_VERSION/g" snapcraft.yaml
     sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" docs/Platforms/Propietary/Windows/Offline.md
   fi
 
@@ -182,17 +184,17 @@ version_bump_logic() {
   if [ -n "$MONGO_LINE" ]; then
     UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
     MONGODB_VERSION=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/')
-    sedi "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" docs/install/index.html
+    sedi "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" ../w/wekan.fi/install/index.html
   fi
   METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1)
   NODE_VERSION=$(grep -o 'NODE_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
   NPM_VERSION=$(grep -o 'NPM_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
-  sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" docs/install/index.html
-  sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" docs/install/index.html
-  sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" docs/install/index.html
-  sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" docs/install/index.html
-  sedi "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" docs/install/index.html
-  sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" docs/install/index.html
+  sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" ../w/wekan.fi/install/index.html
+  sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" ../w/wekan.fi/install/index.html
 }
 
 # Auto-detect versions from CHANGELOG.md if not provided as arguments
@@ -309,17 +311,17 @@ version_bump_logic() {
   if [ -n "$MONGO_LINE" ]; then
     UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
     MONGODB_VERSION=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/')
-    sedi "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" docs/install/index.html
+    sedi "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" ../w/wekan.fi/install/index.html
   fi
   METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1)
   NODE_VERSION=$(grep -o 'NODE_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
   NPM_VERSION=$(grep -o 'NPM_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
-  sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" docs/install/index.html
-  sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" docs/install/index.html
-  sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" docs/install/index.html
-  sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" docs/install/index.html
-  sedi "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" docs/install/index.html
-  sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" docs/install/index.html
+  sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" ../w/wekan.fi/install/index.html
+  sedi "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" ../w/wekan.fi/install/index.html
+  sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" ../w/wekan.fi/install/index.html
 }
   # Removed unconditional error/exit after version detection
   exit 1
