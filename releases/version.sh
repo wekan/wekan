@@ -91,11 +91,13 @@ version_bump_logic() {
     METEOR_VER=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1)
     NPM_VER=$(grep -o 'NPM_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 
+    (cd ../w/wekan.fi && git pull)
     #sedi "s|MongoDB 7\\.x|MongoDB $MONGO_VER|g" "$INSTALL_PAGE"
     sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VER</span>|g" "$INSTALL_PAGE"
     #sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">v$NEW_NODE</span>|g" "$INSTALL_PAGE"
     #sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VER</span>|g" "$INSTALL_PAGE"
     sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" "$INSTALL_PAGE"
+    (cd ../w/wekan.fi && git add --all -m "Updates" && git push)
   fi
 
   echo "--- Version bump complete ---"
