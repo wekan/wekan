@@ -69,20 +69,18 @@ else
 fi
 if [ -n "${MONGODB_PORT}" ]; then
     BIND_OPTIONS+=" --port ${MONGODB_PORT}"
-else
-    BIND_OPTIONS+=" --port 27019"
 fi
 
 # Debug: Show what settings we're using
 echo "MongoDB settings:"
 echo "  MONGODB_BIND_IP: ${MONGODB_BIND_IP:-127.0.0.1}"
-echo "  MONGODB_PORT: ${MONGODB_PORT:-27017}"
+echo "  MONGODB_PORT: ${MONGODB_PORT}"
 echo "  MONGODB_BIND_UNIX_SOCKET: ${MONGODB_BIND_UNIX_SOCKET:-not set}"
 echo "  BIND_OPTIONS: ${BIND_OPTIONS}"
 
 # Check if MongoDB is already running
 check_mongodb_running() {
-    local port="${MONGODB_PORT:-27017}"
+    local port="${MONGODB_PORT}"
 
     # Check if MongoDB is already running on the configured port
     if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
@@ -149,18 +147,18 @@ if [ ! -f "$INIT_MARKER" ]; then
     sleep 5
 
     # Initialize replica set
-    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:${MONGODB_PORT:-27019}'}]})" 2>/dev/null || true
+    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT} --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:${MONGODB_PORT}'}]})" 2>/dev/null || true
 
     # Mark initialization as done
     touch "$INIT_MARKER"
 
     # Kill the forked process gracefully
     echo "Stopping temporary MongoDB process..."
-    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT:-27019} --eval "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
+    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT} --eval "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
     sleep 2
 
     # Clean up any remaining process
-    pkill -f "mongod.*${MONGODB_PORT:-27019}" 2>/dev/null || true
+    pkill -f "mongod.*${MONGODB_PORT}" 2>/dev/null || true
     sleep 1
 fi
 
