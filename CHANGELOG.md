@@ -30,7 +30,9 @@ Versions:
 
 This release adds the following updates:
 
-- [Update version script](https://github.com/wekan/wekan/commit/e547be9ab81f6a880954b3e34fc3b5e3edc8efc5).
+- Update version script.
+  [Part 1](https://github.com/wekan/wekan/commit/e547be9ab81f6a880954b3e34fc3b5e3edc8efc5),
+  [Part 2](https://github.com/wekan/wekan/commit/e22f4226151d54593d11ad8040cd46c39435ce5b).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
