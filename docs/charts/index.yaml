@@ -2,15 +2,15 @@ apiVersion: v1
 entries:
   wekan:
   - apiVersion: v2
-    appVersion: "8.97"
-    created: "2026-04-16T13:43:18.000000000+03:00"
+    appVersion: "9.00.0"
+    created: "2026-04-27T03:40:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
-    digest: 411653ba15cb4eca4ea0e80516a6e7a4f04024ae0e829325121d75a255f5749b
+    digest: e39f99b18f907ea35bf65e5bf5d864ba1db72676f4ce229ea63fd6466f8071bf
     home: https://wekan.fi
     icon: https://wekan.fi/wekan-logo.svg
     keywords:
@@ -31,144 +31,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.97.0.tgz
-    version: 8.97.0
+    - https://wekan.fi/charts/wekan-9.00.0.tgz
+    version: 9.00.0
   - apiVersion: v2
-    appVersion: "8.94"
-    created: "2026-04-16T10:43:18.189205086Z"
+    appVersion: "8.89.0"
+    created: "2026-04-15T23:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: 4e1da99a84918052b0790d12a1ac99fb79db46ec43d461ac579d6a3ebb6ca101
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.94.0.tgz
-    version: 8.94.0
-  - apiVersion: v2
-    appVersion: "8.93"
-    created: "2026-04-16T10:43:18.187760686Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: ad2d57c6447a879b37a04e9f7c44e6469521a7835f20f51a194281b2a269dc9c
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.93.0.tgz
-    version: 8.93.0
-  - apiVersion: v2
-    appVersion: "8.92"
-    created: "2026-04-16T10:43:18.186324161Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: 3b433d1c3617b74b80b3ff42424f1f9aa5d2333e9386a680483a77ade4182a7d
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.92.0.tgz
-    version: 8.92.0
-  - apiVersion: v2
-    appVersion: "8.90"
-    created: "2026-04-16T10:43:18.184795393Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: 6573afce030e9a59144a1ecce0f96a6aee6fa0a9bf40a1378c2d36a262407a2b
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.90.0.tgz
-    version: 8.90.0
-  - apiVersion: v2
-    appVersion: "8.89"
-    created: "2026-04-16T10:43:18.182581254Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 657be0d132a03a8ceacff70fc2715a7d46334bc3aeb6ec4f9322ef0f812f8815
     home: https://wekan.fi
@@ -191,16 +63,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.89.0.tgz
+    - https://wekan.fi/charts/wekan-8.89.0.tgz
     version: 8.89.0
   - apiVersion: v2
-    appVersion: "8.88"
-    created: "2026-04-16T10:43:18.180883933Z"
+    appVersion: "8.88.0"
+    created: "2026-04-15T22:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 5bdfd809318ce7f3b77f7bf34a7caa5484819805912d5a54c08c79dd731ecac4
     home: https://wekan.fi
@@ -223,16 +95,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.88.0.tgz
+    - https://wekan.fi/charts/wekan-8.88.0.tgz
     version: 8.88.0
   - apiVersion: v2
-    appVersion: "8.87"
-    created: "2026-04-16T10:43:18.179254078Z"
+    appVersion: "8.87.0"
+    created: "2026-04-15T17:40:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 90b83e0a123024c6cd52581f3663476241a93353da787bff837934291cc16938
     home: https://wekan.fi
@@ -255,16 +127,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.87.0.tgz
+    - https://wekan.fi/charts/wekan-8.87.0.tgz
     version: 8.87.0
   - apiVersion: v2
-    appVersion: "8.86"
-    created: "2026-04-16T10:43:18.177632067Z"
+    appVersion: "8.86.0"
+    created: "2026-04-15T16:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 705f7cdc8d03ff455781efa0d0f56b3e32520aa1baa8436a88f1bdabaa6bd702
     home: https://wekan.fi
@@ -287,16 +159,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.86.0.tgz
+    - https://wekan.fi/charts/wekan-8.86.0.tgz
     version: 8.86.0
   - apiVersion: v2
-    appVersion: "8.85"
-    created: "2026-04-16T10:43:18.175913035Z"
+    appVersion: "8.85.0"
+    created: "2026-04-15T16:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 5707c69b1b321f159113f8ce746bea23e458bfb838d359d4edb861728574a66d
     home: https://wekan.fi
@@ -319,16 +191,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.85.0.tgz
+    - https://wekan.fi/charts/wekan-8.85.0.tgz
     version: 8.85.0
   - apiVersion: v2
-    appVersion: "8.84"
-    created: "2026-04-16T10:43:18.17337255Z"
+    appVersion: "8.84.0"
+    created: "2026-04-15T15:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: dada876c1bf06c2adc1c2564e35f44a4c865360d69af48b00476e0bd3d2099cd
     home: https://wekan.fi
@@ -351,16 +223,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.84.0.tgz
+    - https://wekan.fi/charts/wekan-8.84.0.tgz
     version: 8.84.0
   - apiVersion: v2
-    appVersion: "8.83"
-    created: "2026-04-16T10:43:18.171753605Z"
+    appVersion: "8.83.0"
+    created: "2026-04-14T23:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: c5728bfdc1ead9497903ec1def608a660c51acd6fd95b918f2dc6cfcfe9f3ae4
     home: https://wekan.fi
@@ -383,16 +255,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.83.0.tgz
+    - https://wekan.fi/charts/wekan-8.83.0.tgz
     version: 8.83.0
   - apiVersion: v2
-    appVersion: "8.82"
-    created: "2026-04-16T10:43:18.170166599Z"
+    appVersion: "8.82.0"
+    created: "2026-04-14T01:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 12608d3d0985992a1af93d78eede3f52b7f79788d9c82a4dc84211394ffb5f50
     home: https://wekan.fi
@@ -415,16 +287,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.82.0.tgz
+    - https://wekan.fi/charts/wekan-8.82.0.tgz
     version: 8.82.0
   - apiVersion: v2
-    appVersion: "8.74"
-    created: "2026-04-16T10:43:18.168554587Z"
+    appVersion: "8.74.0"
+    created: "2026-04-08T00:40:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 93d521374bb90457ce6a6c229c792884e97bf64c0f16493fde551c2ab524b0df
     home: https://wekan.fi
@@ -447,16 +319,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.74.0.tgz
+    - https://wekan.fi/charts/wekan-8.74.0.tgz
     version: 8.74.0
   - apiVersion: v2
-    appVersion: "8.73"
-    created: "2026-04-16T10:43:18.166830967Z"
+    appVersion: "8.73.0"
+    created: "2026-04-07T23:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 8f0fdd7943f9f952675d093188271c944ebac53313318b39078f45897ee65ee6
     home: https://wekan.fi
@@ -479,16 +351,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.73.0.tgz
+    - https://wekan.fi/charts/wekan-8.73.0.tgz
     version: 8.73.0
   - apiVersion: v2
-    appVersion: "8.72"
-    created: "2026-04-16T10:43:18.164238153Z"
+    appVersion: "8.72.0"
+    created: "2026-04-07T11:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 67fa9c47e2c57130963c1cce77b62b9fb68a8c8db56b3f3029cf7aad7696f80a
     home: https://wekan.fi
@@ -511,16 +383,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.72.0.tgz
+    - https://wekan.fi/charts/wekan-8.72.0.tgz
     version: 8.72.0
   - apiVersion: v2
-    appVersion: "8.71"
-    created: "2026-04-16T10:43:18.162673158Z"
+    appVersion: "8.71.0"
+    created: "2026-04-06T03:45:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 1ffbfca173c31890ddadc0b38591cc9249a55eddc86ba303b66c70662e818657
     home: https://wekan.fi
@@ -543,16 +415,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.71.0.tgz
+    - https://wekan.fi/charts/wekan-8.71.0.tgz
     version: 8.71.0
   - apiVersion: v2
-    appVersion: "8.70"
-    created: "2026-04-16T10:43:18.16111719Z"
+    appVersion: "8.70.0"
+    created: "2026-04-06T03:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 3da0e42fff82a94b63a58e5c3d4170d09bf4f7463a9a000005cb7c11bd95c202
     home: https://wekan.fi
@@ -575,16 +447,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.70.0.tgz
+    - https://wekan.fi/charts/wekan-8.70.0.tgz
     version: 8.70.0
   - apiVersion: v2
-    appVersion: "8.69"
-    created: "2026-04-16T10:43:18.15955975Z"
+    appVersion: "8.69.0"
+    created: "2026-04-06T01:40:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 3232967b322f2ac0c89186eabe744eaa2082758f7061ccfe3e00cb73a66dbf99
     home: https://wekan.fi
@@ -607,16 +479,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.69.0.tgz
+    - https://wekan.fi/charts/wekan-8.69.0.tgz
     version: 8.69.0
   - apiVersion: v2
-    appVersion: "8.68"
-    created: "2026-04-16T10:43:18.157420823Z"
+    appVersion: "8.68.0"
+    created: "2026-04-06T00:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 4f36edb96b013cb5a292eb9894cdff2918fe5684316e2f31416373552b9997f0
     home: https://wekan.fi
@@ -639,16 +511,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.68.0.tgz
+    - https://wekan.fi/charts/wekan-8.68.0.tgz
     version: 8.68.0
   - apiVersion: v2
-    appVersion: "8.67"
-    created: "2026-04-16T10:43:18.155618997Z"
+    appVersion: "8.67.0"
+    created: "2026-04-06T00:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: d48f5f67f7ec567c1e5aac83331718762eda0a48d58113153fab67ecfea02081
     home: https://wekan.fi
@@ -671,16 +543,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.67.0.tgz
+    - https://wekan.fi/charts/wekan-8.67.0.tgz
     version: 8.67.0
   - apiVersion: v2
-    appVersion: "8.60"
-    created: "2026-04-16T10:43:18.154043203Z"
+    appVersion: "8.60.0"
+    created: "2026-04-05T18:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 15b59e3ae7780a252ea9f28d5aa30a988b59033ef908726f6c6016fe15cc4845
     home: https://wekan.fi
@@ -703,16 +575,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.60.0.tgz
+    - https://wekan.fi/charts/wekan-8.60.0.tgz
     version: 8.60.0
   - apiVersion: v2
-    appVersion: "8.58"
-    created: "2026-04-16T10:43:18.15245788Z"
+    appVersion: "8.58.0"
+    created: "2026-04-05T17:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: cd48df3244540c28ffd292683ad97ae245d893b00060eb9365c3f3e786f7c852
     home: https://wekan.fi
@@ -735,16 +607,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.58.0.tgz
+    - https://wekan.fi/charts/wekan-8.58.0.tgz
     version: 8.58.0
   - apiVersion: v2
-    appVersion: "8.57"
-    created: "2026-04-16T10:43:18.149801987Z"
+    appVersion: "8.57.0"
+    created: "2026-04-05T15:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 482f2db62af26bbd633d23c29e417342720b598f079a01f657a6ebee7197dbf3
     home: https://wekan.fi
@@ -767,16 +639,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.57.0.tgz
+    - https://wekan.fi/charts/wekan-8.57.0.tgz
     version: 8.57.0
   - apiVersion: v2
-    appVersion: "8.56"
-    created: "2026-04-16T10:43:18.148232544Z"
+    appVersion: "8.56.0"
+    created: "2026-04-05T07:40:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 5cd853abf1f28859878f9db0214c62db3c1983c112aef9fd6776624386b22769
     home: https://wekan.fi
@@ -799,16 +671,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.56.0.tgz
+    - https://wekan.fi/charts/wekan-8.56.0.tgz
     version: 8.56.0
   - apiVersion: v2
-    appVersion: "8.55"
-    created: "2026-04-16T10:43:18.146693167Z"
+    appVersion: "8.55.0"
+    created: "2026-04-05T07:15:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 2ff15779cdaec0fb1b3733c40f861b627a8e4c25c7aa693048c9185d8ca0212a
     home: https://wekan.fi
@@ -831,16 +703,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.55.0.tgz
+    - https://wekan.fi/charts/wekan-8.55.0.tgz
     version: 8.55.0
   - apiVersion: v2
-    appVersion: "8.52"
-    created: "2026-04-16T10:43:18.145093218Z"
+    appVersion: "8.52.0"
+    created: "2026-04-03T21:10:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 059c1748363c43e0f61782a5a1e7a43abe8ef5675957e914f8a4e453afad3bed
     home: https://wekan.fi
@@ -863,80 +735,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.52.0.tgz
+    - https://wekan.fi/charts/wekan-8.52.0.tgz
     version: 8.52.0
   - apiVersion: v2
-    appVersion: "8.45"
-    created: "2026-04-16T10:43:18.143111354Z"
+    appVersion: "8.42.0"
+    created: "2026-03-23T20:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: e9307fce4d2730baf6568fc6526a812a124ecf18d86ddc024b71df59ff1d9974
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.45.0.tgz
-    version: 8.45.0
-  - apiVersion: v2
-    appVersion: "8.44"
-    created: "2026-04-16T10:43:18.141192801Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: bf7e52a29f163a654fe9d6c51af39d23b4b3b86f14e824b40c2959e24259b1ce
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.44.0.tgz
-    version: 8.44.0
-  - apiVersion: v2
-    appVersion: "8.42"
-    created: "2026-04-16T10:43:18.139622356Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: ee9823cbf0fbcc65d85436f7fda3dc09713c3bda6f025fceae89284d74564a46
     home: https://wekan.fi
@@ -959,48 +767,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.42.0.tgz
+    - https://wekan.fi/charts/wekan-8.42.0.tgz
     version: 8.42.0
   - apiVersion: v2
-    appVersion: "8.41"
-    created: "2026-04-16T10:43:18.138041863Z"
+    appVersion: "8.40.0"
+    created: "2026-03-21T22:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: 5dcc4e591656023aa95a24c0567ed5820fdcfc9b9e97056a0b35225febb8818c
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.41.0.tgz
-    version: 8.41.0
-  - apiVersion: v2
-    appVersion: "8.40"
-    created: "2026-04-16T10:43:18.136405284Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: fd9d653a6fe47c025d0fa9c051b8b45808a8ea4c0601c61b00323960253e8654
     home: https://wekan.fi
@@ -1023,16 +799,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.40.0.tgz
+    - https://wekan.fi/charts/wekan-8.40.0.tgz
     version: 8.40.0
   - apiVersion: v2
-    appVersion: "8.39"
-    created: "2026-04-16T10:43:18.133907082Z"
+    appVersion: "8.39.0"
+    created: "2026-03-21T16:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: e236249bf5bdc2bd4b9a854a7334a5ad4d02cc8b38334a8783099f50e83da63e
     home: https://wekan.fi
@@ -1055,16 +831,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.39.0.tgz
+    - https://wekan.fi/charts/wekan-8.39.0.tgz
     version: 8.39.0
   - apiVersion: v2
-    appVersion: "8.38"
-    created: "2026-04-16T10:43:18.132363187Z"
+    appVersion: "8.38.0"
+    created: "2026-03-21T03:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: dfa49c4ac39b799dab92aaedad8515d17f5cf915cc2ba4826af531485d45494d
     home: https://wekan.fi
@@ -1087,16 +863,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.38.0.tgz
+    - https://wekan.fi/charts/wekan-8.38.0.tgz
     version: 8.38.0
   - apiVersion: v2
-    appVersion: "8.37"
-    created: "2026-04-16T10:43:18.130755623Z"
+    appVersion: "8.37.0"
+    created: "2026-03-20T15:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: d096c22181a2d4ada31dc46dccb5386ad8811c5f297e53c28a7f86a5b2f6e805
     home: https://wekan.fi
@@ -1119,16 +895,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.37.0.tgz
+    - https://wekan.fi/charts/wekan-8.37.0.tgz
     version: 8.37.0
   - apiVersion: v2
-    appVersion: "8.36"
-    created: "2026-04-16T10:43:18.129064553Z"
+    appVersion: "8.36.0"
+    created: "2026-03-20T01:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 29729c9b81b755c1aa68325f0f984c84d2370a6474bfa5e76ce2d7012199b781
     home: https://wekan.fi
@@ -1151,16 +927,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.36.0.tgz
+    - https://wekan.fi/charts/wekan-8.36.0.tgz
     version: 8.36.0
   - apiVersion: v2
-    appVersion: "8.35"
-    created: "2026-04-16T10:43:18.12654792Z"
+    appVersion: "8.35.0"
+    created: "2026-03-05T23:45:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 866292730925648a7d4e03ebbe95e11fa76412923d4a7d3d130111955c528e06
     home: https://wekan.fi
@@ -1183,16 +959,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.35.0.tgz
+    - https://wekan.fi/charts/wekan-8.35.0.tgz
     version: 8.35.0
   - apiVersion: v2
-    appVersion: "8.34"
-    created: "2026-04-16T10:43:18.124945886Z"
+    appVersion: "8.34.0"
+    created: "2026-02-20T01:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: cb50af7a962e5589866799180c55cb00fe61ee1fa0e02e80d9a65ebdb35adf5a
     home: https://wekan.fi
@@ -1215,16 +991,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.34.0.tgz
+    - https://wekan.fi/charts/wekan-8.34.0.tgz
     version: 8.34.0
   - apiVersion: v2
-    appVersion: "8.33"
-    created: "2026-04-16T10:43:18.123392954Z"
+    appVersion: "8.33.0"
+    created: "2026-02-15T23:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: bc71ffbfbb0f31ec6849cf9f2b250258e66259224e3e0f3b72807be43bd590a6
     home: https://wekan.fi
@@ -1247,16 +1023,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.33.0.tgz
+    - https://wekan.fi/charts/wekan-8.33.0.tgz
     version: 8.33.0
   - apiVersion: v2
-    appVersion: "8.32"
-    created: "2026-04-16T10:43:18.121762428Z"
+    appVersion: "8.32.0"
+    created: "2026-02-13T11:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 273952ade0b11d32cb353c4aeb2f4b8b61be53b90bfa000992f55e8cef89929f
     home: https://wekan.fi
@@ -1279,16 +1055,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.32.0.tgz
+    - https://wekan.fi/charts/wekan-8.32.0.tgz
     version: 8.32.0
   - apiVersion: v2
-    appVersion: "8.31"
-    created: "2026-04-16T10:43:18.119323693Z"
+    appVersion: "8.31.0"
+    created: "2026-02-08T02:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 0d4a65b49bce2a0dad99d6c2344cb7ef20c49a7fff15d34ef1701b87a819d87a
     home: https://wekan.fi
@@ -1311,48 +1087,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.31.0.tgz
+    - https://wekan.fi/charts/wekan-8.31.0.tgz
     version: 8.31.0
   - apiVersion: v2
-    appVersion: "8.30"
-    created: "2026-04-16T10:43:18.117756233Z"
+    appVersion: "8.29.0"
+    created: "2026-02-07T21:40:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
-    description: Open Source kanban
-    digest: 9f064c22833c4316c1e20a070f9afefed0087f56b8f7f409d48fb935dbb85fec
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-8.30.0.tgz
-    version: 8.30.0
-  - apiVersion: v2
-    appVersion: "8.29"
-    created: "2026-04-16T10:43:18.116169037Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 64f22ed9868a1c0eada7678ae1e976b1ec6b2a6c981bb7e32726c3cc47e4d965
     home: https://wekan.fi
@@ -1375,16 +1119,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.29.0.tgz
+    - https://wekan.fi/charts/wekan-8.29.0.tgz
     version: 8.29.0
   - apiVersion: v2
-    appVersion: "8.28"
-    created: "2026-04-16T10:43:18.114582162Z"
+    appVersion: "8.28.0"
+    created: "2026-02-05T07:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 393edbb6369119b09b1aeeed82493e77fd715055f5d3017c17b340a483a1292e
     home: https://wekan.fi
@@ -1407,16 +1151,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.28.0.tgz
+    - https://wekan.fi/charts/wekan-8.28.0.tgz
     version: 8.28.0
   - apiVersion: v2
-    appVersion: "8.27"
-    created: "2026-04-16T10:43:18.112138892Z"
+    appVersion: "8.27.0"
+    created: "2026-01-31T21:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 4fc8868ec98988ac815e51adbcdd324669a614285574fcde8f83c9c2116fd2b2
     home: https://wekan.fi
@@ -1439,16 +1183,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.27.0.tgz
+    - https://wekan.fi/charts/wekan-8.27.0.tgz
     version: 8.27.0
   - apiVersion: v2
-    appVersion: "8.26"
-    created: "2026-04-16T10:43:18.110529084Z"
+    appVersion: "8.26.0"
+    created: "2026-01-31T10:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: b43d4eb01ed9ebc26a0f8133d429d118e931d782a5af8cc84ec0c00253bde6f5
     home: https://wekan.fi
@@ -1471,16 +1215,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.26.0.tgz
+    - https://wekan.fi/charts/wekan-8.26.0.tgz
     version: 8.26.0
   - apiVersion: v2
-    appVersion: "8.25"
-    created: "2026-04-16T10:43:18.108964881Z"
+    appVersion: "8.25.0"
+    created: "2026-01-28T22:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 771ad0f78a6c379458c2f9e88da522cd61f9f31a17892464f90b5c75bfc91f96
     home: https://wekan.fi
@@ -1503,16 +1247,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.25.0.tgz
+    - https://wekan.fi/charts/wekan-8.25.0.tgz
     version: 8.25.0
   - apiVersion: v2
-    appVersion: "8.24"
-    created: "2026-04-16T10:43:18.107379248Z"
+    appVersion: "8.24.0"
+    created: "2026-01-24T04:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 38d041a38709f124f41531c4e78226c05e24fae297a81dac141ba6047b630808
     home: https://wekan.fi
@@ -1535,16 +1279,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.24.0.tgz
+    - https://wekan.fi/charts/wekan-8.24.0.tgz
     version: 8.24.0
   - apiVersion: v2
-    appVersion: "8.23"
-    created: "2026-04-16T10:43:18.105741918Z"
+    appVersion: "8.23.0"
+    created: "2026-01-21T15:45:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 77737e6ff7a7299a01ce6eb885ba01e47a059cef4c3ff003c2f6328cbbad6223
     home: https://wekan.fi
@@ -1567,16 +1311,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.23.0.tgz
+    - https://wekan.fi/charts/wekan-8.23.0.tgz
     version: 8.23.0
   - apiVersion: v2
-    appVersion: "8.22"
-    created: "2026-04-16T10:43:18.103276857Z"
+    appVersion: "8.22.0"
+    created: "2026-01-20T03:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: e6a1e7243e2152979fa004339f8f25be256f2571266b91c62c6c9bdd607fbb23
     home: https://wekan.fi
@@ -1599,16 +1343,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.22.0.tgz
+    - https://wekan.fi/charts/wekan-8.22.0.tgz
     version: 8.22.0
   - apiVersion: v2
-    appVersion: "8.21"
-    created: "2026-04-16T10:43:18.101695953Z"
+    appVersion: "8.21.0"
+    created: "2026-01-18T21:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 01ea539358bf9f3dda4bcd2a8e23423b4fd9bd0cad6e5a8558435ce720dce5ee
     home: https://wekan.fi
@@ -1631,16 +1375,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.21.0.tgz
+    - https://wekan.fi/charts/wekan-8.21.0.tgz
     version: 8.21.0
   - apiVersion: v2
-    appVersion: "8.20"
-    created: "2026-04-16T10:43:18.10007263Z"
+    appVersion: "8.20.0"
+    created: "2026-01-16T20:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: da449f0a08ba6f5ba5aa9231943c4e3165b255044b7457c62a42ec1ab766c0b4
     home: https://wekan.fi
@@ -1663,16 +1407,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.20.0.tgz
+    - https://wekan.fi/charts/wekan-8.20.0.tgz
     version: 8.20.0
   - apiVersion: v2
-    appVersion: "8.19"
-    created: "2026-04-16T10:43:18.098432926Z"
+    appVersion: "8.19.0"
+    created: "2025-12-29T22:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: 29e5eede89b942f8f008502917a13ab6555c4294355afde62c06338e90824fec
     home: https://wekan.fi
@@ -1695,16 +1439,16 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.19.0.tgz
+    - https://wekan.fi/charts/wekan-8.19.0.tgz
     version: 8.19.0
   - apiVersion: v2
-    appVersion: "8.18"
-    created: "2026-04-16T10:43:18.095963347Z"
+    appVersion: "8.18.0"
+    created: "2025-12-29T10:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://groundhog2k.github.io/helm-charts/
-      version: 0.7.6
+      version: 0.7.2
     description: Open Source kanban
     digest: d3576562f0861c3138ad2cd9ee7b57d0df9acb76379c2a7a4dbf24365619aaa2
     home: https://wekan.fi
@@ -1727,11 +1471,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.18.0.tgz
+    - https://wekan.fi/charts/wekan-8.18.0.tgz
     version: 8.18.0
   - apiVersion: v2
-    appVersion: "8.17"
-    created: "2026-04-16T10:43:18.094372355Z"
+    appVersion: "8.17.0"
+    created: "2025-11-06T04:10:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1759,11 +1503,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.17.0.tgz
+    - https://wekan.fi/charts/wekan-8.17.0.tgz
     version: 8.17.0
   - apiVersion: v2
-    appVersion: "8.16"
-    created: "2026-04-16T10:43:18.092822077Z"
+    appVersion: "8.16.0"
+    created: "2025-11-02T12:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1791,11 +1535,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.16.0.tgz
+    - https://wekan.fi/charts/wekan-8.16.0.tgz
     version: 8.16.0
   - apiVersion: v2
-    appVersion: "8.15"
-    created: "2026-04-16T10:43:18.091227427Z"
+    appVersion: "8.15.0"
+    created: "2025-10-23T04:50:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1823,11 +1567,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.15.0.tgz
+    - https://wekan.fi/charts/wekan-8.15.0.tgz
     version: 8.15.0
   - apiVersion: v2
-    appVersion: "8.14"
-    created: "2026-04-16T10:43:18.088769901Z"
+    appVersion: "8.14.0"
+    created: "2025-10-23T04:20:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1855,11 +1599,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.14.0.tgz
+    - https://wekan.fi/charts/wekan-8.14.0.tgz
     version: 8.14.0
   - apiVersion: v2
-    appVersion: "8.12"
-    created: "2026-04-16T10:43:18.087208653Z"
+    appVersion: "8.12.0"
+    created: "2025-10-23T03:45:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1887,11 +1631,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.12.0.tgz
+    - https://wekan.fi/charts/wekan-8.12.0.tgz
     version: 8.12.0
   - apiVersion: v2
-    appVersion: "8.11"
-    created: "2026-04-16T10:43:18.08558022Z"
+    appVersion: "8.11.0"
+    created: "2025-10-21T15:45:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1919,11 +1663,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.11.0.tgz
+    - https://wekan.fi/charts/wekan-8.11.0.tgz
     version: 8.11.0
   - apiVersion: v2
-    appVersion: "8.10"
-    created: "2026-04-16T10:43:18.083992994Z"
+    appVersion: "8.10.0"
+    created: "2025-10-21T14:25:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1951,11 +1695,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.10.0.tgz
+    - https://wekan.fi/charts/wekan-8.10.0.tgz
     version: 8.10.0
   - apiVersion: v2
-    appVersion: "8.09"
-    created: "2026-04-16T10:43:18.081496716Z"
+    appVersion: "8.09.0"
+    created: "2025-10-21T14:05:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -1983,11 +1727,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.09.0.tgz
+    - https://wekan.fi/charts/wekan-8.09.0.tgz
     version: 8.09.0
   - apiVersion: v2
-    appVersion: "8.08"
-    created: "2026-04-16T10:43:18.079930088Z"
+    appVersion: "8.08.0"
+    created: "2025-10-21T11:15:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2015,11 +1759,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.08.0.tgz
+    - https://wekan.fi/charts/wekan-8.08.0.tgz
     version: 8.08.0
   - apiVersion: v2
-    appVersion: "8.07"
-    created: "2026-04-16T10:43:18.078387004Z"
+    appVersion: "8.07.0"
+    created: "2025-10-20T18:25:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2047,11 +1791,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.07.0.tgz
+    - https://wekan.fi/charts/wekan-8.07.0.tgz
     version: 8.07.0
   - apiVersion: v2
-    appVersion: "8.06"
-    created: "2026-04-16T10:43:18.076756468Z"
+    appVersion: "8.06.0"
+    created: "2025-10-20T03:40:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2079,11 +1823,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.06.0.tgz
+    - https://wekan.fi/charts/wekan-8.06.0.tgz
     version: 8.06.0
   - apiVersion: v2
-    appVersion: "8.05"
-    created: "2026-04-16T10:43:18.074230894Z"
+    appVersion: "8.05.0"
+    created: "2025-10-17T18:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2111,11 +1855,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.05.0.tgz
+    - https://wekan.fi/charts/wekan-8.05.0.tgz
     version: 8.05.0
   - apiVersion: v2
-    appVersion: "8.04"
-    created: "2026-04-16T10:43:18.072668434Z"
+    appVersion: "8.04.0"
+    created: "2025-10-16T18:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2143,11 +1887,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.04.0.tgz
+    - https://wekan.fi/charts/wekan-8.04.0.tgz
     version: 8.04.0
   - apiVersion: v2
-    appVersion: "8.02"
-    created: "2026-04-16T10:43:18.071073584Z"
+    appVersion: "8.02.0"
+    created: "2025-10-14T12:10:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2175,11 +1919,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.02.0.tgz
+    - https://wekan.fi/charts/wekan-8.02.0.tgz
     version: 8.02.0
   - apiVersion: v2
-    appVersion: "8.00"
-    created: "2026-04-16T10:43:18.069520331Z"
+    appVersion: "8.00.0"
+    created: "2025-10-11T08:15:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2207,11 +1951,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-8.00.0.tgz
+    - https://wekan.fi/charts/wekan-8.00.0.tgz
     version: 8.00.0
   - apiVersion: v2
-    appVersion: "7.99"
-    created: "2026-04-16T10:43:18.067813392Z"
+    appVersion: "7.99.0"
+    created: "2025-10-11T07:00:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2239,11 +1983,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-7.99.0.tgz
+    - https://wekan.fi/charts/wekan-7.99.0.tgz
     version: 7.99.0
   - apiVersion: v2
-    appVersion: "7.98"
-    created: "2026-04-16T10:43:18.065242788Z"
+    appVersion: "7.98.0"
+    created: "2025-10-11T02:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2271,11 +2015,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-7.98.0.tgz
+    - https://wekan.fi/charts/wekan-7.98.0.tgz
     version: 7.98.0
   - apiVersion: v2
-    appVersion: "7.97"
-    created: "2026-04-16T10:43:18.063696168Z"
+    appVersion: "7.97.0"
+    created: "2025-10-08T23:50:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2303,11 +2047,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-7.97.0.tgz
+    - https://wekan.fi/charts/wekan-7.97.0.tgz
     version: 7.97.0
   - apiVersion: v2
-    appVersion: "7.96"
-    created: "2026-04-16T10:43:18.06212429Z"
+    appVersion: "7.96.0"
+    created: "2025-10-07T02:10:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2335,11 +2079,11 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-7.96.0.tgz
+    - https://wekan.fi/charts/wekan-7.96.0.tgz
     version: 7.96.0
   - apiVersion: v2
-    appVersion: "7.95"
-    created: "2026-04-16T10:43:18.060497741Z"
+    appVersion: "7.95.0"
+    created: "2025-09-18T22:30:00.352513218+02:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -2367,4314 +2111,5 @@ entries:
     - https://github.com/wekan/wekan
     type: application
     urls:
-    - https://wekan.github.io/wekan/wekan-7.95.0.tgz
+    - https://wekan.fi/charts/wekan-7.95.0.tgz
     version: 7.95.0
-  - apiVersion: v2
-    appVersion: "7.94"
-    created: "2026-04-16T10:43:18.058012909Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 47d12fc3425bae5819fc7d32ee627e106b4ad1c8184add6d554b251643e68294
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.94.0.tgz
-    version: 7.94.0
-  - apiVersion: v2
-    appVersion: "7.93"
-    created: "2026-04-16T10:43:18.050972873Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: af33d837c20030b37c532ff31af3f9be534242e6a03b02d0f6f0caae5e4dfe48
-    home: https://wekan.fi
-    icon: https://wekan.fi/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.fi
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.93.0.tgz
-    version: 7.93.0
-  - apiVersion: v2
-    appVersion: "7.92"
-    created: "2026-04-16T10:43:18.044246753Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: c13cfae5b52fff4e800b9c5786c24b9914bd5cbc3d6010a4e89823898e8e1146
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.92.0.tgz
-    version: 7.92.0
-  - apiVersion: v2
-    appVersion: "7.91"
-    created: "2026-04-16T10:43:18.038421715Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 893732c229a03a082dc7443cedcdd6a0c374abb24dde254b37c4e023979e0fd4
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.91.0.tgz
-    version: 7.91.0
-  - apiVersion: v2
-    appVersion: "7.90"
-    created: "2026-04-16T10:43:18.031368178Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 8e17d16ad77f4bcb86a9570e5aff8dbf1eb556176502dfe772cfe2df33993d38
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.90.0.tgz
-    version: 7.90.0
-  - apiVersion: v2
-    appVersion: "7.89"
-    created: "2026-04-16T10:43:18.024585159Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: b8f4e5e2fb2543455165c01d18a931b021a6281cfd9fdcc8a8d34314a9b263de
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.89.0.tgz
-    version: 7.89.0
-  - apiVersion: v2
-    appVersion: "7.88"
-    created: "2026-04-16T10:43:18.017932226Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 2b3a63a3787872a8f29ee6988249250886da4564db5a0e4cb6d715a1f7c94339
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.88.0.tgz
-    version: 7.88.0
-  - apiVersion: v2
-    appVersion: "7.87"
-    created: "2026-04-16T10:43:18.010947872Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 8815c1e1a814a430423223681b2e37ae046f0824b7918c396028ad401f604998
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.87.0.tgz
-    version: 7.87.0
-  - apiVersion: v2
-    appVersion: "7.86"
-    created: "2026-04-16T10:43:18.005127392Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: e5889fc3de2483a54a29a762c028067fda87a6c3abbf4e9cf6e371d662412616
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.86.0.tgz
-    version: 7.86.0
-  - apiVersion: v2
-    appVersion: "7.85"
-    created: "2026-04-16T10:43:17.99839435Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 73b88fff46ef81eb528e0cb8e3e4c715f3006066e29bfdbda5a968af8c2f0f49
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.85.0.tgz
-    version: 7.85.0
-  - apiVersion: v2
-    appVersion: "7.84"
-    created: "2026-04-16T10:43:17.991802697Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 779b8e57fbadd2db553c27ef116ca0467ad48387abc8d8f675342178f6727572
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.84.0.tgz
-    version: 7.84.0
-  - apiVersion: v2
-    appVersion: "7.83"
-    created: "2026-04-16T10:43:17.985155543Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: b5af2c6a586ba1f0794f8df580dc9de2534873247ac3cc4e03d7a0665112bcdd
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.83.0.tgz
-    version: 7.83.0
-  - apiVersion: v2
-    appVersion: "7.82"
-    created: "2026-04-16T10:43:17.978174984Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: c150bb16c72a5e0ec80ce8691fce6cf9df28dffa87f7f46bda8ab7ae23756bf3
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.82.0.tgz
-    version: 7.82.0
-  - apiVersion: v2
-    appVersion: "7.81"
-    created: "2026-04-16T10:43:17.971538114Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 32c8869ed77704ae3b32a7b17aac346242e6bc2bdfef266f9f2513bdfb1ad29c
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.81.0.tgz
-    version: 7.81.0
-  - apiVersion: v2
-    appVersion: "7.80"
-    created: "2026-04-16T10:43:17.965783677Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 8d67ce8ec3ac041860e1ad101515f2ac556e926532d3988e316f5fd4a3744c5a
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.80.0.tgz
-    version: 7.80.0
-  - apiVersion: v2
-    appVersion: "7.79"
-    created: "2026-04-16T10:43:17.958793181Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 82c7162dadde63a709c7112f59add194c7c6adf1db3efc2fe92a49bbe1807987
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.79.0.tgz
-    version: 7.79.0
-  - apiVersion: v2
-    appVersion: "7.78"
-    created: "2026-04-16T10:43:17.951919587Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: da53de7a3e88793f3313338c2ffb9cae08cf973384c3d4fe05cb405f151f249d
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.78.0.tgz
-    version: 7.78.0
-  - apiVersion: v2
-    appVersion: "7.77"
-    created: "2026-04-16T10:43:17.945160112Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: cc6979527d568318c4d7c0f20e09c98371b3ef952ff1385a7169b29209ebfaa7
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.77.0.tgz
-    version: 7.77.0
-  - apiVersion: v2
-    appVersion: "7.76"
-    created: "2026-04-16T10:43:17.938444001Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: fad26989b0b1b05f707fb060e0a31ff7aaaa914b1fb486312969e367f2f5c124
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.76.0.tgz
-    version: 7.76.0
-  - apiVersion: v2
-    appVersion: "7.75"
-    created: "2026-04-16T10:43:17.931798784Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 561e80c8c0166a65d85e69e97c56db0bcbe158601f74a7fa08910ed2b5022aef
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.75.0.tgz
-    version: 7.75.0
-  - apiVersion: v2
-    appVersion: "7.74"
-    created: "2026-04-16T10:43:17.925205456Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 1a24f1a94666211b913fea1ff0286e372fbc237c39621267916a9197e8b09721
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.74.0.tgz
-    version: 7.74.0
-  - apiVersion: v2
-    appVersion: "7.73"
-    created: "2026-04-16T10:43:17.918215338Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 1a9e5df306f514f9704e35b71ca728822df9800629b7f854c98ac693794deaa2
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.73.0.tgz
-    version: 7.73.0
-  - apiVersion: v2
-    appVersion: "7.72"
-    created: "2026-04-16T10:43:17.912227597Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: ce7ce5a840e80dd3e0826c1f9e177cfac9d8b13f3fa5634a0ccba400ad90f663
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.72.0.tgz
-    version: 7.72.0
-  - apiVersion: v2
-    appVersion: "7.71"
-    created: "2026-04-16T10:43:17.905585606Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: bc7dd9356b4807044546c8d0c4901f4a2b870e5d29f69a1185ea50784fc30fac
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.71.0.tgz
-    version: 7.71.0
-  - apiVersion: v2
-    appVersion: "7.70"
-    created: "2026-04-16T10:43:17.898687954Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 4db82b5efb83bc579746437b05c9c7545f4f402fc34ad955fd17b84d3ea85593
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.70.0.tgz
-    version: 7.70.0
-  - apiVersion: v2
-    appVersion: "7.69"
-    created: "2026-04-16T10:43:17.89241611Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: c8caeac65cda542f60439b9adfd1b3b0c4b52abf02558868976c48cf0180c734
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.69.0.tgz
-    version: 7.69.0
-  - apiVersion: v2
-    appVersion: "7.68"
-    created: "2026-04-16T10:43:17.88641252Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: a9624fb84fe4c3c76d42b3b3e84be392253d29ba1091240495b2d65c743f32a3
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.68.0.tgz
-    version: 7.68.0
-  - apiVersion: v2
-    appVersion: "7.67"
-    created: "2026-04-16T10:43:17.879594085Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: b6e30311c15fda9d704649d189b3ca03211042052f5fb401580f508af1de39a7
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.67.0.tgz
-    version: 7.67.0
-  - apiVersion: v2
-    appVersion: "7.65"
-    created: "2026-04-16T10:43:17.872786343Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 190a76293754c85a310760860a135ae42ea6d3145b233fb14f07da331ce68c1e
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.65.0.tgz
-    version: 7.65.0
-  - apiVersion: v2
-    appVersion: "7.64"
-    created: "2026-04-16T10:43:17.86606743Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 819790e0d9d34a4efda45b2d0bc211e5e94ce04a75a5d06eab8fab4cea8840f1
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.64.0.tgz
-    version: 7.64.0
-  - apiVersion: v2
-    appVersion: "7.63"
-    created: "2026-04-16T10:43:17.858883301Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 25bb4014c9cd5d31d16c3d559d751541c604eb09a29e9a77e2476723288e0d56
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.63.0.tgz
-    version: 7.63.0
-  - apiVersion: v2
-    appVersion: "7.62"
-    created: "2026-04-16T10:43:17.852996317Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 37bcc3848f8087665455ad1030eb4f9e6af037030835d9d92740457d86ea2dad
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.62.0.tgz
-    version: 7.62.0
-  - apiVersion: v2
-    appVersion: "7.61"
-    created: "2026-04-16T10:43:17.846247111Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 54af00f7c65cb6ab4d0c7133545feaf935f457c021c97d6a5c4b79c57a76418e
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.61.0.tgz
-    version: 7.61.0
-  - apiVersion: v2
-    appVersion: "7.60"
-    created: "2026-04-16T10:43:17.839110707Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 11f338102dc44e5fd04496860d96f50553cab5227dd43b93e751f4e0819b7149
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.60.0.tgz
-    version: 7.60.0
-  - apiVersion: v2
-    appVersion: "7.59"
-    created: "2026-04-16T10:43:17.832046745Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 19b974bff58398b752243198f034b6539ac313b8c17ef1780e9275d049994117
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.59.0.tgz
-    version: 7.59.0
-  - apiVersion: v2
-    appVersion: "7.58"
-    created: "2026-04-16T10:43:17.824893218Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: f3c24b685f808f0b177f30c8ae318f37adb2f768a1fd1a10ae5962345a1ef7e6
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.58.0.tgz
-    version: 7.58.0
-  - apiVersion: v2
-    appVersion: "7.57"
-    created: "2026-04-16T10:43:17.818894456Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 9400436cce699071b89d0848adec3afea2a9cc28acab8ac22fb111cb764bd763
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.57.0.tgz
-    version: 7.57.0
-  - apiVersion: v2
-    appVersion: "7.56"
-    created: "2026-04-16T10:43:17.81198548Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.6.x
-    description: Open Source kanban
-    digest: 333e498cb3bdf959d99d37e83216a3db66ca8f855321398de1f0ddf042b28237
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.56.0.tgz
-    version: 7.56.0
-  - apiVersion: v2
-    appVersion: "7.55"
-    created: "2026-04-16T10:43:17.805005732Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a39da8c2554907e03b70c03188e6ded8619288d4fdcb0dec6456042c6640069b
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.55.0.tgz
-    version: 7.55.0
-  - apiVersion: v2
-    appVersion: "7.54"
-    created: "2026-04-16T10:43:17.799366499Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 157fe7301ab46cbc3611325ae8b32393dae0dd389f85f7a5a9fefbdaa64b934c
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.54.0.tgz
-    version: 7.54.0
-  - apiVersion: v2
-    appVersion: "7.53"
-    created: "2026-04-16T10:43:17.794497992Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 1112d26369c0ccac766faef5d942e20598202bf7f86ed454ae7a4d3b100e8a6c
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.53.0.tgz
-    version: 7.53.0
-  - apiVersion: v2
-    appVersion: "7.52"
-    created: "2026-04-16T10:43:17.788965873Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a4a4c1eaa6e995d2453bdf452491ce2e57d81567723f539f641fcb11debe2bfe
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.52.0.tgz
-    version: 7.52.0
-  - apiVersion: v2
-    appVersion: "7.51"
-    created: "2026-04-16T10:43:17.783372683Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 63a4deb975caf010064ca0e7f6f6f69614501e642cf1047471b3912204816135
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.51.0.tgz
-    version: 7.51.0
-  - apiVersion: v2
-    appVersion: "7.50"
-    created: "2026-04-16T10:43:17.778477116Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: e4a1ae60f5cd5970b6652a4aa7963cad5ec9c3b15ddd1428187d2488997e3a06
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.50.0.tgz
-    version: 7.50.0
-  - apiVersion: v2
-    appVersion: "7.49"
-    created: "2026-04-16T10:43:17.772549066Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: e6234a5f422178c3722154842f731d3d44f134b44d992f3f8592ed857aa0c55e
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.49.0.tgz
-    version: 7.49.0
-  - apiVersion: v2
-    appVersion: "7.48"
-    created: "2026-04-16T10:43:17.766817214Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 9aebf88f782918ae0aebe4980672f48d5c24f0380b3204854aed3a637e9ee259
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.48.0.tgz
-    version: 7.48.0
-  - apiVersion: v2
-    appVersion: "7.47"
-    created: "2026-04-16T10:43:17.761989032Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 607b8845d3de21528d1a1b6ae47de5008724846a62149f80e114b3c1c9a11746
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.47.0.tgz
-    version: 7.47.0
-  - apiVersion: v2
-    appVersion: "7.46"
-    created: "2026-04-16T10:43:17.755064744Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a73a4008e8bbbafc394b1b53cc99c7d2a92d48b23a0d162fa6fbb5a112a7bace
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.46.0.tgz
-    version: 7.46.0
-  - apiVersion: v2
-    appVersion: "7.45"
-    created: "2026-04-16T10:43:17.749347049Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 51b89634acef95f7d75178beed46c5568e2ff5cee115016d594134848c668ec7
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.45.0.tgz
-    version: 7.45.0
-  - apiVersion: v2
-    appVersion: "7.44"
-    created: "2026-04-16T10:43:17.744565875Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a0e677460d475647bdded4a8636dae4c15e7885a4d180eb32489aea81451dd4b
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.44.0.tgz
-    version: 7.44.0
-  - apiVersion: v2
-    appVersion: "7.43"
-    created: "2026-04-16T10:43:17.739130869Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 7948aa065dd7beb6c1261f5b43e0d3c7e9ec0e3c15f574279c259273d649c7ac
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.43.0.tgz
-    version: 7.43.0
-  - apiVersion: v2
-    appVersion: "7.42"
-    created: "2026-04-16T10:43:17.733414036Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a4e806883f245aed7eda183bf734f95116d01afa29875e16ae6176b76feeeee0
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.42.0.tgz
-    version: 7.42.0
-  - apiVersion: v2
-    appVersion: "7.41"
-    created: "2026-04-16T10:43:17.728660443Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 802ad0ee6cebe02f9a855593c87a0b63cfa21fe12f8168444be16fb6c8588819
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.41.0.tgz
-    version: 7.41.0
-  - apiVersion: v2
-    appVersion: "7.40"
-    created: "2026-04-16T10:43:17.722961436Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: b7cabdb65d837543252225605f2568d8451533865eba134a3bbe1951e9cabea9
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.40.0.tgz
-    version: 7.40.0
-  - apiVersion: v2
-    appVersion: "7.39"
-    created: "2026-04-16T10:43:17.717335412Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 5c2f321500d5e19639d3642ee820c3a90c8b6bd48a756abd6e30e9e6675e848d
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.39.0.tgz
-    version: 7.39.0
-  - apiVersion: v2
-    appVersion: "7.38"
-    created: "2026-04-16T10:43:17.711634982Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: f196db1e6cdaa1a17246214e2a5cdf162ff81820153dea47da84c4ce82289f63
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.38.0.tgz
-    version: 7.38.0
-  - apiVersion: v2
-    appVersion: "7.37"
-    created: "2026-04-16T10:43:17.706727452Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 7feedd0ed742cce7b2e405d03db8fcbb1f3c56f85ed2099248f9aa21bd97ed6f
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.37.0.tgz
-    version: 7.37.0
-  - apiVersion: v2
-    appVersion: "7.36"
-    created: "2026-04-16T10:43:17.700948881Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 7715bc1e06d1508d916d5f9d2cb4b36a2c4a3eca246861f0e56ee0a1a7b3df39
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.36.0.tgz
-    version: 7.36.0
-  - apiVersion: v2
-    appVersion: "7.35"
-    created: "2026-04-16T10:43:17.696105501Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 34e53a12ebca89a84e680e35c163990cc90f1b5bf3359cad7f5d8480888a3d47
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.35.0.tgz
-    version: 7.35.0
-  - apiVersion: v2
-    appVersion: "7.34"
-    created: "2026-04-16T10:43:17.690262078Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: e68a4c016b64f63f0b8449aabe4cee50a74f7a646946b15b4fc2b2f9fc7ab195
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.34.0.tgz
-    version: 7.34.0
-  - apiVersion: v2
-    appVersion: "7.33"
-    created: "2026-04-16T10:43:17.684034621Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 695091caf74834029f72af45b1b0f6fa53acb750aa6a7029677ef2c5cf26cccb
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.33.0.tgz
-    version: 7.33.0
-  - apiVersion: v2
-    appVersion: "7.32"
-    created: "2026-04-16T10:43:17.679312627Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: e2b46996d1f362d0ceedc55801fd4496d94b9caf16bd64ca6be62be8ffc057d5
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.32.0.tgz
-    version: 7.32.0
-  - apiVersion: v2
-    appVersion: "7.31"
-    created: "2026-04-16T10:43:17.673622078Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 61fdf102c49b7cdf35431c7a7372c0fe8ea96798842f5d4af7208b1c1a4768c6
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.31.0.tgz
-    version: 7.31.0
-  - apiVersion: v2
-    appVersion: "7.30"
-    created: "2026-04-16T10:43:17.667810839Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 7ef52eb95f993cda84322a31c06d21309ece75ffc76d0d4615c717397170afb3
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.30.0.tgz
-    version: 7.30.0
-  - apiVersion: v2
-    appVersion: "7.29"
-    created: "2026-04-16T10:43:17.663067055Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 03a91762f879f379fd4705cb8ed34a7d5023bea2d4706f464dc12501e7597be6
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.29.0.tgz
-    version: 7.29.0
-  - apiVersion: v2
-    appVersion: "7.28"
-    created: "2026-04-16T10:43:17.657207479Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 1624af74d50c643a0a0e06f4879150f09f575b49aefa27d1f6d330bcdc6a7247
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.28.0.tgz
-    version: 7.28.0
-  - apiVersion: v2
-    appVersion: "7.27"
-    created: "2026-04-16T10:43:17.651663934Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 006f9f206a2ede05364b10db5d4a88f8a411c412dd8b3487eef1777cbc720977
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.27.0.tgz
-    version: 7.27.0
-  - apiVersion: v2
-    appVersion: "7.26"
-    created: "2026-04-16T10:43:17.645849991Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 18a61a69eaaab80629ceea588cc7c3f3c102e0596ceb43b6dce8d207f2a19f4f
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.26.0.tgz
-    version: 7.26.0
-  - apiVersion: v2
-    appVersion: "7.25"
-    created: "2026-04-16T10:43:17.641048445Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 6e859dd66cbee6cdad8f34241b20c5c1d12406419ec9e8ab9375d8d6151f9b3b
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.25.0.tgz
-    version: 7.25.0
-  - apiVersion: v2
-    appVersion: "7.24"
-    created: "2026-04-16T10:43:17.635272578Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 727124e95dcf6a833b89b877156e297cebb15482ad1c0989d90f0ac59b999215
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.24.0.tgz
-    version: 7.24.0
-  - apiVersion: v2
-    appVersion: "7.23"
-    created: "2026-04-16T10:43:17.629640148Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 499b96084841c5193305b1524665e90d66ac946fb3b9daba1cee504794f9af13
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.23.0.tgz
-    version: 7.23.0
-  - apiVersion: v2
-    appVersion: "7.22"
-    created: "2026-04-16T10:43:17.623816757Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: c93a7579945074a2692e3954a8afd5dca5dffbea8db21e1dfce37940f5e83038
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.22.0.tgz
-    version: 7.22.0
-  - apiVersion: v2
-    appVersion: "7.21"
-    created: "2026-04-16T10:43:17.617544235Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: c02556ae337df467716bf751e7dab167dabb6310dcb704a42907ff0d63a3c519
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.21.0.tgz
-    version: 7.21.0
-  - apiVersion: v2
-    appVersion: "7.20"
-    created: "2026-04-16T10:43:17.609047067Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: c9de1735ea057c39fd461d1306e07802ab606ae389075b7edd9c8785d28261a4
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.20.0.tgz
-    version: 7.20.0
-  - apiVersion: v2
-    appVersion: "7.19"
-    created: "2026-04-16T10:43:17.602526523Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 8078d312e063f4f205305ffade4bdf72b80fd33fe0ff537616017dd08e326a7a
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.19.0.tgz
-    version: 7.19.0
-  - apiVersion: v2
-    appVersion: "7.18"
-    created: "2026-04-16T10:43:17.596641684Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: e1a93a13b3f78ad06ed7634396a31a752a5bc324accac0818b4bc3f7ec8b4da7
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.18.0.tgz
-    version: 7.18.0
-  - apiVersion: v2
-    appVersion: "7.17"
-    created: "2026-04-16T10:43:17.59181249Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: ee5308cf1175bad28b134ce54f8114730c79264239e39a75bb0bb86d526ce564
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.17.0.tgz
-    version: 7.17.0
-  - apiVersion: v2
-    appVersion: "7.16"
-    created: "2026-04-16T10:43:17.585209462Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 609781f809fed3f641da9247c8349c439311ffc0db54dc5df9a3c8934ec3d28c
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.16.0.tgz
-    version: 7.16.0
-  - apiVersion: v2
-    appVersion: "7.15"
-    created: "2026-04-16T10:43:17.580392251Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 45fcd7cdd7405f91efaaa772e5044d7552bef21c48035cfc03337a84d06d4d1c
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.15.0.tgz
-    version: 7.15.0
-  - apiVersion: v2
-    appVersion: "7.14"
-    created: "2026-04-16T10:43:17.573002994Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 73179a2d1bcd9a66b448fa0fc0d11fb45304ce55fa006d6b65b706dc900e8764
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.14.0.tgz
-    version: 7.14.0
-  - apiVersion: v2
-    appVersion: "7.12"
-    created: "2026-04-16T10:43:17.563590003Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a4a98ca60858df93d8c58e76b26bef38ff1620ac632df11f08a9ae722bf78e3e
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.12.0.tgz
-    version: 7.12.0
-  - apiVersion: v2
-    appVersion: "7.11"
-    created: "2026-04-16T10:43:17.553968415Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: ca579d9fc99c1457fb421f5fe76d2576d07145d904cd55fc7dc22f8211e06352
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.11.0.tgz
-    version: 7.11.0
-  - apiVersion: v2
-    appVersion: "7.09"
-    created: "2026-04-16T10:43:17.545829514Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 08e60862b299c6baa068ad2637b1dcb5ebed21e520641496ac734a124ce88039
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.09.0.tgz
-    version: 7.09.0
-  - apiVersion: v2
-    appVersion: "7.08"
-    created: "2026-04-16T10:43:17.541023243Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: f6f66a484bc1ae2e7a0e01f5148adc4be058ffa7179fe973f3eccb7ef0dd3beb
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.08.0.tgz
-    version: 7.08.0
-  - apiVersion: v2
-    appVersion: "7.07"
-    created: "2026-04-16T10:43:17.534885292Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 828e7358bf95a554eee69fd648d27cf26446fb77a85d1637e3719f9d783568b3
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.07.0.tgz
-    version: 7.07.0
-  - apiVersion: v2
-    appVersion: "7.06"
-    created: "2026-04-16T10:43:17.529131776Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 0e3b7e320b97a7f7ffba46c223d0637da0992deb76a241ce9050a729966b9d31
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.06.0.tgz
-    version: 7.06.0
-  - apiVersion: v2
-    appVersion: "7.05"
-    created: "2026-04-16T10:43:17.524281653Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 04463af7fc140a4baa1c6cdba21d42fc8e34949805db7b0b4692d4aea542f695
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.05.0.tgz
-    version: 7.05.0
-  - apiVersion: v2
-    appVersion: "7.04"
-    created: "2026-04-16T10:43:17.518376436Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 740e17242264d9d62a3eb87f21de640f9c8163915deb133e314678dffb88bad6
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.04.0.tgz
-    version: 7.04.0
-  - apiVersion: v2
-    appVersion: "7.03"
-    created: "2026-04-16T10:43:17.512635214Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 4c93b2cf6164ab31efc9992272f2fa61c6f40ae4277af0060355c88fb68703a7
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.03.0.tgz
-    version: 7.03.0
-  - apiVersion: v2
-    appVersion: "7.02"
-    created: "2026-04-16T10:43:17.507817312Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 6ad0faaa8107a398004141d0ed00430681de237ea217da5816e089b44f814254
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.02.0.tgz
-    version: 7.02.0
-  - apiVersion: v2
-    appVersion: "7.01"
-    created: "2026-04-16T10:43:17.502251916Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a74ea98ce68b6df0a25063ead955148aff3e628a3f71a8a377d0aebde8f5c174
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.01.0.tgz
-    version: 7.01.0
-  - apiVersion: v2
-    appVersion: "7.00"
-    created: "2026-04-16T10:43:17.49715583Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 5b571db687bb64b583f7c3967d96da3691358565da67215b24c435990b6b2b16
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-7.00.0.tgz
-    version: 7.00.0
-  - apiVersion: v2
-    appVersion: 6.99.9
-    created: "2026-04-16T10:43:17.49189908Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a10fe8d8280d4a2dfa08d44d4921b7a0c73ff1727e168203c1e25fbb105459ad
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.99.9.tgz
-    version: 6.99.9
-  - apiVersion: v2
-    appVersion: 6.99.8
-    created: "2026-04-16T10:43:17.486007775Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 724d57538b2432f2035882ed9ffa1093d8597cb49ce78b0dcd602db34d0b8c7d
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.99.8.tgz
-    version: 6.99.8
-  - apiVersion: v2
-    appVersion: 6.99.7
-    created: "2026-04-16T10:43:17.481464634Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 68112df43fe17ccbef241bddb53f2015ec917d2ffe12f34f5012645cc65815a0
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.99.7.tgz
-    version: 6.99.7
-  - apiVersion: v2
-    appVersion: 6.99.5
-    created: "2026-04-16T10:43:17.475823601Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 53a7dd464187f3f1da8791033aea901fa1b50bb07991f406973d6b9b60cf7483
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.99.5.tgz
-    version: 6.99.5
-  - apiVersion: v2
-    appVersion: 6.99.4
-    created: "2026-04-16T10:43:17.470582691Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 9ea77c22e436181a31b84a615fc815f34a743d5e65038c39e6c4b67521081359
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.99.4.tgz
-    version: 6.99.4
-  - apiVersion: v2
-    appVersion: 6.99.3
-    created: "2026-04-16T10:43:17.465161571Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 3e66133873b8a94b3add74c13cbad138fd65e6ed3cd401ed7c0ed55db0576937
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.99.3.tgz
-    version: 6.99.3
-  - apiVersion: v2
-    appVersion: "6.99"
-    created: "2026-04-16T10:43:17.455016648Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: b231a33f3402d67040c3a281bf78baffac3665022d741b7f0e11ea65c70d7273
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.9.tgz
-    version: 6.9.9
-  - apiVersion: v2
-    appVersion: "6.98"
-    created: "2026-04-16T10:43:17.449463105Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 9c89196feba23ea58988adc5d0b6ec369cf1baa2e4404a272807a90e88e763fd
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.8.tgz
-    version: 6.9.8
-  - apiVersion: v2
-    appVersion: "6.97"
-    created: "2026-04-16T10:43:17.444583597Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: fc41e4234cb905d77dfc28498df8c31bee695eff4969b5e8d3ea245777264ce5
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.7.tgz
-    version: 6.9.7
-  - apiVersion: v2
-    appVersion: "6.96"
-    created: "2026-04-16T10:43:17.460443304Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 1c6f77c2fb7147f52c724e54e0a1ec0a252201105701ed015f7d4583df133574
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.96.tgz
-    version: 6.9.6
-  - apiVersion: v2
-    appVersion: "6.96"
-    created: "2026-04-16T10:43:17.438790553Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a9f38d029c7a0616b4be1f6c50e88a28e9a052f77adaf96cfaf37d0e78f86b87
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.6.tgz
-    version: 6.9.6
-  - apiVersion: v2
-    appVersion: "6.95"
-    created: "2026-04-16T10:43:17.434220622Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 861caa44227b87bfccfeaa1737d921b308f5c8fe6ab7703caaeff39ca03954bd
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.5.tgz
-    version: 6.9.5
-  - apiVersion: v2
-    appVersion: "6.94"
-    created: "2026-04-16T10:43:17.42857859Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 555a62f2106c63dd3147edf2012f80905a087698ce0622d029e2d1156ea91b8e
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.4.tgz
-    version: 6.9.4
-  - apiVersion: v2
-    appVersion: "6.93"
-    created: "2026-04-16T10:43:17.422923493Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: cbbf22e008e69a277cbff1052756717a24b7814368edae3bd15e4fe9059659dd
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.3.tgz
-    version: 6.9.3
-  - apiVersion: v2
-    appVersion: "6.92"
-    created: "2026-04-16T10:43:17.417309133Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 009bc77e923ef06fb04b2eae4fc8b84d8d40ea5704290e0897fc484a4d5ab1d7
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.2.tgz
-    version: 6.9.2
-  - apiVersion: v2
-    appVersion: "6.91"
-    created: "2026-04-16T10:43:17.412105462Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 5cdb6af325d2e9e4dd2e8d613fbd95f737caa69fc97a93ff22961e5ee53a3f8f
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.1.tgz
-    version: 6.9.1
-  - apiVersion: v2
-    appVersion: "6.90"
-    created: "2026-04-16T10:43:17.406705055Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: ef6ede2993f2e8371cc1d6fa4608d2712d2cc33b9e47fa16bbddb9c75a3a835c
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.9.0.tgz
-    version: 6.9.0
-  - apiVersion: v2
-    appVersion: "6.89"
-    created: "2026-04-16T10:43:17.401586732Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: f95f8642654edae91a8f5089e37fe52f3fba31031935d29b2190cc444091aabe
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-6.8.9.tgz
-    version: 6.8.9
-  - apiVersion: v2
-    appVersion: "6.87"
-    created: "2026-04-16T10:43:17.396496262Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: e50bf1f3b1c7ada85a15c7e73d49e50b937e8d135dd4c87a0d286f966c073723
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.4.4.tgz
-    version: 1.4.4
-  - apiVersion: v2
-    appVersion: "6.86"
-    created: "2026-04-16T10:43:17.39115777Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: d49465dae91f5d467083b3f8919ac5ade531af79c961b42fb7b8de41869cb413
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.4.3.tgz
-    version: 1.4.3
-  - apiVersion: v2
-    appVersion: "6.85"
-    created: "2026-04-16T10:43:17.385662777Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: cc39e92c6bda0a5e2c27d88cfb1dfce0ad3db61e3c6f9fda468ad12b10cdbf8c
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.4.2.tgz
-    version: 1.4.2
-  - apiVersion: v2
-    appVersion: "6.84"
-    created: "2026-04-16T10:43:17.381146456Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 2c6d30b2d0da0007baa0fdf45196e47c405be5dd20b0648e95a87676f7c2a9e4
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.4.1.tgz
-    version: 1.4.1
-  - apiVersion: v2
-    appVersion: "6.83"
-    created: "2026-04-16T10:43:17.375688171Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 59b23a98912d998ffd6fd9d82001dbb4dc654d613da23f69aad0e3584b3959f3
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.4.0.tgz
-    version: 1.4.0
-  - apiVersion: v2
-    appVersion: "6.82"
-    created: "2026-04-16T10:43:17.369991642Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 1bcf52593cc12c8932e98f84ece5df01339c8e385b74af3d106f2ffa537ed052
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.9.tgz
-    version: 1.2.9
-  - apiVersion: v2
-    appVersion: "6.81"
-    created: "2026-04-16T10:43:17.36420789Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: e63f97b88cb3d53e36875826bbb7c8ffd9cf48d610b5309c2e18abaa1dc10fae
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.8.tgz
-    version: 1.2.8
-  - apiVersion: v2
-    appVersion: "6.80"
-    created: "2026-04-16T10:43:17.359750328Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 5220d66d3828284b7b86ad719de64f5ffff5b2fbc775f34ddca66b009c71fe99
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.7.tgz
-    version: 1.2.6
-  - apiVersion: v2
-    appVersion: "6.80"
-    created: "2026-04-16T10:43:17.354645992Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: d75b89c9af99528acb671989adeba0f2f7309964f9c907dad97e70e858e940ca
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.6.tgz
-    version: 1.2.6
-  - apiVersion: v2
-    appVersion: "6.79"
-    created: "2026-04-16T10:43:17.3496135Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 45c367f36f940fda724d8a772a8a7cb8318efa403e7013067aae1f74f7709af4
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.5.tgz
-    version: 1.2.5
-  - apiVersion: v2
-    appVersion: "6.77"
-    created: "2026-04-16T10:43:17.344869786Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.x
-    description: Open Source kanban
-    digest: 17333569dc1e1023a6b43fc57c623bc6042475d28aa357c3dbe5ddc81687642f
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.4.tgz
-    version: 1.2.4
-  - apiVersion: v2
-    appVersion: "6.76"
-    created: "2026-04-16T10:43:17.339787922Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 75bdbb9ee2cf81bd0d7e5b8a7bb4e38f13a472ba722bd8b39b98e8eba75cd3a3
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.3.tgz
-    version: 1.2.3
-  - apiVersion: v2
-    appVersion: "6.75"
-    created: "2026-04-16T10:43:17.335258737Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 07d3ea0ef3e976ecfdc363f7476190efc0f837b006c54a828e6df5ed2ddc720b
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.2.tgz
-    version: 1.2.2
-  - apiVersion: v2
-    appVersion: "6.74"
-    created: "2026-04-16T10:43:17.32987507Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: a14b5a60d428770c8dcf954aef70baf4ead952f0d0ec28d2c9ab1475a27b81ae
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.1.tgz
-    version: 1.2.1
-  - apiVersion: v2
-    appVersion: "6.73"
-    created: "2026-04-16T10:43:17.324459314Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 2beb0a1614cfa26a377b37333a409debc5d71a31b531cec18bf9fbec105edf11
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.2.0.tgz
-    version: 1.2.0
-  - apiVersion: v2
-    appVersion: "6.72"
-    created: "2026-04-16T10:43:17.319921283Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.x
-    description: Open Source kanban
-    digest: dd1d80ff050c53b59dc728d37f2307cacb7cc9e94e9325e95882b7a94141d3bf
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.9.tgz
-    version: 1.1.9
-  - apiVersion: v2
-    appVersion: "6.71"
-    created: "2026-04-16T10:43:17.314486751Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 1ab563d8677dbc0855be557e769da2570f68deadc0cee7a63af67588134c4e02
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.8.tgz
-    version: 1.1.8
-  - apiVersion: v2
-    appVersion: "6.70"
-    created: "2026-04-16T10:43:17.309305396Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 6f9b7eea33acd909e6b13a159f7ea0e8773a353891db8d54741658267d369ecf
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.7.tgz
-    version: 1.1.7
-  - apiVersion: v2
-    appVersion: "6.69"
-    created: "2026-04-16T10:43:17.303440059Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 3ba367dcd313bbe7a0907a562de49f4a5073504afa177e1925a9c51ec5081b7f
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.6.tgz
-    version: 1.1.6
-  - apiVersion: v2
-    appVersion: "6.65"
-    created: "2026-04-16T10:43:17.297984979Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 9d8bfaed8cbb44a7110b1f4480621948fa888b58d2e5cb2c400ea9e49e994a8f
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.5.tgz
-    version: 1.1.5
-  - apiVersion: v2
-    appVersion: "6.64"
-    created: "2026-04-16T10:43:17.293128044Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 5549653ffa4ebc5655033d02b18a67d1f82e2724c55bde3251dc4f069ed48967
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.4.tgz
-    version: 1.1.4
-  - apiVersion: v2
-    appVersion: "6.64"
-    created: "2026-04-16T10:43:17.287603305Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: c241be2ae72ef8446327d8cce1b2ac6b164fb489ef4bdf2b5f1fbaf25f328fd7
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: support@wekan.team
-      name: wekan
-    - email: x@xet7.org
-      name: xet7
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.3.tgz
-    version: 1.1.3
-  - apiVersion: v2
-    appVersion: "6.64"
-    created: "2026-04-16T10:43:17.287088396Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.6.x
-    description: Open Source kanban
-    digest: 3e402acad5ce562daaeb97135717443df613fd5c428da80c6846508ced82492f
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.2.tgz
-    version: 1.1.2
-  - apiVersion: v2
-    appVersion: "5.93"
-    created: "2026-04-16T10:43:17.286618351Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.0.x
-    description: Open Source kanban
-    digest: 02c48358df231a8c8e84cde93a6981b948630d448a1bac8e09cb43d8e3ec2658
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.1.tgz
-    version: 1.1.1
-  - apiVersion: v2
-    appVersion: "5.83"
-    created: "2026-04-16T10:43:17.283405908Z"
-    dependencies:
-    - condition: mongodb.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.0.x
-    description: Open Source kanban
-    digest: 45a933dd079ba9387da9e22e330b89f22ed3f0b22ecd9e71559bb2b7019a92e9
-    home: https://wekan.github.io
-    icon: https://wekan.github.io/wekan-logo.svg
-    keywords:
-    - kanban
-    maintainers:
-    - email: github@randall.cc
-      name: technotaff
-    - email: jiangyt.cn@gmail.com
-      name: jiangytcn
-    - email: varac@varac.net
-      name: varac
-    name: wekan
-    sources:
-    - https://github.com/wekan/wekan
-    type: application
-    urls:
-    - https://wekan.github.io/wekan/wekan-1.1.0.tgz
-    version: 1.1.0
-generated: "2026-04-16T10:43:17.280502671Z"
