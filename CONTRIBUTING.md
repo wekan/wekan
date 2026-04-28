@@ -34,7 +34,7 @@ and click send PR.
 
 ## Contributing code
 
-[Building WeKan and sending PR](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md).
+[Building WeKan and sending PR](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md).
 
 WeKan code contributors Hall of Fame is at ChangeLog, where
 GitHub usernames are mentioned with changes added:
@@ -47,7 +47,7 @@ Closed issues are already fixed or implemented.
 
 Also see other docs:
 
-https://github.com/wekan/wekan/tree/main/docs2/DeveloperDocs
+https://github.com/wekan/wekan/tree/main/docs/DeveloperDocs
 
 Do not use code formatting or linting like eslist or prettier.
 

@@ -4,9 +4,9 @@ Newest WeKan at these platforms:
 
 - [Upgrade WeKan](https://wekan.fi/upgrade/)
 - [bundle zip at releases](https://github.com/wekan/wekan/releases), docs at
-  - [Linux amd64, arm64, s390x](https://github.com/wekan/wekan/blob/main/docs2/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
-  - [Windows amd64, works also at Windows arm64](https://github.com/wekan/wekan/blob/main/docs2/Platforms/Propietary/Windows/Offline.md)
-  - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs2/Platforms/Propietary/Mac.md)
+  - [Linux amd64, arm64, s390x](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
+  - [Windows amd64, works also at Windows arm64](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md)
+  - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
 - https://wekan.fi/install/
   - Snap Candidate amd64
   - Docker amd64/arm64/s390x
@@ -17,7 +17,7 @@ Newest WeKan at these platforms:
 Versions:
 
 - WeKan 8.75 and newer uses Meteor 3.5-beta.7, [Node.js 24.x](https://nodejs.org/dist/latest-v24.x/),
-  MongoDB 7.x (or 6.x), or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs2/Databases/FerretDB2-PostgreSQL.md)
+  MongoDB 7.x (or 6.x), or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs/Databases/FerretDB2-PostgreSQL.md)
 - WeKan 8.43 upgraded to Meteor 3.x, huge thanks to harryadel:
   - https://harryadel.com/dev-diary-24/
   - https://harryadel.com/dev-diary-25/

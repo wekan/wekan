@@ -37,7 +37,7 @@ It's better than at chat where details get lost when chat scrolls up.
 
 ## Discussions
 
-[IRC](https://github.com/wekan/wekan/blob/main/docs2/FAQ/IRC-FAQ.md)
+[IRC](https://github.com/wekan/wekan/blob/main/docs/FAQ/IRC-FAQ.md)
 
 ## Docker: Latest tag has newest release
 
@@ -48,8 +48,8 @@ See bottom of https://github.com/wekan/wekan/issues/3874
 
 **NOTE**:
 
-- Please read the [FAQ](https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md) first
-- Please don't feed the [trolls](https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/blob/main/docs2/FAQ/FAQ.md#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
+- Please read the [FAQ](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md) first
+- Please don't feed the [trolls](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
 
 ## About WeKan ®
 
@@ -83,7 +83,7 @@ that by providing one-click installation on various platforms.
   WeKan ® on Sandstorm is not usually affected by any Standalone WeKan ® (Snap/Docker/Source) security issues.
 - [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
   New features and fixes are added to WeKan ® [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
-- [Backups](https://github.com/wekan/wekan/blob/main/docs2/Backup/Backup.md) of WeKan ® database once a day minimum.
+- [Backups](https://github.com/wekan/wekan/blob/main/docs/Backup/Backup.md) of WeKan ® database once a day minimum.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bugs can cause WeKan ® board to not load at all, requiring manual fixing of database content.
 
@@ -106,9 +106,9 @@ By working directly with WeKan ® you get the benefit of active maintenance and 
 The default branch uses Meteor 3.5-beta.7 with Node.js 24.x.
 See [CHANGELOG.md](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) for the latest runtime updates.
 
-To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
+To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
 
-Please refer to the [developer documentation](https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Developer-Documentation.md) for more information.
+Please refer to the [developer documentation](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md) for more information.
 
 ## First-Time Setup for Development
 
@@ -174,7 +174,7 @@ The development server will start at http://localhost:4000. Any changes you make
 
 ## Screenshot
 
-[More screenshots at Features page](https://github.com/wekan/wekan/tree/main/docs2/Features)
+[More screenshots at Features page](https://github.com/wekan/wekan/tree/main/docs/Features)
 
 [![Screenshot of WeKan ®][screenshot_wekan]][roadmap_wekan]
 
@@ -183,7 +183,7 @@ The development server will start at http://localhost:4000. Any changes you make
 WeKan ® is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
-[dev_docs]: https://github.com/wekan/wekan/blob/main/docs2/DeveloperDocs/Developer-Documentation.md
+[dev_docs]: https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md
 [screenshot_wekan]: https://wekan.fi/wekan-dark-mode.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
