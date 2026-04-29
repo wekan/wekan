@@ -335,6 +335,41 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
       sendErrorResponse(res, 401, error.message);
     }
   });
+// Board attachments endpoint (legacy)
+WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) => {
+  if (req.method !== 'GET') {
+    return next();
+  }
+  try {
+    const userId = await authenticateApiRequest(req);
+    const boardId = req.params.boardId;
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.isBoardMember(userId)) {
+      return sendErrorResponse(res, 403, 'You do not have permission to access this board');
+    }
+    const query = { 'meta.boardId': boardId };
+    const attachments = await ReactiveCache.getAttachments(query);
+    const attachmentList = attachments.map(attachment => {
+      const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+      return {
+        attachmentId: attachment._id,
+        fileName: attachment.name,
+        fileSize: attachment.size,
+        fileType: attachment.type,
+        storageBackend: strategy.getStorageName(),
+        boardId: attachment.meta.boardId,
+        swimlaneId: attachment.meta.swimlaneId,
+        listId: attachment.meta.listId,
+        cardId: attachment.meta.cardId,
+        createdAt: attachment.uploadedAt,
+        isImage: attachment.isImage
+      };
+    });
+    sendJsonResponse(res, 200, { success: true, attachments: attachmentList, count: attachmentList.length });
+  } catch (error) {
+    sendErrorResponse(res, 401, error.message);
+  }
+});
 
   // Copy attachment endpoint
   WebApp.handlers.use('/api/attachment/copy', async (req, res, next) => {
