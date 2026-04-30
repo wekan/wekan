@@ -309,15 +309,7 @@ Template.listBody.helpers({
       listId: Template.currentData()._id,
       archived: false,
     };
-    if (swimlaneId) {
-      // Fallback: also show cards with no swimlaneId (null/empty) so that
-      // pre-migration / orphaned cards are always visible without a DB migration.
-      selector.$or = [
-        { swimlaneId },
-        { swimlaneId: null },  // null covers null AND missing field
-        { swimlaneId: '' },    // empty string from shared-lists era
-      ];
-    }
+    if (swimlaneId) selector.swimlaneId = swimlaneId;
     const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), {
       // sort: ['sort'],
       sort: sortBy,

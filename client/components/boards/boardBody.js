@@ -144,7 +144,13 @@ Template.boardBody.onCreated(function () {
   Meteor.subscribe('tableVisibilityModeSettings');
   this.showOverlay = new ReactiveVar(false);
   this.draggingActive = new ReactiveVar(false);
+  this.boardIntegrity = new ReactiveVar({
+    status: 'idle',
+    issues: [],
+    error: '',
+  });
   this._isDragging = false;
+  this._boardIntegrityRequestId = 0;
   // Used to set the overlay
   this.mouseHasEnterCardDetails = false;
   this._sortFieldsFixed = new Set(); // Track which boards have had sort fields fixed
@@ -155,6 +161,41 @@ Template.boardBody.onCreated(function () {
   // Methods on the template instance for programmatic access
   this.setIsDragging = (bool) => {
     this.draggingActive.set(bool);
+  };
+
+  this.refreshBoardIntegrityState = async boardId => {
+    const requestId = ++this._boardIntegrityRequestId;
+    this.boardIntegrity.set({
+      status: 'checking',
+      issues: [],
+      error: '',
+    });
+
+    try {
+      const result = await Meteor.callAsync(
+        'comprehensiveBoardMigration.check',
+        boardId,
+      );
+      if (this.view.isDestroyed || requestId !== this._boardIntegrityRequestId) {
+        return;
+      }
+
+      this.boardIntegrity.set({
+        status: result?.status || 'not_needed',
+        issues: Array.isArray(result?.issues) ? result.issues : [],
+        error: result?.error || '',
+      });
+    } catch (error) {
+      if (this.view.isDestroyed || requestId !== this._boardIntegrityRequestId) {
+        return;
+      }
+
+      this.boardIntegrity.set({
+        status: 'error',
+        issues: [],
+        error: error?.reason || error?.message || TAPi18n.__('migration-failed'),
+      });
+    }
   };
 
   this.scrollLeft = (position = 0) => {
@@ -248,6 +289,22 @@ Template.boardBody.onCreated(function () {
       this._sortFieldsFixed.add(`lists-${boardId}`);
     }
   }
+
+  this.autorun(() => {
+    const boardId = Session.get('currentBoard');
+    const userId = Meteor.userId();
+
+    if (!boardId || !userId) {
+      this.boardIntegrity.set({
+        status: 'idle',
+        issues: [],
+        error: '',
+      });
+      return;
+    }
+
+    this.refreshBoardIntegrityState(boardId);
+  });
 });
 
 Template.boardBody.onRendered(function () {
@@ -606,6 +663,65 @@ Template.boardBody.onDestroyed(function () {
 });
 
 Template.boardBody.helpers({
+  boardIntegrity() {
+    return Template.instance().boardIntegrity.get();
+  },
+  showBoardIntegrityBanner() {
+    const { status } = Template.instance().boardIntegrity.get();
+    return ['needed', 'repairing', 'error'].includes(status);
+  },
+  boardIntegrityTitle() {
+    const { status } = Template.instance().boardIntegrity.get();
+    if (status === 'repairing') {
+      return TAPi18n.__('migration-running');
+    }
+    if (status === 'error') {
+      return TAPi18n.__('migration-failed');
+    }
+    return TAPi18n.__('migration-needed');
+  },
+  boardIntegrityStatus() {
+    return Template.instance().boardIntegrity.get().status;
+  },
+  boardIntegritySummary() {
+    const { status, issues, error } = Template.instance().boardIntegrity.get();
+    if (status === 'repairing') {
+      return TAPi18n.__('migration-warning-text');
+    }
+    if (status === 'error') {
+      return error || TAPi18n.__('migration-failed');
+    }
+    if (!issues.length) {
+      return TAPi18n.__('comprehensive-board-migration-description');
+    }
+
+    const descriptions = issues
+      .slice(0, 2)
+      .map(issue => issue.description)
+      .filter(Boolean);
+    const remaining = issues.length - descriptions.length;
+    if (remaining > 0) {
+      descriptions.push(`+${remaining}`);
+    }
+    return descriptions.join(' | ');
+  },
+  canRunBoardIntegrityRepair() {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) {
+      return false;
+    }
+    return user.isAdmin() || user.isBoardAdmin();
+  },
+  boardIntegrityBannerClass() {
+    const { status } = Template.instance().boardIntegrity.get();
+    if (status === 'repairing') {
+      return 'is-repairing';
+    }
+    if (status === 'error') {
+      return 'is-error';
+    }
+    return 'is-needed';
+  },
   draggingActive() {
     return Template.instance().draggingActive.get();
   },
@@ -757,6 +873,43 @@ Template.boardBody.helpers({
 });
 
 Template.boardBody.events({
+  async 'click .js-run-board-integrity-repair'(event, tpl) {
+    event.preventDefault();
+    const boardId = Session.get('currentBoard');
+    if (!boardId) {
+      return;
+    }
+
+    const integrity = tpl.boardIntegrity.get();
+    if (integrity.status === 'repairing') {
+      return;
+    }
+
+    if (!confirm(TAPi18n.__('run-comprehensive-migration-confirm'))) {
+      return;
+    }
+
+    tpl.boardIntegrity.set({
+      status: 'repairing',
+      issues: integrity.issues || [],
+      error: '',
+    });
+
+    try {
+      await Meteor.callAsync('comprehensiveBoardMigration.execute', boardId);
+      await tpl.refreshBoardIntegrityState(boardId);
+    } catch (error) {
+      tpl.boardIntegrity.set({
+        status: 'error',
+        issues: integrity.issues || [],
+        error: error?.reason || error?.message || TAPi18n.__('migration-failed'),
+      });
+    }
+  },
+  'click .js-switch-integrity-to-lists-view'(event) {
+    event.preventDefault();
+    Utils.setBoardView('board-view-lists');
+  },
   // XXX The board-overlay div should probably be moved to the parent
   // component.
   mouseup(event, tpl) {

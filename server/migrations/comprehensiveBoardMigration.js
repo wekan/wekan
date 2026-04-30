@@ -72,24 +72,30 @@ class ComprehensiveBoardMigration {
       const cards = await ReactiveCache.getCards({ boardId });
       const lists = await ReactiveCache.getLists({ boardId });
       const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
+      const validSwimlaneIds = new Set(swimlanes.map(swimlane => swimlane._id));
+      const validListIds = new Set(lists.map(list => list._id));
 
-      // Issue 1: Cards with missing swimlaneId
-      const cardsWithoutSwimlane = cards.filter(card => !card.swimlaneId);
-      if (cardsWithoutSwimlane.length > 0) {
+      // Issue 1: Cards with missing or invalid swimlaneId
+      const cardsWithoutValidSwimlane = cards.filter(card =>
+        !card.swimlaneId || !validSwimlaneIds.has(card.swimlaneId)
+      );
+      if (cardsWithoutValidSwimlane.length > 0) {
         issues.push({
-          type: 'cards_without_swimlane',
-          count: cardsWithoutSwimlane.length,
-          description: `${cardsWithoutSwimlane.length} cards missing swimlaneId`
+          type: 'cards_without_valid_swimlane',
+          count: cardsWithoutValidSwimlane.length,
+          description: `${cardsWithoutValidSwimlane.length} cards missing or using an invalid swimlane`
         });
       }
 
-      // Issue 2: Cards with missing listId
-      const cardsWithoutList = cards.filter(card => !card.listId);
-      if (cardsWithoutList.length > 0) {
+      // Issue 2: Cards with missing or invalid listId
+      const cardsWithoutValidList = cards.filter(card =>
+        !card.listId || !validListIds.has(card.listId)
+      );
+      if (cardsWithoutValidList.length > 0) {
         issues.push({
-          type: 'cards_without_list',
-          count: cardsWithoutList.length,
-          description: `${cardsWithoutList.length} cards missing listId`
+          type: 'cards_without_valid_list',
+          count: cardsWithoutValidList.length,
+          description: `${cardsWithoutValidList.length} cards missing or using an invalid list`
         });
       }
 
@@ -103,7 +109,19 @@ class ComprehensiveBoardMigration {
         });
       }
 
-      // Issue 4: Cards with mismatched listId/swimlaneId
+      // Issue 4: Lists pointing to a swimlane that no longer exists
+      const listsWithInvalidSwimlane = lists.filter(list =>
+        !!list.swimlaneId && list.swimlaneId !== '' && !validSwimlaneIds.has(list.swimlaneId)
+      );
+      if (listsWithInvalidSwimlane.length > 0) {
+        issues.push({
+          type: 'lists_with_invalid_swimlane',
+          count: listsWithInvalidSwimlane.length,
+          description: `${listsWithInvalidSwimlane.length} lists linked to a missing swimlane`
+        });
+      }
+
+      // Issue 5: Cards with mismatched listId/swimlaneId
       const listSwimlaneMap = new Map();
       lists.forEach(list => {
         listSwimlaneMap.set(list._id, list.swimlaneId || '');
@@ -123,7 +141,7 @@ class ComprehensiveBoardMigration {
         });
       }
 
-      // Issue 5: Empty lists (lists with no cards)
+      // Issue 6: Empty lists (lists with no cards)
       const emptyLists = lists.filter(list => {
         const listCards = cards.filter(card => card.listId === list._id);
         return listCards.length === 0;
@@ -304,6 +322,8 @@ class ComprehensiveBoardMigration {
     const cards = await ReactiveCache.getCards({ boardId });
     const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
     const lists = await ReactiveCache.getLists({ boardId });
+    const validSwimlaneIds = new Set(swimlanes.map(swimlane => swimlane._id));
+    const validListIds = new Set(lists.map(list => list._id));
 
     let cardsFixed = 0;
     const defaultSwimlane = swimlanes.find(s => s.title === 'Default') || swimlanes[0];
@@ -314,18 +334,21 @@ class ComprehensiveBoardMigration {
       let needsUpdate = false;
       const updates = {};
 
-      // Fix missing swimlaneId
-      if (!card.swimlaneId) {
+      // Fix missing or invalid swimlaneId
+      if (!card.swimlaneId || !validSwimlaneIds.has(card.swimlaneId)) {
         updates.swimlaneId = defaultSwimlane._id;
         needsUpdate = true;
       }
 
-      // Fix missing listId
-      if (!card.listId) {
+      // Fix missing or invalid listId
+      if (!card.listId || !validListIds.has(card.listId)) {
+        const targetSwimlaneId =
+          updates.swimlaneId ||
+          (validSwimlaneIds.has(card.swimlaneId) ? card.swimlaneId : defaultSwimlane._id);
+
         // Find or create a default list for this swimlane
-        const swimlaneId = updates.swimlaneId || card.swimlaneId;
         let defaultList = lists.find(list =>
-          list.swimlaneId === swimlaneId && list.title === 'Default'
+          list.swimlaneId === targetSwimlaneId && list.title === 'Default'
         );
 
         if (!defaultList) {
@@ -333,14 +356,20 @@ class ComprehensiveBoardMigration {
           const newListId = await Lists.insertAsync({
             title: 'Default',
             boardId: boardId,
-            swimlaneId: swimlaneId,
+            swimlaneId: targetSwimlaneId,
             sort: 0,
             archived: false,
             createdAt: new Date(),
             modifiedAt: new Date(),
             type: 'list'
           });
-          defaultList = { _id: newListId };
+          defaultList = {
+            _id: newListId,
+            swimlaneId: targetSwimlaneId,
+            title: 'Default',
+          };
+          lists.push(defaultList);
+          validListIds.add(newListId);
         }
 
         updates.listId = defaultList._id;
@@ -478,12 +507,13 @@ class ComprehensiveBoardMigration {
   async ensurePerSwimlaneLists(boardId) {
     const lists = await ReactiveCache.getLists({ boardId });
     const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
+    const validSwimlaneIds = new Set(swimlanes.map(swimlane => swimlane._id));
     const defaultSwimlane = swimlanes.find(s => s.title === 'Default') || swimlanes[0];
 
     let listsProcessed = 0;
 
     for (const list of lists) {
-      if (!list.swimlaneId || list.swimlaneId === '') {
+      if (!list.swimlaneId || list.swimlaneId === '' || !validSwimlaneIds.has(list.swimlaneId)) {
         // Assign to default swimlane
         await Lists.updateAsync(list._id, {
           $set: {
