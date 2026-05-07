@@ -28,7 +28,12 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Update release script to force include required file](https://github.com/wekan/wekan/commit/87151338688759b32c72f0ab21fee62ddd6712ca).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix to run code only if there is userId and user](https://github.com/wekan/wekan/commit/f778707236bfdb962bab9d406bdfe7fba9b675ef).
   Thanks to xet7.
