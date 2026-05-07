@@ -5,13 +5,11 @@
 
 set -e
 
-# Source settings if available, otherwise use defaults
+# Source settings if available; SNAP_COMMON and SNAP_INSTANCE_NAME are
+# exported by snapd and already reflect the parallel-instance name
+# (e.g. /var/snap/wekan_something/common), so never override them here.
 if [ -f "$SNAP/bin/wekan-read-settings" ]; then
     source $SNAP/bin/wekan-read-settings
-else
-    # Default values when wekan-read-settings is not available
-    SNAP_COMMON="/var/snap/wekan/common"
-    SNAP_NAME="wekan"
 fi
 
 # Configuration

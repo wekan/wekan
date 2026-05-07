@@ -64,7 +64,7 @@ DESCRIPTION_MONGO_OPLOG_URL="MongoDB Oplog URL. Default: 'mongodb://127.0.0.1:mo
 DEFAULT_MONGO_OPLOG_URL=""
 KEY_MONGO_OPLOG_URL="mongo-oplog-url"
 
-DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket. Example: /var/snap/wekan/current/share . Default: ''\n"\
+DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket. Example: /var/snap/<snap-instance-name>/current/share . Default: ''\n"\
 "\t\t\t Default behaviour will preffer binding over unix socket, to disable unix socket binding set value to 'nill' string\n"\
 "\t\t\t To bind to instance of mongodb provided through content interface,set value to relative path to the socket inside '$SNAP_DATA/shared' directory"
 DEFAULT_MONGODB_BIND_UNIX_SOCKET=""
@@ -182,7 +182,7 @@ DESCRIPTION_AVATARS_UPLOAD_MAX_SIZE="Avatars upload max size in bytes. Example: 
 DEFAULT_AVATARS_UPLOAD_MAX_SIZE=""
 KEY_AVATARS_UPLOAD_MAX_SIZE="avatars-upload-max-size"
 
-# Example, not in use: /var/snap/wekan/common/uploads/
+# Example, not in use: /var/snap/<snap-instance-name>/common/uploads/
 
 DESCRIPTION_MAX_IMAGE_PIXEL="Max image pixel: Allow to shrink attached/pasted image https://github.com/wekan/wekan/pull/2544"
 DEFAULT_MAX_IMAGE_PIXEL=""
