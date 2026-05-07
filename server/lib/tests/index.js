@@ -4,3 +4,6 @@ import './boards.security.tests';
 import './cards.security.tests';
 import './cards.methods.tests';
 import './attachmentApi.tests';
+import './cards.archive.tests';
+import './cards.move.tests';
+import './search.logic.tests';

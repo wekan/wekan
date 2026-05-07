@@ -314,7 +314,8 @@ Meteor.publish('globalSearch', async function(sessionId, params, text) {
   check(params, Object);
   check(text, String);
 
-  
+  if (!this.userId) return this.ready();
+
   const { cursors, sessionData } = await findCards(
     sessionId,
     await buildQuery(new QueryParams(params, text), this.userId),

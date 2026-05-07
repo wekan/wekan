@@ -19,8 +19,19 @@
     },
     "modern": true
   },
+  "scripts": {
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test:watch": "meteor test --driver-package meteortesting:mocha",
+    "test:e2e": "node tests/e2e/list-regressions.js",
+    "test:playwright": "cd tests/playwright && npx playwright test",
+    "test:playwright:ui": "cd tests/playwright && npx playwright test --ui",
+    "test:playwright:all": "cd tests/playwright && npx playwright test --project=chromium --project=firefox --project=webkit",
+    "test:playwright:report": "cd tests/playwright && npx playwright show-report",
+    "playwright:install": "cd tests/playwright && npx playwright install --with-deps"
+  },
   "devDependencies": {
     "@meteorjs/rspack": "^2.0.1",
+    "@playwright/test": "^1.49.0",
     "@rsdoctor/rspack-plugin": "^1.5.7",
     "@rspack/cli": "^1.7.11",
     "@rspack/core": "^1.7.11",

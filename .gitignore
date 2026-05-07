@@ -53,3 +53,7 @@ _build
 */build-assets
 */build-chunks
 .rsdoctor
+
+# Tests
+playwright-report/
+test-results/
