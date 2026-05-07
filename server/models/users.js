@@ -287,17 +287,23 @@ Meteor.methods({
   },
 
   async toggleHideCheckedItems() {
+    if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
     user.toggleHideCheckedItems();
   },
 
   async toggleCustomFieldsGrid() {
+    if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
     user.toggleFieldsGrid(user.hasCustomFieldsGrid());
   },
 
   async toggleCardMaximized() {
+    if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
     user.toggleCardMaximized(user.hasCardMaximized());
   },
 
@@ -308,12 +314,16 @@ Meteor.methods({
   },
 
   async toggleMinicardLabelText() {
+    if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
   },
 
   async toggleRescueCardDescription() {
+    if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
     user.toggleRescueCardDescription(user.hasRescuedCardDescription());
   },
 
