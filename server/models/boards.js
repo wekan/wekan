@@ -733,15 +733,13 @@ WebApp.handlers.post('/api/boards/:boardId/members/:memberId', async function(re
 
 WebApp.handlers.get('/api/boards/:boardId/attachments', async function(req, res) {
   const paramBoardId = req.params.boardId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
   const attachments = await ReactiveCache.getAttachments(
     { 'meta.boardId': paramBoardId },
-    {},
-    true,
   );
   sendJsonResult(res, {
     code: 200,
-    data: attachments.each().map(attachment => ({
+    data: attachments.map(attachment => ({
       attachmentId: attachment._id,
       attachmentName: attachment.name,
       attachmentType: attachment.type,
