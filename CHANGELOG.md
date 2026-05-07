@@ -34,6 +34,8 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/f347dc7d4dcf876a063a9aa4f1ea148d2894ac4c),
   [Part 2](https://github.com/wekan/wekan/commit/90cfc3f69692dd7c78cb1382565e3cbd62fbff49).
   Thanks to xet7.
+- [Updated GitHub Actions to build release bundles](https://github.com/wekan/wekan/commit/4520a432c4bfa7e9e3ff002ef267a52e51588d78).
+  Thanks to xet7.
 
 and adds the following tests:
 
