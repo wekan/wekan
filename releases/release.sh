@@ -15,6 +15,7 @@ fi
 # 2) Commit and push version number changes
 cd ~/repos/wekan
 git add --all
+git add package-lock.json
 git commit -m "v$1"
 git push
 
