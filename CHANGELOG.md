@@ -28,7 +28,12 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES of [AuthBleed](https://wekan.fi/hall-of-fame/authbleed/):
+
+- [Fixed AuthBleed](https://github.com/wekan/wekan/commit/62c01725f91f0c2673839e3b460b5348b5562e6b).
+  Thanks to Qiulin Deng and xet7.
+
+and adds the following updates:
 
 - Docs: Clarified SECURITY.md.
   [Part 1](https://github.com/wekan/wekan/commit/f347dc7d4dcf876a063a9aa4f1ea148d2894ac4c),
