@@ -556,14 +556,17 @@ Meteor.methods({
     check(boardId, String);
     check(properties, Object);
 
-    let ret = null;
+    if (!this.userId) throw new Meteor.Error('not-authorized');
     const board = await ReactiveCache.getBoard(boardId);
-    if (board) {
-      for (const key in properties) {
-        board[key] = properties[key];
-      }
-      ret = board.copy();
+    if (!board) throw new Meteor.Error('not-found');
+    if (!board.hasMember(this.userId)) throw new Meteor.Error('not-authorized');
+
+    // Strip fields the caller must not control on the copy
+    const { members, permission, ...safeProperties } = properties;
+    for (const key of Object.keys(safeProperties)) {
+      board[key] = safeProperties[key];
     }
-    return ret;
+
+    return board.copy();
   },
 });

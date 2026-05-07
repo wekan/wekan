@@ -175,9 +175,18 @@ Meteor.methods({
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
+    const sourceBoard = await Boards.findOneAsync(list.boardId);
+    if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
+      throw new Meteor.Error('not-authorized', 'Not a member of the source board.');
+    }
+
     const targetBoard = await ReactiveCache.getBoard(boardId);
     if (!targetBoard) {
       throw new Meteor.Error('board-not-found', 'Target board not found');
+    }
+
+    if (!hasBoardWriteAccess(this.userId, targetBoard)) {
+      throw new Meteor.Error('not-authorized', 'Not a member of the target board.');
     }
 
     let sort = (await ReactiveCache.getLists({ boardId, archived: false })).length;
@@ -235,6 +244,12 @@ Meteor.methods({
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
+
+    const sourceBoard = await Boards.findOneAsync(list.boardId);
+    if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
+      throw new Meteor.Error('not-authorized', 'Not a member of the source board.');
+    }
+
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
       ? title.trim()
       : list.title;
@@ -242,6 +257,10 @@ Meteor.methods({
     const targetBoard = await ReactiveCache.getBoard(boardId);
     if (!targetBoard) {
       throw new Meteor.Error('board-not-found', 'Target board not found');
+    }
+
+    if (!hasBoardWriteAccess(this.userId, targetBoard)) {
+      throw new Meteor.Error('not-authorized', 'Not a member of the target board.');
     }
 
     list.title = desiredTitle;

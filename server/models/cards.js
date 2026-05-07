@@ -5,7 +5,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { add, now } from '/imports/lib/dateUtils';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-import { allowIsBoardMember, allowIsBoardMemberCommentOnly } from '/server/lib/utils';
+import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards, {
@@ -29,6 +29,13 @@ Meteor.methods({
     check(title, String);
     check(dueDate, Date);
     check(swimlaneId, String);
+
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const destBoard = await Boards.findOneAsync(boardId);
+    if (!destBoard) throw new Meteor.Error('not-found');
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
+      throw new Meteor.Error('not-authorized');
+
     const card = {
       title,
       listId,
@@ -369,7 +376,15 @@ Meteor.methods({
     check(insertAtTop, Boolean);
     check(mergeCardValues, Object);
 
+    if (!this.userId) throw new Meteor.Error('not-authorized');
     const card = await ReactiveCache.getCard(cardId);
+    if (!card) throw new Meteor.Error('not-found');
+    const sourceBoard = await Boards.findOneAsync(card.boardId);
+    if (!allowIsBoardMember(this.userId, sourceBoard))
+      throw new Meteor.Error('not-authorized');
+    const destBoard = await Boards.findOneAsync(boardId);
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
+      throw new Meteor.Error('not-authorized');
     Object.assign(card, mergeCardValues);
 
     const sort = await card.getSort(listId, swimlaneId, insertAtTop);

@@ -321,7 +321,11 @@ Meteor.methods({
     );
   },
 
-  getServiceConfiguration(service) {
-    return loadOidcConfig(service);
+  async getServiceConfiguration(service) {
+    const config = await loadOidcConfig(service);
+    if (!config) return null;
+    // Never expose the client secret to the caller
+    const { secret, ...publicConfig } = config;
+    return publicConfig;
   },
 });
