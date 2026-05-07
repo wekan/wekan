@@ -16,8 +16,12 @@ export LC_ALL=C
 export PATH=/snap/${SNAP_NAME}/current/migratemongo/avx:/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:$PATH
 export LD_LIBRARY_PATH=/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
-# start mongodb backup
+# start mongodb restore
 [ "x" == "x${MONGODB_BIND_IP}" ] && MONGODB_BIND_IP="127.0.0.1"
-echo "using bind ip"
-mongorestore --host $MONGODB_BIND_IP --port $MONGODB_PORT -d wekan --gzip --archive=$1
-# --noIndexRestore
+echo "using bind ip: $MONGODB_BIND_IP port: $MONGODB_PORT"
+# --drop: drop each collection before restoring to avoid IndexKeySpecsConflict
+# when the dump's index specs differ from the existing index definitions
+# (e.g. unique flag mismatch after a schema migration).
+# Add --noIndexRestore instead of --drop if you need to preserve existing data
+# and are happy to let WeKan rebuild indexes on next startup.
+mongorestore --host $MONGODB_BIND_IP --port $MONGODB_PORT -d wekan --drop --gzip --archive=$1

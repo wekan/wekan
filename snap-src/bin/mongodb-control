@@ -128,39 +128,92 @@ echo "Starting MongoDB 7.x server..."
 # Create PID file
 echo $$ > "${SNAP_COMMON}/mongodb.pid"
 
-# Check if this is the first time MongoDB is starting
+# Determine the expected replica set member host:port.
+# Priority: port extracted from MONGO_URL if it points to localhost,
+# otherwise the mongodb-port snap config (MONGODB_PORT).
 INIT_MARKER="${SNAP_COMMON}/.replica_set_initialized"
-
-# Start MongoDB directly in foreground with replica set
-# The replica set will be initialized by the init marker check below
-echo "Starting MongoDB 7.x server in foreground..."
-
-# Start in background briefly to initialize replica set if needed
-if [ ! -f "$INIT_MARKER" ]; then
-    echo "First startup detected - initializing replica set..."
-    /snap/${SNAP_NAME}/current/bin/mongod \
-        --dbpath="$MONGO_DATA_DIR" \
-        --logpath="$MONGO_LOG_FILE" \
-        --logappend $BIND_OPTIONS \
-        --replSet rs0 --oplogSize 128 --fork
-
-    sleep 5
-
-    # Initialize replica set
-    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT} --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:${MONGODB_PORT}'}]})" 2>/dev/null || true
-
-    # Mark initialization as done
-    touch "$INIT_MARKER"
-
-    # Kill the forked process gracefully
-    echo "Stopping temporary MongoDB process..."
-    /snap/${SNAP_NAME}/current/bin/mongosh --port ${MONGODB_PORT} --eval "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
-    sleep 2
-
-    # Clean up any remaining process
-    pkill -f "mongod.*${MONGODB_PORT}" 2>/dev/null || true
-    sleep 1
+_RS_PORT="${MONGODB_PORT:-27019}"
+if [ -n "$MONGO_URL" ]; then
+    _url_port=$(echo "$MONGO_URL" | sed -nE 's|mongodb://([^@]+@)?(127\.0\.0\.1|localhost):([0-9]+)/.*|\3|p')
+    [ -n "$_url_port" ] && _RS_PORT="$_url_port"
 fi
+RS_MEMBER_HOST="127.0.0.1:${_RS_PORT}"
+echo "Replica set member host: ${RS_MEMBER_HOST}"
+
+# Always start MongoDB temporarily in background to verify/fix replica set
+# config before the final foreground start.  This catches first-run,
+# port changes, and corrupt/missing replica set state.
+echo "Starting MongoDB temporarily to check replica set configuration..."
+/snap/${SNAP_NAME}/current/bin/mongod \
+    --dbpath="$MONGO_DATA_DIR" \
+    --logpath="$MONGO_LOG_FILE" \
+    --logappend $BIND_OPTIONS \
+    --replSet rs0 --oplogSize 128 --fork
+
+# Wait for MongoDB to accept connections (up to 30 s)
+echo "Waiting for MongoDB to accept connections on port ${_RS_PORT}..."
+_wait=0
+until /snap/${SNAP_NAME}/current/bin/mongosh --port "${_RS_PORT}" --quiet \
+        --eval "db.adminCommand({ping:1})" >/dev/null 2>&1; do
+    _wait=$((_wait + 1))
+    if [ $_wait -ge 30 ]; then
+        echo "WARNING: MongoDB did not respond within 30 seconds"
+        break
+    fi
+    sleep 1
+done
+
+# Check replica set status and current member host
+_rs_check=$(/snap/${SNAP_NAME}/current/bin/mongosh --port "${_RS_PORT}" --quiet --eval "
+    try {
+        var s = rs.status();
+        var c = rs.conf();
+        print('OK:' + c.members[0].host);
+    } catch(e) {
+        print('ERROR:' + e.message);
+    }
+" 2>/dev/null)
+echo "Replica set check: ${_rs_check}"
+
+if echo "$_rs_check" | grep -q "^OK:"; then
+    _current_member=$(echo "$_rs_check" | sed 's/^OK://')
+    if [ "$_current_member" != "$RS_MEMBER_HOST" ]; then
+        echo "Member host mismatch: current='${_current_member}', expected='${RS_MEMBER_HOST}'. Reconfiguring..."
+        /snap/${SNAP_NAME}/current/bin/mongosh --port "${_RS_PORT}" --eval "
+            try {
+                rs.reconfig({_id:'rs0', members:[{_id:0, host:'${RS_MEMBER_HOST}'}]}, {force:true});
+                print('Replica set reconfigured successfully.');
+            } catch(e) { print('Reconfig error: ' + e.message); }
+        " 2>/dev/null || true
+    else
+        echo "Replica set config is valid."
+    fi
+else
+    # Not initialized or config is invalid — try initiate first, then reconfig
+    echo "Replica set not ready. Initializing with member: ${RS_MEMBER_HOST}..."
+    /snap/${SNAP_NAME}/current/bin/mongosh --port "${_RS_PORT}" --eval "
+        try {
+            rs.initiate({_id:'rs0', members:[{_id:0, host:'${RS_MEMBER_HOST}'}]});
+            print('Replica set initialized.');
+        } catch(e) {
+            try {
+                rs.reconfig({_id:'rs0', members:[{_id:0, host:'${RS_MEMBER_HOST}'}]}, {force:true});
+                print('Replica set reconfigured.');
+            } catch(e2) { print('Error: ' + e2.message); }
+        }
+    " 2>/dev/null || true
+fi
+
+# Ensure init marker exists regardless of path taken above
+[ -f "$INIT_MARKER" ] || touch "$INIT_MARKER"
+
+# Shut down temporary MongoDB gracefully before the final foreground start
+echo "Stopping temporary MongoDB process..."
+/snap/${SNAP_NAME}/current/bin/mongosh --port "${_RS_PORT}" --eval \
+    "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
+sleep 2
+pkill -f "mongod.*--replSet rs0" 2>/dev/null || true
+sleep 1
 
 # Final start of MongoDB in foreground (this becomes the main process)
 exec /snap/${SNAP_NAME}/current/bin/mongod \
