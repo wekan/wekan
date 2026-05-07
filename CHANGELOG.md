@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.11 2026-05-07 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix Snap common directory path for Parallel Snap](https://github.com/wekan/wekan/commit/5b1cd3dc2fdea24ef5c86ac06a31acc664037bb1).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.10 2026-05-07 WeKan ® release
 
 This release fixes the following bugs:
