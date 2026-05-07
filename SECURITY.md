@@ -3,17 +3,31 @@
 There is no bounty, like described at [CONTRIBUTING.md](CONTRIBUTING.md),
 because WeKan is NOT Big Tech. WeKan is FLOSS.
 
-## Responsible Security Disclosure
+## Steps for Coordinated Vulnerability Disclosure
 
-1. Please email info about security issue to security@wekan.fi .
-   If possible, include code for fixing security issue.
-   Optional PGP key is at [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
-2. Wait for new WeKan release that fixes security issue to appear to top of
-   https://github.com/wekan/wekan/blob/main/CHANGELOG.md
-3. We will thank you by adding you to 
-   Hall the of Fame: https://wekan.fi/hall-of-fame/
-4. If you get CVE number assigned, please send it to security@wekan.fi, it will be added to
-   Hall the of Fame: https://wekan.fi/hall-of-fame/
+### 1. Security Researcher:
+
+- **Report**: Please email details regarding security vulnerabilities to **security@wekan.fi**.
+- **Proof of Concept (PoC)**: If possible, include a fix or a reproduction script/code.
+- **Encryption**: An optional PGP key is available at [security-at-wekan.fi.asc](security-at-wekan.fi.asc).
+
+### 2. WeKan Security Team:
+
+- **Remediation**: Please wait for a new WeKan release that addresses the issue.
+  Fixes are announced at the top of the [ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
+- **Recognition**: We will acknowledge your contribution by adding you to our
+  [Hall of Fame](https://wekan.fi/hall-of-fame/).
+- **CVE Policy**: WeKan Security does not facilitate CVE Coordination due to
+  our rapid release cycle (new versions are released almost daily).
+
+### 3. Post-Release and Public Disclosure:
+
+- **Independent CVE Assignment**: After the fix is public, you are welcome to coordinate
+  **CVE assignment** independently. Please send the assigned CVE IDs to **security@wekan.fi**,
+  and we will update your entry in the [Hall of Fame](https://wekan.fi/hall-of-fame/).
+- Publicity: If you publish blog posts, give talks, or write articles about the
+  reported vulnerabilities, please send the links to us. We will link them
+  to your entry in the [Hall of Fame](https://wekan.fi/hall-of-fame/) for additional context.
 
 ## How Should Reports Be Formatted?
 
