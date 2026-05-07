@@ -17,7 +17,7 @@ because WeKan is NOT Big Tech. WeKan is FLOSS.
   Fixes are announced at the top of the [ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
 - **Recognition**: We will acknowledge your contribution by adding you to our
   [Hall of Fame](https://wekan.fi/hall-of-fame/).
-- **CVE Policy**: WeKan Security does not facilitate CVE Coordination due to
+- **CVE Policy**: WeKan Security does not facilitate **CVE Coordination** due to
   our rapid release cycle (new versions are released almost daily).
 
 ### 3. Post-Release and Public Disclosure:
