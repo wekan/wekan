@@ -50,6 +50,7 @@ apps:
         command: ./bin/wekan-control
         daemon: simple
         plugs: [network, network-bind]
+        after: [mongodb]
 
     mongodb:
         command: ./bin/mongodb-control
@@ -60,6 +61,7 @@ apps:
         command: ./bin/caddy-control
         daemon: simple
         plugs: [network, network-bind]
+        after: [mongodb]
 
     help:
         command: ./bin/wekan-help

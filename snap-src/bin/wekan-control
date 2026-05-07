@@ -32,6 +32,24 @@ mkdir -p "$WRITABLE_PATH/avatars"
 echo -e "Using WRITABLE_PATH: $WRITABLE_PATH"
 
 echo -e "MONGO_URL=$MONGO_URL"
+
+# Wait for MongoDB replica set primary to be ready before starting WeKan.
+# With changeStreams, Meteor requires the replica set primary to be elected.
+# Large databases can take minutes to replay the WiredTiger journal after a snap update.
+if [ "true" != "${DISABLE_MONGODB}" ]; then
+    echo "Waiting for MongoDB replica set primary..."
+    MONGO_BIN="/snap/${SNAP_NAME}/current/bin/mongosh"
+    MONGO_PORT="${MONGODB_PORT:-27017}"
+    MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
+    until "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
+        --eval "try { quit(rs.status().ok === 1 && rs.isMaster().ismaster ? 0 : 1) } catch(e) { quit(1) }" \
+        >/dev/null 2>&1; do
+        echo "MongoDB not ready yet, retrying in 5 seconds..."
+        sleep 5
+    done
+    echo "MongoDB replica set primary is ready."
+fi
+
 APPLICATION_DIRECTORY=$SNAP
 APPLICATION_START=main.js
 cd $APPLICATION_DIRECTORY
