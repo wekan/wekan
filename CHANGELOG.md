@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.14 2026-05-07 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Snap Candidate: Reinitialize MongoDB ReplicaSet if it needs reconfig. When restoring, don't restore indexes](https://github.com/wekan/wekan/commit/8349167a32672f4c6e62ef6acbd2c9644b3e64fe).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.12 2026-05-07 WeKan ® release
 
 This release fixes the following bugs:
