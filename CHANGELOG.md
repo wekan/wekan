@@ -30,7 +30,9 @@ Versions:
 
 This release adds the following updates:
 
-- [Docs: Clarified SECURITY.md](https://github.com/wekan/wekan/commit/f347dc7d4dcf876a063a9aa4f1ea148d2894ac4c).
+- Docs: Clarified SECURITY.md.
+  [Part 1](https://github.com/wekan/wekan/commit/f347dc7d4dcf876a063a9aa4f1ea148d2894ac4c),
+  [Part 2](https://github.com/wekan/wekan/commit/90cfc3f69692dd7c78cb1382565e3cbd62fbff49).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
