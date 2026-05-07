@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix attachment cursor handling and await board access check](https://github.com/wekan/wekan/pull/6330).
+  Thanks to KhaoulaMaleh.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.09 2026-05-07 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [AuthBleed](https://wekan.fi/hall-of-fame/authbleed/):
