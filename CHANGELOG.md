@@ -35,6 +35,11 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/90cfc3f69692dd7c78cb1382565e3cbd62fbff49).
   Thanks to xet7.
 
+and adds the following tests:
+
+- [Added Playwright Tests 2026-05-07: 16 specs. 306/306 passing](https://github.com/wekan/wekan/commit/f2d6695fdc0ea16d8e833adf29e7e95a2df00325).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.08 2026-05-04 WeKan ® release
