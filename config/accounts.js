@@ -92,6 +92,7 @@ AccountsTemplates.configure({
   sendVerificationEmail: true,
   showForgotPasswordLink: !disableForgotPassword,
   forbidClientAccountCreation: disableRegistration,
+  homeRoutePath: '/',
   onSubmitHook(error, state) {
     if (error) {
       // Display error to user
