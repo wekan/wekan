@@ -14,6 +14,9 @@ fi
 
 # 2) Commit and push version number changes
 cd ~/repos/wekan
+
+~/repos/wekan/releases/release-bundle.sh $1
+
 git add --all
 git add package-lock.json
 git commit -m "v$1"
@@ -26,7 +29,6 @@ git push
 git push
 
 # 5) Build Bundle
-~/repos/wekan/releases/release-bundle.sh $1
 
 # 6) Build Sandstorm
 #~/repos/wekan/releases/release-sandstorm.sh $1
