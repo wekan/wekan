@@ -134,7 +134,7 @@ echo $$ > "${SNAP_COMMON}/mongodb.pid"
 INIT_MARKER="${SNAP_COMMON}/.replica_set_initialized"
 _RS_PORT="${MONGODB_PORT:-27019}"
 if [ -n "$MONGO_URL" ]; then
-    _url_port=$(echo "$MONGO_URL" | sed -nE 's|mongodb://([^@]+@)?(127\.0\.0\.1|localhost):([0-9]+)/.*|\3|p')
+    _url_port=$(echo "$MONGO_URL" | sed -nE 's#mongodb://([^@]+@)?(127\.0\.0\.1|localhost):([0-9]+)/.*#\3#p')
     [ -n "$_url_port" ] && _RS_PORT="$_url_port"
 fi
 RS_MEMBER_HOST="127.0.0.1:${_RS_PORT}"

@@ -39,7 +39,7 @@ echo -e "MONGO_URL=$MONGO_URL"
 if [ "true" != "${DISABLE_MONGODB}" ]; then
     echo "Waiting for MongoDB replica set primary..."
     MONGO_BIN="$SNAP/bin/mongosh"
-    MONGO_PORT="${MONGODB_PORT:-27017}"
+    MONGO_PORT="${MONGODB_PORT:-27019}"
     MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
     until "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
         --eval "try { quit(rs.status().ok === 1 && rs.isMaster().ismaster ? 0 : 1) } catch(e) { quit(1) }" \
