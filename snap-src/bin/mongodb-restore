@@ -13,8 +13,8 @@ export LC_ALL=C
 # Migratemongo is at https://github.com/wekan/migratemongo
 # and at directory /snap/${SNAP_NAME}/current/migratemongo/avx
 # is bash scripts like mongod, mongosh check avx support and use Qemu if needed.
-export PATH=/snap/${SNAP_NAME}/current/migratemongo/avx:/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:$PATH
-export LD_LIBRARY_PATH=/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+export PATH=$SNAP/migratemongo/avx:$SNAP/usr/bin:$SNAP/bin:$PATH
+export LD_LIBRARY_PATH=$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
 # start mongodb restore
 [ "x" == "x${MONGODB_BIND_IP}" ] && MONGODB_BIND_IP="127.0.0.1"

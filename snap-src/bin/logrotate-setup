@@ -6,10 +6,15 @@
 set -e
 
 # Configuration
+# Accept optional snap instance name as first argument for parallel installs.
+# Examples:
+#   sudo snap-src/bin/logrotate-setup              # default wekan instance
+#   sudo snap-src/bin/logrotate-setup wekan_team   # parallel instance
+SNAP_INSTANCE_NAME="${1:-${SNAP_INSTANCE_NAME:-wekan}}"
 SNAP_NAME="wekan"
-SNAP_COMMON="/var/snap/${SNAP_NAME}/common"
+SNAP_COMMON="/var/snap/${SNAP_INSTANCE_NAME}/common"
 LOGROTATE_DIR="/etc/logrotate.d"
-WEKAN_LOGROTATE_CONF="${LOGROTATE_DIR}/${SNAP_NAME}"
+WEKAN_LOGROTATE_CONF="${LOGROTATE_DIR}/${SNAP_INSTANCE_NAME}"
 
 # Log file paths
 MONGODB_LOG="${SNAP_COMMON}/mongodb.log"
@@ -35,9 +40,9 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Check if snap is installed
-if ! snap list | grep -q "^${SNAP_NAME} "; then
-    log_error "Snap ${SNAP_NAME} is not installed"
+# Check if snap instance is installed
+if ! snap list | grep -q "^${SNAP_INSTANCE_NAME} "; then
+    log_error "Snap instance ${SNAP_INSTANCE_NAME} is not installed"
     exit 1
 fi
 
@@ -169,7 +174,7 @@ log_message "To view logrotate status: sudo logrotate -d ${WEKAN_LOGROTATE_CONF}
 
 echo ""
 echo "Next steps:"
-echo "1. Configure MongoDB to log to file: sudo snap set ${SNAP_NAME} mongo-log-destination=snapcommon"
+echo "1. Configure MongoDB to log to file: sudo snap set ${SNAP_INSTANCE_NAME} mongo-log-destination=snapcommon"
 echo "2. Configure Wekan to log to file (if not already done)"
 echo "3. Test log rotation: sudo logrotate -f ${WEKAN_LOGROTATE_CONF}"
 echo "4. Monitor log files: ls -la ${SNAP_COMMON}/*.log*"

@@ -38,7 +38,7 @@ echo -e "MONGO_URL=$MONGO_URL"
 # Large databases can take minutes to replay the WiredTiger journal after a snap update.
 if [ "true" != "${DISABLE_MONGODB}" ]; then
     echo "Waiting for MongoDB replica set primary..."
-    MONGO_BIN="/snap/${SNAP_NAME}/current/bin/mongosh"
+    MONGO_BIN="$SNAP/bin/mongosh"
     MONGO_PORT="${MONGODB_PORT:-27017}"
     MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
     until "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
