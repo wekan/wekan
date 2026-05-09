@@ -26,6 +26,13 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+- [Try to fix Parallel Snap MongoDB ports](https://github.com/wekan/wekan/commit/31bcf947cb58339784a104126940508359cebabe).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.16 2026-05-09 WeKan ® release
 
 This release adds the following updates:
