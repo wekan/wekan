@@ -1,3 +1,20 @@
+// Fix bug in jam:offline 0.4.1: s?.message.includes() crashes when s.message is
+// undefined (e.g. during WebSocket reconnect errors that don't carry a .message).
+// Wrap _debug so the optional chain is complete: s?.message?.includes().
+(function patchJamOfflineDebug() {
+  const patched = Meteor._debug;
+  Meteor._debug = function (m, s) {
+    try {
+      return patched.call(this, m, s);
+    } catch (e) {
+      // jam:offline's override threw — fall back to the bare console log.
+      if (typeof console !== 'undefined') {
+        console.log(m, s);
+      }
+    }
+  };
+})();
+
 // PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
