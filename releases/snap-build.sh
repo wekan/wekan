@@ -17,7 +17,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   # # blacklist kvm
   #
   # If firewall is enabled, building snap does not work
-  sudo ufw disable
+  #sudo ufw disable
   sudo apt-get -y install snapd
   sudo systemctl enable snapd
   sudo systemctl start snapd
@@ -29,7 +29,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   multipass purge
   multipass launch --name ubu
   snapcraft pack
-  sudo ufw enable
+  #sudo ufw enable
   exit;
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   echo "macOS"
