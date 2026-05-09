@@ -37,6 +37,10 @@ and fixes the following bugs:
 
 - [Fix login and register to not require page reload by adding router fallback](https://github.com/wekan/wekan/commit/c52f2481d3d120a2f1c9ad58d7b5f47444510293).
   Thanks to xet7.
+- [Temporary fix to https://github.com/jamauro/offline/issues/27, waiting for new jam:offline version](https://github.com/wekan/wekan/commit/cb32b1158616a707f04bc068ce1d5a9d4f616455).
+  Thanks to xet7.
+- [Fixed uploading attachment to card](https://github.com/wekan/wekan/commit/cea6aee0389638afec9906c4431bbb36c9c8f0c8).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
