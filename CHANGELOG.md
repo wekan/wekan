@@ -33,6 +33,11 @@ This release adds the following updates:
 - [Bump fast-uri from 3.1.1 to 3.1.2](https://github.com/wekan/wekan/pull/6335).
   Thanks to dependabot.
 
+and fixes the following bugs:
+
+- [Fix login and register to not require page reload by adding router fallback](https://github.com/wekan/wekan/commit/c52f2481d3d120a2f1c9ad58d7b5f47444510293).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.15 2026-05-08 WeKan ® release
