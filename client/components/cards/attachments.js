@@ -7,6 +7,7 @@ import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManag
 import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
 import { formatDateTime } from '/imports/lib/dateUtils';
+import { EscapeActions } from '/client/lib/escapeActions';
 
 const { filesize } = require('filesize');
 import prettyMilliseconds from 'pretty-ms';
@@ -262,6 +263,24 @@ Template.attachmentViewer.events({
 });
 
 Template.attachmentGallery.helpers({
+  attachments() {
+    const card = Template.currentData();
+    if (!card) return [];
+    const cardId = typeof card.getRealId === 'function' ? card.getRealId() : card._id;
+    if (!cardId) return [];
+    const filesCursor = Attachments.find(
+      { 'meta.cardId': cardId },
+      { sort: { uploadedAt: -1 } },
+    );
+    // Call fetch() on the underlying Mongo cursor to establish a reactive
+    // dependency directly inside this Blaze computation. Without this,
+    // .each() (which calls cursor.map()) would not register reactivity and
+    // newly-uploaded attachments would not appear until a page reload.
+    if (filesCursor && filesCursor.cursor) {
+      filesCursor.cursor.fetch();
+    }
+    return filesCursor.each();
+  },
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
@@ -314,6 +333,7 @@ Template.cardAttachmentsPopup.helpers({
 
 Template.cardAttachmentsPopup.events({
   async 'change .js-attach-file'(event, templateInstance) {
+    event.stopPropagation();
     const card = this;
     const files = event.currentTarget.files;
     if (files) {
@@ -336,6 +356,10 @@ Template.cardAttachmentsPopup.events({
     }
   },
   'click .js-computer-upload'(event, templateInstance) {
+    // Prevent the click fired when the OS file-picker dialog closes from
+    // triggering EscapeActions and closing the popup before the upload starts.
+    // Same pattern as swimlanes.js after drag operations.
+    EscapeActions.preventNextClick();
     templateInstance.find('.js-attach-file').click();
     event.preventDefault();
   },
@@ -400,6 +424,11 @@ export async function handleFileUpload(card, files) {
       fileName: fileName,
       meta: Utils.getCommonAttachmentMetaFrom(card),
       chunkSize: 'dynamic',
+      // Use HTTP transport instead of DDP so file chunks go over a dedicated
+      // fetch POST rather than flooding the WebSocket/DDP channel.  DDP
+      // upload causes repeated DDP reconnects in Safari, showing the
+      // "Loading, please wait" offline banner and stalling progress at ~95%.
+      transport: 'http',
     };
     config.meta.fileId = fileId;
 
@@ -491,6 +520,7 @@ Template.previewClipboardImagePopup.events({
         meta: Utils.getCommonAttachmentMetaFrom(card),
         fileName: file.name || file.type.replace('image/', 'clipboard.'),
         chunkSize: 'dynamic',
+        transport: 'http',
       };
       config.meta.fileId = fileId;
       const uploader = await Attachments.insertAsync(
