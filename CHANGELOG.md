@@ -41,6 +41,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed uploading attachment to card](https://github.com/wekan/wekan/commit/cea6aee0389638afec9906c4431bbb36c9c8f0c8).
   Thanks to xet7.
+- [Fix Parallel Snap MongoDB port and paths, that worked at WeKan 9.07 but later broke](https://github.com/wekan/wekan/commit/c7f9c955966e3a165d76960625e422b220edaff7).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
