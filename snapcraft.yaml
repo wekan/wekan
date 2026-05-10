@@ -22,6 +22,11 @@ issues: https://github.com/wekan/wekan/issues
 source-code: https://github.com/wekan/wekan
 website: https://wekan.fi
 
+environment:
+  SNAP_DATA: "/var/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
+  SNAP_COMMON: "/var/snap/$SNAP_INSTANCE_NAME/common"
+  SNAP: "/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
+
 # Use platforms instead of architectures for core24 base
 platforms:
   amd64:

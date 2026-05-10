@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
+  export PATH="${PATH/\/snap\/wekan\//\/snap\/$SNAP_INSTANCE_NAME\/}"
+fi
+
 # Wekan Log Rotation Setup Script
 # This script sets up log rotation for Wekan snap installation
 
@@ -10,9 +14,6 @@ set -e
 # Examples:
 #   sudo snap-src/bin/logrotate-setup              # default wekan instance
 #   sudo snap-src/bin/logrotate-setup wekan_team   # parallel instance
-SNAP_INSTANCE_NAME="${1:-${SNAP_INSTANCE_NAME:-wekan}}"
-SNAP_NAME="wekan"
-SNAP_COMMON="/var/snap/${SNAP_INSTANCE_NAME}/common"
 LOGROTATE_DIR="/etc/logrotate.d"
 WEKAN_LOGROTATE_CONF="${LOGROTATE_DIR}/${SNAP_INSTANCE_NAME}"
 

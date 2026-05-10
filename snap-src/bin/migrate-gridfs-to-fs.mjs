@@ -167,3 +167,4 @@ await client.close();
 
 console.log(`[gridfs-migrate] Done. extracted=${done} skipped=${skipped} errors=${errors}`);
 process.exit(errors > 0 ? 1 : 0);
+

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
+  export PATH="${PATH/\/snap\/wekan\//\/snap\/$SNAP_INSTANCE_NAME\/}"
+fi
+
 # MongoDB Control Script
 # Starts MongoDB 7.x server only
 

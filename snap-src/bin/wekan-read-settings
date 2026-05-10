@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
+  export PATH="${PATH/\/snap\/wekan\//\/snap\/$SNAP_INSTANCE_NAME\/}"
+fi
+
 # read wekan config
 source $SNAP/bin/config
 

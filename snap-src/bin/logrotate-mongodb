@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
+  export PATH="${PATH/\/snap\/wekan\//\/snap\/$SNAP_INSTANCE_NAME\/}"
+fi
+
 # MongoDB Log Rotation Script for Wekan Snap
 # This script handles log rotation for MongoDB logs in the Wekan snap environment
 
