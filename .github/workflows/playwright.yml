@@ -15,7 +15,7 @@ jobs:
     name: Meteor unit tests
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Node 24
         uses: actions/setup-node@v4
@@ -55,7 +55,7 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Node 24
         uses: actions/setup-node@v4
@@ -130,7 +130,7 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Node 24
         uses: actions/setup-node@v4
