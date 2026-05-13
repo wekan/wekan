@@ -80,6 +80,8 @@ and fixes the following bugs:
   Thanks to brlin-tw and xet7.
 - [Fix Broken card report](https://github.com/wekan/wekan/commit/acc49aeccb78b13737d1777eb01e9e84b44b9f2b).
   Thanks to titver968 and xet7.
+- [Fix Email notifications show "undefined" instead of username](https://github.com/wekan/wekan/commit/ed5304cd306019c25f757aa296a5fb0aa6b8ef79).
+  Thanks to apiccolim, Raawen-dev and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
