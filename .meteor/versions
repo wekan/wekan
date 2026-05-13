@@ -56,8 +56,6 @@ matb33:collection-hooks@2.1.0
 meteor@2.3.1-beta350.10
 meteor-base@1.5.2
 meteortesting:browser-tests@1.4.2
-meteortesting:mocha@2.1.0
-meteortesting:mocha-core@8.0.1
 minifier-css@2.0.2-beta350.10
 minifier-js@3.2.0
 minimongo@2.2.0-beta350.10

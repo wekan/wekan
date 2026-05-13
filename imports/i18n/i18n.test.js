@@ -1,10 +1,10 @@
 import { Tracker } from 'meteor/tracker';
-import chai, { expect } from 'chai';
+import { use, expect } from 'chai';
 import sinon from 'sinon';
 import { TAPi18n } from './tap';
 
-chai.use(require('sinon-chai'));
-chai.use(require('chai-as-promised'));
+use(require('sinon-chai'));
+use(require('chai-as-promised'));
 
 describe('TAPi18n', () => {
 
