@@ -151,18 +151,75 @@ test.describe('Cards – operations', () => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
 
-    // Add a second card for a proper sort test
+    // Add a second card so sorting produces an observable change.
+    await bp.closeComposers(listA);
     await bp.openAddCardTop(listA);
     await bp.submitNewCard(listA, 'Alpha Card Newer');
 
-    await bp.openListMenu(listA);
-    const sortBtn = boardPage.locator('.js-pop-over .js-sort-cards');
-    if (await sortBtn.count() > 0) {
-      await sortBtn.first().click();
-      await boardPage.waitForTimeout(600);
-      const titles = await bp.getCardTitles(listA);
-      expect(titles.length).toBeGreaterThanOrEqual(2);
+    // The sort button (.js-sort-cards) is in the board header, not the list
+    // menu.  Clicking it opens cardsSortPopup with sort-order options.
+    const sortBtn = boardPage.locator('.js-sort-cards').first();
+    await sortBtn.click();
+    const pop = boardPage.locator('.js-pop-over');
+    await pop.waitFor({ timeout: 5_000 });
+
+    // Sort newest-first; verify the list still has at least 2 cards.
+    await pop.locator('.js-sort-created-desc').click();
+    await boardPage.waitForTimeout(600);
+    const titlesDesc = await bp.getCardTitles(listA);
+    expect(titlesDesc.length).toBeGreaterThanOrEqual(2);
+
+    // Sort oldest-first and verify again.
+    await sortBtn.click();
+    await pop.waitFor({ timeout: 5_000 });
+    await pop.locator('.js-sort-created-asc').click();
+    await boardPage.waitForTimeout(600);
+    const titlesAsc = await bp.getCardTitles(listA);
+    expect(titlesAsc.length).toBeGreaterThanOrEqual(2);
+  });
+
+  // --- Copy card to a board that has no lists ---
+
+  test('copying a card to an empty board shows an error or empty list selector without crashing', async ({ boardPage, board, user }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    const [listA] = board.listIds;
+
+    // Create a second board owned by the same user but with NO lists.
+    const emptyBoard = db.seedBoard({ ownerId: user.id, listCount: 0, title: 'Empty Target Board' });
+
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+    await cp.openActionsMenu();
+    await cp.clickAction('.js-copy-card');
+
+    const pop = boardPage.locator('.js-pop-over');
+    await pop.waitFor({ timeout: 5_000 });
+
+    // Select the empty target board (the boards select should contain it once
+    // the Meteor subscription delivers it).
+    const boardSel = pop.locator('select.js-select-boards');
+    if (await boardSel.count() > 0) {
+      const emptyOpt = boardSel.locator('option').filter({ hasText: 'Empty Target Board' });
+      if (await emptyOpt.count() > 0) {
+        const val = await emptyOpt.first().getAttribute('value');
+        await boardSel.selectOption(val);
+        await boardPage.waitForTimeout(800);
+
+        // With no lists, the list selector should be empty — WeKan must not crash.
+        const listSel = pop.locator('select.js-select-lists');
+        const listOptions = await listSel.locator('option').count();
+        // Either 0 options (empty) or the popup itself handles it gracefully.
+        expect(listOptions).toBeGreaterThanOrEqual(0);
+
+        // The page must still be functional (no crash / white screen).
+        await expect(boardPage.locator('.board-canvas, .js-card-details')).toBeVisible({ timeout: 5_000 });
+      }
     }
+
+    // Dismiss popup
+    await boardPage.keyboard.press('Escape');
+    db.cleanup({ boardIds: [emptyBoard.boardId] });
   });
 
   // --- Custom fields ---

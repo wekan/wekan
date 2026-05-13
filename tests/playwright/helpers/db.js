@@ -48,6 +48,7 @@ function seedUser(overrides = {}) {
       authenticationMethod: 'password',
       profile: {
         boardView: 'board-view-swimlanes',
+        fullname: 'E2E Test User',
         listWidths: {}, listConstraints: {}, autoWidthBoards: {},
         swimlaneHeights: {}, collapsedLists: {}, collapsedSwimlanes: {},
         keyboardShortcuts: false, verticalScrollbars: true,

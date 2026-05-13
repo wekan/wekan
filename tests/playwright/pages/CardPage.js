@@ -7,11 +7,25 @@
 class CardPage {
   constructor(page) {
     this.page = page;
-    this.root = page.locator('.js-card-details');
+    // In desktop swimlane view WeKan renders two .js-card-details for the same
+    // card: one inside .board-canvas (swimlane template) and one as a direct
+    // child of .board-wrapper (boardBody openCards list). Using the direct-child
+    // selector targets only the latter — the "main" sliding panel — and avoids
+    // Playwright strict-mode errors when methods like .click()/.fill() require
+    // exactly one matching element.
+    this.root = page.locator('.board-wrapper > .js-card-details');
   }
 
   async waitForOpen() {
-    await this.root.waitFor({ timeout: 15_000 });
+    // Prefer the scoped root selector; fall back to any .js-card-details in
+    // case the board-wrapper isn't present yet during initial page load.
+    const appeared = await this.root
+      .waitFor({ timeout: 15_000 })
+      .then(() => true)
+      .catch(() => false);
+    if (!appeared) {
+      await this.page.locator('.js-card-details').first().waitFor({ timeout: 5_000 });
+    }
   }
 
   // --- Title ---

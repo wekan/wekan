@@ -32,8 +32,14 @@ class SearchPage {
     const input = this.page.locator('input.global-search-query-input').first();
     await input.fill(term);
     await input.press('Enter');
-    // Wait for either results or the spinner to disappear.
-    await this.page.waitForTimeout(2_000);
+    // Wait until WeKan leaves the "searching" state. The template shows either:
+    //   .global-search-results-list-wrapper  (results found)
+    //   .global-search-help                  (no results / server error)
+    // Both are mutually exclusive with the spinner (.global-search-page loading).
+    await this.page
+      .locator('.global-search-results-list-wrapper, .global-search-help')
+      .first()
+      .waitFor({ timeout: 15_000 });
   }
 
   /**

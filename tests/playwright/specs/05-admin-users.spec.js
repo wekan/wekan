@@ -14,7 +14,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken, loginWithCredentials } = require('../helpers/auth');
+const { loginWithToken, loginWithCredentials, logout } = require('../helpers/auth');
 const AdminPage = require('../pages/AdminPage');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
@@ -74,6 +74,25 @@ test.describe('Admin – user management', () => {
     const parsed = JSON.parse(userDoc);
     // WeKan marks inactive via loginDisabled or profile field - check the toggle reflected
     expect(parsed).toBeTruthy(); // User still exists
+  });
+
+  test('admin can change a user password and the new password allows login', async ({ page, adminUser, user }) => {
+    const newPassword = 'NewTestPassword@99!';
+
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    const ap = new AdminPage(page);
+    await ap.navigateToPeople();
+
+    // Change password via the edit popup.
+    await ap.changePassword(user.username, newPassword);
+    // Popup should close after a successful save (Popup.back() is called).
+    await expect(page.locator('.js-pop-over')).not.toBeVisible({ timeout: 8_000 });
+
+    // Verify the new password actually works for credential-based login.
+    await logout(page);
+    await loginWithCredentials(page, user.username, newPassword);
+    // A successful login redirects away from /sign-in.
+    await expect(page).not.toHaveURL(/\/sign-in/, { timeout: 15_000 });
   });
 
   test('non-admin user cannot access /people (admin-only)', async ({ page, user }) => {

@@ -145,9 +145,17 @@ class BoardPage {
 
   // --- Sorting ---
 
+  /**
+   * Sort cards board-wide using the board-header sort button.
+   * criterion: 'created-desc' | 'created-asc' | 'title' | 'due'
+   * The sort button (.js-sort-cards) lives in the board header — NOT the list
+   * menu — and opens the cardsSortPopup with .js-sort-<criterion> options.
+   */
   async sortCardsBy(listId, criterion) {
-    await this.openListMenu(listId);
-    await this.clickListMenuItem(`.js-sort-cards-by-${criterion}`);
+    await this.page.locator('.js-sort-cards').first().click();
+    await this.page.locator('.js-pop-over').waitFor();
+    await this.page.locator(`.js-pop-over .js-sort-${criterion}`).click();
+    await this.page.waitForTimeout(600);
   }
 }
 
