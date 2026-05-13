@@ -606,6 +606,17 @@ Template.boardBody.onDestroyed(function () {
 });
 
 Template.boardBody.helpers({
+  openCards() {
+    const isMobile = Utils.getMobileMode();
+    if (!isMobile) {
+      const openCardIds = Session.get('openCards') || [];
+      return openCardIds
+        .map((id) => ReactiveCache.getCard(id))
+        .filter((card) => card);
+    }
+    return [];
+  },
+
   draggingActive() {
     return Template.instance().draggingActive.get();
   },
