@@ -38,6 +38,8 @@ This release adds the following updates:
   Thanks to GitHub Copilot.
 - [rebuild-wekan.sh: At macOS, add paths to Node.js 24.x](https://github.com/wekan/wekan/commit/7f1dd16dfcb844051c763f1dd5670a7a41921e2f).
   Thanks to xet7.
+- [Updated tests dependencies](https://github.com/wekan/wekan/commit/8e4404ab49037c6558e1789548d73138aab12412).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
