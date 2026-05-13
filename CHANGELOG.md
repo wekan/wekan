@@ -32,6 +32,8 @@ This release adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/7efba64c393d904ad0095ec294863db1f148b47d).
   Thanks to developers of dependencies.
+- [Isolate Playwright from root node_modules to fix E2E Rspack bundling errors](https://github.com/wekan/wekan/pull/6344).
+  Thanks to GitHub Copilot.
 
 and fixes the following bugs:
 
