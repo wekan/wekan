@@ -19,25 +19,21 @@
     "./jade.1"
   ],
   "dependencies": {
-    "character-parser": "1.2.0",
-    "commander": "2.1.0",
-    "constantinople": "^4.0.1",
-    "mkdirp": "~0.3.5",
+    "commander": "^12.0.0",
+    "mkdirp": "^3.0.1",
+    "character-parser": "^4.0.0",
     "monocle": "1.1.51",
-    "transformers": "^1.8.3",
     "with": "^7.0.2"
   },
   "devDependencies": {
-    "browserify": "*",
-    "coffee-script": "*",
-    "istanbul": "*",
-    "less": "*",
-    "linify": "*",
-    "markdown": "*",
-    "mocha": "*",
-    "should": "*",
+    "coffeescript": "^2.7.0",
+    "mocha": "^11.7.5",
+    "nyc": "^18.0.0",
     "stylus": "*",
-    "uglify-js": "*"
+    "should": "*",
+    "less": "*",
+    "uglify-js": "*",
+    "browserify": "*"
   },
   "component": {
     "scripts": {
@@ -46,11 +42,11 @@
   },
   "scripts": {
     "test": "mocha -R spec && npm run coverage",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha",
-    "prepublish": "npm prune && linify transform bin && npm run build",
+    "coverage": "nyc mocha",
+    "prepublish": "npm prune && npm run build",
     "build": "npm run compile",
     "compile": "npm run compile-full && npm run compile-runtime",
-    "compile-full": "browserify ./lib/jade.js --standalone jade -x ./node_modules/transformers > jade.js",
+    "compile-full": "browserify ./lib/jade.js --standalone jade > jade.js",
     "compile-runtime": "browserify ./lib/runtime.js --standalone jade > runtime.js"
   },
   "browser": {
