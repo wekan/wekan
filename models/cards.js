@@ -2797,6 +2797,10 @@ const findDueCards = async days => {
     });
     for (const card of cards) {
       const user = await ReactiveCache.getUser(card.userId);
+      if (!user) {
+        console.warn('Due date notification: user not found for card', card._id, 'userId', card.userId);
+        continue;
+      }
       const username = user.username;
       const activity = {
         userId: card.userId,
@@ -2812,9 +2816,11 @@ const findDueCards = async days => {
       await Activities.insertAsync(activity);
     }
   };
-  const now = new Date(),
-    aday = 3600 * 24 * 1e3,
-    then = day => new Date(now.setHours(0, 0, 0, 0) + day * aday);
+  // Capture midnight of today once to avoid mutation side-effects across calls
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  const aday = 3600 * 24 * 1e3;
+  const then = day => new Date(startOfToday.getTime() + day * aday);
   if (!days) return;
   if (!days.map) days = [days];
   for (const day of days) {
@@ -2822,9 +2828,10 @@ const findDueCards = async days => {
     if (day === 0) {
       args = [then(0), then(1), 'duenow'];
     } else if (day > 0) {
-      args = [then(1), then(day), 'almostdue'];
+      // day=N: notify about cards due within the next N days (not today)
+      args = [then(1), then(day + 1), 'almostdue'];
     } else {
-      args = [then(day), now, 'pastdue'];
+      args = [then(day), then(0), 'pastdue'];
     }
     await seekDue(...args);
   }
@@ -2839,14 +2846,13 @@ const addCronJob = debounce(
       .split(',')
       .map(value => {
         const iValue = parseInt(value, 10);
-        if (!(iValue > 0 && iValue < 15)) {
-          // notifying due is disabled
+        // Allow -14..14: positive = days before due, 0 = due today, negative = days past due
+        if (isNaN(iValue) || iValue < -14 || iValue > 14) {
           return false;
-        } else {
-          return iValue;
         }
+        return iValue;
       })
-      .filter(Boolean);
+      .filter(v => v !== false);
     const notifyitvl = process.env.NOTIFY_DUE_AT_HOUR_OF_DAY; //passed in the itvl has to be a number standing for the hour of current time
     const defaultitvl = 8; // default every morning at 8am, if the passed env variable has parsing error use default
     const itvl = parseInt(notifyitvl, 10) || defaultitvl;
