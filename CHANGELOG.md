@@ -52,10 +52,13 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/6d56d69ae375d4898de7e50b0533ff82eabceb31),
   [Part 3](https://github.com/wekan/wekan/commit/0c6acbfaa27656be2e98dba10d05d019241a2609),
   [Part 4](https://github.com/wekan/wekan/commit/66506186822b77674767041db6e6b94db1191816),
-  [Part 5](https://github.com/wekan/wekan/commit/568ea35ed7bfa5328bc34f0ccb9b5347685af6e8).
+  [Part 5](https://github.com/wekan/wekan/commit/568ea35ed7bfa5328bc34f0ccb9b5347685af6e8),
+  [Part 6](https://github.com/wekan/wekan/commit/24f4bfd5add57d6fd4c0b3399b3a4e9074f6a582).
   Thanks to xet7.
 - [Fix LDAP Admin Sync](https://github.com/wekan/wekan/commit/1950aff8650056b19eff3faf95d155ce8486cf7a).
   Thanks to titver968 and xet7.
+- [Fix editing comments](https://github.com/wekan/wekan/commit/7fb2c3de7b7de114cbe58233b48694cee43a59ea).
+  Thanks to dehnamaki and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
