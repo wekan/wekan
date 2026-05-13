@@ -702,9 +702,9 @@ if (Meteor.isServer) {
       return next();
     }
 
-    // Redirect to standard route
+    // Use absolute URL so the redirect is correct under sub-URL (ROOT_URL with path prefix) deployments
     const fileId = extractFirstIdFromUrl(req, '/attachments');
-    const newUrl = `/cdn/storage/attachments/${fileId}`;
+    const newUrl = Meteor.absoluteUrl(`cdn/storage/attachments/${fileId}`);
     res.writeHead(301, { 'Location': newUrl });
     res.end();
   });
@@ -718,9 +718,9 @@ if (Meteor.isServer) {
       return next();
     }
 
-    // Redirect to standard route
+    // Use absolute URL so the redirect is correct under sub-URL deployments
     const fileId = extractFirstIdFromUrl(req, '/avatars');
-    const newUrl = `/cdn/storage/avatars/${fileId}`;
+    const newUrl = Meteor.absoluteUrl(`cdn/storage/avatars/${fileId}`);
     res.writeHead(301, { 'Location': newUrl });
     res.end();
   });

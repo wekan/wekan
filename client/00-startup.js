@@ -1,3 +1,19 @@
+// Fix dynamic-import chunk loading when Wekan runs under a sub-path (ROOT_URL includes a pathname,
+// e.g. https://example.com/wekan). Rspack uses __webpack_public_path__ to prefix chunk URLs; by
+// default it is set to /build-chunks/ (no context path). We update it here, at module evaluation
+// time, before any import() expression runs (those are deferred to Meteor.startup callbacks).
+/* global __webpack_public_path__:writable */
+try {
+  const _cfg = typeof window !== 'undefined' && window.__meteor_runtime_config__;
+  const _rootUrl = _cfg && _cfg.ROOT_URL;
+  if (_rootUrl) {
+    const _rootPath = new URL(_rootUrl).pathname.replace(/\/+$/, '');
+    if (_rootPath && _rootPath !== '/') {
+      __webpack_public_path__ = _rootPath + '/build-chunks/';
+    }
+  }
+} catch (_) {}
+
 // Fix bug in jam:offline 0.4.1: s?.message.includes() crashes when s.message is
 // undefined (e.g. during WebSocket reconnect errors that don't carry a .message).
 // Wrap _debug so the optional chain is complete: s?.message?.includes().
@@ -15,10 +31,11 @@
   };
 })();
 
-// PWA
+// PWA — use Meteor.absoluteUrl so the path is correct under sub-URL deployments
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/pwa-service-worker.js');
+    const swPath = new URL('pwa-service-worker.js', Meteor.absoluteUrl()).pathname;
+    navigator.serviceWorker.register(swPath);
   });
 }
 

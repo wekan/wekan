@@ -7,6 +7,23 @@
 import { Meteor } from 'meteor/meteor';
 
 /**
+ * Return the ROOT_URL pathname prefix (e.g. "/wekan") for use in client-side URLs.
+ * Server-side always returns '' because WebApp.handlers strips the prefix before routing.
+ */
+function getRootUrlPath() {
+  if (Meteor.isClient) {
+    try {
+      const cfg = typeof window !== 'undefined' && window.__meteor_runtime_config__;
+      const rootUrl = cfg && cfg.ROOT_URL;
+      if (rootUrl) {
+        return new URL(rootUrl).pathname.replace(/\/+$/, '');
+      }
+    } catch (_) {}
+  }
+  return '';
+}
+
+/**
  * Generate a universal file URL that works regardless of ROOT_URL and PORT
  * @param {string} fileId - The file ID
  * @param {string} type - The file type ('attachment' or 'avatar')
@@ -18,11 +35,11 @@ export function generateUniversalFileUrl(fileId, type, version = 'original') {
     return '';
   }
 
-  // Always use relative URLs to avoid ROOT_URL and PORT dependencies
+  const prefix = getRootUrlPath();
   if (type === 'attachment') {
-    return `/cdn/storage/attachments/${fileId}`;
+    return `${prefix}/cdn/storage/attachments/${fileId}`;
   } else if (type === 'avatar') {
-    return `/cdn/storage/avatars/${fileId}`;
+    return `${prefix}/cdn/storage/avatars/${fileId}`;
   }
 
   return '';
@@ -154,11 +171,11 @@ export function generateFallbackUrl(fileId, type) {
     return '';
   }
 
-  // Try alternative route patterns
+  const prefix = getRootUrlPath();
   if (type === 'attachment') {
-    return `/attachments/${fileId}`;
+    return `${prefix}/attachments/${fileId}`;
   } else if (type === 'avatar') {
-    return `/avatars/${fileId}`;
+    return `${prefix}/avatars/${fileId}`;
   }
 
   return '';
