@@ -1,0 +1,169 @@
+name: Playwright E2E Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: playwright-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Meteor unit tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install Meteor
+        run: curl https://install.meteor.com/ | sh
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Run Meteor unit tests
+        run: meteor test --once --driver-package meteortesting:mocha
+        env:
+          TEST_WATCH: '0'
+
+  e2e-tests:
+    name: Playwright E2E (${{ matrix.project }})
+    runs-on: ubuntu-24.04
+    needs: unit-tests
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox]
+        # webkit excluded from CI (requires macOS runner) — run locally with npm run test:e2e:all
+
+    services:
+      mongodb:
+        image: mongo:7
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install Meteor
+        run: curl https://install.meteor.com/ | sh
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps ${{ matrix.project }}
+        working-directory: tests/playwright
+
+      - name: Start WeKan in background
+        run: |
+          MONGO_URL=mongodb://localhost:27017/wekan_test \
+          ROOT_URL=http://localhost:3000 \
+          PORT=3000 \
+          meteor run --settings settings.json &
+          # Wait up to 120 s for WeKan to become available
+          for i in $(seq 1 24); do
+            curl -sf http://localhost:3000 > /dev/null && break
+            echo "Waiting for WeKan... attempt $i"
+            sleep 5
+          done
+        env:
+          DISABLE_CAPTCHA: 'true'
+
+      - name: Run Playwright tests (${{ matrix.project }})
+        run: |
+          npx playwright test \
+            --project=${{ matrix.project }} \
+            --reporter=github
+        working-directory: tests/playwright
+        env:
+          WEKAN_BASE_URL: http://localhost:3000
+          WEKAN_MONGO_URL: mongodb://localhost:27017/wekan_test
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-${{ matrix.project }}
+          path: tests/playwright/playwright-report/
+          retention-days: 14
+
+      - name: Upload test results (screenshots / videos)
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-${{ matrix.project }}
+          path: tests/playwright/test-results/
+          retention-days: 7
+
+  e2e-regression:
+    name: Puppeteer regression suite
+    runs-on: ubuntu-24.04
+    needs: unit-tests
+
+    services:
+      mongodb:
+        image: mongo:7
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install Meteor
+        run: curl https://install.meteor.com/ | sh
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: sudo apt-get install -y chromium-browser
+
+      - name: Start WeKan in background
+        run: |
+          MONGO_URL=mongodb://localhost:27017/wekan_regression \
+          ROOT_URL=http://localhost:3000 \
+          PORT=3000 \
+          meteor run &
+          for i in $(seq 1 24); do
+            curl -sf http://localhost:3000 > /dev/null && break
+            sleep 5
+          done
+        env:
+          DISABLE_CAPTCHA: 'true'
+
+      - name: Run list-regressions e2e
+        run: node tests/e2e/list-regressions.js
+        env:
+          WEKAN_BASE_URL: http://localhost:3000
+          WEKAN_MONGO_URL: mongodb://localhost:27017/wekan_regression
+          CHROMIUM_PATH: /usr/bin/chromium-browser
+          HEADLESS: 'true'
