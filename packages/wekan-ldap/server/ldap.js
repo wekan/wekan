@@ -365,7 +365,7 @@ export default class LDAP {
 
   async getUserGroups(username, ldapUser) {
     if (!this.options.group_filter_enabled) {
-      return true;
+      return [];
     }
 
     const filter = ['(&'];
