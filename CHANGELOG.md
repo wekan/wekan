@@ -30,10 +30,14 @@ Versions:
 
 This release adds the following updates:
 
-- [Updated dependencies](https://github.com/wekan/wekan/commit/7efba64c393d904ad0095ec294863db1f148b47d).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/7efba64c393d904ad0095ec294863db1f148b47d),
+  [Part 2](https://github.com/wekan/wekan/commit/09a5737e21661e66950086950d9f8646600f37ca).
   Thanks to developers of dependencies.
 - [Isolate Playwright from root node_modules to fix E2E Rspack bundling errors](https://github.com/wekan/wekan/pull/6344).
   Thanks to GitHub Copilot.
+- [rebuild-wekan.sh: At macOS, add paths to Node.js 24.x](https://github.com/wekan/wekan/commit/7f1dd16dfcb844051c763f1dd5670a7a41921e2f).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
