@@ -78,6 +78,8 @@ and fixes the following bugs:
   Thanks to titver968 and xet7.
 - [Fix Show Checklist on Minicard and make it editable at Minicard. Fix spurious minicard cover element](https://github.com/wekan/wekan/commit/997931e462e736b87ee6b6866dcc3e997cefa39d).
   Thanks to brlin-tw and xet7.
+- [Fix Broken card report](https://github.com/wekan/wekan/commit/acc49aeccb78b13737d1777eb01e9e84b44b9f2b).
+  Thanks to titver968 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
