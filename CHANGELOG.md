@@ -43,6 +43,8 @@ and fixes the following bugs:
 
 - [Fix Docker Compose missing dashes](https://github.com/wekan/wekan/commit/c1f0da121708a461045fce70f65a33eb2f83a6c0).
   Thanks to C0rn3j, kichkasch and xet7.
+- [Fix Playwright tests](https://github.com/wekan/wekan/commit/9962f2bd9bde19114e497db30b3aba577e55a57f).
+  Thanks to snowsky and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
