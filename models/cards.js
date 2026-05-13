@@ -2167,9 +2167,9 @@ Cards.helpers({
       }
     }
 
-    Cards.updateAsync(this._id, { $set: mutatedFields });
+    await Cards.updateAsync(this._id, { $set: mutatedFields });
 
-    if (Meteor.isServer && Meteor.userId() && typeof UserPositionHistory !== 'undefined') {
+    if (Meteor.isServer && typeof Meteor.userId === 'function' && Meteor.userId() && typeof UserPositionHistory !== 'undefined') {
       try {
         UserPositionHistory.trackChange({
           userId: Meteor.userId(),

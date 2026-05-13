@@ -1,3 +1,4 @@
+import { DDP } from 'meteor/ddp';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TriggersDef } from '/server/triggersDef';
 import EmailLocalization from '/server/lib/emailLocalization';
@@ -5,6 +6,13 @@ import Cards from '/models/cards';
 import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import Swimlanes from '/models/swimlanes';
+
+async function withUserId(userId, fn) {
+  if (userId && typeof DDP._CurrentMethodInvocation?.withValue === 'function') {
+    return DDP._CurrentMethodInvocation.withValue({ userId }, fn);
+  }
+  return fn();
+}
 
 export const RulesHelper = {
   async executeRules(activity) {
@@ -119,12 +127,12 @@ export const RulesHelper = {
         const minOrder = Math.min(
           ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
-        await card.move(action.boardId, swimlaneId, listId, minOrder - 1);
+        await withUserId(activity.userId, () => card.move(action.boardId, swimlaneId, listId, minOrder - 1));
       } else {
         const maxOrder = Math.max(
           ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
-        await card.move(action.boardId, swimlaneId, listId, maxOrder + 1);
+        await withUserId(activity.userId, () => card.move(action.boardId, swimlaneId, listId, maxOrder + 1));
       }
     }
     if (action.actionType === 'sendEmail') {
