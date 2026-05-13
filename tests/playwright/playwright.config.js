@@ -5,6 +5,7 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
 module.exports = defineConfig({
   testDir: './specs',
+  testMatch: '**/*.e2e.js',
   timeout: 60_000,
   expect: { timeout: 15_000 },
   fullyParallel: false,
