@@ -47,6 +47,8 @@ and fixes the following bugs:
   Thanks to C0rn3j, kichkasch and xet7.
 - [Fix Playwright tests](https://github.com/wekan/wekan/commit/9962f2bd9bde19114e497db30b3aba577e55a57f).
   Thanks to snowsky and xet7.
+- [Try to fix Playwright tests at GitHub Actions](https://github.com/wekan/wekan/commit/0e287c9117a2e98e0314a68899dc2151f74b6426).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
