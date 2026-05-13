@@ -70,6 +70,8 @@ and fixes the following bugs:
   Thanks to WassimDhib and xet7.
 - [Fix Add Board / Import is not visible](https://github.com/wekan/wekan/commit/52dc6e99269c12198a0807e3e6da513e76c97001).
   Thanks to titver968 and xet7.
+- [Fix Sub-URL at ROOT_URL does not work](https://github.com/wekan/wekan/commit/af86ea8785fa912edd0bb062785aaaf21e08623f).
+  Thanks to Meridiana and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
