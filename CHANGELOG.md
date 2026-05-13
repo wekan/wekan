@@ -74,6 +74,10 @@ and fixes the following bugs:
   Thanks to Meridiana and xet7.
 - [Fix Search cards should return more results](https://github.com/wekan/wekan/commit/5105cf648954f3a0a03921a0f1ddbd2f5f02ea6b).
   Thanks to snowsky and xet7.
+- [Fix Boards Place Sorting](https://github.com/wekan/wekan/commit/e837c0948a6127817a3450723b4b3bb728abb6a9).
+  Thanks to titver968 and xet7.
+- [Fix Show Checklist on Minicard and make it editable at Minicard. Fix spurious minicard cover element](https://github.com/wekan/wekan/commit/997931e462e736b87ee6b6866dcc3e997cefa39d).
+  Thanks to brlin-tw and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
