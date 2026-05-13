@@ -72,6 +72,8 @@ and fixes the following bugs:
   Thanks to titver968 and xet7.
 - [Fix Sub-URL at ROOT_URL does not work](https://github.com/wekan/wekan/commit/af86ea8785fa912edd0bb062785aaaf21e08623f).
   Thanks to Meridiana and xet7.
+- [Fix Search cards should return more results](https://github.com/wekan/wekan/commit/5105cf648954f3a0a03921a0f1ddbd2f5f02ea6b).
+  Thanks to snowsky and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
