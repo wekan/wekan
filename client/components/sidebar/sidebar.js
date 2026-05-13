@@ -185,13 +185,20 @@ Template.sidebar.events({
     FlowRouter.go('shortcuts');
   },
   'click .js-keyboard-shortcuts-toggle'() {
-    ReactiveCache.getCurrentUser().toggleKeyboardShortcuts();
+    const user = ReactiveCache.getCurrentUser();
+    if (user) user.toggleKeyboardShortcuts();
   },
   'click .js-vertical-scrollbars-toggle'() {
     ReactiveCache.getCurrentUser().toggleVerticalScrollbars();
   },
   'click .js-show-week-of-year-toggle'() {
-    ReactiveCache.getCurrentUser().toggleShowWeekOfYear();
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      user.toggleShowWeekOfYear();
+    } else {
+      const current = window.localStorage.getItem('showWeekOfYear') === 'true';
+      window.localStorage.setItem('showWeekOfYear', String(!current));
+    }
   },
   'click .sidebar-accessibility'(event, tpl) {
     FlowRouter.go('accessibility');
@@ -226,7 +233,8 @@ Template.homeSidebar.helpers({
   },
   isShowWeekOfYear() {
     const user = ReactiveCache.getCurrentUser();
-    return user && user.isShowWeekOfYear();
+    if (!user) return window.localStorage.getItem('showWeekOfYear') === 'true';
+    return user.isShowWeekOfYear();
   },
   showActivities() {
     let ret = Utils.getCurrentBoard().showActivities ?? false;

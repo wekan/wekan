@@ -169,16 +169,34 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
   check(swimlanesLimit, Match.Integer);
 
   const userId = this.userId;
-  if (!userId) {
-    return this.ready();
-  }
 
   const safeCardsLimit = Math.max(1, Math.min(cardsLimit, 500));
   const safeListsLimit = Math.max(1, Math.min(listsLimit, 500));
   const safeSwimlaneLimit = Math.max(1, Math.min(swimlanesLimit, 500));
 
   const board = await ReactiveCache.getBoard({ _id: boardId });
-  if (!board || !board.isVisibleBy({ _id: userId })) {
+  if (!board) return this.ready();
+
+  if (!userId) {
+    // Unauthenticated users can only see archived lists/swimlanes on public boards
+    if (board.permission !== 'public') return this.ready();
+
+    const archivedListsSelector = { boardId, archived: true };
+    const archivedSwimlanesSelector = { boardId, archived: true };
+    const listsCursor = Lists.find(archivedListsSelector, {
+      sort: { archivedAt: -1, modifiedAt: -1 },
+      limit: safeListsLimit,
+      fields: { title: 1, archivedAt: 1, boardId: 1, archived: 1 },
+    });
+    const swimlanesCursor = Swimlanes.find(archivedSwimlanesSelector, {
+      sort: { archivedAt: -1, modifiedAt: -1 },
+      limit: safeSwimlaneLimit,
+      fields: { title: 1, archivedAt: 1, boardId: 1, archived: 1 },
+    });
+    return [listsCursor, swimlanesCursor];
+  }
+
+  if (!board.isVisibleBy({ _id: userId })) {
     return [];
   }
 

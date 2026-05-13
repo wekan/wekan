@@ -39,7 +39,22 @@ Template.boardChangeTitlePopup.events({
   },
 });
 
+Template.boardHeaderBar.onCreated(function () {
+  Meteor.subscribe('tableVisibilityModeSettings');
+});
+
 Template.boardHeaderBar.helpers({
+  notDisplayThisBoard() {
+    const allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
+    const currentBoard = Utils.getCurrentBoard();
+    return (
+      allowPrivateVisibilityOnly !== undefined &&
+      allowPrivateVisibilityOnly.booleanValue &&
+      currentBoard &&
+      currentBoard.permission === 'public'
+    );
+  },
+
   watchLevel() {
     const currentBoard = Utils.getCurrentBoard();
     return currentBoard && currentBoard.getWatchLevel(Meteor.userId());
@@ -218,7 +233,7 @@ function createBoardHelpers() {
       return Template.instance().visibility.get();
     },
     notAllowPrivateVisibilityOnly() {
-      return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
+      return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
     },
     visibilityCheck() {
       return Template.currentData() === Template.instance().visibility.get();
@@ -288,7 +303,7 @@ async function createBoardSubmit(tpl, event) {
 function createBoardEvents() {
   return {
     'click .js-select-visibility'(event, tpl) {
-      tpl.visibility.set(Template.currentData());
+      tpl.visibility.set(this);
       tpl.visibilityMenuIsOpen.set(false);
     },
     'click .js-change-visibility'(event, tpl) {
@@ -347,7 +362,7 @@ Template.headerBarCreateBoardPopup.helpers(createBoardHelpers());
 
 Template.headerBarCreateBoardPopup.events({
   'click .js-select-visibility'(event, tpl) {
-    tpl.visibility.set(Template.currentData());
+    tpl.visibility.set(this);
     tpl.visibilityMenuIsOpen.set(false);
   },
   'click .js-change-visibility'(event, tpl) {
@@ -366,13 +381,19 @@ Template.headerBarCreateBoardPopup.events({
   },
 });
 
+Template.boardVisibilityList.helpers({
+  notAllowPrivateVisibilityOnly() {
+    return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
+  },
+});
+
 Template.boardChangeVisibilityPopup.onCreated(function () {
   Meteor.subscribe('tableVisibilityModeSettings');
 });
 
 Template.boardChangeVisibilityPopup.helpers({
   notAllowPrivateVisibilityOnly(){
-    return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
+    return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
   },
   visibilityCheck() {
     const currentBoard = Utils.getCurrentBoard();
@@ -383,7 +404,7 @@ Template.boardChangeVisibilityPopup.helpers({
 Template.boardChangeVisibilityPopup.events({
   'click .js-select-visibility'() {
     const currentBoard = Utils.getCurrentBoard();
-    const visibility = Template.currentData();
+    const visibility = this;
     if (typeof visibility === 'string') {
       currentBoard.setVisibility(visibility);
       Popup.back();

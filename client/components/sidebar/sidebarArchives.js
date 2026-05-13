@@ -151,13 +151,14 @@ Template.archivesSidebar.helpers({
     return Template.instance().isArchiveReady;
   },
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isBoardAdmin();
   },
   isWorker() {
     const currentBoard = Utils.getCurrentBoard();
-    return (
-      !currentBoard.hasAdmin(this.userId) && currentBoard.hasWorker(this.userId)
-    );
+    if (!currentBoard) return false;
+    const userId = Meteor.userId();
+    return !currentBoard.hasAdmin(userId) && currentBoard.hasWorker(userId);
   },
 
   tabs() {

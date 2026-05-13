@@ -170,7 +170,7 @@ Template['cardCustomField-date'].helpers({
   },
   showDate() {
     const currentUser = ReactiveCache.getCurrentUser();
-    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    const dateFormat = currentUser ? currentUser.getDateFormat() : (window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD');
     return formatDateByUserPreference(Template.instance().date.get(), dateFormat, true);
   },
   showISODate() {

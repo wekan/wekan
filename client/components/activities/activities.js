@@ -290,7 +290,8 @@ Template.activity.helpers({
 
 Template.commentReactions.events({
   'click .reaction'(event) {
-    if (ReactiveCache.getCurrentUser().isBoardMember()) {
+    const user = ReactiveCache.getCurrentUser();
+    if (user && user.isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
       const cardComment = ReactiveCache.getCardComment(commentId);
@@ -302,7 +303,8 @@ Template.commentReactions.events({
 
 Template.addReactionPopup.events({
   'click .add-comment-reaction'(event) {
-    if (ReactiveCache.getCurrentUser().isBoardMember()) {
+    const user = ReactiveCache.getCurrentUser();
+    if (user && user.isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
       const cardComment = ReactiveCache.getCardComment(commentId);

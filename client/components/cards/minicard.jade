@@ -149,13 +149,12 @@ template(name="minicard")
         +userAvatar(userId=this.userId noRemove=true)
 
     .badges
-      if canModifyCard
-        if comments.length
-          .badge(title="{{_ 'card-comments-title' comments.length }}")
-            span.badge-icon.badge-comment.badge-text
-              i.fa.fa-comment-o
-              = ' '
-              = comments.length
+      if comments.length
+        .badge(title="{{_ 'card-comments-title' comments.length }}")
+          span.badge-icon.badge-comment.badge-text
+            i.fa.fa-comment-o
+            = ' '
+            = comments.length
             //span.badge-comment.badge-text
             //|
               {{_ 'comment'}}

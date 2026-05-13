@@ -268,7 +268,11 @@ Template.cardDetails.helpers({
   },
 
   cardMaximized() {
-    return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
+    const currentUser = ReactiveCache.getCurrentUser();
+    const maximized = currentUser
+      ? currentUser.hasCardMaximized()
+      : window.localStorage.getItem('cardMaximized') === 'true';
+    return !Utils.getPopupCardId() && maximized;
   },
 
   showActivities() {
@@ -480,7 +484,11 @@ Template.cardDetails.events({
   },
   'change .js-date-format-selector'(event) {
     const dateFormat = event.target.value;
-    Meteor.call('changeDateFormat', dateFormat);
+    if (Meteor.userId()) {
+      Meteor.call('changeDateFormat', dateFormat);
+    } else {
+      window.localStorage.setItem('dateFormat', dateFormat);
+    }
   },
   'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
   // Mobile: switch to desktop popup view (maximize)
@@ -614,11 +622,19 @@ Template.cardDetails.events({
     Meteor.call('toggleCustomFieldsGrid');
   },
   'click .js-maximize-card-details'() {
-    Meteor.call('toggleCardMaximized');
+    if (Meteor.userId()) {
+      Meteor.call('toggleCardMaximized');
+    } else {
+      window.localStorage.setItem('cardMaximized', 'true');
+    }
     autosize($('.card-details'));
   },
   'click .js-minimize-card-details'() {
-    Meteor.call('toggleCardMaximized');
+    if (Meteor.userId()) {
+      Meteor.call('toggleCardMaximized');
+    } else {
+      window.localStorage.setItem('cardMaximized', 'false');
+    }
     autosize($('.card-details'));
   },
   'click .js-vote'(e) {
@@ -775,7 +791,10 @@ Template.cardDetails.helpers({
   },
   isDateFormat(format) {
     const currentUser = ReactiveCache.getCurrentUser();
-    if (!currentUser) return format === 'YYYY-MM-DD';
+    if (!currentUser) {
+      const stored = window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
+      return format === stored;
+    }
     return currentUser.getDateFormat() === format;
   },
   // Upload progress helpers

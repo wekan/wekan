@@ -6,14 +6,15 @@ template(name="archivesSidebar")
           li.tab-item(class="{{isArchiveTabActive slug}} {{class}}" data-tab="{{slug}}") {{name}}
       .tabs-content-container
         section.tabs-content(class="{{isArchiveTabActive 'cards'}}" data-tab="cards")
-          unless isWorker
-            unless currentUser.isReadOnly
-              unless currentUser.isReadAssignedOnly
-                p.quiet
-                  a.js-restore-all-cards {{_ 'restore-all'}}
-                  if currentUser.isBoardAdmin
-                    | -
-                    a.js-delete-all-cards {{_ 'delete-all'}}
+          if currentUser
+            unless isWorker
+              unless currentUser.isReadOnly
+                unless currentUser.isReadAssignedOnly
+                  p.quiet
+                    a.js-restore-all-cards {{_ 'restore-all'}}
+                    if currentUser.isBoardAdmin
+                      | -
+                      a.js-delete-all-cards {{_ 'delete-all'}}
           each archivedCards
             .minicard-wrapper.js-minicard
               +minicard(this)
@@ -36,18 +37,19 @@ template(name="archivesSidebar")
             p.no-items-message {{_ 'no-archived-cards'}}
 
         section.tabs-content(class="{{isArchiveTabActive 'lists'}}" data-tab="lists")
-          unless isWorker
-            unless currentUser.isReadOnly
-              unless currentUser.isReadAssignedOnly
-                p.quiet
-                  a.js-restore-all-lists {{_ 'restore-all'}}
-                  if currentUser.isBoardAdmin
-                    | -
-                    a.js-delete-all-lists {{_ 'delete-all'}}
+          if currentUser
+            unless isWorker
+              unless currentUser.isReadOnly
+                unless currentUser.isReadAssignedOnly
+                  p.quiet
+                    a.js-restore-all-lists {{_ 'restore-all'}}
+                    if currentUser.isBoardAdmin
+                      | -
+                      a.js-delete-all-lists {{_ 'delete-all'}}
           ul.archived-lists
             each archivedLists
               li.archived-lists-item
-                = title
+                span.archived-item-title {{title}}
                 if currentUser.isBoardMember
                   unless isWorker
                     unless currentUser.isReadOnly
@@ -65,18 +67,19 @@ template(name="archivesSidebar")
               li.no-items-message {{_ 'no-archived-lists'}}
 
         section.tabs-content(class="{{isArchiveTabActive 'swimlanes'}}" data-tab="swimlanes")
-          unless isWorker
-            unless currentUser.isReadOnly
-              unless currentUser.isReadAssignedOnly
-                p.quiet
-                  a.js-restore-all-swimlanes {{_ 'restore-all'}}
-                  if currentUser.isBoardAdmin
-                    | -
-                    a.js-delete-all-swimlanes {{_ 'delete-all'}}
+          if currentUser
+            unless isWorker
+              unless currentUser.isReadOnly
+                unless currentUser.isReadAssignedOnly
+                  p.quiet
+                    a.js-restore-all-swimlanes {{_ 'restore-all'}}
+                    if currentUser.isBoardAdmin
+                      | -
+                      a.js-delete-all-swimlanes {{_ 'delete-all'}}
           ul.archived-lists
             each archivedSwimlanes
               li.archived-lists-item
-                = title
+                span.archived-item-title {{title}}
                 if currentUser.isBoardMember
                   unless isWorker
                     unless currentUser.isReadOnly

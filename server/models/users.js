@@ -339,7 +339,9 @@ Meteor.methods({
 
   async changeDateFormat(dateFormat) {
     check(dateFormat, String);
-    (await ReactiveCache.getCurrentUser()).setDateFormat(dateFormat);
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
+    user.setDateFormat(dateFormat);
   },
 
   applyListWidth(boardId, listId, width, constraint) {

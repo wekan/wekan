@@ -354,12 +354,6 @@ Template.boardList.helpers({
     if (FlowRouter.getRouteName() === 'home') {
       membershipOrs.push({ 'members.userId': Meteor.userId() });
 
-      if (
-        allowPrivateVisibilityOnly !== undefined &&
-        allowPrivateVisibilityOnly.booleanValue
-      ) {
-        query.$and.push({ permission: 'private' });
-      }
       const currUser = ReactiveCache.getCurrentUser();
 
       let orgIdsUserBelongs = currUser?.orgIdsUserBelongs() || '';
