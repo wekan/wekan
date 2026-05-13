@@ -64,6 +64,8 @@ and fixes the following bugs:
   Thanks to titver968 and xet7.
 - [Fix Clicking on a card does not open the card detail panel](https://github.com/wekan/wekan/commit/39effe9a0b4705ed05c7e63859e057d110913626).
   Thanks to gaetanquentin.
+- [Fix no due date notification email](https://github.com/wekan/wekan/commit/49ee49d2b877cfc9e4425aa302f88828c43d9993).
+  Thanks to JaumeFigueras and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
