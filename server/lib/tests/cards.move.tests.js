@@ -2,6 +2,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Cards from '/models/cards';
+import { ReactiveCache } from '/imports/reactiveCache';
 
 const moveHandler = () => Meteor.server.method_handlers['cards.move'];
 

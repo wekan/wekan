@@ -2,6 +2,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Cards from '/models/cards';
+import { ReactiveCache } from '/imports/reactiveCache';
 
 // Meteor method handler accessors
 const archiveHandler = () => Meteor.server.method_handlers['cards.archive'];

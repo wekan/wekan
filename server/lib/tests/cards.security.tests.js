@@ -1,56 +1,54 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
-import '../utils';
-import '/models/cards';
+import sinon from 'sinon';
+import { Random } from 'meteor/random';
+import { canUpdateCard } from '/server/permissions/cards';
+import Boards from '/models/boards';
 
 // Unit tests for canUpdateCard policy (deny direct vote updates)
 describe('cards security', function() {
+  afterEach(function() {
+    sinon.restore();
+  });
+
   describe(canUpdateCard.name, function() {
     const userId = 'user1';
-    const board = {
-      hasMember: (id) => id === userId,
-    };
-    const doc = { boardId: 'board1' };
 
-    // Patch ReactiveCache.getBoard for this unit test scope if not defined
-    const origGetBoard = ReactiveCache && ReactiveCache.getBoard;
-    before(function() {
-      if (typeof ReactiveCache === 'object') {
-        ReactiveCache.getBoard = () => board;
-      }
-    });
-    after(function() {
-      if (typeof ReactiveCache === 'object') {
-        ReactiveCache.getBoard = origGetBoard;
-      }
+    it('denies anonymous users', async function() {
+      expect(await canUpdateCard(null, {}, ['title'])).to.equal(false);
     });
 
-    it('denies anonymous users', function() {
-      expect(canUpdateCard(null, doc, ['title'])).to.equal(false);
+    it('denies direct vote updates', async function() {
+      expect(await canUpdateCard(userId, {}, ['vote'])).to.equal(false);
+      expect(await canUpdateCard(userId, {}, ['vote', 'modifiedAt', 'dateLastActivity'])).to.equal(false);
+      expect(await canUpdateCard(userId, {}, ['vote.positive'])).to.equal(false);
+      expect(await canUpdateCard(userId, {}, ['vote.negative'])).to.equal(false);
     });
 
-    it('denies direct vote updates', function() {
-      expect(canUpdateCard(userId, doc, ['vote'])).to.equal(false);
-      expect(canUpdateCard(userId, doc, ['vote', 'modifiedAt', 'dateLastActivity'])).to.equal(false);
-      expect(canUpdateCard(userId, doc, ['vote.positive'])).to.equal(false);
-      expect(canUpdateCard(userId, doc, ['vote.negative'])).to.equal(false);
+    it('denies direct poker updates', async function() {
+      expect(await canUpdateCard(userId, {}, ['poker'])).to.equal(false);
+      expect(await canUpdateCard(userId, {}, ['poker.one'])).to.equal(false);
+      expect(await canUpdateCard(userId, {}, ['poker.allowNonBoardMembers'])).to.equal(false);
+      expect(await canUpdateCard(userId, {}, ['poker.end'])).to.equal(false);
     });
 
-    it('denies direct poker updates', function() {
-      expect(canUpdateCard(userId, doc, ['poker'])).to.equal(false);
-      expect(canUpdateCard(userId, doc, ['poker.one'])).to.equal(false);
-      expect(canUpdateCard(userId, doc, ['poker.allowNonBoardMembers'])).to.equal(false);
-      expect(canUpdateCard(userId, doc, ['poker.end'])).to.equal(false);
+    it('allows member updates when not touching vote', async function() {
+      const board = {
+        members: [{ userId, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isReadOnly: false, isReadAssignedOnly: false }],
+      };
+      sinon.stub(Boards, 'findOneAsync').resolves(board);
+      const doc = { boardId: 'board1' };
+      expect(await canUpdateCard(userId, doc, ['title'])).to.equal(true);
+      expect(await canUpdateCard(userId, doc, ['description', 'modifiedAt'])).to.equal(true);
     });
 
-    it('allows member updates when not touching vote', function() {
-      expect(canUpdateCard(userId, doc, ['title'])).to.equal(true);
-      expect(canUpdateCard(userId, doc, ['description', 'modifiedAt'])).to.equal(true);
-    });
-
-    it('denies non-members even when not touching vote', function() {
-      const nonMemberId = 'user2';
-      expect(canUpdateCard(nonMemberId, doc, ['title'])).to.equal(false);
+    it('denies non-members even when not touching vote', async function() {
+      const board = {
+        members: [{ userId: 'other-user', isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isReadOnly: false, isReadAssignedOnly: false }],
+      };
+      sinon.stub(Boards, 'findOneAsync').resolves(board);
+      const nonMemberId = Random.id();
+      expect(await canUpdateCard(nonMemberId, { boardId: 'board1' }, ['title'])).to.equal(false);
     });
   });
 });

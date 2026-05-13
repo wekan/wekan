@@ -1,9 +1,22 @@
 /* eslint-env mocha */
 import { Random } from 'meteor/random';
 import { expect } from 'chai';
-import '../utils';
+import sinon from 'sinon';
+import Boards from '/models/boards';
+import {
+  allowIsBoardAdmin,
+  allowIsBoardMember,
+  allowIsAnyBoardMember,
+  allowIsBoardMemberCommentOnly,
+  allowIsBoardMemberNoComments,
+  allowIsBoardMemberByCard,
+} from '../utils';
 
 describe('utils', function() {
+  afterEach(function() {
+    sinon.restore();
+  });
+
   describe(allowIsBoardAdmin.name, function() {
     it('returns if a board has an admin', function() {
       const userId = Random.id();
@@ -54,15 +67,13 @@ describe('utils', function() {
   });
 
   describe(allowIsBoardMemberCommentOnly.name, function() {
-    it('returns if a board has a member that is not comment-only member', function() {
+    it('returns if a board has a member that can post comments', function() {
       const userId = Random.id();
       const board = {
-        hasMember: id => {
-          return id === userId;
-        },
-        hasCommentOnly: id => {
-          return id !== userId;
-        }
+        hasMember: id => id === userId,
+        hasReadOnly: () => false,
+        hasReadAssignedOnly: () => false,
+        hasNoComments: () => false,
       };
 
       expect(allowIsBoardMemberCommentOnly(userId, board)).to.equal(true);
@@ -88,19 +99,16 @@ describe('utils', function() {
   });
 
   describe(allowIsBoardMemberByCard.name, function() {
-    it('returns if the board for a given card has a member', function() {
+    it('returns if the board for a given card has a member', async function() {
       const userId = Random.id();
       const board = {
-        hasMember: id => {
-          return id === userId;
-        }
+        hasMember: id => id === userId,
       };
-      const card = {
-        board: () => board
-      };
+      const card = { boardId: 'board1' };
+      sinon.stub(Boards, 'findOneAsync').resolves(board);
 
-      expect(allowIsBoardMemberByCard(userId, card)).to.equal(true);
-      expect(allowIsBoardMemberByCard(Random.id(), card)).to.equal(false);
+      expect(await allowIsBoardMemberByCard(userId, card)).to.equal(true);
+      expect(await allowIsBoardMemberByCard(Random.id(), card)).to.equal(false);
     });
   });
 });

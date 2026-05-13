@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 import { Random } from 'meteor/random';
-import '../utils';
+import { canUpdateBoardSort } from '../utils';
 
 // Unit tests for canUpdateBoardSort policy
 
