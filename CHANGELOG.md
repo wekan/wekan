@@ -28,10 +28,13 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
 
-- [Deleted GitHub Workflows, because dependabot sent bad code](https://github.com/wekan/wekan/commit/8da4a2ad0425098b70db6657aa9fa384518a35da).
-  Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/7efba64c393d904ad0095ec294863db1f148b47d).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
 - [Fix Docker Compose missing dashes](https://github.com/wekan/wekan/commit/c1f0da121708a461045fce70f65a33eb2f83a6c0).
   Thanks to C0rn3j, kichkasch and xet7.
 

@@ -57,3 +57,6 @@ _build
 # Tests
 playwright-report/
 test-results/
+
+# Claude AI
+.claude/
