@@ -184,6 +184,15 @@ template(name="checklistActionsPopup")
           else
             input.toggle-switch(type="checkbox" id="toggleHideAllChecklistItems_{{checklist._id}}")
           label.toggle-label(for="toggleHideAllChecklistItems_{{checklist._id}}")
+      a.js-show-checklist-at-minicard
+        i.fa.fa-th-list
+        | {{_ "show-on-minicard"}} ...
+        .material-toggle-switch(title="{{_ 'show-on-minicard'}}")
+          if checklist.showChecklistAtMinicard
+            input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicard_{{checklist._id}}" checked="checked")
+          else
+            input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicard_{{checklist._id}}")
+          label.toggle-label(for="toggleShowChecklistAtMinicard_{{checklist._id}}")
 
 template(name="copyChecklistPopup")
   +copyAndMoveChecklist

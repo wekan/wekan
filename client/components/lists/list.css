@@ -152,12 +152,12 @@ body.list-resizing-active * {
 /* Ensure consistent header height for all lists */
 .list-header {
   /* Maintain consistent height and padding for all lists */
-  min-height: 2.5vh !important;
+  min-height: 30px !important;
   height: auto !important;
-  padding: 2.5vh 1.5vw 0.5vh !important;
+  padding: 28px 1.5vw 6px !important;
   /* Make sure the background covers the full height */
   background-color: #e4e4e4 !important;
-  border-bottom: 0.8vh solid #e4e4e4 !important;
+  border-bottom: 8px solid #e4e4e4 !important;
   /* Use original display for consistent button positioning */
   display: block !important;
   position: relative !important;
@@ -401,24 +401,24 @@ form.inlined-form .list-composer {
 .list.list-composer .list-name-input,
 .list .list-composer .list-name-input {
   background: #fff;
-  margin: -0.4vh 0 1vh;
+  margin: -4px 0 8px;
 }
 .list-header-add {
   flex: 0 0 auto;
-  padding: 1.5vh 1.5vw;
+  padding: 14px 1.5vw;
   position: relative;
-  min-height: 2.5vh;
+  min-height: 30px;
 }
 .list-header {
   flex: 0 0 auto;
-  padding: 2.5vh 1.5vw 0.5vh;
+  padding: 28px 1.5vw 6px;
   position: relative;
-  min-height: 2.5vh;
+  min-height: 30px;
   background-color: #e4e4e4;
-  border-bottom: 0.8vh solid #e4e4e4;
+  border-bottom: 8px solid #e4e4e4;
 }
 .list-header.list-header-card-count {
-  min-height: 4.5vh;
+  min-height: 45px;
   height: auto;
 }
 .list-header.ui-sortable-handle {
@@ -433,7 +433,7 @@ form.inlined-form .list-composer {
   line-height: 1.2;
   margin: 0;
   font-weight: bold;
-  min-height: 1.2vh;
+  min-height: 14px;
   min-width: 4vw;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -1196,7 +1196,7 @@ form.inlined-form .list-composer {
 
 /* Allow long list titles to expand on desktop (non-mobile, non-collapsed) */
 .list:not(.mobile-view):not(.list-collapsed) .list-header {
-  padding-top: calc(2.5vh - 6px) !important;
+  padding-top: 22px !important;
   overflow: visible !important;
 }
 

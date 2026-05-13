@@ -4,6 +4,7 @@ import { CustomFieldStringTemplate } from '/client/lib/customFields';
 import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
+import ChecklistItems from '/models/checklistItems';
 
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
@@ -270,12 +271,79 @@ Template.minicardChecklist.helpers({
 });
 
 Template.minicardChecklist.events({
+  'click .js-convert-checklist-item-to-card'(event) {
+    event.stopPropagation();
+    const formData = Blaze.getData(event.currentTarget);
+    if (!formData) return;
+    const context = { currentData: () => formData };
+    Popup.open('convertChecklistItemToCard').call(context, event);
+  },
   'click .js-open-checklist-menu'(event) {
     const data = Template.currentData();
     const checklist = data.checklist || data;
     const card = data.card || this;
     const context = { currentData: () => ({ checklist, card }) };
     Popup.open('checklistActions').call(context, event);
+  },
+  'click .js-checklist-item .check-box-container'(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    const data = Blaze.getData(event.target) || Blaze.getData(event.currentTarget);
+    const item = data && data.item;
+    if (item && item._id) {
+      item.toggleItem();
+    }
+  },
+  'click .js-submit-edit-checklist-item-form'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const $btn = $(event.currentTarget);
+    const $form = $btn.closest('form');
+    const textarea = $form.find('textarea.js-edit-checklist-item')[0];
+    if (!textarea) return;
+    const title = textarea.value.trim();
+    if (!title) return;
+    const formData = Blaze.getData($form[0]);
+    if (formData && formData.item && formData.item._id) {
+      formData.item.setTitle(title);
+    } else if (formData && formData.checklist && formData.checklist._id) {
+      formData.checklist.setTitle(title);
+    }
+    $form.find('.js-close-inlined-form').trigger('click');
+  },
+  'submit .js-add-checklist-item'(event, tpl) {
+    event.preventDefault();
+    const textarea = tpl.find('textarea.js-add-checklist-item');
+    if (!textarea) return;
+    const title = textarea.value.trim();
+    const data = Template.currentData() || {};
+    const checklist = data.checklist;
+    if (!checklist || !title) return;
+    const items = checklist.items();
+    const lastItem = items[items.length - 1] || null;
+    const sortIndex = Utils.calculateIndexData(lastItem, null).base;
+    ChecklistItems.insert({
+      title,
+      checklistId: checklist._id,
+      cardId: checklist.cardId,
+      sort: sortIndex,
+    });
+    textarea.value = '';
+    textarea.focus();
+  },
+  'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {
+    Popup.back();
+    const item = this && this.item ? this.item : this;
+    if (item && item._id) {
+      ChecklistItems.remove(item._id);
+    }
+  }),
+  'keydown textarea.js-add-checklist-item'(event) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      event.preventDefault();
+      const $form = $(event.currentTarget).closest('form');
+      $form.find('button[type=submit]').click();
+    }
   },
 });
 

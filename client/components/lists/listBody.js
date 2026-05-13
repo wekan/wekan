@@ -192,6 +192,13 @@ Template.listBody.onCreated(function () {
     }
     const clickedTitle = $target.closest('.minicard-title').length > 0;
     const clickedLinkedReference = $target.closest('.js-linked-link').length > 0;
+    const clickedChecklist = $target.closest('.minicard-checklist').length > 0;
+
+    if (clickedChecklist) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      return;
+    }
 
     // Title clicks should open the regular board card details view.
     if (clickedTitle && !clickedLinkedReference) {

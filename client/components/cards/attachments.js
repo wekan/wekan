@@ -45,6 +45,10 @@ Template.attachmentGallery.events({
   },
   'click .js-rename': Popup.open('attachmentRename'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', async function() {
+      const card = this.meta && this.meta.cardId ? ReactiveCache.getCard(this.meta.cardId) : null;
+      if (card && card.coverId === this._id) {
+        await card.unsetCover();
+      }
       await Attachments.removeAsync(this._id);
       Popup.back();
   }),

@@ -274,6 +274,11 @@ Template.checklistActionsPopup.events({
     Template.currentData().checklist.toggleHideAllChecklistItems();
     Popup.back();
   },
+  'click .js-show-checklist-at-minicard'(event) {
+    event.preventDefault();
+    Template.currentData().checklist.toggleShowChecklistAtMinicard();
+    Popup.back();
+  },
 });
 
 Template.editChecklistItemForm.onRendered(function () {

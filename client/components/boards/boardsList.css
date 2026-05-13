@@ -56,15 +56,6 @@
   background: #bbb;
 }
 
-/* Board sort drag-over indicators */
-.js-board.board-drag-over-top {
-  border-top: 3px solid #2196F3;
-}
-
-.js-board.board-drag-over-bottom {
-  border-bottom: 3px solid #2196F3;
-}
-
 /* Drag-over state for menu items (for dropping boards on Remaining) */
 .boards-left-menu .menu-item a.drag-over {
   background: #d0e8ff;
