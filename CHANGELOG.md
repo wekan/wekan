@@ -68,6 +68,8 @@ and fixes the following bugs:
   Thanks to JaumeFigueras and xet7.
 - [Fix Template "Board not Found" after being archieved, by always showing Template boards](https://github.com/wekan/wekan/commit/c01743b53a62313f797fe6680f9100adac37102f).
   Thanks to WassimDhib and xet7.
+- [Fix Add Board / Import is not visible](https://github.com/wekan/wekan/commit/52dc6e99269c12198a0807e3e6da513e76c97001).
+  Thanks to titver968 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
