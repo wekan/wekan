@@ -32,6 +32,14 @@ do
 			echo "macOS"
 			brew install npm
 			brew install node@24
+			ZSHRC="$HOME/.zshrc"
+			touch "$ZSHRC"
+			grep -qxF 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' "$ZSHRC" || echo 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' >> "$ZSHRC"
+			grep -qxF 'export LDFLAGS="-L/opt/homebrew/opt/node@24/lib"' "$ZSHRC" || echo 'export LDFLAGS="-L/opt/homebrew/opt/node@24/lib"' >> "$ZSHRC"
+			grep -qxF 'export CPPFLAGS="-I/opt/homebrew/opt/node@24/include"' "$ZSHRC" || echo 'export CPPFLAGS="-I/opt/homebrew/opt/node@24/include"' >> "$ZSHRC"
+			export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
+			export LDFLAGS="-L/opt/homebrew/opt/node@24/lib"
+			export CPPFLAGS="-I/opt/homebrew/opt/node@24/include"
 			directory_name="~/.npm"
 			if [ ! -d "$directory_name" ]; then
 				mkdir "$directory_name"
