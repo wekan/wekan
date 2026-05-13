@@ -70,7 +70,7 @@ Template.comment.events({
     evt.preventDefault();
     const textarea = tpl.find('.js-edit-comment textarea,input[type=text]');
     const commentText = textarea && textarea.value ? textarea.value.trim() : '';
-    const commentId = this._id;
+    const commentId = tpl.data._id;
     if (commentText) {
       CardComments.update(commentId, {
         $set: {
