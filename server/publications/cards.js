@@ -904,8 +904,9 @@ Meteor.publish('brokenCards', async function(sessionId) {
     { type: { $nin: CARD_TYPES } },
   ];
 
-  const ret = await findCards(sessionId, query, this.userId);
-  return ret;
+  const { cursors: brokenCursors, sessionData: brokenSessionData } = await findCards(sessionId, query, this.userId);
+  if (brokenSessionData) this.added('sessiondata', brokenSessionData._id, brokenSessionData);
+  return brokenCursors;
 });
 
 Meteor.publish('nextPage', async function(sessionId) {
@@ -915,8 +916,9 @@ Meteor.publish('nextPage', async function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
-  const ret = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
-  return ret;
+  const { cursors: nextCursors, sessionData: nextSessionData } = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
+  if (nextSessionData) this.added('sessiondata', nextSessionData._id, nextSessionData);
+  return nextCursors;
 });
 
 Meteor.publish('previousPage', async function(sessionId) {
@@ -926,8 +928,9 @@ Meteor.publish('previousPage', async function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 
-  const ret = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
-  return ret;
+  const { cursors: prevCursors, sessionData: prevSessionData } = await findCards(sessionId, new Query(session.getSelector(), projection), this.userId);
+  if (prevSessionData) this.added('sessiondata', prevSessionData._id, prevSessionData);
+  return prevCursors;
 });
 
 async function findCards(sessionId, query, userId) {

@@ -123,47 +123,14 @@ export class CardSearchPaged {
     this.sessionData = this.getSessionData();
     const cards = [];
 
-    if (this.sessionData && this.sessionData.cards) {
-      this.sessionData.cards.forEach(cardId => {
-        const card = ReactiveCache.getCard(cardId);
-        if (card && card._id) {
-          cards.push(card);
-        }
+    if (this.sessionData && this.sessionData.cards && this.sessionData.cards.length > 0) {
+      Cards.find({ _id: { $in: this.sessionData.cards } }).forEach(card => {
+        if (card && card._id) cards.push(card);
       });
-
-      // Fallback: if no cards found, try fetching directly from Cards collection
-      if (cards.length === 0 && this.sessionData.cards && this.sessionData.cards.length > 0) {
-        if (directCards && directCards.length > 0) {
-          directCards.forEach(card => {
-            if (card && card._id) {
-              cards.push(card);
-            }
-          });
-        }
-      }
-
+      this.queryErrors = this.sessionData.errors || [];
+    } else if (this.sessionData) {
       this.queryErrors = this.sessionData.errors || [];
     } else {
-      // Fallback: try to get cards directly from the client-side collection
-      // Use a more efficient query with limit and sort
-      const selector = {
-        type: 'cardType-card',
-        dueAt: { $exists: true, $nin: [null, ''] }
-      };
-      const options = {
-        sort: { dueAt: 1 }, // Sort by due date ascending (oldest first)
-        limit: 100 // Limit to 100 cards for performance
-      };
-      const allCards = Cards.find(selector, options).fetch();
-
-      if (allCards && allCards.length > 0) {
-        allCards.forEach(card => {
-          if (card && card._id) {
-            cards.push(card);
-          }
-        });
-      }
-
       this.queryErrors = [];
     }
     if (this.queryErrors.length) {
