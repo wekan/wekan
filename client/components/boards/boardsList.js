@@ -689,7 +689,9 @@ Template.boardList.events({
   'click .js-archive-board'(evt) {
     if (confirm(TAPi18n.__('archive-board-confirm'))) {
       const boardId = this._id;
-      Meteor.call('archiveBoard', boardId);
+      Meteor.call('archiveBoard', boardId, (err) => {
+        if (err) alert(err?.reason || err?.message || 'Failed to archive board');
+      });
       evt.preventDefault();
     }
   },
@@ -732,7 +734,9 @@ Template.boardList.events({
       confirm(TAPi18n.__('archive-board-confirm'))
     ) {
       selectedBoards.forEach((boardId) => {
-        Meteor.call('archiveBoard', boardId);
+        Meteor.call('archiveBoard', boardId, (err) => {
+          if (err) alert(err?.reason || err?.message || 'Failed to archive board');
+        });
       });
       BoardMultiSelection.reset();
     }

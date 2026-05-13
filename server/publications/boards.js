@@ -145,8 +145,8 @@ Meteor.publish('archivedBoards', async function() {
 
   const ret = await ReactiveCache.getBoards(
     {
-      _id: { $in: await Boards.userBoardIds(userId, true)},
       archived: true,
+      type: { $nin: ['template-container', 'template-board'] },
       members: {
          $elemMatch: {
            userId,
@@ -216,7 +216,9 @@ publishComposite('board', async function(boardId, isArchived) {
       return await ReactiveCache.getBoards(
         {
           _id: boardId,
-          archived: false,
+          // Template boards are always accessible regardless of archived state.
+          // $nor is used because $or is already taken by the access control below.
+          $nor: [{ archived: true, type: { $nin: ['template-container', 'template-board'] } }],
           // If the board is not public the user has to be a member of it to see it.
           $or,
         },

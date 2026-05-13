@@ -379,10 +379,12 @@ Template.boardMenuPopup.events({
   }),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', async function() {
     const currentBoard = Utils.getCurrentBoard();
-    await currentBoard.archive();
-    // XXX We should have some kind of notification on top of the page to
-    // confirm that the board was successfully archived.
-    FlowRouter.go('home');
+    try {
+      await Meteor.callAsync('archiveBoard', currentBoard._id);
+      FlowRouter.go('home');
+    } catch (err) {
+      alert(err?.reason || err?.message || 'Failed to archive board');
+    }
   }),
   'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
     const currentBoard = Utils.getCurrentBoard();
