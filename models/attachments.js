@@ -9,14 +9,15 @@ import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerato
 // - Docker (WRITABLE_PATH=/data): /data/files/attachments
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
 const computeAttachmentStoragePath = () => {
-  const basePath = process.env.WRITABLE_PATH || process.cwd();
+  const path = require('path');
+  const basePath = process.env.WRITABLE_PATH || path.join(process.cwd(), '.meteor', 'local', 'data');
   const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
   if (endsWithFiles) {
     // Snap: WRITABLE_PATH already includes /files
-    return basePath + '/attachments';
+    return path.join(basePath, 'attachments');
   } else {
     // Docker & Dev: append /files/attachments
-    return basePath + '/files/attachments';
+    return path.join(basePath, 'files', 'attachments');
   }
 };
 
