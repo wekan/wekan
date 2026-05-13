@@ -66,6 +66,8 @@ and fixes the following bugs:
   Thanks to gaetanquentin.
 - [Fix no due date notification email](https://github.com/wekan/wekan/commit/49ee49d2b877cfc9e4425aa302f88828c43d9993).
   Thanks to JaumeFigueras and xet7.
+- [Fix Template "Board not Found" after being archieved, by always showing Template boards](https://github.com/wekan/wekan/commit/c01743b53a62313f797fe6680f9100adac37102f).
+  Thanks to WassimDhib and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
