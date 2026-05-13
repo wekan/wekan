@@ -62,6 +62,8 @@ and fixes the following bugs:
   Thanks to dehnamaki and xet7.
 - [Fix Board visibility ist only private and cannot change it. Fix Public Board, Archive, and menus visibility](https://github.com/wekan/wekan/commit/9f3c21657663df8c8af9c057639f9412084fcbe9).
   Thanks to titver968 and xet7.
+- [Fix Clicking on a card does not open the card detail panel](https://github.com/wekan/wekan/commit/39effe9a0b4705ed05c7e63859e057d110913626).
+  Thanks to gaetanquentin.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
