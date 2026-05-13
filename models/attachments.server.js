@@ -27,7 +27,7 @@ const attachmentBucket = createBucket('attachments');
 // Compute storage path:
 // - Docker (WRITABLE_PATH=/data): /data/files/attachments
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
-const basePath = process.env.WRITABLE_PATH || path.join(process.cwd(), '.meteor', 'local', 'data');
+const basePath = process.env.WRITABLE_PATH || process.cwd();
 const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
 const storagePath = endsWithFiles
   ? path.join(basePath, 'attachments')
@@ -89,15 +89,7 @@ Attachments.onAfterUpload = async function (fileObj) {
   });
 
   this._now = new Date();
-  try {
-    if (typeof Attachments.updateAsync === 'function') {
-      await Attachments.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions, "uploadedAtOstrio": this._now } });
-    } else {
-      await Attachments.collection.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions, "uploadedAtOstrio": this._now } });
-    }
-  } catch (error) {
-    console.error('Error updating attachment versions in onAfterUpload:', error);
-  }
+  await Attachments.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions, "uploadedAtOstrio": this._now } });
 
   // Use selected storage backend or copy storage if specified
   let storageDestination = fileObj.meta.copyStorage || defaultStorage;
