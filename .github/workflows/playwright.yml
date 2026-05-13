@@ -66,8 +66,12 @@ jobs:
       - name: Install Meteor
         run: curl https://install.meteor.com/ | sh
 
-      - name: Install npm dependencies
+      - name: Install app npm dependencies
         run: npm ci
+
+      - name: Install Playwright test dependencies
+        run: npm ci
+        working-directory: tests/playwright
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps ${{ matrix.project }}
