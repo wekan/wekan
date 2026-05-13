@@ -51,6 +51,8 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/commit/0e287c9117a2e98e0314a68899dc2151f74b6426),
   [Part 2](https://github.com/wekan/wekan/commit/6d56d69ae375d4898de7e50b0533ff82eabceb31).
   Thanks to xet7.
+- [Fix LDAP Admin Sync](https://github.com/wekan/wekan/commit/1950aff8650056b19eff3faf95d155ce8486cf7a).
+  Thanks to titver968 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
