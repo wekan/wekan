@@ -59,6 +59,8 @@ and fixes the following bugs:
   Thanks to titver968 and xet7.
 - [Fix editing comments](https://github.com/wekan/wekan/commit/7fb2c3de7b7de114cbe58233b48694cee43a59ea).
   Thanks to dehnamaki and xet7.
+- [Fix Board visibility ist only private and cannot change it. Fix Public Board, Archive, and menus visibility](https://github.com/wekan/wekan/commit/9f3c21657663df8c8af9c057639f9412084fcbe9).
+  Thanks to titver968 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
