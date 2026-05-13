@@ -1064,6 +1064,7 @@ async function findCards(sessionId, query, userId) {
       sort: 1,
       type: 1,
     };
+    const attachmentsResult = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true);
     // Return all cursors except sessiondata - we'll add sessiondata separately after fetch
     return {
       cursors: [
@@ -1075,7 +1076,7 @@ async function findCards(sessionId, query, userId) {
         await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
         await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true),
         await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true),
-        (await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true)).cursor,
+        attachmentsResult.cursor || attachmentsResult,
         await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true),
       ],
       sessionData: storedSessionData,
