@@ -53,7 +53,7 @@
     "@textcomplete/textarea": "^0.1.13",
     "@wekanteam/dragscroll": "^0.0.9",
     "@wekanteam/exceljs": "^4.7.1",
-    "@wekanteam/html-to-markdown": "^1.0.2",
+    "@wekanteam/html-to-markdown": "^1.0.3",
     "@wekanteam/meteor-globals": "^1.1.6",
     "@wekanteam/meteor-reactive-cache": "^1.0.8",
     "archiver": "^7.0.1",
