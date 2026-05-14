@@ -795,7 +795,9 @@ Cards.helpers({
   },
 
   labels() {
-    const boardLabels = this.board().labels;
+    const board = this.board();
+    if (!board) return [];
+    const boardLabels = board.labels;
     const cardLabels = (boardLabels || []).filter(label => {
       return (this.labelIds || []).includes(label._id);
     });

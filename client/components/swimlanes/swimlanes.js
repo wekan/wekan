@@ -655,7 +655,9 @@ Template.swimlane.helpers({
       }
     }
     if (Filter.hideEmpty.isSelected()) {
-      const cards = list.cards();
+      // Pass the current swimlane ID so we only count cards belonging to
+      // this swimlane (not cards in other swimlanes that happen to match).
+      const cards = list.cards(this._id);
       if (cards.length === 0) {
         return false;
       }
