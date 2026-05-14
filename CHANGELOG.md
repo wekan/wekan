@@ -96,6 +96,8 @@ and fixes the following bugs:
   Thanks to mimZD and xet7.
 - [Updated @wekanteam/html-to-markdown with Fix Some HTML tags should not get newlines when converted to markdown](https://github.com/wekan/wekan/commit/597eb6b2bbd244b01bb7124dd019e0090caf2dd2).
   Thanks to Chostakovitch and xet7.
+- [Fix Esc not work in an opened card when Keyboard Shortcuts enabled](https://github.com/wekan/wekan/commit/52ce4f612822d7eb72456de736733b03aed56287).
+  Thanks to mimZD and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
