@@ -90,6 +90,8 @@ and fixes the following bugs:
   Thanks to aminsaidane and xet7.
 - [Fix Remaining view: Drag board starts drag preview but drop is no-op](https://github.com/wekan/wekan/commit/8183a645a1765c7decd51e160759e467049f719d).
   Thanks to YosserDerbali and xet7.
+- [Fix Labels are disappearing when you are filtering cards by label](https://github.com/wekan/wekan/commit/64bc774b1e59091d4b24a7650957f31d812d2cdd).
+  Thanks to hmeunier95 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
