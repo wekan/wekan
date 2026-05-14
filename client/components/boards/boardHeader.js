@@ -426,7 +426,7 @@ Template.boardChangeWatchPopup.helpers({
 
 Template.boardChangeWatchPopup.events({
   'click .js-select-watch'() {
-    const level = Template.currentData();
+    const level = this;
     if (typeof level === 'string') {
       Meteor.call(
         'watch',
