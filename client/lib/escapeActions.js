@@ -1,10 +1,4 @@
 const hotkeys = require('hotkeys-js').default;
-// Late-bind Sidebar to avoid circular dependency (sidebar.js needs its template first)
-let _Sidebar;
-function getSidebar() {
-  if (!_Sidebar) _Sidebar = require('/client/features/sidebar/service').getSidebarInstance;
-  return _Sidebar();
-}
 
 // Pressing `Escape` should close the last opened "element" and only the last
 // one. Components can register themselves using a label a condition, and an
@@ -128,10 +122,6 @@ export const EscapeActions = {
 // in the hotkeys filter (keyboard.js) so it works in textarea and inputs.
 hotkeys('escape', () => {
   EscapeActions.executeLowest();
-  const sidebar = getSidebar();
-  if (sidebar) {
-    sidebar.hide();
-  }
 });
 
 // On a left click on the document, we try to exectute one escape action (eg,

@@ -1893,8 +1893,8 @@ EscapeActions.register(
       Session.set('cardDetailsIsMouseDown', false);
 
     } else {
-      // Prevent close card when the user is selecting text and moves the mouse cursor outside the card detail area
-      Utils.goBoardId(Session.get('currentBoard'));
+      // Trigger the close button so all close logic (openCards, routing, mini-screen) runs consistently
+      $('.js-close-card-details').first().trigger('click');
     }
   },
   () => {
