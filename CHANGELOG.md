@@ -82,6 +82,8 @@ and fixes the following bugs:
   Thanks to titver968 and xet7.
 - [Fix Email notifications show "undefined" instead of username](https://github.com/wekan/wekan/commit/ed5304cd306019c25f757aa296a5fb0aa6b8ef79).
   Thanks to apiccolim, Raawen-dev and xet7.
+- [Fix Not possible to change the tracking mode](https://github.com/wekan/wekan/commit/fc37c08687b82aec0554bd968639c9a105650b33).
+  Thanks to hmeunier95 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
