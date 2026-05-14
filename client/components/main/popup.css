@@ -769,21 +769,13 @@ body.mobile-mode .pop-over .content-wrapper {
 }
 
 /* ============================================
-   FIX: List actions popup overflow (Issue #6221)
-   Prevents menu from overflowing outside viewport
+   FIX: Popup overflow (Issues #6200, #6221, #6223)
+   Prevents menus from overflowing outside viewport
    ============================================ */
-
-/* General fix for all popups with many items */
-.pop-over .pop-over-list {
-  max-height: 60vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
 
 /* Specific fix for list actions menu */
 .pop-over[data-popup="listActionsPopup"] {
   max-height: 85vh !important;
-  overflow-y: auto !important;
 }
 
 .pop-over[data-popup="listActionsPopup"] .content-wrapper {
@@ -827,64 +819,8 @@ body.mobile-mode .pop-over .content-wrapper {
   .pop-over[data-popup="listActionsPopup"] {
     max-height: 100vh !important;
   }
-  
+
   .pop-over[data-popup="listActionsPopup"] .content-wrapper {
     max-height: calc(100vh - 48px) !important;
   }
-}
-/* STRONGER FIX - Override inline styles */
-.pop-over[style*="height"],
-.pop-over[style*="max-height"] {
-  max-height: 80vh !important;
-  height: auto !important;
-  overflow-y: auto !important;
-}
-
-.pop-over[style*="height"] .content-wrapper,
-.pop-over[style*="max-height"] .content-wrapper {
-  max-height: calc(80vh - 60px) !important;
-  height: auto !important;
-  overflow-y: auto !important;
-}
-
-/* Force list popups to have a max height and scroll */
-.pop-over .pop-over-list {
-  max-height: 300px !important;
-  overflow-y: auto !important;
-}
-
-/* Make sure the popup doesn't grow too tall */
-.pop-over:has(.pop-over-list) {
-  max-height: 400px !important;
-  height: auto !important;
-}
-
-/* For the list actions menu specifically */
-[data-popup="listActionsPopup"] .pop-over-list,
-.js-open-list-menu + .pop-over .pop-over-list {
-  max-height: 350px !important;
-  overflow-y: auto !important;
-}
-
-/* ============================================
-   FIX: List actions popup overflow (Issue #6221)
-   ============================================ */
-
-/* Force list popups to have a max height and scroll */
-.pop-over .pop-over-list {
-  max-height: 300px !important;
-  overflow-y: auto !important;
-}
-
-/* Make sure the popup doesn't grow too tall */
-.pop-over:has(.pop-over-list) {
-  max-height: 400px !important;
-  height: auto !important;
-}
-
-/* For the list actions menu specifically */
-[data-popup="listActionsPopup"] .pop-over-list,
-.js-open-list-menu + .pop-over .pop-over-list {
-  max-height: 350px !important;
-  overflow-y: auto !important;
 }
