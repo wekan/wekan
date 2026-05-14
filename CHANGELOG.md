@@ -92,6 +92,8 @@ and fixes the following bugs:
   Thanks to YosserDerbali and xet7.
 - [Fix Labels are disappearing when you are filtering cards by label](https://github.com/wekan/wekan/commit/64bc774b1e59091d4b24a7650957f31d812d2cdd).
   Thanks to hmeunier95 and xet7.
+- [Fix Change list inside of card should show only lists of current swimlane](https://github.com/wekan/wekan/commit/3adf69bd4c625bb289371e4aeadf8108a967f227).
+  Thanks to mimZD and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
