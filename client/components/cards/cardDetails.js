@@ -340,11 +340,27 @@ Template.cardDetails.helpers({
     return user && user.isVerticalScrollbars();
   },
 
+  currentSwimlaneListsSorted() {
+    const card = Template.currentData();
+    if (!card || !card.boardId) return [];
+    const board = ReactiveCache.getBoard(card.boardId);
+    if (!board) return [];
+    const swimlaneId = card.swimlaneId;
+    const selector = { boardId: card.boardId, archived: false };
+    if (swimlaneId) {
+      const defaultSwimlane = board.getDefaultSwimline && board.getDefaultSwimline();
+      if (defaultSwimlane && defaultSwimlane._id === swimlaneId) {
+        selector.swimlaneId = { $in: [swimlaneId, null, ''] };
+      } else {
+        selector.swimlaneId = swimlaneId;
+      }
+    }
+    return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
+  },
+
   isCurrentListId(listId) {
-    // When called from within 'each currentBoard.lists' block, we need the card from parent context
     let data = Template.currentData();
     if (!data || typeof data.listId === 'undefined') {
-      // Try parent context (for use within each loops)
       data = Template.parentData(1);
     }
     if (!data || typeof data.listId === 'undefined') return false;
