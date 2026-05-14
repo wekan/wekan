@@ -534,10 +534,12 @@ Template.boardList.helpers({
     return BoardMultiSelection.count() > 0;
   },
   boardWorkspaceDragHint() {
-    const drag = TAPi18n.__('drag-board') || 'Drag board';
     const remaining = TAPi18n.__('allboards.remaining') || 'Remaining';
     const workspaces = TAPi18n.__('allboards.workspaces') || 'Workspaces';
-    return `${drag}: ${remaining} <-> ${workspaces}`;
+    return (
+      TAPi18n.__('drag-board-to-workspace', { remaining, workspaces }) ||
+      `Drag board to assign to ${workspaces} (drop on workspace in left sidebar)`
+    );
   },
   boardOpenAndMoveHint() {
     const remaining = TAPi18n.__('allboards.remaining') || 'Remaining';
@@ -656,6 +658,20 @@ Template.boardList.events({
         evt.originalEvent.dataTransfer.setData('text/plain', boardId);
       } catch (e) {}
     }
+    // Highlight valid drop targets in the sidebar so users know where to drop
+    document.querySelectorAll('.workspace-node').forEach((el) => {
+      el.classList.add('board-drag-hint');
+    });
+    document.querySelectorAll('.js-select-menu').forEach((el) => {
+      if (el.getAttribute('data-type') === 'remaining') {
+        el.classList.add('board-drag-hint');
+      }
+    });
+  },
+  'dragend .js-board'() {
+    document.querySelectorAll('.workspace-node.board-drag-hint, .js-select-menu.board-drag-hint').forEach((el) => {
+      el.classList.remove('board-drag-hint');
+    });
   },
   'click .js-clone-board'(evt) {
     if (confirm(TAPi18n.__('duplicate-board-confirm'))) {

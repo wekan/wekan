@@ -62,6 +62,17 @@
   border: 2px dashed #2196F3;
 }
 
+/* Highlight valid drop targets while a board is being dragged */
+.workspace-node.board-drag-hint > .workspace-node-content {
+  background: #e8f5e9;
+  border: 1px dashed #4CAF50;
+  border-radius: 4px;
+}
+.boards-left-menu .menu-item a.board-drag-hint {
+  background: #e8f5e9;
+  border: 1px dashed #4CAF50;
+}
+
 .workspaces-header {
   display: flex;
   align-items: center;
