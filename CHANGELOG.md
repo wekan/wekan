@@ -86,6 +86,8 @@ and fixes the following bugs:
   Thanks to hmeunier95 and xet7.
 - [Fix Cards disappear from lists that has been minimized](https://github.com/wekan/wekan/commit/93f90873e8ef95a62e61dbba456ee466c887f2af).
   Thanks to robertjensen, harryadel and xet7.
+- [Fix Card pop-up menu content overflows viewport](https://github.com/wekan/wekan/commit/fbce6e5e9b4e27dac57deb3a80bd4ea382d1a7a5).
+  Thanks to aminsaidane and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
