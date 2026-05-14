@@ -88,6 +88,8 @@ and fixes the following bugs:
   Thanks to robertjensen, harryadel and xet7.
 - [Fix Card pop-up menu content overflows viewport](https://github.com/wekan/wekan/commit/fbce6e5e9b4e27dac57deb3a80bd4ea382d1a7a5).
   Thanks to aminsaidane and xet7.
+- [Fix Remaining view: Drag board starts drag preview but drop is no-op](https://github.com/wekan/wekan/commit/8183a645a1765c7decd51e160759e467049f719d).
+  Thanks to YosserDerbali and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
