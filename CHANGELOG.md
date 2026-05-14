@@ -84,6 +84,8 @@ and fixes the following bugs:
   Thanks to apiccolim, Raawen-dev and xet7.
 - [Fix Not possible to change the tracking mode](https://github.com/wekan/wekan/commit/fc37c08687b82aec0554bd968639c9a105650b33).
   Thanks to hmeunier95 and xet7.
+- [Fix Cards disappear from lists that has been minimized](https://github.com/wekan/wekan/commit/93f90873e8ef95a62e61dbba456ee466c887f2af).
+  Thanks to robertjensen, harryadel and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
