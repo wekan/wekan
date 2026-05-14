@@ -94,6 +94,8 @@ and fixes the following bugs:
   Thanks to hmeunier95 and xet7.
 - [Fix Change list inside of card should show only lists of current swimlane](https://github.com/wekan/wekan/commit/3adf69bd4c625bb289371e4aeadf8108a967f227).
   Thanks to mimZD and xet7.
+- [Updated @wekanteam/html-to-markdown with Fix Some HTML tags should not get newlines when converted to markdown](https://github.com/wekan/wekan/commit/597eb6b2bbd244b01bb7124dd019e0090caf2dd2).
+  Thanks to Chostakovitch and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
