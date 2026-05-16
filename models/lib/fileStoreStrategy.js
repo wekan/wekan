@@ -336,7 +336,11 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     const normalized = (originalPath || '').replace(/\\/g, '/');
     const isAvatar = normalized.includes('/avatars/') || (this.fileObj.collectionName === 'avatars');
     const baseDir = isAvatar ? 'avatars' : 'attachments';
-    const storageRoot = path.join(process.env.WRITABLE_PATH || process.cwd(), baseDir);
+    const writableBase = process.env.WRITABLE_PATH || process.cwd();
+    const endsWithFiles = writableBase.endsWith('/files') || writableBase.endsWith('\\files');
+    const storageRoot = endsWithFiles
+      ? path.join(writableBase, baseDir)
+      : path.join(writableBase, 'files', baseDir);
 
     // Build candidate list in priority order
     const candidates = [];
@@ -396,6 +400,20 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     if (this.fileObj.name) {
       const safeName = sanitizeFilename(this.fileObj.name);
       candidates.push(path.join(storageRoot, `${this.fileObj._id}-${this.versionName}-${safeName}`));
+    }
+
+    // 4) Fallback by prefix: {id}-{version}-* (covers unknown/changed original names)
+    if (this.fileObj && this.fileObj._id) {
+      try {
+        const prefix = `${this.fileObj._id}-${this.versionName}-`;
+        const dirEntries = fs.readdirSync(storageRoot);
+        const prefixedMatch = dirEntries.find((entry) => entry.startsWith(prefix));
+        if (prefixedMatch) {
+          candidates.push(path.join(storageRoot, prefixedMatch));
+        }
+      } catch (err) {
+        // Ignore listing errors and continue with other candidates
+      }
     }
 
     // Pick first existing candidate
