@@ -179,7 +179,7 @@
   transition: opacity 0.2s;
   white-space: nowrap;
   padding: 10px;
-  margin: -10px;
+  margin: 10px;
   flex: 1; /* Take up available space */
   min-width: 0; /* Allow shrinking below content size */
   display: flex; /* Use flexbox for better control */
