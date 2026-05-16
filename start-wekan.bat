@@ -34,9 +34,11 @@ REM # If you would not like to use Change Streams and replica set for improving 
 REM # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
 REM # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
 REM # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
+REM # SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
 IF "%USE_CHANGE_STREAMS%"=="true" (
-   SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-   SET DDP_TRANSPORT=uws
+   SET METEOR_REACTIVITY_ORDER=oplog,polling
+   REM # SET DDP_TRANSPORT=uws
+   SET DDP_TRANSPORT=sockjs
 ) ELSE (
    SET METEOR_REACTIVITY_ORDER=polling
 )
