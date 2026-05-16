@@ -1,5 +1,18 @@
 ## TODO
 
+Kin 2.0 Meta OS:
+
+- 2026-04-04:
+  - Interview with Hogne "m0ns00n" Titlestad - From Amiga Demoscene to Building the Kin Meta OS 
+  - https://www.youtube.com/watch?v=_qgGqsn7qg4
+- Kin 2.0 Meta OS is full rewrite of Friend.
+- Older version is Kin Legacy
+  - https://github.com/auraeinteractive
+  - https://aurae.no/en/home
+  - https://github.com/titlestad
+
+## Old
+
 WeKan:
 - integration to Friend TODO list https://github.com/FriendUPCloud/friendup/issues/114
 - timezone https://github.com/wekan/wekan/wiki/Timezone
@@ -7,16 +20,6 @@ WeKan:
 Friend Desktop Cloud OS:
 - Secure encrypted skinnable fast Open Source desktop in webbrowser/mobile/desktop app
 - WeKan as app at Friend
-
-## Chat
-
-Discord link at https://friendos.com/en/developers/
-
-Not in use currently: IRC at Freenode #friendup
-
-## Website
-
-https://friendos.com
 
 ## Video
 
