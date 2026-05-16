@@ -26,6 +26,24 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.20 2026-05-16 WeKan ® release
+
+This release adds the following updates:
+
+- [Update build scripts](https://github.com/wekan/wekan/commit/c37047d8eea120a9abb0c2159e6e6811499f999d).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Added fallback so attachments and avatars can be at WRITABLE_PATH or WRITABLE_PATH/files](https://github.com/wekan/wekan/commit/f26a2ac9ad4224aece4bc603c8f2f19eeddc97c7).
+  Thanks to xet7.
+- [Use oplog and sockjs as default. Not changeStreams and uws](https://github.com/wekan/wekan/commit/5309e4863d347dfe5c7b612e39f1750e7fcfa9d3).
+  Thanks to xet7.
+- [Added remaining MongoDB indexes and MongoDB settings](https://github.com/wekan/wekan/commit/f81fe11daecb2c3aec9c5037b274c45634b3f986).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.19 2026-05-16 WeKan ® release
 
 This release adds the following updates:
