@@ -34,6 +34,7 @@ Activities.after.insert(async (userId, doc) => {
 Meteor.startup(async () => {
   await Activities._collection.createIndexAsync({ createdAt: -1 });
   await Activities._collection.createIndexAsync({ modifiedAt: -1 });
+  await Activities._collection.createIndexAsync({ updatedAt: 1, deleted: 1 });
   await Activities._collection.createIndexAsync({ cardId: 1, createdAt: -1 });
   await Activities._collection.createIndexAsync({ boardId: 1, createdAt: -1 });
   await Activities._collection.createIndexAsync(

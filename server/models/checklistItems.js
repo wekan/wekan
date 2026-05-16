@@ -14,6 +14,7 @@ import Activities from '/models/activities';
 
 Meteor.startup(async () => {
   await ChecklistItems._collection.createIndexAsync({ modifiedAt: -1 });
+  await ChecklistItems._collection.createIndexAsync({ updatedAt: 1, deleted: 1 });
   await ChecklistItems._collection.createIndexAsync({ checklistId: 1 });
   await ChecklistItems._collection.createIndexAsync({ cardId: 1 });
 });

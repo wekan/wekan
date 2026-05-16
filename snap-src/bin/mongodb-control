@@ -155,7 +155,11 @@ $SNAP/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
     --logappend $BIND_OPTIONS \
-    --replSet rs0 --oplogSize 128 --fork \
+    --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 \
+    --timeZoneInfo /usr/share/zoneinfo \
+    --setParameter logicalSessionRefreshMillis=900000 \
+    --setParameter localLogicalSessionTimeoutMinutes=45 \
+    --replSet rs0 --oplogSize 20480 --fork \
     --pidFilePath="$TEMP_PID_FILE"
 
 # Wait for MongoDB to accept connections (up to 30 s)
@@ -232,4 +236,8 @@ exec $SNAP/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
     --logappend $BIND_OPTIONS \
-    --replSet rs0 --oplogSize 128
+    --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 \
+    --timeZoneInfo /usr/share/zoneinfo \
+    --setParameter logicalSessionRefreshMillis=900000 \
+    --setParameter localLogicalSessionTimeoutMinutes=45 \
+    --replSet rs0 --oplogSize 20480

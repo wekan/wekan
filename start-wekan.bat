@@ -2,6 +2,14 @@
 
 REM # ------------------- HOWTO ---------------------
 REM # https://github.com/wekan/wekan/wiki/Offline
+REM # ------------------- LOCAL MONGODB SETTINGS (RUN SEPARATELY) -------------------
+REM # This script starts only Wekan app. Start local mongod with these settings:
+REM # mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 ^
+REM #   --timeZoneInfo /usr/share/zoneinfo ^
+REM #   --setParameter logicalSessionRefreshMillis=900000 ^
+REM #   --setParameter localLogicalSessionTimeoutMinutes=45 ^
+REM #   --oplogSize 20480 --replSet rs0 --bind_ip 127.0.0.1 --port 27017
+REM # ------------------------------------------------------------------------------
 
 REM #-------------------- INITIALIZE REPLICA SET IF NEEDED --------------------
 REM # Change Streams require MongoDB to run as a replica set.

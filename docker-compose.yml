@@ -226,11 +226,11 @@ services:
     image: mongo:7
     container_name: wekan-db
     restart: always
-    #command: mongod --logpath /dev/null --oplogSize 128 --replSet rs0 --quiet
-    #command: mongod --oplogSize 128 --replSet rs0 --quiet
+    #command: mongod --logpath /dev/null --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --quiet
+    #command: mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --quiet
     command: >
       sh -c '
-        mongod --oplogSize 128 --replSet rs0 --bind_ip_all --quiet &
+        mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --bind_ip_all --quiet &
         until mongosh --host 127.0.0.1 --quiet --eval "
           try {
             const status = rs.status();
