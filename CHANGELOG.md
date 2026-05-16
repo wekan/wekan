@@ -98,6 +98,8 @@ and fixes the following bugs:
   Thanks to Chostakovitch and xet7.
 - [Fix Esc not work in an opened card when Keyboard Shortcuts enabled](https://github.com/wekan/wekan/commit/52ce4f612822d7eb72456de736733b03aed56287).
   Thanks to mimZD and xet7.
+- [Removed empty line from star board description at top bar of board, and added some space between icons and text](https://github.com/wekan/wekan/commit/47794f799bc84cf88526ab78201221992d90c861).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
