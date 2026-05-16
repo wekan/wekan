@@ -100,6 +100,8 @@ and fixes the following bugs:
   Thanks to mimZD and xet7.
 - [Removed empty line from star board description at top bar of board, and added some space between icons and text](https://github.com/wekan/wekan/commit/47794f799bc84cf88526ab78201221992d90c861).
   Thanks to xet7.
+- [After register or login, redirect to All Boards page](https://github.com/wekan/wekan/commit/9f979054ded0d968bd01f2829139c56ee79a39fa).
+  Thanks to bcook-konza and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
