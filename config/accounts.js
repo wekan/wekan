@@ -94,6 +94,10 @@ AccountsTemplates.configure({
   forbidClientAccountCreation: disableRegistration,
   homeRoutePath: '/',
   onSubmitHook(error, state) {
+    if (!error && (state === 'signUp' || state === 'signIn')) {
+      FlowRouter.go('/');
+      return;
+    }
     if (error) {
       // Display error to user
       const errorDiv = document.getElementById('login-error-message');
