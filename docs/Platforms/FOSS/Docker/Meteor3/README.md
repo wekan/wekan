@@ -86,19 +86,7 @@ docker compose stop
 
 docker compose start
 ```
-6) Upgrade WeKan
+6) Upgrade WeKan from old version to new version, for example:
 ```
-cd restore/username/
-
-nano docker-compose.yml
-```
-Change at top to newer WeKan version number and save.
-```
-docker compose stop
-
-docker ps
-
-docker rm USERNAME-app
-
-docker compose up -d
+./update-wekan-version.sh 9.10 9.11"
 ```
