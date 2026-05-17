@@ -33,6 +33,11 @@ This release adds the following new features:
 - [Script for upgrading Docker WeKan from old version to new version](https://github.com/wekan/wekan/commit/0b9d33cac493ff8345f3e79333b44a345e5e0b61).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Docs: Added link to Meteor Security](https://github.com/wekan/wekan/commit/2474ff15d6950615d54098aa6cd91f1005594d6a).
+  Thanks to xet7.
+
 and fixes the following bugs:
 
 - [Use only oplog sockjs so that multitenancy works](https://github.com/wekan/wekan/commit/7b88f4c21a05810966e49833b393f4bd02d70d47).
