@@ -36,6 +36,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Added Docs for Meteor 3 Docker WeKan with ChangeStreams etc](https://github.com/wekan/wekan/commit/d5d04728fbe3d27f2ef65d2fdef0d3818ba02eaf).
   Thanks to xet7.
+- [Set default to changeStreams and uws](https://github.com/wekan/wekan/commit/964caabaaf1a535556185d194d18e30bbbc1405b).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
