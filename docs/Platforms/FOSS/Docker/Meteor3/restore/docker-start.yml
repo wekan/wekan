@@ -6,10 +6,11 @@ services:
     restart: always
     network_mode: "host"
     environment:
-      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-      #- METEOR_REACTIVITY_ORDER=oplog,polling
-      - DDP_TRANSPORT=uws
-      #- DDP_TRANSPORT=sockjs
+      ## See ../multitenancy.md about commented out settings:
+      #- METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      - METEOR_REACTIVITY_ORDER=oplog,polling
+      #- DDP_TRANSPORT=uws
+      - DDP_TRANSPORT=sockjs
       - WRITABLE_PATH=/data
       - WITH_API=true
       - RICHER_CARD_COMMENT_EDITOR=false

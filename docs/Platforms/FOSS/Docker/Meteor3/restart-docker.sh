@@ -1,16 +1,7 @@
 #!/bin/bash
 
-if [ "$#" -ne 2 ]; then
-  echo "Update WeKan old version to new version."
-  echo "Example: ./update-wekan-version.sh 9.10 9.11"
-  exit 1
-fi
-
-# Replace version number at docker-compose.yml of every user
-sed -i "s|ghcr.io/wekan/wekan:v$1|ghcr.io/wekan/wekan:v$2|g" restore/*/docker-compose.yml
-
 # Loop through all subdirectories in the current directory
-for d in restore/*/ ; do
+for d in */ ; do
     # Remove the trailing slash to get just the folder name
     FOLDER_NAME="${d%/}"
     
@@ -23,8 +14,11 @@ for d in restore/*/ ; do
 
     # Run the Docker commands using the folder name
     docker compose down
-    docker rm "${FOLDER_NAME}-app"
     docker compose up -d --force-recreate
+    #docker compose stop
+    #docker compose start
+    #docker rm "${FOLDER_NAME}-app"
+    #docker compose up -d
 
     # Return to the parent directory
     cd ..

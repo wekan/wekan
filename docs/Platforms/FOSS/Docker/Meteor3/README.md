@@ -1,5 +1,7 @@
 # Meteor 3 WeKan: Hosting many WeKan kanban, websites, etc
 
+Note: Only `Oplog sockjs` works with multitenancy, see [multitenancy.md](multitenancy).
+
 Migrating from Parallel Snap setup, because `snap set wekan root-url=...`
 etc commands are slow to run, and did not get Parallel Snap working properly yet.
 

@@ -40,9 +40,9 @@
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
       # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
       if [ "$USE_CHANGE_STREAMS" = "true" ]; then
-          export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-          # export DDP_TRANSPORT=sockjs
-          export DDP_TRANSPORT=uws
+          export METEOR_REACTIVITY_ORDER=oplog,polling
+          export DDP_TRANSPORT=sockjs
+          #export DDP_TRANSPORT=uws
       else
           export METEOR_REACTIVITY_ORDER=polling
       fi
