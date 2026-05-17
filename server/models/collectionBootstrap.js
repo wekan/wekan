@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { MongoInternals } from 'meteor/mongo';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import AccountSettings from '/models/accountSettings';
 import Announcements from '/models/announcements';
@@ -10,29 +9,11 @@ import OrgUser from '/models/orgUser';
 import PositionHistory from '/models/positionHistory';
 import Presences from '/models/presences';
 import Rules from '/models/rules';
-import SessionData from '/models/usersessiondata';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import Triggers from '/models/triggers';
 import UnsavedEditCollection from '/models/unsavedEdits';
 
-const safelyDropCollection = async collection => {
-  try {
-    await collection.drop();
-  } catch (error) {
-    // Ignore "namespace not found" so startup stays idempotent.
-    if (error?.codeName !== 'NamespaceNotFound' && error?.code !== 26) {
-      throw error;
-    }
-  }
-};
-
 Meteor.startup(async () => {
-  const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
-  await safelyDropCollection(Presences.rawCollection());
-  await safelyDropCollection(SessionData.rawCollection());
-  await safelyDropCollection(db.collection('cfs_gridfs._tempstore.chunks'));
-  await safelyDropCollection(db.collection('cfs_gridfs._tempstore.files'));
-
   await AccessibilitySettings._collection.createIndexAsync({ modifiedAt: -1 });
   if (!(await AccessibilitySettings.findOneAsync({}))) {
     await AccessibilitySettings.insertAsync({ enabled: false, sort: 0 });
