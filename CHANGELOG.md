@@ -37,6 +37,11 @@ This release adds the following updates:
 - [Added Docs for Meteor 3 Docker WeKan with ChangeStreams etc](https://github.com/wekan/wekan/commit/d5d04728fbe3d27f2ef65d2fdef0d3818ba02eaf).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix sudden logouts](https://github.com/wekan/wekan/commit/c2f67001d6a861291cc1fab4670a7131088d1acd).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.20 2026-05-16 WeKan ® release
