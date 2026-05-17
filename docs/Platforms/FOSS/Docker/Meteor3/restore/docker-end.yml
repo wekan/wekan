@@ -1,0 +1,10 @@
+      # ========== CUSTOM END =====
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - wekan-files:/data:rw
+
+volumes:
+  wekan-files:
+    driver: local
