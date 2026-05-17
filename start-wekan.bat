@@ -32,7 +32,6 @@ IF %ERRORLEVEL% NEQ 0 (
 )
    SET USE_CHANGE_STREAMS=true
 )
-SET USE_CHANGE_STREAMS=false
 REM #----------------------------------------------------------------------
 
 REM #-------------------- REQUIRED SETTINGS START --------------------
@@ -44,9 +43,9 @@ REM # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance
 REM # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
 REM # SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
 IF "%USE_CHANGE_STREAMS%"=="true" (
-   SET METEOR_REACTIVITY_ORDER=oplog,polling
-   REM # SET DDP_TRANSPORT=uws
-   SET DDP_TRANSPORT=sockjs
+   SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+   REM # SET DDP_TRANSPORT=sockjs
+   SET DDP_TRANSPORT=uws
 ) ELSE (
    SET METEOR_REACTIVITY_ORDER=polling
 )

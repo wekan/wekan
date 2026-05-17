@@ -39,15 +39,13 @@
       # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
       # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-      ##if [ "$USE_CHANGE_STREAMS" = "true" ]; then
-      ##    export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-      ##    export DDP_TRANSPORT=uws
-      ##else
-      ##    export METEOR_REACTIVITY_ORDER=polling
-      ##fi
-      export METEOR_REACTIVITY_ORDER=oplog,polling
-      #- DDP_TRANSPORT=uws
-      export DDP_TRANSPORT=sockjs
+      if [ "$USE_CHANGE_STREAMS" = "true" ]; then
+          export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+          # export DDP_TRANSPORT=sockjs
+          export DDP_TRANSPORT=uws
+      else
+          export METEOR_REACTIVITY_ORDER=polling
+      fi
       #-------------------- REQUIRED SETTINGS START --------------------
       # WRITEABLE PATH REQUIRED TO EXISTS AND BE WRITABLE FOR ATTACHMENTS TO WORK
       export WRITABLE_PATH=..
