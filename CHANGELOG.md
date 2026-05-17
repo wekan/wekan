@@ -34,6 +34,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated Kin 2.0 Meta OS to Friend page](https://github.com/wekan/wekan/commit/3390324c2ae10d5320de0d57d6d7b21e7c1bd42d).
   Thanks to xet7.
+- [Added Docs for Meteor 3 Docker WeKan with ChangeStreams etc](https://github.com/wekan/wekan/commit/d5d04728fbe3d27f2ef65d2fdef0d3818ba02eaf).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
