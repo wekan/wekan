@@ -31,6 +31,7 @@ wekan.customer.com {
 		X-Content-Type-Options nosniff
 		Strict-Transport-Security "max-age=31536000;"
 		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
 	}
 	handle /.well-known/* {
 		header Content-Type application/json
@@ -60,6 +61,7 @@ customer.wekan.team {
 		X-Content-Type-Options nosniff
 		Strict-Transport-Security "max-age=31536000;"
 		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
 	}
 	handle /.well-known/* {
 		header Content-Type application/json
@@ -239,6 +241,7 @@ boards.wekan.team {
 		X-Content-Type-Options nosniff
 		Strict-Transport-Security "max-age=31536000;"
 		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
 	}
 	handle /.well-known/* {
 		header Content-Type application/json
