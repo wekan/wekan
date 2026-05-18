@@ -9,25 +9,25 @@ fi
 # Replace version number at docker-compose.yml of every user
 sed -i "s|ghcr.io/wekan/wekan:v$1|ghcr.io/wekan/wekan:v$2|g" restore/*/docker-compose.yml
 
-# Loop through all subdirectories in the current directory
+# Loop through all subdirectories in the restore directory
 for d in restore/*/ ; do
-    # Remove the trailing slash to get just the folder name
-    FOLDER_NAME="${d%/}"
+    # Extract JUST the clean folder name (e.g., "parameter" instead of "restore/parameter")
+    TMP="${d%/}"
+    FOLDER_NAME="${TMP##*/}"
     
     echo "--------------------------------------------------"
     echo "Processing folder: $FOLDER_NAME"
     echo "--------------------------------------------------"
     
-    # Change into the subdirectory, skip if it fails
-    cd "$FOLDER_NAME" || continue
+    # Run inside a subshell () so the main script never leaves the root directory
+    (
+        cd "$d" || exit 1
 
-    # Run the Docker commands using the folder name
-    docker compose down
-    docker rm "${FOLDER_NAME}-app"
-    docker compose up -d --force-recreate
-
-    # Return to the parent directory
-    cd ..
+        # Run the Docker commands using the clean folder name
+        docker compose down
+        docker rm "${FOLDER_NAME}-app" 2>/dev/null # 2>/dev/null ignores errors if it's already gone
+        docker compose up -d --force-recreate
+    )
 done
 
 echo "All folders processed!"
