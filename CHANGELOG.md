@@ -33,6 +33,11 @@ This release adds the following new features:
 - [Add local build cache, for npm packages and http downloads](https://github.com/wekan/wekan/commit/2cc30a85f21742f0f087a9846a52ee28e32830a5).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix WeKan version update script](https://github.com/wekan/wekan/commit/28464685a70dcea783f90e24e70d668bbcb483a4).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.22 2026-05-18 WeKan ® release
