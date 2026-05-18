@@ -42,6 +42,9 @@ echo "--------------------------------------------------"
 # --out = destination folder where the data is saved
 mongodump --uri="$CONNECTION_URI" --db="$DB_PARAM" --out="$BACKUP_PATH"
 
+# Backup attachments and avatars
+cp -pR "/var/lib/docker/volumes/${DB_PARAM}_wekan-files/_data/files" "${BACKUP_PATH}/"
+
 # Check if the backup was successful
 if [ $? -eq 0 ]; then
   echo "------------------------------------------------"
