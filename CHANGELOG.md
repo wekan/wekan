@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.22 2026-05-18 WeKan ® release
 
 This release adds the following new features:
 
@@ -49,6 +49,8 @@ and fixes the following bugs:
 - [Script to executeable](https://github.com/wekan/wekan/commit/7496d994e159a6640d285c8e2e0bcd96f93635b4).
   Thanks to xet7.
 - [Fixed path](https://github.com/wekan/wekan/commit/8f574799e2e4da956429a131c2667a483c28e7a6).
+  Thanks to xet7.
+- [Fix minicard drag handle to be below minicard menu. Not at top of minicard menu anymore](https://github.com/wekan/wekan/commit/95ad27e0df0c08c59aa3df486cbb5cdb0f87a7e7).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
