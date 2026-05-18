@@ -32,6 +32,8 @@ This release adds the following new features:
 
 - [Script for upgrading Docker WeKan from old version to new version](https://github.com/wekan/wekan/commit/0b9d33cac493ff8345f3e79333b44a345e5e0b61).
   Thanks to xet7.
+- [Added backup-all.sh script](https://github.com/wekan/wekan/commit/d486eb2a8f8192fbd318510117afa8afbe00185c).
+  Thanks to xet7.
 
 and adds the following updates:
 
@@ -41,6 +43,10 @@ and adds the following updates:
 and fixes the following bugs:
 
 - [Use only oplog sockjs so that multitenancy works](https://github.com/wekan/wekan/commit/7b88f4c21a05810966e49833b393f4bd02d70d47).
+  Thanks to xet7.
+- [Script to executeable](https://github.com/wekan/wekan/commit/7496d994e159a6640d285c8e2e0bcd96f93635b4).
+  Thanks to xet7.
+- [Fixed path](https://github.com/wekan/wekan/commit/8f574799e2e4da956429a131c2667a483c28e7a6).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
