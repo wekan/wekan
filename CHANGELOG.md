@@ -34,6 +34,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added backup-all.sh script](https://github.com/wekan/wekan/commit/d486eb2a8f8192fbd318510117afa8afbe00185c).
   Thanks to xet7.
+- [Backup also attachments and avatars](https://github.com/wekan/wekan/commit/46e67512aceb7614998186f87f79af78d8f01527).
+  Thanks to xet7.
 
 and adds the following updates:
 
