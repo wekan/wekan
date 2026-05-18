@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Loop through all subdirectories in the current directory
-for d in */ ; do
+for d in restore/*/ ; do
     # Remove the trailing slash to get just the folder name
     FOLDER_NAME="${d%/}"
     
