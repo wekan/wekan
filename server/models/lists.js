@@ -126,7 +126,6 @@ Meteor.methods({
 
       if (
         nextList &&
-        Number.isFinite(nextList.sort) &&
         Number.isFinite(selectedList.sort) &&
         nextList.sort > selectedList.sort
       ) {
@@ -526,7 +525,7 @@ Lists.after.update(async (userId, doc, fieldNames) => {
 WebApp.handlers.get('/api/boards/:boardId/lists', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     sendJsonResult(res, {
       code: 200,
@@ -544,7 +543,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId', async function(req, re
   try {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     sendJsonResult(res, {
       code: 200,
       data: await ReactiveCache.getList({
@@ -561,7 +560,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId', async function(req, re
 WebApp.handlers.post('/api/boards/:boardId/lists', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const board = await ReactiveCache.getBoard(paramBoardId);
     const defaultSwimlane = board.getDefaultSwimlineAsync
       ? await board.getDefaultSwimlineAsync()
@@ -583,7 +582,7 @@ WebApp.handlers.put('/api/boards/:boardId/lists/:listId', async function(req, re
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     let updated = false;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     const list = await ReactiveCache.getList({
       _id: paramListId,
@@ -644,7 +643,7 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
   try {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     await Lists.removeAsync({ _id: paramListId, boardId: paramBoardId });
     sendJsonResult(res, { code: 200, data: { _id: paramListId } });
   } catch (error) {

@@ -13,7 +13,7 @@ Meteor.startup(async () => {
 WebApp.handlers.get('/api/boards/:boardId/integrations', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     const data = (await ReactiveCache.getIntegrations(
       { boardId: paramBoardId },
@@ -35,7 +35,7 @@ WebApp.handlers.get('/api/boards/:boardId/integrations/:intId', async function(r
   try {
     const paramBoardId = req.params.boardId;
     const paramIntId = req.params.intId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     sendJsonResult(res, {
       code: 200,

@@ -123,7 +123,7 @@ Swimlanes.after.update(async (userId, doc, fieldNames) => {
 WebApp.handlers.get('/api/boards/:boardId/swimlanes', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     const swimlanes = await ReactiveCache.getSwimlanes({ boardId: paramBoardId, archived: false });
     sendJsonResult(res, {
@@ -147,7 +147,7 @@ WebApp.handlers.get('/api/boards/:boardId/swimlanes/:swimlaneId', async function
   try {
     const paramBoardId = req.params.boardId;
     const paramSwimlaneId = req.params.swimlaneId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     sendJsonResult(res, {
       code: 200,
@@ -168,7 +168,7 @@ WebApp.handlers.get('/api/boards/:boardId/swimlanes/:swimlaneId', async function
 WebApp.handlers.post('/api/boards/:boardId/swimlanes', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     const board = await ReactiveCache.getBoard(paramBoardId);
     const id = await Swimlanes.insertAsync({
@@ -194,7 +194,7 @@ WebApp.handlers.put('/api/boards/:boardId/swimlanes/:swimlaneId', async function
   try {
     const paramBoardId = req.params.boardId;
     const paramSwimlaneId = req.params.swimlaneId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     await ReactiveCache.getBoard(paramBoardId);
     const swimlane = await ReactiveCache.getSwimlane({
       _id: paramSwimlaneId,
@@ -225,7 +225,7 @@ WebApp.handlers.delete('/api/boards/:boardId/swimlanes/:swimlaneId', async funct
   try {
     const paramBoardId = req.params.boardId;
     const paramSwimlaneId = req.params.swimlaneId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     await Swimlanes.removeAsync({ _id: paramSwimlaneId, boardId: paramBoardId });
     sendJsonResult(res, {
       code: 200,

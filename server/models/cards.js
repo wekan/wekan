@@ -495,7 +495,7 @@ WebApp.handlers.get(
   async function(req, res) {
     const paramBoardId = req.params.boardId;
     const paramSwimlaneId = req.params.swimlaneId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const cards = await ReactiveCache.getCards(
       {
         boardId: paramBoardId,
@@ -525,7 +525,7 @@ WebApp.handlers.get(
 WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards', async function(req, res) {
   const paramBoardId = req.params.boardId;
   const paramListId = req.params.listId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
   const cards = await ReactiveCache.getCards(
     {
       boardId: paramBoardId,
@@ -554,7 +554,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards', async function(r
 WebApp.handlers.get('/api/cards/:cardId', async function(req, res) {
   const paramCardId = req.params.cardId;
   const card = await ReactiveCache.getCard(paramCardId);
-  Authentication.checkBoardAccess(req.userId, card.boardId);
+  await Authentication.checkBoardAccess(req.userId, card.boardId);
   sendJsonResult(res, {
     code: 200,
     data: card,
@@ -567,7 +567,7 @@ WebApp.handlers.get(
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     sendJsonResult(res, {
       code: 200,
       data: await ReactiveCache.getCard({
@@ -632,7 +632,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
 WebApp.handlers.get('/api/boards/:boardId/cards_count', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const cards = await ReactiveCache.getCards({
       boardId: paramBoardId,
       archived: false,
@@ -650,7 +650,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards_count', async func
   try {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const cards = await ReactiveCache.getCards({
       boardId: paramBoardId,
       listId: paramListId,
@@ -675,7 +675,7 @@ WebApp.handlers.put(
     const newSwimlaneId = req.body.newSwimlaneId;
     const newListId = req.body.newListId;
     let updated = false;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     if (req.body.title) {
       const newTitle =
@@ -867,7 +867,7 @@ WebApp.handlers.put(
       await cardMove(req.body.authorId, card, { fieldName: 'listId' }, paramListId);
     }
     if (newBoardId && newSwimlaneId && newListId) {
-      Authentication.checkBoardWriteAccess(req.userId, newBoardId);
+      await Authentication.checkBoardWriteAccess(req.userId, newBoardId);
       const destList = await ReactiveCache.getList({
         _id: newListId,
         boardId: newBoardId,
@@ -925,7 +925,7 @@ WebApp.handlers.delete(
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     const card = await ReactiveCache.getCard(paramCardId);
       await Cards.direct.removeAsync({
@@ -944,7 +944,7 @@ WebApp.handlers.get(
     const paramBoardId = req.params.boardId;
     const paramCustomFieldId = req.params.customFieldId;
     const paramCustomFieldValue = req.params.customFieldValue;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     sendJsonResult(res, {
       code: 200,
       data: await ReactiveCache.getCards({
@@ -966,7 +966,7 @@ WebApp.handlers.post(
     const paramListId = req.params.listId;
     const paramCustomFieldId = req.params.customFieldId;
     const paramCustomFieldValue = req.body.value;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
       listId: paramListId,
@@ -996,7 +996,7 @@ WebApp.handlers.post(
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     const paramListId = req.params.listId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
       listId: paramListId,
@@ -1020,7 +1020,7 @@ WebApp.handlers.post(
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     const paramListId = req.params.listId;
-    Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
       listId: paramListId,

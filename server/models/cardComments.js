@@ -78,7 +78,7 @@ WebApp.handlers.get('/api/boards/:boardId/cards/:cardId/comments', async functio
   try {
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     sendJsonResult(res, {
       code: 200,
       data: (await ReactiveCache.getCardComments({
@@ -105,7 +105,7 @@ WebApp.handlers.get(
       const paramBoardId = req.params.boardId;
       const paramCommentId = req.params.commentId;
       const paramCardId = req.params.cardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAccess(req.userId, paramBoardId);
       sendJsonResult(res, {
         code: 200,
         data: await ReactiveCache.getCardComment({
@@ -127,7 +127,7 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
   try {
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const id = await CardComments.direct.insertAsync({
       userId: req.userId,
       text: req.body.comment,
@@ -163,7 +163,7 @@ WebApp.handlers.delete(
       const paramBoardId = req.params.boardId;
       const paramCommentId = req.params.commentId;
       const paramCardId = req.params.cardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAccess(req.userId, paramBoardId);
       await CardComments.removeAsync({
         _id: paramCommentId,
         cardId: paramCardId,

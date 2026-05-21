@@ -97,7 +97,7 @@ CustomFields.before.remove(async (userId, doc) => {
 
 WebApp.handlers.get('/api/boards/:boardId/custom-fields', async function(req, res) {
   const paramBoardId = req.params.boardId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
   sendJsonResult(res, {
     code: 200,
     data: (await ReactiveCache.getCustomFields({ boardIds: { $in: [paramBoardId] } })).map(cf => ({
@@ -111,7 +111,7 @@ WebApp.handlers.get('/api/boards/:boardId/custom-fields', async function(req, re
 WebApp.handlers.get('/api/boards/:boardId/custom-fields/:customFieldId', async function(req, res) {
   const paramBoardId = req.params.boardId;
   const paramCustomFieldId = req.params.customFieldId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
   sendJsonResult(res, {
     code: 200,
     data: await ReactiveCache.getCustomField({
@@ -123,7 +123,7 @@ WebApp.handlers.get('/api/boards/:boardId/custom-fields/:customFieldId', async f
 
 WebApp.handlers.post('/api/boards/:boardId/custom-fields', async function(req, res) {
   const paramBoardId = req.params.boardId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
   const board = await ReactiveCache.getBoard(paramBoardId);
   const id = await CustomFields.direct.insertAsync({
     name: req.body.name,
@@ -153,7 +153,7 @@ WebApp.handlers.post('/api/boards/:boardId/custom-fields', async function(req, r
 WebApp.handlers.put('/api/boards/:boardId/custom-fields/:customFieldId', async function(req, res) {
   const paramBoardId = req.params.boardId;
   const paramFieldId = req.params.customFieldId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
   const boardScopedField = {
     _id: paramFieldId,
@@ -194,7 +194,7 @@ WebApp.handlers.put('/api/boards/:boardId/custom-fields/:customFieldId', async f
 WebApp.handlers.post('/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items', async function(req, res) {
   const paramBoardId = req.params.boardId;
   const paramCustomFieldId = req.params.customFieldId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
   const paramItems = req.body.items;
 
   if (Object.prototype.hasOwnProperty.call(req.body, 'items') && Array.isArray(paramItems)) {
@@ -230,7 +230,7 @@ WebApp.handlers.put(
     const paramBoardId = req.params.boardId;
     const paramDropdownItemId = req.params.dropdownItemId;
     const paramCustomFieldId = req.params.customFieldId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const paramName = req.body.name;
 
     if (Object.prototype.hasOwnProperty.call(req.body, 'name')) {
@@ -264,7 +264,7 @@ WebApp.handlers.delete(
     const paramBoardId = req.params.boardId;
     const paramCustomFieldId = req.params.customFieldId;
     const paramDropdownItemId = req.params.dropdownItemId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     await CustomFields.direct.updateAsync(
       { _id: paramCustomFieldId, boardIds: { $in: [paramBoardId] } },
@@ -284,7 +284,7 @@ WebApp.handlers.delete(
 
 WebApp.handlers.delete('/api/boards/:boardId/custom-fields/:customFieldId', async function(req, res) {
   const paramBoardId = req.params.boardId;
-  Authentication.checkBoardAccess(req.userId, paramBoardId);
+  await Authentication.checkBoardAccess(req.userId, paramBoardId);
   const id = req.params.customFieldId;
   await CustomFields.removeAsync({ _id: id, boardIds: { $in: [paramBoardId] } });
   sendJsonResult(res, {

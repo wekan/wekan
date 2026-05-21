@@ -102,7 +102,7 @@ WebApp.handlers.get(
   async function(req, res) {
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
@@ -143,7 +143,7 @@ WebApp.handlers.get(
     const paramBoardId = req.params.boardId;
     const paramChecklistId = req.params.checklistId;
     const paramCardId = req.params.cardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
@@ -187,7 +187,7 @@ WebApp.handlers.post(
   '/api/boards/:boardId/cards/:cardId/checklists',
   async function(req, res) {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const board = await ReactiveCache.getBoard(paramBoardId);
     const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
     Authentication.checkAdminOrCondition(req.userId, addPermission);
@@ -247,7 +247,7 @@ WebApp.handlers.delete(
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     const paramChecklistId = req.params.checklistId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     const card = await ReactiveCache.getCard({
       _id: paramCardId,

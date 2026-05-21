@@ -533,7 +533,7 @@ WebApp.handlers.get('/api/boards_count', async function(req, res) {
 WebApp.handlers.get('/api/boards/:boardId', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
     const board = await ReactiveCache.getBoard(paramBoardId);
     sendJsonResult(res, {
@@ -611,7 +611,7 @@ WebApp.handlers.delete('/api/boards/:boardId', async function(req, res) {
 WebApp.handlers.put('/api/boards/:boardId/title', async function(req, res) {
   try {
     const boardId = req.params.boardId;
-    Authentication.checkBoardWriteAccess(req.userId, boardId);
+    await Authentication.checkBoardWriteAccess(req.userId, boardId);
     const title = req.body.title;
 
     await Boards.direct.updateAsync({ _id: boardId }, { $set: { title } });
@@ -633,7 +633,7 @@ WebApp.handlers.put('/api/boards/:boardId/title', async function(req, res) {
 
 WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
   const id = req.params.boardId;
-  Authentication.checkBoardWriteAccess(req.userId, id);
+  await Authentication.checkBoardWriteAccess(req.userId, id);
   try {
     if (Object.prototype.hasOwnProperty.call(req.body, 'label')) {
       const board = await ReactiveCache.getBoard(id);
