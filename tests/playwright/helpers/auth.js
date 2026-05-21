@@ -8,7 +8,7 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
  * has rendering issues (one of the bugs we're testing separately).
  */
 async function loginWithToken(page, userId, token) {
-  await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
   await waitForMeteor(page);
 
   const result = await page.evaluate(
@@ -24,12 +24,12 @@ async function loginWithToken(page, userId, token) {
   if (result.error) throw new Error(`Token login failed: ${result.error}`);
   if (result.userId !== userId) throw new Error(`Unexpected userId after login: ${result.userId}`);
 
-  await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+  await page.goto(BASE_URL, { waitUntil: 'commit' });
 }
 
 /** Login using the actual username/password form (tests the login UI). */
 async function loginWithCredentials(page, username, password) {
-  await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
   await page.fill('[name="username"]', username);
   await page.fill('[name="password"]', password);
   await page.click('[type="submit"]');
@@ -53,7 +53,7 @@ async function waitForMeteor(page) {
 /** Navigate to a board and wait for it to render lists. */
 async function openBoard(page, boardId, slug) {
   for (let attempt = 1; attempt <= 3; attempt++) {
-    await page.goto(`${BASE_URL}/b/${boardId}/${slug}`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/b/${boardId}/${slug}`, { waitUntil: 'commit' });
     const hasList = await page
       .locator('.js-list:not(.js-list-composer)')
       .first()

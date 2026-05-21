@@ -60,3 +60,6 @@ test-results/
 
 # Claude AI
 .claude/
+
+# Tools like mongosh etc so that they work inside Flatpak sandbox
+.tools/

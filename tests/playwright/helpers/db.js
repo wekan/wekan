@@ -6,8 +6,11 @@ const { execFileSync } = require('child_process');
 const MONGO_URL = process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteor';
 
 function mongoEval(script) {
+  const extraPaths = ['/opt/homebrew/bin', '/usr/local/bin'];
+  const PATH = [...extraPaths, process.env.PATH || ''].join(':');
   return execFileSync('mongosh', ['--quiet', MONGO_URL, '--eval', script], {
     encoding: 'utf8',
+    env: { ...process.env, PATH },
   }).trim();
 }
 

@@ -20,7 +20,10 @@
     "strict": 0,
     "no-undef": 0,
     "accessor-pairs": 2,
-    "comma-dangle": [2, "always-multiline"],
+    "comma-dangle": [
+      2,
+      "always-multiline"
+    ],
     "consistent-return": 2,
     "dot-notation": 2,
     "eqeqeq": 2,
@@ -28,15 +31,28 @@
     "no-cond-assign": 2,
     "no-constant-condition": 2,
     "no-eval": 2,
-    "no-inner-declarations": [0],
+    "no-inner-declarations": [
+      0
+    ],
     "no-unneeded-ternary": 2,
     "radix": 2,
-    "semi": [2, "always"],
-    "camelcase": [2, { "properties": "never" }],
+    "semi": [
+      2,
+      "always"
+    ],
+    "camelcase": [
+      2,
+      {
+        "properties": "never"
+      }
+    ],
     "comma-spacing": 2,
     "comma-style": 2,
     "eol-last": 2,
-    "linebreak-style": [2, "unix"],
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
     "meteor/audit-argument-checks": 0,
     "new-parens": 2,
     "no-lonely-if": 2,
@@ -45,7 +61,13 @@
     "no-spaced-func": 2,
     "no-trailing-spaces": 2,
     "operator-linebreak": 2,
-    "quotes": [2, "single", { "avoidEscape": true }],
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
     "semi-spacing": 2,
     "space-unary-ops": 2,
     "arrow-spacing": 2,
@@ -57,6 +79,7 @@
     "prefer-spread": 2,
     "prefer-template": 2,
     "no-unused-vars": "warn",
+    "@typescript-eslint/no-floating-promises": "error",
     "prettier/prettier": [
       "error",
       {
@@ -72,11 +95,18 @@
   "settings": {
     "import/resolver": {
       "meteor": {
-        "extensions": [".js", ".jsx"]
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
       }
     }
   },
-  "plugins": ["prettier", "meteor"],
+  "plugins": [
+    "prettier",
+    "meteor",
+    "@typescript-eslint"
+  ],
   "globals": {
     "Meteor": false,
     "Session": false,
@@ -95,7 +125,6 @@
     "_": false,
     "Avatar": true,
     "Avatars": true,
-
     "CollectionHooks": false,
     "ESSearchResults": false,
     "FastRender": false,
@@ -110,7 +139,7 @@
     "Ps": true,
     "Restivus": false,
     "SimpleSchema": false,
-"T9n": false,
+    "T9n": false,
     "TAPi18n": false,
     "AccountsTemplates": true,
     "Activities": true,

@@ -63,14 +63,16 @@ sudo flatpak override --reset com.visualstudio.code
 
 # Block EVERYTHING except the display and the wekan folder
 sudo flatpak override com.visualstudio.code \
---nofilesystem=home \
---nofilesystem=host \
---nofilesystem=xdg-run/gvfs \
---nofilesystem=xdg-run/gvfsd \
---filesystem=~/repos/wekan:rw \
---device=all \
---socket=wayland \
---socket=x11
+  --nofilesystem=home \
+  --nofilesystem=host \
+  --nofilesystem=xdg-run/gvfs \
+  --nofilesystem=xdg-run/gvfsd \
+  --filesystem=~/repos/wekan:rw \
+  --device=all \
+  --socket=wayland \
+  --socket=x11 \
+  --share=network \
+  --env=CHROME_DEVEL_SANDBOX=/usr/sbin/chrome-devel-sandbox
 
 ```
 

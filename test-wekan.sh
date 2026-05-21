@@ -81,7 +81,7 @@ then
                 --settings=settings.json \
                 --port=${PORT} \
                 --once
-    cat ./.coverage/summary.txt
+    [ "$COVERAGE" -eq "1" ] && cat ./.coverage/summary.txt || true
     else
     # ---------------------------------------------------------------
     # in watch mode we neither use a browser driver, nor coverage

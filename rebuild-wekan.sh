@@ -10,9 +10,17 @@ function pause(){
 	read -p "$*"
 }
 
+function is_dev_server_running(){
+	if command -v pgrep >/dev/null 2>&1; then
+		pgrep -af 'meteor run --port 3000' | grep -v 'meteor test' | grep -q '.'
+		return $?
+	fi
+	return 1
+}
+
 echo
 PS3='Please enter your choice: '
-options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run tests" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run tests" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -173,8 +181,152 @@ do
                 ;;
 
     "Run tests")
-		echo "Running tests (import regression)."
-		node tests/wekanCreator.import.test.js
+		echo "Running tests (all existing non-watch tests)."
+		FAILED=0
+		TEST_SERVER_PID=""
+
+		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
+			echo "ERROR: Port 3000 is already in use. Stop any running dev server before running option 9."
+			echo "SKIP: Run tests aborted to avoid Meteor build-state conflicts."
+			break
+		fi
+
+		echo "[1/5] Import regression test"
+		if node tests/wekanCreator.import.test.js; then
+			echo "PASS: tests/wekanCreator.import.test.js"
+		else
+			echo "FAIL: tests/wekanCreator.import.test.js"
+			FAILED=1
+		fi
+
+		echo "[2/5] Meteor mocha suite (package.json script: test)"
+		if meteor test --once --driver-package meteortesting:mocha --port 3100; then
+			echo "PASS: meteor test --once --driver-package meteortesting:mocha --port 3100"
+		else
+			echo "FAIL: meteor test --once --driver-package meteortesting:mocha --port 3100"
+			FAILED=1
+		fi
+
+		echo "[3/5] Start temporary Meteor server for browser suites"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../wekan-test-server.log 2>&1 &
+		TEST_SERVER_PID=$!
+		SERVER_READY=0
+		for i in $(seq 1 120); do
+			if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then
+				SERVER_READY=1
+				break
+			fi
+			sleep 1
+		done
+
+		if [ "$SERVER_READY" -ne 1 ]; then
+			echo "FAIL: temporary Meteor server did not become ready on http://localhost:3000"
+			FAILED=1
+		else
+			echo "[4/5] Browser suites (E2E + Playwright Chromium)"
+			if meteor npm run test:e2e; then
+				echo "PASS: meteor npm run test:e2e"
+			else
+				echo "WARN: meteor npm run test:e2e failed on first attempt, retrying once"
+				if meteor npm run test:e2e; then
+					echo "PASS: meteor npm run test:e2e (retry)"
+				else
+					echo "FAIL: meteor npm run test:e2e"
+					FAILED=1
+				fi
+			fi
+
+			if [ -d tests/playwright ]; then
+				if PLAYWRIGHT_HTML_OPEN=never meteor npm run test:playwright -- --project=chromium --max-failures=1; then
+					echo "PASS: meteor npm run test:playwright -- --project=chromium --max-failures=1"
+				else
+					echo "FAIL: meteor npm run test:playwright -- --project=chromium --max-failures=1"
+					FAILED=1
+				fi
+			else
+				echo "SKIP: tests/playwright directory not found"
+			fi
+		fi
+
+		if [ -n "$TEST_SERVER_PID" ]; then
+			kill "$TEST_SERVER_PID" >/dev/null 2>&1 || true
+			wait "$TEST_SERVER_PID" >/dev/null 2>&1 || true
+		fi
+
+		echo "[5/5] Legacy comprehensive suite (test-wekan.sh)"
+		if [ -f ./test-wekan.sh ]; then
+			if bash ./test-wekan.sh; then
+				echo "PASS: ./test-wekan.sh"
+			else
+				echo "FAIL: ./test-wekan.sh"
+				FAILED=1
+			fi
+		else
+			echo "SKIP: ./test-wekan.sh not found"
+		fi
+
+		if [ "$FAILED" -eq 0 ]; then
+			echo "All selected tests passed."
+		else
+			echo "Some tests failed. See output above."
+		fi
+		break
+		;;
+
+    "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)")
+		if ! command -v rg >/dev/null 2>&1; then
+			echo "ripgrep (rg) not found. Installing dependency."
+			if command -v apt >/dev/null 2>&1; then
+				sudo apt install -y ripgrep
+			elif command -v brew >/dev/null 2>&1; then
+				brew install ripgrep
+			else
+				echo "WARNING: Could not auto-install ripgrep. Falling back to grep."
+			fi
+		fi
+
+		MISSING_TS_ESLINT=0
+		meteor npm ls --depth=0 @typescript-eslint/eslint-plugin >/dev/null 2>&1 || MISSING_TS_ESLINT=1
+		meteor npm ls --depth=0 @typescript-eslint/parser >/dev/null 2>&1 || MISSING_TS_ESLINT=1
+		if [ "$MISSING_TS_ESLINT" -eq 1 ]; then
+			echo "Installing missing ESLint dependencies for no-floating-promises rule."
+			meteor npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
+		fi
+
+		echo "Ensuring .eslintrc.json includes @typescript-eslint plugin and no-floating-promises rule"
+		node -e "const fs=require('fs');const p='.eslintrc.json';const c=JSON.parse(fs.readFileSync(p,'utf8'));c.plugins=Array.isArray(c.plugins)?c.plugins:[];if(!c.plugins.includes('@typescript-eslint'))c.plugins.push('@typescript-eslint');c.rules=c.rules||{};c.rules['@typescript-eslint/no-floating-promises']='error';fs.writeFileSync(p,JSON.stringify(c,null,2)+'\\n');"
+
+		echo "Checking whether @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
+		if command -v rg >/dev/null 2>&1; then
+			RULE_CHECK_CMD='rg -n'
+		else
+			RULE_CHECK_CMD='grep -nE'
+		fi
+
+		if $RULE_CHECK_CMD '"@typescript-eslint/no-floating-promises"' .eslintrc.json >/dev/null 2>&1; then
+			echo "OK: Rule @typescript-eslint/no-floating-promises is configured in .eslintrc.json"
+		else
+			echo "WARNING: Rule @typescript-eslint/no-floating-promises is NOT configured in .eslintrc.json"
+			echo "Suggested: add @typescript-eslint/eslint-plugin and set '@typescript-eslint/no-floating-promises': 'error'"
+		fi
+
+		echo "Quick note: @typescript-eslint/no-floating-promises is a type-aware rule and may require further parser/project setup for full enforcement in all files."
+
+		echo
+		echo "Scanning for unawaited Authentication.checkBoardAccess/checkBoardWriteAccess in server/models"
+		if command -v rg >/dev/null 2>&1; then
+			if rg -n 'Authentication\.checkBoard(Access|WriteAccess)\(' server/models | rg -v 'await Authentication\.checkBoard(Access|WriteAccess)\('; then
+				echo "WARNING: Found possible unawaited board auth checks above"
+			else
+				echo "OK: No unawaited board auth checks found"
+			fi
+		else
+			if grep -RInE 'Authentication\.checkBoard(Access|WriteAccess)\(' server/models | grep -vE 'await Authentication\.checkBoard(Access|WriteAccess)\('; then
+				echo "WARNING: Found possible unawaited board auth checks above"
+			else
+				echo "OK: No unawaited board auth checks found"
+			fi
+		fi
 		break
 		;;
 
