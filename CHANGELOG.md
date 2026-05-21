@@ -28,15 +28,30 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUES: https://wekan.fi/hall-of-fame/bflableed/ :
 
-- [Add local build cache, for npm packages and http downloads](https://github.com/wekan/wekan/commit/2cc30a85f21742f0f087a9846a52ee28e32830a5).
+- [Fix BFLABleed](https://github.com/wekan/wekan/commit/8baa9124a607e0620ab72d6d16871ed1c08e721a)
+  Thanks to Fredrik Dietrichson and xet7.
+
+and adds the following new features:
+
+- [Build scripts: Add local build cache, for npm packages and http downloads](https://github.com/wekan/wekan/commit/2cc30a85f21742f0f087a9846a52ee28e32830a5).
+  Thanks to xet7.
+- [Build scripts: Added script to revert git add](https://github.com/wekan/wekan/commit/fad217db8a55d95bd62d7d9c431cb60714a54d13).
   Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Fix WeKan version update script](https://github.com/wekan/wekan/commit/28464685a70dcea783f90e24e70d668bbcb483a4).
   Thanks to xet7.
+- Fix tests. Added Filter test at part 4.
+  [Part 3](https://github.com/wekan/wekan/commit/1b1b04d083efd44163549f7dc1f33aba6ae08c86),
+  [Part 4](https://github.com/wekan/wekan/commit/24577ad2a9647a3dc5143606d8ff9c23f6c49bd0).
+  Thanks to xet7.
+- [Fix No label and dates on any minicard](https://github.com/wekan/wekan/commit/4aeb3aa3d2e8daebd28aa50ae09eff5e7bde8c8b).
+  Thanks to hmeunier95 and xet7.
+- [Fix Filter](https://github.com/wekan/wekan/commit/06cdd459dbe7e11e971d91f75c4344386acb38ee).
+  Thanks to hmeunier95 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
