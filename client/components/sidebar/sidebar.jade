@@ -370,16 +370,6 @@ template(name="boardCardSettingsPopup")
           | {{_ 'custom-field-text'}}
     .card-settings-row
       .card-settings-column
-        span
-      .card-settings-column
-        a.flex.js-field-has-description-text-on-minicard(title="{{_ 'description-on-minicard'}}" class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsDescriptionTextOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-file-text-o
-          | {{_ 'description-on-minicard'}}
-    .card-settings-row
-      .card-settings-column
         a.flex.js-field-has-checklists(title="{{_ 'checklists'}}" class="{{#if allowsChecklists}}is-checked{{/if}}")
           i.fa(class="{{#if allowsChecklists}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column

@@ -6,6 +6,17 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
 import ChecklistItems from '/models/checklistItems';
 
+function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
+  if (!board) return false;
+  if (board[onMinicardField] !== null && board[onMinicardField] !== undefined) {
+    return board[onMinicardField];
+  }
+  if (legacyField && board[legacyField] !== null && board[legacyField] !== undefined) {
+    return board[legacyField];
+  }
+  return defaultValue;
+}
+
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
 // });
@@ -52,48 +63,40 @@ Template.minicard.helpers({
 
   showMembers() {
     const board = this.board();
-    let ret = false;
-    if (board) {
-      ret = board.allowsMembersOnMinicard ?? false;
-    }
-    return ret;
+    return getMinicardFlag(board, 'allowsMembersOnMinicard', 'allowsMembers', true);
   },
 
   showAssignee() {
     const board = this.board();
-    let ret = false;
-    if (board) {
-      ret = board.allowsAssigneeOnMinicard ?? false;
-    }
-    return ret;
+    return getMinicardFlag(board, 'allowsAssigneeOnMinicard', 'allowsAssignee', true);
   },
   showReceived() {
     const board = this.board();
-    return board ? board.allowsReceivedDateOnMinicard : false;
+    return getMinicardFlag(board, 'allowsReceivedDateOnMinicard', 'allowsReceivedDate', true);
   },
   showStart() {
     const board = this.board();
-    return board ? board.allowsStartDateOnMinicard : false;
+    return getMinicardFlag(board, 'allowsStartDateOnMinicard', 'allowsStartDate', true);
   },
   showDue() {
     const board = this.board();
-    return board ? board.allowsDueDateOnMinicard : false;
+    return getMinicardFlag(board, 'allowsDueDateOnMinicard', 'allowsDueDate', true);
   },
   showEnd() {
     const board = this.board();
-    return board ? board.allowsEndDateOnMinicard : false;
+    return getMinicardFlag(board, 'allowsEndDateOnMinicard', 'allowsEndDate', true);
   },
   showLabels() {
     const board = this.board();
-    return board ? board.allowsLabelsOnMinicard : false;
+    return getMinicardFlag(board, 'allowsLabelsOnMinicard', 'allowsLabels', true);
   },
   showCardNumber() {
     const board = this.board();
-    return board ? board.allowsCardNumberOnMinicard : false;
+    return getMinicardFlag(board, 'allowsCardNumberOnMinicard', 'allowsCardNumber', false);
   },
   showSubtasks() {
     const board = this.board();
-    return board ? board.allowsSubtasksOnMinicard : false;
+    return getMinicardFlag(board, 'allowsSubtasksOnMinicard', 'allowsSubtasks', true);
   },
 
   hiddenMinicardLabelText() {

@@ -1844,20 +1844,37 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { allowsDescriptionText } });
   },
 
-  async setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
+  async setAllowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsDescriptionTextOnMinicard } });
   },
 
-  async setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
+  async setAllowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsCoverAttachmentOnMinicard } });
   },
 
-  async setallowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
+  async setAllowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsBadgeAttachmentOnMinicard } });
   },
 
-  async setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
+  async setAllowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsCardSortingByNumberOnMinicard } });
+  },
+
+  // Backward-compatible aliases for legacy call sites.
+  async setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
+    return await this.setAllowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard);
+  },
+
+  async setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
+    return await this.setAllowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard);
+  },
+
+  async setallowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
+    return await this.setAllowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard);
+  },
+
+  async setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
+    return await this.setAllowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard);
   },
 
   async setAllowsActivities(allowsActivities) {
