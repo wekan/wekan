@@ -561,8 +561,21 @@ Meteor.methods({
   async setPassword(newPassword, userId) {
     check(userId, String);
     check(newPassword, String);
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const currentUser = await Users.findOneAsync(this.userId, { fields: { isAdmin: 1 } });
+    if (!currentUser?.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (typeof Accounts.setPasswordAsync === 'function') {
+      await Accounts.setPasswordAsync(userId, newPassword);
+    } else if (typeof Accounts.setPassword === 'function') {
       Accounts.setPassword(userId, newPassword);
+    } else {
+      throw new Meteor.Error('set-password-unavailable', 'Accounts password API is not available');
     }
   },
 

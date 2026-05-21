@@ -89,7 +89,7 @@ class BoardPage {
 
   async clickCard(listId, titleSubstring) {
     await this.minicard(listId, titleSubstring).click();
-    await this.page.locator('.js-card-details').waitFor({ timeout: 15_000 });
+    await this.page.locator('.js-card-details').first().waitFor({ timeout: 15_000 });
   }
 
   // --- Board view switching ---

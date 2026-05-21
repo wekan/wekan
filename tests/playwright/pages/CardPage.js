@@ -57,12 +57,15 @@ class CardPage {
     // Clicking js-maximize-card-details calls toggleCardMaximized (server method).
     await this.root.locator('.js-maximize-card-details').first().click();
     // card-details-maximized is added to the .js-card-details element itself, not a child.
-    await this.page.locator('.js-card-details.card-details-maximized').waitFor({ timeout: 15_000 });
+    await this.page.waitForFunction(() => {
+      const el = document.querySelector('.board-wrapper > .js-card-details');
+      return !!el && el.classList.contains('card-details-maximized');
+    }, { timeout: 15_000 });
   }
 
   isMaximized() {
     // card-details-maximized lives on the root .js-card-details element itself.
-    return this.page.locator('.js-card-details.card-details-maximized');
+    return this.page.locator('.board-wrapper > .js-card-details.card-details-maximized').first();
   }
 
   async close() {
@@ -346,7 +349,7 @@ class CardPage {
   async clearDueDate() {
     await this.openDueDateEditor();
     const pop = this.page.locator('.js-pop-over');
-    await pop.locator('button.js-delete-date').click();
+    await pop.locator('button.js-delete-date').first().click();
     await this.page.waitForTimeout(400);
   }
 

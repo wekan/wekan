@@ -71,10 +71,17 @@ sudo flatpak override com.visualstudio.code \
   --device=all \
   --socket=wayland \
   --socket=x11 \
-  --share=network \
-  --env=CHROME_DEVEL_SANDBOX=/usr/sbin/chrome-devel-sandbox
+  --share=network
 
 ```
+
+If you have already set wrong Chrome sandbox env earlier, remove it:
+
+```bash
+sudo flatpak override --unset-env=CHROME_DEVEL_SANDBOX com.visualstudio.code
+```
+
+Why: inside this Flatpak, `/usr/sbin/chrome-devel-sandbox` does not exist, and Chromium aborts immediately if that env points there.
 
 ## 6) Test "File -> Open Folder"
 
@@ -82,3 +89,86 @@ Now when you go to **File -> Open Folder**:
 
 1. You will no longer see the fancy system file window, but VS Code's own, simple list.
 2. If you try to go to the parent folder or somewhere else, **the list is empty** or it only shows `~/repos/wekan`.
+
+## 7) Where existing binaries are (verified)
+
+These were found already present in this sandboxed setup:
+
+- Node.js: `/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin/node`
+- npm: `/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin/npm`
+- npx: `/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin/npx`
+- Meteor CLI symlink: `/home/wekan/.meteor/meteor`
+- Playwright Chromium binary: `/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright/chromium-1223/chrome-linux64/chrome`
+- Flatpak-provided chrome-sandbox binary (not SUID in this runtime): `/app/extra/vscode/chrome-sandbox`
+
+## 8) Reuse same in-sandbox toolchain (tested)
+
+Open VS Code integrated terminal and run:
+
+```bash
+cd /home/wekan/repos/wekan
+
+# 1) Use repo-local Node/npm/npx
+export PATH="$PWD/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+
+# 2) Use Meteor CLI installed at ~/.meteor (if present)
+export PATH="/home/wekan/.meteor:$PATH"
+
+# 3) IMPORTANT: avoid bad host path inherited from old overrides
+unset CHROME_DEVEL_SANDBOX
+
+# 4) Keep Playwright browsers in Flatpak-private cache
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+```
+
+Quick checks:
+
+```bash
+node -v
+npm -v
+npx playwright --version
+meteor --version
+```
+
+If `meteor` is missing first time, bootstrap it from local Node:
+
+```bash
+cd /home/wekan/repos/wekan
+export PATH="$PWD/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+npx -y meteor
+export PATH="/home/wekan/.meteor:$PATH"
+```
+
+If you keep `--nofilesystem=home`, allow Meteor directory explicitly:
+
+```bash
+sudo flatpak override com.visualstudio.code --filesystem=~/.meteor:rw
+```
+
+## 9) Run tests fully inside sandbox (headless)
+
+Install Playwright deps and run Chromium-only tests:
+
+```bash
+cd /home/wekan/repos/wekan/tests/playwright
+export PATH="/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+unset CHROME_DEVEL_SANDBOX
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+
+npm install
+npx playwright test --project=chromium
+```
+
+This runs headless browser tests inside Flatpak sandboxed VS Code terminal (no external/native browser window needed).
+
+## 10) Optional smoke test for headless Chromium in sandbox
+
+```bash
+cd /home/wekan/repos/wekan/tests/playwright
+export PATH="/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+unset CHROME_DEVEL_SANDBOX
+
+node -e "(async()=>{const {chromium}=require('playwright');const b=await chromium.launch({headless:true,args:['--no-sandbox']});const p=await b.newPage();await p.goto('about:blank');console.log('PW_OK');await b.close();})().catch(e=>{console.error(e);process.exit(1);});"
+```
+
+If output is `PW_OK`, headless Chromium launch is working inside sandbox.

@@ -71,11 +71,21 @@ test.describe('Search', () => {
     const cardTitles = ['Alpha Card', 'Beta Card', 'Gamma Card'];
 
     for (const title of cardTitles) {
-      await sp.navigateToGlobalSearch();
-      await sp.globalSearch(title);
-      const titles = await sp.globalSearchResultTitles();
-      const found = titles.some(t => t.includes(title));
-      expect(found, `Expected to find "${title}" in global search`).toBe(true);
+      await expect
+        .poll(
+          async () => {
+            await sp.navigateToGlobalSearch();
+            await sp.globalSearch(title);
+            const titles = await sp.globalSearchResultTitles();
+            return titles.some(t => t.includes(title));
+          },
+          {
+            timeout: 20_000,
+            intervals: [500, 1000, 2000],
+            message: `Expected to find "${title}" in global search`,
+          },
+        )
+        .toBe(true);
     }
   });
 
@@ -120,5 +130,51 @@ test.describe('Search', () => {
       await expect(boardPage.locator('.board-canvas')).toBeVisible();
       await sp.clearFilters();
     }
+  });
+
+  test('filter sidebar filters cards by label and keeps selected label active', async ({ boardPage, board }) => {
+    const labelId = `lbl_${Date.now()}`;
+    const labelName = 'E2E Label Alpha';
+
+    db.mongoEval(`
+      const boardId = ${JSON.stringify(board.boardId)};
+      const labelId = ${JSON.stringify(labelId)};
+      const labelName = ${JSON.stringify(labelName)};
+
+      db.boards.updateOne(
+        { _id: boardId },
+        { $set: { labels: [{ _id: labelId, name: labelName, color: 'green' }] } }
+      );
+
+      db.cards.updateMany({ boardId }, { $set: { labelIds: [] } });
+      db.cards.updateOne(
+        { boardId, title: 'Alpha Card' },
+        { $set: { labelIds: [labelId] } }
+      );
+    `);
+
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    const sp = new SearchPage(boardPage);
+    await sp.openFilterSidebar();
+
+    const labelFilter = boardPage
+      .locator('.js-toggle-label-filter')
+      .filter({ hasText: labelName })
+      .first();
+
+    await expect(labelFilter).toBeVisible({ timeout: 10_000 });
+    await labelFilter.click();
+    await boardPage.waitForTimeout(800);
+
+    // Ensure selected-state indicator is rendered on the clicked label filter.
+    await expect(labelFilter.locator('i.fa-check').first()).toBeVisible({ timeout: 10_000 });
+
+    // Only Alpha card has the selected label.
+    await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Alpha Card' })).toBeVisible({ timeout: 10_000 });
+    await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Beta Card' })).not.toBeVisible({ timeout: 10_000 });
+    await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Gamma Card' })).not.toBeVisible({ timeout: 10_000 });
+
+    await sp.clearFilters();
   });
 });

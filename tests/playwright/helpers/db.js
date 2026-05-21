@@ -2,11 +2,31 @@
 
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 const MONGO_URL = process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteor';
 
 function mongoEval(script) {
-  const extraPaths = ['/opt/homebrew/bin', '/usr/local/bin'];
+  const repoRoot = path.resolve(__dirname, '../../..');
+  const toolsDir = path.join(repoRoot, '.tools');
+
+  const extraPaths = [
+    '/opt/homebrew/bin',
+    '/usr/local/bin',
+    toolsDir,
+  ];
+
+  // Flatpak sandbox uses repo-local toolchain, including mongosh under .tools.
+  if (fs.existsSync(toolsDir)) {
+    const toolsEntries = fs.readdirSync(toolsDir, { withFileTypes: true });
+    toolsEntries
+      .filter(entry => entry.isDirectory() && /^mongosh-/.test(entry.name))
+      .forEach(entry => {
+        extraPaths.push(path.join(toolsDir, entry.name, 'bin'));
+      });
+  }
+
   const PATH = [...extraPaths, process.env.PATH || ''].join(':');
   return execFileSync('mongosh', ['--quiet', MONGO_URL, '--eval', script], {
     encoding: 'utf8',
@@ -173,7 +193,10 @@ function seedBoard({ ownerId, title, listCount = 3, cardTitlesPerList = [] } = {
       type: 'swimlane', height: -1, sort: 0,
     });
 
-    db.lists.insertMany(${JSON.stringify(listsJson)}.map(l => Object.assign(l, { createdAt: now, updatedAt: now, modifiedAt: now })));
+    const _seedLists = ${JSON.stringify(listsJson)}.map(l => Object.assign(l, { createdAt: now, updatedAt: now, modifiedAt: now }));
+    if (_seedLists.length > 0) {
+      db.lists.insertMany(_seedLists);
+    }
 
     ${cardDocs.length ? `db.cards.insertMany(${JSON.stringify(cardDocs)}.map(c => Object.assign(c, { createdAt: now, modifiedAt: now, dateLastActivity: now })));` : ''}
   `);

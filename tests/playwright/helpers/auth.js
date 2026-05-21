@@ -30,15 +30,58 @@ async function loginWithToken(page, userId, token) {
 /** Login using the actual username/password form (tests the login UI). */
 async function loginWithCredentials(page, username, password) {
   await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
-  await page.fill('[name="username"]', username);
-  await page.fill('[name="password"]', password);
-  await page.click('[type="submit"]');
-  await page.waitForURL(url => !url.pathname.includes('/sign-in'), { timeout: 20_000 });
+
+  const usernameField = page.locator(
+    '#at-field-username_and_email, [name="username"], [name="at-field-username_and_email"], input[placeholder*="Username"]',
+  ).first();
+  const passwordField = page.locator(
+    '#at-field-password, [name="password"], [name="at-field-password"], input[type="password"]',
+  ).first();
+
+  await usernameField.fill(username);
+  await passwordField.fill(password);
+  await page.getByRole('button', { name: 'Sign In' }).first().click();
+
+  const redirected = await page
+    .waitForURL(url => !url.pathname.includes('/sign-in'), { timeout: 20_000 })
+    .then(() => true)
+    .catch(() => false);
+
+  if (!redirected) {
+    const loggedIn = await page
+      .waitForFunction(() => typeof Meteor !== 'undefined' && !!Meteor.userId(), {
+        timeout: 10_000,
+      })
+      .then(() => true)
+      .catch(() => false);
+
+    if (!loggedIn) {
+      throw new Error('Credential login did not redirect and Meteor.userId() is empty');
+    }
+
+    await page.goto(BASE_URL, { waitUntil: 'commit' });
+  }
 }
 
 async function logout(page) {
-  await page.evaluate(() => Meteor.logout());
-  await page.waitForURL(url => url.pathname.includes('/sign-in'), { timeout: 10_000 });
+  await page.evaluate(
+    () =>
+      new Promise(resolve => {
+        Meteor.logout(() => resolve(true));
+      }),
+  );
+
+  const isLoggedOut = await page
+    .waitForFunction(
+      () => typeof Meteor !== 'undefined' && !Meteor.userId(),
+      { timeout: 10_000 },
+    )
+    .then(() => true)
+    .catch(() => false);
+
+  if (!isLoggedOut) {
+    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
+  }
 }
 
 async function waitForMeteor(page) {

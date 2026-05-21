@@ -14,7 +14,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken, loginWithCredentials, logout } = require('../helpers/auth');
+const { loginWithToken, loginWithCredentials, logout, waitForMeteor } = require('../helpers/auth');
 const AdminPage = require('../pages/AdminPage');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
@@ -76,23 +76,54 @@ test.describe('Admin – user management', () => {
     expect(parsed).toBeTruthy(); // User still exists
   });
 
-  test('admin can change a user password and the new password allows login', async ({ page, adminUser, user }) => {
+  test('admin can change a user password and the new password allows login', async ({ page, adminUser }) => {
+    const initialPassword = 'InitPass@55!';
     const newPassword = 'NewTestPassword@99!';
+    const suffix = Date.now();
+    const createdUsername = `pw_user_${suffix}`;
+    const createdEmail = `${createdUsername}@wekan-test.invalid`;
 
     await loginWithToken(page, adminUser.id, adminUser.token);
+    await waitForMeteor(page);
+
+    const createError = await page.evaluate(
+      ({ username, email, password }) =>
+        new Promise(resolve => {
+          Meteor.call(
+            'setCreateUser',
+            'Password Test User',
+            username,
+            'PTU',
+            password,
+            'false',
+            'false',
+            email,
+            [],
+            [],
+            [],
+            err => resolve(err ? (err.reason || err.message) : null),
+          );
+        }),
+      { username: createdUsername, email: createdEmail, password: initialPassword },
+    );
+    expect(createError).toBe(null);
+
+    const createdUserRaw = db.mongoEval(
+      `JSON.stringify(db.users.findOne({ username: ${JSON.stringify(createdUsername)} }, { fields: { _id: 1 } }))`,
+    );
+    const createdUser = JSON.parse(createdUserRaw || 'null');
+    expect(createdUser?._id).toBeTruthy();
+
     const ap = new AdminPage(page);
     await ap.navigateToPeople();
-
-    // Change password via the edit popup.
-    await ap.changePassword(user.username, newPassword);
-    // Popup should close after a successful save (Popup.back() is called).
+    await ap.changePassword(createdUsername, newPassword);
     await expect(page.locator('.js-pop-over')).not.toBeVisible({ timeout: 8_000 });
 
-    // Verify the new password actually works for credential-based login.
     await logout(page);
-    await loginWithCredentials(page, user.username, newPassword);
-    // A successful login redirects away from /sign-in.
+    await loginWithCredentials(page, createdUsername, newPassword);
     await expect(page).not.toHaveURL(/\/sign-in/, { timeout: 15_000 });
+
+    db.cleanup({ userIds: [createdUser._id] });
   });
 
   test('non-admin user cannot access /people (admin-only)', async ({ page, user }) => {

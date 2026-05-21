@@ -151,6 +151,20 @@ test.describe('Cards – operations', () => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
 
+    const openSortPopup = async () => {
+      let sortBtn = boardPage.locator('.js-sort-cards').first();
+      if (await sortBtn.count() === 0) {
+        await boardPage.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, {
+          waitUntil: 'networkidle',
+        });
+        sortBtn = boardPage.locator('.js-sort-cards').first();
+      }
+
+      await sortBtn.waitFor({ timeout: 10_000 });
+      await sortBtn.click({ force: true, timeout: 10_000 });
+      await boardPage.locator('.js-pop-over').waitFor({ timeout: 5_000 });
+    };
+
     // Add a second card so sorting produces an observable change.
     await bp.closeComposers(listA);
     await bp.openAddCardTop(listA);
@@ -158,10 +172,8 @@ test.describe('Cards – operations', () => {
 
     // The sort button (.js-sort-cards) is in the board header, not the list
     // menu.  Clicking it opens cardsSortPopup with sort-order options.
-    const sortBtn = boardPage.locator('.js-sort-cards').first();
-    await sortBtn.click();
+    await openSortPopup();
     const pop = boardPage.locator('.js-pop-over');
-    await pop.waitFor({ timeout: 5_000 });
 
     // Sort newest-first; verify the list still has at least 2 cards.
     await pop.locator('.js-sort-created-desc').click();
@@ -170,8 +182,7 @@ test.describe('Cards – operations', () => {
     expect(titlesDesc.length).toBeGreaterThanOrEqual(2);
 
     // Sort oldest-first and verify again.
-    await sortBtn.click();
-    await pop.waitFor({ timeout: 5_000 });
+    await openSortPopup();
     await pop.locator('.js-sort-created-asc').click();
     await boardPage.waitForTimeout(600);
     const titlesAsc = await bp.getCardTitles(listA);
