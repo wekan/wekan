@@ -1,0 +1,240 @@
+name: wekan
+version: '9.22'
+base: core24
+summary: Open Source kanban
+description: |
+   WeKan ® is an Open Source and collaborative kanban board application.
+
+   Whether you're maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized. They give you a visual overview of the current state of your project, and make you productive by allowing you to focus on the few items that matter the most.
+   Depending on target environment, some configuration settings might need to be adjusted.
+   For full list of configuration options call:
+   $ wekan.help
+
+confinement: strict
+grade: stable
+
+# Metadata fields
+title: Wekan
+contact: https://github.com/wekan/wekan/issues
+license: MIT
+donation: https://wekan.fi/commercial-support/
+issues: https://github.com/wekan/wekan/issues
+source-code: https://github.com/wekan/wekan
+website: https://wekan.fi
+
+environment:
+  SNAP_DATA: "/var/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
+  SNAP_COMMON: "/var/snap/$SNAP_INSTANCE_NAME/common"
+  SNAP: "/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
+
+# Use platforms instead of architectures for core24 base
+platforms:
+  amd64:
+    build-on: amd64
+    build-for: amd64
+
+plugs:
+  mongodb-plug:
+    interface: content
+    target: $SNAP_DATA/shared
+
+hooks:
+  configure:
+    plugs:
+      - network
+      - network-bind
+
+slots:
+  mongodb-slot:
+    interface: content
+    write:
+      - $SNAP_DATA/share
+
+apps:
+    wekan:
+        command: ./bin/wekan-control
+        daemon: simple
+        plugs: [network, network-bind]
+        after: [mongodb]
+
+    mongodb:
+        command: ./bin/mongodb-control
+        daemon: simple
+        plugs: [network, network-bind]
+
+    caddy:
+        command: ./bin/caddy-control
+        daemon: simple
+        plugs: [network, network-bind]
+        after: [mongodb]
+
+    help:
+        command: ./bin/wekan-help
+
+    database-backup:
+        command: ./bin/mongodb-backup
+        plugs: [network, network-bind]
+
+    database-list-backups:
+        command: ./bin/database-list-backups
+
+    database-restore:
+        command: ./bin/mongodb-restore
+        plugs: [network, network-bind]
+
+
+parts:
+    mongodb:
+        #source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
+        source: http://192.168.1.20:8000/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
+        plugin: dump
+        stage-packages:
+            - libssl3
+            - libcurl4
+            - libstemmer0d
+            - zlib1g
+            - libsnappy1v5
+            - libyaml-cpp0.8
+            - libpcre3
+            - libpcrecpp0v5
+            - libboost-system1.74.0
+            - libboost-iostreams1.74.0
+            - libboost-filesystem1.74.0
+            - libboost-program-options1.74.0
+            - libgoogle-perftools4
+        stage:
+            - bin
+            - usr
+        prime:
+            - bin
+            - usr
+
+    mongosh:
+        #source: https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
+        source: http://192.168.1.20:8000/mongosh-2.8.2-linux-x64.tgz
+        plugin: dump
+
+    mongotools:
+        #source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
+        source: http://192.168.1.20:8000/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
+        plugin: dump
+
+
+    wekan:
+        source: .
+        plugin: npm
+        npm-node-version: 24.15.0
+        npm-include-node: true
+        build-packages:
+            - build-essential
+            - ca-certificates
+            - apt-utils
+            - python3
+            - g++
+            - capnproto
+            - curl
+            - wget
+            - unzip
+            - execstack
+            - nodejs
+            - npm
+        stage-packages:
+            - libfontconfig1
+        override-build: |
+            npm config set registry http://192.168.1.20:4873/
+            echo "Cleaning environment first"
+            rm -rf .build
+            mkdir .build
+            cd .build
+            #wget https://github.com/wekan/wekan/releases/download/v9.22/wekan-9.22-amd64.zip
+            wget http://192.168.1.20:8000/wekan-9.22-amd64.zip
+            unzip wekan-9.22-amd64.zip
+            rm wekan-9.22-amd64.zip
+            # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
+            # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+            #BCRYPT_DIR="bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+            #if [ -d "$BCRYPT_DIR" ]; then
+            #  rm -rf "$BCRYPT_DIR"
+            #  TMP=$(mktemp -d)
+            #  pushd "$TMP" > /dev/null
+            #  npm pack bcrypt@6.0.0
+            #  mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            #  cd bcrypt && npm install --ignore-scripts && cd ..
+            #  popd > /dev/null
+            #  cp -a "$TMP/bcrypt" "$BCRYPT_DIR"
+            #  rm -rf "$TMP"
+            #fi
+            #cd bundle/programs/server
+            #rm -rf node_modules
+            #npm install
+            #cd ../../../..
+            cd ..
+            # Copy to Snap
+            #wget https://nodejs.org/dist/latest-v24.x/node-v24.15.0-linux-x64.tar.xz
+            wget http://192.168.1.20:8000/node-v24.15.0-linux-x64.tar.xz
+            tar -xf node-v24.15.0-linux-x64.tar.xz node-v24.15.0-linux-x64/bin/node
+            rm node-v24.15.0-linux-x64.tar.xz
+            mkdir $SNAPCRAFT_PART_INSTALL/bin
+            cp -p node-v24.15.0-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v24.15.0-linux-x64
+            cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
+            cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
+
+        organize:
+            README: README.wekan
+        #prime:
+        #    - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
+        #    - -lib/node_modules/weka*
+
+    helpers:
+        source: snap-src
+        plugin: dump
+
+    caddy:
+        plugin: nil
+        build-packages:
+            - debian-keyring
+            - debian-archive-keyring
+            - apt-transport-https
+            - gnupg
+            - curl
+        override-build: |
+            # Add Caddy repository
+            echo "Installing Caddy 2 from the official repository..."
+            curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /tmp/caddy-stable-archive-keyring.gpg
+            mkdir -p /etc/apt/keyrings
+            cp /tmp/caddy-stable-archive-keyring.gpg /etc/apt/keyrings/
+            echo "deb [signed-by=/etc/apt/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main" > /etc/apt/sources.list.d/caddy-stable.list
+            apt update
+            apt -y install caddy
+
+            # Display installed Caddy version for confirmation
+            echo "Installed Caddy version:"
+            /usr/bin/caddy version
+
+            # Create directory structure in the snap
+            mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+
+            # Copy Caddy binary
+            cp /usr/bin/caddy $SNAPCRAFT_PART_INSTALL/bin/
+            chmod +x $SNAPCRAFT_PART_INSTALL/bin/caddy
+
+            # Create license files manually since they don't exist in the package
+            mkdir -p $SNAPCRAFT_PART_INSTALL/license
+            echo "Caddy is licensed under the Apache License 2.0. See https://github.com/caddyserver/caddy/blob/master/LICENSE" > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
+
+            # Create a basic default Caddyfile for the snap
+            mkdir -p $SNAPCRAFT_PART_INSTALL/etc
+            cat > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile << 'EOF'
+            # Default Caddyfile for Wekan
+            # This is loaded by caddy-control script if no other config is provided
+
+            :8080 {
+                reverse_proxy localhost:3000
+            }
+            EOF
+        stage:
+            - bin/caddy
+            - license/CADDY_LICENSE
+            - etc/Caddyfile

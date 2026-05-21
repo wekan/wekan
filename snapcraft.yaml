@@ -1,5 +1,5 @@
 name: wekan
-version: '9.18'
+version: '9.22'
 base: core24
 summary: Open Source kanban
 description: |
@@ -85,7 +85,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.32.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
         plugin: dump
         stage-packages:
             - libssl3
@@ -142,9 +142,9 @@ parts:
             rm -rf .build
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v9.18/wekan-9.18-amd64.zip
-            unzip wekan-9.18-amd64.zip
-            rm wekan-9.18-amd64.zip
+            wget https://github.com/wekan/wekan/releases/download/v9.22/wekan-9.22-amd64.zip
+            unzip wekan-9.22-amd64.zip
+            rm wekan-9.22-amd64.zip
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
             # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
             BCRYPT_DIR="bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"

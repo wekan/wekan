@@ -28,6 +28,87 @@ Versions:
 
 # Upcoming WeKan ® release
 
+This release adds the following new features:
+
+- [Add local build cache, for npm packages and http downloads](https://github.com/wekan/wekan/commit/2cc30a85f21742f0f087a9846a52ee28e32830a5).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix WeKan version update script](https://github.com/wekan/wekan/commit/28464685a70dcea783f90e24e70d668bbcb483a4).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.22 2026-05-18 WeKan ® release
+
+This release adds the following new features:
+
+- [Script for upgrading Docker WeKan from old version to new version](https://github.com/wekan/wekan/commit/0b9d33cac493ff8345f3e79333b44a345e5e0b61).
+  Thanks to xet7.
+- [Added backup-all.sh script](https://github.com/wekan/wekan/commit/d486eb2a8f8192fbd318510117afa8afbe00185c).
+  Thanks to xet7.
+- [Backup also attachments and avatars](https://github.com/wekan/wekan/commit/46e67512aceb7614998186f87f79af78d8f01527).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Docs: Added link to Meteor Security](https://github.com/wekan/wekan/commit/2474ff15d6950615d54098aa6cd91f1005594d6a).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Use only oplog sockjs so that multitenancy works](https://github.com/wekan/wekan/commit/7b88f4c21a05810966e49833b393f4bd02d70d47).
+  Thanks to xet7.
+- [Script to executeable](https://github.com/wekan/wekan/commit/7496d994e159a6640d285c8e2e0bcd96f93635b4).
+  Thanks to xet7.
+- [Fixed path](https://github.com/wekan/wekan/commit/8f574799e2e4da956429a131c2667a483c28e7a6).
+  Thanks to xet7.
+- [Fix minicard drag handle to be below minicard menu. Not at top of minicard menu anymore](https://github.com/wekan/wekan/commit/95ad27e0df0c08c59aa3df486cbb5cdb0f87a7e7).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.21 2026-05-17 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated version scripts](https://github.com/wekan/wekan/commit/5748475e8d0ea6ce2b6a0a88e0d20491f97b1cda).
+  Thanks to xet7.
+- [Updated Kin 2.0 Meta OS to Friend page](https://github.com/wekan/wekan/commit/3390324c2ae10d5320de0d57d6d7b21e7c1bd42d).
+  Thanks to xet7.
+- [Added Docs for Meteor 3 Docker WeKan with ChangeStreams etc](https://github.com/wekan/wekan/commit/d5d04728fbe3d27f2ef65d2fdef0d3818ba02eaf).
+  Thanks to xet7.
+- [Set default to changeStreams and uws](https://github.com/wekan/wekan/commit/964caabaaf1a535556185d194d18e30bbbc1405b).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix sudden logouts](https://github.com/wekan/wekan/commit/c2f67001d6a861291cc1fab4670a7131088d1acd).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.20 2026-05-16 WeKan ® release
+
+This release adds the following updates:
+
+- [Update build scripts](https://github.com/wekan/wekan/commit/c37047d8eea120a9abb0c2159e6e6811499f999d).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Added fallback so attachments and avatars can be at WRITABLE_PATH or WRITABLE_PATH/files](https://github.com/wekan/wekan/commit/f26a2ac9ad4224aece4bc603c8f2f19eeddc97c7).
+  Thanks to xet7.
+- [Use oplog and sockjs as default. Not changeStreams and uws](https://github.com/wekan/wekan/commit/5309e4863d347dfe5c7b612e39f1750e7fcfa9d3).
+  Thanks to xet7.
+- [Added remaining MongoDB indexes and MongoDB settings](https://github.com/wekan/wekan/commit/f81fe11daecb2c3aec9c5037b274c45634b3f986).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.19 2026-05-16 WeKan ® release
+
 This release adds the following updates:
 
 - Updated dependencies.
@@ -98,6 +179,10 @@ and fixes the following bugs:
   Thanks to Chostakovitch and xet7.
 - [Fix Esc not work in an opened card when Keyboard Shortcuts enabled](https://github.com/wekan/wekan/commit/52ce4f612822d7eb72456de736733b03aed56287).
   Thanks to mimZD and xet7.
+- [Removed empty line from star board description at top bar of board, and added some space between icons and text](https://github.com/wekan/wekan/commit/47794f799bc84cf88526ab78201221992d90c861).
+  Thanks to xet7.
+- [After register or login, redirect to All Boards page](https://github.com/wekan/wekan/commit/9f979054ded0d968bd01f2829139c56ee79a39fa).
+  Thanks to bcook-konza and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

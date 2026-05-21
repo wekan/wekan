@@ -400,7 +400,9 @@ Meteor.methods({
 
 Meteor.startup(async () => {
   await Cards._collection.createIndexAsync({ modifiedAt: -1 });
+  await Cards._collection.createIndexAsync({ updatedAt: 1, deleted: 1 });
   await Cards._collection.createIndexAsync({ boardId: 1, createdAt: -1 });
+  await Cards._collection.createIndexAsync({ boardId: 1, listId: 1 });
   await Cards._collection.createIndexAsync({ parentId: 1 });
   Meteor.defer(() => {
     addCronJob();

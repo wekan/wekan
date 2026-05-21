@@ -1,0 +1,440 @@
+# REQUIRED:
+# - CloudFlare/WeKan Domain
+#   - Speed/Settings: Disable only "HTTP/2 to Origin"
+#   - Caching/Overview: Development Mode, Temporarily bypass cache
+# - See screenshots at cloudflare directory
+
+{
+	# Using below "servers {protocols h1}" to force Caddy to use only
+        # HTTP/1.1 -protocol (h1) at background connections,
+	# to prevent multitenancy round robin bug, see multitenancy.md
+	servers {
+		protocols h1
+	}
+}
+
+
+# Redirecting http to https
+
+(redirect) {
+	@http {
+		protocol http
+	}
+	redir @http https://{host}{uri}
+}
+
+## Hosting examples
+
+# 1) WeKan hosting: Custom Domain with default Let's Encrypt TLS certificate
+# - at CloudFlare DNS there is grey cloud, no CloudFlare proxy
+# - Customer DNS: wekan.company.com CNAME customer.wekan.team
+# - WeKan hosting CloudFlare DNS: customer.wekan.team A Server-IPv4-Address
+
+wekan.customer.com {
+    # b) No custom domain, using customer.wekan.team:
+    #   - Using CloudFlare TLS Origin Certificate with Strict Enforcement
+    #   - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
+    #   - https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md
+    #   - Add this tls section to this example:
+	#       tls {
+	# 	      load /etc/caddy/certs
+	#       }
+	header {
+		-Content-Security-Policy-Report-Only
+		-Content-Security-Policy
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://wekan.customer.com https://wekan.customer.com https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+		Cross-Origin-Opener-Policy "same-origin-allow-popups"
+		X-Content-Type-Options nosniff
+		Strict-Transport-Security "max-age=31536000;"
+		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
+	}
+	handle /.well-known/* {
+		header Content-Type application/json
+		header Access-Control-Allow-Origin *
+	}
+	handle {
+		reverse_proxy 127.0.0.1:3039 
+	}
+}
+
+## 2) WeKan hosting: No custom domain, using customer.wekan.team:
+# - Using CloudFlare TLS Origin Certificate with Strict Enforcement
+# - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
+# - https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md
+# - Difference is additional tls section: tls { load /etc/caddy/certs }
+
+customer.wekan.team {
+    tls {
+      load /etc/caddy/certs
+    }
+	header {
+		-Content-Security-Policy-Report-Only
+		-Content-Security-Policy
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://customer.wekan.team https://customer.wekan.team https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+		Cross-Origin-Opener-Policy "same-origin-allow-popups"
+		X-Content-Type-Options nosniff
+		Strict-Transport-Security "max-age=31536000;"
+		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
+	}
+	handle /.well-known/* {
+		header Content-Type application/json
+		header Access-Control-Allow-Origin *
+	}
+        handle {
+                reverse_proxy 127.0.0.1:3040
+        }
+}
+
+# 3) Static website
+
+# 3.1) Static Website: Let's Encrypt TLS
+customer.com {
+	root * /data/websites/customer.com
+	file_server
+}
+
+# 3.2) Static Website: CloudFlare TLS
+customer.com {
+	tls {
+		load /etc/caddy/certs
+	}
+	root * /data/websites/customer.com
+	file_server
+}
+
+# 4) Example of Sandstorm https://sandstorm.org web hosting
+# - with WordPress, Hacker CMS, etc
+# - https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Sandstorm/Sandstorm.md
+
+# 4.1) Using Let's Encrypt: WordPress, Hacker CMS, etc
+customer.fi {
+	reverse_proxy 127.0.0.1:81
+}
+
+# 4.2) Using CloudFlare TLS: WordPress, Hacker CMS, etc
+blog.wekan.fi {
+	tls {
+		load /etc/caddy/certs
+	}
+	reverse_proxy 127.0.0.1:81
+}
+
+# 4.3) Sandstorm backup: /opt/backup.sh
+#
+# #!/bin/bash
+# sandstorm stop
+# tar -cf sandstorm-backup-$(date -I).tar /opt/sandstorm
+# sandstorm start
+
+# 4.4) Sandstorm config: /opt/sanstorm/sandstorm.conf
+#
+# SERVER_USER=sandstorm
+# PORT=81
+# MONGO_PORT=6081
+# BIND_IP=127.0.0.1
+# BASE_URL=https://wekan.dev
+# WILDCARD_HOST=*.wekan.dev
+# UPDATE_CHANNEL=dev
+# ALLOW_DEV_ACCOUNTS=false
+# SMTP_LISTEN_PORT=25
+###### OLD, NOT IN USE:
+### SANDCATS_BASE_DOMAIN=sandcats.io
+### HTTPS_PORT=443
+
+# 5) PHP/MySQL Wordpress
+
+customer.com {
+	tls {
+		load /etc/caddy/certs
+	}
+	root * /data/websites/customer.com
+	encode gzip
+	file_server
+	php_fastcgi unix//run/php/php-fpm.sock
+
+	@disallowed {
+		path /xmlrpc.php
+		path *.sql
+		path /wp-content/uploads/*.php
+	}
+
+	rewrite @disallowed '/index.php'
+}
+
+# 6) Kanboard
+
+# 6.1) Let's Encrypt TLS
+
+kanboard.customer.com {
+	root * /data/websites/kanboard.customer.com
+	encode gzip
+	php_fastcgi unix//run/php/php-fpm.sock
+	try_files {path} {path}/ /index.php?{query}
+	file_server
+	log {
+		output file /var/log/caddy/kanboard_access.log
+	}
+}
+
+# 6.2) CloudFlare TLS
+
+kanboard.customer.com {
+	tls {
+		load /etc/caddy/certs
+	}
+	root * /data/websites/kanboard.customer.com
+	encode gzip
+	php_fastcgi unix//run/php/php-fpm.sock
+	try_files {path} {path}/ /index.php?{query}
+	file_server
+	log {
+		output file /var/log/caddy/kanboard_access.log
+	}
+}
+
+# 7) Hesk Helpdesk
+
+# 7.1) Let's Encrypt
+
+hesk.customer.com {
+	root * /data/websites/hesk.customer.com
+	encode zstd gzip
+	php_fastcgi unix//run/php/php-fpm.sock
+	file_server
+	log {
+	    output file /var/log/caddy/hesk_access.log
+	}
+}
+
+# 7.1) CloudFlare TLS
+
+hesk.customer.com {
+	tls {
+		load /etc/caddy/certs
+	}
+	root * /data/websites/hesk.customer.com
+	encode zstd gzip
+	php_fastcgi unix//run/php/php-fpm.sock
+	file_server
+	log {
+	    output file /var/log/caddy/hesk_access.log
+	}
+}
+
+# 8) (Note to myself: Some Apple developer example, not in use)
+#  (Currently website at GitHub Pages, this is not in use)
+#wekan.fi www.wekan.fi {
+#	tls {
+#		load /etc/caddy/certs
+#	}
+#	header /.well-known/apple-developer-merchantid-domain-association/* Content-Type text/plain
+#	header /.well-known/apple-developer-merchantid-domain-association/* Access-Control-Allow-Origin *
+#	respond /.well-known/apple-developer-merchantid-domain-association `7B227073704964223A2246354246304143324336314131413238313043373531453439333444414433384346393037313041303935303844314133453241383436314141363232414145222C2276657273696F6E223A312C22637265617465644F6E223A313731353230343037313232362C227369676E6174757265223A223330383030363039326138363438383666373064303130373032613038303330383030323031303133313064333030623036303936303836343830313635303330343032303133303830303630393261383634383836663730643031303730313030303061303830333038323033653333303832303338386130303330323031303230323038313636333463386230653330353731373330306130363038326138363438636533643034303330323330376133313265333032633036303335353034303330633235343137303730366336353230343137303730366336393633363137343639366636653230343936653734363536373732363137343639366636653230343334313230326432303437333333313236333032343036303335353034306230633164343137303730366336353230343336353732373436393636363936333631373436393666366532303431373537343638366637323639373437393331313333303131303630333535303430613063306134313730373036633635323034393665363332653331306233303039303630333535303430363133303235353533333031653137306433323334333033343332333933313337333433373332333735613137306433323339333033343332333833313337333433373332333635613330356633313235333032333036303335353034303330633163363536333633326437333664373032643632373236663662363537323264373336393637366535663535343333343264353035323466343433313134333031323036303335353034306230633062363934663533323035333739373337343635366437333331313333303131303630333535303430613063306134313730373036633635323034393665363332653331306233303039303630333535303430363133303235353533333035393330313330363037326138363438636533643032303130363038326138363438636533643033303130373033343230303034633231353737656465626436633762323231386636386464373039306131323138646337623062643666326332383364383436303935643934616634613534313162383334323065643831316633343037653833333331663163353463336637656233323230643662616435643465666634393238393839336537633066313361333832303231313330383230323064333030633036303335353164313330313031666630343032333030303330316630363033353531643233303431383330313638303134323366323439633434663933653465663237653663346636323836633366613262626664326534623330343530363038326230363031303530353037303130313034333933303337333033353036303832623036303130353035303733303031383632393638373437343730336132663266366636333733373032653631373037303663363532653633366636643266366636333733373033303334326436313730373036633635363136393633363133333330333233303832303131643036303335353164323030343832303131343330383230313130333038323031306330363039326138363438383666373633363430353031333038316665333038316333303630383262303630313035303530373032303233303831623630633831623335323635366336393631366536333635323036663665323037343638363937333230363336353732373436393636363936333631373436353230363237393230363136653739323037303631373237343739323036313733373337353664363537333230363136333633363537303734363136653633363532303666363632303734363836353230373436383635366532303631373037303663363936333631363236633635323037333734363136653634363137323634323037343635373236643733323036313665363432303633366636653634363937343639366636653733323036663636323037353733363532633230363336353732373436393636363936333631373436353230373036663663363936333739323036313665363432303633363537323734363936363639363336313734363936663665323037303732363136333734363936333635323037333734363137343635366436353665373437333265333033363036303832623036303130353035303730323031313632613638373437343730336132663266373737373737326536313730373036633635326536333666366432663633363537323734363936363639363336313734363536313735373436383666373236393734373932663330333430363033353531643166303432643330326233303239613032376130323538363233363837343734373033613266326636333732366332653631373037303663363532653633366636643266363137303730366336353631363936333631333332653633373236633330316430363033353531643065303431363034313439343537646236666435373438313836383938393736326637653537383530376537396235383234333030653036303335353164306630313031666630343034303330323037383033303066303630393261383634383836663736333634303631643034303230353030333030613036303832613836343863653364303430333032303334393030333034363032323130306336663032336362323631346262333033383838613136323938336531613933663130353666353066613738636462396261346361323431636331346532356530323231303062653363643064666431363234376636343934343735333830653964343463323238613130383930613361316463373234623862346362383838393831386263333038323032656533303832303237356130303330323031303230323038343936643266626633613938646139373330306130363038326138363438636533643034303330323330363733313162333031393036303335353034303330633132343137303730366336353230353236663666373432303433343132303264323034373333333132363330323430363033353530343062306331643431373037303663363532303433363537323734363936363639363336313734363936663665323034313735373436383666373236393734373933313133333031313036303335353034306130633061343137303730366336353230343936653633326533313062333030393036303335353034303631333032353535333330316531373064333133343330333533303336333233333334333633333330356131373064333233393330333533303336333233333334333633333330356133303761333132653330326330363033353530343033306332353431373037303663363532303431373037303663363936333631373436393666366532303439366537343635363737323631373436393666366532303433343132303264323034373333333132363330323430363033353530343062306331643431373037303663363532303433363537323734363936363639363336313734363936663665323034313735373436383666373236393734373933313133333031313036303335353034306130633061343137303730366336353230343936653633326533313062333030393036303335353034303631333032353535333330353933303133303630373261383634386365336430323031303630383261383634386365336430333031303730333432303030346630313731313834313964373634383564353161356532353831303737366538383061326566646537626165346465303864666334623933653133333536643536363562333561653232643039373736306432323465376262613038666437363137636538386362373662623636373062656338653832393834666635343435613338316637333038316634333034363036303832623036303130353035303730313031303433613330333833303336303630383262303630313035303530373330303138363261363837343734373033613266326636663633373337303265363137303730366336353265363336663664326636663633373337303330333432643631373037303663363537323666366637343633363136373333333031643036303335353164306530343136303431343233663234396334346639336534656632376536633466363238366333666132626266643265346233303066303630333535316431333031303166663034303533303033303130316666333031663036303335353164323330343138333031363830313462626230646561313538333338383961613438613939646562656264656261666461636232346162333033373036303335353164316630343330333032653330326361303261613032383836323636383734373437303361326632663633373236633265363137303730366336353265363336663664326636313730373036633635373236663666373436333631363733333265363337323663333030653036303335353164306630313031666630343034303330323031303633303130303630613261383634383836663736333634303630323065303430323035303033303061303630383261383634386365336430343033303230333637303033303634303233303361636637323833353131363939623138366662333563333536636136326266663431376564643930663735346461323865626566313963383135653432623738396638393866373962353939663938643534313064386639646539633266653032333033323264643534343231623061333035373736633564663333383362393036376664313737633263323136643936346663363732363938323132366635346638376137643162393963623962303938393231363130363939306630393932316430303030333138323031383833303832303138343032303130313330383138363330376133313265333032633036303335353034303330633235343137303730366336353230343137303730366336393633363137343639366636653230343936653734363536373732363137343639366636653230343334313230326432303437333333313236333032343036303335353034306230633164343137303730366336353230343336353732373436393636363936333631373436393666366532303431373537343638366637323639373437393331313333303131303630333535303430613063306134313730373036633635323034393665363332653331306233303039303630333535303430363133303235353533303230383136363334633862306533303537313733303062303630393630383634383031363530333034303230316130383139333330313830363039326138363438383666373064303130393033333130623036303932613836343838366637306430313037303133303163303630393261383634383836663730643031303930353331306631373064333233343330333533303338333233313333333433333331356133303238303630393261383634383836663730643031303933343331316233303139333030623036303936303836343830313635303330343032303161313061303630383261383634386365336430343033303233303266303630393261383634383836663730643031303930343331323230343230353936643939343335373738303366313137346361653066633761343164383634653964366266336535363638646164356563393334303937313439633762623330306130363038326138363438636533643034303330323034343733303435303232313030383565623363643837343731346466343461333830373838643439626537656630303630643765313236633966653638663261333336386363623233373363643032323035366535336363363330376433393561643465663532376234333531323462616636653761383537363030616463376135343561333862613039376139643734303030303030303030303030227D`
+#	root * /data/websites/wekan.fi
+#	file_server
+#}
+
+
+## 9) WeKan app https://wekan.fi/app/
+
+# Note: It is not necessary to define all icons etc here at Caddyfile,
+#       because PWA related icons etc settings are also at
+#       newest WeKan Admin Panel / Settings.
+
+boards.wekan.team {
+	tls {
+		load /etc/caddy/certs
+	}
+	header {
+		-Content-Security-Policy-Report-Only
+		-Content-Security-Policy
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://boards.wekan.team https://boards.wekan.team https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+		Cross-Origin-Opener-Policy "same-origin-allow-popups"
+		X-Content-Type-Options nosniff
+		Strict-Transport-Security "max-age=31536000;"
+		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
+	}
+
+	handle /.well-known/assetlinks.json {
+		header Content-Type application/json
+		header Access-Control-Allow-Origin *
+		respond `[ {
+			"relation": ["delegate_permission/common.handle_all_urls"],
+			"target": {
+				"namespace": "android_app",
+				"package_name": "team.wekan.boards.twa",
+				"sha256_cert_fingerprints": [
+					"61:41:86:5B:05:13:9B:64:5F:39:75:5A:16:C3:F2:22:25:6C:DA:74:B9:B0:8C:5F:93:B0:D2:26:65:16:1B:E6",
+					"AA:AA:ED:7D:4C:9C:5A:A3:B5:DA:10:66:14:34:07:5D:EB:BE:96:CD:82:7B:09:46:47:13:65:29:5B:EA:96:30"
+				]
+			}
+		} ]`
+	}
+
+	handle /.well-known/* {
+		header Content-Type application/json
+		header Access-Control-Allow-Origin *
+	}
+
+	handle /site.webmanifest {
+		header Content-Type application/manifest+json
+		header Access-Control-Allow-Origin *
+		respond ` {
+			"name": "Wekan",
+			"short_name": "Wekan",
+			"icons": [
+				{ "src": "svg-etc/wekan-logo-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
+				{ "src": "android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+				{ "src": "android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" },
+				{ "src": "Square150x150Logo.scale-100.png", "sizes": "150x150", "type": "image/png" },
+				{ "src": "Square44x44Logo.scale-100.png", "sizes": "44x44", "type": "image/png" },
+				{ "src": "StoreLogo.scale-100.png", "sizes": "50x50", "type": "image/png" },
+				{ "src": "maskable_icon.png", "sizes": "474x474", "type": "image/png", "purpose": "maskable" },
+				{ "src": "monochrome-icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "monochrome" },
+				{ "src": "windows11/SmallTile.scale-100.png", "sizes": "71x71" },
+				{ "src": "windows11/SmallTile.scale-125.png", "sizes": "89x89" },
+				{ "src": "windows11/SmallTile.scale-150.png", "sizes": "107x107" },
+				{ "src": "windows11/SmallTile.scale-200.png", "sizes": "142x142" },
+				{ "src": "windows11/SmallTile.scale-400.png", "sizes": "284x284" },
+				{ "src": "windows11/Square150x150Logo.scale-100.png", "sizes": "150x150" },
+				{ "src": "windows11/Square150x150Logo.scale-125.png", "sizes": "188x188" },
+				{ "src": "windows11/Square150x150Logo.scale-150.png", "sizes": "225x225" },
+				{ "src": "windows11/Square150x150Logo.scale-200.png", "sizes": "300x300" },
+				{ "src": "windows11/Square150x150Logo.scale-400.png", "sizes": "600x600" },
+				{ "src": "windows11/Wide310x150Logo.scale-100.png", "sizes": "310x150" },
+				{ "src": "windows11/Wide310x150Logo.scale-125.png", "sizes": "388x188" },
+				{ "src": "windows11/Wide310x150Logo.scale-150.png", "sizes": "465x225" },
+				{ "src": "windows11/Wide310x150Logo.scale-200.png", "sizes": "620x300" },
+				{ "src": "windows11/Wide310x150Logo.scale-400.png", "sizes": "1240x600" },
+				{ "src": "windows11/LargeTile.scale-100.png", "sizes": "310x310" },
+				{ "src": "windows11/LargeTile.scale-125.png", "sizes": "388x388" },
+				{ "src": "windows11/LargeTile.scale-150.png", "sizes": "465x465" },
+				{ "src": "windows11/LargeTile.scale-200.png", "sizes": "620x620" },
+				{ "src": "windows11/LargeTile.scale-400.png", "sizes": "1240x1240" },
+				{ "src": "windows11/Square44x44Logo.scale-100.png", "sizes": "44x44" },
+				{ "src": "windows11/Square44x44Logo.scale-125.png", "sizes": "55x55" },
+				{ "src": "windows11/Square44x44Logo.scale-150.png", "sizes": "66x66" },
+				{ "src": "windows11/Square44x44Logo.scale-200.png", "sizes": "88x88" },
+				{ "src": "windows11/Square44x44Logo.scale-400.png", "sizes": "176x176" },
+				{ "src": "windows11/StoreLogo.scale-100.png", "sizes": "50x50" },
+				{ "src": "windows11/StoreLogo.scale-125.png", "sizes": "63x63" },
+				{ "src": "windows11/StoreLogo.scale-150.png", "sizes": "75x75" },
+				{ "src": "windows11/StoreLogo.scale-200.png", "sizes": "100x100" },
+				{ "src": "windows11/StoreLogo.scale-400.png", "sizes": "200x200" },
+				{ "src": "windows11/SplashScreen.scale-100.png", "sizes": "620x300" },
+				{ "src": "windows11/SplashScreen.scale-125.png", "sizes": "775x375" },
+				{ "src": "windows11/SplashScreen.scale-150.png", "sizes": "930x450" },
+				{ "src": "windows11/SplashScreen.scale-200.png", "sizes": "1240x600" },
+				{ "src": "windows11/SplashScreen.scale-400.png", "sizes": "2480x1200" },
+				{ "src": "windows11/Square44x44Logo.targetsize-16.png", "sizes": "16x16" },
+				{ "src": "windows11/Square44x44Logo.targetsize-20.png", "sizes": "20x20" },
+				{ "src": "windows11/Square44x44Logo.targetsize-24.png", "sizes": "24x24" },
+				{ "src": "windows11/Square44x44Logo.targetsize-30.png", "sizes": "30x30" },
+				{ "src": "windows11/Square44x44Logo.targetsize-32.png", "sizes": "32x32" },
+				{ "src": "windows11/Square44x44Logo.targetsize-36.png", "sizes": "36x36" },
+				{ "src": "windows11/Square44x44Logo.targetsize-40.png", "sizes": "40x40" },
+				{ "src": "windows11/Square44x44Logo.targetsize-44.png", "sizes": "44x44" },
+				{ "src": "windows11/Square44x44Logo.targetsize-48.png", "sizes": "48x48" },
+				{ "src": "windows11/Square44x44Logo.targetsize-60.png", "sizes": "60x60" },
+				{ "src": "windows11/Square44x44Logo.targetsize-64.png", "sizes": "64x64" },
+				{ "src": "windows11/Square44x44Logo.targetsize-72.png", "sizes": "72x72" },
+				{ "src": "windows11/Square44x44Logo.targetsize-80.png", "sizes": "80x80" },
+				{ "src": "windows11/Square44x44Logo.targetsize-96.png", "sizes": "96x96" },
+				{ "src": "windows11/Square44x44Logo.targetsize-256.png", "sizes": "256x256" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-16.png", "sizes": "16x16" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-20.png", "sizes": "20x20" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-24.png", "sizes": "24x24" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-30.png", "sizes": "30x30" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-32.png", "sizes": "32x32" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-36.png", "sizes": "36x36" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-40.png", "sizes": "40x40" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-44.png", "sizes": "44x44" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-48.png", "sizes": "48x48" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-60.png", "sizes": "60x60" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-64.png", "sizes": "64x64" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-72.png", "sizes": "72x72" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-80.png", "sizes": "80x80" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-96.png", "sizes": "96x96" },
+				{ "src": "windows11/Square44x44Logo.altform-unplated_targetsize-256.png", "sizes": "256x256" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-16.png", "sizes": "16x16" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-20.png", "sizes": "20x20" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-24.png", "sizes": "24x24" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-30.png", "sizes": "30x30" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-32.png", "sizes": "32x32" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-36.png", "sizes": "36x36" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-40.png", "sizes": "40x40" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-44.png", "sizes": "44x44" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-48.png", "sizes": "48x48" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-60.png", "sizes": "60x60" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-64.png", "sizes": "64x64" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-72.png", "sizes": "72x72" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-80.png", "sizes": "80x80" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-96.png", "sizes": "96x96" },
+				{ "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-256.png", "sizes": "256x256" },
+				{ "src": "android/android-launchericon-512-512.png", "sizes": "512x512" },
+				{ "src": "android/android-launchericon-192-192.png", "sizes": "192x192" },
+				{ "src": "android/android-launchericon-144-144.png", "sizes": "144x144" },
+				{ "src": "android/android-launchericon-96-96.png", "sizes": "96x96" },
+				{ "src": "android/android-launchericon-72-72.png", "sizes": "72x72" },
+				{ "src": "android/android-launchericon-48-48.png", "sizes": "48x48" },
+				{ "src": "ios/16.png", "sizes": "16x16" },
+				{ "src": "ios/20.png", "sizes": "20x20" },
+				{ "src": "ios/29.png", "sizes": "29x29" },
+				{ "src": "ios/32.png", "sizes": "32x32" },
+				{ "src": "ios/40.png", "sizes": "40x40" },
+				{ "src": "ios/50.png", "sizes": "50x50" },
+				{ "src": "ios/57.png", "sizes": "57x57" },
+				{ "src": "ios/58.png", "sizes": "58x58" },
+				{ "src": "ios/60.png", "sizes": "60x60" },
+				{ "src": "ios/64.png", "sizes": "64x64" },
+				{ "src": "ios/72.png", "sizes": "72x72" },
+				{ "src": "ios/76.png", "sizes": "76x76" },
+				{ "src": "ios/80.png", "sizes": "80x80" },
+				{ "src": "ios/87.png", "sizes": "87x87" },
+				{ "src": "ios/100.png", "sizes": "100x100" },
+				{ "src": "ios/114.png", "sizes": "114x114" },
+				{ "src": "ios/120.png", "sizes": "120x120" },
+				{ "src": "ios/128.png", "sizes": "128x128" },
+				{ "src": "ios/144.png", "sizes": "144x144" },
+				{ "src": "ios/152.png", "sizes": "152x152" },
+				{ "src": "ios/167.png", "sizes": "167x167" },
+				{ "src": "ios/180.png", "sizes": "180x180" },
+				{ "src": "ios/192.png", "sizes": "192x192" },
+				{ "src": "ios/256.png", "sizes": "256x256" },
+				{ "src": "ios/512.png", "sizes": "512x512" },
+				{ "src": "ios/1024.png", "sizes": "1024x1024" }
+			],
+			"screenshots": [
+				{ "src": "screenshot1.webp", "sizes": "1280x720", "type": "image/webp" },
+				{ "src": "screenshot2.webp", "sizes": "1280x720", "type": "image/webp" }
+			],
+			"theme_color": "#000000",
+			"background_color": "#000000",
+			"start_url": "sign-in",
+			"id": "/",
+			"launch_handler": { "client_mode": "navigate-existing" },
+			"handle_links": "preferred",
+			"related_applications": [
+				{ "platform": "play", "url": "https://play.google.com/store/apps/details?id=team.wekan.boards.twa", "id": "team.wekan.boards.twa" },
+				{ "platform": "windows", "url": "https://apps.microsoft.com/detail/9P2MRXVD087R", "id": "61178WekanTeam.Wekan" },
+				{ "platform": "webapp", "url": "https://boards.wekan.team/sign-in", "id": "wekan.wekanteam" }
+			],
+			"display": "fullscreen",
+			"orientation": "any",
+			"categories": [ "productivity" ],
+			"iarc_rating_id": "70d7c4a4-3e5a-4714-a7dc-fa006613ba96",
+			"description": "Open Source kanban with MIT license",
+			"dir": "auto",
+			"lang": "en",
+			"scope": "https://boards.wekan.team",
+			"prefer_related_applications": false
+		}`
+	}
+	handle {
+		reverse_proxy 127.0.0.1:3025
+	}
+}
+

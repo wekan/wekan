@@ -226,11 +226,11 @@ services:
     image: mongo:7
     container_name: wekan-db
     restart: always
-    #command: mongod --logpath /dev/null --oplogSize 128 --replSet rs0 --quiet
-    #command: mongod --oplogSize 128 --replSet rs0 --quiet
+    #command: mongod --logpath /dev/null --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --quiet
+    #command: mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --quiet
     command: >
       sh -c '
-        mongod --oplogSize 128 --replSet rs0 --bind_ip_all --quiet &
+        mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --bind_ip_all --quiet &
         until mongosh --host 127.0.0.1 --quiet --eval "
           try {
             const status = rs.status();
@@ -315,8 +315,9 @@ services:
       # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
       # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
-      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-      - DDP_TRANSPORT=uws
+      - METEOR_REACTIVITY_ORDER=oplog,polling
+      - DDP_TRANSPORT=sockjs
+      #- DDP_TRANSPORT=uws
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====
       - WRITABLE_PATH=/data

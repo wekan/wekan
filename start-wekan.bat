@@ -2,6 +2,14 @@
 
 REM # ------------------- HOWTO ---------------------
 REM # https://github.com/wekan/wekan/wiki/Offline
+REM # ------------------- LOCAL MONGODB SETTINGS (RUN SEPARATELY) -------------------
+REM # This script starts only Wekan app. Start local mongod with these settings:
+REM # mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 ^
+REM #   --timeZoneInfo /usr/share/zoneinfo ^
+REM #   --setParameter logicalSessionRefreshMillis=900000 ^
+REM #   --setParameter localLogicalSessionTimeoutMinutes=45 ^
+REM #   --oplogSize 20480 --replSet rs0 --bind_ip 127.0.0.1 --port 27017
+REM # ------------------------------------------------------------------------------
 
 REM #-------------------- INITIALIZE REPLICA SET IF NEEDED --------------------
 REM # Change Streams require MongoDB to run as a replica set.
@@ -24,7 +32,6 @@ IF %ERRORLEVEL% NEQ 0 (
 )
    SET USE_CHANGE_STREAMS=true
 )
-SET USE_CHANGE_STREAMS=false
 REM #----------------------------------------------------------------------
 
 REM #-------------------- REQUIRED SETTINGS START --------------------
@@ -34,9 +41,11 @@ REM # If you would not like to use Change Streams and replica set for improving 
 REM # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
 REM # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
 REM # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
+REM # SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
 IF "%USE_CHANGE_STREAMS%"=="true" (
-   SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-   SET DDP_TRANSPORT=uws
+   SET METEOR_REACTIVITY_ORDER=oplog,polling
+   SET DDP_TRANSPORT=sockjs
+   REM # SET DDP_TRANSPORT=uws
 ) ELSE (
    SET METEOR_REACTIVITY_ORDER=polling
 )

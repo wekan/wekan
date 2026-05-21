@@ -2,6 +2,14 @@
 
 # If you want to restart even on crash, uncomment while and done lines.
 #while true; do
+    #-------------------- LOCAL MONGODB SETTINGS (RUN SEPARATELY) --------------------
+    # This script starts only Wekan app. Start local mongod with these settings:
+    # mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 \
+    #   --timeZoneInfo /usr/share/zoneinfo \
+    #   --setParameter logicalSessionRefreshMillis=900000 \
+    #   --setParameter localLogicalSessionTimeoutMinutes=45 \
+    #   --oplogSize 20480 --replSet rs0 --bind_ip 127.0.0.1 --port 27017
+    #-------------------------------------------------------------------------------
       #-------------------- INITIALIZE REPLICA SET IF NEEDED --------------------
       # Change Streams require MongoDB to run as a replica set.
       # This checks if the replica set is already initialized, and if not, initializes it.
@@ -32,8 +40,9 @@
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
       # Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
       if [ "$USE_CHANGE_STREAMS" = "true" ]; then
-          export METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-          export DDP_TRANSPORT=uws
+          export METEOR_REACTIVITY_ORDER=oplog,polling
+          export DDP_TRANSPORT=sockjs
+          #export DDP_TRANSPORT=uws
       else
           export METEOR_REACTIVITY_ORDER=polling
       fi

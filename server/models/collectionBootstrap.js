@@ -116,9 +116,6 @@ Meteor.startup(async () => {
   await OrgUser._collection.createIndexAsync({ orgId: -1 });
   await OrgUser._collection.createIndexAsync({ orgId: -1, userId: -1 });
 
-  let lastWeek = new Date();
-  lastWeek.setDate(lastWeek.getDate() - 7);
-  await Presences.removeAsync({ ttl: { $lte: lastWeek } });
   await Presences._collection.createIndexAsync({ serverId: -1 });
 
   await PositionHistory._collection.createIndexAsync({ boardId: 1, entityType: 1, entityId: 1 });

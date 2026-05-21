@@ -49,17 +49,17 @@ version_bump_logic() {
   echo "Detected MongoDB: $MONGO_VER for Ubuntu $UBUNTU_VER"
 
   # 3. Update Configuration Files: MongoDB & Tools
-  echo "[DEBUG] Updating snapcraft.yaml and documentation..."
-  sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml
+  echo "[DEBUG] Updating snapcraft.yaml releases/snapcraft-local.yaml and documentation..."
+  sedi "s|mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*|mongodb-linux-x86_64-ubuntu${UBUNTU_VER}-$MONGO_VER|g" snapcraft.yaml releases/snapcraft-local.yaml
 
   # Ensure database tools point to the correct Ubuntu version
-  sedi -E "s|mongodb-database-tools-ubuntu[0-9]+-x86_64|mongodb-database-tools-ubuntu2204-x86_64|g" snapcraft.yaml
+  sedi -E "s|mongodb-database-tools-ubuntu[0-9]+-x86_64|mongodb-database-tools-ubuntu2204-x86_64|g" snapcraft.yaml releases/snapcraft-local.yaml
 
   # 4. Update Node.js versions
   sedi "s|NODE_VERSION=v24\.[0-9][0-9]*\.[0-9][0-9]*|NODE_VERSION=v${NEW_NODE}|g" Dockerfile
-  sedi "s|npm-node-version: 24\.[0-9][0-9]*\.[0-9][0-9]*|npm-node-version: ${NEW_NODE}|g" snapcraft.yaml
-  sedi "s|NODE_VERSION=\"24\.[0-9][0-9]*\.[0-9][0-9]*\"|NODE_VERSION=\"${NEW_NODE}\"|g" snapcraft.yaml
-  sedi "s|Node\.js 24\.[0-9][0-9]*\.[0-9][0-9]* binary|Node.js ${NEW_NODE} binary|g" snapcraft.yaml
+  sedi "s|npm-node-version: 24\.[0-9][0-9]*\.[0-9][0-9]*|npm-node-version: ${NEW_NODE}|g" snapcraft.yaml releases/snapcraft-local.yaml
+  sedi "s|NODE_VERSION=\"24\.[0-9][0-9]*\.[0-9][0-9]*\"|NODE_VERSION=\"${NEW_NODE}\"|g" snapcraft.yaml releases/snapcraft-local.yaml
+  sedi "s|Node\.js 24\.[0-9][0-9]*\.[0-9][0-9]* binary|Node.js ${NEW_NODE} binary|g" snapcraft.yaml releases/snapcraft-local.yaml
 
   # 5. Update Application Versions
   NEW_NO_DOTS=$(echo "$NEW_VERSION" | tr -d '.')
@@ -72,9 +72,9 @@ version_bump_logic() {
   sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package.json
   sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package-lock.json
   sedi "0,/appVersion: \"[^\"]*\"/s/appVersion: \"[^\"]*\"/appVersion: \"${PKG_VER}\"/" Stackerfile.yml
-  sedi "2s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml
-  sedi "s|v$OLD_VERSION/|v$NEW_VERSION/|g" snapcraft.yaml
-  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" snapcraft.yaml
+  sedi "2s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml releases/snapcraft-local.yaml
+  sedi "s|v$OLD_VERSION/|v$NEW_VERSION/|g" snapcraft.yaml releases/snapcraft-local.yaml
+  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" snapcraft.yaml releases/snapcraft-local.yaml
 
   # Sandstorm Specifics
   sedi "0,/appVersion = [0-9]\+/s/appVersion = [0-9]\+/appVersion = ${NEW_NO_DOTS}/" sandstorm-pkgdef.capnp

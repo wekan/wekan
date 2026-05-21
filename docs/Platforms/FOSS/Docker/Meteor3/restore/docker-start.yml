@@ -1,0 +1,20 @@
+services:
+
+  PARAMETER:
+    image: ghcr.io/wekan/wekan:v9.20
+    container_name: PARAMETER-app
+    restart: always
+    network_mode: "host"
+    environment:
+      ## See ../multitenancy.md about commented out settings:
+      #- METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      - METEOR_REACTIVITY_ORDER=oplog,polling
+      #- DDP_TRANSPORT=uws
+      - DDP_TRANSPORT=sockjs
+      - WRITABLE_PATH=/data
+      - WITH_API=true
+      - RICHER_CARD_COMMENT_EDITOR=false
+      - CARD_OPENED_WEBHOOK_ENABLED=false
+      - BIGEVENTS_PATTERN=NONE
+      - NODE_FLAGS=--max-old-space-size=16384
+      # ========== CUSTOM START =====

@@ -64,6 +64,10 @@ and scan it's vulnerabilities there.
 
 There are 2 versions of Wekan: Standalone Wekan, and Sandstorm Wekan.
 
+## Meteor Security
+
+https://guide.meteor.com/security
+
 ### Standalone Wekan Security
 
 Standalone Wekan includes all non-Sandstorm platforms. Some Standalone Wekan platforms
