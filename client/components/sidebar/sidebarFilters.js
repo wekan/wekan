@@ -7,6 +7,17 @@ import { Utils } from '/client/lib/utils';
 
 // SubsManager removed for Meteor 3 migration
 
+function getFilterIdFromEvent(evt, fallbackId) {
+  const filterId = evt.currentTarget?.getAttribute('data-filter-id');
+  if (filterId === '__none__') {
+    return undefined;
+  }
+  if (filterId !== null) {
+    return filterId;
+  }
+  return fallbackId;
+}
+
 Template.filterSidebar.events({
   'submit .js-list-filter'(evt, tpl) {
     evt.preventDefault();
@@ -19,17 +30,17 @@ Template.filterSidebar.events({
   },
   'click .js-toggle-label-filter'(evt) {
     evt.preventDefault();
-    Filter.labelIds.toggle(Template.currentData()._id);
+    Filter.labelIds.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
   'click .js-toggle-member-filter'(evt) {
     evt.preventDefault();
-    Filter.members.toggle(Template.currentData()._id);
+    Filter.members.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
   'click .js-toggle-assignee-filter'(evt) {
     evt.preventDefault();
-    Filter.assignees.toggle(Template.currentData()._id);
+    Filter.assignees.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
   'click .js-toggle-no-due-date-filter'(evt) {
@@ -81,7 +92,7 @@ Template.filterSidebar.events({
   },
   'click .js-toggle-custom-fields-filter'(evt) {
     evt.preventDefault();
-    Filter.customFields.toggle(Template.currentData()._id);
+    Filter.customFields.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
   'change .js-field-advanced-filter'(evt, tpl) {

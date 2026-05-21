@@ -21,14 +21,14 @@ template(name="filterSidebar")
     | {{_ 'filter-labels-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
-          a.name.js-toggle-label-filter
+          a.name.js-toggle-label-filter(data-filter-id="__none__")
             span.sidebar-list-item-description
               | {{_ 'filter-no-label'}}
             if Filter.labelIds.isSelected undefined
               i.fa.fa-check
     each currentBoard.labels
       li
-        a.name.js-toggle-label-filter
+        a.name.js-toggle-label-filter(data-filter-id="{{_id}}")
           span.card-label.square(class="card-label-{{color}}")
           span.sidebar-list-item-description
             if name
@@ -43,7 +43,7 @@ template(name="filterSidebar")
     | {{_ 'filter-member-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
-          a.name.js-toggle-member-filter
+          a.name.js-toggle-member-filter(data-filter-id="__none__")
             span.sidebar-list-item-description
               | {{_ 'filter-no-member'}}
             if Filter.members.isSelected undefined
@@ -51,7 +51,7 @@ template(name="filterSidebar")
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-          a.name.js-toggle-member-filter
+          a.name.js-toggle-member-filter(data-filter-id="{{_id}}")
             +userAvatar(userId=this._id)
             span.sidebar-list-item-description
               = profile.fullname
@@ -64,7 +64,7 @@ template(name="filterSidebar")
     | {{_ 'filter-assignee-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.assignees.isSelected undefined}}active{{/if}}")
-      a.name.js-toggle-assignee-filter
+      a.name.js-toggle-assignee-filter(data-filter-id="__none__")
         span.sidebar-list-item-description
           | {{_ 'filter-no-assignee'}}
         if Filter.assignees.isSelected undefined
@@ -72,7 +72,7 @@ template(name="filterSidebar")
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.assignees.isSelected _id}}active{{/if}}")
-          a.name.js-toggle-assignee-filter
+          a.name.js-toggle-assignee-filter(data-filter-id="{{_id}}")
             +userAvatar(userId=this._id)
             span.sidebar-list-item-description
               = profile.fullname
@@ -126,14 +126,14 @@ template(name="filterSidebar")
     | {{_ 'filter-custom-fields-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")
-          a.name.js-toggle-custom-fields-filter
+          a.name.js-toggle-custom-fields-filter(data-filter-id="__none__")
             span.sidebar-list-item-description
               | {{_ 'filter-no-custom-fields'}}
             if Filter.customFields.isSelected undefined
               i.fa.fa-check
     each currentBoard.customFields
       li(class="{{#if Filter.customFields.isSelected _id}}active{{/if}}")
-        a.name.js-toggle-custom-fields-filter
+        a.name.js-toggle-custom-fields-filter(data-filter-id="{{_id}}")
           span.sidebar-list-item-description
             | {{ name }}
           if Filter.customFields.isSelected _id
