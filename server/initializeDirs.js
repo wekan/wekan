@@ -14,11 +14,14 @@ import path from 'path';
 //
 // Snap already appends '/files' to WRITABLE_PATH, so we detect and handle that case.
 function getUploadPaths() {
-  const basePath = process.env.WRITABLE_PATH || path.join(process.cwd(), '.meteor', 'local', 'data');
-  
+  const basePath =
+    process.env.WRITABLE_PATH ||
+    path.join(process.cwd(), '.meteor', 'local', 'data');
+
   // Check if basePath already ends with '/files' (Snap case)
-  const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
-  
+  const endsWithFiles =
+    basePath.endsWith('/files') || basePath.endsWith('\\files');
+
   if (endsWithFiles) {
     // Snap: WRITABLE_PATH is already $SNAP_COMMON/files, so append subdirectories directly
     return {
@@ -37,7 +40,7 @@ function getUploadPaths() {
 const uploadPaths = getUploadPaths();
 const dirsToCreate = [uploadPaths.attachments, uploadPaths.avatars];
 
-dirsToCreate.forEach(dirPath => {
+dirsToCreate.forEach((dirPath) => {
   try {
     // Create directory recursively with proper permissions (0o755)
     // Ignore error if it already exists
@@ -51,14 +54,24 @@ dirsToCreate.forEach(dirPath => {
       try {
         fs.accessSync(dirPath, fs.constants.W_OK);
         if (process.env.DEBUG === 'true') {
-          console.info(`[initializeDirs] Directory exists and is writable: ${dirPath}`);
+          console.info(
+            `[initializeDirs] Directory exists and is writable: ${dirPath}`,
+          );
         }
       } catch (accessError) {
-        console.warn(`[initializeDirs] WARNING: Directory exists but may not be writable: ${dirPath}`, accessError.message);
+        console.warn(
+          `[initializeDirs] WARNING: Directory exists but may not be writable: ${dirPath}`,
+          accessError.message,
+        );
       }
     }
   } catch (error) {
-    console.error(`[initializeDirs] FAILED to initialize directory: ${dirPath}`, error.message);
-    throw new Error(`Cannot create or access upload directory: ${dirPath}\n${error.message}`);
+    console.error(
+      `[initializeDirs] FAILED to initialize directory: ${dirPath}`,
+      error.message,
+    );
+    throw new Error(
+      `Cannot create or access upload directory: ${dirPath}\n${error.message}`,
+    );
   }
 });

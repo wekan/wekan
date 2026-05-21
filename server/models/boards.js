@@ -6,6 +6,7 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardAdmin } from '/server/lib/utils';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -732,23 +733,33 @@ WebApp.handlers.post('/api/boards/:boardId/members/:memberId', async function(re
 });
 
 WebApp.handlers.get('/api/boards/:boardId/attachments', async function(req, res) {
-  const paramBoardId = req.params.boardId;
-  await Authentication.checkBoardAccess(req.userId, paramBoardId);
-  const attachments = await ReactiveCache.getAttachments(
-    { 'meta.boardId': paramBoardId },
-  );
-  sendJsonResult(res, {
-    code: 200,
-    data: attachments.map(attachment => ({
-      attachmentId: attachment._id,
-      attachmentName: attachment.name,
-      attachmentType: attachment.type,
-      url: attachment.link(),
-      urlDownload: `${attachment.link()}?download=true&token=`,
-      boardId: attachment.meta.boardId,
-      swimlaneId: attachment.meta.swimlaneId,
-      listId: attachment.meta.listId,
-      cardId: attachment.meta.cardId,
-    })),
-  });
+  try {
+    const paramBoardId = req.params.boardId;
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const attachments = await ReactiveCache.getAttachments(
+      { 'meta.boardId': paramBoardId },
+    );
+    sendJsonResult(res, {
+      code: 200,
+      data: attachments.map(attachment => {
+        const url = generateUniversalAttachmentUrl(attachment._id);
+        return {
+          attachmentId: attachment._id,
+          attachmentName: attachment.name,
+          attachmentType: attachment.type,
+          url,
+          urlDownload: `${url}?download=true&token=`,
+          boardId: attachment.meta?.boardId,
+          swimlaneId: attachment.meta?.swimlaneId,
+          listId: attachment.meta?.listId,
+          cardId: attachment.meta?.cardId,
+        };
+      }),
+    });
+  } catch (error) {
+    sendJsonResult(res, {
+      code: 500,
+      data: error.message || 'Internal server error',
+    });
+  }
 });

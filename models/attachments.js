@@ -10,8 +10,11 @@ import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerato
 // - Docker (WRITABLE_PATH=/data): /data/files/attachments
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
 const computeAttachmentStoragePath = () => {
-  const basePath = process.env.WRITABLE_PATH || path.join(process.cwd(), '.meteor', 'local', 'data');
-  const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
+  const basePath =
+    process.env.WRITABLE_PATH ||
+    path.join(process.cwd(), '.meteor', 'local', 'data');
+  const endsWithFiles =
+    basePath.endsWith('/files') || basePath.endsWith('\\files');
   if (endsWithFiles) {
     // Snap: WRITABLE_PATH already includes /files
     return basePath + '/attachments';
@@ -21,7 +24,9 @@ const computeAttachmentStoragePath = () => {
   }
 };
 
-const storagePath = Meteor.isServer ? computeAttachmentStoragePath() : 'assets/app/uploads/attachments';
+const storagePath = Meteor.isServer
+  ? computeAttachmentStoragePath()
+  : 'assets/app/uploads/attachments';
 
 const Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
@@ -29,24 +34,26 @@ const Attachments = new FilesCollection({
   allowClientCode: true,
   storagePath: storagePath,
   namingFunction(opts) {
-    let filenameWithoutExtension = ""
-    let fileId = "";
+    let filenameWithoutExtension = '';
+    let fileId = '';
     if (opts?.name) {
       // Client
-      filenameWithoutExtension = opts.name.replace(/(.+)\..+/, "$1");
+      filenameWithoutExtension = opts.name.replace(/(.+)\..+/, '$1');
       fileId = opts.meta.fileId;
       delete opts.meta.fileId;
     } else if (opts?.file?.name) {
       // Server
       if (opts.file.extension) {
-        filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+        filenameWithoutExtension = opts.file.name.replace(
+          new RegExp(opts.file.extensionWithDot + '$'),
+          '',
+        );
       } else {
         // file has no extension, so don't replace anything, otherwise the last character is removed (because extensionWithDot = '.')
         filenameWithoutExtension = opts.file.name;
       }
       fileId = opts.fileId;
-    }
-    else {
+    } else {
       // should never reach here
       filenameWithoutExtension = Math.random().toString(36).slice(2);
       fileId = Math.random().toString(36).slice(2);
@@ -77,7 +84,12 @@ const Attachments = new FilesCollection({
       safeName = safeName.trim();
 
       // If sanitization changed the name, update it
-      if (safeName && safeName !== '.' && safeName !== '..' && safeName !== file.name) {
+      if (
+        safeName &&
+        safeName !== '.' &&
+        safeName !== '..' &&
+        safeName !== file.name
+      ) {
         file.name = safeName;
       } else if (!safeName || safeName === '.' || safeName === '..') {
         file.name = 'unnamed';
