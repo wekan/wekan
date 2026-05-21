@@ -86,7 +86,7 @@ apps:
 parts:
     mongodb:
         #source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
-        source: http://192.168.1.20:8000/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
+        source: http://192.168.1.47:8000/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
         plugin: dump
         stage-packages:
             - libssl3
@@ -111,12 +111,12 @@ parts:
 
     mongosh:
         #source: https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
-        source: http://192.168.1.20:8000/mongosh-2.8.2-linux-x64.tgz
+        source: http://192.168.1.47:8000/mongosh-2.8.2-linux-x64.tgz
         plugin: dump
 
     mongotools:
         #source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
-        source: http://192.168.1.20:8000/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
+        source: http://192.168.1.47:8000/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
         plugin: dump
 
 
@@ -141,13 +141,13 @@ parts:
         stage-packages:
             - libfontconfig1
         override-build: |
-            npm config set registry http://192.168.1.20:4873/
+            npm config set registry http://192.168.1.47:4873/
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
             cd .build
             #wget https://github.com/wekan/wekan/releases/download/v9.23/wekan-9.23-amd64.zip
-            wget http://192.168.1.20:8000/wekan-9.23-amd64.zip
+            wget http://192.168.1.47:8000/wekan-9.23-amd64.zip
             unzip wekan-9.23-amd64.zip
             rm wekan-9.23-amd64.zip
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
@@ -171,7 +171,7 @@ parts:
             cd ..
             # Copy to Snap
             #wget https://nodejs.org/dist/latest-v24.x/node-v24.15.0-linux-x64.tar.xz
-            wget http://192.168.1.20:8000/node-v24.15.0-linux-x64.tar.xz
+            wget http://192.168.1.47:8000/node-v24.15.0-linux-x64.tar.xz
             tar -xf node-v24.15.0-linux-x64.tar.xz node-v24.15.0-linux-x64/bin/node
             rm node-v24.15.0-linux-x64.tar.xz
             mkdir $SNAPCRAFT_PART_INSTALL/bin
