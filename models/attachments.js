@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import path from 'path';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 
 // XXX Enforce a schema for the Attachments FilesCollection
@@ -9,7 +10,7 @@ import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerato
 // - Docker (WRITABLE_PATH=/data): /data/files/attachments
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
 const computeAttachmentStoragePath = () => {
-  const basePath = process.env.WRITABLE_PATH || process.cwd();
+  const basePath = process.env.WRITABLE_PATH || path.join(process.cwd(), '.meteor', 'local', 'data');
   const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
   if (endsWithFiles) {
     // Snap: WRITABLE_PATH already includes /files

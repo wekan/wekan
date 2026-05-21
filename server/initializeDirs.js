@@ -14,7 +14,7 @@ import path from 'path';
 //
 // Snap already appends '/files' to WRITABLE_PATH, so we detect and handle that case.
 function getUploadPaths() {
-  const basePath = process.env.WRITABLE_PATH || process.cwd();
+  const basePath = process.env.WRITABLE_PATH || path.join(process.cwd(), '.meteor', 'local', 'data');
   
   // Check if basePath already ends with '/files' (Snap case)
   const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');

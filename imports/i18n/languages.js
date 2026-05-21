@@ -276,7 +276,7 @@ export default {
     code: "es",
     tag: "es-CO",
     name: "Español en Colombia",
-    load: () => import('./data/es-CO.i18n.json'),
+    load: () => import('./data/es_CO.i18n.json'),
     rtl: false,
   },
   "es-LA": {
@@ -353,14 +353,14 @@ export default {
     code: "fr",
     tag: "fr-BE",
     name: "Français (Belgique)",
-    load: () => import('./data/fr-BE.i18n.json'),
+    load: () => import('./data/fr.i18n.json'),
     rtl: false,
   },
   "fr-CA": {
     code: "fr",
     tag: "fr-CA",
     name: "Français (Canada)",
-    load: () => import('./data/fr-CA.i18n.json'),
+    load: () => import('./data/fr.i18n.json'),
     rtl: false,
   },
   "fr-CH": {
@@ -500,7 +500,7 @@ export default {
     code: "ja",
     tag: "ja-JP",
     name: "日本語（日本）",
-    load: () => import('./data/ja-JP.i18n.json'),
+    load: () => import('./data/ja.i18n.json'),
     rtl: false,
   },
   "ka": {
@@ -521,7 +521,7 @@ export default {
     code: "km",
     tag: "km_KH",
     name: "ខ្មែរ (កម្ពុជា)",
-    load: () => import('./data/km-KH.i18n.json'),
+    load: () => import('./data/km_KH.i18n.json'),
     rtl: false,
   },  
   "ko-KR": {
@@ -654,7 +654,7 @@ export default {
     code: "pt",
     tag: "pt-PT",
     name: "Português de Portugal",
-    load: () => import('./data/pt-PT.i18n.json'),
+    load: () => import('./data/pt_PT.i18n.json'),
     rtl: false,
   },
   "ro": {
@@ -682,7 +682,7 @@ export default {
     code: "ru",
     tag: "ru_RU",
     name: "Русский язык (Россия)",
-    load: () => import('./data/ru-RU.i18n.json'),
+    load: () => import('./data/ru_RU.i18n.json'),
     rtl: false,
   },
   "sk": {
