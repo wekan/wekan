@@ -32,7 +32,7 @@
   "devDependencies": {
     "@meteorjs/rspack": "^2.0.1",
     "@rsdoctor/rspack-plugin": "^1.5.7",
-    "@rspack/cli": "^1.7.11",
+    "@rspack/cli": "^2.0.4",
     "@rspack/core": "^1.7.11",
     "@typescript-eslint/eslint-plugin": "^8.59.4",
     "@typescript-eslint/parser": "^8.59.4",
