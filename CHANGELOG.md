@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.23 2026-05-21 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES: https://wekan.fi/hall-of-fame/bflableed/ :
 
@@ -39,6 +39,11 @@ and adds the following new features:
   Thanks to xet7.
 - [Build scripts: Added script to revert git add](https://github.com/wekan/wekan/commit/fad217db8a55d95bd62d7d9c431cb60714a54d13).
   Thanks to xet7.
+
+and adds the following updates:
+
+- [Bump brace-expansion from 5.0.5 to 5.0.6](https://github.com/wekan/wekan/pull/6350).
+  Thanks to dependabot.
 
 and fixes the following bugs:
 
