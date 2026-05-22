@@ -3,16 +3,16 @@
 Newest WeKan at these platforms:
 
 - [Upgrade WeKan](https://wekan.fi/upgrade/)
-- [bundle zip at releases](https://github.com/wekan/wekan/releases), docs at
-  - [Linux amd64, arm64, s390x](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
-  - [Windows amd64, works also at Windows arm64](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md)
-  - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
+- [bundle zip at releases](https://github.com/wekan/wekan/releases), docs at https://wekan.fi/docs/
+  - [Linux amd64, arm64](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
 - https://wekan.fi/install/
-  - Snap Candidate amd64
-  - Docker amd64/arm64/s390x
-  - Kubernetes Docker amd64
+  - Snap Beta amd64/arm64
+  - Docker amd64/arm64
+  - Kubernetes Docker amd64/arm64
     - Bitnami MongoDB Docker images do not exist anymore. [MongoDump/MongoRestore to groundhog2k MongoDB images](https://github.com/wekan/charts/issues/45)
-- Fixing other platforms In Progress.
+- Fixing other platforms In Progress:
+  - [Windows amd64/arm64](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md)
+  - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
 
 Versions:
 
