@@ -34,6 +34,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated platforms](https://github.com/wekan/wekan/commit/c8430a8c1419cc68023ed918e26f7d4f279968ca).
   Thanks to xet7.
+- [Update Windows docs](https://github.com/wekan/wekan/commit/dbab502be4e194f06dd09b97ee3247a37def7eab).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
