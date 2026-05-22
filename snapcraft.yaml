@@ -1,6 +1,6 @@
 name: wekan
 version: '9.25'
-base: core24
+base: core26
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
@@ -27,11 +27,14 @@ environment:
   SNAP_COMMON: "/var/snap/$SNAP_INSTANCE_NAME/common"
   SNAP: "/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
 
-# Use platforms instead of architectures for core24 base
+# Use platforms instead of architectures for core26 base
 platforms:
   amd64:
     build-on: amd64
     build-for: amd64
+  arm64:
+    build-on: arm64
+    build-for: arm64
 
 plugs:
   mongodb-plug:
@@ -85,8 +88,8 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
-        plugin: dump
+        plugin: nil
+        #source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
         stage-packages:
             - libssl3
             - libcurl4
@@ -101,6 +104,18 @@ parts:
             - libboost-filesystem1.74.0
             - libboost-program-options1.74.0
             - libgoogle-perftools4
+        override-build: |
+            set -eu
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64) MONGO_ARCH="x86_64" ;;
+                arm64) MONGO_ARCH="aarch64" ;;
+                *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
+            esac
+            MONGO_URL="https://fastdl.mongodb.org/linux/mongodb-linux-${MONGO_ARCH}-ubuntu2204-7.0.34.tgz"
+            wget -O mongodb.tgz "$MONGO_URL"
+            tar -xzf mongodb.tgz --strip-components=1
+            mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
+            cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
         stage:
             - bin
             - usr
@@ -109,12 +124,36 @@ parts:
             - usr
 
     mongosh:
-        source: https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
-        plugin: dump
+        plugin: nil
+        #source: https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
+        override-build: |
+            set -eu
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64) MONGOSH_ARCH="x64" ;;
+                arm64) MONGOSH_ARCH="arm64" ;;
+                *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
+            esac
+            MONGOSH_URL="https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-${MONGOSH_ARCH}.tgz"
+            wget -O mongosh.tgz "$MONGOSH_URL"
+            tar -xzf mongosh.tgz --strip-components=1
+            mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
+            cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
 
     mongotools:
-        source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
-        plugin: dump
+        plugin: nil
+        #source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
+        override-build: |
+            set -eu
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64) TOOLS_ARCH="x86_64" ;;
+                arm64) TOOLS_ARCH="arm64" ;;
+                *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
+            esac
+            TOOLS_URL="https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-${TOOLS_ARCH}-100.16.0.tgz"
+            wget -O mongotools.tgz "$TOOLS_URL"
+            tar -xzf mongotools.tgz --strip-components=1
+            mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
+            cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
 
 
     wekan:
@@ -138,13 +177,31 @@ parts:
         stage-packages:
             - libfontconfig1
         override-build: |
+            set -eu
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64)
+                    WEKAN_ARCH="amd64"
+                    NODE_ARCH="x64"
+                    ;;
+                arm64)
+                    WEKAN_ARCH="arm64"
+                    NODE_ARCH="arm64"
+                    ;;
+                *)
+                    echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"
+                    exit 1
+                    ;;
+            esac
+            WEKAN_ZIP="wekan-9.25-${WEKAN_ARCH}.zip"
+            NODE_TAR="node-v24.15.0-linux-${NODE_ARCH}.tar.xz"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v9.25/wekan-9.25-amd64.zip
-            unzip wekan-9.25-amd64.zip
-            rm wekan-9.25-amd64.zip
+            #wget https://github.com/wekan/wekan/releases/download/v9.25/wekan-9.25-amd64.zip
+            wget "https://github.com/wekan/wekan/releases/download/v9.25/${WEKAN_ZIP}"
+            unzip "${WEKAN_ZIP}"
+            rm "${WEKAN_ZIP}"
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
             # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
             BCRYPT_DIR="bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -164,12 +221,13 @@ parts:
             npm install
             cd ../../../..
             # Copy to Snap
-            wget https://nodejs.org/dist/latest-v24.x/node-v24.15.0-linux-x64.tar.xz
-            tar -xf node-v24.15.0-linux-x64.tar.xz node-v24.15.0-linux-x64/bin/node
-            rm node-v24.15.0-linux-x64.tar.xz
+            #wget https://nodejs.org/dist/latest-v24.x/node-v24.15.0-linux-x64.tar.xz
+            wget "https://nodejs.org/dist/latest-v24.x/${NODE_TAR}"
+            tar -xf "${NODE_TAR}" "node-v24.15.0-linux-${NODE_ARCH}/bin/node"
+            rm "${NODE_TAR}"
             mkdir $SNAPCRAFT_PART_INSTALL/bin
-            cp -p node-v24.15.0-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
-            rm -rf node-v24.15.0-linux-x64
+            cp -p "node-v24.15.0-linux-${NODE_ARCH}/bin/node" $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf "node-v24.15.0-linux-${NODE_ARCH}"
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan

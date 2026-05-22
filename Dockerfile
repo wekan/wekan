@@ -1,7 +1,7 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 LABEL maintainer="wekan"
 LABEL org.opencontainers.image.ref.name="ubuntu"
-LABEL org.opencontainers.image.version="24.04"
+LABEL org.opencontainers.image.version="26.04"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
 # TARGETARCH and TARGETVARIANT are automatically provided by Docker Buildx

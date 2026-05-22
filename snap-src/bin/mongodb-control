@@ -39,7 +39,7 @@ export LC_ALL=C
 # migratemongo/avx wrapper scripts transparently re-run MongoDB commands via QEMU.
 # See https://github.com/wekan/migratemongo
 export PATH=$SNAP/migratemongo/avx:$SNAP/usr/bin:$SNAP/bin:${PATH}
-export LD_LIBRARY_PATH=$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:${LD_LIBRARY_PATH}
 
 # If temporary settings log exists, delete it
 if [ -f ${SNAP_COMMON}/settings.log ]; then
