@@ -11,13 +11,14 @@ This is without container (without Docker or Snap).
 Right click and download files 1-4:
 
 1. [wekan-9.30-win64.zip](https://github.com/wekan/wekan/releases/download/v9.30/wekan-9.30-win64.zip) or newest available at https://github.com/wekan/wekan/releases/
+
 2. [node.exe](https://nodejs.org/dist/latest-v24.x/win-x64/node.exe)
 
 3. [mongodb-windows-x86_64-7.0.32-signed.msi](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-7.0.32-signed.msi)
 
-4. [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/main/start-wekan.bat)
+4. (already exists: [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/main/start-wekan.bat))
 
-5. Copy files from steps 1-4 with USB stick or DVD to offline Windows computer
+5. Copy files from steps 1-3 with USB stick or DVD to offline Windows computer
 
 6. Double click `mongodb-windows-x86_64-7.0.32-signed.msi` . In installer, uncheck downloading MongoDB compass.
 
@@ -25,7 +26,7 @@ Right click and download files 1-4:
 
 ```
 bundle (directory)
-  |_ start-wekan.bat (downloaded file)
+  |_ start-wekan.bat (already exists)
   |_ node.exe (downloaded file)
   |_ main.js (extracted file)
 ```

@@ -1,5 +1,19 @@
 @ECHO OFF
 
+REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
+REM # If ROOT_URL is not correct, these do not work: translations, uploading attachments.
+SET ROOT_URL=http://localhost
+
+REM # PORT Where WeKan Node.js running:
+SET PORT=80
+
+
+REM # wget -c https://downloads.mongodb.com/compass/mongosh-2.8.3-win32-x64.zip
+REM # 7z x mongosh-2.8.3-win32-x64.zip
+REM # move mongodb-database-tools-windows-x86_64-100.17.0\bin\*.exe .
+REM # wget -c https://fastdl.mongodb.org/tools/db/mongodb-database-tools-windows-x86_64-100.17.0.zip
+REM #7z x mongodb-database-tools-windows-x86_64-100.17.0.zip
+REM # move mongodb-database-tools-windows-x86_64-100.17.0\bin\mongosh.exe .
 REM # ------------------- HOWTO ---------------------
 REM # https://github.com/wekan/wekan/wiki/Offline
 REM # ------------------- LOCAL MONGODB SETTINGS (RUN SEPARATELY) -------------------
@@ -16,22 +30,31 @@ REM # Change Streams require MongoDB to run as a replica set.
 REM # This checks if the replica set is already initialized, and if not, initializes it.
 REM # MongoDB must already be running at 127.0.0.1:27017.
 REM # where mongosh >NUL 2>NUL
-IF %ERRORLEVEL% NEQ 0 (
-   ECHO mongosh not found. Skipping replica set initialization. Using polling.
-   SET USE_CHANGE_STREAMS=false
-) ELSE (
-   ECHO Checking MongoDB replica set status...
-   mongosh --port 27017 --quiet --eval "if (rs.status().ok === 1) { print('REPSET_OK'); }" 2>NUL | find "REPSET_OK" >NUL
+REM #IF %ERRORLEVEL% NEQ 0 (
+REM #   ECHO mongosh not found. Skipping replica set initialization. Using polling.
+REM #   SET USE_CHANGE_STREAMS=false
+REM # ) ELSE (
+
+SET USE_CHANGE_STREAMS=false
+
+ECHO Checking MongoDB replica set status...
+mongosh --port 27017 --quiet --eval "if (rs.status().ok === 1) { print('REPSET_OK'); }" 2>NUL | find "REPSET_OK" >NUL
 IF %ERRORLEVEL% NEQ 0 (
    ECHO Initializing replica set rs0...
-   mongosh --port 27017 --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:27017'}]})"
+   mongosh --port 27017 --quiet --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:27017'}]})" >NUL 2>NUL
    timeout /t 3 /nobreak >NUL
-   ECHO Replica set rs0 initialized.
-) ELSE (
-   ECHO Replica set already initialized.
 )
+
+mongosh --port 27017 --quiet --eval "if (rs.status().ok === 1) { print('REPSET_OK'); }" 2>NUL | find "REPSET_OK" >NUL
+IF %ERRORLEVEL% EQU 0 (
+   ECHO Replica set rs0 is ready. Using oplog.
    SET USE_CHANGE_STREAMS=true
+) ELSE (
+   ECHO WARNING: Replica set not ready. Falling back to polling mode.
+   SET USE_CHANGE_STREAMS=false
 )
+REM  #SET USE_CHANGE_STREAMS=true
+REM # )
 REM #----------------------------------------------------------------------
 
 REM #-------------------- REQUIRED SETTINGS START --------------------
@@ -42,13 +65,13 @@ REM # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-imp
 REM # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
 REM # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
 REM # SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-IF "%USE_CHANGE_STREAMS%"=="true" (
+IF /I "%USE_CHANGE_STREAMS%"=="true" (
    SET METEOR_REACTIVITY_ORDER=oplog,polling
-   SET DDP_TRANSPORT=sockjs
-   REM # SET DDP_TRANSPORT=uws
 ) ELSE (
    SET METEOR_REACTIVITY_ORDER=polling
 )
+SET DDP_TRANSPORT=sockjs
+REM #   REM # SET DDP_TRANSPORT=uws
 
 REM # Writable path required to exist and be writable for attachments to migrate and work correctly
 SET WRITABLE_PATH=..
@@ -62,19 +85,14 @@ REM SET MONGO_PASSWORD_FILE=
 REM # MONGO_OPLOG_URL: MongoDB oplog connection for real-time reactivity
 REM # Required for Change Streams and OpLog tailing to work.
 REM # For local MongoDB replica set named 'rs0':
-IF "%USE_CHANGE_STREAMS%"=="true" (
+IF /I "%USE_CHANGE_STREAMS%"=="true" (
    SET MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+) ELSE (
+   SET MONGO_OPLOG_URL=
 )
-# For production with credentials and remote MongoDB:
-#SET MONGO_OPLOG_URL=mongodb://<user>:<password>@<host>:<port>/local?authSource=admin&replicaSet=rsWekan
+REM # For production with credentials and remote MongoDB:
+REM # SET MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?authSource=admin&replicaSet=rsWekan
 
-REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
-REM # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
-REM # If ROOT_URL is not correct, these do not work: translations, uploading attachments.
-SET ROOT_URL=http://localhost
-
-REM # Must change to YOUR-PORT-NUMBER:
-SET PORT=80
 
 REM #------------------- REQUIRED SETTINGS END ----------------------
 
@@ -716,4 +734,11 @@ REM #node --stack-size=65500 main.js
 
 REM #-------------------- OPTIONAL SETTINGS END --------------------
 
+ECHO Starting Wekan in a persistent cmd loop...
+
+:start_wekan
 node main.js
+ECHO node main.js exited, restarting in 2 seconds...
+timeout /t 2 /nobreak >NUL
+GOTO start_wekan
+
