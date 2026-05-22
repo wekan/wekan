@@ -1,5 +1,5 @@
 name: wekan
-version: '9.28'
+version: '9.29'
 base: core26
 build-base: devel
 summary: Open Source kanban
@@ -90,7 +90,7 @@ apps:
 parts:
     mongodb:
         plugin: nil
-        #source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.34.tgz
+        #source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.3.4.tgz
         stage-packages:
             - libssl3
             - libcurl4
@@ -126,7 +126,7 @@ parts:
 
     mongosh:
         plugin: nil
-        #source: https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
+        #source: https://downloads.mongodb.com/compass/mongosh-2.8.3-linux-x64.tgz
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
@@ -142,7 +142,7 @@ parts:
 
     mongotools:
         plugin: nil
-        #source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
+        #source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.17.0.tgz
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
@@ -192,7 +192,7 @@ parts:
                     exit 1
                     ;;
             esac
-            WEKAN_ZIP="wekan-9.28-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-9.29-${WEKAN_ARCH}.zip"
             NODE_TAR="node-v24.16.0-linux-${NODE_ARCH}.tar.xz"
             export NPM_CONFIG_REGISTRY="http://192.168.1.47:4873/"
             npm config set registry "$NPM_CONFIG_REGISTRY" --location=user
@@ -201,7 +201,7 @@ parts:
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v9.28/wekan-9.28-amd64.zip
+            #wget https://github.com/wekan/wekan/releases/download/v9.29/wekan-9.29-amd64.zip
             wget "http://192.168.1.47:8000/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
