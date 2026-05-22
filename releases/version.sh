@@ -188,12 +188,12 @@ update_releases_node_versions() {
   echo "[DEBUG] Updating Node.js references in ${#files[@]} releases files..."
   local f
   for f in "${files[@]}"; do
-    sedi -E "s|nodejs.org/dist/v24\.[0-9]+\.[0-9]+|nodejs.org/dist/v${new_node}|g" "$f"
-    sedi -E "s|latest-v24\.x/node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64)\.tar\.xz|latest-v24.x/node-v${new_node}-linux-\1.tar.xz|g" "$f"
-    sedi -E "s|node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64|armv7l|s390x|ppc64le)\.tar\.(xz|gz)|node-v${new_node}-linux-\1.tar.\2|g" "$f"
-    sedi -E "s|npm-node-version: 24\.[0-9]+\.[0-9]+|npm-node-version: ${new_node}|g" "$f"
-    sedi -E "s|NODE_TAR=\"node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}\.tar\.xz\"|NODE_TAR=\"node-v${new_node}-linux-\${NODE_ARCH}.tar.xz\"|g" "$f"
-    sedi -E "s|node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}/bin/node|node-v${new_node}-linux-\${NODE_ARCH}/bin/node|g" "$f"
+    sedi -E "s#nodejs.org/dist/v24\.[0-9]+\.[0-9]+#nodejs.org/dist/v${new_node}#g" "$f"
+    sedi -E "s#latest-v24\.x/node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64)\.tar\.xz#latest-v24.x/node-v${new_node}-linux-\1.tar.xz#g" "$f"
+    sedi -E "s#node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64|armv7l|s390x|ppc64le)\.tar\.(xz|gz)#node-v${new_node}-linux-\1.tar.\2#g" "$f"
+    sedi -E "s#npm-node-version: 24\.[0-9]+\.[0-9]+#npm-node-version: ${new_node}#g" "$f"
+    sedi -E "s#NODE_TAR=\"node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}\.tar\.xz\"#NODE_TAR=\"node-v${new_node}-linux-\${NODE_ARCH}.tar.xz\"#g" "$f"
+    sedi -E "s#node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}/bin/node#node-v${new_node}-linux-\${NODE_ARCH}/bin/node#g" "$f"
   done
 }
 
@@ -213,9 +213,9 @@ update_releases_mongo_versions() {
   echo "[DEBUG] Updating MongoDB artifact references in ${#files[@]} releases files..."
   local f
   for f in "${files[@]}"; do
-    sedi -E "s|(mongodb-linux-(x86_64|aarch64|\$\{MONGO_ARCH\})-ubuntu2204-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)|\1${mongo_ver}\3|g" "$f"
-    sedi -E "s|(mongosh-)[0-9]+\.[0-9]+\.[0-9]+(-linux-(x64|arm64|\$\{MONGOSH_ARCH\})\.tgz)|\1${mongosh_ver}\2|g" "$f"
-    sedi -E "s|(mongodb-database-tools-ubuntu(2204|2404)-(x86_64|arm64|\$\{TOOLS_ARCH\})-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)|\1${tools_ver}\4|g" "$f"
+    sedi -E "s#(mongodb-linux-(x86_64|aarch64|\$\{MONGO_ARCH\})-ubuntu2204-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)#\1${mongo_ver}\3#g" "$f"
+    sedi -E "s#(mongosh-)[0-9]+\.[0-9]+\.[0-9]+(-linux-(x64|arm64|\$\{MONGOSH_ARCH\})\.tgz)#\1${mongosh_ver}\2#g" "$f"
+    sedi -E "s#(mongodb-database-tools-ubuntu(2204|2404)-(x86_64|arm64|\$\{TOOLS_ARCH\})-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)#\1${tools_ver}\4#g" "$f"
   done
 }
 
