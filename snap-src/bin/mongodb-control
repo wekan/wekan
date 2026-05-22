@@ -147,7 +147,7 @@ echo "Replica set member host: ${RS_MEMBER_HOST}"
 # Always start MongoDB temporarily in background to verify/fix replica set
 # config before the final foreground start.  This catches first-run,
 # port changes, and corrupt/missing replica set state.
-# Use --pidFilePath so we can kill exactly this process without touching
+# Use --pidfilepath so we can kill exactly this process without touching
 # MongoDB instances from other parallel snap installs.
 TEMP_PID_FILE="${SNAP_COMMON}/mongod-temp.pid"
 echo "Starting MongoDB temporarily to check replica set configuration..."
@@ -160,7 +160,7 @@ $SNAP/bin/mongod \
     --setParameter logicalSessionRefreshMillis=900000 \
     --setParameter localLogicalSessionTimeoutMinutes=45 \
     --replSet rs0 --oplogSize 20480 --fork \
-    --pidFilePath="$TEMP_PID_FILE"
+    --pidfilepath="$TEMP_PID_FILE"
 
 # Wait for MongoDB to accept connections (up to 30 s)
 echo "Waiting for MongoDB to accept connections on port ${_RS_PORT}..."
