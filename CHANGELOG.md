@@ -28,7 +28,12 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following update:
+
+- [Use Ubuntu 26.04 base for amd64 and arm64 at Docker and Snap](https://github.com/wekan/wekan/commit/d978d626aed308553955037e0e906f44566a295d).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Try to fix Snap: Use local npm package cache to prevent local build timeout](https://github.com/wekan/wekan/commit/741668a831d7775c34fca68d7b3a63421ae72f13).
   Thanks to xet7.
