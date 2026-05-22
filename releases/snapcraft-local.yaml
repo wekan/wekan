@@ -98,8 +98,8 @@ parts:
             - zlib1g
             - libsnappy1v5
             - libyaml-cpp0.8
-            - libpcre3
-            - libpcrecpp0v5
+            - libpcre2-8-0
+            - libpcre2-posix3
             - libboost-system1.83.0
             - libboost-iostreams1.83.0
             - libboost-filesystem1.83.0
