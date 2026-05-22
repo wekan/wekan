@@ -1,8 +1,9 @@
 name: wekan
 version: '9.30'
 base: core26
+build-base: devel
 confinement: strict
-grade: stable
+grade: devel
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
