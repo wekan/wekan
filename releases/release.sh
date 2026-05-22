@@ -17,6 +17,19 @@ fi
 # 2) Commit and push version number changes
 cd ~/repos/wekan
 
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+if compgen -G "$DOWNLOAD_DIR/node-v*-linux-*.tar.*" > /dev/null && compgen -G "$DOWNLOAD_DIR/mongodb-*.tgz" > /dev/null; then
+  read -r -p "Check the latest Node.js and MongoDB versions from the internet? (y/n) " CHECK_LATEST
+  case "$CHECK_LATEST" in
+    y|Y|yes|YES)
+      :
+      ;;
+    *)
+      export USE_LOCAL_DEP_VERSIONS=1
+      ;;
+  esac
+fi
+
 ~/repos/wekan/releases/version.sh "$1" "$2"
 
 # 3) Build bundle first so generated artifacts (for example package-lock.json)

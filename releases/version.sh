@@ -147,6 +147,16 @@ ensure_cache_or_download() {
   local upstream_url="$2"
   local cache_url="${CACHE_BASE_URL}/${filename}"
 
+  if [ "${USE_LOCAL_DEP_VERSIONS:-0}" = "1" ]; then
+    if [ -f "$DOWNLOAD_DIR/$filename" ]; then
+      echo "[DOWNLOAD] Using local file: $DOWNLOAD_DIR/$filename"
+      return 0
+    fi
+
+    echo "[ERROR] Missing local file: $DOWNLOAD_DIR/$filename" >&2
+    return 1
+  fi
+
   if http_ok "$cache_url"; then
     echo "[CACHE] OK: $cache_url"
     return 0
@@ -172,6 +182,24 @@ ensure_cache_or_download_optional() {
     echo "[WARN] Optional artifact unavailable: $filename"
     echo "[WARN] Continuing without optional artifact download."
   fi
+}
+
+latest_cached_version_by_pattern() {
+  local file_glob="$1"
+  local extract_regex="$2"
+
+  shopt -s nullglob
+  local files=("$DOWNLOAD_DIR"/$file_glob)
+  shopt -u nullglob
+
+  if [ ${#files[@]} -eq 0 ]; then
+    return 1
+  fi
+
+  printf '%s\n' "${files[@]}" \
+    | sed -E "s#^.*/${extract_regex}#\\1#" \
+    | sort -Vu \
+    | tail -1
 }
 
 update_releases_node_versions() {
@@ -224,85 +252,104 @@ version_bump_logic() {
   echo "New Version: $NEW_VERSION"
   echo "Old Version: $OLD_VERSION"
 
-  # 1. Fetch latest Node.js 24.x (shared by amd64+arm64)
-  echo "[DEBUG] Fetching latest Node.js 24.x with amd64+arm64 availability..."
-  NODE_HTML=$(curl -fsSL https://nodejs.org/dist/latest-v24.x/)
-  FIRST_MATCH=$(echo "$NODE_HTML" | grep -oE 'node-v24\.[0-9]+\.[0-9]+-linux-x64\.tar\.xz' | head -1)
-  NEW_NODE=$(echo "$FIRST_MATCH" | sed -E 's/node-v([0-9]+\.[0-9]+\.[0-9]+)-linux-x64\.tar\.xz/\1/')
+  if [ "${USE_LOCAL_DEP_VERSIONS:-0}" = "1" ]; then
+    echo "[DEBUG] Using dependency versions from local cache in $DOWNLOAD_DIR ..."
 
-  if [[ -z "$NEW_NODE" ]]; then
-    echo "Error: Could not determine latest Node.js 24.x version." >&2
-    exit 1
+    NEW_NODE=$(latest_cached_version_by_pattern 'node-v*-linux-x64.tar.xz' 'node-v([0-9]+\.[0-9]+\.[0-9]+)-linux-x64\.tar\.xz') || true
+    MONGO_VER=$(latest_cached_version_by_pattern 'mongodb-linux-x86_64-ubuntu2204-*.tgz' 'mongodb-linux-x86_64-ubuntu2204-([0-9]+\.[0-9]+\.[0-9]+)\.tgz') || true
+    MONGOSH_VER=$(latest_cached_version_by_pattern 'mongosh-*-linux-x64.tgz' 'mongosh-([0-9]+\.[0-9]+\.[0-9]+)-linux-x64\.tgz') || true
+    TOOLS_VER=$(latest_cached_version_by_pattern 'mongodb-database-tools-ubuntu2204-x86_64-*.tgz' 'mongodb-database-tools-ubuntu2204-x86_64-([0-9]+\.[0-9]+\.[0-9]+)\.tgz') || true
+
+    if [ -z "${NEW_NODE:-}" ] || [ -z "${MONGO_VER:-}" ] || [ -z "${MONGOSH_VER:-}" ] || [ -z "${TOOLS_VER:-}" ]; then
+      echo "Error: Missing one or more local dependency versions in $DOWNLOAD_DIR." >&2
+      exit 1
+    fi
+
+    echo "Local Node.js detected: $NEW_NODE"
+    echo "Local MongoDB detected: $MONGO_VER"
+    echo "Local mongosh detected: $MONGOSH_VER"
+    echo "Local mongodb-database-tools detected: $TOOLS_VER"
+  else
+    # 1. Fetch latest Node.js 24.x (shared by amd64+arm64)
+    echo "[DEBUG] Fetching latest Node.js 24.x with amd64+arm64 availability..."
+    NODE_HTML=$(curl -fsSL https://nodejs.org/dist/latest-v24.x/)
+    FIRST_MATCH=$(echo "$NODE_HTML" | grep -oE 'node-v24\.[0-9]+\.[0-9]+-linux-x64\.tar\.xz' | head -1)
+    NEW_NODE=$(echo "$FIRST_MATCH" | sed -E 's/node-v([0-9]+\.[0-9]+\.[0-9]+)-linux-x64\.tar\.xz/\1/')
+
+    if [[ -z "$NEW_NODE" ]]; then
+      echo "Error: Could not determine latest Node.js 24.x version." >&2
+      exit 1
+    fi
+
+    if ! http_ok "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-arm64.tar.xz"; then
+      echo "Error: Node.js v${NEW_NODE} does not have linux-arm64 tar.xz." >&2
+      exit 1
+    fi
+    echo "Latest Node.js detected: $NEW_NODE"
+
+    # 2. Detect latest MongoDB 7.x available for both amd64 and arm64
+    echo "[DEBUG] Detecting latest MongoDB 7.x for ubuntu2204 on amd64+arm64..."
+    CURRENT_MONGO_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-//')
+    MONGO_VER=$(latest_common_semver_by_probe \
+      "$CURRENT_MONGO_VER" \
+      3 \
+      80 \
+      'https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-%s.tgz' \
+      'https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-%s.tgz') || true
+
+    if [ -z "${MONGO_VER:-}" ]; then
+      echo "[WARN] Could not probe newer MongoDB version. Using current value from snapcraft.yaml." >&2
+      MONGO_VER="$CURRENT_MONGO_VER"
+    fi
+
+    if [ -z "$MONGO_VER" ]; then
+      echo "Error: Could not determine latest/common MongoDB version." >&2
+      exit 1
+    fi
+    echo "Latest common MongoDB detected: $MONGO_VER"
+
+    # 3. Detect latest mongosh available for both amd64 and arm64
+    echo "[DEBUG] Detecting latest mongosh for amd64+arm64..."
+    CURRENT_MONGOSH_VER=$(get_current_version_from_file snapcraft.yaml 'mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz' | sed -E 's/mongosh-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/')
+    MONGOSH_VER=$(latest_common_semver_by_probe \
+      "$CURRENT_MONGOSH_VER" \
+      6 \
+      120 \
+      'https://downloads.mongodb.com/compass/mongosh-%s-linux-x64.tgz' \
+      'https://downloads.mongodb.com/compass/mongosh-%s-linux-arm64.tgz') || true
+
+    if [ -z "${MONGOSH_VER:-}" ]; then
+      echo "[WARN] Could not probe newer mongosh version. Using current value from snapcraft.yaml." >&2
+      MONGOSH_VER="$CURRENT_MONGOSH_VER"
+    fi
+
+    if [ -z "$MONGOSH_VER" ]; then
+      echo "Error: Could not determine latest/common mongosh version." >&2
+      exit 1
+    fi
+    echo "Latest common mongosh detected: $MONGOSH_VER"
+
+    # 4. Detect latest mongodb-database-tools available for both amd64 and arm64
+    echo "[DEBUG] Detecting latest mongodb-database-tools for ubuntu2204 on amd64+arm64..."
+    CURRENT_TOOLS_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-\$\{TOOLS_ARCH\}-//')
+    TOOLS_VER=$(latest_common_semver_by_probe \
+      "$CURRENT_TOOLS_VER" \
+      8 \
+      180 \
+      'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-%s.tgz' \
+      'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-arm64-%s.tgz') || true
+
+    if [ -z "${TOOLS_VER:-}" ]; then
+      echo "[WARN] Could not probe newer mongodb-database-tools version. Using current value from snapcraft.yaml." >&2
+      TOOLS_VER="$CURRENT_TOOLS_VER"
+    fi
+
+    if [ -z "$TOOLS_VER" ]; then
+      echo "Error: Could not determine latest/common mongodb-database-tools version." >&2
+      exit 1
+    fi
+    echo "Latest common mongodb-database-tools detected: $TOOLS_VER"
   fi
-
-  if ! http_ok "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-arm64.tar.xz"; then
-    echo "Error: Node.js v${NEW_NODE} does not have linux-arm64 tar.xz." >&2
-    exit 1
-  fi
-  echo "Latest Node.js detected: $NEW_NODE"
-
-  # 2. Detect latest MongoDB 7.x available for both amd64 and arm64
-  echo "[DEBUG] Detecting latest MongoDB 7.x for ubuntu2204 on amd64+arm64..."
-  CURRENT_MONGO_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-//')
-  MONGO_VER=$(latest_common_semver_by_probe \
-    "$CURRENT_MONGO_VER" \
-    3 \
-    80 \
-    'https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-%s.tgz' \
-    'https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-%s.tgz') || true
-
-  if [ -z "${MONGO_VER:-}" ]; then
-    echo "[WARN] Could not probe newer MongoDB version. Using current value from snapcraft.yaml." >&2
-    MONGO_VER="$CURRENT_MONGO_VER"
-  fi
-
-  if [ -z "$MONGO_VER" ]; then
-    echo "Error: Could not determine latest/common MongoDB version." >&2
-    exit 1
-  fi
-  echo "Latest common MongoDB detected: $MONGO_VER"
-
-  # 3. Detect latest mongosh available for both amd64 and arm64
-  echo "[DEBUG] Detecting latest mongosh for amd64+arm64..."
-  CURRENT_MONGOSH_VER=$(get_current_version_from_file snapcraft.yaml 'mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz' | sed -E 's/mongosh-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/')
-  MONGOSH_VER=$(latest_common_semver_by_probe \
-    "$CURRENT_MONGOSH_VER" \
-    6 \
-    120 \
-    'https://downloads.mongodb.com/compass/mongosh-%s-linux-x64.tgz' \
-    'https://downloads.mongodb.com/compass/mongosh-%s-linux-arm64.tgz') || true
-
-  if [ -z "${MONGOSH_VER:-}" ]; then
-    echo "[WARN] Could not probe newer mongosh version. Using current value from snapcraft.yaml." >&2
-    MONGOSH_VER="$CURRENT_MONGOSH_VER"
-  fi
-
-  if [ -z "$MONGOSH_VER" ]; then
-    echo "Error: Could not determine latest/common mongosh version." >&2
-    exit 1
-  fi
-  echo "Latest common mongosh detected: $MONGOSH_VER"
-
-  # 4. Detect latest mongodb-database-tools available for both amd64 and arm64
-  echo "[DEBUG] Detecting latest mongodb-database-tools for ubuntu2204 on amd64+arm64..."
-  CURRENT_TOOLS_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-\$\{TOOLS_ARCH\}-//')
-  TOOLS_VER=$(latest_common_semver_by_probe \
-    "$CURRENT_TOOLS_VER" \
-    8 \
-    180 \
-    'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-%s.tgz' \
-    'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-arm64-%s.tgz') || true
-
-  if [ -z "${TOOLS_VER:-}" ]; then
-    echo "[WARN] Could not probe newer mongodb-database-tools version. Using current value from snapcraft.yaml." >&2
-    TOOLS_VER="$CURRENT_TOOLS_VER"
-  fi
-
-  if [ -z "$TOOLS_VER" ]; then
-    echo "Error: Could not determine latest/common mongodb-database-tools version." >&2
-    exit 1
-  fi
-  echo "Latest common mongodb-database-tools detected: $TOOLS_VER"
 
   # 5. Update dependency versions in snap files and Dockerfile
   echo "[DEBUG] Updating dependency versions in files..."
