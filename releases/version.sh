@@ -226,12 +226,9 @@ version_bump_logic() {
   sedi "s|wekan-$OLD_VERSION|wekan-$NEW_VERSION|g" docs/Platforms/Propietary/Windows/Offline.md
   sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs/Platforms/Propietary/Windows/Offline.md
 
-  # 7. Ensure local cache artifacts are available (or downloaded to ~/Lataukset)
-  echo "[DEBUG] Checking local cache and downloading missing artifacts to $DOWNLOAD_DIR ..."
-  # These release bundles usually do not exist yet when preparing a new release.
-  # Keep this optional so version bump does not fail before build/publish steps.
-  ensure_cache_or_download_optional "wekan-${NEW_VERSION}-amd64.zip" "https://github.com/wekan/wekan/releases/download/v${NEW_VERSION}/wekan-${NEW_VERSION}-amd64.zip"
-  ensure_cache_or_download_optional "wekan-${NEW_VERSION}-arm64.zip" "https://github.com/wekan/wekan/releases/download/v${NEW_VERSION}/wekan-${NEW_VERSION}-arm64.zip"
+  # 7. Ensure dependency artifacts are available in local cache (or downloaded to ~/Lataukset).
+  # Do not fetch Wekan release bundles here: they are created later by release-bundle.sh.
+  echo "[DEBUG] Checking local cache and downloading missing dependency artifacts to $DOWNLOAD_DIR ..."
 
   ensure_cache_or_download "node-v${NEW_NODE}-linux-x64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-x64.tar.xz"
   ensure_cache_or_download "node-v${NEW_NODE}-linux-arm64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-arm64.tar.xz"
@@ -254,7 +251,16 @@ version_bump_logic() {
     (cd ../w/wekan.fi && git pull)
     sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VER</span>|g" "$INSTALL_PAGE"
     sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" "$INSTALL_PAGE"
-    (cd ../w/wekan.fi && git add --all && git commit -m "Updates" && git push)
+    (
+      cd ../w/wekan.fi
+      git add --all
+      if git diff --cached --quiet; then
+        echo "[INFO] No website changes to commit in ../w/wekan.fi."
+      else
+        git commit -m "Updates"
+        git push
+      fi
+    )
 
     # Keep variable referenced to avoid shellcheck complaints in local runs.
     : "$NPM_VER"

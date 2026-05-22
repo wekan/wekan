@@ -5,12 +5,17 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+
 cd ~/repos/wekan
 #sudo apt-get -y install parallel
 ./releases/rebuild-release.sh
 #./releases/delete-phantomjs.sh
 cd ~/repos/wekan/.build
 zip -r wekan-$1-amd64.zip bundle
+
+mkdir -p "$DOWNLOAD_DIR"
+mv -f "wekan-$1-amd64.zip" "$DOWNLOAD_DIR/"
 
 #{
   #scp ~/repos/wekan/releases/build-bundle-arm64.sh a:/home/wekan/
@@ -27,4 +32,4 @@ cd ..
 
 #echo "x64 bundle and arm64/s390x build scripts uploaded to x2/a/s."
 #echo "x64 bundle and build script uploaded to 20i."
-echo "x64 bundle done."
+echo "x64 bundle done: $DOWNLOAD_DIR/wekan-$1-amd64.zip"

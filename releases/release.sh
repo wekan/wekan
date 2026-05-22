@@ -19,20 +19,33 @@ cd ~/repos/wekan
 
 ~/repos/wekan/releases/version.sh "$1" "$2"
 
+# 3) Build bundle first so generated artifacts (for example package-lock.json)
+# are ready before commit/tag steps.
 ~/repos/wekan/releases/release-bundle.sh "$2"
+
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+ZIP_PATH="$DOWNLOAD_DIR/wekan-$2-amd64.zip"
+if [ ! -f "$ZIP_PATH" ]; then
+  echo "Error: Expected bundle not found: $ZIP_PATH"
+  exit 1
+fi
 
 git add --all
 git add package-lock.json
+
+if git diff --cached --quiet; then
+  echo "No changes to commit after build. Skipping commit/tag/push."
+  exit 0
+fi
+
 git commit -m "v$2"
 git push
 
-# 3) Add release tag
+# 4) Add release tag
 ~/repos/wekan/releases/add-tag.sh "v$2"
 
-# 4) Push to repo
+# 5) Push to repo
 git push
-
-# 5) Build Bundle
 
 # 6) Build Sandstorm
 #~/repos/wekan/releases/release-sandstorm.sh $2
