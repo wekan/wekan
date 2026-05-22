@@ -152,22 +152,22 @@ parts:
             rm wekan-9.24-amd64.zip
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
             # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
-            #BCRYPT_DIR="bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
-            #if [ -d "$BCRYPT_DIR" ]; then
-            #  rm -rf "$BCRYPT_DIR"
-            #  TMP=$(mktemp -d)
-            #  pushd "$TMP" > /dev/null
-            #  npm pack bcrypt@6.0.0
-            #  mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            #  cd bcrypt && npm install --ignore-scripts && cd ..
-            #  popd > /dev/null
-            #  cp -a "$TMP/bcrypt" "$BCRYPT_DIR"
-            #  rm -rf "$TMP"
-            #fi
-            #cd bundle/programs/server
-            #rm -rf node_modules
-            #npm install
-            #cd ../../../..
+                        BCRYPT_DIR="bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+                        if [ -d "$BCRYPT_DIR" ]; then
+                            rm -rf "$BCRYPT_DIR"
+                            TMP=$(mktemp -d)
+                            pushd "$TMP" > /dev/null
+                            npm pack bcrypt@6.0.0
+                            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+                            cd bcrypt && npm install --ignore-scripts && cd ..
+                            popd > /dev/null
+                            cp -a "$TMP/bcrypt" "$BCRYPT_DIR"
+                            rm -rf "$TMP"
+                        fi
+                        cd bundle/programs/server
+                        rm -rf node_modules
+                        npm install
+                        cd ../../../..
             cd ..
             # Copy to Snap
             #wget https://nodejs.org/dist/latest-v24.x/node-v24.15.0-linux-x64.tar.xz

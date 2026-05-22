@@ -1,7 +1,19 @@
 #!/bin/bash
 
+set -euo pipefail
+
+USE_LOCAL_SNAPCRAFT="true"
+
 echo "First run: snapcraft login"
 echo "Then run this script"
+
+echo "Using releases/snapcraft-local.yaml (local mirror mode)"
+
+if ! grep -qE '^[[:space:]]*npm install[[:space:]]*$' releases/snapcraft-local.yaml; then
+  echo "ERROR: releases/snapcraft-local.yaml is missing standalone 'npm install' step."
+  echo "Refusing to continue because Snap may miss server npm modules."
+  exit 1
+fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   echo "Linux - building with LXD"
@@ -12,8 +24,20 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   sudo systemctl start snapd
   sudo snap install snapcraft --classic
   sudo snap install lxd
-  # Use local cached versions of packages
-  cp releases/snapcraft-local.yaml snapcraft.yaml
+  SNAPCRAFT_FILE_BACKUP=""
+  cleanup_snapcraft_file() {
+    if [[ -n "$SNAPCRAFT_FILE_BACKUP" && -f "$SNAPCRAFT_FILE_BACKUP" ]]; then
+      mv -f "$SNAPCRAFT_FILE_BACKUP" snapcraft.yaml
+    fi
+  }
+  trap cleanup_snapcraft_file EXIT
+
+  # Only override snapcraft.yaml when explicitly requested.
+  if [[ "$USE_LOCAL_SNAPCRAFT" == "true" ]]; then
+    SNAPCRAFT_FILE_BACKUP="$(mktemp snapcraft.yaml.backup.XXXXXX)"
+    cp snapcraft.yaml "$SNAPCRAFT_FILE_BACKUP"
+    cp releases/snapcraft-local.yaml snapcraft.yaml
+  fi
   
   # Initialize LXD if it hasn't been done yet
   sudo lxd init --auto
@@ -40,7 +64,6 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   
   # Force snapcraft to use a clean LXD environment
   snapcraft pack --use-lxd
-  git checkout -- snapcraft.yaml
   exit;
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
