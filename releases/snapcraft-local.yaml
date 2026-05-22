@@ -221,7 +221,7 @@ parts:
                         fi
                         cd bundle/programs/server
                         rm -rf node_modules
-                        npm install --registry "$NPM_CONFIG_REGISTRY"
+                        npm install
                         cd ../../../..
             cd ..
             # Copy to Snap
