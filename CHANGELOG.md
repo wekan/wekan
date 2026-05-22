@@ -30,7 +30,9 @@ Versions:
 
 This release adds the following update:
 
-- [Fix Snap local build](https://github.com/wekan/wekan/commit/30fd008310598e9767d50971f34453b7313e4e12).
+- Fix Snap local build.
+  [Part 1](https://github.com/wekan/wekan/commit/30fd008310598e9767d50971f34453b7313e4e12),
+  [Part 2](https://github.com/wekan/wekan/commit/2a700f56901fae81be7b97abf38c9a74d74b447d).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
