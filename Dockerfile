@@ -210,6 +210,9 @@ mv /home/wekan/app/bundle /build
 mv $(which tar)~ $(which tar)
 
 # Cleanup
+# Remove unused Go-based pebble binary shipped by base image to reduce CVE surface.
+apt-get remove --purge --assume-yes pebble || true
+rm -f /usr/bin/pebble
 apt-get remove --purge --assume-yes ${BUILD_DEPS}
 apt-get autoremove --assume-yes
 apt-get clean --assume-yes
