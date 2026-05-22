@@ -106,7 +106,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   ensure_lxd_network() {
     local bridge_name="lxdbr0"
 
-    if lxc network list -c n --format csv | grep -qx "$bridge_name"; then
+    if lxc network show "$bridge_name" >/dev/null 2>&1; then
       lxc network set "$bridge_name" ipv4.address auto
       lxc network set "$bridge_name" ipv4.nat true
       lxc network set "$bridge_name" ipv6.address none
@@ -118,7 +118,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
         ipv4.nat=true \
         ipv6.address=none \
         ipv6.nat=false \
-        dns.mode=managed
+        dns.mode=managed >/dev/null || true
     fi
   }
 
