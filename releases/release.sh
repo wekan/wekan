@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Release script for wekan.
 
 # 1) Check that there is only one parameter
@@ -15,9 +17,9 @@ fi
 # 2) Commit and push version number changes
 cd ~/repos/wekan
 
-~/repos/wekan/releases/version.sh $1 $2
+~/repos/wekan/releases/version.sh "$1" "$2"
 
-~/repos/wekan/releases/release-bundle.sh $2
+~/repos/wekan/releases/release-bundle.sh "$2"
 
 git add --all
 git add package-lock.json
@@ -25,7 +27,7 @@ git commit -m "v$2"
 git push
 
 # 3) Add release tag
-~/repos/wekan/releases/add-tag.sh v$2
+~/repos/wekan/releases/add-tag.sh "v$2"
 
 # 4) Push to repo
 git push

@@ -41,7 +41,11 @@ latest_common_version() {
   local found=""
 
   local listing
-  listing=$(curl -fsSL "$listing_url")
+  listing=$(curl -fsSL "$listing_url" 2>/dev/null || true)
+  if [ -z "$listing" ]; then
+    echo "[WARN] Could not fetch listing from $listing_url. Falling back to existing file versions." >&2
+    return 1
+  fi
 
   # shellcheck disable=SC2207
   local versions=($(echo "$listing" | grep -oE "$extract_regex" | sed -E "$version_sed" | sort -Vu))
@@ -94,6 +98,16 @@ ensure_cache_or_download() {
   echo "[CACHE] MISSING: $cache_url"
   echo "[DOWNLOAD] Fetching: $upstream_url"
   curl -fL --retry 3 --retry-delay 2 -o "$DOWNLOAD_DIR/$filename" "$upstream_url"
+}
+
+ensure_cache_or_download_optional() {
+  local filename="$1"
+  local upstream_url="$2"
+
+  if ! ensure_cache_or_download "$filename" "$upstream_url"; then
+    echo "[WARN] Optional artifact unavailable: $filename"
+    echo "[WARN] Continuing without optional artifact download."
+  fi
 }
 
 version_bump_logic() {
@@ -214,8 +228,10 @@ version_bump_logic() {
 
   # 7. Ensure local cache artifacts are available (or downloaded to ~/Lataukset)
   echo "[DEBUG] Checking local cache and downloading missing artifacts to $DOWNLOAD_DIR ..."
-  ensure_cache_or_download "wekan-${NEW_VERSION}-amd64.zip" "https://github.com/wekan/wekan/releases/download/v${NEW_VERSION}/wekan-${NEW_VERSION}-amd64.zip"
-  ensure_cache_or_download "wekan-${NEW_VERSION}-arm64.zip" "https://github.com/wekan/wekan/releases/download/v${NEW_VERSION}/wekan-${NEW_VERSION}-arm64.zip"
+  # These release bundles usually do not exist yet when preparing a new release.
+  # Keep this optional so version bump does not fail before build/publish steps.
+  ensure_cache_or_download_optional "wekan-${NEW_VERSION}-amd64.zip" "https://github.com/wekan/wekan/releases/download/v${NEW_VERSION}/wekan-${NEW_VERSION}-amd64.zip"
+  ensure_cache_or_download_optional "wekan-${NEW_VERSION}-arm64.zip" "https://github.com/wekan/wekan/releases/download/v${NEW_VERSION}/wekan-${NEW_VERSION}-arm64.zip"
 
   ensure_cache_or_download "node-v${NEW_NODE}-linux-x64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-x64.tar.xz"
   ensure_cache_or_download "node-v${NEW_NODE}-linux-arm64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-arm64.tar.xz"

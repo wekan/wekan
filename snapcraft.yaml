@@ -1,5 +1,5 @@
 name: wekan
-version: '9.25'
+version: '9.26'
 base: core26
 summary: Open Source kanban
 description: |
@@ -192,14 +192,14 @@ parts:
                     exit 1
                     ;;
             esac
-            WEKAN_ZIP="wekan-9.25-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-9.26-${WEKAN_ARCH}.zip"
             NODE_TAR="node-v24.15.0-linux-${NODE_ARCH}.tar.xz"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v9.25/wekan-9.25-amd64.zip
-            wget "https://github.com/wekan/wekan/releases/download/v9.25/${WEKAN_ZIP}"
+            #wget https://github.com/wekan/wekan/releases/download/v9.26/wekan-9.26-amd64.zip
+            wget "https://github.com/wekan/wekan/releases/download/v9.26/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
