@@ -141,7 +141,9 @@ parts:
         stage-packages:
             - libfontconfig1
         override-build: |
-            npm config set registry http://192.168.1.47:4873/
+            export NPM_CONFIG_REGISTRY="http://192.168.1.47:4873/"
+            npm config set registry "$NPM_CONFIG_REGISTRY" --location=user
+            echo "npm registry in use: $(npm config get registry)"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
@@ -157,16 +159,16 @@ parts:
                             rm -rf "$BCRYPT_DIR"
                             TMP=$(mktemp -d)
                             pushd "$TMP" > /dev/null
-                            npm pack bcrypt@6.0.0
+                            npm pack bcrypt@6.0.0 --registry "$NPM_CONFIG_REGISTRY"
                             mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-                            cd bcrypt && npm install --ignore-scripts && cd ..
+                            cd bcrypt && npm install --ignore-scripts --registry "$NPM_CONFIG_REGISTRY" && cd ..
                             popd > /dev/null
                             cp -a "$TMP/bcrypt" "$BCRYPT_DIR"
                             rm -rf "$TMP"
                         fi
                         cd bundle/programs/server
                         rm -rf node_modules
-                        npm install
+                        npm install --registry "$NPM_CONFIG_REGISTRY"
                         cd ../../../..
             cd ..
             # Copy to Snap
