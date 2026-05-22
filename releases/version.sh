@@ -32,6 +32,70 @@ http_ok() {
   [[ "$code" == "200" || "$code" == "301" || "$code" == "302" ]]
 }
 
+version_pair_exists() {
+  local version="$1"
+  local amd64_url_fmt="$2"
+  local arm64_url_fmt="$3"
+  local amd64_url arm64_url
+
+  printf -v amd64_url "$amd64_url_fmt" "$version"
+  printf -v arm64_url "$arm64_url_fmt" "$version"
+  http_ok "$amd64_url" && http_ok "$arm64_url"
+}
+
+latest_common_semver_by_probe() {
+  local current_version="$1"
+  local minor_ahead="$2"
+  local max_patch="$3"
+  local amd64_url_fmt="$4"
+  local arm64_url_fmt="$5"
+
+  if [[ ! "$current_version" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+    return 1
+  fi
+
+  local major="${BASH_REMATCH[1]}"
+  local start_minor="${BASH_REMATCH[2]}"
+  local start_patch="${BASH_REMATCH[3]}"
+
+  local best="$current_version"
+  local found_any=0
+  local end_minor=$((start_minor + minor_ahead))
+  local minor patch candidate
+
+  # Probe version URLs directly because some upstream directory listings return 403.
+  for ((minor=start_minor; minor<=end_minor; minor++)); do
+    local patch_begin=0
+    local found_in_minor=""
+    local misses_after_hit=0
+
+    if [ "$minor" -eq "$start_minor" ]; then
+      patch_begin="$start_patch"
+    fi
+
+    for ((patch=patch_begin; patch<=max_patch; patch++)); do
+      candidate="${major}.${minor}.${patch}"
+      if version_pair_exists "$candidate" "$amd64_url_fmt" "$arm64_url_fmt"; then
+        found_in_minor="$candidate"
+        found_any=1
+        misses_after_hit=0
+      elif [ -n "$found_in_minor" ]; then
+        misses_after_hit=$((misses_after_hit + 1))
+        if [ "$misses_after_hit" -ge 5 ]; then
+          break
+        fi
+      fi
+    done
+
+    if [ -n "$found_in_minor" ]; then
+      best="$found_in_minor"
+    fi
+  done
+
+  [ "$found_any" -eq 1 ] || return 1
+  echo "$best"
+}
+
 latest_common_version() {
   local listing_url="$1"
   local extract_regex="$2"
@@ -110,6 +174,51 @@ ensure_cache_or_download_optional() {
   fi
 }
 
+update_releases_node_versions() {
+  local new_node="$1"
+  local files=()
+
+  # Only touch files that clearly contain Node.js release references.
+  mapfile -t files < <(grep -RIlE 'nodejs\.org/dist|node-v24\.[0-9]+\.[0-9]+-linux-|npm-node-version: 24\.' releases || true)
+  if [ ${#files[@]} -eq 0 ]; then
+    echo "[DEBUG] No Node.js references found under releases/."
+    return 0
+  fi
+
+  echo "[DEBUG] Updating Node.js references in ${#files[@]} releases files..."
+  local f
+  for f in "${files[@]}"; do
+    sedi -E "s|nodejs.org/dist/v24\.[0-9]+\.[0-9]+|nodejs.org/dist/v${new_node}|g" "$f"
+    sedi -E "s|latest-v24\.x/node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64)\.tar\.xz|latest-v24.x/node-v${new_node}-linux-\1.tar.xz|g" "$f"
+    sedi -E "s|node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64|armv7l|s390x|ppc64le)\.tar\.(xz|gz)|node-v${new_node}-linux-\1.tar.\2|g" "$f"
+    sedi -E "s|npm-node-version: 24\.[0-9]+\.[0-9]+|npm-node-version: ${new_node}|g" "$f"
+    sedi -E "s|NODE_TAR=\"node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}\.tar\.xz\"|NODE_TAR=\"node-v${new_node}-linux-\${NODE_ARCH}.tar.xz\"|g" "$f"
+    sedi -E "s|node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}/bin/node|node-v${new_node}-linux-\${NODE_ARCH}/bin/node|g" "$f"
+  done
+}
+
+update_releases_mongo_versions() {
+  local mongo_ver="$1"
+  local mongosh_ver="$2"
+  local tools_ver="$3"
+  local files=()
+
+  # Update only explicit MongoDB/mongosh/database-tools artifact references.
+  mapfile -t files < <(grep -RIlE 'mongodb-linux-|mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-|mongodb-database-tools-ubuntu(2204|2404)-' releases || true)
+  if [ ${#files[@]} -eq 0 ]; then
+    echo "[DEBUG] No MongoDB artifact references found under releases/."
+    return 0
+  fi
+
+  echo "[DEBUG] Updating MongoDB artifact references in ${#files[@]} releases files..."
+  local f
+  for f in "${files[@]}"; do
+    sedi -E "s|(mongodb-linux-(x86_64|aarch64|\$\{MONGO_ARCH\})-ubuntu2204-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)|\1${mongo_ver}\3|g" "$f"
+    sedi -E "s|(mongosh-)[0-9]+\.[0-9]+\.[0-9]+(-linux-(x64|arm64|\$\{MONGOSH_ARCH\})\.tgz)|\1${mongosh_ver}\2|g" "$f"
+    sedi -E "s|(mongodb-database-tools-ubuntu(2204|2404)-(x86_64|arm64|\$\{TOOLS_ARCH\})-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)|\1${tools_ver}\4|g" "$f"
+  done
+}
+
 version_bump_logic() {
   echo "--- Starting version bump logic ---"
   echo "New Version: $NEW_VERSION"
@@ -134,15 +243,17 @@ version_bump_logic() {
 
   # 2. Detect latest MongoDB 7.x available for both amd64 and arm64
   echo "[DEBUG] Detecting latest MongoDB 7.x for ubuntu2204 on amd64+arm64..."
-  MONGO_VER=$(latest_common_version \
-    "https://fastdl.mongodb.org/linux/" \
-    'mongodb-linux-x86_64-ubuntu2204-7\.[0-9]+\.[0-9]+\.tgz' \
-    's/mongodb-linux-x86_64-ubuntu2204-([0-9]+\.[0-9]+\.[0-9]+)\.tgz/\1/' \
+  CURRENT_MONGO_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-//')
+  MONGO_VER=$(latest_common_semver_by_probe \
+    "$CURRENT_MONGO_VER" \
+    3 \
+    80 \
     'https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-%s.tgz' \
     'https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-%s.tgz') || true
 
   if [ -z "${MONGO_VER:-}" ]; then
-    MONGO_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-//')
+    echo "[WARN] Could not probe newer MongoDB version. Using current value from snapcraft.yaml." >&2
+    MONGO_VER="$CURRENT_MONGO_VER"
   fi
 
   if [ -z "$MONGO_VER" ]; then
@@ -153,15 +264,17 @@ version_bump_logic() {
 
   # 3. Detect latest mongosh available for both amd64 and arm64
   echo "[DEBUG] Detecting latest mongosh for amd64+arm64..."
-  MONGOSH_VER=$(latest_common_version \
-    "https://downloads.mongodb.com/compass/" \
-    'mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-x64\.tgz' \
-    's/mongosh-([0-9]+\.[0-9]+\.[0-9]+)-linux-x64\.tgz/\1/' \
+  CURRENT_MONGOSH_VER=$(get_current_version_from_file snapcraft.yaml 'mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz' | sed -E 's/mongosh-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/')
+  MONGOSH_VER=$(latest_common_semver_by_probe \
+    "$CURRENT_MONGOSH_VER" \
+    6 \
+    120 \
     'https://downloads.mongodb.com/compass/mongosh-%s-linux-x64.tgz' \
     'https://downloads.mongodb.com/compass/mongosh-%s-linux-arm64.tgz') || true
 
   if [ -z "${MONGOSH_VER:-}" ]; then
-    MONGOSH_VER=$(get_current_version_from_file snapcraft.yaml 'mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz' | sed -E 's/mongosh-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/')
+    echo "[WARN] Could not probe newer mongosh version. Using current value from snapcraft.yaml." >&2
+    MONGOSH_VER="$CURRENT_MONGOSH_VER"
   fi
 
   if [ -z "$MONGOSH_VER" ]; then
@@ -172,15 +285,17 @@ version_bump_logic() {
 
   # 4. Detect latest mongodb-database-tools available for both amd64 and arm64
   echo "[DEBUG] Detecting latest mongodb-database-tools for ubuntu2204 on amd64+arm64..."
-  TOOLS_VER=$(latest_common_version \
-    "https://fastdl.mongodb.org/tools/db/" \
-    'mongodb-database-tools-ubuntu2204-x86_64-[0-9]+\.[0-9]+\.[0-9]+\.tgz' \
-    's/mongodb-database-tools-ubuntu2204-x86_64-([0-9]+\.[0-9]+\.[0-9]+)\.tgz/\1/' \
+  CURRENT_TOOLS_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-\$\{TOOLS_ARCH\}-//')
+  TOOLS_VER=$(latest_common_semver_by_probe \
+    "$CURRENT_TOOLS_VER" \
+    8 \
+    180 \
     'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-%s.tgz' \
     'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-arm64-%s.tgz') || true
 
   if [ -z "${TOOLS_VER:-}" ]; then
-    TOOLS_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-\$\{TOOLS_ARCH\}-//')
+    echo "[WARN] Could not probe newer mongodb-database-tools version. Using current value from snapcraft.yaml." >&2
+    TOOLS_VER="$CURRENT_TOOLS_VER"
   fi
 
   if [ -z "$TOOLS_VER" ]; then
@@ -192,13 +307,15 @@ version_bump_logic() {
   # 5. Update dependency versions in snap files and Dockerfile
   echo "[DEBUG] Updating dependency versions in files..."
   sedi -E "s|NODE_VERSION=v24\.[0-9]+\.[0-9]+|NODE_VERSION=v${NEW_NODE}|g" Dockerfile
-  sedi -E "s|npm-node-version: 24\.[0-9]+\.[0-9]+|npm-node-version: ${NEW_NODE}|g" snapcraft.yaml releases/snapcraft-local.yaml
-  sedi -E "s|NODE_TAR=\"node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}\.tar\.xz\"|NODE_TAR=\"node-v${NEW_NODE}-linux-\${NODE_ARCH}.tar.xz\"|g" snapcraft.yaml releases/snapcraft-local.yaml
-  sedi -E "s|node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}/bin/node|node-v${NEW_NODE}-linux-\${NODE_ARCH}/bin/node|g" snapcraft.yaml releases/snapcraft-local.yaml
+  sedi -E "s|npm-node-version: 24\.[0-9]+\.[0-9]+|npm-node-version: ${NEW_NODE}|g" snapcraft.yaml
+  sedi -E "s|NODE_TAR=\"node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}\.tar\.xz\"|NODE_TAR=\"node-v${NEW_NODE}-linux-\${NODE_ARCH}.tar.xz\"|g" snapcraft.yaml
+  sedi -E "s|node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}/bin/node|node-v${NEW_NODE}-linux-\${NODE_ARCH}/bin/node|g" snapcraft.yaml
+  update_releases_node_versions "$NEW_NODE"
 
-  sedi -E "s|mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-7\.[0-9]+\.[0-9]+\.tgz|mongodb-linux-\${MONGO_ARCH}-ubuntu2204-${MONGO_VER}.tgz|g" snapcraft.yaml releases/snapcraft-local.yaml
-  sedi -E "s|mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz|mongosh-${MONGOSH_VER}-linux-\${MONGOSH_ARCH}.tgz|g" snapcraft.yaml releases/snapcraft-local.yaml
-  sedi -E "s|mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+\.tgz|mongodb-database-tools-ubuntu2204-\${TOOLS_ARCH}-${TOOLS_VER}.tgz|g" snapcraft.yaml releases/snapcraft-local.yaml
+  sedi -E "s|mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-7\.[0-9]+\.[0-9]+\.tgz|mongodb-linux-\${MONGO_ARCH}-ubuntu2204-${MONGO_VER}.tgz|g" snapcraft.yaml
+  sedi -E "s|mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz|mongosh-${MONGOSH_VER}-linux-\${MONGOSH_ARCH}.tgz|g" snapcraft.yaml
+  sedi -E "s|mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+\.tgz|mongodb-database-tools-ubuntu2204-\${TOOLS_ARCH}-${TOOLS_VER}.tgz|g" snapcraft.yaml
+  update_releases_mongo_versions "$MONGO_VER" "$MONGOSH_VER" "$TOOLS_VER"
 
   # 6. Update application versions (existing logic retained)
   NEW_NO_DOTS=$(echo "$NEW_VERSION" | tr -d '.')

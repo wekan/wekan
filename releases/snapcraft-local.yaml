@@ -193,7 +193,7 @@ parts:
                     ;;
             esac
             WEKAN_ZIP="wekan-9.28-${WEKAN_ARCH}.zip"
-            NODE_TAR="node-v24.15.0-linux-${NODE_ARCH}.tar.xz"
+            NODE_TAR="node-v24.16.0-linux-${NODE_ARCH}.tar.xz"
             export NPM_CONFIG_REGISTRY="http://192.168.1.47:4873/"
             npm config set registry "$NPM_CONFIG_REGISTRY" --location=user
             echo "npm registry in use: $(npm config get registry)"
@@ -225,13 +225,13 @@ parts:
                         cd ../../../..
             cd ..
             # Copy to Snap
-                        #wget https://nodejs.org/dist/latest-v24.x/node-v24.15.0-linux-x64.tar.xz
+                        #wget https://nodejs.org/dist/latest-v24.x/node-v24.16.0-linux-x64.tar.xz
                         wget "http://192.168.1.47:8000/${NODE_TAR}"
-                        tar -xf "${NODE_TAR}" "node-v24.15.0-linux-${NODE_ARCH}/bin/node"
+                        tar -xf "${NODE_TAR}" "node-v24.16.0-linux-${NODE_ARCH}/bin/node"
                         rm "${NODE_TAR}"
             mkdir $SNAPCRAFT_PART_INSTALL/bin
-                        cp -p "node-v24.15.0-linux-${NODE_ARCH}/bin/node" $SNAPCRAFT_PART_INSTALL/bin/
-                        rm -rf "node-v24.15.0-linux-${NODE_ARCH}"
+                        cp -p "node-v24.16.0-linux-${NODE_ARCH}/bin/node" $SNAPCRAFT_PART_INSTALL/bin/
+                        rm -rf "node-v24.16.0-linux-${NODE_ARCH}"
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
