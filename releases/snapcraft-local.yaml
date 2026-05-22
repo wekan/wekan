@@ -1,6 +1,7 @@
 name: wekan
 version: '9.26'
 base: core26
+build-base: devel
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
@@ -11,7 +12,7 @@ description: |
    $ wekan.help
 
 confinement: strict
-grade: stable
+grade: devel
 
 # Metadata fields
 title: Wekan
@@ -99,10 +100,10 @@ parts:
             - libyaml-cpp0.8
             - libpcre3
             - libpcrecpp0v5
-            - libboost-system1.74.0
-            - libboost-iostreams1.74.0
-            - libboost-filesystem1.74.0
-            - libboost-program-options1.74.0
+            - libboost-system1.83.0
+            - libboost-iostreams1.83.0
+            - libboost-filesystem1.83.0
+            - libboost-program-options1.83.0
             - libgoogle-perftools4
         override-build: |
             set -eu
@@ -171,7 +172,6 @@ parts:
             - curl
             - wget
             - unzip
-            - execstack
             - nodejs
             - npm
         stage-packages:

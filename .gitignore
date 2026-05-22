@@ -1,4 +1,5 @@
 *~
+/*.log
 *.sw*
 .meteor-spk
 *.sublime-workspace
