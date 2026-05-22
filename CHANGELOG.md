@@ -32,6 +32,8 @@ This release adds the following updates:
 
 - [Ubuntu 26.04 based core26 beta can be at devel like beta channel, not yet candidate](https://github.com/wekan/wekan/commit/8cda80752fd56c870cb139600fedc82643874c3b).
   Thanks to xet7.
+- [Updated platforms](https://github.com/wekan/wekan/commit/c8430a8c1419cc68023ed918e26f7d4f279968ca).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
