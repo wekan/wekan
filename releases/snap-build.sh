@@ -103,6 +103,25 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   }
   trap cleanup_snapcraft_file EXIT
 
+  ensure_lxd_network() {
+    local bridge_name="lxdbr0"
+
+    if lxc network list -c n --format csv | grep -qx "$bridge_name"; then
+      lxc network set "$bridge_name" ipv4.address auto
+      lxc network set "$bridge_name" ipv4.nat true
+      lxc network set "$bridge_name" ipv6.address none
+      lxc network set "$bridge_name" ipv6.nat false
+      lxc network set "$bridge_name" dns.mode managed
+    else
+      lxc network create "$bridge_name" \
+        ipv4.address=auto \
+        ipv4.nat=true \
+        ipv6.address=none \
+        ipv6.nat=false \
+        dns.mode=managed
+    fi
+  }
+
   # Only override snapcraft.yaml when explicitly requested.
   if [[ "$USE_LOCAL_SNAPCRAFT" == "true" ]]; then
     SNAPCRAFT_FILE_BACKUP="$(mktemp snapcraft.yaml.backup.XXXXXX)"
@@ -112,6 +131,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   
   # Initialize LXD if it hasn't been done yet
   sudo lxd init --auto
+  ensure_lxd_network
 
   echo "=== Configuring LXD apt mirror (FUNET) for snapcraft project ==="
   lxc project switch snapcraft 2>/dev/null || true
@@ -123,6 +143,9 @@ apt:
   security:
     - arches: [default]
       uri: http://security.ubuntu.com/ubuntu
+  conf: |
+    Acquire::ForceIPv4 \"true\";
+    Acquire::Retries \"5\";
 "
   lxc profile get default user.user-data | grep -E "mirrors.nic.funet.fi/ubuntu|security.ubuntu.com/ubuntu" || true
   lxc project switch default 2>/dev/null || true
