@@ -34,6 +34,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Fix Snap LXD container to work when network already exists](https://github.com/wekan/wekan/commit/fb05b1a847be2e47d8c27c3959e063caf7cde886).
   Thanks to xet7.
+- [Release scripts: Use locally cached files](https://github.com/wekan/wekan/commit/6463a1ef87b2741c3bafdd39391efcd9c6534b83).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
