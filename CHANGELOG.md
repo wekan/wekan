@@ -32,6 +32,8 @@ This release adds the following updates:
 
 - [Build scripts: Update arm64 build script](https://github.com/wekan/wekan/commit/e7f2068105b36b8003be4e416594b213555141db).
   Thanks to xet7.
+- [Try to fix Snap by using correct versions of dependencies](https://github.com/wekan/wekan/commit/ecbecc9d861743a1b7b4b48db65fa93cf5194257).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
