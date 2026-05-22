@@ -1,18 +1,20 @@
 name: wekan
-version: '9.29'
+version: '9.30'
 base: core26
-build-base: devel
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
 
-   Whether you're maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized. They give you a visual overview of the current state of your project, and make you productive by allowing you to focus on the few items that matter the most.
+   Whether you're maintaining a personal todo list, planning your holidays with some friends,
+   or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool
+   to keep your things organized. They give you a visual overview of the current state of
+   your project, and make you productive by allowing you to focus on the few items that matter the most.
    Depending on target environment, some configuration settings might need to be adjusted.
    For full list of configuration options call:
    $ wekan.help
 
 confinement: strict
-grade: devel
+grade: stable
 
 # Metadata fields
 title: Wekan
@@ -192,14 +194,14 @@ parts:
                     exit 1
                     ;;
             esac
-            WEKAN_ZIP="wekan-9.29-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-9.30-${WEKAN_ARCH}.zip"
             NODE_TAR="node-v24.16.0-linux-${NODE_ARCH}.tar.xz"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v9.29/wekan-9.29-amd64.zip
-            wget "https://github.com/wekan/wekan/releases/download/v9.29/${WEKAN_ZIP}"
+            #wget https://github.com/wekan/wekan/releases/download/v9.30/wekan-9.30-amd64.zip
+            wget "https://github.com/wekan/wekan/releases/download/v9.30/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3

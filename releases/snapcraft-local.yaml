@@ -1,7 +1,6 @@
 name: wekan
-version: '9.29'
+version: '9.30'
 base: core26
-build-base: devel
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
@@ -12,7 +11,7 @@ description: |
    $ wekan.help
 
 confinement: strict
-grade: devel
+grade: stable
 
 # Metadata fields
 title: Wekan
@@ -192,7 +191,7 @@ parts:
                     exit 1
                     ;;
             esac
-            WEKAN_ZIP="wekan-9.29-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-9.30-${WEKAN_ARCH}.zip"
             NODE_TAR="node-v24.16.0-linux-${NODE_ARCH}.tar.xz"
             export NPM_CONFIG_REGISTRY="http://192.168.1.47:4873/"
             npm config set registry "$NPM_CONFIG_REGISTRY" --location=user
@@ -201,7 +200,7 @@ parts:
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v9.29/wekan-9.29-amd64.zip
+            #wget https://github.com/wekan/wekan/releases/download/v9.30/wekan-9.30-amd64.zip
             wget "http://192.168.1.47:8000/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
