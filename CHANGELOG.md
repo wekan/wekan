@@ -32,6 +32,8 @@ This release adds the following updates:
 
 - [Try to fix Snap build LXD container network Internet access](https://github.com/wekan/wekan/commit/07e6f663db0fb077dad6d88c1bd9d53139375cae).
   Thanks to xet7.
+- [Fix Snap LXD container to work when network already exists](https://github.com/wekan/wekan/commit/fb05b1a847be2e47d8c27c3959e063caf7cde886).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
