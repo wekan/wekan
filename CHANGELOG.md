@@ -26,6 +26,34 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Try to fix Snap build LXD container network Internet access](https://github.com/wekan/wekan/commit/07e6f663db0fb077dad6d88c1bd9d53139375cae).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.29 2026-05-22 WeKan ® release
+
+This release adds the following updates:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/83078736f527101e1b983037c33a9b26c9639542).
+  Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/3e33c766d6f63eb2369898bcab9233e9e49240be).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/83078736f527101e1b983037c33a9b26c9639542).
+  Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/3e33c766d6f63eb2369898bcab9233e9e49240be).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.29 2026-05-22 WeKan ® release
 
 This release adds the following updates:
