@@ -879,7 +879,7 @@ export default {
     tag: "wo",
     name: "ولوفل",
     load: () => import('./data/wo.i18n.json'),
-    rtl: true,
+    rtl: false,
   },
   "xh": {
     code: "xh",
