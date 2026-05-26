@@ -36,6 +36,14 @@ This release adds the following updates:
   Thanks to xet7.
 - [Update Windows docs](https://github.com/wekan/wekan/commit/dbab502be4e194f06dd09b97ee3247a37def7eab).
   Thanks to xet7.
+- [Bump docker/login-action from 4.1.0 to 4.2.0](https://github.com/wekan/wekan/pull/6358).
+  Thanks to dependabot.
+- [Bump docker/metadata-action from 6.0.0 to 6.1.0](https://github.com/wekan/wekan/pull/6359).
+  Thanks to dependabot.
+- [Bump docker/build-push-action from 7.1.0 to 7.2.0](https://github.com/wekan/wekan/pull/6360).
+  Thanks to dependabot.
+- [Update dependencies and maintenance scripts](https://github.com/wekan/wekan/commit/8e13f2bce92bdd62f0c42900410683a518aba721).
+  Thanks to developers of dependencies.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
