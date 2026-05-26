@@ -42,7 +42,9 @@ This release adds the following updates:
   Thanks to dependabot.
 - [Bump docker/build-push-action from 7.1.0 to 7.2.0](https://github.com/wekan/wekan/pull/6360).
   Thanks to dependabot.
-- [Update dependencies and maintenance scripts](https://github.com/wekan/wekan/commit/8e13f2bce92bdd62f0c42900410683a518aba721).
+- Update dependencies and maintenance scripts
+  [Part 1](https://github.com/wekan/wekan/commit/8e13f2bce92bdd62f0c42900410683a518aba721),
+  [Part 2](https://github.com/wekan/wekan/commit/769a139e70a4808b35c91fcd4f2b52a97890ff79).
   Thanks to developers of dependencies.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
