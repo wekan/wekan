@@ -8,3 +8,4 @@ fi
 
 #git push origin --delete feature-oauth
 git push origin --delete "$1"
+git fetch origin --prune
