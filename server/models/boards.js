@@ -743,8 +743,14 @@ WebApp.handlers.get('/api/boards/:boardId/attachments', async function(req, res)
       attachmentId: attachment._id,
       attachmentName: attachment.name,
       attachmentType: attachment.type,
-      url: attachment.link(),
-      urlDownload: `${attachment.link()}?download=true&token=`,
+      url: (() => {
+        const attachmentUrl = attachment && typeof attachment.link === 'function' ? attachment.link() : '';
+        return attachmentUrl;
+      })(),
+      urlDownload: (() => {
+        const attachmentUrl = attachment && typeof attachment.link === 'function' ? attachment.link() : '';
+        return attachmentUrl ? `${attachmentUrl}?download=true&token=` : '';
+      })(),
       boardId: attachment.meta.boardId,
       swimlaneId: attachment.meta.swimlaneId,
       listId: attachment.meta.listId,

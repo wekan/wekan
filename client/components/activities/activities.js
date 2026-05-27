@@ -258,14 +258,18 @@ Template.activity.helpers({
 
   attachmentLink() {
     const attachment = this.activity.attachment();
+    const attachmentUrl = attachment && typeof attachment.link === 'function'
+      ? attachment.link()
+      : '';
     // trying to display url before file is stored generates js errors
     return (
       (attachment &&
         attachment.path &&
+        attachmentUrl &&
         Blaze.toHTML(
           HTML.A(
             {
-              href: `${attachment.link()}?download=true`,
+              href: `${attachmentUrl}?download=true`,
               target: '_blank',
             },
             sanitizeText(attachment.name),

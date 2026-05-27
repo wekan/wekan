@@ -249,3 +249,20 @@ li.has-error .form-group .wekan-form-control {
   max-width: calc(100vw - 240px);
   box-sizing: border-box;
 }
+
+.setting-content .content-body .main-body .attachment-limit-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 560px;
+}
+
+.setting-content .content-body .main-body .attachment-limit-row input.wekan-form-control {
+  flex: 1;
+  min-width: 200px;
+}
+
+.setting-content .content-body .main-body .attachment-limit-row select.wekan-form-control {
+  width: 120px;
+  min-width: 120px;
+}

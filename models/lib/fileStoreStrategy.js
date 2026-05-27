@@ -47,6 +47,49 @@ function sanitizeFilename(filename) {
   return safe;
 }
 
+function normalizeForCompare(inputPath) {
+  const normalized = path.resolve(inputPath);
+  return process.platform === 'win32' ? normalized.toLowerCase() : normalized;
+}
+
+function isPathInside(basePath, targetPath) {
+  const normalizedBase = normalizeForCompare(basePath);
+  const normalizedTarget = normalizeForCompare(targetPath);
+  const relative = path.relative(normalizedBase, normalizedTarget);
+
+  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+}
+
+function tryRealPath(inputPath) {
+  try {
+    return fs.realpathSync(inputPath);
+  } catch (err) {
+    return null;
+  }
+}
+
+function isSafeReadableFile(candidatePath, storageRootPath) {
+  if (!candidatePath || !storageRootPath) {
+    return false;
+  }
+
+  if (!isPathInside(storageRootPath, candidatePath)) {
+    return false;
+  }
+
+  try {
+    const candidateRealPath = tryRealPath(candidatePath) || candidatePath;
+    if (!isPathInside(storageRootPath, candidateRealPath)) {
+      return false;
+    }
+
+    const stats = fs.statSync(candidateRealPath);
+    return stats.isFile();
+  } catch (err) {
+    return false;
+  }
+}
+
 /** Factory for FileStoreStrategy */
 export default class FileStoreStrategyFactory {
 
@@ -341,6 +384,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     const storageRoot = endsWithFiles
       ? path.join(writableBase, baseDir)
       : path.join(writableBase, 'files', baseDir);
+    const resolvedStorageRoot = tryRealPath(storageRoot) || path.resolve(storageRoot);
 
     // Build candidate list in priority order
     const candidates = [];
@@ -385,6 +429,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
       candidates.push(originalPath);
       if (!path.isAbsolute(originalPath)) {
         candidates.push(path.resolve(process.cwd(), originalPath));
+        candidates.push(path.resolve(storageRoot, originalPath));
       }
     }
     // 2) Same basename in storageRoot
@@ -419,14 +464,9 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     // Pick first existing candidate
     let chosen;
     for (const c of candidates) {
-      try {
-        const exists = c && fs.existsSync(c);
-        if (exists) {
-          chosen = c;
-          break;
-        }
-      } catch (err) {
-        // Continue to next candidate
+      if (isSafeReadableFile(c, resolvedStorageRoot)) {
+        chosen = c;
+        break;
       }
     }
 

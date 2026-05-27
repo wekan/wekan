@@ -89,6 +89,10 @@ function attachmentCanBeOpened(attachment) {
   );
 }
 
+function getAttachmentUrl(attachment) {
+  return attachment && typeof attachment.link === 'function' ? attachment.link() : '';
+}
+
 function openAttachmentViewer(attachmentId) {
   const attachment = ReactiveCache.getAttachment(attachmentId);
 
@@ -105,18 +109,18 @@ function openAttachmentViewer(attachmentId) {
   */
   switch(true){
     case (attachment.isImage):
-      $("#image-viewer").attr("src", attachment.link());
+      $("#image-viewer").attr("src", getAttachmentUrl(attachment));
       $("#image-viewer").removeClass("hidden");
       break;
     case (attachment.isPDF):
-      $("#pdf-viewer").attr("data", attachment.link());
+      $("#pdf-viewer").attr("data", getAttachmentUrl(attachment));
       $("#pdf-viewer").removeClass("hidden");
       break;
     case (attachment.isVideo):
       // We have to create a new <source> DOM element and append it to the video
       // element, otherwise the video won't load
       let videoSource = document.createElement('source');
-      videoSource.setAttribute('src', attachment.link());
+      videoSource.setAttribute('src', getAttachmentUrl(attachment));
       $("#video-viewer").append(videoSource);
 
       $("#video-viewer").removeClass("hidden");
@@ -125,14 +129,14 @@ function openAttachmentViewer(attachmentId) {
       // We have to create a new <source> DOM element and append it to the audio
       // element, otherwise the audio won't load
       let audioSource = document.createElement('source');
-      audioSource.setAttribute('src', attachment.link());
+      audioSource.setAttribute('src', getAttachmentUrl(attachment));
       $("#audio-viewer").append(audioSource);
 
       $("#audio-viewer").removeClass("hidden");
       break;
     case (attachment.isText):
     case (attachment.isJSON):
-      $("#txt-viewer").attr("data", attachment.link());
+      $("#txt-viewer").attr("data", getAttachmentUrl(attachment));
       $("#txt-viewer").removeClass("hidden");
       break;
   }
@@ -583,18 +587,6 @@ Template.attachmentActionsPopup.events({
     Popup.back();
     Utils.reload();
     event.preventDefault();
-  },
-  'click .js-move-storage-fs'() {
-    Meteor.call('moveAttachmentToStorage', this._id, "fs");
-    Popup.back();
-  },
-  'click .js-move-storage-gridfs'() {
-    Meteor.call('moveAttachmentToStorage', this._id, "gridfs");
-    Popup.back();
-  },
-  'click .js-move-storage-s3'() {
-    Meteor.call('moveAttachmentToStorage', this._id, "s3");
-    Popup.back();
   },
 });
 

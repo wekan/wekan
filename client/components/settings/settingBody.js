@@ -118,6 +118,128 @@ function cleanAndValidateJSON(content) {
   }
 }
 
+const LIMIT_UNIT_FACTORS = {
+  bytes: 1,
+  mb: 1024 * 1024,
+  gb: 1024 * 1024 * 1024,
+};
+
+const DEFAULT_LIMIT_SETTINGS = {
+  attachmentsUploadMaxBytes: 0,
+  attachmentsDownloadMaxBytes: 0,
+  apiUploadMaxBytes: 50 * 1024 * 1024,
+  apiDownloadMaxBytes: 20 * 1024 * 1024,
+};
+
+function toNonNegativeInteger(value, fallback = 0) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+function normalizeLimitSettings(settingsDoc) {
+  const fromDoc = settingsDoc?.limitSettings || {};
+  const legacyUpload = settingsDoc?.uploadSettings?.maxFileSize;
+
+  const attachmentsUploadMaxBytes = Number.isFinite(fromDoc.attachmentsUploadMaxBytes)
+    ? toNonNegativeInteger(fromDoc.attachmentsUploadMaxBytes, DEFAULT_LIMIT_SETTINGS.attachmentsUploadMaxBytes)
+    : (Number.isFinite(legacyUpload)
+      ? toNonNegativeInteger(legacyUpload, DEFAULT_LIMIT_SETTINGS.attachmentsUploadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.attachmentsUploadMaxBytes);
+
+  return {
+    attachmentsUploadMaxBytes,
+    attachmentsDownloadMaxBytes: Number.isFinite(fromDoc.attachmentsDownloadMaxBytes)
+      ? toNonNegativeInteger(fromDoc.attachmentsDownloadMaxBytes, DEFAULT_LIMIT_SETTINGS.attachmentsDownloadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.attachmentsDownloadMaxBytes,
+    apiUploadMaxBytes: Number.isFinite(fromDoc.apiUploadMaxBytes)
+      ? toNonNegativeInteger(fromDoc.apiUploadMaxBytes, DEFAULT_LIMIT_SETTINGS.apiUploadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.apiUploadMaxBytes,
+    apiDownloadMaxBytes: Number.isFinite(fromDoc.apiDownloadMaxBytes)
+      ? toNonNegativeInteger(fromDoc.apiDownloadMaxBytes, DEFAULT_LIMIT_SETTINGS.apiDownloadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.apiDownloadMaxBytes,
+  };
+}
+
+function pickUnitForBytes(bytes) {
+  const safeBytes = toNonNegativeInteger(bytes, 0);
+  if (safeBytes > 0 && safeBytes % LIMIT_UNIT_FACTORS.gb === 0) {
+    return 'gb';
+  }
+  if (safeBytes > 0 && safeBytes % LIMIT_UNIT_FACTORS.mb === 0) {
+    return 'mb';
+  }
+  return 'bytes';
+}
+
+function toDisplayValue(bytes, unit) {
+  const safeBytes = toNonNegativeInteger(bytes, 0);
+  const factor = LIMIT_UNIT_FACTORS[unit] || LIMIT_UNIT_FACTORS.bytes;
+  return safeBytes / factor;
+}
+
+function toBytes(value, unit) {
+  const numericValue = Number.parseFloat(value);
+  if (!Number.isFinite(numericValue) || numericValue < 0) {
+    return null;
+  }
+  const factor = LIMIT_UNIT_FACTORS[unit] || LIMIT_UNIT_FACTORS.bytes;
+  return Math.round(numericValue * factor);
+}
+
+function refreshAttachmentStorageSettings(tpl, showLoading = false) {
+  if (!tpl) {
+    return;
+  }
+
+  if (showLoading) {
+    tpl.loading.set(true);
+  }
+
+  Meteor.call('getAttachmentStorageSettings', (error, settings) => {
+    if (showLoading) {
+      tpl.loading.set(false);
+    }
+
+    if (error || !settings) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Failed to load attachment storage settings:', error);
+      }
+      return;
+    }
+
+    const normalizedLimits = normalizeLimitSettings(settings);
+    tpl.attachmentStorageSettings.set({
+      ...settings,
+      limitSettings: normalizedLimits,
+    });
+
+    tpl.attachmentLimitUnits.set({
+      attachmentsUploadMaxBytes: pickUnitForBytes(normalizedLimits.attachmentsUploadMaxBytes),
+      attachmentsDownloadMaxBytes: pickUnitForBytes(normalizedLimits.attachmentsDownloadMaxBytes),
+      apiUploadMaxBytes: pickUnitForBytes(normalizedLimits.apiUploadMaxBytes),
+      apiDownloadMaxBytes: pickUnitForBytes(normalizedLimits.apiDownloadMaxBytes),
+    });
+
+    tpl.attachmentLimitEnabled.set({
+      attachmentsUploadMaxBytes: normalizedLimits.attachmentsUploadMaxBytes > 0,
+      attachmentsDownloadMaxBytes: normalizedLimits.attachmentsDownloadMaxBytes > 0,
+      apiUploadMaxBytes: normalizedLimits.apiUploadMaxBytes > 0,
+      apiDownloadMaxBytes: normalizedLimits.apiDownloadMaxBytes > 0,
+    });
+  });
+}
+
+function getLimitUnitOptions(selectedUnit) {
+  return [
+    { value: 'gb', labelKey: 'attachment-limit-unit-gb', selected: selectedUnit === 'gb' },
+    { value: 'mb', labelKey: 'attachment-limit-unit-mb', selected: selectedUnit === 'mb' },
+    { value: 'bytes', labelKey: 'attachment-limit-unit-bytes', selected: selectedUnit === 'bytes' },
+  ];
+}
+
 Template.setting.onCreated(function () {
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
@@ -131,6 +253,19 @@ Template.setting.onCreated(function () {
   this.layoutSetting = new ReactiveVar(false);
   this.webhookSetting = new ReactiveVar(false);
   this.attachmentSettings = new ReactiveVar(false);
+  this.attachmentStorageSettings = new ReactiveVar(null);
+  this.attachmentLimitUnits = new ReactiveVar({
+    attachmentsUploadMaxBytes: 'mb',
+    attachmentsDownloadMaxBytes: 'mb',
+    apiUploadMaxBytes: 'mb',
+    apiDownloadMaxBytes: 'mb',
+  });
+  this.attachmentLimitEnabled = new ReactiveVar({
+    attachmentsUploadMaxBytes: false,
+    attachmentsDownloadMaxBytes: false,
+    apiUploadMaxBytes: false,
+    apiDownloadMaxBytes: false,
+  });
   // this.cronSettings = new ReactiveVar(false);
   // this.migrationErrorsList = new ReactiveVar([]);
 
@@ -142,6 +277,7 @@ Template.setting.onCreated(function () {
   Meteor.subscribe('accessibilitySettings');
   Meteor.subscribe('globalwebhooks');
   Meteor.subscribe('lockoutSettings');
+  Meteor.subscribe('attachmentStorageSettings');
 
   // Poll for migration errors
   // this.errorPollInterval = Meteor.setInterval(() => {
@@ -159,6 +295,52 @@ Template.setting.onDestroyed(function () {
   // if (this.errorPollInterval) {
   //   Meteor.clearInterval(this.errorPollInterval);
   // }
+});
+
+Template.setting.onRendered(function () {
+  this.previousAttachmentLimitEnabled = null;
+
+  this.autorun(() => {
+    const enabledMap = this.attachmentLimitEnabled?.get() || {};
+    const previousMap = this.previousAttachmentLimitEnabled || {};
+    const fields = [
+      'attachmentsUploadMaxBytes',
+      'attachmentsDownloadMaxBytes',
+      'apiUploadMaxBytes',
+      'apiDownloadMaxBytes',
+    ];
+
+    fields.forEach((fieldName) => {
+      const row = this.$(`.attachment-limit-row[data-field="${fieldName}"]`);
+      if (!row.length) {
+        return;
+      }
+
+      const isEnabled = enabledMap[fieldName] === true;
+      const wasEnabled = previousMap[fieldName];
+
+      if (typeof wasEnabled === 'undefined') {
+        if (isEnabled) {
+          row.show();
+        } else {
+          row.hide();
+        }
+        return;
+      }
+
+      if (isEnabled === wasEnabled) {
+        return;
+      }
+
+      if (isEnabled) {
+        row.stop(true, true).hide().slideDown();
+      } else {
+        row.stop(true, true).slideUp();
+      }
+    });
+
+    this.previousAttachmentLimitEnabled = { ...enabledMap };
+  });
 });
 
 Template.setting.helpers({
@@ -250,6 +432,28 @@ Template.setting.helpers({
 
   s3Port() {
     return process.env.S3_PORT || 443;
+  },
+
+  attachmentTransferLimitValue(fieldName) {
+    const tpl = Template.instance();
+    const settingsDoc = tpl.attachmentStorageSettings.get();
+    const units = tpl.attachmentLimitUnits.get() || {};
+    const limits = normalizeLimitSettings(settingsDoc);
+    const unit = units[fieldName] || 'bytes';
+    return toDisplayValue(limits[fieldName], unit);
+  },
+
+  attachmentTransferLimitUnitOptions(fieldName) {
+    const tpl = Template.instance();
+    const units = tpl.attachmentLimitUnits.get() || {};
+    const selectedUnit = units[fieldName] || 'bytes';
+    return getLimitUnitOptions(selectedUnit);
+  },
+
+  isAttachmentLimitEnabled(fieldName) {
+    const tpl = Template.instance();
+    const enabledMap = tpl.attachmentLimitEnabled.get() || {};
+    return enabledMap[fieldName] === true;
   },
 
   // Cron settings helpers
@@ -466,6 +670,7 @@ Template.setting.events({
         tpl.webhookSetting.set(true);
       } else if (targetID === 'attachment-settings') {
         tpl.attachmentSettings.set(true);
+        refreshAttachmentStorageSettings(tpl, true);
         // Set default sub-menu state for attachment settings
         console.log('Initializing attachment sub-menu');
       } // else if (targetID === 'cron-settings') {
@@ -797,6 +1002,93 @@ Template.setting.events({
         alert(TAPi18n.__('s3-settings-saved'));
         $('#s3-secret-key').val(''); // Clear the password field
       }
+    });
+  },
+
+  'change select.js-attachment-limit-unit'(event, tpl) {
+    const fieldName = event.currentTarget.dataset.field;
+    const selectedUnit = event.currentTarget.value;
+    if (!fieldName || !selectedUnit) {
+      return;
+    }
+
+    const current = tpl.attachmentLimitUnits.get() || {};
+    tpl.attachmentLimitUnits.set({
+      ...current,
+      [fieldName]: selectedUnit,
+    });
+  },
+
+  'click a.js-toggle-attachment-limit'(event, tpl) {
+    event.preventDefault();
+    const fieldName = event.currentTarget.dataset.field;
+    if (!fieldName) {
+      return;
+    }
+
+    const current = tpl.attachmentLimitEnabled.get() || {};
+    tpl.attachmentLimitEnabled.set({
+      ...current,
+      [fieldName]: !current[fieldName],
+    });
+  },
+
+  'click button.js-save-attachment-transfer-limits'(event, tpl) {
+    event.preventDefault();
+
+    const currentSettings = tpl.attachmentStorageSettings.get();
+    if (!currentSettings) {
+      alert(TAPi18n.__('attachment-transfer-limits-save-failed'));
+      return;
+    }
+
+    const currentUnits = tpl.attachmentLimitUnits.get() || {};
+    const enabledMap = tpl.attachmentLimitEnabled.get() || {};
+    const fieldConfig = [
+      { fieldName: 'attachmentsUploadMaxBytes', inputId: '#attachments-upload-limit-value' },
+      { fieldName: 'attachmentsDownloadMaxBytes', inputId: '#attachments-download-limit-value' },
+      { fieldName: 'apiUploadMaxBytes', inputId: '#api-upload-limit-value' },
+      { fieldName: 'apiDownloadMaxBytes', inputId: '#api-download-limit-value' },
+    ];
+
+    const nextLimitSettings = {};
+    for (const field of fieldConfig) {
+      if (!enabledMap[field.fieldName]) {
+        nextLimitSettings[field.fieldName] = 0;
+        continue;
+      }
+
+      const unit = currentUnits[field.fieldName] || 'bytes';
+      const value = $(field.inputId).val();
+      const bytesValue = toBytes(value, unit);
+      if (bytesValue === null || bytesValue <= 0) {
+        alert(TAPi18n.__('attachment-transfer-limits-invalid-value'));
+        return;
+      }
+      nextLimitSettings[field.fieldName] = bytesValue;
+    }
+
+    const nextSettings = {
+      ...currentSettings,
+      uploadSettings: {
+        ...(currentSettings.uploadSettings || {}),
+        // Keep legacy field in sync for backward compatibility.
+        maxFileSize: nextLimitSettings.attachmentsUploadMaxBytes,
+      },
+      limitSettings: {
+        ...(currentSettings.limitSettings || {}),
+        ...nextLimitSettings,
+      },
+    };
+
+    Meteor.call('updateAttachmentStorageSettings', nextSettings, (error) => {
+      if (error) {
+        alert(`${TAPi18n.__('attachment-transfer-limits-save-failed')}: ${error.reason || error.message}`);
+        return;
+      }
+
+      alert(TAPi18n.__('attachment-transfer-limits-saved'));
+      refreshAttachmentStorageSettings(tpl, false);
     });
   },
 

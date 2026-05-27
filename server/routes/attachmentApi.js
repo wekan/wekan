@@ -1,8 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { WebApp } from 'meteor/webapp';
+import { createAuthMiddleware } from 'meteor/accounts-express';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
+import {
+  findOrCreateHeaderLoginUser,
+  isTrustedHeaderLoginSource,
+} from '/server/lib/headerLoginAuth';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { Settings } from '../../models/settings';
 import { moveToStorage } from '/models/lib/fileStoreStrategy';
@@ -12,9 +17,95 @@ import fs from 'fs';
 import path from 'path';
 import { ObjectId } from 'bson';
 
+const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
+const HARD_MAX_API_UPLOAD_BODY_BYTES = 96 * 1024 * 1024;
+
+function normalizeConfiguredLimit(configuredValue, fallbackValue = 0) {
+  if (Number.isFinite(configuredValue) && configuredValue >= 0) {
+    return configuredValue;
+  }
+  return Number.isFinite(fallbackValue) && fallbackValue >= 0 ? fallbackValue : 0;
+}
+
+function getEffectiveApiFileLimit(maxBytes) {
+  if (Number.isFinite(maxBytes) && maxBytes > 0) {
+    return Math.min(maxBytes, HARD_MAX_API_FILE_BYTES);
+  }
+  // Unlimited in settings still uses a hard in-memory safety cap.
+  return HARD_MAX_API_FILE_BYTES;
+}
+
+function maxBase64LengthForBytes(maxBytes) {
+  const safeBytes = Number.isFinite(maxBytes) && maxBytes > 0 ? maxBytes : HARD_MAX_API_FILE_BYTES;
+  return Math.ceil((safeBytes * 4) / 3) + 4;
+}
+
+function parseNonNegativeInt(value, fallback = 0) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+async function getApiTransferLimits() {
+  const envUploadFallback = parseNonNegativeInt(process.env.ATTACHMENT_API_MAX_UPLOAD_BYTES, 0);
+  const envDownloadFallback = parseNonNegativeInt(process.env.ATTACHMENT_API_MAX_DOWNLOAD_BYTES, 0);
+
+  const fallback = {
+    apiUploadMaxBytes: envUploadFallback,
+    apiDownloadMaxBytes: envDownloadFallback,
+    apiUploadBlocked: false,
+    apiDownloadBlocked: false,
+  };
+
+  try {
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    const limitSettings = settings?.limitSettings || {};
+
+    const apiUploadMaxBytes = normalizeConfiguredLimit(limitSettings.apiUploadMaxBytes, fallback.apiUploadMaxBytes);
+    const apiDownloadMaxBytes = normalizeConfiguredLimit(limitSettings.apiDownloadMaxBytes, fallback.apiDownloadMaxBytes);
+    const apiUploadBlocked = limitSettings.apiUploadBlocked === true;
+    const apiDownloadBlocked = limitSettings.apiDownloadBlocked === true;
+
+    return {
+      apiUploadMaxBytes,
+      apiDownloadMaxBytes,
+      apiUploadBlocked,
+      apiDownloadBlocked,
+      effectiveApiUploadMaxBytes: getEffectiveApiFileLimit(apiUploadMaxBytes),
+      effectiveApiDownloadMaxBytes: getEffectiveApiFileLimit(apiDownloadMaxBytes),
+    };
+  } catch (error) {
+    const apiUploadMaxBytes = normalizeConfiguredLimit(null, fallback.apiUploadMaxBytes);
+    const apiDownloadMaxBytes = normalizeConfiguredLimit(null, fallback.apiDownloadMaxBytes);
+
+    return {
+      apiUploadMaxBytes,
+      apiDownloadMaxBytes,
+      apiUploadBlocked: false,
+      apiDownloadBlocked: false,
+      effectiveApiUploadMaxBytes: getEffectiveApiFileLimit(apiUploadMaxBytes),
+      effectiveApiDownloadMaxBytes: getEffectiveApiFileLimit(apiDownloadMaxBytes),
+    };
+  }
+}
+
 // Attachment API HTTP routes
 // Helper function to authenticate API requests using X-User-Id and X-Auth-Token
 async function authenticateApiRequest(req) {
+  // Preferred path: accounts-express middleware populated authenticated user context.
+  if (req?.userId) {
+    return req.userId;
+  }
+
+  // Optional header-login path for trusted upstream SSO proxies.
+  const headerLoginUserId = await findOrCreateHeaderLoginUser(req);
+  if (headerLoginUserId) {
+    return headerLoginUserId;
+  }
+
+  // Legacy path kept for backward compatibility.
   const userId = req.headers['x-user-id'];
   const authToken = req.headers['x-auth-token'];
 
@@ -48,6 +139,8 @@ function sendErrorResponse(res, statusCode, message) {
 }
 
 // Upload attachment endpoint
+WebApp.handlers.use('/api', createAuthMiddleware());
+
 WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
@@ -62,17 +155,37 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
 
     try {
       const userId = await authenticateApiRequest(req);
+      const {
+        apiUploadBlocked,
+        effectiveApiUploadMaxBytes,
+      } = await getApiTransferLimits();
+
+      if (apiUploadBlocked) {
+        clearTimeout(timeout);
+        return sendErrorResponse(res, 403, 'API uploads are disabled by administrator');
+      }
 
       let body = '';
+      let bodyBytes = 0;
       let bodyComplete = false;
 
       req.on('data', chunk => {
-        body += chunk.toString();
-        // Prevent excessive payload
-        if (body.length > 50 * 1024 * 1024) { // 50MB limit
-          req.connection.destroy();
-          clearTimeout(timeout);
+        if (bodyComplete) {
+          return;
         }
+
+        bodyBytes += chunk.length || 0;
+        if (bodyBytes > HARD_MAX_API_UPLOAD_BODY_BYTES) {
+          bodyComplete = true;
+          clearTimeout(timeout);
+          if (!res.headersSent) {
+            sendErrorResponse(res, 413, 'Request payload exceeds server safety limit');
+          }
+          req.destroy();
+          return;
+        }
+
+        body += chunk.toString();
       });
 
       req.on('end', async () => {
@@ -82,11 +195,20 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
 
         try {
           const data = JSON.parse(body);
-          const { boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend } = data;
+          const { boardId, swimlaneId, listId, cardId, fileData, fileName, fileType } = data;
 
           // Validate parameters
           if (!boardId || !swimlaneId || !listId || !cardId || !fileData || !fileName) {
             return sendErrorResponse(res, 400, 'Missing required parameters');
+          }
+
+          if (typeof fileData !== 'string') {
+            return sendErrorResponse(res, 400, 'Invalid fileData format');
+          }
+
+          const maxBase64Length = maxBase64LengthForBytes(effectiveApiUploadMaxBytes);
+          if (fileData.length > maxBase64Length) {
+            return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
           }
 
           // Check if user has permission to modify the card
@@ -124,15 +246,13 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
             return sendErrorResponse(res, 403, 'Attachments are not allowed on this board');
           }
 
-          // Get default storage backend if not specified
-          let targetStorage = storageBackend;
-          if (!targetStorage) {
-            try {
-              const settings = await AttachmentStorageSettings.findOneAsync({});
-              targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
-            } catch (error) {
-              targetStorage = STORAGE_NAME_FILESYSTEM;
-            }
+          // Always use admin-configured default storage backend for API uploads.
+          let targetStorage = STORAGE_NAME_FILESYSTEM;
+          try {
+            const settings = await AttachmentStorageSettings.findOneAsync({});
+            targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
+          } catch (error) {
+            targetStorage = STORAGE_NAME_FILESYSTEM;
           }
 
           // Validate storage backend
@@ -142,6 +262,9 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
 
           // Create file object from base64 data
           const fileBuffer = Buffer.from(fileData, 'base64');
+          if (fileBuffer.length > effectiveApiUploadMaxBytes) {
+            return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
+          }
           const file = new File([fileBuffer], fileName, { type: fileType || 'application/octet-stream' });
 
           // Create attachment metadata
@@ -214,6 +337,14 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
 
     try {
       const userId = await authenticateApiRequest(req);
+      const {
+        apiDownloadBlocked,
+        effectiveApiDownloadMaxBytes,
+      } = await getApiTransferLimits();
+
+      if (apiDownloadBlocked) {
+        return sendErrorResponse(res, 403, 'API downloads are disabled by administrator');
+      }
       const attachmentId = req.params.attachmentId;
 
       // Get attachment
@@ -236,13 +367,42 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
         return sendErrorResponse(res, 404, 'File not found in storage');
       }
 
+      if (Number.isFinite(attachment.size) && attachment.size > effectiveApiDownloadMaxBytes) {
+        return sendErrorResponse(res, 413, 'Attachment exceeds API download limit');
+      }
+
       // Read file data
       const chunks = [];
+      let totalBytes = 0;
+      let responseSent = false;
+
+      const fail = (statusCode, message) => {
+        if (responseSent || res.headersSent) {
+          return;
+        }
+        responseSent = true;
+        try {
+          readStream.destroy();
+        } catch (destroyError) {
+          // Ignore destroy errors.
+        }
+        sendErrorResponse(res, statusCode, message);
+      };
+
       readStream.on('data', (chunk) => {
+        totalBytes += chunk.length || 0;
+        if (totalBytes > effectiveApiDownloadMaxBytes) {
+          fail(413, 'Attachment exceeds API download limit');
+          return;
+        }
         chunks.push(chunk);
       });
 
       readStream.on('end', () => {
+        if (responseSent || res.headersSent) {
+          return;
+        }
+        responseSent = true;
         const fileBuffer = Buffer.concat(chunks);
         const base64Data = fileBuffer.toString('base64');
 
@@ -267,7 +427,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
   });
 
   // List attachments endpoint
-  WebApp.handlers.use('/api/attachment/list/:boardId/:swimlaneId/:listId/:cardId', async (req, res, next) => {
+  const handleAttachmentList = async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -308,7 +468,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
       }
 
       const attachments = await ReactiveCache.getAttachments(query);
-      
+
       const attachmentList = attachments.map(attachment => {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
         return {
@@ -334,7 +494,12 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     } catch (error) {
       sendErrorResponse(res, 401, error.message);
     }
-  });
+  };
+
+  WebApp.handlers.use('/api/attachment/list/:boardId', handleAttachmentList);
+  WebApp.handlers.use('/api/attachment/list/:boardId/:swimlaneId', handleAttachmentList);
+  WebApp.handlers.use('/api/attachment/list/:boardId/:swimlaneId/:listId', handleAttachmentList);
+  WebApp.handlers.use('/api/attachment/list/:boardId/:swimlaneId/:listId/:cardId', handleAttachmentList);
 // Board attachments endpoint (legacy)
 WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) => {
   if (req.method !== 'GET') {
@@ -728,3 +893,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
       sendErrorResponse(res, 401, error.message);
     }
   });
+
+export {
+  authenticateApiRequest,
+  findOrCreateHeaderLoginUser,
+  isTrustedHeaderLoginSource,
+};

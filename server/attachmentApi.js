@@ -9,6 +9,79 @@ import fs from 'fs';
 import path from 'path';
 import { ObjectId } from 'bson';
 
+const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
+
+function normalizeConfiguredLimit(configuredValue, fallbackValue = 0) {
+  if (Number.isFinite(configuredValue) && configuredValue >= 0) {
+    return configuredValue;
+  }
+  return Number.isFinite(fallbackValue) && fallbackValue >= 0 ? fallbackValue : 0;
+}
+
+function getEffectiveApiFileLimit(maxBytes) {
+  if (Number.isFinite(maxBytes) && maxBytes > 0) {
+    return Math.min(maxBytes, HARD_MAX_API_FILE_BYTES);
+  }
+  // Unlimited in settings still uses a hard in-memory safety cap.
+  return HARD_MAX_API_FILE_BYTES;
+}
+
+function maxBase64LengthForBytes(maxBytes) {
+  const safeBytes = Number.isFinite(maxBytes) && maxBytes > 0 ? maxBytes : HARD_MAX_API_FILE_BYTES;
+  return Math.ceil((safeBytes * 4) / 3) + 4;
+}
+
+function parseNonNegativeInt(value, fallback = 0) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+async function getApiTransferLimits() {
+  const envUploadFallback = parseNonNegativeInt(process.env.ATTACHMENT_API_MAX_UPLOAD_BYTES, 0);
+  const envDownloadFallback = parseNonNegativeInt(process.env.ATTACHMENT_API_MAX_DOWNLOAD_BYTES, 0);
+
+  const fallback = {
+    apiUploadMaxBytes: envUploadFallback,
+    apiDownloadMaxBytes: envDownloadFallback,
+    apiUploadBlocked: false,
+    apiDownloadBlocked: false,
+  };
+
+  try {
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    const limitSettings = settings?.limitSettings || {};
+
+    const apiUploadMaxBytes = normalizeConfiguredLimit(limitSettings.apiUploadMaxBytes, fallback.apiUploadMaxBytes);
+    const apiDownloadMaxBytes = normalizeConfiguredLimit(limitSettings.apiDownloadMaxBytes, fallback.apiDownloadMaxBytes);
+    const apiUploadBlocked = limitSettings.apiUploadBlocked === true;
+    const apiDownloadBlocked = limitSettings.apiDownloadBlocked === true;
+
+    return {
+      apiUploadMaxBytes,
+      apiDownloadMaxBytes,
+      apiUploadBlocked,
+      apiDownloadBlocked,
+      effectiveApiUploadMaxBytes: getEffectiveApiFileLimit(apiUploadMaxBytes),
+      effectiveApiDownloadMaxBytes: getEffectiveApiFileLimit(apiDownloadMaxBytes),
+    };
+  } catch (error) {
+    const apiUploadMaxBytes = normalizeConfiguredLimit(null, fallback.apiUploadMaxBytes);
+    const apiDownloadMaxBytes = normalizeConfiguredLimit(null, fallback.apiDownloadMaxBytes);
+
+    return {
+      apiUploadMaxBytes,
+      apiDownloadMaxBytes,
+      apiUploadBlocked: false,
+      apiDownloadBlocked: false,
+      effectiveApiUploadMaxBytes: getEffectiveApiFileLimit(apiUploadMaxBytes),
+      effectiveApiDownloadMaxBytes: getEffectiveApiFileLimit(apiDownloadMaxBytes),
+    };
+  }
+}
+
 // Attachment API methods
 Meteor.methods({
     // Upload attachment via API
@@ -43,15 +116,13 @@ Meteor.methods({
         throw new Meteor.Error('attachments-not-allowed', 'Attachments are not allowed on this board');
       }
 
-      // Get default storage backend if not specified
-      let targetStorage = storageBackend;
-      if (!targetStorage) {
-        try {
-          const settings = await AttachmentStorageSettings.findOneAsync({});
-          targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
-        } catch (error) {
-          targetStorage = STORAGE_NAME_FILESYSTEM;
-        }
+      // Always use admin-configured default storage backend for API uploads.
+      let targetStorage = STORAGE_NAME_FILESYSTEM;
+      try {
+        const settings = await AttachmentStorageSettings.findOneAsync({});
+        targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
+      } catch (error) {
+        targetStorage = STORAGE_NAME_FILESYSTEM;
       }
 
       // Validate storage backend
@@ -60,8 +131,29 @@ Meteor.methods({
       }
 
       try {
+        const {
+          apiUploadBlocked,
+          effectiveApiUploadMaxBytes,
+        } = await getApiTransferLimits();
+
+        if (apiUploadBlocked) {
+          throw new Meteor.Error('uploads-disabled', 'API uploads are disabled by administrator');
+        }
+
+        if (typeof fileData !== 'string') {
+          throw new Meteor.Error('invalid-parameters', 'Invalid fileData format');
+        }
+
+        const maxBase64Length = maxBase64LengthForBytes(effectiveApiUploadMaxBytes);
+        if (fileData.length > maxBase64Length) {
+          throw new Meteor.Error('file-too-large', 'Attachment exceeds API upload limit');
+        }
+
         // Create file object from base64 data
         const fileBuffer = Buffer.from(fileData, 'base64');
+        if (fileBuffer.length > effectiveApiUploadMaxBytes) {
+          throw new Meteor.Error('file-too-large', 'Attachment exceeds API upload limit');
+        }
         const file = new File([fileBuffer], fileName, { type: fileType || 'application/octet-stream' });
 
         // Create attachment metadata
@@ -132,6 +224,19 @@ Meteor.methods({
       }
 
       try {
+        const {
+          apiDownloadBlocked,
+          effectiveApiDownloadMaxBytes,
+        } = await getApiTransferLimits();
+
+        if (apiDownloadBlocked) {
+          throw new Meteor.Error('downloads-disabled', 'API downloads are disabled by administrator');
+        }
+
+        if (Number.isFinite(attachment.size) && attachment.size > effectiveApiDownloadMaxBytes) {
+          throw new Meteor.Error('file-too-large', 'Attachment exceeds API download limit');
+        }
+
         // Get file strategy
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
         const readStream = strategy.getReadStream();
@@ -143,11 +248,36 @@ Meteor.methods({
         // Read file data
         const chunks = [];
         return new Promise((resolve, reject) => {
+          let settled = false;
+          let totalBytes = 0;
+
+          const fail = (error) => {
+            if (settled) {
+              return;
+            }
+            settled = true;
+            try {
+              readStream.destroy();
+            } catch (destroyError) {
+              // Ignore destroy errors.
+            }
+            reject(error);
+          };
+
           readStream.on('data', (chunk) => {
+            totalBytes += chunk.length || 0;
+            if (totalBytes > effectiveApiDownloadMaxBytes) {
+              fail(new Meteor.Error('file-too-large', 'Attachment exceeds API download limit'));
+              return;
+            }
             chunks.push(chunk);
           });
 
           readStream.on('end', () => {
+            if (settled) {
+              return;
+            }
+            settled = true;
             const fileBuffer = Buffer.concat(chunks);
             const base64Data = fileBuffer.toString('base64');
 
@@ -163,7 +293,7 @@ Meteor.methods({
           });
 
           readStream.on('error', (error) => {
-            reject(new Meteor.Error('download-error', error.message));
+            fail(new Meteor.Error('download-error', error.message));
           });
         });
       } catch (error) {

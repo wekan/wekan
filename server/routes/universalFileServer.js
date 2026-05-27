@@ -9,6 +9,7 @@ import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Accounts } from 'meteor/accounts-base';
 import Attachments from '/models/attachments';
+import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments.server';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.server';
@@ -16,6 +17,53 @@ import Boards from '/models/boards';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import fs from 'fs';
 import path from 'path';
+
+function parseNonNegativeInt(value, fallback = 0) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+async function getAttachmentDownloadLimitSettings() {
+  const fallbackMaxBytes = parseNonNegativeInt(process.env.ATTACHMENT_API_MAX_DOWNLOAD_BYTES, 0);
+
+  try {
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    const blocked = settings?.limitSettings?.attachmentsDownloadBlocked === true;
+    const configuredLimit = settings?.limitSettings?.attachmentsDownloadMaxBytes;
+    if (Number.isFinite(configuredLimit) && configuredLimit >= 0) {
+      return {
+        blocked,
+        maxBytes: configuredLimit,
+      };
+    }
+
+    // Backward compatibility: if no dedicated value exists, reuse API download limit when present.
+    const apiDownloadFallback = settings?.limitSettings?.apiDownloadMaxBytes;
+    if (Number.isFinite(apiDownloadFallback) && apiDownloadFallback >= 0) {
+      return {
+        blocked,
+        maxBytes: apiDownloadFallback,
+      };
+    }
+
+    return {
+      blocked,
+      maxBytes: fallbackMaxBytes,
+    };
+  } catch (error) {
+    if (process.env.DEBUG === 'true') {
+      console.warn('Could not load attachment download limit from settings:', error);
+    }
+  }
+
+  return {
+    blocked: false,
+    maxBytes: fallbackMaxBytes,
+  };
+}
 
 if (Meteor.isServer) {
   console.log('Universal file server initializing...');
@@ -442,6 +490,22 @@ if (Meteor.isServer) {
         return;
       }
 
+      const attachmentDownloadLimits = await getAttachmentDownloadLimitSettings();
+      if (attachmentDownloadLimits.blocked) {
+        res.writeHead(403);
+        res.end('Attachment downloads are disabled by administrator');
+        return;
+      }
+
+      if (Number.isFinite(attachmentDownloadLimits.maxBytes)
+        && attachmentDownloadLimits.maxBytes > 0
+        && Number.isFinite(attachment.size)
+        && attachment.size > attachmentDownloadLimits.maxBytes) {
+        res.writeHead(413);
+        res.end('Attachment exceeds download limit');
+        return;
+      }
+
       // Choose proper streaming based on source
       let readStream;
       if (attachment?.meta?.source === 'legacy') {
@@ -702,8 +766,14 @@ if (Meteor.isServer) {
       return next();
     }
 
-    // Use absolute URL so the redirect is correct under sub-URL (ROOT_URL with path prefix) deployments
     const fileId = extractFirstIdFromUrl(req, '/attachments');
+    if (!fileId) {
+      // No file ID — let Meteor serve the SPA (e.g. the admin /attachments settings page).
+      // Without this check a direct GET to /attachments redirected to /cdn/storage/attachments/null.
+      return next();
+    }
+
+    // Use absolute URL so the redirect is correct under sub-URL (ROOT_URL with path prefix) deployments
     const newUrl = Meteor.absoluteUrl(`cdn/storage/attachments/${fileId}`);
     res.writeHead(301, { 'Location': newUrl });
     res.end();
@@ -718,8 +788,12 @@ if (Meteor.isServer) {
       return next();
     }
 
-    // Use absolute URL so the redirect is correct under sub-URL deployments
     const fileId = extractFirstIdFromUrl(req, '/avatars');
+    if (!fileId) {
+      return next();
+    }
+
+    // Use absolute URL so the redirect is correct under sub-URL deployments
     const newUrl = Meteor.absoluteUrl(`cdn/storage/avatars/${fileId}`);
     res.writeHead(301, { 'Location': newUrl });
     res.end();

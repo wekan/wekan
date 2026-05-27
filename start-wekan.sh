@@ -587,6 +587,9 @@
       #export HEADER_LOGIN_FIRSTNAME=HEADERFIRSTNAME
       #export HEADER_LOGIN_LASTNAME=HEADERLASTNAME
       #export HEADER_LOGIN_EMAIL=HEADEREMAILADDRESS
+    # Optional comma-separated trusted proxy source IPs for header login.
+    # If empty, all source IPs are accepted (not recommended).
+    #export HEADER_LOGIN_TRUSTED_IPS=127.0.0.1,10.0.0.2
       #---------------------------------------------------------------------
       # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
       # example : LOGOUT_WITH_TIMER=true

@@ -20,6 +20,7 @@ mongo@2.4.0-beta350.12
 
 # Account system
 accounts-password@3.3.0-beta350.12
+accounts-express
 communitypackages:core
 communitypackages:unstyled
 communitypackages:flow-routing

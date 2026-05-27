@@ -113,10 +113,11 @@ Template.minicard.helpers({
     if (!this.coverId) return null;
     const attachment = ReactiveCache.getAttachment(this.coverId);
     if (!attachment) return null;
-    const coverId = this.coverId;
+    const coverLink = typeof attachment.link === 'function' ? attachment.link() : '';
+    if (!coverLink) return null;
     return {
       link() {
-        return `/cdn/storage/attachments/${coverId}`;
+        return coverLink;
       },
     };
   },

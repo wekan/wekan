@@ -35,6 +35,18 @@ AttachmentStorageSettings.attachSchema(
       label: 'Filesystem Storage Enabled'
     },
 
+    'storageConfig.filesystem.read': {
+      type: Boolean,
+      defaultValue: true,
+      label: 'Filesystem Read Enabled'
+    },
+
+    'storageConfig.filesystem.write': {
+      type: Boolean,
+      defaultValue: true,
+      label: 'Filesystem Write Enabled'
+    },
+
     'storageConfig.filesystem.path': {
       type: String,
       optional: true,
@@ -51,6 +63,18 @@ AttachmentStorageSettings.attachSchema(
       type: Boolean,
       defaultValue: true,
       label: 'GridFS Storage Enabled'
+    },
+
+    'storageConfig.gridfs.read': {
+      type: Boolean,
+      defaultValue: true,
+      label: 'GridFS Read Enabled'
+    },
+
+    'storageConfig.gridfs.write': {
+      type: Boolean,
+      defaultValue: true,
+      label: 'GridFS Write Enabled'
     },
 
     // DISABLED: S3 storage configuration removed due to Node.js compatibility
@@ -122,6 +146,69 @@ AttachmentStorageSettings.attachSchema(
       label: 'MIME Type'
     },
 
+    // Transfer limits (bytes). 0 means unlimited.
+    limitSettings: {
+      type: Object,
+      optional: true,
+      label: 'Transfer Limits'
+    },
+
+    'limitSettings.attachmentsUploadMaxBytes': {
+      type: Number,
+      optional: true,
+      min: 0,
+      label: 'Attachments Upload Max (bytes)'
+    },
+
+    'limitSettings.attachmentsUploadBlocked': {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+      label: 'Attachments Upload Blocked'
+    },
+
+    'limitSettings.attachmentsDownloadMaxBytes': {
+      type: Number,
+      optional: true,
+      min: 0,
+      label: 'Attachments Download Max (bytes)'
+    },
+
+    'limitSettings.attachmentsDownloadBlocked': {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+      label: 'Attachments Download Blocked'
+    },
+
+    'limitSettings.apiUploadMaxBytes': {
+      type: Number,
+      optional: true,
+      min: 0,
+      label: 'API Upload Max (bytes)'
+    },
+
+    'limitSettings.apiUploadBlocked': {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+      label: 'API Upload Blocked'
+    },
+
+    'limitSettings.apiDownloadMaxBytes': {
+      type: Number,
+      optional: true,
+      min: 0,
+      label: 'API Download Max (bytes)'
+    },
+
+    'limitSettings.apiDownloadBlocked': {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+      label: 'API Download Blocked'
+    },
+
     // Migration settings
     migrationSettings: {
       type: Object,
@@ -177,7 +264,7 @@ AttachmentStorageSettings.attachSchema(
     updatedAt: {
       type: Date,
       autoValue() {
-        if (this.isUpdate || this.isUpsert) {
+        if (this.isInsert || this.isUpdate || this.isUpsert) {
           return new Date();
         }
       },
@@ -247,6 +334,11 @@ AttachmentStorageSettings.helpers({
   // Get migration settings
   getMigrationSettings() {
     return this.migrationSettings || {};
+  },
+
+  // Get transfer limit settings
+  getLimitSettings() {
+    return this.limitSettings || {};
   }
 });
 

@@ -3,28 +3,320 @@ template(name="attachments")
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
     else
+      .content-title.ext-box
+        span
+          span.emoji-icon
+          i.fa.fa-paperclip
+          | {{_ 'attachments'}}
       .content-body
         .side-menu
           ul
-            li
-              a.js-move-attachments(data-id="move-attachments")
+            li(class="{{#if isMoveActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="move")
+                span.emoji-icon
                 i.fa.fa-arrow-right
                 | {{_ 'attachment-move'}}
+            li(class="{{#if isLimitsActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="limits")
+                span.emoji-icon
+                i.fa.fa-sliders
+                | {{_ 'attachment-limits'}}
+            li(class="{{#if isGridFsActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="gridfs")
+                span.emoji-icon
+                i.fa.fa-database
+                | {{_ 'mongodb-gridfs-storage'}}
+            li(class="{{#if isFilesystemActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="filesystem")
+                span.emoji-icon
+                i.fa.fa-folder-open
+                | {{_ 'filesystem-storage'}}
+            li(class="{{#if isS3Active}}active{{/if}}")
+              a.js-attachments-menu(data-id="s3")
+                span.emoji-icon
+                i.fa.fa-cloud
+                | {{_ 's3-minio-storage'}}
 
         .main-body
           if loading.get
             +spinner
-          else if showMoveAttachments.get
-            +moveAttachments
+          else if isMoveActive
+            ul#attachment-move-setting.setting-detail
+              li
+                h3 {{_ 'attachment-move'}}
+                +moveAttachments
+          else if isLimitsActive
+            ul#attachment-limits-setting.setting-detail
+              li
+                h3 {{_ 'attachment-transfer-limits-title'}}
+                .description {{_ 'attachment-transfer-limits-description'}}
+
+              li
+                .title {{_ 'attachment-upload-limit-label'}}
+                .form-group
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="attachmentsUploadMaxBytes")
+                    each attachmentTransferLimitModeOptions 'attachmentsUploadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+                .form-group(class="{{#if isAttachmentLimitMode 'attachmentsUploadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
+                  input.wekan-form-control#attachments-upload-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'attachmentsUploadMaxBytes'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="attachmentsUploadMaxBytes")
+                    each attachmentTransferLimitUnitOptions 'attachmentsUploadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+
+              li
+                .title {{_ 'attachment-download-limit-label'}}
+                .form-group
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="attachmentsDownloadMaxBytes")
+                    each attachmentTransferLimitModeOptions 'attachmentsDownloadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+                .form-group(class="{{#if isAttachmentLimitMode 'attachmentsDownloadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
+                  input.wekan-form-control#attachments-download-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'attachmentsDownloadMaxBytes'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="attachmentsDownloadMaxBytes")
+                    each attachmentTransferLimitUnitOptions 'attachmentsDownloadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+
+              li
+                .title {{_ 'api-upload-limit-label'}}
+                .form-group
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="apiUploadMaxBytes")
+                    each attachmentTransferLimitModeOptions 'apiUploadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+                .form-group(class="{{#if isAttachmentLimitMode 'apiUploadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
+                  input.wekan-form-control#api-upload-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'apiUploadMaxBytes'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="apiUploadMaxBytes")
+                    each attachmentTransferLimitUnitOptions 'apiUploadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+
+              li
+                .title {{_ 'api-download-limit-label'}}
+                .form-group
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="apiDownloadMaxBytes")
+                    each attachmentTransferLimitModeOptions 'apiDownloadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+                .form-group(class="{{#if isAttachmentLimitMode 'apiDownloadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
+                  input.wekan-form-control#api-download-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'apiDownloadMaxBytes'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="apiDownloadMaxBytes")
+                    each attachmentTransferLimitUnitOptions 'apiDownloadMaxBytes'
+                      option(value=value selected=selected) {{_ labelKey}}
+
+              li
+                button.js-save-attachment-transfer-limits.primary {{_ 'save'}}
+          else if isFilesystemActive
+            ul#attachment-filesystem-setting.setting-detail
+              li
+                h3 {{_ 'filesystem-storage'}}
+                .storage-rw-row
+                  .storage-rw-item
+                    input.js-toggle-filesystem-read#filesystem-read(type="checkbox" checked="{{filesystemRead}}")
+                    label(for="filesystem-read") {{_ 'storage-read'}}
+                  .storage-rw-item
+                    input.js-toggle-filesystem-write#filesystem-write(type="checkbox" checked="{{filesystemWrite}}")
+                    label(for="filesystem-write") {{_ 'storage-write'}}
+
+                .form-group
+                  button.js-calculate-filesystem-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
+                  if filesystemStatsLoading
+                    p.form-text.text-muted {{_ 'calculating-counts'}}
+                  if filesystemStatsError
+                    p.form-text.text-danger {{filesystemStatsError}}
+                  if hasFilesystemStats
+                    table.gridfs-stats-table
+                      tr
+                        th {{_ 'stats-scope'}}
+                        th {{_ 'stats-count'}}
+                      tr
+                        td {{_ 'attachments'}}
+                        td {{filesystemStats.attachments}}
+                      tr
+                        td {{_ 'avatars'}}
+                        td {{filesystemStats.avatars}}
+
+                .form-group
+                  label {{_ 'writable-path'}}
+                  input.wekan-form-control#filesystem-path(type="text" value="{{filesystemPath}}" readonly)
+                  small.form-text.text-muted {{_ 'filesystem-path-description'}}
+
+                .form-group
+                  label {{_ 'attachments-path'}}
+                  input.wekan-form-control#attachments-path(type="text" value="{{attachmentsPath}}" readonly)
+                  small.form-text.text-muted {{_ 'attachments-path-description'}}
+
+                .form-group
+                  label {{_ 'avatars-path'}}
+                  input.wekan-form-control#avatars-path(type="text" value="{{avatarsPath}}" readonly)
+                  small.form-text.text-muted {{_ 'avatars-path-description'}}
+
+          else if isGridFsActive
+            ul#attachment-gridfs-setting.setting-detail
+              li
+                h3 {{_ 'mongodb-gridfs-storage'}}
+                .storage-rw-row
+                  .storage-rw-item
+                    input.js-toggle-gridfs-read#gridfs-read(type="checkbox" checked="{{gridfsRead}}")
+                    label(for="gridfs-read") {{_ 'storage-read'}}
+                  .storage-rw-item
+                    input.js-toggle-gridfs-write#gridfs-write(type="checkbox" checked="{{gridfsWrite}}")
+                    label(for="gridfs-write") {{_ 'storage-write'}}
+                .form-group
+                  button.js-calculate-gridfs-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
+                  if gridFsStatsLoading
+                    p.form-text.text-muted {{_ 'calculating-counts'}}
+                  if gridFsStatsError
+                    p.form-text.text-danger {{gridFsStatsError}}
+                  if hasGridFsStats
+                    table.gridfs-stats-table
+                      tr
+                        th {{_ 'stats-scope'}}
+                        th {{_ 'stats-collectionfs'}}
+                        th {{_ 'stats-mongo-files'}}
+                      tr
+                        td {{_ 'attachments'}}
+                        td {{gridFsStats.attachments.collectionFs}}
+                        td {{gridFsStats.attachments.mongoFiles}}
+                      tr
+                        td {{_ 'avatars'}}
+                        td {{gridFsStats.avatars.collectionFs}}
+                        td {{gridFsStats.avatars.mongoFiles}}
+                .form-group
+                  .compact-block
+                    h4 {{_ 'mongodb-compact'}}
+                    p.form-text {{_ 'mongodb-compact-description'}}
+                    p.form-text.text-muted {{_ 'mongodb-compact-warning'}}
+                    button.js-compact-mongodb-gridfs.btn.btn-warning(type="button") {{_ 'mongodb-compact-run'}}
+                    if compactLoading
+                      p.form-text.text-muted {{_ 'mongodb-compact-running'}}
+                    if compactError
+                      p.form-text.text-danger {{_ 'mongodb-compact-error'}} {{compactError}}
+                    if compactResult
+                      p.form-text.text-success {{_ 'mongodb-compact-success'}}
+                      ul.compact-result-list
+                        each item in compactResultItems
+                          li
+                            strong {{item.name}}
+                            | : {{item.status}}
+
+          else if isS3Active
+            ul#attachment-s3-setting.setting-detail
+              li
+                h3 {{_ 's3-minio-storage'}}
+                .storage-rw-row
+                  .storage-rw-item
+                    input#s3-read(type="checkbox" checked="{{s3Read}}" disabled)
+                    label(for="s3-read") {{_ 'storage-read'}}
+                  .storage-rw-item
+                    input#s3-write(type="checkbox" checked="{{s3Write}}" disabled)
+                    label(for="s3-write") {{_ 'storage-write'}}
+
+                .form-group
+                  button.js-calculate-s3-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
+                  if s3StatsLoading
+                    p.form-text.text-muted {{_ 'calculating-counts'}}
+                  if s3StatsError
+                    p.form-text.text-danger {{s3StatsError}}
+                  if hasS3Stats
+                    table.gridfs-stats-table
+                      tr
+                        th {{_ 'stats-scope'}}
+                        th {{_ 'stats-count'}}
+                      tr
+                        td {{_ 'attachments'}}
+                        td {{s3Stats.attachments}}
+                      tr
+                        td {{_ 'avatars'}}
+                        td {{s3Stats.avatars}}
+
+                .form-group
+                  label {{_ 's3-endpoint'}}
+                  input.wekan-form-control#s3-endpoint(type="text" value="{{s3Endpoint}}" readonly)
+                  small.form-text.text-muted {{_ 's3-endpoint-description'}}
+
+                .form-group
+                  label {{_ 's3-bucket'}}
+                  input.wekan-form-control#s3-bucket(type="text" value="{{s3Bucket}}" readonly)
+                  small.form-text.text-muted {{_ 's3-bucket-description'}}
+
+                .form-group
+                  label {{_ 's3-region'}}
+                  input.wekan-form-control#s3-region(type="text" value="{{s3Region}}" readonly)
+                  small.form-text.text-muted {{_ 's3-region-description'}}
+
+                .form-group
+                  label {{_ 's3-access-key'}}
+                  input.wekan-form-control#s3-access-key(type="text" placeholder="{{_ 's3-access-key-placeholder'}}" readonly)
+                  small.form-text.text-muted {{_ 's3-access-key-description'}}
+
+                .form-group
+                  label {{_ 's3-secret-key'}}
+                  input.wekan-form-control#s3-secret-key(type="password" placeholder="{{_ 's3-secret-key-placeholder'}}")
+                  small.form-text.text-muted {{_ 's3-secret-key-description'}}
+
+                .form-group
+                  label {{_ 's3-ssl-enabled'}}
+                  input.wekan-form-control#s3-ssl-enabled(type="checkbox" checked="{{s3SslEnabled}}" disabled)
+                  small.form-text.text-muted {{_ 's3-ssl-enabled-description'}}
+
+                .form-group
+                  label {{_ 's3-port'}}
+                  input.wekan-form-control#s3-port(type="number" value="{{s3Port}}" readonly)
+                  small.form-text.text-muted {{_ 's3-port-description'}}
+
+                .form-group
+                  button.js-test-s3-connection.btn.btn-secondary {{_ 'test-s3-connection'}}
+                  button.js-save-s3-settings.btn.btn-primary {{_ 'save-s3-settings'}}
 
 template(name="moveAttachments")
-  .move-attachment-buttons
-    .js-move-attachment
-      button.js-move-all-attachments-to-fs {{_ 'move-all-attachments-to-fs'}}
-    .js-move-attachment
-      button.js-move-all-attachments-to-gridfs {{_ 'move-all-attachments-to-gridfs'}}
-    .js-move-attachment
-      button.js-move-all-attachments-to-s3 {{_ 'move-all-attachments-to-s3'}}
+  .move-storage-form
+    .move-storage-selects
+      .form-group
+        label {{_ 'move-source'}}
+        select.wekan-form-control.js-move-source-storage
+          option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
+          option(value="gridfs") {{_ 'move-storage-gridfs'}}
+          option(value="fs") {{_ 'move-storage-fs'}}
+          option(value="s3") {{_ 'move-storage-s3'}}
+      .form-group
+        label {{_ 'move-destination'}}
+        select.wekan-form-control.js-move-dest-storage
+          option(value="gridfs") {{_ 'move-storage-gridfs'}}
+          option(value="fs") {{_ 'move-storage-fs'}}
+          option(value="s3") {{_ 'move-storage-s3'}}
+          option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
+    button.js-move-all-attachments.btn.btn-primary {{_ 'move-all-attachments'}}
+
+  .move-compact-section
+    h4 {{_ 'mongodb-compact'}}
+    p.form-text {{_ 'mongodb-compact-description'}}
+    p.form-text.text-muted {{_ 'mongodb-compact-warning'}}
+    button.js-compact-mongodb-move.btn.btn-warning(type="button") {{_ 'mongodb-compact-run'}}
+    if moveCompactLoading
+      p.form-text.text-muted {{_ 'mongodb-compact-running'}}
+    if moveCompactError
+      p.form-text.text-danger {{_ 'mongodb-compact-error'}} {{moveCompactError}}
+    if moveCompactResult
+      p.form-text.text-success {{_ 'mongodb-compact-success'}}
+      ul.compact-result-list
+        each item in moveCompactResultItems
+          li
+            strong {{item.name}}
+            | : {{item.status}}
+
+  if moveProgress
+    .move-progress-section
+      .move-progress-header
+        +spinner
+        .move-progress-info
+          .move-progress-counter {{_ 'move-progress-file'}} {{moveProgress.current}} / {{moveProgress.total}}
+          .move-progress-filename {{moveProgress.name}} ({{moveProgressSize}})
+      .move-progress-bar-track
+        .move-progress-bar-fill(style="{{moveProgressBarStyle}}")
+      .move-progress-bar-track
+        .move-progress-bar-indeterminate
+      .move-progress-controls
+        if moveProgressPaused
+          button.js-resume-move.btn.btn-secondary {{_ 'move-progress-resume'}}
+        else
+          button.js-pause-move.btn.btn-secondary {{_ 'move-progress-pause'}}
+        button.js-cancel-move.btn.btn-danger {{_ 'move-progress-cancel'}}
 
   each board in getBoardsWithAttachments
     +moveBoardAttachments board
@@ -34,31 +326,41 @@ template(name="moveBoardAttachments")
   .board-description
     table
       tr
-        th {{_ 'board'}} ID
+        th {{_ 'board-id'}}
         th {{_ 'board-title'}}
       tr
         td {{ _id }}
         td {{ title }}
 
-  .move-attachment-buttons
-    .js-move-attachment
-      button.js-move-all-attachments-of-board-to-fs {{_ 'move-all-attachments-of-board-to-fs'}}
-    .js-move-attachment
-      button.js-move-all-attachments-of-board-to-gridfs {{_ 'move-all-attachments-of-board-to-gridfs'}}
-    .js-move-attachment
-      button.js-move-all-attachments-of-board-to-s3 {{_ 'move-all-attachments-of-board-to-s3'}}
+  .move-storage-form
+    .move-storage-selects
+      .form-group
+        label {{_ 'move-source'}}
+        select.wekan-form-control.js-move-board-source-storage
+          option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
+          option(value="gridfs") {{_ 'move-storage-gridfs'}}
+          option(value="fs") {{_ 'move-storage-fs'}}
+          option(value="s3") {{_ 'move-storage-s3'}}
+      .form-group
+        label {{_ 'move-destination'}}
+        select.wekan-form-control.js-move-board-dest-storage
+          option(value="gridfs") {{_ 'move-storage-gridfs'}}
+          option(value="fs") {{_ 'move-storage-fs'}}
+          option(value="s3") {{_ 'move-storage-s3'}}
+          option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
+    button.js-move-all-attachments-of-board.btn.btn-primary {{_ 'move-all-attachments'}}
 
   .board-attachments
     table
       tr
-        th {{_ 'card'}}-Id
-        th {{_ 'attachment'}}-Id
+        th {{_ 'card-id'}}
+        th {{_ 'attachment-id'}}
         th {{_ 'name'}}
         th {{_ 'path'}}
         th {{_ 'version-name'}}
         th {{_ 'size'}}
-        th GridFsFileId
-        th S3FileId
+        th {{_ 'gridfs-file-id'}}
+        th {{_ 's3-file-id'}}
         th {{_ 'storage'}}
         th {{_ 'action'}}
 

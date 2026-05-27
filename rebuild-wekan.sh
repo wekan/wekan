@@ -18,6 +18,10 @@ function is_dev_server_running(){
 	return 1
 }
 
+function ensure_rspack_public_dirs(){
+	mkdir -p public/build-chunks public/build-assets
+}
+
 echo
 PS3='Please enter your choice: '
 options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run tests" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
@@ -93,6 +97,7 @@ do
 		;;
 
     "Run Meteor for dev on http://localhost:3000")
+		ensure_rspack_public_dirs
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
 		# Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
@@ -104,6 +109,7 @@ do
 
 
     "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0")
+		ensure_rspack_public_dirs
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
                 # Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
@@ -113,6 +119,7 @@ do
                 ;;
 
     "Run Meteor for dev on http://localhost:3000 with bundle visualizer")
+		ensure_rspack_public_dirs
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
@@ -123,6 +130,7 @@ do
 		;;
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000")
+		ensure_rspack_public_dirs
 		if [[ "$OSTYPE" == "darwin"* ]]; then
 		  IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
 		else
@@ -140,6 +148,7 @@ do
 		;;
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan")
+		ensure_rspack_public_dirs
                 if [[ "$OSTYPE" == "darwin"* ]]; then
                   IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
                 else
@@ -157,6 +166,7 @@ do
                 ;;
 
     "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT")
+		ensure_rspack_public_dirs
 		ip address
 		echo "From above list, what is your IP address?"
 		read IPADDRESS
@@ -314,14 +324,16 @@ do
 
 		echo
 		echo "Scanning for unawaited Authentication.checkBoardAccess/checkBoardWriteAccess in server/models"
+		AUTH_CALL_PATTERN='Authentication\.checkBoardAccess\(|Authentication\.checkBoardWriteAccess\('
+		AUTH_AWAIT_PATTERN='await Authentication\.checkBoardAccess\(|await Authentication\.checkBoardWriteAccess\('
 		if command -v rg >/dev/null 2>&1; then
-			if rg -n 'Authentication\.checkBoard(Access|WriteAccess)\(' server/models | rg -v 'await Authentication\.checkBoard(Access|WriteAccess)\('; then
+			if rg -n "$AUTH_CALL_PATTERN" server/models | rg -v "$AUTH_AWAIT_PATTERN"; then
 				echo "WARNING: Found possible unawaited board auth checks above"
 			else
 				echo "OK: No unawaited board auth checks found"
 			fi
 		else
-			if grep -RInE 'Authentication\.checkBoard(Access|WriteAccess)\(' server/models | grep -vE 'await Authentication\.checkBoard(Access|WriteAccess)\('; then
+			if grep -RInE "$AUTH_CALL_PATTERN" server/models | grep -vE "$AUTH_AWAIT_PATTERN"; then
 				echo "WARNING: Found possible unawaited board auth checks above"
 			else
 				echo "OK: No unawaited board auth checks found"

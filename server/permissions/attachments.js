@@ -1,9 +1,47 @@
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
+import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+
+function hasUnsafeClientVersionFields(fileObj) {
+  const versions = fileObj?.versions;
+  if (!versions || typeof versions !== 'object') {
+    return false;
+  }
+
+  return Object.values(versions).some((version) => {
+    if (!version || typeof version !== 'object') {
+      return false;
+    }
+
+    // Path and storage are internal server-managed metadata.
+    return Object.prototype.hasOwnProperty.call(version, 'path') ||
+      Object.prototype.hasOwnProperty.call(version, 'storage');
+  });
+}
 
 Attachments.allow({
   async insert(userId, fileObj) {
+    // Block attempts to inject server-managed storage metadata.
+    if (hasUnsafeClientVersionFields(fileObj)) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Blocked attachment insert with client-supplied versions.path/storage');
+      }
+      return false;
+    }
+
+    // Admin-level hard stop for all non-API attachment uploads.
+    try {
+      const settings = await AttachmentStorageSettings.findOneAsync({});
+      if (settings?.limitSettings?.attachmentsUploadBlocked === true) {
+        return false;
+      }
+    } catch (error) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Could not read attachment upload block setting:', error);
+      }
+    }
+
     // ReadOnly users cannot upload attachments
     return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.meta?.boardId));
   },
@@ -12,17 +50,17 @@ Attachments.allow({
     // but we block direct client-side $set operations on 'versions.*.path' to prevent
     // path traversal attacks via storage migration exploits.
 
-    // Block direct updates to version paths (the attack vector)
-    const hasPathUpdate = fields.some(field => field.includes('versions') && field.includes('path'));
-    if (hasPathUpdate) {
+    // Block direct updates to server-managed version metadata.
+    const touchesVersions = fields.some(field => field === 'versions' || field.startsWith('versions.'));
+    if (touchesVersions) {
       if (process.env.DEBUG === 'true') {
-        console.warn('Blocked attempt to update attachment version paths:', fields);
+        console.warn('Blocked attempt to update attachment versions metadata:', fields);
       }
       return false;
     }
 
     // Allow normal updates for file upload/management
-    const allowedFields = ['name', 'size', 'type', 'extension', 'extensionWithDot', 'meta', 'versions'];
+    const allowedFields = ['name', 'size', 'type', 'extension', 'extensionWithDot', 'meta'];
     const isAllowedField = fields.every(field => {
       // Allow field itself or nested properties like 'versions.original'
       const baseField = field.split('.')[0];

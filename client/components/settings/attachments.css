@@ -2,7 +2,205 @@
   display: flex;
   gap: 10px;
 }
+
+.attachments-content .move-compact-section,
+.setting-content .content-body .main-body .form-group .compact-block {
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #fff8e1;
+  max-width: 650px;
+  box-sizing: border-box;
+}
+
+.attachments-content .move-compact-section p,
+.setting-content .content-body .main-body .form-group .compact-block p {
+  max-width: 100%;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.attachments-content .move-compact-section h4,
+.setting-content .content-body .main-body h4 {
+  margin: 0 0 6px;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.attachments-content .compact-result-list,
+.setting-content .content-body .main-body .compact-result-list {
+  margin: 6px 0 0;
+  padding-left: 20px;
+  font-size: 0.85em;
+  font-family: monospace;
+}
+
+.attachments-content .move-progress-section {
+  margin: 12px 0 16px;
+  padding: 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #f6f8fa;
+}
+
+.attachments-content .move-progress-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.attachments-content .move-progress-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.attachments-content .move-progress-counter {
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+.attachments-content .move-progress-filename {
+  font-size: 0.85em;
+  color: #57606a;
+  word-break: break-all;
+}
+
+.attachments-content .move-progress-bar-track {
+  background: #dde1e4;
+  border-radius: 4px;
+  height: 8px;
+  overflow: hidden;
+  margin: 6px 0;
+}
+
+.attachments-content .move-progress-bar-fill {
+  background: #1976d2;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  min-width: 2px;
+}
+
+.attachments-content .move-progress-bar-indeterminate {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, transparent 0%, #1976d2 40%, #42a5f5 60%, transparent 100%);
+  background-size: 200% 100%;
+  animation: move-progress-slide 1.4s ease-in-out infinite;
+}
+
+@keyframes move-progress-slide {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.attachments-content .move-progress-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.attachments-content .move-storage-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.attachments-content .move-storage-selects {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.attachments-content .move-storage-form .form-group {
+  margin: 0;
+}
+
+.attachments-content .move-storage-form .form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.attachments-content .move-attachment-buttons button,
+.attachments-content .board-attachments td button {
+  background-color: #1976d2;
+  border: 1px solid #1565c0;
+  color: #fff;
+}
+
+.attachments-content .move-attachment-buttons button:hover,
+.attachments-content .board-attachments td button:hover {
+  background-color: #1565c0;
+  color: #fff;
+}
+
 .attachments-content hr {
   height: 0px;
   border: 1px solid #000;
+}
+
+
+.setting-content .content-body .main-body .storage-rw-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 12px;
+  padding: 6px 0;
+}
+
+.setting-content .content-body .main-body .storage-rw-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.setting-content .content-body .main-body .storage-rw-row input[type="checkbox"] {
+  position: static;
+  left: auto;
+  visibility: visible;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.setting-content .content-body .main-body .storage-rw-row input[type="checkbox"]:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.setting-content .content-body .main-body .storage-rw-row label {
+  margin: 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.setting-content .content-body .main-body .storage-rw-row input[type="checkbox"]:disabled + label {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.setting-content .content-body .main-body .gridfs-stats-table {
+  border-collapse: collapse;
+  margin-top: 12px;
+  width: auto !important;
+  min-width: 0 !important;
+}
+
+.setting-content .content-body .main-body .gridfs-stats-table th,
+.setting-content .content-body .main-body .gridfs-stats-table td {
+  border: 1px solid #d0d7de;
+  padding: 6px 8px;
+  text-align: left;
+  white-space: nowrap;
+  min-width: 0 !important;
 }

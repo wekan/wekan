@@ -1,6 +1,7 @@
 accounts-base@3.3.0-beta350.12
 accounts-oauth@1.4.7-beta350.12
 accounts-password@3.3.0-beta350.12
+accounts-express@1.0.0-beta350.12
 aldeed:collection2@4.1.5
 aldeed:schema-index@4.0.0
 aldeed:simple-schema@1.13.1

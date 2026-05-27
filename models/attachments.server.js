@@ -22,6 +22,36 @@ let attachmentUploadExternalProgram;
 let attachmentUploadMimeTypes = [];
 let attachmentUploadSize = 0;
 
+function parseNonNegativeInt(value, fallback = 0) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+async function getAttachmentUploadMaxBytes() {
+  try {
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    const configuredLimit = settings?.limitSettings?.attachmentsUploadMaxBytes;
+    if (Number.isFinite(configuredLimit) && configuredLimit >= 0) {
+      return configuredLimit;
+    }
+
+    // Backward compatibility: respect existing uploadSettings.maxFileSize if present.
+    const legacySettingLimit = settings?.uploadSettings?.maxFileSize;
+    if (Number.isFinite(legacySettingLimit) && legacySettingLimit >= 0) {
+      return legacySettingLimit;
+    }
+  } catch (error) {
+    if (process.env.DEBUG === 'true') {
+      console.warn('Could not load attachment upload limit from settings:', error);
+    }
+  }
+
+  return attachmentUploadSize;
+}
+
 const attachmentBucket = createBucket('attachments');
 
 // Compute storage path:
@@ -39,11 +69,7 @@ if (process.env.ATTACHMENTS_UPLOAD_MIME_TYPES) {
 }
 
 if (process.env.ATTACHMENTS_UPLOAD_MAX_SIZE) {
-  attachmentUploadSize = parseInt(process.env.ATTACHMENTS_UPLOAD_MAX_SIZE);
-
-  if (isNaN(attachmentUploadSize)) {
-    attachmentUploadSize = 0;
-  }
+  attachmentUploadSize = parseNonNegativeInt(process.env.ATTACHMENTS_UPLOAD_MAX_SIZE, 0);
 }
 
 if (process.env.ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM) {
@@ -105,7 +131,8 @@ Attachments.onAfterUpload = async function (fileObj) {
         const currentFileObj = await ReactiveCache.getAttachment(fileObjId);
         if (!currentFileObj) return;
 
-        const isValid = await isFileValid(currentFileObj, attachmentUploadMimeTypes, attachmentUploadSize, attachmentUploadExternalProgram);
+        const effectiveUploadMaxBytes = await getAttachmentUploadMaxBytes();
+        const isValid = await isFileValid(currentFileObj, attachmentUploadMimeTypes, effectiveUploadMaxBytes, attachmentUploadExternalProgram);
         if (!isValid) {
           await Attachments.removeAsync(fileObjId);
           return;
@@ -218,6 +245,11 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required.');
+    }
+
     const fileObj = await ReactiveCache.getAttachment(fileObjId);
     if (!fileObj) {
       throw new Meteor.Error('attachment-not-found', 'Attachment not found');
@@ -282,7 +314,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
 
-    const isValid = await isFileValid(fileObj, attachmentUploadMimeTypes, attachmentUploadSize, attachmentUploadExternalProgram);
+    const effectiveUploadMaxBytes = await getAttachmentUploadMaxBytes();
+    const isValid = await isFileValid(fileObj, attachmentUploadMimeTypes, effectiveUploadMaxBytes, attachmentUploadExternalProgram);
 
     if (!isValid) {
       await Attachments.removeAsync(fileObjId);
@@ -294,6 +327,11 @@ Meteor.methods({
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required.');
     }
 
     const fileObj = await ReactiveCache.getAttachment(fileObjId);

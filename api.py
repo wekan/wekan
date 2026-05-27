@@ -25,19 +25,44 @@ syntax = """=== Wekan API Python CLI: Shows IDs for addcard ===
 # AUTHORID is USERID that writes card or custom field.
 If *nix:  chmod +x api.py => ./api.py users
   Syntax:
-    User API:
+        User API:
     python3 api.py user                 # Current user and list of current user boards
+        python3 api.py users                # All users
+        python3 api.py boards               # All Public Boards
     python3 api.py boards USERID        # Boards of USERID
+        python3 api.py board BOARDID        # Info of BOARDID
+
+        Board/List/Card API:
     python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID
     python3 api.py lists BOARDID        # Lists of BOARDID
     python3 api.py list BOARDID LISTID  # Info of LISTID
     python3 api.py createlist BOARDID LISTTITLE # Create list
     python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION
     python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION
+        python3 api.py getcard BOARDID LISTID CARDID # Get card info
+        python3 api.py cardsbyswimlane BOARDID SWIMLANEID # Retrieve cards list on a swimlane
+        python3 api.py deleteallcards BOARDID SWIMLANEID ( * Be careful will delete ALL CARDS INSIDE the swimlanes automatically in every list * ) # Delete all cards on a swimlane
+        python3 api.py get_list_cards_count BOARDID LISTID # Retrieve how many cards in a list
+        python3 api.py get_board_cards_count BOARDID # Retrieve how many cards in a board
+        python3 api.py editboardtitle BOARDID NEWBOARDTITLE # Edit board title
+        python3 api.py copyboard BOARDID NEWBOARDTITLE # Copy a board
+
+        Custom Fields / Labels API:
     python3 api.py customfields BOARDID # Custom Fields of BOARDID
     python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
     python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
     python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE # Edit Custom Field
+        python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Create a new label
+        python3 api.py addlabel BOARDID LISTID CARDID LABELID # Add label to a card
+        python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS # Add a card and a label
+        python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Edit card color
+
+        Checklist API:
+        python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.) # Add checklist + item on a card
+        python3 api.py checklistid BOARDID CARDID # Retrieve Checklist ID attached to a card
+        python3 api.py checklistinfo BOARDID CARDID CHECKLISTID # Get checklist info
+
+        Attachment API:
     python3 api.py listattachments BOARDID # List attachments
     python3 api.py uploadattachment BOARDID SWIMLANEID LISTID CARDID FILEPATH [STORAGE_BACKEND] # Upload attachment to card
     python3 api.py downloadattachment ATTACHMENTID OUTPUTPATH # Download attachment to local file
@@ -45,25 +70,9 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py listcardattachments BOARDID SWIMLANEID LISTID CARDID # List attachments for specific card
     python3 api.py copymoveattachment ATTACHMENTID TARGETBOARDID TARGETSWIMLANEID TARGETLISTID TARGETCARDID [copy|move] # Copy or move attachment
     python3 api.py deleteattachment ATTACHMENTID # Delete attachment
-    python3 api.py cardsbyswimlane SWIMLANEID LISTID # Retrieve cards list on a swimlane
-    python3 api.py getcard BOARDID LISTID CARDID # Get card info
-    python3 api.py addlabel BOARDID LISTID CARDID LABELID # Add label to a card
-    python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS # Add a card and a label
-    python3 api.py editboardtitle BOARDID NEWBOARDTITLE # Edit board title
-    python3 api.py copyboard BOARDID NEWBOARDTITLE # Copy a board
-    python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Create a new label
-    python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Edit card color
-    python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.) # Add checklist + item on a card
-    python3 api.py deleteallcards BOARDID SWIMLANEID ( * Be careful will delete ALL CARDS INSIDE the swimlanes automatically in every list * ) # Delete all cards on a swimlane
-    python3 api.py checklistid BOARDID CARDID # Retrieve Checklist ID attached to a card
-    python3 api.py checklistinfo BOARDID CARDID CHECKLISTID # Get checklist info
-    python3 api.py get_list_cards_count BOARDID LISTID # Retrieve how many cards in a list
-    python3 api.py get_board_cards_count BOARDID # Retrieve how many cards in a board
 
     
   Admin API:
-    python3 api.py users                # All users
-    python3 api.py boards               # All Public Boards
     python3 api.py newuser USERNAME EMAIL PASSWORD
 """
 
@@ -723,9 +732,9 @@ if arguments == 2:
             print(f"Error: {e}")
         # ------- GET BOARD CARDS COUNT END -----------
 
-if arguments == 1:
+if arguments >= 1:
 
-    if sys.argv[1] == 'users':
+    if arguments == 1 and sys.argv[1] == 'users':
 
         # ------- LIST OF USERS START -----------
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
@@ -736,7 +745,7 @@ if arguments == 1:
         print(data2)
         # ------- LIST OF USERS END -----------
 
-    if sys.argv[1] == 'user':
+    if arguments == 1 and sys.argv[1] == 'user':
         # ------- LIST OF ALL USERS START -----------
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         print(user)
@@ -746,7 +755,7 @@ if arguments == 1:
         print(data2)
         # ------- LIST OF ALL USERS END -----------
 
-    if sys.argv[1] == 'boards':
+    if arguments == 1 and sys.argv[1] == 'boards':
 
         # ------- LIST OF PUBLIC BOARDS START -----------
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
@@ -761,7 +770,7 @@ if arguments == 1:
 
     if sys.argv[1] == 'uploadattachment':
         # ------- UPLOAD ATTACHMENT START -----------
-        if arguments < 5:
+        if arguments < 6:
             print("Usage: python3 api.py uploadattachment BOARDID SWIMLANEID LISTID CARDID FILEPATH [STORAGE_BACKEND]")
             print("Storage backends: fs, gridfs, s3")
             exit(1)
