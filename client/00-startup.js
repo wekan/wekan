@@ -60,6 +60,22 @@ import { Utils } from '/client/lib/utils';
 // Token already lives in localStorage; cookie adds same-origin send-on-request semantics
 Meteor.startup(() => {
   const COOKIE_NAME = 'meteor_login_token';
+  const USER_ID_COOKIE = 'meteor_user_id';
+  const TOKEN_EXPIRES_COOKIE = 'meteor_login_token_expires';
+
+  const getCookie = (name) => {
+    try {
+      const parts = document.cookie ? document.cookie.split(';') : [];
+      for (const part of parts) {
+        const [k, ...rest] = part.trim().split('=');
+        if (decodeURIComponent(k) === name) {
+          return decodeURIComponent(rest.join('='));
+        }
+      }
+    } catch (_) {}
+    return '';
+  };
+
   const cookieAttrs = () => {
     const attrs = ['Path=/', 'SameSite=Lax'];
     try {
@@ -86,6 +102,37 @@ Meteor.startup(() => {
       // ignore
     }
   };
+
+  const bootstrapTokenFromCookie = () => {
+    try {
+      const currentToken = Accounts && typeof Accounts._storedLoginToken === 'function'
+        ? Accounts._storedLoginToken()
+        : null;
+      if (currentToken) {
+        return;
+      }
+
+      const token = getCookie(COOKIE_NAME);
+      const userId = getCookie(USER_ID_COOKIE);
+      const tokenExpiresRaw = getCookie(TOKEN_EXPIRES_COOKIE);
+      const tokenExpires = tokenExpiresRaw ? new Date(tokenExpiresRaw) : null;
+
+      if (!token || !userId || !tokenExpires || Number.isNaN(tokenExpires.getTime())) {
+        return;
+      }
+
+      if (Accounts && typeof Accounts._storeLoginToken === 'function') {
+        Accounts._storeLoginToken(userId, token, tokenExpires);
+        if (Meteor.status && !Meteor.status().connected && typeof Meteor.reconnect === 'function') {
+          Meteor.reconnect();
+        }
+      }
+    } catch (_) {
+      // ignore
+    }
+  };
+
+  bootstrapTokenFromCookie();
 
   // Initial sync on startup
   syncCookie();
