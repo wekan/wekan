@@ -64,6 +64,11 @@ and adds the following new features:
   [Part 2](https://github.com/wekan/wekan/commit/36d1c60bf45d5b66934ce3386c2a457008f415be).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix typo](https://github.com/wekan/wekan/commit/abc24cf38170ba3ace1aa2e8c80b9e34b67a9c77).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.30 2026-05-22 WeKan ® release
