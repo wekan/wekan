@@ -3,6 +3,10 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { Readable } from 'stream';
+import { ReactiveCache } from '/imports/reactiveCache';
+import AttachmentStorageSettings from '/models/attachmentStorageSettings';
+import { fileStoreStrategyFactory } from '/models/attachments.server';
 
 describe('attachmentApi authentication', function() {
   let findOneStub, hashStub;
@@ -198,6 +202,95 @@ describe('attachmentApi authentication', function() {
       }
 
       expect(req.connection.destroy.calledOnce).to.equal(true);
+    });
+  });
+
+  describe('attachment API method limits', function() {
+    let getAttachmentStub;
+    let getBoardStub;
+    let findSettingsStub;
+    let getFileStrategyStub;
+
+    afterEach(function() {
+      if (getAttachmentStub) getAttachmentStub.restore();
+      if (getBoardStub) getBoardStub.restore();
+      if (findSettingsStub) findSettingsStub.restore();
+      if (getFileStrategyStub) getFileStrategyStub.restore();
+
+      getAttachmentStub = null;
+      getBoardStub = null;
+      findSettingsStub = null;
+      getFileStrategyStub = null;
+    });
+
+    it('rejects api.attachment.upload when payload exceeds configured API upload limit', async function() {
+      const uploadHandler = Meteor.server.method_handlers['api.attachment.upload'];
+      expect(uploadHandler).to.be.a('function');
+
+      getBoardStub = sinon.stub(ReactiveCache, 'getBoard').resolves({
+        isBoardMember: () => true,
+        allowsAttachments: true,
+      });
+      getAttachmentStub = sinon.stub(ReactiveCache, 'getCard').resolves({
+        boardId: 'board-1',
+        swimlaneId: 'swimlane-1',
+        listId: 'list-1',
+      });
+      findSettingsStub = sinon.stub(AttachmentStorageSettings, 'findOneAsync').resolves({
+        limitSettings: {
+          apiUploadMaxBytes: 5,
+        },
+      });
+
+      let thrown;
+      try {
+        await uploadHandler.apply(
+          { userId: 'user-1' },
+          ['board-1', 'swimlane-1', 'list-1', 'card-1', Buffer.alloc(10).toString('base64'), 'big.bin', 'application/octet-stream', 'fs'],
+        );
+      } catch (error) {
+        thrown = error;
+      }
+
+      expect(thrown).to.exist;
+      expect(thrown.error).to.equal('upload-error');
+      expect(thrown.reason).to.include('Attachment exceeds API upload limit');
+    });
+
+    it('rejects api.attachment.download when stream exceeds configured API download limit', async function() {
+      const downloadHandler = Meteor.server.method_handlers['api.attachment.download'];
+      expect(downloadHandler).to.be.a('function');
+
+      getAttachmentStub = sinon.stub(ReactiveCache, 'getAttachment').resolves({
+        _id: 'att-1',
+        name: 'huge.bin',
+        size: undefined,
+        type: 'application/octet-stream',
+        meta: { boardId: 'board-1' },
+      });
+      getBoardStub = sinon.stub(ReactiveCache, 'getBoard').resolves({
+        isBoardMember: () => true,
+      });
+      findSettingsStub = sinon.stub(AttachmentStorageSettings, 'findOneAsync').resolves({
+        limitSettings: {
+          apiDownloadMaxBytes: 10,
+        },
+      });
+      getFileStrategyStub = sinon.stub(fileStoreStrategyFactory, 'getFileStrategy').returns({
+        getReadStream: () => Readable.from([Buffer.alloc(6), Buffer.alloc(6)]),
+        getStorageName: () => 'fs',
+      });
+
+      let thrown;
+      try {
+        await downloadHandler.apply({ userId: 'user-1' }, ['att-1']);
+      } catch (error) {
+        thrown = error;
+      }
+
+      expect(thrown).to.exist;
+      expect(thrown.error).to.equal('file-too-large');
+      expect(thrown.reason).to.include('Attachment exceeds API download limit');
     });
   });
 });

@@ -41,22 +41,47 @@ test.describe('Views & layout', () => {
   test('list order is consistent between list view and swimlanes view', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
 
+    const readListOrderByIds = async containerSelector => {
+      const lists = boardPage.locator(`${containerSelector} .js-list:not(.js-list-composer)`);
+      await expect(lists).toHaveCount(3, { timeout: 15_000 });
+      await expect(lists.first()).toBeVisible({ timeout: 15_000 });
+      return lists.evaluateAll(nodes =>
+        nodes
+          .map(node => node.id || '')
+          .map(id => id.replace(/^js-list-/, ''))
+          .filter(Boolean),
+      );
+    };
+
     await bp.switchToListView();
-    const listViewOrder = await bp.listTitles('.list-group.js-lists');
+    const listViewOrder = await readListOrderByIds('.list-group.js-lists');
 
     await bp.switchToSwimlanesView();
-    const swimlanesOrder = await bp.listTitles(`#swimlane-${board.swimlaneId}`);
+    const swimlanesOrder = await readListOrderByIds(`#swimlane-${board.swimlaneId}`);
 
-    // The order of list titles must match between views
+    // The order of lists must match between views.
     expect(listViewOrder).toEqual(swimlanesOrder);
   });
 
   test('list order change persists across page reload', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
 
+    const readListOrder = async () => {
+      const lists = boardPage.locator('.list-group.js-lists .js-list:not(.js-list-composer)');
+      await expect(lists).toHaveCount(3, { timeout: 15_000 });
+      await expect(lists.first()).toBeVisible({ timeout: 15_000 });
+      return lists.evaluateAll(nodes =>
+        nodes
+          .map(node => node.id || '')
+          .map(id => id.replace(/^js-list-/, ''))
+          .filter(Boolean),
+      );
+    };
+
     // Switch to list view and record initial order
     await bp.switchToListView();
-    const initialOrder = await bp.listTitles('.list-group.js-lists');
+    const initialOrder = await readListOrder();
+    expect(initialOrder.length).toBeGreaterThanOrEqual(3);
 
     // Drag list A after list C using keyboard-accessible approach via the DB
     // (We swap sort values directly to avoid flaky drag tests, then verify the UI reflects it)
@@ -69,7 +94,17 @@ test.describe('Views & layout', () => {
 
     await boardPage.reload({ waitUntil: 'networkidle' });
     await bp.switchToListView();
-    const newOrder = await bp.listTitles('.list-group.js-lists');
+
+    // Firefox can apply the reactive reorder slightly later after reload.
+    await expect.poll(async () => {
+      const order = await readListOrder();
+      return JSON.stringify(order);
+    }, {
+      timeout: 15_000,
+      message: 'Expected list order to change after DB sort update and reload',
+    }).not.toEqual(JSON.stringify(initialOrder));
+
+    const newOrder = await readListOrder();
 
     // The order should have changed
     expect(newOrder).not.toEqual(initialOrder);
@@ -77,7 +112,7 @@ test.describe('Views & layout', () => {
     // After another reload it should still be the new order
     await boardPage.reload({ waitUntil: 'networkidle' });
     await bp.switchToListView();
-    const reloadedOrder = await bp.listTitles('.list-group.js-lists');
+    const reloadedOrder = await readListOrder();
     expect(reloadedOrder).toEqual(newOrder);
   });
 

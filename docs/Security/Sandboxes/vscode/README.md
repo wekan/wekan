@@ -161,6 +161,83 @@ npx playwright test --project=chromium
 
 This runs headless browser tests inside Flatpak sandboxed VS Code terminal (no external/native browser window needed).
 
+### Run Firefox/WebKit too
+
+By default this repo runs only the `chromium` Playwright project.
+To enable `firefox` and `webkit` projects, set:
+
+```bash
+export WEKAN_PLAYWRIGHT_ALL=1
+```
+
+Then run for example:
+
+```bash
+cd /home/wekan/repos/wekan/tests/playwright
+export HOME="/home/wekan/repos/wekan/.tools"
+unset CHROME_DEVEL_SANDBOX
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export WEKAN_PLAYWRIGHT_ALL=1
+
+/home/wekan/repos/wekan/.tools/.meteor/meteor npm exec playwright test -- --project=firefox
+/home/wekan/repos/wekan/.tools/.meteor/meteor npm exec playwright test -- --project=webkit
+```
+
+Without `WEKAN_PLAYWRIGHT_ALL=1`, Playwright config exposes only `chromium`, and `--project=firefox`/`--project=webkit` will fail with "Project not found".
+
+### If `playwright install-deps` fails because of unrelated apt repo keys
+
+On some hosts, this command can fail even when browser deps are already installed:
+
+```bash
+sudo npx playwright install-deps
+```
+
+Example failure:
+
+- `NO_PUBKEY ...`
+- `The repository ... is not signed`
+
+This is usually caused by a third-party apt source (PPA/repo), not by Playwright itself.
+
+Use either of these approaches:
+
+1. Install required packages directly (recommended fallback):
+
+```bash
+sudo apt install -y \
+  libgtk-4-1 \
+  libxml2 \
+  libevent-2.1-7t64 \
+  libflite1 \
+  libjpeg-turbo8 \
+  libmanette-0.2-0 \
+  libenchant-2-2 \
+  libwoff1
+```
+
+2. Or temporarily disable the broken third-party apt source, run `install-deps`, then re-enable it.
+
+In this sandbox workflow, manual apt package install is enough and avoids failures caused by unrelated repositories.
+
+### Verified WebKit status in this setup
+
+After applying the sandbox env settings from this document and running with:
+
+```bash
+cd /home/wekan/repos/wekan/tests/playwright
+export HOME="/home/wekan/repos/wekan/.tools"
+unset CHROME_DEVEL_SANDBOX
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export WEKAN_PLAYWRIGHT_ALL=1
+
+/home/wekan/repos/wekan/.tools/.meteor/meteor npm exec playwright test -- --project=webkit
+```
+
+validated result:
+
+- `105 passed` (WebKit project)
+
 ## 10) Optional smoke test for headless Chromium in sandbox
 
 ```bash
@@ -172,3 +249,153 @@ node -e "(async()=>{const {chromium}=require('playwright');const b=await chromiu
 ```
 
 If output is `PW_OK`, headless Chromium launch is working inside sandbox.
+
+## 11) Additional findings from real test runs (important)
+
+These were verified while running the full Playwright suite in this exact sandbox setup.
+
+### A) Wekan app startup for tests requires `WRITABLE_PATH`
+
+If `WRITABLE_PATH` is missing, app startup can fail with:
+
+`WRITABLE_PATH environment variable missing and/or unset`
+
+Use a local writable test directory before starting app:
+
+```bash
+cd /home/wekan/repos/wekan
+export WRITABLE_PATH="$PWD/.test-writable"
+mkdir -p "$WRITABLE_PATH/files/attachments" "$WRITABLE_PATH/files/avatars"
+```
+
+Then run app:
+
+```bash
+/home/wekan/.meteor/meteor --port 3000
+```
+
+### B) Playwright seed helpers require `mongosh`
+
+Playwright fixtures seed test data via `tests/playwright/helpers/db.js`, which calls `mongosh`.
+If missing, tests fail early with:
+
+`Error: spawnSync mongosh ENOENT`
+
+Install `mongosh` as a dependency in Playwright test project:
+
+```bash
+cd /home/wekan/repos/wekan
+/home/wekan/.meteor/meteor npm --prefix tests/playwright install mongosh
+```
+
+The helper now also searches `tests/playwright/node_modules/.bin` so this works in sandbox without system-wide mongosh.
+
+### C) If repo-local `.tools/node...` does not exist
+
+In some sandboxes the `.tools` Node path is missing. You can still run commands via Meteor wrapper:
+
+```bash
+/home/wekan/.meteor/meteor npm -v
+/home/wekan/.meteor/meteor npm exec playwright --version
+```
+
+### D) Proven working execution order
+
+Terminal 1 (start app):
+
+```bash
+cd /home/wekan/repos/wekan
+export WRITABLE_PATH="$PWD/.test-writable"
+mkdir -p "$WRITABLE_PATH/files/attachments" "$WRITABLE_PATH/files/avatars"
+unset CHROME_DEVEL_SANDBOX
+/home/wekan/.meteor/meteor --port 3000
+```
+
+Terminal 2 (run tests):
+
+```bash
+cd /home/wekan/repos/wekan/tests/playwright
+unset CHROME_DEVEL_SANDBOX
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+/home/wekan/.meteor/meteor npm exec playwright test -- --project=chromium
+```
+
+Expected result from this validated setup:
+
+- `105 passed` (Chromium project)
+
+## 12) About `meteor test` in this sandbox
+
+`meteor test --driver-package meteortesting:mocha` can start successfully but still report `0 passing` in this environment due to test discovery/driver behavior.
+
+For reliable headless validation inside this sandbox, prefer Playwright run described above.
+
+If you get `EROFS` errors writing to `~/.meteor/packages` (read-only home mount), run Meteor from the repo-local copy and point `HOME` to `.tools`:
+
+```bash
+cd /home/wekan/repos/wekan
+export HOME="$PWD/.tools"
+unset METEOR_WAREHOUSE_DIR
+export WRITABLE_PATH="$PWD/.test-writable"
+mkdir -p "$WRITABLE_PATH/files/attachments" "$WRITABLE_PATH/files/avatars"
+unset CHROME_DEVEL_SANDBOX
+
+"$PWD/.tools/.meteor/meteor" test --once --driver-package meteortesting:mocha --full-app --test server/lib/tests/attachmentApi.authContext.tests.js
+```
+
+## 13) Quick copy-paste: prepare + run Chromium tests
+
+Use this when you want one command block that prepares required paths/dependencies and runs Playwright Chromium tests.
+
+Note: this assumes Wekan app is already running at `http://localhost:3000` in another terminal.
+
+```bash
+cd /home/wekan/repos/wekan
+
+# Ensure test writable directories exist
+export WRITABLE_PATH="$PWD/.test-writable"
+mkdir -p "$WRITABLE_PATH/files/attachments" "$WRITABLE_PATH/files/avatars"
+
+# Sandbox-safe browser env
+unset CHROME_DEVEL_SANDBOX
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+
+# Ensure Playwright-side mongosh exists for DB seeding
+/home/wekan/.meteor/meteor npm --prefix tests/playwright install mongosh
+
+# Run Chromium tests
+cd tests/playwright
+/home/wekan/.meteor/meteor npm exec playwright test -- --project=chromium
+```
+
+If you also need to start app in a separate terminal:
+
+```bash
+cd /home/wekan/repos/wekan
+export WRITABLE_PATH="$PWD/.test-writable"
+mkdir -p "$WRITABLE_PATH/files/attachments" "$WRITABLE_PATH/files/avatars"
+unset CHROME_DEVEL_SANDBOX
+/home/wekan/.meteor/meteor --port 3000
+```
+
+## 14) Minimal copy-paste only (no explanations)
+
+Terminal 1:
+
+```bash
+cd /home/wekan/repos/wekan
+export WRITABLE_PATH="$PWD/.test-writable"
+mkdir -p "$WRITABLE_PATH/files/attachments" "$WRITABLE_PATH/files/avatars"
+unset CHROME_DEVEL_SANDBOX
+/home/wekan/.meteor/meteor --port 3000
+```
+
+Terminal 2:
+
+```bash
+cd /home/wekan/repos/wekan
+unset CHROME_DEVEL_SANDBOX
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+/home/wekan/.meteor/meteor npm --prefix tests/playwright install mongosh
+/home/wekan/.meteor/meteor npm --prefix tests/playwright exec playwright test -- --project=chromium
+```

@@ -3,5 +3,8 @@
   "private": true,
   "devDependencies": {
     "@playwright/test": "^1.49.0"
+  },
+  "dependencies": {
+    "mongosh": "^2.8.3"
   }
 }

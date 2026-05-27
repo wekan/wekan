@@ -10,8 +10,10 @@ const MONGO_URL = process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteo
 function mongoEval(script) {
   const repoRoot = path.resolve(__dirname, '../../..');
   const toolsDir = path.join(repoRoot, '.tools');
+  const playwrightBinDir = path.resolve(__dirname, '../node_modules/.bin');
 
   const extraPaths = [
+    playwrightBinDir,
     '/opt/homebrew/bin',
     '/usr/local/bin',
     toolsDir,

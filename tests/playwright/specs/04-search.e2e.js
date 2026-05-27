@@ -23,9 +23,23 @@ test.describe('Search', () => {
     await sp.navigateToGlobalSearch();
     await sp.globalSearch('Alpha Card');
 
-    const titles = await sp.globalSearchResultTitles();
+    await expect.poll(async () => {
+      const currentTitles = (await sp.globalSearchResultTitles())
+        .map(t => t.trim())
+        .filter(Boolean);
+      return currentTitles.filter(t => t.toLowerCase().includes('alpha')).length;
+    }, {
+      timeout: 20_000,
+      intervals: [500, 1000, 2000],
+      message: 'Expected global search to return at least one Alpha result',
+    }).toBeGreaterThanOrEqual(1);
+
+    const titles = (await sp.globalSearchResultTitles())
+      .map(t => t.trim())
+      .filter(Boolean);
+
     const matching = titles.filter(t => t.toLowerCase().includes('alpha'));
-    const nonMatching = titles.filter(t => !t.toLowerCase().includes('alpha') && t.trim() !== '');
+    const nonMatching = titles.filter(t => !t.toLowerCase().includes('alpha'));
 
     expect(matching.length).toBeGreaterThanOrEqual(1);
     expect(nonMatching.length).toBe(0);
