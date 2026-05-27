@@ -92,13 +92,13 @@ and by companies that have 30k users.
 
 ## XSS
 
-- DOMpurify https://www.npmjs.com/package/dompurify
-  - WeKan uses DOMpurify npm package to filter for XSS at fields like cards, as you can see from
+- DOMPurify https://www.npmjs.com/package/dompurify
+  - WeKan uses DOMPurify npm package to filter for XSS at fields like cards, as you can see from
     [package.json](https://github.com/wekan/wekan/blob/main/package.json). Other used versions can be seen from
     [Meteor versions file](https://github.com/wekan/wekan/blob/main/.meteor/versions).
   - Forms can include markdown links, html, image tags etc like you see at https://wekan.github.io .
   - It's possible to add attachments to cards, and markdown/html links to files.
-  - Dompurify cleans up viewed code, so JavaScript in input fields does not execute
+  - DOMPurify cleans up viewed code, so JavaScript in input fields does not execute
     - https://wekan.github.io/hall-of-fame/fieldbleed/
 - Reaction in comment is now checked, that it does not have extra added code
   - https://wekan.github.io/hall-of-fame/reactionbleed/
