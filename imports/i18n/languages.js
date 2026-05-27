@@ -90,6 +90,20 @@ export default {
     load: () => import('./data/bg.i18n.json'),
     rtl: false,
   },
+  "be": {
+    code: "be",
+    tag: "be",
+    name: "Беларуская",
+    load: () => import('./data/be.i18n.json'),
+    rtl: false,
+  },
+  "be-BE": {
+    code: "be",
+    tag: "be-BE",
+    name: "Беларуская (Беларусь)",
+    load: () => import('./data/be.i18n.json'),
+    rtl: false,
+  },
   "br": {
     code: "br",
     tag: "br",
