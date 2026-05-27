@@ -1526,7 +1526,6 @@
   "filesystem-disabled": "Filesystem Storage Disabled",
   "filesystem-enabled-description": "Use local filesystem for file storage",
   "storage-read": "Read",
-  "storage-write": "Save",
   "gridfs-enabled": "GridFS Enabled",
   "gridfs-disabled": "GridFS Disabled",
   "gridfs-enabled-description": "Use MongoDB GridFS for file storage",

@@ -1,4 +1,4 @@
-template(name="attachments")
+atemplate(name="attachments")
   .setting-content.attachments-content
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
@@ -111,7 +111,7 @@ template(name="attachments")
                     label(for="filesystem-read") {{_ 'storage-read'}}
                   .storage-rw-item
                     input.js-toggle-filesystem-write#filesystem-write(type="checkbox" checked="{{filesystemWrite}}")
-                    label(for="filesystem-write") {{_ 'storage-write'}}
+                    label(for="filesystem-write") {{_ 'save'}}
 
                 .form-group
                   button.js-calculate-filesystem-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
@@ -156,7 +156,7 @@ template(name="attachments")
                     label(for="gridfs-read") {{_ 'storage-read'}}
                   .storage-rw-item
                     input.js-toggle-gridfs-write#gridfs-write(type="checkbox" checked="{{gridfsWrite}}")
-                    label(for="gridfs-write") {{_ 'storage-write'}}
+                    label(for="gridfs-write") {{_ 'save'}}
                 .form-group
                   button.js-calculate-gridfs-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
                   if gridFsStatsLoading
@@ -205,7 +205,7 @@ template(name="attachments")
                     label(for="s3-read") {{_ 'storage-read'}}
                   .storage-rw-item
                     input#s3-write(type="checkbox" checked="{{s3Write}}" disabled)
-                    label(for="s3-write") {{_ 'storage-write'}}
+                    label(for="s3-write") {{_ 'save'}}
 
                 .form-group
                   button.js-calculate-s3-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
