@@ -54,6 +54,8 @@ and adds the following updates:
   Thanks to developers of dependencies.
 - [Add more tests. Fix tests](https://github.com/wekan/wekan/commit/7a615cea52f27e6d15660aaf18ccc8396a1f6f3d).
   Thanks to xet7.
+- [Upgrade Meteor to 3.5-beta.12](https://github.com/wekan/wekan/pull/6362).
+  Thanks to harryadel.
 
 and adds the following new features:
 
