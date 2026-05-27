@@ -28,7 +28,13 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Fix GHSA-g6vm-7757-pr88. Moved Attachment Storage options from board to Admin Panel. Changed API to use Expose Meteor user context to Express endpoints](https://github.com/wekan/wekan/commit/8351bba818a04c9db11a0e3fa380a10f8d51482c).
+  Thanks to Jan Kahmen of turingpoint GmbH for reporting GHSA-g6vm-7757-pr88 and xet7 for fixes and attachment improvements.
+  Thanks to nachocodoner about https://forums.meteor.com/t/expose-meteor-user-context-to-express-endpoints/64384.
+
+and adds the following updates:
 
 - [Ubuntu 26.04 based core26 beta can be at devel like beta channel, not yet candidate](https://github.com/wekan/wekan/commit/8cda80752fd56c870cb139600fedc82643874c3b).
   Thanks to xet7.
@@ -46,6 +52,15 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/8e13f2bce92bdd62f0c42900410683a518aba721),
   [Part 2](https://github.com/wekan/wekan/commit/769a139e70a4808b35c91fcd4f2b52a97890ff79).
   Thanks to developers of dependencies.
+- [Add more tests. Fix tests](https://github.com/wekan/wekan/commit/7a615cea52f27e6d15660aaf18ccc8396a1f6f3d).
+  Thanks to xet7.
+
+and adds the following new features:
+
+- Add Header Login.
+  [Part 1](https://github.com/wekan/wekan/commit/a3c32ff5616842ba306d8e52fd6c4bf350402c87),
+  [Part 2](https://github.com/wekan/wekan/commit/36d1c60bf45d5b66934ce3386c2a457008f415be).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
