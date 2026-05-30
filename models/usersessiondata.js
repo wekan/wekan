@@ -229,7 +229,11 @@ if (!Meteor.isServer) {
   SessionData.getSessionId = () => {
     let sessionId = Session.get('sessionId');
     if (!sessionId) {
-      sessionId = `${String(Meteor.userId())}-${String(Math.random())}`;
+      const randomBytes = new Uint8Array(16);
+      crypto.getRandomValues(randomBytes);
+      const randomSuffix = Array.from(randomBytes, byte =>
+        byte.toString(16).padStart(2, '0')).join('');
+      sessionId = `${String(Meteor.userId())}-${randomSuffix}`;
       Session.set('sessionId', sessionId);
     }
 
