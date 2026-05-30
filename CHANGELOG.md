@@ -46,7 +46,9 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   (escaping both quotes), making the escaping atomic and complete while keeping the
   emitted string literals decode-equivalent.
   Thanks to CodeQL.
-- Fix CodeQL no. 67: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/66d15f6ab0b3c42ae5de565490645d4c83f0a997).
+- [Fix CodeQL 67: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/66d15f6ab0b3c42ae5de565490645d4c83f0a997).
+  Thanks to GitHub Copilot.
+- [Fix CodeQL 60: Useless regular-expression character escape](https://github.com/wekan/wekan/commit/fc76d0e5767f021cae3d466147e5f7695594ac8c).
   Thanks to GitHub Copilot.
 
 and adds the following updates:
