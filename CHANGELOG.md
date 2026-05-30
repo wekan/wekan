@@ -66,6 +66,8 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   Thanks to CodeQL and GitHub Copilot.
 - [Delete calendar demos, so that CodeQL stops complaining](https://github.com/wekan/wekan/commit/d0b2b5201e8a43a067ca32b0cf6a542695213406).
   Thanks to xet7.
+- [Fix CodeQL 35: Insecure randomness](https://github.com/wekan/wekan/commit/358d893c3382ca90a408055713d9b6ffda73f33a).
+  Thanks to CodeQL and GitHub Copilot.
 
 and adds the following updates:
 
