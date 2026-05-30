@@ -30,6 +30,13 @@ Versions:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
+- [Fix regression from the avatar RCE fix GHSA-35j7-h385-2q9g: external antivirus scanner broken (`asyncExec` undefined)](https://github.com/wekan/wekan/commit/8ea5a6a097f1b598688a94832e94bd1ec1b34cd6).
+  The avatar RCE fix renamed `asyncExec` to `asyncExecFile` in `models/fileValidation.js`, but the
+  admin-configured external scanner command line still called the now-undefined `asyncExec`, throwing
+  `ReferenceError` (swallowed by the catch) and making every upload silently fail validation whenever
+  an external scanner was configured. Restored a shell-based `asyncExec` used only for that
+  admin-configured command line; MIME detection still uses the shell-free `asyncExecFile`.
+  Thanks to Claude.
 - [Fix CodeQL 68: Polynomial regex DoS in Jade parser](https://github.com/wekan/wekan/commit/ae671bc70a0b2e0bb0cdcf24130477a0dd72ea72).
   Thanks to CodeQL and Claude.
 - [Fix CodeQL 69: Polynomial regex DoS in Jade parser, part 2](https://github.com/wekan/wekan/commit/105199991f2944ac431906e5b5cbeb10de003870).
