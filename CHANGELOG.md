@@ -30,6 +30,20 @@ Versions:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
+- [Fix GHSA-mp7g-hj5q-gxhq: OIDC Account Takeover via Unconditional Email-Based Account Merge in `Accounts.onCreateUser` hook (CWE-287)](https://github.com/wekan/wekan/commit/73204d4e0a7d77a1b186b3d76e8eaf2f3e7c9fd9).
+  The `onCreateUser` hook in `server/models/users.js` unconditionally merged an incoming OIDC login
+  into any existing Wekan account whose email **or** username matched the (attacker-controlled) OIDC
+  claims — no ownership check, no email-verification check, no notification. An attacker who could
+  present a matching `email`/`username` claim (trivial on self-hosted Keycloak/Authentik, where the
+  `email`/`email_verified` claims are attacker-settable) inherited the victim's `_id`, boards, cards,
+  attachments, API tokens and admin status, all during the attacker's own first OIDC login with no
+  victim interaction. Fixed to fail closed, mirroring `LDAP_MERGE_EXISTING_USERS`: matching is now by
+  email only (never username); auto-linking is opt-in via the new `OAUTH2_MERGE_EXISTING_USERS`
+  setting (OFF by default, so the default deployment never merges); even when enabled the OIDC
+  provider must assert `email_verified=true`; otherwise the OIDC login is rejected with
+  `oidc-email-already-in-use` instead of merging. The provider's `email_verified` claim is now
+  captured into the OIDC service data in `packages/wekan-oidc/oidc_server.js`.
+  Thanks to alexwaira for the coordinated disclosure, and Claude.
 - [Fix GHSA-6733-4wgq-8xvr: Read-only board members could create/modify/delete Custom Fields](https://github.com/wekan/wekan/commit/70db04a93fedabe40331f21f86e6bdc91625914e).
   (privilege escalation via read-level authz on write operations, CWE-862).
   All six mutating REST handlers in `server/models/customFields.js` (POST/PUT custom-fields,
