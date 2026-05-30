@@ -54,6 +54,8 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   Thanks to GitHub Copilot.
 - [Fix CodeQL 57: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/36274f35f4de10a9f271cb8fc1154499fe8a2415).
   Thanks to GitHub Copilot.
+- Fix CodeQL 56: Incomplete string escaping or encoding](https://github.com/wekan/wekan/commit/c5e42607af5a0a396c0c85dba3652b8be28a2ff3).
+  Thanks to GitHub Copilot.
 
 and adds the following updates:
 
