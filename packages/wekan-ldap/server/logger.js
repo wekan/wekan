@@ -24,10 +24,17 @@ function sanitizeForLogging(value) {
     return value;
 }
 
-function log (level, message, data) {
+function log (level, ...args) {
     if (isLogEnabled) {
-        const safeData = data ? JSON.stringify(sanitizeForLogging(data), null, 2) : '';
-        console.log(`[${level}] ${message} ${safeData}`);
+        const safeMessage = args
+            .map((arg) => {
+                const sanitized = sanitizeForLogging(arg);
+                return (sanitized && typeof sanitized === 'object')
+                    ? JSON.stringify(sanitized, null, 2)
+                    : String(sanitized);
+            })
+            .join(' ');
+        console.log(`[${level}] ${safeMessage}`);
     }
 }
 
