@@ -33,7 +33,11 @@ function sanitizeFilename(filename) {
   safe = safe.replace(/\0/g, '');
 
   // Remove any remaining path traversal sequences
-  safe = safe.replace(/\.\.[\\/\\]/g, '');
+  let previous;
+  do {
+    previous = safe;
+    safe = safe.replace(/\.\.[\\/\\]/g, '');
+  } while (safe !== previous);
   safe = safe.replace(/^\.\.$/, '');
 
   // Trim whitespace
