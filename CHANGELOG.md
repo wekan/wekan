@@ -32,6 +32,11 @@ This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Fix Polynomial regex DoS in Jade parser](https://github.com/wekan/wekan/commit/ae671bc70a0b2e0bb0cdcf24130477a0dd72ea72).
   Thanks to CodeQL.
+- [Fix Polynomial regex DoS in Jade parser, part 2](https://github.com/wekan/wekan/commit/105199991f2944ac431906e5b5cbeb10de003870).
+  Remove the redundant `$` anchor from the interpolation regex in `compiler.js` and bundled `jade.js`.
+  The greedy `[\s\S]*` already matches to end of string, so dropping `$` keeps the same match
+  while eliminating the backtracking that CodeQL alert `js/polynomial-redos` flagged.
+  Thanks to CodeQL.
 
 and adds the following updates:
 
