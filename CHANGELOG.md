@@ -30,14 +30,14 @@ Versions:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
-- [Fix Polynomial regex DoS in Jade parser](https://github.com/wekan/wekan/commit/ae671bc70a0b2e0bb0cdcf24130477a0dd72ea72).
-  Thanks to CodeQL.
-- [Fix Polynomial regex DoS in Jade parser, part 2](https://github.com/wekan/wekan/commit/105199991f2944ac431906e5b5cbeb10de003870).
+- [Fix CodeQL 68: Polynomial regex DoS in Jade parser](https://github.com/wekan/wekan/commit/ae671bc70a0b2e0bb0cdcf24130477a0dd72ea72).
+  Thanks to CodeQL and Claude.
+- [Fix CodeQL 69: Polynomial regex DoS in Jade parser, part 2](https://github.com/wekan/wekan/commit/105199991f2944ac431906e5b5cbeb10de003870).
   Remove the redundant `$` anchor from the interpolation regex in `compiler.js` and bundled `jade.js`.
   The greedy `[\s\S]*` already matches to end of string, so dropping `$` keeps the same match
   while eliminating the backtracking that CodeQL alert `js/polynomial-redos` flagged.
-  Thanks to CodeQL.
-- [Fix Incomplete string escaping or encoding in bundled `jade.js`](https://github.com/wekan/wekan/commit/b4b81684e0d28406c6499b9ba6bf33b301a3faa9).
+  Thanks to CodeQL and Claude.
+- [Fix CodeQL 63: Incomplete string escaping or encoding in bundled `jade.js`](https://github.com/wekan/wekan/commit/b4b81684e0d28406c6499b9ba6bf33b301a3faa9).
   In uglify-js's `make_string` (bundled twice into jade's browser bundle), the chosen
   quote was escaped in a trailing `str.replace(/'/g, "\\'")` that CodeQL alert
   `js/incomplete-sanitization` flags for not escaping backslashes in that same call.
@@ -45,23 +45,25 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   local false positive, but the fix folds the quote escaping into that same pass
   (escaping both quotes), making the escaping atomic and complete while keeping the
   emitted string literals decode-equivalent.
-  Thanks to CodeQL.
+  Thanks to CodeQL and Claude.
 - [Fix CodeQL 67: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/66d15f6ab0b3c42ae5de565490645d4c83f0a997).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
 - [Fix CodeQL 60: Useless regular-expression character escape](https://github.com/wekan/wekan/commit/fc76d0e5767f021cae3d466147e5f7695594ac8c).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
 - [Fix CodeQL 58: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/13f78f620709f16e753a0831faa7f98cfcf5c58e).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
 - [Fix CodeQL 57: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/36274f35f4de10a9f271cb8fc1154499fe8a2415).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
 - Fix CodeQL 56: Incomplete string escaping or encoding](https://github.com/wekan/wekan/commit/c5e42607af5a0a396c0c85dba3652b8be28a2ff3).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
 - [Fix CodeQL 55: Incomplete string escaping or encoding](https://github.com/wekan/wekan/commit/50728616871b0db8e05d5391ea479ae8099236d1).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
 - [Fix CodeQL 48: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/b6564c81f1cbfc6bdf0b4bd72fc9a9ce36b36f6e).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
 - [Fix CodeQL 418: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/f882a14ee07e6fbef16594851a773275d6547dba).
-  Thanks to GitHub Copilot.
+  Thanks to CodeQL and GitHub Copilot.
+- [Fix CodeQL 419: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/6b923eb4c21ef66c2d4ff859ffed4293365aaf9f).
+  Thanks to CodeQL and GitHub Copilot.
 
 and adds the following updates:
 
