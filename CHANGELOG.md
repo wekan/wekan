@@ -30,6 +30,24 @@ Versions:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
+- [Fix GHSA-7w2h-g83c-jqrp: Authorization bypass in `copyBoard` DDP method allows any user to copy private boards (CWE-862)](https://github.com/wekan/wekan/commit/8940a103970c5da3f02b3615eef09fabfff421e3).
+  The `copyBoard` Meteor method in `server/publications/boards.js`
+  had no authorization check: any logged-in user
+  could copy any board by ID — including private boards they are not a member of —
+  cloning all cards, checklists, custom fields, labels and rules, while the
+  equivalent REST endpoint `POST /api/boards/:boardId/copy` correctly required
+  board admin. The method also looped over caller-supplied `properties`
+  (`for (const key in properties) board[key] = properties[key]`) and copied them
+  onto the new board, letting an attacker inject arbitrary fields such as
+  `members` (to add themselves as admin of the copy) or `permission: 'public'`
+  (to expose the copy to everyone). The member-level fix shipped in v9.09 as part
+  of the AuthBleed fixes (caller must be authenticated, board must exist, caller
+  must be a board member, and `members`/`permission` are stripped from
+  `properties` before the copy). This release tightens it further to full parity
+  with the REST endpoint: `copyBoard` now requires the caller to be a board admin
+  (`board.hasAdmin(this.userId)`, the same `{isActive:true, isAdmin:true}`
+  condition the REST API enforces via `checkAdminOrCondition`) rather than merely
+  a member.
 - [Fix GHSA-cv95-8h7c-2ffq: Missing authorization on OIDC Meteor methods allows privilege escalation to admin (CWE-269, CWE-862)](https://github.com/wekan/wekan/commit/305864f0c77456ad0f2c1e616266c8a06749c951).
   Six Meteor methods used internally by the OIDC login flow were registered as globally DDP-callable
   with no authorization, while their non-OIDC counterparts require admin. `setCreateOrgFromOidc` and
