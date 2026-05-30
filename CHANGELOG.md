@@ -37,6 +37,15 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   The greedy `[\s\S]*` already matches to end of string, so dropping `$` keeps the same match
   while eliminating the backtracking that CodeQL alert `js/polynomial-redos` flagged.
   Thanks to CodeQL.
+- [Fix Incomplete string escaping or encoding in bundled `jade.js`](https://github.com/wekan/wekan/commit/b4b81684e0d28406c6499b9ba6bf33b301a3faa9).
+  In uglify-js's `make_string` (bundled twice into jade's browser bundle), the chosen
+  quote was escaped in a trailing `str.replace(/'/g, "\\'")` that CodeQL alert
+  `js/incomplete-sanitization` flags for not escaping backslashes in that same call.
+  Backslashes were already escaped in the earlier single-pass `replace`, so this was a
+  local false positive, but the fix folds the quote escaping into that same pass
+  (escaping both quotes), making the escaping atomic and complete while keeping the
+  emitted string literals decode-equivalent.
+  Thanks to CodeQL.
 
 and adds the following updates:
 
