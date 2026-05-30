@@ -4,6 +4,7 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Integrations from '/models/integrations';
+import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
 
 Meteor.startup(async () => {
   await Integrations._collection.createIndexAsync({ modifiedAt: -1 });
@@ -57,6 +58,18 @@ WebApp.handlers.post('/api/boards/:boardId/integrations', async function(req, re
     const paramBoardId = req.params.boardId;
     await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
+    // SSRF protection: block webhook URLs that resolve to private/loopback/
+    // link-local addresses (e.g. cloud metadata at 169.254.169.254) before the
+    // URL is ever stored and delivered server-side. See GHSA-hc3x-hq3m-663q.
+    const validation = await validateAttachmentUrl(req.body.url);
+    if (!validation.valid) {
+      sendJsonResult(res, {
+        code: 400,
+        data: { error: 'invalid-webhook-url', reason: validation.reason },
+      });
+      return;
+    }
+
     const id = await Integrations.insertAsync({
       userId: req.userId,
       boardId: paramBoardId,
@@ -96,6 +109,17 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
       );
     }
     if (req.body.hasOwnProperty('url')) {
+      // SSRF protection: this update path uses Integrations.direct, which
+      // bypasses the schema's url validator, so validate explicitly here.
+      // See GHSA-hc3x-hq3m-663q.
+      const validation = await validateAttachmentUrl(req.body.url);
+      if (!validation.valid) {
+        sendJsonResult(res, {
+          code: 400,
+          data: { error: 'invalid-webhook-url', reason: validation.reason },
+        });
+        return;
+      }
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },
         { $set: { url: req.body.url } },
