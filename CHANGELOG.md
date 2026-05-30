@@ -186,7 +186,22 @@ and adds the following updates:
   [Part 8](https://github.com/wekan/wekan/commit/42d79b3dcf820b1a74d3930523557737a7389f37).
   Thanks to developers of dependencies.
 
-and fixed the following bugs:
+and adds the following new features:
+
+- [Add User board access roles to Admin Panel / People / Roles](https://github.com/wekan/wekan/commit/c956ab5a4e2d675641f8c74df2dcde675474ab06).
+  A new global "Roles" tab in Admin Panel / People lets a site admin choose which
+  board roles are allowed to invite users to a board ("Allow Invite to Board").
+  Each board role has its own toggle — Board Admin, Normal, Worker, Comment only,
+  No comments, Only Assigned Normal, Only Assigned Comment, Read Only and Only
+  Assigned Read — plus an "All Board Members" master toggle that selects them all.
+  The policy is enforced server-side in the `inviteUserToBoard` and `searchUsers`
+  methods, and the add-member button in the board sidebar is shown only to roles
+  the policy allows. Global Admin Panel users (site admins) always have all rights
+  and cannot be restricted here; this is kept clearly distinct in code from the
+  per-board "Board Admin" role. Secure default: only Board Admin and Normal may invite.
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix typos](https://github.com/wekan/wekan/commit/64b43a42ddc55f4196845834234035a9da0a6bd1).
   Thanks to xet7.
