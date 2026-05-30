@@ -30,6 +30,39 @@ Versions:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
+- [Fix GHSA-hc3x-hq3m-663q: Server-Side Request Forgery (SSRF) via webhook integration URLs (CWE-918)](https://github.com/wekan/wekan/commit/0e5fef6f31164fd3de4db353d04173ee0490cd65).
+  Wekan's outgoing-webhook integrations let a board
+  admin store an arbitrary URL that is later fetched server-side, so a
+  caller-controlled URL pointing at an internal address (cloud metadata at
+  `http://169.254.169.254/latest/meta-data/`, loopback, RFC 1918 ranges, etc.)
+  could be used to reach internal services or exfiltrate data.
+  - **Originally fixed at the delivery layer in v8.35 and v8.36** (the
+    [IntegrationBleed](https://wekan.fi/hall-of-fame/integrationbleed/) fixes).
+    [Fix IntegrationBleed (v8.35)](https://github.com/wekan/wekan/commit/2cd702f48df2b8aef0e7381685f8e089986a18a4)
+    routed webhook delivery in `server/notifications/outgoing.js` through
+    `fetchSafe` (`server/lib/ssrfGuard.js`), which validates the URL and blocks
+    private/loopback IPs, and
+    [Fix RebindBleed of IntegrationBleed (v8.36)](https://github.com/wekan/wekan/commit/92beaa313706bc26fbea7e1cc8cfaf836609e038)
+    hardened it further to resolve DNS once, pin the connection to the validated
+    IP, and block redirects — closing the actual request-time SSRF including DNS
+    rebinding.
+  - **New in this release:** the missing input-side validation the advisory
+    requested, added at the REST write paths in `server/models/integrations.js`.
+    Those endpoints accepted webhook URLs without a robust check:
+    `POST /api/boards/:boardId/integrations` relied only on the schema's regex
+    `custom()` validator (no DNS resolution, blind to a hostname that resolves to
+    a private IP and to decimal/octal/IPv4-mapped-IPv6 encodings), and
+    `PUT /api/boards/:boardId/integrations/:intId` wrote the URL via
+    `Integrations.direct.updateAsync`, which bypasses schema validation entirely,
+    so updated URLs were never validated at the data layer. Both endpoints now run
+    the DNS-aware `validateAttachmentUrl()`
+    (`models/lib/attachmentUrlValidation.js`, the same validator already used for
+    attachment imports) before storing the URL, rejecting
+    private/loopback/link-local/reserved targets with HTTP 400. Together with the
+    v8.35/v8.36 `fetchSafe` delivery guard and the schema validator on
+    client-side inserts/updates, webhook URLs are now validated on every write
+    path and again at delivery.
+  Thanks to Claude.
 - [Fix GHSA-7w2h-g83c-jqrp: Authorization bypass in `copyBoard` DDP method allows any user to copy private boards (CWE-862)](https://github.com/wekan/wekan/commit/8940a103970c5da3f02b3615eef09fabfff421e3).
   The `copyBoard` Meteor method in `server/publications/boards.js`
   had no authorization check: any logged-in user
