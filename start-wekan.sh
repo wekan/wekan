@@ -259,6 +259,15 @@
       # Azure AD B2C. https://github.com/wekan/wekan/issues/5242
       #export OAUTH2_B2C_ENABLED=false
       #
+      # SECURITY (GHSA-mp7g-hj5q-gxhq): Link an OIDC login to a pre-existing
+      # Wekan account (password/LDAP) that has the same email address. OFF by
+      # default. When false, an OIDC login whose email already belongs to
+      # another account is rejected instead of merged, preventing account
+      # takeover via spoofed email claims. Only enable if you fully trust your
+      # OIDC provider's email claims; even then the provider must send
+      # email_verified=true for the merge to happen.
+      #export OAUTH2_MERGE_EXISTING_USERS=false
+      #
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
       # OAuth2 login style: popup or redirect.
       #export OAUTH2_LOGIN_STYLE=redirect

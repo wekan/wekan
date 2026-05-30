@@ -75,6 +75,13 @@ OAuth.registerService('oidc', 2, null, async function (query) {
     serviceData.email = userinfo["emails"][0];
   }
 
+  // SECURITY (GHSA-mp7g-hj5q-gxhq): Capture the provider's email_verified
+  // claim so the Accounts.onCreateUser hook can refuse to link an OIDC login
+  // to an existing local account on the basis of an unverified email.
+  // Different providers use boolean true or the string "true".
+  serviceData.email_verified =
+    userinfo["email_verified"] === true || userinfo["email_verified"] === "true";
+
   if (accessToken) {
     var tokenContent = getTokenContent(accessToken);
     var config = await getConfiguration();

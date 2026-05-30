@@ -277,6 +277,13 @@ REM ## Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true settin
 REM # SET OAUTH2_ADFS_ENABLED=false
 REM ## Azure AD B2C. https://github.com/wekan/wekan/issues/5242
 REM # SET OAUTH2_B2C_ENABLED=false
+REM ## SECURITY (GHSA-mp7g-hj5q-gxhq): Link an OIDC login to a pre-existing
+REM ## Wekan account with the same email. OFF by default; when false an OIDC
+REM ## login whose email already exists is rejected instead of merged,
+REM ## preventing account takeover via spoofed email claims. Only enable if you
+REM ## fully trust your OIDC provider's email claims, and even then the provider
+REM ## must send email_verified=true for the merge to happen.
+REM # SET OAUTH2_MERGE_EXISTING_USERS=false
 REM ## OAuth2 login style: popup or redirect.
 REM SET OAUTH2_LOGIN_STYLE=popup
 REM ## Application GUID captured during app registration:
@@ -395,6 +402,14 @@ REM SET OAUTH2_ADFS_ENABLED=false
 
 REM # Use OAuth2 Azure AD B2C. Also requires OAUTH2_ENABLED=true setting . https://github.com/wekan/wekan/issues/5242
 REM SET DEFAULT_OAUTH2_B2C_ENABLED=false
+
+REM # SECURITY (GHSA-mp7g-hj5q-gxhq): Link an OIDC login to a pre-existing Wekan
+REM # account with the same email. OFF by default; when false an OIDC login whose
+REM # email already exists is rejected instead of merged, preventing account
+REM # takeover via spoofed email claims. Only enable if you fully trust your OIDC
+REM # provider's email claims, and even then the provider must send
+REM # email_verified=true for the merge to happen.
+REM SET OAUTH2_MERGE_EXISTING_USERS=false
 
 REM # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
 REM # example: OAUTH2_CLIENT_ID=abcde12345

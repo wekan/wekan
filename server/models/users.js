@@ -836,10 +836,41 @@ Accounts.onCreateUser(async (options, user) => {
     };
     user.authenticationMethod = 'oauth2';
 
+    // SECURITY (GHSA-mp7g-hj5q-gxhq): Do not silently take over an existing
+    // local account from an OIDC login.
+    //
+    // The previous code unconditionally merged the incoming OIDC identity into
+    // any existing account whose email OR username matched the (attacker
+    // controlled) OIDC claims, with no ownership check and no email
+    // verification. That allowed full account takeover: an attacker presenting
+    // a matching `email`/`username` claim inherited the victim's _id, boards,
+    // attachments, API tokens and admin status.
+    //
+    // Fail closed, mirroring LDAP_MERGE_EXISTING_USERS in wekan-ldap:
+    //   * Match an existing account by email only (never by username — a
+    //     username collision carries no proof of email ownership).
+    //   * Auto-linking is opt-in via OAUTH2_MERGE_EXISTING_USERS and is OFF by
+    //     default, so the default deployment never merges.
+    //   * Even when opted in, the OIDC provider must assert email_verified.
+    //   * Otherwise reject the login instead of creating/merging an account,
+    //     so no takeover and no confusing duplicate occurs.
     const existingUser = await ReactiveCache.getUser({
-      $or: [{ 'emails.address': email }, { username: user.username }],
+      'emails.address': email,
     });
     if (!existingUser) return user;
+
+    const mergeExistingUsers =
+      process.env.OAUTH2_MERGE_EXISTING_USERS === 'true' ||
+      process.env.OAUTH2_MERGE_EXISTING_USERS === true;
+    const emailVerified = user.services.oidc.email_verified === true;
+    if (!mergeExistingUsers || !emailVerified) {
+      throw new Meteor.Error(
+        'oidc-email-already-in-use',
+        'OIDC login succeeded, but there is already a Wekan account with this ' +
+          'email. Account linking is disabled; set OAUTH2_MERGE_EXISTING_USERS=true ' +
+          '(and ensure the provider sends email_verified) to allow it.',
+      );
+    }
 
     const service = Object.keys(user.services)[0];
     existingUser.services[service] = user.services[service];
