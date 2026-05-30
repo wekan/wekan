@@ -9,6 +9,7 @@
   },
   "overrides": {
     "fast-xml-builder": "^1.1.7",
-    "basic-ftp": "^5.3.1"
+    "basic-ftp": "^5.3.1",
+    "js-cookie": "^3.0.7"
   }
 }
