@@ -1,12 +1,17 @@
 import { Meteor } from 'meteor/meteor';
-import { execFile } from 'node:child_process';
+import { exec, execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import fs from 'fs';
 
 let asyncExecFile;
+let asyncExec;
 
 if (Meteor.isServer) {
   asyncExecFile = promisify(execFile);
+  // Shell-based exec, used only for the admin-configured external scanner
+  // command line below (which intentionally contains an arbitrary command and
+  // a {file} placeholder). MIME detection uses asyncExecFile to avoid any shell.
+  asyncExec = promisify(exec);
 }
 
 async function detectMimeFromFile(filePath) {
