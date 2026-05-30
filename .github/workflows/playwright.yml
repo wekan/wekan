@@ -10,6 +10,9 @@ concurrency:
   group: playwright-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   unit-tests:
     name: Meteor unit tests
