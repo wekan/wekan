@@ -28,7 +28,12 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Fix Polynomial regex DoS in Jade parser](https://github.com/wekan/wekan/commit/ae671bc70a0b2e0bb0cdcf24130477a0dd72ea72).
+  Thanks to CodeQL.
+
+and adds the following updates:
 
 - [Copy wepica style of hide/show password to WeKan login and register pages](https://github.com/wekan/wekan/commit/9d3587086377c6c677ee03d4cb6f43c34f468558).
   Thanks to Chostakovitch and xet7.
