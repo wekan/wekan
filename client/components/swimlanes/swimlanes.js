@@ -475,9 +475,19 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
   const minHeight = 100;
   const maxHeight = 2000;
 
+  // Read the vertical page coordinate from either a jQuery mouse event or a
+  // native touch event (touchstart/move expose `touches`, touchend exposes
+  // `changedTouches`).
+  const getEventPageY = (e) => {
+    const oe = e.originalEvent || e;
+    if (oe.touches && oe.touches.length) return oe.touches[0].pageY;
+    if (oe.changedTouches && oe.changedTouches.length) return oe.changedTouches[0].pageY;
+    return e.pageY;
+  };
+
   const startResize = (e) => {
     isResizing = true;
-    startY = e.pageY || e.originalEvent.touches[0].pageY;
+    startY = getEventPageY(e);
     startHeight = parseInt($swimlane.css('height')) || 300;
 
     $swimlane.addClass('swimlane-resizing');
@@ -493,7 +503,7 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
       return;
     }
 
-    const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+    const currentY = getEventPageY(e);
     const deltaY = currentY - startY;
     const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
 
@@ -517,7 +527,7 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
     isResizing = false;
 
     // Calculate final height
-    const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+    const currentY = getEventPageY(e);
     const deltaY = currentY - startY;
     const finalHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
 
@@ -582,10 +592,15 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
   $(document).on('mousemove', doResize);
   $(document).on('mouseup', stopResize);
 
-  // Touch events for mobile
-  $resizeHandle.on('touchstart', startResize, { passive: false });
-  $(document).on('touchmove', doResize, { passive: false });
-  $(document).on('touchend', stopResize, { passive: false });
+  // Touch events for mobile.
+  // NOTE: jQuery's .on() does not accept an addEventListener-style options
+  // object — passing { passive: false } made jQuery bind the object itself as
+  // the handler, throwing "handler.apply is not a function" on every touch.
+  // Use the native API so { passive: false } actually applies and
+  // preventDefault() works during the resize.
+  $resizeHandle[0].addEventListener('touchstart', startResize, { passive: false });
+  document.addEventListener('touchmove', doResize, { passive: false });
+  document.addEventListener('touchend', stopResize, { passive: false });
 
   // Prevent dragscroll interference
   $resizeHandle.on('mousedown', (e) => {

@@ -345,9 +345,19 @@ Template.list.onCreated(function () {
       return 550;
     };
 
+    // Read the horizontal page coordinate from either a jQuery mouse event
+    // or a native touch event (touchstart/move expose `touches`, touchend
+    // exposes `changedTouches`).
+    const getEventPageX = (e) => {
+      const oe = e.originalEvent || e;
+      if (oe.touches && oe.touches.length) return oe.touches[0].pageX;
+      if (oe.changedTouches && oe.changedTouches.length) return oe.changedTouches[0].pageX;
+      return e.pageX;
+    };
+
     const startResize = (e) => {
       isResizing = true;
-      startX = e.pageX || e.originalEvent.touches[0].pageX;
+      startX = getEventPageX(e);
       startWidth = $list.outerWidth();
 
       // Add visual feedback
@@ -366,7 +376,7 @@ Template.list.onCreated(function () {
         return;
       }
 
-      const currentX = e.pageX || e.originalEvent.touches[0].pageX;
+      const currentX = getEventPageX(e);
       const deltaX = currentX - startX;
       const newWidth = Math.max(minWidth, startWidth + deltaX);
 
@@ -390,7 +400,7 @@ Template.list.onCreated(function () {
       isResizing = false;
 
       // Calculate final width
-      const currentX = e.pageX || e.originalEvent.touches[0].pageX;
+      const currentX = getEventPageX(e);
       const deltaX = currentX - startX;
       const finalWidth = Math.max(minWidth, startWidth + deltaX);
       const listConstraint = getListConstraint();
@@ -468,10 +478,15 @@ Template.list.onCreated(function () {
     $(document).on('mousemove', doResize);
     $(document).on('mouseup', stopResize);
 
-    // Touch events for mobile
-    $resizeHandle.on('touchstart', startResize, { passive: false });
-    $(document).on('touchmove', doResize, { passive: false });
-    $(document).on('touchend', stopResize, { passive: false });
+    // Touch events for mobile.
+    // NOTE: jQuery's .on() does not accept an addEventListener-style options
+    // object — passing { passive: false } made jQuery bind the object itself
+    // as the handler, throwing "handler.apply is not a function" on every
+    // touch. Use the native API so { passive: false } actually applies and
+    // preventDefault() works during the resize.
+    $resizeHandle[0].addEventListener('touchstart', startResize, { passive: false });
+    document.addEventListener('touchmove', doResize, { passive: false });
+    document.addEventListener('touchend', stopResize, { passive: false });
 
     // Prevent dragscroll interference
     $resizeHandle.on('mousedown', (e) => {
@@ -492,8 +507,8 @@ Template.list.onCreated(function () {
     tpl.view.onViewDestroyed(() => {
       $(document).off('mousemove', doResize);
       $(document).off('mouseup', stopResize);
-      $(document).off('touchmove', doResize);
-      $(document).off('touchend', stopResize);
+      document.removeEventListener('touchmove', doResize);
+      document.removeEventListener('touchend', stopResize);
     });
   };
 });
