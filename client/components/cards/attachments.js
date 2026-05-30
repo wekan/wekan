@@ -592,7 +592,7 @@ Template.attachmentActionsPopup.events({
 
 Template.attachmentRenamePopup.helpers({
   getNameWithoutExtension() {
-    const ret = this.name.replace(new RegExp("\." + this.extension + "$"), "");
+    const ret = this.name.replace(new RegExp("\\." + this.extension + "$"), "");
     return ret;
   },
 });
