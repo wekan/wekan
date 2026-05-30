@@ -68,6 +68,8 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   Thanks to xet7.
 - [Fix CodeQL 35: Insecure randomness](https://github.com/wekan/wekan/commit/358d893c3382ca90a408055713d9b6ffda73f33a).
   Thanks to CodeQL and GitHub Copilot.
+- [Fix CodeQL 417: Workflow does not contain permissions](https://github.com/wekan/wekan/commit/7836ce27e7d20a3db585c56a565423e4fcc00f0b).
+  Thanks to CodeQL and GitHub Copilot.
 
 and adds the following updates:
 
