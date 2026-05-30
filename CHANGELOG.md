@@ -32,6 +32,10 @@ This release adds the following updates:
 
 - [Copy wepica style of hide/show password to WeKan login and register pages](https://github.com/wekan/wekan/commit/9d3587086377c6c677ee03d4cb6f43c34f468558).
   Thanks to Chostakovitch and xet7.
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/29b0cc1f86d0feb8d7c963ab9f4de2e8d86aac1b),
+  [Part 2](https://github.com/wekan/wekan/commit/136931640186cd2969bb3e8690a2d9f01a6ef544).
+  Thanks to developers of dependencies.
 
 and fixed the following bugs:
 
