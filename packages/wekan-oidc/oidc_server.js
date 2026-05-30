@@ -336,6 +336,17 @@ var getTokenContent = function (token) {
 Meteor.methods({
   'groupRoutineOnLogin': async function(info, userId)
   {
+    // SECURITY (GHSA-cv95-8h7c-2ffq): This method is invoked only server-side
+    // during the OIDC login flow (via Meteor.callAsync from the
+    // OAuth.registerService('oidc') callback above). With PROPAGATE_OIDC_DATA
+    // enabled it grants isAdmin based on the caller-supplied group data, so if
+    // it were callable directly over DDP any authenticated user could promote
+    // themselves to global admin. A server-side method call has
+    // this.connection === null; a direct client call has a non-null
+    // connection. Reject the latter.
+    if (this.connection !== null) {
+      throw new Meteor.Error('not-authorized');
+    }
     check(info, Object);
     check(userId, String);
     var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
@@ -360,6 +371,14 @@ Meteor.methods({
 Meteor.methods({
   'boardRoutineOnLogin': async function(info, oidcUserId)
   {
+    // SECURITY (GHSA-cv95-8h7c-2ffq): Invoked only server-side during the OIDC
+    // login flow (via Meteor.callAsync from the OAuth.registerService('oidc')
+    // callback above). It adds the OIDC user to the default board (optionally
+    // as board admin) with no per-user authorization, so reject direct
+    // client/DDP calls (this.connection non-null).
+    if (this.connection !== null) {
+      throw new Meteor.Error('not-authorized');
+    }
     check(info, Object);
     check(oidcUserId, String);
 

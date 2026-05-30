@@ -43,6 +43,18 @@ Meteor.methods({
     orgWebsite,
     orgIsActive,
   ) {
+    // SECURITY (GHSA-cv95-8h7c-2ffq): This *FromOidc method is an internal
+    // helper invoked only server-side during the OIDC login flow (via
+    // Meteor.callAsync from packages/wekan-oidc/loginHandler.js). It performs
+    // a privileged org write with no per-user authorization, so it must never
+    // be callable directly by a client over DDP — otherwise any authenticated
+    // user could create/modify organizations, bypassing the admin-only check
+    // on setCreateOrg/setOrgAllFields. A server-side method call has
+    // this.connection === null; a direct client call has a non-null
+    // connection. Reject the latter.
+    if (this.connection !== null) {
+      throw new Meteor.Error('not-authorized');
+    }
     check(orgDisplayName, String);
     check(orgDesc, String);
     check(orgShortName, String);
@@ -125,6 +137,14 @@ Meteor.methods({
     orgWebsite,
     orgIsActive,
   ) {
+    // SECURITY (GHSA-cv95-8h7c-2ffq): Internal OIDC-login-only helper (called
+    // server-side from packages/wekan-oidc/loginHandler.js). Performs a
+    // privileged org update of an arbitrary _id with no per-user
+    // authorization, so reject direct client/DDP calls (this.connection
+    // non-null) to keep the admin-only restriction of setOrgAllFields intact.
+    if (this.connection !== null) {
+      throw new Meteor.Error('not-authorized');
+    }
     check(org, Object);
     check(orgDisplayName, String);
     check(orgDesc, String);
