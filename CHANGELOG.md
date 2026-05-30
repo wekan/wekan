@@ -64,6 +64,8 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   Thanks to CodeQL and GitHub Copilot.
 - [Fix CodeQL 419: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/6b923eb4c21ef66c2d4ff859ffed4293365aaf9f).
   Thanks to CodeQL and GitHub Copilot.
+- [Delete calendar demos, so that CodeQL stops complaining](https://github.com/wekan/wekan/commit/d0b2b5201e8a43a067ca32b0cf6a542695213406).
+  Thanks to xet7.
 
 and adds the following updates:
 
