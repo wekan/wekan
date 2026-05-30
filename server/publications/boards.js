@@ -561,7 +561,9 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-authorized');
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) throw new Meteor.Error('not-found');
-    if (!board.hasMember(this.userId)) throw new Meteor.Error('not-authorized');
+    // Require board admin, matching the REST endpoint
+    // POST /api/boards/:boardId/copy (checkAdminOrCondition with adminAccess).
+    if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized');
 
     // Strip fields the caller must not control on the copy
     const { members, permission, ...safeProperties } = properties;
