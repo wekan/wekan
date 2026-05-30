@@ -9,8 +9,15 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 // Server-side text sanitization function
 function sanitizeText(text) {
   if (typeof text !== 'string') return text;
-  // Strip HTML tags and return only text content
-  return text.replace(/<[^>]*>/g, '');
+  // Strip HTML tags and return only text content.
+  // Repeat replacement until stable to avoid incomplete multi-character sanitization.
+  let sanitized = text;
+  let previous;
+  do {
+    previous = sanitized;
+    sanitized = sanitized.replace(/<[^>]*>/g, '');
+  } while (sanitized !== previous);
+  return sanitized;
 }
 
 const CardComments = new Mongo.Collection('card_comments');
