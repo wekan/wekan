@@ -1,0 +1,1 @@
+require("string_decoder/");
