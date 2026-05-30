@@ -30,6 +30,16 @@ Versions:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
+- [Fix GHSA-6733-4wgq-8xvr: Read-only board members could create/modify/delete Custom Fields](https://github.com/wekan/wekan/commit/70db04a93fedabe40331f21f86e6bdc91625914e).
+  (privilege escalation via read-level authz on write operations, CWE-862).
+  All six mutating REST handlers in `server/models/customFields.js` (POST/PUT custom-fields,
+  POST/PUT/DELETE dropdown-items, DELETE custom-fields) called the read-level
+  `Authentication.checkBoardAccess` instead of the write-level `checkBoardWriteAccess`, letting a
+  board member with the read-only role (`isReadOnly` / `isReadAssignedOnly`) write Custom Field
+  data via the REST API when `WITH_API=true`. Replaced the check with `checkBoardWriteAccess` in
+  all six mutating handlers (the two GET handlers correctly stay on `checkBoardAccess`), mirroring
+  `lists.js`/`swimlanes.js`/`cards.js`.
+  Thanks to Wernerina for the coordinated disclosure, and Claude.
 - [Fix regression from the avatar RCE fix GHSA-35j7-h385-2q9g: external antivirus scanner broken (`asyncExec` undefined)](https://github.com/wekan/wekan/commit/8ea5a6a097f1b598688a94832e94bd1ec1b34cd6).
   The avatar RCE fix renamed `asyncExec` to `asyncExecFile` in `models/fileValidation.js`, but the
   admin-configured external scanner command line still called the now-undefined `asyncExec`, throwing
