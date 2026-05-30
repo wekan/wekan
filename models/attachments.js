@@ -70,8 +70,12 @@ const Attachments = new FilesCollection({
       let safeName = file.name.split(/[\\/]/).pop();
       // Remove null bytes
       safeName = safeName.replace(/\0/g, '');
-      // Remove path traversal sequences
-      safeName = safeName.replace(/\.\.[\\/\\]/g, '');
+      // Remove path traversal sequences (repeat until stable to avoid incomplete multi-character sanitization)
+      let previousSafeName;
+      do {
+        previousSafeName = safeName;
+        safeName = safeName.replace(/\.\.[\\/]/g, '');
+      } while (safeName !== previousSafeName);
       safeName = safeName.replace(/^\.\.$/g, '');
       safeName = safeName.trim();
 
