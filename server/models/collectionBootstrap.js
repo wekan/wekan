@@ -10,6 +10,10 @@ import PositionHistory from '/models/positionHistory';
 import Presences from '/models/presences';
 import Rules from '/models/rules';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+import InviteToBoardRolesSettings, {
+  INVITE_TO_BOARD_ROLES_ID,
+  INVITE_TO_BOARD_ROLES_DEFAULT,
+} from '/models/inviteToBoardRolesSettings';
 import Triggers from '/models/triggers';
 import UnsavedEditCollection from '/models/unsavedEdits';
 
@@ -128,6 +132,12 @@ Meteor.startup(async () => {
   await TableVisibilityModeSettings.upsertAsync(
     { _id: 'tableVisibilityMode-allowPrivateOnly' },
     { $setOnInsert: { booleanValue: false, sort: 0 } },
+  );
+
+  await InviteToBoardRolesSettings._collection.createIndexAsync({ modifiedAt: -1 });
+  await InviteToBoardRolesSettings.upsertAsync(
+    { _id: INVITE_TO_BOARD_ROLES_ID },
+    { $setOnInsert: { allowedRoles: INVITE_TO_BOARD_ROLES_DEFAULT, sort: 0 } },
   );
 
   await Triggers._collection.createIndexAsync({ modifiedAt: -1 });

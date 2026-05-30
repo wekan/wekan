@@ -354,3 +354,27 @@ table td:first-child {
   height: 100%;
   width: 100%;
 }
+
+/* Roles tab. The .main-body scrolls horizontally and is wider than the visible
+   area (the side-menu takes ~250px), so by default a long description would run
+   off the right edge and only be fully readable at the smallest (mobile) width.
+   Pin the heading/description to the visible left edge and wrap them within the
+   viewport so they stay visible at every width. */
+.roles-settings {
+  padding: 0 10px;
+}
+.roles-settings h3,
+.roles-settings h4,
+.roles-settings .roles-description {
+  position: sticky;
+  left: 0;
+  /* Cap to ~60 characters, and never wider than the viewport, so the text wraps
+     into the visible left area at every width (desktop, mid and mobile) instead
+     of running off the horizontally-scrolling main-body. */
+  max-width: min(60ch, 88vw);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+.roles-settings .roles-description {
+  margin-bottom: 1rem;
+}

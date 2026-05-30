@@ -63,6 +63,11 @@ template(name="people")
                 i.fa.fa-lock
               unless isMiniScreen
                 | {{_ 'accounts-lockout-locked-users'}}
+          else if rolesSetting.get
+            span
+              i.fa.fa-key
+              unless isMiniScreen
+                | {{_ 'roles'}}
 
       .content-body
         .side-menu
@@ -84,6 +89,10 @@ template(name="people")
                 span.emoji-icon.text-red
                   i.fa.fa-lock
                 | {{_ 'accounts-lockout-locked-users'}}
+            li
+              a.js-roles-menu(data-id="roles-setting")
+                i.fa.fa-key
+                | {{_ 'roles'}}
         .main-body
           if loading.get
             +spinner
@@ -95,6 +104,8 @@ template(name="people")
             +peopleGeneral(peopleList=peopleList peopleCurrentPage=peopleCurrentPage peopleTotalPages=peopleTotalPages hasPeoplePrevPage=hasPeoplePrevPage hasPeopleNextPage=hasPeopleNextPage)
           else if lockedUsersSetting.get
             +lockedUsersGeneral
+          else if rolesSetting.get
+            +rolesGeneral
 
 
 template(name="orgGeneral")
@@ -719,3 +730,22 @@ template(name="lockedUsersGeneral")
       input.wekan-form-control#unknown-failure-window(type="number", min="1", max="60", placeholder="15" value="{{unknownFailureWindow}}")
 
     button.js-lockout-save.primary {{_ 'save'}}
+
+template(name="rolesGeneral")
+  .roles-settings
+    h3 {{_ 'roles'}}
+    p.roles-description {{_ 'roles-info'}}
+
+    h4 {{_ 'allow-invite-to-board'}}
+    ul#roles-setting.setting-detail
+      li
+        a.flex.js-toggle-all-roles
+          .materialCheckBox(class="{{#if allRolesAllowed}}is-checked{{/if}}")
+          span {{_ 'all-board-members'}}
+      each roleOptions
+        li
+          a.flex.js-toggle-role(data-role="{{key}}")
+            .materialCheckBox(class="{{#if allowed}}is-checked{{/if}}")
+            span {{_ label}}
+
+    button.js-roles-save.primary {{_ 'save'}}

@@ -20,6 +20,7 @@ import '/models/customFields';
 import '/models/impersonatedUsers';
 import '/models/integrations';
 import '/models/invitationCodes';
+import '/models/inviteToBoardRolesSettings';
 import '/models/lists';
 import '/models/lockoutSettings';
 import '/models/org';

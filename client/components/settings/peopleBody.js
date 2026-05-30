@@ -6,6 +6,10 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Org from '/models/org';
 import Team from '/models/team';
 import Users from '/models/users';
+import InviteToBoardRolesSettings, {
+  INVITE_TO_BOARD_ROLES,
+  INVITE_TO_BOARD_ROLES_ID,
+} from '/models/inviteToBoardRolesSettings';
 
 const orgsPerPage = 25;
 const teamsPerPage = 25;
@@ -22,6 +26,8 @@ Template.people.onCreated(function () {
   this.teamSetting = new ReactiveVar(false);
   this.peopleSetting = new ReactiveVar(false);
   this.lockedUsersSetting = new ReactiveVar(false);
+  this.rolesSetting = new ReactiveVar(false);
+  this.subscribe('inviteToBoardRolesSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
   this.findUsersOptions = new ReactiveVar({});
@@ -191,6 +197,7 @@ Template.people.onCreated(function () {
       this.teamSetting.set('team-setting' === targetID);
       this.peopleSetting.set('people-setting' === targetID);
       this.lockedUsersSetting.set('locked-users-setting' === targetID);
+      this.rolesSetting.set('roles-setting' === targetID);
 
       // When switching to locked users tab, refresh the locked users list
       if ('locked-users-setting' === targetID) {
@@ -262,6 +269,9 @@ Template.people.helpers({
   },
   lockedUsersSetting() {
     return Template.instance().lockedUsersSetting;
+  },
+  rolesSetting() {
+    return Template.instance().rolesSetting;
   },
   orgList() {
     const tpl = Template.instance();
@@ -520,6 +530,66 @@ Template.people.events({
   },
   'click a.js-locked-users-menu'(event, tpl) {
     tpl.switchMenu(event);
+  },
+  'click a.js-roles-menu'(event, tpl) {
+    tpl.switchMenu(event);
+  },
+});
+
+Template.rolesGeneral.onCreated(function () {
+  // Working copy of the allowed-roles set; null until the published doc loads.
+  this.workingRoles = new ReactiveVar(null);
+  this.autorun(() => {
+    if (this.workingRoles.get() === null) {
+      const doc = InviteToBoardRolesSettings.findOne(INVITE_TO_BOARD_ROLES_ID);
+      if (doc) {
+        this.workingRoles.set((doc.allowedRoles || []).slice());
+      }
+    }
+  });
+});
+
+Template.rolesGeneral.helpers({
+  roleOptions() {
+    const working = Template.instance().workingRoles.get() || [];
+    // The role key doubles as the i18n key. 'board-admin' renders as
+    // "Board Admin", deliberately distinct from the global Admin Panel admin.
+    return INVITE_TO_BOARD_ROLES.map((key) => ({
+      key,
+      label: key,
+      allowed: working.includes(key),
+    }));
+  },
+  allRolesAllowed() {
+    const working = Template.instance().workingRoles.get() || [];
+    return INVITE_TO_BOARD_ROLES.every((key) => working.includes(key));
+  },
+});
+
+Template.rolesGeneral.events({
+  'click a.js-toggle-role'(event, tpl) {
+    event.preventDefault();
+    const role = $(event.currentTarget).data('role');
+    const working = (tpl.workingRoles.get() || []).slice();
+    const idx = working.indexOf(role);
+    if (idx >= 0) {
+      working.splice(idx, 1);
+    } else {
+      working.push(role);
+    }
+    tpl.workingRoles.set(working);
+  },
+  'click a.js-toggle-all-roles'(event, tpl) {
+    event.preventDefault();
+    const working = tpl.workingRoles.get() || [];
+    const allOn = INVITE_TO_BOARD_ROLES.every((key) => working.includes(key));
+    tpl.workingRoles.set(allOn ? [] : INVITE_TO_BOARD_ROLES.slice());
+  },
+  'click .js-roles-save'(event, tpl) {
+    event.preventDefault();
+    InviteToBoardRolesSettings.update(INVITE_TO_BOARD_ROLES_ID, {
+      $set: { allowedRoles: tpl.workingRoles.get() || [] },
+    });
   },
 });
 

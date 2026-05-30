@@ -82,7 +82,7 @@ template(name="membersWidget")
             if currentUser.isBoardMember
               a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
                 i.fa.fa-plus
-          else if currentUser.isBoardAdmin
+          else if currentUser.canInviteToBoard
             a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
               i.fa.fa-plus
           .clearfix

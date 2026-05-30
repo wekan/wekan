@@ -1,6 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import Boards from '/models/boards';
+import InviteToBoardRolesSettings, {
+  INVITE_TO_BOARD_ROLES_ID,
+  INVITE_TO_BOARD_ROLES_DEFAULT,
+} from '/models/inviteToBoardRolesSettings';
 // import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
 const { SimpleSchema } = require('/imports/simpleSchema');
 const Users = Meteor.users;
@@ -836,6 +840,28 @@ if (Meteor.isClient) {
         board = Utils.getCurrentBoard();
       }
       return board && board.hasAdmin(this._id);
+    },
+
+    // Whether this user may invite members to the board, mirroring the
+    // server-side check in the inviteUserToBoard method: global site admins and
+    // board admins always may; other board roles only if allowed by the
+    // Admin Panel / People / Roles policy. Used to gate the UI add-member button.
+    canInviteToBoard(boardId) {
+      if (this.isAdmin) return true;
+      let board;
+      if (boardId) {
+        board = ReactiveCache.getBoard(boardId);
+      } else {
+        const Utils = getUtils();
+        board = Utils.getCurrentBoard();
+      }
+      if (!board) return false;
+      if (board.hasAdmin(this._id)) return true;
+      const role = board.memberRole(this._id);
+      if (!role) return false;
+      const doc = InviteToBoardRolesSettings.findOne(INVITE_TO_BOARD_ROLES_ID);
+      const allowed = (doc && doc.allowedRoles) || INVITE_TO_BOARD_ROLES_DEFAULT;
+      return allowed.includes(role);
     },
   });
 }

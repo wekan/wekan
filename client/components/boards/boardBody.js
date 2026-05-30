@@ -142,6 +142,7 @@ Template.board.helpers({
 
 Template.boardBody.onCreated(function () {
   Meteor.subscribe('tableVisibilityModeSettings');
+  Meteor.subscribe('inviteToBoardRolesSettings');
   this.showOverlay = new ReactiveVar(false);
   this.draggingActive = new ReactiveVar(false);
   this._isDragging = false;

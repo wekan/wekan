@@ -1242,6 +1242,25 @@ Boards.helpers({
     });
   },
 
+  // Returns the single BOARD-level role key of an active board member (see
+  // INVITE_TO_BOARD_ROLES). Returns null if the user is not an active member.
+  // Note: 'board-admin' is the board administrator role and is distinct from
+  // the global site-admin flag `user.isAdmin`. A member with no restriction
+  // flag set is a plain 'normal' member.
+  memberRole(memberId) {
+    const member = findWhere(this.members, { userId: memberId, isActive: true });
+    if (!member) return null;
+    if (member.isAdmin) return 'board-admin';
+    if (member.isWorker) return 'worker';
+    if (member.isCommentOnly) return 'comment-only';
+    if (member.isNoComments) return 'no-comments';
+    if (member.isNormalAssignedOnly) return 'normal-assigned-only';
+    if (member.isCommentAssignedOnly) return 'comment-assigned-only';
+    if (member.isReadOnly) return 'read-only';
+    if (member.isReadAssignedOnly) return 'read-assigned-only';
+    return 'normal';
+  },
+
   hasAnyAllowsDate() {
     const ret = this.allowsReceivedDate || this.allowsStartDate || this.allowsDueDate || this.allowsEndDate;
     return ret;

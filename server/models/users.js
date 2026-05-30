@@ -14,6 +14,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Boards from '/models/boards';
 import InvitationCodes from '/models/invitationCodes';
+import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Users, { allowedSortValues } from '/models/users';
@@ -614,8 +615,19 @@ Meteor.methods({
     }
     const inviter = await ReactiveCache.getCurrentUser();
     const board = await ReactiveCache.getBoard(boardId);
-    const member = board.members.find(memberItem => memberItem.userId === inviter._id);
-    if (!member || !member.isActive) throw new Meteor.Error('error-board-notAMember');
+
+    // Global site admins (Admin Panel users) always have all rights and bypass
+    // both the board-membership and the configurable per-role check below.
+    if (!inviter.isAdmin) {
+      const member = board.members.find(memberItem => memberItem.userId === inviter._id);
+      if (!member || !member.isActive) throw new Meteor.Error('error-board-notAMember');
+      // Enforce the Admin Panel / People / Roles policy: only the configured
+      // board roles are allowed to invite users to a board.
+      const allowedRoles = await InviteToBoardRolesSettings.allowedRoles();
+      if (!allowedRoles.includes(board.memberRole(inviter._id))) {
+        throw new Meteor.Error('error-notAllowed');
+      }
+    }
 
     this.unblock();
 
@@ -1505,9 +1517,13 @@ Meteor.methods({
 
     const currentUser = await ReactiveCache.getCurrentUser();
     const board = await ReactiveCache.getBoard(boardId);
-    const member = board.members.find(memberItem => memberItem.userId === currentUser._id);
-    if (!member || !member.isActive) {
-      throw new Meteor.Error('not-authorized', 'User is not a member of this board');
+    // Global site admins bypass the board-membership check, mirroring
+    // inviteUserToBoard.
+    if (!currentUser.isAdmin) {
+      const member = board.members.find(memberItem => memberItem.userId === currentUser._id);
+      if (!member || !member.isActive) {
+        throw new Meteor.Error('not-authorized', 'User is not a member of this board');
+      }
     }
 
     if (query.length < 2) {
