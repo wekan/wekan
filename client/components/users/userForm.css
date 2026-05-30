@@ -25,65 +25,57 @@
   width: 100%;
 }
 .password-input-container {
-  position: relative;
   display: flex;
-  align-items: center;
+  align-self: stretch;
+  align-items: stretch;
+  column-gap: 0.5rem;
 }
 .password-input-container input {
-  flex: 1;
-  padding-right: 55px; /* More room for the bigger button */
+  width: 100%;
   box-sizing: border-box;
 }
-.password-toggle-btn {
-  position: absolute;
-  right: 5px; /* Adjusted for larger button */
-  top: calc(50% - 26px); /* Moved up by 20px + 6px = 26px total */
-  transform: translateY(-50%);
-  background: #f8f8f8 !important;
-  border: 1px solid #ddd !important;
-  border-radius: 3px !important;
-  color: #000 !important; /* Black color for the icon */
-  cursor: pointer;
-  padding: 8px 6px 8px 12px; /* 2x bigger padding, 6px less on right */
-  font-size: 16px; /* 2x bigger font size */
-  width: auto !important;
-  height: auto !important;
-  line-height: 1;
-  display: flex !important;
+/* The show/hide password button is a square: its width and height match the
+   password input field height, and the field flex-grows to fill the space the
+   narrower button frees up on the right. */
+.password-input-container .password-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.auth-layout .auth-dialog .at-form .password-input-container .password-toggle-btn {
+  position: static;
+  transform: none;
+  flex: 0 0 auto;
+  align-self: stretch;
+  aspect-ratio: 1 / 1;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  min-width: 40px; /* 2x bigger minimum width */
-  min-height: 32px; /* 2x bigger minimum height */
-}
-/* Adjust position for login and register pages */
-.auth-layout .password-toggle-btn {
-  top: calc(50% - 11px); /* Move 15px down for login/register */
-}
-.password-toggle-btn .eye-text {
-  color: #000 !important;
-  font-size: 16px !important;
+  text-align: center;
   line-height: 1;
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
-  opacity: 0.8;
 }
-.eye-slash-line {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-  stroke: #000;
-  stroke-width: 2;
-  fill: none;
+.auth-layout .auth-dialog .at-form .password-input-container .password-toggle-btn .fa {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  vertical-align: middle;
 }
-.password-toggle-btn:hover .eye-text {
-  color: #000 !important;
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
-  opacity: 0.8;
+.auth-layout .auth-dialog .at-form .password-input-container .password-field {
+  padding-right: 0;
+}
+body.mobile-mode .password-input-container {
+  flex-direction: column;
+  align-items: stretch;
+}
+body.mobile-mode .auth-layout .auth-dialog .at-form .password-input-container .password-toggle-btn {
+  aspect-ratio: auto;
+  width: 100%;
 }
 .auth-layout .auth-dialog .at-form button {
   width: 100%;
