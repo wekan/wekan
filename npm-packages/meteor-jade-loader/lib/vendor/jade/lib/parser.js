@@ -615,7 +615,7 @@ Parser.prototype = {
   parseTextWithInlineTags: function (str) {
     var line = this.line();
 
-    var match = /(\\)?#\[((?:.|\n)*)$/.exec(str);
+    var match = /(\\)?#\[([\s\S]*)$/.exec(str);
     if (match) {
       if (match[1]) { // escape
         var text = new nodes.Text(str.substr(0, match.index) + '#[');

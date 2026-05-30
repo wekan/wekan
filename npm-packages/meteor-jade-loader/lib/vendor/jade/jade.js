@@ -100,7 +100,7 @@ Compiler.prototype = {
   buffer: function (str, interpolate) {
     var self = this;
     if (interpolate) {
-      var match = /(\\)?([#!]){((?:.|\n)*)$/.exec(str);
+      var match = /(\\)?([#!]){([\s\S]*)$/.exec(str);
       if (match) {
         this.buffer(str.substr(0, match.index), false);
         if (match[1]) { // escape
@@ -3177,7 +3177,7 @@ Parser.prototype = {
   parseTextWithInlineTags: function (str) {
     var line = this.line();
 
-    var match = /(\\)?#\[((?:.|\n)*)$/.exec(str);
+    var match = /(\\)?#\[([\s\S]*)$/.exec(str);
     if (match) {
       if (match[1]) { // escape
         var text = new nodes.Text(str.substr(0, match.index) + '#[');
