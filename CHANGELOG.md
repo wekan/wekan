@@ -30,6 +30,24 @@ Versions:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
+- [Fix GHSA-cv95-8h7c-2ffq: Missing authorization on OIDC Meteor methods allows privilege escalation to admin (CWE-269, CWE-862)](https://github.com/wekan/wekan/commit/305864f0c77456ad0f2c1e616266c8a06749c951).
+  Six Meteor methods used internally by the OIDC login flow were registered as globally DDP-callable
+  with no authorization, while their non-OIDC counterparts require admin. `setCreateOrgFromOidc` and
+  `setOrgAllFieldsFromOidc` (`server/models/org.js`), `setCreateTeamFromOidc` and
+  `setTeamAllFieldsFromOidc` (`server/models/team.js`) let any authenticated user create/rename/
+  deactivate/modify arbitrary organizations and teams — including `orgAutoAddUsersWithDomainName` —
+  bypassing the admin-only restriction. Most critically, `groupRoutineOnLogin`
+  (`packages/wekan-oidc/oidc_server.js`) sets `isAdmin` from caller-supplied group data, so with
+  `PROPAGATE_OIDC_DATA` enabled any authenticated user could call it over DDP with
+  `{groups:[{isAdmin:true,forceCreate:true}]}` and promote themselves to global admin;
+  `boardRoutineOnLogin` could likewise add the caller to the default board. These six methods are only
+  ever invoked server-side (via `Meteor.callAsync`) during the OIDC handshake, where a fix that checks
+  `isAdmin`/`this.userId` would break legitimate group/admin propagation (the user is not yet logged in
+  or admin at that point). Fixed by rejecting any direct client/DDP invocation: a server-to-server
+  `Meteor.callAsync` runs with `this.connection === null`, whereas a client call has a non-null
+  connection, so each of the six methods now throws `not-authorized` when `this.connection !== null`.
+  The legitimate OIDC login flow is unaffected.
+  Thanks to alexwaira for the coordinated disclosure, and Claude.
 - [Fix GHSA-mp7g-hj5q-gxhq: OIDC Account Takeover via Unconditional Email-Based Account Merge in `Accounts.onCreateUser` hook (CWE-287)](https://github.com/wekan/wekan/commit/73204d4e0a7d77a1b186b3d76e8eaf2f3e7c9fd9).
   The `onCreateUser` hook in `server/models/users.js` unconditionally merged an incoming OIDC login
   into any existing Wekan account whose email **or** username matched the (attacker-controlled) OIDC
