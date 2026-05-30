@@ -16,7 +16,7 @@ Newest WeKan at these platforms:
 
 Versions:
 
-- WeKan 8.75 and newer uses Meteor 3.5-beta.7, [Node.js 24.x](https://nodejs.org/dist/latest-v24.x/),
+- WeKan 8.75 and newer uses Meteor 3.5-beta.x, [Node.js 24.x](https://nodejs.org/dist/latest-v24.x/),
   MongoDB 7.x (or 6.x), or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs/Databases/FerretDB2-PostgreSQL.md)
 - WeKan 8.43 upgraded to Meteor 3.x, huge thanks to harryadel:
   - https://harryadel.com/dev-diary-24/
@@ -38,7 +38,8 @@ This release adds the following updates:
   [Part 3](https://github.com/wekan/wekan/commit/76945ee5b51b2e57eef008e1fa9e30b56a5dbd92),
   [Part 4](https://github.com/wekan/wekan/commit/a2e76f2cf0b5f6fecf2d7305ddc97573425885b6),
   [Part 5](https://github.com/wekan/wekan/commit/08084d96e8a67055fd2433f5c0d25828f23be9b7),
-  [Part 6: Fork and update meteor-node-stubs](https://github.com/wekan/wekan/commit/06c803388ba71e76194e5f201a296782d774fa07).
+  [Part 6: Fork and update meteor-node-stubs](https://github.com/wekan/wekan/commit/06c803388ba71e76194e5f201a296782d774fa07),
+  [Part 7](https://github.com/wekan/wekan/commit/ac0e11e54831206ab8e36498384c2ef5ea62489e).
   Thanks to developers of dependencies.
 
 and fixed the following bugs:
