@@ -39,7 +39,8 @@ This release adds the following updates:
   [Part 4](https://github.com/wekan/wekan/commit/a2e76f2cf0b5f6fecf2d7305ddc97573425885b6),
   [Part 5](https://github.com/wekan/wekan/commit/08084d96e8a67055fd2433f5c0d25828f23be9b7),
   [Part 6: Fork and update meteor-node-stubs](https://github.com/wekan/wekan/commit/06c803388ba71e76194e5f201a296782d774fa07),
-  [Part 7](https://github.com/wekan/wekan/commit/ac0e11e54831206ab8e36498384c2ef5ea62489e).
+  [Part 7](https://github.com/wekan/wekan/commit/ac0e11e54831206ab8e36498384c2ef5ea62489e),
+  [Part 8](https://github.com/wekan/wekan/commit/42d79b3dcf820b1a74d3930523557737a7389f37).
   Thanks to developers of dependencies.
 
 and fixed the following bugs:
