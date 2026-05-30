@@ -10543,15 +10543,15 @@ function OutputStream(options) {
               case "\r": return "\\r";
               case "\u2028": return "\\u2028";
               case "\u2029": return "\\u2029";
-              case '"': ++dq; return '"';
-              case "'": ++sq; return "'";
+              case '"': ++dq; return '\\"';
+              case "'": ++sq; return "\\'";
               case "\0": return "\\x00";
             }
             return s;
         });
         if (options.ascii_only) str = to_ascii(str);
-        if (dq > sq) return "'" + str.replace(/\x27/g, "\\'") + "'";
-        else return '"' + str.replace(/\x22/g, '\\"') + '"';
+        if (dq > sq) return "'" + str + "'";
+        else return '"' + str + '"';
     };
 
     function encode_string(str) {
@@ -20217,15 +20217,15 @@ function OutputStream(options) {
               case "\r": return "\\r";
               case "\u2028": return "\\u2028";
               case "\u2029": return "\\u2029";
-              case '"': ++dq; return '"';
-              case "'": ++sq; return "'";
+              case '"': ++dq; return '\\"';
+              case "'": ++sq; return "\\'";
               case "\0": return "\\x00";
             }
             return s;
         });
         if (options.ascii_only) str = to_ascii(str);
-        if (dq > sq) return "'" + str.replace(/\x27/g, "\\'") + "'";
-        else return '"' + str.replace(/\x22/g, '\\"') + '"';
+        if (dq > sq) return "'" + str + "'";
+        else return '"' + str + '"';
     };
 
     function encode_string(str) {
