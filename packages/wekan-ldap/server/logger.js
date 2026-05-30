@@ -1,9 +1,33 @@
 const isLogEnabled = (process.env.LDAP_LOG_ENABLED === 'true');
 
+function isSensitiveKey(key) {
+    return /pass(word)?|digest|secret|token|api[-_]?key|authorization|cookie|session/i.test(String(key));
+}
 
-function log (level, message, data) { 
+function sanitizeForLogging(value) {
+    if (Array.isArray(value)) {
+        return value.map(sanitizeForLogging);
+    }
+
+    if (value && typeof value === 'object') {
+        const sanitized = {};
+        Object.keys(value).forEach((key) => {
+            if (isSensitiveKey(key)) {
+                sanitized[key] = '[REDACTED]';
+            } else {
+                sanitized[key] = sanitizeForLogging(value[key]);
+            }
+        });
+        return sanitized;
+    }
+
+    return value;
+}
+
+function log (level, message, data) {
     if (isLogEnabled) {
-        console.log(`[${level}] ${message} ${ data ? JSON.stringify(data, null, 2) : '' }`);
+        const safeData = data ? JSON.stringify(sanitizeForLogging(data), null, 2) : '';
+        console.log(`[${level}] ${message} ${safeData}`);
     }
 }
 
