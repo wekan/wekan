@@ -26,6 +26,20 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Copy wepica style of hide/show password to WeKan login and register pages](https://github.com/wekan/wekan/commit/9d3587086377c6c677ee03d4cb6f43c34f468558).
+  Thanks to Chostakovitch and xet7.
+
+and fixed the following bugs:
+
+- [Fix typos](https://github.com/wekan/wekan/commit/64b43a42ddc55f4196845834234035a9da0a6bd1).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.31 2026-05-27 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
