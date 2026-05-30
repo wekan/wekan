@@ -60,6 +60,8 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   Thanks to GitHub Copilot.
 - [Fix CodeQL 48: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/b6564c81f1cbfc6bdf0b4bd72fc9a9ce36b36f6e).
   Thanks to GitHub Copilot.
+- [Fix CodeQL 418: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/f882a14ee07e6fbef16594851a773275d6547dba).
+  Thanks to GitHub Copilot.
 
 and adds the following updates:
 
