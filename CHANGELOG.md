@@ -37,6 +37,8 @@ and fixed the following bugs:
 
 - [Fix typos](https://github.com/wekan/wekan/commit/64b43a42ddc55f4196845834234035a9da0a6bd1).
   Thanks to xet7.
+- [Fix iOS Chrome jQuery event handler runtime error](https://github.com/wekan/wekan/commit/0fefdeec4cdca73c00524c49be80060b53dfa0e5).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
