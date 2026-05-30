@@ -34,7 +34,8 @@ This release adds the following updates:
   Thanks to Chostakovitch and xet7.
 - Updated dependencies.
   [Part 1](https://github.com/wekan/wekan/commit/29b0cc1f86d0feb8d7c963ab9f4de2e8d86aac1b),
-  [Part 2](https://github.com/wekan/wekan/commit/136931640186cd2969bb3e8690a2d9f01a6ef544).
+  [Part 2](https://github.com/wekan/wekan/commit/136931640186cd2969bb3e8690a2d9f01a6ef544),
+  [Part 3](https://github.com/wekan/wekan/commit/76945ee5b51b2e57eef008e1fa9e30b56a5dbd92).
   Thanks to developers of dependencies.
 
 and fixed the following bugs:
