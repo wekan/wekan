@@ -4,7 +4,7 @@ import { isFileValid } from './fileValidation';
 import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
-import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs, STORAGE_NAME_FILESYSTEM } from '/models/lib/fileStoreStrategy';
+import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs, FileStoreStrategyCloud, STORAGE_NAME_FILESYSTEM } from '/models/lib/fileStoreStrategy';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
 import Avatars, { normalizeRemovedFiles, setAvatarsUploadSize } from './avatars';
 
@@ -57,6 +57,7 @@ const storagePath = endsWithFiles
 export const fileStoreStrategyFactory = new FileStoreStrategyFactory(
   FileStoreStrategyFilesystem, storagePath,
   FileStoreStrategyGridFs, avatarsBucket,
+  FileStoreStrategyCloud,
 );
 
 // ---------------------------------------------------------------------------

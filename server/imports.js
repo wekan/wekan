@@ -124,6 +124,7 @@ import '/server/statistics';
 import '/server/attachmentApi';
 import '/server/attachmentMigration';
 import '/server/attachmentMigrationStatus';
+import '/server/attachmentBulkMove';
 import '/server/boardMigrationDetector';
 
 // ----------------------------------------------------------------------------

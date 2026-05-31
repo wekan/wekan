@@ -1,6 +1,12 @@
 import { Mongo } from 'meteor/mongo';
 const { SimpleSchema } = require('/imports/simpleSchema');
-import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreConstants';
+import {
+  STORAGE_NAME_FILESYSTEM,
+  STORAGE_NAME_GRIDFS,
+  STORAGE_NAME_S3,
+  STORAGE_NAME_AZURE,
+  STORAGE_NAME_GCS,
+} from '/models/lib/fileStoreConstants';
 
 // Attachment Storage Settings Collection
 const AttachmentStorageSettings = new Mongo.Collection('attachmentStorageSettings');
@@ -11,7 +17,13 @@ AttachmentStorageSettings.attachSchema(
     // Default storage backend for new uploads
     defaultStorage: {
       type: String,
-      allowedValues: [STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS],
+      allowedValues: [
+        STORAGE_NAME_FILESYSTEM,
+        STORAGE_NAME_GRIDFS,
+        STORAGE_NAME_S3,
+        STORAGE_NAME_AZURE,
+        STORAGE_NAME_GCS,
+      ],
       defaultValue: STORAGE_NAME_FILESYSTEM,
       label: 'Default Storage Backend'
     },
@@ -77,50 +89,30 @@ AttachmentStorageSettings.attachSchema(
       label: 'GridFS Write Enabled'
     },
 
-    // DISABLED: S3 storage configuration removed due to Node.js compatibility
-    /*
+    // S3-compatible object storage (AWS S3, MinIO, Cloudflare R2, Backblaze B2,
+    // Wasabi, DigitalOcean Spaces, Ceph…) via @tweedegolf/storage-abstraction.
     'storageConfig.s3': {
       type: Object,
       optional: true,
+      blackbox: true,
       label: 'S3 Configuration'
     },
 
-    'storageConfig.s3.enabled': {
-      type: Boolean,
-      defaultValue: false,
-      label: 'S3 Storage Enabled'
-    },
-
-    'storageConfig.s3.endpoint': {
-      type: String,
+    // Microsoft Azure Blob Storage.
+    'storageConfig.azure': {
+      type: Object,
       optional: true,
-      label: 'S3 Endpoint'
+      blackbox: true,
+      label: 'Azure Blob Configuration'
     },
 
-    'storageConfig.s3.bucket': {
-      type: String,
+    // Google Cloud Storage.
+    'storageConfig.gcs': {
+      type: Object,
       optional: true,
-      label: 'S3 Bucket'
+      blackbox: true,
+      label: 'Google Cloud Storage Configuration'
     },
-
-    'storageConfig.s3.region': {
-      type: String,
-      optional: true,
-      label: 'S3 Region'
-    },
-
-    'storageConfig.s3.sslEnabled': {
-      type: Boolean,
-      defaultValue: true,
-      label: 'S3 SSL Enabled'
-    },
-
-    'storageConfig.s3.port': {
-      type: Number,
-      defaultValue: 443,
-      label: 'S3 Port'
-    },
-    */
 
     // Upload settings
     uploadSettings: {
@@ -301,12 +293,28 @@ AttachmentStorageSettings.helpers({
         return this.storageConfig.filesystem?.enabled !== false;
       case STORAGE_NAME_GRIDFS:
         return this.storageConfig.gridfs?.enabled !== false;
-      // DISABLED: S3 storage removed due to Node.js compatibility
-      // case STORAGE_NAME_S3:
-      //   return this.storageConfig.s3?.enabled === true;
+      case STORAGE_NAME_S3:
+        return this.storageConfig.s3?.enabled === true;
+      case STORAGE_NAME_AZURE:
+        return this.storageConfig.azure?.enabled === true;
+      case STORAGE_NAME_GCS:
+        return this.storageConfig.gcs?.enabled === true;
       default:
         return false;
     }
+  },
+
+  // Check if reading from a storage backend is allowed by the admin.
+  // Defaults to true when unset so existing files stay readable.
+  isStorageReadEnabled(storageName) {
+    const config = this.getStorageConfig(storageName);
+    return !config || config.read !== false;
+  },
+
+  // Check if writing to a storage backend is allowed by the admin.
+  isStorageWriteEnabled(storageName) {
+    const config = this.getStorageConfig(storageName);
+    return !config || config.write !== false;
   },
 
   // Get storage configuration
@@ -318,9 +326,12 @@ AttachmentStorageSettings.helpers({
         return this.storageConfig.filesystem;
       case STORAGE_NAME_GRIDFS:
         return this.storageConfig.gridfs;
-      // DISABLED: S3 storage removed due to Node.js compatibility
-      // case STORAGE_NAME_S3:
-      //   return this.storageConfig.s3;
+      case STORAGE_NAME_S3:
+        return this.storageConfig.s3;
+      case STORAGE_NAME_AZURE:
+        return this.storageConfig.azure;
+      case STORAGE_NAME_GCS:
+        return this.storageConfig.gcs;
       default:
         return null;
     }

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { PassThrough } from 'stream';
 import { Meteor } from 'meteor/meteor';
 import { createObjectId } from './grid/createObjectId';
 import { httpStreamOutput } from './httpStream.js';
@@ -7,14 +8,22 @@ import {
   STORAGE_NAME_FILESYSTEM,
   STORAGE_NAME_GRIDFS,
   STORAGE_NAME_S3,
+  STORAGE_NAME_AZURE,
+  STORAGE_NAME_GCS,
+  CLOUD_STORAGE_NAMES,
 } from './fileStoreConstants';
-//import {} from './s3/Server-side-file-store.js';
+import { getCloudAdapter, isCloudConfigured } from './cloudStorage';
 import { ObjectId } from 'bson';
-// DISABLED: Minio support removed due to Node.js compatibility issues
-// var Minio = require('minio');
 
 // Re-export constants from shared module (keeps existing import paths working)
-export { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from './fileStoreConstants';
+export {
+  STORAGE_NAME_FILESYSTEM,
+  STORAGE_NAME_GRIDFS,
+  STORAGE_NAME_S3,
+  STORAGE_NAME_AZURE,
+  STORAGE_NAME_GCS,
+  CLOUD_STORAGE_NAMES,
+} from './fileStoreConstants';
 
 /**
  * Sanitize filename to prevent path traversal attacks
@@ -102,17 +111,17 @@ export default class FileStoreStrategyFactory {
    * @param storagePath file storage path
    * @param classFileStoreStrategyGridFs use this strategy for GridFS storage
    * @param gridFsBucket use this GridFS Bucket as GridFS Storage
-   * @param classFileStoreStrategyS3 DISABLED: S3 storage strategy removed due to Node.js compatibility
-   * @param s3Bucket DISABLED: S3 bucket removed due to Node.js compatibility
+   * @param classFileStoreStrategyCloud strategy class for cloud backends (S3/Azure/GCS), optional
    */
-  constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket, classFileStoreStrategyS3, s3Bucket) {
+  constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket, classFileStoreStrategyCloud) {
     this.classFileStoreStrategyFilesystem = classFileStoreStrategyFilesystem;
     this.storagePath = storagePath;
     this.classFileStoreStrategyGridFs = classFileStoreStrategyGridFs;
     this.gridFsBucket = gridFsBucket;
-    // DISABLED: S3 storage strategy removed due to Node.js compatibility
-    // this.classFileStoreStrategyS3 = classFileStoreStrategyS3;
-    // this.s3Bucket = s3Bucket;
+    // Single strategy class handling every cloud provider (S3/Azure/GCS) via
+    // @tweedegolf/storage-abstraction. Optional: when omitted (or the npm
+    // packages are absent) cloud storage falls back to the filesystem.
+    this.classFileStoreStrategyCloud = classFileStoreStrategyCloud;
   }
 
   /** returns the right FileStoreStrategy
@@ -127,9 +136,6 @@ export default class FileStoreStrategyFactory {
         if (fileObj.meta.source == "import" || fileObj.versions[versionName].meta.gridFsFileId) {
           // uploaded by import, so it's in GridFS (MongoDB)
           storage = STORAGE_NAME_GRIDFS;
-        } else if (fileObj && fileObj.versions && fileObj.versions[version] && fileObj.versions[version].meta && fileObj.versions[version].meta.pipePath) {
-          // DISABLED: S3 storage removed due to Node.js compatibility - fallback to filesystem
-          storage = STORAGE_NAME_FILESYSTEM;
         } else {
           // newly uploaded, so it's at the filesystem
           storage = STORAGE_NAME_FILESYSTEM;
@@ -137,16 +143,20 @@ export default class FileStoreStrategyFactory {
       }
     }
     let ret;
-    if ([STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS].includes(storage)) {
-      if (storage == STORAGE_NAME_FILESYSTEM) {
-        ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
-      } else if (storage == STORAGE_NAME_GRIDFS) {
-        ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, fileObj, versionName);
-      }
-    } else if (storage == STORAGE_NAME_S3) {
-      // DISABLED: S3 storage removed due to Node.js compatibility - fallback to filesystem
-      console.warn('S3 storage is disabled due to Node.js compatibility issues, falling back to filesystem storage');
+    if (storage == STORAGE_NAME_FILESYSTEM) {
       ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
+    } else if (storage == STORAGE_NAME_GRIDFS) {
+      ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, fileObj, versionName);
+    } else if (CLOUD_STORAGE_NAMES.includes(storage)) {
+      if (this.classFileStoreStrategyCloud && isCloudConfigured(storage)) {
+        ret = new this.classFileStoreStrategyCloud(storage, fileObj, versionName);
+      } else {
+        // Cloud strategy unavailable or provider not configured — fall back to
+        // filesystem so reads of files that never actually reached the cloud
+        // still resolve instead of throwing.
+        console.warn(`Cloud storage "${storage}" is not configured; falling back to filesystem storage`);
+        ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
+      }
     }
     return ret;
   }
@@ -521,54 +531,217 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
 }
 
 
-/** DISABLED: Strategy to store attachments at S3 - Minio support removed due to Node.js compatibility */
-export class FileStoreStrategyS3 extends FileStoreStrategy {
-  constructor(s3Bucket, fileObj, versionName) {
+/**
+ * Strategy to store attachments on a cloud backend (S3-compatible, Azure Blob,
+ * Google Cloud Storage) through @tweedegolf/storage-abstraction.
+ *
+ * The abstraction is asynchronous and result-object based, while the rest of
+ * WeKan expects synchronous, pipe-able streams. We bridge the two with
+ * PassThrough streams:
+ *  - getReadStream() returns a PassThrough immediately and fills it once the
+ *    async getFileAsStream() resolves.
+ *  - getWriteStream() returns a PassThrough that the async addFileFromStream()
+ *    consumes; waitUntilStored() exposes the upload's completion promise so
+ *    moveToStorage() can confirm the upload before deleting the source file.
+ *
+ * The object key is `${id}-${version}-${name}` and is stored in
+ * `versions.<version>.path` (mirrors the filesystem strategy) so reads can find
+ * the object again regardless of provider.
+ */
+export class FileStoreStrategyCloud extends FileStoreStrategy {
+
+  /** constructor
+   * @param provider cloud storage name ('s3' | 'azure' | 'gcs')
+   * @param fileObj the current file object
+   * @param versionName the current version
+   */
+  constructor(provider, fileObj, versionName) {
     super(fileObj, versionName);
-    this.s3Bucket = s3Bucket;
+    this.provider = provider;
+    this._uploadPromise = null;
+    this._key = null;
   }
 
-  onAfterUpload() {
-    console.warn('S3 storage is disabled due to Node.js compatibility issues');
-  }
+  /** download the file
+   * @param http the current http request
+   * @param cacheControl cacheControl of FilesCollection
+   */
+  interceptDownload(http, cacheControl) {
+    const readStream = this.getReadStream();
+    const downloadFlag = http?.params?.query?.download;
 
-  interceptDownload(http, fileRef, version) {
-    console.warn('S3 storage is disabled due to Node.js compatibility issues');
-    http.response.writeHead(503, { 'Content-Type': 'text/plain' });
-    http.response.end('S3 storage is disabled');
-  }
-
-  getReadStream() {
-    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
-  }
-
-  getWriteStream(filePath) {
-    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
-  }
-
-  getPath() {
-    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
-  }
-
-  getNewPath(storagePath) {
-    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
-  }
-
-  getStorageName() {
-    return STORAGE_NAME_S3;
-  }
-
-  writeStreamFinished(finishedData) {
-    console.warn('S3 storage is disabled due to Node.js compatibility issues');
-  }
-
-  unlink() {
-    console.warn('S3 storage is disabled due to Node.js compatibility issues');
-  }
-
-  getS3FileIdName() {
-    const ret = `versions.${this.versionName}.meta.s3FileId`;
+    let ret = false;
+    if (readStream) {
+      ret = true;
+      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl);
+    }
     return ret;
+  }
+
+  /** after file remove */
+  onAfterRemove() {
+    this.unlink();
+    super.onAfterRemove();
+  }
+
+  /** returns a read stream (filled asynchronously from the cloud backend)
+   * @return the read stream
+   */
+  getReadStream() {
+    const pass = new PassThrough();
+    const adapter = getCloudAdapter(this.provider);
+    if (!adapter) {
+      process.nextTick(() => pass.destroy(new Error(`Cloud storage "${this.provider}" is not configured`)));
+      return pass;
+    }
+    const key = this.getObjectKey();
+    adapter.storage.getFileAsStream(adapter.bucketName, key)
+      .then(result => {
+        if (!result || result.error || !result.value) {
+          pass.destroy(new Error(result && result.error ? result.error : 'No cloud read stream'));
+          return;
+        }
+        result.value.on('error', error => pass.destroy(error));
+        result.value.pipe(pass);
+      })
+      .catch(error => pass.destroy(error));
+    return pass;
+  }
+
+  /** returns a write stream that uploads to the cloud backend
+   * @param filePath the object key to write to (from getNewPath)
+   * @return the write stream
+   */
+  getWriteStream(filePath) {
+    const pass = new PassThrough();
+    this._key = (typeof filePath === 'string' && filePath) ? filePath : this.getObjectKey();
+
+    const adapter = getCloudAdapter(this.provider);
+    if (!adapter) {
+      this._uploadPromise = Promise.reject(new Error(`Cloud storage "${this.provider}" is not configured`));
+      // Swallow here so the rejection is observed; the error is surfaced via the stream.
+      this._uploadPromise.catch(() => {});
+      process.nextTick(() => pass.destroy(new Error(`Cloud storage "${this.provider}" is not configured`)));
+      return pass;
+    }
+
+    this._uploadPromise = adapter.storage.addFileFromStream({
+      stream: pass,
+      bucketName: adapter.bucketName,
+      targetPath: this._key,
+    }).then(result => {
+      if (result && result.error) {
+        throw new Error(result.error);
+      }
+      return result;
+    });
+    // Surface upload failures onto the stream so piping callers see the error,
+    // and avoid unhandled rejection warnings.
+    this._uploadPromise.catch(error => {
+      if (!pass.destroyed) {
+        pass.destroy(error);
+      }
+    });
+    return pass;
+  }
+
+  /** Promise resolving once the upload has durably completed on the backend.
+   * moveToStorage() awaits this before deleting the source file.
+   */
+  waitUntilStored() {
+    return this._uploadPromise || Promise.resolve();
+  }
+
+  /** writing finished — persist the object key in the version meta */
+  writeStreamFinished(finishedData) {
+    const field = this.getCloudFileIdName();
+    Attachments.updateAsync(
+      { _id: this.fileObj._id },
+      { $set: { [field]: this._key } },
+    ).catch(error => {
+      console.error('Failed to persist cloud file id:', error);
+    });
+  }
+
+  /** remove the file from the cloud backend */
+  unlink() {
+    const adapter = getCloudAdapter(this.provider);
+    if (!adapter) {
+      return;
+    }
+    const key = this.getObjectKey();
+    Promise.resolve(adapter.storage.removeFile(adapter.bucketName, key)).catch(error => {
+      console.error('Failed to remove cloud file:', error);
+    });
+
+    const field = this.getCloudFileIdName();
+    Attachments.updateAsync(
+      { _id: this.fileObj._id },
+      { $unset: { [field]: 1 } },
+    ).catch(error => {
+      console.error('Failed to clear cloud file id:', error);
+    });
+  }
+
+  /** the object key used in the cloud bucket */
+  getObjectKey() {
+    const version = this.fileObj.versions[this.versionName] || {};
+    if (version.path) {
+      return version.path;
+    }
+    const meta = version.meta || {};
+    if (meta[`${this.provider}FileId`]) {
+      return meta[`${this.provider}FileId`];
+    }
+    const safeName = sanitizeFilename(this.fileObj.name);
+    return `${this.fileObj._id}-${this.versionName}-${safeName}`;
+  }
+
+  /** the object key for a fresh write (no leading storage directory) */
+  getNewPath(storagePath, name) {
+    if (typeof name !== 'string') {
+      name = this.fileObj.name;
+    }
+    const safeName = sanitizeFilename(name);
+    return `${this.fileObj._id}-${this.versionName}-${safeName}`;
+  }
+
+  /** the database field storing this provider's object key */
+  getCloudFileIdName() {
+    return `versions.${this.versionName}.meta.${this.provider}FileId`;
+  }
+
+  /** rename the file: cloud objects are keyed by id+version+name, so a rename
+   * is a server-side copy to the new key followed by removal of the old one.
+   */
+  rename(newFilePath) {
+    const adapter = getCloudAdapter(this.provider);
+    if (!adapter) {
+      return;
+    }
+    const oldKey = this.getObjectKey();
+    const newKey = newFilePath;
+    if (!oldKey || !newKey || oldKey === newKey) {
+      return;
+    }
+    adapter.storage.getFileAsStream(adapter.bucketName, oldKey)
+      .then(result => {
+        if (!result || result.error || !result.value) {
+          throw new Error(result && result.error ? result.error : 'No cloud read stream for rename');
+        }
+        return adapter.storage.addFileFromStream({
+          stream: result.value,
+          bucketName: adapter.bucketName,
+          targetPath: newKey,
+        });
+      })
+      .then(() => adapter.storage.removeFile(adapter.bucketName, oldKey))
+      .catch(error => console.error('Failed to rename cloud file:', error));
+  }
+
+  /** return the storage name (the provider) */
+  getStorageName() {
+    return this.provider;
   }
 }
 
@@ -577,6 +750,9 @@ export class FileStoreStrategyS3 extends FileStoreStrategy {
  * @param fileObj move this fileObj to another storage
  * @param storageDestination the storage destination (fs or gridfs)
  * @param fileStoreStrategyFactory get FileStoreStrategy from this factory
+ * @return a Promise that resolves once every version has finished moving.
+ *   Existing callers may ignore the return value (fire-and-forget); the
+ *   server-side bulk move job awaits it to move attachments sequentially.
  */
 export const moveToStorage = function(fileObj, storageDestination, fileStoreStrategyFactory) {
   // SECURITY: Sanitize filename to prevent path traversal attacks
@@ -591,42 +767,84 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
     fileObj.name = safeName;
   }
 
-  Object.keys(fileObj.versions).forEach(versionName => {
+  const versionPromises = Object.keys(fileObj.versions).map(versionName => new Promise(resolve => {
     const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const strategyWrite = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName, storageDestination);
 
-    if (strategyRead.constructor.name != strategyWrite.constructor.name) {
-      const readStream = strategyRead.getReadStream();
+    // Compare by storage name rather than class name: every cloud provider
+    // shares the same strategy class, so constructor.name would wrongly treat
+    // an S3 -> Azure move as "already there".
+    if (strategyRead.getStorageName() == strategyWrite.getStorageName()) {
+      // Already on the destination storage, nothing to move for this version.
+      resolve();
+      return;
+    }
 
-      const filePath = strategyWrite.getNewPath(fileStoreStrategyFactory.storagePath);
-      const writeStream = strategyWrite.getWriteStream(filePath);
+    const readStream = strategyRead.getReadStream();
 
-      writeStream.on('error', error => {
-        console.error('[writeStream error]: ', error, fileObj._id);
-      });
+    const filePath = strategyWrite.getNewPath(fileStoreStrategyFactory.storagePath);
+    const writeStream = strategyWrite.getWriteStream(filePath);
 
-      readStream.on('error', error => {
-        console.error('[readStream error]: ', error, fileObj._id);
-      });
+    let ended = false;
+    let finished = false;
+    let settled = false;
 
-      writeStream.on('finish', finishedData => {
-        strategyWrite.writeStreamFinished(finishedData);
-      });
-
-      // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-      readStream.on('end', () => {
-        Attachments.updateAsync({ _id: fileObj._id }, { $set: {
+    // Persist the new storage location and delete the source — but only once
+    // the write is durably stored. For cloud backends waitUntilStored() awaits
+    // the actual upload, so a failed upload never deletes the source file.
+    const finalize = async () => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      try {
+        if (typeof strategyWrite.waitUntilStored === 'function') {
+          await strategyWrite.waitUntilStored();
+        }
+        await Attachments.updateAsync({ _id: fileObj._id }, { $set: {
           [`versions.${versionName}.storage`]: strategyWrite.getStorageName(),
           [`versions.${versionName}.path`]: filePath,
-        } }).catch(error => {
-          console.error('Failed to update attachment storage metadata:', error);
-        });
+        } });
         strategyRead.unlink();
-      });
+      } catch (error) {
+        console.error('[moveToStorage] write not confirmed, keeping source intact: ', error, fileObj._id);
+      }
+      resolve();
+    };
 
-      readStream.pipe(writeStream);
-    }
-  });
+    // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
+    const settle = () => {
+      if (ended && finished) {
+        finalize();
+      }
+    };
+
+    const fail = (error, label) => {
+      console.error(`[${label}]: `, error, fileObj._id);
+      if (!settled) {
+        settled = true;
+        resolve();
+      }
+    };
+
+    writeStream.on('error', error => fail(error, 'writeStream error'));
+    readStream.on('error', error => fail(error, 'readStream error'));
+
+    writeStream.on('finish', finishedData => {
+      strategyWrite.writeStreamFinished(finishedData);
+      finished = true;
+      settle();
+    });
+
+    readStream.on('end', () => {
+      ended = true;
+      settle();
+    });
+
+    readStream.pipe(writeStream);
+  }));
+
+  return Promise.all(versionPromises);
 };
 
 export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFactory) {

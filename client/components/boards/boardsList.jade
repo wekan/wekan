@@ -95,7 +95,7 @@ template(name="boardList")
                 a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
                   span.emoji-icon
                     i.fa.fa-times
-        ul.board-list.clearfix.js-boards(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
+        ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
           li.js-add-board
             if isSelectedMenu 'templates'
               a.board-list-item.label(title="{{_ 'add-template-container'}}")
@@ -130,7 +130,7 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{boardWorkspaceDragHint}}")
+                    span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
                       span.emoji-icon
                         i.fa.fa-arrows
 
@@ -158,7 +158,7 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{boardWorkspaceDragHint}}")
+                    span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
                       span.emoji-icon
                         i.fa.fa-arrows
 

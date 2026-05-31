@@ -16,6 +16,7 @@ import '/imports/lib/customHeadDefaults';
 import '/imports/lib/dateUtils';
 import '/imports/lib/secureDOMPurify';
 import '/models/attachmentMigrationStatus';
+import '/models/attachmentBulkMoveStatus';
 import '/imports/cronMigrationClient';
 
 // ----------------------------------------------------------------------------

@@ -64,7 +64,7 @@ template(name="boardBody")
 
 template(name="calendarView")
   if isViewCalendar
-    .calendar-view.swimlane
+    .calendar-view.swimlane.dragscroll
       if currentCard
         +cardDetails(currentCard)
       +fullcalendar(calendarOptions)

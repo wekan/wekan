@@ -38,6 +38,15 @@ Template.list.onRendered(function () {
   const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
   const $cards = this.$('.js-minicards');
 
+  // Destroy any existing sortable before re-initializing. Without this, a
+  // re-render of the list (e.g. when a Card Details panel opens) binds a SECOND
+  // sortable to the same .js-minicards element, so dragging a card from its
+  // handle fires the `stop` handler twice and the card appears to duplicate.
+  // Mirrors the guard in swimlanes.js initSortable().
+  if ($cards.data('uiSortable') || $cards.data('sortable')) {
+    $cards.sortable('destroy');
+  }
+
   $cards.sortable({
     connectWith: '.js-minicards:not(.js-list-full)',
     tolerance: 'pointer',

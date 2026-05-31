@@ -16,6 +16,11 @@ template(name="attachments")
                 span.emoji-icon
                 i.fa.fa-arrow-right
                 | {{_ 'attachment-move'}}
+            li(class="{{#if isDefaultStorageActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="default-save-storage")
+                span.emoji-icon
+                i.fa.fa-save
+                | {{_ 'default-save-storage'}}
             li(class="{{#if isLimitsActive}}active{{/if}}")
               a.js-attachments-menu(data-id="limits")
                 span.emoji-icon
@@ -36,6 +41,16 @@ template(name="attachments")
                 span.emoji-icon
                 i.fa.fa-cloud
                 | {{_ 's3-minio-storage'}}
+            li(class="{{#if isAzureActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="azure")
+                span.emoji-icon
+                i.fa.fa-cloud
+                | {{_ 'azure-blob-storage'}}
+            li(class="{{#if isGcsActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="gcs")
+                span.emoji-icon
+                i.fa.fa-cloud
+                | {{_ 'gcs-storage'}}
 
         .main-body
           if loading.get
@@ -45,6 +60,17 @@ template(name="attachments")
               li
                 h3 {{_ 'attachment-move'}}
                 +moveAttachments
+          else if isDefaultStorageActive
+            ul#attachment-default-storage-setting.setting-detail
+              li
+                h3 {{_ 'default-save-storage'}}
+                .description {{_ 'default-save-storage-description'}}
+                .form-group
+                  select.wekan-form-control.js-default-save-storage
+                    each defaultStorageOptions
+                      option(value=value selected=selected) {{_ labelKey}}
+                .form-group
+                  button.js-save-default-storage.primary {{_ 'save'}}
           else if isLimitsActive
             ul#attachment-limits-setting.setting-detail
               li
@@ -109,9 +135,6 @@ template(name="attachments")
                   .storage-rw-item
                     input.js-toggle-filesystem-read#filesystem-read(type="checkbox" checked="{{filesystemRead}}")
                     label(for="filesystem-read") {{_ 'storage-read'}}
-                  .storage-rw-item
-                    input.js-toggle-filesystem-write#filesystem-write(type="checkbox" checked="{{filesystemWrite}}")
-                    label(for="filesystem-write") {{_ 'save'}}
 
                 .form-group
                   button.js-calculate-filesystem-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
@@ -154,9 +177,6 @@ template(name="attachments")
                   .storage-rw-item
                     input.js-toggle-gridfs-read#gridfs-read(type="checkbox" checked="{{gridfsRead}}")
                     label(for="gridfs-read") {{_ 'storage-read'}}
-                  .storage-rw-item
-                    input.js-toggle-gridfs-write#gridfs-write(type="checkbox" checked="{{gridfsWrite}}")
-                    label(for="gridfs-write") {{_ 'save'}}
                 .form-group
                   button.js-calculate-gridfs-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
                   if gridFsStatsLoading
@@ -199,13 +219,45 @@ template(name="attachments")
             ul#attachment-s3-setting.setting-detail
               li
                 h3 {{_ 's3-minio-storage'}}
+                .description {{_ 's3-minio-storage-description'}}
                 .storage-rw-row
                   .storage-rw-item
-                    input#s3-read(type="checkbox" checked="{{s3Read}}" disabled)
-                    label(for="s3-read") {{_ 'storage-read'}}
+                    input#s3-enabled(type="checkbox" checked=cloudEnabled.s3)
+                    label(for="s3-enabled") {{_ 'storage-enabled'}}
                   .storage-rw-item
-                    input#s3-write(type="checkbox" checked="{{s3Write}}" disabled)
-                    label(for="s3-write") {{_ 'save'}}
+                    input#s3-read(type="checkbox" checked=cloudRead.s3)
+                    label(for="s3-read") {{_ 'storage-read'}}
+
+                .form-group
+                  label {{_ 's3-endpoint'}}
+                  input.wekan-form-control#s3-endpoint(type="text" value=cloudValue.s3.endpoint)
+                  small.form-text.text-muted {{_ 's3-endpoint-description'}}
+                .form-group
+                  label {{_ 's3-region'}}
+                  input.wekan-form-control#s3-region(type="text" value=cloudValue.s3.region)
+                .form-group
+                  label {{_ 's3-bucket'}}
+                  input.wekan-form-control#s3-bucket(type="text" value=cloudValue.s3.bucket)
+                .form-group
+                  label {{_ 's3-access-key'}}
+                  input.wekan-form-control#s3-access-key(type="text" value=cloudValue.s3.accessKeyId)
+                .form-group
+                  label {{_ 's3-secret-key'}}
+                  input.wekan-form-control#s3-secret-key(type="password" placeholder=cloudSecretPlaceholder.s3.secretAccessKey)
+                  small.form-text.text-muted {{_ 'cloud-secret-keep-blank'}}
+                .form-group
+                  .storage-rw-item
+                    input#s3-force-path-style(type="checkbox" checked=cloudValue.s3.forcePathStyle)
+                    label(for="s3-force-path-style") {{_ 's3-force-path-style'}}
+                  small.form-text.text-muted {{_ 's3-force-path-style-description'}}
+
+                .form-group
+                  button.js-test-cloud-connection.btn.btn-secondary(data-provider="s3") {{_ 'test-cloud-connection'}}
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="s3") {{_ 'save'}}
+                  if cloudTestResult.s3
+                    p.form-text.text-success {{_ 'cloud-connection-success'}}
+                  if cloudTestError.s3
+                    p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.s3}}
 
                 .form-group
                   button.js-calculate-s3-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
@@ -225,44 +277,77 @@ template(name="attachments")
                         td {{_ 'avatars'}}
                         td {{s3Stats.avatars}}
 
-                .form-group
-                  label {{_ 's3-endpoint'}}
-                  input.wekan-form-control#s3-endpoint(type="text" value="{{s3Endpoint}}" readonly)
-                  small.form-text.text-muted {{_ 's3-endpoint-description'}}
+          else if isAzureActive
+            ul#attachment-azure-setting.setting-detail
+              li
+                h3 {{_ 'azure-blob-storage'}}
+                .description {{_ 'azure-blob-storage-description'}}
+                .storage-rw-row
+                  .storage-rw-item
+                    input#azure-enabled(type="checkbox" checked=cloudEnabled.azure)
+                    label(for="azure-enabled") {{_ 'storage-enabled'}}
+                  .storage-rw-item
+                    input#azure-read(type="checkbox" checked=cloudRead.azure)
+                    label(for="azure-read") {{_ 'storage-read'}}
 
                 .form-group
-                  label {{_ 's3-bucket'}}
-                  input.wekan-form-control#s3-bucket(type="text" value="{{s3Bucket}}" readonly)
-                  small.form-text.text-muted {{_ 's3-bucket-description'}}
+                  label {{_ 'azure-account-name'}}
+                  input.wekan-form-control#azure-account-name(type="text" value=cloudValue.azure.accountName)
+                .form-group
+                  label {{_ 'azure-account-key'}}
+                  input.wekan-form-control#azure-account-key(type="password" placeholder=cloudSecretPlaceholder.azure.accountKey)
+                  small.form-text.text-muted {{_ 'cloud-secret-keep-blank'}}
+                .form-group
+                  label {{_ 'azure-connection-string'}}
+                  input.wekan-form-control#azure-connection-string(type="password" placeholder=cloudSecretPlaceholder.azure.connectionString)
+                  small.form-text.text-muted {{_ 'azure-connection-string-description'}}
+                .form-group
+                  label {{_ 'azure-container'}}
+                  input.wekan-form-control#azure-bucket(type="text" value=cloudValue.azure.bucket)
 
                 .form-group
-                  label {{_ 's3-region'}}
-                  input.wekan-form-control#s3-region(type="text" value="{{s3Region}}" readonly)
-                  small.form-text.text-muted {{_ 's3-region-description'}}
+                  button.js-test-cloud-connection.btn.btn-secondary(data-provider="azure") {{_ 'test-cloud-connection'}}
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="azure") {{_ 'save'}}
+                  if cloudTestResult.azure
+                    p.form-text.text-success {{_ 'cloud-connection-success'}}
+                  if cloudTestError.azure
+                    p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.azure}}
+
+          else if isGcsActive
+            ul#attachment-gcs-setting.setting-detail
+              li
+                h3 {{_ 'gcs-storage'}}
+                .description {{_ 'gcs-storage-description'}}
+                .storage-rw-row
+                  .storage-rw-item
+                    input#gcs-enabled(type="checkbox" checked=cloudEnabled.gcs)
+                    label(for="gcs-enabled") {{_ 'storage-enabled'}}
+                  .storage-rw-item
+                    input#gcs-read(type="checkbox" checked=cloudRead.gcs)
+                    label(for="gcs-read") {{_ 'storage-read'}}
 
                 .form-group
-                  label {{_ 's3-access-key'}}
-                  input.wekan-form-control#s3-access-key(type="text" placeholder="{{_ 's3-access-key-placeholder'}}" readonly)
-                  small.form-text.text-muted {{_ 's3-access-key-description'}}
+                  label {{_ 'gcs-project-id'}}
+                  input.wekan-form-control#gcs-project-id(type="text" value=cloudValue.gcs.projectId)
+                .form-group
+                  label {{_ 'gcs-bucket'}}
+                  input.wekan-form-control#gcs-bucket(type="text" value=cloudValue.gcs.bucket)
+                .form-group
+                  label {{_ 'gcs-key-filename'}}
+                  input.wekan-form-control#gcs-key-filename(type="text" value=cloudValue.gcs.keyFilename)
+                  small.form-text.text-muted {{_ 'gcs-key-filename-description'}}
+                .form-group
+                  label {{_ 'gcs-credentials'}}
+                  textarea.wekan-form-control#gcs-credentials(rows="4" placeholder=cloudSecretPlaceholder.gcs.credentials)
+                  small.form-text.text-muted {{_ 'gcs-credentials-description'}}
 
                 .form-group
-                  label {{_ 's3-secret-key'}}
-                  input.wekan-form-control#s3-secret-key(type="password" placeholder="{{_ 's3-secret-key-placeholder'}}")
-                  small.form-text.text-muted {{_ 's3-secret-key-description'}}
-
-                .form-group
-                  label {{_ 's3-ssl-enabled'}}
-                  input.wekan-form-control#s3-ssl-enabled(type="checkbox" checked="{{s3SslEnabled}}" disabled)
-                  small.form-text.text-muted {{_ 's3-ssl-enabled-description'}}
-
-                .form-group
-                  label {{_ 's3-port'}}
-                  input.wekan-form-control#s3-port(type="number" value="{{s3Port}}" readonly)
-                  small.form-text.text-muted {{_ 's3-port-description'}}
-
-                .form-group
-                  button.js-test-s3-connection.btn.btn-secondary {{_ 'test-s3-connection'}}
-                  button.js-save-s3-settings.btn.btn-primary {{_ 'save-s3-settings'}}
+                  button.js-test-cloud-connection.btn.btn-secondary(data-provider="gcs") {{_ 'test-cloud-connection'}}
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="gcs") {{_ 'save'}}
+                  if cloudTestResult.gcs
+                    p.form-text.text-success {{_ 'cloud-connection-success'}}
+                  if cloudTestError.gcs
+                    p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.gcs}}
 
 template(name="moveAttachments")
   .move-storage-form
@@ -274,36 +359,22 @@ template(name="moveAttachments")
           option(value="gridfs") {{_ 'move-storage-gridfs'}}
           option(value="fs") {{_ 'move-storage-fs'}}
           option(value="s3") {{_ 'move-storage-s3'}}
+          option(value="azure") {{_ 'move-storage-azure'}}
+          option(value="gcs") {{_ 'move-storage-gcs'}}
       .form-group
         label {{_ 'move-destination'}}
         select.wekan-form-control.js-move-dest-storage
           option(value="gridfs") {{_ 'move-storage-gridfs'}}
           option(value="fs") {{_ 'move-storage-fs'}}
           option(value="s3") {{_ 'move-storage-s3'}}
+          option(value="azure") {{_ 'move-storage-azure'}}
+          option(value="gcs") {{_ 'move-storage-gcs'}}
           option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
     button.js-move-all-attachments.btn.btn-primary {{_ 'move-all-attachments'}}
-
-  .move-compact-section
-    h4 {{_ 'mongodb-compact'}}
-    p.form-text {{_ 'mongodb-compact-description'}}
-    p.form-text.text-muted {{_ 'mongodb-compact-warning'}}
-    button.js-compact-mongodb-move.btn.btn-warning(type="button") {{_ 'mongodb-compact-run'}}
-    if moveCompactLoading
-      p.form-text.text-muted {{_ 'mongodb-compact-running'}}
-    if moveCompactError
-      p.form-text.text-danger {{_ 'mongodb-compact-error'}} {{moveCompactError}}
-    if moveCompactResult
-      p.form-text.text-success {{_ 'mongodb-compact-success'}}
-      ul.compact-result-list
-        each item in moveCompactResultItems
-          li
-            strong {{item.name}}
-            | : {{item.status}}
 
   if moveProgress
     .move-progress-section
       .move-progress-header
-        +spinner
         .move-progress-info
           .move-progress-counter {{_ 'move-progress-file'}} {{moveProgress.current}} / {{moveProgress.total}}
           .move-progress-filename {{moveProgress.name}} ({{moveProgressSize}})
@@ -341,12 +412,16 @@ template(name="moveBoardAttachments")
           option(value="gridfs") {{_ 'move-storage-gridfs'}}
           option(value="fs") {{_ 'move-storage-fs'}}
           option(value="s3") {{_ 'move-storage-s3'}}
+          option(value="azure") {{_ 'move-storage-azure'}}
+          option(value="gcs") {{_ 'move-storage-gcs'}}
       .form-group
         label {{_ 'move-destination'}}
         select.wekan-form-control.js-move-board-dest-storage
           option(value="gridfs") {{_ 'move-storage-gridfs'}}
           option(value="fs") {{_ 'move-storage-fs'}}
           option(value="s3") {{_ 'move-storage-s3'}}
+          option(value="azure") {{_ 'move-storage-azure'}}
+          option(value="gcs") {{_ 'move-storage-gcs'}}
           option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
     button.js-move-all-attachments-of-board.btn.btn-primary {{_ 'move-all-attachments'}}
 
@@ -396,3 +471,15 @@ template(name="moveAttachment")
             button.js-move-storage-s3
               i.fa.fa-arrow-right
               | {{_ 'attachment-move-storage-s3'}}
+
+        if $neq version.storageName "azure"
+          if version.storageName
+            button.js-move-storage-azure
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-azure'}}
+
+        if $neq version.storageName "gcs"
+          if version.storageName
+            button.js-move-storage-gcs
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-gcs'}}

@@ -10,6 +10,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { Accounts } from 'meteor/accounts-base';
 import Attachments from '/models/attachments';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
+import { STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreConstants';
 import { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments.server';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.server';
@@ -504,6 +505,28 @@ if (Meteor.isServer) {
         res.writeHead(413);
         res.end('Attachment exceeds download limit');
         return;
+      }
+
+      // Enforce the per-storage "Read" flag configured in
+      // Admin Panel / Attachments. The file is served only when reading from
+      // the storage backend it currently lives in is enabled.
+      const storageSettings = await AttachmentStorageSettings.findOneAsync({});
+      if (storageSettings) {
+        let storageName;
+        if (attachment?.meta?.source === 'legacy') {
+          // Legacy CollectionFS files live in MongoDB GridFS.
+          storageName = STORAGE_NAME_GRIDFS;
+        } else {
+          const probeStrategy = attachmentStoreFactory.getFileStrategy(attachment, 'original');
+          storageName = probeStrategy && probeStrategy.getStorageName
+            ? probeStrategy.getStorageName()
+            : null;
+        }
+        if (storageName && !storageSettings.isStorageReadEnabled(storageName)) {
+          res.writeHead(403);
+          res.end('Reading from this storage backend is disabled by administrator');
+          return;
+        }
       }
 
       // Choose proper streaming based on source
