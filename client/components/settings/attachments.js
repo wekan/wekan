@@ -1,8 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { ReactiveCache } from '/imports/reactiveCache';
-import { groupBy } from '/imports/lib/collectionHelpers';
-import Attachments from '/models/attachments';
-import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
 
@@ -231,7 +227,6 @@ function refreshAttachmentStorageSettings(tpl) {
 
 Template.attachments.onCreated(function () {
   this.activeSection = new ReactiveVar('move');
-  this.attachmentsSubscription = Meteor.subscribe('attachmentsList');
   this.storageSettingsSubscription = Meteor.subscribe('attachmentStorageSettings');
   this.attachmentStorageSettings = new ReactiveVar(null);
   this.attachmentLimitUnits = new ReactiveVar({
@@ -263,7 +258,7 @@ Template.attachments.onCreated(function () {
   this.loading = new ReactiveVar(false);
 
   this.autorun(() => {
-    const ready = this.attachmentsSubscription.ready() && this.storageSettingsSubscription.ready();
+    const ready = this.storageSettingsSubscription.ready();
     if (ready) {
       refreshAttachmentStorageSettings(this);
       this.loading.set(false);
@@ -732,7 +727,6 @@ Template.attachments.events({
 });
 
 Template.moveAttachments.onCreated(function () {
-  this.attachments = null;
   // The bulk move runs as a server-side background job; subscribe to its
   // persisted progress so it keeps running (and stays visible) even if the
   // admin navigates away from or closes this page.
@@ -760,42 +754,6 @@ Template.moveAttachments.helpers({
     const p = getBulkMoveProgress();
     return p?.size ? filesize(p.size) : '';
   },
-  getBoardsWithAttachments() {
-    const tpl = Template.instance();
-    tpl.attachments = ReactiveCache.getAttachments();
-    const attachmentsByBoardId = groupBy(tpl.attachments, fileObj => fileObj.meta?.boardId);
-
-    const ret = Object.keys(attachmentsByBoardId)
-      .map(boardId => {
-        const boardAttachments = attachmentsByBoardId[boardId];
-
-        boardAttachments.forEach(_attachment => {
-          _attachment.flatVersion = Object.keys(_attachment.versions || {})
-            .map(_versionName => {
-              const _version = Object.assign(_attachment.versions[_versionName], {"versionName": _versionName});
-              // Read storage directly from the document (set by onAfterUpload on server)
-              _version.storageName = _version.storage || (
-                (_attachment.meta?.source === 'import' || _version.meta?.gridFsFileId) ? 'gridfs' : 'fs'
-              );
-              return _version;
-            });
-        });
-        // The board may no longer exist (or not be loaded in the cache) for
-        // orphaned attachments. Fall back to a placeholder so the move list
-        // still renders these attachments instead of throwing.
-        const board = ReactiveCache.getBoard(boardId) || {
-          _id: boardId,
-          title: boardId ? `(${boardId})` : '(no board)',
-        };
-        board.attachments = boardAttachments;
-        return board;
-      })
-    return ret;
-  },
-  getBoardData(boardId) {
-    const ret = ReactiveCache.getBoard(boardId);
-    return ret;
-  },
 });
 
 function runCompact(loadingVar, resultVar, errorVar) {
@@ -809,28 +767,6 @@ function runCompact(loadingVar, resultVar, errorVar) {
       return;
     }
     resultVar.set(result || {});
-  });
-}
-
-function attachmentVersionMatchesSource(attachment, source) {
-  const versions = Object.values(attachment.versions || {});
-  return versions.some(v => {
-    switch (source) {
-      case 'collectionfs':
-        return !!(v.meta?.gridFsFileId);
-      case 'gridfs':
-        return v.storage === 'gridfs' && !v.meta?.gridFsFileId;
-      case 'fs':
-        return v.storage === 'fs' || (!v.storage && !v.meta?.gridFsFileId);
-      case 's3':
-        return v.storage === 's3';
-      case 'azure':
-        return v.storage === 'azure';
-      case 'gcs':
-        return v.storage === 'gcs';
-      default:
-        return false;
-    }
   });
 }
 
@@ -856,50 +792,5 @@ Template.moveAttachments.events({
   },
   'click button.js-cancel-move'() {
     Meteor.call('cancelBulkAttachmentMove');
-  },
-});
-
-Template.moveBoardAttachments.events({
-  'click button.js-move-all-attachments-of-board'(event, tpl) {
-    const source = tpl.$('.js-move-board-source-storage').val();
-    const dest = tpl.$('.js-move-board-dest-storage').val();
-    if (!source || !dest || source === dest) return;
-    const destStorage = dest === 'collectionfs' ? 'gridfs' : dest;
-    const data = Template.currentData();
-    (data.attachments || []).forEach(_attachment => {
-      if (attachmentVersionMatchesSource(_attachment, source)) {
-        Meteor.call('moveAttachmentToStorage', _attachment._id, destStorage);
-      }
-    });
-  },
-});
-
-Template.moveAttachment.helpers({
-  fileSize(size) {
-    const ret = filesize(size);
-    return ret;
-  },
-});
-
-Template.moveAttachment.events({
-  'click button.js-move-storage-fs'() {
-    const data = Template.currentData();
-    Meteor.call('moveAttachmentToStorage', data._id, "fs");
-  },
-  'click button.js-move-storage-gridfs'() {
-    const data = Template.currentData();
-    Meteor.call('moveAttachmentToStorage', data._id, "gridfs");
-  },
-  'click button.js-move-storage-s3'() {
-    const data = Template.currentData();
-    Meteor.call('moveAttachmentToStorage', data._id, "s3");
-  },
-  'click button.js-move-storage-azure'() {
-    const data = Template.currentData();
-    Meteor.call('moveAttachmentToStorage', data._id, "azure");
-  },
-  'click button.js-move-storage-gcs'() {
-    const data = Template.currentData();
-    Meteor.call('moveAttachmentToStorage', data._id, "gcs");
   },
 });
