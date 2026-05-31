@@ -281,7 +281,6 @@ template(name="attachments")
             ul#attachment-azure-setting.setting-detail
               li
                 h3 {{_ 'azure-blob-storage'}}
-                .description {{_ 'azure-blob-storage-description'}}
                 .storage-rw-row
                   .storage-rw-item
                     input#azure-enabled(type="checkbox" checked=cloudEnabled.azure)
@@ -317,7 +316,6 @@ template(name="attachments")
             ul#attachment-gcs-setting.setting-detail
               li
                 h3 {{_ 'gcs-storage'}}
-                .description {{_ 'gcs-storage-description'}}
                 .storage-rw-row
                   .storage-rw-item
                     input#gcs-enabled(type="checkbox" checked=cloudEnabled.gcs)

@@ -1565,7 +1565,7 @@
   "cloud-settings-save-failed": "Failed to save storage settings",
   "move-storage-azure": "Azure Blob",
   "move-storage-gcs": "Google Cloud Storage",
-  "attachment-move-storage-azure": "Move attachment to Azure Blob",
+  "attachment-move-storage-azure": "Move attachment to Azure Blob Storage",
   "attachment-move-storage-gcs": "Move attachment to Google Cloud Storage",
   "gridfs-enabled": "GridFS Enabled",
   "gridfs-disabled": "GridFS Disabled",
