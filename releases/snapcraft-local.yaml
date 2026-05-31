@@ -1,5 +1,5 @@
 name: wekan
-version: '9.32'
+version: '9.33'
 base: core26
 build-base: devel
 confinement: strict
@@ -191,7 +191,7 @@ parts:
                     exit 1
                     ;;
             esac
-            WEKAN_ZIP="wekan-9.32-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-9.33-${WEKAN_ARCH}.zip"
             NODE_TAR="node-v24.16.0-linux-${NODE_ARCH}.tar.xz"
             export NPM_CONFIG_REGISTRY="http://192.168.1.47:4873/"
             npm config set registry "$NPM_CONFIG_REGISTRY" --location=user
@@ -200,7 +200,7 @@ parts:
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v9.32/wekan-9.32-amd64.zip
+            #wget https://github.com/wekan/wekan/releases/download/v9.33/wekan-9.33-amd64.zip
             wget "http://192.168.1.47:8000/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
