@@ -173,6 +173,11 @@ This release fixes the following CRITICAL SECURITY ISSUES:
 
 and adds the following updates:
 
+- [Added test menu options](https://github.com/wekan/wekan/commit/b0918686a2e3e39511964be14321f30b5520c644).
+  "Test Playwright Chromium", "Test Playwright Firefox" and "Test
+  Playwright Webkit" to `rebuild-wekan.sh` for running the
+  Playwright end-to-end test suite per browser.
+  Thanks to xet7.
 - [Copy wepica style of hide/show password to WeKan login and register pages](https://github.com/wekan/wekan/commit/9d3587086377c6c677ee03d4cb6f43c34f468558).
   Thanks to Chostakovitch and xet7.
 - Updated dependencies.
