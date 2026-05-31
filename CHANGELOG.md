@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update Windows MongoDB](https://github.com/wekan/wekan/commit/beedf2fefa614018ce7ed499465092e814a050d9).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.34 2026-05-31 WeKan ® release
 
 This release fixes the following bugs:
