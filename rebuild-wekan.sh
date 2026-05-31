@@ -24,7 +24,7 @@ function ensure_rspack_public_dirs(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run tests" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run tests" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -282,6 +282,39 @@ do
 		fi
 		break
 		;;
+
+    "Test Playwright Chromium")
+			ORIG_HOME="$HOME"
+			cd "$ORIG_HOME/repos/wekan/tests/playwright"
+			export HOME="$ORIG_HOME/repos/wekan/.tools"
+			unset CHROME_DEVEL_SANDBOX
+			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
+			export WEKAN_PLAYWRIGHT_ALL=1
+			meteor npm exec playwright test -- --project=chromium
+			break
+			;;
+
+    "Test Playwright Firefox")
+			ORIG_HOME="$HOME"
+			cd "$ORIG_HOME/repos/wekan/tests/playwright"
+			export HOME="$ORIG_HOME/repos/wekan/.tools"
+			unset CHROME_DEVEL_SANDBOX
+			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
+			export WEKAN_PLAYWRIGHT_ALL=1
+			meteor npm exec playwright test -- --project=firefox
+			break
+			;;
+
+    "Test Playwright Webkit")
+			ORIG_HOME="$HOME"
+			cd "$ORIG_HOME/repos/wekan/tests/playwright"
+			export HOME="$ORIG_HOME/repos/wekan/.tools"
+			unset CHROME_DEVEL_SANDBOX
+			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
+			export WEKAN_PLAYWRIGHT_ALL=1
+			meteor npm exec playwright test -- --project=webkit
+			break
+			;;
 
     "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)")
 		if ! command -v rg >/dev/null 2>&1; then
