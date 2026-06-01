@@ -8,15 +8,15 @@ keys="DEBUG DDP_TRANSPORT METEOR_REACTIVITY_ORDER MONGO_LOG_DESTINATION MONGO_UR
 #-------------------- CHANGE STREAMS --------------------
 # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
 # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
-# Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
-# https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
-# Later change to: METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-DESCRIPTION_METEOR_REACTIVITY_ORDER="METEOR_REACTIVITY_ORDER. Default for multitenancy: 'oplog,polling'. Alternative for one domain only: 'changeStreams,oplog,polling'"
-DEFAULT_METEOR_REACTIVITY_ORDER="oplog,polling"
+DESCRIPTION_METEOR_REACTIVITY_ORDER="METEOR_REACTIVITY_ORDER. Default: 'changeStreams,oplog,polling'. Fallback for environments without a replica set: 'oplog,polling'"
+DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling"
 KEY_METEOR_REACTIVITY_ORDER='meteor-reactivity-order'
 
-DESCRIPTION_DDP_TRANSPORT="DDP_TRANSPORT. Default for multitenancy: 'sockjs'. Alternative for one domain only: 'uws'"
-DEFAULT_DDP_TRANSPORT="sockjs"
+# For multi-process / multi-tenant deployments on one host with network_mode: host,
+# also set a distinct Meteor.settings.packages['ddp-server'].uws.port per process.
+# See docs/Platforms/FOSS/Docker/Meteor3/multitenancy.md
+DESCRIPTION_DDP_TRANSPORT="DDP_TRANSPORT. Default: 'uws'. Alternative for maximum proxy compatibility: 'sockjs'"
+DEFAULT_DDP_TRANSPORT="uws"
 KEY_DDP_TRANSPORT='ddp-transport'
 #-----------------------------------------------------------------
 # ==== AWS S3 FOR FILES ====

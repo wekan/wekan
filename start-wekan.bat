@@ -66,12 +66,12 @@ REM # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance
 REM # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
 REM # SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
 IF /I "%USE_CHANGE_STREAMS%"=="true" (
-   SET METEOR_REACTIVITY_ORDER=oplog,polling
+   SET METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
 ) ELSE (
    SET METEOR_REACTIVITY_ORDER=polling
 )
-SET DDP_TRANSPORT=sockjs
-REM #   REM # SET DDP_TRANSPORT=uws
+SET DDP_TRANSPORT=uws
+REM #   REM # SET DDP_TRANSPORT=sockjs
 
 REM # Writable path required to exist and be writable for attachments to migrate and work correctly
 SET WRITABLE_PATH=..
