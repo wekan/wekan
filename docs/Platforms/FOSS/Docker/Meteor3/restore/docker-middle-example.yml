@@ -1,7 +1,7 @@
       - PORT=3001
       - ROOT_URL=https://wekan.customer.com
       - MONGO_URL=mongodb://PARAMETER_user:PASSWORD@localhost:27017/PARAMETER?replicaSet=rs0&appName=PARAMETER-tenant&authSource=PARAMETER
-      - MONGO_OPLOG_URL=mongodb://PARAMETER_user:PASSWORD@localhost:27017/local?replicaSet=rs0&appName=PARAMETER-tenant&authSource=PARAMETER
+      - MONGO_OPLOG_URL=mongodb://PARAMETER_user:PASSWORD@localhost:27017/local?replicaSet=rs0&appName=PARAMETER-tenant-oplog&authSource=PARAMETER
       # Distinct uws internal port per tenant — required since the
       # 3.5-beta.12 fix (PR #14425) binds with LIBUS_LISTEN_EXCLUSIVE_PORT.
       - METEOR_SETTINGS={"packages":{"ddp-server":{"uws":{"port":5001,"host":"127.0.0.1"}}}}
