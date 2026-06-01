@@ -25,7 +25,7 @@ for d in restore/*/ ; do
 
         # Run the Docker commands using the clean folder name
         docker compose down
-        docker rm "${FOLDER_NAME}-app" 2>/dev/null # 2>/dev/null ignores errors if it's already gone
+        docker rm "${FOLDER_NAME}-tenant" 2>/dev/null # 2>/dev/null ignores errors if it's already gone
         docker compose up -d --force-recreate
     )
 done

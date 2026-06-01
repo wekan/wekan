@@ -14,7 +14,7 @@ for d in restore/*/ ; do
 
     # Run the Docker commands using the folder name
     docker compose down
-    docker rm "${FOLDER_NAME}-app"
+    docker rm "${FOLDER_NAME}-tenant"
     docker compose up -d --force-recreate
 
     # Return to the parent directory

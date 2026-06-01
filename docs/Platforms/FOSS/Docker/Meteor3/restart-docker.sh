@@ -17,7 +17,7 @@ for d in */ ; do
     docker compose up -d --force-recreate
     #docker compose stop
     #docker compose start
-    #docker rm "${FOLDER_NAME}-app"
+    #docker rm "${FOLDER_NAME}-tenant"
     #docker compose up -d
 
     # Return to the parent directory
