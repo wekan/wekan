@@ -1,5 +1,5 @@
 import Activities from '/models/activities';
-import FileStoreStrategy, {FileStoreStrategyFilesystem, FileStoreStrategyGridFs, FileStoreStrategyS3} from './fileStoreStrategy'
+import FileStoreStrategy, {FileStoreStrategyFilesystem, FileStoreStrategyGridFs, FileStoreStrategyCloud} from './fileStoreStrategy'
 
 const insertActivity = (fileObj, activityType) =>
   Activities.insertAsync({
@@ -73,16 +73,16 @@ export class AttachmentStoreStrategyFilesystem extends FileStoreStrategyFilesyst
   }
 }
 
-/** Strategy to store attachments at filesystem */
-export class AttachmentStoreStrategyS3 extends FileStoreStrategyS3 {
+/** Strategy to store attachments on a cloud backend (S3/Azure/GCS) */
+export class AttachmentStoreStrategyCloud extends FileStoreStrategyCloud {
 
   /** constructor
-   * @param s3Bucket use this S3 Bucket
+   * @param provider cloud storage name ('s3' | 'azure' | 'gcs')
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(s3Bucket, fileObj, versionName) {
-    super(s3Bucket, fileObj, versionName);
+  constructor(provider, fileObj, versionName) {
+    super(provider, fileObj, versionName);
   }
 
   /** after successfull upload */

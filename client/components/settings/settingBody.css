@@ -21,6 +21,11 @@
 }
 .setting-content .content-body {
   display: flex;
+  /* Always keep the menu (left) and content (right) side by side, even on
+     narrow windows. The side menu has a fixed basis and the main body fills
+     the rest, so both stay visible without switching to a stacked layout. */
+  flex-direction: row;
+  flex-wrap: nowrap;
   padding-top: 2vh;
   height: 100%;
   gap: 1.3vw;
@@ -30,6 +35,8 @@
   border: 1px solid #f0f0f0;
   border-radius: 0.5vw;
   width: min(250px, 32vw);
+  /* Never let the menu be squeezed away on narrow windows; keep it visible. */
+  flex: 0 0 auto;
   box-shadow: inset -0.2vh -0.2vh 0.4vh rgba(0,0,0,0.05);
 }
 .setting-content .content-body .side-menu ul li {
@@ -62,9 +69,14 @@
   overflow-x: scroll !important;
   overflow-y: scroll !important;
   scrollbar-gutter: stable;
-  /* Force horizontal scrollbar to always be visible */
-  min-width: 100%;
-  width: 100%;
+  /* Grow into the space left next to the side menu. flex-basis MUST be 0 here:
+     this element holds a min-width:1200px table and a 100vw ::after, so a
+     content-based (auto) basis is huge and, as an overflow:scroll flex item,
+     resolves unpredictably (collapsing the panel). Basis 0 + grow makes the
+     width = container - side menu, deterministically. min-width:0 lets it
+     shrink so the side menu is never pushed out on narrow windows. */
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 /* Ensure scrollbars are always visible with proper styling for all admin pages */

@@ -26,3 +26,26 @@
   margin-top: 1px;
   margin-right: 10px;
 }
+
+/* Keep all admin tabs (Settings, People, Reports, Attachments, Translation,
+   Version) visible on narrow screens. The bar is a fixed 40px tall and the
+   tabs float, so on narrow widths they wrapped below the bar and were clipped
+   (disappeared). Let the bar grow and wrap the tabs to as many rows as needed
+   so none are ever hidden. Scoped via :has() so the board header is untouched. */
+#header #header-main-bar:has(.setting-header-btns) {
+  height: auto;
+  min-height: 40px;
+  padding-bottom: 6px;
+  overflow: visible;
+}
+#header #header-main-bar .setting-header-btns.left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  float: none;
+}
+#header #header-main-bar .setting-header-btn {
+  float: none;
+  margin: 2px 0;
+}

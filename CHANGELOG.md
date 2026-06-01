@@ -28,6 +28,75 @@ Versions:
 
 # Upcoming WeKan ® release
 
+This release adds the following updates:
+
+- [Update Windows MongoDB](https://github.com/wekan/wekan/commit/beedf2fefa614018ce7ed499465092e814a050d9).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.34 2026-05-31 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix to not list all boards etc at Admin Panel / Attachments / Move Attachment](https://github.com/wekan/wekan/commit/fc10ce425910ce35fb6ea03a81b20ff870ac347e).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.33 2026-05-31 WeKan ® release
+
+This release adds [the following fixes](https://github.com/wekan/wekan/commit/6f021aa387d8c388821119b7f564565892ccc5ca), In Progress:
+
+Mobile / touch fixes (Fairphone 4 postmarketOS Firefox and Fairphone 4 Ubuntu Touch Morph browser; iPhone 12 Mini was already correct):
+
+- Fixed one-finger drag-to-scroll not working in the All Boards view and the
+  Calendar view on Fairphone 4 Firefox and Ubuntu Touch Morph. These browsers
+  do not emit the synthetic mouse events the `@wekanteam/dragscroll` library
+  relies on, so scrolling only worked in the Swimlanes/Lists views. Added a new
+  native touch-scrolling helper `client/lib/dragscrollTouch.js` that scrolls the
+  nearest `.dragscroll` container with a one-finger drag (iOS is skipped, since
+  native momentum scrolling already works there), and added the `dragscroll`
+  class to the All Boards list and the Calendar view.
+- Fixed all text, buttons, the All Boards tables and the top bars (header and
+  the second bar) rendering about 2x too large on Fairphone 4. `getMobileMode()`
+  defaulted to mobile mode only for iPhone, so every other phone fell back to
+  desktop mode, whose large desktop sizing looks oversized on a small phone
+  screen. The default is now mobile mode for any phone-sized touch device
+  (iPhone, Android/Mobile browsers, Ubuntu Touch, or a coarse-pointer touch
+  screen with viewport width ≤ 800px); desktop browsers stay in desktop mode and
+  the user's own Mobile/Desktop toggle still takes priority.
+- Fixed not being able to reorder swimlanes and lists by dragging their drag
+  handle on touch devices. The new touch-scroll helper was hijacking touches
+  that started on a drag handle; `.handle` / `.ui-sortable-handle` elements are
+  now excluded from touch-scrolling so dragging the handle reorders as expected.
+- Fixed a card duplicating into two cards when it was dragged by its title-row
+  drag handle while its Card Details panel was open. The card sortable in
+  `client/components/lists/list.js` was re-initialized on every list re-render
+  without first destroying the previous instance, so two `stop` handlers fired
+  per drag. It now destroys any existing sortable before re-initializing, the
+  same guard already used for swimlanes.
+
+Attachment storage:
+
+- Added configurable attachment storage backends in the admin panel: choose the
+  default save storage and store attachments on the local filesystem, GridFS, or
+  cloud object storage — S3-compatible (AWS S3, MinIO, Cloudflare R2, Backblaze
+  B2, Wasabi, DigitalOcean Spaces), Azure Blob Storage, or Google Cloud Storage
+  — via the `@tweedegolf/storage-abstraction` adapters (new
+  `models/lib/cloudStorage.js`). Includes a "Test connection" action and
+  English translations for the new settings.
+- Added a server-side bulk attachment move (new `server/attachmentBulkMove.js`
+  and `models/attachmentBulkMoveStatus.js`) that moves all attachments from one
+  storage backend to another as a background job whose progress survives the
+  admin navigating away from or closing the page.
+
+Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.32 2026-05-31 WeKan ® release
+
 This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Fix GHSA-hc3x-hq3m-663q: Server-Side Request Forgery (SSRF) via webhook integration URLs (CWE-918)](https://github.com/wekan/wekan/commit/0e5fef6f31164fd3de4db353d04173ee0490cd65).
@@ -173,6 +242,11 @@ This release fixes the following CRITICAL SECURITY ISSUES:
 
 and adds the following updates:
 
+- [Added test menu options](https://github.com/wekan/wekan/commit/b0918686a2e3e39511964be14321f30b5520c644).
+  "Test Playwright Chromium", "Test Playwright Firefox" and "Test
+  Playwright Webkit" to `rebuild-wekan.sh` for running the
+  Playwright end-to-end test suite per browser.
+  Thanks to xet7.
 - [Copy wepica style of hide/show password to WeKan login and register pages](https://github.com/wekan/wekan/commit/9d3587086377c6c677ee03d4cb6f43c34f468558).
   Thanks to Chostakovitch and xet7.
 - Updated dependencies.

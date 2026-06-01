@@ -99,9 +99,27 @@ export const Utils = {
       return user.profile.mobileMode;
     }
 
-    // Default to mobile mode for iPhone/iPod
-    const isIPhone = /iPhone|iPod/i.test(navigator.userAgent);
-    return isIPhone;
+    // No explicit preference: pick a sensible default from the device.
+    // Previously this returned true ONLY for iPhone/iPod, so every other phone
+    // (Fairphone 4 postmarketOS Firefox, Ubuntu Touch Morph, Android Firefox,
+    // ...) defaulted to desktop-mode. desktop-mode applies large desktop sizing
+    // (see .desktop-mode rules in boardHeader.css) which on a small phone screen
+    // looks roughly 2x too big. Default to mobile-mode for any phone-sized touch
+    // device, not just iPhone, so non-iPhone phones render at the correct size.
+    const ua = navigator.userAgent;
+    const isIPhone = /iPhone|iPod/i.test(ua);
+    const isPhoneUA =
+      /Mobile|Android|BlackBerry|IEMobile|Opera Mini/i.test(ua) &&
+      !/iPad/i.test(ua);
+    const isUbuntuTouch = /Ubuntu/i.test(ua);
+    const hasTouch =
+      ('maxTouchPoints' in navigator && navigator.maxTouchPoints > 0) ||
+      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+    // A small touch screen (phone-sized) — covers touch browsers whose UA does
+    // not contain a phone token. Desktop browsers (no touch, or wide) stay in
+    // desktop-mode.
+    const isSmallTouchScreen = hasTouch && window.innerWidth <= 800;
+    return isIPhone || isPhoneUA || isUbuntuTouch || isSmallTouchScreen;
   },
 
   setMobileMode(enabled) {

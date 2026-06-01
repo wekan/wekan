@@ -961,6 +961,22 @@ body.grey-icons-enabled .checkmark-no-grey {
     font-size: inherit !important; /* Inherit the 2x scaling */
   }
 
+  /* Stack the two-column All Boards layout on small screens. The fixed
+     "260px 1fr" grid had no mobile collapse, so on narrow non-iPhone browsers
+     (Fairphone Firefox ESR / Ubuntu Touch Morph, narrow desktop) it overflowed
+     and the left menu (Starred / Templates / Remaining / Workspaces / + Add
+     board) was clipped. Width-based, so it applies to every browser. */
+  .boards-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .boards-left-menu {
+    border-right: none !important;
+    border-bottom: 1px solid #e0e0e0;
+    padding-right: 0 !important;
+    padding-bottom: 12px;
+  }
+
   .wrapper .fa, .wrapper .icon {
     font-size: 2em !important; /* 2x bigger icons */
   }

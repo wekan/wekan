@@ -4,3 +4,9 @@
 export const STORAGE_NAME_FILESYSTEM = 'fs';
 export const STORAGE_NAME_GRIDFS = 'gridfs';
 export const STORAGE_NAME_S3 = 's3';
+export const STORAGE_NAME_AZURE = 'azure';
+export const STORAGE_NAME_GCS = 'gcs';
+
+// Storage backends served through @tweedegolf/storage-abstraction (multi-cloud).
+// Filesystem and GridFS keep their dedicated native strategies.
+export const CLOUD_STORAGE_NAMES = [STORAGE_NAME_S3, STORAGE_NAME_AZURE, STORAGE_NAME_GCS];

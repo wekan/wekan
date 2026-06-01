@@ -104,6 +104,26 @@
   height: 24px;
   float: left;
 }
+
+/* On non-board pages (All Boards / home, public, my cards, …) the second bar
+   holds only a title (e.g. "My Boards"). The fixed 40px bar height plus the
+   floated h1 with a 1.7em line-height clipped the bottom of the text on iOS
+   Safari. Vertically center the title in a bar that can grow so it is never
+   cut off. Scoped to non-board-view so the board header (floated buttons) is
+   untouched. */
+body:not(.board-view) #header #header-main-bar {
+  display: flex;
+  align-items: center;
+  height: auto;
+  min-height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+body:not(.board-view) #header #header-main-bar h1 {
+  float: none;
+  line-height: 1.3;
+}
+
 #header-quick-access {
   color: #fff;
   transition: background-color 0.4s;
@@ -156,6 +176,10 @@
 }
 #header-quick-access i.fa:hover {
   color: #ccc;
+}
+/* Drag-handle toggle icons 30% smaller than the other quick-access icons. */
+#header-quick-access .js-toggle-desktop-drag-handles .fa {
+  font-size: 0.7em;
 }
 #header-quick-access #header-user-bar,
 #header-quick-access #header-new-board-icon,
@@ -1155,9 +1179,76 @@
     display: none;
   }
   #header-quick-access #header-user-bar {
-    right: 0px;
+    right: auto;
     padding: 10px;
-    margin: -8px 0 -10px -10px;
+    margin: 0 0.5rem;
+  }
+
+  /* ---- Small-screen quick-access bar (ALL browsers, width-based) ----
+     These rules use width-based selectors (not the .iphone-device class) so
+     they apply to every browser at small width — Fairphone/Android, narrow
+     desktop and iPhone alike. Keep every item visible: let the bar wrap and
+     grow instead of pinning its height and clipping the overflow. */
+  #header-quick-access {
+    height: auto !important;
+    min-height: 28px !important;
+    overflow: visible !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    row-gap: 4px !important;
+  }
+  /* The All Boards page scales this bar up to 2em-3em for every browser, which
+     is too big. Tame it to a moderate size so ~7 items fit in two wrapped rows.
+     (.iphone-device variants also cover the board view on detected iPhones.) */
+  body:not(.board-view) #header-quick-access,
+  .wrapper ~ #header-quick-access,
+  .iphone-device #header-quick-access,
+  .iphone-device .wrapper ~ #header-quick-access,
+  .iphone-device body:not(.board-view) #header-quick-access {
+    font-size: 1.2em !important;
+  }
+  body:not(.board-view) #header-quick-access .fa,
+  body:not(.board-view) #header-quick-access .icon,
+  .wrapper ~ #header-quick-access .fa,
+  .wrapper ~ #header-quick-access .icon,
+  .iphone-device #header-quick-access .fa,
+  .iphone-device #header-quick-access .icon,
+  .iphone-device .wrapper ~ #header-quick-access .fa,
+  .iphone-device .wrapper ~ #header-quick-access .icon,
+  .iphone-device body:not(.board-view) #header-quick-access .fa,
+  .iphone-device body:not(.board-view) #header-quick-access .icon {
+    font-size: 1.5em !important;
+  }
+  /* Zoom (100%), drag-handle toggle and mobile/desktop toggle 30% smaller than
+     the other quick-access controls at small width — for all browsers. */
+  body:not(.board-view) #header-quick-access .js-toggle-desktop-drag-handles .fa,
+  body:not(.board-view) #header-quick-access .mobile-mode-toggle .fa,
+  .wrapper ~ #header-quick-access .js-toggle-desktop-drag-handles .fa,
+  .wrapper ~ #header-quick-access .mobile-mode-toggle .fa,
+  .iphone-device #header-quick-access .js-toggle-desktop-drag-handles .fa,
+  .iphone-device #header-quick-access .mobile-mode-toggle .fa,
+  .iphone-device .wrapper ~ #header-quick-access .js-toggle-desktop-drag-handles .fa,
+  .iphone-device .wrapper ~ #header-quick-access .mobile-mode-toggle .fa,
+  .iphone-device body:not(.board-view) #header-quick-access .js-toggle-desktop-drag-handles .fa,
+  .iphone-device body:not(.board-view) #header-quick-access .mobile-mode-toggle .fa {
+    font-size: 1.05em !important; /* ~30% smaller than the 1.5em icons */
+  }
+  body:not(.board-view) #header-quick-access .zoom-controls,
+  body:not(.board-view) #header-quick-access .zoom-controls .zoom-level,
+  body:not(.board-view) #header-quick-access .zoom-controls .zoom-input,
+  .wrapper ~ #header-quick-access .zoom-controls,
+  .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
+  .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
+  .iphone-device #header-quick-access .zoom-controls,
+  .iphone-device #header-quick-access .zoom-controls .zoom-level,
+  .iphone-device #header-quick-access .zoom-controls .zoom-input,
+  .iphone-device .wrapper ~ #header-quick-access .zoom-controls,
+  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
+  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
+  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls,
+  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-level,
+  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
+    font-size: 0.7em !important; /* ~30% smaller than surrounding text */
   }
 }
 @media print {

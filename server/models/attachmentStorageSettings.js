@@ -5,7 +5,42 @@ import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import {
   STORAGE_NAME_FILESYSTEM,
   STORAGE_NAME_GRIDFS,
+  STORAGE_NAME_S3,
+  STORAGE_NAME_AZURE,
+  STORAGE_NAME_GCS,
+  CLOUD_STORAGE_NAMES,
 } from '/models/lib/fileStoreConstants';
+import { check } from 'meteor/check';
+import { refreshCloudStorageFromSettings, testCloudConnection } from '/models/lib/cloudStorage';
+
+// Secret fields per cloud provider — never published to the client and only
+// overwritten when a non-empty replacement value is supplied.
+const CLOUD_SECRET_FIELDS = {
+  [STORAGE_NAME_S3]: ['secretAccessKey'],
+  [STORAGE_NAME_AZURE]: ['accountKey', 'connectionString'],
+  [STORAGE_NAME_GCS]: ['credentials'],
+};
+
+// Mask secret fields in a settings document before returning it to the client,
+// replacing each secret with '' and adding a boolean `<field>Set` marker so the
+// admin UI can show that a value exists without revealing it.
+function maskStorageSecrets(settings) {
+  if (!settings || !settings.storageConfig) {
+    return settings;
+  }
+  const masked = { ...settings, storageConfig: { ...settings.storageConfig } };
+  CLOUD_STORAGE_NAMES.forEach(provider => {
+    const cfg = masked.storageConfig[provider];
+    if (!cfg) return;
+    const maskedCfg = { ...cfg };
+    (CLOUD_SECRET_FIELDS[provider] || []).forEach(field => {
+      maskedCfg[`${field}Set`] = !!cfg[field];
+      maskedCfg[field] = '';
+    });
+    masked.storageConfig[provider] = maskedCfg;
+  });
+  return masked;
+}
 
 function parseNonNegativeInt(value, fallback = 0) {
   const parsed = Number.parseInt(value, 10);
@@ -119,6 +154,35 @@ Meteor.methods({
             read: true,
             write: true,
           },
+          s3: {
+            enabled: false,
+            read: true,
+            write: true,
+            endpoint: process.env.S3_ENDPOINT || '',
+            region: process.env.S3_REGION || '',
+            bucket: process.env.S3_BUCKET || '',
+            accessKeyId: process.env.S3_ACCESS_KEY || '',
+            secretAccessKey: process.env.S3_SECRET_KEY || '',
+            forcePathStyle: true,
+          },
+          azure: {
+            enabled: false,
+            read: true,
+            write: true,
+            accountName: '',
+            accountKey: '',
+            connectionString: '',
+            bucket: '',
+          },
+          gcs: {
+            enabled: false,
+            read: true,
+            write: true,
+            projectId: '',
+            keyFilename: '',
+            credentials: '',
+            bucket: '',
+          },
         },
         uploadSettings: {
           maxFileSize: process.env.ATTACHMENTS_UPLOAD_MAX_SIZE
@@ -155,7 +219,8 @@ Meteor.methods({
       settings = await AttachmentStorageSettings.findOneAsync({});
     }
 
-    return settings;
+    // Never expose secret keys to the client; the UI shows a "set" marker.
+    return maskStorageSecrets(settings);
   },
 
   async getGridFsStorageStats() {
@@ -352,15 +417,52 @@ Meteor.methods({
     // Strip MongoDB metadata fields before saving
     const { _id, createdAt, updatedAt, createdBy, updatedBy, ...cleanSettings } = settings;
 
-    // Only keep known storageConfig keys (e.g. exclude s3 which is not in the schema)
+    const existing = (await AttachmentStorageSettings.findOneAsync({})) || {};
+    const existingConfig = existing.storageConfig || {};
+
+    // Merge storageConfig: keep known providers, and for cloud providers
+    // preserve any secret that the client left blank (it never receives the
+    // real secret, only a "set" marker) so saving other fields can't wipe it.
     if (cleanSettings.storageConfig) {
-      const { filesystem, gridfs } = cleanSettings.storageConfig;
-      cleanSettings.storageConfig = {};
-      if (filesystem !== undefined) cleanSettings.storageConfig.filesystem = filesystem;
-      if (gridfs !== undefined) cleanSettings.storageConfig.gridfs = gridfs;
+      const incoming = cleanSettings.storageConfig;
+      const merged = {};
+
+      ['filesystem', 'gridfs'].forEach(key => {
+        if (incoming[key] !== undefined) {
+          merged[key] = incoming[key];
+        } else if (existingConfig[key] !== undefined) {
+          merged[key] = existingConfig[key];
+        }
+      });
+
+      CLOUD_STORAGE_NAMES.forEach(provider => {
+        const incomingCfg = incoming[provider];
+        const prevCfg = existingConfig[provider] || {};
+        if (incomingCfg === undefined) {
+          if (existingConfig[provider] !== undefined) {
+            merged[provider] = existingConfig[provider];
+          }
+          return;
+        }
+        // Drop client-only markers, then merge over the previous config.
+        const sanitizedIncoming = { ...incomingCfg };
+        (CLOUD_SECRET_FIELDS[provider] || []).forEach(field => {
+          delete sanitizedIncoming[`${field}Set`];
+        });
+        const mergedCfg = { ...prevCfg, ...sanitizedIncoming };
+        (CLOUD_SECRET_FIELDS[provider] || []).forEach(field => {
+          // Blank secret => keep the previously stored value.
+          if (!sanitizedIncoming[field]) {
+            mergedCfg[field] = prevCfg[field] || '';
+          }
+        });
+        merged[provider] = mergedCfg;
+      });
+
+      cleanSettings.storageConfig = merged;
     }
 
-    return AttachmentStorageSettings.upsertAsync(
+    const result = await AttachmentStorageSettings.upsertAsync(
       {},
       {
         $set: {
@@ -370,6 +472,11 @@ Meteor.methods({
         },
       },
     );
+
+    // Rebuild the cloud adapters so changes take effect immediately.
+    await refreshCloudStorageFromSettings();
+
+    return result;
   },
 
   async getDefaultAttachmentStorage() {
@@ -393,7 +500,13 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Admin access required');
     }
 
-    if (![STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS].includes(storageName)) {
+    if (![
+      STORAGE_NAME_FILESYSTEM,
+      STORAGE_NAME_GRIDFS,
+      STORAGE_NAME_S3,
+      STORAGE_NAME_AZURE,
+      STORAGE_NAME_GCS,
+    ].includes(storageName)) {
       throw new Meteor.Error('invalid-storage', 'Invalid storage backend');
     }
 
@@ -408,7 +521,45 @@ Meteor.methods({
       },
     );
   },
+
+  // Test connectivity to a cloud provider. `config` is the provider config from
+  // the admin form; blank secrets fall back to the stored value.
+  async testAttachmentCloudConnection(provider, config) {
+    check(provider, String);
+    check(config, Object);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    if (!CLOUD_STORAGE_NAMES.includes(provider)) {
+      throw new Meteor.Error('invalid-storage', 'Invalid storage backend');
+    }
+
+    const existing = (await AttachmentStorageSettings.findOneAsync({})) || {};
+    const prevCfg = (existing.storageConfig && existing.storageConfig[provider]) || {};
+    const effectiveCfg = { ...prevCfg, ...config };
+    (CLOUD_SECRET_FIELDS[provider] || []).forEach(field => {
+      delete effectiveCfg[`${field}Set`];
+      if (!config[field]) {
+        effectiveCfg[field] = prevCfg[field] || '';
+      }
+    });
+
+    return testCloudConnection(provider, effectiveCfg);
+  },
 });
+
+// Project secret fields out so they never reach the client over the wire.
+const CLOUD_SECRET_PROJECTION = {
+  'storageConfig.s3.secretAccessKey': 0,
+  'storageConfig.azure.accountKey': 0,
+  'storageConfig.azure.connectionString': 0,
+  'storageConfig.gcs.credentials': 0,
+};
 
 Meteor.publish('attachmentStorageSettings', async function() {
   if (!this.userId) {
@@ -420,5 +571,5 @@ Meteor.publish('attachmentStorageSettings', async function() {
     return this.ready();
   }
 
-  return AttachmentStorageSettings.find({});
+  return AttachmentStorageSettings.find({}, { fields: CLOUD_SECRET_PROJECTION });
 });

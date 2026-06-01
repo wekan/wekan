@@ -593,12 +593,20 @@ a:not(.disabled).is-active i.fa {
   }
 
   #header-quick-access {
-    /* Keep quick-access items in one row */
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 8px;
     width: 100%;
+    /* On narrow screens (e.g. iPhone 12 mini, 375px) the icon buttons cannot
+       shrink below their min-width, so a single nowrap row overflows and the
+       base rule's overflow:hidden clips the right-side items (mobile/desktop
+       toggle, notifications, member/user menu). Allow wrapping to a second row
+       and let the bar grow so nothing is ever hidden. */
+    flex-wrap: wrap;
+    overflow: visible;
+    height: auto;
+    min-height: 28px;
   }
 
   /* Hide elements that should move to the hamburger menu on mobile */
@@ -607,18 +615,16 @@ a:not(.disabled).is-active i.fa {
     display: none !important;
   }
 
-  /* Show only the home icon (hide the trailing text) on mobile */
+  /* Show the home link with its full "All Boards" text on mobile. The label is
+     a bare text node (not a span), so the old max-width:28px + overflow:hidden
+     clip revealed only "A"; removing it shows the whole label. The bar wraps,
+     so the extra width is fine. */
   #header-quick-access .home-icon a {
     display: inline-flex;
     align-items: center;
-    max-width: 28px; /* enough to display the icon */
-    overflow: hidden;
+    max-width: none;
+    overflow: visible;
     white-space: nowrap;
-  }
-
-  /* Hide text in home icon on mobile, show only icon */
-  #header-quick-access .home-icon a span:not(.fa) {
-    display: none !important;
   }
 
   /* Ensure proper spacing for mobile header elements */
@@ -673,22 +679,18 @@ a:not(.disabled).is-active i.fa {
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Admin panel mobile optimization */
+  /* Admin panel mobile optimization.
+     Keep the side-by-side (row) layout from settingBody.css even on narrow
+     screens — do NOT switch to a stacked column layout, which left the menu
+     only 32vw wide with empty space beside it and pushed the content off
+     screen. The side menu keeps a fixed basis and the main body fills the
+     rest, so both stay visible. */
   .setting-content .content-body {
-    flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     padding: 8px;
   }
 
-  .setting-content .content-body .side-menu {
-    width: 100%;
-    order: 2;
-  }
-
   .setting-content .content-body .main-body {
-    order: 1;
-    min-height: 60vh;
-    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }

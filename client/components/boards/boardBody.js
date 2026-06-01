@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
+import '/client/lib/dragscrollTouch';
 import { boardConverter } from '/client/lib/boardConverter';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import Swimlanes from '/models/swimlanes';
@@ -19,23 +20,26 @@ let BoardBody = null;
 
 Template.board.onCreated(function () {
   this.isBoardReady = new ReactiveVar(false);
+  // Kept for the template/jade which still references it; conversion is a no-op.
   this.isConverting = new ReactiveVar(false);
-  this._swimlaneCreated = new Set(); // Track boards where we've created swimlanes
-  this._boardProcessed = false; // Track if board has been processed
-  this._lastProcessedBoardId = null; // Track last processed board ID
+  this._swimlaneCreated = new Set(); // boards where a default swimlane was ensured
 
+  // Ensure a board has at least one swimlane. Guarded to run once per board and
+  // fire-and-forget so it never blocks rendering. The board is marked
+  // immediately to avoid duplicate concurrent calls, and the mark is rolled
+  // back on failure so a later attempt can retry.
   this.ensureDefaultSwimlane = async (boardId) => {
-    // Only create swimlane once per board
     if (this._swimlaneCreated.has(boardId)) {
       return;
     }
-
+    this._swimlaneCreated.add(boardId);
     try {
       const board = ReactiveCache.getBoard(boardId);
-      if (!board) return;
-
-      const swimlanes = board.swimlanes();
-      if (swimlanes.length === 0) {
+      if (!board) {
+        this._swimlaneCreated.delete(boardId);
+        return;
+      }
+      if (board.swimlanes().length === 0) {
         const swimlaneId = await Meteor.callAsync('ensureDefaultSwimlane', boardId);
         if (process.env.DEBUG === 'true' && swimlaneId) {
           console.log(
@@ -43,65 +47,39 @@ Template.board.onCreated(function () {
           );
         }
       }
-      this._swimlaneCreated.add(boardId);
     } catch (error) {
+      this._swimlaneCreated.delete(boardId); // allow a later retry
       console.error('Error creating default swimlane:', error);
     }
   };
 
-  this.checkAndConvertBoard = async (boardId) => {
-    try {
-      const board = ReactiveCache.getBoard(boardId);
-      if (!board) {
-        this.isBoardReady.set(true);
-        return;
-      }
-
-      this.isBoardReady.set(true);
-    } catch (error) {
-      console.error('Error during board conversion check:', error);
-      this.isConverting.set(false);
-      this.isBoardReady.set(true); // Show board even if conversion check failed
-    }
-  };
-
-  // The pattern we use to manually handle data loading is described here:
-  // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
-  // XXX The boardId should be readed from some sort the component "props",
-  // unfortunatly, Blaze doesn't have this notion.
+  // Single reactive computation that subscribes to the current board and tracks
+  // its ready state in one place. Previously a Tracker.autorun was created
+  // *inside* this autorun on every re-run without being stopped, leaking
+  // computations that raced on shared ready-state flags. When navigating
+  // between boards — e.g. opening a freshly created board — that race could
+  // leave swimlanes/lists unrendered until the board was re-selected. A single
+  // self-managed autorun (auto-stopped by Blaze on destroy) avoids both the
+  // leak and the race.
+  // Pattern: https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
   this.autorun(() => {
     const currentBoardId = Session.get('currentBoard');
-    if (!currentBoardId) return;
+    if (!currentBoardId) {
+      this.isBoardReady.set(false);
+      return;
+    }
 
     const handle = Meteor.subscribe('board', currentBoardId, false);
+    const ready = handle.ready();
+    this.isBoardReady.set(ready);
 
-    // Use a separate autorun for subscription ready state to avoid reactive loops
-    this.subscriptionReadyAutorun = Tracker.autorun(() => {
-      if (handle.ready()) {
-        if (
-          !this._boardProcessed ||
-          this._lastProcessedBoardId !== currentBoardId
-        ) {
-          this._boardProcessed = true;
-          this._lastProcessedBoardId = currentBoardId;
-
-          // Ensure default swimlane exists (only once per board)
-          this.ensureDefaultSwimlane(currentBoardId);
-          // Check if board needs conversion
-          this.checkAndConvertBoard(currentBoardId);
-        }
-      } else {
-        this.isBoardReady.set(false);
-      }
-    });
+    if (ready) {
+      // Run outside the computation so this autorun depends only on the board
+      // id and the subscription's ready state — not on the swimlane data that
+      // ensureDefaultSwimlane reads — which would otherwise cause extra re-runs.
+      Tracker.nonreactive(() => this.ensureDefaultSwimlane(currentBoardId));
+    }
   });
-});
-
-Template.board.onDestroyed(function () {
-  // Clean up the subscription ready autorun to prevent memory leaks
-  if (this.subscriptionReadyAutorun) {
-    this.subscriptionReadyAutorun.stop();
-  }
 });
 
 Template.board.helpers({

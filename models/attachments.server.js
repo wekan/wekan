@@ -6,8 +6,9 @@ import { isFileValid } from './fileValidation';
 import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
-import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs } from '/models/lib/attachmentStoreStrategy';
+import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs, AttachmentStoreStrategyCloud } from '/models/lib/attachmentStoreStrategy';
 import FileStoreStrategyFactory, { moveToStorage, rename, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreStrategy';
+import { refreshCloudStorageFromSettings } from '/models/lib/cloudStorage';
 import { getAttachmentWithBackwardCompatibility, getAttachmentsWithBackwardCompatibility } from './lib/attachmentBackwardCompatibility';
 import AttachmentStorageSettings from './attachmentStorageSettings';
 import Attachments, { normalizeRemovedFiles } from './attachments';
@@ -87,6 +88,7 @@ if (process.env.ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM) {
 export const fileStoreStrategyFactory = new FileStoreStrategyFactory(
   AttachmentStoreStrategyFilesystem, storagePath,
   AttachmentStoreStrategyGridFs, attachmentBucket,
+  AttachmentStoreStrategyCloud,
 );
 
 // ---------------------------------------------------------------------------
@@ -261,7 +263,7 @@ Meteor.methods({
     }
 
     // Allowlist storage destinations
-    const allowedDestinations = ['fs', 'gridfs', 's3'];
+    const allowedDestinations = ['fs', 'gridfs', 's3', 'azure', 'gcs'];
     if (!allowedDestinations.includes(storageDestination)) {
       throw new Meteor.Error('invalid-storage-destination', 'Invalid storage destination');
     }
@@ -345,7 +347,7 @@ Meteor.methods({
     }
 
     // Allowlist storage destinations
-    const allowedDestinations = ['fs', 'gridfs', 's3'];
+    const allowedDestinations = ['fs', 'gridfs', 's3', 'azure', 'gcs'];
     if (!allowedDestinations.includes(storageDestination)) {
       throw new Meteor.Error('invalid-storage-destination', 'Invalid storage destination');
     }
@@ -383,4 +385,7 @@ Meteor.startup(async () => {
     console.log("create storagePath because it doesn't exist: " + sp);
     fs.mkdirSync(sp, { recursive: true });
   }
+
+  // Build the configured cloud storage adapters (S3/Azure/GCS) from settings.
+  await refreshCloudStorageFromSettings();
 });
