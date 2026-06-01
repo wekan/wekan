@@ -31,30 +31,35 @@
 # - WeKan hosting CloudFlare DNS: customer.wekan.team A Server-IPv4-Address
 
 wekan.customer.com {
-    # b) No custom domain, using customer.wekan.team:
-    #   - Using CloudFlare TLS Origin Certificate with Strict Enforcement
-    #   - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
-    #   - https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md
-    #   - Add this tls section to this example:
-	#       tls {
-	# 	      load /etc/caddy/certs
-	#       }
+	# b) No custom domain, using customer.wekan.team:
+	#   - Using CloudFlare TLS Origin Certificate with Strict Enforcement
+	#   - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
+	#   - https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md
+	# tls {
+	#     load /etc/caddy/certs
+	# }
+	@websocket {
+		header Connection *Upgrade*
+		header Upgrade    websocket
+	}
 	header {
 		-Content-Security-Policy-Report-Only
 		-Content-Security-Policy
 		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://wekan.customer.com https://wekan.customer.com https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
 		Cross-Origin-Opener-Policy "same-origin-allow-popups"
 		X-Content-Type-Options nosniff
-		Strict-Transport-Security "max-age=31536000;"
+		Strict-Transport-Security "max-age=31536000;" 
 		-X-Frame-Options
 		Cache-Control "no-cache, no-store, must-revalidate"
 	}
 	handle /.well-known/* {
-		header Content-Type application/json
+		header Content-Type application/json 
 		header Access-Control-Allow-Origin *
 	}
 	handle {
-		reverse_proxy 127.0.0.1:3039 
+		# Required: Different ports for uWS websocket and http
+		reverse_proxy @websocket 127.0.0.1:5001
+		reverse_proxy 127.0.0.1:3001
 	}
 }
 
@@ -65,26 +70,34 @@ wekan.customer.com {
 # - Difference is additional tls section: tls { load /etc/caddy/certs }
 
 customer.wekan.team {
-    tls {
-      load /etc/caddy/certs
-    }
+	tls {
+		load /etc/caddy/certs
+	}
+
+	@websocket {
+		header Connection *Upgrade*
+		header Upgrade    websocket
+	}
 	header {
 		-Content-Security-Policy-Report-Only
 		-Content-Security-Policy
 		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://customer.wekan.team https://customer.wekan.team https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
 		Cross-Origin-Opener-Policy "same-origin-allow-popups"
 		X-Content-Type-Options nosniff
-		Strict-Transport-Security "max-age=31536000;"
+		Strict-Transport-Security "max-age=31536000;" 
 		-X-Frame-Options
 		Cache-Control "no-cache, no-store, must-revalidate"
 	}
 	handle /.well-known/* {
-		header Content-Type application/json
+		header Content-Type application/json 
 		header Access-Control-Allow-Origin *
 	}
-        handle {
-                reverse_proxy 127.0.0.1:3040
-        }
+
+	handle {
+		# Required: Different ports for uWS websocket and http
+		reverse_proxy @websocket 127.0.0.1:5002
+		reverse_proxy 127.0.0.1:3002
+	}
 }
 
 # 3) Static website
@@ -247,13 +260,20 @@ boards.wekan.team {
 	tls {
 		load /etc/caddy/certs
 	}
+
+	# Tunnistetaan WebSocket-liikenne uWS:ää varten
+	@websocket {
+		header Connection *Upgrade*
+		header Upgrade    websocket
+	}
+
 	header {
 		-Content-Security-Policy-Report-Only
 		-Content-Security-Policy
-		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://boards.wekan.team https://boards.wekan.team https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://wekan.customer.com https://wekan.customer.com https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
 		Cross-Origin-Opener-Policy "same-origin-allow-popups"
 		X-Content-Type-Options nosniff
-		Strict-Transport-Security "max-age=31536000;"
+		Strict-Transport-Security "max-age=31536000;" 
 		-X-Frame-Options
 		Cache-Control "no-cache, no-store, must-revalidate"
 	}
@@ -275,7 +295,7 @@ boards.wekan.team {
 	}
 
 	handle /.well-known/* {
-		header Content-Type application/json
+		header Content-Type application/json 
 		header Access-Control-Allow-Origin *
 	}
 
@@ -433,8 +453,11 @@ boards.wekan.team {
 			"prefer_related_applications": false
 		}`
 	}
+
 	handle {
+		# uWS Websocket
+		reverse_proxy @websocket 127.0.0.1:5025
+		# HTTP
 		reverse_proxy 127.0.0.1:3025
 	}
 }
-
