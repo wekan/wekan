@@ -38,10 +38,6 @@ wekan.customer.com {
 	# tls {
 	#     load /etc/caddy/certs
 	# }
-	@websocket {
-		header Connection *Upgrade*
-		header Upgrade    websocket
-	}
 	header {
 		-Content-Security-Policy-Report-Only
 		-Content-Security-Policy
@@ -57,8 +53,6 @@ wekan.customer.com {
 		header Access-Control-Allow-Origin *
 	}
 	handle {
-		# Required: Different ports for uWS websocket and http
-		reverse_proxy @websocket 127.0.0.1:5001
 		reverse_proxy 127.0.0.1:3001
 	}
 }
@@ -72,11 +66,6 @@ wekan.customer.com {
 customer.wekan.team {
 	tls {
 		load /etc/caddy/certs
-	}
-
-	@websocket {
-		header Connection *Upgrade*
-		header Upgrade    websocket
 	}
 	header {
 		-Content-Security-Policy-Report-Only
@@ -94,8 +83,6 @@ customer.wekan.team {
 	}
 
 	handle {
-		# Required: Different ports for uWS websocket and http
-		reverse_proxy @websocket 127.0.0.1:5002
 		reverse_proxy 127.0.0.1:3002
 	}
 }
@@ -259,11 +246,6 @@ hesk.customer.com {
 boards.wekan.team {
 	tls {
 		load /etc/caddy/certs
-	}
-
-	@websocket {
-		header Connection *Upgrade*
-		header Upgrade    websocket
 	}
 
 	header {
@@ -454,9 +436,6 @@ boards.wekan.team {
 	}
 
 	handle {
-		# uWS Websocket
-		reverse_proxy @websocket 127.0.0.1:5025
-		# HTTP
 		reverse_proxy 127.0.0.1:3025
 	}
 }
