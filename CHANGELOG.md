@@ -178,6 +178,57 @@ and adds the following updates:
   `<iframe>` / `<object>` / `<embed>` and similar active content) and XML loops
   (`<!DOCTYPE>` / `<!ENTITY>` entity-expansion / XXE constructs and
   `<?xml-stylesheet?>`), so SVG images can be uploaded safely. Thanks to Claude.
+- [Fixed Admin Panel / Attachments / Move Attachment doing nothing / crashing](https://github.com/wekan/wekan/commit/d30803276d6d06db44f65ee1fb583cc11aac8b7b).
+  Several issues in the bulk move:
+  - The GridFS source matcher required `meta.gridFsFileId` to be *absent*, but
+    Meteor-Files always sets it, so selecting "MongoDB Meteor-Files" matched zero
+    files and "nothing happened". The matcher now recognizes real GridFS files
+    (`versions.*.storage === 'gridfs'` or a `meta.gridFsFileId` reference), and a
+    "nothing to move" message is shown when a source is empty instead of silently
+    doing nothing.
+  - Moving files crashed the whole server with
+    `FilesCollection#findOne() not available in server` — `ReactiveCache.getAttachment`
+    used a synchronous `findOne()`; it now uses `findOneAsync()`. The background
+    job is also hardened so a single failing file is skipped instead of crashing
+    the server via an unhandled rejection.
+  - The attachment **copy** API now honours the admin API upload limits (it
+    previously skipped them).
+- **Fixed the "MongoDB Meteor-Files" file-count statistic** in Admin Panel /
+  Attachments, which counted *every* attachment metadata document (so files on
+  the Filesystem were wrongly reported as being in GridFS). It now counts only
+  attachments actually stored in GridFS, consistent with the move tool. Also
+  renamed the mislabeled "Mongo-Files" column to "Meteor-Files". Thanks to Claude.
+- **Unified attachment/avatar storage migration: move any → any.** Admin Panel /
+  Attachments / Move Attachment can now move **Attachments, Avatars, or both**,
+  from **any source to any destination** across Filesystem, Meteor-Files GridFS,
+  Cloud (S3/Azure/GCS) and legacy CollectionFS GridFS. The default source is
+  "All Read-enabled storages" (every backend whose Read flag is enabled and whose
+  settings work), so everything can be consolidated into one destination in a
+  single run. All metadata is preserved (board / swimlane / list / card / user /
+  uploaded date / name / type / size), attachment cover references
+  (`cards.coverId`) are remapped when an id changes, and the legacy source is
+  deleted only after the new copy is verified. Thanks to Claude.
+- **Legacy CollectionFS GridFS is now a first-class storage backend** (read,
+  migrate-from, and export-to) for both attachments and avatars, via the new
+  `models/lib/collectionFsStore.js` (binary keyed by `copies.<coll>.key` in the
+  `cfs_gridfs.<coll>` bucket, metadata in `cfs.<coll>.filerecord`). Thanks to Claude.
+- **The storage strategy layer is now collection-aware.** `moveToStorage` and the
+  GridFS/Cloud strategies previously hard-coded the `Attachments` collection, so
+  moving avatars to GridFS/cloud would have updated the wrong collection. The
+  factory now carries its collection (`Attachments` or `Avatars`), so **avatars
+  can be stored in Meteor-Files GridFS and cloud**, not only on the filesystem.
+  Attachment behavior is unchanged. Thanks to Claude.
+- **Read legacy CollectionFS attachments and avatars in place** (without
+  migrating). The backward-compatibility layer
+  (`models/lib/attachmentBackwardCompatibility.js`) was broken — it looked up the
+  GridFS binary by the filerecord `_id` and by filename instead of by
+  `ObjectId(copies.<coll>.key)`, so legacy files were never found. It is fixed and
+  generalized for attachments and avatars. Legacy attachments now appear in the
+  card attachment gallery (new `legacyBoardAttachments` publication) and stream
+  from the `cfs_gridfs.attachments` bucket, and legacy avatars
+  (`/cfs/files/avatars/<id>` URLs) are served from the `cfs_gridfs.avatars`
+  bucket instead of redirecting to a 404.
+  Thanks to Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
