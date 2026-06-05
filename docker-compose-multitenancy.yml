@@ -58,6 +58,16 @@ services:
           sleep 2
         done
         wait
+    # Report healthy only once the replica set has an elected primary, so the
+    # tenant apps (depends_on: condition: service_healthy) do not start before
+    # MongoDB is ready and crash with "Topology is closed". start_period gives a
+    # large database time to replay its journal after an upgrade.
+    healthcheck:
+      test: ["CMD", "mongosh", "--host", "127.0.0.1", "--port", "27017", "--quiet", "--eval", "try { quit(rs.status().ok === 1 && db.hello().isWritablePrimary ? 0 : 1) } catch (e) { quit(1) }"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
     volumes:
       - wekan-db:/data/db
       - wekan-db-dump:/dump
@@ -76,7 +86,8 @@ services:
     restart: always
     network_mode: "host"
     depends_on:
-      - wekandb
+      wekandb:
+        condition: service_healthy
     environment:
       - PORT=8081
       - ROOT_URL=https://tenant1.example.com
@@ -100,7 +111,8 @@ services:
     restart: always
     network_mode: "host"
     depends_on:
-      - wekandb
+      wekandb:
+        condition: service_healthy
     environment:
       - PORT=8082
       - ROOT_URL=https://tenant2.example.com

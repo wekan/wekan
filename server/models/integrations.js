@@ -5,10 +5,11 @@ import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Integrations from '/models/integrations';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.startup(async () => {
-  await Integrations._collection.createIndexAsync({ modifiedAt: -1 });
-  await Integrations._collection.createIndexAsync({ boardId: 1 });
+  await ensureIndex(Integrations, { modifiedAt: -1 });
+  await ensureIndex(Integrations, { boardId: 1 });
 });
 
 WebApp.handlers.get('/api/boards/:boardId/integrations', async function(req, res) {

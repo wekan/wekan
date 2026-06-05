@@ -7,6 +7,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Cards from '/models/cards';
 import CustomFields from '/models/customFields';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 async function customFieldCreation(userId, doc) {
   await Activities.insertAsync({
@@ -40,8 +41,8 @@ async function customFieldEdit(userId, doc) {
 }
 
 Meteor.startup(async () => {
-  await CustomFields._collection.createIndexAsync({ modifiedAt: -1 });
-  await CustomFields._collection.createIndexAsync({ boardIds: 1 });
+  await ensureIndex(CustomFields, { modifiedAt: -1 });
+  await ensureIndex(CustomFields, { boardIds: 1 });
 });
 
 CustomFields.after.insert(async (userId, doc) => {

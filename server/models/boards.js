@@ -16,6 +16,7 @@ import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import Triggers from '/models/triggers';
 import Users from '/models/users';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -327,15 +328,15 @@ Boards.before.insert(async (userId, doc) => {
 });
 
 Meteor.startup(async () => {
-  await Boards._collection.createIndexAsync({ modifiedAt: -1 });
-  await Boards._collection.createIndexAsync(
+  await ensureIndex(Boards, { modifiedAt: -1 });
+  await ensureIndex(Boards, 
     {
       _id: 1,
       'members.userId': 1,
     },
     { unique: true },
   );
-  await Boards._collection.createIndexAsync({ 'members.userId': 1 });
+  await ensureIndex(Boards, { 'members.userId': 1 });
 });
 
 Boards.after.insert(async (userId, doc) => {

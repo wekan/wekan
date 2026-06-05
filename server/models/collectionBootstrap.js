@@ -16,14 +16,15 @@ import InviteToBoardRolesSettings, {
 } from '/models/inviteToBoardRolesSettings';
 import Triggers from '/models/triggers';
 import UnsavedEditCollection from '/models/unsavedEdits';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.startup(async () => {
-  await AccessibilitySettings._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(AccessibilitySettings, { modifiedAt: -1 });
   if (!(await AccessibilitySettings.findOneAsync({}))) {
     await AccessibilitySettings.insertAsync({ enabled: false, sort: 0 });
   }
 
-  await AccountSettings._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(AccountSettings, { modifiedAt: -1 });
   await AccountSettings.upsertAsync(
     { _id: 'accounts-allowEmailChange' },
     { $setOnInsert: { booleanValue: false, sort: 0 } },
@@ -37,18 +38,19 @@ Meteor.startup(async () => {
     { $setOnInsert: { booleanValue: false, sort: 0 } },
   );
 
-  await Announcements._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(Announcements, { modifiedAt: -1 });
   if (!(await Announcements.findOneAsync({}))) {
     await Announcements.insertAsync({ enabled: false, sort: 0 });
   }
 
-  await CardCommentReactions._collection.createIndexAsync(
+  await ensureIndex(
+    CardCommentReactions,
     { cardCommentId: 1 },
     { unique: true },
   );
-  await InvitationCodes._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(InvitationCodes, { modifiedAt: -1 });
 
-  await LockoutSettings._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(LockoutSettings, { modifiedAt: -1 });
   await LockoutSettings.upsertAsync(
     { _id: 'known-failuresBeforeLockout' },
     {
@@ -117,31 +119,31 @@ Meteor.startup(async () => {
     },
   );
 
-  await OrgUser._collection.createIndexAsync({ orgId: -1 });
-  await OrgUser._collection.createIndexAsync({ orgId: -1, userId: -1 });
+  await ensureIndex(OrgUser, { orgId: -1 });
+  await ensureIndex(OrgUser, { orgId: -1, userId: -1 });
 
-  await Presences._collection.createIndexAsync({ serverId: -1 });
+  await ensureIndex(Presences, { serverId: -1 });
 
-  await PositionHistory._collection.createIndexAsync({ boardId: 1, entityType: 1, entityId: 1 });
-  await PositionHistory._collection.createIndexAsync({ boardId: 1, entityType: 1 });
-  await PositionHistory._collection.createIndexAsync({ createdAt: -1 });
+  await ensureIndex(PositionHistory, { boardId: 1, entityType: 1, entityId: 1 });
+  await ensureIndex(PositionHistory, { boardId: 1, entityType: 1 });
+  await ensureIndex(PositionHistory, { createdAt: -1 });
 
-  await Rules._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(Rules, { modifiedAt: -1 });
 
-  await TableVisibilityModeSettings._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(TableVisibilityModeSettings, { modifiedAt: -1 });
   await TableVisibilityModeSettings.upsertAsync(
     { _id: 'tableVisibilityMode-allowPrivateOnly' },
     { $setOnInsert: { booleanValue: false, sort: 0 } },
   );
 
-  await InviteToBoardRolesSettings._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(InviteToBoardRolesSettings, { modifiedAt: -1 });
   await InviteToBoardRolesSettings.upsertAsync(
     { _id: INVITE_TO_BOARD_ROLES_ID },
     { $setOnInsert: { allowedRoles: INVITE_TO_BOARD_ROLES_DEFAULT, sort: 0 } },
   );
 
-  await Triggers._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(Triggers, { modifiedAt: -1 });
 
-  await UnsavedEditCollection._collection.createIndexAsync({ modifiedAt: -1 });
-  await UnsavedEditCollection._collection.createIndexAsync({ userId: 1 });
+  await ensureIndex(UnsavedEditCollection, { modifiedAt: -1 });
+  await ensureIndex(UnsavedEditCollection, { userId: 1 });
 });

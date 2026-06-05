@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import Actions from '/models/actions';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.startup(async () => {
-  await Actions._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(Actions, { modifiedAt: -1 });
 });

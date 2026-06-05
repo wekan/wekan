@@ -7,6 +7,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Swimlanes from '/models/swimlanes';
 import Activities from '/models/activities';
 import Cards from '/models/cards';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
   async ensureDefaultSwimlane(boardId) {
@@ -37,8 +38,8 @@ Meteor.methods({
 });
 
 Meteor.startup(async () => {
-  await Swimlanes._collection.createIndexAsync({ modifiedAt: -1 });
-  await Swimlanes._collection.createIndexAsync({ boardId: 1 });
+  await ensureIndex(Swimlanes, { modifiedAt: -1 });
+  await ensureIndex(Swimlanes, { boardId: 1 });
 });
 
 Swimlanes.after.insert(async (userId, doc) => {

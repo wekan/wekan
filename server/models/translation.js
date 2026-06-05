@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import Translation from '/models/translation';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 
@@ -50,5 +51,5 @@ Meteor.methods({
 });
 
 Meteor.startup(async () => {
-  await Translation._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(Translation, { modifiedAt: -1 });
 });

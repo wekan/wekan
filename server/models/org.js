@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Org from '/models/org';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
   async setCreateOrg(
@@ -207,5 +208,5 @@ Meteor.methods({
 });
 
 Meteor.startup(async () => {
-  await Org._collection.createIndexAsync({ orgDisplayName: 1 });
+  await ensureIndex(Org, { orgDisplayName: 1 });
 });

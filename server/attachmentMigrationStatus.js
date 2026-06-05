@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import AttachmentMigrationStatus from '/models/attachmentMigrationStatus';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 // Allow/Deny rules
 // This collection is server-only and should not be modified by clients
@@ -12,7 +13,7 @@ AttachmentMigrationStatus.allow({
 
 // Create indexes for better query performance
 Meteor.startup(() => {
-  AttachmentMigrationStatus._collection.createIndexAsync({ boardId: 1 });
-  AttachmentMigrationStatus._collection.createIndexAsync({ userId: 1, boardId: 1 });
-  AttachmentMigrationStatus._collection.createIndexAsync({ updatedAt: -1 });
+  ensureIndex(AttachmentMigrationStatus, { boardId: 1 });
+  ensureIndex(AttachmentMigrationStatus, { userId: 1, boardId: 1 });
+  ensureIndex(AttachmentMigrationStatus, { updatedAt: -1 });
 });

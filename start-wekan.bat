@@ -749,6 +749,58 @@ REM #node --stack-size=65500 main.js
 
 REM #-------------------- OPTIONAL SETTINGS END --------------------
 
+REM #-------------------- WAIT FOR MONGODB TO BE READY --------------------
+REM # Do not start WeKan until MongoDB is reachable and a primary is elected,
+REM # otherwise the first index creation crashes with "Topology is closed".
+REM # After WEKAN_DB_WAIT_TIMEOUT seconds (default 120) the English upgrade
+REM # guidance is printed once; WeKan keeps retrying after that.
+IF "%WEKAN_DB_WAIT_TIMEOUT%"=="" SET WEKAN_DB_WAIT_TIMEOUT=120
+SET DB_WAITED=0
+SET DB_HINT_SHOWN=false
+ECHO Waiting for MongoDB to be ready at 127.0.0.1:27017...
+:wait_for_mongodb
+mongosh --port 27017 --quiet --eval "try { quit(db.hello().isWritablePrimary ? 0 : 1) } catch (e) { quit(1) }" >NUL 2>NUL
+IF %ERRORLEVEL% EQU 0 (
+   ECHO MongoDB is ready.
+   GOTO mongodb_ready
+)
+IF "%DB_HINT_SHOWN%"=="false" IF %DB_WAITED% GEQ %WEKAN_DB_WAIT_TIMEOUT% (
+   ECHO.
+   ECHO ========================================================================
+   ECHO WeKan: still cannot connect to MongoDB.
+   ECHO.
+   ECHO If you just upgraded WeKan or MongoDB, the existing database may have
+   ECHO been created by an OLDER MongoDB version that the new MongoDB cannot
+   ECHO open, so MongoDB never finishes starting and WeKan keeps waiting here.
+   ECHO.
+   ECHO Upgrade the database - dump with the old version, restore with the new:
+   ECHO   1. Start the OLD, previously-working MongoDB version.
+   ECHO   2. Back up:   mongodump --archive=wekan.archive --gzip
+   ECHO   3. Stop old MongoDB. Start the NEW MongoDB on an EMPTY data dir.
+   ECHO   4. Restore:   mongorestore --archive=wekan.archive --gzip --drop
+   ECHO   5. Start WeKan again.
+   ECHO.
+   ECHO Attachments and avatars are stored ON DISK under WRITABLE_PATH, NOT
+   ECHO in MongoDB, so when moving to a new server ALSO copy that whole
+   ECHO directory - it contains 'files', 'attachments' and 'avatars':
+   ECHO   - Snap:   /var/snap/wekan/common/files
+   ECHO   - Docker: the 'wekan-files' volume mounted at /data
+   ECHO   - Source: the WRITABLE_PATH configured in start-wekan.bat
+   ECHO.
+   ECHO Also check the MongoDB log for the real reason: incompatible
+   ECHO featureCompatibilityVersion, wrong mongod version, or an unclean
+   ECHO shutdown needing 'mongod --repair'. WeKan keeps retrying every 5s.
+   ECHO ========================================================================
+   ECHO.
+   SET DB_HINT_SHOWN=true
+)
+ECHO MongoDB not ready yet, retrying in 5 seconds...
+timeout /t 5 /nobreak >NUL
+SET /A DB_WAITED=%DB_WAITED%+5
+GOTO wait_for_mongodb
+:mongodb_ready
+REM #----------------------------------------------------------------------
+
 ECHO Starting Wekan in a persistent cmd loop...
 
 :start_wekan

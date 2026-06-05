@@ -3,6 +3,11 @@
 // Loaded by server/main.js after bootstrap (collectionHelpers) completes.
 // ============================================================================
 
+// ****IMPORTANT**** Wait for MongoDB to be ready BEFORE anything else, so the
+// first index creation never crashes the server with "Topology is closed".
+// Registers the first Meteor.startup hook, so it runs before index-creating ones.
+import '/server/00waitForMongo';
+
 // ****IMPORTANT**** Initialize upload directories BEFORE models are loaded
 // This ensures ostrio:files can create necessary directories without permission errors
 import '/server/initializeDirs';

@@ -11,12 +11,13 @@ import ChecklistItems, {
   publishChekListUncompleted,
 } from '/models/checklistItems';
 import Activities from '/models/activities';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.startup(async () => {
-  await ChecklistItems._collection.createIndexAsync({ modifiedAt: -1 });
-  await ChecklistItems._collection.createIndexAsync({ updatedAt: 1, deleted: 1 });
-  await ChecklistItems._collection.createIndexAsync({ checklistId: 1 });
-  await ChecklistItems._collection.createIndexAsync({ cardId: 1 });
+  await ensureIndex(ChecklistItems, { modifiedAt: -1 });
+  await ensureIndex(ChecklistItems, { updatedAt: 1, deleted: 1 });
+  await ensureIndex(ChecklistItems, { checklistId: 1 });
+  await ensureIndex(ChecklistItems, { cardId: 1 });
 });
 
 ChecklistItems.after.update(async (userId, doc, fieldNames) => {

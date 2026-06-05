@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Team from '/models/team';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
   async setCreateTeam(
@@ -185,5 +186,5 @@ Meteor.methods({
 });
 
 Meteor.startup(async () => {
-  await Team._collection.createIndexAsync({ teamDisplayName: 1 });
+  await ensureIndex(Team, { teamDisplayName: 1 });
 });

@@ -8,6 +8,7 @@ import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 const hasBoardWriteAccess = (userId, board) => {
   if (!userId || !board) {
@@ -432,10 +433,10 @@ Meteor.methods({
 });
 
 Meteor.startup(async () => {
-  await Lists._collection.rawCollection().createIndex({ modifiedAt: -1 });
-  await Lists._collection.rawCollection().createIndex({ updatedAt: 1, deleted: 1 });
-  await Lists._collection.rawCollection().createIndex({ boardId: 1 });
-  await Lists._collection.rawCollection().createIndex({ archivedAt: -1 });
+  await ensureIndex(Lists, { modifiedAt: -1 });
+  await ensureIndex(Lists, { updatedAt: 1, deleted: 1 });
+  await ensureIndex(Lists, { boardId: 1 });
+  await ensureIndex(Lists, { archivedAt: -1 });
 });
 
 Lists.after.insert(async (userId, doc) => {

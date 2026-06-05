@@ -30,6 +30,54 @@
           USE_CHANGE_STREAMS=false
       fi
       #----------------------------------------------------------------------
+      #-------------------- WAIT FOR MONGODB TO BE READY --------------------
+      # Do not start WeKan until MongoDB is reachable and a primary is elected,
+      # otherwise the first index creation crashes with "Topology is closed".
+      # After WEKAN_DB_WAIT_TIMEOUT seconds (default 120) the upgrade guidance
+      # below is printed once (English only); WeKan keeps retrying after that.
+      if command -v mongosh > /dev/null 2>&1; then
+          WEKAN_DB_WAIT_TIMEOUT=${WEKAN_DB_WAIT_TIMEOUT:-120}
+          db_waited=0
+          db_hint_shown=false
+          echo "Waiting for MongoDB to be ready at 127.0.0.1:27017..."
+          until mongosh --port 27017 --quiet --eval 'try { quit(db.hello().isWritablePrimary ? 0 : 1) } catch (e) { quit(1) }' > /dev/null 2>&1; do
+              if [ "$db_hint_shown" != "true" ] && [ "$db_waited" -ge "$WEKAN_DB_WAIT_TIMEOUT" ]; then
+                  echo ""
+                  echo "========================================================================"
+                  echo "WeKan: still cannot connect to MongoDB."
+                  echo ""
+                  echo "If you just upgraded WeKan or MongoDB, the existing database may have"
+                  echo "been created by an OLDER MongoDB version that the new MongoDB cannot"
+                  echo "open, so MongoDB never finishes starting and WeKan keeps waiting here."
+                  echo ""
+                  echo "Upgrade the database (dump with the old version, restore with the new):"
+                  echo "  1. Start the OLD, previously-working MongoDB version."
+                  echo "  2. Back up:   mongodump --archive=wekan.archive --gzip"
+                  echo "  3. Stop old MongoDB. Start the NEW MongoDB on an EMPTY data dir."
+                  echo "  4. Restore:   mongorestore --archive=wekan.archive --gzip --drop"
+                  echo "  5. Start WeKan again."
+                  echo ""
+                  echo "Attachments and avatars are stored ON DISK under WRITABLE_PATH, NOT"
+                  echo "in MongoDB, so when moving to a new server ALSO copy that whole"
+                  echo "directory (it contains 'files', 'attachments' and 'avatars'):"
+                  echo "  - Snap:   /var/snap/wekan/common/files"
+                  echo "  - Docker: the 'wekan-files' volume mounted at /data"
+                  echo "  - Source: the WRITABLE_PATH configured in start-wekan.sh"
+                  echo ""
+                  echo "Also check the MongoDB log for the real reason (incompatible"
+                  echo "featureCompatibilityVersion, wrong mongod version, or an unclean"
+                  echo "shutdown needing 'mongod --repair'). WeKan keeps retrying every 5s."
+                  echo "========================================================================"
+                  echo ""
+                  db_hint_shown=true
+              fi
+              echo "MongoDB not ready yet, retrying in 5 seconds..."
+              sleep 5
+              db_waited=$((db_waited + 5))
+          done
+          echo "MongoDB is ready."
+      fi
+      #----------------------------------------------------------------------
       cd .build/bundle
       #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
       # If you would not like to use Change Streams and replica set for improving speed, change to use polling:

@@ -7,6 +7,7 @@ import { ServiceConfiguration } from 'meteor/service-configuration';
 import Settings from '/models/settings';
 import InvitationCodes from '/models/invitationCodes';
 import EmailLocalization from '/server/lib/emailLocalization';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -108,7 +109,7 @@ function isApiEnabled() {
 }
 
 Meteor.startup(async () => {
-  await Settings._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(Settings, { modifiedAt: -1 });
   const setting = await getReactiveCache().getCurrentSetting();
   if (!setting) {
     const now = new Date();

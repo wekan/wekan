@@ -15,6 +15,7 @@ import AttachmentStorageSettings from './attachmentStorageSettings';
 import Attachments, { normalizeRemovedFiles } from './attachments';
 import Boards from '/models/boards';
 import { allowIsBoardMember } from '/server/lib/utils';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 // ---------------------------------------------------------------------------
 // Server-only configuration
@@ -396,7 +397,7 @@ Meteor.methods({
 // ---------------------------------------------------------------------------
 
 Meteor.startup(async () => {
-  await Attachments.collection.createIndexAsync({ 'meta.cardId': 1 });
+  await ensureIndex(Attachments, { 'meta.cardId': 1 });
 
   // Ensure standard GridFS index on attachments.chunks for efficient chunk lookups.
   // Without this, queries like find({files_id: ObjectId}) do full collection scans.

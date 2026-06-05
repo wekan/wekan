@@ -21,6 +21,7 @@ import Cards, {
   updateActivities,
 } from '/models/cards';
 import Lists from '/models/lists';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
   async createCardWithDueDate(boardId, listId, title, dueDate, swimlaneId) {
@@ -399,11 +400,11 @@ Meteor.methods({
 });
 
 Meteor.startup(async () => {
-  await Cards._collection.createIndexAsync({ modifiedAt: -1 });
-  await Cards._collection.createIndexAsync({ updatedAt: 1, deleted: 1 });
-  await Cards._collection.createIndexAsync({ boardId: 1, createdAt: -1 });
-  await Cards._collection.createIndexAsync({ boardId: 1, listId: 1 });
-  await Cards._collection.createIndexAsync({ parentId: 1 });
+  await ensureIndex(Cards, { modifiedAt: -1 });
+  await ensureIndex(Cards, { updatedAt: 1, deleted: 1 });
+  await ensureIndex(Cards, { boardId: 1, createdAt: -1 });
+  await ensureIndex(Cards, { boardId: 1, listId: 1 });
+  await ensureIndex(Cards, { parentId: 1 });
   Meteor.defer(() => {
     addCronJob();
   });

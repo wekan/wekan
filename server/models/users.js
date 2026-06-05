@@ -11,6 +11,7 @@ import { debounce } from '/imports/lib/collectionHelpers';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import EmailLocalization from '/server/lib/emailLocalization';
+import { ensureIndex } from '/server/lib/mongoStartup';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Boards from '/models/boards';
 import InvitationCodes from '/models/invitationCodes';
@@ -993,9 +994,9 @@ const startNotificationCleanup = debounce(
 
 Meteor.startup(async () => {
   for (const value of allowedSortValues) {
-    await Lists._collection.createIndexAsync(value);
+    await ensureIndex(Lists, value);
   }
-  await Users._collection.createIndexAsync({ modifiedAt: -1 });
+  await ensureIndex(Users, { modifiedAt: -1 });
   Users.find({ 'profile.avatarUrl': { $regex: '/cfs/files/avatars/' } }).forEach(doc => {
     doc.profile.avatarUrl = doc.profile.avatarUrl.replace(
       '/cfs/files/avatars/',

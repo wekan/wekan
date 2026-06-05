@@ -5,6 +5,7 @@ import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import CardComments from '/models/cardComments';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
@@ -24,8 +25,8 @@ async function commentCreation(userId, doc) {
 }
 
 Meteor.startup(async () => {
-  await CardComments._collection.createIndexAsync({ modifiedAt: -1 });
-  await CardComments._collection.createIndexAsync({ cardId: 1, createdAt: -1 });
+  await ensureIndex(CardComments, { modifiedAt: -1 });
+  await ensureIndex(CardComments, { cardId: 1, createdAt: -1 });
 });
 
 CardComments.after.insert(async (userId, doc) => {

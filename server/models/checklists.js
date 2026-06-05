@@ -7,6 +7,7 @@ import { allowIsBoardMemberByCard } from '/server/lib/utils';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
   async moveChecklist(checklistId, newCardId) {
@@ -66,8 +67,8 @@ Meteor.methods({
 });
 
 Meteor.startup(async () => {
-  await Checklists._collection.createIndexAsync({ modifiedAt: -1 });
-  await Checklists._collection.createIndexAsync({ cardId: 1, createdAt: 1 });
+  await ensureIndex(Checklists, { modifiedAt: -1 });
+  await ensureIndex(Checklists, { cardId: 1, createdAt: 1 });
 });
 
 Checklists.after.insert(async (userId, doc) => {

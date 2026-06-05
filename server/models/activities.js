@@ -7,6 +7,7 @@ import Cards from '/models/cards';
 import Integrations from '/models/integrations';
 import { RulesHelper } from '/server/rulesHelper';
 import { Notifications } from '/server/notifications/notifications';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 function normalizeActivityText(value, fallback = '') {
   return typeof value === 'string' ? value : fallback;
@@ -32,20 +33,20 @@ Activities.after.insert(async (userId, doc) => {
 });
 
 Meteor.startup(async () => {
-  await Activities._collection.createIndexAsync({ createdAt: -1 });
-  await Activities._collection.createIndexAsync({ modifiedAt: -1 });
-  await Activities._collection.createIndexAsync({ updatedAt: 1, deleted: 1 });
-  await Activities._collection.createIndexAsync({ cardId: 1, createdAt: -1 });
-  await Activities._collection.createIndexAsync({ boardId: 1, createdAt: -1 });
-  await Activities._collection.createIndexAsync(
+  await ensureIndex(Activities, { createdAt: -1 });
+  await ensureIndex(Activities, { modifiedAt: -1 });
+  await ensureIndex(Activities, { updatedAt: 1, deleted: 1 });
+  await ensureIndex(Activities, { cardId: 1, createdAt: -1 });
+  await ensureIndex(Activities, { boardId: 1, createdAt: -1 });
+  await ensureIndex(Activities, 
     { commentId: 1 },
     { partialFilterExpression: { commentId: { $exists: true } } },
   );
-  await Activities._collection.createIndexAsync(
+  await ensureIndex(Activities, 
     { attachmentId: 1 },
     { partialFilterExpression: { attachmentId: { $exists: true } } },
   );
-  await Activities._collection.createIndexAsync(
+  await ensureIndex(Activities, 
     { customFieldId: 1 },
     { partialFilterExpression: { customFieldId: { $exists: true } } },
   );

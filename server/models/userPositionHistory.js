@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import Boards from '/models/boards';
 import UserPositionHistory from '/models/userPositionHistory';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 // Reject callers who are not allowed to see the board. Mirrors the guard used
 // by the sibling positionHistory.track* methods (server/methods/positionHistory.js).
@@ -17,11 +18,11 @@ const requireBoardVisible = async (userId, boardId) => {
 };
 
 Meteor.startup(async () => {
-  await UserPositionHistory._collection.createIndexAsync({ userId: 1, boardId: 1, createdAt: -1 });
-  await UserPositionHistory._collection.createIndexAsync({ userId: 1, entityType: 1, entityId: 1 });
-  await UserPositionHistory._collection.createIndexAsync({ userId: 1, isCheckpoint: 1 });
-  await UserPositionHistory._collection.createIndexAsync({ batchId: 1 });
-  await UserPositionHistory._collection.createIndexAsync({ createdAt: 1 });
+  await ensureIndex(UserPositionHistory, { userId: 1, boardId: 1, createdAt: -1 });
+  await ensureIndex(UserPositionHistory, { userId: 1, entityType: 1, entityId: 1 });
+  await ensureIndex(UserPositionHistory, { userId: 1, isCheckpoint: 1 });
+  await ensureIndex(UserPositionHistory, { batchId: 1 });
+  await ensureIndex(UserPositionHistory, { createdAt: 1 });
 });
 
 UserPositionHistory.trackChange = async function(options) {

@@ -6,6 +6,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import CronJobStatus from '/models/cronJobStatus';
+import { ensureIndex } from '/server/lib/mongoStartup';
 
 // Collections for persistent storage
 export { CronJobStatus };
@@ -49,26 +50,26 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   Meteor.startup(async () => {
     // Index for job status queries
-    await CronJobStatus._collection.createIndexAsync({ jobId: 1 });
-    await CronJobStatus._collection.createIndexAsync({ status: 1 });
-    await CronJobStatus._collection.createIndexAsync({ createdAt: 1 });
-    await CronJobStatus._collection.createIndexAsync({ updatedAt: 1 });
+    await ensureIndex(CronJobStatus, { jobId: 1 });
+    await ensureIndex(CronJobStatus, { status: 1 });
+    await ensureIndex(CronJobStatus, { createdAt: 1 });
+    await ensureIndex(CronJobStatus, { updatedAt: 1 });
 
     // Index for job steps queries
-    await CronJobSteps._collection.createIndexAsync({ jobId: 1 });
-    await CronJobSteps._collection.createIndexAsync({ stepIndex: 1 });
-    await CronJobSteps._collection.createIndexAsync({ status: 1 });
+    await ensureIndex(CronJobSteps, { jobId: 1 });
+    await ensureIndex(CronJobSteps, { stepIndex: 1 });
+    await ensureIndex(CronJobSteps, { status: 1 });
 
     // Index for job queue queries
-    await CronJobQueue._collection.createIndexAsync({ priority: 1, createdAt: 1 });
-    await CronJobQueue._collection.createIndexAsync({ status: 1 });
-    await CronJobQueue._collection.createIndexAsync({ jobType: 1 });
+    await ensureIndex(CronJobQueue, { priority: 1, createdAt: 1 });
+    await ensureIndex(CronJobQueue, { status: 1 });
+    await ensureIndex(CronJobQueue, { jobType: 1 });
 
     // Index for job errors queries
-    await CronJobErrors._collection.createIndexAsync({ jobId: 1, createdAt: -1 });
-    await CronJobErrors._collection.createIndexAsync({ stepId: 1 });
-    await CronJobErrors._collection.createIndexAsync({ severity: 1 });
-    await CronJobErrors._collection.createIndexAsync({ createdAt: -1 });
+    await ensureIndex(CronJobErrors, { jobId: 1, createdAt: -1 });
+    await ensureIndex(CronJobErrors, { stepId: 1 });
+    await ensureIndex(CronJobErrors, { severity: 1 });
+    await ensureIndex(CronJobErrors, { createdAt: -1 });
   });
 }
 

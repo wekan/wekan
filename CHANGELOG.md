@@ -28,7 +28,7 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release [fixes](https://github.com/wekan/wekan/commit/357de728c03113b787065bac2c5832ad77f1a117) the following CRITICAL SECURITY ISSUES:
+This release adds the following [CRITICAL SECURITY FIXES](https://github.com/wekan/wekan/commit/357de728c03113b787065bac2c5832ad77f1a117):
 
 - [Fix GHSA-qfqv-42qw-vvwh: `cloneBoard` Meteor method has no authorization check — any user can clone (read) any private board by ID (CWE-639, CWE-862)](https://github.com/wekan/wekan/security/advisories/GHSA-qfqv-42qw-vvwh).
   The `cloneBoard` Meteor method in `models/import.js` copied an entire board —
@@ -128,34 +128,8 @@ and, while auditing that client-side permission checks are also enforced server-
     behind global admin. Now requires global admin.
   Thanks to Claude.
 
-and adds the following updates:
+and, in the same access-control audit, the attachment write API was tightened:
 
-- [Update Windows MongoDB](https://github.com/wekan/wekan/commit/beedf2fefa614018ce7ed499465092e814a050d9).
-  Thanks to xet7.
-- [Update DDP transport and reactivity order for multi-tenant deployment](https://github.com/wekan/wekan/pull/6365).
-  Thanks to italojs.
-- [Updated to Meteor 3.5-rc.1](https://github.com/wekan/wekan/commit/29b3f52e50ea2ee9bfbfb98d3842ce8a9b8e52e3).
-  Thanks to Meteor developers.
-- [Fixed OpenAPI REST API documentation generation](https://github.com/wekan/wekan/commit/c71a97cba20247ce227a288fa74ef23cb3c4c83e),
-  which had been broken
-  since after WeKan v7.93 and only generated docs for the `login`/`register`
-  endpoints (2 operations) instead of the full API. The Meteor 3 migration moved
-  the REST routes from `models/*.js` (`JsonRoutes.add(...)`) into
-  `server/models/*.js` (`WebApp.handlers.get/post/put/delete(...)`) and
-  introduced optional chaining (`?.`) that the `esprima` Python parser cannot
-  read, so `openapi/generate_openapi.py` silently skipped every route file.
-  The generator now understands both routing styles, scans both `models/` and
-  `server/models/`, downlevels modern JS syntax so files parse, handles the
-  `type: Array` SimpleSchema idiom, and `releases/rebuild-docs.sh` works directly
-  with Python 3.12.x (PEP 668). The generated `public/api/wekan.yml` /
-  `wekan.html` now cover the full API again (89 operations / 61 paths).
-  Thanks to Claude.
-- **Documented the attachment / file REST API in the OpenAPI docs** — file
-  upload, download, info, listing a board's files, copy, move and delete (the
-  `/api/attachment/*` endpoints registered via `WebApp.handlers.use()`, which the
-  generator cannot auto-discover) are now documented in `openapi/extra_paths.yml`
-  and injected into the generated docs, including their authentication and
-  permission requirements. Thanks to Claude.
 - **Security: attachment write operations in the REST/DDP API now require board
   write access, not just membership (CWE-862, CWE-639).** Both attachment API
   implementations (`server/routes/attachmentApi.js` HTTP routes and
@@ -167,10 +141,9 @@ and adds the following updates:
   admins still allowed); read operations (download / list / info) keep
   membership-level access. Added security tests in
   `server/lib/tests/attachmentApi.tests.js`. Thanks to Claude.
-- **The attachment copy API now honours the admin "Admin Panel / Attachments"
-  API transfer limits.** Copying an attachment creates a new attachment but
-  skipped the `apiUploadBlocked` / `apiUploadMaxBytes` checks that upload
-  enforces; copy now respects them in both API implementations. Thanks to Claude.
+
+and adds the following new features:
+
 - **SVG image uploads are now sanitized instead of rejected.** Uploaded SVGs
   (attachments and avatars) are cleaned in place in `onAfterUpload` via the new
   `models/lib/sanitizeSvg.js`, which removes JavaScript (`<script>`, inline
@@ -178,26 +151,6 @@ and adds the following updates:
   `<iframe>` / `<object>` / `<embed>` and similar active content) and XML loops
   (`<!DOCTYPE>` / `<!ENTITY>` entity-expansion / XXE constructs and
   `<?xml-stylesheet?>`), so SVG images can be uploaded safely. Thanks to Claude.
-- [Fixed Admin Panel / Attachments / Move Attachment doing nothing / crashing](https://github.com/wekan/wekan/commit/d30803276d6d06db44f65ee1fb583cc11aac8b7b).
-  Several issues in the bulk move:
-  - The GridFS source matcher required `meta.gridFsFileId` to be *absent*, but
-    Meteor-Files always sets it, so selecting "MongoDB Meteor-Files" matched zero
-    files and "nothing happened". The matcher now recognizes real GridFS files
-    (`versions.*.storage === 'gridfs'` or a `meta.gridFsFileId` reference), and a
-    "nothing to move" message is shown when a source is empty instead of silently
-    doing nothing.
-  - Moving files crashed the whole server with
-    `FilesCollection#findOne() not available in server` — `ReactiveCache.getAttachment`
-    used a synchronous `findOne()`; it now uses `findOneAsync()`. The background
-    job is also hardened so a single failing file is skipped instead of crashing
-    the server via an unhandled rejection.
-  - The attachment **copy** API now honours the admin API upload limits (it
-    previously skipped them).
-- **Fixed the "MongoDB Meteor-Files" file-count statistic** in Admin Panel /
-  Attachments, which counted *every* attachment metadata document (so files on
-  the Filesystem were wrongly reported as being in GridFS). It now counts only
-  attachments actually stored in GridFS, consistent with the move tool. Also
-  renamed the mislabeled "Mongo-Files" column to "Meteor-Files". Thanks to Claude.
 - **Unified attachment/avatar storage migration: move any → any.** Admin Panel /
   Attachments / Move Attachment can now move **Attachments, Avatars, or both**,
   from **any source to any destination** across Filesystem, Meteor-Files GridFS,
@@ -218,6 +171,91 @@ and adds the following updates:
   factory now carries its collection (`Attachments` or `Avatars`), so **avatars
   can be stored in Meteor-Files GridFS and cloud**, not only on the filesystem.
   Attachment behavior is unchanged. Thanks to Claude.
+
+and adds the following updates:
+
+- [Update Windows MongoDB](https://github.com/wekan/wekan/commit/beedf2fefa614018ce7ed499465092e814a050d9).
+  Thanks to xet7.
+- [Update DDP transport and reactivity order for multi-tenant deployment](https://github.com/wekan/wekan/pull/6365).
+  Thanks to italojs.
+- [Updated to Meteor 3.5-rc.1](https://github.com/wekan/wekan/commit/29b3f52e50ea2ee9bfbfb98d3842ce8a9b8e52e3).
+  Thanks to Meteor developers.
+- **Documented the attachment / file REST API in the OpenAPI docs** — file
+  upload, download, info, listing a board's files, copy, move and delete (the
+  `/api/attachment/*` endpoints registered via `WebApp.handlers.use()`, which the
+  generator cannot auto-discover) are now documented in `openapi/extra_paths.yml`
+  and injected into the generated docs, including their authentication and
+  permission requirements. Thanks to Claude.
+
+and adds the following fixes:
+
+- **[Fixed upgrade crash]() `An error occurred when creating an index for collection
+  "users": Topology is closed` / `MongoServerSelectionError: Server selection
+  timed out after 30000 ms`.** When WeKan started before MongoDB was reachable
+  and had an elected replica-set primary (common right after an upgrade, while
+  MongoDB replays its WiredTiger journal, or when the app container starts at the
+  same instant as the database), the first index creation threw and Node exited.
+  Now:
+  - **WeKan waits until MongoDB is ready** (reachable, with an elected primary)
+    before it starts, in every launch path: `start-wekan.sh`, `start-wekan.bat`,
+    the Snap (`snap-src/bin/wekan-control`), and the app itself
+    (`server/00waitForMongo.js` / `server/lib/mongoStartup.js`, which blocks the
+    first `Meteor.startup` so it also protects the plain Docker image). The Docker
+    `docker-compose.yml` and `docker-compose-multitenancy.yml` now give `wekandb`
+    a `healthcheck` (primary elected) and the WeKan/tenant services
+    `depends_on: condition: service_healthy`.
+  - **If MongoDB stays unreachable for too long** (default 120s, configurable via
+    `WEKAN_DB_WAIT_TIMEOUT`), a clear English-only message is printed to the
+    Node.js console / `docker logs` / `snap logs` explaining that a database
+    upgrade with `mongodump` (old MongoDB) and `mongorestore --drop` (new
+    MongoDB) may be needed, and reminding that attachments and avatars live
+    on disk under `WRITABLE_PATH` (`files`, `attachments`, `avatars`; on Snap
+    `/var/snap/wekan/common/files`, on Docker the `wekan-files` volume at
+    `/data`) and must be copied too. WeKan keeps retrying after printing it.
+  - **Index creation is now idempotent and crash-safe.** A new `ensureIndex`
+    helper checks the existing indexes and only creates the ones that are
+    missing, and never throws — a single index problem is logged in English
+    instead of taking the whole server down. All startup index creation across
+    the model files was switched to it.
+  Thanks to Claude.
+- [Fixed OpenAPI REST API documentation generation](https://github.com/wekan/wekan/commit/c71a97cba20247ce227a288fa74ef23cb3c4c83e),
+  which had been broken
+  since after WeKan v7.93 and only generated docs for the `login`/`register`
+  endpoints (2 operations) instead of the full API. The Meteor 3 migration moved
+  the REST routes from `models/*.js` (`JsonRoutes.add(...)`) into
+  `server/models/*.js` (`WebApp.handlers.get/post/put/delete(...)`) and
+  introduced optional chaining (`?.`) that the `esprima` Python parser cannot
+  read, so `openapi/generate_openapi.py` silently skipped every route file.
+  The generator now understands both routing styles, scans both `models/` and
+  `server/models/`, downlevels modern JS syntax so files parse, handles the
+  `type: Array` SimpleSchema idiom, and `releases/rebuild-docs.sh` works directly
+  with Python 3.12.x (PEP 668). The generated `public/api/wekan.yml` /
+  `wekan.html` now cover the full API again (89 operations / 61 paths).
+  Thanks to Claude.
+- **The attachment copy API now honours the admin "Admin Panel / Attachments"
+  API transfer limits.** Copying an attachment creates a new attachment but
+  skipped the `apiUploadBlocked` / `apiUploadMaxBytes` checks that upload
+  enforces; copy now respects them in both API implementations. Thanks to Claude.
+- [Fixed Admin Panel / Attachments / Move Attachment doing nothing / crashing](https://github.com/wekan/wekan/commit/d30803276d6d06db44f65ee1fb583cc11aac8b7b).
+  Several issues in the bulk move:
+  - The GridFS source matcher required `meta.gridFsFileId` to be *absent*, but
+    Meteor-Files always sets it, so selecting "MongoDB Meteor-Files" matched zero
+    files and "nothing happened". The matcher now recognizes real GridFS files
+    (`versions.*.storage === 'gridfs'` or a `meta.gridFsFileId` reference), and a
+    "nothing to move" message is shown when a source is empty instead of silently
+    doing nothing.
+  - Moving files crashed the whole server with
+    `FilesCollection#findOne() not available in server` — `ReactiveCache.getAttachment`
+    used a synchronous `findOne()`; it now uses `findOneAsync()`. The background
+    job is also hardened so a single failing file is skipped instead of crashing
+    the server via an unhandled rejection.
+  - The attachment **copy** API now honours the admin API upload limits (it
+    previously skipped them).
+- **Fixed the "MongoDB Meteor-Files" file-count statistic** in Admin Panel /
+  Attachments, which counted *every* attachment metadata document (so files on
+  the Filesystem were wrongly reported as being in GridFS). It now counts only
+  attachments actually stored in GridFS, consistent with the move tool. Also
+  renamed the mislabeled "Mongo-Files" column to "Meteor-Files". Thanks to Claude.
 - **Read legacy CollectionFS attachments and avatars in place** (without
   migrating). The backward-compatibility layer
   (`models/lib/attachmentBackwardCompatibility.js`) was broken — it looked up the

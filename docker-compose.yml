@@ -258,6 +258,17 @@ services:
       - wekan-tier
     expose:
       - 27017
+    # Healthcheck: report healthy only once the replica set has an elected
+    # primary, so the wekan app (depends_on: condition: service_healthy) does
+    # not start before MongoDB is ready and crash with "Topology is closed".
+    # start_period gives a large database time to replay its journal after an
+    # upgrade before failures are counted.
+    healthcheck:
+      test: ["CMD", "mongosh", "--host", "127.0.0.1", "--port", "27017", "--quiet", "--eval", "try { quit(rs.status().ok === 1 && db.hello().isWritablePrimary ? 0 : 1) } catch (e) { quit(1) }"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-db:/data/db
@@ -902,7 +913,13 @@ services:
       # Wait spinner to use
       # - WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
-    #depends_on:
+    # Wait for MongoDB to be healthy (replica-set primary elected) before
+    # starting WeKan, so index creation does not crash with "Topology is closed".
+    # If you use FerretDB instead, comment out the wekandb block below and
+    # uncomment the wekan-ferretdb block.
+    depends_on:
+      wekandb:
+        condition: service_healthy
     #  wekan-migrate:
     #    condition: service_completed_successfully
     #  wekan-ferretdb:
