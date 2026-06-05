@@ -1,0 +1,143 @@
+# WeKan multi-tenant deployment on one Linux host
+#
+# Use this compose file when you want to run several WeKan instances
+# (one per customer / domain) on the SAME Linux host, all sharing the
+# host's kernel network namespace (network_mode: "host") and one
+# MongoDB replica set, with separate logical databases per tenant.
+#
+# This file shows the minimal extra configuration needed for the
+# `uws` DDP transport plus `changeStreams` reactivity to work
+# correctly in this topology, namely:
+#
+#   - DDP_TRANSPORT=uws on every service
+#   - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling on every service
+#   - METEOR_SETTINGS with a DISTINCT uws.port per service (5001, 5002, …)
+#
+# Why the distinct uws.port: the uws DDP transport runs an internal
+# WebSocket proxy server on its own TCP port (default 127.0.0.1:5001)
+# and forwards WS upgrades from the public PORT into it. When two
+# services share a kernel netns and both default to 127.0.0.1:5001,
+# the second one to start fails to bind because the listen socket is
+# opened exclusively. Give each service its own internal port via
+# METEOR_SETTINGS and they coexist cleanly.
+#
+# Reference: see docs/Platforms/FOSS/Docker/Meteor3/multitenancy.md
+# and https://docs.meteor.com/performance/ddp-transport#multitenancy
+#
+# Setup:
+#   docker compose -f docker-compose-multitenancy.yml up -d
+#
+# Tear down:
+#   docker compose -f docker-compose-multitenancy.yml down -v
+#
+# Adding more tenants:
+#   Copy a tenant block, change the service name, PORT, ROOT_URL,
+#   MONGO_URL database name, and the uws.port inside METEOR_SETTINGS
+#   to a fresh value (5003, 5004, …). The MongoDB service and the
+#   reverse proxy in front of WeKan don't need any change.
+
+version: '3.8'
+
+services:
+
+  # ---------------------------------------------------------------------
+  # Shared MongoDB 7 with replica set (required for changeStreams).
+  # All tenants connect to this instance using DIFFERENT logical
+  # databases (?authSource if you enable auth).
+  # ---------------------------------------------------------------------
+  wekandb:
+    image: mongo:7
+    container_name: wekan-db
+    restart: always
+    network_mode: "host"
+    entrypoint: ["sh", "-c"]
+    command:
+      - |
+        mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 1 --timeZoneInfo /usr/share/zoneinfo --oplogSize 2048 --replSet rs0 --bind_ip 127.0.0.1 --port 27017 --quiet &
+        until mongosh --host 127.0.0.1 --port 27017 --quiet --eval 'try { const s = rs.status(); quit(s.ok === 1 ? 0 : 1); } catch (e) { if (e.codeName === "NotYetInitialized" || /no replset config has been received|not yet initialized/.test(e.message)) { rs.initiate({_id:"rs0", members:[{_id:0, host:"127.0.0.1:27017"}]}); quit(1); } quit(1); }' >/dev/null 2>&1; do
+          sleep 2
+        done
+        wait
+    volumes:
+      - wekan-db:/data/db
+      - wekan-db-dump:/dump
+
+  # ---------------------------------------------------------------------
+  # Tenant 1
+  #
+  # Each tenant needs three things distinct from every other tenant:
+  #   1. PORT                     — public HTTP port (here 8081)
+  #   2. MONGO_URL database name  — here `wekan_tenant1`
+  #   3. uws.port in METEOR_SETTINGS — here 5001
+  # ---------------------------------------------------------------------
+  wekan-tenant1:
+    image: ghcr.io/wekan/wekan:latest
+    container_name: wekan-tenant1
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - wekandb
+    environment:
+      - PORT=8081
+      - ROOT_URL=https://tenant1.example.com
+      - MONGO_URL=mongodb://127.0.0.1:27017/wekan_tenant1?replicaSet=rs0
+      - MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+      - DDP_TRANSPORT=uws
+      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      # Internal uws proxy port — MUST be distinct per service.
+      - METEOR_SETTINGS={"packages":{"ddp-server":{"uws":{"port":5001,"host":"127.0.0.1"}}}}
+      - WRITABLE_PATH=/data
+      - WITH_API=true
+    volumes:
+      - wekan-tenant1-data:/data
+
+  # ---------------------------------------------------------------------
+  # Tenant 2 — same template, distinct PORT / database / uws.port
+  # ---------------------------------------------------------------------
+  wekan-tenant2:
+    image: ghcr.io/wekan/wekan:latest
+    container_name: wekan-tenant2
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - wekandb
+    environment:
+      - PORT=8082
+      - ROOT_URL=https://tenant2.example.com
+      - MONGO_URL=mongodb://127.0.0.1:27017/wekan_tenant2?replicaSet=rs0
+      - MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+      - DDP_TRANSPORT=uws
+      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      - METEOR_SETTINGS={"packages":{"ddp-server":{"uws":{"port":5002,"host":"127.0.0.1"}}}}
+      - WRITABLE_PATH=/data
+      - WITH_API=true
+    volumes:
+      - wekan-tenant2-data:/data
+
+  # ---------------------------------------------------------------------
+  # Add more tenants by copying a block above and bumping:
+  #   PORT       (e.g. 8083, 8084, …)
+  #   ROOT_URL   (the tenant's public domain)
+  #   MONGO_URL  (a new database name)
+  #   uws.port   (5003, 5004, …)
+  # ---------------------------------------------------------------------
+
+volumes:
+  wekan-db:
+  wekan-db-dump:
+  wekan-tenant1-data:
+  wekan-tenant2-data:
+
+# ---------------------------------------------------------------------
+# Verifying the uws internal listen sockets are isolated.
+#
+# From the host (or any container sharing the netns):
+#
+#   cat /proc/net/tcp | awk '$4 == "0A" {print $2}' | sort | uniq -c
+#
+# You want to see ONE listener per uws port — the hex addresses
+# `0100007F:1389` (5001) and `0100007F:138A` (5002) should each
+# appear with count 1, no duplicates. If you see `2 0100007F:1389`,
+# two services are trying to share the default port; reconfigure
+# their METEOR_SETTINGS.uws.port to distinct values and restart.
+# ---------------------------------------------------------------------

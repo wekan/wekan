@@ -315,9 +315,9 @@ services:
       # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
       # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
-      - METEOR_REACTIVITY_ORDER=oplog,polling
-      - DDP_TRANSPORT=sockjs
-      #- DDP_TRANSPORT=uws
+      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      - DDP_TRANSPORT=uws
+      #- DDP_TRANSPORT=sockjs
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====
       - WRITABLE_PATH=/data
