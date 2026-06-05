@@ -28,7 +28,107 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release [fixes](https://github.com/wekan/wekan/commit/357de728c03113b787065bac2c5832ad77f1a117) the following CRITICAL SECURITY ISSUES:
+
+- [Fix GHSA-qfqv-42qw-vvwh: `cloneBoard` Meteor method has no authorization check — any user can clone (read) any private board by ID (CWE-639, CWE-862)](https://github.com/wekan/wekan/security/advisories/GHSA-qfqv-42qw-vvwh).
+  The `cloneBoard` Meteor method in `models/import.js` copied an entire board —
+  including all cards, comments, attachments, member info and activities —
+  identified solely by a caller-supplied `sourceBoardId`, and performed no
+  authorization check: it never verified that the calling user was a member of
+  (or otherwise permitted to read) the source board. Any authenticated Wekan
+  user who knew a board's ID (board IDs appear in board URLs and remain known to
+  removed members) could call `Meteor.call('cloneBoard', '<targetBoardId>')`
+  over DDP and obtain a permanent, fully-readable copy of that board's contents,
+  even for private boards they had no access to. The method called
+  `exporter.build()` directly, skipping the `canExport()` guard
+  (`models/exporter.js`) that the REST export route correctly enforces. Fixed by
+  requiring `this.userId` and running the same `exporter.canExport(user)` check
+  the export route uses before building/cloning the board, so cloning a board
+  now requires the same read authorization as exporting it.
+  CVSS 6.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N).
+  Thanks to dizconnectz for the coordinated disclosure, and Claude.
+
+and, while fixing the above, the following similar authorization issues found by code review were fixed (the [CloneBleed](https://wekan.fi/hall-of-fame/clonebleed/) group):
+
+- [Fix authorization guards that silently never ran in attachment, list, checklist, migration and webhook server methods (CWE-862, CWE-639)](https://github.com/wekan/wekan/blob/main/docs/hall-of-fame/clonebleed/).
+  A review for the same class of bug as `cloneBoard` found several server-side
+  methods whose access checks were present in the source but never actually
+  enforced, plus a few methods missing a check entirely:
+  - `server/models/checklists.js` `moveChecklist`: the membership guard called
+    `allowIsBoardMemberByCard(...)`, but that helper is `async` and was both
+    unimported and un-awaited, so `!allowIsBoardMemberByCard(...)` evaluated
+    `!Promise` (always `false`) and the check never ran — any logged-in user
+    could move a checklist between cards on boards they cannot access. Now
+    imported and awaited, and login is required.
+  - `server/models/lists.js` `updateListSort`: the guard read
+    `typeof allowIsBoardMember === 'function' && !allowIsBoardMember(...)`, but
+    `allowIsBoardMember` was never imported, so the `typeof` was always `false`
+    and the guard never ran — any caller could reorder/re-assign any board's
+    lists by ID. Replaced with a real `hasBoardWriteAccess` check, plus a check
+    that the list actually belongs to the named board, and a login check.
+  - `server/attachmentApi.js` and `server/routes/attachmentApi.js`: the
+    attachment Meteor methods and REST handlers called `board.isBoardMember(...)`,
+    which is not a method on the board model, so the permission check never
+    behaved as intended. Replaced with the real `board.hasMember(...)`, and the
+    upload path now also verifies the target card actually belongs to the named
+    board (so `boardId` cannot be spoofed to a board the caller is a member of).
+  - `server/models/users.js` `applyListWidth`: stored per-board list width with
+    no authorization. Now requires the caller to be a member of the board and
+    requires the list to belong to that board.
+  - `server/models/boards.js` `getBackgroundImageURL`: returned any board's
+    background image URL by ID. Now requires the board to be visible to the
+    caller.
+  - `server/migrations/fixMissingListsMigration.js` and
+    `server/migrations/migrateAttachments.js`: the migration status/execute
+    methods only checked that the caller was logged in. Reading status now
+    requires board visibility, executing a board-rewriting migration now requires
+    board admin (or instance admin), and the attachment migration methods now
+    require board access (global status reads require instance admin).
+  - `server/notifications/outgoing.js`: the webhook delivery method trusted the
+    caller-supplied `integration` object and only checked that *some* integration
+    with that URL existed. It now verifies a matching integration exists on its
+    own board and that the caller is a member of that board, closing a path where
+    any authenticated user could drive webhooks (and, via the two-way response
+    path, overwrite comments) on boards they cannot access.
+  - `server/models/userPositionHistory.js`: the
+    `userPositionHistory.createCheckpoint`, `.getRecent`, `.getCheckpoints` and
+    `.restoreToCheckpoint` methods only checked that the caller was logged in,
+    even though the sibling `positionHistory.track*` methods
+    (`server/methods/positionHistory.js`) already require the board to be visible
+    to the caller — the same PositionHistoryBleed class fixed in v8.20/v8.21.
+    All four now require board visibility (via the shared `isVisibleBy` guard)
+    before reading or restoring position history scoped to a board.
+  Thanks to Claude.
+
+and, while auditing that client-side permission checks are also enforced server-side, the following gaps where the server did not re-verify a UI-gated permission were fixed:
+
+- [Fix client-side permission gates not re-verified server-side (CWE-862, CWE-269)](https://github.com/wekan/wekan/blob/main/docs/hall-of-fame/clonebleed/).
+  The browser UI hides certain actions from read-only members and from
+  non-admins, but those are cosmetic — the server-side `allow` rules and Meteor
+  methods must enforce the same role. An audit found four places that did not:
+  - `server/permissions/customFields.js`: the Custom Field `allow`
+    insert/update/remove rules used `allowIsAnyBoardMember` (mere membership), so
+    read-only/comment-only/worker members could create/modify/delete Custom
+    Fields (board-wide schema) via direct DDP collection writes — the same
+    read-only-write class as GHSA-6733, which had only fixed the REST path. Now
+    uses the new `allowIsAnyBoardMemberWithWriteAccess` write-access helper.
+  - `server/permissions/cardCommentReactions.js`: the reaction `allow` rules used
+    `allowIsBoardMember`, letting read-only members add/remove comment reactions.
+    Reacting is a form of commenting, so it now uses `allowIsBoardMemberCommentOnly`
+    (Normal/Comment-only allowed, Read-only/No-comments denied), matching
+    `CardComments.insert`.
+  - `server/models/boards.js` `archiveBoard`: only required board membership, so
+    any member (including read-only) could archive a board (hiding it for
+    everyone) over DDP, although the UI gates archiving behind board admin. Now
+    requires board admin (or global admin), matching the `Boards.allow`
+    update/remove rules.
+  - `server/models/settings.js` `sendSMTPTestEmail`: only required login, so any
+    authenticated user could trigger the server to send an SMTP test (and have
+    the server's SMTP error messages surfaced to them), although the UI gates it
+    behind global admin. Now requires global admin.
+  Thanks to Claude.
+
+and adds the following updates:
 
 - [Update Windows MongoDB](https://github.com/wekan/wekan/commit/beedf2fefa614018ce7ed499465092e814a050d9).
   Thanks to xet7.
@@ -36,6 +136,48 @@ This release adds the following updates:
   Thanks to italojs.
 - [Updated to Meteor 3.5-rc.1](https://github.com/wekan/wekan/commit/29b3f52e50ea2ee9bfbfb98d3842ce8a9b8e52e3).
   Thanks to Meteor developers.
+- [Fixed OpenAPI REST API documentation generation](https://github.com/wekan/wekan/commit/c71a97cba20247ce227a288fa74ef23cb3c4c83e),
+  which had been broken
+  since after WeKan v7.93 and only generated docs for the `login`/`register`
+  endpoints (2 operations) instead of the full API. The Meteor 3 migration moved
+  the REST routes from `models/*.js` (`JsonRoutes.add(...)`) into
+  `server/models/*.js` (`WebApp.handlers.get/post/put/delete(...)`) and
+  introduced optional chaining (`?.`) that the `esprima` Python parser cannot
+  read, so `openapi/generate_openapi.py` silently skipped every route file.
+  The generator now understands both routing styles, scans both `models/` and
+  `server/models/`, downlevels modern JS syntax so files parse, handles the
+  `type: Array` SimpleSchema idiom, and `releases/rebuild-docs.sh` works directly
+  with Python 3.12.x (PEP 668). The generated `public/api/wekan.yml` /
+  `wekan.html` now cover the full API again (89 operations / 61 paths).
+  Thanks to Claude.
+- **Documented the attachment / file REST API in the OpenAPI docs** — file
+  upload, download, info, listing a board's files, copy, move and delete (the
+  `/api/attachment/*` endpoints registered via `WebApp.handlers.use()`, which the
+  generator cannot auto-discover) are now documented in `openapi/extra_paths.yml`
+  and injected into the generated docs, including their authentication and
+  permission requirements. Thanks to Claude.
+- **Security: attachment write operations in the REST/DDP API now require board
+  write access, not just membership (CWE-862, CWE-639).** Both attachment API
+  implementations (`server/routes/attachmentApi.js` HTTP routes and
+  `server/attachmentApi.js` Meteor methods) gated upload / copy / move / delete
+  on `board.hasMember()`, which is true for any active member regardless of role.
+  This let read-only, comment-only, no-comments, worker and assigned-only board
+  members add, copy, move and delete attachments through the API — actions the UI
+  forbids for those roles. They now require board write access (global site
+  admins still allowed); read operations (download / list / info) keep
+  membership-level access. Added security tests in
+  `server/lib/tests/attachmentApi.tests.js`. Thanks to Claude.
+- **The attachment copy API now honours the admin "Admin Panel / Attachments"
+  API transfer limits.** Copying an attachment creates a new attachment but
+  skipped the `apiUploadBlocked` / `apiUploadMaxBytes` checks that upload
+  enforces; copy now respects them in both API implementations. Thanks to Claude.
+- **SVG image uploads are now sanitized instead of rejected.** Uploaded SVGs
+  (attachments and avatars) are cleaned in place in `onAfterUpload` via the new
+  `models/lib/sanitizeSvg.js`, which removes JavaScript (`<script>`, inline
+  `on*=` event handlers, `javascript:`/`vbscript:` URIs, `<foreignObject>` /
+  `<iframe>` / `<object>` / `<embed>` and similar active content) and XML loops
+  (`<!DOCTYPE>` / `<!ENTITY>` entity-expansion / XXE constructs and
+  `<?xml-stylesheet?>`), so SVG images can be uploaded safely. Thanks to Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
