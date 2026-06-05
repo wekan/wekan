@@ -32,6 +32,10 @@ This release adds the following updates:
 
 - [Update Windows MongoDB](https://github.com/wekan/wekan/commit/beedf2fefa614018ce7ed499465092e814a050d9).
   Thanks to xet7.
+- [Update DDP transport and reactivity order for multi-tenant deployment](https://github.com/wekan/wekan/pull/6365).
+  Thanks to italojs.
+- [Updated to Meteor 3.5-rc.1](https://github.com/wekan/wekan/commit/29b3f52e50ea2ee9bfbfb98d3842ce8a9b8e52e3).
+  Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
