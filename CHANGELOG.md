@@ -189,7 +189,8 @@ and adds the following updates:
 
 and adds the following fixes:
 
-- **[Fixed upgrade crash]() `An error occurred when creating an index for collection
+- **[Fixed upgrade crash](https://github.com/wekan/wekan/commit/39f3c89b0a11c5671b77d3a0b95200ac7256a4f1)
+  `An error occurred when creating an index for collection
   "users": Topology is closed` / `MongoServerSelectionError: Server selection
   timed out after 30000 ms`.** When WeKan started before MongoDB was reachable
   and had an elected replica-set primary (common right after an upgrade, while
