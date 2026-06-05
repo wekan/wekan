@@ -237,7 +237,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
           }
 
           // Check permissions
-          if (!board.isBoardMember(userId)) {
+          if (!board.hasMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify this card');
           }
 
@@ -355,7 +355,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.isBoardMember(userId)) {
+      if (!board || !board.hasMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this attachment');
       }
 
@@ -441,7 +441,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
 
       // Check permissions
       const board = await ReactiveCache.getBoard(boardId);
-      if (!board || !board.isBoardMember(userId)) {
+      if (!board || !board.hasMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this board');
       }
 
@@ -509,7 +509,7 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
     const userId = await authenticateApiRequest(req);
     const boardId = req.params.boardId;
     const board = await ReactiveCache.getBoard(boardId);
-    if (!board || !board.isBoardMember(userId)) {
+    if (!board || !board.hasMember(userId)) {
       return sendErrorResponse(res, 403, 'You do not have permission to access this board');
     }
     const query = { 'meta.boardId': boardId };
@@ -579,13 +579,13 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
 
           // Check source permissions
           const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-          if (!sourceBoard || !sourceBoard.isBoardMember(userId)) {
+          if (!sourceBoard || !sourceBoard.hasMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
           // Check target permissions
           const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-          if (!targetBoard || !targetBoard.isBoardMember(userId)) {
+          if (!targetBoard || !targetBoard.hasMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
@@ -735,13 +735,13 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
 
           // Check source permissions
           const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-          if (!sourceBoard || !sourceBoard.isBoardMember(userId)) {
+          if (!sourceBoard || !sourceBoard.hasMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
           // Check target permissions
           const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-          if (!targetBoard || !targetBoard.isBoardMember(userId)) {
+          if (!targetBoard || !targetBoard.hasMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
@@ -827,7 +827,7 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.isBoardMember(userId)) {
+      if (!board || !board.hasMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
       }
 
@@ -863,7 +863,7 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.isBoardMember(userId)) {
+      if (!board || !board.hasMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this attachment');
       }
 

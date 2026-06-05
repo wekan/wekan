@@ -164,7 +164,18 @@ Meteor.methods({
         };
         if (token) fetchHeaders['X-Wekan-Token'] = token;
 
-        if (!(await ReactiveCache.getIntegration({ url: integration.url }))) return;
+        // The `integration` object is supplied by the caller and must not be
+        // trusted: verify a matching integration actually exists on its board
+        // AND that the caller is a member of that board. Otherwise any
+        // authenticated user could drive webhooks (and, via the two-way
+        // response path below, overwrite comments) on boards they cannot access.
+        const storedIntegration = await ReactiveCache.getIntegration({
+          url: integration.url,
+          boardId: integration.boardId,
+        });
+        if (!storedIntegration) return;
+        const integrationBoard = await ReactiveCache.getBoard(storedIntegration.boardId);
+        if (!integrationBoard || !integrationBoard.hasMember(this.userId)) return;
 
         const url = integration.url;
 

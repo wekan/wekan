@@ -2,6 +2,19 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import Boards from '/models/boards';
 import UserPositionHistory from '/models/userPositionHistory';
+import { ReactiveCache } from '/imports/reactiveCache';
+
+// Reject callers who are not allowed to see the board. Mirrors the guard used
+// by the sibling positionHistory.track* methods (server/methods/positionHistory.js).
+// Without this, any authenticated user could create/read position-history
+// checkpoints scoped to an arbitrary board they have no access to (the same
+// PositionHistoryBleed class listed in the Hall of Fame).
+const requireBoardVisible = async (userId, boardId) => {
+  const board = await ReactiveCache.getBoard(boardId);
+  if (!board || !board.isVisibleBy({ _id: userId })) {
+    throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
+  }
+};
 
 Meteor.startup(async () => {
   await UserPositionHistory._collection.createIndexAsync({ userId: 1, boardId: 1, createdAt: -1 });
@@ -104,6 +117,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
 
+    await requireBoardVisible(this.userId, boardId);
+
     return await UserPositionHistory.insertAsync({
       userId: this.userId,
       boardId,
@@ -141,6 +156,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
 
+    await requireBoardVisible(this.userId, boardId);
+
     return await UserPositionHistory.find(
       { userId: this.userId, boardId },
       { sort: { createdAt: -1 }, limit: Math.min(limit, 100) },
@@ -153,6 +170,8 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
+
+    await requireBoardVisible(this.userId, boardId);
 
     return await UserPositionHistory.find(
       { userId: this.userId, boardId, isCheckpoint: true },
@@ -176,6 +195,11 @@ Meteor.methods({
     if (!checkpoint) {
       throw new Meteor.Error('not-found', 'Checkpoint not found');
     }
+
+    // Restoring re-applies position changes to the board's entities, so the
+    // caller must still be allowed to see the board (they may have been removed
+    // since the checkpoint was created).
+    await requireBoardVisible(this.userId, checkpoint.boardId);
 
     const changesToUndo = await UserPositionHistory.find(
       {

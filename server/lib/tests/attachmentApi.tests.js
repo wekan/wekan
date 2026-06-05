@@ -228,7 +228,7 @@ describe('attachmentApi authentication', function() {
       expect(uploadHandler).to.be.a('function');
 
       getBoardStub = sinon.stub(ReactiveCache, 'getBoard').resolves({
-        isBoardMember: () => true,
+        hasMember: () => true,
         allowsAttachments: true,
       });
       getAttachmentStub = sinon.stub(ReactiveCache, 'getCard').resolves({
@@ -269,7 +269,7 @@ describe('attachmentApi authentication', function() {
         meta: { boardId: 'board-1' },
       });
       getBoardStub = sinon.stub(ReactiveCache, 'getBoard').resolves({
-        isBoardMember: () => true,
+        hasMember: () => true,
       });
       findSettingsStub = sinon.stub(AttachmentStorageSettings, 'findOneAsync').resolves({
         limitSettings: {

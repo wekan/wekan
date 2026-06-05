@@ -252,6 +252,13 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    // Reading migration status discloses board structure, so require the
+    // caller to be allowed to see the board.
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('not-authorized');
+    }
+
     return await fixMissingListsMigration.getMigrationStatus(boardId);
   },
 
@@ -262,6 +269,21 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    // This migration rewrites lists/cards on the board, so restrict it to
+    // board admins (or instance admins), matching the other *.execute
+    // migrations (e.g. restoreLostCards.execute).
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('board-not-found', 'Board not found');
+    }
+    const user = await ReactiveCache.getUser(this.userId);
+    const isBoardAdmin = board.members && board.members.some(
+      member => member.userId === this.userId && member.isAdmin
+    );
+    if (!isBoardAdmin && !(user && user.isAdmin)) {
+      throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
+    }
+
     return await fixMissingListsMigration.executeMigration(boardId);
   },
 
@@ -269,6 +291,13 @@ Meteor.methods({
     check(boardId, String);
 
     if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    // Reading migration status discloses board structure, so require the
+    // caller to be allowed to see the board.
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized');
     }
 

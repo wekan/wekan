@@ -345,13 +345,23 @@ Meteor.methods({
     user.setDateFormat(dateFormat);
   },
 
-  applyListWidth(boardId, listId, width, constraint) {
+  async applyListWidth(boardId, listId, width, constraint) {
     check(boardId, String);
     check(listId, String);
     check(width, Number);
     check(constraint, Number);
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    // list.width/constraint are per-board fields shared with all users, so
+    // only board members may change them, and only on the list's own board.
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasMember(this.userId)) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    const list = await ReactiveCache.getList(listId);
+    if (!list || list.boardId !== boardId) {
+      throw new Meteor.Error('error-notAuthorized');
     }
     try {
       Lists.updateAsync(listId, { $set: { width: width, constraint: constraint } });

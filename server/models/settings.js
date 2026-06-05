@@ -218,6 +218,11 @@ Meteor.methods({
       throw new Meteor.Error('invalid-user');
     }
     const user = await getReactiveCache().getCurrentUser();
+    // Sending an SMTP test (and surfacing the server's SMTP error messages) is
+    // an admin-only diagnostic, matching the client gating (`unless currentUser.isAdmin`).
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
     if (!user.emails || !user.emails[0] || !user.emails[0].address) {
       throw new Meteor.Error('email-invalid');
     }

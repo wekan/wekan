@@ -3,6 +3,7 @@ import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { allowIsBoardMemberByCard } from '/server/lib/utils';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
@@ -11,6 +12,10 @@ Meteor.methods({
   async moveChecklist(checklistId, newCardId) {
     check(checklistId, String);
     check(newCardId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
 
     const checklist = await ReactiveCache.getChecklist(checklistId);
     if (!checklist) {
@@ -22,11 +27,13 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Target card not found');
     }
 
+    // allowIsBoardMemberByCard is async; it was previously both unimported and
+    // un-awaited, so the membership check never actually ran. Import + await it.
     const sourceCard = await ReactiveCache.getCard(checklist.cardId);
-    if (!allowIsBoardMemberByCard(this.userId, sourceCard)) {
+    if (!(await allowIsBoardMemberByCard(this.userId, sourceCard))) {
       throw new Meteor.Error('not-authorized', 'Not authorized to move checklist from source card');
     }
-    if (!allowIsBoardMemberByCard(this.userId, newCard)) {
+    if (!(await allowIsBoardMemberByCard(this.userId, newCard))) {
       throw new Meteor.Error('not-authorized', 'Not authorized to move checklist to target card');
     }
 

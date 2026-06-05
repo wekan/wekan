@@ -125,7 +125,12 @@ Meteor.methods({
 
   async getBackgroundImageURL(boardId) {
     check(boardId, String);
-    return await ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
+    const board = await ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
+    // Only return the background for boards the caller is allowed to see.
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    return board;
   },
 
   async quitBoard(boardId) {
@@ -222,9 +227,13 @@ Meteor.methods({
     }
 
     const userId = this.userId;
-    const index = board.memberIndex(userId);
-    if (index < 0) {
-      throw new Meteor.Error('error-board-notAMember');
+    // Archiving a board hides it for everyone, so it is a board-admin action,
+    // matching the client gating (boardArchive.js `isBoardAdmin`) and the
+    // Boards.allow update/remove rules. Previously any member (incl. read-only)
+    // could archive a board over DDP. Global admins are also allowed.
+    const user = await ReactiveCache.getUser(userId);
+    if (!board.hasAdmin(userId) && !(user && user.isAdmin)) {
+      throw new Meteor.Error('error-board-notAdmin');
     }
 
     await board.archive();

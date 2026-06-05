@@ -27,6 +27,14 @@ export function allowIsBoardMemberWithWriteAccess(userId, board) {
   return board && board.members && board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
 }
 
+// Write-access variant of allowIsAnyBoardMember: true if the user has write
+// access on at least one of the boards. Used where an object (e.g. a Custom
+// Field) spans several boards but read-only/comment-only/worker members must
+// still be blocked from mutating it.
+export function allowIsAnyBoardMemberWithWriteAccess(userId, boards) {
+  return boards.some(board => allowIsBoardMemberWithWriteAccess(userId, board));
+}
+
 // Check if user has write access via a card's board
 export async function allowIsBoardMemberWithWriteAccessByCard(userId, card) {
   const board = card && await Boards.findOneAsync(card.boardId);

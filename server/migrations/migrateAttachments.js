@@ -9,6 +9,20 @@ import Attachments from '/models/attachments';
  */
 
 if (Meteor.isServer) {
+  // Resolve the board an attachment/card belongs to and verify the caller is
+  // allowed to act on it. Without this, any authenticated user could migrate
+  // (read + re-insert) attachments on boards they have no access to.
+  const requireBoardAccess = async (userId, boardId) => {
+    if (!boardId) {
+      throw new Meteor.Error('not-authorized', 'Attachment is not associated with a board');
+    }
+    const board = await ReactiveCache.getBoard(boardId);
+    const user = await ReactiveCache.getUser(userId);
+    if (!board || (!board.hasMember(userId) && !(user && user.isAdmin))) {
+      throw new Meteor.Error('not-authorized', 'User does not have access to this board');
+    }
+  };
+
   Meteor.methods({
     /**
      * Migrate a single attachment from old to new structure
@@ -26,6 +40,9 @@ if (Meteor.isServer) {
         if (!oldAttachment) {
           return { success: false, error: 'Old attachment not found' };
         }
+
+        // Only allow migrating attachments on boards the caller can access.
+        await requireBoardAccess(this.userId, oldAttachment.meta && oldAttachment.meta.boardId);
 
         // Check if already migrated
         const existingAttachment = await ReactiveCache.getAttachment(attachmentId);
@@ -78,6 +95,10 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
+      // Only allow migrating attachments on a card whose board the caller can access.
+      const card = await ReactiveCache.getCard(cardId);
+      await requireBoardAccess(this.userId, card && card.boardId);
+
       const results = {
         success: 0,
         failed: 0,
@@ -117,6 +138,18 @@ if (Meteor.isServer) {
     async getAttachmentMigrationStatus(cardId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
+      }
+
+      // A card-scoped status read requires access to that card's board; the
+      // global (no card) status reads across all boards, so require admin.
+      if (cardId) {
+        const card = await ReactiveCache.getCard(cardId);
+        await requireBoardAccess(this.userId, card && card.boardId);
+      } else {
+        const user = await ReactiveCache.getUser(this.userId);
+        if (!(user && user.isAdmin)) {
+          throw new Meteor.Error('not-authorized', 'Only admins can read global migration status');
+        }
       }
 
       try {

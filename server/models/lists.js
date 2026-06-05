@@ -373,18 +373,29 @@ Meteor.methods({
     check(boardId, String);
     check(updateData, Object);
 
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    if (typeof allowIsBoardMember === 'function' && !allowIsBoardMember(this.userId, board)) {
+    // Reordering / re-assigning lists is a write operation, so require board
+    // write access. (The previous guard referenced an unimported
+    // `allowIsBoardMember`, so `typeof ... === 'function'` was always false and
+    // the check never ran — any caller could mutate any board's lists by ID.)
+    if (!hasBoardWriteAccess(this.userId, board)) {
       throw new Meteor.Error('permission-denied', 'User does not have permission to modify this board');
     }
 
     const list = await ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
+    }
+    if (list.boardId !== boardId) {
+      throw new Meteor.Error('permission-denied', 'List does not belong to this board');
     }
 
     const validUpdateFields = ['sort', 'swimlaneId', 'updatedAt', 'modifiedAt'];

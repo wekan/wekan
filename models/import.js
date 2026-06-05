@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
 import { CsvCreator } from './csvCreator';
@@ -41,7 +42,21 @@ Meteor.methods({
   async cloneBoard(sourceBoardId, currentBoardId) {
     check(sourceBoardId, String);
     check(currentBoardId, Match.Maybe(String));
+
+    // Authorization: a caller may only clone (which reads the entire board)
+    // a source board they are allowed to see. Without this check any
+    // authenticated user could clone an arbitrary private board by ID.
+    // We reuse the same guard the REST export route uses (canExport ->
+    // board.isVisibleBy), since cloning exposes the same data as an export.
+    if (!this.userId) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
     const exporter = new Exporter(sourceBoardId);
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!user || !(await exporter.canExport(user))) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+
     const data = await exporter.build();
     const additionalData = {};
 

@@ -106,8 +106,15 @@ Meteor.methods({
         throw new Meteor.Error('board-not-found', 'Board not found');
       }
 
+      // The card must actually belong to the board the caller named, otherwise
+      // boardId could be spoofed to a board the caller is a member of while the
+      // attachment is attached to a card on a different board.
+      if (card.boardId !== boardId) {
+        throw new Meteor.Error('invalid-parameters', 'Card does not belong to this board');
+      }
+
       // Check permissions
-      if (!board.isBoardMember(this.userId)) {
+      if (!board.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify this card');
       }
 
@@ -219,7 +226,7 @@ Meteor.methods({
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.isBoardMember(this.userId)) {
+      if (!board || !board.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this attachment');
       }
 
@@ -310,7 +317,7 @@ Meteor.methods({
 
       // Check permissions
       const board = await ReactiveCache.getBoard(boardId);
-      if (!board || !board.isBoardMember(this.userId)) {
+      if (!board || !board.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this board');
       }
 
@@ -373,13 +380,13 @@ Meteor.methods({
 
       // Check source permissions
       const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-      if (!sourceBoard || !sourceBoard.isBoardMember(this.userId)) {
+      if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access the source attachment');
       }
 
       // Check target permissions
       const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-      if (!targetBoard || !targetBoard.isBoardMember(this.userId)) {
+      if (!targetBoard || !targetBoard.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
       }
 
@@ -471,13 +478,13 @@ Meteor.methods({
 
       // Check source permissions
       const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-      if (!sourceBoard || !sourceBoard.isBoardMember(this.userId)) {
+      if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access the source attachment');
       }
 
       // Check target permissions
       const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-      if (!targetBoard || !targetBoard.isBoardMember(this.userId)) {
+      if (!targetBoard || !targetBoard.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
       }
 
@@ -528,7 +535,7 @@ Meteor.methods({
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.isBoardMember(this.userId)) {
+      if (!board || !board.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to delete this attachment');
       }
 
@@ -562,7 +569,7 @@ Meteor.methods({
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.isBoardMember(this.userId)) {
+      if (!board || !board.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this attachment');
       }
 

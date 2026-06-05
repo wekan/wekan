@@ -10,3 +10,5 @@ import './cards.archive.tests';
 import './cards.move.tests';
 import './search.logic.tests';
 import './fileStoreStrategy.security.tests';
+import './clonebleed.security.tests';
+import './permissions.security.tests';
