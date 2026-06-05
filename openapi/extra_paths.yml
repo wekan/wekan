@@ -1,0 +1,412 @@
+  # ───────────────────────────────────────────────────────────────────────────
+  # Attachment / file API (server/routes/attachmentApi.js)
+  #
+  # These endpoints are registered with `WebApp.handlers.use('/api/attachment/...')`
+  # rather than the `WebApp.handlers.get/post/put/delete(...)` form, so they are
+  # not auto-discovered by openapi/generate_openapi.py and are documented here by
+  # hand. Keep this file in sync with server/routes/attachmentApi.js.
+  #
+  # Authentication: send the login token in the `Authorization: Bearer <token>`
+  # header (same UserSecurity scheme as the rest of the API). The legacy
+  # `X-User-Id` + `X-Auth-Token` header pair is also accepted.
+  #
+  # Permissions: read operations (download, list, info) require active membership
+  # of the board. Write operations (upload, copy, move, delete) require write
+  # access to the board — active members who are read-only, comment-only,
+  # no-comments, worker or assigned-only are rejected; global site admins are
+  # always allowed. Upload/copy additionally require the board to allow
+  # attachments, and honour the admin API transfer limits (apiUpload*/apiDownload*).
+  # ───────────────────────────────────────────────────────────────────────────
+  /api/attachment/upload:
+    post:
+      operationId: upload_attachment
+      summary: Upload a file as a card attachment
+      description: |
+        Upload a file to a card. The file content is sent base64-encoded in the
+        JSON body. The maximum size is bounded by the admin Attachment Storage
+        Settings (`apiUploadMaxBytes`) and a hard server safety cap (64 MB).
+
+        Permissions: requires a valid auth token, write access to the target
+        board (read-only / comment-only / worker members are rejected), and the
+        board must allow attachments.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - boardId
+              - swimlaneId
+              - listId
+              - cardId
+              - fileData
+              - fileName
+            properties:
+              boardId:
+                type: string
+                description: ID of the board the card belongs to
+              swimlaneId:
+                type: string
+                description: ID of the card's swimlane (must match the card)
+              listId:
+                type: string
+                description: ID of the card's list (must match the card)
+              cardId:
+                type: string
+                description: ID of the card to attach the file to
+              fileName:
+                type: string
+                description: Name to store the file under
+              fileType:
+                type: string
+                description: MIME type of the file (optional)
+              fileData:
+                type: string
+                description: Base64-encoded file contents
+      responses:
+        '200':
+          description: Attachment uploaded successfully
+        '400':
+          description: Missing/invalid parameters or card/board/list/swimlane mismatch
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Uploads disabled, not a board member, or attachments not allowed on this board
+        '404':
+          description: Card or board not found
+        '413':
+          description: Attachment exceeds the API upload limit
+  /api/attachment/download/{attachmentId}:
+    get:
+      operationId: download_attachment
+      summary: Download an attachment as base64
+      description: |
+        Returns the attachment metadata together with the file contents
+        base64-encoded in `base64Data`. The maximum size is bounded by the admin
+        Attachment Storage Settings (`apiDownloadMaxBytes`).
+
+        Permissions: requires active membership of the attachment's board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: attachmentId
+          in: path
+          required: true
+          type: string
+          description: ID of the attachment to download
+      responses:
+        '200':
+          description: Attachment contents returned (base64Data)
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Downloads disabled, or not a member of the attachment's board
+        '404':
+          description: Attachment or stored file not found
+        '413':
+          description: Attachment exceeds the API download limit
+  /api/attachment/info/{attachmentId}:
+    get:
+      operationId: get_attachment_info
+      summary: Get attachment metadata
+      description: |
+        Returns attachment metadata (name, size, type, storage backend, board /
+        swimlane / list / card IDs and available versions) without the file
+        contents.
+
+        Permissions: requires active membership of the attachment's board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: attachmentId
+          in: path
+          required: true
+          type: string
+          description: ID of the attachment
+      responses:
+        '200':
+          description: Attachment metadata returned
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the attachment's board
+        '404':
+          description: Attachment not found
+  /api/attachment/list/{boardId}:
+    get:
+      operationId: list_board_attachments
+      summary: List all attachments of a board
+      description: |
+        List every attachment on a board. Use the swimlane / list / card
+        variants of this path to narrow the result.
+
+        Permissions: requires active membership of the board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+          description: ID of the board
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+  /api/attachment/list/{boardId}/{swimlaneId}:
+    get:
+      operationId: list_swimlane_attachments
+      summary: List attachments of a board filtered by swimlane
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: swimlaneId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+  /api/attachment/list/{boardId}/{swimlaneId}/{listId}:
+    get:
+      operationId: list_list_attachments
+      summary: List attachments of a board filtered by swimlane and list
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: swimlaneId
+          in: path
+          required: true
+          type: string
+        - name: listId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+  /api/attachment/list/{boardId}/{swimlaneId}/{listId}/{cardId}:
+    get:
+      operationId: list_card_attachments
+      summary: List attachments of a single card
+      description: |
+        List attachments filtered down to one card. The card must belong to the
+        given board.
+
+        Permissions: requires active membership of the board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: swimlaneId
+          in: path
+          required: true
+          type: string
+        - name: listId
+          in: path
+          required: true
+          type: string
+        - name: cardId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+        '404':
+          description: Card not found or does not belong to the board
+  /api/attachment/copy:
+    post:
+      operationId: copy_attachment
+      summary: Copy an attachment to another card
+      description: |
+        Copy an existing attachment to a target card, creating a new attachment.
+
+        Permissions: requires membership of the source board (to read it) and
+        write access to the target board, which must allow attachments. Honours
+        the admin API upload limits.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - attachmentId
+              - targetBoardId
+              - targetSwimlaneId
+              - targetListId
+              - targetCardId
+            properties:
+              attachmentId:
+                type: string
+                description: ID of the source attachment
+              targetBoardId:
+                type: string
+              targetSwimlaneId:
+                type: string
+              targetListId:
+                type: string
+              targetCardId:
+                type: string
+      responses:
+        '200':
+          description: Attachment copied (newAttachmentId returned)
+        '400':
+          description: Target card/board/list/swimlane mismatch
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of source or target board, or attachments not allowed
+        '404':
+          description: Source attachment, target card, or stored file not found
+  /api/attachment/move:
+    post:
+      operationId: move_attachment
+      summary: Move an attachment to another card
+      description: |
+        Move an existing attachment to a target card by updating its metadata.
+
+        Permissions: requires write access to both the source board (the
+        attachment is removed from it) and the target board, which must allow
+        attachments.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - attachmentId
+              - targetBoardId
+              - targetSwimlaneId
+              - targetListId
+              - targetCardId
+            properties:
+              attachmentId:
+                type: string
+                description: ID of the attachment to move
+              targetBoardId:
+                type: string
+              targetSwimlaneId:
+                type: string
+              targetListId:
+                type: string
+              targetCardId:
+                type: string
+      responses:
+        '200':
+          description: Attachment moved
+        '400':
+          description: Target card/board/list/swimlane mismatch
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of source or target board, or attachments not allowed
+        '404':
+          description: Source attachment or target card not found
+  /api/attachment/delete/{attachmentId}:
+    delete:
+      operationId: delete_attachment
+      summary: Delete an attachment
+      description: |
+        Delete an attachment.
+
+        Permissions: requires write access to the attachment's board (read-only /
+        comment-only / worker members are rejected).
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: attachmentId
+          in: path
+          required: true
+          type: string
+          description: ID of the attachment to delete
+      responses:
+        '200':
+          description: Attachment deleted
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the attachment's board
+        '404':
+          description: Attachment not found

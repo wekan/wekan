@@ -138,6 +138,32 @@ function sendErrorResponse(res, statusCode, message) {
   sendJsonResponse(res, statusCode, { success: false, error: message });
 }
 
+// Returns true if the user may *write* to the board (add/change/remove
+// attachments), mirroring Authentication.checkBoardWriteAccess: an active member
+// who is not read-only, comment-only, no-comments, worker, or assigned-only —
+// or a global site admin. Read operations should keep using board.hasMember().
+async function userHasBoardWriteAccess(board, userId) {
+  if (!board || !userId) {
+    return false;
+  }
+  const writeAccess = board.members.some(
+    m =>
+      m.userId === userId &&
+      m.isActive &&
+      !m.isNoComments &&
+      !m.isCommentOnly &&
+      !m.isWorker &&
+      !m.isReadOnly &&
+      !m.isReadAssignedOnly,
+  );
+  if (writeAccess) {
+    return true;
+  }
+  // Global site admins may write to any board.
+  const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
+  return admin !== undefined;
+}
+
 // Upload attachment endpoint
 WebApp.handlers.use('/api', createAuthMiddleware());
 
@@ -236,8 +262,10 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
             return sendErrorResponse(res, 400, 'List ID does not match the card\'s list');
           }
 
-          // Check permissions
-          if (!board.hasMember(userId)) {
+          // Check permissions: uploading requires write access, not just
+          // membership (read-only / comment-only / worker members cannot add
+          // attachments).
+          if (!(await userHasBoardWriteAccess(board, userId))) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify this card');
           }
 
@@ -551,6 +579,17 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
     try {
       const userId = await authenticateApiRequest(req);
 
+      // A copy creates a new attachment, so honour the admin API upload limits.
+      const {
+        apiUploadBlocked,
+        effectiveApiUploadMaxBytes,
+      } = await getApiTransferLimits();
+
+      if (apiUploadBlocked) {
+        clearTimeout(timeout);
+        return sendErrorResponse(res, 403, 'API uploads are disabled by administrator');
+      }
+
       let body = '';
       let bodyComplete = false;
 
@@ -577,15 +616,15 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
             return sendErrorResponse(res, 404, 'Source attachment not found');
           }
 
-          // Check source permissions
+          // Check source permissions (reading the source needs membership)
           const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
           if (!sourceBoard || !sourceBoard.hasMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
-          // Check target permissions
+          // Check target permissions: writing the copy needs write access.
           const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-          if (!targetBoard || !targetBoard.hasMember(userId)) {
+          if (!targetBoard || !(await userHasBoardWriteAccess(targetBoard, userId))) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
@@ -630,6 +669,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
           readStream.on('end', async () => {
             try {
               const fileBuffer = Buffer.concat(chunks);
+              if (fileBuffer.length > effectiveApiUploadMaxBytes) {
+                return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
+              }
               const file = new File([fileBuffer], sourceAttachment.name, { type: sourceAttachment.type });
 
               // Create new attachment metadata
@@ -733,15 +775,17 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
             return sendErrorResponse(res, 404, 'Source attachment not found');
           }
 
-          // Check source permissions
+          // Check source permissions: a move removes the attachment from the
+          // source board, so it requires write access there.
           const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-          if (!sourceBoard || !sourceBoard.hasMember(userId)) {
+          if (!sourceBoard || !(await userHasBoardWriteAccess(sourceBoard, userId))) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
-          // Check target permissions
+          // Check target permissions: a move adds the attachment to the target
+          // board, so it requires write access there too.
           const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-          if (!targetBoard || !targetBoard.hasMember(userId)) {
+          if (!targetBoard || !(await userHasBoardWriteAccess(targetBoard, userId))) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
@@ -825,9 +869,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
         return sendErrorResponse(res, 404, 'Attachment not found');
       }
 
-      // Check permissions
+      // Check permissions: deleting requires write access, not just membership.
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.hasMember(userId)) {
+      if (!board || !(await userHasBoardWriteAccess(board, userId))) {
         return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
       }
 

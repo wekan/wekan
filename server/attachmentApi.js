@@ -11,6 +11,32 @@ import { ObjectId } from 'bson';
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
 
+// Returns true if the user may *write* to the board (add/change/remove
+// attachments): an active member who is not read-only, comment-only,
+// no-comments, worker, or assigned-only — or a global site admin. Mirrors
+// Authentication.checkBoardWriteAccess. Read operations keep using
+// board.hasMember().
+async function userHasBoardWriteAccess(board, userId) {
+  if (!board || !userId || !Array.isArray(board.members)) {
+    return false;
+  }
+  const writeAccess = board.members.some(
+    m =>
+      m.userId === userId &&
+      m.isActive &&
+      !m.isNoComments &&
+      !m.isCommentOnly &&
+      !m.isWorker &&
+      !m.isReadOnly &&
+      !m.isReadAssignedOnly,
+  );
+  if (writeAccess) {
+    return true;
+  }
+  const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
+  return admin !== undefined;
+}
+
 function normalizeConfiguredLimit(configuredValue, fallbackValue = 0) {
   if (Number.isFinite(configuredValue) && configuredValue >= 0) {
     return configuredValue;
@@ -113,8 +139,9 @@ Meteor.methods({
         throw new Meteor.Error('invalid-parameters', 'Card does not belong to this board');
       }
 
-      // Check permissions
-      if (!board.hasMember(this.userId)) {
+      // Check permissions: uploading requires write access, not just membership
+      // (read-only / comment-only / worker members cannot add attachments).
+      if (!(await userHasBoardWriteAccess(board, this.userId))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify this card');
       }
 
@@ -378,21 +405,30 @@ Meteor.methods({
         throw new Meteor.Error('attachment-not-found', 'Source attachment not found');
       }
 
-      // Check source permissions
+      // Check source permissions (reading the source needs membership)
       const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
       if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access the source attachment');
       }
 
-      // Check target permissions
+      // Check target permissions: writing the copy needs write access.
       const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-      if (!targetBoard || !targetBoard.hasMember(this.userId)) {
+      if (!targetBoard || !(await userHasBoardWriteAccess(targetBoard, this.userId))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
       }
 
       // Check if target board allows attachments
       if (!targetBoard.allowsAttachments) {
         throw new Meteor.Error('attachments-not-allowed', 'Attachments are not allowed on the target board');
+      }
+
+      // A copy creates a new attachment, so honour the admin API upload limits.
+      const {
+        apiUploadBlocked,
+        effectiveApiUploadMaxBytes,
+      } = await getApiTransferLimits();
+      if (apiUploadBlocked) {
+        throw new Meteor.Error('uploads-disabled', 'API uploads are disabled by administrator');
       }
 
       try {
@@ -414,6 +450,10 @@ Meteor.methods({
           readStream.on('end', async () => {
             try {
               const fileBuffer = Buffer.concat(chunks);
+              if (fileBuffer.length > effectiveApiUploadMaxBytes) {
+                reject(new Meteor.Error('file-too-large', 'Attachment exceeds API upload limit'));
+                return;
+              }
               const file = new File([fileBuffer], sourceAttachment.name, { type: sourceAttachment.type });
 
               // Create new attachment metadata
@@ -476,15 +516,17 @@ Meteor.methods({
         throw new Meteor.Error('attachment-not-found', 'Source attachment not found');
       }
 
-      // Check source permissions
+      // Check source permissions: a move removes the attachment from the source
+      // board, so it requires write access there.
       const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-      if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
+      if (!sourceBoard || !(await userHasBoardWriteAccess(sourceBoard, this.userId))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access the source attachment');
       }
 
-      // Check target permissions
+      // Check target permissions: a move adds the attachment to the target
+      // board, so it requires write access there too.
       const targetBoard = await ReactiveCache.getBoard(targetBoardId);
-      if (!targetBoard || !targetBoard.hasMember(this.userId)) {
+      if (!targetBoard || !(await userHasBoardWriteAccess(targetBoard, this.userId))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
       }
 
@@ -533,9 +575,9 @@ Meteor.methods({
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
-      // Check permissions
+      // Check permissions: deleting requires write access, not just membership.
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.hasMember(this.userId)) {
+      if (!board || !(await userHasBoardWriteAccess(board, this.userId))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to delete this attachment');
       }
 

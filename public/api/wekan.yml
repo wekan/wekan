@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v8.98
+  version: v8.43
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -150,4 +150,4217 @@ paths:
           description: |
             Error in registration
 
+  /api/boards:
+    get:
+      operationId: get_boards
+      tags:
+        - Boards
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_boards
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}:
+    get:
+      operationId: get_board
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/attachments:
+    get:
+      operationId: get_board_attachments
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/attachments/{attachment}/export:
+    get:
+      operationId: exportJson
+      summary: This route is used to export a attachement to a json file format.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/attachments/:attachmentId/export?authToken=:token'
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+        - name: attachment
+          in: path
+          description: |
+            the ID of the attachment we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/{card}/checklists:
+    get:
+      operationId: get_board_card_checklists
+      tags:
+        - Checklists
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_card_checklists
+      tags:
+        - Checklists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: items
+          in: formData
+          description: the items value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/{card}/checklists/{checklist}:
+    get:
+      operationId: get_board_card_checklist
+      tags:
+        - Checklists
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: the checklist value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_card_checklist
+      tags:
+        - Checklists
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: the checklist value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/{card}/checklists/{checklist}/items:
+    post:
+      operationId: post_board_card_checklist_items
+      tags:
+        - ChecklistItems
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: the checklist value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/{card}/checklists/{checklist}/items/{item}:
+    get:
+      operationId: get_board_card_checklist_item
+      tags:
+        - ChecklistItems
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: the checklist value
+          type: string
+          required: true
+        - name: item
+          in: path
+          description: the item value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_card_checklist_item
+      tags:
+        - ChecklistItems
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: the checklist value
+          type: string
+          required: true
+        - name: item
+          in: path
+          description: the item value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_card_checklist_item
+      tags:
+        - ChecklistItems
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: the checklist value
+          type: string
+          required: true
+        - name: item
+          in: path
+          description: the item value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/{card}/comments:
+    get:
+      operationId: get_board_card_comments
+      tags:
+        - CardComments
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_card_comments
+      tags:
+        - CardComments
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/{card}/comments/{comment}:
+    get:
+      operationId: get_board_card_comment
+      tags:
+        - CardComments
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: comment
+          in: path
+          description: the comment value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_card_comment
+      tags:
+        - CardComments
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: comment
+          in: path
+          description: the comment value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cardsByCustomField/{customField}/{customFieldValue}:
+    get:
+      operationId: get_board_customFieldValue
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: customFieldValue
+          in: path
+          description: the customFieldValue value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards_count:
+    get:
+      operationId: get_board_cards_count
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/copy:
+    post:
+      operationId: post_board_copy
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: the title value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/custom-fields:
+    get:
+      operationId: get_board_custom-fields
+      tags:
+        - CustomFields
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_custom-fields
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/custom-fields/{customField}:
+    get:
+      operationId: get_board_customField
+      tags:
+        - CustomFields
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_customField
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_customField
+      tags:
+        - CustomFields
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/custom-fields/{customField}/dropdown-items:
+    post:
+      operationId: post_board_customField_dropdown-items
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: items
+          in: formData
+          description: the items value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/custom-fields/{customField}/dropdown-items/{dropdownItem}:
+    put:
+      operationId: put_board_customField_dropdownItem
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: the name value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: dropdownItem
+          in: path
+          description: the dropdownItem value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_customField_dropdownItem
+      tags:
+        - CustomFields
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: dropdownItem
+          in: path
+          description: the dropdownItem value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/export:
+    get:
+      operationId: exportJson
+      summary: This route is used to export the board to a json file format.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/export?authToken=:token'
+
+         See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
+         for detailed explanations
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/export/csv:
+    get:
+      operationId: exportCSV/TSV
+      summary: This route is used to export the board to a CSV or TSV file format.
+      description: |
+        If user is already logged-in, pass loginToken as param
+
+         See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
+         for detailed explanations
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/exportExcel:
+    get:
+      operationId: exportExcel
+      summary: This route is used to export the board Excel.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/exportExcel?authToken=:token'
+
+         See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
+         for detailed explanations
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/integrations:
+    get:
+      operationId: get_board_integrations
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_integrations
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/integrations/{int}:
+    get:
+      operationId: get_board_int
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: int
+          in: path
+          description: the int value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_int
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: int
+          in: path
+          description: the int value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_int
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: int
+          in: path
+          description: the int value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/integrations/{int}/activities:
+    delete:
+      operationId: delete_board_int_activities
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: int
+          in: path
+          description: the int value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_int_activities
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: activities
+          in: formData
+          description: the activities value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: int
+          in: path
+          description: the int value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/labels:
+    put:
+      operationId: put_board_labels
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: label
+          in: formData
+          description: the label value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists:
+    get:
+      operationId: get_board_lists
+      tags:
+        - Lists
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_lists
+      tags:
+        - Lists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}:
+    get:
+      operationId: get_board_list
+      tags:
+        - Lists
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_list
+      tags:
+        - Lists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: the title value
+          type: string
+          required: true
+        - name: color
+          in: formData
+          description: the color value
+          type: string
+          required: true
+        - name: wipLimit
+          in: formData
+          description: the wipLimit value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_list
+      tags:
+        - Lists
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards:
+    get:
+      operationId: get_board_list_cards
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_list_cards
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: members
+          in: formData
+          description: the members value
+          type: string
+          required: true
+        - name: assignees
+          in: formData
+          description: the assignees value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}:
+    get:
+      operationId: get_board_list_card
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_list_card
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: newBoardId
+          in: formData
+          description: the newBoardId value
+          type: string
+          required: true
+        - name: newSwimlaneId
+          in: formData
+          description: the newSwimlaneId value
+          type: string
+          required: true
+        - name: newListId
+          in: formData
+          description: the newListId value
+          type: string
+          required: true
+        - name: title
+          in: formData
+          description: the title value
+          type: string
+          required: true
+        - name: sort
+          in: formData
+          description: the sort value
+          type: string
+          required: true
+        - name: parentId
+          in: formData
+          description: the parentId value
+          type: string
+          required: true
+        - name: description
+          in: formData
+          description: the description value
+          type: string
+          required: true
+        - name: color
+          in: formData
+          description: the color value
+          type: string
+          required: true
+        - name: vote
+          in: formData
+          description: the vote value
+          type: string
+          required: true
+        - name: poker
+          in: formData
+          description: the poker value
+          type: string
+          required: true
+        - name: labelIds
+          in: formData
+          description: the labelIds value
+          type: string
+          required: true
+        - name: requestedBy
+          in: formData
+          description: the requestedBy value
+          type: string
+          required: true
+        - name: assignedBy
+          in: formData
+          description: the assignedBy value
+          type: string
+          required: true
+        - name: receivedAt
+          in: formData
+          description: the receivedAt value
+          type: string
+          required: true
+        - name: startAt
+          in: formData
+          description: the startAt value
+          type: string
+          required: true
+        - name: dueAt
+          in: formData
+          description: the dueAt value
+          type: string
+          required: true
+        - name: endAt
+          in: formData
+          description: the endAt value
+          type: string
+          required: true
+        - name: spentTime
+          in: formData
+          description: the spentTime value
+          type: string
+          required: true
+        - name: isOverTime
+          in: formData
+          description: the isOverTime value
+          type: string
+          required: true
+        - name: customFields
+          in: formData
+          description: the customFields value
+          type: string
+          required: true
+        - name: members
+          in: formData
+          description: the members value
+          type: string
+          required: true
+        - name: assignees
+          in: formData
+          description: the assignees value
+          type: string
+          required: true
+        - name: swimlaneId
+          in: formData
+          description: the swimlaneId value
+          type: string
+          required: true
+        - name: listId
+          in: formData
+          description: the listId value
+          type: string
+          required: true
+        - name: archive
+          in: formData
+          description: the archive value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_list_card
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/archive:
+    post:
+      operationId: post_board_list_card_archive
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}:
+    post:
+      operationId: post_board_list_card_customField
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: value
+          in: formData
+          description: the value value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/exportExcel:
+    get:
+      operationId: exportExcelCard
+      summary: Export a single card to Excel (.xlsx), formatted for DIN A4 Portrait printing.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel?authToken=:token'
+
+         Optional query param "fields" is a comma-separated list of sections to include.
+         Valid values: people, board-info, dates, description, checklists, subtasks, comments
+         Omitting "fields" includes all sections.
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: |
+            the ID of the list
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the ID of the card to export
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/exportPDF:
+    get:
+      operationId: exportExcel
+      summary: This route is used to export the board Excel.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/exportExcel?authToken=:token'
+
+         See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
+         for detailed explanations
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/unarchive:
+    post:
+      operationId: post_board_list_card_unarchive
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards_count:
+    get:
+      operationId: get_board_list_cards_count
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/members/{member}:
+    post:
+      operationId: post_board_member
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: isAdmin
+          in: formData
+          description: the isAdmin value
+          type: string
+          required: true
+        - name: isNoComments
+          in: formData
+          description: the isNoComments value
+          type: string
+          required: true
+        - name: isCommentOnly
+          in: formData
+          description: the isCommentOnly value
+          type: string
+          required: true
+        - name: isWorker
+          in: formData
+          description: the isWorker value
+          type: string
+          required: true
+        - name: isNormalAssignedOnly
+          in: formData
+          description: the isNormalAssignedOnly value
+          type: string
+          required: true
+        - name: isCommentAssignedOnly
+          in: formData
+          description: the isCommentAssignedOnly value
+          type: string
+          required: true
+        - name: isReadOnly
+          in: formData
+          description: the isReadOnly value
+          type: string
+          required: true
+        - name: isReadAssignedOnly
+          in: formData
+          description: the isReadAssignedOnly value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: member
+          in: path
+          description: the member value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/members/{user}/add:
+    post:
+      operationId: post_board_user_add
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: action
+          in: formData
+          description: the action value
+          type: string
+          required: true
+        - name: isAdmin
+          in: formData
+          description: the isAdmin value
+          type: string
+          required: true
+        - name: isNoComments
+          in: formData
+          description: the isNoComments value
+          type: string
+          required: true
+        - name: isCommentOnly
+          in: formData
+          description: the isCommentOnly value
+          type: string
+          required: true
+        - name: isWorker
+          in: formData
+          description: the isWorker value
+          type: string
+          required: true
+        - name: isNormalAssignedOnly
+          in: formData
+          description: the isNormalAssignedOnly value
+          type: string
+          required: true
+        - name: isCommentAssignedOnly
+          in: formData
+          description: the isCommentAssignedOnly value
+          type: string
+          required: true
+        - name: isReadOnly
+          in: formData
+          description: the isReadOnly value
+          type: string
+          required: true
+        - name: isReadAssignedOnly
+          in: formData
+          description: the isReadAssignedOnly value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: user
+          in: path
+          description: the user value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/members/{user}/remove:
+    post:
+      operationId: post_board_user_remove
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: action
+          in: formData
+          description: the action value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: user
+          in: path
+          description: the user value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/swimlanes:
+    get:
+      operationId: get_board_swimlanes
+      tags:
+        - Swimlanes
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_board_swimlanes
+      tags:
+        - Swimlanes
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/swimlanes/{swimlane}:
+    get:
+      operationId: get_board_swimlane
+      tags:
+        - Swimlanes
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: swimlane
+          in: path
+          description: the swimlane value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_swimlane
+      tags:
+        - Swimlanes
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: swimlane
+          in: path
+          description: the swimlane value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_swimlane
+      tags:
+        - Swimlanes
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: swimlane
+          in: path
+          description: the swimlane value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/swimlanes/{swimlane}/cards:
+    get:
+      operationId: get_board_swimlane_cards
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: swimlane
+          in: path
+          description: the swimlane value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/title:
+    put:
+      operationId: put_board_title
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: the title value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards_count:
+    get:
+      operationId: get_boards_count
+      tags:
+        - Boards
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/cards/{card}:
+    get:
+      operationId: get_card
+      tags:
+        - Cards
+      parameters:
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/createtoken/{user}:
+    post:
+      operationId: post_user
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          description: the user value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/deletetoken:
+    post:
+      operationId: post_deletetoken
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: userId
+          in: formData
+          description: the userId value
+          type: string
+          required: true
+        - name: token
+          in: formData
+          description: the token value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/user:
+    get:
+      operationId: get_user
+      tags:
+        - Users
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/users:
+    get:
+      operationId: get_users
+      tags:
+        - Users
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    post:
+      operationId: post_users
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: username
+          in: formData
+          description: the username value
+          type: string
+          required: true
+        - name: email
+          in: formData
+          description: the email value
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: the password value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/users/{user}:
+    get:
+      operationId: get_user
+      tags:
+        - Users
+      parameters:
+        - name: user
+          in: path
+          description: the user value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_user
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: action
+          in: formData
+          description: the action value
+          type: string
+          required: true
+        - name: user
+          in: path
+          description: the user value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_user
+      tags:
+        - Users
+      parameters:
+        - name: user
+          in: path
+          description: the user value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/users/{user}/boards:
+    get:
+      operationId: get_user_boards
+      tags:
+        - Boards
+      parameters:
+        - name: user
+          in: path
+          description: the user value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  # ───────────────────────────────────────────────────────────────────────────
+  # Attachment / file API (server/routes/attachmentApi.js)
+  #
+  # These endpoints are registered with `WebApp.handlers.use('/api/attachment/...')`
+  # rather than the `WebApp.handlers.get/post/put/delete(...)` form, so they are
+  # not auto-discovered by openapi/generate_openapi.py and are documented here by
+  # hand. Keep this file in sync with server/routes/attachmentApi.js.
+  #
+  # Authentication: send the login token in the `Authorization: Bearer <token>`
+  # header (same UserSecurity scheme as the rest of the API). The legacy
+  # `X-User-Id` + `X-Auth-Token` header pair is also accepted.
+  #
+  # Permissions: read operations (download, list, info) require active membership
+  # of the board. Write operations (upload, copy, move, delete) require write
+  # access to the board — active members who are read-only, comment-only,
+  # no-comments, worker or assigned-only are rejected; global site admins are
+  # always allowed. Upload/copy additionally require the board to allow
+  # attachments, and honour the admin API transfer limits (apiUpload*/apiDownload*).
+  # ───────────────────────────────────────────────────────────────────────────
+  /api/attachment/upload:
+    post:
+      operationId: upload_attachment
+      summary: Upload a file as a card attachment
+      description: |
+        Upload a file to a card. The file content is sent base64-encoded in the
+        JSON body. The maximum size is bounded by the admin Attachment Storage
+        Settings (`apiUploadMaxBytes`) and a hard server safety cap (64 MB).
+
+        Permissions: requires a valid auth token, write access to the target
+        board (read-only / comment-only / worker members are rejected), and the
+        board must allow attachments.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - boardId
+              - swimlaneId
+              - listId
+              - cardId
+              - fileData
+              - fileName
+            properties:
+              boardId:
+                type: string
+                description: ID of the board the card belongs to
+              swimlaneId:
+                type: string
+                description: ID of the card's swimlane (must match the card)
+              listId:
+                type: string
+                description: ID of the card's list (must match the card)
+              cardId:
+                type: string
+                description: ID of the card to attach the file to
+              fileName:
+                type: string
+                description: Name to store the file under
+              fileType:
+                type: string
+                description: MIME type of the file (optional)
+              fileData:
+                type: string
+                description: Base64-encoded file contents
+      responses:
+        '200':
+          description: Attachment uploaded successfully
+        '400':
+          description: Missing/invalid parameters or card/board/list/swimlane mismatch
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Uploads disabled, not a board member, or attachments not allowed on this board
+        '404':
+          description: Card or board not found
+        '413':
+          description: Attachment exceeds the API upload limit
+  /api/attachment/download/{attachmentId}:
+    get:
+      operationId: download_attachment
+      summary: Download an attachment as base64
+      description: |
+        Returns the attachment metadata together with the file contents
+        base64-encoded in `base64Data`. The maximum size is bounded by the admin
+        Attachment Storage Settings (`apiDownloadMaxBytes`).
+
+        Permissions: requires active membership of the attachment's board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: attachmentId
+          in: path
+          required: true
+          type: string
+          description: ID of the attachment to download
+      responses:
+        '200':
+          description: Attachment contents returned (base64Data)
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Downloads disabled, or not a member of the attachment's board
+        '404':
+          description: Attachment or stored file not found
+        '413':
+          description: Attachment exceeds the API download limit
+  /api/attachment/info/{attachmentId}:
+    get:
+      operationId: get_attachment_info
+      summary: Get attachment metadata
+      description: |
+        Returns attachment metadata (name, size, type, storage backend, board /
+        swimlane / list / card IDs and available versions) without the file
+        contents.
+
+        Permissions: requires active membership of the attachment's board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: attachmentId
+          in: path
+          required: true
+          type: string
+          description: ID of the attachment
+      responses:
+        '200':
+          description: Attachment metadata returned
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the attachment's board
+        '404':
+          description: Attachment not found
+  /api/attachment/list/{boardId}:
+    get:
+      operationId: list_board_attachments
+      summary: List all attachments of a board
+      description: |
+        List every attachment on a board. Use the swimlane / list / card
+        variants of this path to narrow the result.
+
+        Permissions: requires active membership of the board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+          description: ID of the board
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+  /api/attachment/list/{boardId}/{swimlaneId}:
+    get:
+      operationId: list_swimlane_attachments
+      summary: List attachments of a board filtered by swimlane
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: swimlaneId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+  /api/attachment/list/{boardId}/{swimlaneId}/{listId}:
+    get:
+      operationId: list_list_attachments
+      summary: List attachments of a board filtered by swimlane and list
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: swimlaneId
+          in: path
+          required: true
+          type: string
+        - name: listId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+  /api/attachment/list/{boardId}/{swimlaneId}/{listId}/{cardId}:
+    get:
+      operationId: list_card_attachments
+      summary: List attachments of a single card
+      description: |
+        List attachments filtered down to one card. The card must belong to the
+        given board.
+
+        Permissions: requires active membership of the board.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: swimlaneId
+          in: path
+          required: true
+          type: string
+        - name: listId
+          in: path
+          required: true
+          type: string
+        - name: cardId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of attachments with metadata
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the board
+        '404':
+          description: Card not found or does not belong to the board
+  /api/attachment/copy:
+    post:
+      operationId: copy_attachment
+      summary: Copy an attachment to another card
+      description: |
+        Copy an existing attachment to a target card, creating a new attachment.
+
+        Permissions: requires membership of the source board (to read it) and
+        write access to the target board, which must allow attachments. Honours
+        the admin API upload limits.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - attachmentId
+              - targetBoardId
+              - targetSwimlaneId
+              - targetListId
+              - targetCardId
+            properties:
+              attachmentId:
+                type: string
+                description: ID of the source attachment
+              targetBoardId:
+                type: string
+              targetSwimlaneId:
+                type: string
+              targetListId:
+                type: string
+              targetCardId:
+                type: string
+      responses:
+        '200':
+          description: Attachment copied (newAttachmentId returned)
+        '400':
+          description: Target card/board/list/swimlane mismatch
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of source or target board, or attachments not allowed
+        '404':
+          description: Source attachment, target card, or stored file not found
+  /api/attachment/move:
+    post:
+      operationId: move_attachment
+      summary: Move an attachment to another card
+      description: |
+        Move an existing attachment to a target card by updating its metadata.
+
+        Permissions: requires write access to both the source board (the
+        attachment is removed from it) and the target board, which must allow
+        attachments.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - attachmentId
+              - targetBoardId
+              - targetSwimlaneId
+              - targetListId
+              - targetCardId
+            properties:
+              attachmentId:
+                type: string
+                description: ID of the attachment to move
+              targetBoardId:
+                type: string
+              targetSwimlaneId:
+                type: string
+              targetListId:
+                type: string
+              targetCardId:
+                type: string
+      responses:
+        '200':
+          description: Attachment moved
+        '400':
+          description: Target card/board/list/swimlane mismatch
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of source or target board, or attachments not allowed
+        '404':
+          description: Source attachment or target card not found
+  /api/attachment/delete/{attachmentId}:
+    delete:
+      operationId: delete_attachment
+      summary: Delete an attachment
+      description: |
+        Delete an attachment.
+
+        Permissions: requires write access to the attachment's board (read-only /
+        comment-only / worker members are rejected).
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: attachmentId
+          in: path
+          required: true
+          type: string
+          description: ID of the attachment to delete
+      responses:
+        '200':
+          description: Attachment deleted
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Not a member of the attachment's board
+        '404':
+          description: Attachment not found
 definitions:
+  Boards:
+    type: object
+    description:  This is a Board.
+    properties:
+      title:
+        description: |
+           The title of the board
+        type: string
+      slug:
+        description: |
+           The title slugified.
+        type: string
+      archived:
+        description: |
+           Is the board archived?
+        type: boolean
+      archivedAt:
+        description: |
+           Latest archiving time of the board
+        type: string
+        x-nullable: true
+      createdAt:
+        description: |
+           Creation time of the board
+        type: string
+      modifiedAt:
+        description: |
+           Last modification time of the board
+        type: string
+        x-nullable: true
+      stars:
+        description: |
+           How many stars the board has
+        type: number
+      labels:
+        description: |
+           List of labels attached to a board
+        type: array
+        items:
+          $ref: "#/definitions/BoardsLabels"
+        x-nullable: true
+      members:
+        description: |
+           List of members of a board
+        type: array
+        items:
+          $ref: "#/definitions/BoardsMembers"
+      permission:
+        description: |
+           visibility of the board
+        type: string
+        enum:
+          - public
+          - private
+      orgs:
+        description: |
+           the list of organizations that a board belongs to
+        type: array
+        items:
+          $ref: "#/definitions/BoardsOrgs"
+        x-nullable: true
+      teams:
+        description: |
+           the list of teams that a board belongs to
+        type: array
+        items:
+          $ref: "#/definitions/BoardsTeams"
+        x-nullable: true
+      color:
+        description: |
+           The color of the board.
+        type: string
+        enum:
+      backgroundImageURL:
+        description: |
+           The background image URL of the board.
+        type: string
+        x-nullable: true
+      allowsCardCounterList:
+        description: |
+           Show card counter per list
+        type: boolean
+      allowsBoardMemberList:
+        description: |
+           Show board member list
+        type: boolean
+      description:
+        description: |
+           The description of the board
+        type: string
+        x-nullable: true
+      subtasksDefaultBoardId:
+        description: |
+           The default board ID assigned to subtasks.
+        type: string
+        x-nullable: true
+      migrationVersion:
+        description: |
+           The migration version of the board structure.
+           New boards are created with the latest version and don't need migration.
+        type: number
+      subtasksDefaultListId:
+        description: |
+           The default List ID assigned to subtasks.
+        type: string
+        x-nullable: true
+      dateSettingsDefaultBoardId:
+        type: string
+        x-nullable: true
+      dateSettingsDefaultListId:
+        type: string
+        x-nullable: true
+      allowsSubtasks:
+        description: |
+           Does the board allows subtasks?
+        type: boolean
+      allowsSubtasksOnMinicard:
+        description: |
+           Does the board allows subtasks on minicard?
+        type: boolean
+      allowsAttachments:
+        description: |
+           Does the board allows attachments?
+        type: boolean
+      allowsAttachmentsOnMinicard:
+        description: |
+           Does the board allows attachments on minicard?
+        type: boolean
+      allowsChecklists:
+        description: |
+           Does the board allows checklists?
+        type: boolean
+      allowsChecklistsOnMinicard:
+        description: |
+           Does the board allows checklists on minicard?
+        type: boolean
+      allowsComments:
+        description: |
+           Does the board allows comments?
+        type: boolean
+      allowsDescriptionTitle:
+        description: |
+           Does the board allows description title?
+        type: boolean
+      allowsDescriptionTitleOnMinicard:
+        description: |
+           Does the board allows description title on minicard?
+        type: boolean
+      allowsDescriptionText:
+        description: |
+           Does the board allows description text?
+        type: boolean
+      allowsDescriptionTextOnMinicard:
+        description: |
+           Does the board allows description text on minicard?
+        type: boolean
+      allowsCoverAttachmentOnMinicard:
+        description: |
+           Does the board allows cover attachment on minicard?
+        type: boolean
+      allowsBadgeAttachmentOnMinicard:
+        description: |
+           Does the board allows badge attachment on minicard?
+        type: boolean
+      allowsCardSortingByNumberOnMinicard:
+        description: |
+           Does the board allows card sorting by number on minicard?
+        type: boolean
+      allowsCardNumber:
+        description: |
+           Does the board allows card numbers?
+        type: boolean
+      allowsCardNumberOnMinicard:
+        description: |
+           Does the board allows card numbers on minicard?
+        type: boolean
+      allowsActivities:
+        description: |
+           Does the board allows comments?
+        type: boolean
+      allowsLabels:
+        description: |
+           Does the board allows labels?
+        type: boolean
+      allowsLabelsOnMinicard:
+        description: |
+           Does the board allows labels on minicard?
+        type: boolean
+      allowsCreator:
+        description: |
+           Does the board allow creator?
+        type: boolean
+      allowsCreatorOnMinicard:
+        description: |
+           Does the board allow creator?
+        type: boolean
+      allowsAssignee:
+        description: |
+           Does the board allows assignee?
+        type: boolean
+      allowsAssigneeOnMinicard:
+        description: |
+           Does the board allows assignee on minicard?
+        type: boolean
+      allowsMembers:
+        description: |
+           Does the board allows members?
+        type: boolean
+      allowsMembersOnMinicard:
+        description: |
+           Does the board allows members on minicard?
+        type: boolean
+      allowsRequestedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsRequestedByOnMinicard:
+        description: |
+           Does the board allows requested by on minicard?
+        type: boolean
+      allowsCardSortingByNumber:
+        description: |
+           Does the board allows card sorting by number?
+        type: boolean
+      allowsShowLists:
+        description: |
+           Does the board allows show lists on the card?
+        type: boolean
+      allowsAssignedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsAssignedByOnMinicard:
+        description: |
+           Does the board allows requested by on minicard?
+        type: boolean
+      allowsShowListsOnMinicard:
+        description: |
+           Does the board allow showing list names on all minicards?
+        type: boolean
+      allowsChecklistAtMinicard:
+        description: |
+           Does the board allow showing checklists on all minicards?
+        type: boolean
+      allowsReceivedDate:
+        description: |
+           Does the board allows received date?
+        type: boolean
+      allowsReceivedDateOnMinicard:
+        description: |
+           Does the board allows received date on minicard?
+        type: boolean
+      allowsStartDate:
+        description: |
+           Does the board allows start date?
+        type: boolean
+      allowsStartDateOnMinicard:
+        description: |
+           Does the board allows start date on minicard?
+        type: boolean
+      allowsEndDate:
+        description: |
+           Does the board allows end date?
+        type: boolean
+      allowsEndDateOnMinicard:
+        description: |
+           Does the board allows end date on minicard?
+        type: boolean
+      allowsDueDate:
+        description: |
+           Does the board allows due date?
+        type: boolean
+      allowsDueDateOnMinicard:
+        description: |
+           Does the board allows due date on minicard?
+        type: boolean
+      presentParentTask:
+        description: |
+           Controls how to present the parent task:
+
+           - `prefix-with-full-path`: add a prefix with the full path
+           - `prefix-with-parent`: add a prefisx with the parent name
+           - `subtext-with-full-path`: add a subtext with the full path
+           - `subtext-with-parent`: add a subtext with the parent name
+           - `no-parent`: does not show the parent at all
+        type: string
+        enum:
+          - prefix-with-full-path
+          - prefix-with-parent
+          - subtext-with-full-path
+          - subtext-with-parent
+          - no-parent
+        x-nullable: true
+      receivedAt:
+        description: |
+           Date the card was received
+        type: string
+        x-nullable: true
+      startAt:
+        description: |
+           Starting date of the board.
+        type: string
+        x-nullable: true
+      dueAt:
+        description: |
+           Due date of the board.
+        type: string
+        x-nullable: true
+      endAt:
+        description: |
+           End date of the board.
+        type: string
+        x-nullable: true
+      spentTime:
+        description: |
+           Time spent in the board.
+        type: number
+        x-nullable: true
+      isOvertime:
+        description: |
+           Is the board overtimed?
+        type: boolean
+        x-nullable: true
+      type:
+        description: |
+           The type of board
+           possible values: board, template-board, template-container
+        type: string
+        enum:
+          - board
+          - template-board
+          - template-container
+      sort:
+        description: |
+           Sort value
+        type: number
+      showActivities:
+        type: boolean
+    required:
+      - title
+      - slug
+      - archived
+      - createdAt
+      - stars
+      - members
+      - permission
+      - color
+      - allowsCardCounterList
+      - allowsBoardMemberList
+      - migrationVersion
+      - allowsSubtasks
+      - allowsSubtasksOnMinicard
+      - allowsAttachments
+      - allowsAttachmentsOnMinicard
+      - allowsChecklists
+      - allowsChecklistsOnMinicard
+      - allowsComments
+      - allowsDescriptionTitle
+      - allowsDescriptionTitleOnMinicard
+      - allowsDescriptionText
+      - allowsDescriptionTextOnMinicard
+      - allowsCoverAttachmentOnMinicard
+      - allowsBadgeAttachmentOnMinicard
+      - allowsCardSortingByNumberOnMinicard
+      - allowsCardNumber
+      - allowsCardNumberOnMinicard
+      - allowsActivities
+      - allowsLabels
+      - allowsLabelsOnMinicard
+      - allowsCreator
+      - allowsCreatorOnMinicard
+      - allowsAssignee
+      - allowsAssigneeOnMinicard
+      - allowsMembers
+      - allowsMembersOnMinicard
+      - allowsRequestedBy
+      - allowsRequestedByOnMinicard
+      - allowsCardSortingByNumber
+      - allowsShowLists
+      - allowsAssignedBy
+      - allowsAssignedByOnMinicard
+      - allowsShowListsOnMinicard
+      - allowsChecklistAtMinicard
+      - allowsReceivedDate
+      - allowsReceivedDateOnMinicard
+      - allowsStartDate
+      - allowsStartDateOnMinicard
+      - allowsEndDate
+      - allowsEndDateOnMinicard
+      - allowsDueDate
+      - allowsDueDateOnMinicard
+      - type
+      - sort
+      - showActivities
+  BoardsLabels:
+    type: object
+    properties:
+      _id:
+        description: |
+           Unique id of a label
+        type: string
+      name:
+        description: |
+           Name of a label
+        type: string
+      color:
+        description: |
+           color of a label.
+
+           Can be amongst `green`, `yellow`, `orange`, `red`, `purple`,
+           `blue`, `sky`, `lime`, `pink`, `black`,
+           `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`,
+           `slateblue`, `magenta`, `gold`, `navy`, `gray`,
+           `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
+        type: string
+        enum:
+    required:
+      - _id
+      - color
+  BoardsMembers:
+    type: object
+    properties:
+      userId:
+        description: |
+           The uniq ID of the member
+        type: string
+      isAdmin:
+        description: |
+           Is the member an admin of the board?
+        type: boolean
+      isActive:
+        description: |
+           Is the member active?
+        type: boolean
+      isNoComments:
+        description: |
+           Is the member not allowed to make comments
+        type: boolean
+      isCommentOnly:
+        description: |
+           Is the member only allowed to comment on the board
+        type: boolean
+      isWorker:
+        description: |
+           Is the member only allowed to move card, assign himself to card and comment
+        type: boolean
+      isNormalAssignedOnly:
+        description: |
+           Is the member only allowed to see assigned cards (Normal permission)
+        type: boolean
+      isCommentAssignedOnly:
+        description: |
+           Is the member only allowed to comment on assigned cards
+        type: boolean
+      isReadOnly:
+        description: |
+           Is the member only allowed to read the board (no comments, no editing)
+        type: boolean
+      isReadAssignedOnly:
+        description: |
+           Is the member only allowed to read assigned cards (no comments, no editing)
+        type: boolean
+    required:
+      - userId
+      - isAdmin
+      - isActive
+  BoardsOrgs:
+    type: object
+    properties:
+      orgId:
+        description: |
+           The uniq ID of the organization
+        type: string
+      orgDisplayName:
+        description: |
+           The display name of the organization
+        type: string
+      isActive:
+        description: |
+           Is the organization active?
+        type: boolean
+    required:
+      - orgId
+      - orgDisplayName
+      - isActive
+  BoardsTeams:
+    type: object
+    properties:
+      teamId:
+        description: |
+           The uniq ID of the team
+        type: string
+      teamDisplayName:
+        description: |
+           The display name of the team
+        type: string
+      isActive:
+        description: |
+           Is the team active?
+        type: boolean
+    required:
+      - teamId
+      - teamDisplayName
+      - isActive
+  CardComments:
+    type: object
+    description:  A comment on a card
+    properties:
+      boardId:
+        description: |
+           the board ID
+        type: string
+      cardId:
+        description: |
+           the card ID
+        type: string
+      text:
+        description: |
+           the text of the comment
+        type: string
+      createdAt:
+        description: |
+           when was the comment created
+        type: string
+      modifiedAt:
+        type: string
+      userId:
+        description: |
+           the author ID of the comment
+        type: string
+    required:
+      - boardId
+      - cardId
+      - text
+      - createdAt
+      - modifiedAt
+      - userId
+  Cards:
+    type: object
+    properties:
+      title:
+        description: |
+           the title of the card
+        type: string
+        x-nullable: true
+      archived:
+        description: |
+           is the card archived
+        type: boolean
+      archivedAt:
+        description: |
+           latest archiving date
+        type: string
+        x-nullable: true
+      parentId:
+        description: |
+           ID of the parent card
+        type: string
+        x-nullable: true
+      listId:
+        description: |
+           List ID where the card is
+        type: string
+        x-nullable: true
+      swimlaneId:
+        description: |
+           Swimlane ID where the card is
+        type: string
+      boardId:
+        description: |
+           Board ID of the card
+        type: string
+        x-nullable: true
+      coverId:
+        description: |
+           Cover ID of the card
+        type: string
+        x-nullable: true
+      color:
+        type: string
+        enum:
+        x-nullable: true
+      createdAt:
+        description: |
+           creation date
+        type: string
+      modifiedAt:
+        type: string
+      customFields:
+        description: |
+           list of custom fields
+        type: array
+        items:
+          $ref: "#/definitions/CardsCustomfields"
+        x-nullable: true
+      dateLastActivity:
+        description: |
+           Date of last activity
+        type: string
+      description:
+        description: |
+           description of the card
+        type: string
+        x-nullable: true
+      requestedBy:
+        description: |
+           who requested the card (ID of the user)
+        type: string
+        x-nullable: true
+      assignedBy:
+        description: |
+           who assigned the card (ID of the user)
+        type: string
+        x-nullable: true
+      labelIds:
+        description: |
+           list of labels ID the card has
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      members:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      assignees:
+        description: |
+           who is assignee of the card (user ID),
+           maximum one ID of assignee in array.
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      receivedAt:
+        description: |
+           Date the card was received
+        type: string
+        x-nullable: true
+      startAt:
+        description: |
+           Date the card was started to be worked on
+        type: string
+        x-nullable: true
+      dueAt:
+        description: |
+           Date the card is due
+        type: string
+        x-nullable: true
+      endAt:
+        description: |
+           Date the card ended
+        type: string
+        x-nullable: true
+      spentTime:
+        description: |
+           How much time has been spent on this
+        type: number
+        x-nullable: true
+      isOvertime:
+        description: |
+           is the card over time?
+        type: boolean
+        x-nullable: true
+      userId:
+        description: |
+           user ID of the author of the card
+        type: string
+      sort:
+        description: |
+           Sort value
+        type: number
+        x-nullable: true
+      subtaskSort:
+        description: |
+           subtask sort value
+        type: number
+        x-nullable: true
+      type:
+        description: |
+           type of the card
+        type: string
+      linkedId:
+        description: |
+           ID of the linked card
+        type: string
+        x-nullable: true
+      vote:
+        description: |
+           vote object, see below
+        $ref: "#/definitions/CardsVote"
+        x-nullable: true
+      poker:
+        description: |
+           poker object, see below
+        $ref: "#/definitions/CardsPoker"
+        x-nullable: true
+      targetId_gantt:
+        description: |
+           ID of card which is the child link in gantt view
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      linkType_gantt:
+        description: |
+           ID of card which is the parent link in gantt view
+        type: array
+        items:
+          type: number
+          x-nullable: true
+        x-nullable: true
+      linkId_gantt:
+        description: |
+           ID of card which is the parent link in gantt view
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      cardNumber:
+        description: |
+           A boardwise sequentially increasing number that is assigned
+           to every newly created card
+        type: number
+        x-nullable: true
+      showActivities:
+        type: boolean
+      showListOnMinicard:
+        description: |
+           show list name on minicard?
+        type: boolean
+        x-nullable: true
+      showChecklistAtMinicard:
+        description: |
+           show checklist on minicard?
+        type: boolean
+        x-nullable: true
+      hideFinishedChecklistIfItemsAreHidden:
+        description: |
+           hide completed checklist sections when checklist items are hidden?
+        type: boolean
+        x-nullable: true
+    required:
+      - archived
+      - swimlaneId
+      - createdAt
+      - modifiedAt
+      - dateLastActivity
+      - userId
+      - type
+      - showActivities
+  CardsVote:
+    type: object
+    properties:
+      question:
+        type: string
+      positive:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      negative:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      public:
+        type: boolean
+      allowNonBoardMembers:
+        type: boolean
+    required:
+      - question
+      - public
+      - allowNonBoardMembers
+  CardsPoker:
+    type: object
+    properties:
+      question:
+        type: boolean
+      one:
+        description: |
+           poker card one
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      two:
+        description: |
+           poker card two
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      three:
+        description: |
+           poker card three
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      five:
+        description: |
+           poker card five
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      eight:
+        description: |
+           poker card eight
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      thirteen:
+        description: |
+           poker card thirteen
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      twenty:
+        description: |
+           poker card twenty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      forty:
+        description: |
+           poker card forty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      oneHundred:
+        description: |
+           poker card oneHundred
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      unsure:
+        description: |
+           poker card unsure
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      allowNonBoardMembers:
+        type: boolean
+      estimation:
+        description: |
+           poker estimation value
+        type: number
+  CardsCustomfields:
+    type: object
+  CardsLabelids:
+    type: object
+  CardsMembers:
+    type: object
+  CardsAssignees:
+    type: object
+  CardsVotePositive:
+    type: object
+  CardsVoteNegative:
+    type: object
+  CardsPokerOne:
+    type: object
+  CardsPokerTwo:
+    type: object
+  CardsPokerThree:
+    type: object
+  CardsPokerFive:
+    type: object
+  CardsPokerEight:
+    type: object
+  CardsPokerThirteen:
+    type: object
+  CardsPokerTwenty:
+    type: object
+  CardsPokerForty:
+    type: object
+  CardsPokerOnehundred:
+    type: object
+  CardsPokerUnsure:
+    type: object
+  CardsTargetid_gantt:
+    type: object
+  CardsLinktype_gantt:
+    type: object
+  CardsLinkid_gantt:
+    type: object
+  ChecklistItems:
+    type: object
+    description:  An item in a checklist
+    properties:
+      title:
+        description: |
+           the text of the item
+        type: string
+      sort:
+        description: |
+           the sorting field of the item
+        type: number
+      isFinished:
+        description: |
+           Is the item checked?
+        type: boolean
+      checklistId:
+        description: |
+           the checklist ID the item is attached to
+        type: string
+      cardId:
+        description: |
+           the card ID the item is attached to
+        type: string
+      createdAt:
+        type: string
+        x-nullable: true
+      modifiedAt:
+        type: string
+    required:
+      - title
+      - sort
+      - isFinished
+      - checklistId
+      - cardId
+      - modifiedAt
+  Checklists:
+    type: object
+    description:  A Checklist
+    properties:
+      cardId:
+        description: |
+           The ID of the card the checklist is in
+        type: string
+      title:
+        description: |
+           the title of the checklist
+        type: string
+      finishedAt:
+        description: |
+           When was the checklist finished
+        type: string
+        x-nullable: true
+      createdAt:
+        description: |
+           Creation date of the checklist
+        type: string
+      modifiedAt:
+        type: string
+      sort:
+        description: |
+           sorting value of the checklist
+        type: number
+      hideCheckedChecklistItems:
+        description: |
+           hide the checked checklist-items?
+        type: boolean
+        x-nullable: true
+      hideAllChecklistItems:
+        description: |
+           hide all checklist items ?
+        type: boolean
+        x-nullable: true
+      showChecklistAtMinicard:
+        description: |
+           show this checklist on minicard?
+        type: boolean
+    required:
+      - cardId
+      - title
+      - createdAt
+      - modifiedAt
+      - sort
+      - showChecklistAtMinicard
+  CustomFields:
+    type: object
+    description:  A custom field on a card in the board
+    properties:
+      boardIds:
+        description: |
+           the ID of the board
+        type: array
+        items:
+          type: string
+      name:
+        description: |
+           name of the custom field
+        type: string
+      type:
+        description: |
+           type of the custom field
+        type: string
+        enum:
+          - text
+          - number
+          - date
+          - dropdown
+          - checkbox
+          - currency
+          - stringtemplate
+      settings:
+        description: |
+           settings of the custom field
+        $ref: "#/definitions/CustomFieldsSettings"
+      showOnCard:
+        description: |
+           should we show on the cards this custom field
+        type: boolean
+      automaticallyOnCard:
+        description: |
+           should the custom fields automatically be added on cards?
+        type: boolean
+      alwaysOnCard:
+        description: |
+           should the custom field be automatically added to all cards?
+        type: boolean
+      showLabelOnMiniCard:
+        description: |
+           should the label of the custom field be shown on minicards?
+        type: boolean
+      showSumAtTopOfList:
+        description: |
+           should the sum of the custom fields be shown at top of list?
+        type: boolean
+      createdAt:
+        type: string
+        x-nullable: true
+      modifiedAt:
+        type: string
+    required:
+      - boardIds
+      - name
+      - type
+      - settings
+      - showOnCard
+      - automaticallyOnCard
+      - alwaysOnCard
+      - showLabelOnMiniCard
+      - showSumAtTopOfList
+      - modifiedAt
+  CustomFieldsSettings:
+    type: object
+    properties:
+      currencyCode:
+        type: string
+      dropdownItems:
+        description: |
+           list of drop down items objects
+        type: array
+        items:
+          $ref: "#/definitions/CustomFieldsSettingsDropdownitems"
+      stringtemplateFormat:
+        type: string
+      stringtemplateSeparator:
+        type: string
+  CustomFieldsBoardids:
+    type: object
+  CustomFieldsSettingsDropdownitems:
+    type: object
+  Lists:
+    type: object
+    description:  A list (column) in the Wekan board.
+    properties:
+      title:
+        description: |
+           the title of the list
+        type: string
+      starred:
+        description: |
+           if a list is stared
+           then we put it on the top
+        type: boolean
+        x-nullable: true
+      archived:
+        description: |
+           is the list archived
+        type: boolean
+      archivedAt:
+        description: |
+           latest archiving date
+        type: string
+        x-nullable: true
+      boardId:
+        description: |
+           the board associated to this list
+        type: string
+      swimlaneId:
+        description: |
+           the swimlane associated to this list. Optional for backward compatibility
+        type: string
+        x-nullable: true
+      createdAt:
+        description: |
+           creation date
+        type: string
+      sort:
+        description: |
+           is the list sorted
+        type: number
+        x-nullable: true
+      updatedAt:
+        description: |
+           last update of the list
+        type: string
+        x-nullable: true
+      modifiedAt:
+        type: string
+      wipLimit:
+        description: |
+           WIP object, see below
+        $ref: "#/definitions/ListsWiplimit"
+        x-nullable: true
+      color:
+        description: |
+           the color of the list
+        type: string
+        enum:
+        x-nullable: true
+      type:
+        description: |
+           The type of list
+        type: string
+      width:
+        description: |
+           The width of the list in pixels (100-1000).
+           Default width is 272 pixels.
+        type: number
+        x-nullable: true
+    required:
+      - title
+      - archived
+      - boardId
+      - createdAt
+      - modifiedAt
+      - type
+  ListsWiplimit:
+    type: object
+    properties:
+      value:
+        description: |
+           value of the WIP
+        type: number
+      enabled:
+        description: |
+           is the WIP enabled
+        type: boolean
+      soft:
+        description: |
+           is the WIP a soft or hard requirement
+        type: boolean
+    required:
+      - value
+      - enabled
+      - soft
+  Swimlanes:
+    type: object
+    description:  A swimlane is an line in the kaban board.
+    properties:
+      title:
+        description: |
+           the title of the swimlane
+        type: string
+      archived:
+        description: |
+           is the swimlane archived?
+        type: boolean
+      archivedAt:
+        description: |
+           latest archiving date of the swimlane
+        type: string
+        x-nullable: true
+      boardId:
+        description: |
+           the ID of the board the swimlane is attached to
+        type: string
+      createdAt:
+        description: |
+           creation date of the swimlane
+        type: string
+      sort:
+        description: |
+           the sort value of the swimlane
+        type: number
+        x-nullable: true
+      color:
+        description: |
+           the color of the swimlane
+        type: string
+        enum:
+        x-nullable: true
+      updatedAt:
+        description: |
+           when was the swimlane last edited
+        type: string
+        x-nullable: true
+      modifiedAt:
+        type: string
+      type:
+        description: |
+           The type of swimlane
+        type: string
+      height:
+        description: |
+           The height of the swimlane in pixels.
+           -1 = auto-height (default)
+           50-2000 = fixed height in pixels
+        type: number
+        x-nullable: true
+    required:
+      - title
+      - archived
+      - boardId
+      - createdAt
+      - modifiedAt
+      - type
+  Users:
+    type: object
+    description:  A User in wekan
+    properties:
+      username:
+        description: |
+           the username of the user
+        type: string
+        x-nullable: true
+      orgs:
+        description: |
+           the list of organizations that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersOrgs"
+        x-nullable: true
+      teams:
+        description: |
+           the list of teams that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersTeams"
+        x-nullable: true
+      emails:
+        description: |
+           the list of emails attached to a user
+        type: array
+        items:
+          $ref: "#/definitions/UsersEmails"
+        x-nullable: true
+      createdAt:
+        description: |
+           creation date of the user
+        type: string
+      modifiedAt:
+        type: string
+      profile:
+        description: |
+           profile settings
+        $ref: "#/definitions/UsersProfile"
+        x-nullable: true
+      services:
+        description: |
+           services field of the user
+        type: object
+        x-nullable: true
+      heartbeat:
+        description: |
+           last time the user has been seen
+        type: string
+        x-nullable: true
+      isAdmin:
+        description: |
+           is the user an admin of the board?
+        type: boolean
+        x-nullable: true
+      createdThroughApi:
+        description: |
+           was the user created through the API?
+        type: boolean
+        x-nullable: true
+      loginDisabled:
+        description: |
+           loginDisabled field of the user
+        type: boolean
+        x-nullable: true
+      authenticationMethod:
+        description: |
+           authentication method of the user
+        type: string
+      sessionData:
+        description: |
+           profile settings
+        $ref: "#/definitions/UsersSessiondata"
+        x-nullable: true
+      importUsernames:
+        description: |
+           username for imported
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      lastConnectionDate:
+        type: string
+        x-nullable: true
+    required:
+      - createdAt
+      - modifiedAt
+      - authenticationMethod
+  UsersProfile:
+    type: object
+    properties:
+      avatarUrl:
+        description: |
+           URL of the avatar of the user
+        type: string
+      emailBuffer:
+        description: |
+           list of email buffers of the user
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      fullname:
+        description: |
+           full name of the user
+        type: string
+      showDesktopDragHandles:
+        description: |
+           does the user want to show desktop drag handles?
+        type: boolean
+      GreyIcons:
+        description: |
+           per-user preference to render unicode icons in grey
+        type: boolean
+      cardMaximized:
+        description: |
+           has user clicked maximize card?
+        type: boolean
+      cardCollapsed:
+        description: |
+           has user collapsed the card details?
+        type: boolean
+      showActivities:
+        description: |
+           does the user want to show activities in card details?
+        type: boolean
+      customFieldsGrid:
+        description: |
+           has user at card Custom Fields have Grid (false) or one per row (true) layout?
+        type: boolean
+      hiddenMinicardLabelText:
+        description: |
+           does the user want to hide minicard label texts?
+        type: boolean
+      initials:
+        description: |
+           initials of the user
+        type: string
+      boardWorkspacesTree:
+        description: |
+           Per-user spaces tree for All Boards page
+        type: array
+        items:
+          $ref: "#/definitions/UsersProfileBoardworkspacestree"
+      boardWorkspaceAssignments:
+        description: |
+           Per-user map of boardId -> spaceId
+        type: object
+      invitedBoards:
+        description: |
+           board IDs the user has been invited to
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      language:
+        description: |
+           language of the user
+        type: string
+      moveAndCopyDialog:
+        description: |
+           move and copy card dialog
+        type: object
+      moveChecklistDialog:
+        description: |
+           move checklist dialog
+        type: object
+      copyChecklistDialog:
+        description: |
+           copy checklist dialog
+        type: object
+      notifications:
+        description: |
+           enabled notifications for the user
+        type: array
+        items:
+          $ref: "#/definitions/UsersProfileNotifications"
+      rescueCardDescription:
+        description: |
+           show dialog for saving card description on unintentional card closing
+        type: boolean
+      showCardsCountAt:
+        description: |
+           showCardCountAt field of the user
+        type: number
+      startDayOfWeek:
+        description: |
+           startDayOfWeek field of the user
+        type: number
+      starredBoards:
+        description: |
+           list of starred board IDs
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      icode:
+        description: |
+           icode
+        type: string
+      boardView:
+        description: |
+           boardView field of the user
+        type: string
+        enum:
+          - board-view-swimlanes
+          - board-view-lists
+          - board-view-cal
+          - board-view-gantt
+      listSortBy:
+        description: |
+           default sort list for user
+        type: string
+        enum:
+          - -modifiedat
+          - modifiedat
+          - -title
+          - title
+          - -sort
+          - sort
+      templatesBoardId:
+        description: |
+           Reference to the templates board
+        type: string
+      cardTemplatesSwimlaneId:
+        description: |
+           Reference to the card templates swimlane Id
+        type: string
+      listTemplatesSwimlaneId:
+        description: |
+           Reference to the list templates swimlane Id
+        type: string
+      boardTemplatesSwimlaneId:
+        description: |
+           Reference to the board templates swimlane Id
+        type: string
+      listWidths:
+        description: |
+           User-specified width of each list (or nothing if default).
+           profile[boardId][listId] = width;
+        type: object
+      listConstraints:
+        description: |
+           User-specified constraint of each list (or nothing if default).
+           profile[boardId][listId] = constraint;
+        type: object
+      autoWidthBoards:
+        description: |
+           User-specified flag for enabling auto-width for boards (false is the default).
+           profile[boardId][listId] = constraint;
+        type: object
+      swimlaneHeights:
+        description: |
+           User-specified heights of each swimlane (or nothing if default).
+           profile[boardId][swimlaneId] = height;
+        type: object
+      collapsedLists:
+        description: |
+           Per-user collapsed state for lists.
+           profile[boardId][listId] = true|false
+        type: object
+      collapsedSwimlanes:
+        description: |
+           Per-user collapsed state for swimlanes.
+           profile[boardId][swimlaneId] = true|false
+        type: object
+      keyboardShortcuts:
+        description: |
+           User-specified state of keyboard shortcut activation.
+        type: boolean
+      verticalScrollbars:
+        description: |
+           User-specified state of vertical scrollbars visibility.
+        type: boolean
+      showWeekOfYear:
+        description: |
+           User-specified state of week-of-year in date displays.
+        type: boolean
+      dateFormat:
+        description: |
+           User-specified date format for displaying dates (includes time HH:MM).
+        type: string
+        enum:
+          - yyyy-mm-dd
+          - dd-mm-yyyy
+          - mm-dd-yyyy
+      zoomLevel:
+        description: |
+           User-specified zoom level for board view (1.0 = 100%, 1.5 = 150%, etc.)
+        type: number
+      mobileMode:
+        description: |
+           User-specified mobile/desktop mode toggle
+        type: boolean
+      cardZoom:
+        description: |
+           User-specified zoom level for card details (1.0 = 100%, 1.5 = 150%, etc.)
+        type: number
+    required:
+      - templatesBoardId
+      - cardTemplatesSwimlaneId
+      - listTemplatesSwimlaneId
+      - boardTemplatesSwimlaneId
+      - listWidths
+      - listConstraints
+      - autoWidthBoards
+      - swimlaneHeights
+      - collapsedLists
+      - collapsedSwimlanes
+      - keyboardShortcuts
+      - verticalScrollbars
+      - showWeekOfYear
+      - zoomLevel
+      - mobileMode
+      - cardZoom
+  UsersSessiondata:
+    type: object
+    properties:
+      totalHits:
+        description: |
+           Total hits from last searchquery['members.userId'] = Meteor.userId();
+           last hit that was returned
+        type: number
+  UsersOrgs:
+    type: object
+    properties:
+      orgId:
+        description: |
+           The uniq ID of the organization
+        type: string
+      orgDisplayName:
+        description: |
+           The display name of the organization
+        type: string
+    required:
+      - orgId
+      - orgDisplayName
+  UsersTeams:
+    type: object
+    properties:
+      teamId:
+        description: |
+           The uniq ID of the team
+        type: string
+      teamDisplayName:
+        description: |
+           The display name of the team
+        type: string
+    required:
+      - teamId
+      - teamDisplayName
+  UsersEmails:
+    type: object
+    properties:
+      address:
+        description: |
+           The email address
+        type: string
+      verified:
+        description: |
+           Has the email been verified
+        type: boolean
+    required:
+      - address
+      - verified
+  UsersProfileEmailbuffer:
+    type: object
+  UsersProfileBoardworkspacestree:
+    type: object
+  UsersProfileInvitedboards:
+    type: object
+  UsersProfileNotifications:
+    type: object
+    properties:
+      activity:
+        description: |
+           The id of the activity this notification references
+        type: string
+      read:
+        description: |
+           the date on which this notification was read
+        type: string
+    required:
+      - activity
+  UsersProfileStarredboards:
+    type: object
+  UsersImportusernames:
+    type: object

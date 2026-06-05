@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { isFileValid } from './fileValidation';
+import { isSvgFile, sanitizeSvgFileSync } from './lib/sanitizeSvg';
 import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
@@ -73,6 +74,19 @@ Avatars.onAfterUpload = async function (fileObj) {
   Object.keys(fileObj.versions).forEach(versionName => {
     fileObj.versions[versionName].storage = STORAGE_NAME_FILESYSTEM;
   });
+
+  // Sanitize SVG avatars in place (strip scripts, event handlers, javascript:
+  // URIs and XML DOCTYPE/ENTITY constructs) before validation so safe SVGs are
+  // accepted instead of rejected.
+  if (isSvgFile(fileObj.type, fileObj.name)) {
+    Object.keys(fileObj.versions).forEach(versionName => {
+      const version = fileObj.versions[versionName];
+      const newSize = sanitizeSvgFileSync(version && version.path);
+      if (newSize !== null) {
+        version.size = newSize;
+      }
+    });
+  }
 
   await Avatars.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions } });
 

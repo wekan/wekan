@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { isFileValid } from './fileValidation';
+import { isSvgFile, sanitizeSvgFileSync } from './lib/sanitizeSvg';
 import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
@@ -100,6 +101,33 @@ Attachments.storagePath = function () {
 };
 
 Attachments.onAfterUpload = async function (fileObj) {
+  // Sanitize SVG uploads in place before they are validated or moved to any
+  // storage backend. This strips scripts, event handlers, javascript: URIs and
+  // XML DOCTYPE/ENTITY (XML loop) constructs, so SVG images can be uploaded
+  // safely instead of being rejected. Runs for every upload regardless of the
+  // configured storage backend.
+  if (isSvgFile(fileObj.type, fileObj.name)) {
+    let svgSanitized = false;
+    Object.keys(fileObj.versions).forEach(versionName => {
+      const version = fileObj.versions[versionName];
+      const newSize = sanitizeSvgFileSync(version && version.path);
+      if (newSize !== null) {
+        version.size = newSize;
+        svgSanitized = true;
+      }
+    });
+    if (svgSanitized) {
+      try {
+        await Attachments.updateAsync(
+          { _id: fileObj._id },
+          { $set: { versions: fileObj.versions } },
+        );
+      } catch (error) {
+        console.error('[onAfterUpload] Failed to persist sanitized SVG versions:', error);
+      }
+    }
+  }
+
   // Get default storage backend from settings
   let defaultStorage = STORAGE_NAME_FILESYSTEM;
   try {

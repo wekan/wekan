@@ -81,22 +81,32 @@ if [ -z "$PIP" ]; then
   fi
 fi
 
-# Install esprima if missing
+# Install esprima if missing.
+# Python 3.12+ on Debian/Ubuntu marks the system interpreter as
+# "externally managed" (PEP 668), which rejects `pip install --user`. Fall back
+# to --break-system-packages so the script works directly with Python 3.12.3.
 if ! $PYTHON -c "import esprima" 2>/dev/null; then
   echo "  Installing Python package: esprima"
-  if [ -n "$PIP" ]; then
-    $PYTHON -m pip install --quiet --user --upgrade esprima
+  if $PYTHON -m pip install --quiet --user --upgrade esprima 2>/dev/null; then
+    :
+  elif $PYTHON -m pip install --quiet --user --break-system-packages --upgrade esprima 2>/dev/null; then
+    :
+  elif $PYTHON -m pip install --quiet --break-system-packages --upgrade esprima; then
+    :
   else
-    echo "pip3 is still not available. Please install pip3 for your Python 3 interpreter."
+    echo "Failed to install the 'esprima' package. Please install it manually:" >&2
+    echo "  $PYTHON -m pip install --user --break-system-packages esprima" >&2
     exit 1
   fi
 fi
 
-# ── Generate OpenAPI 2.0 YAML from models/ ────────────────────────────────────
+# ── Generate OpenAPI 2.0 YAML from models/ and server/models/ ─────────────────
 # Always regenerate from source so the spec reflects the current code.
+# SimpleSchema definitions live in models/ while the REST routes that use them
+# live in server/models/ (Meteor 3 split), so both directories must be scanned.
 # The generator writes only YAML to stdout; all debug output goes to stderr.
-echo "  Generating public/api/wekan.yml from models/ ..."
-python3 openapi/generate_openapi.py --release "v$VERSION" models \
+echo "  Generating public/api/wekan.yml from models/ and server/models/ ..."
+"$PYTHON" openapi/generate_openapi.py --release "v$VERSION" models server/models \
   > public/api/wekan.yml
 
 # Sanity-check: the first line of a valid spec starts with "swagger:"

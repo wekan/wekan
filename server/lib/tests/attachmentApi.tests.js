@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Readable } from 'stream';
 import { ReactiveCache } from '/imports/reactiveCache';
+import Attachments from '/models/attachments';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 
@@ -229,6 +230,9 @@ describe('attachmentApi authentication', function() {
 
       getBoardStub = sinon.stub(ReactiveCache, 'getBoard').resolves({
         hasMember: () => true,
+        // Active full member so userHasBoardWriteAccess() grants write access and
+        // the request reaches the upload-size-limit check under test.
+        members: [{ userId: 'user-1', isActive: true }],
         allowsAttachments: true,
       });
       getAttachmentStub = sinon.stub(ReactiveCache, 'getCard').resolves({
@@ -291,6 +295,101 @@ describe('attachmentApi authentication', function() {
       expect(thrown).to.exist;
       expect(thrown.error).to.equal('file-too-large');
       expect(thrown.reason).to.include('Attachment exceeds API download limit');
+    });
+  });
+
+  describe('attachment API write permissions', function() {
+    let stubs = [];
+
+    const stub = (obj, method, impl) => {
+      const s = sinon.stub(obj, method).callsFake(impl);
+      stubs.push(s);
+      return s;
+    };
+
+    afterEach(function() {
+      stubs.forEach(s => s.restore());
+      stubs = [];
+    });
+
+    it('rejects api.attachment.upload from a read-only board member', async function() {
+      const uploadHandler = Meteor.server.method_handlers['api.attachment.upload'];
+      stub(ReactiveCache, 'getCard', async () => ({
+        boardId: 'board-1',
+        swimlaneId: 'swimlane-1',
+        listId: 'list-1',
+      }));
+      stub(ReactiveCache, 'getBoard', async () => ({
+        hasMember: () => true,
+        allowsAttachments: true,
+        members: [{ userId: 'user-1', isActive: true, isReadOnly: true }],
+      }));
+      // Not a global admin.
+      stub(ReactiveCache, 'getUser', async () => undefined);
+
+      let thrown;
+      try {
+        await uploadHandler.apply(
+          { userId: 'user-1' },
+          ['board-1', 'swimlane-1', 'list-1', 'card-1', Buffer.alloc(2).toString('base64'), 'f.bin', 'application/octet-stream', 'fs'],
+        );
+      } catch (error) {
+        thrown = error;
+      }
+
+      expect(thrown).to.exist;
+      expect(thrown.error).to.equal('not-authorized');
+    });
+
+    it('rejects api.attachment.delete from a comment-only board member', async function() {
+      const deleteHandler = Meteor.server.method_handlers['api.attachment.delete'];
+      stub(ReactiveCache, 'getAttachment', async () => ({
+        _id: 'att-1',
+        name: 'f.bin',
+        meta: { boardId: 'board-1' },
+      }));
+      stub(ReactiveCache, 'getBoard', async () => ({
+        hasMember: () => true,
+        members: [{ userId: 'user-1', isActive: true, isCommentOnly: true }],
+      }));
+      stub(ReactiveCache, 'getUser', async () => undefined);
+
+      let thrown;
+      try {
+        await deleteHandler.apply({ userId: 'user-1' }, ['att-1']);
+      } catch (error) {
+        thrown = error;
+      }
+
+      expect(thrown).to.exist;
+      expect(thrown.error).to.equal('not-authorized');
+    });
+
+    it('allows a global site admin to delete even without board write access', async function() {
+      const deleteHandler = Meteor.server.method_handlers['api.attachment.delete'];
+      stub(ReactiveCache, 'getAttachment', async () => ({
+        _id: 'att-1',
+        name: 'f.bin',
+        meta: { boardId: 'board-1' },
+      }));
+      stub(ReactiveCache, 'getBoard', async () => ({
+        hasMember: () => true,
+        members: [{ userId: 'user-1', isActive: true, isReadOnly: true }],
+      }));
+      // user-1 IS a global admin.
+      stub(ReactiveCache, 'getUser', async () => ({ _id: 'user-1', isAdmin: true }));
+      stub(Attachments, 'removeAsync', async () => 1);
+
+      let result;
+      let thrown;
+      try {
+        result = await deleteHandler.apply({ userId: 'user-1' }, ['att-1']);
+      } catch (error) {
+        thrown = error;
+      }
+
+      expect(thrown).to.not.exist;
+      expect(result).to.have.property('success', true);
     });
   });
 });
