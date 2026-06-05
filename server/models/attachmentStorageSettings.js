@@ -92,6 +92,44 @@ function highestCount(...counts) {
   return counts.reduce((max, value) => Math.max(max, Number(value) || 0), 0);
 }
 
+// Count documents that have at least one version actually stored in MongoDB
+// GridFS (Meteor-Files). A version is in GridFS when its `storage` flag is
+// 'gridfs' OR it carries a `meta.gridFsFileId` reference — the same rule used by
+// FileStoreStrategyFactory.getFileStrategy() and the bulk-move source matcher.
+// This must NOT count every metadata document, because the `attachments`
+// collection holds metadata for filesystem- and cloud-stored files too.
+async function countGridFsStoredSafe(db, collectionName) {
+  try {
+    const exists = await db.listCollections({ name: collectionName }, { nameOnly: true }).toArray();
+    if (!Array.isArray(exists) || exists.length === 0) {
+      return 0;
+    }
+    const result = await db.collection(collectionName).aggregate([
+      { $addFields: {
+        _inGridFs: {
+          $anyElementTrue: {
+            $map: {
+              input: { $objectToArray: { $ifNull: ['$versions', {}] } },
+              as: 'v',
+              in: {
+                $or: [
+                  { $eq: ['$$v.v.storage', 'gridfs'] },
+                  { $ne: [{ $ifNull: ['$$v.v.meta.gridFsFileId', null] }, null] },
+                ],
+              },
+            },
+          },
+        },
+      } },
+      { $match: { _inGridFs: true } },
+      { $count: 'n' },
+    ]).toArray();
+    return result.length > 0 ? result[0].n : 0;
+  } catch (error) {
+    return 0;
+  }
+}
+
 // Build a direct-connection URL to a specific replica set member, stripping replicaSet
 // routing so the driver connects to exactly the given host (required for compact on secondaries).
 function buildDirectNodeUrl(mongoUrl, targetHostPort) {
@@ -250,22 +288,29 @@ Meteor.methods({
     ] = await Promise.all([
       countCollectionDocumentsSafe(db, 'cfs_gridfs.attachments.files'),
       countCollectionDocumentsSafe(db, 'cfs.attachments.filerecord'),
-      countCollectionDocumentsSafe(db, 'attachments'),
+      // GridFS-stored attachments only — NOT every metadata document, since the
+      // 'attachments' collection also holds filesystem/cloud-stored files.
+      countGridFsStoredSafe(db, 'attachments'),
       countCollectionDocumentsSafe(db, 'attachments.files'),
       countCollectionDocumentsSafe(db, 'cfs_gridfs.avatars.files'),
       countCollectionDocumentsSafe(db, 'cfs.avatars.filerecord'),
-      countCollectionDocumentsSafe(db, 'avatars'),
+      countGridFsStoredSafe(db, 'avatars'),
       countCollectionDocumentsSafe(db, 'avatars.files'),
     ]);
 
     // Compatibility across tags:
     // - Old CollectionFS tags used cfs_gridfs.*.files and sometimes cfs.*.filerecord
-    // - New Mongo-Files tags use collectionName 'attachments'/'avatars'
-    // - Some environments may still expose *.files collections; include as fallback
+    // - New Mongo-Files tags store the binary in GridFS, flagged per version
+    //   (mongoAttachments now counts only those), with the raw GridFS bucket
+    //   (attachments.files) kept as a fallback/cross-check.
     const attachmentsCollectionFs = highestCount(cfsAttachmentsFiles, cfsAttachmentsFilerecord);
     const avatarsCollectionFs = highestCount(cfsAvatarsFiles, cfsAvatarsFilerecord);
-    const attachmentsMongoFiles = highestCount(mongoAttachments, mongoAttachmentsFiles);
-    const avatarsMongoFiles = highestCount(mongoAvatars, mongoAvatarsFiles);
+    // Headline count = attachments whose version markers say GridFS (exactly the
+    // set the bulk move can act on). The raw GridFS bucket counts
+    // (mongoAttachmentsFiles / mongoAvatarsFiles) are reported separately under
+    // `details` as a cross-check for orphaned bucket data.
+    const attachmentsMongoFiles = mongoAttachments;
+    const avatarsMongoFiles = mongoAvatars;
 
     return {
       attachments: {

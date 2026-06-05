@@ -24,8 +24,8 @@ export class AttachmentStoreStrategyGridFs extends FileStoreStrategyGridFs {
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(gridFsBucket, fileObj, versionName) {
-    super(gridFsBucket, fileObj, versionName);
+  constructor(gridFsBucket, fileObj, versionName, collection) {
+    super(gridFsBucket, fileObj, versionName, collection);
   }
 
   /** after successfull upload */
@@ -52,8 +52,8 @@ export class AttachmentStoreStrategyFilesystem extends FileStoreStrategyFilesyst
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(fileObj, versionName) {
-    super(fileObj, versionName);
+  constructor(fileObj, versionName, collection) {
+    super(fileObj, versionName, collection);
   }
 
   /** after successfull upload */
@@ -81,8 +81,8 @@ export class AttachmentStoreStrategyCloud extends FileStoreStrategyCloud {
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(provider, fileObj, versionName) {
-    super(provider, fileObj, versionName);
+  constructor(provider, fileObj, versionName, collection) {
+    super(provider, fileObj, versionName, collection);
   }
 
   /** after successfull upload */

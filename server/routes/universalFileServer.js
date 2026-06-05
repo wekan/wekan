@@ -533,7 +533,7 @@ if (Meteor.isServer) {
       let readStream;
       if (attachment?.meta?.source === 'legacy') {
         // Legacy CollectionFS GridFS stream
-        readStream = getOldAttachmentStream(fileId);
+        readStream = await getOldAttachmentStream(fileId);
       } else {
         // New Meteor-Files storage
         const strategy = attachmentStoreFactory.getFileStrategy(attachment, 'original');
@@ -682,7 +682,7 @@ if (Meteor.isServer) {
       }
 
       // For legacy attachments, try to get GridFS stream
-  const fileStream = getOldAttachmentStream(attachmentId);
+  const fileStream = await getOldAttachmentStream(attachmentId);
       if (fileStream) {
         if (isDownloadRequested(req)) {
           // Force download if requested

@@ -351,8 +351,15 @@ template(name="moveAttachments")
   .move-storage-form
     .move-storage-selects
       .form-group
+        label {{_ 'move-scope'}}
+        select.wekan-form-control.js-move-scope
+          option(value="attachments") {{_ 'move-scope-attachments'}}
+          option(value="avatars") {{_ 'move-scope-avatars'}}
+          option(value="both") {{_ 'move-scope-both'}}
+      .form-group
         label {{_ 'move-source'}}
         select.wekan-form-control.js-move-source-storage
+          option(value="all") {{_ 'move-storage-all'}}
           option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
           option(value="gridfs") {{_ 'move-storage-gridfs'}}
           option(value="fs") {{_ 'move-storage-fs'}}

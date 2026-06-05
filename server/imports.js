@@ -193,6 +193,7 @@ import '/server/publications/activities';
 import '/server/publications/announcements';
 import '/server/publications/attachmentMigrationStatus';
 import '/server/publications/attachments';
+import '/server/publications/legacyAttachments';
 import '/server/publications/avatars';
 import '/server/publications/boards';
 import '/server/publications/cards';

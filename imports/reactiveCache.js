@@ -181,8 +181,11 @@ const ReactiveCacheServer = {
     return ret;
   },
   async getAttachment(idOrFirstObjectSelector = {}, options = {}) {
-    // Try new structure first
-    let ret = Attachments.findOne(idOrFirstObjectSelector, options);
+    // Try new structure first. FilesCollection (ostrio:files) has no synchronous
+    // findOne() on the server in Meteor 3 — it throws and must use findOneAsync.
+    let ret = typeof Attachments.findOneAsync === 'function'
+      ? await Attachments.findOneAsync(idOrFirstObjectSelector, options)
+      : Attachments.findOne(idOrFirstObjectSelector, options);
     if (!ret && typeof idOrFirstObjectSelector === 'string') {
       // Fall back to old structure for single attachment lookup
       ret = await Attachments.getAttachmentWithBackwardCompatibility(

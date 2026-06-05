@@ -59,6 +59,7 @@ export const fileStoreStrategyFactory = new FileStoreStrategyFactory(
   FileStoreStrategyFilesystem, storagePath,
   FileStoreStrategyGridFs, avatarsBucket,
   FileStoreStrategyCloud,
+  Avatars,
 );
 
 // ---------------------------------------------------------------------------

@@ -110,7 +110,7 @@ if (Meteor.isServer) {
       }
 
       // Get GridFS stream for legacy attachment
-      const fileStream = getOldAttachmentStream(attachmentId);
+      const fileStream = await getOldAttachmentStream(attachmentId);
       if (fileStream) {
         res.writeHead(200);
         fileStream.pipe(res);

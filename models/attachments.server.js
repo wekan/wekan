@@ -90,6 +90,7 @@ export const fileStoreStrategyFactory = new FileStoreStrategyFactory(
   AttachmentStoreStrategyFilesystem, storagePath,
   AttachmentStoreStrategyGridFs, attachmentBucket,
   AttachmentStoreStrategyCloud,
+  Attachments,
 );
 
 // ---------------------------------------------------------------------------

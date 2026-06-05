@@ -121,6 +121,16 @@ Template.cardDetails.onCreated(function () {
   };
 
   Meteor.subscribe('unsaved-edits');
+
+  // Surface legacy CollectionFS attachments for the current board so they show
+  // up in the card's attachment gallery and can be read in place (without
+  // migrating them to Meteor-Files first).
+  this.autorun(() => {
+    const board = Utils.getCurrentBoard();
+    if (board && board._id) {
+      Meteor.subscribe('legacyBoardAttachments', board._id);
+    }
+  });
 });
 
 Template.cardDetails.onRendered(function () {

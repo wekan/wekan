@@ -1,58 +1,75 @@
 /**
- * Server-side Bulk Attachment Move
+ * Server-side unified attachment/avatar storage migration ("Move Attachment").
  *
- * Moves all attachments matching a source storage to a destination storage as a
- * background job that runs entirely on the server. Because the orchestration
- * lives on the server (not in the browser), the transfer keeps running when the
- * admin leaves or closes the "Admin Panel / Attachments / Move Attachment" page,
- * and its progress is shown again when they return.
+ * Moves files between every supported backend as a background job that runs
+ * entirely on the server, so the transfer survives the admin leaving the page.
  *
- * Progress is persisted in the `attachmentBulkMoveStatus` collection (a single
- * doc with _id 'bulk') so it can be published to the client reactively.
+ * Backends:
+ *   - 'fs'           Filesystem
+ *   - 'gridfs'       Meteor-Files GridFS (bucket <coll>)
+ *   - 's3'/'azure'/'gcs'  Cloud (storage-abstraction)
+ *   - 'collectionfs' Legacy CollectionFS GridFS (cfs.<coll>.filerecord +
+ *                    cfs_gridfs.<coll> bucket) — read source AND write/export target.
+ *
+ * Source may be a specific backend or 'all' (every Read-enabled, working backend).
+ * Scope may be 'attachments', 'avatars', or 'both'.
+ *
+ * Moves WITHIN the Meteor-Files collection (fs/gridfs/cloud) reuse moveToStorage
+ * and keep the same _id. Moves to/from CollectionFS cross document formats, so a
+ * new record is created and the old one deleted (after success); attachment
+ * cover references (cards.coverId) are remapped to the new id.
+ *
+ * Progress is persisted in the `attachmentBulkMoveStatus` collection (_id 'bulk').
  */
 
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
+import { MongoInternals } from 'meteor/mongo';
+import fs from 'fs';
+import path from 'path';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
+import Avatars from '/models/avatars';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
-import { fileStoreStrategyFactory } from '/models/attachments.server';
+import { fileStoreStrategyFactory as attachmentsFactory } from '/models/attachments.server';
+import { fileStoreStrategyFactory as avatarsFactory } from '/models/avatars.server';
 import { moveToStorage } from '/models/lib/fileStoreStrategy';
+import {
+  STORAGE_NAME_FILESYSTEM,
+  STORAGE_NAME_COLLECTIONFS,
+  CLOUD_STORAGE_NAMES,
+} from '/models/lib/fileStoreConstants';
+import {
+  listCollectionFsRecords,
+  readCollectionFsBuffer,
+  writeCollectionFsRecord,
+  deleteCollectionFsRecord,
+} from '/models/lib/collectionFsStore';
 
 const STATUS_ID = 'bulk';
 
-// In-memory control flags for the currently running job. A single bulk move
-// runs at a time per server process.
+const ALLOWED_SOURCES = ['all', STORAGE_NAME_COLLECTIONFS, STORAGE_NAME_FILESYSTEM, 'gridfs', ...CLOUD_STORAGE_NAMES];
+const ALLOWED_DESTINATIONS = [STORAGE_NAME_COLLECTIONFS, STORAGE_NAME_FILESYSTEM, 'gridfs', ...CLOUD_STORAGE_NAMES];
+const ALLOWED_SCOPES = ['attachments', 'avatars', 'both'];
+
+// In-memory control flags for the currently running job (one per server process).
 const controller = {
   running: false,
   paused: false,
   cancelled: false,
 };
 
-// Mirror of the client-side source matcher in
-// client/components/settings/attachments.js so the server selects exactly the
-// same set of attachments the admin sees in the move list.
-function attachmentVersionMatchesSource(attachment, source) {
-  const versions = Object.values(attachment.versions || {});
-  return versions.some(v => {
-    switch (source) {
-      case 'collectionfs':
-        return !!(v.meta && v.meta.gridFsFileId);
-      case 'gridfs':
-        return v.storage === 'gridfs' && !(v.meta && v.meta.gridFsFileId);
-      case 'fs':
-        return v.storage === 'fs' || (!v.storage && !(v.meta && v.meta.gridFsFileId));
-      case 's3':
-        return v.storage === 's3';
-      case 'azure':
-        return v.storage === 'azure';
-      case 'gcs':
-        return v.storage === 'gcs';
-      default:
-        return false;
-    }
-  });
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getDb() {
+  const db = MongoInternals.defaultRemoteCollectionDriver()?.mongo?.db;
+  if (!db) {
+    throw new Meteor.Error('mongo-unavailable', 'MongoDB connection is not available');
+  }
+  return db;
 }
 
 async function setStatus(fields) {
@@ -73,36 +90,250 @@ async function requireAdmin(userId) {
   return user;
 }
 
-async function runBulkMove(ids, destStorage) {
-  const total = ids.length;
+function collectionConfigs(scope) {
+  const attachments = { coll: 'attachments', Collection: Attachments, factory: attachmentsFactory };
+  const avatars = { coll: 'avatars', Collection: Avatars, factory: avatarsFactory };
+  if (scope === 'both') return [attachments, avatars];
+  if (scope === 'avatars') return [avatars];
+  return [attachments];
+}
+
+// Whether a backend is usable as a read source given admin settings. Filesystem,
+// GridFS and CollectionFS default to enabled; cloud must be configured/enabled.
+function storageReadable(settings, name) {
+  if (settings && typeof settings.isStorageReadEnabled === 'function' && !settings.isStorageReadEnabled(name)) {
+    return false;
+  }
+  if (CLOUD_STORAGE_NAMES.includes(name)) {
+    return !!(settings && typeof settings.isStorageEnabled === 'function' && settings.isStorageEnabled(name));
+  }
+  return true;
+}
+
+function storageWritable(settings, name) {
+  if (settings && typeof settings.isStorageWriteEnabled === 'function' && !settings.isStorageWriteEnabled(name)) {
+    return false;
+  }
+  if (CLOUD_STORAGE_NAMES.includes(name)) {
+    return !!(settings && typeof settings.isStorageEnabled === 'function' && settings.isStorageEnabled(name));
+  }
+  return true;
+}
+
+// Resolve where a Meteor-Files document's original version currently lives.
+function resolveDocStorage(cfg, doc) {
+  try {
+    return cfg.factory.getFileStrategy(doc, 'original').getStorageName();
+  } catch (error) {
+    return STORAGE_NAME_FILESYSTEM;
+  }
+}
+
+async function readStrategyBuffer(strategy) {
+  const stream = strategy.getReadStream();
+  if (!stream) {
+    throw new Error('source file not found in storage');
+  }
+  return await new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', c => chunks.push(c));
+    stream.on('end', () => resolve(Buffer.concat(chunks)));
+    stream.on('error', reject);
+  });
+}
+
+// Build the list of items to move for one collection, honoring the source
+// selection and (for 'all') the Read-enabled/working backends.
+async function buildItems(cfg, source, settings) {
+  const items = [];
+
+  // CollectionFS records (separate metadata collection + bucket).
+  if ((source === STORAGE_NAME_COLLECTIONFS || source === 'all') &&
+      storageReadable(settings, STORAGE_NAME_COLLECTIONFS)) {
+    const recs = await listCollectionFsRecords(cfg.coll);
+    for (const r of recs) {
+      items.push({ ...r, cfg });
+    }
+  }
+
+  // Meteor-Files documents (fs / gridfs / cloud), in the primary collection.
+  if (source !== STORAGE_NAME_COLLECTIONFS) {
+    const docs = await cfg.Collection.collection.find({}).fetchAsync();
+    for (const doc of docs) {
+      const current = resolveDocStorage(cfg, doc);
+      const include = source === 'all'
+        ? storageReadable(settings, current)
+        : current === source;
+      if (include) {
+        items.push({
+          backend: 'meteorfiles',
+          currentStorage: current,
+          doc,
+          cfg,
+          name: doc.name,
+          size: doc.size,
+        });
+      }
+    }
+  }
+
+  return items;
+}
+
+// Create a Meteor-Files document on the filesystem from a buffer, in the exact
+// shape the app produces on upload. Returns the new _id.
+async function createMeteorFilesDocFromBuffer(cfg, info) {
+  const { ObjectId } = MongoInternals.NpmModule;
+  const newId = new ObjectId().toString();
+  const name = info.name || newId;
+  const dot = name.lastIndexOf('.');
+  const ext = dot >= 0 ? name.slice(dot + 1).toLowerCase() : '';
+  const storagePath = cfg.factory.storagePath;
+  const fileName = ext ? `${newId}.${ext}` : newId;
+  const fullPath = path.join(storagePath, fileName);
+  fs.writeFileSync(fullPath, info.buffer);
+
+  const type = info.type || 'application/octet-stream';
+  const size = info.size || info.buffer.length;
+  const doc = {
+    _id: newId,
+    size,
+    type,
+    name,
+    meta: { ...(info.meta || {}), source: 'storage-migrate' },
+    ext,
+    extension: ext,
+    extensionWithDot: ext ? `.${ext}` : '',
+    mime: type,
+    'mime-type': type,
+    userId: info.userId,
+    path: fullPath,
+    versions: {
+      original: {
+        path: fullPath,
+        size,
+        type,
+        extension: ext,
+        storage: STORAGE_NAME_FILESYSTEM,
+      },
+    },
+    _downloadRoute: '/cdn/storage',
+    _collectionName: cfg.coll,
+    isVideo: type.startsWith('video/'),
+    isAudio: type.startsWith('audio/'),
+    isImage: type.startsWith('image/'),
+    isText: type.startsWith('text/'),
+    isJSON: type === 'application/json',
+    isPDF: type === 'application/pdf',
+    _storagePath: storagePath,
+    public: false,
+    uploadedAtOstrio: info.uploadedAt || new Date(),
+  };
+  await cfg.Collection.collection.insertAsync(doc);
+  return newId;
+}
+
+// Repoint references after an attachment's _id changes (cross-format move).
+async function remapReferences(cfg, oldId, newId) {
+  if (cfg.coll !== 'attachments' || !oldId || !newId || oldId === newId) {
+    return;
+  }
+  try {
+    const db = getDb();
+    await db.collection('cards').updateMany({ coverId: oldId }, { $set: { coverId: newId } });
+  } catch (error) {
+    console.error('[attachmentMigration] coverId remap failed', error);
+  }
+}
+
+// Move a single item to the destination backend.
+async function moveItem(item, dest) {
+  const cfg = item.cfg;
+
+  // Source is legacy CollectionFS.
+  if (item.backend === STORAGE_NAME_COLLECTIONFS) {
+    if (dest === STORAGE_NAME_COLLECTIONFS) {
+      return; // already there
+    }
+    const buffer = await readCollectionFsBuffer(item);
+    const newId = await createMeteorFilesDocFromBuffer(cfg, {
+      buffer,
+      name: item.name,
+      type: item.type,
+      size: item.size,
+      meta: item.meta,
+      userId: item.userId,
+      uploadedAt: item.uploadedAt,
+    });
+    if (dest !== STORAGE_NAME_FILESYSTEM) {
+      const newDoc = await cfg.Collection.collection.findOneAsync({ _id: newId });
+      if (newDoc) {
+        await moveToStorage(newDoc, dest, cfg.factory);
+      }
+    }
+    await remapReferences(cfg, item.sourceId, newId);
+    await deleteCollectionFsRecord(cfg.coll, item.sourceId, item.gridFsKey);
+    return;
+  }
+
+  // Source is a Meteor-Files document.
+  const doc = item.doc;
+
+  // Export to legacy CollectionFS (cross-format): create a filerecord + bucket
+  // entry, then remove the Meteor-Files document and its binary.
+  if (dest === STORAGE_NAME_COLLECTIONFS) {
+    const strategy = cfg.factory.getFileStrategy(doc, 'original');
+    const buffer = await readStrategyBuffer(strategy);
+    const written = await writeCollectionFsRecord(cfg.coll, {
+      name: doc.name,
+      type: doc.type,
+      size: doc.size,
+      meta: doc.meta || {},
+      userId: doc.userId,
+      uploadedAt: doc.uploadedAtOstrio || new Date(),
+    }, buffer);
+    await remapReferences(cfg, doc._id, written.sourceId);
+    try {
+      strategy.unlink();
+    } catch (error) {
+      // binary may already be gone
+    }
+    await cfg.Collection.collection.removeAsync({ _id: doc._id });
+    return;
+  }
+
+  // Move within Meteor-Files (fs / gridfs / cloud) — keeps the same _id.
+  if (item.currentStorage === dest) {
+    return; // already there
+  }
+  await moveToStorage(doc, dest, cfg.factory);
+}
+
+async function runMigration(items, dest) {
+  const total = items.length;
   try {
     for (let i = 0; i < total; i++) {
       if (controller.cancelled) break;
-
-      // Honor pause requests without busy-spinning the CPU.
       while (controller.paused && !controller.cancelled) {
-        await new Promise(r => setTimeout(r, 200));
+        await sleep(200);
       }
       if (controller.cancelled) break;
 
-      const fileObj = await ReactiveCache.getAttachment(ids[i]);
-      if (!fileObj) {
-        continue;
-      }
-
+      const item = items[i];
+      const name = item.name || item.sourceId || (item.doc && item.doc._id) || '';
       await setStatus({
         done: i,
         current: i + 1,
-        name: fileObj.name || fileObj._id,
-        size: fileObj.size || 0,
+        name,
+        size: item.size || 0,
         paused: false,
       });
 
+      // Defensive: one bad file must only skip itself, never abort the job.
       try {
-        // moveToStorage returns a Promise resolving once every version is moved.
-        await moveToStorage(fileObj, destStorage, fileStoreStrategyFactory);
+        await moveItem(item, dest);
       } catch (error) {
-        console.error('[attachmentBulkMove] Failed to move attachment', ids[i], error);
+        console.error('[attachmentMigration] Failed to move item', name, error);
       }
     }
   } finally {
@@ -116,8 +347,6 @@ async function runBulkMove(ids, destStorage) {
       cancelled,
       finishedAt: new Date(),
     };
-    // On normal completion record every file as done; on cancel keep the
-    // last processed count untouched.
     if (!cancelled) {
       finalStatus.done = total;
     }
@@ -126,9 +355,10 @@ async function runBulkMove(ids, destStorage) {
 }
 
 Meteor.methods({
-  async startBulkAttachmentMove(source, dest) {
+  async startBulkAttachmentMove(source, dest, scope = 'attachments') {
     check(source, String);
     check(dest, String);
+    check(scope, String);
 
     await requireAdmin(this.userId);
 
@@ -136,25 +366,35 @@ Meteor.methods({
       throw new Meteor.Error('bulk-move-already-running', 'A bulk attachment move is already running');
     }
 
-    const allowedSources = ['collectionfs', 'gridfs', 'fs', 's3', 'azure', 'gcs'];
-    const allowedDestinations = ['collectionfs', 'gridfs', 'fs', 's3', 'azure', 'gcs'];
-    if (!allowedSources.includes(source) || !allowedDestinations.includes(dest)) {
+    if (!ALLOWED_SOURCES.includes(source) || !ALLOWED_DESTINATIONS.includes(dest)) {
       throw new Meteor.Error('invalid-storage', 'Invalid storage selection');
     }
-    if (source === dest) {
+    if (!ALLOWED_SCOPES.includes(scope)) {
+      throw new Meteor.Error('invalid-scope', 'Invalid scope selection');
+    }
+    if (source !== 'all' && source === dest) {
       throw new Meteor.Error('invalid-storage', 'Source and destination must differ');
     }
 
-    // 'collectionfs' is only meaningful as a source; the writable GridFS target
-    // is 'gridfs' (mirrors the client mapping).
-    const destStorage = dest === 'collectionfs' ? 'gridfs' : dest;
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    if (!storageWritable(settings, dest)) {
+      throw new Meteor.Error('invalid-storage', 'Destination storage is not writable or not configured');
+    }
 
-    const allAttachments = await Attachments.find({}).fetchAsync();
-    const ids = allAttachments
-      .filter(a => attachmentVersionMatchesSource(a, source))
-      .map(a => a._id);
+    // Build the work list up front so we can return an accurate total (and show
+    // the "nothing to move" message) before deferring the background job.
+    let items = [];
+    for (const cfg of collectionConfigs(scope)) {
+      items = items.concat(await buildItems(cfg, source, settings));
+    }
+    // Drop items already on the destination.
+    items = items.filter(it =>
+      it.backend === STORAGE_NAME_COLLECTIONFS
+        ? dest !== STORAGE_NAME_COLLECTIONFS
+        : it.currentStorage !== dest,
+    );
 
-    if (ids.length === 0) {
+    if (items.length === 0) {
       await setStatus({
         running: false,
         paused: false,
@@ -162,7 +402,8 @@ Meteor.methods({
         done: 0,
         current: 0,
         source,
-        dest: destStorage,
+        dest,
+        scope,
         finishedAt: new Date(),
       });
       return { total: 0 };
@@ -175,21 +416,38 @@ Meteor.methods({
     await setStatus({
       running: true,
       paused: false,
-      total: ids.length,
+      total: items.length,
       done: 0,
       current: 0,
       name: '',
       size: 0,
       source,
-      dest: destStorage,
+      dest,
+      scope,
       cancelled: false,
       startedAt: new Date(),
       finishedAt: null,
     });
 
-    Meteor.defer(() => runBulkMove(ids, destStorage));
+    // Guard the deferred job: an unhandled rejection would crash the server
+    // (SyncedCron treats it as fatal).
+    Meteor.defer(() => {
+      Promise.resolve()
+        .then(() => runMigration(items, dest))
+        .catch(async error => {
+          console.error('[attachmentMigration] Migration aborted:', error);
+          controller.running = false;
+          controller.paused = false;
+          controller.cancelled = false;
+          try {
+            await setStatus({ running: false, paused: false, finishedAt: new Date() });
+          } catch (statusError) {
+            console.error('[attachmentMigration] Failed to reset status after abort:', statusError);
+          }
+        });
+    });
 
-    return { total: ids.length };
+    return { total: items.length };
   },
 
   async pauseBulkAttachmentMove() {

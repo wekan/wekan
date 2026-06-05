@@ -113,7 +113,7 @@ export default class FileStoreStrategyFactory {
    * @param gridFsBucket use this GridFS Bucket as GridFS Storage
    * @param classFileStoreStrategyCloud strategy class for cloud backends (S3/Azure/GCS), optional
    */
-  constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket, classFileStoreStrategyCloud) {
+  constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket, classFileStoreStrategyCloud, collection) {
     this.classFileStoreStrategyFilesystem = classFileStoreStrategyFilesystem;
     this.storagePath = storagePath;
     this.classFileStoreStrategyGridFs = classFileStoreStrategyGridFs;
@@ -122,6 +122,11 @@ export default class FileStoreStrategyFactory {
     // @tweedegolf/storage-abstraction. Optional: when omitted (or the npm
     // packages are absent) cloud storage falls back to the filesystem.
     this.classFileStoreStrategyCloud = classFileStoreStrategyCloud;
+    // The FilesCollection (Attachments or Avatars) whose documents this factory
+    // operates on. Strategies persist storage/path changes to this collection so
+    // the same code can move both attachments and avatars. Defaults to the
+    // global Attachments for backward compatibility.
+    this.collection = collection;
   }
 
   /** returns the right FileStoreStrategy
@@ -144,18 +149,18 @@ export default class FileStoreStrategyFactory {
     }
     let ret;
     if (storage == STORAGE_NAME_FILESYSTEM) {
-      ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
+      ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName, this.collection);
     } else if (storage == STORAGE_NAME_GRIDFS) {
-      ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, fileObj, versionName);
+      ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, fileObj, versionName, this.collection);
     } else if (CLOUD_STORAGE_NAMES.includes(storage)) {
       if (this.classFileStoreStrategyCloud && isCloudConfigured(storage)) {
-        ret = new this.classFileStoreStrategyCloud(storage, fileObj, versionName);
+        ret = new this.classFileStoreStrategyCloud(storage, fileObj, versionName, this.collection);
       } else {
         // Cloud strategy unavailable or provider not configured — fall back to
         // filesystem so reads of files that never actually reached the cloud
         // still resolve instead of throwing.
         console.warn(`Cloud storage "${storage}" is not configured; falling back to filesystem storage`);
-        ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
+        ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName, this.collection);
       }
     }
     return ret;
@@ -169,9 +174,12 @@ class FileStoreStrategy {
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(fileObj, versionName) {
+  constructor(fileObj, versionName, collection) {
     this.fileObj = fileObj;
     this.versionName = versionName;
+    // FilesCollection to persist changes to (Attachments or Avatars). Falls
+    // back to the global Attachments when not supplied.
+    this.collection = collection || Attachments;
   }
 
   /** after successfull upload */
@@ -248,8 +256,8 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(gridFsBucket, fileObj, versionName) {
-    super(fileObj, versionName);
+  constructor(gridFsBucket, fileObj, versionName, collection) {
+    super(fileObj, versionName, collection);
     this.gridFsBucket = gridFsBucket;
   }
 
@@ -308,7 +316,7 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    */
   writeStreamFinished(finishedData) {
     const gridFsFileIdName = this.getGridFsFileIdName();
-    Attachments.updateAsync(
+    this.collection.updateAsync(
       { _id: this.fileObj._id },
       { $set: { [gridFsFileIdName]: finishedData._id.toHexString() } },
     ).catch(error => {
@@ -328,7 +336,7 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
     }
 
     const gridFsFileIdName = this.getGridFsFileIdName();
-    Attachments.updateAsync(
+    this.collection.updateAsync(
       { _id: this.fileObj._id },
       { $unset: { [gridFsFileIdName]: 1 } },
     ).catch(error => {
@@ -380,8 +388,8 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(fileObj, versionName) {
-    super(fileObj, versionName);
+  constructor(fileObj, versionName, collection) {
+    super(fileObj, versionName, collection);
   }
 
   /** returns a read stream
@@ -555,8 +563,8 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(provider, fileObj, versionName) {
-    super(fileObj, versionName);
+  constructor(provider, fileObj, versionName, collection) {
+    super(fileObj, versionName, collection);
     this.provider = provider;
     this._uploadPromise = null;
     this._key = null;
@@ -655,7 +663,7 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
   /** writing finished — persist the object key in the version meta */
   writeStreamFinished(finishedData) {
     const field = this.getCloudFileIdName();
-    Attachments.updateAsync(
+    this.collection.updateAsync(
       { _id: this.fileObj._id },
       { $set: { [field]: this._key } },
     ).catch(error => {
@@ -675,7 +683,7 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
     });
 
     const field = this.getCloudFileIdName();
-    Attachments.updateAsync(
+    this.collection.updateAsync(
       { _id: this.fileObj._id },
       { $unset: { [field]: 1 } },
     ).catch(error => {
@@ -760,7 +768,7 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
   const safeName = sanitizeFilename(fileObj.name);
   if (safeName !== fileObj.name) {
     // Update the database with the sanitized name
-    Attachments.updateAsync({ _id: fileObj._id }, { $set: { name: safeName } }).catch(error => {
+    (fileStoreStrategyFactory.collection || Attachments).updateAsync({ _id: fileObj._id }, { $set: { name: safeName } }).catch(error => {
       console.error('Failed to persist sanitized attachment name:', error);
     });
     // Update the local object for use in this function
@@ -801,7 +809,7 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
         if (typeof strategyWrite.waitUntilStored === 'function') {
           await strategyWrite.waitUntilStored();
         }
-        await Attachments.updateAsync({ _id: fileObj._id }, { $set: {
+        await (fileStoreStrategyFactory.collection || Attachments).updateAsync({ _id: fileObj._id }, { $set: {
           [`versions.${versionName}.storage`]: strategyWrite.getStorageName(),
           [`versions.${versionName}.path`]: filePath,
         } });
@@ -869,7 +877,7 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
     // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
     readStream.on('end', () => {
       const fileId = new ObjectId().toString();
-      Attachments.addFile(
+      (fileStoreStrategyFactory.collection || Attachments).addFile(
         tempPath,
         {
           fileName: fileObj.name,
@@ -892,7 +900,7 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
             console.log(err);
           } else {
             // Set the userId again
-            Attachments.updateAsync({ _id: fileRef._id }, { $set: { userId: fileObj.userId } }).catch(error => {
+            (fileStoreStrategyFactory.collection || Attachments).updateAsync({ _id: fileRef._id }, { $set: { userId: fileObj.userId } }).catch(error => {
               console.error('Failed to update copied attachment userId:', error);
             });
           }
@@ -918,7 +926,7 @@ export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
     const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, safeName);
     strategy.rename(newFilePath);
 
-    Attachments.updateAsync({ _id: fileObj._id }, { $set: {
+    (fileStoreStrategyFactory.collection || Attachments).updateAsync({ _id: fileObj._id }, { $set: {
       "name": safeName,
       "extension": extension,
       "extensionWithDot": extensionWithDot,

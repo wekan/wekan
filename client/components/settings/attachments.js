@@ -773,14 +773,25 @@ function runCompact(loadingVar, resultVar, errorVar) {
 Template.moveAttachments.events({
   'click button.js-move-all-attachments'(event, tpl) {
     if (getBulkMoveProgress()) return;
+    const scope = tpl.$('.js-move-scope').val() || 'attachments';
     const source = tpl.$('.js-move-source-storage').val();
     const dest = tpl.$('.js-move-dest-storage').val();
-    if (!source || !dest || source === dest) return;
+    // 'all' reads from every Read-enabled storage, so it may equal nothing; only
+    // a specific source must differ from the destination.
+    if (!source || !dest || (source !== 'all' && source === dest)) return;
     // Hand the whole job to the server so the transfer keeps running as a
     // background process even if this page is left or closed.
-    Meteor.call('startBulkAttachmentMove', source, dest, (error) => {
-      if (error && error.error !== 'bulk-move-already-running') {
-        alert(error.reason || error.message);
+    Meteor.call('startBulkAttachmentMove', source, dest, scope, (error, result) => {
+      if (error) {
+        if (error.error !== 'bulk-move-already-running') {
+          alert(error.reason || error.message);
+        }
+        return;
+      }
+      // No progress bar appears when nothing matches the source, so tell the
+      // admin instead of silently doing nothing.
+      if (result && result.total === 0) {
+        alert(TAPi18n.__('move-attachments-none-found'));
       }
     });
   },

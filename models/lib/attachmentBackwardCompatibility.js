@@ -12,6 +12,26 @@ import Attachments from '../attachments';
 // Old CollectionFS collections
 const OldAttachmentsFiles = new Mongo.Collection('cfs_gridfs.attachments.files');
 const OldAttachmentsFileRecord = new Mongo.Collection('cfs.attachments.filerecord');
+const OldAvatarsFiles = new Mongo.Collection('cfs_gridfs.avatars.files');
+const OldAvatarsFileRecord = new Mongo.Collection('cfs.avatars.filerecord');
+
+function oldCollections(coll) {
+  return coll === 'avatars'
+    ? { FileRecord: OldAvatarsFileRecord, Files: OldAvatarsFiles }
+    : { FileRecord: OldAttachmentsFileRecord, Files: OldAttachmentsFiles };
+}
+
+// The GridFS binary is keyed by copies.<coll>.key (an ObjectId hex), NOT by the
+// filerecord _id. Resolve it safely to an ObjectId.
+function gridFsObjectIdFromRecord(coll, fileRecord) {
+  const key = fileRecord && fileRecord.copies && fileRecord.copies[coll] && fileRecord.copies[coll].key;
+  if (!key) return null;
+  try {
+    return new MongoInternals.NpmModule.ObjectId(String(key));
+  } catch (error) {
+    return null;
+  }
+}
 
 /**
  * Check if an attachment exists in the new Meteor-Files structure
@@ -33,59 +53,73 @@ export async function isNewAttachmentStructure(attachmentId) {
  * @param {string} attachmentId - The attachment ID
  * @returns {Promise<Object|null>} - Attachment data in new format or null if not found
  */
-export async function getOldAttachmentData(attachmentId) {
+export async function getOldAttachmentData(attachmentId, coll = 'attachments') {
   if (Meteor.isServer) {
     try {
-      // First try to get from old filerecord collection
-      const fileRecord = typeof OldAttachmentsFileRecord.findOneAsync === 'function' ? await OldAttachmentsFileRecord.findOneAsync({ _id: attachmentId }) : OldAttachmentsFileRecord.findOne({ _id: attachmentId });
+      const { FileRecord, Files } = oldCollections(coll);
+      // Look up the filerecord (metadata) by its _id.
+      const fileRecord = await FileRecord.findOneAsync({ _id: attachmentId });
       if (!fileRecord) {
         return null;
       }
 
-      // Get file data from old files collection
-      const fileData = typeof OldAttachmentsFiles.findOneAsync === 'function' ? await OldAttachmentsFiles.findOneAsync({ _id: attachmentId }) : OldAttachmentsFiles.findOne({ _id: attachmentId });
-      if (!fileData) {
-        return null;
+      // The binary lives in the cfs_gridfs.<coll> bucket keyed by
+      // copies.<coll>.key (an ObjectId), NOT by the filerecord _id.
+      const gridFsId = gridFsObjectIdFromRecord(coll, fileRecord);
+      let fileData = null;
+      if (gridFsId) {
+        fileData = await Files.findOneAsync({ _id: gridFsId });
       }
 
-      // Convert old structure to new structure
+      const copy = (fileRecord.copies && fileRecord.copies[coll]) || {};
+      const name = fileRecord.original?.name || copy.name || fileData?.filename || 'Unknown';
+      const type = fileRecord.original?.type || copy.type || fileData?.contentType || 'application/octet-stream';
+      const size = fileRecord.original?.size || copy.size || fileData?.length || 0;
+
+      // Convert old structure to a Meteor-Files-shaped document. `meta.source`
+      // is 'legacy' so the file server streams it from the CollectionFS bucket,
+      // and `gridFsKey` lets the stream helper find the binary without a second
+      // filerecord lookup.
       const convertedAttachment = {
         _id: attachmentId,
-        name: fileRecord.original?.name || fileData.filename || 'Unknown',
-        size: fileRecord.original?.size || fileData.length || 0,
-        type: fileRecord.original?.type || fileData.contentType || 'application/octet-stream',
-        extension: getFileExtension(fileRecord.original?.name || fileData.filename || ''),
-        extensionWithDot: getFileExtensionWithDot(fileRecord.original?.name || fileData.filename || ''),
+        name,
+        size,
+        type,
+        extension: getFileExtension(name),
+        extensionWithDot: getFileExtensionWithDot(name),
         meta: {
           boardId: fileRecord.boardId,
           swimlaneId: fileRecord.swimlaneId,
           listId: fileRecord.listId,
           cardId: fileRecord.cardId,
           userId: fileRecord.userId,
-          source: 'legacy'
+          source: 'legacy',
         },
-        uploadedAt: fileRecord.uploadedAt || fileData.uploadDate || new Date(),
-        updatedAt: fileRecord.original?.updatedAt || fileData.uploadDate || new Date(),
-        // Legacy compatibility fields
-        isImage: isImageFile(fileRecord.original?.type || fileData.contentType),
-        isVideo: isVideoFile(fileRecord.original?.type || fileData.contentType),
-        isAudio: isAudioFile(fileRecord.original?.type || fileData.contentType),
-        isText: isTextFile(fileRecord.original?.type || fileData.contentType),
-        isJSON: isJSONFile(fileRecord.original?.type || fileData.contentType),
-        isPDF: isPDFFile(fileRecord.original?.type || fileData.contentType),
-        // Legacy link method for compatibility
-        link: function(version = 'original') {
-          return `/cfs/files/attachments/${this._id}`;
+        userId: fileRecord.userId,
+        gridFsKey: gridFsId ? gridFsId.toString() : null,
+        collectionFsColl: coll,
+        uploadedAt: fileRecord.uploadedAt || fileData?.uploadDate || new Date(),
+        updatedAt: fileRecord.original?.updatedAt || fileData?.uploadDate || new Date(),
+        uploadedAtOstrio: fileRecord.uploadedAt || fileData?.uploadDate || new Date(),
+        isImage: isImageFile(type),
+        isVideo: isVideoFile(type),
+        isAudio: isAudioFile(type),
+        isText: isTextFile(type),
+        isJSON: isJSONFile(type),
+        isPDF: isPDFFile(type),
+        _downloadRoute: '/cdn/storage',
+        _collectionName: coll,
+        link(version = 'original') {
+          return `/cdn/storage/${coll}/${this._id}`;
         },
-        // Legacy versions structure for compatibility
         versions: {
           original: {
-            path: `/cfs/files/attachments/${this._id}`,
-            size: fileRecord.original?.size || fileData.length || 0,
-            type: fileRecord.original?.type || fileData.contentType || 'application/octet-stream',
-            storage: 'gridfs'
-          }
-        }
+            path: `/cdn/storage/${coll}/${attachmentId}`,
+            size,
+            type,
+            storage: 'gridfs',
+          },
+        },
       };
 
       return convertedAttachment;
@@ -246,16 +280,21 @@ export async function getAttachmentsWithBackwardCompatibility(query) {
  * @param {string} attachmentId - The attachment ID
  * @returns {Object|null} - GridFS file stream or null if not found
  */
-export function getOldAttachmentStream(attachmentId) {
+export async function getOldAttachmentStream(attachmentId, coll = 'attachments') {
   if (Meteor.isServer) {
     try {
+      const { FileRecord } = oldCollections(coll);
+      const fileRecord = await FileRecord.findOneAsync({ _id: attachmentId });
+      const gridFsId = gridFsObjectIdFromRecord(coll, fileRecord);
+      if (!gridFsId) {
+        return null;
+      }
       const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
       const bucket = new MongoInternals.NpmModule.GridFSBucket(db, {
-        bucketName: 'cfs_gridfs.attachments'
+        bucketName: `cfs_gridfs.${coll}`,
       });
-
-      const downloadStream = bucket.openDownloadStreamByName(attachmentId);
-      return downloadStream;
+      // The binary is addressed by the GridFS file ObjectId, not the filename.
+      return bucket.openDownloadStream(gridFsId);
     } catch (error) {
       console.error('Error creating GridFS stream:', error);
       return null;
@@ -269,17 +308,24 @@ export function getOldAttachmentStream(attachmentId) {
  * @param {string} attachmentId - The attachment ID
  * @returns {Buffer|null} - File data buffer or null if not found
  */
-export function getOldAttachmentDataBuffer(attachmentId) {
+export async function getOldAttachmentDataBuffer(attachmentId, coll = 'attachments') {
   if (Meteor.isServer) {
     try {
+      const { FileRecord } = oldCollections(coll);
+      const fileRecord = await FileRecord.findOneAsync({ _id: attachmentId });
+      const gridFsId = gridFsObjectIdFromRecord(coll, fileRecord);
+      if (!gridFsId) {
+        return null;
+      }
       const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
       const bucket = new MongoInternals.NpmModule.GridFSBucket(db, {
-        bucketName: 'cfs_gridfs.attachments'
+        bucketName: `cfs_gridfs.${coll}`,
       });
 
-      return new Promise((resolve, reject) => {
+      return await new Promise((resolve, reject) => {
         const chunks = [];
-        const downloadStream = bucket.openDownloadStreamByName(attachmentId);
+        // The binary is addressed by the GridFS file ObjectId, not the filename.
+        const downloadStream = bucket.openDownloadStream(gridFsId);
 
         downloadStream.on('data', (chunk) => {
           chunks.push(chunk);
