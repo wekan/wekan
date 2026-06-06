@@ -189,6 +189,31 @@ and adds the following updates:
 
 and adds the following fixes:
 
+- [Fix Dropdown list cannot be created with values](https://github.com/wekan/wekan/commit/e01f99eb52812df5e2754c193860002ec2716ecb).
+  - **Fixed Dropdown custom field options not being addable / saving as empty.**
+    Creating a "Dropdown" custom field showed the "List Options" box, but pressing
+    Enter (or typing and saving) never added any option, and on the card the only
+    selectable value was `(none)`. The custom-fields sidebar component was migrated
+    from `BlazeComponent` to a plain `Template`, but the template still iterates the
+    options with `{{#each dropdownItems.get}}` — under BlazeComponent that resolved
+    to the instance's `dropdownItems` ReactiveVar, whereas a plain Template does not
+    expose instance variables to the template, so the list rendered nothing. Because
+    the options were never rendered as inputs, `getDropdownItems()` then overwrote
+    the ReactiveVar with the empty DOM on save and every entered value was dropped.
+    Fixed by re-adding the missing `dropdownItems` helper (returning the ReactiveVar),
+    matching the pattern the other migrated templates already use. Thanks to Claude.
+  - **Fixed `Exception in global helper _` when opening the Create Custom Field
+    popup (and any translation containing a literal `%`).** i18n is configured with
+    a global sprintf post-processor (`postProcess: ["sprintf"]`), so every
+    translation is run through `i18next-sprintf-postprocessor`. The help text
+    `custom-field-stringtemplate-format` (`"Format (use %{value} as placeholder)"`)
+    contains a literal `%{value}` that sprintf cannot parse, so `vsprintf` threw and
+    crashed the global Blaze `_` translation helper — breaking that popup and any
+    string (in any language, including user translation overrides) that contains a
+    stray `%`. `TAPi18n.__` now retries without the sprintf post-processor when it
+    throws, returning the raw string (so `%{value}` is shown literally) instead of
+    crashing.
+  Thanks to rouceto1 and Claude.
 - [Fixed new checklists (and checklist items) on a newly added card not being visible until logout/login](https://github.com/wekan/wekan/commit/075e86b00e1f0dc0dea519acd37cece4d0a1fad3).
   The `board` publication batched checklists,
   checklist items, comments and attachments into board-level cursors filtered by
