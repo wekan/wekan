@@ -1569,6 +1569,7 @@
   "gcs-key-filename-description": "Opcional: caminho para um arquivo JSON com a chave da conta de serviço no servidor.",
   "gcs-credentials": "Credenciais da conta de serviço (JSON)",
   "gcs-credentials-description": "Opcional: cole a chave JSON da conta de serviço. Deixe em branco para usar o arquivo de chave ou as credenciais padrão.",
+  "gcs-permissions-note": "Grant the service account the \"Storage Object Admin\" role on the bucket: Google Cloud Console → Cloud Storage → Buckets → your bucket → Permissions → Grant access → add the service account email → role \"Storage Object Admin\" → Save. Without it, Test connection fails with \"storage.objects.list denied\". Make sure the bucket exists in the same project.",
   "cloud-secret-keep-blank": "Deixe em branco para manter o valor atual.",
   "azure-account-name-description": "The name of your Azure Storage account.",
   "azure-container-description": "The blob container to store files in.",

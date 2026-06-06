@@ -1569,6 +1569,7 @@
   "gcs-key-filename-description": "選擇性：伺服器上服務帳號 JSON 金鑰檔案的路徑。",
   "gcs-credentials": "服務帳號憑證 (JSON)",
   "gcs-credentials-description": "選擇性：貼上服務帳號 JSON 金鑰。留空以使用金鑰檔案或預設憑證。",
+  "gcs-permissions-note": "Grant the service account the \"Storage Object Admin\" role on the bucket: Google Cloud Console → Cloud Storage → Buckets → your bucket → Permissions → Grant access → add the service account email → role \"Storage Object Admin\" → Save. Without it, Test connection fails with \"storage.objects.list denied\". Make sure the bucket exists in the same project.",
   "cloud-secret-keep-blank": "留空以保留目前的值。",
   "azure-account-name-description": "The name of your Azure Storage account.",
   "azure-container-description": "The blob container to store files in.",

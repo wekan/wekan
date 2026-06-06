@@ -1569,6 +1569,7 @@
   "gcs-key-filename-description": "Valinnainen: polku palvelutilin JSON-avaintiedostoon palvelimella.",
   "gcs-credentials": "Palvelutilin tunnistetiedot (JSON)",
   "gcs-credentials-description": "Valinnainen: liitä palvelutilin JSON-avain. Jätä tyhjäksi käyttääksesi avaintiedostoa tai oletusarvoisia tunnistetietoja.",
+  "gcs-permissions-note": "Myönnä palvelutilille \"Storage Object Admin\" -rooli säilössä: Google Cloud Console → Cloud Storage → Säiliöt → oma säilösi → Käyttöoikeudet → Myönnä käyttöoikeus → lisää palvelutilin sähköpostiosoite → rooli \"Storage Object Admin\" → Tallenna. Ilman sitä testiyhteys epäonnistuu virheilmoituksella \"storage.objects.list denied\". Varmista, että säilö on samassa projektissa.",
   "cloud-secret-keep-blank": "Jätä tyhjäksi säilyttääksesi nykyisen arvon.",
   "azure-account-name-description": "Azure-tallennustilisi nimi.",
   "azure-container-description": "Blob-säilö, johon tiedostot tallennetaan.",
