@@ -189,6 +189,31 @@ and adds the following updates:
 
 and adds the following fixes:
 
+- [Fixed new checklists (and checklist items) on a newly added card not being visible until logout/login](https://github.com/wekan/wekan/commit/075e86b00e1f0dc0dea519acd37cece4d0a1fad3).
+  The `board` publication batched checklists,
+  checklist items, comments and attachments into board-level cursors filtered by
+  `cardId: { $in: cardIds }`, where `cardIds` was a one-time snapshot. In
+  `reywood:publish-composite` a child cursor only re-runs when its parent (the
+  board) document changes, so the snapshot never refreshed when a card was added
+  — a checklist on a card created after subscribing matched no published card and
+  only appeared on the next subscribe (logout/login). This was a regression from
+  the "Optimized board loading" change, which had replaced the original reactive
+  per-card child cursors with these batched snapshots. Fixed by **denormalizing a
+  `boardId` field onto `Checklists` and `ChecklistItems`** so they can be
+  published with a single board-level cursor filtered by `boardId` — one cursor
+  per collection (keeping the load optimization) that still reacts to checklists
+  on newly added cards, because a new checklist is created already carrying the
+  board's id. `boardId` is set on insert (server `before.insert` hooks, plus
+  explicitly in the Trello/WeKan board importers, which use `direct.insert` and
+  bypass hooks), re-derived when a checklist/item or its card moves to another
+  card (`before.update` on `cardId`) or the card moves to another board
+  (`Cards.after.update` cascade), and backfilled for existing data by an
+  idempotent startup migration. New `{ boardId: 1 }` indexes were added on both
+  collections. Comments and attachments instead remain reactive as per-card
+  children of the cards cursor. Assigned-only board members still only receive
+  checklists for cards assigned to them (the board-level cursor falls back to the
+  assigned cards' ids for those roles).
+  Thanks to ahlgrimma and Claude.
 - [Fixed SyncedCron crash](https://github.com/wekan/wekan/commit/72767ad9a769fee2548f93bbd7174edd69995e97).
   **Fixed deleting archived lists (or many cards) crashing the server with
   `SyncedCron: Fatal error encountered (unhandledRejection): TypeError: Cannot
