@@ -8,27 +8,27 @@ template(name="adminReports")
           ul
             li
               a.js-report-broken(data-id="report-broken")
-                span.emoji-icon 🔗
+                i.fa.fa-chain-broken
                 | {{_ 'broken-cards'}}
 
             li
               a.js-report-files(data-id="report-files")
-                span.emoji-icon 📎
+                i.fa.fa-paperclip
                 | {{_ 'filesReportTitle'}}
 
             li
               a.js-report-rules(data-id="report-rules")
-                span.emoji-icon ✨
+                i.fa.fa-magic
                 | {{_ 'rulesReportTitle'}}
 
             li
               a.js-report-boards(data-id="report-boards")
-                span.emoji-icon ✨
+                i.fa.fa-columns
                 | {{_ 'boardsReportTitle'}}
 
             li
               a.js-report-cards(data-id="report-cards")
-                span.emoji-icon ✨
+                i.fa.fa-id-card-o
                 | {{_ 'cardsReportTitle'}}
 
         .main-body
