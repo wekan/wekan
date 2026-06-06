@@ -139,6 +139,15 @@ Template.createCustomFieldPopup.helpers({
     });
   },
 
+  // The template iterates `{{#each dropdownItems.get}}`. This component used to
+  // be a BlazeComponent, where `dropdownItems` resolved to the instance's
+  // ReactiveVar; after the migration to a plain Template that binding rendered
+  // nothing (so dropdown options never appeared and were lost on save). Expose
+  // the ReactiveVar as a helper again so `dropdownItems.get` works.
+  dropdownItems() {
+    return Template.instance().dropdownItems;
+  },
+
   getDropdownItems() {
     return getDropdownItems(Template.instance());
   },

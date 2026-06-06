@@ -105,18 +105,30 @@ export const TAPi18n = {
   // Return translation by key
   __(key, options, language) {
     this.current.dep.depend();
-    const translation = this.i18n.t(key, {
-      ...options,
-      lng: language,
-    });
+
+    // The global sprintf post-processor (`postProcess: ["sprintf"]`) throws when
+    // a translation value contains a '%' sequence it cannot parse, e.g. the
+    // literal "%{value}" used in some help texts. That would crash the caller
+    // (the global Blaze '_' helper). Retry without sprintf so such strings
+    // render literally instead of throwing.
+    const translate = (lng, extra = {}) => {
+      const opts = { ...options, ...extra, lng };
+      try {
+        return this.i18n.t(key, opts);
+      } catch (e) {
+        try {
+          return this.i18n.t(key, { ...opts, postProcess: false });
+        } catch (e2) {
+          return key;
+        }
+      }
+    };
+
+    const translation = translate(language);
 
     // If the selected language misses the key, fallback explicitly to English.
     if (translation === key) {
-      const englishFallback = this.i18n.t(key, {
-        ...options,
-        lng: DEFAULT_LANGUAGE,
-        fallbackLng: false,
-      });
+      const englishFallback = translate(DEFAULT_LANGUAGE, { fallbackLng: false });
 
       if (englishFallback !== key) {
         return englishFallback;
