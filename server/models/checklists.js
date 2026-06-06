@@ -73,6 +73,10 @@ Meteor.startup(async () => {
 
 Checklists.after.insert(async (userId, doc) => {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[Checklists.after.insert] Card not found for cardId:', doc.cardId, '— skipping addChecklist activity.');
+    return;
+  }
   await Activities.insertAsync({
     userId,
     activityType: 'addChecklist',
@@ -86,23 +90,35 @@ Checklists.after.insert(async (userId, doc) => {
 });
 
 Checklists.before.remove(async (userId, doc) => {
-  const activities = await ReactiveCache.getActivities({ checklistId: doc._id });
-  const card = await ReactiveCache.getCard(doc.cardId);
-  if (activities) {
-    for (const activity of activities) {
-      await Activities.removeAsync(activity._id);
+  try {
+    const activities = await ReactiveCache.getActivities({ checklistId: doc._id });
+    if (activities) {
+      for (const activity of activities) {
+        await Activities.removeAsync(activity._id);
+      }
     }
+    // When a whole list/card is deleted, the parent card may already be gone by
+    // the time its checklists are removed (cascade delete). Skip the activity
+    // then instead of dereferencing an undefined card, which would throw an
+    // unhandled rejection and crash SyncedCron.
+    const card = await ReactiveCache.getCard(doc.cardId);
+    if (!card) {
+      console.warn('[Checklists.before.remove] Card not found for cardId:', doc.cardId, '— skipping removeChecklist activity.');
+      return;
+    }
+    await Activities.insertAsync({
+      userId,
+      activityType: 'removeChecklist',
+      cardId: doc.cardId,
+      boardId: card.boardId,
+      checklistId: doc._id,
+      checklistName: doc.title,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
+    });
+  } catch (e) {
+    console.error('[Checklists.before.remove] Error while processing checklist deletion for doc._id:', doc._id, e);
   }
-  await Activities.insertAsync({
-    userId,
-    activityType: 'removeChecklist',
-    cardId: doc.cardId,
-    boardId: (await ReactiveCache.getCard(doc.cardId)).boardId,
-    checklistId: doc._id,
-    checklistName: doc.title,
-    listId: card.listId,
-    swimlaneId: card.swimlaneId,
-  });
 });
 
 WebApp.handlers.get(

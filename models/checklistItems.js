@@ -101,6 +101,10 @@ ChecklistItems.helpers({
 // Activities helper
 export async function itemCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[itemCreation] Card not found for cardId:', doc.cardId, '— skipping activity insert.');
+    return;
+  }
   const boardId = card.boardId;
   await Activities.insertAsync({
     userId,
@@ -123,6 +127,10 @@ export async function itemRemover(userId, doc) {
 
 export async function publishCheckActivity(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[publishCheckActivity] Card not found for cardId:', doc.cardId, '— skipping activity insert.');
+    return;
+  }
   const boardId = card.boardId;
   let activityType;
   if (doc.isFinished) {
@@ -146,9 +154,17 @@ export async function publishCheckActivity(userId, doc) {
 
 export async function publishChekListCompleted(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[publishChekListCompleted] Card not found for cardId:', doc.cardId, '— skipping activity insert.');
+    return;
+  }
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = await ReactiveCache.getChecklist(checklistId);
+  if (!checkList) {
+    console.warn('[publishChekListCompleted] Checklist not found for checklistId:', checklistId, '— skipping activity insert.');
+    return;
+  }
   const checklistItems = await ReactiveCache.getChecklistItems({ checklistId });
   const isChecklistFinished = checkList.hideAllChecklistItems ||
     (checklistItems.length > 0 && checklistItems.length === checklistItems.filter(i => i.isFinished).length);
@@ -169,9 +185,17 @@ export async function publishChekListCompleted(userId, doc) {
 
 export async function publishChekListUncompleted(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[publishChekListUncompleted] Card not found for cardId:', doc.cardId, '— skipping activity insert.');
+    return;
+  }
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = await ReactiveCache.getChecklist(checklistId);
+  if (!checkList) {
+    console.warn('[publishChekListUncompleted] Checklist not found for checklistId:', checklistId, '— skipping activity insert.');
+    return;
+  }
   // BUGS in IFTTT Rules: https://github.com/wekan/wekan/issues/1972
   //       Currently in checklist all are set as uncompleted/not checked,
   //       IFTTT Rule does not move card to other list.

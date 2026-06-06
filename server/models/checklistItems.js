@@ -34,20 +34,31 @@ ChecklistItems.after.insert(async (userId, doc) => {
 });
 
 ChecklistItems.before.remove(async (userId, doc) => {
-  await itemRemover(userId, doc);
-  const card = await ReactiveCache.getCard(doc.cardId);
-  const boardId = card.boardId;
-  await Activities.insertAsync({
-    userId,
-    activityType: 'removedChecklistItem',
-    cardId: doc.cardId,
-    boardId,
-    checklistId: doc.checklistId,
-    checklistItemId: doc._id,
-    checklistItemName: doc.title,
-    listId: card.listId,
-    swimlaneId: card.swimlaneId,
-  });
+  try {
+    await itemRemover(userId, doc);
+    // When a whole list/card is deleted, the parent card may already be gone
+    // by the time its checklist items are removed (cascade delete). Skip the
+    // activity then instead of dereferencing an undefined card, which would
+    // throw an unhandled rejection and crash SyncedCron.
+    const card = await ReactiveCache.getCard(doc.cardId);
+    if (!card) {
+      console.warn('[ChecklistItems.before.remove] Card not found for cardId:', doc.cardId, '— skipping removedChecklistItem activity.');
+      return;
+    }
+    await Activities.insertAsync({
+      userId,
+      activityType: 'removedChecklistItem',
+      cardId: doc.cardId,
+      boardId: card.boardId,
+      checklistId: doc.checklistId,
+      checklistItemId: doc._id,
+      checklistItemName: doc.title,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
+    });
+  } catch (e) {
+    console.error('[ChecklistItems.before.remove] Error while processing checklist item deletion for doc._id:', doc._id, e);
+  }
 });
 
 WebApp.handlers.get(

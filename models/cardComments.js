@@ -151,6 +151,10 @@ CardComments.hookOptions.after.update = { fetchPrevious: false };
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
+  if (!card) {
+    console.warn('[commentCreation] Card not found for cardId:', doc.cardId, '— skipping activity insert.');
+    return;
+  }
   await Activities.insertAsync({
     userId,
     activityType: 'addComment',

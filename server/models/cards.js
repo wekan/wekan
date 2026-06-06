@@ -460,6 +460,10 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
     const oldvalue = doc[action] || '';
     const activityType = `a-${action}`;
     const card = await ReactiveCache.getCard(doc._id);
+    if (!card) {
+      console.warn('[Cards.before.update] Card not found for cardId:', doc._id, '— skipping timing activity.');
+      return;
+    }
     const list = await card.list();
     if (list) {
       const modifiedAt = add(now(), -1, 'year').toISOString();
@@ -470,10 +474,9 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
       );
     }
     const user = await ReactiveCache.getUser(userId);
-    const username = user.username;
     await Activities.insertAsync({
       userId,
-      username,
+      username: user && user.username,
       activityType,
       boardId: doc.boardId,
       cardId: doc._id,
@@ -487,8 +490,14 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   }
 });
 
-Cards.before.remove((userId, doc) => {
-  cardRemover(userId, doc);
+Cards.before.remove(async (userId, doc) => {
+  // Must be awaited: cardRemover deletes the card's checklists, checklist items,
+  // comments and attachments. If not awaited, the card document is removed first
+  // and those cascade removals then run with the parent card already gone, whose
+  // before.remove hooks dereference an undefined card and crash SyncedCron with
+  // an unhandled rejection (TypeError: ... reading 'boardId'). Awaiting here
+  // removes the sub-items while the card still exists.
+  await cardRemover(userId, doc);
 });
 
 WebApp.handlers.get(
@@ -929,12 +938,19 @@ WebApp.handlers.delete(
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     const card = await ReactiveCache.getCard(paramCardId);
-      await Cards.direct.removeAsync({
+    // Remove the card's checklists, checklist items, comments and attachments
+    // BEFORE removing the card itself, so their before.remove hooks still find
+    // the parent card (otherwise they dereference an undefined card and crash
+    // SyncedCron with an unhandled rejection). `Cards.direct.removeAsync`
+    // bypasses Cards.before.remove, so cardRemover is not run twice.
+    if (card) {
+      await cardRemover(req.body.authorId, card);
+    }
+    await Cards.direct.removeAsync({
       _id: paramCardId,
       listId: paramListId,
       boardId: paramBoardId,
     });
-    cardRemover(req.body.authorId, card);
     sendJsonResult(res, { code: 200, data: { _id: paramCardId } });
   },
 );
