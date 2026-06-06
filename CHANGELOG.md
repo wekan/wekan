@@ -189,6 +189,31 @@ and adds the following updates:
 
 and adds the following fixes:
 
+- [Fixed SyncedCron crash](https://github.com/wekan/wekan/commit/72767ad9a769fee2548f93bbd7174edd69995e97).
+  **Fixed deleting archived lists (or many cards) crashing the server with
+  `SyncedCron: Fatal error encountered (unhandledRejection): TypeError: Cannot
+  read properties of undefined (reading 'boardId')` at
+  `server/models/checklistItems.js`.** Deleting a list cascades into removing its
+  cards, and each card's checklists, checklist items, comments and attachments
+  (`cardRemover` in `models/cards.js`). `Cards.before.remove` called `cardRemover`
+  **without `await`** (and was not `async`), so the card document was deleted
+  first and the cascade then ran with the parent card already gone; the
+  `ChecklistItems.before.remove` / `Checklists.before.remove` hooks dereferenced
+  the now-undefined card (`card.boardId`) and threw, and because the promise was
+  unhandled, SyncedCron caught the rejection and tore down all running cron jobs.
+  Fixed by making `Cards.before.remove` `async` and awaiting `cardRemover` (so
+  sub-items are removed while the card still exists), and the REST card-delete
+  handler now runs `cardRemover` before removing the card. As defense in depth,
+  every card-activity hook and helper that looked up a card and used its
+  `boardId` / `listId` / `swimlaneId` now skips (with a warning) when the parent
+  card — or, for checklist-completion activities, the parent checklist — is
+  missing, instead of throwing: `before.remove` on checklist items and
+  checklists, `Checklists.after.insert`, the `Cards.before.update` timing
+  activity, and the shared `itemCreation` / `publishCheckActivity` /
+  `publishChekListCompleted` / `publishChekListUncompleted` / `commentCreation`
+  helpers (matching the guards already present in
+  `server/models/cardComments.js`).
+  Thanks to titver968 and Claude.
 - **[Fixed upgrade crash](https://github.com/wekan/wekan/commit/39f3c89b0a11c5671b77d3a0b95200ac7256a4f1)
   `An error occurred when creating an index for collection
   "users": Topology is closed` / `MongoServerSelectionError: Server selection
