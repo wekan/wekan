@@ -250,6 +250,12 @@ Template.attachments.onCreated(function () {
   this.s3Stats = new ReactiveVar(null);
   this.s3StatsLoading = new ReactiveVar(false);
   this.s3StatsError = new ReactiveVar('');
+  this.azureStats = new ReactiveVar(null);
+  this.azureStatsLoading = new ReactiveVar(false);
+  this.azureStatsError = new ReactiveVar('');
+  this.gcsStats = new ReactiveVar(null);
+  this.gcsStatsLoading = new ReactiveVar(false);
+  this.gcsStatsError = new ReactiveVar('');
   this.compactLoading = new ReactiveVar(false);
   this.compactResult = new ReactiveVar(null);
   this.compactError = new ReactiveVar('');
@@ -466,6 +472,30 @@ Template.attachments.helpers({
   },
   s3StatsError() {
     return Template.instance().s3StatsError.get();
+  },
+  hasAzureStats() {
+    return !!Template.instance().azureStats.get();
+  },
+  azureStats() {
+    return Template.instance().azureStats.get();
+  },
+  azureStatsLoading() {
+    return Template.instance().azureStatsLoading.get();
+  },
+  azureStatsError() {
+    return Template.instance().azureStatsError.get();
+  },
+  hasGcsStats() {
+    return !!Template.instance().gcsStats.get();
+  },
+  gcsStats() {
+    return Template.instance().gcsStats.get();
+  },
+  gcsStatsLoading() {
+    return Template.instance().gcsStatsLoading.get();
+  },
+  gcsStatsError() {
+    return Template.instance().gcsStatsError.get();
   },
   s3Enabled() {
     return process.env.S3_ENABLED === 'true';
@@ -720,6 +750,34 @@ Template.attachments.events({
       tpl.s3Stats.set(result || null);
     });
   },
+  'click button.js-calculate-azure-stats'(event, tpl) {
+    event.preventDefault();
+    tpl.azureStatsLoading.set(true);
+    tpl.azureStatsError.set('');
+    Meteor.call('getAzureStorageStats', (error, result) => {
+      tpl.azureStatsLoading.set(false);
+      if (error) {
+        tpl.azureStats.set(null);
+        tpl.azureStatsError.set(error.reason || error.message || 'Failed to calculate counts');
+        return;
+      }
+      tpl.azureStats.set(result || null);
+    });
+  },
+  'click button.js-calculate-gcs-stats'(event, tpl) {
+    event.preventDefault();
+    tpl.gcsStatsLoading.set(true);
+    tpl.gcsStatsError.set('');
+    Meteor.call('getGcsStorageStats', (error, result) => {
+      tpl.gcsStatsLoading.set(false);
+      if (error) {
+        tpl.gcsStats.set(null);
+        tpl.gcsStatsError.set(error.reason || error.message || 'Failed to calculate counts');
+        return;
+      }
+      tpl.gcsStats.set(result || null);
+    });
+  },
   'click button.js-compact-mongodb-gridfs'(event, tpl) {
     event.preventDefault();
     runCompact(tpl.compactLoading, tpl.compactResult, tpl.compactError);
@@ -731,11 +789,39 @@ Template.moveAttachments.onCreated(function () {
   // persisted progress so it keeps running (and stays visible) even if the
   // admin navigates away from or closes this page.
   this.bulkMoveSubscription = Meteor.subscribe('attachmentBulkMoveStatus');
+  this.repairLoading = new ReactiveVar(false);
+  this.repairResult = new ReactiveVar(null);
+  this.repairError = new ReactiveVar('');
 });
 
 function getBulkMoveProgress() {
   const doc = AttachmentBulkMoveStatus.findOne('bulk');
   return doc && doc.running ? doc : null;
+}
+
+function getLastMove() {
+  const doc = AttachmentBulkMoveStatus.findOne('bulk');
+  // Don't show the "last move" line while a move is actively running.
+  if (!doc || doc.running || !doc.lastMove) return null;
+  return doc.lastMove;
+}
+
+function storageLabel(value) {
+  return value ? TAPi18n.__(`move-storage-${value}`) : '';
+}
+
+function scopeLabel(value) {
+  return value ? TAPi18n.__(`move-scope-${value}`) : '';
+}
+
+// Format a Date (or value) as YYYY-MM-DD HH:MM:SS in local time.
+function formatDateTime(value) {
+  if (!value) return '';
+  const date = value instanceof Date ? value : new Date(value);
+  if (isNaN(date.getTime())) return '';
+  const p = n => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())} ` +
+    `${p(date.getHours())}:${p(date.getMinutes())}:${p(date.getSeconds())}`;
 }
 
 Template.moveAttachments.helpers({
@@ -753,6 +839,25 @@ Template.moveAttachments.helpers({
   moveProgressSize() {
     const p = getBulkMoveProgress();
     return p?.size ? filesize(p.size) : '';
+  },
+  lastMove() {
+    return getLastMove();
+  },
+  lastMoveText() {
+    const lm = getLastMove();
+    if (!lm) return '';
+    const cancelled = lm.cancelled ? ` (${TAPi18n.__('move-progress-cancel')})` : '';
+    return `${storageLabel(lm.source)} → ${storageLabel(lm.dest)} ` +
+      `(${scopeLabel(lm.scope)}) ${formatDateTime(lm.at)}${cancelled}`;
+  },
+  repairLoading() {
+    return Template.instance().repairLoading.get();
+  },
+  repairResult() {
+    return Template.instance().repairResult.get();
+  },
+  repairError() {
+    return Template.instance().repairError.get();
   },
 });
 
@@ -793,6 +898,20 @@ Template.moveAttachments.events({
       if (result && result.total === 0) {
         alert(TAPi18n.__('move-attachments-none-found'));
       }
+    });
+  },
+  'click button.js-repair-attachment-locations'(event, tpl) {
+    if (tpl.repairLoading.get()) return;
+    tpl.repairLoading.set(true);
+    tpl.repairResult.set(null);
+    tpl.repairError.set('');
+    Meteor.call('repairAttachmentStorageLocations', (error, result) => {
+      tpl.repairLoading.set(false);
+      if (error) {
+        tpl.repairError.set(error.reason || error.message || 'Repair failed');
+        return;
+      }
+      tpl.repairResult.set(result || {});
     });
   },
   'click button.js-pause-move'() {

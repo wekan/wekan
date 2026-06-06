@@ -204,3 +204,39 @@
   white-space: nowrap;
   min-width: 0 !important;
 }
+
+/* Cloud storage (S3 / Azure / GCS): example value shown below each input. */
+.attachments-content .cloud-input-example {
+  display: block;
+  color: #888;
+  font-size: 0.82em;
+  font-family: monospace;
+  word-break: break-all;
+  line-height: 1.35;
+}
+
+/* Cloud storage: where-to-find-this-value path shown below the example. */
+.attachments-content .cloud-input-path {
+  display: block;
+  color: #6a737d;
+  font-size: 0.82em;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* Cloud storage: translated label shown under the (English) label. */
+.attachments-content .cloud-input-label-tr {
+  display: block;
+  color: #57606a;
+  font-size: 0.9em;
+  margin-bottom: 4px;
+}
+
+/* Cloud storage: description text (English literal and translated). */
+.attachments-content .cloud-input-desc {
+  display: block;
+  color: #6a737d;
+  font-size: 0.82em;
+  line-height: 1.4;
+  margin-top: 2px;
+}

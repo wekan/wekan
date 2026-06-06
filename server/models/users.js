@@ -13,6 +13,7 @@ import { sendJsonResult } from '/server/apiMiddleware';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import ImpersonatedUsers from '/models/impersonatedUsers';
+import Avatars from '/models/avatars';
 import Boards from '/models/boards';
 import InvitationCodes from '/models/invitationCodes';
 import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
@@ -992,16 +993,70 @@ const startNotificationCleanup = debounce(
   500,
 );
 
+// Repair avatar URLs left pointing at a deleted legacy CollectionFS avatar after
+// a CFS -> Meteor-Files migration. The user's profile.avatarUrl is still the
+// legacy '/cfs/files/avatars/<oldId>' form, but that filerecord was deleted by
+// the migration and the avatar now lives in Meteor-Files under a new id, so the
+// avatar renders broken. Point profile.avatarUrl at the user's migrated
+// Meteor-Files avatar. Idempotent: once rewritten the URL no longer matches.
+async function repairLegacyAvatarUrls() {
+  try {
+    let repaired = 0;
+    const cursor = Users.find(
+      { 'profile.avatarUrl': { $regex: '/cfs/files/avatars/' } },
+      { fields: { _id: 1, 'profile.avatarUrl': 1 } },
+    );
+    await cursor.forEachAsync(async user => {
+      const url = (user.profile && user.profile.avatarUrl) || '';
+      const match = url.match(/\/avatars\/([^/?#-]+)/);
+      const oldId = match && match[1];
+
+      let avatar = null;
+      // 1) Precise: the migration stamped the source id it came from, so we can
+      //    repoint to the exact avatar that replaced this one.
+      if (oldId) {
+        avatar = await Avatars.collection.findOneAsync(
+          { 'meta.migratedFromId': oldId },
+          { fields: { _id: 1 } },
+        );
+      }
+      // 2) Best-effort for avatars migrated before that stamp existed: the user's
+      //    OWN migrated avatar (matched strictly by userId, newest first) — never
+      //    another user's avatar.
+      if (!avatar) {
+        avatar =
+          (await Avatars.collection.findOneAsync(
+            { userId: user._id, 'meta.source': 'storage-migrate' },
+            { sort: { uploadedAtOstrio: -1 }, fields: { _id: 1 } },
+          )) ||
+          (await Avatars.collection.findOneAsync(
+            { userId: user._id },
+            { sort: { uploadedAtOstrio: -1 }, fields: { _id: 1 } },
+          ));
+      }
+
+      if (avatar && avatar._id) {
+        await Users.updateAsync(user._id, {
+          $set: { 'profile.avatarUrl': `/cdn/storage/avatars/${avatar._id}` },
+        });
+        repaired += 1;
+      }
+    });
+    if (repaired > 0) {
+      console.log(`[users] Repaired ${repaired} legacy avatar URL(s) to migrated Meteor-Files avatars.`);
+    }
+  } catch (error) {
+    console.error('[users] Failed to repair legacy avatar URLs:', error);
+  }
+}
+
 Meteor.startup(async () => {
   for (const value of allowedSortValues) {
     await ensureIndex(Lists, value);
   }
   await ensureIndex(Users, { modifiedAt: -1 });
-  Users.find({ 'profile.avatarUrl': { $regex: '/cfs/files/avatars/' } }).forEach(doc => {
-    doc.profile.avatarUrl = doc.profile.avatarUrl.replace(
-      '/cfs/files/avatars/',
-      '/cdn/storage/avatars/',
-    );
+  Meteor.defer(() => {
+    repairLegacyAvatarUrls();
   });
   Meteor.defer(() => {
     startNotificationCleanup();

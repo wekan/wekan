@@ -79,6 +79,28 @@ async function setStatus(fields) {
   );
 }
 
+// If the server restarted (e.g. crashed) while a bulk move was running, the
+// persisted status is left as `running` forever and the admin UI stays stuck on
+// the last processed file (e.g. "File 1 / 4"). The in-memory controller always
+// starts fresh, so reconcile a stale running status on startup by marking it
+// interrupted, freeing the UI and allowing a new move to be started.
+Meteor.startup(async () => {
+  try {
+    const status = await AttachmentBulkMoveStatus.findOneAsync({ _id: STATUS_ID });
+    if (status && status.running) {
+      await setStatus({
+        running: false,
+        paused: false,
+        cancelled: false,
+        interrupted: true,
+        finishedAt: new Date(),
+      });
+    }
+  } catch (error) {
+    console.error('[attachmentBulkMove] Failed to reconcile stale status on startup:', error);
+  }
+});
+
 async function requireAdmin(userId) {
   if (!userId) {
     throw new Meteor.Error('not-authorized', 'Must be logged in');
@@ -200,7 +222,13 @@ async function createMeteorFilesDocFromBuffer(cfg, info) {
     size,
     type,
     name,
-    meta: { ...(info.meta || {}), source: 'storage-migrate' },
+    meta: {
+      ...(info.meta || {}),
+      source: 'storage-migrate',
+      // Exact back-reference to the source file's id, so references (e.g. a
+      // user's avatarUrl) can be repointed precisely — never to another file.
+      ...(info.migratedFromId ? { migratedFromId: info.migratedFromId } : {}),
+    },
     ext,
     extension: ext,
     extensionWithDot: ext ? `.${ext}` : '',
@@ -233,16 +261,29 @@ async function createMeteorFilesDocFromBuffer(cfg, info) {
   return newId;
 }
 
-// Repoint references after an attachment's _id changes (cross-format move).
+// Repoint references after a file's _id changes (cross-format move).
 async function remapReferences(cfg, oldId, newId) {
-  if (cfg.coll !== 'attachments' || !oldId || !newId || oldId === newId) {
+  if (!oldId || !newId || oldId === newId) {
     return;
   }
   try {
     const db = getDb();
-    await db.collection('cards').updateMany({ coverId: oldId }, { $set: { coverId: newId } });
+    if (cfg.coll === 'attachments') {
+      // Card cover images reference the attachment id.
+      await db.collection('cards').updateMany({ coverId: oldId }, { $set: { coverId: newId } });
+    } else if (cfg.coll === 'avatars') {
+      // A user's profile.avatarUrl still points at the source avatar id — a
+      // legacy '/cfs/files/avatars/<oldId>' or a '/cdn/storage/avatars/<oldId>'
+      // URL. After the move that id is gone, so the avatar shows a broken image.
+      // Repoint avatarUrl to the migrated avatar's new id.
+      const escaped = String(oldId).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      await db.collection('users').updateMany(
+        { 'profile.avatarUrl': { $regex: `/avatars/${escaped}([-?/]|$)` } },
+        { $set: { 'profile.avatarUrl': `/cdn/storage/avatars/${newId}` } },
+      );
+    }
   } catch (error) {
-    console.error('[attachmentMigration] coverId remap failed', error);
+    console.error('[attachmentMigration] reference remap failed', error);
   }
 }
 
@@ -264,6 +305,7 @@ async function moveItem(item, dest) {
       meta: item.meta,
       userId: item.userId,
       uploadedAt: item.uploadedAt,
+      migratedFromId: item.sourceId,
     });
     if (dest !== STORAGE_NAME_FILESYSTEM) {
       const newDoc = await cfg.Collection.collection.findOneAsync({ _id: newId });
@@ -309,7 +351,7 @@ async function moveItem(item, dest) {
   await moveToStorage(doc, dest, cfg.factory);
 }
 
-async function runMigration(items, dest) {
+async function runMigration(items, dest, source, scope) {
   const total = items.length;
   try {
     for (let i = 0; i < total; i++) {
@@ -341,11 +383,22 @@ async function runMigration(items, dest) {
     controller.running = false;
     controller.paused = false;
     controller.cancelled = false;
+    const finishedAt = new Date();
     const finalStatus = {
       running: false,
       paused: false,
       cancelled,
-      finishedAt: new Date(),
+      finishedAt,
+      // Persist a summary of the last completed move so the page can keep showing
+      // "from <source> to <destination> at <datetime>" after it finishes.
+      lastMove: {
+        source,
+        dest,
+        scope,
+        total,
+        cancelled,
+        at: finishedAt,
+      },
     };
     if (!cancelled) {
       finalStatus.done = total;
@@ -354,7 +407,164 @@ async function runMigration(items, dest) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Repair file locations: find attachments/avatars whose recorded storage
+// (versions.<v>.storage / path / meta.gridFsFileId) no longer matches where the
+// binary actually is — left inconsistent by an interrupted/failed move — and fix
+// the database to point at the real location.
+// ---------------------------------------------------------------------------
+
+// Look up a Meteor-Files GridFS file by the metadata stamped on upload
+// (metadata.fileId = document _id; the GridFS bucket name equals the collection).
+async function findGridFsFile(coll, fileId, versionName) {
+  const db = getDb();
+  const files = db.collection(`${coll}.files`);
+  let f = await files.findOne({ 'metadata.fileId': fileId, 'metadata.versionName': versionName });
+  if (!f) {
+    f = await files.findOne({ 'metadata.fileId': fileId });
+  }
+  return f || null;
+}
+
+// Best-effort check whether a version's binary exists on the filesystem; returns
+// the resolved path, or null.
+function findFilesystemFile(factory, doc, versionName) {
+  const v = (doc.versions && doc.versions[versionName]) || {};
+  const storagePath = factory.storagePath;
+  const candidates = [];
+  if (v.path) {
+    candidates.push(v.path);
+    candidates.push(path.join(storagePath, path.basename(v.path)));
+  }
+  const prefix = `${doc._id}-${versionName}-`;
+  try {
+    const match = fs.readdirSync(storagePath).find(entry => entry.startsWith(prefix));
+    if (match) candidates.push(path.join(storagePath, match));
+  } catch (e) {
+    // storage dir may not exist
+  }
+  for (const c of candidates) {
+    try {
+      if (c && fs.existsSync(c) && fs.statSync(c).isFile()) return c;
+    } catch (e) {
+      // ignore unreadable candidate
+    }
+  }
+  return null;
+}
+
+// Authoritative "is this version readable on the filesystem?" check — reuses the
+// strategy's own (thorough) path resolution so the repair agrees with what a real
+// move/download would find, even when versions.<v>.path is stale.
+function strategyCanReadFilesystem(factory, doc, versionName) {
+  try {
+    const strategy = factory.getFileStrategy(doc, versionName, STORAGE_NAME_FILESYSTEM);
+    const rs = strategy.getReadStream();
+    if (rs) {
+      try {
+        if (typeof rs.destroy === 'function') rs.destroy();
+        else if (typeof rs.close === 'function') rs.close();
+      } catch (e) {
+        // ignore close errors
+      }
+      return true;
+    }
+  } catch (e) {
+    // ignore resolution errors
+  }
+  return false;
+}
+
+async function repairCollectionStorage(cfg) {
+  const result = { scanned: 0, repaired: 0, broken: 0, brokenItems: [] };
+  // Index the GridFS files by metadata.fileId so the per-file lookup below is a
+  // point query rather than a collection scan (idempotent).
+  try {
+    await getDb().collection(`${cfg.coll}.files`).createIndex({ 'metadata.fileId': 1 });
+  } catch (e) {
+    // index may already exist or the bucket may not exist yet
+  }
+  const cursor = cfg.Collection.collection.find({}, { fields: { versions: 1, name: 1 } });
+  await cursor.forEachAsync(async doc => {
+    const versions = doc.versions || {};
+    for (const versionName of Object.keys(versions)) {
+      result.scanned += 1;
+      const v = versions[versionName] || {};
+      const recorded = v.storage;
+      const set = {};
+      const unset = {};
+
+      const gfs = await findGridFsFile(cfg.coll, doc._id, versionName);
+      if (gfs) {
+        // The binary is in GridFS — make the record say so, with the right id.
+        const wantId = String(gfs._id);
+        if (recorded !== 'gridfs') set[`versions.${versionName}.storage`] = 'gridfs';
+        if (((v.meta || {}).gridFsFileId) !== wantId) {
+          set[`versions.${versionName}.meta.gridFsFileId`] = wantId;
+        }
+      } else {
+        const diskPath = findFilesystemFile(cfg.factory, doc, versionName);
+        const onFilesystem = !!diskPath || strategyCanReadFilesystem(cfg.factory, doc, versionName);
+        if (onFilesystem) {
+          // The binary is on the filesystem.
+          if (recorded !== STORAGE_NAME_FILESYSTEM) set[`versions.${versionName}.storage`] = STORAGE_NAME_FILESYSTEM;
+          if (diskPath && v.path !== diskPath) set[`versions.${versionName}.path`] = diskPath;
+          if ((v.meta || {}).gridFsFileId) unset[`versions.${versionName}.meta.gridFsFileId`] = '';
+        } else {
+          // Not found on filesystem or in GridFS. Cloud-stored files are not
+          // verified here (left untouched); anything else is genuinely broken.
+          if (!CLOUD_STORAGE_NAMES.includes(recorded)) {
+            result.broken += 1;
+            if (result.brokenItems.length < 50) {
+              result.brokenItems.push({
+                id: doc._id,
+                version: versionName,
+                recorded: recorded || 'unknown',
+                name: doc.name || '',
+              });
+            }
+          }
+          continue;
+        }
+      }
+
+      const modifier = {};
+      if (Object.keys(set).length) modifier.$set = set;
+      if (Object.keys(unset).length) modifier.$unset = unset;
+      if (Object.keys(modifier).length) {
+        await cfg.Collection.collection.updateAsync({ _id: doc._id }, modifier);
+        result.repaired += 1;
+      }
+    }
+  });
+  return result;
+}
+
 Meteor.methods({
+  // Scan attachments and avatars and repair any whose recorded storage location
+  // is out of sync with where the binary actually lives.
+  async repairAttachmentStorageLocations() {
+    await requireAdmin(this.userId);
+    if (controller.running) {
+      throw new Meteor.Error(
+        'bulk-move-already-running',
+        'A bulk attachment move is running; try the repair again after it finishes',
+      );
+    }
+    const summary = {};
+    for (const cfg of collectionConfigs('both')) {
+      summary[cfg.coll] = await repairCollectionStorage(cfg);
+    }
+    await setStatus({
+      lastRepair: {
+        at: new Date(),
+        attachments: summary.attachments || null,
+        avatars: summary.avatars || null,
+      },
+    });
+    return summary;
+  },
+
   async startBulkAttachmentMove(source, dest, scope = 'attachments') {
     check(source, String);
     check(dest, String);
@@ -395,6 +605,7 @@ Meteor.methods({
     );
 
     if (items.length === 0) {
+      const finishedAt = new Date();
       await setStatus({
         running: false,
         paused: false,
@@ -404,7 +615,8 @@ Meteor.methods({
         source,
         dest,
         scope,
-        finishedAt: new Date(),
+        finishedAt,
+        lastMove: { source, dest, scope, total: 0, cancelled: false, at: finishedAt },
       });
       return { total: 0 };
     }
@@ -433,7 +645,7 @@ Meteor.methods({
     // (SyncedCron treats it as fatal).
     Meteor.defer(() => {
       Promise.resolve()
-        .then(() => runMigration(items, dest))
+        .then(() => runMigration(items, dest, source, scope))
         .catch(async error => {
           console.error('[attachmentMigration] Migration aborted:', error);
           controller.running = false;

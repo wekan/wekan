@@ -385,6 +385,44 @@ Meteor.methods({
     return { attachments, avatars, calculatedAt: new Date() };
   },
 
+  async getAzureStorageStats() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    const db = MongoInternals.defaultRemoteCollectionDriver()?.mongo?.db;
+    if (!db) {
+      throw new Meteor.Error('mongo-unavailable', 'MongoDB connection is not available');
+    }
+    const [attachments, avatars] = await Promise.all([
+      countByStorageSafe(db, 'attachments', 'azure'),
+      countByStorageSafe(db, 'avatars', 'azure'),
+    ]);
+    return { attachments, avatars, calculatedAt: new Date() };
+  },
+
+  async getGcsStorageStats() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    const db = MongoInternals.defaultRemoteCollectionDriver()?.mongo?.db;
+    if (!db) {
+      throw new Meteor.Error('mongo-unavailable', 'MongoDB connection is not available');
+    }
+    const [attachments, avatars] = await Promise.all([
+      countByStorageSafe(db, 'attachments', 'gcs'),
+      countByStorageSafe(db, 'avatars', 'gcs'),
+    ]);
+    return { attachments, avatars, calculatedAt: new Date() };
+  },
+
   async compactMongoGridFs() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');

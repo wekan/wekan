@@ -308,6 +308,10 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
       contentType: fileObj.type || 'binary/octet-stream',
       metadata,
     });
+    // Keep a reference so writeStreamFinished can read the uploaded file's id
+    // from the stream — the mongodb driver's 'finish' event no longer passes the
+    // stored file document.
+    this.gridFsWriteStream = ret;
     return ret;
   }
 
@@ -316,9 +320,29 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    */
   writeStreamFinished(finishedData) {
     const gridFsFileIdName = this.getGridFsFileIdName();
+    // Older mongodb drivers passed the stored file document to the 'finish'
+    // event; current drivers emit it with no argument (so finishedData is
+    // undefined and `finishedData._id` threw, crashing the server). Resolve the
+    // GridFS file id from the finish data when present, otherwise from the write
+    // stream itself (`id` is assigned by openUploadStream; `gridFSFile._id` is
+    // set once the upload finishes).
+    const stream = this.gridFsWriteStream;
+    const gridFsId =
+      (finishedData && finishedData._id) ||
+      (stream && stream.gridFSFile && stream.gridFSFile._id) ||
+      (stream && stream.id);
+    if (!gridFsId) {
+      console.error(
+        'GridFS write finished but no file id was available for',
+        this.fileObj && this.fileObj._id,
+      );
+      return;
+    }
+    const hexId =
+      typeof gridFsId.toHexString === 'function' ? gridFsId.toHexString() : String(gridFsId);
     this.collection.updateAsync(
       { _id: this.fileObj._id },
-      { $set: { [gridFsFileIdName]: finishedData._id.toHexString() } },
+      { $set: { [gridFsFileIdName]: hexId } },
     ).catch(error => {
       console.error('Failed to persist GridFS file id:', error);
     });
@@ -623,32 +647,52 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
   getWriteStream(filePath) {
     const pass = new PassThrough();
     this._key = (typeof filePath === 'string' && filePath) ? filePath : this.getObjectKey();
+    this._uploadError = null;
 
     const adapter = getCloudAdapter(this.provider);
     if (!adapter) {
-      this._uploadPromise = Promise.reject(new Error(`Cloud storage "${this.provider}" is not configured`));
-      // Swallow here so the rejection is observed; the error is surfaced via the stream.
-      this._uploadPromise.catch(() => {});
-      process.nextTick(() => pass.destroy(new Error(`Cloud storage "${this.provider}" is not configured`)));
+      this._uploadError = new Error(`Cloud storage "${this.provider}" is not configured`);
+      this._uploadPromise = Promise.resolve();
+      process.nextTick(() => pass.destroy(this._uploadError));
       return pass;
     }
 
-    this._uploadPromise = adapter.storage.addFileFromStream({
-      stream: pass,
-      bucketName: adapter.bucketName,
-      targetPath: this._key,
-    }).then(result => {
-      if (result && result.error) {
-        throw new Error(result.error);
-      }
-      return result;
-    });
-    // Surface upload failures onto the stream so piping callers see the error,
-    // and avoid unhandled rejection warnings.
-    this._uploadPromise.catch(error => {
-      if (!pass.destroyed) {
-        pass.destroy(error);
-      }
+    // Buffer the incoming bytes and upload them as a complete buffer instead of
+    // streaming a live body to the backend. Streaming an S3 PutObject body whose
+    // length is unknown fails with
+    //   Invalid value "undefined" for header "x-amz-decoded-content-length"
+    // and, if the socket drops mid-upload, the AWS SDK's body-stream promise
+    // rejects UNHANDLED and crashes the server (SyncedCron treats it as fatal).
+    // A buffer has a known length and no socket-bound stream, so neither
+    // happens. The bulk move processes one file at a time, so peak memory is one
+    // file. The upload promise NEVER rejects — any failure is captured in
+    // this._uploadError (read by waitUntilStored()).
+    const chunks = [];
+    this._uploadPromise = new Promise(resolve => {
+      pass.on('data', chunk => chunks.push(chunk));
+      pass.on('error', error => {
+        if (!this._uploadError) {
+          this._uploadError = error instanceof Error ? error : new Error(String(error));
+        }
+        resolve();
+      });
+      pass.on('end', () => {
+        Promise.resolve()
+          .then(() => adapter.storage.addFileFromBuffer({
+            buffer: Buffer.concat(chunks),
+            bucketName: adapter.bucketName,
+            targetPath: this._key,
+          }))
+          .then(result => {
+            if (result && result.error) {
+              this._uploadError = new Error(result.error);
+            }
+          })
+          .catch(error => {
+            this._uploadError = error instanceof Error ? error : new Error(String(error));
+          })
+          .then(resolve);
+      });
     });
     return pass;
   }
@@ -657,7 +701,14 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
    * moveToStorage() awaits this before deleting the source file.
    */
   waitUntilStored() {
-    return this._uploadPromise || Promise.resolve();
+    // Wait for the (non-rejecting) upload promise, then re-throw any captured
+    // error so moveToStorage's try/catch keeps the source file intact instead of
+    // deleting it after a failed upload.
+    return Promise.resolve(this._uploadPromise).then(() => {
+      if (this._uploadError) {
+        throw this._uploadError;
+      }
+    });
   }
 
   /** writing finished — persist the object key in the version meta */
@@ -793,6 +844,27 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
     const filePath = strategyWrite.getNewPath(fileStoreStrategyFactory.storagePath);
     const writeStream = strategyWrite.getWriteStream(filePath);
 
+    // The source binary may be missing at its recorded location (e.g. a file left
+    // half-moved by an earlier interrupted run: storage says "gridfs" but the
+    // GridFS id reference is gone, or a filesystem path that no longer exists). In
+    // that case getReadStream()/getWriteStream() return undefined. Skip this
+    // version cleanly instead of throwing "Cannot read properties of undefined
+    // (reading 'on')", and crucially do NOT delete the source — leave it intact so
+    // no data is lost and the admin can investigate.
+    if (!readStream || !writeStream) {
+      console.error(
+        '[moveToStorage] cannot move attachment',
+        fileObj._id,
+        `version "${versionName}" from ${strategyRead.getStorageName()} to ${strategyWrite.getStorageName()}:`,
+        !readStream
+          ? 'source file not found at its recorded location'
+          : 'could not open the destination write stream',
+        '— skipping this file, source left intact.',
+      );
+      resolve();
+      return;
+    }
+
     let ended = false;
     let finished = false;
     let settled = false;
@@ -823,7 +895,16 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
     // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
     const settle = () => {
       if (ended && finished) {
-        finalize();
+        // finalize() handles its own errors, but guard the floating promise so a
+        // stray rejection can never become an unhandled rejection (fatal to
+        // SyncedCron).
+        finalize().catch(error => {
+          console.error('[moveToStorage] finalize failed: ', error, fileObj._id);
+          if (!settled) {
+            settled = true;
+          }
+          resolve();
+        });
       }
     };
 
@@ -839,7 +920,13 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
     readStream.on('error', error => fail(error, 'readStream error'));
 
     writeStream.on('finish', finishedData => {
-      strategyWrite.writeStreamFinished(finishedData);
+      try {
+        strategyWrite.writeStreamFinished(finishedData);
+      } catch (error) {
+        // Persisting the storage id must never crash the process via this
+        // (synchronous) event callback; the move is finalized below regardless.
+        console.error('[writeStreamFinished error]: ', error, fileObj._id);
+      }
       finished = true;
       settle();
     });
@@ -865,6 +952,17 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
     const safeName = sanitizeFilename(fileObj.name);
     const tempPath = path.join(fileStoreStrategyFactory.storagePath, Random.id() + "-" + versionName + "-" + safeName);
     const writeStream = strategyWrite.getWriteStream(tempPath);
+
+    // Source binary missing at its recorded location — skip this version instead
+    // of throwing "Cannot read properties of undefined (reading 'on')".
+    if (!readStream || !writeStream) {
+      console.error(
+        '[copyFile] cannot copy attachment',
+        fileObj._id,
+        `version "${versionName}": source file not found at its recorded location — skipping.`,
+      );
+      return;
+    }
 
     writeStream.on('error', error => {
       console.error('[writeStream error]: ', error, fileObj._id);

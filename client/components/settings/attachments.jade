@@ -229,37 +229,6 @@ template(name="attachments")
                     label(for="s3-read") {{_ 'storage-read'}}
 
                 .form-group
-                  label {{_ 's3-endpoint'}}
-                  input.wekan-form-control#s3-endpoint(type="text" value=cloudValue.s3.endpoint)
-                  small.form-text.text-muted {{_ 's3-endpoint-description'}}
-                .form-group
-                  label {{_ 's3-region'}}
-                  input.wekan-form-control#s3-region(type="text" value=cloudValue.s3.region)
-                .form-group
-                  label {{_ 's3-bucket'}}
-                  input.wekan-form-control#s3-bucket(type="text" value=cloudValue.s3.bucket)
-                .form-group
-                  label {{_ 's3-access-key'}}
-                  input.wekan-form-control#s3-access-key(type="text" value=cloudValue.s3.accessKeyId)
-                .form-group
-                  label {{_ 's3-secret-key'}}
-                  input.wekan-form-control#s3-secret-key(type="password" placeholder=cloudSecretPlaceholder.s3.secretAccessKey)
-                  small.form-text.text-muted {{_ 'cloud-secret-keep-blank'}}
-                .form-group
-                  .storage-rw-item
-                    input#s3-force-path-style(type="checkbox" checked=cloudValue.s3.forcePathStyle)
-                    label(for="s3-force-path-style") {{_ 's3-force-path-style'}}
-                  small.form-text.text-muted {{_ 's3-force-path-style-description'}}
-
-                .form-group
-                  button.js-test-cloud-connection.btn.btn-secondary(data-provider="s3") {{_ 'test-cloud-connection'}}
-                  button.js-save-cloud-settings.btn.btn-primary(data-provider="s3") {{_ 'save'}}
-                  if cloudTestResult.s3
-                    p.form-text.text-success {{_ 'cloud-connection-success'}}
-                  if cloudTestError.s3
-                    p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.s3}}
-
-                .form-group
                   button.js-calculate-s3-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
                   if s3StatsLoading
                     p.form-text.text-muted {{_ 'calculating-counts'}}
@@ -277,6 +246,65 @@ template(name="attachments")
                         td {{_ 'avatars'}}
                         td {{s3Stats.avatars}}
 
+                .form-group
+                  label Endpoint
+                  small.form-text.cloud-input-label-tr {{_ 's3-endpoint'}}
+                  input.wekan-form-control#s3-endpoint(type="text" value=cloudValue.s3.endpoint)
+                  small.form-text.cloud-input-example https://s3.eu-west-1.amazonaws.com
+                  small.form-text.cloud-input-desc S3 endpoint URL (e.g., s3.amazonaws.com or minio.example.com)
+                  small.form-text.cloud-input-desc {{_ 's3-endpoint-description'}}
+                  small.form-text.cloud-input-path AWS: leave blank (uses the region endpoint). S3-compatible: the Endpoint URL from your MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces console.
+                  small.form-text.cloud-input-path {{_ 's3-endpoint-menu-path'}}
+                .form-group
+                  label AWS Region
+                  small.form-text.cloud-input-label-tr {{_ 's3-region'}}
+                  input.wekan-form-control#s3-region(type="text" value=cloudValue.s3.region)
+                  small.form-text.cloud-input-example eu-west-1
+                  small.form-text.cloud-input-desc AWS S3 region (e.g., us-east-1)
+                  small.form-text.cloud-input-desc {{_ 's3-region-description'}}
+                  small.form-text.cloud-input-path AWS Console → S3 → Buckets → your bucket → Properties → AWS Region.
+                  small.form-text.cloud-input-path {{_ 's3-region-menu-path'}}
+                .form-group
+                  label Bucket name
+                  small.form-text.cloud-input-label-tr {{_ 's3-bucket'}}
+                  input.wekan-form-control#s3-bucket(type="text" value=cloudValue.s3.bucket)
+                  small.form-text.cloud-input-example wekan-s3-test-369341155299-eu-west-1-an
+                  small.form-text.cloud-input-desc S3 bucket name for storing files
+                  small.form-text.cloud-input-desc {{_ 's3-bucket-description'}}
+                  small.form-text.cloud-input-path AWS Console → S3 → Buckets → your bucket name (or Create bucket → Bucket name).
+                  small.form-text.cloud-input-path {{_ 's3-bucket-menu-path'}}
+                .form-group
+                  label Access key ID
+                  small.form-text.cloud-input-label-tr {{_ 's3-access-key'}}
+                  input.wekan-form-control#s3-access-key(type="text" value=cloudValue.s3.accessKeyId)
+                  small.form-text.cloud-input-example AKIAIOSFODNN7EXAMPLE
+                  small.form-text.cloud-input-desc AWS S3 access key for authentication
+                  small.form-text.cloud-input-desc {{_ 's3-access-key-description'}}
+                  small.form-text.cloud-input-path AWS Console → IAM → Users → your user → Security credentials → Access keys → Create access key → choose use case 'Application running outside AWS' → Create access key. Shown as 'Access key ID'.
+                  small.form-text.cloud-input-path {{_ 's3-access-key-menu-path'}}
+                .form-group
+                  label Secret access key
+                  small.form-text.cloud-input-label-tr {{_ 's3-secret-key'}}
+                  input.wekan-form-control#s3-secret-key(type="password" placeholder=cloudSecretPlaceholder.s3.secretAccessKey)
+                  small.form-text.cloud-input-example wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+                  small.form-text.cloud-input-desc Leave blank to keep the current value.
+                  small.form-text.cloud-input-desc {{_ 'cloud-secret-keep-blank'}}
+                  small.form-text.cloud-input-path Same screen as the Access key ID; 'Secret access key' is shown only once when the key is created — copy it then (or Download .csv).
+                  small.form-text.cloud-input-path {{_ 's3-secret-key-menu-path'}}
+                .form-group
+                  .storage-rw-item
+                    input#s3-force-path-style(type="checkbox" checked=cloudValue.s3.forcePathStyle)
+                    label(for="s3-force-path-style") {{_ 's3-force-path-style'}}
+                  small.form-text.text-muted {{_ 's3-force-path-style-description'}}
+
+                .form-group
+                  button.js-test-cloud-connection.btn.btn-secondary(data-provider="s3") {{_ 'test-cloud-connection'}}
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="s3") {{_ 'save'}}
+                  if cloudTestResult.s3
+                    p.form-text.text-success {{_ 'cloud-connection-success'}}
+                  if cloudTestError.s3
+                    p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.s3}}
+
           else if isAzureActive
             ul#attachment-azure-setting.setting-detail
               li
@@ -290,19 +318,59 @@ template(name="attachments")
                     label(for="azure-read") {{_ 'storage-read'}}
 
                 .form-group
-                  label {{_ 'azure-account-name'}}
+                  button.js-calculate-azure-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
+                  if azureStatsLoading
+                    p.form-text.text-muted {{_ 'calculating-counts'}}
+                  if azureStatsError
+                    p.form-text.text-danger {{azureStatsError}}
+                  if hasAzureStats
+                    table.gridfs-stats-table
+                      tr
+                        th {{_ 'stats-scope'}}
+                        th {{_ 'stats-count'}}
+                      tr
+                        td {{_ 'attachments'}}
+                        td {{azureStats.attachments}}
+                      tr
+                        td {{_ 'avatars'}}
+                        td {{azureStats.avatars}}
+
+                .form-group
+                  label Storage account name
+                  small.form-text.cloud-input-label-tr {{_ 'azure-account-name'}}
                   input.wekan-form-control#azure-account-name(type="text" value=cloudValue.azure.accountName)
+                  small.form-text.cloud-input-example wekanstorage
+                  small.form-text.cloud-input-desc The name of your Azure Storage account.
+                  small.form-text.cloud-input-desc {{_ 'azure-account-name-description'}}
+                  small.form-text.cloud-input-path Azure Portal → Storage accounts → your account → name shown at the top (also under Security + networking → Access keys → Storage account name).
+                  small.form-text.cloud-input-path {{_ 'azure-account-name-menu-path'}}
                 .form-group
-                  label {{_ 'azure-account-key'}}
+                  label Storage account key
+                  small.form-text.cloud-input-label-tr {{_ 'azure-account-key'}}
                   input.wekan-form-control#azure-account-key(type="password" placeholder=cloudSecretPlaceholder.azure.accountKey)
-                  small.form-text.text-muted {{_ 'cloud-secret-keep-blank'}}
+                  small.form-text.cloud-input-example base64AccountKey==
+                  small.form-text.cloud-input-desc Leave blank to keep the current value.
+                  small.form-text.cloud-input-desc {{_ 'cloud-secret-keep-blank'}}
+                  small.form-text.cloud-input-path Azure Portal → Storage accounts → your account → Security + networking → Access keys → key1 → Show → Key.
+                  small.form-text.cloud-input-path {{_ 'azure-account-key-menu-path'}}
                 .form-group
-                  label {{_ 'azure-connection-string'}}
+                  label Connection string
+                  small.form-text.cloud-input-label-tr {{_ 'azure-connection-string'}}
                   input.wekan-form-control#azure-connection-string(type="password" placeholder=cloudSecretPlaceholder.azure.connectionString)
-                  small.form-text.text-muted {{_ 'azure-connection-string-description'}}
+                  small.form-text.cloud-input-example DefaultEndpointsProtocol=https;AccountName=wekanstorage;AccountKey=...;EndpointSuffix=core.windows.net
+                  small.form-text.cloud-input-desc Optional: use a full connection string instead of account name and key.
+                  small.form-text.cloud-input-desc {{_ 'azure-connection-string-description'}}
+                  small.form-text.cloud-input-path Azure Portal → Storage accounts → your account → Security + networking → Access keys → key1 → Connection string → Show.
+                  small.form-text.cloud-input-path {{_ 'azure-connection-string-menu-path'}}
                 .form-group
-                  label {{_ 'azure-container'}}
+                  label Container name
+                  small.form-text.cloud-input-label-tr {{_ 'azure-container'}}
                   input.wekan-form-control#azure-bucket(type="text" value=cloudValue.azure.bucket)
+                  small.form-text.cloud-input-example wekan-attachments
+                  small.form-text.cloud-input-desc The blob container to store files in.
+                  small.form-text.cloud-input-desc {{_ 'azure-container-description'}}
+                  small.form-text.cloud-input-path Azure Portal → Storage accounts → your account → Data storage → Containers → your container (or + Container to create one).
+                  small.form-text.cloud-input-path {{_ 'azure-container-menu-path'}}
 
                 .form-group
                   button.js-test-cloud-connection.btn.btn-secondary(data-provider="azure") {{_ 'test-cloud-connection'}}
@@ -325,18 +393,59 @@ template(name="attachments")
                     label(for="gcs-read") {{_ 'storage-read'}}
 
                 .form-group
-                  label {{_ 'gcs-project-id'}}
+                  button.js-calculate-gcs-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
+                  if gcsStatsLoading
+                    p.form-text.text-muted {{_ 'calculating-counts'}}
+                  if gcsStatsError
+                    p.form-text.text-danger {{gcsStatsError}}
+                  if hasGcsStats
+                    table.gridfs-stats-table
+                      tr
+                        th {{_ 'stats-scope'}}
+                        th {{_ 'stats-count'}}
+                      tr
+                        td {{_ 'attachments'}}
+                        td {{gcsStats.attachments}}
+                      tr
+                        td {{_ 'avatars'}}
+                        td {{gcsStats.avatars}}
+
+                .form-group
+                  label Project ID
+                  small.form-text.cloud-input-label-tr {{_ 'gcs-project-id'}}
                   input.wekan-form-control#gcs-project-id(type="text" value=cloudValue.gcs.projectId)
+                  small.form-text.cloud-input-example my-gcp-project-123456
+                  small.form-text.cloud-input-desc Your Google Cloud project id.
+                  small.form-text.cloud-input-desc {{_ 'gcs-project-id-description'}}
+                  small.form-text.cloud-input-path Google Cloud Console → project selector at the top → your project's ID (Cloud overview → Dashboard → Project info → Project ID).
+                  small.form-text.cloud-input-path {{_ 'gcs-project-id-menu-path'}}
                 .form-group
-                  label {{_ 'gcs-bucket'}}
+                  label Bucket name
+                  small.form-text.cloud-input-label-tr {{_ 'gcs-bucket'}}
                   input.wekan-form-control#gcs-bucket(type="text" value=cloudValue.gcs.bucket)
+                  small.form-text.cloud-input-example wekan-attachments
+                  small.form-text.cloud-input-desc The name of the Cloud Storage bucket to store files in.
+                  small.form-text.cloud-input-desc {{_ 'gcs-bucket-description'}}
+                  small.form-text.cloud-input-path Google Cloud Console → Cloud Storage → Buckets → your bucket name (or Create to make one).
+                  small.form-text.cloud-input-path {{_ 'gcs-bucket-menu-path'}}
                 .form-group
-                  label {{_ 'gcs-key-filename'}}
+                  label Service account key file path
+                  small.form-text.cloud-input-label-tr {{_ 'gcs-key-filename'}}
                   input.wekan-form-control#gcs-key-filename(type="text" value=cloudValue.gcs.keyFilename)
-                  small.form-text.text-muted {{_ 'gcs-key-filename-description'}}
+                  small.form-text.cloud-input-example /data/gcs-service-account.json
+                  small.form-text.cloud-input-desc Optional: path to a service account JSON key file on the server.
+                  small.form-text.cloud-input-desc {{_ 'gcs-key-filename-description'}}
+                  small.form-text.cloud-input-path Path on the WeKan server to the downloaded service account JSON key file (created below). Use this OR paste the JSON into the field below.
+                  small.form-text.cloud-input-path {{_ 'gcs-key-filename-menu-path'}}
                 .form-group
-                  label {{_ 'gcs-credentials'}}
+                  label Service account key (JSON)
+                  small.form-text.cloud-input-label-tr {{_ 'gcs-credentials'}}
                   textarea.wekan-form-control#gcs-credentials(rows="4" placeholder=cloudSecretPlaceholder.gcs.credentials)
+                  small.form-text.cloud-input-example { "type": "service_account", "project_id": "my-gcp-project", "client_email": "wekan@my-gcp-project.iam.gserviceaccount.com", "private_key": "-----BEGIN PRIVATE KEY-----..." }
+                  small.form-text.cloud-input-desc Optional: paste the service account JSON key. Leave blank to use the key file or default credentials.
+                  small.form-text.cloud-input-desc {{_ 'gcs-credentials-description'}}
+                  small.form-text.cloud-input-path Google Cloud Console → IAM & Admin → Service accounts → your service account → Keys → Add key → Create new key → JSON → Create (downloads the file). Paste its contents here, or save the file and set its path above.
+                  small.form-text.cloud-input-path {{_ 'gcs-credentials-menu-path'}}
                   small.form-text.text-muted {{_ 'gcs-credentials-description'}}
 
                 .form-group
@@ -376,6 +485,39 @@ template(name="moveAttachments")
           option(value="gcs") {{_ 'move-storage-gcs'}}
           option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
     button.js-move-all-attachments.btn.btn-primary {{_ 'move-all-attachments'}}
+
+  if lastMove
+    .move-last-operation
+      span.emoji-icon
+      i.fa.fa-info-circle
+      |  {{_ 'attachment-last-move'}}: {{lastMoveText}}
+
+  .move-repair-section
+    h4 {{_ 'attachment-repair-locations'}}
+    .description {{_ 'attachment-repair-locations-description'}}
+    button.js-repair-attachment-locations.btn.btn-secondary(type="button") {{_ 'attachment-repair-locations'}}
+    if repairLoading
+      p.form-text.text-muted {{_ 'attachment-repair-running'}}
+    if repairError
+      p.form-text.text-danger {{repairError}}
+    if repairResult
+      p.form-text.text-success {{_ 'attachment-repair-done'}}
+      table.gridfs-stats-table
+        tr
+          th {{_ 'stats-scope'}}
+          th {{_ 'attachment-repair-scanned'}}
+          th {{_ 'attachment-repair-repaired'}}
+          th {{_ 'attachment-repair-broken'}}
+        tr
+          td {{_ 'attachments'}}
+          td {{repairResult.attachments.scanned}}
+          td {{repairResult.attachments.repaired}}
+          td {{repairResult.attachments.broken}}
+        tr
+          td {{_ 'avatars'}}
+          td {{repairResult.avatars.scanned}}
+          td {{repairResult.avatars.repaired}}
+          td {{repairResult.avatars.broken}}
 
   if moveProgress
     .move-progress-section
