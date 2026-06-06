@@ -290,6 +290,10 @@ do
 			unset CHROME_DEVEL_SANDBOX
 			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
 			export WEKAN_PLAYWRIGHT_ALL=1
+			read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
+			case "$INSTALL_DEPS" in
+				[Yy]*) meteor npm install ;;
+			esac
 			meteor npm exec playwright test -- --project=chromium
 			break
 			;;
@@ -301,6 +305,10 @@ do
 			unset CHROME_DEVEL_SANDBOX
 			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
 			export WEKAN_PLAYWRIGHT_ALL=1
+			read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
+			case "$INSTALL_DEPS" in
+				[Yy]*) meteor npm install ;;
+			esac
 			meteor npm exec playwright test -- --project=firefox
 			break
 			;;
@@ -312,6 +320,10 @@ do
 			unset CHROME_DEVEL_SANDBOX
 			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
 			export WEKAN_PLAYWRIGHT_ALL=1
+			read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
+			case "$INSTALL_DEPS" in
+				[Yy]*) meteor npm install ;;
+			esac
 			meteor npm exec playwright test -- --project=webkit
 			break
 			;;
