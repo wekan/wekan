@@ -28,6 +28,13 @@ Versions:
 
 # Upcoming WeKan ® release
 
+TLDR:
+- Admin Panel/Attachments/Move Files works: CollectionFS/Meteor-Files/S3/Azure Blob/Google Cloud Storage.
+- To have attachments and avatars visible, move them from CollectionFS to any other Storage
+- To upgrade, mongodump/mongorestore (older with [LD_LIBRARY_PATH](https://github.com/wekan/wekan/blob/main/docs/Backup/Backup.md#backup-wekan-snap-to-directory-dump))
+  to MongoDB 7.x, and copy WRITABLE_PATH files/attachments/avatars if exists,
+  at Snap /var/snap/wekan/common/files/, at Docker /data/files etc.
+
 This release adds the following [CRITICAL SECURITY FIXES](https://github.com/wekan/wekan/commit/357de728c03113b787065bac2c5832ad77f1a117):
 
 - [Fix GHSA-qfqv-42qw-vvwh: `cloneBoard` Meteor method has no authorization check — any user can clone (read) any private board by ID (CWE-639, CWE-862)](https://github.com/wekan/wekan/security/advisories/GHSA-qfqv-42qw-vvwh).
