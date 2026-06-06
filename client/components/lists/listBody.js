@@ -194,6 +194,19 @@ Template.listBody.onCreated(function () {
     const clickedLinkedReference = $target.closest('.js-linked-link').length > 0;
     const clickedChecklist = $target.closest('.minicard-checklist').length > 0;
 
+    // When multi-selection is active (or Shift is held), a click anywhere on the
+    // minicard toggles its selection. This must be checked before the title and
+    // checklist handlers below, otherwise clicking a card's title (which covers
+    // most of the minicard) would open the card details instead of (de)selecting
+    // it, making it impossible to check some cards in multi-selection mode.
+    if (MultiSelection.isActive() || evt.shiftKey) {
+      evt.stopImmediatePropagation();
+      evt.preventDefault();
+      const methodName = evt.shiftKey ? 'toggleRange' : 'toggle';
+      MultiSelection[methodName](card._id);
+      return;
+    }
+
     if (clickedChecklist) {
       evt.preventDefault();
       evt.stopPropagation();
@@ -214,16 +227,7 @@ Template.listBody.onCreated(function () {
       return;
     }
 
-    if (MultiSelection.isActive() || evt.shiftKey) {
-      evt.stopImmediatePropagation();
-      evt.preventDefault();
-      const methodName = evt.shiftKey ? 'toggleRange' : 'toggle';
-      MultiSelection[methodName](card._id);
-
-      // If the card is already selected, we want to de-select it.
-      // XXX We should probably modify the minicard href attribute instead of
-      // overwriting the event in case the card is already selected.
-    } else if (Utils.isMiniScreen()) {
+    if (Utils.isMiniScreen()) {
       evt.preventDefault();
       Session.set('popupCardId', card._id);
       this.cardDetailsPopup(evt);
@@ -244,9 +248,18 @@ Template.listBody.onCreated(function () {
   };
 
   this.toggleMultiSelection = (evt) => {
-    evt.stopPropagation();
+    evt.stopImmediatePropagation();
     evt.preventDefault();
-    MultiSelection.toggle(Template.currentData()._id);
+    // Resolve the card from the clicked checkbox element. Using
+    // Blaze.getData(evt.currentTarget) is reliable for the per-card data
+    // context, whereas Template.currentData() can resolve to the enclosing
+    // list context and toggle the wrong id (so the checkbox appears to do
+    // nothing). Falls back to Template.currentData() just in case.
+    const card =
+      Blaze.getData(evt.currentTarget) || Template.currentData();
+    if (card && card._id) {
+      MultiSelection.toggle(card._id);
+    }
   };
 
   this.cardDetailsPopup = (event) => {

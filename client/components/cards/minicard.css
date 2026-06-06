@@ -28,6 +28,18 @@
 .minicard-wrapper .multi-selection-checkbox + .minicard {
   margin-left: 1vw;
 }
+/* Enlarge the clickable area of the small selection checkbox so it can be
+   reliably clicked at the left side of the minicard. The visible 13px box (and
+   its rotated is-checked checkmark) keep their size; an invisible overlay only
+   extends the hit target. */
+.minicard-wrapper .multi-selection-checkbox::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+}
 @media only screen {
   .minicard {
     padding: 8px 1vw 3px;
