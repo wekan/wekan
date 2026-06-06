@@ -378,7 +378,15 @@ services:
       # LDAP_SEARCH_SIZE_LIMIT : The limit number of entries (0=unlimited)
       # example : LDAP_SEARCH_SIZE_LIMIT=12345
       - LDAP_SEARCH_SIZE_LIMIT=0
-      # LDAP_GROUP_FILTER_ENABLE : Enable group filtering
+      # LDAP_GROUP_FILTER_ENABLE : Enable the login restriction group filter.
+      # When true, only members of LDAP_GROUP_FILTER_GROUP_NAME are allowed to log in.
+      # NOTE: This flag ONLY controls the login restriction. Admin status sync
+      # (LDAP_SYNC_ADMIN_STATUS / LDAP_SYNC_ADMIN_GROUPS) and group->role sync
+      # (LDAP_SYNC_GROUP_ROLES) query LDAP groups independently and do NOT require
+      # this flag to be true. The group filter metadata below
+      # (LDAP_GROUP_FILTER_OBJECTCLASS, LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE,
+      # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT, LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE)
+      # must still be configured for any group search to work.
       # example : LDAP_GROUP_FILTER_ENABLE=true
       - LDAP_GROUP_FILTER_ENABLE=false
       # LDAP_GROUP_FILTER_OBJECTCLASS : The object class for filtering

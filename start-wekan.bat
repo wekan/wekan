@@ -609,7 +609,15 @@ REM # LDAP_SEARCH_SIZE_LIMIT : The limit number of entries (0=unlimited)
 REM #33 example : LDAP_SEARCH_SIZE_LIMIT=12345
 REM SET LDAP_SEARCH_SIZE_LIMIT=0
 
-REM # LDAP_GROUP_FILTER_ENABLE : Enable group filtering
+REM # LDAP_GROUP_FILTER_ENABLE : Enable the login restriction group filter.
+REM # When true, only members of LDAP_GROUP_FILTER_GROUP_NAME are allowed to log in.
+REM # NOTE: This flag ONLY controls the login restriction. Admin status sync
+REM # (LDAP_SYNC_ADMIN_STATUS / LDAP_SYNC_ADMIN_GROUPS) and group->role sync
+REM # (LDAP_SYNC_GROUP_ROLES) query LDAP groups independently and do NOT require
+REM # this flag to be true. The group filter metadata below
+REM # (LDAP_GROUP_FILTER_OBJECTCLASS, LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE,
+REM # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT, LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE)
+REM # must still be configured for any group search to work.
 REM # example : LDAP_GROUP_FILTER_ENABLE=true
 REM SET LDAP_GROUP_FILTER_ENABLE=false
 
@@ -681,6 +689,12 @@ REM # example :
 REM # SET LDAP_SYNC_GROUP_ROLES=
 
 REM # Enable/Disable syncing of admin status based on ldap groups:
+REM # NOTE: Admin status sync and group->role sync (LDAP_SYNC_GROUP_ROLES) query
+REM # LDAP groups on their own. They no longer require LDAP_GROUP_FILTER_ENABLE=true,
+REM # which only controls the login restriction filter. The group filter metadata
+REM # (LDAP_GROUP_FILTER_OBJECTCLASS, LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE,
+REM # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT, LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE)
+REM # must still be configured for the group search to work.
 REM SET LDAP_SYNC_ADMIN_STATUS=true
 
 REM # Comma separated list of admin group names to sync.

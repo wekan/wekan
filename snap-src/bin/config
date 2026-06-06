@@ -458,7 +458,7 @@ DESCRIPTION_LDAP_SEARCH_SIZE_LIMIT="The limit number of entries (0=unlimited)"
 DEFAULT_LDAP_SEARCH_SIZE_LIMIT="0"
 KEY_LDAP_SEARCH_SIZE_LIMIT="ldap-search-size-limit"
 
-DESCRIPTION_LDAP_GROUP_FILTER_ENABLE="Enable group filtering"
+DESCRIPTION_LDAP_GROUP_FILTER_ENABLE="Enable the login restriction group filter (only members of ldap-group-filter-group-name may log in). This does NOT gate admin status sync (ldap-sync-admin-status) or group/role sync (ldap-sync-group-roles), which query LDAP groups independently. The ldap-group-filter-* metadata must still be set for any group search."
 DEFAULT_LDAP_GROUP_FILTER_ENABLE="false"
 KEY_LDAP_GROUP_FILTER_ENABLE="ldap-group-filter-enable"
 
@@ -530,7 +530,7 @@ DESCRIPTION_LDAP_SYNC_GROUP_ROLES="ldap-sync-group-roles . Default: '' (empty)."
 DEFAULT_LDAP_SYNC_GROUP_ROLES=""
 KEY_LDAP_SYNC_GROUP_ROLES="ldap-sync-group-roles"
 
-DESCRIPTION_LDAP_SYNC_ADMIN_STATUS="Enable/Disable syncing of admin status based on LDAP groups. Example: true"
+DESCRIPTION_LDAP_SYNC_ADMIN_STATUS="Enable/Disable syncing of admin status based on LDAP groups. Does not require ldap-group-filter-enable=true (that flag only controls login restriction); the ldap-group-filter-* metadata must still be set. Example: true"
 DEFAULT_LDAP_SYNC_ADMIN_STATUS=""
 KEY_LDAP_SYNC_ADMIN_STATUS="ldap-sync-admin-status"
 

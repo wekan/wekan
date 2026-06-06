@@ -364,7 +364,19 @@ export default class LDAP {
   }
 
   async getUserGroups(username, ldapUser) {
-    if (!this.options.group_filter_enabled) {
+    // The LDAP group search is needed by three independent features:
+    //   - the login restriction filter (LDAP_GROUP_FILTER_ENABLE, via isUserInGroup)
+    //   - admin status sync (LDAP_SYNC_ADMIN_STATUS / LDAP_SYNC_ADMIN_GROUPS)
+    //   - group->role sync (LDAP_SYNC_GROUP_ROLES)
+    // Previously this short-circuited on group_filter_enabled only, which made
+    // admin/role sync silently unreachable unless the login-restriction filter
+    // was also enabled. Gate on any consumer being enabled so the concerns are
+    // decoupled, while still skipping the query when no feature needs groups.
+    const groupFilterEnabled = this.options.group_filter_enabled;
+    const adminSyncEnabled    = this.constructor.settings_get('LDAP_SYNC_ADMIN_STATUS') === true;
+    const groupRolesSync      = this.constructor.settings_get('LDAP_SYNC_GROUP_ROLES') === true;
+
+    if (!groupFilterEnabled && !adminSyncEnabled && !groupRolesSync) {
       return [];
     }
 
