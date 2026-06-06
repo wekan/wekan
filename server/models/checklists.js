@@ -8,6 +8,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { backfillBoardIdFromCard } from '/server/lib/denormalizeBoardId';
 
 Meteor.methods({
   async moveChecklist(checklistId, newCardId) {
@@ -66,9 +67,40 @@ Meteor.methods({
   },
 });
 
+// --- Denormalized boardId (see models/checklists.js schema) -----------------
+// Set boardId from the card on insert, and re-sync it whenever the checklist is
+// moved to another card, so the board publication can filter checklists by a
+// single reactive cursor on boardId and still see checklists on newly added
+// cards. Server-authoritative: the board publication runs on the server, so the
+// server document carrying boardId is what matters.
+Checklists.before.insert(async (userId, doc) => {
+  if (!doc.boardId && doc.cardId) {
+    const card = await ReactiveCache.getCard(doc.cardId);
+    if (card) {
+      doc.boardId = card.boardId;
+    }
+  }
+});
+
+Checklists.before.update(async (userId, doc, fieldNames, modifier) => {
+  const newCardId = modifier && modifier.$set && modifier.$set.cardId;
+  if (newCardId && newCardId !== doc.cardId) {
+    const card = await ReactiveCache.getCard(newCardId);
+    if (card) {
+      modifier.$set.boardId = card.boardId;
+    }
+  }
+});
+
 Meteor.startup(async () => {
   await ensureIndex(Checklists, { modifiedAt: -1 });
   await ensureIndex(Checklists, { cardId: 1, createdAt: 1 });
+  await ensureIndex(Checklists, { boardId: 1 });
+  // Backfill existing rows in the background (memory-safe, idempotent) so it
+  // never blocks or OOMs startup. New checklists already get boardId on insert.
+  Meteor.defer(() => {
+    backfillBoardIdFromCard(Checklists, { label: 'checklists' });
+  });
 });
 
 Checklists.after.insert(async (userId, doc) => {

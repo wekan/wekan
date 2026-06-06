@@ -283,95 +283,75 @@ publishComposite('board', async function(boardId, isArchived) {
           }
 
           return await ReactiveCache.getCards(cardSelector, {}, true);
-        }
+        },
+        // Comments and attachments are published as CHILDREN of the cards
+        // cursor so they react to newly added cards (publish-composite runs them
+        // per card as it appears). Checklists and checklist items are instead
+        // published below as single board-level cursors filtered by their
+        // denormalized boardId — same reactivity for new cards, but one cursor
+        // per collection instead of one per card. (They used to be batched at
+        // board level with a static `cardId: { $in: cardIds }` snapshot that did
+        // not react to new cards, so a new checklist on a new card only appeared
+        // after logout/login.)
+        children: [
+          // CardComments for each card
+          {
+            async find(card) {
+              return await ReactiveCache.getCardComments({ cardId: card._id }, {}, true);
+            }
+          },
+          // Attachments for each card
+          {
+            async find(card) {
+              const result = await ReactiveCache.getAttachments({ 'meta.cardId': card._id }, {}, true);
+              return result.cursor || result;
+            }
+          },
+        ]
       },
-      // Batch CardComments for all cards
+      // Checklists for the whole board — a single cursor on the denormalized
+      // boardId, so checklists on newly added cards publish reactively without a
+      // per-card-id snapshot that goes stale.
       {
         async find(board) {
-          const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
-            archived: isArchived,
-          };
-
+          const boardIds = [board._id];
+          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
+          // Assigned-only members must not receive checklists for cards they are
+          // not assigned to; boardId alone cannot express that, so fall back to
+          // the assigned cards' ids for those members.
           if (thisUserId && board.members) {
             const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
+              const cards = await ReactiveCache.getCards(
+                { boardId: { $in: boardIds }, archived: isArchived, assignees: { $in: [thisUserId] } },
+                { fields: { _id: 1 } },
+                false,
+              );
+              const cardIds = (cards || []).map(c => c._id);
+              return await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true);
             }
           }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const cardIds = cards.map(c => c._id);
-          return await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true);
+          return await ReactiveCache.getChecklists({ boardId: { $in: boardIds } }, {}, true);
         }
       },
-      // Batch Attachments for all cards
+      // ChecklistItems for the whole board — single cursor on denormalized boardId
       {
         async find(board) {
-          const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
-            archived: isArchived,
-          };
-
+          const boardIds = [board._id];
+          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           if (thisUserId && board.members) {
             const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
+              const cards = await ReactiveCache.getCards(
+                { boardId: { $in: boardIds }, archived: isArchived, assignees: { $in: [thisUserId] } },
+                { fields: { _id: 1 } },
+                false,
+              );
+              const cardIds = (cards || []).map(c => c._id);
+              return await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true);
             }
           }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const cardIds = cards.map(c => c._id);
-          const result = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true);
-          return result.cursor || result;
-        }
-      },
-      // Batch Checklists for all cards
-      {
-        async find(board) {
-          const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const cardIds = cards.map(c => c._id);
-          return await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true);
-        }
-      },
-      // Batch ChecklistItems for all cards
-      {
-        async find(board) {
-          const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const cardIds = cards.map(c => c._id);
-          return await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true);
+          return await ReactiveCache.getChecklistItems({ boardId: { $in: boardIds } }, {}, true);
         }
       },
       // Parent cards (for subtasks)

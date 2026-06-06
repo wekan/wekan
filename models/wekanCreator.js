@@ -719,12 +719,15 @@ export class WekanCreator {
     }
   }
 
-  async createChecklists(wekanChecklists) {
+  async createChecklists(wekanChecklists, boardId) {
     const result = [];
     for (const [checklistIndex, checklist] of wekanChecklists.entries()) {
       // Create the checklist
       const checklistToCreate = {
         cardId: this.cards[checklist.cardId],
+        // Denormalized boardId; .direct.insert bypasses the before.insert hook
+        // that would otherwise derive it, so set it explicitly here.
+        boardId,
         title: checklist.title,
         createdAt: checklist.createdAt,
         sort: checklist.sort ? checklist.sort : checklistIndex,
@@ -777,7 +780,7 @@ export class WekanCreator {
     }
   }
 
-  async createChecklistItems(wekanChecklistItems) {
+  async createChecklistItems(wekanChecklistItems, boardId) {
     for (const [checklistitemIndex, checklistitem] of wekanChecklistItems.entries()) {
       //Check if the checklist for this item (still) exists
       //If a checklist was deleted, but items remain, the import would error out here
@@ -788,6 +791,7 @@ export class WekanCreator {
           title: checklistitem.title,
           checklistId: this.checklists[checklistitem.checklistId],
           cardId: this.cards[checklistitem.cardId],
+          boardId,
           sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
           isFinished: checklistitem.isFinished,
         };
@@ -1013,8 +1017,8 @@ export class WekanCreator {
     await this.createCustomFields(board.customFields, boardId);
     await this.createCards(board.cards, boardId);
     await this.createSubtasks(board.cards);
-    await this.createChecklists(board.checklists);
-    await this.createChecklistItems(board.checklistItems);
+    await this.createChecklists(board.checklists, boardId);
+    await this.createChecklistItems(board.checklistItems, boardId);
     await this.importActivities(board.activities, boardId);
     await this.createTriggers(board.triggers, boardId);
     await this.createActions(board.actions, boardId);

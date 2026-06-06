@@ -588,12 +588,15 @@ export class TrelloCreator {
     this.swimlane = swimlaneId;
   }
 
-  async createChecklists(trelloChecklists) {
+  async createChecklists(trelloChecklists, boardId) {
     for (const checklist of trelloChecklists) {
       if (this.cards[checklist.idCard]) {
         // Create the checklist
         const checklistToCreate = {
           cardId: this.cards[checklist.idCard],
+          // Denormalized boardId; .direct.insert bypasses the before.insert hook
+          // that would otherwise derive it, so set it explicitly here.
+          boardId,
           title: checklist.name,
           createdAt: this._now(),
           sort: checklist.pos,
@@ -610,6 +613,7 @@ export class TrelloCreator {
             title: item.name,
             checklistId: this.checklists[checklist.id],
             cardId: this.cards[checklist.idCard],
+            boardId,
             sort: item.pos,
             isFinished: item.state === 'complete',
           };
@@ -806,7 +810,7 @@ export class TrelloCreator {
     await this.createLists(board.lists, boardId);
     await this.createSwimlanes(boardId);
     await this.createCards(board.cards, boardId);
-    await this.createChecklists(board.checklists);
+    await this.createChecklists(board.checklists, boardId);
     await this.importActions(board.actions, boardId);
     // XXX add members
     return boardId;

@@ -18,6 +18,17 @@ Checklists.attachSchema(
        */
       type: String,
     },
+    boardId: {
+      /**
+       * The ID of the board the checklist's card is on. Denormalized from the
+       * card so the board publication can publish checklists with a single
+       * reactive cursor filtered by boardId (a new checklist on a new card then
+       * publishes reactively). Kept in sync on insert, on checklist move to
+       * another card, and when the card moves to another board.
+       */
+      type: String,
+      optional: true,
+    },
     title: {
       /**
        * the title of the checklist
@@ -94,12 +105,16 @@ Checklists.helpers({
     let copyObj = Object.assign({}, this);
     delete copyObj._id;
     copyObj.cardId = newCardId;
+    // Drop the copied boardId so the server before.insert hook re-derives it
+    // from the destination card (which may be on a different board).
+    delete copyObj.boardId;
     const newChecklistId = await Checklists.insertAsync(copyObj);
     const items = await ReactiveCache.getChecklistItems({ checklistId: this._id });
     for (const item of items) {
       item._id = null;
       item.checklistId = newChecklistId;
       item.cardId = newCardId;
+      delete item.boardId;
       await ChecklistItems.insertAsync(item);
     }
   },

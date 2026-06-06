@@ -21,6 +21,8 @@ import Cards, {
   updateActivities,
 } from '/models/cards';
 import Lists from '/models/lists';
+import Checklists from '/models/checklists';
+import ChecklistItems from '/models/checklistItems';
 import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
@@ -423,6 +425,17 @@ Cards.after.insert(async (userId, doc) => {
 
 Cards.after.update(async (userId, doc, fieldNames) => {
   await cardState(userId, doc, fieldNames);
+});
+
+// When a card moves to another board, re-sync the denormalized boardId on its
+// checklists and checklist items so the board publication — which filters those
+// collections by boardId — shows them on the destination board. Uses .direct to
+// skip the activity/derivation hooks (the docs' cardId did not change).
+Cards.after.update(async (userId, doc, fieldNames) => {
+  if (!fieldNames.includes('boardId')) return;
+  const boardId = doc.boardId;
+  await Checklists.direct.updateAsync({ cardId: doc._id }, { $set: { boardId } }, { multi: true });
+  await ChecklistItems.direct.updateAsync({ cardId: doc._id }, { $set: { boardId } }, { multi: true });
 });
 
 Cards.after.update(async function(userId, doc, fieldNames) {

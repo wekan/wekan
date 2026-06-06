@@ -42,6 +42,17 @@ ChecklistItems.attachSchema(
        */
       type: String,
     },
+    boardId: {
+      /**
+       * The ID of the board the item's card is on. Denormalized from the card
+       * so the board publication can publish checklist items with a single
+       * reactive cursor filtered by boardId. Kept in sync on insert, on the
+       * item / its checklist moving to another card, and when the card moves to
+       * another board.
+       */
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       optional: true,
