@@ -34,6 +34,10 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix MultiSelect, so that it's possible to click select checkbox or minicard to select](https://github.com/wekan/wekan/commit/9cc066041040074befcf3dea49e7ef37b22816cc).
   Thanks to xet7 and Claude.
+- [Fix LDAP_SYNC_ADMIN_GROUPS](https://github.com/wekan/wekan/commit/3fe8f602c8c5ade128f5d7e439bff47f51a28045).
+  so that admin status sync and group/role sync no longer require
+  LDAP_GROUP_FILTER_ENABLE=true, which only controls the login restriction filter
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
