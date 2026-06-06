@@ -46,7 +46,7 @@ This release adds the following [CRITICAL SECURITY FIXES](https://github.com/wek
   the export route uses before building/cloning the board, so cloning a board
   now requires the same read authorization as exporting it.
   CVSS 6.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N).
-  Thanks to dizconnectz for the coordinated disclosure, and Claude.
+  Thanks to dizconnectz for the coordinated disclosure, xet7 and Claude.
 
 and, while fixing the above, the following similar authorization issues found by code review were fixed (the [CloneBleed](https://wekan.fi/hall-of-fame/clonebleed/) group):
 
@@ -98,7 +98,7 @@ and, while fixing the above, the following similar authorization issues found by
     to the caller — the same PositionHistoryBleed class fixed in v8.20/v8.21.
     All four now require board visibility (via the shared `isVisibleBy` guard)
     before reading or restoring position history scoped to a board.
-  Thanks to Claude.
+  Thanks to xet7 and Claude.
 
 and, while auditing that client-side permission checks are also enforced server-side, the following gaps where the server did not re-verify a UI-gated permission were fixed:
 
@@ -126,7 +126,7 @@ and, while auditing that client-side permission checks are also enforced server-
     authenticated user could trigger the server to send an SMTP test (and have
     the server's SMTP error messages surfaced to them), although the UI gates it
     behind global admin. Now requires global admin.
-  Thanks to Claude.
+  Thanks to xet7 and Claude.
 
 and, in the same access-control audit, the attachment write API was tightened:
 
@@ -140,10 +140,58 @@ and, in the same access-control audit, the attachment write API was tightened:
   forbids for those roles. They now require board write access (global site
   admins still allowed); read operations (download / list / info) keep
   membership-level access. Added security tests in
-  `server/lib/tests/attachmentApi.tests.js`. Thanks to Claude.
+  `server/lib/tests/attachmentApi.tests.js`.
+  Thanks to xet7 and Claude.
 
 and adds the following new features:
 
+- **[Admin Panel / Attachments](https://github.com/wekan/wekan/commit/a86a087915aac9d204e157b1a698091c079e04e6):
+  "Calculate file counts" on every storage backend,
+  shown right below the "Read" toggle.** Azure Blob Storage and Google Cloud
+  Storage now have a "Calculate file counts" button (new `getAzureStorageStats` /
+  `getGcsStorageStats` methods) that reports how many attachments and avatars are
+  stored on that backend, matching what Filesystem, MongoDB GridFS and S3 already
+  offer. The count is read from the stored file metadata (fast, no cloud API
+  calls). The S3 button was also moved up to sit directly under its "Read"
+  checkbox, so all backends are consistent. Thanks to Claude.
+- **Admin Panel / Attachments: bilingual, self-documenting cloud-storage fields
+  (S3, Azure and Google Cloud Storage).** Each cloud-storage setting now guides
+  the admin from top to bottom with both English and translated text, so it is
+  easy to follow along while clicking through the provider's Cloud Console:
+  - the field **label** uses the provider's own console wording in English
+    (e.g. *Access key ID*, *Secret access key*, *Storage account key*,
+    *Service account key (JSON)*), with the translated label shown below it;
+  - a literal **example** of what the value should look like
+    (e.g. `eu-west-1`, an example bucket name / endpoint / connection string),
+    which is intentionally not translated;
+  - a short **description** of the value, in English and then translated;
+  - the **Cloud Console menu path** showing exactly where to find or create the
+    value (e.g. *AWS Console → IAM → Users → your user → Security credentials →
+    Access keys → Create access key*; *Azure Portal → Storage accounts → your
+    account → Access keys → key1*; *Google Cloud Console → IAM & Admin →
+    Service accounts → … → Keys → Add key → Create new key → JSON*), again in
+    English and then translated.
+  The provider field names, examples and menu paths are kept in English so they
+  match what the Cloud Console actually shows, while the descriptions and menu
+  paths are also translatable; section titles, the enable/read/force-path-style
+  checkboxes and the Test/Save buttons remain fully translated. Thanks to Claude.
+- **Admin Panel / Attachments / Move Attachment: "Repair file locations" button
+  and a persistent "last move" message.** The new **Repair file locations** button
+  scans all attachments and avatars and finds any whose recorded storage
+  (`versions.<v>.storage` / `path` / `meta.gridFsFileId`) no longer matches where
+  the binary actually is — left inconsistent by an interrupted or failed move —
+  and fixes the database to point at the real location: it detects the binary in
+  GridFS (by the `metadata.fileId` stamped on upload, recovering files whose
+  GridFS id reference was lost) or on the filesystem (using the storage
+  strategy's own thorough path resolution, so the repair agrees with what a real
+  download/move would find even when `versions.<v>.path` is stale), then corrects
+  `storage`, `path` and `meta.gridFsFileId` accordingly. Cloud-stored files are
+  left untouched, and files found nowhere are reported as "Not found". The scan is
+  streamed (memory-safe) and shows a per-scope searched / repaired / not-found
+  summary. Separately, after a move finishes the page now keeps showing
+  the last move operation — source → destination (scope) and the date/time as
+  `YYYY-MM-DD HH:MM:SS` — so it is clear what was last done.
+  Thanks to xet7 and Claude.
 - **SVG image uploads are now sanitized instead of rejected.** Uploaded SVGs
   (attachments and avatars) are cleaned in place in `onAfterUpload` via the new
   `models/lib/sanitizeSvg.js`, which removes JavaScript (`<script>`, inline
@@ -170,7 +218,8 @@ and adds the following new features:
   moving avatars to GridFS/cloud would have updated the wrong collection. The
   factory now carries its collection (`Attachments` or `Avatars`), so **avatars
   can be stored in Meteor-Files GridFS and cloud**, not only on the filesystem.
-  Attachment behavior is unchanged. Thanks to Claude.
+  Attachment behavior is unchanged.
+  Thanks to xet7 and Claude.
 
 and adds the following updates:
 
@@ -185,10 +234,68 @@ and adds the following updates:
   `/api/attachment/*` endpoints registered via `WebApp.handlers.use()`, which the
   generator cannot auto-discover) are now documented in `openapi/extra_paths.yml`
   and injected into the generated docs, including their authentication and
-  permission requirements. Thanks to Claude.
+  permission requirements.
+  Thanks to xet7 and Claude.
 
 and adds the following fixes:
 
+- **[Fixed moving attachments to S3](https://github.com/wekan/wekan/commit/a86a087915aac9d204e157b1a698091c079e04e6)
+  (and other cloud storage) failing and crashing the server.**
+  Uploading to S3 failed two ways, each of which crashed
+  the whole server because the rejection was unhandled and SyncedCron treats
+  those as fatal. The `@tweedegolf/sab-adapter-amazon-s3` adapter uploaded with a
+  `PutObjectCommand` whose `Body` was a live stream: (1) with no `ContentLength`
+  the AWS SDK fell back to a chunked signed upload that needs a decoded content
+  length, which was undefined for a stream of unknown size — `Invalid value
+  "undefined" for header "x-amz-decoded-content-length"`; and (2) if the socket
+  dropped mid-upload (`socket hang up`), the SDK's body-stream promise rejected
+  unhandled. Fixed by uploading the file as a complete in-memory **buffer**
+  (`addFileFromBuffer`) instead of a live stream: a buffer has a known length (no
+  content-length error) and no socket-bound stream to re-reject. The cloud upload
+  promise now never rejects — any failure is captured and exposed via
+  `waitUntilStored()`, which `moveToStorage` checks inside a try/catch so a failed
+  upload leaves the source file intact and is logged cleanly. (Files are moved one
+  at a time, so peak memory is one file.) Thanks to Claude.
+- **Fixed `TypeError: Cannot read properties of undefined (reading 'on')` when
+  moving attachments between Meteor-Files/GridFS and Filesystem.** If a file's
+  source binary was missing at its recorded location (e.g. a file left
+  half-moved by an earlier interrupted run — storage says "gridfs" but the
+  GridFS id reference is gone, or a filesystem path that no longer exists),
+  `getReadStream()`/`getWriteStream()` returned `undefined` and `moveToStorage`
+  (and `copyFile`) called `.on()` on it, throwing. Both now detect a missing
+  read/write stream, log a clear message (which file, version, from→to storage,
+  and why), **skip that file and leave the source intact** so no data is lost,
+  and continue with the rest. Use the new "Repair file locations" button to fix
+  the underlying inconsistent records. Thanks to Claude.
+- **Fixed moving attachments/avatars from CollectionFS to Meteor-Files crashing
+  the server, hanging the Admin Panel move at "File 1 / N", and leaving broken
+  avatars.** Three problems in Admin Panel / Attachments / Move Attachment:
+  - **Server crash on the first file** (`uncaughtException: TypeError: Cannot read
+    properties of undefined (reading '_id')` at
+    `AttachmentStoreStrategyGridFs.writeStreamFinished`). The current mongodb
+    driver's GridFS `GridFSBucketWriteStream` `'finish'` event no longer passes
+    the stored file document, so `finishedData._id` threw and killed the process
+    (which is also why the move appeared stuck at "File 1 / 4" — the background
+    job died mid-file and its persisted status was frozen). The GridFS strategy
+    now reads the uploaded file id from the write stream itself (`gridFSFile._id`
+    / `id`), the `'finish'` handler is wrapped so it can never crash the process,
+    and a startup reconciliation clears a stale "running" move status left by a
+    crashed run so the UI un-sticks and a new move can be started.
+  - **Broken avatar after migrating avatars.** The bulk move only repointed card
+    cover references (`cards.coverId`); a user's `profile.avatarUrl` still pointed
+    at the deleted legacy `/cfs/files/avatars/<oldId>` URL, so the avatar rendered
+    broken. The move now repoints `profile.avatarUrl` to the migrated avatar
+    (`remapReferences` handles avatars), and migrated files stamp
+    `meta.migratedFromId` so references can be repaired to the **exact** new file.
+    The startup repair in `server/models/users.js` (previously a no-op: it
+    string-replaced the URL prefix while keeping the now-deleted id and never
+    saved the document) now points each affected user's avatar at their migrated
+    Meteor-Files avatar — matched precisely by `meta.migratedFromId`, otherwise
+    strictly by `userId` (newest migrated avatar first), so a user can only ever
+    be given their own avatar, never another user's.
+  - **`ObjectID` deprecation warning** from `models/lib/grid/createObjectId.js`
+    (`MongoInternals.NpmModule.ObjectID` → `ObjectId`).
+  Thanks to xet7 and Claude.
 - [Fix Dropdown list cannot be created with values](https://github.com/wekan/wekan/commit/e01f99eb52812df5e2754c193860002ec2716ecb).
   - **Fixed Dropdown custom field options not being addable / saving as empty.**
     Creating a "Dropdown" custom field showed the "List Options" box, but pressing
@@ -213,7 +320,7 @@ and adds the following fixes:
     stray `%`. `TAPi18n.__` now retries without the sprintf post-processor when it
     throws, returning the raw string (so `%{value}` is shown literally) instead of
     crashing.
-  Thanks to rouceto1 and Claude.
+  Thanks to rouceto1, xet7 and Claude.
 - [Fixed new checklists (and checklist items) on a newly added card not being visible until logout/login](https://github.com/wekan/wekan/commit/075e86b00e1f0dc0dea519acd37cece4d0a1fad3).
   The `board` publication batched checklists,
   checklist items, comments and attachments into board-level cursors filtered by
@@ -238,7 +345,7 @@ and adds the following fixes:
   children of the cards cursor. Assigned-only board members still only receive
   checklists for cards assigned to them (the board-level cursor falls back to the
   assigned cards' ids for those roles).
-  Thanks to ahlgrimma and Claude.
+  Thanks to ahlgrimma, xet7 and Claude.
 - [Fixed SyncedCron crash](https://github.com/wekan/wekan/commit/72767ad9a769fee2548f93bbd7174edd69995e97).
   **Fixed deleting archived lists (or many cards) crashing the server with
   `SyncedCron: Fatal error encountered (unhandledRejection): TypeError: Cannot
@@ -263,7 +370,7 @@ and adds the following fixes:
   `publishChekListCompleted` / `publishChekListUncompleted` / `commentCreation`
   helpers (matching the guards already present in
   `server/models/cardComments.js`).
-  Thanks to titver968 and Claude.
+  Thanks to titver968, xet7 and Claude.
 - **[Fixed upgrade crash](https://github.com/wekan/wekan/commit/39f3c89b0a11c5671b77d3a0b95200ac7256a4f1)
   `An error occurred when creating an index for collection
   "users": Topology is closed` / `MongoServerSelectionError: Server selection
@@ -293,7 +400,7 @@ and adds the following fixes:
     missing, and never throws — a single index problem is logged in English
     instead of taking the whole server down. All startup index creation across
     the model files was switched to it.
-  Thanks to Claude.
+  Thanks to xet7 and Claude.
 - [Fixed OpenAPI REST API documentation generation](https://github.com/wekan/wekan/commit/c71a97cba20247ce227a288fa74ef23cb3c4c83e),
   which had been broken
   since after WeKan v7.93 and only generated docs for the `login`/`register`
@@ -307,7 +414,7 @@ and adds the following fixes:
   `type: Array` SimpleSchema idiom, and `releases/rebuild-docs.sh` works directly
   with Python 3.12.x (PEP 668). The generated `public/api/wekan.yml` /
   `wekan.html` now cover the full API again (89 operations / 61 paths).
-  Thanks to Claude.
+  Thanks to xet7 and Claude.
 - **The attachment copy API now honours the admin "Admin Panel / Attachments"
   API transfer limits.** Copying an attachment creates a new attachment but
   skipped the `apiUploadBlocked` / `apiUploadMaxBytes` checks that upload
@@ -342,7 +449,7 @@ and adds the following fixes:
   from the `cfs_gridfs.attachments` bucket, and legacy avatars
   (`/cfs/files/avatars/<id>` URLs) are served from the `cfs_gridfs.avatars`
   bucket instead of redirecting to a 404.
-  Thanks to Claude.
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
