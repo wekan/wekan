@@ -497,6 +497,8 @@ and adds the following fixes:
   (`/cfs/files/avatars/<id>` URLs) are served from the `cfs_gridfs.avatars`
   bucket instead of redirecting to a 404.
   Thanks to xet7 and Claude.
+- [Ask to install npm dependencies before running tests](https://github.com/wekan/wekan/commit/b77b62bfa2e7a63fdd2d2d071693d5aa485a34c5).
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
