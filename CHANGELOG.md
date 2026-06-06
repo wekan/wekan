@@ -32,6 +32,8 @@ This release fixes the following bugs:
 
 - [Fix Admin Panel / Reports icons and spacing](https://github.com/wekan/wekan/commit/77d60b21a1912cda81a6fa96449a8dd99761d5d7).
   Thanks to xet7.
+- [Fix MultiSelect, so that it's possible to click select checkbox or minicard to select](https://github.com/wekan/wekan/commit/9cc066041040074befcf3dea49e7ef37b22816cc).
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
