@@ -154,6 +154,26 @@ and adds the following new features:
   offer. The count is read from the stored file metadata (fast, no cloud API
   calls). The S3 button was also moved up to sit directly under its "Read"
   checkbox, so all backends are consistent. Thanks to Claude.
+- **[Admin Panel / Attachments: the MongoDB GridFS page notes how to make legacy files visible](https://github.com/wekan/wekan/commit/dca9427bfb58532778bc705e4c8c8014ba4b01ae).
+  ** A translatable line under the "MongoDB GridFS Storage" title
+  reminds admins: "To have attachments and avatars visible, move them from
+  CollectionFS to any other Storage." Thanks to Claude.
+- **Admin Panel / Attachments: the Google Cloud Storage page now documents the
+  required bucket permission.** A note under the "GCS Storage" title explains that
+  the service account needs the **Storage Object Admin** role
+  (`roles/storage.objectAdmin`) on the bucket (Cloud Console → Cloud Storage →
+  Buckets → your bucket → Permissions → Grant access → add the service account →
+  role "Storage Object Admin"), and that the bucket must exist in the same
+  project — otherwise "Test connection" fails with `storage.objects.list denied`.
+  Thanks to xet7 and Claude.
+- **Admin Panel / Attachments: a "Save" button next to the Enabled / Read toggles
+  at the top of each cloud storage.** S3, Azure and Google Cloud Storage now have
+  a Save button directly below the "[ ] Enabled  [ ] Read" row, so those toggles
+  can be saved without scrolling to the bottom of the (now quite long) storage
+  page. It saves the same way as the existing bottom Save button — the server
+  merges that provider's config and preserves secrets left blank — and the bottom
+  Save button is kept. (Filesystem and GridFS have only a Read toggle, which
+  already saves the instant it is toggled, so they need no button.) Thanks to Claude.
 - **Admin Panel / Attachments: bilingual, self-documenting cloud-storage fields
   (S3, Azure and Google Cloud Storage).** Each cloud-storage setting now guides
   the admin from top to bottom with both English and translated text, so it is
@@ -239,6 +259,33 @@ and adds the following updates:
 
 and adds the following fixes:
 
+- **[Admin Panel / Attachments: "Run MongoDB compact" now actually compacts the database](https://github.com/wekan/wekan/commit/dca9427bfb58532778bc705e4c8c8014ba4b01ae).**
+  MongoDB refuses `compact` on an active replica-set primary unless
+  `force: true` is given, so every collection failed with "will not run compact
+  on an active replica set primary … use force:true to force" — and because the
+  usual Meteor setup is a single-node replica set (only a primary, no
+  secondaries), nothing was compacted at all and no disk space was reclaimed. The
+  primary is now compacted with `force: true` (secondaries are still compacted
+  without it, so the primary stays available while they run), so the GridFS
+  collections are actually rewritten and freed space is returned to the
+  filesystem. Thanks to Claude.
+- **Admin Panel / Attachments: clearer cloud "Test connection" errors, and cloud
+  config inputs are trimmed.** Testing an Azure/GCS/S3 connection used to report a
+  single generic `Incomplete configuration or adapter not installed` even when the
+  real problem was specific — e.g. Azure rejecting the config with `Invalid URL`
+  (a stray space/newline in the account name, or a bad endpoint / connection
+  string). `testCloudConnection` now reports the actual cause: adapter not
+  installed, required fields missing, the adapter's own configuration error (such
+  as `Invalid URL`), or the real `listFiles` error (auth failure, container not
+  found, …). It also pre-validates the config and gives an actionable message
+  before the adapter turns it into a cryptic error — e.g. for Azure it explains
+  that the **Storage account name** must be just the account name (3–24 lowercase
+  letters/numbers, e.g. `wekanstorage`, not a full `https://…` URL and with no
+  spaces), or that the **Connection string** is malformed; and when Azure still
+  returns `Invalid URL` the message appends which field to check. In addition, all
+  cloud-storage text fields are now trimmed when read from the form, so
+  leading/trailing whitespace from copy-paste no longer produces an invalid URL.
+  Thanks to xet7 and Claude.
 - **[Fixed moving attachments to S3](https://github.com/wekan/wekan/commit/a86a087915aac9d204e157b1a698091c079e04e6)
   (and other cloud storage) failing and crashing the server.**
   Uploading to S3 failed two ways, each of which crashed
