@@ -747,7 +747,7 @@
   "attachment-transfer-limits-saved": "Liitteiden siirtorajoitukset tallennettu.",
   "attachment-transfer-limits-save-failed": "Liitteiden siirtorajoitusten tallentaminen epäonnistui",
   "attachment-transfer-limits-invalid-value": "Anna kelvollinen positiivinen raja-arvo",
-  "attachment-upload-limit-label": "Liitteiden latauksen enimmäiskoko",
+  "attachment-upload-limit-label": "Liitteiden lähetyksen enimmäiskoko",
   "attachment-download-limit-label": "Liitteiden latauksen enimmäiskoko",
   "api-upload-limit-label": "API-lähetyksen enimmäistiedostokoko",
   "api-download-limit-label": "API-latauksen enimmäistiedostokoko",
