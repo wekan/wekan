@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v8.43
+  version: v9.35
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3673,6 +3673,15 @@ definitions:
         description: |
            the card ID the item is attached to
         type: string
+      boardId:
+        description: |
+           The ID of the board the item's card is on. Denormalized from the card
+           so the board publication can publish checklist items with a single
+           reactive cursor filtered by boardId. Kept in sync on insert, on the
+           item / its checklist moving to another card, and when the card moves to
+           another board.
+        type: string
+        x-nullable: true
       createdAt:
         type: string
         x-nullable: true
@@ -3693,6 +3702,15 @@ definitions:
         description: |
            The ID of the card the checklist is in
         type: string
+      boardId:
+        description: |
+           The ID of the board the checklist's card is on. Denormalized from the
+           card so the board publication can publish checklists with a single
+           reactive cursor filtered by boardId (a new checklist on a new card then
+           publishes reactively). Kept in sync on insert, on checklist move to
+           another card, and when the card moves to another board.
+        type: string
+        x-nullable: true
       title:
         description: |
            the title of the checklist

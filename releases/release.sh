@@ -30,6 +30,8 @@ if compgen -G "$DOWNLOAD_DIR/node-v*-linux-*.tar.*" > /dev/null && compgen -G "$
   esac
 fi
 
+~/repos/wekan/releases/rebuild-docs.sh "$2"
+
 ~/repos/wekan/releases/version.sh "$1" "$2"
 
 # 3) Build bundle first so generated artifacts (for example package-lock.json)
