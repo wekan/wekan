@@ -150,13 +150,18 @@ function buildDirectNodeUrl(mongoUrl, targetHostPort) {
   return `mongodb://${auth}${targetHostPort}${dbPath}?${params.toString()}`;
 }
 
-async function compactCollectionsOnNode(nodeDb, candidates) {
+async function compactCollectionsOnNode(nodeDb, candidates, force = false) {
   const results = {};
   for (const collName of candidates) {
     try {
       const exists = await nodeDb.listCollections({ name: collName }, { nameOnly: true }).toArray();
       if (!Array.isArray(exists) || exists.length === 0) continue;
-      await nodeDb.command({ compact: collName });
+      // On a replica-set primary, MongoDB refuses compact ("will not run compact
+      // on an active replica set primary …") unless force:true is given. A
+      // single-node replica set (the common Meteor oplog setup) has only a
+      // primary, so without force nothing is compacted at all.
+      const command = force ? { compact: collName, force: true } : { compact: collName };
+      await nodeDb.command(command);
       results[collName] = 'ok';
     } catch (err) {
       results[collName] = err.message || 'error';
@@ -479,8 +484,10 @@ Meteor.methods({
       }
     }
 
-    // Compact primary using the existing WeKan connection
-    allResults.primary = await compactCollectionsOnNode(db, candidates);
+    // Compact primary using the existing WeKan connection. force:true is
+    // required to compact a replica-set primary (the secondaries above were
+    // compacted without it, as best practice keeps the primary available).
+    allResults.primary = await compactCollectionsOnNode(db, candidates, true);
 
     return allResults;
   },

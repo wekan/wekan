@@ -173,6 +173,7 @@ template(name="attachments")
             ul#attachment-gridfs-setting.setting-detail
               li
                 h3 {{_ 'mongodb-gridfs-storage'}}
+                .description {{_ 'gridfs-move-collectionfs-note'}}
                 .storage-rw-row
                   .storage-rw-item
                     input.js-toggle-gridfs-read#gridfs-read(type="checkbox" checked="{{gridfsRead}}")
@@ -227,6 +228,9 @@ template(name="attachments")
                   .storage-rw-item
                     input#s3-read(type="checkbox" checked=cloudRead.s3)
                     label(for="s3-read") {{_ 'storage-read'}}
+
+                .form-group
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="s3") {{_ 'save'}}
 
                 .form-group
                   button.js-calculate-s3-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
@@ -318,6 +322,9 @@ template(name="attachments")
                     label(for="azure-read") {{_ 'storage-read'}}
 
                 .form-group
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="azure") {{_ 'save'}}
+
+                .form-group
                   button.js-calculate-azure-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}
                   if azureStatsLoading
                     p.form-text.text-muted {{_ 'calculating-counts'}}
@@ -384,6 +391,8 @@ template(name="attachments")
             ul#attachment-gcs-setting.setting-detail
               li
                 h3 {{_ 'gcs-storage'}}
+                .description Give WeKan's service account read/write access to the bucket: Google Cloud Console → Cloud Storage → Buckets → your bucket → Permissions → Grant access. In "New principals", paste the service account email — the "client_email" value from your JSON key — then choose the role "Storage Object Admin" and Save.
+                .description {{_ 'gcs-permissions-note'}}
                 .storage-rw-row
                   .storage-rw-item
                     input#gcs-enabled(type="checkbox" checked=cloudEnabled.gcs)
@@ -391,6 +400,9 @@ template(name="attachments")
                   .storage-rw-item
                     input#gcs-read(type="checkbox" checked=cloudRead.gcs)
                     label(for="gcs-read") {{_ 'storage-read'}}
+
+                .form-group
+                  button.js-save-cloud-settings.btn.btn-primary(data-provider="gcs") {{_ 'save'}}
 
                 .form-group
                   button.js-calculate-gcs-stats.btn.btn-primary(type="button") {{_ 'calculate-file-counts'}}

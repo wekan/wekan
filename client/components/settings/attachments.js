@@ -43,7 +43,10 @@ function gatherCloudConfig(tpl, provider) {
     if (el.attr('type') === 'checkbox') {
       cfg[field] = el.prop('checked');
     } else {
-      cfg[field] = el.val();
+      // Trim so stray whitespace/newlines from copy-paste (e.g. an account name
+      // or endpoint) do not produce an invalid URL in the storage adapter.
+      const value = el.val();
+      cfg[field] = typeof value === 'string' ? value.trim() : value;
     }
   });
   return cfg;

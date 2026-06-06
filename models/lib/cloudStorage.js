@@ -175,6 +175,39 @@ function buildProviderConfig(provider, cfg) {
   return null;
 }
 
+/**
+ * Catch obviously-wrong cloud config before the adapter turns it into a cryptic
+ * "Invalid URL". Returns a human-friendly error string, or null when it looks OK.
+ */
+function validateCloudConfig(provider, cfg) {
+  if (!cfg) {
+    return 'Configuration is empty';
+  }
+  if (provider === STORAGE_NAME_AZURE) {
+    const connectionString = (cfg.connectionString || '').trim();
+    if (connectionString) {
+      if (!/AccountName=/i.test(connectionString) ||
+          !/(AccountKey=|SharedAccessSignature=)/i.test(connectionString)) {
+        return 'Connection string looks malformed. Expected e.g. ' +
+          'DefaultEndpointsProtocol=https;AccountName=NAME;AccountKey=KEY;EndpointSuffix=core.windows.net';
+      }
+      return null;
+    }
+    const accountName = (cfg.accountName || '').trim();
+    if (!/^[a-z0-9]{3,24}$/.test(accountName)) {
+      return 'Storage account name must be 3–24 lowercase letters/numbers — just the name ' +
+        '(e.g. "wekanstorage"), not a URL and with no spaces. Or use a Connection string instead.';
+    }
+  }
+  if (provider === STORAGE_NAME_S3) {
+    const endpoint = (cfg.endpoint || '').trim();
+    if (endpoint && /\s/.test(endpoint)) {
+      return 'Endpoint must not contain spaces (e.g. https://s3.eu-west-1.amazonaws.com).';
+    }
+  }
+  return null;
+}
+
 /** Construct a provider adapter instance from its WeKan config, or null. */
 function createAdapterInstance(provider, cfg) {
   const AdapterClass = loadAdapterClass(provider);
@@ -262,9 +295,34 @@ export function isCloudStorageName(storageName) {
  * its bucket. Returns { ok, error }. Used by the "Test connection" button.
  */
 export async function testCloudConnection(provider, cfg) {
-  const instance = createAdapterInstance(provider, cfg);
-  if (!instance) {
-    return { ok: false, error: 'Incomplete configuration or adapter not installed' };
+  // Build the instance step by step so the actual reason is reported to the
+  // admin instead of a single generic message.
+  const AdapterClass = loadAdapterClass(provider);
+  if (!AdapterClass) {
+    return { ok: false, error: `Cloud storage adapter for "${provider}" is not installed` };
+  }
+  const validationError = validateCloudConfig(provider, cfg);
+  if (validationError) {
+    return { ok: false, error: validationError };
+  }
+  const config = buildProviderConfig(provider, cfg);
+  if (!config) {
+    return { ok: false, error: 'Incomplete configuration: required fields are missing' };
+  }
+  let instance;
+  try {
+    instance = new AdapterClass(config);
+  } catch (error) {
+    return { ok: false, error: error.message || 'Failed to initialize storage adapter' };
+  }
+  if (instance.configError) {
+    let error = String(instance.configError).replace(/^\[configError\]\s*/, '');
+    // "Invalid URL" from Azure means the account name / connection string is bad.
+    if (provider === STORAGE_NAME_AZURE && /invalid url/i.test(error)) {
+      error += ' — check the Storage account name (just the name, e.g. "wekanstorage", ' +
+        'no https:// or spaces) or the Connection string.';
+    }
+    return { ok: false, error };
   }
   try {
     const result = await instance.listFiles(cfg.bucket);
