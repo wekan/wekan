@@ -34,6 +34,16 @@ and click send PR.
 
 ## Contributing code
 
+Use rebuild-wekan.sh to run all tests to verify you don't break any features, before sending PR.
+
+Only send one feature or fix at one PR. Do not add many unrelated changes.
+
+Only send those changed code lines, that are related to your one feature or fix.
+
+Do not format unrelated code. Do not use code formatting or linting like eslist or prettier.
+
+Send your code ASAP, because there are daily releases of WeKan with major features and fixes added.
+
 [Building WeKan and sending PR](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md).
 
 WeKan code contributors Hall of Fame is at ChangeLog, where
@@ -48,10 +58,6 @@ Closed issues are already fixed or implemented.
 Also see other docs:
 
 https://github.com/wekan/wekan/tree/main/docs/DeveloperDocs
-
-Do not use code formatting or linting like eslist or prettier.
-
-Only send minimal changed code lines, that are related to feature or fix.
 
 WeKan code has MIT license.
 
