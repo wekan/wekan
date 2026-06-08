@@ -7,9 +7,11 @@ because WeKan is NOT Big Tech. WeKan is FLOSS.
 
 ### 1. Security Researcher:
 
-- **Report**: Please email details regarding security vulnerabilities to **security@wekan.fi**.
+- **Report**: Click "New draft security advisory" at [WeKan Security Advisories](https://github.com/wekan/wekan/security/advisories).
+  More info at [GitHub Docs about reporting privately](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/report-privately).
 - **Proof of Concept (PoC)**: If possible, include a fix or a reproduction script/code.
-- **Encryption**: An optional PGP key is available at [security-at-wekan.fi.asc](security-at-wekan.fi.asc).
+- **If GitHub does not work**: Please send report to **security@wekan.fi**
+- **Optional Email Encryption**: An optional PGP key is available at [security-at-wekan.fi.asc](security-at-wekan.fi.asc).
 
 ### 2. WeKan Security Team:
 
@@ -17,17 +19,14 @@ because WeKan is NOT Big Tech. WeKan is FLOSS.
   Fixes are announced at the top of the [ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
 - **Recognition**: We will acknowledge your contribution by adding you to our
   [Hall of Fame](https://wekan.fi/hall-of-fame/).
-- **CVE Policy**: WeKan Security does not facilitate **CVE Coordination** due to
-  our rapid release cycle (new versions are released almost daily).
+- **CVE Policy**: WeKan Security requests CVE at GitHub when releasing Security Advisory.
 
 ### 3. Post-Release and Public Disclosure:
 
-- **Independent CVE Assignment**: After the fix is public, you are welcome to coordinate
-  **CVE assignment** independently. Please send the assigned CVE IDs to **security@wekan.fi**,
-  and we will update your entry in the [Hall of Fame](https://wekan.fi/hall-of-fame/).
 - Publicity: If you publish blog posts, give talks, or write articles about the
   reported vulnerabilities, please send the links to us. We will link them
   to your entry in the [Hall of Fame](https://wekan.fi/hall-of-fame/) for additional context.
+- Advisories reported at GitHub are listed at [WeKan Security Advisories](https://github.com/wekan/wekan/security/advisories).
 
 ## How Should Reports Be Formatted?
 
@@ -51,34 +50,34 @@ added to the WeKan Hall of Fame https://wekan.fi/hall-of-fame/
 
 ## Which domains are in scope?
 
-No public domains, because all those are donated to Wekan Open Source project,
+No public domains, because all those are donated to WeKan Open Source project,
 and we don't have any permissions to do security scans on those donated servers.
 
 Please don't perform research that could impact other users. Second, please keep
 the reports short and succinct. If we fail to understand the logic of your bug, we will tell you.
 
-You can [Install Wekan](https://wekan.fi/install/) on your own computer
+You can [Install WeKan](https://wekan.fi/install/) on your own computer
 and scan it's vulnerabilities there.
 
-## About Wekan Versions
+## About WeKan Versions
 
-There are 2 versions of Wekan: Standalone Wekan, and Sandstorm Wekan.
+There are 2 versions of WeKan: Standalone WeKan, and Sandstorm WeKan.
 
 ## Meteor Security
 
 https://guide.meteor.com/security
 
-### Standalone Wekan Security
+### Standalone WeKan Security
 
-Standalone Wekan includes all non-Sandstorm platforms. Some Standalone Wekan platforms
+Standalone WeKan includes all non-Sandstorm platforms. Some Standalone WeKan platforms
 like Snap and Docker have their own specific sandboxing etc features.
 
-Standalone Wekan by default does not load any files from Internet, like fonts, CSS, etc.
-This also means all Standalone Wekan functionality works in offline local networks.
+Standalone WeKan by default does not load any files from Internet, like fonts, CSS, etc.
+This also means all Standalone WeKan functionality works in offline local networks.
 WeKan is used in most countries of the world https://snapcraft.io/wekan
 and by companies that have 30k users.
 
-- Wekan private board attachments are not accessible without logging in.
+- WeKan private board attachments are not accessible without logging in.
 - There is feature to set board public, so that board is visible without logging
   in readonly mode, with realtime updates.
 - Admin Panel has feature to disable all public boards, so all boards are private.
@@ -96,12 +95,12 @@ and by companies that have 30k users.
   - WeKan uses DOMPurify npm package to filter for XSS at fields like cards, as you can see from
     [package.json](https://github.com/wekan/wekan/blob/main/package.json). Other used versions can be seen from
     [Meteor versions file](https://github.com/wekan/wekan/blob/main/.meteor/versions).
-  - Forms can include markdown links, html, image tags etc like you see at https://wekan.github.io .
+  - Forms can include markdown links, html, image tags etc like you see at https://wekan.fi .
   - It's possible to add attachments to cards, and markdown/html links to files.
   - DOMPurify cleans up viewed code, so JavaScript in input fields does not execute
-    - https://wekan.github.io/hall-of-fame/fieldbleed/
+    - https://wekan.fi/hall-of-fame/fieldbleed/
 - Reaction in comment is now checked, that it does not have extra added code
-  - https://wekan.github.io/hall-of-fame/reactionbleed/
+  - https://wekan.fi/hall-of-fame/reactionbleed/
 - https://github.com/wekan/wekan/blob/main/packages/markdown/src/template-integration.js#L76
 
 ## QA About PubSub
@@ -131,7 +130,7 @@ A:
   PubSub/websocket data (for example with Burp Suite Community Edition), etc.
 - If you have a REST API, also check that only those who have a login token and permission can view or edit text.
 - You should not include any data user is not allowed to see. Not to webpage text, not to websockets/PubSub, etc.
-- Minimongo should not have password hashes PubSub https://wekan.github.io/hall-of-fame/userbleed/
+- Minimongo should not have password hashes PubSub https://wekan.fi/hall-of-fame/userbleed/
 - PubSub uses WebSockets, so you need those to be enabled on the webserver like Caddy/Nginx/Apache etc, examples of settings
   at right menu of https://github.com/wekan/wekan/wiki
 - Clientside https://github.com/wekan/wekan/tree/main/client/components subscribes to
@@ -155,7 +154,7 @@ A:
 
 - With PubSub, there is checking, that someone modifying Websockets content, like permission isAdmin, can not change to Admin.
 - https://github.com/wekan/wekan/commit/cbad4cf5943d47b916f64b4582f8ca76a9dfd743
-- https://wekan.github.io/hall-of-fame/adminbleed/
+- https://wekan.fi/hall-of-fame/adminbleed/
 
 ## Permissions and Roles
 
@@ -191,12 +190,12 @@ Meteor.startup(() => {
 
 - Someone reported that it was a problem that the content of HTML comments in edit mode was not visible in view mode, so this change makes HTML comments visible.
 - https://github.com/wekan/wekan/commit/167863d95711249e69bb3511175d73b34acbbdb3
-- https://wekan.github.io/hall-of-fame/invisiblebleed/
+- https://wekan.fi/hall-of-fame/invisiblebleed/
 
 ## Attachments: XSS in filename is sanitized
 
 - https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
-- https://wekan.github.io/hall-of-fame/filebleed/
+- https://wekan.fi/hall-of-fame/filebleed/
 
 ### Attachments: Forced download to prevent stored XSS
 
@@ -254,7 +253,7 @@ Meteor.startup(() => {
 - https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d
 - https://github.com/wekan/wekan/tree/main/packages/wekan-accounts-lockout
 
-### Sandstorm Wekan Security
+### Sandstorm WeKan Security
 
 On the Sandstorm platform, Standalone WeKan features like the Admin Panel are turned off using environment variables, because Sandstorm platform provides SSO for all apps running on Sandstorm.
 
@@ -267,7 +266,7 @@ Also read [Sandstorm Security Practices](https://docs.sandstorm.io/en/latest/usi
 [Sandstorm Security non-events](https://docs.sandstorm.io/en/latest/using/security-non-events/).
 For Sandstorm specific security issues you can contact [kentonv](https://github.com/kentonv) by email.
 
-## What Wekan bugs are eligible?
+## What WeKan bugs are eligible?
 
 Any typical web security bugs. If any of the previously mentioned is somehow problematic and
 a security issue, we'd like to know about it, and also how to fix it:
@@ -279,7 +278,7 @@ a security issue, we'd like to know about it, and also how to fix it:
 - Authentication bypass
 - Server-side code execution
 
-## What Wekan bugs are NOT eligible?
+## What WeKan bugs are NOT eligible?
 
 Typical already-known or 'no impact' bugs such as:
 
@@ -287,5 +286,4 @@ Typical already-known or 'no impact' bugs such as:
 - Denial of service
 - SSL BEAST/CRIME/etc. WeKan does not have SSL built-in; it uses Caddy/Nginx/Apache on the front end.
 
-Wekan is Open Source with MIT license, and free to use also for commercial use.
-We welcome all fixes to improve security by email to security@wekan.fi
+WeKan is Open Source with MIT license, and free to use also for commercial use.
