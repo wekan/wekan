@@ -28,7 +28,12 @@ Versions:
 
 # Upcomig WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Improved Security Advisory process](https://github.com/wekan/wekan/commit/f1c2f1f40f21b9f467cfe7265d22bc98fb401b57).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix Admin Panel / Reports icons and spacing](https://github.com/wekan/wekan/commit/77d60b21a1912cda81a6fa96449a8dd99761d5d7).
   Thanks to xet7.
