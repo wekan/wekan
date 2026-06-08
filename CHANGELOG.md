@@ -32,7 +32,9 @@ This release adds the following updates:
 
 - [Improved Security Advisory process](https://github.com/wekan/wekan/commit/f1c2f1f40f21b9f467cfe7265d22bc98fb401b57).
   Thanks to xet7.
-- [Improved CONTRIBUTING.md](https://github.com/wekan/wekan/commit/26a03f4845b9c81902f3f955d79287a4bc61d3c4).
+- [Improved Contributing](https://github.com/wekan/wekan/commit/26a03f4845b9c81902f3f955d79287a4bc61d3c4).
+  Thanks to xet7.
+- [Improved Code of Conduct](https://github.com/wekan/wekan/commit/d1c71d0526eb8890fc0d8b875d94ab96f094a8c3).
   Thanks to xet7.
 
 and fixes the following bugs:
