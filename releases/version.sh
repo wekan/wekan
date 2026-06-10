@@ -11,7 +11,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
 # Local HTTP cache used by releases/snapcraft-local.yaml.
-CACHE_BASE_URL="${CACHE_BASE_URL:-http://192.168.1.47:8000}"
+CACHE_BASE_URL="${CACHE_BASE_URL:-http://localhost:8000}"
 DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
 
 # Portable sedi function for macOS/Linux compatibility

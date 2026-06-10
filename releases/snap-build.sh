@@ -5,7 +5,7 @@ set -euo pipefail
 SNAP_BUILD_LOG="snap-build.log"
 exec > >(tee "$SNAP_BUILD_LOG") 2>&1
 
-USE_LOCAL_SNAPCRAFT="true"
+USE_LOCAL_SNAPCRAFT="false"
 
 echo "First run: snapcraft login"
 echo "Then run this script"
