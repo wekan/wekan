@@ -85,17 +85,24 @@ test.describe('Search', () => {
     const cardTitles = ['Alpha Card', 'Beta Card', 'Gamma Card'];
 
     for (const title of cardTitles) {
+      // Fire the search once per term, then poll only the result read. The
+      // global-search page shows the boards/lists help block by default, so
+      // navigateToGlobalSearch()+globalSearch() can return before the reactive
+      // results render. Re-navigating/re-searching on every poll iteration kept
+      // reading each fresh search too early; polling a single search lets the
+      // round-trip settle (matching the resilient pattern of the tests above).
+      await sp.navigateToGlobalSearch();
+      await sp.globalSearch(title);
+
       await expect
         .poll(
           async () => {
-            await sp.navigateToGlobalSearch();
-            await sp.globalSearch(title);
             const titles = await sp.globalSearchResultTitles();
             return titles.some(t => t.includes(title));
           },
           {
             timeout: 20_000,
-            intervals: [500, 1000, 2000],
+            intervals: [250, 500, 1000, 2000],
             message: `Expected to find "${title}" in global search`,
           },
         )

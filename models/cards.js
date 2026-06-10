@@ -718,7 +718,7 @@ Cards.helpers({
 
   async link(boardId, swimlaneId, listId) {
     // TODO is there a better method to create a deepcopy?
-    linkCard = JSON.parse(JSON.stringify(this));
+    const linkCard = JSON.parse(JSON.stringify(this));
     // TODO is this how it is meant to be?
     linkCard.linkedId = linkCard.linkedId || linkCard._id;
     linkCard.boardId = boardId;

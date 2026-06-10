@@ -1377,44 +1377,33 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
       for (const board of boards) {
         const hasMember = board.members.some(m => m.userId === userId && m.isActive);
         if (!hasMember) {
-          const memberIndex = board.members.findIndex(m => m.userId === userId);
-          if (memberIndex >= 0) {
-            await Boards.updateAsync(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
-          } else {
-            await Boards.updateAsync(boardId, {
-              $push: {
-                members: {
-                  userId,
-                  isAdmin: false,
-                  isActive: true,
-                  isNoComments: false,
-                  isCommentOnly: false,
-                  isWorker: false,
-                  isNormalAssignedOnly: false,
-                  isCommentAssignedOnly: false,
-                  isReadOnly: false,
-                  isReadAssignedOnly: false,
-                },
-              },
-            });
-          }
-
           // Tolerate both real booleans (from a named `role`) and 'true'/'false'
           // strings (from individual flag params).
           const isTrue = value => value === true || String(value).toLowerCase() === 'true';
-          const memberIndex2 = board.members.findIndex(m => m.userId === userId);
-          if (memberIndex2 >= 0) {
+          const memberFlags = {
+            isAdmin: isTrue(isAdmin),
+            isNoComments: isTrue(isNoComments),
+            isCommentOnly: isTrue(isCommentOnly),
+            isWorker: isTrue(isWorker),
+            isNormalAssignedOnly: isTrue(isNormalAssignedOnly),
+            isCommentAssignedOnly: isTrue(isCommentAssignedOnly),
+            isReadOnly: isTrue(isReadOnly),
+            isReadAssignedOnly: isTrue(isReadAssignedOnly),
+          };
+          const memberIndex = board.members.findIndex(m => m.userId === userId);
+          if (memberIndex >= 0) {
+            // Re-activate an existing (inactive) member and apply the new flags.
+            const flagSet = { [`members.${memberIndex}.isActive`]: true };
+            for (const [flag, value] of Object.entries(memberFlags)) {
+              flagSet[`members.${memberIndex}.${flag}`] = value;
+            }
+            await Boards.updateAsync(boardId, { $set: flagSet });
+          } else {
+            // Brand-new member: push the member document with its flags applied
+            // atomically. Computing the index after the push would read a stale
+            // in-memory `board.members`, so the flags must be part of the $push.
             await Boards.updateAsync(boardId, {
-              $set: {
-                [`members.${memberIndex2}.isAdmin`]: isTrue(isAdmin),
-                [`members.${memberIndex2}.isNoComments`]: isTrue(isNoComments),
-                [`members.${memberIndex2}.isCommentOnly`]: isTrue(isCommentOnly),
-                [`members.${memberIndex2}.isWorker`]: isTrue(isWorker),
-                [`members.${memberIndex2}.isNormalAssignedOnly`]: isTrue(isNormalAssignedOnly),
-                [`members.${memberIndex2}.isCommentAssignedOnly`]: isTrue(isCommentAssignedOnly),
-                [`members.${memberIndex2}.isReadOnly`]: isTrue(isReadOnly),
-                [`members.${memberIndex2}.isReadAssignedOnly`]: isTrue(isReadAssignedOnly),
-              },
+              $push: { members: { userId, isActive: true, ...memberFlags } },
             });
           }
         }
