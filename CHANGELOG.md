@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcomig WeKan ® release
+# Upcoming WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [TokenBleed](https://wekan.fi/hall-of-fame/tokenbleed/):
 
@@ -58,6 +58,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Improved Code of Conduct](https://github.com/wekan/wekan/commit/d1c71d0526eb8890fc0d8b875d94ab96f094a8c3).
   Thanks to xet7.
+- [Update release scripts, trying to fix GitHub Actions builds](https://github.com/wekan/wekan/commit/8f59d76a4e38429b434dc9e4be66a30ac1dc156e).
+  Thanks to xet7 and Claude.
 
 and fixes the following bugs:
 
