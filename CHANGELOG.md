@@ -243,6 +243,8 @@ and fixes the following bugs:
   the fast unit/security/policy tests stay in the Mocha suite (`meteor test --once
   --driver-package meteortesting:mocha`).
   Thanks to xet7 and Claude.
+- [Fix tests](https://github.com/wekan/wekan/commit/a532ee7f14726dbf1eec956978d08436d7c47550).
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
