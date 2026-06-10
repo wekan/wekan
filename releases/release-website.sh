@@ -22,15 +22,16 @@ sedi() {
   fi
 }
 
-# Go to website directory and pull latest changes
-if [ -d "$HOME/repos/wekan/docs" ]; then
-  WEBDIR="$HOME/repos/wekan/docs"
+# The website lives in the separate wekan.fi repo at ../w/wekan.fi (a sibling of
+# the wekan repo). Detect it for both common local repo layouts.
+if [ -d "$HOME/repos/w/wekan.fi" ]; then
+  WEBDIR="$HOME/repos/w/wekan.fi"
   WEKANREPODIR="$HOME/repos/wekan"
-elif [ -d "$HOME/Documents/repos/wekan/docs" ]; then
-  WEBDIR="$HOME/Documents/repos/wekan/docs"
+elif [ -d "$HOME/Documents/repos/w/wekan.fi" ]; then
+  WEBDIR="$HOME/Documents/repos/w/wekan.fi"
   WEKANREPODIR="$HOME/Documents/repos/wekan"
 else
-  echo "Website directory not found, ignoring."
+  echo "Website directory (../w/wekan.fi) not found, ignoring."
   exit 0
 fi
 #git pull
@@ -72,16 +73,14 @@ sedi "s|>v$OLD<\/span>|>v$NEW<\/span>|g" $WEBDIR/install/index.html
 #   A second expression handles the rare case of the version at end of line.
 sedi "s|v$OLD\([^0-9]\)|v$NEW\1|g; s|v$OLD$|v$NEW|g" $WEBDIR/api/index.html
 
-# Create directory for new API $HOME/repos/wekan/docs, copy from WeKan repo, rename entry point
-mkdir -p $WEBDIR/api/v$NEW
-if [ -d "$HOME/repos/wekan" ]; then
-  cp "$HOME/repos/wekan/public/api/"* $WEBDIR/api/v$NEW/
-elif [ -d "$HOME/Documents/repos/wekan" ]; then
-  cp "$HOME/Documents/repos/wekan/public/api/"* $WEBDIR/api/v$NEW/
-else
-  cp $WEKANREPODIR/public/api/* $WEBDIR/api/v$NEW/ || true
-fi
-mv $WEBDIR/api/v$NEW/wekan.html $WEBDIR/api/v$NEW/index.html
+# Create directory for the new API version under ../w/wekan.fi/api/v$NEW, copy
+# the freshly built docs from public/api (wekan.html + wekan.yml), and rename
+# the HTML entry point to index.html:
+#   ../w/wekan.fi/api/v$NEW/index.html   (from public/api/wekan.html)
+#   ../w/wekan.fi/api/v$NEW/wekan.yml    (from public/api/wekan.yml)
+mkdir -p "$WEBDIR/api/v$NEW"
+cp "$WEKANREPODIR/public/api/"* "$WEBDIR/api/v$NEW/"
+mv "$WEBDIR/api/v$NEW/wekan.html" "$WEBDIR/api/v$NEW/index.html"
 
 # Commit and push website changes live
 #git add --all

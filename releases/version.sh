@@ -430,6 +430,13 @@ version_bump_logic() {
     : "$NPM_VER"
   fi
 
+  # 9. Update and publish the WeKan Helm chart in the separate wekan/charts repo
+  # at ../w/charts. release-charts.sh bumps only the WeKan version numbers in the
+  # chart, packages it, and publishes it to the gh-pages Helm repo index.
+  if [ -d "../w/charts/wekan" ]; then
+    ./releases/release-charts.sh "${NEW_VERSION}"
+  fi
+
   echo "--- Version bump complete ---"
   echo "Detected dependency versions:"
   echo "  Node.js:                $NEW_NODE"

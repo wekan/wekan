@@ -26,13 +26,33 @@ jobs:
           node-version: '24'
           cache: 'npm'
 
+      - name: Cache Meteor installation
+        uses: actions/cache@v5
+        with:
+          path: ~/.meteor
+          key: meteor-${{ hashFiles('.meteor/release') }}-${{ hashFiles('.meteor/packages') }}
+          restore-keys: meteor-
+
+      - name: Cache Meteor build (.meteor/local)
+        uses: actions/cache@v5
+        with:
+          path: .meteor/local
+          key: meteor-local-unit-${{ hashFiles('.meteor/versions') }}
+          restore-keys: meteor-local-unit-
+
       - name: Install Meteor
-        run: curl https://install.meteor.com/ | sh
+        run: |
+          if [ ! -x ~/.meteor/meteor ]; then
+            curl https://install.meteor.com/ | sh
+          fi
+          echo "$HOME/.meteor" >> "$GITHUB_PATH"
 
       - name: Install npm dependencies
         run: npm ci
 
       - name: Run Meteor unit tests
+        # First Meteor build is slow; allow time before the test driver starts.
+        timeout-minutes: 45
         run: meteor test --once --driver-package meteortesting:mocha
         env:
           TEST_WATCH: '0'
@@ -66,8 +86,26 @@ jobs:
           node-version: '24'
           cache: 'npm'
 
+      - name: Cache Meteor installation
+        uses: actions/cache@v5
+        with:
+          path: ~/.meteor
+          key: meteor-${{ hashFiles('.meteor/release') }}-${{ hashFiles('.meteor/packages') }}
+          restore-keys: meteor-
+
+      - name: Cache Meteor build (.meteor/local)
+        uses: actions/cache@v5
+        with:
+          path: .meteor/local
+          key: meteor-local-e2e-${{ hashFiles('.meteor/versions') }}
+          restore-keys: meteor-local-e2e-
+
       - name: Install Meteor
-        run: curl https://install.meteor.com/ | sh
+        run: |
+          if [ ! -x ~/.meteor/meteor ]; then
+            curl https://install.meteor.com/ | sh
+          fi
+          echo "$HOME/.meteor" >> "$GITHUB_PATH"
 
       - name: Install app npm dependencies
         run: npm ci
@@ -85,13 +123,22 @@ jobs:
           MONGO_URL=mongodb://localhost:27017/wekan_test \
           ROOT_URL=http://localhost:3000 \
           PORT=3000 \
-          meteor run --settings settings.json &
-          # Wait up to 120 s for WeKan to become available
-          for i in $(seq 1 24); do
-            curl -sf http://localhost:3000 > /dev/null && break
-            echo "Waiting for WeKan... attempt $i"
-            sleep 5
+          meteor run --settings settings.json > wekan-run.log 2>&1 &
+          # The first Meteor build is slow, so wait up to 20 minutes for the
+          # server to start responding before giving up.
+          for i in $(seq 1 120); do
+            if curl -sf http://localhost:3000 > /dev/null; then
+              echo "WeKan is up after $((i * 10))s"
+              break
+            fi
+            echo "Waiting for WeKan... attempt $i/120"
+            sleep 10
           done
+          if ! curl -sf http://localhost:3000 > /dev/null; then
+            echo "WeKan failed to start. Last 200 log lines:"
+            tail -n 200 wekan-run.log
+            exit 1
+          fi
         env:
           DISABLE_CAPTCHA: 'true'
 
@@ -145,8 +192,26 @@ jobs:
           node-version: '24'
           cache: 'npm'
 
+      - name: Cache Meteor installation
+        uses: actions/cache@v5
+        with:
+          path: ~/.meteor
+          key: meteor-${{ hashFiles('.meteor/release') }}-${{ hashFiles('.meteor/packages') }}
+          restore-keys: meteor-
+
+      - name: Cache Meteor build (.meteor/local)
+        uses: actions/cache@v5
+        with:
+          path: .meteor/local
+          key: meteor-local-regression-${{ hashFiles('.meteor/versions') }}
+          restore-keys: meteor-local-regression-
+
       - name: Install Meteor
-        run: curl https://install.meteor.com/ | sh
+        run: |
+          if [ ! -x ~/.meteor/meteor ]; then
+            curl https://install.meteor.com/ | sh
+          fi
+          echo "$HOME/.meteor" >> "$GITHUB_PATH"
 
       - name: Install npm dependencies
         run: npm ci
@@ -159,11 +224,21 @@ jobs:
           MONGO_URL=mongodb://localhost:27017/wekan_regression \
           ROOT_URL=http://localhost:3000 \
           PORT=3000 \
-          meteor run &
-          for i in $(seq 1 24); do
-            curl -sf http://localhost:3000 > /dev/null && break
-            sleep 5
+          meteor run > wekan-run.log 2>&1 &
+          # The first Meteor build is slow, so wait up to 20 minutes.
+          for i in $(seq 1 120); do
+            if curl -sf http://localhost:3000 > /dev/null; then
+              echo "WeKan is up after $((i * 10))s"
+              break
+            fi
+            echo "Waiting for WeKan... attempt $i/120"
+            sleep 10
           done
+          if ! curl -sf http://localhost:3000 > /dev/null; then
+            echo "WeKan failed to start. Last 200 log lines:"
+            tail -n 200 wekan-run.log
+            exit 1
+          fi
         env:
           DISABLE_CAPTCHA: 'true'
 
