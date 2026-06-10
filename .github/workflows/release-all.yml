@@ -290,11 +290,10 @@ jobs:
           (meteor update --npm 2>/dev/null || true) && meteor npm install
           meteor build .build --directory
 
-      - name: Install and audit-fix server npm modules
+      - name: Install server npm modules
         run: |
           cd .build/bundle/programs/server
           npm install
-          npm audit fix --force
 
       - name: Create amd64 zip
         run: |
@@ -346,7 +345,7 @@ jobs:
             -v "$(pwd)/bundle:/bundle" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install && npm audit fix --force"
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
       - name: Create arm64 zip
         run: |
@@ -411,7 +410,6 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           npm install
-          npm audit fix --force
 
       - name: Add MongoDB tools, mongosh and start-wekan.bat to the bundle
         shell: bash
@@ -494,7 +492,6 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           npm install
-          npm audit fix --force
           cd ../../..
 
       - name: Create mac-amd64 zip
@@ -543,7 +540,6 @@ jobs:
           cd bundle/programs/server
           rm -rf node_modules
           npm install
-          npm audit fix --force
           cd ../../..
 
       - name: Create mac-arm64 zip
