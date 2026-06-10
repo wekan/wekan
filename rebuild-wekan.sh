@@ -37,7 +37,7 @@ do
 			sudo apt install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm p7zip-full
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 24.15.0
+			sudo n 24.16.0
 			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
