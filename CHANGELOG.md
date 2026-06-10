@@ -28,7 +28,29 @@ Versions:
 
 # Upcomig WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES of [TokenBleed](https://wekan.fi/hall-of-fame/tokenbleed/):
+
+- [Fixed TokenBleed: unauthenticated login-token minting via un-awaited auth check in `POST /api/createtoken/:userId`](https://github.com/wekan/wekan/commit/08ae61161cd9602f79f441e3922ffe890b3f11de)
+  (CWE-863, CWE-287). `Authentication.checkUserId` in `server/authentication.js` is an
+  `async` function, so its 401 (undefined `userId`) and 403 (not an admin) throws become
+  rejected promises rather than synchronous exceptions. The REST handlers in
+  `server/models/users.js` and `server/models/boards.js` called it without `await` inside a
+  plain synchronous `try/catch`, which cannot catch a rejected promise, so the failed check
+  never stopped execution. `POST /api/createtoken/:userId` then went on to mint and return a
+  usable login token for any user ID in the URL — including an admin — with no credentials at
+  all (unauthenticated account takeover). The same detached-rejection bypass also affected
+  `GET /api/users`, `GET /api/users/:userId`, `PUT /api/users/:userId`, `POST /api/users/`,
+  `DELETE /api/users/:userId`, `POST /api/deletetoken`, `GET /api/boards`,
+  `GET /api/boards_count`, `DELETE /api/boards/:boardId`, `GET /api/users/:userId/boards` and
+  `POST /api/boards/:boardId/copy`. Fixed by awaiting every async `Authentication` check (and
+  making the two non-`async` handlers `async`) so a failed check rejects before any privileged
+  code runs. The same un-awaited pattern in the board/card/Excel/PDF export handlers
+  (`models/export.js`, `models/exportExcel.js`, `models/exportExcelCard.js`, `models/exportPDF.js`,
+  which were backstopped by `exporter.canExport()`) and in the checklist-create handler
+  (`server/models/checklists.js`) was given the same await pass. Affected Wekan v9.35 and earlier.
+  Thanks to Zion Boggan, xet7 and Claude.
+
+and adds the following updates:
 
 - [Improved Security Advisory process](https://github.com/wekan/wekan/commit/f1c2f1f40f21b9f467cfe7265d22bc98fb401b57).
   Thanks to xet7.
