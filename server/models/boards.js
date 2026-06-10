@@ -471,7 +471,7 @@ WebApp.handlers.get('/api/users/:userId/boards', async function(req, res) {
   try {
     Authentication.checkLoggedIn(req.userId);
     const paramUserId = req.params.userId;
-    Authentication.checkAdminOrCondition(req.userId, req.userId === paramUserId);
+    await Authentication.checkAdminOrCondition(req.userId, req.userId === paramUserId);
 
     const boards = await ReactiveCache.getBoards(
       {
@@ -498,7 +498,7 @@ WebApp.handlers.get('/api/users/:userId/boards', async function(req, res) {
 
 WebApp.handlers.get('/api/boards', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const boards = await ReactiveCache.getBoards(
       { permission: 'public' },
       {
@@ -522,7 +522,7 @@ WebApp.handlers.get('/api/boards', async function(req, res) {
 
 WebApp.handlers.get('/api/boards_count', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const privateBoards = await ReactiveCache.getBoards({ permission: 'private' });
     const publicBoards = await ReactiveCache.getBoards({ permission: 'public' });
     sendJsonResult(res, {
@@ -601,7 +601,7 @@ WebApp.handlers.post('/api/boards', async function(req, res) {
 
 WebApp.handlers.delete('/api/boards/:boardId', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const id = req.params.boardId;
     await Boards.removeAsync({ _id: id });
     sendJsonResult(res, {
@@ -781,11 +781,11 @@ WebApp.handlers.put('/api/boards/:boardId/cardSettings', async function(req, res
 });
 
 WebApp.handlers.post('/api/boards/:boardId/copy', async function(req, res) {
-  const id = req.params.boardId;
-  const board = await ReactiveCache.getBoard(id);
-  const adminAccess = board.members.some(e => e.userId === req.userId && e.isAdmin);
-  Authentication.checkAdminOrCondition(req.userId, adminAccess);
   try {
+    const id = req.params.boardId;
+    const board = await ReactiveCache.getBoard(id);
+    const adminAccess = board.members.some(e => e.userId === req.userId && e.isAdmin);
+    await Authentication.checkAdminOrCondition(req.userId, adminAccess);
     board.title = req.body.title || await Boards.uniqueTitle(board.title);
     const ret = await board.copy();
     sendJsonResult(res, {

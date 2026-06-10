@@ -246,7 +246,7 @@ WebApp.handlers.post(
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const board = await ReactiveCache.getBoard(paramBoardId);
     const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
-    Authentication.checkAdminOrCondition(req.userId, addPermission);
+    await Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramCardId = req.params.cardId;
 
     const card = await ReactiveCache.getCard({

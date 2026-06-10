@@ -84,7 +84,13 @@ runOnServer(function() {
       adminId = user._id.toString();
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
-      Authentication.checkUserId(req.userId);
+      try {
+        await Authentication.checkUserId(req.userId);
+      } catch (error) {
+        res.writeHead(error.statusCode || 403, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Unauthorized');
+        return;
+      }
       user = await ReactiveCache.getUser({
         _id: req.userId,
         isAdmin: true,

@@ -72,7 +72,12 @@ if (Meteor.isServer) {
       adminId = user._id.toString();
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
-      Authentication.checkUserId(req.userId);
+      try {
+        await Authentication.checkUserId(req.userId);
+      } catch (error) {
+        sendJsonResult(res, error.statusCode || 403);
+        return;
+      }
       user = await ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
     }
 
@@ -163,7 +168,12 @@ if (Meteor.isServer) {
         adminId = user._id.toString();
         impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
       } else if (!Meteor.settings.public.sandstorm) {
-        Authentication.checkUserId(req.userId);
+        try {
+          await Authentication.checkUserId(req.userId);
+        } catch (error) {
+          sendJsonResult(res, error.statusCode || 403);
+          return;
+        }
         user = await ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
       }
 
@@ -263,7 +273,12 @@ if (Meteor.isServer) {
       adminId = user._id.toString();
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
-      Authentication.checkUserId(req.userId);
+      try {
+        await Authentication.checkUserId(req.userId);
+      } catch (error) {
+        sendJsonResult(res, error.statusCode || 403);
+        return;
+      }
       user = await ReactiveCache.getUser({
         _id: req.userId,
         isAdmin: true,

@@ -1253,7 +1253,7 @@ WebApp.handlers.get('/api/user', async function(req, res) {
 
 WebApp.handlers.get('/api/users', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const usersCursor = Meteor.users.find({}, { fields: { _id: 1, username: 1 } });
     const users = typeof usersCursor.fetchAsync === 'function' ? await usersCursor.fetchAsync() : usersCursor.fetch();
     sendJsonResult(res, {
@@ -1267,7 +1267,7 @@ WebApp.handlers.get('/api/users', async function(req, res) {
 
 WebApp.handlers.get('/api/users/:userId', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     let id = req.params.userId;
     let user = await ReactiveCache.getUser({ _id: id });
     if (!user) {
@@ -1295,7 +1295,7 @@ WebApp.handlers.get('/api/users/:userId', async function(req, res) {
 
 WebApp.handlers.put('/api/users/:userId', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const id = req.params.userId;
     const action = req.body.action;
     let data = await ReactiveCache.getUser({ _id: id });
@@ -1468,9 +1468,9 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/remove', async functi
   }
 });
 
-WebApp.handlers.post('/api/users/', function(req, res) {
+WebApp.handlers.post('/api/users/', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const id = Accounts.createUser({
       username: req.body.username,
       email: req.body.email,
@@ -1485,7 +1485,7 @@ WebApp.handlers.post('/api/users/', function(req, res) {
 
 WebApp.handlers.delete('/api/users/:userId', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const id = req.params.userId;
     await Meteor.users.removeAsync({ _id: id });
     sendJsonResult(res, { code: 200, data: { _id: id } });
@@ -1494,9 +1494,9 @@ WebApp.handlers.delete('/api/users/:userId', async function(req, res) {
   }
 });
 
-WebApp.handlers.post('/api/createtoken/:userId', function(req, res) {
+WebApp.handlers.post('/api/createtoken/:userId', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
     const id = req.params.userId;
     const token = Accounts._generateStampedLoginToken();
     Accounts._insertLoginToken(id, token);
@@ -1516,7 +1516,7 @@ WebApp.handlers.post('/api/createtoken/:userId', function(req, res) {
 WebApp.handlers.post('/api/deletetoken', async function(req, res) {
   try {
     const { userId, token } = req.body;
-    Authentication.checkUserId(req.userId);
+    await Authentication.checkUserId(req.userId);
 
     let data = {
       message: 'Expected a userId to be set but received none.',
