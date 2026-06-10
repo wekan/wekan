@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.35
+  version: v9.36
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -255,6 +255,51 @@ paths:
           in: path
           description: |
             the ID of the attachment we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cardSettings:
+    get:
+      operationId: get_board_cardSettings
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_cardSettings
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: key
+          in: formData
+          description: the key value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
           type: string
           required: true
       produces:
@@ -609,6 +654,52 @@ paths:
         - name: comment
           in: path
           description: the comment value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/bulk:
+    delete:
+      operationId: delete_board_cards_bulk
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/labels:
+    post:
+      operationId: post_board_cards_labels
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: cardIds
+          in: formData
+          description: the cardIds value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
           type: string
           required: true
       produces:
@@ -1325,6 +1416,11 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: linkedId
+          in: formData
+          description: the linkedId value
+          type: string
+          required: true
         - name: members
           in: formData
           description: the members value
@@ -1455,26 +1551,6 @@ paths:
           description: the assignedBy value
           type: string
           required: true
-        - name: receivedAt
-          in: formData
-          description: the receivedAt value
-          type: string
-          required: true
-        - name: startAt
-          in: formData
-          description: the startAt value
-          type: string
-          required: true
-        - name: dueAt
-          in: formData
-          description: the dueAt value
-          type: string
-          required: true
-        - name: endAt
-          in: formData
-          description: the endAt value
-          type: string
-          required: true
         - name: spentTime
           in: formData
           description: the spentTime value
@@ -1575,6 +1651,128 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/assignees/{assignee}:
+    post:
+      operationId: post_board_list_card_assignee
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: assignee
+          in: path
+          description: the assignee value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_list_card_assignee
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: assignee
+          in: path
+          description: the assignee value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/copy:
+    post:
+      operationId: post_board_list_card_copy
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: toBoardId
+          in: formData
+          description: the toBoardId value
+          type: string
+          required: true
+        - name: toSwimlaneId
+          in: formData
+          description: the toSwimlaneId value
+          type: string
+          required: true
+        - name: toListId
+          in: formData
+          description: the toListId value
+          type: string
+          required: true
+        - name: position
+          in: formData
+          description: the position value
+          type: string
+          required: true
         - name: board
           in: path
           description: the board value
@@ -1717,6 +1915,76 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/lists/{list}/cards/{card}/members/{member}:
+    post:
+      operationId: post_board_list_card_member
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: member
+          in: path
+          description: the member value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    delete:
+      operationId: delete_board_list_card_member
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: member
+          in: path
+          description: the member value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/lists/{list}/cards/{card}/unarchive:
     post:
       operationId: post_board_list_card_unarchive
@@ -1739,6 +2007,38 @@ paths:
         - name: card
           in: path
           description: the card value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/cards/bulk:
+    post:
+      operationId: post_board_list_cards_bulk
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: cards
+          in: formData
+          description: the cards value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
           type: string
           required: true
       produces:
@@ -1773,6 +2073,75 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/lists/{list}/copy:
+    post:
+      operationId: post_board_list_copy
+      tags:
+        - Lists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: toBoardId
+          in: formData
+          description: the toBoardId value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/lists/{list}/move:
+    post:
+      operationId: post_board_list_move
+      tags:
+        - Lists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: toBoardId
+          in: formData
+          description: the toBoardId value
+          type: string
+          required: true
+        - name: toSwimlaneId
+          in: formData
+          description: the toSwimlaneId value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: the list value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/members/{member}:
     post:
       operationId: post_board_member
@@ -1782,44 +2151,9 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
-        - name: isAdmin
+        - name: role
           in: formData
-          description: the isAdmin value
-          type: string
-          required: true
-        - name: isNoComments
-          in: formData
-          description: the isNoComments value
-          type: string
-          required: true
-        - name: isCommentOnly
-          in: formData
-          description: the isCommentOnly value
-          type: string
-          required: true
-        - name: isWorker
-          in: formData
-          description: the isWorker value
-          type: string
-          required: true
-        - name: isNormalAssignedOnly
-          in: formData
-          description: the isNormalAssignedOnly value
-          type: string
-          required: true
-        - name: isCommentAssignedOnly
-          in: formData
-          description: the isCommentAssignedOnly value
-          type: string
-          required: true
-        - name: isReadOnly
-          in: formData
-          description: the isReadOnly value
-          type: string
-          required: true
-        - name: isReadAssignedOnly
-          in: formData
-          description: the isReadAssignedOnly value
+          description: the role value
           type: string
           required: true
         - name: board
@@ -1854,44 +2188,9 @@ paths:
           description: the action value
           type: string
           required: true
-        - name: isAdmin
+        - name: role
           in: formData
-          description: the isAdmin value
-          type: string
-          required: true
-        - name: isNoComments
-          in: formData
-          description: the isNoComments value
-          type: string
-          required: true
-        - name: isCommentOnly
-          in: formData
-          description: the isCommentOnly value
-          type: string
-          required: true
-        - name: isWorker
-          in: formData
-          description: the isWorker value
-          type: string
-          required: true
-        - name: isNormalAssignedOnly
-          in: formData
-          description: the isNormalAssignedOnly value
-          type: string
-          required: true
-        - name: isCommentAssignedOnly
-          in: formData
-          description: the isCommentAssignedOnly value
-          type: string
-          required: true
-        - name: isReadOnly
-          in: formData
-          description: the isReadOnly value
-          type: string
-          required: true
-        - name: isReadAssignedOnly
-          in: formData
-          description: the isReadAssignedOnly value
+          description: the role value
           type: string
           required: true
         - name: board
@@ -2081,6 +2380,70 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/swimlanes/{swimlane}/copy:
+    post:
+      operationId: post_board_swimlane_copy
+      tags:
+        - Swimlanes
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: toBoardId
+          in: formData
+          description: the toBoardId value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: swimlane
+          in: path
+          description: the swimlane value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/swimlanes/{swimlane}/move:
+    post:
+      operationId: post_board_swimlane_move
+      tags:
+        - Swimlanes
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: toBoardId
+          in: formData
+          description: the toBoardId value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: swimlane
+          in: path
+          description: the swimlane value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/title:
     put:
       operationId: put_board_title
@@ -2194,6 +2557,19 @@ paths:
       operationId: get_user
       tags:
         - Users
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/user/cards:
+    get:
+      operationId: get_user_cards
+      tags:
+        - Cards
       produces:
         - application/json
       security:
