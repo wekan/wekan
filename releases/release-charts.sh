@@ -34,13 +34,19 @@ fi
 VERSION="$1"                  # e.g. 9.36  (WeKan version, no v prefix)
 CHART_VERSION="${VERSION}.0"  # e.g. 9.36.0  (chart SemVer + index version)
 
-# Resolve the charts repo as a sibling of the wekan repo: <repo>/../w/charts
+# The remote (GitHub Actions) flow sets CHARTS_DIR to the charts repo it checked
+# out; otherwise resolve it as a sibling of the wekan repo: <repo>/../w/charts.
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-if [ ! -d "$REPO_DIR/../w/charts/wekan" ]; then
-  echo "Charts repo not found at $REPO_DIR/../w/charts/wekan, skipping chart release."
+if [ -z "${CHARTS_DIR:-}" ]; then
+  if [ ! -d "$REPO_DIR/../w/charts/wekan" ]; then
+    echo "Charts repo not found at $REPO_DIR/../w/charts/wekan, skipping chart release."
+    exit 0
+  fi
+  CHARTS_DIR="$(cd "$REPO_DIR/../w/charts" && pwd)"
+elif [ ! -d "$CHARTS_DIR/wekan" ]; then
+  echo "Charts repo not found at $CHARTS_DIR/wekan, skipping chart release."
   exit 0
 fi
-CHARTS_DIR="$(cd "$REPO_DIR/../w/charts" && pwd)"
 
 sedi() {
   if [ "$(uname)" = "Darwin" ]; then

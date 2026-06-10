@@ -70,6 +70,21 @@
 #       # ~/.local/share/snapcraft/launchpad-credentials
 #   Create the value:
 #     base64 -w0 ~/.local/share/snapcraft/launchpad-credentials
+#
+# ── WEKAN_REPO_TOKEN = GitHub PAT with write access to wekan.fi + charts ──────
+#   Used by the `website` and `charts` jobs in release-all.yml to push to the
+#   separate wekan/wekan.fi and wekan/charts repos (the built-in GITHUB_TOKEN
+#   only has access to wekan/wekan). Create a token owned by an account that has
+#   write access to BOTH repos:
+#     Fine-grained: https://github.com/settings/personal-access-tokens/new
+#       Menu path: GitHub -> avatar -> Settings -> Developer settings
+#                         -> Personal access tokens -> Fine-grained tokens
+#                         -> "Generate new token"
+#       Resource owner: wekan; Repository access: wekan/wekan.fi and wekan/charts
+#       Permissions: Repository permissions -> Contents: Read and write.
+#     Classic alternative: https://github.com/settings/tokens (scope: repo).
+#   The value is the RAW token (no base64, no "user:" prefix), e.g.:
+#     github_pat_xxx   (fine-grained)   or   ghp_xxx   (classic)
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -u
@@ -204,12 +219,23 @@ create_lp() {
   fi
 }
 
+create_wekan_repo_token() {
+  echo "=== WEKAN_REPO_TOKEN = GitHub PAT (write to wekan.fi + charts) ==="
+  echo "  Fine-grained token, Contents: Read and write on wekan/wekan.fi + wekan/charts:"
+  echo "    https://github.com/settings/personal-access-tokens/new"
+  echo "  (Classic alternative: https://github.com/settings/tokens, scope: repo.)"
+  read_hidden "  GitHub personal access token (hidden): "
+  save_secret "WEKAN_REPO_TOKEN" "$REPLY_SECRET"
+  REPLY_SECRET=""
+}
+
 create_all() {
   create_dockerhub
   create_quay
   create_ghcr
   create_snap
   create_lp
+  create_wekan_repo_token
 }
 
 # ── Optionally set secrets in GitHub directly via the gh CLI ─────────────────
@@ -236,6 +262,7 @@ while true; do
   echo "  3) GHCR_AUTH        (GitHub Container Registry)"
   echo "  4) SNAP_AUTH        (Snap Store)"
   echo "  5) LP_CREDENTIALS   (Launchpad remote-build)"
+  echo "  6) WEKAN_REPO_TOKEN (push to wekan.fi + charts)"
   echo "  a) ALL of the above"
   echo "  q) Quit"
   read -rp "> " choice
@@ -245,6 +272,7 @@ while true; do
     3) create_ghcr ;;
     4) create_snap ;;
     5) create_lp ;;
+    6) create_wekan_repo_token ;;
     a|A) create_all ;;
     q|Q) break ;;
     *) echo "Unknown choice: $choice" ;;

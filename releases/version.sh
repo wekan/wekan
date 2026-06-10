@@ -10,8 +10,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
-# Local HTTP cache used by releases/snapcraft-local.yaml.
-CACHE_BASE_URL="${CACHE_BASE_URL:-http://localhost:8000}"
+# Local copy of dependency artifacts, used only for the optional
+# USE_LOCAL_DEP_VERSIONS offline mode. Builds themselves fetch from upstream.
 DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
 
 # Portable sedi function for macOS/Linux compatibility
@@ -145,7 +145,6 @@ get_current_version_from_file() {
 ensure_cache_or_download() {
   local filename="$1"
   local upstream_url="$2"
-  local cache_url="${CACHE_BASE_URL}/${filename}"
 
   if [ "${USE_LOCAL_DEP_VERSIONS:-0}" = "1" ]; then
     if [ -f "$DOWNLOAD_DIR/$filename" ]; then
@@ -157,11 +156,6 @@ ensure_cache_or_download() {
     return 1
   fi
 
-  if http_ok "$cache_url"; then
-    echo "[CACHE] OK: $cache_url"
-    return 0
-  fi
-
   mkdir -p "$DOWNLOAD_DIR"
 
   if [ -f "$DOWNLOAD_DIR/$filename" ]; then
@@ -169,8 +163,7 @@ ensure_cache_or_download() {
     return 0
   fi
 
-  echo "[CACHE] MISSING: $cache_url"
-  echo "[DOWNLOAD] Fetching: $upstream_url"
+  echo "[DOWNLOAD] Fetching from upstream: $upstream_url"
   curl -fL --retry 3 --retry-delay 2 -o "$DOWNLOAD_DIR/$filename" "$upstream_url"
 }
 
@@ -378,9 +371,9 @@ version_bump_logic() {
   sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package.json
   sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package-lock.json
   sedi "0,/appVersion: \"[^\"]*\"/s/appVersion: \"[^\"]*\"/appVersion: \"${PKG_VER}\"/" Stackerfile.yml
-  sedi "2s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml releases/snapcraft-local.yaml
-  sedi "s|v$OLD_VERSION/|v$NEW_VERSION/|g" snapcraft.yaml releases/snapcraft-local.yaml
-  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" snapcraft.yaml releases/snapcraft-local.yaml
+  sedi "2s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml
+  sedi "s|v$OLD_VERSION/|v$NEW_VERSION/|g" snapcraft.yaml
+  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" snapcraft.yaml
 
   sedi "0,/appVersion = [0-9]\+/s/appVersion = [0-9]\+/appVersion = ${NEW_NO_DOTS}/" sandstorm-pkgdef.capnp
   sedi "0,/appMarketingVersion = (defaultText = \"[^\"]*\")/s/appMarketingVersion = (defaultText = \"[^\"]*\")/appMarketingVersion = (defaultText = \"${NEW_VERSION}~${TODAY}\")/" sandstorm-pkgdef.capnp
@@ -390,23 +383,32 @@ version_bump_logic() {
   sedi "s|wekan-$OLD_VERSION|wekan-$NEW_VERSION|g" docs/Platforms/Propietary/Windows/Offline.md
   sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs/Platforms/Propietary/Windows/Offline.md
 
-  # 7. Ensure dependency artifacts are available in local cache (or downloaded to ~/Lataukset).
+  # 7. Download dependency artifacts from upstream to ~/Lataukset for the optional
+  # USE_LOCAL_DEP_VERSIONS offline mode. The builds themselves fetch from upstream too.
   # Do not fetch Wekan release bundles here: they are created later by release-bundle.sh.
-  echo "[DEBUG] Checking local cache and downloading missing dependency artifacts to $DOWNLOAD_DIR ..."
+  # Skipped in the remote (GitHub Actions) flow via RELEASE_SKIP_DEP_DOWNLOAD=1,
+  # where every build job already downloads its dependencies straight from upstream.
+  if [ "${RELEASE_SKIP_DEP_DOWNLOAD:-0}" = "1" ]; then
+    echo "[DEBUG] RELEASE_SKIP_DEP_DOWNLOAD=1 set, skipping dependency pre-download."
+  else
+    echo "[DEBUG] Downloading missing dependency artifacts from upstream to $DOWNLOAD_DIR ..."
 
-  ensure_cache_or_download "node-v${NEW_NODE}-linux-x64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-x64.tar.xz"
-  ensure_cache_or_download "node-v${NEW_NODE}-linux-arm64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-arm64.tar.xz"
+    ensure_cache_or_download "node-v${NEW_NODE}-linux-x64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-x64.tar.xz"
+    ensure_cache_or_download "node-v${NEW_NODE}-linux-arm64.tar.xz" "https://nodejs.org/dist/v${NEW_NODE}/node-v${NEW_NODE}-linux-arm64.tar.xz"
 
-  ensure_cache_or_download "mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz" "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz"
-  ensure_cache_or_download "mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz" "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz"
+    ensure_cache_or_download "mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz" "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz"
+    ensure_cache_or_download "mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz" "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz"
 
-  ensure_cache_or_download "mongosh-${MONGOSH_VER}-linux-x64.tgz" "https://downloads.mongodb.com/compass/mongosh-${MONGOSH_VER}-linux-x64.tgz"
-  ensure_cache_or_download "mongosh-${MONGOSH_VER}-linux-arm64.tgz" "https://downloads.mongodb.com/compass/mongosh-${MONGOSH_VER}-linux-arm64.tgz"
+    ensure_cache_or_download "mongosh-${MONGOSH_VER}-linux-x64.tgz" "https://downloads.mongodb.com/compass/mongosh-${MONGOSH_VER}-linux-x64.tgz"
+    ensure_cache_or_download "mongosh-${MONGOSH_VER}-linux-arm64.tgz" "https://downloads.mongodb.com/compass/mongosh-${MONGOSH_VER}-linux-arm64.tgz"
 
-  ensure_cache_or_download "mongodb-database-tools-ubuntu2204-x86_64-${TOOLS_VER}.tgz" "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-${TOOLS_VER}.tgz"
-  ensure_cache_or_download "mongodb-database-tools-ubuntu2204-arm64-${TOOLS_VER}.tgz" "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-arm64-${TOOLS_VER}.tgz"
+    ensure_cache_or_download "mongodb-database-tools-ubuntu2204-x86_64-${TOOLS_VER}.tgz" "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-${TOOLS_VER}.tgz"
+    ensure_cache_or_download "mongodb-database-tools-ubuntu2204-arm64-${TOOLS_VER}.tgz" "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-arm64-${TOOLS_VER}.tgz"
+  fi
 
-  # 8. Update Wekan website (if applicable)
+  # 8. Update Wekan website (manual/local flow only; the remote flow handles the
+  # wekan.fi and charts repos in dedicated parallel GitHub Actions jobs). These
+  # blocks no-op in CI because the sibling repos are not checked out there.
   if [ -d "../w/wekan.fi" ]; then
     INSTALL_PAGE="../w/wekan.fi/install/index.html"
     METEOR_VER=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1 | sed 's/.*@//')

@@ -11,24 +11,33 @@ name: Release All Platforms
 # win64, mac); MongoDB 7.x is the default database. s390x/ppc64le are not built
 # because MongoDB has no server binaries for them.
 #
-# This workflow does everything for a GitHub Actions release:
-#   - Tags the current main as v<new_version>
-#   - Builds the amd64 bundle with a full Meteor 3 build
-#   - Rebuilds native modules for arm64, win64, mac-amd64, mac-arm64
-#     from that amd64 base (much faster than a full per-platform Meteor build)
-#   - Creates the GitHub Release with the newest CHANGELOG.md notes and uploads
-#     every wekan-<version>-<platform>.zip bundle
-#   - Builds and pushes the multi-arch Docker image to Docker Hub, Quay.io and GHCR
-#   - Builds the snap on Launchpad (amd64 + arm64), pushes it to the Snap Store
-#     and attaches the .snap files to the GitHub Release
+# This workflow does EVERYTHING for a release remotely (nothing is built or
+# pushed on the maintainer's machine), running jobs in parallel where possible:
+#   - bump:    runs releases/version.sh + releases/rebuild-docs.sh on the runner
+#              (bumps Node/MongoDB/WeKan versions, rebuilds API docs), then
+#              commits and pushes the bump to wekan/wekan main
+#   - prepare: tags the bumped main as v<new_version> and extracts release notes
+#   - website: updates the wekan/wekan.fi repo (install page + API docs) and pushes
+#   - charts:  updates and publishes the wekan/charts Helm chart and pushes
+#   - build-*: builds the amd64 bundle (full Meteor 3 build), then rebuilds native
+#              modules for arm64, win64, mac-amd64, mac-arm64 from that amd64 base
+#   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
+#              uploads every wekan-<version>-<platform>.zip bundle
+#   - docker:  builds and pushes the multi-arch image to Docker Hub, Quay.io, GHCR
+#   - snap:    builds the snap on Launchpad (amd64 + arm64), pushes it to the Snap
+#              Store and attaches the .snap files to the GitHub Release
 #
 # Required GitHub Secrets:
-#   GHCR_AUTH       - base64("username:token") for ghcr.io
-#   DOCKERHUB_AUTH  - base64("username:token") for Docker Hub
-#   QUAY_AUTH       - base64("username:token") for Quay.io
-#   SNAP_AUTH       - Snap Store credentials (output of `snapcraft export-login`)
-#   LP_CREDENTIALS  - base64 of the Launchpad credentials file used by
-#                     `snapcraft remote-build` (see releases/snap-build.sh notes)
+#   GHCR_AUTH        - base64("username:token") for ghcr.io
+#   DOCKERHUB_AUTH   - base64("username:token") for Docker Hub
+#   QUAY_AUTH        - base64("username:token") for Quay.io
+#   SNAP_AUTH        - Snap Store credentials (output of `snapcraft export-login`)
+#   LP_CREDENTIALS   - base64 of the Launchpad credentials file used by
+#                      `snapcraft remote-build` (see releases/snap-build.sh notes)
+#   WEKAN_REPO_TOKEN - Personal Access Token with write access to wekan/wekan.fi
+#                      and wekan/charts, used by the website + charts jobs to push
+#                      to those repos (the built-in GITHUB_TOKEN only covers
+#                      wekan/wekan). See releases/create-github-secrets.sh.
 
 on:
   workflow_dispatch:
@@ -53,8 +62,54 @@ env:
 
 jobs:
 
+  # ─── 0. Bump versions + rebuild API docs, commit to main ────────────────────
+  # Runs releases/version.sh (probes upstream for the newest Node.js/MongoDB,
+  # bumps every version reference) and releases/rebuild-docs.sh (regenerates
+  # public/api/wekan.yml + wekan.html), then commits and pushes to main so the
+  # tag, builds, website and charts jobs all see the bumped sources.
+  bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install version-bump and docs build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip curl wget
+
+      - name: Bump versions and rebuild API docs
+        env:
+          # Builds fetch dependencies from upstream themselves, so skip the slow
+          # pre-download of Node/MongoDB tarballs that the local flow does.
+          RELEASE_SKIP_DEP_DOWNLOAD: '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          ./releases/version.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
+          ./releases/rebuild-docs.sh "${{ inputs.new_version }}"
+
+      - name: Commit and push version bump
+        run: |
+          git add --all
+          if git diff --cached --quiet; then
+            echo "No version changes to commit."
+          else
+            git commit -m "Bump versions for v${{ inputs.new_version }}"
+            git push origin main
+          fi
+
   # ─── 1. Tag the release and extract release notes ───────────────────────────
   prepare:
+    needs: bump
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
@@ -112,6 +167,78 @@ jobs:
             echo "$NOTES"
             echo "GHEOF"
           } >> "$GITHUB_OUTPUT"
+
+  # ─── 1b. Update the wekan.fi website repo (parallel) ────────────────────────
+  # Bumps the version/Meteor/Node/MongoDB strings on the install page and copies
+  # the freshly rebuilt API docs into wekan.fi/api/v<new>, then commits + pushes
+  # to wekan/wekan.fi. Runs as soon as `bump` has pushed the bumped sources.
+  website:
+    needs: bump
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout wekan repo (bumped main, with rebuilt API docs)
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: wekan
+
+      - name: Checkout wekan.fi website repo
+        uses: actions/checkout@v6
+        with:
+          repository: wekan/wekan.fi
+          token: ${{ secrets.WEKAN_REPO_TOKEN }}
+          path: wekan.fi
+
+      - name: Update and push website
+        env:
+          WEBDIR: ${{ github.workspace }}/wekan.fi
+          WEKANREPODIR: ${{ github.workspace }}/wekan
+          RELEASE_PUSH_WEBSITE: '1'
+        run: |
+          cd wekan.fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cd ..
+          ./wekan/releases/release-website.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
+
+  # ─── 1c. Update and publish the Helm chart repo (parallel) ──────────────────
+  # Bumps the WeKan version in wekan/charts, packages the chart and publishes it
+  # to the gh-pages Helm index, then pushes both branches. Runs in parallel with
+  # the platform builds; packaging the chart does not need the built artifacts.
+  charts:
+    needs: bump
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout wekan repo (for releases/release-charts.sh + version refs)
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: wekan
+
+      - name: Checkout wekan/charts repo (main + gh-pages)
+        uses: actions/checkout@v6
+        with:
+          repository: wekan/charts
+          token: ${{ secrets.WEKAN_REPO_TOKEN }}
+          fetch-depth: 0
+          path: charts
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Fetch gh-pages branch (release-charts.sh switches to it)
+        run: |
+          cd charts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*'
+          git branch --track gh-pages origin/gh-pages 2>/dev/null || true
+
+      - name: Release and publish chart
+        env:
+          CHARTS_DIR: ${{ github.workspace }}/charts
+        run: |
+          ./wekan/releases/release-charts.sh "${{ inputs.new_version }}"
 
   # ─── 2. Build amd64 bundle (full Meteor 3 build) ────────────────────────────
   # Meteor 3.5-beta installer supports only Linux x86_64/aarch64, macOS, Windows.

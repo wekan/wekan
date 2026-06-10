@@ -23,8 +23,12 @@ sedi() {
 }
 
 # The website lives in the separate wekan.fi repo at ../w/wekan.fi (a sibling of
-# the wekan repo). Detect it for both common local repo layouts.
-if [ -d "$HOME/repos/w/wekan.fi" ]; then
+# the wekan repo). The remote (GitHub Actions) flow sets WEBDIR and WEKANREPODIR
+# explicitly to point at the repos it checked out; otherwise detect the common
+# local sibling layouts.
+if [ -n "${WEBDIR:-}" ] && [ -n "${WEKANREPODIR:-}" ]; then
+  echo "Using WEBDIR=$WEBDIR and WEKANREPODIR=$WEKANREPODIR from environment."
+elif [ -d "$HOME/repos/w/wekan.fi" ]; then
   WEBDIR="$HOME/repos/w/wekan.fi"
   WEKANREPODIR="$HOME/repos/wekan"
 elif [ -d "$HOME/Documents/repos/w/wekan.fi" ]; then
@@ -82,7 +86,18 @@ mkdir -p "$WEBDIR/api/v$NEW"
 cp "$WEKANREPODIR/public/api/"* "$WEBDIR/api/v$NEW/"
 mv "$WEBDIR/api/v$NEW/wekan.html" "$WEBDIR/api/v$NEW/index.html"
 
-# Commit and push website changes live
-#git add --all
-#git commit -m "v$NEW"
-#git push
+# Commit and push website changes live. Enabled in the remote (GitHub Actions)
+# flow via RELEASE_PUSH_WEBSITE=1; the manual flow leaves publishing to the
+# maintainer (who reviews and pushes ../w/wekan.fi by hand).
+if [ "${RELEASE_PUSH_WEBSITE:-0}" = "1" ]; then
+  (
+    cd "$WEBDIR"
+    git add --all
+    if git diff --cached --quiet; then
+      echo "No website changes to commit in $WEBDIR."
+    else
+      git commit -m "v$NEW"
+      git push
+    fi
+  )
+fi

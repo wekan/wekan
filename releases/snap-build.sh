@@ -5,15 +5,13 @@ set -euo pipefail
 SNAP_BUILD_LOG="snap-build.log"
 exec > >(tee "$SNAP_BUILD_LOG") 2>&1
 
-USE_LOCAL_SNAPCRAFT="false"
-
 echo "First run: snapcraft login"
 echo "Then run this script"
 
-echo "Using releases/snapcraft-local.yaml (local mirror mode)"
+echo "Using snapcraft.yaml (all artifacts fetched from upstream)"
 
-if ! grep -qE '^[[:space:]]*npm install[[:space:]]*$' releases/snapcraft-local.yaml; then
-  echo "ERROR: releases/snapcraft-local.yaml is missing standalone 'npm install' step."
+if ! grep -qE '^[[:space:]]*npm install[[:space:]]*$' snapcraft.yaml; then
+  echo "ERROR: snapcraft.yaml is missing standalone 'npm install' step."
   echo "Refusing to continue because Snap may miss server npm modules."
   exit 1
 fi
@@ -95,13 +93,6 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   sudo systemctl start snapd
   sudo snap install snapcraft --classic
   sudo snap install lxd
-  SNAPCRAFT_FILE_BACKUP=""
-  cleanup_snapcraft_file() {
-    if [[ -n "$SNAPCRAFT_FILE_BACKUP" && -f "$SNAPCRAFT_FILE_BACKUP" ]]; then
-      mv -f "$SNAPCRAFT_FILE_BACKUP" snapcraft.yaml
-    fi
-  }
-  trap cleanup_snapcraft_file EXIT
 
   ensure_lxd_network() {
     local bridge_name="lxdbr0"
@@ -122,13 +113,6 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     fi
   }
 
-  # Only override snapcraft.yaml when explicitly requested.
-  if [[ "$USE_LOCAL_SNAPCRAFT" == "true" ]]; then
-    SNAPCRAFT_FILE_BACKUP="$(mktemp snapcraft.yaml.backup.XXXXXX)"
-    cp snapcraft.yaml "$SNAPCRAFT_FILE_BACKUP"
-    cp releases/snapcraft-local.yaml snapcraft.yaml
-  fi
-  
   # Initialize LXD if it hasn't been done yet
   sudo lxd init --auto
   ensure_lxd_network
