@@ -71,7 +71,52 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py copymoveattachment ATTACHMENTID TARGETBOARDID TARGETSWIMLANEID TARGETLISTID TARGETCARDID [copy|move] # Copy or move attachment
     python3 api.py deleteattachment ATTACHMENTID # Delete attachment
 
-    
+        Board Member API (Issue #5998):
+    python3 api.py addboardmember BOARDID USERID ROLE # Add/activate board member. ROLE: admin, normal, comment, readonly, worker, normalassignedonly, commentassignedonly, readassignedonly, nocomments
+    python3 api.py removeboardmember BOARDID USERID # Remove (deactivate) board member
+    python3 api.py setboardmemberrole BOARDID USERID ROLE # Change permission/role of existing board member
+
+        Card Member / Assignee API (board member -> card member/assignee):
+    python3 api.py setcardmembers BOARDID LISTID CARDID MEMBERIDS # Set card members. MEMBERIDS = comma-separated userIds, or '' to clear
+    python3 api.py setcardassignees BOARDID LISTID CARDID ASSIGNEEIDS # Set card assignees. ASSIGNEEIDS = comma-separated userIds, or '' to clear
+
+        Card Dates API (Issue #5846):
+    python3 api.py setcarddate BOARDID LISTID CARDID DATETYPE [DATEVALUE] # DATETYPE: received, start, due, end. DATEVALUE: ISO 8601, e.g. 2026-06-07T12:00:00.000Z. Omit DATEVALUE (or pass '') to clear the date.
+
+        Card Labels API (Issue #5819):
+    python3 api.py setcardlabels BOARDID LISTID CARDID LABELIDS # Set (replace) card labels. LABELIDS = comma-separated labelIds, or '' to clear
+
+        Card Copy/Move API:
+    python3 api.py movecard BOARDID LISTID CARDID NEWBOARDID NEWSWIMLANEID NEWLISTID # Move card to another board/swimlane/list
+
+        Bulk Card API (Issue #4743, #5819):
+    python3 api.py bulkaddcards BOARDID LISTID AUTHORID SWIMLANEID CARDSJSONFILE # Create many cards in one request. CARDSJSONFILE = JSON file with a list of titles, or a list of card objects {title,description,members,assignees,...}
+    python3 api.py bulkdeletecards BOARDID CARDIDS # Delete many cards in one request. CARDIDS = comma-separated cardIds
+    python3 api.py bulkcardlabels BOARDID CARDIDS ADDLABELIDS REMOVELABELIDS # Merge-add/remove labels across many cards. CARDIDS/ADDLABELIDS/REMOVELABELIDS = comma-separated, or '' for none
+
+        Linked Card API (Issue #5897):
+    python3 api.py linkcard BOARDID LISTID SWIMLANEID AUTHORID LINKEDCARDID # Create a linked card in BOARDID/LISTID that references LINKEDCARDID (may be on another board)
+
+        Card Member/Assignee Merge API (Issue #5998):
+    python3 api.py addcardmember BOARDID LISTID CARDID MEMBERID # Add one board member to a card (validated)
+    python3 api.py removecardmember BOARDID LISTID CARDID MEMBERID # Remove one member from a card
+    python3 api.py addcardassignee BOARDID LISTID CARDID ASSIGNEEID # Add one assignee to a card (validated)
+    python3 api.py removecardassignee BOARDID LISTID CARDID ASSIGNEEID # Remove one assignee from a card
+
+        Copy/Move Swimlane/List/Card API (position = 0-based index from top-left):
+    python3 api.py copycard BOARDID LISTID CARDID TOSWIMLANEID [TOBOARDID] [TOLISTID] [POSITION] # Copy a card (deep copy)
+    python3 api.py copyswimlane BOARDID SWIMLANEID [TOBOARDID] [POSITION] # Copy a swimlane (deep copy)
+    python3 api.py moveswimlane BOARDID SWIMLANEID [TOBOARDID] [POSITION] # Move a swimlane
+    python3 api.py copylist BOARDID LISTID TOSWIMLANEID [TOBOARDID] [POSITION] # Copy a list (deep copy)
+    python3 api.py movelist BOARDID LISTID [TOSWIMLANEID] [TOBOARDID] [POSITION] # Move a list
+
+        My Cards / Due Cards API (Issue #4815):
+    python3 api.py mycards [due] [FROM] [TO] # Current user's cards. 'due' = only cards with a due date; FROM/TO = ISO 8601 due-date range
+
+        Card Settings API (Issue #3062):
+    python3 api.py getcardsettings BOARDID # Get board-level card settings (allows* toggles)
+    python3 api.py setcardsetting BOARDID KEY VALUE # Set one board card setting, e.g. allowsDueDate true
+
   Admin API:
     python3 api.py newuser USERNAME EMAIL PASSWORD
 """
@@ -1035,3 +1080,411 @@ if arguments >= 1:
         # ------- DELETE ATTACHMENT END -----------
 
 # ------- NEW ATTACHMENT API ENDPOINTS END -----------
+
+# ------- BOARD MEMBER / CARD FIELD API ENDPOINTS START -----------
+# These commands wrap REST endpoints that already exist in Wekan.
+# See CHANGELOG.md "Upcoming" section for related issues and design notes.
+
+    # Map a human readable ROLE to the board member permission boolean flags
+    # used by /api/boards/:boardId/members/:userId/add and .../members/:memberId
+    def board_role_flags(role):
+        flags = {
+            'isAdmin': 'false',
+            'isNoComments': 'false',
+            'isCommentOnly': 'false',
+            'isWorker': 'false',
+            'isNormalAssignedOnly': 'false',
+            'isCommentAssignedOnly': 'false',
+            'isReadOnly': 'false',
+            'isReadAssignedOnly': 'false',
+        }
+        role = (role or 'normal').lower()
+        rolemap = {
+            'admin': 'isAdmin',
+            'nocomments': 'isNoComments',
+            'comment': 'isCommentOnly',
+            'commentonly': 'isCommentOnly',
+            'worker': 'isWorker',
+            'normalassignedonly': 'isNormalAssignedOnly',
+            'commentassignedonly': 'isCommentAssignedOnly',
+            'readonly': 'isReadOnly',
+            'readassignedonly': 'isReadAssignedOnly',
+        }
+        if role in ('normal', 'member'):
+            return flags  # all false == Normal board member
+        if role in rolemap:
+            flags[rolemap[role]] = 'true'
+            return flags
+        print("Invalid ROLE. Valid: admin, normal, comment, readonly, worker, "
+              "normalassignedonly, commentassignedonly, readassignedonly, nocomments")
+        sys.exit(1)
+
+    if sys.argv[1] == 'addboardmember':
+        # ------- ADD BOARD MEMBER START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py addboardmember BOARDID USERID ROLE")
+            exit(1)
+        boardid = sys.argv[2]
+        userid = sys.argv[3]
+        role = sys.argv[4] if arguments > 3 else 'normal'
+        add_member_url = wekanurl + apiboards + boardid + s + 'members' + s + userid + s + 'add'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {'action': 'add'}
+        post_data.update(board_role_flags(role))
+        body = requests.post(add_member_url, data=post_data, headers=headers)
+        print("=== ADD BOARD MEMBER ===\n")
+        print(body.text)
+        # ------- ADD BOARD MEMBER END -----------
+
+    if sys.argv[1] == 'removeboardmember':
+        # ------- REMOVE BOARD MEMBER START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py removeboardmember BOARDID USERID")
+            exit(1)
+        boardid = sys.argv[2]
+        userid = sys.argv[3]
+        remove_member_url = wekanurl + apiboards + boardid + s + 'members' + s + userid + s + 'remove'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {'action': 'remove'}
+        body = requests.post(remove_member_url, data=post_data, headers=headers)
+        print("=== REMOVE BOARD MEMBER ===\n")
+        print(body.text)
+        # ------- REMOVE BOARD MEMBER END -----------
+
+    if sys.argv[1] == 'setboardmemberrole':
+        # ------- SET BOARD MEMBER ROLE START -----------
+        if arguments < 4:
+            print("Usage: python3 api.py setboardmemberrole BOARDID USERID ROLE")
+            exit(1)
+        boardid = sys.argv[2]
+        userid = sys.argv[3]
+        role = sys.argv[4]
+        set_role_url = wekanurl + apiboards + boardid + s + 'members' + s + userid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = board_role_flags(role)
+        body = requests.post(set_role_url, data=post_data, headers=headers)
+        print("=== SET BOARD MEMBER ROLE ===\n")
+        print(body.text)
+        # ------- SET BOARD MEMBER ROLE END -----------
+
+    if sys.argv[1] in ('setcardmembers', 'setcardassignees'):
+        # ------- SET CARD MEMBERS / ASSIGNEES START -----------
+        if arguments < 4:
+            print("Usage: python3 api.py {} BOARDID LISTID CARDID IDS".format(sys.argv[1]))
+            print("IDS = comma-separated userIds, or '' to clear")
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        ids_raw = sys.argv[5] if arguments > 4 else ''
+        ids = [x for x in ids_raw.split(',') if x] if ids_raw else []
+        field = 'members' if sys.argv[1] == 'setcardmembers' else 'assignees'
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        # Empty array clears the field; send as JSON so the array type is preserved.
+        put_data = {field: ids if ids else []}
+        body = requests.put(edcard, json=put_data, headers=headers)
+        print("=== SET CARD {} ===\n".format(field.upper()))
+        print(body.text)
+        # ------- SET CARD MEMBERS / ASSIGNEES END -----------
+
+    if sys.argv[1] == 'setcarddate':
+        # ------- SET CARD DATE START -----------
+        if arguments < 5:
+            print("Usage: python3 api.py setcarddate BOARDID LISTID CARDID DATETYPE DATEVALUE")
+            print("DATETYPE: received, start, due, end")
+            print("DATEVALUE: ISO 8601, e.g. 2026-06-07T12:00:00.000Z")
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        datetype = sys.argv[5].lower()
+        datevalue = sys.argv[6] if arguments > 5 else ''
+        datemap = {
+            'received': 'receivedAt',
+            'start': 'startAt',
+            'due': 'dueAt',
+            'end': 'endAt',
+        }
+        if datetype not in datemap:
+            print("Invalid DATETYPE. Valid: received, start, due, end")
+            sys.exit(1)
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {datemap[datetype]: datevalue}
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== SET CARD DATE {} ===\n".format(datetype.upper()))
+        print(body.text)
+        # ------- SET CARD DATE END -----------
+
+    if sys.argv[1] == 'setcardlabels':
+        # ------- SET CARD LABELS START -----------
+        if arguments < 4:
+            print("Usage: python3 api.py setcardlabels BOARDID LISTID CARDID LABELIDS")
+            print("LABELIDS = comma-separated labelIds, or '' to clear")
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        labelids_raw = sys.argv[5] if arguments > 4 else ''
+        labelids = [x for x in labelids_raw.split(',') if x] if labelids_raw else []
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        # NOTE: this REPLACES the card's labels. Bulk add/remove (merge) is not yet
+        # implemented server-side, see Issue #5819 in CHANGELOG.md "Upcoming".
+        put_data = {'labelIds': labelids if labelids else []}
+        body = requests.put(edcard, json=put_data, headers=headers)
+        print("=== SET CARD LABELS ===\n")
+        print(body.text)
+        # ------- SET CARD LABELS END -----------
+
+    if sys.argv[1] == 'movecard':
+        # ------- MOVE CARD START -----------
+        if arguments < 7:
+            print("Usage: python3 api.py movecard BOARDID LISTID CARDID NEWBOARDID NEWSWIMLANEID NEWLISTID")
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        newboardid = sys.argv[5]
+        newswimlaneid = sys.argv[6]
+        newlistid = sys.argv[7]
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {
+            'newBoardId': newboardid,
+            'newSwimlaneId': newswimlaneid,
+            'newListId': newlistid,
+        }
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== MOVE CARD ===\n")
+        print(body.text)
+        # ------- MOVE CARD END -----------
+
+    if sys.argv[1] == 'bulkaddcards':
+        # ------- BULK ADD CARDS START -----------
+        if arguments < 5:
+            print("Usage: python3 api.py bulkaddcards BOARDID LISTID AUTHORID SWIMLANEID CARDSJSONFILE")
+            print("CARDSJSONFILE = JSON file with a list of titles, e.g. [\"Card A\", \"Card B\"],")
+            print("                or a list of card objects [{\"title\": \"Card A\", \"description\": \"...\"}, ...]")
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        authorid = sys.argv[4]
+        swimlaneid = sys.argv[5]
+        cardsjsonfile = sys.argv[6] if arguments > 5 else None
+        if not cardsjsonfile:
+            print("CARDSJSONFILE is required")
+            exit(1)
+        try:
+            with open(cardsjsonfile, 'r') as f:
+                raw_cards = json.load(f)
+        except Exception as e:
+            print("Error reading CARDSJSONFILE: {}".format(e))
+            exit(1)
+        if not isinstance(raw_cards, list) or len(raw_cards) == 0:
+            print("CARDSJSONFILE must contain a non-empty JSON list")
+            exit(1)
+        cards = []
+        for item in raw_cards:
+            if isinstance(item, str):
+                cards.append({'title': item})
+            elif isinstance(item, dict):
+                cards.append(item)
+            else:
+                print("Each card must be a string (title) or an object")
+                exit(1)
+        bulk_url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + 'bulk'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        post_data = {'authorId': authorid, 'swimlaneId': swimlaneid, 'cards': cards}
+        body = requests.post(bulk_url, json=post_data, headers=headers)
+        print("=== BULK ADD CARDS ===\n")
+        print(body.text)
+        # ------- BULK ADD CARDS END -----------
+
+    if sys.argv[1] == 'bulkdeletecards':
+        # ------- BULK DELETE CARDS START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py bulkdeletecards BOARDID CARDIDS")
+            print("CARDIDS = comma-separated cardIds")
+            exit(1)
+        boardid = sys.argv[2]
+        cardids_raw = sys.argv[3]
+        cardids = [x for x in cardids_raw.split(',') if x]
+        bulk_url = wekanurl + apiboards + boardid + s + cs + s + 'bulk'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        # requests sends a body with DELETE via the json= parameter.
+        body = requests.delete(bulk_url, json={'cardIds': cardids}, headers=headers)
+        print("=== BULK DELETE CARDS ===\n")
+        print(body.text)
+        # ------- BULK DELETE CARDS END -----------
+
+    if sys.argv[1] == 'bulkcardlabels':
+        # ------- BULK CARD LABELS START -----------
+        if arguments < 5:
+            print("Usage: python3 api.py bulkcardlabels BOARDID CARDIDS ADDLABELIDS REMOVELABELIDS")
+            print("CARDIDS / ADDLABELIDS / REMOVELABELIDS = comma-separated, or '' for none")
+            exit(1)
+        boardid = sys.argv[2]
+        cardids = [x for x in sys.argv[3].split(',') if x]
+        add_labelids = [x for x in sys.argv[4].split(',') if x]
+        remove_labelids = [x for x in sys.argv[5].split(',') if x]
+        bulk_url = wekanurl + apiboards + boardid + s + cs + s + 'labels'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        post_data = {'cardIds': cardids, 'addLabelIds': add_labelids, 'removeLabelIds': remove_labelids}
+        body = requests.post(bulk_url, json=post_data, headers=headers)
+        print("=== BULK CARD LABELS ===\n")
+        print(body.text)
+        # ------- BULK CARD LABELS END -----------
+
+    if sys.argv[1] == 'linkcard':
+        # ------- CREATE LINKED CARD START -----------
+        if arguments < 6:
+            print("Usage: python3 api.py linkcard BOARDID LISTID SWIMLANEID AUTHORID LINKEDCARDID")
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        swimlaneid = sys.argv[4]
+        authorid = sys.argv[5]
+        linkedcardid = sys.argv[6]
+        link_url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {'authorId': authorid, 'swimlaneId': swimlaneid, 'linkedId': linkedcardid}
+        body = requests.post(link_url, data=post_data, headers=headers)
+        print("=== CREATE LINKED CARD ===\n")
+        print(body.text)
+        # ------- CREATE LINKED CARD END -----------
+
+    if sys.argv[1] in ('addcardmember', 'removecardmember', 'addcardassignee', 'removecardassignee'):
+        # ------- ADD/REMOVE CARD MEMBER / ASSIGNEE START -----------
+        if arguments < 5:
+            print("Usage: python3 api.py {} BOARDID LISTID CARDID USERID".format(sys.argv[1]))
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        userid = sys.argv[5]
+        field = 'members' if 'member' in sys.argv[1] else 'assignees'
+        url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid + s + field + s + userid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        if sys.argv[1].startswith('add'):
+            body = requests.post(url, headers=headers)
+        else:
+            body = requests.delete(url, headers=headers)
+        print("=== {} ===\n".format(sys.argv[1].upper()))
+        print(body.text)
+        # ------- ADD/REMOVE CARD MEMBER / ASSIGNEE END -----------
+
+    if sys.argv[1] == 'copycard':
+        # ------- COPY CARD START -----------
+        if arguments < 4:
+            print("Usage: python3 api.py copycard BOARDID LISTID CARDID TOSWIMLANEID [TOBOARDID] [TOLISTID] [POSITION]")
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        toswimlaneid = sys.argv[5] if arguments > 4 else None
+        if not toswimlaneid:
+            print("TOSWIMLANEID is required")
+            exit(1)
+        toboardid = sys.argv[6] if arguments > 5 else boardid
+        tolistid = sys.argv[7] if arguments > 6 else listid
+        url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid + s + 'copy'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        post_data = {'toBoardId': toboardid, 'toSwimlaneId': toswimlaneid, 'toListId': tolistid}
+        if arguments > 7:
+            post_data['position'] = int(sys.argv[8])
+        body = requests.post(url, json=post_data, headers=headers)
+        print("=== COPY CARD ===\n")
+        print(body.text)
+        # ------- COPY CARD END -----------
+
+    if sys.argv[1] in ('copyswimlane', 'moveswimlane'):
+        # ------- COPY/MOVE SWIMLANE START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py {} BOARDID SWIMLANEID [TOBOARDID] [POSITION]".format(sys.argv[1]))
+            exit(1)
+        boardid = sys.argv[2]
+        swimlaneid = sys.argv[3]
+        toboardid = sys.argv[4] if arguments > 3 else boardid
+        action = 'copy' if sys.argv[1] == 'copyswimlane' else 'move'
+        url = wekanurl + apiboards + boardid + s + sws + s + swimlaneid + s + action
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        post_data = {'toBoardId': toboardid}
+        if arguments > 4:
+            post_data['position'] = int(sys.argv[5])
+        body = requests.post(url, json=post_data, headers=headers)
+        print("=== {} ===\n".format(sys.argv[1].upper()))
+        print(body.text)
+        # ------- COPY/MOVE SWIMLANE END -----------
+
+    if sys.argv[1] in ('copylist', 'movelist'):
+        # ------- COPY/MOVE LIST START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py {} BOARDID LISTID [TOSWIMLANEID] [TOBOARDID] [POSITION]".format(sys.argv[1]))
+            exit(1)
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        toswimlaneid = sys.argv[4] if arguments > 3 else None
+        toboardid = sys.argv[5] if arguments > 4 else boardid
+        action = 'copy' if sys.argv[1] == 'copylist' else 'move'
+        url = wekanurl + apiboards + boardid + s + l + s + listid + s + action
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        post_data = {'toBoardId': toboardid}
+        if toswimlaneid:
+            post_data['toSwimlaneId'] = toswimlaneid
+        if arguments > 5:
+            post_data['position'] = int(sys.argv[6])
+        body = requests.post(url, json=post_data, headers=headers)
+        print("=== {} ===\n".format(sys.argv[1].upper()))
+        print(body.text)
+        # ------- COPY/MOVE LIST END -----------
+
+    if sys.argv[1] == 'mycards':
+        # ------- MY CARDS / DUE CARDS START -----------
+        params = {}
+        if arguments >= 2 and sys.argv[2].lower() == 'due':
+            params['due'] = 'true'
+        if arguments >= 3:
+            params['from'] = sys.argv[3]
+        if arguments >= 4:
+            params['to'] = sys.argv[4]
+        url = wekanurl + 'api/user/cards'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.get(url, headers=headers, params=params)
+        print("=== MY CARDS ===\n")
+        data2 = body.text.replace('}', "}\n")
+        print(data2)
+        # ------- MY CARDS / DUE CARDS END -----------
+
+    if sys.argv[1] == 'getcardsettings':
+        # ------- GET CARD SETTINGS START -----------
+        if arguments < 2:
+            print("Usage: python3 api.py getcardsettings BOARDID")
+            exit(1)
+        boardid = sys.argv[2]
+        url = wekanurl + apiboards + boardid + s + 'cardSettings'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.get(url, headers=headers)
+        print("=== CARD SETTINGS ===\n")
+        data2 = body.text.replace(',', ",\n")
+        print(data2)
+        # ------- GET CARD SETTINGS END -----------
+
+    if sys.argv[1] == 'setcardsetting':
+        # ------- SET CARD SETTING START -----------
+        if arguments < 4:
+            print("Usage: python3 api.py setcardsetting BOARDID KEY VALUE")
+            print("e.g. python3 api.py setcardsetting BOARDID allowsDueDate true")
+            exit(1)
+        boardid = sys.argv[2]
+        key = sys.argv[3]
+        value = sys.argv[4]
+        url = wekanurl + apiboards + boardid + s + 'cardSettings'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        body = requests.put(url, json={key: value}, headers=headers)
+        print("=== SET CARD SETTING ===\n")
+        print(body.text)
+        # ------- SET CARD SETTING END -----------
+
+# ------- BOARD MEMBER / CARD FIELD API ENDPOINTS END -----------

@@ -5,7 +5,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { add, now } from '/imports/lib/dateUtils';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards, {
@@ -608,9 +608,41 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
   const paramBoardId = req.params.boardId;
   const board = await ReactiveCache.getBoard(paramBoardId);
   const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
-  Authentication.checkAdminOrCondition(req.userId, addPermission);
+  // Must be awaited: checkAdminOrCondition is async, so without await a denied
+  // (non board member) caller's rejection never blocks and the card was created
+  // anyway — an auth bypass (CWE-862). Awaiting enforces the membership check.
+  await Authentication.checkAdminOrCondition(req.userId, addPermission);
   const paramListId = req.params.listId;
   const paramParentId = req.params.parentId;
+
+  // Issue #5897: create a Linked Card. When linkedId is provided, the new card
+  // references an existing card (via Card.link, type cardType-linkedCard)
+  // instead of holding its own content. Linking across boards is allowed: the
+  // caller must have read access to the linked card's board.
+  if (req.body.linkedId) {
+    const sourceCard = await ReactiveCache.getCard(req.body.linkedId);
+    if (!sourceCard) {
+      sendJsonResult(res, { code: 404, data: { error: 'linkedId card not found' } });
+      return;
+    }
+    await Authentication.checkBoardAccess(req.userId, sourceCard.boardId);
+    const siblingCards = await ReactiveCache.getCards(
+      { listId: paramListId, archived: false },
+      { sort: ['sort'] },
+    );
+    const linkedSort = siblingCards.length;
+    const linkedNewId = await sourceCard.link(paramBoardId, req.body.swimlaneId, paramListId);
+    const linkedNextCardNumber = await board.getNextCardNumber();
+    await Cards.direct.updateAsync(
+      { _id: linkedNewId },
+      { $set: { cardNumber: linkedNextCardNumber, sort: linkedSort } },
+    );
+    sendJsonResult(res, { code: 200, data: { _id: linkedNewId } });
+    const linkedCard = await ReactiveCache.getCard(linkedNewId);
+    await cardCreation(req.body.authorId, linkedCard);
+    return;
+  }
+
   const nextCardNumber = await board.getNextCardNumber();
 
   const customFields = await ReactiveCache.getCustomFields({ boardIds: paramBoardId });
@@ -651,6 +683,89 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     sendJsonResult(res, { code: 401 });
   }
 });
+
+// Issue #4743: deleting and recreating hundreds of cards via one HTTP request
+// per card pegs the CPU and makes WeKan unreachable. This bulk endpoint creates
+// many cards in a single request, so a sync job no longer has to fan out
+// hundreds of POST calls. Card numbers come from the atomic per-board counter
+// (see Board.getNextCardNumber, Issue #5813), so they stay unique even here.
+//
+// Body: { authorId, swimlaneId, cards: [ { title, description, swimlaneId?,
+//         authorId?, members?, assignees? }, ... ] }
+// authorId/swimlaneId at the top level are defaults; each card may override them.
+const BULK_CARDS_MAX = 500;
+WebApp.handlers.post(
+  '/api/boards/:boardId/lists/:listId/cards/bulk',
+  async function(req, res) {
+    Authentication.checkLoggedIn(req.userId);
+    const paramBoardId = req.params.boardId;
+    const board = await ReactiveCache.getBoard(paramBoardId);
+    const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
+    await Authentication.checkAdminOrCondition(req.userId, addPermission);
+    const paramListId = req.params.listId;
+
+    const cardsInput = req.body.cards;
+    if (!Array.isArray(cardsInput) || cardsInput.length === 0) {
+      sendJsonResult(res, { code: 400, data: { error: 'cards must be a non-empty array' } });
+      return;
+    }
+    if (cardsInput.length > BULK_CARDS_MAX) {
+      sendJsonResult(res, {
+        code: 400,
+        data: { error: `cards array too large (max ${BULK_CARDS_MAX} per request)` },
+      });
+      return;
+    }
+
+    const customFields = await ReactiveCache.getCustomFields({ boardIds: paramBoardId });
+    const customFieldsArr = [];
+    (customFields || []).forEach(field => {
+      if (field.automaticallyOnCard || field.alwaysOnCard) {
+        customFieldsArr.push({ _id: field._id, value: null });
+      }
+    });
+
+    const currentCards = await ReactiveCache.getCards(
+      { listId: paramListId, archived: false },
+      { sort: ['sort'] },
+    );
+    const baseSort = currentCards.length;
+
+    const results = [];
+    for (let i = 0; i < cardsInput.length; i++) {
+      const input = cardsInput[i] || {};
+      const authorId = input.authorId || req.body.authorId;
+      const swimlaneId = input.swimlaneId || req.body.swimlaneId;
+      const checkUser = await ReactiveCache.getUser(authorId);
+      if (typeof checkUser === 'undefined') {
+        results.push({ index: i, error: 'authorId not found' });
+        continue;
+      }
+      // getNextCardNumber() is an atomic per-board counter, so calling it once
+      // per card in this loop still yields unique, sequential numbers.
+      const nextCardNumber = await board.getNextCardNumber();
+      const id = await Cards.direct.insertAsync({
+        title: input.title,
+        boardId: paramBoardId,
+        listId: paramListId,
+        parentId: input.parentId,
+        description: input.description,
+        userId: authorId,
+        swimlaneId,
+        sort: baseSort + i,
+        cardNumber: nextCardNumber,
+        customFields: customFieldsArr,
+        members: input.members,
+        assignees: input.assignees,
+      });
+      const card = await ReactiveCache.getCard(id);
+      await cardCreation(authorId, card);
+      results.push({ index: i, _id: id });
+    }
+
+    sendJsonResult(res, { code: 200, data: results });
+  },
+);
 
 WebApp.handlers.get('/api/boards/:boardId/cards_count', async function(req, res) {
   try {
@@ -800,33 +915,22 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    if (req.body.receivedAt) {
-      await Cards.direct.updateAsync(
-        { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { receivedAt: req.body.receivedAt } },
-      );
-      updated = true;
-    }
-    if (req.body.startAt) {
-      await Cards.direct.updateAsync(
-        { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { startAt: req.body.startAt } },
-      );
-      updated = true;
-    }
-    if (req.body.dueAt) {
-      await Cards.direct.updateAsync(
-        { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { dueAt: req.body.dueAt } },
-      );
-      updated = true;
-    }
-    if (req.body.endAt) {
-      await Cards.direct.updateAsync(
-        { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { endAt: req.body.endAt } },
-      );
-      updated = true;
+    // Issue #5846: add/remove card dates. Previously each date was only written
+    // when the body value was truthy (if (req.body.receivedAt)), so an empty
+    // string / null could not CLEAR a date via the API. Now, whenever the field
+    // is present in the request body, an empty string or null unsets the date
+    // ($unset) and any other value sets it ($set).
+    const dateFields = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
+    for (const dateField of dateFields) {
+      if (Object.prototype.hasOwnProperty.call(req.body, dateField)) {
+        const value = req.body[dateField];
+        const isClear = isCardDateClear(value);
+        await Cards.direct.updateAsync(
+          { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
+          isClear ? { $unset: { [dateField]: '' } } : { $set: { [dateField]: value } },
+        );
+        updated = true;
+      }
     }
     if (req.body.spentTime) {
       await Cards.direct.updateAsync(
@@ -968,6 +1072,107 @@ WebApp.handlers.delete(
   },
 );
 
+// Issue #4743: bulk delete cards in one request instead of one DELETE per card.
+// Body: { cardIds: [ ... ], authorId? }
+// Only cards that belong to :boardId are removed; unknown/foreign ids are
+// reported back in notFound so the caller can reconcile.
+WebApp.handlers.delete('/api/boards/:boardId/cards/bulk', async function(req, res) {
+  const paramBoardId = req.params.boardId;
+  await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+
+  const cardIds = req.body.cardIds;
+  if (!Array.isArray(cardIds) || cardIds.length === 0) {
+    sendJsonResult(res, { code: 400, data: { error: 'cardIds must be a non-empty array' } });
+    return;
+  }
+  if (cardIds.length > BULK_CARDS_MAX) {
+    sendJsonResult(res, {
+      code: 400,
+      data: { error: `cardIds array too large (max ${BULK_CARDS_MAX} per request)` },
+    });
+    return;
+  }
+
+  const deleted = [];
+  const notFound = [];
+  for (const cardId of cardIds) {
+    const card = await ReactiveCache.getCard({ _id: cardId, boardId: paramBoardId });
+    if (!card) {
+      notFound.push(cardId);
+      continue;
+    }
+    // Remove sub-items (checklists, items, comments, attachments) before the
+    // card itself so their before.remove hooks still find the parent card.
+    await cardRemover(req.body.authorId, card);
+    await Cards.direct.removeAsync({ _id: cardId, boardId: paramBoardId });
+    deleted.push(cardId);
+  }
+
+  sendJsonResult(res, { code: 200, data: { deleted, notFound } });
+});
+
+// Issue #5819: bulk add/remove labels across many cards in one request, MERGING
+// (add labels without dropping existing ones, remove specific labels) instead
+// of the replace-the-whole-array behavior of PUT card labelIds.
+// Body: { cardIds: [ ... ], addLabelIds: [ ... ], removeLabelIds: [ ... ] }
+WebApp.handlers.post('/api/boards/:boardId/cards/labels', async function(req, res) {
+  const paramBoardId = req.params.boardId;
+  await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+
+  const cardIds = req.body.cardIds;
+  if (!Array.isArray(cardIds) || cardIds.length === 0) {
+    sendJsonResult(res, { code: 400, data: { error: 'cardIds must be a non-empty array' } });
+    return;
+  }
+  if (cardIds.length > BULK_CARDS_MAX) {
+    sendJsonResult(res, {
+      code: 400,
+      data: { error: `cardIds array too large (max ${BULK_CARDS_MAX} per request)` },
+    });
+    return;
+  }
+  const addLabelIds = Array.isArray(req.body.addLabelIds) ? req.body.addLabelIds : [];
+  const removeLabelIds = Array.isArray(req.body.removeLabelIds) ? req.body.removeLabelIds : [];
+  if (addLabelIds.length === 0 && removeLabelIds.length === 0) {
+    sendJsonResult(res, {
+      code: 400,
+      data: { error: 'provide at least one of addLabelIds or removeLabelIds' },
+    });
+    return;
+  }
+
+  // Validate that every label being added actually exists on this board.
+  const board = await ReactiveCache.getBoard(paramBoardId);
+  const boardLabelIds = new Set((board.labels || []).map(label => label._id));
+  const invalidLabelIds = addLabelIds.filter(labelId => !boardLabelIds.has(labelId));
+  if (invalidLabelIds.length > 0) {
+    sendJsonResult(res, {
+      code: 400,
+      data: { error: 'addLabelIds contains labels not on this board', invalidLabelIds },
+    });
+    return;
+  }
+
+  const updated = [];
+  const notFound = [];
+  for (const cardId of cardIds) {
+    const card = await ReactiveCache.getCard({ _id: cardId, boardId: paramBoardId, archived: false });
+    if (!card) {
+      notFound.push(cardId);
+      continue;
+    }
+    // Merge: keep existing minus removed, then add new ones, de-duplicated.
+    const merged = mergeLabelIds(card.labelIds, addLabelIds, removeLabelIds);
+    await Cards.direct.updateAsync(
+      { _id: cardId, boardId: paramBoardId, archived: false },
+      { $set: { labelIds: merged } },
+    );
+    updated.push({ _id: cardId, labelIds: merged });
+  }
+
+  sendJsonResult(res, { code: 200, data: { updated, notFound } });
+});
+
 WebApp.handlers.get(
   '/api/boards/:boardId/cardsByCustomField/:customFieldId/:customFieldValue',
   async function(req, res) {
@@ -1067,3 +1272,173 @@ WebApp.handlers.post(
     });
   },
 );
+
+// Issue #5998: add/remove a single board member to/from a card as a card member
+// or assignee, MERGE-style ($addToSet/$pull via Card.assignMember etc.), so
+// callers don't have to read-modify-write the whole members/assignees array.
+// The userId must be an active member of the card's board, otherwise 400.
+async function cardMemberFieldHandler(req, res, field, paramUserKey, addNotRemove) {
+  const paramBoardId = req.params.boardId;
+  const paramListId = req.params.listId;
+  const paramCardId = req.params.cardId;
+  const targetUserId = req.params[paramUserKey];
+  await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+
+  const card = await ReactiveCache.getCard({
+    _id: paramCardId,
+    listId: paramListId,
+    boardId: paramBoardId,
+    archived: false,
+  });
+  if (!card) {
+    sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+    return;
+  }
+
+  if (addNotRemove) {
+    // Only validate board membership when ADDING; removing a stale id is allowed.
+    const board = await ReactiveCache.getBoard(paramBoardId);
+    if (!canAssignCardMember(board, targetUserId)) {
+      sendJsonResult(res, {
+        code: 400,
+        data: { error: 'userId is not an active member of this board' },
+      });
+      return;
+    }
+  }
+
+  if (field === 'members') {
+    await (addNotRemove ? card.assignMember(targetUserId) : card.unassignMember(targetUserId));
+  } else {
+    await (addNotRemove ? card.assignAssignee(targetUserId) : card.unassignAssignee(targetUserId));
+  }
+
+  const updated = await ReactiveCache.getCard(paramCardId);
+  sendJsonResult(res, {
+    code: 200,
+    data: { _id: paramCardId, members: updated.members || [], assignees: updated.assignees || [] },
+  });
+}
+
+WebApp.handlers.post(
+  '/api/boards/:boardId/lists/:listId/cards/:cardId/members/:memberId',
+  async function(req, res) {
+    await cardMemberFieldHandler(req, res, 'members', 'memberId', true);
+  },
+);
+WebApp.handlers.delete(
+  '/api/boards/:boardId/lists/:listId/cards/:cardId/members/:memberId',
+  async function(req, res) {
+    await cardMemberFieldHandler(req, res, 'members', 'memberId', false);
+  },
+);
+WebApp.handlers.post(
+  '/api/boards/:boardId/lists/:listId/cards/:cardId/assignees/:assigneeId',
+  async function(req, res) {
+    await cardMemberFieldHandler(req, res, 'assignees', 'assigneeId', true);
+  },
+);
+WebApp.handlers.delete(
+  '/api/boards/:boardId/lists/:listId/cards/:cardId/assignees/:assigneeId',
+  async function(req, res) {
+    await cardMemberFieldHandler(req, res, 'assignees', 'assigneeId', false);
+  },
+);
+
+// Copy a card to the same or a different board/swimlane/list, at a 0-based
+// `position` counted from the top of the destination list. Deep copy is handled
+// by Card.copy (comments, checklists, attachments, custom field values).
+// Body: { toBoardId?, toSwimlaneId?, toListId?, position? }
+WebApp.handlers.post(
+  '/api/boards/:boardId/lists/:listId/cards/:cardId/copy',
+  async function(req, res) {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    const paramCardId = req.params.cardId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+
+    const toBoardId = req.body.toBoardId || paramBoardId;
+    const toSwimlaneId = req.body.toSwimlaneId;
+    const toListId = req.body.toListId || paramListId;
+    if (!toSwimlaneId) {
+      sendJsonResult(res, { code: 400, data: { error: 'toSwimlaneId is required' } });
+      return;
+    }
+    // Require write access on the destination board too (may differ from source).
+    await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
+
+    const card = await ReactiveCache.getCard({
+      _id: paramCardId,
+      listId: paramListId,
+      boardId: paramBoardId,
+    });
+    if (!card) {
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
+
+    const newId = await card.copy(toBoardId, toSwimlaneId, toListId);
+
+    if (Object.prototype.hasOwnProperty.call(req.body, 'position')) {
+      const siblings = await ReactiveCache.getCards(
+        { listId: toListId, archived: false, _id: { $ne: newId } },
+        { sort: ['sort'] },
+      );
+      const newSort = computeSortForIndex(siblings, Number(req.body.position));
+      await Cards.direct.updateAsync({ _id: newId }, { $set: { sort: newSort } });
+    }
+
+    sendJsonResult(res, { code: 200, data: { _id: newId } });
+  },
+);
+
+// Issue #4815: get the current user's cards (cards where they are a member or
+// assignee). ?due=true returns only cards that have a due date; ?from= and ?to=
+// (ISO 8601) restrict due cards to a date range. Returns a compact field set.
+WebApp.handlers.get('/api/user/cards', async function(req, res) {
+  // Return a clean 401 rather than letting checkLoggedIn throw (which under
+  // Express 4 would leave the request hanging instead of responding).
+  if (!req.userId) {
+    sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+    return;
+  }
+  const userId = req.userId;
+
+  const selector = {
+    archived: false,
+    $or: [{ members: userId }, { assignees: userId }],
+  };
+
+  const url = new URL(req.url, 'http://localhost');
+  const dueOnly = ['true', '1', 'yes'].includes(
+    String(url.searchParams.get('due') || '').toLowerCase(),
+  );
+  const from = url.searchParams.get('from');
+  const to = url.searchParams.get('to');
+  if (dueOnly || from || to) {
+    selector.dueAt = { $exists: true, $ne: null };
+    if (from) {
+      selector.dueAt.$gte = new Date(from);
+    }
+    if (to) {
+      selector.dueAt.$lte = new Date(to);
+    }
+  }
+
+  const cards = await ReactiveCache.getCards(selector, { sort: { dueAt: 1 } });
+  sendJsonResult(res, {
+    code: 200,
+    data: (cards || []).map(card => ({
+      _id: card._id,
+      title: card.title,
+      boardId: card.boardId,
+      swimlaneId: card.swimlaneId,
+      listId: card.listId,
+      dueAt: card.dueAt,
+      startAt: card.startAt,
+      endAt: card.endAt,
+      members: card.members || [],
+      assignees: card.assignees || [],
+    })),
+  });
+});

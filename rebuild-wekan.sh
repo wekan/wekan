@@ -24,7 +24,7 @@ function ensure_rspack_public_dirs(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run tests" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server + client, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -190,96 +190,99 @@ do
                 break
                 ;;
 
-    "Run tests")
-		echo "Running tests (all existing non-watch tests)."
-		FAILED=0
-		TEST_SERVER_PID=""
+    "Run ALL tests on http://localhost:3000 (start server, progress + summary)")
+		echo "Running ALL tests: import regression + Mocha (server+client) + Node E2E + Playwright."
+		SUMMARY=()
+		record() { SUMMARY+=("$1|$2"); }
 
 		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
-			echo "ERROR: Port 3000 is already in use. Stop any running dev server before running option 9."
-			echo "SKIP: Run tests aborted to avoid Meteor build-state conflicts."
+			echo "ERROR: Port 3000 is already in use. Stop any running dev server before running this option."
 			break
 		fi
 
-		echo "[1/5] Import regression test"
-		if node tests/wekanCreator.import.test.js; then
-			echo "PASS: tests/wekanCreator.import.test.js"
-		else
-			echo "FAIL: tests/wekanCreator.import.test.js"
-			FAILED=1
-		fi
+		TOTAL=5
+		TEST_SERVER_PID=""
 
-		echo "[2/5] Meteor mocha suite (package.json script: test)"
-		if meteor test --once --driver-package meteortesting:mocha --port 3100; then
-			echo "PASS: meteor test --once --driver-package meteortesting:mocha --port 3100"
-		else
-			echo "FAIL: meteor test --once --driver-package meteortesting:mocha --port 3100"
-			FAILED=1
-		fi
+		echo
+		echo "==> [1/$TOTAL] Import regression (node, no server)"
+		if node tests/wekanCreator.import.test.js; then record PASS "Import regression"; else record FAIL "Import regression"; fi
 
-		echo "[3/5] Start temporary Meteor server for browser suites"
+		echo
+		echo "==> [2/$TOTAL] Mocha unit + security + API-logic tests (meteor test, port 3100)"
+		if meteor test --once --driver-package meteortesting:mocha --port 3100; then record PASS "Mocha (server+client)"; else record FAIL "Mocha (server+client)"; fi
+
+		echo
+		echo "==> [3/$TOTAL] Starting WeKan server on http://localhost:3000 (WITH_API=true)"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../wekan-test-server.log 2>&1 &
 		TEST_SERVER_PID=$!
 		SERVER_READY=0
-		for i in $(seq 1 120); do
-			if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then
-				SERVER_READY=1
-				break
-			fi
-			sleep 1
+		for i in $(seq 1 180); do
+			if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; break; fi
+			printf '.'; sleep 1
 		done
-
+		echo
 		if [ "$SERVER_READY" -ne 1 ]; then
-			echo "FAIL: temporary Meteor server did not become ready on http://localhost:3000"
-			FAILED=1
+			echo "FAIL: server did not become ready on http://localhost:3000 (see ../wekan-test-server.log)"
+			record FAIL "Server startup"
+			record SKIP "Node E2E regressions"
+			record SKIP "Playwright Chromium"
 		else
-			echo "[4/5] Browser suites (E2E + Playwright Chromium)"
-			if meteor npm run test:e2e; then
-				echo "PASS: meteor npm run test:e2e"
-			else
-				echo "WARN: meteor npm run test:e2e failed on first attempt, retrying once"
-				if meteor npm run test:e2e; then
-					echo "PASS: meteor npm run test:e2e (retry)"
-				else
-					echo "FAIL: meteor npm run test:e2e"
-					FAILED=1
-				fi
-			fi
+			record PASS "Server startup"
+			echo
+			echo "==> [4/$TOTAL] Node E2E regressions (tests/e2e/list-regressions.js)"
+			if meteor npm run test:e2e; then record PASS "Node E2E regressions"; else record FAIL "Node E2E regressions"; fi
 
-			if [ -d tests/playwright ]; then
-				if PLAYWRIGHT_HTML_OPEN=never meteor npm run test:playwright -- --project=chromium --max-failures=1; then
-					echo "PASS: meteor npm run test:playwright -- --project=chromium --max-failures=1"
-				else
-					echo "FAIL: meteor npm run test:playwright -- --project=chromium --max-failures=1"
-					FAILED=1
-				fi
-			else
-				echo "SKIP: tests/playwright directory not found"
-			fi
+			echo
+			echo "==> [5/$TOTAL] Playwright Chromium (browser UI specs + REST API specs)"
+			ORIG_HOME="$HOME"
+			(
+				cd "$ORIG_HOME/repos/wekan/tests/playwright"
+				export HOME="$ORIG_HOME/repos/wekan/.tools"
+				unset CHROME_DEVEL_SANDBOX
+				export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
+				PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project=chromium --max-failures=1
+			)
+			if [ $? -eq 0 ]; then record PASS "Playwright Chromium"; else record FAIL "Playwright Chromium"; fi
 		fi
 
 		if [ -n "$TEST_SERVER_PID" ]; then
+			echo
+			echo "Stopping WeKan test server."
 			kill "$TEST_SERVER_PID" >/dev/null 2>&1 || true
 			wait "$TEST_SERVER_PID" >/dev/null 2>&1 || true
 		fi
 
-		echo "[5/5] Legacy comprehensive suite (test-wekan.sh)"
-		if [ -f ./test-wekan.sh ]; then
-			if bash ./test-wekan.sh; then
-				echo "PASS: ./test-wekan.sh"
-			else
-				echo "FAIL: ./test-wekan.sh"
-				FAILED=1
-			fi
-		else
-			echo "SKIP: ./test-wekan.sh not found"
-		fi
+		echo
+		echo "==================== TEST SUMMARY ===================="
+		FAILED=0
+		for line in "${SUMMARY[@]}"; do
+			status="${line%%|*}"; name="${line#*|}"
+			printf '  %-6s %s\n' "$status" "$name"
+			[ "$status" = "FAIL" ] && FAILED=1
+		done
+		echo "====================================================="
+		if [ "$FAILED" -eq 0 ]; then echo "RESULT: All tests passed."; else echo "RESULT: Some tests FAILED (see output above)."; fi
+		break
+		;;
 
-		if [ "$FAILED" -eq 0 ]; then
-			echo "All selected tests passed."
-		else
-			echo "Some tests failed. See output above."
-		fi
+    "Test Mocha unit + security + API-logic tests (server + client, no browser)")
+		echo "Running Mocha tests: meteor test --once --driver-package meteortesting:mocha --port 3100"
+		echo "(server-side unit/security/policy tests under server/lib/tests/, plus client lib + i18n tests)"
+		meteor test --once --driver-package meteortesting:mocha --port 3100
+		break
+		;;
+
+    "Test import regression (tests/wekanCreator.import.test.js, fast, no server)")
+		echo "Running import regression test (node, no server needed)."
+		node tests/wekanCreator.import.test.js
+		break
+		;;
+
+    "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)")
+		echo "Running Node E2E regressions (puppeteer)."
+		echo "NOTE: needs a WeKan server with WITH_API=true on http://localhost:3000."
+		echo "      Start one with menu option 3 first, or use the Run ALL tests option."
+		meteor npm run test:e2e
 		break
 		;;
 

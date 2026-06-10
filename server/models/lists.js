@@ -9,6 +9,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { computeSortForIndex } from '/server/lib/utils';
 
 const hasBoardWriteAccess = (userId, board) => {
   if (!userId || !board) {
@@ -662,3 +663,72 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
     sendJsonResult(res, { code: 200, data: error });
   }
 });
+
+// Reposition a list at a 0-based `position` counted from the left of the
+// destination board, by setting its sort between siblings.
+async function repositionList(listId, toBoardId, position) {
+  if (position === undefined || position === null) {
+    return;
+  }
+  const siblings = await ReactiveCache.getLists(
+    { boardId: toBoardId, archived: false, _id: { $ne: listId } },
+    { sort: { sort: 1 } },
+  );
+  const newSort = computeSortForIndex(siblings, Number(position));
+  await Lists.direct.updateAsync({ _id: listId }, { $set: { sort: newSort } });
+}
+
+// Copy a list (deep copy: its cards) to the same or a different board, at a
+// 0-based `position` from the left. Body: { toBoardId?, toSwimlaneId?, position? }
+WebApp.handlers.post(
+  '/api/boards/:boardId/lists/:listId/copy',
+  async function(req, res) {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    const toBoardId = req.body.toBoardId || paramBoardId;
+    await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
+    const list = await ReactiveCache.getList({ _id: paramListId, boardId: paramBoardId });
+    if (!list) {
+      sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
+      return;
+    }
+    const newId = await list.copy(toBoardId, req.body.toSwimlaneId);
+    await repositionList(newId, toBoardId, req.body.position);
+    sendJsonResult(res, { code: 200, data: { _id: newId } });
+  },
+);
+
+// Move a list (with its cards) to the same or a different board, at a 0-based
+// `position` from the left. Body: { toBoardId?, toSwimlaneId?, position? }
+// NOTE: List.move merges into an existing same-titled list on the destination
+// board when one exists; otherwise it recreates the list there.
+WebApp.handlers.post(
+  '/api/boards/:boardId/lists/:listId/move',
+  async function(req, res) {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    const toBoardId = req.body.toBoardId || paramBoardId;
+    await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
+    const list = await ReactiveCache.getList({ _id: paramListId, boardId: paramBoardId });
+    if (!list) {
+      sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
+      return;
+    }
+    if (toBoardId === paramBoardId) {
+      // Same-board move is purely a reposition (and optional swimlane change).
+      if (req.body.toSwimlaneId) {
+        await Lists.direct.updateAsync(
+          { _id: paramListId },
+          { $set: { swimlaneId: req.body.toSwimlaneId } },
+        );
+      }
+      await repositionList(paramListId, toBoardId, req.body.position);
+      sendJsonResult(res, { code: 200, data: { _id: paramListId } });
+      return;
+    }
+    await list.move(toBoardId, req.body.toSwimlaneId);
+    sendJsonResult(res, { code: 200, data: { _id: paramListId } });
+  },
+);

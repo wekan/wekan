@@ -8,6 +8,7 @@ import Swimlanes from '/models/swimlanes';
 import Activities from '/models/activities';
 import Cards from '/models/cards';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { computeSortForIndex } from '/server/lib/utils';
 
 Meteor.methods({
   async ensureDefaultSwimlane(boardId) {
@@ -241,3 +242,59 @@ WebApp.handlers.delete('/api/boards/:boardId/swimlanes/:swimlaneId', async funct
     });
   }
 });
+
+// Reposition a freshly copied/moved swimlane at a 0-based `position` counted
+// from the top of the destination board, by setting its sort between siblings.
+async function repositionSwimlane(swimlaneId, toBoardId, position) {
+  if (position === undefined || position === null) {
+    return;
+  }
+  const siblings = await ReactiveCache.getSwimlanes(
+    { boardId: toBoardId, archived: false, _id: { $ne: swimlaneId } },
+    { sort: { sort: 1 } },
+  );
+  const newSort = computeSortForIndex(siblings, Number(position));
+  await Swimlanes.direct.updateAsync({ _id: swimlaneId }, { $set: { sort: newSort } });
+}
+
+// Copy a swimlane (deep copy: its lists and cards) to the same or a different
+// board, at a 0-based `position` from the top. Body: { toBoardId?, position?, title? }
+WebApp.handlers.post(
+  '/api/boards/:boardId/swimlanes/:swimlaneId/copy',
+  async function(req, res) {
+    const paramBoardId = req.params.boardId;
+    const paramSwimlaneId = req.params.swimlaneId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    const toBoardId = req.body.toBoardId || paramBoardId;
+    await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
+    const swimlane = await ReactiveCache.getSwimlane({ _id: paramSwimlaneId, boardId: paramBoardId });
+    if (!swimlane) {
+      sendJsonResult(res, { code: 404, data: { error: 'Swimlane not found' } });
+      return;
+    }
+    const newId = await swimlane.copy(toBoardId, null, 'below', req.body.title || '');
+    await repositionSwimlane(newId, toBoardId, req.body.position);
+    sendJsonResult(res, { code: 200, data: { _id: newId } });
+  },
+);
+
+// Move a swimlane (with its lists and cards) to the same or a different board,
+// at a 0-based `position` from the top. Body: { toBoardId?, position?, title? }
+WebApp.handlers.post(
+  '/api/boards/:boardId/swimlanes/:swimlaneId/move',
+  async function(req, res) {
+    const paramBoardId = req.params.boardId;
+    const paramSwimlaneId = req.params.swimlaneId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    const toBoardId = req.body.toBoardId || paramBoardId;
+    await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
+    const swimlane = await ReactiveCache.getSwimlane({ _id: paramSwimlaneId, boardId: paramBoardId });
+    if (!swimlane) {
+      sendJsonResult(res, { code: 404, data: { error: 'Swimlane not found' } });
+      return;
+    }
+    await swimlane.move(toBoardId, null, 'below', req.body.title || '');
+    await repositionSwimlane(paramSwimlaneId, toBoardId, req.body.position);
+    sendJsonResult(res, { code: 200, data: { _id: paramSwimlaneId } });
+  },
+);

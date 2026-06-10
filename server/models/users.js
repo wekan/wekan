@@ -10,6 +10,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { debounce } from '/imports/lib/collectionHelpers';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
+import { boardMemberRoleToFlags, allowIsBoardAdmin } from '/server/lib/utils';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import ImpersonatedUsers from '/models/impersonatedUsers';
@@ -1329,10 +1330,36 @@ WebApp.handlers.put('/api/users/:userId', async function(req, res) {
 
 WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
     const userId = req.params.userId;
     const boardId = req.params.boardId;
     const action = req.body.action;
+    // Issue #5998: adding a board member requires board admin (or site admin).
+    // Awaited + explicit status: a denied caller gets a clean 401/403 instead of
+    // an un-awaited rejection that previously surfaced as an HTTP 503.
+    if (!req.userId) {
+      sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+      return;
+    }
+    const authBoard = await ReactiveCache.getBoard(boardId);
+    const isBoardAdmin = allowIsBoardAdmin(req.userId, authBoard);
+    const isSiteAdmin = isBoardAdmin
+      ? true
+      : !!(await ReactiveCache.getUser({ _id: req.userId, isAdmin: true }));
+    if (!isBoardAdmin && !isSiteAdmin) {
+      sendJsonResult(res, { code: 403, data: { error: 'Only a board admin can add board members' } });
+      return;
+    }
+    // Issue #5998: accept a single named `role` (admin/commentOnly/...)
+    // as an alternative to the eight boolean flags. When `role` is present it
+    // wins; otherwise the individual flags are used as before.
+    let roleFlags = null;
+    if (Object.prototype.hasOwnProperty.call(req.body, 'role')) {
+      roleFlags = boardMemberRoleToFlags(req.body.role);
+      if (roleFlags === null) {
+        sendJsonResult(res, { code: 400, data: { error: `invalid role: ${req.body.role}` } });
+        return;
+      }
+    }
     const {
       isAdmin,
       isNoComments,
@@ -1342,7 +1369,7 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
       isCommentAssignedOnly,
       isReadOnly,
       isReadAssignedOnly,
-    } = req.body;
+    } = roleFlags === null ? req.body : roleFlags;
     let data = await ReactiveCache.getUser(userId);
     if (data !== undefined && action === 'add') {
       const boards = await ReactiveCache.getBoards({ _id: boardId });
@@ -1372,7 +1399,9 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
             });
           }
 
-          const isTrue = value => value.toLowerCase() === 'true';
+          // Tolerate both real booleans (from a named `role`) and 'true'/'false'
+          // strings (from individual flag params).
+          const isTrue = value => value === true || String(value).toLowerCase() === 'true';
           const memberIndex2 = board.members.findIndex(m => m.userId === userId);
           if (memberIndex2 >= 0) {
             await Boards.updateAsync(boardId, {
@@ -1400,10 +1429,23 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
 
 WebApp.handlers.post('/api/boards/:boardId/members/:userId/remove', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
     const userId = req.params.userId;
     const boardId = req.params.boardId;
     const action = req.body.action;
+    // Issue #5998: removing a board member requires board admin (or site admin).
+    if (!req.userId) {
+      sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+      return;
+    }
+    const authBoard = await ReactiveCache.getBoard(boardId);
+    const isBoardAdmin = allowIsBoardAdmin(req.userId, authBoard);
+    const isSiteAdmin = isBoardAdmin
+      ? true
+      : !!(await ReactiveCache.getUser({ _id: req.userId, isAdmin: true }));
+    if (!isBoardAdmin && !isSiteAdmin) {
+      sendJsonResult(res, { code: 403, data: { error: 'Only a board admin can remove board members' } });
+      return;
+    }
     let data = await ReactiveCache.getUser(userId);
     if (data !== undefined && action === 'remove') {
       const boards = await ReactiveCache.getBoards({ _id: boardId });

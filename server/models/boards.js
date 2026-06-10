@@ -4,7 +4,7 @@ import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-import { allowIsBoardAdmin } from '/server/lib/utils';
+import { allowIsBoardAdmin, boardMemberRoleToFlags } from '/server/lib/utils';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
@@ -643,10 +643,26 @@ WebApp.handlers.put('/api/boards/:boardId/title', async function(req, res) {
 
 WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
   const id = req.params.boardId;
-  await Authentication.checkBoardWriteAccess(req.userId, id);
+  // Issue #5819: creating/editing/deleting board labels is gated to BoardAdmin;
+  // normal members can still apply existing labels to cards (see the bulk card
+  // labels endpoint in server/models/cards.js). Site admins also pass. We return
+  // a clean 401/403 (rather than letting an auth helper throw) so the request
+  // never hangs and the denial is an explicit response.
+  const board = await ReactiveCache.getBoard(id);
+  if (!req.userId) {
+    sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+    return;
+  }
+  const isBoardAdmin = allowIsBoardAdmin(req.userId, board);
+  const isSiteAdmin = isBoardAdmin
+    ? true
+    : !!(await ReactiveCache.getUser({ _id: req.userId, isAdmin: true }));
+  if (!isBoardAdmin && !isSiteAdmin) {
+    sendJsonResult(res, { code: 403, data: { error: 'Only a board admin can create or edit labels' } });
+    return;
+  }
   try {
     if (Object.prototype.hasOwnProperty.call(req.body, 'label')) {
-      const board = await ReactiveCache.getBoard(id);
       const color = req.body.label.color;
       const name = req.body.label.name;
       const labelId = Random.id(6);
@@ -672,6 +688,98 @@ WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
   }
 });
 
+// Issue #3062: read/update the board-level "Card Settings" (the allows* toggles
+// shown under Board Settings that control which fields/badges appear on cards and
+// minicards). Board-level only — per-user presentation settings are out of scope.
+const BOARD_CARD_SETTING_KEYS = [
+  'allowsCardCounterList',
+  'allowsBoardMemberList',
+  'allowsShowLists',
+  'allowsAttachments',
+  'allowsChecklists',
+  'allowsComments',
+  'allowsDescriptionTitle',
+  'allowsDescriptionText',
+  'allowsActivities',
+  'allowsLabels',
+  'allowsCreator',
+  'allowsAssignee',
+  'allowsMembers',
+  'allowsRequestedBy',
+  'allowsCardSortingByNumber',
+  'allowsCardNumber',
+  'allowsAssignedBy',
+  'allowsReceivedDate',
+  'allowsStartDate',
+  'allowsEndDate',
+  'allowsDueDate',
+  'allowsSubtasks',
+  'allowsCreatorOnMinicard',
+  'allowsAttachmentsOnMinicard',
+  'allowsChecklistsOnMinicard',
+  'allowsChecklistAtMinicard',
+  'allowsCoverAttachmentOnMinicard',
+  'allowsBadgeAttachmentOnMinicard',
+  'allowsCardSortingByNumberOnMinicard',
+  'allowsCardNumberOnMinicard',
+  'allowsDescriptionTitleOnMinicard',
+  'allowsDescriptionTextOnMinicard',
+  'allowsLabelsOnMinicard',
+  'allowsAssigneeOnMinicard',
+  'allowsMembersOnMinicard',
+  'allowsRequestedByOnMinicard',
+  'allowsAssignedByOnMinicard',
+  'allowsReceivedDateOnMinicard',
+  'allowsStartDateOnMinicard',
+  'allowsEndDateOnMinicard',
+  'allowsDueDateOnMinicard',
+  'allowsSubtasksOnMinicard',
+  'allowsShowListsOnMinicard',
+];
+
+WebApp.handlers.get('/api/boards/:boardId/cardSettings', async function(req, res) {
+  const id = req.params.boardId;
+  await Authentication.checkBoardAccess(req.userId, id);
+  const board = await ReactiveCache.getBoard(id);
+  if (!board) {
+    sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+    return;
+  }
+  const data = {};
+  BOARD_CARD_SETTING_KEYS.forEach(key => {
+    data[key] = board[key];
+  });
+  sendJsonResult(res, { code: 200, data });
+});
+
+WebApp.handlers.put('/api/boards/:boardId/cardSettings', async function(req, res) {
+  const id = req.params.boardId;
+  await Authentication.checkBoardWriteAccess(req.userId, id);
+  const board = await ReactiveCache.getBoard(id);
+  if (!board) {
+    sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+    return;
+  }
+  const $set = {};
+  const toBool = value => value === true || String(value).toLowerCase() === 'true';
+  BOARD_CARD_SETTING_KEYS.forEach(key => {
+    if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+      $set[key] = toBool(req.body[key]);
+    }
+  });
+  if (Object.keys($set).length === 0) {
+    sendJsonResult(res, { code: 400, data: { error: 'no recognized card settings in body' } });
+    return;
+  }
+  await Boards.direct.updateAsync({ _id: id }, { $set });
+  const updated = await ReactiveCache.getBoard(id);
+  const data = {};
+  BOARD_CARD_SETTING_KEYS.forEach(key => {
+    data[key] = updated[key];
+  });
+  sendJsonResult(res, { code: 200, data });
+});
+
 WebApp.handlers.post('/api/boards/:boardId/copy', async function(req, res) {
   const id = req.params.boardId;
   const board = await ReactiveCache.getBoard(id);
@@ -693,9 +801,34 @@ WebApp.handlers.post('/api/boards/:boardId/copy', async function(req, res) {
 
 WebApp.handlers.post('/api/boards/:boardId/members/:memberId', async function(req, res) {
   try {
-    Authentication.checkUserId(req.userId);
     const boardId = req.params.boardId;
     const memberId = req.params.memberId;
+    // Issue #5998: changing a board member's permission requires board admin (or
+    // site admin). Awaited + explicit status: a denied caller gets a clean
+    // 401/403 instead of an un-awaited rejection (which surfaced as HTTP 503).
+    if (!req.userId) {
+      sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+      return;
+    }
+    const authBoard = await ReactiveCache.getBoard(boardId);
+    const isBoardAdmin = allowIsBoardAdmin(req.userId, authBoard);
+    const isSiteAdmin = isBoardAdmin
+      ? true
+      : !!(await ReactiveCache.getUser({ _id: req.userId, isAdmin: true }));
+    if (!isBoardAdmin && !isSiteAdmin) {
+      sendJsonResult(res, { code: 403, data: { error: 'Only a board admin can change member permissions' } });
+      return;
+    }
+    // Issue #5998: accept a single named `role` as an alternative to the eight
+    // boolean flags. When `role` is present it wins.
+    let roleFlags = null;
+    if (Object.prototype.hasOwnProperty.call(req.body, 'role')) {
+      roleFlags = boardMemberRoleToFlags(req.body.role);
+      if (roleFlags === null) {
+        sendJsonResult(res, { code: 400, data: { error: `invalid role: ${req.body.role}` } });
+        return;
+      }
+    }
     const {
       isAdmin,
       isNoComments,
@@ -705,10 +838,15 @@ WebApp.handlers.post('/api/boards/:boardId/members/:memberId', async function(re
       isCommentAssignedOnly,
       isReadOnly,
       isReadAssignedOnly,
-    } = req.body;
+    } = roleFlags === null ? req.body : roleFlags;
     const board = await ReactiveCache.getBoard(boardId);
 
     function isTrue(data) {
+      // Tolerate both real booleans (from a named `role`) and 'true'/'false'
+      // strings (from individual flag params).
+      if (data === true || data === false) {
+        return data;
+      }
       try {
         return data.toLowerCase() === 'true';
       } catch (error) {

@@ -18,6 +18,7 @@ import Lists from '/models/lists';
 import Rules from '/models/rules';
 import Swimlanes from '/models/swimlanes';
 import Triggers from '/models/triggers';
+import { Counters, incrementCounterAsync } from '/models/counters';
 import getSlug from 'limax';
 import { findWhere, where, groupBy } from '/imports/lib/collectionHelpers';
 const { SimpleSchema } = require('/imports/simpleSchema');
@@ -1584,23 +1585,59 @@ Boards.helpers({
   },
 
   async getNextCardNumber() {
-    const boardCards = await ReactiveCache.getCard(
-      {
-        boardId: this._id
-      },
-      {
-        sort: { cardNumber: -1 },
-        limit: 1
-      }
-    , true);
+    // Issue #5813 / #4743: the previous implementation read the current max
+    // cardNumber and returned max + 1. Two concurrent card creations (e.g. a
+    // burst of REST API calls) both read the same max and both got the same
+    // number — a read-then-increment race that gave many cards the same number
+    // and, under load, pegged the CPU. We now allocate card numbers from an
+    // atomic per-board counter (Counters.incrementCounterAsync), which is a
+    // single atomic findOneAndUpdate($inc) and is therefore safe under
+    // concurrency.
+    const counterName = `cardNumber-${this._id}`;
 
-    // If no card is assigned to the board, return 1
-    if (!boardCards) {
-      return 1;
+    // rawCollection()/atomic counters are server-only. On the client (where card
+    // numbers are not authoritative — the server insert recomputes them), fall
+    // back to the old max + 1 read.
+    if (!Meteor.isServer) {
+      const boardCards = await ReactiveCache.getCard(
+        { boardId: this._id },
+        { sort: { cardNumber: -1 }, limit: 1 },
+        true,
+      );
+      if (!boardCards) {
+        return 1;
+      }
+      const maxCardNr = boardCards.cardNumber ? boardCards.cardNumber : 0;
+      return maxCardNr + 1;
     }
 
-    const maxCardNr = !!boardCards.cardNumber ? boardCards.cardNumber : 0;
-    return maxCardNr + 1;
+    // Lazy seed: the counter does not exist for boards created before this
+    // change (or for boards imported with existing cards). On first use, seed
+    // the counter to the board's current max cardNumber so we never reissue a
+    // number that an existing card already has. This runs once per board.
+    const existingCounter = await Counters.rawCollection().findOne({ _id: counterName });
+    if (!existingCounter) {
+      const boardCards = await ReactiveCache.getCard(
+        {
+          boardId: this._id,
+        },
+        {
+          sort: { cardNumber: -1 },
+          limit: 1,
+        },
+        true,
+      );
+      const maxCardNr = boardCards && boardCards.cardNumber ? boardCards.cardNumber : 0;
+      // Seed only if still missing, so two concurrent first-uses don't clobber
+      // each other (the loser's upsert is a no-op).
+      await Counters.rawCollection().updateOne(
+        { _id: counterName },
+        { $setOnInsert: { next_val: maxCardNr } },
+        { upsert: true },
+      );
+    }
+
+    return await incrementCounterAsync(counterName);
   },
 
   cardsDueInBetween(start, end) {
