@@ -32,6 +32,8 @@ This release fixes the following bugs:
 
 - [Fix Docker image is broken](https://github.com/wekan/wekan/commit/108c33ab23d05ac586531c22e1fe4c4180546be9).
   Thanks to titver968, planet-goldfish, xet7 and Claude.
+- [Fix Admin Panel/People View is broken](https://github.com/wekan/wekan/commit/bcf55bdc3a804e5fae34850c0fcbf03e48c2f466).
+  Thanks to titver968, xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
