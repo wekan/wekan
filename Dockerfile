@@ -164,8 +164,10 @@ set -o xtrace
 # produce a "successful" image with an empty /build (Cannot find /build/main.js).
 set -eo pipefail
 
-# Create Wekan user
-useradd --user-group --system --home-dir /home/wekan wekan
+# Create Wekan user. --create-home is required because --system users do not
+# get a home directory by default; without it /home/wekan never exists and the
+# later `chown ... /home/wekan/` aborts the build (now that set -e is active).
+useradd --user-group --system --create-home --home-dir /home/wekan wekan
 
 # OS Updates
 apt-get update --assume-yes
