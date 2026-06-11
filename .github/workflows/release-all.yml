@@ -535,8 +535,11 @@ jobs:
 
   # ─── 8. Build and push the multi-arch Docker image to all registries ────────
   # Mirrors releases/docker-build.sh step 3 (multi-arch buildx --push).
+  # Needs `release` because the Dockerfile downloads wekan-<version>-<arch>.zip
+  # from the GitHub Release; building before those assets exist 404s and (without
+  # set -e in the Dockerfile) shipped a broken image missing /build/main.js.
   docker:
-    needs: prepare
+    needs: [prepare, release]
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}

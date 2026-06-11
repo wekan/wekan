@@ -160,6 +160,9 @@ ENV \
 
 RUN <<EOR
 set -o xtrace
+# Fail hard on any error so a missing release zip / failed download can never
+# produce a "successful" image with an empty /build (Cannot find /build/main.js).
+set -eo pipefail
 
 # Create Wekan user
 useradd --user-group --system --home-dir /home/wekan wekan
