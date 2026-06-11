@@ -87,22 +87,28 @@ TGZ="wekan-${CHART_VERSION}.tgz"
     echo "Error: expected packaged chart not found: $CHARTS_DIR/$TGZ" >&2
     exit 1
   fi
-  # The existing index.yaml stores the raw `sha256sum` output (hash + filename)
-  # in the digest field, so reproduce that exactly.
-  DIGEST_LINE="$(sha256sum "$TGZ")"
+  # A Helm index digest is the bare sha256 hash. `sha256sum` prints
+  # "<hash>  <filename>", so keep only the first field — otherwise the filename
+  # leaks into the digest value (digest: <hash>  wekan-<ver>.tgz).
+  DIGEST="$(sha256sum "$TGZ" | awk '{print $1}')"
 
-  CHART_VERSION="$CHART_VERSION" DIGEST_LINE="$DIGEST_LINE" python3 - <<'PYEOF'
+  CHART_VERSION="$CHART_VERSION" DIGEST="$DIGEST" python3 - <<'PYEOF'
 import os, re, sys
 from datetime import datetime, timezone
 
 chart_version = os.environ["CHART_VERSION"]
-digest_line   = os.environ["DIGEST_LINE"].strip()
+digest        = os.environ["DIGEST"].strip()
 url     = f"https://wekan.github.io/charts/wekan-{chart_version}.tgz"
 created = datetime.now(timezone.utc).astimezone().isoformat()
 
 path = "index.yaml"
 with open(path, encoding="utf-8") as f:
     lines = f.readlines()
+
+# Clean up legacy entries whose digest still carries the "<hash>  <filename>"
+# form (older releases stored the raw `sha256sum` output): keep only the hash.
+digest_re = re.compile(r'^(\s*digest:\s+)([0-9a-fA-F]+)\b.*$')
+lines = [digest_re.sub(r'\1\2', ln) if digest_re.match(ln) else ln for ln in lines]
 
 # Locate the "  wekan:" entries header; the newest entry is the first list item.
 hdr = next((i for i, ln in enumerate(lines) if ln.rstrip("\n") == "  wekan:"), None)
@@ -135,7 +141,7 @@ def set_field(block, key, value):
 
 block = set_field(block, "appVersion", f'"{chart_version}"')
 block = set_field(block, "created", f'"{created}"')
-block = set_field(block, "digest", digest_line)
+block = set_field(block, "digest", digest)
 block = set_field(block, "version", chart_version)
 
 # Update the chart download URL (distinct from the github.com source URL).
