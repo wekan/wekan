@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.38 2026-06-11 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to titver968, planet-goldfish, xet7 and Claude.
 - [Fix Admin Panel/People View is broken](https://github.com/wekan/wekan/commit/bcf55bdc3a804e5fae34850c0fcbf03e48c2f466).
   Thanks to titver968, xet7 and Claude.
+- [Fix Incorrect link in invite email](https://github.com/wekan/wekan/commit/5844e20d5534d04dfefc4a965d93c55765bfc08e).
+  Thanks to sbaecker, xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
