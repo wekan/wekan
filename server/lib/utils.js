@@ -35,6 +35,24 @@ export function allowIsAnyBoardMemberWithWriteAccess(userId, boards) {
   return boards.some(board => allowIsBoardMemberWithWriteAccess(userId, board));
 }
 
+// Security (GHSA-gm7v-pc38-53jr): the Cards/Lists/Swimlanes allow rules only
+// authorize an update against the document's CURRENT (source) boardId. A
+// malicious DDP client can therefore relocate a document it owns into a private
+// board it is not a member of by setting a new boardId in the update modifier:
+// the allow rule still sees the attacker's own source board and approves it.
+// This deny rule closes that hole by rejecting any update that moves a document
+// to a destination boardId on which the caller does not have write access.
+// Returns true to DENY. Used by the Cards/Lists/Swimlanes deny() rules.
+export async function denyCrossBoardMove(userId, modifier) {
+  const set = modifier && modifier.$set;
+  if (!set) return false;
+  const newBoardId = set.boardId;
+  // Nothing being moved across boards.
+  if (typeof newBoardId !== 'string' || !newBoardId) return false;
+  // Caller must have write access to the destination board.
+  return !allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(newBoardId));
+}
+
 // Check if user has write access via a card's board
 export async function allowIsBoardMemberWithWriteAccessByCard(userId, card) {
   const board = card && await Boards.findOneAsync(card.boardId);
