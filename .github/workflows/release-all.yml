@@ -20,7 +20,7 @@ name: Release All Platforms
 #   - website: updates the wekan/wekan.fi repo (install page + API docs) and pushes
 #   - charts:  updates and publishes the wekan/charts Helm chart and pushes
 #   - build-*: builds the amd64 bundle (full Meteor 3 build), then rebuilds native
-#              modules for arm64, win64, mac-amd64, mac-arm64 from that amd64 base
+#              modules for arm64, win64, mac-arm64 from that amd64 base
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
 #              uploads every wekan-<version>-<platform>.zip bundle
 #   - docker:  builds and pushes the multi-arch image to Docker Hub, Quay.io, GHCR
@@ -455,55 +455,7 @@ jobs:
           path: wekan-${{ needs.prepare.outputs.version }}-win64.zip
           retention-days: 1
 
-  # ─── 6a. Build mac-amd64 bundle (rebuild native modules on Intel macOS) ──────
-  build-mac-amd64:
-    needs: [prepare, build-amd64]
-    runs-on: macos-13   # macos-13 runners are Intel (x86_64)
-    timeout-minutes: 60
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-    steps:
-      - uses: actions/setup-node@v6
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Download amd64 bundle
-        uses: actions/download-artifact@v8
-        with:
-          name: bundle-amd64
-
-      - name: Rebuild native modules for macOS amd64
-        run: |
-          unzip -q wekan-${VERSION}-amd64.zip
-          # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
-          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
-          if [ -d "$BCRYPT_DIR" ]; then
-            rm -rf "$BCRYPT_DIR"
-            TMP=$(mktemp -d)
-            pushd "$TMP" > /dev/null
-            npm pack bcrypt@6.0.0
-            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-            cd bcrypt && npm install --ignore-scripts && cd ..
-            cp -a bcrypt "$BCRYPT_DIR"
-            popd > /dev/null
-            rm -rf "$TMP"
-          fi
-          cd bundle/programs/server
-          rm -rf node_modules
-          npm install
-          cd ../../..
-
-      - name: Create mac-amd64 zip
-        run: zip -r wekan-${VERSION}-mac-amd64.zip bundle
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: bundle-mac-amd64
-          path: wekan-${{ needs.prepare.outputs.version }}-mac-amd64.zip
-          retention-days: 1
-
-  # ─── 6b. Build mac-arm64 bundle (rebuild native modules on Apple Silicon) ────
+  # ─── 6. Build mac-arm64 bundle (rebuild native modules on Apple Silicon) ─────
   build-mac-arm64:
     needs: [prepare, build-amd64]
     runs-on: macos-14   # macos-14 runners are Apple Silicon (arm64)
@@ -558,7 +510,6 @@ jobs:
       - build-amd64
       - build-arm64
       - build-win64
-      - build-mac-amd64
       - build-mac-arm64
     runs-on: ubuntu-latest
     env:
@@ -580,7 +531,6 @@ jobs:
             wekan-${{ needs.prepare.outputs.version }}-amd64.zip
             wekan-${{ needs.prepare.outputs.version }}-arm64.zip
             wekan-${{ needs.prepare.outputs.version }}-win64.zip
-            wekan-${{ needs.prepare.outputs.version }}-mac-amd64.zip
             wekan-${{ needs.prepare.outputs.version }}-mac-arm64.zip
 
   # ─── 8. Build and push the multi-arch Docker image to all registries ────────
