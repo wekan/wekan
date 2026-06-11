@@ -275,12 +275,12 @@ Template.people.helpers({
   },
   orgList() {
     const tpl = Template.instance();
-    const page = tpl.orgPage.get();
-    const skipOrgs = (page - 1) * orgsPerPage;
+    // The 'org' publication already returns only the current page (server-side
+    // limit/skip, sorted createdAt:-1). Display exactly what it published:
+    // re-applying skip/limit here paginated an already-paginated set, which
+    // left page 2 with a single stray doc and later pages empty.
     const orgs = Org.find(tpl.findOrgsOptions.get(), {
-      sort: { orgDisplayName: 1 },
-      skip: skipOrgs,
-      limit: orgsPerPage,
+      sort: { createdAt: -1 },
       fields: {
         _id: 1,
         orgDisplayName: 1,
@@ -295,12 +295,12 @@ Template.people.helpers({
   },
   teamList() {
     const tpl = Template.instance();
-    const page = tpl.teamPage.get();
-    const skipTeams = (page - 1) * teamsPerPage;
+    // The 'team' publication already returns only the current page (server-side
+    // limit/skip, sorted createdAt:-1). Display exactly what it published:
+    // re-applying skip/limit here paginated an already-paginated set, which
+    // left page 2 with a single stray doc and later pages empty.
     const teams = Team.find(tpl.findTeamsOptions.get(), {
-      sort: { teamDisplayName: 1 },
-      skip: skipTeams,
-      limit: teamsPerPage,
+      sort: { createdAt: -1 },
       fields: {
         _id: 1,
         teamDisplayName: 1,
@@ -315,12 +315,13 @@ Template.people.helpers({
   },
   peopleList() {
     const tpl = Template.instance();
-    const page = tpl.peoplePage.get();
-    const skipUsers = (page - 1) * usersPerPage;
+    // The 'people' publication already returns only the current page (server-side
+    // limit/skip, sorted createdAt:-1). Display exactly what it published:
+    // re-applying skip/limit here paginated an already-paginated set — that is
+    // why page 1 showed 25, page 2 showed a single stray doc (the admin's own
+    // user record, always present in minimongo) and later pages were empty.
     const users = Users.find(tpl.findUsersOptions.get(), {
-      sort: { username: 1 },
-      skip: skipUsers,
-      limit: usersPerPage,
+      sort: { createdAt: -1 },
       fields: {
         _id: 1,
         username: 1,
