@@ -1,11 +1,16 @@
 import Attachments from '/models/attachments';
 import { ReactiveCache } from '/imports/reactiveCache';
 
+// Escape a user-supplied search string so it is matched literally (and
+// case-insensitively) instead of being interpreted as a regular expression.
+function searchRegex(term) {
+  return new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+}
 
-Meteor.publish('attachmentsList', async function(limit) {
-  const userId = this.userId;
-
-  // Get boards the user has access to
+// Card ids the given user is allowed to see attachments for. Shared by the
+// paginated 'attachmentsList' publication and its matching count method so the
+// total and the published page are always computed over the same set.
+async function accessibleCardIds(userId) {
   const userBoards = (await ReactiveCache.getBoards({
     $or: [
       { permission: 'public' },
@@ -14,24 +19,42 @@ Meteor.publish('attachmentsList', async function(limit) {
   })).map(board => board._id);
 
   if (userBoards.length === 0) {
-    // User has no access to any boards, return empty cursor
-    return this.ready();
+    return [];
   }
 
-  // Get cards from those boards
-  const userCards = (await ReactiveCache.getCards({
+  return (await ReactiveCache.getCards({
     boardId: { $in: userBoards },
     archived: false
   })).map(card => card._id);
+}
 
+// Build the attachments query for the report: restricted to accessible cards,
+// optionally filtered by attachment name. Returns null when the user has no
+// accessible cards (caller should publish/return nothing).
+async function attachmentsReportQuery(userId, searchTerm) {
+  const userCards = await accessibleCardIds(userId);
   if (userCards.length === 0) {
-    // No cards found, return empty cursor
+    return null;
+  }
+  const query = { 'meta.cardId': { $in: userCards } };
+  if (searchTerm) {
+    query.name = searchRegex(searchTerm);
+  }
+  return query;
+}
+
+Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 0) {
+  check(searchTerm, Match.OneOf(String, null, undefined));
+  check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
+
+  const query = await attachmentsReportQuery(this.userId, searchTerm);
+  if (!query) {
     return this.ready();
   }
 
-  // Only return attachments for cards the user has access to
   const ret = (await ReactiveCache.getAttachments(
-    { 'meta.cardId': { $in: userCards } },
+    query,
     {
       fields: {
         _id: 1,
@@ -45,9 +68,25 @@ Meteor.publish('attachmentsList', async function(limit) {
       sort: {
         name: 1,
       },
-      limit: limit,
+      limit,
+      skip: skip || 0,
     },
     true,
   )).cursor;
   return ret;
+});
+
+Meteor.methods({
+  async getAttachmentsReportCount(searchTerm = '') {
+    check(searchTerm, Match.OneOf(String, null, undefined));
+    if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const query = await attachmentsReportQuery(this.userId, searchTerm);
+    if (!query) {
+      return 0;
+    }
+    const cursor = (await ReactiveCache.getAttachments(query, {}, true)).cursor;
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+  },
 });

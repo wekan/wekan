@@ -395,7 +395,10 @@ Template.people.helpers({
 
 Template.people.events({
   'scroll .main-body'(event, tpl) {
-    if (tpl.peopleSetting.get()) {
+    // Orgs, teams and people all use explicit prev/next pagination (server-side
+    // limit/skip driven by orgPage/teamPage/peoplePage). Infinite scroll must
+    // stay disabled on those tabs so the two paging mechanisms don't fight.
+    if (tpl.orgSetting.get() || tpl.teamSetting.get() || tpl.peopleSetting.get()) {
       return;
     }
     tpl.infiniteScrolling.checkScrollPosition(event.currentTarget, () => {

@@ -1,0 +1,70 @@
+/* Search + pagination controls for the admin report tabs (files, rules,
+   boards, cards). Styled to match the admin People panel (peopleBody.css). */
+
+.admin-report-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  height: 34px;
+  margin-bottom: 12px;
+}
+
+.admin-report-search input {
+  flex: 1;
+  max-width: 320px;
+  padding: 0 8px;
+  height: 34px;
+}
+
+.admin-report-search button {
+  min-width: 90px;
+  height: 34px;
+  background: #01628c;
+  color: #fff;
+  border: none;
+  border-radius: 0.4vw;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.admin-report-search button:hover {
+  background: #005377;
+}
+
+.admin-report-search button:active {
+  background: #004766;
+}
+
+.admin-report-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.admin-report-pagination button {
+  min-width: 32px;
+  height: 30px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.admin-report-pagination button.active {
+  background: #01628c;
+  border-color: #01628c;
+  color: #fff;
+}
+
+.admin-report-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.admin-report-page-info {
+  min-width: 72px;
+  text-align: center;
+  color: #333;
+}

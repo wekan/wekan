@@ -58,12 +58,24 @@ Meteor.publish('allActions', async function() {
   return ret;
 });
 
-Meteor.publish('rulesReport', async function() {
+Meteor.publish('rulesReport', async function(searchTerm = '', limit, skip = 0) {
+  check(searchTerm, Match.OneOf(String, null, undefined));
+  check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
   if (!this.userId || !(await ReactiveCache.getUser(this.userId)).isAdmin) {
     return this.ready();
   }
 
-  const rules = await ReactiveCache.getRules({}, {}, true);
+  const query = {};
+  if (searchTerm) {
+    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+
+  const rules = await ReactiveCache.getRules(
+    query,
+    { sort: { boardId: 1 }, limit, skip: skip || 0 },
+    true,
+  );
   const actionIds = [];
   const triggerIds = [];
   const boardIds = [];
@@ -81,4 +93,19 @@ Meteor.publish('rulesReport', async function() {
     await ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { title: 1 } }, true),
   ];
   return ret;
+});
+
+Meteor.methods({
+  async getRulesReportCount(searchTerm = '') {
+    check(searchTerm, Match.OneOf(String, null, undefined));
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId)).isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const query = {};
+    if (searchTerm) {
+      query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    }
+    const cursor = await ReactiveCache.getRules(query, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+  },
 });

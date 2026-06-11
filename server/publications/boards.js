@@ -77,16 +77,22 @@ publishComposite('boards', function() {
   };
 });
 
-Meteor.publish('boardsReport', async function() {
+Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) {
+  check(searchTerm, Match.OneOf(String, null, undefined));
+  check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
   if (!Match.test(userId, String) || !userId) return [];
 
+  const query = { _id: { $in: await Boards.userBoardIds(userId, null) } };
+  if (searchTerm) {
+    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+
   const boards = await ReactiveCache.getBoards(
-    {
-      _id: { $in: await Boards.userBoardIds(userId, null) },
-    },
+    query,
     {
       fields: {
         _id: 1,
@@ -105,6 +111,8 @@ Meteor.publish('boardsReport', async function() {
         sort: 1,
       },
       sort: { sort: 1 /* boards default sorting */ },
+      limit,
+      skip: skip || 0,
     },
     true,
   );
@@ -137,6 +145,22 @@ Meteor.publish('boardsReport', async function() {
     await ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
   ]
   return ret;
+});
+
+Meteor.methods({
+  async getBoardsReportCount(searchTerm = '') {
+    check(searchTerm, Match.OneOf(String, null, undefined));
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const query = { _id: { $in: await Boards.userBoardIds(this.userId, null) } };
+    if (searchTerm) {
+      query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    }
+    const cursor = await ReactiveCache.getBoards(query, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+  },
 });
 
 Meteor.publish('archivedBoards', async function() {

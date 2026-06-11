@@ -1088,3 +1088,62 @@ async function findCards(sessionId, query, userId) {
     };
   }
 }
+
+// Admin "Cards report" — a flat, paginated listing of every card with its
+// board/swimlane/list/member context. Uses plain server-side limit/skip just
+// like the org/team/people admin lists, so only the current page is ever sent
+// to the browser instead of the whole Cards collection.
+Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
+  check(searchTerm, Match.OneOf(String, null, undefined));
+  check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+    return this.ready();
+  }
+
+  const query = {};
+  if (searchTerm) {
+    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+
+  const cards = await ReactiveCache.getCards(
+    query,
+    { sort: { boardId: 1, sort: 1 }, limit, skip: skip || 0 },
+    true,
+  );
+
+  const boardIds = new Set();
+  const listIds = new Set();
+  const swimlaneIds = new Set();
+  const userIds = new Set();
+  cards.forEach(card => {
+    if (card.boardId) boardIds.add(card.boardId);
+    if (card.listId) listIds.add(card.listId);
+    if (card.swimlaneId) swimlaneIds.add(card.swimlaneId);
+    (card.members || []).forEach(userId => userIds.add(userId));
+    (card.assignees || []).forEach(userId => userIds.add(userId));
+  });
+
+  return [
+    cards,
+    await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, true),
+    await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, true),
+    await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, true),
+    await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }, { fields: Users.safeFields }, true),
+  ];
+});
+
+Meteor.methods({
+  async getCardsReportCount(searchTerm = '') {
+    check(searchTerm, Match.OneOf(String, null, undefined));
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const query = {};
+    if (searchTerm) {
+      query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    }
+    const cursor = await ReactiveCache.getCards(query, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+  },
+});

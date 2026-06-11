@@ -37,13 +37,13 @@ template(name="adminReports")
           else if showBrokenCardsReport.get
             +brokenCardsReport
           else if showFilesReport.get
-            +filesReport
+            +filesReport(currentPage=filesCurrentPage totalPages=filesTotalPages hasPrevPage=hasFilesPrevPage hasNextPage=hasFilesNextPage)
           else if showRulesReport.get
-            +rulesReport
+            +rulesReport(currentPage=rulesCurrentPage totalPages=rulesTotalPages hasPrevPage=hasRulesPrevPage hasNextPage=hasRulesNextPage)
           else if showBoardsReport.get
-            +boardsReport
+            +boardsReport(currentPage=boardsCurrentPage totalPages=boardsTotalPages hasPrevPage=hasBoardsPrevPage hasNextPage=hasBoardsNextPage)
           else if showCardsReport.get
-            +cardsReport
+            +cardsReport(currentPage=cardsCurrentPage totalPages=cardsTotalPages hasPrevPage=hasCardsPrevPage hasNextPage=hasCardsNextPage)
 
 
 template(name="brokenCardsReport")
@@ -56,6 +56,17 @@ template(name="brokenCardsReport")
 
 template(name="rulesReport")
   h1 {{_ 'rulesReportTitle'}}
+  .admin-report-search
+    input.js-rules-search-input(type="text" placeholder="{{_ 'search'}}")
+    button.js-rules-search-button
+      i.fa.fa-search
+      | {{_ 'search'}}
+  .admin-report-pagination
+    button.js-rules-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.admin-report-page-info {{currentPage}} / {{totalPages}}
+    button.js-rules-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   if resultsCount
     table
       thead
@@ -77,6 +88,17 @@ template(name="rulesReport")
 
 template(name="filesReport")
   h1 {{_ 'filesReportTitle'}}
+  .admin-report-search
+    input.js-files-search-input(type="text" placeholder="{{_ 'search'}}")
+    button.js-files-search-button
+      i.fa.fa-search
+      | {{_ 'search'}}
+  .admin-report-pagination
+    button.js-files-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.admin-report-page-info {{currentPage}} / {{totalPages}}
+    button.js-files-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   if resultsCount
     table
       thead
@@ -102,6 +124,17 @@ template(name="filesReport")
 
 template(name="cardsReport")
   h1 {{_ 'cardsReportTitle'}}
+  .admin-report-search
+    input.js-cards-search-input(type="text" placeholder="{{_ 'search'}}")
+    button.js-cards-search-button
+      i.fa.fa-search
+      | {{_ 'search'}}
+  .admin-report-pagination
+    button.js-cards-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.admin-report-page-info {{currentPage}} / {{totalPages}}
+    button.js-cards-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   if resultsCount
     table.table
       thead
@@ -127,6 +160,17 @@ template(name="cardsReport")
 
 template(name="boardsReport")
   h1 {{_ 'boardsReportTitle'}}
+  .admin-report-search
+    input.js-boards-search-input(type="text" placeholder="{{_ 'search'}}")
+    button.js-boards-search-button
+      i.fa.fa-search
+      | {{_ 'search'}}
+  .admin-report-pagination
+    button.js-boards-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.admin-report-page-info {{currentPage}} / {{totalPages}}
+    button.js-boards-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
   if resultsCount
     table.table
       thead
