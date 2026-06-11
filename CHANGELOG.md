@@ -26,6 +26,43 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.37 2026-06-11 WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUES of [BoardBleed](https://wekan.fi/hall-of-fame/boardbleed/):
+
+- [Fixed BoardBleed](https://github.com/wekan/wekan/commit/d369a3614a4737c29d48a6345a790edf2506ddae):
+  Broken access control lets any authenticated user move their Cards/Lists/Swimlanes into
+  a private board they are not a member of (cross-board write via collection
+  allow rule)](https://github.com/wekan/wekan/security/advisories/GHSA-gm7v-pc38-53jr)
+  (CWE-284, CWE-639). WeKan boards are membership-scoped, but the DDP collection write
+  policies for Cards, Lists and Swimlanes (`server/permissions/cards.js`,
+  `server/permissions/lists.js`, `server/permissions/swimlanes.js`) authorized an update by
+  checking only the CURRENT (pre-update) `boardId` of the document — i.e. the attacker's own
+  source board — and never validated the NEW `boardId` supplied in the update modifier.
+  Because every logged-in user can create a board where they are admin, an attacker could take
+  a document they own and, in a single `/cards/update`, `/lists/update` or `/swimlanes/update`
+  DDP call, `$set` its `boardId` (plus `swimlaneId`/`listId`) to a victim's private board: the
+  allow rule saw the attacker's own source board, approved the write, and the document was
+  relocated into a board the attacker is not a member of and cannot even read. This let an
+  unprivileged user inject arbitrary cards/lists/swimlanes (attacker-controlled titles,
+  descriptions, assignees, etc.) into any private board by id, defeating board-level access
+  control. The REST API for the same operation
+  (`PUT /api/boards/:boardId/lists/:listId/cards/:cardId` with `newBoardId`) was not affected
+  because it correctly calls `Authentication.checkBoardWriteAccess(req.userId, newBoardId)` on
+  the destination board; only the DDP allow/deny layer was vulnerable. Fixed by adding a
+  `denyCrossBoardMove` helper in `server/lib/utils.js` and a `Cards.deny`/`Lists.deny`/
+  `Swimlanes.deny` `update` rule on each collection that rejects any update whose modifier
+  `$set`s a `boardId` on which the caller does not have write access, so a cross-board move is
+  only allowed into a destination board where the user is an active write-capable member.
+  Affected Wekan v9.35 and earlier. Thanks to 0xzap, xet7 and Claude.
+
+and adds the following updates:
+
+- [Update release website script version numbering](https://github.com/wekan/wekan/commit/39d84f8fe893f9d64c1424730e48c2ed00193e97).
+  Thanks to xet7 and Claude.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.36 2026-06-10 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [TokenBleed](https://wekan.fi/hall-of-fame/tokenbleed/):
