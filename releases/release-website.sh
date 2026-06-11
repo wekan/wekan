@@ -39,17 +39,15 @@ else
   exit 0
 fi
 #git pull
-# Update MongoDB version in $WEBDIR/install/index.html from snapcraft.yaml
-MONGO_LINE=$(grep -o 'mongodb-linux-x86_64-ubuntu[0-9]\+-7\.[0-9][0-9]*\.[0-9][0-9]*' $WEKANREPODIR/snapcraft.yaml | head -1)
-if [ -n "$MONGO_LINE" ]; then
-  UBUNTU_VER=$(echo "$MONGO_LINE" | sed -E 's/.*ubuntu([0-9]+)-7\..*/\1/')
-  MONGODB_VERSION=$(echo "$MONGO_LINE" | sed -E 's/.*-7/7/')
-  # Update MongoDB version string (e.g. MongoDB 7.0.31 Ubuntu 2204)
-  sedi "s|MongoDB 7\\.x|MongoDB $MONGODB_VERSION Ubuntu $UBUNTU_VER|g" $WEBDIR/install/index.html
-fi
+# Update MongoDB version string in $WEBDIR/install/index.html.
+# Show the supported major versions ("MongoDB 7.x or 6.x"), not the snapcraft.yaml
+# patch version and Ubuntu build (e.g. not "MongoDB 7.0.34 Ubuntu 2204 (or 6.x)").
+# Pattern is self-healing: it re-normalizes whatever "MongoDB 7..." string is there.
+sedi "s|MongoDB 7[^,]*,|MongoDB 7.x or 6.x,|g" $WEBDIR/install/index.html
 
 # Update Meteor, Node.js, and NPM versions in $WEBDIR/install/index.html
-METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' $WEKANREPODIR/.meteor/release | head -1)
+# Strip the "METEOR@" prefix so the website shows e.g. "Meteor 3.5-rc.1", not "Meteor METEOR@3.5-rc.1".
+METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' $WEKANREPODIR/.meteor/release | head -1 | sed 's|^METEOR@||')
 NODE_VERSION=$(grep -o 'NODE_VERSION=[^ \\]*' $WEKANREPODIR/Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 NPM_VERSION=$(grep -o 'NPM_VERSION=[^ \\]*' $WEKANREPODIR/Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 
