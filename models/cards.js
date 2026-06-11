@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import {
   formatDateTime,
   formatDate,
@@ -1068,26 +1067,21 @@ Cards.helpers({
   },
 
   absoluteUrl() {
-    const board = this.board();
-    if (!board) return undefined;
-    return FlowRouter.url('card', {
-      boardId: board._id,
-      slug: board.slug || 'board',
-      cardId: this._id,
-      swimlaneId: this.swimlaneId,
-      listId: this.listId,
-    });
+    // Built from the relative path instead of FlowRouter.url(): FlowRouter is
+    // client-only and returns a generic link when called on the server (card
+    // activity notification emails). Meteor.absoluteUrl() works on both sides
+    // and expects no leading slash.
+    const relativeUrl = this.originRelativeUrl();
+    if (!relativeUrl) return undefined;
+    return Meteor.absoluteUrl(relativeUrl.replace(/^\//, ''));
   },
   originRelativeUrl() {
     const board = this.board();
     if (!board) return undefined;
-    return FlowRouter.path('card', {
-      boardId: board._id,
-      slug: board.slug || 'board',
-      cardId: this._id,
-      swimlaneId: this.swimlaneId,
-      listId: this.listId,
-    });
+    // Matches the 'card' route '/b/:boardId/:slug/:cardId' (config/router.js).
+    // swimlaneId/listId were only ever appended as query params the route
+    // ignores, so they are dropped here.
+    return `/b/${board._id}/${board.slug || 'board'}/${this._id}`;
   },
 
   canBeRestored() {

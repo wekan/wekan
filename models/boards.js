@@ -11,7 +11,6 @@ import {
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
 import { BOARD_COLORS, LABEL_COLORS } from '/models/metadata/colors';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Actions from '/models/actions';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
@@ -1273,10 +1272,17 @@ Boards.helpers({
   },
 
   absoluteUrl() {
-    return FlowRouter.url('board', { id: this._id, slug: this.slug || 'board' });
+    // Build the URL from the relative path rather than FlowRouter.url():
+    // FlowRouter is client-only, so on the server (board invitation emails,
+    // activity notification emails) it has no registered routes and returns a
+    // generic "/board" link without the board id. Meteor.absoluteUrl() prepends
+    // ROOT_URL and works on both client and server. It expects no leading slash.
+    return Meteor.absoluteUrl(this.originRelativeUrl().replace(/^\//, ''));
   },
   originRelativeUrl() {
-    return FlowRouter.path('board', { id: this._id, slug: this.slug || 'board' });
+    // Matches the 'board' route '/b/:id/:slug' (config/router.js). Built as a
+    // plain string so it resolves correctly on the server too.
+    return `/b/${this._id}/${this.slug || 'board'}`;
   },
 
   colorClass() {

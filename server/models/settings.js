@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Email } from 'meteor/email';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import Settings from '/models/settings';
 import InvitationCodes from '/models/invitationCodes';
@@ -53,7 +52,9 @@ async function sendInvitationEmail(_id) {
           : authorUser.username,
       user: icode.email.split('@')[0],
       icode: icode.code,
-      url: FlowRouter.url('sign-up'),
+      // FlowRouter is client-only; on the server it has no routes and yields a
+      // generic link. The sign-up route is the static path '/sign-up'.
+      url: Meteor.absoluteUrl('sign-up'),
     };
     const lang = author.getLanguage();
     await EmailLocalization.sendEmail({
