@@ -596,6 +596,8 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          # remote-build (Launchpad) rejects shallow clones, so fetch full history
+          fetch-depth: 0
 
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
