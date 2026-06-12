@@ -96,6 +96,10 @@ export class WekanCreator {
     // default swimlane id created during import if necessary
     this._defaultSwimlaneId = null;
 
+    // first list created during import, used as a fallback target for cards
+    // whose listId points at a list missing from the export (dangling ref)
+    this._defaultListId = null;
+
     // Normalize possible exported id fields: some exports may use `id` instead of `_id`.
     // Ensure every item we rely on has an `_id` so mappings work consistently.
     const normalizeIds = arr => {
@@ -262,15 +266,22 @@ export class WekanCreator {
     // we will work on the list itself (an ordered array of objects) when a
     // mapping is done, we add a 'wekan' field to the object representing the
     // imported member
-    const membersToMap = data.members;
-    const users = data.users;
+    const membersToMap = data.members || [];
+    const users = data.users || [];
     // auto-map based on username
+    const mappable = [];
     for (const importedMember of membersToMap) {
       importedMember.id = importedMember.userId;
       delete importedMember.userId;
       const user = users.filter(user => {
         return user._id === importedMember.id;
       })[0];
+      // Skip dangling user references (e.g. a board member whose account was
+      // deleted): the export only includes users that still exist, so `user`
+      // can be undefined here. Dereferencing it would throw and abort import.
+      if (!user) {
+        continue;
+      }
       if (user.profile && user.profile.fullname) {
         importedMember.fullName = user.profile.fullname;
       }
@@ -279,8 +290,9 @@ export class WekanCreator {
       if (wekanUser) {
         importedMember.wekanId = wekanUser._id;
       }
+      mappable.push(importedMember);
     }
-    return membersToMap;
+    return mappable;
   }
 
   checkActions(wekanActions) {
@@ -387,6 +399,14 @@ export class WekanCreator {
     // number from the export when present, otherwise allocate a fresh one.
     const boardObj = await ReactiveCache.getBoard(boardId);
     for (const card of wekanCards) {
+      // A card whose listId points at a list missing from the export (a
+      // dangling reference) would otherwise be inserted with an undefined
+      // listId and never render. Fall back to the first imported list, and if
+      // the export had no lists at all, create one default list to hold them.
+      let listId = this.lists[card.listId] || this._defaultListId;
+      if (!listId) {
+        listId = await this._createDefaultList(boardId);
+      }
       const cardToCreate = {
         archived: card.archived,
         boardId,
@@ -395,7 +415,7 @@ export class WekanCreator {
         createdAt: this._now(this.createdAt.cards[card._id]),
         dateLastActivity: this._now(),
         description: card.description,
-        listId: this.lists[card.listId],
+        listId,
         swimlaneId: this.swimlanes[card.swimlaneId] || this._defaultSwimlaneId,
         sort: card.sort,
         title: card.title,
@@ -609,6 +629,23 @@ export class WekanCreator {
     });
   }
 
+  // Create a single fallback list for cards that have no valid list to live
+  // in (export contained no lists, or only dangling listId references).
+  async _createDefaultList(boardId) {
+    const listId = await Lists.direct.insertAsync({
+      archived: false,
+      boardId,
+      createdAt: this._now(),
+      title: 'Default',
+      sort: 0,
+    });
+    await Lists.direct.updateAsync(listId, {
+      $set: { updatedAt: this._now() },
+    });
+    this._defaultListId = listId;
+    return listId;
+  }
+
   async createLists(wekanLists, boardId) {
     for (const [listIndex, list] of wekanLists.entries()) {
       const listToCreate = {
@@ -629,6 +666,9 @@ export class WekanCreator {
         },
       });
       this.lists[list._id] = listId;
+      if (!this._defaultListId) {
+        this._defaultListId = listId;
+      }
       // // log activity
       // Activities.direct.insert({
       //   activityType: 'importList',
@@ -727,6 +767,12 @@ export class WekanCreator {
   async createChecklists(wekanChecklists, boardId) {
     const result = [];
     for (const [checklistIndex, checklist] of wekanChecklists.entries()) {
+      // Skip orphaned checklists whose card is missing from the export.
+      // Otherwise the checklist would be created with an undefined cardId and
+      // be unreachable (the same guard createChecklistItems already applies).
+      if (!this.cards[checklist.cardId]) {
+        continue;
+      }
       // Create the checklist
       const checklistToCreate = {
         cardId: this.cards[checklist.cardId],
