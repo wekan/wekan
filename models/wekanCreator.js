@@ -382,10 +382,15 @@ export class WekanCreator {
    */
   async createCards(wekanCards, boardId) {
     const result = [];
+    // .direct.insertAsync below bypasses the before.insert hook that normally
+    // assigns cardNumber, so we must handle the number ourselves: preserve the
+    // number from the export when present, otherwise allocate a fresh one.
+    const boardObj = await ReactiveCache.getBoard(boardId);
     for (const card of wekanCards) {
       const cardToCreate = {
         archived: card.archived,
         boardId,
+        cardNumber: card.cardNumber || (await boardObj.getNextCardNumber()),
         // very old boards won't have a creation activity so no creation date
         createdAt: this._now(this.createdAt.cards[card._id]),
         dateLastActivity: this._now(),
