@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix Wrong card number after Import](https://github.com/wekan/wekan/commit/aabcaa658edc2135dfd035bedea186ddf6b26068).
+  Thanks to titver968, xet7 and Claude !
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.41 2026-06-12 WeKan ® release
 
 This release adds the following new features:
