@@ -31,7 +31,24 @@ Versions:
 This release fixes the following bugs:
 
 - [Fix Wrong card number after Import](https://github.com/wekan/wekan/commit/aabcaa658edc2135dfd035bedea186ddf6b26068).
-  Thanks to titver968, xet7 and Claude !
+  Thanks to titver968, xet7 and Claude.
+- [Fix Board Export/Import error](https://github.com/wekan/wekan/commit/68e0032c6d3b23a195b4051e2853465965e073dc).
+  Fix import/clone of inconsistent board JSON so the newest WeKan can import
+  board exports from any newer or older WeKan version. A syntactically valid
+  export can still be internally inconsistent (a board member whose user
+  account was deleted is no longer in the export's `users`, cards pointing at a
+  missing `listId`, orphaned checklists, or a missing `lists` array). Such
+  exports previously failed import as "error-json-malformed" or silently
+  dropped data (cards with an undefined list never rendered). The importer now
+  skips dangling user references in the member mapper (client
+  `wekanMembersMapper`, server `wekanmapper` used by board cloning, and
+  `WekanCreator`), falls back to the first imported list — creating one default
+  list when the export has none — for cards with a dangling `listId`, and skips
+  orphaned checklists whose card is missing. The importer remains
+  version-agnostic: it never reads `_format`, normalizes old `id` vs `_id`
+  fields, and ignores the source `boardId`. Added `tests/wekanCreator.inconsistent.test.js`
+  covering these cases.
+  Thanks to titver968, xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
