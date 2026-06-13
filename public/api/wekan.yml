@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.42
+  version: v9.43
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -4604,8 +4604,10 @@ definitions:
         type: string
       mapProvider:
         description: |
-           which map service the card "Open in map" links use
-           ('openstreetmap' (default), 'google', 'bing' or 'apple').
+           which map service the card "Open in map" links use, grouped by region:
+           USA: 'google', 'bing', 'apple', 'waze';
+           Europe: 'openstreetmap' (default), 'here', 'yandex', 'mapy', '2gis';
+           Asia: 'baidu', 'amap'.
         type: string
         enum:
           - openstreetmap
