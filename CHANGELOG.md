@@ -26,9 +26,137 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.42 2026-06-13 WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Greatly improved import from Trello to WeKan](https://github.com/wekan/wekan/commit/899617bd4d83905df05fd8aab1d26630e676fee5):
+  - Attachments now import. Trello attachment URLs require OAuth to download, so
+    WeKan could not fetch them. The Trello import page now has two separate file
+    fields: a **.json** field for a single Trello board, and a
+    **.zip** field for a package produced by the
+    [Trello Card Attachments Downloader](https://github.com/wekan/trello-attachments-downloader).
+    The .zip may contain one *or more* board .json files together with each
+    board's attachments in a board-name subfolder. The .zip is uploaded over HTTP
+    and processed entirely on the server (the attachment bytes never travel over
+    the realtime WebSocket, which previously overflowed the connection and made
+    the page flicker): WeKan detects every board .json, matches each board to its
+    attachment subfolder by name, streams each file straight into the Default
+    file storage, imports all boards, then opens All Boards. The upload is guarded
+    against abuse — it rejects oversized uploads, zip bombs (too many files or too
+    much uncompressed data, per-file size caps) and unsafe entry paths (absolute
+    paths or `..` traversal), and never overwrites existing files (stored under
+    generated ids). The importer also reads attachments from `card.attachments`
+    (newer Trello exports), not only from the action log, and uses the correct
+    Meteor-Files insert API (the previous calls were no-ops on Meteor 3). Single
+    board imports (the .json file or the pasted JSON, after the map-members step)
+    now run through the same server-side HTTP path rather than the realtime
+    `importBoard` method, so a heavy import can no longer drop the WebSocket and
+    get retried in an endless loop (the page flickering with "Invalid frame
+    header" / repeated "logged out" errors). When importing only a single board
+    .json and you have saved Trello API key and token, WeKan uses them on the
+    server to download that board's attachments, background image, member
+    avatars and card stickers from Trello (a .json export often omits stickers;
+    avatars only fill in mapped users who have none — an existing avatar is never
+    overwritten); each download is best-effort and a failure never aborts the
+    import. After a single-board import the new board's data is subscribed and
+    loaded before opening it, so it shows its swimlanes, lists and cards
+    immediately instead of needing a browser page reload (the HTTP import, unlike
+    the old realtime method, does not push the written documents to the client by
+    itself).
+  - Import Trello-only card features: stickers (shown as Font Awesome icons on
+    minicards and the card detail), card cover (color or attachment), card
+    location (name, address, coordinates with an OpenStreetMap link), and the
+    due-date "complete" checkbox shown on the minicard. Trello's two named
+    sticker packs are renamed and highlighted (the icon keeps its normal colour)
+    so they stay distinct: the "taco" pack becomes "mascot" with an underlined
+    icon, and the "pete" pack becomes "computer" with a ring around the icon,
+    e.g. "pete-ghost" imports as "computer ghost" with a Snapchat-ghost icon.
+    Several named stickers that used to share an icon now get their own Font
+    Awesome 4.7 icon (mascot active => heartbeat, pixel => qrcode, proto =>
+    flask, embarrassed => meh-o, clean => bath, computer shipped => truck).
+  - Live Trello API import: paste your Trello API key and token on the Trello
+    import page to list all your Trello workspaces and boards, then import all
+    or selected boards together with their attachments (downloaded
+    server-side). Imported boards are placed under a personal workspace named
+    after their Trello workspace, created by name if it does not exist, under an
+    optional parent workspace you choose. The API client respects Trello's rate
+    limits: it spaces out requests, honours `Retry-After` on HTTP 429, retries
+    transient 5xx and network errors with capped exponential backoff, and
+    reports a clear error on an invalid key/token (401). After a successful API
+    import you are taken to the All Boards page where the new boards appear.
+  - The live API import runs as a background job on the server: you can navigate
+    away and come back to the Trello import page to watch progress, see
+    per-board results, and read the full error log. Errors are shown in a
+    selectable text box with a one-click "Copy to clipboard" button (and you can
+    still select and copy just part of the text) so they are easy to share when
+    fixing issues. If the import stops on a fatal API error (invalid token, or
+    rate limit still failing after retries) you can fix the cause and Resume
+    from where it left off, and a server restart leaves the job paused for
+    resuming rather than lost. You can also Cancel the import, or Cancel and
+    delete the boards already imported, to start the whole process over cleanly.
+  - You can optionally save your Trello API key and token with the Save and
+    Delete buttons on the import page. When saved, they are stored only on the
+    server, never sent back to the browser, and are reused automatically when
+    you list workspaces or import (so you do not have to paste them again); a
+    "saved" indicator is shown, Save can overwrite them with new values, and
+    Delete clears them from the database. If you do not save them, they are kept
+    only in server memory for the running import and re-supplied when you resume.
+  - Larger Trello JSON exports can be selected as a file instead of pasted.
+  - Keep imported usernames for later mapping. Imported members that match an
+    existing WeKan user (by username, or by a previously recorded imported
+    username) are mapped automatically, and the imported username is remembered
+    on that user so future imports map too. Members with no matching WeKan user
+    are no longer lost: their usernames are kept on the board, so an admin can
+    map them to real users later in Admin Panel / People (Imported Usernames),
+    without having to map everyone up front at import time.
+  Thanks to xet7 and Claude.
+- Board background images can now be stored in WeKan. A new `backgrounds` file
+  storage directory is created alongside `attachments` and `avatars` (using the
+  current default storage backend), and Board menu → Board backgrounds lets a
+  board admin upload background images, set one as the active board background,
+  download, and delete them. Board export now includes the board's background
+  images and re-imports them, and a Trello board's background image is
+  downloaded and stored on import (so it keeps working even if the original
+  Trello URL later changes). Thanks to xet7 and Claude.
+- Stickers can be added to and removed from cards directly in WeKan, chosen from
+  a set of Font Awesome icons similar to Trello's stickers (previously stickers
+  only arrived via Trello import). The picker also includes every "mascot"
+  (underlined) and "computer" (ringed) highlighted sticker that a Trello import
+  can produce — generated from the same icon mapping the importer uses — so any
+  imported sticker can also be added by hand. Stickers show on the minicard and
+  in the card detail. Thanks to xet7 and Claude.
+- The Trello-style "complete" checkbox (mark a card complete/incomplete,
+  independent of the due date) is shown as an animated green checkbox to the
+  left of the card title, both on the minicard and in the opened card, with
+  "Mark as complete" / "Mark as incomplete" tooltips. It uses the same animated
+  checkbox style as Admin Panel / Settings / Announcements and is vertically
+  centered with the title text, and the two stay in sync. The minicard and the
+  opened-card checkboxes use the same checked style (the board theme's colour, or
+  green when no theme is set), so they always look identical. Subtask checkboxes
+  and the card-detail custom-field checkbox now use the same animated checkbox as
+  checklist items (they previously used static square icons), so every checkbox
+  on a card animates consistently. Thanks to xet7 and Claude.
+- Cards can now have multiple locations, similar to multiple members. The card
+  detail shows a Location section (after Labels and Stickers) listing each
+  location with its name, address and an OpenStreetMap link, with an "Add
+  location" button to add more and a button to edit or remove each one. A single
+  location imported from Trello keeps working and is shown in the same list. The
+  Add/Edit location popup can also detect a location from any map link (Google
+  Maps, OpenStreetMap, Bing Maps, Apple Maps, or generic `?q=`/`?ll=` links):
+  paste the link, press "Detect", and the latitude, longitude and (when present)
+  the place name/address are filled in automatically. The popup also has an
+  "Open map links at" setting (OpenStreetMap by default, or Google/Bing/Apple
+  Maps) saved to the user profile, controlling which map service the location
+  "Open in map" links use. Thanks to xet7 and Claude.
+- The opened card now docks to the top of the window, overlaying the global and
+  board header bars, instead of opening downward from the clicked minicard, and
+  it can be dragged all the way to the top without its top hiding behind those
+  bars. (At 100% zoom the board wrapper no longer sets a `transform: scale(1)`,
+  which had made it the containing block for the fixed card and trapped it below
+  the headers.) Thanks to xet7 and Claude.
+
+and fixes the following bugs:
 
 - [Fix Wrong card number after Import](https://github.com/wekan/wekan/commit/aabcaa658edc2135dfd035bedea186ddf6b26068).
   Thanks to titver968, xet7 and Claude.
@@ -49,6 +177,20 @@ This release fixes the following bugs:
   fields, and ignores the source `boardId`. Added `tests/wekanCreator.inconsistent.test.js`
   covering these cases.
   Thanks to titver968, xet7 and Claude.
+- Fix Trello import returning HTTP 500 on any card that has an attachment. A
+  past refactor removed the `links` variable declaration but left its consumer
+  in `models/trelloCreator.js`, so importing an attachment card threw
+  "ReferenceError: links is not defined". Also fixed a stray `return` that
+  silently aborted importing the rest of the cards when one attachment URL was
+  blocked (now `continue`), and Trello cards no longer all import as card
+  number #0 (the Trello short number `idShort` is preserved).
+  Thanks to xet7 and Claude.
+- Fix attachments not importing from WeKan board JSON exports. The importer
+  called the old Meteor-Files `Attachments.load/insert(..., cb, true)` API,
+  which is a no-op on Meteor 3, so exported base64 attachments were silently
+  dropped. It now inserts them with `Attachments.insertAsync`, and one failed
+  attachment no longer aborts importing the rest of the cards.
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
