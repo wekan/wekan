@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.41
+  version: v9.42
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3185,6 +3185,17 @@ definitions:
         items:
           $ref: "#/definitions/BoardsTeams"
         x-nullable: true
+      importUsernames:
+        description: |
+           Usernames of imported (e.g. Trello) board members that were not mapped
+           to an existing WeKan user during import. Kept so an admin can map them
+           to real users later (People panel -> user -> Imported Usernames), after
+           which future imports of this board auto-map.
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       color:
         description: |
            The color of the board.
@@ -3193,6 +3204,13 @@ definitions:
       backgroundImageURL:
         description: |
            The background image URL of the board.
+        type: string
+        x-nullable: true
+      backgroundImageId:
+        description: |
+           The id of the active board background attachment (a board-level
+           Attachment with meta.source === 'board-background'), when the active
+           background is an uploaded/imported image rather than an external URL.
         type: string
         x-nullable: true
       allowsCardCounterList:
@@ -3621,6 +3639,8 @@ definitions:
       - teamId
       - teamDisplayName
       - isActive
+  BoardsImportusernames:
+    type: object
   CardComments:
     type: object
     description:  A comment on a card
@@ -3775,6 +3795,49 @@ definitions:
         description: |
            Date the card ended
         type: string
+        x-nullable: true
+      dueComplete:
+        description: |
+           Has the due date been marked complete? Imported from Trello
+           (card.dueComplete) and toggled by the minicard due checkbox.
+        type: boolean
+        x-nullable: true
+      stickers:
+        description: |
+           list of stickers shown on the card (imported from Trello)
+        type: array
+        items:
+          $ref: "#/definitions/CardsStickers"
+        x-nullable: true
+      locationName:
+        description: |
+           human readable location name of the card (imported from Trello)
+        type: string
+        x-nullable: true
+      locationAddress:
+        description: |
+           street address of the card location (imported from Trello)
+        type: string
+        x-nullable: true
+      locationLatitude:
+        description: |
+           latitude of the card location (imported from Trello)
+        type: number
+        x-nullable: true
+      locationLongitude:
+        description: |
+           longitude of the card location (imported from Trello)
+        type: number
+        x-nullable: true
+      locations:
+        description: |
+           list of locations attached to the card. Supports multiple locations,
+           each with an optional name, address and coordinates. A legacy single
+           location stored in the locationName/Address/Latitude/Longitude fields
+           is surfaced through getLocations() for backwards compatibility.
+        type: array
+        items:
+          $ref: "#/definitions/CardsLocations"
         x-nullable: true
       spentTime:
         description: |
@@ -3994,6 +4057,10 @@ definitions:
   CardsMembers:
     type: object
   CardsAssignees:
+    type: object
+  CardsStickers:
+    type: object
+  CardsLocations:
     type: object
   CardsVotePositive:
     type: object
@@ -4500,6 +4567,12 @@ definitions:
         description: |
            has user at card Custom Fields have Grid (false) or one per row (true) layout?
         type: boolean
+      trelloApiSaved:
+        description: |
+           Has the user saved Trello API credentials (key + token) for importing?
+           The credentials themselves are stored server-side only (never published
+           to the client); this is just the published "saved" indicator.
+        type: boolean
       hiddenMinicardLabelText:
         description: |
            does the user want to hide minicard label texts?
@@ -4529,6 +4602,16 @@ definitions:
         description: |
            language of the user
         type: string
+      mapProvider:
+        description: |
+           which map service the card "Open in map" links use
+           ('openstreetmap' (default), 'google', 'bing' or 'apple').
+        type: string
+        enum:
+          - openstreetmap
+          - google
+          - bing
+          - apple
       moveAndCopyDialog:
         description: |
            move and copy card dialog
