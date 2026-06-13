@@ -26,6 +26,33 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Add/Edit location popup can also](https://github.com/wekan/wekan/commit/84dc493cf7bb26c8fbffffbcb36e691bcdcfcdb9)
+  detect a location from a map link from many providers,
+  grouped by region — USA: Google Maps, Bing Maps, Apple Maps, Waze;
+  Europe: OpenStreetMap, HERE WeGo, Yandex Maps, Mapy.cz, 2GIS; Asia: Baidu Maps,
+  Amap (Gaode) — plus generic `?q=`/`?ll=` links: paste the link, press "Detect",
+  and the latitude, longitude and (when present) the place name/address are
+  filled in automatically. Detection handles each provider's real-world URL
+  shapes, including percent-encoded commas (e.g. Waze/Yandex `ll=...%2C...`) and
+  alternate forms (HERE `share.here.com/l/`, Yandex `pt=`, 2GIS `m=`), and the
+  coordinate order (several non-US providers use lon,lat). For the Chinese
+  providers a datum conversion is applied — Baidu uses BD-09 and Amap uses
+  GCJ-02, both offset from WGS-84 — so pins land in the right place on the way in
+  and out. The popup also has an "Open map links at" setting (OpenStreetMap by
+  default) saved to the user profile, with the same region-grouped provider list,
+  controlling which map service the location "Open in map" links use.
+  Thanks to xet7 and Claude.
+
+and fixes the following bugs:
+
+- Fix incomplete URL substring sanitization.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.42 2026-06-13 WeKan ® release
 
 This release adds the following new features:
@@ -148,7 +175,8 @@ This release adds the following new features:
   the place name/address are filled in automatically. The popup also has an
   "Open map links at" setting (OpenStreetMap by default, or Google/Bing/Apple
   Maps) saved to the user profile, controlling which map service the location
-  "Open in map" links use. Thanks to xet7 and Claude.
+  "Open in map" links use.
+  Thanks to xet7 and Claude.
 - The opened card now docks to the top of the window, overlaying the global and
   board header bars, instead of opening downward from the clicked minicard, and
   it can be dragged all the way to the top without its top hiding behind those
