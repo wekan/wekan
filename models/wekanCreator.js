@@ -4,6 +4,8 @@ import Actions from '/models/actions';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
+import Users from '/models/users';
+import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
 import ChecklistItems from '/models/checklistItems';
@@ -332,6 +334,11 @@ export class WekanCreator {
       stars: 0,
       title: await Boards.uniqueTitle(boardToImport.title),
     };
+    // Carry over an external background image URL. Stored backgrounds (with a
+    // backgroundImageId) are re-created and re-pointed in recreateBackgrounds().
+    if (boardToImport.backgroundImageURL && !boardToImport.backgroundImageId) {
+      boardToCreate.backgroundImageURL = boardToImport.backgroundImageURL;
+    }
     // now add other members
     if (boardToImport.members) {
       boardToImport.members.forEach(wekanMember => {
@@ -536,42 +543,60 @@ export class WekanCreator {
       const wekanCoverId = card.coverId;
       if (attachments && Meteor.isServer) {
         for (const att of attachments) {
-          const self = this;
-          const opts = {
-            type: att.type ? att.type : undefined,
-            userId: self._user(att.userId),
-            meta: {
-              boardId,
-              cardId,
-              source: 'import',
-            },
-          };
-          const cb = async (error, fileObj) => {
-            if (error) {
-              throw error;
-            }
-            self.attachmentIds[att._id] = fileObj._id;
+          const meta = { boardId, cardId, source: 'import' };
+          const setCover = async newId => {
+            if (!newId) return;
+            this.attachmentIds[att._id] = newId;
             if (wekanCoverId === att._id) {
               await Cards.direct.updateAsync(cardId, {
-                $set: { coverId: fileObj._id },
+                $set: { coverId: newId },
               });
             }
           };
-          if (att.url) {
-            const validation = await validateAttachmentUrl(att.url);
-            if (!validation.valid) {
-              if (process.env.DEBUG === 'true') {
-                console.warn(
-                  'Blocked attachment URL during Wekan import:',
-                  validation.reason,
-                  att.url,
-                );
+          try {
+            if (att.file) {
+              // WeKan exports embed attachment bytes as base64. Insert them
+              // with the server-side Meteor-Files API writeAsync (insertAsync
+              // is client-only; the older Attachments.insert(..., cb, true) call
+              // was a no-op on Meteor 3), so exported attachments now import.
+              const buffer = Buffer.from(att.file, 'base64');
+              const fileRef = await Attachments.writeAsync(
+                buffer,
+                {
+                  fileName: att.name || 'attachment',
+                  type: att.type || 'application/octet-stream',
+                  userId: this._user(att.userId),
+                  meta,
+                },
+                true,
+              );
+              await setCover(fileRef && fileRef._id);
+            } else if (att.url) {
+              const validation = await validateAttachmentUrl(att.url);
+              if (!validation.valid) {
+                if (process.env.DEBUG === 'true') {
+                  console.warn(
+                    'Blocked attachment URL during Wekan import:',
+                    validation.reason,
+                    att.url,
+                  );
+                }
+                // Skip just this attachment (a bare return would abort
+                // importing all remaining cards).
+                continue;
               }
-              return;
+              const fileRef = await Attachments.loadAsync(
+                att.url,
+                { meta, fileName: att.name },
+                true,
+              );
+              await setCover(fileRef && fileRef._id);
             }
-            Attachments.load(att.url, opts, cb, true);
-          } else if (att.file) {
-            Attachments.insert(att.file, opts, cb, true);
+          } catch (e) {
+            if (process.env.DEBUG === 'true') {
+              console.warn('Failed to import WeKan attachment', att.name, e && e.message);
+            }
+            // One failed attachment must not abort the whole import.
           }
         }
       }
@@ -1074,7 +1099,88 @@ export class WekanCreator {
     await this.createTriggers(board.triggers, boardId);
     await this.createActions(board.actions, boardId);
     await this.createRules(board.rules, boardId);
+    await this.recordImportedUsernames(board, boardId);
+    await this.recreateBackgrounds(board, boardId);
     // XXX add members
     return boardId;
+  }
+
+  // Re-create the board's background images, which are exported as board-level
+  // attachments (meta.source === 'board-background', no cardId), as new
+  // board-level Attachments for the imported board, and re-point the active
+  // background (backgroundImageId) to the new attachment id.
+  async recreateBackgrounds(board, boardId) {
+    if (!Meteor.isServer) return;
+    const backgrounds = (board.attachments || []).filter(
+      att => att && att.source === 'board-background' && att.file && !att.cardId,
+    );
+    if (!backgrounds.length) return;
+    const idMap = {};
+    for (const bg of backgrounds) {
+      try {
+        const buffer = Buffer.from(bg.file, 'base64');
+        const fileRef = await Attachments.writeAsync(
+          buffer,
+          {
+            fileName: bg.name || 'background',
+            type: bg.type || 'image/jpeg',
+            userId: this._user(),
+            meta: { boardId, source: 'board-background' },
+          },
+          true,
+        );
+        if (fileRef && fileRef._id && bg._id) {
+          idMap[bg._id] = fileRef._id;
+        }
+      } catch (e) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Failed to import board background', bg.name, e && e.message);
+        }
+      }
+    }
+    // Re-point the active background to the new attachment id.
+    const activeNewId = board.backgroundImageId && idMap[board.backgroundImageId];
+    if (activeNewId) {
+      await Boards.direct.updateAsync(boardId, {
+        $set: {
+          backgroundImageId: activeNewId,
+          backgroundImageURL: generateUniversalAttachmentUrl(activeNewId),
+        },
+      });
+    }
+  }
+
+  // Keep the original imported usernames so user mapping can happen later:
+  // members mapped to a WeKan user get the imported username added to that
+  // user's importUsernames (so future imports auto-map); unmapped members'
+  // usernames are stored on the board's importUsernames for an admin to assign
+  // to real users later via the People panel.
+  async recordImportedUsernames(board, boardId) {
+    if (!Meteor.isServer) return;
+    const usersById = {};
+    (board.users || []).forEach(user => {
+      usersById[user._id] = user;
+    });
+    const unmapped = [];
+    for (const member of board.members || []) {
+      // the client member mapper renames userId -> id before import
+      const sourceId = member.id || member.userId;
+      const sourceUser = usersById[sourceId];
+      const username = (sourceUser && sourceUser.username) || member.username;
+      if (!username) continue;
+      const wekanId = this.members[sourceId];
+      if (wekanId) {
+        await Users.updateAsync(wekanId, {
+          $addToSet: { importUsernames: username },
+        });
+      } else if (!unmapped.includes(username)) {
+        unmapped.push(username);
+      }
+    }
+    if (unmapped.length) {
+      await Boards.direct.updateAsync(boardId, {
+        $addToSet: { importUsernames: { $each: unmapped } },
+      });
+    }
   }
 }

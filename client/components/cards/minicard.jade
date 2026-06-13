@@ -21,7 +21,7 @@ template(name="minicard")
             +minicardStartDate
       if showDue
         if getDue
-          .date
+          .date(class="{{#if getDueComplete}}due-complete{{/if}}")
             +minicardDueDate
       if showEnd
         if getEnd
@@ -54,6 +54,9 @@ template(name="minicard")
                 span {{_ 'upload-completed'}}
 
     .minicard-title
+      if canModifyCard
+        a.minicard-complete-toggle.js-toggle-card-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
+          .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentString ' > ' }}
@@ -152,6 +155,11 @@ template(name="minicard")
       each shouldShowChecklistAtMinicard
         +minicardChecklist(checklist=. card=..)
     .badges
+      if stickers.length
+        .badge.badge-state-image-only.minicard-stickers
+          each stickers
+            span.badge-icon.minicard-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
+              i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
       if comments.length
         .badge(title="{{_ 'card-comments-title' comments.length }}")
           span.badge-icon.badge-comment.badge-text

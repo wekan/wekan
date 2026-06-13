@@ -890,3 +890,167 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   transform: scale(1.01);
   transition: all 0.2s ease;
 }
+
+/* Sticker picker + card-detail stickers + due-complete toggle */
+.card-stickers-picker {
+  max-width: 320px;
+}
+.card-sticker-select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 2px;
+  border-radius: 3px;
+  font-size: 18px;
+  color: #4d4d4d;
+  cursor: pointer;
+  position: relative;
+}
+.card-sticker-select:hover {
+  background: #e0e0e0;
+}
+.card-sticker-select.active {
+  background: #d6ecd2;
+  color: #3cb500;
+}
+.card-sticker-select .card-sticker-check {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  font-size: 10px;
+  color: #3cb500;
+}
+.card-stickers .card-sticker {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 8px 4px 0;
+  font-size: 18px;
+}
+.card-sticker .card-sticker-remove {
+  margin-left: 3px;
+  font-size: 11px;
+  color: #999;
+  cursor: pointer;
+}
+.card-sticker .card-sticker-remove:hover {
+  color: #eb4646;
+}
+.card-due-complete-toggle {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Trello-style "mark complete" toggle, left of the card title */
+.card-details-complete-toggle {
+  float: left;
+  display: flex;
+  align-items: center;
+  /* Title is 1.35em with 1.3 line-height (~28px box) and margin-top 7px; push
+     the 13px checkbox down so it lands at the vertical middle of the title. */
+  margin: 14px 10px 0 0;
+  cursor: pointer;
+}
+
+/* Card locations: multiple locations, each editable with a remove button */
+.card-details-item-location .card-locations {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.card-details-item-location .card-location {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+.card-details-item-location .card-location-info {
+  flex: 1;
+}
+.card-details-item-location .js-edit-location {
+  cursor: pointer;
+}
+.card-details-item-location .card-location-name {
+  font-weight: bold;
+}
+.card-details-item-location .card-location-address {
+  color: #4d4d4d;
+}
+.card-details-item-location .card-location-remove {
+  margin-left: 8px;
+  color: #8c8c8c;
+  cursor: pointer;
+}
+.card-details-item-location .card-location-remove:hover {
+  color: #eb4646;
+}
+
+/* Sticker icon highlight styles (used instead of colour): taco pack => underline,
+   pete pack => round (ring around the icon). Icon keeps its normal colour. */
+.card-sticker i.sticker-underline {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 1px;
+  line-height: 1;
+}
+.card-sticker i.sticker-round {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* "Open map links at" provider selector in the location popup */
+.js-card-location-form .map-provider-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.js-card-location-form .map-provider-row .js-map-provider {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+/* Opened card (card details popup) docks to the very top of the window and
+   overlays the global + board header bars instead of opening below them. The
+   base .pop-over is position:absolute with a small margin/top offset, which left
+   the card's top behind the fixed header bars; fix it to the viewport top with a
+   z-index above every header (headers top out around z-index 1000-2000). */
+.pop-over[data-popup="cardDetailsPopup"] {
+  position: fixed !important;
+  top: 0 !important;
+  margin-top: 0 !important;
+  z-index: 100000 !important;
+}
+
+/* Sticker highlight styles inside the sticker picker (mascot = underline,
+   computer = round), matching how they render on the card. */
+.card-sticker-select i.sticker-underline {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 1px;
+  line-height: 1;
+}
+.card-sticker-select i.sticker-round {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1;
+  box-sizing: border-box;
+}

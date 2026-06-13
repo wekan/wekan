@@ -7,6 +7,8 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
+import Attachments from '/models/attachments';
+import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import Integrations from '/models/integrations';
 import Lists from '/models/lists';
 import { BOARD_COLORS } from '/models/metadata/colors';
@@ -347,6 +349,7 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-background-image': Popup.open('boardChangeBackgroundImage'),
+  'click .js-manage-board-backgrounds': Popup.open('boardBackgrounds'),
   'click .js-board-info-on-my-boards': Popup.open('boardInfoOnMyBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-delete-duplicate-lists': Popup.afterConfirm('deleteDuplicateLists', function() {
@@ -867,6 +870,87 @@ Template.boardChangeBackgroundImagePopup.helpers({
     const currentBoard = Utils.getCurrentBoard();
     return currentBoard.backgroundImageURL;
   },
+});
+
+// Manage the board's stored background images (upload / set active / download /
+// delete). Backgrounds are board-level Attachments (meta.boardId, no cardId,
+// meta.source === 'board-background') in the default attachments storage.
+Template.boardBackgroundsPopup.onCreated(function () {
+  this.uploading = new ReactiveVar(false);
+  this.error = new ReactiveVar('');
+  const board = Utils.getCurrentBoard();
+  this.boardId = board && board._id;
+  if (this.boardId) {
+    this.subscribe('boardBackgrounds', this.boardId);
+  }
+});
+
+Template.boardBackgroundsPopup.helpers({
+  uploading() {
+    return Template.instance().uploading;
+  },
+  error() {
+    return Template.instance().error;
+  },
+  backgrounds() {
+    // Raw collection docs don't carry the .link() helper, so compute the URL.
+    return Attachments.collection
+      .find({
+        'meta.boardId': Template.instance().boardId,
+        'meta.source': 'board-background',
+      })
+      .fetch()
+      .map(att => ({
+        _id: att._id,
+        name: att.name,
+        link: generateUniversalAttachmentUrl(att._id),
+      }));
+  },
+  isActiveBackground() {
+    const board = Utils.getCurrentBoard();
+    return board && board.backgroundImageId === this._id;
+  },
+});
+
+Template.boardBackgroundsPopup.events({
+  'click .js-bg-upload-button'(event, tpl) {
+    event.preventDefault();
+    tpl.find('.js-bg-upload-input').click();
+  },
+  async 'change .js-bg-upload-input'(event, tpl) {
+    const file = event.currentTarget.files && event.currentTarget.files[0];
+    if (!file) return;
+    tpl.error.set('');
+    tpl.uploading.set(true);
+    const uploader = await Attachments.insertAsync(
+      {
+        file,
+        chunkSize: 'dynamic',
+        meta: { boardId: tpl.boardId, source: 'board-background' },
+      },
+      false,
+    );
+    uploader.on('end', (err) => {
+      tpl.uploading.set(false);
+      if (err) tpl.error.set(err.reason || 'upload-failed');
+    });
+    uploader.on('error', (err) => {
+      tpl.uploading.set(false);
+      tpl.error.set((err && err.reason) || 'upload-failed');
+    });
+    uploader.start();
+    // allow re-selecting the same file later
+    event.currentTarget.value = '';
+  },
+  async 'click .js-set-board-background'() {
+    const board = Utils.getCurrentBoard();
+    await board.setBackgroundImage(this._id);
+    Utils.setBackgroundImage();
+  },
+  'click .js-delete-board-background': Popup.afterConfirm('deleteBoardBackground', function () {
+    Meteor.call('removeBoardBackground', this._id);
+    Popup.back();
+  }),
 });
 
 Template.boardInfoOnMyBoardsPopup.onCreated(function() {

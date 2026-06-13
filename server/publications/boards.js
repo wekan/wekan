@@ -21,11 +21,28 @@ publishComposite('boards', function() {
 
   return {
     async find() {
+      // Publish a *live* cursor matching the boards the user can see, rather
+      // than a one-time snapshot of ids (`_id: { $in: [...] }`). A snapshot
+      // never picks up boards created after the client subscribes (e.g. a
+      // background Trello import), so they only appeared after a page reload.
+      // This selector mirrors Boards.userBoards(): a board the user becomes a
+      // member of is matched and streamed automatically.
+      const user = await ReactiveCache.getUser(userId);
+      if (!user) {
+        return [];
+      }
+      const selector = {
+        archived: false,
+        type: 'board',
+        $or: [
+          { permission: 'public' },
+          { members: { $elemMatch: { userId, isActive: true } } },
+          { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+          { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+        ],
+      };
       return await ReactiveCache.getBoards(
-        {
-          archived: false,
-          _id: { $in: await Boards.userBoardIds(userId, false) },
-        },
+        selector,
         {
           sort: { sort: 1 /* boards default sorting */ },
         },

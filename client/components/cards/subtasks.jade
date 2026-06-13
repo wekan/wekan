@@ -74,14 +74,13 @@ template(name="subtasksItems")
 template(name='subtaskItemDetail')
   .js-subtasks-item.subtasks-item
     if canModifyCard
-      span.check-box-unicode
-        i.fa(class="{{#if item.isFinished}}fa-check-square{{else}}fa-square-o{{/if}}")
+      .check-box-container
+        .check-box.materialCheckBox(class="{{#if item.isFinished}}is-checked{{/if}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
     else
-      span.check-box-unicode
-        i.fa(class="{{#if item.isFinished}}fa-check-square{{else}}fa-square-o{{/if}}")
+      .materialCheckBox(class="{{#if item.isFinished}}is-checked{{/if}}")
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title

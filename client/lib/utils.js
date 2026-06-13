@@ -189,9 +189,19 @@ export const Utils = {
           boardCanvas.style.height = '';
         }
       } else {
-        // Desktop mode: apply zoom to entire board-wrapper as before
-        boardWrapper.style.transform = `scale(${level})`;
-        boardWrapper.style.transformOrigin = 'top left';
+        // Desktop mode: apply zoom to entire board-wrapper as before.
+        // At 100% do NOT set transform: scale(1): any transform makes the
+        // board-wrapper the containing block + stacking context for its
+        // position:fixed descendants (the opened/dragged card), which traps the
+        // card inside the board area below the page header bars. Clearing it at
+        // 100% lets the opened card overlay the top bars.
+        if (level === 1) {
+          boardWrapper.style.transform = '';
+          boardWrapper.style.transformOrigin = '';
+        } else {
+          boardWrapper.style.transform = `scale(${level})`;
+          boardWrapper.style.transformOrigin = 'top left';
+        }
 
         // If zoom is 50% or lower, make board wrapper full width like content
         if (level <= 0.5) {

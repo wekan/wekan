@@ -55,11 +55,10 @@ template(name="cardCustomField-number")
 template(name="cardCustomField-checkbox")
   .js-checklist-item.checklist-item(class="{{#if data.value }}is-checked{{/if}}")
     if canModifyCard
-      span.check-box-unicode
-        i.fa(class="{{#if data.value}}fa-check-square{{else}}fa-square-o{{/if}}")
+      .check-box-container
+        .check-box.materialCheckBox(class="{{#if data.value}}is-checked{{/if}}")
     else
-      span.check-box-unicode
-        i.fa(class="{{#if data.value}}fa-check-square{{else}}fa-square-o{{/if}}")
+      .materialCheckBox(class="{{#if data.value}}is-checked{{/if}}")
 
 template(name="cardCustomField-currency")
     if canModifyCard

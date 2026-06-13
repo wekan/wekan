@@ -295,6 +295,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.trelloApiSaved': {
+      /**
+       * Has the user saved Trello API credentials (key + token) for importing?
+       * The credentials themselves are stored server-side only (never published
+       * to the client); this is just the published "saved" indicator.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.hiddenMinicardLabelText': {
       /**
        * does the user want to hide minicard label texts?
@@ -348,6 +357,15 @@ Users.attachSchema(
        */
       type: String,
       optional: true,
+    },
+    'profile.mapProvider': {
+      /**
+       * which map service the card "Open in map" links use
+       * ('openstreetmap' (default), 'google', 'bing' or 'apple').
+       */
+      type: String,
+      optional: true,
+      allowedValues: ['openstreetmap', 'google', 'bing', 'apple'],
     },
     'profile.moveAndCopyDialog': {
       /**
@@ -1213,6 +1231,11 @@ Users.helpers({
   getLimitToShowCardsCount() {
     const profile = this.profile || {};
     return profile.showCardsCountAt;
+  },
+
+  getMapProvider() {
+    const profile = this.profile || {};
+    return profile.mapProvider || 'openstreetmap';
   },
 
   getName() {

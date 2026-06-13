@@ -8,6 +8,8 @@ template(name="import")
   .wrapper
     if error.get
       .warning {{_ error.get}}
+    if zipImporting
+      .warning {{_ 'import-trello-zip-progress'}}
     +Template.dynamic(template=currentTemplate)
 
 template(name="importTextarea")
@@ -15,7 +17,115 @@ template(name="importTextarea")
     p: label(for='import-textarea') {{_ instruction}} {{_ 'import-board-instruction-about-errors'}}
     textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
       | {{jsonText}}
+    if isTrelloImport
+      p.import-file-row
+        label(for='import-json-file') {{_ 'import-trello-json-file'}}
+        span.quiet.import-file-hint {{_ 'import-trello-json-file-hint'}}
+        input.js-import-json-file(id='import-json-file' type="file" accept=".json,application/json")
+      p.import-file-row
+        label(for='import-zip-file') {{_ 'import-trello-zip-file'}}
+        span.quiet.import-file-hint {{_ 'import-trello-zip-file-hint'}}
+        input.js-import-zip-file(id='import-zip-file' type="file" accept=".zip,application/zip")
+      p.import-file-row
+        label(for='import-workspace-name') {{_ 'import-trello-workspace'}}
+        input.js-import-workspace-name(id='import-workspace-name' type="text" placeholder="{{_ 'import-trello-workspace-placeholder'}}")
     input.primary.wide(type="submit" value="{{_ 'import'}}")
+  if isTrelloImport
+    hr
+    +importTrelloApi
+
+template(name="importTrelloApi")
+  .trello-api-import
+    h2 {{_ 'trello-api-import'}}
+    p.quiet {{_ 'trello-api-import-desc'}}
+    p.import-file-row
+      label(for='trello-api-key') {{_ 'trello-api-key'}}
+      input.js-trello-key(id='trello-api-key' type="text" autocomplete="off")
+    p.import-file-row
+      label(for='trello-api-token') {{_ 'trello-api-token'}}
+      input.js-trello-token(id='trello-api-token' type="password" autocomplete="off")
+    p.trello-api-creds-buttons
+      button.primary.js-trello-save-creds(type="button") {{_ 'save'}}
+      button.negate.js-trello-delete-creds(type="button") {{_ 'delete'}}
+    if credsSaved
+      p.quiet.trello-creds-saved
+        i.fa.fa-check
+        span  {{_ 'trello-api-credentials-saved'}}
+    p
+      button.primary.js-trello-list-workspaces(type="button") {{_ 'trello-list-workspaces'}}
+    if error.get
+      .warning {{_ error.get}}
+    if loading.get
+      +spinner
+    if hasWorkspaces
+      p.import-file-row
+        label(for='trello-parent-workspace') {{_ 'import-trello-parent-workspace'}}
+        select.js-trello-parent-workspace(id='trello-parent-workspace')
+          option(value="") {{_ 'trello-parent-workspace-top'}}
+          each flatWorkspaceNodes
+            option(value=id)= label
+      p.trello-select-controls
+        button.primary.js-trello-select-all(type="button") {{_ 'select-all'}}
+        button.primary.js-trello-unselect-all(type="button") {{_ 'unselect-all'}}
+      .trello-workspaces
+        each workspaceList
+          .trello-workspace
+            a.flex.trello-workspace-title.js-toggle-workspace
+              .materialCheckBox(class="{{#if workspaceSelected}}is-checked{{/if}}")
+              b  {{name}}
+            .trello-boards
+              each boards
+                a.flex.trello-board.js-toggle-board(data-board-id="{{id}}")
+                  .materialCheckBox(class="{{#if boardSelected}}is-checked{{/if}}")
+                  span  {{name}}
+                  if closed
+                    span.quiet  ({{_ 'archived'}})
+      if canStartImport
+        p
+          button.primary.wide.js-trello-import-selected(type="button") {{_ 'trello-import-selected'}}
+    if currentJob
+      hr
+      .trello-import-job
+        h3 {{_ 'trello-import-progress'}}
+        with currentJob
+          p.trello-progress-label
+            b {{_ 'status'}}:
+            span  {{_ status}} ({{jobProgressText}})
+          .trello-progress-bar
+            .trello-progress-fill(class="{{#if $eq status 'running'}}is-running{{/if}}" style="width: {{jobProgressPercent}}%")
+          .trello-progress-percent {{jobProgressPercent}}%
+          if lastError
+            .warning {{lastError}}
+        p.trello-job-controls
+          if jobIsRunning
+            button.primary.js-trello-cancel(type="button") {{_ 'trello-cancel'}}
+            button.negate.js-trello-cancel-delete(type="button") {{_ 'trello-cancel-delete'}}
+          if jobCanResume
+            button.primary.js-trello-resume(type="button") {{_ 'trello-resume'}}
+            button.negate.js-trello-cancel-delete(type="button") {{_ 'trello-cancel-delete'}}
+          if jobIsFinished
+            button.negate.js-trello-cancel-delete(type="button") {{_ 'trello-delete-imported'}}
+            button.primary.js-trello-clear(type="button") {{_ 'trello-clear-job'}}
+
+        if jobResults.length
+          .trello-import-results
+            each jobResults
+              p.trello-import-result(class="{{#if success}}is-ok{{else}}is-error{{/if}}")
+                if success
+                  i.fa.fa-check
+                  span  {{title}} — {{attachmentsImported}} {{_ 'attachments'}}
+                else
+                  i.fa.fa-warning
+                  span  {{trelloBoardId}}: {{this.error}}
+
+        if jobHasErrors
+          .trello-import-errors
+            p
+              b {{_ 'trello-import-errors'}}
+              button.primary.js-trello-copy-errors(type="button") {{_ 'copy-to-clipboard'}}
+              if copied.get
+                span.quiet  {{_ 'copied'}}
+            textarea.js-trello-errors-text(readonly rows="8" wrap="off")= jobErrorText
 
 template(name="importMapMembers")
   h2 {{_ 'import-map-members'}}

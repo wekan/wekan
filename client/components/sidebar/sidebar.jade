@@ -129,6 +129,38 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
+template(name="boardBackgroundsPopup")
+  .board-backgrounds-manage
+    input.js-bg-upload-input.hide(type="file" name="file" accept="image/*")
+    a.primary.wide.js-bg-upload-button
+      i.fa.fa-plus
+      = ' '
+      | {{_ 'upload-background'}}
+    if uploading.get
+      +spinner
+    if error.get
+      .warning {{_ error.get}}
+    .board-backgrounds-grid.clearfix
+      each backgrounds
+        .board-bg-item(class="{{#if isActiveBackground}}is-active{{/if}}")
+          .board-bg-thumb(style="background-image: url('{{link}}');")
+            if isActiveBackground
+              i.fa.fa-check.board-bg-active-check
+          .board-bg-actions
+            unless isActiveBackground
+              a.js-set-board-background(title="{{_ 'set-as-active'}}")
+                i.fa.fa-check-circle-o
+            a.js-download-board-background(href="{{link}}?download=true" download="{{name}}" title="{{_ 'download'}}")
+              i.fa.fa-arrow-down
+            a.js-delete-board-background(title="{{_ 'delete'}}")
+              i.fa.fa-trash-o
+
+template(name="deleteBoardBackgroundPopup")
+  p {{_ 'board-background-delete-pop'}}
+  button.js-confirm.negate.full(type="submit")
+    i.fa.fa-trash-o
+    | {{_ 'delete'}}
+
 template(name="boardChangeBackgroundImagePopup")
   form
     label
@@ -567,6 +599,10 @@ template(name="boardMenuPopup")
         a.js-change-background-image
           i.fa.fa-picture-o
           | {{_ 'board-change-background-image'}}
+      li
+        a.js-manage-board-backgrounds
+          i.fa.fa-image
+          | {{_ 'board-backgrounds'}}
     //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     //if currentUser.isBoardAdmin
     //

@@ -4,7 +4,10 @@ import { TAPi18n } from '/imports/i18n';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
-import { BOARD_COLORS } from '/models/metadata/colors';
+import Users from '/models/users';
+import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
+import { BOARD_COLORS, CARD_COLORS } from '/models/metadata/colors';
+import { trelloStickerToFa, trelloStickerHighlight } from '/models/metadata/stickers';
 import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
 import ChecklistItems from '/models/checklistItems';
@@ -221,6 +224,21 @@ export class TrelloCreator {
       stars: 0,
       title: await Boards.uniqueTitle(trelloBoard.name),
     };
+    // Import the board background image. When Trello uses an image background,
+    // prefs.backgroundImage is a public URL (and prefs.backgroundImageScaled
+    // holds scaled variants); Wekan references it directly via
+    // backgroundImageURL. A solid-color background is already covered by
+    // `color` above.
+    const prefs = trelloBoard.prefs || {};
+    const scaled = Array.isArray(prefs.backgroundImageScaled)
+      ? prefs.backgroundImageScaled
+      : [];
+    const bgImage =
+      prefs.backgroundImage ||
+      (scaled.length && scaled[scaled.length - 1] && scaled[scaled.length - 1].url);
+    if (bgImage && /^https?:\/\//i.test(bgImage)) {
+      boardToCreate.backgroundImageURL = bgImage;
+    }
     // now add other members
     if (trelloBoard.memberships) {
       trelloBoard.memberships.forEach(trelloMembership => {
@@ -254,7 +272,7 @@ export class TrelloCreator {
       trelloBoard.labels.forEach(label => {
         const labelToCreate = {
           _id: Random.id(6),
-          color: label.color ? label.color : 'black',
+          color: this.mapToWekanColor(label.color) || 'black',
           name: label.name,
         };
         // We need to remember them by Trello ID, as this is the only ref we have
@@ -310,6 +328,45 @@ export class TrelloCreator {
         this.customFields[field.id] = await CustomFields.direct.insertAsync(fieldToCreate);
       }
     }
+
+    // Store the board background image as a board-level Attachment (in the
+    // default attachments storage), served by the same /cdn/storage/attachments
+    // route as every other attachment. The bytes are downloaded server-side by
+    // the live API import (which has credentials) and injected as
+    // trelloBoard.backgroundFile. If there are no bytes (offline JSON import),
+    // the backgroundImageURL set above keeps Trello's public URL as a fallback.
+    if (
+      trelloBoard.backgroundFile &&
+      trelloBoard.backgroundFile.file &&
+      Meteor.isServer
+    ) {
+      try {
+        const bf = trelloBoard.backgroundFile;
+        const buffer = Buffer.from(bf.file, 'base64');
+        const fileRef = await Attachments.writeAsync(
+          buffer,
+          {
+            fileName: bf.name || 'trello-background.jpg',
+            type: bf.type || 'image/jpeg',
+            userId: this._user(),
+            meta: { boardId, source: 'board-background' },
+          },
+          true,
+        );
+        if (fileRef && fileRef._id) {
+          await Boards.direct.updateAsync(boardId, {
+            $set: {
+              backgroundImageId: fileRef._id,
+              backgroundImageURL: generateUniversalAttachmentUrl(fileRef._id),
+            },
+          });
+        }
+      } catch (e) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Failed to store Trello board background', e && e.message);
+        }
+      }
+    }
     return boardId;
   }
 
@@ -322,10 +379,16 @@ export class TrelloCreator {
    */
   async createCards(trelloCards, boardId) {
     const result = [];
+    // .direct.insertAsync below bypasses the before.insert hook that assigns
+    // cardNumber, so handle it here. Prefer Trello's own short card number
+    // (idShort, the #N shown in Trello), falling back to a freshly allocated
+    // one. Without this every imported card defaults to #0.
+    const boardObj = await ReactiveCache.getBoard(boardId);
     for (const card of trelloCards) {
       const cardToCreate = {
         archived: card.closed,
         boardId,
+        cardNumber: card.idShort || (await boardObj.getNextCardNumber()),
         // very old boards won't have a creation activity so no creation date
         createdAt: this._now(this.createdAt.cards[card.id]),
         dateLastActivity: this._now(),
@@ -337,7 +400,49 @@ export class TrelloCreator {
         // we attribute the card to its creator if available
         userId: this._user(this.createdBy.cards[card.id]),
         dueAt: card.due ? this._now(card.due) : null,
+        // Trello marks a due date complete with a checkbox on the card front
+        dueComplete: card.dueComplete || false,
       };
+      // card cover: Trello stores it as card.cover = { color, idAttachment, ... }.
+      // A color cover maps to the Wekan card color; an attachment cover is
+      // resolved to coverId in the attachment loop below.
+      if (card.cover && card.cover.color) {
+        const coverColor = this.mapToWekanColor(card.cover.color);
+        if (coverColor) {
+          cardToCreate.color = coverColor;
+        }
+      }
+      // location (Trello map power-up): address / coordinates / location name
+      if (card.locationName) {
+        cardToCreate.locationName = card.locationName;
+      }
+      if (card.address) {
+        cardToCreate.locationAddress = card.address;
+      }
+      if (card.coordinates) {
+        if (typeof card.coordinates.latitude === 'number') {
+          cardToCreate.locationLatitude = card.coordinates.latitude;
+        }
+        if (typeof card.coordinates.longitude === 'number') {
+          cardToCreate.locationLongitude = card.coordinates.longitude;
+        }
+      }
+      // stickers: Trello card.stickers[] = { image, top, left, zIndex, ... }
+      // where `image` is the sticker name (built-in/premium packs) or a custom
+      // sticker id (uploaded packs). Map to a similar Font Awesome icon, and
+      // keep the original name for the tooltip.
+      if (card.stickers && card.stickers.length > 0) {
+        cardToCreate.stickers = card.stickers.map((sticker, index) => {
+          const stickerData = {
+            icon: this.getStickerIcon(sticker.image),
+            name: this.stickerLabel(sticker.image),
+            position: typeof sticker.zIndex === 'number' ? sticker.zIndex : index,
+          };
+          const highlight = trelloStickerHighlight(sticker.image);
+          if (highlight) stickerData.highlight = highlight;
+          return stickerData;
+        });
+      }
       // add labels
       if (card.idLabels) {
         cardToCreate.labelIds = card.idLabels.map(trelloId => {
@@ -457,65 +562,133 @@ export class TrelloCreator {
           });
         }
       }
-      const attachments = this.attachments[card.id];
-      const trelloCoverId = card.idAttachmentCover;
-      if (attachments && Meteor.isServer) {
-        for (const att of attachments) {
-          const self = this;
-          const opts = {
-            type: att.type ? att.type : undefined,
-            userId: self._user(att.userId),
-            meta: {
-              boardId,
-              cardId,
-              source: 'import',
-            },
-          };
-          const cb = async (error, fileObj) => {
-            if (error) {
-              throw error;
-            }
-            self.attachmentIds[att._id] = fileObj._id;
-            if (trelloCoverId === att._id) {
+      // Gather this card's attachments from BOTH the addAttachmentToCard
+      // actions (this.attachments) and the card.attachments[] array present in
+      // newer Trello exports, de-duplicated by Trello attachment id. `file`
+      // (base64) is injected client-side when a matching file was found in the
+      // uploaded attachments ZIP (the offline TCAD download).
+      const mergedAttachments = [];
+      const attachmentsById = new Map();
+      const pushAttachment = raw => {
+        if (!raw) return;
+        const id = raw.id || raw._id || `__noid_${mergedAttachments.length}`;
+        const norm = {
+          id: raw.id || raw._id,
+          name: raw.name || raw.fileName || '',
+          fileName: raw.fileName || raw.name || '',
+          url: raw.url || '',
+          type: raw.mimeType || raw.type || undefined,
+          userId: raw.idMemberCreator || raw.userId,
+          file: raw.file,
+        };
+        const existing = attachmentsById.get(id);
+        if (existing) {
+          // Same attachment seen in both actions and card.attachments[].
+          // Fill in whichever copy carries the bytes / url / type.
+          if (!existing.file && norm.file) existing.file = norm.file;
+          if (!existing.url && norm.url) existing.url = norm.url;
+          if (!existing.type && norm.type) existing.type = norm.type;
+          return;
+        }
+        attachmentsById.set(id, norm);
+        mergedAttachments.push(norm);
+      };
+      (this.attachments[card.id] || []).forEach(pushAttachment);
+      (card.attachments || []).forEach(pushAttachment);
+
+      const trelloCoverId =
+        card.idAttachmentCover || (card.cover && card.cover.idAttachment);
+
+      if (mergedAttachments.length && Meteor.isServer) {
+        // Trello "link attachments" (where the attachment name is the URL
+        // itself) are not real files. Collect them here and append them to the
+        // card description below, instead of trying to download them.
+        const links = [];
+        for (const att of mergedAttachments) {
+          // attached link, not a file
+          if (att.name && att.name === att.url) {
+            links.push(att.url);
+            continue;
+          }
+          const meta = { boardId, cardId, source: 'import' };
+          const setCover = async newId => {
+            if (!newId) return;
+            this.attachmentIds[att.id] = newId;
+            if (trelloCoverId && trelloCoverId === att.id) {
               await Cards.direct.updateAsync(cardId, {
-                $set: { coverId: fileObj._id },
+                $set: { coverId: newId },
               });
             }
           };
-          if (att.url) {
-            const validation = await validateAttachmentUrl(att.url);
-            if (!validation.valid) {
-              if (process.env.DEBUG === 'true') {
-                console.warn(
-                  'Blocked attachment URL during Trello import:',
-                  validation.reason,
-                  att.url,
-                );
+          try {
+            if (att.file) {
+              // Bytes already provided from the uploaded attachments ZIP.
+              // Insert them directly instead of downloading the
+              // OAuth-protected Trello URL. writeAsync is the server-side
+              // Meteor-Files API (insertAsync is client-only).
+              const buffer = Buffer.from(att.file, 'base64');
+              const fileRef = await Attachments.writeAsync(
+                buffer,
+                {
+                  fileName: att.fileName || att.name || 'attachment',
+                  type: att.type || 'application/octet-stream',
+                  userId: this._user(att.userId),
+                  meta,
+                },
+                true,
+              );
+              await setCover(fileRef && fileRef._id);
+            } else if (att.url) {
+              const validation = await validateAttachmentUrl(att.url);
+              if (!validation.valid) {
+                if (process.env.DEBUG === 'true') {
+                  console.warn(
+                    'Blocked attachment URL during Trello import:',
+                    validation.reason,
+                    att.url,
+                  );
+                }
+                // Skip just this attachment; a blocked URL must not abort the
+                // whole import.
+                continue;
               }
-              return;
+              // Best effort: works for publicly reachable URLs. Trello-hosted
+              // uploads require OAuth and should instead be supplied via the
+              // attachments ZIP (offline) or downloaded server-side in the
+              // live Trello API import.
+              const fileRef = await Attachments.loadAsync(
+                att.url,
+                { meta, fileName: att.fileName || att.name },
+                true,
+              );
+              await setCover(fileRef && fileRef._id);
             }
-            Attachments.load(att.url, opts, cb, true);
-          } else if (att.file) {
-            Attachments.insert(att.file, opts, cb, true);
+          } catch (e) {
+            if (process.env.DEBUG === 'true') {
+              console.warn(
+                'Failed to import Trello attachment',
+                att.name,
+                e && e.message,
+              );
+            }
+            // Never let one failed attachment abort the whole import.
           }
         }
 
-        if (links) {
-          if (links.length) {
-            let desc = cardToCreate.description.trim();
-            if (desc) {
-              desc += '\n\n';
-            }
-            desc += `## ${TAPi18n.__('links-heading')}\n`;
-            links.forEach(link => {
-              desc += `* ${link}\n`;
-            });
-            await Cards.direct.updateAsync(cardId, {
-              $set: {
-                description: desc,
-              },
-            });
+        if (links.length) {
+          let desc = (cardToCreate.description || '').trim();
+          if (desc) {
+            desc += '\n\n';
           }
+          desc += `## ${TAPi18n.__('links-heading')}\n`;
+          links.forEach(link => {
+            desc += `* ${link}\n`;
+          });
+          await Cards.direct.updateAsync(cardId, {
+            $set: {
+              description: desc,
+            },
+          });
         }
       }
       result.push(cardId);
@@ -543,6 +716,11 @@ export class TrelloCreator {
       const listToCreate = {
         archived: list.closed,
         boardId,
+        // Attach the list to the imported board's default swimlane so it shows
+        // in Swimlane View (a list appears under a swimlane only when its
+        // swimlaneId matches that swimlane or is empty). createSwimlanes runs
+        // before createLists, so this.swimlane is set.
+        swimlaneId: this.swimlane,
         // We are being defensing here by providing a default date (now) if the
         // creation date wasn't found on the action log. This happen on old
         // Trello boards (eg from 2013) that didn't log the 'createList' action
@@ -625,6 +803,44 @@ export class TrelloCreator {
 
   getAdmin(trelloMemberType) {
     return trelloMemberType === 'admin';
+  }
+
+  getStickerIcon(trelloStickerName) {
+    // Map a Trello sticker name to a similar WeKan card sticker icon (Font
+    // Awesome v4 name, rendered as `i.fa.fa-<name>`). Handles built-in and
+    // named premium packs via models/metadata/stickers.js.
+    return trelloStickerToFa(trelloStickerName);
+  }
+
+  // A readable tooltip for an imported sticker. For named stickers (taco-love,
+  // globe, …) this humanises the name; custom uploaded stickers only have an
+  // opaque id, so fall back to a generic label rather than showing the id.
+  stickerLabel(trelloStickerName) {
+    const raw = String(trelloStickerName || '').trim();
+    if (!raw) return 'sticker';
+    // Long hex/base-id strings (custom uploaded stickers) aren't descriptive.
+    if (/^[0-9a-f]{16,}$/i.test(raw) || /^[A-Za-z0-9_-]{20,}$/.test(raw)) {
+      return 'custom sticker';
+    }
+    // Trello's named premium packs are renamed: taco => mascot, pete => computer
+    // (e.g. "pete-ghost" => "computer ghost"). The highlight style (underline /
+    // round ring) is applied separately via trelloStickerHighlight().
+    return raw
+      .replace(/[-_]+/g, ' ')
+      .replace(/\btaco\b/gi, 'mascot')
+      .replace(/\bpete\b/gi, 'computer')
+      .trim();
+  }
+
+  // Map a Trello label/cover color to a valid WeKan card/label color
+  // (CARD_COLORS === LABEL_COLORS === ALLOWED_COLORS). Trello uses base colors
+  // that WeKan also has (green, blue, red, …) plus `_light`/`_dark` variants
+  // (e.g. `purple_light`) that WeKan does not, so strip the variant suffix.
+  // Returns null when there is no valid mapping.
+  mapToWekanColor(trelloColor) {
+    if (!trelloColor) return null;
+    const base = String(trelloColor).split('_')[0];
+    return CARD_COLORS.includes(base) ? base : null;
   }
 
   getColor(trelloColorCode) {
@@ -807,12 +1023,42 @@ export class TrelloCreator {
     }
     this.parseActions(board.actions);
     const boardId = await this.createBoardAndLabels(board);
-    await this.createLists(board.lists, boardId);
+    // Create the default swimlane first so lists can be attached to it (see
+    // createLists): a list shows under a swimlane in Swimlane View only when its
+    // swimlaneId matches that swimlane (or is empty).
     await this.createSwimlanes(boardId);
+    await this.createLists(board.lists, boardId);
     await this.createCards(board.cards, boardId);
     await this.createChecklists(board.checklists, boardId);
     await this.importActions(board.actions, boardId);
+    await this.recordImportedUsernames(board, boardId);
     // XXX add members
     return boardId;
+  }
+
+  // Keep the original Trello usernames so user mapping can happen later:
+  // members that were mapped to a WeKan user get the Trello username added to
+  // that user's importUsernames (so future imports auto-map); members that were
+  // not mapped have their username stored on the board's importUsernames, where
+  // an admin can later assign them to a real user via the People panel.
+  async recordImportedUsernames(board, boardId) {
+    if (!Meteor.isServer) return;
+    const unmapped = [];
+    for (const member of board.members || []) {
+      if (!member.username) continue;
+      const wekanId = this.members[member.id];
+      if (wekanId) {
+        await Users.updateAsync(wekanId, {
+          $addToSet: { importUsernames: member.username },
+        });
+      } else if (!unmapped.includes(member.username)) {
+        unmapped.push(member.username);
+      }
+    }
+    if (unmapped.length) {
+      await Boards.direct.updateAsync(boardId, {
+        $addToSet: { importUsernames: { $each: unmapped } },
+      });
+    }
   }
 }

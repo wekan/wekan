@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { Random } from 'meteor/random';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import {
   formatDateTime,
@@ -272,6 +273,144 @@ Cards.attachSchema(
        */
       type: Date,
       optional: true,
+    },
+    dueComplete: {
+      /**
+       * Has the due date been marked complete? Imported from Trello
+       * (card.dueComplete) and toggled by the minicard due checkbox.
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    stickers: {
+      /**
+       * list of stickers shown on the card (imported from Trello)
+       */
+      type: Array,
+      optional: true,
+      defaultValue: [],
+    },
+    'stickers.$': {
+      type: new SimpleSchema({
+        icon: {
+          /**
+           * Font Awesome icon name shown for the sticker (without the `fa-`
+           * prefix), e.g. 'thumbs-up', 'heart', 'star'.
+           */
+          type: String,
+          optional: true,
+          defaultValue: '',
+        },
+        name: {
+          /**
+           * Human-readable name/description of the sticker, used as the tooltip
+           * (e.g. the original Trello sticker name).
+           */
+          type: String,
+          optional: true,
+          defaultValue: '',
+        },
+        highlight: {
+          /**
+           * Optional highlight style for the sticker icon instead of colour:
+           * 'underline' (icon underlined, imported Trello "taco" pack) or
+           * 'round' (ring around the icon, imported Trello "pete" pack).
+           */
+          type: String,
+          optional: true,
+          allowedValues: ['underline', 'round'],
+        },
+        position: {
+          /**
+           * order/position of the sticker on the card
+           */
+          type: Number,
+          optional: true,
+          defaultValue: 0,
+        },
+      }),
+    },
+    locationName: {
+      /**
+       * human readable location name of the card (imported from Trello)
+       */
+      type: String,
+      optional: true,
+      defaultValue: '',
+    },
+    locationAddress: {
+      /**
+       * street address of the card location (imported from Trello)
+       */
+      type: String,
+      optional: true,
+      defaultValue: '',
+    },
+    locationLatitude: {
+      /**
+       * latitude of the card location (imported from Trello)
+       */
+      type: Number,
+      optional: true,
+    },
+    locationLongitude: {
+      /**
+       * longitude of the card location (imported from Trello)
+       */
+      type: Number,
+      optional: true,
+    },
+    locations: {
+      /**
+       * list of locations attached to the card. Supports multiple locations,
+       * each with an optional name, address and coordinates. A legacy single
+       * location stored in the locationName/Address/Latitude/Longitude fields
+       * is surfaced through getLocations() for backwards compatibility.
+       */
+      type: Array,
+      optional: true,
+      defaultValue: [],
+    },
+    'locations.$': {
+      type: new SimpleSchema({
+        _id: {
+          /**
+           * unique id of this location entry
+           */
+          type: String,
+        },
+        name: {
+          /**
+           * human readable name of the location
+           */
+          type: String,
+          optional: true,
+          defaultValue: '',
+        },
+        address: {
+          /**
+           * street address of the location
+           */
+          type: String,
+          optional: true,
+          defaultValue: '',
+        },
+        latitude: {
+          /**
+           * latitude of the location
+           */
+          type: Number,
+          optional: true,
+        },
+        longitude: {
+          /**
+           * longitude of the location
+           */
+          type: Number,
+          optional: true,
+        },
+      }),
     },
     spentTime: {
       /**
@@ -1443,6 +1582,26 @@ Cards.helpers({
     }
   },
 
+  getDueComplete() {
+    if (this.isLinkedCard()) {
+      const card = ReactiveCache.getCard(this.linkedId);
+      return card === undefined ? false : !!card.dueComplete;
+    } else if (this.isLinkedBoard()) {
+      const board = ReactiveCache.getBoard(this.linkedId);
+      return board === undefined ? false : !!board.dueComplete;
+    } else {
+      return !!this.dueComplete;
+    }
+  },
+
+  setDueComplete(dueComplete) {
+    if (this.isLinkedBoard()) {
+      return Boards.updateAsync({ _id: this.linkedId }, { $set: { dueComplete } });
+    } else {
+      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { dueComplete } });
+    }
+  },
+
   getIsOvertime() {
     if (this.isLinkedCard()) {
       const card = ReactiveCache.getCard(this.linkedId);
@@ -2222,6 +2381,164 @@ Cards.helpers({
     } else {
       return this.addLabel(labelId);
     }
+  },
+
+  // A sticker is identified by its icon plus its highlight style ('underline'
+  // for the mascot pack, 'round' for the computer pack, or none), so the same
+  // icon can exist as a plain, mascot or computer sticker.
+  hasSticker(icon, highlight) {
+    const h = highlight || '';
+    return (this.stickers || []).some(s => s.icon === icon && (s.highlight || '') === h);
+  },
+
+  addSticker(icon, highlight, name) {
+    if (!icon || this.hasSticker(icon, highlight)) return Promise.resolve();
+    const position = (this.stickers || []).length;
+    const sticker = { icon, position };
+    if (highlight) sticker.highlight = highlight;
+    if (name) sticker.name = name;
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $push: { stickers: sticker } },
+    );
+  },
+
+  removeSticker(icon, highlight) {
+    const h = highlight || '';
+    const stickers = (this.stickers || []).slice();
+    const index = stickers.findIndex(
+      s => s.icon === icon && (s.highlight || '') === h,
+    );
+    if (index === -1) return Promise.resolve();
+    stickers.splice(index, 1);
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $set: { stickers } },
+    );
+  },
+
+  // Remove a single sticker by its position in the array (so duplicates with
+  // the same icon/name can be removed individually).
+  removeStickerAt(index) {
+    const stickers = (this.stickers || []).slice();
+    if (index < 0 || index >= stickers.length) return Promise.resolve();
+    stickers.splice(index, 1);
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $set: { stickers } },
+    );
+  },
+
+  toggleSticker(icon, highlight, name) {
+    if (this.hasSticker(icon, highlight)) {
+      return this.removeSticker(icon, highlight);
+    }
+    return this.addSticker(icon, highlight, name);
+  },
+
+  // --- locations ---------------------------------------------------------
+  // Cards support multiple locations. The legacy single location stored in the
+  // flat locationName/Address/Latitude/Longitude fields is surfaced here as a
+  // location entry so existing (e.g. Trello-imported) cards keep working.
+  getLocations() {
+    const locations = (this.locations || []).slice();
+    if (
+      !locations.length &&
+      (this.locationName ||
+        this.locationAddress ||
+        typeof this.locationLatitude === 'number' ||
+        typeof this.locationLongitude === 'number')
+    ) {
+      locations.push({
+        _id: 'legacy',
+        name: this.locationName || '',
+        address: this.locationAddress || '',
+        latitude: this.locationLatitude,
+        longitude: this.locationLongitude,
+      });
+    }
+    return locations;
+  },
+
+  // Move a legacy flat-field location into the locations array (once) so that
+  // adding/removing entries operates on a single, consistent list.
+  _migrateLegacyLocation() {
+    if ((this.locations || []).length) return Promise.resolve();
+    if (
+      !this.locationName &&
+      !this.locationAddress &&
+      typeof this.locationLatitude !== 'number' &&
+      typeof this.locationLongitude !== 'number'
+    ) {
+      return Promise.resolve();
+    }
+    const legacy = {
+      _id: Random.id(),
+      name: this.locationName || '',
+      address: this.locationAddress || '',
+    };
+    if (typeof this.locationLatitude === 'number') legacy.latitude = this.locationLatitude;
+    if (typeof this.locationLongitude === 'number') legacy.longitude = this.locationLongitude;
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      {
+        $push: { locations: legacy },
+        $set: { locationName: '', locationAddress: '' },
+        $unset: { locationLatitude: '', locationLongitude: '' },
+      },
+    );
+  },
+
+  async addLocation({ name, address, latitude, longitude }) {
+    await this._migrateLegacyLocation();
+    const location = {
+      _id: Random.id(),
+      name: name || '',
+      address: address || '',
+    };
+    if (typeof latitude === 'number' && !isNaN(latitude)) location.latitude = latitude;
+    if (typeof longitude === 'number' && !isNaN(longitude)) location.longitude = longitude;
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $push: { locations: location } },
+    );
+  },
+
+  async updateLocation(locationId, { name, address, latitude, longitude }) {
+    await this._migrateLegacyLocation();
+    const locations = (this.locations || []).slice();
+    const index = locations.findIndex(loc => loc._id === locationId);
+    if (index === -1) return Promise.resolve();
+    const updated = {
+      _id: locationId,
+      name: name || '',
+      address: address || '',
+    };
+    if (typeof latitude === 'number' && !isNaN(latitude)) updated.latitude = latitude;
+    if (typeof longitude === 'number' && !isNaN(longitude)) updated.longitude = longitude;
+    locations[index] = updated;
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $set: { locations } },
+    );
+  },
+
+  async removeLocation(locationId) {
+    // A legacy (un-migrated) single location is removed by clearing the flat
+    // fields; migrated entries are pulled from the array by id.
+    if (locationId === 'legacy' && !(this.locations || []).length) {
+      return Cards.updateAsync(
+        { _id: this.getRealId() },
+        {
+          $set: { locationName: '', locationAddress: '' },
+          $unset: { locationLatitude: '', locationLongitude: '' },
+        },
+      );
+    }
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $pull: { locations: { _id: locationId } } },
+    );
   },
 
   setColor(newColor) {

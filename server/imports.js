@@ -37,6 +37,7 @@ import '/imports/lib/secureDOMPurify';
 import '/imports/startup/shared-models';
 import '/models/attachments.server';
 import '/models/avatars.server';
+import '/server/boardBackgrounds';
 import '/models/fileValidation';
 
 // ----------------------------------------------------------------------------
@@ -148,6 +149,7 @@ import '/server/cron/syncedCron';
 // 8. Server — import helpers
 // ----------------------------------------------------------------------------
 import '/server/import-users-for-methods';
+import '/server/trelloApiImport';
 
 // ----------------------------------------------------------------------------
 // 9. Server — lib (utilities, sanitizers, guards)
@@ -200,6 +202,7 @@ import '/server/publications/attachmentMigrationStatus';
 import '/server/publications/attachments';
 import '/server/publications/legacyAttachments';
 import '/server/publications/avatars';
+import '/server/publications/backgrounds';
 import '/server/publications/boards';
 import '/server/publications/cards';
 import '/server/publications/cronJobs';
@@ -221,6 +224,7 @@ import '/server/publications/unsavedEdits';
 import '/server/publications/userDesktopDragHandles';
 import '/server/publications/userGreyIcons';
 import '/server/publications/users';
+import '/server/publications/trelloImportJobs';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)
@@ -228,6 +232,7 @@ import '/server/publications/users';
 import '/server/routes/attachmentApi';
 import '/server/routes/avatarServer';
 import '/server/routes/customHeadAssets';
+import '/server/routes/importTrelloZip';
 import '/server/routes/legacyAttachments';
 import '/server/routes/universalFileServer';
 

@@ -342,3 +342,51 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
   padding-top: 5px;
   margin-left: 40px;
 }
+
+/* Board backgrounds management popup */
+.board-backgrounds-manage .board-backgrounds-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.board-bg-item {
+  width: 48%;
+  margin: 1%;
+  border: 2px solid transparent;
+  border-radius: 3px;
+}
+.board-bg-item.is-active {
+  border-color: #3cb500;
+}
+.board-bg-thumb {
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 3px;
+  position: relative;
+}
+.board-bg-active-check {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #3cb500;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  padding: 2px;
+}
+.board-bg-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 4px 0;
+}
+.board-bg-actions a {
+  cursor: pointer;
+  color: #4d4d4d;
+}
+.board-bg-actions a:hover {
+  color: #000;
+}
+.js-bg-upload-button {
+  display: inline-block;
+  margin-bottom: 8px;
+}

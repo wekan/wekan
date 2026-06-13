@@ -51,7 +51,99 @@ import { UnsavedEdits } from '/client/lib/unsavedEdits';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import { ReactiveVar } from 'meteor/reactive-var';
 import autosize from 'autosize';
+
+// Id of the location currently being edited in the cardLocationsPopup; null
+// when adding a new location.
+const editingLocationId = new ReactiveVar(null);
+
+// Parse coordinates (and, when present, a place name / address) out of a map
+// link from common providers: Google Maps, OpenStreetMap, Bing Maps, Apple Maps
+// and generic `?q=lat,lon` / `?ll=lat,lon` links. Returns whatever it can find
+// as { latitude, longitude, name, address }.
+function parseMapLink(url) {
+  const result = {};
+  if (!url) return result;
+  const s = String(url).trim();
+
+  let lat;
+  let lon;
+  const setCoords = (la, lo) => {
+    if (lat !== undefined) return;
+    const a = parseFloat(la);
+    const o = parseFloat(lo);
+    if (!isNaN(a) && !isNaN(o) && Math.abs(a) <= 90 && Math.abs(o) <= 180) {
+      lat = a;
+      lon = o;
+    }
+  };
+
+  const N = '(-?\\d+(?:\\.\\d+)?)';
+  let m;
+  // Google Maps place marker in the data part: !3d<lat>!4d<lon> (most precise).
+  if ((m = s.match(new RegExp(`!3d${N}!4d${N}`)))) setCoords(m[1], m[2]);
+  // Google Maps view/place: @<lat>,<lon>
+  if ((m = s.match(new RegExp(`@${N},${N}`)))) setCoords(m[1], m[2]);
+  // OpenStreetMap marker: ?mlat=..&mlon=..
+  if ((m = s.match(new RegExp(`[?&#]mlat=${N}`)))) {
+    const mlon = s.match(new RegExp(`[?&#]mlon=${N}`));
+    if (mlon) setCoords(m[1], mlon[1]);
+  }
+  // OpenStreetMap map hash: #map=z/lat/lon
+  if ((m = s.match(new RegExp(`[#&]map=\\d+(?:\\.\\d+)?/${N}/${N}`)))) setCoords(m[1], m[2]);
+  // Bing Maps: cp=lat~lon
+  if ((m = s.match(new RegExp(`[?&]cp=${N}~${N}`)))) setCoords(m[1], m[2]);
+  // Apple Maps and generic ll=lat,lon
+  if ((m = s.match(new RegExp(`[?&]ll=${N},${N}`)))) setCoords(m[1], m[2]);
+  // Generic q=lat,lon (Google/Apple query form)
+  if ((m = s.match(new RegExp(`[?&]q=${N},${N}`)))) setCoords(m[1], m[2]);
+  // Generic center=lat,lon
+  if ((m = s.match(new RegExp(`[?&]center=${N},${N}`)))) setCoords(m[1], m[2]);
+
+  if (lat !== undefined) {
+    result.latitude = lat;
+    result.longitude = lon;
+  }
+
+  const decode = (raw) => {
+    try {
+      return decodeURIComponent(raw.replace(/\+/g, ' ')).trim();
+    } catch (e) {
+      return raw.replace(/\+/g, ' ').trim();
+    }
+  };
+  const isCoordText = (t) => /^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(t);
+
+  // Place name from Google Maps /place/<Name>/
+  if ((m = s.match(/\/place\/([^/@?]+)/))) {
+    const name = decode(m[1]);
+    if (name && !isCoordText(name)) result.name = name;
+  }
+  // Address from a textual q=/query=/destination= parameter.
+  if ((m = s.match(/[?&](?:q|query|destination)=([^&]+)/))) {
+    const q = decode(m[1]);
+    if (q && !isCoordText(q)) result.address = q;
+  }
+
+  return result;
+}
+
+// Build an "open in map" link for the given provider and coordinates. Mirrors
+// the providers offered in the location popup's "Open map links at" selector.
+function mapLinkFor(provider, lat, lon) {
+  switch (provider) {
+    case 'google':
+      return `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+    case 'bing':
+      return `https://www.bing.com/maps?cp=${lat}~${lon}&lvl=16`;
+    case 'apple':
+      return `https://maps.apple.com/?ll=${lat},${lon}`;
+    case 'openstreetmap':
+    default:
+      return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=16/${lat}/${lon}`;
+  }
+}
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -134,6 +226,11 @@ Template.cardDetails.onCreated(function () {
 });
 
 Template.cardDetails.onRendered(function () {
+  // A reactive re-render (e.g. a card moving between the inline swimlane render
+  // and the draggable openCards popup) can create and then remove this instance
+  // within the same flush. If our DOM range is already gone, calling this.$()
+  // below throws "Can't select in removed DomRange", so bail out early.
+  if (this.view && this.view.isDestroyed) return;
   this.calculateNextPeak();
   if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
     // Send Webhook but not create Activities records ---
@@ -271,6 +368,23 @@ Template.cardDetails.helpers({
     const card = Template.currentData();
     if (!card || typeof card.findWatcher !== 'function') return false;
     return card.findWatcher(Meteor.userId());
+  },
+
+  // Returns the card's locations (multiple supported), each enriched with the
+  // coordinate flag and OpenStreetMap link used by the template.
+  getLocations() {
+    const card = Template.currentData();
+    if (!card || !card.getLocations) return [];
+    const user = ReactiveCache.getCurrentUser();
+    const provider = user ? user.getMapProvider() : 'openstreetmap';
+    return card.getLocations().map(loc => {
+      const hasCoordinates =
+        typeof loc.latitude === 'number' && typeof loc.longitude === 'number';
+      const mapUrl = hasCoordinates
+        ? mapLinkFor(provider, loc.latitude, loc.longitude)
+        : '';
+      return { ...loc, hasCoordinates, mapUrl };
+    });
   },
 
   customFieldsGrid() {
@@ -610,9 +724,57 @@ Template.cardDetails.events({
   'click .js-assignee': Popup.open('cardAssignee'),
   'click .js-add-assignees': Popup.open('cardAssignees'),
   'click .js-add-labels': Popup.open('cardLabels'),
+  'click .js-add-stickers': Popup.open('cardStickers'),
+  'click .js-remove-sticker'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!Utils.canModifyCard()) return;
+    const index = parseInt(event.currentTarget.dataset.index, 10);
+    const card = Template.currentData();
+    if (card && !Number.isNaN(index)) {
+      card.removeStickerAt(index);
+    }
+  },
+  'click .js-add-location'(event) {
+    event.preventDefault();
+    if (!Utils.canModifyCard()) return;
+    const card = Template.currentData();
+    editingLocationId.set(null);
+    Popup.open('cardLocations')(event, {
+      dataContextIfCurrentDataIsUndefined: card,
+    });
+  },
+  'click .js-edit-location'(event) {
+    // Let the "Open in map" link work without also opening the edit popup.
+    if ($(event.target).closest('a.card-location-map').length) return;
+    event.preventDefault();
+    if (!Utils.canModifyCard()) return;
+    const card = Template.currentData();
+    editingLocationId.set(event.currentTarget.dataset.locationId || null);
+    Popup.open('cardLocations')(event, {
+      dataContextIfCurrentDataIsUndefined: card,
+    });
+  },
+  'click .js-remove-location'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!Utils.canModifyCard()) return;
+    const locationId = event.currentTarget.dataset.locationId;
+    const card = Template.currentData();
+    if (card && locationId) {
+      card.removeLocation(locationId);
+    }
+  },
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
+  'click .js-toggle-due-complete'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!Utils.canModifyCard()) return;
+    const card = Template.currentData();
+    card.setDueComplete(!card.getDueComplete());
+  },
   'click .js-end-date': Popup.open('editCardEndDate'),
   'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
   'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
@@ -1141,6 +1303,109 @@ Template.cardMembersPopup.helpers({
   },
   userData() {
     return ReactiveCache.getUser(this.userId);
+  },
+});
+
+// Popup that adds or edits a single card location (name, address, latitude,
+// longitude). Cards can hold multiple locations, like members.
+Template.cardLocationsPopup.onCreated(function () {
+  const data = Template.currentData();
+  this.cardId = data && data._id;
+  this.detectMsg = new ReactiveVar('');
+  this.mapSavedMsg = new ReactiveVar('');
+});
+
+Template.cardLocationsPopup.helpers({
+  location() {
+    const tpl = Template.instance();
+    const card = ReactiveCache.getCard(tpl.cardId);
+    const id = editingLocationId.get();
+    if (card && id) {
+      const found = card.getLocations().find(loc => loc._id === id);
+      if (found) return found;
+    }
+    return {};
+  },
+  detectMessage() {
+    return Template.instance().detectMsg.get();
+  },
+  isMapProvider(provider) {
+    const user = ReactiveCache.getCurrentUser();
+    const current = user ? user.getMapProvider() : 'openstreetmap';
+    return current === provider;
+  },
+  mapSavedMessage() {
+    return Template.instance().mapSavedMsg.get();
+  },
+});
+
+Template.cardLocationsPopup.events({
+  'click .js-detect-location'(event) {
+    event.preventDefault();
+    const tpl = Template.instance();
+    const linkInput = tpl.find('.js-location-map-link');
+    const parsed = parseMapLink(linkInput ? linkInput.value : '');
+    let filled = false;
+    if (typeof parsed.latitude === 'number') {
+      tpl.find('.js-location-latitude').value = parsed.latitude;
+      tpl.find('.js-location-longitude').value = parsed.longitude;
+      filled = true;
+    }
+    if (parsed.name) {
+      tpl.find('.js-location-name').value = parsed.name;
+      filled = true;
+    }
+    if (parsed.address) {
+      tpl.find('.js-location-address').value = parsed.address;
+      filled = true;
+    }
+    tpl.detectMsg.set(
+      TAPi18n.__(filled ? 'location-detect-done' : 'location-detect-none'),
+    );
+  },
+  'submit .js-card-location-form'(event) {
+    event.preventDefault();
+    const tpl = Template.instance();
+    const card = ReactiveCache.getCard(tpl.cardId);
+    if (!card) {
+      Popup.back();
+      return;
+    }
+    const name = tpl.find('.js-location-name').value.trim();
+    const address = tpl.find('.js-location-address').value.trim();
+    const latRaw = tpl.find('.js-location-latitude').value.trim();
+    const lonRaw = tpl.find('.js-location-longitude').value.trim();
+    const latitude = latRaw === '' ? undefined : parseFloat(latRaw);
+    const longitude = lonRaw === '' ? undefined : parseFloat(lonRaw);
+    const data = { name, address, latitude, longitude };
+    const id = editingLocationId.get();
+    if (id) {
+      card.updateLocation(id, data);
+    } else {
+      card.addLocation(data);
+    }
+    Popup.back();
+  },
+  'click .js-delete-location'(event) {
+    event.preventDefault();
+    const tpl = Template.instance();
+    const card = ReactiveCache.getCard(tpl.cardId);
+    const id = editingLocationId.get();
+    if (card && id) {
+      card.removeLocation(id);
+    }
+    Popup.back();
+  },
+  'click .js-save-map-provider'(event) {
+    event.preventDefault();
+    const tpl = Template.instance();
+    const select = tpl.find('.js-map-provider');
+    const provider = select ? select.value : 'openstreetmap';
+    Meteor.call('setMapProvider', provider, err => {
+      tpl.mapSavedMsg.set(
+        TAPi18n.__(err ? 'server-error' : 'map-provider-saved'),
+      );
+    });
   },
 });
 

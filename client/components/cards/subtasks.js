@@ -119,7 +119,7 @@ Template.subtasks.helpers({
 });
 
 Template.subtaskItemDetail.events({
-  async 'click .js-subtasks-item .check-box-unicode'() {
+  async 'click .js-subtasks-item .check-box-container'() {
     const item = Template.currentData().item;
     if (item && item._id) {
       await item.toggleItem();

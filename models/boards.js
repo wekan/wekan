@@ -20,6 +20,7 @@ import Triggers from '/models/triggers';
 import { Counters, incrementCounterAsync } from '/models/counters';
 import getSlug from 'limax';
 import { findWhere, where, groupBy } from '/imports/lib/collectionHelpers';
+import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 const { SimpleSchema } = require('/imports/simpleSchema');
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -359,6 +360,20 @@ Boards.attachSchema(
        */
       type: Boolean,
     },
+    importUsernames: {
+      /**
+       * Usernames of imported (e.g. Trello) board members that were not mapped
+       * to an existing WeKan user during import. Kept so an admin can map them
+       * to real users later (People panel -> user -> Imported Usernames), after
+       * which future imports of this board auto-map.
+       */
+      type: Array,
+      optional: true,
+      defaultValue: [],
+    },
+    'importUsernames.$': {
+      type: String,
+    },
     color: {
       /**
        * The color of the board.
@@ -375,6 +390,15 @@ Boards.attachSchema(
     backgroundImageURL: {
       /**
        * The background image URL of the board.
+       */
+      type: String,
+      optional: true,
+    },
+    backgroundImageId: {
+      /**
+       * The id of the active board background attachment (a board-level
+       * Attachment with meta.source === 'board-background'), when the active
+       * background is an uploaded/imported image rather than an external URL.
        */
       type: String,
       optional: true,
@@ -1719,6 +1743,28 @@ Boards.helpers({
     const currentUser = await ReactiveCache.getCurrentUser();
     if (currentUser.isBoardAdmin() || currentUser.isAdmin()) {
       return await Boards.updateAsync(this._id, { $set: { backgroundImageURL } });
+    }
+    return false;
+  },
+
+  // Set a board-level background attachment as the active board background.
+  async setBackgroundImage(backgroundId) {
+    const currentUser = await ReactiveCache.getCurrentUser();
+    if (currentUser.isBoardAdmin() || currentUser.isAdmin()) {
+      const backgroundImageURL = generateUniversalAttachmentUrl(backgroundId);
+      return await Boards.updateAsync(this._id, {
+        $set: { backgroundImageId: backgroundId, backgroundImageURL },
+      });
+    }
+    return false;
+  },
+
+  async unsetBackgroundImage() {
+    const currentUser = await ReactiveCache.getCurrentUser();
+    if (currentUser.isBoardAdmin() || currentUser.isAdmin()) {
+      return await Boards.updateAsync(this._id, {
+        $set: { backgroundImageId: '', backgroundImageURL: '' },
+      });
     }
     return false;
   },

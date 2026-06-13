@@ -84,7 +84,7 @@ window.Popup = new (class {
         hasPopupParent: clickFromPopup(evt),
         title: self._getTitle(popupName),
         depth: self._stack.length,
-        offset: self._getOffset(openerElement),
+        offset: self._getOffset(openerElement, popupName),
         dataContext: (this && this.currentData && this.currentData()) || (options && options.dataContextIfCurrentDataIsUndefined) || this,
       });
 
@@ -217,7 +217,7 @@ window.Popup = new (class {
   // We automatically calculate the popup offset from the reference element
   // position and dimensions. We also reactively use the window dimensions to
   // ensure that the popup is always visible on the screen.
-  _getOffset(element) {
+  _getOffset(element, popupName) {
     const $element = $(element);
     return () => {
       Utils.windowResizeDep.depend();
@@ -229,6 +229,21 @@ window.Popup = new (class {
       const viewportPadding = 10;
       // Calculate actual popup width based on CSS: min(380px, 55vw)
       const popupWidth = Math.min(380, viewportWidth * 0.55);
+
+      // Card details popup: dock it to the top of the viewport so it overlays
+      // the global and board header bars (its z-index already sits above them)
+      // instead of opening downward from the clicked minicard.
+      if (popupName === 'cardDetailsPopup') {
+        const cardWidth = Math.min(600, viewportWidth * 0.8);
+        const centeredLeft = (viewportWidth - cardWidth) / 2;
+        // top is forced to 0 in CSS (.pop-over[data-popup="cardDetailsPopup"])
+        // so the card overlays the header bars; use the full viewport height.
+        return {
+          left: Math.max(viewportPadding, centeredLeft),
+          top: 0,
+          maxHeight: viewportHeight,
+        };
+      }
 
       // If the opener element is missing (e.g., programmatic open), fallback to viewport origin
       if (!$element || $element.length === 0) {

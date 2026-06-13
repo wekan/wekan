@@ -106,6 +106,9 @@ export class Exporter {
       result.attachments.push({
         _id: attachment._id,
         cardId: attachment.meta.cardId,
+        // `source` distinguishes board-level backgrounds ('board-background')
+        // from card attachments on import.
+        source: attachment.meta.source,
         //url: FlowRouter.url(attachment.url()),
         file: filebase64,
         name: attachment.name,

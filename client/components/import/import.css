@@ -49,3 +49,119 @@ a.show-mapping {
   font-size: 90%;
   font-weight: bold;
 }
+
+/* Trello API import: file rows, workspace tree, job progress and errors */
+/* The shared page spinners are centered with a large top margin (e.g. bounce
+   uses margin:100px auto), which leaves a big empty gap above the spinner in
+   this compact panel. Make spinners here small and inline instead. */
+.trello-api-import .sk-spinner {
+  margin: 0 8px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+}
+.trello-api-import .import-file-row label {
+  display: block;
+  font-weight: bold;
+}
+.trello-api-import .import-file-row input,
+.trello-api-import .import-file-row select {
+  width: 100%;
+}
+.trello-workspaces {
+  max-height: 40vh;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin: 8px 0;
+}
+.trello-workspace {
+  margin-bottom: 8px;
+}
+.trello-workspace .trello-boards {
+  margin-left: 22px;
+}
+.trello-workspace-title,
+.trello-board {
+  align-items: center;
+  padding: 3px 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.trello-workspace-title .materialCheckBox,
+.trello-board .materialCheckBox {
+  flex: 0 0 auto;
+  margin-right: 12px;
+}
+.trello-select-controls button {
+  margin-right: 6px;
+}
+.trello-job-controls button {
+  margin-right: 6px;
+}
+/* Import progress meter, styled like Admin Panel / Attachments / Move Attachments */
+.trello-progress-label {
+  margin: 8px 0 6px;
+}
+.trello-progress-bar {
+  background: #e9ecef;
+  border-radius: 8px;
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.trello-progress-fill {
+  background: linear-gradient(90deg, #28a745, #20c997);
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+.trello-progress-fill.is-running::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: trelloProgressShimmer 2s infinite;
+}
+@keyframes trelloProgressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.trello-progress-percent {
+  text-align: right;
+  font-size: 12px;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.trello-import-result.is-ok {
+  color: #3cb500;
+}
+.trello-import-result.is-error {
+  color: #eb4646;
+}
+.js-trello-errors-text {
+  width: 100%;
+  font-family: monospace;
+  white-space: pre;
+}
+
+/* Trello API credential Save/Delete buttons */
+.trello-api-creds-buttons button {
+  margin-right: 6px;
+}
+.trello-creds-saved {
+  color: #3cb500;
+}
+
+/* Simplified per-field hint text under the Trello file upload labels */
+.import-file-row .import-file-hint {
+  display: block;
+  font-size: 0.85em;
+  margin: 2px 0 4px;
+}

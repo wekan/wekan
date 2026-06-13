@@ -317,6 +317,15 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.cardCollapsed': value } });
   },
 
+  async setMapProvider(provider) {
+    check(provider, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    if (!['openstreetmap', 'google', 'bing', 'apple'].includes(provider)) {
+      throw new Meteor.Error('invalid-map-provider');
+    }
+    await Users.updateAsync(this.userId, { $set: { 'profile.mapProvider': provider } });
+  },
+
   async toggleMinicardLabelText() {
     if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();

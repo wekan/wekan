@@ -834,3 +834,35 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+
+/* Trello-style "mark complete" toggle, left of the minicard title */
+.minicard-title .minicard-complete-toggle {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  /* Nudge down so the checkmark sits at the vertical middle of the title text
+     (the checked materialCheckBox is shifted up 4px by its own positioning). */
+  position: relative;
+  top: 4px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+/* Sticker icon highlight styles (used instead of colour): taco pack => underline,
+   pete pack => round (ring around the icon). Icon keeps its normal colour. */
+.minicard-sticker i.sticker-underline {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 1px;
+  line-height: 1;
+}
+.minicard-sticker i.sticker-round {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1;
+  box-sizing: border-box;
+}

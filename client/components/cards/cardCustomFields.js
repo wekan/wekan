@@ -106,9 +106,6 @@ Template['cardCustomField-checkbox'].onCreated(function () {
 });
 
 Template['cardCustomField-checkbox'].events({
-  'click .js-checklist-item .check-box-unicode'(event, tpl) {
-    tpl.card.setCustomField(tpl.customFieldId, !Template.currentData().value);
-  },
   'click .js-checklist-item .check-box-container'(event, tpl) {
     tpl.card.setCustomField(tpl.customFieldId, !Template.currentData().value);
   },

@@ -178,6 +178,16 @@ Template.minicard.events({
     else if (this.isLinkedBoard())
       Utils.goBoardId(this.linkedId);
   },
+  'click .js-toggle-card-complete'(event) {
+    // Trello-style "mark complete" toggle (left of the title). Don't let the
+    // click open the card.
+    event.preventDefault();
+    event.stopPropagation();
+    if (!Utils.canModifyCard()) {
+      return;
+    }
+    this.setDueComplete(!this.getDueComplete());
+  },
   'click .js-toggle-minicard-label-text'() {
     if (window.localStorage.getItem('hiddenMinicardLabelText')) {
       window.localStorage.removeItem('hiddenMinicardLabelText'); //true

@@ -1,0 +1,7 @@
+template(name="cardStickersPopup")
+  .card-stickers-picker.clearfix
+    each stickerIcons
+      a.card-sticker-select.js-select-sticker(class="{{#if isSelected}}active{{/if}}" title="{{stickerTitle}}")
+        i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
+        if isSelected
+          i.fa.fa-check.card-sticker-check

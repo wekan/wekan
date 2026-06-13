@@ -6,6 +6,8 @@ import { csvGetMembersToMap } from './csvMembersMapper';
 import getSlug from 'limax';
 import { UserSearchIndex } from '/models/users';
 import { Utils } from '/client/lib/utils';
+import { TAPi18n } from '/imports/i18n';
+import TrelloImportJobs from '/models/trelloImportJobs';
 
 const Papa = require('papaparse');
 
@@ -44,6 +46,92 @@ function _prepareAdditionalData(dataObject) {
   return membersToMap;
 }
 
+// All Trello file/text imports are run on the server over HTTP instead of the
+// DDP `importBoard` method. This matters for correctness, not just size: Meteor
+// automatically re-sends an unacknowledged method call on every reconnect, so if
+// an import is heavy (or the connection hiccups) the WebSocket can enter an
+// endless drop/retry loop (the "Invalid frame header" flicker). An HTTP request
+// is never auto-retried, and a .zip's attachment bytes never touch the realtime
+// connection at all. The body is either a .zip File (application/zip) or a JSON
+// string { board, membersMapping } (application/json).
+async function postTrelloImport(body, contentType) {
+  const token =
+    (window.localStorage && window.localStorage.getItem('Meteor.loginToken')) || '';
+  const resp = await fetch('/import-trello', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': contentType,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body,
+  });
+  let result = {};
+  try {
+    result = await resp.json();
+  } catch (e) {
+    result = {};
+  }
+  if (!resp.ok || result.error) {
+    throw new Error(result.error || 'import-trello-failed');
+  }
+  return result;
+}
+
+// A safe URL slug for an imported board. Trello exports name the board `name`,
+// WeKan exports use `title`; getSlug (limax) throws on undefined, so guard it.
+function boardSlug(data) {
+  const raw = (data && (data.title || data.name)) || '';
+  return (raw && getSlug(raw)) || 'imported-board';
+}
+
+// Navigate to a freshly server-imported board. The HTTP import (unlike a DDP
+// method) does not push the new board's documents to this client, so we first
+// subscribe to the board and wait until its lists/swimlanes/cards are loaded
+// into Minimongo — otherwise the board opens with an empty Swimlanes view until
+// the page is reloaded. The subscription is left running so the data stays
+// available when the board is reopened from All Boards in the same session. A
+// timeout is the safety net in case the subscription never signals ready.
+function goToImportedBoard(boardId, slug) {
+  let navigated = false;
+  const go = () => {
+    if (navigated) return;
+    navigated = true;
+    FlowRouter.go('board', { id: boardId, slug });
+  };
+  Meteor.subscribe('board', boardId, false, { onReady: go });
+  Meteor.setTimeout(go, 5000);
+}
+
+// Find a workspace node by name anywhere in the user's personal workspace tree.
+function findWorkspaceByName(nodes, name) {
+  for (const node of nodes || []) {
+    if (node.name === name) return node;
+    if (node.children) {
+      const found = findWorkspaceByName(node.children, name);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+// Assign an imported board to a personal workspace named `wsName`, creating the
+// workspace (under an optional parent) only if one with that name doesn't exist.
+function assignBoardToNamedWorkspace(boardId, wsName, parentId = null) {
+  const user = ReactiveCache.getCurrentUser();
+  const tree = (user && user.profile && user.profile.boardWorkspacesTree) || [];
+  const existing = findWorkspaceByName(tree, wsName);
+  if (existing) {
+    Meteor.call('assignBoardToWorkspace', boardId, existing.id);
+    return;
+  }
+  Meteor.call('createWorkspace', { parentId, name: wsName }, (err, node) => {
+    if (!err && node) {
+      Meteor.call('assignBoardToWorkspace', boardId, node.id);
+    }
+  });
+}
+
 Template.import.onCreated(function () {
   this.error = new ReactiveVar('');
   this.steps = ['importTextarea', 'importMapMembers'];
@@ -51,6 +139,8 @@ Template.import.onCreated(function () {
   this.importedData = new ReactiveVar();
   this.membersToMap = new ReactiveVar([]);
   this.importSource = Session.get('importSource');
+  // True while a Trello .zip package is being uploaded/imported server-side.
+  this.zipImporting = new ReactiveVar(false);
 
   this.nextStep = () => {
     const nextStepIndex = this._currentStepIndex.get() + 1;
@@ -65,10 +155,10 @@ Template.import.onCreated(function () {
     this.error.set(error);
   };
 
-  this.importData = (evt, dataSource) => {
+  this.importData = async (evt, dataSource) => {
     evt.preventDefault();
-    const input = this.find('.js-import-json').value;
     if (dataSource === 'csv') {
+      const input = this.find('.js-import-json').value;
       const csv = input.indexOf('\t') > 0 ? input.replace(/(\t)/g, ',') : input;
       const ret = Papa.parse(csv);
       if (ret && ret.data && ret.data.length) this.importedData.set(ret.data);
@@ -76,52 +166,136 @@ Template.import.onCreated(function () {
       const membersToMap = _prepareAdditionalData(ret.data);
       this.membersToMap.set(membersToMap);
       this.nextStep();
-    } else {
-      try {
-        const dataObject = JSON.parse(input);
-        this.setError('');
-        this.importedData.set(dataObject);
-        const membersToMap = _prepareAdditionalData(dataObject);
-        // store members data and mapping in Session
-        // (we go deep and 2-way, so storing in data context is not a viable option)
-        this.membersToMap.set(membersToMap);
-        this.nextStep();
-      } catch (e) {
-        this.setError('error-json-malformed');
+      return;
+    }
+    // Trello: a .zip package (one or more board .json files plus per-board
+    // attachment subdirectories from the Trello Attachments Downloader) imports
+    // all of its boards at once, through a separate field from the single .json.
+    if (dataSource === 'trello') {
+      const zipEl = this.find('.js-import-zip-file');
+      if (zipEl && zipEl.files && zipEl.files[0]) {
+        await this.importTrelloZip(zipEl.files[0]);
+        return;
       }
+    }
+    try {
+      // A single board: JSON may come from an uploaded .json file (large Trello
+      // exports are awkward to paste) or from the textarea.
+      let input = this.find('.js-import-json').value;
+      const jsonFileEl = this.find('.js-import-json-file');
+      if (jsonFileEl && jsonFileEl.files && jsonFileEl.files[0]) {
+        input = await jsonFileEl.files[0].text();
+      }
+      const dataObject = JSON.parse(input);
+      this.setError('');
+
+      // Trello: remember the target personal-workspace name for finishImport.
+      this.workspaceName = '';
+      if (dataSource === 'trello') {
+        const wsEl = this.find('.js-import-workspace-name');
+        this.workspaceName = wsEl && wsEl.value ? wsEl.value.trim() : '';
+      }
+
+      this.importedData.set(dataObject);
+      const membersToMap = _prepareAdditionalData(dataObject);
+      // store members data and mapping in Session
+      // (we go deep and 2-way, so storing in data context is not a viable option)
+      this.membersToMap.set(membersToMap);
+      this.nextStep();
+    } catch (e) {
+      this.setError('error-json-malformed');
     }
   };
 
-  this.finishImport = () => {
-    const additionalData = {};
+  // Upload a Trello .zip package to the server, which extracts it (with
+  // zip-bomb / path-traversal guards), imports every board and streams each
+  // attachment to the Default storage, then go to All Boards.
+  this.importTrelloZip = async (zipFile) => {
+    this.setError('');
+    const wsEl = this.find('.js-import-workspace-name');
+    const workspaceName = wsEl && wsEl.value ? wsEl.value.trim() : '';
+
+    this.zipImporting.set(true);
+    let result;
+    try {
+      result = await postTrelloImport(zipFile, 'application/zip');
+    } catch (e) {
+      this.zipImporting.set(false);
+      this.setError((e && e.message) || 'import-trello-failed');
+      return;
+    }
+    this.zipImporting.set(false);
+
+    (result.boardIds || []).forEach(boardId => {
+      if (workspaceName) {
+        assignBoardToNamedWorkspace(boardId, workspaceName);
+      }
+    });
+    Session.set('fromBoard', null);
+    // Go to All Boards, where the newly imported boards appear.
+    FlowRouter.go('home');
+  };
+
+  this.finishImport = async () => {
     const membersMapping = this.membersToMap.get();
+    const mappingById = {};
     if (membersMapping) {
-      const mappingById = {};
       membersMapping.forEach(member => {
         if (member.wekanId) {
           mappingById[member.id] = member.wekanId;
         }
       });
-      additionalData.membersMapping = mappingById;
     }
+    const importedData = this.importedData.get();
+
+    // Trello: import over HTTP (see postTrelloImport) so the realtime DDP
+    // connection is never used for the board payload and can't enter the
+    // drop/retry "Invalid frame header" flicker loop. Do NOT mutate the still-
+    // mounted map-members template (e.g. clearing membersToMap) before
+    // navigating away — that forces an empty re-render mid-teardown and can
+    // throw "Can't select in removed DomRange". We navigate away, which
+    // destroys the import templates.
+    if (this.importSource === 'trello') {
+      let result;
+      try {
+        result = await postTrelloImport(
+          JSON.stringify({ board: importedData, membersMapping: mappingById }),
+          'application/json',
+        );
+      } catch (e) {
+        this.setError((e && e.message) || 'import-trello-failed');
+        return;
+      }
+      const boardId = (result.boardIds || [])[0];
+      if (!boardId) {
+        this.setError('import-trello-failed');
+        return;
+      }
+      Session.set('fromBoard', null);
+      if (this.workspaceName) {
+        assignBoardToNamedWorkspace(boardId, this.workspaceName);
+      }
+      goToImportedBoard(boardId, boardSlug(importedData));
+      return;
+    }
+
+    // wekan / csv: unchanged DDP import.
     this.membersToMap.set([]);
     Meteor.call(
       'importBoard',
-      this.importedData.get(),
-      additionalData,
+      importedData,
+      { membersMapping: mappingById },
       this.importSource,
       Session.get('fromBoard'),
       (err, res) => {
         if (err) {
           this.setError(err.error);
         } else {
-          let title = getSlug(this.importedData.get().title) || 'imported-board';
           Session.set('fromBoard', null);
           FlowRouter.go('board', {
             id: res,
-            slug: title,
+            slug: boardSlug(importedData),
           });
-          //Utils.goBoardId(res);
         }
       },
     );
@@ -134,6 +308,9 @@ Template.import.helpers({
   },
   currentTemplate() {
     return Template.instance().steps[Template.instance()._currentStepIndex.get()];
+  },
+  zipImporting() {
+    return Template.instance().zipImporting.get();
   },
 });
 
@@ -148,6 +325,9 @@ Template.importTextarea.helpers({
     } else {
       return 'import-json-placeholder';
     }
+  },
+  isTrelloImport() {
+    return Session.get('importSource') === 'trello';
   },
 });
 
@@ -320,7 +500,11 @@ Template.importMapMembersAddPopup.onCreated(function () {
 });
 
 Template.importMapMembersAddPopup.onRendered(function () {
-  this.find('.js-search-member-input').focus();
+  // Guard against the DOM range being gone (e.g. the popup was closed during a
+  // re-render) — calling find/$ then throws "Can't select in removed DomRange".
+  if (this.view && this.view.isDestroyed) return;
+  const input = this.find('.js-search-member-input');
+  if (input) input.focus();
 });
 
 Template.importMapMembersAddPopup.onDestroyed(function () {
@@ -378,5 +562,312 @@ Template.importMapMembersAddPopup.helpers({
   },
   noResults() {
     return importMemberPopupState.noResults;
+  },
+});
+
+// ---------------------------------------------------------------------------
+// Live Trello API import: key/token -> list workspaces & boards -> import
+// selected boards (with attachments) server-side, placing each under a
+// personal workspace named after its Trello workspace.
+// ---------------------------------------------------------------------------
+
+function flattenWorkspaceTree(nodes, depth = 0, acc = []) {
+  (nodes || []).forEach(node => {
+    acc.push({ id: node.id, label: `${'— '.repeat(depth)}${node.name}` });
+    if (node.children && node.children.length) {
+      flattenWorkspaceTree(node.children, depth + 1, acc);
+    }
+  });
+  return acc;
+}
+
+// Build the copy-paste-friendly error text for a job: the error log plus a
+// summary line per failed board.
+function jobErrorText(job) {
+  if (!job) return '';
+  const lines = [];
+  (job.errorLog || []).forEach(line => lines.push(line));
+  return lines.join('\n');
+}
+
+Template.importTrelloApi.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
+  this.workspaces = new ReactiveVar([]);
+  this.copied = new ReactiveVar(false);
+  // Board selection state: map of trelloBoardId -> true. Tracked here (rather
+  // than via DOM checkboxes) because the UI uses animated .materialCheckBox
+  // elements, not native inputs.
+  this.selectedBoards = new ReactiveVar({});
+  // The import itself runs server-side as a persisted job; watch it reactively
+  // so progress survives navigating away and back.
+  this.subscribe('trelloImportJobs');
+});
+
+// Collect every board id across all listed workspaces.
+function allBoardIds(workspaces) {
+  const ids = {};
+  (workspaces || []).forEach(ws => {
+    (ws.boards || []).forEach(b => {
+      ids[b.id] = true;
+    });
+  });
+  return ids;
+}
+
+Template.importTrelloApi.helpers({
+  error() {
+    return Template.instance().error;
+  },
+  loading() {
+    return Template.instance().loading;
+  },
+  copied() {
+    return Template.instance().copied;
+  },
+  hasWorkspaces() {
+    return Template.instance().workspaces.get().length > 0;
+  },
+  workspaceList() {
+    return Template.instance().workspaces.get();
+  },
+  boardSelected() {
+    return !!Template.instance().selectedBoards.get()[this.id];
+  },
+  workspaceSelected() {
+    const sel = Template.instance().selectedBoards.get();
+    const boards = this.boards || [];
+    return boards.length > 0 && boards.every(b => sel[b.id]);
+  },
+  flatWorkspaceNodes() {
+    const user = ReactiveCache.getCurrentUser();
+    const tree = (user && user.profile && user.profile.boardWorkspacesTree) || [];
+    return flattenWorkspaceTree(tree);
+  },
+  credsSaved() {
+    const user = ReactiveCache.getCurrentUser();
+    return !!(user && user.profile && user.profile.trelloApiSaved);
+  },
+
+  // --- current background job ---
+  currentJob() {
+    return TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+  },
+  jobIsRunning() {
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    return job && job.status === 'running';
+  },
+  jobCanResume() {
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    return job && (job.status === 'paused' || job.status === 'error');
+  },
+  jobIsFinished() {
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    return job && (job.status === 'done' || job.status === 'cancelled');
+  },
+  canStartImport() {
+    // Don't start a second import while one is active (running/paused/error),
+    // which would create a hidden concurrent job.
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    return !job || job.status === 'done' || job.status === 'cancelled';
+  },
+  jobProgressText() {
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    if (!job) return '';
+    return `${job.currentIndex} / ${job.total}`;
+  },
+  jobProgressPercent() {
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    if (!job || !job.total) return 0;
+    return Math.round((job.currentIndex / job.total) * 100);
+  },
+  jobResults() {
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    return (job && job.results) || [];
+  },
+  jobHasErrors() {
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    return !!(job && job.errorLog && job.errorLog.length);
+  },
+  jobErrorText() {
+    return jobErrorText(TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } }));
+  },
+});
+
+Template.importTrelloApi.events({
+  'click .js-trello-save-creds'(evt, tpl) {
+    evt.preventDefault();
+    const key = tpl.find('.js-trello-key').value.trim();
+    const token = tpl.find('.js-trello-token').value.trim();
+    if (!key || !token) {
+      tpl.error.set('trello-api-credentials-required');
+      return;
+    }
+    tpl.error.set('');
+    Meteor.call('saveTrelloCredentials', key, token, err => {
+      if (err) {
+        tpl.error.set(err.reason || err.error || 'trello-api-error');
+        return;
+      }
+      // Don't keep the token sitting in the browser; it now lives server-side.
+      tpl.find('.js-trello-key').value = '';
+      tpl.find('.js-trello-token').value = '';
+    });
+  },
+  'click .js-trello-delete-creds'(evt, tpl) {
+    evt.preventDefault();
+    tpl.error.set('');
+    Meteor.call('deleteTrelloCredentials', err => {
+      if (err) tpl.error.set(err.reason || err.error || 'trello-api-error');
+    });
+    tpl.find('.js-trello-key').value = '';
+    tpl.find('.js-trello-token').value = '';
+  },
+  'click .js-trello-list-workspaces'(evt, tpl) {
+    evt.preventDefault();
+    // key/token may be empty when saved credentials exist; the server falls
+    // back to the saved ones and returns an error if neither is available.
+    const key = tpl.find('.js-trello-key').value.trim();
+    const token = tpl.find('.js-trello-token').value.trim();
+    tpl.error.set('');
+    tpl.loading.set(true);
+    Meteor.call('trelloListWorkspaces', key, token, (err, res) => {
+      tpl.loading.set(false);
+      if (err) {
+        tpl.error.set(err.reason || err.error || 'trello-api-error');
+        tpl.workspaces.set([]);
+        tpl.selectedBoards.set({});
+      } else {
+        const workspaces = res || [];
+        tpl.workspaces.set(workspaces);
+        // Preselect all boards by default.
+        tpl.selectedBoards.set(allBoardIds(workspaces));
+      }
+    });
+  },
+  // Toggle a single board's animated checkbox.
+  'click .js-toggle-board'(evt, tpl) {
+    evt.preventDefault();
+    const id = this.id;
+    const sel = { ...tpl.selectedBoards.get() };
+    if (sel[id]) {
+      delete sel[id];
+    } else {
+      sel[id] = true;
+    }
+    tpl.selectedBoards.set(sel);
+  },
+  // Toggle all boards in a workspace: if all are selected, clear them; else
+  // select them all.
+  'click .js-toggle-workspace'(evt, tpl) {
+    evt.preventDefault();
+    const boards = this.boards || [];
+    const sel = { ...tpl.selectedBoards.get() };
+    const allSelected = boards.length > 0 && boards.every(b => sel[b.id]);
+    boards.forEach(b => {
+      if (allSelected) {
+        delete sel[b.id];
+      } else {
+        sel[b.id] = true;
+      }
+    });
+    tpl.selectedBoards.set(sel);
+  },
+  'click .js-trello-select-all'(evt, tpl) {
+    evt.preventDefault();
+    tpl.selectedBoards.set(allBoardIds(tpl.workspaces.get()));
+  },
+  'click .js-trello-unselect-all'(evt, tpl) {
+    evt.preventDefault();
+    tpl.selectedBoards.set({});
+  },
+  'click .js-trello-import-selected'(evt, tpl) {
+    evt.preventDefault();
+    const key = tpl.find('.js-trello-key').value.trim();
+    const token = tpl.find('.js-trello-token').value.trim();
+    const sel = tpl.selectedBoards.get();
+    const boardIds = Object.keys(sel).filter(id => sel[id]);
+    if (!boardIds.length) {
+      tpl.error.set('trello-select-boards');
+      return;
+    }
+    const parentEl = tpl.find('.js-trello-parent-workspace');
+    const parentId = parentEl && parentEl.value ? parentEl.value : null;
+
+    tpl.error.set('');
+    // Start the server-side job; progress shows up via the subscription. The
+    // user is free to navigate away and come back.
+    Meteor.call('trelloStartImport', key, token, boardIds, parentId, err => {
+      if (err) {
+        tpl.error.set(err.reason || err.error || 'trello-api-error');
+      }
+    });
+  },
+  'click .js-trello-resume'(evt, tpl) {
+    evt.preventDefault();
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    if (!job) return;
+    const key = tpl.find('.js-trello-key').value.trim();
+    const token = tpl.find('.js-trello-token').value.trim();
+    if (!key || !token) {
+      tpl.error.set('trello-api-credentials-required');
+      return;
+    }
+    tpl.error.set('');
+    Meteor.call('trelloResumeImport', job._id, key, token, err => {
+      if (err) tpl.error.set(err.reason || err.error || 'trello-api-error');
+    });
+  },
+  'click .js-trello-cancel'(evt, tpl) {
+    evt.preventDefault();
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    if (!job) return;
+    Meteor.call('trelloCancelImport', job._id, false);
+  },
+  'click .js-trello-cancel-delete'(evt, tpl) {
+    evt.preventDefault();
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    if (!job) return;
+    // eslint-disable-next-line no-alert
+    if (!window.confirm(TAPi18n.__('trello-cancel-delete-confirm'))) return;
+    Meteor.call('trelloCancelImport', job._id, true);
+  },
+  'click .js-trello-clear'(evt, tpl) {
+    evt.preventDefault();
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    if (!job) return;
+    Meteor.call('trelloClearImportJob', job._id, false);
+  },
+  'click .js-trello-copy-errors'(evt, tpl) {
+    evt.preventDefault();
+    const job = TrelloImportJobs.findOne({}, { sort: { createdAt: -1 } });
+    const text = jobErrorText(job);
+    if (!text) return;
+    const done = () => {
+      tpl.copied.set(true);
+      setTimeout(() => tpl.copied.set(false), 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, () => {
+        // Fall back to selecting the textarea so the user can copy manually.
+        const ta = tpl.find('.js-trello-errors-text');
+        if (ta) {
+          ta.focus();
+          ta.select();
+        }
+      });
+    } else {
+      const ta = tpl.find('.js-trello-errors-text');
+      if (ta) {
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand('copy');
+          done();
+        } catch (e) {
+          // user can copy manually from the selected textarea
+        }
+      }
+    }
   },
 });

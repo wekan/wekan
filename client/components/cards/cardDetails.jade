@@ -61,6 +61,9 @@ template(name="cardDetails")
             span.emoji-icon
               i.fa.fa-link
           span.copied-tooltip {{_ 'copied'}}
+        if canModifyCard
+          a.card-details-complete-toggle.js-toggle-due-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
+            .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{else}}js-card-title-drag-handle{{/if}}")
             +viewer
@@ -125,6 +128,47 @@ template(name="cardDetails")
               unless currentUser.isWorker
                 a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
                   i.fa.fa-plus
+
+        .card-details-item.card-details-item-stickers
+          h3.card-details-item-title
+            i.fa.fa-sticky-note-o
+            | {{_ 'stickers'}}
+          .card-details-item-content.card-stickers
+            each stickers
+              span.card-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
+                i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
+                if canModifyCard
+                  a.card-sticker-remove.js-remove-sticker(data-index="{{@index}}" title="{{_ 'remove-sticker'}}")
+                    i.fa.fa-times
+            if canModifyCard
+              unless currentUser.isWorker
+                a.card-label.add-label.js-add-stickers(title="{{_ 'add-sticker'}}")
+                  i.fa.fa-plus
+
+        .card-details-item.card-details-item-location
+          h3.card-details-item-title
+            i.fa.fa-map-marker
+            | {{_ 'location'}}
+          .card-details-item-content.card-locations
+            each getLocations
+              .card-location
+                .card-location-info(class="{{#if canModifyCard}}js-edit-location{{/if}}" data-location-id="{{_id}}")
+                  if name
+                    .card-location-name= name
+                  if address
+                    .card-location-address= address
+                  if hasCoordinates
+                    a.card-location-map(href=mapUrl target="_blank" rel="noopener noreferrer")
+                      i.fa.fa-map-o
+                      = ' '
+                      | {{_ 'location-open-map'}}
+                if canModifyCard
+                  a.card-location-remove.js-remove-location(data-location-id="{{_id}}" title="{{_ 'delete'}}")
+                    i.fa.fa-times
+          if canModifyCard
+            unless currentUser.isWorker
+              a.card-label.add-label.js-add-location(title="{{_ 'add-location'}}")
+                i.fa.fa-plus
 
         if currentBoard.hasAnyAllowsDate
           hr
@@ -1196,3 +1240,39 @@ template(name="cardStartPlanningPokerPopup")
     if getPokerQuestion
       if currentUser.isBoardAdmin
         button.js-remove-poker.negate.wide.right {{_ 'delete'}}
+
+template(name="cardLocationsPopup")
+  form.js-card-location-form
+    label
+      | {{_ 'location-detect-from-map'}}
+      input.js-location-map-link(type="text" placeholder="https://..." autofocus)
+    button.primary.js-detect-location(type="button") {{_ 'location-detect'}}
+    if detectMessage
+      p.quiet.js-detect-message {{detectMessage}}
+    hr
+    label
+      | {{_ 'location-name'}}
+      input.js-location-name(type="text" value="{{location.name}}")
+    label
+      | {{_ 'location-address'}}
+      input.js-location-address(type="text" value="{{location.address}}")
+    label
+      | {{_ 'location-latitude'}}
+      input.js-location-latitude(type="number" step="any" value="{{location.latitude}}")
+    label
+      | {{_ 'location-longitude'}}
+      input.js-location-longitude(type="number" step="any" value="{{location.longitude}}")
+    button.primary.confirm.js-submit-location(type="submit") {{_ 'save'}}
+    if location._id
+      button.negate.wide.right.js-delete-location(type="button") {{_ 'delete'}}
+    hr
+    .map-provider-row
+      span.map-provider-label {{_ 'location-open-map-at'}}
+      select.js-map-provider
+        option(value="openstreetmap" selected="{{#if isMapProvider 'openstreetmap'}}selected{{/if}}") OpenStreetMap
+        option(value="google" selected="{{#if isMapProvider 'google'}}selected{{/if}}") Google Maps
+        option(value="bing" selected="{{#if isMapProvider 'bing'}}selected{{/if}}") Bing Maps
+        option(value="apple" selected="{{#if isMapProvider 'apple'}}selected{{/if}}") Apple Maps
+    button.primary.js-save-map-provider(type="button") {{_ 'save'}}
+    if mapSavedMessage
+      p.quiet.js-map-saved {{mapSavedMessage}}

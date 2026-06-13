@@ -40,9 +40,21 @@ export function generateUniversalFileUrl(fileId, type, version = 'original') {
     return `${prefix}/cdn/storage/attachments/${fileId}`;
   } else if (type === 'avatar') {
     return `${prefix}/cdn/storage/avatars/${fileId}`;
+  } else if (type === 'background') {
+    return `${prefix}/cdn/storage/backgrounds/${fileId}`;
   }
 
   return '';
+}
+
+/**
+ * Generate a universal board background URL
+ * @param {string} backgroundId - The background file ID
+ * @param {string} version - The file version (default: 'original')
+ * @returns {string} - Universal background URL
+ */
+export function generateUniversalBackgroundUrl(backgroundId, version = 'original') {
+  return generateUniversalFileUrl(backgroundId, 'background', version);
 }
 
 /**

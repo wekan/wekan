@@ -163,6 +163,19 @@ function currentListIsInThisSwimlane(swimlaneId) {
 
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Utils.getCurrentCard();
+  if (!currentCard) return false;
+  // On desktop a clicked card is shown as a draggable popup via the openCards
+  // list (rendered once in boardBody). Don't ALSO render it inline here, or the
+  // card opens twice — the inline copy sits under the popup and becomes visible
+  // when the popup is dragged away by its titlebar handle. Direct card-URL
+  // navigation sets only currentCard (not openCards), so those still render
+  // inline as before.
+  if (!Utils.isMiniScreen()) {
+    const openCards = Session.get('openCards') || [];
+    if (openCards.includes(currentCard._id)) {
+      return false;
+    }
+  }
   //const currentUser = ReactiveCache.getCurrentUser();
   if (
     //currentUser &&
