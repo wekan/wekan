@@ -360,8 +360,10 @@ Users.attachSchema(
     },
     'profile.mapProvider': {
       /**
-       * which map service the card "Open in map" links use
-       * ('openstreetmap' (default), 'google', 'bing' or 'apple').
+       * which map service the card "Open in map" links use, grouped by region:
+       * USA: 'google', 'bing', 'apple', 'waze';
+       * Europe: 'openstreetmap' (default), 'here', 'yandex', 'mapy', '2gis';
+       * Asia: 'baidu', 'amap'.
        */
       type: String,
       optional: true,

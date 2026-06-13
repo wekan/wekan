@@ -320,7 +320,24 @@ Meteor.methods({
   async setMapProvider(provider) {
     check(provider, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
-    if (!['openstreetmap', 'google', 'bing', 'apple'].includes(provider)) {
+    if (
+      ![
+        // USA
+        'google',
+        'bing',
+        'apple',
+        'waze',
+        // Europe
+        'openstreetmap',
+        'here',
+        'yandex',
+        'mapy',
+        '2gis',
+        // Asia
+        'baidu',
+        'amap',
+      ].includes(provider)
+    ) {
       throw new Meteor.Error('invalid-map-provider');
     }
     await Users.updateAsync(this.userId, { $set: { 'profile.mapProvider': provider } });

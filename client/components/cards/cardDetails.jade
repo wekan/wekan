@@ -1269,10 +1269,20 @@ template(name="cardLocationsPopup")
     .map-provider-row
       span.map-provider-label {{_ 'location-open-map-at'}}
       select.js-map-provider
-        option(value="openstreetmap" selected="{{#if isMapProvider 'openstreetmap'}}selected{{/if}}") OpenStreetMap
-        option(value="google" selected="{{#if isMapProvider 'google'}}selected{{/if}}") Google Maps
-        option(value="bing" selected="{{#if isMapProvider 'bing'}}selected{{/if}}") Bing Maps
-        option(value="apple" selected="{{#if isMapProvider 'apple'}}selected{{/if}}") Apple Maps
+        optgroup(label="{{_ 'map-region-usa'}}")
+          option(value="google" selected="{{#if isMapProvider 'google'}}selected{{/if}}") Google Maps
+          option(value="bing" selected="{{#if isMapProvider 'bing'}}selected{{/if}}") Bing Maps
+          option(value="apple" selected="{{#if isMapProvider 'apple'}}selected{{/if}}") Apple Maps
+          option(value="waze" selected="{{#if isMapProvider 'waze'}}selected{{/if}}") Waze
+        optgroup(label="{{_ 'map-region-europe'}}")
+          option(value="openstreetmap" selected="{{#if isMapProvider 'openstreetmap'}}selected{{/if}}") OpenStreetMap
+          option(value="here" selected="{{#if isMapProvider 'here'}}selected{{/if}}") HERE WeGo
+          option(value="yandex" selected="{{#if isMapProvider 'yandex'}}selected{{/if}}") Yandex Maps
+          option(value="mapy" selected="{{#if isMapProvider 'mapy'}}selected{{/if}}") Mapy.cz
+          option(value="2gis" selected="{{#if isMapProvider '2gis'}}selected{{/if}}") 2GIS
+        optgroup(label="{{_ 'map-region-asia'}}")
+          option(value="baidu" selected="{{#if isMapProvider 'baidu'}}selected{{/if}}") Baidu Maps
+          option(value="amap" selected="{{#if isMapProvider 'amap'}}selected{{/if}}") Amap (Gaode)
     button.primary.js-save-map-provider(type="button") {{_ 'save'}}
     if mapSavedMessage
       p.quiet.js-map-saved {{mapSavedMessage}}
