@@ -47,6 +47,17 @@ export const TAPi18n = {
   getLanguage() {
     return this.current.get();
   },
+  // Whether the given language (default: the current one) is written
+  // right-to-left, from the `rtl` flag in languages.js. Reactive on the current
+  // language so callers re-run when the user switches languages.
+  isRTL(language = this.current.get()) {
+    return Boolean(languages[language] && languages[language].rtl);
+  },
+  // 'rtl' or 'ltr' for the given/current language, suitable for the HTML `dir`
+  // attribute.
+  getLanguageDirection(language) {
+    return this.isRTL(language) ? 'rtl' : 'ltr';
+  },
   loadTranslation(language) {
     return new Promise((resolve, reject) => {
       if (Meteor.isClient) {
