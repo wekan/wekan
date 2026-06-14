@@ -25,9 +25,9 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="General"></a>General
 
-* Current Meteor 2 WeKan Features: [Deep Dive Into WeKan](DeveloperDocs/Deep-Dive-Into-WeKan.md)
+* WeKan Features: [Deep Dive Into WeKan](Design/Deep-Dive-Into-WeKan.md) (WeKan now runs on Meteor 3.x and Node.js 24.x)
 * [WeKan Roadmap kanban board](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
-* Future WeKan prototypes: [Multiverse WeKan Roadmap](FAQ/WeKan-Multiverse-Roadmap.md)
+* Future WeKan prototypes: [Multiverse WeKan Roadmap](Design/Multiverse/WeKan-Multiverse-Roadmap.md)
 * [Change Language](Translations/Change-Language.md)
 * [Forgot Password](Login/Forgot-Password.md)
 * [WeKan Design Principles](Design/Design-Principles.md)
@@ -36,7 +36,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Team](FAQ/Team.md)
 * [Press](FAQ/Press.md)
 * [Blog](https://wekan.fi/blog)
-* [Wekan vs Trello vs Restyaboard](ImportExport/trello/Wekan-vs-Trello-vs-Restyaboard.md)
+* [Wekan vs Trello vs Restyaboard](Design/Wekan-vs-Trello-vs-Restyaboard.md)
 * [Results of Survey 2020-01](https://wekan.fi/blog/2020/06/results-of-wekan-survey-2020-01/)
 
 # <a name="NotWeKan"></a>Fake: Not WeKan kanban
@@ -77,7 +77,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 # Backup
 
 * [Backup and Restore](Backup/Backup.md)
-* [Rclone: Store attachments to cloud storage like S3, MinIO, etc](Backup/Rclone.md)
+* [Rclone: Store attachments to cloud storage like S3, MinIO, etc](Backup/Rclone/Rclone.md)
 
 # <a name="Repair"></a>Repair
 
@@ -94,7 +94,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="MarkdownSyntax"></a>Markdown Syntax
 
-* [Wekan Markdown](Features/Wekan-Markdown.md)
+* [Wekan Markdown](Features/Markdown/Markdown.md)
 * [Emoji](Features/Emoji.md)
 * [Mermaid Diagram](Features/Mermaid-Diagram.md) DOES NOT WORK ANYMORE
 * [Numbered text](Features/Numbered-text.md)
@@ -124,13 +124,14 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Logs"></a>Metrics, Logs, Stats
 
-* [Metrics](Features/Metrics)
+* [Metrics](Features/Metrics.md)
 * [Logs](Features/Logs.md)
-* [Stats](Features/Features.md#stats)
+* [Stats](Features/Stats/Stats.md)
+* [Cleanup](Features/Cleanup/Cleanup.md)
 
 # <a name="Integrations"></a>Integrations
 
-* [IFTTT](ImportExport/IFTTT.md)
+* [IFTTT](Features/IFTTT/IFTTT.md)
 * [n8n Wekan docs](https://docs.n8n.io/nodes/n8n-nodes-base.wekan/#example-usage) - [n8n GitHub](https://github.com/n8n-io/n8n)
 * [Integrations](ImportExport/Integrations.md)
 * [Gogs](https://github.com/wekan/wekan-gogs)
@@ -141,28 +142,41 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Gantt Chart](Features/Gantt.md)
 * [Due Date](Date/Due-Date.md)
 * [Day of week start](Date/Day-of-week-start.md)
-* [Calendar](Calendar.md)
+* [Calendar](Date/Calendar.md)
 
 # <a name="Features"></a>Features
 
+* [All Features index](Features/Features.md)
+* [Boards](Features/Boards/Boards.md)
+* [Lists](Features/Lists/Lists.md)
+* [Cards](Features/Cards/Cards.md)
+* [Members and Permissions](Features/Members/Members.md)
+* [WIP Limits](Features/WipLimit/WipLimit.md)
+* [Keyboard Shortcuts](Features/Keyboard-Shortcuts/Keyboard-Shortcuts.md)
+* [Accessibility](Features/Accessibility/Accessibility.md)
+* [Authentication, Admin Panel and SMTP Settings](Features/Admin-Panel/Admin-Panel.md)
 * [Multiline](Features/Multiline.md)
 * [Linked Cards](Features/Linked-Cards.md)
-* [Drag Drop](Features/DragDrop/Drag-Drop.md) on Mobile and Desktop
+* [Drag Drop](DragDrop/Drag-Drop.md) on Mobile and Desktop
 * [Python based features](Features/Python.md)
 * [Burndown and Velocity Chart](Features/Burndown-and-Velocity-Chart.md)
 * [Wait Spinners](Features/Wait-Spinners.md)
 * [Translations](Translations/Translations.md)
-* [Customize Translations](Customize-Translations.md)
+* [Customize Translations](Translations/Customize-Translations.md)
 * [Default Language for All Users](https://github.com/wekan/wekan/issues/3927)
-* [Features](Features/Features.md)
 * [Planning Poker](Features/Planning-Poker.md)
 * [Scaling](Webserver/Scaling.md)
 * [Custom Logo](Features/Custom-Logo.md)
 * [Subtasks](Features/Subtasks.md)
 * [Templates](Features/Templates.md)
-* [Card Cover Image](Features/Cover.md)
+* [Card Cover Image](Features/Cover/Cover.md)
+* [Stickers](Features/Stickers/Stickers.md)
+* [Card Locations](Features/Locations/Locations.md)
+* [Board Background Images](Features/Board-Backgrounds/Board-Backgrounds.md)
+* [Attachments and File Storage](Features/Attachments/Attachments.md)
+* [Right-to-Left (RTL) UI](Features/RTL/RTL.md)
 * [Archive and Delete](Features/Archive-and-Delete.md)
-* [Custom Fields](Features/Custom-Fields.md)
+* [Custom Fields](Features/CustomFields/CustomFields.md)
 * [Fix Export board menu not visible on some boards](https://github.com/wekan/wekan/issues/1060)
 * [RAM usage](https://github.com/wekan/wekan/issues/1088#issuecomment-311843230)
 * [Swimlanes](Features/Swimlanes.md)
@@ -231,9 +245,9 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Global Webhook](https://github.com/wekan/wekan/pull/2665)
 * PHP Webhook receiver to WeKan API Python https://github.com/wekan/webhook/blob/main/public/index.php#L46
 * [Limiting Webhook data](https://github.com/wekan/wekan/issues/2830)
-* [Receiving Webhooks](Webhooks/Receiving-Webhooks)
+* [Receiving Webhooks](Webhooks/Receiving-Webhooks.md)
 * [Java Webhooks](Webhooks/Java.md)
-* [Outgoing Webhook to Discord/Slack/RocketChat/Riot](Webhooks/Outgoing-Webhook-to-Discord.md)
+* [Outgoing Webhook to Discord/Slack/RocketChat/Riot](Webhooks/Discord/Outgoing-Webhook-to-Discord.md)
 * [Outgoing Webhook to NodeRed](https://github.com/wekan/wekan/issues/2017)
 * [Outgoing Webhook to PowerShell](https://github.com/wekan/wekan/issues/2518)
 * [Outgoing Webhooks, CA and Let's Encrypt](Webhooks/WebHook-And-CA.md)
