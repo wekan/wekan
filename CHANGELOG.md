@@ -26,6 +26,62 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Improved accessibility across all pages following WCAG 2.1 AA guidelines](https://github.com/wekan/wekan/commit/255de2062ff9b54393fd603bfc6cabddb8ede66a):
+  - Added a visible keyboard focus indicator (`:focus-visible` outline) for links,
+    buttons and form controls. The global CSS reset previously stripped all focus
+    outlines, leaving keyboard users with no indication of focus (WCAG 2.4.7).
+  - Added a "Skip to main content" link that lets keyboard and screen-reader users
+    bypass the header chrome (WCAG 2.4.1 Bypass Blocks).
+  - Added landmark roles so assistive technology can navigate page regions:
+    `role="main"` on the content area, `role="navigation"` on the header quick-access
+    bar, and `role="search"` on the global search form (WCAG 1.3.1).
+  - Marked modals and popups as `role="dialog"` with accessible names, set
+    `aria-modal="true"` on modals, and moved keyboard focus into a modal when it
+    opens and back to the triggering element when it closes (WCAG 2.4.3 Focus Order).
+  - Added accessible names (`aria-label`) to icon-only controls that previously had
+    none: modal/popup close and back buttons, the announcement close button, the
+    sidebar close/back buttons and the global search input and clear button
+    (WCAG 4.1.2 Name, Role, Value).
+  - Marked decorative Font Awesome icons inside labelled controls as
+    `aria-hidden="true"` so they are not announced redundantly.
+  - Added a screen-reader-only `.sr-only` helper class.
+- [Reorganized and updated the documentation](https://github.com/wekan/wekan/commit/83a0dd2565cd723da18da13f9a24ac09c75eb0a0):
+  - Fixed 14 broken relative links in `docs/README.md` (verified with a link check).
+  - Split the monolithic `docs/Features/Features.md` into focused topic pages under
+    `docs/Features/` subdirectories: Boards, Lists, Cards, Members, Keyboard
+    Shortcuts, Admin Panel, WIP Limits, Cleanup and Stats; `Features.md` is now an
+    index linking to them, and `docs/README.md` links the new pages.
+  - Added documentation for previously-undocumented features: Right-to-Left (RTL)
+    UI, Stickers, Card Locations, Board Background Images, Attachments and File
+    Storage, the card "complete" checkbox, and a new Accessibility feature page
+    (covering both the Admin Panel / Settings / Accessibility info page and the
+    built-in accessibility features above).
+  - Updated outdated information based on the CHANGELOG: the Meteor/Node versions
+    (now Meteor 3.x / Node.js 24.x) and the obsolete feature wishlist (Custom
+    Fields, Subtasks, Swimlanes, Gantt, WIP limits, voting and templates are now
+    implemented).
+
+and adds the following new features:
+
+- [Added an accessibility end-to-end test suite](https://github.com/wekan/wekan/commit/9c39226a59f8fc156559315b85a1769e109c43e8)
+  that checks the page language, skip link, landmark roles, visible focus, dialog
+  roles, accessible names on icon controls, and the absence of duplicate element ids.
+
+and fixes the following bugs:
+
+- [Fixed duplicate `id="header"` attributes rendered inside loops on the My Cards page](https://github.com/wekan/wekan/commit/c8c0438d662426aaf246a6164d3c3b18bd3462f6),
+  which produced invalid HTML and broke assistive-technology navigation (WCAG 4.1.1).
+- Fixed the My Cards table markup: header cells (`<th>`) are now wrapped in a `<tr>`
+  with `scope="col"`, and a caption was added, so the table is announced correctly.
+- Added missing `alt` text to the user avatar image (the surrounding link already
+  carries the accessible name).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.45 2026-06-14 WeKan ® release
 
 This release adds the following updates:
