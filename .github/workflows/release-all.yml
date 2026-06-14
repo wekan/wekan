@@ -614,8 +614,30 @@ jobs:
           chmod 600 ~/.local/share/snapcraft/launchpad-credentials
 
       - name: Build snaps on Launchpad (amd64 + arm64)
+        # `snapcraft remote-build` is experimental and talks to Launchpad over
+        # HTTPS after pushing the whole repo; it intermittently dies with a
+        # transient TLS drop (e.g. "SSLEOFError: EOF occurred in violation of
+        # protocol", exit 70) that has nothing to do with the build itself.
+        # Retry a few times so one network hiccup doesn't fail the release.
         run: |
-          snapcraft remote-build --launchpad-accept-public-upload
+          set -uo pipefail
+          attempts=3
+          for i in $(seq 1 "$attempts"); do
+            echo "::group::Remote build attempt $i/$attempts"
+            if snapcraft remote-build --launchpad-accept-public-upload; then
+              echo "::endgroup::"
+              echo "Remote build succeeded on attempt $i."
+              exit 0
+            fi
+            echo "::endgroup::"
+            echo "Remote build attempt $i failed (likely a transient Launchpad/TLS error)."
+            if [ "$i" -lt "$attempts" ]; then
+              echo "Retrying in 60s..."
+              sleep 60
+            fi
+          done
+          echo "Remote build failed after $attempts attempts." >&2
+          exit 1
 
       - name: Push snaps to the Snap Store (edge + beta channels)
         env:
