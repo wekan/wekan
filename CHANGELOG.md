@@ -30,7 +30,7 @@ Versions:
 
 This release adds the following updates:
 
-- [Made the "Release All Platforms" snap build resilient to transient Launchpad failures]{https://github.com/wekan/wekan/commit/4a1eff22831b18bbf1a6b0defb4e8e9c6bacee1b).
+- [Made the "Release All Platforms" snap build resilient to transient Launchpad failures](https://github.com/wekan/wekan/commit/4a1eff22831b18bbf1a6b0defb4e8e9c6bacee1b).
  `snapcraft remote-build` intermittently dies with a transient TLS
   drop (`SSLEOFError: EOF occurred in violation of protocol`, exit 70) while
   talking to Launchpad after pushing the repo — unrelated to the build itself —
@@ -76,6 +76,14 @@ This release adds the following new features:
   it turned on watch mode and the process never exited. Removing the env var lets
   `meteor test --once` finish and exit with the correct status. Thanks to xet7
   and Claude.
+- Fixed the GitHub Pages (docs) build failing with a Liquid syntax error. The
+  webhook reference page `docs/Webhooks/Webhook-data.md` documents payloads full
+  of `{{placeholder}}` tokens, and two had a typo (`{{swimlane-id}` with one
+  closing brace) that aborted Jekyll's Liquid parser. The placeholder-heavy doc
+  pages (Webhook-data, Translations, Troubleshooting-Mail, Original-Positions)
+  are now wrapped in `{% raw %}`/`{% endraw %}` so Jekyll emits the template
+  tokens literally instead of trying to evaluate them — fixing the build and
+  making the placeholders render correctly. Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
