@@ -26,6 +26,45 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.44 2026-06-14 WeKan ® release
+
+This release adds the following new features:
+
+- [Full right-to-left (RTL) UI for every page when an RTL language is selected](https://github.com/wekan/wekan/commit/3fa75de5df46b60615ca71721f4ac534a416cc1f)
+  (Arabic and its variants, Persian/Farsi, Hebrew, Uyghur, Uzbek-Arabic and
+  Yiddish — the languages flagged `rtl: true` in `imports/i18n/languages.js`).
+  Previously only some pages flipped. The root `<html>` element now gets a
+  reactive `dir="rtl"`/`dir="ltr"` attribute that follows the chosen language, so
+  the whole UI mirrors at once. To make this work on every page rather than a
+  handful, all directional component CSS was converted to CSS logical properties
+  (`margin-left`→`margin-inline-start`, `left:`→`inset-inline-start:`,
+  `text-align: left`→`text-align: start`, `float: left`→`float: inline-start`,
+  and the mirror-image right/end variants) across 48 stylesheets, which flip
+  automatically with `dir`. Horizontal-centering rules using
+  `left: 50%` + `transform: translate(-50%, …)` were intentionally kept physical,
+  since those already center correctly in both directions. The calendar view also
+  renders RTL. Thanks to xet7 and Claude.
+- Tests for the RTL UI. A fast, server-less `tests/rtl.test.js` (run with
+  `node tests/rtl.test.js`) checks that exactly the expected languages are
+  flagged `rtl: true`, that the direction helper maps each language to the right
+  `dir` value, that the root `<html>` and the client keep `dir` in sync, and —
+  as a regression guard — that component CSS keeps using logical properties
+  (no physical `margin-left`/`float: left`/bare `left:` offsets sneak back in).
+  A Playwright browser spec `tests/playwright/specs/18-rtl-layout.e2e.js` drives
+  the app in both English (LTR) and Arabic (RTL) and asserts, on the boards list,
+  board view, card details, my-cards / due-cards / global-search, the admin
+  settings page and the login page, that the direction is correct, the
+  translated text is visible, and leading-edge content (the boards menu, the
+  first board list) sits on the correct side. Thanks to xet7 and Claude.
+- Fixed the "Meteor unit tests" CI job hanging until its 45-minute timeout. The
+  workflow set `TEST_WATCH: '0'`, but meteortesting:mocha computes
+  `testWatch: TEST_WATCH || …` and the string `'0'` is truthy in JavaScript, so
+  it turned on watch mode and the process never exited. Removing the env var lets
+  `meteor test --once` finish and exit with the correct status. Thanks to xet7
+  and Claude.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.43 2026-06-13 WeKan ® release
 
 This release adds the following new features:
