@@ -53,9 +53,13 @@ jobs:
       - name: Run Meteor unit tests
         # First Meteor build is slow; allow time before the test driver starts.
         timeout-minutes: 45
+        # NOTE: do not set TEST_WATCH here. meteortesting:mocha computes
+        # `testWatch: TEST_WATCH || …`, and the string '0' is truthy in JS, so
+        # TEST_WATCH=0 turns ON watch mode and the process never exits — that is
+        # what made this job hang until the 45-minute timeout. With TEST_WATCH
+        # unset, `meteor test --once` runs the server tests and exits with the
+        # correct status (matching the local rebuild-wekan.sh run).
         run: meteor test --once --driver-package meteortesting:mocha
-        env:
-          TEST_WATCH: '0'
 
   e2e-tests:
     name: Playwright E2E (${{ matrix.project }})

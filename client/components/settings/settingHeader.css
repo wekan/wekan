@@ -1,11 +1,11 @@
 #header #header-main-bar .setting-header-btn {
   border-radius: 3px;
   color: #f2f2f2;
-  margin-left: 20px;
-  padding-right: 10px;
+  margin-inline-start: 20px;
+  padding-inline-end: 10px;
   height: 28px;
   font-size: 13px;
-  float: left;
+  float: inline-start;
   overflow: hidden;
   line-height: 28px;
   margin: 0 2px;
@@ -15,7 +15,7 @@
   background: rgba(0,0,0,0.15);
 }
 #header #header-main-bar .setting-header-btn i.fa {
-  float: left;
+  float: inline-start;
   display: block;
   line-height: 28px;
   color: #f2f2f2;
@@ -24,7 +24,7 @@
 #header #header-main-bar .setting-header-btn + span {
   display: inline-block;
   margin-top: 1px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 
 /* Keep all admin tabs (Settings, People, Reports, Attachments, Translation,

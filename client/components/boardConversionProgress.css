@@ -2,7 +2,7 @@
 .board-conversion-overlay {
   position: fixed;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
@@ -52,7 +52,7 @@
 }
 
 .board-conversion-header h3 i {
-  margin-right: 8px;
+  margin-inline-end: 8px;
   color: #2196F3;
 }
 
@@ -91,8 +91,8 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: linear-gradient(
     90deg,
@@ -127,7 +127,7 @@
 }
 
 .conversion-status i {
-  margin-right: 8px;
+  margin-inline-end: 8px;
   color: #2196F3;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .conversion-time i {
-  margin-right: 6px;
+  margin-inline-end: 6px;
   color: #FF9800;
 }
 
@@ -160,7 +160,7 @@
 }
 
 .conversion-info i {
-  margin-right: 6px;
+  margin-inline-end: 6px;
   color: #2196F3;
 }
 
@@ -174,8 +174,8 @@
   .board-conversion-header,
   .board-conversion-content,
   .board-conversion-footer {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-inline-start: 16px;
+    padding-inline-end: 16px;
   }
 
   .board-conversion-header h3 {

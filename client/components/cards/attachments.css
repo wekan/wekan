@@ -23,7 +23,7 @@
   width: 150px;
   min-width: 150px;
   max-height: 150px;
-  padding-right: 16px;
+  padding-inline-end: 16px;
 }
 .attachment-thumbnail {
   max-width: 150px;
@@ -48,7 +48,7 @@
 .attachment-details {
   display: flex;
   justify-content: space-between;
-  margin-right: 25px; /* Make sure the icons are not to far to the right */
+  margin-inline-end: 25px; /* Make sure the icons are not to far to the right */
 }
 .attachment-actions {
   display: flex;
@@ -56,10 +56,10 @@
   align-items: center;
 }
 .attachment-actions a {
-  margin-left: 16px;
+  margin-inline-start: 16px;
 }
 .attachment-actions a:first-child {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 .add-attachment {
   display: flex;
@@ -74,7 +74,7 @@
 .icon {
   font-size: 1.5em;
   cursor: pointer;
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 .icon:hover {
   color: #666;
@@ -84,7 +84,7 @@
   height: 100vh;
   position: fixed;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 9999 !important;
   background: rgba(13, 13, 13, 0.95);
 }
@@ -113,7 +113,7 @@
   cursor: pointer;
   font-size: 4em;
   position: absolute;
-  right: 50px;
+  inset-inline-end: 50px;
   top: 16px;
 }
 
@@ -137,7 +137,7 @@
 }
 
 .upload-progress-header i {
-  margin-right: 8px;
+  margin-inline-end: 8px;
   color: #007bff;
 }
 
@@ -201,7 +201,7 @@
 
 .upload-progress-error i,
 .upload-progress-success i {
-  margin-right: 4px;
+  margin-inline-end: 4px;
 }
 
 /* Minicard specific styles */
@@ -263,14 +263,14 @@
   color: white;
   cursor: pointer;
   align-self: center;
-  margin-left: 70px;
+  margin-inline-start: 70px;
 }
 #next-attachment {
   font-size: 4em;
   color: white;
   cursor: pointer;
   align-self: center;
-  margin-right: 70px;
+  margin-inline-end: 70px;
 }
 #viewer-content {
   display: flex;
@@ -325,20 +325,20 @@
     padding: 16px;
   }
   #prev-attachment {
-    left: 0;
+    inset-inline-start: 0;
     position: absolute;
     bottom: 2.2em;
     font-size: 1.6em;
     padding: 16px;
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   #next-attachment {
-    right: 0;
+    inset-inline-end: 0;
     position: absolute;
     bottom: 2.2em;
     font-size: 1.6em;
     padding: 16px;
-    margin-right: 0;
+    margin-inline-end: 0;
   }
   #pdf-viewer {
     width: 100%;
@@ -365,7 +365,7 @@
   }
   .attachment-details {
     flex-direction: column;
-    margin-right: 0px;
+    margin-inline-end: 0px;
   }
   .attachment-actions {
     flex-direction: row;

@@ -208,7 +208,7 @@
   display: block !important;
   float: none !important;
   margin-bottom: 2rem !important;
-  border-left: none !important;
+  border-inline-start: none !important;
   border-bottom: 2px solid #ccc !important;
   clear: both !important;
 }
@@ -249,7 +249,7 @@
 
 .mobile-mode .list-header .list-header-menu-icon {
   position: static !important;
-  right: auto !important;
+  inset-inline-end: auto !important;
   top: auto !important;
   transform: none !important;
   grid-row: 1/3 !important;
@@ -264,7 +264,7 @@
 
 .mobile-mode .list-header .list-header-handle {
   position: static !important;
-  right: auto !important;
+  inset-inline-end: auto !important;
   top: auto !important;
   transform: none !important;
   grid-row: 1/3 !important;
@@ -325,9 +325,9 @@
   width: auto !important;
   min-width: auto !important;
   display: flex !important;
-  float: left !important;
+  float: inline-start !important;
   margin-bottom: 0 !important;
-  border-left: 1px solid #ccc !important;
+  border-inline-start: 1px solid #ccc !important;
   border-bottom: none !important;
 }
 
@@ -356,7 +356,7 @@
 
 .desktop-mode .list-header .list-header-menu-icon {
   position: absolute !important;
-  right: 60px !important;
+  inset-inline-end: 60px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   grid-row: auto !important;
@@ -367,7 +367,7 @@
 
 .desktop-mode .list-header .list-header-handle {
   position: absolute !important;
-  right: 10px !important;
+  inset-inline-end: 10px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   grid-row: auto !important;
@@ -463,7 +463,7 @@
   visibility: visible !important;
   opacity: 1 !important;
   position: static !important;
-  right: auto !important;
+  inset-inline-end: auto !important;
   top: auto !important;
   transform: none !important;
 }
@@ -557,8 +557,8 @@
     padding: 0 !important;
     float: none !important;
     clear: both !important;
-    border-left: none !important;
-    border-right: none !important;
+    border-inline-start: none !important;
+    border-inline-end: none !important;
     border-top: none !important;
     border-bottom: 2px solid #ccc !important;
     flex: none !important;
@@ -566,20 +566,20 @@
     flex-grow: 0 !important;
     flex-shrink: 0 !important;
     position: static !important;
-    left: auto !important;
-    right: auto !important;
+    inset-inline-start: auto !important;
+    inset-inline-end: auto !important;
     top: auto !important;
     bottom: auto !important;
     transform: none !important;
   }
 
 .mobile-mode .list:first-child {
-  margin-left: 0 !important;
+  margin-inline-start: 0 !important;
   margin-top: 0 !important;
 }
 
 .mobile-mode .list:last-child {
-  margin-right: 0 !important;
+  margin-inline-end: 0 !important;
   margin-bottom: 0 !important;
 }
 
@@ -594,8 +594,8 @@
   padding: 0 !important;
   float: none !important;
   clear: both !important;
-  border-left: none !important;
-  border-right: none !important;
+  border-inline-start: none !important;
+  border-inline-end: none !important;
   border-top: none !important;
   border-bottom: 2px solid #ccc !important;
   flex: none !important;
@@ -612,8 +612,8 @@
   padding: 0 !important;
   float: none !important;
   clear: both !important;
-  border-left: none !important;
-  border-right: none !important;
+  border-inline-start: none !important;
+  border-inline-end: none !important;
   border-top: none !important;
   border-bottom: 2px solid #ccc !important;
   flex: none !important;
@@ -643,8 +643,8 @@
   padding: 0 !important;
   float: none !important;
   clear: both !important;
-  border-left: none !important;
-  border-right: none !important;
+  border-inline-start: none !important;
+  border-inline-end: none !important;
   border-top: none !important;
   border-bottom: 2px solid #ccc !important;
   flex: none !important;
@@ -652,8 +652,8 @@
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
   position: static !important;
-  left: auto !important;
-  right: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
   top: auto !important;
   bottom: auto !important;
   transform: none !important;
@@ -707,8 +707,8 @@
     padding: 0 !important;
     float: none !important;
     clear: both !important;
-    border-left: none !important;
-    border-right: none !important;
+    border-inline-start: none !important;
+    border-inline-end: none !important;
     border-top: none !important;
     border-bottom: 2px solid #ccc !important;
     flex: none !important;
@@ -716,8 +716,8 @@
     flex-grow: 0 !important;
     flex-shrink: 0 !important;
     position: static !important;
-    left: auto !important;
-    right: auto !important;
+    inset-inline-start: auto !important;
+    inset-inline-end: auto !important;
     top: auto !important;
     bottom: auto !important;
     transform: none !important;

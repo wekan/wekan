@@ -31,7 +31,7 @@
 .attachments-content .compact-result-list,
 .setting-content .content-body .main-body .compact-result-list {
   margin: 6px 0 0;
-  padding-left: 20px;
+  padding-inline-start: 20px;
   font-size: 0.85em;
   font-family: monospace;
 }
@@ -163,7 +163,7 @@
 
 .setting-content .content-body .main-body .storage-rw-row input[type="checkbox"] {
   position: static;
-  left: auto;
+  inset-inline-start: auto;
   visibility: visible;
   display: inline-block;
   width: 16px;
@@ -200,7 +200,7 @@
 .setting-content .content-body .main-body .gridfs-stats-table td {
   border: 1px solid #d0d7de;
   padding: 6px 8px;
-  text-align: left;
+  text-align: start;
   white-space: nowrap;
   min-width: 0 !important;
 }

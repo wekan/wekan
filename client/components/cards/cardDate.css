@@ -134,7 +134,7 @@
 }
 .card-date time::before {
   font-size: inherit;
-  margin-right: 0.3em;
+  margin-inline-end: 0.3em;
   display: inline-block;
 }
 .customfield-date {

@@ -1,7 +1,7 @@
 section#notifications-drawer {
   position: fixed;
   top: 48px;
-  right: 0;
+  inset-inline-end: 0;
   width: 400px;
   background-color: #fafafa;
   box-shadow: 0 1px 2px rgba(0,0,0,0.15);
@@ -16,7 +16,7 @@ section#notifications-drawer a:hover {
 section#notifications-drawer .header {
   position: fixed;
   top: 48px;
-  right: 0;
+  inset-inline-end: 0;
   width: calc(400px - 32px);
   padding: 8px 16px;
   background: #ededed;
@@ -25,7 +25,7 @@ section#notifications-drawer .header {
 }
 section#notifications-drawer .header .notification-menu-toggle {
   position: absolute;
-  left: 16px;
+  inset-inline-start: 16px;
   top: calc(50% - 12px);
   font-size: 20px;
   cursor: pointer;
@@ -37,7 +37,7 @@ section#notifications-drawer .header .notification-menu-toggle:hover {
 }
 section#notifications-drawer .header .notification-menu {
   position: absolute;
-  left: 16px;
+  inset-inline-start: 16px;
   top: 44px;
   background: white;
   border: 1px solid #dbdbdb;
@@ -74,13 +74,13 @@ section#notifications-drawer .header .notification-menu .menu-item.selected {
 section#notifications-drawer .header .notification-menu .menu-item .check-icon {
   width: 20px;
   min-width: 20px;
-  margin-right: 8px;
+  margin-inline-end: 8px;
   text-align: center;
   color: #2980b9;
   font-weight: bold;
 }
 section#notifications-drawer .header .notification-menu .menu-item .menu-icon {
-  margin-right: 8px;
+  margin-inline-end: 8px;
   font-size: 16px;
 }
 section#notifications-drawer .header h5 {
@@ -90,7 +90,7 @@ section#notifications-drawer .header h5 {
 section#notifications-drawer .header .close {
   position: absolute;
   top: calc(50% - 12px);
-  right: 12px;
+  inset-inline-end: 12px;
   font-size: 24px;
   height: 24px;
   line-height: 24px;

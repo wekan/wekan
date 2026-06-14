@@ -7,7 +7,7 @@
 }
 .shortcuts-list .shortcuts-list-item .shortcuts-list-item-keys {
   margin-top: 5px;
-  float: right;
+  float: inline-end;
 }
 .shortcuts-list .shortcuts-list-item .shortcuts-list-item-keys kbd {
   padding: 5px 8px;

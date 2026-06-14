@@ -50,7 +50,7 @@
   white-space: nowrap;
 }
 .pop-over .header .back-btn {
-  float: left;
+  float: inline-start;
   overflow: hidden;
   width: 4vw;
   transition: width 0.2s;
@@ -66,7 +66,7 @@
   padding: 1.3vh 1.3vw 1.3vh 0.5vw;
   position: absolute;
   top: 0;
-  right: 0;
+  inset-inline-end: 0;
 }
 .pop-over.no-title .header {
   background: none;
@@ -126,8 +126,8 @@
 .pop-over[data-popup='memberMenuPopup'] > .header {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   margin-bottom: 0;
   z-index: 1;
 }
@@ -195,8 +195,8 @@
   position: fixed !important;
   bottom: 0 !important;
   top: auto !important;
-  left: auto !important;
-  right: 20px !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: 20px !important;
   width: auto !important;
   max-width: 450px !important;
   height: 100vh !important;
@@ -415,21 +415,21 @@
   padding: 1.3vh 1.3vw 1.3vh;
   box-sizing: border-box;
   /* Ensure content is not shifted left */
-  margin-left: 0 !important;
+  margin-inline-start: 0 !important;
 }
 
 /* Utility: remove left gutter inside specific popups */
 .pop-over .content .flush-left {
-  margin-left: 0;
-  padding-left: 0;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
   width: 100%;
 }
 
 /* Swimlane popups: remove left gutter, align content fully left */
 .pop-over .content form.swimlane-color-popup,
 .pop-over .content .swimlane-height-popup {
-  margin-left: 0;
-  padding-left: 0;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
   width: 100%;
 }
 
@@ -437,15 +437,15 @@
 .pop-over .content form.swimlane-color-popup .palette-colors,
 .pop-over .content form.edit-label .palette-colors,
 .pop-over .content form.create-label .palette-colors {
-  margin-left: 0;
-  padding-left: 0;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
   width: 100%;
 }
 
 /* Color palette items: ensure proper positioning */
 .pop-over .content .palette-colors .palette-color {
-  margin-left: 0;
-  margin-right: 2px;
+  margin-inline-start: 0;
+  margin-inline-end: 2px;
   margin-bottom: 2px;
 }
 
@@ -456,8 +456,8 @@
 .pop-over .popup-container-depth-4,
 .pop-over .popup-container-depth-5,
 .pop-over .popup-container-depth-6 {
-  margin-left: 0 !important;
-  padding-left: 0 !important;
+  margin-inline-start: 0 !important;
+  padding-inline-start: 0 !important;
 }
 
 /* Ensure buttons don’t reserve left space; align to flow */
@@ -466,7 +466,7 @@
 .pop-over .content .swimlane-height-popup .primary.confirm,
 .pop-over .content .swimlane-height-popup .negate.wide.right {
   float: none;
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 .pop-over .content-container .content.no-height {
   height: 0;
@@ -484,7 +484,7 @@
 }
 .pop-over.search-over .content {
   padding: 8px 4px 8px 10px;
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 .pop-over .at-form .at-error,
 .pop-over .at-form .at-result {
@@ -550,7 +550,7 @@
 .pop-over-list li > a .item-name {
   display: block;
   width: auto;
-  padding-right: 22px;
+  padding-inline-end: 22px;
 }
 .pop-over-list li > a:not(.disabled):hover {
   background-color: #005377;
@@ -601,11 +601,11 @@
   display: none;
   position: absolute;
   top: 6px;
-  right: 12px;
+  inset-inline-end: 12px;
   color: #3cb500;
 }
 .pop-over-list .pop-over-list.checkable li.active a {
-  padding-right: 28px;
+  padding-inline-end: 28px;
 }
 .pop-over-list .pop-over-list.checkable li.active a .fa-check {
   display: block;
@@ -618,7 +618,7 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
   border-bottom-color: transparent;
   height: 30px;
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   top: 0;
   width: 60px;
   z-index: 1;
@@ -638,7 +638,7 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
 .pop-over.miniprofile .miniprofile-header .avatar {
   position: absolute;
   top: 2px;
-  left: 2px;
+  inset-inline-start: 2px;
   height: 50px;
   width: 50px;
 }
@@ -752,8 +752,8 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
 body.mobile-mode .pop-over {
   position: fixed !important;
   top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
+  inset-inline-start: 0 !important;
+  inset-inline-end: 0 !important;
   bottom: 0 !important;
   width: 100vw !important;
   height: 100vh !important;

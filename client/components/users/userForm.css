@@ -67,7 +67,7 @@
   vertical-align: middle;
 }
 .auth-layout .auth-dialog .at-form .password-input-container .password-field {
-  padding-right: 0;
+  padding-inline-end: 0;
 }
 body.mobile-mode .password-input-container {
   flex-direction: column;
@@ -124,7 +124,7 @@ body.mobile-mode .auth-layout .auth-dialog .at-form .password-input-container .p
     width: 125px;
     position: absolute;
     top: 0px;
-    right: 20px;
+    inset-inline-end: 20px;
     margin-top: 5px;
     margin-bottom: 5px;
   }

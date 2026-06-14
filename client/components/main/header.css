@@ -13,12 +13,12 @@
   line-height: 1.7em;
   padding: 0 10px;
   margin: 0;
-  margin-right: 10px;
-  float: left;
+  margin-inline-end: 10px;
+  float: inline-start;
   border-radius: 3px;
 }
 #header #header-main-bar h1 .board-header-watch-icon {
-  padding-left: 7px;
+  padding-inline-start: 7px;
 }
 #header #header-main-bar h1 a.fa,
 #header #header-main-bar h1 a i.fa {
@@ -26,14 +26,14 @@
 }
 #header #header-main-bar h1 .back-btn {
   font-size: 0.9em;
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 #header #header-main-bar .wekan-logo {
   margin: 3px auto auto;
   width: 97px;
   opacity: 0.6;
   transition: opacity 0.15s;
-  float: right;
+  float: inline-end;
 }
 #header #header-main-bar .wekan-logo:hover {
   opacity: 0.9;
@@ -44,10 +44,10 @@
   width: auto;
 }
 #header #header-main-bar .board-header-btns.left {
-  float: left;
+  float: inline-start;
 }
 #header #header-main-bar .board-header-btns.right {
-  float: right;
+  float: inline-end;
 }
 #header #header-main-bar .board-header-btn {
   border-radius: 3px;
@@ -55,13 +55,13 @@
   padding: 0;
   height: 28px;
   font-size: 13px;
-  float: left;
+  float: inline-start;
   overflow: hidden;
   line-height: 28px;
   margin: 0 12px;
 }
 #header #header-main-bar .board-header-btn i.fa {
-  float: left;
+  float: inline-start;
   display: block;
   line-height: 28px;
   color: #f2f2f2;
@@ -70,16 +70,16 @@
 #header #header-main-bar .board-header-btn i.fa + span {
   display: inline-block;
   margin-top: 1px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 #header #header-main-bar .board-header-btn .board-header-btn-close {
-  float: right;
+  float: inline-end;
 }
 #header #header-main-bar .board-header-btn .board-header-btn-close i.fa {
   margin: 0 6px;
 }
 #header #header-main-bar .board-header-btn .board-header-btn-icon {
-  float: left;
+  float: inline-start;
   display: block;
   line-height: 28px;
   color: #27ae60;
@@ -100,9 +100,9 @@
 }
 #header #header-main-bar .separator {
   margin: 2px 4px;
-  border-left: 1px solid rgba(255,255,255,0.3);
+  border-inline-start: 1px solid rgba(255,255,255,0.3);
   height: 24px;
-  float: left;
+  float: inline-start;
 }
 
 /* On non-board pages (All Boards / home, public, my cards, …) the second bar
@@ -141,7 +141,7 @@ body:not(.board-view) #header #header-main-bar h1 {
 #header-quick-access .home-icon {
   display: flex;
   align-items: center;
-  margin-right: 1rem;
+  margin-inline-end: 1rem;
   flex-shrink: 0;
 }
 
@@ -161,7 +161,7 @@ body:not(.board-view) #header #header-main-bar h1 {
 
 #header-quick-access .home-icon .fa-home {
   font-size: 16px;
-  margin-right: 4px;
+  margin-inline-end: 4px;
 }
 
 #header-quick-access .allBoards {
@@ -257,10 +257,10 @@ body:not(.board-view) #header #header-main-bar h1 {
 }
 #header-quick-access ul.header-quick-access-list li:first-child .fa-home,
 #header-quick-access ul.header-quick-access-list li:nth-child(3) .fa-globe {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 #header-quick-access ul.header-quick-access-list li a.js-create-board {
-  margin-left: 5px;
+  margin-inline-start: 5px;
 }
 #header-quick-access #header-user-bar,
 #header-quick-access #header-new-board-icon {
@@ -270,10 +270,10 @@ body:not(.board-view) #header #header-main-bar h1 {
   margin: 2px 0;
 }
 #header-quick-access #header-user-bar .header-user-bar-avatar {
-  float: left;
+  float: inline-start;
   position: relative;
   top: -5px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 #header-quick-access #header-user-bar .header-user-bar-avatar .member,
 #header-quick-access #header-help {
@@ -286,7 +286,7 @@ body:not(.board-view) #header #header-main-bar h1 {
 #header-quick-access #header-user-bar .header-user-bar-name,
 #header-quick-access #header-help  {
   margin: 4px 8px 0 0;
-  float: left;
+  float: inline-start;
 }
 
 /* Zoom Controls in Header */
@@ -299,7 +299,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   border-radius: 0.5vw;
   box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
   margin: 0 1vw;
-  float: left;
+  float: inline-start;
 }
 
 #header-quick-access .zoom-controls .board-header-btn {
@@ -401,7 +401,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   display: flex;
   align-items: center;
   margin: 0 1vw;
-  float: left;
+  float: inline-start;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn {
@@ -486,7 +486,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   transform: scale(1.1) !important;
 }
 #header-quick-access #header-user-bar .header-user-bar-name i.fa-chevron-down {
-  margin-right: 4px;
+  margin-inline-end: 4px;
 }
 #header-quick-access #header-new-board-icon {
   flex-grow: 1;
@@ -522,12 +522,12 @@ body:not(.board-view) #header #header-main-bar h1 {
 
   /* Mobile home icon styling */
   #header-quick-access .home-icon {
-    margin-right: 0.5rem;
+    margin-inline-end: 0.5rem;
   }
 
   #header-quick-access .home-icon .fa-home {
     font-size: 16px;
-    margin-right: 4px;
+    margin-inline-end: 4px;
   }
 
   #header-quick-access .home-icon a {
@@ -550,7 +550,7 @@ body:not(.board-view) #header #header-main-bar h1 {
 
     #header-quick-access .home-icon .fa-home {
       font-size: 14px;
-      margin-right: 3px;
+      margin-inline-end: 3px;
     }
   }
 
@@ -612,7 +612,7 @@ body:not(.board-view) #header #header-main-bar h1 {
     /* Mobile header wrapping and spacing */
     #header-quick-access .home-icon {
       flex-shrink: 0 !important;
-      margin-right: 0.5rem !important;
+      margin-inline-end: 0.5rem !important;
       margin-bottom: 4px !important;
     }
 
@@ -808,7 +808,7 @@ body:not(.board-view) #header #header-main-bar h1 {
     /* iPhone 12 Mini header wrapping and spacing */
     #header-quick-access .home-icon {
       flex-shrink: 0 !important;
-      margin-right: 0.5rem !important;
+      margin-inline-end: 0.5rem !important;
       margin-bottom: 6px !important;
     }
 
@@ -868,11 +868,11 @@ body:not(.board-view) #header #header-main-bar h1 {
 
     #header-quick-access .home-icon .fa-home {
       font-size: 20px !important; /* Much larger icon */
-      margin-right: 6px !important;
+      margin-inline-end: 6px !important;
     }
 
     #header-quick-access .home-icon {
-      margin-right: 1rem !important;
+      margin-inline-end: 1rem !important;
     }
 
     /* Make zoom controls larger */
@@ -956,7 +956,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   /* iPhone device header wrapping and spacing */
   .iphone-device #header-quick-access .home-icon {
     flex-shrink: 0 !important;
-    margin-right: 0.5rem !important;
+    margin-inline-end: 0.5rem !important;
     margin-bottom: 4px !important;
   }
 
@@ -1057,7 +1057,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   /* iPhone 12 Mini header wrapping and spacing - JavaScript fallback */
   .iphone-device #header-quick-access .home-icon {
     flex-shrink: 0 !important;
-    margin-right: 0.5rem !important;
+    margin-inline-end: 0.5rem !important;
     margin-bottom: 6px !important;
   }
 
@@ -1167,7 +1167,7 @@ body:not(.board-view) #header #header-main-bar h1 {
 
   #header-quick-access ul {
     width: calc(100% - 60px);
-    margin-right: 10px;
+    margin-inline-end: 10px;
   }
   #header-quick-access ul li {
     height: 100%;
@@ -1179,7 +1179,7 @@ body:not(.board-view) #header #header-main-bar h1 {
     display: none;
   }
   #header-quick-access #header-user-bar {
-    right: auto;
+    inset-inline-end: auto;
     padding: 10px;
     margin: 0 0.5rem;
   }
@@ -1261,7 +1261,7 @@ body:not(.board-view) #header #header-main-bar h1 {
     display: none;
   }
   #header #header-user-bar {
-    float: right;
+    float: inline-end;
   }
 }
 .announcement .viewer {

@@ -143,8 +143,8 @@ button {
 }
 input[type="submit"] .wide,
 button .wide {
-  padding-left: 4vw;
-  padding-right: 4vw;
+  padding-inline-start: 4vw;
+  padding-inline-end: 4vw;
 }
 input[type="submit"]:hover,
 button:hover,
@@ -209,7 +209,7 @@ button.negate:active {
 }
 input[type="submit"] i.fa,
 button i.fa {
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 input[type="submit"].disabled,
 input[type="submit"]:disabled,
@@ -248,7 +248,7 @@ input[type="hidden"] {
 }
 .radio-div input,
 .check-div input {
-  left: -2.5vw;
+  inset-inline-start: -2.5vw;
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -289,7 +289,7 @@ textarea::-moz-placeholder {
 .add-controls button[type=submit],
 .edit-controls input[type=button],
 .add-controls input[type=button] {
-  float: left;
+  float: inline-start;
   height: 4.5vh;
   margin-bottom: 0px;
 }
@@ -301,7 +301,7 @@ textarea::-moz-placeholder {
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
   position: absolute;
-  left: -9999px;
+  inset-inline-start: -9999px;
   visibility: hidden;
   display: none;
 }
@@ -318,14 +318,14 @@ textarea::-moz-placeholder {
 }
 .materialCheckBox.is-checked {
   top: -4px;
-  left: -3px;
+  inset-inline-start: -3px;
   width: 7px;
   height: 15px;
-  margin-right: 6px;
+  margin-inline-end: 6px;
   border-top: 2px solid transparent;
-  border-left: 2px solid transparent;
+  border-inline-start: 2px solid transparent;
   border-bottom: 2px solid #3cb500;
-  border-right: 2px solid #3cb500;
+  border-inline-end: 2px solid #3cb500;
   transform: rotate(40deg);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -334,7 +334,7 @@ textarea::-moz-placeholder {
 /* Grey checkmarks when grey icons setting is enabled */
 body.grey-icons-enabled .materialCheckBox.is-checked {
   border-bottom: 2px solid #7a7a7a;
-  border-right: 2px solid #7a7a7a;
+  border-inline-end: 2px solid #7a7a7a;
 }
 .button-link {
   background: #fff;
@@ -369,12 +369,12 @@ body.grey-icons-enabled .materialCheckBox.is-checked {
   margin: 0;
   padding: 2px 4px;
   position: absolute;
-  right: 5px;
+  inset-inline-end: 5px;
   top: 5px;
   text-align: center;
 }
 .button-link.is-on {
-  padding-right: 30px;
+  padding-inline-end: 30px;
   max-width: 196px;
 }
 .button-link.is-on .on {
@@ -383,11 +383,11 @@ body.grey-icons-enabled .materialCheckBox.is-checked {
 .button-link.inline {
   color: #666;
   padding: 2px 14px;
-  margin-left: 4px;
+  margin-inline-start: 4px;
 }
 .button-link.setting {
   height: 52px;
-  float: left;
+  float: inline-start;
   position: relative;
   margin-top: 0;
 }
@@ -440,7 +440,7 @@ body.grey-icons-enabled .materialCheckBox.is-checked {
   border: none;
   cursor: pointer;
   height: 50px;
-  left: 0;
+  inset-inline-start: 0;
   margin: 0;
   opacity: 0;
   position: absolute;
@@ -501,7 +501,7 @@ body.grey-icons-enabled .materialCheckBox.is-checked {
 button.quiet-button,
 button.loud-text-button {
   background: none;
-  text-align: left;
+  text-align: start;
   line-height: normal;
   border: none;
   box-shadow: none;
@@ -535,7 +535,7 @@ button.loud-text-button:hover {
 }
 .emphasis-button.w-img,
 .quiet-button.w-img {
-  padding-left: 28px;
+  padding-inline-start: 28px;
 }
 .emphasis-button:hover,
 .quiet-button:hover {
@@ -582,13 +582,13 @@ button.loud-text-button:hover {
   background: #dcdcdc;
 }
 .big-link.options {
-  padding-right: 41px;
+  padding-inline-end: 41px;
 }
 .big-link .option {
   height: 30px;
   width: 30px;
   position: absolute;
-  right: 6px;
+  inset-inline-end: 6px;
   top: 6px;
 }
 .big-link.none {
@@ -599,7 +599,7 @@ button.loud-text-button:hover {
   background: transparent;
 }
 .big-link.avatar-changer {
-  padding-right: 51px;
+  padding-inline-end: 51px;
 }
 .big-link.avatar-changer .member {
   border: 1px solid #ccc;
@@ -607,7 +607,7 @@ button.loud-text-button:hover {
   height: 40px;
   width: 40px;
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   top: 0;
 }
 .big-link.avatar-changer .member .member-avatar {
@@ -652,7 +652,7 @@ button.loud-text-button:hover {
   line-height: 34px;
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   width: 100%;
   z-index: 2;
   font-size: 23px;
@@ -687,7 +687,7 @@ button.loud-text-button:hover {
 .dropdown-menu li a img {
   width: 18px;
   height: 18px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
   vertical-align: middle;
 }
 .dropdown-menu li a .minicard-label {
@@ -719,7 +719,7 @@ button.loud-text-button:hover {
 }
 .toggle-label:after {
   position: absolute;
-  left: -2px;
+  inset-inline-start: -2px;
   top: -3px;
   display: block;
   width: 26px;
@@ -737,7 +737,7 @@ button.loud-text-button:hover {
   background-color: #6fbeb5;
 }
 .toggle-switch:checked ~ .toggle-label:after {
-  left: 20px;
+  inset-inline-start: 20px;
   background-color: #179588;
 }
 .toggle-switch:checked:disabled ~ .toggle-label {

@@ -5,7 +5,7 @@ table {
 table td,
 table th {
   border: 1px solid #d2d0d0;
-  text-align: left;
+  text-align: start;
   padding: 8px;
 }
 table tr:nth-child(even) {
@@ -45,15 +45,15 @@ table tr:nth-child(even) {
   margin: auto;
 }
 .more-settings-translation {
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 #cancelBtn {
-  margin-left: 5% !important;
+  margin-inline-start: 5% !important;
   background: #ffa500;
   color: #fff;
 }
 #deleteAction {
-  margin-left: 5% !important;
+  margin-inline-start: 5% !important;
 }
 p.js-translation-language {
   font-weight: bold;

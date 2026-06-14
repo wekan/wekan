@@ -58,7 +58,7 @@
   font-size: 13px;
 }
 .setting-content .content-body .side-menu ul li a i {
-  margin-right: 20px;
+  margin-inline-end: 20px;
 }
 .setting-content .content-body .main-body {
   -webkit-user-select: text;
@@ -160,7 +160,7 @@
   height: 1px;
   position: absolute;
   bottom: 0;
-  left: 0;
+  inset-inline-start: 0;
   pointer-events: none;
 }
 .setting-content .content-body .main-body ul li {
@@ -168,12 +168,12 @@
 }
 .setting-content .content-body .main-body ul li a .is-checked {
   border-bottom: 2px solid #3cb500;
-  border-right: 2px solid #3cb500;
+  border-inline-end: 2px solid #3cb500;
 }
 /* Grey checkmarks when grey icons setting is enabled */
 body.grey-icons-enabled .setting-content .content-body .main-body ul li a .is-checked {
   border-bottom: 2px solid #7a7a7a;
-  border-right: 2px solid #7a7a7a;
+  border-inline-end: 2px solid #7a7a7a;
 }
 .setting-content .content-body .main-body ul li a span {
   padding: 0 0.5rem;
@@ -182,7 +182,7 @@ body.grey-icons-enabled .setting-content .content-body .main-body ul li a .is-ch
 .setting-content .content-body .main-body ul li .admin-accessibility,
 .setting-content .content-body .main-body ul li .invite-people,
 .setting-content .content-body .main-body ul li .layout {
-  padding-left: 20px;
+  padding-inline-start: 20px;
 }
 .setting-content .content-body .main-body ul li .admin-announcement li,
 .setting-content .content-body .main-body ul li .admin-accessibility li,
@@ -256,8 +256,8 @@ li.has-error .form-group .wekan-form-control {
 .setting-content .content-body .main-body .custom-manifest-settings textarea.wekan-form-control,
 .setting-content .content-body .main-body .custom-assetlinks-settings textarea.wekan-form-control {
   width: calc(100% - 20px);
-  margin-left: 0;
-  margin-right: 10px;
+  margin-inline-start: 0;
+  margin-inline-end: 10px;
   max-width: calc(100vw - 240px);
   box-sizing: border-box;
 }

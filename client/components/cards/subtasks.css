@@ -59,13 +59,13 @@ textarea.js-edit-subtask-item {
 .js-confirm-subtask-delete {
   background-color: #f7f7f7;
   position: absolute;
-  float: left;
+  float: inline-start;
   width: 60%;
   margin-top: 0;
-  margin-left: 13%;
+  margin-inline-start: 13%;
   padding-bottom: 2%;
-  padding-left: 3%;
-  padding-right: 3%;
+  padding-inline-start: 3%;
+  padding-inline-end: 3%;
   z-index: 17;
   border-radius: 3px;
 }
@@ -86,17 +86,17 @@ textarea.js-edit-subtask-item {
   padding: left 2% right 2%;
 }
 .js-confirm-subtask-delete .js-subtask-delete-buttons .confirm-subtask-delete {
-  margin-left: 12%;
-  float: left;
+  margin-inline-start: 12%;
+  float: inline-start;
 }
 .js-confirm-subtask-delete .js-subtask-delete-buttons .toggle-delete-subtask-dialog {
-  margin-right: 12%;
-  float: right;
+  margin-inline-end: 12%;
+  float: inline-end;
 }
 #card-details-overlay {
   top: 0;
   bottom: -600px;
-  right: 0;
+  inset-inline-end: 0;
   z-index: 15;
 }
 
@@ -140,19 +140,19 @@ textarea.js-edit-subtask-item {
   background-color: #ebebeb;
 }
 .subtasks-item .check-box-container {
-  padding-right: 10px;
+  padding-inline-end: 10px;
 }
 .subtasks-item .check-box {
   margin: 0.1em 0 0 0;
 }
 .subtasks-item .check-box.is-checked {
   border-bottom: 2px solid #3cb500;
-  border-right: 2px solid #3cb500;
+  border-inline-end: 2px solid #3cb500;
 }
 /* Unicode checkbox icons styling */
 .subtasks-item .check-box-unicode {
   font-size: 1.3em;
-  margin-right: 8px;
+  margin-inline-end: 8px;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
@@ -161,7 +161,7 @@ textarea.js-edit-subtask-item {
 /* Grey checkmarks when grey icons setting is enabled */
 body.grey-icons-enabled .subtasks-item .check-box.is-checked {
   border-bottom: 2px solid #7a7a7a;
-  border-right: 2px solid #7a7a7a;
+  border-inline-end: 2px solid #7a7a7a;
 }
 body.grey-icons-enabled .subtasks-item .check-box-unicode {
   filter: grayscale(100%);
@@ -170,7 +170,7 @@ body.grey-icons-enabled .subtasks-item .check-box-unicode {
 }
 .subtasks-item .item-title {
   flex: 1;
-  padding-left: 10px;
+  padding-inline-start: 10px;
 }
 .subtasks-item .item-title.is-checked {
   color: #8c8c8c;

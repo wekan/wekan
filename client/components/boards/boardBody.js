@@ -353,8 +353,10 @@ Template.boardBody.onRendered(function () {
     el.setAttribute('tabindex', '0');
     el.setAttribute('role', 'button');
   });
-  // Set the language attribute on the <html> element for accessibility
+  // Set the language and direction attributes on the <html> element for
+  // accessibility and RTL layout.
   document.documentElement.lang = TAPi18n.getLanguage();
+  document.documentElement.dir = TAPi18n.getLanguageDirection();
 
   // Ensure the accessible name for the board view switcher matches the visible label "Swimlanes"
   // This fixes WCAG 2.5.3: Label in Name
@@ -907,8 +909,10 @@ document.addEventListener('keydown', function (e) {
 });
 
 Template.calendarView.onRendered(function () {
-  // Set the language attribute on the <html> element for accessibility
+  // Set the language and direction attributes on the <html> element for
+  // accessibility and RTL layout.
   document.documentElement.lang = TAPi18n.getLanguage();
+  document.documentElement.dir = TAPi18n.getLanguageDirection();
 
   this.autorun(function () {
     const calendarEl = document.getElementById('calendar-view');
@@ -971,6 +975,7 @@ Template.calendarView.helpers({
         end: '18:00',
       },
       locale: TAPi18n.getLanguage(),
+      isRTL: TAPi18n.isRTL(),
       events(fetchInfo, callback) {
         const currentBoard = Utils.getCurrentBoard();
         const events = [];

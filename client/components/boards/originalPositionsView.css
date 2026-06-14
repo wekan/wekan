@@ -35,7 +35,7 @@
 }
 
 .original-positions-loading i {
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 
 .original-positions-filters {
@@ -117,7 +117,7 @@
 }
 
 .original-position-item-details {
-  margin-left: 24px;
+  margin-inline-start: 24px;
 }
 
 .original-position-description {
@@ -191,7 +191,7 @@
   }
 
   .original-position-item-details {
-    margin-left: 0;
+    margin-inline-start: 0;
     margin-top: 8px;
   }
 }

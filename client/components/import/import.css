@@ -79,7 +79,7 @@ a.show-mapping {
   margin-bottom: 8px;
 }
 .trello-workspace .trello-boards {
-  margin-left: 22px;
+  margin-inline-start: 22px;
 }
 .trello-workspace-title,
 .trello-board {
@@ -92,13 +92,13 @@ a.show-mapping {
 .trello-workspace-title .materialCheckBox,
 .trello-board .materialCheckBox {
   flex: 0 0 auto;
-  margin-right: 12px;
+  margin-inline-end: 12px;
 }
 .trello-select-controls button {
-  margin-right: 6px;
+  margin-inline-end: 6px;
 }
 .trello-job-controls button {
-  margin-right: 6px;
+  margin-inline-end: 6px;
 }
 /* Import progress meter, styled like Admin Panel / Attachments / Move Attachments */
 .trello-progress-label {
@@ -122,8 +122,8 @@ a.show-mapping {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   animation: trelloProgressShimmer 2s infinite;
@@ -133,7 +133,7 @@ a.show-mapping {
   100% { transform: translateX(100%); }
 }
 .trello-progress-percent {
-  text-align: right;
+  text-align: end;
   font-size: 12px;
   color: #666;
   font-weight: 600;
@@ -153,7 +153,7 @@ a.show-mapping {
 
 /* Trello API credential Save/Delete buttons */
 .trello-api-creds-buttons button {
-  margin-right: 6px;
+  margin-inline-end: 6px;
 }
 .trello-creds-saved {
   color: #3cb500;

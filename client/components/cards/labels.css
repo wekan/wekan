@@ -5,7 +5,7 @@
   display: inline-block;
   font-weight: 700;
   font-size: 13px;
-  margin-right: 4px;
+  margin-inline-end: 4px;
   margin-bottom: 5px;
   padding: 3px 8px;
   max-width: 210px;
@@ -140,7 +140,7 @@
 }
 .edit-label .card-label,
 .create-label .card-label {
-  float: left;
+  float: inline-start;
   height: 25px;
   margin: 0px 3% 7px 0px;
   width: 10.5%;
@@ -153,7 +153,7 @@
 }
 .edit-labels .card-label {
   height: 30px;
-  left: 0;
+  inset-inline-start: 0;
   padding: 1px 5px;
   position: absolute;
   top: 0;
@@ -164,7 +164,7 @@
   margin-bottom: 4px;
   position: relative;
   top: auto;
-  left: 0;
+  inset-inline-start: 0;
   width: 260px;
 }
 .edit-labels-pop-over {
@@ -185,24 +185,24 @@
   min-height: 18px;
   padding: 8px;
   position: relative;
-  transition: margin-right 0.1s;
+  transition: margin-inline-end 0.1s;
 }
 .card-label-selectable .card-label-selectable-icon {
   position: absolute;
   top: 8px;
-  right: -20px;
+  inset-inline-end: -20px;
 }
 .card-label-selectable.active:hover,
 .card-label-selectable.active,
 .card-label-selectable.active.selected:hover,
 .card-label-selectable.active.selected {
-  padding-right: 32px;
+  padding-inline-end: 32px;
 }
 .card-label-selectable.active:hover .card-label-selectable-icon,
 .card-label-selectable.active .card-label-selectable-icon,
 .card-label-selectable.active.selected:hover .card-label-selectable-icon,
 .card-label-selectable.active.selected .card-label-selectable-icon {
-  right: 6px;
+  inset-inline-end: 6px;
 }
 .card-label-selectable.selected,
 .card-label-selectable:hover {
@@ -210,21 +210,21 @@
 }
 .active .card-label-selectable,
 .active .card-label-selectable:hover {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 .active .card-label-selectable .card-label-selectable-icon {
-  right: 8px;
+  inset-inline-end: 8px;
 }
 .card-label-edit-button {
   border-radius: 3px;
-  float: right;
+  float: inline-end;
   padding: 8px;
 }
 .card-label-edit-button:hover {
   background: #dbdbdb;
 }
 ul.edit-labels-pop-over span.label-handle {
-  padding-right: 10px;
+  padding-inline-end: 10px;
   display: inline-block;
   width: 1.2em;
   text-align: center;

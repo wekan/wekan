@@ -2,7 +2,7 @@
   border-radius: 3px;
   display: block;
   position: relative;
-  float: left;
+  float: inline-start;
   height: clamp(24px, 3.5vw, 36px);
   width: clamp(24px, 3.5vw, 36px);
   margin: .3vh;
@@ -40,7 +40,7 @@
   height: 7px;
   width: 7px;
   position: absolute;
-  right: -1px;
+  inset-inline-end: -1px;
   bottom: -1px;
   border: 1px solid #fff;
   z-index: 15;
@@ -108,7 +108,7 @@
 .mini-profile-info .info h3,
 .mini-profile-info .info p {
   margin-bottom: 0;
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 .mini-profile-info .info p {
   padding-top: 0;
@@ -116,5 +116,5 @@
 .mini-profile-info .member {
   width: clamp(40px, 5vw, 60px);
   height: clamp(40px, 5vw, 60px);
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }

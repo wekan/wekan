@@ -31,7 +31,7 @@
 .assignee {
   display: block;
   position: relative;
-  float: left;
+  float: inline-start;
   height: clamp(24px, 3.5vw, 36px);
   width: clamp(24px, 3.5vw, 36px);
   margin: 0.3vh;
@@ -73,7 +73,7 @@
   height: 7px;
   width: 7px;
   position: absolute;
-  right: -1px;
+  inset-inline-end: -1px;
   bottom: -1px;
   z-index: 15;
 }
@@ -142,36 +142,36 @@ body.desktop-mode .card-details:not(.card-details-popup) {
 /* Default position for first card or when dragged */
 body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"]):not([style*="top"]) {
   top: 8px;
-  left: 20px;
-  right: 20px;
+  inset-inline-start: 20px;
+  inset-inline-end: 20px;
   bottom: 20px;
 }
 
 /* Stagger positions for multiple cards using nth-of-type */
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(1) {
   top: 8px;
-  left: 20px;
+  inset-inline-start: 20px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(2) {
   top: 38px;
-  left: 50px;
+  inset-inline-start: 50px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(3) {
   top: 68px;
-  left: 80px;
+  inset-inline-start: 80px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(4) {
   top: 98px;
-  left: 110px;
+  inset-inline-start: 110px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(5) {
   top: 128px;
-  left: 140px;
+  inset-inline-start: 140px;
 }
 
 /* For expanded cards, set dimensions */
 body.desktop-mode .card-details:not(.card-details-popup):not(.card-details-collapsed) {
-  right: 20px;
+  inset-inline-end: 20px;
   bottom: 20px;
 }
 
@@ -188,7 +188,7 @@ body.desktop-mode .card-details.card-details-collapsed {
   bottom: auto !important;
 }
 .card-details .mCustomScrollBox {
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 .card-details .card-details-canvas {
   width: auto;
@@ -208,16 +208,16 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .card-number {
   color: #b3b3b3;
   display: inline-block;
-  margin-right: 6px;
+  margin-inline-end: 6px;
 }
 
 /* Collapse toggle triangle */
 .card-details .card-details-header .card-collapse-toggle {
-  float: left;
+  float: inline-start;
   font-size: 20px;
   padding: 7px 10px;
-  margin-left: -10px;
-  margin-right: 5px;
+  margin-inline-start: -10px;
+  margin-inline-end: 5px;
   cursor: pointer;
   user-select: none;
   color: #000;
@@ -228,11 +228,11 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .card-drag-handle {
   font-size: 20px;
   padding: 8px 10px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
   cursor: move;
   user-select: none;
   display: inline-block;
-  float: right;
+  float: inline-end;
   vertical-align: middle;
   line-height: 1.2;
 }
@@ -246,14 +246,14 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .close-card-details-mobile-web,
 .card-details .card-details-header .card-details-menu-mobile-web,
 .card-details .card-details-header .copied-tooltip {
-  float: right;
+  float: inline-end;
 }
 .card-details .card-details-header .close-card-details,
 .card-details .card-details-header .maximize-card-details,
 .card-details .card-details-header .minimize-card-details {
   font-size: 24px;
   padding: 5px 10px 5px 10px;
-  margin-right: -8px;
+  margin-inline-end: -8px;
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
@@ -264,19 +264,19 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .card-mobile-desktop-toggle {
   font-size: 24px;
   padding: 5px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
   cursor: pointer;
   user-select: none;
 }
 .card-details .card-details-header .card-copy-button {
   font-size: 17px;
   padding: 10px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 .card-details .card-details-header .card-copy-mobile-button {
   font-size: 17px;
   padding: 10px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 .card-details .card-details-header .card-details-menu {
   font-size: 17px;
@@ -287,17 +287,17 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .card-details-menu-mobile-web {
   font-size: 17px;
   padding: 10px;
-  margin-right: 30px;
+  margin-inline-end: 30px;
 }
 .card-details .card-details-header .card-mobile-desktop-toggle,
 .card-details .card-details-header .card-zoom-in,
 .card-details .card-details-header .card-zoom-out {
   font-size: 24px;
   padding: 5px 10px 5px 10px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
   cursor: pointer;
   user-select: none;
-  float: right;
+  float: inline-end;
 }
 
 /* Unify all card text to match title size */
@@ -321,7 +321,7 @@ body.desktop-mode .card-details.card-details-collapsed {
 }
 .card-details .card-details-header .card-details-watch {
   font-size: 17px;
-  padding-left: 7px;
+  padding-inline-start: 7px;
   color: #a6a6a6;
 }
 .card-details .card-details-header .card-details-title {
@@ -363,11 +363,11 @@ body.desktop-mode .card-details.card-details-collapsed {
   padding: 0 5px;
 }
 .card-details .card-details-header .copied-tooltip {
-  margin-right: 10px;
+  margin-inline-end: 10px;
   padding: 10px;
 }
 .card-details .card-description i.fa.fa-pencil-square-o {
-  float: right;
+  float: inline-end;
 }
 .card-details .card-description textarea {
   min-height: 100px;
@@ -380,11 +380,11 @@ body.desktop-mode .card-details.card-details-collapsed {
   gap: 0.5em;
 }
 .card-details .card-details-items .card-details-item {
-  margin-right: 0.5em;
+  margin-inline-end: 0.5em;
   flex-grow: 1;
 }
 .card-details .card-details-items .card-details-item:last-child {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 .card-details .card-details-items .card-details-item.card-details-item-labels {
   display: block;
@@ -409,7 +409,7 @@ body.desktop-mode .card-details.card-details-collapsed {
   max-width: 28%;
 }
 .card-details .card-details-items .card-details-item.custom-fields {
-  padding-left: 10px;
+  padding-inline-start: 10px;
 }
 .card-details .card-details-item-title {
   font-size: 16px;
@@ -422,7 +422,7 @@ body.desktop-mode .card-details.card-details-collapsed {
 @media screen and (min-width: 801px) {
   .card-details {
     top: 97px;
-    left: calc(50% - (600px / 2));
+    inset-inline-start: calc(50% - (600px / 2));
     width: 600px;
     bottom: 0;
     position: fixed;
@@ -433,8 +433,8 @@ body.desktop-mode .card-details.card-details-collapsed {
   body.mobile-mode .card-details {
     width: 100vw !important;
     top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
+    inset-inline-start: 0 !important;
+    inset-inline-end: 0 !important;
     bottom: 0 !important;
     height: 100vh !important;
     max-height: 100vh !important;
@@ -456,23 +456,23 @@ body.desktop-mode .card-details.card-details-collapsed {
     transition: flex-basis 0.1s;
     box-sizing: border-box;
     top: 97px;
-    left: 0px;
+    inset-inline-start: 0px;
     height: calc(100% - 100px);
     width: calc(100% - 20px);
-    float: left;
+    float: inline-start;
   }
   .card-details-maximized .card-details-left {
-    float: left;
+    float: inline-start;
     top: 60px;
-    left: 20px;
+    inset-inline-start: 20px;
     width: 47%;
-    border-right: solid 2px #dbdbdb;
-    padding-right: 10px;
+    border-inline-end: solid 2px #dbdbdb;
+    padding-inline-end: 10px;
   }
   .card-details-maximized .card-details-right {
     position: absolute;
-    float: right;
-    left: 50%;
+    float: inline-end;
+    inset-inline-start: 50%;
     margin: 15px 0;
   }
   .card-details-maximized .card-details-header {
@@ -480,12 +480,12 @@ body.desktop-mode .card-details.card-details-collapsed {
   }
 }
 input[type="text"].attachment-add-link-input {
-  float: left;
+  float: inline-start;
   margin: 0 0 8px;
   width: 80%;
 }
 input[type="submit"].attachment-add-link-submit {
-  float: left;
+  float: inline-start;
   margin: 0 0 8px 4px;
   padding: 6px 12px;
   width: 18%;
@@ -501,8 +501,8 @@ input[type="submit"].attachment-add-link-submit {
     -webkit-overflow-scrolling: touch;
     position: fixed !important;
     top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
+    inset-inline-start: 0 !important;
+    inset-inline-end: 0 !important;
     bottom: 0 !important;
     z-index: 100 !important;
     height: 100vh !important;
@@ -515,38 +515,38 @@ input[type="submit"].attachment-add-link-submit {
   body.mobile-mode .card-details {
     z-index: 100 !important;
     width: 100vw !important;
-    left: 0 !important;
-    right: 0 !important;
+    inset-inline-start: 0 !important;
+    inset-inline-end: 0 !important;
   }
   .card-details .card-details-canvas {
     width: 100%;
-    padding-left: 0px;
+    padding-inline-start: 0px;
     padding: 0 15px;
   }
   .card-details .card-details-header .close-card-details {
-    margin-right: 0px;
+    margin-inline-end: 0px;
     display: block !important;
   }
   .card-details .card-details-header .close-card-details-mobile-web {
     display: block !important;
-    margin-right: 5px !important;
+    margin-inline-end: 5px !important;
   }
   .card-details .card-details-header .card-mobile-desktop-toggle {
     display: block !important;
-    margin-right: 5px !important;
+    margin-inline-end: 5px !important;
   }
   .card-details .card-details-header .card-mobile-desktop-toggle {
     display: block !important;
-    margin-right: 5px !important;
+    margin-inline-end: 5px !important;
   }
   .card-details .card-details-header .card-details-menu {
-    margin-right: 40px;
+    margin-inline-end: 40px;
   }
   .card-details .card-details-header .maximize-card-details {
-    margin-right: 40px;
+    margin-inline-end: 40px;
   }
   .card-details .card-details-header .minimize-card-details {
-    margin-right: 40px;
+    margin-inline-end: 40px;
   }
   .card-details-popup {
     padding: 0px 10px;
@@ -565,7 +565,7 @@ input[type="submit"].attachment-add-link-submit {
   }
   /* iPhone mobile: enlarge header buttons and increase spacing */
   body.mobile-mode.iphone-device .card-details .card-details-header {
-    padding-right: 16px;
+    padding-inline-end: 16px;
   }
   body.mobile-mode.iphone-device .card-details .card-details-header .close-card-details,
   body.mobile-mode.iphone-device .card-details .card-details-header .maximize-card-details,
@@ -577,12 +577,12 @@ input[type="submit"].attachment-add-link-submit {
   body.mobile-mode.iphone-device .card-details .card-details-header .card-zoom-out {
     font-size: 2em !important; /* 2x bigger */
     padding: 0.3em !important;
-    margin-right: 0.75em !important; /* 2x space compared to default */
-    margin-left: 0 !important;
+    margin-inline-end: 0.75em !important; /* 2x space compared to default */
+    margin-inline-start: 0 !important;
   }
   /* Avoid clipping of the close button on the right edge */
   body.mobile-mode.iphone-device .card-details .card-details-header .close-card-details {
-    margin-right: 0.75em !important;
+    margin-inline-end: 0.75em !important;
   }
   /* Enlarge the header title too */
   body.mobile-mode.iphone-device .card-details .card-details-header .card-details-title {
@@ -598,8 +598,8 @@ body.mobile-mode .card-details {
   margin: 0px !important;
   position: fixed !important;
   top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
+  inset-inline-start: 0 !important;
+  inset-inline-end: 0 !important;
   bottom: 0 !important;
   z-index: 100 !important;
   height: 100vh !important;
@@ -731,7 +731,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .vote-title .js-edit-date {
   align-self: flex-start;
-  margin-left: 6px;
+  margin-inline-start: 6px;
 }
 .vote-result {
   display: flex;
@@ -750,7 +750,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .poker-title .js-edit-date {
   align-self: flex-start;
-  margin-left: 6px;
+  margin-inline-start: 6px;
 }
 .poker-result {
   display: flex;
@@ -827,11 +827,11 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   display: inline-block;
 }
 .poker-table-side-right {
-  padding-left: 10px;
+  padding-inline-start: 10px;
 }
 @media (max-width: 400px) {
   .poker-table-side-right {
-    padding-left: 0px;
+    padding-inline-start: 0px;
   }
 }
 .estimation-add {
@@ -842,16 +842,16 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .estimation-add input {
   display: inline-block;
-  float: right;
+  float: inline-end;
   margin: auto;
-  margin-right: 10px;
+  margin-inline-end: 10px;
   width: 100px;
   border-radius: 2px;
   padding: 3px 6px;
 }
 .estimation-add button {
   display: inline-block;
-  float: right;
+  float: inline-end;
   margin: auto;
   border-radius: 2px;
   padding: 3px 10px;
@@ -859,7 +859,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .poker-card {
   width: 48px;
   height: 72px;
-  float: left;
+  float: inline-start;
   background: #fff;
   border-radius: 5px;
   display: table;
@@ -918,7 +918,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .card-sticker-select .card-sticker-check {
   position: absolute;
   bottom: 1px;
-  right: 2px;
+  inset-inline-end: 2px;
   font-size: 10px;
   color: #3cb500;
 }
@@ -929,7 +929,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   font-size: 18px;
 }
 .card-sticker .card-sticker-remove {
-  margin-left: 3px;
+  margin-inline-start: 3px;
   font-size: 11px;
   color: #999;
   cursor: pointer;
@@ -940,13 +940,13 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .card-due-complete-toggle {
   display: inline-flex;
   align-items: center;
-  margin-left: 8px;
+  margin-inline-start: 8px;
   vertical-align: middle;
 }
 
 /* Trello-style "mark complete" toggle, left of the card title */
 .card-details-complete-toggle {
-  float: left;
+  float: inline-start;
   display: flex;
   align-items: center;
   /* Title is 1.35em with 1.3 line-height (~28px box) and margin-top 7px; push
@@ -984,7 +984,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   color: #4d4d4d;
 }
 .card-details-item-location .card-location-remove {
-  margin-left: 8px;
+  margin-inline-start: 8px;
   color: #8c8c8c;
   cursor: pointer;
 }

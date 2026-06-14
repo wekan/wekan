@@ -1,5 +1,5 @@
 .due-cards-dueat-list-wrapper {
   max-width: min(500px, 65vw);
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
 }

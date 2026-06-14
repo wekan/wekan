@@ -11,7 +11,7 @@
   height: 15px;
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
   animation: sk-cubemove 1.8s infinite ease-in-out;
 }

@@ -2,7 +2,7 @@
   overflow: hidden;
   overflow-y: scroll;
   max-height: 50vh;
-  padding-right: 0.7vw;
+  padding-inline-end: 0.7vw;
 }
 .rules-lists-item {
   display: block;
@@ -12,7 +12,7 @@
 }
 .rules-lists-item p {
   display: inline-block;
-  float: left;
+  float: inline-start;
   margin: revert;
 }
 .hide-element {
@@ -23,7 +23,7 @@
 }
 .rules-btns-group {
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -38,13 +38,13 @@
 }
 .rules-add input {
   display: inline-block;
-  float: right;
+  float: inline-end;
   margin: auto;
-  margin-right: 1.3vw;
+  margin-inline-end: 1.3vw;
 }
 .rules-add button {
   display: inline-block;
-  float: right;
+  float: inline-end;
   margin: auto;
 }
 .rules-back {
@@ -55,9 +55,9 @@
 }
 .rules-back button {
   display: inline-block;
-  float: right;
+  float: inline-end;
   margin: auto;
-  margin-right: 14px;
+  margin-inline-end: 14px;
 }
 .rules-back .js-goback .fa-arrow-left {
   color: #fff !important;
@@ -134,7 +134,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 10px;
+  inset-inline-start: 10px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-text {
   font-size: 16px;
@@ -153,7 +153,7 @@
   box-shadow: 0 0 0 2px #666 inset;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-text.trigger-text-email {
-  margin-left: 5px;
+  margin-inline-start: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -164,7 +164,7 @@
   width: auto;
   height: 30px;
   margin: 0px;
-  margin-left: 5px;
+  margin-inline-start: 5px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-dropdown input {
   display: inline-block;
@@ -172,8 +172,8 @@
   margin: 0;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content-mail {
-  left: 20px;
-  right: 100px;
+  inset-inline-start: 20px;
+  inset-inline-end: 100px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button {
   position: absolute;
@@ -186,7 +186,7 @@
   box-shadow: inset -1px -1px 3px rgba(0,0,0,0.05);
   text-align: center;
   font-size: 20px;
-  right: 10px;
+  inset-inline-end: 10px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button i {
   position: absolute;
@@ -203,7 +203,7 @@
   top: 30px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button.trigger-button-person {
-  right: -40px;
+  inset-inline-end: -40px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button.trigger-button-color {
   top: unset;
@@ -211,8 +211,8 @@
   transform: unset;
   font-size: 16px;
   width: auto;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
   height: 40px;
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item.trigger-item-mail {

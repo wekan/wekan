@@ -4,7 +4,7 @@
 
 td i.fa-lock.text-red,
 li i.fa-lock.text-red {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .locked-users-table {
@@ -16,7 +16,7 @@ li i.fa-lock.text-red {
 .locked-users-table th,
 .locked-users-table td {
   padding: 8px;
-  text-align: left;
+  text-align: start;
   border-bottom: 1px solid #ddd;
 }
 
@@ -35,7 +35,7 @@ li i.fa-lock.text-red {
 }
 
 .loading-indicator i {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .locked-users-settings {

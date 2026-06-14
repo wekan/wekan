@@ -24,7 +24,7 @@
 }
 
 .migration-header h2 i {
-  margin-right: 10px;
+  margin-inline-end: 10px;
   color: #667eea;
 }
 
@@ -74,7 +74,7 @@
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
-  border-left: 4px solid #667eea;
+  border-inline-start: 4px solid #667eea;
 }
 
 .progress-overview {
@@ -103,8 +103,8 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: linear-gradient(
     90deg,
@@ -147,7 +147,7 @@
 }
 
 .current-step i {
-  margin-right: 8px;
+  margin-inline-end: 8px;
   color: #667eea;
 }
 
@@ -162,7 +162,7 @@
 }
 
 .migration-status i {
-  margin-right: 8px;
+  margin-inline-end: 8px;
   color: #2196f3;
 }
 
@@ -196,12 +196,12 @@
 
 .migration-step.completed {
   background-color: #d4edda;
-  border-left: 4px solid #28a745;
+  border-inline-start: 4px solid #28a745;
 }
 
 .migration-step.current {
   background-color: #cce7ff;
-  border-left: 4px solid #667eea;
+  border-inline-start: 4px solid #667eea;
   animation: pulse 2s infinite;
 }
 
@@ -224,7 +224,7 @@
 }
 
 .step-icon {
-  margin-right: 12px;
+  margin-inline-end: 12px;
   font-size: 18px;
   width: 24px;
   text-align: center;
@@ -260,7 +260,7 @@
 }
 
 .step-progress {
-  text-align: right;
+  text-align: end;
   min-width: 40px;
 }
 
@@ -307,7 +307,7 @@
 }
 
 .jobs-header h2 i {
-  margin-right: 10px;
+  margin-inline-end: 10px;
   color: #667eea;
 }
 
@@ -349,7 +349,7 @@
 .table th,
 .table td {
   padding: 12px 16px;
-  text-align: left;
+  text-align: start;
   border-bottom: 1px solid #e0e0e0;
 }
 
@@ -457,7 +457,7 @@
 }
 
 .add-job-header h2 i {
-  margin-right: 10px;
+  margin-inline-end: 10px;
   color: #667eea;
 }
 
@@ -551,7 +551,7 @@
 }
 
 .board-operations-header h2 i {
-  margin-right: 10px;
+  margin-inline-end: 10px;
   color: #667eea;
 }
 
@@ -592,7 +592,7 @@
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
-  border-left: 4px solid #667eea;
+  border-inline-start: 4px solid #667eea;
 }
 
 .stats-grid {
@@ -624,7 +624,7 @@
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
-  border-left: 4px solid #28a745;
+  border-inline-start: 4px solid #28a745;
 }
 
 .resource-item {
@@ -671,7 +671,7 @@
 
 .resource-value {
   min-width: 50px;
-  text-align: right;
+  text-align: end;
   font-weight: 600;
   color: #333;
   font-size: 14px;
@@ -687,12 +687,12 @@
 }
 
 .search-box .form-control {
-  padding-right: 40px;
+  padding-inline-end: 40px;
 }
 
 .search-icon {
   position: absolute;
-  right: 12px;
+  inset-inline-end: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: #999;
@@ -792,7 +792,7 @@
   font-weight: 600;
   color: #667eea;
   min-width: 35px;
-  text-align: right;
+  text-align: end;
 }
 
 .pagination {

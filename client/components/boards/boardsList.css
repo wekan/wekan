@@ -16,8 +16,8 @@
 }
 
 .boards-left-menu {
-  border-right: 1px solid #e0e0e0;
-  padding-right: 12px;
+  border-inline-end: 1px solid #e0e0e0;
+  padding-inline-end: 12px;
 }
 
 .boards-left-menu ul.menu {
@@ -46,7 +46,7 @@
   border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
-  margin-left: 8px;
+  margin-inline-start: 8px;
 }
 .boards-left-menu .menu-item.active a,
 .boards-left-menu .menu-item a:hover {
@@ -87,12 +87,12 @@
   border: none;
   padding: 2px 8px;
   border-radius: 4px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 
 .workspace-tree {
   list-style: none;
-  padding-left: 10px;
+  padding-inline-start: 10px;
 }
 
 .workspace-node {
@@ -345,7 +345,7 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin-left: 10px; /* Extra space between MultiSelection toggle and Remove Filter */
+  margin-inline-start: 10px; /* Extra space between MultiSelection toggle and Remove Filter */
 }
 
 .boards-path-header .board-header-btn-close:hover {
@@ -429,7 +429,7 @@
   margin: 0 8px;
 }
 .board-list li {
-  float: left;
+  float: inline-start;
   width: 20%;
   box-sizing: border-box;
   position: relative;
@@ -533,7 +533,7 @@
   opacity: 0;
   padding: 9px 9px;
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
 }
@@ -544,7 +544,7 @@
   line-height: 10px;
   padding: 9px 9px;
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
 }
@@ -564,7 +564,7 @@
   height: 18px;
   line-height: 18px;
   opacity: 0;
-  right: 0;
+  inset-inline-end: 0;
   padding: 9px 9px;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
@@ -576,7 +576,7 @@
   height: 18px;
   line-height: 18px;
   opacity: 0;
-  left: 0;
+  inset-inline-start: 0;
   padding: 9px 9px;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
@@ -642,7 +642,7 @@
 .board-list .board-list-item .multi-selection-checkbox {
   position: absolute !important;
   bottom: 4px !important;
-  left: 4px !important;
+  inset-inline-start: 4px !important;
   top: auto !important;
   width: 24px;
   height: 24px;
@@ -673,7 +673,7 @@
   width: 24px !important;
   height: 24px !important;
   top: auto !important;
-  left: 4px !important;
+  inset-inline-start: 4px !important;
   transform: none !important;
   border-radius: 4px !important;
 }
@@ -711,7 +711,7 @@ body.grey-icons-enabled .board-list.is-multiselection-active .js-board.is-checke
 .board-backgrounds-list .board-background-select {
   box-sizing: border-box;
   display: block;
-  float: left;
+  float: inline-start;
   width: 50%;
   padding-top: 12px;
   position: relative;
@@ -721,10 +721,10 @@ body.grey-icons-enabled .board-list.is-multiselection-active .js-board.is-checke
   padding-top: 0;
 }
 .board-backgrounds-list .board-background-select:nth-child(2n) {
-  padding-left: 6px;
+  padding-inline-start: 6px;
 }
 .board-backgrounds-list .board-background-select:nth-child(2n+1) {
-  padding-right: 6px;
+  padding-inline-end: 6px;
 }
 .board-backgrounds-list .board-background-select .background-box {
   color: #fff;
@@ -769,32 +769,32 @@ body.grey-icons-enabled .checkmark-no-grey {
   float: none;
   display: block;
   margin-bottom: 1rem;
-  padding-right: 50px; /* Space for drag handle */
+  padding-inline-end: 50px; /* Space for drag handle */
 }
 .board-list.mobile-view .board-list-item {
   overflow: visible;
   height: 8rem;
   width: 100%;
   margin: 0;
-  padding-right: 50px; /* Ensure content doesn't overlap with drag handle */
+  padding-inline-end: 50px; /* Ensure content doesn't overlap with drag handle */
 }
 
 .board-list.mobile-view .board-list-item .details {
-  padding-right: 50px; /* Extra space for drag handle */
+  padding-inline-end: 50px; /* Extra space for drag handle */
   width: 100%;
   box-sizing: border-box;
 }
 .board-list.mobile-view .board-list-item-sub-name {
   position: relative;
   top: -100px;
-  left: -100px;
+  inset-inline-start: -100px;
 }
 .board-list.mobile-view .board-handle {
   position: absolute;
   padding: 7px;
   top: 50%;
   transform: translateY(-50%);
-  right: 10px;
+  inset-inline-end: 10px;
   font-size: 24px;
   color: #fff;
   background: rgba(0,0,0,0.3);
@@ -878,32 +878,32 @@ body.grey-icons-enabled .checkmark-no-grey {
     float: none;
     display: block;
     margin-bottom: 1rem;
-    padding-right: 50px; /* Space for drag handle */
+    padding-inline-end: 50px; /* Space for drag handle */
   }
   .board-list .board-list-item {
     overflow: visible;
     height: 8rem;
     width: 100%;
     margin: 0;
-    padding-right: 50px; /* Ensure content doesn't overlap with drag handle */
+    padding-inline-end: 50px; /* Ensure content doesn't overlap with drag handle */
   }
 
   .board-list .board-list-item .details {
-    padding-right: 50px; /* Extra space for drag handle */
+    padding-inline-end: 50px; /* Extra space for drag handle */
     width: 100%;
     box-sizing: border-box;
   }
   .board-list .board-list-item-sub-name {
     position: relative;
     top: -100px;
-    left: -100px;
+    inset-inline-start: -100px;
   }
   .board-list .board-handle {
     position: absolute;
     padding: 7px;
     top: 50%;
     transform: translateY(-50%);
-    right: 10px;
+    inset-inline-end: 10px;
     font-size: 24px;
     color: #fff;
     background: rgba(0,0,0,0.3);
@@ -933,7 +933,7 @@ body.grey-icons-enabled .checkmark-no-grey {
     padding: 7px;
     top: 50%;
     transform: translateY(-50%);
-    right: 10px;
+    inset-inline-end: 10px;
     font-size: 24px;
     color: #fff;
     background: rgba(0,0,0,0.3);
@@ -971,9 +971,9 @@ body.grey-icons-enabled .checkmark-no-grey {
   }
 
   .boards-left-menu {
-    border-right: none !important;
+    border-inline-end: none !important;
     border-bottom: 1px solid #e0e0e0;
-    padding-right: 0 !important;
+    padding-inline-end: 0 !important;
     padding-bottom: 12px;
   }
 
@@ -1157,7 +1157,7 @@ body.grey-icons-enabled .checkmark-no-grey {
     padding: 10px !important;
     top: 50%;
     transform: translateY(-50%);
-    right: 15px !important;
+    inset-inline-end: 15px !important;
     font-size: 28px !important; /* Much larger drag handle */
     color: #fff;
     background: rgba(0,0,0,0.4) !important;
@@ -1221,13 +1221,13 @@ body.grey-icons-enabled .checkmark-no-grey {
 .AllBoardTeams,
 .AllBoardOrgs,
 .AllBoardBtns {
-  float: left;
+  float: inline-start;
 }
 .js-AllBoardOrgs {
-  margin-left: 16px;
+  margin-inline-start: 16px;
 }
 .AllBoardTeams {
-  margin-left: 16px;
+  margin-inline-start: 16px;
 }
 .AllBoardButtonsContainer {
   margin: 16px;
@@ -1296,7 +1296,7 @@ body.grey-icons-enabled .checkmark-no-grey {
   padding: 6px 0 6px 8px;
   width: 100%;
   margin-bottom: 2px;
-  margin-left: -4px;
+  margin-inline-start: -4px;
   display: inline-block;
 }
 .minicard-lists {
@@ -1312,7 +1312,7 @@ body.grey-icons-enabled .checkmark-no-grey {
 }
 .flex-wrap .item {
   margin: 2px;
-  padding-right: 6px;
+  padding-inline-end: 6px;
   text-align: center;
 }
 

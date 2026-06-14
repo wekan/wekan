@@ -26,7 +26,7 @@
   display: none;
 }
 .minicard-wrapper .multi-selection-checkbox + .minicard {
-  margin-left: 1vw;
+  margin-inline-start: 1vw;
 }
 /* Enlarge the clickable area of the small selection checkbox so it can be
    reliably clicked at the left side of the minicard. The visible 13px box (and
@@ -36,8 +36,8 @@
   content: "";
   position: absolute;
   top: -8px;
-  left: -8px;
-  right: -8px;
+  inset-inline-start: -8px;
+  inset-inline-end: -8px;
   bottom: -8px;
 }
 @media only screen {
@@ -56,16 +56,16 @@
   }
 }
 .minicard-details-menu-with-handle {
-  float: right;
-  padding-left: 0.7vw;
+  float: inline-end;
+  padding-inline-start: 0.7vw;
   font-size: clamp(14px, 3vw, 18px);
   padding: 0;
   z-index: 1;
 }
 .minicard-details-menu {
-  float: right;
+  float: inline-end;
   font-size: clamp(14px, 3vw, 18px);
-  padding-left: 0.7vw;
+  padding-inline-start: 0.7vw;
 }
 @media print {
   .minicard-details-menu,
@@ -76,7 +76,7 @@
 .minicard.linked-board .linked-icon,
 .minicard.linked-card .linked-icon {
   display: inline-block;
-  margin-right: 1.5vw;
+  margin-inline-end: 1.5vw;
   vertical-align: baseline;
   font-size: 0.9em;
 }
@@ -110,13 +110,13 @@
 }
 .minicard .minicard-labels {
   float: none;
-  margin-right: 6vw;
+  margin-inline-end: 6vw;
 }
 .minicard .minicard-labels .minicard-label {
   width: clamp(12px, 1.5vw, 16px);
   height: clamp(12px, 1.5vw, 16px);
   border-radius: 0.3vw;
-  margin-right: 0.4vw;
+  margin-inline-end: 0.4vw;
   margin-bottom: 4px;
 }
 .minicard .minicard-labels-no-text {
@@ -125,7 +125,7 @@
 }
 .minicard .minicard-custom-fields {
   display: block;
-  margin-right: 6vw;
+  margin-inline-end: 6vw;
 }
 .minicard .minicard-custom-field {
   display: flex;
@@ -135,20 +135,20 @@
   display: block;
   word-wrap: break-word;
   max-width: 13vw;
-  margin-right: 0.5vw;
+  margin-inline-end: 0.5vw;
 }
 .minicard .minicard-custom-field-item-fullwidth {
   flex-grow: 1;
   display: block;
   word-wrap: break-word;
   max-width: 100%;
-  margin-right: 0.5vw;
+  margin-inline-end: 0.5vw;
 }
 .minicard .handle {
   width: clamp(20px, 2.5vw, 28px);
   height: clamp(20px, 2.5vw, 28px);
   position: absolute;
-  right: 0vw;
+  inset-inline-end: 0vw;
   top: 28px;
   display: none;
   z-index: 1;
@@ -166,12 +166,12 @@
   text-align: center;
 }
 .minicard .minicard-title {
-  margin-right: 1.5vw;
+  margin-inline-end: 1.5vw;
 }
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
   display: inline-block;
-  margin-right: 0.7vw;
+  margin-inline-end: 0.7vw;
 }
 @media only screen {
   .minicard .minicard-title p:last-child {
@@ -188,11 +188,11 @@
   flex-wrap: wrap;
   position: relative;
   z-index: 5;
-  margin-right: 6vw;
+  margin-inline-end: 6vw;
   clear: both;
 }
 .minicard .date {
-  margin-right: 0.4vw;
+  margin-inline-end: 0.4vw;
 }
 
 /* Unicode icons for minicard dates - matching cardDate.css */
@@ -211,7 +211,7 @@
 
 .minicard .card-date time::before {
   font-size: inherit;
-  margin-right: 0.3em;
+  margin-inline-end: 0.3em;
   display: inline-block;
 }
 
@@ -324,7 +324,7 @@
 }
 
 .minicard .badges {
-  float: left;
+  float: inline-start;
   margin-top: 8px;
   color: #808080;
 }
@@ -332,8 +332,8 @@
   display: none;
 }
 .minicard .badges .badge {
-  float: left;
-  margin-right: 1.5vw;
+  float: inline-start;
+  margin-inline-end: 1.5vw;
   margin-bottom: 4px;
   font-size: 0.9em;
 }
@@ -344,7 +344,7 @@
   color: #fff;
 }
 .minicard .badges .badge:last-of-type {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 .minicard .badges .badge .badge-icon,
 .minicard .badges .badge .badge-text {
@@ -356,24 +356,24 @@
 }
 .minicard .badges .badge .badge-text {
   font-size: 0.9em;
-  padding-left: 0.3vw;
+  padding-inline-start: 0.3vw;
   line-height: 1.2;
 }
 .minicard .badges .badge .check-list-text {
-  padding-left: 0px;
+  padding-inline-start: 0px;
   line-height: 1.1;
 }
 .minicard .minicard-members,
 .minicard .minicard-assignees,
 .minicard .minicard-creator {
-  float: right;
-  margin-left: 0.7vw;
+  float: inline-end;
+  margin-inline-start: 0.7vw;
   margin-bottom: 4px;
 }
 .minicard .minicard-members .member,
 .minicard .minicard-assignees .member,
 .minicard .minicard-creator .member {
-  float: right;
+  float: inline-end;
   border-radius: 50%;
   height: clamp(24px, 3.5vw, 32px);
   width: clamp(24px, 3.5vw, 32px);
@@ -382,7 +382,7 @@
 .minicard .minicard-members .assignee,
 .minicard .minicard-assignees .assignee,
 .minicard .minicard-creator .assignee {
-  float: right;
+  float: inline-end;
   border-radius: 50%;
   height: clamp(24px, 3.5vw, 32px);
   width: clamp(24px, 3.5vw, 32px);
@@ -408,7 +408,7 @@
   background-color: #eee;
   width: 100%;
   margin-bottom: 3px;
-  margin-left: -0.5vw;
+  margin-inline-start: -0.5vw;
   border-radius: 0.4vw;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -844,7 +844,7 @@
      (the checked materialCheckBox is shifted up 4px by its own positioning). */
   position: relative;
   top: 4px;
-  margin-right: 6px;
+  margin-inline-end: 6px;
   cursor: pointer;
 }
 

@@ -13,7 +13,7 @@
   opacity: 0.6;
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   -webkit-animation: sk-bounce 2s infinite ease-in-out;
   animation: sk-bounce 2s infinite ease-in-out;
 }

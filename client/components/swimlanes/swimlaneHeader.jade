@@ -115,15 +115,15 @@ template(name="setSwimlaneColorPopup")
   form.edit-label.swimlane-color-popup
     // Align content to left and remove default gutter
     .flush-left
-      .palette-colors(style="margin-left:0; padding-left:0; justify-content:flex-start;")
+      .palette-colors(style="margin-inline-start:0; padding-inline-start:0; justify-content:flex-start;")
         each colors
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
               i.fa.fa-check
     // Buttons aligned left too
     .flush-left
-      button.primary.confirm.js-submit(style="margin-left:0") {{_ 'save'}}
-      button.js-remove-color.negate.wide.right(style="margin-left:8px") {{_ 'unset-color'}}
+      button.primary.confirm.js-submit(style="margin-inline-start:0") {{_ 'save'}}
+      button.js-remove-color.negate.wide.right(style="margin-inline-start:8px") {{_ 'unset-color'}}
 
 template(name="setSwimlaneHeightPopup")
   .flush-left.swimlane-height-popup

@@ -2,8 +2,8 @@
   border-radius: 0 0 0.5vw 0.5vw;
   min-width: min(400px, 52vw);
   margin-bottom: 2.5vh;
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
   border-width: 0.3vw;
   border-style: solid;
   border-color: #a2a2a2;
@@ -46,8 +46,8 @@
 }
 .my-cards-dueat-list-wrapper {
   max-width: min(500px, 65vw);
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
 }
 .my-cards-board-table thead {
   border-bottom: 3px solid #4d4d4d;
@@ -62,15 +62,15 @@
 }
 .my-cards-card-title-table {
   font-weight: bold;
-  padding-left: 2px;
+  padding-inline-start: 2px;
   max-width: 243px;
 }
 .my-cards-board-badge {
   width: 36px;
   height: 24px;
-  float: left;
+  float: inline-start;
   border-radius: 5px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 /* Accessibility page styles */

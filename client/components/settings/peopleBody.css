@@ -12,7 +12,7 @@ table th {
   white-space: nowrap;
   min-width: 120px;
   border: 1px solid #d2d0d0;
-  text-align: left;
+  text-align: start;
   padding: 8px;
 }
 table tr:nth-child(even) {
@@ -68,7 +68,7 @@ table tr:nth-child(even) {
 .more-settings-user,
 .more-settings-team,
 .more-settings-org {
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 .js-orgs,
 .js-orgsNewUser {
@@ -82,7 +82,7 @@ table tr:nth-child(even) {
 .allUserChkBox {
   position: static !important;
   visibility: visible !important;
-  left: 0 !important;
+  inset-inline-start: 0 !important;
   display: block !important;
 }
 
@@ -111,7 +111,7 @@ table td:first-child {
   padding: 10px;
 }
 #cancelBtn {
-  margin-left: 5% !important;
+  margin-inline-start: 5% !important;
   background: #01628c;
   color: #fff;
 }
@@ -119,7 +119,7 @@ table td:first-child {
   background: #005377;
 }
 #deleteAction {
-  margin-left: 5% !important;
+  margin-inline-start: 5% !important;
 }
 
 .divLockedUsersFilter {
@@ -149,7 +149,7 @@ table td:first-child {
 
 .unlock-all-btn {
   margin-top: 20px;
-  margin-left: 15px;
+  margin-inline-start: 15px;
   background-color: #01628c;
   color: #fff;
   border: none;
@@ -320,7 +320,7 @@ table td:first-child {
   align-items: center;
   cursor: pointer;
   text-decoration: none;
-  margin-right: 8px;
+  margin-inline-end: 8px;
   vertical-align: middle;
 }
 
@@ -367,7 +367,7 @@ table td:first-child {
 .roles-settings h4,
 .roles-settings .roles-description {
   position: sticky;
-  left: 0;
+  inset-inline-start: 0;
   /* Cap to ~60 characters, and never wider than the viewport, so the text wraps
      into the visible left area at every width (desktop, mid and mobile) instead
      of running off the horizontally-scrolling main-body. */

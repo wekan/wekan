@@ -7,6 +7,23 @@ import { TAPi18n } from '/imports/i18n';
 // the language reactively. If the user is not connected we use the language
 // information provided by the browser, and default to english.
 
+// Keep the root <html> element's `dir` and `lang` attributes in sync with the
+// current language. This is the single global switch that makes every page
+// render right-to-left for RTL languages (Arabic, Persian, Hebrew, Uyghur,
+// Uzbek-Arabic, Yiddish — see imports/i18n/languages.js). Component CSS uses
+// logical properties (margin-inline-start, inset-inline-start, text-align:start,
+// …), so flipping `dir` mirrors the whole UI without per-page handling.
+Meteor.startup(() => {
+  Tracker.autorun(() => {
+    const lang = TAPi18n.getLanguage();
+    const dir = TAPi18n.getLanguageDirection();
+    if (typeof document !== 'undefined' && document.documentElement) {
+      document.documentElement.dir = dir;
+      document.documentElement.lang = lang;
+    }
+  });
+});
+
 Meteor.startup(async () => {
   let currentUser = ReactiveCache.getCurrentUser();
   // If we're still logging in, wait (#4967)

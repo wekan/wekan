@@ -2,8 +2,8 @@
 .migration-progress-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 9999;
@@ -96,8 +96,8 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   animation: migrationProgressShimmer 2s infinite;
@@ -109,7 +109,7 @@
 }
 
 .migration-progress-overall-percentage {
-  text-align: right;
+  text-align: end;
   font-size: 12px;
   color: #666;
   font-weight: 600;
@@ -142,7 +142,7 @@
 }
 
 .migration-progress-step-percentage {
-  text-align: right;
+  text-align: end;
   font-size: 12px;
   color: #666;
   font-weight: 600;
@@ -153,7 +153,7 @@
   padding: 15px;
   background: #f8f9fa;
   border-radius: 6px;
-  border-left: 4px solid #007bff;
+  border-inline-start: 4px solid #007bff;
 }
 
 .migration-progress-status-label {
@@ -174,7 +174,7 @@
   padding: 12px;
   background: #e3f2fd;
   border-radius: 6px;
-  border-left: 4px solid #2196f3;
+  border-inline-start: 4px solid #2196f3;
 }
 
 .migration-progress-details-label {
@@ -238,7 +238,7 @@
 
   .migration-progress-status {
     background: #4a5568;
-    border-left-color: #63b3ed;
+    border-inline-start-color: #63b3ed;
   }
 
   .migration-progress-status-text {
@@ -247,7 +247,7 @@
 
   .migration-progress-details {
     background: #2b6cb0;
-    border-left-color: #4299e1;
+    border-inline-start-color: #4299e1;
   }
 
   .migration-progress-details-label {
@@ -276,8 +276,8 @@
 .attachment-migration-overlay {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.9);
   display: flex;

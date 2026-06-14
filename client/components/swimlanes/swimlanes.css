@@ -1,6 +1,6 @@
 [class=swimlane] {
   position: sticky;
-  left: 0;
+  inset-inline-start: 0;
 }
 .swimlane {
   background: #dedede;
@@ -18,14 +18,14 @@
   color: #a6a6a6;
   position: absolute;
   top: 0.7vh;
-  left: 13vw;
+  inset-inline-start: 13vw;
 }
 .swimlane-header-menu .swimlane-header-collapse-up {
   font-size: 50%;
   color: #a6a6a6;
   position: absolute;
   bottom: 0.7vh;
-  left: 13vw;
+  inset-inline-start: 13vw;
 }
 .swimlane-header-menu .swimlane-header-uncollapse-up {
   font-size: 50%;
@@ -84,7 +84,7 @@
 .swimlane .swimlane-header-wrap .swimlane-header-menu {
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   padding: 0;
   margin: 0;
   font-size: 22px;
@@ -96,7 +96,7 @@
   top: calc(50% + 6px);
   padding: 5px;
   display: inline-block;
-  margin-left: 30px;
+  margin-inline-start: 30px;
   color: #a6a6a6;
   vertical-align: middle;
   line-height: 1.2;
@@ -109,13 +109,13 @@
 .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
   top: calc(50% + 6px);
   padding: 5px;
-  margin-left: 20px;
+  margin-inline-start: 20px;
   font-size: 22px;
   color: #a6a6a6;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
   top: calc(50% + 6px);
-  padding-left: 5px;
+  padding-inline-start: 5px;
   font-size: 22px;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-handle {
@@ -125,7 +125,7 @@
   font-size: clamp(16px, 3vw, 20px);
   display: inline-block;
   vertical-align: middle;
-  margin-left: 30px;
+  margin-inline-start: 30px;
   cursor: move;
   pointer-events: auto;
   color: #a6a6a6;
@@ -138,7 +138,7 @@
   font-size: 24px;
   display: inline-block;
   vertical-align: middle;
-  margin-left: 30px;
+  margin-inline-start: 30px;
   cursor: move;
   pointer-events: auto;
   color: #a6a6a6;
@@ -294,8 +294,8 @@
 .swimlane-resize-handle {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: 8px;
   background: transparent;
   cursor: row-resize;
@@ -318,8 +318,8 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: 2px;
   background: rgba(0, 123, 255, 0.3);
   z-index: 21;

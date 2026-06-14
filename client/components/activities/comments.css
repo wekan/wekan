@@ -6,7 +6,7 @@
   opacity: 0.7;
   position: absolute;
   top: 1px;
-  left: -38px;
+  inset-inline-start: -38px;
 }
 .new-comment.is-open .member {
   opacity: 1;
@@ -84,7 +84,7 @@
   flex: 1;
   align-self: center;
   margin: 0;
-  margin-left: 3px;
+  margin-inline-start: 3px;
   overflow: hidden;
   word-break: break-word;
 }
@@ -113,7 +113,7 @@
   font-size: clamp(14px, 2vw, 18px);
   font-weight: 500;
   line-height: 1;
-  margin-left: 4px;
+  margin-inline-start: 4px;
 }
 .comments .comment .comment-desc .reactions .reaction {
   cursor: pointer;

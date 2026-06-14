@@ -36,7 +36,7 @@
   flex: 1;
   align-self: center;
   margin: 0;
-  margin-left: 0.4vw;
+  margin-inline-start: 0.4vw;
   overflow: hidden;
   word-break: break-word;
 }

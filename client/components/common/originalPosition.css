@@ -13,7 +13,7 @@
 }
 
 .original-position-loading i {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .original-position-details {
@@ -34,7 +34,7 @@
 
 .original-position-moved i {
   color: #f39c12;
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .original-position-unchanged {
@@ -48,7 +48,7 @@
 
 .original-position-unchanged i {
   color: #28a745;
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .original-position-text {

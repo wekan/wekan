@@ -4,16 +4,16 @@
   flex-direction: column;
   position: relative;
   background: #dedede;
-  border-left: 1px solid #ccc;
+  border-inline-start: 1px solid #ccc;
   padding: 0;
-  float: left;
+  float: inline-start;
 }
 
 /* List resize handle */
 .list-resize-handle {
   position: absolute;
   top: 0;
-  right: -3px;
+  inset-inline-end: -3px;
   width: 6px;
   height: 100%;
   cursor: col-resize;
@@ -85,7 +85,7 @@
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
   /* Override any conflicting layout properties */
-  float: left !important;
+  float: inline-start !important;
   display: block !important;
   position: relative !important;
   /* Force width to be respected */
@@ -129,7 +129,7 @@ body.list-resizing-active * {
   flex-basis: auto !important;
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
-  float: left !important;
+  float: inline-start !important;
   display: block !important;
 }
 
@@ -145,7 +145,7 @@ body.list-resizing-active * {
   flex-basis: auto !important;
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
-  float: left !important;
+  float: inline-start !important;
   display: block !important;
 }
 
@@ -189,7 +189,7 @@ body.list-resizing-active * {
 .list-header .js-open-list-menu {
   position: absolute !important;
   top: 5px !important;
-  right: 10px !important;
+  inset-inline-end: 10px !important;
   z-index: 15 !important;
   display: inline-block !important;
   padding: 4px !important;
@@ -198,7 +198,7 @@ body.list-resizing-active * {
 .list-header .list-header-plus-top {
   position: absolute !important;
   top: 5px !important;
-  right: 30px !important;
+  inset-inline-end: 30px !important;
   z-index: 15 !important;
   display: inline-block !important;
   padding: 4px !important;
@@ -207,7 +207,7 @@ body.list-resizing-active * {
 .list-header .list-header-handle-desktop {
   position: absolute !important;
   top: 5px !important;
-  right: 80px !important;
+  inset-inline-end: 80px !important;
   z-index: 15 !important;
   display: inline-block !important;
   cursor: move !important;
@@ -229,11 +229,11 @@ body.list-resizing-active * {
   flex: 1;
 }
 .list:first-child {
-  border-left: none;
+  border-inline-start: none;
   flex: none;
 }
 .card-details + .list {
-  border-left: none;
+  border-inline-start: none;
 }
 .list.ui-sortable-helper {
   box-shadow: -2px 2px 8px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5);
@@ -311,7 +311,7 @@ body.list-resizing-active * {
   white-space: nowrap;
   display: block;
   width: auto;
-  left: auto !important;
+  inset-inline-start: auto !important;
   top: auto !important;
 }
 .list.list-collapsed .list-header .list-header-handle {
@@ -322,7 +322,7 @@ body.list-resizing-active * {
   display: block;
   width: auto;
   top: auto !important;
-  right: auto !important;
+  inset-inline-end: auto !important;
   visibility: visible !important;
   opacity: 1 !important;
   pointer-events: auto !important;
@@ -336,8 +336,8 @@ body.list-resizing-active * {
   display: block;
   width: auto;
   top: auto !important;
-  right: auto !important;
-  left: auto !important;
+  inset-inline-end: auto !important;
+  inset-inline-start: auto !important;
   transform: none !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -373,7 +373,7 @@ body.list-resizing-active * {
   max-height: 100%;
   height: 100%;
   position: static;
-  left: auto;
+  inset-inline-start: auto;
   top: auto;
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -443,7 +443,7 @@ form.inlined-form .list-composer {
 /* Sum badge shown before list title */
 .list-header .list-sum-badge {
   display: inline-block;
-  margin-right: 8px;
+  margin-inline-end: 8px;
   padding: 0;
   border-radius: 0;
   background: transparent;
@@ -456,19 +456,19 @@ form.inlined-form .list-composer {
   width: 1.3vw;
   height: 35vh;
   margin-top: -12vh;
-  margin-left: -14vw;
-  margin-right: 0;
+  margin-inline-start: -14vw;
+  margin-inline-end: 0;
   transform: rotate(90deg);
   position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .list-header .list-header-watch-icon {
-  padding-left: 10px;
+  padding-inline-start: 10px;
   color: #a6a6a6;
 }
 .list-header .list-header-menu {
-  float: right;
+  float: inline-end;
 }
 @media print {
   .list-header .list-header-menu,
@@ -478,7 +478,7 @@ form.inlined-form .list-composer {
 }
 .list-header .list-header-plus-top {
   color: #a6a6a6;
-  margin-right: 15px;
+  margin-inline-end: 15px;
   vertical-align: middle;
   line-height: 1.2;
 }
@@ -487,13 +487,13 @@ form.inlined-form .list-composer {
 }
 .list-header .list-header-collapse-left {
   color: #a6a6a6;
-  margin-right: 15px;
+  margin-inline-end: 15px;
 }
 /* List header collapse button styling - positioned at top left */
 .list-header .js-collapse {
   position: absolute !important;
   top: 5px !important;
-  left: 10px !important;
+  inset-inline-start: 10px !important;
   color: #a6a6a6;
   display: inline-block;
   vertical-align: top;
@@ -527,8 +527,8 @@ form.inlined-form .list-composer {
 .list:not(.list-collapsed):not(.mobile-view) .list-header .js-collapse {
   position: static !important;
   top: auto !important;
-  left: auto !important;
-  right: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
   transform: none !important;
   margin: 0 !important;
   min-width: 24px;
@@ -580,7 +580,7 @@ form.inlined-form .list-composer {
     margin: 0;
     overflow: hidden;
     position: static;
-    left: auto;
+    inset-inline-start: auto;
     top: auto;
     writing-mode: vertical-rl;
     text-orientation: mixed;
@@ -631,7 +631,7 @@ form.inlined-form .list-composer {
     margin: 0;
     overflow: hidden;
     position: static;
-    left: auto;
+    inset-inline-start: auto;
     top: auto;
     writing-mode: vertical-rl;
     text-orientation: mixed;
@@ -682,7 +682,7 @@ form.inlined-form .list-composer {
     margin: 0;
     overflow: hidden;
     position: static;
-    left: auto;
+    inset-inline-start: auto;
     top: auto;
     writing-mode: vertical-rl;
     text-orientation: mixed;
@@ -702,7 +702,7 @@ form.inlined-form .list-composer {
 }
 .list-header .list-header-collapse {
   color: #a6a6a6;
-  margin-right: 15px;
+  margin-inline-end: 15px;
 }
 .list-header .highlight {
   color: #ce1414;
@@ -716,7 +716,7 @@ form.inlined-form .list-composer {
 .js-open-list-menu,
 .list-header-menu a {
   color: #4d4d4d;
-  padding-left: 4px;
+  padding-inline-start: 4px;
 }
 .js-open-list-menu {
   font-size: 18px;
@@ -757,7 +757,7 @@ form.inlined-form .list-composer {
   }
 }
 .list-body .open-minicard-composer i.fa {
-  margin-right: 7px;
+  margin-inline-end: 7px;
 }
 .list-body .open-minicard-composer:hover {
   background: #fafafa;
@@ -775,16 +775,16 @@ form.inlined-form .list-composer {
 }
 #js-wip-limit-edit .wip-limit-value {
   width: 20%;
-  margin-right: 5%;
+  margin-inline-end: 5%;
 }
 #js-wip-limit-edit .wip-limit-error {
   display: none;
 }
 #js-wip-limit-edit .soft-wip-limit {
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 #js-wip-limit-edit div {
-  float: left;
+  float: inline-start;
 }
 #js-list-width-edit .list-width-error {
   display: none;
@@ -796,7 +796,7 @@ form.inlined-form .list-composer {
   width: 100vw;
   max-width: 100vw;
   min-width: 100vw;
-  border-left: 0px !important;
+  border-inline-start: 0px !important;
   border-bottom: 1px solid #ccc;
   display: block !important;
 }
@@ -806,19 +806,19 @@ form.inlined-form .list-composer {
   width: 100vw;
   max-width: 100vw;
   min-width: 100vw;
-  border-left: 0px !important;
+  border-inline-start: 0px !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 .list.mobile-view:first-child {
-  margin-left: 0px;
+  margin-inline-start: 0px;
 }
 .list.mobile-view.ui-sortable-helper {
   flex: 0 0 60px;
   height: 60px;
   width: 100vw;
   max-width: 100vw;
-  border-left: 0px !important;
+  border-inline-start: 0px !important;
   border-bottom: 1px solid #ccc;
   display: block !important;
 }
@@ -830,7 +830,7 @@ form.inlined-form .list-composer {
   height: 60px;
   width: 100vw;
   max-width: 100vw;
-  border-left: 0px !important;
+  border-inline-start: 0px !important;
   border-bottom: 1px solid #ccc;
   display: block !important;
 }
@@ -857,10 +857,10 @@ form.inlined-form .list-composer {
 }
 .list.mobile-view .list-header .list-header-left-icon {
   padding: 7px;
-  padding-right: 27px;
+  padding-inline-end: 27px;
   margin-top: 1px;
   top: -7px;
-  left: -7px;
+  inset-inline-start: -7px;
 }
 .list.mobile-view .list-header .list-header-menu-icon {
   padding: 14px;
@@ -868,7 +868,7 @@ form.inlined-form .list-composer {
   text-align: center;
   /* Force positioning for iPhone */
   position: absolute !important;
-  right: 60px !important;
+  inset-inline-end: 60px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 10;
@@ -879,7 +879,7 @@ form.inlined-form .list-composer {
   text-align: center;
   /* Force positioning for iPhone */
   position: absolute !important;
-  right: 10px !important;
+  inset-inline-end: 10px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 10;
@@ -902,9 +902,9 @@ form.inlined-form .list-composer {
   grid-row: 2;
   grid-column: 2;
   align-self: start;
-  text-align: left;
-  padding-left: 0;
-  margin-left: 0;
+  text-align: start;
+  padding-inline-start: 0;
+  margin-inline-start: 0;
   font-size: 16px !important;
   line-height: 1.2;
 }
@@ -936,7 +936,7 @@ form.inlined-form .list-composer {
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
-    border-left: 0px !important;
+    border-inline-start: 0px !important;
     border-bottom: 1px solid #ccc;
     display: block !important;
   }
@@ -946,19 +946,19 @@ form.inlined-form .list-composer {
     width: 100vw;
     max-width: 100vw;
     min-width: 100vw;
-    border-left: 0px !important;
+    border-inline-start: 0px !important;
     margin: 0 !important;
     padding: 0 !important;
   }
   .list:first-child {
-    margin-left: 0px;
+    margin-inline-start: 0px;
   }
   .list.ui-sortable-helper {
     flex: 0 0 60px;
     height: 60px;
     width: 100vw;
     max-width: 100vw;
-    border-left: 0px !important;
+    border-inline-start: 0px !important;
     border-bottom: 1px solid #ccc;
     display: block !important;
   }
@@ -970,7 +970,7 @@ form.inlined-form .list-composer {
     height: 60px;
     width: 100vw;
     max-width: 100vw;
-    border-left: 0px !important;
+    border-inline-start: 0px !important;
     border-bottom: 1px solid #ccc;
     display: block !important;
   }
@@ -993,10 +993,10 @@ form.inlined-form .list-composer {
   }
   .list-header .list-header-left-icon {
     padding: 7px;
-    padding-right: 27px;
+    padding-inline-end: 27px;
     margin-top: 1px;
     top: -7px;
-    left: -7px;
+    inset-inline-start: -7px;
   }
   .list-header .list-header-menu-icon {
     padding: 14px;
@@ -1004,7 +1004,7 @@ form.inlined-form .list-composer {
     text-align: center;
     /* iOS Safari fallback positioning */
     position: absolute;
-    right: 60px;
+    inset-inline-end: 60px;
     top: 50%;
     transform: translateY(-50%);
   }
@@ -1014,7 +1014,7 @@ form.inlined-form .list-composer {
     text-align: center;
     /* iOS Safari fallback positioning */
     position: absolute;
-    right: 10px;
+    inset-inline-end: 10px;
     top: 50%;
     transform: translateY(-50%);
   }
@@ -1080,7 +1080,7 @@ form.inlined-form .list-composer {
   .list.mobile-view .list-header .list-header-menu-icon {
     /* Remove absolute positioning for iPhone 12 Mini */
     position: static !important;
-    right: auto !important;
+    inset-inline-end: auto !important;
     top: auto !important;
     transform: none !important;
     /* Use grid positioning */
@@ -1094,7 +1094,7 @@ form.inlined-form .list-composer {
   .list.mobile-view .list-header .list-header-handle {
     /* Remove absolute positioning for iPhone 12 Mini */
     position: static !important;
-    right: auto !important;
+    inset-inline-end: auto !important;
     top: auto !important;
     transform: none !important;
     /* Use grid positioning */
@@ -1119,9 +1119,9 @@ form.inlined-form .list-composer {
     grid-row: 2 !important;
     grid-column: 2 !important;
     align-self: start !important;
-    text-align: left !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
+    text-align: start !important;
+    padding-inline-start: 0 !important;
+    margin-inline-start: 0 !important;
     font-size: 16px !important;
     line-height: 1.2 !important;
   }
@@ -1145,7 +1145,7 @@ form.inlined-form .list-composer {
 .iphone-device .list.mobile-view .list-header .list-header-menu-icon {
   /* Remove absolute positioning for iPhone devices */
   position: static !important;
-  right: auto !important;
+  inset-inline-end: auto !important;
   top: auto !important;
   transform: none !important;
   /* Use grid positioning */
@@ -1159,7 +1159,7 @@ form.inlined-form .list-composer {
 .iphone-device .list.mobile-view .list-header .list-header-handle {
   /* Remove absolute positioning for iPhone devices */
   position: static !important;
-  right: auto !important;
+  inset-inline-end: auto !important;
   top: auto !important;
   transform: none !important;
   /* Use grid positioning */
@@ -1216,7 +1216,7 @@ form.inlined-form .list-composer {
   align-items: baseline;
 }
 .link-board-wrapper .js-link-board {
-  margin-left: 15px;
+  margin-inline-start: 15px;
 }
 .search-card-results {
   max-height: 250px;
@@ -1321,8 +1321,8 @@ form.inlined-form .list-composer {
 .list.list-collapsed:not(.mobile-view) .list-header .list-header-handle {
   position: relative !important;
   top: auto !important;
-  right: auto !important;
-  left: auto !important;
+  inset-inline-end: auto !important;
+  inset-inline-start: auto !important;
   transform: none !important;
   display: block !important;
   margin: 4px auto 2px auto !important;
@@ -1337,8 +1337,8 @@ form.inlined-form .list-composer {
 .list.list-collapsed:not(.mobile-view) .list-header .js-collapse {
   position: relative !important;
   top: auto !important;
-  left: auto !important;
-  right: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
   display: block !important;
   margin: 2px auto !important;
   z-index: 400 !important;
@@ -1374,7 +1374,7 @@ form.inlined-form .list-composer {
   transform: none !important;
   writing-mode: vertical-lr !important;
   text-orientation: mixed !important;
-  text-align: left !important;
+  text-align: start !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
@@ -1444,8 +1444,8 @@ form.inlined-form .list-composer {
   flex: 0 0 auto;
   position: static !important;
   top: auto !important;
-  left: auto !important;
-  right: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
   transform: none !important;
   margin: 2px 2px 0 0 !important;
   padding: 2px 4px !important;
@@ -1463,7 +1463,7 @@ form.inlined-form .list-composer {
   flex: 1 0 100%;
   min-width: 0;
   padding-top: 4px !important;
-  padding-right: 0 !important;
+  padding-inline-end: 0 !important;
 }
 
 /* Hide standalone duplicate drag handle outside the menu group */
@@ -1475,7 +1475,7 @@ form.inlined-form .list-composer {
 .list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-watch-icon {
   order: 2;
   flex: 0 0 auto;
-  padding-left: 0;
+  padding-inline-start: 0;
   align-self: center;
 }
 
@@ -1486,7 +1486,7 @@ form.inlined-form .list-composer {
   display: inline-flex !important;
   align-items: center;
   gap: 4px;
-  margin-left: auto;
+  margin-inline-start: auto;
   margin-top: 2px;
   flex: 0 0 auto;
 }
@@ -1497,8 +1497,8 @@ form.inlined-form .list-composer {
 .list:not(.list-collapsed):not(.mobile-view) .list-header .list-header-menu .js-open-list-menu {
   position: static !important;
   top: auto !important;
-  right: auto !important;
-  left: auto !important;
+  inset-inline-end: auto !important;
+  inset-inline-start: auto !important;
   transform: none !important;
   display: inline-flex !important;
   align-items: center;
@@ -1533,7 +1533,7 @@ form.inlined-form .list-composer {
 
 .list.list-collapsed .list-header .js-collapse {
   position: relative !important;
-  left: -10px !important;
+  inset-inline-start: -10px !important;
   color: #333;
   background: transparent;
   border: none;
