@@ -1,3 +1,7 @@
+{% raw %}
+<!-- The webhook payload examples below contain {{placeholder}} tokens. Wrap the
+     whole page in raw so Jekyll's Liquid engine outputs them literally instead
+     of trying to evaluate (and erroring on) them when building GitHub Pages. -->
 # Webhook data
 
 When a webhook is activated it sends the related information within the POST request body.
@@ -342,7 +346,7 @@ Webhooks that are raised on list events
   "text": "{{wekan-username}} Swimlane \"{{swimlane-name}}\" at board \"{{board-name}}\" moved to Archive\nhttp://{{wekan-host}}/b/{{board-id}}/{{board-name}}",
   "boardId": "{{board-id}}",
   "user": "{{wekan-username}}",
-  "swimlaneId": "{{swimlane-id}",
+  "swimlaneId": "{{swimlane-id}}",
   "description": "act-archivedSwimlane"
 }
 ```
@@ -354,7 +358,8 @@ Webhooks that are raised on list events
   "text": "{{wekan-username}} act-removeSwimlane\nhttp://{{wekan-host}}/b/{{board-id}}/{{board-name}}",
   "boardId": "{{board-id}}",
   "user": "{{wekan-username}}",
-  "swimlaneId": "{{swimlane-id}",
+  "swimlaneId": "{{swimlane-id}}",
   "description": "act-removeSwimlane"
 }
 ```
+{% endraw %}

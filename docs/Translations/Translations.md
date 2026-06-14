@@ -1,3 +1,6 @@
+{% raw %}
+<!-- Contains literal {{_ '...'}} template snippets; wrap in raw so Jekyll's
+     Liquid engine does not try to evaluate them when building GitHub Pages. -->
 # Adding language support for new language
 
 You are encouraged to translate (or improve the translation of) Wekan in your
@@ -82,3 +85,4 @@ index 10260ff2b..b16200c1a 100644
 +  "end-repeat-on": "End repeat on"
  }
 ```
+{% endraw %}

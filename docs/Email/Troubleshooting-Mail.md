@@ -1,3 +1,6 @@
+{% raw %}
+<!-- Contains a literal {{variable}} code example; wrap in raw so Jekyll's
+     Liquid engine does not try to evaluate it when building GitHub Pages. -->
 [Azure Email Communication Service](https://github.com/wekan/wekan/issues/5453)
 
 [Uberspace Email](https://github.com/wekan/wekan/issues/2009#issuecomment-1017630758)
@@ -569,3 +572,4 @@ By default zoho uses port number 465 with TLS enabled.
 Step 3: form MAIL_FROM
 
 MAIL_FROM=Wekan Notifications <user1@example.com>
+{% endraw %}

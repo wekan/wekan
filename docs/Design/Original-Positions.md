@@ -1,3 +1,6 @@
+{% raw %}
+<!-- Contains literal {{> ...}} template snippets; wrap in raw so Jekyll's
+     Liquid engine does not try to evaluate them when building GitHub Pages. -->
 # Original Positions Tracking Feature
 
 This feature allows users to see the original positions of swimlanes, lists, and cards before the list naming feature was added in commit [719ef87efceacfe91461a8eeca7cf74d11f4cc0a](https://github.com/wekan/wekan/commit/719ef87efceacfe91461a8eeca7cf74d11f4cc0a).
@@ -246,3 +249,4 @@ For issues or questions about the original positions tracking feature, please:
 2. Verify that all required files are present
 3. Test with a new board to ensure the feature works correctly
 4. Report issues with detailed error messages and steps to reproduce
+{% endraw %}
