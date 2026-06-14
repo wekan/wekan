@@ -80,25 +80,26 @@ template(name="userFormsLayout")
                   option(value="{{tag}}") {{name}}
 
 template(name="defaultLayout")
+  a.skip-link(href="#content") {{_ 'skip-to-content'}}
   +header
-  #content
+  #content(role="main" tabindex="-1")
     | {{{afterBodyStart}}}
     +Template.dynamic(template=content)
     | {{{beforeBodyEnd}}}
   +boardConversionProgress
   if (Modal.isOpen)
-    #modal
+    #modal(role="dialog" aria-modal="true" aria-label="{{_ 'modal-title'}}")
       .overlay
       if (Modal.isWide)
         .modal-content-wide.modal-container
-          a.modal-close-btn.js-close-modal
-            i.fa.fa-times-thin
+          a.modal-close-btn.js-close-modal(aria-label="{{_ 'close-dialog'}}")
+            i.fa.fa-times-thin(aria-hidden="true")
           +Template.dynamic(template=Modal.getHeaderName)
           +Template.dynamic(template=Modal.getTemplateName)
       else
         .modal-content.modal-container
-          a.modal-close-btn.js-close-modal
-            i.fa.fa-times-thin
+          a.modal-close-btn.js-close-modal(aria-label="{{_ 'close-dialog'}}")
+            i.fa.fa-times-thin(aria-hidden="true")
           +Template.dynamic(template=Modal.getHeaderName)
           +Template.dynamic(template=Modal.getTemplateName)
 

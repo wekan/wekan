@@ -29,7 +29,8 @@ template(name="resultsPaged")
 template(name="globalSearch")
   if currentUser
     .wrapper(class=boardColorClass)
-      form.global-search-page.js-search-query-form(onsubmit="return false;")
+      form.global-search-page.js-search-query-form(role="search" onsubmit="return false;")
+        label.sr-only(for="global-search-input") {{_ 'globalSearch-title'}}
         input.global-search-query-input(
           style="display: inline-block;"
           id="global-search-input"
@@ -37,10 +38,11 @@ template(name="globalSearch")
           name="searchQuery"
           placeholder="{{_ 'search-example'}}"
           value="{{ queryValue }}"
+          aria-label="{{_ 'globalSearch-title'}}"
           autofocus dir="auto"
         )
-        button.js-new-search.board-color-belize(type="button" style="background: #216694 !important; background-color: #216694 !important; color: #fff !important; border: none !important;")
-          | 🧹
+        button.js-new-search.board-color-belize(type="button" aria-label="{{_ 'globalSearch-title'}}" style="background: #216694 !important; background-color: #216694 !important; color: #fff !important; border: none !important;")
+          span(aria-hidden="true") 🧹
       if searching
         +spinner
       else if hasResults

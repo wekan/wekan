@@ -5,7 +5,7 @@ template(name="header")
     Reddit "subreddit" bar.
     The first link goes to the boards page.
   if currentUser
-    #header-quick-access(class=currentBoard.colorClass)
+    #header-quick-access(class=currentBoard.colorClass role="navigation" aria-label="{{_ 'all-boards'}}")
       // Home icon - always at left side of logo
       span.home-icon.allBoards
         a(href="{{pathFor 'home'}}")
@@ -108,14 +108,13 @@ template(name="header")
 
   if currentUser.isBoardMember
     if hasAnnouncement
-      .announcement
+      .announcement(role="status" aria-live="polite")
         p
-          i.fa.fa-bullhorn
+          i.fa.fa-bullhorn(aria-hidden="true")
           +viewer
             | #{announcement}
-          a
-            .js-close-announcement
-              i.fa.fa-times-thin
+          a.js-close-announcement(aria-label="{{_ 'close'}}")
+            i.fa.fa-times-thin(aria-hidden="true")
 
 template(name="offlineWarning")
   .offline-warning

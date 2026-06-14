@@ -19,14 +19,14 @@ template(name="sidebar")
         a.sidebar-accessibility
           i.fa.fa-universal-access
           span {{_ 'accessibility'}}
-      a.sidebar-xmark.js-close-sidebar &#10005;
+      a.sidebar-xmark.js-close-sidebar(aria-label="{{_ 'close'}}") &#10005;
     .sidebar-content.js-board-sidebar-content
       //a.hide-btn.js-hide-sidebar
       //
         i.fa.fa-navicon
       unless isDefaultView
         h2
-          a.fa.fa-arrow-left.js-back-home
+          a.fa.fa-arrow-left.js-back-home(aria-label="{{_ 'go-back'}}")
           = getViewTitle
       if isOpen
         +Template.dynamic(template=getViewTemplate)

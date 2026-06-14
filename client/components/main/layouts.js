@@ -257,6 +257,30 @@ Template.defaultLayout.events({
   },
 });
 
+// Accessibility (WCAG 2.4.3 Focus Order): when a modal dialog opens, move
+// keyboard focus into it so screen-reader and keyboard users land inside the
+// dialog instead of being left behind in the page. When it closes, restore
+// focus to whatever element was focused before it opened.
+Template.defaultLayout.onRendered(function () {
+  let lastFocused = null;
+  this.autorun(() => {
+    const isOpen = Modal.isOpen();
+    Tracker.afterFlush(() => {
+      if (isOpen) {
+        lastFocused = document.activeElement;
+        const modal = document.getElementById('modal');
+        if (modal) {
+          const focusTarget = modal.querySelector('.modal-close-btn') || modal;
+          focusTarget.focus();
+        }
+      } else if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+        lastFocused = null;
+      }
+    });
+  });
+});
+
 async function authentication(event, templateInstance) {
   const match = $('#at-field-username_and_email').val();
   const password = $('#at-field-password').val();

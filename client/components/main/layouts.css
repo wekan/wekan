@@ -32,6 +32,74 @@ a:focus {
   color: unset;
   text-decoration: unset;
 }
+/* Accessibility (WCAG 2.4.7 Focus Visible): the resets above strip focus
+ * outlines from every element, which leaves keyboard users with no indication
+ * of where focus is. Restore a clearly visible focus indicator for keyboard
+ * navigation. :focus-visible only paints the outline for keyboard focus, so
+ * mouse clicks stay visually unchanged. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+[role="button"]:focus-visible,
+[contenteditable="true"]:focus-visible {
+  outline: 2px solid #1565c0;
+  outline-offset: 2px;
+  /* Add a light halo so the outline is visible on both light and dark colored
+   * board headers. */
+  box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.35);
+  border-radius: 2px;
+}
+/* Browsers that do not support :focus-visible fall back to :focus so keyboard
+ * users are never left without an indicator. */
+.no-focus-visible-support a:focus,
+.no-focus-visible-support button:focus,
+.no-focus-visible-support [tabindex]:focus {
+  outline: 2px solid #1565c0;
+  outline-offset: 2px;
+}
+
+/* Screen-reader-only helper: visually hidden but available to assistive tech. */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip-to-content link (WCAG 2.4.1 Bypass Blocks): hidden until focused, then
+ * pinned to the top-left so keyboard users can jump past the header chrome. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: #1565c0;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 0 0 4px 0;
+  text-decoration: none;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 0;
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+/* The skip-link target must not show a persistent outline when focused
+ * programmatically. */
+#content:focus {
+  outline: none;
+}
 .badge {
   display: unset;
   min-width: unset;

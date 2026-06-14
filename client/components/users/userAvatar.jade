@@ -2,7 +2,7 @@ template(name="userAvatar")
   a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}}" title="{{#if userData}}{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}{{/if}}")
     if userData
       if userData.profile.avatarUrl
-        img.avatar.avatar-image(src="{{avatarUrl}}")
+        img.avatar.avatar-image(src="{{avatarUrl}}" alt="")
       else
         +userAvatarInitials(userId=userData._id)
     else
