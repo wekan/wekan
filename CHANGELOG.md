@@ -26,6 +26,20 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.45 2026-06-14 WeKan ® release
+
+This release adds the following updates:
+
+- [Made the "Release All Platforms" snap build resilient to transient Launchpad failures]{https://github.com/wekan/wekan/commit/4a1eff22831b18bbf1a6b0defb4e8e9c6bacee1b).
+ `snapcraft remote-build` intermittently dies with a transient TLS
+  drop (`SSLEOFError: EOF occurred in violation of protocol`, exit 70) while
+  talking to Launchpad after pushing the repo — unrelated to the build itself —
+  which failed the whole release. The step now retries the remote build up to
+  three times before giving up.
+  Thanks to xet7 and Claude.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.44 2026-06-14 WeKan ® release
 
 This release adds the following new features:
