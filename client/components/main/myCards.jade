@@ -32,7 +32,7 @@ template(name="myCards")
         .wrapper
           each board in myCardsList
             .my-cards-board-wrapper
-              .my-cards-board-title(class=board.colorClass, id="header")
+              .my-cards-board-title(class=board.colorClass)
                 a(href=board.originRelativeUrl)
                   +viewer
                     = board.title
@@ -52,15 +52,17 @@ template(name="myCards")
       if $eq myCardsView 'table'
         .wrapper
           table.my-cards-board-table
+            caption.sr-only {{_ 'my-cards'}}
             thead
-              th {{_ "Card"}}
-              th {{_ "List"}}
-              th {{_ "Board"}}
-              th {{_ "Swimlane"}}
-              unless isMiniScreen
-                th {{_ "Members"}}
-                th {{_ "Labels"}}
-                th {{_ "Due Date"}}
+              tr
+                th(scope="col") {{_ "Card"}}
+                th(scope="col") {{_ "List"}}
+                th(scope="col") {{_ "Board"}}
+                th(scope="col") {{_ "Swimlane"}}
+                unless isMiniScreen
+                  th(scope="col") {{_ "Members"}}
+                  th(scope="col") {{_ "Labels"}}
+                  th(scope="col") {{_ "Due Date"}}
             tbody
                 each board in myCardsList
                     each swimlane in board.mySwimlanes
@@ -69,7 +71,7 @@ template(name="myCards")
                             tr
                               td
                                 unless isMiniScreen
-                                  .my-cards-board-badge(class=board.colorClass, id="header")
+                                  .my-cards-board-badge(class=board.colorClass)
                                 .my-cards-card-title-table
                                   | {{card.title}}
                                   //a.minicard-wrapper(href=card.originRelativeUrl)
