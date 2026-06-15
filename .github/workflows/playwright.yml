@@ -68,8 +68,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: [chromium, firefox]
-        # webkit excluded from CI (requires macOS runner) — run locally with npm run test:e2e:all
+        # Playwright bundles Chromium, Firefox and WebKit builds that all run
+        # headless on the Linux runner (installed per-job below with --with-deps).
+        project: [chromium, firefox, webkit]
 
     services:
       mongodb:
@@ -155,6 +156,9 @@ jobs:
         env:
           WEKAN_BASE_URL: http://localhost:3000
           WEKAN_MONGO_URL: mongodb://localhost:27017/wekan_test
+          # Make the firefox and webkit projects available to --project
+          # (playwright.config.js only defines them when this is set).
+          WEKAN_PLAYWRIGHT_ALL: '1'
 
       - name: Upload Playwright report
         if: always()
