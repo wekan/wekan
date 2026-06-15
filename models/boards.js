@@ -418,6 +418,15 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    showDependencies: {
+      /**
+       * #3392: PI Program Board "Red Strings". When true, draw colored
+       * connection lines between cards that have cardDependencies, SAFe
+       * PI-planning program board style.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     cardAgingDays1: {
       /** #3984: days of inactivity for the first (lightest) card-aging fade tier. */
       type: Number,
@@ -2022,6 +2031,10 @@ Boards.helpers({
 
   async setCardAging(cardAging) {
     return await Boards.updateAsync(this._id, { $set: { cardAging } });
+  },
+
+  async setShowDependencies(showDependencies) {
+    return await Boards.updateAsync(this._id, { $set: { showDependencies } });
   },
 
   async setCardAgingDays(cardAgingDays1, cardAgingDays2, cardAgingDays3) {

@@ -136,6 +136,12 @@ template(name="boardHeaderBar")
                 | {{_ 'calendar'}}
               if $eq boardView 'board-view-gantt'
                 | {{_ 'gantt'}}
+        a.board-header-btn.js-toggle-dependencies(
+            title="{{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}"
+            class="{{#if currentBoard.showDependencies}}emphasis{{/if}}")
+          i.fa.fa-link
+          span {{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}
+
         if canModifyBoard
           a.board-header-btn.js-multiselection-activate(
               title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"

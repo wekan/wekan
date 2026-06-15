@@ -1,0 +1,7 @@
+template(name="dependencyOverlay")
+  svg.dependency-overlay.js-dependency-overlay(xmlns="http://www.w3.org/2000/svg")
+    defs
+      marker#dependency-arrowhead(markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="userSpaceOnUse")
+        path(d="M0,0 L7,3 L0,6 Z" fill="#eb144c")
+    each dependencyLines
+      path.dependency-line(d="{{path}}" fill="none" stroke="#eb144c" stroke-width="2" marker-end="url(#dependency-arrowhead)")

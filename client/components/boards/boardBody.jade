@@ -31,6 +31,8 @@ template(name="boardBody")
         class="{{#if draggingActive}}is-dragging-active{{/if}}"
         class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}"
         class="{{#if isMiniScreen}}mobile-view{{/if}}")
+        if currentBoard.showDependencies
+          +dependencyOverlay
         if showOverlay
           .board-overlay
         if currentBoard.isTemplatesBoard

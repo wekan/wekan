@@ -475,6 +475,19 @@ Cards.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    cardDependencies: {
+      /**
+       * #3392: PI Program Board "Red Strings". List of card _ids on the SAME
+       * board that this card depends on / is connected to. Visualized as
+       * colored connection lines drawn on top of the board.
+       */
+      type: Array,
+      optional: true,
+      defaultValue: [],
+    },
+    'cardDependencies.$': {
+      type: String,
+    },
     vote: {
       /**
        * vote object, see below
@@ -1470,6 +1483,31 @@ Cards.helpers({
     } else {
       return this.assignAssignee(assigneeId);
     }
+  },
+
+  getDependencies() {
+    return this.cardDependencies || [];
+  },
+
+  // #3392: PI Program Board "Red Strings". Add a dependency to another card on
+  // the same board. Guards against self-links and cross-board targets.
+  addDependency(targetCardId) {
+    if (!targetCardId || targetCardId === this._id) {
+      return undefined;
+    }
+    const target = ReactiveCache.getCard(targetCardId);
+    if (!target || target.boardId !== this.boardId) {
+      return undefined;
+    }
+    return Cards.updateAsync(this._id, {
+      $addToSet: { cardDependencies: targetCardId },
+    });
+  },
+
+  removeDependency(targetCardId) {
+    return Cards.updateAsync(this._id, {
+      $pull: { cardDependencies: targetCardId },
+    });
   },
 
   getReceived() {

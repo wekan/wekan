@@ -16,6 +16,7 @@ template(name="listBody")
                 = formattedCurrencyCustomFieldValue(value)
       each (cardsWithLimit (idOrNull ../../_id))
         a.minicard-wrapper.js-minicard(href=originRelativeUrl
+          data-card-id="{{_id}}"
           class="{{#if cardIsSelected}}is-selected{{/if}}"
           class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           if MultiSelection.isActive

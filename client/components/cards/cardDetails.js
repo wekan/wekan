@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { ReactiveVar } from 'meteor/reactive-var';
 import {
   setupDatePicker,
   datePickerRendered,
@@ -51,7 +52,6 @@ import { UnsavedEdits } from '/client/lib/unsavedEdits';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
-import { ReactiveVar } from 'meteor/reactive-var';
 import autosize from 'autosize';
 
 // Id of the location currently being edited in the cardLocationsPopup; null
@@ -521,6 +521,21 @@ Template.cardDetails.helpers({
     });
   },
 
+  // #3392: PI Program Board "Red Strings". Resolve this card's dependency
+  // target ids into card objects (with a relative link) for display.
+  getDependencyCards() {
+    const card = Template.currentData();
+    if (!card || typeof card.getDependencies !== 'function') return [];
+    return card
+      .getDependencies()
+      .map(targetId => {
+        const target = ReactiveCache.getCard(targetId);
+        if (!target) return null;
+        return { card: target, linkUrl: target.originRelativeUrl() };
+      })
+      .filter(Boolean);
+  },
+
   customFieldsGrid() {
     return ReactiveCache.getCurrentUser().hasCustomFieldsGrid();
   },
@@ -852,6 +867,17 @@ Template.cardDetails.events({
   'click .js-go-to-linked-card'() {
     const card = Template.currentData();
     Utils.goCardId(card.linkedId);
+  },
+  'click .js-add-dependency': Popup.open('cardDependencies'),
+  'click .js-remove-dependency'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!Utils.canModifyCard()) return;
+    const targetId = event.currentTarget.dataset.targetId;
+    const card = Template.currentData();
+    if (card && targetId) {
+      card.removeDependency(targetId);
+    }
   },
   'click .js-member': Popup.open('cardMember'),
   'click .js-add-members': Popup.open('cardMembers'),
@@ -2394,4 +2420,47 @@ Template.cardAssigneePopup.events({
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
+});
+
+// #3392: PI Program Board "Red Strings". Popup to pick another card on the
+// same board to add as a dependency. The popup's data context is the source
+// card (set by Popup.open on the .js-add-dependency element inside cardDetails).
+Template.cardDependenciesPopup.onCreated(function () {
+  this.searchTerm = new ReactiveVar('');
+});
+
+Template.cardDependenciesPopup.helpers({
+  candidateCards() {
+    const sourceCard = Template.currentData();
+    if (!sourceCard) return [];
+    const term = Template.instance().searchTerm.get().toLowerCase();
+    const existing = sourceCard.getDependencies
+      ? sourceCard.getDependencies()
+      : [];
+    const cards = ReactiveCache.getCards({
+      boardId: sourceCard.boardId,
+      archived: false,
+    });
+    return cards.filter(card => {
+      if (card._id === sourceCard._id) return false;
+      if (existing.includes(card._id)) return false;
+      if (term && !(card.title || '').toLowerCase().includes(term)) return false;
+      return true;
+    });
+  },
+});
+
+Template.cardDependenciesPopup.events({
+  'keyup .js-dependency-search'(event) {
+    Template.instance().searchTerm.set(event.currentTarget.value || '');
+  },
+  'click .js-pick-dependency'(event) {
+    event.preventDefault();
+    const sourceCard = Template.currentData();
+    const targetId = event.currentTarget.dataset.targetId;
+    if (sourceCard && targetId) {
+      sourceCard.addDependency(targetId);
+    }
+    Popup.back();
+  },
 });

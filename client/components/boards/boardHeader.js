@@ -181,6 +181,12 @@ Template.boardHeaderBar.events({
       console.warn('Sidebar not available for setView');
     }
   },
+  'click .js-toggle-dependencies'() {
+    const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard) {
+      currentBoard.setShowDependencies(!currentBoard.showDependencies);
+    }
+  },
   'click .js-multiselection-activate'() {
     const currentCard = Utils.getCurrentCardId();
     MultiSelection.activate();

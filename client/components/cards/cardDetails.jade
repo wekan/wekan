@@ -321,6 +321,24 @@ template(name="cardDetails")
               +viewer
                 = getAssignedBy
 
+        .card-details-item.card-details-item-dependencies
+          h3.card-details-item-title
+            i.fa.fa-link
+            | {{_ 'card-dependencies'}}
+          .card-details-dependencies-list
+            each getDependencyCards
+              .card-dependency
+                a.card-dependency-link(href="{{linkUrl}}")
+                  +viewer
+                    = card.title
+                if canModifyCard
+                  a.card-dependency-remove.js-remove-dependency(data-target-id="{{card._id}}" title="{{_ 'remove-dependency'}}")
+                    i.fa.fa-times
+          if canModifyCard
+            a.js-add-dependency(title="{{_ 'add-dependency'}}")
+              i.fa.fa-plus
+              | {{_ 'add-dependency'}}
+
         if $or currentBoard.allowsCardSortingByNumber getSpentTime
           hr
 
@@ -1288,3 +1306,13 @@ template(name="cardLocationsPopup")
     button.primary.js-save-map-provider(type="button") {{_ 'save'}}
     if mapSavedMessage
       p.quiet.js-map-saved {{mapSavedMessage}}
+
+template(name="cardDependenciesPopup")
+  .card-dependencies-popup
+    input.js-dependency-search(type="text" placeholder="{{_ 'search'}}" autofocus)
+    ul.pop-over-list
+      each candidateCards
+        li
+          a.js-pick-dependency(data-target-id="{{_id}}")
+            +viewer
+              = title
