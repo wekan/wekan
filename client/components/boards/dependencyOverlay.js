@@ -30,6 +30,9 @@ Template.dependencyOverlay.onCreated(function () {
   this.lines = new ReactiveVar([]);
   this.markers = new ReactiveVar([]);
   this.tempLine = new ReactiveVar(null); // line being drawn while dragging
+  // Guard against deferred (rAF / setTimeout) callbacks touching the DOM after
+  // the overlay is destroyed ("Can't select in removed DomRange").
+  this._overlayDestroyed = false;
 
   // Rect of a card relative to the overlay SVG, or null if not rendered.
   this.rectOf = (cardId, svgRect) => {
@@ -41,6 +44,9 @@ Template.dependencyOverlay.onCreated(function () {
   };
 
   this.recompute = () => {
+    if (this._overlayDestroyed || !this.view || this.view.isDestroyed) {
+      return;
+    }
     const svg = this.find('.js-dependency-overlay');
     if (!svg) {
       return;
@@ -115,6 +121,7 @@ Template.dependencyOverlay.onCreated(function () {
   };
 
   this.scheduleRecompute = () => {
+    if (this._overlayDestroyed) return;
     if (this._raf) {
       window.cancelAnimationFrame(this._raf);
     }
@@ -207,10 +214,11 @@ Template.dependencyOverlay.onRendered(function () {
   document.addEventListener('mousemove', this.onMouseMove);
   document.addEventListener('mouseup', this.onMouseUp);
 
-  Meteor.setTimeout(() => instance.scheduleRecompute(), 300);
+  this._initTimeout = Meteor.setTimeout(() => instance.scheduleRecompute(), 300);
 });
 
 Template.dependencyOverlay.onDestroyed(function () {
+  this._overlayDestroyed = true;
   if (this.scrollEl) {
     this.scrollEl.removeEventListener('scroll', this.onScroll);
   }
@@ -221,6 +229,9 @@ Template.dependencyOverlay.onDestroyed(function () {
   if (this.onMouseUp) document.removeEventListener('mouseup', this.onMouseUp);
   if (this._raf) {
     window.cancelAnimationFrame(this._raf);
+  }
+  if (this._initTimeout) {
+    Meteor.clearTimeout(this._initTimeout);
   }
 });
 
