@@ -6,10 +6,6 @@ import { ReactiveCache } from '/imports/reactiveCache';
 
 // const subManager = new SubsManager();
 
-Template.globalSearchHeaderBar.events({
-  'click .js-due-cards-view-change': Popup.open('globalSearchViewChange'),
-});
-
 Template.globalSearch.onCreated(function () {
   const search = new CardSearchPaged(this);
   this.search = search;

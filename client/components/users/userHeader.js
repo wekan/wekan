@@ -75,7 +75,7 @@ Template.memberMenuPopup.events({
       FlowRouter.go('bookmarks');
       Popup.back();
     } else {
-      Popup.open('bookmarksPopup')(e);
+      Popup.open('bookmarks')(e);
     }
   },
   'click .js-my-cards'() {

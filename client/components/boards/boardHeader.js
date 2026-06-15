@@ -315,7 +315,6 @@ function createBoardEvents() {
     'click .js-change-visibility'(event, tpl) {
       tpl.visibilityMenuIsOpen.set(!tpl.visibilityMenuIsOpen.get());
     },
-    'click .js-import': Popup.open('boardImportBoard'),
     async 'submit'(event, tpl) {
       await createBoardSubmit(tpl, event);
     },
@@ -374,7 +373,6 @@ Template.headerBarCreateBoardPopup.events({
   'click .js-change-visibility'(event, tpl) {
     tpl.visibilityMenuIsOpen.set(!tpl.visibilityMenuIsOpen.get());
   },
-  'click .js-import': Popup.open('boardImportBoard'),
   async submit(event, tpl) {
     await createBoardSubmit(tpl, event);
     // Immediately star boards created with the headerbar popup.

@@ -172,7 +172,7 @@ Template.header.events({
     if (Utils.isMiniScreen()) {
       FlowRouter.go('bookmarks');
     } else {
-      Popup.open('bookmarksPopup')(evt);
+      Popup.open('bookmarks')(evt);
     }
   },
 });

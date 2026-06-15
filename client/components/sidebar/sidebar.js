@@ -579,7 +579,6 @@ Template.membersWidget.events({
   'click .js-manage-board-members': Popup.open('addMember'),
   'click .js-manage-board-addOrg': Popup.open('addBoardOrg'),
   'click .js-manage-board-addTeam': Popup.open('addBoardTeam'),
-  'click .js-import': Popup.open('boardImportBoard'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');

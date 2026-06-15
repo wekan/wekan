@@ -64,6 +64,69 @@ Everything else on the board keeps working normally while you do this — only t
 handle starts a drag, and only the lines themselves are clickable; the rest of
 the overlay is click-through.
 
+#### Drawing a line from one card to another
+
+```text
+Step 1 — Turn the overlay on (board header: Show dependencies),
+         then hover a card. A connect handle (o) appears on its right edge.
+
+   +----------------+
+   |  PI Alpha      (o)         +----------------+
+   |  list: Sprint 1|           |  PI Beta       |
+   +----------------+           |  list: Sprint 2|
+                                +----------------+
+
+Step 2 — Press on the handle and drag toward the other card.
+         A dashed guide line follows the cursor.
+
+   +----------------+
+   |  PI Alpha      (o)- - - - - - - - - >+
+   +----------------+           +----------------+
+                                |  PI Beta       |
+                                +----------------+
+
+Step 3 — Release the mouse over the target card.
+         A solid, colored, arrow-headed line is created (PI Alpha -> PI Beta).
+
+   +----------------+
+   |  PI Alpha      (o)================>+
+   +----------------+           +----------------+
+                                |  PI Beta       |
+                                +----------------+
+```
+
+#### Changing a line's relation type, color and icon
+
+```text
+Step 1 — Click the connection line itself.
+
+   +----------+                 +----------+
+   |  PI Alpha|=======*========>|  PI Beta |
+   +----------+    (click)      +----------+
+
+Step 2 — The line editor popup opens. Pick a relation type, a color,
+         and an icon — each change is saved immediately.
+
+            +-------------------------------+
+            |  Edit dependency              |
+            |  Relation type: [ blocks   v] |
+            |  Color:         [ #2196f3  ]  |
+            |  Icon:  (o) [/] [x] [!] [#]   |
+            |  --------------------------   |
+            |  x  Remove dependency         |
+            +-------------------------------+
+
+Step 3 — The line updates on the board: its color, arrow direction
+         (from the relation type) and the minicard badge icon all change.
+
+   +----------+                 +----------+
+   |  PI Alpha|##(lock)#=======>|  PI Beta |   (blue "blocks" line)
+   +----------+                 +----------+
+```
+
+> You can also add/edit/remove a dependency from the card detail's
+> **Dependencies** section (above) — both routes use the same data.
+
 ### Filter
 
 The board **Filter** sidebar has a **Filter by dependencies** section to show
