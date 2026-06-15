@@ -1630,6 +1630,113 @@ Meteor.methods({
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 
+  // Feature #3313 "Shared templates": admin-only.
+  // For every user whose Templates board is NON-EMPTY (contains at least one
+  // shared template board), return the data the Admin Panel needs to group the
+  // users by Organization / Team / email Domain and to list & link their
+  // shared template boards.
+  //
+  // A user's template boards are stored as cards of type 'cardType-linkedBoard'
+  // inside the "Board Templates" swimlane of their Templates container board
+  // (profile.templatesBoardId / profile.boardTemplatesSwimlaneId). Each such
+  // card's `linkedId` points at the actual template board (type 'template-board')
+  // we link to. See server/models/users.js Users.after.insert and
+  // client/components/lists/listBody.js for how these are created.
+  async adminSharedTemplates() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+
+    const currentUser = await ReactiveCache.getUser(
+      { _id: this.userId },
+      { fields: { isAdmin: 1 } },
+    );
+    if (!currentUser || !currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+
+    const users = await ReactiveCache.getUsers(
+      { 'profile.templatesBoardId': { $exists: true, $nin: [null, ''] } },
+      {
+        fields: {
+          username: 1,
+          'profile.fullname': 1,
+          'profile.templatesBoardId': 1,
+          'profile.boardTemplatesSwimlaneId': 1,
+          orgs: 1,
+          teams: 1,
+          emails: 1,
+        },
+      },
+    );
+
+    const result = [];
+    for (const user of users) {
+      const profile = user.profile || {};
+      const templatesBoardId = profile.templatesBoardId;
+      if (!templatesBoardId) continue;
+
+      // Enumerate the user's shared template boards: linked-board cards in the
+      // Board Templates swimlane of their Templates container board.
+      const cardQuery = {
+        boardId: templatesBoardId,
+        type: 'cardType-linkedBoard',
+        archived: false,
+      };
+      if (profile.boardTemplatesSwimlaneId) {
+        cardQuery.swimlaneId = profile.boardTemplatesSwimlaneId;
+      }
+      const cards = await ReactiveCache.getCards(cardQuery, {
+        fields: { title: 1, linkedId: 1, sort: 1 },
+        sort: { sort: 1 },
+      });
+
+      if (!cards || cards.length === 0) continue; // empty Templates board -> exclude
+
+      const templateBoards = [];
+      for (const card of cards) {
+        let slug = '';
+        if (card.linkedId) {
+          const board = await ReactiveCache.getBoard(card.linkedId);
+          if (board) slug = board.slug || '';
+        }
+        templateBoards.push({
+          cardId: card._id,
+          title: card.title || '',
+          boardId: card.linkedId || '',
+          slug,
+        });
+      }
+
+      const emails = (user.emails || []).map(e => e.address).filter(Boolean);
+      const domains = [
+        ...new Set(
+          emails
+            .map(addr => (addr.indexOf('@') >= 0 ? addr.split('@')[1].toLowerCase() : ''))
+            .filter(Boolean),
+        ),
+      ];
+
+      result.push({
+        userId: user._id,
+        username: user.username || '',
+        fullname: (profile.fullname) || '',
+        orgs: (user.orgs || []).map(o => ({
+          orgId: o.orgId,
+          orgDisplayName: o.orgDisplayName,
+        })),
+        teams: (user.teams || []).map(t => ({
+          teamId: t.teamId,
+          teamDisplayName: t.teamDisplayName,
+        })),
+        domains,
+        templateBoards,
+      });
+    }
+
+    return result;
+  },
+
   async searchUsers(query, boardId) {
     check(query, String);
     check(boardId, String);

@@ -27,6 +27,7 @@ Template.people.onCreated(function () {
   this.peopleSetting = new ReactiveVar(false);
   this.lockedUsersSetting = new ReactiveVar(false);
   this.rolesSetting = new ReactiveVar(false);
+  this.templatesSetting = new ReactiveVar(false);
   this.subscribe('inviteToBoardRolesSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
@@ -198,6 +199,7 @@ Template.people.onCreated(function () {
       this.peopleSetting.set('people-setting' === targetID);
       this.lockedUsersSetting.set('locked-users-setting' === targetID);
       this.rolesSetting.set('roles-setting' === targetID);
+      this.templatesSetting.set('templates-setting' === targetID);
 
       // When switching to locked users tab, refresh the locked users list
       if ('locked-users-setting' === targetID) {
@@ -272,6 +274,9 @@ Template.people.helpers({
   },
   rolesSetting() {
     return Template.instance().rolesSetting;
+  },
+  templatesSetting() {
+    return Template.instance().templatesSetting;
   },
   orgList() {
     const tpl = Template.instance();
@@ -538,6 +543,9 @@ Template.people.events({
   'click a.js-roles-menu'(event, tpl) {
     tpl.switchMenu(event);
   },
+  'click a.js-templates-menu'(event, tpl) {
+    tpl.switchMenu(event);
+  },
 });
 
 Template.rolesGeneral.onCreated(function () {
@@ -594,6 +602,118 @@ Template.rolesGeneral.events({
     InviteToBoardRolesSettings.update(INVITE_TO_BOARD_ROLES_ID, {
       $set: { allowedRoles: tpl.workingRoles.get() || [] },
     });
+  },
+});
+
+// Feature #3313 "Shared templates": admin view of users' shareable template
+// boards, grouped by Organization / Team / email Domain. The three checkboxes
+// are LIVE view filters (no Save button); each toggles a grouping dimension.
+Template.templatesGeneral.onCreated(function () {
+  // Default UNSELECTED: nothing shown until the admin checks a scope.
+  this.selectedScopes = new ReactiveVar([]);
+  // Raw rows returned by the admin-only method (one entry per user whose
+  // Templates board is non-empty).
+  this.sharedTemplates = new ReactiveVar([]);
+  this.loading = new ReactiveVar(false);
+
+  this.loadSharedTemplates = () => {
+    this.loading.set(true);
+    Meteor.call('adminSharedTemplates', (error, result) => {
+      this.loading.set(false);
+      if (error) {
+        console.error('Failed to load shared templates:', error);
+        this.sharedTemplates.set([]);
+        return;
+      }
+      this.sharedTemplates.set(result || []);
+    });
+  };
+
+  this.loadSharedTemplates();
+});
+
+const SCOPE_LABELS = {
+  organizations: 'organizations',
+  teams: 'teams',
+  domains: 'domains',
+};
+
+// Build the grouped structure for a single scope dimension.
+function buildScopeGroups(scope, rows) {
+  // group key -> { groupName, members: [] }
+  const groups = {};
+
+  const addToGroup = (key, name, row) => {
+    if (!groups[key]) {
+      groups[key] = { groupKey: key, groupName: name, members: [] };
+    }
+    groups[key].members.push({
+      userId: row.userId,
+      label: row.fullname ? `${row.fullname} (${row.username})` : row.username,
+      templateBoards: row.templateBoards.map(b => ({
+        title: b.title,
+        boardId: b.boardId,
+        slug: b.slug,
+        url: b.boardId ? `/b/${b.boardId}/${b.slug || 'template'}` : '',
+      })),
+    });
+  };
+
+  rows.forEach(row => {
+    if (scope === 'organizations') {
+      (row.orgs || []).forEach(o => {
+        if (o.orgId) addToGroup(o.orgId, o.orgDisplayName || o.orgId, row);
+      });
+    } else if (scope === 'teams') {
+      (row.teams || []).forEach(t => {
+        if (t.teamId) addToGroup(t.teamId, t.teamDisplayName || t.teamId, row);
+      });
+    } else if (scope === 'domains') {
+      (row.domains || []).forEach(d => {
+        if (d) addToGroup(d, d, row);
+      });
+    }
+  });
+
+  return Object.values(groups).sort((a, b) =>
+    String(a.groupName).localeCompare(String(b.groupName)),
+  );
+}
+
+Template.templatesGeneral.helpers({
+  loading() {
+    return Template.instance().loading;
+  },
+  scopeChecked(scope) {
+    return Template.instance().selectedScopes.get().includes(scope);
+  },
+  hasAnyScope() {
+    return Template.instance().selectedScopes.get().length > 0;
+  },
+  scopeBlocks() {
+    const tpl = Template.instance();
+    const scopes = tpl.selectedScopes.get();
+    const rows = tpl.sharedTemplates.get() || [];
+    return scopes.map(scope => ({
+      scope,
+      scopeLabel: SCOPE_LABELS[scope] || scope,
+      groups: buildScopeGroups(scope, rows),
+    }));
+  },
+});
+
+Template.templatesGeneral.events({
+  'click a.js-toggle-template-scope'(event, tpl) {
+    event.preventDefault();
+    const scope = $(event.currentTarget).data('scope');
+    const current = tpl.selectedScopes.get().slice();
+    const idx = current.indexOf(scope);
+    if (idx >= 0) {
+      current.splice(idx, 1);
+    } else {
+      current.push(scope);
+    }
+    tpl.selectedScopes.set(current);
   },
 });
 

@@ -206,6 +206,139 @@ function seedBoard({ ownerId, title, listCount = 3, cardTitlesPerList = [] } = {
   return { boardId, slug, swimlaneId, listIds };
 }
 
+/**
+ * Set a seeded user's orgs / teams / email address so they can be grouped in
+ * the Admin Panel "Shared templates" tab. Each org is { orgId, orgDisplayName },
+ * each team is { teamId, teamDisplayName }. If `email` is given it replaces the
+ * user's first email address (the domain is the part after '@').
+ */
+function setUserGroups({ userId, orgs = [], teams = [], email } = {}) {
+  mongoEval(`
+    db.users.updateOne(
+      { _id: ${literal(userId)} },
+      { $set: { orgs: ${JSON.stringify(orgs)}, teams: ${JSON.stringify(teams)} } }
+    );
+    ${email ? `db.users.updateOne({ _id: ${literal(userId)} }, { $set: { 'emails.0.address': ${literal(email)}, 'emails.0.verified': true } });` : ''}
+  `);
+}
+
+/**
+ * Seed a user's Templates container board (type 'template-container') with a
+ * "Board Templates" swimlane, and optionally one or more shared template boards.
+ *
+ * Mirrors how the app stores template boards (see server/models/users.js
+ * Users.after.insert and client/components/lists/listBody.js):
+ *   - The container board (type 'template-container') id is stored on the user
+ *     at profile.templatesBoardId.
+ *   - The "Board Templates" swimlane id is stored at
+ *     profile.boardTemplatesSwimlaneId.
+ *   - Each shared template board is a card (type 'cardType-linkedBoard') in that
+ *     swimlane whose linkedId points at an actual board (type 'template-board').
+ *
+ * `templateTitles` is an array of strings (one per shared template board).
+ * Pass [] to create an EMPTY Templates board (no shared templates).
+ * Returns the ids created.
+ */
+function seedTemplatesBoard({ ownerId, templateTitles = [] } = {}) {
+  const containerId = uid('tmplcontainer');
+  const swimlaneId = uid('tmplswim');
+  const listId = uid('tmpllist');
+
+  const templateBoards = templateTitles.map(title => ({
+    cardId: uid('tmplcard'),
+    linkedBoardId: uid('tmplboard'),
+    title,
+    slug: `e2e-tmpl-${uid('s')}`,
+  }));
+
+  mongoEval(`
+    const now = new Date();
+    db.boards.deleteOne({ _id: ${literal(containerId)} });
+    db.swimlanes.deleteMany({ boardId: ${literal(containerId)} });
+    db.lists.deleteMany({ boardId: ${literal(containerId)} });
+    db.cards.deleteMany({ boardId: ${literal(containerId)} });
+
+    db.boards.insertOne({
+      _id: ${literal(containerId)},
+      title: 'Templates',
+      permission: 'private',
+      type: 'template-container',
+      slug: ${literal(`templates-${containerId}`)},
+      archived: false,
+      createdAt: now, modifiedAt: now,
+      stars: 0,
+      members: [{
+        userId: ${literal(ownerId)},
+        isAdmin: true, isActive: true, isNoComments: false,
+        isCommentOnly: false, isWorker: false, isReadOnly: false,
+        isReadAssignedOnly: false,
+      }],
+      color: 'belize', sort: -1,
+    });
+
+    db.swimlanes.insertOne({
+      _id: ${literal(swimlaneId)},
+      title: 'Board Templates', boardId: ${literal(containerId)},
+      type: 'template-container',
+      archived: false, createdAt: now, updatedAt: now, modifiedAt: now,
+      height: -1, sort: 3,
+    });
+
+    db.lists.insertOne({
+      _id: ${literal(listId)},
+      title: 'Templates', boardId: ${literal(containerId)},
+      type: 'list', swimlaneId: ${literal(swimlaneId)},
+      archived: false, sort: 1, createdAt: now, updatedAt: now, modifiedAt: now,
+      starred: false, width: 272, wipLimit: { value: 1, enabled: false, soft: false },
+    });
+
+    db.users.updateOne(
+      { _id: ${literal(ownerId)} },
+      { $set: {
+        'profile.templatesBoardId': ${literal(containerId)},
+        'profile.boardTemplatesSwimlaneId': ${literal(swimlaneId)},
+      } }
+    );
+
+    const _tmplBoards = ${JSON.stringify(templateBoards)};
+    if (_tmplBoards.length > 0) {
+      db.boards.insertMany(_tmplBoards.map((t, i) => ({
+        _id: t.linkedBoardId,
+        title: t.title,
+        permission: 'private',
+        type: 'template-board',
+        slug: t.slug,
+        archived: false,
+        createdAt: now, modifiedAt: now, stars: 0,
+        members: [{
+          userId: ${literal(ownerId)},
+          isAdmin: true, isActive: true, isNoComments: false,
+          isCommentOnly: false, isWorker: false, isReadOnly: false,
+          isReadAssignedOnly: false,
+        }],
+        color: 'belize', sort: i,
+      })));
+
+      db.cards.insertMany(_tmplBoards.map((t, i) => ({
+        _id: t.cardId,
+        title: t.title,
+        type: 'cardType-linkedBoard',
+        linkedId: t.linkedBoardId,
+        boardId: ${literal(containerId)},
+        swimlaneId: ${literal(swimlaneId)},
+        listId: ${literal(listId)},
+        members: [], assignees: [], labelIds: [], customFields: [],
+        cardNumber: i + 1, archived: false, parentId: '', coverId: '',
+        description: '', sort: i, subtaskSort: -1,
+        userId: ${literal(ownerId)},
+        createdAt: now, modifiedAt: now, dateLastActivity: now,
+      })));
+    }
+  `);
+
+  return { containerId, swimlaneId, listId, templateBoards };
+}
+
 /** Add a second user as a member of an existing board. */
 function addBoardMember({ boardId, userId, isAdmin = false }) {
   mongoEval(`
@@ -232,7 +365,22 @@ function cleanup({ boardIds = [], userIds = [] } = {}) {
     `);
   }
   for (const userId of userIds) {
-    mongoEval(`db.users.deleteOne({ _id: ${literal(userId)} });`);
+    // Also remove any Templates container board (and its template boards/cards)
+    // that may have been seeded for this user via seedTemplatesBoard.
+    mongoEval(`
+      const u = db.users.findOne({ _id: ${literal(userId)} }, { fields: { 'profile.templatesBoardId': 1 } });
+      const tb = u && u.profile && u.profile.templatesBoardId;
+      if (tb) {
+        const linked = db.cards.find({ boardId: tb, type: 'cardType-linkedBoard' }, { fields: { linkedId: 1 } }).toArray();
+        const linkedIds = linked.map(c => c.linkedId).filter(Boolean);
+        if (linkedIds.length) { db.boards.deleteMany({ _id: { $in: linkedIds } }); }
+        db.cards.deleteMany({ boardId: tb });
+        db.lists.deleteMany({ boardId: tb });
+        db.swimlanes.deleteMany({ boardId: tb });
+        db.boards.deleteOne({ _id: tb });
+      }
+      db.users.deleteOne({ _id: ${literal(userId)} });
+    `);
   }
 }
 
@@ -248,4 +396,4 @@ function getBoard(boardId) {
   try { return JSON.parse(raw); } catch { return null; }
 }
 
-module.exports = { seedUser, seedBoard, addBoardMember, cleanup, getCard, getBoard, mongoEval, literal };
+module.exports = { seedUser, seedBoard, addBoardMember, setUserGroups, seedTemplatesBoard, cleanup, getCard, getBoard, mongoEval, literal };

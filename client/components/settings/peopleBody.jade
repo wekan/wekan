@@ -68,6 +68,11 @@ template(name="people")
               i.fa.fa-key
               unless isMiniScreen
                 | {{_ 'roles'}}
+          else if templatesSetting.get
+            span
+              i.fa.fa-clone
+              unless isMiniScreen
+                | {{_ 'shared-templates'}}
 
       .content-body
         .side-menu
@@ -93,6 +98,10 @@ template(name="people")
               a.js-roles-menu(data-id="roles-setting")
                 i.fa.fa-key
                 | {{_ 'roles'}}
+            li
+              a.js-templates-menu(data-id="templates-setting")
+                i.fa.fa-clone
+                | {{_ 'shared-templates'}}
         .main-body
           if loading.get
             +spinner
@@ -106,6 +115,8 @@ template(name="people")
             +lockedUsersGeneral
           else if rolesSetting.get
             +rolesGeneral
+          else if templatesSetting.get
+            +templatesGeneral
 
 
 template(name="orgGeneral")
@@ -749,3 +760,52 @@ template(name="rolesGeneral")
             span {{_ label}}
 
     button.js-roles-save.primary {{_ 'save'}}
+
+template(name="templatesGeneral")
+  .templates-settings
+    h3 {{_ 'shared-templates'}}
+    p.templates-description {{_ 'shared-templates-info'}}
+
+    ul#templates-setting.setting-detail
+      li
+        a.flex.js-toggle-template-scope(data-scope="organizations")
+          .materialCheckBox(class="{{#if scopeChecked 'organizations'}}is-checked{{/if}}")
+          span {{_ 'organizations'}}
+      li
+        a.flex.js-toggle-template-scope(data-scope="teams")
+          .materialCheckBox(class="{{#if scopeChecked 'teams'}}is-checked{{/if}}")
+          span {{_ 'teams'}}
+      li
+        a.flex.js-toggle-template-scope(data-scope="domains")
+          .materialCheckBox(class="{{#if scopeChecked 'domains'}}is-checked{{/if}}")
+          span {{_ 'domains'}}
+
+    .shared-templates-results
+      if loading.get
+        +spinner
+      else if hasAnyScope
+        each scopeBlock in scopeBlocks
+          h4 {{_ scopeBlock.scopeLabel}}
+          if scopeBlock.groups.length
+            each group in scopeBlock.groups
+              .shared-templates-group
+                h5 {{group.groupName}}
+                ul.setting-detail
+                  each member in group.members
+                    li
+                      span.shared-templates-user {{member.label}}
+                      ul.shared-templates-boards
+                        each board in member.templateBoards
+                          li
+                            if board.boardId
+                              a.js-shared-template-link(href="{{board.url}}" data-board-id="{{board.boardId}}" data-slug="{{board.slug}}")
+                                i.fa.fa-clone
+                                | {{board.title}}
+                            else
+                              span
+                                i.fa.fa-clone
+                                | {{board.title}}
+          else
+            p.shared-templates-none {{_ 'no-shared-templates'}}
+      else
+        p.shared-templates-hint {{_ 'shared-templates-select-scope'}}
