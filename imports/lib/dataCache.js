@@ -98,7 +98,15 @@ class DataCache {
       delete this.timeouts[key];
     }
     this.timeouts[key] = setTimeout(() => {
+      delete this.timeouts[key];
       if (!this.computations[key]) {
+        return;
+      }
+      // A dependent may have re-attached during the timeout window (e.g. the
+      // board view re-rendered). Re-check before tearing down, otherwise we
+      // stop the live computation and delete a value something is still using,
+      // which surfaces as a transient `undefined` (the board-not-found flicker).
+      if (this.cache.ensureDependency(key).hasDependents()) {
         return;
       }
       this.computations[key].stop();
