@@ -464,6 +464,7 @@
   "error-json-malformed": "Your text is not valid JSON",
   "error-json-schema": "Your JSON data does not include the proper information in the correct format",
   "error-csv-schema": "Your CSV(Comma Separated Values)/TSV (Tab Separated Values) does not include the proper information in the correct format ",
+  "error-import-empty-board": "This export contains no board content (no swimlanes, lists or cards). It may have been created by an older WeKan version with a known export bug. Please re-export the board with the current version and import the new file.",
   "error-list-doesNotExist": "This list does not exist",
   "error-user-doesNotExist": "This user does not exist",
   "error-user-notAllowSelf": "You can not invite yourself",
