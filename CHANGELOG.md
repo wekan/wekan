@@ -38,6 +38,9 @@ This release adds the following updates:
 - [Bumped launch-editor from 2.13.2 to 2.14.1](https://github.com/wekan/wekan/pull/6376):
   a dev-only dependency (used by `webpack-dev-server` / `@rsdoctor/sdk`, not in the
   production bundle); lockfile-only change. Thanks to Dependabot, xet7 and Claude.
+- [Bumped docker/setup-buildx-action from 3 to 4](https://github.com/wekan/wekan/pull/6377):
+  GitHub Actions workflow action update used by the Docker image build. Thanks to
+  Dependabot, xet7 and Claude.
 
 and adds the following new features:
 
@@ -87,12 +90,14 @@ and adds the following new features:
   icon](https://github.com/wekan/wekan/commit/e8a8007814d777f2c89d26cfdc878912c7072c9b)
   (the popup now edits the source card, not the dependency row), with an e2e test
   for editing a dependency's type/color/icon.
-  [Added a piplanning.io / Kendis / Miro-style **drag-to-connect**
-  mode](https://github.com/wekan/wekan/commit/06bc92c200b93ff6d233ba5d2a40c4d939922cd3):
-  a board-header **Connect** toggle turns the overlay interactive so you can
-  **drag from one card to another to create a dependency** (a dashed guide line
-  follows the cursor) and **click a connection line** to change its
-  type/color/icon or delete it; "Done connecting" returns to normal board use.
+  Added a piplanning.io / Kendis / Miro-style **drag-to-connect**
+  ([Part 1](https://github.com/wekan/wekan/commit/06bc92c200b93ff6d233ba5d2a40c4d939922cd3),
+  [Part 2](https://github.com/wekan/wekan/commit/9fe9e6087899823df064cce7c640f88be43914a4)):
+  when the overlay is on, each minicard shows a small **connect handle** (right
+  edge, on hover) — **drag it onto another card to create a dependency** (a dashed
+  guide line follows the cursor) — and a **connection line is clickable** to
+  change its type/color/icon or delete it. It is **not** a mode: cards stay
+  clickable and the rest of the overlay is click-through.
   The **Dependencies (JSON/SVG)** importer now also best-effort maps **Miro** REST
   API data (items + connectors, resolved to card titles; "block"/"fix" captions →
   relation type); Kendis/piplanning.io (and GitHub/GitLab) have no public
