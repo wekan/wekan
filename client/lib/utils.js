@@ -501,6 +501,22 @@ export const Utils = {
     Utils.reload();
   },
 
+  // #global search "my cards / all cards" toggle. Reactive (Session) so the
+  // search re-runs immediately without a full page reload; persisted in
+  // localStorage. Defaults to 'all' (search everything).
+  globalSearchView() {
+    const view =
+      Session.get('globalSearchView') ||
+      window.localStorage.getItem('globalSearchView');
+    return view && ['me', 'all'].includes(view) ? view : 'all';
+  },
+
+  setGlobalSearchView(view) {
+    const next = ['me', 'all'].includes(view) ? view : 'all';
+    window.localStorage.setItem('globalSearchView', next);
+    Session.set('globalSearchView', next);
+  },
+
   myCardsView() {
     let view = window.localStorage.getItem('myCardsView');
 

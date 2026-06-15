@@ -2,9 +2,35 @@ import { TAPi18n } from '/imports/i18n';
 import { CardSearchPaged } from '../../lib/cardSearch';
 import { LABEL_COLORS } from '/models/metadata/colors';
 import { Query, QueryErrors } from '../../../config/query-classes';
+import { OPERATOR_USER } from '/config/search-const';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Utils } from '/client/lib/utils';
 
 // const subManager = new SubsManager();
+
+// #3392-adjacent: "my cards / all cards" toggle for global search (mirrors the
+// due-cards view toggle). When "me", the current user is injected as a `user:`
+// predicate (member OR assignee), reusing the existing search logic.
+Template.globalSearchHeaderBar.helpers({
+  globalSearchView() {
+    return Utils.globalSearchView();
+  },
+});
+
+Template.globalSearchHeaderBar.events({
+  'click .js-global-search-view-change': Popup.open('globalSearchViewChange'),
+});
+
+Template.globalSearchViewChangePopup.events({
+  'click .js-global-search-view-me'() {
+    Utils.setGlobalSearchView('me');
+    Popup.back();
+  },
+  'click .js-global-search-view-all'() {
+    Utils.setGlobalSearchView('all');
+    Popup.back();
+  },
+});
 
 Template.globalSearch.onCreated(function () {
   const search = new CardSearchPaged(this);
@@ -38,27 +64,32 @@ Template.globalSearch.onCreated(function () {
 Template.globalSearch.onRendered(function () {
   Meteor.subscribe('setting');
 
-  // eslint-disable-next-line no-console
-  //console.log('lang:', TAPi18n.getLanguage());
-
-  if (Session.get('globalQuery')) {
-    searchAllBoards(this, Session.get('globalQuery'));
-  }
+  const tpl = this;
+  // Re-run the search reactively when the query OR the "my/all" view changes,
+  // so toggling the view filters immediately without a page reload.
+  this.autorun(() => {
+    const view = Utils.globalSearchView(); // reactive dependency
+    const queryText = Session.get('globalQuery'); // reactive dependency
+    if (queryText || view === 'me') {
+      searchAllBoards(tpl, queryText || '');
+    }
+  });
 });
 
 function searchAllBoards(tpl, queryText) {
   const search = tpl.search;
 
-  queryText = queryText.trim();
-  // eslint-disable-next-line no-console
-  //console.log('queryText:', queryText);
+  queryText = (queryText || '').trim();
 
   search.query.set(queryText);
 
   search.resetSearch();
   tpl.parsingErrors = new QueryErrors();
 
-  if (!queryText) {
+  const mine = Utils.globalSearchView() === 'me';
+
+  // Nothing to search: empty query and not restricting to the current user.
+  if (!queryText && !mine) {
     return;
   }
 
@@ -67,10 +98,17 @@ function searchAllBoards(tpl, queryText) {
   const query = new Query();
   query.buildParams(queryText);
 
-  // eslint-disable-next-line no-console
-  // console.log('params:', query.getParams());
+  const queryParams = query.getQueryParams();
 
-  tpl.queryParams = query.getQueryParams().getParams();
+  // "My cards": restrict to cards where the current user is member or assignee.
+  if (mine) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser && currentUser.username) {
+      queryParams.addPredicate(OPERATOR_USER, currentUser.username);
+    }
+  }
+
+  tpl.queryParams = queryParams.getParams();
 
   if (query.hasErrors()) {
     search.searching.set(false);
@@ -80,7 +118,7 @@ function searchAllBoards(tpl, queryText) {
     return;
   }
 
-  search.runGlobalSearch(query.getQueryParams());
+  search.runGlobalSearch(queryParams);
 }
 
 function errorMessages(tpl) {
