@@ -68,12 +68,23 @@ Meteor.methods({
 
     const triggerId = await Triggers.insertAsync({ ...clean(trigger), boardId });
     const actionId = await Actions.insertAsync({ ...clean(action), boardId });
-    const ruleId = await Rules.insertAsync({
+    const ruleDoc = {
       title: title || 'Rule',
       triggerId,
       actionId,
       boardId,
-    });
+    };
+    // Denormalise manual-button metadata onto the rule. The board view renders
+    // its board/card buttons from the rule document alone, because in this Meteor
+    // 3 setup the schemaless `triggers` collection's documents do not reach the
+    // client over the board subscription (the schema-backed `rules` collection
+    // does), so reading the label off the published trigger would leave the
+    // button blank/absent.
+    if (trigger && trigger.activityType === 'button') {
+      ruleDoc.buttonType = trigger.buttonType || 'card';
+      ruleDoc.buttonLabel = trigger.buttonLabel || title || 'Run';
+    }
+    const ruleId = await Rules.insertAsync(ruleDoc);
     return { _id: ruleId, triggerId, actionId };
   },
 });

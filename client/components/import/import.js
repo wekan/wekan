@@ -115,6 +115,15 @@ function boardSlug(data) {
   return (raw && getSlug(raw)) || 'imported-board';
 }
 
+// A WeKan export produced by a buggy older version (the `meta.boardId` exporter
+// regression) contains empty swimlanes/lists/cards arrays. Importing it can only
+// produce an empty board with a single Default swimlane, so detect that case and
+// warn instead of silently creating an empty board.
+function wekanExportIsEmpty(board) {
+  const count = key => (Array.isArray(board && board[key]) ? board[key].length : 0);
+  return count('swimlanes') === 0 && count('lists') === 0 && count('cards') === 0;
+}
+
 // Navigate to a freshly server-imported board. The HTTP import (unlike a DDP
 // method) does not push the new board's documents to this client, so we first
 // subscribe to the board and wait until its lists/swimlanes/cards are loaded
@@ -245,6 +254,13 @@ Template.import.onCreated(function () {
         input = await jsonFileEl.files[0].text();
       }
       const dataObject = JSON.parse(input);
+      // Guard against importing a broken/old WeKan export that has no board
+      // content (see wekanExportIsEmpty): warn the user to re-export rather than
+      // silently creating an empty board with only a Default swimlane.
+      if (this.importSource === 'wekan' && wekanExportIsEmpty(dataObject)) {
+        this.setError('error-import-empty-board');
+        return;
+      }
       this.setError('');
 
       // Trello: remember the target personal-workspace name for finishImport.

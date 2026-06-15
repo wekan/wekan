@@ -1,32 +1,32 @@
-import Triggers from '/models/triggers';
 import Rules from '/models/rules';
 
 // Renders the board's "board button" rules in the board header and runs one
-// (board-level, no card) when clicked. The triggers/rules/actions are published
-// by the always-on `board` subscription (server/publications/boards.js); this
-// template deliberately does NOT manage its own `boardRules` subscription, which
-// would otherwise race the /rules page's subscription on navigation and drop the
-// trigger documents from minimongo.
+// (board-level, no card) when clicked. The button metadata (type + label) is
+// denormalised onto the rule document (see server/rulesButton.js), so the board
+// view reads it from the published `rules` collection alone — the schemaless
+// `triggers` collection's documents do not reach the client over the board
+// subscription in this Meteor 3 setup.
+Template.boardButtons.onCreated(function () {
+  this.autorun(() => {
+    const boardId = Session.get('currentBoard');
+    if (boardId) this.subscribe('boardRules', boardId);
+  });
+});
+
 Template.boardButtons.helpers({
   boardButtonRules() {
     const boardId = Session.get('currentBoard');
     if (!boardId) return [];
-    // Read Minimongo directly rather than via the memoizing ReactiveCache: the
-    // header subtemplate re-renders while the board subscription settles, and the
-    // cache can latch a transient empty result, making the button flicker out.
-    // A stable `_id` lets Blaze reuse the node across re-renders.
-    const triggers = Triggers.find({
-      boardId,
-      activityType: 'button',
-      buttonType: 'board',
-    }).fetch();
-    return triggers
-      .map(trigger => {
-        const rule = Rules.findOne({ triggerId: trigger._id });
-        if (!rule) return null;
-        return { _id: rule._id, ruleId: rule._id, label: trigger.buttonLabel || rule.title };
-      })
-      .filter(Boolean);
+    // Read Minimongo directly (not the memoizing ReactiveCache, which can latch a
+    // transient empty result during subscription churn). A stable `_id` lets
+    // Blaze reuse the node across re-renders.
+    return Rules.find({ boardId, buttonType: 'board' })
+      .fetch()
+      .map(rule => ({
+        _id: rule._id,
+        ruleId: rule._id,
+        label: rule.buttonLabel || rule.title,
+      }));
   },
 });
 

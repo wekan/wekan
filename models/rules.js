@@ -22,6 +22,19 @@ Rules.attachSchema(
       type: String,
       optional: false,
     },
+    // Denormalised manual-button metadata (only present on button rules). The
+    // board view renders board/card buttons from the rule alone — see
+    // server/rulesButton.js (rules.createRule) for why the trigger document is
+    // not relied upon on the client.
+    buttonType: {
+      type: String,
+      optional: true,
+      allowedValues: ['card', 'board'],
+    },
+    buttonLabel: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       optional: true,

@@ -33,7 +33,8 @@ Meteor.publish('rules', async function(ruleId) {
 
 // Board-scoped publication of a board's rules together with their triggers and
 // actions, for anyone who can see the board (not just global admins). This backs
-// the fullscreen Rules page, the workflow view and card buttons.
+// the fullscreen Rules page, the workflow view, the board/card buttons and the
+// rules-list editor.
 Meteor.publish('boardRules', async function(boardId) {
   check(boardId, String);
   if (!this.userId) {
@@ -48,15 +49,6 @@ Meteor.publish('boardRules', async function(boardId) {
     Triggers.find({ boardId }),
     Actions.find({ boardId }),
   ];
-});
-
-Meteor.publish('zzTriggers', async function(boardId) {
-  check(boardId, String);
-  if (!this.userId) return this.ready();
-  const cur = Triggers.find({ boardId });
-  const fetched = await cur.fetchAsync();
-  console.log('DBG_ZZ name=', Triggers._name, 'collName=', cur._cursorDescription && cur._cursorDescription.collectionName, 'fetched=', fetched.length, 'ids=', fetched.map(d=>d._id).join(','));
-  return Triggers.find({ boardId });
 });
 
 Meteor.publish('allRules', async function() {

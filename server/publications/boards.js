@@ -569,30 +569,6 @@ publishComposite('board', async function(boardId, isArchived) {
           }
           return null;
         }
-      },
-      // Automation rules with their triggers and actions, published as part of the
-      // always-on `board` subscription. This gives the board view (board buttons in
-      // the header, card buttons in the card detail) a stable data source that is
-      // created fresh when the board route mounts. The per-template `boardRules`
-      // subscription used by the fullscreen /rules page is a SEPARATE publication,
-      // so navigating /rules -> /board no longer hands the trigger documents off
-      // between two subscriptions of the same publication (a handoff that raced
-      // Meteor's merge box and dropped the trigger, so a board-button rule's
-      // button never appeared without a full page reload).
-      {
-        async find(board) {
-          return await ReactiveCache.getRules({ boardId: board._id }, {}, true);
-        }
-      },
-      {
-        async find(board) {
-          return await ReactiveCache.getTriggers({ boardId: board._id }, {}, true);
-        }
-      },
-      {
-        async find(board) {
-          return await ReactiveCache.getActions({ boardId: board._id }, {}, true);
-        }
       }
     ]
   };

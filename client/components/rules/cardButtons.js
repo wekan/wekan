@@ -1,27 +1,27 @@
-import Triggers from '/models/triggers';
 import Rules from '/models/rules';
 
 // Lists the board's "card button" rules and runs one on the current card when
 // clicked. Expects the card data context (cardId + boardId) inherited from the
-// card detail template. The triggers/rules are published by the always-on
-// `board` subscription, so no per-template `boardRules` subscription is needed.
+// card detail template. The button metadata is denormalised onto the rule (see
+// server/rulesButton.js), so this reads from the published `rules` collection
+// alone — the schemaless `triggers` collection does not reach the client over
+// the board subscription in this Meteor 3 setup.
+Template.cardButtons.onCreated(function () {
+  this.autorun(() => {
+    const boardId = this.data && this.data.boardId;
+    if (boardId) this.subscribe('boardRules', boardId);
+  });
+});
+
 function buttonRulesForBoard(boardId) {
   if (!boardId) return [];
-  // Read Minimongo directly rather than via the memoizing ReactiveCache, which
-  // can latch a transient empty result during subscription churn and add a
-  // stable `_id` so Blaze reuses each row node.
-  const triggers = Triggers.find({
-    boardId,
-    activityType: 'button',
-    buttonType: 'card',
-  }).fetch();
-  return triggers
-    .map(trigger => {
-      const rule = Rules.findOne({ triggerId: trigger._id });
-      if (!rule) return null;
-      return { _id: rule._id, ruleId: rule._id, label: trigger.buttonLabel || rule.title };
-    })
-    .filter(Boolean);
+  return Rules.find({ boardId, buttonType: 'card' })
+    .fetch()
+    .map(rule => ({
+      _id: rule._id,
+      ruleId: rule._id,
+      label: rule.buttonLabel || rule.title,
+    }));
 }
 
 Template.cardButtons.helpers({
