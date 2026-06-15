@@ -136,7 +136,7 @@ Swimlanes.attachSchema(
 );
 
 Swimlanes.helpers({
-  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '') {
+  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
@@ -232,7 +232,7 @@ Swimlanes.helpers({
       const cards = await ReactiveCache.getCards(cardQuery, { sort: { sort: 1 } });
 
       for (const card of cards) {
-        await card.copy(boardId, newSwimlaneId, newListId);
+        await card.copy(boardId, newSwimlaneId, newListId, cardIdMap);
       }
     }
 

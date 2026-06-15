@@ -915,14 +915,32 @@ Boards.helpers({
         },
     });
 
-    // Copy all swimlanes in board
+    // Copy all swimlanes in board. cardIdMap collects old card id -> new card
+    // id so card-to-card dependencies (#3392 "Red Strings") can be remapped to
+    // the copies once every card has been created.
+    const cardIdMap = {};
     const swimlanes = await ReactiveCache.getSwimlanes({
       boardId: oldId,
       archived: false,
     });
     for (const swimlane of swimlanes) {
       swimlane.type = 'swimlane';
-      await swimlane.copy(_id);
+      await swimlane.copy(_id, null, 'below', '', cardIdMap);
+    }
+
+    // #3392: remap card-to-card dependencies (Red Strings) from the source
+    // card ids to their copies, dropping any whose target was not copied.
+    const depCards = await ReactiveCache.getCards({
+      boardId: _id,
+      cardDependencies: { $exists: true, $ne: [] },
+    });
+    for (const depCard of depCards) {
+      const remapped = (depCard.cardDependencies || [])
+        .map(oldDepId => cardIdMap[oldDepId])
+        .filter(Boolean);
+      await Cards.updateAsync(depCard._id, {
+        $set: { cardDependencies: remapped },
+      });
     }
 
     // copy custom field definitions

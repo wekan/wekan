@@ -39,8 +39,12 @@ and adds the following new features:
   (pick or remove other cards on the same board), and a board header toggle
   (`showDependencies`) renders an SVG overlay that draws a red curve from each card to
   each of its dependencies, following the live card positions on scroll/resize. The
-  overlay is non-interactive (`pointer-events: none`) so cards stay clickable. Fixes
-  \#3392. Thanks to CodeFreezr, dbt4u, xet7 and Claude.
+  overlay is non-interactive (`pointer-events: none`) so cards stay clickable.
+  Card dependencies and the board's `showDependencies` toggle are now preserved
+  through board copy and WeKan board export/import/migrate (the dependency target
+  ids are remapped to the copied/imported cards, dangling ones dropped), and the
+  feature is covered by an e2e suite (`tests/playwright/specs/27-red-strings.e2e.js`).
+  Fixes \#3392. Thanks to CodeFreezr, dbt4u, xet7 and Claude.
 - [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
   Domain](https://github.com/wekan/wekan/commit/fc9e8674d89ec5b045f2e2c1b14fade9e92baf0d):
   a new admin-only "Shared templates" tab under Admin Panel → People lists users'

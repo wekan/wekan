@@ -339,6 +339,38 @@ function seedTemplatesBoard({ ownerId, templateTitles = [] } = {}) {
   return { containerId, swimlaneId, listId, templateBoards };
 }
 
+/** Return the _id of the first non-archived card on a board with the given title. */
+function findCardIdByTitle({ boardId, title } = {}) {
+  const raw = mongoEval(`
+    const c = db.cards.findOne(
+      { boardId: ${literal(boardId)}, title: ${literal(title)}, archived: false },
+      { fields: { _id: 1 } }
+    );
+    print(c ? c._id : '');
+  `);
+  return raw || null;
+}
+
+/** Set a card's cardDependencies (#3392 "Red Strings") to the given target ids. */
+function setCardDependencies({ cardId, dependsOn = [] } = {}) {
+  mongoEval(`
+    db.cards.updateOne(
+      { _id: ${literal(cardId)} },
+      { $set: { cardDependencies: ${JSON.stringify(dependsOn)} } }
+    );
+  `);
+}
+
+/** Toggle a board's showDependencies (#3392 "Red Strings" overlay) flag. */
+function setBoardShowDependencies({ boardId, value = true } = {}) {
+  mongoEval(`
+    db.boards.updateOne(
+      { _id: ${literal(boardId)} },
+      { $set: { showDependencies: ${value ? 'true' : 'false'} } }
+    );
+  `);
+}
+
 /** Add a second user as a member of an existing board. */
 function addBoardMember({ boardId, userId, isAdmin = false }) {
   mongoEval(`
@@ -396,4 +428,4 @@ function getBoard(boardId) {
   try { return JSON.parse(raw); } catch { return null; }
 }
 
-module.exports = { seedUser, seedBoard, addBoardMember, setUserGroups, seedTemplatesBoard, cleanup, getCard, getBoard, mongoEval, literal };
+module.exports = { seedUser, seedBoard, addBoardMember, setUserGroups, seedTemplatesBoard, findCardIdByTitle, setCardDependencies, setBoardShowDependencies, cleanup, getCard, getBoard, mongoEval, literal };

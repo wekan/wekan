@@ -1,0 +1,120 @@
+'use strict';
+
+/**
+ * Spec 27 — Card dependency "Red Strings" / PI program board (feature #3392)
+ *
+ * Card-to-card dependencies are visualized as red, arrow-headed SVG connection
+ * lines drawn on top of the board. A card's "Dependencies" section (card detail)
+ * adds/removes links to other cards on the same board, and a board-header toggle
+ * (showDependencies) renders the overlay.
+ *
+ * Covers:
+ *  - With a dependency seeded and the board toggle on, a red dependency line is
+ *    drawn on top of the board.
+ *  - The board-header toggle hides/shows the overlay and the showDependencies
+ *    flag is persisted to the board in the database.
+ *  - Adding and removing a dependency from the card detail view persists the
+ *    card's cardDependencies to the database.
+ */
+
+const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+
+const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
+const RED = '#eb144c';
+
+test.describe('Red Strings – card dependency overlay', () => {
+  test.use({ storageState: undefined });
+
+  let owner;
+  let board;
+  let alphaId;
+  let betaId;
+
+  test.beforeAll(() => {
+    owner = db.seedUser();
+    board = db.seedBoard({
+      ownerId: owner.id,
+      title: 'PI Program Board',
+      listCount: 2,
+      cardTitlesPerList: [['PI Alpha'], ['PI Beta']],
+    });
+    alphaId = db.findCardIdByTitle({ boardId: board.boardId, title: 'PI Alpha' });
+    betaId = db.findCardIdByTitle({ boardId: board.boardId, title: 'PI Beta' });
+
+    // Alpha depends on Beta; overlay enabled.
+    db.setCardDependencies({ cardId: alphaId, dependsOn: [betaId] });
+    db.setBoardShowDependencies({ boardId: board.boardId, value: true });
+  });
+
+  test.afterAll(() => {
+    db.cleanup({ boardIds: [board.boardId], userIds: [owner.id] });
+  });
+
+  test('draws a red dependency line between dependent cards', async ({ page }) => {
+    await loginWithToken(page, owner.id, owner.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    const line = page.locator('.js-dependency-overlay .dependency-line').first();
+    await line.waitFor({ timeout: 15_000 });
+    await expect(line).toBeVisible();
+
+    // The string is red and follows an SVG path (M ... C ... curve).
+    await expect(line).toHaveAttribute('stroke', RED);
+    const d = await line.getAttribute('d');
+    expect(d).toMatch(/^M /);
+
+    // Overlay is non-interactive so cards stay clickable.
+    const overlay = page.locator('.js-dependency-overlay');
+    await expect(overlay).toHaveCSS('pointer-events', 'none');
+
+    await page.screenshot({ path: 'test-results/red-strings-overlay.png', fullPage: true });
+  });
+
+  test('header toggle hides the overlay and persists showDependencies to the board', async ({ page }) => {
+    await loginWithToken(page, owner.id, owner.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    await expect(page.locator('.js-dependency-overlay')).toBeVisible();
+
+    // Toggle OFF.
+    await page.locator('.js-toggle-dependencies').click();
+    await expect(page.locator('.js-dependency-overlay')).toHaveCount(0);
+    await expect
+      .poll(() => db.getBoard(board.boardId).showDependencies, { timeout: 10_000 })
+      .toBe(false);
+
+    // Toggle ON again.
+    await page.locator('.js-toggle-dependencies').click();
+    await expect(page.locator('.js-dependency-overlay')).toBeVisible();
+    await expect
+      .poll(() => db.getBoard(board.boardId).showDependencies, { timeout: 10_000 })
+      .toBe(true);
+  });
+
+  test('add/remove a dependency from the card detail persists to the database', async ({ page }) => {
+    // Start clean: Beta has no dependencies.
+    db.setCardDependencies({ cardId: betaId, dependsOn: [] });
+
+    await loginWithToken(page, owner.id, owner.token);
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}/${betaId}`, {
+      waitUntil: 'commit',
+    });
+
+    // Open the Dependencies picker and choose Alpha.
+    await page.locator('.js-add-dependency').waitFor({ timeout: 15_000 });
+    await page.locator('.js-add-dependency').click();
+    await page.locator(`.js-pick-dependency[data-target-id="${alphaId}"]`).click();
+
+    await expect
+      .poll(() => db.getCard(betaId).cardDependencies || [], { timeout: 10_000 })
+      .toContain(alphaId);
+
+    // Remove it again.
+    await page.locator(`.js-remove-dependency[data-target-id="${alphaId}"]`).click();
+    await expect
+      .poll(() => db.getCard(betaId).cardDependencies || [], { timeout: 10_000 })
+      .not.toContain(alphaId);
+  });
+});

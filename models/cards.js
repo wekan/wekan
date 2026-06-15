@@ -790,7 +790,7 @@ Cards.helpers({
 },
 
 
-  async copy(boardId, swimlaneId, listId) {
+  async copy(boardId, swimlaneId, listId, cardIdMap = null) {
     const oldId = this._id;
     const oldCard = await ReactiveCache.getCard(oldId);
 
@@ -830,7 +830,32 @@ Cards.helpers({
     this.cardNumber = await board.getNextCardNumber();
     this.swimlaneId = swimlaneId;
     this.listId = listId;
+
+    // #3392: PI Program Board "Red Strings". For a single-card copy keep only
+    // dependencies whose target card is also present on the destination board,
+    // so same-board copies keep their links and cross-board copies drop
+    // dangling ones. For a whole-board/swimlane copy a cardIdMap is supplied
+    // and the old ids are remapped by the caller once every card has been
+    // copied, so leave them untouched here.
+    if (!cardIdMap) {
+      const deps = this.cardDependencies || [];
+      const keptDeps = [];
+      for (const depId of deps) {
+        const dep = await ReactiveCache.getCard(depId);
+        if (dep && dep.boardId === boardId) {
+          keptDeps.push(depId);
+        }
+      }
+      this.cardDependencies = keptDeps;
+    }
+
     const _id = await Cards.insertAsync(this);
+
+    // #3392: record old->new id so a whole-board/swimlane copy can remap
+    // cardDependencies (Red Strings) after every card has been copied.
+    if (cardIdMap) {
+      cardIdMap[oldId] = _id;
+    }
 
     // Copy attachments (server-only — requires filesystem access)
     if (Meteor.isServer) {

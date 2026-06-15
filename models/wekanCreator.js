@@ -333,6 +333,8 @@ export class WekanCreator {
         },
       ],
       presentParentTask: boardToImport.presentParentTask,
+      // #3392: carry over the "Red Strings" dependency-overlay toggle.
+      showDependencies: boardToImport.showDependencies || false,
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
       permission: boardToImport.permission,
@@ -797,6 +799,29 @@ export class WekanCreator {
     }
   }
 
+  // #3392: PI Program Board "Red Strings". Remap each card's cardDependencies
+  // from the source card ids to the newly-created card ids, dropping any whose
+  // target card was not part of the imported board.
+  async createCardDependencies(wekanCards) {
+    for (const card of wekanCards) {
+      if (!card.cardDependencies || card.cardDependencies.length === 0) {
+        continue;
+      }
+      const newCardId = this.cards[card._id];
+      if (!newCardId) {
+        continue;
+      }
+      const remapped = card.cardDependencies
+        .map(oldDepId => this.cards[oldDepId])
+        .filter(Boolean);
+      if (remapped.length > 0) {
+        await Cards.direct.updateAsync(newCardId, {
+          $set: { cardDependencies: remapped },
+        });
+      }
+    }
+  }
+
   async createChecklists(wekanChecklists, boardId) {
     const result = [];
     for (const [checklistIndex, checklist] of wekanChecklists.entries()) {
@@ -1101,6 +1126,7 @@ export class WekanCreator {
     await this.createCustomFields(board.customFields, boardId);
     await this.createCards(board.cards, boardId);
     await this.createSubtasks(board.cards);
+    await this.createCardDependencies(board.cards);
     await this.createChecklists(board.checklists, boardId);
     await this.createChecklistItems(board.checklistItems, boardId);
     await this.importActivities(board.activities, boardId);

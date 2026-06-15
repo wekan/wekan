@@ -182,7 +182,7 @@ Lists.attachSchema(
 );
 
 Lists.helpers({
-  async copy(boardId, swimlaneId) {
+  async copy(boardId, swimlaneId, cardIdMap = null) {
     const oldId = this._id;
     const oldSwimlaneId = this.swimlaneId || null;
     this.boardId = boardId;
@@ -209,7 +209,7 @@ Lists.helpers({
       archived: false,
     });
     for (const card of cards) {
-      await card.copy(boardId, swimlaneId, _id);
+      await card.copy(boardId, swimlaneId, _id, cardIdMap);
     }
 
     return _id;
