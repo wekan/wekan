@@ -78,7 +78,7 @@ and adds the following new features:
   the user's orgs/teams/email domains; the boards are shown as links into each template
   board. Covered by an e2e suite (`tests/playwright/specs/26-shared-templates.e2e.js`).
   Documented in
-  [Features/SharedTemplates](https://github.com/wekan/wekan/blob/main/docs/Features/SharedTemplates/SharedTemplates.md).
+  [Features/Templates](https://github.com/wekan/wekan/blob/main/docs/Features/Templates.md#shared-templates-admin-view).
   Fixes #3313. Thanks to xet7 and Claude.
 
 and fixes the following bugs:

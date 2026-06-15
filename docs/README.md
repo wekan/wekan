@@ -175,7 +175,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Custom Logo](Features/Custom-Logo.md)
 * [Subtasks](Features/Subtasks.md)
 * [Templates](Features/Templates.md)
-* [Shared Templates (Admin view)](Features/SharedTemplates/SharedTemplates.md)
+* [Shared Templates (Admin view)](Features/Templates.md#shared-templates-admin-view)
 * [Card Cover Image](Features/Cover/Cover.md)
 * [Stickers](Features/Stickers/Stickers.md)
 * [Card Locations](Features/Locations/Locations.md)
