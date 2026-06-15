@@ -67,6 +67,23 @@ and fixes the following bugs:
   its label was mis-nested inside the `<i class="fa fa-picture-o">` icon element instead of
   being a sibling of it, so it inherited the FontAwesome icon font styling. The label now sits
   directly under the menu link like every other entry. Thanks to xet7 and Claude.
+- [Hardened the reactive `DataCache` teardown to re-check for dependents before stopping a
+  still-used entry](https://github.com/wekan/wekan/commit/82192d04703c3b4bc09b7f28b8923d979c3b8831):
+  the 60s teardown timeout could stop the computation and delete a value that a dependent
+  re-attached to during the window, surfacing as a transient `undefined` (a contributor to the
+  "Board not found" flicker). Thanks to xet7 and Claude.
+- [Fixed board export error responses returning HTTP 200 with an empty body](https://github.com/wekan/wekan/commit/309425545ffa91747f1f8d7d8585ec04795e13bf):
+  the export endpoints passed a bare number to `sendJsonResult`, which treats its argument as an
+  options object, so 404/400/403/auth failures returned 200 with no body. They now return the
+  correct status code and a JSON error body. Thanks to xet7 and Claude.
+- [Fixed the board create/delete REST handlers masking errors as success](https://github.com/wekan/wekan/commit/29631f6f4b61fcf19ec1517a2ce335f3de7ac4b0):
+  `POST /api/boards` and `DELETE /api/boards/:boardId` caught errors and returned `code: 200`
+  with the error as data; they now report the real status code (so e.g. an unauthorized delete
+  returns a 4xx). Thanks to xet7 and Claude.
+- [Hardened board import against out-of-range swimlane/card colors](https://github.com/wekan/wekan/commit/5eeedf8744ce344e5258a2c26698b9af66c78142):
+  like the earlier board-color fix, a card or swimlane color is now applied only when it is a
+  recognized color value, so a foreign/old export carrying an unknown color can no longer fail
+  collection2 validation and abort the import. Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -366,23 +383,9 @@ Known issues / possible later fixes (not addressed in this release):
   delete/archive (global behavior change); and hardening `DataCache` (not storing a
   transient `undefined` over a present value) risks masking legitimate removals across
   every reactive read. Same root cause as the board/card automation-button flicker
-  fixed above (worked around there by reading Minimongo directly).
-- **`DataCache` 60s teardown timeout** (`imports/lib/dataCache.js`) calls `stop()`/
-  `del()` without re-checking `hasDependents()` in the timeout callback; adding that
-  re-check is a small, independent hardening that would also reduce the flicker above.
-- **Export auth-failure responses are malformed.** On the not-logged-in path the
-  export endpoints still call `sendJsonResult(res, error.statusCode || 403)` with a
-  bare number, which yields HTTP 200 with an empty body instead of the intended
-  status. Should pass `{ code, data }`. (`models/export.js`, `models/exportPDF.js`)
-- **Board REST handlers mask errors as success.** The board create/delete handlers
-  `catch` and return `code: 200` with the error as data (`server/models/boards.js`);
-  only the delete handler's auth was corrected here. They should report the real
-  status code.
-- **Importer color hardening.** Only the board color is sanitized against
-  out-of-range values; swimlane/list/card importers could likewise reject an
-  unrecognized `color` from a foreign export and should get the same
-  `allowed.includes(...) ? ... : default` guard. (`models/wekanCreator.js`,
-  `models/csvCreator.js`)
+  fixed above (worked around there by reading Minimongo directly). (The `DataCache`
+  60s-teardown contributor to this flicker has since been hardened — see the Upcoming
+  release fixes above.)
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
