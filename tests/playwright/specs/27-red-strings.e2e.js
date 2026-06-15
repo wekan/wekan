@@ -142,4 +142,74 @@ test.describe('Red Strings – card dependency overlay', () => {
     // Directed relation => arrowhead marker is referenced.
     await expect(line).toHaveAttribute('marker-end', /url\(#/);
   });
+
+  test('minicard shows a colored dependency badge with the count', async ({ page }) => {
+    db.setCardDependencies({
+      cardId: alphaId,
+      dependsOn: [{ cardId: betaId, type: 'blocks', color: '#2196f3', icon: 'lock' }],
+    });
+    await loginWithToken(page, owner.id, owner.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    const badge = page.locator('.minicard-dependencies').first();
+    await badge.waitFor({ timeout: 15_000 });
+    await expect(badge).toContainText('1');
+  });
+
+  test('copyCard preserves a same-board dependency (type/color) on the copy', async ({ page }) => {
+    db.setCardDependencies({
+      cardId: alphaId,
+      dependsOn: [{ cardId: betaId, type: 'blocks', color: '#2196f3', icon: 'lock' }],
+    });
+    await loginWithToken(page, owner.id, owner.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    const newCardId = await page.evaluate(
+      ({ alphaId, boardId, swimlaneId, listId }) =>
+        Meteor.callAsync('copyCard', alphaId, boardId, swimlaneId, listId, false, {
+          title: 'PI Alpha Copy',
+        }),
+      {
+        alphaId,
+        boardId: board.boardId,
+        swimlaneId: board.swimlaneId,
+        listId: board.listIds[1],
+      },
+    );
+    expect(newCardId).toBeTruthy();
+
+    const deps = db.getCard(newCardId).cardDependencies || [];
+    expect(deps.map(d => d.cardId)).toContain(betaId);
+    expect(deps[0]).toMatchObject({ type: 'blocks', color: '#2196f3' });
+  });
+
+  test('importBoardDependencies matches cards by number and by title', async ({ page }) => {
+    db.setCardDependencies({ cardId: alphaId, dependsOn: [] });
+    db.setCardDependencies({ cardId: betaId, dependsOn: [] });
+    const alpha = db.getCard(alphaId);
+    const beta = db.getCard(betaId);
+
+    await loginWithToken(page, owner.id, owner.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    const res = await page.evaluate(
+      ({ boardId, lines }) => Meteor.callAsync('importBoardDependencies', boardId, lines),
+      {
+        boardId: board.boardId,
+        lines: [
+          // matched by card number
+          { fromCardNumber: alpha.cardNumber, toCardNumber: beta.cardNumber, type: 'fixes', color: '#00ff00' },
+          // matched by exact title
+          { fromTitle: 'PI Beta', toTitle: 'PI Alpha', type: 'related-to' },
+          // unmatched (bogus ids/titles)
+          { from: 'nope', to: 'nope2', fromTitle: 'x', toTitle: 'y' },
+        ],
+      },
+    );
+
+    expect(res.imported).toBe(2);
+    expect(res.unmatched).toBe(1);
+    expect((db.getCard(alphaId).cardDependencies || []).map(d => d.cardId)).toContain(betaId);
+    expect((db.getCard(betaId).cardDependencies || []).map(d => d.cardId)).toContain(alphaId);
+  });
 });

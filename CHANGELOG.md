@@ -42,8 +42,11 @@ and adds the following new features:
   overlay is non-interactive (`pointer-events: none`) so cards stay clickable.
   Card dependencies and the board's `showDependencies` toggle are now preserved
   through board copy and WeKan board export/import/migrate (the dependency target
-  ids are remapped to the copied/imported cards, dangling ones dropped), and the
-  feature is covered by an e2e suite (`tests/playwright/specs/27-red-strings.e2e.js`).
+  ids are remapped to the copied/imported cards, dangling ones dropped). The
+  feature is covered by tests: e2e specs `27-red-strings` (overlay, toggle,
+  typed lines, minicard badge, copyCard preservation, import matching) and
+  `28-dependencies-rest` (REST CRUD + schema validation), plus mocha unit tests
+  for the metadata helpers, the REST OpenAPI annotations and the filter selector.
   Each dependency is now **typed and customizable**: a relation `type`
   (`related-to`, `blocks`, `is-blocked-by`, `fixes`, `is-fixed-by` — the type sets
   the arrow direction; `related-to` is undirected), a per-line `color` (any color,

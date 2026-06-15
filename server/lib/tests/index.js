@@ -12,3 +12,5 @@ import './search.logic.tests';
 import './fileStoreStrategy.security.tests';
 import './clonebleed.security.tests';
 import './permissions.security.tests';
+import './dependencies.metadata.tests';
+import './dependencies.openapi.tests';
