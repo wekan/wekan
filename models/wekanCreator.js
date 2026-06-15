@@ -4,7 +4,7 @@ import Actions from '/models/actions';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
-import { BOARD_COLORS } from '/models/metadata/colors';
+import { BOARD_COLORS, CARD_COLORS, SWIMLANE_COLORS } from '/models/metadata/colors';
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import CardComments from '/models/cardComments';
@@ -483,8 +483,9 @@ export class WekanCreator {
           cardToCreate.assignees = wekanAssignees;
         }
       }
-      // set color
-      if (card.color) {
+      // set color (only if it is a recognized card color, so an out-of-range
+      // value from a foreign/old export cannot fail collection2 validation)
+      if (card.color && CARD_COLORS.includes(card.color)) {
         cardToCreate.color = card.color;
       }
 
@@ -749,8 +750,9 @@ export class WekanCreator {
         title: swimlane.title,
         sort: swimlane.sort ? swimlane.sort : swimlaneIndex,
       };
-      // set color
-      if (swimlane.color) {
+      // set color (only if it is a recognized swimlane color, so an out-of-range
+      // value from a foreign/old export cannot fail collection2 validation)
+      if (swimlane.color && SWIMLANE_COLORS.includes(swimlane.color)) {
         swimlaneToCreate.color = swimlane.color;
       }
       const swimlaneId = await Swimlanes.direct.insertAsync(swimlaneToCreate);
