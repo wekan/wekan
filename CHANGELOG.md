@@ -44,6 +44,14 @@ and fixes the following bugs:
   include `s`/`del`/`strike`, so the sanitizer stripped the tag (keeping the bare text).
   Those inline tags are now allowed in both DOMPurify configs. Fixes #6008. Thanks to
   Buo-ren Lin, xet7 and Claude.
+- [Fixed the release pipeline's OpenAPI docs generator crashing on template-literal route
+  paths](https://github.com/wekan/wekan/commit/17bb7c1264969a50f778452b37335599e3af0518),
+  which failed the GitHub Actions "release-all" bump job (`AttributeError: 'NoneType'
+  object has no attribute 'rstrip'`) when a REST route is registered with a backtick path
+  such as `` `/api/boards/:boardId/export/${format}` ``. The generator now resolves such
+  paths (a `${identifier}` becomes a `{identifier}` path parameter) and skips any route
+  whose path cannot be resolved statically instead of aborting the whole release. Thanks
+  to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
