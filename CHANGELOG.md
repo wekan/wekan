@@ -40,22 +40,15 @@ and adds the following new features:
   (`showDependencies`) renders an SVG overlay that draws a red curve from each card to
   each of its dependencies, following the live card positions on scroll/resize. The
   overlay is non-interactive (`pointer-events: none`) so cards stay clickable.
-  Card dependencies and the board's `showDependencies` toggle are now preserved
-  through board copy and WeKan board export/import/migrate (the dependency target
-  ids are remapped to the copied/imported cards, dangling ones dropped). The
-  feature is covered by tests: e2e specs `27-red-strings` (overlay, toggle,
-  typed lines, minicard badge, copyCard preservation, import matching) and
-  `28-dependencies-rest` (REST CRUD + schema validation), plus mocha unit tests
-  for the metadata helpers, the REST OpenAPI annotations, the filter selector,
-  the cross-board move cleanup and the Jira issue-link mapping.
   Each dependency is now **typed and customizable**: a relation `type`
   (`related-to`, `blocks`, `is-blocked-by`, `fixes`, `is-fixed-by` — the type sets
   the arrow direction; `related-to` is undirected), a per-line `color` (any color,
   via a color picker, not just red) and an `icon` (FontAwesome). The card detail
-  "Dependencies" section edits all three; a colored icon+count **badge** is shown on
-  the minicard; and the board Filter sidebar can **filter cards by dependency
-  relation type**. A **REST API** was added (tag `Dependencies`, documented in the
-  OpenAPI docs and `api.py`): `GET /api/boards/:boardId/dependencies`,
+  "Dependencies" section edits all three (relation type, color, icon picker), with a
+  search-by-title picker to add one; a colored icon+count **badge** is shown on the
+  minicard; and the board Filter sidebar can **filter cards by dependency relation
+  type**. A **REST API** was added (tag `Dependencies`, documented in the OpenAPI
+  docs and `api.py`): `GET /api/boards/:boardId/dependencies`,
   `GET/POST /api/boards/:boardId/cards/:cardId/dependencies` and
   `PUT/DELETE /api/boards/:boardId/cards/:cardId/dependencies/:targetId`, each
   accepting `type`/`color`/`icon`. Dependency lines can be **exported** (Board
@@ -63,8 +56,15 @@ and adds the following new features:
   round-trippable diagram) and **imported** (All Boards → New → Import →
   Dependencies (JSON/SVG)) into a chosen board, matching cards by id, then card
   number, then title. Importing a **Jira** board now maps Jira `issuelinks`
-  best-effort to dependency relations. Card dependencies are also dropped/cleaned
-  when a card is **moved** to another board. Documented in
+  best-effort to dependency relations. Card dependencies and the board's
+  `showDependencies` toggle are **preserved** through card/board copy and WeKan
+  board export/import/migrate (target ids are remapped, dangling ones dropped), and
+  a card **moved** to another board drops its now cross-board dependencies and
+  cleans inbound references. Covered by tests: e2e specs `27-red-strings` (overlay,
+  toggle, typed lines, minicard badge, copyCard preservation, import matching) and
+  `28-dependencies-rest` (REST CRUD + schema validation), plus mocha unit tests for
+  the metadata helpers, the REST OpenAPI annotations, the filter selector, the
+  cross-board move cleanup and the Jira issue-link mapping. Documented in
   [Features/RedStrings](https://github.com/wekan/wekan/blob/main/docs/Features/RedStrings/RedStrings.md).
   Fixes \#3392. Thanks to CodeFreezr, dbt4u, helioguardabaxo, xet7 and Claude.
 - [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
@@ -77,6 +77,8 @@ and adds the following new features:
   (the `cardType-linkedBoard` cards in their Board Templates swimlane) and returns them with
   the user's orgs/teams/email domains; the boards are shown as links into each template
   board. Covered by an e2e suite (`tests/playwright/specs/26-shared-templates.e2e.js`).
+  Documented in
+  [Features/SharedTemplates](https://github.com/wekan/wekan/blob/main/docs/Features/SharedTemplates/SharedTemplates.md).
   Fixes #3313. Thanks to xet7 and Claude.
 
 and fixes the following bugs:

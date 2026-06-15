@@ -17,6 +17,7 @@ is documented yet — contributions are welcome.
 - [WIP Limits](WipLimit/WipLimit.md)
 - [Members and Permissions](Members/Members.md)
 - [Templates](Templates.md)
+- [Shared Templates (Admin view)](SharedTemplates/SharedTemplates.md)
 - [Archive and Delete](Archive-and-Delete.md)
 - [Keyboard Shortcuts](Keyboard-Shortcuts/Keyboard-Shortcuts.md)
 - [Accessibility](Accessibility/Accessibility.md)

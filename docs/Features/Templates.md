@@ -7,6 +7,7 @@
 ***
 There is currently:
 - [Per-user templates](https://github.com/wekan/wekan/issues/2209), it works as described below.
+- An admin [Shared Templates](SharedTemplates/SharedTemplates.md) view (Admin Panel → People → Shared templates) that lists users' shared template boards grouped by Organization / Team / email Domain.
 - Card hamburger menu / Copy Checklist Template to Many Cards
 
 At [Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) of xet7, Maintainer of Wekan, these already have [some funding](https://wekan.fi/commercial-support/):
