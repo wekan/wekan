@@ -70,8 +70,141 @@ and adds the following new features:
 - [Added an accessibility end-to-end test suite](https://github.com/wekan/wekan/commit/9c39226a59f8fc156559315b85a1769e109c43e8)
   that checks the page language, skip link, landmark roles, visible focus, dialog
   roles, accessible names on icon controls, and the absence of duplicate element ids.
+- Greatly expanded board automation **Rules**:
+  - The Rules page is now a **fullscreen page** below the top bar (board sidebar →
+    Rules), instead of a cramped popup. It has its own route `/b/:id/:slug/rules`.
+  - **Scheduled rules**: run rules on a schedule (once on a date, or every day /
+    weekday / week / month at a chosen time), on **due dates** (set / approaching /
+    overdue), or by **card aging** ("a card has been in a list for N days"). A
+    SyncedCron job evaluates these every minute. This makes processes such as
+    "archive cards that have been in the Completed column for 90 days" work out of
+    the box.
+  - These long-standing automation feature requests are implemented by the above
+    rules work and can be closed: Fixes #1160, Fixes #2476, Fixes #4372, Fixes #5775,
+    Fixes #5825 — IFTTT-style rules including recurring cards (#1160), Trello-Butler-
+    like Scheduled Rules (#2476), rules that set a due date 1 day/week/month ahead via
+    the "set a date relative to now (+N days)" action (#4372), and automated recurring
+    cards/tasks on a daily/weekday/weekly/monthly schedule from the GUI (#5775, #5825).
+  - **More Trello-Butler-style automations**: card **buttons** (shown on the card)
+    and board **buttons** (shown in the board header) that run an action on demand,
+    and new actions — sort a list (by due/name/created/modified), move all cards in a
+    list, mark card complete/incomplete, and set a date relative to now.
+  - **Manage rules**: select all / unselect all, delete selected, edit (rename), and
+    a **drag-and-drop visual Workflow editor** (Jira-like): drag a trigger and an
+    action into a `When … → Then …` builder to create a rule, drag an action onto an
+    existing rule to change it, and delete rules from the graph.
+  - **Import / Export rules** to JSON (lossless) and CSV (round-trippable); export
+    only the selected rules; a **best-effort importer for Trello Butler** commands
+    (Trello board exports do not contain Butler rules, so they are pasted in and the
+    supported subset is mapped, with unmapped lines reported).
+  - **Import visual workflows from n8n and Node-RED** (best-effort: the workflow
+    graph's trigger→action edges are mapped to WeKan rules, unmapped nodes reported),
+    with an **Import target** selector to choose which personal **workspace** and
+    **board** the imported rules go into (applies to all importers in the dialog).
+- Added a **whole-board import REST API** (`POST /api/boards/import`) that recreates a
+  board — including its **rules/triggers/actions (workflows)** and other data — from a
+  WeKan board export. With the existing export endpoint this enables **migrating all
+  boards + workflows + rules from another WeKan over the API**; `api.py` adds
+  `importboard` and `migratefromwekan REMOTE_URL REMOTE_USER REMOTE_PASS`. The remote
+  fetch is done client-side, so the server never fetches arbitrary URLs. Covered by
+  an e2e test (export a board with a rule → import it → assert the rule, trigger and
+  action are recreated on the new board) in `tests/playwright/specs/23-rest-api-more.e2e.js`.
+  - **Rules REST API** to add/edit/remove/list rules
+    (`/api/boards/:boardId/rules`), documented in the OpenAPI docs and `api.py`
+    (`addrule` / `editrule` / `removerule` / `listrules` / `getrule`).
+  - Added a Rules e2e test suite (`tests/playwright/specs/20-rules.e2e.js`, covering
+    the fullscreen page, creating event rules, import/export, selecting rules, the
+    workflow view and board buttons) and docs
+    ([Features/Rules](https://github.com/wekan/wekan/blob/main/docs/Features/Rules/Rules.md),
+    updated IFTTT page).
+- Added **Jira import** ("All Boards → New → Import → From Jira"): import boards from
+  a Jira Cloud REST issue-search JSON, similar to the Trello importer. Jira statuses
+  become lists, issues become cards (with labels, due dates and assignees mapped),
+  and an optional `automationRules` array is imported as WeKan rules.
+- Import from WeKan, Trello and Jira can now be done **with or without mapping
+  members**: an "Import without mapping members (map later)" button skips the member
+  mapping step and imports immediately, so members can be mapped afterwards. Covered
+  by `tests/playwright/specs/21-import-without-mapping.e2e.js`.
+- Rounded out board import/export menus:
+  - **Excel (.xlsx) board import** ("All Boards → New → Import → From Excel"): the
+    spreadsheet is parsed on the server (exceljs) into rows and imported through the
+    CSV creator, so boards can round-trip through `.xlsx` (the matching Excel *export*
+    already existed).
+  - **Board PDF export** ("Board Settings → Export → Export board to PDF", and
+    `GET /api/boards/:boardId/exportPDF`): exports the board title, lists and cards to
+    a PDF (reusing the card PDF builder). Added `api.py exportboardpdf`.
+  - **Kanboard import and export**: "From Kanboard" in the import menu (columns →
+    lists, tasks → cards, tags → labels) and "Export board to Kanboard JSON" in the
+    export menu (`GET /api/boards/:boardId/export/kanboard`), which round-trips with
+    the importer.
+  - **Import and export to/from NextCloud Deck, OpenProject, GitHub, GitLab, Gitea
+    and Forgejo.** Implemented generically: each tool has a small parser that
+    normalizes its export/API JSON to a common shape (reusing one import engine) and
+    a formatter that emits the tool's JSON (reusing one export collector). Added to
+    the import and export menus, with a generalized REST API
+    (`POST /api/boards/import/:source`, `GET /api/boards/:boardId/export/:format`) and
+    `api.py` helpers (`importboardfrom`, `exportboardformat`) so all boards can be
+    migrated in bulk. Issue trackers (GitHub/GitLab/Gitea/Forgejo) map issues to cards
+    grouped into Open/Closed lists; Deck stacks and OpenProject statuses become lists.
+    Documented in [External-Tools](https://github.com/wekan/wekan/blob/main/docs/ImportExport/External-Tools.md).
+  - **Asana** and **ZenKit** are now fully built-in (import + export menus, REST
+    API and `api.py` — no external script needed).
+  - Together with the existing CSV/Excel import+export and the card PDF export, this
+    completes CSV / Excel / PDF import & export. Fixes #395.
+  - Covered by `tests/playwright/specs/25-excel-pdf.e2e.js` (Excel import + board PDF
+    export). Documented in [Excel-and-VBA](https://github.com/wekan/wekan/blob/main/docs/ImportExport/Excel-and-VBA.md)
+    and [Kanboard](https://github.com/wekan/wekan/blob/main/docs/ImportExport/Kanboard.md).
+- Extended the **REST API** so the newer card features are scriptable: the card edit
+  endpoint (`PUT /api/boards/:boardId/lists/:listId/cards/:cardId`) now accepts
+  `stickers`, `locations` and `dueComplete` (the complete checkbox), documented with
+  `api.py` examples (`setcardstickers` / `setcardlocations` / `setcardcomplete`).
+- Added e2e tests for previously-untested documented features
+  (`tests/playwright/specs/22-card-features.e2e.js`): stickers, card locations, the
+  complete checkbox and WIP limits.
+- Expanded REST API test coverage (`tests/playwright/specs/23-rest-api-more.e2e.js`):
+  the Rules API (create/list/get/edit/delete), the new card `stickers` / `locations`
+  / `dueComplete` fields, and core CRUD for swimlanes, lists, custom fields,
+  checklists + items and comments.
+- Added a **board background image upload/download API** (the background counterpart
+  of the card-attachment upload API): `POST /api/attachment/upload-background` and
+  `GET /api/attachment/download-background/:boardId` (plus the DDP methods
+  `api.board.uploadBackground` / `api.board.downloadBackground`). Uploads use the
+  current **Admin Panel / Attachments / Default Storage** backend and set the image
+  as the board's active background (board-admin gated). Documented in the OpenAPI
+  docs and `api.py` (`uploadbackground` / `downloadbackground`).
+- Added **Trello-Butler-style rule variables** — `{cardname}`, `{cardnumber}`,
+  `{listname}`, `{boardname}`, `{duedate}`, `{username}`, `{date}` / `{time}` /
+  `{datetime}`, etc. — substituted in rule action text (email subject/body, created
+  card/checklist/swimlane names). Fixes #2475.
+- Added **visual card aging**: when enabled per board (board settings → "Card
+  aging"), cards that have not been touched for a while are progressively faded based
+  on their last activity, Trello-style. The three fade-tier **day thresholds are
+  board-configurable** (default 7 / 14 / 28 days). Toggleable and configurable in the
+  board settings and over the card-settings REST API
+  (`cardAging`, `cardAgingDays1/2/3`). Fixes #3984.
+- Added **accessible reordering** without drag-and-drop: visually hidden,
+  keyboard-focusable "Move card up/down" buttons on minicards and "Move list
+  left/right" buttons on list headers, for screen-reader and keyboard users. Fixes #459.
+- The board's background image is now also shown as the board tile background on the
+  **All Boards** list page (reusing the existing board background, with a dark overlay
+  for readability). Fixes #5157.
 
 and fixes the following bugs:
+
+- Fixed rules that send an email crashing with `TAPi18n is not defined`
+  (`TAPi18n` was not imported in `server/rulesHelper.js`). Fixes #5822.
+- Fixed the **WIP limit** counting only the currently visible cards when a filter is
+  active, which let lists exceed their hard WIP limit; it now counts all cards in the
+  list. Fixes #2095.
+- Fixed deleting a board leaving orphaned rule **Actions** in the database (Rules and
+  Triggers were removed but Actions were not). Fixes #4266.
+- Fixed the "check all / uncheck all / (un)check item" rule actions crashing with
+  "Cannot read property 'uncheckAllItems' of undefined" when the named checklist or
+  item does not exist on the card; they now no-op safely. Fixes #5283.
+- Added e2e tests for the above features and fixes in
+  `tests/playwright/specs/24-feature-issues.e2e.js` (accessible card/list reordering,
+  visual card aging with default and configurable thresholds, board-delete rule
+  cleanup, and the board background on the All Boards tile).
 
 - [Fixed duplicate `id="header"` attributes rendered inside loops on the My Cards page](https://github.com/wekan/wekan/commit/c8c0438d662426aaf246a6164d3c3b18bd3462f6),
   which produced invalid HTML and broke assistive-technology navigation (WCAG 4.1.1).
@@ -79,6 +212,94 @@ and fixes the following bugs:
   with `scope="col"`, and a caption was added, so the table is announced correctly.
 - Added missing `alt` text to the user avatar image (the surrounding link already
   carries the accessible name).
+- Fixed several bugs in the new features above that were surfaced by running the full
+  test suite (`./rebuild-wekan.sh` → "Run ALL tests"), so the Playwright suite is
+  green again:
+  - **Board JSON export returned empty lists, swimlanes and rules.** A previous fix
+    that made attachment export use `meta.boardId` accidentally applied the same
+    selector to lists/swimlanes/rules, which store a flat `boardId`, so those came
+    back empty — and the whole-board import API then had nothing to recreate.
+    Attachments now use their own selector. (`models/exporter.js`)
+  - **Export, PDF export and board-delete REST endpoints required a global site
+    admin** (`Authentication.checkUserId`) instead of board-level access, so a board
+    owner using their own API token got `403`/empty responses and board deletion
+    silently did nothing (its rule/trigger/action cleanup never ran). They now require
+    only a logged-in user and rely on the existing per-board `canExport` / board-admin
+    checks. (`models/export.js`, `models/exportPDF.js`, `server/models/boards.js`)
+  - **Rules did not appear on the fullscreen Rules page.** The `boardRules`
+    publication passed the user id string to `Board.isVisibleBy()`, which expects a
+    user object, so a board's rules/triggers/actions were never published.
+    (`server/publications/rules.js`)
+  - **Card edit and checklist REST endpoints returned `500`.**
+    `PUT /api/boards/:boardId/lists/:listId/cards/:cardId` with `locations` stored
+    entries without the schema-required `_id` (and without numeric coordinates), and
+    the checklist `POST` referenced a permission helper it never imported.
+    (`server/models/cards.js`, `server/models/checklists.js`)
+  - **Excel/CSV import crashed on spreadsheets without date columns** (it read
+    `.length` of a missing cell); date columns are now treated as optional.
+    (`models/csvCreator.js`)
+  - **Importing a board whose export carried a non-WeKan board color aborted with a
+    `400`.** A WeKan/Trello export can contain `color: "bgnone"`, which is not an
+    allowed board color, so collection2 rejected the board insert and the import never
+    navigated to the new board. The imported color now falls back to the default when
+    it is not a recognized WeKan color. The post-import username bookkeeping was also
+    hardened to only record usernames on users that actually exist.
+    (`models/wekanCreator.js`)
+  - **Accessible "move card up/down" and "move list left/right" did not persist.** The
+    handlers wrote `sort` with a raw client-side `Cards.update`/`Lists.update`, which
+    the server rejects and reverts (these are restricted collections). They now persist
+    through the same paths the drag-and-drop reorder uses — the card model's `move()`
+    mutation and the `updateListSort` method — and the minicard buttons stop the click
+    from bubbling up and opening the card.
+    (`client/components/cards/minicard.js`, `client/components/lists/listHeader.js`)
+  - **Board/card automation buttons flickered out of the header/card.** The
+    board-button and card-button helpers read through the memoizing ReactiveCache,
+    which could latch a transient empty result while the board subscription re-settled,
+    so the button appeared briefly and then vanished; the `{{#each}}` rows also lacked a
+    stable `_id`. They now read Minimongo directly and key each row by rule id.
+    (`client/components/rules/boardButtons.js`, `client/components/rules/cardButtons.js`)
+  - Hardened several tests that were checking the wrong state rather than a real product
+    bug: the accessibility test now polls for the `<html lang>` attribute (set by client
+    JS on startup) instead of reading it once before the page settles; the board-background
+    tile test selects the "Remaining" boards menu where the unstarred seeded board appears;
+    and the list-menu helper and a few card/list reads now poll/retry through a transient,
+    pre-existing "Board not found" re-render that can briefly tear down the board view
+    while its subscription settles.
+  Thanks to xet7 and Claude.
+
+Known issues / possible later fixes (not addressed in this release):
+
+- **Transient "Board not found" flicker on an open board.** While a board's
+  subscription re-settles, the reactive board read (`Utils.getCurrentBoard()` →
+  `ReactiveCache.getBoard` → the memoizing `DataCache`) can momentarily return
+  `undefined` while the subscription is still `ready()`, so `client/components/
+  boards/boardBody.jade` briefly shows `board-not-found` and tears down the lists/
+  cards before the board re-renders. Real users on slow/reconnecting links can see a
+  flash and lose scroll/popup state. The test suite was made resilient to it, but the
+  underlying flicker is unfixed. A safe fix needs care because the obvious options
+  have trade-offs: a "was-ever-present" latch in the board template would replace the
+  flash with a spinner but still unmount the lists; making `getCurrentBoard()` sticky
+  would keep the board mounted but return a stale board after a genuine
+  delete/archive (global behavior change); and hardening `DataCache` (not storing a
+  transient `undefined` over a present value) risks masking legitimate removals across
+  every reactive read. Same root cause as the board/card automation-button flicker
+  fixed above (worked around there by reading Minimongo directly).
+- **`DataCache` 60s teardown timeout** (`imports/lib/dataCache.js`) calls `stop()`/
+  `del()` without re-checking `hasDependents()` in the timeout callback; adding that
+  re-check is a small, independent hardening that would also reduce the flicker above.
+- **Export auth-failure responses are malformed.** On the not-logged-in path the
+  export endpoints still call `sendJsonResult(res, error.statusCode || 403)` with a
+  bare number, which yields HTTP 200 with an empty body instead of the intended
+  status. Should pass `{ code, data }`. (`models/export.js`, `models/exportPDF.js`)
+- **Board REST handlers mask errors as success.** The board create/delete handlers
+  `catch` and return `code: 200` with the error as data (`server/models/boards.js`);
+  only the delete handler's auth was corrected here. They should report the real
+  status code.
+- **Importer color hardening.** Only the board color is sanitized against
+  out-of-range values; swimlane/list/card importers could likewise reject an
+  unrecognized `color` from a foreign export and should get the same
+  `allowed.includes(...) ? ... : default` guard. (`models/wekanCreator.js`,
+  `models/csvCreator.js`)
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
