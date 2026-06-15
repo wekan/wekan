@@ -600,8 +600,8 @@ WebApp.handlers.post('/api/boards', async function(req, res) {
     });
   } catch (error) {
     sendJsonResult(res, {
-      code: 200,
-      data: error,
+      code: error.statusCode || error.code || 500,
+      data: { error: error.reason || error.message || 'Error' },
     });
   }
 });
@@ -701,8 +701,8 @@ WebApp.handlers.delete('/api/boards/:boardId', async function(req, res) {
     });
   } catch (error) {
     sendJsonResult(res, {
-      code: 200,
-      data: error,
+      code: error.statusCode || error.code || 500,
+      data: { error: error.reason || error.message || 'Error' },
     });
   }
 });
