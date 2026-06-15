@@ -8,23 +8,39 @@ import path from 'path';
 // routes are picked up in the published API docs. Reads the source rather than
 // running the (python/esprima) generator so it works in the plain mocha runner.
 describe('dependencies REST OpenAPI annotations', function () {
-  const file = path.join(process.cwd(), 'server/models/dependencies.js');
-  const src = fs.readFileSync(file, 'utf8');
+  let routes = [];
+  let total = 0;
 
-  // Each WebApp.handlers.<method>('<path>' route and the comment block above it.
-  const routeRe = /\/\*\*([\s\S]*?)\*\/\s*WebApp\.handlers\.(get|post|put|delete)\(\s*'([^']+)'/g;
+  // Read the source in a hook (not at describe-collection time) so a path/fs
+  // problem fails only this suite instead of aborting the whole test bundle.
+  before(function () {
+    const candidates = [
+      path.join(process.cwd(), 'server/models/dependencies.js'),
+      path.resolve(__dirname, '../../models/dependencies.js'),
+    ];
+    let src = null;
+    for (const file of candidates) {
+      try {
+        src = fs.readFileSync(file, 'utf8');
+        break;
+      } catch (e) {
+        // try next candidate
+      }
+    }
+    if (src === null) {
+      throw new Error('Could not read server/models/dependencies.js');
+    }
 
-  function collectRoutes() {
-    const routes = [];
+    const routeRe = /\/\*\*([\s\S]*?)\*\/\s*WebApp\.handlers\.(get|post|put|delete)\(\s*'([^']+)'/g;
     let m;
     while ((m = routeRe.exec(src)) !== null) {
       routes.push({ doc: m[1], method: m[2], routePath: m[3] });
     }
-    return routes;
-  }
+    total = (src.match(/WebApp\.handlers\.(get|post|put|delete)\(/g) || []).length;
+  });
 
   it('finds all five dependency REST routes', function () {
-    const paths = collectRoutes().map(r => `${r.method.toUpperCase()} ${r.routePath}`);
+    const paths = routes.map(r => `${r.method.toUpperCase()} ${r.routePath}`);
     expect(paths).to.include.members([
       'GET /api/boards/:boardId/dependencies',
       'GET /api/boards/:boardId/cards/:cardId/dependencies',
@@ -35,7 +51,6 @@ describe('dependencies REST OpenAPI annotations', function () {
   });
 
   it('every route has @operation, @tag Dependencies and @summary', function () {
-    const routes = collectRoutes();
     expect(routes.length).to.be.at.least(5);
     routes.forEach(({ doc, routePath }) => {
       expect(doc, `@operation missing for ${routePath}`).to.match(/@operation\s+\w+/);
@@ -45,13 +60,11 @@ describe('dependencies REST OpenAPI annotations', function () {
   });
 
   it('every WebApp.handlers route in the file is documented (no undocumented route)', function () {
-    const documented = collectRoutes().length;
-    const total = (src.match(/WebApp\.handlers\.(get|post|put|delete)\(/g) || []).length;
-    expect(documented).to.equal(total);
+    expect(routes.length).to.equal(total);
   });
 
   it('operation ids are unique', function () {
-    const ids = collectRoutes()
+    const ids = routes
       .map(r => (r.doc.match(/@operation\s+(\w+)/) || [])[1])
       .filter(Boolean);
     expect(new Set(ids).size).to.equal(ids.length);
