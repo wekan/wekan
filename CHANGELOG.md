@@ -69,11 +69,15 @@ and adds the following new features:
   `showDependencies` toggle are **preserved** through card/board copy and WeKan
   board export/import/migrate (target ids are remapped, dangling ones dropped), and
   a card **moved** to another board drops its now cross-board dependencies and
-  cleans inbound references. Covered by tests: e2e specs `27-red-strings` (overlay,
-  toggle, typed lines, minicard badge, copyCard preservation, import matching) and
-  `28-dependencies-rest` (REST CRUD + schema validation), plus mocha unit tests for
-  the metadata helpers, the REST OpenAPI annotations, the filter selector, the
-  cross-board move cleanup and the Jira issue-link mapping.
+  cleans inbound references. Covered by tests
+  ([Part 1](https://github.com/wekan/wekan/commit/536fc4913cab9b8fdbdf1cdd9827358a7d23a0b3),
+  [Part 2](https://github.com/wekan/wekan/commit/d2e928bb113c51a293105bfc0d7465e4836363e3),
+  [Part 3](https://github.com/wekan/wekan/commit/4152847483e168dd80d0f99b9a91c470765b6bc0)):
+  e2e specs `27-red-strings` (overlay, toggle, typed lines, minicard badge,
+  copyCard preservation, import matching) and `28-dependencies-rest` (REST CRUD +
+  schema validation), plus mocha unit tests for the metadata helpers, the REST
+  OpenAPI annotations, the filter selector, the cross-board move cleanup and the
+  Jira issue-link mapping.
   [Fixed editing an existing dependency from the card detail throwing a client
   403](https://github.com/wekan/wekan/commit/1db64f4ddeacb0f0ac130726a306df5dfce7fd19)
   ("Untrusted code may only updateAsync documents by ID") — changing a relation's
