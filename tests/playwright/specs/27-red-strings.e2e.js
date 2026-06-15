@@ -225,4 +225,50 @@ test.describe('Red Strings – card dependency overlay', () => {
     expect((db.getCard(alphaId).cardDependencies || []).map(d => d.cardId)).toContain(betaId);
     expect((db.getCard(betaId).cardDependencies || []).map(d => d.cardId)).toContain(alphaId);
   });
+
+  test('editing an existing dependency type/color/icon from card detail persists (no 403)', async ({ page }) => {
+    // Start with one existing dependency to edit (the path that previously threw
+    // "Untrusted code may only updateAsync documents by ID").
+    db.setCardDependencies({
+      cardId: alphaId,
+      dependsOn: [{ cardId: betaId, type: 'related-to', color: '#eb144c', icon: 'link' }],
+    });
+
+    await loginWithToken(page, owner.id, owner.token);
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}/${alphaId}`, {
+      waitUntil: 'commit',
+    });
+
+    // Remove any transient rspack dev-server overlay that could intercept input.
+    const dismissDevOverlay = () =>
+      page.evaluate(() => {
+        document
+          .querySelectorAll('iframe[id*="webpack-dev-server"]')
+          .forEach(el => el.remove());
+      });
+
+    const depOf = () =>
+      (db.getCard(alphaId).cardDependencies || []).find(d => d.cardId === betaId);
+
+    // Change the relation type via the per-row dropdown.
+    const typeSelect = page.locator(`.js-dependency-type[data-target-id="${betaId}"]`);
+    await typeSelect.waitFor({ timeout: 15_000 });
+    await dismissDevOverlay();
+    await typeSelect.selectOption('blocks');
+    await expect.poll(() => depOf() && depOf().type, { timeout: 10_000 }).toBe('blocks');
+
+    // Change the color via the per-row color input (fires a change event).
+    await dismissDevOverlay();
+    await page.locator(`.js-dependency-color[data-target-id="${betaId}"]`).evaluate(el => {
+      el.value = '#00ff00';
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await expect.poll(() => depOf() && depOf().color, { timeout: 10_000 }).toBe('#00ff00');
+
+    // Pick a different icon from the icon popup.
+    await dismissDevOverlay();
+    await page.locator(`.js-dependency-icon[data-target-id="${betaId}"]`).click();
+    await page.locator('.js-pick-dependency-icon[data-icon="lock"]').click();
+    await expect.poll(() => depOf() && depOf().icon, { timeout: 10_000 }).toBe('lock');
+  });
 });

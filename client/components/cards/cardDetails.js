@@ -16,8 +16,11 @@ const DEPENDENCY_ICON_CHOICES = [
   'sitemap', 'share-alt', 'code-fork', 'tasks',
 ];
 
-// Which dependency (target card id) the icon picker should apply its choice to.
+// Which dependency the icon picker should apply its choice to. The icon popup's
+// own data context is the dependency row (not the source card), so we capture
+// the source card + target id here when the picker is opened.
 let editingDependencyTargetId = null;
+let editingDependencyCard = null;
 import {
   setupDatePicker,
   datePickerRendered,
@@ -926,7 +929,8 @@ Template.cardDetails.events({
   },
   'click .js-dependency-icon'(event) {
     if (!Utils.canModifyCard()) return;
-    // Remember which dependency the picked icon should apply to.
+    // Remember the source card + which dependency the picked icon applies to.
+    editingDependencyCard = Template.currentData();
     editingDependencyTargetId = event.currentTarget.dataset.targetId;
     Popup.open('cardDependencyIcon')(event);
   },
@@ -2552,12 +2556,15 @@ Template.cardDependencyIconPopup.helpers({
 Template.cardDependencyIconPopup.events({
   'click .js-pick-dependency-icon'(event) {
     event.preventDefault();
-    const sourceCard = Template.currentData();
+    // Use the source card captured when the picker was opened (the popup's own
+    // data context is the dependency row, which has no setDependencyProps).
+    const sourceCard = editingDependencyCard;
     const icon = event.currentTarget.dataset.icon || DEFAULT_DEPENDENCY_ICON;
     if (sourceCard && editingDependencyTargetId) {
       sourceCard.setDependencyProps(editingDependencyTargetId, { icon });
     }
     editingDependencyTargetId = null;
+    editingDependencyCard = null;
     Popup.back();
   },
 });
