@@ -9,9 +9,9 @@ Implemented and working:
 - [Per-user templates](https://github.com/wekan/wekan/issues/2209) — Card, List and Board templates, as described below.
 - An admin [Shared Templates](#shared-templates-admin-view) view (Admin Panel → People → Shared templates) that lists users' shared template boards grouped by Organization / Team / email Domain.
 - Card hamburger menu / Copy Checklist Template to Many Cards.
+- [Collapsible Swimlanes](https://github.com/wekan/wekan/issues/2804) — collapse/expand a swimlane from its header.
 
 At [Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) of xet7, Maintainer of Wekan, these already have [some funding](https://wekan.fi/commercial-support/):
-- [Collapsible Swimlanes with count](https://github.com/wekan/wekan/issues/2804)
 - [Single fixed list titles static at top of swimlanes view](https://github.com/wekan/wekan/issues/2805).
 - [Main Boards/Organizing Boards/Nested Tabs](https://github.com/wekan/wekan/issues/2796) + [Top Level Projects](https://github.com/wekan/wekan/issues/641). ([Shared templates #2209](https://github.com/wekan/wekan/issues/2209) is now implemented — see [Shared Templates (Admin view)](#shared-templates-admin-view) below.)
 - [Teams/Organization Templates](https://github.com/wekan/wekan/issues/802).
