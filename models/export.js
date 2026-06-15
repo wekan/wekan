@@ -68,7 +68,7 @@ if (Meteor.isServer) {
     // First check if board exists and is public to avoid unnecessary authentication
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
-      sendJsonResult(res, 404);
+      sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
       return;
     }
 
@@ -91,7 +91,7 @@ if (Meteor.isServer) {
         if (process.env.DEBUG === 'true') {
           console.warn('Suspiciously long auth token received, rejecting to prevent resource abuse');
         }
-        sendJsonResult(res, 400);
+        sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
         return;
       }
 
@@ -107,7 +107,7 @@ if (Meteor.isServer) {
         // enforced below by exporter.canExport() (board.isVisibleBy).
         Authentication.checkLoggedIn(req.userId);
       } catch (error) {
-        sendJsonResult(res, error.statusCode || 403);
+        sendJsonResult(res, { code: error.statusCode || 403, data: { error: (error && error.reason) || 'Forbidden' } });
         return;
       }
       user = await ReactiveCache.getUser({ _id: req.userId });
@@ -130,7 +130,7 @@ if (Meteor.isServer) {
     } else {
       // we could send an explicit error message, but on the other hand the only
       // way to get there is by hacking the UI so let's keep it raw.
-      sendJsonResult(res, 403);
+      sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   });
 
@@ -147,7 +147,7 @@ if (Meteor.isServer) {
     const boardId = req.params.boardId;
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
-      sendJsonResult(res, 404);
+      sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
       return;
     }
     if (board.isPublic()) {
@@ -158,7 +158,7 @@ if (Meteor.isServer) {
     const loginToken = req.query.authToken;
     if (loginToken) {
       if (loginToken.length > 10000) {
-        sendJsonResult(res, 400);
+        sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
         return;
       }
       const hashToken = Accounts._hashLoginToken(loginToken);
@@ -171,7 +171,7 @@ if (Meteor.isServer) {
         // enforced below by exporter.canExport() (board.isVisibleBy).
         Authentication.checkLoggedIn(req.userId);
       } catch (error) {
-        sendJsonResult(res, error.statusCode || 403);
+        sendJsonResult(res, { code: error.statusCode || 403, data: { error: (error && error.reason) || 'Forbidden' } });
         return;
       }
       user = await ReactiveCache.getUser({ _id: req.userId });
@@ -180,7 +180,7 @@ if (Meteor.isServer) {
     if (await exporter.canExport(user)) {
       sendJsonResult(res, { code: 200, data: await buildKanboardExport(boardId) });
     } else {
-      sendJsonResult(res, 403);
+      sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   });
 
@@ -190,7 +190,7 @@ if (Meteor.isServer) {
     const boardId = req.params.boardId;
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
-      sendJsonResult(res, 404);
+      sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
       return;
     }
     const respond = async () =>
@@ -203,7 +203,7 @@ if (Meteor.isServer) {
     const loginToken = req.query.authToken;
     if (loginToken) {
       if (loginToken.length > 10000) {
-        sendJsonResult(res, 400);
+        sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
         return;
       }
       const hashToken = Accounts._hashLoginToken(loginToken);
@@ -216,7 +216,7 @@ if (Meteor.isServer) {
         // enforced below by exporter.canExport() (board.isVisibleBy).
         Authentication.checkLoggedIn(req.userId);
       } catch (error) {
-        sendJsonResult(res, error.statusCode || 403);
+        sendJsonResult(res, { code: error.statusCode || 403, data: { error: (error && error.reason) || 'Forbidden' } });
         return;
       }
       user = await ReactiveCache.getUser({ _id: req.userId });
@@ -225,7 +225,7 @@ if (Meteor.isServer) {
     if (await exporter.canExport(user)) {
       await respond();
     } else {
-      sendJsonResult(res, 403);
+      sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   }
 
@@ -275,7 +275,7 @@ if (Meteor.isServer) {
       // First check if board exists and is public to avoid unnecessary authentication
       const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
-        sendJsonResult(res, 404);
+        sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
         return;
       }
 
@@ -298,7 +298,7 @@ if (Meteor.isServer) {
           if (process.env.DEBUG === 'true') {
             console.warn('Suspiciously long auth token received, rejecting to prevent resource abuse');
           }
-          sendJsonResult(res, 400);
+          sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
           return;
         }
 
@@ -314,7 +314,7 @@ if (Meteor.isServer) {
         // enforced below by exporter.canExport() (board.isVisibleBy).
         Authentication.checkLoggedIn(req.userId);
         } catch (error) {
-          sendJsonResult(res, error.statusCode || 403);
+          sendJsonResult(res, { code: error.statusCode || 403, data: { error: (error && error.reason) || 'Forbidden' } });
           return;
         }
         user = await ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
@@ -337,7 +337,7 @@ if (Meteor.isServer) {
       } else {
         // we could send an explicit error message, but on the other hand the only
         // way to get there is by hacking the UI so let's keep it raw.
-        sendJsonResult(res, 403);
+        sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
       }
     },
   );
@@ -421,7 +421,7 @@ if (Meteor.isServer) {
         // enforced below by exporter.canExport() (board.isVisibleBy).
         Authentication.checkLoggedIn(req.userId);
       } catch (error) {
-        sendJsonResult(res, error.statusCode || 403);
+        sendJsonResult(res, { code: error.statusCode || 403, data: { error: (error && error.reason) || 'Forbidden' } });
         return;
       }
       user = await ReactiveCache.getUser({
