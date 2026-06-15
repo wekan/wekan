@@ -78,7 +78,19 @@ test.describe('Red Strings – card dependency overlay', () => {
 
     await expect(page.locator('.js-dependency-overlay')).toBeVisible();
 
+    // The rspack dev-server injects an error/warning overlay iframe
+    // (#webpack-dev-server-client-overlay) that can sit on top of the board
+    // header and swallow the toggle click in dev mode. Remove it before each
+    // click so we exercise the real button (it does not exist in production).
+    const dismissDevOverlay = () =>
+      page.evaluate(() => {
+        document
+          .querySelectorAll('iframe[id*="webpack-dev-server"]')
+          .forEach(el => el.remove());
+      });
+
     // Toggle OFF.
+    await dismissDevOverlay();
     await page.locator('.js-toggle-dependencies').click();
     await expect(page.locator('.js-dependency-overlay')).toHaveCount(0);
     await expect
@@ -86,6 +98,7 @@ test.describe('Red Strings – card dependency overlay', () => {
       .toBe(false);
 
     // Toggle ON again.
+    await dismissDevOverlay();
     await page.locator('.js-toggle-dependencies').click();
     await expect(page.locator('.js-dependency-overlay')).toBeVisible();
     await expect

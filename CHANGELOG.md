@@ -123,6 +123,18 @@ and fixes the following bugs:
   like the earlier board-color fix, a card or swimlane color is now applied only when it is a
   recognized color value, so a foreign/old export carrying an unknown color can no longer fail
   collection2 validation and abort the import. Thanks to xet7 and Claude.
+- Fixed the GitHub Actions **Playwright E2E** workflow so the Firefox and WebKit
+  browsers can actually run: the test step now sets `WEKAN_PLAYWRIGHT_ALL=1` (so
+  `--project=firefox`/`webkit` resolve instead of failing with "Project not
+  found"), WebKit was added to the CI matrix (Playwright's bundled WebKit runs
+  headless on the Linux runner), and `mongosh` is now installed in the Playwright
+  and Puppeteer-regression jobs (the e2e DB helpers shell out to it, which was
+  failing with `spawnSync mongosh ENOENT`). `npm run test:playwright:all` got the
+  same `WEKAN_PLAYWRIGHT_ALL=1` fix. Thanks to xet7 and Claude.
+- Translated the remaining untranslated English strings in the Finnish
+  translation (`fi.i18n.json`) — the Shared Templates, card-dependency
+  ("Red Strings") and dependency import/export strings — using the existing
+  Finnish terminology. Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
