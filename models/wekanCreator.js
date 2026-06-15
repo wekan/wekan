@@ -4,6 +4,7 @@ import Actions from '/models/actions';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
+import { BOARD_COLORS } from '/models/metadata/colors';
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import CardComments from '/models/cardComments';
@@ -311,7 +312,12 @@ export class WekanCreator {
   async createBoardAndLabels(boardToImport) {
     const boardToCreate = {
       archived: boardToImport.archived,
-      color: boardToImport.color,
+      // Imported exports may carry a non-WeKan/legacy color (e.g. Trello's
+      // 'bgnone'); fall back to the default so collection2 validation does not
+      // reject the whole board insert.
+      color: BOARD_COLORS.includes(boardToImport.color)
+        ? boardToImport.color
+        : BOARD_COLORS[0],
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(boardToImport.createdAt),
       labels: [],
@@ -1169,8 +1175,13 @@ export class WekanCreator {
       const username = (sourceUser && sourceUser.username) || member.username;
       if (!username) continue;
       const wekanId = this.members[sourceId];
-      if (wekanId) {
-        await Users.updateAsync(wekanId, {
+      // Only record the imported username on a Wekan user that actually exists;
+      // a stale/bogus mapping target is treated as unmapped. Use `.direct` so
+      // this bookkeeping write bypasses collection2 validation and can never
+      // abort the whole import.
+      const mappedUser = wekanId ? await ReactiveCache.getUser(wekanId) : null;
+      if (mappedUser) {
+        await Users.direct.updateAsync(wekanId, {
           $addToSet: { importUsernames: username },
         });
       } else if (!unmapped.includes(username)) {

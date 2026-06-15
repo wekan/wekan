@@ -30,8 +30,25 @@ class BoardPage {
   }
 
   async openListMenu(listId) {
-    await this.list(listId).locator('.js-open-list-menu').click();
-    await this.page.locator('.js-pop-over').waitFor();
+    // The board view can briefly re-render to a "Board not found" state while the
+    // client subscription settles, detaching the trigger after the canvas first
+    // appears. Retry the open until the popup actually shows.
+    const trigger = this.list(listId).locator('.js-open-list-menu');
+    const popover = this.page.locator('.js-pop-over');
+    for (let attempt = 0; attempt < 4; attempt++) {
+      await this.page
+        .locator('.board-canvas')
+        .waitFor({ state: 'visible', timeout: 15_000 })
+        .catch(() => {});
+      try {
+        await trigger.click({ timeout: 5_000 });
+        await popover.waitFor({ state: 'visible', timeout: 5_000 });
+        return;
+      } catch (err) {
+        // board re-rendered mid-interaction; loop and try again
+      }
+    }
+    await popover.waitFor({ timeout: 5_000 });
   }
 
   async clickListMenuItem(selector) {

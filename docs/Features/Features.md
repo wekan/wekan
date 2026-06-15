@@ -20,6 +20,7 @@ is documented yet — contributions are welcome.
 - [Archive and Delete](Archive-and-Delete.md)
 - [Keyboard Shortcuts](Keyboard-Shortcuts/Keyboard-Shortcuts.md)
 - [Accessibility](Accessibility/Accessibility.md)
+- [Rules (Automation)](Rules/Rules.md)
 
 ## Card content and formatting
 

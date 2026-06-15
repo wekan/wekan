@@ -2,7 +2,7 @@ template(name="importHeaderBar")
   h1
     a.back-btn(href="{{pathFor 'home'}}")
       i.fa-arrow-left
-    | {{_ title}}
+    | {{title}}
 
 template(name="import")
   .wrapper
@@ -14,9 +14,14 @@ template(name="import")
 
 template(name="importTextarea")
   form
-    p: label(for='import-textarea') {{_ instruction}} {{_ 'import-board-instruction-about-errors'}}
-    textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
-      | {{jsonText}}
+    p: label(for='import-textarea') {{instruction}} {{_ 'import-board-instruction-about-errors'}}
+    if isExcelImport
+      p.import-file-row
+        label(for='import-excel-file') {{_ 'import-excel-file'}}
+        input.js-import-excel-file(id='import-excel-file' type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    else
+      textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
+        | {{jsonText}}
     if isTrelloImport
       p.import-file-row
         label(for='import-json-file') {{_ 'import-trello-json-file'}}
@@ -30,6 +35,7 @@ template(name="importTextarea")
         label(for='import-workspace-name') {{_ 'import-trello-workspace'}}
         input.js-import-workspace-name(id='import-workspace-name' type="text" placeholder="{{_ 'import-trello-workspace-placeholder'}}")
     input.primary.wide(type="submit" value="{{_ 'import'}}")
+    button.wide.js-import-without-mapping(type="button") {{_ 'import-without-mapping-members'}}
   if isTrelloImport
     hr
     +importTrelloApi
@@ -158,6 +164,7 @@ template(name="importMapMembers")
         .mapping-item.ghost-item
       form
         input.primary.wide(type="submit" value="{{_ 'done'}}")
+        button.wide.js-import-skip-mapping(type="button") {{_ 'import-without-mapping-members'}}
   else
     +spinner
 

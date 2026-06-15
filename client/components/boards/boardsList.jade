@@ -154,7 +154,9 @@ template(name="boardList")
                       span.emoji-icon
                         i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
                 else
-                  .board-list-item
+                  //- #5157: reuse the board's existing backgroundImageURL as the
+                  //- tile background on the board list page.
+                  .board-list-item(class="{{#if backgroundImageURL}}has-background-image{{/if}}" style="{{#if backgroundImageURL}}background-image:url('{{backgroundImageURL}}');{{/if}}")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")

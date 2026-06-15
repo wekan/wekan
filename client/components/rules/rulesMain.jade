@@ -1,9 +1,32 @@
+template(name="rulesHeaderBar")
+  h1
+    i.fa.fa-magic
+    | {{_ 'r-board-rules'}}
+  .board-header-btns.left
+    a.board-header-btn.js-rules-back-to-board(title="{{_ 'back'}}")
+      i.fa.fa-arrow-left
+      | {{_ 'board'}}
+    a.board-header-btn.js-rules-toggle-view(title="{{_ 'r-workflow-view'}}")
+      i.fa.fa-sitemap
+      if isWorkflowView
+        | {{_ 'r-list-view'}}
+      else
+        | {{_ 'r-workflow-view'}}
+    a.board-header-btn.js-rules-import-export(title="{{_ 'r-import-export'}}")
+      i.fa.fa-exchange
+      | {{_ 'r-import-export'}}
+
 template(name="rulesMain")
-  if($eq rulesCurrentTab.get 'rulesList')
-    +rulesList
-  if($eq rulesCurrentTab.get 'trigger')
-    +rulesTriggers(ruleName=ruleName triggerVar=triggerVar)
-  if($eq rulesCurrentTab.get 'action')
-    +rulesActions(ruleName=ruleName triggerVar=triggerVar)
-  if($eq rulesCurrentTab.get 'ruleDetails')
-    +ruleDetails(ruleId=ruleId)
+  .wrapper
+    .rules-page(class=currentBoard.colorClass)
+      if($eq rulesCurrentTab.get 'rulesList')
+        if isWorkflowView
+          +rulesWorkflow
+        else
+          +rulesList
+      if($eq rulesCurrentTab.get 'trigger')
+        +rulesTriggers(ruleName=ruleName triggerVar=triggerVar)
+      if($eq rulesCurrentTab.get 'action')
+        +rulesActions(ruleName=ruleName triggerVar=triggerVar)
+      if($eq rulesCurrentTab.get 'ruleDetails')
+        +ruleDetails(ruleId=ruleId)

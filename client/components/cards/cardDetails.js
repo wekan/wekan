@@ -1152,7 +1152,7 @@ const EXCEL_EXPORT_FIELDS = [
   { field: 'checklists',  label: 'checklists' },
   { field: 'subtasks',    label: 'export-card-subtasks' },
   { field: 'comments',    label: 'comments' },
-  { field: 'attachments', label: 'export-card-attachments' },
+  { field: 'attachments', label: 'attachments' },
 ];
 
 Template.exportCardPopup.onCreated(function () {

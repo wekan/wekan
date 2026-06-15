@@ -14,6 +14,15 @@ import { TAPi18n } from '/imports/i18n';
 // logical properties (margin-inline-start, inset-inline-start, text-align:start,
 // …), so flipping `dir` mirrors the whole UI without per-page handling.
 Meteor.startup(() => {
+  if (typeof document !== 'undefined' && document.documentElement) {
+    if (!document.documentElement.getAttribute('lang')) {
+      document.documentElement.lang = 'en';
+    }
+    if (!document.documentElement.getAttribute('dir')) {
+      document.documentElement.dir = 'ltr';
+    }
+  }
+
   Tracker.autorun(() => {
     const lang = TAPi18n.getLanguage();
     const dir = TAPi18n.getLanguageDirection();

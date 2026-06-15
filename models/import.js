@@ -3,8 +3,29 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
 import { CsvCreator } from './csvCreator';
+import { JiraCreator } from './jiraCreator';
+import { KanboardCreator } from './kanboardCreator';
+import { EXTERNAL_PARSERS } from './lib/externalParsers';
 import { Exporter } from './exporter';
 import { getMembersToMap } from './wekanmapper';
+
+// Parse an uploaded .xlsx (base64) into the row-array shape the CsvCreator
+// consumes (board[0] is the header row). Excel import reuses the CSV creator.
+async function parseXlsxToRows(excelBase64) {
+  // eslint-disable-next-line global-require
+  const ExcelJS = require('@wekanteam/exceljs');
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(Buffer.from(excelBase64, 'base64'));
+  const worksheet = workbook.worksheets[0];
+  const rows = [];
+  if (worksheet) {
+    worksheet.eachRow(row => {
+      // row.values is 1-indexed (index 0 is empty); normalize to strings.
+      rows.push(row.values.slice(1).map(v => (v == null ? '' : String(v))));
+    });
+  }
+  return rows;
+}
 
 Meteor.methods({
   async importBoard(board, data, importSource, currentBoard) {
@@ -12,6 +33,7 @@ Meteor.methods({
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
     let creator;
+    let importedBoard = board;
     switch (importSource) {
       case 'trello':
         check(board, Object);
@@ -25,6 +47,33 @@ Meteor.methods({
         check(board, Array);
         creator = new CsvCreator(data);
         break;
+      case 'jira':
+        check(board, Object);
+        creator = new JiraCreator(data);
+        break;
+      case 'kanboard':
+        check(board, Object);
+        creator = new KanboardCreator(data);
+        break;
+      case 'excel':
+        // board = { excelBase64 }; parse it into rows and reuse the CSV creator.
+        check(board, Object);
+        importedBoard = await parseXlsxToRows(board.excelBase64);
+        creator = new CsvCreator(data);
+        break;
+      default:
+        // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:
+        // normalize the platform's JSON to the common Kanboard shape and reuse
+        // the Kanboard creator.
+        if (EXTERNAL_PARSERS[importSource]) {
+          check(board, Match.OneOf(Object, Array));
+          importedBoard = EXTERNAL_PARSERS[importSource](board);
+          creator = new KanboardCreator(data);
+        }
+        break;
+    }
+    if (!creator) {
+      throw new Meteor.Error('invalid-import-source', `Unknown import source: ${importSource}`);
     }
 
     // 1. check all parameters are ok from a syntax point of view
@@ -34,7 +83,7 @@ Meteor.methods({
     // authorized) nothing to check, everyone can import boards in their account
 
     // 3. create all elements
-    return await creator.create(board, currentBoard);
+    return await creator.create(importedBoard, currentBoard);
   },
 });
 

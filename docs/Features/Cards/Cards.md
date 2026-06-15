@@ -35,6 +35,33 @@ same animated checkbox style as checklist items.
 > cards faster, drag them to a new list and delete that list. Deleting cannot be
 > undone — the extra clicks are by design.
 
+The complete state can also be set over the REST API via the card edit endpoint
+(`PUT /api/boards/:boardId/lists/:listId/cards/:cardId`) with `{ "dueComplete": true }`:
+
+```bash
+python3 api.py setcardcomplete BOARDID LISTID CARDID true
+```
+
+## Card aging
+
+When **card aging** is enabled for a board (board sidebar → board settings →
+"Card aging"), cards that have not been touched for a while are progressively
+**faded** on the board, based on each card's last activity date (Trello-style card
+aging). Hovering a faded card restores it to full opacity.
+
+The three fade-tier **day thresholds are board-configurable** (board settings, three
+number inputs shown when card aging is on), defaulting to **7 / 14 / 28** days.
+
+Card aging and its thresholds can also be set over the REST API via the board
+card-settings endpoint (`PUT /api/boards/:boardId/cardSettings`):
+
+```bash
+python3 api.py setcardsetting BOARDID cardAging true
+python3 api.py setcardsetting BOARDID cardAgingDays1 5
+python3 api.py setcardsetting BOARDID cardAgingDays2 10
+python3 api.py setcardsetting BOARDID cardAgingDays3 20
+```
+
 ## Markdown and dates
 
 - [Markdown in card description and comments](https://github.com/wekan/wekan/issues/1038)

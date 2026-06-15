@@ -187,6 +187,18 @@ template(name="boardInfoOnMyBoardsPopup")
           span
             i.fa.fa-sign-in
             | {{_ 'show-card-counter-per-list'}}
+    div.check-div
+      a.flex.js-field-has-cardaging(class="{{#if cardAging}}is-checked{{/if}}")
+        i.fa(class="{{#if cardAging}}fa-check{{else}}fa-square-o{{/if}}")
+        span
+          i.fa.fa-clock-o
+          | {{_ 'card-aging'}}
+      if cardAging
+        div.card-aging-days
+          span {{_ 'card-aging-days'}}
+          input.js-card-aging-days(type="number" min="1" value="{{cardAgingDays1}}" title="{{_ 'card-aging-tier1'}}")
+          input.js-card-aging-days(type="number" min="1" value="{{cardAgingDays2}}" title="{{_ 'card-aging-tier2'}}")
+          input.js-card-aging-days(type="number" min="1" value="{{cardAgingDays3}}" title="{{_ 'card-aging-tier3'}}")
     unless currentSetting.hideBoardMemberList
       div.check-div
         a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
@@ -529,11 +541,33 @@ template(name="boardSubtaskSettingsPopup")
 template(name="chooseBoardSourcePopup")
   ul.pop-over-list
     li
-      a(href="{{pathFor '/import/trello'}}") {{_ 'from-trello'}}
+      a(href="{{pathFor '/import/trello'}}") {{_ 'import'}} / Trello
     li
-      a(href="{{pathFor '/import/wekan'}}") {{_ 'from-wekan'}}
+      a(href="{{pathFor '/import/wekan'}}") {{_ 'import'}} / JSON
     li
-      a(href="{{pathFor '/import/csv'}}") {{_ 'from-csv'}}
+      a(href="{{pathFor '/import/csv'}}") {{_ 'import'}} / CSV-TSV
+    li
+      a(href="{{pathFor '/import/excel'}}") {{_ 'import'}} / Excel
+    li
+      a(href="{{pathFor '/import/jira'}}") {{_ 'import'}} / Jira
+    li
+      a(href="{{pathFor '/import/kanboard'}}") {{_ 'import'}} / Kanboard
+    li
+      a(href="{{pathFor '/import/deck'}}") {{_ 'import'}} / NextCloud Deck
+    li
+      a(href="{{pathFor '/import/openproject'}}") {{_ 'import'}} / OpenProject
+    li
+      a(href="{{pathFor '/import/github'}}") {{_ 'import'}} / GitHub
+    li
+      a(href="{{pathFor '/import/gitlab'}}") {{_ 'import'}} / GitLab
+    li
+      a(href="{{pathFor '/import/gitea'}}") {{_ 'import'}} / Gitea
+    li
+      a(href="{{pathFor '/import/forgejo'}}") {{_ 'import'}} / Forgejo
+    li
+      a(href="{{pathFor '/import/asana'}}") {{_ 'import'}} / Asana
+    li
+      a(href="{{pathFor '/import/zenkit'}}") {{_ 'import'}} / Zenkit
 
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
@@ -658,27 +692,75 @@ template(name="exportBoardPopup")
     li
       a.download-json-link(href="{{exportUrl}}", download="{{exportJsonFilename}}")
         i.fa.fa-upload
-        | {{_ 'export-board-json'}}
+        | {{_ 'export'}} / JSON
     li
       a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
         i.fa.fa-upload
-        | {{_ 'export-board-excel'}}
+        | {{_ 'export'}} / Excel
     li
       a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
         i.fa.fa-upload
-        | {{_ 'export-board-csv-comma'}}
+        | {{_ 'export'}} / CSV (,)
     li
       a(href="{{exportScsvUrl}}", download="{{exportCsvFilename}}")
         i.fa.fa-upload
-        | {{_ 'export-board-csv-semicolon'}}
+        | {{_ 'export'}} / CSV (;)
     li
       a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
         i.fa.fa-upload
-        | {{_ 'export-board-tsv'}}
+        | {{_ 'export'}} / TSV
+    li
+      a(href="{{exportUrlPDF}}", download="{{exportFilenamePDF}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / PDF
+    li
+      a(href="{{exportUrlKanboard}}", download="{{exportFilenameKanboard}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / Kanboard
+    li
+      a(href="{{exportUrlExternal 'trello'}}", download="{{exportFilenameExternal 'trello'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / Trello
+    li
+      a(href="{{exportUrlExternal 'jira'}}", download="{{exportFilenameExternal 'jira'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / Jira
+    li
+      a(href="{{exportUrlExternal 'deck'}}", download="{{exportFilenameExternal 'deck'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / NextCloud Deck
+    li
+      a(href="{{exportUrlExternal 'openproject'}}", download="{{exportFilenameExternal 'openproject'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / OpenProject
+    li
+      a(href="{{exportUrlExternal 'github'}}", download="{{exportFilenameExternal 'github'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / GitHub
+    li
+      a(href="{{exportUrlExternal 'gitlab'}}", download="{{exportFilenameExternal 'gitlab'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / GitLab
+    li
+      a(href="{{exportUrlExternal 'gitea'}}", download="{{exportFilenameExternal 'gitea'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / Gitea
+    li
+      a(href="{{exportUrlExternal 'forgejo'}}", download="{{exportFilenameExternal 'forgejo'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / Forgejo
+    li
+      a(href="{{exportUrlExternal 'asana'}}", download="{{exportFilenameExternal 'asana'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / Asana
+    li
+      a(href="{{exportUrlExternal 'zenkit'}}", download="{{exportFilenameExternal 'zenkit'}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON / Zenkit
     li
       a.html-export-board
         i.fa.fa-archive
-        | {{_ 'export-board-html'}}
+        | {{_ 'export'}} / HTML
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels

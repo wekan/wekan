@@ -336,6 +336,185 @@ Meteor.methods({
       }
     },
 
+    // Upload a board background image via API.
+    //
+    // This is the board-level counterpart of api.attachment.upload: instead of
+    // attaching a file to a card, it stores a board-level attachment (no card)
+    // and sets it as the board's active background. Managing backgrounds is
+    // board-admin-gated (same as removeBoardBackground).
+    async 'api.board.uploadBackground'(boardId, fileData, fileName, fileType) {
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized', 'Must be logged in');
+      }
+      if (!boardId || !fileData || !fileName) {
+        throw new Meteor.Error('invalid-parameters', 'Missing required parameters');
+      }
+
+      const board = await ReactiveCache.getBoard(boardId);
+      if (!board) {
+        throw new Meteor.Error('board-not-found', 'Board not found');
+      }
+
+      // Board-admin (or global admin) required, matching removeBoardBackground.
+      const user = await ReactiveCache.getUser(this.userId);
+      const isAdmin =
+        (board.hasAdmin && board.hasAdmin(this.userId)) || (user && user.isAdmin);
+      if (!isAdmin) {
+        throw new Meteor.Error('not-authorized', 'Board admin required');
+      }
+
+      // Always use the admin-configured default storage backend for API uploads.
+      let targetStorage = STORAGE_NAME_FILESYSTEM;
+      try {
+        const settings = await AttachmentStorageSettings.findOneAsync({});
+        targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
+      } catch (error) {
+        targetStorage = STORAGE_NAME_FILESYSTEM;
+      }
+      if (![STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3].includes(targetStorage)) {
+        throw new Meteor.Error('invalid-storage', 'Invalid storage backend');
+      }
+
+      try {
+        const { apiUploadBlocked, effectiveApiUploadMaxBytes } = await getApiTransferLimits();
+        if (apiUploadBlocked) {
+          throw new Meteor.Error('uploads-disabled', 'API uploads are disabled by administrator');
+        }
+        if (typeof fileData !== 'string') {
+          throw new Meteor.Error('invalid-parameters', 'Invalid fileData format');
+        }
+        if (fileData.length > maxBase64LengthForBytes(effectiveApiUploadMaxBytes)) {
+          throw new Meteor.Error('file-too-large', 'Background exceeds API upload limit');
+        }
+
+        const fileBuffer = Buffer.from(fileData, 'base64');
+        if (fileBuffer.length > effectiveApiUploadMaxBytes) {
+          throw new Meteor.Error('file-too-large', 'Background exceeds API upload limit');
+        }
+        const file = new File([fileBuffer], fileName, { type: fileType || 'image/png' });
+
+        const fileId = new ObjectId().toString();
+        const meta = {
+          boardId,
+          fileId,
+          source: 'api-background',
+          storageBackend: targetStorage,
+        };
+        const uploader = await Attachments.insertAsync({
+          file,
+          meta,
+          isBase64: false,
+          transport: 'http',
+        });
+        if (!uploader) {
+          throw new Meteor.Error('upload-failed', 'Failed to upload background');
+        }
+        if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
+          Meteor.defer(() => {
+            try {
+              moveToStorage(uploader, targetStorage, fileStoreStrategyFactory);
+            } catch (error) {
+              console.error('Error moving background to target storage:', error);
+            }
+          });
+        }
+
+        // Make the uploaded image the board's active background.
+        await board.setBackgroundImage(uploader._id);
+        const updated = await ReactiveCache.getBoard(boardId);
+
+        return {
+          success: true,
+          attachmentId: uploader._id,
+          fileName,
+          fileSize: fileBuffer.length,
+          storageBackend: targetStorage,
+          backgroundImageURL: updated ? updated.backgroundImageURL : '',
+          message: 'Board background uploaded successfully',
+        };
+      } catch (error) {
+        console.error('API board background upload error:', error);
+        throw new Meteor.Error('upload-error', error.message);
+      }
+    },
+
+    // Download the board's current background image via API (board members).
+    // Returns the image bytes as base64, mirroring api.attachment.download.
+    async 'api.board.downloadBackground'(boardId) {
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized', 'Must be logged in');
+      }
+      const board = await ReactiveCache.getBoard(boardId);
+      if (!board || !board.hasMember(this.userId)) {
+        throw new Meteor.Error('not-authorized', 'You do not have permission to access this board');
+      }
+      const attachmentId = board.backgroundImageId;
+      if (!attachmentId) {
+        throw new Meteor.Error('no-background', 'Board has no background image set');
+      }
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
+      if (!attachment) {
+        throw new Meteor.Error('attachment-not-found', 'Background attachment not found');
+      }
+
+      try {
+        const { apiDownloadBlocked, effectiveApiDownloadMaxBytes } = await getApiTransferLimits();
+        if (apiDownloadBlocked) {
+          throw new Meteor.Error('downloads-disabled', 'API downloads are disabled by administrator');
+        }
+        if (Number.isFinite(attachment.size) && attachment.size > effectiveApiDownloadMaxBytes) {
+          throw new Meteor.Error('file-too-large', 'Background exceeds API download limit');
+        }
+
+        const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+        const readStream = strategy.getReadStream();
+        if (!readStream) {
+          throw new Meteor.Error('file-not-found', 'File not found in storage');
+        }
+
+        const chunks = [];
+        return new Promise((resolve, reject) => {
+          let settled = false;
+          let totalBytes = 0;
+          const fail = (error) => {
+            if (settled) return;
+            settled = true;
+            try { readStream.destroy(); } catch (e) { /* ignore */ }
+            reject(error);
+          };
+          readStream.on('data', (chunk) => {
+            totalBytes += chunk.length || 0;
+            if (totalBytes > effectiveApiDownloadMaxBytes) {
+              fail(new Meteor.Error('file-too-large', 'Background exceeds API download limit'));
+              return;
+            }
+            chunks.push(chunk);
+          });
+          readStream.on('end', () => {
+            if (settled) return;
+            settled = true;
+            const fileBuffer = Buffer.concat(chunks);
+            resolve({
+              success: true,
+              attachmentId,
+              fileName: attachment.name,
+              fileSize: attachment.size,
+              fileType: attachment.type,
+              base64Data: fileBuffer.toString('base64'),
+              backgroundImageURL: board.backgroundImageURL || '',
+              storageBackend: strategy.getStorageName(),
+            });
+          });
+          readStream.on('error', (error) => {
+            fail(new Meteor.Error('download-error', error.message));
+          });
+        });
+      } catch (error) {
+        console.error('API board background download error:', error);
+        throw new Meteor.Error('download-error', error.message);
+      }
+    },
+
     // List attachments for board, swimlane, list, or card
     async 'api.attachment.list'(boardId, swimlaneId, listId, cardId) {
       if (!this.userId) {

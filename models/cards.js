@@ -1228,7 +1228,9 @@ Cards.helpers({
     if (
       !list.getWipLimit('soft') &&
       list.getWipLimit('enabled') &&
-      list.getWipLimit('value') === list.cards().length
+      // #2095: WIP limit must count ALL cards in the list, not only the ones
+      // currently visible through an active filter (cards() applies the filter).
+      list.getWipLimit('value') === list.cardsUnfiltered().length
     ) {
       return false;
     }

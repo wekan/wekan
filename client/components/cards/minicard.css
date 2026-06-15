@@ -866,3 +866,20 @@
   line-height: 1;
   box-sizing: border-box;
 }
+
+/* #3984: Visual card aging — progressively fade cards that have not been
+ * touched recently, when card aging is enabled for the board. */
+.minicard.minicard-aging-1 {
+  opacity: 0.85;
+}
+.minicard.minicard-aging-2 {
+  opacity: 0.6;
+}
+.minicard.minicard-aging-3 {
+  opacity: 0.4;
+}
+.minicard.minicard-aging-1:hover,
+.minicard.minicard-aging-2:hover,
+.minicard.minicard-aging-3:hover {
+  opacity: 1;
+}

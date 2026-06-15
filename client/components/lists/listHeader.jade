@@ -2,6 +2,10 @@ template(name="listHeader")
   .list-header.js-list-header.nodragscroll(
     class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
     class=colorClass)
+    //- #459: keyboard/screen-reader list reordering (visually hidden, focusable).
+    .list-move-buttons.sr-only
+      a.js-list-move-left(href="#" role="button" aria-label="{{_ 'move-list-left'}}") {{_ 'move-list-left'}}
+      a.js-list-move-right(href="#" role="button" aria-label="{{_ 'move-list-right'}}") {{_ 'move-list-right'}}
     +inlinedForm
       +editListTitleForm
     else

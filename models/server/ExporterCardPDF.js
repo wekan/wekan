@@ -331,4 +331,55 @@ class ExporterCardPDF {
   }
 }
 
-export { ExporterCardPDF };
+// #395: board-level PDF export. Reuses the same simple PDF builder as the card
+// PDF export, writing the board title and each list's cards (title + description).
+class ExporterBoardPDF {
+  constructor(boardId) {
+    this._boardId = boardId;
+  }
+
+  async build(res) {
+    const board = await ReactiveCache.getBoard(this._boardId);
+    if (!board) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Board not found');
+      return;
+    }
+    const lines = [];
+    lines.push(normalizePdfText(board.title));
+    lines.push('');
+
+    const lists = await ReactiveCache.getLists(
+      { boardId: this._boardId, archived: false },
+      { sort: { sort: 1 } },
+    );
+    for (const list of lists) {
+      const cards = await ReactiveCache.getCards(
+        { boardId: this._boardId, listId: list._id, archived: false },
+        { sort: { sort: 1 } },
+      );
+      lines.push(`## ${normalizePdfText(list.title)} (${cards.length})`);
+      for (const card of cards) {
+        lines.push(`- ${normalizePdfText(card.title)}`);
+        if (card.description) {
+          wrapTextBlock(card.description).forEach(l => lines.push(`    ${l}`));
+        }
+      }
+      lines.push('');
+    }
+
+    const pdf = buildPdfBuffer(lines);
+    res.writeHead(200, {
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${sanitizeFilename(board.title)}.pdf"`,
+    });
+    res.end(pdf);
+  }
+
+  async canExport(user) {
+    const board = await ReactiveCache.getBoard(this._boardId);
+    return board && board.isVisibleBy(user);
+  }
+}
+
+export { ExporterCardPDF, ExporterBoardPDF };

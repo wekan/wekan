@@ -1,8 +1,170 @@
+/* Rules is now a fullscreen board-scoped page (below the single top bar),
+ * no longer a wide modal. .rules-page centers the content and gives it room. */
+.rules-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1vh 1vw 4vh;
+}
+.rules-page h2 {
+  margin-bottom: 1vh;
+}
+.rules-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1vh;
+}
+.rules-toolbar button {
+  cursor: pointer;
+}
 .rules-list {
   overflow: hidden;
-  overflow-y: scroll;
-  max-height: 50vh;
+  overflow-y: auto;
+  max-height: 65vh;
   padding-inline-end: 0.7vw;
+}
+.rules-lists-item .js-rule-select {
+  float: inline-start;
+  margin: 6px 8px 0 0;
+}
+.rules-lists-item .js-edit-rule-input {
+  width: 60%;
+}
+/* Visual workflow view */
+.rules-workflow .workflow-group {
+  margin-bottom: 2vh;
+}
+.rules-workflow .workflow-group-title {
+  border-bottom: 2px solid #cfcfcf;
+  padding-bottom: 4px;
+  margin-bottom: 1vh;
+}
+.rules-workflow .workflow-rule {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.rules-workflow .workflow-node {
+  flex: 1 1 200px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.rules-workflow .workflow-node-when {
+  border-inline-start: 4px solid #1565c0;
+}
+.rules-workflow .workflow-node-then {
+  border-inline-start: 4px solid #2e7d32;
+}
+.rules-workflow .workflow-node-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #888;
+}
+.rules-workflow .workflow-node-text {
+  font-size: 14px;
+}
+.rules-workflow .workflow-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: #888;
+}
+/* Drag-and-drop workflow editor */
+.rules-workflow .workflow-help {
+  color: #727479;
+  font-size: 13px;
+  margin-bottom: 1vh;
+}
+.rules-workflow .workflow-builder {
+  background: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 1.5vh;
+}
+.rules-workflow .workflow-builder-row {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.rules-workflow .workflow-slot {
+  flex: 1 1 220px;
+  min-height: 52px;
+  border: 2px dashed #b0b0b0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  background: #fff;
+}
+.rules-workflow .workflow-slot-placeholder {
+  color: #999;
+  font-style: italic;
+}
+.rules-workflow .workflow-slot-clear {
+  margin-inline-start: auto;
+  color: #b00;
+  cursor: pointer;
+  padding-inline-start: 8px;
+}
+.rules-workflow .workflow-builder-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.rules-workflow .workflow-builder-controls input {
+  flex: 1 1 240px;
+}
+.rules-workflow .workflow-palettes {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5vh;
+}
+.rules-workflow .workflow-palette {
+  flex: 1 1 240px;
+}
+.rules-workflow .workflow-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #cfcfcf;
+  border-radius: 16px;
+  padding: 6px 12px;
+  margin: 0 6px 6px 0;
+  cursor: grab;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.rules-workflow .workflow-chip:active {
+  cursor: grabbing;
+}
+.rules-workflow .js-trigger-chip {
+  border-inline-start: 4px solid #1565c0;
+}
+.rules-workflow .js-action-chip {
+  border-inline-start: 4px solid #2e7d32;
+}
+.rules-workflow .workflow-existing-title {
+  margin-top: 1vh;
+}
+.rules-workflow .workflow-rule {
+  position: relative;
+}
+.rules-workflow .workflow-rule-delete {
+  display: flex;
+  align-items: center;
+  color: #b00;
+  padding-inline-start: 8px;
 }
 .rules-lists-item {
   display: block;
@@ -217,4 +379,33 @@
 }
 .triggers-content .triggers-body .triggers-main-body .trigger-item.trigger-item-mail {
   height: 300px;
+}
+/* Rules import/export popup */
+.rules-import-export h3 {
+  margin: 0.6em 0 0.3em;
+  font-size: 15px;
+}
+.rules-import-export .rules-ie-hint {
+  font-size: 12px;
+  color: #727479;
+  margin-bottom: 0.3em;
+}
+.rules-import-export .rules-ie-textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.rules-import-export .rules-ie-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rules-import-export .rules-ie-btns button {
+  flex: 1 1 auto;
+}
+.rules-import-export .rules-ie-message {
+  margin-top: 0.6em;
+  padding: 6px 8px;
+  background: #e8f0fe;
+  border-radius: 4px;
+  font-size: 13px;
 }

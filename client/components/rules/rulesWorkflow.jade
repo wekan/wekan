@@ -1,0 +1,64 @@
+template(name="rulesWorkflow")
+  .rules.rules-workflow(class=currentBoard.colorClass)
+    h2
+      i.fa.fa-sitemap
+      | {{_ 'r-workflow-view'}}
+    p.workflow-help {{_ 'r-workflow-help'}}
+
+    .workflow-builder
+      .workflow-builder-row
+        .workflow-slot.js-when-slot
+          if builderTrigger
+            .workflow-node.workflow-node-when
+              span.workflow-node-label {{_ 'r-when'}}
+              span.workflow-node-text= builderTriggerLabel
+              a.workflow-slot-clear.js-clear-when(title="{{_ 'remove'}}") &#10005;
+          else
+            span.workflow-slot-placeholder {{_ 'r-when'}}: {{_ 'r-drop-trigger'}}
+        .workflow-arrow
+          i.fa.fa-long-arrow-right
+        .workflow-slot.js-then-slot
+          if builderAction
+            .workflow-node.workflow-node-then
+              span.workflow-node-label {{_ 'r-action'}}
+              span.workflow-node-text= builderActionLabel
+              a.workflow-slot-clear.js-clear-then(title="{{_ 'remove'}}") &#10005;
+          else
+            span.workflow-slot-placeholder {{_ 'r-action'}}: {{_ 'r-drop-action'}}
+      .workflow-builder-controls
+        input.js-workflow-rule-title(type=text placeholder="{{_ 'r-new-rule-name'}}")
+        button.primary.js-create-workflow-rule(disabled=createDisabled)
+          i.fa.fa-plus
+          | {{_ 'r-add-rule'}}
+
+    .workflow-palettes
+      .workflow-palette
+        h3 {{_ 'r-trigger'}}
+        each triggerPalette
+          .workflow-chip.js-trigger-chip(draggable="true" data-idx="{{idx}}")
+            i.fa.fa-bolt
+            span= label
+      .workflow-palette
+        h3 {{_ 'r-action'}}
+        each actionPalette
+          .workflow-chip.js-action-chip(draggable="true" data-idx="{{idx}}")
+            i.fa.fa-play
+            span= label
+
+    h3.workflow-existing-title {{_ 'r-board-rules'}}
+    if rules.length
+      .workflow-rules
+        each rules
+          .workflow-rule.js-rule-node(data-rule-id="{{ruleId}}")
+            .workflow-node.workflow-node-when
+              span.workflow-node-label {{_ 'r-when'}}
+              span.workflow-node-text= whenText
+            .workflow-arrow
+              i.fa.fa-long-arrow-right
+            .workflow-node.workflow-node-then
+              span.workflow-node-label {{_ 'r-action'}}
+              span.workflow-node-text= thenText
+            a.workflow-rule-delete.js-delete-workflow-rule(title="{{_ 'r-delete-rule'}}")
+              i.fa.fa-trash
+    else
+      p.no-items-message {{_ 'r-no-rules'}}

@@ -300,30 +300,28 @@ export class CsvCreator {
         spentTime: null,
         labelIds: [],
       };
-      if (csvData[i][this.fieldIndex.createdAt] !== ' ' || '') {
-        if (csvData[i][this.fieldIndex.createdAt].length !== 0) {
-        cardToCreate.createdAt = this._now(new Date(csvData[i][this.fieldIndex.createdAt]))
-        }
+      // Date columns are optional: only set them when the column exists for this
+      // row and is non-empty (this.fieldIndex.<x> is undefined when the column is
+      // absent, so the cell lookup yields undefined).
+      const createdAtCell = csvData[i][this.fieldIndex.createdAt];
+      if (createdAtCell && createdAtCell.length !== 0) {
+        cardToCreate.createdAt = this._now(new Date(createdAtCell));
       }
-      if (csvData[i][this.fieldIndex.startAt] !== ' ' || '') {
-        if (csvData[i][this.fieldIndex.startAt].length !== 0) {
-        cardToCreate.startAt = this._now(new Date(csvData[i][this.fieldIndex.startAt]))
-        }
+      const startAtCell = csvData[i][this.fieldIndex.startAt];
+      if (startAtCell && startAtCell.length !== 0) {
+        cardToCreate.startAt = this._now(new Date(startAtCell));
       }
-      if (csvData[i][this.fieldIndex.dueAt] !== ' ' || '') {
-        if (csvData[i][this.fieldIndex.dueAt].length !== 0) {
-        cardToCreate.dueAt = this._now(new Date(csvData[i][this.fieldIndex.dueAt]))
-        }
+      const dueAtCell = csvData[i][this.fieldIndex.dueAt];
+      if (dueAtCell && dueAtCell.length !== 0) {
+        cardToCreate.dueAt = this._now(new Date(dueAtCell));
       }
-      if (csvData[i][this.fieldIndex.endAt] !== ' ' || '') {
-        if (csvData[i][this.fieldIndex.endAt].length !== 0) {
-        cardToCreate.endAt = this._now(new Date(csvData[i][this.fieldIndex.endAt]))
-        }
+      const endAtCell = csvData[i][this.fieldIndex.endAt];
+      if (endAtCell && endAtCell.length !== 0) {
+        cardToCreate.endAt = this._now(new Date(endAtCell));
       }
-      if (csvData[i][this.fieldIndex.modifiedAt] !== ' ' || '') {
-        if (csvData[i][this.fieldIndex.modifiedAt].length !== 0) {
-        cardToCreate.modifiedAt = this._now(new Date(csvData[i][this.fieldIndex.modifiedAt]))
-        }
+      const modifiedAtCell = csvData[i][this.fieldIndex.modifiedAt];
+      if (modifiedAtCell && modifiedAtCell.length !== 0) {
+        cardToCreate.modifiedAt = this._now(new Date(modifiedAtCell));
       }
       // add the labels
       if (csvData[i][this.fieldIndex.labels]) {

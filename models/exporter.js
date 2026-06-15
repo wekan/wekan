@@ -39,7 +39,10 @@ export class Exporter {
     const os = Npm.require('os');
     const path = Npm.require('path');
 
-    const byBoard = { 'meta.boardId': this._boardId };
+    const byBoard = { boardId: this._boardId };
+    // Attachments store the board id under `meta.boardId`, unlike lists,
+    // swimlanes, cards and rules which keep a flat `boardId`.
+    const byBoardAttachment = { 'meta.boardId': this._boardId };
     const byBoardNoLinked = {
       boardId: this._boardId,
       linkedId: { $in: ['', null] },
@@ -98,7 +101,7 @@ export class Exporter {
     });
     const byBoardAndAttachment = this._attachmentId
       ? { 'meta.boardId': this._boardId, _id: this._attachmentId }
-      : byBoard;
+      : byBoardAttachment;
     const attachmentDocs = await ReactiveCache.getAttachments(byBoardAndAttachment);
     result.attachments = [];
     for (const attachment of attachmentDocs) {

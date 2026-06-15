@@ -1,0 +1,80 @@
+template(name="scheduledTriggers")
+  div.trigger-item#trigger-scheduled
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-scheduled'}}
+      div.trigger-text
+        | {{_'r-schedule-type'}}
+      div.trigger-dropdown
+        select#schedule-type.js-schedule-type
+          option(value="once") {{_'r-schedule-once'}}
+          option(value="daily" selected="selected") {{_'r-schedule-daily'}}
+          option(value="weekday") {{_'r-schedule-weekday'}}
+          option(value="weekly") {{_'r-schedule-weekly'}}
+          option(value="monthly") {{_'r-schedule-monthly'}}
+      div.trigger-text
+        | {{_'r-schedule-at-time'}}
+      div.trigger-dropdown
+        input#schedule-time(type="time" value="09:00")
+      div.trigger-text
+        | {{_'r-schedule-on-weekday'}}
+      div.trigger-dropdown
+        select#schedule-weekday
+          option(value="1" selected="selected") {{_'monday'}}
+          option(value="2") {{_'tuesday'}}
+          option(value="3") {{_'wednesday'}}
+          option(value="4") {{_'thursday'}}
+          option(value="5") {{_'friday'}}
+          option(value="6") {{_'saturday'}}
+          option(value="0") {{_'sunday'}}
+      div.trigger-text
+        | {{_'r-schedule-on-day'}}
+      div.trigger-dropdown
+        input#schedule-dom(type="number" min="1" max="31" value="1")
+      div.trigger-text
+        | {{_'r-schedule-on-date'}}
+      div.trigger-dropdown
+        input#schedule-date(type="date")
+      div.trigger-text
+        | {{_'r-of-cards-in-list'}}
+      div.trigger-dropdown
+        input#schedule-list-name(type=text placeholder="{{_'r-list-name'}}")
+    div.trigger-button.js-add-scheduled-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item#trigger-due
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-due'}}
+      div.trigger-dropdown
+        select#due-condition.js-due-condition
+          option(value="set") {{_'r-due-is-set'}}
+          option(value="soon" selected="selected") {{_'r-due-soon'}}
+          option(value="overdue") {{_'r-due-overdue'}}
+      div.trigger-dropdown
+        input#due-days(type="number" min="0" value="1")
+      div.trigger-text
+        | {{_'r-days-before'}} / {{_'r-days-after'}}
+      div.trigger-text
+        | {{_'r-schedule-at-time'}}
+      div.trigger-dropdown
+        input#due-time(type="time" value="09:00")
+    div.trigger-button.js-add-due-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item#trigger-aging
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-card-in-list'}}
+      div.trigger-dropdown
+        input#aging-list-name(type=text placeholder="{{_'r-list-name'}}")
+      div.trigger-text
+        | {{_'r-for-n-days'}}
+      div.trigger-dropdown
+        input#aging-days(type="number" min="1" value="7")
+      div.trigger-text
+        | {{_'r-schedule-at-time'}}
+      div.trigger-dropdown
+        input#aging-time(type="time" value="09:00")
+    div.trigger-button.js-add-aging-trigger.js-goto-action
+      i.fa.fa-plus

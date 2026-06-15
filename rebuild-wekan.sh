@@ -24,7 +24,7 @@ function ensure_rspack_public_dirs(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server + client, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -191,7 +191,7 @@ do
                 ;;
 
     "Run ALL tests on http://localhost:3000 (start server, progress + summary)")
-		echo "Running ALL tests: import regression + Mocha (server+client) + Node E2E + Playwright."
+		echo "Running ALL tests: import regression + Mocha (server-side) + Node E2E + Playwright."
 		SUMMARY=()
 		record() { SUMMARY+=("$1|$2"); }
 
@@ -208,8 +208,8 @@ do
 		if node tests/wekanCreator.import.test.js; then record PASS "Import regression"; else record FAIL "Import regression"; fi
 
 		echo
-		echo "==> [2/$TOTAL] Mocha unit + security + API-logic tests (meteor test, port 3100)"
-		if meteor test --once --driver-package meteortesting:mocha --port 3100; then record PASS "Mocha (server+client)"; else record FAIL "Mocha (server+client)"; fi
+		echo "==> [2/$TOTAL] Mocha unit + security + API-logic tests (server-side, meteor test, port 3100)"
+		if meteor test --once --driver-package meteortesting:mocha --port 3100; then record PASS "Mocha (server-side)"; else record FAIL "Mocha (server-side)"; fi
 
 		echo
 		echo "==> [3/$TOTAL] Starting WeKan server on http://localhost:3000 (WITH_API=true)"
@@ -235,14 +235,47 @@ do
 			echo
 			echo "==> [5/$TOTAL] Playwright Chromium (browser UI specs + REST API specs)"
 			ORIG_HOME="$HOME"
+			PW_JSON="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-report.json"
+			rm -f "$PW_JSON"
 			(
 				cd "$ORIG_HOME/repos/wekan/tests/playwright"
 				export HOME="$ORIG_HOME/repos/wekan/.tools"
 				unset CHROME_DEVEL_SANDBOX
 				export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
-				PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project=chromium --max-failures=1
+				# Run EVERY spec (no --max-failures), printing each test (list) while
+				# also writing a JSON report we parse below for per-test failures.
+				export PLAYWRIGHT_JSON_OUTPUT_NAME="test-results/all-tests-report.json"
+				PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project=chromium --reporter=list,json
 			)
 			if [ $? -eq 0 ]; then record PASS "Playwright Chromium"; else record FAIL "Playwright Chromium"; fi
+
+			# Extract per-test stats + failing test details from the JSON report.
+			PW_STATS=""
+			PW_FAILURES=""
+			if [ -f "$PW_JSON" ]; then
+				PW_STATS="$(node -e '
+					const fs=require("fs");
+					let r; try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}
+					const s=r.stats||{};
+					console.log(`${s.expected||0} passed, ${s.unexpected||0} failed, ${s.flaky||0} flaky, ${s.skipped||0} skipped`);
+				' "$PW_JSON")"
+				PW_FAILURES="$(node -e '
+					const fs=require("fs");
+					let r; try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}
+					const out=[];
+					function walk(suite, titles){
+						const t=[...titles, suite.title].filter(Boolean);
+						for(const s of suite.suites||[]) walk(s,t);
+						for(const spec of suite.specs||[]){
+							if(spec.ok) continue;
+							const loc = spec.file ? `${spec.file}:${spec.line}` : "";
+							out.push(`${loc} › ${[...t, spec.title].join(" › ")}`);
+						}
+					}
+					for(const s of r.suites||[]) walk(s,[]);
+					out.forEach(l=>console.log(l));
+				' "$PW_JSON")"
+			fi
 		fi
 
 		if [ -n "$TEST_SERVER_PID" ]; then
@@ -257,17 +290,31 @@ do
 		FAILED=0
 		for line in "${SUMMARY[@]}"; do
 			status="${line%%|*}"; name="${line#*|}"
-			printf '  %-6s %s\n' "$status" "$name"
+			suffix=""
+			if [ "$name" = "Playwright Chromium" ] && [ -n "$PW_STATS" ]; then
+				suffix="  ($PW_STATS)"
+			fi
+			printf '  %-6s %s%s\n' "$status" "$name" "$suffix"
 			[ "$status" = "FAIL" ] && FAILED=1
 		done
 		echo "====================================================="
-		if [ "$FAILED" -eq 0 ]; then echo "RESULT: All tests passed."; else echo "RESULT: Some tests FAILED (see output above)."; fi
+		# Per-test details for any failing Playwright specs.
+		if [ -n "$PW_FAILURES" ]; then
+			echo
+			echo "Failing Playwright tests:"
+			while IFS= read -r f; do
+				[ -n "$f" ] && printf '  FAIL  %s\n' "$f"
+			done <<< "$PW_FAILURES"
+			echo "(full output and traces above; HTML report in tests/playwright/playwright-report)"
+			echo "====================================================="
+		fi
+		if [ "$FAILED" -eq 0 ]; then echo "RESULT: All tests passed."; else echo "RESULT: Some tests FAILED (see details above)."; fi
 		break
 		;;
 
-    "Test Mocha unit + security + API-logic tests (server + client, no browser)")
+	"Test Mocha unit + security + API-logic tests (server-side only, no browser)")
 		echo "Running Mocha tests: meteor test --once --driver-package meteortesting:mocha --port 3100"
-		echo "(server-side unit/security/policy tests under server/lib/tests/, plus client lib + i18n tests)"
+		echo "(server-side unit/security/API-logic tests; browser/client tests are covered by Playwright options)"
 		meteor test --once --driver-package meteortesting:mocha --port 3100
 		break
 		;;

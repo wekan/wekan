@@ -70,6 +70,13 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py listcardattachments BOARDID SWIMLANEID LISTID CARDID # List attachments for specific card
     python3 api.py copymoveattachment ATTACHMENTID TARGETBOARDID TARGETSWIMLANEID TARGETLISTID TARGETCARDID [copy|move] # Copy or move attachment
     python3 api.py deleteattachment ATTACHMENTID # Delete attachment
+    python3 api.py uploadbackground BOARDID FILEPATH # Upload a board background image (uses Admin Panel default storage)
+    python3 api.py downloadbackground BOARDID OUTPUTPATH # Download the board's current background image
+    python3 api.py importboard EXPORT.json # Import a whole board (with rules/workflows) from a WeKan export
+    python3 api.py migratefromwekan REMOTE_URL REMOTE_USER REMOTE_PASS # Import ALL boards+workflows+rules from another WeKan
+    python3 api.py exportboardpdf BOARDID OUTPUT.pdf # Export a whole board to PDF
+    python3 api.py importboardfrom SOURCE EXPORT.json # Import from trello/wekan/csv/jira/kanboard/excel/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit
+    python3 api.py exportboardformat BOARDID FORMAT OUTPUT.json # Export to kanboard/trello/jira/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit
 
         Board Member API (Issue #5998):
     python3 api.py addboardmember BOARDID USERID ROLE # Add/activate board member. ROLE: admin, normal, comment, readonly, worker, normalassignedonly, commentassignedonly, readassignedonly, nocomments
@@ -114,8 +121,8 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py mycards [due] [FROM] [TO] # Current user's cards. 'due' = only cards with a due date; FROM/TO = ISO 8601 due-date range
 
         Card Settings API (Issue #3062):
-    python3 api.py getcardsettings BOARDID # Get board-level card settings (allows* toggles)
-    python3 api.py setcardsetting BOARDID KEY VALUE # Set one board card setting, e.g. allowsDueDate true
+    python3 api.py getcardsettings BOARDID # Get board-level card settings (allows* toggles, cardAging, cardAgingDays1/2/3)
+    python3 api.py setcardsetting BOARDID KEY VALUE # Set one board card setting, e.g. allowsDueDate true, cardAging true, cardAgingDays1 5
 
   Admin API:
     python3 api.py newuser USERNAME EMAIL PASSWORD
@@ -1488,3 +1495,251 @@ if arguments >= 1:
         # ------- SET CARD SETTING END -----------
 
 # ------- BOARD MEMBER / CARD FIELD API ENDPOINTS END -----------
+
+# ------- RULES API ENDPOINTS START -----------
+#
+# Board automation Rules: add / edit / remove / list via REST.
+# A rule links a trigger (event or schedule) to an action. The API embeds the
+# full trigger and action inline so a rule is self-contained.
+#
+#   python3 api.py listrules BOARDID
+#   python3 api.py getrule BOARDID RULEID
+#   python3 api.py addrule BOARDID 'TITLE' 'TRIGGER_JSON' 'ACTION_JSON'
+#   python3 api.py editrule BOARDID RULEID 'PATCH_JSON'   # {"title":..,"trigger":{..},"action":{..}}
+#   python3 api.py removerule BOARDID RULEID
+#
+# Example (move a card to the top of its list whenever it is created):
+#   python3 api.py addrule BOARDID 'On create -> top' \
+#     '{"activityType":"createCard","listName":"*","swimlaneName":"*","cardTitle":"*","userId":"*"}' \
+#     '{"actionType":"moveCardToTop","listName":"*","swimlaneName":"*"}'
+#
+# Example (archive cards that have sat in "Completed" for 90 days; the scheduled
+# scan runs this daily):
+#   python3 api.py addrule BOARDID 'Archive after 90 days' \
+#     '{"activityType":"scheduledTrigger","scheduleKind":"aging","listName":"Completed","days":90,"atTime":"03:00"}' \
+#     '{"actionType":"archive"}'
+
+if arguments >= 2 and sys.argv[1] == 'listrules':
+    boardid = sys.argv[2]
+    url = wekanurl + apiboards + boardid + s + 'rules'
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    body = requests.get(url, headers=headers)
+    print(body.text)
+
+if arguments >= 3 and sys.argv[1] == 'getrule':
+    boardid = sys.argv[2]
+    ruleid = sys.argv[3]
+    url = wekanurl + apiboards + boardid + s + 'rules' + s + ruleid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    body = requests.get(url, headers=headers)
+    print(body.text)
+
+if arguments >= 3 and sys.argv[1] == 'removerule':
+    boardid = sys.argv[2]
+    ruleid = sys.argv[3]
+    url = wekanurl + apiboards + boardid + s + 'rules' + s + ruleid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    body = requests.delete(url, headers=headers)
+    print(body.text)
+
+if arguments >= 5 and sys.argv[1] == 'addrule':
+    boardid = sys.argv[2]
+    title = sys.argv[3]
+    trigger = json.loads(sys.argv[4])
+    action = json.loads(sys.argv[5])
+    url = wekanurl + apiboards + boardid + s + 'rules'
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    body = requests.post(url, json={'title': title, 'trigger': trigger, 'action': action}, headers=headers)
+    print(body.text)
+
+if arguments >= 4 and sys.argv[1] == 'editrule':
+    boardid = sys.argv[2]
+    ruleid = sys.argv[3]
+    patch = json.loads(sys.argv[4])
+    url = wekanurl + apiboards + boardid + s + 'rules' + s + ruleid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    body = requests.put(url, json=patch, headers=headers)
+    print(body.text)
+
+# ------- RULES API ENDPOINTS END -----------
+
+# ------- CARD STICKERS / LOCATIONS / COMPLETE START -----------
+#
+# These card fields are set through the card edit endpoint
+# (PUT /api/boards/:boardId/lists/:listId/cards/:cardId):
+#
+#   python3 api.py setcardcomplete BOARDID LISTID CARDID true
+#   python3 api.py setcardstickers BOARDID LISTID CARDID '[{"icon":"taco-cool"}]'
+#   python3 api.py setcardlocations BOARDID LISTID CARDID \
+#     '[{"name":"HQ","address":"Helsinki","latitude":60.17,"longitude":24.94}]'
+
+if arguments >= 5 and sys.argv[1] == 'setcardcomplete':
+    boardid = sys.argv[2]
+    listid = sys.argv[3]
+    cardid = sys.argv[4]
+    dueComplete = sys.argv[5]
+    url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    body = requests.put(url, json={'dueComplete': dueComplete}, headers=headers)
+    print(body.text)
+
+if arguments >= 5 and sys.argv[1] == 'setcardstickers':
+    boardid = sys.argv[2]
+    listid = sys.argv[3]
+    cardid = sys.argv[4]
+    stickers = json.loads(sys.argv[5])
+    url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    body = requests.put(url, json={'stickers': stickers}, headers=headers)
+    print(body.text)
+
+if arguments >= 5 and sys.argv[1] == 'setcardlocations':
+    boardid = sys.argv[2]
+    listid = sys.argv[3]
+    cardid = sys.argv[4]
+    locations = json.loads(sys.argv[5])
+    url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    body = requests.put(url, json={'locations': locations}, headers=headers)
+    print(body.text)
+
+# ------- CARD STICKERS / LOCATIONS / COMPLETE END -----------
+
+# ------- BOARD BACKGROUND IMAGE UPLOAD / DOWNLOAD START -----------
+#
+# Upload/download a board background image. This is the background counterpart
+# of the "upload attachment to board" API; the upload stores a board-level
+# attachment using the current Admin Panel / Attachments / Default Storage and
+# sets it as the board's active background (board admin required).
+#
+#   python3 api.py uploadbackground BOARDID FILEPATH
+#   python3 api.py downloadbackground BOARDID OUTPUTPATH
+
+if arguments >= 3 and sys.argv[1] == 'uploadbackground':
+    boardid = sys.argv[2]
+    filepath = sys.argv[3]
+    import base64, os, mimetypes
+    try:
+        with open(filepath, 'rb') as f:
+            base64_data = base64.b64encode(f.read()).decode('utf-8')
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        exit(1)
+    upload_data = {
+        'boardId': boardid,
+        'fileData': base64_data,
+        'fileName': os.path.basename(filepath),
+        'fileType': mimetypes.guess_type(filepath)[0] or 'image/png',
+    }
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    url = wekanurl + 'api/attachment/upload-background'
+    response = requests.post(url, headers=headers, json=upload_data)
+    print(response.text)
+
+if arguments >= 3 and sys.argv[1] == 'downloadbackground':
+    boardid = sys.argv[2]
+    outputpath = sys.argv[3]
+    import base64
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    url = wekanurl + f'api/attachment/download-background/{boardid}'
+    response = requests.get(url, headers=headers)
+    result = response.json()
+    if result.get('success'):
+        with open(outputpath, 'wb') as f:
+            f.write(base64.b64decode(result.get('base64Data')))
+        print(f"Background saved to: {outputpath}")
+        print(f"Original filename: {result.get('fileName')}")
+        print(f"Storage: {result.get('storageBackend')}")
+    else:
+        print(f"Download failed: {result}")
+
+# ------- BOARD BACKGROUND IMAGE UPLOAD / DOWNLOAD END -----------
+
+# ------- IMPORT BOARD / MIGRATE FROM ANOTHER WEKAN START -----------
+#
+# Import a whole board WITH its workflows (rules/triggers/actions) and other data
+# from a WeKan board export, or migrate ALL boards from another WeKan instance
+# over the REST API.
+#
+#   python3 api.py importboard EXPORT.json        # import one exported board (with rules)
+#   python3 api.py migratefromwekan REMOTE_URL REMOTE_USER REMOTE_PASS  # import all boards+workflows+rules
+
+if arguments >= 2 and sys.argv[1] == 'importboard':
+    filepath = sys.argv[2]
+    with open(filepath) as f:
+        board = json.load(f)
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    response = requests.post(wekanurl + 'api/boards/import', headers=headers, json={'board': board})
+    print(response.text)
+
+if arguments >= 4 and sys.argv[1] == 'migratefromwekan':
+    remote = sys.argv[2].rstrip('/') + '/'
+    remote_user = sys.argv[3]
+    remote_pass = sys.argv[4]
+    # 1) Log in to the remote WeKan to get its token + user id.
+    rlogin = requests.post(remote + 'users/login', json={'username': remote_user, 'password': remote_pass}).json()
+    rtoken = rlogin['token']
+    ruid = rlogin['id']
+    rheaders = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(rtoken)}
+    lheaders = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    # 2) List the remote user's boards.
+    boards = requests.get(remote + 'api/users/{}/boards'.format(ruid), headers=rheaders).json()
+    print('Found {} board(s) on remote WeKan.'.format(len(boards)))
+    # 3) Export each remote board (full JSON incl. rules/workflows) and import locally.
+    for b in boards:
+        bid = b.get('_id') or b.get('id')
+        if not bid:
+            continue
+        export = requests.get(remote + 'api/boards/{}/export'.format(bid), headers=rheaders).json()
+        resp = requests.post(wekanurl + 'api/boards/import', headers=lheaders, json={'board': export})
+        print('{}: HTTP {} {}'.format(b.get('title', bid), resp.status_code, resp.text[:160]))
+
+# ------- IMPORT BOARD / MIGRATE FROM ANOTHER WEKAN END -----------
+
+# ------- EXPORT BOARD TO PDF START -----------
+#
+#   python3 api.py exportboardpdf BOARDID OUTPUT.pdf
+
+if arguments >= 3 and sys.argv[1] == 'exportboardpdf':
+    boardid = sys.argv[2]
+    outputpath = sys.argv[3]
+    headers = {'Authorization': 'Bearer {}'.format(apikey)}
+    url = wekanurl + apiboards + boardid + s + 'exportPDF'
+    response = requests.get(url, headers=headers)
+    with open(outputpath, 'wb') as f:
+        f.write(response.content)
+    print('Board PDF saved to: {}'.format(outputpath))
+
+# ------- EXPORT BOARD TO PDF END -----------
+
+# ------- IMPORT/EXPORT TO OTHER TOOLS START -----------
+#
+# Generalized import from another tool's export, and export to another tool's
+# JSON shape. Sources/formats: trello, wekan, csv, jira, kanboard, excel, deck,
+# openproject, github, gitlab, gitea, forgejo.
+#
+#   python3 api.py importboardfrom SOURCE EXPORT.json   # e.g. github issues.json  (SOURCE = deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit/trello/jira/kanboard/csv/excel/wekan)
+#   python3 api.py exportboardformat BOARDID FORMAT OUTPUT.json  # FORMAT = trello/jira/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit/kanboard
+
+if arguments >= 3 and sys.argv[1] == 'importboardfrom':
+    source = sys.argv[2]
+    filepath = sys.argv[3]
+    with open(filepath) as f:
+        board = json.load(f)
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    url = wekanurl + apiboards + 'import/' + source
+    response = requests.post(url, headers=headers, json={'board': board})
+    print(response.text)
+
+if arguments >= 4 and sys.argv[1] == 'exportboardformat':
+    boardid = sys.argv[2]
+    fmt = sys.argv[3]
+    outputpath = sys.argv[4]
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    url = wekanurl + apiboards + boardid + s + 'export' + s + fmt
+    response = requests.get(url, headers=headers)
+    with open(outputpath, 'w') as f:
+        f.write(response.text)
+    print('Board exported ({}) to: {}'.format(fmt, outputpath))
+
+# ------- IMPORT/EXPORT TO OTHER TOOLS END -----------

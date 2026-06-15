@@ -5,6 +5,7 @@ import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
 import ChecklistItems from '/models/checklistItems';
+import Cards from '/models/cards';
 
 function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
   if (!board) return false;
@@ -22,6 +23,24 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  // #3984: visual card aging — fade cards that have not been touched recently,
+  // based on dateLastActivity, when the board has card aging enabled.
+  agingClass() {
+    const board = ReactiveCache.getBoard(this.boardId);
+    if (!board || !board.cardAging) return '';
+    const last = this.dateLastActivity || this.modifiedAt || this.createdAt;
+    if (!last) return '';
+    const days = (Date.now() - new Date(last).getTime()) / 86400000;
+    // #3984: thresholds are board-configurable (board settings / cardSettings API),
+    // defaulting to 7 / 14 / 28 days.
+    const d1 = board.cardAgingDays1 != null ? board.cardAgingDays1 : 7;
+    const d2 = board.cardAgingDays2 != null ? board.cardAgingDays2 : 14;
+    const d3 = board.cardAgingDays3 != null ? board.cardAgingDays3 : 28;
+    if (days >= d3) return 'minicard-aging-3';
+    if (days >= d2) return 'minicard-aging-2';
+    if (days >= d1) return 'minicard-aging-1';
+    return '';
+  },
   formattedCurrencyCustomFieldValue(definition) {
     const customField = this
       .customFieldsWD()
@@ -172,11 +191,45 @@ Template.minicard.helpers({
   }
 });
 
+// #459: accessible reordering — keyboard/screen-reader users can move a card up
+// or down within its list via sr-only buttons (no drag-and-drop required). The
+// move swaps the card's sort value with its neighbour in the same list+swimlane.
+function moveCardBy(card, delta) {
+  const siblings = ReactiveCache.getCards(
+    { listId: card.listId, swimlaneId: card.swimlaneId, archived: false },
+    { sort: { sort: 1 } },
+  );
+  const idx = siblings.findIndex(c => c._id === card._id);
+  const target = siblings[idx + delta];
+  if (idx < 0 || !target) return;
+  // Capture both sort values before either update; the docs are reactive and
+  // card.sort would otherwise change after the first move.
+  const cardSort = card.sort;
+  const targetSort = target.sort;
+  // Persist through the card model's move() mutation — the canonical client
+  // path (e.g. editCardSortOrderPopup). A raw Cards.update of `sort` is the
+  // wrong path here and would be reverted.
+  card.move(card.boardId, card.swimlaneId, card.listId, targetSort);
+  target.move(target.boardId, target.swimlaneId, target.listId, cardSort);
+}
+
 Template.minicard.events({
   'click .js-linked-link'() {
     if (this.isLinkedCard()) Utils.goCardId(this.linkedId);
     else if (this.isLinkedBoard())
       Utils.goBoardId(this.linkedId);
+  },
+  'click .js-card-move-up'(event) {
+    // The move buttons sit inside the minicard anchor; don't let the click
+    // bubble up and open the card detail view.
+    event.preventDefault();
+    event.stopPropagation();
+    moveCardBy(this, -1);
+  },
+  'click .js-card-move-down'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    moveCardBy(this, 1);
   },
   'click .js-toggle-card-complete'(event) {
     // Trello-style "mark complete" toggle (left of the title). Don't let the

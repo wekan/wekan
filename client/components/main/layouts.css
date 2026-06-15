@@ -75,6 +75,43 @@ summary:focus-visible,
   border: 0;
 }
 
+/* Visually-hidden but still *activatable* controls (#459 accessible reordering).
+ * The plain `.sr-only` pattern clips its content to a 1x1 box with
+ * `clip: rect(0,0,0,0)` + `overflow:hidden`, which removes the element from the
+ * hit-test stack: a real pointer click (or Playwright's coordinate-based click)
+ * at the control's own position resolves to whatever sits *behind* it, so the
+ * click handler never fires. For interactive controls we instead keep a real,
+ * hit-testable box that is merely transparent and out of flow. Keyboard/AT users
+ * still reach it via Tab / the accessibility tree; sighted users don't see it. */
+.minicard-move-buttons.sr-only,
+.list-move-buttons.sr-only {
+  position: static !important;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
+  /* Keep the group flush so the (transparent) controls don't visibly nudge the
+   * surrounding layout. */
+  display: inline-flex;
+  vertical-align: top;
+  line-height: 0;
+}
+.minicard-move-buttons.sr-only a,
+.list-move-buttons.sr-only a {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  overflow: hidden;
+  text-indent: -9999px;
+  white-space: nowrap;
+  opacity: 0;
+  position: relative;
+  z-index: 30;
+}
+
 /* Skip-to-content link (WCAG 2.4.1 Bypass Blocks): hidden until focused, then
  * pinned to the top-left so keyboard users can jump past the header chrome. */
 .skip-link {

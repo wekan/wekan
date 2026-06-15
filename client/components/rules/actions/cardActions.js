@@ -220,6 +220,35 @@ Template.cardActions.events({
       boardId,
     });
   },
+  'click .js-set-complete-action'(event, tpl) {
+    const data = Template.currentData();
+    const ruleName = data.ruleName.get();
+    const trigger = data.triggerVar.get();
+    const boardId = Session.get('currentBoard');
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const actionType = tpl.find('#complete-action').value;
+    const triggerId = Triggers.insert(trigger);
+    const actionId = Actions.insert({ actionType, boardId, desc });
+    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
+  },
+  'click .js-set-reldate-action'(event, tpl) {
+    const data = Template.currentData();
+    const ruleName = data.ruleName.get();
+    const trigger = data.triggerVar.get();
+    const boardId = Session.get('currentBoard');
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const dateField = tpl.find('#reldate-datefield').value;
+    const days = parseInt(tpl.find('#reldate-days').value, 10) || 0;
+    const triggerId = Triggers.insert(trigger);
+    const actionId = Actions.insert({
+      actionType: 'setDateRelative',
+      dateField,
+      days,
+      boardId,
+      desc,
+    });
+    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
+  },
 });
 
 Template.setCardActionsColorPopup.onCreated(function () {

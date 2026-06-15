@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Exporter } from './exporter';
+import { buildExternalExport, EXTERNAL_EXPORT_FORMATS } from './lib/externalExporters';
 import { Meteor } from 'meteor/meteor';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 
@@ -7,6 +8,35 @@ if (Meteor.isServer) {
   const { WebApp } = require('meteor/webapp');
   const { sendJsonResult } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
+
+  // Build a Kanboard-style export object from a WeKan board: lists -> columns,
+  // swimlanes -> swimlanes, cards -> tasks (this is the inverse of the Kanboard
+  // importer, so a board round-trips through this format).
+  async function buildKanboardExport(boardId) {
+    const board = await ReactiveCache.getBoard(boardId);
+    const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
+    const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false }, { sort: { sort: 1 } });
+    const cards = await ReactiveCache.getCards({ boardId, archived: false }, { sort: { sort: 1 } });
+    const listById = {};
+    lists.forEach(l => { listById[l._id] = l.title; });
+    const swById = {};
+    swimlanes.forEach(s => { swById[s._id] = s.title; });
+    const labelById = {};
+    (board.labels || []).forEach(l => { labelById[l._id] = l.name; });
+    return {
+      board: { name: board.title },
+      columns: lists.map(l => ({ title: l.title })),
+      swimlanes: swimlanes.map(s => ({ name: s.title })),
+      tasks: cards.map(c => ({
+        title: c.title,
+        description: c.description || '',
+        column_name: listById[c.listId] || '',
+        swimlane_name: swById[c.swimlaneId] || 'Default',
+        date_due: c.dueAt ? new Date(c.dueAt).toISOString() : undefined,
+        tags: (c.labelIds || []).map(id => labelById[id]).filter(Boolean),
+      })),
+    };
+  }
 
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
@@ -73,17 +103,19 @@ if (Meteor.isServer) {
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
       try {
-        await Authentication.checkUserId(req.userId);
+        // Any logged-in user may request an export; board-level access is
+        // enforced below by exporter.canExport() (board.isVisibleBy).
+        Authentication.checkLoggedIn(req.userId);
       } catch (error) {
         sendJsonResult(res, error.statusCode || 403);
         return;
       }
-      user = await ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
+      user = await ReactiveCache.getUser({ _id: req.userId });
     }
 
     const exporter = new Exporter(boardId);
     if (await exporter.canExport(user) || impersonateDone) {
-      if (impersonateDone) {
+      if (impersonateDone && adminId) {
         await ImpersonatedUsers.insertAsync({
           adminId: adminId,
           boardId: boardId,
@@ -100,6 +132,115 @@ if (Meteor.isServer) {
       // way to get there is by hacking the UI so let's keep it raw.
       sendJsonResult(res, 403);
     }
+  });
+
+  /**
+   * @operation exportKanboard
+   * @tag Boards
+   * @summary Export the board as a Kanboard-style JSON (columns + tasks).
+   * @description Pass the loginToken as the `authToken` query param for private
+   * boards: `/api/boards/:boardId/export/kanboard?authToken=:token`.
+   * @param {string} boardId the ID of the board we are exporting
+   * @param {string} authToken the loginToken
+   */
+  WebApp.handlers.get('/api/boards/:boardId/export/kanboard', async function (req, res) {
+    const boardId = req.params.boardId;
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      sendJsonResult(res, 404);
+      return;
+    }
+    if (board.isPublic()) {
+      sendJsonResult(res, { code: 200, data: await buildKanboardExport(boardId) });
+      return;
+    }
+    let user = null;
+    const loginToken = req.query.authToken;
+    if (loginToken) {
+      if (loginToken.length > 10000) {
+        sendJsonResult(res, 400);
+        return;
+      }
+      const hashToken = Accounts._hashLoginToken(loginToken);
+      user = await ReactiveCache.getUser({
+        'services.resume.loginTokens.hashedToken': hashToken,
+      });
+    } else if (!Meteor.settings.public.sandstorm) {
+      try {
+        // Any logged-in user may request an export; board-level access is
+        // enforced below by exporter.canExport() (board.isVisibleBy).
+        Authentication.checkLoggedIn(req.userId);
+      } catch (error) {
+        sendJsonResult(res, error.statusCode || 403);
+        return;
+      }
+      user = await ReactiveCache.getUser({ _id: req.userId });
+    }
+    const exporter = new Exporter(boardId);
+    if (await exporter.canExport(user)) {
+      sendJsonResult(res, { code: 200, data: await buildKanboardExport(boardId) });
+    } else {
+      sendJsonResult(res, 403);
+    }
+  });
+
+  // Generalized export to other tools: NextCloud Deck, OpenProject, GitHub,
+  // GitLab, Gitea, Forgejo. One shared auth handler, one route per format.
+  async function serveExternalExport(req, res, format) {
+    const boardId = req.params.boardId;
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      sendJsonResult(res, 404);
+      return;
+    }
+    const respond = async () =>
+      sendJsonResult(res, { code: 200, data: await buildExternalExport(boardId, format) });
+    if (board.isPublic()) {
+      await respond();
+      return;
+    }
+    let user = null;
+    const loginToken = req.query.authToken;
+    if (loginToken) {
+      if (loginToken.length > 10000) {
+        sendJsonResult(res, 400);
+        return;
+      }
+      const hashToken = Accounts._hashLoginToken(loginToken);
+      user = await ReactiveCache.getUser({
+        'services.resume.loginTokens.hashedToken': hashToken,
+      });
+    } else if (!Meteor.settings.public.sandstorm) {
+      try {
+        // Any logged-in user may request an export; board-level access is
+        // enforced below by exporter.canExport() (board.isVisibleBy).
+        Authentication.checkLoggedIn(req.userId);
+      } catch (error) {
+        sendJsonResult(res, error.statusCode || 403);
+        return;
+      }
+      user = await ReactiveCache.getUser({ _id: req.userId });
+    }
+    const exporter = new Exporter(boardId);
+    if (await exporter.canExport(user)) {
+      await respond();
+    } else {
+      sendJsonResult(res, 403);
+    }
+  }
+
+  EXTERNAL_EXPORT_FORMATS.forEach(format => {
+    /**
+     * @operation exportExternal
+     * @tag Boards
+     * @summary Export the board as a NextCloud Deck / OpenProject / GitHub /
+     * GitLab / Gitea / Forgejo style JSON.
+     * @param {string} boardId the ID of the board we are exporting
+     * @param {string} authToken the loginToken
+     */
+    WebApp.handlers.get(`/api/boards/:boardId/export/${format}`, async function (req, res) {
+      await serveExternalExport(req, res, format);
+    });
   });
 
   // todo XXX once we have a real API in place, move that route there
@@ -169,7 +310,9 @@ if (Meteor.isServer) {
         impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
       } else if (!Meteor.settings.public.sandstorm) {
         try {
-          await Authentication.checkUserId(req.userId);
+          // Any logged-in user may request an export; board-level access is
+        // enforced below by exporter.canExport() (board.isVisibleBy).
+        Authentication.checkLoggedIn(req.userId);
         } catch (error) {
           sendJsonResult(res, error.statusCode || 403);
           return;
@@ -274,7 +417,9 @@ if (Meteor.isServer) {
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
       try {
-        await Authentication.checkUserId(req.userId);
+        // Any logged-in user may request an export; board-level access is
+        // enforced below by exporter.canExport() (board.isVisibleBy).
+        Authentication.checkLoggedIn(req.userId);
       } catch (error) {
         sendJsonResult(res, error.statusCode || 403);
         return;

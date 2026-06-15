@@ -1403,3 +1403,26 @@ body.grey-icons-enabled .checkmark-no-grey {
   }
 }
 
+
+/* #5157: show the board's background image on the board list tile, reusing the
+ * existing board.backgroundImageURL. A dark overlay keeps the title readable. */
+.board-list-item.has-background-image {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.board-list-item.has-background-image .details,
+.board-list-item.has-background-image .board-list-item-name {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+.board-list-item.has-background-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: inherit;
+  z-index: 0;
+}

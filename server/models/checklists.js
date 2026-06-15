@@ -3,7 +3,7 @@ import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { allowIsBoardMemberByCard } from '/server/lib/utils';
+import { allowIsBoardMemberByCard, allowIsBoardMemberCommentOnly } from '/server/lib/utils';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';

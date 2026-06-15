@@ -170,6 +170,8 @@ template(name="cardDetails")
               a.card-label.add-label.js-add-location(title="{{_ 'add-location'}}")
                 i.fa.fa-plus
 
+        +cardButtons(_id=_id boardId=boardId)
+
         if currentBoard.hasAnyAllowsDate
           hr
 

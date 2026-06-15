@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { check } from 'meteor/check';
+import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { add, now } from '/imports/lib/dateUtils';
 import { Authentication } from '/server/authentication';
@@ -1033,6 +1034,51 @@ WebApp.handlers.put(
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: !archive },
         { $set: { archived: archive } },
+      );
+      updated = true;
+    }
+    // Trello-style "complete" checkbox (independent of the due date).
+    if ('dueComplete' in req.body) {
+      const dueComplete = String(req.body.dueComplete).toLowerCase() === 'true';
+      await Cards.direct.updateAsync(
+        { _id: paramCardId, listId: paramListId, boardId: paramBoardId },
+        { $set: { dueComplete } },
+      );
+      updated = true;
+    }
+    // Stickers: an array of { icon, highlight } (JSON, or a JSON string when
+    // sent form-encoded).
+    if (req.body.stickers) {
+      let stickers = req.body.stickers;
+      if (typeof stickers === 'string') stickers = JSON.parse(stickers);
+      await Cards.direct.updateAsync(
+        { _id: paramCardId, listId: paramListId, boardId: paramBoardId },
+        { $set: { stickers } },
+      );
+      updated = true;
+    }
+    // Locations: an array of { name, address, latitude, longitude } (JSON, or a
+    // JSON string when sent form-encoded).
+    if (req.body.locations) {
+      let locations = req.body.locations;
+      if (typeof locations === 'string') locations = JSON.parse(locations);
+      // Each location entry requires an `_id` (schema), and coordinates must be
+      // numbers (form-encoded values arrive as strings).
+      locations = locations.map(loc => {
+        const out = {
+          _id: loc._id || Random.id(),
+          name: loc.name || '',
+          address: loc.address || '',
+        };
+        if (loc.latitude !== undefined && loc.latitude !== '')
+          out.latitude = Number(loc.latitude);
+        if (loc.longitude !== undefined && loc.longitude !== '')
+          out.longitude = Number(loc.longitude);
+        return out;
+      });
+      await Cards.direct.updateAsync(
+        { _id: paramCardId, listId: paramListId, boardId: paramBoardId },
+        { $set: { locations } },
       );
       updated = true;
     }

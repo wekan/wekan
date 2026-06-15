@@ -12,6 +12,10 @@ template(name="rulesTriggers")
             i.fa.fa-file-text-o
           li.js-set-checklist-triggers
             i.fa.fa-check
+          li.js-set-scheduled-triggers(title="{{_ 'r-set-scheduled-triggers'}}")
+            i.fa.fa-clock-o
+          li.js-set-button-triggers(title="{{_ 'r-set-button-triggers'}}")
+            i.fa.fa-hand-pointer-o
       .triggers-main-body
         if showBoardTrigger.get
           +boardTriggers
@@ -19,6 +23,10 @@ template(name="rulesTriggers")
           +cardTriggers
         else if showChecklistTrigger.get
           +checklistTriggers
+        else if showScheduledTrigger.get
+          +scheduledTriggers
+        else if showButtonTrigger.get
+          +buttonTriggers
   div.rules-back
       button.primary.wide.js-goback(type="submit")
           i.fa.fa-arrow-left

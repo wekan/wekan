@@ -134,36 +134,17 @@ Template.boardActions.events({
     const ruleName = data.ruleName.get();
     const trigger = data.triggerVar.get();
     const actionSelected = tpl.find('#move-gen-action').value;
-    if (actionSelected === 'top') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
-        actionType: 'moveCardToTop',
-        listTitle: '*',
-        boardId,
-        desc,
-      });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
-    }
-    if (actionSelected === 'bottom') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
-        actionType: 'moveCardToBottom',
-        listTitle: '*',
-        boardId,
-        desc,
-      });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
-    }
+    const actionType =
+      actionSelected === 'bottom' ? 'moveCardToBottom' : 'moveCardToTop';
+    // Insert the rule on the server (see server/rulesButton.js → rules.createRule)
+    // rather than via three optimistic client Collection.insert() calls, whose
+    // documents land in minimongo limbo when the wizard subscription stops.
+    Meteor.call('rules.createRule', boardId, ruleName, trigger, {
+      actionType,
+      listTitle: '*',
+      boardId,
+      desc,
+    });
   },
   'click .js-add-arch-action'(event, tpl) {
     const desc = Utils.getTriggerActionDesc(event, tpl);
@@ -224,6 +205,42 @@ Template.boardActions.events({
       actionId,
       boardId,
     });
+  },
+  'click .js-sort-list-action'(event, tpl) {
+    const data = Template.currentData();
+    const ruleName = data.ruleName.get();
+    const trigger = data.triggerVar.get();
+    const boardId = Session.get('currentBoard');
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const listName = tpl.find('#sort-list-name').value || '*';
+    const sortField = tpl.find('#sort-field').value;
+    const triggerId = Triggers.insert(trigger);
+    const actionId = Actions.insert({
+      actionType: 'sortList',
+      listName,
+      sortField,
+      boardId,
+      desc,
+    });
+    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
+  },
+  'click .js-move-all-cards-action'(event, tpl) {
+    const data = Template.currentData();
+    const ruleName = data.ruleName.get();
+    const trigger = data.triggerVar.get();
+    const boardId = Session.get('currentBoard');
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const fromListName = tpl.find('#moveall-from-list').value || '*';
+    const listName = tpl.find('#moveall-to-list').value || '*';
+    const triggerId = Triggers.insert(trigger);
+    const actionId = Actions.insert({
+      actionType: 'moveAllCardsInList',
+      fromListName,
+      listName,
+      boardId,
+      desc,
+    });
+    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
   },
 });
 /* eslint-no-undef */

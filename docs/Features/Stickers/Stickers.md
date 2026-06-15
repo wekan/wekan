@@ -14,6 +14,16 @@ Stickers are small icons you can add to cards, similar to Trello's stickers.
     pack), for example "pete-ghost" imports as "computer ghost".
 - Stickers appear both on the minicard and in the opened card detail.
 
+## REST API
+
+Stickers are set through the card edit endpoint
+(`PUT /api/boards/:boardId/lists/:listId/cards/:cardId`) with a `stickers` array
+of `{ icon, highlight }`:
+
+```bash
+python3 api.py setcardstickers BOARDID LISTID CARDID '[{"icon":"taco-cool"}]'
+```
+
 ## Related
 
 - [Cards](../Cards/Cards.md)

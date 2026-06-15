@@ -1,3 +1,21 @@
+# Importing an Excel (.xlsx) board
+
+WeKan can import a board directly from an Excel `.xlsx` spreadsheet:
+
+1. **All Boards → New → Import → From Excel (.xlsx)**.
+2. Choose a WeKan-style `.xlsx` file (the same columns the **Excel export** produces:
+   Title, Description, Status/List, Members, Labels, dates, custom fields). The first
+   row is the header.
+
+The spreadsheet is parsed on the server and imported through the same engine as the
+CSV/TSV import. Member columns are not auto-mapped for Excel import (map members
+afterwards); see also [CSV/TSV import](CSV/CSV.md).
+
+This complements the existing **Excel export** (Board Settings → Export → Excel), so
+boards can round-trip through `.xlsx`.
+
+# Excel VBA and the REST API
+
 Related projects:
 * [VBA-Web](https://github.com/VBA-tools/VBA-Web) - using REST APIs with VBA
 * [VBA-JSON](https://github.com/VBA-tools/VBA-JSON)

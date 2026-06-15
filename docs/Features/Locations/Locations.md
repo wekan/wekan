@@ -35,6 +35,17 @@ controls which map service the location "Open in map" links use:
 - Bing Maps
 - Apple Maps
 
+## REST API
+
+Locations are set through the card edit endpoint
+(`PUT /api/boards/:boardId/lists/:listId/cards/:cardId`) with a `locations` array
+of `{ name, address, latitude, longitude }`:
+
+```bash
+python3 api.py setcardlocations BOARDID LISTID CARDID \
+  '[{"name":"HQ","address":"Helsinki","latitude":60.17,"longitude":24.94}]'
+```
+
 ## Related
 
 - [Cards](../Cards/Cards.md)

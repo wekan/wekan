@@ -147,8 +147,11 @@ test.describe('Views & layout', () => {
     }
 
     // At minimum, confirm the list renders cards and scrolling works without error.
-    const finalCount = await listEl.locator('.js-minicard').count();
-    expect(finalCount).toBeGreaterThanOrEqual(initialCount);
+    // The board view can briefly re-render while its subscription settles, so poll
+    // rather than read once (a transient teardown would momentarily show 0 cards).
+    await expect
+      .poll(async () => listEl.locator('.js-minicard').count(), { timeout: 15_000 })
+      .toBeGreaterThanOrEqual(initialCount);
 
     db.cleanup({ boardIds: [b.boardId] });
   });

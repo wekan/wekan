@@ -1,0 +1,5 @@
+template(name="boardButtons")
+  each boardButtonRules
+    a.board-header-btn.js-run-board-button(data-rule-id="{{ruleId}}" title="{{label}}")
+      i.fa.fa-magic
+      span= label

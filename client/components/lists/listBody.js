@@ -355,9 +355,10 @@ Template.listBody.helpers({
   canSeeAddCard() {
     const tpl = Template.instance();
     const list = Template.currentData();
+    // #2095: count all cards in the list, not only the filtered/visible ones.
     const reachedWipLimit = !list.getWipLimit('soft') &&
       list.getWipLimit('enabled') &&
-      list.getWipLimit('value') <= list.cards().length;
+      list.getWipLimit('value') <= list.cardsUnfiltered().length;
     return (
       !reachedWipLimit &&
       Utils.canModifyCard()
@@ -369,7 +370,8 @@ Template.listBody.helpers({
     return (
       !list.getWipLimit('soft') &&
       list.getWipLimit('enabled') &&
-      list.getWipLimit('value') <= list.cards().length
+      // #2095: count all cards in the list, not only the filtered/visible ones.
+      list.getWipLimit('value') <= list.cardsUnfiltered().length
     );
   },
 

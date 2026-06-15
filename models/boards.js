@@ -410,6 +410,29 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    cardAging: {
+      /**
+       * #3984: Visually fade cards that have not been touched for a while
+       * (Trello-style "card aging"), based on the card's dateLastActivity.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+    cardAgingDays1: {
+      /** #3984: days of inactivity for the first (lightest) card-aging fade tier. */
+      type: Number,
+      defaultValue: 7,
+    },
+    cardAgingDays2: {
+      /** #3984: days of inactivity for the second card-aging fade tier. */
+      type: Number,
+      defaultValue: 14,
+    },
+    cardAgingDays3: {
+      /** #3984: days of inactivity for the third (heaviest) card-aging fade tier. */
+      type: Number,
+      defaultValue: 28,
+    },
     allowsBoardMemberList: {
       /**
        * Show board member list
@@ -1995,6 +2018,16 @@ Boards.helpers({
 
   async setAllowsCardCounterList(allowsCardCounterList) {
     return await Boards.updateAsync(this._id, { $set: { allowsCardCounterList } });
+  },
+
+  async setCardAging(cardAging) {
+    return await Boards.updateAsync(this._id, { $set: { cardAging } });
+  },
+
+  async setCardAgingDays(cardAgingDays1, cardAgingDays2, cardAgingDays3) {
+    return await Boards.updateAsync(this._id, {
+      $set: { cardAgingDays1, cardAgingDays2, cardAgingDays3 },
+    });
   },
 
   async setAllowsBoardMemberList(allowsBoardMemberList) {

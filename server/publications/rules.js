@@ -17,7 +17,7 @@ Meteor.publish('rules', async function(ruleId) {
   }
 
   const board = await ReactiveCache.getBoard(rule.boardId);
-  if (!board || !board.isVisibleBy(this.userId)) {
+  if (!board || !board.isVisibleBy({ _id: this.userId })) {
     return this.ready();
   }
 
@@ -29,6 +29,25 @@ Meteor.publish('rules', async function(ruleId) {
     true,
   );
   return ret;
+});
+
+// Board-scoped publication of a board's rules together with their triggers and
+// actions, for anyone who can see the board (not just global admins). This backs
+// the fullscreen Rules page, the workflow view and card buttons.
+Meteor.publish('boardRules', async function(boardId) {
+  check(boardId, String);
+  if (!this.userId) {
+    return this.ready();
+  }
+  const board = await ReactiveCache.getBoard(boardId);
+  if (!board || !board.isVisibleBy({ _id: this.userId })) {
+    return this.ready();
+  }
+  return [
+    Rules.find({ boardId }),
+    Triggers.find({ boardId }),
+    Actions.find({ boardId }),
+  ];
 });
 
 Meteor.publish('allRules', async function() {

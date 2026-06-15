@@ -79,6 +79,32 @@ template(name="cardActions")
     div.trigger-button.js-set-color-action.js-goto-rules
       i.fa.fa-plus
 
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="complete-action")
+          option(value="markCardComplete") {{_'r-mark-complete'}}
+          option(value="markCardIncomplete") {{_'r-mark-incomplete'}}
+    div.trigger-button.js-set-complete-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-set-date-relative'}}
+      div.trigger-dropdown
+        select(id="reldate-datefield")
+          option(value="startAt") {{_'r-df-start-at'}}
+          option(value="dueAt") {{_'r-df-due-at'}}
+          option(value="endAt") {{_'r-df-end-at'}}
+          option(value="receivedAt") {{_'r-df-received-at'}}
+      div.trigger-dropdown
+        input(id="reldate-days",type="number",value="0")
+      div.trigger-text
+        | {{_'r-days-after'}}
+    div.trigger-button.js-set-reldate-action.js-goto-rules
+      i.fa.fa-plus
+
 template(name="setCardActionsColorPopup")
   form.edit-label
     .palette-colors: each colors

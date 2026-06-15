@@ -332,8 +332,14 @@ Template.memberPopup.helpers({
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-open-rules-view'() {
-    Modal.openWide('rulesMain');
+    const currentBoard = Utils.getCurrentBoard();
     Popup.back();
+    if (currentBoard) {
+      FlowRouter.go('board-rules', {
+        id: currentBoard._id,
+        slug: currentBoard.slug,
+      });
+    }
   },
   'click .js-custom-fields'() {
     if (Sidebar) {
@@ -705,6 +711,44 @@ Template.exportBoardPopup.helpers({
       queryParams,
     );
   },
+  exportUrlPDF() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path('/api/boards/:boardId/exportPDF', params, queryParams);
+  },
+  exportFilenamePDF() {
+    const boardId = Session.get('currentBoard');
+    return `export-board-${boardId}.pdf`;
+  },
+  exportUrlKanboard() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path('/api/boards/:boardId/export/kanboard', params, queryParams);
+  },
+  exportFilenameKanboard() {
+    const boardId = Session.get('currentBoard');
+    return `export-board-kanboard-${boardId}.json`;
+  },
+  // Generalized export URL/filename for the external tools (Deck, OpenProject,
+  // GitHub, GitLab, Gitea, Forgejo).
+  exportUrlExternal(format) {
+    return FlowRouter.path(
+      `/api/boards/:boardId/export/${format}`,
+      { boardId: Session.get('currentBoard') },
+      { authToken: Accounts._storedLoginToken() },
+    );
+  },
+  exportFilenameExternal(format) {
+    return `export-board-${format}-${Session.get('currentBoard')}.json`;
+  },
   exportFilenameExcel() {
     const boardId = Session.get('currentBoard');
     return `export-board-excel-${boardId}.xlsx`;
@@ -968,6 +1012,19 @@ Template.boardInfoOnMyBoardsPopup.helpers({
     const tpl = Template.instance();
     return tpl.currentBoard.allowsCardCounterList;
   },
+  cardAging() {
+    const tpl = Template.instance();
+    return tpl.currentBoard.cardAging;
+  },
+  cardAgingDays1() {
+    return Template.instance().currentBoard.cardAgingDays1 ?? 7;
+  },
+  cardAgingDays2() {
+    return Template.instance().currentBoard.cardAgingDays2 ?? 14;
+  },
+  cardAgingDays3() {
+    return Template.instance().currentBoard.cardAgingDays3 ?? 28;
+  },
   allowsBoardMemberList() {
     const tpl = Template.instance();
     return tpl.currentBoard.allowsBoardMemberList;
@@ -990,6 +1047,20 @@ Template.boardInfoOnMyBoardsPopup.events({
       CKCLS,
       tpl.currentBoard.allowsCardCounterList,
     );
+  },
+  'click .js-field-has-cardaging'(evt, tpl) {
+    evt.preventDefault();
+    tpl.currentBoard.cardAging = !tpl.currentBoard.cardAging;
+    tpl.currentBoard.setCardAging(tpl.currentBoard.cardAging);
+    $(`.js-field-has-cardaging ${MCB}`).toggleClass(CKCLS, tpl.currentBoard.cardAging);
+    $('.js-field-has-cardaging').toggleClass(CKCLS, tpl.currentBoard.cardAging);
+  },
+  'change .js-card-aging-days'(evt, tpl) {
+    // #3984: save the three board-configurable card-aging day thresholds.
+    const vals = $('.js-card-aging-days')
+      .map((i, el) => parseInt(el.value, 10) || 0)
+      .get();
+    tpl.currentBoard.setCardAgingDays(vals[0], vals[1], vals[2]);
   },
   'click .js-field-has-boardmemberlist'(evt, tpl) {
     evt.preventDefault();

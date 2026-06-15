@@ -103,6 +103,36 @@ template(name="boardActions")
     div.trigger-button.js-link-card-action.js-goto-rules
       i.fa.fa-plus
 
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-sort-list'}}
+      div.trigger-dropdown
+        input(id="sort-list-name",type=text,placeholder="{{_'r-list-name'}}")
+      div.trigger-text
+        | {{_'r-sort-by'}}
+      div.trigger-dropdown
+        select(id="sort-field")
+          option(value="due") {{_'r-sort-due'}}
+          option(value="name") {{_'r-sort-name'}}
+            option(value="created") {{_'createdAt'}}
+            option(value="modified") {{_'modifiedAt'}}
+    div.trigger-button.js-sort-list-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-move-all-cards'}}
+      div.trigger-dropdown
+        input(id="moveall-from-list",type=text,placeholder="{{_'r-list-name'}}")
+      div.trigger-text
+        | {{_'r-in-list'}}
+      div.trigger-dropdown
+        input(id="moveall-to-list",type=text,placeholder="{{_'r-list-name'}}")
+    div.trigger-button.js-move-all-cards-action.js-goto-rules
+      i.fa.fa-plus
+
 
 
 

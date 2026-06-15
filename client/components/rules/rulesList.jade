@@ -4,32 +4,45 @@ template(name="rulesList")
       i.fa.fa-magic
       | {{_ 'r-board-rules' }}
 
+    if rules.length
+      .rules-toolbar
+        button.js-rules-select-all(type="button")
+          i.fa.fa-check-square-o
+          | {{_ 'r-select-all'}}
+        button.js-rules-select-none(type="button")
+          i.fa.fa-square-o
+          | {{_ 'r-unselect-all'}}
+        if canAdmin
+          button.js-rules-delete-selected(type="button")
+            i.fa.fa-trash
+            | {{_ 'r-delete-selected'}}
+        button.js-rules-export-selected(type="button")
+          i.fa.fa-download
+          | {{_ 'r-export-selected'}}
+
     ul.rules-list
       each rules
         li.rules-lists-item
+          input.js-rule-select(type="checkbox" data-rule-id="{{_id}}" checked=isSelected)
           p
-            = title
+            if isEditing
+              input.js-edit-rule-input(type=text value="{{title}}" autofocus)
+            else
+              = title
           div.rules-btns-group
             button.primary.wide.js-goto-details(type="submit")
               i.fa.fa-eye
               | {{_ 'r-view-rule'}}
-            if currentUser.isAdmin
-              button.primary.wide.js-delete-rule(type="submit")
-                i.fa.fa-trash
-                | {{_ 'r-delete-rule'}}
-            else if currentUser.isBoardAdmin
+            if canAdmin
+              button.primary.wide.js-edit-rule(type="submit")
+                i.fa.fa-pencil
+                | {{_ 'r-edit-rule'}}
               button.primary.wide.js-delete-rule(type="submit")
                 i.fa.fa-trash
                 | {{_ 'r-delete-rule'}}
       else
         li.no-items-message {{_ 'r-no-rules' }}
-    if currentUser.isAdmin
-      div.rules-add
-        button.primary.wide.rules-add-trigger.js-goto-trigger(type="submit")
-          i.fa.fa-plus
-          | {{_ 'r-add-rule'}}
-        input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
-    else if currentUser.isBoardAdmin
+    if canAdmin
       div.rules-add
         button.primary.wide.rules-add-trigger.js-goto-trigger(type="submit")
           i.fa.fa-plus

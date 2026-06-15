@@ -1,3 +1,9 @@
+// Maps each event `activityType` to the trigger fields used to match rules.
+// NOTE: two trigger kinds are intentionally NOT listed here because they are not
+// driven by activities:
+//   - 'scheduledTrigger' (time/due/aging) is evaluated by server/scheduledRules.js
+//     via SyncedCron.
+//   - 'button' (card/board manual buttons) runs only via the rules.runButton method.
 export const TriggersDef = {
   createCard: {
     matchingFields: [

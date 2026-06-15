@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Utils } from '/client/lib/utils';
 import Actions from '/models/actions';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
@@ -8,6 +10,17 @@ Template.rulesMain.onCreated(function () {
   this.ruleName = new ReactiveVar('');
   this.triggerVar = new ReactiveVar();
   this.ruleId = new ReactiveVar();
+
+  // The Rules page is now a standalone board-scoped route, so subscribe to the
+  // board data (lists, swimlanes, labels, members) the trigger/action forms need,
+  // in addition to the rules themselves.
+  this.autorun(() => {
+    const boardId = Session.get('currentBoard');
+    if (boardId) {
+      this.subscribe('board', boardId, false);
+      this.subscribe('boardRules', boardId);
+    }
+  });
 });
 
 Template.rulesMain.helpers({
@@ -23,6 +36,40 @@ Template.rulesMain.helpers({
   ruleId() {
     return Template.instance().ruleId;
   },
+  currentBoard() {
+    return Utils.getCurrentBoard();
+  },
+  isWorkflowView() {
+    return Session.get('rulesViewMode') === 'workflow';
+  },
+});
+
+Template.rulesHeaderBar.helpers({
+  currentBoard() {
+    return Utils.getCurrentBoard();
+  },
+  isWorkflowView() {
+    return Session.get('rulesViewMode') === 'workflow';
+  },
+});
+
+Template.rulesHeaderBar.events({
+  'click .js-rules-back-to-board'(event) {
+    event.preventDefault();
+    const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard) {
+      FlowRouter.go('board', {
+        id: currentBoard._id,
+        slug: currentBoard.slug,
+      });
+    }
+  },
+  'click .js-rules-toggle-view'(event) {
+    event.preventDefault();
+    const mode = Session.get('rulesViewMode') === 'workflow' ? 'list' : 'workflow';
+    Session.set('rulesViewMode', mode);
+  },
+  'click .js-rules-import-export': Popup.open('rulesImportExport'),
 });
 
 function sanitizeObject(obj) {

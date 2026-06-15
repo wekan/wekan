@@ -43,6 +43,10 @@ These apply to all pages and require no configuration.
   users always know where focus is (WCAG 2.4.7 Focus Visible).
 - **Tab order** — interactive controls are reachable in a logical order. Links are
   keyboard-focusable, so menus, popups and toolbars can be operated without a mouse.
+- **Accessible reordering (without drag-and-drop)** — each minicard has visually
+  hidden, keyboard-focusable **"Move card up" / "Move card down"** buttons, and each
+  list header has **"Move list left" / "Move list right"** buttons, so screen-reader
+  and keyboard users can reorder cards and lists without drag-and-drop.
 - **Skip to main content** — a "Skip to main content" link is the first focusable
   element on the page. It is hidden until focused and lets keyboard / screen-reader
   users bypass the header chrome and jump straight to the content (WCAG 2.4.1 Bypass

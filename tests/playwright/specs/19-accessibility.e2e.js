@@ -21,10 +21,15 @@ const BoardPage = require('../pages/BoardPage');
 
 test.describe('Accessibility', () => {
   test('the html element declares its language and text direction', async ({ loggedInPage }) => {
-    const lang = await loggedInPage.locator('html').getAttribute('lang');
+    // lang/dir are set by client JS in Meteor.startup (client/lib/i18n.js), after
+    // the page commits, so poll rather than read once (same as 18-rtl-layout).
+    await expect
+      .poll(
+        () => loggedInPage.evaluate(() => document.documentElement.getAttribute('lang')),
+        { timeout: 15_000, message: 'html[lang] must be set for screen readers' },
+      )
+      .toMatch(/\S/);
     const dir = await loggedInPage.locator('html').getAttribute('dir');
-    expect(lang, 'html[lang] must be set for screen readers').toBeTruthy();
-    expect((lang || '').trim().length).toBeGreaterThan(0);
     // dir is "ltr" for English, "rtl" for Arabic/Hebrew/etc.
     expect(['ltr', 'rtl']).toContain((dir || 'ltr').trim());
   });

@@ -357,6 +357,200 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     }
   });
 
+  // Upload a board BACKGROUND image (board-level, no card). This is the
+  // background counterpart of /api/attachment/upload: it stores a board-level
+  // attachment and sets it as the board's active background. Board-admin gated.
+  WebApp.handlers.use('/api/attachment/upload-background', async (req, res, next) => {
+    if (req.method !== 'POST') {
+      return next();
+    }
+    const timeout = setTimeout(() => {
+      if (!res.headersSent) sendErrorResponse(res, 408, 'Request timeout');
+    }, 30000);
+    try {
+      const userId = await authenticateApiRequest(req);
+      const { apiUploadBlocked, effectiveApiUploadMaxBytes } = await getApiTransferLimits();
+      if (apiUploadBlocked) {
+        clearTimeout(timeout);
+        return sendErrorResponse(res, 403, 'API uploads are disabled by administrator');
+      }
+
+      let body = '';
+      let bodyBytes = 0;
+      let bodyComplete = false;
+      req.on('data', chunk => {
+        if (bodyComplete) return;
+        bodyBytes += chunk.length || 0;
+        if (bodyBytes > HARD_MAX_API_UPLOAD_BODY_BYTES) {
+          bodyComplete = true;
+          clearTimeout(timeout);
+          if (!res.headersSent) sendErrorResponse(res, 413, 'Request payload exceeds server safety limit');
+          req.destroy();
+          return;
+        }
+        body += chunk.toString();
+      });
+
+      req.on('end', async () => {
+        if (bodyComplete) return;
+        bodyComplete = true;
+        clearTimeout(timeout);
+        try {
+          const data = JSON.parse(body);
+          const { boardId, fileData, fileName, fileType } = data;
+          if (!boardId || !fileData || !fileName) {
+            return sendErrorResponse(res, 400, 'Missing required parameters');
+          }
+          if (typeof fileData !== 'string') {
+            return sendErrorResponse(res, 400, 'Invalid fileData format');
+          }
+          if (fileData.length > maxBase64LengthForBytes(effectiveApiUploadMaxBytes)) {
+            return sendErrorResponse(res, 413, 'Background exceeds API upload limit');
+          }
+          const board = await ReactiveCache.getBoard(boardId);
+          if (!board) {
+            return sendErrorResponse(res, 404, 'Board not found');
+          }
+          // Managing backgrounds is board-admin (or global admin) gated.
+          const isAdmin =
+            (board.hasAdmin && board.hasAdmin(userId)) ||
+            !!(await ReactiveCache.getUser({ _id: userId, isAdmin: true }));
+          if (!isAdmin) {
+            return sendErrorResponse(res, 403, 'Board admin required');
+          }
+
+          let targetStorage = STORAGE_NAME_FILESYSTEM;
+          try {
+            const settings = await AttachmentStorageSettings.findOneAsync({});
+            targetStorage = settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
+          } catch (error) {
+            targetStorage = STORAGE_NAME_FILESYSTEM;
+          }
+          if (![STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3].includes(targetStorage)) {
+            return sendErrorResponse(res, 400, 'Invalid storage backend');
+          }
+
+          const fileBuffer = Buffer.from(fileData, 'base64');
+          if (fileBuffer.length > effectiveApiUploadMaxBytes) {
+            return sendErrorResponse(res, 413, 'Background exceeds API upload limit');
+          }
+          const file = new File([fileBuffer], fileName, { type: fileType || 'image/png' });
+          const fileId = new ObjectId().toString();
+          const meta = { boardId, fileId, source: 'api-background', storageBackend: targetStorage };
+          const uploader = await Attachments.insertAsync({
+            file, meta, isBase64: false, transport: 'http',
+          });
+          if (!uploader) {
+            return sendErrorResponse(res, 500, 'Failed to upload background');
+          }
+          if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
+            Meteor.defer(() => {
+              try {
+                moveToStorage(uploader, targetStorage, fileStoreStrategyFactory);
+              } catch (error) {
+                console.error('Error moving background to target storage:', error);
+              }
+            });
+          }
+          await board.setBackgroundImage(uploader._id);
+          const updated = await ReactiveCache.getBoard(boardId);
+          sendJsonResponse(res, 200, {
+            success: true,
+            attachmentId: uploader._id,
+            fileName,
+            fileSize: fileBuffer.length,
+            storageBackend: targetStorage,
+            backgroundImageURL: updated ? updated.backgroundImageURL : '',
+            message: 'Board background uploaded successfully',
+          });
+        } catch (error) {
+          console.error('API board background upload error:', error);
+          sendErrorResponse(res, 500, error.message);
+        }
+      });
+
+      req.on('error', (error) => {
+        clearTimeout(timeout);
+        if (!res.headersSent) sendErrorResponse(res, 400, 'Request error');
+      });
+    } catch (error) {
+      clearTimeout(timeout);
+      sendErrorResponse(res, 401, error.message);
+    }
+  });
+
+  // Download a board's current BACKGROUND image (board members), as base64.
+  WebApp.handlers.use('/api/attachment/download-background/:boardId', async (req, res, next) => {
+    if (req.method !== 'GET') {
+      return next();
+    }
+    try {
+      const userId = await authenticateApiRequest(req);
+      const { apiDownloadBlocked, effectiveApiDownloadMaxBytes } = await getApiTransferLimits();
+      if (apiDownloadBlocked) {
+        return sendErrorResponse(res, 403, 'API downloads are disabled by administrator');
+      }
+      const board = await ReactiveCache.getBoard(req.params.boardId);
+      if (!board || !board.hasMember(userId)) {
+        return sendErrorResponse(res, 403, 'You do not have permission to access this board');
+      }
+      const attachmentId = board.backgroundImageId;
+      if (!attachmentId) {
+        return sendErrorResponse(res, 404, 'Board has no background image set');
+      }
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
+      if (!attachment) {
+        return sendErrorResponse(res, 404, 'Background attachment not found');
+      }
+      const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+      const readStream = strategy.getReadStream();
+      if (!readStream) {
+        return sendErrorResponse(res, 404, 'File not found in storage');
+      }
+      if (Number.isFinite(attachment.size) && attachment.size > effectiveApiDownloadMaxBytes) {
+        return sendErrorResponse(res, 413, 'Background exceeds API download limit');
+      }
+      const chunks = [];
+      let totalBytes = 0;
+      let responseSent = false;
+      const fail = (statusCode, message) => {
+        if (responseSent || res.headersSent) return;
+        responseSent = true;
+        try { readStream.destroy(); } catch (e) { /* ignore */ }
+        sendErrorResponse(res, statusCode, message);
+      };
+      readStream.on('data', (chunk) => {
+        totalBytes += chunk.length || 0;
+        if (totalBytes > effectiveApiDownloadMaxBytes) {
+          fail(413, 'Background exceeds API download limit');
+          return;
+        }
+        chunks.push(chunk);
+      });
+      readStream.on('end', () => {
+        if (responseSent || res.headersSent) return;
+        responseSent = true;
+        const fileBuffer = Buffer.concat(chunks);
+        sendJsonResponse(res, 200, {
+          success: true,
+          attachmentId,
+          fileName: attachment.name,
+          fileSize: attachment.size,
+          fileType: attachment.type,
+          base64Data: fileBuffer.toString('base64'),
+          backgroundImageURL: board.backgroundImageURL || '',
+          storageBackend: strategy.getStorageName(),
+        });
+      });
+      readStream.on('error', (error) => {
+        console.error('Background download error:', error);
+        sendErrorResponse(res, 500, error.message);
+      });
+    } catch (error) {
+      sendErrorResponse(res, 401, error.message);
+    }
+  });
+
   // Download attachment endpoint
   WebApp.handlers.use('/api/attachment/download/:attachmentId', async (req, res, next) => {
     if (req.method !== 'GET') {

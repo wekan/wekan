@@ -117,6 +117,28 @@ FlowRouter.route('/support', {
   },
 });
 
+FlowRouter.route('/b/:id/:slug/rules', {
+  name: 'board-rules',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action(params) {
+    const currentBoard = params.id;
+    Session.set('currentBoard', currentBoard);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      headerBar: 'rulesHeaderBar',
+      content: 'rulesMain',
+    });
+  },
+});
+
 // Card route MUST be registered BEFORE board route so it matches first
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',

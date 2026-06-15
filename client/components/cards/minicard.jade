@@ -2,11 +2,16 @@ template(name="minicard")
   .minicard.nodragscroll(
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
+    class="{{agingClass}}"
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
     if canMoveCard
       if isTouchScreenOrShowDesktopDragHandles
         .handle
           i.fa.fa-arrows
+      //- #459: keyboard/screen-reader reordering (visually hidden, focusable).
+      .minicard-move-buttons.sr-only
+        a.js-card-move-up(href="#" role="button" aria-label="{{_ 'move-card-up'}}") {{_ 'move-card-up'}}
+        a.js-card-move-down(href="#" role="button" aria-label="{{_ 'move-card-down'}}") {{_ 'move-card-down'}}
     if canModifyCard
       a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
         i.fa.fa-bars

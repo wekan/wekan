@@ -3,6 +3,8 @@ import { trelloGetMembersToMap } from './trelloMembersMapper';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
+import { jiraGetMembersToMap } from './jiraMembersMapper';
+import { kanboardGetMembersToMap } from './kanboardMembersMapper';
 import getSlug from 'limax';
 import { UserSearchIndex } from '/models/users';
 import { Utils } from '/client/lib/utils';
@@ -13,7 +15,24 @@ const Papa = require('papaparse');
 
 Template.importHeaderBar.helpers({
   title() {
-    return `import-board-title-${Session.get('importSource')}`;
+    const sourceNameByKey = {
+      trello: 'Trello',
+      wekan: 'JSON',
+      csv: 'CSV-TSV',
+      excel: 'Excel',
+      jira: 'Jira',
+      kanboard: 'Kanboard',
+      deck: 'NextCloud Deck',
+      openproject: 'OpenProject',
+      github: 'GitHub',
+      gitlab: 'GitLab',
+      gitea: 'Gitea',
+      forgejo: 'Forgejo',
+      asana: 'Asana',
+      zenkit: 'Zenkit',
+    };
+    const sourceName = sourceNameByKey[Session.get('importSource')] || 'JSON';
+    return `${TAPi18n.__('import')} / ${sourceName}`;
   },
 });
 
@@ -41,6 +60,17 @@ function _prepareAdditionalData(dataObject) {
       break;
     case 'csv':
       membersToMap = csvGetMembersToMap(dataObject);
+      break;
+    case 'jira':
+      membersToMap = jiraGetMembersToMap(dataObject);
+      break;
+    case 'kanboard':
+      membersToMap = kanboardGetMembersToMap(dataObject);
+      break;
+    default:
+      // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:
+      // these are imported without member mapping (members can be mapped later).
+      membersToMap = [];
       break;
   }
   return membersToMap;
@@ -155,8 +185,36 @@ Template.import.onCreated(function () {
     this.error.set(error);
   };
 
-  this.importData = async (evt, dataSource) => {
+  // When skipMapping is true, the "map members" step is bypassed and the board
+  // is imported immediately with whatever (possibly empty) mapping exists, so
+  // members can be mapped later. This works for wekan, trello, csv and jira.
+  this.importData = async (evt, dataSource, skipMapping = false) => {
     evt.preventDefault();
+    const advance = async () => {
+      if (skipMapping) {
+        await this.finishImport();
+      } else {
+        this.nextStep();
+      }
+    };
+    // Excel (.xlsx): the file is parsed on the server (with exceljs) into rows
+    // and imported through the CSV creator. Member mapping is skipped (members
+    // can be mapped later), so we read the file to base64 and import directly.
+    if (dataSource === 'excel') {
+      const el = this.find('.js-import-excel-file');
+      if (!el || !el.files || !el.files[0]) {
+        this.setError('error-json-malformed');
+        return;
+      }
+      const buf = await el.files[0].arrayBuffer();
+      const bytes = new Uint8Array(buf);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+      this.importedData.set({ excelBase64: window.btoa(binary) });
+      this.membersToMap.set([]);
+      await this.finishImport();
+      return;
+    }
     if (dataSource === 'csv') {
       const input = this.find('.js-import-json').value;
       const csv = input.indexOf('\t') > 0 ? input.replace(/(\t)/g, ',') : input;
@@ -165,7 +223,7 @@ Template.import.onCreated(function () {
       else throw new Meteor.Error('error-csv-schema');
       const membersToMap = _prepareAdditionalData(ret.data);
       this.membersToMap.set(membersToMap);
-      this.nextStep();
+      await advance();
       return;
     }
     // Trello: a .zip package (one or more board .json files plus per-board
@@ -201,7 +259,7 @@ Template.import.onCreated(function () {
       // store members data and mapping in Session
       // (we go deep and 2-way, so storing in data context is not a viable option)
       this.membersToMap.set(membersToMap);
-      this.nextStep();
+      await advance();
     } catch (e) {
       this.setError('error-json-malformed');
     }
@@ -292,10 +350,7 @@ Template.import.onCreated(function () {
           this.setError(err.error);
         } else {
           Session.set('fromBoard', null);
-          FlowRouter.go('board', {
-            id: res,
-            slug: boardSlug(importedData),
-          });
+            goToImportedBoard(res, boardSlug(importedData));
         }
       },
     );
@@ -316,7 +371,35 @@ Template.import.helpers({
 
 Template.importTextarea.helpers({
   instruction() {
-    return `import-board-instruction-${Session.get('importSource')}`;
+    const importSource = Session.get('importSource');
+    const issueSourceConfig = {
+      github: {
+        sourceName: 'GitHub',
+        endpoint: 'GET /repos/OWNER/REPO/issues',
+      },
+      gitlab: {
+        sourceName: 'GitLab',
+        endpoint: 'GET /projects/ID/issues',
+      },
+      gitea: {
+        sourceName: 'Gitea',
+        endpoint: 'GET /repos/OWNER/REPO/issues',
+      },
+      forgejo: {
+        sourceName: 'Forgejo',
+        endpoint: 'GET /repos/OWNER/REPO/issues',
+      },
+    };
+
+    if (issueSourceConfig[importSource]) {
+      const { sourceName, endpoint } = issueSourceConfig[importSource];
+      return TAPi18n.__('import-board-instruction-issues', {
+        sourceName,
+        endpoint,
+      });
+    }
+
+    return TAPi18n.__(`import-board-instruction-${importSource}`);
   },
   importPlaceHolder() {
     const importSource = Session.get('importSource');
@@ -329,6 +412,9 @@ Template.importTextarea.helpers({
   isTrelloImport() {
     return Session.get('importSource') === 'trello';
   },
+  isExcelImport() {
+    return Session.get('importSource') === 'excel';
+  },
 });
 
 Template.importTextarea.events({
@@ -336,6 +422,14 @@ Template.importTextarea.events({
     const importTpl = findParentTemplateInstance(tpl, 'import');
     if (importTpl) {
       return importTpl.importData(evt, Session.get('importSource'));
+    }
+  },
+  // Import immediately, skipping the "map members" step (members can be mapped
+  // later). Works for wekan, trello and jira (and csv).
+  'click .js-import-without-mapping'(evt, tpl) {
+    const importTpl = findParentTemplateInstance(tpl, 'import');
+    if (importTpl) {
+      return importTpl.importData(evt, Session.get('importSource'), true);
     }
   },
 });
@@ -466,6 +560,15 @@ Template.importMapMembers.events({
     const importTpl = findParentTemplateInstance(tpl, 'import');
     if (importTpl) {
       importTpl.nextStep();
+    }
+  },
+  // Import now without finishing member mapping; only members already mapped
+  // (if any) are applied, the rest can be mapped later.
+  'click .js-import-skip-mapping'(evt, tpl) {
+    evt.preventDefault();
+    const importTpl = findParentTemplateInstance(tpl, 'import');
+    if (importTpl) {
+      importTpl.finishImport();
     }
   },
   'click .js-select-member'(evt, tpl) {

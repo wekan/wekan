@@ -234,6 +234,16 @@ Template.userFormsLayout.helpers({
   },
 });
 
+Template.main.helpers({
+  htmlLang() {
+    return TAPi18n.getLanguage() || 'en';
+  },
+
+  htmlDir() {
+    return TAPi18n.getLanguageDirection() || 'ltr';
+  },
+});
+
 Template.userFormsLayout.events({
   'change .js-userform-set-language'(event) {
     const tag = $(event.currentTarget).val();

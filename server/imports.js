@@ -90,6 +90,7 @@ import '/server/models/customFields';
 import '/server/models/integrations';
 import '/server/models/lists';
 import '/server/models/org';
+import '/server/models/rules';
 import '/server/models/settings';
 import '/server/models/swimlanes';
 import '/server/models/team';
@@ -241,6 +242,8 @@ import '/server/routes/universalFileServer';
 // ----------------------------------------------------------------------------
 import '/server/rulesHelper';
 import '/server/triggersDef';
+import '/server/scheduledRules';
+import '/server/rulesButton';
 
 // ----------------------------------------------------------------------------
 // 16. Server — collection permissions (allow/deny rules)

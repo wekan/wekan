@@ -1,0 +1,45 @@
+template(name="rulesImportExportPopup")
+  .rules-import-export
+    h3 {{_ 'r-export'}}
+    .rules-ie-btns
+      button.primary.full.js-rules-export-json(type="button") {{_ 'r-export-json'}}
+      button.primary.full.js-rules-export-csv(type="button") {{_ 'r-export-csv'}}
+    hr
+    h3 {{_ 'r-import'}}
+    .rules-ie-target
+      label {{_ 'r-import-target'}}
+      label.rules-ie-target-row
+        span {{_ 'r-workspace'}}
+        select.js-import-workspace
+          option(value="") {{_ 'r-all-boards'}}
+          each workspaces
+            option(value="{{id}}")= label
+      label.rules-ie-target-row
+        span {{_ 'r-board'}}
+        select.js-import-board
+          each boardsForImport
+            if selected
+              option(value="{{_id}}" selected="selected")= title
+            else
+              option(value="{{_id}}")= title
+    p.rules-ie-hint {{_ 'r-import-paste'}}
+    textarea.rules-ie-textarea.js-rules-import-text(rows="8")
+    .rules-ie-btns
+      button.primary.full.js-rules-import-json(type="button") {{_ 'r-import-json'}}
+      button.primary.full.js-rules-import-csv(type="button") {{_ 'r-import-csv'}}
+    hr
+    h3 {{_ 'r-import-workflow'}}
+    p.rules-ie-hint {{_ 'r-import-workflow-note'}}
+    .rules-ie-btns
+      select.js-workflow-format
+        option(value="auto") {{_ 'r-format-auto'}}
+        option(value="n8n") n8n
+        option(value="nodered") Node-RED
+      button.primary.full.js-rules-import-workflow(type="button") {{_ 'r-import-workflow'}}
+    hr
+    h3 {{_ 'r-import-trello'}}
+    p.rules-ie-hint {{_ 'r-import-trello-note'}}
+    .rules-ie-btns
+      button.primary.full.js-rules-import-trello(type="button") {{_ 'r-import-trello'}}
+    if message.get
+      p.rules-ie-message= message.get

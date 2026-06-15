@@ -1,5 +1,6 @@
 import { DDP } from 'meteor/ddp';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { TriggersDef } from '/server/triggersDef';
 import EmailLocalization from '/server/lib/emailLocalization';
 import Cards from '/models/cards';
@@ -12,6 +13,50 @@ async function withUserId(userId, fn) {
     return DDP._CurrentMethodInvocation.withValue({ userId }, fn);
   }
   return fn();
+}
+
+// #2475: Trello-Butler-style variables. Build the value map for the current
+// rule context (card / board / list / swimlane / user / date), then substitute
+// `{name}` tokens in action text (email subject/body, created card/checklist
+// names, etc.). Unknown tokens are left untouched.
+async function buildRuleVars(activity, card) {
+  const vars = {};
+  const now = new Date();
+  vars.date = now.toLocaleDateString();
+  vars.time = now.toLocaleTimeString();
+  vars.datetime = now.toLocaleString();
+  if (card) {
+    vars.cardname = card.title || '';
+    vars.cardtitle = card.title || '';
+    vars.cardnumber = card.cardNumber != null ? String(card.cardNumber) : '';
+    vars.description = card.description || '';
+    if (card.dueAt) vars.duedate = new Date(card.dueAt).toLocaleString();
+    try {
+      const list = typeof card.list === 'function' ? await card.list() : null;
+      if (list) vars.listname = list.title || '';
+    } catch (e) { /* ignore */ }
+    if (card.swimlaneId) {
+      const sw = await ReactiveCache.getSwimlane(card.swimlaneId);
+      if (sw) vars.swimlanename = sw.title || '';
+    }
+  }
+  if (activity && activity.boardId) {
+    const board = await ReactiveCache.getBoard(activity.boardId);
+    if (board) vars.boardname = board.title || '';
+  }
+  if (activity && activity.userId && activity.userId !== '*') {
+    const u = await ReactiveCache.getUser(activity.userId);
+    if (u) vars.username = u.username || '';
+  }
+  return vars;
+}
+
+function substituteVars(text, vars) {
+  if (typeof text !== 'string') return text;
+  return text.replace(/\{(\w+)\}/g, (m, key) => {
+    const v = vars[key.toLowerCase()];
+    return v !== undefined ? v : m;
+  });
 }
 
 export const RulesHelper = {
@@ -73,8 +118,14 @@ export const RulesHelper = {
   },
   async performAction(activity, action) {
     const card = await ReactiveCache.getCard(activity.cardId);
-    if (!card) return;
+    // Most actions operate on a card. Scheduled / button rules may run a
+    // board-level action with no card context (e.g. create a card every Monday),
+    // so allow those specific action types to proceed without a card.
+    const boardLevelActions = ['createCard', 'addSwimlane', 'moveAllCardsInList'];
+    if (!card && !boardLevelActions.includes(action.actionType)) return;
     const boardId = activity.boardId;
+    // #2475: variables available for substitution in action text fields.
+    const ruleVars = await buildRuleVars(activity, card);
     if (
       action.actionType === 'moveCardToTop' ||
       action.actionType === 'moveCardToBottom'
@@ -136,9 +187,9 @@ export const RulesHelper = {
       }
     }
     if (action.actionType === 'sendEmail') {
-      const to = action.emailTo;
-      const text = action.emailMsg || '';
-      const subject = action.emailSubject || '';
+      const to = substituteVars(action.emailTo, ruleVars);
+      const text = substituteVars(action.emailMsg || '', ruleVars);
+      const subject = substituteVars(action.emailSubject || '', ruleVars);
       try {
         // Try to detect the recipient's language preference if it's a Wekan user
         // Otherwise, use the default language for the rule-triggered emails
@@ -295,45 +346,48 @@ export const RulesHelper = {
         card.unassignMember(memberId);
       }
     }
+    // #5283: the checklist (and checklist item) may not exist on the card — guard
+    // against undefined so the rule does not crash with "Cannot read property
+    // 'uncheckAllItems' of undefined".
     if (action.actionType === 'checkAll') {
       const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
-      await checkList.checkAllItems();
+      if (checkList) await checkList.checkAllItems();
     }
     if (action.actionType === 'uncheckAll') {
       const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
-      await checkList.uncheckAllItems();
+      if (checkList) await checkList.uncheckAllItems();
     }
     if (action.actionType === 'checkItem') {
       const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
-      const checkItem = await ReactiveCache.getChecklistItem({
+      const checkItem = checkList && await ReactiveCache.getChecklistItem({
         title: action.checkItemName,
         checkListId: checkList._id,
       });
-      await checkItem.check();
+      if (checkItem) await checkItem.check();
     }
     if (action.actionType === 'uncheckItem') {
       const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
-      const checkItem = await ReactiveCache.getChecklistItem({
+      const checkItem = checkList && await ReactiveCache.getChecklistItem({
         title: action.checkItemName,
         checkListId: checkList._id,
       });
-      await checkItem.uncheck();
+      if (checkItem) await checkItem.uncheck();
     }
     if (action.actionType === 'addChecklist') {
       await Checklists.insertAsync({
-        title: action.checklistName,
+        title: substituteVars(action.checklistName, ruleVars),
         cardId: card._id,
         sort: 0,
       });
@@ -347,18 +401,18 @@ export const RulesHelper = {
     }
     if (action.actionType === 'addSwimlane') {
       await Swimlanes.insertAsync({
-        title: action.swimlaneName,
+        title: substituteVars(action.swimlaneName, ruleVars),
         boardId,
         sort: 0,
       });
     }
     if (action.actionType === 'addChecklistWithItems') {
       const checkListId = await Checklists.insertAsync({
-        title: action.checklistName,
+        title: substituteVars(action.checklistName, ruleVars),
         cardId: card._id,
         sort: 0,
       });
-      const itemsArray = action.checklistItems.split(',');
+      const itemsArray = substituteVars(action.checklistItems, ruleVars).split(',');
       const existingItems = await ReactiveCache.getChecklistItems({ checklistId: checkListId });
       const sortBase = existingItems.length;
       for (let i = 0; i < itemsArray.length; i++) {
@@ -389,7 +443,7 @@ export const RulesHelper = {
         swimlaneId = swimlane._id;
       }
       await Cards.insertAsync({
-        title: action.cardName,
+        title: substituteVars(action.cardName, ruleVars),
         listId,
         swimlaneId,
         sort: 0,
@@ -416,6 +470,58 @@ export const RulesHelper = {
         swimlaneId = swimlane._id;
       }
       card.link(action.boardId, swimlaneId, listId);
+    }
+    if (
+      action.actionType === 'markCardComplete' ||
+      action.actionType === 'markCardIncomplete'
+    ) {
+      await card.setDueComplete(action.actionType === 'markCardComplete');
+    }
+    if (action.actionType === 'setDateRelative') {
+      const offsetMs = (parseInt(action.days, 10) || 0) * 24 * 60 * 60 * 1000;
+      const target = new Date(Date.now() + offsetMs);
+      switch (action.dateField) {
+        case 'startAt': card.setStart(target); break;
+        case 'endAt': card.setEnd(target); break;
+        case 'dueAt': card.setDue(target); break;
+        case 'receivedAt': card.setReceived(target); break;
+      }
+    }
+    if (action.actionType === 'sortList') {
+      // Resort the cards of the card's current list (or the named list) by the
+      // chosen field, rewriting their `sort` index.
+      let list = await card.list();
+      if (action.listName && action.listName !== '*') {
+        list = await ReactiveCache.getList({ title: action.listName, boardId });
+      }
+      if (list) {
+        const cards = await list.cardsUnfiltered(card.swimlaneId);
+        const keyOf = c => {
+          switch (action.sortField) {
+            case 'name': return (c.title || '').toLowerCase();
+            case 'created': return c.createdAt ? new Date(c.createdAt).getTime() : 0;
+            case 'modified': return c.modifiedAt ? new Date(c.modifiedAt).getTime() : 0;
+            case 'due':
+            default: return c.dueAt ? new Date(c.dueAt).getTime() : Number.MAX_SAFE_INTEGER;
+          }
+        };
+        const sorted = [...cards].sort((a, b) => (keyOf(a) > keyOf(b) ? 1 : keyOf(a) < keyOf(b) ? -1 : 0));
+        for (let i = 0; i < sorted.length; i++) {
+          await Cards.updateAsync(sorted[i]._id, { $set: { sort: i } });
+        }
+      }
+    }
+    if (action.actionType === 'moveAllCardsInList') {
+      const fromList = await ReactiveCache.getList({ title: action.fromListName, boardId });
+      const toList = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId || boardId });
+      if (fromList && toList) {
+        const cards = await fromList.cardsUnfiltered();
+        for (const c of cards) {
+          await withUserId(activity.userId, () =>
+            c.move(action.boardId || boardId, c.swimlaneId, toList._id),
+          );
+        }
+      }
     }
   },
 };

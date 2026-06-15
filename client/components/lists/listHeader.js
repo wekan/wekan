@@ -148,7 +148,36 @@ Template.listHeader.onCreated(function () {
   };
 });
 
+// #459: accessible reordering — move a list left/right via sr-only buttons by
+// swapping its sort value with the adjacent list (no drag-and-drop required).
+function moveListBy(list, delta) {
+  const siblings = ReactiveCache.getLists(
+    { boardId: list.boardId, archived: false },
+    { sort: { sort: 1 } },
+  );
+  const idx = siblings.findIndex(l => l._id === list._id);
+  const target = siblings[idx + delta];
+  if (idx < 0 || !target) return;
+  // Capture both sort values before either update; the docs are reactive and
+  // list.sort would otherwise change after the first update.
+  const listSort = list.sort;
+  const targetSort = target.sort;
+  // Lists are a server-restricted collection; persist the swap through the
+  // updateListSort method — the same path the drag-and-drop reorder uses. A raw
+  // client Lists.update of `sort` is reverted by the server.
+  Meteor.call('updateListSort', list._id, list.boardId, { sort: targetSort });
+  Meteor.call('updateListSort', target._id, target.boardId, { sort: listSort });
+}
+
 Template.listHeader.events({
+  'click .js-list-move-left'(event) {
+    event.preventDefault();
+    moveListBy(Template.currentData(), -1);
+  },
+  'click .js-list-move-right'(event) {
+    event.preventDefault();
+    moveListBy(Template.currentData(), 1);
+  },
   async 'click .js-list-star'(event) {
     event.preventDefault();
     const list = Template.currentData();

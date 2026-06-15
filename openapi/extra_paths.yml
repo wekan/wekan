@@ -85,6 +85,89 @@
           description: Card or board not found
         '413':
           description: Attachment exceeds the API upload limit
+  /api/attachment/upload-background:
+    post:
+      operationId: upload_board_background
+      summary: Upload a board background image
+      description: |
+        Upload an image and set it as the board's active background. The file
+        content is sent base64-encoded in the JSON body and stored using the
+        current Admin Panel / Attachments / Default Storage backend (the same
+        storage used by card attachment uploads). Board-admin is required.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - boardId
+              - fileData
+              - fileName
+            properties:
+              boardId:
+                type: string
+                description: ID of the board
+              fileName:
+                type: string
+                description: Name to store the image under
+              fileType:
+                type: string
+                description: MIME type of the image (optional, defaults to image/png)
+              fileData:
+                type: string
+                description: Base64-encoded image contents
+      responses:
+        '200':
+          description: Background uploaded and set as the board background
+        '400':
+          description: Missing or invalid parameters
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Uploads disabled or caller is not a board admin
+        '404':
+          description: Board not found
+        '413':
+          description: Background exceeds the API upload limit
+  /api/attachment/download-background/{boardId}:
+    get:
+      operationId: download_board_background
+      summary: Download the board's current background image as base64
+      description: |
+        Returns the board's active background image metadata together with the
+        image bytes base64-encoded in `base64Data`. Requires board membership.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+          description: ID of the board
+      responses:
+        '200':
+          description: Background image returned
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Downloads disabled or caller is not a board member
+        '404':
+          description: Board has no background, or board not found
+        '413':
+          description: Background exceeds the API download limit
   /api/attachment/download/{attachmentId}:
     get:
       operationId: download_attachment
@@ -410,3 +493,81 @@
           description: Not a member of the attachment's board
         '404':
           description: Attachment not found
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Board card settings (server/models/boards.js)
+  #
+  # Registered with WebApp.handlers.get/put but the body fields are read in a
+  # loop, so they are documented here by hand. Boolean keys are the board card
+  # display toggles (allows*). Numeric keys configure card aging (#3984):
+  # cardAging (bool) plus cardAgingDays1/2/3 (fade-tier day thresholds).
+  # ───────────────────────────────────────────────────────────────────────────
+  /api/boards/{boardId}/cardSettings:
+    get:
+      operationId: get_board_card_settings
+      summary: Get a board's card settings (display toggles + card aging)
+      produces:
+        - application/json
+      tags:
+        - Boards
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Card settings returned
+        '401':
+          description: Missing or invalid authentication
+        '404':
+          description: Board not found
+    put:
+      operationId: edit_board_card_settings
+      summary: Update a board's card settings (display toggles + card aging)
+      description: |
+        Boolean keys (the allows* display toggles and `cardAging`) accept true/false.
+        Numeric keys `cardAgingDays1`, `cardAgingDays2`, `cardAgingDays3` set the
+        three card-aging fade-tier day thresholds (default 7 / 14 / 28).
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Boards
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              cardAging:
+                type: boolean
+                description: Enable visual card aging on the board
+              cardAgingDays1:
+                type: integer
+                description: Idle days for the first (lightest) fade tier
+              cardAgingDays2:
+                type: integer
+                description: Idle days for the second fade tier
+              cardAgingDays3:
+                type: integer
+                description: Idle days for the third (heaviest) fade tier
+      responses:
+        '200':
+          description: Updated card settings returned
+        '400':
+          description: No recognized card settings in body
+        '401':
+          description: Missing or invalid authentication
+        '404':
+          description: Board not found

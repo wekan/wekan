@@ -1,11 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
+import { DDP } from 'meteor/ddp';
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
+import { WekanCreator } from '/models/wekanCreator';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardAdmin, boardMemberRoleToFlags } from '/server/lib/utils';
 import { ReactiveCache } from '/imports/reactiveCache';
+import Actions from '/models/actions';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -38,6 +41,10 @@ async function boardRemover(doc) {
     Rules,
     Activities,
     Triggers,
+    // #4266: also remove the board's rule Actions, which were previously left
+    // orphaned when a board was deleted (Rules and Triggers were removed but
+    // Actions were not).
+    Actions,
   ]) {
     await element.removeAsync({ boardId: doc._id });
   }
@@ -599,10 +606,92 @@ WebApp.handlers.post('/api/boards', async function(req, res) {
   }
 });
 
+/**
+ * @operation import_board
+ * @tag Boards
+ * @summary Import a whole board (with its lists, cards, swimlanes, custom fields
+ * and automation rules) from a WeKan board export
+ *
+ * @description Accepts a WeKan board export JSON (the body returned by
+ * `GET /api/boards/:boardId/export`) and recreates the board — including its
+ * **rules / triggers / actions (workflows)** and other data — in the
+ * authenticated user's account. Combined with the export endpoint, this allows
+ * migrating all boards (and their workflows) from another WeKan instance over the
+ * REST API: list the remote boards, export each, then POST each here. An optional
+ * `membersMapping` ({ sourceUserId: localUserId }) maps members; unmapped members
+ * are simply not added.
+ *
+ * @param {object} board the WeKan board export object
+ * @param {object} [membersMapping] map of source user id -> local user id
+ * @return_type {_id: string}
+ */
+WebApp.handlers.post('/api/boards/import', async function(req, res) {
+  try {
+    Authentication.checkLoggedIn(req.userId);
+    const board = req.body && req.body.board;
+    if (!board || typeof board !== 'object') {
+      sendJsonResult(res, { code: 400, data: { error: 'Missing board export object' } });
+      return;
+    }
+    const additionalData = {};
+    if (req.body.membersMapping && typeof req.body.membersMapping === 'object') {
+      additionalData.membersMapping = req.body.membersMapping;
+    }
+    // Run the import as the authenticated user so the new board is owned by them.
+    const boardId = await DDP._CurrentMethodInvocation.withValue(
+      { userId: req.userId },
+      async () => {
+        const creator = new WekanCreator(additionalData);
+        return await creator.create(board, null);
+      },
+    );
+    sendJsonResult(res, { code: 200, data: { _id: boardId } });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
+});
+
+/**
+ * @operation import_board_from
+ * @tag Boards
+ * @summary Import a board from another tool's export
+ *
+ * @description Generalized import: `:source` is one of `trello`, `wekan`, `csv`,
+ * `jira`, `kanboard`, `excel`, `deck` (NextCloud Deck), `openproject`, `github`,
+ * `gitlab`, `gitea`, `forgejo`, `asana`, `zenkit`. The request body is that
+ * tool's export JSON (sent directly, or wrapped as `{ "board": <export> }`);
+ * an optional `membersMapping` maps members. Reuses the same import engine as
+ * the UI.
+ *
+ * @param {string} source the import source
+ * @param {object} board the source export object (or send it as the body)
+ * @param {object} [membersMapping] map of source user id -> local user id
+ * @return_type {_id: string}
+ */
+WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
+  try {
+    Authentication.checkLoggedIn(req.userId);
+    const source = req.params.source;
+    const body = req.body || {};
+    const board = body.board !== undefined ? body.board : body;
+    const additionalData = {};
+    if (body.membersMapping && typeof body.membersMapping === 'object') {
+      additionalData.membersMapping = body.membersMapping;
+    }
+    const boardId = await DDP._CurrentMethodInvocation.withValue(
+      { userId: req.userId },
+      async () => Meteor.callAsync('importBoard', board, additionalData, source, null),
+    );
+    sendJsonResult(res, { code: 200, data: { _id: boardId } });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
+});
+
 WebApp.handlers.delete('/api/boards/:boardId', async function(req, res) {
   try {
-    await Authentication.checkUserId(req.userId);
     const id = req.params.boardId;
+    await Authentication.checkBoardAdmin(req.userId, id);
     await Boards.removeAsync({ _id: id });
     sendJsonResult(res, {
       code: 200,
@@ -693,6 +782,7 @@ WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
 // minicards). Board-level only — per-user presentation settings are out of scope.
 const BOARD_CARD_SETTING_KEYS = [
   'allowsCardCounterList',
+  'cardAging',
   'allowsBoardMemberList',
   'allowsShowLists',
   'allowsAttachments',
@@ -737,6 +827,14 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsShowListsOnMinicard',
 ];
 
+// #3984: numeric card-settings keys (parsed as integers, not booleans). These are
+// the board-configurable card-aging day thresholds for the three fade tiers.
+const BOARD_CARD_NUMERIC_SETTING_KEYS = [
+  'cardAgingDays1',
+  'cardAgingDays2',
+  'cardAgingDays3',
+];
+
 WebApp.handlers.get('/api/boards/:boardId/cardSettings', async function(req, res) {
   const id = req.params.boardId;
   await Authentication.checkBoardAccess(req.userId, id);
@@ -747,6 +845,9 @@ WebApp.handlers.get('/api/boards/:boardId/cardSettings', async function(req, res
   }
   const data = {};
   BOARD_CARD_SETTING_KEYS.forEach(key => {
+    data[key] = board[key];
+  });
+  BOARD_CARD_NUMERIC_SETTING_KEYS.forEach(key => {
     data[key] = board[key];
   });
   sendJsonResult(res, { code: 200, data });
@@ -767,6 +868,12 @@ WebApp.handlers.put('/api/boards/:boardId/cardSettings', async function(req, res
       $set[key] = toBool(req.body[key]);
     }
   });
+  BOARD_CARD_NUMERIC_SETTING_KEYS.forEach(key => {
+    if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+      const n = parseInt(req.body[key], 10);
+      if (!Number.isNaN(n) && n >= 0) $set[key] = n;
+    }
+  });
   if (Object.keys($set).length === 0) {
     sendJsonResult(res, { code: 400, data: { error: 'no recognized card settings in body' } });
     return;
@@ -775,6 +882,9 @@ WebApp.handlers.put('/api/boards/:boardId/cardSettings', async function(req, res
   const updated = await ReactiveCache.getBoard(id);
   const data = {};
   BOARD_CARD_SETTING_KEYS.forEach(key => {
+    data[key] = updated[key];
+  });
+  BOARD_CARD_NUMERIC_SETTING_KEYS.forEach(key => {
     data[key] = updated[key];
   });
   sendJsonResult(res, { code: 200, data });

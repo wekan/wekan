@@ -1,0 +1,13 @@
+template(name="buttonTriggers")
+  div.trigger-item#trigger-button
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-button-label'}}
+      div.trigger-dropdown
+        input#button-label(type=text placeholder="{{_'r-button-label'}}")
+      div.trigger-dropdown
+        select#button-type.js-button-type
+          option(value="card" selected="selected") {{_'r-card-button'}}
+          option(value="board") {{_'r-board-button'}}
+    div.trigger-button.js-add-button-trigger.js-goto-action
+      i.fa.fa-plus

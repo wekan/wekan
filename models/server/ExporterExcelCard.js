@@ -676,7 +676,7 @@ class ExporterExcelCard {
     // ATTACHMENTS
     // ════════════════════════════════════════════════════════════════════
     if (needsAttachments) {
-      sectionHeader(this.__('export-card-attachments'), true);
+      sectionHeader(this.__('attachments'), true);
 
       if (attachments && attachments.length > 0) {
         // ── Metadata table header ──────────────────────────────────────
