@@ -39,6 +39,11 @@ and fixes the following bugs:
   when the default `env` list (which already includes `MONGO_URL`) was used. The chart now
   emits its computed `MONGO_URL` only when one is not already provided via `env` or `secretEnv`.
   Fixes #6289. Thanks to the reporter, xet7 and Claude.
+- [Fixed GFM strikethrough (`~~text~~`) no longer rendering in card descriptions](https://github.com/wekan/wekan/commit/92b0f96387c831839eb299a8feb00fe614419783):
+  markdown-it renders `~~text~~` to `<s>…</s>`, but the DOMPurify allow-list did not
+  include `s`/`del`/`strike`, so the sanitizer stripped the tag (keeping the bare text).
+  Those inline tags are now allowed in both DOMPurify configs. Fixes #6008. Thanks to
+  Buo-ren Lin, xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
