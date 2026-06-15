@@ -6,6 +6,7 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
 import ChecklistItems from '/models/checklistItems';
 import Cards from '/models/cards';
+import { normalizeDependencies } from '/models/metadata/dependencies';
 
 function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
   if (!board) return false;
@@ -23,6 +24,18 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  // #3392: PI Program Board "Red Strings". Show a small badge on the minicard
+  // when a card has dependencies: the first dependency's icon and color plus the
+  // total count.
+  dependencyBadge() {
+    const deps = normalizeDependencies(this.cardDependencies);
+    if (deps.length === 0) return null;
+    return {
+      icon: deps[0].icon,
+      color: deps[0].color,
+      count: deps.length,
+    };
+  },
   // #3984: visual card aging — fade cards that have not been touched recently,
   // based on dateLastActivity, when the board has card aging enabled.
   agingClass() {

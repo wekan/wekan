@@ -351,12 +351,26 @@ function findCardIdByTitle({ boardId, title } = {}) {
   return raw || null;
 }
 
-/** Set a card's cardDependencies (#3392 "Red Strings") to the given target ids. */
+/**
+ * Set a card's cardDependencies (#3392 "Red Strings"). `dependsOn` is an array
+ * of either target card ids (strings) or { cardId, type, color, icon } objects;
+ * strings are expanded to objects with default type/color/icon.
+ */
 function setCardDependencies({ cardId, dependsOn = [] } = {}) {
+  const deps = dependsOn.map(dep =>
+    typeof dep === 'string'
+      ? { cardId: dep, type: 'related-to', color: '#eb144c', icon: 'link' }
+      : {
+          cardId: dep.cardId,
+          type: dep.type || 'related-to',
+          color: dep.color || '#eb144c',
+          icon: dep.icon || 'link',
+        },
+  );
   mongoEval(`
     db.cards.updateOne(
       { _id: ${literal(cardId)} },
-      { $set: { cardDependencies: ${JSON.stringify(dependsOn)} } }
+      { $set: { cardDependencies: ${JSON.stringify(deps)} } }
     );
   `);
 }

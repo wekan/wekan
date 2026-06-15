@@ -936,7 +936,15 @@ Boards.helpers({
     });
     for (const depCard of depCards) {
       const remapped = (depCard.cardDependencies || [])
-        .map(oldDepId => cardIdMap[oldDepId])
+        .map(dep => {
+          // Tolerate legacy bare-string entries as well as { cardId, ... }.
+          const oldDepId = typeof dep === 'string' ? dep : dep.cardId;
+          const newDepId = cardIdMap[oldDepId];
+          if (!newDepId) return null;
+          return typeof dep === 'string'
+            ? { cardId: newDepId }
+            : { ...dep, cardId: newDepId };
+        })
         .filter(Boolean);
       await Cards.updateAsync(depCard._id, {
         $set: { cardDependencies: remapped },

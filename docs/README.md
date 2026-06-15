@@ -158,6 +158,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Keyboard Shortcuts](Features/Keyboard-Shortcuts/Keyboard-Shortcuts.md)
 * [Accessibility](Features/Accessibility/Accessibility.md)
 * [Rules (Automation)](Features/Rules/Rules.md)
+* [Card Dependencies — "Red Strings" / PI Program Board](Features/RedStrings/RedStrings.md)
 * [IFTTT / Rules overview](Features/IFTTT/IFTTT.md)
 * [Authentication, Admin Panel and SMTP Settings](Features/Admin-Panel/Admin-Panel.md)
 * [Multiline](Features/Multiline.md)

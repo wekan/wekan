@@ -568,6 +568,23 @@ template(name="chooseBoardSourcePopup")
       a(href="{{pathFor '/import/asana'}}") {{_ 'import'}} / Asana
     li
       a(href="{{pathFor '/import/zenkit'}}") {{_ 'import'}} / Zenkit
+    li
+      a.js-import-dependencies {{_ 'import'}} / {{_ 'card-dependencies'}} (JSON/SVG)
+
+template(name="importDependenciesPopup")
+  form.js-import-dependencies-form
+    label
+      | {{_ 'r-board'}}
+      select.js-import-dependencies-board
+        each boardsForDependencyImport
+          option(value="{{_id}}") {{title}}
+    label
+      | {{_ 'import-dependencies-file'}}
+      input.js-import-dependencies-file(type="file" accept=".json,.svg,application/json,image/svg+xml")
+    textarea.js-import-dependencies-text(rows="6" placeholder="{{_ 'import-dependencies-placeholder'}}")
+    button.primary.confirm.js-import-dependencies-submit(type="submit") {{_ 'import'}}
+    if importResult
+      p.quiet.js-import-dependencies-result {{importResult}}
 
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
@@ -761,6 +778,14 @@ template(name="exportBoardPopup")
       a.html-export-board
         i.fa.fa-archive
         | {{_ 'export'}} / HTML
+    li
+      a.js-export-dependencies-json
+        i.fa.fa-link
+        | {{_ 'export'}} / {{_ 'card-dependencies'}} / JSON
+    li
+      a.js-export-dependencies-svg
+        i.fa.fa-link
+        | {{_ 'export'}} / {{_ 'card-dependencies'}} / SVG
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels

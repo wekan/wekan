@@ -16,6 +16,11 @@ import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import {
+  exportDependenciesJson,
+  exportDependenciesSvg,
+} from '/client/lib/exportDependencies';
+import { parseDependencyLines } from '/client/lib/importDependencies';
+import {
   clearSidebarInstance,
   setSidebarInstance,
 } from '/client/features/sidebar/service';
@@ -813,6 +818,83 @@ Template.exportBoardPopup.events({
   'click .html-export-board': async event => {
     event.preventDefault();
     await ExportHtml(Popup)();
+  },
+  // #3392: export the board's card dependency ("Red Strings") lines.
+  'click .js-export-dependencies-json'(event) {
+    event.preventDefault();
+    exportDependenciesJson(Session.get('currentBoard'));
+    Popup.close();
+  },
+  'click .js-export-dependencies-svg'(event) {
+    event.preventDefault();
+    exportDependenciesSvg(Session.get('currentBoard'));
+    Popup.close();
+  },
+});
+
+// #3392: import dependency ("Red Strings") lines from a JSON/SVG file into a
+// chosen board. Reachable from All Boards / New / Import / Dependencies.
+Template.chooseBoardSourcePopup.events({
+  'click .js-import-dependencies': Popup.open('importDependencies'),
+});
+
+Template.importDependenciesPopup.onCreated(function () {
+  this.fileText = new ReactiveVar('');
+  this.importResult = new ReactiveVar('');
+});
+
+Template.importDependenciesPopup.helpers({
+  boardsForDependencyImport() {
+    const userId = Meteor.userId();
+    return ReactiveCache.getBoards(
+      { 'members.userId': userId, archived: false },
+      { sort: { sort: 1, title: 1 } },
+    );
+  },
+  importResult() {
+    return Template.instance().importResult.get();
+  },
+});
+
+Template.importDependenciesPopup.events({
+  'change .js-import-dependencies-file'(event, tpl) {
+    const file = event.currentTarget.files && event.currentTarget.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => tpl.fileText.set(e.target.result || '');
+    reader.readAsText(file);
+  },
+  'submit .js-import-dependencies-form'(event, tpl) {
+    event.preventDefault();
+    const boardId = tpl.find('.js-import-dependencies-board').value;
+    const fileEl = tpl.find('.js-import-dependencies-file');
+    const filename =
+      fileEl && fileEl.files && fileEl.files[0] ? fileEl.files[0].name : '';
+    const text =
+      tpl.fileText.get() || tpl.find('.js-import-dependencies-text').value || '';
+    let lines = [];
+    try {
+      lines = parseDependencyLines(text, filename);
+    } catch (e) {
+      tpl.importResult.set(TAPi18n.__('import-dependencies-parse-error'));
+      return;
+    }
+    if (!boardId || lines.length === 0) {
+      tpl.importResult.set(TAPi18n.__('import-dependencies-empty'));
+      return;
+    }
+    Meteor.call('importBoardDependencies', boardId, lines, (err, res) => {
+      if (err) {
+        tpl.importResult.set(err.reason || err.message || String(err));
+        return;
+      }
+      tpl.importResult.set(
+        TAPi18n.__('import-dependencies-done', {
+          imported: res.imported,
+          unmatched: res.unmatched,
+        }),
+      );
+    });
   },
 });
 

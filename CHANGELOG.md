@@ -44,7 +44,25 @@ and adds the following new features:
   through board copy and WeKan board export/import/migrate (the dependency target
   ids are remapped to the copied/imported cards, dangling ones dropped), and the
   feature is covered by an e2e suite (`tests/playwright/specs/27-red-strings.e2e.js`).
-  Fixes \#3392. Thanks to CodeFreezr, dbt4u, xet7 and Claude.
+  Each dependency is now **typed and customizable**: a relation `type`
+  (`related-to`, `blocks`, `is-blocked-by`, `fixes`, `is-fixed-by` — the type sets
+  the arrow direction; `related-to` is undirected), a per-line `color` (any color,
+  via a color picker, not just red) and an `icon` (FontAwesome). The card detail
+  "Dependencies" section edits all three; a colored icon+count **badge** is shown on
+  the minicard; and the board Filter sidebar can **filter cards by dependency
+  relation type**. A **REST API** was added (tag `Dependencies`, documented in the
+  OpenAPI docs and `api.py`): `GET /api/boards/:boardId/dependencies`,
+  `GET/POST /api/boards/:boardId/cards/:cardId/dependencies` and
+  `PUT/DELETE /api/boards/:boardId/cards/:cardId/dependencies/:targetId`, each
+  accepting `type`/`color`/`icon`. Dependency lines can be **exported** (Board
+  Settings → Export → Dependencies / JSON and / SVG; the SVG is a standalone,
+  round-trippable diagram) and **imported** (All Boards → New → Import →
+  Dependencies (JSON/SVG)) into a chosen board, matching cards by id, then card
+  number, then title. Importing a **Jira** board now maps Jira `issuelinks`
+  best-effort to dependency relations. Card dependencies are also dropped/cleaned
+  when a card is **moved** to another board. Documented in
+  [Features/RedStrings](https://github.com/wekan/wekan/blob/main/docs/Features/RedStrings/RedStrings.md).
+  Fixes \#3392. Thanks to CodeFreezr, dbt4u, helioguardabaxo, xet7 and Claude.
 - [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
   Domain](https://github.com/wekan/wekan/commit/fc9e8674d89ec5b045f2e2c1b14fade9e92baf0d):
   a new admin-only "Shared templates" tab under Admin Panel → People lists users'

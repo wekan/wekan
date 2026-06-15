@@ -4,6 +4,17 @@ import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
+
+Template.filterSidebar.helpers({
+  // #3392: relation types offered in the dependency ("Red Strings") filter.
+  dependencyTypes() {
+    return DEPENDENCY_TYPES.map(t => ({
+      id: t.id,
+      label: `dependency-type-${t.id}`,
+    }));
+  },
+});
 
 // SubsManager removed for Meteor 3 migration
 
@@ -93,6 +104,11 @@ Template.filterSidebar.events({
   'click .js-toggle-custom-fields-filter'(evt) {
     evt.preventDefault();
     Filter.customFields.toggle(getFilterIdFromEvent(evt, this?._id));
+    Filter.resetExceptions();
+  },
+  'click .js-toggle-dependency-filter'(evt) {
+    evt.preventDefault();
+    Filter.cardDependencies.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
   'change .js-field-advanced-filter'(evt, tpl) {

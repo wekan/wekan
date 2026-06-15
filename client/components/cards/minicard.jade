@@ -160,6 +160,11 @@ template(name="minicard")
       each shouldShowChecklistAtMinicard
         +minicardChecklist(checklist=. card=..)
     .badges
+      if dependencyBadge
+        .badge.badge-state-image-only.minicard-dependencies(title="{{_ 'card-dependencies'}}")
+          span.badge-icon(style="color:{{dependencyBadge.color}}")
+            i.fa(class="fa-{{dependencyBadge.icon}}")
+          span.badge-text {{ dependencyBadge.count }}
       if stickers.length
         .badge.badge-state-image-only.minicard-stickers
           each stickers

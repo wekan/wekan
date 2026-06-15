@@ -687,6 +687,8 @@ export const Filter = {
   dueAt: new DateFilter(),
   title: new StringFilter(),
   customFields: new SetFilter('_id'),
+  // #3392: filter cards by their dependency ("Red Strings") relation type.
+  cardDependencies: new SetFilter('type'),
   advanced: new AdvancedFilter(),
   lists: new AdvancedFilter(), // we need the ability to filter list by name as well
 
@@ -699,6 +701,7 @@ export const Filter = {
     'dueAt',
     'title',
     'customFields',
+    'cardDependencies',
   ],
 
   // We don't filter cards that have been added after the last filter change. To

@@ -82,6 +82,7 @@ import '/server/models/activities';
 import '/server/models/attachmentStorageSettings';
 import '/server/models/boards';
 import '/server/models/cards';
+import '/server/models/dependencies';
 import '/server/models/cardComments';
 import '/server/models/checklistItems';
 import '/server/models/checklists';

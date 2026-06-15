@@ -1563,6 +1563,75 @@ if arguments >= 4 and sys.argv[1] == 'editrule':
 
 # ------- RULES API ENDPOINTS END -----------
 
+# ------- CARD DEPENDENCIES ("RED STRINGS") API START -----------
+#
+# Typed card-to-card dependencies, visualized on the board as colored connection
+# lines (SAFe PI-planning "Red Strings"). Each line has:
+#   type  : related-to | blocks | is-blocked-by | fixes | is-fixed-by
+#   color : any CSS color, e.g. "#eb144c"
+#   icon  : a FontAwesome 4.7 icon name without the "fa-" prefix, e.g. "link"
+#
+#   python3 api.py listdependencies BOARDID
+#   python3 api.py listcarddependencies BOARDID CARDID
+#   python3 api.py adddependency BOARDID CARDID TARGETCARDID [TYPE] [COLOR] [ICON]
+#   python3 api.py editdependency BOARDID CARDID TARGETCARDID 'PATCH_JSON'  # {"type":..,"color":..,"icon":..}
+#   python3 api.py removedependency BOARDID CARDID TARGETCARDID
+#
+# Example (card A "blocks" card B, drawn as a thick blue arrow):
+#   python3 api.py adddependency BOARDID CARDA CARDB blocks '#2196f3' lock
+
+if arguments >= 2 and sys.argv[1] == 'listdependencies':
+    boardid = sys.argv[2]
+    url = wekanurl + apiboards + boardid + s + 'dependencies'
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    body = requests.get(url, headers=headers)
+    print(body.text)
+
+if arguments >= 3 and sys.argv[1] == 'listcarddependencies':
+    boardid = sys.argv[2]
+    cardid = sys.argv[3]
+    url = wekanurl + apiboards + boardid + s + 'cards' + s + cardid + s + 'dependencies'
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    body = requests.get(url, headers=headers)
+    print(body.text)
+
+if arguments >= 4 and sys.argv[1] == 'adddependency':
+    boardid = sys.argv[2]
+    cardid = sys.argv[3]
+    targetcardid = sys.argv[4]
+    payload = {'cardId': targetcardid}
+    if arguments >= 5:
+        payload['type'] = sys.argv[5]
+    if arguments >= 6:
+        payload['color'] = sys.argv[6]
+    if arguments >= 7:
+        payload['icon'] = sys.argv[7]
+    url = wekanurl + apiboards + boardid + s + 'cards' + s + cardid + s + 'dependencies'
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    body = requests.post(url, json=payload, headers=headers)
+    print(body.text)
+
+if arguments >= 5 and sys.argv[1] == 'editdependency':
+    boardid = sys.argv[2]
+    cardid = sys.argv[3]
+    targetcardid = sys.argv[4]
+    patch = json.loads(sys.argv[5])
+    url = wekanurl + apiboards + boardid + s + 'cards' + s + cardid + s + 'dependencies' + s + targetcardid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    body = requests.put(url, json=patch, headers=headers)
+    print(body.text)
+
+if arguments >= 4 and sys.argv[1] == 'removedependency':
+    boardid = sys.argv[2]
+    cardid = sys.argv[3]
+    targetcardid = sys.argv[4]
+    url = wekanurl + apiboards + boardid + s + 'cards' + s + cardid + s + 'dependencies' + s + targetcardid
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+    body = requests.delete(url, headers=headers)
+    print(body.text)
+
+# ------- CARD DEPENDENCIES ("RED STRINGS") API END -----------
+
 # ------- CARD STICKERS / LOCATIONS / COMPLETE START -----------
 #
 # These card fields are set through the card edit endpoint

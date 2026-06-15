@@ -327,13 +327,25 @@ template(name="cardDetails")
             | {{_ 'card-dependencies'}}
           .card-details-dependencies-list
             each getDependencyCards
-              .card-dependency
+              .card-dependency(data-target-id="{{card._id}}")
+                i.fa(class="fa-{{icon}}" style="color:{{color}}")
                 a.card-dependency-link(href="{{linkUrl}}")
                   +viewer
                     = card.title
                 if canModifyCard
+                  select.js-dependency-type(data-target-id="{{card._id}}")
+                    each typeOption
+                      if selected
+                        option(value="{{id}}" selected="selected") {{_ label}}
+                      else
+                        option(value="{{id}}") {{_ label}}
+                  input.js-dependency-color(type="color" value="{{color}}" data-target-id="{{card._id}}" title="{{_ 'dependency-color'}}")
+                  a.js-dependency-icon(data-target-id="{{card._id}}" title="{{_ 'dependency-icon'}}")
+                    i.fa.fa-pencil
                   a.card-dependency-remove.js-remove-dependency(data-target-id="{{card._id}}" title="{{_ 'remove-dependency'}}")
                     i.fa.fa-times
+                else
+                  span.card-dependency-type {{_ typeLabel}}
           if canModifyCard
             a.js-add-dependency(title="{{_ 'add-dependency'}}")
               i.fa.fa-plus
@@ -1309,6 +1321,17 @@ template(name="cardLocationsPopup")
 
 template(name="cardDependenciesPopup")
   .card-dependencies-popup
+    label.dependency-field
+      span {{_ 'dependency-type'}}
+      select.js-new-dependency-type
+        each typeOption
+          if selected
+            option(value="{{id}}" selected="selected") {{_ label}}
+          else
+            option(value="{{id}}") {{_ label}}
+    label.dependency-field
+      span {{_ 'dependency-color'}}
+      input.js-new-dependency-color(type="color" value="{{defaultColor}}")
     input.js-dependency-search(type="text" placeholder="{{_ 'search'}}" autofocus)
     ul.pop-over-list
       each candidateCards
@@ -1316,3 +1339,11 @@ template(name="cardDependenciesPopup")
           a.js-pick-dependency(data-target-id="{{_id}}")
             +viewer
               = title
+
+template(name="cardDependencyIconPopup")
+  .card-dependency-icon-popup
+    ul.card-dependency-icons
+      each dependencyIcons
+        li
+          a.js-pick-dependency-icon(data-icon="{{name}}" title="{{name}}")
+            i.fa(class="fa-{{name}}")

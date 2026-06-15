@@ -140,6 +140,18 @@ template(name="filterSidebar")
             i.fa.fa-check
   hr
   h3
+    i.fa.fa-link
+    | {{_ 'filter-dependencies-label'}}
+  ul.sidebar-list
+    each dependencyTypes
+      li(class="{{#if Filter.cardDependencies.isSelected id}}active{{/if}}")
+        a.name.js-toggle-dependency-filter(data-filter-id="{{id}}")
+          span.sidebar-list-item-description
+            | {{_ label}}
+          if Filter.cardDependencies.isSelected id
+            i.fa.fa-check
+  hr
+  h3
     | {{_ 'other-filters-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.archive.isSelected _id}}active{{/if}}")

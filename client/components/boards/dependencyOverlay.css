@@ -13,3 +13,64 @@
 .dependency-line {
   pointer-events: none;
 }
+
+/* #3392: card detail "Dependencies" rows */
+.card-details-dependencies-list .card-dependency {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.card-details-dependencies-list .card-dependency-link {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-details-dependencies-list .js-dependency-type {
+  flex: 0 0 auto;
+  max-width: 130px;
+}
+
+.card-details-dependencies-list .js-dependency-color {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.card-dependencies-popup .dependency-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.card-dependency-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+}
+
+.card-dependency-icons li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.minicard .badge.minicard-dependencies .badge-icon {
+  font-weight: bold;
+}

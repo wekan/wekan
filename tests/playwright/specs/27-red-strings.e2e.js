@@ -108,13 +108,38 @@ test.describe('Red Strings – card dependency overlay', () => {
     await page.locator(`.js-pick-dependency[data-target-id="${alphaId}"]`).click();
 
     await expect
-      .poll(() => db.getCard(betaId).cardDependencies || [], { timeout: 10_000 })
+      .poll(
+        () =>
+          (db.getCard(betaId).cardDependencies || []).map(d => d.cardId),
+        { timeout: 10_000 },
+      )
       .toContain(alphaId);
 
     // Remove it again.
     await page.locator(`.js-remove-dependency[data-target-id="${alphaId}"]`).click();
     await expect
-      .poll(() => db.getCard(betaId).cardDependencies || [], { timeout: 10_000 })
+      .poll(
+        () =>
+          (db.getCard(betaId).cardDependencies || []).map(d => d.cardId),
+        { timeout: 10_000 },
+      )
       .not.toContain(alphaId);
+  });
+
+  test('typed relation: blocks draws a directed line with an arrowhead', async ({ page }) => {
+    db.setCardDependencies({
+      cardId: alphaId,
+      dependsOn: [{ cardId: betaId, type: 'blocks', color: '#2196f3', icon: 'lock' }],
+    });
+    db.setBoardShowDependencies({ boardId: board.boardId, value: true });
+
+    await loginWithToken(page, owner.id, owner.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    const line = page.locator('.js-dependency-overlay .dependency-line').first();
+    await line.waitFor({ timeout: 15_000 });
+    await expect(line).toHaveAttribute('stroke', '#2196f3');
+    // Directed relation => arrowhead marker is referenced.
+    await expect(line).toHaveAttribute('marker-end', /url\(#/);
   });
 });

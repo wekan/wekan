@@ -812,7 +812,15 @@ export class WekanCreator {
         continue;
       }
       const remapped = card.cardDependencies
-        .map(oldDepId => this.cards[oldDepId])
+        .map(dep => {
+          // Tolerate legacy bare-string entries as well as { cardId, ... }.
+          const oldDepId = typeof dep === 'string' ? dep : dep.cardId;
+          const newDepId = this.cards[oldDepId];
+          if (!newDepId) return null;
+          return typeof dep === 'string'
+            ? { cardId: newDepId }
+            : { ...dep, cardId: newDepId };
+        })
         .filter(Boolean);
       if (remapped.length > 0) {
         await Cards.direct.updateAsync(newCardId, {

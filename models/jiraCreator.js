@@ -8,6 +8,10 @@ import Swimlanes from '/models/swimlanes';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
+import {
+  DEFAULT_DEPENDENCY_TYPE,
+  normalizeDependency,
+} from '/models/metadata/dependencies';
 
 // Creates a WeKan board from a Jira export.
 //
@@ -32,6 +36,9 @@ export class JiraCreator {
     this.members = data && data.membersMapping ? data.membersMapping : {};
     this.lists = {};
     this.swimlane = null;
+    // #3392: Jira issue key -> new card id, for mapping issue links to
+    // card-to-card dependencies ("Red Strings") after all cards are created.
+    this.cardsByKey = {};
   }
 
   _now(dateString) {
@@ -171,7 +178,42 @@ export class JiraCreator {
           cardToCreate.members = [this.members[key]];
         }
       }
-      await Cards.direct.insertAsync(cardToCreate);
+      const cardId = await Cards.direct.insertAsync(cardToCreate);
+      if (issue.key) this.cardsByKey[issue.key] = cardId;
+    }
+  }
+
+  // #3392: best-effort mapping of Jira issue links to card-to-card dependencies
+  // ("Red Strings"). Jira link type names are matched loosely: "blocks" maps to
+  // blocks / is-blocked-by depending on direction, everything else to related-to.
+  async createDependencies(data) {
+    for (const issue of this._issues(data)) {
+      const fromId = this.cardsByKey[issue.key];
+      if (!fromId) continue;
+      const links = (issue.fields || {}).issuelinks || [];
+      const deps = [];
+      for (const link of links) {
+        const typeName = ((link.type && link.type.name) || '').toLowerCase();
+        let targetKey = null;
+        let depType = DEFAULT_DEPENDENCY_TYPE;
+        if (link.outwardIssue) {
+          targetKey = link.outwardIssue.key;
+          if (typeName.includes('block')) depType = 'blocks';
+        } else if (link.inwardIssue) {
+          targetKey = link.inwardIssue.key;
+          if (typeName.includes('block')) depType = 'is-blocked-by';
+        }
+        if (!targetKey) continue;
+        const toId = this.cardsByKey[targetKey];
+        if (!toId || toId === fromId) continue;
+        if (deps.find(d => d.cardId === toId)) continue;
+        deps.push(normalizeDependency({ cardId: toId, type: depType }));
+      }
+      if (deps.length) {
+        await Cards.direct.updateAsync(fromId, {
+          $set: { cardDependencies: deps },
+        });
+      }
     }
   }
 
@@ -207,6 +249,7 @@ export class JiraCreator {
     await this.createSwimlanes(boardId);
     await this.createLists(board, boardId);
     await this.createCards(board, boardId);
+    await this.createDependencies(board);
     await this.createRules(board, boardId);
     return boardId;
   }

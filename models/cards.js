@@ -28,6 +28,14 @@ import {
   TYPE_LINKED_CARD,
 } from '../config/const';
 import { CARD_COLORS } from '/models/metadata/colors';
+import {
+  DEFAULT_DEPENDENCY_COLOR,
+  DEFAULT_DEPENDENCY_ICON,
+  DEFAULT_DEPENDENCY_TYPE,
+  DEPENDENCY_TYPE_IDS,
+  normalizeDependency,
+  normalizeDependencies,
+} from '/models/metadata/dependencies';
 import Attachments from "./attachments";
 import PositionHistory from './positionHistory';
 import Activities from '/models/activities';
@@ -477,16 +485,41 @@ Cards.attachSchema(
     },
     cardDependencies: {
       /**
-       * #3392: PI Program Board "Red Strings". List of card _ids on the SAME
-       * board that this card depends on / is connected to. Visualized as
-       * colored connection lines drawn on top of the board.
+       * #3392: PI Program Board "Red Strings". Typed card-to-card dependencies.
+       * Each entry is { cardId, type, color, icon } where cardId points at
+       * another card (drawn when on the same board), type is one of
+       * DEPENDENCY_TYPE_IDS, color is the connection line / badge color and icon
+       * is a FontAwesome name. See models/metadata/dependencies.js.
        */
       type: Array,
       optional: true,
       defaultValue: [],
     },
     'cardDependencies.$': {
-      type: String,
+      type: new SimpleSchema({
+        cardId: {
+          /** the target card _id this card is connected to */
+          type: String,
+        },
+        type: {
+          /** relation kind, one of DEPENDENCY_TYPE_IDS */
+          type: String,
+          optional: true,
+          defaultValue: DEFAULT_DEPENDENCY_TYPE,
+        },
+        color: {
+          /** connection line / minicard badge color (any CSS color) */
+          type: String,
+          optional: true,
+          defaultValue: DEFAULT_DEPENDENCY_COLOR,
+        },
+        icon: {
+          /** FontAwesome 4.7 icon name without the "fa-" prefix */
+          type: String,
+          optional: true,
+          defaultValue: DEFAULT_DEPENDENCY_ICON,
+        },
+      }),
     },
     vote: {
       /**
@@ -838,15 +871,18 @@ Cards.helpers({
     // and the old ids are remapped by the caller once every card has been
     // copied, so leave them untouched here.
     if (!cardIdMap) {
-      const deps = this.cardDependencies || [];
+      const deps = normalizeDependencies(this.cardDependencies);
       const keptDeps = [];
-      for (const depId of deps) {
-        const dep = await ReactiveCache.getCard(depId);
-        if (dep && dep.boardId === boardId) {
-          keptDeps.push(depId);
+      for (const dep of deps) {
+        const target = await ReactiveCache.getCard(dep.cardId);
+        if (target && target.boardId === boardId) {
+          keptDeps.push(dep);
         }
       }
       this.cardDependencies = keptDeps;
+    } else {
+      // Normalize so the post-copy remap (board/swimlane copy) sees objects.
+      this.cardDependencies = normalizeDependencies(this.cardDependencies);
     }
 
     const _id = await Cards.insertAsync(this);
@@ -1510,13 +1546,17 @@ Cards.helpers({
     }
   },
 
+  // #3392: PI Program Board "Red Strings". Return this card's dependencies as
+  // normalized { cardId, type, color, icon } objects (legacy bare-string ids are
+  // upgraded on read).
   getDependencies() {
-    return this.cardDependencies || [];
+    return normalizeDependencies(this.cardDependencies);
   },
 
-  // #3392: PI Program Board "Red Strings". Add a dependency to another card on
-  // the same board. Guards against self-links and cross-board targets.
-  addDependency(targetCardId) {
+  // #3392: Add (or update) a typed dependency to another card on the same board.
+  // Guards against self-links and cross-board targets. When the dependency
+  // already exists its type/color/icon are updated.
+  addDependency(targetCardId, options = {}) {
     if (!targetCardId || targetCardId === this._id) {
       return undefined;
     }
@@ -1524,14 +1564,51 @@ Cards.helpers({
     if (!target || target.boardId !== this.boardId) {
       return undefined;
     }
-    return Cards.updateAsync(this._id, {
-      $addToSet: { cardDependencies: targetCardId },
+    const deps = this.getDependencies();
+    const existing = deps.find(dep => dep.cardId === targetCardId);
+    const entry = normalizeDependency({
+      cardId: targetCardId,
+      type: options.type || (existing && existing.type),
+      color: options.color || (existing && existing.color),
+      icon: options.icon || (existing && existing.icon),
     });
+    if (existing) {
+      return Cards.updateAsync(
+        { _id: this._id, 'cardDependencies.cardId': targetCardId },
+        {
+          $set: {
+            'cardDependencies.$.type': entry.type,
+            'cardDependencies.$.color': entry.color,
+            'cardDependencies.$.icon': entry.icon,
+          },
+        },
+      );
+    }
+    return Cards.updateAsync(this._id, {
+      $push: { cardDependencies: entry },
+    });
+  },
+
+  // #3392: Update a single property (type/color/icon) of an existing dependency.
+  setDependencyProps(targetCardId, props = {}) {
+    const modifier = {};
+    ['type', 'color', 'icon'].forEach(key => {
+      if (props[key] !== undefined) {
+        modifier[`cardDependencies.$.${key}`] = props[key];
+      }
+    });
+    if (Object.keys(modifier).length === 0) {
+      return undefined;
+    }
+    return Cards.updateAsync(
+      { _id: this._id, 'cardDependencies.cardId': targetCardId },
+      { $set: modifier },
+    );
   },
 
   removeDependency(targetCardId) {
     return Cards.updateAsync(this._id, {
-      $pull: { cardDependencies: targetCardId },
+      $pull: { cardDependencies: { cardId: targetCardId } },
     });
   },
 
@@ -2385,6 +2462,20 @@ Cards.helpers({
       if (currentWatchers.filter(x => !filteredWatchers.includes(x)).length > 0) {
         mutatedFields.watchers = filteredWatchers;
       }
+
+      // #3392: card-to-card dependencies ("Red Strings") only connect cards on
+      // the same board. When a card moves to another board, drop its now
+      // cross-board dependencies and remove inbound references to it from the
+      // cards left behind on the old board, so no dangling lines remain.
+      mutatedFields.cardDependencies = [];
+      await Cards.updateAsync(
+        {
+          boardId: previousState.boardId,
+          'cardDependencies.cardId': this._id,
+        },
+        { $pull: { cardDependencies: { cardId: this._id } } },
+        { multi: true },
+      );
     }
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });

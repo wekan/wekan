@@ -3,6 +3,22 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
 import {
+  DEPENDENCY_TYPES,
+  DEFAULT_DEPENDENCY_COLOR,
+  DEFAULT_DEPENDENCY_ICON,
+} from '/models/metadata/dependencies';
+
+// #3392: a small curated set of FontAwesome 4.7 icon names offered for
+// dependency badges in the icon picker.
+const DEPENDENCY_ICON_CHOICES = [
+  'link', 'chain-broken', 'arrow-right', 'long-arrow-right', 'ban', 'lock',
+  'check', 'bug', 'bolt', 'exclamation-triangle', 'flag', 'random',
+  'sitemap', 'share-alt', 'code-fork', 'tasks',
+];
+
+// Which dependency (target card id) the icon picker should apply its choice to.
+let editingDependencyTargetId = null;
+import {
   setupDatePicker,
   datePickerRendered,
   datePickerHelpers,
@@ -521,17 +537,30 @@ Template.cardDetails.helpers({
     });
   },
 
-  // #3392: PI Program Board "Red Strings". Resolve this card's dependency
-  // target ids into card objects (with a relative link) for display.
+  // #3392: PI Program Board "Red Strings". Resolve this card's dependencies
+  // into card objects (with relation type, color, icon and a relative link).
   getDependencyCards() {
     const card = Template.currentData();
     if (!card || typeof card.getDependencies !== 'function') return [];
     return card
       .getDependencies()
-      .map(targetId => {
-        const target = ReactiveCache.getCard(targetId);
+      .map(dep => {
+        const target = ReactiveCache.getCard(dep.cardId);
         if (!target) return null;
-        return { card: target, linkUrl: target.originRelativeUrl() };
+        return {
+          card: target,
+          linkUrl: target.originRelativeUrl(),
+          type: dep.type,
+          color: dep.color,
+          icon: dep.icon,
+          typeLabel: `dependency-type-${dep.type}`,
+          // Per-row relation-type dropdown options with the current one marked.
+          typeOption: DEPENDENCY_TYPES.map(t => ({
+            id: t.id,
+            label: `dependency-type-${t.id}`,
+            selected: t.id === dep.type,
+          })),
+        };
       })
       .filter(Boolean);
   },
@@ -878,6 +907,28 @@ Template.cardDetails.events({
     if (card && targetId) {
       card.removeDependency(targetId);
     }
+  },
+  'change .js-dependency-type'(event) {
+    if (!Utils.canModifyCard()) return;
+    const targetId = event.currentTarget.dataset.targetId;
+    const card = Template.currentData();
+    if (card && targetId) {
+      card.setDependencyProps(targetId, { type: event.currentTarget.value });
+    }
+  },
+  'change .js-dependency-color'(event) {
+    if (!Utils.canModifyCard()) return;
+    const targetId = event.currentTarget.dataset.targetId;
+    const card = Template.currentData();
+    if (card && targetId) {
+      card.setDependencyProps(targetId, { color: event.currentTarget.value });
+    }
+  },
+  'click .js-dependency-icon'(event) {
+    if (!Utils.canModifyCard()) return;
+    // Remember which dependency the picked icon should apply to.
+    editingDependencyTargetId = event.currentTarget.dataset.targetId;
+    Popup.open('cardDependencyIcon')(event);
   },
   'click .js-member': Popup.open('cardMember'),
   'click .js-add-members': Popup.open('cardMembers'),
@@ -2427,23 +2478,37 @@ Template.cardAssigneePopup.events({
 // card (set by Popup.open on the .js-add-dependency element inside cardDetails).
 Template.cardDependenciesPopup.onCreated(function () {
   this.searchTerm = new ReactiveVar('');
+  this.newType = new ReactiveVar(DEPENDENCY_TYPES[0].id);
+  this.newColor = new ReactiveVar(DEFAULT_DEPENDENCY_COLOR);
 });
 
 Template.cardDependenciesPopup.helpers({
+  defaultColor() {
+    return Template.instance().newColor.get();
+  },
+  typeOption() {
+    const current = Template.instance().newType.get();
+    return DEPENDENCY_TYPES.map(t => ({
+      id: t.id,
+      label: `dependency-type-${t.id}`,
+      selected: t.id === current,
+    }));
+  },
   candidateCards() {
     const sourceCard = Template.currentData();
     if (!sourceCard) return [];
     const term = Template.instance().searchTerm.get().toLowerCase();
-    const existing = sourceCard.getDependencies
+    const existingIds = (sourceCard.getDependencies
       ? sourceCard.getDependencies()
-      : [];
+      : []
+    ).map(dep => dep.cardId);
     const cards = ReactiveCache.getCards({
       boardId: sourceCard.boardId,
       archived: false,
     });
     return cards.filter(card => {
       if (card._id === sourceCard._id) return false;
-      if (existing.includes(card._id)) return false;
+      if (existingIds.includes(card._id)) return false;
       if (term && !(card.title || '').toLowerCase().includes(term)) return false;
       return true;
     });
@@ -2454,13 +2519,45 @@ Template.cardDependenciesPopup.events({
   'keyup .js-dependency-search'(event) {
     Template.instance().searchTerm.set(event.currentTarget.value || '');
   },
+  'change .js-new-dependency-type'(event) {
+    Template.instance().newType.set(event.currentTarget.value);
+  },
+  'change .js-new-dependency-color'(event) {
+    Template.instance().newColor.set(event.currentTarget.value);
+  },
   'click .js-pick-dependency'(event) {
     event.preventDefault();
+    const tpl = Template.instance();
     const sourceCard = Template.currentData();
     const targetId = event.currentTarget.dataset.targetId;
     if (sourceCard && targetId) {
-      sourceCard.addDependency(targetId);
+      sourceCard.addDependency(targetId, {
+        type: tpl.newType.get(),
+        color: tpl.newColor.get(),
+      });
     }
+    Popup.back();
+  },
+});
+
+// #3392: icon picker for an existing dependency. The source card is the popup's
+// data context; the target id was stashed on the cardDetails instance by the
+// .js-dependency-icon click handler.
+Template.cardDependencyIconPopup.helpers({
+  dependencyIcons() {
+    return DEPENDENCY_ICON_CHOICES.map(name => ({ name }));
+  },
+});
+
+Template.cardDependencyIconPopup.events({
+  'click .js-pick-dependency-icon'(event) {
+    event.preventDefault();
+    const sourceCard = Template.currentData();
+    const icon = event.currentTarget.dataset.icon || DEFAULT_DEPENDENCY_ICON;
+    if (sourceCard && editingDependencyTargetId) {
+      sourceCard.setDependencyProps(editingDependencyTargetId, { icon });
+    }
+    editingDependencyTargetId = null;
     Popup.back();
   },
 });

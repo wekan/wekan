@@ -21,6 +21,7 @@ is documented yet — contributions are welcome.
 - [Keyboard Shortcuts](Keyboard-Shortcuts/Keyboard-Shortcuts.md)
 - [Accessibility](Accessibility/Accessibility.md)
 - [Rules (Automation)](Rules/Rules.md)
+- [Card Dependencies — "Red Strings" / PI Program Board](RedStrings/RedStrings.md)
 
 ## Card content and formatting
 
