@@ -1395,7 +1395,7 @@
   "remove-dependency": "Poista riippuvuus",
   "show-dependencies": "Näytä riippuvuudet",
   "hide-dependencies": "Piilota riippuvuudet",
-  "drag-to-connect": "Vedä yhdistääksesi toiseen korttiin",
+  "drag-to-connect": "Yhdistä toiseen korttiin vetämällä",
   "dependency-type": "Suhdetyyppi",
   "dependency-color": "Väri",
   "dependency-icon": "Ikoni",

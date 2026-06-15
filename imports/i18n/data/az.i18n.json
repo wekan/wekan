@@ -1395,6 +1395,7 @@
   "remove-dependency": "Remove dependency",
   "show-dependencies": "Show dependencies",
   "hide-dependencies": "Hide dependencies",
+  "drag-to-connect": "Drag to connect to another card",
   "dependency-type": "Relation type",
   "dependency-color": "Rəng",
   "dependency-icon": "Icon",
