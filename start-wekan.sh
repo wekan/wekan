@@ -658,9 +658,18 @@
       #export HEADER_LOGIN_FIRSTNAME=HEADERFIRSTNAME
       #export HEADER_LOGIN_LASTNAME=HEADERLASTNAME
       #export HEADER_LOGIN_EMAIL=HEADEREMAILADDRESS
-    # Optional comma-separated trusted proxy source IPs for header login.
-    # If empty, all source IPs are accepted (not recommended).
-    #export HEADER_LOGIN_TRUSTED_IPS=127.0.0.1,10.0.0.2
+      # SECURITY (GHSA-jggc-qvfc-jr6x): comma-separated allowlist of source IPs
+      # allowed to use header login. The source IP is the real TCP peer of the
+      # connection (your reverse proxy), NOT the spoofable X-Forwarded-For header.
+      # REQUIRED when header login is enabled: if empty/unset, header login fails
+      # CLOSED and authenticates no one.
+      #export HEADER_LOGIN_TRUSTED_IPS=127.0.0.1,10.0.0.2
+      # Optional: if WeKan is behind MULTIPLE proxy hops, list the intermediate
+      # proxy IPs here. X-Forwarded-For is then honored ONLY when the immediate
+      # TCP peer is one of these trusted proxies, and the right-most hop that is
+      # not itself a trusted proxy (the real client) is matched against
+      # HEADER_LOGIN_TRUSTED_IPS above.
+      #export HEADER_LOGIN_TRUSTED_PROXIES=10.0.0.1,10.0.0.2
       #---------------------------------------------------------------------
       # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
       # example : LOGOUT_WITH_TIMER=true
@@ -675,6 +684,12 @@
       #---------------------------------------------------------------------
       # PASSWORD_LOGIN_ENABLED : Enable or not the password login form.
       #export PASSWORD_LOGIN_ENABLED=true
+      #---------------------------------------------------------------------
+      # DEFAULT_AUTHENTICATION_METHOD : default authentication method used when a
+      # user does not exist, to create and authenticate. Can be set as ldap.
+      # (Set properly in the Admin Panel; changing this does not remove the
+      # Password login option.)
+      #export DEFAULT_AUTHENTICATION_METHOD=ldap
       #---------------------------------------------------------------------
       #export CAS_ENABLED=true
       #export CAS_BASE_URL=https://cas.example.com/cas

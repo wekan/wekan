@@ -51,6 +51,19 @@ Meteor.startup(() => {
     Meteor.settings.public.headerLoginLastname = process.env.HEADER_LOGIN_LASTNAME;
 
     const isSandstorm = Meteor.settings?.public?.sandstorm === true;
+    const hasTrustedIps =
+      (process.env.HEADER_LOGIN_TRUSTED_IP || process.env.HEADER_LOGIN_TRUSTED_IPS || '').trim() !== '';
+    if (!isSandstorm && !hasTrustedIps) {
+      // SECURITY (GHSA-jggc-qvfc-jr6x): header-login now fails closed when the
+      // trusted-proxy allowlist is unset. Warn operators so passwordless login
+      // is not silently disabled after upgrading.
+      console.warn(
+        'Header-login is enabled (HEADER_LOGIN_ID is set) but HEADER_LOGIN_TRUSTED_IPS ' +
+          'is not configured. For security it now fails closed and will NOT authenticate ' +
+          'anyone until you set HEADER_LOGIN_TRUSTED_IPS to the IP address(es) of your ' +
+          'trusted reverse proxy.',
+      );
+    }
     if (!isSandstorm) {
       WebApp.handlers.use(async (req, res, next) => {
         try {

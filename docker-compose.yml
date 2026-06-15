@@ -883,9 +883,18 @@ services:
       #- HEADER_LOGIN_FIRSTNAME=HEADERFIRSTNAME
       #- HEADER_LOGIN_LASTNAME=HEADERLASTNAME
       #- HEADER_LOGIN_EMAIL=HEADEREMAILADDRESS
-      # Optional comma-separated trusted proxy source IPs for header login.
-      # If empty, all source IPs are accepted (not recommended).
+      # SECURITY (GHSA-jggc-qvfc-jr6x): comma-separated allowlist of source IPs
+      # permitted to use header login. The source IP is the real TCP peer of the
+      # connection (your reverse proxy), NOT the spoofable X-Forwarded-For header.
+      # REQUIRED when header login is enabled: if empty/unset, header login fails
+      # CLOSED and authenticates no one.
       #- HEADER_LOGIN_TRUSTED_IPS=127.0.0.1,10.0.0.2
+      # Optional: if WeKan sits behind MULTIPLE proxy hops, list the intermediate
+      # proxy IPs here. X-Forwarded-For is then honored ONLY when the immediate
+      # TCP peer is one of these trusted proxies, and the right-most hop that is
+      # not itself a trusted proxy (the real client) is matched against
+      # HEADER_LOGIN_TRUSTED_IPS above.
+      #- HEADER_LOGIN_TRUSTED_PROXIES=10.0.0.1,10.0.0.2
       #---------------------------------------------------------------------
       # ==== LOGOUT TIMER, probably does not work yet ====
       # LOGOUT_WITH_TIMER : Enables or not the option logout with timer

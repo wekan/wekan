@@ -401,7 +401,7 @@ REM # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting
 REM SET OAUTH2_ADFS_ENABLED=false
 
 REM # Use OAuth2 Azure AD B2C. Also requires OAUTH2_ENABLED=true setting . https://github.com/wekan/wekan/issues/5242
-REM SET DEFAULT_OAUTH2_B2C_ENABLED=false
+REM SET OAUTH2_B2C_ENABLED=false
 
 REM # SECURITY (GHSA-mp7g-hj5q-gxhq): Link an OIDC login to a pre-existing Wekan
 REM # account with the same email. OFF by default; when false an OIDC login whose
@@ -653,6 +653,10 @@ REM # LDAP_USERNAME_FIELD : Which field contains the ldap username
 REM # example : LDAP_USERNAME_FIELD=username
 REM SET LDAP_USERNAME_FIELD=
 
+REM # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname
+REM # example : LDAP_FULLNAME_FIELD=fullname
+REM SET LDAP_FULLNAME_FIELD=
+
 REM # LDAP_MERGE_EXISTING_USERS :
 REM # example : LDAP_MERGE_EXISTING_USERS=true
 REM SET LDAP_MERGE_EXISTING_USERS=false
@@ -713,6 +717,15 @@ REM SET HEADER_LOGIN_ID=HEADERUID
 REM SET HEADER_LOGIN_FIRSTNAME=HEADERFIRSTNAME
 REM SET HEADER_LOGIN_LASTNAME=HEADERLASTNAME
 REM SET HEADER_LOGIN_EMAIL=HEADEREMAILADDRESS
+REM # SECURITY (GHSA-jggc-qvfc-jr6x): comma-separated allowlist of source IPs allowed
+REM # to use header login. The source IP is the real TCP peer (your reverse proxy),
+REM # NOT the spoofable X-Forwarded-For header. REQUIRED when header login is enabled:
+REM # if empty/unset, header login fails CLOSED and authenticates no one.
+REM SET HEADER_LOGIN_TRUSTED_IPS=127.0.0.1,10.0.0.2
+REM # Optional: if behind MULTIPLE proxy hops, list the intermediate proxy IPs here.
+REM # X-Forwarded-For is honored ONLY when the immediate TCP peer is a trusted proxy,
+REM # and the right-most non-proxy hop (the real client) is matched against TRUSTED_IPS.
+REM SET HEADER_LOGIN_TRUSTED_PROXIES=10.0.0.1,10.0.0.2
 
 REM ------------------------------------------------
 
