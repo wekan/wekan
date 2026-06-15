@@ -50,6 +50,12 @@ Meteor.publish('boardRules', async function(boardId) {
   ];
 });
 
+Meteor.publish('zzTriggers', function(boardId) {
+  check(boardId, String);
+  if (!this.userId) return this.ready();
+  return Triggers.find({ boardId });  // SYNC publish, single cursor
+});
+
 Meteor.publish('allRules', async function() {
   if (!this.userId || !(await ReactiveCache.getUser(this.userId)).isAdmin) {
     return this.ready();

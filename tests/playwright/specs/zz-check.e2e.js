@@ -1,29 +1,40 @@
 'use strict';
 const { test } = require('../fixtures');
 const db = require('../helpers/db');
-
-async function openRulesPage(page, board) {
-  await page.goto(`/b/${board.boardId}/${board.slug}/rules`, { waitUntil: 'commit' });
-  await page.locator('.rules-page').waitFor({ timeout: 20_000 });
-}
+const { openBoard } = require('../helpers/auth');
 
 test.describe('CHECK', () => {
-  test('check board button minimongo', async ({ boardPage, board }) => {
-    await openRulesPage(boardPage, board);
-    await boardPage.locator('#ruleTitle').fill('My board button');
-    await boardPage.locator('.js-goto-trigger').click();
-    await boardPage.locator('.js-set-button-triggers').click();
-    await boardPage.locator('#button-label').fill('Do the thing');
-    await boardPage.locator('#button-type').selectOption('board');
-    await boardPage.locator('.js-add-button-trigger.js-goto-action').click();
-    await boardPage.locator('.js-add-gen-move-action.js-goto-rules').first().click();
-    await boardPage.locator('.rules-lists-item').first().waitFor({ timeout: 15000 });
-    console.log('DB triggers:', db.mongoEval(`db.triggers.find({boardId:${db.literal(board.boardId)}}).count()`));
-    await boardPage.goto(`/b/${board.boardId}/${board.slug}`, { waitUntil: 'commit' });
-    for (let i = 0; i < 6; i++) {
-      await boardPage.waitForTimeout(1000);
-      const n = await boardPage.locator('.js-run-board-button').count();
-      console.log(`t+${i}s buttons=${n}`);
+  test('seeded rule renders button on fresh board load', async ({ loggedInPage, user }) => {
+    const b = db.seedBoard({ ownerId: user.id });
+    try {
+      // Seed a board-button rule directly in the DB (no client insert, no /rules visit).
+      const tid = 'trg' + Math.random().toString(36).slice(2, 10);
+      const aid = 'act' + Math.random().toString(36).slice(2, 10);
+      const rid = 'rul' + Math.random().toString(36).slice(2, 10);
+      db.mongoEval(
+        `db.triggers.insertOne({_id:${db.literal(tid)},boardId:${db.literal(b.boardId)},activityType:'button',buttonType:'board',buttonLabel:'Do the thing',desc:'x',createdAt:new Date(),updatedAt:new Date()});` +
+        `db.actions.insertOne({_id:${db.literal(aid)},boardId:${db.literal(b.boardId)},actionType:'moveCardToTop',listTitle:'*',desc:'x',createdAt:new Date(),modifiedAt:new Date()});` +
+        `db.rules.insertOne({_id:${db.literal(rid)},boardId:${db.literal(b.boardId)},title:'My board button',triggerId:${db.literal(tid)},actionId:${db.literal(aid)},createdAt:new Date(),modifiedAt:new Date()});`
+      );
+      await openBoard(loggedInPage, b.boardId, b.slug);
+      await loggedInPage.waitForTimeout(2000);
+      const r = await loggedInPage.evaluate((bid) => new Promise(resolve => {
+        const h = Meteor.subscribe('zzTriggers', bid, { onReady() {
+          setTimeout(() => {
+            const store = Meteor.connection._stores && Meteor.connection._stores['triggers'];
+            let sd = 'nm';
+            try { sd = store && store._getCollection ? store._getCollection().find({}).count() : 'no'; } catch(e){ sd='err'; }
+            resolve({ ready: h.ready(), syncPubTriggers: sd });
+          }, 1000);
+        }});
+        setTimeout(()=>resolve({timeout:true}), 4000);
+      }), b.boardId);
+      console.log('SYNCPUB:', JSON.stringify(r));
+      const n = await loggedInPage.locator('.js-run-board-button').count();
+      console.log('buttons=', n);
+    } finally {
+      db.cleanup({ boardIds: [b.boardId] });
+      db.mongoEval(`db.triggers.deleteMany({boardId:${db.literal(b.boardId)}});db.actions.deleteMany({boardId:${db.literal(b.boardId)}});db.rules.deleteMany({boardId:${db.literal(b.boardId)}});`);
     }
   });
 });
