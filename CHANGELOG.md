@@ -30,6 +30,15 @@ Versions:
 
 This release adds the following updates:
 
+- [Bumped form-data from 2.5.5 to 2.5.6](https://github.com/wekan/wekan/pull/6375):
+  security fix for the CRLF-injection issue (CVE-2026-12143, GHSA-hmw2-7cc7-3qxx)
+  where CR/LF/`"` in multipart field names and filenames were not escaped. It is a
+  transitive dependency (pulled in via `@google-cloud/storage`); lockfile-only
+  change. Thanks to Dependabot, xet7 and Claude.
+- [Bumped launch-editor from 2.13.2 to 2.14.1](https://github.com/wekan/wekan/pull/6376):
+  a dev-only dependency (used by `webpack-dev-server` / `@rsdoctor/sdk`, not in the
+  production bundle); lockfile-only change. Thanks to Dependabot, xet7 and Claude.
+
 and adds the following new features:
 
 - [Added card dependency "Red Strings" / PI program board](https://github.com/wekan/wekan/commit/5bd1d0ae742e118561b0e9e3170c1e44bd579ad8):
