@@ -46,7 +46,8 @@ and adds the following new features:
   feature is covered by tests: e2e specs `27-red-strings` (overlay, toggle,
   typed lines, minicard badge, copyCard preservation, import matching) and
   `28-dependencies-rest` (REST CRUD + schema validation), plus mocha unit tests
-  for the metadata helpers, the REST OpenAPI annotations and the filter selector.
+  for the metadata helpers, the REST OpenAPI annotations, the filter selector,
+  the cross-board move cleanup and the Jira issue-link mapping.
   Each dependency is now **typed and customizable**: a relation `type`
   (`related-to`, `blocks`, `is-blocked-by`, `fixes`, `is-fixed-by` — the type sets
   the arrow direction; `related-to` is undirected), a per-line `color` (any color,

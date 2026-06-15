@@ -14,3 +14,5 @@ import './clonebleed.security.tests';
 import './permissions.security.tests';
 import './dependencies.metadata.tests';
 import './dependencies.openapi.tests';
+import './cards.dependencies.move.tests';
+import './jiraCreator.dependencies.tests';
