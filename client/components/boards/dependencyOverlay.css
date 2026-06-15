@@ -14,6 +14,44 @@
   pointer-events: none;
 }
 
+/* #3392: drag-to-connect ("Connect") mode — the overlay captures pointer events
+   so the user can drag from card to card and click lines to edit them. */
+.dependency-overlay.is-connecting {
+  pointer-events: auto;
+  cursor: crosshair;
+  background: rgba(235, 20, 76, 0.04);
+}
+
+.dependency-overlay.is-connecting .dependency-line {
+  pointer-events: stroke;
+  cursor: pointer;
+  stroke-width: 3;
+}
+
+.dependency-temp-line {
+  pointer-events: none;
+}
+
+.dependency-line-popup .dependency-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.dependency-line-popup .card-dependency-icons li a.is-selected {
+  border-color: #eb144c;
+  border-width: 2px;
+}
+
+.dependency-line-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #eb144c;
+}
+
 /* #3392: card detail "Dependencies" rows */
 .card-details-dependencies-list .card-dependency {
   display: flex;

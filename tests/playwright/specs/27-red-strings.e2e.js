@@ -271,4 +271,49 @@ test.describe('Red Strings – card dependency overlay', () => {
     await page.locator('.js-pick-dependency-icon[data-icon="lock"]').click();
     await expect.poll(() => depOf() && depOf().icon, { timeout: 10_000 }).toBe('lock');
   });
+
+  test('drag-to-connect: dragging from one card to another creates a dependency', async ({ page }) => {
+    // No dependencies to start; connect mode will create one by dragging.
+    db.setCardDependencies({ cardId: alphaId, dependsOn: [] });
+    db.setCardDependencies({ cardId: betaId, dependsOn: [] });
+    db.setBoardShowDependencies({ boardId: board.boardId, value: true });
+
+    await loginWithToken(page, owner.id, owner.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    await page.evaluate(() =>
+      document
+        .querySelectorAll('iframe[id*="webpack-dev-server"]')
+        .forEach(el => el.remove()),
+    );
+
+    // Enter Connect mode (the overlay starts capturing pointer events).
+    await page.locator('.js-toggle-dependency-connect').click();
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          document
+            .querySelector('.js-dependency-overlay')
+            ?.classList.contains('is-connecting'),
+        ),
+        { timeout: 10_000 },
+      )
+      .toBe(true);
+
+    // Drag from the PI Alpha minicard to the PI Beta minicard.
+    const a = await page.locator(`[data-card-id="${alphaId}"]`).boundingBox();
+    const b = await page.locator(`[data-card-id="${betaId}"]`).boundingBox();
+    await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 10 });
+    await page.mouse.up();
+
+    // Alpha now depends on Beta.
+    await expect
+      .poll(
+        () => (db.getCard(alphaId).cardDependencies || []).map(d => d.cardId),
+        { timeout: 10_000 },
+      )
+      .toContain(betaId);
+  });
 });

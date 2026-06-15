@@ -1395,6 +1395,8 @@
   "remove-dependency": "Remove dependency",
   "show-dependencies": "Show dependencies",
   "hide-dependencies": "Hide dependencies",
+  "connect-dependencies": "Connect",
+  "done-connecting": "Done connecting",
   "dependency-type": "Relation type",
   "dependency-color": "Color",
   "dependency-icon": "Icon",

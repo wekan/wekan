@@ -44,6 +44,10 @@ Template.boardHeaderBar.onCreated(function () {
 });
 
 Template.boardHeaderBar.helpers({
+  // #3392: whether drag-to-connect ("Red Strings") mode is active.
+  dependencyConnectMode() {
+    return !!Session.get('dependencyConnectMode');
+  },
   notDisplayThisBoard() {
     const allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
     const currentBoard = Utils.getCurrentBoard();
@@ -184,7 +188,20 @@ Template.boardHeaderBar.events({
   'click .js-toggle-dependencies'() {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
-      currentBoard.setShowDependencies(!currentBoard.showDependencies);
+      const next = !currentBoard.showDependencies;
+      currentBoard.setShowDependencies(next);
+      // Leaving the overlay also leaves connect mode.
+      if (!next) Session.set('dependencyConnectMode', false);
+    }
+  },
+  // #3392: toggle drag-to-connect mode (draw/edit red strings on the board).
+  'click .js-toggle-dependency-connect'() {
+    const currentBoard = Utils.getCurrentBoard();
+    const next = !Session.get('dependencyConnectMode');
+    Session.set('dependencyConnectMode', next);
+    // Connect mode needs the overlay visible.
+    if (next && currentBoard && !currentBoard.showDependencies) {
+      currentBoard.setShowDependencies(true);
     }
   },
   'click .js-multiselection-activate'() {

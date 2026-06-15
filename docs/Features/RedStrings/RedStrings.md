@@ -44,8 +44,24 @@ The colored **icon + count** also appears as a badge on the **minicard**.
 
 In the **board header** click the **Show dependencies** toggle (link icon). An
 SVG overlay draws each dependency as a colored curve following the cards as you
-scroll/resize. The overlay is non-interactive, so cards stay clickable. The
-toggle (`showDependencies`) is saved on the board.
+scroll/resize. By default the overlay is non-interactive, so cards stay
+clickable. The toggle (`showDependencies`) is saved on the board.
+
+### Drawing links by dragging (Connect mode)
+
+For a piplanning.io / Kendis / Miro-style experience, the board header has a
+**Connect** button (visible to members who can edit the board). Clicking it
+enters **Connect mode** (it also turns the overlay on):
+
+- **Drag from one card to another** to create a dependency between them (a dashed
+  guide line follows the cursor while dragging). The new link uses the default
+  relation type/color/icon — edit it afterward as below.
+- **Click a connection line** to open a small editor to change its **relation
+  type**, **color** and **icon**, or **delete** the link.
+- While Connect mode is on, the overlay captures clicks (so dragging/line-editing
+  works); click **Done connecting** to return to normal board interaction.
+
+Connect mode is a transient per-user editing mode — it is not saved on the board.
 
 ### Filter
 
@@ -70,13 +86,31 @@ to another board drops its now cross-board dependencies.
 
 ### Importing from other trackers
 
-- **Jira**: when importing a Jira board (All Boards → New → Import → From Jira),
-  issue links (`issuelinks`) are mapped best-effort — "blocks" link types become
-  `blocks` / `is-blocked-by` (by direction), other link types become
+The **Dependencies (JSON/SVG)** importer accepts more than WeKan's own export.
+Cards are matched in the target board by `_id`, then **card number**, then
+**exact title**, so links from other tools resolve as long as the card titles
+match.
+
+- **Jira**: when importing a Jira **board** (All Boards → New → Import → From
+  Jira), issue links (`issuelinks`) are mapped best-effort — "blocks" link types
+  become `blocks` / `is-blocked-by` (by direction), other link types become
   `related-to`.
-- **GitHub / GitLab and others**: these have no standard machine-readable
-  dependency export, so dependency lines are not imported from them. Use the
-  Dependencies JSON/SVG importer instead.
+- **Miro**: the importer best-effort maps **Miro REST API** data. Export the
+  board's items and connectors from the Miro API (e.g. `GET /v2/boards/{id}/items`
+  and `GET /v2/boards/{id}/connectors`) and import a JSON object containing
+  `items` (or `data`) and `connectors`. Each connector's `startItem`/`endItem`
+  are resolved to item titles and matched to WeKan cards by title; a connector
+  caption containing "block"/"fix" maps to that relation type.
+- **Kendis / piplanning.io and others**: these are proprietary tools without a
+  documented public dependency file format. Export their links from their own API
+  and convert to the **generic JSON** shape, which the importer accepts directly:
+
+  ```json
+  { "lines": [ { "fromTitle": "Card A", "toTitle": "Card B", "type": "blocks", "color": "#eb144c" } ] }
+  ```
+
+- **GitHub / GitLab and others**: no standard machine-readable dependency export,
+  so use the generic JSON shape above.
 
 ## REST API
 

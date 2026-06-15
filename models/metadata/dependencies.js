@@ -31,6 +31,14 @@ export const DEPENDENCY_TYPES = [
 
 export const DEPENDENCY_TYPE_IDS = DEPENDENCY_TYPES.map(t => t.id);
 
+// A curated set of FontAwesome 4.7 icon names offered in the dependency icon
+// pickers (card detail and the on-board line editor).
+export const DEPENDENCY_ICON_CHOICES = [
+  'link', 'chain-broken', 'arrow-right', 'long-arrow-right', 'ban', 'lock',
+  'check', 'bug', 'bolt', 'exclamation-triangle', 'flag', 'random',
+  'sitemap', 'share-alt', 'code-fork', 'tasks',
+];
+
 // The reverse of each relation, used when remapping a dependency onto the other
 // card (e.g. when showing "blocks" as "is-blocked-by" from the target's side).
 export const DEPENDENCY_TYPE_INVERSE = {

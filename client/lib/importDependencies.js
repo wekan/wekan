@@ -1,8 +1,19 @@
 // #3392: parse a card-dependency ("Red Strings") file into a flat list of
 // lines: { from, to, type, color, icon, fromCardNumber, toCardNumber,
 // fromTitle, toTitle }. Supports the WeKan dependencies JSON export, the WeKan
-// dependencies SVG export (round-trippable via its data-* attributes) and a
-// generic JSON array of line objects.
+// dependencies SVG export (round-trippable via its data-* attributes), a
+// generic JSON array/`lines` of line objects, and a best-effort mapping of
+// Miro REST API connectors (items + connectors). Cards are matched in the
+// target board by id, then card number, then title (see importBoardDependencies).
+//
+// Kendis and piplanning.io are proprietary tools without a documented public
+// dependency file format; export their links from their API as the generic JSON
+// shape `{ "lines": [ { "fromTitle": "...", "toTitle": "...", "type": "blocks" } ] }`
+// and import that here.
+
+function stripHtml(s) {
+  return String(s == null ? '' : s).replace(/<[^>]*>/g, '').trim();
+}
 
 function lineFromObject(o) {
   return {
@@ -18,8 +29,57 @@ function lineFromObject(o) {
   };
 }
 
+// Best-effort mapping of Miro REST API data: an `items` (or `data`) array with
+// titles, and a `connectors` array whose entries reference startItem/endItem ids.
+// Connectors are mapped to lines and item ids resolved to titles so they can be
+// matched to WeKan cards by title. A connector caption containing "block"/"fix"
+// is mapped to the corresponding relation type.
+function parseMiro(data) {
+  const items = data.items || data.data || [];
+  const titleById = {};
+  (Array.isArray(items) ? items : []).forEach(it => {
+    if (!it || !it.id) return;
+    const title = stripHtml(
+      (it.data && (it.data.title || it.data.content)) || it.title || it.content,
+    );
+    if (title) titleById[it.id] = title;
+  });
+  const connectors = Array.isArray(data) ? data : data.connectors || [];
+  return (connectors || [])
+    .map(c => {
+      const from = c.startItem && c.startItem.id;
+      const to = c.endItem && c.endItem.id;
+      const caption =
+        (c.captions && c.captions[0] && stripHtml(c.captions[0].content)) || '';
+      const cl = caption.toLowerCase();
+      let type;
+      if (cl.includes('block')) type = 'blocks';
+      else if (cl.includes('fix')) type = 'fixes';
+      return {
+        from,
+        to,
+        fromTitle: titleById[from] || null,
+        toTitle: titleById[to] || null,
+        type,
+      };
+    })
+    .filter(l => l.from || l.to || l.fromTitle || l.toTitle);
+}
+
+function looksLikeMiro(data) {
+  if (data && Array.isArray(data.connectors)) return true;
+  if (
+    Array.isArray(data) &&
+    data.some(o => o && (o.startItem || o.endItem))
+  ) {
+    return true;
+  }
+  return false;
+}
+
 function parseJson(text) {
   const data = JSON.parse(text);
+  if (looksLikeMiro(data)) return parseMiro(data);
   if (Array.isArray(data)) return data.map(lineFromObject);
   if (data && Array.isArray(data.lines)) return data.lines.map(lineFromObject);
   return [];

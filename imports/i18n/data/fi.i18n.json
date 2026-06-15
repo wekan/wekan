@@ -1395,6 +1395,8 @@
   "remove-dependency": "Poista riippuvuus",
   "show-dependencies": "Näytä riippuvuudet",
   "hide-dependencies": "Piilota riippuvuudet",
+  "connect-dependencies": "Yhdistä",
+  "done-connecting": "Valmis",
   "dependency-type": "Suhdetyyppi",
   "dependency-color": "Väri",
   "dependency-icon": "Ikoni",

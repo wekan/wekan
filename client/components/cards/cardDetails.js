@@ -4,17 +4,10 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
 import {
   DEPENDENCY_TYPES,
+  DEPENDENCY_ICON_CHOICES,
   DEFAULT_DEPENDENCY_COLOR,
   DEFAULT_DEPENDENCY_ICON,
 } from '/models/metadata/dependencies';
-
-// #3392: a small curated set of FontAwesome 4.7 icon names offered for
-// dependency badges in the icon picker.
-const DEPENDENCY_ICON_CHOICES = [
-  'link', 'chain-broken', 'arrow-right', 'long-arrow-right', 'ban', 'lock',
-  'check', 'bug', 'bolt', 'exclamation-triangle', 'flag', 'random',
-  'sitemap', 'share-alt', 'code-fork', 'tasks',
-];
 
 // Which dependency the icon picker should apply its choice to. The icon popup's
 // own data context is the dependency row (not the source card), so we capture
