@@ -62,6 +62,11 @@ and fixes the following bugs:
   paths (a `${identifier}` becomes a `{identifier}` path parameter) and skips any route
   whose path cannot be resolved statically instead of aborting the whole release. Thanks
   to xet7 and Claude.
+- [Fixed the Member Settings "Change Avatar" entry rendering in a different (uppercase-looking)
+  style than the other menu items](https://github.com/wekan/wekan/commit/d241f9d8f6b20fb9bdc0f829a9ffb5f595c3b8bd):
+  its label was mis-nested inside the `<i class="fa fa-picture-o">` icon element instead of
+  being a sibling of it, so it inherited the FontAwesome icon font styling. The label now sits
+  directly under the menu link like every other entry. Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
