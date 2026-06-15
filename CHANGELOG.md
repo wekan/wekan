@@ -86,7 +86,18 @@ and adds the following new features:
   [fixed the dependency icon picker not applying the chosen
   icon](https://github.com/wekan/wekan/commit/e8a8007814d777f2c89d26cfdc878912c7072c9b)
   (the popup now edits the source card, not the dependency row), with an e2e test
-  for editing a dependency's type/color/icon. Documented in
+  for editing a dependency's type/color/icon.
+  [Added a piplanning.io / Kendis / Miro-style **drag-to-connect**
+  mode](https://github.com/wekan/wekan/commit/06bc92c200b93ff6d233ba5d2a40c4d939922cd3):
+  a board-header **Connect** toggle turns the overlay interactive so you can
+  **drag from one card to another to create a dependency** (a dashed guide line
+  follows the cursor) and **click a connection line** to change its
+  type/color/icon or delete it; "Done connecting" returns to normal board use.
+  The **Dependencies (JSON/SVG)** importer now also best-effort maps **Miro** REST
+  API data (items + connectors, resolved to card titles; "block"/"fix" captions →
+  relation type); Kendis/piplanning.io (and GitHub/GitLab) have no public
+  dependency format, so a generic `{ "lines": [...] }` JSON interchange is
+  documented for them. Documented in
   [Features/RedStrings](https://github.com/wekan/wekan/blob/main/docs/Features/RedStrings/RedStrings.md).
   Fixes \#3392. Thanks to CodeFreezr, dbt4u, helioguardabaxo, xet7 and Claude.
 - [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
