@@ -41,6 +41,12 @@ This release adds the following updates:
 - [Bumped docker/setup-buildx-action from 3 to 4](https://github.com/wekan/wekan/pull/6377):
   GitHub Actions workflow action update used by the Docker image build. Thanks to
   Dependabot, xet7 and Claude.
+- [Bumped azure/setup-helm from 4 to 5](https://github.com/wekan/wekan/pull/6378):
+  GitHub Actions workflow action update used by the Helm chart release workflow.
+  Thanks to Dependabot, xet7 and Claude.
+- [Bumped dompurify from 3.4.6 to 3.4.9](https://github.com/wekan/wekan/pull/6379):
+  update of the HTML sanitizer used to sanitize card descriptions, comments and
+  other rendered markdown (XSS protection). Thanks to Dependabot, xet7 and Claude.
 
 and adds the following new features:
 
