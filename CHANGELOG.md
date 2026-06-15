@@ -26,9 +26,46 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.46 2026-06-15 WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES of [ProxyBleed](https://wekan.fi/hall-of-fame/proxybleed/):
+
+- [Fixed ProxyBleed: Header-login IP allowlist bypass via X-Forwarded-For spoofing allows
+  unauthenticated full account takeover (incl. admin)](https://github.com/wekan/wekan/commit/b181889a565254bc9bf79379a34fc7f617ccda28)
+  ([GHSA-jggc-qvfc-jr6x](https://github.com/wekan/wekan/security/advisories/GHSA-jggc-qvfc-jr6x), CWE-290 Authentication Bypass by Spoofing, CWE-348 Use of Less Trusted Source). WeKan's
+  header-login (reverse-proxy SSO) feature gates passwordless login on a source-IP allowlist
+  (`HEADER_LOGIN_TRUSTED_IPS`), but `getRequestIp()` in `server/lib/headerLoginAuth.js` derived the
+  source IP from the client-supplied `X-Forwarded-For` request header (its left-most hop), falling
+  back to the real TCP socket peer only when that header was absent. Because `X-Forwarded-For` is
+  fully attacker-controlled, an unauthenticated attacker who can reach the app port directly (a
+  second ingress, a published container port, a k8s NodePort, SSRF — i.e. any path that does not
+  traverse the trusted reverse proxy) could send a single GET request with
+  `X-Forwarded-For: <an-allowlisted-ip>` plus the username header (e.g. `X-Auth-User: admin`) and be
+  minted a full passwordless login session (`meteor_login_token`) for any existing user, including
+  `admin` — complete account takeover and admin impersonation, with no password, token or shared
+  secret. An empty or unset allowlist additionally failed OPEN (it trusted every source). The minted
+  session is a real, persisted resume token that also authenticates the REST API as the spoofed user.
+  Fixed by deriving the source IP from the real TCP socket peer
+  (`req.socket.remoteAddress`/`req.connection.remoteAddress`, normalizing IPv4-mapped IPv6) and never
+  from `X-Forwarded-For`, and by making an empty/unset `HEADER_LOGIN_TRUSTED_IPS` fail CLOSED so
+  header-login authenticates no one until the trusted reverse-proxy IP(s) are configured (a startup
+  warning is logged in that case). The same `findOrCreateHeaderLoginUser` /
+  `isTrustedHeaderLoginSource` helpers back the attachment API, so that path is fixed by the same
+  change. OPERATOR ACTION REQUIRED: if you use header-login you must set `HEADER_LOGIN_TRUSTED_IPS`
+  to your reverse proxy's IP address(es) — after this change an unset allowlist disables header-login
+  instead of trusting everyone, and the source IP compared against the allowlist is now the real
+  proxy connection, not a forgeable header. For multi-hop proxy deployments an OPT-IN
+  `HEADER_LOGIN_TRUSTED_PROXIES` list was added: `X-Forwarded-For` is honored only when the immediate
+  TCP peer is one of those explicitly trusted proxies, and then only the right-most hop that is not
+  itself a trusted proxy (the real client) is matched against `HEADER_LOGIN_TRUSTED_IPS` — a direct
+  attacker's forged header is still ignored. Covered by regression tests
+  (`server/lib/tests/proxybleed.security.tests.js` and `server/lib/tests/headerLoginAuth.tests.js`),
+  documented in [Header-Login](https://github.com/wekan/wekan/blob/main/docs/Login/Header-Login.md),
+  and the new env vars were added to `docker-compose.yml`, `start-wekan.sh`, `start-wekan.bat`,
+  `Dockerfile`, `.devcontainer/Dockerfile`, `releases/virtualbox/start-wekan.sh` and the Snap config.
+  Affected Wekan v9.44 and earlier. Thanks to rz1027, xet7 and Claude.
+
+and adds the following updates:
 
 - [Improved accessibility across all pages following WCAG 2.1 AA guidelines](https://github.com/wekan/wekan/commit/255de2062ff9b54393fd603bfc6cabddb8ede66a):
   - Added a visible keyboard focus indicator (`:focus-visible` outline) for links,
@@ -70,7 +107,7 @@ and adds the following new features:
 - [Added an accessibility end-to-end test suite](https://github.com/wekan/wekan/commit/9c39226a59f8fc156559315b85a1769e109c43e8)
   that checks the page language, skip link, landmark roles, visible focus, dialog
   roles, accessible names on icon controls, and the absence of duplicate element ids.
-- Greatly expanded board automation **Rules**:
+- [Greatly expanded board automation **Rules**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f):
   - The Rules page is now a **fullscreen page** below the top bar (board sidebar →
     Rules), instead of a cramped popup. It has its own route `/b/:id/:slug/rules`.
   - **Scheduled rules**: run rules on a schedule (once on a date, or every day /
@@ -101,7 +138,7 @@ and adds the following new features:
     graph's trigger→action edges are mapped to WeKan rules, unmapped nodes reported),
     with an **Import target** selector to choose which personal **workspace** and
     **board** the imported rules go into (applies to all importers in the dialog).
-- Added a **whole-board import REST API** (`POST /api/boards/import`) that recreates a
+- [Added a **whole-board import REST API**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) (`POST /api/boards/import`) that recreates a
   board — including its **rules/triggers/actions (workflows)** and other data — from a
   WeKan board export. With the existing export endpoint this enables **migrating all
   boards + workflows + rules from another WeKan over the API**; `api.py` adds
@@ -117,15 +154,15 @@ and adds the following new features:
     workflow view and board buttons) and docs
     ([Features/Rules](https://github.com/wekan/wekan/blob/main/docs/Features/Rules/Rules.md),
     updated IFTTT page).
-- Added **Jira import** ("All Boards → New → Import → From Jira"): import boards from
+- [Added **Jira import**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) ("All Boards → New → Import → From Jira"): import boards from
   a Jira Cloud REST issue-search JSON, similar to the Trello importer. Jira statuses
   become lists, issues become cards (with labels, due dates and assignees mapped),
   and an optional `automationRules` array is imported as WeKan rules.
-- Import from WeKan, Trello and Jira can now be done **with or without mapping
+- [Import from WeKan, Trello and Jira](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) can now be done **with or without mapping
   members**: an "Import without mapping members (map later)" button skips the member
   mapping step and imports immediately, so members can be mapped afterwards. Covered
   by `tests/playwright/specs/21-import-without-mapping.e2e.js`.
-- Rounded out board import/export menus:
+- [Rounded out board import/export menus](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f):
   - **Excel (.xlsx) board import** ("All Boards → New → Import → From Excel"): the
     spreadsheet is parsed on the server (exceljs) into rows and imported through the
     CSV creator, so boards can round-trip through `.xlsx` (the matching Excel *export*
@@ -154,65 +191,65 @@ and adds the following new features:
   - Covered by `tests/playwright/specs/25-excel-pdf.e2e.js` (Excel import + board PDF
     export). Documented in [Excel-and-VBA](https://github.com/wekan/wekan/blob/main/docs/ImportExport/Excel-and-VBA.md)
     and [Kanboard](https://github.com/wekan/wekan/blob/main/docs/ImportExport/Kanboard.md).
-- Extended the **REST API** so the newer card features are scriptable: the card edit
+- [Extended the **REST API**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) so the newer card features are scriptable: the card edit
   endpoint (`PUT /api/boards/:boardId/lists/:listId/cards/:cardId`) now accepts
   `stickers`, `locations` and `dueComplete` (the complete checkbox), documented with
   `api.py` examples (`setcardstickers` / `setcardlocations` / `setcardcomplete`).
-- Added e2e tests for previously-untested documented features
+- [Added e2e tests for previously-untested documented features](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f)
   (`tests/playwright/specs/22-card-features.e2e.js`): stickers, card locations, the
   complete checkbox and WIP limits.
-- Expanded REST API test coverage (`tests/playwright/specs/23-rest-api-more.e2e.js`):
+- [Expanded REST API test coverage](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) (`tests/playwright/specs/23-rest-api-more.e2e.js`):
   the Rules API (create/list/get/edit/delete), the new card `stickers` / `locations`
   / `dueComplete` fields, and core CRUD for swimlanes, lists, custom fields,
   checklists + items and comments.
-- Added a **board background image upload/download API** (the background counterpart
+- [Added a **board background image upload/download API**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) (the background counterpart
   of the card-attachment upload API): `POST /api/attachment/upload-background` and
   `GET /api/attachment/download-background/:boardId` (plus the DDP methods
   `api.board.uploadBackground` / `api.board.downloadBackground`). Uploads use the
   current **Admin Panel / Attachments / Default Storage** backend and set the image
   as the board's active background (board-admin gated). Documented in the OpenAPI
   docs and `api.py` (`uploadbackground` / `downloadbackground`).
-- Added **Trello-Butler-style rule variables** — `{cardname}`, `{cardnumber}`,
+- [Added **Trello-Butler-style rule variables**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) — `{cardname}`, `{cardnumber}`,
   `{listname}`, `{boardname}`, `{duedate}`, `{username}`, `{date}` / `{time}` /
   `{datetime}`, etc. — substituted in rule action text (email subject/body, created
   card/checklist/swimlane names). Fixes #2475.
-- Added **visual card aging**: when enabled per board (board settings → "Card
+- [Added **visual card aging**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f): when enabled per board (board settings → "Card
   aging"), cards that have not been touched for a while are progressively faded based
   on their last activity, Trello-style. The three fade-tier **day thresholds are
   board-configurable** (default 7 / 14 / 28 days). Toggleable and configurable in the
   board settings and over the card-settings REST API
   (`cardAging`, `cardAgingDays1/2/3`). Fixes #3984.
-- Added **accessible reordering** without drag-and-drop: visually hidden,
+- [Added **accessible reordering**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) without drag-and-drop: visually hidden,
   keyboard-focusable "Move card up/down" buttons on minicards and "Move list
   left/right" buttons on list headers, for screen-reader and keyboard users. Fixes #459.
-- The board's background image is now also shown as the board tile background on the
+- [The board's background image is now also shown as the board tile background](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) on the
   **All Boards** list page (reusing the existing board background, with a dark overlay
   for readability). Fixes #5157.
 
 and fixes the following bugs:
 
-- Fixed rules that send an email crashing with `TAPi18n is not defined`
+- [Fixed rules that send an email crashing with `TAPi18n is not defined`](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f)
   (`TAPi18n` was not imported in `server/rulesHelper.js`). Fixes #5822.
-- Fixed the **WIP limit** counting only the currently visible cards when a filter is
+- [Fixed the **WIP limit** counting](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) only the currently visible cards when a filter is
   active, which let lists exceed their hard WIP limit; it now counts all cards in the
   list. Fixes #2095.
-- Fixed deleting a board leaving orphaned rule **Actions** in the database (Rules and
+- [Fixed deleting a board leaving orphaned rule **Actions**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) in the database (Rules and
   Triggers were removed but Actions were not). Fixes #4266.
-- Fixed the "check all / uncheck all / (un)check item" rule actions crashing with
+- [Fixed the "check all / uncheck all / (un)check item" rule actions crashing](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) with
   "Cannot read property 'uncheckAllItems' of undefined" when the named checklist or
   item does not exist on the card; they now no-op safely. Fixes #5283.
-- Added e2e tests for the above features and fixes in
+- [Added e2e tests for the above features and fixes](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) in
   `tests/playwright/specs/24-feature-issues.e2e.js` (accessible card/list reordering,
   visual card aging with default and configurable thresholds, board-delete rule
   cleanup, and the board background on the All Boards tile).
 
 - [Fixed duplicate `id="header"` attributes rendered inside loops on the My Cards page](https://github.com/wekan/wekan/commit/c8c0438d662426aaf246a6164d3c3b18bd3462f6),
   which produced invalid HTML and broke assistive-technology navigation (WCAG 4.1.1).
-- Fixed the My Cards table markup: header cells (`<th>`) are now wrapped in a `<tr>`
+- [Fixed the My Cards table markup](https://github.com/wekan/wekan/commit/255de2062ff9b54393fd603bfc6cabddb8ede66a): header cells (`<th>`) are now wrapped in a `<tr>`
   with `scope="col"`, and a caption was added, so the table is announced correctly.
-- Added missing `alt` text to the user avatar image (the surrounding link already
+- [Added missing `alt` text to the user avatar image](https://github.com/wekan/wekan/commit/255de2062ff9b54393fd603bfc6cabddb8ede66a) (the surrounding link already
   carries the accessible name).
-- Fixed several bugs in the new features above that were surfaced by running the full
+- [Fixed several bugs in the new features above](https://github.com/wekan/wekan/commit/073842b3c54f07205c5b0a9c519a665f920c768e) that were surfaced by running the full
   test suite (`./rebuild-wekan.sh` → "Run ALL tests"), so the Playwright suite is
   green again:
   - **Board JSON export returned empty lists, swimlanes and rules.** A previous fix
@@ -245,19 +282,21 @@ and fixes the following bugs:
     it is not a recognized WeKan color. The post-import username bookkeeping was also
     hardened to only record usernames on users that actually exist.
     (`models/wekanCreator.js`)
-  - **Accessible "move card up/down" and "move list left/right" did not persist.** The
-    handlers wrote `sort` with a raw client-side `Cards.update`/`Lists.update`, which
-    the server rejects and reverts (these are restricted collections). They now persist
-    through the same paths the drag-and-drop reorder uses — the card model's `move()`
-    mutation and the `updateListSort` method — and the minicard buttons stop the click
-    from bubbling up and opening the card.
-    (`client/components/cards/minicard.js`, `client/components/lists/listHeader.js`)
-  - **Board/card automation buttons flickered out of the header/card.** The
-    board-button and card-button helpers read through the memoizing ReactiveCache,
-    which could latch a transient empty result while the board subscription re-settled,
-    so the button appeared briefly and then vanished; the `{{#each}}` rows also lacked a
-    stable `_id`. They now read Minimongo directly and key each row by rule id.
-    (`client/components/rules/boardButtons.js`, `client/components/rules/cardButtons.js`)
+  - **Accessible "move card up/down" and "move list left/right" buttons did nothing.**
+    The buttons are visually hidden with an `.sr-only` container that clips them to a 1px
+    box (`clip: rect(0,0,0,0)`), so a click resolved (via hit-testing) to the element
+    behind them and the Blaze handler never fired. They are now kept in normal flow and
+    hit-testable while still visually hidden (a transparent, focusable control), so the
+    reorder handlers actually run. (`client/components/main/layouts.css`)
+  - **Board/card automation buttons never rendered.** The board-button/card-button
+    helpers joined a published rule to its `triggers` document to read the button
+    type/label, but the schemaless `triggers` collection's documents do not reach the
+    client over the board subscription in this Meteor 3 setup, so the lookup found
+    nothing. The button type/label are now denormalised onto the (schema-backed,
+    reliably-published) rule document by a new board-admin-gated `rules.createRule`
+    server method, and the header/card read them straight from the rule.
+    (`server/rulesButton.js`, `models/rules.js`, `client/components/rules/actions/boardActions.js`,
+    `client/components/rules/boardButtons.js`, `client/components/rules/cardButtons.js`)
   - Hardened several tests that were checking the wrong state rather than a real product
     bug: the accessibility test now polls for the `<html lang>` attribute (set by client
     JS on startup) instead of reading it once before the page settles; the board-background
