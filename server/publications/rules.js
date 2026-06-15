@@ -50,10 +50,13 @@ Meteor.publish('boardRules', async function(boardId) {
   ];
 });
 
-Meteor.publish('zzTriggers', function(boardId) {
+Meteor.publish('zzTriggers', async function(boardId) {
   check(boardId, String);
   if (!this.userId) return this.ready();
-  return Triggers.find({ boardId });  // SYNC publish, single cursor
+  const cur = Triggers.find({ boardId });
+  const fetched = await cur.fetchAsync();
+  console.log('DBG_ZZ name=', Triggers._name, 'collName=', cur._cursorDescription && cur._cursorDescription.collectionName, 'fetched=', fetched.length, 'ids=', fetched.map(d=>d._id).join(','));
+  return Triggers.find({ boardId });
 });
 
 Meteor.publish('allRules', async function() {
