@@ -15,6 +15,9 @@ template(name="minicard")
     if canModifyCard
       a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
         i.fa.fa-bars
+    if showDependencyConnectHandle
+      a.dependency-connect-handle.js-dependency-connect-handle(title="{{_ 'drag-to-connect'}}")
+        i.fa.fa-dot-circle-o
     .dates
       if showReceived
         if getReceived

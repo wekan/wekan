@@ -10,19 +10,16 @@ import {
 
 // #3392: PI Program Board "Red Strings".
 // Draw colored, typed connection lines (SVG paths) between cards that declare
-// cardDependencies, and — in "Connect" mode — let the user draw new links by
-// dragging from one card to another (piplanning.io / Kendis / Miro style) and
-// edit/delete a link by clicking its line.
+// cardDependencies. The board stays fully usable (cards clickable) — drawing a
+// new link is initiated from a small connect handle on each minicard (drag it
+// onto another card, piplanning.io / Kendis / Miro style), and a link can be
+// edited/deleted by clicking its line. The overlay SVG itself stays
+// pointer-events:none; only the lines (and the minicard handles) capture events.
 //
 // Coordinates are computed from the live DOM (getBoundingClientRect of
 // [data-card-id] minicards) translated into the overlay SVG's own coordinate
 // space, so scrolling/resizing is handled by recomputing relative to the SVG's
 // current bounding rect.
-
-// Whether the board is in drag-to-connect mode (transient, not persisted).
-export function isDependencyConnectMode() {
-  return !!Session.get('dependencyConnectMode');
-}
 
 // Stable, css-safe marker id for an arrowhead of a given color.
 function markerIdForColor(color) {
@@ -32,7 +29,7 @@ function markerIdForColor(color) {
 Template.dependencyOverlay.onCreated(function () {
   this.lines = new ReactiveVar([]);
   this.markers = new ReactiveVar([]);
-  this.tempLine = new ReactiveVar(null); // line being drawn in connect mode
+  this.tempLine = new ReactiveVar(null); // line being drawn while dragging
 
   // Rect of a card relative to the overlay SVG, or null if not rendered.
   this.rectOf = (cardId, svgRect) => {
@@ -102,7 +99,7 @@ Template.dependencyOverlay.onCreated(function () {
           icon: dep.icon,
           directed: meta.directed,
           markerId: meta.directed ? markerId : '',
-          // Source card (the one that owns the dependency) and target card.
+          // Source card (owns the dependency) and target card.
           fromId: card._id,
           toId: dep.cardId,
         });
@@ -133,15 +130,11 @@ Template.dependencyOverlay.onRendered(function () {
   const svg = this.find('.js-dependency-overlay');
   this.scrollEl = svg ? this.firstNode.closest('.board-canvas') : null;
 
-  // Reactively recompute when card data (positions/dependencies) changes, and
-  // toggle the connect-mode class (which flips the overlay's pointer-events).
   this.autorun(() => {
     const board = Utils.getCurrentBoard();
     if (board) {
       ReactiveCache.getCards({ boardId: board._id, archived: false });
     }
-    const connecting = isDependencyConnectMode();
-    if (svg) svg.classList.toggle('is-connecting', connecting);
     instance.scheduleRecompute();
   });
 
@@ -154,8 +147,9 @@ Template.dependencyOverlay.onRendered(function () {
   window.addEventListener('scroll', this.onScroll, { passive: true });
   window.addEventListener('resize', this.onResize);
 
-  // --- drag-to-connect ----------------------------------------------------
-  // Find the card under a viewport point, ignoring the overlay itself.
+  // --- drag-to-connect (from a minicard's connect handle) -----------------
+  // Find the card under a viewport point. The overlay is pointer-events:none,
+  // so elementsFromPoint returns the minicards directly.
   const cardIdAtPoint = (clientX, clientY) => {
     const els = document.elementsFromPoint(clientX, clientY);
     for (const el of els) {
@@ -167,20 +161,20 @@ Template.dependencyOverlay.onRendered(function () {
   };
 
   this.onMouseDown = e => {
-    if (!isDependencyConnectMode() || e.button !== 0) return;
-    // Clicking an existing line is handled by the 'click .dependency-line'
-    // event (edit popup); don't start a drag from it.
-    if (e.target && e.target.classList && e.target.classList.contains('dependency-line')) {
-      return;
-    }
-    const sourceId = cardIdAtPoint(e.clientX, e.clientY);
-    if (!sourceId) return;
+    if (e.button !== 0) return;
+    const handle =
+      e.target.closest && e.target.closest('.js-dependency-connect-handle');
+    if (!handle) return;
+    const cardEl = handle.closest('[data-card-id]');
+    if (!cardEl) return;
+    // Beat the card drag-sort: capture-phase + stop propagation.
     e.preventDefault();
-    instance.dragSourceId = sourceId;
+    e.stopPropagation();
+    instance.dragSourceId = cardEl.getAttribute('data-card-id');
   };
 
   this.onMouseMove = e => {
-    if (!instance.dragSourceId) return;
+    if (!instance.dragSourceId || !svg) return;
     const svgRect = svg.getBoundingClientRect();
     const from = instance.rectOf(instance.dragSourceId, svgRect);
     if (!from) return;
@@ -208,7 +202,8 @@ Template.dependencyOverlay.onRendered(function () {
     }
   };
 
-  if (svg) svg.addEventListener('mousedown', this.onMouseDown);
+  // Capture phase so the connect drag starts before the sortable grabs the card.
+  document.addEventListener('mousedown', this.onMouseDown, true);
   document.addEventListener('mousemove', this.onMouseMove);
   document.addEventListener('mouseup', this.onMouseUp);
 
@@ -221,8 +216,7 @@ Template.dependencyOverlay.onDestroyed(function () {
   }
   window.removeEventListener('scroll', this.onScroll);
   window.removeEventListener('resize', this.onResize);
-  const svg = this.find && this.find('.js-dependency-overlay');
-  if (svg && this.onMouseDown) svg.removeEventListener('mousedown', this.onMouseDown);
+  if (this.onMouseDown) document.removeEventListener('mousedown', this.onMouseDown, true);
   if (this.onMouseMove) document.removeEventListener('mousemove', this.onMouseMove);
   if (this.onMouseUp) document.removeEventListener('mouseup', this.onMouseUp);
   if (this._raf) {
@@ -247,7 +241,6 @@ Template.dependencyOverlay.helpers({
 
 Template.dependencyOverlay.events({
   'click .dependency-line'(event) {
-    if (!isDependencyConnectMode()) return;
     event.preventDefault();
     event.stopPropagation();
     // `this` is the line data object (fromId/toId/type/color/icon).

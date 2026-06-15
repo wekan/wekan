@@ -272,10 +272,11 @@ test.describe('Red Strings – card dependency overlay', () => {
     await expect.poll(() => depOf() && depOf().icon, { timeout: 10_000 }).toBe('lock');
   });
 
-  test('drag-to-connect: dragging from one card to another creates a dependency', async ({ page }) => {
-    // No dependencies to start; connect mode will create one by dragging.
+  test('drag-to-connect: dragging a card connect-handle onto another card creates a dependency', async ({ page }) => {
+    // No dependencies to start; dragging the handle will create one.
     db.setCardDependencies({ cardId: alphaId, dependsOn: [] });
     db.setCardDependencies({ cardId: betaId, dependsOn: [] });
+    // The connect handle shows only when the overlay is on.
     db.setBoardShowDependencies({ boardId: board.boardId, value: true });
 
     await loginWithToken(page, owner.id, owner.token);
@@ -287,28 +288,23 @@ test.describe('Red Strings – card dependency overlay', () => {
         .forEach(el => el.remove()),
     );
 
-    // Enter Connect mode (the overlay starts capturing pointer events).
-    await page.locator('.js-toggle-dependency-connect').click();
-    await expect
-      .poll(() =>
-        page.evaluate(() =>
-          document
-            .querySelector('.js-dependency-overlay')
-            ?.classList.contains('is-connecting'),
-        ),
-        { timeout: 10_000 },
-      )
-      .toBe(true);
+    // Reveal the source card's connect handle and drag it onto the target card.
+    const aCard = page.locator(`[data-card-id="${alphaId}"]`);
+    await aCard.scrollIntoViewIfNeeded();
+    await aCard.hover();
+    const handle = page.locator(
+      `[data-card-id="${alphaId}"] .js-dependency-connect-handle`,
+    );
+    await handle.waitFor({ timeout: 15_000 });
 
-    // Drag from the PI Alpha minicard to the PI Beta minicard.
-    const a = await page.locator(`[data-card-id="${alphaId}"]`).boundingBox();
+    const h = await handle.boundingBox();
     const b = await page.locator(`[data-card-id="${betaId}"]`).boundingBox();
-    await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
+    await page.mouse.move(h.x + h.width / 2, h.y + h.height / 2);
     await page.mouse.down();
     await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 10 });
     await page.mouse.up();
 
-    // Alpha now depends on Beta.
+    // Alpha now depends on Beta — and the board's cards stayed clickable (no mode).
     await expect
       .poll(
         () => (db.getCard(alphaId).cardDependencies || []).map(d => d.cardId),

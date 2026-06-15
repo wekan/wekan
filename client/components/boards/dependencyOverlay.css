@@ -10,26 +10,41 @@
   overflow: visible;
 }
 
+/* #3392: the overlay SVG stays click-through, but each line is clickable (to
+   open the edit/delete popup) even though its container is pointer-events:none. */
 .dependency-line {
-  pointer-events: none;
-}
-
-/* #3392: drag-to-connect ("Connect") mode — the overlay captures pointer events
-   so the user can drag from card to card and click lines to edit them. */
-.dependency-overlay.is-connecting {
-  pointer-events: auto;
-  cursor: crosshair;
-  background: rgba(235, 20, 76, 0.04);
-}
-
-.dependency-overlay.is-connecting .dependency-line {
   pointer-events: stroke;
   cursor: pointer;
-  stroke-width: 3;
 }
 
 .dependency-temp-line {
   pointer-events: none;
+}
+
+/* #3392: drag-to-connect handle on the minicard (no mode — cards stay
+   clickable). Shown on hover; drag it onto another card to create a link. */
+.minicard .dependency-connect-handle {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: -7px;
+  right: -7px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #eb144c;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  cursor: crosshair;
+  opacity: 0;
+  z-index: 101;
+}
+
+.minicard:hover .dependency-connect-handle {
+  opacity: 1;
 }
 
 .dependency-line-popup .dependency-field {

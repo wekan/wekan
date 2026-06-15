@@ -47,21 +47,22 @@ SVG overlay draws each dependency as a colored curve following the cards as you
 scroll/resize. By default the overlay is non-interactive, so cards stay
 clickable. The toggle (`showDependencies`) is saved on the board.
 
-### Drawing links by dragging (Connect mode)
+### Drawing links by dragging
 
-For a piplanning.io / Kendis / Miro-style experience, the board header has a
-**Connect** button (visible to members who can edit the board). Clicking it
-enters **Connect mode** (it also turns the overlay on):
+For a piplanning.io / Kendis / Miro-style experience, you can draw links directly
+on the board — **no mode to toggle, cards stay clickable**. When the dependency
+overlay is on (**Show dependencies**) and you can edit the board, each minicard
+shows a small **connect handle** (a dot on its right edge) when you hover it:
 
-- **Drag from one card to another** to create a dependency between them (a dashed
-  guide line follows the cursor while dragging). The new link uses the default
-  relation type/color/icon — edit it afterward as below.
+- **Drag the handle from one card onto another card** to create a dependency
+  between them (a dashed guide line follows the cursor while dragging). The new
+  link uses the default relation type/color/icon — edit it afterward as below.
 - **Click a connection line** to open a small editor to change its **relation
   type**, **color** and **icon**, or **delete** the link.
-- While Connect mode is on, the overlay captures clicks (so dragging/line-editing
-  works); click **Done connecting** to return to normal board interaction.
 
-Connect mode is a transient per-user editing mode — it is not saved on the board.
+Everything else on the board keeps working normally while you do this — only the
+handle starts a drag, and only the lines themselves are clickable; the rest of
+the overlay is click-through.
 
 ### Filter
 

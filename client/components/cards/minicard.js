@@ -24,6 +24,13 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  // #3392: show a drag-to-connect handle on the minicard when the board's
+  // dependency overlay is on and the user can edit the board. Dragging it onto
+  // another card creates a dependency (handled in dependencyOverlay.js).
+  showDependencyConnectHandle() {
+    const board = ReactiveCache.getBoard(this.boardId);
+    return !!(board && board.showDependencies && Utils.canModifyBoard());
+  },
   // #3392: PI Program Board "Red Strings". Show a small badge on the minicard
   // when a card has dependencies: the first dependency's icon and color plus the
   // total count.
