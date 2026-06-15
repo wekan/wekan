@@ -128,6 +128,36 @@ def load_return_type_jsdoc_json(data):
     return json.loads(data)
 
 
+def static_route_path(node):
+    '''Return the URL path string for a route's path-argument AST node, or None
+    if it cannot be resolved statically.
+
+    Handles plain string literals (`'/api/...'`) and template literals
+    (`` `/api/boards/:boardId/export/${format}` ``): a `${identifier}` segment
+    becomes a `:identifier` path parameter (which the existing `:name` -> `{name}`
+    conversion then turns into an OpenAPI path parameter). A template literal with
+    a non-identifier interpolation cannot be documented and yields None.'''
+    if node is None:
+        return None
+    value = getattr(node, 'value', None)
+    if value is not None:
+        return value
+    if getattr(node, 'type', None) == 'TemplateLiteral':
+        quasis = getattr(node, 'quasis', None) or []
+        exprs = getattr(node, 'expressions', None) or []
+        parts = []
+        for i, quasi in enumerate(quasis):
+            parts.append((quasi.value.cooked if quasi.value else '') or '')
+            if i < len(exprs):
+                expr = exprs[i]
+                if getattr(expr, 'type', None) == 'Identifier':
+                    parts.append(':' + expr.name)
+                else:
+                    return None
+        return ''.join(parts)
+    return None
+
+
 class EntryPoint(object):
     def __init__(self, schema, method_name, path_node, body_node, loc_node):
         self.schema = schema
@@ -166,7 +196,7 @@ class EntryPoint(object):
         schema.used = True
 
     def compute_path(self):
-        return self._path.value.rstrip('/')
+        return static_route_path(self._path).rstrip('/')
 
     def log(self, message, level):
         if self._raw_doc is None:
@@ -1032,6 +1062,11 @@ def parse_schemas(schemas_dirs):
             route = extract_route(call)
             if route is not None:
                 method_name, path_node, body_node = route
+                if static_route_path(path_node) is None:
+                    logger.warning(
+                        '%s: skipping route with a non-static path that cannot be '
+                        'documented (dynamic template literal).', path)
+                    continue
                 route_calls.append((method_name, path_node, body_node, call))
 
         if not route_calls:
