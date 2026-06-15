@@ -283,6 +283,7 @@
   "cardDeletePopup-title": "Delete Card?",
   "cardArchivePopup-title": "Archive Card?",
   "cardDetailsActionsPopup-title": "Card Actions",
+  "cardDependenciesPopup-title": "Add dependency",
   "cardLabelsPopup-title": "Labels",
   "cardMembersPopup-title": "Members",
   "cardMorePopup-title": "More",
