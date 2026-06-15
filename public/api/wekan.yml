@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.45
+  version: v9.46
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1022,6 +1022,32 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/export/{format}:
+    get:
+      operationId: exportExternal
+      summary: Export the board as a NextCloud Deck / OpenProject / GitHub /  GitLab / Gitea / Forgejo style JSON.
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+        - name: format
+          in: path
+          description: the format value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/export/csv:
     get:
       operationId: exportCSV/TSV
@@ -1031,6 +1057,30 @@ paths:
 
          See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
          for detailed explanations
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/export/kanboard:
+    get:
+      operationId: exportKanboard
+      summary: Export the board as a Kanboard-style JSON (columns + tasks).
+      description: |
+        Pass the loginToken as the `authToken` query param for private
+         boards: `/api/boards/:boardId/export/kanboard?authToken=:token`.
       tags:
         - Boards
       parameters:
@@ -1065,6 +1115,30 @@ paths:
           in: path
           description: |
             the ID of the board we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/exportPDF:
+    get:
+      operationId: exportBoardPDF
+      summary: Export a whole board to PDF (board title, lists and their cards).
+      description: |
+        Pass the loginToken as the `authToken` query param for private
+         boards: `/api/boards/:boardId/exportPDF?authToken=:token`.
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board to export
           type: string
           required: true
       produces:
@@ -1589,6 +1663,16 @@ paths:
         - name: archive
           in: formData
           description: the archive value
+          type: string
+          required: true
+        - name: stickers
+          in: formData
+          description: the stickers value
+          type: string
+          required: true
+        - name: locations
+          in: formData
+          description: the locations value
           type: string
           required: true
         - name: board
@@ -2243,6 +2327,222 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/rules:
+    get:
+      operationId: get_board_rules
+      summary: Get the list of automation rules of a board
+      tags:
+        - Rules
+        - Rules
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                title:
+                  type: string
+                trigger:
+                  type: object
+                action:
+                  type: object
+    post:
+      operationId: new_board_rule
+      summary: Add an automation rule to a board
+      description: |
+        The trigger and action are embedded inline. See the Rules
+         documentation for the available trigger activityTypes and action actionTypes.
+      tags:
+        - Rules
+        - Rules
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: |
+            the rule title
+          type: string
+          required: true
+        - name: trigger
+          in: formData
+          description: |
+            the trigger document (must include activityType)
+          type: object
+          required: true
+        - name: action
+          in: formData
+          description: |
+            the action document (must include actionType)
+          type: object
+          required: true
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              triggerId:
+                type: string
+              actionId:
+                type: string
+  /api/boards/{board}/rules/{rule}:
+    get:
+      operationId: get_board_rule
+      summary: Get a single automation rule
+      tags:
+        - Rules
+        - Rules
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: rule
+          in: path
+          description: |
+            the rule ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              title:
+                type: string
+              trigger:
+                type: object
+              action:
+                type: object
+    put:
+      operationId: edit_board_rule
+      summary: Edit an automation rule
+      description: |
+        Any of title, trigger and action may be supplied; the trigger
+         and action documents are replaced ($set) when present.
+      tags:
+        - Rules
+        - Rules
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: |
+            the new rule title
+          type: string
+          required: false
+        - name: trigger
+          in: formData
+          description: |
+            the new trigger document
+          type: object
+          required: false
+        - name: action
+          in: formData
+          description: |
+            the new action document
+          type: object
+          required: false
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: rule
+          in: path
+          description: |
+            the rule ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+    delete:
+      operationId: delete_board_rule
+      summary: Remove an automation rule (and its trigger and action)
+      tags:
+        - Rules
+        - Rules
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: rule
+          in: path
+          description: |
+            the rule ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/swimlanes:
     get:
       operationId: get_board_swimlanes
@@ -2471,6 +2771,88 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/import:
+    post:
+      operationId: import_board
+      summary: Import a whole board (with its lists, cards, swimlanes, custom fields  and automation rules) from a WeKan board export
+      description: |
+        Accepts a WeKan board export JSON (the body returned by
+         `GET /api/boards/:boardId/export`) and recreates the board — including its
+         **rules / triggers / actions (workflows)** and other data — in the
+         authenticated user's account. Combined with the export endpoint, this allows
+         migrating all boards (and their workflows) from another WeKan instance over the
+         REST API: list the remote boards, export each, then POST each here. An optional
+         `membersMapping` ({ sourceUserId: localUserId }) maps members; unmapped members
+         are simply not added.
+      tags:
+        - Boards
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: formData
+          description: |
+            the WeKan board export object
+          type: object
+          required: true
+        - name: membersMapping
+          in: formData
+          description: |
+            map of source user id -> local user id
+          type: object
+          required: false
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+  /api/boards/import/{source}:
+    post:
+      operationId: import_board_from
+      summary: Import a board from another tool's export
+      description: |
+        Generalized import: `:source` is one of `trello`, `wekan`, `csv`,
+         `jira`, `kanboard`, `excel`, `deck` (NextCloud Deck), `openproject`, `github`,
+         `gitlab`, `gitea`, `forgejo`, `asana`, `zenkit`. The request body is that
+         tool's export JSON (sent directly, or wrapped as `{ "board": <export> }`);
+         an optional `membersMapping` maps members. Reuses the same import engine as
+         the UI.
+      tags:
+        - Boards
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: source
+          in: path
+          description: |
+            the import source
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards_count:
     get:
       operationId: get_boards_count
@@ -2791,6 +3173,89 @@ paths:
           description: Card or board not found
         '413':
           description: Attachment exceeds the API upload limit
+  /api/attachment/upload-background:
+    post:
+      operationId: upload_board_background
+      summary: Upload a board background image
+      description: |
+        Upload an image and set it as the board's active background. The file
+        content is sent base64-encoded in the JSON body and stored using the
+        current Admin Panel / Attachments / Default Storage backend (the same
+        storage used by card attachment uploads). Board-admin is required.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - boardId
+              - fileData
+              - fileName
+            properties:
+              boardId:
+                type: string
+                description: ID of the board
+              fileName:
+                type: string
+                description: Name to store the image under
+              fileType:
+                type: string
+                description: MIME type of the image (optional, defaults to image/png)
+              fileData:
+                type: string
+                description: Base64-encoded image contents
+      responses:
+        '200':
+          description: Background uploaded and set as the board background
+        '400':
+          description: Missing or invalid parameters
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Uploads disabled or caller is not a board admin
+        '404':
+          description: Board not found
+        '413':
+          description: Background exceeds the API upload limit
+  /api/attachment/download-background/{boardId}:
+    get:
+      operationId: download_board_background
+      summary: Download the board's current background image as base64
+      description: |
+        Returns the board's active background image metadata together with the
+        image bytes base64-encoded in `base64Data`. Requires board membership.
+      produces:
+        - application/json
+      tags:
+        - Attachments
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+          description: ID of the board
+      responses:
+        '200':
+          description: Background image returned
+        '401':
+          description: Missing or invalid authentication
+        '403':
+          description: Downloads disabled or caller is not a board member
+        '404':
+          description: Board has no background, or board not found
+        '413':
+          description: Background exceeds the API download limit
   /api/attachment/download/{attachmentId}:
     get:
       operationId: download_attachment
@@ -3116,6 +3581,84 @@ paths:
           description: Not a member of the attachment's board
         '404':
           description: Attachment not found
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Board card settings (server/models/boards.js)
+  #
+  # Registered with WebApp.handlers.get/put but the body fields are read in a
+  # loop, so they are documented here by hand. Boolean keys are the board card
+  # display toggles (allows*). Numeric keys configure card aging (#3984):
+  # cardAging (bool) plus cardAgingDays1/2/3 (fade-tier day thresholds).
+  # ───────────────────────────────────────────────────────────────────────────
+  /api/boards/{boardId}/cardSettings:
+    get:
+      operationId: get_board_card_settings
+      summary: Get a board's card settings (display toggles + card aging)
+      produces:
+        - application/json
+      tags:
+        - Boards
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Card settings returned
+        '401':
+          description: Missing or invalid authentication
+        '404':
+          description: Board not found
+    put:
+      operationId: edit_board_card_settings
+      summary: Update a board's card settings (display toggles + card aging)
+      description: |
+        Boolean keys (the allows* display toggles and `cardAging`) accept true/false.
+        Numeric keys `cardAgingDays1`, `cardAgingDays2`, `cardAgingDays3` set the
+        three card-aging fade-tier day thresholds (default 7 / 14 / 28).
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Boards
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              cardAging:
+                type: boolean
+                description: Enable visual card aging on the board
+              cardAgingDays1:
+                type: integer
+                description: Idle days for the first (lightest) fade tier
+              cardAgingDays2:
+                type: integer
+                description: Idle days for the second fade tier
+              cardAgingDays3:
+                type: integer
+                description: Idle days for the third (heaviest) fade tier
+      responses:
+        '200':
+          description: Updated card settings returned
+        '400':
+          description: No recognized card settings in body
+        '401':
+          description: Missing or invalid authentication
+        '404':
+          description: Board not found
 definitions:
   Boards:
     type: object
@@ -3217,6 +3760,17 @@ definitions:
         description: |
            Show card counter per list
         type: boolean
+      cardAging:
+        description: |
+           #3984: Visually fade cards that have not been touched for a while
+           (Trello-style "card aging"), based on the card's dateLastActivity.
+        type: boolean
+      cardAgingDays1:
+        type: number
+      cardAgingDays2:
+        type: number
+      cardAgingDays3:
+        type: number
       allowsBoardMemberList:
         description: |
            Show board member list
@@ -3483,6 +4037,10 @@ definitions:
       - permission
       - color
       - allowsCardCounterList
+      - cardAging
+      - cardAgingDays1
+      - cardAgingDays2
+      - cardAgingDays3
       - allowsBoardMemberList
       - migrationVersion
       - allowsSubtasks
@@ -4374,6 +4932,37 @@ definitions:
       - value
       - enabled
       - soft
+  Rules:
+    type: object
+    properties:
+      title:
+        type: string
+      triggerId:
+        type: string
+      actionId:
+        type: string
+      boardId:
+        type: string
+      buttonType:
+        type: string
+        enum:
+          - card
+          - board
+        x-nullable: true
+      buttonLabel:
+        type: string
+        x-nullable: true
+      createdAt:
+        type: string
+        x-nullable: true
+      modifiedAt:
+        type: string
+    required:
+      - title
+      - triggerId
+      - actionId
+      - boardId
+      - modifiedAt
   Swimlanes:
     type: object
     description:  A swimlane is an line in the kaban board.
