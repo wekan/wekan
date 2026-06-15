@@ -41,6 +41,17 @@ and adds the following new features:
   each of its dependencies, following the live card positions on scroll/resize. The
   overlay is non-interactive (`pointer-events: none`) so cards stay clickable. Fixes
   \#3392. Thanks to CodeFreezr, dbt4u, xet7 and Claude.
+- [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
+  Domain](https://github.com/wekan/wekan/commit/fc9e8674d89ec5b045f2e2c1b14fade9e92baf0d):
+  a new admin-only "Shared templates" tab under Admin Panel → People lists users'
+  shareable template boards, grouped by Organization, Team or email Domain. The three
+  scope checkboxes are live view filters (default unchecked); checking one or more shows
+  the matching groups, and only users whose Templates board is non-empty are listed. A new
+  admin-only `adminSharedTemplates` method enumerates each user's linked template boards
+  (the `cardType-linkedBoard` cards in their Board Templates swimlane) and returns them with
+  the user's orgs/teams/email domains; the boards are shown as links into each template
+  board. Covered by an e2e suite (`tests/playwright/specs/26-shared-templates.e2e.js`).
+  Fixes #3313. Thanks to xet7 and Claude.
 
 and fixes the following bugs:
 
