@@ -1572,43 +1572,50 @@ Cards.helpers({
       color: options.color || (existing && existing.color),
       icon: options.icon || (existing && existing.icon),
     });
-    if (existing) {
-      return Cards.updateAsync(
-        { _id: this._id, 'cardDependencies.cardId': targetCardId },
-        {
-          $set: {
-            'cardDependencies.$.type': entry.type,
-            'cardDependencies.$.color': entry.color,
-            'cardDependencies.$.icon': entry.icon,
-          },
-        },
-      );
-    }
+    // Read-modify-write the whole array and update by _id only: the client
+    // (untrusted code) may not updateAsync with a selector / positional `$`.
+    const next = existing
+      ? deps.map(dep => (dep.cardId === targetCardId ? entry : dep))
+      : [...deps, entry];
     return Cards.updateAsync(this._id, {
-      $push: { cardDependencies: entry },
+      $set: { cardDependencies: next },
     });
   },
 
   // #3392: Update a single property (type/color/icon) of an existing dependency.
+  // Updates by _id only (positional `$` selector updates are forbidden on the
+  // client), so the whole array is rewritten.
   setDependencyProps(targetCardId, props = {}) {
-    const modifier = {};
-    ['type', 'color', 'icon'].forEach(key => {
-      if (props[key] !== undefined) {
-        modifier[`cardDependencies.$.${key}`] = props[key];
+    const deps = this.getDependencies();
+    let changed = false;
+    const next = deps.map(dep => {
+      if (dep.cardId !== targetCardId) {
+        return dep;
       }
+      changed = true;
+      return normalizeDependency({
+        cardId: dep.cardId,
+        type: props.type !== undefined ? props.type : dep.type,
+        color: props.color !== undefined ? props.color : dep.color,
+        icon: props.icon !== undefined ? props.icon : dep.icon,
+      });
     });
-    if (Object.keys(modifier).length === 0) {
+    if (!changed) {
       return undefined;
     }
-    return Cards.updateAsync(
-      { _id: this._id, 'cardDependencies.cardId': targetCardId },
-      { $set: modifier },
-    );
+    return Cards.updateAsync(this._id, {
+      $set: { cardDependencies: next },
+    });
   },
 
   removeDependency(targetCardId) {
+    // Rewrite the array and update by _id only (no selector / positional `$`
+    // updates from untrusted client code).
+    const next = this.getDependencies().filter(
+      dep => dep.cardId !== targetCardId,
+    );
     return Cards.updateAsync(this._id, {
-      $pull: { cardDependencies: { cardId: targetCardId } },
+      $set: { cardDependencies: next },
     });
   },
 
