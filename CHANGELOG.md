@@ -73,7 +73,16 @@ and adds the following new features:
   toggle, typed lines, minicard badge, copyCard preservation, import matching) and
   `28-dependencies-rest` (REST CRUD + schema validation), plus mocha unit tests for
   the metadata helpers, the REST OpenAPI annotations, the filter selector, the
-  cross-board move cleanup and the Jira issue-link mapping. Documented in
+  cross-board move cleanup and the Jira issue-link mapping.
+  [Fixed editing an existing dependency from the card detail throwing a client
+  403](https://github.com/wekan/wekan/commit/1db64f4ddeacb0f0ac130726a306df5dfce7fd19)
+  ("Untrusted code may only updateAsync documents by ID") — changing a relation's
+  type/color/icon or removing it now rewrites the `cardDependencies` array and
+  updates by `_id` instead of using a forbidden positional-`$` selector update, and
+  [fixed the dependency icon picker not applying the chosen
+  icon](https://github.com/wekan/wekan/commit/e8a8007814d777f2c89d26cfdc878912c7072c9b)
+  (the popup now edits the source card, not the dependency row), with an e2e test
+  for editing a dependency's type/color/icon. Documented in
   [Features/RedStrings](https://github.com/wekan/wekan/blob/main/docs/Features/RedStrings/RedStrings.md).
   Fixes \#3392. Thanks to CodeFreezr, dbt4u, helioguardabaxo, xet7 and Claude.
 - [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
