@@ -607,10 +607,34 @@ Template.rolesGeneral.events({
 
 // Feature #3313 "Shared templates": admin view of users' shareable template
 // boards, grouped by Organization / Team / email Domain. The three checkboxes
-// are LIVE view filters (no Save button); each toggles a grouping dimension.
+// are LIVE view filters (no Save button) — each toggles a grouping dimension and
+// the selection is remembered (persisted in localStorage) so it survives reload.
+const SHARED_TEMPLATES_SCOPE_KEY = 'sharedTemplatesScopes';
+const SHARED_TEMPLATES_VALID_SCOPES = ['organizations', 'teams', 'domains'];
+
+function loadSharedTemplatesScopes() {
+  try {
+    const raw = window.localStorage.getItem(SHARED_TEMPLATES_SCOPE_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr)
+      ? arr.filter(s => SHARED_TEMPLATES_VALID_SCOPES.includes(s))
+      : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveSharedTemplatesScopes(scopes) {
+  try {
+    window.localStorage.setItem(SHARED_TEMPLATES_SCOPE_KEY, JSON.stringify(scopes));
+  } catch (e) {
+    // ignore storage errors (e.g. private mode)
+  }
+}
+
 Template.templatesGeneral.onCreated(function () {
-  // Default UNSELECTED: nothing shown until the admin checks a scope.
-  this.selectedScopes = new ReactiveVar([]);
+  // Restore the previously-checked scopes (empty by default → nothing shown).
+  this.selectedScopes = new ReactiveVar(loadSharedTemplatesScopes());
   // Raw rows returned by the admin-only method (one entry per user whose
   // Templates board is non-empty).
   this.sharedTemplates = new ReactiveVar([]);
@@ -714,6 +738,7 @@ Template.templatesGeneral.events({
       current.push(scope);
     }
     tpl.selectedScopes.set(current);
+    saveSharedTemplatesScopes(current);
   },
 });
 

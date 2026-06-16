@@ -150,4 +150,23 @@ test.describe('Admin – shared templates', () => {
     await expect(page.locator('a.js-shared-template-link')).toHaveCount(0);
     await expect(page.locator('.shared-templates-hint')).toBeVisible();
   });
+
+  test('a checked scope is remembered across a reload (persisted, no save button)', async ({ page, adminUser }) => {
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await openTemplatesTab(page);
+
+    await page.locator('a.js-toggle-template-scope[data-scope="teams"]').click();
+    await expect(scopeCheckbox(page, 'teams')).toHaveClass(/is-checked/);
+
+    // Reload and reopen the tab: the selection must still be checked and applied.
+    await openTemplatesTab(page);
+    await expect(scopeCheckbox(page, 'teams')).toHaveClass(/is-checked/);
+    await expect(
+      page.locator('.shared-templates-group h5', { hasText: TEAM.teamDisplayName }),
+    ).toBeVisible();
+
+    // Clean up the persisted state so other tests start unchecked.
+    await page.locator('a.js-toggle-template-scope[data-scope="teams"]').click();
+    await expect(scopeCheckbox(page, 'teams')).not.toHaveClass(/is-checked/);
+  });
 });
