@@ -103,6 +103,11 @@ test.describe('Cards – operations', () => {
     const targetTitle = await bp.listHeader(listB).innerText();
     await cp.moveCard(null, targetTitle.trim());
 
+    // Wait for the move to settle (card removed from listA, rendered in listB)
+    // before snapshotting titles — otherwise we can catch the card mid-flight.
+    await expect(bp.minicard(listB, 'Alpha Card')).toBeVisible({ timeout: 10_000 });
+    await expect(bp.minicard(listA, 'Alpha Card')).not.toBeVisible({ timeout: 5_000 });
+
     const titlesA = await bp.getCardTitles(listA);
     const titlesB = await bp.getCardTitles(listB);
     const occurrences = [...titlesA, ...titlesB].filter(t => t.includes('Alpha Card')).length;
@@ -268,7 +273,14 @@ test.describe('Cards – operations', () => {
     await bp.openAddCardBottom(listC);
     await bp.submitNewCard(listC, 'New Bottom Card');
 
-    const titles = await bp.getCardTitles(listC);
-    expect(titles[titles.length - 1]).toContain('New Bottom Card');
+    // submitNewCard only waits for the card to exist, not for its sort position
+    // to settle. Poll until the reactive re-sort places it last in the list.
+    await expect.poll(
+      async () => {
+        const titles = await bp.getCardTitles(listC);
+        return titles[titles.length - 1] || '';
+      },
+      { timeout: 10_000 },
+    ).toContain('New Bottom Card');
   });
 });

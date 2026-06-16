@@ -95,12 +95,14 @@ async function waitForMeteor(page) {
 
 /** Navigate to a board and wait for it to render lists. */
 async function openBoard(page, boardId, slug) {
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  // Up to 5 attempts so the slowest browser (WebKit) survives the contention
+  // of the 3-browser parallel run against a single shared dev server.
+  for (let attempt = 1; attempt <= 5; attempt++) {
     await page.goto(`${BASE_URL}/b/${boardId}/${slug}`, { waitUntil: 'commit' });
     const hasList = await page
       .locator('.js-list:not(.js-list-composer)')
       .first()
-      .waitFor({ timeout: 15_000 })
+      .waitFor({ timeout: 20_000 })
       .then(() => true)
       .catch(() => false);
     if (hasList) return;

@@ -32,6 +32,7 @@ Thumbs.db
 ehthumbs.db
 .eslintcache
 .meteor/local
+.meteor/local-test
 .devcontainer/docker-compose.extend.yml
 .devcontainer/volumes*/
 .coverage
@@ -64,3 +65,8 @@ test-results/
 
 # Tools like mongosh etc so that they work inside Flatpak sandbox
 .tools/
+
+# Meteor custom local directory (METEOR_LOCAL_DIR)
+_build-local-test
+*/build-assets-local-test
+*/build-chunks-local-test

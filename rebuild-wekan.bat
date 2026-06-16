@@ -48,9 +48,10 @@ echo  12^) Test Node E2E regressions ^(tests\e2e\list-regressions.js, needs runn
 echo  13^) Test Playwright Chromium
 echo  14^) Test Playwright Firefox
 echo  15^) Test Playwright Webkit
-echo  16^) Check floating promises guard ^(@typescript-eslint/no-floating-promises + auth await scan^)
-echo  17^) Save Meteor dependency chain to ..\meteor-deps.txt
-echo  18^) Quit
+echo  16^) Test Playwright ALL browsers in parallel ^(Chromium + Firefox + WebKit^), server already running on :3000
+echo  17^) Check floating promises guard ^(@typescript-eslint/no-floating-promises + auth await scan^)
+echo  18^) Save Meteor dependency chain to ..\meteor-deps.txt
+echo  19^) Quit
 echo ==========================================================
 set "choice="
 set /p "choice=Please enter your choice: "
@@ -70,9 +71,10 @@ if "%choice%"=="12" goto test_e2e
 if "%choice%"=="13" goto test_pw_chromium
 if "%choice%"=="14" goto test_pw_firefox
 if "%choice%"=="15" goto test_pw_webkit
-if "%choice%"=="16" goto check_floating
-if "%choice%"=="17" goto save_deps
-if "%choice%"=="18" goto end
+if "%choice%"=="16" goto test_pw_parallel
+if "%choice%"=="17" goto check_floating
+if "%choice%"=="18" goto save_deps
+if "%choice%"=="19" goto end
 echo invalid option
 goto menu
 
@@ -162,33 +164,30 @@ goto end
 
 REM ===========================================================================
 :test_all
-echo Running ALL tests: import regression + Mocha (server-side) + Node E2E + Playwright (Chromium, Firefox, WebKit).
+echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs in PARALLEL with live progress.
+echo Mocha uses its own build dir (.meteor\local-test) so it runs at the same time as the :3000 server, which keeps .meteor\local.
 curl -fsS http://127.0.0.1:3000 >nul 2>&1
 if not errorlevel 1 (
 	echo ERROR: Port 3000 is already in use. Stop any running dev server before running this option.
 	goto end
 )
 
-set "TOTAL=5"
 set "FAILED=0"
-set "R_IMPORT=" & set "R_MOCHA=" & set "R_SERVER=" & set "R_E2E="
-set "R_CHROMIUM=" & set "R_FIREFOX=" & set "R_WEBKIT="
+set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
+REM Clear completion flags from any previous run.
+del /q ".done-mocha" ".done-import" ".done-e2e" ".done-browsers" 2>nul
 
+REM Mocha and the import regression do not need the :3000 server, so start
+REM them now (each in its own minimized window; /D sets the working dir so all
+REM paths are relative and space-safe). Each writes a log and, on exit, its
+REM return code to .done-<job>, which the poll loop below watches.
 echo.
-echo ==^> [1/%TOTAL%] Import regression (node, no server)
-call node tests\wekanCreator.import.test.js
-if errorlevel 1 ( set "R_IMPORT=FAIL" & set "FAILED=1" ) else ( set "R_IMPORT=PASS" )
-
-echo.
-echo ==^> [2/%TOTAL%] Mocha unit + security + API-logic tests (server-side, meteor test, port 3100)
-call meteor test --once --driver-package meteortesting:mocha --port 3100
-if errorlevel 1 ( set "R_MOCHA=FAIL" & set "FAILED=1" ) else ( set "R_MOCHA=PASS" )
-
-echo.
-echo ==^> [3/%TOTAL%] Starting WeKan server on http://localhost:3000 (WITH_API=true)
-REM Set the dev env in this shell; the started child process inherits it,
-REM which avoids fragile nested quotes inside cmd /c.
+echo ==^> Starting Mocha (separate .meteor\local-test build, port 3100) and import regression in parallel.
 call :set_dev_env
+start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& call meteor test --once --driver-package meteortesting:mocha --port 3100 1>..\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
+start "Wekan import" /MIN /D "%REPO%" cmd /c "call node tests\wekanCreator.import.test.js 1>..\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
+
+echo ==^> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor\local)
 set "ROOT_URL=http://localhost:3000"
 start "WekanTestServer" /MIN /D "%REPO%" cmd /c "meteor run --port 3000 1>..\wekan-test-server.log 2>&1"
 
@@ -206,49 +205,52 @@ echo.
 
 if "!SERVER_READY!"=="0" (
 	echo FAIL: server did not become ready on http://localhost:3000 ^(see ..\wekan-test-server.log^)
-	set "R_SERVER=FAIL" & set "FAILED=1"
-	set "R_E2E=SKIP"
-	set "R_CHROMIUM=SKIP" & set "R_FIREFOX=SKIP" & set "R_WEBKIT=SKIP"
+	set "S_e2e=SKIP" & set "S_browsers=SKIP" & set "FAILED=1"
 ) else (
-	set "R_SERVER=PASS"
-	echo.
-	echo ==^> [4/%TOTAL%] Node E2E regressions ^(tests\e2e\list-regressions.js^)
-	call meteor npm run test:e2e
-	if errorlevel 1 ( set "R_E2E=FAIL" & set "FAILED=1" ) else ( set "R_E2E=PASS" )
+	echo ==^> Server is up: starting Node E2E and Playwright ^(Chromium + Firefox + WebKit, --workers=3^) in parallel.
+	start "Wekan e2e" /MIN /D "%REPO%" cmd /c "call meteor npm run test:e2e 1>..\wekan-alltests-e2e.log 2>&1 & if errorlevel 1 (echo FAIL>.done-e2e) else (echo PASS>.done-e2e)"
+	start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=3 --reporter=list 1>..\..\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
+)
 
-	echo.
-	echo ==^> [5/%TOTAL%] Playwright browser specs ^(Chromium + Firefox + WebKit^)
-
-	echo.
-	echo -- Playwright Chromium --
-	call :run_pw_all chromium
-	if errorlevel 1 ( set "R_CHROMIUM=FAIL" & set "FAILED=1" ) else ( set "R_CHROMIUM=PASS" )
-
-	echo.
-	echo -- Playwright Firefox --
-	call :run_pw_all firefox
-	if errorlevel 1 ( set "R_FIREFOX=FAIL" & set "FAILED=1" ) else ( set "R_FIREFOX=PASS" )
-
-	echo.
-	echo -- Playwright WebKit --
-	call :run_pw_all webkit
-	if errorlevel 1 ( set "R_WEBKIT=FAIL" & set "FAILED=1" ) else ( set "R_WEBKIT=PASS" )
+REM Live progress: re-print a status line every ~3s until all expected jobs
+REM have written their .done flag (cmd has no native wait).
+echo Live progress (refreshes every few seconds) - RUN / PASS / FAIL per job:
+:wait_all
+call :jstate mocha
+call :jstate import
+if "!SERVER_READY!"=="1" ( call :jstate e2e & call :jstate browsers )
+echo   mocha=!S_mocha!  import=!S_import!  e2e=!S_e2e!  browsers=!S_browsers!
+set "ALLDONE=1"
+if not exist ".done-mocha" set "ALLDONE=0"
+if not exist ".done-import" set "ALLDONE=0"
+if "!SERVER_READY!"=="1" (
+	if not exist ".done-e2e" set "ALLDONE=0"
+	if not exist ".done-browsers" set "ALLDONE=0"
+)
+if "!ALLDONE!"=="0" (
+	ping -n 4 127.0.0.1 >nul
+	goto wait_all
 )
 
 echo.
 echo Stopping WeKan test server.
 taskkill /FI "WINDOWTITLE eq WekanTestServer*" /T /F >nul 2>&1
 
+REM Final pass/fail per job (RUN means it never wrote a flag = treat as FAIL).
+if "!S_mocha!"=="FAIL" set "FAILED=1"
+if "!S_import!"=="FAIL" set "FAILED=1"
+if "!S_e2e!"=="FAIL" set "FAILED=1"
+if "!S_browsers!"=="FAIL" set "FAILED=1"
+
 echo.
 echo ==================== TEST SUMMARY ====================
-call :report "!R_IMPORT!"    "Import regression"
-call :report "!R_MOCHA!"     "Mocha (server-side)"
-call :report "!R_SERVER!"    "Server startup"
-call :report "!R_E2E!"       "Node E2E regressions"
-call :report "!R_CHROMIUM!"  "Playwright Chromium"
-call :report "!R_FIREFOX!"   "Playwright Firefox"
-call :report "!R_WEBKIT!"    "Playwright WebKit"
+call :report "!S_mocha!"     "Mocha (server-side)"
+call :report "!S_import!"    "Import regression"
+if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" ) else ( call :report "FAIL" "Server startup" )
+call :report "!S_e2e!"       "Node E2E regressions"
+call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)"
 echo =====================================================
+echo (per-job logs: ..\wekan-alltests-^<mocha^|import^|e2e^|browsers^>.log ; server: ..\wekan-test-server.log)
 if "!FAILED!"=="0" ( echo RESULT: All tests passed. ) else ( echo RESULT: Some tests FAILED ^(see details above^). )
 goto end
 
@@ -295,6 +297,35 @@ if /i "%INSTALL_DEPS%"=="y" (
 	call meteor npm exec playwright install %PW_PROJECT%
 )
 call meteor npm exec playwright test -- --project=%PW_PROJECT%
+goto end
+
+REM ===========================================================================
+:test_pw_parallel
+echo Running Chromium, Firefox and WebKit Playwright suites at the same time.
+echo NOTE: needs a WeKan server already running on http://localhost:3000 (menu option 3).
+curl -fsS http://127.0.0.1:3000/sign-in >nul 2>&1
+if errorlevel 1 (
+	echo ERROR: WeKan does not appear to be running on http://localhost:3000.
+	echo        Start it first with menu option 3, then re-run this option.
+	goto end
+)
+
+set "INSTALL_DEPS="
+set /p "INSTALL_DEPS=Install Playwright test dependencies and browsers first? [y/N] "
+if /i "%INSTALL_DEPS%"=="y" (
+	pushd "%REPO%\tests\playwright"
+	call meteor npm install
+	call meteor npm exec playwright install
+	popd
+)
+
+REM All three browsers run natively on Windows, so a single Playwright run with
+REM 3 workers executes Chromium, Firefox and WebKit tests concurrently (no
+REM Docker, no background windows). WEKAN_PLAYWRIGHT_ALL=1 enables all projects.
+cd /d "%REPO%\tests\playwright"
+set "WEKAN_PLAYWRIGHT_ALL=1"
+call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=3 --reporter=list
+if errorlevel 1 ( echo RESULT: Some Playwright browsers FAILED ^(see details above^). ) else ( echo RESULT: All Playwright browsers passed. )
 goto end
 
 REM ===========================================================================
@@ -367,6 +398,13 @@ REM %1 = status (PASS/FAIL/SKIP or empty), %2 = name
 set "ST=%~1"
 if "%ST%"=="" set "ST=----"
 echo   %ST%   %~2
+exit /b 0
+
+:jstate
+REM %1 = job key. Sets S_<key> to RUN / PASS / FAIL from .done-<key>.
+REM Called repeatedly by the :test_all poll loop and once more for the summary.
+if not exist ".done-%1" ( set "S_%1=RUN" & exit /b 0 )
+set /p "S_%1="<".done-%1"
 exit /b 0
 
 REM ===========================================================================

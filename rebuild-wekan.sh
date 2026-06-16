@@ -76,7 +76,13 @@ function run_playwright_webkit_docker(){
 	echo "Expecting WeKan at ${WEKAN_BASE_URL:-http://127.0.0.1:3000} (container uses --network host)."
 	# Mount the whole repo so specs that reach the repo-root node_modules
 	# (e.g. @wekanteam/exceljs) and .tools resolve; run from tests/playwright.
+	# Run as the host user (--user) with a writable HOME so the container does
+	# not leave root-owned files under test-results/ (which would later make
+	# native Chromium/Firefox runs fail with "EACCES: permission denied, mkdir
+	# .../test-results/.playwright-artifacts-N").
 	docker run --rm --init --ipc=host --network host \
+		--user "$(id -u):$(id -g)" \
+		-e HOME=/tmp \
 		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
 		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
 		-e WEKAN_PLAYWRIGHT_ALL=1 \
@@ -86,6 +92,19 @@ function run_playwright_webkit_docker(){
 		-v "$reporoot":/repo -w /repo/tests/playwright \
 		"$image" \
 		sh -c 'export PATH=/repo/tests/playwright/node_modules/.bin:$PATH; exec npx playwright test --project=webkit "$@"' sh "$@"
+}
+
+# Reset test-results/ ownership when an older WebKit-in-Docker run left it owned
+# by root. Removal needs write permission on test-results/ itself (which the
+# host user lacks when it is root-owned), so this needs sudo; it is a no-op when
+# the directory is already writable or absent.
+function ensure_test_results_writable(){
+	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
+	[ -e "$pwdir/test-results" ] || return 0
+	[ -w "$pwdir/test-results" ] && return 0
+	echo "Fixing test-results/ ownership (left as root by an earlier Docker WebKit run)."
+	sudo chown -R "$(id -u):$(id -g)" "$pwdir/test-results" 2>/dev/null || \
+		sudo rm -rf "$pwdir/test-results" 2>/dev/null || true
 }
 
 # Print "<n> passed, <n> failed, ..." for a Playwright JSON report file.
@@ -107,9 +126,14 @@ function run_pw_all_browser(){
 	local browser="$1"
 	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
 	local json="test-results/all-tests-${browser}.json"
+	# Per-browser output dir so suites can run in parallel without their
+	# artifacts (.playwright-artifacts-N, screenshots, traces) colliding or
+	# wiping each other when Playwright clears its output dir at startup.
+	local outdir="test-results/${browser}"
+	ensure_test_results_writable
 	rm -f "$pwdir/$json"
 	if [ "$browser" = "webkit" ] && webkit_needs_docker; then
-		( cd "$pwdir" && export PLAYWRIGHT_JSON_OUTPUT_NAME="$json" && run_playwright_webkit_docker --reporter=list,json )
+		( cd "$pwdir" && export PLAYWRIGHT_JSON_OUTPUT_NAME="$json" && run_playwright_webkit_docker --output="$outdir" --reporter=list,json )
 		return $?
 	fi
 	(
@@ -120,9 +144,84 @@ function run_pw_all_browser(){
 			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
 		export WEKAN_PLAYWRIGHT_ALL=1
 		export PLAYWRIGHT_JSON_OUTPUT_NAME="$json"
-		PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project="$browser" --reporter=list,json
+		PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project="$browser" --output="$outdir" --reporter=list,json
 	)
 	return $?
+}
+
+# Run Chromium, Firefox and WebKit suites concurrently against a WeKan server
+# that is already running on http://localhost:3000 (menu option 3). Each suite
+# streams to ../wekan-playwright-<browser>.log; once all finish we print each
+# log followed by a per-browser PASS/FAIL summary. Tests seed their own random
+# users/boards and clean up by id, so running the three browsers at once is safe.
+function run_playwright_parallel(){
+	ORIG_HOME="$HOME"
+	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
+	ensure_test_results_writable
+
+	if ! curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then
+		echo "ERROR: WeKan does not appear to be running on http://localhost:3000."
+		echo "       Start it first with menu option 3, then re-run this option."
+		return 1
+	fi
+
+	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
+	case "$INSTALL_DEPS" in [Yy]*) ( cd "$pwdir" && meteor npm install ) ;; esac
+
+	echo "Running Chromium, Firefox and WebKit Playwright suites at the same time."
+	echo "Live output goes to ../wekan-playwright-<browser>.log; a summary prints when all finish."
+
+	# bash 3.2 (macOS) has no associative arrays, so track the three PIDs in
+	# plain variables instead of a map.
+	( run_pw_all_browser chromium ) > ../wekan-playwright-chromium.log 2>&1 &
+	local pid_chromium=$!
+	( run_pw_all_browser firefox  ) > ../wekan-playwright-firefox.log  2>&1 &
+	local pid_firefox=$!
+	( run_pw_all_browser webkit   ) > ../wekan-playwright-webkit.log   2>&1 &
+	local pid_webkit=$!
+	echo "  chromium pid $pid_chromium, firefox pid $pid_firefox, webkit pid $pid_webkit"
+
+	local rc_chromium rc_firefox rc_webkit
+	wait "$pid_chromium"; rc_chromium=$?
+	wait "$pid_firefox";  rc_firefox=$?
+	wait "$pid_webkit";   rc_webkit=$?
+
+	local PW_FAILURES=""
+	SUMMARY=()
+	record() { SUMMARY+=("$1|$2|${3:-}"); }
+	for entry in "chromium:Chromium:$rc_chromium" "firefox:Firefox:$rc_firefox" "webkit:WebKit:$rc_webkit"; do
+		browser="${entry%%:*}"; rest="${entry#*:}"; label="${rest%%:*}"; rc="${rest#*:}"
+		echo
+		echo "==================== Playwright $label output ===================="
+		cat "../wekan-playwright-${browser}.log" 2>/dev/null || true
+		local json="$pwdir/test-results/all-tests-${browser}.json"
+		local stats; stats="$(pw_stats_of "$json")"
+		if [ "$rc" -eq 0 ]; then record PASS "Playwright $label" "$stats"; else record FAIL "Playwright $label" "$stats"; fi
+		local fails; fails="$(pw_failures_of "$json" "$label")"
+		[ -n "$fails" ] && PW_FAILURES="${PW_FAILURES}${fails}"$'\n'
+	done
+
+	echo
+	echo "==================== PLAYWRIGHT SUMMARY ===================="
+	local FAILED=0
+	for line in "${SUMMARY[@]}"; do
+		status="${line%%|*}"; rest="${line#*|}"; name="${rest%%|*}"; stats="${rest#*|}"
+		suffix=""; [ -n "$stats" ] && suffix="  ($stats)"
+		printf '  %-6s %s%s\n' "$status" "$name" "$suffix"
+		[ "$status" = "FAIL" ] && FAILED=1
+	done
+	echo "==========================================================="
+	if [ -n "$PW_FAILURES" ]; then
+		echo
+		echo "Failing Playwright tests:"
+		while IFS= read -r f; do
+			[ -n "$f" ] && printf '  FAIL  %s\n' "$f"
+		done <<< "$PW_FAILURES"
+		echo "(full per-browser output above; HTML report in tests/playwright/playwright-report)"
+		echo "==========================================================="
+	fi
+	if [ "$FAILED" -eq 0 ]; then echo "RESULT: All Playwright browsers passed."; else echo "RESULT: Some Playwright browsers FAILED (see details above)."; fi
+	return $FAILED
 }
 
 # Run one Playwright browser project interactively (single-browser menu items).
@@ -148,7 +247,7 @@ function run_playwright_single(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers in parallel (Chromium + Firefox + WebKit), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -315,29 +414,54 @@ do
                 ;;
 
     "Run ALL tests on http://localhost:3000 (start server, progress + summary)")
-		echo "Running ALL tests: import regression + Mocha (server-side) + Node E2E + Playwright (Chromium, Firefox, WebKit)."
+		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs in PARALLEL with live progress."
+		echo "Mocha gets its own build dir (.meteor/local-test) so it runs at the same time as the :3000 server, which keeps .meteor/local."
 		SUMMARY=()
 		record() { SUMMARY+=("$1|$2|${3:-}"); }
+		label_of() { case "$1" in
+			mocha) echo "Mocha (server-side)" ;;
+			import) echo "Import regression" ;;
+			e2e) echo "Node E2E regressions" ;;
+			chromium) echo "Playwright Chromium" ;;
+			firefox) echo "Playwright Firefox" ;;
+			webkit) echo "Playwright WebKit" ;;
+		esac; }
 		ORIG_HOME="$HOME"
+		PW_FAILURES=""
+		TEST_SERVER_PID=""
+		STATDIR="$(mktemp -d)"
+		BPIDS=""
+		# Launch one test job in the background: run it, record its exit code in
+		# STATDIR/<key>, and send all of its output to ../wekan-alltests-<key>.log.
+		launch_job() {
+			local k="$1"
+			(
+				rc=0
+				case "$k" in
+					mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
+					import) node tests/wekanCreator.import.test.js || rc=$? ;;
+					e2e)    meteor npm run test:e2e || rc=$? ;;
+					*)      run_pw_all_browser "$k" || rc=$? ;;
+				esac
+				echo "$rc" > "$STATDIR/$k"
+			) > "../wekan-alltests-$k.log" 2>&1 &
+			BPIDS="$BPIDS $!"
+		}
 
 		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
 			echo "ERROR: Port 3000 is already in use. Stop any running dev server before running this option."
+			rm -rf "$STATDIR"
 			break
 		fi
 
-		TOTAL=5
-		TEST_SERVER_PID=""
-
+		# Mocha and the import regression do not need the :3000 server, so start them
+		# now; they run while the server boots and while the browsers run.
 		echo
-		echo "==> [1/$TOTAL] Import regression (node, no server)"
-		if node tests/wekanCreator.import.test.js; then record PASS "Import regression"; else record FAIL "Import regression"; fi
+		echo "==> Starting Mocha (separate .meteor/local-test build, port 3100) and import regression in parallel."
+		launch_job mocha
+		launch_job import
 
-		echo
-		echo "==> [2/$TOTAL] Mocha unit + security + API-logic tests (server-side, meteor test, port 3100)"
-		if meteor test --once --driver-package meteortesting:mocha --port 3100; then record PASS "Mocha (server-side)"; else record FAIL "Mocha (server-side)"; fi
-
-		echo
-		echo "==> [3/$TOTAL] Starting WeKan server on http://localhost:3000 (WITH_API=true)"
+		echo "==> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor/local)"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../wekan-test-server.log 2>&1 &
 		TEST_SERVER_PID=$!
 		SERVER_READY=0
@@ -346,6 +470,7 @@ do
 			printf '.'; sleep 1
 		done
 		echo
+
 		if [ "$SERVER_READY" -ne 1 ]; then
 			echo "FAIL: server did not become ready on http://localhost:3000 (see ../wekan-test-server.log)"
 			record FAIL "Server startup"
@@ -353,32 +478,59 @@ do
 			record SKIP "Playwright Chromium"
 			record SKIP "Playwright Firefox"
 			record SKIP "Playwright WebKit"
+			ALLKEYS="mocha import"
 		else
 			record PASS "Server startup"
-			echo
-			echo "==> [4/$TOTAL] Node E2E regressions (tests/e2e/list-regressions.js)"
-			if meteor npm run test:e2e; then record PASS "Node E2E regressions"; else record FAIL "Node E2E regressions"; fi
-
-			echo
-			echo "==> [5/$TOTAL] Playwright browser specs (Chromium + Firefox + WebKit)"
-			PW_FAILURES=""
-			# entry = browser:Label  (no bash 4 ${var^} so this works on macOS bash 3.2)
-			for entry in "chromium:Chromium" "firefox:Firefox" "webkit:WebKit"; do
-				browser="${entry%%:*}"; label="${entry#*:}"
-				echo
-				echo "-- Playwright $label --"
-				if run_pw_all_browser "$browser"; then pw_ok=1; else pw_ok=0; fi
-				json="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-${browser}.json"
-				stats="$(pw_stats_of "$json")"
-				if [ "$pw_ok" -eq 1 ]; then
-					record PASS "Playwright $label" "$stats"
-				else
-					record FAIL "Playwright $label" "$stats"
-				fi
-				fails="$(pw_failures_of "$json" "$label")"
-				[ -n "$fails" ] && PW_FAILURES="${PW_FAILURES}${fails}"$'\n'
-			done
+			# Server is up: add the server-facing jobs to the running set.
+			launch_job e2e
+			launch_job chromium
+			launch_job firefox
+			launch_job webkit
+			ALLKEYS="mocha import e2e chromium firefox webkit"
 		fi
+
+		# Live combined progress: one refreshing line per running job until all end.
+		BN="$(set -- $ALLKEYS; echo $#)"
+		echo "Live progress (refreshes every second) - [RUN]/[PASS]/[FAIL], checks passed / x failed:"
+		for k in $ALLKEYS; do echo; done
+		while :; do
+			printf '\033[%dA' "$BN"
+			alldone=1
+			for k in $ALLKEYS; do
+				log="../wekan-alltests-$k.log"
+				ok=$(grep -c $'\xe2\x9c\x93' "$log" 2>/dev/null); ok=${ok:-0}
+				bad=$(grep -c $'\xe2\x9c\x98' "$log" 2>/dev/null); bad=${bad:-0}
+				if [ -f "$STATDIR/$k" ]; then
+					rc=$(cat "$STATDIR/$k" 2>/dev/null)
+					if [ "${rc:-1}" = "0" ]; then st="PASS"; else st="FAIL"; fi
+				else
+					st="RUN "; alldone=0
+				fi
+				printf '\033[K  [%-4s] %-22s ok:%s fail:%s\n' "$st" "$(label_of "$k")" "$ok" "$bad"
+			done
+			[ "$alldone" -eq 1 ] && break
+			sleep 1
+		done
+		for p in $BPIDS; do wait "$p" 2>/dev/null || true; done
+
+		# Roll the parallel results into the summary (browsers carry pass/fail stats).
+		for k in $ALLKEYS; do
+			rc=$(cat "$STATDIR/$k" 2>/dev/null); rc=${rc:-1}
+			label="$(label_of "$k")"
+			case "$k" in
+				chromium|firefox|webkit)
+					json="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-${k}.json"
+					stats="$(pw_stats_of "$json")"
+					if [ "$rc" = "0" ]; then record PASS "$label" "$stats"; else record FAIL "$label" "$stats"; fi
+					fails="$(pw_failures_of "$json" "$label")"
+					[ -n "$fails" ] && PW_FAILURES="${PW_FAILURES}${fails}"$'\n'
+					;;
+				*)
+					if [ "$rc" = "0" ]; then record PASS "$label"; else record FAIL "$label"; fi
+					;;
+			esac
+		done
+		rm -rf "$STATDIR"
 
 		if [ -n "$TEST_SERVER_PID" ]; then
 			echo
@@ -398,14 +550,14 @@ do
 			[ "$status" = "FAIL" ] && FAILED=1
 		done
 		echo "====================================================="
-		# Per-test details for any failing Playwright specs.
+		echo "(per-job logs: ../wekan-alltests-<mocha|import|e2e|chromium|firefox|webkit>.log ; server: ../wekan-test-server.log)"
 		if [ -n "$PW_FAILURES" ]; then
 			echo
 			echo "Failing Playwright tests:"
 			while IFS= read -r f; do
 				[ -n "$f" ] && printf '  FAIL  %s\n' "$f"
 			done <<< "$PW_FAILURES"
-			echo "(full output and traces above; HTML report in tests/playwright/playwright-report)"
+			echo "(full output and traces in the per-browser logs; HTML report in tests/playwright/playwright-report)"
 			echo "====================================================="
 		fi
 		if [ "$FAILED" -eq 0 ]; then echo "RESULT: All tests passed."; else echo "RESULT: Some tests FAILED (see details above)."; fi
@@ -445,6 +597,11 @@ do
 
     "Test Playwright Webkit")
 			run_playwright_single webkit
+			break
+			;;
+
+    "Test Playwright ALL browsers in parallel (Chromium + Firefox + WebKit), server already running on :3000")
+			run_playwright_parallel
 			break
 			;;
 
