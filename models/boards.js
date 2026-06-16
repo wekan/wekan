@@ -811,6 +811,14 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsDueComplete: {
+      /**
+       * Does the board show the "Mark as complete" toggle on cards?
+       * Issue #6381: opt-in, hidden by default.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
 
     presentParentTask: {
       /**

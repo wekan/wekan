@@ -262,6 +262,15 @@ template(name="boardCardSettingsPopup")
           | {{_ 'card-end'}}
     .card-settings-row
       .card-settings-column
+        a.flex.js-field-has-duecomplete(title="{{_ 'card-mark-complete'}}" class="{{#if allowsDueComplete}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsDueComplete}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+      .card-settings-column
+        span
+          i.fa.fa-check-square-o
+          | {{_ 'card-mark-complete'}}
+    .card-settings-row
+      .card-settings-column
         a.flex.js-field-has-members(title="{{_ 'members'}}" class="{{#if allowsMembers}}is-checked{{/if}}")
           i.fa(class="{{#if allowsMembers}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column

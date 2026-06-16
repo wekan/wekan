@@ -1286,6 +1286,11 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsReceivedDate : false;
   },
+  allowsDueComplete() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDueComplete : false;
+  },
   allowsReceivedDateOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -1539,6 +1544,11 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsReceivedDate;
     Boards.update(tpl.currentBoard._id, { $set: { allowsReceivedDate: newValue } });
+  },
+  'click .js-field-has-duecomplete'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsDueComplete;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDueComplete: newValue } });
   },
   'click .js-field-has-receiveddate-on-minicard'(evt, tpl) {
     evt.preventDefault();
