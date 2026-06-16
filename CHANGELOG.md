@@ -268,6 +268,8 @@ and fixes the following bugs:
   - `helpers/auth.js` `openBoard` now retries up to 5 times at 20s each so the
     slowest browser (WebKit) survives the contention of the 3-browser parallel
     run against one shared dev server, instead of failing in test setup.
+- [Build scripts: At tests option 9, run option 2 build if .build or node_modules missing](https://github.com/wekan/wekan/commit/9f2a81349f6edafc4784bb508afe2df016deaa17).
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
