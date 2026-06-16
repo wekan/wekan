@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.46
+  version: v9.47
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -664,6 +664,209 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/cards/{card}/dependencies:
+    get:
+      operationId: get_card_dependencies
+      summary: Get one card's dependencies
+      tags:
+        - Dependencies
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the card ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                cardId:
+                  type: string
+                type:
+                  type: string
+                color:
+                  type: string
+                icon:
+                  type: string
+    post:
+      operationId: new_card_dependency
+      summary: Add (or update) a typed dependency line from a card to another card
+      description: |
+        The target card must be on the same board. If the dependency
+         already exists, its type/color/icon are updated.
+      tags:
+        - Dependencies
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: cardId
+          in: formData
+          description: |
+            the source card ID
+          type: string
+          required: true
+        - name: dependsOn
+          in: formData
+          description: the dependsOn value
+          type: string
+          required: true
+        - name: type
+          in: formData
+          description: |
+            relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by
+          type: string
+          required: false
+        - name: color
+          in: formData
+          description: |
+            line/badge color, any CSS color e.g. "#eb144c"
+          type: string
+          required: false
+        - name: icon
+          in: formData
+          description: |
+            FontAwesome icon name without the "fa-" prefix
+          type: string
+          required: false
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the source card ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              cardId:
+                type: string
+              type:
+                type: string
+              color:
+                type: string
+              icon:
+                type: string
+  /api/boards/{board}/cards/{card}/dependencies/{target}:
+    put:
+      operationId: edit_card_dependency
+      summary: Edit a dependency line's type, color or icon
+      tags:
+        - Dependencies
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: type
+          in: formData
+          description: |
+            relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by
+          type: string
+          required: false
+        - name: key
+          in: formData
+          description: the key value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the source card ID
+          type: string
+          required: true
+        - name: target
+          in: path
+          description: |
+            the target card ID of the dependency
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+    delete:
+      operationId: delete_card_dependency
+      summary: Remove a dependency line from a card
+      tags:
+        - Dependencies
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the source card ID
+          type: string
+          required: true
+        - name: target
+          in: path
+          description: |
+            the target card ID of the dependency to remove
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/cards/bulk:
     delete:
       operationId: delete_board_cards_bulk
@@ -995,6 +1198,50 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/dependencies:
+    get:
+      operationId: get_board_dependencies
+      summary: Get all card dependency lines ("Red Strings") of a board
+      tags:
+        - Dependencies
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                from:
+                  type: string
+                fromTitle:
+                  type: string
+                fromCardNumber:
+                  type: number
+                to:
+                  type: string
+                toTitle:
+                  type: string
+                toCardNumber:
+                  type: number
+                type:
+                  type: string
+                color:
+                  type: string
+                icon:
+                  type: string
   /api/boards/{board}/export:
     get:
       operationId: exportJson
@@ -3765,6 +4012,12 @@ definitions:
            #3984: Visually fade cards that have not been touched for a while
            (Trello-style "card aging"), based on the card's dateLastActivity.
         type: boolean
+      showDependencies:
+        description: |
+           #3392: PI Program Board "Red Strings". When true, draw colored
+           connection lines between cards that have cardDependencies, SAFe
+           PI-planning program board style.
+        type: boolean
       cardAgingDays1:
         type: number
       cardAgingDays2:
@@ -3965,6 +4218,11 @@ definitions:
         description: |
            Does the board allows due date on minicard?
         type: boolean
+      allowsDueComplete:
+        description: |
+           Does the board show the "Mark as complete" toggle on cards?
+           Issue #6381: opt-in, hidden by default.
+        type: boolean
       presentParentTask:
         description: |
            Controls how to present the parent task:
@@ -4038,6 +4296,7 @@ definitions:
       - color
       - allowsCardCounterList
       - cardAging
+      - showDependencies
       - cardAgingDays1
       - cardAgingDays2
       - cardAgingDays3
@@ -4084,6 +4343,7 @@ definitions:
       - allowsEndDateOnMinicard
       - allowsDueDate
       - allowsDueDateOnMinicard
+      - allowsDueComplete
       - type
       - sort
       - showActivities
@@ -4430,6 +4690,17 @@ definitions:
            ID of the linked card
         type: string
         x-nullable: true
+      cardDependencies:
+        description: |
+           #3392: PI Program Board "Red Strings". Typed card-to-card dependencies.
+           Each entry is { cardId, type, color, icon } where cardId points at
+           another card (drawn when on the same board), type is one of
+           DEPENDENCY_TYPE_IDS, color is the connection line / badge color and icon
+           is a FontAwesome name. See models/metadata/dependencies.js.
+        type: array
+        items:
+          $ref: "#/definitions/CardsCarddependencies"
+        x-nullable: true
       vote:
         description: |
            vote object, see below
@@ -4619,6 +4890,8 @@ definitions:
   CardsStickers:
     type: object
   CardsLocations:
+    type: object
+  CardsCarddependencies:
     type: object
   CardsVotePositive:
     type: object
