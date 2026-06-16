@@ -1641,7 +1641,14 @@ Boards.helpers({
       if (existingSwimlanes.length > 0) {
         // Use the first existing swimlane
         result = existingSwimlanes[0];
-      } else {
+      } else if (Meteor.isServer) {
+        // Issue #6382: only the server may auto-create the default swimlane.
+        // On the client this getter runs inside reactive render contexts; when a
+        // board's swimlanes are not yet loaded/subscribed (e.g. the default
+        // subtasks board viewed via "All boards"), getSwimlanes() is transiently
+        // empty and every re-render would insert another empty swimlane —
+        // producing thousands of them and freezing the browser. The server
+        // creates the default swimlane at board creation and self-heals here.
         // Use fallback title if i18n is not available (e.g., during migration)
         const title = getTranslatedString('default', 'Default');
         Swimlanes.insert({
@@ -1660,7 +1667,9 @@ Boards.helpers({
       const existingSwimlanes = await ReactiveCache.getSwimlanes({ boardId: this._id });
       if (existingSwimlanes.length > 0) {
         result = existingSwimlanes[0];
-      } else {
+      } else if (Meteor.isServer) {
+        // Issue #6382: never auto-create swimlanes from the client (see
+        // getDefaultSwimline) — only the server may insert the default one.
         const title = getTranslatedString('default', 'Default');
         await Swimlanes.insertAsync({
           title,
