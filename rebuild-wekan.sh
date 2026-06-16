@@ -462,9 +462,39 @@ do
 		}
 
 		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
-			echo "ERROR: Port 3000 is already in use. Stop any running dev server before running this option."
-			rm -rf "$STATDIR"
-			break
+			echo "==> Port 3000 is already in use; stopping the existing Meteor dev server before starting our own."
+			# Kill the Meteor dev server(s) on :3000. pgrep matches the parent
+			# 'meteor run --port 3000' process; killing it also tears down the
+			# node child it spawned. Fall back to whatever is listening on the
+			# port (lsof/fuser) in case the process command line does not match.
+			OLD_PIDS="$(pgrep -f 'meteor run --port 3000' 2>/dev/null)"
+			if [ -n "$OLD_PIDS" ]; then
+				echo "    Killing existing Meteor PIDs:$(echo " $OLD_PIDS" | tr '\n' ' ')"
+				kill $OLD_PIDS 2>/dev/null
+			fi
+			# Wait for the port to actually free up, escalating to SIGKILL.
+			for i in $(seq 1 30); do
+				curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1 || break
+				if [ "$i" -eq 15 ]; then
+					echo "    Still in use after 15s; sending SIGKILL."
+					STUCK_PIDS="$(pgrep -f 'meteor run --port 3000' 2>/dev/null)"
+					[ -n "$STUCK_PIDS" ] && kill -9 $STUCK_PIDS 2>/dev/null
+					if command -v lsof >/dev/null 2>&1; then
+						LSOF_PIDS="$(lsof -ti tcp:3000 2>/dev/null)"
+						[ -n "$LSOF_PIDS" ] && kill -9 $LSOF_PIDS 2>/dev/null
+					elif command -v fuser >/dev/null 2>&1; then
+						fuser -k 3000/tcp >/dev/null 2>&1
+					fi
+				fi
+				printf '.'; sleep 1
+			done
+			echo
+			if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
+				echo "ERROR: Port 3000 is still in use after attempting to stop the existing server. Stop it manually and retry."
+				rm -rf "$STATDIR"
+				break
+			fi
+			echo "    Port 3000 is now free."
 		fi
 
 		# Start the :3000 server FIRST and let it build alone. Mocha runs its own
