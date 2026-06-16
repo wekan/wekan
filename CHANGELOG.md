@@ -30,6 +30,29 @@ Versions:
 
 This release adds the following updates:
 
+- [Fix moving/copying a card silently failing with a 403 validation error](https://github.com/wekan/wekan/commit/7db02489202c560d227a476db24cd761c66a0a00):
+  the move, copy, copy-many and convert-checklist-item card dialogs could leave a
+  card in its original list instead of moving it. Thanks to xet7 and Claude.
+  Details:
+  - Root cause: the dialog's "Done" handler read the target board/swimlane/list by
+    scraping the DOM `<select>` elements. The reactive `boards()` helper can
+    transiently return `[]` while a `board` subscription re-resolves, leaving the
+    board `<select>` momentarily option-less, so `selectedIndex` was `-1` and the
+    scraped `boardId` was `undefined`. `card.move(undefined, …)` then failed
+    server-side with `ValidationError: Not permitted. Untrusted code may only
+    updateAsync documents by ID [403]`, and the card silently stayed put. This was
+    a gap in the earlier dialog fix, which bound only the swimlane and list options
+    to the live selection but left the board `<select>` on the (empty)
+    last-confirmed option.
+  - Fix: the Done handler now reads `boardId`/`swimlaneId`/`listId` from the
+    dialog's live reactive selection (`selectedBoardId`/`selectedSwimlaneId`/
+    `selectedListId`), which stays correct across re-renders, and the board
+    `<option selected>` attribute is bound to the live selection in all four
+    dialogs for UI consistency.
+  - Test hardening: three Playwright/Node E2E tests that flaked under the
+    all-parallel run (move-list-right, add-to-top/add-to-bottom, and the Node E2E
+    second-session list-order check) now wait for the board subscription to
+    populate before acting, instead of reading once after a fixed delay.
 - [Developer test tooling: run all tests in parallel against a single dev server](https://github.com/wekan/wekan/commit/19fe2e2b6f21b5206e29dcd568576f001abbf37a):
   `rebuild-wekan.sh` and `rebuild-wekan.bat` now run all tests in parallel
   against a single dev server, and fix the WebKit/Docker permission fallout.
