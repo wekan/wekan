@@ -57,9 +57,18 @@ Template.userFormsLayout.onRendered(() => {
     }
 
     Meteor.call('isPasswordLoginEnabled', (_, result) => {
-      if (result) {
+      // Issue #6380: the password form (.at-pwd-form) is hidden by default in CSS
+      // and only revealed here. If this method call errors / returns late, or the
+      // accounts-templates form has not rendered its fields yet when this runs,
+      // the login page is left without username and password fields. Treat
+      // password login as enabled unless it is explicitly disabled
+      // (result === false), and wait for the form element to appear before
+      // showing it (same pattern as the OAuth button above).
+      if (result === false) return;
+      (function showPwdFormWhenReady() {
+        if (!$('.at-pwd-form')[0]) return setTimeout(showPwdFormWhenReady, 100);
         $('.at-pwd-form').show();
-      }
+      })();
     });
 
     Meteor.call('isDisableRegistration', (_, result) => {
