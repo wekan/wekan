@@ -30,6 +30,24 @@ Versions:
 
 This release adds the following updates:
 
+- [Fix #6380: login page missing username/password fields after upgrade](https://github.com/wekan/wekan/commit/8e70a2b6a95373125be222534cc2fd4da6c278e8):
+  the password form is hidden by default in CSS and only revealed by JS when
+  `isPasswordLoginEnabled` returns truthy; a slow/failed method call or a
+  not-yet-rendered accounts form left the login without username and password
+  fields. It now shows the form unless password login is explicitly disabled, and
+  waits for the form element to appear before showing it. Thanks to xet7 and
+  Claude.
+- [Fix #6381: make the card "Mark as complete" toggle configurable, hidden by default](https://github.com/wekan/wekan/commit/67d9de32db8829ae11ad654fee621162368eed36):
+  a new board setting `allowsDueComplete` (off by default) controls whether the
+  "Mark as complete" toggle is shown on cards, with a checkbox in the board Card
+  Settings popup to enable it per board. Thanks to xet7 and Claude.
+- [Fix #6382: stop the client auto-creating thousands of empty swimlanes](https://github.com/wekan/wekan/commit/dd7306d8de1f8c49d2f80b6cb6b49994e7a5a94d):
+  `getDefaultSwimline()` inserted a swimlane whenever none was found, but on the
+  client it runs inside reactive renders — for a board whose swimlanes were not
+  yet loaded (e.g. the default subtasks board viewed via "All boards") every
+  re-render inserted another empty swimlane (2008 in the report), freezing the
+  browser. The default swimlane is now auto-created only on the server. Thanks to
+  xet7 and Claude.
 - [Move/Copy/Convert card dialogs: bind swimlane and list select to live selection](https://github.com/wekan/wekan/commit/758f320969ccdbe2026cf1acb9d361906da3f76a):
   the swimlane and list `<select>` `selected` option in the move, copy, copy-many
   and convert-checklist-item card dialogs now follows the live selection instead
