@@ -454,13 +454,13 @@ do
 			break
 		fi
 
-		# Mocha and the import regression do not need the :3000 server, so start them
-		# now; they run while the server boots and while the browsers run.
+		# Start the :3000 server FIRST and let it build alone. Mocha runs its own
+		# Meteor build (.meteor/local-test); launching it here would make two full
+		# builds compete for CPU/disk and starve the server, so it does not become
+		# ready until much later (a long line of dots). Mocha and the import
+		# regression do not need the server, so we launch them once it is ready and
+		# they then run in parallel with the E2E and browser jobs.
 		echo
-		echo "==> Starting Mocha (separate .meteor/local-test build, port 3100) and import regression in parallel."
-		launch_job mocha
-		launch_job import
-
 		echo "==> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor/local)"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../wekan-test-server.log 2>&1 &
 		TEST_SERVER_PID=$!
@@ -470,6 +470,13 @@ do
 			printf '.'; sleep 1
 		done
 		echo
+
+		# Mocha and the import regression do not need the :3000 server; launch them
+		# now (after the server build is past, so they no longer compete with it)
+		# so they run in parallel with the E2E and browser jobs below.
+		echo "==> Starting Mocha (separate .meteor/local-test build, port 3100) and import regression in parallel."
+		launch_job mocha
+		launch_job import
 
 		if [ "$SERVER_READY" -ne 1 ]; then
 			echo "FAIL: server did not become ready on http://localhost:3000 (see ../wekan-test-server.log)"

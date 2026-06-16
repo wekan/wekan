@@ -177,19 +177,25 @@ set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
 REM Clear completion flags from any previous run.
 del /q ".done-mocha" ".done-import" ".done-e2e" ".done-browsers" 2>nul
 
-REM Mocha and the import regression do not need the :3000 server, so start
-REM them now (each in its own minimized window; /D sets the working dir so all
-REM paths are relative and space-safe). Each writes a log and, on exit, its
-REM return code to .done-<job>, which the poll loop below watches.
+REM Start the :3000 server FIRST and let it build alone. Mocha runs its own
+REM Meteor build (.meteor\local-test); launching it here would make two full
+REM builds compete for CPU/disk and starve the server, so it does not become
+REM ready until much later (a long line of dots). Mocha and the import
+REM regression do not need the server, so we launch them once the server build
+REM is underway and they then run in parallel with the E2E and browser jobs.
 echo.
-echo ==^> Starting Mocha (separate .meteor\local-test build, port 3100) and import regression in parallel.
 call :set_dev_env
-start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& call meteor test --once --driver-package meteortesting:mocha --port 3100 1>..\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
-start "Wekan import" /MIN /D "%REPO%" cmd /c "call node tests\wekanCreator.import.test.js 1>..\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
-
 echo ==^> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor\local)
 set "ROOT_URL=http://localhost:3000"
 start "WekanTestServer" /MIN /D "%REPO%" cmd /c "meteor run --port 3000 1>..\wekan-test-server.log 2>&1"
+
+REM Mocha and the import regression do not need the :3000 server; start them now
+REM (each in its own minimized window; /D sets the working dir so all paths are
+REM relative and space-safe). Each writes a log and, on exit, its return code to
+REM .done-<job>, which the poll loop below watches.
+echo ==^> Starting Mocha (separate .meteor\local-test build, port 3100) and import regression in parallel.
+start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& call meteor test --once --driver-package meteortesting:mocha --port 3100 1>..\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
+start "Wekan import" /MIN /D "%REPO%" cmd /c "call node tests\wekanCreator.import.test.js 1>..\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
 
 set "SERVER_READY=0"
 for /l %%i in (1,1,180) do (

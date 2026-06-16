@@ -52,6 +52,15 @@ This release adds the following updates:
     Docker run executes as the host user (`--user`) so it no longer leaves
     root-owned files behind. A guard repairs an already root-owned `test-results/`
     that caused `EACCES: permission denied, mkdir .../.playwright-artifacts-N`.
+- [Run ALL tests: start the :3000 server before Mocha so it boots fast again](https://github.com/wekan/wekan/commit/):
+  the parallel "Run ALL tests" flow launched Mocha (in its own `.meteor/local-test`
+  build) before the :3000 dev server, so two full Meteor builds competed for
+  CPU/disk and the server took a long time to become ready — shown as a long line
+  of dots during the readiness wait. Mocha and the import regression do not need
+  the server, so they are now launched only after the server build is underway;
+  the server builds alone and boots fast again, while they still run in parallel
+  with the E2E and browser jobs. Applied to both `rebuild-wekan.sh` and
+  `rebuild-wekan.bat`. Thanks to xet7 and Claude.
 - [Fix #6380: login page missing username/password fields after upgrade](https://github.com/wekan/wekan/commit/8e70a2b6a95373125be222534cc2fd4da6c278e8):
   the password form is hidden by default in CSS and only revealed by JS when
   `isPasswordLoginEnabled` returns truthy; a slow/failed method call or a
