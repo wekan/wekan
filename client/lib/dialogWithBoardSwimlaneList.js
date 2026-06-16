@@ -150,6 +150,22 @@ export class BoardSwimlaneListDialog {
     return this.cardOption.listId == listId;
   }
 
+  /** returns if the swimlane id is the currently selected one (reactive).
+   * Used to bind the <option selected> attribute to the live selection rather
+   * than the last-confirmed option, so a Blaze re-render of the swimlane <select>
+   * cannot silently revert the user's in-progress choice. */
+  isSelectedSwimlaneId(swimlaneId) {
+    return this.selectedSwimlaneId.get() == swimlaneId;
+  }
+
+  /** returns if the list id is the currently selected one (reactive).
+   * See isSelectedSwimlaneId — binding the <option selected> attribute to the
+   * live selectedListId keeps the DOM <select> in sync with the user's choice
+   * across reactive re-renders (e.g. when the board subscription data arrives). */
+  isSelectedListId(listId) {
+    return this.selectedListId.get() == listId;
+  }
+
   /** returns all available boards */
   boards() {
     return ReactiveCache.getBoards(

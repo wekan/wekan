@@ -1695,6 +1695,12 @@ function registerCardDialogTemplate(templateName) {
     isDialogOptionListId(listId) {
       return Template.instance().dialog.isDialogOptionListId(listId);
     },
+    isSelectedSwimlaneId(swimlaneId) {
+      return Template.instance().dialog.isSelectedSwimlaneId(swimlaneId);
+    },
+    isSelectedListId(listId) {
+      return Template.instance().dialog.isSelectedListId(listId);
+    },
     isDialogOptionCardId(cardId) {
       return Template.instance().dialog.isDialogOptionCardId(cardId);
     },

@@ -949,12 +949,12 @@ template(name="moveCardPopup")
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+      option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
@@ -984,12 +984,12 @@ template(name="copyCardPopup")
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+      option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
@@ -1019,12 +1019,12 @@ template(name="copyManyCardsPopup")
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+      option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
@@ -1054,12 +1054,12 @@ template(name="convertChecklistItemToCardPopup")
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+      option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
