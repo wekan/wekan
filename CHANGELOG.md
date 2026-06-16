@@ -52,26 +52,6 @@ This release adds the following updates:
     Docker run executes as the host user (`--user`) so it no longer leaves
     root-owned files behind. A guard repairs an already root-owned `test-results/`
     that caused `EACCES: permission denied, mkdir .../.playwright-artifacts-N`.
-- [Fix flaky Playwright card/board tests under the parallel run](https://github.com/wekan/wekan/commit/19fe2e2b6f21b5206e29dcd568576f001abbf37a):
-  the new 3-browser parallel run surfaced three load-induced (not product)
-  failures that took DOM snapshots before the UI had settled. Thanks to xet7 and
-  Claude. Details:
-  - `03-cards-operations` "move does not create duplicate cards" read the card
-    titles immediately after the move and could catch the card mid-flight
-    (already removed from the source list, not yet rendered in the target). It
-    now waits for the card to be visible in the target list and gone from the
-    source list before snapshotting.
-  - `03-cards-operations` "add-to-bottom places the card last" polls until the
-    reactive re-sort places the new card last, since `submitNewCard` only waits
-    for the card to exist, not for its final sort position.
-  - `helpers/auth.js` `openBoard` now retries up to 5 times at 20s each so the
-    slowest browser (WebKit) survives the contention of the 3-browser parallel
-    run against one shared dev server, instead of failing in test setup.
-
-# v9.47 2026-06-16 WeKan ® release
-
-This release adds the following updates:
-
 - [Fix #6380: login page missing username/password fields after upgrade](https://github.com/wekan/wekan/commit/8e70a2b6a95373125be222534cc2fd4da6c278e8):
   the password form is hidden by default in CSS and only revealed by JS when
   `isPasswordLoginEnabled` returns truthy; a slow/failed method call or a
@@ -264,6 +244,21 @@ and fixes the following bugs:
   (`fi.i18n.json`) — the Shared Templates, card-dependency ("Red Strings") and
   dependency import/export strings — using the existing Finnish terminology.
   Thanks to xet7 and Claude.
+  - [Fix flaky Playwright card/board tests under the parallel run](https://github.com/wekan/wekan/commit/19fe2e2b6f21b5206e29dcd568576f001abbf37a):
+  the new 3-browser parallel run surfaced three load-induced (not product)
+  failures that took DOM snapshots before the UI had settled. Thanks to xet7 and
+  Claude. Details:
+  - `03-cards-operations` "move does not create duplicate cards" read the card
+    titles immediately after the move and could catch the card mid-flight
+    (already removed from the source list, not yet rendered in the target). It
+    now waits for the card to be visible in the target list and gone from the
+    source list before snapshotting.
+  - `03-cards-operations` "add-to-bottom places the card last" polls until the
+    reactive re-sort places the new card last, since `submitNewCard` only waits
+    for the card to exist, not for its final sort position.
+  - `helpers/auth.js` `openBoard` now retries up to 5 times at 20s each so the
+    slowest browser (WebKit) survives the contention of the 3-browser parallel
+    run against one shared dev server, instead of failing in test setup.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
