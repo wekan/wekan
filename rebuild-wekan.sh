@@ -22,6 +22,16 @@ function ensure_rspack_public_dirs(){
 	mkdir -p public/build-chunks public/build-assets
 }
 
+# Build WeKan from scratch: reinstall npm deps and produce the .build directory.
+# Used by menu option 2 and auto-invoked by option 9 when .build is missing.
+function build_wekan(){
+	echo "Building WeKan."
+	rm -rf node_modules .meteor/local .build
+	(meteor update --npm 2>/dev/null || true) && meteor npm install
+	meteor build .build --directory
+	echo Done.
+}
+
 # Detect OS (linux/macos) and CPU arch (amd64/arm64) so tests run on
 # Linux amd64, Linux arm64 and macOS arm64.
 function detect_platform(){
@@ -311,11 +321,7 @@ do
 		;;
 
     "Build WeKan")
-		echo "Building WeKan."
-		rm -rf node_modules .meteor/local .build
-		(meteor update --npm 2>/dev/null || true) && meteor npm install
-		meteor build .build --directory
-		echo Done.
+		build_wekan
 		break
 		;;
 
@@ -414,6 +420,13 @@ do
                 ;;
 
     "Run ALL tests on http://localhost:3000 (start server, progress + summary)")
+		# Tests need a built WeKan (and installed npm deps). If .build or
+		# node_modules is missing, build first (same steps as menu option 2),
+		# then continue with the tests.
+		if [ ! -d .build ] || [ ! -d node_modules ]; then
+			echo "No .build or node_modules directory found - building WeKan first (menu option 2)."
+			build_wekan
+		fi
 		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs in PARALLEL with live progress."
 		echo "Mocha gets its own build dir (.meteor/local-test) so it runs at the same time as the :3000 server, which keeps .meteor/local."
 		SUMMARY=()
