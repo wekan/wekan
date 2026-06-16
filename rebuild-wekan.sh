@@ -22,6 +22,130 @@ function ensure_rspack_public_dirs(){
 	mkdir -p public/build-chunks public/build-assets
 }
 
+# Detect OS (linux/macos) and CPU arch (amd64/arm64) so tests run on
+# Linux amd64, Linux arm64 and macOS arm64.
+function detect_platform(){
+	case "$OSTYPE" in
+		linux*)  PLATFORM_OS="linux" ;;
+		darwin*) PLATFORM_OS="macos" ;;
+		*)       PLATFORM_OS="$OSTYPE" ;;
+	esac
+	case "$(uname -m)" in
+		x86_64|amd64)  PLATFORM_ARCH="amd64" ;;
+		arm64|aarch64) PLATFORM_ARCH="arm64" ;;
+		*)             PLATFORM_ARCH="$(uname -m)" ;;
+	esac
+}
+detect_platform
+echo "Platform: $PLATFORM_OS $PLATFORM_ARCH"
+
+# WebKit's bundled Playwright build links against old system libraries (libicu 74,
+# libxml2 v2, libevent 2.1, ...) that newer Linux arm64 distros (e.g. Ubuntu 26.04)
+# no longer ship, so it cannot launch natively there. On Linux arm64 we drive WebKit
+# from the official Playwright Docker image instead; Linux amd64 and macOS arm64 run
+# WebKit natively. Override with WEKAN_WEBKIT_DOCKER=1 (force Docker) or =0 (force native).
+function webkit_needs_docker(){
+	case "${WEKAN_WEBKIT_DOCKER:-auto}" in
+		1) return 0 ;;
+		0) return 1 ;;
+	esac
+	[ "$PLATFORM_OS" = "linux" ] && [ "$PLATFORM_ARCH" = "arm64" ]
+}
+
+# Run the WebKit Playwright project inside the official Playwright container.
+# Extra args are passed through to `playwright test`. WeKan must already be running
+# on the host (default http://127.0.0.1:3000, Meteor's bundled Mongo on 3001); the
+# container shares the host network so it can reach both.
+function run_playwright_webkit_docker(){
+	local reporoot="$ORIG_HOME/repos/wekan"
+	local pwdir="$reporoot/tests/playwright"
+	if ! command -v docker >/dev/null 2>&1; then
+		echo "ERROR: Docker is required to run WebKit on Linux arm64, but 'docker' was not found."
+		echo "       Install Docker, or run WebKit on Linux amd64 / macOS arm64 (native)."
+		return 127
+	fi
+	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
+		echo "Installing Playwright test dependencies (the container reuses the mounted node_modules)."
+		( cd "$pwdir" && meteor npm install )
+	fi
+	local pwver
+	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
+	[ -z "$pwver" ] && pwver="1.60.0"
+	local image="mcr.microsoft.com/playwright:v${pwver}-noble"
+	echo "Running Playwright WebKit in Docker ($image) on Linux arm64."
+	echo "Expecting WeKan at ${WEKAN_BASE_URL:-http://127.0.0.1:3000} (container uses --network host)."
+	# Mount the whole repo so specs that reach the repo-root node_modules
+	# (e.g. @wekanteam/exceljs) and .tools resolve; run from tests/playwright.
+	docker run --rm --init --ipc=host --network host \
+		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
+		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
+		-e WEKAN_PLAYWRIGHT_ALL=1 \
+		-e WEKAN_PLAYWRIGHT_PROBE=0 \
+		-e PLAYWRIGHT_HTML_OPEN=never \
+		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
+		-v "$reporoot":/repo -w /repo/tests/playwright \
+		"$image" \
+		sh -c 'export PATH=/repo/tests/playwright/node_modules/.bin:$PATH; exec npx playwright test --project=webkit "$@"' sh "$@"
+}
+
+# Print "<n> passed, <n> failed, ..." for a Playwright JSON report file.
+function pw_stats_of(){
+	[ -f "$1" ] || return 0
+	node -e 'const fs=require("fs");let r;try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}const s=r.stats||{};console.log(`${s.expected||0} passed, ${s.unexpected||0} failed, ${s.flaky||0} flaky, ${s.skipped||0} skipped`);' "$1"
+}
+
+# Print "[label] file:line › title" for each failing spec in a Playwright JSON report.
+function pw_failures_of(){
+	[ -f "$1" ] || return 0
+	node -e 'const fs=require("fs");let r;try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}const label=process.argv[2]||"";const out=[];function walk(su,ti){const t=[...ti,su.title].filter(Boolean);for(const s of su.suites||[])walk(s,t);for(const sp of su.specs||[]){if(sp.ok)continue;const loc=sp.file?`${sp.file}:${sp.line}`:"";out.push(`[${label}] ${loc} › ${[...t,sp.title].join(" › ")}`);}}for(const s of r.suites||[])walk(s,[]);out.forEach(l=>console.log(l));' "$1" "$2"
+}
+
+# Run one Playwright browser project for the "Run ALL tests" flow.
+# Writes test-results/all-tests-<browser>.json and returns playwright's exit code.
+# WebKit goes through Docker on Linux arm64 (see webkit_needs_docker).
+function run_pw_all_browser(){
+	local browser="$1"
+	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
+	local json="test-results/all-tests-${browser}.json"
+	rm -f "$pwdir/$json"
+	if [ "$browser" = "webkit" ] && webkit_needs_docker; then
+		( cd "$pwdir" && export PLAYWRIGHT_JSON_OUTPUT_NAME="$json" && run_playwright_webkit_docker --reporter=list,json )
+		return $?
+	fi
+	(
+		cd "$pwdir"
+		export HOME="$ORIG_HOME/repos/wekan/.tools"
+		unset CHROME_DEVEL_SANDBOX
+		[ -d "$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright" ] && \
+			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
+		export WEKAN_PLAYWRIGHT_ALL=1
+		export PLAYWRIGHT_JSON_OUTPUT_NAME="$json"
+		PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project="$browser" --reporter=list,json
+	)
+	return $?
+}
+
+# Run one Playwright browser project interactively (single-browser menu items).
+function run_playwright_single(){
+	local browser="$1"
+	ORIG_HOME="$HOME"
+	if [ "$browser" = "webkit" ] && webkit_needs_docker; then
+		echo "Linux arm64 detected: running WebKit via Docker (native WebKit cannot launch here)."
+		echo "Make sure WeKan is running on http://localhost:3000 (menu option 3, or 'Run ALL tests')."
+		( cd "$ORIG_HOME/repos/wekan/tests/playwright" && run_playwright_webkit_docker )
+		return $?
+	fi
+	cd "$ORIG_HOME/repos/wekan/tests/playwright"
+	export HOME="$ORIG_HOME/repos/wekan/.tools"
+	unset CHROME_DEVEL_SANDBOX
+	[ -d "$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright" ] && \
+		export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
+	export WEKAN_PLAYWRIGHT_ALL=1
+	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
+	case "$INSTALL_DEPS" in [Yy]*) meteor npm install ;; esac
+	meteor npm exec playwright test -- --project="$browser"
+}
+
 echo
 PS3='Please enter your choice: '
 options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
@@ -191,9 +315,10 @@ do
                 ;;
 
     "Run ALL tests on http://localhost:3000 (start server, progress + summary)")
-		echo "Running ALL tests: import regression + Mocha (server-side) + Node E2E + Playwright."
+		echo "Running ALL tests: import regression + Mocha (server-side) + Node E2E + Playwright (Chromium, Firefox, WebKit)."
 		SUMMARY=()
-		record() { SUMMARY+=("$1|$2"); }
+		record() { SUMMARY+=("$1|$2|${3:-}"); }
+		ORIG_HOME="$HOME"
 
 		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
 			echo "ERROR: Port 3000 is already in use. Stop any running dev server before running this option."
@@ -226,6 +351,8 @@ do
 			record FAIL "Server startup"
 			record SKIP "Node E2E regressions"
 			record SKIP "Playwright Chromium"
+			record SKIP "Playwright Firefox"
+			record SKIP "Playwright WebKit"
 		else
 			record PASS "Server startup"
 			echo
@@ -233,49 +360,24 @@ do
 			if meteor npm run test:e2e; then record PASS "Node E2E regressions"; else record FAIL "Node E2E regressions"; fi
 
 			echo
-			echo "==> [5/$TOTAL] Playwright Chromium (browser UI specs + REST API specs)"
-			ORIG_HOME="$HOME"
-			PW_JSON="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-report.json"
-			rm -f "$PW_JSON"
-			(
-				cd "$ORIG_HOME/repos/wekan/tests/playwright"
-				export HOME="$ORIG_HOME/repos/wekan/.tools"
-				unset CHROME_DEVEL_SANDBOX
-				export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
-				# Run EVERY spec (no --max-failures), printing each test (list) while
-				# also writing a JSON report we parse below for per-test failures.
-				export PLAYWRIGHT_JSON_OUTPUT_NAME="test-results/all-tests-report.json"
-				PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project=chromium --reporter=list,json
-			)
-			if [ $? -eq 0 ]; then record PASS "Playwright Chromium"; else record FAIL "Playwright Chromium"; fi
-
-			# Extract per-test stats + failing test details from the JSON report.
-			PW_STATS=""
+			echo "==> [5/$TOTAL] Playwright browser specs (Chromium + Firefox + WebKit)"
 			PW_FAILURES=""
-			if [ -f "$PW_JSON" ]; then
-				PW_STATS="$(node -e '
-					const fs=require("fs");
-					let r; try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}
-					const s=r.stats||{};
-					console.log(`${s.expected||0} passed, ${s.unexpected||0} failed, ${s.flaky||0} flaky, ${s.skipped||0} skipped`);
-				' "$PW_JSON")"
-				PW_FAILURES="$(node -e '
-					const fs=require("fs");
-					let r; try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}
-					const out=[];
-					function walk(suite, titles){
-						const t=[...titles, suite.title].filter(Boolean);
-						for(const s of suite.suites||[]) walk(s,t);
-						for(const spec of suite.specs||[]){
-							if(spec.ok) continue;
-							const loc = spec.file ? `${spec.file}:${spec.line}` : "";
-							out.push(`${loc} › ${[...t, spec.title].join(" › ")}`);
-						}
-					}
-					for(const s of r.suites||[]) walk(s,[]);
-					out.forEach(l=>console.log(l));
-				' "$PW_JSON")"
-			fi
+			# entry = browser:Label  (no bash 4 ${var^} so this works on macOS bash 3.2)
+			for entry in "chromium:Chromium" "firefox:Firefox" "webkit:WebKit"; do
+				browser="${entry%%:*}"; label="${entry#*:}"
+				echo
+				echo "-- Playwright $label --"
+				if run_pw_all_browser "$browser"; then pw_ok=1; else pw_ok=0; fi
+				json="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-${browser}.json"
+				stats="$(pw_stats_of "$json")"
+				if [ "$pw_ok" -eq 1 ]; then
+					record PASS "Playwright $label" "$stats"
+				else
+					record FAIL "Playwright $label" "$stats"
+				fi
+				fails="$(pw_failures_of "$json" "$label")"
+				[ -n "$fails" ] && PW_FAILURES="${PW_FAILURES}${fails}"$'\n'
+			done
 		fi
 
 		if [ -n "$TEST_SERVER_PID" ]; then
@@ -289,11 +391,9 @@ do
 		echo "==================== TEST SUMMARY ===================="
 		FAILED=0
 		for line in "${SUMMARY[@]}"; do
-			status="${line%%|*}"; name="${line#*|}"
+			status="${line%%|*}"; rest="${line#*|}"; name="${rest%%|*}"; stats="${rest#*|}"
 			suffix=""
-			if [ "$name" = "Playwright Chromium" ] && [ -n "$PW_STATS" ]; then
-				suffix="  ($PW_STATS)"
-			fi
+			[ -n "$stats" ] && suffix="  ($stats)"
 			printf '  %-6s %s%s\n' "$status" "$name" "$suffix"
 			[ "$status" = "FAIL" ] && FAILED=1
 		done
@@ -334,47 +434,17 @@ do
 		;;
 
     "Test Playwright Chromium")
-			ORIG_HOME="$HOME"
-			cd "$ORIG_HOME/repos/wekan/tests/playwright"
-			export HOME="$ORIG_HOME/repos/wekan/.tools"
-			unset CHROME_DEVEL_SANDBOX
-			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
-			export WEKAN_PLAYWRIGHT_ALL=1
-			read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
-			case "$INSTALL_DEPS" in
-				[Yy]*) meteor npm install ;;
-			esac
-			meteor npm exec playwright test -- --project=chromium
+			run_playwright_single chromium
 			break
 			;;
 
     "Test Playwright Firefox")
-			ORIG_HOME="$HOME"
-			cd "$ORIG_HOME/repos/wekan/tests/playwright"
-			export HOME="$ORIG_HOME/repos/wekan/.tools"
-			unset CHROME_DEVEL_SANDBOX
-			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
-			export WEKAN_PLAYWRIGHT_ALL=1
-			read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
-			case "$INSTALL_DEPS" in
-				[Yy]*) meteor npm install ;;
-			esac
-			meteor npm exec playwright test -- --project=firefox
+			run_playwright_single firefox
 			break
 			;;
 
     "Test Playwright Webkit")
-			ORIG_HOME="$HOME"
-			cd "$ORIG_HOME/repos/wekan/tests/playwright"
-			export HOME="$ORIG_HOME/repos/wekan/.tools"
-			unset CHROME_DEVEL_SANDBOX
-			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
-			export WEKAN_PLAYWRIGHT_ALL=1
-			read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
-			case "$INSTALL_DEPS" in
-				[Yy]*) meteor npm install ;;
-			esac
-			meteor npm exec playwright test -- --project=webkit
+			run_playwright_single webkit
 			break
 			;;
 
