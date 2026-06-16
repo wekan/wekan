@@ -150,6 +150,17 @@ export class BoardSwimlaneListDialog {
     return this.cardOption.listId == listId;
   }
 
+  /** returns if the board id is the currently selected one (reactive).
+   * Like isSelectedSwimlaneId/isSelectedListId, binds the board <option selected>
+   * attribute to the live selectedBoardId rather than the last-confirmed option,
+   * which is empty for a fresh dialog.  Without this, a Blaze re-render of the
+   * board <select> leaves no option selected, the DOM selectedIndex falls back to
+   * -1, and the move/copy reads an undefined boardId — making card.move fail with
+   * a 403 "may only update documents by ID" validation error. */
+  isSelectedBoardId(boardId) {
+    return this.selectedBoardId.get() == boardId;
+  }
+
   /** returns if the swimlane id is the currently selected one (reactive).
    * Used to bind the <option selected> attribute to the live selection rather
    * than the last-confirmed option, so a Blaze re-render of the swimlane <select>

@@ -945,7 +945,7 @@ template(name="moveCardPopup")
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
       each boards
-        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+        option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
@@ -980,7 +980,7 @@ template(name="copyCardPopup")
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
       each boards
-        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+        option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
@@ -1015,7 +1015,7 @@ template(name="copyManyCardsPopup")
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
       each boards
-        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+        option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
@@ -1050,7 +1050,7 @@ template(name="convertChecklistItemToCardPopup")
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
       each boards
-        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+        option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes

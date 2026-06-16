@@ -61,6 +61,13 @@ test.describe('Feature issues', () => {
       await openBoard(loggedInPage, b.boardId, b.slug);
       const bp = new BoardPage(loggedInPage);
 
+      // The board can briefly re-render while its subscription settles; poll for
+      // the fully-rendered seeded lists before reading the order and clicking, so
+      // an early click is not dropped and `before` is not a transient partial read.
+      await expect
+        .poll(async () => (await bp.listTitles()).map(s => s.trim()).join(','))
+        .toBe('List A,List B,List C');
+
       const before = (await bp.listTitles()).map(s => s.trim());
       expect(before.length).toBeGreaterThanOrEqual(2);
 

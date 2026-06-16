@@ -739,15 +739,31 @@ async function runTest() {
   await secondPage.click('.js-toggle-board-view');
   await secondPage.waitForSelector('.js-pop-over .js-open-lists-view', { timeout: 10000 });
   await secondPage.click('.js-pop-over .js-open-lists-view');
-  await wait(1000);
-  const secondSessionOrder = await secondPage.$$eval(
-    '.list-group.js-lists .js-list .list-header-name',
-    nodes => nodes.map(node => node.innerText.replace(/\s+/g, ' ').trim()),
-  );
-  assert(
-    JSON.stringify(secondSessionOrder) === JSON.stringify(listViewMovedOrder),
-    'Second session did not see persisted list order',
-  );
+  // Poll until the second session's list order matches the persisted order
+  // rather than reading once after a fixed delay — under load the fresh
+  // session's subscription can take longer than a second to deliver the lists.
+  const expectedOrderJson = JSON.stringify(listViewMovedOrder);
+  try {
+    await secondPage.waitForFunction(
+      expected => {
+        const titles = Array.from(
+          document.querySelectorAll('.list-group.js-lists .js-list .list-header-name'),
+        ).map(node => node.innerText.replace(/\s+/g, ' ').trim());
+        return JSON.stringify(titles) === expected;
+      },
+      { timeout: 20000 },
+      expectedOrderJson,
+    );
+  } catch (error) {
+    const secondSessionOrder = await secondPage.$$eval(
+      '.list-group.js-lists .js-list .list-header-name',
+      nodes => nodes.map(node => node.innerText.replace(/\s+/g, ' ').trim()),
+    );
+    assert(
+      false,
+      `Second session did not see persisted list order. Expected ${expectedOrderJson}, got ${JSON.stringify(secondSessionOrder)}`,
+    );
+  }
   await secondPage.close();
 
   logStep('Testing list reorder persistence in Swimlanes view');

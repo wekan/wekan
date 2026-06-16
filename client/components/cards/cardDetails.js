@@ -1695,6 +1695,9 @@ function registerCardDialogTemplate(templateName) {
     isDialogOptionListId(listId) {
       return Template.instance().dialog.isDialogOptionListId(listId);
     },
+    isSelectedBoardId(boardId) {
+      return Template.instance().dialog.isSelectedBoardId(boardId);
+    },
     isSelectedSwimlaneId(swimlaneId) {
       return Template.instance().dialog.isSelectedSwimlaneId(swimlaneId);
     },
@@ -1712,14 +1715,16 @@ function registerCardDialogTemplate(templateName) {
   Template[templateName].events({
     async 'click .js-done'(event, tpl) {
       const dialog = tpl.dialog;
-      const boardSelect = tpl.$('.js-select-boards')[0];
-      const boardId = boardSelect?.options[boardSelect?.selectedIndex]?.value;
-
-      const listSelect = tpl.$('.js-select-lists')[0];
-      const listId = listSelect?.options[listSelect?.selectedIndex]?.value;
-
-      const swimlaneSelect = tpl.$('.js-select-swimlanes')[0];
-      const swimlaneId = swimlaneSelect?.options[swimlaneSelect?.selectedIndex]?.value;
+      // Read the target board/swimlane/list from the dialog's live reactive
+      // selection rather than the DOM <select> elements.  A reactive re-render
+      // (e.g. the boards() helper transiently returning [] while a 'board'
+      // subscription re-resolves) can leave a <select> momentarily option-less,
+      // making selectedIndex -1 and the scraped id undefined — which then makes
+      // card.move()/copyCard() fail with a 403 "may only update documents by ID"
+      // validation error.  The reactive vars stay correct across those renders.
+      const boardId = dialog.selectedBoardId.get();
+      const swimlaneId = dialog.selectedSwimlaneId.get();
+      const listId = dialog.selectedListId.get();
 
       const cardSelect = tpl.$('.js-select-cards')[0];
       const cardId = cardSelect?.options?.length > 0

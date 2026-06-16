@@ -257,6 +257,11 @@ test.describe('Cards – operations', () => {
     const bp = new BoardPage(boardPage);
     const [listB] = [board.listIds[1]];
 
+    // Add-to-top positions the new card relative to the list's first rendered
+    // minicard, so wait for the seeded card to be published to the client before
+    // adding — otherwise a subscription race can place the card unexpectedly.
+    await expect(bp.minicard(listB, 'Beta Card')).toBeVisible({ timeout: 15_000 });
+
     await bp.closeComposers(listB);
     await bp.openAddCardTop(listB);
     await bp.submitNewCard(listB, 'New Top Card');
@@ -268,6 +273,12 @@ test.describe('Cards – operations', () => {
   test('add-to-bottom places the card last in the list', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const [,, listC] = board.listIds;
+
+    // Add-to-bottom positions the new card relative to the list's LAST rendered
+    // minicard (calculateIndex(lastCardDom, null)). If the seeded card has not
+    // yet been published to the client, lastCardDom is null and the new card can
+    // land above it instead of last — so wait for the seeded card to render first.
+    await expect(bp.minicard(listC, 'Gamma Card')).toBeVisible({ timeout: 15_000 });
 
     await bp.closeComposers(listC);
     await bp.openAddCardBottom(listC);
