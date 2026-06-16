@@ -52,7 +52,7 @@ This release adds the following updates:
     Docker run executes as the host user (`--user`) so it no longer leaves
     root-owned files behind. A guard repairs an already root-owned `test-results/`
     that caused `EACCES: permission denied, mkdir .../.playwright-artifacts-N`.
-- [Run ALL tests: start the :3000 server before Mocha so it boots fast again](https://github.com/wekan/wekan/commit/):
+- [Run ALL tests: start the :3000 server before Mocha so it boots fast again](https://github.com/wekan/wekan/commit/83963dce80909ae0c6dde512c297619e1213c502):
   the parallel "Run ALL tests" flow launched Mocha (in its own `.meteor/local-test`
   build) before the :3000 dev server, so two full Meteor builds competed for
   CPU/disk and the server took a long time to become ready — shown as a long line
