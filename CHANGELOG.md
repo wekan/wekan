@@ -30,6 +30,27 @@ Versions:
 
 This release adds the following updates:
 
+- [Move/Copy/Convert card dialogs: bind swimlane and list select to live selection](https://github.com/wekan/wekan/commit/758f320969ccdbe2026cf1acb9d361906da3f76a):
+  the swimlane and list `<select>` `selected` option in the move, copy, copy-many
+  and convert-checklist-item card dialogs now follows the live selection instead
+  of the last-confirmed option, so a Blaze reactive re-render can no longer
+  silently revert the user's in-progress choice. Thanks to xet7 and Claude.
+- [Playwright: probe browsers and skip ones that cannot launch on the host](https://github.com/wekan/wekan/commit/be44f9c3114fcef82847510058f8ccd014e32109):
+  the test runner now probes each browser and skips any that cannot launch (e.g.
+  the bundled WebKit needs old system libraries that newer Linux arm64 distros
+  like Ubuntu 26.04 no longer ship), removing false WebKit failures locally while
+  still running every browser on CI. Override with `WEKAN_PLAYWRIGHT_PROBE=1`/`0`.
+  Thanks to xet7 and Claude.
+- [rebuild-wekan.sh: platform detection, Docker WebKit on Linux arm64, all browsers in ALL tests](https://github.com/wekan/wekan/commit/dac356ed061167cdf994bd9f82a849514922a92e):
+  detect OS/arch (Linux amd64/arm64, macOS arm64); run the WebKit Playwright specs
+  via the official Playwright Docker image on Linux arm64 where the bundled WebKit
+  cannot launch natively; and run Chromium, Firefox and WebKit in the "Run ALL
+  tests" option. Thanks to xet7 and Claude.
+- [rebuild-wekan.bat: Windows menu parity for building, running and testing WeKan](https://github.com/wekan/wekan/commit/d5e5df6549f0496e4eaa54675eee2392cbebdd8d):
+  the Windows batch script now mirrors rebuild-wekan.sh's interactive menu so
+  building, running and testing WeKan (Mocha, import regression, Node E2E and
+  Playwright Chromium/Firefox/WebKit) works on Windows amd64/arm64 too. Thanks to
+  xet7 and Claude.
 - [Bumped form-data from 2.5.5 to 2.5.6](https://github.com/wekan/wekan/pull/6375):
   security fix for the CRLF-injection issue (CVE-2026-12143, GHSA-hmw2-7cc7-3qxx)
   where CR/LF/`"` in multipart field names and filenames were not escaped. It is a
