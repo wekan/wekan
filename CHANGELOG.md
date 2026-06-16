@@ -30,6 +30,19 @@ Versions:
 
 This release adds the following updates:
 
+- [Developer test tooling: "Run ALL tests" now stops an existing dev server on port 3000 instead of aborting](https://github.com/wekan/wekan/commit/64aa784b2b2b9f96040aad066101aef3f8444da0):
+  `rebuild-wekan.sh` menu option 9 ("Run ALL tests") previously errored out with
+  "Port 3000 is already in use" when a dev server was already running, forcing the
+  user to stop it manually. It now detects and stops the existing Meteor dev server
+  before starting its own. Thanks to xet7 and Claude. Details:
+  - When port 3000 is busy, option 9 finds the existing Meteor dev server
+    (`pgrep -f 'meteor run --port 3000'`) and sends it a normal `kill`, which also
+    tears down the node child it spawned.
+  - It then polls the port for up to 30s, escalating to `SIGKILL` at the 15s mark
+    and falling back to `lsof -ti tcp:3000` (or `fuser -k 3000/tcp`) to catch
+    anything still holding the port whose command line does not match.
+  - Only if the port is still occupied after all that does it print an error and
+    abort; otherwise it reports "Port 3000 is now free" and starts its own server.
 - [Fix moving/copying a card silently failing with a 403 validation error](https://github.com/wekan/wekan/commit/7db02489202c560d227a476db24cd761c66a0a00):
   the move, copy, copy-many and convert-checklist-item card dialogs could leave a
   card in its original list instead of moving it. Thanks to xet7 and Claude.
