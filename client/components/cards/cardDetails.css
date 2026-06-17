@@ -1029,11 +1029,38 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
    base .pop-over is position:absolute with a small margin/top offset, which left
    the card's top behind the fixed header bars; fix it to the viewport top with a
    z-index above every header (headers top out around z-index 1000-2000). */
+/* The card details content (.card-details) is always position:fixed (see the
+   min-width:801px and max-width:800px media queries above), so it renders as its
+   own framed, viewport-positioned box and escapes this .pop-over wrapper. That
+   leaves the generic .pop-over chrome (white background, border, shadow, header
+   and ~380px width) visible as a redundant empty second popup at the top of the
+   page. Collapse the wrapper to nothing and make it invisible; the fixed card
+   descendant still renders normally on top of the page. Closing is handled by
+   the card's own close button (.js-close-card-details), clicking outside, or
+   pressing Escape. */
 .pop-over[data-popup="cardDetailsPopup"] {
   position: fixed !important;
   top: 0 !important;
-  margin-top: 0 !important;
+  inset-inline-start: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
   z-index: 100000 !important;
+}
+
+.pop-over[data-popup="cardDetailsPopup"] > .header {
+  display: none !important;
+}
+
+.pop-over[data-popup="cardDetailsPopup"] > .content-wrapper {
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 /* Sticker highlight styles inside the sticker picker (mascot = underline,

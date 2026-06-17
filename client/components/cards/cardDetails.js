@@ -751,6 +751,17 @@ Template.cardDetails.events({
     event.preventDefault();
     event.stopPropagation();
 
+    // When the card is shown inside a popup (opened from the Board Table view,
+    // search results, or a mini-screen list), the redundant popup title header
+    // is hidden, so this is the only close button. Close the popup and clear its
+    // session state instead of running the board/route close flow below.
+    if (Popup.isOpen() && Utils.getPopupCardId()) {
+      Session.delete('popupCardId');
+      Session.delete('popupCardBoardId');
+      Popup.close();
+      return;
+    }
+
     // Resolve card context defensively because cardDetails can be rendered
     // from several parents (board, popup, gantt, etc.).
     const card = getCurrentCardFromContext({ ignorePopupCard: true }) || Template.currentData();
