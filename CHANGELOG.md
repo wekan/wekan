@@ -50,6 +50,18 @@ and fixes the following bugs:
   (`display: flex; flex-direction: column`) instead of `display: block` during and after
   resize; the explicit inline width still pins the list width.
   Thanks to xet7 and Claude.
+- [Login and register pages are now scrollable to the bottom of the form](https://github.com/wekan/wekan/commit/COMMIT_HASH_PLACEHOLDER):
+  Tall authentication forms (many login methods, legal notice, language selector, etc.)
+  could overflow the viewport without a reliable way to scroll to all fields. The auth
+  pages render directly into `<body>`, which already has `overflow-y: auto`, so the
+  vertical scrollbar now appears whenever the form is taller than the viewport, with a
+  real draggable thumb, placed on the right for LTR and on the left for RTL (since
+  `<body>` inherits `direction` from the html `dir` attribute). Two `<br>` are added
+  below the dialog so the bottom of the form scrolls fully into view. An earlier attempt
+  forced `overflow-y: scroll`, which left a non-draggable empty scrollbar track in
+  Chromium and no scrollbar at all in Firefox when the form fit the viewport; using the
+  default `overflow-y: auto` shows the scrollbar only when there is something to scroll.
+  Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
