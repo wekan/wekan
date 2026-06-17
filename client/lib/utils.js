@@ -345,6 +345,9 @@ export const Utils = {
     } else if (view === 'board-view-gantt') {
       window.localStorage.setItem('boardView', 'board-view-gantt'); //true
       Utils.reload();
+    } else if (view === 'board-view-table') {
+      window.localStorage.setItem('boardView', 'board-view-table'); //true
+      Utils.reload();
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();
@@ -372,6 +375,10 @@ export const Utils = {
       return 'board-view-cal';
     } else if (window.localStorage.getItem('boardView') === 'board-view-gantt') {
       return 'board-view-gantt';
+    } else if (
+      window.localStorage.getItem('boardView') === 'board-view-table'
+    ) {
+      return 'board-view-table';
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();

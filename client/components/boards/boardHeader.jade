@@ -127,6 +127,8 @@ template(name="boardHeaderBar")
               i.fa.fa-calendar
             if $eq boardView 'board-view-gantt'
               i.fa.fa-bar-chart
+            if $eq boardView 'board-view-table'
+              i.fa.fa-table
             span
               if $eq boardView 'board-view-swimlanes'
                 | {{_ 'swimlanes'}}
@@ -136,6 +138,8 @@ template(name="boardHeaderBar")
                 | {{_ 'calendar'}}
               if $eq boardView 'board-view-gantt'
                 | {{_ 'gantt'}}
+              if $eq boardView 'board-view-table'
+                | {{_ 'board-view-table'}}
         a.board-header-btn.js-toggle-dependencies(
             title="{{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}"
             class="{{#if currentBoard.showDependencies}}emphasis{{/if}}")
@@ -235,6 +239,13 @@ template(name="boardChangeViewPopup")
           i.fa.fa-bar-chart
           | {{_ 'board-view-gantt'}}
           if $eq Utils.boardView "board-view-gantt"
+            i.fa.fa-check
+    li
+      with "board-view-table"
+        a.js-open-table-view
+          i.fa.fa-table
+          | {{_ 'board-view-table'}}
+          if $eq Utils.boardView "board-view-table"
             i.fa.fa-check
 
 template(name="createBoard")

@@ -674,6 +674,19 @@ Template.boardBody.helpers({
     return boardView === 'board-view-gantt';
   },
 
+  isViewTable() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    let boardView;
+
+    if (currentUser) {
+      boardView = (currentUser.profile || {}).boardView;
+    } else {
+      boardView = window.localStorage.getItem('boardView');
+    }
+
+    return boardView === 'board-view-table';
+  },
+
   hasSwimlanes() {
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard) {

@@ -1,0 +1,76 @@
+/* Board Table view: search + pagination controls, styled to match the
+   Admin Panel / People page (see client/components/settings/peopleBody.css).
+   The table itself reuses the My Cards table styling (.my-cards-board-table). */
+
+.table-view-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 1vh 0;
+}
+
+.table-view-search-box {
+  display: flex;
+  flex-direction: row;
+  height: 34px;
+}
+
+.table-view-search-box input {
+  border: 1px solid #ccc;
+  border-radius: 0.4vw;
+  padding: 0 8px;
+}
+
+.table-view-search-box button {
+  min-width: 90px;
+  margin-inline-start: 6px;
+  background: #01628c;
+  color: #fff;
+  border: none;
+  border-radius: 0.4vw;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.table-view-search-box button:hover {
+  background: #005377;
+}
+
+.table-view-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.table-view-pagination button {
+  min-width: 32px;
+  height: 30px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.table-view-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.table-view-page-info {
+  min-width: 72px;
+  text-align: center;
+  color: #333;
+}
+
+/* Sortable column headers (Excel-like): clickable, with a sort-direction
+   arrow appended by the sortIndicator helper. */
+.my-cards-board-table th.js-table-view-sort {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.my-cards-board-table th.js-table-view-sort:hover {
+  color: #01628c;
+}

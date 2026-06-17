@@ -1,0 +1,52 @@
+template(name="tableView")
+  if currentBoard
+    .wrapper
+      .table-view-controls
+        .table-view-search-box
+          input.js-table-view-search(type="text" placeholder="{{_ 'search'}}" aria-label="{{_ 'search'}}")
+          button.js-table-view-search-button(type="button")
+            i.fa.fa-search
+            | {{_ 'search'}}
+        .table-view-pagination
+          button.js-table-view-prev-page(type="button" class="{{#unless hasPrevPage}}disabled{{/unless}}" aria-label="{{_ 'previous'}}")
+            i.fa.fa-chevron-left
+          span.table-view-page-info {{currentPage}} / {{totalPages}}
+          button.js-table-view-next-page(type="button" class="{{#unless hasNextPage}}disabled{{/unless}}" aria-label="{{_ 'next'}}")
+            i.fa.fa-chevron-right
+      table.my-cards-board-table
+        caption.sr-only {{currentBoard.title}}
+        thead
+          tr
+            th.js-table-view-sort(scope="col" data-sort="card") {{_ "Card"}} {{sortIndicator 'card'}}
+            th.js-table-view-sort(scope="col" data-sort="list") {{_ "List"}} {{sortIndicator 'list'}}
+            th.js-table-view-sort(scope="col" data-sort="swimlane") {{_ "Swimlane"}} {{sortIndicator 'swimlane'}}
+            unless isMiniScreen
+              th(scope="col") {{_ "Members"}}
+              th(scope="col") {{_ "Labels"}}
+              th.js-table-view-sort(scope="col" data-sort="due") {{_ "Due Date"}} {{sortIndicator 'due'}}
+        tbody
+          each row in rows
+            tr
+              td
+                unless isMiniScreen
+                  .my-cards-board-badge(class=row.colorClass)
+                .my-cards-card-title-table
+                  | {{row.title}}
+              td
+                | {{row.listTitle}}
+              td
+                | {{row.swimlaneTitle}}
+              unless isMiniScreen
+                td
+                  .div
+                    each member in row.card.members
+                      a.name
+                        +userAvatar(userId=member noRemove=true)
+                td
+                  .div
+                    each label in row.labels
+                      span.card-label(class="card-label-{{label.color}}" title="{{label.name}}")
+                        | {{label.name}}
+                td
+                  if row.dueAt
+                    | {{ displayDate row.dueAt 'LLL' }}

@@ -50,6 +50,8 @@ template(name="boardBody")
           +calendarView
         else if isViewGantt
           +ganttView
+        else if isViewTable
+          +tableView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

@@ -220,6 +220,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-gantt');
     Popup.back();
   },
+  'click .js-open-table-view'() {
+    Utils.setBoardView('board-view-table');
+    Popup.back();
+  },
 });
 
 // Shared setup for all create board popups
