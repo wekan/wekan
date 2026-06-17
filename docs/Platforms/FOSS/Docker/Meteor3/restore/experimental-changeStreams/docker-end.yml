@@ -1,9 +1,9 @@
       # ========== CUSTOM END =====
       ## See ../multitenancy.md about commented out settings:
-      #- METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
-      #- DDP_TRANSPORT=uws
-      - METEOR_REACTIVITY_ORDER=oplog,polling
-      - DDP_TRANSPORT=sockjs
+      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      - DDP_TRANSPORT=uws
+      #- METEOR_REACTIVITY_ORDER=oplog,polling
+      #- DDP_TRANSPORT=sockjs
       - WRITABLE_PATH=/data
       - WITH_API=true
       - RICHER_CARD_COMMENT_EDITOR=false

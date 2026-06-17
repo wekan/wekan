@@ -1,7 +1,6 @@
 services:
 
   PARAMETER:
-    # ../update-wekan-version.sh updates this WeKan version number
     image: ghcr.io/wekan/wekan:v9.20
     container_name: PARAMETER-tenant
     restart: unless-stopped
