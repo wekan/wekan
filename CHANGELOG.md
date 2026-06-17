@@ -26,6 +26,19 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following improvements:
+
+- [Board Table view](https://github.com/wekan/wekan/commit/a5d7e45200628e3112fd4fa297e26a381b985156):
+  render markdown with `+viewer` in the Card, List, Swimlane and
+  Labels cells, so emoji shortcodes and markdown (for example `:thumbsup:`) display
+  rendered instead of as literal text, and word-wrap the Card, List and Swimlane
+  cells so long text no longer overflows across the other columns.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.49 2026-06-17 WeKan ® release
 
 This release fixes the following bugs:
