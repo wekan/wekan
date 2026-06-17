@@ -11,8 +11,22 @@
 // shape `{ "lines": [ { "fromTitle": "...", "toTitle": "...", "type": "blocks" } ] }`
 // and import that here.
 
+// Strip HTML tags safely. A single `replace(/<[^>]*>/g, '')` is an incomplete
+// multi-character sanitization (CodeQL js/incomplete-multi-character-sanitization):
+//   1. removing one match can splice surrounding text into a new match, so the
+//      replacement is looped to a fixed point; and
+//   2. a dangling, unclosed tag with no ">" (e.g. a trailing "<script" or
+//      "<svg/onload=...") is never matched by the regex at all and would survive,
+//      so any stray "<"/">" left over is removed afterwards.
+// Together these guarantee no "<tag" (complete or partial) can remain.
 function stripHtml(s) {
-  return String(s == null ? '' : s).replace(/<[^>]*>/g, '').trim();
+  let str = String(s == null ? '' : s);
+  let prev;
+  do {
+    prev = str;
+    str = str.replace(/<[^>]*>/g, '');
+  } while (str !== prev);
+  return str.replace(/[<>]/g, '').trim();
 }
 
 function lineFromObject(o) {
