@@ -2,8 +2,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
-import dragscroll from '@wekanteam/dragscroll';
 import '/client/lib/dragscrollTouch';
+import { enablePageDragscroll, disablePageDragscroll } from '/client/lib/pageDragscroll';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import { EscapeActions } from '/client/lib/escapeActions';
@@ -199,12 +199,12 @@ Template.boardList.onCreated(function () {
 });
 
 Template.boardList.onRendered(function () {
-  // Enable drag-to-scroll on the All Boards list (.board-list.dragscroll), the
-  // same way the board canvas/swimlanes do. This makes mouse drag-scrolling
-  // work on desktop; finger drag-scrolling is handled by dragscrollTouch.js.
-  // The .board-list element is stable across menu/workspace switches (only its
-  // li children are re-rendered), so a single reset() binding is enough.
-  dragscroll.reset();
+  // Enable drag-to-scroll on the All Boards page the same way the board
+  // canvas/swimlanes do. On desktop the page scroll container is <body>, so we
+  // tag it via enablePageDragscroll(); the .board-list.dragscroll element only
+  // becomes a scroll container in mobile view, where its own class handles it.
+  // Finger drag-scrolling is handled by dragscrollTouch.js.
+  enablePageDragscroll();
 
   // jQuery sortable is disabled in favor of HTML5 drag-and-drop for space management
   // The old sortable code has been removed to prevent conflicts
@@ -248,6 +248,13 @@ Template.boardList.onRendered(function () {
     }
   });
   */
+});
+
+Template.boardList.onDestroyed(function () {
+  // Stop tagging <body> as drag-scrollable when leaving the All Boards page so
+  // other layouts (e.g. a board view, whose canvas does its own dragscroll) are
+  // not affected.
+  disablePageDragscroll();
 });
 
 Template.boardList.helpers({

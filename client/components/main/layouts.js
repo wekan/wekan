@@ -3,6 +3,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Users from '/models/users';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { enablePageDragscroll, disablePageDragscroll } from '/client/lib/pageDragscroll';
 
 let alreadyCheck = 1;
 let isCheckDone = false;
@@ -47,6 +48,10 @@ Template.userFormsLayout.onCreated(function () {
 });
 
 Template.userFormsLayout.onRendered(() => {
+  // Login / register pages scroll on <body>; enable drag-to-scroll there so the
+  // gesture works the same as on the board swimlanes view.
+  enablePageDragscroll();
+
   Meteor.call('getAuthenticationsEnabled', (_, result) => {
     let enabledAuthenticationMethods = ['password']; // we show/hide this based on isPasswordLoginEnabled
 
@@ -189,6 +194,12 @@ Template.userFormsLayout.onRendered(() => {
       }
     });
   });
+});
+
+Template.userFormsLayout.onDestroyed(() => {
+  // Stop drag-scrolling <body> after leaving login / register (e.g. once logged
+  // in) so other layouts keep their normal behaviour.
+  disablePageDragscroll();
 });
 
 Template.userFormsLayout.helpers({
