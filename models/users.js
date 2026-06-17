@@ -465,6 +465,7 @@ Users.attachSchema(
         'board-view-lists',
         'board-view-cal',
         'board-view-gantt',
+        'board-view-table',
       ],
     },
     'profile.listSortBy': {
