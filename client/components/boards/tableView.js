@@ -52,7 +52,10 @@ Template.tableView.onCreated(function () {
         listTitle: list.title || '',
         swimlaneTitle: swimlane.title || '',
         colorClass: board.colorClass(),
-        dueAt: card.dueAt || null,
+        receivedAt: card.getReceived() || null,
+        startAt: card.getStart() || null,
+        dueAt: card.getDue() || null,
+        endAt: card.getEnd() || null,
         labels,
       });
     });
@@ -72,10 +75,20 @@ Template.tableView.onCreated(function () {
       });
     }
 
+    // Map a date sort field to the matching row property.
+    const dateFieldProp = {
+      received: 'receivedAt',
+      start: 'startAt',
+      due: 'dueAt',
+      end: 'endAt',
+    };
+
     filtered = filtered.slice().sort((a, b) => {
-      if (field === 'due') {
-        const av = a.dueAt ? new Date(a.dueAt).getTime() : Infinity;
-        const bv = b.dueAt ? new Date(b.dueAt).getTime() : Infinity;
+      const dateProp = dateFieldProp[field];
+      if (dateProp) {
+        // Cards without the date sort last, regardless of direction.
+        const av = a[dateProp] ? new Date(a[dateProp]).getTime() : Infinity;
+        const bv = b[dateProp] ? new Date(b[dateProp]).getTime() : Infinity;
         return (av - bv) * direction;
       }
       let av;
@@ -138,6 +151,28 @@ Template.tableView.helpers({
     return tpl.page.get() < totalPages;
   },
 
+  // A date column is shown unless BOTH its "Show at Card" (allowsXxxDate) and
+  // "Show at Minicard" (allowsXxxDateOnMinicard) board settings are unchecked.
+  showReceivedColumn() {
+    const board = Utils.getCurrentBoard();
+    return !!board && (board.allowsReceivedDate || board.allowsReceivedDateOnMinicard);
+  },
+
+  showStartColumn() {
+    const board = Utils.getCurrentBoard();
+    return !!board && (board.allowsStartDate || board.allowsStartDateOnMinicard);
+  },
+
+  showDueColumn() {
+    const board = Utils.getCurrentBoard();
+    return !!board && (board.allowsDueDate || board.allowsDueDateOnMinicard);
+  },
+
+  showEndColumn() {
+    const board = Utils.getCurrentBoard();
+    return !!board && (board.allowsEndDate || board.allowsEndDateOnMinicard);
+  },
+
   // Excel-like sort arrow shown on the active sort column header.
   sortIndicator(field) {
     const tpl = Template.instance();
@@ -189,4 +224,31 @@ Template.tableView.events({
     }
     tpl.page.set(1);
   },
+
+  // Clicking the leftmost "Edit" link opens the Card Details popup on top of the
+  // Board Table view (same mechanism as opening a card from search results).
+  'click .js-table-view-edit-card'(event) {
+    event.preventDefault();
+    const cardId = event.currentTarget.dataset.cardId;
+    if (!cardId) return;
+    const board = Utils.getCurrentBoard();
+    Meteor.subscribe('popupCardData', cardId, {
+      onReady() {
+        Session.set('popupCardId', cardId);
+        if (board) Session.set('popupCardBoardId', board._id);
+        if (!Popup.isOpen()) {
+          Popup.open('cardDetails')(event);
+        }
+      },
+    });
+  },
+
+  // Adding a date to a card that has none. The data context of each add button
+  // is the card (set with `with row.card` in the template), so the popup edits
+  // the right card. Editing an existing date is handled by the cardXxxDate
+  // badge templates themselves (their own .js-edit-date click handlers).
+  'click .js-received-date': Popup.open('editCardReceivedDate'),
+  'click .js-start-date': Popup.open('editCardStartDate'),
+  'click .js-due-date': Popup.open('editCardDueDate'),
+  'click .js-end-date': Popup.open('editCardEndDate'),
 });

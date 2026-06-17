@@ -75,6 +75,20 @@
   color: #01628c;
 }
 
+/* Leftmost "Edit" cell: an Edit link (pencil icon + text) styled like the one
+   on the Admin Panel / People page, opening the card when clicked. */
+.my-cards-board-table td.table-view-cell-edit {
+  white-space: nowrap;
+}
+
+.my-cards-board-table td.table-view-cell-edit .edit-card {
+  cursor: pointer;
+}
+
+.my-cards-board-table td.table-view-cell-edit .edit-card i.fa {
+  margin-inline-end: 4px;
+}
+
 /* Word-wrap the Card / List / Swimlane cells so long text breaks onto the next
    line instead of overflowing across the other columns. */
 .my-cards-board-table td.table-view-cell-wrap {
@@ -98,4 +112,32 @@
 .my-cards-board-table .card-label .viewer,
 .my-cards-board-table .card-label .viewer p {
   display: inline;
+}
+
+/* Word-wrap the Labels cell so each label pill wraps onto the next line instead
+   of stretching the column or overflowing across the date columns. */
+.my-cards-board-table td.table-view-cell-labels {
+  max-width: 250px;
+}
+
+.my-cards-board-table td.table-view-cell-labels .div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.my-cards-board-table td.table-view-cell-labels .card-label {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Keep each date in a single column; the clickable badge already styles itself
+   like the card detail / Gantt date badges. */
+.my-cards-board-table td.table-view-cell-date {
+  white-space: nowrap;
+}
+
+.my-cards-board-table td.table-view-cell-date .card-date {
+  cursor: pointer;
 }
