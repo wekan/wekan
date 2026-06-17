@@ -78,6 +78,10 @@ template(name="userFormsLayout")
                   option(value="{{tag}}") {{name}} (RTL)
                 else
                   option(value="{{tag}}") {{name}}
+    //- Extra space below the login / register dialog so its bottom scrolls
+    //- fully into view and scrolling continues a little past the form.
+    br
+    br
 
 template(name="defaultLayout")
   a.skip-link(href="#content") {{_ 'skip-to-content'}}
