@@ -26,6 +26,23 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.52 2026-06-18 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Card Details popup](https://github.com/wekan/wekan/commit/15fcde99e2105075fe75ed4164a8b116b91d5606):
+: removed the redundant empty second popup that appeared at
+  the top of the page when a card was opened as a popup (for example from the
+  Board Table view Edit link or from search results). The card details content is
+  always position:fixed, so it renders as its own framed box and escapes the
+  generic popup wrapper, leaving that wrapper (with its "Card Details" title
+  header, border and background) visible as an empty box. The wrapper is now
+  collapsed and made invisible so only the card itself shows. The card's own close
+  button now closes the popup (in addition to clicking outside or pressing Escape).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.51 2026-06-17 WeKan ® release
 
 This release adds the following improvements:
