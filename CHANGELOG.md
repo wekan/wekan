@@ -33,6 +33,24 @@ This release adds the following updates:
 - [Added non-experimental docker settings](https://github.com/wekan/wekan/commit/0944f2af472c30d4d464850399ed9f5ffcca3a0f).
   Thanks to xet7.
 
+and adds the following new features:
+
+-
+
+and fixes the following bugs:
+
+- [List scrollbar disappeared after resizing a list width](https://github.com/wekan/wekan/commit/f621966f6143bb0d1c986507331d095ff81866d8):
+  Fixes [#6386](https://github.com/wekan/wekan/issues/6386). When changing the width
+  of a list by dragging the resize handle between lists, the list's vertical scrollbar
+  (used to scroll up and down through the cards in a list) disappeared. Cause: dragging
+  the resize handle sets an inline `--list-width` property on the list, which made the
+  resize CSS rules force `display: block` on the list permanently. That collapsed the
+  flex-column layout so `.list-body` was no longer height-bounded and its
+  `overflow-y: auto` scrollbar never appeared. Fixed by keeping the flex column layout
+  (`display: flex; flex-direction: column`) instead of `display: block` during and after
+  resize; the explicit inline width still pins the list width.
+  Thanks to xet7 and Claude.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.47 2026-06-17 WeKan ® release
