@@ -26,12 +26,34 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.52 2026-06-18 WeKan ® release
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of [InputBleed](https://wekan.fi/hall-of-fame/inputbleed/):
+
+- [Fixed InputBleed](https://github.com/wekan/wekan/commit/8dfb54d9d5d68f120e3aa710c3521a9e9ac9670c):
+  incomplete multi-character HTML sanitization in card dependency
+  import allowed HTML/script element injection](https://github.com/wekan/wekan/blob/main/client/lib/importDependencies.js)
+  (CWE-79 Cross-site Scripting, CWE-80 Improper Neutralization of Script-Related HTML
+  Tags, CWE-116 Improper Encoding or Escaping of Output; GitHub CodeQL code scanning
+  alert #421, rule `js/incomplete-multi-character-sanitization`, severity High).
+  `stripHtml()` in `client/lib/importDependencies.js` removed HTML tags with a single
+  pass of `/<[^>]*>/g`. That is an incomplete multi-character sanitization in two ways:
+  removing one match can splice surrounding text into a new match (so the replacement
+  must be looped to a fixed point), and a dangling, unclosed tag that has no closing
+  `>` (for example a trailing `<script` or `<svg/onload=...`) is never matched by the
+  regex at all and survives untouched — leaving `<script` in the output, exactly as the
+  scanner warned. A crafted card-dependency ("Red Strings") import file (the
+  WeKan/generic JSON or Miro item titles and connector captions that pass through
+  `stripHtml`) could therefore smuggle an HTML/script fragment past the sanitizer.
+  Fixed by looping the tag-stripping replacement to a fixed point and then removing any
+  remaining stray `<`/`>` characters, so neither a complete nor a partial tag can
+  remain.
+  Thanks to GitHub CodeQL, xet7 and Claude.
+
+and fixes the following bugs:
 
 - [Card Details popup](https://github.com/wekan/wekan/commit/15fcde99e2105075fe75ed4164a8b116b91d5606):
-: removed the redundant empty second popup that appeared at
+  removed the redundant empty second popup that appeared at
   the top of the page when a card was opened as a popup (for example from the
   Board Table view Edit link or from search results). The card details content is
   always position:fixed, so it renders as its own framed box and escapes the
