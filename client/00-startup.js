@@ -14,6 +14,17 @@ try {
   }
 } catch (_) {}
 
+// Expose Meteor on window. Under the Meteor 3.5 + rspack build, bare `Meteor`
+// references in app code are rewritten by rspack's ProvidePlugin into per-module
+// imports, so `Meteor` is NOT placed on the browser `window` the way the classic
+// Meteor linker did. Re-expose it so the browser console and the Playwright e2e
+// tests (which call Meteor.loginWithToken / Meteor.userId / Meteor.subscribe etc.
+// via page.evaluate in window scope) can reach it. This matches the long-standing
+// classic-Meteor behaviour where `Meteor` is a global.
+if (typeof window !== 'undefined') {
+  window.Meteor = Meteor;
+}
+
 // Fix bug in jam:offline 0.4.1: s?.message.includes() crashes when s.message is
 // undefined (e.g. during WebSocket reconnect errors that don't carry a .message).
 // Wrap _debug so the optional chain is complete: s?.message?.includes().
