@@ -84,16 +84,17 @@
   flex-basis: auto !important;
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
-  /* Override any conflicting layout properties */
+  /* Override any conflicting layout properties.
+     Keep the flex column layout so the list-body stays height-bounded and
+     keeps its vertical scrollbar (display:block would collapse it). */
   float: inline-start !important;
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
   position: relative !important;
   /* Force width to be respected */
   width: var(--list-width, auto) !important;
   min-width: var(--list-width, auto) !important;
   max-width: var(--list-width, auto) !important;
-  /* Ensure the width is applied immediately */
-  overflow: visible !important;
 }
 
 body.list-resizing-active {
@@ -130,7 +131,8 @@ body.list-resizing-active * {
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
   float: inline-start !important;
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Ensure the width persists after resize is complete */
@@ -146,7 +148,8 @@ body.list-resizing-active * {
   flex-grow: 0 !important;
   flex-shrink: 0 !important;
   float: inline-start !important;
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Ensure consistent header height for all lists */
