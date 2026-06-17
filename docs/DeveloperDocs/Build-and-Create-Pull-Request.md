@@ -1,28 +1,10 @@
-## About markdown changes
+# Build WeKan and Create Pull Request
 
-Wekan v4.29 changes markdown rendering from [marked](https://github.com/markedjs/marked) to [markdown-it](https://github.com/markdown-it/markdown-it).
-
-## About emoji
-
-With markdown-it, also [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) plugin has been added, supporting [full list of GitHub emojis](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json).
-
-Example emoji code, that you can add for example to card name, card description etc:
-```
-:rainbow: :thumbsup: :100:
-```
-That shows emojis :rainbow: :thumbsup: :100:
-
-## About other markdown-it plugins
-
-For markdown-it, there are also other [syntax extensions](https://github.com/markdown-it/markdown-it#syntax-extensions) where some are listed at that markdown-it page, and [others at npmjs.com](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
-
-For example, how to get some [mermaid plugin](https://www.npmjs.com/search?q=markdown-it-mermaid) working so that some syntax works for https://mermaid-js.github.io/mermaid/ ?
-
-## How you could add another plugin
+WeKan currently uses Meteor 3.
 
 Using newest Ubuntu amd64:
 
-# Meteor 2
+# Meteor 3
 
 ### 1. Install git and configure it
 ```
@@ -106,30 +88,23 @@ That does: 1 install dependencies, 2 builds wekan, 3 starts wekan in development
 
 And then [register and login](Adding-users) at http://localhost:4000
 
-### OPTIONAL, NOT NEEDED: 5. Add new plugin package
-```
-meteor npm install markdown-it-something --save
-```
+### 4. Make and test your changes
 
-Edit file `wekan/packages/markdown/src-integration.js` and add using that new package, using code example from that new plugin page, or similar like emoji plugin was added.
+Use `rebuild-wekan.sh` to run all tests.
 
-### 7. Test
+### 5. If it works, create pull request
 
-Test does that new plugin syntax work, for example in card title, card description etc on other input fields.
-
-### 8. If it works, create pull request
-
-If normal markdown, emoji, and your new added plugin syntax all work, commit your changes:
+When your changes work, commit them:
 ```
 git add --all
 
-git commit -m "Added plugin markdown-it-something."
+git commit -m "Describe your change here."
 
 git push
 ```
 And then at your GitHub for `https://github.com/YOUR-GITHUB-USERNAME/wekan` click `Create pull request`.
 
-## Updating 
+## Updating
 
 Updating to next Meteor release:
 ```
