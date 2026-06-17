@@ -26,6 +26,25 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.53 2026-06-18 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed Playwright e2e tests all failing because `Meteor` was not a browser global](https://github.com/wekan/wekan/commit/640d8ddadba64fde43c49a28b0fa39e30fbed105).
+  Every Playwright end-to-end test (all 183, across Chromium, Firefox and WebKit) failed at
+  the `waitForMeteor` step with `TimeoutError: page.waitForFunction`, because
+  `typeof Meteor` was `undefined` in the browser `window` scope. Under the Meteor 3.5 +
+  rspack build, bare `Meteor` references in app code are rewritten by rspack's ProvidePlugin
+  into per-module imports, so `Meteor` is no longer placed on `window` the way the classic
+  Meteor linker did. The tests call `Meteor.loginWithToken` / `Meteor.userId` /
+  `Meteor.subscribe` etc. via `page.evaluate` (which runs in `window` scope), so they could
+  never proceed past login. Fixed by re-exposing `window.Meteor = Meteor` early in
+  `client/00-startup.js`, restoring the long-standing classic-Meteor behaviour where `Meteor`
+  is a global (also handy in the browser console).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.52 2026-06-18 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of [InputBleed](https://wekan.fi/hall-of-fame/inputbleed/):
