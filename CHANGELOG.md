@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.48 2026-06-17 WeKan ® release
 
 This release adds the following updates:
 
@@ -35,7 +35,21 @@ This release adds the following updates:
 
 and adds the following new features:
 
--
+- Board Table view.
+  [Part 1](https://github.com/wekan/wekan/commit/e085e5bfeb7b1a00be6d39b413cec7078a20134b),
+  [Part 2](https://github.com/wekan/wekan/commit/86bf48a626e2947836ae7dc5dda65c08d0174552).
+  The board view menu (Swimlanes, Lists, Calendar, Gantt) gains a new "Table" entry
+  below Gantt. It shows every card of the current board in a table — Card, List,
+  Swimlane, Members, Labels and Due Date — using the same styling as the My Cards
+  table view (the `.my-cards-board-table` CSS classes). Whereas My Cards' table spans
+  all of the user's cards across boards, this is the per-board equivalent showing all
+  of the current board's cards. The view is stored like the others as the user's
+  `board-view-table` boardView. It also has a search box and previous/next pagination
+  styled like the Admin Panel / People page, and Excel-like column sorting: click the
+  Card, List, Swimlane or Due Date header to sort by it, click again to reverse, with
+  an arrow showing the active column and direction. Search, sort and pagination run
+  client-side over the board's already-loaded cards.
+  Thanks to xet7 and Claude.
 
 and fixes the following bugs:
 
