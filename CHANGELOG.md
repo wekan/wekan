@@ -26,6 +26,19 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- Fix Board Table view not loading with "No such template: tableView" error.
+  The `tableView.jade`, `tableView.js` and `tableView.css` files of the new Board
+  Table view were never imported in `client/features/boards.js`, so the `tableView`
+  template was not bundled and selecting the Table view threw a Tracker recompute
+  exception. Added the missing imports.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.48 2026-06-17 WeKan ® release
 
 This release adds the following updates:
