@@ -50,7 +50,7 @@ and fixes the following bugs:
   (`display: flex; flex-direction: column`) instead of `display: block` during and after
   resize; the explicit inline width still pins the list width.
   Thanks to xet7 and Claude.
-- [Login and register pages are now scrollable to the bottom of the form](https://github.com/wekan/wekan/commit/COMMIT_HASH_PLACEHOLDER):
+- [Login and register pages are now scrollable to the bottom of the form](https://github.com/wekan/wekan/commit/ad2b969eb5aeea535e0392c9cf81d32a79f11657):
   Tall authentication forms (many login methods, legal notice, language selector, etc.)
   could overflow the viewport without a reliable way to scroll to all fields. The auth
   pages render directly into `<body>`, which already has `overflow-y: auto`, so the
@@ -61,6 +61,19 @@ and fixes the following bugs:
   forced `overflow-y: scroll`, which left a non-draggable empty scrollbar track in
   Chromium and no scrollbar at all in Firefox when the form fit the viewport; using the
   default `overflow-y: auto` shows the scrollbar only when there is something to scroll.
+  Thanks to xet7 and Claude.
+- [Drag-to-scroll (dragscroll) now works on the All Boards, My Cards, Login and Register pages and in the board Lists view](https://github.com/wekan/wekan/commit/da93bfbca687e4ca9b1ed8798e9f07ec0d31bab7):
+  Dragging empty space to scroll already worked on the board Swimlanes view but not on
+  these pages. The dragscroll library scrolls whichever element carries the `dragscroll`
+  class, and that element must be the actual scroll container. On All Boards, My Cards,
+  Login and Register the page scroll container is `<body>` (the previous `dragscroll`
+  class on `ul.board-list` only scrolled in mobile view), so a small shared helper
+  (`client/lib/pageDragscroll.js`) now toggles the `dragscroll` class on `<body>` while
+  those templates are mounted and calls `dragscroll.reset()`; the library has a dedicated
+  `el == document.body` branch for whole-page scrolling. In the board Lists view the
+  `.board-canvas` only received `dragscroll` when the board had swimlanes, so vertical
+  drag-scroll failed on swimlane-less boards; the canvas now always carries the class.
+  One-finger touch scrolling (client/lib/dragscrollTouch.js) covers these too.
   Thanks to xet7 and Claude.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
