@@ -26,6 +26,29 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.51 2026-06-17 WeKan ® release
+
+This release adds the following improvements:
+
+- [Board Table view](https://github.com/wekan/wekan/commit/73b4a97aaafc00baba260cfd16526d78e6372dee):
+  the table now has the columns Card, List, Swimlane, Assignees,
+  Members, Labels, Received, Start, Due and End. The Received, Start, Due and End
+  dates are formatted and styled the same way as on the opened card details and the
+  Gantt view (reusing the cardReceivedDate / cardStartDate / cardDueDate / cardEndDate
+  badge templates), and can be sorted by clicking their column headers. Clicking a
+  date opens the date-select popup so it can be changed, and an add (+) button is
+  shown for empty dates — both only for board roles that have permission to change
+  the card (the same `canModifyCard` check used on card details). A Received, Start,
+  Due or End column is hidden when both its "Show at Card" and "Show at Minicard"
+  Card Settings are unchecked for the board. The Labels cell now word-wraps so long
+  label names no longer overflow across the other columns. Each row also has a
+  leftmost "Edit" link (pencil icon + text) styled like the one on the Admin Panel /
+  People page; clicking it opens the Card Details popup on top of the Board Table
+  view.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.50 2026-06-17 WeKan ® release
 
 This release adds the following improvements:
