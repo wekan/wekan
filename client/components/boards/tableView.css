@@ -74,3 +74,28 @@
 .my-cards-board-table th.js-table-view-sort:hover {
   color: #01628c;
 }
+
+/* Word-wrap the Card / List / Swimlane cells so long text breaks onto the next
+   line instead of overflowing across the other columns. */
+.my-cards-board-table td.table-view-cell-wrap {
+  max-width: 250px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* The +viewer template wraps its markdown in a block-level .viewer div. Inside
+   a table cell it should not add extra vertical margins, and inside a label it
+   must stay inline so the label keeps its pill shape. */
+.my-cards-board-table .viewer {
+  margin: 0;
+}
+
+.my-cards-board-table .viewer p {
+  margin: 0;
+}
+
+.my-cards-board-table .card-label .viewer,
+.my-cards-board-table .card-label .viewer p {
+  display: inline;
+}
