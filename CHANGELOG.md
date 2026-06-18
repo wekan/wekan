@@ -26,6 +26,41 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed "Release All Platforms" snap build failing at upload with exit 64](https://github.com/wekan/wekan/commit/ddfe351968f629b619cd757c410a222381d11f98).
+  The Launchpad snap build produced no `.snap` (only build logs), but
+  `snapcraft remote-build` exited 0 so the workflow reported success; the upload
+  step then globbed `wekan_<version>_*.snap`, matched nothing, and passed the
+  literal pattern to `snapcraft upload` ("is not a valid file", exit 64).
+  Hardened the workflow to verify a `.snap` was actually produced (instead of
+  trusting the exit code alone), print the Launchpad build logs when it was not,
+  and use `nullglob` + existence checks in the upload/attach steps so a no-match
+  fails clearly instead of cryptically. Also made `releases/version.sh` set
+  `snapcraft.yaml`'s `version:` robustly — matching `^version:` rather than a
+  hard-coded line number and tolerating any quoting, then verifying the change
+  applied — so the snap can no longer be built with a stale version that the
+  upload glob cannot match, and the snap job fails fast if the tagged version
+  does not match the release.
+  Thanks to xet7.
+
+and adds the following features:
+
+- [Build WeKan server bundles for s390x, ppc64le and armv7l](https://github.com/wekan/wekan/commit/61c8b2fb244dcdfbd097122de6f0250b10a8f151).
+  The "Release All Platforms" workflow now also builds the WeKan server bundle
+  for every other architecture Node.js 24.x publishes binaries for — s390x,
+  ppc64le and armv7l — by rebuilding the bundle's native modules under QEMU
+  emulation, and attaches each `wekan-<version>-<arch>.zip` to the GitHub Release
+  as an extra download. These extra-architecture bundles are not part of the
+  Docker image or snap (run a separate MongoDB on those platforms), and are built
+  independently so a slow or failing emulated build never blocks the main
+  amd64/arm64/win64/mac release, Docker or snap.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.54 2026-06-18 WeKan ® release
 
 This release adds the following updates:
