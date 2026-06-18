@@ -10,9 +10,9 @@ Using newest Ubuntu amd64:
 ```
 sudo apt -y install git
 
-git config --global user.name "Yourfirstname Yourlastname"
+git config --global user.name "YOUR-FIRSTNAME YOUR-LASTNAME"
 
-git config --global user.email email-address-you-use-at-github@example.com
+git config --global user.email YOUR-EMAIL-ADDRESS@gmail.com
 
 git config --global push.default simple
 
@@ -26,47 +26,34 @@ Host *
 
 Host github.com
         Hostname github.com
-        User xet7
-        IdentityFile ~/.ssh/id_xet7ed
+        User YOUR-GITHUB-USERNAME
+        IdentityFile ~/.ssh/id_github
 ```
 Save and Exit with Ctrl-o Enter Ctrl-x Enter
 
 If you do not have ssh key, create it:
 ```
-ssh-keygen
+ssh-keygen -t ed25519 -f ~/.ssh/id_github
 ```
-And press Enter about 3 times, until you have private key at `~/.ssh/id_rsa` and public key at `~/.ssh/id_rsa.pub`
+And press Enter about 3 times, until you have private key at `~/.ssh/id_github` and public key at `~/.ssh/id_github.pub`
 
-Add public key `.pub` to your github account web interface.
+Add public key `.pub` to your GitHub SSH Keys at https://github.com/settings/keys
 
-Add path to Meteor:
-```
-nano .bashrc
-```
-There at bottom add:
-```
-export PATH=~/.meteor:$PATH
-```
-Save and Exit with Ctrl-o Enter Ctrl-x Enter
-
-### 2. Create fork of `https://github.com/wekan/wekan` at GitHub web page
+### 2. Click Create fork at https://github.com/wekan/wekan webpage
 
 ```
 mkdir repos
 
 cd repos
 
-git clone git@github.com:YourGithubUsername/wekan.git
+git clone git@github.com:YOUR-GITHUB-USERNAME/wekan.git
 
 cd wekan
 ```
 
 ### IMPORTANT: Do NOT `npm audit fix --force`
 
-IMPORTANT: Do NOT `npm audit fix --force`, it downgrades @meteorjs/rspack and breaks builds.
-`npm audit` shows false info, it does not recognize that elliptic is already updated
-to 6.6.1 with override at package.json like you can see with  `npm list elliptic`.
-https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v850-2026-04-03-wekan--release
+Because it downgrades @meteorjs/rspack and breaks builds.
 
 ### 3. Select option 1 to install dependencies, and then Enter.
 
@@ -84,9 +71,12 @@ https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v850-2026-04-03-wekan--rel
 
 3
 ```
-That does: 1 install dependencies, 2 builds wekan, 3 starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically and reload webbroser. But, still sometimes, it may need stopping with Ctrl-c and full build with option 2.
+That does:
+- 1 install dependencies,
+- 2 builds wekan
+- 3 starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically.
 
-And then [register and login](Adding-users) at http://localhost:4000
+And then [register and login](Adding-users) with webbrowser at http://localhost:4000
 
 ### 4. Make and test your changes
 
@@ -103,21 +93,3 @@ git commit -m "Describe your change here."
 git push
 ```
 And then at your GitHub for `https://github.com/YOUR-GITHUB-USERNAME/wekan` click `Create pull request`.
-
-## Updating
-
-Updating to next Meteor release:
-```
-meteor update
-
-meteor npm update
-```
-Updating to specific Meteor release:
-```
-meteor update --release METEOR@3.4
-```
-If you are changing Meteor and Node.js versions, you may need to reset Meteor:
-```
-meteor reset
-```
-Or alternatively, delete wekan repo (if you did not need any changes you made), and clone wekan repo again, and then build etc.
