@@ -1,5 +1,28 @@
 # Meteor 3 WeKan: Hosting many WeKan kanban, websites, etc
 
+## 1) Install WeKan exactly like this
+
+Use all settings and config files at this page and subdirectories.
+
+## 2) Backup your previous WeKan server
+
+See backup scripts etc, mongodump and files directory
+
+## 3)  Restore to your new WeKan install
+
+Use restore scripts to mongorestore and restore files (attachments and avatars) 
+
+## 4) Move all files from MongoDB to filesystem
+
+This will speed up loading attachments a lot.
+
+1. Admin Panel / Attachments
+2. Default Storage: Filesystem
+3. Move Files: From MongoDB CollectionFS to Filesystem
+4. Move Files: From MongoDB Meteor-Files to Filesystem
+5. MongoDB GridFS Storage: Compact Database (this will make MongoDB disk usage smaller)
+
+----
 Note: Only `Oplog sockjs` works with multitenancy, see [multitenancy.md](multitenancy).
 
 Migrating from Parallel Snap setup, because `snap set wekan root-url=...`

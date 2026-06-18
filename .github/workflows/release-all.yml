@@ -613,6 +613,24 @@ jobs:
           printf '%s' "$LP_CREDENTIALS" | base64 -d > ~/.local/share/snapcraft/launchpad-credentials
           chmod 600 ~/.local/share/snapcraft/launchpad-credentials
 
+      - name: Pin snap version to the release version
+        # snapcraft.yaml's `version:` names the produced files
+        # (wekan_<version>_<arch>.snap). It was hard-coded and drifted from the
+        # release (e.g. '9.53' while releasing 9.54), so the build produced
+        # wekan_9.53_*.snap and the upload/attach globs (wekan_${VERSION}_*.snap)
+        # matched nothing — leaving the literal glob to be passed to
+        # `snapcraft upload` ("is not a valid file", exit 64). Pin it to the
+        # release version here so the filenames always match. remote-build can
+        # build from git, so also commit the change locally (detached tag
+        # checkout, never pushed).
+        run: |
+          set -uo pipefail
+          sed -i "s/^version:.*/version: '${VERSION}'/" snapcraft.yaml
+          grep '^version:' snapcraft.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Set snap version ${VERSION}" || echo "snapcraft.yaml already at ${VERSION}"
+
       - name: Build snaps on Launchpad (amd64 + arm64)
         # `snapcraft remote-build` is experimental and talks to Launchpad over
         # HTTPS after pushing the whole repo; it intermittently dies with a
@@ -621,29 +639,48 @@ jobs:
         # Retry a few times so one network hiccup doesn't fail the release.
         run: |
           set -uo pipefail
+          shopt -s nullglob
           attempts=3
           for i in $(seq 1 "$attempts"); do
             echo "::group::Remote build attempt $i/$attempts"
-            if snapcraft remote-build --launchpad-accept-public-upload; then
-              echo "::endgroup::"
-              echo "Remote build succeeded on attempt $i."
+            snapcraft remote-build --launchpad-accept-public-upload && rc=0 || rc=$?
+            echo "::endgroup::"
+            # snapcraft remote-build can exit 0 even when the Launchpad build
+            # FAILED (it just downloads the build logs and produces no .snap), so
+            # don't trust the exit code alone — require that .snap files exist.
+            snaps=( wekan_${VERSION}_*.snap )
+            if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
+              echo "Remote build succeeded on attempt $i: ${snaps[*]}"
               exit 0
             fi
-            echo "::endgroup::"
-            echo "Remote build attempt $i failed (likely a transient Launchpad/TLS error)."
+            echo "Attempt $i: snapcraft exit=$rc, .snap files produced=${#snaps[@]}."
+            # Surface the Launchpad build logs so a real build failure is
+            # diagnosable here, instead of as a later cryptic upload error.
+            for log in snapcraft-wekan-*.txt; do
+              echo "::group::Launchpad build log: $log (last 150 lines)"
+              tail -n 150 "$log"
+              echo "::endgroup::"
+            done
             if [ "$i" -lt "$attempts" ]; then
               echo "Retrying in 60s..."
               sleep 60
             fi
           done
-          echo "Remote build failed after $attempts attempts." >&2
+          echo "::error::Remote build failed after $attempts attempts (no wekan_${VERSION}_*.snap produced)." >&2
           exit 1
 
       - name: Push snaps to the Snap Store (edge + beta channels)
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         run: |
-          for f in wekan_${VERSION}_*.snap; do
+          set -euo pipefail
+          shopt -s nullglob
+          snaps=( wekan_${VERSION}_*.snap )
+          if [ "${#snaps[@]}" -eq 0 ]; then
+            echo "::error::No wekan_${VERSION}_*.snap files to upload."
+            exit 1
+          fi
+          for f in "${snaps[@]}"; do
             echo "Uploading $f to the Snap Store (edge,beta)..."
             snapcraft upload --release=edge,beta "$f"
           done
@@ -652,4 +689,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload "v${VERSION}" wekan_${VERSION}_*.snap --clobber
+          set -euo pipefail
+          shopt -s nullglob
+          snaps=( wekan_${VERSION}_*.snap )
+          if [ "${#snaps[@]}" -eq 0 ]; then
+            echo "::error::No wekan_${VERSION}_*.snap files to attach."
+            exit 1
+          fi
+          gh release upload "v${VERSION}" "${snaps[@]}" --clobber
