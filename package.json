@@ -61,7 +61,7 @@
     "@tweedegolf/sab-adapter-azure-blob": "^1.0.9",
     "@tweedegolf/sab-adapter-google-cloud": "^3.0.2",
     "@wekanteam/dragscroll": "^0.0.9",
-    "@wekanteam/exceljs": "^4.7.2",
+    "@wekanteam/exceljs": "^4.7.3",
     "@wekanteam/html-to-markdown": "^1.0.3",
     "@wekanteam/meteor-globals": "^1.1.6",
     "@wekanteam/meteor-reactive-cache": "^1.0.8",
