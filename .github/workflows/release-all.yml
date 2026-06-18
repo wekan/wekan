@@ -7,9 +7,12 @@ name: Release All Platforms
 # Or use the convenience script (bumps versions, commits, pushes, then triggers):
 #   ./releases/release-all.sh 9.35 9.36
 #
-# Builds only the platforms MongoDB ships server binaries for (amd64, arm64,
-# win64, mac); MongoDB 7.x is the default database. s390x/ppc64le are not built
-# because MongoDB has no server binaries for them.
+# The Docker image and snap cover the platforms MongoDB ships server binaries for
+# (amd64, arm64; win64 + mac bundles too); MongoDB 7.x is the default database.
+# Additionally, WeKan server bundles are built for every other architecture
+# Node.js 24.x publishes binaries for — s390x, ppc64le and armv7l — and attached
+# to the GitHub Release as extra downloads (run a separate MongoDB for those).
+# These extra-arch bundles are NOT part of the Docker image or snap.
 #
 # This workflow does EVERYTHING for a release remotely (nothing is built or
 # pushed on the maintainer's machine), running jobs in parallel where possible:
@@ -23,6 +26,9 @@ name: Release All Platforms
 #              modules for arm64, win64, mac-arm64 from that amd64 base
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
 #              uploads every wekan-<version>-<platform>.zip bundle
+#   - build-extra-arches: rebuilds the bundle's native modules under QEMU for
+#              s390x, ppc64le and armv7l and attaches those .zip bundles to the
+#              Release (extra downloads only; not in the Docker image or snap)
 #   - docker:  builds and pushes the multi-arch image to Docker Hub, Quay.io, GHCR
 #   - snap:    builds the snap on Launchpad (amd64 + arm64), pushes it to the Snap
 #              Store and attaches the .snap files to the GitHub Release
@@ -533,6 +539,83 @@ jobs:
             wekan-${{ needs.prepare.outputs.version }}-win64.zip
             wekan-${{ needs.prepare.outputs.version }}-mac-arm64.zip
 
+  # ─── 7b. Extra-architecture bundles (s390x, ppc64le, armv7l) ─────────────────
+  # Node.js 24.x and the node:24-slim image are published for these architectures,
+  # so we rebuild the amd64 bundle's native modules under QEMU emulation and attach
+  # the resulting .zip to the GitHub Release as extra downloads. These are NOT part
+  # of the Docker or snap builds. Deliberately decoupled from `release` (it uploads
+  # straight to the already-created release with `gh release upload`) so a slow or
+  # flaky emulated build never blocks the core amd64/arm64/win64/mac release,
+  # Docker or snap. fail-fast: false so one arch failing doesn't cancel the others.
+  build-extra-arches:
+    needs: [prepare, build-amd64, release]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: s390x
+            platform: linux/s390x
+          - arch: ppc64le
+            platform: linux/ppc64le
+          - arch: armv7l
+            platform: linux/arm/v7
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl unzip zip
+
+      - name: Set up QEMU for ${{ matrix.arch }} emulation
+        uses: docker/setup-qemu-action@v3
+
+      - name: Download amd64 bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: bundle-amd64
+
+      - name: Rebuild native modules for ${{ matrix.arch }} under emulation
+        run: |
+          unzip -q wekan-${VERSION}-amd64.zip
+          # Same bcrypt fix as the arm64 build: bcrypt 5.0.1 (Meteor
+          # accounts-password) ships node-addon-api@3 which fails to compile on
+          # Node.js 24. Swap in bcrypt 6.0.0 source; the emulated npm install
+          # below compiles it (and any other native module) for the target arch.
+          BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
+          if [ -d "$BCRYPT_DIR" ]; then
+            rm -rf "$BCRYPT_DIR"
+            TMP=$(mktemp -d)
+            pushd "$TMP" > /dev/null
+            npm pack bcrypt@6.0.0
+            mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
+            cd bcrypt && npm install --ignore-scripts && cd ..
+            cp -a bcrypt "$BCRYPT_DIR"
+            popd > /dev/null
+            rm -rf "$TMP"
+          fi
+          docker run --rm --platform ${{ matrix.platform }} \
+            -v "$(pwd)/bundle:/bundle" \
+            -w /bundle/programs/server \
+            node:${NODE_VERSION}-slim \
+            sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
+
+      - name: Create ${{ matrix.arch }} zip
+        run: zip -r wekan-${VERSION}-${{ matrix.arch }}.zip bundle
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bundle-${{ matrix.arch }}
+          path: wekan-${{ needs.prepare.outputs.version }}-${{ matrix.arch }}.zip
+          retention-days: 1
+
+      - name: Attach ${{ matrix.arch }} bundle to the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "v${VERSION}" "wekan-${VERSION}-${{ matrix.arch }}.zip" --clobber
+
   # ─── 8. Build and push the multi-arch Docker image to all registries ────────
   # Mirrors releases/docker-build.sh step 3 (multi-arch buildx --push).
   # Needs `release` because the Dockerfile downloads wekan-<version>-<arch>.zip
@@ -613,23 +696,23 @@ jobs:
           printf '%s' "$LP_CREDENTIALS" | base64 -d > ~/.local/share/snapcraft/launchpad-credentials
           chmod 600 ~/.local/share/snapcraft/launchpad-credentials
 
-      - name: Pin snap version to the release version
+      - name: Verify snapcraft.yaml version matches the release
+        # The `bump` job (releases/version.sh) is the single source of truth for
+        # the snap version and updates snapcraft.yaml before the tag is created.
         # snapcraft.yaml's `version:` names the produced files
-        # (wekan_<version>_<arch>.snap). It was hard-coded and drifted from the
-        # release (e.g. '9.53' while releasing 9.54), so the build produced
-        # wekan_9.53_*.snap and the upload/attach globs (wekan_${VERSION}_*.snap)
-        # matched nothing — leaving the literal glob to be passed to
-        # `snapcraft upload` ("is not a valid file", exit 64). Pin it to the
-        # release version here so the filenames always match. remote-build can
-        # build from git, so also commit the change locally (detached tag
-        # checkout, never pushed).
+        # (wekan_<version>_<arch>.snap), so if a stale tag carried the wrong
+        # version the build would produce wekan_<old>_*.snap and the upload/attach
+        # globs (wekan_${VERSION}_*.snap) would match nothing — passing the literal
+        # glob to `snapcraft upload` ("is not a valid file", exit 64). Assert it
+        # here so that mismatch fails fast (before a ~20 min Launchpad build) with
+        # a clear pointer, instead of re-bumping the version inside this build job.
         run: |
-          set -uo pipefail
-          sed -i "s/^version:.*/version: '${VERSION}'/" snapcraft.yaml
-          grep '^version:' snapcraft.yaml
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "Set snap version ${VERSION}" || echo "snapcraft.yaml already at ${VERSION}"
+          set -euo pipefail
+          if ! grep -qxF "version: '${VERSION}'" snapcraft.yaml; then
+            echo "::error::snapcraft.yaml is not at version '${VERSION}' ($(grep -m1 '^version:' snapcraft.yaml)). The bump job (releases/version.sh) did not update the tagged commit."
+            exit 1
+          fi
+          echo "snapcraft.yaml is at version '${VERSION}'."
 
       - name: Build snaps on Launchpad (amd64 + arm64)
         # `snapcraft remote-build` is experimental and talks to Launchpad over
