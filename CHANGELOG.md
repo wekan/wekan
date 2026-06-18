@@ -26,6 +26,18 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/pull/6395).
+  Merged Dependabot update: dompurify 3.4.9 → 3.4.11
+  ([#6395](https://github.com/wekan/wekan/pull/6395)), a patch update of the
+  HTML sanitizer used for XSS protection.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.55 2026-06-18 WeKan ® release
 
 This release fixes the following bugs:
