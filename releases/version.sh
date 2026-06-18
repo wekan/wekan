@@ -371,7 +371,17 @@ version_bump_logic() {
   sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package.json
   sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package-lock.json
   sedi "0,/appVersion: \"[^\"]*\"/s/appVersion: \"[^\"]*\"/appVersion: \"${PKG_VER}\"/" Stackerfile.yml
-  sedi "2s/^version: '[^']*'/version: '${NEW_VERSION}'/" snapcraft.yaml
+  # Set the snap version (the `version: '<x>'` line). Match by `^version:`
+  # instead of a hard-coded line number, and tolerate any quoting, so this can
+  # never silently miss if the line moves or the quotes change — a stale snap
+  # version breaks the release (the snap is named wekan_<old>_<arch>.snap and the
+  # upload/attach globs in release-all.yml then match nothing). Only line 2
+  # starts with `version:` (npm-node-version: is indented), so this is safe.
+  sedi -E "s/^version:.*/version: '${NEW_VERSION}'/" snapcraft.yaml
+  if ! grep -qxF "version: '${NEW_VERSION}'" snapcraft.yaml; then
+    echo "Error: failed to set snap version to '${NEW_VERSION}' in snapcraft.yaml." >&2
+    exit 1
+  fi
   sedi "s|v$OLD_VERSION/|v$NEW_VERSION/|g" snapcraft.yaml
   sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" snapcraft.yaml
 
