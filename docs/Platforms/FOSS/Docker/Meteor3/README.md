@@ -23,6 +23,9 @@ This will speed up loading attachments a lot.
 5. MongoDB GridFS Storage: Compact Database (this will make MongoDB disk usage smaller)
 
 ----
+
+# Migrating from Snap to Docker
+
 Note: Only `Oplog sockjs` works with multitenancy, see [multitenancy.md](multitenancy).
 
 Migrating from Parallel Snap setup, because `snap set wekan root-url=...`
@@ -113,5 +116,5 @@ docker compose start
 ```
 6) Upgrade WeKan from old version to new version, for example:
 ```
-./update-wekan-version.sh 9.10 9.11"
+./update-wekan-version.sh 9.10 9.11
 ```
