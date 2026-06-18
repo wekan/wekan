@@ -93,6 +93,8 @@
     "elliptic": "^6.6.1",
     "archiver-utils": {
       "glob": "$glob"
-    }
+    },
+    "uuid": "^14.0.0",
+    "webpack-dev-server": "^5.2.5"
   }
 }
