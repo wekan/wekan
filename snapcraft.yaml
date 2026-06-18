@@ -1,5 +1,5 @@
 name: wekan
-version: '9.53'
+version: '9.54'
 base: core26
 build-base: devel
 confinement: strict
@@ -162,7 +162,7 @@ parts:
     wekan:
         source: .
         plugin: npm
-        npm-node-version: 24.16.0
+        npm-node-version: 24.17.0
         npm-include-node: true
         build-packages:
             - build-essential
@@ -194,14 +194,14 @@ parts:
                     exit 1
                     ;;
             esac
-            WEKAN_ZIP="wekan-9.53-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-9.54-${WEKAN_ARCH}.zip"
             NODE_TAR="node-v24.16.0-linux-${NODE_ARCH}.tar.xz"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v9.53/wekan-9.53-amd64.zip
-            wget "https://github.com/wekan/wekan/releases/download/v9.53/${WEKAN_ZIP}"
+            #wget https://github.com/wekan/wekan/releases/download/v9.54/wekan-9.54-amd64.zip
+            wget "https://github.com/wekan/wekan/releases/download/v9.54/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3

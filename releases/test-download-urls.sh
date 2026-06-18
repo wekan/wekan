@@ -60,15 +60,15 @@ echo ""
 
 echo "=== Node.js 24.15.0 (all snap architectures) ==="
 check "Node.js 24.15.0  linux-x64     (amd64)" \
-  "https://nodejs.org/dist/v24.16.0/node-v24.16.0-linux-x64.tar.gz"
+  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-x64.tar.gz"
 check "Node.js 24.15.0  linux-arm64   (arm64)" \
-  "https://nodejs.org/dist/v24.16.0/node-v24.16.0-linux-arm64.tar.gz"
+  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-arm64.tar.gz"
 check "Node.js 24.15.0  linux-armv7l  (armhf)" \
-  "https://nodejs.org/dist/v24.16.0/node-v24.16.0-linux-armv7l.tar.gz"
+  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-armv7l.tar.gz"
 check "Node.js 24.15.0  linux-s390x   (s390x)" \
-  "https://nodejs.org/dist/v24.16.0/node-v24.16.0-linux-s390x.tar.gz"
+  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-s390x.tar.gz"
 check "Node.js 24.15.0  linux-ppc64le (ppc64el)" \
-  "https://nodejs.org/dist/v24.16.0/node-v24.16.0-linux-ppc64le.tar.gz"
+  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-ppc64le.tar.gz"
 echo ""
 
 echo "=== Results ==="

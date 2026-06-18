@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.53
+  version: v9.54
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -4223,6 +4223,12 @@ definitions:
            Does the board show the "Mark as complete" toggle on cards?
            Issue #6381: opt-in, hidden by default.
         type: boolean
+      allowsDueCompleteOnMinicard:
+        description: |
+           Does the board show the "Mark as complete" toggle on minicards?
+           Separate from the card-details toggle (allowsDueComplete): opt-in,
+           hidden by default so it is not shown on minicards unless enabled.
+        type: boolean
       presentParentTask:
         description: |
            Controls how to present the parent task:
@@ -4344,6 +4350,7 @@ definitions:
       - allowsDueDate
       - allowsDueDateOnMinicard
       - allowsDueComplete
+      - allowsDueCompleteOnMinicard
       - type
       - sort
       - showActivities
