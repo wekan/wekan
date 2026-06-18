@@ -38,6 +38,19 @@ and fixes the following bugs:
 - [Explain to Dependabot to not complain about rspack](https://github.com/wekan/wekan/commit/d09b72670cf07e358738717093ad138c33c9fd2c).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/ebc0f017bf2d0a6183a35cdd2b829a0cfff436ed).
+  Merged Dependabot dependency updates: mongodb 6.21.0 → 7.3.0 in the
+  tests/playwright e2e harness ([#6393](https://github.com/wekan/wekan/pull/6393)),
+  @aws-sdk/client-s3 3.1054.0 → 3.1071.0 ([#6390](https://github.com/wekan/wekan/pull/6390)),
+  @google-cloud/storage 7.19.0 → 7.21.0 ([#6391](https://github.com/wekan/wekan/pull/6391)),
+  @typescript-eslint/eslint-plugin 8.60.1 → 8.61.1 ([#6392](https://github.com/wekan/wekan/pull/6392)),
+  and @tweedegolf/sab-adapter-google-cloud 1.0.10 → 3.0.2 ([#6389](https://github.com/wekan/wekan/pull/6389)).
+  Thanks to xet7.
+- [Updated docs](https://github.com/wekan/wekan/commit/85909d08cc8cb86299bf69b1c22cbded47f4c8c9).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.53 2026-06-18 WeKan ® release
