@@ -30,6 +30,11 @@ Versions:
 
 This release fixes the following bugs:
 
+- [Updated tests](https://github.com/wekan/wekan/commit/6d6c26dd9bb2cac2c1660bf885078b1ae396fae6).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
 - [Explain to Dependabot to not complain about rspack](https://github.com/wekan/wekan/commit/d09b72670cf07e358738717093ad138c33c9fd2c).
   Thanks to xet7.
 
