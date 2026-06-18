@@ -86,11 +86,8 @@ test.describe('Views & layout', () => {
     // Drag list A after list C using keyboard-accessible approach via the DB
     // (We swap sort values directly to avoid flaky drag tests, then verify the UI reflects it)
     const [listA, , listC] = board.listIds;
-    db.mongoEval(`
-      const a = db.lists.findOne({ _id: ${JSON.stringify(listA)} });
-      const c = db.lists.findOne({ _id: ${JSON.stringify(listC)} });
-      db.lists.updateOne({ _id: ${JSON.stringify(listA)} }, { $set: { sort: c.sort + 0.5 } });
-    `);
+    const c = db.findOne('lists', { _id: listC });
+    db.updateOne('lists', { _id: listA }, { $set: { sort: c.sort + 0.5 } });
 
     await boardPage.reload({ waitUntil: 'networkidle' });
     await bp.switchToListView();

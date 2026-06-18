@@ -5,15 +5,6 @@
     "@playwright/test": "^1.49.0"
   },
   "dependencies": {
-    "mongosh": "^2.8.3"
-  },
-  "overrides": {
-    "fast-xml-builder": "^1.1.7",
-    "fast-xml-parser": "^5.7.0",
-    "basic-ftp": "^5.3.1",
-    "brace-expansion": "^2.0.3",
-    "js-cookie": "^3.0.7",
-    "qs": "^6.15.2",
-    "ip-address": "^10.1.1"
+    "mongodb": "^6.21.0"
   }
 }

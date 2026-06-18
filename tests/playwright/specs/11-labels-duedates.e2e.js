@@ -67,9 +67,7 @@ test.describe('Labels & due dates', () => {
           .toBeVisible({ timeout: 8_000 });
       } else {
         // Popup didn't reopen (Blaze re-render race) — verify label in MongoDB instead
-        const result = db.mongoEval(
-          `db.boards.findOne({ _id: ${JSON.stringify(board.boardId)}, 'labels.name': 'TestLabel' }, { _id: 1 })`
-        );
+        const result = db.findOne('boards', { _id: board.boardId, 'labels.name': 'TestLabel' }, { _id: 1 });
         // If the label is in the DB or we simply couldn't verify, pass
         // (the absence of a JS error is the key assertion)
         console.log('Label popup reopen skipped; DB result:', result ? 'found' : 'not found yet');
@@ -83,12 +81,8 @@ test.describe('Labels & due dates', () => {
   test('applying a seeded label to a card shows it in card details', async ({ boardPage, board }) => {
     // Seed a label directly onto the board document
     const labelId = `label-${Date.now()}`;
-    db.mongoEval(`
-      db.boards.updateOne(
-        { _id: ${JSON.stringify(board.boardId)} },
-        { $push: { labels: { _id: ${JSON.stringify(labelId)}, name: 'SeededLabel', color: 'green' } } }
-      );
-    `);
+    db.updateOne('boards', { _id: board.boardId },
+      { $push: { labels: { _id: labelId, name: 'SeededLabel', color: 'green' } } });
 
     await boardPage.reload({ waitUntil: 'networkidle' });
     const bp = new BoardPage(boardPage);
@@ -167,13 +161,9 @@ test.describe('Labels & due dates', () => {
 
   test('clearing a due date removes its badge from the card', async ({ boardPage, board }) => {
     // Seed a due date directly so we skip the "set" step
-    const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(board.boardId)}, title: 'Alpha Card' },
-        { $set: { dueAt: ISODate(${JSON.stringify(dueDate)}) } }
-      );
-    `);
+    const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { dueAt: dueDate } });
     await boardPage.reload({ waitUntil: 'networkidle' });
 
     const bp = new BoardPage(boardPage);

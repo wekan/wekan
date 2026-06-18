@@ -126,12 +126,8 @@ test.describe('Card members & description', () => {
 
   test('seeded description text is visible when card opens', async ({ boardPage, board }) => {
     // Seed a description directly via MongoDB
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(board.boardId)}, title: 'Alpha Card' },
-        { $set: { description: 'Integration test description text' } }
-      );
-    `);
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { description: 'Integration test description text' } });
     await boardPage.reload({ waitUntil: 'networkidle' });
 
     const bp = new BoardPage(boardPage);

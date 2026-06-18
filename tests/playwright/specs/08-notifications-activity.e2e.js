@@ -103,11 +103,8 @@ test.describe('Notifications & activity log', () => {
     await expect(cp.comments().filter({ hasText: user.username })).toBeVisible({ timeout: 10_000 });
 
     // Verify stored in MongoDB
-    const commentDoc = db.mongoEval(`
-      JSON.stringify(db.card_comments.findOne({ text: { $regex: ${JSON.stringify(user.username)} } }))
-    `);
-    if (commentDoc && commentDoc !== 'null') {
-      const parsed = JSON.parse(commentDoc);
+    const parsed = db.findOne('card_comments', { text: { $regex: user.username } });
+    if (parsed) {
       expect(parsed.text).toContain(user.username);
     }
   });

@@ -38,17 +38,11 @@ function authHeaders(token, json = false) {
 
 // List non-archived cards in a list, straight from MongoDB.
 function listCards(boardId, listId) {
-  const raw = db.mongoEval(
-    `JSON.stringify(db.cards.find({ boardId: ${db.literal(boardId)}, listId: ${db.literal(listId)}, archived: false }).toArray())`,
-  );
-  try { return JSON.parse(raw); } catch { return []; }
+  return db.find('cards', { boardId, listId, archived: false });
 }
 
 function allBoardCards(boardId) {
-  const raw = db.mongoEval(
-    `JSON.stringify(db.cards.find({ boardId: ${db.literal(boardId)} }).toArray())`,
-  );
-  try { return JSON.parse(raw); } catch { return []; }
+  return db.find('cards', { boardId });
 }
 
 // Create a label on the board via the API (admin only) and return its id.

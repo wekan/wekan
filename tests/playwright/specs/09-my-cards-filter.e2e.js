@@ -37,12 +37,8 @@ test.describe('My Cards, filter & sort', () => {
 
   test('"My Cards" page shows cards assigned to the current user', async ({ page, user, board }) => {
     // Assign the user to the Alpha Card via MongoDB
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(board.boardId)}, title: 'Alpha Card' },
-        { $set: { assignees: [${JSON.stringify(user.id)}] } }
-      );
-    `);
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { assignees: [user.id] } });
 
     const { loginWithToken } = require('../helpers/auth');
     await loginWithToken(page, user.id, user.token);
@@ -60,12 +56,8 @@ test.describe('My Cards, filter & sort', () => {
   test('filter by assignee shows only assigned cards on the board', async ({ boardPage, board, user }) => {
     // Self-assign user to Alpha Card — set both assignees and members so either
     // WeKan filter field (card.assignees vs card.members) will match.
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(board.boardId)}, title: 'Alpha Card' },
-        { $set: { assignees: [${JSON.stringify(user.id)}], members: [${JSON.stringify(user.id)}] } }
-      );
-    `);
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { assignees: [user.id], members: [user.id] } });
     await boardPage.reload({ waitUntil: 'networkidle' });
 
     const sp = new SearchPage(boardPage);

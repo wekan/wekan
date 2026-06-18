@@ -27,24 +27,15 @@ function authHeaders(token, json = false) {
 
 // Fetch a single document by _id from any collection, straight from MongoDB.
 function findOne(collection, id) {
-  const raw = db.mongoEval(
-    `JSON.stringify(db.${collection}.findOne({ _id: ${db.literal(id)} }))`,
-  );
-  try { return JSON.parse(raw); } catch { return null; }
+  return db.findOne(collection, { _id: id });
 }
 
 function listCards(boardId, listId) {
-  const raw = db.mongoEval(
-    `JSON.stringify(db.cards.find({ boardId: ${db.literal(boardId)}, listId: ${db.literal(listId)}, archived: false }).toArray())`,
-  );
-  try { return JSON.parse(raw); } catch { return []; }
+  return db.find('cards', { boardId, listId, archived: false });
 }
 
 function rulesForBoard(boardId) {
-  const raw = db.mongoEval(
-    `JSON.stringify(db.rules.find({ boardId: ${db.literal(boardId)} }).toArray())`,
-  );
-  try { return JSON.parse(raw); } catch { return []; }
+  return db.find('rules', { boardId });
 }
 
 test.describe('REST API: rules + card sub-resources + core CRUD', () => {

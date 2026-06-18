@@ -22,10 +22,7 @@ function authHeaders(token, json = false) {
 }
 
 function findOne(collection, id) {
-  const raw = db.mongoEval(
-    `JSON.stringify(db.${collection}.findOne({ _id: ${db.literal(id)} }))`,
-  );
-  try { return JSON.parse(raw); } catch { return null; }
+  return db.findOne(collection, { _id: id });
 }
 
 test.describe('Feature issues', () => {
@@ -85,10 +82,8 @@ test.describe('Feature issues', () => {
     const b = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [['OldCard']] });
     try {
       // Make the card 40 days idle (past the default tier-3 threshold of 28).
-      db.mongoEval(
-        `db.cards.updateOne({ boardId: ${db.literal(b.boardId)}, title: "OldCard" }, ` +
-        `{ $set: { dateLastActivity: new Date(Date.now() - 40*24*60*60*1000) } })`,
-      );
+      db.updateOne('cards', { boardId: b.boardId, title: 'OldCard' },
+        { $set: { dateLastActivity: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000) } });
       // Enable card aging via the card-settings REST API.
       const res = await request.put(`/api/boards/${b.boardId}/cardSettings`, {
         headers: authHeaders(user.token, true),
@@ -111,10 +106,8 @@ test.describe('Feature issues', () => {
     const b = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [['RecentCard']] });
     try {
       // 3 days idle — below default tiers, but above a custom tier-1 of 1 day.
-      db.mongoEval(
-        `db.cards.updateOne({ boardId: ${db.literal(b.boardId)}, title: "RecentCard" }, ` +
-        `{ $set: { dateLastActivity: new Date(Date.now() - 3*24*60*60*1000) } })`,
-      );
+      db.updateOne('cards', { boardId: b.boardId, title: 'RecentCard' },
+        { $set: { dateLastActivity: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) } });
       const res = await request.put(`/api/boards/${b.boardId}/cardSettings`, {
         headers: authHeaders(user.token, true),
         data: { cardAging: true, cardAgingDays1: 1, cardAgingDays2: 30, cardAgingDays3: 60 },
@@ -164,10 +157,8 @@ test.describe('Feature issues', () => {
   test('#5157 board background image appears on the All Boards tile', async ({ loggedInPage, user }) => {
     const b = db.seedBoard({ ownerId: user.id });
     try {
-      db.mongoEval(
-        `db.boards.updateOne({ _id: ${db.literal(b.boardId)} }, ` +
-        `{ $set: { backgroundImageURL: "https://example.com/bg.png" } })`,
-      );
+      db.updateOne('boards', { _id: b.boardId },
+        { $set: { backgroundImageURL: 'https://example.com/bg.png' } });
       await loggedInPage.goto('/', { waitUntil: 'commit' });
       // The All Boards view defaults to the "Starred" menu; the seeded board is
       // not starred, so switch to "Remaining" where unassigned boards appear.

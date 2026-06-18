@@ -70,8 +70,7 @@ test.describe('Admin – user management', () => {
 
     // User should now show as inactive in the DB
     await page.waitForTimeout(600);
-    const userDoc = db.mongoEval(`JSON.stringify(db.users.findOne({ _id: ${JSON.stringify(user.id)} }, { fields: { isActive: 1, loginDisabled: 1 } }))`);
-    const parsed = JSON.parse(userDoc);
+    const parsed = db.findOne('users', { _id: user.id }, { isActive: 1, loginDisabled: 1 });
     // WeKan marks inactive via loginDisabled or profile field - check the toggle reflected
     expect(parsed).toBeTruthy(); // User still exists
   });
@@ -108,10 +107,7 @@ test.describe('Admin – user management', () => {
     );
     expect(createError).toBe(null);
 
-    const createdUserRaw = db.mongoEval(
-      `JSON.stringify(db.users.findOne({ username: ${JSON.stringify(createdUsername)} }, { fields: { _id: 1 } }))`,
-    );
-    const createdUser = JSON.parse(createdUserRaw || 'null');
+    const createdUser = db.findOne('users', { username: createdUsername }, { _id: 1 });
     expect(createdUser?._id).toBeTruthy();
 
     const ap = new AdminPage(page);

@@ -22,12 +22,8 @@ test.describe('Voting & watchers', () => {
     boardPage.on('pageerror', e => errors.push(e.message));
 
     // Enable vote on the card via MongoDB so the vote section renders
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(board.boardId)}, title: 'Alpha Card' },
-        { $set: { 'vote.question': 'Approve this?', 'vote.public': true } }
-      );
-    `);
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { 'vote.question': 'Approve this?', 'vote.public': true } });
     await boardPage.reload({ waitUntil: 'networkidle' });
 
     const bp = new BoardPage(boardPage);
@@ -56,12 +52,8 @@ test.describe('Voting & watchers', () => {
   });
 
   test('negative vote button is clickable and registers the voted state', async ({ boardPage, board }) => {
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(board.boardId)}, title: 'Alpha Card' },
-        { $set: { 'vote.question': 'Reject this?', 'vote.public': true } }
-      );
-    `);
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { 'vote.question': 'Reject this?', 'vote.public': true } });
     await boardPage.reload({ waitUntil: 'networkidle' });
 
     const bp = new BoardPage(boardPage);
@@ -140,12 +132,8 @@ test.describe('Voting & watchers', () => {
 
   test('vote counts update in the card after voting', async ({ boardPage, board, user }) => {
     // Seed a card with an active vote question
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(board.boardId)}, title: 'Beta Card' },
-        { $set: { 'vote.question': 'Ship it?', 'vote.public': true, 'vote.positive': [], 'vote.negative': [] } }
-      );
-    `);
+    db.updateOne('cards', { boardId: board.boardId, title: 'Beta Card' },
+      { $set: { 'vote.question': 'Ship it?', 'vote.public': true, 'vote.positive': [], 'vote.negative': [] } });
     await boardPage.reload({ waitUntil: 'networkidle' });
 
     const bp = new BoardPage(boardPage);

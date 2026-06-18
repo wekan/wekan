@@ -33,3 +33,11 @@ updates:
     - dependency-name: "@rsdoctor/rspack-plugin"
     - dependency-name: "css-loader"
     - dependency-name: "style-loader"
+# Playwright end-to-end test harness — pure test-only tooling that never ships in
+# WeKan. It now depends only on @playwright/test and the official `mongodb` driver
+# (the heavy, CVE-prone `mongosh` CLI was replaced by helpers/mongo-runner.js).
+# Watch this directory so those two stay patched.
+- package-ecosystem: "npm"
+  directory: "/tests/playwright"
+  schedule:
+      interval: "weekly"

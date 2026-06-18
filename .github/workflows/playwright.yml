@@ -123,11 +123,6 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.project }}
         working-directory: tests/playwright
 
-      # The e2e DB helper (tests/playwright/helpers/db.js) seeds/reads MongoDB by
-      # shelling out to `mongosh`, which is not preinstalled on the runner.
-      - name: Install mongosh
-        run: npm install -g mongosh
-
       - name: Start WeKan in background
         run: |
           MONGO_URL=mongodb://localhost:27017/wekan_test \
@@ -231,12 +226,6 @@ jobs:
 
       - name: Install Chromium
         run: sudo apt-get install -y chromium-browser
-
-      # tests/e2e/list-regressions.js seeds/reads MongoDB via `mongosh`, which is
-      # not preinstalled on the runner (the cause of the previous
-      # "spawnSync mongosh ENOENT" failure).
-      - name: Install mongosh
-        run: npm install -g mongosh
 
       - name: Start WeKan in background
         run: |

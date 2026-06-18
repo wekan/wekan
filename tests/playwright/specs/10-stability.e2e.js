@@ -69,30 +69,24 @@ test.describe('Stability & connectivity', () => {
   test('automated 90-day archive rule: cards modified > 90 days ago are archived by cron', async ({ user }) => {
     // Seed a card with a modifiedAt date 91 days in the past
     const b = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [['Old Card To Archive']] });
-    const oldDate = new Date(Date.now() - 91 * 24 * 60 * 60 * 1000).toISOString();
+    const oldDate = new Date(Date.now() - 91 * 24 * 60 * 60 * 1000);
 
-    db.mongoEval(`
-      db.cards.updateOne(
-        { boardId: ${JSON.stringify(b.boardId)}, title: 'Old Card To Archive' },
-        { $set: { modifiedAt: ISODate(${JSON.stringify(oldDate)}), dateLastActivity: ISODate(${JSON.stringify(oldDate)}) } }
-      );
-    `);
+    db.updateOne('cards', { boardId: b.boardId, title: 'Old Card To Archive' },
+      { $set: { modifiedAt: oldDate, dateLastActivity: oldDate } });
 
     // The cron job is at /admin/cron — we check the MongoDB cron collection exists
-    const cronCollection = db.mongoEval(`db.getCollectionNames().join(',')`);
+    const cronCollection = db.collectionNames().join(',');
     if (cronCollection.includes('cronJobs') || cronCollection.includes('jobs')) {
       console.log('Cron collections found; manual trigger of 90-day archive cron would verify this');
     }
 
     // Validate that the card exists with the old date (pre-cron state)
-    const cardsBefore = db.mongoEval(`
-      db.cards.countDocuments({
-        boardId: ${JSON.stringify(b.boardId)},
-        archived: false,
-        modifiedAt: { $lt: new Date(Date.now() - 89 * 24 * 60 * 60 * 1000) }
-      })
-    `);
-    expect(parseInt(cardsBefore, 10)).toBe(1);
+    const cardsBefore = db.countDocuments('cards', {
+      boardId: b.boardId,
+      archived: false,
+      modifiedAt: { $lt: new Date(Date.now() - 89 * 24 * 60 * 60 * 1000) },
+    });
+    expect(cardsBefore).toBe(1);
 
     db.cleanup({ boardIds: [b.boardId] });
   });

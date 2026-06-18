@@ -22,10 +22,8 @@ function authHeaders(token, json = false) {
 }
 
 function cardDeps(cardId) {
-  const raw = db.mongoEval(
-    `JSON.stringify((db.cards.findOne({ _id: ${db.literal(cardId)} }) || {}).cardDependencies || [])`,
-  );
-  try { return JSON.parse(raw); } catch { return []; }
+  const card = db.findOne('cards', { _id: cardId });
+  return (card && card.cardDependencies) || [];
 }
 
 test.describe('REST API: card dependencies', () => {

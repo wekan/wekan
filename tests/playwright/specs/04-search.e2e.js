@@ -157,22 +157,11 @@ test.describe('Search', () => {
     const labelId = `lbl_${Date.now()}`;
     const labelName = 'E2E Label Alpha';
 
-    db.mongoEval(`
-      const boardId = ${JSON.stringify(board.boardId)};
-      const labelId = ${JSON.stringify(labelId)};
-      const labelName = ${JSON.stringify(labelName)};
-
-      db.boards.updateOne(
-        { _id: boardId },
-        { $set: { labels: [{ _id: labelId, name: labelName, color: 'green' }] } }
-      );
-
-      db.cards.updateMany({ boardId }, { $set: { labelIds: [] } });
-      db.cards.updateOne(
-        { boardId, title: 'Alpha Card' },
-        { $set: { labelIds: [labelId] } }
-      );
-    `);
+    db.updateOne('boards', { _id: board.boardId },
+      { $set: { labels: [{ _id: labelId, name: labelName, color: 'green' }] } });
+    db.updateMany('cards', { boardId: board.boardId }, { $set: { labelIds: [] } });
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { labelIds: [labelId] } });
 
     await boardPage.reload({ waitUntil: 'networkidle' });
 

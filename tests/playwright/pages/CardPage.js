@@ -110,7 +110,7 @@ class CardPage {
   /**
    * Ensure the boards select has a valid selection.
    * Boards load reactively via Meteor DDP after the `boards` publication fires.
-   * If the options never appear (subscription slow / seeded via mongosh bypass),
+   * If the options never appear (subscription slow / seeded directly in MongoDB),
    * we inject the current board ID from the page URL and trigger the Blaze change
    * handler so the dialog's selectedBoardId and list select are updated.
    */

@@ -39,9 +39,7 @@ const LANGS = [
 
 /** Persist the user's language so the client applies it on the next load. */
 function setUserLanguage(userId, lang) {
-  db.mongoEval(
-    `db.users.updateOne({ _id: ${db.literal(userId)} }, { $set: { 'profile.language': ${db.literal(lang)} } });`,
-  );
+  db.updateOne('users', { _id: userId }, { $set: { 'profile.language': lang } });
 }
 
 /** Log in as `user` with `lang` already selected, landing on the home page. */
