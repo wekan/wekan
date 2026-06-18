@@ -26,6 +26,15 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Explain to Dependabot to not complain about rspack](https://github.com/wekan/wekan/commit/d09b72670cf07e358738717093ad138c33c9fd2c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.53 2026-06-18 WeKan ® release
 
 This release fixes the following bugs:
