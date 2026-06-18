@@ -655,6 +655,38 @@ jobs:
           login quay.io   "$QUAY_AUTH"
           login ghcr.io   "$GHCR_AUTH"
 
+      - name: Wait for release bundles to be downloadable
+        # The Dockerfile downloads wekan-<version>-<arch>.zip from the GitHub
+        # Release for each built platform. Even though this job needs `release`
+        # (so the assets are uploaded), GitHub's releases/download/<tag>/<asset>
+        # URL can briefly 404 right after upload (CDN/propagation lag), which used
+        # to fail the multi-arch build mid-way. Poll here until both the amd64 and
+        # arm64 bundles return 200, so the (expensive, emulated) buildx run only
+        # starts once the assets are actually fetchable. The Dockerfile also
+        # retries per-arch as a second layer of safety.
+        run: |
+          set -euo pipefail
+          base="https://github.com/wekan/wekan/releases/download/v${VERSION}"
+          for arch in amd64 arm64; do
+            url="${base}/wekan-${VERSION}-${arch}.zip"
+            echo "Waiting for ${url} ..."
+            ok=0
+            for i in $(seq 1 30); do
+              code=$(curl -sSL -o /dev/null -w '%{http_code}' --retry 0 -I "$url" || echo 000)
+              if [ "$code" = "200" ]; then
+                echo "  available (HTTP $code) after $((i*10))s"
+                ok=1
+                break
+              fi
+              echo "  attempt $i/30: HTTP $code, retrying in 10s..."
+              sleep 10
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "::error::Release asset not downloadable after retries: $url"
+              exit 1
+            fi
+          done
+
       - name: Build and push multi-arch image
         run: |
           docker buildx build \

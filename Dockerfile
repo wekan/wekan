@@ -207,7 +207,14 @@ ln -sf $(which bsdtar) $(which tar)
 # WeKan Bundle Installation
 mkdir -p /home/wekan/app
 cd /home/wekan/app
-wget "https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
+# Retry the release-asset download: even though the CI `docker` job needs the
+# `release` job (so the asset is already uploaded), GitHub's
+# releases/download/<tag>/<asset> URL can briefly return 404 right after upload
+# (CDN/propagation lag). A plain wget treats 404 as fatal, which failed the
+# build; retry on transient HTTP errors so propagation lag no longer breaks it.
+WEKAN_ZIP_URL="https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-${WEKAN_ARCH}.zip"
+wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 "${WEKAN_ZIP_URL}" \
+  || { echo "Failed to download ${WEKAN_ZIP_URL} after retries"; exit 8; }
 unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 npm install --prefix ./bundle/programs/server
