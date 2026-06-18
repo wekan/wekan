@@ -1162,7 +1162,12 @@ Template.boardInfoOnMyBoardsPopup.events({
 });
 
 Template.boardSubtaskSettingsPopup.onCreated(function() {
-  this.currentBoard = Utils.getCurrentBoard();
+  // Same reactive-snapshot fix as boardCardSettingsPopup (#6385): the
+  // allowsSubtasks toggle reads tpl.currentBoard, so keep it current in an
+  // autorun so the setting can be reversed without a page refresh.
+  this.autorun(() => {
+    this.currentBoard = Utils.getCurrentBoard();
+  });
 });
 
 Template.boardSubtaskSettingsPopup.helpers({
@@ -1277,7 +1282,15 @@ Template.boardSubtaskSettingsPopup.events({
 });
 
 Template.boardCardSettingsPopup.onCreated(function() {
-  this.currentBoard = Utils.getCurrentBoard();
+  // Keep currentBoard reactive. The toggle handlers compute the new value from
+  // tpl.currentBoard.allowsX, so a one-time snapshot went stale after the first
+  // toggle: reversing a setting (e.g. "Mark as complete") recomputed !oldValue
+  // and never switched back until the page was refreshed (#6385). Re-reading the
+  // board in an autorun keeps it current, so every Card Settings toggle works
+  // both ways without a refresh.
+  this.autorun(() => {
+    this.currentBoard = Utils.getCurrentBoard();
+  });
 });
 
 Template.boardCardSettingsPopup.helpers({
@@ -1290,6 +1303,11 @@ Template.boardCardSettingsPopup.helpers({
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsDueComplete : false;
+  },
+  allowsDueCompleteOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDueCompleteOnMinicard : false;
   },
   allowsReceivedDateOnMinicard() {
     const boardId = Session.get('currentBoard');
@@ -1549,6 +1567,11 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsDueComplete;
     Boards.update(tpl.currentBoard._id, { $set: { allowsDueComplete: newValue } });
+  },
+  'click .js-field-has-duecomplete-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsDueCompleteOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDueCompleteOnMinicard: newValue } });
   },
   'click .js-field-has-receiveddate-on-minicard'(evt, tpl) {
     evt.preventDefault();

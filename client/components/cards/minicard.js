@@ -133,6 +133,13 @@ Template.minicard.helpers({
     const board = this.board();
     return getMinicardFlag(board, 'allowsCardNumberOnMinicard', 'allowsCardNumber', false);
   },
+  // "Mark as complete" toggle on the minicard. No legacy fallback to the
+  // card-details setting (allowsDueComplete): hidden by default so it only
+  // appears when explicitly enabled in Card Settings > Show at Minicard.
+  showDueComplete() {
+    const board = this.board();
+    return getMinicardFlag(board, 'allowsDueCompleteOnMinicard', null, false);
+  },
   showSubtasks() {
     const board = this.board();
     return getMinicardFlag(board, 'allowsSubtasksOnMinicard', 'allowsSubtasks', true);

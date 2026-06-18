@@ -265,6 +265,8 @@ template(name="boardCardSettingsPopup")
         a.flex.js-field-has-duecomplete(title="{{_ 'card-mark-complete'}}" class="{{#if allowsDueComplete}}is-checked{{/if}}")
           i.fa(class="{{#if allowsDueComplete}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
+        a.flex.js-field-has-duecomplete-on-minicard(title="{{_ 'card-mark-complete'}}" class="{{#if allowsDueCompleteOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsDueCompleteOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           i.fa.fa-check-square-o

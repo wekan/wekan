@@ -62,9 +62,10 @@ template(name="minicard")
                 span {{_ 'upload-completed'}}
 
     .minicard-title
-      if canModifyCard
-        a.minicard-complete-toggle.js-toggle-card-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
-          .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
+      if showDueComplete
+        if canModifyCard
+          a.minicard-complete-toggle.js-toggle-card-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
+            .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentString ' > ' }}

@@ -819,6 +819,15 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    allowsDueCompleteOnMinicard: {
+      /**
+       * Does the board show the "Mark as complete" toggle on minicards?
+       * Separate from the card-details toggle (allowsDueComplete): opt-in,
+       * hidden by default so it is not shown on minicards unless enabled.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
 
     presentParentTask: {
       /**
