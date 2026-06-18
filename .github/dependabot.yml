@@ -4,3 +4,32 @@ updates:
   directory: "/"
   schedule:
       interval: "weekly"
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+      interval: "weekly"
+  ignore:
+      # Build-time-only (devDependency) Rspack toolchain. These packages compile
+      # the bundle on the developer / CI machine and are NOT shipped in the
+      # deployed WeKan server or client bundle, so their advisories do not affect
+      # a running WeKan instance. (For example webpack-dev-server / @rspack/dev-
+      # server, pulled via @rspack/cli, and the socket.io/ws chain pulled via
+      # @rsdoctor/rspack-plugin, never run in WeKan — it builds with `meteor run`,
+      # not the Rspack CLI or dev-server.)
+      #
+      # They also cannot simply be removed or bumped:
+      #   * @meteorjs/rspack re-pins and re-installs @rspack/cli and
+      #     @rsdoctor/rspack-plugin into package.json on every build, so deleting
+      #     them does not stick.
+      #   * The only upgrades Dependabot/npm offer are build-breaking: a
+      #     @meteorjs/rspack downgrade, or @rspack/cli 2.0 / Rspack 2.0, which
+      #     needs Meteor 3.6 (see https://github.com/meteor/meteor/pull/14360).
+      #     WeKan currently runs METEOR@3.5-rc.1.
+      #
+      # So pin them here until Meteor 3.6 + Rspack 2.0 land, then revisit.
+    - dependency-name: "@meteorjs/rspack"
+    - dependency-name: "@rspack/core"
+    - dependency-name: "@rspack/cli"
+    - dependency-name: "@rsdoctor/rspack-plugin"
+    - dependency-name: "css-loader"
+    - dependency-name: "style-loader"
