@@ -28,17 +28,7 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
-
-- [Updated tests](https://github.com/wekan/wekan/commit/6d6c26dd9bb2cac2c1660bf885078b1ae396fae6).
-  Thanks to xet7.
-
-and fixes the following bugs:
-
-- [Explain to Dependabot to not complain about rspack](https://github.com/wekan/wekan/commit/d09b72670cf07e358738717093ad138c33c9fd2c).
-  Thanks to xet7.
-
-and adds the following updates:
+This release adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/ebc0f017bf2d0a6183a35cdd2b829a0cfff436ed).
   Merged Dependabot dependency updates: mongodb 6.21.0 → 7.3.0 in the
@@ -49,6 +39,33 @@ and adds the following updates:
   and @tweedegolf/sab-adapter-google-cloud 1.0.10 → 3.0.2 ([#6389](https://github.com/wekan/wekan/pull/6389)).
   Thanks to xet7.
 - [Updated docs](https://github.com/wekan/wekan/commit/85909d08cc8cb86299bf69b1c22cbded47f4c8c9).
+  Thanks to xet7.
+
+and adds the following features:
+
+- [Added a "Show at Minicard" option for the Card Settings "Mark as complete" toggle](https://github.com/wekan/wekan/commit/d6a8f4386671630468fa61a8e98c4435c2c97803).
+  The "Mark as complete" row in Board Settings → Card Settings now has its own "Show at Minicard"
+  checkbox (new board setting `allowsDueCompleteOnMinicard`), unchecked by
+  default — so the complete toggle is no longer shown on the current board's
+  minicards unless it is explicitly enabled.
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Updated tests](https://github.com/wekan/wekan/commit/6d6c26dd9bb2cac2c1660bf885078b1ae396fae6).
+  Thanks to xet7.
+- [Explain to Dependabot to not complain about rspack](https://github.com/wekan/wekan/commit/d09b72670cf07e358738717093ad138c33c9fd2c).
+  Thanks to xet7.
+- [Fixed Card Settings toggles (e.g. "Mark as complete") could not be reversed
+  without refreshing the page](https://github.com/wekan/wekan/issues/6385).
+  The Board Settings → Card Settings popup (`boardCardSettingsPopup`) cached the
+  board once in `onCreated` as a non-reactive snapshot, but its toggle handlers
+  computed the new value from that snapshot (`!tpl.currentBoard.allowsX`). So the
+  first toggle worked, but reversing it recomputed `!oldValue` from the stale
+  snapshot and set the same value again — it only "reset" after a page refresh
+  re-took the snapshot. Fixed by re-reading the board reactively in an `autorun`,
+  so every Card Settings toggle works both ways without a refresh. The same fix
+  was applied to the Subtask Settings popup, which had the identical pattern.
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
