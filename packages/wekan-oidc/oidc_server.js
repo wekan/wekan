@@ -1,4 +1,4 @@
-import {addGroupsWithAttributes, addEmail, changeFullname, changeUsername} from './loginHandler';
+import {addGroupsWithAttributes, addEmail, changeFullname, changeUsername, oauth2AdminStatusFromGroups} from './loginHandler';
 import { fetch, Headers } from 'meteor/fetch';
 import { URLSearchParams } from 'meteor/url';
 import { Buffer } from 'node:buffer';
@@ -349,6 +349,23 @@ Meteor.methods({
     }
     check(info, Object);
     check(userId, String);
+
+    // #5876: optional OAUTH2_ADMIN_GROUPS. When set (comma/whitespace separated
+    // list of group names), grant/revoke Wekan admin for the logging-in OIDC
+    // user based on whether their OIDC `groups` claim intersects that list.
+    // This mirrors LDAP_SYNC_ADMIN_GROUPS and is independent of
+    // PROPAGATE_OIDC_DATA. When OAUTH2_ADMIN_GROUPS is empty/unset (default),
+    // isAdmin is left untouched, so existing behavior is unchanged.
+    {
+      const adminStatus = oauth2AdminStatusFromGroups(info.groups);
+      if (adminStatus.manage) {
+        const adminUser = await Meteor.users.findOneAsync({'services.oidc.id': userId});
+        if (adminUser) {
+          await Meteor.users.updateAsync({_id: adminUser._id}, {$set: {isAdmin: adminStatus.isAdmin}});
+        }
+      }
+    }
+
     var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
     if (propagateOidcData) {
       users= Meteor.users;

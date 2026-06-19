@@ -887,6 +887,31 @@ Accounts.onCreateUser(async (options, user) => {
     };
     user.authenticationMethod = 'oauth2';
 
+    // #5876: optional OAUTH2_ADMIN_GROUPS (mirrors LDAP_SYNC_ADMIN_GROUPS).
+    // When the env var is set (comma- and/or whitespace-separated list of group
+    // names), make the new OIDC user a Wekan admin iff their OIDC `groups` claim
+    // intersects that list. The groups claim may be an array of strings OR an
+    // array of objects carrying a displayName (see wekan-oidc/oidc_server.js),
+    // so handle both forms. When OAUTH2_ADMIN_GROUPS is empty/unset (default),
+    // leave user.isAdmin untouched so existing behavior is unchanged.
+    const oauth2AdminGroups = (process.env.OAUTH2_ADMIN_GROUPS || '')
+      .split(/[\s,]+/)
+      .map(name => name.trim())
+      .filter(name => name.length > 0);
+    if (oauth2AdminGroups.length) {
+      const oidcGroups = Array.isArray(user.services.oidc.groups)
+        ? user.services.oidc.groups
+        : [];
+      const userGroupNames = oidcGroups
+        .map(group => {
+          if (typeof group === 'string') return group;
+          if (group && typeof group === 'object') return group.displayName || group.name || '';
+          return '';
+        })
+        .filter(name => name.length > 0);
+      user.isAdmin = userGroupNames.some(name => oauth2AdminGroups.includes(name));
+    }
+
     // SECURITY (GHSA-mp7g-hj5q-gxhq): Do not silently take over an existing
     // local account from an OIDC login.
     //

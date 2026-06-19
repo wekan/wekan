@@ -47,7 +47,48 @@ function contains(userObjs, obj, collection)
   }
   return false;
 }
+// #5876: optional OAuth2/OIDC admin groups (mirrors LDAP_SYNC_ADMIN_GROUPS).
+// Parse OAUTH2_ADMIN_GROUPS (comma- and/or whitespace-separated) into a list of
+// trimmed, non-empty group names. Returns [] when the env var is empty/unset,
+// which the callers use as the signal to leave isAdmin untouched (default off).
+function getOauth2AdminGroups()
+{
+  return (process.env.OAUTH2_ADMIN_GROUPS || '')
+    .split(/[\s,]+/)
+    .map(name => name.trim())
+    .filter(name => name.length > 0);
+}
+
+// Extract a group name from a single OIDC group entry. The OIDC `groups` claim
+// may arrive as an array of plain strings OR an array of objects carrying a
+// displayName (see oidc_server.js), so handle both forms.
+function oauth2GroupName(group)
+{
+  if (typeof group === 'string') return group;
+  if (group && typeof group === 'object') return group.displayName || group.name || '';
+  return '';
+}
+
 module.exports = {
+
+getOauth2AdminGroups: getOauth2AdminGroups,
+
+// #5876: returns { manage, isAdmin }. When OAUTH2_ADMIN_GROUPS is empty/unset,
+// manage is false and the caller MUST NOT change the user's isAdmin (default
+// off, behavior unchanged). When it is set, manage is true and isAdmin reflects
+// whether the user's OIDC group names intersect the configured admin groups.
+oauth2AdminStatusFromGroups: function (groups)
+{
+  const adminGroups = getOauth2AdminGroups();
+  if (!adminGroups.length) {
+    return { manage: false, isAdmin: false };
+  }
+  const userGroupNames = (Array.isArray(groups) ? groups : [])
+    .map(oauth2GroupName)
+    .filter(name => name.length > 0);
+  const isAdmin = userGroupNames.some(name => adminGroups.includes(name));
+  return { manage: true, isAdmin: isAdmin };
+},
 
 // This function adds groups as organizations or teams to users and
 // creates them if not already existing
