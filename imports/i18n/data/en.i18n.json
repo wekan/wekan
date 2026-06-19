@@ -1260,6 +1260,8 @@
   "domains": "Domains",
   "domain": "Domain",
   "add-domain": "Add Domain",
+  "share-template-with": "Share template with",
+  "drag-template-here-to-share": "Drag a Template Board here to share it",
   "remove-domain-from-board": "Are you sure you want to remove this domain from this board ?",
   "invalid-domain": "Invalid domain. Use a domain like example.com (no @ or spaces).",
   "domain-user-count": "Users",

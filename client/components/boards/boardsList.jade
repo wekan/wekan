@@ -27,6 +27,15 @@ template(name="boardList")
                   i.fa.fa-folder
                 |  {{_ 'allboards.remaining'}}
               span.menu-count {{menuItemCount 'remaining'}}
+          if isSelectedMenu 'templates'
+            if shareTargets.length
+              li.menu-section-title {{_ 'share-template-with'}}
+              each shareTargets
+                li.menu-item.js-share-target(data-share-type="{{type}}", data-share-id="{{id}}", data-share-name="{{name}}", title="{{_ 'drag-template-here-to-share'}}")
+                  span.menu-label
+                    span.emoji-icon
+                      i.fa.fa-share-alt
+                    |  {{name}}
         .workspaces-header
           span
             span.emoji-icon

@@ -11,6 +11,50 @@ import { Utils } from '/client/lib/utils';
 
 // SubsManager removed for Meteor 3 migration
 
+// #5850: which sharing scopes (organizations/teams/domains) the admin enabled
+// in Admin Panel > People > Shared Templates (stored in localStorage, like the
+// Shared Templates admin UI). Used to gate the drag-to-share drop targets.
+function loadSharedTemplatesScopes() {
+  try {
+    const raw = window.localStorage.getItem('sharedTemplatesScopes');
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+// #5850: share a (template) board with an Organization / Team / Domain by adding
+// it to the board's groups, add-only (does not remove existing shares and does
+// not add individual members). Called when a board is dropped on a share target.
+function shareBoardWith(boardId, shareType, name, id) {
+  const board = ReactiveCache.getBoard(boardId);
+  if (!board || !boardId) {
+    return;
+  }
+  if (shareType === 'org') {
+    const orgs = (board.orgs || []).slice();
+    if (!orgs.some(o => o.orgId === id)) {
+      orgs.push({ orgId: id, orgDisplayName: name, isActive: true });
+      Meteor.call('setBoardOrgs', orgs, boardId);
+    }
+  } else if (shareType === 'team') {
+    const teams = (board.teams || []).slice();
+    if (!teams.some(t => t.teamId === id)) {
+      teams.push({ teamId: id, teamDisplayName: name, isActive: true });
+      // Preserve the board's current members (group-only sharing adds no
+      // individual members); setBoardTeams sets both members and teams.
+      Meteor.call('setBoardTeams', teams, board.members || [], boardId);
+    }
+  } else if (shareType === 'domain') {
+    const domains = (board.domains || []).slice();
+    if (!domains.some(d => d.domain === id)) {
+      domains.push({ domain: id, isActive: true });
+      Meteor.call('setBoardDomains', domains, boardId);
+    }
+  }
+}
+
 const DEFAULT_WORKSPACE_ICON = '📁';
 
 function getCurrentWorkspacesTree() {
@@ -528,6 +572,30 @@ Template.boardList.helpers({
   isSelectedMenu(type) {
     return Template.instance().selectedMenu.get() === type;
   },
+  // #5850: drag-to-share drop targets — the user's organizations/teams/domains,
+  // gated by the admin's Shared Templates scopes (localStorage). Shown in the
+  // Templates view so a personal Template Board can be dragged onto one to share.
+  shareTargets() {
+    const scopes = loadSharedTemplatesScopes();
+    const user = ReactiveCache.getCurrentUser();
+    const targets = [];
+    if (scopes.includes('organizations') && user && user.orgs) {
+      user.orgs.forEach(o =>
+        targets.push({ type: 'org', id: o.orgId, name: o.orgDisplayName }),
+      );
+    }
+    if (scopes.includes('teams') && user && user.teams) {
+      user.teams.forEach(t =>
+        targets.push({ type: 'team', id: t.teamId, name: t.teamDisplayName }),
+      );
+    }
+    if (scopes.includes('domains') && user && typeof user.emailDomains === 'function') {
+      user.emailDomains().forEach(d =>
+        targets.push({ type: 'domain', id: d, name: d }),
+      );
+    }
+    return targets;
+  },
   isSpaceSelected(id) {
     return Template.instance().selectedWorkspaceIdVar.get() === id;
   },
@@ -695,6 +763,43 @@ Template.boardList.events({
     }
   },
   // HTML5 DnD from boards to spaces
+  // #5850: drag a (template) board onto an Org/Team/Domain target to share it.
+  'dragover .js-share-target'(evt) {
+    evt.preventDefault();
+    if (evt.originalEvent.dataTransfer) {
+      evt.originalEvent.dataTransfer.dropEffect = 'copy';
+    }
+    evt.currentTarget.classList.add('board-drag-hint');
+  },
+  'dragleave .js-share-target'(evt) {
+    evt.currentTarget.classList.remove('board-drag-hint');
+  },
+  'drop .js-share-target'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const target = evt.currentTarget;
+    target.classList.remove('board-drag-hint');
+    const dt = evt.originalEvent.dataTransfer;
+    const data = dt.getData('text/plain');
+    if (!data) {
+      return;
+    }
+    const isMulti = dt.getData('application/x-board-multi') === 'true';
+    let boardIds;
+    if (isMulti) {
+      try {
+        boardIds = JSON.parse(data);
+      } catch (e) {
+        boardIds = [];
+      }
+    } else {
+      boardIds = [data];
+    }
+    const shareType = target.getAttribute('data-share-type');
+    const name = target.getAttribute('data-share-name');
+    const id = target.getAttribute('data-share-id');
+    boardIds.forEach(boardId => shareBoardWith(boardId, shareType, name, id));
+  },
   'dragstart .js-board'(evt) {
     const boardId = this._id;
 
