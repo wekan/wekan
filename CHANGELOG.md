@@ -38,6 +38,15 @@ This release adds the following features:
   Boards sharing feature ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
 
+- [Domain-based board sharing: board can be shared with an email domain](https://github.com/wekan/wekan/commit/c7c43fe78).
+  Adds a `board.domains` field (mirroring `board.orgs`/`board.teams`) so a board
+  can be shared with an email-address domain — every user whose primary email is
+  in an active domain on the board gets access. Adds a `User.emailDomains()`
+  helper and wires the new dimension into the board visibility selector, the
+  board publications and the All Boards membership query
+  ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
 - [Auth sync marks the orgs/teams it manages as "Sync Members From Auth Provider"](https://github.com/wekan/wekan/commit/4973f68a2).
   When the LDAP/OIDC group sync creates or assigns an Organization or Team, it now
   sets that org/team's `orgSyncMembersFromAuth` / `teamSyncMembersFromAuth` flag,
