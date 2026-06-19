@@ -30,6 +30,23 @@ Versions:
 
 This release adds the following features:
 
+- [Don't auto-create an empty Template Container, and make user-created ones functional](https://github.com/wekan/wekan/commit/2a713a60b8620fe2b1d20968f2cd1ed88abf18a9).
+  Opening **All Boards / Templates** no longer auto-creates an empty Template
+  Container board (the board-list autorun that called `ensureTemplatesBoard` on
+  view open is removed); the container is created only on demand via the
+  **Add Template Container** button. To make a user-created container actually
+  usable, `createBoardWithInitialSwimlanes` now wires the user's profile template
+  pointers (`templatesBoardId` and the card/list/board template swimlane ids,
+  keyed by a new per-swimlane `role`) when the board type is `template-container`
+  — without this the container looked right but stayed inert, since
+  `swimlane.isCardTemplatesSwimlane()`/… compare against those pointers to decide
+  that an added card/list/swimlane/board becomes a template. Deleting a Template
+  Container now clears those pointers for any user referencing it, so no
+  save/insert-from-template path is left pointing at a dead board and a fresh
+  container can be created. Adds Playwright e2e coverage
+  ([#5850](https://github.com/wekan/wekan/issues/5850),
+  [#2339](https://github.com/wekan/wekan/issues/2339)). Thanks to xet7.
+
 - [Make the All Boards / Templates redesign and org/team/domain board sharing work end-to-end](https://github.com/wekan/wekan/commit/422e70329).
   Fixes bugs the new Playwright e2e tests surfaced in the recently added features:
   the new server method modules are now actually loaded (they use an explicit
