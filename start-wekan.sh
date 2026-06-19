@@ -228,6 +228,11 @@
       # c) Disabled
       export BIGEVENTS_PATTERN=NONE
       #---------------------------------------------------------------
+      # ==== NOTIFY ON ASSIGN =====
+      # Notify the user directly when they are added as a card member or
+      # assignee. Set false to disable.
+      #export NOTIFY_ON_ASSIGN=true
+      #---------------------------------------------------------------
       # ==== EMAIL DUE DATE NOTIFICATION =====
       # https://github.com/wekan/wekan/pull/2536
       # System timelines will be showing any user modification for
@@ -315,6 +320,14 @@
       # OIDC provider's email claims; even then the provider must send
       # email_verified=true for the merge to happen.
       #export OAUTH2_MERGE_EXISTING_USERS=false
+      #
+      # When false, OAuth2/OIDC login is refused for users that do not already
+      # have a Wekan account (matched by verified email).
+      #export OAUTH2_AUTO_REGISTRATION=true
+      #
+      # Comma/space separated OAuth2/OIDC group names whose members become Wekan
+      # admins. Empty = off.
+      #export OAUTH2_ADMIN_GROUPS=
       #
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
       # OAuth2 login style: popup or redirect.
@@ -525,6 +538,11 @@
       # example :  export LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
       #export LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
       #
+      # LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS : When true, the LDAP
+      # background sync disables users no longer present in LDAP (and re-enables
+      # them when they reappear).
+      #export LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS=false
+      #
       # LDAP_ENCRYPTION : If using LDAPS
       # example :  export LDAP_ENCRYPTION=ssl
       #export LDAP_ENCRYPTION=false
@@ -651,6 +669,20 @@
       #
       # Comma separated list of admin group names to sync.
       #export LDAP_SYNC_ADMIN_GROUPS=group1,group2
+      #
+      # LDAP_SYNC_ORGANIZATIONS : When true, sync a user's LDAP groups as Wekan Organizations.
+      #export LDAP_SYNC_ORGANIZATIONS=false
+      #
+      # LDAP_SYNC_ORGANIZATIONS_GROUPS : Comma separated allowlist of LDAP group
+      # names to sync as Organizations. Empty = all of the user's groups.
+      #export LDAP_SYNC_ORGANIZATIONS_GROUPS=
+      #
+      # LDAP_SYNC_TEAMS : When true, sync a user's LDAP groups as Wekan Teams.
+      #export LDAP_SYNC_TEAMS=false
+      #
+      # LDAP_SYNC_TEAMS_GROUPS : Comma separated allowlist of LDAP group names to
+      # sync as Teams. Empty = all of the user's groups.
+      #export LDAP_SYNC_TEAMS_GROUPS=
       #---------------------------------------------------------------------
       # Login to LDAP automatically with HTTP header.
       # In below example for siteminder, at right side of = is header name.

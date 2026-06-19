@@ -196,6 +196,11 @@ REM SET BIGEVENTS_PATTERN=received|start|due|end
 REM # c) Disabled
 SET BIGEVENTS_PATTERN=NONE
 
+REM # ==== NOTIFY ON ASSIGN =====
+REM # Notify the user directly when they are added as a card member or
+REM # assignee. Set false to disable.
+REM SET NOTIFY_ON_ASSIGN=true
+
 REM # ==== EMAIL DUE DATE NOTIFICATION =====
 REM # https://github.com/wekan/wekan/pull/2536
 REM # System timelines will be showing any user modification for
@@ -411,6 +416,14 @@ REM # provider's email claims, and even then the provider must send
 REM # email_verified=true for the merge to happen.
 REM SET OAUTH2_MERGE_EXISTING_USERS=false
 
+REM # When false, OAuth2/OIDC login is refused for users that do not already
+REM # have a Wekan account (matched by verified email).
+REM SET OAUTH2_AUTO_REGISTRATION=true
+
+REM # Comma/space separated OAuth2/OIDC group names whose members become Wekan
+REM # admins. Empty = off.
+REM SET OAUTH2_ADMIN_GROUPS=
+
 REM # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
 REM # example: OAUTH2_CLIENT_ID=abcde12345
 REM SET OAUTH2_CLIENT_ID=
@@ -577,6 +590,11 @@ REM # LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS :
 REM # example : LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
 REM SET LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
 
+REM # LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS : When true, the LDAP
+REM # background sync disables users no longer present in LDAP (and re-enables
+REM # them when they reappear).
+REM SET LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS=false
+
 REM # LDAP_ENCRYPTION : If using LDAPS
 REM # example : LDAP_ENCRYPTION=ssl
 REM SET LDAP_ENCRYPTION=false
@@ -703,6 +721,20 @@ REM SET LDAP_SYNC_ADMIN_STATUS=true
 
 REM # Comma separated list of admin group names to sync.
 REM SET LDAP_SYNC_ADMIN_GROUPS=group1,group2
+
+REM # LDAP_SYNC_ORGANIZATIONS : When true, sync a user's LDAP groups as Wekan Organizations.
+REM SET LDAP_SYNC_ORGANIZATIONS=false
+
+REM # LDAP_SYNC_ORGANIZATIONS_GROUPS : Comma separated allowlist of LDAP group
+REM # names to sync as Organizations. Empty = all of the user's groups.
+REM SET LDAP_SYNC_ORGANIZATIONS_GROUPS=
+
+REM # LDAP_SYNC_TEAMS : When true, sync a user's LDAP groups as Wekan Teams.
+REM SET LDAP_SYNC_TEAMS=false
+
+REM # LDAP_SYNC_TEAMS_GROUPS : Comma separated allowlist of LDAP group names to
+REM # sync as Teams. Empty = all of the user's groups.
+REM SET LDAP_SYNC_TEAMS_GROUPS=
 
 REM ------------------------------------------------
 
