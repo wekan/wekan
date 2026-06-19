@@ -82,6 +82,7 @@ const DEFAULT_LIMIT_SETTINGS = {
   attachmentsDownloadMaxBytes: 0,
   apiUploadMaxBytes: 0,
   apiDownloadMaxBytes: 0,
+  avatarsUploadBlocked: false,
 };
 
 function toNonNegativeInteger(value, fallback = 0) {
@@ -114,6 +115,7 @@ function normalizeLimitSettings(settingsDoc) {
       ? toNonNegativeInteger(fromDoc.apiDownloadMaxBytes, DEFAULT_LIMIT_SETTINGS.apiDownloadMaxBytes)
       : DEFAULT_LIMIT_SETTINGS.apiDownloadMaxBytes,
     attachmentsUploadBlocked: fromDoc.attachmentsUploadBlocked === true,
+    avatarsUploadBlocked: fromDoc.avatarsUploadBlocked === true,
     attachmentsDownloadBlocked: fromDoc.attachmentsDownloadBlocked === true,
     apiUploadBlocked: fromDoc.apiUploadBlocked === true,
     apiDownloadBlocked: fromDoc.apiDownloadBlocked === true,
@@ -295,6 +297,10 @@ Template.attachments.helpers({
   },
   isGcsActive() {
     return Template.instance().activeSection.get() === 'gcs';
+  },
+  avatarsUploadBlocked() {
+    const settings = Template.instance().attachmentStorageSettings.get();
+    return settings?.limitSettings?.avatarsUploadBlocked === true;
   },
   defaultStorageOptions() {
     const settings = Template.instance().attachmentStorageSettings.get();
@@ -630,6 +636,10 @@ Template.attachments.events({
       }
       nextLimitSettings[field.fieldName] = bytesValue;
     }
+
+    // Avatar uploads are a simple on/off block (no size mode). Default off so
+    // avatars stay enabled unless an admin explicitly blocks them.
+    nextLimitSettings.avatarsUploadBlocked = tpl.$('.js-avatars-upload-blocked').is(':checked');
 
     const nextSettings = {
       ...currentSettings,

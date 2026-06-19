@@ -159,6 +159,13 @@ AttachmentStorageSettings.attachSchema(
       label: 'Attachments Upload Blocked'
     },
 
+    'limitSettings.avatarsUploadBlocked': {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+      label: 'Avatars Upload Blocked'
+    },
+
     'limitSettings.attachmentsDownloadMaxBytes': {
       type: Number,
       optional: true,

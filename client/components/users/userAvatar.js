@@ -167,12 +167,22 @@ Template.boardTeamName.helpers({
 Template.changeAvatarPopup.onCreated(function () {
   this.error = new ReactiveVar('');
   this.avatarUpdateCounter = new ReactiveVar(0);  // Trigger to force helper re-evaluation
+  // Whether an admin has blocked avatar uploads (Admin Panel > Attachments >
+  // Transfer limits). Default false (avatars enabled); when true the upload
+  // option is hidden and the upload is also rejected server-side.
+  this.avatarUploadBlocked = new ReactiveVar(false);
+  Meteor.call('isAvatarUploadBlocked', (err, blocked) => {
+    if (!err) this.avatarUploadBlocked.set(blocked === true);
+  });
   Meteor.subscribe('my-avatars');
 });
 
 Template.changeAvatarPopup.helpers({
   error() {
     return Template.instance().error;
+  },
+  avatarUploadBlocked() {
+    return Template.instance().avatarUploadBlocked.get();
   },
   uploadedAvatars() {
     Template.instance().avatarUpdateCounter.get();  // Create dependency on update counter

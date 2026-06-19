@@ -823,6 +823,8 @@
   "attachment-transfer-limits-save-failed": "Failed to save attachment transfer limits",
   "attachment-transfer-limits-invalid-value": "Please enter a valid positive limit value",
   "attachment-upload-limit-label": "Attachments upload max file size",
+  "avatars-upload-blocked-label": "Avatars",
+  "avatars-upload-blocked-description": "Block users from uploading new avatars (useful when avatars are synced from another source). Avatars are enabled by default.",
   "attachment-download-limit-label": "Attachments download max file size",
   "api-upload-limit-label": "API upload max file size",
   "api-download-limit-label": "API download max file size",

@@ -237,6 +237,7 @@ Meteor.methods({
           attachmentsUploadMaxBytes: process.env.ATTACHMENTS_UPLOAD_MAX_SIZE
             ? parseNonNegativeInt(process.env.ATTACHMENTS_UPLOAD_MAX_SIZE, 0) : 0,
           attachmentsUploadBlocked: false,
+          avatarsUploadBlocked: false,
           attachmentsDownloadMaxBytes: 0,
           attachmentsDownloadBlocked: false,
           apiUploadMaxBytes: process.env.ATTACHMENT_API_MAX_UPLOAD_BYTES
@@ -264,6 +265,20 @@ Meteor.methods({
 
     // Never expose secret keys to the client; the UI shows a "set" marker.
     return maskStorageSecrets(settings);
+  },
+
+  // Whether avatar uploads are blocked board-wide (Admin Panel > Attachments >
+  // Transfer limits). Readable by any logged-in user so the avatar popup can
+  // hide its upload option; the actual upload is also blocked server-side in
+  // server/permissions/avatars.js. Default false (avatars enabled).
+  async isAvatarUploadBlocked() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const settings = await AttachmentStorageSettings.findOneAsync(
+      {}, { fields: { 'limitSettings.avatarsUploadBlocked': 1 } },
+    );
+    return settings?.limitSettings?.avatarsUploadBlocked === true;
   },
 
   async getGridFsStorageStats() {

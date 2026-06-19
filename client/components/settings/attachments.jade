@@ -126,6 +126,13 @@ template(name="attachments")
                       option(value=value selected=selected) {{_ labelKey}}
 
               li
+                .title {{_ 'avatars-upload-blocked-label'}}
+                .form-group
+                  label
+                    input.js-avatars-upload-blocked(type="checkbox" checked=avatarsUploadBlocked)
+                    |  {{_ 'avatars-upload-blocked-description'}}
+
+              li
                 button.js-save-attachment-transfer-limits.primary {{_ 'save'}}
           else if isFilesystemActive
             ul#attachment-filesystem-setting.setting-detail
