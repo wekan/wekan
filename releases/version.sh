@@ -209,8 +209,12 @@ update_releases_node_versions() {
   echo "[DEBUG] Updating Node.js references in ${#files[@]} releases files..."
   local f
   for f in "${files[@]}"; do
+    # Update the explicit, stable Node.js dist path (e.g. nodejs.org/dist/v24.17.0).
+    # The old floating `latest-v24.x/` path is intentionally NOT handled here: it
+    # only ever holds the single newest v24 release, so a pinned filename under it
+    # 404s once upstream advances — that is what broke the snap build. snapcraft.yaml
+    # and the Dockerfile now use the explicit version path only.
     sedi -E "s#nodejs.org/dist/v24\.[0-9]+\.[0-9]+#nodejs.org/dist/v${new_node}#g" "$f"
-    sedi -E "s#latest-v24\.x/node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64)\.tar\.xz#latest-v24.x/node-v${new_node}-linux-\1.tar.xz#g" "$f"
     sedi -E "s#node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64|armv7l|s390x|ppc64le)\.tar\.(xz|gz)#node-v${new_node}-linux-\1.tar.\2#g" "$f"
     sedi -E "s#npm-node-version: 24\.[0-9]+\.[0-9]+#npm-node-version: ${new_node}#g" "$f"
     sedi -E "s#NODE_TAR=\"node-v24\.[0-9]+\.[0-9]+-linux-\$\{NODE_ARCH\}\.tar\.xz\"#NODE_TAR=\"node-v${new_node}-linux-\${NODE_ARCH}.tar.xz\"#g" "$f"
