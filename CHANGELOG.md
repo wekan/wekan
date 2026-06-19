@@ -30,6 +30,14 @@ Versions:
 
 This release adds the following features:
 
+- [Drag a Template Board onto an Organization, Team or Domain to share it](https://github.com/wekan/wekan/commit/0d0f5c8a5).
+  On the **All Boards / Templates** view, the left menu shows the user's
+  Organizations, Teams and Domains as drop targets (gated by the admin's Shared
+  Templates scopes). Dragging a Template Board onto one shares the board with that
+  org/team/domain (via `setBoardOrgs`/`setBoardTeams`/`setBoardDomains`) — add-only
+  and adding no individual members ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
 - [GlobalAdmin REST API for the Admin Panel global settings](https://github.com/wekan/wekan/commit/89481302d).
   Adds `GET /api/settings` and `PUT /api/settings`, restricted to the global
   admin, to read and update the Admin Panel global settings (registration,
@@ -203,6 +211,13 @@ This release adds the following features:
   `LDAP_SYNC_ADMIN_STATUS` (or any group sync) was enabled. Adds RFC 4515
   escaping for `( ) * \` and NUL in the group filter (also prevents filter
   injection) ([#5236](https://github.com/wekan/wekan/issues/5236)).
+  Thanks to xet7.
+
+- [Fix snap build failing to download Node.js (404)](https://github.com/wekan/wekan/commit/f74467837).
+  The snapcraft Node.js download used the floating `latest-v24.x/` path with a
+  pinned `node-v24.16.0` filename, which 404'd once upstream Node advanced past
+  that release — failing the amd64 and arm64 snap builds. Pinned to the explicit,
+  stable `https://nodejs.org/dist/v24.17.0/` path (matching the Dockerfile).
   Thanks to xet7.
 
 - [Keep LDAP admin status updated during background sync](https://github.com/wekan/wekan/commit/08b15929f15ad10c71d39a01da3ed961c727a4e9).
