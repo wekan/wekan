@@ -32,8 +32,8 @@ This release adds the following features:
 
 - [Enforce the per-org/team "Shared Templates" flag for drag-to-share](https://github.com/wekan/wekan/commit/8af4d7bfd).
   The All Boards / Templates drag-to-share now offers only the Organizations and
-  Teams whose **Shared Templates** flag is enabled (previously the flag was
-  stored but not read). A new non-admin `getMyShareableGroups` method returns the
+  Teams whose **Shared Templates** flag is enabled (previously the flag had no
+  effect). A new non-admin `getMyShareableGroups` method returns the
   user's flagged orgs/teams (plus their email domains), since the org/team
   publications are admin-only ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
