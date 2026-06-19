@@ -10,9 +10,10 @@ name: Release All Platforms
 # The Docker image and snap cover the platforms MongoDB ships server binaries for
 # (amd64, arm64; win64 + mac bundles too); MongoDB 7.x is the default database.
 # Additionally, WeKan server bundles are built for every other architecture
-# Node.js 24.x publishes binaries for — s390x, ppc64le and armv7l — and attached
-# to the GitHub Release as extra downloads (run a separate MongoDB for those).
-# These extra-arch bundles are NOT part of the Docker image or snap.
+# Node.js 24.x publishes binaries for — s390x and ppc64le — and attached to the
+# GitHub Release as extra downloads (run a separate MongoDB for those). These
+# extra-arch bundles are NOT part of the Docker image or snap. (armv7l/32-bit ARM
+# is not built: Node.js 24 ships no armv7l binaries.)
 #
 # This workflow does EVERYTHING for a release remotely (nothing is built or
 # pushed on the maintainer's machine), running jobs in parallel where possible:
@@ -28,7 +29,7 @@ name: Release All Platforms
 #              uploads the core wekan-<version>-{amd64,arm64}.zip bundles
 #   - build-win64 / build-mac-arm64 / build-extra-arches: built AFTER release, each
 #              rebuilds the amd64 bundle's native modules for its platform (Windows,
-#              macOS arm64, and QEMU-emulated s390x/ppc64le/armv7l) and attaches its
+#              macOS arm64, and QEMU-emulated s390x/ppc64le) and attaches its
 #              .zip to the Release as an extra download. Decoupled from `release` so
 #              a slow/flaky build never blocks it; not in the Docker image or snap
 #   - docker:  builds and pushes the multi-arch image to Docker Hub, Quay.io, GHCR
@@ -391,7 +392,7 @@ jobs:
             wekan-${{ needs.prepare.outputs.version }}-amd64.zip
             wekan-${{ needs.prepare.outputs.version }}-arm64.zip
 
-  # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le, armv7l) ───
+  # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le) ───────────
   # Every bundle below is built AFTER `release` and attaches its own .zip to the
   # already-created GitHub Release with `gh release upload --clobber`, rather than
   # being a prerequisite of `release`. This deliberately decouples the slower /
@@ -556,7 +557,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
 
-  # Extra-architecture Linux bundles (s390x, ppc64le, armv7l).
+  # Extra-architecture Linux bundles (s390x, ppc64le).
+  # armv7l (32-bit ARM) is intentionally excluded: Node.js 24 ships no armv7l
+  # binaries (official or unofficial), so there is no node:24 linux/arm/v7 image
+  # to rebuild native modules against and no Node 24 runtime to run a bundle on
+  # an armv7 device. See https://nodejs.org/dist/latest-v24.x/ (no -linux-armv7l).
   build-extra-arches:
     needs: [prepare, build-amd64, release]
     runs-on: ubuntu-24.04
@@ -569,8 +574,6 @@ jobs:
             platform: linux/s390x
           - arch: ppc64le
             platform: linux/ppc64le
-          - arch: armv7l
-            platform: linux/arm/v7
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
