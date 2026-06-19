@@ -164,6 +164,13 @@ Template.boardList.onCreated(function () {
   this.selectedMenu = new ReactiveVar(Session.get('boardListMenu') || 'starred');
   this.selectedWorkspaceIdVar = new ReactiveVar(null);
   this.workspacesTreeVar = new ReactiveVar([]);
+  // #5850: the user's orgs/teams that have the per-org/team Shared Templates
+  // flag set (plus email domains), fetched via a non-admin server method since
+  // the org/team publications are admin-only. Gates the drag-to-share targets.
+  this.shareableGroups = new ReactiveVar({ orgs: [], teams: [], domains: [] });
+  Meteor.call('getMyShareableGroups', (err, res) => {
+    if (!err && res) this.shareableGroups.set(res);
+  });
   let currUser = ReactiveCache.getCurrentUser();
   let userLanguage;
   if (currUser && currUser.profile) {
@@ -577,22 +584,16 @@ Template.boardList.helpers({
   // Templates view so a personal Template Board can be dragged onto one to share.
   shareTargets() {
     const scopes = loadSharedTemplatesScopes();
-    const user = ReactiveCache.getCurrentUser();
+    const groups = Template.instance().shareableGroups.get() || {};
     const targets = [];
-    if (scopes.includes('organizations') && user && user.orgs) {
-      user.orgs.forEach(o =>
-        targets.push({ type: 'org', id: o.orgId, name: o.orgDisplayName }),
-      );
+    if (scopes.includes('organizations')) {
+      (groups.orgs || []).forEach(o => targets.push(o));
     }
-    if (scopes.includes('teams') && user && user.teams) {
-      user.teams.forEach(t =>
-        targets.push({ type: 'team', id: t.teamId, name: t.teamDisplayName }),
-      );
+    if (scopes.includes('teams')) {
+      (groups.teams || []).forEach(t => targets.push(t));
     }
-    if (scopes.includes('domains') && user && typeof user.emailDomains === 'function') {
-      user.emailDomains().forEach(d =>
-        targets.push({ type: 'domain', id: d, name: d }),
-      );
+    if (scopes.includes('domains')) {
+      (groups.domains || []).forEach(d => targets.push(d));
     }
     return targets;
   },
