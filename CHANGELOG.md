@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# v9.61 2026-06-19 WeKan ® release
+# v9.62 2026-06-19 WeKan ® release
 
 This release adds the following features:
 
@@ -45,9 +45,15 @@ This release adds the following features:
   asserts the result, so the default can never go stale again; and a new
   pre-build guard downloads the release bundle and fails fast if its app
   `package.json` version does not match the release tag, before pushing a
-  mislabeled image to the registries. Already-pushed v9.58–v9.60 images need a
+  mislabeled image to the registries. Already-pushed v9.58–v9.61 images need a
   rebuild to carry their correct contents.
   Thanks to xet7 and Claude.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v9.61 2026-06-19 WeKan ® release
+
+This release adds the following features:
 
 - [Release All Platforms: Set GH_REPO on the bundle-attach steps so gh finds the repository](https://github.com/wekan/wekan/commit/b6facc2412e37b4c365a8f6c667894794bf2af0c).
   The win64 / mac-arm64 / s390x / ppc64le bundles each finished building but
