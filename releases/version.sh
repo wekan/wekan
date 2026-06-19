@@ -402,12 +402,37 @@ version_bump_logic() {
     echo "Error: failed to set snap version to '${NEW_VERSION}' in snapcraft.yaml." >&2
     exit 1
   fi
-  sedi "s|v$OLD_VERSION/|v$NEW_VERSION/|g" snapcraft.yaml
-  sedi "s|wekan-$OLD_VERSION-|wekan-$NEW_VERSION-|g" snapcraft.yaml
+  # Re-point the bundle the snap downloads to v$NEW_VERSION. Anchor on the stable
+  # "wekan-<v>-" and "releases/download/v<v>/" shapes, NOT on $OLD_VERSION: the
+  # snap is RELEASE-CRITICAL exactly like the Docker image — it downloads
+  # wekan-<v>-<arch>.zip here, so if these stayed at an old version (which the
+  # $OLD_VERSION-anchored form did whenever $OLD did not match) the snap would be
+  # NAMED v$NEW_VERSION (via the version: line above) but SHIP the old bundle and
+  # report the old version. Self-healing + assert so any miss fails the release.
+  sedi -E "s#wekan-[0-9]+\.[0-9]+(\.[0-9]+)?-#wekan-${NEW_VERSION}-#g" snapcraft.yaml
+  sedi -E "s#(releases/download/)v[0-9]+\.[0-9]+(\.[0-9]+)?/#\1v${NEW_VERSION}/#g" snapcraft.yaml
+  if grep -qE "wekan-[0-9]+\.[0-9]+(\.[0-9]+)?-" snapcraft.yaml \
+     && ! grep -qF "wekan-${NEW_VERSION}-" snapcraft.yaml; then
+    echo "Error: failed to set the WeKan bundle version to ${NEW_VERSION} in snapcraft.yaml." >&2
+    exit 1
+  fi
+  if grep -qE "releases/download/v[0-9]" snapcraft.yaml \
+     && ! grep -qF "releases/download/v${NEW_VERSION}/" snapcraft.yaml; then
+    echo "Error: failed to set the release-download URL to v${NEW_VERSION} in snapcraft.yaml." >&2
+    exit 1
+  fi
 
-  sedi "0,/appVersion = [0-9]\+/s/appVersion = [0-9]\+/appVersion = ${NEW_NO_DOTS}/" sandstorm-pkgdef.capnp
-  sedi "0,/appMarketingVersion = (defaultText = \"[^\"]*\")/s/appMarketingVersion = (defaultText = \"[^\"]*\")/appMarketingVersion = (defaultText = \"${NEW_VERSION}~${TODAY}\")/" sandstorm-pkgdef.capnp
-  sedi "s|appVersion = $OLD_NO_DOTS,|appVersion = $NEW_NO_DOTS,|g" sandstorm-pkgdef.capnp
+  # Both anchor on the field name and re-normalize whatever value is there to the
+  # new version (NOT on the old value), so they self-heal from any stale state.
+  # Global, not first-match, and the old separate "appVersion = $OLD_NO_DOTS,"
+  # fixup is dropped — that $OLD-anchored line silently no-op'd on a mismatch and
+  # is redundant now that this rewrites every appVersion occurrence.
+  sedi -E "s/appVersion = [0-9]+/appVersion = ${NEW_NO_DOTS}/g" sandstorm-pkgdef.capnp
+  sedi -E "s/appMarketingVersion = \(defaultText = \"[^\"]*\"\)/appMarketingVersion = (defaultText = \"${NEW_VERSION}~${TODAY}\")/g" sandstorm-pkgdef.capnp
+  if ! grep -qF "appVersion = ${NEW_NO_DOTS}" sandstorm-pkgdef.capnp; then
+    echo "Error: failed to set 'appVersion = ${NEW_NO_DOTS}' in sandstorm-pkgdef.capnp." >&2
+    exit 1
+  fi
 
   # Anchor on the `ARG VERSION=` prefix, NOT on the old version number, so this
   # always rewrites the default to the new version even if OLD_VERSION was passed
@@ -420,8 +445,17 @@ version_bump_logic() {
     echo "Error: failed to set 'ARG VERSION=$NEW_VERSION' in Dockerfile." >&2
     exit 1
   fi
-  sedi "s|wekan-$OLD_VERSION|wekan-$NEW_VERSION|g" docs/Platforms/Propietary/Windows/Offline.md
-  sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs/Platforms/Propietary/Windows/Offline.md
+  # Documentation (Windows offline-install guide): same self-healing anchors as
+  # snapcraft.yaml so the doc's download links re-point to v$NEW_VERSION from any
+  # stale value. Only warn (don't fail the release) on a miss — a stale doc link
+  # is cosmetic, unlike the snap/Docker bundles above.
+  OFFLINE_DOC="docs/Platforms/Propietary/Windows/Offline.md"
+  sedi -E "s#wekan-[0-9]+\.[0-9]+(\.[0-9]+)?-#wekan-${NEW_VERSION}-#g" "$OFFLINE_DOC"
+  sedi -E "s#(releases/download/)v[0-9]+\.[0-9]+(\.[0-9]+)?/#\1v${NEW_VERSION}/#g" "$OFFLINE_DOC"
+  if grep -qE "wekan-[0-9]+\.[0-9]+(\.[0-9]+)?-" "$OFFLINE_DOC" \
+     && ! grep -qF "wekan-${NEW_VERSION}-" "$OFFLINE_DOC"; then
+    echo "[WARN] $OFFLINE_DOC still references an old wekan-<version> bundle; expected ${NEW_VERSION}." >&2
+  fi
 
   # 7. Download dependency artifacts from upstream to ~/Lataukset for the optional
   # USE_LOCAL_DEP_VERSIONS offline mode. The builds themselves fetch from upstream too.
