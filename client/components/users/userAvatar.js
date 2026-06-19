@@ -164,6 +164,19 @@ Template.boardTeamName.helpers({
   },
 });
 
+// #5850: row showing a single board email-domain share, with a remove affordance.
+Template.boardDomainRow.helpers({
+  domainViewPortWidth() {
+    return ((this.domain && this.domain.length) || 1) * 12;
+  },
+});
+
+Template.boardDomainRow.events({
+  // The row's data context is `{ domain }`, which becomes removeBoardDomainPopup's
+  // data context, so the popup can read `this.domain` directly.
+  'click .js-manage-board-removeDomain': Popup.open('removeBoardDomain'),
+});
+
 Template.changeAvatarPopup.onCreated(function () {
   this.error = new ReactiveVar('');
   this.avatarUpdateCounter = new ReactiveVar(0);  // Trigger to force helper re-evaluation

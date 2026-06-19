@@ -569,6 +569,7 @@ Template.membersWidget.helpers({
       { name: TAPi18n.__('people'), slug: 'people' },
       { name: TAPi18n.__('organizations'), slug: 'organizations' },
       { name: TAPi18n.__('teams'), slug: 'teams' },
+      { name: TAPi18n.__('domains'), slug: 'domains' },
     ];
   },
 });
@@ -579,6 +580,7 @@ Template.membersWidget.events({
   'click .js-manage-board-members': Popup.open('addMember'),
   'click .js-manage-board-addOrg': Popup.open('addBoardOrg'),
   'click .js-manage-board-addTeam': Popup.open('addBoardTeam'),
+  'click .js-manage-board-addDomain': Popup.open('addBoardDomain'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
@@ -2057,6 +2059,88 @@ Template.removeBoardOrgPopup.events({
     Popup.back();
   },
   'click #cancelLeaveBoardBtn'(){
+    Popup.back();
+  },
+});
+
+// #5850: free-form "share board with an email domain" popups. Unlike orgs/teams
+// (which are a managed collection shown in a <select>), the owner simply types a
+// domain such as example.com.
+Template.addBoardDomainPopup.onCreated(function() {
+  this.error = new ReactiveVar('');
+
+  this.setError = function(error) {
+    this.error.set(error);
+  };
+});
+
+Template.addBoardDomainPopup.helpers({
+  error() {
+    return { get: () => Template.instance().error.get() };
+  },
+});
+
+Template.addBoardDomainPopup.events({
+  'keyup input'(event, tpl) {
+    tpl.setError('');
+  },
+  'submit .js-add-board-domain'(event, tpl) {
+    event.preventDefault();
+    const input = document.getElementById('jsBoardDomainInput');
+    const domain = (input ? input.value : '').trim().toLowerCase();
+
+    // Basic validation: must contain a '.', and no '@' or whitespace.
+    if (
+      domain.length === 0 ||
+      domain.indexOf('.') < 0 ||
+      domain.indexOf('@') >= 0 ||
+      /\s/.test(domain)
+    ) {
+      tpl.setError('invalid-domain');
+      return;
+    }
+
+    const currentBoard = Utils.getCurrentBoard();
+    const boardDomains = [];
+    if (currentBoard.domains !== undefined) {
+      for (let i = 0; i < currentBoard.domains.length; i++) {
+        boardDomains.push(currentBoard.domains[i]);
+      }
+    }
+
+    if (!boardDomains.some(d => d.domain === domain)) {
+      boardDomains.push({
+        domain,
+        isActive: true,
+      });
+      Meteor.call('setBoardDomains', boardDomains, currentBoard._id);
+    }
+
+    Popup.back();
+  },
+});
+
+Template.removeBoardDomainPopup.events({
+  'keyup input'(event, tpl) {
+    // no-op, kept for parity with the org/team remove popups
+  },
+  'click #leaveBoardDomainBtn'(){
+    const stringDomain = document.getElementById('hideDomain').value;
+    const currentBoard = Utils.getCurrentBoard();
+    const boardDomains = [];
+    if (currentBoard.domains !== undefined) {
+      for (let i = 0; i < currentBoard.domains.length; i++) {
+        if (currentBoard.domains[i].domain != stringDomain) {
+          boardDomains.push(currentBoard.domains[i]);
+        }
+      }
+    }
+
+    Meteor.call('setBoardDomains', boardDomains, currentBoard._id);
+
+    Popup.back();
+  },
+  'click #cancelLeaveBoardDomainBtn'(){
     Popup.back();
   },
 });

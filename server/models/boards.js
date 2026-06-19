@@ -322,6 +322,84 @@ Meteor.methods({
       },
     });
   },
+
+  async setBoardDomains(boardDomainsArray, currBoardId) {
+    check(boardDomainsArray, Array);
+    check(currBoardId, String);
+
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in to perform this action.');
+    }
+
+    const board = await ReactiveCache.getBoard(currBoardId);
+    if (!board) {
+      throw new Meteor.Error('board-not-found', 'Board not found.');
+    }
+    if (!allowIsBoardAdmin(userId, board)) {
+      throw new Meteor.Error('not-authorized', 'You must be a board admin to perform this action.');
+    }
+
+    // #5850: domains are free-form, so normalise and validate each entry before
+    // storing. Every domain must be a non-empty, trimmed, lowercased string that
+    // looks like a domain (contains a '.' and no '@' or whitespace).
+    const normalizedDomains = [];
+    const seen = new Set();
+    for (const entry of boardDomainsArray) {
+      check(entry, Object);
+      check(entry.domain, String);
+      check(entry.isActive, Boolean);
+
+      const domain = entry.domain.trim().toLowerCase();
+      if (
+        domain.length === 0 ||
+        domain.indexOf('.') < 0 ||
+        domain.indexOf('@') >= 0 ||
+        /\s/.test(domain)
+      ) {
+        throw new Meteor.Error('invalid-domain', `Invalid domain: ${entry.domain}`);
+      }
+      if (seen.has(domain)) {
+        continue;
+      }
+      seen.add(domain);
+      normalizedDomains.push({ domain, isActive: entry.isActive });
+    }
+
+    await Boards.updateAsync(currBoardId, {
+      $set: {
+        domains: normalizedDomains,
+      },
+    });
+  },
+
+  // #5850: add a single email domain to a board, leaving any existing domains in
+  // place. Mirrors the array-based setBoardDomains above and reuses it so the
+  // same auth check and validation apply.
+  async addBoardDomain(domain, currBoardId) {
+    check(domain, String);
+    check(currBoardId, String);
+
+    const board = await ReactiveCache.getBoard(currBoardId);
+    const domains = (board && board.domains) ? board.domains.slice() : [];
+    const normalized = domain.trim().toLowerCase();
+    if (!domains.some(d => d.domain === normalized)) {
+      domains.push({ domain: normalized, isActive: true });
+    }
+    return Meteor.callAsync('setBoardDomains', domains, currBoardId);
+  },
+
+  // #5850: remove a single email domain from a board.
+  async removeBoardDomain(domain, currBoardId) {
+    check(domain, String);
+    check(currBoardId, String);
+
+    const board = await ReactiveCache.getBoard(currBoardId);
+    const domains = (board && board.domains) ? board.domains : [];
+    const normalized = domain.trim().toLowerCase();
+    const filtered = domains.filter(d => d.domain !== normalized);
+    return Meteor.callAsync('setBoardDomains', filtered, currBoardId);
+  },
 });
 
 Boards.before.insert(async (userId, doc) => {

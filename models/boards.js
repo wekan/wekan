@@ -1256,6 +1256,11 @@ Boards.helpers({
     return where(this.teams, { isActive: true });
   },
 
+  // #5850: the board's active email-address domains.
+  activeDomains() {
+    return where(this.domains, { isActive: true });
+  },
+
   // hasNotAnyTeam(){
   //   return this.teams === undefined || this.teams.length <= 0;
   // },

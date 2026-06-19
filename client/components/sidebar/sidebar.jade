@@ -105,6 +105,12 @@ template(name="membersWidget")
         .board-widget-content
           +boardTeamGeneral
           .clearfix
+      +tabContent(slug="domains")
+        unless currentUser.isWorker
+          p.quiet
+        .board-widget-content
+          +boardDomainGeneral
+          .clearfix
 
 template(name="boardOrgGeneral")
   each org in currentBoard.activeOrgs
@@ -119,6 +125,18 @@ template(name="boardTeamGeneral")
   if currentUser.isBoardAdmin
     a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
       i.fa.fa-plus
+
+template(name="boardDomainGeneral")
+  each currentBoard.activeDomains
+    +boardDomainRow(domain=this.domain)
+  if currentUser.isBoardAdmin
+    a.member.orgOrTeamMember.add-member.js-manage-board-addDomain(title="{{_ 'add-domain'}}")
+      i.fa.fa-plus
+
+template(name="boardDomainRow")
+  a.member.orgOrTeamMember.js-manage-board-removeDomain(title="{{domain}}" data-domain="{{domain}}")
+    svg.avatar.avatar-initials(viewBox="0 0 {{domainViewPortWidth}} 15")
+      text(x="50%" y="11" text-anchor="middle" dominant-baseline="middle" font-size="16")= domain
 
 template(name="boardChangeColorPopup")
   .board-backgrounds-list.clearfix
@@ -887,6 +905,27 @@ template(name="removeBoardTeamPopup")
   div.buttonsContainer
     input.primary.wide.leaveBoardBtn#leaveBoardTeamBtn(type="submit" value="{{_ 'confirm-btn'}}")
     input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardTeamBtn(type="submit" value="{{_ 'cancel'}}")
+
+template(name="addBoardDomainPopup")
+  form.js-add-board-domain
+    label
+      | {{_ 'domain'}}
+      input.js-board-domain-input#jsBoardDomainInput(type="text" autofocus placeholder="example.com")
+    if error.get
+      .warning {{_ error.get}}
+    div.buttonsContainer
+      input.primary.wide#jsAddBoardDomainBtn(type="submit" value="{{_ 'add-domain'}}")
+
+template(name="removeBoardDomainPopup")
+  form
+    input.hide#hideDomain(type="text" value=domain)
+    label
+      | {{_ 'remove-domain-from-board'}}
+  br
+  hr
+  div.buttonsContainer
+    input.primary.wide.leaveBoardBtn#leaveBoardDomainBtn(type="submit" value="{{_ 'confirm-btn'}}")
+    input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardDomainBtn(type="submit" value="{{_ 'cancel'}}")
 
 template(name="addMemberPopup")
   .js-search-member
