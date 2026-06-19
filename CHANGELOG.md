@@ -39,6 +39,15 @@ This release adds the following features:
   are synced from another source ([#4740](https://github.com/wekan/wekan/issues/4740)).
   Thanks to xet7.
 
+and adds the following tests:
+
+- [Added more tests](https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd).
+  Playwright e2e tests for the "Mark as complete" Show at Minicard option
+  (`allowsDueCompleteOnMinicard` — hidden by default, shown when enabled) and the
+  Admin Panel avatar-upload block (`isAvatarUploadBlocked` /
+  `limitSettings.avatarsUploadBlocked` — disabled by default).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.57 2026-06-19 WeKan ® release
