@@ -131,11 +131,11 @@ Meteor.methods({
     }
   },
 
-  async setTeamSyncMembersFromLdap(team, value) {
+  async setTeamSyncMembersFromAuth(team, value) {
     if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
       check(team, Object);
       check(value, Boolean);
-      await Team.updateAsync(team, { $set: { teamSyncMembersFromLdap: value } });
+      await Team.updateAsync(team, { $set: { teamSyncMembersFromAuth: value } });
     }
   },
 
@@ -147,7 +147,7 @@ Meteor.methods({
       const allowed = [
         'teamSharedTemplates',
         'teamPropagateMembersToBoards',
-        'teamSyncMembersFromLdap',
+        'teamSyncMembersFromAuth',
       ];
       if (!allowed.includes(field)) {
         throw new Meteor.Error('invalid-field');

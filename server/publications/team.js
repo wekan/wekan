@@ -24,7 +24,7 @@ Meteor.publish('team', async function(query, limit, skip = 0) {
           teamIsActive: 1,
           teamSharedTemplates: 1,
           teamPropagateMembersToBoards: 1,
-          teamSyncMembersFromLdap: 1,
+          teamSyncMembersFromAuth: 1,
         }
       },
       true,

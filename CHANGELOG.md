@@ -35,8 +35,9 @@ This release adds the following features:
   checkbox columns, all disabled by default: **Shared Templates** (allow members
   to drag personal Template Boards onto this org/team), **Propagate Members To
   Boards** (add this org/team's members to the boards that list it), and **Sync
-  Members From LDAP** (this org/team's membership is maintained by the LDAP
-  background sync). Each column header has **select-all / unselect-all**, and the
+  Members From Auth Provider** (this org/team's membership is maintained by the
+  authentication provider's group/membership sync — LDAP, OAuth2/OIDC, SAML,
+  etc.). Each column header has **select-all / unselect-all**, and the
   per-tab search box filters the rows. This adds the per-org/team settings
   surface (schema fields, admin-only toggle + bulk methods, publications); the
   behaviours these flags gate are wired separately

@@ -70,9 +70,10 @@ Org.attachSchema(
       type: Boolean,
       optional: true,
     },
-    orgSyncMembersFromLdap: {
+    orgSyncMembersFromAuth: {
       /**
-       * #4737: this org's membership is maintained by the LDAP background sync. Off by default.
+       * #4737: this org's membership is maintained by the authentication
+       * provider's group/membership sync (LDAP, OAuth2/OIDC, SAML, etc.). Off by default.
        */
       type: Boolean,
       optional: true,

@@ -296,7 +296,7 @@ Template.people.helpers({
         orgIsActive: 1,
         orgSharedTemplates: 1,
         orgPropagateMembersToBoards: 1,
-        orgSyncMembersFromLdap: 1,
+        orgSyncMembersFromAuth: 1,
       },
     }).fetch();
     return orgs;
@@ -319,7 +319,7 @@ Template.people.helpers({
         teamIsActive: 1,
         teamSharedTemplates: 1,
         teamPropagateMembersToBoards: 1,
-        teamSyncMembersFromLdap: 1,
+        teamSyncMembersFromAuth: 1,
       },
     }).fetch();
     return teams;
@@ -990,13 +990,13 @@ Template.newUserPopup.helpers({
 const ORG_FEATURE_METHODS = {
   orgSharedTemplates: 'setOrgSharedTemplates',
   orgPropagateMembersToBoards: 'setOrgPropagateMembersToBoards',
-  orgSyncMembersFromLdap: 'setOrgSyncMembersFromLdap',
+  orgSyncMembersFromAuth: 'setOrgSyncMembersFromAuth',
 };
 
 const TEAM_FEATURE_METHODS = {
   teamSharedTemplates: 'setTeamSharedTemplates',
   teamPropagateMembersToBoards: 'setTeamPropagateMembersToBoards',
-  teamSyncMembersFromLdap: 'setTeamSyncMembersFromLdap',
+  teamSyncMembersFromAuth: 'setTeamSyncMembersFromAuth',
 };
 
 Template.orgRow.events({

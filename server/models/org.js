@@ -147,11 +147,11 @@ Meteor.methods({
     }
   },
 
-  async setOrgSyncMembersFromLdap(org, value) {
+  async setOrgSyncMembersFromAuth(org, value) {
     if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
       check(org, Object);
       check(value, Boolean);
-      await Org.updateAsync(org, { $set: { orgSyncMembersFromLdap: value } });
+      await Org.updateAsync(org, { $set: { orgSyncMembersFromAuth: value } });
     }
   },
 
@@ -163,7 +163,7 @@ Meteor.methods({
       const allowed = [
         'orgSharedTemplates',
         'orgPropagateMembersToBoards',
-        'orgSyncMembersFromLdap',
+        'orgSyncMembersFromAuth',
       ];
       if (!allowed.includes(field)) {
         throw new Meteor.Error('invalid-field');

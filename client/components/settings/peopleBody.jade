@@ -150,11 +150,11 @@ template(name="orgGeneral")
           |  /
           a.js-org-feature-all(href="#", data-feature="orgPropagateMembersToBoards", data-value="false") {{_ 'unselect-all'}}
         th
-          | {{_ 'org-sync-members-from-ldap'}}
+          | {{_ 'org-sync-members-from-auth'}}
           br
-          a.js-org-feature-all(href="#", data-feature="orgSyncMembersFromLdap", data-value="true") {{_ 'select-all'}}
+          a.js-org-feature-all(href="#", data-feature="orgSyncMembersFromAuth", data-value="true") {{_ 'select-all'}}
           |  /
-          a.js-org-feature-all(href="#", data-feature="orgSyncMembersFromLdap", data-value="false") {{_ 'unselect-all'}}
+          a.js-org-feature-all(href="#", data-feature="orgSyncMembersFromAuth", data-value="false") {{_ 'unselect-all'}}
     tbody
       tr
       each org in orgList
@@ -191,11 +191,11 @@ template(name="teamGeneral")
           |  /
           a.js-team-feature-all(href="#", data-feature="teamPropagateMembersToBoards", data-value="false") {{_ 'unselect-all'}}
         th
-          | {{_ 'team-sync-members-from-ldap'}}
+          | {{_ 'team-sync-members-from-auth'}}
           br
-          a.js-team-feature-all(href="#", data-feature="teamSyncMembersFromLdap", data-value="true") {{_ 'select-all'}}
+          a.js-team-feature-all(href="#", data-feature="teamSyncMembersFromAuth", data-value="true") {{_ 'select-all'}}
           |  /
-          a.js-team-feature-all(href="#", data-feature="teamSyncMembersFromLdap", data-value="false") {{_ 'unselect-all'}}
+          a.js-team-feature-all(href="#", data-feature="teamSyncMembersFromAuth", data-value="false") {{_ 'unselect-all'}}
     tbody
       tr
       each team in teamList
@@ -285,7 +285,7 @@ template(name="orgRow")
     td.text-center
       input.js-toggle-org-feature(type="checkbox", data-feature="orgPropagateMembersToBoards", checked=orgData.orgPropagateMembersToBoards)
     td.text-center
-      input.js-toggle-org-feature(type="checkbox", data-feature="orgSyncMembersFromLdap", checked=orgData.orgSyncMembersFromLdap)
+      input.js-toggle-org-feature(type="checkbox", data-feature="orgSyncMembersFromAuth", checked=orgData.orgSyncMembersFromAuth)
 
 template(name="teamRow")
   tr
@@ -325,7 +325,7 @@ template(name="teamRow")
     td.text-center
       input.js-toggle-team-feature(type="checkbox", data-feature="teamPropagateMembersToBoards", checked=teamData.teamPropagateMembersToBoards)
     td.text-center
-      input.js-toggle-team-feature(type="checkbox", data-feature="teamSyncMembersFromLdap", checked=teamData.teamSyncMembersFromLdap)
+      input.js-toggle-team-feature(type="checkbox", data-feature="teamSyncMembersFromAuth", checked=teamData.teamSyncMembersFromAuth)
 
 template(name="peopleRow")
   tr

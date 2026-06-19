@@ -62,9 +62,10 @@ Team.attachSchema(
       type: Boolean,
       optional: true,
     },
-    teamSyncMembersFromLdap: {
+    teamSyncMembersFromAuth: {
       /**
-       * #4737: this team's membership is maintained by the LDAP background sync. Off by default.
+       * #4737: this team's membership is maintained by the authentication
+       * provider's group/membership sync (LDAP, OAuth2/OIDC, SAML, etc.). Off by default.
        */
       type: Boolean,
       optional: true,

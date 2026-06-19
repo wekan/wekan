@@ -25,7 +25,7 @@ Meteor.publish('org', async function(query, limit, skip = 0) {
           orgIsActive: 1,
           orgSharedTemplates: 1,
           orgPropagateMembersToBoards: 1,
-          orgSyncMembersFromLdap: 1,
+          orgSyncMembersFromAuth: 1,
         }
       },
       true,
