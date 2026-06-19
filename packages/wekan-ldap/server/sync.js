@@ -418,6 +418,19 @@ async function sync() {
 
         if (ldapUser) {
           await syncUserData(user, ldapUser);
+
+          // #4739: keep admin status updated during background sync, not only
+          // at login. Mirrors the LDAP_SYNC_ADMIN_STATUS logic in loginHandler
+          // so an admin-group change in LDAP is applied to existing users even
+          // if they do not log in. Gated by the existing LDAP_SYNC_ADMIN_STATUS
+          // flag (default off), so default behaviour is unchanged.
+          if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
+            const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
+            const ldapUsername = getLdapUsername(ldapUser);
+            const groups = (await ldap.getUserGroups(ldapUsername, ldapUser)).filter((value) => targetGroups.includes(value));
+            const isAdmin = groups.length > 0;
+            await Meteor.users.updateAsync({ _id: user._id }, { $set: { isAdmin } });
+          }
         } else {
           log_info('Can\'t sync user', user.username);
         }
