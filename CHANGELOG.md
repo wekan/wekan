@@ -104,12 +104,15 @@ This release adds the following features:
   ([#4739](https://github.com/wekan/wekan/issues/4739)).
   Thanks to xet7.
 
-- [Optionally disable LDAP users that disappeared from the directory](https://github.com/wekan/wekan/commit/ba37ccb8e63ed9a9719694fb66448fb87037f4fa).
+- [Optionally make LDAP authoritative for user active status](https://github.com/wekan/wekan/commit/ba37ccb8e63ed9a9719694fb66448fb87037f4fa).
   New optional `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default false):
   when enabled, the background sync disables (`loginDisabled`) LDAP-sourced users
-  that are no longer found in the directory. Off by default, only LDAP users are
-  considered, and already-disabled accounts are left untouched (no auto
-  re-enable, so manual disables are respected)
+  that are no longer found in the directory, and
+  [re-enables](https://github.com/wekan/wekan/commit/d74105d43520950b269721747fa2f576504302e2)
+  users that are present in LDAP again — so LDAP is the authoritative source of
+  active status (matching the external `docs/Login/ldap-sync/ldap-sync.py`). Off
+  by default; only LDAP-sourced users are considered. With the flag on, a manual
+  disable of an LDAP user is overridden on the next sync
   ([#4738](https://github.com/wekan/wekan/issues/4738)).
   Thanks to xet7.
 
