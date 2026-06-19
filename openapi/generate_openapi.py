@@ -669,8 +669,15 @@ class SchemaProperty(object):
 
         # deal with subschemas
         if '.' in name:
-            subschema = name.split('.')[0]
-            subschema = subschema.capitalize()
+            # The sub-schema that owns this property is every path segment
+            # except the last (the property name). Joining all leading segments
+            # — not just the first — keeps deeply nested objects such as
+            # 'storageConfig.filesystem.enabled' and 'storageConfig.gridfs.enabled'
+            # in distinct sub-schemas (StorageconfigFilesystem / StorageconfigGridfs)
+            # instead of collapsing their leaf keys into one mapping, which would
+            # emit duplicate 'enabled'/'read'/'write' keys and break strict YAML
+            # parsers (e.g. @redocly/cli). The '$' branches below reassign this.
+            subschema = ''.join([s.capitalize() for s in name.split('.')[:-1]])
 
             if name.endswith('$'):
                 # An explicit array-element marker such as `'labels.$': {type:
@@ -832,6 +839,14 @@ class Schemas(object):
         current = None
         required_properties = []
         properties = [f for f in self.fields if '.' in f.name and not '$' in f.name]
+        # Emit each sub-schema's fields contiguously. The loop opens a new
+        # sub-schema header whenever the owning schema changes, so interleaved
+        # nested objects (e.g. 'a.filesystem', 'a.filesystem.x', 'a.gridfs',
+        # 'a.gridfs.x') would otherwise reopen the parent schema 'a' multiple
+        # times — duplicate mapping keys that break strict YAML parsers. Group
+        # by the owning path (every segment but the last). The sort is stable,
+        # so single-level schemas keep their original field order.
+        properties.sort(key=lambda f: tuple(f.name.split('.')[:-1]))
         for prop in properties:
             current = prop.print_openapi(6, current, required_properties)
 

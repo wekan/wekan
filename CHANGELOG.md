@@ -26,6 +26,28 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# upcoming WeKan ® release
+
+This release adds the following features:
+
+- [Release All Platforms: fix duplicate mapping keys in generated OpenAPI
+  spec that broke API docs rendering](https://github.com/wekan/wekan).
+  The **Release All Platforms** bump job regenerates `public/api/wekan.yml`
+  via `openapi/generate_openapi.py` and then renders it with `@redocly/cli`,
+  whose strict YAML parser rejects duplicate mapping keys. The 3-level nested
+  SimpleSchema in `models/attachmentStorageSettings.js`
+  (`storageConfig.filesystem.enabled`, `storageConfig.gridfs.enabled`, …)
+  exposed two generator bugs: the sub-schema name was derived from only the
+  first dotted path segment, collapsing `filesystem.*` and `gridfs.*` leaf
+  keys (`enabled`/`read`/`write`) into one mapping; and the linear emitter
+  reopened the parent schema header for each interleaved nested object. The
+  generator now builds sub-schema names from all leading path segments and
+  groups each sub-schema's fields contiguously, so deeply nested objects emit
+  distinct, valid sub-schemas. Output is unchanged for existing 1- and
+  2-level schemas.
+
+Thanks to GitHub users for their contributions.
+
 # v9.58 2026-06-19 WeKan ® release
 
 This release adds the following features:
