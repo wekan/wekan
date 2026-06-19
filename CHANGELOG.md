@@ -61,6 +61,16 @@ This release adds the following features:
     count of users per domain.
   Thanks to xet7.
 
+- [Optional setting to refuse unknown OAuth2/OIDC logins](https://github.com/wekan/wekan/commit/a64865f82626eb954028a718cc8e660d2b39065f).
+  Optional and off by default: when `OAUTH2_AUTO_REGISTRATION=false`, a first-time
+  OAuth2/OIDC login that does not already match a Wekan account (by verified
+  email — the same secure key the existing account-merge logic uses) is rejected
+  instead of silently creating a new account. This lets an instance allow only
+  already-provisioned users (for example synced from LDAP) to sign in via OAuth2.
+  The default `true` keeps the previous behaviour, so existing deployments are
+  unaffected ([#4736](https://github.com/wekan/wekan/issues/4736)).
+  Thanks to xet7.
+
 and adds the following tests:
 
 - [Added more tests](https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd).
