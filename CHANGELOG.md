@@ -83,6 +83,18 @@ This release adds the following features:
   default ([#5833](https://github.com/wekan/wekan/issues/5833)).
   Thanks to xet7.
 
+- [Export big boards: optional JSON export without attachments](https://github.com/wekan/wekan/commit/0557282c3f567ddf538e58631f4605310dfbd0e6).
+  Very large boards could fail to export as JSON because every attachment is
+  base64-encoded inline into a single object, which overflows the JSON
+  serializer's maximum string length (and loads every attachment into memory at
+  once). A new optional `?attachments=false` query parameter on
+  `GET /api/boards/:boardId/export` exports the board structure and attachment
+  metadata while skipping the base64 file data, so big boards export
+  successfully; a matching **Export / JSON (without attachments)** entry is added
+  to the board export menu. The default export is unchanged
+  ([#5870](https://github.com/wekan/wekan/issues/5870)).
+  Thanks to xet7.
+
 and adds the following tests:
 
 - [Added more tests](https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd).
