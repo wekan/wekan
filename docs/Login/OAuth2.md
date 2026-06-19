@@ -12,6 +12,19 @@ You can use some OAuth2 providers for logging into Wekan, for example:
 
 You can ask your identity provider (LDAP, SAML etc) do they support adding OAuth2 application like Wekan.
 
+## OAuth2/OIDC auto-registration and admin groups
+
+These settings control who is allowed to log in via OAuth2/OIDC and who becomes a
+Wekan admin. They are read as environment variables (Docker / Source). On Snap use
+the lower-case dash-separated equivalent (for example `oauth2-admin-groups`).
+
+- `OAUTH2_AUTO_REGISTRATION` (default `true`) — when `false`, OAuth2/OIDC login is
+  refused for users that do not already have a Wekan account (matched by verified
+  email address). Use this when accounts must be provisioned in Wekan first.
+- `OAUTH2_ADMIN_GROUPS` (default empty) — comma/space-separated list of OIDC group
+  names whose members become Wekan admins. This mirrors `LDAP_SYNC_ADMIN_GROUPS`
+  for OAuth2/OIDC.
+
 ## GitLab providing OAuth2 login to Wekan
 
 [Thanks to derhelge who figured out GitLab login](https://github.com/wekan/wekan/issues/3156).

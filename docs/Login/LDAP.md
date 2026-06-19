@@ -165,6 +165,34 @@ sudo snap set wekan ldap-user-search-scope='sub'
 sudo snap set wekan ldap-username-field='uid'
 ```
 
+## LDAP background sync, Organizations and Teams sync
+
+These settings extend LDAP background sync and let LDAP groups be mirrored into
+Wekan Organizations and Teams. They are read as environment variables (Docker /
+Source). On Snap use the lower-case dash-separated equivalent (for example
+`ldap-sync-organizations`).
+
+- `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default `false`) — when
+  `true`, background sync disables Wekan users that are no longer found in the LDAP
+  directory, and re-enables them if they reappear. This makes LDAP authoritative
+  for the active/inactive status of users.
+- `LDAP_SYNC_ORGANIZATIONS` (default `false`) — when `true`, a user's LDAP groups
+  are synced into that user's Wekan **Organizations**.
+- `LDAP_SYNC_ORGANIZATIONS_GROUPS` (default empty) — comma-separated list of LDAP
+  group names to sync as Organizations. Leave empty to sync all of the user's
+  groups.
+- `LDAP_SYNC_TEAMS` (default `false`) — when `true`, a user's LDAP groups are
+  synced into that user's Wekan **Teams**.
+- `LDAP_SYNC_TEAMS_GROUPS` (default empty) — comma-separated list of LDAP group
+  names to sync as Teams. Leave empty to sync all of the user's groups.
+
+Notes:
+
+- LDAP admin status (`LDAP_SYNC_ADMIN_STATUS` / `LDAP_SYNC_ADMIN_GROUPS`) is now
+  also kept up to date during background sync, not only at sign-in.
+- LDAP group-filter values are now escaped, so a DN or `cn` that contains
+  parentheses no longer breaks sign-in.
+
 ## Docker
 
 LDAP login works now by using this docker-compose.yml file:

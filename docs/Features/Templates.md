@@ -28,6 +28,17 @@ At Roadmap of some other Wekan Contributors:
 
 ***
 
+# Template boards are group-only
+
+Template boards are shared with **groups** — Organizations, Teams or email
+**Domains** — rather than with individual users. The only individual shown on a
+template board is its **creator**; everyone else gains access through the
+organization, team or domain the template is shared with. Sharing a board with an
+email domain is done from the **Domains** tab in the board members sidebar (see
+[Members and Permissions](Members/Members.md)).
+
+***
+
 # If you get "Board not Found" after archieving Template Board
 
 From: https://github.com/wekan/wekan/issues/4632

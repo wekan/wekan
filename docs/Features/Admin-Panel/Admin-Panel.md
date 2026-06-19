@@ -21,6 +21,24 @@ lets you:
 
 ![Wekan Admin Panel email screenshot](../screenshot-admin-panel-email.png)
 
+### People: Domains tab
+
+**Admin Panel → People** has a **Domains** tab that lists the email domains in use
+across the instance together with the number of users on each domain.
+
+### People: Organizations / Teams toggle columns
+
+The **Organizations** and **Teams** tabs under **Admin Panel → People** have
+per-organization / per-team toggle columns:
+
+- **Shared Templates** — whether template boards shared with this organization/team
+  are available to its members.
+- **Propagate Members To Boards** — whether members of this organization/team are
+  automatically added to the relevant boards.
+- **Sync Members From Auth Provider** — whether the membership is kept in sync from
+  the authentication provider (for example LDAP groups, see
+  `LDAP_SYNC_ORGANIZATIONS` / `LDAP_SYNC_TEAMS`).
+
 ## Sandstorm platform
 
 On Sandstorm, authentication (LDAP, passwordless email, SAML, GitHub and Google

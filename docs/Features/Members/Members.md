@@ -38,6 +38,22 @@ Click a member's initials or avatar to set their role on the board:
 
 ![Wekan permissions screenshot](../screenshot-member-comment-only.png)
 
+## Share a board with an email Domain
+
+In the board members sidebar there is a **Domains** tab. From it you can share a
+board with a whole email **domain** (for example `example.com`), so every user with
+a verified email address on that domain becomes a member of the board. This is in
+addition to sharing with individual members, Organizations and Teams.
+
+## Notify on assign
+
+When a user is added as a card **member** or **assignee**, they can be notified
+directly. This is controlled by the environment variable:
+
+- `NOTIFY_ON_ASSIGN` (default `true`) — when `true`, the user added as a card
+  member/assignee gets a direct notification. Set to `false` to disable these
+  notifications instance-wide. On Snap use `notify-on-assign`.
+
 ## Related
 
 - [Adding Users](../../Login/Adding-users.md)
