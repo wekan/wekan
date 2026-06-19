@@ -30,10 +30,13 @@ async function main() {
       const col = op.collection ? db.collection(op.collection) : null;
       switch (op.method) {
         case 'insertOne':
-          await col.insertOne(op.doc);
+          // Return the driver result so callers can read `insertedId`.
+          result = await col.insertOne(op.doc);
           break;
         case 'insertMany':
-          if (op.docs && op.docs.length) await col.insertMany(op.docs);
+          result = (op.docs && op.docs.length)
+            ? await col.insertMany(op.docs)
+            : { acknowledged: true, insertedCount: 0, insertedIds: {} };
           break;
         case 'deleteOne':
           await col.deleteOne(op.filter || {});
