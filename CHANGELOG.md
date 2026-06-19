@@ -39,7 +39,10 @@ This release adds the following features:
   are synced from another source ([#4740](https://github.com/wekan/wekan/issues/4740)).
   Thanks to xet7.
 
-- [Template Boards and sharing them with Organizations, Teams and Domains](https://github.com/wekan/wekan/commit/aeb894feadbe4ae1fe2a6486953d36995646506a).
+- [Improvements to Template Boards and sharing them with Organizations, Teams and Domains](https://github.com/wekan/wekan/commit/aeb894feadbe4ae1fe2a6486953d36995646506a).
+  Card and board templates already exist in WeKan; these are improvements to how
+  Template Boards are managed and shared on the **All Boards** page
+  ([#5850](https://github.com/wekan/wekan/issues/5850)):
   - At **All Boards / Templates**, all of the user's own Board Templates are
     shown, with a dedicated **Add Template Board** button that creates a new
     Template Board there.
