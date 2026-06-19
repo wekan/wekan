@@ -26,6 +26,36 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v9.63 2026-06-19 WeKan ® release
+
+This release adds the following features:
+
+- [Fix the wekan.fi install page version never updating from a stale value](https://github.com/wekan/wekan/commit/40c3ee098).
+  The `release-all.yml` website job ran every release but the install page's
+  version stayed frozen at v9.57: `releases/release-website.sh` updated it with a
+  sed anchored on `>v$OLD</span>`, which silently no-op'd once the published
+  page's value no longer matched the `old_version` passed for a release. Anchor
+  on the stable `<span class="version-number">` instead and re-normalize whatever
+  version is there to the new one, with an assert so a miss fails loudly. Same
+  self-healing fix applied to the local-flow copy in `releases/version.sh`. The
+  live wekan.fi install page was also corrected to the current version.
+  Thanks to xet7 and Claude.
+
+- [Make the remaining release version substitutions self-healing](https://github.com/wekan/wekan/commit/1e5ae8f64).
+  Hardened the last `$OLD_VERSION`-anchored seds in `releases/version.sh` — the
+  same fragile pattern that froze the Docker `ARG VERSION` and the install page.
+  The snapcraft.yaml bundle download was release-critical (same class as the
+  Docker bug: the snap downloads `wekan-<v>-<arch>.zip`, so a stale value ships
+  the wrong bundle under the right name) and was stuck at v9.57; it now anchors
+  on the `wekan-<v>-` / `releases/download/v<v>/` shapes and asserts. The
+  sandstorm `appVersion` rewrite is now global and self-healing (the redundant
+  `$OLD_NO_DOTS`-anchored fixup is dropped), and the Windows Offline.md doc links
+  self-heal with a soft warning (cosmetic, so they must not fail the release).
+  snapcraft.yaml and Offline.md were also corrected from their stale v9.57.
+  Thanks to xet7 and Claude.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.62 2026-06-19 WeKan ® release
 
 This release adds the following features:
