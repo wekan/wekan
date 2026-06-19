@@ -13,6 +13,19 @@ cat board.json | xclip -se c
 
 4. Click Import.
 
+## Exporting very large boards (without attachments)
+
+By default a board's JSON export includes its attachments as base64 data. For very
+large boards this can overflow the JSON serializer, so there is an option to export
+the board's **structure without the base64 attachment data**:
+
+```
+GET /api/boards/:boardId/export?attachments=false
+```
+
+The board export menu has a matching **Export / JSON (without attachments)** entry.
+The default export (no `attachments=false`) still includes the attachments.
+
 ## JSON to SQLite3
 
 ```

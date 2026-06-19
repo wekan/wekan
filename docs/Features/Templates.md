@@ -37,6 +37,16 @@ organization, team or domain the template is shared with. Sharing a board with a
 email domain is done from the **Domains** tab in the board members sidebar (see
 [Members and Permissions](Members/Members.md)).
 
+## Drag a template board to share it
+
+From **All Boards / Templates** you can **drag a Template Board onto an
+Organization, Team or Domain** to share it with that group (drag-to-share). The
+Organizations and Teams offered as drop targets are only those whose per-org /
+per-team **Shared Templates** flag is enabled in
+**Admin Panel → People → Organizations / Teams** (see
+[Admin Panel](Admin-Panel/Admin-Panel.md)); organizations and teams without that
+flag are not offered as drop targets.
+
 ***
 
 # If you get "Board not Found" after archieving Template Board

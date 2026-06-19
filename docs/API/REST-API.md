@@ -46,6 +46,17 @@ When calling a production Wekan server, ensure it is running via HTTPS and has a
 | `POST` | `/api/boards/:boardId/lists/:listId/cards` | [Add a card to a list, board, and swimlane.](REST-API-Cards#add-card-to-list-board-swimlane) |
 | `PUT` | `/api/boards/:boardId/lists/:fromListId/cards/:cardId` | [Update a card.](REST-API-Cards#update-a-card) |
 | `DELETE` | `/api/boards/:boardId/lists/:listId/cards/:cardId` | [Delete a card.](REST-API-Cards#update-a-card) |
+### Board Domain Sharing
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/boards/:boardId/domains` | [List the email domains a board is shared with.](#list-board-domains) |
+| `POST` | `/api/boards/:boardId/domains` | [Share a board with an email domain.](#add-a-board-domain) |
+| `DELETE` | `/api/boards/:boardId/domains/:domain` | [Stop sharing a board with an email domain.](#remove-a-board-domain) |
+### GlobalAdmin Settings
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/settings` | [Read the Admin Panel global settings.](#get-settings) |
+| `PUT` | `/api/settings` | [Update the Admin Panel global settings.](#update-settings) |
 
 
 ---
@@ -123,4 +134,90 @@ curl -H "Content-type:application/json" \
   "token": "ExMp2s9ML1JNp_l11sIfINPT3wykZ1SsVwg-cnxKdc8",
   "tokenExpires": "2017-12-15T00:47:26.303Z"
 }
+```
+
+---
+
+# Board Domain Sharing
+
+Boards can be shared with every user on an email **domain** (for example everyone
+with an `@example.com` address). These endpoints list, add and remove the domains a
+board is shared with.
+
+A board admin (or a site admin) is required to add or remove domains. Domains are
+validated: they are stored lowercase, must contain a `.`, and must not contain `@`
+or whitespace.
+
+The matching `api.py` commands are `boarddomains`, `addboarddomain` and
+`removeboarddomain`.
+
+## List board domains
+| URL | Requires Auth | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/domains` | `yes` | `GET` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     http://localhost:3000/api/boards/abcd1234/domains
+```
+
+## Add a board domain
+| URL | Requires Auth (board admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/domains` | `yes` | `POST` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -H "Content-type:application/json" \
+     -X POST \
+     http://localhost:3000/api/boards/abcd1234/domains \
+     -d '{ "domain": "example.com" }'
+```
+
+## Remove a board domain
+| URL | Requires Auth (board admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/domains/:domain` | `yes` | `DELETE` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -X DELETE \
+     http://localhost:3000/api/boards/abcd1234/domains/example.com
+```
+
+---
+
+# GlobalAdmin Settings
+
+These endpoints read and update the **Admin Panel** global settings (registration,
+product name, logos, custom head / manifest, accessibility and support pages, and
+so on). They are **global-admin only**.
+
+Updates are applied through a field **whitelist**, so only the supported settings
+fields can be changed. For security, `mailServer` / SMTP credentials are **never
+returned** by `GET` and are **never writable** by `PUT`.
+
+The matching `api.py` commands are `getsettings` and `editsettings <field> <value>`.
+
+## Get settings
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/settings` | `yes` | `GET` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     http://localhost:3000/api/settings
+```
+
+## Update settings
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/settings` | `yes` | `PUT` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -H "Content-type:application/json" \
+     -X PUT \
+     http://localhost:3000/api/settings \
+     -d '{ "productName": "My WeKan", "disableRegistration": true }'
 ```

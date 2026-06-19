@@ -34,7 +34,10 @@ per-organization / per-team toggle columns:
 - **Shared Templates** — whether template boards shared with this organization/team
   are available to its members.
 - **Propagate Members To Boards** — whether members of this organization/team are
-  automatically added to the relevant boards.
+  automatically added to the relevant boards. Enabling it adds the group's member
+  users to the regular boards that list the group (add-only; template boards are
+  skipped). It runs during the LDAP background sync and can also be triggered by an
+  admin.
 - **Sync Members From Auth Provider** — whether the membership is kept in sync from
   the authentication provider (for example LDAP groups, see
   `LDAP_SYNC_ORGANIZATIONS` / `LDAP_SYNC_TEAMS`).
