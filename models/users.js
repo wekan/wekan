@@ -916,6 +916,22 @@ Users.helpers({
     }
     return [];
   },
+  // #5850: the email-address domain(s) of this user, used for domain-based board
+  // sharing (board.domains). Lower-cased; primary email's domain.
+  emailDomains() {
+    const domains = [];
+    (this.emails || []).forEach((email) => {
+      const addr = (email && email.address) || '';
+      const at = addr.lastIndexOf('@');
+      if (at !== -1) {
+        const domain = addr.slice(at + 1).toLowerCase().trim();
+        if (domain && !domains.includes(domain)) {
+          domains.push(domain);
+        }
+      }
+    });
+    return domains;
+  },
   orgsUserBelongs() {
     if (this.orgs) {
       return this.orgs

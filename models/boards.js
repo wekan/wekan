@@ -360,6 +360,29 @@ Boards.attachSchema(
        */
       type: Boolean,
     },
+    domains: {
+      /**
+       * #5850: the list of email-address domains a board is shared with. Every
+       * user whose primary email is in one of these domains gets board access.
+       */
+      type: Array,
+      optional: true,
+    },
+    'domains.$': {
+      type: Object,
+    },
+    'domains.$.domain': {
+      /**
+       * The email-address domain, e.g. example.com
+       */
+      type: String,
+    },
+    'domains.$.isActive': {
+      /**
+       * Is the domain share active?
+       */
+      type: Boolean,
+    },
     importUsernames: {
       /**
        * Usernames of imported (e.g. Trello) board members that were not mapped
@@ -2196,6 +2219,8 @@ Boards.userBoards = (
       { members: { $elemMatch: { userId, isActive: true } } },
       { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
       { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+      // #5850: domain-based board sharing — board shared with the user's email domain.
+      { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
     ];
     return selector;
   };

@@ -422,6 +422,12 @@ Template.boardList.helpers({
         let teamsIds = teamIdsUserBelongs.split(',');
         membershipOrs.push({ 'teams.teamId': { $in: teamsIds } });
       }
+
+      // #5850: boards shared with the user's email domain.
+      const emailDomains = currUser?.emailDomains?.() || [];
+      if (emailDomains.length) {
+        membershipOrs.push({ 'domains.domain': { $in: emailDomains } });
+      }
       if (membershipOrs.length) {
         query.$and.splice(2, 0, { $or: membershipOrs });
       }

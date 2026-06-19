@@ -39,6 +39,8 @@ publishComposite('boards', function() {
           { members: { $elemMatch: { userId, isActive: true } } },
           { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
           { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+          // #5850: domain-based board sharing.
+          { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
         ],
       };
       return await ReactiveCache.getBoards(
@@ -238,6 +240,10 @@ publishComposite('board', async function(boardId, isArchived) {
   let teamIdsUserBelongs = currUser !== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
   let orgsIds = [];
   let teamsIds = [];
+  // #5850: the user's email domain(s) for domain-based board sharing.
+  let emailDomains = currUser !== 'undefined' && typeof currUser.emailDomains === 'function'
+    ? currUser.emailDomains()
+    : [];
 
   if (orgIdsUserBelongs && orgIdsUserBelongs != '') {
     orgsIds = orgIdsUserBelongs.split(',');
@@ -250,6 +256,7 @@ publishComposite('board', async function(boardId, isArchived) {
     $or.push({ members: { $elemMatch: { userId: thisUserId, isActive: true } } });
     $or.push({ 'orgs.orgId': { $in: orgsIds } });
     $or.push({ 'teams.teamId': { $in: teamsIds } });
+    $or.push({ 'domains.domain': { $in: emailDomains } });
   }
 
   return {
