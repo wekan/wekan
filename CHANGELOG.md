@@ -38,6 +38,23 @@ This release adds the following features:
   Boards sharing feature ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
 
+- [Template boards: members tab is group-only and shows only the creator](https://github.com/wekan/wekan/commit/3d7087365).
+  On template boards (template-board / template-container) the board members
+  **People** tab now shows only the original creator and hides the
+  add-individual-member button, so these shared boards are shared only with
+  groups (Organizations, Teams, Domains) — not individual users. Regular boards
+  are unchanged ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
+- [Share a board with an email domain from the board members sidebar](https://github.com/wekan/wekan/commit/d4136a616076ed61a572e7905a49dc1169aafd0b).
+  A new **Domains** tab in the board members sidebar lets a board admin type a
+  domain (e.g. `example.com`) and add or remove it, backed by a board-admin-gated
+  `setBoardDomains` method that trims, lowercases, validates and de-duplicates
+  domains. Combined with the `board.domains` access wiring, every user whose
+  primary email is in an active domain on the board gets access
+  ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
 - [Domain-based board sharing: board can be shared with an email domain](https://github.com/wekan/wekan/commit/c7c43fe78).
   Adds a `board.domains` field (mirroring `board.orgs`/`board.teams`) so a board
   can be shared with an email-address domain — every user whose primary email is
