@@ -30,6 +30,33 @@ Versions:
 
 This release adds the following features:
 
+- [All Boards / Templates: URL routes, link redirect, no auto-created templates board](https://github.com/wekan/wekan/commit/6dd360ad37d0509d3f425a6d04797a3fe3e79b1a).
+  The All Boards page's **Templates** and **Remaining** sub-views are now
+  addressable by their own URLs (`/templates`, `/remaining`), so they can be
+  linked and redirected to and switch the view live. The **Member Settings →
+  Templates** menu link now opens the **All Boards / Templates** page instead of
+  opening or creating a specific board. New users no longer get an auto-created
+  "Templates" board at signup; the templates-container board (with its Card /
+  List / Board Templates swimlanes) is instead created lazily on first use of the
+  Templates view via a new `ensureTemplatesBoard` server method. This works for
+  any authentication method (password, LDAP, OAuth2), existing users keep their
+  templates board and all save-as-template functionality, and any user can still
+  create additional template boards through **Create Board → Add template board**
+  ([#2339](https://github.com/wekan/wekan/issues/2339),
+  [#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
+- [Optional setting to set admin status from OAuth2/OIDC groups](https://github.com/wekan/wekan/commit/392df15394937806b3c022998535fc78687c6809).
+  Optional and off by default: when `OAUTH2_ADMIN_GROUPS` is set to a comma- or
+  whitespace-separated list of group names, a user logging in via OAuth2/OIDC
+  whose OIDC `groups` claim intersects that list is granted Wekan admin
+  (`isAdmin`), applied both at login and at first-time account creation; the
+  group data is accepted as either plain strings or objects with a display name.
+  This mirrors the existing LDAP `LDAP_SYNC_ADMIN_GROUPS` behaviour. When
+  `OAUTH2_ADMIN_GROUPS` is empty/unset (the default), admin status is left
+  completely unchanged ([#5876](https://github.com/wekan/wekan/issues/5876)).
+  Thanks to xet7.
+
 - [Per-organization and per-team feature toggle columns in Admin Panel > People](https://github.com/wekan/wekan/commit/036bdffb940c906ae50f837d74f7cbaba3e6fb9a).
   Admin Panel > People > Organizations and Teams each gain three per-record
   checkbox columns, all disabled by default: **Shared Templates** (allow members
@@ -108,6 +135,15 @@ This release adds the following features:
   successfully; a matching **Export / JSON (without attachments)** entry is added
   to the board export menu. The default export is unchanged
   ([#5870](https://github.com/wekan/wekan/issues/5870)).
+  Thanks to xet7.
+
+- [Fix LDAP sign-in failing when a DN or cn contains parentheses](https://github.com/wekan/wekan/commit/4dc955ed230b0df4d12dcbac5f450ccdf51fb8fb).
+  The user's group-member value (e.g. a member DN or cn) was interpolated into
+  the LDAP group search filter unescaped, so a value containing `(` or `)`
+  produced `illegal unescaped char: (` and broke sign-in when
+  `LDAP_SYNC_ADMIN_STATUS` (or any group sync) was enabled. Adds RFC 4515
+  escaping for `( ) * \` and NUL in the group filter (also prevents filter
+  injection) ([#5236](https://github.com/wekan/wekan/issues/5236)).
   Thanks to xet7.
 
 - [Keep LDAP admin status updated during background sync](https://github.com/wekan/wekan/commit/08b15929f15ad10c71d39a01da3ed961c727a4e9).
