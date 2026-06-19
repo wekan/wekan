@@ -231,6 +231,9 @@ function setupCreateBoardState(tpl) {
   tpl.visibilityMenuIsOpen = new ReactiveVar(false);
   tpl.visibility = new ReactiveVar('private');
   tpl.boardId = new ReactiveVar('');
+  // #5850: default to creating a regular board; the dedicated
+  // createTemplateContainerPopup sets this true in its onRendered.
+  Session.set('createBoardAsTemplate', false);
   Meteor.subscribe('tableVisibilityModeSettings');
 }
 
@@ -256,7 +259,11 @@ async function createBoardSubmit(tpl, event) {
   const title = tpl.find('.js-new-board-title').value;
   const slug = getSlug(title) || 'board';
 
-  const addTemplateContainer = $('#add-template-container.is-checked').length > 0;
+  // #5850: template boards are created via the dedicated "Add Template Board"
+  // flow (createTemplateContainerPopup), signalled by this Session flag, rather
+  // than a checkbox on the generic Create Board popup. Consume it immediately.
+  const addTemplateContainer = Session.get('createBoardAsTemplate') === true;
+  Session.set('createBoardAsTemplate', false);
   if (addTemplateContainer) {
     tpl.boardId.set(
       await Meteor.callAsync('createBoardWithInitialSwimlanes', {
@@ -324,9 +331,6 @@ function createBoardEvents() {
     },
     'click .js-import-board': Popup.open('chooseBoardSource'),
     'click .js-board-template': Popup.open('searchElement'),
-    'click .js-toggle-add-template-container'() {
-      $('#add-template-container').toggleClass('is-checked');
-    },
   };
 }
 
@@ -354,8 +358,8 @@ Template.createTemplateContainerPopup.onCreated(function () {
 });
 
 Template.createTemplateContainerPopup.onRendered(function () {
-  // Always pre-check the template container checkbox for this popup
-  $('#add-template-container').addClass('is-checked');
+  // #5850: this dedicated popup always creates a template board.
+  Session.set('createBoardAsTemplate', true);
 });
 
 Template.createTemplateContainerPopup.helpers(createBoardHelpers());
@@ -384,9 +388,6 @@ Template.headerBarCreateBoardPopup.events({
   },
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-board-template': Popup.open('searchElement'),
-  'click .js-toggle-add-template-container'() {
-    $('#add-template-container').toggleClass('is-checked');
-  },
 });
 
 Template.boardVisibilityList.helpers({
