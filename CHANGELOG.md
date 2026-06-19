@@ -30,6 +30,20 @@ Versions:
 
 This release adds the following features:
 
+- [Per-organization and per-team feature toggle columns in Admin Panel > People](https://github.com/wekan/wekan/commit/036bdffb940c906ae50f837d74f7cbaba3e6fb9a).
+  Admin Panel > People > Organizations and Teams each gain three per-record
+  checkbox columns, all disabled by default: **Shared Templates** (allow members
+  to drag personal Template Boards onto this org/team), **Propagate Members To
+  Boards** (add this org/team's members to the boards that list it), and **Sync
+  Members From LDAP** (this org/team's membership is maintained by the LDAP
+  background sync). Each column header has **select-all / unselect-all**, and the
+  per-tab search box filters the rows. This adds the per-org/team settings
+  surface (schema fields, admin-only toggle + bulk methods, publications); the
+  behaviours these flags gate are wired separately
+  ([#4737](https://github.com/wekan/wekan/issues/4737),
+  [#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
 - [Added Admin Panel setting to block avatar uploads](https://github.com/wekan/wekan/commit/d0a8b149ea7f81169dc44761b01b738009bc1126).
   Admin Panel > Attachments > Transfer limits now has an "Avatars" option that
   blocks users from uploading new avatars (board setting
