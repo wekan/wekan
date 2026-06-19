@@ -121,11 +121,19 @@ This release adds the following features:
   the user's groups become orgs/teams (empty = all). The user's groups are read
   with the existing `LDAP_GROUP_FILTER_*` machinery; matching orgs/teams are
   created (active) if missing and added to the user's membership (add-only — no
-  existing membership is ever removed). Off by default, so existing deployments
-  are unaffected ([#4737](https://github.com/wekan/wekan/issues/4737)).
+  existing membership is ever removed). The sync runs both during background
+  sync and at login ([commit](https://github.com/wekan/wekan/commit/a8eb12dcdf9a19d97457578c3ce00a65c763299d)).
+  Off by default, so existing deployments are unaffected
+  ([#4737](https://github.com/wekan/wekan/issues/4737)).
   Thanks to xet7.
 
 and adds the following tests:
+
+- [Added e2e test for LDAP group → Organization/Team sync](https://github.com/wekan/wekan/commit/168e541f5b83327f4ed3b0209681321efa78cab9).
+  Verifies a group is created as a Team/Organization (active), added to the user,
+  add-only (existing memberships preserved), idempotent, and that a non-admin
+  call is rejected ([#4737](https://github.com/wekan/wekan/issues/4737)).
+  Thanks to xet7.
 
 - [Added more tests](https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd).
   Playwright e2e tests for the "Mark as complete" Show at Minicard option
