@@ -16,32 +16,57 @@ FlowRouter.triggers.exit([
   },
 ]);
 
+// All Boards page. The left-menu sub-views (Templates, Remaining, Starred) are
+// addressable via their own URL suffixes (#5850) so they can be linked and
+// redirected to; the chosen view is passed to boardList through the
+// `boardListMenu` Session value.
+function renderBoardList(ctx, menu) {
+  // Redirect to sign-in immediately if user is not logged in
+  if (!Meteor.userId()) {
+    FlowRouter.go('atSignIn');
+    return;
+  }
+
+  Session.set('currentBoard', null);
+  Session.set('currentList', null);
+  Session.set('currentCard', null);
+  Session.set('popupCardId', null);
+  Session.set('popupCardBoardId', null);
+  Session.set('boardListMenu', menu);
+  Filter.reset();
+  Session.set('sortBy', '');
+  EscapeActions.executeAll();
+
+  Utils.manageCustomUI();
+  Utils.manageMatomo();
+
+  ctx.render('defaultLayout', {
+    headerBar: 'boardListHeaderBar',
+    content: 'boardList',
+  });
+}
+
 FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
-    // Redirect to sign-in immediately if user is not logged in
-    if (!Meteor.userId()) {
-      FlowRouter.go('atSignIn');
-      return;
-    }
+    renderBoardList(this, 'starred');
+  },
+});
 
-    Session.set('currentBoard', null);
-    Session.set('currentList', null);
-    Session.set('currentCard', null);
-    Session.set('popupCardId', null);
-    Session.set('popupCardBoardId', null);
-    Filter.reset();
-    Session.set('sortBy', '');
-    EscapeActions.executeAll();
+FlowRouter.route('/templates', {
+  name: 'allboards-templates',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    renderBoardList(this, 'templates');
+  },
+});
 
-    Utils.manageCustomUI();
-    Utils.manageMatomo();
-
-    this.render('defaultLayout', {
-      headerBar: 'boardListHeaderBar',
-      content: 'boardList',
-    });
+FlowRouter.route('/remaining', {
+  name: 'allboards-remaining',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    renderBoardList(this, 'remaining');
   },
 });
 

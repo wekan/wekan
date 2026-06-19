@@ -15,24 +15,6 @@ Template.memberMenuPopup.onCreated(function () {
 });
 
 Template.memberMenuPopup.helpers({
-  templatesBoardId() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return currentUser.getTemplatesBoardId();
-    } else {
-      // No need to getTemplatesBoardId on public board
-      return false;
-    }
-  },
-  templatesBoardSlug() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return currentUser.getTemplatesBoardSlug();
-    } else {
-      // No need to getTemplatesBoardSlug() on public board
-      return false;
-    }
-  },
   isSupportPageEnabled() {
     const setting = ReactiveCache.getCurrentSetting();
     return setting && setting.supportPageEnabled;

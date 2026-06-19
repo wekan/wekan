@@ -56,7 +56,7 @@ template(name="memberMenuPopup")
       unless currentUser.isWorker
         ul.pop-over-list
           li
-            a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
+            a(href="{{pathFor 'allboards-templates'}}")
               i.fa.fa-list
               | {{_ 'templates'}}
       if currentUser.isAdmin

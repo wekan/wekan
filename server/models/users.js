@@ -27,6 +27,106 @@ const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 
 Meteor.methods({
+  // Lazily create the per-user templates-container board on first use (#2339,
+  // #5850). New users no longer get one auto-created at signup; this method is
+  // called right before a template is actually saved/copied. If the current
+  // user already has profile.templatesBoardId, it is returned unchanged.
+  // Otherwise the Templates board and its three swimlanes ('Card Templates',
+  // 'List Templates', 'Board Templates'), all of type 'template-container', are
+  // created exactly as the removed signup hook did, and the id is returned.
+  async ensureTemplatesBoard() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+
+    const existing = await Users.findOneAsync(this.userId, {
+      fields: { 'profile.templatesBoardId': 1 },
+    });
+    const existingId =
+      existing && existing.profile && existing.profile.templatesBoardId;
+    if (existingId) {
+      // Make sure the board still exists; if it was deleted, recreate below.
+      const board = await Boards.findOneAsync(existingId);
+      if (board) {
+        return existingId;
+      }
+    }
+
+    const fakeUser = {
+      extendAutoValueContext: {
+        userId: this.userId,
+      },
+    };
+
+    let createdId;
+    await fakeUserId.withValue(this.userId, async () => {
+      const boardId = await Boards.insertAsync(
+        {
+          title:
+            getTAPi18n() && getTAPi18n().i18n
+              ? getTAPi18n().__('templates')
+              : 'Templates',
+          permission: 'private',
+          type: 'template-container',
+        },
+        fakeUser,
+      );
+
+      await Users.updateAsync(this.userId, {
+        $set: { 'profile.templatesBoardId': boardId },
+      });
+
+      const cardSwimlaneId = await Swimlanes.insertAsync(
+        {
+          title:
+            getTAPi18n() && getTAPi18n().i18n
+              ? getTAPi18n().__('card-templates-swimlane')
+              : 'Card Templates',
+          boardId,
+          sort: 1,
+          type: 'template-container',
+        },
+        fakeUser,
+      );
+      await Users.updateAsync(this.userId, {
+        $set: { 'profile.cardTemplatesSwimlaneId': cardSwimlaneId },
+      });
+
+      const listSwimlaneId = await Swimlanes.insertAsync(
+        {
+          title:
+            getTAPi18n() && getTAPi18n().i18n
+              ? getTAPi18n().__('list-templates-swimlane')
+              : 'List Templates',
+          boardId,
+          sort: 2,
+          type: 'template-container',
+        },
+        fakeUser,
+      );
+      await Users.updateAsync(this.userId, {
+        $set: { 'profile.listTemplatesSwimlaneId': listSwimlaneId },
+      });
+
+      const boardSwimlaneId = await Swimlanes.insertAsync(
+        {
+          title:
+            getTAPi18n() && getTAPi18n().i18n
+              ? getTAPi18n().__('board-templates-swimlane')
+              : 'Board Templates',
+          boardId,
+          sort: 3,
+          type: 'template-container',
+        },
+        fakeUser,
+      );
+      await Users.updateAsync(this.userId, {
+        $set: { 'profile.boardTemplatesSwimlaneId': boardSwimlaneId },
+      });
+
+      createdId = boardId;
+    });
+
+    return createdId;
+  },
   async deleteWorkspace(workspaceId) {
     check(workspaceId, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
@@ -1165,81 +1265,11 @@ CollectionHooks.getUserId = () => {
   return fakeUserId.get() || getUserId();
 };
 
-if (!isSandstorm) {
-  Users.after.insert(async (userId, doc) => {
-    const fakeUser = {
-      extendAutoValueContext: {
-        userId: doc._id,
-      },
-    };
-
-    await fakeUserId.withValue(doc._id, async () => {
-      const boardId = await Boards.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('templates')
-              : 'Templates',
-          permission: 'private',
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-
-      await Users.updateAsync(fakeUserId.get(), {
-        $set: { 'profile.templatesBoardId': boardId },
-      });
-
-      const cardSwimlaneId = await Swimlanes.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('card-templates-swimlane')
-              : 'Card Templates',
-          boardId,
-          sort: 1,
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-      await Users.updateAsync(fakeUserId.get(), {
-        $set: { 'profile.cardTemplatesSwimlaneId': cardSwimlaneId },
-      });
-
-      const listSwimlaneId = await Swimlanes.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('list-templates-swimlane')
-              : 'List Templates',
-          boardId,
-          sort: 2,
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-      await Users.updateAsync(fakeUserId.get(), {
-        $set: { 'profile.listTemplatesSwimlaneId': listSwimlaneId },
-      });
-
-      const boardSwimlaneId = await Swimlanes.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('board-templates-swimlane')
-              : 'Board Templates',
-          boardId,
-          sort: 3,
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-      await Users.updateAsync(fakeUserId.get(), {
-        $set: { 'profile.boardTemplatesSwimlaneId': boardSwimlaneId },
-      });
-    });
-  });
-}
+// NOTE: New users no longer get an auto-created "Templates" board at signup
+// (#2339, #5850). The templates-container board is now created lazily on first
+// use via the `ensureTemplatesBoard` Meteor method below, so accounts created
+// through any authentication method (password, LDAP, OAuth2) start clean and
+// the container is only materialized when a template is actually saved/copied.
 
 Users.after.insert(async (userId, doc) => {
   doc = await ReactiveCache.getUser(doc._id);
