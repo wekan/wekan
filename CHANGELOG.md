@@ -132,9 +132,11 @@ This release adds the following features:
   Members From Auth Provider** (this org/team's membership is maintained by the
   authentication provider's group/membership sync — LDAP, OAuth2/OIDC, SAML,
   etc.). Each column header has **select-all / unselect-all**, and the
-  per-tab search box filters the rows. This adds the per-org/team settings
-  surface (schema fields, admin-only toggle + bulk methods, publications); the
-  behaviours these flags gate are wired separately
+  per-tab search box filters the rows. The **Sync Members From Auth Provider**
+  flag is set automatically by the LDAP/OIDC group sync for the orgs/teams it
+  manages; the related board sharing with Organizations, Teams and Domains — the
+  board members sidebar tabs, drag-to-share on All Boards / Templates, and
+  group-only template boards — also ships in this release
   ([#4737](https://github.com/wekan/wekan/issues/4737),
   [#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
