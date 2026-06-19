@@ -294,6 +294,9 @@ Template.people.helpers({
         orgWebsite: 1,
         createdAt: 1,
         orgIsActive: 1,
+        orgSharedTemplates: 1,
+        orgPropagateMembersToBoards: 1,
+        orgSyncMembersFromLdap: 1,
       },
     }).fetch();
     return orgs;
@@ -314,6 +317,9 @@ Template.people.helpers({
         teamWebsite: 1,
         createdAt: 1,
         teamIsActive: 1,
+        teamSharedTemplates: 1,
+        teamPropagateMembersToBoards: 1,
+        teamSyncMembersFromLdap: 1,
       },
     }).fetch();
     return teams;
@@ -457,6 +463,20 @@ Template.people.events({
     if (current < totalPages) {
       tpl.peoplePage.set(current + 1);
     }
+  },
+  // #4737/#5850: select-all / unselect-all for an org feature column.
+  'click .js-org-feature-all'(event) {
+    event.preventDefault();
+    const field = event.currentTarget.getAttribute('data-feature');
+    const value = event.currentTarget.getAttribute('data-value') === 'true';
+    Meteor.call('setAllOrgsFeature', field, value);
+  },
+  // #4737/#5850: select-all / unselect-all for a team feature column.
+  'click .js-team-feature-all'(event) {
+    event.preventDefault();
+    const field = event.currentTarget.getAttribute('data-feature');
+    const value = event.currentTarget.getAttribute('data-value') === 'true';
+    Meteor.call('setAllTeamsFeature', field, value);
   },
   'click .js-org-prev-page'(event, tpl) {
     event.preventDefault();
@@ -967,14 +987,44 @@ Template.newUserPopup.helpers({
   },
 });
 
+const ORG_FEATURE_METHODS = {
+  orgSharedTemplates: 'setOrgSharedTemplates',
+  orgPropagateMembersToBoards: 'setOrgPropagateMembersToBoards',
+  orgSyncMembersFromLdap: 'setOrgSyncMembersFromLdap',
+};
+
+const TEAM_FEATURE_METHODS = {
+  teamSharedTemplates: 'setTeamSharedTemplates',
+  teamPropagateMembersToBoards: 'setTeamPropagateMembersToBoards',
+  teamSyncMembersFromLdap: 'setTeamSyncMembersFromLdap',
+};
+
 Template.orgRow.events({
   'click a.edit-org': Popup.open('editOrg'),
   'click a.more-settings-org': Popup.open('settingsOrg'),
+  // #4737/#5850: per-org feature checkbox columns.
+  'change .js-toggle-org-feature'(event) {
+    const org = this.org || ReactiveCache.getOrg(this.orgId);
+    const field = event.currentTarget.getAttribute('data-feature');
+    const method = ORG_FEATURE_METHODS[field];
+    if (org && method) {
+      Meteor.call(method, { _id: org._id }, event.currentTarget.checked);
+    }
+  },
 });
 
 Template.teamRow.events({
   'click a.edit-team': Popup.open('editTeam'),
   'click a.more-settings-team': Popup.open('settingsTeam'),
+  // #4737/#5850: per-team feature checkbox columns.
+  'change .js-toggle-team-feature'(event) {
+    const team = this.team || ReactiveCache.getTeam(this.teamId);
+    const field = event.currentTarget.getAttribute('data-feature');
+    const method = TEAM_FEATURE_METHODS[field];
+    if (team && method) {
+      Meteor.call(method, { _id: team._id }, event.currentTarget.checked);
+    }
+  },
 });
 
 Template.peopleRow.events({

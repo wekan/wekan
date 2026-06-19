@@ -113,6 +113,49 @@ Meteor.methods({
     }
   },
 
+  // #4737/#5850: per-team feature toggles shown as columns in Admin Panel >
+  // People > Teams. All default off.
+  async setTeamSharedTemplates(team, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(team, Object);
+      check(value, Boolean);
+      await Team.updateAsync(team, { $set: { teamSharedTemplates: value } });
+    }
+  },
+
+  async setTeamPropagateMembersToBoards(team, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(team, Object);
+      check(value, Boolean);
+      await Team.updateAsync(team, { $set: { teamPropagateMembersToBoards: value } });
+    }
+  },
+
+  async setTeamSyncMembersFromLdap(team, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(team, Object);
+      check(value, Boolean);
+      await Team.updateAsync(team, { $set: { teamSyncMembersFromLdap: value } });
+    }
+  },
+
+  // Bulk select-all / unselect-all for one of the team feature columns.
+  async setAllTeamsFeature(field, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(field, String);
+      check(value, Boolean);
+      const allowed = [
+        'teamSharedTemplates',
+        'teamPropagateMembersToBoards',
+        'teamSyncMembersFromLdap',
+      ];
+      if (!allowed.includes(field)) {
+        throw new Meteor.Error('invalid-field');
+      }
+      await Team.updateAsync({}, { $set: { [field]: value } }, { multi: true });
+    }
+  },
+
   async setTeamAllFieldsFromOidc(
     team,
     teamDisplayName,

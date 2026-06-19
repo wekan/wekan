@@ -55,6 +55,28 @@ Org.attachSchema(
       type: Boolean,
       optional: true,
     },
+    orgSharedTemplates: {
+      /**
+       * #5850: members may drag personal Template Boards onto this org to share
+       * (per-org form of "Shared Templates for Organizations"). Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
+    orgPropagateMembersToBoards: {
+      /**
+       * #4737: add this org's members to the boards that list this org. Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
+    orgSyncMembersFromLdap: {
+      /**
+       * #4737: this org's membership is maintained by the LDAP background sync. Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
     createdAt: {
       /**
        * creation date of the organization

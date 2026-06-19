@@ -129,6 +129,49 @@ Meteor.methods({
     }
   },
 
+  // #4737/#5850: per-org feature toggles shown as columns in Admin Panel >
+  // People > Organizations. All default off.
+  async setOrgSharedTemplates(org, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(org, Object);
+      check(value, Boolean);
+      await Org.updateAsync(org, { $set: { orgSharedTemplates: value } });
+    }
+  },
+
+  async setOrgPropagateMembersToBoards(org, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(org, Object);
+      check(value, Boolean);
+      await Org.updateAsync(org, { $set: { orgPropagateMembersToBoards: value } });
+    }
+  },
+
+  async setOrgSyncMembersFromLdap(org, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(org, Object);
+      check(value, Boolean);
+      await Org.updateAsync(org, { $set: { orgSyncMembersFromLdap: value } });
+    }
+  },
+
+  // Bulk select-all / unselect-all for one of the org feature columns.
+  async setAllOrgsFeature(field, value) {
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(field, String);
+      check(value, Boolean);
+      const allowed = [
+        'orgSharedTemplates',
+        'orgPropagateMembersToBoards',
+        'orgSyncMembersFromLdap',
+      ];
+      if (!allowed.includes(field)) {
+        throw new Meteor.Error('invalid-field');
+      }
+      await Org.updateAsync({}, { $set: { [field]: value } }, { multi: true });
+    }
+  },
+
   async setOrgAllFieldsFromOidc(
     org,
     orgDisplayName,

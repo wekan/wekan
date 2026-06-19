@@ -47,6 +47,28 @@ Team.attachSchema(
       type: Boolean,
       optional: true,
     },
+    teamSharedTemplates: {
+      /**
+       * #5850: members may drag personal Template Boards onto this team to share
+       * (per-team form of "Shared Templates for Teams"). Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
+    teamPropagateMembersToBoards: {
+      /**
+       * #4737: add this team's members to the boards that list this team. Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
+    teamSyncMembersFromLdap: {
+      /**
+       * #4737: this team's membership is maintained by the LDAP background sync. Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
     createdAt: {
       /**
        * creation date of the team
