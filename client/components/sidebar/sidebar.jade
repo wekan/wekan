@@ -76,23 +76,27 @@ template(name="membersWidget")
         unless currentUser.isWorker
           p.quiet
         .board-widget-content
-          each currentBoard.activeMembers
-            +userAvatar(userId=this.userId showStatus=true)
-          if isSandstorm
-            if currentUser.isBoardMember
-              a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
+          if currentBoard.isAnyTemplateBoard
+            +userAvatar(userId=currentBoard.userId showStatus=true)
+            .clearfix
+          else
+            each currentBoard.activeMembers
+              +userAvatar(userId=this.userId showStatus=true)
+            if isSandstorm
+              if currentUser.isBoardMember
+                a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
+                  i.fa.fa-plus
+            else if currentUser.canInviteToBoard
+              a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
                 i.fa.fa-plus
-          else if currentUser.canInviteToBoard
-            a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
-              i.fa.fa-plus
-          .clearfix
-          if isInvited
-            hr
-            p
-              i.fa.fa-exclamation-triangle
-              | {{_ 'just-invited'}}
-            button.js-member-invite-accept.primary {{_ 'accept'}}
-            button.js-member-invite-decline {{_ 'decline'}}
+            .clearfix
+            if isInvited
+              hr
+              p
+                i.fa.fa-exclamation-triangle
+                | {{_ 'just-invited'}}
+              button.js-member-invite-accept.primary {{_ 'accept'}}
+              button.js-member-invite-decline {{_ 'decline'}}
       +tabContent(slug='organizations')
         unless currentUser.isWorker
           p.quiet

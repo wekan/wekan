@@ -1831,6 +1831,13 @@ Boards.helpers({
     return this.type === 'template-container';
   },
 
+  // #5850: any template board (a single template board or the templates
+  // container). On these, sharing is group-only (orgs/teams/domains); the
+  // members tab shows only the original creator as an individual.
+  isAnyTemplateBoard() {
+    return this.type === 'template-board' || this.type === 'template-container';
+  },
+
   async archive() {
     return await Boards.updateAsync(this._id, { $set: { archived: true, archivedAt: new Date() } });
   },
