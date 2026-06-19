@@ -24,6 +24,24 @@ function hexToLdapEscaped(hex) {
   return hex.match(/.{2}/g).map(h => '\\' + h).join('');
 }
 
+// #5236: RFC 4515 escaping for an LDAP filter assertion value, so a value taken
+// from the directory (e.g. a member DN or cn containing parentheses) cannot
+// break the filter ("illegal unescaped char: (") or be used for injection. The
+// backslash is escaped first; output uses single-backslash hex escapes (\28,
+// \29, …), matching escapedToHex so the existing filter post-processing treats
+// it the same way as the escaped username.
+function escapeLdapFilterValue(value) {
+  if (value === undefined || value === null) {
+    return value;
+  }
+  return String(value)
+    .replace(/\\/g, '\\5c')
+    .replace(/\*/g, '\\2a')
+    .replace(/\(/g, '\\28')
+    .replace(/\)/g, '\\29')
+    .replace(/\0/g, '\\00');
+}
+
 export default class LDAP {
   constructor() {
     this.connected = false;
@@ -393,7 +411,7 @@ export default class LDAP {
     if (this.options.group_filter_group_member_attribute !== '') {
       const format_value = ldapUser[this.options.group_filter_group_member_format];
       if (format_value) {
-        filter.push(`(${this.options.group_filter_group_member_attribute}=${format_value})`);
+        filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
       }
     }
 
@@ -440,7 +458,7 @@ export default class LDAP {
     if (this.options.group_filter_group_member_attribute !== '') {
       const format_value = ldapUser[this.options.group_filter_group_member_format];
       if (format_value) {
-        filter.push(`(${this.options.group_filter_group_member_attribute}=${format_value})`);
+        filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
       }
     }
 
