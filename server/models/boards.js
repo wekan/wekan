@@ -1067,6 +1067,152 @@ WebApp.handlers.post('/api/boards/:boardId/members/:memberId', async function(re
   }
 });
 
+/**
+ * @operation get_board_domains
+ * @tag Boards
+ * @summary Get the email domains a board is shared with
+ *
+ * @description #5850: returns the `domains` array of a board. Each entry is an
+ * object `{ domain: "example.com", isActive: true }`. Anyone able to read the
+ * board may list its domains. Requires the caller to be authenticated.
+ *
+ * @param {string} boardId the board ID
+ * @return_type [{domain: string, isActive: boolean}]
+ */
+WebApp.handlers.get('/api/boards/:boardId/domains', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const boardId = req.params.boardId;
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
+    sendJsonResult(res, { code: 200, data: board.domains || [] });
+  } catch (error) {
+    sendJsonResult(res, {
+      code: 200,
+      data: error,
+    });
+  }
+});
+
+/**
+ * @operation add_board_domain
+ * @tag Boards
+ * @summary Share a board with an email domain
+ *
+ * @description #5850: add a single email domain to a board's `domains` array
+ * with `isActive: true`, leaving any existing domains in place. The domain is
+ * trimmed and lowercased and must look like a domain (contain a '.', no '@' and
+ * no whitespace); it is added only if not already present. Requires the caller
+ * to be a board admin (or site admin). Returns the updated domains array.
+ *
+ * @param {string} boardId the board ID
+ * @param {string} domain the email domain to add, e.g. "example.com"
+ * @return_type [{domain: string, isActive: boolean}]
+ */
+WebApp.handlers.post('/api/boards/:boardId/domains', async function(req, res) {
+  try {
+    if (!req.userId) {
+      sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+      return;
+    }
+    const boardId = req.params.boardId;
+    const authBoard = await ReactiveCache.getBoard(boardId);
+    if (!authBoard) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
+    const isBoardAdmin = allowIsBoardAdmin(req.userId, authBoard);
+    const isSiteAdmin = isBoardAdmin
+      ? true
+      : !!(await ReactiveCache.getUser({ _id: req.userId, isAdmin: true }));
+    if (!isBoardAdmin && !isSiteAdmin) {
+      sendJsonResult(res, { code: 403, data: { error: 'Only a board admin can change board domains' } });
+      return;
+    }
+    // #5850: normalise and validate the same way as setBoardDomains so the
+    // stored value is consistent however a domain is added.
+    const rawDomain = req.body && req.body.domain;
+    if (typeof rawDomain !== 'string') {
+      sendJsonResult(res, { code: 400, data: { error: 'Missing domain' } });
+      return;
+    }
+    const domain = rawDomain.trim().toLowerCase();
+    if (
+      domain.length === 0 ||
+      domain.indexOf('.') < 0 ||
+      domain.indexOf('@') >= 0 ||
+      /\s/.test(domain)
+    ) {
+      sendJsonResult(res, { code: 400, data: { error: `Invalid domain: ${rawDomain}` } });
+      return;
+    }
+    const domains = (authBoard.domains || []).slice();
+    if (!domains.some(d => d.domain === domain)) {
+      domains.push({ domain, isActive: true });
+    }
+    // Reuse the existing setBoardDomains method (same auth + validation).
+    await Meteor.callAsync('setBoardDomains', domains, boardId);
+    const updated = await ReactiveCache.getBoard(boardId);
+    sendJsonResult(res, { code: 200, data: updated.domains || [] });
+  } catch (error) {
+    sendJsonResult(res, {
+      code: 200,
+      data: error,
+    });
+  }
+});
+
+/**
+ * @operation delete_board_domain
+ * @tag Boards
+ * @summary Stop sharing a board with an email domain
+ *
+ * @description #5850: remove a single email domain from a board's `domains`
+ * array. The domain in the path is trimmed and lowercased before matching.
+ * Requires the caller to be a board admin (or site admin). Returns the updated
+ * domains array.
+ *
+ * @param {string} boardId the board ID
+ * @param {string} domain the email domain to remove, e.g. "example.com"
+ * @return_type [{domain: string, isActive: boolean}]
+ */
+WebApp.handlers.delete('/api/boards/:boardId/domains/:domain', async function(req, res) {
+  try {
+    if (!req.userId) {
+      sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+      return;
+    }
+    const boardId = req.params.boardId;
+    const authBoard = await ReactiveCache.getBoard(boardId);
+    if (!authBoard) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
+    const isBoardAdmin = allowIsBoardAdmin(req.userId, authBoard);
+    const isSiteAdmin = isBoardAdmin
+      ? true
+      : !!(await ReactiveCache.getUser({ _id: req.userId, isAdmin: true }));
+    if (!isBoardAdmin && !isSiteAdmin) {
+      sendJsonResult(res, { code: 403, data: { error: 'Only a board admin can change board domains' } });
+      return;
+    }
+    const normalized = String(req.params.domain || '').trim().toLowerCase();
+    const filtered = (authBoard.domains || []).filter(d => d.domain !== normalized);
+    // Reuse the existing setBoardDomains method (same auth + validation).
+    await Meteor.callAsync('setBoardDomains', filtered, boardId);
+    const updated = await ReactiveCache.getBoard(boardId);
+    sendJsonResult(res, { code: 200, data: updated.domains || [] });
+  } catch (error) {
+    sendJsonResult(res, {
+      code: 200,
+      data: error,
+    });
+  }
+});
+
 WebApp.handlers.get('/api/boards/:boardId/attachments', async function(req, res) {
   const paramBoardId = req.params.boardId;
   await Authentication.checkBoardAccess(req.userId, paramBoardId);

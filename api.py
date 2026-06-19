@@ -83,6 +83,11 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py removeboardmember BOARDID USERID # Remove (deactivate) board member
     python3 api.py setboardmemberrole BOARDID USERID ROLE # Change permission/role of existing board member
 
+        Board Domain Sharing API (Issue #5850):
+    python3 api.py boarddomains BOARDID # List the email domains a board is shared with
+    python3 api.py addboarddomain BOARDID DOMAIN # Share board with an email domain, e.g. example.com
+    python3 api.py removeboarddomain BOARDID DOMAIN # Stop sharing board with an email domain
+
         Card Member / Assignee API (board member -> card member/assignee):
     python3 api.py setcardmembers BOARDID LISTID CARDID MEMBERIDS # Set card members. MEMBERIDS = comma-separated userIds, or '' to clear
     python3 api.py setcardassignees BOARDID LISTID CARDID ASSIGNEEIDS # Set card assignees. ASSIGNEEIDS = comma-separated userIds, or '' to clear
@@ -1173,6 +1178,48 @@ if arguments >= 1:
         print("=== SET BOARD MEMBER ROLE ===\n")
         print(body.text)
         # ------- SET BOARD MEMBER ROLE END -----------
+
+    if sys.argv[1] == 'boarddomains':
+        # ------- LIST BOARD DOMAINS START -----------
+        if arguments < 2:
+            print("Usage: python3 api.py boarddomains BOARDID")
+            exit(1)
+        boardid = sys.argv[2]
+        domains_url = wekanurl + apiboards + boardid + s + 'domains'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.get(domains_url, headers=headers)
+        print("=== BOARD DOMAINS ===\n")
+        print(body.text)
+        # ------- LIST BOARD DOMAINS END -----------
+
+    if sys.argv[1] == 'addboarddomain':
+        # ------- ADD BOARD DOMAIN START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py addboarddomain BOARDID DOMAIN")
+            exit(1)
+        boardid = sys.argv[2]
+        domain = sys.argv[3]
+        add_domain_url = wekanurl + apiboards + boardid + s + 'domains'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {'domain': '{}'.format(domain)}
+        body = requests.post(add_domain_url, data=post_data, headers=headers)
+        print("=== ADD BOARD DOMAIN ===\n")
+        print(body.text)
+        # ------- ADD BOARD DOMAIN END -----------
+
+    if sys.argv[1] == 'removeboarddomain':
+        # ------- REMOVE BOARD DOMAIN START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py removeboarddomain BOARDID DOMAIN")
+            exit(1)
+        boardid = sys.argv[2]
+        domain = sys.argv[3]
+        remove_domain_url = wekanurl + apiboards + boardid + s + 'domains' + s + domain
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.delete(remove_domain_url, headers=headers)
+        print("=== REMOVE BOARD DOMAIN ===\n")
+        print(body.text)
+        # ------- REMOVE BOARD DOMAIN END -----------
 
     if sys.argv[1] in ('setcardmembers', 'setcardassignees'):
         # ------- SET CARD MEMBERS / ASSIGNEES START -----------
