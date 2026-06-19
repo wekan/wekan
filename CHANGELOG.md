@@ -30,6 +30,20 @@ Versions:
 
 This release adds the following features:
 
+- [Release: bump both WeKan version fields in package-lock.json](https://github.com/wekan/wekan/commit/7c8ef380f54a6f1fe45ea834ee5927996631fe6c).
+  `releases/version.sh` updated only the top-level `version` in
+  `package-lock.json`, leaving the nested `packages.""` version stale
+  (lockfileVersion 3 stores the root version twice). The local `release.sh`
+  flow hid this because `rebuild-release.sh` re-runs `meteor npm install`
+  before committing, but the remote **Release All Platforms** flow
+  (`release-all.yml` bump job) commits `version.sh`'s output directly, so a
+  stale `package-lock.json` was pushed to `main`. The bump now anchors on the
+  `v`-prefixed WeKan version and replaces both root fields, never touching any
+  dependency version (those are plain semver, no `v` prefix). Node.js (24.x)
+  and MongoDB (7.x) bumps are unchanged — the pinned major is intentional and
+  the minor/patch already updates any older 24.x/7.x to the newest. Thanks to
+  xet7.
+
 - [Don't auto-create an empty Template Container, and make user-created ones functional](https://github.com/wekan/wekan/commit/2a713a60b8620fe2b1d20968f2cd1ed88abf18a9).
   Opening **All Boards / Templates** no longer auto-creates an empty Template
   Container board (the board-list autorun that called `ensureTemplatesBoard` on
