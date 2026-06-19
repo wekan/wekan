@@ -230,6 +230,7 @@ ats = 'attachments'
 users = wekanurl + apiusers
 user = wekanurl + apiuser
 allusers = wekanurl + apiallusers
+settings = wekanurl + 'api/settings'
 
 # ------- API URL GENERATION END -----------
 
@@ -801,6 +802,35 @@ if arguments >= 1:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- LIST OF USERS END -----------
+
+    if arguments == 1 and sys.argv[1] == 'getsettings':
+        # ------- GET GLOBAL ADMIN SETTINGS START -----------
+        # GlobalAdmin REST API: read the Admin Panel global settings.
+        # Requires an admin API token. Mail-server credentials are never returned.
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print(settings)
+        print("=== GLOBAL ADMIN SETTINGS ===\n")
+        body = requests.get(settings, headers=headers)
+        print(body.text)
+        # ------- GET GLOBAL ADMIN SETTINGS END -----------
+
+    if arguments >= 3 and sys.argv[1] == 'editsettings':
+        # ------- EDIT GLOBAL ADMIN SETTINGS START -----------
+        # GlobalAdmin REST API: set one Admin Panel global settings field.
+        # Usage: python3 api.py editsettings <field> <value>
+        #   e.g. python3 api.py editsettings productName "My WeKan"
+        #        python3 api.py editsettings disableRegistration true
+        headers = {'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        field = sys.argv[2]
+        raw = sys.argv[3]
+        # Convert true/false to booleans; leave everything else as a string.
+        if raw in ('true', 'false'):
+            value = (raw == 'true')
+        else:
+            value = raw
+        body = requests.put(settings, json={field: value}, headers=headers)
+        print(body.text)
+        # ------- EDIT GLOBAL ADMIN SETTINGS END -----------
 
     if arguments == 1 and sys.argv[1] == 'user':
         # ------- LIST OF ALL USERS START -----------

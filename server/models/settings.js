@@ -3,10 +3,13 @@ import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Email } from 'meteor/email';
 import { ServiceConfiguration } from 'meteor/service-configuration';
+import { WebApp } from 'meteor/webapp';
 import Settings from '/models/settings';
 import InvitationCodes from '/models/invitationCodes';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { Authentication } from '/server/authentication';
+import { sendJsonResult } from '/server/apiMiddleware';
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -335,4 +338,118 @@ Meteor.methods({
     const { secret, ...publicConfig } = config;
     return publicConfig;
   },
+});
+
+// GlobalAdmin REST API for the Admin Panel global settings.
+//
+// The fields a global admin may read and write over REST. Deliberately excludes
+// `mailServer` (it holds SMTP credentials) so the REST API never exposes or
+// overwrites secrets; SMTP stays admin-panel / env only.
+const REST_SETTINGS_FIELDS = [
+  'disableRegistration',
+  'disableForgotPassword',
+  'productName',
+  'displayAuthenticationMethod',
+  'defaultAuthenticationMethod',
+  'spinnerName',
+  'hideLogo',
+  'hideCardCounterList',
+  'hideBoardMemberList',
+  'customLoginLogoImageUrl',
+  'customLoginLogoLinkUrl',
+  'customHelpLinkUrl',
+  'textBelowCustomLoginLogo',
+  'automaticLinkedUrlSchemes',
+  'customTopLeftCornerLogoImageUrl',
+  'customTopLeftCornerLogoLinkUrl',
+  'customTopLeftCornerLogoHeight',
+  'oidcBtnText',
+  'mailDomainName',
+  'legalNotice',
+  'customHeadEnabled',
+  'customHeadMetaTags',
+  'customHeadLinkTags',
+  'customManifestEnabled',
+  'customManifestContent',
+  'customAssetLinksEnabled',
+  'customAssetLinksContent',
+  'accessibilityPageEnabled',
+  'accessibilityTitle',
+  'accessibilityContent',
+  'supportPopupText',
+  'supportPageEnabled',
+  'supportPagePublic',
+  'supportTitle',
+  'supportPageText',
+];
+
+function pickSettingsFields(doc) {
+  const out = { _id: doc && doc._id };
+  if (doc) {
+    REST_SETTINGS_FIELDS.forEach(field => {
+      if (doc[field] !== undefined) {
+        out[field] = doc[field];
+      }
+    });
+  }
+  return out;
+}
+
+/**
+ * @operation get_global_settings
+ * @tag Settings
+ *
+ * @summary Get the global Admin Panel settings
+ *
+ * @description Only the global admin can call this. SMTP/mail-server
+ * credentials are never returned.
+ *
+ * @return_type Settings
+ */
+WebApp.handlers.get('/api/settings', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const setting = await Settings.findOneAsync({});
+    sendJsonResult(res, { code: 200, data: pickSettingsFields(setting) });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
+});
+
+/**
+ * @operation update_global_settings
+ * @tag Settings
+ *
+ * @summary Update the global Admin Panel settings
+ *
+ * @description Only the global admin can call this. The request body is an
+ * object whose keys are settings fields to update (see get_global_settings for
+ * the list). Unknown keys and `mailServer` are ignored.
+ *
+ * @param {Object} settings the settings fields to set
+ * @return_type Settings
+ */
+WebApp.handlers.put('/api/settings', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const setting = await Settings.findOneAsync({});
+    if (!setting) {
+      sendJsonResult(res, { code: 404, data: { error: 'Settings not found' } });
+      return;
+    }
+    const body = req.body || {};
+    const $set = {};
+    REST_SETTINGS_FIELDS.forEach(field => {
+      if (body[field] !== undefined) {
+        $set[field] = body[field];
+      }
+    });
+    if (Object.keys($set).length > 0) {
+      await Settings.updateAsync(setting._id, { $set });
+    }
+    const updated = await Settings.findOneAsync({});
+    sendJsonResult(res, { code: 200, data: pickSettingsFields(updated) });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
 });
