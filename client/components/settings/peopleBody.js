@@ -28,6 +28,9 @@ Template.people.onCreated(function () {
   this.lockedUsersSetting = new ReactiveVar(false);
   this.rolesSetting = new ReactiveVar(false);
   this.templatesSetting = new ReactiveVar(false);
+  // #5850: Admin Panel > People > Domains tab.
+  this.domainSetting = new ReactiveVar(false);
+  this.domains = new ReactiveVar([]);
   this.subscribe('inviteToBoardRolesSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
@@ -200,6 +203,14 @@ Template.people.onCreated(function () {
       this.lockedUsersSetting.set('locked-users-setting' === targetID);
       this.rolesSetting.set('roles-setting' === targetID);
       this.templatesSetting.set('templates-setting' === targetID);
+      this.domainSetting.set('domains-setting' === targetID);
+
+      // #5850: load the domains + per-domain user counts when the tab opens.
+      if ('domains-setting' === targetID) {
+        Meteor.call('getDomainsWithUserCounts', (err, res) => {
+          if (!err) this.domains.set(res || []);
+        });
+      }
 
       // When switching to locked users tab, refresh the locked users list
       if ('locked-users-setting' === targetID) {
@@ -277,6 +288,12 @@ Template.people.helpers({
   },
   templatesSetting() {
     return Template.instance().templatesSetting;
+  },
+  domainSetting() {
+    return Template.instance().domainSetting;
+  },
+  domainList() {
+    return Template.instance().domains.get();
   },
   orgList() {
     const tpl = Template.instance();
@@ -564,6 +581,9 @@ Template.people.events({
     tpl.switchMenu(event);
   },
   'click a.js-templates-menu'(event, tpl) {
+    tpl.switchMenu(event);
+  },
+  'click a.js-domains-menu'(event, tpl) {
     tpl.switchMenu(event);
   },
 });

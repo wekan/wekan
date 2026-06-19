@@ -1706,6 +1706,37 @@ Meteor.methods({
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 
+  // #5850: Admin Panel > People > Domains. Returns the list of email-address
+  // domains across all users and the count of users per domain (each user
+  // counted once by their primary email's domain), sorted by count desc then
+  // domain. Admin-only.
+  async getDomainsWithUserCounts() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const currentUser = await ReactiveCache.getUser(
+      { _id: this.userId },
+      { fields: { isAdmin: 1 } },
+    );
+    if (!currentUser || !currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+
+    const users = await Users.find({}, { fields: { emails: 1 } }).fetchAsync();
+    const counts = {};
+    for (const u of users) {
+      const addr = (u.emails && u.emails[0] && u.emails[0].address) || '';
+      const at = addr.lastIndexOf('@');
+      if (at === -1) continue;
+      const domain = addr.slice(at + 1).toLowerCase().trim();
+      if (!domain) continue;
+      counts[domain] = (counts[domain] || 0) + 1;
+    }
+    return Object.keys(counts)
+      .map(domain => ({ domain, count: counts[domain] }))
+      .sort((a, b) => b.count - a.count || a.domain.localeCompare(b.domain));
+  },
+
   // Feature #3313 "Shared templates": admin-only.
   // For every user whose Templates board is NON-EMPTY (contains at least one
   // shared template board), return the data the Admin Panel needs to group the

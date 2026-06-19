@@ -102,6 +102,10 @@ template(name="people")
               a.js-templates-menu(data-id="templates-setting")
                 i.fa.fa-clone
                 | {{_ 'shared-templates'}}
+            li
+              a.js-domains-menu(data-id="domains-setting")
+                i.fa.fa-at
+                | {{_ 'domains'}}
         .main-body
           if loading.get
             +spinner
@@ -117,6 +121,8 @@ template(name="people")
             +rolesGeneral
           else if templatesSetting.get
             +templatesGeneral
+          else if domainSetting.get
+            +domainGeneral(domainList=domainList)
 
 
 template(name="orgGeneral")
@@ -231,6 +237,22 @@ template(name="peopleGeneral")
 template(name="selectAllUser")
   | {{_ 'dueCardsViewChange-choice-all'}}
   input.allUserChkBox(type="checkbox", id="chkSelectAll")
+
+template(name="domainGeneral")
+  table
+    thead
+      tr
+        th {{_ 'domain'}}
+        th {{_ 'domain-user-count'}}
+    tbody
+      if domainList.length
+        each domainList
+          tr
+            td {{ domain }}
+            td {{ count }}
+      else
+        tr
+          td(colspan="2") {{_ 'no-items-message'}}
 
 template(name="newOrgRow")
   a.new-org
