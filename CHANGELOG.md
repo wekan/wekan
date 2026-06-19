@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# upcoming WeKan ® release
+# v9.60 2026-06-19 WeKan ® release
 
 This release adds the following features:
 
@@ -52,7 +52,7 @@ This release adds the following features:
   wiring, upload mechanism, and section grouping.
   Thanks to xet7 and Claude.
 
-Thanks to GitHub users for their contributions.
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.59 2026-06-19 WeKan ® release
 
@@ -74,7 +74,7 @@ This release adds the following features:
   2-level schemas.
   Thanks to xet7 and Claude.
 
-Thanks to GitHub users for their contributions.
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.58 2026-06-19 WeKan ® release
 
