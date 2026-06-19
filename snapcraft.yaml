@@ -1,5 +1,5 @@
 name: wekan
-version: '9.60'
+version: '9.61'
 base: core26
 build-base: devel
 confinement: strict
