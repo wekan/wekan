@@ -183,6 +183,30 @@ This release adds the following features:
 
 and adds the following tests:
 
+- [Added e2e tests for the All Boards / Templates redesign](https://github.com/wekan/wekan/commit/e3f6b44982752a14813582d84881632983f2681a).
+  Verifies the `ensureTemplatesBoard` method creates the templates container and
+  is idempotent, that the `/templates` and `/remaining` routes show the right
+  boards (template-container vs regular), and that the Member Settings → Templates
+  link navigates to `/templates`
+  ([#2339](https://github.com/wekan/wekan/issues/2339),
+  [#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
+- [Added e2e tests for the per-org/team feature toggle methods](https://github.com/wekan/wekan/commit/0a23f4c6d279ed45f66a6c49d671a3d2d22e8cd8).
+  Verifies the admin-only per-org and per-team toggles (Shared Templates,
+  Propagate Members To Boards, Sync Members From Auth Provider), the select-all /
+  unselect-all bulk methods, and that a non-admin call is a silent no-op
+  ([#4737](https://github.com/wekan/wekan/issues/4737),
+  [#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
+- [Added a unit test for the OAuth2 admin-from-groups logic](https://github.com/wekan/wekan/commit/8110008efd634ea182bcfa3fb09be2d3ecfbada8).
+  A runnable Node unit test for `oauth2AdminStatusFromGroups`: string and object
+  group forms, comma/whitespace parsing, intersection with `OAUTH2_ADMIN_GROUPS`,
+  and the default-off behaviour (no admin change when unset)
+  ([#5876](https://github.com/wekan/wekan/issues/5876)).
+  Thanks to xet7.
+
 - [Added e2e test for LDAP group → Organization/Team sync](https://github.com/wekan/wekan/commit/168e541f5b83327f4ed3b0209681321efa78cab9).
   Verifies a group is created as a Team/Organization (active), added to the user,
   add-only (existing memberships preserved), idempotent, and that a non-admin
