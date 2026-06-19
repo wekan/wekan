@@ -26,12 +26,11 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# upcoming WeKan ® release
+# v9.59 2026-06-19 WeKan ® release
 
 This release adds the following features:
 
-- [Release All Platforms: fix duplicate mapping keys in generated OpenAPI
-  spec that broke API docs rendering](https://github.com/wekan/wekan).
+- [Release All Platforms: Fix duplicate mapping keys in generated OpenAPI spec that broke API docs rendering](https://github.com/wekan/wekan/commit/69236a90620b792bbe95b9e60caef2ecd172b327).
   The **Release All Platforms** bump job regenerates `public/api/wekan.yml`
   via `openapi/generate_openapi.py` and then renders it with `@redocly/cli`,
   whose strict YAML parser rejects duplicate mapping keys. The 3-level nested
@@ -45,6 +44,7 @@ This release adds the following features:
   groups each sub-schema's fields contiguously, so deeply nested objects emit
   distinct, valid sub-schemas. Output is unchanged for existing 1- and
   2-level schemas.
+  Thanks to xet7 and Claude.
 
 Thanks to GitHub users for their contributions.
 
