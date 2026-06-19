@@ -515,6 +515,17 @@ async function sync() {
         }
       }
     }
+
+    // #5850 / #4737: after the user sync, propagate org/team members to the
+    // boards that list a flagged org/team (orgPropagateMembersToBoards /
+    // teamPropagateMembersToBoards). This gives the feature a periodic trigger;
+    // it is also admin-callable. Add-only, and template boards are skipped.
+    // Wrapped in its own try/catch so a failure here never fails the whole sync.
+    try {
+      await Meteor.callAsync('propagateOrgTeamMembersToBoards');
+    } catch (propagateError) {
+      log_error(propagateError);
+    }
   } catch (error) {
     log_error(error);
     return error;
