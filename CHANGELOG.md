@@ -30,6 +30,24 @@ Versions:
 
 This release adds the following features:
 
+- [Enforce the per-org/team "Shared Templates" flag for drag-to-share](https://github.com/wekan/wekan/commit/8af4d7bfd).
+  The All Boards / Templates drag-to-share now offers only the Organizations and
+  Teams whose **Shared Templates** flag is enabled (previously the flag was
+  stored but not read). A new non-admin `getMyShareableGroups` method returns the
+  user's flagged orgs/teams (plus their email domains), since the org/team
+  publications are admin-only ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
+- [Enforce the per-org/team "Propagate Members To Boards" flag](https://github.com/wekan/wekan/commit/27c2e4f2ced3515a1aae5c49138963b483763a36).
+  When **Propagate Members To Boards** is enabled for an Organization or Team,
+  its member users are now added as members of the regular boards that list that
+  group (new admin- and server-callable `propagateOrgTeamMembersToBoards` method,
+  also run at the end of the LDAP background sync). It is strictly add-only and
+  skips template boards (which stay group-only)
+  ([#5850](https://github.com/wekan/wekan/issues/5850),
+  [#4737](https://github.com/wekan/wekan/issues/4737)).
+  Thanks to xet7.
+
 - [Drag a Template Board onto an Organization, Team or Domain to share it](https://github.com/wekan/wekan/commit/0d0f5c8a5).
   On the **All Boards / Templates** view, the left menu shows the user's
   Organizations, Teams and Domains as drop targets (gated by the admin's Shared
@@ -132,11 +150,11 @@ This release adds the following features:
   Members From Auth Provider** (this org/team's membership is maintained by the
   authentication provider's group/membership sync — LDAP, OAuth2/OIDC, SAML,
   etc.). Each column header has **select-all / unselect-all**, and the
-  per-tab search box filters the rows. The **Sync Members From Auth Provider**
-  flag is set automatically by the LDAP/OIDC group sync for the orgs/teams it
-  manages; the related board sharing with Organizations, Teams and Domains — the
-  board members sidebar tabs, drag-to-share on All Boards / Templates, and
-  group-only template boards — also ships in this release
+  per-tab search box filters the rows. All three flags are enforced: **Shared
+  Templates** gates which orgs/teams are offered as drag-to-share targets,
+  **Propagate Members To Boards** adds a flagged group's members to the regular
+  boards that list it, and **Sync Members From Auth Provider** is set by the
+  LDAP/OIDC group sync for the orgs/teams it manages
   ([#4737](https://github.com/wekan/wekan/issues/4737),
   [#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
