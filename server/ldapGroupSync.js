@@ -43,8 +43,12 @@ Meteor.methods({
             orgDisplayName: name,
             orgShortName: name,
             orgIsActive: true,
+            // #5850: the auth sync marks the orgs it manages.
+            orgSyncMembersFromAuth: true,
           });
           org = { _id: orgId };
+        } else if (org.orgSyncMembersFromAuth !== true) {
+          await Org.updateAsync({ _id: org._id }, { $set: { orgSyncMembersFromAuth: true } });
         }
         const alreadyMember = (user.orgs || []).some(o => o.orgId === org._id);
         if (!alreadyMember) {
@@ -60,8 +64,12 @@ Meteor.methods({
             teamDisplayName: name,
             teamShortName: name,
             teamIsActive: true,
+            // #5850: the auth sync marks the teams it manages.
+            teamSyncMembersFromAuth: true,
           });
           team = { _id: teamId };
+        } else if (team.teamSyncMembersFromAuth !== true) {
+          await Team.updateAsync({ _id: team._id }, { $set: { teamSyncMembersFromAuth: true } });
         }
         const alreadyMember = (user.teams || []).some(t => t.teamId === team._id);
         if (!alreadyMember) {
