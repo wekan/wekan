@@ -375,8 +375,12 @@ export default class LDAP {
     const groupFilterEnabled = this.options.group_filter_enabled;
     const adminSyncEnabled    = this.constructor.settings_get('LDAP_SYNC_ADMIN_STATUS') === true;
     const groupRolesSync      = this.constructor.settings_get('LDAP_SYNC_GROUP_ROLES') === true;
+    // #4737: org/team sync is another consumer of the user's groups.
+    const orgTeamSync         =
+      this.constructor.settings_get('LDAP_SYNC_ORGANIZATIONS') === true ||
+      this.constructor.settings_get('LDAP_SYNC_TEAMS') === true;
 
-    if (!groupFilterEnabled && !adminSyncEnabled && !groupRolesSync) {
+    if (!groupFilterEnabled && !adminSyncEnabled && !groupRolesSync && !orgTeamSync) {
       return [];
     }
 

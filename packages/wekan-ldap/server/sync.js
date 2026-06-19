@@ -16,6 +16,15 @@ Object.defineProperty(Object.prototype, "getLDAPValue", {
   enumerable: false
 });
 
+// #4737: parse a comma-separated LDAP group allowlist setting into a trimmed,
+// non-empty array. Returns [] when unset/empty, meaning "no restriction".
+function parseGroupAllowlist(value) {
+  if (typeof value !== 'string' || value.trim() === '') {
+    return [];
+  }
+  return value.split(',').map((s) => s.trim()).filter(Boolean);
+}
+
 export function slug(text) {
   if (LDAP.settings_get('LDAP_UTF8_NAMES_SLUGIFY') !== true) {
     return text;
@@ -430,6 +439,37 @@ async function sync() {
             const groups = (await ldap.getUserGroups(ldapUsername, ldapUser)).filter((value) => targetGroups.includes(value));
             const isAdmin = groups.length > 0;
             await Meteor.users.updateAsync({ _id: user._id }, { $set: { isAdmin } });
+          }
+
+          // #4737: optionally sync LDAP groups as Wekan Organizations and/or
+          // Teams. Opt-in via LDAP_SYNC_ORGANIZATIONS / LDAP_SYNC_TEAMS (default
+          // off). The optional comma-separated allowlists
+          // LDAP_SYNC_ORGANIZATIONS_GROUPS / LDAP_SYNC_TEAMS_GROUPS restrict
+          // which of the user's groups become orgs/teams; when empty, all of the
+          // user's groups are used. The actual create/assign runs in the app
+          // (server method setUserOrgsTeamsFromLdap) and is add-only, so it never
+          // removes a user's existing memberships.
+          const syncOrgs  = LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS') === true;
+          const syncTeams = LDAP.settings_get('LDAP_SYNC_TEAMS') === true;
+          if (syncOrgs || syncTeams) {
+            const ldapUsername = getLdapUsername(ldapUser);
+            const userGroups = await ldap.getUserGroups(ldapUsername, ldapUser);
+            if (Array.isArray(userGroups) && userGroups.length > 0) {
+              if (syncOrgs) {
+                const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS_GROUPS'));
+                const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+                if (names.length > 0) {
+                  await Meteor.callAsync('setUserOrgsTeamsFromLdap', user._id, names, true);
+                }
+              }
+              if (syncTeams) {
+                const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_TEAMS_GROUPS'));
+                const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+                if (names.length > 0) {
+                  await Meteor.callAsync('setUserOrgsTeamsFromLdap', user._id, names, false);
+                }
+              }
+            }
           }
         } else {
           // #4738: optionally disable Wekan users that no longer exist in the
