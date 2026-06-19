@@ -11,6 +11,7 @@
  */
 
 const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
@@ -55,6 +56,10 @@ test.describe('Card & list features', () => {
   });
 
   test('the minicard complete checkbox toggles', async ({ boardPage, board }) => {
+    // The "Mark as complete" toggle is shown on minicards only when the board's
+    // "Show at Minicard" option (allowsDueCompleteOnMinicard) is enabled; enable
+    // it so the toggle renders (it reactively appears via the oplog).
+    db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueCompleteOnMinicard: true } });
     const bp = new BoardPage(boardPage);
     const minicard = bp.minicard(board.listIds[0], 'Alpha Card');
     await minicard.waitFor({ timeout: 15_000 });

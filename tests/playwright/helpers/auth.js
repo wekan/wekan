@@ -25,6 +25,10 @@ async function loginWithToken(page, userId, token) {
   if (result.userId !== userId) throw new Error(`Unexpected userId after login: ${result.userId}`);
 
   await page.goto(BASE_URL, { waitUntil: 'commit' });
+  // Wait until the app bundle (and the Meteor global) has executed on the
+  // landing page, so tests that immediately call Meteor.call via page.evaluate
+  // don't hit "Meteor is not defined" before the bundle loads.
+  await waitForMeteor(page);
 }
 
 /** Login using the actual username/password form (tests the login UI). */
