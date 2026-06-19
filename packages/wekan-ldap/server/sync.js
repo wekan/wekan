@@ -482,15 +482,28 @@ async function sync() {
           // #4737: optionally sync LDAP groups as Wekan Organizations and/or
           // Teams (shared with the login path).
           await syncUserGroupsToOrgsTeams(ldap, ldapUser, user._id);
+
+          // #4738: when LDAP is authoritative for active status, re-enable a
+          // user that is present in LDAP again (recovers from a removal or a
+          // transient outage). Gated by the same opt-in flag as the disable
+          // below; off by default.
+          if (
+            LDAP.settings_get('LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS') === true &&
+            user.loginDisabled === true
+          ) {
+            log_info('Re-enabling user present in LDAP again', user.username);
+            await Meteor.users.updateAsync({ _id: user._id }, { $set: { loginDisabled: false } });
+          }
         } else {
           // #4738: optionally disable Wekan users that no longer exist in the
           // LDAP directory. Opt-in via LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS
           // (default off); when off, behaviour is unchanged (just log). Only
-          // LDAP-sourced users are iterated here, and existing manual disables
-          // are never re-enabled. Caveat: a transient LDAP lookup failure looks
-          // the same as a removed user, so an admin enabling this accepts that
-          // a temporarily-unreachable account may be disabled until it reappears
-          // and is re-enabled manually.
+          // LDAP-sourced users are iterated here. With the flag on, LDAP is the
+          // authoritative source of active status: users missing from LDAP are
+          // disabled and reappearing users are re-enabled (see the if-branch
+          // above), which also overrides a manual disable of an LDAP user.
+          // Caveat: a transient LDAP lookup failure looks the same as a removed
+          // user, so an account may be briefly disabled until it reappears.
           if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS') === true) {
             if (!user.loginDisabled) {
               log_info('Disabling user no longer present in LDAP', user.username);
