@@ -1892,3 +1892,38 @@ Meteor.methods({
     return users.map(user => sanitizeUserForSearch(user));
   },
 });
+
+/**
+ * @operation get_admin_domains
+ * @tag Users
+ *
+ * @summary List email domains with their user counts (GlobalAdmin)
+ *
+ * @description Only the global admin can call this. Counts every user by the
+ * domain part of their primary email address (the first address in `emails`),
+ * mirroring the Admin Panel > People domain grouping. Domains are returned
+ * sorted by descending count, then alphabetically.
+ *
+ * @return_type [{domain: string, count: number}]
+ */
+WebApp.handlers.get('/api/admin/domains', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const users = await Users.find({}, { fields: { emails: 1 } }).fetchAsync();
+    const counts = {};
+    for (const u of users) {
+      const addr = (u.emails && u.emails[0] && u.emails[0].address) || '';
+      const at = addr.lastIndexOf('@');
+      if (at === -1) continue;
+      const domain = addr.slice(at + 1).toLowerCase().trim();
+      if (!domain) continue;
+      counts[domain] = (counts[domain] || 0) + 1;
+    }
+    const data = Object.keys(counts)
+      .map(domain => ({ domain, count: counts[domain] }))
+      .sort((a, b) => b.count - a.count || a.domain.localeCompare(b.domain));
+    sendJsonResult(res, { code: 200, data });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
+});

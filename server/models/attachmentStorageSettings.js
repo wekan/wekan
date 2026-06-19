@@ -11,6 +11,9 @@ import {
   CLOUD_STORAGE_NAMES,
 } from '/models/lib/fileStoreConstants';
 import { check } from 'meteor/check';
+import { WebApp } from 'meteor/webapp';
+import { Authentication } from '/server/authentication';
+import { sendJsonResult } from '/server/apiMiddleware';
 import { refreshCloudStorageFromSettings, testCloudConnection } from '/models/lib/cloudStorage';
 
 // Secret fields per cloud provider — never published to the client and only
@@ -677,4 +680,64 @@ Meteor.publish('attachmentStorageSettings', async function() {
   }
 
   return AttachmentStorageSettings.find({}, { fields: CLOUD_SECRET_PROJECTION });
+});
+
+/**
+ * @operation get_attachment_settings
+ * @tag Settings
+ *
+ * @summary Get the attachment storage / upload-block settings (GlobalAdmin)
+ *
+ * @description Only the global admin can call this. Returns the Admin Panel >
+ * Attachments settings document, including `limitSettings.attachmentsUploadBlocked`
+ * and `limitSettings.avatarsUploadBlocked` plus the size limits. Cloud-storage
+ * secret keys (S3 secretAccessKey, Azure accountKey/connectionString, GCS
+ * credentials) are masked and never returned; a boolean `<field>Set` marker
+ * shows whether a value exists.
+ *
+ * @return_type Object
+ */
+WebApp.handlers.get('/api/admin/attachment-settings', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const settings = await Meteor.server.method_handlers[
+      'getAttachmentStorageSettings'
+    ].call({ userId: req.userId });
+    sendJsonResult(res, { code: 200, data: settings });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
+});
+
+/**
+ * @operation update_attachment_settings
+ * @tag Settings
+ *
+ * @summary Update the attachment storage / upload-block settings (GlobalAdmin)
+ *
+ * @description Only the global admin can call this. The request body is a
+ * partial settings object (for example
+ * `{"limitSettings": {"avatarsUploadBlocked": true}}`). It is applied through
+ * the same update path as the `updateAttachmentStorageSettings` Meteor method,
+ * so validation and `$set` semantics are identical: cloud-storage secrets left
+ * blank are preserved. The masked, updated settings document is returned.
+ *
+ * @param {Object} settings the partial attachment settings to set
+ * @return_type Object
+ */
+WebApp.handlers.put('/api/admin/attachment-settings', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const body = req.body || {};
+    await Meteor.server.method_handlers['updateAttachmentStorageSettings'].call(
+      { userId: req.userId },
+      body,
+    );
+    const updated = await Meteor.server.method_handlers[
+      'getAttachmentStorageSettings'
+    ].call({ userId: req.userId });
+    sendJsonResult(res, { code: 200, data: updated });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
 });

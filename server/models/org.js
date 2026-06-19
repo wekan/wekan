@@ -1,7 +1,10 @@
 import { Meteor } from 'meteor/meteor';
+import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Org from '/models/org';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { Authentication } from '/server/authentication';
+import { sendJsonResult } from '/server/apiMiddleware';
 
 Meteor.methods({
   async setCreateOrg(
@@ -252,4 +255,125 @@ Meteor.methods({
 
 Meteor.startup(async () => {
   await ensureIndex(Org, { orgDisplayName: 1 });
+});
+
+// #4737/#5850: per-org feature toggles exposed over the GlobalAdmin REST API.
+const ORG_FEATURE_FIELDS = [
+  'orgSharedTemplates',
+  'orgPropagateMembersToBoards',
+  'orgSyncMembersFromAuth',
+];
+
+/**
+ * @operation get_admin_orgs
+ * @tag Organizations
+ *
+ * @summary List organizations with their feature toggles (GlobalAdmin)
+ *
+ * @description Only the global admin can call this. Returns every organization
+ * with its identifying fields and the per-org feature toggles shown as columns
+ * in Admin Panel > People > Organizations.
+ *
+ * @return_type [{_id: string, orgDisplayName: string, orgShortName: string, orgSharedTemplates: boolean, orgPropagateMembersToBoards: boolean, orgSyncMembersFromAuth: boolean}]
+ */
+WebApp.handlers.get('/api/admin/orgs', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const orgs = await Org.find(
+      {},
+      {
+        fields: {
+          orgDisplayName: 1,
+          orgShortName: 1,
+          orgSharedTemplates: 1,
+          orgPropagateMembersToBoards: 1,
+          orgSyncMembersFromAuth: 1,
+        },
+      },
+    ).fetchAsync();
+    const data = orgs.map(org => ({
+      _id: org._id,
+      orgDisplayName: org.orgDisplayName,
+      orgShortName: org.orgShortName,
+      orgSharedTemplates: !!org.orgSharedTemplates,
+      orgPropagateMembersToBoards: !!org.orgPropagateMembersToBoards,
+      orgSyncMembersFromAuth: !!org.orgSyncMembersFromAuth,
+    }));
+    sendJsonResult(res, { code: 200, data });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
+});
+
+/**
+ * @operation update_admin_org_features
+ * @tag Organizations
+ *
+ * @summary Set feature toggles on one organization (GlobalAdmin)
+ *
+ * @description Only the global admin can call this. The request body may
+ * contain any of `orgSharedTemplates`, `orgPropagateMembersToBoards` and
+ * `orgSyncMembersFromAuth` (booleans); only those whitelisted fields are
+ * `$set` on the organization. Returns the updated organization.
+ *
+ * @param {string} orgId the ID of the organization
+ * @param {Object} features the feature toggles to set
+ * @return_type Object
+ */
+WebApp.handlers.put('/api/admin/orgs/:orgId/features', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const orgId = req.params.orgId;
+    const body = req.body || {};
+    const $set = {};
+    ORG_FEATURE_FIELDS.forEach(field => {
+      if (body[field] !== undefined) {
+        $set[field] = !!body[field];
+      }
+    });
+    if (Object.keys($set).length > 0) {
+      await Org.updateAsync(orgId, { $set });
+    }
+    const updated = await Org.findOneAsync(orgId);
+    sendJsonResult(res, { code: 200, data: updated });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
+});
+
+/**
+ * @operation update_all_admin_org_features
+ * @tag Organizations
+ *
+ * @summary Set one feature toggle on all organizations (GlobalAdmin)
+ *
+ * @description Only the global admin can call this. The request body is
+ * `{ field, value }` where `field` is one of `orgSharedTemplates`,
+ * `orgPropagateMembersToBoards` or `orgSyncMembersFromAuth` and `value` is a
+ * boolean. The field is `$set` on ALL organizations. Returns the number of
+ * organizations updated.
+ *
+ * @param {string} field the feature field to set
+ * @param {boolean} value the value to set
+ * @return_type {updated: number}
+ */
+WebApp.handlers.put('/api/admin/orgs/features', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const body = req.body || {};
+    const field = body.field;
+    if (!ORG_FEATURE_FIELDS.includes(field)) {
+      sendJsonResult(res, { code: 200, data: { error: 'invalid-field' } });
+      return;
+    }
+    const value = !!body.value;
+    const updated = await Org.updateAsync(
+      {},
+      { $set: { [field]: value } },
+      { multi: true },
+    );
+    sendJsonResult(res, { code: 200, data: { updated } });
+  } catch (error) {
+    sendJsonResult(res, { code: 200, data: error });
+  }
 });

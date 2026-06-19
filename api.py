@@ -131,6 +131,19 @@ If *nix:  chmod +x api.py => ./api.py users
 
   Admin API:
     python3 api.py newuser USERNAME EMAIL PASSWORD
+
+        GlobalAdmin REST API (admin token required):
+    python3 api.py getsettings # Get the global Admin Panel settings
+    python3 api.py editsettings FIELD VALUE # Set one global settings field, e.g. productName "My WeKan", disableRegistration true
+    python3 api.py admindomains # List email domains with user counts (#5850)
+    python3 api.py attachmentsettings # Get attachment storage / upload-block settings (secrets masked)
+    python3 api.py editattachmentsetting DOTTED.FIELD VALUE # Set one attachment setting, e.g. limitSettings.avatarsUploadBlocked true (#4740)
+    python3 api.py adminorgs # List organizations with feature toggles (#4737)
+    python3 api.py editorgfeature ORGID FIELD true|false # Set one org feature: orgSharedTemplates, orgPropagateMembersToBoards, orgSyncMembersFromAuth
+    python3 api.py editallorgfeature FIELD true|false # Set one org feature on ALL orgs
+    python3 api.py adminteams # List teams with feature toggles (#4737)
+    python3 api.py editteamfeature TEAMID FIELD true|false # Set one team feature: teamSharedTemplates, teamPropagateMembersToBoards, teamSyncMembersFromAuth
+    python3 api.py editallteamfeature FIELD true|false # Set one team feature on ALL teams
 """
 
 if arguments == 0:
@@ -831,6 +844,126 @@ if arguments >= 1:
         body = requests.put(settings, json={field: value}, headers=headers)
         print(body.text)
         # ------- EDIT GLOBAL ADMIN SETTINGS END -----------
+
+    if arguments == 1 and sys.argv[1] == 'admindomains':
+        # ------- LIST ADMIN DOMAINS START -----------
+        # GlobalAdmin REST API: email domains with user counts (#5850).
+        admindomainsurl = wekanurl + 'api/admin/domains'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== ADMIN DOMAINS ===\n")
+        body = requests.get(admindomainsurl, headers=headers)
+        print(body.text)
+        # ------- LIST ADMIN DOMAINS END -----------
+
+    if arguments == 1 and sys.argv[1] == 'attachmentsettings':
+        # ------- GET ATTACHMENT SETTINGS START -----------
+        # GlobalAdmin REST API: attachment storage / upload-block settings.
+        # Secrets (S3/Azure/GCS) are masked; a <field>Set marker shows existence.
+        attachmentsettingsurl = wekanurl + 'api/admin/attachment-settings'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== ATTACHMENT SETTINGS ===\n")
+        body = requests.get(attachmentsettingsurl, headers=headers)
+        print(body.text)
+        # ------- GET ATTACHMENT SETTINGS END -----------
+
+    if arguments >= 3 and sys.argv[1] == 'editattachmentsetting':
+        # ------- EDIT ATTACHMENT SETTING START -----------
+        # GlobalAdmin REST API: set one attachment setting by dotted path.
+        # Usage: python3 api.py editattachmentsetting <dotted.field> <value>
+        #   e.g. python3 api.py editattachmentsetting limitSettings.avatarsUploadBlocked true
+        attachmentsettingsurl = wekanurl + 'api/admin/attachment-settings'
+        headers = {'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        field = sys.argv[2]
+        raw = sys.argv[3]
+        # Convert true/false to booleans; leave everything else as a string.
+        if raw in ('true', 'false'):
+            value = (raw == 'true')
+        else:
+            value = raw
+        # Expand a dotted path (e.g. limitSettings.avatarsUploadBlocked) into
+        # the nested object the partial-update endpoint expects.
+        body_obj = {}
+        cursor = body_obj
+        parts = field.split('.')
+        for part in parts[:-1]:
+            cursor[part] = {}
+            cursor = cursor[part]
+        cursor[parts[-1]] = value
+        body = requests.put(attachmentsettingsurl, json=body_obj, headers=headers)
+        print(body.text)
+        # ------- EDIT ATTACHMENT SETTING END -----------
+
+    if arguments == 1 and sys.argv[1] == 'adminorgs':
+        # ------- LIST ADMIN ORGS START -----------
+        # GlobalAdmin REST API: orgs with feature toggles (#4737).
+        adminorgsurl = wekanurl + 'api/admin/orgs'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== ADMIN ORGS ===\n")
+        body = requests.get(adminorgsurl, headers=headers)
+        print(body.text)
+        # ------- LIST ADMIN ORGS END -----------
+
+    if arguments >= 3 and sys.argv[1] == 'editorgfeature':
+        # ------- EDIT ORG FEATURE START -----------
+        # Usage: python3 api.py editorgfeature <orgId> <field> <true|false>
+        #   field: orgSharedTemplates, orgPropagateMembersToBoards, orgSyncMembersFromAuth
+        orgid = sys.argv[2]
+        field = sys.argv[3]
+        raw = sys.argv[4]
+        value = (raw == 'true')
+        editorgfeatureurl = wekanurl + 'api/admin/orgs/' + orgid + '/features'
+        headers = {'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.put(editorgfeatureurl, json={field: value}, headers=headers)
+        print(body.text)
+        # ------- EDIT ORG FEATURE END -----------
+
+    if arguments >= 2 and sys.argv[1] == 'editallorgfeature':
+        # ------- EDIT ALL ORG FEATURE START -----------
+        # Usage: python3 api.py editallorgfeature <field> <true|false>
+        field = sys.argv[2]
+        raw = sys.argv[3]
+        value = (raw == 'true')
+        editallorgfeatureurl = wekanurl + 'api/admin/orgs/features'
+        headers = {'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.put(editallorgfeatureurl, json={'field': field, 'value': value}, headers=headers)
+        print(body.text)
+        # ------- EDIT ALL ORG FEATURE END -----------
+
+    if arguments == 1 and sys.argv[1] == 'adminteams':
+        # ------- LIST ADMIN TEAMS START -----------
+        # GlobalAdmin REST API: teams with feature toggles (#4737).
+        adminteamsurl = wekanurl + 'api/admin/teams'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== ADMIN TEAMS ===\n")
+        body = requests.get(adminteamsurl, headers=headers)
+        print(body.text)
+        # ------- LIST ADMIN TEAMS END -----------
+
+    if arguments >= 3 and sys.argv[1] == 'editteamfeature':
+        # ------- EDIT TEAM FEATURE START -----------
+        # Usage: python3 api.py editteamfeature <teamId> <field> <true|false>
+        #   field: teamSharedTemplates, teamPropagateMembersToBoards, teamSyncMembersFromAuth
+        teamid = sys.argv[2]
+        field = sys.argv[3]
+        raw = sys.argv[4]
+        value = (raw == 'true')
+        editteamfeatureurl = wekanurl + 'api/admin/teams/' + teamid + '/features'
+        headers = {'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.put(editteamfeatureurl, json={field: value}, headers=headers)
+        print(body.text)
+        # ------- EDIT TEAM FEATURE END -----------
+
+    if arguments >= 2 and sys.argv[1] == 'editallteamfeature':
+        # ------- EDIT ALL TEAM FEATURE START -----------
+        # Usage: python3 api.py editallteamfeature <field> <true|false>
+        field = sys.argv[2]
+        raw = sys.argv[3]
+        value = (raw == 'true')
+        editallteamfeatureurl = wekanurl + 'api/admin/teams/features'
+        headers = {'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.put(editallteamfeatureurl, json={'field': field, 'value': value}, headers=headers)
+        print(body.text)
+        # ------- EDIT ALL TEAM FEATURE END -----------
 
     if arguments == 1 and sys.argv[1] == 'user':
         # ------- LIST OF ALL USERS START -----------
