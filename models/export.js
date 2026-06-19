@@ -72,10 +72,17 @@ if (Meteor.isServer) {
       return;
     }
 
+    // #5870: ?attachments=false exports the board without the base64 attachment
+    // file data, so very large boards can be exported without overflowing the
+    // JSON serializer. Default (omitted/any other value) keeps the full export.
+    const exportOptions = {
+      excludeAttachments: req.query.attachments === 'false',
+    };
+
     // If board is public, skip expensive authentication operations
     if (board.isPublic()) {
       // Public boards don't require authentication - skip hash operations
-      const exporter = new Exporter(boardId);
+      const exporter = new Exporter(boardId, undefined, exportOptions);
       sendJsonResult(res, {
         code: 200,
         data: await exporter.build(),
@@ -113,7 +120,7 @@ if (Meteor.isServer) {
       user = await ReactiveCache.getUser({ _id: req.userId });
     }
 
-    const exporter = new Exporter(boardId);
+    const exporter = new Exporter(boardId, undefined, exportOptions);
     if (await exporter.canExport(user) || impersonateDone) {
       if (impersonateDone && adminId) {
         await ImpersonatedUsers.insertAsync({

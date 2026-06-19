@@ -722,6 +722,10 @@ template(name="exportBoardPopup")
         i.fa.fa-upload
         | {{_ 'export'}} / JSON
     li
+      a.download-json-link(href="{{exportUrlNoAttachments}}", download="{{exportJsonFilename}}")
+        i.fa.fa-upload
+        | {{_ 'export'}} / JSON ({{_ 'export-board-without-attachments'}})
+    li
       a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
         i.fa.fa-upload
         | {{_ 'export'}} / Excel

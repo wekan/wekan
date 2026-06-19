@@ -29,9 +29,14 @@ import {
 
 // exporter maybe is broken since Gridfs introduced, add fs and path
 export class Exporter {
-  constructor(boardId, attachmentId) {
+  constructor(boardId, attachmentId, options = {}) {
     this._boardId = boardId;
     this._attachmentId = attachmentId;
+    // #5870: when true, board export omits the base64-encoded attachment file
+    // data (metadata is still exported). This lets very large boards export
+    // without overflowing V8's max string length in JSON.stringify or loading
+    // every attachment buffer into memory at once. Default false (full export).
+    this._excludeAttachments = options.excludeAttachments === true;
   }
 
   async build() {
@@ -105,18 +110,23 @@ export class Exporter {
     const attachmentDocs = await ReactiveCache.getAttachments(byBoardAndAttachment);
     result.attachments = [];
     for (const attachment of attachmentDocs) {
-      const filebase64 = await getBase64DataAsync(attachment);
-      result.attachments.push({
+      const attachmentExport = {
         _id: attachment._id,
         cardId: attachment.meta.cardId,
         // `source` distinguishes board-level backgrounds ('board-background')
         // from card attachments on import.
         source: attachment.meta.source,
         //url: FlowRouter.url(attachment.url()),
-        file: filebase64,
         name: attachment.name,
         type: attachment.type,
-      });
+      };
+      // #5870: only base64-encode the file when not excluding attachments. The
+      // single-attachment path below always includes the file (used to export
+      // one attachment), so it is unaffected by this board-level option.
+      if (!this._excludeAttachments || this._attachmentId) {
+        attachmentExport.file = await getBase64DataAsync(attachment);
+      }
+      result.attachments.push(attachmentExport);
     }
     //When has a especific valid attachment return the single element
     if (this._attachmentId) {

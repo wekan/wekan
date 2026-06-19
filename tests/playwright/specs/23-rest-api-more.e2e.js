@@ -141,6 +141,40 @@ test.describe('REST API: rules + card sub-resources + core CRUD', () => {
     expect(res.status()).toBe(401);
   });
 
+  // #5870: ?attachments=false exports the board structure without the base64
+  // attachment file data, so very large boards can be exported without
+  // overflowing the JSON serializer. (The actual size benefit is best verified
+  // manually with a real big board; here we guard that the param is accepted,
+  // the export still succeeds, and no attachment carries a `file` field.)
+  test('export with attachments=false returns the board without attachment file data', async ({ request, user, board }) => {
+    const res = await request.get(
+      `/api/boards/${board.boardId}/export?attachments=false`,
+      { headers: authHeaders(user.token) },
+    );
+    expect(res.status()).toBe(200);
+    const exported = await res.json();
+    // Board structure is intact.
+    expect(exported._format).toBe('wekan-board-1.0.0');
+    expect(Array.isArray(exported.lists)).toBe(true);
+    expect(Array.isArray(exported.cards)).toBe(true);
+    expect(Array.isArray(exported.attachments)).toBe(true);
+    // No exported attachment carries base64 file data in this mode.
+    for (const att of exported.attachments) {
+      expect(att.file).toBeUndefined();
+    }
+
+    // The default export still works (regression) and keeps including file data.
+    const full = await request.get(`/api/boards/${board.boardId}/export`, {
+      headers: authHeaders(user.token),
+    });
+    expect(full.status()).toBe(200);
+    const fullExported = await full.json();
+    expect(fullExported._format).toBe('wekan-board-1.0.0');
+    for (const att of fullExported.attachments) {
+      expect(att).toHaveProperty('file');
+    }
+  });
+
   // ---- Card stickers / locations / dueComplete via PUT --------------------
   test('card PUT sets stickers, locations and the complete checkbox', async ({ request, user, board }) => {
     const listId = board.listIds[0];

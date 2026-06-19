@@ -702,6 +702,19 @@ Template.exportBoardPopup.helpers({
     };
     return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
   },
+  // #5870: JSON export omitting base64 attachment data, so very large boards
+  // (whose inlined attachments would otherwise overflow the JSON serializer)
+  // can still be exported.
+  exportUrlNoAttachments() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+      attachments: 'false',
+    };
+    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
+  },
   exportUrlExcel() {
     const params = {
       boardId: Session.get('currentBoard'),

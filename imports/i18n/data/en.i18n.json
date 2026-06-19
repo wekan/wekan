@@ -496,6 +496,7 @@
   "error-teamname-taken": "This team name is already taken",
   "error-email-taken": "Email has already been taken",
   "export-board": "Export board",
+  "export-board-without-attachments": "without attachments",
   "user-can-not-export-excel": "User can not export Excel",
   "export-card": "Export card",
   "export-card-pdf": "Export card to PDF",
