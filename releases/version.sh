@@ -456,7 +456,9 @@ version_bump_logic() {
 
     (cd ../w/wekan.fi && git pull)
     sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VER</span>|g" "$INSTALL_PAGE"
-    sedi "s|<span class=\"version-number\">v${OLD_VERSION}</span>|<span class=\"version-number\">v${NEW_VERSION}</span>|g" "$INSTALL_PAGE"
+    # Anchor on the version-number class, not on $OLD_VERSION, so a stale value on
+    # the page still gets re-normalized to v$NEW_VERSION (see release-website.sh).
+    sedi -E "s#(<span class=\"version-number\">)v[0-9][^<]*(</span>)#\1v${NEW_VERSION}\2#g" "$INSTALL_PAGE"
     (
       cd ../w/wekan.fi
       git add --all

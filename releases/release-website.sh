@@ -56,14 +56,22 @@ sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_V
 sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" $WEBDIR/install/index.html
 
 # $WEBDIR/install/index.html
-#   The version appears inside a specific HTML span tag.
-#   This pattern is already precise enough to match only the WeKan version.
-sedi "s|>v$OLD<\/span>|>v$NEW<\/span>|g" $WEBDIR/install/index.html
+#   The WeKan version lives in <span class="version-number">v<x></span>.
+#   Anchor on the class (the stable identifier), NOT on the old version number,
+#   so this re-normalizes whatever version is currently there to v$NEW. The old
+#   ">v$OLD</span>" pattern silently no-op'd whenever $OLD did not match the
+#   (possibly already stale) value on the page, which is how the published page
+#   got stuck at an old version while every release passed a newer $OLD that no
+#   longer matched. This self-healing form recovers from any stale value.
+sedi -E "s#(<span class=\"version-number\">)v[0-9][^<]*(</span>)#\1v${NEW}\2#g" $WEBDIR/install/index.html
+if ! grep -qF "<span class=\"version-number\">v${NEW}</span>" $WEBDIR/install/index.html; then
+  echo "Error: failed to set version-number span to v${NEW} in $WEBDIR/install/index.html." >&2
+  exit 1
+fi
 
 # Also update Meteor and Node.js versions in the <h2 class="fw-bold"> line
 sedi "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" $WEBDIR/install/index.html
 sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" $WEBDIR/install/index.html
-sedi "s|>v$OLD<\/span>|>v$NEW<\/span>|g" $WEBDIR/install/index.html
 
 # api/index.html
 #   The version appears in href attributes and as link text, e.g.:
