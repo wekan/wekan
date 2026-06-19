@@ -324,6 +324,24 @@ Activities.after.insert(async (userId, doc) => {
       ])];
     }
 
+    // #5833: notify the user who was just added as a card member or assignee
+    // directly, so an assignment reaches the assignee themselves — not only
+    // board watchers, and not (via BIGEVENTS_PATTERN) every board member. The
+    // performer of the action is still skipped below, so self-assignment is not
+    // self-notified. Opt out with NOTIFY_ON_ASSIGN=false; on by default.
+    if (
+      process.env.NOTIFY_ON_ASSIGN !== 'false' &&
+      process.env.NOTIFY_ON_ASSIGN !== false
+    ) {
+      const assignedUserId = activity.assigneeId || activity.memberId;
+      if (
+        assignedUserId &&
+        ['joinMember', 'joinAssignee'].includes(activity.activityType)
+      ) {
+        watchers = [...new Set([...watchers, assignedUserId])];
+      }
+    }
+
     watchers = watchers.filter(x => activeMemberIds.includes(x));
   }
 
