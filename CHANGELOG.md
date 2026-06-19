@@ -26,6 +26,34 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# upcoming WeKan ® release
+
+This release adds the following features:
+
+- [Release All Platforms: Drop armv7l from extra-arch bundles, because Node.js 24 ships no armv7l binaries](https://github.com/wekan/wekan/commit/869cc694f58df49022081e7bc82d4c3c4a6b3792).
+  The `build-extra-arches` armv7l matrix entry failed with `no matching
+  manifest for linux/arm/v7` when pulling `node:24-slim`. Root cause: Node.js
+  24 publishes no armv7l (32-bit ARM) binaries at all — neither the official
+  dist nor unofficial builds — so there is no `node:24` arm/v7 image to rebuild
+  native modules against, and no Node 24 runtime to run such a bundle on an
+  armv7 device. The armv7l matrix entry is removed; extra-arch bundles are now
+  s390x + ppc64le. armv7 was already excluded from the Docker image and snap,
+  so those are unaffected.
+  Thanks to xet7 and Claude.
+
+- [Release All Platforms: Move win64 and mac-arm64 into the post-release extra-platform phase](https://github.com/wekan/wekan/commit/32ddf29142c463e65028ebb81619c142ea37d27b).
+  `build-win64` and `build-mac-arm64` were prerequisites of the `release` job,
+  so a slow or flaky Windows/macOS runner blocked creation of the GitHub
+  Release (and thus the Docker and snap jobs, which depend on it). They now
+  depend on `release` instead — alongside `build-extra-arches` — and each
+  attaches its own `wekan-<version>-<platform>.zip` to the already-created
+  Release via `gh release upload --clobber`. The core release now waits only on
+  the amd64 + arm64 bundles. No build steps changed; only the dependency
+  wiring, upload mechanism, and section grouping.
+  Thanks to xet7 and Claude.
+
+Thanks to GitHub users for their contributions.
+
 # v9.59 2026-06-19 WeKan ® release
 
 This release adds the following features:
