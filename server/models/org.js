@@ -6,6 +6,16 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 
+// #5850: reliable admin check from a method's this.userId. Meteor.user()/
+// getCurrentUser() can return null inside an async method after an await
+// (the DDP invocation context is not always preserved), so we look the caller
+// up directly by id.
+async function callerIsAdmin(userId) {
+  if (!userId) return false;
+  const u = await ReactiveCache.getUser({ _id: userId }, { fields: { isAdmin: 1 } });
+  return !!(u && u.isAdmin);
+}
+
 Meteor.methods({
   async setCreateOrg(
     orgDisplayName,
@@ -133,36 +143,39 @@ Meteor.methods({
   },
 
   // #4737/#5850: per-org feature toggles shown as columns in Admin Panel >
-  // People > Organizations. All default off.
+  // People > Organizations. All default off. NOTE: arguments are check()ed
+  // unconditionally (audit-argument-checks), and admin is verified via the
+  // method's this.userId (Meteor.user()/getCurrentUser() can lose the DDP
+  // invocation context across awaits in async methods and return null).
   async setOrgSharedTemplates(org, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(org, Object);
-      check(value, Boolean);
+    check(org, Object);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       await Org.updateAsync(org, { $set: { orgSharedTemplates: value } });
     }
   },
 
   async setOrgPropagateMembersToBoards(org, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(org, Object);
-      check(value, Boolean);
+    check(org, Object);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       await Org.updateAsync(org, { $set: { orgPropagateMembersToBoards: value } });
     }
   },
 
   async setOrgSyncMembersFromAuth(org, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(org, Object);
-      check(value, Boolean);
+    check(org, Object);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       await Org.updateAsync(org, { $set: { orgSyncMembersFromAuth: value } });
     }
   },
 
   // Bulk select-all / unselect-all for one of the org feature columns.
   async setAllOrgsFeature(field, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(field, String);
-      check(value, Boolean);
+    check(field, String);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       const allowed = [
         'orgSharedTemplates',
         'orgPropagateMembersToBoards',

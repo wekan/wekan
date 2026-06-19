@@ -129,9 +129,12 @@ test.describe('#5850 domain-based board sharing', () => {
       expect(b.domains.some(d => d.isActive && d.domain === userDomain)).toBe(true);
 
       // Now assert it through the UI: `user` (not a board member) sees the board
-      // in All Boards purely because of the domain match.
+      // in All Boards purely because of the domain match. We open the "Remaining"
+      // sub-view (/remaining) because the default All Boards view is "Starred",
+      // which only lists starred boards; a domain-shared board the user has not
+      // starred and not assigned to a workspace appears under Remaining.
       await loginWithToken(page, user.id, user.token);
-      await page.goto(`${process.env.WEKAN_BASE_URL || 'http://localhost:3000'}/`, { waitUntil: 'commit' });
+      await page.goto(`${process.env.WEKAN_BASE_URL || 'http://localhost:3000'}/remaining`, { waitUntil: 'commit' });
 
       const titleVisible = await page
         .locator('.board-list-item-name', { hasText: title })

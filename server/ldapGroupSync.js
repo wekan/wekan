@@ -15,17 +15,23 @@ import Team from '/models/team';
 // removes a user's other memberships.
 Meteor.methods({
   async setUserOrgsTeamsFromLdap(userId, groupNames, asOrganization) {
+    // Check ALL arguments first, unconditionally: audit-argument-checks throws
+    // "Did not check() all arguments" otherwise, and that rejection (when the
+    // admin guard below throws first) escapes as an unhandledRejection that
+    // SyncedCron's global handler turns into a full app crash.
+    check(userId, String);
+    check(groupNames, [String]);
+    check(asOrganization, Boolean);
     // Allow server-to-server calls (connection === null, used by the LDAP sync)
     // and admins; reject any other client-originated call.
     if (this.connection !== null) {
-      const caller = this.userId ? await ReactiveCache.getUser(this.userId) : null;
+      const caller = this.userId
+        ? await ReactiveCache.getUser({ _id: this.userId }, { fields: { isAdmin: 1 } })
+        : null;
       if (!caller || caller.isAdmin !== true) {
         throw new Meteor.Error('forbidden', 'Not authorized');
       }
     }
-    check(userId, String);
-    check(groupNames, [String]);
-    check(asOrganization, Boolean);
 
     const user = await ReactiveCache.getUser(userId);
     if (!user) {

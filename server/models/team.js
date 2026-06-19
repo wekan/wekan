@@ -6,6 +6,14 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 
+// #5850: reliable admin check from a method's this.userId (Meteor.user() can
+// return null inside an async method after an await).
+async function callerIsAdmin(userId) {
+  if (!userId) return false;
+  const u = await ReactiveCache.getUser({ _id: userId }, { fields: { isAdmin: 1 } });
+  return !!(u && u.isAdmin);
+}
+
 Meteor.methods({
   async setCreateTeam(
     teamDisplayName,
@@ -119,34 +127,34 @@ Meteor.methods({
   // #4737/#5850: per-team feature toggles shown as columns in Admin Panel >
   // People > Teams. All default off.
   async setTeamSharedTemplates(team, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(team, Object);
-      check(value, Boolean);
+    check(team, Object);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       await Team.updateAsync(team, { $set: { teamSharedTemplates: value } });
     }
   },
 
   async setTeamPropagateMembersToBoards(team, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(team, Object);
-      check(value, Boolean);
+    check(team, Object);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       await Team.updateAsync(team, { $set: { teamPropagateMembersToBoards: value } });
     }
   },
 
   async setTeamSyncMembersFromAuth(team, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(team, Object);
-      check(value, Boolean);
+    check(team, Object);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       await Team.updateAsync(team, { $set: { teamSyncMembersFromAuth: value } });
     }
   },
 
   // Bulk select-all / unselect-all for one of the team feature columns.
   async setAllTeamsFeature(field, value) {
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      check(field, String);
-      check(value, Boolean);
+    check(field, String);
+    check(value, Boolean);
+    if (await callerIsAdmin(this.userId)) {
       const allowed = [
         'teamSharedTemplates',
         'teamPropagateMembersToBoards',

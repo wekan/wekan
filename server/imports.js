@@ -98,6 +98,12 @@ import '/server/models/team';
 import '/server/models/translation';
 import '/server/models/users';
 import '/server/models/userPositionHistory';
+// #5850/#4737: server-side method modules (this app uses an explicit server
+// mainModule, so files not imported here are never loaded / their methods are
+// not registered).
+import '/server/ldapGroupSync';
+import '/server/sharedTemplateTargets';
+import '/server/propagateOrgTeamMembers';
 
 // ----------------------------------------------------------------------------
 // 4. Config (shared)

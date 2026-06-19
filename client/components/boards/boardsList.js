@@ -457,7 +457,12 @@ Template.boardList.helpers({
       'tableVisibilityMode-allowPrivateOnly',
     );
 
-    if (FlowRouter.getRouteName() === 'home') {
+    // #5850: the All Boards sub-views are also reachable via their own routes
+    // (/templates, /remaining), which must apply the same membership filtering
+    // as the home route, otherwise their board list is empty (or falls into the
+    // public-only branch below).
+    const allBoardsRoutes = ['home', 'allboards-templates', 'allboards-remaining'];
+    if (allBoardsRoutes.includes(FlowRouter.getRouteName())) {
       membershipOrs.push({ 'members.userId': Meteor.userId() });
 
       const currUser = ReactiveCache.getCurrentUser();

@@ -33,7 +33,10 @@ publishComposite('boards', function() {
       }
       const selector = {
         archived: false,
-        type: 'board',
+        // #5850: also publish the user's template boards (template-container) so
+        // the All Boards / Templates view can list them; the client filters by
+        // type per sub-view.
+        type: { $in: ['board', 'template-container'] },
         $or: [
           { permission: 'public' },
           { members: { $elemMatch: { userId, isActive: true } } },
