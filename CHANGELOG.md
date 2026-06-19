@@ -30,6 +30,14 @@ Versions:
 
 This release adds the following features:
 
+- [Admin Panel / People / Domains: list domains with per-domain user counts](https://github.com/wekan/wekan/commit/bdedb23add5160b1fd40ce6d68e3f1b5a89224f0).
+  A new **Domains** tab in Admin Panel > People lists every email-address domain
+  across all users with the count of users in each (each user counted once by
+  their primary email's domain), backed by an admin-only
+  `getDomainsWithUserCounts` method. This is the per-domain piece of the Template
+  Boards sharing feature ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
 - [All Boards / Templates: URL routes, link redirect, no auto-created templates board](https://github.com/wekan/wekan/commit/6dd360ad37d0509d3f425a6d04797a3fe3e79b1a).
   The All Boards page's **Templates** and **Remaining** sub-views are now
   addressable by their own URLs (`/templates`, `/remaining`), so they can be
