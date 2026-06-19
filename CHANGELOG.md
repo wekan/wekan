@@ -207,6 +207,12 @@ and adds the following tests:
   ([#5876](https://github.com/wekan/wekan/issues/5876)).
   Thanks to xet7.
 
+- [Test harness: `db.insertOne` / `db.insertMany` now return the driver result](https://github.com/wekan/wekan/commit/4d7b0cf2f8d62b4108961f7205d931477f11fd18).
+  The Playwright `mongo-runner` discarded the insert result, so `db.insertOne(...)`
+  returned `null` and specs could not read `insertedId`; it now returns the
+  result (empty `insertMany` yields `insertedCount` 0).
+  Thanks to xet7.
+
 - [Added e2e test for LDAP group → Organization/Team sync](https://github.com/wekan/wekan/commit/168e541f5b83327f4ed3b0209681321efa78cab9).
   Verifies a group is created as a Team/Organization (active), added to the user,
   add-only (existing memberships preserved), idempotent, and that a non-admin
