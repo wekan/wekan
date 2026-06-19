@@ -26,6 +26,23 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# upcoming WeKan ® release
+
+This release adds the following features:
+
+- [Release All Platforms: Set GH_REPO on the bundle-attach steps so gh finds the repository](https://github.com/wekan/wekan/commit/b6facc2412e37b4c365a8f6c667894794bf2af0c).
+  The win64 / mac-arm64 / s390x / ppc64le bundles each finished building but
+  then failed on `gh release upload` with `failed to run git: fatal: not a git
+  repository`. `gh` tries to detect the target repo from a git remote, but
+  `build-win64` checks the repo out into `src/` (so the workspace root is not a
+  git repository) and `build-mac-arm64` / `build-extra-arches` do not check it
+  out at all. Set `GH_REPO=${{ github.repository }}` on all three attach steps
+  so `gh` targets `wekan/wekan` directly without git remote detection. The snap
+  job is unaffected (it does a full checkout into the workspace root).
+  Thanks to xet7 and Claude.
+
+Thanks to GitHub users for their contributions.
+
 # v9.60 2026-06-19 WeKan ® release
 
 This release adds the following features:
