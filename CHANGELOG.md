@@ -95,6 +95,36 @@ This release adds the following features:
   ([#5870](https://github.com/wekan/wekan/issues/5870)).
   Thanks to xet7.
 
+- [Keep LDAP admin status updated during background sync](https://github.com/wekan/wekan/commit/08b15929f15ad10c71d39a01da3ed961c727a4e9).
+  `LDAP_SYNC_ADMIN_STATUS` previously only updated a user's admin status at
+  login, so an admin-group change in LDAP was never reflected for existing users
+  who did not log in. The background sync now applies the same admin-status logic
+  to each existing LDAP user it syncs. Gated by the existing
+  `LDAP_SYNC_ADMIN_STATUS` flag (default off), so default behaviour is unchanged
+  ([#4739](https://github.com/wekan/wekan/issues/4739)).
+  Thanks to xet7.
+
+- [Optionally disable LDAP users that disappeared from the directory](https://github.com/wekan/wekan/commit/ba37ccb8e63ed9a9719694fb66448fb87037f4fa).
+  New optional `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default false):
+  when enabled, the background sync disables (`loginDisabled`) LDAP-sourced users
+  that are no longer found in the directory. Off by default, only LDAP users are
+  considered, and already-disabled accounts are left untouched (no auto
+  re-enable, so manual disables are respected)
+  ([#4738](https://github.com/wekan/wekan/issues/4738)).
+  Thanks to xet7.
+
+- [Optionally sync LDAP groups as Organizations or Teams](https://github.com/wekan/wekan/commit/5a516b223e57cffd361a836a02e629188494c85e).
+  New optional, default-off settings sync a user's LDAP groups into Wekan
+  Organizations and/or Teams during background sync: `LDAP_SYNC_ORGANIZATIONS`
+  and `LDAP_SYNC_TEAMS`, with optional comma-separated allowlists
+  `LDAP_SYNC_ORGANIZATIONS_GROUPS` / `LDAP_SYNC_TEAMS_GROUPS` restricting which of
+  the user's groups become orgs/teams (empty = all). The user's groups are read
+  with the existing `LDAP_GROUP_FILTER_*` machinery; matching orgs/teams are
+  created (active) if missing and added to the user's membership (add-only — no
+  existing membership is ever removed). Off by default, so existing deployments
+  are unaffected ([#4737](https://github.com/wekan/wekan/issues/4737)).
+  Thanks to xet7.
+
 and adds the following tests:
 
 - [Added more tests](https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd).
