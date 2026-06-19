@@ -30,6 +30,23 @@ Versions:
 
 This release adds the following features:
 
+- [GlobalAdmin REST API for the Admin Panel global settings](https://github.com/wekan/wekan/commit/89481302d).
+  Adds `GET /api/settings` and `PUT /api/settings`, restricted to the global
+  admin, to read and update the Admin Panel global settings (registration,
+  product name, logos, custom head/manifest, accessibility and support pages,
+  etc.). A whitelist of fields is exposed; `mailServer`/SMTP credentials are
+  never returned or writable over REST. Documented with `@operation` JSDoc
+  (OpenAPI) and `api.py` examples (`getsettings`, `editsettings`).
+  Thanks to xet7.
+
+- [REST API for board domain sharing](https://github.com/wekan/wekan/commit/98a910917f4b37b5c4bec2525d8af0e45315b5b3).
+  `GET` / `POST` / `DELETE /api/boards/:boardId/domains` list, add and remove the
+  email domains a board is shared with, reusing the `setBoardDomains` validation
+  and requiring board-admin (or site-admin) rights for changes. Documented in the
+  generated OpenAPI spec with matching `api.py` examples
+  ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
 - [Admin Panel / People / Domains: list domains with per-domain user counts](https://github.com/wekan/wekan/commit/bdedb23add5160b1fd40ce6d68e3f1b5a89224f0).
   A new **Domains** tab in Admin Panel > People lists every email-address domain
   across all users with the count of users in each (each user counted once by
@@ -223,7 +240,25 @@ This release adds the following features:
   ([#4737](https://github.com/wekan/wekan/issues/4737)).
   Thanks to xet7.
 
+and updates the documentation:
+
+- [Documented the new LDAP/OAuth2 env vars and template-sharing features](https://github.com/wekan/wekan/commit/fb856e3f7).
+  Documents `LDAP_SYNC_ORGANIZATIONS`/`LDAP_SYNC_TEAMS` (+ group allowlists),
+  `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS`, the LDAP admin-status and
+  group-filter-escaping fixes, `OAUTH2_AUTO_REGISTRATION`, `OAUTH2_ADMIN_GROUPS`,
+  `NOTIFY_ON_ASSIGN`, the Admin Panel Domains tab and org/team toggle columns,
+  sharing a board with a domain, and group-only template boards.
+  Thanks to xet7.
+
 and adds the following tests:
+
+- [Added e2e tests for domain-based board sharing](https://github.com/wekan/wekan/commit/2955c45330ff17be4d047441d6e707b00d42335a).
+  Verifies `setBoardDomains` normalizes, validates and de-duplicates board
+  domains (rejecting malformed entries), that the admin-only
+  `getDomainsWithUserCounts` returns correct per-domain counts and denies
+  non-admins, and that a board shared with a user's email domain becomes visible
+  to that user ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
 
 - [Added e2e tests for the All Boards / Templates redesign](https://github.com/wekan/wekan/commit/e3f6b44982752a14813582d84881632983f2681a).
   Verifies the `ensureTemplatesBoard` method creates the templates container and
