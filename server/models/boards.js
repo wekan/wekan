@@ -48,6 +48,25 @@ async function boardRemover(doc) {
   ]) {
     await element.removeAsync({ boardId: doc._id });
   }
+
+  // #2339/#5850: when a Template Container board is deleted, clear it from the
+  // profile of any user pointing at it so no save/insert-from-template path is
+  // left referencing a dead board. ensureTemplatesBoard / the "Add Template
+  // Container" button can then create a fresh one on demand.
+  if (doc.type === 'template-container') {
+    await Users.updateAsync(
+      { 'profile.templatesBoardId': doc._id },
+      {
+        $unset: {
+          'profile.templatesBoardId': '',
+          'profile.cardTemplatesSwimlaneId': '',
+          'profile.listTemplatesSwimlaneId': '',
+          'profile.boardTemplatesSwimlaneId': '',
+        },
+      },
+      { multi: true },
+    );
+  }
 }
 
 const foreachRemovedMember = (doc, modifier, callback) => {
@@ -95,6 +114,9 @@ Meteor.methods({
       check(swimlane.title, String);
       check(swimlane.sort, Match.Maybe(Number));
       check(swimlane.type, Match.Maybe(String));
+      // #2339/#5850: 'card' | 'list' | 'board' marks which template-container
+      // swimlane this is, so the user's profile pointers can be wired below.
+      check(swimlane.role, Match.Maybe(String));
     }
 
     if (!this.userId) {
@@ -119,13 +141,39 @@ Meteor.methods({
       ],
     });
 
+    // #2339/#5850: when the user creates a Template Container board (via the
+    // "Add Template Container" button on All Boards / Templates), register it
+    // and its three swimlanes as the user's active templates board so that
+    // adding Card/List/Swimlane/Board templates to it actually works -- the
+    // swimlane.isCardTemplatesSwimlane()/... helpers compare against these
+    // profile pointers. Without this the container would look right but stay
+    // inert. We point the profile at this newly-created container (the most
+    // recently created one becomes the active one).
+    const templateRolePointers = {
+      card: 'profile.cardTemplatesSwimlaneId',
+      list: 'profile.listTemplatesSwimlaneId',
+      board: 'profile.boardTemplatesSwimlaneId',
+    };
+    const isTemplateContainer = type === 'template-container';
+    const profilePointerSet = {};
+    if (isTemplateContainer) {
+      profilePointerSet['profile.templatesBoardId'] = boardId;
+    }
+
     for (const swimlane of swimlanes) {
-      await Swimlanes.insertAsync({
+      const swimlaneId = await Swimlanes.insertAsync({
         title: swimlane.title,
         boardId,
         sort: swimlane.sort,
         type: swimlane.type,
       });
+      if (isTemplateContainer && templateRolePointers[swimlane.role]) {
+        profilePointerSet[templateRolePointers[swimlane.role]] = swimlaneId;
+      }
+    }
+
+    if (Object.keys(profilePointerSet).length) {
+      await Users.updateAsync(this.userId, { $set: profilePointerSet });
     }
 
     return boardId;

@@ -263,29 +263,14 @@ Template.boardList.onCreated(function () {
   });
 
   // The templates-container board is no longer auto-created at signup (#2339,
-  // #5850); it is created lazily on first use. When the user opens the
-  // Templates sub-view, ensure their templates board exists so it is shown
-  // here and so the save/insert-from-template paths (which rely on
-  // profile.templatesBoardId) keep working. ensureTemplatesBoard is a no-op
-  // when one already exists and is auth-agnostic (any user, any auth method).
-  this.ensuredTemplatesBoard = false;
-  this.autorun(() => {
-    const sel = this.selectedMenu.get();
-    const user = ReactiveCache.getCurrentUser();
-    if (
-      sel === 'templates' &&
-      user &&
-      !this.ensuredTemplatesBoard &&
-      !user.getTemplatesBoardId()
-    ) {
-      this.ensuredTemplatesBoard = true;
-      Meteor.call('ensureTemplatesBoard', (err) => {
-        if (err && process.env.DEBUG === 'true') {
-          console.error('ensureTemplatesBoard error', err);
-        }
-      });
-    }
-  });
+  // #5850), and it is no longer auto-created when the user merely opens the
+  // Templates sub-view either: opening the view must not leave behind an empty
+  // Template Container board the user never asked for. The container is created
+  // only on demand -- either when the user explicitly adds one via the
+  // "Add Template Board" flow (createTemplateContainerPopup), or lazily by
+  // ensureTemplatesBoard right before a card/list/swimlane/board is actually
+  // saved as a template. ensureTemplatesBoard remains idempotent (a no-op when
+  // one already exists) so those save paths keep working.
 });
 
 Template.boardList.onRendered(function () {

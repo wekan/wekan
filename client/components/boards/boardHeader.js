@@ -273,9 +273,9 @@ async function createBoardSubmit(tpl, event) {
         type: 'template-container',
         migrationVersion: 1,
         swimlanes: [
-          { title: 'Card Templates', sort: 1, type: 'template-container' },
-          { title: 'List Templates', sort: 2, type: 'template-container' },
-          { title: 'Board Templates', sort: 3, type: 'template-container' },
+          { title: 'Card Templates', sort: 1, type: 'template-container', role: 'card' },
+          { title: 'List Templates', sort: 2, type: 'template-container', role: 'list' },
+          { title: 'Board Templates', sort: 3, type: 'template-container', role: 'board' },
         ],
       }),
     );
