@@ -432,7 +432,22 @@ async function sync() {
             await Meteor.users.updateAsync({ _id: user._id }, { $set: { isAdmin } });
           }
         } else {
-          log_info('Can\'t sync user', user.username);
+          // #4738: optionally disable Wekan users that no longer exist in the
+          // LDAP directory. Opt-in via LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS
+          // (default off); when off, behaviour is unchanged (just log). Only
+          // LDAP-sourced users are iterated here, and existing manual disables
+          // are never re-enabled. Caveat: a transient LDAP lookup failure looks
+          // the same as a removed user, so an admin enabling this accepts that
+          // a temporarily-unreachable account may be disabled until it reappears
+          // and is re-enabled manually.
+          if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS') === true) {
+            if (!user.loginDisabled) {
+              log_info('Disabling user no longer present in LDAP', user.username);
+              await Meteor.users.updateAsync({ _id: user._id }, { $set: { loginDisabled: true } });
+            }
+          } else {
+            log_info('Can\'t sync user', user.username);
+          }
         }
       }
     }
