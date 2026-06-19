@@ -908,6 +908,27 @@ Accounts.onCreateUser(async (options, user) => {
     const existingUser = await ReactiveCache.getUser({
       'emails.address': email,
     });
+
+    // #4736: optionally refuse to auto-create accounts for unknown OIDC logins.
+    // When OAUTH2_AUTO_REGISTRATION is 'false', a first-time OIDC login that does
+    // not already match a Wekan account (by verified email — the secure key the
+    // merge logic below also uses; never by username, to avoid the takeover /
+    // collision pitfalls documented above) is rejected instead of silently
+    // creating a new account. This lets an instance allow only already-
+    // provisioned users (e.g. synced from LDAP) to log in via OAuth2. Default
+    // keeps the previous behaviour (auto-create on first login).
+    const autoRegistrationDisabled =
+      process.env.OAUTH2_AUTO_REGISTRATION === 'false' ||
+      process.env.OAUTH2_AUTO_REGISTRATION === false;
+    if (autoRegistrationDisabled && !existingUser) {
+      throw new Meteor.Error(
+        'oidc-registration-disabled',
+        'OIDC login succeeded, but automatic registration is disabled ' +
+          '(OAUTH2_AUTO_REGISTRATION=false) and no existing Wekan account has ' +
+          'this email. Ask an administrator to create the account first.',
+      );
+    }
+
     if (!existingUser) return user;
 
     const mergeExistingUsers =
