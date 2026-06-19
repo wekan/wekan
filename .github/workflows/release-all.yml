@@ -502,6 +502,10 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The repo is checked out into src/, so the workspace root is not a git
+          # repository; set GH_REPO so `gh` targets wekan/wekan without relying on
+          # git remote detection (else: "fatal: not a git repository").
+          GH_REPO: ${{ github.repository }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-win64.zip" --clobber
 
   # Build mac-arm64 bundle (rebuild native modules on Apple Silicon).
@@ -555,6 +559,9 @@ jobs:
       - name: Attach mac-arm64 bundle to the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No repo checkout in this job, so set GH_REPO so `gh` knows the target
+          # repository instead of trying (and failing) to detect a git remote.
+          GH_REPO: ${{ github.repository }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
 
   # Extra-architecture Linux bundles (s390x, ppc64le).
@@ -627,6 +634,9 @@ jobs:
       - name: Attach ${{ matrix.arch }} bundle to the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No repo checkout in this job, so set GH_REPO so `gh` knows the target
+          # repository instead of trying (and failing) to detect a git remote.
+          GH_REPO: ${{ github.repository }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-${{ matrix.arch }}.zip" --clobber
 
   # ─── 8. Build and push the multi-arch Docker image to all registries ────────
