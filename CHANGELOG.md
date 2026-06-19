@@ -30,7 +30,7 @@ Versions:
 
 This release adds the following features:
 
-- [Release All Platforms: Fix Docker image showing a stale Admin Panel version (image tagged vX reported v9.57)](https://github.com/wekan/wekan/commit/5f6d61ffe).
+- [Release All Platforms: Fix Docker image showing a stale Admin Panel version (image tagged vX reported v9.57)](https://github.com/wekan/wekan/commit/b30f4967c).
   The Admin Panel reads the WeKan version from the bundled `package.json`, which
   comes verbatim from the `wekan-<version>-<arch>.zip` the Dockerfile downloads
   and unzips into `/build`. The `docker` job never passed `--build-arg VERSION`,
