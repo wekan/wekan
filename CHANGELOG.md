@@ -30,6 +30,20 @@ Versions:
 
 This release adds the following features:
 
+- [Make the All Boards / Templates redesign and org/team/domain board sharing work end-to-end](https://github.com/wekan/wekan/commit/422e70329).
+  Fixes bugs the new Playwright e2e tests surfaced in the recently added features:
+  the new server method modules are now actually loaded (they use an explicit
+  server mainModule, so unimported files never registered their methods); the
+  per-org/team feature-toggle methods and `setUserOrgsTeamsFromLdap` check their
+  arguments before the admin guard (an unchecked-argument rejection was being
+  turned into a full app crash by SyncedCron's global handler) and authorize from
+  `this.userId`; the `boards` publication now publishes template-container and
+  domain-shared boards (not only `type:'board'`); and the `/templates` and
+  `/remaining` All Boards routes apply the same membership filtering as the home
+  route ([#5850](https://github.com/wekan/wekan/issues/5850),
+  [#4737](https://github.com/wekan/wekan/issues/4737),
+  [#2339](https://github.com/wekan/wekan/issues/2339)). Thanks to xet7.
+
 - [Enforce the per-org/team "Shared Templates" flag for drag-to-share](https://github.com/wekan/wekan/commit/8af4d7bfd).
   The All Boards / Templates drag-to-share now offers only the Organizations and
   Teams whose **Shared Templates** flag is enabled (previously the flag had no
