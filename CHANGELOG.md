@@ -26,6 +26,21 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following features:
+
+- [Added Admin Panel setting to block avatar uploads](https://github.com/wekan/wekan/commit/d0a8b149ea7f81169dc44761b01b738009bc1126).
+  Admin Panel > Attachments > Transfer limits now has an "Avatars" option that
+  blocks users from uploading new avatars (board setting
+  `limitSettings.avatarsUploadBlocked`, unchecked by default so avatars stay
+  enabled). When blocked, the avatar upload option is hidden in the user's
+  avatar popup and new uploads are rejected server-side — useful when avatars
+  are synced from another source ([#4740](https://github.com/wekan/wekan/issues/4740)).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.57 2026-06-19 WeKan ® release
 
 This release fixes the following bugs:
