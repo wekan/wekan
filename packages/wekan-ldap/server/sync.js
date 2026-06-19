@@ -396,6 +396,44 @@ export async function importNewUsers(ldap) {
   log_info('Import finished. Users imported:', count);
 }
 
+// #4737: optionally sync a user's LDAP groups as Wekan Organizations and/or
+// Teams. Opt-in via LDAP_SYNC_ORGANIZATIONS / LDAP_SYNC_TEAMS (default off). The
+// optional comma-separated allowlists LDAP_SYNC_ORGANIZATIONS_GROUPS /
+// LDAP_SYNC_TEAMS_GROUPS restrict which of the user's groups become orgs/teams;
+// when empty, all of the user's groups are used. The actual create/assign runs
+// in the app (server method setUserOrgsTeamsFromLdap) and is add-only, so it
+// never removes a user's existing memberships. Shared by the background sync
+// and the login handler.
+export async function syncUserGroupsToOrgsTeams(ldap, ldapUser, userId) {
+  const syncOrgs  = LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS') === true;
+  const syncTeams = LDAP.settings_get('LDAP_SYNC_TEAMS') === true;
+  if (!syncOrgs && !syncTeams) {
+    return;
+  }
+
+  const ldapUsername = getLdapUsername(ldapUser);
+  const userGroups = await ldap.getUserGroups(ldapUsername, ldapUser);
+  if (!Array.isArray(userGroups) || userGroups.length === 0) {
+    return;
+  }
+
+  if (syncOrgs) {
+    const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS_GROUPS'));
+    const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+    if (names.length > 0) {
+      await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, names, true);
+    }
+  }
+
+  if (syncTeams) {
+    const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_TEAMS_GROUPS'));
+    const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+    if (names.length > 0) {
+      await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, names, false);
+    }
+  }
+}
+
 async function sync() {
   if (LDAP.settings_get('LDAP_ENABLE') !== true) {
     return;
@@ -442,35 +480,8 @@ async function sync() {
           }
 
           // #4737: optionally sync LDAP groups as Wekan Organizations and/or
-          // Teams. Opt-in via LDAP_SYNC_ORGANIZATIONS / LDAP_SYNC_TEAMS (default
-          // off). The optional comma-separated allowlists
-          // LDAP_SYNC_ORGANIZATIONS_GROUPS / LDAP_SYNC_TEAMS_GROUPS restrict
-          // which of the user's groups become orgs/teams; when empty, all of the
-          // user's groups are used. The actual create/assign runs in the app
-          // (server method setUserOrgsTeamsFromLdap) and is add-only, so it never
-          // removes a user's existing memberships.
-          const syncOrgs  = LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS') === true;
-          const syncTeams = LDAP.settings_get('LDAP_SYNC_TEAMS') === true;
-          if (syncOrgs || syncTeams) {
-            const ldapUsername = getLdapUsername(ldapUser);
-            const userGroups = await ldap.getUserGroups(ldapUsername, ldapUser);
-            if (Array.isArray(userGroups) && userGroups.length > 0) {
-              if (syncOrgs) {
-                const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS_GROUPS'));
-                const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
-                if (names.length > 0) {
-                  await Meteor.callAsync('setUserOrgsTeamsFromLdap', user._id, names, true);
-                }
-              }
-              if (syncTeams) {
-                const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_TEAMS_GROUPS'));
-                const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
-                if (names.length > 0) {
-                  await Meteor.callAsync('setUserOrgsTeamsFromLdap', user._id, names, false);
-                }
-              }
-            }
-          }
+          // Teams (shared with the login path).
+          await syncUserGroupsToOrgsTeams(ldap, ldapUser, user._id);
         } else {
           // #4738: optionally disable Wekan users that no longer exist in the
           // LDAP directory. Opt-in via LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS

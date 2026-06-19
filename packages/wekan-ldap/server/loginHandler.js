@@ -1,4 +1,4 @@
-import {slug, getLdapUsername, getLdapEmail, getLdapUserUniqueID, syncUserData, addLdapUser} from './sync';
+import {slug, getLdapUsername, getLdapEmail, getLdapUserUniqueID, syncUserData, addLdapUser, syncUserGroupsToOrgsTeams} from './sync';
 import LDAP from './ldap';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 
@@ -198,6 +198,9 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
       }
     }
 
+    // #4737: sync LDAP groups as Organizations/Teams at login too (default off).
+    await syncUserGroupsToOrgsTeams(ldap, ldapUser, user._id);
+
     await Meteor.users.updateAsync(user._id, update_data );
 
     await syncUserData(user, ldapUser);
@@ -242,6 +245,9 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
       log_info(`Set roles to:${  groups.join(',')}`);
     }
   }
+
+  // #4737: sync LDAP groups as Organizations/Teams for the new user (default off).
+  await syncUserGroupsToOrgsTeams(ldap, ldapUser, result.userId);
 
 
   if (result instanceof Error) {
