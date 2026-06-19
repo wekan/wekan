@@ -23,12 +23,14 @@ name: Release All Platforms
 #   - website: updates the wekan/wekan.fi repo (install page + API docs) and pushes
 #   - charts:  updates and publishes the wekan/charts Helm chart and pushes
 #   - build-*: builds the amd64 bundle (full Meteor 3 build), then rebuilds native
-#              modules for arm64, win64, mac-arm64 from that amd64 base
+#              modules for arm64 from that amd64 base
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
-#              uploads every wekan-<version>-<platform>.zip bundle
-#   - build-extra-arches: rebuilds the bundle's native modules under QEMU for
-#              s390x, ppc64le and armv7l and attaches those .zip bundles to the
-#              Release (extra downloads only; not in the Docker image or snap)
+#              uploads the core wekan-<version>-{amd64,arm64}.zip bundles
+#   - build-win64 / build-mac-arm64 / build-extra-arches: built AFTER release, each
+#              rebuilds the amd64 bundle's native modules for its platform (Windows,
+#              macOS arm64, and QEMU-emulated s390x/ppc64le/armv7l) and attaches its
+#              .zip to the Release as an extra download. Decoupled from `release` so
+#              a slow/flaky build never blocks it; not in the Docker image or snap
 #   - docker:  builds and pushes the multi-arch image to Docker Hub, Quay.io, GHCR
 #   - snap:    builds the snap on Launchpad (amd64 + arm64), pushes it to the Snap
 #              Store and attaches the .snap files to the GitHub Release
@@ -363,9 +365,43 @@ jobs:
           path: wekan-${{ needs.prepare.outputs.version }}-arm64.zip
           retention-days: 1
 
-  # ─── 5. Build win64 bundle (rebuild native modules on Windows) ───────────────
+  # ─── 7. Create GitHub Release and upload all bundles ────────────────────────
+  release:
+    needs:
+      - prepare
+      - build-amd64
+      - build-arm64
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Download all bundles
+        uses: actions/download-artifact@v8
+        with:
+          pattern: bundle-*
+          merge-multiple: true
+
+      - name: Create GitHub Release with all bundles
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ needs.prepare.outputs.version }}
+          name: v${{ needs.prepare.outputs.version }}
+          body: ${{ needs.prepare.outputs.changelog }}
+          files: |
+            wekan-${{ needs.prepare.outputs.version }}-amd64.zip
+            wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+
+  # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le, armv7l) ───
+  # Every bundle below is built AFTER `release` and attaches its own .zip to the
+  # already-created GitHub Release with `gh release upload --clobber`, rather than
+  # being a prerequisite of `release`. This deliberately decouples the slower /
+  # different-OS builds (Windows, macOS, QEMU-emulated arches) from the core
+  # amd64/arm64 release, Docker and snap, so a slow or flaky one never blocks them.
+  # These bundles are NOT part of the Docker image or snap.
+
+  # Build win64 bundle (rebuild native modules on Windows).
   build-win64:
-    needs: [prepare, build-amd64]
+    needs: [prepare, build-amd64, release]
     runs-on: windows-latest
     timeout-minutes: 60
     env:
@@ -461,9 +497,15 @@ jobs:
           path: wekan-${{ needs.prepare.outputs.version }}-win64.zip
           retention-days: 1
 
-  # ─── 6. Build mac-arm64 bundle (rebuild native modules on Apple Silicon) ─────
+      - name: Attach win64 bundle to the GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "v${VERSION}" "wekan-${VERSION}-win64.zip" --clobber
+
+  # Build mac-arm64 bundle (rebuild native modules on Apple Silicon).
   build-mac-arm64:
-    needs: [prepare, build-amd64]
+    needs: [prepare, build-amd64, release]
     runs-on: macos-14   # macos-14 runners are Apple Silicon (arm64)
     timeout-minutes: 60
     env:
@@ -509,44 +551,12 @@ jobs:
           path: wekan-${{ needs.prepare.outputs.version }}-mac-arm64.zip
           retention-days: 1
 
-  # ─── 7. Create GitHub Release and upload all bundles ────────────────────────
-  release:
-    needs:
-      - prepare
-      - build-amd64
-      - build-arm64
-      - build-win64
-      - build-mac-arm64
-    runs-on: ubuntu-latest
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-    steps:
-      - name: Download all bundles
-        uses: actions/download-artifact@v8
-        with:
-          pattern: bundle-*
-          merge-multiple: true
+      - name: Attach mac-arm64 bundle to the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
 
-      - name: Create GitHub Release with all bundles
-        uses: softprops/action-gh-release@v3
-        with:
-          tag_name: v${{ needs.prepare.outputs.version }}
-          name: v${{ needs.prepare.outputs.version }}
-          body: ${{ needs.prepare.outputs.changelog }}
-          files: |
-            wekan-${{ needs.prepare.outputs.version }}-amd64.zip
-            wekan-${{ needs.prepare.outputs.version }}-arm64.zip
-            wekan-${{ needs.prepare.outputs.version }}-win64.zip
-            wekan-${{ needs.prepare.outputs.version }}-mac-arm64.zip
-
-  # ─── 7b. Extra-architecture bundles (s390x, ppc64le, armv7l) ─────────────────
-  # Node.js 24.x and the node:24-slim image are published for these architectures,
-  # so we rebuild the amd64 bundle's native modules under QEMU emulation and attach
-  # the resulting .zip to the GitHub Release as extra downloads. These are NOT part
-  # of the Docker or snap builds. Deliberately decoupled from `release` (it uploads
-  # straight to the already-created release with `gh release upload`) so a slow or
-  # flaky emulated build never blocks the core amd64/arm64/win64/mac release,
-  # Docker or snap. fail-fast: false so one arch failing doesn't cancel the others.
+  # Extra-architecture Linux bundles (s390x, ppc64le, armv7l).
   build-extra-arches:
     needs: [prepare, build-amd64, release]
     runs-on: ubuntu-24.04
