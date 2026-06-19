@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.57
+  version: v9.59
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -150,6 +150,282 @@ paths:
           description: |
             Error in registration
 
+  /api/admin/attachment-settings:
+    get:
+      operationId: get_attachment_settings
+      summary: Get the attachment storage / upload-block settings (GlobalAdmin)
+      description: |
+        Only the global admin can call this. Returns the Admin Panel >
+         Attachments settings document, including `limitSettings.attachmentsUploadBlocked`
+         and `limitSettings.avatarsUploadBlocked` plus the size limits. Cloud-storage
+         secret keys (S3 secretAccessKey, Azure accountKey/connectionString, GCS
+         credentials) are masked and never returned; a boolean `<field>Set` marker
+         shows whether a value exists.
+      tags:
+        - AttachmentStorageSettings
+        - Settings
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: Object
+    put:
+      operationId: update_attachment_settings
+      summary: Update the attachment storage / upload-block settings (GlobalAdmin)
+      description: |
+        Only the global admin can call this. The request body is a
+         partial settings object (for example
+         `{"limitSettings": {"avatarsUploadBlocked": true}}`). It is applied through
+         the same update path as the `updateAttachmentStorageSettings` Meteor method,
+         so validation and `$set` semantics are identical: cloud-storage secrets left
+         blank are preserved. The masked, updated settings document is returned.
+      tags:
+        - AttachmentStorageSettings
+        - Settings
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: Object
+  /api/admin/domains:
+    get:
+      operationId: get_admin_domains
+      summary: List email domains with their user counts (GlobalAdmin)
+      description: |
+        Only the global admin can call this. Counts every user by the
+         domain part of their primary email address (the first address in `emails`),
+         mirroring the Admin Panel > People domain grouping. Domains are returned
+         sorted by descending count, then alphabetically.
+      tags:
+        - Users
+        - Users
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                domain:
+                  type: string
+                count:
+                  type: number
+  /api/admin/orgs:
+    get:
+      operationId: get_admin_orgs
+      summary: List organizations with their feature toggles (GlobalAdmin)
+      description: |
+        Only the global admin can call this. Returns every organization
+         with its identifying fields and the per-org feature toggles shown as columns
+         in Admin Panel > People > Organizations.
+      tags:
+        - Org
+        - Organizations
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                orgDisplayName:
+                  type: string
+                orgShortName:
+                  type: string
+                orgSharedTemplates:
+                  type: boolean
+                orgPropagateMembersToBoards:
+                  type: boolean
+                orgSyncMembersFromAuth:
+                  type: boolean
+  /api/admin/orgs/{org}/features:
+    put:
+      operationId: update_admin_org_features
+      summary: Set feature toggles on one organization (GlobalAdmin)
+      description: |
+        Only the global admin can call this. The request body may
+         contain any of `orgSharedTemplates`, `orgPropagateMembersToBoards` and
+         `orgSyncMembersFromAuth` (booleans); only those whitelisted fields are
+         `$set` on the organization. Returns the updated organization.
+      tags:
+        - Org
+        - Organizations
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: org
+          in: path
+          description: |
+            the ID of the organization
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: Object
+  /api/admin/orgs/features:
+    put:
+      operationId: update_all_admin_org_features
+      summary: Set one feature toggle on all organizations (GlobalAdmin)
+      description: |
+        Only the global admin can call this. The request body is
+         `{ field, value }` where `field` is one of `orgSharedTemplates`,
+         `orgPropagateMembersToBoards` or `orgSyncMembersFromAuth` and `value` is a
+         boolean. The field is `$set` on ALL organizations. Returns the number of
+         organizations updated.
+      tags:
+        - Org
+        - Organizations
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              updated:
+                type: number
+  /api/admin/teams:
+    get:
+      operationId: get_admin_teams
+      summary: List teams with their feature toggles (GlobalAdmin)
+      description: |
+        Only the global admin can call this. Returns every team with
+         its identifying fields and the per-team feature toggles shown as columns in
+         Admin Panel > People > Teams.
+      tags:
+        - Team
+        - Teams
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                teamDisplayName:
+                  type: string
+                teamShortName:
+                  type: string
+                teamSharedTemplates:
+                  type: boolean
+                teamPropagateMembersToBoards:
+                  type: boolean
+                teamSyncMembersFromAuth:
+                  type: boolean
+  /api/admin/teams/{team}/features:
+    put:
+      operationId: update_admin_team_features
+      summary: Set feature toggles on one team (GlobalAdmin)
+      description: |
+        Only the global admin can call this. The request body may
+         contain any of `teamSharedTemplates`, `teamPropagateMembersToBoards` and
+         `teamSyncMembersFromAuth` (booleans); only those whitelisted fields are
+         `$set` on the team. Returns the updated team.
+      tags:
+        - Team
+        - Teams
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: team
+          in: path
+          description: |
+            the ID of the team
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: Object
+  /api/admin/teams/features:
+    put:
+      operationId: update_all_admin_team_features
+      summary: Set one feature toggle on all teams (GlobalAdmin)
+      description: |
+        Only the global admin can call this. The request body is
+         `{ field, value }` where `field` is one of `teamSharedTemplates`,
+         `teamPropagateMembersToBoards` or `teamSyncMembersFromAuth` and `value` is a
+         boolean. The field is `$set` on ALL teams. Returns the number of teams
+         updated.
+      tags:
+        - Team
+        - Teams
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              updated:
+                type: number
   /api/boards:
     get:
       operationId: get_boards
@@ -1242,6 +1518,128 @@ paths:
                   type: string
                 icon:
                   type: string
+  /api/boards/{board}/domains:
+    get:
+      operationId: get_board_domains
+      summary: Get the email domains a board is shared with
+      description: |
+        #5850: returns the `domains` array of a board. Each entry is an
+         object `{ domain: "example.com", isActive: true }`. Anyone able to read the
+         board may list its domains. Requires the caller to be authenticated.
+      tags:
+        - Boards
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                domain:
+                  type: string
+                isActive:
+                  type: boolean
+    post:
+      operationId: add_board_domain
+      summary: Share a board with an email domain
+      description: |
+        #5850: add a single email domain to a board's `domains` array
+         with `isActive: true`, leaving any existing domains in place. The domain is
+         trimmed and lowercased and must look like a domain (contain a '.', no '@' and
+         no whitespace); it is added only if not already present. Requires the caller
+         to be a board admin (or site admin). Returns the updated domains array.
+      tags:
+        - Boards
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: domain
+          in: formData
+          description: |
+            the email domain to add, e.g. "example.com"
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                domain:
+                  type: string
+                isActive:
+                  type: boolean
+  /api/boards/{board}/domains/{domain}:
+    delete:
+      operationId: delete_board_domain
+      summary: Stop sharing a board with an email domain
+      description: |
+        #5850: remove a single email domain from a board's `domains`
+         array. The domain in the path is trimmed and lowercased before matching.
+         Requires the caller to be a board admin (or site admin). Returns the updated
+         domains array.
+      tags:
+        - Boards
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: domain
+          in: path
+          description: |
+            the email domain to remove, e.g. "example.com"
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                domain:
+                  type: string
+                isActive:
+                  type: boolean
   /api/boards/{board}/export:
     get:
       operationId: exportJson
@@ -3181,6 +3579,50 @@ paths:
         '200':
           description: |-
             200 response
+  /api/settings:
+    get:
+      operationId: get_global_settings
+      summary: Get the global Admin Panel settings
+      description: |
+        Only the global admin can call this. SMTP/mail-server
+         credentials are never returned.
+      tags:
+        - Settings
+        - Settings
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            $ref: "#/definitions/Settings"
+    put:
+      operationId: update_global_settings
+      summary: Update the global Admin Panel settings
+      description: |
+        Only the global admin can call this. The request body is an
+         object whose keys are settings fields to update (see get_global_settings for
+         the list). Unknown keys and `mailServer` are ignored.
+      tags:
+        - Settings
+        - Settings
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            $ref: "#/definitions/Settings"
   /api/user:
     get:
       operationId: get_user
@@ -3907,6 +4349,133 @@ paths:
         '404':
           description: Board not found
 definitions:
+  AttachmentStorageSettings:
+    type: object
+    properties:
+      defaultStorage:
+        type: string
+        enum:
+          - fs
+          - gridfs
+          - s3
+          - azure
+          - gcs
+      storageConfig:
+        $ref: "#/definitions/AttachmentStorageSettingsStorageconfig"
+        x-nullable: true
+      uploadSettings:
+        $ref: "#/definitions/AttachmentStorageSettingsUploadsettings"
+        x-nullable: true
+      limitSettings:
+        $ref: "#/definitions/AttachmentStorageSettingsLimitsettings"
+        x-nullable: true
+      migrationSettings:
+        $ref: "#/definitions/AttachmentStorageSettingsMigrationsettings"
+        x-nullable: true
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      createdBy:
+        type: string
+        x-nullable: true
+      updatedBy:
+        type: string
+        x-nullable: true
+    required:
+      - defaultStorage
+      - createdAt
+      - updatedAt
+  AttachmentStorageSettingsLimitsettings:
+    type: object
+    properties:
+      attachmentsUploadMaxBytes:
+        type: number
+      attachmentsUploadBlocked:
+        type: boolean
+      avatarsUploadBlocked:
+        type: boolean
+      attachmentsDownloadMaxBytes:
+        type: number
+      attachmentsDownloadBlocked:
+        type: boolean
+      apiUploadMaxBytes:
+        type: number
+      apiUploadBlocked:
+        type: boolean
+      apiDownloadMaxBytes:
+        type: number
+      apiDownloadBlocked:
+        type: boolean
+  AttachmentStorageSettingsMigrationsettings:
+    type: object
+    properties:
+      autoMigrate:
+        type: boolean
+      batchSize:
+        type: number
+      delayMs:
+        type: number
+      cpuThreshold:
+        type: number
+    required:
+      - autoMigrate
+      - batchSize
+      - delayMs
+      - cpuThreshold
+  AttachmentStorageSettingsStorageconfig:
+    type: object
+    properties:
+      filesystem:
+        $ref: "#/definitions/AttachmentStorageSettingsStorageconfigFilesystem"
+      gridfs:
+        $ref: "#/definitions/AttachmentStorageSettingsStorageconfigGridfs"
+      s3:
+        type: object
+      azure:
+        type: object
+      gcs:
+        type: object
+  AttachmentStorageSettingsStorageconfigFilesystem:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+      read:
+        type: boolean
+      write:
+        type: boolean
+      path:
+        type: string
+    required:
+      - enabled
+      - read
+      - write
+  AttachmentStorageSettingsStorageconfigGridfs:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+      read:
+        type: boolean
+      write:
+        type: boolean
+    required:
+      - enabled
+      - read
+      - write
+  AttachmentStorageSettingsUploadsettings:
+    type: object
+    properties:
+      maxFileSize:
+        type: number
+      allowedMimeTypes:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+  AttachmentStorageSettingsUploadsettingsAllowedmimetypes:
+    type: object
   Boards:
     type: object
     description:  This is a Board.
@@ -3974,6 +4543,14 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/BoardsTeams"
+        x-nullable: true
+      domains:
+        description: |
+           #5850: the list of email-address domains a board is shared with. Every
+           user whose primary email is in one of these domains gets board access.
+        type: array
+        items:
+          $ref: "#/definitions/BoardsDomains"
         x-nullable: true
       importUsernames:
         description: |
@@ -4464,6 +5041,20 @@ definitions:
       - teamId
       - teamDisplayName
       - isActive
+  BoardsDomains:
+    type: object
+    properties:
+      domain:
+        description: |
+           The email-address domain, e.g. example.com
+        type: string
+      isActive:
+        description: |
+           Is the domain share active?
+        type: boolean
+    required:
+      - domain
+      - isActive
   BoardsImportusernames:
     type: object
   CardComments:
@@ -4774,35 +5365,6 @@ definitions:
       - userId
       - type
       - showActivities
-  CardsVote:
-    type: object
-    properties:
-      question:
-        type: string
-      positive:
-        description: |
-           list of members (user IDs)
-        type: array
-        items:
-          type: string
-          x-nullable: true
-      negative:
-        description: |
-           list of members (user IDs)
-        type: array
-        items:
-          type: string
-          x-nullable: true
-      end:
-        type: string
-      public:
-        type: boolean
-      allowNonBoardMembers:
-        type: boolean
-    required:
-      - question
-      - public
-      - allowNonBoardMembers
   CardsPoker:
     type: object
     properties:
@@ -4886,6 +5448,35 @@ definitions:
         description: |
            poker estimation value
         type: number
+  CardsVote:
+    type: object
+    properties:
+      question:
+        type: string
+      positive:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      negative:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      public:
+        type: boolean
+      allowNonBoardMembers:
+        type: boolean
+    required:
+      - question
+      - public
+      - allowNonBoardMembers
   CardsCustomfields:
     type: object
   CardsLabelids:
@@ -5212,6 +5803,66 @@ definitions:
       - value
       - enabled
       - soft
+  Org:
+    type: object
+    description:  A Organization in Wekan. A Enterprise in Trello.
+    properties:
+      orgDisplayName:
+        description: |
+           the name to display for the organization
+        type: string
+        x-nullable: true
+      orgDesc:
+        description: |
+           the description the organization
+        type: string
+        x-nullable: true
+      orgShortName:
+        description: |
+           short name of the organization
+        type: string
+        x-nullable: true
+      orgAutoAddUsersWithDomainName:
+        description: |
+           automatically add users with domain name
+        type: string
+        x-nullable: true
+      orgWebsite:
+        description: |
+           website of the organization
+        type: string
+        x-nullable: true
+      orgIsActive:
+        description: |
+           status of the organization
+        type: boolean
+        x-nullable: true
+      orgSharedTemplates:
+        description: |
+           #5850: members may drag personal Template Boards onto this org to share
+           (per-org form of "Shared Templates for Organizations"). Off by default.
+        type: boolean
+        x-nullable: true
+      orgPropagateMembersToBoards:
+        description: |
+           #4737: add this org's members to the boards that list this org. Off by default.
+        type: boolean
+        x-nullable: true
+      orgSyncMembersFromAuth:
+        description: |
+           #4737: this org's membership is maintained by the authentication
+           provider's group/membership sync (LDAP, OAuth2/OIDC, SAML, etc.). Off by default.
+        type: boolean
+        x-nullable: true
+      createdAt:
+        description: |
+           creation date of the organization
+        type: string
+      modifiedAt:
+        type: string
+    required:
+      - createdAt
+      - modifiedAt
   Rules:
     type: object
     properties:
@@ -5243,6 +5894,139 @@ definitions:
       - actionId
       - boardId
       - modifiedAt
+  Settings:
+    type: object
+    properties:
+      disableRegistration:
+        type: boolean
+        x-nullable: true
+      disableForgotPassword:
+        type: boolean
+        x-nullable: true
+      mailServer:
+        $ref: "#/definitions/SettingsMailserver"
+        x-nullable: true
+      productName:
+        type: string
+        x-nullable: true
+      displayAuthenticationMethod:
+        type: boolean
+        x-nullable: true
+      defaultAuthenticationMethod:
+        type: string
+      spinnerName:
+        type: string
+        x-nullable: true
+      hideLogo:
+        type: boolean
+        x-nullable: true
+      hideCardCounterList:
+        type: boolean
+        x-nullable: true
+      hideBoardMemberList:
+        type: boolean
+        x-nullable: true
+      customLoginLogoImageUrl:
+        type: string
+        x-nullable: true
+      customLoginLogoLinkUrl:
+        type: string
+        x-nullable: true
+      customHelpLinkUrl:
+        type: string
+        x-nullable: true
+      textBelowCustomLoginLogo:
+        type: string
+        x-nullable: true
+      automaticLinkedUrlSchemes:
+        type: string
+        x-nullable: true
+      customTopLeftCornerLogoImageUrl:
+        type: string
+        x-nullable: true
+      customTopLeftCornerLogoLinkUrl:
+        type: string
+        x-nullable: true
+      customTopLeftCornerLogoHeight:
+        type: string
+        x-nullable: true
+      oidcBtnText:
+        type: string
+        x-nullable: true
+      mailDomainName:
+        type: string
+        x-nullable: true
+      legalNotice:
+        type: string
+        x-nullable: true
+      customHeadEnabled:
+        type: boolean
+        x-nullable: true
+      customHeadMetaTags:
+        type: string
+        x-nullable: true
+      customHeadLinkTags:
+        type: string
+        x-nullable: true
+      customManifestEnabled:
+        type: boolean
+        x-nullable: true
+      customManifestContent:
+        type: string
+        x-nullable: true
+      customAssetLinksEnabled:
+        type: boolean
+        x-nullable: true
+      customAssetLinksContent:
+        type: string
+        x-nullable: true
+      accessibilityPageEnabled:
+        type: boolean
+        x-nullable: true
+      accessibilityTitle:
+        type: string
+        x-nullable: true
+      accessibilityContent:
+        type: string
+        x-nullable: true
+      supportPopupText:
+        type: string
+        x-nullable: true
+      supportPageEnabled:
+        type: boolean
+        x-nullable: true
+      supportPagePublic:
+        type: boolean
+        x-nullable: true
+      supportTitle:
+        type: string
+        x-nullable: true
+      supportPageText:
+        type: string
+        x-nullable: true
+      createdAt:
+        type: string
+      modifiedAt:
+        type: string
+    required:
+      - defaultAuthenticationMethod
+      - createdAt
+      - modifiedAt
+  SettingsMailserver:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      host:
+        type: string
+      port:
+        type: string
+      enableTLS:
+        type: boolean
+      from:
+        type: string
   Swimlanes:
     type: object
     description:  A swimlane is an line in the kaban board.
@@ -5304,6 +6088,61 @@ definitions:
       - createdAt
       - modifiedAt
       - type
+  Team:
+    type: object
+    description:  A Team in Wekan. Organization in Trello.
+    properties:
+      teamDisplayName:
+        description: |
+           the name to display for the team
+        type: string
+        x-nullable: true
+      teamDesc:
+        description: |
+           the description the team
+        type: string
+        x-nullable: true
+      teamShortName:
+        description: |
+           short name of the team
+        type: string
+        x-nullable: true
+      teamWebsite:
+        description: |
+           website of the team
+        type: string
+        x-nullable: true
+      teamIsActive:
+        description: |
+           status of the team
+        type: boolean
+        x-nullable: true
+      teamSharedTemplates:
+        description: |
+           #5850: members may drag personal Template Boards onto this team to share
+           (per-team form of "Shared Templates for Teams"). Off by default.
+        type: boolean
+        x-nullable: true
+      teamPropagateMembersToBoards:
+        description: |
+           #4737: add this team's members to the boards that list this team. Off by default.
+        type: boolean
+        x-nullable: true
+      teamSyncMembersFromAuth:
+        description: |
+           #4737: this team's membership is maintained by the authentication
+           provider's group/membership sync (LDAP, OAuth2/OIDC, SAML, etc.). Off by default.
+        type: boolean
+        x-nullable: true
+      createdAt:
+        description: |
+           creation date of the team
+        type: string
+      modifiedAt:
+        type: string
+    required:
+      - createdAt
+      - modifiedAt
   Users:
     type: object
     description:  A User in wekan
