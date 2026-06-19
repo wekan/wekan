@@ -178,23 +178,17 @@ function run_playwright_parallel(){
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) ( cd "$pwdir" && meteor npm install ) ;; esac
 
-	echo "Running Chromium, Firefox and WebKit Playwright suites at the same time."
+	echo "Running Chromium, Firefox and WebKit Playwright suites sequentially (one browser at a time)."
 	echo "Live output goes to ../wekan-playwright-<browser>.log; a summary prints when all finish."
 
-	# bash 3.2 (macOS) has no associative arrays, so track the three PIDs in
-	# plain variables instead of a map.
-	( run_pw_all_browser chromium ) > ../wekan-playwright-chromium.log 2>&1 &
-	local pid_chromium=$!
-	( run_pw_all_browser firefox  ) > ../wekan-playwright-firefox.log  2>&1 &
-	local pid_firefox=$!
-	( run_pw_all_browser webkit   ) > ../wekan-playwright-webkit.log   2>&1 &
-	local pid_webkit=$!
-	echo "  chromium pid $pid_chromium, firefox pid $pid_firefox, webkit pid $pid_webkit"
-
+	# Run the three browser suites one after another rather than in parallel:
+	# running all three at once against a single dev server uses too much RAM and
+	# swap on lower-memory machines and may crash. Each browser still writes its
+	# own log and the combined summary is printed once all have finished.
 	local rc_chromium rc_firefox rc_webkit
-	wait "$pid_chromium"; rc_chromium=$?
-	wait "$pid_firefox";  rc_firefox=$?
-	wait "$pid_webkit";   rc_webkit=$?
+	( run_pw_all_browser chromium ) > ../wekan-playwright-chromium.log 2>&1; rc_chromium=$?
+	( run_pw_all_browser firefox  ) > ../wekan-playwright-firefox.log  2>&1; rc_firefox=$?
+	( run_pw_all_browser webkit   ) > ../wekan-playwright-webkit.log   2>&1; rc_webkit=$?
 
 	local PW_FAILURES=""
 	SUMMARY=()
@@ -257,7 +251,7 @@ function run_playwright_single(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers in parallel (Chromium + Firefox + WebKit), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -427,7 +421,7 @@ do
 			echo "No .build or node_modules directory found - building WeKan first (menu option 2)."
 			build_wekan
 		fi
-		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs in PARALLEL with live progress."
+		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time)."
 		echo "Mocha gets its own build dir (.meteor/local-test) so it runs at the same time as the :3000 server, which keeps .meteor/local."
 		SUMMARY=()
 		record() { SUMMARY+=("$1|$2|${3:-}"); }
@@ -444,10 +438,14 @@ do
 		TEST_SERVER_PID=""
 		STATDIR="$(mktemp -d)"
 		BPIDS=""
-		# Launch one test job in the background: run it, record its exit code in
-		# STATDIR/<key>, and send all of its output to ../wekan-alltests-<key>.log.
+		# Run one test job to completion (SEQUENTIALLY, not in the background):
+		# record its exit code in STATDIR/<key> and send all of its output to
+		# ../wekan-alltests-<key>.log. Running the jobs one at a time instead of
+		# all at once keeps total RAM/swap usage low so the machine does not crash
+		# (the browser suites in particular are memory-hungry).
 		launch_job() {
 			local k="$1"
+			echo "==> Running $(label_of "$k") (sequential) ... live output: ../wekan-alltests-$k.log"
 			(
 				rc=0
 				case "$k" in
@@ -457,8 +455,7 @@ do
 					*)      run_pw_all_browser "$k" || rc=$? ;;
 				esac
 				echo "$rc" > "$STATDIR/$k"
-			) > "../wekan-alltests-$k.log" 2>&1 &
-			BPIDS="$BPIDS $!"
+			) > "../wekan-alltests-$k.log" 2>&1
 		}
 
 		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
@@ -500,9 +497,8 @@ do
 		# Start the :3000 server FIRST and let it build alone. Mocha runs its own
 		# Meteor build (.meteor/local-test); launching it here would make two full
 		# builds compete for CPU/disk and starve the server, so it does not become
-		# ready until much later (a long line of dots). Mocha and the import
-		# regression do not need the server, so we launch them once it is ready and
-		# they then run in parallel with the E2E and browser jobs.
+		# ready until much later (a long line of dots). Once the server is ready
+		# the test jobs run one at a time (sequentially), not in parallel.
 		echo
 		echo "==> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor/local)"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../wekan-test-server.log 2>&1 &
@@ -514,10 +510,10 @@ do
 		done
 		echo
 
-		# Mocha and the import regression do not need the :3000 server; launch them
-		# now (after the server build is past, so they no longer compete with it)
-		# so they run in parallel with the E2E and browser jobs below.
-		echo "==> Starting Mocha (separate .meteor/local-test build, port 3100) and import regression in parallel."
+		# Mocha and the import regression do not need the :3000 server; run them
+		# now (after the server build is past, so they no longer compete with it),
+		# then the E2E and browser jobs below, all one at a time (sequential).
+		echo "==> Running Mocha (separate .meteor/local-test build, port 3100) and import regression, one at a time (sequential)."
 		launch_job mocha
 		launch_job import
 
@@ -541,7 +537,7 @@ do
 
 		# Live combined progress: one refreshing line per running job until all end.
 		BN="$(set -- $ALLKEYS; echo $#)"
-		echo "Live progress (refreshes every second) - [RUN]/[PASS]/[FAIL], checks passed / x failed:"
+		echo "Results per job ([PASS]/[FAIL], checks passed / x failed); jobs run one at a time (sequential):"
 		for k in $ALLKEYS; do echo; done
 		while :; do
 			printf '\033[%dA' "$BN"
@@ -650,7 +646,7 @@ do
 			break
 			;;
 
-    "Test Playwright ALL browsers in parallel (Chromium + Firefox + WebKit), server already running on :3000")
+    "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000")
 			run_playwright_parallel
 			break
 			;;
