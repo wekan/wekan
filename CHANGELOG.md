@@ -74,6 +74,15 @@ This release adds the following features:
   unaffected ([#4736](https://github.com/wekan/wekan/issues/4736)).
   Thanks to xet7.
 
+- [Notify the assigned card member/assignee directly](https://github.com/wekan/wekan/commit/761b8fc82bb0c10767d868f7948f6a3bb9fac477).
+  When a user is added as a card member or assignee, that user is now notified
+  directly, so an assignment reaches the assignee themselves — instead of only
+  board watchers, or (with `BIGEVENTS_PATTERN`) every active board member. The
+  user who performed the assignment is still skipped, so self-assignment does
+  not self-notify. Optional: opt out with `NOTIFY_ON_ASSIGN=false`; on by
+  default ([#5833](https://github.com/wekan/wekan/issues/5833)).
+  Thanks to xet7.
+
 and adds the following tests:
 
 - [Added more tests](https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd).
