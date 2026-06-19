@@ -214,6 +214,11 @@ update_releases_node_versions() {
     # only ever holds the single newest v24 release, so a pinned filename under it
     # 404s once upstream advances — that is what broke the snap build. snapcraft.yaml
     # and the Dockerfile now use the explicit version path only.
+    # WeKan is pinned to Node.js 24.x, so the major is intentionally hard-coded:
+    # this bumps any older 24.x reference to the newest 24.x (${new_node}) and
+    # never rewrites a reference to a different major. The Node-specific anchors
+    # ('nodejs.org/dist/v', 'node-v...-linux-', 'npm-node-version:', 'NODE_TAR=')
+    # also keep this from touching MongoDB/WeKan or other version numbers.
     sedi -E "s#nodejs.org/dist/v24\.[0-9]+\.[0-9]+#nodejs.org/dist/v${new_node}#g" "$f"
     sedi -E "s#node-v24\.[0-9]+\.[0-9]+-linux-(x64|arm64|armv7l|s390x|ppc64le)\.tar\.(xz|gz)#node-v${new_node}-linux-\1.tar.\2#g" "$f"
     sedi -E "s#npm-node-version: 24\.[0-9]+\.[0-9]+#npm-node-version: ${new_node}#g" "$f"
@@ -372,8 +377,19 @@ version_bump_logic() {
     PKG_VER="v${NEW_VERSION}"
   fi
 
-  sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package.json
-  sedi "0,/\"version\": \"[^\"]*\"/s//\"version\": \"${PKG_VER}\"/" package-lock.json
+  # Update ONLY the WeKan application version, never any dependency versions.
+  # The WeKan version is the only "version" value carrying a leading 'v'
+  # (e.g. "v9.57.0"); every dependency version in these files is plain semver
+  # ("5.2.0"), so anchoring on "v[0-9]" is what keeps this from touching them.
+  #
+  # package-lock.json (lockfileVersion 3) stores the root version TWICE: the
+  # top-level "version" and the nested packages."".version. Both must be bumped,
+  # so this is a global (/g) replace, not the first-match-only "0,/re/" form --
+  # otherwise the remote release-all.yml bump job (which commits version.sh's
+  # output directly, with no intervening `npm install` to re-sync the lock)
+  # would push a package-lock.json whose packages."".version stays stale.
+  sedi -E "s/\"version\": \"v[0-9][^\"]*\"/\"version\": \"${PKG_VER}\"/g" package.json
+  sedi -E "s/\"version\": \"v[0-9][^\"]*\"/\"version\": \"${PKG_VER}\"/g" package-lock.json
   sedi "0,/appVersion: \"[^\"]*\"/s/appVersion: \"[^\"]*\"/appVersion: \"${PKG_VER}\"/" Stackerfile.yml
   # Set the snap version (the `version: '<x>'` line). Match by `^version:`
   # instead of a hard-coded line number, and tolerate any quoting, so this can
