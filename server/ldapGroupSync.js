@@ -4,20 +4,24 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Org from '/models/org';
 import Team from '/models/team';
 
-// #4737: server-side helper that syncs a user's LDAP groups into Wekan
-// Organizations or Teams. It is called only server-to-server from the
-// wekan-ldap package via Meteor.callAsync (where `this.connection` is null);
-// any client-originated call is rejected. It finds the Org/Team by display
-// name, creates it (active) if missing, and adds it to the user's membership.
-// The update is add-only: existing memberships — including ones assigned
-// manually or from another source — are preserved, so enabling LDAP org/team
-// sync never removes a user's other memberships.
+// #4737: helper that syncs a user's LDAP groups into Wekan Organizations or
+// Teams. It is called server-to-server from the wekan-ldap package via
+// Meteor.callAsync (where `this.connection` is null), and may also be called by
+// an admin (admins already manage orgs/teams in the Admin Panel). Any other
+// client-originated call is rejected. It finds the Org/Team by display name,
+// creates it (active) if missing, and adds it to the user's membership. The
+// update is add-only: existing memberships — including ones assigned manually or
+// from another source — are preserved, so enabling LDAP org/team sync never
+// removes a user's other memberships.
 Meteor.methods({
   async setUserOrgsTeamsFromLdap(userId, groupNames, asOrganization) {
-    // Reject calls that originate from a client connection; only the
-    // server-side LDAP sync (connection === null) may use this method.
+    // Allow server-to-server calls (connection === null, used by the LDAP sync)
+    // and admins; reject any other client-originated call.
     if (this.connection !== null) {
-      throw new Meteor.Error('forbidden', 'Server-only method');
+      const caller = this.userId ? await ReactiveCache.getUser(this.userId) : null;
+      if (!caller || caller.isAdmin !== true) {
+        throw new Meteor.Error('forbidden', 'Not authorized');
+      }
     }
     check(userId, String);
     check(groupNames, [String]);
