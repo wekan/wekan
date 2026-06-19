@@ -30,6 +30,25 @@ Versions:
 
 This release adds the following features:
 
+- [Release All Platforms: Fix Docker image showing a stale Admin Panel version (image tagged vX reported v9.57)](https://github.com/wekan/wekan/commit/31f40318076a0e59a321c17a73955ee1227df4b1).
+  The Admin Panel reads the WeKan version from the bundled `package.json`, which
+  comes verbatim from the `wekan-<version>-<arch>.zip` the Dockerfile downloads
+  and unzips into `/build`. The `docker` job never passed `--build-arg VERSION`,
+  so every image was built against the Dockerfile's hardcoded `ARG VERSION`
+  default — and that default was stuck at `9.57` because `releases/version.sh`
+  rewrote it with a sed anchored on the *old* version number, which silently
+  no-op'd whenever `old_version` did not match (e.g. the skipped 9.58 numbering).
+  The result: images tagged v9.59/v9.60/v9.61 shipped the v9.57 bundle and
+  reported 9.57 in the Admin Panel. Fixed three ways: the `docker` job now passes
+  `--build-arg VERSION=${VERSION}` (the release version is authoritative); the
+  `version.sh` Dockerfile rewrite now anchors on the `^ARG VERSION=` prefix and
+  asserts the result, so the default can never go stale again; and a new
+  pre-build guard downloads the release bundle and fails fast if its app
+  `package.json` version does not match the release tag, before pushing a
+  mislabeled image to the registries. Already-pushed v9.58–v9.60 images need a
+  rebuild to carry their correct contents.
+  Thanks to xet7 and Claude.
+
 - [Release All Platforms: Set GH_REPO on the bundle-attach steps so gh finds the repository](https://github.com/wekan/wekan/commit/b6facc2412e37b4c365a8f6c667894794bf2af0c).
   The win64 / mac-arm64 / s390x / ppc64le bundles each finished building but
   then failed on `gh release upload` with `failed to run git: fatal: not a git

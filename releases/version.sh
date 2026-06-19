@@ -409,7 +409,17 @@ version_bump_logic() {
   sedi "0,/appMarketingVersion = (defaultText = \"[^\"]*\")/s/appMarketingVersion = (defaultText = \"[^\"]*\")/appMarketingVersion = (defaultText = \"${NEW_VERSION}~${TODAY}\")/" sandstorm-pkgdef.capnp
   sedi "s|appVersion = $OLD_NO_DOTS,|appVersion = $NEW_NO_DOTS,|g" sandstorm-pkgdef.capnp
 
-  sedi "s|ARG VERSION=$OLD_VERSION|ARG VERSION=$NEW_VERSION|g" Dockerfile
+  # Anchor on the `ARG VERSION=` prefix, NOT on the old version number, so this
+  # always rewrites the default to the new version even if OLD_VERSION was passed
+  # wrong (e.g. a skipped point release). A stale default here means every Docker
+  # image downloads that version's wekan-<v>-<arch>.zip and reports the wrong
+  # version in the Admin Panel. release-all.yml also passes --build-arg VERSION,
+  # but keep this in sync so manual `docker build .` produces the right image too.
+  sedi -E "s|^ARG VERSION=.*|ARG VERSION=$NEW_VERSION|g" Dockerfile
+  if ! grep -qxF "ARG VERSION=$NEW_VERSION" Dockerfile; then
+    echo "Error: failed to set 'ARG VERSION=$NEW_VERSION' in Dockerfile." >&2
+    exit 1
+  fi
   sedi "s|wekan-$OLD_VERSION|wekan-$NEW_VERSION|g" docs/Platforms/Propietary/Windows/Offline.md
   sedi "s|/v$OLD_VERSION/|/v$NEW_VERSION/|g" docs/Platforms/Propietary/Windows/Offline.md
 

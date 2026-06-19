@@ -710,10 +710,49 @@ jobs:
             fi
           done
 
+      - name: Verify the release bundle reports the release version
+        # Belt-and-suspenders against the "image tagged vX shows vY in the Admin
+        # Panel" bug: the image is just the unzipped wekan-<version>-<arch>.zip
+        # bundle (Dockerfile moves it to /build), and the Admin Panel shows that
+        # bundle's app package.json version (server/statistics.js reads
+        # require('/package.json').version). Assert the amd64 bundle's WeKan
+        # version equals the release version BEFORE the expensive multi-arch
+        # buildx, so a stale/mismatched bundle fails fast with a clear message
+        # instead of shipping (and pushing to three registries) a mislabeled image.
+        run: |
+          set -euo pipefail
+          url="https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-amd64.zip"
+          wget -q "$url" -O bundle.zip
+          tmp="$(mktemp -d)"
+          # Extract only package.json files (not the whole multi-hundred-MB bundle).
+          unzip -o -q bundle.zip '*package.json' -d "$tmp"
+          # The WeKan app package.json is the only one whose "version" carries a
+          # leading 'v' (e.g. "v9.61.0"); every dependency uses plain semver. So a
+          # v-prefixed "version" uniquely identifies the app's own package.json.
+          found="$(grep -rhoE '"version": "v[0-9][^"]*"' "$tmp" \
+                    | grep -oE 'v[0-9][^"]*' | sort -u | head -1 || true)"
+          rm -rf "$tmp" bundle.zip
+          if [ -z "$found" ]; then
+            echo "::error::Could not find a v-prefixed WeKan version in the bundle's package.json files."
+            exit 1
+          fi
+          if [ "$found" != "v${VERSION}.0" ] && [ "$found" != "v${VERSION}" ]; then
+            echo "::error::Bundle reports app version $found but the release is v${VERSION}. The bundle baked into the image is stale/mismatched — the Admin Panel would show $found. Aborting before build."
+            exit 1
+          fi
+          echo "Bundle app version $found matches release v${VERSION}."
+
       - name: Build and push multi-arch image
+        # Pass VERSION explicitly as a build-arg. The Dockerfile's `ARG VERSION`
+        # default is only a fallback for manual builds; the release version is the
+        # authoritative source here. Without this the image would build against the
+        # Dockerfile default (downloading that version's wekan-<v>-<arch>.zip and
+        # baking its package.json), so a v${VERSION}-tagged image could ship — and
+        # report in the Admin Panel — a stale, different version.
         run: |
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
+            --build-arg VERSION=${VERSION} \
             -t wekanteam/wekan:v${VERSION} \
             -t wekanteam/wekan:latest \
             -t quay.io/wekan/wekan:v${VERSION} \
