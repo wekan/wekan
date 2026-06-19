@@ -38,6 +38,14 @@ This release adds the following features:
   Boards sharing feature ([#5850](https://github.com/wekan/wekan/issues/5850)).
   Thanks to xet7.
 
+- [Auth sync marks the orgs/teams it manages as "Sync Members From Auth Provider"](https://github.com/wekan/wekan/commit/4973f68a2).
+  When the LDAP/OIDC group sync creates or assigns an Organization or Team, it now
+  sets that org/team's `orgSyncMembersFromAuth` / `teamSyncMembersFromAuth` flag,
+  so the **Sync Members From Auth Provider** column in Admin Panel > People
+  reflects which orgs/teams are auth-managed
+  ([#5850](https://github.com/wekan/wekan/issues/5850)).
+  Thanks to xet7.
+
 - [All Boards / Templates: URL routes, link redirect, no auto-created templates board](https://github.com/wekan/wekan/commit/6dd360ad37d0509d3f425a6d04797a3fe3e79b1a).
   The All Boards page's **Templates** and **Remaining** sub-views are now
   addressable by their own URLs (`/templates`, `/remaining`), so they can be
