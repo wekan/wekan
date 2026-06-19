@@ -39,6 +39,28 @@ This release adds the following features:
   are synced from another source ([#4740](https://github.com/wekan/wekan/issues/4740)).
   Thanks to xet7.
 
+- Template Boards and sharing them with Organizations, Teams and Domains.
+  - At **All Boards / Templates**, all of the user's own Board Templates are
+    shown, with a dedicated **Add Template Board** button that creates a new
+    Template Board there.
+  - The **+ Add board** button at **All Boards / Remaining** no longer has an
+    "Add template board" checkbox; creating a Template Board is now done only
+    with the **Add Template Board** button under **All Boards / Templates**.
+  - A Template Board can contain **Board, Swimlane, List and Card templates**.
+  - Members of a Template Board can, on any board where they are a member, add
+    those templates to their current board.
+  - If a user belongs to an Organization, Team or Domain, and the Admin Panel
+    has **Shared Templates for Organizations / Teams / Domains** enabled, then
+    everyone in that Organization, Team or Domain can drag a personal Template
+    Board at **All Boards / Templates** onto that Organization, Team or Domain
+    board to share it.
+  - **Domain** means the domain part of a user's email address (for example
+    `example.com`): users that belong to that domain can drag a Template Board
+    to that domain so it is shared with everyone in the domain.
+  - New **Admin Panel / People / Domains** page that lists the domains and the
+    count of users per domain.
+  Thanks to xet7.
+
 and adds the following tests:
 
 - [Added more tests](https://github.com/wekan/wekan/commit/bbdbff7589bf6fe3a84aa95d701ca5f9dce6d1fd).
