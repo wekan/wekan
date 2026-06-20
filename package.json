@@ -83,7 +83,7 @@
     "markdown-it-mathjax3": "^5.2.0",
     "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "file:npm-packages/meteor-node-stubs",
-    "papaparse": "^5.5.3",
+    "papaparse": "^5.5.4",
     "pretty-ms": "^9.3.0",
     "underscore": "^1.13.8"
   },
