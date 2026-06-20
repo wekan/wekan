@@ -172,6 +172,31 @@ and fixes the following bugs:
 - [Fixed a custom number field displaying as `NaN` when cleared after being set](https://github.com/wekan/wekan/issues/2091)
   ([commit](https://github.com/wekan/wekan/commit/98315c26c)): an empty number value is stored as `''` and rendered as
   empty via a shared `formatNumberValue` helper.
+- [Fixed subtask creation producing extra swimlanes/columns and only allowing one subtask](https://github.com/wekan/wekan/issues/3868)
+  ([commit](https://github.com/wekan/wekan/commit/4b27313c7)), also [#5788](https://github.com/wekan/wekan/issues/5788),
+  [#2256](https://github.com/wekan/wekan/issues/2256) and [#4782](https://github.com/wekan/wekan/issues/4782): subtask
+  creation is now server-authoritative (`addSubtaskCard` Meteor method) and client-side auto-creation of the default
+  subtasks board/list is guarded to the server, so the client can no longer create duplicate subtasks boards/swimlanes
+  and multiple subtasks can be created reliably.
+- [Fixed board "always on card" custom fields not being applied to new subtask cards](https://github.com/wekan/wekan/issues/4037)
+  ([commit](https://github.com/wekan/wekan/commit/4b27313c7)), also [#3562](https://github.com/wekan/wekan/issues/3562):
+  the destination board's automatic custom fields are now added to a new subtask.
+- [Fixed a circular subtask/parent reference hanging the whole board](https://github.com/wekan/wekan/issues/3328)
+  ([commit](https://github.com/wekan/wekan/commit/4b27313c7)): the parent-chain guard compared array indices instead of
+  ids; it now compares by value and `setParentId` refuses a cyclic re-parent.
+- [Fixed the board Subtasks "Landing list for subtasks deposited here" setting not saving / showing the wrong list](https://github.com/wekan/wekan/issues/3414)
+  ([commit](https://github.com/wekan/wekan/commit/774289f92)), also [#3876](https://github.com/wekan/wekan/issues/3876),
+  [#4849](https://github.com/wekan/wekan/issues/4849) and [#4947](https://github.com/wekan/wekan/issues/4947): the
+  settings popup now reads the deposit board's lists and matches the stored `subtasksDefaultListId`.
+- [Fixed the subtask "View it" button opening the parent card instead of the subtask](https://github.com/wekan/wekan/issues/3743)
+  ([commit](https://github.com/wekan/wekan/commit/c5cdc7b65)): navigation now targets the subtask's own board/card.
+- [Fixed deleting a card not firing the outgoing webhook](https://github.com/wekan/wekan/issues/1587)
+  ([commit](https://github.com/wekan/wekan/commit/7bb7540ba)): card deletion now creates a `deleteCard` activity (in the
+  before-remove hook and the REST delete endpoints) so the outgoing webhook fires; board/list/swimlane deletion already
+  emitted their delete activities ([#2950](https://github.com/wekan/wekan/issues/2950)).
+- [Fixed a configured outgoing webhook making it impossible to set card members](https://github.com/wekan/wekan/issues/1402)
+  ([commit](https://github.com/wekan/wekan/commit/8863ec24a)): outgoing webhook delivery is now fire-and-forget and
+  error-isolated, so a slow/unreachable/failing webhook endpoint can no longer abort the member update.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

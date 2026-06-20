@@ -36,3 +36,7 @@ import './checklistHideToggle.tests';
 import './listColor.tests';
 import './customNumberFormat.tests';
 import './languageNames.tests';
+import './subtaskSettings.tests';
+import './subtaskCreation.tests';
+import './deleteWebhookActivity.tests';
+import './webhookNonBlocking.tests';
