@@ -41,6 +41,71 @@ This release fixes the following bugs:
   *Valid post logout redirect URIs*. See [docs/Login/Keycloak/Keycloak.md](https://github.com/wekan/wekan/blob/main/docs/Login/Keycloak/Keycloak.md).
   Thanks to zambalee and xet7.
 
+This release fixes the following bugs:
+
+- [Fixed due dates not correctly colour coded](https://github.com/wekan/wekan/issues/6000) ([commit](https://github.com/wekan/wekan/commit/086254e10)): future due dates
+  more than 48 hours away are now shaded grey (`not-due`) instead of amber (`due-soon`). Root cause was a
+  call to `diff(theDate, now, 'days')` where `'days'` is not a valid unit, so the threshold compared raw
+  milliseconds; replaced with a precise hours-based comparison in a single shared helper.
+- [Fixed due date colour mismatch between list and card detail](https://github.com/wekan/wekan/issues/5965) ([commit](https://github.com/wekan/wekan/commit/086254e10)):
+  an overdue card now shows red in both the minicard/list and the opened card detail. The card-detail status
+  colours now use `!important` so overdue red overrides the due-date yellow base (matching the minicard), and
+  the colour-decision logic is unified into one shared helper used by both views.
+- [Fixed unable to view all cards by due date](https://github.com/wekan/wekan/issues/5999) ([commit](https://github.com/wekan/wekan/commit/b3acbd692)): removed the
+  `limit: 100` cap in the `dueCards` publication so all of a user's due cards across boards are shown.
+- [Fixed unable to scroll past the first cards in the Due Cards view on mobile](https://github.com/wekan/wekan/issues/5930) ([commit](https://github.com/wekan/wekan/commit/b3acbd692)):
+  the due-cards list now has a scoped scroll container with a viewport-relative max height.
+- [Fixed card-detail sub-popups disappearing on mobile](https://github.com/wekan/wekan/issues/5942) ([commit](https://github.com/wekan/wekan/commit/5c890baca)): assigning
+  a user or setting the due date on touch devices no longer closes the popup (touch events inside the popup no
+  longer bubble to the click-outside close handler on mobile viewports).
+- [Fixed mobile board layout and tiny Home button](https://github.com/wekan/wekan/issues/5902) ([commit](https://github.com/wekan/wekan/commit/5c890baca)): minicards now
+  render one per row (full width) on narrow screens and the header Home / All Boards button is a proper tap target.
+- [Fixed enormous icons/menus/text after upgrade](https://github.com/wekan/wekan/issues/6018) ([commit](https://github.com/wekan/wekan/commit/5c890baca)): clamped runaway
+  icon/label sizing on mobile.
+- [Fixed oversized padding/margins and stray ➕ emoji from recent UI changes](https://github.com/wekan/wekan/issues/5982) ([commit](https://github.com/wekan/wekan/commit/5c890baca)):
+  trimmed excessive padding/margins on mobile; remaining stray plus emojis are tracked for replacement with a
+  Font Awesome icon.
+- [Fixed board-level search not including comments](https://github.com/wekan/wekan/issues/5910) ([commit](https://github.com/wekan/wekan/commit/b998246c3)): in-board search
+  now matches text inside card comments, consistent with global search.
+- [Fixed "create list" not available in Lists board-view mode](https://github.com/wekan/wekan/issues/6142) ([commit](https://github.com/wekan/wekan/commit/c18ae388b)): the
+  "Add list" composer now appears in Lists mode (using the board's default swimlane), not only in Swimlanes mode.
+- [Fixed board/list/swimlane numbering breaking first-letter keyboard navigation](https://github.com/wekan/wekan/issues/6135) ([commit](https://github.com/wekan/wekan/commit/fe4d2a56f)):
+  the move/copy card popups no longer prefix a number to each option, so options start with their name again and
+  digit-named boards are readable.
+- [Fixed missing notification and card-history entry when a new attachment is uploaded](https://github.com/wekan/wekan/issues/5905) ([commit](https://github.com/wekan/wekan/commit/f59273508)):
+  uploading an attachment now creates an `addAttachment` activity, so card members and subscribers are notified
+  (consistent with attachment removal); previously the activity was never created because the store-strategy
+  upload hook was dead code.
+
+This release adds the following features (initial MVP versions):
+
+- [Threaded comment replies](https://github.com/wekan/wekan/issues/5907) ([commit](https://github.com/wekan/wekan/commit/bdb8e6254)): card comments gain an optional
+  `parentId`; a "Reply" link links a new comment to its parent, rendered with an "in reply to" quote. Initial MVP
+  (single-level visual threading).
+- [Restrict board admins from editing/deleting other users' comments](https://github.com/wekan/wekan/issues/5906) ([commit](https://github.com/wekan/wekan/commit/bdb8e6254)):
+  new board setting `restrictCommentEditing` (default off). When on, only a comment's author may edit/delete it;
+  enforced server-side via collection hooks.
+- [Visible status of sub-tasks](https://github.com/wekan/wekan/issues/6091) ([commit](https://github.com/wekan/wekan/commit/d7ae93bb2)): each subtask now shows its current
+  list (prefixed with the board title when on a different board) read-only next to its title.
+- [Drag-and-drop search results into board columns](https://github.com/wekan/wekan/issues/6034) ([commit](https://github.com/wekan/wekan/commit/b998246c3)): cards in the
+  search-results list can be dragged onto board lists, reusing the existing `card.move()`. MVP: drops append to
+  the end of the target list (no pixel-precise insertion index yet).
+- [Per-user permanent dismissal of the Announcement banner](https://github.com/wekan/wekan/issues/6051) ([commit](https://github.com/wekan/wekan/commit/bf75efaef)): a user
+  can permanently close the current announcement so it does not reappear on reload/board-switch, until the admin
+  edits the announcement text (which makes it reappear for everyone).
+- [Show how many times a card's due date was changed](https://github.com/wekan/wekan/issues/6081) ([commit](https://github.com/wekan/wekan/commit/a8ed326a5)): the card detail
+  now displays a "due date changed N times" count (derived from existing `a-dueAt` activities) for deadline
+  accountability.
+- [Restrict adding board members to the same Organization or Team](https://github.com/wekan/wekan/issues/6116) ([commit](https://github.com/wekan/wekan/commit/371258a6d)):
+  new global admin setting `boardMembersFromSameOrgOrTeamOnly` (default off). When on, a user can only be added to
+  a board if they share an Organization or Team with the inviter or an active board member; enforced server-side in
+  the invite/search paths. Site admins bypass.
+- [Import Google Calendar `.ics` files into board cards](https://github.com/wekan/wekan/issues/6323) ([commit](https://github.com/wekan/wekan/commit/0a43d8ac3)): MVP,
+  import-only. New dependency-free iCalendar parser (`server/lib/icsImport.js`) maps each `VEVENT` to a card with
+  `startAt`/`dueAt` so events appear on Calendar/Gantt views, plus an `importIcsToBoard` Meteor method. Two-way
+  Google Calendar sync is not included (see [wekan-ical-server](https://github.com/wekan/wekan-ical-server) for
+  read-only WeKan→calendar export).
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.64 2026-06-20 WeKan ® release
