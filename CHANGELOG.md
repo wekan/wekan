@@ -28,7 +28,45 @@ Versions:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- Issue triage: closed 13 already-fixed Bug issues (with evidence), relabeled ~25 mislabeled feature requests to `Feature` with a "Feature Request:" title prefix, and prefixed ~35 environment-specific reports "Environment specific:" and gave them the `Bug:Environment-specific` label.
+- Audited labels on all 533 open issues for correctness (type, `Feature:Area`, `Targets:`, `Severity:`, etc.).
+- Added 23 missing GitHub labels found by auditing `docs/Login` and `docs/Features` against the issue labels, matching the existing label style and colours (`Feature:*` = `#0052cc`, `Targets:*` = `#fbca04`), and applied them across open and closed issues:
+  - Login methods (`Feature:User-accounts:*`): ADFS, Azure, B2C, Google, Header-Login, Nextcloud, Oracle, Zitadel, Autologin, Accounts-Lockout, Forgot-Password.
+  - Features: `Feature:LaTeX`, `Feature:Mermaid-Diagram`, `Feature:Emoji`, `Feature:Python`, `Feature:Cards:Cover`, `Feature:Cards:Location`, `Feature:Custom-Logo`, `Feature:RTL`, `Feature:Members`, `Feature:Multitenancy`, `Feature:Allow-private-boards-only`.
+  - Platform: `Targets:Apache`.
+
+and adds the following new features:
+
+- [Threaded comment replies](https://github.com/wekan/wekan/issues/5907) ([commit](https://github.com/wekan/wekan/commit/bdb8e6254)): card comments gain an optional
+  `parentId`; a "Reply" link links a new comment to its parent, rendered with an "in reply to" quote. Initial MVP
+  (single-level visual threading).
+- [Restrict board admins from editing/deleting other users' comments](https://github.com/wekan/wekan/issues/5906) ([commit](https://github.com/wekan/wekan/commit/bdb8e6254)):
+  new board setting `restrictCommentEditing` (default off). When on, only a comment's author may edit/delete it;
+  enforced server-side via collection hooks.
+- [Visible status of sub-tasks](https://github.com/wekan/wekan/issues/6091) ([commit](https://github.com/wekan/wekan/commit/d7ae93bb2)): each subtask now shows its current
+  list (prefixed with the board title when on a different board) read-only next to its title.
+- [Drag-and-drop search results into board columns](https://github.com/wekan/wekan/issues/6034) ([commit](https://github.com/wekan/wekan/commit/b998246c3)): cards in the
+  search-results list can be dragged onto board lists, reusing the existing `card.move()`. MVP: drops append to
+  the end of the target list (no pixel-precise insertion index yet).
+- [Per-user permanent dismissal of the Announcement banner](https://github.com/wekan/wekan/issues/6051) ([commit](https://github.com/wekan/wekan/commit/bf75efaef)): a user
+  can permanently close the current announcement so it does not reappear on reload/board-switch, until the admin
+  edits the announcement text (which makes it reappear for everyone).
+- [Show how many times a card's due date was changed](https://github.com/wekan/wekan/issues/6081) ([commit](https://github.com/wekan/wekan/commit/a8ed326a5)): the card detail
+  now displays a "due date changed N times" count (derived from existing `a-dueAt` activities) for deadline
+  accountability.
+- [Restrict adding board members to the same Organization or Team](https://github.com/wekan/wekan/issues/6116) ([commit](https://github.com/wekan/wekan/commit/371258a6d)):
+  new global admin setting `boardMembersFromSameOrgOrTeamOnly` (default off). When on, a user can only be added to
+  a board if they share an Organization or Team with the inviter or an active board member; enforced server-side in
+  the invite/search paths. Site admins bypass.
+- [Import Google Calendar `.ics` files into board cards](https://github.com/wekan/wekan/issues/6323) ([commit](https://github.com/wekan/wekan/commit/0a43d8ac3)): MVP,
+  import-only. New dependency-free iCalendar parser (`server/lib/icsImport.js`) maps each `VEVENT` to a card with
+  `startAt`/`dueAt` so events appear on Calendar/Gantt views, plus an `importIcsToBoard` Meteor method. Two-way
+  Google Calendar sync is not included (see [wekan-ical-server](https://github.com/wekan/wekan-ical-server) for
+  read-only WeKan→calendar export).
+
+and fixes the following bugs:
 
 - [Fixed OIDC/OAuth2 "Log Out" redirecting to the identity provider home page instead of back to Wekan](https://github.com/wekan/wekan/commit/9e50c69eaaec8928b4eb8a122f9cb6f0447464a9).
   With autologin (`OIDC_REDIRECTION_ENABLED=true`), clicking Log Out redirected to the OAuth2 server URL
@@ -40,9 +78,6 @@ This release fixes the following bugs:
   is backward compatible. For Keycloak 18+, add your Wekan `ROOT_URL` to the client's
   *Valid post logout redirect URIs*. See [docs/Login/Keycloak/Keycloak.md](https://github.com/wekan/wekan/blob/main/docs/Login/Keycloak/Keycloak.md).
   Thanks to zambalee and xet7.
-
-This release fixes the following bugs:
-
 - [Fixed due dates not correctly colour coded](https://github.com/wekan/wekan/issues/6000) ([commit](https://github.com/wekan/wekan/commit/086254e10)): future due dates
   more than 48 hours away are now shaded grey (`not-due`) instead of amber (`due-soon`). Root cause was a
   call to `diff(theDate, now, 'days')` where `'days'` is not a valid unit, so the threshold compared raw
@@ -76,38 +111,6 @@ This release fixes the following bugs:
   uploading an attachment now creates an `addAttachment` activity, so card members and subscribers are notified
   (consistent with attachment removal); previously the activity was never created because the store-strategy
   upload hook was dead code.
-
-This release adds the following features (initial MVP versions):
-
-- [Threaded comment replies](https://github.com/wekan/wekan/issues/5907) ([commit](https://github.com/wekan/wekan/commit/bdb8e6254)): card comments gain an optional
-  `parentId`; a "Reply" link links a new comment to its parent, rendered with an "in reply to" quote. Initial MVP
-  (single-level visual threading).
-- [Restrict board admins from editing/deleting other users' comments](https://github.com/wekan/wekan/issues/5906) ([commit](https://github.com/wekan/wekan/commit/bdb8e6254)):
-  new board setting `restrictCommentEditing` (default off). When on, only a comment's author may edit/delete it;
-  enforced server-side via collection hooks.
-- [Visible status of sub-tasks](https://github.com/wekan/wekan/issues/6091) ([commit](https://github.com/wekan/wekan/commit/d7ae93bb2)): each subtask now shows its current
-  list (prefixed with the board title when on a different board) read-only next to its title.
-- [Drag-and-drop search results into board columns](https://github.com/wekan/wekan/issues/6034) ([commit](https://github.com/wekan/wekan/commit/b998246c3)): cards in the
-  search-results list can be dragged onto board lists, reusing the existing `card.move()`. MVP: drops append to
-  the end of the target list (no pixel-precise insertion index yet).
-- [Per-user permanent dismissal of the Announcement banner](https://github.com/wekan/wekan/issues/6051) ([commit](https://github.com/wekan/wekan/commit/bf75efaef)): a user
-  can permanently close the current announcement so it does not reappear on reload/board-switch, until the admin
-  edits the announcement text (which makes it reappear for everyone).
-- [Show how many times a card's due date was changed](https://github.com/wekan/wekan/issues/6081) ([commit](https://github.com/wekan/wekan/commit/a8ed326a5)): the card detail
-  now displays a "due date changed N times" count (derived from existing `a-dueAt` activities) for deadline
-  accountability.
-- [Restrict adding board members to the same Organization or Team](https://github.com/wekan/wekan/issues/6116) ([commit](https://github.com/wekan/wekan/commit/371258a6d)):
-  new global admin setting `boardMembersFromSameOrgOrTeamOnly` (default off). When on, a user can only be added to
-  a board if they share an Organization or Team with the inviter or an active board member; enforced server-side in
-  the invite/search paths. Site admins bypass.
-- [Import Google Calendar `.ics` files into board cards](https://github.com/wekan/wekan/issues/6323) ([commit](https://github.com/wekan/wekan/commit/0a43d8ac3)): MVP,
-  import-only. New dependency-free iCalendar parser (`server/lib/icsImport.js`) maps each `VEVENT` to a card with
-  `startAt`/`dueAt` so events appear on Calendar/Gantt views, plus an `importIcsToBoard` Meteor method. Two-way
-  Google Calendar sync is not included (see [wekan-ical-server](https://github.com/wekan/wekan-ical-server) for
-  read-only WeKan→calendar export).
-
-This release also fixes the following bugs that were confirmed still present during a triage of open Bug issues:
-
 - [Fixed copying a card selecting all/unnamed labels on the destination board](https://github.com/wekan/wekan/issues/2970)
   ([commit](https://github.com/wekan/wekan/commit/d26d117e3)): `Cards.copy()` now applies the same unnamed-label
   guard as `Cards.move()` and persists the remapped labels onto the inserted card.
@@ -144,24 +147,6 @@ This release also fixes the following bugs that were confirmed still present dur
 - [Fixed updating a card title not firing the outgoing webhook](https://github.com/wekan/wekan/issues/3619)
   ([commit](https://github.com/wekan/wekan/commit/9aa97ab8f)): a title change now logs an `a-changedTitle` activity
   (rendered in the activity feed) so the existing outgoing-webhook hook fires, consistent with description/date changes.
-
-During the same triage, 13 already-fixed Bug issues were closed with evidence, ~25 mislabeled feature requests were
-relabeled to `Feature` with a "Feature Request:" title prefix, and ~35 environment-specific reports were prefixed
-"Environment specific:" and given the `Bug:Environment-specific` label. All 533 open issues were then audited for
-correct labels (type, `Feature:Area`, `Targets:`, `Severity:`, etc.).
-
-Auditing `docs/Login` and `docs/Features` against the GitHub issue labels showed that several documented login
-methods and features had no matching label. The following labels were added (matching the existing label style and
-colours — `Feature:*` = `#0052cc`, `Targets:*` = `#fbca04`):
-
-- Login methods (`Feature:User-accounts:*`): `Feature:User-accounts:ADFS`, `Feature:User-accounts:Azure`,
-  `Feature:User-accounts:B2C`, `Feature:User-accounts:Google`, `Feature:User-accounts:Header-Login`,
-  `Feature:User-accounts:Nextcloud`, `Feature:User-accounts:Oracle`, `Feature:User-accounts:Zitadel`,
-  `Feature:User-accounts:Autologin`, `Feature:User-accounts:Accounts-Lockout`, `Feature:User-accounts:Forgot-Password`.
-- Features: `Feature:LaTeX`, `Feature:Mermaid-Diagram`, `Feature:Emoji`, `Feature:Python`, `Feature:Cards:Cover`,
-  `Feature:Cards:Location`, `Feature:Custom-Logo`, `Feature:RTL`, `Feature:Members`, `Feature:Multitenancy`,
-  `Feature:Allow-private-boards-only`.
-- Platform: `Targets:Apache`.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
