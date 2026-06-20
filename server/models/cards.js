@@ -7,6 +7,7 @@ import { add, now } from '/imports/lib/dateUtils';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
+import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/restCardHelpers';
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
@@ -604,9 +605,16 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards', async function(r
   });
 });
 
+// Issue #5546: this single-card GET looks up by id ONLY (no archived filter),
+// so it returns archived cards too — letting a caller inspect an archived card
+// (e.g. to read its listId) and then de-archive it via PUT archive=false.
 WebApp.handlers.get('/api/cards/:cardId', async function(req, res) {
   const paramCardId = req.params.cardId;
   const card = await ReactiveCache.getCard(paramCardId);
+  if (!card) {
+    sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+    return;
+  }
   await Authentication.checkBoardAccess(req.userId, card.boardId);
   sendJsonResult(res, {
     code: 200,
@@ -691,6 +699,19 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
   const members = req.body.members;
   const assignees = req.body.assignees;
   if (typeof checkUser !== 'undefined') {
+    // Issue #5537: accept card dates on create. These schema fields are typed
+    // as Date, so a raw request string is stripped by schema cleaning and the
+    // date never persists. Parse each into a real Date and only include the
+    // ones that parsed, so an invalid/absent date simply leaves the field unset.
+    const dateFieldsOnCreate = {};
+    ['receivedAt', 'startAt', 'dueAt', 'endAt'].forEach(dateField => {
+      if (Object.prototype.hasOwnProperty.call(req.body, dateField)) {
+        const parsed = parseCardDate(req.body[dateField]);
+        if (parsed) {
+          dateFieldsOnCreate[dateField] = parsed;
+        }
+      }
+    });
     const id = await Cards.direct.insertAsync({
       title: req.body.title,
       boardId: paramBoardId,
@@ -704,6 +725,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
       customFields: customFieldsArr,
       members,
       assignees,
+      ...dateFieldsOnCreate,
     });
     sendJsonResult(res, { code: 200, data: { _id: id } });
 
@@ -839,9 +861,12 @@ WebApp.handlers.put(
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     const paramListId = req.params.listId;
-    const newBoardId = req.body.newBoardId;
-    const newSwimlaneId = req.body.newSwimlaneId;
-    const newListId = req.body.newListId;
+    // Issue #5398: consolidate the board-move parameters into one consistent set
+    // instead of re-reading them under several inconsistent names. The external
+    // API contract is unchanged: full move uses newBoardId/newSwimlaneId/
+    // newListId, a same-board move uses listId/swimlaneId.
+    const moveParams = normalizeMoveParams(req.body);
+    const { newBoardId, newSwimlaneId, newListId } = moveParams;
     let updated = false;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
@@ -955,9 +980,23 @@ WebApp.handlers.put(
       if (Object.prototype.hasOwnProperty.call(req.body, dateField)) {
         const value = req.body[dateField];
         const isClear = isCardDateClear(value);
+        // Issue #5537: these schema fields are typed as Date, so a raw request
+        // string is stripped by schema cleaning and the date reverts. Parse a
+        // non-clear value into a real Date so it persists. An unparseable value
+        // is skipped rather than written (which would have silently dropped it).
+        let modifier;
+        if (isClear) {
+          modifier = { $unset: { [dateField]: '' } };
+        } else {
+          const parsed = parseCardDate(value);
+          if (!parsed) {
+            continue;
+          }
+          modifier = { $set: { [dateField]: parsed } };
+        }
         await Cards.direct.updateAsync(
           { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-          isClear ? { $unset: { [dateField]: '' } } : { $set: { [dateField]: value } },
+          modifier,
         );
         updated = true;
       }
@@ -1005,25 +1044,35 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    if (req.body.swimlaneId) {
+    if (moveParams.swimlaneId) {
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { swimlaneId: req.body.swimlaneId } },
+        { $set: { swimlaneId: moveParams.swimlaneId } },
       );
       updated = true;
     }
-    if (req.body.listId) {
-      const newParamListId = req.body.listId;
+    if (moveParams.listId) {
+      // Issue #5399: a same-board list move must land the card on TOP of the
+      // destination list (like the Move Card dialog: getMinSort then
+      // minSort - 1), otherwise it only $set listId and the card landed at a
+      // random position. Issue #5398: use the consolidated moveParams.listId and
+      // req.userId consistently (it previously read req.body.authorId here).
+      const destListId = moveParams.listId;
+      const destSiblings = await ReactiveCache.getCards(
+        { boardId: paramBoardId, listId: destListId, archived: false },
+        { sort: ['sort'] },
+      );
+      const topSort = computeTopSort((destSiblings || []).map(c => c.sort));
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { listId: newParamListId } },
+        { $set: { listId: destListId, sort: topSort } },
       );
       updated = true;
 
       const card = await ReactiveCache.getCard(paramCardId);
-      await cardMove(req.body.authorId, card, { fieldName: 'listId' }, paramListId);
+      await cardMove(req.userId, card, { fieldName: 'listId' }, paramListId);
     }
-    if (newBoardId && newSwimlaneId && newListId) {
+    if (moveParams.isBoardMove) {
       await Authentication.checkBoardWriteAccess(req.userId, newBoardId);
       const destList = await ReactiveCache.getList({
         _id: newListId,
@@ -1049,19 +1098,32 @@ WebApp.handlers.put(
         });
         return;
       }
+      // Issue #5399: land the moved card on TOP of the destination list (like
+      // the Move Card dialog) instead of leaving sort unchanged at a random
+      // position.
+      const destSiblings = await ReactiveCache.getCards(
+        { boardId: newBoardId, listId: newListId, archived: false },
+        { sort: ['sort'] },
+      );
+      const topSort = computeTopSort((destSiblings || []).map(c => c.sort));
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { boardId: newBoardId, swimlaneId: newSwimlaneId, listId: newListId } },
+        { $set: { boardId: newBoardId, swimlaneId: newSwimlaneId, listId: newListId, sort: topSort } },
       );
       updated = true;
 
       const card = await ReactiveCache.getCard(paramCardId);
       await cardMove(req.userId, card, ['boardId', 'swimlaneId', 'listId'], newListId, newSwimlaneId, newBoardId);
     }
-    if (req.body.archive) {
+    // Issue #5546: archive / de-archive a card. The selector intentionally does
+    // NOT pin listId: a caller who only wants to set archived=false cannot
+    // reliably supply the archived card's listId (the list-scoped GET hides
+    // archived cards), so matching on board + card id is enough. `archived:
+    // !archive` still guards against a redundant no-op write.
+    if ('archive' in req.body) {
       const archive = String(req.body.archive).toLowerCase() === 'true';
       await Cards.direct.updateAsync(
-        { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: !archive },
+        { _id: paramCardId, boardId: paramBoardId, archived: !archive },
         { $set: { archived: archive } },
       );
       updated = true;
