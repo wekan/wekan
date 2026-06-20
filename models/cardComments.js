@@ -23,6 +23,33 @@ function sanitizeText(text) {
 const CardComments = new Mongo.Collection('card_comments');
 
 /**
+ * Pure permission decision for editing/deleting a comment.
+ *
+ * Kept as a standalone exported function so it can be unit-tested in isolation
+ * and reused by both the collection hooks (server) and the UI (client).
+ *
+ * @param {Object} opts
+ * @param {boolean} opts.isAuthor               is the acting user the comment author?
+ * @param {boolean} opts.isBoardAdmin           is the acting user a board admin?
+ * @param {boolean} opts.restrictCommentEditing board setting: when true, board
+ *                                               admins may NOT edit/delete comments
+ *                                               authored by others.
+ * @returns {boolean} whether the acting user may edit/delete the comment.
+ */
+export function canEditComment({ isAuthor, isBoardAdmin, restrictCommentEditing }) {
+  // The author may always edit/delete their own comment.
+  if (isAuthor) {
+    return true;
+  }
+  // When editing is restricted, admins lose the ability to touch others' comments.
+  if (restrictCommentEditing) {
+    return false;
+  }
+  // Default (unrestricted) behaviour: board admins may edit/delete others' comments.
+  return !!isBoardAdmin;
+}
+
+/**
  * A comment on a card
  */
 CardComments.attachSchema(
@@ -45,6 +72,15 @@ CardComments.attachSchema(
        * the text of the comment
        */
       type: String,
+    },
+    parentId: {
+      /**
+       * the _id of the comment this comment is a reply to (threaded replies).
+       * Optional: top-level comments have no parentId.
+       */
+      type: String,
+      optional: true,
+      defaultValue: '',
     },
     createdAt: {
       /**
@@ -100,6 +136,14 @@ CardComments.helpers({
     return ReactiveCache.getUser(this.userId);
   },
 
+  // The comment this one replies to, or undefined for top-level comments.
+  parentComment() {
+    if (!this.parentId) {
+      return undefined;
+    }
+    return ReactiveCache.getCardComment(this.parentId);
+  },
+
   reactions() {
     const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
     return !!cardCommentReactions ? cardCommentReactions.reactions : [];
@@ -148,6 +192,43 @@ CardComments.helpers({
 });
 
 CardComments.hookOptions.after.update = { fetchPrevious: false };
+
+if (Meteor.isServer) {
+  // Server-side enforcement of comment edit/delete permissions (issue #5906).
+  //
+  // The DDP `allow` rule in server/permissions/cardComments.js is the first
+  // gate, but the per-board `restrictCommentEditing` setting is enforced here
+  // so the rule cannot be bypassed and the decision lives next to the data.
+  const assertCanMutateComment = async (userId, doc) => {
+    // Server-internal operations (board copy, cleanup, migrations, etc.) run
+    // without an authenticated user; do not block those here. User-initiated
+    // DDP calls always carry a userId and are still gated by the allow rule.
+    if (!userId) {
+      return;
+    }
+    const isAuthor = userId === doc.userId;
+    if (isAuthor) {
+      return; // Authors may always edit/delete their own comments.
+    }
+    const board = await Boards.findOneAsync(doc.boardId);
+    const isBoardAdmin = !!board && !!userId && board.hasAdmin(userId);
+    const restrictCommentEditing = !!board && !!board.restrictCommentEditing;
+    if (!canEditComment({ isAuthor, isBoardAdmin, restrictCommentEditing })) {
+      throw new Meteor.Error(
+        'error-comment-edit-not-allowed',
+        "You are not allowed to edit or delete another user's comment on this board.",
+      );
+    }
+  };
+
+  CardComments.before.update(async (userId, doc) => {
+    await assertCanMutateComment(userId, doc);
+  });
+
+  CardComments.before.remove(async (userId, doc) => {
+    await assertCanMutateComment(userId, doc);
+  });
+}
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);

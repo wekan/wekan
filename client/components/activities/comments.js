@@ -1,11 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import CardComments from '/models/cardComments';
+import CardComments, { canEditComment } from '/models/cardComments';
 import { UnsavedEdits } from '/client/lib/unsavedEdits';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 
 const commentFormIsOpen = new ReactiveVar(false);
+// _id of the comment currently being replied to (threaded replies, issue #5907).
+// Empty string means a new top-level comment.
+const replyToCommentId = new ReactiveVar('');
 
 Template.commentForm.onDestroyed(function () {
   commentFormIsOpen.set(false);
@@ -15,6 +18,12 @@ Template.commentForm.onDestroyed(function () {
 Template.commentForm.helpers({
   commentFormIsOpen() {
     return commentFormIsOpen.get();
+  },
+  // The comment being replied to, if any, so the form can show an
+  // "In reply to ..." banner with a way to cancel.
+  replyToComment() {
+    const id = replyToCommentId.get();
+    return id ? ReactiveCache.getCardComment(id) : undefined;
   },
 });
 
@@ -32,17 +41,24 @@ Template.commentForm.events({
       boardId = card.linkedId;
     }
     if (text) {
+      const parentId = replyToCommentId.get();
       CardComments.insert({
         text,
         boardId,
         cardId,
+        parentId: parentId || '',
       });
+      replyToCommentId.set('');
       resetCommentInput(input);
       Tracker.flush();
       autosize.update(input);
       input.trigger('submitted');
     }
     evt.preventDefault();
+  },
+  'click .js-cancel-reply'(evt) {
+    evt.preventDefault();
+    replyToCommentId.set('');
   },
   // Pressing Ctrl+Enter should submit the form
   'keydown form textarea'(evt, tpl) {
@@ -60,7 +76,36 @@ Template.comments.helpers({
   },
 });
 
+Template.comment.helpers({
+  // Whether the current user may edit/delete this comment, honouring the
+  // board's restrictCommentEditing setting (issue #5906). Mirrors the
+  // server-side enforcement so the UI hides buttons the server would reject.
+  canEditThisComment() {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return false;
+    const isAuthor = user._id === this.userId;
+    const board = ReactiveCache.getBoard(this.boardId);
+    const isBoardAdmin = !!board && board.hasAdmin(user._id);
+    const restrictCommentEditing = !!board && !!board.restrictCommentEditing;
+    return canEditComment({ isAuthor, isBoardAdmin, restrictCommentEditing });
+  },
+  // The parent comment this one replies to, or undefined.
+  parentComment() {
+    return this.parentId ? ReactiveCache.getCardComment(this.parentId) : undefined;
+  },
+});
+
 Template.comment.events({
+  'click .js-reply-comment'(evt) {
+    evt.preventDefault();
+    replyToCommentId.set(this._id);
+    // Open and focus the new-comment form.
+    const input = $('.js-new-comment-input');
+    input.click();
+    Tracker.afterFlush(() => {
+      $('.js-new-comment-input').focus();
+    });
+  },
   'click .js-delete-comment': Popup.afterConfirm('deleteComment', function () {
     const commentId = this._id;
     CardComments.remove(commentId);

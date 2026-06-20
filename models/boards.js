@@ -782,6 +782,15 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    restrictCommentEditing: {
+      /**
+       * When true, board admins can NOT edit or delete comments authored by
+       * other users (only the comment's author can). Default false keeps the
+       * historical behaviour where board admins may moderate any comment.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     allowsReceivedDateOnMinicard: {
       /**
        * Does the board allows received date on minicard?
@@ -2110,6 +2119,16 @@ Boards.helpers({
 
   async setAllowsReceivedDate(allowsReceivedDate) {
     return await Boards.updateAsync(this._id, { $set: { allowsReceivedDate } });
+  },
+
+  getRestrictCommentEditing() {
+    return !!this.restrictCommentEditing;
+  },
+
+  async setRestrictCommentEditing(restrictCommentEditing) {
+    return await Boards.updateAsync(this._id, {
+      $set: { restrictCommentEditing: !!restrictCommentEditing },
+    });
   },
 
   async setAllowsCardCounterList(allowsCardCounterList) {

@@ -135,3 +135,49 @@
   font-size: 0.8em;
   color: #999;
 }
+/* Threaded replies (issue #5907): indent replies under their parent. */
+.comments .comment.is-reply {
+  margin-inline-start: 24px;
+  border-inline-start: 2px solid #e0e0e0;
+  padding-inline-start: 8px;
+}
+.comments .comment .comment-desc .comment-in-reply-to {
+  font-size: 0.8em;
+  color: #999;
+  border-inline-start: 2px solid #ccc;
+  padding-inline-start: 6px;
+  margin: 3px 0;
+  display: block;
+}
+.comments .comment .comment-desc .comment-in-reply-to .comment-in-reply-to-label {
+  font-weight: 700;
+  margin-inline-end: 4px;
+}
+.comments .comment .comment-desc .comment-in-reply-to .comment-in-reply-to-text {
+  font-style: italic;
+}
+/* "In reply to" banner above the new-comment form. */
+.new-comment .comment-reply-banner {
+  background: #f4f4f4;
+  border-inline-start: 2px solid #ccc;
+  padding: 4px 6px;
+  margin: 0 4px 6px 0;
+  font-size: 0.85em;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.new-comment .comment-reply-banner .comment-reply-banner-label {
+  font-weight: 700;
+}
+.new-comment .comment-reply-banner .comment-reply-banner-text {
+  flex: 1;
+  font-style: italic;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.new-comment .comment-reply-banner a {
+  cursor: pointer;
+}

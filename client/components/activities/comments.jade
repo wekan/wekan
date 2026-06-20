@@ -2,6 +2,14 @@ template(name="commentForm")
   .new-comment.js-new-comment(
     class="{{#if commentFormIsOpen}}is-open{{/if}}")
     +userAvatar(userId=currentUser._id noRemove=true)
+    if replyToComment
+      .comment-reply-banner.js-reply-banner
+        span.comment-reply-banner-label {{_ 'comment-in-reply-to'}}:
+        span.comment-reply-banner-text
+          +viewer
+            = replyToComment.text
+        a.js-cancel-reply(title="{{_ 'close' }}")
+          i.fa.fa-times-thin
     form.js-new-comment-form
       +editor(class="js-new-comment-input")
         | {{getUnsavedValue 'cardComment' currentCard._id}}
@@ -14,11 +22,18 @@ template(name="comments")
       +comment(commentData)
 
 template(name="comment")
-  .comment
+  .comment(class="{{#if parentId}}is-reply{{/if}}")
     +userAvatar(userId=userId)
     p.comment-desc
       span.comment-member
         +memberName(user=user)
+
+      if parentComment
+        .comment-in-reply-to
+          span.comment-in-reply-to-label {{_ 'comment-in-reply-to'}}:
+          span.comment-in-reply-to-text
+            +viewer
+              = parentComment.text
 
       +inlinedForm(classNames='js-edit-comment')
         +editor(autofocus=true)
@@ -33,9 +48,10 @@ template(name="comment")
             = text
         +commentReactions(reactions=reactions commentId=_id)
         span(title=createdAt).comment-meta {{ displayDate createdAt }}
-          if($eq currentUser._id userId)
-            +editOrDeleteComment
-          else if currentUser.isBoardAdmin
+          if currentUser.isBoardMember
+            = ' - '
+            a.js-reply-comment {{_ "comment-reply"}}
+          if canEditThisComment
             +editOrDeleteComment
 
 template(name="editOrDeleteComment")
