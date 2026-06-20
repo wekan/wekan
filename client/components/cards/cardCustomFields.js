@@ -29,6 +29,7 @@ import {
 } from '/imports/lib/dateUtils';
 import { CustomFieldStringTemplate } from '/client/lib/customFields'
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
+import { formatNumberValue } from '/imports/lib/customNumberFormat';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { getSidebarInstance } from '/client/features/sidebar/service';
 
@@ -91,10 +92,21 @@ Template['cardCustomField-number'].onCreated(function () {
   this.customFieldId = Template.currentData()._id;
 });
 
+Template['cardCustomField-number'].helpers({
+  // Render blank / cleared / non-numeric values as empty instead of "NaN" (#2091).
+  formattedValue() {
+    return formatNumberValue(this.value);
+  },
+});
+
 Template['cardCustomField-number'].events({
   'submit .js-card-customfield-number'(event, tpl) {
     event.preventDefault();
-    const value = parseInt(tpl.find('input').value, 10);
+    const rawValue = tpl.find('input').value;
+    // A cleared/blank input parses to NaN; store '' instead so it renders empty
+    // rather than as "NaN" (#2091).
+    const parsed = parseInt(rawValue, 10);
+    const value = Number.isNaN(parsed) ? '' : parsed;
     tpl.card.setCustomField(tpl.customFieldId, value);
   },
 });

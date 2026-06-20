@@ -44,13 +44,13 @@ template(name="cardCustomField-number")
                 a.js-close-inlined-form
         else
             a.js-open-inlined-form
-                if value
-                    = value
+                if formattedValue
+                    = formattedValue
                 else
                     | {{_ 'edit'}}
     else
-        if value
-            = value
+        if formattedValue
+            = formattedValue
 
 template(name="cardCustomField-checkbox")
   .js-checklist-item.checklist-item(class="{{#if data.value }}is-checked{{/if}}")
