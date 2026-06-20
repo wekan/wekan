@@ -80,7 +80,7 @@ Template.boardTriggers.events({
       desc,
     });
   },
-  'click .js-add-arc-trigger'(event, tpl) {
+  'click .js-add-arch-trigger'(event, tpl) {
     const datas = Template.currentData();
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const actionSelected = tpl.find('#arch-action').value;
