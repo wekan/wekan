@@ -36,6 +36,10 @@ import {
   normalizeDependency,
   normalizeDependencies,
 } from '/models/metadata/dependencies';
+import {
+  filterCopiedLabelIds,
+  remapCoverId,
+} from '/server/lib/cardCopyHelpers';
 import Attachments from "./attachments";
 import PositionHistory from './positionHistory';
 import Activities from '/models/activities';
@@ -848,11 +852,15 @@ Cards.helpers({
         }).map(x => x.name);
 
       const newBoard = await ReactiveCache.getBoard(boardId);
-      const newBoardLabels = newBoard.labels;
-      const newCardLabels = newBoardLabels.filter(label => {
-          return oldCardLabels.includes(label.name);
-        }).map(x => x._id);
+      // #2970: only map labels that exist by NAME on the destination board and
+      // skip unnamed labels, otherwise every unnamed destination label would be
+      // wrongly selected (mirrors the guard used by Cards.move()).
+      const newCardLabels = filterCopiedLabelIds(newBoard.labels, oldCardLabels);
+      // Assign onto `this` (the document actually inserted below), not the
+      // shallow `cardData` copy, so the remapped labels are persisted — the
+      // same way customFields is handled just below.
       cardData.labelIds = newCardLabels;
+      this.labelIds = newCardLabels;
 
       this.customFields = this.mapCustomFieldsToBoard(newBoard._id);
     }
