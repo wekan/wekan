@@ -147,6 +147,31 @@ and fixes the following bugs:
 - [Fixed updating a card title not firing the outgoing webhook](https://github.com/wekan/wekan/issues/3619)
   ([commit](https://github.com/wekan/wekan/commit/9aa97ab8f)): a title change now logs an `a-changedTitle` activity
   (rendered in the activity feed) so the existing outgoing-webhook hook fires, consistent with description/date changes.
+- [Fixed @mention: pressing Enter to pick a user closed the card / submitted the comment](https://github.com/wekan/wekan/issues/3289)
+  ([commit](https://github.com/wekan/wekan/commit/3ce75dd87)), also [#4172](https://github.com/wekan/wekan/issues/4172)
+  and [#5457](https://github.com/wekan/wekan/issues/5457): when the @mention autocomplete dropdown is open, Enter now
+  selects the highlighted user instead of submitting/closing (shared textcomplete keydown guard hardened).
+- [Fixed REST card API move/sort/date/archive bugs](https://github.com/wekan/wekan/issues/5398)
+  ([commit](https://github.com/wekan/wekan/commit/39e12035e)): consolidated duplicated board-move variable names
+  (#5398); moving a card to another list via the API now puts it on top of the destination list like the Move Card
+  dialog ([#5399](https://github.com/wekan/wekan/issues/5399)); due/received/start/end dates set via the API now
+  persist instead of being stripped ([#5537](https://github.com/wekan/wekan/issues/5537)); and archived cards can be
+  inspected via the single-card GET and de-archived without needing a `list_id` ([#5546](https://github.com/wekan/wekan/issues/5546)).
+- [Fixed the per-checklist "Hide checked items" toggle being inverted and affecting all checklists](https://github.com/wekan/wekan/issues/5408)
+  ([commit](https://github.com/wekan/wekan/commit/e98aae278)): it is now read per checklist and hides an item exactly
+  when it is checked and that checklist's toggle is on.
+- [Fixed setting a list/swimlane colour to `silver` saving it as None](https://github.com/wekan/wekan/issues/5382)
+  ([commit](https://github.com/wekan/wekan/commit/6f8543322)): list/swimlane colours are normalized through a shared
+  canonical allowed-colour helper, so `silver` (and every offered colour) is accepted and rendered.
+- [Fixed internal caret `^board^` helper boards appearing in board lists and the REST API](https://github.com/wekan/wekan/issues/5582)
+  ([commit](https://github.com/wekan/wekan/commit/f819054bb)): caret-wrapped titles and non-`board` types are now
+  filtered from `/api/users/:userId/boards`, `/api/boards` and the `Boards.userBoards` helper, consistent with the UI.
+- [Fixed being unable to remove a deleted (non-existent) user from a board's members](https://github.com/wekan/wekan/issues/5330)
+  ([commit](https://github.com/wekan/wekan/commit/beac9e3d7)): orphaned member entries are now hard-removed by userId
+  even when the user account no longer exists.
+- [Fixed a custom number field displaying as `NaN` when cleared after being set](https://github.com/wekan/wekan/issues/2091)
+  ([commit](https://github.com/wekan/wekan/commit/98315c26c)): an empty number value is stored as `''` and rendered as
+  empty via a shared `formatNumberValue` helper.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
