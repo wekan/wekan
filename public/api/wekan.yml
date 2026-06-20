@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.64
+  version: v9.65
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2150,6 +2150,11 @@ paths:
           description: the assignees value
           type: string
           required: true
+        - name: dateField
+          in: formData
+          description: the dateField value
+          type: string
+          required: true
         - name: board
           in: path
           description: the board value
@@ -2205,21 +2210,6 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
-        - name: newBoardId
-          in: formData
-          description: the newBoardId value
-          type: string
-          required: true
-        - name: newSwimlaneId
-          in: formData
-          description: the newSwimlaneId value
-          type: string
-          required: true
-        - name: newListId
-          in: formData
-          description: the newListId value
-          type: string
-          required: true
         - name: title
           in: formData
           description: the title value
@@ -2293,21 +2283,6 @@ paths:
         - name: assignees
           in: formData
           description: the assignees value
-          type: string
-          required: true
-        - name: swimlaneId
-          in: formData
-          description: the swimlaneId value
-          type: string
-          required: true
-        - name: listId
-          in: formData
-          description: the listId value
-          type: string
-          required: true
-        - name: archive
-          in: formData
-          description: the archive value
           type: string
           required: true
         - name: stickers
@@ -4348,6 +4323,15 @@ paths:
           description: Missing or invalid authentication
         '404':
           description: Board not found
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # iCalendar (.ics) import (server/methods/icsImport.js)
+  #
+  # Registered with `WebApp.handlers.post(...)` in server/methods/ which is not
+  # one of the directories scanned by openapi/generate_openapi.py, so it is
+  # documented here by hand. Keep in sync with server/methods/icsImport.js.
+  # See WeKan issue #6323. Import-only; two-way calendar sync is not provided.
+  # ───────────────────────────────────────────────────────────────────────────
   /api/boards/{boardId}/swimlanes/{swimlaneId}/lists/{listId}/ics:
     post:
       operationId: import_ics
@@ -4407,7 +4391,6 @@ paths:
           description: Missing or invalid authentication, or no write access to the board
         '404':
           description: Board, list or swimlane not found
-
 definitions:
   AttachmentStorageSettings:
     type: object
@@ -4827,6 +4810,12 @@ definitions:
         description: |
            Does the board allows received date?
         type: boolean
+      restrictCommentEditing:
+        description: |
+           When true, board admins can NOT edit or delete comments authored by
+           other users (only the comment's author can). Default false keeps the
+           historical behaviour where board admins may moderate any comment.
+        type: boolean
       allowsReceivedDateOnMinicard:
         description: |
            Does the board allows received date on minicard?
@@ -4979,6 +4968,7 @@ definitions:
       - allowsShowListsOnMinicard
       - allowsChecklistAtMinicard
       - allowsReceivedDate
+      - restrictCommentEditing
       - allowsReceivedDateOnMinicard
       - allowsStartDate
       - allowsStartDateOnMinicard
@@ -5133,6 +5123,12 @@ definitions:
         description: |
            the text of the comment
         type: string
+      parentId:
+        description: |
+           the _id of the comment this comment is a reply to (threaded replies).
+           Optional: top-level comments have no parentId.
+        type: string
+        x-nullable: true
       createdAt:
         description: |
            when was the comment created
@@ -6058,6 +6054,9 @@ definitions:
       supportPagePublic:
         type: boolean
         x-nullable: true
+      boardMembersFromSameOrgOrTeamOnly:
+        type: boolean
+        x-nullable: true
       supportTitle:
         type: string
         x-nullable: true
@@ -6319,6 +6318,12 @@ definitions:
         description: |
            per-user preference to render unicode icons in grey
         type: boolean
+      dismissedAnnouncementVersion:
+        description: |
+           version string of the global announcement the user has permanently
+           dismissed (#6051). When the admin changes the announcement text its
+           version changes, so the banner reappears for everyone.
+        type: string
       cardMaximized:
         description: |
            has user clicked maximize card?
