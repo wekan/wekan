@@ -8,6 +8,7 @@ import Integrations from '/models/integrations';
 import { RulesHelper } from '/server/rulesHelper';
 import { Notifications } from '/server/notifications/notifications';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { safeDeliver } from '/server/lib/webhookGuard';
 
 function normalizeActivityText(value, fallback = '') {
   return typeof value === 'string' ? value : fallback;
@@ -364,9 +365,22 @@ Activities.after.insert(async (userId, doc) => {
   if (integrations.length > 0) {
     params.watchers = watchers;
     integrations.forEach((integration) => {
-      Meteor.call('outgoingWebhooks', integration, description, params, () => {
-        return;
-      });
+      // Fire-and-forget, error-isolated: a failing/slow/unreachable outgoing
+      // webhook must never abort this activity insert or the originating
+      // operation (e.g. adding/removing a card member). See bug #1402.
+      // safeDeliver() never rejects, so we intentionally do not await it.
+      safeDeliver(
+        () =>
+          new Promise((resolve, reject) => {
+            Meteor.call('outgoingWebhooks', integration, description, params, (err) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve();
+              }
+            });
+          }),
+      );
     });
   }
 });
