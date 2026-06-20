@@ -3,3 +3,24 @@
   margin-inline-end: auto;
   margin-inline-start: auto;
 }
+
+/* Scrollable list container for the Due Cards view.
+   Scoped to the due-cards list only, not global (issue #5930). */
+.due-cards-list {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Leave room for the header bar / results header so the list itself can
+     scroll instead of being clipped after the first few cards. */
+  max-height: calc(100vh - 160px);
+}
+
+/* On small screens (mobile / iPhone) the previous fixed height clipped the
+   list at roughly 5 cards. Allow the list to use the available viewport
+   height and scroll past the first cards. */
+@media screen and (max-width: 800px) {
+  .due-cards-list {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

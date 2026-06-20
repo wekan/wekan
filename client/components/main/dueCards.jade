@@ -35,8 +35,9 @@ template(name="dueCards")
           .due-cards-results-header
             h1
               = resultsText
-          each card in dueCardsList
-            +resultCard(card)
+          .due-cards-list
+            each card in dueCardsList
+              +resultCard(card)
     else
       .global-search-results-list-wrapper
         .no-results

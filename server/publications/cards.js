@@ -307,7 +307,9 @@ Meteor.publish('dueCards', async function(allUsers = false) {
 
   const options = {
     sort: { dueAt: 1 }, // Sort by due date ascending (oldest first)
-    limit: 100, // Limit results for performance
+    // No limit: show ALL of the user's due cards across boards (issue #5999).
+    // Previously a `limit: 100` capped the results, which (combined with the
+    // per-user filter) hid many due cards compared to older versions.
     fields: {
       title: 1,
       dueAt: 1,
