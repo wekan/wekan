@@ -3,6 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Cards from '/models/cards';
 import { Filter } from '/client/lib/filter';
 import { subtaskStatusLabel } from './subtaskStatusHelpers';
+import { canNavigateToSubtaskBoard } from './subtaskViewHelpers';
 import { Utils } from '/client/lib/utils';
 
 Template.subtasks.events({
@@ -159,13 +160,17 @@ Template.subtaskActionsPopup.events({
     if ($(event.target).hasClass('js-view-subtask')) {
       const subtask = Template.currentData().subtask;
       const board = subtask.board();
-      FlowRouter.go('card', {
-        boardId: board._id,
-        slug: board.slug,
-        cardId: subtask._id,
-        swimlaneId: subtask.swimlaneId,
-        listId: subtask.listId,
-      });
+      // #4762: the subtask's board may not be loaded yet (ReactiveCache miss);
+      // guard before dereferencing it, mirroring js-go-to-subtask-board.
+      if (canNavigateToSubtaskBoard(board)) {
+        FlowRouter.go('card', {
+          boardId: board._id,
+          slug: board.slug,
+          cardId: subtask._id,
+          swimlaneId: subtask.swimlaneId,
+          listId: subtask.listId,
+        });
+      }
     }
   },
   'click .js-go-to-subtask-board'() {
