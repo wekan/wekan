@@ -5,6 +5,7 @@ import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 import { ContenteditableEditor } from '@textcomplete/contenteditable';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { shouldSubmitOnEnter } from '/client/lib/mentionKeyGuard';
 
 let dropdownMenuIsOpened = false;
 
@@ -38,8 +39,19 @@ export function createEscapeableTextComplete(element, strategies, options = {}) 
   // or `Enter` to validate the auto-completion. We also need to stop the
   // event propagation to prevent EscapeActions side effect, for instance the
   // minicard submission (on `Enter`) or going on the next column (on `Tab`).
+  //
+  // Regression #3289 / #4172 / #5457: pressing `Enter` to pick a suggested
+  // user used to submit the comment / close the card instead of selecting the
+  // mention. We must therefore stop the keydown from reaching any other
+  // handler (the form `submit`, the inlinedForm/minicard handlers, …) AND
+  // prevent the default newline so the textcomplete `selected` action is the
+  // only effect. `stopImmediatePropagation` also blocks other listeners bound
+  // to this same element (e.g. summernote in the richer editor).
   element.addEventListener('keydown', (evt) => {
-    if (dropdownMenuIsOpened && (evt.keyCode === 9 || evt.keyCode === 13)) {
+    const isTabOrEnter = evt.keyCode === 9 || evt.keyCode === 13;
+    if (isTabOrEnter && !shouldSubmitOnEnter({ autocompleteOpen: dropdownMenuIsOpened })) {
+      evt.preventDefault();
+      evt.stopImmediatePropagation();
       evt.stopPropagation();
     }
   });
