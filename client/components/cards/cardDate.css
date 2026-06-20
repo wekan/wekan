@@ -8,23 +8,27 @@
 .card-date.is-active {
   background-color: #b3b3b3;
 }
-/* Date status colors - red = overdue, amber = due soon, no shade = not due */
+/* Date status colors - red = overdue, amber = due soon, no shade = not due.
+ * These status rules use !important so they override the date-type base
+ * colours below (e.g. .card-date.due-date yellow). Without this, an overdue
+ * due-date badge in the card detail showed yellow/amber instead of red, while
+ * the minicard (which already used !important) showed red - issue #5965. */
 .card-date.overdue {
-  background-color: #ff4444; /* Red for overdue */
-  color: #fff;
+  background-color: #ff4444 !important; /* Red for overdue */
+  color: #fff !important;
 }
 .card-date.overdue:hover,
 .card-date.overdue.is-active {
-  background-color: #cc3333;
+  background-color: #cc3333 !important;
 }
 
 .card-date.due-soon {
-  background-color: #ffaa00; /* Amber for due soon */
-  color: #000;
+  background-color: #ffaa00 !important; /* Amber for due soon */
+  color: #000 !important;
 }
 .card-date.due-soon:hover,
 .card-date.due-soon.is-active {
-  background-color: #e69900;
+  background-color: #e69900 !important;
 }
 
 .card-date.not-due {
@@ -32,48 +36,48 @@
 }
 
 .card-date.current {
-  background-color: #5ba639; /* Green for current/active */
-  color: #fff;
+  background-color: #5ba639 !important; /* Green for current/active */
+  color: #fff !important;
 }
 .card-date.current:hover,
 .card-date.current.is-active {
-  background-color: #46802c;
+  background-color: #46802c !important;
 }
 
 .card-date.completed {
-  background-color: #90ee90; /* Light green for completed */
-  color: #000;
+  background-color: #90ee90 !important; /* Light green for completed */
+  color: #000 !important;
 }
 .card-date.completed:hover,
 .card-date.completed.is-active {
-  background-color: #7dd87d;
+  background-color: #7dd87d !important;
 }
 
 .card-date.completed-early {
-  background-color: #4caf50; /* Green for completed early */
-  color: #fff;
+  background-color: #4caf50 !important; /* Green for completed early */
+  color: #fff !important;
 }
 .card-date.completed-early:hover,
 .card-date.completed-early.is-active {
-  background-color: #45a049;
+  background-color: #45a049 !important;
 }
 
 .card-date.completed-late {
-  background-color: #ff9800; /* Orange for completed late */
-  color: #fff;
+  background-color: #ff9800 !important; /* Orange for completed late */
+  color: #fff !important;
 }
 .card-date.completed-late:hover,
 .card-date.completed-late.is-active {
-  background-color: #f57c00;
+  background-color: #f57c00 !important;
 }
 
 .card-date.completed-on-time {
-  background-color: #2196f3; /* Blue for completed on time */
-  color: #fff;
+  background-color: #2196f3 !important; /* Blue for completed on time */
+  color: #fff !important;
 }
 .card-date.completed-on-time:hover,
 .card-date.completed-on-time.is-active {
-  background-color: #1976d2;
+  background-color: #1976d2 !important;
 }
 
 /* Date type specific colors */

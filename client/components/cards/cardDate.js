@@ -25,9 +25,9 @@ import {
   now,
   createDate,
   fromNow,
-  calendar,
-  diff
+  calendar
 } from '/imports/lib/dateUtils';
+import { dueDateClass } from '/client/lib/dueDateColor';
 
 // --- DatePicker popups (edit date forms) ---
 
@@ -257,29 +257,12 @@ Template.cardDueDate.onCreated(function () {
 Template.cardDueDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
-    let classes = 'due-date ';
     const data = Template.currentData();
     const endAt = data.getEnd();
     const theDate = tpl.date.get();
     const nowVal = tpl.now.get();
 
-    if (endAt && isBefore(endAt, theDate)) {
-      classes += 'completed-early';
-    } else if (endAt) {
-      classes += 'completed';
-    } else {
-      const daysDiff = diff(theDate, nowVal, 'days');
-
-      if (daysDiff < 0) {
-        classes += 'overdue';
-      } else if (daysDiff <= 1) {
-        classes += 'due-soon';
-      } else {
-        classes += 'not-due';
-      }
-    }
-
-    return classes;
+    return `due-date ${dueDateClass(theDate, nowVal, endAt)}`;
   },
   showTitle() {
     const tpl = Template.instance();
@@ -471,29 +454,12 @@ Template.minicardDueDate.onCreated(function () {
 Template.minicardDueDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
-    let classes = 'due-date ';
     const data = Template.currentData();
     const endAt = data.getEnd();
     const theDate = tpl.date.get();
     const nowVal = tpl.now.get();
 
-    if (endAt && isBefore(endAt, theDate)) {
-      classes += 'completed-early';
-    } else if (endAt) {
-      classes += 'completed';
-    } else {
-      const daysDiff = diff(theDate, nowVal, 'days');
-
-      if (daysDiff < 0) {
-        classes += 'overdue';
-      } else if (daysDiff <= 1) {
-        classes += 'due-soon';
-      } else {
-        classes += 'not-due';
-      }
-    }
-
-    return classes;
+    return `due-date ${dueDateClass(theDate, nowVal, endAt)}`;
   },
   showTitle() {
     const tpl = Template.instance();
