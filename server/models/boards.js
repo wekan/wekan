@@ -7,6 +7,7 @@ import { WekanCreator } from '/models/wekanCreator';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardAdmin, boardMemberRoleToFlags } from '/server/lib/utils';
+import { filterUserBoards } from '/server/lib/boardListFilter';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Actions from '/models/actions';
 import Activities from '/models/activities';
@@ -615,7 +616,10 @@ WebApp.handlers.get('/api/users/:userId/boards', async function(req, res) {
         sort: { sort: 1 },
       },
     );
-    const data = boards.map(board => ({
+    // #5582: hide internal helper boards (caret-wrapped titles like `^Subtasks^`
+    // and non-`board` types such as `list`/`template`) from the REST API, the
+    // same way the UI board list does.
+    const data = filterUserBoards(boards).map(board => ({
       _id: board._id,
       title: board.title,
     }));
@@ -640,7 +644,9 @@ WebApp.handlers.get('/api/boards', async function(req, res) {
     );
     sendJsonResult(res, {
       code: 200,
-      data: boards.map(doc => ({
+      // #5582: exclude internal helper boards (caret-wrapped titles / non-board
+      // types) from the public boards listing.
+      data: filterUserBoards(boards).map(doc => ({
         _id: doc._id,
         title: doc.title,
       })),

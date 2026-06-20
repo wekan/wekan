@@ -2257,6 +2257,12 @@ Boards.userBoards = (
     if (!selector.type) {
       selector.type = 'board';
     }
+    // #5582: never surface internal helper boards whose title is wrapped in
+    // carets (e.g. `^Subtasks^`). Only set this when the caller did not already
+    // constrain the title.
+    if (selector.title === undefined) {
+      selector.title = { $not: { $regex: /^\^.*\^$/ } };
+    }
     selector.$or = [
       { permission: 'public' },
       { members: { $elemMatch: { userId, isActive: true } } },
