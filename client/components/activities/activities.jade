@@ -130,6 +130,9 @@ template(name="activity")
       if($eq activity.activityType 'a-endAt')
         | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
 
+      if($eq activity.activityType 'a-changedTitle')
+        | {{{_ 'activity-changedTitle' (sanitize activity.value) cardLink}}}.
+
       //- customField activity ------------------------------------------------
       if($eq activity.activityType 'createCustomField')
         | {{_ 'activity-customfield-created' customField}}.

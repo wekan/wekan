@@ -7,6 +7,7 @@ import { add, now } from '/imports/lib/dateUtils';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
+import { titleChanged } from '/server/lib/titleChangeActivity';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards, {
@@ -502,6 +503,34 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
       swimlaneId: card.swimlaneId,
     });
   }
+});
+
+// Issue #3619: changing a card's title must log an activity so the
+// Activities.after.insert outgoing-webhook hook fires (like description/dueAt do).
+Cards.before.update(async (userId, doc, fieldNames, modifier) => {
+  if (!titleChanged(doc, modifier)) {
+    return;
+  }
+  const oldValue = doc.title || '';
+  const newValue = modifier.$set.title;
+  const card = await ReactiveCache.getCard(doc._id);
+  if (!card) {
+    console.warn('[Cards.before.update] Card not found for cardId:', doc._id, '— skipping title activity.');
+    return;
+  }
+  const user = await ReactiveCache.getUser(userId);
+  await Activities.insertAsync({
+    userId,
+    username: user && user.username,
+    activityType: 'a-changedTitle',
+    boardId: doc.boardId,
+    cardId: doc._id,
+    cardTitle: newValue,
+    oldValue,
+    value: newValue,
+    listId: card.listId,
+    swimlaneId: card.swimlaneId,
+  });
 });
 
 Cards.before.remove(async (userId, doc) => {
