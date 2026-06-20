@@ -261,6 +261,12 @@ REM ------------------------------------------------------------
 REM ## ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
 REM ## https://github.com/wekan/wekan/wiki/autologin
 REM # SET OIDC_REDIRECTION_ENABLED=true
+REM ## OIDC RP-initiated logout endpoint (end_session_endpoint). When set, "Log Out"
+REM ## ends the identity provider session and returns the user to Wekan (ROOT_URL)
+REM ## via post_logout_redirect_uri, instead of landing on the provider home page
+REM ## (which errors for non-admin users). See https://github.com/wekan/wekan/issues/6158
+REM ## Keycloak example:
+REM # SET OAUTH2_LOGOUT_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/logout
 
 REM ------------------------------------------------------------
 

@@ -316,6 +316,26 @@ Meteor.methods({
     return process.env.DASHBOARD_URL;
   },
 
+  // OIDC RP-initiated logout (https://openid.net/specs/openid-connect-rpinitiated-1_0.html).
+  // When OAUTH2_LOGOUT_ENDPOINT is set (e.g. Keycloak's
+  // /realms/<realm>/protocol/openid-connect/logout), build the end_session URL so
+  // logout terminates the identity provider session and returns the user to Wekan
+  // via post_logout_redirect_uri, instead of dumping them on the provider's home
+  // page (which errors for non-admin users). See issue #6158.
+  getOauthLogoutUrl() {
+    const endpoint = process.env.OAUTH2_LOGOUT_ENDPOINT;
+    if (!endpoint) return '';
+    const serverUrl = (process.env.OAUTH2_SERVER_URL || '').replace(/\/$/, '');
+    const base = /^https?:\/\//.test(endpoint) ? endpoint : serverUrl + endpoint;
+    const params = [
+      'post_logout_redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl()),
+    ];
+    if (process.env.OAUTH2_CLIENT_ID) {
+      params.push('client_id=' + encodeURIComponent(process.env.OAUTH2_CLIENT_ID));
+    }
+    return base + (base.includes('?') ? '&' : '?') + params.join('&');
+  },
+
   getDefaultAuthenticationMethod() {
     return process.env.DEFAULT_AUTHENTICATION_METHOD;
   },

@@ -557,6 +557,13 @@ services:
       # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
       # https://github.com/wekan/wekan/blob/main/docs/Login/autologin.md
       #- OIDC_REDIRECTION_ENABLED=true
+      # OIDC RP-initiated logout endpoint (end_session_endpoint). When set, the
+      # "Log Out" menu redirects to this endpoint so the identity provider session
+      # is also ended and the user is returned to Wekan (ROOT_URL) via
+      # post_logout_redirect_uri, instead of landing on the provider home page
+      # (which errors for non-admin users). See https://github.com/wekan/wekan/issues/6158
+      # Keycloak example:
+      #- OAUTH2_LOGOUT_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/logout
       #-----------------------------------------------------------------
       # ==== OAUTH2 ORACLE on premise identity manager OIM ====
       #- ORACLE_OIM_ENABLED=true

@@ -56,12 +56,25 @@ sudo systemctl status snap.wekan.wekan
 - OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
 - OAUTH2_USERINFO_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/userinfo
 - OAUTH2_TOKEN_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/token
+- OAUTH2_LOGOUT_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/logout
 - OAUTH2_SECRET=<keycloak client secret>
 - OAUTH2_ID_MAP=preferred_username
 - OAUTH2_USERNAME_MAP=preferred_username
 - OAUTH2_FULLNAME_MAP=given_name
 - OAUTH2_EMAIL_MAP=email
 ```
+
+### Log Out redirects to the Keycloak home page (issue #6158)
+
+With autologin (`OIDC_REDIRECTION_ENABLED=true`), clicking **Log Out** used to
+redirect to the Keycloak server home page, which shows an error page for
+non-admin users. Set `OAUTH2_LOGOUT_ENDPOINT` to Keycloak's end_session endpoint
+so Wekan performs an OIDC RP-initiated logout: it ends the Keycloak session and
+returns the user to Wekan (your `ROOT_URL`) via `post_logout_redirect_uri`.
+
+In the Keycloak client settings, add your Wekan `ROOT_URL` (for example
+`https://kanban.company.com`) to **Valid post logout redirect URIs** (Keycloak 18+),
+otherwise Keycloak rejects the redirect back to Wekan.
 ### Debugging, if Docker OIDC login does not work
 ```
 docker logs wekan-app

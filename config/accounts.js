@@ -13,11 +13,18 @@ let passwordLoginEnabled = false;
 let oidcRedirectionEnabled = false;
 let oauthServerUrl = "home";
 let oauthDashboardUrl = "";
+let oauthLogoutUrl = "";
 
 Meteor.call('isOidcRedirectionEnabled', (_, result) => {
   if(result)
   {
     oidcRedirectionEnabled = true;
+  }
+});
+
+Meteor.call('getOauthLogoutUrl', (_, result) => {
+  if (result) {
+    oauthLogoutUrl = result;
   }
 });
 
@@ -123,7 +130,15 @@ AccountsTemplates.configure({
   },
   onLogoutHook() {
     // here comeslogic for redirect
-    if(oidcRedirectionEnabled)
+    if(oauthLogoutUrl)
+    {
+      // OIDC RP-initiated logout: terminate the identity provider session and
+      // come back to Wekan via post_logout_redirect_uri. Without this, autologin
+      // would silently sign the user back in, or the provider would land them on
+      // its own home page (which errors for non-admin users). See issue #6158.
+      window.location = oauthLogoutUrl;
+    }
+    else if(oidcRedirectionEnabled)
     {
       window.location = oauthServerUrl + oauthDashboardUrl;
     }
