@@ -62,9 +62,10 @@ and adds the following new features:
   the invite/search paths. Site admins bypass.
 - [Import Google Calendar `.ics` files into board cards](https://github.com/wekan/wekan/commit/0a43d8ac3): MVP,
   import-only. New dependency-free iCalendar parser (`server/lib/icsImport.js`) maps each `VEVENT` to a card with
-  `startAt`/`dueAt` so events appear on Calendar/Gantt views, plus an `importIcsToBoard` Meteor method. Two-way
-  Google Calendar sync is not included (see [wekan-ical-server](https://github.com/wekan/wekan-ical-server) for
-  read-only WeKan→calendar export).
+  `startAt`/`dueAt` so events appear on Calendar/Gantt views, plus an `importIcsToBoard` Meteor method and a REST
+  endpoint `POST /api/boards/:boardId/swimlanes/:swimlaneId/lists/:listId/ics` (documented in the OpenAPI spec, with
+  an `importics` example in `api.py`). Two-way Google Calendar sync is not included (see
+  [wekan-ical-server](https://github.com/wekan/wekan-ical-server) for read-only WeKan→calendar export).
 
 and fixes the following bugs:
 

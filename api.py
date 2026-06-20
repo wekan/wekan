@@ -77,6 +77,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py exportboardpdf BOARDID OUTPUT.pdf # Export a whole board to PDF
     python3 api.py importboardfrom SOURCE EXPORT.json # Import from trello/wekan/csv/jira/kanboard/excel/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit
     python3 api.py exportboardformat BOARDID FORMAT OUTPUT.json # Export to kanboard/trello/jira/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit
+    python3 api.py importics BOARDID SWIMLANEID LISTID CALENDAR.ics # Import an iCalendar (.ics) file into a board as cards (one card per VEVENT)
 
         Board Member API (Issue #5998):
     python3 api.py addboardmember BOARDID USERID ROLE # Add/activate board member. ROLE: admin, normal, comment, readonly, worker, normalassignedonly, commentassignedonly, readassignedonly, nocomments
@@ -2020,5 +2021,22 @@ if arguments >= 4 and sys.argv[1] == 'exportboardformat':
     with open(outputpath, 'w') as f:
         f.write(response.text)
     print('Board exported ({}) to: {}'.format(fmt, outputpath))
+
+if arguments >= 5 and sys.argv[1] == 'importics':
+    # Usage: python3 api.py importics BOARDID SWIMLANEID LISTID CALENDAR.ics
+    # Imports an iCalendar (.ics) file into the board: one card is created per
+    # VEVENT, with startAt (DTSTART) and dueAt (DTEND, or DTSTART when there is
+    # no DTEND), so the events appear on the Calendar / Gantt views (issue #6323).
+    boardid = sys.argv[2]
+    swimlaneid = sys.argv[3]
+    listid = sys.argv[4]
+    icspath = sys.argv[5]
+    with open(icspath) as f:
+        ics_text = f.read()
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+    url = wekanurl + apiboards + boardid + s + 'swimlanes' + s + swimlaneid + s + l + s + listid + s + 'ics'
+    response = requests.post(url, headers=headers, json={'ics': ics_text})
+    # Response: { "created": <n>, "cardIds": [ ... ] }
+    print(response.text)
 
 # ------- IMPORT/EXPORT TO OTHER TOOLS END -----------

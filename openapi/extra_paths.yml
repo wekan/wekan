@@ -571,3 +571,71 @@
           description: Missing or invalid authentication
         '404':
           description: Board not found
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # iCalendar (.ics) import (server/methods/icsImport.js)
+  #
+  # Registered with `WebApp.handlers.post(...)` in server/methods/ which is not
+  # one of the directories scanned by openapi/generate_openapi.py, so it is
+  # documented here by hand. Keep in sync with server/methods/icsImport.js.
+  # See WeKan issue #6323. Import-only; two-way calendar sync is not provided.
+  # ───────────────────────────────────────────────────────────────────────────
+  /api/boards/{boardId}/swimlanes/{swimlaneId}/lists/{listId}/ics:
+    post:
+      operationId: import_ics
+      summary: Import an iCalendar (.ics) file into a board as cards
+      description: |
+        Parses the supplied iCalendar text and creates one card per VEVENT on the
+        given board / list / swimlane, populating each card's `startAt` (DTSTART)
+        and `dueAt` (DTEND, or DTSTART when there is no DTEND) so the imported
+        events appear on the Calendar and Gantt views.
+
+        Permissions: requires a valid auth token and write access to the board
+        (read-only / comment-only / worker members are rejected; site admins are
+        allowed).
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Cards
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          type: string
+          description: the board ID
+        - name: swimlaneId
+          in: path
+          required: true
+          type: string
+          description: the swimlane ID the cards are created in
+        - name: listId
+          in: path
+          required: true
+          type: string
+          description: the list ID the cards are created in
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - ics
+            properties:
+              ics:
+                type: string
+                description: the raw .ics (iCalendar) file contents
+      responses:
+        '200':
+          description: |
+            Import succeeded. Returns the number of cards created and their ids,
+            e.g. `{ "created": 3, "cardIds": ["abc", "def", "ghi"] }`.
+        '400':
+          description: Missing or empty `ics` body field
+        '401':
+          description: Missing or invalid authentication, or no write access to the board
+        '404':
+          description: Board, list or swimlane not found
