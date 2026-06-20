@@ -26,7 +26,7 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v9.64 2026-06-20 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ChecklistBleed](https://wekan.fi/hall-of-fame/checklistbleed/):
 
@@ -56,7 +56,8 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ChecklistBleed](htt
   no write access to. Legitimate moves into boards the user belongs to and same-card edits keep
   working, and the server-side `moveChecklist` method (which bypasses allow/deny) is unchanged.
   A regression test (`server/lib/tests/checklistbleed.security.tests.js`) was added.
-  Affected Wekan v9.62 and earlier. Thanks to DavidCarliez, xet7 and Claude.
+  Affected Wekan v9.62 and earlier.
+  Thanks to DavidCarliez, xet7 and Claude.
 
 and adds the following updates:
 
