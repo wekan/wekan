@@ -616,6 +616,16 @@ Template.setting.events({
       $('.invite-people').slideDown();
     }
   },
+  'click a.js-toggle-board-members-same-org-team'(event, tpl) {
+    // #6116: toggle the global "add board members from same Org/Team only" setting.
+    tpl.loading.set(true);
+    const current =
+      ReactiveCache.getCurrentSetting().boardMembersFromSameOrgOrTeamOnly;
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { boardMembersFromSameOrgOrTeamOnly: !current },
+    });
+    tpl.loading.set(false);
+  },
   'click a.js-toggle-tls'() {
     $('#mail-server-tls').toggleClass('is-checked');
   },

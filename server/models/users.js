@@ -802,6 +802,31 @@ Meteor.methods({
       user = await ReactiveCache.getUser(newUserId);
     }
 
+    // #6116: when the global admin setting is enabled, only allow adding a user
+    // who shares at least one Organization OR one Team with the inviter (or with
+    // any active board member). Site admins always bypass this restriction.
+    if (!inviter.isAdmin) {
+      const setting = await ReactiveCache.getCurrentSetting();
+      if (setting && setting.boardMembersFromSameOrgOrTeamOnly) {
+        let shares = inviter.sharesOrgOrTeamWith(user);
+        if (!shares) {
+          // Fall back to any active board member sharing an org/team, so an
+          // inviter without orgs/teams set can still add same-org/team users.
+          for (const m of board.members) {
+            if (!m.isActive || m.userId === inviter._id) continue;
+            const existingMember = await ReactiveCache.getUser(m.userId);
+            if (existingMember && existingMember.sharesOrgOrTeamWith(user)) {
+              shares = true;
+              break;
+            }
+          }
+        }
+        if (!shares) {
+          throw new Meteor.Error('error-user-notSameOrgOrTeam');
+        }
+      }
+    }
+
     const memberIndex = board.members.findIndex(m => m.userId === user._id);
     if (memberIndex >= 0) {
       await Boards.updateAsync(boardId, {
@@ -1884,12 +1909,40 @@ Meteor.methods({
           'profile.avatarUrl': 1,
           'profile.initials': 1,
           'emails.address': 1,
+          // #6116: needed for the same-org/same-team typeahead filter below.
+          orgs: 1,
+          teams: 1,
         },
         limit: 5,
       },
     );
 
-    return users.map(user => sanitizeUserForSearch(user));
+    // #6116: when the global admin setting is enabled, restrict the typeahead to
+    // users sharing an Organization or Team with the caller (or an active board
+    // member). Site admins are not filtered. Mirrors inviteUserToBoard so the UI
+    // never offers a candidate the server would later reject.
+    let filteredUsers = users;
+    if (!currentUser.isAdmin) {
+      const setting = await ReactiveCache.getCurrentSetting();
+      if (setting && setting.boardMembersFromSameOrgOrTeamOnly) {
+        const activeMemberUsers = [];
+        for (const m of board.members) {
+          if (!m.isActive) continue;
+          const memberUser =
+            m.userId === currentUser._id
+              ? currentUser
+              : await ReactiveCache.getUser(m.userId);
+          if (memberUser) activeMemberUsers.push(memberUser);
+        }
+        filteredUsers = users.filter(candidate =>
+          activeMemberUsers.some(memberUser =>
+            memberUser.sharesOrgOrTeamWith(candidate),
+          ),
+        );
+      }
+    }
+
+    return filteredUsers.map(user => sanitizeUserForSearch(user));
   },
 });
 

@@ -186,6 +186,14 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // #6116: when true, a user may only be added to a board if they share at
+    // least one Organization OR one Team with the user performing the add.
+    // Default false preserves the current unrestricted behaviour.
+    boardMembersFromSameOrgOrTeamOnly: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     supportTitle: {
       type: String,
       optional: true,

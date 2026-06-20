@@ -916,6 +916,28 @@ Users.helpers({
     }
     return [];
   },
+  // #6116: true when this user shares at least one Organization OR one Team with
+  // `otherUser`. Used to restrict who can be added to a board when the global
+  // admin setting `boardMembersFromSameOrgOrTeamOnly` is enabled.
+  sharesOrgOrTeamWith(otherUser) {
+    if (!otherUser) {
+      return false;
+    }
+    const myOrgs = new Set(this.orgIds());
+    const myTeams = new Set(this.teamIds());
+    const otherOrgs =
+      typeof otherUser.orgIds === 'function'
+        ? otherUser.orgIds()
+        : (otherUser.orgs || []).map(org => org.orgId);
+    const otherTeams =
+      typeof otherUser.teamIds === 'function'
+        ? otherUser.teamIds()
+        : (otherUser.teams || []).map(team => team.teamId);
+    return (
+      otherOrgs.some(orgId => myOrgs.has(orgId)) ||
+      otherTeams.some(teamId => myTeams.has(teamId))
+    );
+  },
   // #5850: the email-address domain(s) of this user, used for domain-based board
   // sharing (board.domains). Lower-cased; primary email's domain.
   emailDomains() {

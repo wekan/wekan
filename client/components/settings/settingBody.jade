@@ -128,6 +128,11 @@ template(name="general")
 
         span {{_ 'disable-self-registration'}}
     li
+      a.flex.js-toggle-board-members-same-org-team
+        .materialCheckBox(class="{{#if currentSetting.boardMembersFromSameOrgOrTeamOnly}}is-checked{{/if}}")
+
+        span {{_ 'board-members-same-org-team-only'}}
+    li
       .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
         ul
           li
