@@ -81,7 +81,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
@@ -124,7 +124,7 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       changelog: ${{ steps.changelog.outputs.content }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
@@ -186,13 +186,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wekan repo (bumped main, with rebuilt API docs)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: main
           path: wekan
 
       - name: Checkout wekan.fi website repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: wekan/wekan.fi
           token: ${{ secrets.WEKAN_REPO_TOKEN }}
@@ -219,13 +219,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wekan repo (for releases/release-charts.sh + version refs)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: main
           path: wekan
 
       - name: Checkout wekan/charts repo (main + gh-pages)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: wekan/charts
           token: ${{ secrets.WEKAN_REPO_TOKEN }}
@@ -260,7 +260,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
 
@@ -411,7 +411,7 @@ jobs:
       # Checked out into src/ so start-wekan.bat and snapcraft.yaml (which pins
       # the MongoDB tools/mongosh versions) are available; the downloaded bundle
       # is extracted alongside it in the workspace root.
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
@@ -650,7 +650,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
 
@@ -789,7 +789,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           # remote-build (Launchpad) rejects shallow clones, so fetch full history
