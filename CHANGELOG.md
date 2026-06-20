@@ -26,6 +26,23 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed OIDC/OAuth2 "Log Out" redirecting to the identity provider home page instead of back to Wekan](https://github.com/wekan/wekan/commit/9e50c69eaaec8928b4eb8a122f9cb6f0447464a9).
+  With autologin (`OIDC_REDIRECTION_ENABLED=true`), clicking Log Out redirected to the OAuth2 server URL
+  (for example the Keycloak base URL `https://id.company.com`), which shows an error page for non-admin
+  users. Added the new optional `OAUTH2_LOGOUT_ENDPOINT` setting: when set to the provider's
+  `end_session_endpoint` (Keycloak example `/realms/<realm>/protocol/openid-connect/logout`), Wekan now
+  performs an OIDC RP-initiated logout that ends the identity provider session and returns the user to
+  Wekan (`ROOT_URL`) via `post_logout_redirect_uri`. When unset, logout behaviour is unchanged, so this
+  is backward compatible. For Keycloak 18+, add your Wekan `ROOT_URL` to the client's
+  *Valid post logout redirect URIs*. See [docs/Login/Keycloak/Keycloak.md](https://github.com/wekan/wekan/blob/main/docs/Login/Keycloak/Keycloak.md).
+  Thanks to zambalee and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.64 2026-06-20 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ChecklistBleed](https://wekan.fi/hall-of-fame/checklistbleed/):
