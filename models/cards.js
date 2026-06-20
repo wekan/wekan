@@ -40,6 +40,7 @@ import {
   filterCopiedLabelIds,
   remapCoverId,
 } from '/server/lib/cardCopyHelpers';
+import { wouldCreateCycle } from '/imports/lib/subtaskHelpers';
 import Attachments from "./attachments";
 import PositionHistory from './positionHistory';
 import Activities from '/models/activities';
@@ -1379,8 +1380,10 @@ Cards.helpers({
         // maybe it has been deleted
         break;
       }
-      if (crtParentId in result) {
-        // circular reference
+      if (result.includes(crtParentId)) {
+        // #3328: circular reference. Compare by VALUE, not by array index.
+        // `crtParentId in result` tested array indices ("0","1",...) and never
+        // matched, so a cyclic parent chain looped here forever.
         break;
       }
       result.unshift(crtParentId);
@@ -1399,8 +1402,10 @@ Cards.helpers({
         // maybe it has been deleted
         break;
       }
-      if (crtParentId in resultId) {
-        // circular reference
+      if (resultId.includes(crtParentId)) {
+        // #3328: circular reference. Compare by VALUE, not by array index.
+        // `crtParentId in resultId` tested array indices ("0","1",...) and never
+        // matched, so a cyclic parent chain looped here forever.
         break;
       }
       resultId.unshift(crtParentId);
@@ -2888,6 +2893,33 @@ Cards.helpers({
   },
 
   setParentId(parentId) {
+    // #3328: never allow a card to become its own ancestor — that closes a
+    // parent/subtask loop and hangs every ancestor walk (parentList,
+    // parentString, the subtasks board, ...). Build the proposed parent's
+    // ancestor chain (its own id + the ids of all of its ancestors) and refuse
+    // the assignment if this card already appears in it. Comparison is by VALUE.
+    if (parentId) {
+      const ancestorIds = [parentId];
+      let crtParentId = parentId;
+      while (crtParentId) {
+        const crt = ReactiveCache.getCard(crtParentId);
+        if (!crt) {
+          break;
+        }
+        crtParentId = crt.parentId;
+        if (!crtParentId || ancestorIds.includes(crtParentId)) {
+          // unset or an already-broken loop in existing data: stop walking.
+          break;
+        }
+        ancestorIds.push(crtParentId);
+      }
+      if (wouldCreateCycle(this._id, parentId, ancestorIds)) {
+        throw new Meteor.Error(
+          'circular-subtask',
+          'A card cannot be made a subtask of itself or of one of its own subtasks.',
+        );
+      }
+    }
     return Cards.updateAsync(this._id, { $set: { parentId } });
   },
 

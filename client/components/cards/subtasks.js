@@ -20,66 +20,30 @@ Template.subtasks.events({
     const textarea = tpl.find('textarea.js-add-subtask-item');
     const title = textarea.value.trim();
     const cardId = Template.currentData().cardId;
-    const card = ReactiveCache.getCard(cardId);
-    const sortIndex = -1;
-    const crtBoard = ReactiveCache.getBoard(card.boardId);
-    const targetBoard = await crtBoard.getDefaultSubtasksBoardAsync();
-    if (!targetBoard) {
-      return;
-    }
-
-    const targetList = await targetBoard.getDefaultSubtasksListAsync();
-    if (!targetList) {
-      return;
-    }
-    const listId = targetList._id;
-
-    //Get the full swimlane data for the parent task.
-    const parentSwimlane = ReactiveCache.getSwimlane({
-      boardId: crtBoard._id,
-      _id: card.swimlaneId,
-    });
-    //find the swimlane of the same name in the target board.
-    const targetSwimlane = parentSwimlane
-      ? ReactiveCache.getSwimlane({
-          boardId: targetBoard._id,
-          title: parentSwimlane.title,
-        })
-      : undefined;
-    //If no swimlane with a matching title exists in the target board, fall back to the default swimlane.
-    const swimlaneId =
-      targetSwimlane === undefined
-        ? targetBoard.getDefaultSwimline()._id
-        : targetSwimlane._id;
-
-    const nextCardNumber = await targetBoard.getNextCardNumber();
 
     if (title) {
-      const _id = await Cards.insertAsync({
-        title,
-        parentId: cardId,
-        members: [],
-        labelIds: [],
-        customFields: [],
-        listId,
-        boardId: targetBoard._id,
-        sort: sortIndex,
-        swimlaneId,
-        type: 'cardType-card',
-        cardNumber: nextCardNumber,
-      });
+      // Subtask creation is performed server-side by the `addSubtaskCard` Meteor
+      // method, so the default subtasks board/list/swimlane are resolved (and
+      // lazily created exactly once) on the server. This prevents the client
+      // from creating duplicate subtasks boards / swimlanes / columns
+      // (#3868 / #5788 / #2256) and lets multiple subtasks be created reliably
+      // (#4782), and the method applies the destination board's automatic
+      // custom fields to the new subtask (#4037 / #3562).
+      const _id = await Meteor.callAsync('addSubtaskCard', cardId, title);
 
-      // In case the filter is active we need to add the newly inserted card in
-      // the list of exceptions -- cards that are not filtered. Otherwise the
-      // card will disappear instantly.
-      // See https://github.com/wekan/wekan/issues/80
-      Filter.addException(_id);
+      if (_id) {
+        // In case the filter is active we need to add the newly inserted card in
+        // the list of exceptions -- cards that are not filtered. Otherwise the
+        // card will disappear instantly.
+        // See https://github.com/wekan/wekan/issues/80
+        Filter.addException(_id);
 
-      setTimeout(() => {
-        tpl.$('.add-subtask-item')
-          .last()
-          .click();
-      }, 100);
+        setTimeout(() => {
+          tpl.$('.add-subtask-item')
+            .last()
+            .click();
+        }, 100);
+      }
     }
     textarea.value = '';
     textarea.focus();

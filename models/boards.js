@@ -1556,9 +1556,16 @@ Boards.helpers({
   // A board alwasy has another board where it deposits subtasks of thasks
   // that belong to itself.
   getDefaultSubtasksBoardId() {
+    // #3868 / #5788 / #2256: only the SERVER may auto-create the default
+    // subtasks board (+ its swimlane). On the client the board's
+    // subtasksDefaultBoardId can momentarily read as unset (e.g. the helper
+    // board is not in the published set "if you don't navigate through All
+    // Boards first"), and creating it client-side produced a new board/swimlane
+    // on every subtask creation. Server-authoritative creation happens once.
     if (
-      this.subtasksDefaultBoardId === null ||
-      this.subtasksDefaultBoardId === undefined
+      Meteor.isServer &&
+      (this.subtasksDefaultBoardId === null ||
+        this.subtasksDefaultBoardId === undefined)
     ) {
       this.subtasksDefaultBoardId = Boards.insert({
         title: `^${this.title}^`,
@@ -1638,9 +1645,13 @@ Boards.helpers({
   },
 
   getDefaultSubtasksListId() {
+    // #3868 / #5788 / #2256: server-only auto-creation of the default subtasks
+    // list (see getDefaultSubtasksBoardId) so the client cannot create
+    // duplicate lists when the field momentarily reads as unset.
     if (
-      this.subtasksDefaultListId === null ||
-      this.subtasksDefaultListId === undefined
+      Meteor.isServer &&
+      (this.subtasksDefaultListId === null ||
+        this.subtasksDefaultListId === undefined)
     ) {
       this.subtasksDefaultListId = Lists.insert({
         title: getTranslatedString('queue', 'Queue'),

@@ -25,11 +25,91 @@ import Cards, {
   updateActivities,
 } from '/models/cards';
 import Lists from '/models/lists';
+import Swimlanes from '/models/swimlanes';
+import CustomFields from '/models/customFields';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
+import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
+  // Server-authoritative subtask creation. Fixes:
+  //  - #3868 / #5788 / #2256 "extra swimlane / column on subtask creation" and
+  //    #4782 "can not create more than one subtask": the default subtasks
+  //    board/list/swimlane are resolved (and lazily created ONCE) here on the
+  //    server, so the client can no longer create duplicate helper boards.
+  //  - #4037 / #3562 "custom fields not assigned to subtask cards": the
+  //    destination board's automatic custom fields are applied to the subtask.
+  async addSubtaskCard(parentCardId, title) {
+    check(parentCardId, String);
+    check(title, String);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const trimmed = title.trim();
+    if (!trimmed) return undefined;
+
+    const parentCard =
+      (await ReactiveCache.getCard(parentCardId)) ||
+      (await Cards.findOneAsync(parentCardId));
+    if (!parentCard) throw new Meteor.Error('not-found');
+    const parentBoard = await Boards.findOneAsync(parentCard.boardId);
+    if (!parentBoard) throw new Meteor.Error('not-found');
+    // The author must have write access to the parent card's board.
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, parentBoard))
+      throw new Meteor.Error('not-authorized');
+
+    // Resolve (and, on the server, lazily create ONCE) the default subtasks
+    // board + landing list. These getters never duplicate on the server.
+    const targetBoard = await parentBoard.getDefaultSubtasksBoardAsync();
+    if (!targetBoard) return undefined;
+    const targetList = await targetBoard.getDefaultSubtasksListAsync();
+    if (!targetList) return undefined;
+
+    // Reuse a swimlane on the destination board: prefer one whose title matches
+    // the parent card's swimlane, otherwise the destination board's default
+    // swimlane. Both branches reuse an existing swimlane (no insert here).
+    let swimlaneId;
+    const parentSwimlane = parentCard.swimlaneId
+      ? await Swimlanes.findOneAsync(parentCard.swimlaneId)
+      : null;
+    const targetSwimlane = parentSwimlane
+      ? await Swimlanes.findOneAsync({
+          boardId: targetBoard._id,
+          title: parentSwimlane.title,
+        })
+      : null;
+    if (targetSwimlane) {
+      swimlaneId = targetSwimlane._id;
+    } else {
+      const defaultSwimlane = await targetBoard.getDefaultSwimlineAsync();
+      swimlaneId = defaultSwimlane && defaultSwimlane._id;
+    }
+    if (!swimlaneId) return undefined;
+
+    // #4037 / #3562: apply the destination board's automatic custom fields.
+    const boardCustomFields = await CustomFields.find({
+      boardIds: targetBoard._id,
+    }).fetchAsync();
+    const customFields = subtaskCustomFields(boardCustomFields);
+
+    const cardNumber = await targetBoard.getNextCardNumber();
+    const _id = await Cards.insertAsync({
+      title: trimmed,
+      parentId: parentCardId,
+      members: [],
+      assignees: [],
+      labelIds: [],
+      customFields,
+      listId: targetList._id,
+      boardId: targetBoard._id,
+      sort: -1,
+      swimlaneId,
+      type: 'cardType-card',
+      cardNumber,
+      userId: this.userId,
+    });
+    return _id;
+  },
+
   async createCardWithDueDate(boardId, listId, title, dueDate, swimlaneId) {
     check(boardId, String);
     check(listId, String);
