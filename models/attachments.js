@@ -2,6 +2,27 @@ import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 
+// Pure helper: build the activity document for a newly added attachment.
+// Kept side-effect free so it can be unit tested without a database.
+// Mirrors the shape used for the 'deleteAttachment' activity, so card
+// history rendering and member/subscriber notifications behave identically.
+// see #5905
+export function buildAttachmentAddedActivity(fileObj) {
+  const meta = (fileObj && fileObj.meta) || {};
+  return {
+    userId: fileObj && fileObj.userId,
+    type: 'card',
+    activityType: 'addAttachment',
+    attachmentId: fileObj && fileObj._id,
+    // preserve the name so notifications stay meaningful even after removal
+    attachmentName: fileObj && fileObj.name,
+    boardId: meta.boardId,
+    cardId: meta.cardId,
+    listId: meta.listId,
+    swimlaneId: meta.swimlaneId,
+  };
+}
+
 // XXX Enforce a schema for the Attachments FilesCollection
 // see: https://github.com/VeliovGroup/Meteor-Files/wiki/Schema
 
@@ -163,6 +184,29 @@ if (Meteor.isClient) {
     }
     return generateUniversalAttachmentUrl(fileRef._id);
   };
+}
+
+// #5905: Notify card members/subscribers and record card history when a new
+// attachment is uploaded. The 'deleteAttachment' activity is already created
+// (via the store strategy's onAfterRemove during file removal), but the matching
+// 'addAttachment' activity was never created during the upload flow. Create it
+// here with a server-side collection insert hook, mirroring the original
+// behaviour. The generic Activities after.insert hook (server/models/activities.js)
+// then notifies card members + watchers, deduplicated, exactly as it does for
+// every other card activity.
+if (Meteor.isServer) {
+  Attachments.collection.after.insert((userId, doc) => {
+    // Skip attachments created during a board/card import: those are not
+    // user-driven uploads and should not generate notifications.
+    if (doc.meta && doc.meta.source === 'import') {
+      return;
+    }
+    // Lazy import to keep this out of the client bundle.
+    const Activities = require('/models/activities').default;
+    Activities.insertAsync(buildAttachmentAddedActivity(doc)).catch(error => {
+      console.error('Failed to insert addAttachment activity:', error);
+    });
+  });
 }
 
 export default Attachments;
