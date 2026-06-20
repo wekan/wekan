@@ -42,6 +42,29 @@ per-organization / per-team toggle columns:
   the authentication provider (for example LDAP groups, see
   `LDAP_SYNC_ORGANIZATIONS` / `LDAP_SYNC_TEAMS`).
 
+### Restrict board members to the same Organization or Team
+
+When the global admin setting **"Add board members only from the same Organization or
+Team"** (`boardMembersFromSameOrgOrTeamOnly`, default off) is enabled, a user can only
+be added to a board if they share at least one Organization or Team with the inviter or
+with an active board member. Site admins bypass the restriction. This is useful on
+multi-tenant instances and is enforced server-side (both the invite action and the
+user-search typeahead respect it).
+
+### Per-user announcement dismissal
+
+The global **Announcement** banner can now be dismissed permanently per user — closing
+it stores the current announcement version on that user, so it does not reappear on
+reload or board switch. When an admin edits the announcement text, its version changes
+and the banner reappears for everyone.
+
+### Restrict comment editing (per board)
+
+A board setting **"Restrict comment editing"** (`restrictCommentEditing`, default off)
+prevents board admins from editing or deleting other users' comments — only a comment's
+author may edit or delete it. Enforced server-side. See
+[Comment replies and editing restriction](../Comment-Replies-And-Editing-Restriction.md).
+
 ## Sandstorm platform
 
 On Sandstorm, authentication (LDAP, passwordless email, SAML, GitHub and Google

@@ -44,3 +44,9 @@ Reorder with drag drop:
 
 - https://blog.la-terminal.net/godot-on-ipad-summer-update/
 - https://news.ycombinator.com/item?id=41415077
+
+## Drag and drop from search results
+
+Cards shown in the board **search results** list can be dragged directly onto a board
+list / column. In this initial version the card is dropped at the end of the target list
+(pixel-precise insertion position is not supported yet).

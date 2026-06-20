@@ -54,6 +54,14 @@ directly. This is controlled by the environment variable:
   member/assignee gets a direct notification. Set to `false` to disable these
   notifications instance-wide. On Snap use `notify-on-assign`.
 
+## Restrict board members to the same Organization or Team
+
+On multi-tenant instances you can require that a board's members share an Organization
+or Team. When the global admin setting `boardMembersFromSameOrgOrTeamOnly` is enabled, a
+user can only be added to a board if they share at least one Organization or Team with the
+inviter or with an active board member (site admins bypass this). See
+[Admin Panel](../Admin-Panel/Admin-Panel.md).
+
 ## Related
 
 - [Adding Users](../../Login/Adding-users.md)
