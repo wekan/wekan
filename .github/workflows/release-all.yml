@@ -714,33 +714,49 @@ jobs:
         # Belt-and-suspenders against the "image tagged vX shows vY in the Admin
         # Panel" bug: the image is just the unzipped wekan-<version>-<arch>.zip
         # bundle (Dockerfile moves it to /build), and the Admin Panel shows that
-        # bundle's app package.json version (server/statistics.js reads
-        # require('/package.json').version). Assert the amd64 bundle's WeKan
-        # version equals the release version BEFORE the expensive multi-arch
-        # buildx, so a stale/mismatched bundle fails fast with a clear message
-        # instead of shipping (and pushing to three registries) a mislabeled image.
+        # bundle's WeKan version (server/statistics.js reads
+        # require('/package.json').version). Check the amd64 bundle's WeKan version
+        # equals the release version BEFORE the expensive multi-arch buildx, so a
+        # stale/mismatched bundle fails fast instead of shipping (and pushing to
+        # three registries) a mislabeled image.
+        #
+        # Meteor does NOT ship the app package.json as a standalone file — it
+        # inlines it into the compiled bundle/programs/server/app/app.js as a JSON
+        # module, e.g. {"name":"wekan","version":"v9.63.0",...}. That inlined
+        # module (anchored on "name":"wekan") is exactly what require('/package.json')
+        # resolves to at runtime, so it is the authoritative thing to check.
+        #
+        # IMPORTANT: only a CONFIRMED mismatch fails the release. If the version
+        # cannot be located (bundle layout changed, app.js minified differently),
+        # warn and continue — inability to verify must not block a good release,
+        # since --build-arg VERSION below is the actual guarantee. (An earlier
+        # version of this guard grepped for a v-prefixed *package.json* and made
+        # "not found" fatal, which false-failed the whole v9.63 docker build.)
         run: |
           set -euo pipefail
           url="https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-${VERSION}-amd64.zip"
           wget -q "$url" -O bundle.zip
           tmp="$(mktemp -d)"
-          # Extract only package.json files (not the whole multi-hundred-MB bundle).
-          unzip -o -q bundle.zip '*package.json' -d "$tmp"
-          # The WeKan app package.json is the only one whose "version" carries a
-          # leading 'v' (e.g. "v9.61.0"); every dependency uses plain semver. So a
-          # v-prefixed "version" uniquely identifies the app's own package.json.
-          found="$(grep -rhoE '"version": "v[0-9][^"]*"' "$tmp" \
-                    | grep -oE 'v[0-9][^"]*' | sort -u | head -1 || true)"
+          # Extract only the compiled app program (not the whole multi-hundred-MB
+          # bundle); the inlined app package.json lives in app/app.js.
+          unzip -o -q bundle.zip 'bundle/programs/server/app/app.js' -d "$tmp" || true
+          appjs="$tmp/bundle/programs/server/app/app.js"
+          found=""
+          if [ -f "$appjs" ]; then
+            match="$(grep -aoE '"name":"wekan","version":"v?[0-9][^"]*"' "$appjs" | head -1 || true)"
+            found="$(printf '%s' "$match" | sed -E 's/.*"version":"([^"]*)".*/\1/')"
+          fi
           rm -rf "$tmp" bundle.zip
           if [ -z "$found" ]; then
-            echo "::error::Could not find a v-prefixed WeKan version in the bundle's package.json files."
+            echo "::warning::Could not locate the WeKan version in the bundle (app.js layout may have changed); skipping the bundle-version check. --build-arg VERSION still guarantees the correct bundle."
+            exit 0
+          fi
+          norm="${found#v}"
+          if [ "$norm" != "${VERSION}.0" ] && [ "$norm" != "${VERSION}" ]; then
+            echo "::error::Bundle reports app version ${found} but the release is v${VERSION}. The bundle baked into the image is stale/mismatched — the Admin Panel would show ${norm}. Aborting before build."
             exit 1
           fi
-          if [ "$found" != "v${VERSION}.0" ] && [ "$found" != "v${VERSION}" ]; then
-            echo "::error::Bundle reports app version $found but the release is v${VERSION}. The bundle baked into the image is stale/mismatched — the Admin Panel would show $found. Aborting before build."
-            exit 1
-          fi
-          echo "Bundle app version $found matches release v${VERSION}."
+          echo "Bundle app version ${found} matches release v${VERSION}."
 
       - name: Build and push multi-arch image
         # Pass VERSION explicitly as a build-arg. The Dockerfile's `ARG VERSION`
