@@ -702,6 +702,13 @@ async function buildSelector(queryParams, userId) {
 
       const attachments = await ReactiveCache.getAttachments({ 'original.name': regex });
 
+      // #5910: free-text search must match text inside card comments, for BOTH
+      // global and board-level (board:) search. Board scoping is preserved by the
+      // surrounding `selector.boardId` / `$and` constraints, so a comment match on
+      // a card outside the searched board is naturally excluded. This mirrors the
+      // pure `cardMatchesQuery({title, description, commentTexts}, query)` helper
+      // in server/lib/cardMatch.js, which is the single source of truth for the
+      // (title OR description OR comment) matching rule and is unit-tested.
       const comments = await ReactiveCache.getCardComments(
         { text: regex },
         { fields: { cardId: 1 } },
@@ -713,6 +720,7 @@ async function buildSelector(queryParams, userId) {
           { customFields: { $elemMatch: { value: regex } } },
           { _id: { $in: checklists.map(list => list.cardId) } },
           { _id: { $in: attachments.map(attach => attach.cardId) } },
+          // #5910: include cards whose comment text matches (board-scoped).
           { _id: { $in: comments.map(com => com.cardId) } },
         ];
       if (queryParams.text === "false" || queryParams.text === "true") {

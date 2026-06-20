@@ -130,3 +130,22 @@ code {
 .global-search-instructions li {
   margin-bottom: 0.3rem;
 }
+
+/* #6034 (MVP): drag-and-drop search results into board columns. */
+.global-search-results-list .result-card-wrapper {
+  cursor: grab;
+}
+.global-search-results-list .result-card-wrapper:active {
+  cursor: grabbing;
+}
+.global-search-result-drag-helper {
+  z-index: 1000;
+  opacity: 0.85;
+  pointer-events: none;
+  list-style: none;
+}
+.global-search-drop-hover {
+  outline: 2px dashed #216694;
+  outline-offset: -2px;
+  background-color: rgba(33, 102, 148, 0.08);
+}

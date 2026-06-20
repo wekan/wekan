@@ -74,7 +74,146 @@ Template.globalSearch.onRendered(function () {
       searchAllBoards(tpl, queryText || '');
     }
   });
+
+  // #6034 (MVP): make search-result cards draggable so they can be dropped
+  // into a board list/column. Re-wire whenever the results change.
+  this.autorun(() => {
+    tpl.search.results.get(); // reactive dependency: re-run when results render
+    Tracker.afterFlush(() => setupResultDrag(tpl));
+  });
 });
+
+// #6034 (MVP): drag-and-drop search results into board columns.
+//
+// We make each `.global-search-results-list` result item a jquery-ui
+// `draggable` (clone helper), and make every board list's `.js-minicards`
+// container a `droppable`. On drop we resolve the dragged card and call the
+// existing `card.move(boardId, swimlaneId, listId, sort)` model method - the
+// same method the in-board card sortable uses - so the move stays consistent
+// with normal card drag-drop and is persisted + reactively re-rendered.
+//
+// LIMITATION / TODO: this MVP drops the card at the END of the target list
+// (sort = list cards length) rather than at the exact pixel-precise insertion
+// index used by the in-board minicard sortable. Pixel-precise positioning and
+// multi-select drag are intentionally out of scope here; wiring those would
+// require modifying the (non-owned) list/minicard sortable `receive` handler.
+// Drag is only enabled when the board is editable and a board is open.
+function setupResultDrag(tpl) {
+  try {
+    if (typeof window === 'undefined' || !window.jQuery) return;
+    const $ = window.jQuery;
+
+    const $items = tpl.$('.global-search-results-list .result-card-wrapper');
+    if (!$items.length || typeof $items.draggable !== 'function') return;
+
+    // Only allow DnD when we are inside a board the user can modify.
+    const boardId = Session.get('currentBoard');
+    if (!boardId) return;
+    const canModify =
+      Utils && typeof Utils.canModifyBoard === 'function'
+        ? Utils.canModifyBoard()
+        : false;
+    if (!canModify) return;
+
+    $items.each(function () {
+      const el = this;
+      // Avoid double-initialising the same element.
+      if ($(el).data('uiDraggable')) return;
+
+      $(el).draggable({
+        helper: 'clone',
+        appendTo: 'body',
+        revert: 'invalid',
+        revertDuration: 150,
+        cursor: 'grabbing',
+        zIndex: 1000,
+        start(evt, ui) {
+          ui.helper.addClass('global-search-result-drag-helper');
+          ui.helper.css('width', $(el).width());
+        },
+      });
+    });
+
+    // Make board lists accept the dropped result card.
+    const $lists = $('.list .js-minicards');
+    if (!$lists.length || typeof $lists.droppable !== 'function') return;
+
+    $lists.each(function () {
+      const listEl = this;
+      if ($(listEl).data('uiDroppable')) return;
+
+      $(listEl).droppable({
+        accept: '.result-card-wrapper',
+        tolerance: 'pointer',
+        hoverClass: 'global-search-drop-hover',
+        drop(evt, ui) {
+          onResultDroppedOnList(listEl, ui.draggable.get(0));
+        },
+      });
+    });
+  } catch (e) {
+    console.error('Error wiring search-result drag-and-drop (#6034):', e);
+  }
+}
+
+// Resolve the dragged result card + target list and perform the move using the
+// existing card model `move()` method (mirrors the in-board card sortable).
+function onResultDroppedOnList(listEl, draggedEl) {
+  try {
+    if (!listEl || !draggedEl) return;
+
+    // Card data from the dragged result item (Blaze data on the result wrapper,
+    // falling back to the inner minicard).
+    let cardData = Blaze.getData(draggedEl);
+    if (!cardData || !cardData._id) {
+      const inner = draggedEl.querySelector('.js-minicard');
+      if (inner) cardData = Blaze.getData(inner);
+    }
+    if (!cardData || !cardData._id) return;
+
+    const card = ReactiveCache.getCard(cardData._id);
+    if (!card || typeof card.move !== 'function') return;
+
+    // Target list / swimlane / board from the drop target.
+    const listData = Blaze.getData(listEl.closest('.list') || listEl);
+    if (!listData || !listData._id) return;
+    const listId = listData._id;
+
+    const currentBoard = Utils.getCurrentBoard();
+    if (!currentBoard) return;
+
+    let swimlaneId = listData.swimlaneId;
+    if (!swimlaneId) {
+      const swimlaneEl = listEl.closest('.swimlane');
+      if (swimlaneEl) {
+        const swimlaneData = Blaze.getData(swimlaneEl);
+        swimlaneId = swimlaneData && swimlaneData._id;
+      }
+    }
+    if (!swimlaneId) {
+      const def = currentBoard.getDefaultSwimline && currentBoard.getDefaultSwimline();
+      swimlaneId = (def && def._id) || card.swimlaneId;
+    }
+
+    // MVP: append to the end of the target list.
+    let sort = 0;
+    try {
+      const existing = ReactiveCache.getCards(
+        { listId, archived: false },
+        { sort: { sort: -1 }, limit: 1 },
+      );
+      if (existing && existing.length && typeof existing[0].sort === 'number') {
+        sort = existing[0].sort + 1;
+      }
+    } catch (e) {
+      sort = 0;
+    }
+
+    card.move(currentBoard._id, swimlaneId, listId, sort);
+  } catch (e) {
+    console.error('Error moving dropped search result (#6034):', e);
+  }
+}
 
 function searchAllBoards(tpl, queryText) {
   const search = tpl.search;

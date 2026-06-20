@@ -76,7 +76,7 @@ template(name="globalSearch")
       if searching
         +spinner
       else if hasResults
-        .global-search-results-list-wrapper
+        .global-search-results-list-wrapper.global-search-results-list
           if hasQueryErrors
             ul
               each msg in errorMessages
