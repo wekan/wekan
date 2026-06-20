@@ -516,6 +516,14 @@ Template.cardDetails.helpers({
     return card.findWatcher(Meteor.userId());
   },
 
+  // #6081: number of times this card's due date has been changed, for
+  // accountability. Returns 0 when unavailable so the template can hide it.
+  dueDateChangeCount() {
+    const card = Template.currentData();
+    if (!card || typeof card.getDueDateChangeCount !== 'function') return 0;
+    return card.getDueDateChangeCount();
+  },
+
   // Returns the card's locations (multiple supported), each enriched with the
   // coordinate flag and OpenStreetMap link used by the template.
   getLocations() {

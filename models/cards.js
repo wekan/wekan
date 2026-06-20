@@ -1703,6 +1703,20 @@ Cards.helpers({
     }
   },
 
+  // Number of times this card's due date has been set/changed (issue #6081).
+  // Each due-date change is logged as an activity with activityType 'a-dueAt'
+  // (see server/models/cards.js before.update hook), so counting those
+  // activities gives the change count. Read-only; used in the card detail to
+  // show accountability for moved deadlines.
+  getDueDateChangeCount() {
+    const cardId = this.isLinkedCard() ? this.linkedId : this.getRealId();
+    const activities = ReactiveCache.getActivities({
+      cardId,
+      activityType: 'a-dueAt',
+    });
+    return Array.isArray(activities) ? activities.length : 0;
+  },
+
   getEnd() {
     if (this.isLinkedCard()) {
       const card = ReactiveCache.getCard(this.linkedId);

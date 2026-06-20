@@ -224,6 +224,9 @@ template(name="cardDetails")
                 unless currentUser.isWorker
                   a.card-label.add-label.js-due-date
                     i.fa.fa-plus
+            if dueDateChangeCount
+              .card-details-due-date-changes(title="{{_ 'due-date-changes'}}")
+                | {{_ 'due-date-changed-times' dueDateChangeCount}}
 
         if currentBoard.allowsEndDate
           .card-details-item.card-details-item-end
