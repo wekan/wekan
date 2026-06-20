@@ -909,6 +909,38 @@ Cards.helpers({
       for (const att of attachmentList) {
         copyFile(att, _id, fileStoreStrategyFactory);
       }
+
+      // #5364: "show as thumb" / cover is stored as coverId pointing at an
+      // attachment id. The attachments above are copied with NEW ids, so the
+      // old coverId no longer resolves on the copy and the cover is lost.
+      // Each copied attachment records its origin in meta.copyFrom, so build an
+      // old->new attachment id map and remap coverId to the new attachment id.
+      const sourceCoverId = oldCard ? oldCard.coverId : this.coverId;
+      if (sourceCoverId) {
+        // copyFile writes the new attachment asynchronously on stream 'end',
+        // so the new doc may not be queryable immediately; retry briefly.
+        let newCoverId;
+        for (let attempt = 0; attempt < 20 && !newCoverId; attempt += 1) {
+          const copied = await ReactiveCache.getAttachments({
+            'meta.cardId': _id,
+            'meta.copyFrom': sourceCoverId,
+          });
+          if (Array.isArray(copied) && copied.length > 0) {
+            const oldToNew = { [sourceCoverId]: copied[0]._id };
+            newCoverId = remapCoverId(sourceCoverId, oldToNew);
+          } else {
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+        }
+        if (newCoverId) {
+          await Cards.updateAsync(_id, { $set: { coverId: newCoverId } });
+        } else {
+          // The cover attachment could not be remapped (e.g. its binary was
+          // missing and copyFile skipped it). Drop the stale coverId so the
+          // copy does not reference a non-existent attachment.
+          await Cards.updateAsync(_id, { $unset: { coverId: '' } });
+        }
+      }
     }
 
     // copy checklists
