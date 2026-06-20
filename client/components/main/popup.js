@@ -1,4 +1,5 @@
 import { CSSEvents } from '/client/lib/cssEvents';
+import { isMobileViewportNow } from '/client/lib/responsiveUtils';
 
 Popup.template.events({
   'click .js-back-view'() {
@@ -9,6 +10,20 @@ Popup.template.events({
   },
   'click .js-confirm'() {
     this.__afterConfirmAction.call(this);
+  },
+  // #5942: On mobile/touch, tapping inside the card-detail sub-popups (assign
+  // user / set due date) made the popup DISAPPEAR. The document-level
+  // click-outside handler (EscapeActions in client/lib/popup.js) closes the
+  // popup, and on touch some freshly-rendered children (avatars, native date
+  // inputs) generated events that were not recognised as "inside the popup",
+  // closing it before the tap could register. Stop touch/pointer events that
+  // originate inside the popup from bubbling to that document handler so the
+  // popup stays open and usable on mobile. Scoped to mobile viewports so the
+  // desktop click-outside-to-close behaviour is untouched.
+  'touchstart .pop-over, pointerdown .pop-over'(evt) {
+    if (isMobileViewportNow()) {
+      evt.stopPropagation();
+    }
   },
   // This handler intends to solve a pretty tricky bug with our popup
   // transition. The transition is implemented using a large container

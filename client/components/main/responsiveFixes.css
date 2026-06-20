@@ -1,0 +1,162 @@
+/* ============================================================================
+   responsiveFixes.css
+
+   Global mobile / responsive corrective overrides. Meteor auto-includes every
+   .css file under client/, so simply creating this file loads it.
+
+   Everything here is ADDITIVE and scoped under (max-width) media queries so the
+   desktop layout is left untouched. It deliberately lives in one place so the
+   mobile regressions below are easy to find and tune.
+
+   Issues addressed:
+     #5942  card-detail sub-popups (assign user / due date) disappearing on
+            touch  -> JS guard lives in client/components/main/popup.js; this
+            file just makes sure those popups can't be visually clipped.
+     #5902  minicards rendering two-per-row instead of one-per-row on phones;
+            tiny hard-to-tap Home button in the header.
+     #6018  enormous icons / menus / text below the menu bar after upgrade.
+     #5982  excessive padding / margins and tiny button labels.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   #5902 - One minicard per row on narrow screens.
+
+   The minicard width itself is owned by minicard.css; we only add a mobile
+   override here (per task constraints) so phones get a single full-width card
+   per row instead of two side by side.
+   ---------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .minicard,
+  .minicard-wrapper {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* The list/swimlane card container should stack cards vertically, not wrap
+     them into columns. */
+  .list-body .minicard-wrapper,
+  .swimlane .minicard-wrapper {
+    display: block !important;
+    float: none !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   #5902 - Make the header "Home / All Boards" button a proper tap target.
+
+   The home icon link was tiny. Apple/Material guidance is a >=44px touch
+   target; give it comfortable padding and a minimum size on touch widths.
+   ---------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  #header-quick-access .home-icon a {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 6px 12px !important;
+  }
+
+  /* Keep the home glyph visible and tappable without it ballooning. */
+  #header-quick-access .home-icon .fa-home {
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   #6018 - "text and icons are enormous" below the menu bar.
+
+   After the upgrade, em/vw cascades in the content area scaled icons, menus and
+   text far too large (zoom only affected task names). Re-anchor a sane base
+   font-size on mobile and cap runaway icon sizing in the content region so the
+   UI is usable again. Scoped to #content so the (separately tuned) header bar
+   is not affected.
+   ---------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Anchor the root size so rem-based sizing can't drift huge. */
+  html {
+    font-size: 100% !important; /* 16px base */
+  }
+
+  /* Body text in the working area: a readable, non-enormous default. */
+  #content {
+    font-size: 14px !important;
+  }
+
+  /* Cap oversized Font Awesome icons in the content area. Many icons had
+     inherited a multiplied em size; clamp them to a sane range while still
+     allowing the explicit small/large fa-modifiers to scale relative to it. */
+  #content .fa {
+    font-size: 16px !important;
+  }
+  #content .fa.fa-lg {
+    font-size: 20px !important;
+  }
+  #content .fa.fa-2x {
+    font-size: 24px !important;
+  }
+
+  /* Sidebar and card-detail menus: keep labels at a readable size rather than
+     the blown-up post-upgrade sizing. */
+  #content .sidebar .fa,
+  .card-details .fa {
+    font-size: 16px !important;
+  }
+
+  /* Menu / list item labels should match their controls, not be tiny next to
+     oversized padding (#5982 symptom of the same cluster). */
+  #content .pop-over-list li > a,
+  #content .sidebar .board-sidebar-content a {
+    font-size: 14px !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   #5982 - Excessive padding / margins and lots of empty space on mobile.
+
+   Trim the inflated spacing so controls sit closer together and button labels
+   no longer look tiny inside huge padded boxes.
+   ---------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  #content .pop-over-list li > a {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Generic over-padded buttons inside the content area. */
+  #content button,
+  #content .btn,
+  #content .js-submit {
+    padding: 6px 12px !important;
+    margin: 4px 0 !important;
+  }
+
+  /* Reduce empty space between sidebar sections. */
+  #content .sidebar .sidebar-list li,
+  #content .board-sidebar-content > * {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   #5942 - Keep card-detail sub-popups visible & usable on mobile.
+
+   The JS fix (popup.js) stops touch events inside the popup from bubbling to
+   the document close handler. As belt-and-braces, make sure the assign-user /
+   due-date popups are never clipped off-screen and can scroll their content.
+   ---------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .pop-over[data-popup="cardAssigneesPopup"],
+  .pop-over[data-popup="cardMembersPopup"],
+  .pop-over[data-popup="editCardDueDatePopup"],
+  .pop-over[data-popup="editCardReceivedDatePopup"],
+  .pop-over[data-popup="editCardStartDatePopup"],
+  .pop-over[data-popup="editCardEndDatePopup"] {
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
