@@ -2856,20 +2856,23 @@ Cards.helpers({
     return Cards.updateAsync(this._id, { $unset: { coverId: '' } });
   },
 
+  // #4561: on a linked card these must target the REAL underlying card
+  // document, not the link placeholder — mirror the setReceived/setStart/
+  // setDue/setEnd methods, which all resolve the id via getRealId().
   unsetReceived() {
-    return Cards.updateAsync(this._id, { $unset: { receivedAt: '' } });
+    return Cards.updateAsync({ _id: this.getRealId() }, { $unset: { receivedAt: '' } });
   },
 
   unsetStart() {
-    return Cards.updateAsync(this._id, { $unset: { startAt: '' } });
+    return Cards.updateAsync({ _id: this.getRealId() }, { $unset: { startAt: '' } });
   },
 
   unsetDue() {
-    return Cards.updateAsync(this._id, { $unset: { dueAt: '' } });
+    return Cards.updateAsync({ _id: this.getRealId() }, { $unset: { dueAt: '' } });
   },
 
   unsetEnd() {
-    return Cards.updateAsync(this._id, { $unset: { endAt: '' } });
+    return Cards.updateAsync({ _id: this.getRealId() }, { $unset: { endAt: '' } });
   },
 
   setOvertime(isOvertime) {
