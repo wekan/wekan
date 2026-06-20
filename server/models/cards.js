@@ -9,6 +9,7 @@ import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
 import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/restCardHelpers';
 import { titleChanged } from '/server/lib/titleChangeActivity';
+import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards, {
@@ -542,6 +543,22 @@ Cards.before.remove(async (userId, doc) => {
   // an unhandled rejection (TypeError: ... reading 'boardId'). Awaiting here
   // removes the sub-items while the card still exists.
   await cardRemover(userId, doc);
+
+  // Issue #1587: permanently deleting a card must log an activity so the
+  // Activities.after.insert outgoing-webhook hook fires (archiving already logs
+  // an archivedCard activity, but a real delete previously logged nothing). The
+  // card document still exists here (it is removed after this before.remove
+  // hook), so the notify hook can resolve the card title.
+  await Activities.insertAsync(
+    buildDeleteCardActivity({
+      userId,
+      cardId: doc._id,
+      boardId: doc.boardId,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
+      cardTitle: doc.title,
+    }),
+  );
 });
 
 WebApp.handlers.get(
@@ -1205,6 +1222,20 @@ WebApp.handlers.delete(
       listId: paramListId,
       boardId: paramBoardId,
     });
+    // Issue #1587: Cards.direct.removeAsync bypasses Cards.before.remove, so log
+    // the deleteCard activity here too (outgoing-webhook fires on delete).
+    if (card) {
+      await Activities.insertAsync(
+        buildDeleteCardActivity({
+          userId: req.body.authorId,
+          cardId: card._id,
+          boardId: card.boardId,
+          listId: card.listId,
+          swimlaneId: card.swimlaneId,
+          cardTitle: card.title,
+        }),
+      );
+    }
     sendJsonResult(res, { code: 200, data: { _id: paramCardId } });
   },
 );
@@ -1242,6 +1273,18 @@ WebApp.handlers.delete('/api/boards/:boardId/cards/bulk', async function(req, re
     // card itself so their before.remove hooks still find the parent card.
     await cardRemover(req.body.authorId, card);
     await Cards.direct.removeAsync({ _id: cardId, boardId: paramBoardId });
+    // Issue #1587: Cards.direct.removeAsync bypasses Cards.before.remove, so log
+    // the deleteCard activity here too (outgoing-webhook fires on delete).
+    await Activities.insertAsync(
+      buildDeleteCardActivity({
+        userId: req.body.authorId,
+        cardId: card._id,
+        boardId: card.boardId,
+        listId: card.listId,
+        swimlaneId: card.swimlaneId,
+        cardTitle: card.title,
+      }),
+    );
     deleted.push(cardId);
   }
 
