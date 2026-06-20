@@ -26,6 +26,54 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUE of [ChecklistBleed](https://wekan.fi/hall-of-fame/checklistbleed/):
+
+- [Fixed ChecklistBleed: any authenticated user can write checklist data into a private board they are not a member of (cross-board write via collection allow rule)](https://github.com/wekan/wekan/commit/b1ca76007)
+  ([GHSA-gv8h-5p3p-6hx7](https://github.com/wekan/wekan/security/advisories/GHSA-gv8h-5p3p-6hx7),
+  CWE-863 Incorrect Authorization). This is the same class as [BoardBleed](https://wekan.fi/hall-of-fame/boardbleed/)
+  (GHSA-gm7v-pc38-53jr), but for the card-attached Checklist and ChecklistItem documents that the
+  `boardId`-only `denyCrossBoardMove` fix did not cover. Checklists and checklist items are attached
+  to a card and carry a denormalized `boardId`; they are MOVED between cards by `$set`-ting a new
+  `cardId` (and, for items, a new `checklistId`) in a direct DDP collection update, after which the
+  `Checklists.before.update` hook re-derives `boardId` from the destination card. The collection
+  allow rules (`server/permissions/checklists.js`, `server/permissions/checklistItems.js`)
+  authorized an update by checking only the document's CURRENT (source) `cardId` — i.e. the
+  attacker's own board — and never inspected the new destination `cardId`/`checklistId`/`boardId`.
+  Because every logged-in user can create a board where they are a write-capable member, a
+  low-privileged user with write access to one board could create a checklist/item on their own
+  card and then, in a single `/checklists/update` or `/checklistItems/update` DDP call, set its
+  `cardId` to a card in a private board where they are not a member (if they know the target card
+  id): the allow rule saw the attacker's source card, approved the write, and the before-update hook
+  attached the attacker-controlled document to the victim's private board. The protected
+  `moveChecklist` Meteor method correctly checks both source and destination board membership, but a
+  DDP client can bypass that method and update the collections directly. CVSS:3.1 Moderate
+  (AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N). Fixed by adding `denyCrossBoardMoveByCard` and
+  `denyCrossBoardMoveByChecklistItem` helpers in `server/lib/utils.js` and a `Checklists.deny`/
+  `ChecklistItems.deny` `update` rule on each collection that rejects any update whose destination
+  board — resolved from a new `boardId`, `cardId`, or `checklistId` in the modifier — the caller has
+  no write access to. Legitimate moves into boards the user belongs to and same-card edits keep
+  working, and the server-side `moveChecklist` method (which bypasses allow/deny) is unchanged.
+  A regression test (`server/lib/tests/checklistbleed.security.tests.js`) was added.
+  Affected Wekan v9.62 and earlier. Thanks to DavidCarliez, xet7 and Claude.
+
+and adds the following updates:
+
+- [Fix the Docker pre-build version guard false-failing the release](https://github.com/wekan/wekan/commit/069dbc11f).
+  The bundle-version guard added for the Admin-Panel-version fix assumed the WeKan app
+  `package.json` ships as a standalone file with a `v`-prefixed version, and made "not found"
+  fatal. Meteor does not ship it that way — it inlines the app `package.json` into the compiled
+  `bundle/programs/server/app/app.js` as a JSON module (`{"name":"wekan","version":"v9.63.0",...}`),
+  so the guard found no v-prefixed `package.json` and aborted the v9.63 Docker build. The guard now
+  reads the version from that inlined module (anchored on `"name":"wekan"`, exactly what
+  `require('/package.json')` resolves to), and a detection miss is now a warning that continues
+  rather than a hard failure — only a confirmed version MISMATCH blocks the release, since
+  `--build-arg VERSION` is the actual guarantee.
+  Thanks to xet7 and Claude.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.63 2026-06-19 WeKan ® release
 
 This release adds the following features:
