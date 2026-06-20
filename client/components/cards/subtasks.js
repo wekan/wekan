@@ -2,6 +2,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Cards from '/models/cards';
 import { Filter } from '/client/lib/filter';
+import { subtaskStatusLabel } from './subtaskStatusHelpers';
+import { Utils } from '/client/lib/utils';
 
 Template.subtasks.events({
   'click .js-open-subtask-details-menu'(event) {
@@ -115,6 +117,25 @@ Template.subtasks.helpers({
   },
   toggleDeleteDialog() {
     return Template.instance().toggleDeleteDialog;
+  },
+});
+
+Template.subtaskDetail.helpers({
+  // #6091: show the subtask's current status, i.e. the list it resides in
+  // (prefixed with the board title when the subtask lives on another board
+  // than the parent card).
+  subtaskStatus() {
+    const subtask = this.subtask;
+    if (!subtask) {
+      return '';
+    }
+    const list = subtask.list && subtask.list();
+    const listTitle = list ? list.title : '';
+    const board = subtask.board && subtask.board();
+    const boardTitle = board ? board.title : '';
+    const parentCard = Utils.getCurrentCard();
+    const sameBoard = !!parentCard && parentCard.boardId === subtask.boardId;
+    return subtaskStatusLabel({ listTitle, boardTitle, sameBoard });
   },
 });
 

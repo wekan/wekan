@@ -35,6 +35,10 @@ template(name="subtaskDetail")
           h2.title
             +viewer
                 = subtask.title
+        if subtaskStatus
+          span.subtask-status(title="{{_ 'list'}}")
+            i.fa.fa-list-ul
+            | {{ subtaskStatus }}
 
 template(name="addSubtaskItemForm")
   textarea.js-add-subtask-item(rows='1' autofocus dir="auto")

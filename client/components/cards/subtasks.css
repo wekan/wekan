@@ -192,3 +192,19 @@ body.grey-icons-enabled .subtasks-item .check-box-unicode {
   padding: 6px 10px 6px 10px;
   order: 2;
 }
+/* #6091: read-only status (current list / board) of a subtask */
+.subtask-title .subtask-status {
+  order: 1;
+  flex-shrink: 0;
+  margin: 0 0.5em;
+  padding-top: 6px;
+  color: #8c8c8c;
+  font-size: 0.85em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40%;
+}
+.subtask-title .subtask-status i.fa {
+  margin-inline-end: 4px;
+}
