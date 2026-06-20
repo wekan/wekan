@@ -1,5 +1,13 @@
 {
   "accept": "Kabul et",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Hereket habarnamasy",
   "act-addAttachment": "@@ PH0 @@ kartoçkasyna @@ PH1 @@ ​​sanawyna @@ PH2 @@ ýüzmek @@ PH3 @@ tagtada @@ PH4 @@ goşuldy",
   "act-deleteAttachment": "öçürilen goşundy @@ PH0 @@ kartoçkada @@ PH1 @@ ​​sanawda @@ PH2 @@ ýüzmekde @@ PH3 @@ tagtada @@ PH4 @@",

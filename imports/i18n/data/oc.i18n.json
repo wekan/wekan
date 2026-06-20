@@ -1,5 +1,13 @@
 {
   "accept": "Acceptar",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Notificacion d'activitat",
   "act-addAttachment": "as apondut una pèça joncha __astacament__ de la carta __card__ a la tièra __list__ del corredor __swimlane__ del tablèu __board__",
   "act-deleteAttachment": "as tirat una pèça joncha __astacament__ de la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",

@@ -1,5 +1,13 @@
 {
   "accept": "Hyväksy",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Toimintailmoitus",
   "act-addAttachment": "lisätty liite __attachment__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
   "act-deleteAttachment": "poistettu liite __attachment__ kortilla __card__ listalla __list__ uimaradalla  __swimlane__ taululla __board__",

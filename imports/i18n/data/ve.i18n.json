@@ -1,5 +1,13 @@
 {
   "accept": "Yamukela",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Isaziso somsebenzi",
   "act-addAttachment": "wengeze okunamathiselwe __attachment__ ekhadini elithi __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
   "act-deleteAttachment": "okunamathiselwe kususiwe __attachment__ ekhadini __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",

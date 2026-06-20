@@ -1,5 +1,13 @@
 {
   "accept": "Menerima",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Pemberitahuan Aktifitas",
   "act-addAttachment": "menambahkan lampiran __attachment__ ke kartu __card__ pada daftar __list__ pada jalur __swimline__ dalam papan __board__",
   "act-deleteAttachment": "menghapus lampiran __attachment__ di kartu __card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",

@@ -1,5 +1,13 @@
 {
   "accept": "ਸਵੀਕਾਰ ਕਰੋ",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "ਗਤੀਵਿਧੀ ਸੂਚਨਾ",
   "act-addAttachment": "ਅਟੈਚਮੈਂਟ __attachment__ ਕਾਰਡ ਵਿੱਚ __card__ ਸੂਚੀ ਵਿੱਚ __list__ ਸਵਿਮਲੇਨ __swimlane__ ਬੋਰਡ __board__ ਵਿੱਚ ਸ਼ਾਮਲ ਕੀਤੀ ਗਈ",
   "act-deleteAttachment": "ਮਿਟਾਏ ਗਏ ਅਟੈਚਮੈਂਟ __attachment__ ਕਾਰਡ __card__ ਸੂਚੀ ਵਿੱਚ __list__ ਸਵਿਮਲੇਨ __swimlane__ ਬੋਰਡ __board__ 'ਤੇ",

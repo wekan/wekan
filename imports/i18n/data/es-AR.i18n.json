@@ -1,5 +1,13 @@
 {
   "accept": "Aceptar",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Notificación de Actividad",
   "act-addAttachment": "agregado archivo adjunto __attachment__ a tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
   "act-deleteAttachment": "eliminado archivo adjunto __attachment__ de la tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",

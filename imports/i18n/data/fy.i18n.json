@@ -1,5 +1,13 @@
 {
   "accept": "Oannimme",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Aktiviteit Notifikaasje",
   "act-addAttachment": "tafoege taheaksel __attachment__ oan kaart __card__ by list __list__ by swimlane __swimlane__ oan board __board__",
   "act-deleteAttachment": "wiske taheaksel __attachment__ by kaart __card__ by list __list__ by swimlane __swimlane__ by board __board__",

@@ -1,5 +1,13 @@
 {
   "accept": "అంగీకరించు",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "కార్యాచరణ నోటిఫికేషన్",
   "act-addAttachment": "జోడింపును జోడించారు __attachment__ కార్డ్‌కి __card__ జాబితాలో __list__ స్విమ్‌లేన్ వద్ద __swimlane__ బోర్డు వద్ద __board__",
   "act-deleteAttachment": "అటాచ్‌మెంట్ తొలగించబడింది __attachment__ కార్డ్ వద్ద __card__ జాబితాలో __list__ స్విమ్‌లేన్ వద్ద __swimlane__ బోర్డు వద్ద __board__",

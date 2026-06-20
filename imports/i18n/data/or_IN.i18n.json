@@ -1,5 +1,13 @@
 {
   "accept": "ଗ୍ରହଣ କରନ୍ତୁ",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "କାର୍ଯ୍ୟକଳାପ ବିଜ୍ଞପ୍ତି |",
   "act-addAttachment": "ସଂଲଗ୍ନକ @@ PH0 @@ କାର୍ଡରେ @@ PH1 @@ ​​ତାଲିକାରେ @@ PH2 @@ ସନ୍ତରଣରେ @@ PH3 @@ ବୋର୍ଡରେ @@ PH4 @@",
   "act-deleteAttachment": "ଡିଲିଟ୍ ହୋଇଥିବା ସଂଲଗ୍ନ @@ PH0 @@ କାର୍ଡରେ @@ PH1 @@ ​​ତାଲିକାରେ @@ PH2 @@ ସନ୍ତରଣରେ @@ PH3 @@ ବୋର୍ଡରେ @@ PH4 @@",

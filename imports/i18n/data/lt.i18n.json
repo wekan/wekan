@@ -1,5 +1,13 @@
 {
   "accept": "Priimti",
+  "activity-changedTitle": "changed title to %s of %s",
+  "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
+  "comment-in-reply-to": "In reply to",
+  "comment-reply": "Reply",
+  "restrict-comment-editing": "Restrict board admins from editing or deleting other users' comments",
+  "due-date-changes": "Due date changes",
+  "due-date-changed-times": "Due date changed %s times",
+  "error-user-notSameOrgOrTeam": "You can only add users from the same Organization or Team",
   "act-activity-notify": "Pranešimas apie veiklą",
   "act-addAttachment": "pridėtas priedas __attachment__ prie kortelės __card__ sąraše __list__ plaukimo juostoje __swimlane__ prie lentos __board__",
   "act-deleteAttachment": "ištrintas priedas __attachment__ prie kortelės __card__ sąraše __list__ plaukimo juostoje __swimlane__ prie lentos __board__",
