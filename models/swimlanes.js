@@ -7,6 +7,7 @@ import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
+import { remapLabelIds } from '/server/lib/labelRemap';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Swimlanes = new Mongo.Collection('swimlanes');
@@ -208,6 +209,47 @@ Swimlanes.helpers({
         count: sourceLists.length,
         listQuery,
       });
+    }
+
+    // #5158 "Copy Swimlane does not copy labels".
+    // Card.copy() remaps each card's labels to the destination board BY NAME,
+    // but it never CREATES labels that are missing on the destination board, so
+    // when a swimlane is copied to ANOTHER board those label assignments are
+    // silently lost. Pre-create the missing labels here (by name + color) so the
+    // per-card remap inside card.copy() finds a match for every label.
+    if (oldBoardId && oldBoardId !== boardId) {
+      const sourceBoardLabels =
+        (sourceBoard && sourceBoard.labels) || [];
+      const destBoard = await ReactiveCache.getBoard(boardId);
+      if (destBoard) {
+        // Collect every label id referenced by the cards being copied.
+        const referencedLabelIds = new Set();
+        for (const sourceList of sourceLists) {
+          const cards = await ReactiveCache.getCards({
+            listId: sourceList._id,
+            archived: false,
+            swimlaneId: isDefaultSourceSwimlane ? { $in: [oldId, '', null] } : oldId,
+          });
+          for (const card of cards) {
+            for (const labelId of card.labelIds || []) {
+              referencedLabelIds.add(labelId);
+            }
+          }
+        }
+
+        const { missingNames } = remapLabelIds(
+          sourceBoardLabels,
+          [...referencedLabelIds],
+          destBoard.labels || [],
+        );
+
+        for (const name of missingNames) {
+          const sourceLabel = sourceBoardLabels.find(
+            label => label && label.name === name,
+          );
+          await destBoard.addLabel(name, sourceLabel && sourceLabel.color);
+        }
+      }
     }
 
     for (const sourceList of sourceLists) {
