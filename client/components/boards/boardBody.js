@@ -5,6 +5,7 @@ import dragscroll from '@wekanteam/dragscroll';
 import '/client/lib/dragscrollTouch';
 import { boardConverter } from '/client/lib/boardConverter';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
+import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';
 import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
@@ -942,9 +943,19 @@ Template.calendarView.helpers({
       return translated && translated !== key ? translated : fallback;
     };
 
+    // #5521: respect the user's "start day of week" setting instead of the
+    // FullCalendar locale default. getStartDayOfWeek() returns a zero-based day
+    // index (0=Sunday..6=Saturday), the same convention FullCalendar's firstDay
+    // uses; toFullCalendarFirstDay() validates it and falls back to Monday (1).
+    const currentUser = ReactiveCache.getCurrentUser();
+    const firstDay = toFullCalendarFirstDay(
+      currentUser ? currentUser.getStartDayOfWeek() : 1,
+    );
+
     return {
       id: 'calendar-view',
       initialView: 'dayGridMonth',
+      firstDay,
       editable: true,
       selectable: true,
       weekNumbers: true,
