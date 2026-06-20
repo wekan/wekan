@@ -1,9 +1,29 @@
+import { Meteor } from 'meteor/meteor';
 import Activities from '/models/activities';
+import { deleteActivityUserId } from '/server/lib/attachmentActivityActor';
 import FileStoreStrategy, {FileStoreStrategyFilesystem, FileStoreStrategyGridFs, FileStoreStrategyCloud} from './fileStoreStrategy'
 
-const insertActivity = (fileObj, activityType) =>
+// Resolve the user currently performing the action, if any. Returns null when
+// there is no DDP user context (e.g. server/system removal).
+const currentActingUserId = () => {
+  try {
+    return Meteor.userId() || null;
+  } catch (error) {
+    // Meteor.userId() throws outside of a method/publication context.
+    return null;
+  }
+};
+
+// Bug #5504: for 'deleteAttachment' the activity must credit the user who
+// performed the removal (the acting user), not the uploader. The acting user
+// is taken from Meteor.userId() (set during the DDP remove call on the server),
+// falling back to the uploader when there is no acting user (server/system
+// removal). The 'addAttachment'/upload activity keeps the uploader unchanged.
+const insertActivity = (fileObj, activityType, actingUserId) =>
   Activities.insertAsync({
-    userId: fileObj.userId,
+    userId: activityType === 'deleteAttachment'
+      ? deleteActivityUserId(actingUserId, fileObj.userId)
+      : fileObj.userId,
     type: 'card',
     activityType,
     attachmentId: fileObj._id,
@@ -41,7 +61,7 @@ export class AttachmentStoreStrategyGridFs extends FileStoreStrategyGridFs {
   /** after file remove */
   onAfterRemove() {
     super.onAfterRemove();
-    insertActivity(this.fileObj, 'deleteAttachment');
+    insertActivity(this.fileObj, 'deleteAttachment', currentActingUserId());
   }
 }
 
@@ -69,7 +89,7 @@ export class AttachmentStoreStrategyFilesystem extends FileStoreStrategyFilesyst
   /** after file remove */
   onAfterRemove() {
     super.onAfterRemove();
-    insertActivity(this.fileObj, 'deleteAttachment');
+    insertActivity(this.fileObj, 'deleteAttachment', currentActingUserId());
   }
 }
 
@@ -98,6 +118,6 @@ export class AttachmentStoreStrategyCloud extends FileStoreStrategyCloud {
   /** after file remove */
   onAfterRemove() {
     super.onAfterRemove();
-    insertActivity(this.fileObj, 'deleteAttachment');
+    insertActivity(this.fileObj, 'deleteAttachment', currentActingUserId());
   }
 }
