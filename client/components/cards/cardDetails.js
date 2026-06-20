@@ -8,6 +8,7 @@ import {
   DEFAULT_DEPENDENCY_COLOR,
   DEFAULT_DEPENDENCY_ICON,
 } from '/models/metadata/dependencies';
+import { canArchiveCard } from '/client/lib/archivePermission';
 
 // Which dependency the icon picker should apply its choice to. The icon popup's
 // own data context is the dependency row (not the source card), so we capture
@@ -1443,6 +1444,7 @@ Template.cardDetailsActionsPopup.events({
     Popup.back();
   },
   'click .js-archive': Popup.afterConfirm('cardArchive', async function () {
+    if (!canArchiveCard({ canModifyCard: Utils.canModifyCard() })) return;
     const card = Cards.findOne(getCardId());
     Popup.close();
     if (!card) return;
