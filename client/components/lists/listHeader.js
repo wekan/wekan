@@ -258,7 +258,15 @@ Template.listActionPopup.events({
   'click .js-set-list-width': Popup.open('setListWidth'),
   'click .js-set-color-list': Popup.open('setListColor'),
   'click .js-select-cards'() {
-    const cardIds = this.allCards().map(card => card._id);
+    // Scope "select all cards" to the current swimlane when invoked from a
+    // swimlane context (#5623). In swimlanes board view the list carries its
+    // swimlaneId; otherwise there is genuinely no swimlane context and we keep
+    // the historical list-wide selection (swimlaneId stays undefined).
+    let swimlaneId;
+    if (Utils.boardView() === 'board-view-swimlanes' && this.swimlaneId) {
+      swimlaneId = this.swimlaneId;
+    }
+    const cardIds = this.allCards(swimlaneId).map(card => card._id);
     MultiSelection.add(cardIds);
     Popup.back();
   },

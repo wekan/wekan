@@ -9,6 +9,38 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Lists = new Mongo.Collection('lists');
 
+// Pure, dependency-free helper for scoping a set of cards to a list and
+// (optionally) a swimlane (#5623). Defined here (an isomorphic model file) so
+// client and server share identical logic; re-exported from
+// server/lib/cardScope.js for unit testing.
+//
+// - When `swimlaneId` is undefined (no swimlane context), every card in the
+//   list is returned (preserves the historical "select all in list" behavior).
+// - When `swimlaneId` is provided, a card matches when its `swimlaneId` equals
+//   the given value, OR the card has no swimlane at all (null / '' / missing),
+//   mirroring `cards()` so orphaned/pre-migration cards stay selectable in
+//   every swimlane.
+export function filterCardsByListAndSwimlane(cards, listId, swimlaneId) {
+  if (!Array.isArray(cards)) {
+    return [];
+  }
+  return cards.filter(card => {
+    if (!card || card.listId !== listId) {
+      return false;
+    }
+    if (swimlaneId === undefined) {
+      return true;
+    }
+    const cardSwimlaneId = card.swimlaneId;
+    return (
+      cardSwimlaneId === swimlaneId ||
+      cardSwimlaneId === null ||
+      cardSwimlaneId === undefined ||
+      cardSwimlaneId === ''
+    );
+  });
+}
+
 /**
  * A list (column) in the Wekan board.
  */
@@ -285,9 +317,12 @@ Lists.helpers({
     return ret;
   },
 
-  allCards() {
+  allCards(swimlaneId) {
     const ret = ReactiveCache.getCards({ listId: this._id });
-    return ret;
+    // When a swimlane context is given, scope the result to that swimlane
+    // (plus orphaned cards) so "select all cards" stays contained within its
+    // own swimlane. Without a swimlaneId, keep the historical list-wide result.
+    return filterCardsByListAndSwimlane(ret, this._id, swimlaneId);
   },
 
   board() {
