@@ -41,6 +41,26 @@ export function filterCardsByListAndSwimlane(cards, listId, swimlaneId) {
   });
 }
 
+// Pure, dependency-free helper for list / swimlane colors (#5382). Defined here
+// (an isomorphic model file) so client and server share identical logic;
+// re-exported from server/lib/listColors.js for unit testing.
+//
+// `ALLOWED_LIST_COLORS` is the single canonical list of colors allowed for
+// lists and swimlanes (the same `LIST_COLORS` the schema allowedValues uses,
+// which includes `silver`). `normalizeListColor` returns the color when allowed
+// and '' (None) otherwise, so an offered-but-unsupported color is normalized
+// rather than silently saved as None or rejected by the schema.
+export const ALLOWED_LIST_COLORS = [...LIST_COLORS];
+
+const ALLOWED_LIST_COLOR_SET = new Set(ALLOWED_LIST_COLORS);
+
+export function normalizeListColor(color) {
+  if (typeof color !== 'string') {
+    return '';
+  }
+  return ALLOWED_LIST_COLOR_SET.has(color) ? color : '';
+}
+
 /**
  * A list (column) in the Wekan board.
  */
@@ -434,7 +454,12 @@ Lists.helpers({
   },
 
   async setColor(newColor) {
-    return await Lists.updateAsync(this._id, { $set: { color: newColor } });
+    // Normalize so an offered-but-unsupported color (or a removal) becomes None
+    // instead of being silently saved as the wrong color or rejected (#5382).
+    // normalizeListColor returns '' for None; store null so the optional,
+    // allowedValues-constrained schema field accepts it (as cards do).
+    const color = normalizeListColor(newColor) || null;
+    return await Lists.updateAsync(this._id, { $set: { color } });
   },
 });
 

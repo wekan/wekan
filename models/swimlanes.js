@@ -6,7 +6,7 @@ import PositionHistory from './positionHistory';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
-import Lists from '/models/lists';
+import Lists, { normalizeListColor } from '/models/lists';
 import { remapLabelIds } from '/server/lib/labelRemap';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
@@ -517,7 +517,12 @@ Swimlanes.helpers({
   },
 
   async setColor(newColor) {
-    return await Swimlanes.updateAsync(this._id, { $set: { color: newColor } });
+    // Normalize so an offered-but-unsupported color (or a removal) becomes None
+    // instead of being silently saved as the wrong color or rejected (#5382).
+    // normalizeListColor returns '' for None; store null so the optional,
+    // allowedValues-constrained schema field accepts it (as cards do).
+    const color = normalizeListColor(newColor) || null;
+    return await Swimlanes.updateAsync(this._id, { $set: { color } });
   },
 });
 

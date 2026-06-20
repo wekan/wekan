@@ -485,10 +485,8 @@ Template.setListColorPopup.events({
   },
   async 'submit form'(event, tpl) {
     event.preventDefault();
-    console.log('[ListColor] submit form, color:', tpl.currentColor.get(), 'listId:', tpl.currentList?._id, 'setColor type:', typeof tpl.currentList?.setColor);
     try {
-      const result = await tpl.currentList.setColor(tpl.currentColor.get());
-      console.log('[ListColor] submit form setColor result:', result);
+      await tpl.currentList.setColor(tpl.currentColor.get());
     } catch (err) {
       console.error('[ListColor] submit form setColor error:', err);
     }
@@ -496,10 +494,8 @@ Template.setListColorPopup.events({
   },
   async 'click .js-submit'(event, tpl) {
     event.preventDefault();
-    console.log('[ListColor] click submit, color:', tpl.currentColor.get(), 'listId:', tpl.currentList?._id, 'setColor type:', typeof tpl.currentList?.setColor);
     try {
-      const result = await tpl.currentList.setColor(tpl.currentColor.get());
-      console.log('[ListColor] click submit setColor result:', result);
+      await tpl.currentList.setColor(tpl.currentColor.get());
     } catch (err) {
       console.error('[ListColor] click submit setColor error:', err);
     }
@@ -507,7 +503,6 @@ Template.setListColorPopup.events({
   },
   async 'click .js-remove-color'(event, tpl) {
     event.preventDefault();
-    console.log('[ListColor] remove color, listId:', tpl.currentList?._id);
     try {
       await tpl.currentList.setColor(null);
     } catch (err) {
