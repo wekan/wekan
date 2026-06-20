@@ -159,9 +159,22 @@ Checklists.helpers({
     }
     return ret;
   },
+  /** Per-checklist "hide checked items" state, read from THIS checklist only
+   * (issue #5408). Never falls back to a card/global flag, so toggling one
+   * checklist never affects the others. Kept in sync with the pure helper
+   * checklistHideState() in server/lib/checklistHide.js (unit-tested there). */
+  hideCheckedState() {
+    return this.hideCheckedChecklistItems === true;
+  },
+  /** Should the given (checked/unchecked) item be hidden for THIS checklist?
+   * An item is hidden only when it is checked and this checklist's toggle is
+   * on. Mirrors the pure helper isItemHidden() in server/lib/checklistHide.js. */
+  isItemHidden(isChecked) {
+    return isChecked === true && this.hideCheckedState() === true;
+  },
   showChecklist(hideFinishedChecklistIfItemsAreHidden) {
     let ret = true;
-    if (this.isFinished() && hideFinishedChecklistIfItemsAreHidden === true && (this.hideCheckedChecklistItems === true || this.hideAllChecklistItems)) {
+    if (this.isFinished() && hideFinishedChecklistIfItemsAreHidden === true && (this.hideCheckedState() === true || this.hideAllChecklistItems)) {
       ret = false;
     }
     return ret;
