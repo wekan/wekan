@@ -106,6 +106,49 @@ This release adds the following features (initial MVP versions):
   Google Calendar sync is not included (see [wekan-ical-server](https://github.com/wekan/wekan-ical-server) for
   read-only WeKan→calendar export).
 
+This release also fixes the following bugs that were confirmed still present during a triage of open Bug issues:
+
+- [Fixed copying a card selecting all/unnamed labels on the destination board](https://github.com/wekan/wekan/issues/2970)
+  ([commit](https://github.com/wekan/wekan/commit/d26d117e3)): `Cards.copy()` now applies the same unnamed-label
+  guard as `Cards.move()` and persists the remapped labels onto the inserted card.
+- [Fixed copied card losing its cover ("show as thumb")](https://github.com/wekan/wekan/issues/5364)
+  ([commit](https://github.com/wekan/wekan/commit/a0e701708)): `coverId` is now remapped to the newly copied
+  attachment instead of pointing at the original (now-unresolvable) attachment id.
+- [Fixed deleting a date on a linked card not taking effect](https://github.com/wekan/wekan/issues/4561)
+  ([commit](https://github.com/wekan/wekan/commit/09e9c993e)): `unsetReceived/unsetStart/unsetDue/unsetEnd` now
+  resolve the real card id via `getRealId()` (consistent with the `set*` methods) so they update the underlying
+  linked card, not the link placeholder.
+- [Fixed comment-only members being able to archive cards from the UI](https://github.com/wekan/wekan/issues/5810)
+  ([commit](https://github.com/wekan/wekan/commit/aa412b2a1)): the archive action now respects
+  `Utils.canModifyCard()` like every other mutating card action (the server allow-rule already rejected the write;
+  this closes the client-side UX gap).
+- [Fixed sub-task board being inaccessible until a reload](https://github.com/wekan/wekan/issues/4762)
+  ([commit](https://github.com/wekan/wekan/commit/45bd7dcc8)): the "view subtask" navigation now guards against a
+  not-yet-loaded board, mirroring the sibling handler.
+- [Fixed the "When a card is moved to Archive" rule trigger not being activatable](https://github.com/wekan/wekan/issues/5188)
+  ([commit](https://github.com/wekan/wekan/commit/da7c06ec6)): a CSS class-name mismatch (`js-add-arc-trigger` vs
+  `js-add-arch-trigger`) between the board-triggers template and its click handler is fixed, with a regression test.
+- [Fixed "select all in list" crossing swimlanes](https://github.com/wekan/wekan/issues/5623)
+  ([commit](https://github.com/wekan/wekan/commit/300a9751e)): list select-all is now scoped to the current
+  swimlane in swimlanes view (`allCards()` gained an optional swimlane scope); list-wide behaviour is preserved
+  where there is no swimlane context.
+- [Fixed copying a swimlane to another board losing card labels](https://github.com/wekan/wekan/issues/5158)
+  ([commit](https://github.com/wekan/wekan/commit/9643dcded)): missing board-level labels are now recreated on the
+  destination board (preserving colour) before the per-card copy so label assignments survive.
+- [Fixed Calendar View ignoring the start-day-of-week setting](https://github.com/wekan/wekan/issues/5521)
+  ([commit](https://github.com/wekan/wekan/commit/7eec78c04)): FullCalendar's `firstDay` is now derived from
+  `getStartDayOfWeek()` instead of the locale default.
+- [Fixed deleted-attachment notification crediting the uploader instead of the deleter](https://github.com/wekan/wekan/issues/5504)
+  ([commit](https://github.com/wekan/wekan/commit/2ba8882d8)): the `deleteAttachment` activity now records the
+  acting user (falling back to the uploader for server/system removals).
+- [Fixed updating a card title not firing the outgoing webhook](https://github.com/wekan/wekan/issues/3619)
+  ([commit](https://github.com/wekan/wekan/commit/9aa97ab8f)): a title change now logs an `a-changedTitle` activity
+  (rendered in the activity feed) so the existing outgoing-webhook hook fires, consistent with description/date changes.
+
+During the same triage, 13 already-fixed Bug issues were closed with evidence, ~25 mislabeled feature requests were
+relabeled to `Feature` with a "Feature Request:" title prefix, and ~35 environment-specific reports were prefixed
+"Environment specific:" and given the `Bug:Environment-specific` label.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.64 2026-06-20 WeKan ® release

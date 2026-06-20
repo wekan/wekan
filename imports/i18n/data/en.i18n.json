@@ -1,5 +1,6 @@
 {
   "accept": "Accept",
+  "activity-changedTitle": "changed title to %s of %s",
   "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
   "comment-in-reply-to": "In reply to",
   "comment-reply": "Reply",

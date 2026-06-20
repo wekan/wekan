@@ -6,3 +6,6 @@ import './listAdd.tests';
 import './responsive.tests';
 import './boardNumbering.tests';
 import './subtaskStatus.tests';
+import './subtaskViewGuard.tests';
+import './boardTriggersClass.tests';
+import './calendarFirstDay.tests';
