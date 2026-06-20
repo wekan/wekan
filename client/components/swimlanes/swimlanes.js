@@ -6,6 +6,7 @@ import { CSSEvents } from '/client/lib/cssEvents';
 import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import { defaultSwimlaneIdForBoard } from '/client/components/lists/listAddHelpers';
 const { calculateIndex } = Utils;
 
 function saveSorting(ui) {
@@ -829,6 +830,16 @@ Template.addListForm.events({
 });
 
 Template.listsGroup.helpers({
+  // Issue #6142: the add-list composer needs a swimlane as its data context
+  // (it creates the list in that swimlane). In Lists mode the listsGroup data
+  // context is the board, not a swimlane, so resolve the board's default
+  // swimlane here and hand it to +addListForm.
+  defaultSwimlane() {
+    const board = Template.currentData();
+    const swimlaneId = defaultSwimlaneIdForBoard(board);
+    if (!swimlaneId) return null;
+    return ReactiveCache.getSwimlane({ _id: swimlaneId });
+  },
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
   },

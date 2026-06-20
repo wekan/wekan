@@ -30,9 +30,19 @@ template(name="listsGroup")
       if currentList
         +list(currentList)
       else
+        //- Issue #6142: allow adding a list in Lists (board-view-lists) mode too.
+        if defaultSwimlane
+          if currentUser.isBoardMember
+            unless currentUser.isCommentOnly
+              +addListForm(defaultSwimlane)
         each lists
           +miniList(this)
     else
+      //- Issue #6142: allow adding a list in Lists (board-view-lists) mode too.
+      if defaultSwimlane
+        if currentUser.isBoardMember
+          unless currentUser.isCommentOnly
+            +addListForm(defaultSwimlane)
       each lists
         if visible this
           +list(this)
