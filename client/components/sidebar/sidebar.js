@@ -1222,9 +1222,14 @@ Template.boardSubtaskSettingsPopup.helpers({
   },
   lists() {
     const tpl = Template.instance();
+    // The landing list belongs to the configured deposit board
+    // (subtasksDefaultBoardId), which may differ from the current board
+    // (#3414): when a different deposit board is chosen, show its lists.
+    const depositBoardId =
+      tpl.currentBoard.subtasksDefaultBoardId || tpl.currentBoard._id;
     return ReactiveCache.getLists(
       {
-        boardId: tpl.currentBoard._id,
+        boardId: depositBoardId,
         archived: false,
       },
       {
@@ -1234,9 +1239,11 @@ Template.boardSubtaskSettingsPopup.helpers({
   },
   hasLists() {
     const tpl = Template.instance();
+    const depositBoardId =
+      tpl.currentBoard.subtasksDefaultBoardId || tpl.currentBoard._id;
     const lists = ReactiveCache.getLists(
       {
-        boardId: tpl.currentBoard._id,
+        boardId: depositBoardId,
         archived: false,
       },
       {
@@ -1246,8 +1253,10 @@ Template.boardSubtaskSettingsPopup.helpers({
     return lists.length > 0;
   },
   isListSelected() {
+    // #3876 / #4947: the selected landing list must be compared against
+    // subtasksDefaultListId (the stored list id), NOT subtasksDefaultBoardId.
     const tpl = Template.instance();
-    return tpl.currentBoard.subtasksDefaultBoardId === Template.currentData()._id;
+    return tpl.currentBoard.subtasksDefaultListId === Template.currentData()._id;
   },
   presentParentTask() {
     // Get the current board reactively using board ID from Session
@@ -1277,11 +1286,22 @@ Template.boardSubtaskSettingsPopup.events({
     if (value === 'null') {
       value = null;
     }
+    // #4849: changing the deposit board makes any previously-stored landing
+    // list (which belongs to the old board) stale and would otherwise
+    // override the new board's setting. Reset it so the list dropdown for the
+    // newly-selected board starts fresh.
+    if (value !== tpl.currentBoard.subtasksDefaultBoardId) {
+      tpl.currentBoard.setSubtasksDefaultListId(null);
+    }
     tpl.currentBoard.setSubtasksDefaultBoardId(value);
     evt.preventDefault();
   },
   'change .js-field-deposit-list'(evt, tpl) {
-    tpl.currentBoard.setSubtasksDefaultListId(evt.target.value);
+    let value = evt.target.value;
+    if (value === 'null' || value === '') {
+      value = null;
+    }
+    tpl.currentBoard.setSubtasksDefaultListId(value);
     evt.preventDefault();
   },
   'click .js-field-show-parent-in-minicard'(evt, tpl) {
