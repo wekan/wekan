@@ -1,6 +1,10 @@
 {
   "accept": "Accetta",
   "activity-changedTitle": "changed title to %s of %s",
+  "act-deleteCard": "deleted card __card__ from list __list__ at swimlane __swimlane__ at board __board__",
+  "act-removeBoard": "deleted board __board__",
+  "act-removeList": "deleted list __list__ at board __board__",
+  "act-removeSwimlane": "deleted swimlane __swimlane__ at board __board__",
   "board-members-same-org-team-only": "Add board members only from the same Organization or Team",
   "comment-in-reply-to": "In reply to",
   "comment-reply": "Reply",
