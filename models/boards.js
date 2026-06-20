@@ -18,6 +18,7 @@ import Rules from '/models/rules';
 import Swimlanes from '/models/swimlanes';
 import Triggers from '/models/triggers';
 import { Counters, incrementCounterAsync } from '/models/counters';
+import { pullMemberById } from '/server/lib/removeMember';
 import getSlug from 'limax';
 import { findWhere, where, groupBy } from '/imports/lib/collectionHelpers';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
@@ -1961,6 +1962,17 @@ Boards.helpers({
 
   async removeMember(memberId) {
     const memberIndex = this.memberIndex(memberId);
+    // #5330: a member entry whose user account has been deleted still appears
+    // in board.members but has no Users document. Such an orphaned entry can
+    // never be a meaningful (active) admin and the deactivate-by-index flow
+    // below would only leave it lingering, so hard-remove it by userId. This
+    // works whether or not the user still exists since matching is by userId.
+    if (memberIndex < 0 || !ReactiveCache.getUser(memberId)) {
+      return await Boards.updateAsync(this._id, {
+        $set: { members: pullMemberById(this.members, memberId) },
+      });
+    }
+
     const allowRemove =
       !this.members[memberIndex].isAdmin || this.activeAdmins().length > 1;
     if (!allowRemove) {
