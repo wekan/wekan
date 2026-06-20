@@ -147,7 +147,21 @@ This release also fixes the following bugs that were confirmed still present dur
 
 During the same triage, 13 already-fixed Bug issues were closed with evidence, ~25 mislabeled feature requests were
 relabeled to `Feature` with a "Feature Request:" title prefix, and ~35 environment-specific reports were prefixed
-"Environment specific:" and given the `Bug:Environment-specific` label.
+"Environment specific:" and given the `Bug:Environment-specific` label. All 533 open issues were then audited for
+correct labels (type, `Feature:Area`, `Targets:`, `Severity:`, etc.).
+
+Auditing `docs/Login` and `docs/Features` against the GitHub issue labels showed that several documented login
+methods and features had no matching label. The following labels were added (matching the existing label style and
+colours — `Feature:*` = `#0052cc`, `Targets:*` = `#fbca04`):
+
+- Login methods (`Feature:User-accounts:*`): `Feature:User-accounts:ADFS`, `Feature:User-accounts:Azure`,
+  `Feature:User-accounts:B2C`, `Feature:User-accounts:Google`, `Feature:User-accounts:Header-Login`,
+  `Feature:User-accounts:Nextcloud`, `Feature:User-accounts:Oracle`, `Feature:User-accounts:Zitadel`,
+  `Feature:User-accounts:Autologin`, `Feature:User-accounts:Accounts-Lockout`, `Feature:User-accounts:Forgot-Password`.
+- Features: `Feature:LaTeX`, `Feature:Mermaid-Diagram`, `Feature:Emoji`, `Feature:Python`, `Feature:Cards:Cover`,
+  `Feature:Cards:Location`, `Feature:Custom-Logo`, `Feature:RTL`, `Feature:Members`, `Feature:Multitenancy`,
+  `Feature:Allow-private-boards-only`.
+- Platform: `Targets:Apache`.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
