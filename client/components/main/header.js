@@ -2,7 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-import Announcements from '/models/announcements';
+import Announcements, {
+  announcementVersion,
+  shouldShowAnnouncement,
+} from '/models/announcements';
 import { Utils } from '/client/lib/utils';
 
 Meteor.subscribe('user-admin');
@@ -71,14 +74,25 @@ Template.header.helpers({
   },
 
   hasAnnouncement() {
-    const announcements = Announcements.findOne();
-    return announcements && announcements.enabled;
+    const announcement = Announcements.findOne();
+    if (!announcement || !announcement.enabled) {
+      return false;
+    }
+    const version = announcementVersion(announcement);
+    const user = Meteor.user();
+    const dismissedVersion =
+      (user && user.profile && user.profile.dismissedAnnouncementVersion) || null;
+    return shouldShowAnnouncement({
+      enabled: announcement.enabled,
+      version,
+      dismissedVersion,
+    });
   },
 
   announcement() {
     $('.announcement').show();
-    const announcements = Announcements.findOne();
-    return announcements && announcements.body;
+    const announcement = Announcements.findOne();
+    return announcement && announcement.body;
   },
 
   zoomLevel() {
@@ -150,6 +164,13 @@ Template.header.events({
   },
   'click .js-close-announcement'() {
     $('.announcement').hide();
+    // Permanently dismiss the current announcement for this user (#6051).
+    // The banner reappears only when the admin changes the announcement text.
+    Meteor.call('dismissAnnouncement', (err) => {
+      if (err && process.env.DEBUG === 'true') {
+        console.error('dismissAnnouncement error', err);
+      }
+    });
   },
   'click .js-select-list'() {
     Session.set('currentList', this._id);

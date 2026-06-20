@@ -267,6 +267,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.dismissedAnnouncementVersion': {
+      /**
+       * version string of the global announcement the user has permanently
+       * dismissed (#6051). When the admin changes the announcement text its
+       * version changes, so the banner reappears for everyone.
+       */
+      type: String,
+      optional: true,
+    },
     'profile.cardMaximized': {
       /**
        * has user clicked maximize card?
@@ -1224,6 +1233,17 @@ Users.helpers({
     return profile.GreyIcons || false;
   },
 
+  getDismissedAnnouncementVersion() {
+    const profile = this.profile || {};
+    return profile.dismissedAnnouncementVersion || null;
+  },
+
+  hasDismissedAnnouncement(announcement) {
+    const { announcementVersion } = require('/models/announcements');
+    const version = announcementVersion(announcement);
+    return !!version && this.getDismissedAnnouncementVersion() === version;
+  },
+
   hasCustomFieldsGrid() {
     const profile = this.profile || {};
     return profile.customFieldsGrid || false;
@@ -1724,6 +1744,12 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.GreyIcons': !value } });
   },
 
+  async setDismissedAnnouncementVersion(version) {
+    return await Users.updateAsync(this._id, {
+      $set: { 'profile.dismissedAnnouncementVersion': version },
+    });
+  },
+
   async addNotification(activityId) {
     return await Users.updateAsync(this._id, {
       $addToSet: { 'profile.notifications': { activity: activityId, read: null } },
@@ -1811,5 +1837,29 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.cardZoom': level } });
   },
 });
+
+if (Meteor.isServer) {
+  Meteor.methods({
+    // Permanently dismiss the current global announcement for the logged-in
+    // user (#6051). The version is computed server-side from the current
+    // announcement so the client cannot dismiss an arbitrary/future version.
+    async dismissAnnouncement() {
+      if (!this.userId) {
+        throw new Meteor.Error('not-logged-in', 'User must be logged in');
+      }
+      const Announcements = require('/models/announcements').default;
+      const { announcementVersion } = require('/models/announcements');
+      const announcement = await Announcements.findOneAsync();
+      const version = announcementVersion(announcement);
+      if (!version) {
+        return null;
+      }
+      await Users.updateAsync(this.userId, {
+        $set: { 'profile.dismissedAnnouncementVersion': version },
+      });
+      return version;
+    },
+  });
+}
 
 export default Users;
