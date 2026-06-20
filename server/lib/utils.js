@@ -1,4 +1,6 @@
 import Boards from '/models/boards';
+import Cards from '/models/cards';
+import Checklists from '/models/checklists';
 
 export function allowIsBoardAdmin(userId, board) {
   return board && board.hasAdmin(userId);
@@ -51,6 +53,59 @@ export async function denyCrossBoardMove(userId, modifier) {
   if (typeof newBoardId !== 'string' || !newBoardId) return false;
   // Caller must have write access to the destination board.
   return !allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(newBoardId));
+}
+
+// Shared destination gate for the checklist deny rules below: returns true to
+// DENY when boardId names a board the caller cannot write to. An unknown/missing
+// board id also denies, matching denyCrossBoardMove's fail-closed behavior.
+async function denyMoveToUnwritableBoard(userId, boardId) {
+  if (typeof boardId !== 'string' || !boardId) return false;
+  return !allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(boardId));
+}
+
+// Security (GHSA-gv8h-5p3p-6hx7): Checklists and ChecklistItems are attached to a
+// card and carry a denormalized boardId. They are MOVED between cards by setting a
+// new cardId (and, for items, a new checklistId) in a direct collection update; a
+// before.update hook then re-derives boardId from the destination card. The allow
+// rules only authorize against the document's CURRENT (source) cardId, so a DDP
+// client with write access to its own board can relocate a checklist/item it owns
+// onto a card in a private board it is not a member of. This is the same class as
+// denyCrossBoardMove / BoardBleed, but for the card-attached checklist documents
+// that the boardId-only deny rule does not cover.
+//
+// Returns true to DENY any update whose destination board — resolved from a new
+// boardId or a new cardId in the modifier — the caller cannot write to.
+// Legitimate moves (destination writable) and same-card edits are unaffected, and
+// server-side Meteor methods bypass allow/deny entirely, so the trusted
+// moveChecklist method still works.
+export async function denyCrossBoardMoveByCard(userId, modifier) {
+  const set = modifier && modifier.$set;
+  if (!set) return false;
+  // Direct boardId change (defense in depth, same as denyCrossBoardMove).
+  if (await denyMoveToUnwritableBoard(userId, set.boardId)) return true;
+  // cardId change: resolve the destination card's board.
+  if (typeof set.cardId === 'string' && set.cardId) {
+    const card = await Cards.findOneAsync(set.cardId);
+    if (!card) return true;
+    if (await denyMoveToUnwritableBoard(userId, card.boardId)) return true;
+  }
+  return false;
+}
+
+// As denyCrossBoardMoveByCard, plus the ChecklistItem-only checklistId move: an
+// item can be re-parented to another checklist, which (via that checklist's card)
+// may live on a board the caller cannot write to. Returns true to DENY.
+export async function denyCrossBoardMoveByChecklistItem(userId, modifier) {
+  if (await denyCrossBoardMoveByCard(userId, modifier)) return true;
+  const set = modifier && modifier.$set;
+  if (set && typeof set.checklistId === 'string' && set.checklistId) {
+    const checklist = await Checklists.findOneAsync(set.checklistId);
+    if (!checklist) return true;
+    const card = await Cards.findOneAsync(checklist.cardId);
+    if (!card) return true;
+    if (await denyMoveToUnwritableBoard(userId, card.boardId)) return true;
+  }
+  return false;
 }
 
 // Check if user has write access via a card's board
