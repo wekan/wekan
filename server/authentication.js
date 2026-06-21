@@ -43,6 +43,7 @@ export const Authentication = {
   async checkBoardAccess(userId, boardId) {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
+    Authentication.checkBoardExists(board);
     const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker);
     await Authentication.checkAdminOrCondition(userId, normalAccess);
   },
@@ -51,6 +52,7 @@ export const Authentication = {
   async checkBoardWriteAccess(userId, boardId) {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
+    Authentication.checkBoardExists(board);
     const writeAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
     await Authentication.checkAdminOrCondition(userId, writeAccess);
   },
@@ -59,8 +61,20 @@ export const Authentication = {
   async checkBoardAdmin(userId, boardId) {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
+    Authentication.checkBoardExists(board);
     const adminAccess = board.members.some(e => e.userId === userId && e.isActive && e.isAdmin);
     await Authentication.checkAdminOrCondition(userId, adminAccess);
+  },
+
+  // Helper function. Throws a 404 error when the board does not exist, so REST
+  // handlers return HTTP 404 instead of crashing on `board.members` of an
+  // undefined board (which surfaced as a generic HTTP 500). See #5804.
+  checkBoardExists(board) {
+    if (!board) {
+      const error = new Meteor.Error('NotFound', 'Board not found');
+      error.statusCode = 404;
+      throw error;
+    }
   },
 };
 
