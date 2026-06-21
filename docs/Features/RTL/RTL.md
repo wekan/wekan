@@ -7,7 +7,7 @@ is selected.
 
 - When you choose an RTL language, the whole UI mirrors at once.
 - The RTL languages are those flagged `rtl: true` in
-  [`imports/i18n/languages.js`](https://github.com/wekan/wekan/blob/main/imports/i18n/languages.js):
+  [`imports/i18n/languages.js`](../../../imports/i18n/languages.js):
   Arabic and its variants, Persian/Farsi, Hebrew, Uyghur, Uzbek-Arabic and Yiddish.
 - The root `<html>` element gets a reactive `dir="rtl"` / `dir="ltr"` attribute that
   follows the chosen language, so the direction (and screen-reader pronunciation)

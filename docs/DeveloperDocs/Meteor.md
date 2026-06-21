@@ -20,7 +20,7 @@
 - https://www.youtube.com/watch?v=ZTtXRJTUCIU
 - https://github.com/jamauro/pwa-kit
 - https://wekan.fi/app/
-- https://github.com/wekan/wekan/wiki/PWA
+- [PWA](../Browsers/PWA.md)
 - Over 100 icons for different platforms https://github.com/wekan/wekan/blob/main/public/site.webmanifest
 
 ## Tip to any programmers
@@ -76,7 +76,7 @@ https://www.youtube.com/watch?v=8pDqJVdNa44
 - Look at progress of migrated packages https://forums.meteor.com/t/looking-for-help-migrating-packages-to-meteor-3-0/60985
 - Migrate from Fibers (works only at Meteor 2 and Node.js 14) to Async/Await (works with Meteor 3 and Node.js 20)
   - Helper tool https://forums.meteor.com/t/blaze-async-migration-helper-babel-plugin-tracker-async-enhance-for-the-client-side-released/60842
-  - Info how Async/Await works, from Storyteller: https://github.com/wekan/wekan/wiki/AsyncAwait
+  - Info how Async/Await works, from Storyteller: [AsyncAwait](AsyncAwait.md)
 - Forums posts about migrating: https://forums.meteor.com
 - ( Older version upgrade to newest 2.14 https://guide.meteor.com/2.14-migration )
 
@@ -99,8 +99,8 @@ From Meteor Discord chat from someone:
 
 ## Building WeKan
 
-- https://github.com/wekan/wekan/wiki/Emoji
-- Docs: https://github.com/wekan/wekan/tree/main/docs
+- [Emoji](../Features/Emoji.md)
+- Docs: [docs](..)
 
 ## Similar technology
 

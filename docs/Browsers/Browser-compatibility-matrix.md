@@ -3,7 +3,7 @@ If you know updates to this, please add new issue about it. Make changes to this
 ```
 git clone https://github.com/wekan/wekan.wiki
 ```
-There edit Browser-compatibility-matrix.md and attach it with .txt extension or in .zip file to https://github.com/wekan/wekan/wiki/issues
+There edit Browser-compatibility-matrix.md and attach it with .txt extension or in .zip file to https://github.com/wekan/wekan/issues
 
 ## Webkit based
 

@@ -1,6 +1,6 @@
 ## Roles
 
-It depends on role of user what drag drop is allowed https://github.com/wekan/wekan/wiki/REST-API-Role
+It depends on role of user what drag drop is allowed [REST API Role](../API/Role.md)
 
 ## Mobile Drag Drop
 

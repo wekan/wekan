@@ -114,7 +114,7 @@ Finally, run `sudo ./runfiles.sh` and it should work at the address being recomm
 - https://linuxize.com/post/creating-a-self-signed-ssl-certificate/ (openssl cmd)
 - https://caddy.community/t/proper-way-to-utilize-self-signed-certificates/7264 (reading docs and issues of caddy)
 - https://caddy.community/t/tls-self-signed-not-working/5057
-- - https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config (Wekan Docs)
+- - [Caddy Webserver Config](Caddy.md) (Wekan Docs)
 - https://github.com/wekan/wekan-snap/issues/118 
 - Snap Wekan Docs
 

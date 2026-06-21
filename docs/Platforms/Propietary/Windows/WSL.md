@@ -57,13 +57,13 @@ Then edit Windows Internet network settings. There:
 
 5. Use Chromium Edge (or Chromium/Firefox/Safari based browsers) to browse http://192.168.0.200 (your computer IP address there)
 
-6. For mobile devices, make PWA icon like https://github.com/wekan/wekan/wiki/PWA
+6. For mobile devices, make PWA icon like [PWA](../../../Browsers/PWA.md)
 
-7. Optional: For SSL/TLS, look at Caddy/Apache/Nginx configs at https://github.com/wekan/wekan/wiki right menu, and https://github.com/wekan/wekan/wiki/Settings
+7. Optional: For SSL/TLS, look at Caddy/Apache/Nginx configs at [Wekan documentation](../../../README.md) right menu, and [Settings](../../../Webserver/Settings.md)
 
 ## Related
 
-- https://github.com/wekan/wekan/wiki/Offline
+- [Offline](Offline.md)
 - https://ubuntu.com/blog/ubuntu-wsl-enable-systemd
 - https://github.com/wekan/wekan-snap/wiki/Install
-- https://github.com/wekan/wekan/wiki/Windows
+- [Windows](Windows.md)

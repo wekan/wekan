@@ -1,6 +1,6 @@
 Also see: [Windows](Windows)
 
-[Other CPU/OS On-Premise WeKan install](https://github.com/wekan/wekan/wiki/Raspberry-Pi)
+[Other CPU/OS On-Premise WeKan install](../../FOSS/RaspberryPi/Raspberry-Pi.md)
 
 ## Wekan Windows 64bit version On-Premise
 
@@ -380,7 +380,7 @@ At Offline Windows computer:
 ```
 mongodump
 ```
-Backup will be is in directory `dump`. More info at https://github.com/wekan/wekan/wiki/Backup
+Backup will be is in directory `dump`. More info at [Backup](../../../Backup/Backup.md)
 
 2.2. Backup part 2/2. If there is files at `WRITABLE_PATH` directory mentioned at `start-wekan.bat` of https://github.com/wekan/wekan , also backup those. For example, if there is `WRITABLE_PATH=..`, it means previous directory. So when WeKan is started with `node main.js` in bundle directory, it may create in previous directory (where is bundle) directory `files`, where is subdirectories like `files\attachments`, `files\avatars` or similar.
 
@@ -445,7 +445,7 @@ sudo snap install wekan
 7. At offline computer, install virtualbox and import wekan.ova
 
 8. Set virtualbox network to bridged:
-https://github.com/wekan/wekan/wiki/virtual-appliance#how-to-use
+[virtual appliance](../../FOSS/virtual-appliance.md#how-to-use)
 
 9. Start VirtualBox and Ubuntu
 

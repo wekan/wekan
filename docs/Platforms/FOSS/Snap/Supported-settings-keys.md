@@ -99,7 +99,7 @@ webhooks-attributes: What to send to Outgoing Webhook, or leave out.
 
 Also, if you have Rocket.Chat using LDAP/SAML/Google/etc for logging into Rocket.Chat, then same users can login to Wekan when Rocket.Chat is providing OAuth2 login to Wekan.
 
-[OAuth2 Login Docs](https://github.com/wekan/wekan/wiki/OAuth2)
+[OAuth2 Login Docs](../../../Login/OAuth2.md)
 
 ## [Matomo web analytics](https://matomo.org) integration
 Example:

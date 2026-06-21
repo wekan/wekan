@@ -79,7 +79,7 @@ docker-compose up -d
 9) Wekan and databases bind to address 0.0.0.0 so could be also available to other
    computers in network. I have not tested this.
 
-10) [Restore your MongoDB data](https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data).
+10) [Restore your MongoDB data](../../Platforms/FOSS/Docker/Export-Docker-Mongo-Data.md).
 
 ## Feedback
 

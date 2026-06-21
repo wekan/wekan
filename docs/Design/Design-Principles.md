@@ -4,7 +4,7 @@
 - Original WeKan Design:
   - Uses WeKan style confirm popups `Popup.afterConfirm(` , translations etc. Please look at existing code to keep same style.
   - Kanban, the good parts. Like was done when figuring out best design for Swimlanes https://github.com/wekan/wekan/issues/955
-  - Intuitive, easy to figure out, prevent messing up something https://github.com/wekan/wekan/wiki/Monkey-Proof-Software
+  - Intuitive, easy to figure out, prevent messing up something [Monkey Proof Software](Monkey-Proof-Software.md)
   - Polished UI/UX
   - Menu options are there where you would expect then to be.
   - Try to fix anything unexpected.
@@ -14,24 +14,24 @@
   - Swimlanes
   - All the use cases of WeKan feature/fix contributors
   - Cross-platform. Support many CPU/OS/Browsers for Desktop and Mobile. 
-  - Support many browsers https://github.com/wekan/wekan/wiki/Browser-compatibility-matrix . Add support for more.
-  - PWA https://github.com/wekan/wekan/wiki/PWA
+  - Support many browsers [Browser compatibility matrix](../Browsers/Browser-compatibility-matrix.md) . Add support for more.
+  - PWA [PWA](../Browsers/PWA.md)
   - On-Premise:
     - Linux amd64/arm64/s390x
       - https://wekan.fi/install/
-      - https://github.com/wekan/wekan/wiki/Raspberry-Pi 
-    - Windows https://github.com/wekan/wekan/wiki/Offline
-    - Mac https://github.com/wekan/wekan/wiki/Mac
+      - [Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md) 
+    - Windows [Offline](../Platforms/Propietary/Windows/Offline.md)
+    - Mac [Mac](../Platforms/Propietary/Mac.md)
 - Not like other software:
   - But note that design of all software changes often, when they are in active development.
 - Not bad parts of Trello:
-  - Not the exact design of Trello https://github.com/wekan/wekan/wiki/FAQ#why-does-wekan-look-so-different-now-compared-to--v09
+  - Not the exact design of Trello [FAQ](../FAQ/FAQ.md#why-does-wekan-look-so-different-now-compared-to--v09)
   - Not so many duplicate menus and texts like Trello
   - Not so much empty space
 - Some good parts of Trello:
   - Import from Trello
   - Shortcuts https://github.com/wekan/wekan/issues/1878
-  - IFTTT Rules like Trello Butler https://github.com/wekan/wekan/wiki/IFTTT
+  - IFTTT Rules like Trello Butler [IFTTT](../Features/IFTTT/IFTTT.md)
   - Progress bar of checklist
 - Some good parts of Jira:
   - Multiple assignees

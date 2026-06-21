@@ -13,7 +13,7 @@
 
 ## Docker
 
-Uncomment settings lines this wasy at [docker-compose.yml](https://github.com/wekan/wekan/blob/main/docker-compose.yml) to enable:
+Uncomment settings lines this wasy at [docker-compose.yml](../../docker-compose.yml) to enable:
 ```
       #-----------------------------------------------------------------
       # ==== LDAP AD Simple Auth ====

@@ -1,4 +1,4 @@
-[Other things that are not related to WeKan kanban](https://github.com/wekan/wekan/wiki/NOT-related-to-Wekan)
+[Other things that are not related to WeKan kanban](NOT-related-to-Wekan.md)
 
 ## Description
 

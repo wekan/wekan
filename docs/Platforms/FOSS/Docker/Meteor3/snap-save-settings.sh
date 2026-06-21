@@ -2,7 +2,7 @@
 
 # Save all setting of all Parallel Snaps that name start with wekan_ ,
 # for example wekan_customer1, wekan_customer2, etc
-# https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Snap/Many-Snaps-on-LXC.md
+# ../../Snap/Many-Snaps-on-LXC.md
 
 # Make sure the script is run as root (snap get often requires root privileges)
   if [ "$EUID" -ne 0 ]; then

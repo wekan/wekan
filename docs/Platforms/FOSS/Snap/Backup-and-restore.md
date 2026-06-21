@@ -1,4 +1,4 @@
-Also see [Docker Backup and Restore](https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data)
+Also see [Docker Backup and Restore](../Docker/Export-Docker-Mongo-Data.md)
 
 # MongoDB client based backup
 

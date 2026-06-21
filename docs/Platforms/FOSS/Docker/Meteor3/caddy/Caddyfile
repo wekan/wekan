@@ -34,7 +34,7 @@ wekan.customer.com {
 	# b) No custom domain, using customer.wekan.team:
 	#   - Using CloudFlare TLS Origin Certificate with Strict Enforcement
 	#   - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
-	#   - https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md
+	#   - ../../../../../Webserver/Caddy.md
 	# tls {
 	#     load /etc/caddy/certs
 	# }
@@ -60,7 +60,7 @@ wekan.customer.com {
 ## 2) WeKan hosting: No custom domain, using customer.wekan.team:
 # - Using CloudFlare TLS Origin Certificate with Strict Enforcement
 # - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
-# - https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md
+# - ../../../../../Webserver/Caddy.md
 # - Difference is additional tls section: tls { load /etc/caddy/certs }
 
 customer.wekan.team {
@@ -106,7 +106,7 @@ customer.com {
 
 # 4) Example of Sandstorm https://sandstorm.org web hosting
 # - with WordPress, Hacker CMS, etc
-# - https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Sandstorm/Sandstorm.md
+# - ../../../Sandstorm/Sandstorm.md
 
 # 4.1) Using Let's Encrypt: WordPress, Hacker CMS, etc
 customer.fi {

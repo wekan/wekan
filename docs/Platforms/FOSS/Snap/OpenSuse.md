@@ -1,1 +1,1 @@
-https://github.com/wekan/wekan/wiki/OpenSuse
+[OpenSuse](../OpenSuse.md)

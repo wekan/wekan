@@ -63,6 +63,6 @@ sudo snap refresh rocketchat-server --channel=6.x/stable --amend
 
 ## More RocketChat Snap related info
 
-https://github.com/wekan/wekan/wiki/OAuth2
+[OAuth2](../../Login/OAuth2.md)
 
 https://docs.rocket.chat/deploy/deploy-rocket.chat/deploy-with-snaps

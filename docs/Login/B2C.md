@@ -24,7 +24,7 @@ sudo snap set wekan oauth2-id-map='sub'
 
 ## Docker
 
-https://github.com/wekan/wekan/blob/main/docker-compose.yml
+[docker-compose.yml](../../docker-compose.yml)
 
 ```
       - OAUTH2_ENABLED=true

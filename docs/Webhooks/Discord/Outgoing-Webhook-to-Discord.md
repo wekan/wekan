@@ -19,7 +19,7 @@ Wekan Outgoing Webhook URLs are in Slack/Rocket.Chat/Discord format.
 Note: Not all Wekan activities create Outgoing Webhook events. Missing activities [have been added](https://github.com/wekan/wekan/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+webhook) to [Wekan Roadmap](https://github.com/wekan/wekan/projects/2). If you find some activity that does not yet have GitHub issue about it, please add new GitHub issue.
 
 Wekan uses this type of JSON when sending to Outgoing Webhook:
-https://github.com/wekan/wekan/wiki/Webhook-data
+[Webhook data](../Webhook-data.md)
 
 Discord supports incoming webhooks in different formats, like GitHub, Slack, etc. The incoming format needs to be specified by adding webhook format to end of URL.
 https://discordapp.com/developers/docs/resources/webhook#execute-slackcompatible-webhook

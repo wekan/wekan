@@ -23,7 +23,7 @@ sudo snap set wekan oauth2-request-permissions='openid email profile'
 
 ## Docker
 
-https://github.com/wekan/wekan/blob/main/docker-compose.yml
+[docker-compose.yml](../../docker-compose.yml)
 
 ```
       - OAUTH2_ENABLED=true

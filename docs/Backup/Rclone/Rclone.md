@@ -6,7 +6,7 @@ Current working way to upgrade is:
 
 ## Docker
 
-1. Create Mongodump of your database like at [Backup page](https://github.com/wekan/wekan/wiki/Backup)
+1. Create Mongodump of your database like at [Backup page](../Backup.md)
 2. Use newest WeKan docker-compose.yml from https://github.com/wekan/wekan with WRITABLE_PATH setup to Rclone/MinIO like below this page
 3. Mongorestore to MongoDB 6.0.3 database
 4. Use WeKan Admin Panel `Move all attachments to filesystem` button to move all attachments to MinIO.

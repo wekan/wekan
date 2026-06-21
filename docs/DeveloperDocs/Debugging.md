@@ -9,19 +9,19 @@ This can happen, when there is too much or incompatible code at browserside, for
 To fix it:
 
 1. Move ExcelJS from browserside to run at serverside https://github.com/wekan/wekan/pull/3871
-2. Use Bundle Visualizer to see what is the size of dependencies, and try what can be moved to serverside like at step 1, that bundle visualizer is used in this script https://github.com/wekan/wekan/blob/main/rebuild-wekan.sh
+2. Use Bundle Visualizer to see what is the size of dependencies, and try what can be moved to serverside like at step 1, that bundle visualizer is used in this script [rebuild-wekan.sh](../../rebuild-wekan.sh)
 ```
 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-packages bundle-visualizer --production  2>&1 | tee ../log.txt
 ```
 3. Make dependencies smaller. For example, use only required files, and do not include all dependencies: https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d . In that commit, package was forked to packages directory, then renamed, and added with `meteor add packagename`, where package name does not have character `:`
 4. Use Browserstack.com to see errors at browser / inspect / console, or use iOS or other device emulators, to see error messages. Testing at real device is more important, because they could work differently than emulators, emulators sometimes do not emulate all same features. Those error messages have file where error happened, and line number, like `something.js:301` . From there, scroll up a little, look at what function or what package dependency it is where it happened. If possible, try to move that package serverside, like at step 1. Or alternatively, look is it possible to remove or change to some other compatible dependency.
 5. See what are the dependencies at your Meteor based software, compared to WeKan dependencies that are usually already upgraded to newest Meteor, is there any differences where changing to correct dependencies could help you to upgrade to newest Meteor:
-  - https://github.com/wekan/wekan/blob/main/package.json
-  - https://github.com/wekan/wekan/blob/main/.meteor/packages
-  - https://github.com/wekan/wekan/blob/main/.meteor/versions
-  - https://github.com/wekan/wekan/blob/main/.meteor/release
+  - [package.json](../../package.json)
+  - [packages](../../.meteor/packages)
+  - [versions](../../.meteor/versions)
+  - [release](../../.meteor/release)
 5. If you get some errors, search are those same already fixed in WeKan/Meteor/RocketChat, could you fix them same way:
-  - https://github.com/wekan/wekan/blob/main/CHANGELOG.md
+  - [CHANGELOG.md](../../CHANGELOG.md)
   - https://github.com/wekan/wekan/issues
   - https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aclosed
   - https://github.com/meteor/meteor/issues
@@ -29,12 +29,12 @@ meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-pa
   - https://github.com/RocketChat/Rocket.Chat/issues
   - https://github.com/RocketChat/Rocket.Chat/issues?q=is%3Aissue+is%3Aclosed
 6. If you have some webserver providing SSL/TLS, check that you have websockets enabled:
-  - https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config
-  - https://github.com/wekan/wekan/wiki/Nginx-Webserver-Config
-  - https://github.com/wekan/wekan/wiki/Apache
+  - [Caddy Webserver Config](../Webserver/Caddy.md)
+  - [Nginx Webserver Config](../Webserver/Nginx.md)
+  - [Apache](../Webserver/Apache.md)
   - OpenLiteSpeed https://github.com/wekan/wekan/issues/3334#issuecomment-723651328
-  - https://github.com/wekan/wekan/wiki/Local-self-signed-TLS
-  - https://github.com/wekan/wekan/wiki/Traefik-and-self-signed-SSL-certs
+  - [Local self signed TLS](../Webserver/Local-self-signed-TLS.md)
+  - [Traefik and self signed SSL certs](../Webserver/Traefik-and-self-signed-SSL-certs.md)
 
 ## OLD: TODO
 
@@ -70,7 +70,7 @@ meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-pa
 
 1) Increase ulimit system wide to 100 000 in systemd config.
 
-2) Wekan Javascript code has [increaded fiber poolsize](https://github.com/wekan/wekan/blob/main/server/authentication.js#L5-L9).
+2) Wekan Javascript code has [increaded fiber poolsize](../../server/authentication.js#L5-L9).
 
 3) There is [on-going 100% CPU usage Meteor issue](https://github.com/meteor/meteor/issues/9796#issuecomment-400079380) and hopefully [fixes to Node.js will land in Node v8.12](https://github.com/nodejs/node/pull/21593#issuecomment-403636667) sometime. Node 8.12 is now released and official version included at Wekan.
 
@@ -80,13 +80,13 @@ meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-pa
 
 ## Current versions of dependencies
 
-[Dockerfile](https://github.com/wekan/wekan/blob/main/Dockerfile), versions of Meteor.js, Node etc listed at beginning.
+[Dockerfile](../../Dockerfile), versions of Meteor.js, Node etc listed at beginning.
 
-[Included Meteor packages](https://github.com/wekan/wekan/blob/main/.meteor/packages)
+[Included Meteor packages](../../.meteor/packages)
 
-[Included Meteor package versions](https://github.com/wekan/wekan/blob/main/.meteor/versions)
+[Included Meteor package versions](../../.meteor/versions)
 
-[Added packages at package.json](https://github.com/wekan/wekan/blob/main/package.json)
+[Added packages at package.json](../../package.json)
 
 ## Build from source
 

@@ -14,7 +14,7 @@ Stylus code was located at `wekan/client/components/*/*.styl`, for example `weka
 
 ## Converting Stylus to CSS
 
-[Source](https://github.com/wekan/wekan/blob/main/releases/stylus-to-css.sh)
+[Source](../../releases/stylus-to-css.sh)
 
 #### 1) Install Stylus
 ```

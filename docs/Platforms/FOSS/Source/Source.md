@@ -8,7 +8,7 @@ At [Virtual Appliance](virtual-appliance) there is build scripts and all depende
 
 ## Build from source on Linux
 
-To have [Node 100% CPU fixes](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v084-2018-04-16-wekan-release): Increase ulimit for node in systemd config to 100 000
+To have [Node 100% CPU fixes](../../../../CHANGELOG.md#v084-2018-04-16-wekan-release): Increase ulimit for node in systemd config to 100 000
 
 Wekan:
 - On any x64 hardware that has Ubuntu 14.04 or Debian 9 or newer installed directly or in VM:

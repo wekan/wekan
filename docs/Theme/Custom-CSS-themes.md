@@ -1,5 +1,5 @@
 Here is how to build wekan code and add your new theme with code changes and send as pull request:
-https://github.com/wekan/wekan/wiki/Emoji#how-you-could-add-another-plugin
+[Emoji](../Features/Emoji.md#how-you-could-add-another-plugin)
 
 Here is how some have sent previous themes to Wekan, what code changes they made:
 https://github.com/wekan/wekan/pulls?q=is%3Apr+is%3Aclosed+theme
@@ -8,7 +8,7 @@ After you have sent new theme as pull request, you see it as open pull request:
 https://github.com/wekan/wekan/pulls?q=is%3Apr+theme+is%3Aopen
 
 And when I have merged it to Wekan, that theme will be in next Wekan release, listed at ChangeLog:
-https://github.com/wekan/wekan/blob/main/CHANGELOG.md
+[CHANGELOG.md](../../CHANGELOG.md)
 
 At Wekan Snap page you see with webpage reload, when new version has been released:
 https://snapcraft.io/wekan

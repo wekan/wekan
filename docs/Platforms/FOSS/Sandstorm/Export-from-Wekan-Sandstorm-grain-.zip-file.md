@@ -222,7 +222,7 @@ and most likely how to get them back to mongodb
 so just copying all of those boards JSON files and restoring to MongoDB database would work
 and editing JSON files with any plain text editor. For big files you can try JEdit.
 
-12.6 Here is how to backup and restore mongodb in docker, snap etc https://github.com/wekan/wekan/wiki/Backup
+12.6 Here is how to backup and restore mongodb in docker, snap etc [Backup](../../../Backup/Backup.md)
 
 12.7 All Wekan Docker settings are in this textfile https://raw.githubusercontent.com/wekan/wekan/devel/docker-compose-build.yml
 

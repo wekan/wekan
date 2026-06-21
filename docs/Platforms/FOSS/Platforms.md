@@ -6,7 +6,7 @@ Only newest Wekan is supported. Please check you are running newest Wekan, becau
 
 ## Related 
 
-* [Wekan new release ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md)
+* [Wekan new release ChangeLog](../../../CHANGELOG.md)
 * [Adding Users](Adding-users)
 * [Forgot Password](Forgot-Password)
 * [Settings](Settings)
@@ -132,13 +132,13 @@ New at 2019-08-04. For Ubuntu, Debian, CentOS and SLES.
 
 [Integrations](Integrations)
 
-[install_source]: https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source
-[installsource_windows]: https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
+[install_source]: [Install and Update](Source/Install-and-Update.md#install-manually-from-source)
+[installsource_windows]: [Install Wekan from source on Windows](../Propietary/Windows/Install-Wekan-from-source-on-Windows.md)
 [cloudron_button]: https://cloudron.io/img/button.svg
 [cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
 [docker_image]: https://hub.docker.com/r/wekanteam/wekan/
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
-[heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wekan/wekan/tree/main
+[heroku_deploy]: https://heroku.com/deploy?template=[wekan repo](../../..)
 [indiehosters_button]: https://indie.host/signup.png
 [indiehosters_saas]: https://indiehosters.net/shop/product/wekan-20
 [sandstorm_button]: https://img.shields.io/badge/try-Wekan%20on%20Sandstorm-783189.svg

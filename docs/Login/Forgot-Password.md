@@ -66,8 +66,8 @@ exit
 Then login to Wekan and change any users passwords at `Admin Panel / People / People`.
 
 **c) Use DBGate or Nosqlbooster** to edit wekan database users table to have admin true:
-- https://github.com/wekan/wekan/wiki/Backup#dbgate-open-source-mongodb-gui
-- https://github.com/wekan/wekan/wiki/Forgot-Password
+- [Backup](../Backup/Backup.md#dbgate-open-source-mongodb-gui)
+- [Forgot Password](Forgot-Password.md)
 
 ## Set user as BoardAdmin on all boards user is member of
 
@@ -135,8 +135,8 @@ exit
 13. Then login to Wekan and change any users passwords at `Admin Panel / People / People`.
 
 More info:
-- https://github.com/wekan/wekan/wiki/Backup
-- https://github.com/wekan/wekan/wiki/Docker
+- [Backup](../Backup/Backup.md)
+- [Docker](../Platforms/FOSS/Docker/Docker.md)
 
 ***
 

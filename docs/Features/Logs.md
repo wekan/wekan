@@ -4,7 +4,7 @@ Also see at this wiki right menu Webhooks:
 
 ## Enable more Wekan debug logs:
 
-a) Snap: `sudo snap set wekan debug='true'` - but also notice that [in Wekan v4.56 newer most mongo logs go to `/dev/null` on Snap](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v456-2020-11-30-wekan-release)
+a) Snap: `sudo snap set wekan debug='true'` - but also notice that [in Wekan v4.56 newer most mongo logs go to `/dev/null` on Snap](../../CHANGELOG.md#v456-2020-11-30-wekan-release)
 
 b) docker-compose.yml: `DEBUG=true`
 
@@ -71,5 +71,5 @@ When Wekan grain is open, click at top terminal icon, so then opens new window t
 - https://github.com/wekan/wekan-stats
 - Boards count https://github.com/wekan/wekan/pull/3556
 - At this wiki right menu, also look at Webhooks topic
-- https://github.com/wekan/wekan/wiki/Features#Stats
+- [Features](Features.md#Stats)
 - https://github.com/wekan/wekan/issues/1001

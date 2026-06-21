@@ -16,6 +16,6 @@ Data is sent in [this kind of JSON format](Webhook-data).
 
 Then for each received data, your code can read content and based on incoming data call Wekan REST API, some Java interface, etc.
 
-Outgoing Webhooks can also go to Slack, RocketChat, NodeRED, PowerShell etc. See right menu webhook links when scrolling down wiki page https://github.com/wekan/wekan/wiki
+Outgoing Webhooks can also go to Slack, RocketChat, NodeRED, PowerShell etc. See right menu webhook links when scrolling down wiki page [Wekan documentation](../README.md)
 
 If you call some Java interface that returns some data, you can then write that data to Wekan card with Wekan REST API.

@@ -3,14 +3,14 @@ version: '2'
 # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
 #---------------------------------------------------------------------------------------------------------
 # ==== CREATING USERS AND LOGGING IN TO WEKAN ====
-# https://github.com/wekan/wekan/wiki/Adding-users
+# ../../Login/Adding-users.md
 #---------------------------------------------------------------------------------------------------------
 # ==== FORGOT PASSWORD ====
-# https://github.com/wekan/wekan/wiki/Forgot-Password
+# ../../Login/Forgot-Password.md
 #---------------------------------------------------------------------------------------------------------
 # ==== Upgrading Wekan to new version =====
 # NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
-#       see https://github.com/wekan/wekan/wiki/Backup
+#       see ../../Backup/Backup.md
 # 1) Stop Wekan:
 #      docker-compose stop
 # 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
@@ -48,7 +48,7 @@ version: '2'
 #     docker-compose stop
 # ----------------------------------------------------------------------------------
 # ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
-# https://github.com/wekan/wekan/wiki/Backup
+# ../../Backup/Backup.md
 # If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
 # 1) Going inside containers:
 #    a) Wekan app, does not contain data
@@ -195,7 +195,7 @@ services:
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.
       # Admin Panel has test button, but it's not used for settings.
-      #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+      #   see ../../Email/Troubleshooting-Mail.md
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #       You can encode those characters for example at: https://www.urlencoder.org
@@ -236,7 +236,7 @@ services:
       # - export KADIRA_OPTIONS_ENDPOINT=http://127.0.0.1:11011
       #---------------------------------------------------------------
       # ==== OPTIONAL: LOGS AND STATS ====
-      # https://github.com/wekan/wekan/wiki/Logs
+      # ../../Features/Logs.md
       #
       # Daily export of Wekan changes as JSON to Logstash and ElasticSearch / Kibana (ELK)
       # https://github.com/wekan/wekan-logstash
@@ -256,7 +256,7 @@ services:
       #---------------------------------------------------------------
       # ==== WEKAN API AND EXPORT BOARD ====
       # Wekan Export Board works when WITH_API=true.
-      # https://github.com/wekan/wekan/wiki/REST-API
+      # ../../API/REST-API.md
       # https://github.com/wekan/wekan-gogs
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
@@ -361,7 +361,7 @@ services:
       #- MATOMO_WITH_USERNAME=false
       #-----------------------------------------------------------------
       # ==== METRICS ALLOWED IP ADDRESSES ====
-      # https://github.com/wekan/wekan/wiki/Metrics
+      # ../../Features/Metrics.md
       #- METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
       #-----------------------------------------------------------------
       # ==== BROWSER POLICY AND TRUSTED IFRAME URL ====
@@ -378,7 +378,7 @@ services:
       #- WEBHOOKS_ATTRIBUTES=
       #-----------------------------------------------------------------
       # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
-      # https://github.com/wekan/wekan/wiki/autologin
+      # ../../Login/autologin.md
       #- OIDC_REDIRECTION_ENABLED=true
       #---------------------------------------------
       # ==== OAUTH2 ORACLE on premise identity manager OIM ====
@@ -386,7 +386,7 @@ services:
       #-----------------------------------------------------------------
       # ==== OAUTH2 ONLY WITH OIDC AND DOORKEEPER AS INDENTITY PROVIDER
       # https://github.com/wekan/wekan/issues/1874
-      # https://github.com/wekan/wekan/wiki/OAuth2
+      # ../../Login/OAuth2.md
       # Enable the OAuth2 connection
       # example: OAUTH2_ENABLED=true
       #- OAUTH2_ENABLED=false
@@ -396,7 +396,7 @@ services:
       #- OAUTH2_ADFS_ENABLED=false
       # Azure AD B2C. https://github.com/wekan/wekan/issues/5242
       #- OAUTH2_B2C_ENABLED=false
-      # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
+      # OAuth2 docs: ../../Login/OAuth2.md
       # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
       # example: OAUTH2_CLIENT_ID=abcde12345
       #- OAUTH2_CLIENT_ID=
@@ -417,7 +417,7 @@ services:
       #- OAUTH2_TOKEN_ENDPOINT=
       #-----------------------------------------------------------------
       # ==== LDAP ====
-      # https://github.com/wekan/wekan/wiki/LDAP
+      # ../../Login/LDAP.md
       # For Snap settings see https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
       # Most settings work both on Snap and Docker below.
       # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.

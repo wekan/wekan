@@ -2,7 +2,7 @@
 
 ## To translators, about the word Custom
 
-See other feature for description of Custom https://github.com/wekan/wekan/wiki/Customize-Translations
+See other feature for description of Custom [Customize Translations](../../Translations/Customize-Translations.md)
 
 ## 1) Click: Board hamburger menu / Custom Fields
 

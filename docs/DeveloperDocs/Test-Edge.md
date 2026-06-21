@@ -1,5 +1,5 @@
 ## Testers to ping with new Wekan Edge release
-- All those whose issues were fixed [at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md)
+- All those whose issues were fixed [at ChangeLog](../../CHANGELOG.md)
 - @saschafoerster
 
 Those should reply to new issue that has name `Test Edge Wekan (version-number-here)` at https://github.com/wekan/wekan/issues .
@@ -14,7 +14,7 @@ https://github.com/wekan/wekan/issues/2811
 
 ## What usually happens when Wekan gets broken
 
-1. There is many new issues about some same new feature or bug. Yes, also when some notices new feature that is already [at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md), they add issue about it, usually asking "Can this feature be turned off or made optional?". This is usually if new feature changes some old workflow radically.
+1. There is many new issues about some same new feature or bug. Yes, also when some notices new feature that is already [at ChangeLog](../../CHANGELOG.md), they add issue about it, usually asking "Can this feature be turned off or made optional?". This is usually if new feature changes some old workflow radically.
 2. Many do tag @xet7 that are you aware of the issue.
 3. Someone yells at IRC that "this is too much, it's time to fork Wekan". Well, that's because he gets yelled at by all users of Wekan at his company.
 4. xet7 does not have time to answer those, he just fixes the issue - usually at the same day, makes new release, closes all related issues with last comment "Please try Wekan (version-number-here)".
@@ -23,7 +23,7 @@ https://github.com/wekan/wekan/issues/2811
 
 ## ChangeLog
 
-https://github.com/wekan/wekan/blob/main/CHANGELOG.md
+[CHANGELOG.md](../../CHANGELOG.md)
 
 ## Backup before testing. And backup daily in production.
 
@@ -31,7 +31,7 @@ Why? Well, Wekan has no undo yet. If you delete Swimlane/List/Card, it's gone.
 That's why it's harder to reach in submenu. It's better to Arhive those,
 and unarchive.
 
-https://github.com/wekan/wekan/wiki/Backup
+[Backup](../Backup/Backup.md)
 
 You could test at other computer than your production.
 
@@ -81,7 +81,7 @@ image: wekanteam/wekan:v3.55
 ### How to change Docker version
 
 1) Backup first
-https://github.com/wekan/wekan/wiki/Backup
+[Backup](../Backup/Backup.md)
 
 ```
 docker-compose stop
@@ -137,7 +137,7 @@ docker-compose up -d --build
 1) Install local development version of Sandstorm to your laptop from https://sandstorm.io/install
 
 2) Download and install experimental version to your local Sandstorm:
-https://github.com/wekan/wekan/wiki/Sandstorm
+[Sandstorm](../Platforms/FOSS/Sandstorm/Sandstorm.md)
 Local sandstorm is at http://local.sandstorm.io:6080/ .
 
 3) Download your production Wekan grain .zip file with down arrow button. Upload to your dev local Sandstorm.

@@ -23,4 +23,4 @@ $ wekan.help
 
 **All of commandline help is also in this wiki, categorized to their own wiki pages.**
 
-See also [Wekan documentation](https://github.com/wekan/wekan/wiki)
+See also [Wekan documentation](../../../README.md)

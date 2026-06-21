@@ -15,7 +15,7 @@ GitHub Username | Location | Position | Details
 
 # Current most frequent Contributors
 
-Also, see newest contributors at [ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md)
+Also, see newest contributors at [ChangeLog](../../CHANGELOG.md)
 
 GitHub Username | Location | Position | Details
 ------------ | ------------ | ------------ | ------------

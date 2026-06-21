@@ -7,8 +7,8 @@
 # OLD:
 
 **NOTE**:
-- [Newest Node/Mongo/Meteor versions](https://github.com/wekan/wekan/blob/main/Dockerfile).
-- For x64 wekan-VERSION.zip is at https://releases.wekan.team and some related install info https://github.com/wekan/wekan/wiki/Raspberry-Pi
+- [Newest Node/Mongo/Meteor versions](../../../../Dockerfile).
+- For x64 wekan-VERSION.zip is at https://releases.wekan.team and some related install info [Raspberry Pi](../../FOSS/RaspberryPi/Raspberry-Pi.md)
 
 **Purpose**: Install latest Wekan release on [Uberspace](https://uberspace.de/) 6 and run as [daemontools](https://cr.yp.to/daemontools/faq/create.html) service in local userspace.
 
@@ -37,7 +37,7 @@ Or you can run it automatically.
 ## Install Wekan (v0.63) on Uberspace 6 by Noodle / Chris
 ##
 ## Sources:
-## https://github.com/wekan/wekan/wiki/Install-and-Update#manual-installation-steps
+## [Install and Update](../../FOSS/Source/Install-and-Update.md#manual-installation-steps)
 ## https://wiki.uberspace.de/database:mongodb
 ## https://wiki.uberspace.de/development:nodejs
 ## https://wiki.uberspace.de/system:daemontools

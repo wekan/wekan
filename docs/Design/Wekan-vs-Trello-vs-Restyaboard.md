@@ -4,7 +4,7 @@
 
 MIT:
 
-- WeKan (MIT, Node.js/Meteor/MongoDB) https://github.com/wekan/wekan is maintained, major features being added, see https://github.com/wekan/wekan/wiki/Deep-Dive-Into-WeKan
+- WeKan (MIT, Node.js/Meteor/MongoDB) https://github.com/wekan/wekan is maintained, major features being added, see [Deep Dive Into WeKan](Deep-Dive-Into-WeKan.md)
 - Kanboard (MIT, PHP) https://github.com/kanboard/kanboard is at maintenance mode, no major new feature development. There is still security fixes etc.
 - 4gaBoards (MIT, Node.js/Sails.js/PostgreSQL) https://github.com/RARgames/4gaBoards is maintained fork of Planka
 - Godello (MIT, Godot) https://github.com/alfredbaudisch/Godello can save locally, maybe no multi-user support yet
@@ -29,9 +29,9 @@ Other kanbans maybe listed at https://github.com/KanRule
 - Atlassian is retiring self-managed server offerings https://www.atlassian.com/blog/platform/atlassian-server-is-going-away-next-steps
 
 
-## Please [search from ChangeLog page](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) instead
+## Please [search from ChangeLog page](../../CHANGELOG.md) instead
 
-Please [search from ChangeLog page](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) instead about does Wekan have some feature.
+Please [search from ChangeLog page](../../CHANGELOG.md) instead about does Wekan have some feature.
 
 This comparison below is over one year old and very outdated. All of Wekan/Trello/Restyaboard have changed very much and have many new features and fixes.
 
@@ -39,7 +39,7 @@ This comparison below is over one year old and very outdated. All of Wekan/Trell
 
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
-Price | Free and Open Source, [MIT license](https://github.com/wekan/wekan/blob/main/LICENSE). Free for Commercial Use. | Free with limitations, Monthly payment, Annual Subscription, Quote-based | Open Core
+Price | Free and Open Source, [MIT license](../../LICENSE). Free for Commercial Use. | Free with limitations, Monthly payment, Annual Subscription, Quote-based | Open Core
 Whitelabeling | Yes. Admin Panel/Layout: Hide Logo, Custom Product Name. | No | $ Yes
 Theming | [Yes](Custom-CSS-themes) | No | $ Yes
 Redistributing | Yes | No | $ Yes
@@ -189,7 +189,7 @@ Undo from activities | No | No | Yes
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 API explorer | No | No | Yes
-OpenAPI | [Yes](https://github.com/wekan/wekan/tree/main/openapi) [here](https://wekan.fi/api/) | ? | ?
+OpenAPI | [Yes](../../openapi) [here](https://wekan.fi/api/) | ? | ?
 Developer applications | Yes, using REST API | Yes | Yes
 Authorized OAuth applications | No, REST API [login as admin to get Bearer token](REST-API#example-call---as-form-data) | Yes | Yes
 Webhooks | Yes, per board or global at Admin Panel | Yes | Yes

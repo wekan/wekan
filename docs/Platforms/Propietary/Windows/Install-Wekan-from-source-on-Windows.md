@@ -1,6 +1,6 @@
 # Newest Windows info here
 
-https://github.com/wekan/wekan/wiki/Offline
+[Offline](Offline.md)
 
 ## OLD INFO BELOW, DOES NOT WORK
 
@@ -97,7 +97,7 @@ meteor
 
 # FAQ
 ### I am getting `node-gyp` related issues.
-Make sure to install all required programs stated here, https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows#setup-required-dependencies
+Make sure to install all required programs stated here, [Install Wekan from source on Windows](Install-Wekan-from-source-on-Windows.md#setup-required-dependencies)
 
 ### I am getting `Error: Cannot find module 'fibers'` related problem.
 Make sure to run the command `meteor` instead of `node`.

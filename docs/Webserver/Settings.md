@@ -40,7 +40,7 @@ Wekan runs http server on local port, so it is without SSL. To get SSL, some web
 
 First registered Wekan user will get [Admin Panel](Features) on new
 Docker and source based installs. You can also on MongoDB 
-[enable Admin Panel](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease) and [change you as board admin](https://github.com/wekan/wekan/issues/1060#issuecomment-310545976).
+[enable Admin Panel](../../CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease) and [change you as board admin](https://github.com/wekan/wekan/issues/1060#issuecomment-310545976).
 
 ## LAN + VPN
 

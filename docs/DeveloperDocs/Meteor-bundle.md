@@ -1,4 +1,4 @@
-- Read [Wekan new release ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md)
+- Read [Wekan new release ChangeLog](../../CHANGELOG.md)
 - [Install Meteor.js](https://www.meteor.com/install). Note: Windows install is very slow, please use other option at [Windows wiki page](Windows)
 - Download newest bundle from https://releases.wekan.team
 - Unarchive bundle .tar.gz file: `tar -zxvf wekan-VERSION.tar.gz`

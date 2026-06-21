@@ -32,7 +32,7 @@ or
 sudo snap get wekan-gantt-gpl > snap-settings.txt
 ```
 
-2.2 https://github.com/wekan/wekan/wiki/Backup
+2.2 [Backup](../../../Backup/Backup.md)
 
 2.3 Copy files to safe place from /var/snap/wekan/common or /var/snap/wekan-gantt-gpl/common . There could be some board attachments etc.
 
@@ -77,5 +77,5 @@ sudo snap stop wekan-gantt-gpl
 
 ## Other docs
 
-* [Adding Snap settings to code](https://github.com/wekan/wekan/wiki/Adding-new-Snap-settings-to-code)
-* [Wekan Developer Docs](https://github.com/wekan/wekan/wiki/Developer-Documentation)
+* [Adding Snap settings to code](../../../DeveloperDocs/Adding-new-Snap-settings-to-code.md)
+* [Wekan Developer Docs](../../../DeveloperDocs/Developer-Documentation.md)
