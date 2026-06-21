@@ -17,6 +17,21 @@ const UPCLS = 'fa-sort-up';
 */
 const sortCardsBy = new ReactiveVar('');
 
+// Persist the card sort so it survives a page reload. Session is in-memory and
+// is reset on reload, which is why "sort by due date" kept reverting to the
+// default. See https://github.com/wekan/wekan/issues/5886
+const CARDS_SORT_BY_STORAGE_KEY = 'wekan-cards-sortBy';
+function setCardsSortBy(sortBy) {
+  Session.set('sortBy', sortBy);
+  try {
+    if (sortBy) {
+      window.localStorage.setItem(CARDS_SORT_BY_STORAGE_KEY, JSON.stringify(sortBy));
+    } else {
+      window.localStorage.removeItem(CARDS_SORT_BY_STORAGE_KEY);
+    }
+  } catch (e) {}
+}
+
 Template.boardChangeTitlePopup.events({
   async submit(event, templateInstance) {
     event.preventDefault();
@@ -41,6 +56,16 @@ Template.boardChangeTitlePopup.events({
 
 Template.boardHeaderBar.onCreated(function () {
   Meteor.subscribe('tableVisibilityModeSettings');
+  // Restore the persisted card sort after a reload (Session is in-memory), so
+  // both the sorting and the sort icon are remembered. See #5886.
+  if (!Session.get('sortBy')) {
+    try {
+      const stored = window.localStorage.getItem(CARDS_SORT_BY_STORAGE_KEY);
+      if (stored) {
+        Session.set('sortBy', JSON.parse(stored));
+      }
+    } catch (e) {}
+  }
 });
 
 Template.boardHeaderBar.helpers({
@@ -171,7 +196,7 @@ Template.boardHeaderBar.events({
     Filter.reset();
   },
   'click .js-sort-reset'() {
-    Session.set('sortBy', '');
+    setCardsSortBy('');
   },
   'click .js-open-search-view'() {
     const sidebar = getSidebarInstance();
@@ -529,7 +554,7 @@ Template.cardsSortPopup.events({
     const sortBy = {
       dueAt: 1,
     };
-    Session.set('sortBy', sortBy);
+    setCardsSortBy(sortBy);
     sortCardsBy.set(TAPi18n.__('due-date'));
     Popup.back();
   },
@@ -537,7 +562,7 @@ Template.cardsSortPopup.events({
     const sortBy = {
       title: 1,
     };
-    Session.set('sortBy', sortBy);
+    setCardsSortBy(sortBy);
     sortCardsBy.set(TAPi18n.__('title'));
     Popup.back();
   },
@@ -545,7 +570,7 @@ Template.cardsSortPopup.events({
     const sortBy = {
       createdAt: 1,
     };
-    Session.set('sortBy', sortBy);
+    setCardsSortBy(sortBy);
     sortCardsBy.set(TAPi18n.__('date-created-newest-first'));
     Popup.back();
   },
@@ -553,7 +578,7 @@ Template.cardsSortPopup.events({
     const sortBy = {
       createdAt: -1,
     };
-    Session.set('sortBy', sortBy);
+    setCardsSortBy(sortBy);
     sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
     Popup.back();
   },

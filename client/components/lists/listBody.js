@@ -324,7 +324,20 @@ Template.listBody.helpers({
     const tpl = Template.instance();
     const limit = tpl.cardlimit.get();
     const defaultSort = { sort: 1 };
-    const sortBy = Session.get('sortBy') ? Session.get('sortBy') : defaultSort;
+    // Session is reset on page reload; fall back to the persisted card sort so a
+    // chosen sort (e.g. by due date) is remembered across reloads (#5886).
+    let sortBy = Session.get('sortBy');
+    if (!sortBy) {
+      try {
+        const stored = window.localStorage.getItem('wekan-cards-sortBy');
+        if (stored) {
+          sortBy = JSON.parse(stored);
+        }
+      } catch (e) {}
+    }
+    if (!sortBy) {
+      sortBy = defaultSort;
+    }
     const selector = {
       listId: Template.currentData()._id,
       archived: false,
