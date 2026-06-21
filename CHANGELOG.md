@@ -26,6 +26,26 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [ENAMETOOLONG: very long attachment filenames could not be migrated to filesystem storage](https://github.com/wekan/wekan/issues/6412),
+  [#6412](https://github.com/wekan/wekan/issues/6412): attachment filenames were sanitized for path traversal but
+  never length-limited, so a very long name (worse with multibyte UTF-8 like German umlauts) produced an on-disk
+  `<id>-<version>-<name>` component exceeding the filesystem's 255-byte limit and failed with `ENAMETOOLONG`.
+  `sanitizeFilename` now truncates to 200 UTF-8 bytes (measured in bytes, never splitting a codepoint) while
+  preserving the file extension. Done:
+  [commit 5e26cf004](https://github.com/wekan/wekan/commit/5e26cf004).
+- [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
+  [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. In Progress.
+- [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
+  [#5892](https://github.com/wekan/wekan/issues/5892): a collapsed list still renders in full width with the Modern
+  theme. In Progress.
+- [Sort by due date is not remembered as the default view](https://github.com/wekan/wekan/issues/5886),
+  [#5886](https://github.com/wekan/wekan/issues/5886): the chosen global sort reverts to "date created" after a while.
+  In Progress.
+
 # v9.67 2026-06-21 WeKan ® release
 
 This release fixes the following bugs:
