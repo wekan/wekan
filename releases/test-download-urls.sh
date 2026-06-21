@@ -9,6 +9,7 @@
 #                           (MongoDB Community Edition has no prebuilt builds for these arches)
 # Note: on any platform whose CPU lacks instructions required by MongoDB (e.g. AVX),
 #       mongodb-control automatically falls back to running via qemu-x86_64-static.
+#       Node.js 24 ships no linux-armv7l binary, so no Node URL is checked for armhf.
 #
 # Snap base:   core24 (Ubuntu 24.04 LTS — core26 is edge-only, not released yet)
 # Docker base: ubuntu:24.04 (current LTS, support until 2029;
@@ -58,16 +59,14 @@ check "db-tools 100.13.0  arm64" \
   "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.17.0.tgz"
 echo ""
 
-echo "=== Node.js 24.15.0 (all snap architectures) ==="
-check "Node.js 24.15.0  linux-x64     (amd64)" \
+echo "=== Node.js 24.17.0 (snap architectures with upstream Node builds) ==="
+check "Node.js 24.17.0  linux-x64     (amd64)" \
   "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-x64.tar.gz"
-check "Node.js 24.15.0  linux-arm64   (arm64)" \
+check "Node.js 24.17.0  linux-arm64   (arm64)" \
   "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-arm64.tar.gz"
-check "Node.js 24.15.0  linux-armv7l  (armhf)" \
-  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-armv7l.tar.gz"
-check "Node.js 24.15.0  linux-s390x   (s390x)" \
+check "Node.js 24.17.0  linux-s390x   (s390x)" \
   "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-s390x.tar.gz"
-check "Node.js 24.15.0  linux-ppc64le (ppc64el)" \
+check "Node.js 24.17.0  linux-ppc64le (ppc64el)" \
   "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-ppc64le.tar.gz"
 echo ""
 

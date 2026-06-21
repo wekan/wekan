@@ -16,7 +16,7 @@ Newest WeKan at these platforms:
 
 Versions:
 
-- WeKan 8.75 and newer uses Meteor 3.5-beta.x, [Node.js 24.x](https://nodejs.org/dist/latest-v24.x/),
+- WeKan 8.75 and newer uses Meteor 3.5-rc.x, [Node.js 24.x](https://nodejs.org/dist/latest-v24.x/),
   MongoDB 7.x (or 6.x), or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs/Databases/FerretDB2-PostgreSQL.md)
 - WeKan 8.43 upgraded to Meteor 3.x, huge thanks to harryadel:
   - https://harryadel.com/dev-diary-24/
@@ -29,6 +29,8 @@ Versions:
 # v9.67 2026-06-21 WeKan ® release
 
 This release fixes the following bugs:
+
+- Updated to Meteor 3.5-rc.2.
 
 - [Reworked confusing and unreliable list widths](https://github.com/wekan/wekan/issues/6409),
   [#6409](https://github.com/wekan/wekan/issues/6409): a list now has **one** width instead of the old

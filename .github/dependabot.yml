@@ -24,7 +24,7 @@ updates:
       #   * The only upgrades Dependabot/npm offer are build-breaking: a
       #     @meteorjs/rspack downgrade, or @rspack/cli 2.0 / Rspack 2.0, which
       #     needs Meteor 3.6 (see https://github.com/meteor/meteor/pull/14360).
-      #     WeKan currently runs METEOR@3.5-rc.1.
+      #     WeKan currently runs METEOR@3.5-rc.2.
       #
       # So pin them here until Meteor 3.6 + Rspack 2.0 land, then revisit.
     - dependency-name: "@meteorjs/rspack"

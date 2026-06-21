@@ -64,7 +64,7 @@ permissions:
   contents: write
   packages: write
 
-# Node.js major version that Meteor 3.5-beta bundles. Used for native module
+# Node.js major version that Meteor 3.5 bundles. Used for native module
 # rebuilds on every platform — it must match the amd64 build's Node ABI.
 env:
   NODE_VERSION: '24'
@@ -250,7 +250,7 @@ jobs:
           ./wekan/releases/release-charts.sh "${{ inputs.new_version }}"
 
   # ─── 2. Build amd64 bundle (full Meteor 3 build) ────────────────────────────
-  # Meteor 3.5-beta installer supports only Linux x86_64/aarch64, macOS, Windows.
+  # Meteor 3.5 installer supports only Linux x86_64/aarch64, macOS, Windows.
   # The full Meteor build always runs here on x86_64; every other platform then
   # only rebuilds the native npm modules from this bundle.
   build-amd64:
