@@ -37,6 +37,12 @@ This release fixes the following bugs:
   `sanitizeFilename` now truncates to 200 UTF-8 bytes (measured in bytes, never splitting a codepoint) while
   preserving the file extension. Done:
   [commit 5e26cf004](https://github.com/wekan/wekan/commit/5e26cf004).
+- [Card "added label" history was deleted whenever the card was moved](https://github.com/wekan/wekan/issues/3907),
+  [#3907](https://github.com/wekan/wekan/issues/3907): `updateActivities` removed all `addedLabel` activities whenever
+  `boardId` appeared in a card update, but `Card.move()` always re-sets `boardId` (even moving within the same board),
+  so every move wiped the card's label history (data loss in the `activities` collection). The removal/remap now only
+  runs on an actual board change (comparing the pre-update `boardId` with the new value). Done:
+  [commit 6382ad6a8](https://github.com/wekan/wekan/commit/6382ad6a8).
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
   [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. In Progress.
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
