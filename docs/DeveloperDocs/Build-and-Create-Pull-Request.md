@@ -76,7 +76,7 @@ That does:
 - 2 builds wekan
 - 3 starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically.
 
-And then [register and login](Adding-users) with webbrowser at http://localhost:4000
+And then [register and login](../Login/Adding-users.md) with webbrowser at http://localhost:4000
 
 ### 4. Make and test your changes
 

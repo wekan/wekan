@@ -5,7 +5,7 @@
 ## ChangeLog
 - Previously:
   - Below info about Wekan on Mac x64
-  - [Wekan PWA on iOS Safari](PWA)
+  - [Wekan PWA on iOS Safari](../../Browsers/PWA.md)
   - Many mobile web fixes
 - 2021-05-14 Wekan maintainer [xet7](https://github.com/xet7) got donated hardware [OpenSource MacStadium](https://www.macstadium.com/opensource) remote access to Mac Mini M1 that has 16 GB RAM and 1 TB SSD.
 - 2021-05-15 xet7 bought Apple Developer access for 99 euro/year. Trying to figure out how to sign some test app for iPhone, did not get it working yet.
@@ -91,7 +91,7 @@ export ROOT_URL=http://localhost:2000
 export PORT=2000
 export MONGO_URL=mongodb://127.0.0.1:27017/wekan
 ```
-[More info about ROOT_URL](Settings)
+[More info about ROOT_URL](../../Webserver/Settings.md)
 
 8. Edit `start-wekan.sh` so that it starts in bundle directory command `node main.js`
 
@@ -104,8 +104,8 @@ export MONGO_URL=mongodb://127.0.0.1:27017/wekan
 
 Note: With Docker, please don't use latest tag. Only use release tags. See https://github.com/wekan/wekan/issues/3874
 
-- [Repair Docker](Repair-Docker)
-- [Docker](Docker)
+- [Repair Docker](../FOSS/Docker/Repair-Docker.md)
+- [Docker](../FOSS/Docker/Docker.md)
 - [Docker Dev Environment](https://github.com/wekan/wekan-dev)
 
 If you don't need to build Wekan, use prebuilt container with docker-compose.yml from https://github.com/wekan/wekan like this:

@@ -161,9 +161,9 @@ top -p $(pgrep node)
 
 ## Related Documentation
 
-- [MongoDB-Oplog-Configuration.md](../docs/Databases/MongoDB-Oplog-Configuration.md) - Full setup guide
-- [AWS.md](../docs/Platforms/Propietary/Cloud/AWS.md) - AWS oplog configuration
-- [LDAP.md](../docs/Login/LDAP.md) - LDAP with oplog setup
+- [MongoDB-Oplog-Configuration.md](MongoDB-Oplog-Configuration.md) - Full setup guide
+- [AWS.md](../Platforms/Propietary/Cloud/AWS.md) - AWS oplog configuration
+- [LDAP.md](../Login/LDAP.md) - LDAP with oplog setup
 - [ToroDB-PostgreSQL](../docs/Databases/ToroDB-PostgreSQL/docker-compose.yml) - ToroDB oplog config
 
 ## Files Modified This Session

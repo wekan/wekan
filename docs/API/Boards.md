@@ -10,7 +10,7 @@ curl -H "Authorization: Bearer a6DM_gOPRwBdynfXaGBaiiEwTiAuigR_Fj_81QmNpnf" \
 
 ## Add/Remove Board Member and Change Role
 
-[Add/Remove Board Member and Change Role admin/normal/nocomments/commentonly](REST-API-Role).
+[Add/Remove Board Member and Change Role admin/normal/nocomments/commentonly](Role.md).
 
 ## The admin takes the ownership of ALL boards of the user (archived and not archived) where the user is admin on.
 

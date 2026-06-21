@@ -1,6 +1,6 @@
 ### Install for example from:
-- [Snap](Snap)
-- [Docker](Docker)
+- [Snap](../../Platforms/FOSS/Snap/Snap.md)
+- [Docker](../../Platforms/FOSS/Docker/Docker.md)
 
 *Make sure you are running at least **v2.21***
 

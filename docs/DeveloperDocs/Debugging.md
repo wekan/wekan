@@ -76,7 +76,7 @@ meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-pa
 
 ## Scaling to thousands of users
 
-[Production setup at AWS](AWS)
+[Production setup at AWS](../Platforms/Propietary/Cloud/AWS.md)
 
 ## Current versions of dependencies
 

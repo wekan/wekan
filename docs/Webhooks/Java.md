@@ -4,13 +4,13 @@ Wekan is made with Javascript and uses MongoDB database.
 
 ## Using Wekan REST API
 
-With Jython, you can use Wekan REST API [like with Python](New-card-with-Python3-and-REST-API)
+With Jython, you can use Wekan REST API [like with Python](../API/New-card-with-Python3-and-REST-API.md)
 
 ## Global Webhooks
 
 For Global Webhooks in Admin Panel, Wekan sends all events in all boards to webhook URL, like add card. Although, sending some messages for some events is not yet implemented, more could be added later.
 
-Data is sent in [this kind of JSON format](Webhook-data).
+Data is sent in [this kind of JSON format](Webhook-data.md).
 
 [You can receive webhook data in Java like this](https://github.com/Esri/webhooks-samples/tree/master/java/receiver).
 

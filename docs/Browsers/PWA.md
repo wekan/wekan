@@ -1,4 +1,4 @@
-[Browser compatibility matrix](../Browser/Browser-compatibility-matrix)
+[Browser compatibility matrix](Browser-compatibility-matrix.md)
 
 ## Install your Wekan server as an app
 

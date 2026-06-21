@@ -1,4 +1,4 @@
-Please read Etiquette at [FAQ](FAQ) and [Developer Documentation](Developer-Documentation).
+Please read Etiquette at [FAQ](FAQ.md) and [Developer Documentation](../DeveloperDocs/Developer-Documentation.md).
 
 # New Roadmap
 

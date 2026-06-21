@@ -50,7 +50,7 @@ await Email.sendAsync({
 
 ## Debugging your SMTP mail server
 
-If you can't get your email server working with smtp/stmps or MAIL_SERVICE, look is there more config options for your email server at https://nodemailer.com docs, and add new issue about your email server to https://github.com/wekan/wekan/issues or [pull request](Emoji#how-you-could-add-another-plugin).
+If you can't get your email server working with smtp/stmps or MAIL_SERVICE, look is there more config options for your email server at https://nodemailer.com docs, and add new issue about your email server to https://github.com/wekan/wekan/issues or [pull request](../Features/Emoji.md#how-you-could-add-another-plugin).
 
 For example, for https://nodemailer.com/smtp/ 
 
@@ -304,7 +304,7 @@ Mail configuration if done by settings of `MAIL_URL` & `MAIL_FROM` environment p
 
 ## No mail server
 
-You can choose to _NOT_ configure a mail server, by not providing the `MAIL_URL` & `MAIL_FROM` environment parameters. Instead the mail message will be send to the terminal output. See [FAQ](FAQ#show-mails-with-a-docker-image-without-mail-configuration) for more info.
+You can choose to _NOT_ configure a mail server, by not providing the `MAIL_URL` & `MAIL_FROM` environment parameters. Instead the mail message will be send to the terminal output. See [FAQ](../FAQ/FAQ.md#show-mails-with-a-docker-image-without-mail-configuration) for more info.
 
 ## Email servers: SMTP or Exchange
 

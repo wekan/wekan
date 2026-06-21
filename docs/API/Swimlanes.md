@@ -6,7 +6,7 @@ This page tries to be as up to date as possible. If you see something wrong here
 
 Please somebody add example by looking this:
 
-[Issue](https://github.com/wekan/wekan/issues/1934) and [code](https://github.com/wekan/wekan/pull/1944/commits/be42b8d4cbdfa547ca019ab2dc9a590a115cc0e2). Also add to [Cards page](REST-API-Cards)
+[Issue](https://github.com/wekan/wekan/issues/1934) and [code](https://github.com/wekan/wekan/pull/1944/commits/be42b8d4cbdfa547ca019ab2dc9a590a115cc0e2). Also add to [Cards page](Cards.md)
 
 # Add Swimlane to Board
 

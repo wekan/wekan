@@ -27,7 +27,7 @@ https://www.youtube.com/watch?v=SB4dNC7u2MU
 
 ## Roadmap
 
-- It's possible to use Wekan with Friend. At 2019-06-30 Wekan also works at [Raspberry Pi](Raspberry-Pi) like Friend already works, it makes possible local RasPi-only network.
+- It's possible to use Wekan with Friend. At 2019-06-30 Wekan also works at [Raspberry Pi](../RaspberryPi/Raspberry-Pi.md) like Friend already works, it makes possible local RasPi-only network.
 - Then on local network you can use RasPi Cromium or Friend mobile/tablet Android/iOS app to connect to local network Friend desktop, also possible without connection to Internet.
 - If using RasPi4 with 4 GB RAM or more, it's possible to run Wekan+Friend+Desktop etc on same RasPi4, servers+client webbrowser.
 - Alternative to RasPi is Orange Pi 5 that can have 16 GB RAM http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-5-plus.html
@@ -161,7 +161,7 @@ ln -s ~/repos/mysupermodule mysupermodule
 sudo apt-get -y install snapd
 sudo snap install wekan --channel=latest/candidate
 ```
-### 13. [ROOT_URL settings](Settings) to your server IP address
+### 13. [ROOT_URL settings](../../../Webserver/Settings.md) to your server IP address
 ```
 sudo snap set wekan root-url='http://192.168.0.100:5000'
 sudo snap set wekan port='5000'
@@ -204,7 +204,7 @@ iOS App Store for iPhone/iPad: If not at App Store, ask
 
 Using Friend Android app to connect to your Friend server URL.
 
-There is also Friend iOS app, but I think it's not yet officially released. If someone is interested, invite to iOS Testflight can be had from [Friend chat](Friend).
+There is also Friend iOS app, but I think it's not yet officially released. If someone is interested, invite to iOS Testflight can be had from [Friend chat](Friend.md).
 
 # Adding app icons to Friend desktop menus
 

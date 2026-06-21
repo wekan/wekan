@@ -4,7 +4,7 @@
 
 ## OLD INFO BELOW, DOES NOT WORK
 
-Also see: [Excel and VBA](Excel-and-VBA)
+Also see: [Excel and VBA](../../../ImportExport/Excel-and-VBA.md)
 
 a) Lowest resource usage: [Windows Subsystem for Linux, build from source](https://github.com/wekan/wekan/issues/2066#issuecomment-468328001)
 

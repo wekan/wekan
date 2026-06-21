@@ -176,7 +176,7 @@ custom() {
 - Change `getSwimlaneHeight()` to read from `swimlane.height`
 - Remove per-user storage from user.profile
 - Estimated: 2-4 hours
-- Details: See [IMPLEMENTATION_GUIDE.md](docs/Security/PerUserDataAudit2025-12-23/IMPLEMENTATION_GUIDE.md)
+- Details: See [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md)
 
 ### Phase 3: Data Migration ⏳
 - Create migration script
@@ -184,7 +184,7 @@ custom() {
 - Move `user.profile.swimlaneHeights` → `swimlane.height`
 - Verify migration success
 - Estimated: 1-2 hours
-- Template: In [IMPLEMENTATION_GUIDE.md](docs/Security/PerUserDataAudit2025-12-23/IMPLEMENTATION_GUIDE.md)
+- Template: In [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md)
 
 ### Phase 4: UI Integration ⏳
 - Update client code
@@ -192,7 +192,7 @@ custom() {
 - Update subscriptions
 - Test with multiple users
 - Estimated: 4-6 hours
-- Details: See [IMPLEMENTATION_GUIDE.md](docs/Security/PerUserDataAudit2025-12-23/IMPLEMENTATION_GUIDE.md)
+- Details: See [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md)
 
 ---
 
@@ -283,20 +283,20 @@ custom() {
 ## 📞 How to Use This
 
 ### For Implementation (Phase 2):
-1. Read: [EXECUTIVE_SUMMARY.md](docs/Security/PerUserDataAudit2025-12-23/EXECUTIVE_SUMMARY.md)
-2. Reference: [IMPLEMENTATION_GUIDE.md](docs/Security/PerUserDataAudit2025-12-23/IMPLEMENTATION_GUIDE.md)
+1. Read: [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md)
+2. Reference: [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md)
 3. Code: Follow Phase 2 steps exactly
 4. Test: Use provided testing checklist
 
 ### For Review:
-1. Check: [SCHEMA_CHANGES_VERIFICATION.md](docs/Security/PerUserDataAudit2025-12-23/SCHEMA_CHANGES_VERIFICATION.md)
+1. Check: [SCHEMA_CHANGES_VERIFICATION.md](SCHEMA_CHANGES_VERIFICATION.md)
 2. Review: swimlanes.js and lists.js changes
 3. Approve: Documentation and architecture
 
 ### For Understanding:
-1. Start: [README.md](docs/Security/PerUserDataAudit2025-12-23/README.md)
-2. Skim: [CURRENT_STATUS.md](docs/Security/PerUserDataAudit2025-12-23/CURRENT_STATUS.md)
-3. Deep dive: [DATA_PERSISTENCE_ARCHITECTURE.md](docs/Security/PerUserDataAudit2025-12-23/DATA_PERSISTENCE_ARCHITECTURE.md)
+1. Start: [README.md](README.md)
+2. Skim: [CURRENT_STATUS.md](CURRENT_STATUS.md)
+3. Deep dive: [DATA_PERSISTENCE_ARCHITECTURE.md](DATA_PERSISTENCE_ARCHITECTURE.md)
 
 ---
 

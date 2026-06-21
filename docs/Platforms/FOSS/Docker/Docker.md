@@ -65,7 +65,7 @@ SSL/TLS info at [Settings](../../../Webserver/Settings.md)
 
 ## Repair Docker
 
-[Repair Docker](Repair-Docker)
+[Repair Docker](Repair-Docker.md)
 
 ## Using only Docker commands
 
@@ -134,9 +134,9 @@ quay.io/wekan/wekan
 
 ## Backup and Upgrade
 
-[Import/Export MongoDB data to/from Docker container](Export-Docker-Mongo-Data)
+[Import/Export MongoDB data to/from Docker container](Export-Docker-Mongo-Data.md)
 
-[Move Docker containers to other computer](Move-Docker-containers-to-other-computer), needs more details
+[Move Docker containers to other computer](Move-Docker-containers-to-other-computer.md), needs more details
 
 ### Backup before upgrade
 ```
@@ -192,25 +192,25 @@ TODO: [Docker Compose: Wekan <=> MongoDB <=> ToroDB => MySQL read-only mirroring
 
 ## OpenShift
 
-[OpenShift](OpenShift)
+[OpenShift](../OpenShift/OpenShift.md)
 
 ## SLES
 
-[SLES SP1](Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1)
+[SLES SP1](Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1.md)
 
 ## Rancher
 
-[Rancher Rancher Active Proxy](Rancher---Rancher-Active-Proxy---Wekan-MongoDB-Docker)
+[Rancher Rancher Active Proxy](Rancher---Rancher-Active-Proxy---Wekan-MongoDB-Docker.md)
 
 ## Testing
 
-[Install for testing](Install-Wekan-Docker-for-testing)
+[Install for testing](Install-Wekan-Docker-for-testing.md)
 
 ## Production
 
-[Production setup for thousands of users with Docker at AWS](AWS)
+[Production setup for thousands of users with Docker at AWS](../../Propietary/Cloud/AWS.md)
 
-[Other way to do production](Install-Wekan-Docker-in-production)
+[Other way to do production](Install-Wekan-Docker-in-production.md)
 
 ## External MongoDB auth
 
@@ -281,6 +281,6 @@ sudo docker compose up -d --build
 
 ## Webserver Config
 
-* [Caddy Webserver Config](Caddy-Webserver-Config)
-* [Nginx Webserver Config](Nginx-Webserver-Config)
-* [Apache Webserver Config](Apache)
+* [Caddy Webserver Config](../../../Webserver/Caddy.md)
+* [Nginx Webserver Config](../../../Webserver/Nginx.md)
+* [Apache Webserver Config](../../../Webserver/Apache.md)

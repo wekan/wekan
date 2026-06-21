@@ -18,7 +18,7 @@ https://github.com/wekan/wekan-snap/wiki/Automatic-update-schedule
 
 ***
 
-Also see: [Dark Mode](Dark-Mode)
+Also see: [Dark Mode](Dark-Mode.md)
 
 All Wekan themes are directly integrated to Wekan. You can add pull request to master branch to add custom theme, you can see from [from this commit](https://github.com/wekan/wekan/commit/34b2168d0dda253dedabbee47031873efa4ae446) required new color/theme name and changes to these files 3 files listed below. In that commit is also changes to other files, you don't need to change those files.
   - `wekan/client/components/boards/boardColors.styl`

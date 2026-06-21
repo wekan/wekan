@@ -7,7 +7,7 @@ There edit Browser-compatibility-matrix.md and attach it with .txt extension or 
 
 ## Webkit based
 
-Browser | [PWA](PWA) | Mobile | Desktop | OS
+Browser | [PWA](PWA.md) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 Safari | iOS Yes | iOS Newest | Newest | iOS, macOS
 Iris | No | No | Newest | [Iris browser news](https://www.riscosopen.org/forum/forums/1/topics/19545), Download [RISC OS Direct](https://www.riscosdev.com/direct/) for Raspberry Pi etc. [Other versions of RISC OS for many ARM CPU devices](https://www.riscosopen.org/content/downloads) do not have Iris browser yet, but there could be some way to transfer Iris browser files from RISC OS Direct.
@@ -16,7 +16,7 @@ Iris | No | No | Newest | [Iris browser news](https://www.riscosopen.org/forum/f
 
 Any telemetry at any Firefox based browser can be additionally most locked down with arkenfox user JS.
 
-Browser | [PWA](PWA) | Mobile | Desktop | OS
+Browser | [PWA](PWA.md) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 [uWolf](https://open-store.io/app/uwolf.chromiumos-guy) | No | Yes | No | Ubuntu Touch webbrowser based of LibreWolf
 [LibreWolf](https://librewolf.net) | No | No | Yes | [Win/Mac/Linux](https://librewolf.net/installation/), [Repos](https://codeberg.org/librewolf)
@@ -30,7 +30,7 @@ Firefox | No | Newest | Newest | iOS/Android/Win/Mac/Linux/BSD/RasPi. At iOS use
 
 ## Chromium based
 
-Browser | [PWA](PWA) | Mobile | Desktop | OS
+Browser | [PWA](PWA.md) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 Chrome | Android Yes | Android Newest | Newest | Win/Mac/Linux
 Chromium | Android Yes | Android Newest | Newest | Win/Mac/Linux/RasPi
@@ -47,13 +47,13 @@ Morph Browser | No | Yes | Yes | [Ubuntu Touch](https://ubports.com) based on Ub
 
 ## EdgeHTML based
 
-Browser | [PWA](PWA) | Mobile | Desktop | OS
+Browser | [PWA](PWA.md) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 Legacy Edge | No | No | Not | Not compatible with newest WeKan. Worked with Wekan v4.19 and before.
 
 ## MSHTML based
 
-Browser | [PWA](PWA) | Mobile | Desktop | OS
+Browser | [PWA](PWA.md) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 Internet Explorer | No | No | No | No | No
 
@@ -73,7 +73,7 @@ Internet Explorer | No | No | No | No | No
 
 ## TUI webbrowsers, not yet supported
 
-Browser | [PWA](PWA) | Mobile | Desktop | OS
+Browser | [PWA](PWA.md) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 [Chawan](https://chawan.net) | No | No | Yes | Linux/BSD. [Release 0.2.0](https://chawan.net/news/chawan-0-2-0.html), [HN](https://news.ycombinator.com/item?id=44293260)
 Elinks | No | No | Yes | Win/Mac/Linux/BSD/DOS TUI.

@@ -147,7 +147,7 @@ In Wekan Snap, database files are in directory `/var/snap/wekan/common` - if you
 
 [Snap Backup and Restore](https://github.com/wekan/wekan-snap/wiki/Backup-and-restore)
 
-[Docker Backup and Restore](Export-Docker-Mongo-Data)
+[Docker Backup and Restore](../Docker/Export-Docker-Mongo-Data.md)
 
 ## 6) Change database file permissions to root user
 
@@ -185,7 +185,7 @@ Wekan Docker: If you have MongoDB exposed to outside Docker, Connect with Robo3T
 
 [Snap Backup and Restore](https://github.com/wekan/wekan-snap/wiki/Backup-and-restore)
 
-[Docker Backup and Restore](Export-Docker-Mongo-Data)
+[Docker Backup and Restore](../Docker/Export-Docker-Mongo-Data.md)
 
 ## 10) Browse data in Robo 3T
 

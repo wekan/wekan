@@ -13,7 +13,7 @@ snap set wekan port='80'
 ```
 Then Wekan is visible at http://localhost:8090
 
-[Adding users](Adding-users)
+[Adding users](../../Login/Adding-users.md)
 
 List of Wekan Snap settings:
 ```

@@ -145,9 +145,9 @@ A:
 - Do you have time to be Wekan co-maintainer?
 - What is URL to your fork? Please send it to me with email to x@xet7.org . Thanks! Currently there is about 2200 forks of Wekan, it would be hard to find without exact URL.
 - What features and fixes have you implemented to Wekan?
-- [What usually happens when Wekan gets broken](Test-Edge#what-usually-happens-when-wekan-gets-broken).
+- [What usually happens when Wekan gets broken](../DeveloperDocs/Test-Edge.md#what-usually-happens-when-wekan-gets-broken).
 - [Benefits of contributing your features to upstream Wekan](https://wekan.fi/blog/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html).
-- [What was Wekan fork](FAQ#what-was-wekan-fork--wefork).
+- [What was Wekan fork](FAQ.md#what-was-wekan-fork--wefork).
 
 ***
 ### Q: Other mobile browsers?
@@ -312,7 +312,7 @@ Without that info it's kind of hard to debug.
 You could try export that board to Wekan JSON, and then import that Wekan JSON.
 
 I do have server at AWS LightSail that has 4 GB RAM and 60 GB SSD,
-running [Snap versions of Wekan and RocketChat installed this way](OAuth2)
+running [Snap versions of Wekan and RocketChat installed this way](../Login/OAuth2.md)
 on same server, and it does not crash.
 
 BTW, I did yesterday release [Wekan v2.95 with these new features](../../CHANGELOG.md#v295-2019-07-01-wekan-release).
@@ -338,7 +338,7 @@ for answers a little later
 [02:25:24] <Rojola1> xet7?
 [02:25:27] <Rojola1> anyone?
 ```
-A: I was at meeting or sleeping when you asked. When I came back to IRC you were not online. Anyway, you can [make backup](Backup) and do some [cleanup](https://github.com/wekan/wekan-cleanup) to delete 1,5 years worth of activities etc. Next time, if you have questions, you get faster answers at [GitHub issues](https://github.com/wekan/wekan/issues), because I get email notifications of all new issues and comments on issues.
+A: I was at meeting or sleeping when you asked. When I came back to IRC you were not online. Anyway, you can [make backup](../Backup/Backup.md) and do some [cleanup](https://github.com/wekan/wekan-cleanup) to delete 1,5 years worth of activities etc. Next time, if you have questions, you get faster answers at [GitHub issues](https://github.com/wekan/wekan/issues), because I get email notifications of all new issues and comments on issues.
 
 ***
 ### Q: Rules as code?
@@ -405,7 +405,7 @@ from one card to another.
 
 ### Q: LDAP?
 
-A: [LDAP for Standalone is now available](LDAP).
+A: [LDAP for Standalone is now available](../Login/LDAP.md).
 
 ```
 [17:56:10] <regdude> Hi! I'm trying to setup Wekan with LDAP,
@@ -476,7 +476,7 @@ from Snap on Ubuntu 18.04.
 [17:38:51] <k_sze> Like, I get 502 Bad Gateway from my nginx reverse proxy
 ```
 
-A: Did you set your domain SPF records (as TXT records) and DKIM records on your domain that your SMTP server uses? Problem is not in Wekan, it's your SMTP server. For example AWS SES works. Also see [Troubleshooting Email](Troubleshooting-Mail).
+A: Did you set your domain SPF records (as TXT records) and DKIM records on your domain that your SMTP server uses? Problem is not in Wekan, it's your SMTP server. For example AWS SES works. Also see [Troubleshooting Email](../Email/Troubleshooting-Mail.md).
 
 ***
 
@@ -487,7 +487,7 @@ other applications
 [03:32:50] <ajay> i am want to integrate it in QGIS for task management
 [03:33:01] <ajay> *i want
 ```
-A: Use [Wekan REST API](REST-API). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](Outgoing-Webhook-to-Discord) to send data to some Incoming Webhook. There is also [IFTTT Rules](IFTTT) for some automations.
+A: Use [Wekan REST API](../API/REST-API.md). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md) to send data to some Incoming Webhook. There is also [IFTTT Rules](../Features/IFTTT/IFTTT.md) for some automations.
 
 ***
 
@@ -602,7 +602,7 @@ yogab> Hi! How are you today ? Can i ask
 a docker x reverse proxy x wekan question here ?
 ```
 
-A: Hmm, it seems you did not ask. Just guessing, maybe it's about [Traefik reverse proxy and Docker](Traefik-and-self-signed-SSL-certs).
+A: Hmm, it seems you did not ask. Just guessing, maybe it's about [Traefik reverse proxy and Docker](../Webserver/Traefik-and-self-signed-SSL-certs.md).
 
 ***
 

@@ -120,14 +120,14 @@ Install to your own server. Automatic updates, tested before release. Sandstorm 
 - Google/GitHub/LDAP/SAML/Passwordless email login.
 - Import from Wekan JSON.
 - Free SSL at https://yourservername.sandcats.io domain.
-- [Rescuing MongoDB data from Sandstorm Grain .zip file to Standalone Wekan](Export-from-Wekan-Sandstorm-grain-.zip-file)
+- [Rescuing MongoDB data from Sandstorm Grain .zip file to Standalone Wekan](Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
 **Does not work**
 - [Sandstorm open issues](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+sandstorm+label%3ATargets%3ASandstorm)
 - Import from Trello does not import attachments, because Sandstorm-compatible HTTP-access from Wekan to outside of Wekan grain sandbox is not implemented yet 
 - [Copying/Moving card to another board](https://github.com/wekan/wekan/issues/1729).
 - [REST API](https://github.com/wekan/wekan/issues/1279) 
-- [Outgoing Webhooks](Outgoing-Webhook-to-Discord)
+- [Outgoing Webhooks](../../../Webhooks/Discord/Outgoing-Webhook-to-Discord.md)
 - [Email from Wekan](https://github.com/wekan/wekan/issues/2208#issuecomment-469290305)
 
 ## Demo
@@ -137,7 +137,7 @@ Install to your own server. Automatic updates, tested before release. Sandstorm 
 ## Keep backups
 
 - Keep backups. Download your Wekan grains.
-- It's possible to [Export from Wekan Sandstorm grain .zip file to rescue data](Export-from-Wekan-Sandstorm-grain-.zip-file)
+- It's possible to [Export from Wekan Sandstorm grain .zip file to rescue data](Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
 ## Wekan App
 
@@ -157,7 +157,7 @@ Newest Wekap app .spk file download at https://releases.wekan.team/sandstorm/
 
 ## Wekan Sandstorm cards to CSV using Python
 
-[Wekan Sandstorm cards to CSV using Python](Wekan-Sandstorm-cards-to-CSV-using-Python)
+[Wekan Sandstorm cards to CSV using Python](Wekan-Sandstorm-cards-to-CSV-using-Python.md)
 
 ## Importing to Trello workaround
 

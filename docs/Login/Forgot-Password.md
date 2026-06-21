@@ -143,7 +143,7 @@ More info:
 
 ## OLD INFO BELOW:
 
-1) Download [Robo 3T](https://robomongo.org) on your Linux or Mac computer. Or, using ssh shell to server, [login to MongoDB database using mongo cli](Backup#mongodb-shell-on-wekan-snap)
+1) Download [Robo 3T](https://robomongo.org) on your Linux or Mac computer. Or, using ssh shell to server, [login to MongoDB database using mongo cli](../Backup/Backup.md#mongodb-shell-on-wekan-snap)
 
 2) Make SSH tunnel to your server, from your local port 9000 (or any other) to server MongoDB port 27019:
 ```
@@ -171,7 +171,7 @@ d) Backup, New install, Create User, Copy Password, Restore:
 1. [Backup Snap](https://github.com/wekan/wekan-snap/wiki/Backup-and-restore)
 2. stop wekan `sudo snap stop wekan.wekan`
 3a. Empty database by dropping wekan database in Mongo 3T
-3b. Empty database in [mongo cli](mongo cli](Backup#mongodb-shell-on-wekan-snap):
+3b. Empty database in [mongo cli](mongo cli](../Backup/Backup.md#mongodb-shell-on-wekan-snap):
 ```
 mongo --port 27019
 ```

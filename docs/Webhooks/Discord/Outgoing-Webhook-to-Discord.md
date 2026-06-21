@@ -34,4 +34,4 @@ Wekan boards have Outgoing Webhooks for board change messages, those can be brid
 https://github.com/vector-im/riot-web/issues/4978
 
 If you have some Riot bot, you can make it call Wekan REST API to make changes to Wekan.
-First [login to API as form data, with admin username and password](REST-API#example-call---as-form-data). Then use that Bearer token [to edit Wekan](https://wekan.fi/api/).
+First [login to API as form data, with admin username and password](../../API/REST-API.md#example-call---as-form-data). Then use that Bearer token [to edit Wekan](https://wekan.fi/api/).

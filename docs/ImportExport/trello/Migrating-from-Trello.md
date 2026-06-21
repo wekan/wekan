@@ -17,7 +17,7 @@ If you're already a Trello user, migrating to Wekan is easy:
 
 ### 1. Install Wekan
 
-Detailed instructions are on this wiki at the page [Install and Update](Install-and-Update)
+Detailed instructions are on this wiki at the page [Install and Update](../../Platforms/FOSS/Source/Install-and-Update.md)
 
 ### 2. Create users
 

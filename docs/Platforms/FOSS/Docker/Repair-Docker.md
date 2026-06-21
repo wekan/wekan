@@ -1,6 +1,6 @@
 ## 1) Create Backups first
 
-[Backup](Backup)
+[Backup](../../../Backup/Backup.md)
 
 Docker data is usually at `/var/lib/docker` or `/var/snap/docker/common/` (in Snap version of Docker).
 
@@ -31,13 +31,13 @@ docker-compose up -d
 ```
 ## 5) MongoDB corruption?
 
-a) [Repair MongoDB](Repair-MongoDB)
+a) [Repair MongoDB](../../../Backup/Repair-MongoDB.md)
 
-b) [Using Meteor MongoDB to repair files](Export-from-Wekan-Sandstorm-grain-.zip-file)
+b) [Using Meteor MongoDB to repair files](../Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
 ## 6) Trying to upgrade Wekan?
 
-### 1) [Backup](Backup)
+### 1) [Backup](../../../Backup/Backup.md)
 
 ### 2a) Nice way:
 ```
@@ -73,4 +73,4 @@ Start Wekan
 ```
 docker-compose up -d
 ```
-[Restore](Backup)
+[Restore](../../../Backup/Backup.md)

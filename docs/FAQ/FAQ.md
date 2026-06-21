@@ -18,10 +18,10 @@ that by providing one-click installation on various platforms.
 - Wekan is used in [most countries of the world](https://snapcraft.io/wekan).
 - Wekan largest user has 30k users using Wekan in their company.
 - Wekan has been [translated](https://app.transifex.com/wekan/) to about 70+ languages.
-- [Features](Features): Wekan has real-time user interface.
-- [Platforms](Platforms): Wekan supports many platforms.
+- [Features](../Features/Features.md): Wekan has real-time user interface.
+- [Platforms](../Platforms/FOSS/Platforms.md): Wekan supports many platforms.
   Wekan is critical part of new platforms Wekan is currently being integrated to.
-- [Integrations](Integrations): Current possible integrations and future plans.
+- [Integrations](../ImportExport/Integrations.md): Current possible integrations and future plans.
 
 ## About niche of WeKan
 
@@ -41,8 +41,8 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 ## Requirements
 
 - 64bit: Linux [Snap](https://github.com/wekan/wekan-snap/wiki/Install) or [Sandstorm](https://sandstorm.io) /
-  [Mac](Mac) / [Windows](Install-Wekan-from-source-on-Windows).
-  [More Platforms](Platforms). [ARM progress](https://github.com/wekan/wekan/issues/1053#issuecomment-410919264).
+  [Mac](../Platforms/Propietary/Mac.md) / [Windows](../Platforms/Propietary/Windows/Install-Wekan-from-source-on-Windows.md).
+  [More Platforms](../Platforms/FOSS/Platforms.md). [ARM progress](https://github.com/wekan/wekan/issues/1053#issuecomment-410919264).
 - 1 GB RAM minimum free for Wekan. Production server should have miminum total 4 GB RAM.
   For thousands of users, for example with [Docker](../../docker-compose.yml): 3 frontend servers,
   each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
@@ -52,7 +52,7 @@ It's a very specific niche, with limited amount competitors, with all of this ap
   Wekan on Sandstorm is not usually affected by any Standalone Wekan (Snap/Docker/Source) security issues.
 - [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
   New features and fixes are added to Wekan [many times a day](../../CHANGELOG.md).
-- [Backups](Backup) of Wekan database once a day miminum.
+- [Backups](../Backup/Backup.md) of Wekan database once a day miminum.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bug can cause Wekan board to not load at all, requiring manual fixing of database content.
 
@@ -119,7 +119,7 @@ Usually:
 * Slowest: Once a month.
 * One release contains anything from one typo fix to many major features and bugfixes.
 
-For [Wekan Platforms](Platforms), it means these choices:
+For [Wekan Platforms](../Platforms/FOSS/Platforms.md), it means these choices:
 
 * Snap: You get updates automatically immediately, or updates automatically scheduled at midnight
 * Source/Docker/VirtualBox: You need to test and install new Wekan version yourself
@@ -150,7 +150,7 @@ c) Develop feature yourself and submit it as pull requests to devel [Wekan repo]
 
 For Sandstorm-specific features, have the feature enabled in Sandstorm by using environment variable isSandstorm = true like is at wekan/sandstorm.js .
 
-In wiki there is [Developer Documentation](Developer-Documentation).
+In wiki there is [Developer Documentation](../DeveloperDocs/Developer-Documentation.md).
 
 ## Will you accept my pull request?
 We totally rely on pull requests for new features and bug fixes. If your pull request works, it's very likely to be accepted by xet7.
@@ -176,7 +176,7 @@ Yes, Libreboard was the old project name, which superseded the even older projec
 After renaming it to Libreboard, a [new logo] was designed and the project continued to live on as Libreboard. Unfortunately it turned out, that the new logo was apparently ripped-off from a [concept] published at Dribbble, and so a new logo had to be found. There were a lot of [ideas from the community][logo-ticket], and at the end Maxime [proposed][wekan-proposal] a completely new name, Wekan, together with a design proposal for a new logo.
 
 ## What was Wekan fork / Wefork?
-After 2016-09-02 there were no pull requests reviewed and integrated for nearly 2 months. At 2016-10-20 Wekan community created fork and started merging many bugfixes and new features into Wefork. 2017-01-29 Wekan author mquandalle gave access to Wekan and at 2017-01-31 xet7 started merging Wefork back to Wekan. 2017-02-08 All of Wefork is now merged and moved back to official Wekan. Wefork will not accept any new issues and pull requests. All development happens on Wekan. [Wefork announcement and merging back](https://github.com/wekan/wekan/issues/640#issuecomment-276383458), more info: [Team](Team)
+After 2016-09-02 there were no pull requests reviewed and integrated for nearly 2 months. At 2016-10-20 Wekan community created fork and started merging many bugfixes and new features into Wefork. 2017-01-29 Wekan author mquandalle gave access to Wekan and at 2017-01-31 xet7 started merging Wefork back to Wekan. 2017-02-08 All of Wefork is now merged and moved back to official Wekan. Wefork will not accept any new issues and pull requests. All development happens on Wekan. [Wefork announcement and merging back](https://github.com/wekan/wekan/issues/640#issuecomment-276383458), more info: [Team](Team.md)
 
 ## What is the difference between Wekan and Trello?
 The main difference between the two is that Wekan is completely open source and available under the permissive MIT license. That makes it possible to host it on your own server (or your company's or organization's server) and you keep the full control over all data. No need to fear it will disappear some day, like a commercial service like Trello could.  

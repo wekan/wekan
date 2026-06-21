@@ -22,7 +22,7 @@ Please read the meteor style guide before making any significant contribution.
 
 ## Building code and submitting pull request
 
-- [Building code and submitting pull request](emoji#how-you-could-add-another-plugin)
+- [Building code and submitting pull request](../Features/Emoji.md#how-you-could-add-another-plugin)
 - When you start `meteor` command, it watches for changes to files in wekan directory and subdirectories, and if it detects changed code, it starts rebuilding bundle and then reloads webbrowser after that automatically
 - Also look at meteor changelog mentioned new feature `hot reload` how that could make reloading faster
 
@@ -43,7 +43,7 @@ When you run this, you see .jade template files where is search input box, and .
 
 ## Getting Started
 
-- Currently Wekan development is done mainly at Ubuntu 20.10 64bit, but building Wekan does work on any Debian, Ubuntu, WSL Ubuntu 20.04, [Mac](Mac). Sametime maybe on [Windows](Windows) with `choco install -y meteor` and installing packages it then asks for with `meteor add ...` or `meteor npm install --save ...` and then running meteor again.
+- Currently Wekan development is done mainly at Ubuntu 20.10 64bit, but building Wekan does work on any Debian, Ubuntu, WSL Ubuntu 20.04, [Mac](../Platforms/Propietary/Mac.md). Sametime maybe on [Windows](../Platforms/Propietary/Windows/Windows.md) with `choco install -y meteor` and installing packages it then asks for with `meteor add ...` or `meteor npm install --save ...` and then running meteor again.
   - Look through old [pull requests](https://github.com/wekan/wekan/pulls)
   - Read Wekan source code, you can use some git history viewer GUI like gitk
   - Read [Meteor documentation](https://docs.meteor.com/) for [Meteor version](../../.meteor/release) in use, other versions mentioned at [Dockerfile](../../Dockerfile)
@@ -95,7 +95,7 @@ It's possible to import your existing boards from Trello. Instructions [[here|mi
 
 # Directory Structure Details
 
-[Directory Structure](Directory-Structure)
+[Directory Structure](Directory-Structure.md)
 
 # Chat
 

@@ -1,7 +1,7 @@
 ## LDAP info
 
 - [LDAP sync script, that also correctly removes users](ldap-sync/ldap-sync.py)
-- [LDAP AD Simple Auth](LDAP-AD-Simple-Auth) 2021-07-24 and related [Search Filter Settings](https://github.com/wekan/wekan/issues/3908#issuecomment-887545168):
+- [LDAP AD Simple Auth](LDAP-AD-Simple-Auth.md) 2021-07-24 and related [Search Filter Settings](https://github.com/wekan/wekan/issues/3908#issuecomment-887545168):
 
 ```
 - LDAP_USER_SEARCH_FILTER=(objectClass=user)
@@ -25,9 +25,9 @@ You see all settings with:
 ```
 wekan.help | less
 ```
-For root-url, see [Settings](Settings)
+For root-url, see [Settings](../Webserver/Settings.md)
 
-For Caddy/Wekan/RocketChat Snap settings, see [Snap install page](https://github.com/wekan/wekan-snap/wiki/Install), [OAuth2 page](OAuth2#snap) and [Caddy page](Caddy-Webserver-Config). Instead of Caddy you can also use [Nginx](Nginx-Webserver-Config) or [Apache](Apache).
+For Caddy/Wekan/RocketChat Snap settings, see [Snap install page](https://github.com/wekan/wekan-snap/wiki/Install), [OAuth2 page](OAuth2.md#snap) and [Caddy page](../Webserver/Caddy.md). Instead of Caddy you can also use [Nginx](../Webserver/Nginx.md) or [Apache](../Webserver/Apache.md).
 
 ## LDAP Filter settings
 

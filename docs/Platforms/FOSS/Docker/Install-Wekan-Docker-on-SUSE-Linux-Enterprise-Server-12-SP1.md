@@ -1,6 +1,6 @@
 More complete Docker info at:
 
-* [Docker](Docker)
+* [Docker](Docker.md)
 
 Tested to work on AWS cloud:
 

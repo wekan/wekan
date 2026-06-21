@@ -4,11 +4,11 @@
 # OAuth2 providers
 
 You can use some OAuth2 providers for logging into Wekan, for example:
-- [Auth0](OAuth2#auth0) - works
-- [Rocket.Chat](OAuth2#rocketchat-providing-oauth2-login-to-wekan) - works
-- [GitLab](OAuth2#gitlab-providing-oauth2-login-to-wekan) - works
+- [Auth0](OAuth2.md#auth0) - works
+- [Rocket.Chat](OAuth2.md#rocketchat-providing-oauth2-login-to-wekan) - works
+- [GitLab](OAuth2.md#gitlab-providing-oauth2-login-to-wekan) - works
 - Google - not tested yet
-- [LemonLDAP::NG](OAuth2#lemonldapng) - works
+- [LemonLDAP::NG](OAuth2.md#lemonldapng) - works
 
 You can ask your identity provider (LDAP, SAML etc) do they support adding OAuth2 application like Wekan.
 
@@ -95,7 +95,7 @@ sudo snap set wekan port='3001'
 sudo snap set core refresh.schedule=02:00-04:00
 sudo snap set wekan with-api='true'
 ```
-Email settings [ARE NOT REQUIRED](Troubleshooting-Mail), Wekan works without setting up Email.
+Email settings [ARE NOT REQUIRED](../Email/Troubleshooting-Mail.md), Wekan works without setting up Email.
 ```
 sudo snap set wekan mail-url='smtps://user:pass@MAILSERVER.YOURDOMAIN.COM:453'
 sudo snap set wekan mail-from='Wekan Boards <support@YOURDOMAIN.COM>'
@@ -104,7 +104,7 @@ Edit Caddyfile:
 ```
 sudo nano /var/snap/wekan/common/Caddyfile
 ```
-Add Caddy config. This uses free Let's Encrypt SSL. You can also use [free CloudFlare wildcard SSL or any other SSL cert](Caddy-Webserver-Config).
+Add Caddy config. This uses free Let's Encrypt SSL. You can also use [free CloudFlare wildcard SSL or any other SSL cert](../Webserver/Caddy.md).
 ```
 boards.yourdomain.com {
         proxy / localhost:3001 {

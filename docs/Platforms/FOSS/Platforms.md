@@ -7,12 +7,12 @@ Only newest Wekan is supported. Please check you are running newest Wekan, becau
 ## Related 
 
 * [Wekan new release ChangeLog](../../../CHANGELOG.md)
-* [Adding Users](Adding-users)
-* [Forgot Password](Forgot-Password)
-* [Settings](Settings)
-* [Email](Troubleshooting-Mail)
-* **[Backup and Restore](Backup) <=== VERY CRITICAL. DO AUTOMATICALLY OFTEN !!**
-* [Logs and Stats](Logs)
+* [Adding Users](../../Login/Adding-users.md)
+* [Forgot Password](../../Login/Forgot-Password.md)
+* [Settings](../../Webserver/Settings.md)
+* [Email](../../Email/Troubleshooting-Mail.md)
+* **[Backup and Restore](../../Backup/Backup.md) <=== VERY CRITICAL. DO AUTOMATICALLY OFTEN !!**
+* [Logs and Stats](../../Features/Logs.md)
 * [Wekan bug reports and feature requests](https://github.com/wekan/wekan/issues)
 * [Proxy](https://github.com/wekan/wekan/issues/1480)
 
@@ -35,8 +35,8 @@ Only newest Wekan is supported. Please check you are running newest Wekan, becau
 
 ***
 * Cloud: Some additional info
-  * [AWS](AWS)
-  * [Azure](Azure)
+  * [AWS](../Propietary/Cloud/AWS.md)
+  * [Azure](../../Login/Azure/Azure.md)
   * [OpenShift](OpenShift)
 
 ***
@@ -44,22 +44,22 @@ Only newest Wekan is supported. Please check you are running newest Wekan, becau
 ## Production: SaaS, Wekan ready paid services, just start using.
 
 * [Wekan Team](https://wekan.fi/commercial-support/) - Snap Gantt Gpl Automatic Updates. Supports Wekan maintenance and development.
-* [Cloudron](Cloudron) - Standalone Wekan
-* [PikaPods](PikaPods) - Standalone Wekan with managed updates and backups.
-* [Scalingo](Scalingo) - Standalone Wekan
+* [Cloudron](../Propietary/Cloud/Cloudron/Cloudron.md) - Standalone Wekan
+* [PikaPods](../Propietary/Cloud/PikaPods/PikaPods.md) - Standalone Wekan with managed updates and backups.
+* [Scalingo](../Propietary/Cloud/Scalingo.md) - Standalone Wekan
 
 ## <a name="ProductionDocker"></a>Not exposed to Internet: Docker. No automatic upgrades.
 
 Keep backups, Docker is more complex than others above. Use only if you have time to test new release first, and it's critical nothing gets broken. Because Docker does not have automatic updates, please keep behind firewall, without any ports open to Internet, because Wekan gets new security etc updates to Node.js and other dependencies often.
 
 * [Docker](Docker)
-  * [Windows](Windows) + build from source
-  * [Mac](Mac)
-  * [SLES 64bit](Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1)
+  * [Windows](../Propietary/Windows/Windows.md) + build from source
+  * [Mac](../Propietary/Mac.md)
+  * [SLES 64bit](Docker/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1.md)
 * [Proxy](https://github.com/wekan/wekan/issues/1480)
 
 *** 
-## Not exposed to Internet: Bundle for [RasPi 3, arm64, Windows and any Node+Mongo CPU architectures](Raspberry-Pi). No automatic updates, no sandboxing.
+## Not exposed to Internet: Bundle for [RasPi 3, arm64, Windows and any Node+Mongo CPU architectures](RaspberryPi/Raspberry-Pi.md). No automatic updates, no sandboxing.
 
 New at 2019-06-30. If CPU architecture has enough RAM and fast harddisk, it can be used, but there
 is no automatic updates and no sandboxing.
@@ -91,22 +91,22 @@ npm install node-gyp node-pre-gyp fibers
 cd ../../..
 ```
 Then modify `start-wekan.sh` or `start-wekan.bat` for Node and MongoDB paths.
-See [Raspberry Pi page](Raspberry-Pi) for info about systemd etc.
+See [Raspberry Pi page](RaspberryPi/Raspberry-Pi.md) for info about systemd etc.
 
 ***
 
 ## <a name="Development"></a>Development: Not updated automatically.
-* [Virtual appliance](virtual-appliance) - old
+* [Virtual appliance](virtual-appliance.md) - old
 * [Source](Source) for development usage only. Source, Snap, Docker, Sandstorm, Meteor bundle and Windows build instructions.
-* [Vagrant](Vagrant)
+* [Vagrant](Vagrant.md)
 * Upcoming:
   * [Friend](Friend) - Snap Standalone Wekan
 
 ## Operating Systems
 
-* [Debian 64bit](Debian)
-* [SmartOS](SmartOS)
-* [FreeBSD](FreeBSD)
+* [Debian 64bit](Debian.md)
+* [SmartOS](SmartOS.md)
+* [FreeBSD](FreeBSD.md)
 
 ## NAS
 
@@ -114,12 +114,12 @@ See [Raspberry Pi page](Raspberry-Pi) for info about systemd etc.
 
 ## Other Clouds. Can have some restrictions, like: Requires from source install, has restricted 2.x kernel, does not support websockets, or not tested yet.
 
-* [Uberspace](Install-latest-Wekan-release-on-Uberspace)
-* [OVH and Kimsufi](OVH)
-* [OpenVZ](OpenVZ)
-* [Heroku](Heroku) ?
-* [Google Cloud](Google-Cloud) ?
-* [Cloud Foundry](Cloud-Foundry) ?
+* [Uberspace](../Propietary/Cloud/Uberspace.md)
+* [OVH and Kimsufi](../Propietary/Cloud/OVH.md)
+* [OpenVZ](../Propietary/Cloud/OpenVZ.md)
+* [Heroku](../Propietary/Cloud/Heroku.md) ?
+* [Google Cloud](../../Login/Google-Cloud.md) ?
+* [Cloud Foundry](Cloud-Foundry.md) ?
 
 ## Does not work yet: [DEB/RPM packages at Packager.io](https://packager.io/gh/wekan/wekan)
 
@@ -128,9 +128,9 @@ New at 2019-08-04. For Ubuntu, Debian, CentOS and SLES.
 
 # More
 
-[Features](Features)
+[Features](../../Features/Features.md)
 
-[Integrations](Integrations)
+[Integrations](../../ImportExport/Integrations.md)
 
 [install_source]: [Install and Update](Source/Install-and-Update.md#install-manually-from-source)
 [installsource_windows]: [Install Wekan from source on Windows](../Propietary/Windows/Install-Wekan-from-source-on-Windows.md)

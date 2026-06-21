@@ -22,21 +22,21 @@ Maybe related to these improvements:
 
 Recommended specs:
 
-- Try to add [Redis Oplog](https://github.com/cult-of-coders/redis-oplog) like [this](Emoji#how-you-could-add-another-plugin)
+- Try to add [Redis Oplog](https://github.com/cult-of-coders/redis-oplog) like [this](../Features/Emoji.md#how-you-could-add-another-plugin)
 - One bare metal server (or VM on server that does not have oversubscription), for example [Fastest: UpCloud](https://upcloud.com), [Hetzner](https://www.hetzner.com/?country=en), [Packet](https://packet.com).
 - NVME or SSD disk. Speed difference when opening Wekan board: SSD 2 seconds, HDD 5 minutes.
-- Minimum 60 GB total disk space, 40 GB free disk space, [Daily Backups](Backup) to elsewhere, monitoring and alerting if server has low disk space, because disk full causes database corruption.
+- Minimum 60 GB total disk space, 40 GB free disk space, [Daily Backups](../Backup/Backup.md) to elsewhere, monitoring and alerting if server has low disk space, because disk full causes database corruption.
 - Newest Ubuntu 64bit
 - 4GB RAM minimum. See with `free -h` is server is using any swap. If it is, add more RAM.
 - some performance optimized CPUs/cores. 2 minimum, 4 is better. See with `nproc` how many CPUs you have. Look with `top` or `htop` is server using max 100% CPUs, if it is, add higher performance optimized CPUs (or more CPUs). But if it looks like Wekan not using some of those added CPUs, then adding more CPUs is not useful.
 - Do not store attachments at database, like uploading file to card. Have markdown links to files, like `[Document](https://example.com/files/document.doc)`. Click `Wekan board` => `☰` => `⚙` => `Board Settings` => `Card Settings`. There uncheck `[_] Attachments` to hide attachments at card.
 - Click Wekan `Admin Panel / Settings / Accounts / Hide System Messages of All Users`. If someone needs to show system messages, they can click slider at opened card to show them. Sometime later, if many have manually enabled showing system messages, click that same button at Admin Panel again.
-- Check Webhooks: Do you have `Admin Panel / Settings / Global Webhooks` (that sends most board actions to webhook) or at each board, per-board webhooks (that sends most one board actions to webhook, more info at [wiki right menu Webhooks](../README.md)) at `Wekan board` => `☰` => `⚙` => `Outgoing Webhooks`. You also see this with [DBGate](Backup#dbgate-open-source-mongodb-gui) at port localhost:27019 / database: wekan / table: integrations. Each webhook should [immediately return 200 response before processing any data](https://github.com/wekan/wekan/issues/3575), because otherwise it will slow down Wekan a lot.
+- Check Webhooks: Do you have `Admin Panel / Settings / Global Webhooks` (that sends most board actions to webhook) or at each board, per-board webhooks (that sends most one board actions to webhook, more info at [wiki right menu Webhooks](../README.md)) at `Wekan board` => `☰` => `⚙` => `Outgoing Webhooks`. You also see this with [DBGate](../Backup/Backup.md#dbgate-open-source-mongodb-gui) at port localhost:27019 / database: wekan / table: integrations. Each webhook should [immediately return 200 response before processing any data](https://github.com/wekan/wekan/issues/3575), because otherwise it will slow down Wekan a lot.
 - In future Wekan version will be added as default:
   - [Setting `NODE_OPTIONS: --max_old_space_size=4096`](https://github.com/wekan/wekan/issues/3585#issuecomment-782431177)
 
 Minimum specs:
-- [RasPi3](Raspberry-Pi), 1 GB RAM, external SSD disk for Wekan and MongoDB.
+- [RasPi3](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md), 1 GB RAM, external SSD disk for Wekan and MongoDB.
 - While it works, it's only for minimal usage.
 - Newer RasPi recommended for minimum use.
 
@@ -82,6 +82,6 @@ Related to docker-compose.yml at https://github.com/wekan/wekan , using Docker S
 
 [MongoDB compatible databases](https://github.com/wekan/wekan/issues/2852)
 
-[AWS](AWS)
+[AWS](../Platforms/Propietary/Cloud/AWS.md)
 
-[Azure OIDC](Azure)
+[Azure OIDC](../Login/Azure/Azure.md)

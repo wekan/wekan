@@ -74,7 +74,7 @@ sudo systemctl start nginx
 sudo systemctl enable nginx
 ```
 
-[Example nginx config](Nginx-Webserver-Config)
+[Example nginx config](../../../Webserver/Nginx.md)
 
 Test nginx config with:
 
@@ -98,7 +98,7 @@ For example Wekan v0.70, use in docker-compose.yml file:
 image: quay.io/wekan/wekan:v0.70
 Only use release version tags, because latest tag can be broken sometimes.
 
-12) For email, in AWS SES add email address to domain, verify SPF and DKIM with Route53 wizard if you have domain at Route53 as I recommend. At SES create new SMTP credentials and [add them to docker-compose.yml SMTP settings](Troubleshooting-Mail)
+12) For email, in AWS SES add email address to domain, verify SPF and DKIM with Route53 wizard if you have domain at Route53 as I recommend. At SES create new SMTP credentials and [add them to docker-compose.yml SMTP settings](../../../Email/Troubleshooting-Mail.md)
 
 13) Start wekan and mongodb database containers with command:
 
@@ -110,7 +110,7 @@ So it goes nginx SSL port 443 => proxy to localhost port 8080 or any other => we
 
 14) For different customers have different docker-compose.yml script in directories named by customer names. You may need to rename docker containers from wekan-app to wekan-customer1 etc, and probably also docker internal network names.
 
-15) [Backup, restore, and moving data outside/inside docker](Export-Docker-Mongo-Data)
+15) [Backup, restore, and moving data outside/inside docker](../../FOSS/Docker/Export-Docker-Mongo-Data.md)
 
 16) Register as user at https://subdomain.yourdomain.com/customer1/sign-up and login at https://subdomain.yourdomain.com/customer1/sign-in , first user will be admin. Click your username at top right corner / Admin Panel, and there chang settings to invite only.
 

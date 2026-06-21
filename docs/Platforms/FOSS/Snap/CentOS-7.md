@@ -77,11 +77,11 @@ sudo snap set wekan mail-from='Wekan Boards <support@example.com>'
 
 ## LDAP
 
-See [Supported Settings Keys](Supported-settings-keys#ldap)
+See [Supported Settings Keys](Supported-settings-keys.md#ldap)
 
-## [Matomo Web Analytics integration](Supported-settings-keys#matomo-web-analytics-integration)
+## [Matomo Web Analytics integration](Supported-settings-keys.md#matomo-web-analytics-integration)
 
-See [Supported Settings Keys](Supported-settings-keys#matomo-web-analytics-integration)
+See [Supported Settings Keys](Supported-settings-keys.md#matomo-web-analytics-integration)
 
 ## [Rocket.Chat providing OAuth2 login to Wekan](../../../Login/OAuth2.md)
 
@@ -170,7 +170,7 @@ $ sudo snap set wekan mongodb-port=27019
 $ sudo snap install wekan
 ```
 
-IMPORTANT: SETUP [URL SETTINGS](#url-settings) BELOW, SO OPENING CARDS ETC WORKS CORRECTLY. More info at [Supported settings keys](Supported-settings-keys).
+IMPORTANT: SETUP [URL SETTINGS](#url-settings) BELOW, SO OPENING CARDS ETC WORKS CORRECTLY. More info at [Supported settings keys](Supported-settings-keys.md).
 
 **IMPORTANT: Wekan Snap is bleeding edge, so any commits made to the wekan repository are pushed to the snap directly. Decide for yourself if you want to run wekan snap in production**  
 

@@ -2,7 +2,7 @@
 
 - Original issue: https://github.com/wekan/wekan/issues/5242
 - B2C feature added: https://github.com/wekan/wekan/commit/93be112a9454c894c1ce3146ed377e6a6aeca64a
-- Similar like [ADFS](ADFS), but `email` is first of array `userinfo[emails]`
+- Similar like [ADFS](ADFS.md), but `email` is first of array `userinfo[emails]`
 
 ## Snap
 

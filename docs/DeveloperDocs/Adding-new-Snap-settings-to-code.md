@@ -6,7 +6,7 @@
 
 Add all necessary settings that you find on code.
 
-After doing all changes, [fix lint errors](Developer-Documentation#preventing-travis-ci-lint-errors-before-submitting-pull-requests) and if possible warnings too. You can silence errors if you really can't find solution.
+After doing all changes, [fix lint errors](Developer-Documentation.md#preventing-travis-ci-lint-errors-before-submitting-pull-requests) and if possible warnings too. You can silence errors if you really can't find solution.
 
 Submit pull request to Wekan edge branch https://github.com/wekan/wekan/tree/edge
 

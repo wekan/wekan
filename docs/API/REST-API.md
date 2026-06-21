@@ -31,21 +31,21 @@ When calling a production Wekan server, ensure it is running via HTTPS and has a
 ### Users
 | HTTP Method | Url | Short Description |
 | :--- | :--- | :--- |
-| `POST` | `/users/register` | [Register a new user.](REST-API-User#user-register) |
-| `POST` | `/api/users` | [Create a new user.](REST-API-User#user-create) |
-| `PUT` | `/api/users/:id` | [Disable an existing user.](REST-API-User#disable-a-user-the-user-is-not-allowed-to-login-and-his-login-tokens-are-purged) |
-| `PUT` | `/api/users/:id` | [Enable an existing user.](REST-API-User#enable-a-user) |
-| `PUT` | `/api/users/:id` | [Admin takes the ownership.](REST-API-User#the-admin-takes-the-ownership-of-all-boards-of-the-user-archived-and-not-archived-where-the-user-is-admin-on) |
-| `DELETE` | `/api/users/:id` | [Delete an existing user.](REST-API-User#user-delete) ([Warning](https://github.com/wekan/wekan/issues/1289))|
-| `GET` | `/api/users/:id` | [Gets a user's information.](REST-API-User#user-information) |
-| `GET` | `/api/users` | [All of the users.](REST-API-User#user-list) |
-| `GET` | `/api/user` | [Gets a logged-in user.](REST-API-User#user-logged-in) |
+| `POST` | `/users/register` | [Register a new user.](User.md#user-register) |
+| `POST` | `/api/users` | [Create a new user.](User.md#user-create) |
+| `PUT` | `/api/users/:id` | [Disable an existing user.](User.md#disable-a-user-the-user-is-not-allowed-to-login-and-his-login-tokens-are-purged) |
+| `PUT` | `/api/users/:id` | [Enable an existing user.](User.md#enable-a-user) |
+| `PUT` | `/api/users/:id` | [Admin takes the ownership.](User.md#the-admin-takes-the-ownership-of-all-boards-of-the-user-archived-and-not-archived-where-the-user-is-admin-on) |
+| `DELETE` | `/api/users/:id` | [Delete an existing user.](User.md#user-delete) ([Warning](https://github.com/wekan/wekan/issues/1289))|
+| `GET` | `/api/users/:id` | [Gets a user's information.](User.md#user-information) |
+| `GET` | `/api/users` | [All of the users.](User.md#user-list) |
+| `GET` | `/api/user` | [Gets a logged-in user.](User.md#user-logged-in) |
 ### Cards
 | HTTP Method | Url | Short Description |
 | :--- | :--- | :--- |
-| `POST` | `/api/boards/:boardId/lists/:listId/cards` | [Add a card to a list, board, and swimlane.](REST-API-Cards#add-card-to-list-board-swimlane) |
-| `PUT` | `/api/boards/:boardId/lists/:fromListId/cards/:cardId` | [Update a card.](REST-API-Cards#update-a-card) |
-| `DELETE` | `/api/boards/:boardId/lists/:listId/cards/:cardId` | [Delete a card.](REST-API-Cards#update-a-card) |
+| `POST` | `/api/boards/:boardId/lists/:listId/cards` | [Add a card to a list, board, and swimlane.](Cards.md#add-card-to-list-board-swimlane) |
+| `PUT` | `/api/boards/:boardId/lists/:fromListId/cards/:cardId` | [Update a card.](Cards.md#update-a-card) |
+| `DELETE` | `/api/boards/:boardId/lists/:listId/cards/:cardId` | [Delete a card.](Cards.md#update-a-card) |
 ### Board Domain Sharing
 | HTTP Method | Url | Short Description |
 | :--- | :--- | :--- |

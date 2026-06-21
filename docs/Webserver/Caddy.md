@@ -5,7 +5,7 @@
 
 ----
 
-[Caddy 2 .well-known/assetlinks.json config for WeKan Android Play Store app](../PWA#fullscreen-android-app-with-caddy-and-wekan-server)
+[Caddy 2 .well-known/assetlinks.json config for WeKan Android Play Store app](../Browsers/PWA.md#fullscreen-android-app-with-caddy-and-wekan-server)
 
 # CloudFlare DNS
 
@@ -543,7 +543,7 @@ boards.wekan.team {
 
 ***
 
-[Caddy OAuth2 with Let's Encrypt SSL example](OAuth2)
+[Caddy OAuth2 with Let's Encrypt SSL example](../Login/OAuth2.md)
 
 ***
 

@@ -13,7 +13,7 @@ If you really want email sending, do for example:
 sudo snap set wekan mail-url='smtps://user:pass@mailserver.example.com:457/'
 sudo snap set wekan mail-from='Example Wekan Support <support@example.com>'
 ```
-For more options see [Troubleshooting Email](Troubleshooting-Mail)
+For more options see [Troubleshooting Email](../Email/Troubleshooting-Mail.md)
 
 5) Login to Wekan at https://example.com/sign-in (your address + /sign-in)
 

@@ -1,1 +1,1 @@
-Moved to [Platforms](Platforms)
+Moved to [Platforms](../Platforms.md)

@@ -41,9 +41,9 @@ Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 Price | Free and Open Source, [MIT license](../../LICENSE). Free for Commercial Use. | Free with limitations, Monthly payment, Annual Subscription, Quote-based | Open Core
 Whitelabeling | Yes. Admin Panel/Layout: Hide Logo, Custom Product Name. | No | $ Yes
-Theming | [Yes](Custom-CSS-themes) | No | $ Yes
+Theming | [Yes](../Theme/Custom-CSS-themes.md) | No | $ Yes
 Redistributing | Yes | No | $ Yes
-Hosting | [Self-host or SaaS provider](Platforms) | SaaS | Self-host
+Hosting | [Self-host or SaaS provider](../Platforms/FOSS/Platforms.md) | SaaS | Self-host
 
 ## Basic features: Board
 
@@ -56,7 +56,7 @@ Boards | Yes | Yes | Yes
 Closed boards listing | Yes, at Archive | Yes | Yes
 Starred boards listing | No, starred and non-starred at All Boards | No | Yes
 Add board with predefined templates | Personal templates, Import Board from Trello or Wekan | No | Yes
-Board stats | [Yes](Features#stats) | No | Yes
+Board stats | [Yes](../Features/Features.md#stats) | No | Yes
 Board - Add members | Yes | Yes | Yes
 Board - Remove members | Yes | Yes | Yes
 Close board | Yes, move to Archive | Yes | Yes
@@ -191,10 +191,10 @@ Features | Wekan | Trello | Restyaboard
 API explorer | No | No | Yes
 OpenAPI | [Yes](../../openapi) [here](https://wekan.fi/api/) | ? | ?
 Developer applications | Yes, using REST API | Yes | Yes
-Authorized OAuth applications | No, REST API [login as admin to get Bearer token](REST-API#example-call---as-form-data) | Yes | Yes
+Authorized OAuth applications | No, REST API [login as admin to get Bearer token](../API/REST-API.md#example-call---as-form-data) | Yes | Yes
 Webhooks | Yes, per board or global at Admin Panel | Yes | Yes
 Zapier (IFTTT like workflow automation with 500+ websites) | Yes | Yes | $ Yes
-Integrated IFTTT | [Yes](IFTTT) | No | No
+Integrated IFTTT | [Yes](../Features/IFTTT/IFTTT.md) | No | No
 
 ## Basic features: Email and Notifications
 
@@ -215,7 +215,7 @@ Features | Wekan | Trello | Restyaboard
 Additional settings | No in Web UI, most settings at CLI | Yes | Yes (Basic only)
 Profile	| Yes | Yes | Yes
 Add a new email address | Register / Invite | Yes | No
-Roles management | On web board+[API](REST-API-Role) | No | Yes
+Roles management | On web board+[API](../API/Role.md) | No | Yes
 Settings management | Only some at Web UI, most settings at CLI | No | Yes
 Users management | Add/Remove Orgs/Teams/Users | Yes? | Yes
 Permanently delete your entire account forever?	| No | Yes | Yes (Admin can delete)
@@ -225,10 +225,10 @@ Permanently delete your entire account forever?	| No | Yes | Yes (Admin can dele
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 Login with username or email | Yes | Yes | Yes
-LDAP login | Standalone: [Yes](LDAP). Sandstorm: Yes. | No | $ Yes
+LDAP login | Standalone: [Yes](../Login/LDAP.md). Sandstorm: Yes. | No | $ Yes
 SAML login | Standalone: [Not yet](https://github.com/wekan/wekan/issues/708). Sandstorm: Yes | No | No
-Google login | Not yet, needs fixes to [OAuth2](OAuth2) | Yes | No
-GitHub login | Standalone: Not yet, needs fixes to [OAuth2](OAuth2). Sandstorm: Yes. | No | No
+Google login | Not yet, needs fixes to [OAuth2](../Login/OAuth2.md) | Yes | No
+GitHub login | Standalone: Not yet, needs fixes to [OAuth2](../Login/OAuth2.md). Sandstorm: Yes. | No | No
 Passwordless email login | Standalone: No. Sandstorm: Yes. | No | No
 
 ## Apps for productivity: Import / Export
@@ -257,7 +257,7 @@ Show attachments in board | No, only at each card | No | Yes
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 Apps (Power-ups) | All integrated in, no separate plugin/app  install | Yes | Yes
-Custom Field App | [Yes](Custom-Fields) | Yes | $ Yes
+Custom Field App | [Yes](../API/Custom-Fields.md) | Yes | $ Yes
 Estimated Time Custom Field App / Time Tracking | Reveived/Start/End/Due/End Date, Spent time, Requested By, Assigned By. No reports. For more advanced, [Not yet](https://github.com/wekan/wekan/issues/812) | Yes, 3rd party Burndown, Harvest etc | $ Yes
 Analytics | [Magento integration](https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys) | No | No
 Hide card additional information | Yes, card and board activities | Yes, card activities | Yes, card activities
@@ -270,7 +270,7 @@ Introduction video | No | No | Yes
 List sorting by due date | No | No | Yes
 Home screen | No | No | Yes
 Apps Integration | All integrated in | Yes | Yes
-Chat | No. You could use [Rocket.Chat](OAuth2) | No | $ Yes
+Chat | No. You could use [Rocket.Chat](../Login/OAuth2.md) | No | $ Yes
 Dashboard Charts | [Not yet](https://github.com/wekan/wekan-dashing-go) | No | $ Yes
 Hide Card Created Date App | No | No | Yes
 Hide Card ID App | No | No | Yes
@@ -278,9 +278,9 @@ Canned Response App | No | No | $ Yes
 Auto Archive Expired Cards App | No | No | $ Yes
 Support Desk | No | No | $ Yes
 Card Template App | Copy Checklist Template to Multiple Cards | Yes | $ Yes
-Slack | [Yes](Outgoing-Webhook-to-Discord) | Yes |  $ Yes
+Slack | [Yes](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md) | Yes |  $ Yes
 Amazon Echo | No | No | $ Yes
-Collaborate/TogetherJS | [Not yet](Friend) | No | Yes
+Collaborate/TogetherJS | [Not yet](../Platforms/FOSS/Friend/Friend.md) | No | Yes
 Gmail Add-on | No | Yes | Yes
 Hangouts Chat bot | No | Yes | $ Yes
 Print board | No | No | $ Yes
@@ -296,8 +296,8 @@ SEO Checklist | No | No | $ Yes
 
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
-iOS Mobile App | [Not yet](Friend). Mobile Chrome browser works. | Yes | Yes
-Android Mobile App | [Yes](Browser-compatibility-matrix) | Yes | Yes
-Windows Microsoft Store App | [Yes](Browser-compatibility-matrix) | ? | ?
-Ubuntu Touch OpenStore App | [Yes](Browser-compatibility-matrix) | ? | ?
+iOS Mobile App | [Not yet](../Platforms/FOSS/Friend/Friend.md). Mobile Chrome browser works. | Yes | Yes
+Android Mobile App | [Yes](../Browsers/Browser-compatibility-matrix.md) | Yes | Yes
+Windows Microsoft Store App | [Yes](../Browsers/Browser-compatibility-matrix.md) | ? | ?
+Ubuntu Touch OpenStore App | [Yes](../Browsers/Browser-compatibility-matrix.md) | ? | ?
 

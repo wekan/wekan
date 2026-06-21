@@ -408,7 +408,7 @@ https://discuss.linuxcontainers.org/t/failed-lxd-init-what-is-cidr/7181/2
 
 ## 1) Main Snap on bare metal
 
-[Install Wekan Snap](Install) to newest Ubuntu bare metal server. Snaps have automatic updates.
+[Install Wekan Snap](Install.md) to newest Ubuntu bare metal server. Snaps have automatic updates.
 
 For example:
 ```

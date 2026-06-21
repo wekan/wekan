@@ -94,7 +94,7 @@ cd wekan
 ```
 That does: 1 install dependencies, 2 builds wekan, 3 starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically and reload webbroser. But, still sometimes, it may need stopping with Ctrl-c and full build with option 2.
 
-And then [register and login](Adding-users) at http://localhost:4000
+And then [register and login](../Login/Adding-users.md) at http://localhost:4000
 
 ### OPTIONAL, NOT NEEDED: 5. Add new plugin package
 ```

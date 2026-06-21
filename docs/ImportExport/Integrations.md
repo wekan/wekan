@@ -1,7 +1,7 @@
 # Current
 
 * [PostgreSQL](https://github.com/wekan/wekan/tree/main/torodb-postgresql)
-* [Webhooks](Features#webhooks), works by showing board activities with [Slack](https://slack.com/), [Rocket.chat](https://rocket.chat/) and others that supports Webhooks.
+* [Webhooks](../Features/Features.md#webhooks), works by showing board activities with [Slack](https://slack.com/), [Rocket.chat](https://rocket.chat/) and others that supports Webhooks.
 * [Gogs Integration](https://github.com/wekan/wekan-gogs) as separate project.
 
 # Wishes for pull requests
@@ -50,4 +50,4 @@ Following are for Source/Docker installs:
 
 # More
 
-[Features](Features)
+[Features](../Features/Features.md)

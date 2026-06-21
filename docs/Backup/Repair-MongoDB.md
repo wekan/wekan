@@ -52,7 +52,7 @@ apt install ntfs-3g
 ```
 mount /dev/sdd1 /mnt
 ```
-4. Stop WeKan Docker containers. If copying raw database files, WeKan and MongoDB should not be running, so that MongoDB would not be even more corrupted. (If MongoDB is running, and you have mongodump backup, you can [Backup with mongorestore](Backup)
+4. Stop WeKan Docker containers. If copying raw database files, WeKan and MongoDB should not be running, so that MongoDB would not be even more corrupted. (If MongoDB is running, and you have mongodump backup, you can [Backup with mongorestore](Backup.md)
 ```
 docker stop wekan-db wekan-app
 ```

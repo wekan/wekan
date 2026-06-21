@@ -1,4 +1,4 @@
-Use these instructions instead: [Offline](Offline)
+Use these instructions instead: [Offline](Offline.md)
 
 
 ***
@@ -36,7 +36,7 @@ Windows Updates:
 
 This has **highest performance and lowest RAM usage**, because there is no virtualization like Docker, Windows Subsystem for Linux, etc. Wekan is run with Windows native version of Node.js and MongoDB, directly at Windows filesystem.
 
-1. If you have important data in Wekan, do [backup](Backup).
+1. If you have important data in Wekan, do [backup](../../../Backup/Backup.md).
 
 2. Install newest Node.js LTS v12.x for Windows from https://nodejs.org . When installing, checkmark "Install additional tools" that will install also Chocolatey etc.
 
@@ -49,7 +49,7 @@ choco install -y mongodb
 
 5. Unzip wekan-x.xx.zip, it has directory name `bundle`
 
-6. Download [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.bat) to your bundle directory. Default settins are: `ROOT_URL=http://localhost` and `PORT=80`, so it works only in local [compatible browser](Browser-compatibility-matrix). You can edit [ROOT_URL](Settings) to be or `http://YOUR-IP-ADDRESS` so it works on local network with `http://YOUR-IP-ADDRESS` .
+6. Download [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.bat) to your bundle directory. Default settins are: `ROOT_URL=http://localhost` and `PORT=80`, so it works only in local [compatible browser](../../../Browsers/Browser-compatibility-matrix.md). You can edit [ROOT_URL](../../../Webserver/Settings.md) to be or `http://YOUR-IP-ADDRESS` so it works on local network with `http://YOUR-IP-ADDRESS` .
 
 7. Start Wekan in cmd.exe as Administrator:
 ```
@@ -107,7 +107,7 @@ List databases again to show that database testing is not there anymore:
 ```
 show dbs
 ```
-Also see [Forgot Password](Forgot-Password)
+Also see [Forgot Password](../../../Login/Forgot-Password.md)
 
 Exit MongoDB CLI:
 ```
@@ -117,18 +117,18 @@ You should not backup Windows MongoDB RAW database files that are here, when you
 ```
 C:\ProgramData\MongoDB\data\db
 ```
-[More info about MongoDB](Export-from-Wekan-Sandstorm-grain-.zip-file)
+[More info about MongoDB](../../FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
-9. [Add users](Adding-users).
+9. [Add users](../../../Login/Adding-users.md).
 
 
 ***
 
-## b) [Docker](Docker)
+## b) [Docker](../../FOSS/Docker/Docker.md)
 
 Note: With Docker, please don't use latest tag. Only use release tags. See https://github.com/wekan/wekan/issues/3874
 
-[Repair Docker](Repair-Docker)
+[Repair Docker](../../FOSS/Docker/Repair-Docker.md)
 
 If you don't need to build Wekan, use prebuilt container with docker-compose.yml from https://github.com/wekan/wekan like this:
 ```
@@ -194,9 +194,9 @@ Currently Snap works only when installed to Ubuntu 19.10 64bit running on Virtua
 
 https://github.com/wekan/wekan-snap/wiki/Install
 
-[Related VM info how to expose port with bridged networking](Virtual-Appliance)
+[Related VM info how to expose port with bridged networking](../../FOSS/virtual-appliance.md)
 
-[UCS has prebuilt VirtualBox VM](Platforms#production-univention-platform-many-apps-and-wekan)
+[UCS has prebuilt VirtualBox VM](../../FOSS/Platforms.md#production-univention-platform-many-apps-and-wekan)
 
 ***
 
@@ -204,7 +204,7 @@ https://github.com/wekan/wekan-snap/wiki/Install
 
 ## e) Probaby does not work
 
-[Install from source directly on Windows](Install-Wekan-from-source-on-Windows) to get Wekan running natively on Windows. [git clone on Windows has been fixed](https://github.com/wekan/wekan/issues/977). Related: [running standalone](https://github.com/wekan/wekan/issues/883) and [nexe](https://github.com/wekan/wekan/issues/710).
+[Install from source directly on Windows](Install-Wekan-from-source-on-Windows.md) to get Wekan running natively on Windows. [git clone on Windows has been fixed](https://github.com/wekan/wekan/issues/977). Related: [running standalone](https://github.com/wekan/wekan/issues/883) and [nexe](https://github.com/wekan/wekan/issues/710).
 
 ## f) Install Meteor on Windows - does not build correctly, gives errors
 
@@ -255,7 +255,7 @@ REM    edit "start-wekan.bat" to "cd" to correct bundle directory to run "node m
 ```
 ## g) Snap
 
-[WSL](WSL)
+[WSL](WSL.md)
 
 ## Related
 

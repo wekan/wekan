@@ -1,6 +1,6 @@
 NOTE: If you use MongoDB Snap package below, most likely it works with many distro versions, like newest distros also. But if installing without Snap from https://www.mongodb.com/try/download/community , those packages are not for so many distros and versions.
 
-This page is NOT only about Raspberry Pi. This page IS about install without container for ANY Linux/BSD/[macOS](Mac)/[Windows](Offline) using CPU of amd64/arm64/s390x/ppc64le.
+This page is NOT only about Raspberry Pi. This page IS about install without container for ANY Linux/BSD/[macOS](../../Propietary/Mac.md)/[Windows](../../Propietary/Windows/Offline.md) using CPU of amd64/arm64/s390x/ppc64le.
 
 WeKan only requires:
 - WeKan bundle .zip file of Javascript etc for that CPU. Only difference per CPU is that fibers package is compiled for that CPU. Those .zip files are built this way, for example:
@@ -15,7 +15,7 @@ WeKan only requires:
   - init.d script
   - any other script, that sets environment variables and in bundle directory does `node main.js`
 - most important environment settings are:
-  - `ROOT_URL=http://192.168.0.200` for WeKan server IP address at local network or `ROOT_URL=https://kanban.example.com` if [Caddy](Caddy-Webserver-Config)/[Nginx](Nginx-Webserver-Config)/[Apache2](Apache) proxies from HTTPS to WeKan http://127.0.0.1:4000 etc, see [Settings](../../../Webserver/Settings.md)
+  - `ROOT_URL=http://192.168.0.200` for WeKan server IP address at local network or `ROOT_URL=https://kanban.example.com` if [Caddy](../../../Webserver/Caddy.md)/[Nginx](../../../Webserver/Nginx.md)/[Apache2](../../../Webserver/Apache.md) proxies from HTTPS to WeKan http://127.0.0.1:4000 etc, see [Settings](../../../Webserver/Settings.md)
   - `PORT=80` or `PORT=4000` or some other port where WeKan Nodejs runs.
   - `MONGO_URL=mongodb://127.0.0.1:27017/wekan` where MongoDB server is, like localhost port 27017 using database name wekan. (Snap usually has MongoDB port at 27019, if it's not changed for example with `sudo snap set wekan mongodb-port='27020'`)
   - `WRITABLE_PATH=..`
@@ -32,7 +32,7 @@ Windows and Linux versions at:
 and also:
 - Linux amd64 https://releases.wekan.team filename wekan-VERSION-amd64.zip
 - Linux arm64 https://releases.wekan.team/raspi3/
-- Linux [s390x](s390x) https://releases.wekan.team/s390x/
+- Linux [s390x](../s390x.md) https://releases.wekan.team/s390x/
 
 ## Related wiki pages
 
@@ -117,7 +117,7 @@ mongo
 
 ## Please store MongoDB database etc Wekan files to external SSD hardrive (or HDD)
 
-It's very easy to corrupt microSD card with a lot of writes. Please make [at least daily backups](Backup).
+It's very easy to corrupt microSD card with a lot of writes. Please make [at least daily backups](../../../Backup/Backup.md).
 
 ## Install Wekan to RasPi3, RasPi4 or any arm64 server
 
@@ -331,7 +331,7 @@ you could install [postfix](https://github.com/wekan/wekan-bash-install-autoupgr
 MAIL_URL='smtp://127.0.0.1:25/'
 MAIL_FROM='Board Support <wekan@example.com>'
 ```
-It is much more recommended to use [email sending service like AWS SES or some other service](Troubleshooting-Mail) that can ensure delivering email correctly, for Wekan email notifications etc.
+It is much more recommended to use [email sending service like AWS SES or some other service](../../../Email/Troubleshooting-Mail.md) that can ensure delivering email correctly, for Wekan email notifications etc.
 
 ## 8. Optional: Nginx and Let's Encrypt SSL
 
@@ -510,7 +510,7 @@ sudo systemctl enable mongodb
 wget https://releases.wekan.team/raspi3/start-wekan.sh
 nano start-wekan.sh
 ```
-There edit [ROOT_URL to have your IP address or domain, and PORT for your localhost port](Settings). 
+There edit [ROOT_URL to have your IP address or domain, and PORT for your localhost port](../../../Webserver/Settings.md). 
 
 You can also allow node to run on port 80, when you check where node is:
 ```
@@ -520,7 +520,7 @@ and then allow it:
 ```
 sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
 ```
-[Adding users](Adding-users)
+[Adding users](../../../Login/Adding-users.md)
 
 #### Upgrade bundle
 

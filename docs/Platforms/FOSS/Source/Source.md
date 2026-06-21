@@ -1,10 +1,10 @@
 ## Build from source on Mac
 
-[Build from source on Mac](Mac)
+[Build from source on Mac](../../Propietary/Mac.md)
 
 ## Build from source on VirtualBox
 
-At [Virtual Appliance](virtual-appliance) there is build scripts and all dependencies installed already.
+At [Virtual Appliance](../virtual-appliance.md) there is build scripts and all dependencies installed already.
 
 ## Build from source on Linux
 
@@ -15,7 +15,7 @@ Wekan:
 [Build from source scripts](https://github.com/wekan/wekan/tree/edge/releases/virtualbox)
 
 Wekan Meteor Bundle:
-1. [Build from source scripts](https://github.com/wekan/wekan/tree/edge/releases/virtualbox) built on [Wekan VirtualBox Ubuntu 14.04 64bit](virtual-appliance)
+1. [Build from source scripts](https://github.com/wekan/wekan/tree/edge/releases/virtualbox) built on [Wekan VirtualBox Ubuntu 14.04 64bit](../virtual-appliance.md)
 2. Copy arhive directory wekan/.build/bundle to .zip file so it includes bundle directory and subdirectories as wekan-1.xx.tar.gz
 
 Wekan for Sandstorm:
@@ -39,7 +39,7 @@ Docker:
 - `docker-compose up -d --build`
 
 Wekan on Windows:
-- [Docker, Windows Subsystem for Linux, and compile from source on Windows](Windows)
+- [Docker, Windows Subsystem for Linux, and compile from source on Windows](../../Propietary/Windows/Windows.md)
 
 ### (Optional) Run Wekan as service with startup script
 
@@ -109,4 +109,4 @@ Checkout instructions for setup with [[Caddy Webserver Config]] and [[Nginx Webs
 
 Building on Windows (if it works) is a lot slower than on Linux/Mac.
 
-[Windows](Windows)
+[Windows](../../Propietary/Windows/Windows.md)

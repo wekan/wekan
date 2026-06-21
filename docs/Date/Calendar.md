@@ -13,11 +13,11 @@ https://user-images.githubusercontent.com/70445835/184324324-b4bd466e-6873-4eef-
 
 ## <a name="Time"></a>Time
 
-* [Due Date](Due-Date)
-* [Day of week start](Day-of-week-start)
+* [Due Date](Due-Date.md)
+* [Day of week start](Day-of-week-start.md)
 
 ## What features are missing
 
 * [Calendar issues](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+calendar+label%3AFeature%3ACalendar-view)
-* [Time Tracking](Time-Tracking)
-* [Gantt Chart](Gantt)
+* [Time Tracking](Time-Tracking.md)
+* [Gantt Chart](../Features/Gantt.md)

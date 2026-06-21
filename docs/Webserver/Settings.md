@@ -6,16 +6,16 @@
 - **Snap** like this, single quotes, small letters: `sudo snap set wekan root-url='http://192.168.0.100'`
 
 ## Webserver config
-* [Nginx](Nginx-Webserver-Config)
-* [Apache](Apache)
-* [Caddy](Caddy-Webserver-Config)
+* [Nginx](Nginx.md)
+* [Apache](Apache.md)
+* [Caddy](Caddy.md)
 
 Examples:
 
 1) nginx SSL or without SSL, available at internet:
 - root-url='https://example.com'   or https://example.com/something or https://something.example.com , or with http
 - port='3001'
-- [Nginx example, proxying to local port 3001](Nginx-Webserver-Config)
+- [Nginx example, proxying to local port 3001](Nginx.md)
 => Wekan at https://example.com
 
 2) only wekan, no SSL, internal lan, caddy not enabled:
@@ -38,7 +38,7 @@ Wekan runs http server on local port, so it is without SSL. To get SSL, some web
 
 ## Admin Panel
 
-First registered Wekan user will get [Admin Panel](Features) on new
+First registered Wekan user will get [Admin Panel](../Features/Features.md) on new
 Docker and source based installs. You can also on MongoDB 
 [enable Admin Panel](../../CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease) and [change you as board admin](https://github.com/wekan/wekan/issues/1060#issuecomment-310545976).
 
@@ -52,7 +52,7 @@ Docker and source based installs. You can also on MongoDB
 
 ## Email
 
-[Troubleshooting Mail](Troubleshooting-Mail). For Exchange, you can use [DavMail](http://davmail.sourceforge.net), Wekan SMTP => DavMail => Exchange.
+[Troubleshooting Mail](../Email/Troubleshooting-Mail.md). For Exchange, you can use [DavMail](http://davmail.sourceforge.net), Wekan SMTP => DavMail => Exchange.
 
 ## RAM usage
 

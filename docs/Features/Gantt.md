@@ -18,4 +18,4 @@ Previous GPLv2 WeKan Gantt is deprecated https://github.com/wekan/wekan-gantt-gp
 
 # UCS
 
-[Gantt feature at UCS](UCS#gantt)
+[Gantt feature at UCS](../Platforms/FOSS/UCS/UCS.md#gantt)

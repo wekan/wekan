@@ -58,7 +58,7 @@ Wekan stable versions are numbered v1.x
 
 ## 4) Update all Snaps to newest on that channel
 
-[Check you don't have Snap updates disabled](Automatic-update-schedule#if-required-you-can-disable-all-snap-updates)
+[Check you don't have Snap updates disabled](Automatic-update-schedule.md#if-required-you-can-disable-all-snap-updates)
 
 ```
 sudo snap refresh

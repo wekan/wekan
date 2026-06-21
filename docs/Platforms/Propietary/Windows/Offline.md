@@ -1,4 +1,4 @@
-Also see: [Windows](Windows)
+Also see: [Windows](Windows.md)
 
 [Other CPU/OS On-Premise WeKan install](../../FOSS/RaspberryPi/Raspberry-Pi.md)
 
@@ -51,7 +51,7 @@ Then Wekan will be at http://IP-ADDRESS-HERE:2000/sign-in , for example http://1
 
 9. Double click `start-wekan.bat` to run it. Give permission to network. If it does not work, try instead with right click, Run as Administrator.
 
-10. For mobile devices, you can [create PWA app icon](PWA) using that http://IP-ADDRESS-HERE:2000/sign-in
+10. For mobile devices, you can [create PWA app icon](../../../Browsers/PWA.md) using that http://IP-ADDRESS-HERE:2000/sign-in
 
 RELATED INFO:
 - Windows 2022 server example https://github.com/wekan/wekan/issues/5084
@@ -423,7 +423,7 @@ npm install bcrypt
 
 ## c) WSL
 
-[WSL](WSL)
+[WSL](WSL.md)
 
 ## d) Wekan to VirtualBox Ubuntu offline
 

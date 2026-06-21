@@ -3,10 +3,10 @@ In-progress script for installing npm modules locally. Not tested.
 Anyone: If you get this working, edit this wiki and add remaining to be installed locally.
 
 ## TODO
-- Add MongoDB running locally like at wiki page [Install from source](Install-and-Update#install-mongodb-1)
+- Add MongoDB running locally like at wiki page [Install from source](Install-and-Update.md#install-mongodb-1)
 - Add node.js, npm etc installed locally
 - Update [wekan-autoinstall](https://github.com/wekan/wekan-autoinstall), please send pull requests
-- Update [Install from source](Install-and-Update#install-mongodb-1) so then this temporary page can possibly be removed later
+- Update [Install from source](Install-and-Update.md#install-mongodb-1) so then this temporary page can possibly be removed later
 
 ## Related info
 - Node.js and npm version downloaded at [Dockerfile](../../../../Dockerfile)
@@ -54,4 +54,4 @@ npm -g install fibers@1.0.15
 
 ## Install meteor
 
-Continue at [Install from source](Install-and-Update#install-manually-from-source)
+Continue at [Install from source](Install-and-Update.md#install-manually-from-source)
