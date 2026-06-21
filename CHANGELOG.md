@@ -88,8 +88,10 @@ Stops-Work issue triage (work in progress):
   custom width stayed full width when collapsed. Collapsed lists are now excluded from that rule and the 30px width is
   `!important`. Done: [commit 5e9b2bccd](https://github.com/wekan/wekan/commit/5e9b2bccd).
 - [Sort by due date is not remembered as the default view](https://github.com/wekan/wekan/issues/5886),
-  [#5886](https://github.com/wekan/wekan/issues/5886): the chosen global sort reverts to "date created" after a while.
-  In Progress.
+  [#5886](https://github.com/wekan/wekan/issues/5886): the card sort was kept only in an in-memory Meteor `Session`
+  variable, which resets on page reload, so the chosen sort reverted to the default. The sort is now persisted to
+  `localStorage` and restored on load (sorting and the sort icon). Done:
+  [commit 6aad946bc](https://github.com/wekan/wekan/commit/6aad946bc).
 
 # v9.67 2026-06-21 WeKan ® release
 
