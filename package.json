@@ -39,7 +39,7 @@
     "chai": "^6.2.2",
     "chai-as-promised": "^8.0.2",
     "css-loader": "^7.1.4",
-    "mongodb": "^6.21.0",
+    "mongodb": "^7.3.0",
     "puppeteer": "^25.0.4",
     "sinon": "^21.1.2",
     "sinon-chai": "^4.0.1",
