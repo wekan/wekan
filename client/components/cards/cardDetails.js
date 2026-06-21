@@ -9,6 +9,7 @@ import {
   DEFAULT_DEPENDENCY_ICON,
 } from '/models/metadata/dependencies';
 import { canArchiveCard } from '/client/lib/archivePermission';
+import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 
 // Which dependency the icon picker should apply its choice to. The icon popup's
 // own data context is the dependency row (not the source card), so we capture
@@ -2402,7 +2403,17 @@ EscapeActions.register(
         }
       }
     }
-    if (Session.get('cardDetailsIsDragging')) {
+    // #5686: selecting the text of a checklist item (whose mousedown stops
+    // propagation, so cardDetailsIsDragging is never set) and releasing the
+    // mouse outside the card must NOT close the card. Treat a live text
+    // selection anchored inside the card pane the same as an in-card drag.
+    const selectingInsideCard = isTextSelectionInsideCard(
+      typeof window !== 'undefined' && window.getSelection
+        ? window.getSelection()
+        : null,
+      getCardDetailsElement(getCurrentCardFromContext()?._id),
+    );
+    if (Session.get('cardDetailsIsDragging') || selectingInsideCard) {
       // Reset dragging status as the mouse landed outside the cardDetails template area and this will prevent a mousedown event from firing
       Session.set('cardDetailsIsDragging', false);
       Session.set('cardDetailsIsMouseDown', false);

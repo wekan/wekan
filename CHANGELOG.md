@@ -26,6 +26,22 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed selecting text in a checklist closing the card](https://github.com/wekan/wekan/issues/5686),
+  [#5686](https://github.com/wekan/wekan/issues/5686): selecting the text of a checklist item and releasing the
+  mouse outside the card detail pane closed the card. The checklist items template stops `mousedown` propagation
+  (for item sorting), so the existing `cardDetailsIsDragging` guard never engaged and the document-level
+  "click outside to close" handler closed the card. The close handler now also keeps the card open whenever a
+  live text selection is anchored inside the card pane (new propagation-independent guard
+  `client/lib/cardCloseGuard.js`), so a deliberate click on empty board space still closes the card. New unit
+  tests in `client/lib/tests/cardCloseGuard.tests.js` and a Playwright regression test in
+  `tests/playwright/specs/34-checklist-text-selection.e2e.js`.
+
+Thanks to GitHub user mueller-ma for reporting.
+
 # v9.65 2026-06-20 WeKan ® release
 
 This release adds the following updates:
