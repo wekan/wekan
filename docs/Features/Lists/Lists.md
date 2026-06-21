@@ -40,8 +40,20 @@ A board setting controls who a width change affects. Open the board's
   personal width falls back to the shared width, then to the default (272 px),
   when they have not set their own.
 
-The previous per-list "min width / max width / automatic" options were removed:
-a list now has one clear, fixed width that reliably persists across reloads.
+### Auto-width
+
+Instead of a fixed width, you can make lists **fit their content** (auto-width):
+open the list menu → **Set width** → the **Auto list width** toggle. Auto-width
+applies to all lists on the board and follows the same scope as fixed widths:
+
+- in **Shared** mode it is a per-board setting (changed by members with write
+  access, the same for everyone), and
+- in **Personal** mode it is per-user.
+
+While auto-width is on, the fixed-width input and the drag handle are hidden.
+
+The previous per-list "min width / max width" pixel options were removed: a list
+now has one clear width (fixed or auto) that reliably persists across reloads.
 
 ## Related
 

@@ -40,8 +40,10 @@ This release fixes the following bugs:
     handle). Shared widths are included in board **export/import** (the importer previously dropped `lists.width`;
     it now preserves width, color and collapsed state, and the board's list-width scope).
   - **On — Personal:** each user keeps their own widths (profile, or localStorage when not logged in), falling back
-    to the shared width then the default. Per-list popup is simplified to a single width value; the advanced
-    min/max and the auto-width toggle were removed. Documented in `docs/Features/Lists/Lists.md`.
+    to the shared width then the default. The per-list popup is simplified to a single width value plus an
+    **Auto list width** toggle (fit lists to content); the advanced per-list min/max pixel options were removed.
+    Auto-width follows the same Shared/Personal scope (per-board for everyone, or per-user) and is carried through
+    export/import. Documented in `docs/Features/Lists/Lists.md`.
 
 - `rebuild-wekan.sh` / `rebuild-wekan.bat` menu option 2 ("Build WeKan") now also clears the rspack dev-build caches
   (`_build` and `node_modules/.cache`) in addition to `node_modules` / `.meteor/local` / `.build`, so the next

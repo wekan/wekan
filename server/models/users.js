@@ -504,6 +504,22 @@ Meteor.methods({
     }
   },
 
+  async setBoardAutoWidth(boardId, autoWidth) {
+    check(boardId, String);
+    check(autoWidth, Boolean);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    // Shared (per-board) auto-width affects everyone, so only board members may
+    // change it (parity with applyListWidth). See #6409.
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasMember(this.userId)) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    await Boards.updateAsync(boardId, { $set: { autoWidth: !!autoWidth } });
+    return true;
+  },
+
   async setListCollapsedState(boardId, listId, collapsed) {
     check(boardId, String);
     check(listId, String);

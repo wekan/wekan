@@ -804,6 +804,18 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    autoWidth: {
+      /**
+       * Shared (per-board) auto-width for all lists (#6409). When true, lists
+       * fit their content instead of using a fixed width. Used when the board
+       * is in SHARED list-width mode (allowsPersonalListWidth = false); in
+       * PERSONAL mode each user's own profile.autoWidthBoards value is used
+       * instead.
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     allowsReceivedDateOnMinicard: {
       /**
        * Does the board allows received date on minicard?
@@ -2173,6 +2185,16 @@ Boards.helpers({
   async setAllowsPersonalListWidth(allowsPersonalListWidth) {
     return await Boards.updateAsync(this._id, {
       $set: { allowsPersonalListWidth: !!allowsPersonalListWidth },
+    });
+  },
+
+  getAutoWidth() {
+    return !!this.autoWidth;
+  },
+
+  async setAutoWidth(autoWidth) {
+    return await Boards.updateAsync(this._id, {
+      $set: { autoWidth: !!autoWidth },
     });
   },
 

@@ -543,9 +543,44 @@ Template.setListWidthPopup.helpers({
       ? TAPi18n.__('list-width-personal-note')
       : TAPi18n.__('list-width-shared-note');
   },
+
+  // #6409: auto-width follows the same scope as fixed widths.
+  isAutoWidth() {
+    const list = Template.currentData();
+    if (isPersonalListWidth(list.boardId)) {
+      const user = ReactiveCache.getCurrentUser();
+      return !!(user && user.isAutoWidth(list.boardId));
+    }
+    const board = ReactiveCache.getBoard(list.boardId);
+    return !!(board && board.autoWidth);
+  },
+
+  // In shared mode only members with board write access may toggle the shared
+  // auto-width; in personal mode any logged-in user may toggle their own.
+  canChangeAutoWidth() {
+    const list = Template.currentData();
+    if (isPersonalListWidth(list.boardId)) {
+      return !!ReactiveCache.getCurrentUser();
+    }
+    return Utils.canModifyBoard();
+  },
 });
 
 Template.setListWidthPopup.events({
+  'click .js-toggle-auto-width'(event) {
+    event.preventDefault();
+    const list = Template.currentData();
+    const boardId = list.boardId;
+    if (isPersonalListWidth(boardId)) {
+      const user = ReactiveCache.getCurrentUser();
+      if (user) user.toggleAutoWidth(boardId);
+    } else {
+      const board = ReactiveCache.getBoard(boardId);
+      const current = !!(board && board.autoWidth);
+      Meteor.call('setBoardAutoWidth', boardId, !current);
+    }
+    Popup.back();
+  },
   'click .list-width-apply'(event, tpl) {
     const list = Template.currentData();
     const boardId = list.boardId;

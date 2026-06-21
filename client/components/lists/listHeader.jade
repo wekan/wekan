@@ -252,11 +252,16 @@ template(name="wipLimitErrorPopup")
 
 template(name="setListWidthPopup")
   #js-list-width-edit
-    label {{_ 'set-list-width-value'}}
-      p
-        input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
-        input.list-width-apply(type="submit" value="{{_ 'apply'}}")
-        input.list-width-error
+    unless isAutoWidth
+      label {{_ 'set-list-width-value'}}
+        p
+          input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
+          input.list-width-apply(type="submit" value="{{_ 'apply'}}")
+          input.list-width-error
+    if canChangeAutoWidth
+      a.js-toggle-auto-width(title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
+        | {{#if isAutoWidth}}🗜️{{else}}📏{{/if}}
+        span {{_ 'auto-list-width'}}
     p.list-width-scope-note {{ listWidthScopeNote }}
 
 template(name="listWidthErrorPopup")

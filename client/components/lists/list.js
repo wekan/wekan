@@ -28,6 +28,18 @@ function isPersonalListWidth(boardId) {
   return !!(board && board.allowsPersonalListWidth);
 }
 
+// #6409 Auto-width follows the same scope as fixed widths:
+//   * personal mode -> the user's own profile.autoWidthBoards
+//   * shared mode   -> the board's `autoWidth` (same for everyone)
+function effectiveAutoWidth(boardId) {
+  if (isPersonalListWidth(boardId)) {
+    const user = ReactiveCache.getCurrentUser();
+    return !!(user && user.isAutoWidth(boardId));
+  }
+  const board = ReactiveCache.getBoard(boardId);
+  return !!(board && board.autoWidth);
+}
+
 function readAnonListWidth(boardId, listId) {
   try {
     const stored = localStorage.getItem('wekan-list-widths');
@@ -61,11 +73,13 @@ function effectiveListWidth(list) {
   return w || shared;
 }
 
-// Can the current user change THIS list's width?
+// Can the current user change THIS list's width by dragging?
+//  - never while the board/list is in auto-width mode (the width is computed)
 //  - personal mode: always (it only affects their own view)
 //  - shared mode: only with board write access
 function canResizeList(list) {
   if (!list) return false;
+  if (effectiveAutoWidth(list.boardId)) return false;
   if (isPersonalListWidth(list.boardId)) return true;
   return Utils.canModifyBoard();
 }
@@ -314,6 +328,11 @@ Template.list.helpers({
   // Whether to show the drag-resize handle for this list.
   canResizeList() {
     return canResizeList(Template.currentData());
+  },
+
+  autoWidth() {
+    const list = Template.currentData();
+    return !!list && effectiveAutoWidth(list.boardId);
   },
 
   collapsed() {

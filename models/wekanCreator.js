@@ -335,10 +335,12 @@ export class WekanCreator {
       presentParentTask: boardToImport.presentParentTask,
       // #3392: carry over the "Red Strings" dependency-overlay toggle.
       showDependencies: boardToImport.showDependencies || false,
-      // #6409: carry over the board's list-width scope (Shared vs Personal) so
-      // imported boards keep the same behaviour. Per-list widths themselves are
-      // restored from each list's `width` in createLists().
+      // #6409: carry over the board's list-width scope (Shared vs Personal) and
+      // the shared auto-width mode so imported boards keep the same behaviour.
+      // Per-list widths themselves are restored from each list's `width` in
+      // createLists().
       allowsPersonalListWidth: !!boardToImport.allowsPersonalListWidth,
+      autoWidth: !!boardToImport.autoWidth,
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
       permission: boardToImport.permission,
