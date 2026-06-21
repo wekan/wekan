@@ -12,3 +12,4 @@ import './calendarFirstDay.tests';
 import './mentionEnterGuard.tests';
 import './subtaskViewTarget.tests';
 import './cardCloseGuard.tests';
+import './bsonBrowserShim.tests';
