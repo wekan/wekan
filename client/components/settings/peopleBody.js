@@ -881,7 +881,17 @@ Template.editUserPopup.onCreated(function () {
 
 Template.editOrgPopup.helpers({
   org() {
-    return ReactiveCache.getOrg(this.orgId);
+    // #6411: the popup is opened from orgRow with data context `{ org }`, so
+    // prefer that exact org. Falling back to `getOrg(this.orgId)` only for the
+    // older explicit-id callers — previously this helper used `this.orgId`
+    // alone, which is undefined here, so `getOrg(undefined)` returned the FIRST
+    // org for every row (you could never edit the 2nd/3rd org).
+    // #6411: the popup is opened from orgRow with data context `{ org }`. The
+    // popup's own `orgId` is undefined, so the old `getOrg(this.orgId)` returned
+    // `getOrg(undefined)` — the FIRST org — for every row, so you could never
+    // edit the 2nd/3rd org. Resolve the clicked org's id and look it up.
+    const orgId = (this.org && this.org._id) || this.orgId;
+    return ReactiveCache.getOrg(orgId);
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
@@ -890,7 +900,10 @@ Template.editOrgPopup.helpers({
 
 Template.editTeamPopup.helpers({
   team() {
-    return ReactiveCache.getTeam(this.teamId);
+    // #6411: same fix as editOrgPopup — resolve the clicked team's id from the
+    // `{ team }` data context instead of `getTeam(undefined)` (the first team).
+    const teamId = (this.team && this.team._id) || this.teamId;
+    return ReactiveCache.getTeam(teamId);
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
@@ -1260,7 +1273,10 @@ Template.selectAllUser.events({
 Template.editOrgPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const org = ReactiveCache.getOrg(this.orgId);
+    // #6411: prefer the `{ org }` data context (the row that was clicked);
+    // `this.orgId` is undefined here, so the old getOrg(this.orgId) saved the
+    // edits onto the FIRST org.
+    const org = this.org || ReactiveCache.getOrg(this.orgId);
 
     const orgDisplayName = templateInstance
       .find('.js-orgDisplayName')
@@ -1305,7 +1321,8 @@ Template.editOrgPopup.events({
 Template.editTeamPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const team = ReactiveCache.getTeam(this.teamId);
+    // #6411: prefer the `{ team }` data context (the row that was clicked).
+    const team = this.team || ReactiveCache.getTeam(this.teamId);
 
     const teamDisplayName = templateInstance
       .find('.js-teamDisplayName')
@@ -1772,7 +1789,10 @@ Template.newUserPopup.events({
 Template.settingsOrgPopup.events({
   'click #deleteButton'(event) {
     event.preventDefault();
-    if (ReactiveCache.getUsers({"orgs.orgId": this.orgId}).length > 0)
+    // #6411: the popup carries `{ org }`; `this.orgId` is undefined, so the old
+    // code checked users for an undefined org and called Org.remove(undefined).
+    const orgId = (this.org && this.org._id) || this.orgId;
+    if (ReactiveCache.getUsers({"orgs.orgId": orgId}).length > 0)
     {
       let orgClassList = document.getElementById("deleteOrgWarningMessage").classList;
       if(orgClassList.contains('hide'))
@@ -1782,7 +1802,7 @@ Template.settingsOrgPopup.events({
       }
       return;
     }
-    Org.remove(this.orgId);
+    Org.remove(orgId);
     Popup.back();
   }
 });
@@ -1790,7 +1810,9 @@ Template.settingsOrgPopup.events({
 Template.settingsTeamPopup.events({
   'click #deleteButton'(event) {
     event.preventDefault();
-    if (ReactiveCache.getUsers({"teams.teamId": this.teamId}).length > 0)
+    // #6411: same as settingsOrgPopup — derive the id from the `{ team }` context.
+    const teamId = (this.team && this.team._id) || this.teamId;
+    if (ReactiveCache.getUsers({"teams.teamId": teamId}).length > 0)
     {
       let teamClassList = document.getElementById("deleteTeamWarningMessage").classList;
       if(teamClassList.contains('hide'))
@@ -1800,7 +1822,7 @@ Template.settingsTeamPopup.events({
       }
       return;
     }
-    Team.remove(this.teamId);
+    Team.remove(teamId);
     Popup.back();
   }
 });

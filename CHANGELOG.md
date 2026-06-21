@@ -30,6 +30,14 @@ Versions:
 
 This release fixes the following bugs:
 
+- [Fixed editing the 2nd/3rd organization or team in Admin Panel › People always showing the FIRST one](https://github.com/wekan/wekan/issues/6411),
+  [#6411](https://github.com/wekan/wekan/issues/6411): on `/people`, clicking *Edit* on any organization or team filled
+  the form with the first one's values (so you could never edit the others). The edit/settings popups are opened from
+  the row with data context `{ org }` / `{ team }`, but their helpers read `this.orgId` / `this.teamId` (undefined
+  there) and called `getOrg(undefined)` / `getTeam(undefined)`, which `findOne({})` resolves to the first document.
+  The popup helpers, the save handlers and the delete (settings) handlers now resolve the clicked row's id from the
+  `{ org }` / `{ team }` context. Verified against a running instance (each org/team now edits its own values).
+
 - **Fixed boards not rendering at all (blank board view) after the mongodb/bson 7.3.0 dependency bump.** bson 7.x runs
   `const { startupSnapshot } = globalThis?.process?.getBuiltinModule('v8') ?? {}` at module-load time; the optional
   chaining stops before the *call*, so in the browser — where a partial `process` polyfill exists but has no
