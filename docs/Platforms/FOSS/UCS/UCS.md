@@ -40,10 +40,10 @@ UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://git
 
 ### 3) Mail Settings
 
-https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+[Troubleshooting Mail](../../../Email/Troubleshooting-Mail.md)
 
 ![ucs-mail-3](https://user-images.githubusercontent.com/15545/78279359-129e7800-7520-11ea-9e22-a911826285ba.png)
 
 # Repairing MongoDB
 
-https://github.com/wekan/wekan/wiki/Repair-MongoDB
+[Repair MongoDB](../../../Backup/Repair-MongoDB.md)

@@ -215,10 +215,10 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * PHP Webhook receiver to WeKan API Python https://github.com/wekan/webhook/blob/main/public/index.php#L46
 * API clients
   * Python
-    * https://github.com/wekan/wekan/blob/main/api.py
+    * [api.py](../api.py)
     * https://github.com/wekan/wekan-python-api-client
     * https://github.com/wekan/python-wekan
-    * Other Python features https://github.com/wekan/wekan/blob/main/docs/Features/Python.md
+    * Other Python features [Python](Features/Python.md)
   * Go https://github.com/wekan/wego
 * Other API 
 * [REST API Code](API/Code.md)
@@ -266,7 +266,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Kadira integration](https://github.com/wekan/wekan/issues/2152)
 * [Debugging](DeveloperDocs/Debugging.md)
 * [Developer Docs for Standalone Wekan](DeveloperDocs/Developer-Documentation.md)
-* [Developer Docs for Sandstorm Wekan](https://github.com/wekan/wekan/tree/main/docs/Platforms/FOSS/Sandstorm)
+* [Developer Docs for Sandstorm Wekan](Platforms/FOSS/Sandstorm)
 * [Adding new Snap setting to code](DeveloperDocs/Adding-new-Snap-settings-to-code.md)
 * [Directory Structure](DeveloperDocs/Directory-Structure.md)
 * [Beginner](https://github.com/wekan/wekan/labels/Beginner)
@@ -294,5 +294,5 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Markdown](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+label%3AFeature%3AMarkdown)
 
 [kanban board]: https://en.wikipedia.org/wiki/Kanban_board
-[mit license]: https://github.com/wekan/wekan/blob/main/LICENSE
+[mit license]: [LICENSE](../LICENSE)
 [sandstorm app demo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h# 

@@ -57,7 +57,7 @@ if (emojiPlugin) {
 // We use the markdown-it-math `no-default-renderer` entrypoint and call Temml
 // ourselves, instead of the `markdown-it-math/temml` entrypoint, to avoid a
 // top-level `await import("temml")` that the Meteor/rspack bundler dislikes.
-// Docs: https://github.com/wekan/wekan/wiki/LaTeX
+// Docs: https://github.com/wekan/wekan/blob/main/docs/Features/LaTeX.md
 const renderMath = (src, displayMode) => {
   try {
     return temml.renderToString(src, { throwOnError: false, errorColor: '#cc0000', displayMode });

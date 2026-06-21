@@ -12,7 +12,7 @@ Please somebody add example by looking this:
 
 | API URL / Code Link | Requires Admin Auth | HTTP Method |
 | :--- | :--- | :--- |
-| [/api/boards/:boardId/swimlanes](https://github.com/wekan/wekan/blob/main/models/swimlanes.js#L223) | `yes` | `POST` |
+| [/api/boards/:boardId/swimlanes](../../models/swimlanes.js#L223) | `yes` | `POST` |
 
 ```shell
 curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
@@ -33,7 +33,7 @@ The new swimlane's ID is returned in the format:
 
 | API URL / Code Link | Requires Admin Auth | HTTP Method |
 | :--- | :--- | :--- |
-| [/api/boards/:boardId/swimlanes/:swimlaneId](https://github.com/wekan/wekan/blob/main/models/swimlanes.js#L257) | `yes` | `DELETE` |
+| [/api/boards/:boardId/swimlanes/:swimlaneId](../../models/swimlanes.js#L257) | `yes` | `DELETE` |
 
 ```shell
 curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
@@ -51,4 +51,4 @@ The swimlane's ID is returned in the format:
 
 # In Wekan code
 
-If you believe that code is the best documentation, be our guest: [models/cards.js](https://github.com/wekan/wekan/blob/main/models/swimlanes.js "Swimlane API code")
+If you believe that code is the best documentation, be our guest: [models/cards.js](../../models/swimlanes.js "Swimlane API code")

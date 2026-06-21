@@ -4,7 +4,7 @@ https://github.com/wekan/wekan-snap/wiki/Many-Snaps-on-LXC#lxd-init-cidr
 
 Note: This presumes that your laptop runs newest Ubuntu or Kubuntu, and that server is Ubuntu.
 
-1) Install Caddy2 https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config
+1) Install Caddy2 [Caddy Webserver Config](../../../Webserver/Caddy.md)
 
 2) Optional, recommended: Encrypted VM. Idea: Bare Metal Caddy => Proxy to encrypted VM ports => Each customer separate Snap WeKan port. Snap sandbox files at /common, snap code can not access files outside of it's /common directories. Newest WeKan is Snap Candidate. Snap has automatic updates.
 
@@ -126,7 +126,7 @@ mv /var/snap/wekan_customer1/common/* old_customer1_common/
 snap start wekan_customer1
 ```
 
-5) Add some settings, for example Google login and [AWS SES email sending](https://github.com/wekan/wekan/wiki/Troubleshooting-Mail#example-aws-ses):
+5) Add some settings, for example Google login and [AWS SES email sending](../../../Email/Troubleshooting-Mail.md#example-aws-ses):
 
 For each customer, node and mongodb needs to be in different ports, for example:
 ```
@@ -154,7 +154,7 @@ sudo snap set wekan_customer1 oauth2-token-endpoint='https://oauth2.googleapis.c
 sudo snap set wekan_customer1 oauth2-userinfo-endpoint='https://openidconnect.googleapis.com/v1/userinfo'
 sudo snap set wekan_customer1 oauth2-username-map='nickname'
 ```
-You can check with [nosqlbooster](https://github.com/wekan/wekan/wiki/Backup#using-nosqlbooster-closed-source-mongodb-gui-with-wekan-snap-to-edit-mongodb-database) that each database has correct data.
+You can check with [nosqlbooster](../../../Backup/Backup.md#using-nosqlbooster-closed-source-mongodb-gui-with-wekan-snap-to-edit-mongodb-database) that each database has correct data.
 
 When restoring data, stop that wekan, and restore to that port, when you have subdirectory dump:
 ```
@@ -265,7 +265,7 @@ function websync {
 (websync) >> /home/wekan/backup/backup-log.txt 2>&1
 ```
 
-7. At bare metal server is installed [Caddy2](https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config).
+7. At bare metal server is installed [Caddy2](../../../Webserver/Caddy.md).
 
 Each customer has set in their nameserver to WeKan hosting server IP address:
 ```
@@ -429,7 +429,7 @@ boards.example.com {
 	}
 }
 ```
-For [CloudFlare SSL](https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config), like this to `/var/snap/wekan/common/Caddyfile`:
+For [CloudFlare SSL](../../../Webserver/Caddy.md), like this to `/var/snap/wekan/common/Caddyfile`:
 ```
 http://boards.example.com https://boards.example.com {
 	tls {

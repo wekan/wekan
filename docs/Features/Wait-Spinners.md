@@ -4,7 +4,7 @@ When Wekan is loading big board, selected Wait Spinner animation is shown.
 
 # Allowed Wait Spinners
 
-[Source](https://github.com/wekan/wekan/blob/main/config/const.js#L52-L61)
+[Source](../../config/const.js#L52-L61)
 
 Currently:
 ```

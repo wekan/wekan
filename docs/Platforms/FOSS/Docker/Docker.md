@@ -14,7 +14,7 @@ For building custom image, and then running it, uncomment these lines,
 that are currently here, but line numbers could change, if that docker-compose.yml
 is later modified:
 
-https://github.com/wekan/wekan/blob/main/docker-compose.yml#L144-L146
+[docker-compose.yml](../../../../docker-compose.yml#L144-L146)
 
 After your above modifications, text should look like this:
 
@@ -28,7 +28,7 @@ After your above modifications, text should look like this:
     #-------------------------------------------------------------------------------------
 ```
 
-Then modify ROOT_URL, etc settings as needed, see https://github.com/wekan/wekan/wiki/Settings
+Then modify ROOT_URL, etc settings as needed, see [Settings](../../../Webserver/Settings.md)
 
 Start WeKan with custom built Dockerfile with this command:
 ```
@@ -59,7 +59,7 @@ Then start WeKan with:
 docker compose up -d
 ```
 
-SSL/TLS info at https://github.com/wekan/wekan/wiki/Settings
+SSL/TLS info at [Settings](../../../Webserver/Settings.md)
 
 ## Please only use Docker release tags
 
@@ -86,7 +86,7 @@ If you like to build from source, clone Wekan repo:
 ```
 git clone https://github.com/wekan/wekan
 ```
-Then edit docker-compose.yml with [these lines uncommented](https://github.com/wekan/wekan/blob/main/docker-compose.yml#L132-L142) this way:
+Then edit docker-compose.yml with [these lines uncommented](../../../../docker-compose.yml#L132-L142) this way:
 ```
    #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
@@ -219,7 +219,7 @@ TODO: [Docker Compose: Wekan <=> MongoDB <=> ToroDB => MySQL read-only mirroring
 ## Admin Panel
 
 First registered Wekan user will get Admin Panel on new Docker and source based
-installs. You can also [enable Admin Panel manually](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease)
+installs. You can also [enable Admin Panel manually](../../../../CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease)
 
 ## Docker Hub - sometimes broken
 

@@ -24,15 +24,15 @@ df -h
 ```
 For example, if your database size is 500 GB, and disk is nearly full, you need to stop WeKan and move to bigger disk. If disk gets full, there is possibility to MongoDB database corruption. Making mongodump could maybe take 2x of current size, or more.
 
-Some external disk related steps are at https://github.com/wekan/wekan/wiki/Repair-MongoDB
+Some external disk related steps are at [Repair MongoDB](../../../Backup/Repair-MongoDB.md)
 
 #### 3. Problems usually are only, are attachments visible or not. Upgrade steps do not delete any files, if commands below are written correctly.
 
 Optional steps:
 
-a) Optionally, you could use [nosqlbooster](https://github.com/wekan/wekan/wiki/Backup#using-nosqlbooster-closed-source-mongodb-gui-with-wekan-snap-to-edit-mongodb-database) to save attachments to files, and export JSON to textfiles, before trying to update. There could also be files at `/var/snap/wekan/common/files` or other subdirectories. When saving attachments, note that there could be many files with same filename.
+a) Optionally, you could use [nosqlbooster](../../../Backup/Backup.md#using-nosqlbooster-closed-source-mongodb-gui-with-wekan-snap-to-edit-mongodb-database) to save attachments to files, and export JSON to textfiles, before trying to update. There could also be files at `/var/snap/wekan/common/files` or other subdirectories. When saving attachments, note that there could be many files with same filename.
 
-b) Optinally, you can also save [all database content to JSON](https://github.com/wekan/wekan/wiki/Export-from-Wekan-Sandstorm-grain-.zip-file#11b-dump-database-to-json-text-files), but if your database is about 500 GB then it could be too much disk space required, because attachments are at base64 encoded text in JSON files. It's better ot save attachments with [nosqlbooster](https://github.com/wekan/wekan/wiki/Backup#using-nosqlbooster-closed-source-mongodb-gui-with-wekan-snap-to-edit-mongodb-database).
+b) Optinally, you can also save [all database content to JSON](../Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md#11b-dump-database-to-json-text-files), but if your database is about 500 GB then it could be too much disk space required, because attachments are at base64 encoded text in JSON files. It's better ot save attachments with [nosqlbooster](../../../Backup/Backup.md#using-nosqlbooster-closed-source-mongodb-gui-with-wekan-snap-to-edit-mongodb-database).
 
 #### 4. ssh to your server
 ```
@@ -197,7 +197,7 @@ mongorestore --drop --port 27019 --noIndexRestore
 ```
 #### 16. Add back settings
 
-Recommended is to use [Caddy 2](https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config) instead of Caddy1 that is included in WeKan Snap currently at 2022-12-21. Caddy 2 maybe will be included to WeKan Snap later.
+Recommended is to use [Caddy 2](../../../Webserver/Caddy.md) instead of Caddy1 that is included in WeKan Snap currently at 2022-12-21. Caddy 2 maybe will be included to WeKan Snap later.
 
 See if in your `snap-settings.sh` is this kind of command, are you using Caddy1 ?
 ```
@@ -222,7 +222,7 @@ sudo snap start wekan
 ```
 #### 18. Test are WeKan attachments visible
 
-#### 19. If you are using WeKan Snap Caddy1, if it does not work, change to Caddy2 https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config
+#### 19. If you are using WeKan Snap Caddy1, if it does not work, change to Caddy2 [Caddy Webserver Config](../../../Webserver/Caddy.md)
 
 #### 20. Backup and cleanup
 
@@ -244,7 +244,7 @@ ssh wekanserver
 
 rm -rf common dump
 ```
-Also, keep [Daily Backups](https://github.com/wekan/wekan/wiki/Backup)
+Also, keep [Daily Backups](../../../Backup/Backup.md)
 
 
 ## Oops it did not work. From WeKan Candidate back to Stable

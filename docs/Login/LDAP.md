@@ -1,6 +1,6 @@
 ## LDAP info
 
-- [LDAP sync script, that also correctly removes users](https://github.com/wekan/wekan/blob/main/docs/Login/ldap-sync/ldap-sync.py)
+- [LDAP sync script, that also correctly removes users](ldap-sync/ldap-sync.py)
 - [LDAP AD Simple Auth](LDAP-AD-Simple-Auth) 2021-07-24 and related [Search Filter Settings](https://github.com/wekan/wekan/issues/3908#issuecomment-887545168):
 
 ```
@@ -13,7 +13,7 @@
 - [LDAP issues](https://github.com/wekan/wekan-ldap/issues)
 - [Univention LDAP related issues](https://github.com/wekan/univention/issues)
 - [Teams/Organizations feature related LDAP plans](https://github.com/wekan/wekan/issues/802). Needs info from LDAP experts to describe how LDAP works.
-- [Wekan LDAP code](https://github.com/wekan/wekan/tree/main/packages/wekan-ldap)
+- [Wekan LDAP code](../../packages/wekan-ldap)
 
 ***
 
@@ -221,7 +221,7 @@ services:
 
   wekandb:
     # All Wekan data is stored in MongoDB. For backup and restore, see:
-    #   https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data
+    #   [Export Docker Mongo Data](../Platforms/FOSS/Docker/Export-Docker-Mongo-Data.md)
     image: mongo:4.0.3
     container_name: wekan-db
     restart: always
@@ -292,7 +292,7 @@ services:
       #---------------------------------------------------------------
       # == EMAIL SETTINGS ==
       # Email settings are required in both MAIL_URL and Admin Panel,
-      #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+      #   see [Troubleshooting Mail](../Email/Troubleshooting-Mail.md)
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #---------------------------------------------------------------

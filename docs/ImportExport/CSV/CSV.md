@@ -9,10 +9,10 @@ Here's a copy of the CSV and TSV to test out the functionality:
 - [board-import.tsv](board-import.tsv)
 
 Frontend:
-- [Import CSV code](https://github.com/wekan/wekan/tree/main/client/components/import)
+- [Import CSV code](../../../client/components/import)
 
 Backend:
-- [Import CSV code](https://github.com/wekan/wekan/blob/main/models/csvCreator.js) and [General Import code](https://github.com/wekan/wekan/blob/main/models/import.js)
+- [Import CSV code](../../../models/csvCreator.js) and [General Import code](../../../models/import.js)
 
 Related:
 - [Related PRs](https://github.com/wekan/wekan/pulls?q=is%3Apr+is%3Aclosed+csv)

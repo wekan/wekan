@@ -164,4 +164,4 @@ The method requires the caller to be an administrator
 (`Meteor.Error('not-authorized')` otherwise).
 
 Covered by the e2e suite
-[`tests/playwright/specs/26-shared-templates.e2e.js`](https://github.com/wekan/wekan/blob/main/tests/playwright/specs/26-shared-templates.e2e.js).
+[`tests/playwright/specs/26-shared-templates.e2e.js`](../../tests/playwright/specs/26-shared-templates.e2e.js).

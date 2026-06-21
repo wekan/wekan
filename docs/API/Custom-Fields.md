@@ -1,5 +1,5 @@
 1) Login as Admin user as Form Data to get Bearer token
-https://github.com/wekan/wekan/wiki/REST-API#example-call---as-form-data
+[REST API](REST-API.md#example-call---as-form-data)
 
 2) There needs to be Custom Field added to board
 https://wekan.fi/api/v4.42/#wekan-rest-api-customfields

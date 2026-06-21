@@ -1,7 +1,7 @@
 ## About AVX
 
 If CPU does not have AVX, Snap Candidate Meteor 2 WeKan now uses qemu-user to run MongoDB, using Qemu AVX support.
-This was added at [WeKan v7.93](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v793-2025-07-18-wekan--release).
+This was added at [WeKan v7.93](../../../CHANGELOG.md#v793-2025-07-18-wekan--release).
 
 ## What is not Cross-Platform
 
@@ -46,7 +46,7 @@ This was added at [WeKan v7.93](https://github.com/wekan/wekan/blob/main/CHANGEL
 
 ## Future
 
-- Will this happen? With what tech? See https://github.com/wekan/wekan/blob/main/FUTURE.md
+- Will this happen? With what tech? See [FUTURE.md](../../../FUTURE.md)
 - You can comment at https://github.com/wekan/wekan/issues/4578
 - You can help by sending PR to any prototype repo mentioned below
 
@@ -249,7 +249,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
   - Redbean amd64 binary works at Win/Mac/Linux/BSD/BIOS without any modifications, because it is based on Cosmopolitan https://github.com/jart/cosmopolitan
   - Uses HTMX https://htmx.org at UI
   - Saves to SQLite database
-- Petclinic fork, using Blink to run at s390x https://github.com/wekan/wekan/wiki/s390x#petclinic-s390x
+- Petclinic fork, using Blink to run at s390x [s390x](../../Platforms/FOSS/s390x.md#petclinic-s390x)
 
 ### PHP
 
@@ -290,7 +290,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
 - Deno also includes Node.js as Deno's Node.js compatibility layer.
 - Node.js supports many CPU/OS
   - Node.js is used in production and has traceability. https://changelog.com/jsparty/294
-  - https://github.com/wekan/wekan/wiki/s390x
+  - [s390x](../../Platforms/FOSS/s390x.md)
   - https://nodejs.org/dist/latest-v20.x/
   - https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
 

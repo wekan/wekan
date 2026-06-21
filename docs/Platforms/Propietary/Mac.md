@@ -117,7 +117,7 @@ If you like to build from source, clone Wekan repo:
 ```
 git clone https://github.com/wekan/wekan
 ```
-Then edit docker-compose.yml with [these lines uncommented](https://github.com/wekan/wekan/blob/main/docker-compose.yml#L132-L142) this way:
+Then edit docker-compose.yml with [these lines uncommented](../../../docker-compose.yml#L132-L142) this way:
 ```
    #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====

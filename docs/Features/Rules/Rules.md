@@ -178,7 +178,7 @@ become board labels**, and assignees become card members. An optional
 
 ## REST API
 
-Manage rules over REST (see also [`api.py`](https://github.com/wekan/wekan/blob/main/api.py)
+Manage rules over REST (see also [`api.py`](../../../api.py)
 `addrule` / `editrule` / `removerule` / `listrules` / `getrule`):
 
 | Method | Path | Purpose |

@@ -33,7 +33,7 @@ This page is work in progress, and needs more details.
 
 1) If you have installed Wekan with Docker like at this page:
 
-https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data
+[Export Docker Mongo Data](Export-Docker-Mongo-Data.md)
 
 2) and you want to move Docker containers to another computer (laptop, server etc) that also has Docker installed, use Docker export and import commands:
 

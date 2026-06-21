@@ -24,13 +24,13 @@ Related projects:
 
 For accessing Wekan with Excel VBA, you can use Wekan REST API:
 
-https://github.com/wekan/wekan/wiki/REST-API
+[REST API](../API/REST-API.md)
 
 For example, with using curl, you first login with admin credentials,
 by sending username and password to url.
 Change your server url etc details to below:
 
-Login with as JSON https://github.com/wekan/wekan/wiki/REST-API#example-call---as-json
+Login with as JSON [REST API](../API/REST-API.md#example-call---as-json)
 ```
 curl -H "Content-type:application/json" \
       http://localhost:3000/users/login \
@@ -66,7 +66,7 @@ individually, and array converted back to JSON.
 Current Wekan REST API does not yet cover access to all data that is in MongoDB.
 If you need that, REST API page also has link to Restheart, that adds REST API
 to MongoDB, so you can use all of MongoDB data directly with REST API.
-https://github.com/wekan/wekan/wiki/REST-API
+[REST API](../API/REST-API.md)
 
 Wekan boards also have export JSON, where also attachments are included in JSON as
 base64 encoded files. To convert them back to files, you first get whole one board exported

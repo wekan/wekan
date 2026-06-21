@@ -15,7 +15,7 @@ sudo apt -y install ntpdate
 sudo ntpdate ntp.ubuntu.com
 ```
 
-5. Now local time shows correctly at webbrowser, like for example at Friend Desktop https://github.com/wekan/wekan/wiki/Friend
+5. Now local time shows correctly at webbrowser, like for example at Friend Desktop [Friend](../Platforms/FOSS/Friend/Friend.md)
 
 For testing any other time related code, that it shows correct local time, compare time functions results to this:
 

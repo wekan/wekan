@@ -20,7 +20,7 @@
 
 Existing WeKan features
 
-- 2025-04 Opened card has comments at right, copied from [original WeKan feature Maximize Card 2021-06-14](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v535-2021-06-14-wekan-release). Trello does not have WeKan feature Minimize Card.
+- 2025-04 Opened card has comments at right, copied from [original WeKan feature Maximize Card 2021-06-14](../../CHANGELOG.md#v535-2021-06-14-wekan-release). Trello does not have WeKan feature Minimize Card.
   - https://community.atlassian.com/forums/Trello-questions/comments-in-the-ticket-on-the-right/qaq-p/3029030
   - https://community.atlassian.com/forums/Trello-questions/Trello-card-comments-now-appear-in-a-side-tab-how-to-go-back-to/qaq-p/3003380
 - 2025-02 Mirror Card, copied from [original WeKan feature Linked Cards from 2018-04-18](https://github.com/wekan/wekan/pull/1592), discussed at [WeKan issue 5683](https://github.com/wekan/wekan/issues/5683)

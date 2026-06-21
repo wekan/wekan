@@ -28,7 +28,7 @@ sed -i 's|FindThisText|ReplaceWithThisText|g' *
 - Migrations https://github.com/wekan/wekan/blob/v0.77/server/migrations.js
 
 ### Newest
-- Schema https://github.com/wekan/wekan/tree/main/models
+- Schema [models](../../models)
 - Migrations https://github.com/wekan/wekan/blob/main/server/migrations.js
 
 ## 5) Some migrations could be missing

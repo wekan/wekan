@@ -139,7 +139,7 @@ If you like to build from source, clone Wekan repo:
 ```
 git clone https://github.com/wekan/wekan
 ```
-Then edit docker-compose.yml with [these lines uncommented](https://github.com/wekan/wekan/blob/main/docker-compose.yml#L132-L142) this way:
+Then edit docker-compose.yml with [these lines uncommented](../../../../docker-compose.yml#L132-L142) this way:
 ```
    #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
@@ -178,7 +178,7 @@ Then edit `start-wekan.sh` to start at correct port, ROOT_URL setting, and MONGO
 ```
 ./start-wekan.sh
 ```
-More info at https://github.com/wekan/wekan/wiki/Raspberry-Pi
+More info at [Raspberry Pi](../../FOSS/RaspberryPi/Raspberry-Pi.md)
 - You could try to proxy from IIS SSL website to Wekan localhost port, for example when ROOT_URL=https://example.com and PORT=3001 , and you make IIS config that supports websockets proxy to Wekan http port 3001.
 
 If you need to build from source, do as above, and build Wekan with `wekan/rebuild-wekan.sh`.

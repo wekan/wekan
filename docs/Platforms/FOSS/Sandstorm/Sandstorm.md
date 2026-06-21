@@ -56,7 +56,7 @@ othercompany.com {
         reverse_proxy 127.0.0.1:81
 }
 ```
-If having Sandstorm inside of KVM VM: https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Snap/Many-Snaps-on-LXC.md
+If having Sandstorm inside of KVM VM: [Many Snaps on LXC](../Snap/Many-Snaps-on-LXC.md)
 
 At /opt/sandstorm/sandstorm.conf is domain where Sandstorm login is, http port etc.
 ```
@@ -74,7 +74,7 @@ SMTP_LISTEN_PORT=25
 ```
 Some related info at:
 
-https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config
+[Caddy Webserver Config](../../../Webserver/Caddy.md)
 
 I also had to wait that Origin certificate becomes active.
 

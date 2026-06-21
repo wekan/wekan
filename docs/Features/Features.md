@@ -3,7 +3,7 @@
 This page is an index of WeKan features. It used to be one long page; it has been
 split into focused topic pages under [`docs/Features/`](.).
 
-Not every feature from the [CHANGELOG](https://github.com/wekan/wekan/blob/main/CHANGELOG.md)
+Not every feature from the [CHANGELOG](../../CHANGELOG.md)
 is documented yet — contributions are welcome.
 
 ## Kanban basics
@@ -92,7 +92,7 @@ WeKan tracks current Meteor and Node.js releases. As of WeKan 8.75 and newer it 
 **Meteor 3.5-rc.x** and **Node.js 24.x**, with **MongoDB 7.x (or 6.x)** or
 [FerretDB2/PostgreSQL](../Databases/FerretDB2-PostgreSQL.md). WeKan 8.43 upgraded to
 Meteor 3.x. For the exact versions of each release, see the
-[CHANGELOG](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
+[CHANGELOG](../../CHANGELOG.md).
 
 ## Roadmap and feature requests
 

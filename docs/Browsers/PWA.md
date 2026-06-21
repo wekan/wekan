@@ -85,17 +85,17 @@
 
 These are mostly just notes to WeKan maintainer xet7 itself, how xet7 did get official WeKan Android Play Store app working at fullscreen of Android phone and Android tablet. Requires a lot time to setup, not recommended.
 
-Related, for creating apps to other appstores: https://github.com/wekan/wekan/wiki/Browser-compatibility-matrix
+Related, for creating apps to other appstores: [Browser compatibility matrix](Browser-compatibility-matrix.md)
 
 1. https://www.pwabuilder.com to create Android app. Select fullscreen when creating app, also requires  correctly installed assetlinks.json with below Caddy config to get fullscreen. When creating app, make your own signing key if you don't have one yet. Releasing Android app is at Play Console https://play.google.com/console/ .
 
-2. PWABuilder has about 100+ downloadable icons etc webmanifest requirements like is at https://github.com/wekan/wekan/tree/main/public
+2. PWABuilder has about 100+ downloadable icons etc webmanifest requirements like is at [public](../../public)
 
-3. Clone WeKan repo, add favicons etc from step 2 to wekan/public/ , and build WeKan bundle from source like at https://github.com/wekan/wekan/wiki/Emoji . Note: Currently WeKan does not have feature for custom favicons, it would require a lot of work for 100+ favicons etc customizations.
+3. Clone WeKan repo, add favicons etc from step 2 to wekan/public/ , and build WeKan bundle from source like at [Emoji](../Features/Emoji.md) . Note: Currently WeKan does not have feature for custom favicons, it would require a lot of work for 100+ favicons etc customizations.
 
-4. Run bundle at server like https://github.com/wekan/wekan/wiki/Offline or https://github.com/wekan/wekan/wiki/Raspberry-Pi
+4. Run bundle at server like [Offline](../Platforms/Propietary/Windows/Offline.md) or [Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
 
-5. Install Caddy like https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config , with this config for PWA at https://boards.example.com , there add assetlinks.json details you got when you downloaded Android .zip file from https://pwabuilder.com , see assetlinks issue about where at Play Console those 2 SHA256 keys https://github.com/pwa-builder/PWABuilder/issues/3867#issuecomment-1450826565
+5. Install Caddy like [Caddy Webserver Config](../Webserver/Caddy.md) , with this config for PWA at https://boards.example.com , there add assetlinks.json details you got when you downloaded Android .zip file from https://pwabuilder.com , see assetlinks issue about where at Play Console those 2 SHA256 keys https://github.com/pwa-builder/PWABuilder/issues/3867#issuecomment-1450826565
 
 6. At Play Console https://play.google.com/console/ there is `App Integrity` button in the sidemenu (highlighted blue in the screenshot) where you find required 2 SHA256 keys for Caddyfile:
 

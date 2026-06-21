@@ -15,7 +15,7 @@ Kin 2.0 Meta OS:
 
 WeKan:
 - integration to Friend TODO list https://github.com/FriendUPCloud/friendup/issues/114
-- timezone https://github.com/wekan/wekan/wiki/Timezone
+- timezone [Timezone](../../../Date/Timezone.md)
 
 Friend Desktop Cloud OS:
 - Secure encrypted skinnable fast Open Source desktop in webbrowser/mobile/desktop app

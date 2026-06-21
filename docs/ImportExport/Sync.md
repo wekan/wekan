@@ -1,4 +1,4 @@
-# [Big Picture Roadmap](https://github.com/wekan/wekan/blob/main/FUTURE.md): Import/Export/Sync with WeKan
+# [Big Picture Roadmap](../../FUTURE.md): Import/Export/Sync with WeKan
 
 ## Partial
 
@@ -8,7 +8,7 @@
 
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
-[CSV/TSV](https://github.com/wekan/wekan/wiki/CSV) | CSV/TSV | [Custom Fields](https://github.com/wekan/wekan/issues/3386), [Hours](https://github.com/wekan/wekan/issues/1907), [Custom Fields value and name](https://github.com/wekan/wekan/issues/3769) | | [Error 500](https://github.com/wekan/wekan/issues/5132) 
+[CSV/TSV](CSV/CSV.md) | CSV/TSV | [Custom Fields](https://github.com/wekan/wekan/issues/3386), [Hours](https://github.com/wekan/wekan/issues/1907), [Custom Fields value and name](https://github.com/wekan/wekan/issues/3769) | | [Error 500](https://github.com/wekan/wekan/issues/5132) 
 JSON | [Checklists](https://github.com/wekan/wekan/issues/904), [Sandstorm Header](https://github.com/wekan/wekan/issues/1850), [Upload](https://github.com/wekan/wekan/issues/4615) [File](https://github.com/wekan/wekan/issues/2178), [Templates Name](https://github.com/wekan/wekan/issues/2727), [Cards/Lists](https://github.com/wekan/wekan/issues/2340), [List Order](https://github.com/wekan/wekan/issues/1602), [Invisible](https://github.com/wekan/wekan/issues/5154), [List Color](https://github.com/wekan/wekan/issues/3615), [Comments](https://github.com/wekan/wekan/issues/4228), [Labels](https://github.com/wekan/wekan/issues/813), [Subtasks](https://github.com/wekan/wekan/issues/4420) | JSON, [Checklists](https://github.com/wekan/wekan/issues/904), [Cards/Lists](https://github.com/wekan/wekan/issues/2340), [Card](https://github.com/wekan/wekan/issues/4197), [Labels](https://github.com/wekan/wekan/issues/813), [List Order](https://github.com/wekan/wekan/issues/1602), [Version](https://github.com/wekan/wekan/issues/1922) | [Bidirectional](https://github.com/wekan/wekan/issues/1322) |
 [Any](https://github.com/wekan/wekan/issues/3775)
 Excel | | XLSX | |
@@ -23,10 +23,10 @@ WeKan All Boards  | | [ZIP](https://github.com/wekan/wekan/issues/4902) | |
 
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
-[Trello](https://github.com/wekan/wekan/wiki/Migrating-from-Trello) | JSON, [Feedback](https://github.com/wekan/wekan/issues/1467), [File Upload](https://github.com/wekan/wekan/issues/529) | | | [Attachments](https://github.com/wekan/wekan/issues/4877), [Sandstorm Attachments](https://github.com/wekan/wekan/issues/2893), [CheckLists UserId](https://github.com/wekan/wekan/issues/4417)
-[Jira](https://github.com/wekan/wekan/wiki/Jira) | | | |
-[Asana](https://github.com/wekan/wekan/wiki/Asana) | | | |
-[Zenkit](https://github.com/wekan/wekan/wiki/ZenKit) | | | |
+[Trello](trello/Migrating-from-Trello.md) | JSON, [Feedback](https://github.com/wekan/wekan/issues/1467), [File Upload](https://github.com/wekan/wekan/issues/529) | | | [Attachments](https://github.com/wekan/wekan/issues/4877), [Sandstorm Attachments](https://github.com/wekan/wekan/issues/2893), [CheckLists UserId](https://github.com/wekan/wekan/issues/4417)
+[Jira](Jira.md) | | | |
+[Asana](asana/Asana.md) | | | |
+[Zenkit](ZenKit.md) | | | |
 
 ## Wishes
 

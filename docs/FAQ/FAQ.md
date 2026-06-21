@@ -30,7 +30,7 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 - Kanban with very many features, polish and usability
 - Permissive MIT license (if some other changes to GPL, Open Core, has https://sso.tax , is propietary etc, it's not in same niche anymore)
 - Self-hosted (or SaaS)
-- All code https://github.com/wekan/wekan and docs https://github.com/wekan/wekan/wiki Open Source
+- All code https://github.com/wekan/wekan and docs [Wekan documentation](../README.md) Open Source
 - Available for many OS and CPU platforms, listed at download/install section of https://wekan.fi
 - Translated to 70+ languages at https://app.transifex.com/wekan
 - Has optional affordable Commercial Support for Features/Fixes/Support/Hosting available https://wekan.fi/commercial-support/ that funds development of WeKan. Commercial Support provides private support chat with maintainer of WeKan.
@@ -44,14 +44,14 @@ It's a very specific niche, with limited amount competitors, with all of this ap
   [Mac](Mac) / [Windows](Install-Wekan-from-source-on-Windows).
   [More Platforms](Platforms). [ARM progress](https://github.com/wekan/wekan/issues/1053#issuecomment-410919264).
 - 1 GB RAM minimum free for Wekan. Production server should have miminum total 4 GB RAM.
-  For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/main/docker-compose.yml): 3 frontend servers,
+  For thousands of users, for example with [Docker](../../docker-compose.yml): 3 frontend servers,
   each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
 - Enough disk space and alerts about low disk space. If you run out disk space, MongoDB database gets corrupted.
 - SECURITY: Updating to newest Wekan version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
   Old versions have security issues because of old versions Node.js etc. Only newest Wekan is supported.
   Wekan on Sandstorm is not usually affected by any Standalone Wekan (Snap/Docker/Source) security issues.
 - [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
-  New features and fixes are added to Wekan [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
+  New features and fixes are added to Wekan [many times a day](../../CHANGELOG.md).
 - [Backups](Backup) of Wekan database once a day miminum.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bug can cause Wekan board to not load at all, requiring manual fixing of database content.
@@ -65,7 +65,7 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 [Lauri Ojansivu](https://github.com/xet7) is CEO at [WeKan Team](https://wekan.fi),
 Cross-Platform FOSS maintainer,
 Cloud Architect, Full-Stack Developer, SysAdmin and SysOp.
-He has experience of [having added and removed over 4 million lines of code](https://github.com/wekan/wekan/blob/main/releases/count-lines-of-code-per-committer.sh) to
+He has experience of [having added and removed over 4 million lines of code](../../releases/count-lines-of-code-per-committer.sh) to
 [Meteor Full-Stack Web Framework](https://www.meteor.com)
 based [WeKan Open Source kanban](https://wekan.fi),
 that has been [translated to 70+ languages](https://explore.transifex.com/wekan/wekan/),

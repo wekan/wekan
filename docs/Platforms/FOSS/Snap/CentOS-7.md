@@ -2,7 +2,7 @@
 
 Alternatives:
 
-- Snap install like below. Automatic updates. Some time ago there were problems with [Snap on CentOS 7](https://github.com/wekan/wekan-snap/issues/103#issuecomment-571223099), that can result in updating not working properly, but that is a long time ago, and Snap version is currently 2020-04-29 installed at about 400 servers worldwide, according to Snap statistics that show only wordwide and per-country stats, not any more specific info. Please keep [daily backups](https://github.com/wekan/wekan/wiki/Backup).
+- Snap install like below. Automatic updates. Some time ago there were problems with [Snap on CentOS 7](https://github.com/wekan/wekan-snap/issues/103#issuecomment-571223099), that can result in updating not working properly, but that is a long time ago, and Snap version is currently 2020-04-29 installed at about 400 servers worldwide, according to Snap statistics that show only wordwide and per-country stats, not any more specific info. Please keep [daily backups](../../../Backup/Backup.md).
 - Docker or Bash/SystemD install from https://wekan.fi
 
 ***
@@ -50,7 +50,7 @@ snap install wekan
 snap set wekan root-url='https://boards.example.com'
 ```
 
-[MORE ROOT-URL EXAMPLES](https://github.com/wekan/wekan/wiki/Settings)
+[MORE ROOT-URL EXAMPLES](../../../Webserver/Settings.md)
 
 ### 4) Set port where Wekan runs, for example 80 if http, or local port 3001, if running behing proxy like Caddy
 ```
@@ -73,7 +73,7 @@ sudo snap set wekan mail-url='smtps://user:pass@mailserver.example.com:453'
 sudo snap set wekan mail-from='Wekan Boards <support@example.com>'
 ```
 
-[Troubleshooting Email](https://github.com/wekan/wekan/wiki/Troubleshooting-Mail)
+[Troubleshooting Email](../../../Email/Troubleshooting-Mail.md)
 
 ## LDAP
 
@@ -83,7 +83,7 @@ See [Supported Settings Keys](Supported-settings-keys#ldap)
 
 See [Supported Settings Keys](Supported-settings-keys#matomo-web-analytics-integration)
 
-## [Rocket.Chat providing OAuth2 login to Wekan](https://github.com/wekan/wekan/wiki/OAuth2)
+## [Rocket.Chat providing OAuth2 login to Wekan](../../../Login/OAuth2.md)
 
 Also, if you have Rocket.Chat using LDAP/SAML/Google/etc for logging into Rocket.Chat, then same users can login to Wekan when Rocket.Chat is providing OAuth2 login to Wekan. 
 
@@ -108,7 +108,7 @@ Example Caddyfile config.
 
 "alpn http/1.1" is because Firefox Inspect Console does not support http/2, so [turning it off](https://github.com/wekan/wekan/issues/934) so that Firefox would not show wss websocket errors. Chrome console supports http/2.
 
-This uses free Let's Encrypt SSL. You can also use [free CloudFlare wildcard SSL or any other SSL cert](https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config).
+This uses free Let's Encrypt SSL. You can also use [free CloudFlare wildcard SSL or any other SSL cert](../../../Webserver/Caddy.md).
 ```
 boards.example.com {
 	tls {
@@ -151,9 +151,9 @@ $ sudo snap set wekan mongodb-port=27019
 
 ## 12) Add users
 
-[Add users](https://github.com/wekan/wekan/wiki/Adding-users)
+[Add users](../../../Login/Adding-users.md)
 
-[Forgot Password](https://github.com/wekan/wekan/wiki/Forgot-Password)
+[Forgot Password](../../../Login/Forgot-Password.md)
 
 ## MongoDB CLI
 
@@ -202,7 +202,7 @@ $ sudo systemctl status snap.wekan.wekan
 
 ## URL settings
 
-[Nginx and Snap settings for https://example.com/wekan sub-url](https://github.com/wekan/wekan/wiki/Nginx-Webserver-Config)
+[Nginx and Snap settings for https://example.com/wekan sub-url](../../../Webserver/Nginx.md)
 
 Full URL to your Wekan, for example:
 
@@ -220,7 +220,7 @@ $ sudo snap set wekan root-url='http://localhost:5000'
 
 ### Nginx or Caddy webserver in front of Wekan
 
-[Nginx](https://github.com/wekan/wekan/wiki/Nginx-Webserver-Config) or [Caddy](https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config) is in front, full URL to real web address URL of Nginx or Caddy.
+[Nginx](../../../Webserver/Nginx.md) or [Caddy](../../../Webserver/Caddy.md) is in front, full URL to real web address URL of Nginx or Caddy.
 
 ```
 $ sudo snap set wekan root-url='https://example.com'

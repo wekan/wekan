@@ -91,4 +91,4 @@ The card's ID is returned in the format:
 
 # In Wekan code
 
-If you believe that code is the best documentation, be our guest: [models/cards.js](https://github.com/wekan/wekan/blob/main/models/cards.js "Card API code")
+If you believe that code is the best documentation, be our guest: [models/cards.js](../../models/cards.js "Card API code")

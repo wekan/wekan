@@ -57,7 +57,7 @@ Custom CSS and Javascript is very dangerous: https://github.com/wekan/wekan/issu
 
 > I had to previously find a way [how to fix Custom Javascript in RocketChat](https://forums.rocket.chat/t/big-issue-with-custom-javascript/261/4?u=xet7) because it broke my RocketChat install.
 >
-> Also, previously I had to [fix XSS bug](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v385-2020-03-23-wekan-release) because adding Javascript to input fields did run that Javascript code.
+> Also, previously I had to [fix XSS bug](../../CHANGELOG.md#v385-2020-03-23-wekan-release) because adding Javascript to input fields did run that Javascript code.
 >
 > I'll try to find is there a safe way to do this.
 

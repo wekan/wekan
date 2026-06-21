@@ -4,7 +4,7 @@
 
 ### If you are in a hurry, please don't use IRC
 
-Instead, [please search existing open and closed issues or add new issue to Wekan Feature Requests and Bugs](https://github.com/wekan/wekan/issues) (open issues have not been solved yet), or alternatively [read docs](https://github.io/wekan/wekan/wiki). Thanks!
+Instead, [please search existing open and closed issues or add new issue to Wekan Feature Requests and Bugs](https://github.com/wekan/wekan/issues) (open issues have not been solved yet), or alternatively [read docs](../README.md). Thanks!
 
 ### Required license to enter IRC channel
 
@@ -315,7 +315,7 @@ I do have server at AWS LightSail that has 4 GB RAM and 60 GB SSD,
 running [Snap versions of Wekan and RocketChat installed this way](OAuth2)
 on same server, and it does not crash.
 
-BTW, I did yesterday release [Wekan v2.95 with these new features](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v295-2019-07-01-wekan-release).
+BTW, I did yesterday release [Wekan v2.95 with these new features](../../CHANGELOG.md#v295-2019-07-01-wekan-release).
 
 ***
 ### Q: Board cleanup?
@@ -442,7 +442,7 @@ A: Yes. Click right top your username / My Cards.
 [20:49:35] <Rojola> but, in reality I can not access it
 ```
 
-A: See 4) at https://github.com/wekan/wekan/wiki/Adding-users . This is Stanalone Wekan (Snap, Docker, Source) email setting. This has nothing to do with Sandstorm.
+A: See 4) at [Adding users](../Login/Adding-users.md) . This is Stanalone Wekan (Snap, Docker, Source) email setting. This has nothing to do with Sandstorm.
 
 ***
 
@@ -610,7 +610,7 @@ A: Hmm, it seems you did not ask. Just guessing, maybe it's about [Traefik rever
 
 Wow, you are so cool ! You gonna be an expert guru soon.
 
-Check out here for more wild stuff: https://github.com/wekan/wekan/wiki
+Check out here for more wild stuff: [Wekan documentation](../README.md)
 
 There is:
 - Info about translations, dev stuff, changelog, and huge amount of Wekan features.

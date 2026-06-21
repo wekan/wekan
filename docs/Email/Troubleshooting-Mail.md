@@ -7,7 +7,7 @@
 
 ## Newest Wekan
 
-In [Wekan v5.02](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v502-2021-03-02-wekan-release) is fix for STMP settings [that works with very happy feedback](https://github.com/wekan/wekan/issues/3529#issuecomment-789085999). It requires:
+In [Wekan v5.02](../../CHANGELOG.md#v502-2021-03-02-wekan-release) is fix for STMP settings [that works with very happy feedback](https://github.com/wekan/wekan/issues/3529#issuecomment-789085999). It requires:
 - **There is no email settings at Admin Panel anymore**
 - Email settings are made only with snap commands like `sudo snap set wekan mail-url....` or similar in Docker/Source etc `MAIL_URL=...`, more details below.
 - For any errors like SSLv3 and STARTTLS, check [newest AWS SES info](#example-aws-ses) and use similar settings, other SSLv3/STARTTLS info could be outdated.
@@ -82,7 +82,7 @@ let info = transporter.sendMail({
 ```
 
 
-If with some code example sending email works, xet7 can add it to wekan, like in [Wekan v5.52](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v552-2021-08-26-wekan-release) xet7 added direct nodemailer usage for MAIL_SERVICE.
+If with some code example sending email works, xet7 can add it to wekan, like in [Wekan v5.52](../../CHANGELOG.md#v552-2021-08-26-wekan-release) xet7 added direct nodemailer usage for MAIL_SERVICE.
 
 ## MAIL_SERVICE (not currently in use)
 

@@ -5,7 +5,7 @@ member menu (top right corner) when you are an admin.
 
 ## Admin Panel
 
-On the Source and Docker platforms the [Admin Panel](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease)
+On the Source and Docker platforms the [Admin Panel](../../../CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease)
 lets you:
 
 - Allow self-registration, or switch to **invite-only** and invite users to boards.

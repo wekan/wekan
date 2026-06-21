@@ -98,7 +98,7 @@ and toggle keyboard shortcuts on or off from the board sidebar.
 Cross-cutting accessibility guarantees (page language, skip link, landmark roles,
 visible focus, dialog roles, accessible names on icon controls, and absence of
 duplicate element ids) are covered by the end-to-end test suite in
-[`tests/playwright/specs/19-accessibility.e2e.js`](https://github.com/wekan/wekan/blob/main/tests/playwright/specs/19-accessibility.e2e.js).
+[`tests/playwright/specs/19-accessibility.e2e.js`](../../../tests/playwright/specs/19-accessibility.e2e.js).
 
 ## Reporting accessibility issues
 

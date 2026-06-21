@@ -46,15 +46,15 @@ mongo
 
 ## Install
 
-Installing is similar like at https://github.com/wekan/wekan/wiki/Raspberry-Pi
+Installing is similar like at [Raspberry Pi](RaspberryPi/Raspberry-Pi.md)
 
 You can start it with start-wekan.sh from https://github.com/wekan/wekan or add SystemD service.
 
-Setup ROOT_URL like described at https://github.com/wekan/wekan/wiki/Settings
+Setup ROOT_URL like described at [Settings](../../Webserver/Settings.md)
 
-At https://github.com/wekan/wekan/wiki is also info about Caddy/Nginx/Apache etc.
+At [Wekan documentation](../../README.md) is also info about Caddy/Nginx/Apache etc.
 
-Some related links also at https://github.com/wekan/wekan/wiki/Platforms
+Some related links also at [Platforms](Platforms.md)
 
 ## How this ppc64le bundle package was created
 

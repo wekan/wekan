@@ -1,6 +1,6 @@
 Tested on Ubuntu 16.04 based distro.
 
-Wekan installed with https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data
+Wekan installed with [Export Docker Mongo Data](../Platforms/FOSS/Docker/Export-Docker-Mongo-Data.md)
 
 ## A) Let's Encrypt support, without Google Auth:
 

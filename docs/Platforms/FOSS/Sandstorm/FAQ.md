@@ -1,6 +1,6 @@
 ## What is Wekan
 
-[Wekan FAQ](https://github.com/wekan/wekan/wiki/FAQ)
+[Wekan FAQ](../../../FAQ/FAQ.md)
 
 ## Anyone can already do this, no need to be a maintainer
 
@@ -9,11 +9,11 @@
 
 ## Wekan welcomes new co-maintainers
 
-[xet7](https://github.com/xet7) did have to [bring Wekan back to life](https://github.com/wekan/wekan/wiki/FAQ#what-was-wekan-fork--wefork) already once before. Generally in Open Source it's good to have more that one maintainer to keep project alive.
+[xet7](https://github.com/xet7) did have to [bring Wekan back to life](../../../FAQ/FAQ.md#what-was-wekan-fork--wefork) already once before. Generally in Open Source it's good to have more that one maintainer to keep project alive.
 
 ## Requirements for maintainers
 
-When you [contributions on Wekan Team page](https://github.com/wekan/wekan/wiki/Team) starts growing, one of Wekan maintainers may ask if you'd like to become co-maintainer.
+When you [contributions on Wekan Team page](../../../FAQ/Team.md) starts growing, one of Wekan maintainers may ask if you'd like to become co-maintainer.
 
 ## Responsibilities of maintainer
 

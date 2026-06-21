@@ -85,7 +85,7 @@ are embedded inline so each rule is self-contained.
 }
 ```
 
-Python helper ([`api.py`](https://github.com/wekan/wekan/blob/main/api.py)):
+Python helper ([`api.py`](../../../api.py)):
 
 ```bash
 python3 api.py listrules BOARDID

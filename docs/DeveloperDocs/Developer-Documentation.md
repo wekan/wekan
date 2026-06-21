@@ -46,7 +46,7 @@ When you run this, you see .jade template files where is search input box, and .
 - Currently Wekan development is done mainly at Ubuntu 20.10 64bit, but building Wekan does work on any Debian, Ubuntu, WSL Ubuntu 20.04, [Mac](Mac). Sametime maybe on [Windows](Windows) with `choco install -y meteor` and installing packages it then asks for with `meteor add ...` or `meteor npm install --save ...` and then running meteor again.
   - Look through old [pull requests](https://github.com/wekan/wekan/pulls)
   - Read Wekan source code, you can use some git history viewer GUI like gitk
-  - Read [Meteor documentation](https://docs.meteor.com/) for [Meteor version](https://github.com/wekan/wekan/blob/main/.meteor/release) in use, other versions mentioned at [Dockerfile](https://github.com/wekan/wekan/blob/main/Dockerfile)
+  - Read [Meteor documentation](https://docs.meteor.com/) for [Meteor version](../../.meteor/release) in use, other versions mentioned at [Dockerfile](../../Dockerfile)
 - Docker up-to-date way: You can  clone wekan/wekan repo and update docker-compose.yml file ROOT_URL etc as documented at https://github.com/wekan/wekan commented `docker-compose.yml` file, install docker, and build from source with docker with `docker compose up -d --build`
 - Docker not up-to-date way: [Docker environment for Wekan development](https://github.com/wekan/wekan-dev). 
 
