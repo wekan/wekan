@@ -6,6 +6,7 @@ const { Meteor } = require('meteor/meteor');
 const { Accounts } = require('meteor/accounts-base');
 const { WebApp } = require('meteor/webapp');
 const bodyParser = require('body-parser');
+const { safeJsonStringify } = require('/server/lib/apiResponseHelpers');
 
 // ---------------------------------------------------------------------------
 // 1. Body parsing (previously registered by json-routes)
@@ -92,7 +93,10 @@ function sendJsonResult(res, options) {
     const shouldPrettyPrint = process.env.NODE_ENV === 'development';
     const spacer = shouldPrettyPrint ? 2 : null;
     res.setHeader('Content-Type', 'application/json');
-    res.write(JSON.stringify(options.data, null, spacer));
+    // Use a crash-proof serializer: some error payloads (e.g. a circular
+    // SimpleSchema validation error) would otherwise throw inside
+    // JSON.stringify and surface as a generic HTTP 500. See #5804.
+    res.write(safeJsonStringify(options.data, spacer));
   }
 
   res.end();

@@ -30,7 +30,16 @@ Versions:
 
 This release fixes the following bugs:
 
-- [Fixed selecting text in a checklist closing the card](https://github.com/wekan/wekan/issues/5686),
+- [Fixed REST API returning HTTP 500 with a stack trace for an invalid request](https://github.com/wekan/wekan/pull/6406),
+  [#5804](https://github.com/wekan/wekan/issues/5804): posting a comment without the required `comment` parameter (or
+  to a board that does not exist) returned an HTTP 500 error page. The schema-validation error thrown on insert is a
+  circular object (`SimpleSchemaValidationContext` → `SimpleSchema` → …), and serializing it crashed the response
+  writer (`Converting circular structure to JSON`). Now: the `comment` parameter is validated and a missing/empty one
+  returns **HTTP 400**; an unknown board returns **HTTP 404** (the board-access checks no longer dereference
+  `board.members` of a non-existent board); the JSON response writer is crash-proof (falls back to a safe
+  `{ "error": … }` payload instead of throwing); and REST comment errors now use their real status code instead of
+  `200`. New unit tests in `server/lib/tests/apiResponseHelpers.tests.js`. ([PR #6406](https://github.com/wekan/wekan/pull/6406))
+- [Fixed selecting text in a checklist closing the card](https://github.com/wekan/wekan/pull/6407),
   [#5686](https://github.com/wekan/wekan/issues/5686): selecting the text of a checklist item and releasing the
   mouse outside the card detail pane closed the card. The checklist items template stops `mousedown` propagation
   (for item sorting), so the existing `cardDetailsIsDragging` guard never engaged and the document-level
@@ -38,9 +47,9 @@ This release fixes the following bugs:
   live text selection is anchored inside the card pane (new propagation-independent guard
   `client/lib/cardCloseGuard.js`), so a deliberate click on empty board space still closes the card. New unit
   tests in `client/lib/tests/cardCloseGuard.tests.js` and a Playwright regression test in
-  `tests/playwright/specs/34-checklist-text-selection.e2e.js`.
+  `tests/playwright/specs/34-checklist-text-selection.e2e.js`. ([PR #6407](https://github.com/wekan/wekan/pull/6407))
 
-Thanks to GitHub user mueller-ma for reporting.
+Thanks to GitHub users Atry and mueller-ma for reporting.
 
 # v9.65 2026-06-20 WeKan ® release
 
