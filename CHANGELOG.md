@@ -30,6 +30,18 @@ Versions:
 
 This release fixes the following bugs:
 
+- **Fixed boards not rendering at all (blank board view) after the mongodb/bson 7.3.0 dependency bump.** bson 7.x runs
+  `const { startupSnapshot } = globalThis?.process?.getBuiltinModule('v8') ?? {}` at module-load time; the optional
+  chaining stops before the *call*, so in the browser — where a partial `process` polyfill exists but has no
+  `getBuiltinModule` — it threw `TypeError: getBuiltinModule is not a function` while evaluating
+  `client/components/cards/attachments.js` (`import { ObjectId } from 'bson'`). That aborted the client bundle
+  bootstrap part-way through `client/imports.js`, so every feature imported after it (notifications, swimlanes,
+  rules, …) was never registered and the board view died with `No such template: notifications`. Added a tiny browser
+  shim (`client/lib/bsonBrowserShim.js`, imported first in `client/main.js`) that gives the browser `process` a no-op
+  `getBuiltinModule`, so bson takes its intended `?? {}` fallback. New unit tests
+  (`client/lib/tests/bsonBrowserShim.tests.js`); also hardened the #5686 Playwright spec to run against a rendering
+  board.
+
 - [Fixed REST API returning HTTP 500 with a stack trace for an invalid request](https://github.com/wekan/wekan/pull/6406),
   [#5804](https://github.com/wekan/wekan/issues/5804): posting a comment without the required `comment` parameter (or
   to a board that does not exist) returned an HTTP 500 error page. The schema-validation error thrown on insert is a

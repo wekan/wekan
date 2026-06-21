@@ -21,12 +21,36 @@ const CardPage = require('../pages/CardPage');
 
 // Returns a point that is over the board canvas but clearly OUTSIDE the card
 // detail pane, so releasing/clicking there is treated as "outside the card".
-async function outsidePoint(page, cardBox) {
-  const canvas = await page.locator('.board-canvas').first().boundingBox();
-  // Prefer a point to the left of the card (the board lists live there).
-  const x = Math.max((canvas?.x ?? 0) + 8, cardBox.x - 60);
-  const y = cardBox.y + Math.min(120, cardBox.height / 2);
-  return { x: Math.min(x, cardBox.x - 5), y };
+// The card pane can be near-fullscreen, so we don't assume a side; we ask the
+// DOM (via elementFromPoint) for a point that is on the board but NOT inside the
+// card pane, the header or a sidebar (those are in the close handler's
+// noClickEscapeOn allowlist and would not close the card).
+async function outsidePoint(page) {
+  const pt = await page.evaluate(() => {
+    const card = document.querySelector('.board-wrapper > .js-card-details');
+    if (!card) return null;
+    const r = card.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const blocked = el =>
+      !el ||
+      el.closest('.js-card-details') ||
+      el.closest('#header') ||
+      el.closest('.board-sidebar');
+    // Candidate points: right of the card, left of it, then below it.
+    const candidates = [];
+    for (const y of [r.top + r.height / 2, vh * 0.5, vh - 12]) {
+      candidates.push({ x: Math.min(vw - 6, r.right + 40), y });
+      candidates.push({ x: Math.max(6, r.left - 40), y });
+    }
+    candidates.push({ x: vw / 2, y: Math.min(vh - 6, r.bottom + 30) });
+    for (const c of candidates) {
+      if (c.x < 2 || c.x > vw - 2 || c.y < 2 || c.y > vh - 2) continue;
+      if (!blocked(document.elementFromPoint(c.x, c.y))) return c;
+    }
+    return null;
+  });
+  return pt;
 }
 
 test.describe('Checklist text selection (#5686)', () => {
@@ -56,32 +80,41 @@ test.describe('Checklist text selection (#5686)', () => {
       .first();
     await itemTitle.waitFor({ timeout: 8_000 });
 
-    const itemBox = await itemTitle.boundingBox();
-    const cardBox = await cp.root.boundingBox();
-    expect(itemBox, 'checklist item should have a bounding box').not.toBeNull();
-    expect(cardBox, 'card pane should have a bounding box').not.toBeNull();
+    // On desktop the whole checklist item is drag-sortable, so a mouse drag over
+    // it reorders rather than selecting text. Reproduce the bug deterministically
+    // instead: make a REAL text selection anchored inside the checklist item (the
+    // exact state the user is in after selecting an item's text), then fire the
+    // real document-level "click outside the card" that the close handler listens
+    // for. Before the fix this closed the card (the checklist's mousedown
+    // stopPropagation defeats the cardDetailsIsDragging guard); after the fix the
+    // selection-anchored-in-card check keeps it open.
+    const selectedText = await boardPage.evaluate(() => {
+      const item = document.querySelector(
+        '.board-wrapper > .js-card-details .js-checklist-item .item-title',
+      );
+      const textNode = item && item.firstChild;
+      if (!textNode) return '';
+      const range = document.createRange();
+      range.selectNodeContents(item);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      return sel.toString();
+    });
+    expect(selectedText.length, 'checklist item text should be selected').toBeGreaterThan(0);
 
-    const release = await outsidePoint(boardPage, cardBox);
+    // Fire the real outside-click close path on the board canvas (button 0,
+    // non-editable target) without a mousedown that would collapse the selection.
+    await boardPage.evaluate(() => {
+      const canvas =
+        document.querySelector('.board-canvas') || document.body;
+      canvas.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 }),
+      );
+    });
 
-    // Simulate a real text-selection drag: press on the checklist item text,
-    // drag across it, then continue outside the card and release there.
-    await boardPage.mouse.move(itemBox.x + 6, itemBox.y + itemBox.height / 2);
-    await boardPage.mouse.down();
-    await boardPage.mouse.move(
-      itemBox.x + itemBox.width - 6,
-      itemBox.y + itemBox.height / 2,
-      { steps: 8 },
-    );
-    await boardPage.mouse.move(release.x, release.y, { steps: 12 });
-    await boardPage.mouse.up();
-
-    // The card detail pane must still be open.
+    // The selection is still anchored inside the card, so it must stay open.
     await expect(cp.root).toBeVisible({ timeout: 5_000 });
-    // And some text should actually have been selected (sanity for the gesture).
-    const selected = await boardPage.evaluate(() =>
-      (window.getSelection && window.getSelection().toString()) || '',
-    );
-    expect(selected.length, 'a text selection should have been made').toBeGreaterThan(0);
   });
 
   test('control: a plain click on the board outside the card closes it', async ({
@@ -98,8 +131,8 @@ test.describe('Checklist text selection (#5686)', () => {
     // Clear any leftover selection so the close guard does not engage.
     await boardPage.evaluate(() => window.getSelection && window.getSelection().removeAllRanges());
 
-    const cardBox = await cp.root.boundingBox();
-    const click = await outsidePoint(boardPage, cardBox);
+    const click = await outsidePoint(boardPage);
+    expect(click, 'a point outside the card pane should be found').not.toBeNull();
     await boardPage.mouse.click(click.x, click.y);
 
     await expect(cp.root).toBeHidden({ timeout: 8_000 });
