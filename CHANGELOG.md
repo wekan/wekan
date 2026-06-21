@@ -81,7 +81,13 @@ Stops-Work issue triage (work in progress):
   the Admin role).
 
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
-  [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. In Progress.
+  [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. The save
+  path (server `updateListSort` + `myLists()` ordering by `sort`) looks correct in code, so this needs runtime
+  reproduction to pin the root cause. In Progress.
+- [Cards made from a template link to the template itself](https://github.com/wekan/wekan/issues/5798),
+  [#5798](https://github.com/wekan/wekan/issues/5798). In Progress (template instantiation).
+- [Card activities jump to a recent date after changing the due date](https://github.com/wekan/wekan/issues/5757),
+  [#5757](https://github.com/wekan/wekan/issues/5757). In Progress (activity timestamps).
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
   [#5892](https://github.com/wekan/wekan/issues/5892): the list-width rework (#6409) added a persistent
   `.list[style*="--list-width"] { width: … !important }` rule that overrode the 30px collapsed width, so a list with a
