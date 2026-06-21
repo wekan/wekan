@@ -26,6 +26,50 @@ export {
 } from './fileStoreConstants';
 
 /**
+ * Maximum number of bytes for the sanitized filename.
+ * Most filesystems limit a single path component to 255 bytes. The stored file
+ * is named "<id>-<version>-<name>", so we reserve headroom for that prefix and
+ * cap the name itself well below 255. Length is measured in UTF-8 *bytes* (not
+ * characters) because multibyte names (e.g. German umlauts) take several bytes
+ * each and would otherwise overflow the limit and fail with ENAMETOOLONG.
+ * See https://github.com/wekan/wekan/issues/6412
+ */
+const MAX_FILENAME_BYTES = 200;
+
+/**
+ * Truncate a filename to at most maxBytes UTF-8 bytes, preserving the extension
+ * and never splitting a multibyte character.
+ * @param {string} filename
+ * @param {number} maxBytes
+ * @return {string} the (possibly) shortened filename
+ */
+function truncateFilenameToBytes(filename, maxBytes) {
+  if (Buffer.byteLength(filename, 'utf8') <= maxBytes) {
+    return filename;
+  }
+  const ext = path.extname(filename);
+  const extBytes = Buffer.byteLength(ext, 'utf8');
+  // If the extension alone does not fit, ignore it and clip the whole name.
+  const keepExt = extBytes < maxBytes;
+  const base = keepExt ? filename.slice(0, filename.length - ext.length) : filename;
+  const budget = keepExt ? maxBytes - extBytes : maxBytes;
+
+  let out = '';
+  let bytes = 0;
+  for (const ch of base) { // iterates by Unicode code point
+    const chBytes = Buffer.byteLength(ch, 'utf8');
+    if (bytes + chBytes > budget) {
+      break;
+    }
+    out += ch;
+    bytes += chBytes;
+  }
+
+  const truncated = keepExt ? out + ext : out;
+  return truncated || 'unnamed';
+}
+
+/**
  * Sanitize filename to prevent path traversal attacks
  * @param {string} filename - User-provided filename
  * @return {string} Sanitized filename safe for filesystem operations
@@ -56,6 +100,11 @@ function sanitizeFilename(filename) {
   if (!safe || safe === '.' || safe === '..') {
     return 'unnamed';
   }
+
+  // Limit length so the on-disk filename stays within the filesystem's
+  // per-component byte limit, preventing ENAMETOOLONG on very long names.
+  // See https://github.com/wekan/wekan/issues/6412
+  safe = truncateFilenameToBytes(safe, MAX_FILENAME_BYTES);
 
   return safe;
 }
