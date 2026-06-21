@@ -49,6 +49,26 @@ This release fixes the following bugs:
   aborting the Tracker render so lists stopped loading partway. The helpers now use optional chaining
   (`getCurrentUser()?.isBoardAdmin()` / `?.isWorker()`), which is falsy for guests instead of throwing. Done:
   [commit fc0fe0b61](https://github.com/wekan/wekan/commit/fc0fe0b61).
+Data-loss issue triage (work in progress):
+
+- Needs runtime reproduction before a safe fix (sort/move persistence or intermittent, no clear single root cause in
+  code): [#5874](https://github.com/wekan/wekan/issues/5874) (rare partial cross-board move),
+  [#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list whose cards have parents),
+  [#3745](https://github.com/wekan/wekan/issues/3745) (change-parent picker empty on first open),
+  [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
+  rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
+  user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
+- Appears already resolved in current code; re-test requested:
+  [#4255](https://github.com/wekan/wekan/issues/4255) — the `archivedBoards` publication now scopes the archive to
+  boards where the user is an admin member, so it no longer lists boards owned by others.
+- Needs specific infrastructure we cannot reproduce/verify here (left for environment owners):
+  [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
+  & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
+  (WebHooks), [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm).
+- Feature requests / behaviour-by-design rather than data-loss bugs:
+  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
+  [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138).
+
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
   [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. In Progress.
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
