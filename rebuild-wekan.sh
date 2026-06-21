@@ -24,9 +24,11 @@ function ensure_rspack_public_dirs(){
 
 # Build WeKan from scratch: reinstall npm deps and produce the .build directory.
 # Used by menu option 2 and auto-invoked by option 9 when .build is missing.
+# Also clears the rspack dev-build caches (_build and node_modules/.cache) so the
+# next `meteor run` recompiles from scratch instead of serving stale modules.
 function build_wekan(){
 	echo "Building WeKan."
-	rm -rf node_modules .meteor/local .build
+	rm -rf node_modules node_modules/.cache .meteor/local .build _build
 	(meteor update --npm 2>/dev/null || true) && meteor npm install
 	meteor build .build --directory
 	echo Done.

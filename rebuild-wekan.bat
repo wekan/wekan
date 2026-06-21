@@ -97,9 +97,13 @@ goto end
 REM ===========================================================================
 :build
 echo Building WeKan.
-if exist "%REPO%\node_modules"      rmdir /s /q "%REPO%\node_modules"
-if exist "%REPO%\.meteor\local"     rmdir /s /q "%REPO%\.meteor\local"
-if exist "%REPO%\.build"            rmdir /s /q "%REPO%\.build"
+REM Also clears the rspack dev-build caches (_build and node_modules\.cache) so the
+REM next `meteor run` recompiles from scratch instead of serving stale modules.
+if exist "%REPO%\node_modules"        rmdir /s /q "%REPO%\node_modules"
+if exist "%REPO%\node_modules\.cache" rmdir /s /q "%REPO%\node_modules\.cache"
+if exist "%REPO%\.meteor\local"       rmdir /s /q "%REPO%\.meteor\local"
+if exist "%REPO%\.build"              rmdir /s /q "%REPO%\.build"
+if exist "%REPO%\_build"              rmdir /s /q "%REPO%\_build"
 call meteor update --npm
 call meteor npm install
 call meteor build .build --directory

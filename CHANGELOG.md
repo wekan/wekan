@@ -30,6 +30,10 @@ Versions:
 
 This release fixes the following bugs:
 
+- `rebuild-wekan.sh` / `rebuild-wekan.bat` menu option 2 ("Build WeKan") now also clears the rspack dev-build caches
+  (`_build` and `node_modules/.cache`) in addition to `node_modules` / `.meteor/local` / `.build`, so the next
+  `meteor run` recompiles from scratch instead of occasionally serving stale modules after a `git` checkout/merge.
+
 - [Fixed editing the 2nd/3rd organization or team in Admin Panel › People always showing the FIRST one](https://github.com/wekan/wekan/issues/6411),
   [#6411](https://github.com/wekan/wekan/issues/6411): on `/people`, clicking *Edit* on any organization or team filled
   the form with the first one's values (so you could never edit the others). The edit/settings popups are opened from
