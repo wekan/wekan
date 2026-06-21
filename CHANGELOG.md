@@ -83,8 +83,10 @@ Stops-Work issue triage (work in progress):
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
   [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. In Progress.
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
-  [#5892](https://github.com/wekan/wekan/issues/5892): a collapsed list still renders in full width with the Modern
-  theme. In Progress.
+  [#5892](https://github.com/wekan/wekan/issues/5892): the list-width rework (#6409) added a persistent
+  `.list[style*="--list-width"] { width: … !important }` rule that overrode the 30px collapsed width, so a list with a
+  custom width stayed full width when collapsed. Collapsed lists are now excluded from that rule and the 30px width is
+  `!important`. Done: [commit 5e9b2bccd](https://github.com/wekan/wekan/commit/5e9b2bccd).
 - [Sort by due date is not remembered as the default view](https://github.com/wekan/wekan/issues/5886),
   [#5886](https://github.com/wekan/wekan/issues/5886): the chosen global sort reverts to "date created" after a while.
   In Progress.
