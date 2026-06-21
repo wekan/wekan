@@ -1,10 +1,27 @@
-[Original issue](https://github.com/wekan/wekan/issues/4589)
+# LaTeX math
 
-[Commit](https://github.com/wekan/wekan/commit/82fa632197a0e3b88d26c557f1dc8cc18b05b18b)
+WeKan renders LaTeX math in any markdown field (card descriptions, comments,
+checklists, etc.).
+
+## How it works
+
+Math is rendered with [Temml](https://temml.org), which converts LaTeX to
+**native [MathML](https://developer.mozilla.org/docs/Web/MathML)**. Modern
+browsers display MathML themselves, so no heavy client-side math engine is
+shipped in the bundle. The markdown ↔ math bridge is
+[markdown-it-math](https://www.npmjs.com/package/markdown-it-math), and the
+generated MathML is allow-listed in WeKan's DOMPurify sanitizer so it is not
+stripped.
+
+Earlier WeKan versions used `markdown-it-mathjax3` (which bundled all of MathJax
+and had a "renders twice" bug). Math rendering was then accidentally dropped
+during the Meteor 3 refactor and has now been restored on Temml.
+
+- [Original issue](https://github.com/wekan/wekan/issues/4589)
 
 ## Examples
 
-[Examples From NPM package](https://www.npmjs.com/package/markdown-it-mathjax3)
+[Temml supported functions](https://temml.org/docs/en/supported)
 
 **Inline**
 

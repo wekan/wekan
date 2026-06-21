@@ -80,11 +80,12 @@
     "limax": "^4.2.3",
     "markdown-it": "^14.1.1",
     "markdown-it-emoji": "^3.0.0",
-    "markdown-it-mathjax3": "^5.2.0",
+    "markdown-it-math": "^6.0.0",
     "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "file:npm-packages/meteor-node-stubs",
     "papaparse": "^5.5.4",
     "pretty-ms": "^9.3.0",
+    "temml": "^0.13.3",
     "underscore": "^1.13.8"
   },
   "overrides": {

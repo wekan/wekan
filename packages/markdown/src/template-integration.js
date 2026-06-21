@@ -1,6 +1,8 @@
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import * as markdownItEmoji from 'markdown-it-emoji';
+import markdownItMath from 'markdown-it-math/no-default-renderer';
+import temml from 'temml';
 import { getSecureDOMPurifyConfig } from './secureDOMPurify';
 import { Blaze } from 'meteor/blaze';
 import { HTML } from 'meteor/htmljs';
@@ -45,6 +47,29 @@ const emojiPlugin = markdownItEmoji.full || markdownItEmoji.default || markdownI
 if (emojiPlugin) {
   Markdown.use(emojiPlugin);
 }
+
+// LaTeX math support. Renders $...$ (inline) and $$...$$ (block) to native
+// MathML using Temml, which browsers display without any client-side rendering
+// engine. Migrated from markdown-it-mathjax3 (which bundled all of MathJax and
+// had a double-render bug); MathML rendering had been silently dropped in commit
+// 63ce45c53 during the Meteor 3 refactor. The emitted MathML is whitelisted in
+// secureDOMPurify.js so DOMPurify does not strip it.
+// We use the markdown-it-math `no-default-renderer` entrypoint and call Temml
+// ourselves, instead of the `markdown-it-math/temml` entrypoint, to avoid a
+// top-level `await import("temml")` that the Meteor/rspack bundler dislikes.
+// Docs: https://github.com/wekan/wekan/wiki/LaTeX
+const renderMath = (src, displayMode) => {
+  try {
+    return temml.renderToString(src, { throwOnError: false, errorColor: '#cc0000', displayMode });
+  } catch (e) {
+    // Never let one malformed formula break the whole markdown render.
+    return src;
+  }
+};
+Markdown.use(markdownItMath, {
+  inlineRenderer: (src) => renderMath(src, false),
+  blockRenderer: (src) => renderMath(src, true),
+});
 
 // Custom plugin to prevent SVG-based DoS attacks
 Markdown.use(function(md) {

@@ -1,12 +1,36 @@
 import DOMPurify from 'dompurify';
 
+// MathML (presentation) tags emitted by Temml for LaTeX math ($...$ / $$...$$).
+// Browsers render these natively, so allowing them lets math survive sanitization.
+// Deliberately EXCLUDES `annotation-xml`, which can smuggle HTML/SVG and is a
+// known MathML XSS vector; Temml only emits the plain-text `annotation` element.
+const MATHML_TAGS = [
+  'math', 'semantics', 'annotation', 'mrow', 'mi', 'mo', 'mn', 'ms', 'mtext',
+  'mspace', 'msup', 'msub', 'msubsup', 'mfrac', 'mroot', 'msqrt', 'mover',
+  'munder', 'munderover', 'mmultiscripts', 'mprescripts', 'none', 'mtable',
+  'mtr', 'mtd', 'mlabeledtr', 'mpadded', 'mphantom', 'mstyle', 'merror',
+  'menclose', 'maction',
+];
+// Presentation attributes MathML uses for layout/semantics. None can execute
+// script; color/size use dedicated math* attributes rather than CSS `style`,
+// which remains blocked. `class`/`id`/`style` stay blocked by the hooks below.
+const MATHML_ATTR = [
+  'xmlns', 'display', 'displaystyle', 'scriptlevel', 'mathvariant', 'mathcolor',
+  'mathbackground', 'mathsize', 'dir', 'stretchy', 'fence', 'separator',
+  'accent', 'accentunder', 'largeop', 'movablelimits', 'symmetric', 'form',
+  'lspace', 'rspace', 'voffset', 'depth', 'linethickness', 'minsize', 'maxsize',
+  'open', 'close', 'notation', 'columnalign', 'rowalign', 'columnspacing',
+  'rowspacing', 'columnlines', 'rowlines', 'align', 'encoding', 'actiontype',
+  'selection',
+];
+
 // Centralized secure DOMPurify configuration to prevent XSS and CSS injection attacks
 export function getSecureDOMPurifyConfig() {
   return {
-    // Allow common markdown elements including anchor tags
-    ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 's', 'del', 'strike', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span'],
-    // Allow safe attributes including href for anchor tags
-    ALLOWED_ATTR: ['href', 'title', 'alt', 'src', 'width', 'height', 'target', 'rel'],
+    // Allow common markdown elements including anchor tags, plus MathML for Temml math
+    ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 's', 'del', 'strike', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span', ...MATHML_TAGS],
+    // Allow safe attributes including href for anchor tags, plus MathML presentation attributes
+    ALLOWED_ATTR: ['href', 'title', 'alt', 'src', 'width', 'height', 'target', 'rel', ...MATHML_ATTR],
     // Allow safe protocols for links
     ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
     // Allow unknown protocols but be cautious
@@ -67,8 +91,15 @@ export function getSecureDOMPurifyConfig() {
           }
         }
 
-        // Block elements with dangerous attributes
-        const dangerousAttrs = ['style', 'onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur'];
+        // Block elements with dangerous attributes. For MathML (Temml math
+        // output) a bare `style` attribute must NOT delete the whole element —
+        // that would silently drop the entire formula. The attribute itself is
+        // still stripped by uponSanitizeAttribute below, so CSS-injection
+        // protection is preserved; only event handlers remove MathML elements.
+        const isMathML = node.namespaceURI === 'http://www.w3.org/1998/Math/MathML';
+        const dangerousAttrs = isMathML
+          ? ['onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur']
+          : ['style', 'onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur'];
         for (const attr of dangerousAttrs) {
           if (node.hasAttribute && node.hasAttribute(attr)) {
             if (process.env.DEBUG === 'true') {
