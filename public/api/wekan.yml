@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.65
+  version: v9.67
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -4816,6 +4816,24 @@ definitions:
            other users (only the comment's author can). Default false keeps the
            historical behaviour where board admins may moderate any comment.
         type: boolean
+      allowsPersonalListWidth:
+        description: |
+           List-width scope for this board (#6409).
+           - false (default): list widths are SHARED — stored in `lists.width`,
+             the same layout for everyone; only members with write access may
+             change them.
+           - true: list widths are PERSONAL — each user keeps their own widths in
+             their profile (or localStorage when not logged in).
+        type: boolean
+      autoWidth:
+        description: |
+           Shared (per-board) auto-width for all lists (#6409). When true, lists
+           fit their content instead of using a fixed width. Used when the board
+           is in SHARED list-width mode (allowsPersonalListWidth = false); in
+           PERSONAL mode each user's own profile.autoWidthBoards value is used
+           instead.
+        type: boolean
+        x-nullable: true
       allowsReceivedDateOnMinicard:
         description: |
            Does the board allows received date on minicard?
@@ -4969,6 +4987,7 @@ definitions:
       - allowsChecklistAtMinicard
       - allowsReceivedDate
       - restrictCommentEditing
+      - allowsPersonalListWidth
       - allowsReceivedDateOnMinicard
       - allowsStartDate
       - allowsStartDateOnMinicard
