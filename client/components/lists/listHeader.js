@@ -20,12 +20,12 @@ Template.listHeader.helpers({
       (!list.getWipLimit('enabled') ||
         list.getWipLimit('soft') ||
         !Template.instance().reachedWipLimit()) &&
-      !ReactiveCache.getCurrentUser().isWorker()
+      !ReactiveCache.getCurrentUser()?.isWorker()
     );
   },
 
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 
   starred() {
@@ -218,7 +218,7 @@ Template.listHeader.events({
 
 Template.listActionPopup.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 
   isWipLimitEnabled() {

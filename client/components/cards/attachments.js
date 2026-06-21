@@ -290,7 +290,7 @@ Template.attachmentGallery.helpers({
     return filesCursor.each();
   },
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   fileSize(size) {
     const ret = filesize(size);

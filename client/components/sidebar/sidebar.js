@@ -294,7 +294,7 @@ Template.memberPopup.helpers({
     return ReactiveCache.getUser(this.userId);
   },
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   memberType() {
     const type = ReactiveCache.getUser(this.userId).isBoardAdmin() ? 'admin' : 'normal';
@@ -433,7 +433,7 @@ Template.boardMenuPopup.onCreated(function() {
 
 Template.boardMenuPopup.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   withApi() {
     return Template.instance().apiEnabled.get();
@@ -547,7 +547,7 @@ Template.membersWidget.helpers({
     }
   },
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   AtLeastOneOrgWasCreated(){
     let orgs = ReactiveCache.getOrgs({}, {sort: { createdAt: -1 }});
@@ -919,7 +919,7 @@ Template.labelsWidget.events({
 
 Template.labelsWidget.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 });
 

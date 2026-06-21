@@ -78,7 +78,7 @@ Template.subtasks.onCreated(function () {
 
 Template.subtasks.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   toggleDeleteDialog() {
     return Template.instance().toggleDeleteDialog;
@@ -115,7 +115,7 @@ Template.subtaskItemDetail.events({
 
 Template.subtaskActionsPopup.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 });
 
@@ -155,6 +155,6 @@ Template.editSubtaskItemForm.helpers({
     return ReactiveCache.getUser(this.userId);
   },
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 });

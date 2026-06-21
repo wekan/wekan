@@ -9,7 +9,7 @@ Template.archivedBoards.onCreated(function () {
 
 Template.archivedBoards.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 
   archivedBoards() {

@@ -635,7 +635,7 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
 
 Template.swimlane.helpers({
   canSeeAddList() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   lists() {
     const swimlane = this;

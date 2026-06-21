@@ -215,7 +215,7 @@ function mapSelection(kind, _id) {
 
 Template.multiselectionSidebar.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   isCommentOnly() {
     return ReactiveCache.getCurrentUser().isCommentOnly();

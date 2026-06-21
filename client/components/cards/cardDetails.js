@@ -1402,7 +1402,7 @@ Template.cardDetailsActionsPopup.helpers({
   },
 
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 
   showListOnMinicard() {

@@ -41,7 +41,7 @@ Template.swimlaneHeader.events({
 
 Template.swimlaneFixedHeader.helpers({
   isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
+    return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
   collapseSwimlane() {
     const swimlane = Template.currentData();
