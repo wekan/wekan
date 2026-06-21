@@ -135,10 +135,14 @@ body.list-resizing-active * {
   flex-direction: column !important;
 }
 
-/* Ensure the width persists after resize is complete */
-.js-swimlane .list[style*="--list-width"],
-.dragscroll .list[style*="--list-width"],
-[id^="swimlane-"] .list[style*="--list-width"] {
+/* Ensure the width persists after resize is complete.
+   Exclude collapsed lists: a collapsed list keeps its inline --list-width custom
+   property, and without :not() this !important rule overrode the 30px collapsed
+   width, so collapsing a list that had a custom width left it full width.
+   See https://github.com/wekan/wekan/issues/5892 */
+.js-swimlane .list[style*="--list-width"]:not(.list-collapsed),
+.dragscroll .list[style*="--list-width"]:not(.list-collapsed),
+[id^="swimlane-"] .list[style*="--list-width"]:not(.list-collapsed) {
   /* Maintain the width after resize */
   width: var(--list-width, auto) !important;
   min-width: var(--list-width, auto) !important;
@@ -253,10 +257,12 @@ body.list-resizing-active * {
   height: 15vh;
 }
 .list.list-collapsed {
-  flex: none;
-  min-width: 30px;
-  max-width: 30px;
-  width: 30px;
+  flex: none !important;
+  /* !important so a custom per-list --list-width never keeps a collapsed list
+     full width (see https://github.com/wekan/wekan/issues/5892) */
+  min-width: 30px !important;
+  max-width: 30px !important;
+  width: 30px !important;
   min-height: 60vh;
   height: 60vh;
   overflow: visible;
