@@ -48,6 +48,10 @@ This release fixes the following bugs:
 - `rebuild-wekan.sh` / `rebuild-wekan.bat` menu option 2 ("Build WeKan") now also clears the rspack dev-build caches
   (`_build` and `node_modules/.cache`) in addition to `node_modules` / `.meteor/local` / `.build`, so the next
   `meteor run` recompiles from scratch instead of occasionally serving stale modules after a `git` checkout/merge.
+- `rebuild-wekan.sh` / `rebuild-wekan.bat` now give the Meteor build tool and Node a larger heap by default
+  (`TOOL_NODE_FLAGS` and `NODE_OPTIONS` = `--max-old-space-size=8192`) for every dev-run, test and build option, so
+  long development sessions and test runs no longer crash with "FATAL ERROR: ... JavaScript heap out of memory".
+  Both honor an existing value, so you can lower it on machines with less RAM.
 
 - [Fixed editing the 2nd/3rd organization or team in Admin Panel › People always showing the FIRST one](https://github.com/wekan/wekan/issues/6411),
   [#6411](https://github.com/wekan/wekan/issues/6411): on `/people`, clicking *Edit* on any organization or team filled

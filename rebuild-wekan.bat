@@ -22,6 +22,16 @@ set "REPO=%~dp0"
 if "%REPO:~-1%"=="\" set "REPO=%REPO:~0,-1%"
 cd /d "%REPO%"
 
+REM Give the Meteor build tool and Node processes a larger heap so long
+REM development sessions and test runs don't crash with "FATAL ERROR: ...
+REM JavaScript heap out of memory". TOOL_NODE_FLAGS controls the Meteor
+REM command-line/build process (the one that hits the limit during
+REM `meteor run` / `meteor test` / `meteor build`); NODE_OPTIONS covers the
+REM child Node/rspack processes. Both default to 8 GB and honor any value you
+REM already set. Lower it if your machine has less RAM.
+if not defined TOOL_NODE_FLAGS set "TOOL_NODE_FLAGS=--max-old-space-size=8192"
+if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=8192"
+
 REM --- Platform detection (OS + CPU arch), like detect_platform in the .sh ---
 set "PLATFORM_OS=windows"
 set "PLATFORM_ARCH=amd64"
@@ -122,7 +132,7 @@ goto end
 call :ensure_dirs
 call :set_dev_env
 set "WARN_WHEN_USING_OLD_API=true"
-set "NODE_OPTIONS=--trace-warnings"
+set "NODE_OPTIONS=--trace-warnings --max-old-space-size=8192"
 set "ROOT_URL=http://localhost:3000"
 call meteor run --port 3000
 goto end

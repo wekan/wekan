@@ -6,6 +6,16 @@ echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correc
 echo "       You can still use any other locale as your main locale."
 echo "Note2: Console output is also logged to ../wekan-log.txt"
 
+# Give the Meteor build tool and Node processes a larger heap so long
+# development sessions and test runs don't crash with
+# "FATAL ERROR: Ineffective mark-compacts near heap limit - JavaScript heap out
+# of memory". TOOL_NODE_FLAGS controls the Meteor command-line/build process
+# (the one that hits the limit during `meteor run`/`meteor test`/`meteor build`);
+# NODE_OPTIONS covers the child Node/rspack processes. Both default to 8 GB here
+# and honor any value you already exported. Lower it if your machine has less RAM.
+export TOOL_NODE_FLAGS="${TOOL_NODE_FLAGS:---max-old-space-size=8192}"
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=8192}"
+
 function pause(){
 	read -p "$*"
 }
@@ -338,7 +348,7 @@ do
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
                 # Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../wekan-log.txt
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../wekan-log.txt
                 #---------------------------------------------------------------------
                 break
                 ;;
