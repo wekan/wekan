@@ -69,6 +69,17 @@ Data-loss issue triage (work in progress):
   [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138).
 
+Stops-Work issue triage (work in progress):
+
+- Appear already resolved in current code; re-test requested:
+  [#1289](https://github.com/wekan/wekan/issues/1289) (card with a deleted member user — `userAvatar` now null-guards
+  missing users), [#1389](https://github.com/wekan/wekan/issues/1389) (edge-to-edge URL description — the card detail
+  now has an explicit edit control rather than relying on clicking the rendered text).
+- Needs runtime reproduction before a safe fix:
+  [#5808](https://github.com/wekan/wekan/issues/5808) (bidirectional cross-board card link makes both cards hang on open).
+- Feature request rather than a bug: [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to
+  the Admin role).
+
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
   [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. In Progress.
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
