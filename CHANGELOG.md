@@ -26,6 +26,22 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed REST API returning HTTP 500 with a stack trace for an invalid request](https://github.com/wekan/wekan/issues/5804),
+  [#5804](https://github.com/wekan/wekan/issues/5804): posting a comment without the required `comment` parameter (or
+  to a board that does not exist) returned an HTTP 500 error page. The schema-validation error thrown on insert is a
+  circular object (`SimpleSchemaValidationContext` → `SimpleSchema` → …), and serializing it crashed the response
+  writer (`Converting circular structure to JSON`). Now: the `comment` parameter is validated and a missing/empty one
+  returns **HTTP 400**; an unknown board returns **HTTP 404** (the board-access checks no longer dereference
+  `board.members` of a non-existent board); the JSON response writer is crash-proof (falls back to a safe
+  `{ "error": … }` payload instead of throwing); and REST comment errors now use their real status code instead of
+  `200`. New unit tests in `server/lib/tests/apiResponseHelpers.tests.js`.
+
+Thanks to GitHub user Atry for reporting.
+
 # v9.65 2026-06-20 WeKan ® release
 
 This release adds the following updates:

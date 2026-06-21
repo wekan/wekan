@@ -2,6 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
+import {
+  validateCommentBody,
+  httpStatusForError,
+  extractErrorMessage,
+} from '/server/lib/apiResponseHelpers';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import CardComments from '/models/cardComments';
@@ -93,8 +98,8 @@ WebApp.handlers.get('/api/boards/:boardId/cards/:cardId/comments', async functio
     });
   } catch (error) {
     sendJsonResult(res, {
-      code: 200,
-      data: error,
+      code: httpStatusForError(error),
+      data: { error: extractErrorMessage(error) },
     });
   }
 });
@@ -117,8 +122,8 @@ WebApp.handlers.get(
       });
     } catch (error) {
       sendJsonResult(res, {
-        code: 200,
-        data: error,
+        code: httpStatusForError(error),
+        data: { error: extractErrorMessage(error) },
       });
     }
   },
@@ -129,9 +134,22 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+    // Validate the required `comment` parameter before inserting. Without this
+    // an empty/missing comment reaches the schema-validated insert and throws a
+    // circular validation error that previously surfaced as HTTP 500. See #5804.
+    const validation = validateCommentBody(req.body);
+    if (!validation.valid) {
+      sendJsonResult(res, {
+        code: 400,
+        data: { error: validation.error },
+      });
+      return;
+    }
+
     const id = await CardComments.direct.insertAsync({
       userId: req.userId,
-      text: req.body.comment,
+      text: validation.comment,
       cardId: paramCardId,
       boardId: paramBoardId,
     });
@@ -151,8 +169,8 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
     await commentCreation(req.userId, cardComment);
   } catch (error) {
     sendJsonResult(res, {
-      code: 200,
-      data: error,
+      code: httpStatusForError(error),
+      data: { error: extractErrorMessage(error) },
     });
   }
 });
@@ -178,8 +196,8 @@ WebApp.handlers.delete(
       });
     } catch (error) {
       sendJsonResult(res, {
-        code: 200,
-        data: error,
+        code: httpStatusForError(error),
+        data: { error: extractErrorMessage(error) },
       });
     }
   },
