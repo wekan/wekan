@@ -43,6 +43,12 @@ This release fixes the following bugs:
   so every move wiped the card's label history (data loss in the `activities` collection). The removal/remap now only
   runs on an actual board change (comparing the pre-update `boardId` with the new value). Done:
   [commit 6382ad6a8](https://github.com/wekan/wekan/commit/6382ad6a8).
+- [Public boards did not fully load longer lists when viewed as a guest](https://github.com/wekan/wekan/issues/3897),
+  [#3897](https://github.com/wekan/wekan/issues/3897): a guest (no logged-in user) hit
+  `getCurrentUser().isBoardAdmin()` in template helpers, throwing `Cannot read property 'isBoardAdmin' of null` and
+  aborting the Tracker render so lists stopped loading partway. The helpers now use optional chaining
+  (`getCurrentUser()?.isBoardAdmin()` / `?.isWorker()`), which is falsy for guests instead of throwing. Done:
+  [commit fc0fe0b61](https://github.com/wekan/wekan/commit/fc0fe0b61).
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
   [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. In Progress.
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
