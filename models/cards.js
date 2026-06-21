@@ -3046,7 +3046,17 @@ Cards.helpers({
 //FUNCTIONS FOR creation of Activities
 
 async function updateActivities(doc, fieldNames, modifier) {
-  if (fieldNames.includes('labelIds') && fieldNames.includes('boardId')) {
+  // Only react to a real board CHANGE. This is a before.update hook, so doc is
+  // the pre-update card and modifier.$set.boardId is the new value. Card.move()
+  // always re-sets boardId (even for a move within the same board), so checking
+  // only fieldNames.includes('boardId') wrongly deleted the card's addedLabel
+  // activities on every move. See https://github.com/wekan/wekan/issues/3907
+  const boardIdChanged =
+    fieldNames.includes('boardId') &&
+    !!modifier.$set &&
+    modifier.$set.boardId !== doc.boardId;
+
+  if (fieldNames.includes('labelIds') && boardIdChanged) {
     const activities = await ReactiveCache.getActivities({
       activityType: 'addedLabel',
       cardId: doc._id,
@@ -3064,7 +3074,7 @@ async function updateActivities(doc, fieldNames, modifier) {
         await Activities.removeAsync(a._id);
       }
     }
-  } else if (fieldNames.includes('boardId')) {
+  } else if (boardIdChanged) {
     await Activities.removeAsync({
       activityType: 'addedLabel',
       cardId: doc._id,
