@@ -493,7 +493,10 @@ Meteor.methods({
       throw new Meteor.Error('error-notAuthorized');
     }
     try {
-      Lists.updateAsync(listId, { $set: { width: width, constraint: constraint } });
+      // #6409: only the shared per-board width is stored on the list. The old
+      // `constraint` (max-width) is no longer used; the param is kept for
+      // backwards compatibility with existing callers but ignored.
+      Lists.updateAsync(listId, { $set: { width: width } });
       return true;
     } catch (error) {
       console.error('Error updating list width:', error);

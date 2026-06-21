@@ -30,6 +30,19 @@ Versions:
 
 This release fixes the following bugs:
 
+- [Reworked confusing and unreliable list widths](https://github.com/wekan/wekan/issues/6409),
+  [#6409](https://github.com/wekan/wekan/issues/6409): a list now has **one** width instead of the old
+  "min width / max width / automatic" trio, and it reliably persists across reloads (the render now drives the
+  `--list-width` CSS variable the styles actually use, so a width no longer reverts to `auto` after reload).
+  A new board setting **Personal list widths** chooses the scope:
+  - **Off (default) — Shared:** the width lives on the list (`lists.width`), is the same for everyone on the board,
+    and only members with write access can change it (read-only/comment-only members no longer see the resize
+    handle). Shared widths are included in board **export/import** (the importer previously dropped `lists.width`;
+    it now preserves width, color and collapsed state, and the board's list-width scope).
+  - **On — Personal:** each user keeps their own widths (profile, or localStorage when not logged in), falling back
+    to the shared width then the default. Per-list popup is simplified to a single width value; the advanced
+    min/max and the auto-width toggle were removed. Documented in `docs/Features/Lists/Lists.md`.
+
 - `rebuild-wekan.sh` / `rebuild-wekan.bat` menu option 2 ("Build WeKan") now also clears the rspack dev-build caches
   (`_build` and `node_modules/.cache`) in addition to `node_modules` / `.meteor/local` / `.build`, so the next
   `meteor run` recompiles from scratch instead of occasionally serving stale modules after a `git` checkout/merge.

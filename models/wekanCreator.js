@@ -335,6 +335,10 @@ export class WekanCreator {
       presentParentTask: boardToImport.presentParentTask,
       // #3392: carry over the "Red Strings" dependency-overlay toggle.
       showDependencies: boardToImport.showDependencies || false,
+      // #6409: carry over the board's list-width scope (Shared vs Personal) so
+      // imported boards keep the same behaviour. Per-list widths themselves are
+      // restored from each list's `width` in createLists().
+      allowsPersonalListWidth: !!boardToImport.allowsPersonalListWidth,
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
       permission: boardToImport.permission,
@@ -693,6 +697,16 @@ export class WekanCreator {
         title: list.title,
         sort: list.sort ? list.sort : listIndex,
       };
+      // #6409: preserve per-list settings that are shared across the board.
+      if (typeof list.width === 'number' && list.width >= 100 && list.width <= 1000) {
+        listToCreate.width = list.width;
+      }
+      if (list.color) {
+        listToCreate.color = list.color;
+      }
+      if (typeof list.collapsed === 'boolean') {
+        listToCreate.collapsed = list.collapsed;
+      }
       const listId = await Lists.direct.insertAsync(listToCreate);
       await Lists.direct.updateAsync(listId, {
         $set: {

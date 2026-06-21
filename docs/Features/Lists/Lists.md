@@ -17,6 +17,32 @@
 > easily-clicked delete button and people deleted important lists by accident; that
 > was fixed.
 
+## List width
+
+Each list has a single width. You can change it in two ways:
+
+- **Drag** the resize handle on the right edge of a list, or
+- open the list menu → **Set width** and type a width in pixels (minimum 270).
+
+### Shared vs personal widths (#6409)
+
+A board setting controls who a width change affects. Open the board's
+**"Show at all boards page"** settings (board sidebar) and toggle
+**Personal list widths**:
+
+- **Off (default) — Shared:** the width is stored on the list itself
+  (`lists.width`) and is the same layout for **everyone** on the board. Only
+  members with **write access** can change it (read-only / comment-only members
+  do not see the resize handle). The width travels with the board when you
+  **export/import** it.
+- **On — Personal:** each user keeps **their own** widths (saved in their user
+  profile, or in the browser's localStorage when not logged in). A user's
+  personal width falls back to the shared width, then to the default (272 px),
+  when they have not set their own.
+
+The previous per-list "min width / max width / automatic" options were removed:
+a list now has one clear, fixed width that reliably persists across reloads.
+
 ## Related
 
 - [WIP Limits](../WipLimit/WipLimit.md)

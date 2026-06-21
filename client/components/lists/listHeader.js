@@ -512,50 +512,58 @@ Template.setListColorPopup.events({
   },
 });
 
+// #6409: the per-list width popup is now a single fixed-width value. Whether it
+// affects everyone (shared) or just the current user (personal) follows the
+// board setting `allowsPersonalListWidth`.
+function isPersonalListWidth(boardId) {
+  const board = ReactiveCache.getBoard(boardId);
+  return !!(board && board.allowsPersonalListWidth);
+}
+
 Template.setListWidthPopup.helpers({
   listWidthValue() {
     const list = Template.currentData();
-    const board = list.boardId;
-    return ReactiveCache.getCurrentUser().getListWidth(board, list._id);
-  },
-
-  listConstraintValue() {
-    const list = Template.currentData();
-    const board = list.boardId;
-    return ReactiveCache.getCurrentUser().getListConstraint(board, list._id);
-  },
-
-  isAutoWidth() {
-    const boardId = Utils.getCurrentBoardId();
+    const shared =
+      typeof list.width === 'number' && list.width >= 270 ? list.width : 272;
+    if (!isPersonalListWidth(list.boardId)) {
+      return shared;
+    }
     const user = ReactiveCache.getCurrentUser();
-    return user && user.isAutoWidth(boardId);
+    if (user) {
+      const widths = user.getListWidths();
+      const w = widths[list.boardId] && widths[list.boardId][list._id];
+      return typeof w === 'number' && w >= 270 ? w : shared;
+    }
+    return shared;
+  },
+
+  listWidthScopeNote() {
+    const list = Template.currentData();
+    return isPersonalListWidth(list.boardId)
+      ? TAPi18n.__('list-width-personal-note')
+      : TAPi18n.__('list-width-shared-note');
   },
 });
 
 Template.setListWidthPopup.events({
-  'click .js-auto-width-board'() {
-    dragscroll.reset();
-    ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
-  },
   'click .list-width-apply'(event, tpl) {
     const list = Template.currentData();
-    const board = list.boardId;
-    const width = parseInt(
-      tpl.$('.list-width-value').val(),
-      10,
-    );
-    const constraint = parseInt(
-      tpl.$('.list-constraint-value').val(),
-      10,
-    );
+    const boardId = list.boardId;
+    const width = parseInt(tpl.$('.list-width-value').val(), 10);
 
-    // FIXME(mark-i-m): where do we put constants?
-    if (width < 270 || !width || constraint < 270 || !constraint) {
+    if (!width || width < 270) {
       tpl.$('.list-width-error').click();
-    } else {
-      Meteor.call('applyListWidth', board, list._id, width, constraint);
-      Popup.back();
+      return;
     }
+    const user = ReactiveCache.getCurrentUser();
+    if (isPersonalListWidth(boardId)) {
+      if (user) {
+        Meteor.call('applyListWidthToStorage', boardId, list._id, width, width);
+      }
+    } else if (user) {
+      Meteor.call('applyListWidth', boardId, list._id, width, width);
+    }
+    Popup.back();
   },
   'click .list-width-error': Popup.open('listWidthError'),
 });

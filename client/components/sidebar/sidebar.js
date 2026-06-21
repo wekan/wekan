@@ -1125,9 +1125,31 @@ Template.boardInfoOnMyBoardsPopup.helpers({
     const tpl = Template.instance();
     return tpl.currentBoard.allowsBoardMemberList;
   },
+  allowsPersonalListWidth() {
+    const tpl = Template.instance();
+    return tpl.currentBoard.allowsPersonalListWidth;
+  },
 });
 
 Template.boardInfoOnMyBoardsPopup.events({
+  'click .js-field-has-personal-list-width'(evt, tpl) {
+    // #6409: toggle whether list widths are shared (board default, everyone
+    // sees the same) or personal (per user).
+    evt.preventDefault();
+    tpl.currentBoard.allowsPersonalListWidth = !tpl.currentBoard
+      .allowsPersonalListWidth;
+    tpl.currentBoard.setAllowsPersonalListWidth(
+      tpl.currentBoard.allowsPersonalListWidth,
+    );
+    $(`.js-field-has-personal-list-width ${MCB}`).toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsPersonalListWidth,
+    );
+    $('.js-field-has-personal-list-width').toggleClass(
+      CKCLS,
+      tpl.currentBoard.allowsPersonalListWidth,
+    );
+  },
   'click .js-field-has-cardcounterlist'(evt, tpl) {
     evt.preventDefault();
     tpl.currentBoard.allowsCardCounterList = !tpl.currentBoard

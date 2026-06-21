@@ -792,6 +792,18 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    allowsPersonalListWidth: {
+      /**
+       * List-width scope for this board (#6409).
+       * - false (default): list widths are SHARED — stored in `lists.width`,
+       *   the same layout for everyone; only members with write access may
+       *   change them.
+       * - true: list widths are PERSONAL — each user keeps their own widths in
+       *   their profile (or localStorage when not logged in).
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     allowsReceivedDateOnMinicard: {
       /**
        * Does the board allows received date on minicard?
@@ -2151,6 +2163,16 @@ Boards.helpers({
   async setRestrictCommentEditing(restrictCommentEditing) {
     return await Boards.updateAsync(this._id, {
       $set: { restrictCommentEditing: !!restrictCommentEditing },
+    });
+  },
+
+  getAllowsPersonalListWidth() {
+    return !!this.allowsPersonalListWidth;
+  },
+
+  async setAllowsPersonalListWidth(allowsPersonalListWidth) {
+    return await Boards.updateAsync(this._id, {
+      $set: { allowsPersonalListWidth: !!allowsPersonalListWidth },
     });
   },
 

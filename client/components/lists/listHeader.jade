@@ -255,14 +255,9 @@ template(name="setListWidthPopup")
     label {{_ 'set-list-width-value'}}
       p
         input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
-        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="270")
         input.list-width-apply(type="submit" value="{{_ 'apply'}}")
         input.list-width-error
-        br
-        a.js-auto-width-board(
-          title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
-          | {{#if isAutoWidth}}🗜️{{else}}📏{{/if}}
-          span {{_ 'auto-list-width'}}
+    p.list-width-scope-note {{ listWidthScopeNote }}
 
 template(name="listWidthErrorPopup")
   .list-width-invalid

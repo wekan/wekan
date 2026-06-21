@@ -7,6 +7,97 @@ require('/client/lib/jquery-ui.js')
 
 const { calculateIndex } = Utils;
 
+// ---------------------------------------------------------------------------
+// #6409 List width: a single, simple model.
+//
+//   * Each list has ONE fixed width.
+//   * SHARED mode (board default): width lives in `lists.width` and is the same
+//     for everyone; only members with board write access can change it.
+//   * PERSONAL mode (board setting `allowsPersonalListWidth`): each user keeps
+//     their own width in their profile (or localStorage when not logged in),
+//     falling back to the shared width and then the default.
+//
+// The old per-list "min width / max width / automatic" knobs are gone — the
+// rendered width is now a single hard value (see list.jade).
+// ---------------------------------------------------------------------------
+const DEFAULT_LIST_WIDTH = 272;
+const MIN_LIST_WIDTH = 270;
+
+function isPersonalListWidth(boardId) {
+  const board = ReactiveCache.getBoard(boardId);
+  return !!(board && board.allowsPersonalListWidth);
+}
+
+function readAnonListWidth(boardId, listId) {
+  try {
+    const stored = localStorage.getItem('wekan-list-widths');
+    if (stored) {
+      const widths = JSON.parse(stored);
+      const w = widths[boardId] && widths[boardId][listId];
+      if (typeof w === 'number' && w >= MIN_LIST_WIDTH) return w;
+    }
+  } catch (e) {
+    console.warn('Error reading list width from localStorage:', e);
+  }
+  return null;
+}
+
+function effectiveListWidth(list) {
+  if (!list) return DEFAULT_LIST_WIDTH;
+  const shared =
+    typeof list.width === 'number' && list.width >= MIN_LIST_WIDTH
+      ? list.width
+      : DEFAULT_LIST_WIDTH;
+  if (!isPersonalListWidth(list.boardId)) {
+    return shared;
+  }
+  const user = ReactiveCache.getCurrentUser();
+  if (user) {
+    const widths = user.getListWidths();
+    const w = widths[list.boardId] && widths[list.boardId][list._id];
+    return typeof w === 'number' && w >= MIN_LIST_WIDTH ? w : shared;
+  }
+  const w = readAnonListWidth(list.boardId, list._id);
+  return w || shared;
+}
+
+// Can the current user change THIS list's width?
+//  - personal mode: always (it only affects their own view)
+//  - shared mode: only with board write access
+function canResizeList(list) {
+  if (!list) return false;
+  if (isPersonalListWidth(list.boardId)) return true;
+  return Utils.canModifyBoard();
+}
+
+// Persist a new width to the place that matches the current board mode.
+function saveListWidth(list, width) {
+  if (!list) return;
+  const boardId = list.boardId;
+  const listId = list._id;
+  const user = ReactiveCache.getCurrentUser();
+  if (isPersonalListWidth(boardId)) {
+    if (user) {
+      Meteor.call('applyListWidthToStorage', boardId, listId, width, width);
+    } else {
+      try {
+        const stored = localStorage.getItem('wekan-list-widths');
+        const widths = stored ? JSON.parse(stored) : {};
+        if (!widths[boardId]) widths[boardId] = {};
+        widths[boardId][listId] = width;
+        localStorage.setItem('wekan-list-widths', JSON.stringify(widths));
+      } catch (e) {
+        console.warn('Error saving personal list width to localStorage:', e);
+      }
+    }
+  } else if (user) {
+    // Shared width: server also enforces board membership.
+    Meteor.call('applyListWidth', boardId, listId, width, width, error => {
+      if (error) console.error('Error saving shared list width:', error);
+    });
+  }
+}
+
 Template.list.onCreated(function () {
   this.newCardFormIsVisible = new ReactiveVar(true);
 
@@ -217,63 +308,12 @@ Template.list.onRendered(function () {
 
 Template.list.helpers({
   listWidth() {
-    const user = ReactiveCache.getCurrentUser();
-    const list = Template.currentData();
-    if (!list) return 270; // Return default width if list is not available
-
-    if (user) {
-      // For logged-in users, get from user profile
-      return user.getListWidthFromStorage(list.boardId, list._id);
-    } else {
-      // For non-logged-in users, get from localStorage
-      try {
-        const stored = localStorage.getItem('wekan-list-widths');
-        if (stored) {
-          const widths = JSON.parse(stored);
-          if (widths[list.boardId] && widths[list.boardId][list._id]) {
-            return widths[list.boardId][list._id];
-          }
-        }
-      } catch (e) {
-        console.warn('Error reading list width from localStorage:', e);
-      }
-      return 270; // Return default width if not found
-    }
+    return effectiveListWidth(Template.currentData());
   },
 
-  listConstraint() {
-    const user = ReactiveCache.getCurrentUser();
-    const list = Template.currentData();
-    if (!list) return 550; // Return default constraint if list is not available
-
-    if (user) {
-      // For logged-in users, get from user profile
-      return user.getListConstraintFromStorage(list.boardId, list._id);
-    } else {
-      // For non-logged-in users, get from localStorage
-      try {
-        const stored = localStorage.getItem('wekan-list-constraints');
-        if (stored) {
-          const constraints = JSON.parse(stored);
-          if (constraints[list.boardId] && constraints[list.boardId][list._id]) {
-            return constraints[list.boardId][list._id];
-          }
-        }
-      } catch (e) {
-        console.warn('Error reading list constraint from localStorage:', e);
-      }
-      return 550; // Return default constraint if not found
-    }
-  },
-
-  autoWidth() {
-    const user = ReactiveCache.getCurrentUser();
-    const list = Template.currentData();
-    if (!user) {
-      // For non-logged-in users, auto-width is disabled
-      return false;
-    }
-    return user.isAutoWidth(list.boardId);
+  // Whether to show the drag-resize handle for this list.
+  canResizeList() {
+    return canResizeList(Template.currentData());
   },
 
   collapsed() {
@@ -313,18 +353,12 @@ Template.list.onCreated(function () {
       return;
     }
 
-    // Helper to get autoWidth state
-    const getAutoWidth = () => {
-      const user = ReactiveCache.getCurrentUser();
-      if (!user) return false;
-      return user.isAutoWidth(list.boardId);
-    };
-
-    // Reactively show/hide resize handle based on collapse and auto-width state
+    // #6409: show the resize handle only when the list is not collapsed and the
+    // user is allowed to change this list's width (always in personal mode; only
+    // with board write access in shared mode).
     tpl.autorun(() => {
-      const isAutoWidth = getAutoWidth();
       const isCollapsed = Utils.getListCollapseState(list);
-      if (isCollapsed || isAutoWidth) {
+      if (isCollapsed || !canResizeList(list)) {
         $resizeHandle.hide();
       } else {
         $resizeHandle.show();
@@ -334,25 +368,7 @@ Template.list.onCreated(function () {
     let isResizing = false;
     let startX = 0;
     let startWidth = 0;
-    let minWidth = 270; // Minimum width matching system default
-
-    // Get listConstraint value
-    const getListConstraint = () => {
-      const user = ReactiveCache.getCurrentUser();
-      if (user) {
-        return user.getListConstraintFromStorage(list.boardId, list._id);
-      }
-      try {
-        const stored = localStorage.getItem('wekan-list-constraints');
-        if (stored) {
-          const constraints = JSON.parse(stored);
-          if (constraints[list.boardId] && constraints[list.boardId][list._id]) {
-            return constraints[list.boardId][list._id];
-          }
-        }
-      } catch (e) {}
-      return 550;
-    };
+    let minWidth = MIN_LIST_WIDTH; // Minimum width matching system default
 
     // Read the horizontal page coordinate from either a jQuery mouse event
     // or a native touch event (touchstart/move expose `touches`, touchend
@@ -412,7 +428,6 @@ Template.list.onCreated(function () {
       const currentX = getEventPageX(e);
       const deltaX = currentX - startX;
       const finalWidth = Math.max(minWidth, startWidth + deltaX);
-      const listConstraint = getListConstraint();
 
       // Ensure the final width is applied
       $list[0].style.setProperty('--list-width', `${finalWidth}px`);
@@ -429,55 +444,9 @@ Template.list.onCreated(function () {
       $('body').removeClass('list-resizing-active');
       $('body').css('user-select', '');
 
-      // Save the new width using the existing system
-      const boardId = list.boardId;
-      const listId = list._id;
-
-      if (process.env.DEBUG === 'true') {
-      }
-
-      const currentUser = ReactiveCache.getCurrentUser();
-      if (currentUser) {
-        // For logged-in users, use server method
-        Meteor.call('applyListWidthToStorage', boardId, listId, finalWidth, listConstraint, (error, result) => {
-          if (error) {
-            console.error('Error saving list width:', error);
-          } else {
-            if (process.env.DEBUG === 'true') {
-            }
-          }
-        });
-      } else {
-        // For non-logged-in users, save to localStorage directly
-        try {
-          // Save list width
-          const storedWidths = localStorage.getItem('wekan-list-widths');
-          let widths = storedWidths ? JSON.parse(storedWidths) : {};
-
-          if (!widths[boardId]) {
-            widths[boardId] = {};
-          }
-          widths[boardId][listId] = finalWidth;
-
-          localStorage.setItem('wekan-list-widths', JSON.stringify(widths));
-
-          // Save list constraint
-          const storedConstraints = localStorage.getItem('wekan-list-constraints');
-          let constraints = storedConstraints ? JSON.parse(storedConstraints) : {};
-
-          if (!constraints[boardId]) {
-            constraints[boardId] = {};
-          }
-          constraints[boardId][listId] = listConstraint;
-
-          localStorage.setItem('wekan-list-constraints', JSON.stringify(constraints));
-
-          if (process.env.DEBUG === 'true') {
-          }
-        } catch (e) {
-          console.warn('Error saving list width/constraint to localStorage:', e);
-        }
-      }
+      // #6409: persist to the shared list width or the user's personal width,
+      // depending on the board's mode.
+      saveListWidth(list, finalWidth);
 
       e.preventDefault();
     };
@@ -500,16 +469,6 @@ Template.list.onCreated(function () {
     // Prevent dragscroll interference
     $resizeHandle.on('mousedown', (e) => {
       e.stopPropagation();
-    });
-
-    // Reactively update resize handle visibility when auto-width or collapse changes
-    tpl.autorun(() => {
-      const collapsed = Utils.getListCollapseState(list);
-      if (getAutoWidth() || collapsed) {
-        $resizeHandle.hide();
-      } else {
-        $resizeHandle.show();
-      }
     });
 
     // Clean up on component destruction
