@@ -40,7 +40,7 @@ This release fixes the following bugs:
   shim (`client/lib/bsonBrowserShim.js`, imported first in `client/main.js`) that gives the browser `process` a no-op
   `getBuiltinModule`, so bson takes its intended `?? {}` fallback. New unit tests
   (`client/lib/tests/bsonBrowserShim.tests.js`); also hardened the #5686 Playwright spec to run against a rendering
-  board.
+  board. ([PR #6410](https://github.com/wekan/wekan/pull/6410))
 
 - [Fixed REST API returning HTTP 500 with a stack trace for an invalid request](https://github.com/wekan/wekan/pull/6406),
   [#5804](https://github.com/wekan/wekan/issues/5804): posting a comment without the required `comment` parameter (or
@@ -67,7 +67,7 @@ This release fixes the following bugs:
   `Utils.canModifyBoard()`; it now is, consistent with the other two, plus a defense-in-depth guard so a logged-in
   user without write access can never persist a reorder (anonymous public-board reordering via localStorage is
   unaffected). The server already enforced this; the fix stops the unauthorized drag and the console error. New
-  Playwright regression test in `tests/playwright/specs/35-list-sort-permissions.e2e.js`.
+  Playwright regression test in `tests/playwright/specs/35-list-sort-permissions.e2e.js`. ([PR #6408](https://github.com/wekan/wekan/pull/6408))
 
 Thanks to GitHub users Atry, mueller-ma and liferadioat for reporting.
 
