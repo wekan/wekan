@@ -10,6 +10,12 @@ import { defaultSwimlaneIdForBoard } from '/client/components/lists/listAddHelpe
 const { calculateIndex } = Utils;
 
 function saveSorting(ui) {
+  // #5462 (defense in depth): a logged-in user without write access must never
+  // persist a list reorder, even if a sortable was left enabled. Anonymous
+  // users on public boards fall through to the localStorage path below.
+  if (Meteor.userId() && !Utils.canModifyBoard()) {
+    return;
+  }
   // To attribute the new index number, we need to get the DOM element
   // of the previous and the following list -- if any.
   const prevListDom = ui.item.prev('.js-list').get(0);
@@ -322,6 +328,11 @@ function initSortable(boardComponent, $listsDom) {
       distance: 3,
       forcePlaceholderSize: true,
       cursor: 'move',
+      // #5462: only users with write access may reorder lists. Without this,
+      // read-only / comment-only members could drag lists, firing a server
+      // write that is denied with `403 Access denied` (and the list snaps
+      // back). The two other list sortables already gate on canModifyBoard().
+      disabled: !Utils.canModifyBoard(),
       start(evt, ui) {
         ui.helper.css('z-index', 1000);
         ui.placeholder.height(ui.helper.height());
