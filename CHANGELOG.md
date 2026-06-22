@@ -92,9 +92,12 @@ and fixes the following bugs:
   mobile an **open card could not be closed** because the card-details overlay (z-index 100) sat *below* the app
   header bar (`#header-main-bar`, z-index 1000), so the header covered the close (X) button. The full-screen mobile
   card now uses z-index 1100 — above the header, still below popups (2000+) so card menus/date pickers open over it.
-  The broader asks in the issue (denser header icons that are hard to tap, automatic mobile detection instead of a
-  manual Desktop/Mobile toggle, font sizing) are a larger responsive-design pass that needs visual iteration on real
-  devices and is **not** covered by this change.
+  Mobile header action icons were also enlarged: in the `max-width: 800px` media query the board-header buttons were
+  32px tall with a 15px font (below the comfortable ~44px touch-target / 16px readable minimum) — now 44px tall, 16px
+  font, in a 48px bar. This is a *vertical* change only, so it does not worsen the horizontal crowding of the many
+  header icons. The remaining asks (horizontal icon density, automatic mobile detection instead of the manual
+  Desktop/Mobile toggle, broader font sizing) are a larger responsive-design pass that needs visual iteration on real
+  devices and is **not** covered here.
 - [Missing voting buttons](https://github.com/wekan/wekan/issues/6420),
   [#6420](https://github.com/wekan/wekan/issues/6420): the `showVotingButtons` (and `showPlanningPokerButtons`)
   helpers in `cardDetails.js` referenced an **undefined `currentUser`** variable, so every card render threw

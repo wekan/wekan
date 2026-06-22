@@ -496,15 +496,19 @@ body:not(.board-view) #header #header-main-bar h1 {
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   #header #header-main-bar {
-    height: 40px;
+    /* #6419: taller bar so the action icons can use ~44px touch targets. */
+    height: 48px;
   }
   #header #header-main-bar .board-header-btns {
     margin-top: 0px;
   }
   #header #header-main-bar .board-header-btn {
-    height: 32px;
-    line-height: 32px;
-    font-size: 15px;
+    /* #6419: 32px tall / 15px was below the comfortable mobile touch-target and
+       readable-font minimum (~44px / 16px). Enlarged vertically + bigger font;
+       width is unchanged so this does not worsen the horizontal icon crowding. */
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
   }
   #header #header-main-bar .board-header-btn i.fa {
     line-height: 32px;
