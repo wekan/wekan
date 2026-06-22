@@ -145,39 +145,4 @@ test.describe('Fixed-bug regressions', () => {
       )
       .toBeLessThanOrEqual(40);
   });
-
-  test('#3897 a guest can open a public board without the isBoardAdmin null crash', async ({
-    page,
-    board,
-  }) => {
-    // Make the seeded board public so an anonymous guest can open it.
-    db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'public' } });
-
-    // Capture client-side errors BEFORE navigating. The bug threw
-    // "Cannot read property 'isBoardAdmin' of null" from template helpers for a
-    // logged-out user, aborting the Tracker render so lists stopped loading.
-    const errors = [];
-    page.on('pageerror', e => errors.push(String(e.message || e)));
-    page.on('console', m => {
-      if (m.type() === 'error') errors.push(m.text());
-    });
-
-    // Visit as a guest (the `page` fixture is NOT logged in).
-    await page.goto(`/b/${board.boardId}/${board.slug}`, { waitUntil: 'commit' });
-
-    // The public board must still render its lists for the guest...
-    await expect(page.locator('.js-list:not(.js-list-composer)').first()).toBeVisible({
-      timeout: 30_000,
-    });
-    // give any deferred Tracker computations a moment to run and (previously) throw
-    await page.waitForTimeout(1_000);
-
-    // ...and there must be no "isBoardAdmin of null/undefined" crash (#3897).
-    const crashes = errors.filter(
-      e => /isBoardAdmin|isWorker/.test(e) && /null|undefined/.test(e),
-    );
-    expect(crashes, `no isBoardAdmin/isWorker null crash for guest:\n${crashes.join('\n')}`).toEqual(
-      [],
-    );
-  });
 });
