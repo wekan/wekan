@@ -171,7 +171,7 @@ services:
   # Leave it unset or empty to skip migration.
   #-------------------------------------------------------------------------------------
   #wekan-migrate:
-  #  image: node:24.15.0-slim
+  #  image: node:24.17.0-slim
   #  container_name: wekan-migrate
   #  restart: "no"
   #  networks:
@@ -324,7 +324,7 @@ services:
       #- METEOR_REACTIVITY_ORDER=polling
       # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
       # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
-      # Use oplog,polling to fix performance until changeStreams is fixed at next release of Meteor 3.5 Beta:
+      # Keep oplog/polling fallback available for deployments that cannot use Change Streams:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
       - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
       - DDP_TRANSPORT=uws

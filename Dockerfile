@@ -15,9 +15,9 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 ENV \
     DEBUG=false \
     NODE_VERSION=v24.17.0 \
-    METEOR_RELEASE=METEOR@3.5-beta.12 \
+    METEOR_RELEASE=METEOR@3.5-rc.2 \
     USE_EDGE=false \
-    NPM_VERSION=11.11.0 \
+    NPM_VERSION=11.12.1 \
     SRC_PATH=./ \
     WITH_API=true \
     MONGO_OPLOG_URL="" \
