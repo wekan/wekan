@@ -226,15 +226,19 @@ test.describe('Fixed-bug regressions', () => {
       await list.locator('.js-inlined-form textarea.js-card-title').first().waitFor();
       await loggedInPage.locator('.js-inlined-form .js-card-template').first().click();
 
-      // Name the new card, search for the template, and pick it.
+      // Search for the template first. The template search is server-side; on the
+      // CI production bundle (polling reactivity, no oplog) results can take longer
+      // than the default timeout.
       await loggedInPage.locator('.js-element-title').waitFor();
-      await loggedInPage.locator('.js-element-title').fill('Instantiated Card');
       const term = loggedInPage.locator('.js-search-term-form input[name="searchTerm"]');
       await term.fill('Template');
       await term.press('Enter');
-      // The template search is server-side; on the CI production bundle (polling
-      // reactivity, no oplog) results can take longer than the default timeout.
       await loggedInPage.locator('.search-card-results .js-minicard').first().waitFor({ timeout: 30_000 });
+      // Set the new card's name *immediately before* picking the template: the
+      // search re-renders the popup, which can clear an earlier value on the slower
+      // CI bundle. The click handler reads .js-element-title and creates nothing if
+      // it is empty, which previously left the card uncreated (boardId poll → null).
+      await loggedInPage.locator('.js-element-title').fill('Instantiated Card');
       await loggedInPage.locator('.search-card-results .js-minicard').first().click();
 
       // The new card must belong to the CURRENT board (#5798), not the templates board.
