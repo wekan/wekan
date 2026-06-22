@@ -205,6 +205,21 @@ test.describe('Fixed-bug regressions', () => {
       await openBoard(loggedInPage, board.boardId, board.slug);
       await waitForMeteor(loggedInPage);
 
+      // The template picker reads the user's profile.templatesBoardId to subscribe
+      // to the templates board and search its card templates. We set that pointer
+      // directly in Mongo above; on the CI production bundle (polling reactivity)
+      // the update is not instant, so wait until the client actually sees it before
+      // opening the picker — otherwise the search subscribes to nothing and returns
+      // no results.
+      await loggedInPage.waitForFunction(
+        expected =>
+          typeof Meteor !== 'undefined' &&
+          Meteor.user() &&
+          (Meteor.user().profile || {}).templatesBoardId === expected,
+        tplBoard,
+        { timeout: 30_000 },
+      );
+
       // Open the list's add-card form, then the "template" picker.
       const list = loggedInPage.locator(`#js-list-${board.listIds[0]}`);
       await list.locator('.js-add-card.list-header-plus-top').first().click();
