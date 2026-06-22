@@ -28,6 +28,18 @@ Versions:
 
 # Upcoming WeKan ® release
 
+Updates and developer tooling:
+
+- **Updated Meteor to 3.5-rc.2** ([#6413](https://github.com/wekan/wekan/pull/6413), thanks harryadel;
+  merged in [d5be28bc2](https://github.com/wekan/wekan/commit/d5be28bc2)).
+- **rebuild-wekan.sh: run the Chromium / Firefox / WebKit Playwright matrix with or without Docker.** The
+  WebKit-only Docker support is generalized so any browser can run natively or inside the official Playwright Docker
+  image, selectable via `WEKAN_PLAYWRIGHT_DOCKER=1/0` (whole matrix) or per-browser
+  `WEKAN_CHROMIUM_DOCKER` / `WEKAN_FIREFOX_DOCKER` / `WEKAN_WEBKIT_DOCKER`. Defaults are unchanged (Chromium/Firefox
+  native, WebKit via Docker on Linux arm64). Adds an "Install Playwright browsers" menu item that does
+  `playwright install --with-deps` and/or pulls the Playwright Docker image.
+  [commit c3e6d97bd](https://github.com/wekan/wekan/commit/c3e6d97bd).
+
 This release fixes the following bugs:
 
 - [ENAMETOOLONG: very long attachment filenames could not be migrated to filesystem storage](https://github.com/wekan/wekan/issues/6412),
