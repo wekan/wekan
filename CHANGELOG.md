@@ -45,9 +45,13 @@ Versions:
     description is editable regardless of a full-width link. No code change needed.
   * LOCAL-ONLY commit: the #5874+#4255 fix is committed locally but NOT pushed — `git push origin main` was blocked by
     the harness (direct push to default branch needs explicit authorization). Push it (or open a PR) when ready.
+  * #3745 regression test: DECIDED AGAINST. The bug is a subscription-timing race (parent-card list empty only on
+    the first selection, before the board's card sub resolves). In local/CI Playwright the sub resolves in ms, so the
+    pre-fix code would usually look correct by assertion time — the test could not reliably fail on the buggy code
+    (invalid negative test) and would be flaky on the fixed code, the same class of timing E2E being quarantined. The
+    fix is pure Blaze subscription-ready gating (parentBoardReady + onReady) with no extractable logic to unit-test.
   * Quarantined E2E specs (test.fixme): #5798 (CI-only flaky), 34:120 click-outside control.
-  * NEXT STEPS when resuming: (1) push the local commit so CI runs; (2) optional: re-enable the #3745 fix's UI
-    regression test once the buried change-parent popup flow is scripted.
+  * NEXT STEPS when resuming: push the two local commits (#5874, #4255) so CI runs.
 -->
 
 This release adds the following updates and developer tooling:
