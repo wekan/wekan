@@ -30,6 +30,15 @@ Versions:
 
 Updates and developer tooling:
 
+- **rebuild-wekan.sh / rebuild-wekan.bat: multi-forge mirroring.** Two new menu options: *Install forge CLI
+  tools* (installs the gh-like CLIs `gh`, `glab`, `tea`, `git-bug`, and the unified [`forge`](https://github.com/git-pkgs/forge)
+  via the detected package manager / `go install`), and *Mirror repo GitHub → GitLab/Codeberg/Forgejo/Gitea*. The
+  mirror flow selects source + target by number (e.g. `1 3` = GitHub → Codeberg), pushes all branches/tags with
+  `git push --mirror`, then runs a cross-platform Node engine (`tools/forge-mirror.js`) that syncs only the issues and
+  pull requests **missing** at the target (driving the authenticated CLIs; de-duplicated by title; dry-run by default)
+  and converts the GitHub Actions workflow syntax for the target: an annotated `.forgejo/workflows/` copy that flags
+  the known Forgejo/Gitea incompatibilities (`hashFiles()`, `permissions:`, `continue-on-error:`, complex `runs-on:`),
+  or for GitLab a `.gitlab-ci.yml` scaffold plus a guide pointing at GitLab's official converter skill.
 - **Updated Meteor to 3.5-rc.2** ([#6413](https://github.com/wekan/wekan/pull/6413), thanks harryadel;
   merged in [d5be28bc2](https://github.com/wekan/wekan/commit/d5be28bc2)).
 - **Dependency updates** (merged the low-risk Dependabot PRs that pass build + unit tests):

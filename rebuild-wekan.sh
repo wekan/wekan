@@ -329,9 +329,146 @@ function run_playwright_single(){
 	meteor npm exec playwright test -- --project="$browser"
 }
 
+# ============================================================================
+# Multi-forge tooling (menu options below).
+#   * install_forge_tools: install gh-like CLIs (gh, glab, tea, git-bug, forge).
+#   * mirror_forge: mirror a repo from GitHub to GitLab/Codeberg/Forgejo/Gitea.
+# Code history is pushed with `git push --mirror`; issues, PRs and CI workflow
+# syntax (which git cannot carry) are handled by tools/forge-mirror.js (Node).
+# Forge registry: index = menu number - 1.
+# ============================================================================
+FORGE_NAMES=("GitHub" "GitLab" "Codeberg" "Forgejo (self-hosted)" "Gitea (self-hosted)")
+FORGE_HOST=("github.com" "gitlab.com" "codeberg.org" "" "")
+FORGE_TOOL=("gh" "glab" "tea" "tea" "tea")
+FORGE_KIND=("github" "gitlab" "codeberg" "forgejo" "gitea")
+
+function forge_list(){
+	local i
+	for i in "${!FORGE_NAMES[@]}"; do printf "  %d) %s\n" "$((i+1))" "${FORGE_NAMES[$i]}"; done
+}
+
+function install_forge_tools(){
+	echo
+	echo "Installing gh-like forge CLIs: gh, glab, tea, git-bug, forge (git-pkgs/forge)."
+	echo "Already-installed tools are skipped. Package manager is auto-detected."
+	local PM=""
+	if command -v brew >/dev/null 2>&1; then PM=brew
+	elif command -v apt  >/dev/null 2>&1; then PM=apt
+	elif command -v dnf  >/dev/null 2>&1; then PM=dnf
+	elif command -v pacman >/dev/null 2>&1; then PM=pacman
+	fi
+	echo "Detected package manager: ${PM:-none}"
+
+	# gh - GitHub CLI (source forge)
+	if command -v gh >/dev/null 2>&1; then echo "OK: gh present"
+	else case "$PM" in
+		brew) brew install gh ;;
+		dnf)  sudo dnf install -y gh ;;
+		pacman) sudo pacman -S --noconfirm github-cli ;;
+		apt)
+			type -p curl >/dev/null || sudo apt install -y curl
+			curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+			sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+			echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
+			sudo apt update && sudo apt install -y gh ;;
+		*) echo "Install gh manually: https://github.com/cli/cli#installation" ;;
+	esac; fi
+
+	# glab - GitLab CLI
+	if command -v glab >/dev/null 2>&1; then echo "OK: glab present"
+	else case "$PM" in
+		brew) brew install glab ;;
+		pacman) sudo pacman -S --noconfirm glab ;;
+		dnf) sudo dnf install -y glab || echo "If unavailable: https://gitlab.com/gitlab-org/cli/-/releases" ;;
+		apt) sudo apt install -y glab 2>/dev/null || echo "glab not in apt; .deb at https://gitlab.com/gitlab-org/cli/-/releases" ;;
+		*) echo "Install glab manually: https://gitlab.com/gitlab-org/cli#installation" ;;
+	esac; fi
+
+	# tea - Gitea/Forgejo CLI (covers Codeberg, Forgejo, Gitea)
+	if command -v tea >/dev/null 2>&1; then echo "OK: tea present"
+	elif [ "$PM" = brew ]; then brew install tea
+	elif command -v go >/dev/null 2>&1; then go install code.gitea.io/tea@latest
+	else echo "Install tea manually: https://gitea.com/gitea/tea/releases (or 'brew install tea')"; fi
+
+	# git-bug - distributed issue tracker / bridges
+	if command -v git-bug >/dev/null 2>&1; then echo "OK: git-bug present"
+	elif [ "$PM" = brew ]; then brew install git-bug
+	elif command -v go >/dev/null 2>&1; then go install github.com/git-bug/git-bug@latest
+	else echo "Install git-bug manually: https://github.com/git-bug/git-bug/releases"; fi
+
+	# forge - git-pkgs/forge unified multi-forge CLI
+	if command -v forge >/dev/null 2>&1; then echo "OK: forge present"
+	elif command -v go >/dev/null 2>&1; then
+		go install github.com/git-pkgs/forge@latest \
+			|| echo "go install failed; see https://github.com/git-pkgs/forge for the current install path"
+	else echo "Install forge manually (needs Go): https://github.com/git-pkgs/forge"; fi
+
+	echo
+	echo "Authenticate before mirroring:  gh auth login | glab auth login | tea login add"
+	command -v go >/dev/null 2>&1 && echo "Note: Go tools install to \$(go env GOPATH)/bin — ensure it is on your PATH."
+}
+
+function mirror_forge(){
+	local scriptdir; scriptdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	echo
+	echo "Mirror a repository between forges (code + issues + PRs + Actions)."
+	echo "Forges:"
+	forge_list
+	echo
+	read -p "Enter SOURCE and TARGET numbers, e.g. '1 3' (GitHub -> Codeberg): " SRC TGT
+	case "${SRC}${TGT}" in *[!12345]*|"") echo "Invalid selection."; return ;; esac
+	if [ "$SRC" = "$TGT" ]; then echo "Source and target must differ."; return; fi
+	local si=$((SRC-1)) ti=$((TGT-1))
+	echo "Source: ${FORGE_NAMES[$si]}   ->   Target: ${FORGE_NAMES[$ti]}"
+	if [ "${FORGE_TOOL[$si]}" != gh ]; then
+		echo "NOTE: automated issue/PR sync supports GitHub as SOURCE only;"
+		echo "      code mirroring + CI conversion still work for any source."
+	fi
+	read -p "Source repo (owner/name): " SREPO
+	read -p "Target repo (owner/name): " TREPO
+	if [ -z "$SREPO" ] || [ -z "$TREPO" ]; then echo "Both repos are required."; return; fi
+	local shost="${FORGE_HOST[$si]}" thost="${FORGE_HOST[$ti]}"
+	[ -z "$shost" ] && read -p "Source host (e.g. git.example.com): " shost
+	[ -z "$thost" ] && read -p "Target host (e.g. git.example.com): " thost
+
+	# 1. Code: mirror all branches + tags.
+	echo
+	read -p "Mirror code (all branches/tags) with 'git push --mirror'? [y/N] " DOCODE
+	case "$DOCODE" in [Yy]*)
+		local work; work="$(mktemp -d)"
+		echo "Cloning https://$shost/$SREPO.git (mirror) ..."
+		if git clone --mirror "https://$shost/$SREPO.git" "$work/repo.git"; then
+			echo "Pushing to https://$thost/$TREPO.git (target must exist; push credentials required) ..."
+			( cd "$work/repo.git" && git push --mirror "https://$thost/$TREPO.git" ) \
+				|| echo "Push failed — check the target repo exists and credentials are set."
+		else
+			echo "Clone failed — check the source URL/host."
+		fi
+		rm -rf "$work"
+		;;
+	esac
+
+	# 2 + 3. Issues / PRs / Actions via the Node engine (dry run first).
+	echo
+	echo "Now syncing issues + PRs (missing only) and converting CI workflows (DRY RUN)..."
+	node "$scriptdir/tools/forge-mirror.js" \
+		--source-tool "${FORGE_TOOL[$si]}" --source-repo "$SREPO" --source-host "$shost" \
+		--target-tool "${FORGE_TOOL[$ti]}" --target-repo "$TREPO" --target-host "$thost" \
+		--target-kind "${FORGE_KIND[$ti]}" --include-closed
+	echo
+	read -p "Apply the issue/PR creation at the target now (not a dry run)? [y/N] " APPLYNOW
+	case "$APPLYNOW" in [Yy]*)
+		node "$scriptdir/tools/forge-mirror.js" \
+			--source-tool "${FORGE_TOOL[$si]}" --source-repo "$SREPO" --source-host "$shost" \
+			--target-tool "${FORGE_TOOL[$ti]}" --target-repo "$TREPO" --target-host "$thost" \
+			--target-kind "${FORGE_KIND[$ti]}" --include-closed --issues --prs --apply ;;
+	esac
+	echo "Mirror flow complete."
+}
+
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -790,6 +927,16 @@ do
 				echo "OK: No unawaited board auth checks found"
 			fi
 		fi
+		break
+		;;
+
+    "Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea")
+		install_forge_tools
+		break
+		;;
+
+    "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)")
+		mirror_forge
 		break
 		;;
 

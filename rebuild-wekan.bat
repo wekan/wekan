@@ -61,7 +61,9 @@ echo  15^) Test Playwright Webkit
 echo  16^) Test Playwright ALL browsers sequentially ^(Chromium + Firefox + WebKit, one at a time^), server already running on :3000
 echo  17^) Check floating promises guard ^(@typescript-eslint/no-floating-promises + auth await scan^)
 echo  18^) Save Meteor dependency chain to ..\meteor-deps.txt
-echo  19^) Quit
+echo  19^) Install forge CLI tools ^(gh, glab, tea, git-bug, forge^) for GitHub/GitLab/Codeberg/Forgejo/Gitea
+echo  20^) Mirror repo GitHub -^> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions ^(sync missing, convert CI^)
+echo  21^) Quit
 echo ==========================================================
 set "choice="
 set /p "choice=Please enter your choice: "
@@ -84,7 +86,9 @@ if "%choice%"=="15" goto test_pw_webkit
 if "%choice%"=="16" goto test_pw_parallel
 if "%choice%"=="17" goto check_floating
 if "%choice%"=="18" goto save_deps
-if "%choice%"=="19" goto end
+if "%choice%"=="19" goto install_forge_tools
+if "%choice%"=="20" goto mirror_forge
+if "%choice%"=="21" goto end
 echo invalid option
 goto menu
 
@@ -383,8 +387,116 @@ echo Saved Meteor dependency chain to ..\meteor-deps.txt
 goto end
 
 REM ===========================================================================
+:install_forge_tools
+echo.
+echo Installing gh-like forge CLIs: gh, glab, tea, git-bug, forge ^(git-pkgs/forge^).
+echo Already-installed tools are skipped.
+set "HASWINGET="
+set "HASGO="
+where /q winget && set "HASWINGET=1"
+where /q go && set "HASGO=1"
+
+where /q gh
+if %errorlevel%==0 (
+	echo OK: gh present
+) else (
+	if defined HASWINGET ( winget install --id GitHub.cli -e --source winget ) else ( echo Install gh manually: https://github.com/cli/cli#installation )
+)
+where /q glab
+if %errorlevel%==0 (
+	echo OK: glab present
+) else (
+	if defined HASWINGET ( winget install --id GLab.GLab -e --source winget ) else ( echo Install glab manually: https://gitlab.com/gitlab-org/cli#installation )
+)
+where /q tea
+if %errorlevel%==0 (
+	echo OK: tea present
+) else (
+	if defined HASGO ( go install code.gitea.io/tea@latest ) else ( echo Install tea manually: https://gitea.com/gitea/tea/releases )
+)
+where /q git-bug
+if %errorlevel%==0 (
+	echo OK: git-bug present
+) else (
+	if defined HASGO ( go install github.com/git-bug/git-bug@latest ) else ( echo Install git-bug manually: https://github.com/git-bug/git-bug/releases )
+)
+where /q forge
+if %errorlevel%==0 (
+	echo OK: forge present
+) else (
+	if defined HASGO ( go install github.com/git-pkgs/forge@latest ) else ( echo Install forge manually ^(needs Go^): https://github.com/git-pkgs/forge )
+)
+echo.
+echo Authenticate before mirroring: gh auth login ^| glab auth login ^| tea login add
+if defined HASGO echo Note: Go tools install to %%GOPATH%%\bin - ensure it is on your PATH.
+goto end
+
+REM ===========================================================================
+:mirror_forge
+echo.
+echo Mirror a repository between forges ^(code + issues + PRs + Actions^).
+echo Forges:
+echo   1^) GitHub
+echo   2^) GitLab
+echo   3^) Codeberg
+echo   4^) Forgejo ^(self-hosted^)
+echo   5^) Gitea ^(self-hosted^)
+echo.
+set "SRC="
+set "TGT="
+set /p "FORGESEL=Enter SOURCE and TARGET numbers, e.g. 1 3 (GitHub -> Codeberg): "
+for /f "tokens=1,2" %%a in ("%FORGESEL%") do ( set "SRC=%%a" & set "TGT=%%b" )
+call :forge_props "%SRC%" S
+if not defined SNAME ( echo Invalid source number. & goto end )
+call :forge_props "%TGT%" T
+if not defined TNAME ( echo Invalid target number. & goto end )
+if "%SRC%"=="%TGT%" ( echo Source and target must differ. & goto end )
+echo Source: %SNAME%   -^>   Target: %TNAME%
+if not "%STOOL%"=="gh" echo NOTE: automated issue/PR sync supports GitHub as SOURCE only; code + CI conversion still work.
+set /p "SREPO=Source repo (owner/name): "
+set /p "TREPO=Target repo (owner/name): "
+if "%SREPO%"=="" ( echo Both repos are required. & goto end )
+if "%TREPO%"=="" ( echo Both repos are required. & goto end )
+if not defined SHOST set /p "SHOST=Source host (e.g. git.example.com): "
+if not defined THOST set /p "THOST=Target host (e.g. git.example.com): "
+
+set /p "DOCODE=Mirror code (all branches/tags) with git push --mirror? [y/N] "
+if /i not "%DOCODE%"=="y" goto forge_extras
+set "FWORK=%TEMP%\wekan-mirror-%RANDOM%"
+echo Cloning https://%SHOST%/%SREPO%.git (mirror) ...
+git clone --mirror "https://%SHOST%/%SREPO%.git" "%FWORK%\repo.git"
+echo Pushing to https://%THOST%/%TREPO%.git (target must exist; push credentials required) ...
+pushd "%FWORK%\repo.git"
+git push --mirror "https://%THOST%/%TREPO%.git"
+popd
+rmdir /s /q "%FWORK%"
+
+:forge_extras
+echo.
+echo Now syncing issues + PRs (missing only) and converting CI workflows (DRY RUN)...
+node "%REPO%\tools\forge-mirror.js" --source-tool %STOOL% --source-repo "%SREPO%" --source-host "%SHOST%" --target-tool %TTOOL% --target-repo "%TREPO%" --target-host "%THOST%" --target-kind %TKIND% --include-closed
+echo.
+set /p "APPLYNOW=Apply the issue/PR creation at the target now (not a dry run)? [y/N] "
+if /i "%APPLYNOW%"=="y" node "%REPO%\tools\forge-mirror.js" --source-tool %STOOL% --source-repo "%SREPO%" --source-host "%SHOST%" --target-tool %TTOOL% --target-repo "%TREPO%" --target-host "%THOST%" --target-kind %TKIND% --include-closed --issues --prs --apply
+echo Mirror flow complete.
+goto end
+
+REM ===========================================================================
 REM  Subroutines
 REM ===========================================================================
+:forge_props
+REM %1 = forge number, %2 = output prefix (S or T).
+REM Sets <prefix>NAME <prefix>HOST <prefix>TOOL <prefix>KIND. HOST empty = ask.
+set "_n=%~1"
+set "%2NAME="
+set "%2HOST="
+if "%_n%"=="1" ( set "%2NAME=GitHub"   & set "%2HOST=github.com"   & set "%2TOOL=gh"   & set "%2KIND=github" )
+if "%_n%"=="2" ( set "%2NAME=GitLab"   & set "%2HOST=gitlab.com"   & set "%2TOOL=glab" & set "%2KIND=gitlab" )
+if "%_n%"=="3" ( set "%2NAME=Codeberg" & set "%2HOST=codeberg.org" & set "%2TOOL=tea"  & set "%2KIND=codeberg" )
+if "%_n%"=="4" ( set "%2NAME=Forgejo"  & set "%2HOST="             & set "%2TOOL=tea"  & set "%2KIND=forgejo" )
+if "%_n%"=="5" ( set "%2NAME=Gitea"    & set "%2HOST="             & set "%2TOOL=tea"  & set "%2KIND=gitea" )
+exit /b 0
+
 :ensure_dirs
 if not exist "%REPO%\public\build-chunks" md "%REPO%\public\build-chunks"
 if not exist "%REPO%\public\build-assets" md "%REPO%\public\build-assets"
