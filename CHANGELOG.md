@@ -176,9 +176,11 @@ Data-loss issue triage (work in progress):
 Stops-Work issue triage (work in progress):
 
 - Appear already resolved in current code; re-test requested:
-  [#1289](https://github.com/wekan/wekan/issues/1289) (card with a deleted member user — `userAvatar` now null-guards
-  missing users), [#1389](https://github.com/wekan/wekan/issues/1389) (edge-to-edge URL description — the card detail
-  now has an explicit edit control rather than relying on clicking the rendered text).
+  [#1289](https://github.com/wekan/wekan/issues/1289) (card with a deleted member user) — **verified via the Playwright
+  harness**: a card whose `members`/`assignees` reference a non-existent user renders its board minicard and opens the
+  card detail with **zero console errors**, so `userAvatar` null-guards missing users correctly;
+  [#1389](https://github.com/wekan/wekan/issues/1389) (edge-to-edge URL description — the card detail now has an
+  explicit edit control rather than relying on clicking the rendered text).
 - **[#5808](https://github.com/wekan/wekan/issues/5808) (bidirectional cross-board card link makes both cards hang on
   open) — could not reproduce on current code; appears resolved.** A Playwright repro that creates two cards mutually
   linked to each other (`type: cardType-linkedCard`, each `linkedId` pointing at the other, across two boards) opens
