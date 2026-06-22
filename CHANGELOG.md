@@ -47,11 +47,13 @@ Updates and developer tooling:
   `playwright install --with-deps` and/or pulls the Playwright Docker image.
   [commit c3e6d97bd](https://github.com/wekan/wekan/commit/c3e6d97bd).
 - **E2E reliability:** the Playwright suite was red on `main` because the **rspack client JS bundle was not being
-  served** in CI — browser requests for the bundle returned the SPA HTML fallback (`Unexpected token '<'`), so Meteor
-  never initialised and all ~212 specs timed out in `waitForMeteor`. The CI E2E job now waits until
-  `http://localhost:3000/__rspack__/client-rspack.js` is actually served as JavaScript (not just that the server
-  returns HTTP 200) before running tests, and surfaces the rspack build log so a genuine build failure is diagnosable.
-  The per-spec `waitForMeteor` timeout was also raised 30s → 60s. (Confirmable only by a CI E2E run.)
+  served** by `meteor run` (dev mode) in headless CI — browser requests for the bundle returned the SPA HTML fallback
+  (`Unexpected token '<'`), so Meteor never initialised and all ~212 specs timed out in `waitForMeteor` (confirmed: a
+  CI readiness probe got an empty response from the bundle URL for 10 minutes straight). The CI E2E job now runs
+  against a **production build** (`meteor build` → `node bundle/main.js`), where the client JS is baked into the bundle
+  and served statically by the Meteor server — no rspack dev server, no chunk-serving race. The suite is also **sharded
+  2× per browser** (6 parallel jobs) to cut wall-clock time, and the per-spec `waitForMeteor` timeout was raised
+  30s → 60s. (Confirmable only by a CI E2E run.)
 - **Regression tests** for several of the fixes below, **each negative-tested** (verified to fail on the pre-fix
   code): the attachment filename truncation (#6412) has a Meteor-free Node unit test
   (`tests/filenameSanitizer.test.cjs`, `npm run test:unit:node`) plus the `meteor test` mocha test, and Playwright

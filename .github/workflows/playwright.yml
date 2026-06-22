@@ -129,59 +129,39 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.project }}
         working-directory: tests/playwright
 
-      - name: Start WeKan in background
+      - name: Build and start WeKan (production bundle)
         run: |
+          # Run E2E against a PRODUCTION build instead of `meteor run` (dev mode).
+          # In dev the client JS is served by the rspack dev server, which did not
+          # serve the bundle reliably in headless CI: the browser received HTML for
+          # the bundle ("Unexpected token '<'"), Meteor never initialised, and every
+          # spec timed out. A production build bakes the client JS into the bundle,
+          # served statically by the Meteor server at :3000.
+          meteor build ./output --directory
+          ( cd output/bundle/programs/server && npm install )
           MONGO_URL=mongodb://localhost:27017/wekan_test \
           ROOT_URL=http://localhost:3000 \
           PORT=3000 \
-          meteor run --settings settings.json > wekan-run.log 2>&1 &
-          # The first Meteor build is slow, so wait up to 20 minutes for the
-          # server to start responding before giving up.
-          for i in $(seq 1 120); do
+          node output/bundle/main.js > wekan-run.log 2>&1 &
+          # The production server serves the client JS statically, so once :3000
+          # responds the bundle is being served. Wait up to 10 minutes.
+          for i in $(seq 1 60); do
             if curl -sf http://localhost:3000 > /dev/null; then
               echo "WeKan is up after $((i * 10))s"
               break
             fi
-            echo "Waiting for WeKan... attempt $i/120"
+            echo "Waiting for WeKan... attempt $i/60"
             sleep 10
           done
           if ! curl -sf http://localhost:3000 > /dev/null; then
-            echo "WeKan failed to start. Last 200 log lines:"
-            tail -n 200 wekan-run.log
-            exit 1
-          fi
-          # The server responding 200 only means Meteor serves HTML, not that the
-          # rspack-built client JS bundle is being served yet. The tests load the
-          # app in a browser; if a client chunk request returns HTML (the SPA
-          # fallback) the bundle fails to parse ("Unexpected token '<'"), Meteor
-          # never initialises, and every spec times out. So wait until the client
-          # bundle is actually served as JavaScript before running tests.
-          echo "Waiting for the rspack client bundle to be served as JavaScript..."
-          CLIENT_URL="http://localhost:3000/__rspack__/client-rspack.js"
-          CLIENT_READY=
-          for i in $(seq 1 120); do
-            FIRST=$(curl -s "$CLIENT_URL" | head -c 1)
-            if [ -n "$FIRST" ] && [ "$FIRST" != "<" ]; then
-              echo "Client bundle served as JS after $((i * 5))s"
-              CLIENT_READY=1
-              break
-            fi
-            echo "Client bundle not ready (attempt $i/120, first byte: '${FIRST:-<empty>}')"
-            sleep 5
-          done
-          # Always surface the rspack/build status so we can see whether the build
-          # succeeded, failed, or is just slow.
-          echo "::group::rspack / client build status (wekan-run.log)"
-          grep -iE "rspack|compiled|client|bundle|error|warning|HMR|8080|webpack|module not found" wekan-run.log | tail -80 || true
-          echo "::endgroup::"
-          if [ -z "$CLIENT_READY" ]; then
-            echo "::error::Client bundle never served as JavaScript (kept returning HTML) — the browser cannot load Meteor, so all specs would time out."
-            echo "Full wekan-run.log tail:"
+            echo "WeKan failed to start. Last 250 log lines:"
             tail -n 250 wekan-run.log
             exit 1
           fi
         env:
-          DISABLE_CAPTCHA: 'true'
+          TOOL_NODE_FLAGS: --max-old-space-size=8192
+          NODE_OPTIONS: --max-old-space-size=8192
+          DISABLE_CAPTCHA: 'true' 
 
       - name: Run Playwright tests (${{ matrix.project }} shard ${{ matrix.shard }}/2)
         run: |
