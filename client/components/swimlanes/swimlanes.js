@@ -18,8 +18,16 @@ function saveSorting(ui) {
   }
   // To attribute the new index number, we need to get the DOM element
   // of the previous and the following list -- if any.
-  const prevListDom = ui.item.prev('.js-list').get(0);
-  const nextListDom = ui.item.next('.js-list').get(0);
+  // Use prevAll/nextAll (not prev/next) so non-list siblings between lists do
+  // not break neighbour detection: the lists container also renders the
+  // +addListForm composer and, when a card is open, a +cardDetails element.
+  // jQuery's .prev('.js-list') only matches an *immediately* adjacent sibling,
+  // so an interspersed composer/cardDetails made calculateIndex mis-detect the
+  // first/last position and compute a wrong sort, so the reordered list landed
+  // elsewhere and looked like it did not persist. See
+  // https://github.com/wekan/wekan/issues/5997
+  const prevListDom = ui.item.prevAll('.js-list:not(.js-list-composer)').get(0);
+  const nextListDom = ui.item.nextAll('.js-list:not(.js-list-composer)').get(0);
   const sortIndex = calculateIndex(prevListDom, nextListDom, 1);
 
   const listDomElement = ui.item.get(0);
