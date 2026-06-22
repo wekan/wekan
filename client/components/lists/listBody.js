@@ -943,7 +943,16 @@ Template.searchElementPopup.events({
       if (tpl.isTemplateSearch) {
         element.type = 'cardType-card';
         element.linkedId = '';
-        _id = await element.copy(tpl.boardId, tpl.swimlaneId, tpl.listId);
+        // #5798: instantiate the template into the CURRENT board, not the
+        // templates board. For a template search tpl.boardId is the templates
+        // board (it is the search source), so copying with it created the card
+        // with boardId = templates board. The card still showed in the target
+        // list (the list query is by listId and the templates board is
+        // subscribed), but clicking it navigated to the templates board instead
+        // of opening the card. The target list/swimlane were already resolved on
+        // the current board.
+        const targetBoardId = (Utils.getCurrentBoard() || {})._id || tpl.boardId;
+        _id = await element.copy(targetBoardId, tpl.swimlaneId, tpl.listId);
         // 1.B Linked card
       } else {
         _id = element.link(tpl.boardId, tpl.swimlaneId, tpl.listId);
