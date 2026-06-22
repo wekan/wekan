@@ -48,7 +48,7 @@ Updates and developer tooling:
   [commit c3e6d97bd](https://github.com/wekan/wekan/commit/c3e6d97bd).
 - **Regression tests** for several of the fixes below: a `meteor test` unit test for the attachment filename
   truncation (#6412), and Playwright specs (`tests/playwright/specs/36-fixed-bug-regressions.e2e.js`) for #3907,
-  #5886 and #5892 — each verified to fail on the pre-fix code.
+  #5886, #5892, #3897 and #5798 — each verified to fail on the pre-fix code (negative-tested).
 
 This release fixes the following bugs:
 
@@ -116,6 +116,11 @@ Stops-Work issue triage (work in progress):
   target list (the list renders cards by `listId` and the templates board is subscribed), but clicking it navigated to
   the templates board instead of opening the card. It is now copied into the current board. Done:
   [commit 097806984](https://github.com/wekan/wekan/commit/097806984).
+- **Creating a card from a template threw "There is no current view" and created no card.** Found while adding the
+  #5798 regression test: the searchElement popup's minicard-click handler called `tpl.getSortIndex()` (which reads
+  `Template.currentData()`) *after* `await tpl.board.getNextCardNumber()`, and Blaze's synchronous current-view context
+  is lost across an `await`. The sort index is now computed before the await. Done:
+  [commit 612ed3e51](https://github.com/wekan/wekan/commit/612ed3e51).
 - [Card activities jump to a recent date after changing the due date](https://github.com/wekan/wekan/issues/5757),
   [#5757](https://github.com/wekan/wekan/issues/5757): appears already resolved in current code (reported on v7.88).
   Activity `createdAt` is set once in the `Activities.before.insert` hook, no code path bulk-updates it, and the UI
