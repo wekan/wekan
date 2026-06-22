@@ -627,18 +627,24 @@ Template.cardDetails.helpers({
 
   showVotingButtons() {
     const card = Template.currentData();
+    // #6420: currentUser was referenced but never defined here, so the helper
+    // threw "ReferenceError: currentUser is not defined" on every card render and
+    // the voting buttons disappeared. Define it and guard the board-member call.
+    const currentUser = ReactiveCache.getCurrentUser();
     return (
-      (currentUser.isBoardMember() ||
-        (currentUser && card.voteAllowNonBoardMembers())) &&
+      currentUser &&
+      (currentUser.isBoardMember() || card.voteAllowNonBoardMembers()) &&
       !card.expiredVote()
     );
   },
 
   showPlanningPokerButtons() {
     const card = Template.currentData();
+    // #6420: same as showVotingButtons — currentUser was undefined here.
+    const currentUser = ReactiveCache.getCurrentUser();
     return (
-      (currentUser.isBoardMember() ||
-        (currentUser && card.pokerAllowNonBoardMembers())) &&
+      currentUser &&
+      (currentUser.isBoardMember() || card.pokerAllowNonBoardMembers()) &&
       !card.expiredPoker()
     );
   },

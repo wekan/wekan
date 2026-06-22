@@ -19,6 +19,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard, waitForMeteor } = require('../helpers/auth');
+const BoardPage = require('../pages/BoardPage');
 
 // Run a Meteor method / built-in collection write in the page context over DDP
 // and return { err, result }. Built-in collection methods ('/cards/update', ...)
@@ -270,5 +271,54 @@ test.describe('Fixed-bug regressions', () => {
     } finally {
       db.cleanup({ boardIds: [tplBoard] });
     }
+  });
+
+  test('#6420 voting buttons render without a currentUser ReferenceError', async ({
+    boardPage,
+    board,
+  }) => {
+    const bp = new BoardPage(boardPage);
+    const [listA] = board.listIds;
+
+    // Enable voting on the card by setting vote.question directly in Mongo.
+    db.updateOne(
+      'cards',
+      { boardId: board.boardId, title: 'Alpha Card' },
+      {
+        $set: {
+          vote: {
+            question: 'Ship it?',
+            positive: [],
+            negative: [],
+            public: false,
+            allowNonBoardMembers: false,
+          },
+        },
+      },
+    );
+
+    // #6420: showVotingButtons referenced an undefined `currentUser`, throwing
+    // "ReferenceError: currentUser is not defined" on every card render (Blaze
+    // logs it via console, not console.error), so the voting buttons never showed.
+    const crashes = [];
+    const record = text => {
+      if (/showVotingButtons|showPlanningPokerButtons|currentUser is not defined/.test(text)) {
+        crashes.push(text);
+      }
+    };
+    boardPage.on('console', m => record(m.text()));
+    boardPage.on('pageerror', e => record(String(e.message || e)));
+
+    // Reload so the card carries the vote, then open it.
+    await openBoard(boardPage, board.boardId, board.slug);
+    await waitForMeteor(boardPage);
+    await bp.clickCard(listA, 'Alpha Card');
+
+    // The voting buttons must render (the helper no longer throws)...
+    await expect(boardPage.locator('.js-vote-positive')).toBeVisible({ timeout: 15_000 });
+    await expect(boardPage.locator('.js-vote-negative')).toBeVisible();
+    await boardPage.waitForTimeout(1_000);
+    // ...with no currentUser ReferenceError (#6420).
+    expect(crashes, `voting helper must not throw:\n${crashes.join('\n')}`).toEqual([]);
   });
 });

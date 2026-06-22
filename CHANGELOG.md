@@ -87,6 +87,20 @@ This release adds the following updates and developer tooling:
 
 and fixes the following bugs:
 
+- [Responsive views still seem broken](https://github.com/wekan/wekan/issues/6419),
+  [#6419](https://github.com/wekan/wekan/issues/6419) (partial): the most concrete, "stops-work" part is fixed — on
+  mobile an **open card could not be closed** because the card-details overlay (z-index 100) sat *below* the app
+  header bar (`#header-main-bar`, z-index 1000), so the header covered the close (X) button. The full-screen mobile
+  card now uses z-index 1100 — above the header, still below popups (2000+) so card menus/date pickers open over it.
+  The broader asks in the issue (denser header icons that are hard to tap, automatic mobile detection instead of a
+  manual Desktop/Mobile toggle, font sizing) are a larger responsive-design pass that needs visual iteration on real
+  devices and is **not** covered by this change.
+- [Missing voting buttons](https://github.com/wekan/wekan/issues/6420),
+  [#6420](https://github.com/wekan/wekan/issues/6420): the `showVotingButtons` (and `showPlanningPokerButtons`)
+  helpers in `cardDetails.js` referenced an **undefined `currentUser`** variable, so every card render threw
+  `ReferenceError: currentUser is not defined` and the vote / planning-poker buttons silently disappeared. The helpers
+  now resolve `currentUser` via `ReactiveCache.getCurrentUser()` and null-guard the board-member check. Regression test
+  in `tests/playwright/specs/36-fixed-bug-regressions.e2e.js`.
 - [ENAMETOOLONG: very long attachment filenames could not be migrated to filesystem storage](https://github.com/wekan/wekan/issues/6412),
   [#6412](https://github.com/wekan/wekan/issues/6412): attachment filenames were sanitized for path traversal but
   never length-limited, so a very long name (worse with multibyte UTF-8 like German umlauts) produced an on-disk

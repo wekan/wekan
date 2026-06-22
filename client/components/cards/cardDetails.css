@@ -504,16 +504,21 @@ input[type="submit"].attachment-add-link-submit {
     inset-inline-start: 0 !important;
     inset-inline-end: 0 !important;
     bottom: 0 !important;
-    z-index: 100 !important;
+    /* #6419: the open card is a full-screen takeover on mobile, so it must sit
+       ABOVE the app header bar (#header-main-bar is z-index 1000) — otherwise the
+       header overlaps the top of the card and hides the close (X) button, making
+       it impossible to close the card. Kept below popups (z-index 2000+) so card
+       menus / date pickers still open over the card. */
+    z-index: 1100 !important;
     height: 100vh !important;
     max-height: 100vh !important;
     border-radius: 0 !important;
     box-shadow: none !important;
   }
 
-  /* Ensure card details are above everything on mobile */
+  /* Ensure card details are above the app header on mobile (#6419) */
   body.mobile-mode .card-details {
-    z-index: 100 !important;
+    z-index: 1100 !important;
     width: 100vw !important;
     inset-inline-start: 0 !important;
     inset-inline-end: 0 !important;
@@ -601,7 +606,8 @@ body.mobile-mode .card-details {
   inset-inline-start: 0 !important;
   inset-inline-end: 0 !important;
   bottom: 0 !important;
-  z-index: 100 !important;
+  /* #6419: above the app header (#header-main-bar z-index 1000), below popups. */
+  z-index: 1100 !important;
   height: 100vh !important;
   max-height: 100vh !important;
   border-radius: 0 !important;
