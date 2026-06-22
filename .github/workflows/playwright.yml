@@ -62,7 +62,7 @@ jobs:
         run: meteor test --once --driver-package meteortesting:mocha
 
   e2e-tests:
-    name: Playwright E2E (${{ matrix.project }})
+    name: Playwright E2E (${{ matrix.project }} ${{ matrix.shard }}/2)
     runs-on: ubuntu-24.04
     needs: unit-tests
     strategy:
@@ -71,6 +71,12 @@ jobs:
         # Playwright bundles Chromium, Firefox and WebKit builds that all run
         # headless on the Linux runner (installed per-job below with --with-deps).
         project: [chromium, firefox, webkit]
+        # Split each browser's ~245 specs across 2 parallel shards (6 jobs total)
+        # to cut wall-clock time. Each shard job starts its own WeKan + Mongo, so
+        # there is no shared-server contention between shards. Raise the shard
+        # count (here and in the --shard flag below) once the baseline is green
+        # and/or once E2E runs against a prebuilt bundle (cheaper per-job startup).
+        shard: [1, 2]
 
     services:
       mongodb:
@@ -177,10 +183,11 @@ jobs:
         env:
           DISABLE_CAPTCHA: 'true'
 
-      - name: Run Playwright tests (${{ matrix.project }})
+      - name: Run Playwright tests (${{ matrix.project }} shard ${{ matrix.shard }}/2)
         run: |
           npx playwright test \
             --project=${{ matrix.project }} \
+            --shard=${{ matrix.shard }}/2 \
             --reporter=github
         working-directory: tests/playwright
         env:
@@ -194,7 +201,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report-${{ matrix.project }}
+          name: playwright-report-${{ matrix.project }}-shard${{ matrix.shard }}
           path: tests/playwright/playwright-report/
           retention-days: 14
 
@@ -202,7 +209,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: test-results-${{ matrix.project }}
+          name: test-results-${{ matrix.project }}-shard${{ matrix.shard }}
           path: tests/playwright/test-results/
           retention-days: 7
 
