@@ -46,9 +46,10 @@ Updates and developer tooling:
   native, WebKit via Docker on Linux arm64). Adds an "Install Playwright browsers" menu item that does
   `playwright install --with-deps` and/or pulls the Playwright Docker image.
   [commit c3e6d97bd](https://github.com/wekan/wekan/commit/c3e6d97bd).
-- **Regression tests** for several of the fixes below: a `meteor test` unit test for the attachment filename
-  truncation (#6412), and Playwright specs (`tests/playwright/specs/36-fixed-bug-regressions.e2e.js`) for #3907,
-  #5886, #5892, #3897 and #5798 — each verified to fail on the pre-fix code (negative-tested).
+- **Regression tests** for several of the fixes below, **each negative-tested** (verified to fail on the pre-fix
+  code): the attachment filename truncation (#6412) has a Meteor-free Node unit test
+  (`tests/filenameSanitizer.test.cjs`, `npm run test:unit:node`) plus the `meteor test` mocha test, and Playwright
+  specs (`tests/playwright/specs/36-fixed-bug-regressions.e2e.js`) cover #3907, #5886, #5892, #3897 and #5798.
 
 This release fixes the following bugs:
 
