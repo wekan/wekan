@@ -81,9 +81,13 @@ Stops-Work issue triage (work in progress):
   the Admin role).
 
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
-  [#5997](https://github.com/wekan/wekan/issues/5997): reordering lists in a swimlane reverts after reload. The save
-  path (server `updateListSort` + `myLists()` ordering by `sort`) looks correct in code, so this needs runtime
-  reproduction to pin the root cause. In Progress.
+  [#5997](https://github.com/wekan/wekan/issues/5997): the server side was verified working end-to-end (a DDP call to
+  `updateListSort` reorders the `lists` collection and the `sort:1` query returns the new order), so the regression was
+  client-side. `saveSorting` read the neighbouring lists with `.prev('.js-list')` / `.next('.js-list')`, which jQuery
+  only matches when the sibling is *immediately* adjacent; the lists container also renders the add-list composer and a
+  `+cardDetails` element (when a card is open) between lists, so an interspersed non-list sibling made `calculateIndex`
+  mis-detect the first/last position and compute a wrong sort. Now uses `prevAll/nextAll('.js-list').first()`. Done:
+  [commit 1165c9b6d](https://github.com/wekan/wekan/commit/1165c9b6d).
 - [Cards made from a template link to the template itself](https://github.com/wekan/wekan/issues/5798),
   [#5798](https://github.com/wekan/wekan/issues/5798). In Progress (template instantiation).
 - [Card activities jump to a recent date after changing the due date](https://github.com/wekan/wekan/issues/5757),
