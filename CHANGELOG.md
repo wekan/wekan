@@ -149,10 +149,16 @@ and fixes the following bugs:
 
 Data-loss issue triage (work in progress):
 
+- **[#3745](https://github.com/wekan/wekan/issues/3745) (change-parent picker empty on first board selection) — root
+  cause found & fixed.** `Template.cardMorePopup`'s `cards()` helper queried `ReactiveCache.getCards({ boardId })`
+  from client minimongo the instant a board was picked, before that board's card subscription had loaded, so the
+  parent-card list was empty the first time (and worked on reopen, once the data had arrived). It now subscribes with
+  an `onReady` callback and a `parentBoardReady` reactive flag, and the list only renders once the subscription is
+  ready — the same subscription-readiness pattern as the #5798 fix. (A scripted UI repro of the deeply-nested
+  change-parent popup is still pending; the fix targets the confirmed root cause.)
 - Needs runtime reproduction before a safe fix (sort/move persistence or intermittent, no clear single root cause in
   code): [#5874](https://github.com/wekan/wekan/issues/5874) (rare partial cross-board move),
   [#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list whose cards have parents),
-  [#3745](https://github.com/wekan/wekan/issues/3745) (change-parent picker empty on first open),
   [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
   rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
   user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
@@ -173,8 +179,11 @@ Stops-Work issue triage (work in progress):
   [#1289](https://github.com/wekan/wekan/issues/1289) (card with a deleted member user — `userAvatar` now null-guards
   missing users), [#1389](https://github.com/wekan/wekan/issues/1389) (edge-to-edge URL description — the card detail
   now has an explicit edit control rather than relying on clicking the rendered text).
-- Needs runtime reproduction before a safe fix:
-  [#5808](https://github.com/wekan/wekan/issues/5808) (bidirectional cross-board card link makes both cards hang on open).
+- **[#5808](https://github.com/wekan/wekan/issues/5808) (bidirectional cross-board card link makes both cards hang on
+  open) — could not reproduce on current code; appears resolved.** A Playwright repro that creates two cards mutually
+  linked to each other (`type: cardType-linkedCard`, each `linkedId` pointing at the other, across two boards) opens
+  the card detail in ~1s with no errors and no redirect loop. The link only navigates on an explicit click of the
+  linked-card link, not on open, so there is no auto-bounce. Re-test requested on the reporter's (v7.91.0) data.
 - Feature request rather than a bug: [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to
   the Admin role).
 

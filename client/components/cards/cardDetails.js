@@ -2082,6 +2082,11 @@ Template.cardMorePopup.onCreated(function () {
   const cardId = getCardId();
   this.currentCard = Cards.findOne(cardId);
   this.parentBoard = new ReactiveVar(null);
+  // #3745: tracks whether the selected parent board's cards have finished
+  // loading. The card list stays empty until the subscription is ready, so it
+  // is no longer blank the first time another board is picked (the cards()
+  // helper queries minimongo, which was empty before the subscription arrived).
+  this.parentBoardReady = new ReactiveVar(true);
   this.parentCard = this.currentCard?.parentCard();
   if (this.parentCard) {
     const list = $('.js-field-parent-card');
@@ -2120,7 +2125,10 @@ Template.cardMorePopup.helpers({
   cards() {
     const tpl = Template.instance();
     const currentId = getCardId();
-    if (tpl.parentBoard.get()) {
+    // #3745: don't list cards until the selected board's subscription is ready,
+    // otherwise the first open shows an empty list. Depending on parentBoardReady
+    // also re-runs this helper once the data has arrived.
+    if (tpl.parentBoard.get() && tpl.parentBoardReady.get()) {
       const ret = ReactiveCache.getCards({
         boardId: tpl.parentBoard.get(),
         _id: { $ne: currentId },
@@ -2185,7 +2193,14 @@ Template.cardMorePopup.events({
     if (selection === 'none') {
       tpl.parentBoard.set(null);
     } else {
-      Meteor.subscribe('board', $(event.currentTarget).val(), false);
+      // #3745: wait for the board subscription to be ready before showing its
+      // cards, so the parent-card list is populated on the first selection.
+      tpl.parentBoardReady.set(false);
+      Meteor.subscribe('board', selection, false, {
+        onReady() {
+          tpl.parentBoardReady.set(true);
+        },
+      });
       tpl.parentBoard.set(selection);
       list.prop('disabled', false);
     }
