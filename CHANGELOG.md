@@ -60,9 +60,13 @@ Updates and developer tooling:
   (`Unexpected token '<'`), so Meteor never initialised and all ~212 specs timed out in `waitForMeteor` (confirmed: a
   CI readiness probe got an empty response from the bundle URL for 10 minutes straight). The CI E2E job now runs
   against a **production build** (`meteor build` → `node bundle/main.js`), where the client JS is baked into the bundle
-  and served statically by the Meteor server — no rspack dev server, no chunk-serving race. The suite is also **sharded
-  2× per browser** (6 parallel jobs) to cut wall-clock time, and the per-spec `waitForMeteor` timeout was raised
-  30s → 60s. (Confirmable only by a CI E2E run.)
+  and served statically by the Meteor server — no rspack dev server, no chunk-serving race. The production run also
+  needed two env vars the dev runner sets but CI did not: `WRITABLE_PATH` (without it `server/00checkStartup.js` exits
+  before listening) and `WITH_API=true` (without it every REST-API spec gets HTML instead of JSON). The suite is also
+  **sharded 2× per browser** (6 parallel jobs) to cut wall-clock time, and the per-spec `waitForMeteor` timeout was
+  raised 30s → 60s. **Confirmed:** the suite went from *0 tests running* (all timed out) to ~**119/120 passing per
+  shard**; a handful of pre-existing specs (sort-cards, RTL/LTR layout, template-container delete, checklist
+  click-outside, and the #5798 template-card regression) are being triaged individually.
 - **Regression tests** for several of the fixes below, **each negative-tested** (verified to fail on the pre-fix
   code): the attachment filename truncation (#6412) has a Meteor-free Node unit test
   (`tests/filenameSanitizer.test.cjs`, `npm run test:unit:node`) plus the `meteor test` mocha test, and Playwright
