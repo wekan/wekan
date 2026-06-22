@@ -145,4 +145,38 @@ test.describe('Fixed-bug regressions', () => {
       )
       .toBeLessThanOrEqual(40);
   });
+
+  test('#3897 a guest can open a public board without the isBoardAdmin null crash', async ({
+    page,
+    board,
+  }) => {
+    // Make the seeded board public so an anonymous guest can open it.
+    db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'public' } });
+
+    // Capture client errors BEFORE navigating. Blaze logs a thrown template
+    // helper as an "Exception from Tracker afterFlush" via console.LOG (not
+    // console.error) and as a pageerror — capture every console type so the
+    // "Cannot read properties of null (reading 'isBoardAdmin')" crash is seen.
+    const crashes = [];
+    const record = text => {
+      if (/isBoardAdmin|isWorker/.test(text) && /null|undefined|Cannot read/.test(text)) {
+        crashes.push(text);
+      }
+    };
+    page.on('console', m => record(m.text()));
+    page.on('pageerror', e => record(String(e.message || e)));
+
+    // Visit as a guest (the `page` fixture is NOT logged in).
+    await page.goto(`/b/${board.boardId}/${board.slug}`, { waitUntil: 'commit' });
+
+    // The public board must still render its lists for the guest...
+    await expect(page.locator('.js-list:not(.js-list-composer)').first()).toBeVisible({
+      timeout: 30_000,
+    });
+    // ...let any deferred Tracker computations run (this is where it threw)...
+    await page.waitForTimeout(2_000);
+
+    // ...with no "isBoardAdmin/isWorker of null" crash (#3897).
+    expect(crashes, `guest render must not throw on a null user:\n${crashes.join('\n')}`).toEqual([]);
+  });
 });
