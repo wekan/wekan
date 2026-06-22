@@ -142,10 +142,15 @@ jobs:
           # WeKan's server/00checkStartup.js refuses to start unless WRITABLE_PATH
           # (used for attachment/file storage) is set and writable.
           mkdir -p "$PWD/wekan-writable"
+          # Match the env the dev runner (rebuild-wekan.sh) and the specs expect:
+          # WITH_API enables the REST API (specs 17/23/24/28), comment-editor
+          # flag matches dev.
           MONGO_URL=mongodb://localhost:27017/wekan_test \
           ROOT_URL=http://localhost:3000 \
           PORT=3000 \
           WRITABLE_PATH="$PWD/wekan-writable" \
+          WITH_API=true \
+          RICHER_CARD_COMMENT_EDITOR=false \
           node output/bundle/main.js > wekan-run.log 2>&1 &
           # The production server serves the client JS statically, so once :3000
           # responds the bundle is being served. Wait up to 10 minutes.
