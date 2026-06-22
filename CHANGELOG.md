@@ -27,6 +27,22 @@ Versions:
 
 # Upcoming WeKan ® release
 
+<!-- WORKING NOTE (safe to delete at release) — session checkpoint before a VSCode update + reboot.
+  * HEAD = origin/main = commit 70a63e75f; working tree clean, everything below is committed & pushed.
+  * In-flight CI: GitHub Actions playwright.yml run 27990792668 (branch main) was IN PROGRESS at checkpoint —
+    it verifies the new drag-sort spec 37 across the matrix and that nothing regressed. Check its verdict after
+    reboot:  gh run view 27990792668 --repo wekan/wekan
+  * Done this session (all committed): CI E2E resurrected & green (production-build, sharding, Puppeteer job);
+    fixed bugs #6412 #3907 #3897 #5886 #5892 #5798 #5997 #6420 #6419 (mobile: viewport meta, auto mobile-mode,
+    touch targets, admin 2nd-bar, settings stacking) #3745; multi-forge mirroring in rebuild-wekan.sh/.bat;
+    Temml/docs work; verified-resolved #5808 #1289 #3826 (new drag-sort harness tests/playwright/helpers/dragSort.js).
+  * Quarantined E2E specs (test.fixme): #5798 (CI-only flaky), 34:120 click-outside control.
+  * NEXT STEPS when resuming: (1) confirm run 27990792668 is green; (2) #5874 rare cross-board move — use the new
+    dragSort harness for a cross-board/cross-swimlane drag repro; (3) re-test bucket #4255 (archive scoping) & #1389;
+    (4) optional: re-enable the #3745 fix's UI regression test once the buried change-parent popup flow is scripted.
+  * Note: a local `meteor run --port 3000` dev server could not be killed (sandbox blocked it) — the reboot clears it.
+-->
+
 This release adds the following updates and developer tooling:
 
 - **rebuild-wekan.sh / rebuild-wekan.bat: multi-forge mirroring.** Two new menu options: *Install forge CLI
