@@ -156,9 +156,14 @@ Data-loss issue triage (work in progress):
   an `onReady` callback and a `parentBoardReady` reactive flag, and the list only renders once the subscription is
   ready — the same subscription-readiness pattern as the #5798 fix. (A scripted UI repro of the deeply-nested
   change-parent popup is still pending; the fix targets the confirmed root cause.)
+- **[#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list whose cards have parents) —
+  could not reproduce; appears resolved.** Built a **drag-sort reproduction harness** (`tests/playwright/helpers/dragSort.js`)
+  that drives jQuery-UI sortable with a realistic stepped mouse gesture (Playwright's `dragTo()` does not trigger it),
+  and a regression spec (`tests/playwright/specs/37-card-drag-sort.e2e.js`). Dragging a sub-task card (one with a
+  `parentId`) to a new position in its list **persists** the new order both with a few cards and at 15 cards — it does
+  not revert. The harness also unblocks future drag-sort bug investigation (e.g. #5874).
 - Needs runtime reproduction before a safe fix (sort/move persistence or intermittent, no clear single root cause in
   code): [#5874](https://github.com/wekan/wekan/issues/5874) (rare partial cross-board move),
-  [#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list whose cards have parents),
   [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
   rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
   user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
