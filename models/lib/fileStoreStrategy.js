@@ -43,7 +43,7 @@ const MAX_FILENAME_BYTES = 200;
  * @param {number} maxBytes
  * @return {string} the (possibly) shortened filename
  */
-function truncateFilenameToBytes(filename, maxBytes) {
+export function truncateFilenameToBytes(filename, maxBytes) {
   if (Buffer.byteLength(filename, 'utf8') <= maxBytes) {
     return filename;
   }
@@ -74,7 +74,7 @@ function truncateFilenameToBytes(filename, maxBytes) {
  * @param {string} filename - User-provided filename
  * @return {string} Sanitized filename safe for filesystem operations
  */
-function sanitizeFilename(filename) {
+export function sanitizeFilename(filename) {
   if (!filename || typeof filename !== 'string') {
     return 'unnamed';
   }
