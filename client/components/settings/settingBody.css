@@ -278,3 +278,50 @@ li.has-error .form-group .wekan-form-control {
   width: 120px;
   min-width: 120px;
 }
+
+/* #6419: on phones the admin settings forced a side-by-side menu+content layout
+   (flex-direction: row "even on narrow windows"), so the ~127px side menu and the
+   content were crammed together and the long (e.g. Finnish) menu labels overflowed
+   the menu box rightward, visually overlapping the content. Stack them on small
+   screens: a full-width compact menu on top, full-width content below. */
+@media screen and (max-width: 800px) {
+  .setting-content {
+    position: relative;
+    height: auto;
+    min-height: 100%;
+  }
+  .setting-content .content-body {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 8px;
+    height: auto;
+    padding-top: 1vh;
+  }
+  .setting-content .content-body .side-menu {
+    width: 100%;
+    flex: 0 0 auto;
+    border-radius: 6px;
+  }
+  /* Menu items as a wrapping horizontal row so the menu stays compact on top. */
+  .setting-content .content-body .side-menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+  }
+  .setting-content .content-body .side-menu ul li {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+  .setting-content .content-body .side-menu ul li a {
+    width: auto;
+    white-space: nowrap;
+    padding: 10px 12px;
+  }
+  .setting-content .content-body .main-body {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 60vh;
+    overflow-x: auto !important;
+  }
+}

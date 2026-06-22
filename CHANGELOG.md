@@ -116,6 +116,11 @@ and fixes the following bugs:
   Reports / Attachments / Translation / Info) are rendered inside `#header-quick-access`, whose mobile rules scale all
   text/icons 2× — so the admin tabs rendered at 28px text / **56px icons**, huge and overlapping the "Version" label.
   A scoped override caps them at a normal touch size (15px text / 18px icons).
+  And fixed **overlapping text in the Admin Panel settings body** on phones: the layout forced a side-by-side
+  menu+content row "even on narrow windows", so the ~127px side menu and the content were crammed together and the long
+  (e.g. Finnish) section labels overflowed the menu box rightward, visually overlapping the content. On small screens
+  the layout now **stacks** — a full-width compact section menu on top, full-width settings content below — verified via
+  iPhone-profile screenshots.
 - [Missing voting buttons](https://github.com/wekan/wekan/issues/6420),
   [#6420](https://github.com/wekan/wekan/issues/6420): the `showVotingButtons` (and `showPlanningPokerButtons`)
   helpers in `cardDetails.js` referenced an **undefined `currentUser`** variable, so every card render threw
