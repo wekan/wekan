@@ -49,3 +49,30 @@
   float: none;
   margin: 2px 0;
 }
+
+/* #6419: the admin panel's 2nd top bar (settingHeaderBar) is rendered inside
+   #header-quick-access, whose mobile rules scale ALL text/icons 2x
+   (`#header-quick-access * { font-size: inherit }` + `.fa { font-size: 2em }`).
+   That made the admin tab buttons 28px text / 56px icons — huge, overlapping the
+   "Version" label and the content below. Cap them at a normal touch size on small
+   screens. Selectors are more specific than the 2em rules (and repeated for the
+   .iphone-device JS-detection fallback) so they win. */
+@media screen and (max-width: 800px) {
+  #header-quick-access .setting-header-btns .setting-header-btn,
+  #header #header-main-bar .setting-header-btns .setting-header-btn,
+  #header-quick-access .setting-header-btns .setting-header-btn span,
+  #header #header-main-bar .setting-header-btns .setting-header-btn span {
+    font-size: 15px !important;
+  }
+  #header-quick-access .setting-header-btns .setting-header-btn i.fa,
+  #header #header-main-bar .setting-header-btns .setting-header-btn i.fa {
+    font-size: 18px !important;
+  }
+}
+.iphone-device #header-quick-access .setting-header-btns .setting-header-btn,
+.iphone-device #header-quick-access .setting-header-btns .setting-header-btn span {
+  font-size: 15px !important;
+}
+.iphone-device #header-quick-access .setting-header-btns .setting-header-btn i.fa {
+  font-size: 18px !important;
+}

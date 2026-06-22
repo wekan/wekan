@@ -112,6 +112,10 @@ and fixes the following bugs:
   is the same class of UA-detection fragility this rewrite avoids), and a `matchMedia` listener now re-applies
   mobile-mode on resize/orientation when the user has no explicit preference. Net: phones auto-detect mobile mode at
   the correct device width, with large tappable icons, no manual toggle.
+  Also fixed the **Admin Panel's secondary top bar** in small-width mode: those tab buttons (Settings / People /
+  Reports / Attachments / Translation / Info) are rendered inside `#header-quick-access`, whose mobile rules scale all
+  text/icons 2× — so the admin tabs rendered at 28px text / **56px icons**, huge and overlapping the "Version" label.
+  A scoped override caps them at a normal touch size (15px text / 18px icons).
 - [Missing voting buttons](https://github.com/wekan/wekan/issues/6420),
   [#6420](https://github.com/wekan/wekan/issues/6420): the `showVotingButtons` (and `showPlanningPokerButtons`)
   helpers in `cardDetails.js` referenced an **undefined `currentUser`** variable, so every card render threw
