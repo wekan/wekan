@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import {
   truncateFilenameToBytes,
   sanitizeFilename,
-} from '/models/lib/fileStoreStrategy';
+} from '/models/lib/filenameSanitizer';
 
 // Regression tests for #6412: very long attachment filenames produced an on-disk
 // "<id>-<version>-<name>" component longer than the filesystem's 255-byte limit
