@@ -28,7 +28,7 @@ Versions:
 
 # Upcoming WeKan ® release
 
-Updates and developer tooling:
+This release adds the following updates and developer tooling:
 
 - **rebuild-wekan.sh / rebuild-wekan.bat: multi-forge mirroring.** Two new menu options: *Install forge CLI
   tools* (installs the gh-like CLIs `gh`, `glab`, `tea`, `git-bug`, and the unified [`forge`](https://github.com/git-pkgs/forge)
@@ -83,7 +83,7 @@ Updates and developer tooling:
   (`tests/filenameSanitizer.test.cjs`, `npm run test:unit:node`) plus the `meteor test` mocha test, and Playwright
   specs (`tests/playwright/specs/36-fixed-bug-regressions.e2e.js`) cover #3907, #5886, #5892, #3897 and #5798.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [ENAMETOOLONG: very long attachment filenames could not be migrated to filesystem storage](https://github.com/wekan/wekan/issues/6412),
   [#6412](https://github.com/wekan/wekan/issues/6412): attachment filenames were sanitized for path traversal but
@@ -104,6 +104,7 @@ This release fixes the following bugs:
   aborting the Tracker render so lists stopped loading partway. The helpers now use optional chaining
   (`getCurrentUser()?.isBoardAdmin()` / `?.isWorker()`), which is falsy for guests instead of throwing. Done:
   [commit fc0fe0b61](https://github.com/wekan/wekan/commit/fc0fe0b61).
+
 Data-loss issue triage (work in progress):
 
 - Needs runtime reproduction before a safe fix (sort/move persistence or intermittent, no clear single root cause in
