@@ -937,3 +937,20 @@
 .desktop-mode .board-header .board-header-btn i {
   font-size: clamp(12px, 2.5vw, 16px) !important;
 }
+
+/* #6419: make the board-header action buttons touch-friendly by VIEWPORT WIDTH,
+   not only when the mobile-mode class is toggled. The measured default at a phone
+   width was 28px tall / 13px font (too small to tap reliably). Enlarge vertically
+   + bump the icon/font; width is left to flex so the existing horizontal layout
+   is unchanged. Applies on real phones whether or not mobile-mode auto-applied. */
+@media screen and (max-width: 800px) {
+  .board-header-btns .board-header-btn {
+    min-height: 40px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 15px;
+  }
+  .board-header-btns .board-header-btn i.fa {
+    font-size: 16px;
+  }
+}

@@ -92,12 +92,15 @@ and fixes the following bugs:
   mobile an **open card could not be closed** because the card-details overlay (z-index 100) sat *below* the app
   header bar (`#header-main-bar`, z-index 1000), so the header covered the close (X) button. The full-screen mobile
   card now uses z-index 1100 — above the header, still below popups (2000+) so card menus/date pickers open over it.
-  Mobile header action icons were also enlarged: in the `max-width: 800px` media query the board-header buttons were
-  32px tall with a 15px font (below the comfortable ~44px touch-target / 16px readable minimum) — now 44px tall, 16px
-  font, in a 48px bar. This is a *vertical* change only, so it does not worsen the horizontal crowding of the many
-  header icons. The remaining asks (horizontal icon density, automatic mobile detection instead of the manual
-  Desktop/Mobile toggle, broader font sizing) are a larger responsive-design pass that needs visual iteration on real
-  devices and is **not** covered here.
+  Mobile header action icons were also enlarged and **verified on a real iPhone profile via Playwright screenshots**
+  (`tests/playwright/mobile-shot.js`): the top bar and the board action bar buttons were only ~28–32px tall with a
+  13–15px font (below the comfortable ~44px touch-target / 16px readable minimum). They are now ~44px tall with a 16px
+  font, applied **by viewport width** (`@media (max-width: 800px)`) so they work on any phone without toggling
+  Desktop/Mobile mode — the board header renders as a clean single row of large, icon-only buttons. A noted-but-not-yet
+  fixed gap: `getMobileMode()` did not actually add `body.mobile-mode` even with an iPhone user agent in testing, so
+  the `.mobile-mode` CSS is effectively dead on the board view and only the width-based `@media` rules apply; the
+  width-based path is now the one being improved. The remaining asks (further horizontal icon density / automatic
+  mobile-mode application, broader font sizing) are a larger responsive pass.
 - [Missing voting buttons](https://github.com/wekan/wekan/issues/6420),
   [#6420](https://github.com/wekan/wekan/issues/6420): the `showVotingButtons` (and `showPlanningPokerButtons`)
   helpers in `cardDetails.js` referenced an **undefined `currentUser`** variable, so every card render threw
