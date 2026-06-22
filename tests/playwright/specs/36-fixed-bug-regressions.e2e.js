@@ -238,11 +238,15 @@ test.describe('Fixed-bug regressions', () => {
       await loggedInPage.locator('.search-card-results .js-minicard').first().click();
 
       // The new card must belong to the CURRENT board (#5798), not the templates board.
+      // The copy is an async server method; allow time on the CI production bundle.
       await expect
-        .poll(async () => {
-          const c = db.findOne('cards', { title: 'Instantiated Card' }, { boardId: 1 });
-          return c ? c.boardId : null;
-        })
+        .poll(
+          async () => {
+            const c = db.findOne('cards', { title: 'Instantiated Card' }, { boardId: 1 });
+            return c ? c.boardId : null;
+          },
+          { timeout: 30_000 },
+        )
         .toBe(board.boardId);
       expect(
         db.findOne('cards', { boardId: tplBoard, title: 'Instantiated Card' }, { _id: 1 }),

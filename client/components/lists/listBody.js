@@ -957,7 +957,16 @@ Template.searchElementPopup.events({
         // subscribed), but clicking it navigated to the templates board instead
         // of opening the card. The target list/swimlane were already resolved on
         // the current board.
-        const targetBoardId = (Utils.getCurrentBoard() || {})._id || tpl.boardId;
+        // Instantiate into the board that OWNS the target list (where the user
+        // clicked "add card"). Deriving it from tpl.listId is reliable even when
+        // Utils.getCurrentBoard() (route/session state) has not settled yet — as
+        // on the slower CI production bundle, where falling back to tpl.boardId
+        // wrongly created the card on the templates board.
+        const targetList = ReactiveCache.getList(tpl.listId);
+        const targetBoardId =
+          (targetList || {}).boardId ||
+          (Utils.getCurrentBoard() || {})._id ||
+          tpl.boardId;
         _id = await element.copy(targetBoardId, tpl.swimlaneId, tpl.listId);
         // 1.B Linked card
       } else {
