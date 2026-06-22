@@ -253,27 +253,40 @@ jobs:
       - name: Install Chromium
         run: sudo apt-get install -y chromium-browser
 
-      - name: Start WeKan in background
+      - name: Build and start WeKan (production bundle)
         run: |
+          # Run a PRODUCTION build, not `meteor run` (dev): exactly like the
+          # Playwright e2e job, because the rspack dev server does not serve the
+          # client JS bundle in headless CI, so Meteor never initialises and the
+          # puppeteer regression test times out in waitForMeteorGlobals(). The
+          # production bundle serves the client statically. WRITABLE_PATH is
+          # required by server/00checkStartup.js; WITH_API mirrors the dev runner.
+          meteor build ./output --directory
+          ( cd output/bundle/programs/server && npm install )
+          mkdir -p "$PWD/wekan-writable"
           MONGO_URL=mongodb://localhost:27017/wekan_regression \
           ROOT_URL=http://localhost:3000 \
           PORT=3000 \
-          meteor run > wekan-run.log 2>&1 &
-          # The first Meteor build is slow, so wait up to 20 minutes.
-          for i in $(seq 1 120); do
+          WRITABLE_PATH="$PWD/wekan-writable" \
+          WITH_API=true \
+          RICHER_CARD_COMMENT_EDITOR=false \
+          node output/bundle/main.js > wekan-run.log 2>&1 &
+          for i in $(seq 1 60); do
             if curl -sf http://localhost:3000 > /dev/null; then
               echo "WeKan is up after $((i * 10))s"
               break
             fi
-            echo "Waiting for WeKan... attempt $i/120"
+            echo "Waiting for WeKan... attempt $i/60"
             sleep 10
           done
           if ! curl -sf http://localhost:3000 > /dev/null; then
-            echo "WeKan failed to start. Last 200 log lines:"
-            tail -n 200 wekan-run.log
+            echo "WeKan failed to start. Last 250 log lines:"
+            tail -n 250 wekan-run.log
             exit 1
           fi
         env:
+          TOOL_NODE_FLAGS: --max-old-space-size=8192
+          NODE_OPTIONS: --max-old-space-size=8192
           DISABLE_CAPTCHA: 'true'
 
       - name: Run list-regressions e2e
