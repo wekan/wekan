@@ -95,7 +95,14 @@ Stops-Work issue triage (work in progress):
   the templates board instead of opening the card. It is now copied into the current board. Done:
   [commit 097806984](https://github.com/wekan/wekan/commit/097806984).
 - [Card activities jump to a recent date after changing the due date](https://github.com/wekan/wekan/issues/5757),
-  [#5757](https://github.com/wekan/wekan/issues/5757). In Progress (activity timestamps).
+  [#5757](https://github.com/wekan/wekan/issues/5757): appears already resolved in current code (reported on v7.88).
+  Activity `createdAt` is set once in the `Activities.before.insert` hook, no code path bulk-updates it, and the UI
+  renders `activity.createdAt` directly — so changing a due date inserts one new `a-dueAt` activity and cannot re-date
+  existing activities. Re-test requested.
+- [Linking two cards to each other across boards makes both inaccessible](https://github.com/wekan/wekan/issues/5808)
+  and [intermittent partial cross-board move](https://github.com/wekan/wekan/issues/5874): both need runtime
+  reproduction in a browser to pin down (this build environment is ARM and cannot run the bundled Chromium), so they
+  are left In Progress with their findings rather than a guessed fix.
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
   [#5892](https://github.com/wekan/wekan/issues/5892): the list-width rework (#6409) added a persistent
   `.list[style*="--list-width"] { width: … !important }` rule that overrode the 30px collapsed width, so a list with a
