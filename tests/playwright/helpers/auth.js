@@ -93,7 +93,10 @@ async function waitForMeteor(page) {
     () =>
       typeof Meteor !== 'undefined' &&
       typeof Meteor.subscribe !== 'undefined',
-    { timeout: 30_000 },
+    // Generous: the client bundle is large and slower browsers (Firefox/WebKit)
+    // under CI load can take a while to execute it even after globalSetup warms
+    // the server. See the globalSetup warm-up in global-setup.js.
+    { timeout: 60_000 },
   );
 }
 
