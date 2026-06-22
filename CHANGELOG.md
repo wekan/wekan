@@ -27,20 +27,20 @@ Versions:
 
 # Upcoming WeKan ® release
 
-<!-- WORKING NOTE (safe to delete at release) — session checkpoint before a VSCode update + reboot.
-  * HEAD = origin/main = commit 70a63e75f; working tree clean, everything below is committed & pushed.
-  * In-flight CI: GitHub Actions playwright.yml run 27990792668 (branch main) was IN PROGRESS at checkpoint —
-    it verifies the new drag-sort spec 37 across the matrix and that nothing regressed. Check its verdict after
-    reboot:  gh run view 27990792668 --repo wekan/wekan
+<!-- WORKING NOTE (safe to delete at release) — session checkpoint.
+  * Post-reboot CI: the checkpoint's Playwright run (27991369019) came back FULLY GREEN across the whole matrix
+    (chromium/firefox/webkit, both shards) + Meteor unit + Puppeteer. The previous run's two "X" jobs were just
+    cancellations from the checkpoint push superseding it, not failures. CI E2E is healthy on main.
   * Done this session (all committed): CI E2E resurrected & green (production-build, sharding, Puppeteer job);
     fixed bugs #6412 #3907 #3897 #5886 #5892 #5798 #5997 #6420 #6419 (mobile: viewport meta, auto mobile-mode,
-    touch targets, admin 2nd-bar, settings stacking) #3745; multi-forge mirroring in rebuild-wekan.sh/.bat;
+    touch targets, admin 2nd-bar, settings stacking) #3745 #5874; multi-forge mirroring in rebuild-wekan.sh/.bat;
     Temml/docs work; verified-resolved #5808 #1289 #3826 (new drag-sort harness tests/playwright/helpers/dragSort.js).
+  * #5874 (data loss, cross-board move) FIXED this session: server-side Cards.before.update guard
+    enforceCardBoardConsistency rewrites a moved card's swimlane/list to belong to the destination board; pure logic
+    in models/lib/cardBoardConsistency.js + Node unit test tests/cardBoardConsistency.test.cjs (npm run test:unit:node).
   * Quarantined E2E specs (test.fixme): #5798 (CI-only flaky), 34:120 click-outside control.
-  * NEXT STEPS when resuming: (1) confirm run 27990792668 is green; (2) #5874 rare cross-board move — use the new
-    dragSort harness for a cross-board/cross-swimlane drag repro; (3) re-test bucket #4255 (archive scoping) & #1389;
-    (4) optional: re-enable the #3745 fix's UI regression test once the buried change-parent popup flow is scripted.
-  * Note: a local `meteor run --port 3000` dev server could not be killed (sandbox blocked it) — the reboot clears it.
+  * NEXT STEPS when resuming: (1) re-test bucket #4255 (archive scoping) & #1389; (2) optional: re-enable the #3745
+    fix's UI regression test once the buried change-parent popup flow is scripted.
 -->
 
 This release adds the following updates and developer tooling:
@@ -103,6 +103,26 @@ This release adds the following updates and developer tooling:
 
 and fixes the following bugs:
 
+- [Weird moving card bug — cross-board move could silently lose a card](https://github.com/wekan/wekan/issues/5874),
+  [#5874](https://github.com/wekan/wekan/issues/5874) (data loss): rarely, moving a card from board A to board B left
+  it in a **corrupt half-moved state** — the card's `boardId` became B but its `listId`/`swimlaneId` still belonged to
+  board A. The reporter saw exactly this: the card existed in board B's JSON but with board A's list/swimlane, so it
+  was invisible in every normal view on both boards and clicking its link reopened board A. **Root cause:** the
+  Move/Copy-card dialog resolves the destination board's swimlanes and lists from the *client* Minimongo cache, which
+  can still be empty at the moment the user clicks "Done" — the destination board's `publishComposite('board')` data
+  has not finished merging — so the dialog keeps the *source* board's `swimlaneId`/`listId` while the `boardId` is
+  already the destination. (`setFirstSwimlaneId()`/`setFirstListId()` swallow the lookup miss in a silent
+  `try/catch`, leaving the stale ids in place.) Several other callers — drag reorder, multi-card move in the filter
+  sidebar, board-action rules, the REST API — can in principle produce the same mismatch. **Fix:** a new server-side
+  `Cards.before.update` guard (`enforceCardBoardConsistency`, registered first so the corrected modifier is what every
+  later hook and the persisted write see) runs whenever a card's `boardId` changes and rewrites the pending update so
+  the swimlane/list always belong to the destination board, falling back to that board's default swimlane and first
+  list when they don't. It runs on the server, where the destination board's swimlanes/lists are always present
+  regardless of client cache state, and is **corrective only** — a cross-board move whose targets already belong to the
+  destination board is left untouched, and a same-board reorder is ignored. The decision logic was extracted into a
+  pure, dependency-injected module (`models/lib/cardBoardConsistency.js`) with a Meteor-free Node unit test
+  (`tests/cardBoardConsistency.test.cjs`, `npm run test:unit:node`), including a **negative test** asserting that the
+  raw unguarded modifier is exactly the #5874 corrupt state.
 - [Responsive views still seem broken](https://github.com/wekan/wekan/issues/6419),
   [#6419](https://github.com/wekan/wekan/issues/6419) (partial): the most concrete, "stops-work" part is fixed — on
   mobile an **open card could not be closed** because the card-details overlay (z-index 100) sat *below* the app

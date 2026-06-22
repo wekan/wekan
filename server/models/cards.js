@@ -22,6 +22,7 @@ import Cards, {
   cardMove,
   cardRemover,
   cardState,
+  enforceCardBoardConsistency,
   updateActivities,
 } from '/models/cards';
 import Lists from '/models/lists';
@@ -528,6 +529,13 @@ Cards.after.update(async function(userId, doc, fieldNames) {
   const oldSwimlaneId = previous.swimlaneId || doc.swimlaneId;
   const oldBoardId = previous.boardId || doc.boardId;
   await cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId);
+});
+
+// #5874: keep a moved card's swimlane/list consistent with its destination
+// board. Registered first so the corrected modifier is what every later
+// before/after hook (and the persisted update) sees.
+Cards.before.update(async (userId, doc, fieldNames, modifier) => {
+  await enforceCardBoardConsistency(doc, fieldNames, modifier);
 });
 
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {
