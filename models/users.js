@@ -491,6 +491,11 @@ Users.attachSchema(
        * Reference to the templates board
        */
       type: String,
+      // Optional: when the Template Container board is deleted these pointers are
+      // cleared (boardRemover $unset). Without optional:true, SimpleSchema strips
+      // the empty string and then fails the required check ("Templates board ID
+      // is required"), which made deleting a Template Container board throw.
+      optional: true,
       defaultValue: '',
     },
     'profile.cardTemplatesSwimlaneId': {
@@ -498,6 +503,7 @@ Users.attachSchema(
        * Reference to the card templates swimlane Id
        */
       type: String,
+      optional: true,
       defaultValue: '',
     },
     'profile.listTemplatesSwimlaneId': {
@@ -505,6 +511,7 @@ Users.attachSchema(
        * Reference to the list templates swimlane Id
        */
       type: String,
+      optional: true,
       defaultValue: '',
     },
     'profile.boardTemplatesSwimlaneId': {
@@ -512,6 +519,7 @@ Users.attachSchema(
        * Reference to the board templates swimlane Id
        */
       type: String,
+      optional: true,
       defaultValue: '',
     },
     'profile.listWidths': {

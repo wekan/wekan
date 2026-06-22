@@ -264,12 +264,14 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
         db.findOne('users', { _id: user.id }, { 'profile.templatesBoardId': 1 }).profile.templatesBoardId,
       ).toBe(boardId);
 
-      // Delete the container the same way the board sidebar does (Boards.remove),
-      // which triggers the server before.remove hook (boardRemover).
+      // Delete the container the same way the board sidebar does. The client
+      // calls Boards.remove(id), which over DDP is the '/boards/remove' method;
+      // call it directly since collections are not exposed as window globals in
+      // this build. It still triggers the server before.remove hook (boardRemover).
       const del = await page.evaluate(
         id =>
           new Promise(resolve => {
-            Boards.remove(id, err =>
+            Meteor.call('/boards/remove', { _id: id }, err =>
               resolve(err ? { error: err.reason || err.error || err.message } : { result: 'ok' }),
             );
           }),

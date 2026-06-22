@@ -67,8 +67,11 @@ async function expectComputedDirection(locator, dir) {
 /** Assert a locator is visible and renders non-empty text. */
 async function expectVisibleText(locator) {
   await expect(locator).toBeVisible({ timeout: 15_000 });
-  const text = (await locator.innerText()).trim();
-  expect(text.length, 'translated text should be visible (non-empty)').toBeGreaterThan(0);
+  // i18n can populate the label slightly after the element becomes visible
+  // (more noticeable on the production bundle in CI), so wait for non-empty
+  // text rather than reading it the instant the element appears.
+  await expect(locator, 'translated text should be visible (non-empty)')
+    .toHaveText(/\S/, { timeout: 15_000 });
 }
 
 /** True when `childBox` sits on the leading side of `parentBox` for `dir`. */

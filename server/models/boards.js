@@ -55,6 +55,9 @@ async function boardRemover(doc) {
   // left referencing a dead board. ensureTemplatesBoard / the "Add Template
   // Container" button can then create a fresh one on demand.
   if (doc.type === 'template-container') {
+    // Clear the pointers so no save/insert-from-template path references a dead
+    // board. The schema marks these fields optional:true so this $unset does not
+    // trip SimpleSchema's required check.
     await Users.updateAsync(
       { 'profile.templatesBoardId': doc._id },
       {
