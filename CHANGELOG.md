@@ -38,9 +38,16 @@ Versions:
   * #5874 (data loss, cross-board move) FIXED this session: server-side Cards.before.update guard
     enforceCardBoardConsistency rewrites a moved card's swimlane/list to belong to the destination board; pure logic
     in models/lib/cardBoardConsistency.js + Node unit test tests/cardBoardConsistency.test.cjs (npm run test:unit:node).
+  * #4255 (archive scoping) FIXED: archivedBoards publication now requires isActive AND isAdmin, matching the
+    Boards.remove (hasAdmin) permission — the Archive no longer lists boards whose delete fails with "Access denied".
+  * #1389 (edge-to-edge URL made description uneditable) VERIFIED-RESOLVED: cardDetails.jade already renders a
+    dedicated edit pencil (a.js-open-inlined-form > i.fa-pencil-square-o) separate from the +viewer, so the
+    description is editable regardless of a full-width link. No code change needed.
+  * LOCAL-ONLY commit: the #5874+#4255 fix is committed locally but NOT pushed — `git push origin main` was blocked by
+    the harness (direct push to default branch needs explicit authorization). Push it (or open a PR) when ready.
   * Quarantined E2E specs (test.fixme): #5798 (CI-only flaky), 34:120 click-outside control.
-  * NEXT STEPS when resuming: (1) re-test bucket #4255 (archive scoping) & #1389; (2) optional: re-enable the #3745
-    fix's UI regression test once the buried change-parent popup flow is scripted.
+  * NEXT STEPS when resuming: (1) push the local commit so CI runs; (2) optional: re-enable the #3745 fix's UI
+    regression test once the buried change-parent popup flow is scripted.
 -->
 
 This release adds the following updates and developer tooling:
@@ -103,6 +110,14 @@ This release adds the following updates and developer tooling:
 
 and fixes the following bugs:
 
+- [Cannot delete some boards from Archive](https://github.com/wekan/wekan/issues/4255),
+  [#4255](https://github.com/wekan/wekan/issues/4255): the Archive listed boards the user could not actually delete —
+  clicking *Delete* did nothing and the console showed `remove failed: Access denied`. The `archivedBoards`
+  publication scoped its list to admin members (`isAdmin: true`) but ignored the **active** flag, whereas the
+  `Boards.remove` permission (`hasAdmin()`) requires an **active** admin (`isActive: true && isAdmin: true`). A user
+  who was an admin on a board but no longer active still saw it in the Archive, then hit "Access denied" on delete.
+  The publication now matches the remove permission exactly (`isActive: true && isAdmin: true`), so the Archive only
+  lists boards the user can really delete.
 - [Weird moving card bug — cross-board move could silently lose a card](https://github.com/wekan/wekan/issues/5874),
   [#5874](https://github.com/wekan/wekan/issues/5874) (data loss): rarely, moving a card from board A to board B left
   it in a **corrupt half-moved state** — the card's `boardId` became B but its `listId`/`swimlaneId` still belonged to

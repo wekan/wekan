@@ -193,9 +193,15 @@ Meteor.publish('archivedBoards', async function() {
     {
       archived: true,
       type: { $nin: ['template-container', 'template-board'] },
+      // #4255: only publish archived boards the user can actually delete.
+      // Boards.remove is gated by hasAdmin(), which requires an ACTIVE admin
+      // member (isActive: true && isAdmin: true). Matching that here — rather
+      // than isAdmin alone — stops the archive from listing boards whose delete
+      // then fails with "remove failed: Access denied" (an inactive admin).
       members: {
          $elemMatch: {
            userId,
+           isActive: true,
            isAdmin: true,
          },
        },
