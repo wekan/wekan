@@ -99,27 +99,23 @@ export const Utils = {
       return user.profile.mobileMode;
     }
 
-    // No explicit preference: pick a sensible default from the device.
-    // Previously this returned true ONLY for iPhone/iPod, so every other phone
-    // (Fairphone 4 postmarketOS Firefox, Ubuntu Touch Morph, Android Firefox,
-    // ...) defaulted to desktop-mode. desktop-mode applies large desktop sizing
-    // (see .desktop-mode rules in boardHeader.css) which on a small phone screen
-    // looks roughly 2x too big. Default to mobile-mode for any phone-sized touch
-    // device, not just iPhone, so non-iPhone phones render at the correct size.
-    const ua = navigator.userAgent;
-    const isIPhone = /iPhone|iPod/i.test(ua);
-    const isPhoneUA =
-      /Mobile|Android|BlackBerry|IEMobile|Opera Mini/i.test(ua) &&
-      !/iPad/i.test(ua);
-    const isUbuntuTouch = /Ubuntu/i.test(ua);
-    const hasTouch =
-      ('maxTouchPoints' in navigator && navigator.maxTouchPoints > 0) ||
-      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-    // A small touch screen (phone-sized) — covers touch browsers whose UA does
-    // not contain a phone token. Desktop browsers (no touch, or wide) stay in
-    // desktop-mode.
-    const isSmallTouchScreen = hasTouch && window.innerWidth <= 800;
-    return isIPhone || isPhoneUA || isUbuntuTouch || isSmallTouchScreen;
+    // No explicit preference: detect from the VIEWPORT, not the user-agent.
+    // UA string parsing is unreliable across the many mobile browsers (Firefox,
+    // Chrome, Safari, postmarketOS, Ubuntu Touch Morph, ...) and is exactly the
+    // kind of fragile detection that bites projects — cf. Meteor #12421, where
+    // Mobile Safari version parsing was wrong. matchMedia width/pointer queries
+    // are well-supported and, importantly, match the CSS `@media (max-width:
+    // 800px)` breakpoint, so the body.mobile-mode class and the responsive CSS
+    // agree. A narrow screen, or a coarse (touch) pointer on a not-wide screen,
+    // gets mobile mode; wide desktop windows (fine pointer) stay desktop.
+    // NOTE: requires the width=device-width viewport meta (see
+    // server/lib/customHeadRender.js); without it window.innerWidth reports ~980
+    // on phones and this would never trigger.
+    const mq = q =>
+      typeof window !== 'undefined' && window.matchMedia && window.matchMedia(q).matches;
+    const narrow = mq('(max-width: 800px)');
+    const coarse = mq('(pointer: coarse)');
+    return Boolean(narrow || (coarse && window.innerWidth <= 1024));
   },
 
   setMobileMode(enabled) {
@@ -262,6 +258,30 @@ export const Utils = {
     const mobileMode = Utils.getMobileMode();
     Utils.applyZoomLevel(zoomLevel);
     Utils.applyMobileMode(mobileMode);
+
+    // #6419: keep mobile-mode in sync with the viewport (resize / orientation /
+    // responsive testing) when the user has NOT explicitly chosen a mode. Bound
+    // once. An explicit toggle (localStorage or profile) must stick, so we skip
+    // auto-switching in that case.
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      !Utils._mobileModeAutoBound
+    ) {
+      Utils._mobileModeAutoBound = true;
+      const reapply = () => {
+        const stored = localStorage.getItem('wekan-mobile-mode');
+        const user = ReactiveCache.getCurrentUser();
+        const explicit =
+          stored !== null ||
+          (user && user.profile && user.profile.mobileMode !== undefined);
+        if (!explicit) {
+          Utils.applyMobileMode(Utils.getMobileMode());
+        }
+      };
+      window.matchMedia('(max-width: 800px)').addEventListener('change', reapply);
+      window.matchMedia('(pointer: coarse)').addEventListener('change', reapply);
+    }
   },
   getCurrentList() {
     const listId = this.getCurrentListId();

@@ -617,10 +617,16 @@ Users.attachSchema(
     },
     'profile.mobileMode': {
       /**
-       * User-specified mobile/desktop mode toggle
+       * User-specified mobile/desktop mode toggle.
+       * #6419: must be OPTIONAL with NO default. A defaultValue of false set
+       * mobileMode=false on every user, so Utils.getMobileMode() always returned
+       * the profile value and the viewport-based auto-detection below it never
+       * ran — every user was locked to desktop-mode even on a phone. Left unset,
+       * it stays undefined until the user explicitly toggles, so phones
+       * auto-detect mobile mode.
        */
       type: Boolean,
-      defaultValue: false,
+      optional: true,
     },
     'profile.cardZoom': {
       /**

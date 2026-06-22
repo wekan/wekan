@@ -96,11 +96,22 @@ and fixes the following bugs:
   (`tests/playwright/mobile-shot.js`): the top bar and the board action bar buttons were only ~28–32px tall with a
   13–15px font (below the comfortable ~44px touch-target / 16px readable minimum). They are now ~44px tall with a 16px
   font, applied **by viewport width** (`@media (max-width: 800px)`) so they work on any phone without toggling
-  Desktop/Mobile mode — the board header renders as a clean single row of large, icon-only buttons. A noted-but-not-yet
-  fixed gap: `getMobileMode()` did not actually add `body.mobile-mode` even with an iPhone user agent in testing, so
-  the `.mobile-mode` CSS is effectively dead on the board view and only the width-based `@media` rules apply; the
-  width-based path is now the one being improved. The remaining asks (further horizontal icon density / automatic
-  mobile-mode application, broader font sizing) are a larger responsive pass.
+  Desktop/Mobile mode — the board header renders as a clean row of large, icon-only buttons.
+  **Two deeper root causes were then found and fixed (verified on an iPhone profile via Playwright screenshots):**
+  (1) **No viewport meta tag.** WeKan's server-rendered `<head>` (`server/lib/customHeadRender.js`) had no
+  `<meta name="viewport">`, so mobile browsers laid the page out at their default ~980px virtual width and scaled it
+  down — making the whole UI tiny, reporting `window.innerWidth === 980` on a 390px phone, and preventing every
+  `@media (max-width: 800px)` rule (and the width-based mobile detection) from ever matching. Added
+  `width=device-width, initial-scale=1, viewport-fit=cover` (user zoom left enabled for accessibility).
+  (2) **`profile.mobileMode` defaulted to `false`.** The user schema set `mobileMode: false` on *every* user, so
+  `Utils.getMobileMode()` always returned the profile value and the auto-detection below it was dead code — every user
+  was locked to desktop-mode even on a phone. The field is now `optional` (no default), so it stays unset until the
+  user explicitly toggles; auto-detection was also rewritten to use reliable `matchMedia` width/pointer queries instead
+  of fragile user-agent sniffing (cf. **Meteor [#12421](https://github.com/meteor/meteor/issues/12421)**, where Mobile
+  Safari UA version parsing was wrong — this instance reports `isModern: true`, so #12421 is not the cause here, but it
+  is the same class of UA-detection fragility this rewrite avoids), and a `matchMedia` listener now re-applies
+  mobile-mode on resize/orientation when the user has no explicit preference. Net: phones auto-detect mobile mode at
+  the correct device width, with large tappable icons, no manual toggle.
 - [Missing voting buttons](https://github.com/wekan/wekan/issues/6420),
   [#6420](https://github.com/wekan/wekan/issues/6420): the `showVotingButtons` (and `showPlanningPokerButtons`)
   helpers in `cardDetails.js` referenced an **undefined `currentUser`** variable, so every card render threw
