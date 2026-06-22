@@ -61,29 +61,51 @@ function detect_platform(){
 detect_platform
 echo "Platform: $PLATFORM_OS $PLATFORM_ARCH"
 
-# WebKit's bundled Playwright build links against old system libraries (libicu 74,
-# libxml2 v2, libevent 2.1, ...) that newer Linux arm64 distros (e.g. Ubuntu 26.04)
-# no longer ship, so it cannot launch natively there. On Linux arm64 we drive WebKit
-# from the official Playwright Docker image instead; Linux amd64 and macOS arm64 run
-# WebKit natively. Override with WEKAN_WEBKIT_DOCKER=1 (force Docker) or =0 (force native).
-function webkit_needs_docker(){
-	case "${WEKAN_WEBKIT_DOCKER:-auto}" in
+# Whether a Playwright browser project (chromium / firefox / webkit) should run
+# inside the official Playwright Docker image instead of natively. This lets the
+# full Chromium + Firefox + WebKit matrix run anywhere, including hosts where the
+# bundled browsers can't launch natively (e.g. Linux arm64, where WebKit links
+# against old system libs, or where Chromium/Firefox need libraries the host lacks).
+#
+# Resolution order:
+#   1. WEKAN_PLAYWRIGHT_DOCKER=1 -> ALL browsers via Docker;  =0 -> ALL native.
+#   2. Per browser: WEKAN_CHROMIUM_DOCKER / WEKAN_FIREFOX_DOCKER / WEKAN_WEBKIT_DOCKER (1/0).
+#   3. Auto (default): only WebKit on Linux arm64 needs Docker; Chromium and
+#      Firefox run natively everywhere.
+function browser_needs_docker(){
+	local browser="$1"
+	case "${WEKAN_PLAYWRIGHT_DOCKER:-}" in
 		1) return 0 ;;
 		0) return 1 ;;
 	esac
-	[ "$PLATFORM_OS" = "linux" ] && [ "$PLATFORM_ARCH" = "arm64" ]
+	local var="WEKAN_$(printf '%s' "$browser" | tr '[:lower:]' '[:upper:]')_DOCKER"
+	case "${!var:-auto}" in
+		1) return 0 ;;
+		0) return 1 ;;
+	esac
+	# auto
+	if [ "$browser" = "webkit" ]; then
+		[ "$PLATFORM_OS" = "linux" ] && [ "$PLATFORM_ARCH" = "arm64" ]
+		return $?
+	fi
+	return 1   # chromium / firefox run natively by default
 }
 
-# Run the WebKit Playwright project inside the official Playwright container.
-# Extra args are passed through to `playwright test`. WeKan must already be running
-# on the host (default http://127.0.0.1:3000, Meteor's bundled Mongo on 3001); the
-# container shares the host network so it can reach both.
-function run_playwright_webkit_docker(){
+# Back-compat: existing callers/env (WEKAN_WEBKIT_DOCKER) keep working.
+function webkit_needs_docker(){ browser_needs_docker webkit; }
+
+# Run a Playwright browser project (chromium / firefox / webkit) inside the
+# official Playwright container. First arg is the browser; any extra args are
+# passed through to `playwright test`. WeKan must already be running on the host
+# (default http://127.0.0.1:3000, Meteor's bundled Mongo on 3001); the container
+# shares the host network so it can reach both.
+function run_playwright_docker(){
+	local browser="$1"; shift
 	local reporoot="$ORIG_HOME/repos/wekan"
 	local pwdir="$reporoot/tests/playwright"
 	if ! command -v docker >/dev/null 2>&1; then
-		echo "ERROR: Docker is required to run WebKit on Linux arm64, but 'docker' was not found."
-		echo "       Install Docker, or run WebKit on Linux amd64 / macOS arm64 (native)."
+		echo "ERROR: Docker is required to run $browser in the Playwright container, but 'docker' was not found."
+		echo "       Install Docker, or run this browser natively (set WEKAN_PLAYWRIGHT_DOCKER=0)."
 		return 127
 	fi
 	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
@@ -94,7 +116,7 @@ function run_playwright_webkit_docker(){
 	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
 	[ -z "$pwver" ] && pwver="1.60.0"
 	local image="mcr.microsoft.com/playwright:v${pwver}-noble"
-	echo "Running Playwright WebKit in Docker ($image) on Linux arm64."
+	echo "Running Playwright $browser in Docker ($image)."
 	echo "Expecting WeKan at ${WEKAN_BASE_URL:-http://127.0.0.1:3000} (container uses --network host)."
 	# Mount the whole repo so specs that reach the repo-root node_modules
 	# (e.g. @wekanteam/exceljs) and .tools resolve; run from tests/playwright.
@@ -113,7 +135,53 @@ function run_playwright_webkit_docker(){
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
 		-v "$reporoot":/repo -w /repo/tests/playwright \
 		"$image" \
-		sh -c 'export PATH=/repo/tests/playwright/node_modules/.bin:$PATH; exec npx playwright test --project=webkit "$@"' sh "$@"
+		sh -c 'export PATH=/repo/tests/playwright/node_modules/.bin:$PATH; exec npx playwright test --project="$0" "$@"' "$browser" "$@"
+}
+
+# Back-compat wrapper: run the WebKit project in Docker.
+function run_playwright_webkit_docker(){ run_playwright_docker webkit "$@"; }
+
+# Install the Chromium + Firefox + WebKit browsers Playwright uses, both for
+# native runs (`playwright install --with-deps`) and for Docker runs (pull the
+# official Playwright image that already bundles all three). Honors the
+# WEKAN_PLAYWRIGHT_DOCKER / WEKAN_<BROWSER>_DOCKER settings: a browser configured
+# to run in Docker is covered by the image pull rather than a native install.
+function install_playwright_browsers(){
+	ORIG_HOME="$HOME"
+	local reporoot="$ORIG_HOME/repos/wekan"
+	local pwdir="$reporoot/tests/playwright"
+	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
+		echo "Installing Playwright test dependencies (npm)..."
+		( cd "$pwdir" && meteor npm install )
+	fi
+
+	# Native install for whichever browsers are NOT configured for Docker.
+	local nativeList=""
+	for b in chromium firefox webkit; do
+		browser_needs_docker "$b" || nativeList="$nativeList $b"
+	done
+	if [ -n "$nativeList" ]; then
+		echo "Installing native Playwright browsers:$nativeList (with system deps; may use sudo)."
+		( cd "$pwdir" && export HOME="$reporoot/.tools" && npx playwright install --with-deps $nativeList )
+	else
+		echo "All browsers are configured to run via Docker; skipping native browser install."
+	fi
+
+	# Pull the Playwright Docker image if any browser is configured for Docker
+	# (e.g. WebKit on Linux arm64, or WEKAN_PLAYWRIGHT_DOCKER=1 for the whole matrix).
+	if browser_needs_docker chromium || browser_needs_docker firefox || browser_needs_docker webkit; then
+		if command -v docker >/dev/null 2>&1; then
+			local pwver
+			pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
+			[ -z "$pwver" ] && pwver="1.60.0"
+			echo "Pulling Playwright Docker image mcr.microsoft.com/playwright:v${pwver}-noble ..."
+			docker pull "mcr.microsoft.com/playwright:v${pwver}-noble"
+		else
+			echo "NOTE: some browsers are configured for Docker, but 'docker' is not installed."
+			echo "      Install Docker, or set WEKAN_PLAYWRIGHT_DOCKER=0 to run all browsers natively."
+		fi
+	fi
+	echo "Done. Run a browser suite from the menu, or: WEKAN_PLAYWRIGHT_DOCKER=1 ./rebuild-wekan.sh"
 }
 
 # Reset test-results/ ownership when an older WebKit-in-Docker run left it owned
@@ -154,8 +222,8 @@ function run_pw_all_browser(){
 	local outdir="test-results/${browser}"
 	ensure_test_results_writable
 	rm -f "$pwdir/$json"
-	if [ "$browser" = "webkit" ] && webkit_needs_docker; then
-		( cd "$pwdir" && export PLAYWRIGHT_JSON_OUTPUT_NAME="$json" && run_playwright_webkit_docker --output="$outdir" --reporter=list,json )
+	if browser_needs_docker "$browser"; then
+		( cd "$pwdir" && export PLAYWRIGHT_JSON_OUTPUT_NAME="$json" && run_playwright_docker "$browser" --output="$outdir" --reporter=list,json )
 		return $?
 	fi
 	(
@@ -244,10 +312,10 @@ function run_playwright_parallel(){
 function run_playwright_single(){
 	local browser="$1"
 	ORIG_HOME="$HOME"
-	if [ "$browser" = "webkit" ] && webkit_needs_docker; then
-		echo "Linux arm64 detected: running WebKit via Docker (native WebKit cannot launch here)."
+	if browser_needs_docker "$browser"; then
+		echo "Running $browser via the official Playwright Docker image."
 		echo "Make sure WeKan is running on http://localhost:3000 (menu option 3, or 'Run ALL tests')."
-		( cd "$ORIG_HOME/repos/wekan/tests/playwright" && run_playwright_webkit_docker )
+		( cd "$ORIG_HOME/repos/wekan/tests/playwright" && run_playwright_docker "$browser" )
 		return $?
 	fi
 	cd "$ORIG_HOME/repos/wekan/tests/playwright"
@@ -263,7 +331,7 @@ function run_playwright_single(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -643,6 +711,9 @@ do
 		break
 		;;
 
+    "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)")
+			install_playwright_browsers
+			;;
     "Test Playwright Chromium")
 			run_playwright_single chromium
 			break
