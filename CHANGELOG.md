@@ -32,6 +32,13 @@ Updates and developer tooling:
 
 - **Updated Meteor to 3.5-rc.2** ([#6413](https://github.com/wekan/wekan/pull/6413), thanks harryadel;
   merged in [d5be28bc2](https://github.com/wekan/wekan/commit/d5be28bc2)).
+- **Dependency updates** (merged the low-risk Dependabot PRs that pass build + unit tests):
+  `@swc/helpers` 0.5.22 → 0.5.23 ([#6416](https://github.com/wekan/wekan/pull/6416)) and the test-only
+  `sinon` 21 → 22 ([#6418](https://github.com/wekan/wekan/pull/6418)). The major **production** bumps were held back
+  for individual testing rather than merged: `jquery` 3 → 4 ([#6417](https://github.com/wekan/wekan/pull/6417),
+  risks Blaze / jQuery-UI compatibility), `@babel/runtime` 7 → 8 ([#6415](https://github.com/wekan/wekan/pull/6415)),
+  and `@tweedegolf/sab-adapter-amazon-s3` 1 → 3 ([#6414](https://github.com/wekan/wekan/pull/6414), S3 storage is not
+  exercised by CI).
 - **rebuild-wekan.sh: run the Chromium / Firefox / WebKit Playwright matrix with or without Docker.** The
   WebKit-only Docker support is generalized so any browser can run natively or inside the official Playwright Docker
   image, selectable via `WEKAN_PLAYWRIGHT_DOCKER=1/0` (whole matrix) or per-browser
