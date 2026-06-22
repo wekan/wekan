@@ -937,8 +937,14 @@ Template.searchElementPopup.events({
     if (!tpl.isTemplateSearch || tpl.isCardTemplateSearch) {
       // Card insertion
       // 1. Common
+      // Compute the sort index BEFORE the first await: getSortIndex() reads
+      // Template.currentData(), and Blaze's current-view context is lost across
+      // an await, so calling it afterwards threw "There is no current view" and
+      // no card was created from the template. Capture it while still in the
+      // synchronous event/view context.
+      const sortIndex = tpl.getSortIndex();
       element.cardNumber = await tpl.board.getNextCardNumber();
-      element.sort = tpl.getSortIndex();
+      element.sort = sortIndex;
       // 1.A From template
       if (tpl.isTemplateSearch) {
         element.type = 'cardType-card';

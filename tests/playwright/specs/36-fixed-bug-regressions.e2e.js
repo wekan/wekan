@@ -179,4 +179,60 @@ test.describe('Fixed-bug regressions', () => {
     // ...with no "isBoardAdmin/isWorker of null" crash (#3897).
     expect(crashes, `guest render must not throw on a null user:\n${crashes.join('\n')}`).toEqual([]);
   });
+
+  test('#5798 a card created from a template belongs to the current board', async ({
+    loggedInPage,
+    user,
+    board,
+  }) => {
+    // Give the user a templates board (type template-container) with a
+    // card-templates swimlane and one card template.
+    const tplBoard = db.uid('tplboard');
+    const cardSwim = db.uid('cardswim');
+    const tplList = db.uid('tpllist');
+    db.insertOne('boards', {
+      _id: tplBoard, title: 'Templates', slug: `templates-${tplBoard}`,
+      permission: 'private', type: 'template-container', archived: false, sort: 0,
+      members: [{ userId: user.id, isAdmin: true, isActive: true, isNoComments: false, isCommentOnly: false }],
+      labels: [], createdAt: new Date(), modifiedAt: new Date(),
+    });
+    db.insertOne('swimlanes', { _id: cardSwim, title: 'Card Templates', boardId: tplBoard, archived: false, sort: 0, type: 'swimlane', createdAt: new Date(), modifiedAt: new Date() });
+    db.insertOne('lists', { _id: tplList, title: 'Templates', boardId: tplBoard, swimlaneId: cardSwim, archived: false, sort: 0, type: 'list', createdAt: new Date(), modifiedAt: new Date() });
+    db.insertOne('cards', { _id: db.uid('tplcard'), title: 'My Card Template', boardId: tplBoard, swimlaneId: cardSwim, listId: tplList, archived: false, sort: 0, type: 'template-card', createdAt: new Date(), dateLastActivity: new Date() });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.templatesBoardId': tplBoard, 'profile.cardTemplatesSwimlaneId': cardSwim } });
+
+    try {
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+
+      // Open the list's add-card form, then the "template" picker.
+      const list = loggedInPage.locator(`#js-list-${board.listIds[0]}`);
+      await list.locator('.js-add-card.list-header-plus-top').first().click();
+      await list.locator('.js-inlined-form textarea.js-card-title').first().waitFor();
+      await loggedInPage.locator('.js-inlined-form .js-card-template').first().click();
+
+      // Name the new card, search for the template, and pick it.
+      await loggedInPage.locator('.js-element-title').waitFor();
+      await loggedInPage.locator('.js-element-title').fill('Instantiated Card');
+      const term = loggedInPage.locator('.js-search-term-form input[name="searchTerm"]');
+      await term.fill('Template');
+      await term.press('Enter');
+      await loggedInPage.locator('.search-card-results .js-minicard').first().waitFor();
+      await loggedInPage.locator('.search-card-results .js-minicard').first().click();
+
+      // The new card must belong to the CURRENT board (#5798), not the templates board.
+      await expect
+        .poll(async () => {
+          const c = db.findOne('cards', { title: 'Instantiated Card' }, { boardId: 1 });
+          return c ? c.boardId : null;
+        })
+        .toBe(board.boardId);
+      expect(
+        db.findOne('cards', { boardId: tplBoard, title: 'Instantiated Card' }, { _id: 1 }),
+        'the new card must NOT be created on the templates board',
+      ).toBeNull();
+    } finally {
+      db.cleanup({ boardIds: [tplBoard] });
+    }
+  });
 });
