@@ -144,6 +144,36 @@ jobs:
             tail -n 200 wekan-run.log
             exit 1
           fi
+          # The server responding 200 only means Meteor serves HTML, not that the
+          # rspack-built client JS bundle is being served yet. The tests load the
+          # app in a browser; if a client chunk request returns HTML (the SPA
+          # fallback) the bundle fails to parse ("Unexpected token '<'"), Meteor
+          # never initialises, and every spec times out. So wait until the client
+          # bundle is actually served as JavaScript before running tests.
+          echo "Waiting for the rspack client bundle to be served as JavaScript..."
+          CLIENT_URL="http://localhost:3000/__rspack__/client-rspack.js"
+          CLIENT_READY=
+          for i in $(seq 1 120); do
+            FIRST=$(curl -s "$CLIENT_URL" | head -c 1)
+            if [ -n "$FIRST" ] && [ "$FIRST" != "<" ]; then
+              echo "Client bundle served as JS after $((i * 5))s"
+              CLIENT_READY=1
+              break
+            fi
+            echo "Client bundle not ready (attempt $i/120, first byte: '${FIRST:-<empty>}')"
+            sleep 5
+          done
+          # Always surface the rspack/build status so we can see whether the build
+          # succeeded, failed, or is just slow.
+          echo "::group::rspack / client build status (wekan-run.log)"
+          grep -iE "rspack|compiled|client|bundle|error|warning|HMR|8080|webpack|module not found" wekan-run.log | tail -80 || true
+          echo "::endgroup::"
+          if [ -z "$CLIENT_READY" ]; then
+            echo "::error::Client bundle never served as JavaScript (kept returning HTML) — the browser cannot load Meteor, so all specs would time out."
+            echo "Full wekan-run.log tail:"
+            tail -n 250 wekan-run.log
+            exit 1
+          fi
         env:
           DISABLE_CAPTCHA: 'true'
 
