@@ -25,7 +25,25 @@ Versions:
 - WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible,
   it was fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# TODO Later
+
+Carried to a future release — investigated this session but not finished, with findings recorded for whoever picks
+them up next.
+
+- **Need a runtime reproduction before a safe fix:**
+  [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
+  rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
+  user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
+- **Need specific infrastructure we cannot reproduce/verify here (left for environment owners):**
+  [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
+  & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
+  (WebHooks), [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm).
+- **Feature requests / behaviour-by-design rather than bugs:**
+  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
+  [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
+  [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
+
+# v9.68 2026-06-23 WeKan ® release
 
 This release adds the following updates and developer tooling:
 
@@ -233,24 +251,6 @@ reporter's data requested):
   date): activity `createdAt` is set once in the `Activities.before.insert` hook, nothing bulk-updates it, and the UI
   renders `activity.createdAt` directly — so changing a due date inserts one new `a-dueAt` activity and cannot re-date
   existing ones.
-
-# TODO Later
-
-Carried to a future release — investigated this session but not finished, with findings recorded for whoever picks
-them up next.
-
-- **Need a runtime reproduction before a safe fix:**
-  [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
-  rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
-  user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
-- **Need specific infrastructure we cannot reproduce/verify here (left for environment owners):**
-  [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
-  & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
-  (WebHooks), [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm).
-- **Feature requests / behaviour-by-design rather than bugs:**
-  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
-  [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
-  [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
 # v9.67 2026-06-21 WeKan ® release
 
