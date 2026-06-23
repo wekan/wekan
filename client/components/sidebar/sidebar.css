@@ -261,9 +261,40 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
   padding: 0 10px 0 10px;
 }
 @media screen and (max-width: 800px) {
-  .board-sidebar {
-    width: 100%;
+  /* On phones (iPhone 12 mini, etc.) the right sidebar should be a full-width
+     panel at the top of the board, in BOTH mobile mode and desktop mode. The
+     sidebar lives inside .board-wrapper, which is wider than the viewport on a
+     phone, so an absolutely-positioned sidebar (inset-inline-end: 0) pins to the
+     far right of the wide board and shows as a narrow strip. Pin it to the
+     VIEWPORT instead (position: fixed + 100vw) so it spans the full screen
+     width. At 100% zoom .board-wrapper has no transform, so fixed resolves to
+     the viewport in desktop mode too. */
+  .board-sidebar.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
     inset-inline-start: 0;
+    inset-inline-end: 0;
+    width: 100vw;
+    max-width: 100vw;
+    z-index: 1000;
+  }
+  /* Normalise sidebar text on phones so the headings are not oversized and the
+     small text is not tiny — keep them close to the board's text size so board
+     and sidebar read at one consistent size. */
+  .board-sidebar.sidebar .sidebar-content {
+    font-size: 14px;
+  }
+  .board-sidebar.sidebar .sidebar-content h2,
+  .board-sidebar.sidebar .sidebar-content h3 {
+    font-size: 16px;
+  }
+  .board-sidebar.sidebar .sidebar-content ul.sidebar-list li > a,
+  .board-sidebar.sidebar .sidebar-content .card-label,
+  .board-sidebar.sidebar .sidebar-content .card-label .card-label-name,
+  .board-sidebar.sidebar .sidebar-content p,
+  .board-sidebar.sidebar .sidebar-content span {
+    font-size: 14px;
   }
   .board-sidebar .sidebar-content .hide-btn {
     width: 40px;
