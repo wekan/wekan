@@ -28,30 +28,17 @@ Versions:
 # Upcoming WeKan ® release
 
 <!-- WORKING NOTE (safe to delete at release) — session checkpoint.
-  * Post-reboot CI: the checkpoint's Playwright run (27991369019) came back FULLY GREEN across the whole matrix
-    (chromium/firefox/webkit, both shards) + Meteor unit + Puppeteer. The previous run's two "X" jobs were just
-    cancellations from the checkpoint push superseding it, not failures. CI E2E is healthy on main.
-  * Done this session (all committed): CI E2E resurrected & green (production-build, sharding, Puppeteer job);
-    fixed bugs #6412 #3907 #3897 #5886 #5892 #5798 #5997 #6420 #6419 (mobile: viewport meta, auto mobile-mode,
-    touch targets, admin 2nd-bar, settings stacking) #3745 #5874; multi-forge mirroring in rebuild-wekan.sh/.bat;
-    Temml/docs work; verified-resolved #5808 #1289 #3826 (new drag-sort harness tests/playwright/helpers/dragSort.js).
-  * #5874 (data loss, cross-board move) FIXED this session: server-side Cards.before.update guard
-    enforceCardBoardConsistency rewrites a moved card's swimlane/list to belong to the destination board; pure logic
-    in models/lib/cardBoardConsistency.js + Node unit test tests/cardBoardConsistency.test.cjs (npm run test:unit:node).
-  * #4255 (archive scoping) FIXED: archivedBoards publication now requires isActive AND isAdmin, matching the
-    Boards.remove (hasAdmin) permission — the Archive no longer lists boards whose delete fails with "Access denied".
-  * #1389 (edge-to-edge URL made description uneditable) VERIFIED-RESOLVED: cardDetails.jade already renders a
-    dedicated edit pencil (a.js-open-inlined-form > i.fa-pencil-square-o) separate from the +viewer, so the
-    description is editable regardless of a full-width link. No code change needed.
-  * LOCAL-ONLY commit: the #5874+#4255 fix is committed locally but NOT pushed — `git push origin main` was blocked by
-    the harness (direct push to default branch needs explicit authorization). Push it (or open a PR) when ready.
-  * #3745 regression test: DECIDED AGAINST. The bug is a subscription-timing race (parent-card list empty only on
-    the first selection, before the board's card sub resolves). In local/CI Playwright the sub resolves in ms, so the
-    pre-fix code would usually look correct by assertion time — the test could not reliably fail on the buggy code
-    (invalid negative test) and would be flaky on the fixed code, the same class of timing E2E being quarantined. The
-    fix is pure Blaze subscription-ready gating (parentBoardReady + onReady) with no extractable logic to unit-test.
-  * Quarantined E2E specs (test.fixme): #5798 (CI-only flaky), 34:120 click-outside control.
-  * NEXT STEPS when resuming: push the two local commits (#5874, #4255) so CI runs.
+  * CI on main is FULLY GREEN (Playwright matrix chromium/firefox/webkit ×2 shards + Meteor unit + Puppeteer).
+  * Bug fixes this release (see entries below): #6412 #3907 #3897 #5886 #5892 #5798 #5997 #6420 #6419 (mobile)
+    #3745 #5874 (data loss) #4255 (archive scoping); verified-resolved #5808 #1389 #1289 #3826.
+  * Tooling: CI E2E resurrected (production-build, sharding, Puppeteer job); multi-forge mirroring in
+    rebuild-wekan.sh/.bat; Temml/docs work; drag-sort harness (tests/playwright/helpers/dragSort.js).
+  * Unit tests: npm run test:unit:node covers #6412 (filename truncation) and #5874 (cardBoardConsistency).
+  * Quarantined E2E (test.fixme): #5798 (CI-only flaky), 34:120 click-outside control.
+  * #3745 has no regression test on purpose — it's a subscription-timing race the pre-fix code would pass in fast
+    local/CI Playwright (invalid negative test, flaky on the fix); the fix is pure Blaze subscription-ready gating.
+  * Local commits #5874 + #4255 are NOT yet pushed — `git push origin main` is blocked by the harness (direct push
+    to the default branch needs explicit authorization). Push them (or open a PR) so CI runs.
 -->
 
 This release adds the following updates and developer tooling:
