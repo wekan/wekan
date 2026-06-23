@@ -420,6 +420,56 @@ test.describe('REST API: data + permissions', () => {
     }
   });
 
+  // ---- #5688: copying a card duplicates all its checklist items -------------
+  test('#5688 copying a card copies its checklist and all items', async ({ request, user, board }) => {
+    const listId = board.listIds[0];
+    const cardId = listCards(board.boardId, listId)[0]._id;
+
+    // Seed a checklist with several items on the source card.
+    const checklistId = db.uid('cl');
+    db.insertOne('checklists', {
+      _id: checklistId, boardId: board.boardId, cardId, title: 'CL', sort: 0,
+      createdAt: new Date(), modifiedAt: new Date(),
+    });
+    const itemCount = 6;
+    for (let i = 0; i < itemCount; i++) {
+      db.insertOne('checklistItems', {
+        _id: db.uid('cli'), boardId: board.boardId, cardId, checklistId,
+        title: `item ${i}`, sort: i, isFinished: i % 2 === 0,
+        createdAt: new Date(), modifiedAt: new Date(),
+      });
+    }
+
+    const created = [];
+    try {
+      const res = await request.post(
+        `/api/boards/${board.boardId}/lists/${listId}/cards/${cardId}/copy`,
+        { headers: authHeaders(user.token, true), data: { toSwimlaneId: board.swimlaneId, toListId: listId } },
+      );
+      expect(res.status()).toBe(200);
+      const newCardId = (await res.json())._id;
+      expect(newCardId).toBeTruthy();
+      created.push(newCardId);
+
+      // The copied card has exactly one checklist and all its items, on this board.
+      const newChecklists = db.find('checklists', { cardId: newCardId });
+      expect(newChecklists.length).toBe(1);
+      expect(newChecklists[0].boardId).toBe(board.boardId);
+      const newItems = db.find('checklistItems', { cardId: newCardId });
+      expect(newItems.length).toBe(itemCount);
+      expect(newItems.every(it => it.checklistId === newChecklists[0]._id)).toBe(true);
+      expect(newItems.every(it => it.boardId === board.boardId)).toBe(true);
+    } finally {
+      // The copied card is on the same board (cleaned by the board fixture); drop
+      // any leftover docs defensively.
+      created.forEach(id => {
+        db.deleteMany('checklistItems', { cardId: id });
+        db.deleteMany('checklists', { cardId: id });
+        db.deleteMany('cards', { _id: id });
+      });
+    }
+  });
+
   // ---- #3252/#5322: deleting a card cascades + clears its activities --------
   test('#3252 deleting a card removes its children and clears its activities', async ({ request, user, board }) => {
     const listId = board.listIds[0];

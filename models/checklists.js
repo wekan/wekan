@@ -102,20 +102,31 @@ Checklists.attachSchema(
 
 Checklists.helpers({
   async copy(newCardId) {
-    let copyObj = Object.assign({}, this);
+    // #5688: copy the checklist and its items with `.direct` so the per-document
+    // before/after.insert hooks do NOT fire. The after.insert hooks look up the
+    // card and insert an activity per checklist item — for a card with many
+    // items that is an N+1 activity-insert storm that made a copy take minutes
+    // and spike the CPU. We set boardId ourselves (the before.insert hook would
+    // otherwise derive it) from the destination card, which may be on a
+    // different board. Same approach as the cardRemover delete path.
+    const newCard = await ReactiveCache.getCard(newCardId);
+    const boardId = newCard && newCard.boardId;
+
+    const copyObj = Object.assign({}, this);
     delete copyObj._id;
     copyObj.cardId = newCardId;
-    // Drop the copied boardId so the server before.insert hook re-derives it
-    // from the destination card (which may be on a different board).
-    delete copyObj.boardId;
-    const newChecklistId = await Checklists.insertAsync(copyObj);
+    copyObj.boardId = boardId;
+    copyObj.createdAt = new Date();
+    const newChecklistId = await Checklists.direct.insertAsync(copyObj);
+
     const items = await ReactiveCache.getChecklistItems({ checklistId: this._id });
     for (const item of items) {
-      item._id = null;
-      item.checklistId = newChecklistId;
-      item.cardId = newCardId;
-      delete item.boardId;
-      await ChecklistItems.insertAsync(item);
+      const copyItem = Object.assign({}, item);
+      delete copyItem._id;
+      copyItem.checklistId = newChecklistId;
+      copyItem.cardId = newCardId;
+      copyItem.boardId = boardId;
+      await ChecklistItems.direct.insertAsync(copyItem);
     }
   },
 

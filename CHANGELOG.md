@@ -86,10 +86,21 @@ This release fixes the following bugs:
   now catch the failure and show the error (mirroring the existing label-color handler), so the user sees why the edit
   did not save. (No automated regression — surfacing a permission denial across a private linked board is a UX/error
   path that is not cleanly reproducible in the test harness.)
+- **Performance: copying a card with many checklist items took minutes** ([#5688](https://github.com/wekan/wekan/issues/5688)).
+  `Checklist.copy()` duplicated each checklist item with the hooked `insertAsync`, so collection-hooks fired each item's
+  `after.insert` — every one doing a `getCard` and inserting an `addChecklistItem` activity. Copying a card with ~100
+  items meant ~100+ activity inserts (plus per-item DB round-trips), taking minutes and spiking CPU. The copy now uses
+  `.direct` for the checklist and its items (skipping the per-item activity hooks — pure churn for a wholesale copy) and
+  sets `boardId` itself, the same approach as the `cardRemover` delete path. Copy regression (checklist + all items
+  duplicated) in `tests/playwright/specs/17-rest-api.e2e.js`.
 
 and these issues are verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):
 
+- [#5388](https://github.com/wekan/wekan/issues/5388) (collapsing a list affected all users): list collapse state is
+  now stored **per user** (`profile.collapsedLists[boardId][listId]`, or a cookie for logged-out users) instead of a
+  shared `collapsed` field on the list document — so one user collapsing a list no longer changes it for everyone
+  (resolved by commit 414b8dbf4, which postdates the report; mirrors the per-user swimlane-collapse handling).
 - [#3894](https://github.com/wekan/wekan/issues/3894) (board import failed when the JSON's `members` referenced a user
   not present in `users`): the importers already guard a missing user entry (skip the dangling member instead of
   dereferencing `undefined`) in `client/components/import/wekanMembersMapper.js`, `models/wekanmapper.js` and
