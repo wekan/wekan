@@ -85,6 +85,10 @@ template(name="boardList")
                   i.fa.fa-thumb-tack
                 |  {{_ 'multi-selection-active'}}
           .path-right
+            a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
+              span.emoji-icon
+                i.fa.fa-sort-alpha-asc
+              span {{_ 'sort'}}
             if canModifyBoards
               if hasBoardsSelected
                 button.js-archive-selected-boards.board-header-btn
@@ -204,6 +208,24 @@ template(name="boardList")
                       title="{{_ 'star-board-title'}}")
                       span.emoji-icon
                         i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+
+template(name="boardsSortPopup")
+  ul.pop-over-list
+    li
+      a.js-boards-sort(data-sort="custom" class="{{#if isBoardsSort 'custom'}}active{{/if}}")
+        span.emoji-icon
+          i.fa.fa-arrows
+        | &nbsp;{{_ 'sort-boards-custom'}}
+    li
+      a.js-boards-sort(data-sort="title-asc" class="{{#if isBoardsSort 'title-asc'}}active{{/if}}")
+        span.emoji-icon
+          i.fa.fa-sort-alpha-asc
+        | &nbsp;{{_ 'sort-boards-title-asc'}}
+    li
+      a.js-boards-sort(data-sort="title-desc" class="{{#if isBoardsSort 'title-desc'}}active{{/if}}")
+        span.emoji-icon
+          i.fa.fa-sort-alpha-desc
+        | &nbsp;{{_ 'sort-boards-title-desc'}}
 
 template(name="boardListHeaderBar")
   h1 {{_ title }}

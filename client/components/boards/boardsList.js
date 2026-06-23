@@ -650,6 +650,15 @@ Template.boardList.helpers({
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser && !currentUser.isCommentOnly();
   },
+  // #5799: current All Boards sort mode ('custom' | 'title-asc' | 'title-desc').
+  isBoardsSort(mode) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const current =
+      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+        ? currentUser.getAllBoardsSortBy()
+        : 'custom';
+    return current === mode;
+  },
   hasBoardsSelected() {
     return BoardMultiSelection.count() > 0;
   },
@@ -745,6 +754,8 @@ Template.boardList.events({
       Popup.open('createBoard')(evt);
     }
   },
+  // #5799: choose how the All Boards page is sorted.
+  'click .js-open-boards-sort': Popup.open('boardsSort'),
   'click .js-star-board'(evt) {
     evt.preventDefault();
     evt.stopPropagation();
@@ -1154,6 +1165,30 @@ Template.boardList.events({
         Meteor.call('unassignBoardFromWorkspace', boardData);
       }
     }
+  },
+});
+
+// #5799: All Boards sort popup — pick custom (manual drag order) or
+// alphabetical A→Z / Z→A. The choice is stored per user.
+Template.boardsSortPopup.helpers({
+  isBoardsSort(mode) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const current =
+      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+        ? currentUser.getAllBoardsSortBy()
+        : 'custom';
+    return current === mode;
+  },
+});
+
+Template.boardsSortPopup.events({
+  'click .js-boards-sort'(evt) {
+    evt.preventDefault();
+    const mode = evt.currentTarget.getAttribute('data-sort');
+    if (mode) {
+      Meteor.call('setAllBoardsSortBy', mode);
+    }
+    Popup.back();
   },
 });
 

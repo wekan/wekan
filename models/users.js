@@ -97,6 +97,10 @@ export const allowedSortValues = [
 ];
 const defaultSortBy = allowedSortValues[0];
 
+// #5799: sort modes for the All Boards page. 'custom' is the existing per-user
+// manual drag order; the other two sort alphabetically by board title.
+export const allowedAllBoardsSortValues = ['custom', 'title-asc', 'title-desc'];
+
 /**
  * A User in wekan
  */
@@ -485,6 +489,17 @@ Users.attachSchema(
       optional: true,
       defaultValue: defaultSortBy,
       allowedValues: allowedSortValues,
+    },
+    'profile.allBoardsSortBy': {
+      /**
+       * How the All Boards page is sorted for this user (#5799):
+       * 'custom' keeps the manual drag order (default), 'title-asc' / 'title-desc'
+       * sort boards alphabetically by title.
+       */
+      type: String,
+      optional: true,
+      defaultValue: 'custom',
+      allowedValues: allowedAllBoardsSortValues,
     },
     'profile.templatesBoardId': {
       /**
@@ -1063,20 +1078,39 @@ Users.helpers({
     return typeof v === 'number' ? v : null;
   },
   /**
-   * Sort an array of boards by per-user mapping; fallback to title asc
+   * #5799: the user's chosen sort mode for the All Boards page.
+   * One of 'custom' (manual drag order, default), 'title-asc', 'title-desc'.
+   */
+  getAllBoardsSortBy() {
+    const value = this.profile && this.profile.allBoardsSortBy;
+    return allowedAllBoardsSortValues.includes(value) ? value : 'custom';
+  },
+  /**
+   * Sort an array of boards for this user. In 'title-asc' / 'title-desc' mode
+   * (#5799) boards are ordered alphabetically by title; otherwise the per-user
+   * manual drag order (profile.boardSortIndex) is used, falling back to title.
    */
   sortBoardsForUser(boardsArr) {
-    const mapping = (this.profile && this.profile.boardSortIndex) || {};
     const arr = (boardsArr || []).slice();
+    const mode = this.getAllBoardsSortBy();
+    const byTitle = (a, b) =>
+      (a.title || '').localeCompare(b.title || '', undefined, {
+        sensitivity: 'base',
+      });
+    if (mode === 'title-asc') {
+      arr.sort(byTitle);
+      return arr;
+    }
+    if (mode === 'title-desc') {
+      arr.sort((a, b) => byTitle(b, a));
+      return arr;
+    }
+    const mapping = (this.profile && this.profile.boardSortIndex) || {};
     arr.sort((a, b) => {
       const ia = typeof mapping[a._id] === 'number' ? mapping[a._id] : Number.POSITIVE_INFINITY;
       const ib = typeof mapping[b._id] === 'number' ? mapping[b._id] : Number.POSITIVE_INFINITY;
       if (ia !== ib) return ia - ib;
-      const ta = (a.title || '').toLowerCase();
-      const tb = (b.title || '').toLowerCase();
-      if (ta < tb) return -1;
-      if (ta > tb) return 1;
-      return 0;
+      return byTitle(a, b);
     });
     return arr;
   },
@@ -1724,6 +1758,10 @@ Users.helpers({
 
   async setListSortBy(value) {
     return await Users.updateAsync(this._id, { $set: { 'profile.listSortBy': value } });
+  },
+
+  async setAllBoardsSortBy(value) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.allBoardsSortBy': value } });
   },
 
   async setName(value) {

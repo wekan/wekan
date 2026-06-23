@@ -20,7 +20,7 @@ import InvitationCodes from '/models/invitationCodes';
 import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
-import Users, { allowedSortValues } from '/models/users';
+import Users, { allowedSortValues, allowedAllBoardsSortValues } from '/models/users';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
@@ -262,6 +262,15 @@ Meteor.methods({
   async setListSortBy(value) {
     check(value, String);
     (await ReactiveCache.getCurrentUser()).setListSortBy(value);
+  },
+
+  // #5799: persist the All Boards page sort mode for the current user.
+  async setAllBoardsSortBy(value) {
+    check(value, String);
+    if (!allowedAllBoardsSortValues.includes(value)) {
+      throw new Meteor.Error('invalid-sort', 'Invalid All Boards sort value');
+    }
+    await (await ReactiveCache.getCurrentUser()).setAllBoardsSortBy(value);
   },
 
   async setAvatarUrl(avatarUrl) {
