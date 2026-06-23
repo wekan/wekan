@@ -41,7 +41,7 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
-# Upcoming WeKan ® release
+# v9.71 2026-06-23 WeKan ® release
 
 This release adds the following features:
 
@@ -66,7 +66,7 @@ This release adds the following features:
   public-board users (stored in `localStorage` keys `wekan-fixed-list-width-enabled` / `wekan-fixed-list-width`).
   Enabling fixed width turns off auto-width (the two modes are mutually exclusive); widths below 270px are rejected.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [Due date does not work when the language uses non-Latin (e.g. Persian/Farsi) digits](https://github.com/wekan/wekan/issues/5752),
   [#5752](https://github.com/wekan/wekan/issues/5752): in locales such as Persian/Farsi or Arabic, dates and times can be
