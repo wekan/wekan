@@ -458,6 +458,68 @@ test.describe('REST API: data + permissions', () => {
     expect(acts[0].activityType).toBe('deleteCard');
   });
 
+  // ---- #5592 / #5627: copying a board copies its webhooks and rules --------
+  test('#5592/#5627 copying a board copies its webhooks and rules', async ({ request, user, board }) => {
+    db.insertOne('integrations', {
+      _id: db.uid('intg'), boardId: board.boardId, userId: user.id,
+      title: 'hook', type: 'outgoing-webhooks', url: 'https://example.com/hook',
+      token: 'tok', activities: ['all'], enabled: true,
+      createdAt: new Date(), modifiedAt: new Date(),
+    });
+    const actionId = db.uid('act');
+    db.insertOne('actions', { _id: actionId, boardId: board.boardId, actionType: 'moveCardToTop', listName: '*', swimlaneName: '*', createdAt: new Date(), modifiedAt: new Date() });
+    const triggerId = db.uid('trg');
+    db.insertOne('triggers', { _id: triggerId, boardId: board.boardId, activityType: 'createCard', listName: '*', swimlaneName: '*', cardTitle: '*', userId: '*', createdAt: new Date(), modifiedAt: new Date() });
+    db.insertOne('rules', { _id: db.uid('rule'), boardId: board.boardId, title: 'r', triggerId, actionId, createdAt: new Date(), modifiedAt: new Date() });
+
+    const created = [];
+    try {
+      const res = await request.post(`/api/boards/${board.boardId}/copy`, {
+        headers: authHeaders(user.token, true),
+        data: { title: 'Copied board' },
+      });
+      expect(res.status()).toBe(200);
+      const newBoardId = await res.json();
+      expect(typeof newBoardId).toBe('string');
+      created.push(newBoardId);
+
+      // #5592: the webhook is copied onto the new board.
+      const intgs = db.find('integrations', { boardId: newBoardId });
+      expect(intgs.length).toBe(1);
+      expect(intgs[0].url).toBe('https://example.com/hook');
+
+      // #5627: the rule (+ trigger + action) is copied onto the new board, with
+      // the rule's triggerId/actionId remapped to the copied docs.
+      const newRules = db.find('rules', { boardId: newBoardId });
+      const newActions = db.find('actions', { boardId: newBoardId });
+      const newTriggers = db.find('triggers', { boardId: newBoardId });
+      expect(newRules.length).toBe(1);
+      expect(newActions.length).toBe(1);
+      expect(newTriggers.length).toBe(1);
+      expect(newRules[0].actionId).toBe(newActions[0]._id);
+      expect(newRules[0].triggerId).toBe(newTriggers[0]._id);
+    } finally {
+      db.cleanup({ boardIds: created });
+    }
+  });
+
+  // ---- #1894: a disabled user cannot be added to a board -------------------
+  test('#1894 a disabled user cannot be added to a board', async ({ request, user, user2, board }) => {
+    const addUrl = `/api/boards/${board.boardId}/members/${user2.id}/add`;
+    const isMember = () => (db.getBoard(board.boardId).members || []).some(m => m.userId === user2.id && m.isActive);
+
+    db.updateOne('users', { _id: user2.id }, { $set: { loginDisabled: true } });
+    let res = await request.post(addUrl, { headers: authHeaders(user.token, true), data: { action: 'add' } });
+    expect(res.status()).toBe(400);
+    expect(isMember()).toBe(false);
+
+    // Re-enabling the account allows the add to succeed.
+    db.updateOne('users', { _id: user2.id }, { $set: { loginDisabled: false } });
+    res = await request.post(addUrl, { headers: authHeaders(user.token, true), data: { action: 'add' } });
+    expect(res.status()).toBe(200);
+    expect(isMember()).toBe(true);
+  });
+
   // ---- #5897: linked card -------------------------------------------------
   test('#5897 create a linked card referencing an existing card', async ({ request, user, board }) => {
     const sourceListId = board.listIds[0];

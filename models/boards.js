@@ -13,6 +13,7 @@ import {
 import { BOARD_COLORS, LABEL_COLORS } from '/models/metadata/colors';
 import Actions from '/models/actions';
 import Cards from '/models/cards';
+import Integrations from '/models/integrations';
 import Lists from '/models/lists';
 import Rules from '/models/rules';
 import Swimlanes from '/models/swimlanes';
@@ -1070,6 +1071,18 @@ Boards.helpers({
       rule.actionId = actionsMap[rule.actionId];
       rule.triggerId = triggersMap[rule.triggerId];
       await Rules.insertAsync(rule);
+    }
+
+    // #5592: copy the board's webhooks (Integrations). They are per-board
+    // children (boardRemover deletes them by boardId) but were not duplicated on
+    // copy, so a copied board lost all its outgoing webhooks. Re-home each onto
+    // the new board; the URL/token/activities carry over (the copying user is a
+    // board admin and already has access to them).
+    const integrations = await ReactiveCache.getIntegrations({ boardId: oldId });
+    for (const integration of integrations) {
+      delete integration._id;
+      integration.boardId = _id;
+      await Integrations.insertAsync(integration);
     }
 
     // Re-set Watchers to reenable notification

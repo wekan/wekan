@@ -802,6 +802,8 @@ Meteor.methods({
     }
     if (user) {
       if (user._id === inviter._id) throw new Meteor.Error('error-user-notAllowSelf');
+      // #1894: do not add a deactivated account to a board.
+      if (user.loginDisabled) throw new Meteor.Error('error-user-disabled');
     } else {
       if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
       if ((await ReactiveCache.getCurrentSetting()).disableRegistration) {
@@ -1517,6 +1519,11 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
       isReadAssignedOnly,
     } = roleFlags === null ? req.body : roleFlags;
     let data = await ReactiveCache.getUser(userId);
+    // #1894: do not add a deactivated account to a board.
+    if (data !== undefined && action === 'add' && data.loginDisabled) {
+      sendJsonResult(res, { code: 400, data: { error: 'User is disabled' } });
+      return;
+    }
     if (data !== undefined && action === 'add') {
       const boards = await ReactiveCache.getBoards({ _id: boardId });
       data = [];

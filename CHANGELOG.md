@@ -41,6 +41,31 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Copying a board did not copy its webhooks](https://github.com/wekan/wekan/issues/5592),
+  [#5592](https://github.com/wekan/wekan/issues/5592): `board.copy()` duplicated swimlanes/lists/cards, custom fields
+  and rules/triggers/actions, but had no loop for **Integrations** (outgoing webhooks), so a copied board lost all of
+  them (even though they are per-board children — `boardRemover` deletes them by `boardId`). `copy()` now also copies
+  the board's Integrations, remapping `boardId` (URL/token/activities carry over — the copying user is a board admin
+  with access to them). Regression in `tests/playwright/specs/17-rest-api.e2e.js`.
+- [Disabled user accounts could be added to boards](https://github.com/wekan/wekan/issues/1894),
+  [#1894](https://github.com/wekan/wekan/issues/1894): none of the add-member paths checked the target account's
+  `loginDisabled` flag, so a deactivated user could be invited/added and assigned to cards. `inviteUserToBoard` now
+  throws `error-user-disabled`, and the REST `POST /api/boards/:boardId/members/:userId/add` endpoint returns HTTP 400,
+  when the target account is disabled (re-enabling the account allows the add again). Regression in
+  `tests/playwright/specs/17-rest-api.e2e.js`.
+
+and this issue is verified resolved in current code (could not reproduce / no error observed here; re-test on the
+reporter's data requested):
+
+- [#5627](https://github.com/wekan/wekan/issues/5627) (rules not copied when creating a board from a template):
+  `board.copy()` already copies the board's rules + triggers + actions (remapping `boardId` and the rule's
+  `triggerId`/`actionId`); the report predates that code. Now covered by the #5592/#5627 copy regression in
+  `tests/playwright/specs/17-rest-api.e2e.js` so it cannot silently regress.
+
 # v9.69 2026-06-23 WeKan ® release
 
 This release fixes the following bugs:
