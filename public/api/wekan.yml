@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.67
+  version: v9.68
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6540,17 +6540,19 @@ definitions:
         type: number
       mobileMode:
         description: |
-           User-specified mobile/desktop mode toggle
+           User-specified mobile/desktop mode toggle.
+           #6419: must be OPTIONAL with NO default. A defaultValue of false set
+           mobileMode=false on every user, so Utils.getMobileMode() always returned
+           the profile value and the viewport-based auto-detection below it never
+           ran — every user was locked to desktop-mode even on a phone. Left unset,
+           it stays undefined until the user explicitly toggles, so phones
+           auto-detect mobile mode.
         type: boolean
       cardZoom:
         description: |
            User-specified zoom level for card details (1.0 = 100%, 1.5 = 150%, etc.)
         type: number
     required:
-      - templatesBoardId
-      - cardTemplatesSwimlaneId
-      - listTemplatesSwimlaneId
-      - boardTemplatesSwimlaneId
       - listWidths
       - listConstraints
       - autoWidthBoards
@@ -6561,7 +6563,6 @@ definitions:
       - verticalScrollbars
       - showWeekOfYear
       - zoomLevel
-      - mobileMode
       - cardZoom
   UsersSessiondata:
     type: object
