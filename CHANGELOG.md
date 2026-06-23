@@ -57,14 +57,26 @@ This release fixes the following bugs:
   throws `error-user-disabled`, and the REST `POST /api/boards/:boardId/members/:userId/add` endpoint returns HTTP 400,
   when the target account is disabled (re-enabling the account allows the add again). Regression in
   `tests/playwright/specs/17-rest-api.e2e.js`.
+- [Admin Panel boards report listed removed members as current members](https://github.com/wekan/wekan/issues/5122),
+  [#5122](https://github.com/wekan/wekan/issues/5122): removing a member from a board marks the member entry
+  `isActive: false` (it is kept in `board.members` for role history / re-activation), but the Admin Panel → Reports →
+  Boards member column listed **all** member entries, so removed users still appeared as members. The report now
+  filters to active members (`isActive !== false`). (The raw `GET /api/boards/:boardId` response intentionally still
+  returns the full `members` array with each entry's `isActive` flag, so API consumers can filter as they need.)
 
-and this issue is verified resolved in current code (could not reproduce / no error observed here; re-test on the
+and these issues are verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):
 
 - [#5627](https://github.com/wekan/wekan/issues/5627) (rules not copied when creating a board from a template):
   `board.copy()` already copies the board's rules + triggers + actions (remapping `boardId` and the rule's
   `triggerId`/`actionId`); the report predates that code. Now covered by the #5592/#5627 copy regression in
   `tests/playwright/specs/17-rest-api.e2e.js` so it cannot silently regress.
+- [#5630](https://github.com/wekan/wekan/issues/5630) (cannot save Admin Panel Layout settings): already fixed — the
+  Layout save handler had referenced form fields that were moved to the separate Accessibility settings template,
+  throwing before the save; the current `js-save-layout` handler no longer reads those fields.
+- [#5117](https://github.com/wekan/wekan/issues/5117) (a TeX formula rendered both an SVG and a `<math>` tag): already
+  fixed by migrating math rendering from `markdown-it-mathjax3` (which emitted both SVG and MathML) to **Temml**, which
+  outputs MathML only (`packages/markdown/src/template-integration.js`).
 
 # v9.69 2026-06-23 WeKan ® release
 

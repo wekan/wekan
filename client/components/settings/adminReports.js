@@ -364,6 +364,10 @@ Template.boardsReport.helpers({
   },
   userNames(members) {
     const ret = (members || [])
+      // #5122: removing a member from a board marks it `isActive: false` (the
+      // entry stays in board.members for role history / re-activation). The
+      // boards report must not list those removed members as current members.
+      .filter(_member => _member.isActive !== false)
       .map(_member => {
         const _ret = ReactiveCache.getUser(_member.userId)?.username || _member.userId;
         return _ret;
