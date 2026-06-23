@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.68
+  version: v9.69
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2138,16 +2138,6 @@ paths:
         - name: linkedId
           in: formData
           description: the linkedId value
-          type: string
-          required: true
-        - name: members
-          in: formData
-          description: the members value
-          type: string
-          required: true
-        - name: assignees
-          in: formData
-          description: the assignees value
           type: string
           required: true
         - name: dateField
