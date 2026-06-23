@@ -49,7 +49,7 @@ This release fixes the following bugs:
   [#6424](https://github.com/wekan/wekan/issues/6424): each label's name is rendered inside a `.viewer`, whose global
   `min-height: 2.5vh` (intended for the full content editor) forced every minicard label to roughly double height. The
   minicard text labels now reset that `min-height`, render the viewer/paragraph inline and stay on a single compact line.
-  Fixed in [e994caf98](https://github.com/wekan/wekan/commit/e994caf98ac57e2c9610615b11deef4296e2c693).
+  Fixed in [afbabccd2](https://github.com/wekan/wekan/commit/afbabccd2685af77ffddc1038f62823882615b74).
 
 # v9.70 2026-06-23 WeKan ® release
 
