@@ -1210,7 +1210,10 @@ WebApp.handlers.put(
       updated = true;
 
       const card = await ReactiveCache.getCard(paramCardId);
-      await cardMove(req.userId, card, { fieldName: 'listId' }, paramListId);
+      // cardMove() does fieldNames.includes(...), so this MUST be an array of
+      // changed field names — not an object. Passing { fieldName: 'listId' }
+      // threw "fieldNames.includes is not a function" (HTTP 500). See #6423.
+      await cardMove(req.userId, card, ['listId'], paramListId);
     }
     if (moveParams.isBoardMove) {
       await Authentication.checkBoardWriteAccess(req.userId, newBoardId);
