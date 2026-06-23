@@ -85,6 +85,14 @@ template(name="boardList")
                   i.fa.fa-thumb-tack
                 |  {{_ 'multi-selection-active'}}
           .path-right
+            .board-search
+              span.emoji-icon
+                i.fa.fa-search
+              input.js-board-search-input(type="text" placeholder="{{_ 'search-boards'}}" value="{{boardSearch}}" autocomplete="off")
+              if boardSearch
+                a.board-search-clear.js-board-search-clear(title="{{_ 'filter-clear'}}")
+                  span.emoji-icon
+                    i.fa.fa-times
             a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
               span.emoji-icon
                 i.fa.fa-sort-alpha-asc
@@ -108,6 +116,13 @@ template(name="boardList")
                 a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
                   span.emoji-icon
                     i.fa.fa-times
+        if boardsPaginationActive
+          .boards-pagination
+            button.js-boards-prev-page(class="{{#if hasBoardsPrevPage}}{{else}}disabled{{/if}}")
+              | &lt;
+            span.boards-page-info {{boardsCurrentPage}} / {{boardsTotalPages}}
+            button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
+              | &gt;
         ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
           li.js-add-board
             if isSelectedMenu 'templates'

@@ -297,6 +297,62 @@
   gap: 8px;
 }
 
+/* #5799: board-name search box in the All Boards header */
+.boards-path-header .board-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.boards-path-header .board-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  min-width: 140px;
+}
+
+.boards-path-header .board-search .board-search-clear {
+  cursor: pointer;
+  color: #999;
+}
+
+.boards-path-header .board-search .board-search-clear:hover {
+  color: #333;
+}
+
+/* #5799: board grid pagination controls, mirroring Admin Panel > People */
+.boards-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.boards-pagination button {
+  min-width: 32px;
+  height: 30px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.boards-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.boards-page-info {
+  min-width: 72px;
+  text-align: center;
+  color: #333;
+}
+
 .boards-path-header .path-icon {
   font-size: 18px;
 }

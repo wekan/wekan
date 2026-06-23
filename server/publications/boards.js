@@ -183,6 +183,103 @@ Meteor.methods({
     const cursor = await ReactiveCache.getBoards(query, {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
+
+  // #5799: compute one page of the current user's All Boards grid on the server,
+  // so the client can render only the current page of board icons instead of all
+  // of them. Returns the ordered board ids for the page plus the total count for
+  // the active filter. Visibility, menu/workspace filtering, search and sort are
+  // all resolved here against the *effective* current user — so it also works
+  // when a GlobalAdmin impersonates a user (impersonate() calls this.setUserId(),
+  // so this.userId / getCurrentUser() are the impersonated user).
+  async getAllBoardsPage(params) {
+    check(params, {
+      search: Match.Optional(String),
+      sortBy: Match.Optional(String),
+      menu: Match.Optional(String),
+      page: Match.Optional(Number),
+      perPage: Match.Optional(Number),
+    });
+
+    const userId = this.userId;
+    if (!Match.test(userId, String) || !userId) {
+      return { ids: [], total: 0 };
+    }
+    const user = await ReactiveCache.getUser(userId);
+    if (!user) {
+      return { ids: [], total: 0 };
+    }
+
+    const perPage = Math.min(200, Math.max(1, params.perPage || 25));
+    const page = Math.max(1, params.page || 1);
+    const search = (params.search || '').trim();
+    const sortBy = ['title-asc', 'title-desc'].includes(params.sortBy)
+      ? params.sortBy
+      : 'title-asc';
+    const menu = params.menu || 'remaining';
+
+    // Same visibility selector as the live `boards` publication.
+    const selector = {
+      archived: false,
+      type: { $in: ['board', 'template-container'] },
+      $or: [
+        { permission: 'public' },
+        { members: { $elemMatch: { userId, isActive: true } } },
+        { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+        { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+        { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
+      ],
+    };
+    if (search) {
+      selector.title = new RegExp(
+        search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+        'i',
+      );
+    }
+
+    // Lightweight fetch: only the fields needed to filter/sort/paginate. The
+    // board icons themselves are rendered client-side from the live `boards`
+    // subscription, keyed by the ids returned here.
+    let boards = await ReactiveCache.getBoards(
+      selector,
+      { fields: { _id: 1, title: 1, type: 1 } },
+      true,
+    );
+    boards = typeof boards.fetchAsync === 'function'
+      ? await boards.fetchAsync()
+      : (typeof boards.fetch === 'function' ? boards.fetch() : boards);
+
+    // Menu / workspace filtering uses the user's profile maps. A search spans
+    // every category, so it skips the menu filter (matching the client).
+    const profile = user.profile || {};
+    const assignments = profile.boardWorkspaceAssignments || {};
+    const starred = profile.starredBoards || [];
+    if (!search) {
+      if (menu === 'starred') {
+        boards = boards.filter(b => starred.includes(b._id));
+      } else if (menu === 'templates') {
+        boards = boards.filter(b => b.type === 'template-container');
+      } else if (menu === 'remaining') {
+        boards = boards.filter(
+          b => !assignments[b._id] && b.type !== 'template-container',
+        );
+      } else {
+        // menu is a workspace id
+        boards = boards.filter(b => assignments[b._id] === menu);
+      }
+    }
+
+    boards.sort((a, b) => {
+      const cmp = (a.title || '').localeCompare(b.title || '', undefined, {
+        sensitivity: 'base',
+      });
+      return sortBy === 'title-desc' ? -cmp : cmp;
+    });
+
+    const total = boards.length;
+    const start = (page - 1) * perPage;
+    const ids = boards.slice(start, start + perPage).map(b => b._id);
+    return { ids, total };
+  },
 });
 
 Meteor.publish('archivedBoards', async function() {

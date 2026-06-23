@@ -57,6 +57,10 @@ function shareBoardWith(boardId, shareType, name, id) {
 
 const DEFAULT_WORKSPACE_ICON = '📁';
 
+// #5799: how many board icons to show per page in the sorted (non-custom) modes.
+// Matches the Admin Panel > People page size.
+const BOARDS_PER_PAGE = 25;
+
 function getCurrentWorkspacesTree() {
   const currentUser = ReactiveCache.getCurrentUser();
   const tree =
@@ -164,6 +168,13 @@ Template.boardList.onCreated(function () {
   this.selectedMenu = new ReactiveVar(Session.get('boardListMenu') || 'starred');
   this.selectedWorkspaceIdVar = new ReactiveVar(null);
   this.workspacesTreeVar = new ReactiveVar([]);
+  // #5799: free-text search by board name. When non-empty it searches across
+  // ALL the user's boards (Starred, Templates, Remaining and every workspace),
+  // ignoring the selected-menu filter.
+  this.boardSearchVar = new ReactiveVar('');
+  // #5799: server-side pagination state for the sorted (non-custom) modes.
+  this.boardsPageVar = new ReactiveVar(1);
+  this.pagedBoardsVar = new ReactiveVar({ ids: [], total: 0 });
   // #5850: the user's orgs/teams that have the per-org/team Shared Templates
   // flag set (plus email domains), fetched via a non-admin server method since
   // the org/team publications are admin-only. Gates the drag-to-share targets.
@@ -260,6 +271,50 @@ Template.boardList.onCreated(function () {
       this.selectedMenu.set(m);
       this.selectedWorkspaceIdVar.set(null);
     }
+  });
+
+  // #5799: reset to the first page whenever the active filter changes (search
+  // text, selected menu/workspace or sort mode). Depends only on those signals,
+  // not on boardsPageVar, so paging next/prev does not reset itself.
+  this.autorun(() => {
+    this.boardSearchVar.get();
+    this.selectedMenu.get();
+    const cu = ReactiveCache.getCurrentUser();
+    if (cu && typeof cu.getAllBoardsSortBy === 'function') {
+      cu.getAllBoardsSortBy();
+    }
+    this.boardsPageVar.set(1);
+  });
+
+  // #5799: fetch the current page of boards from the server for the sorted
+  // (non-custom) modes, so only that page of icons is rendered. Custom (manual
+  // drag order) stays unpaginated client-side so drag-reordering keeps working.
+  // Uses the effective current user server-side, so it also works under
+  // GlobalAdmin impersonation.
+  this.autorun(() => {
+    const cu = ReactiveCache.getCurrentUser();
+    const sortBy =
+      cu && typeof cu.getAllBoardsSortBy === 'function'
+        ? cu.getAllBoardsSortBy()
+        : 'custom';
+    if (sortBy === 'custom') {
+      this.pagedBoardsVar.set({ ids: [], total: 0 });
+      return;
+    }
+    const search = (this.boardSearchVar.get() || '').trim();
+    const menu = this.selectedMenu.get();
+    const page = this.boardsPageVar.get();
+    Meteor.call(
+      'getAllBoardsPage',
+      { search, sortBy, menu, page, perPage: BOARDS_PER_PAGE },
+      (err, res) => {
+        if (err) {
+          console.error('getAllBoardsPage failed:', err);
+          return;
+        }
+        if (res) this.pagedBoardsVar.set(res);
+      },
+    );
   });
 
   // The templates-container board is no longer auto-created at signup (#2339,
@@ -486,27 +541,53 @@ Template.boardList.helpers({
 
     const boards = ReactiveCache.getBoards(query, {});
     const currentUser = ReactiveCache.getCurrentUser();
+
+    // #5799: in a sorted (non-custom) mode the server already computed the
+    // current page (filtered by menu/search and sorted), so render exactly that
+    // ordered page of board icons. Custom (manual drag order) falls through to
+    // the unpaginated client-side path below so drag-reordering keeps working.
+    const sortMode =
+      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+        ? currentUser.getAllBoardsSortBy()
+        : 'custom';
+    if (sortMode !== 'custom') {
+      const paged = tpl.pagedBoardsVar.get();
+      return (paged.ids || [])
+        .map((id) => ReactiveCache.getBoard(id))
+        .filter(Boolean);
+    }
+
     let list = boards;
-    // Apply left menu filtering
-    const sel = tpl.selectedMenu.get();
     const assignments =
       (currentUser &&
         currentUser.profile &&
         currentUser.profile.boardWorkspaceAssignments) ||
       {};
-    if (sel === 'starred') {
-      // Starred boards are always visible in Starred.
-      list = list.filter((b) => currentUser && currentUser.hasStarred(b._id));
-    } else if (sel === 'templates') {
-      list = list.filter((b) => b.type === 'template-container');
-    } else if (sel === 'remaining') {
-      // Remaining only shows boards not assigned to any workspace.
-      list = list.filter(
-        (b) => !assignments[b._id] && b.type !== 'template-container',
-      );
+
+    // #5799: when a board-name search is active, search across ALL the user's
+    // boards (every menu/workspace) by title and skip the menu filter, so a
+    // board in any category — Starred, Templates, Remaining or a (sub)workspace
+    // — is found from a single search box.
+    const search = (tpl.boardSearchVar.get() || '').trim().toLowerCase();
+    if (search) {
+      list = list.filter((b) => (b.title || '').toLowerCase().includes(search));
     } else {
-      // Workspace view includes all boards in that workspace, including starred.
-      list = list.filter((b) => assignments[b._id] === sel);
+      // Apply left menu filtering
+      const sel = tpl.selectedMenu.get();
+      if (sel === 'starred') {
+        // Starred boards are always visible in Starred.
+        list = list.filter((b) => currentUser && currentUser.hasStarred(b._id));
+      } else if (sel === 'templates') {
+        list = list.filter((b) => b.type === 'template-container');
+      } else if (sel === 'remaining') {
+        // Remaining only shows boards not assigned to any workspace.
+        list = list.filter(
+          (b) => !assignments[b._id] && b.type !== 'template-container',
+        );
+      } else {
+        // Workspace view includes all boards in that workspace, including starred.
+        list = list.filter((b) => assignments[b._id] === sel);
+      }
     }
 
     if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
@@ -650,6 +731,37 @@ Template.boardList.helpers({
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser && !currentUser.isCommentOnly();
   },
+  // #5799: current board-name search text (for the input value and the clear button).
+  boardSearch() {
+    return Template.instance().boardSearchVar.get();
+  },
+  // #5799: pagination controls (only shown in the sorted, non-custom modes).
+  boardsPaginationActive() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const sortMode =
+      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
+        ? currentUser.getAllBoardsSortBy()
+        : 'custom';
+    if (sortMode === 'custom') return false;
+    const total = Template.instance().pagedBoardsVar.get().total || 0;
+    return total > BOARDS_PER_PAGE;
+  },
+  boardsCurrentPage() {
+    return Template.instance().boardsPageVar.get();
+  },
+  boardsTotalPages() {
+    const total = Template.instance().pagedBoardsVar.get().total || 0;
+    return Math.max(1, Math.ceil(total / BOARDS_PER_PAGE));
+  },
+  hasBoardsPrevPage() {
+    return Template.instance().boardsPageVar.get() > 1;
+  },
+  hasBoardsNextPage() {
+    const tpl = Template.instance();
+    const total = tpl.pagedBoardsVar.get().total || 0;
+    const totalPages = Math.max(1, Math.ceil(total / BOARDS_PER_PAGE));
+    return tpl.boardsPageVar.get() < totalPages;
+  },
   // #5799: current All Boards sort mode ('custom' | 'title-asc' | 'title-desc').
   isBoardsSort(mode) {
     const currentUser = ReactiveCache.getCurrentUser();
@@ -756,6 +868,39 @@ Template.boardList.events({
   },
   // #5799: choose how the All Boards page is sorted.
   'click .js-open-boards-sort': Popup.open('boardsSort'),
+  // #5799: search boards by name across all categories.
+  'input .js-board-search-input'(evt, tpl) {
+    tpl.boardSearchVar.set(evt.currentTarget.value);
+  },
+  'keydown .js-board-search-input'(evt, tpl) {
+    // Esc clears the search.
+    if (evt.keyCode === 27) {
+      tpl.boardSearchVar.set('');
+      evt.currentTarget.value = '';
+    }
+  },
+  'click .js-board-search-clear'(evt, tpl) {
+    evt.preventDefault();
+    tpl.boardSearchVar.set('');
+    const input = tpl.find('.js-board-search-input');
+    if (input) {
+      input.value = '';
+      input.focus();
+    }
+  },
+  // #5799: board grid pagination (sorted modes only).
+  'click .js-boards-prev-page'(evt, tpl) {
+    evt.preventDefault();
+    const page = tpl.boardsPageVar.get();
+    if (page > 1) tpl.boardsPageVar.set(page - 1);
+  },
+  'click .js-boards-next-page'(evt, tpl) {
+    evt.preventDefault();
+    const total = tpl.pagedBoardsVar.get().total || 0;
+    const totalPages = Math.max(1, Math.ceil(total / BOARDS_PER_PAGE));
+    const page = tpl.boardsPageVar.get();
+    if (page < totalPages) tpl.boardsPageVar.set(page + 1);
+  },
   'click .js-star-board'(evt) {
     evt.preventDefault();
     evt.stopPropagation();
