@@ -93,6 +93,17 @@ This release fixes the following bugs:
   clean `Meteor.Error('email-fail', ...)` instead of a 500. Note: this makes the failure graceful, but to actually
   receive reset emails you must still configure SMTP (Admin Panel mail server, or `MAIL_URL` and `MAIL_FROM`). Logic
   extracted to `server/lib/resetPasswordEmail.js` and unit-tested in `tests/unit/resetPasswordEmail.test.js`.
+- [Changing the UI language had no effect for some languages (e.g. Chinese zh-CN, zh-Hans/zh-Hant, Arabic ar-*) while others (de, fr) worked](https://github.com/wekan/wekan/issues/5756),
+  [#5756](https://github.com/wekan/wekan/issues/5756): the custom tap:i18n reimplementation registered each language's
+  resource bundle under the raw Wekan tag, but i18next (with `cleanCode: true`) resolves and looks translations up under a
+  normalised code. For region/script-tagged and legacy underscore tags (`af_ZA`, `en_AU`, …) the stored code and the
+  lookup code disagreed, so the bundle was never found and the UI silently fell back to English. The loader now normalises
+  every i18next call (`supportedLngs`, `addResourceBundle`, `changeLanguage`, `t`) through the same code — underscores
+  converted to hyphens and run through i18next's `formatLanguageCode` — so storage and lookup always agree for ALL
+  supported languages. Dynamic JSON imports that resolve to an ES-module namespace are now unwrapped safely (without
+  mistaking the data's own `"default"` translation key for the module's default export), and the language-switch handlers
+  in the user header and login form now surface a failed load instead of leaving the UI silently in English. Added
+  positive and negative regression tests in `imports/i18n/i18n.test.js`.
 - [Card labels took two lines / double height on minicards, wasting vertical space](https://github.com/wekan/wekan/issues/6424),
   [#6424](https://github.com/wekan/wekan/issues/6424): each label's name is rendered inside a `.viewer`, whose global
   `min-height: 2.5vh` (intended for the full content editor) forced every minicard label to roughly double height. The

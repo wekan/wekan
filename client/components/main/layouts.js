@@ -267,7 +267,12 @@ Template.main.helpers({
 Template.userFormsLayout.events({
   'change .js-userform-set-language'(event) {
     const tag = $(event.currentTarget).val();
-    TAPi18n.setLanguage(tag);
+    // setLanguage is async; surface a failed load instead of silently leaving
+    // the UI in English (#5756).
+    Promise.resolve(TAPi18n.setLanguage(tag)).catch(error => {
+      // eslint-disable-next-line no-console
+      console.error(`Failed to switch language to ${tag}:`, error);
+    });
     event.preventDefault();
   },
   'click #at-btn'(event, templateInstance) {

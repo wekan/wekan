@@ -309,7 +309,12 @@ Template.changeLanguagePopup.events({
         'profile.language': this.tag,
       },
     });
-    TAPi18n.setLanguage(this.tag);
+    // setLanguage is async; surface a failed load instead of silently leaving
+    // the UI in English (#5756).
+    Promise.resolve(TAPi18n.setLanguage(this.tag)).catch(error => {
+      // eslint-disable-next-line no-console
+      console.error(`Failed to switch language to ${this.tag}:`, error);
+    });
     event.preventDefault();
   },
 });

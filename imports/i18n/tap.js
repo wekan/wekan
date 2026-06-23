@@ -8,11 +8,37 @@ const DEFAULT_NAMESPACE = 'translation';
 const DEFAULT_LANGUAGE = 'en';
 const getTranslationCollection = () => require('/models/translation').default;
 
+// Map a Wekan language tag (the key/`tag` from languages.js, e.g. 'zh-CN',
+// 'zh-Hans', 'ar-DZ' or the legacy underscore form 'en_AU', 'af_ZA') to the
+// code i18next actually stores and looks translations up under.
+//
+// Two transforms are required so that the bundle we register and the language
+// we switch to (and that t() resolves against) always agree (#5756):
+//  1. Underscores -> hyphens. i18next only understands BCP-47 hyphen separators;
+//     with an underscore it cannot parse the subtags, so 'af_za' resolves
+//     straight to the English fallback and the UI stays English.
+//  2. formatLanguageCode (enabled by `cleanCode: true`). i18next normalises the
+//     case of region/script subtags (e.g. region -> UPPER, script -> Titlecase)
+//     when it resolves a language. If we register the resource bundle under the
+//     raw tag but i18next looks it up under the formatted code, the bundle is
+//     never found and it falls back to English.
+// Keeping every i18next call (supportedLngs, addResourceBundle, changeLanguage,
+// t) on the same normalised code makes storage and lookup consistent for ALL
+// supported languages, not just the plain lowercase ones (de, fr, …).
+
 // Carefully reproduced tap:i18n API
 export const TAPi18n = {
   i18n: null,
   current: new ReactiveVar(DEFAULT_LANGUAGE),
   ready: new ReactiveVar(false),
+  // Normalise a Wekan language tag to the code i18next stores/looks up under.
+  // See the comment above for why both transforms are needed (#5756).
+  toI18nCode(language) {
+    if (!language) return language;
+    const hyphenated = String(language).replace(/_/g, '-');
+    const utils = this.i18n && this.i18n.services && this.i18n.services.languageUtils;
+    return utils ? utils.formatLanguageCode(hyphenated) : hyphenated;
+  },
   async init() {
     this.ready.set(false);
     this.i18n = i18next.createInstance().use(sprintf);
@@ -22,7 +48,13 @@ export const TAPi18n = {
       // Show translations debug messages only when DEBUG=true
       // OLD: debug: Meteor.isDevelopment,
       debug: process.env.DEBUG === 'true',
-      supportedLngs: Object.values(languages).map(({ tag }) => tag),
+      // `this.i18n` is not fully initialised yet, so formatLanguageCode is not
+      // available here. The tags in languages.js are already in i18next's
+      // canonical case (e.g. 'zh-CN', 'zh-Hans', 'ar-DZ'); they only need the
+      // underscore->hyphen conversion so i18next can parse the subtags. The
+      // store/lookup side (loadLanguage/setLanguage/__) additionally runs them
+      // through formatLanguageCode so any non-canonical casing still matches.
+      supportedLngs: Object.values(languages).map(({ tag }) => tag.replace(/_/g, '-')),
       ns: DEFAULT_NAMESPACE,
       defaultNs: DEFAULT_NAMESPACE,
       postProcess: ["sprintf"],
@@ -77,6 +109,25 @@ export const TAPi18n = {
   async loadLanguage(language) {
     if (language in languages && 'load' in languages[language]) {
       let data = await languages[language].load();
+      // Dynamic `import()` of a JSON module can resolve to an ES-module
+      // namespace ({ default: {...} }) rather than the bare object, depending on
+      // the bundler/interop. Unwrap it so addResourceBundle receives the actual
+      // translation map (#5756).
+      //
+      // NB: the translation data ITSELF contains a key literally named
+      // "default" (value "Default"/"Standard"), so we must NOT unwrap on the
+      // mere presence of a `default` property. Only unwrap a genuine ES-module
+      // namespace, identified by its `__esModule` / Symbol.toStringTag marker
+      // and a `default` that is the real (object) translation map.
+      const isModuleNamespace =
+        data &&
+        typeof data === 'object' &&
+        (data.__esModule === true || data[Symbol.toStringTag] === 'Module') &&
+        data.default &&
+        typeof data.default === 'object';
+      if (isModuleNamespace) {
+        data = data.default;
+      }
 
       let custom_translations = [];
       await this.loadTranslation(language);
@@ -103,14 +154,19 @@ export const TAPi18n = {
         }, data);
       }
 
-      this.i18n.addResourceBundle(language, DEFAULT_NAMESPACE, data);
+      // Register the bundle under the code i18next will actually look it up
+      // under, so storage and lookup agree for region/script/underscore tags.
+      this.i18n.addResourceBundle(this.toI18nCode(language), DEFAULT_NAMESPACE, data);
     } else {
       throw new Error(`Language ${language} is not supported`);
     }
   },
   async setLanguage(language) {
     await this.loadLanguage(language);
-    await this.i18n.changeLanguage(language);
+    // Switch i18next using the same normalised code the bundle is stored under.
+    await this.i18n.changeLanguage(this.toI18nCode(language));
+    // `current` keeps the original Wekan tag (used for the profile, the language
+    // picker and the reactive UI), not the i18next-internal code.
     this.current.set(language);
   },
   // Make sure the resource bundle for `language` is available before a
@@ -120,7 +176,7 @@ export const TAPi18n = {
   async ensureLanguageLoaded(language) {
     if (!language || !this.i18n) return;
     if (!this.isLanguageSupported(language)) return;
-    if (this.i18n.hasResourceBundle(language, DEFAULT_NAMESPACE)) return;
+    if (this.i18n.hasResourceBundle(this.toI18nCode(language), DEFAULT_NAMESPACE)) return;
     await this.loadLanguage(language);
   },
   // Return translation by key
@@ -133,7 +189,10 @@ export const TAPi18n = {
     // (the global Blaze '_' helper). Retry without sprintf so such strings
     // render literally instead of throwing.
     const translate = (lng, extra = {}) => {
-      const opts = { ...options, ...extra, lng };
+      // Look the key up under the same normalised code the bundle is stored
+      // under. `lng === undefined` means "use i18next's current language",
+      // which setLanguage() already set to the normalised code.
+      const opts = { ...options, ...extra, lng: lng === undefined ? undefined : this.toI18nCode(lng) };
       try {
         return this.i18n.t(key, opts);
       } catch (e) {
