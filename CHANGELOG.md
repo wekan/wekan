@@ -73,10 +73,27 @@ This release fixes the following bugs:
   `unassignMember` removal already worked. The board-members *list* still hides such entries because `activeMembers()`
   also intentionally filters members whose user doc is merely not-yet-loaded, so surfacing board-side orphans cleanly is
   a separate follow-up.)
+- [A newly added board member was missing from the card members popup](https://github.com/wekan/wekan/issues/4965),
+  [#4965](https://github.com/wekan/wekan/issues/4965): the card "add members" popup snapshotted the board's member list
+  **once** when it opened, so a member added to the board afterwards (or whose user document finished loading just after
+  the popup opened) did not appear until the popup was reopened. The popup now derives its candidate list **reactively**
+  (it stores only the filter term and re-reads `board.activeMembers()` on each render), so newly-added members show up
+  without reopening. No change to `activeMembers()` itself (its deleted-user filtering is unchanged).
+- [Editing a linked card you cannot write to failed silently](https://github.com/wekan/wekan/issues/5809),
+  [#5809](https://github.com/wekan/wekan/issues/5809): a linked card whose target lives on a board the user cannot
+  write to (e.g. a private board) rejected title/description edits at the server allow rule, but the card-detail edit
+  handlers had no error handling, so the edit just vanished with no feedback. The title and description submit handlers
+  now catch the failure and show the error (mirroring the existing label-color handler), so the user sees why the edit
+  did not save. (No automated regression — surfacing a permission denial across a private linked board is a UX/error
+  path that is not cleanly reproducible in the test harness.)
 
 and these issues are verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):
 
+- [#3894](https://github.com/wekan/wekan/issues/3894) (board import failed when the JSON's `members` referenced a user
+  not present in `users`): the importers already guard a missing user entry (skip the dangling member instead of
+  dereferencing `undefined`) in `client/components/import/wekanMembersMapper.js`, `models/wekanmapper.js` and
+  `models/wekanCreator.js`, with a dedicated test (`tests/wekanCreator.inconsistent.test.js`).
 - [#5627](https://github.com/wekan/wekan/issues/5627) (rules not copied when creating a board from a template):
   `board.copy()` already copies the board's rules + triggers + actions (remapping `boardId` and the rule's
   `triggerId`/`actionId`); the report predates that code. Now covered by the #5592/#5627 copy regression in

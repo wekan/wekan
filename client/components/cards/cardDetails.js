@@ -859,17 +859,25 @@ Template.cardDetails.events({
     event.preventDefault();
     const description = tpl.find('.js-new-description-input').value;
     const card = Template.currentData();
-    await card.setDescription(description);
+    // #5809: surface a visible error instead of failing silently — e.g. editing
+    // a linked card whose target is on a board the user cannot write to gets a
+    // permission denial that otherwise vanished with no feedback.
+    try {
+      await card.setDescription(description);
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to save description');
+    }
   },
   async 'submit .js-card-details-title'(event, tpl) {
     event.preventDefault();
     const titleInput = tpl.find('.js-edit-card-title');
     const title = titleInput ? titleInput.value.trim() : '';
     const card = Template.currentData();
-    if (title) {
-      await card.setTitle(title);
-    } else {
-      await card.setTitle('');
+    // #5809: surface a visible error instead of failing silently (see above).
+    try {
+      await card.setTitle(title || '');
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to save title');
     }
   },
   'submit .js-card-details-assigner'(event, tpl) {
@@ -1498,9 +1506,13 @@ Template.editCardTitleForm.events({
 });
 
 Template.cardMembersPopup.onCreated(function () {
-  let currBoard = Utils.getCurrentBoard();
-  let members = currBoard.activeMembers();
-  this.members = new ReactiveVar(members);
+  // #4965: only the filter term is stored reactively; the candidate list is
+  // derived reactively in the members() helper (via filterMembers, which reads
+  // board.activeMembers() on each call). Previously the list was snapshotted
+  // once here, so a member added to the board after the popup opened — or whose
+  // user document finished loading after open — was missing until the popup was
+  // reopened.
+  this.filterTerm = new ReactiveVar('');
 });
 
 Template.cardMembersPopup.events({
@@ -1512,8 +1524,7 @@ Template.cardMembersPopup.events({
     event.preventDefault();
   },
   'keyup .card-members-filter'(event) {
-    const members = filterMembers(event.target.value);
-    Template.instance().members.set(members);
+    Template.instance().filterTerm.set(event.target.value);
   }
 });
 
@@ -1527,7 +1538,7 @@ Template.cardMembersPopup.helpers({
   },
 
   members() {
-    const members = Template.instance().members.get();
+    const members = filterMembers(Template.instance().filterTerm.get());
     const uniqueMembers = uniqBy(members, 'userId');
     return [...uniqueMembers].sort((a, b) => {
       const userA = ReactiveCache.getUser(a.userId);
