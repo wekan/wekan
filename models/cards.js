@@ -951,12 +951,20 @@ Cards.helpers({
       await ch.copy(_id);
     }
 
-    // copy subtasks
+    // copy subtasks (#5874-class data bug: previously the copied subtasks kept
+    // the SOURCE board's boardId/swimlaneId/listId, so copying a card to another
+    // board left orphaned subtasks on the old board pointing at a parent on the
+    // new board — and it mutated the cached source docs). Re-home them onto the
+    // destination board alongside the copied parent.
     const subtasks = await ReactiveCache.getCards({ parentId: oldId });
     for (const subtask of subtasks) {
-      subtask.parentId = _id;
-      subtask._id = null;
-      await Cards.insertAsync(subtask);
+      const copySubtask = Object.assign({}, subtask);
+      delete copySubtask._id;
+      copySubtask.parentId = _id;
+      copySubtask.boardId = boardId;
+      copySubtask.swimlaneId = swimlaneId;
+      copySubtask.listId = listId;
+      await Cards.insertAsync(copySubtask);
     }
 
     // copy card comments (#5166: re-home them onto the destination board)

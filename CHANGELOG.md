@@ -93,6 +93,14 @@ This release fixes the following bugs:
   `.direct` for the checklist and its items (skipping the per-item activity hooks — pure churn for a wholesale copy) and
   sets `boardId` itself, the same approach as the `cardRemover` delete path. Copy regression (checklist + all items
   duplicated) in `tests/playwright/specs/17-rest-api.e2e.js`.
+- **Copying a card to another board orphaned its subtasks on the old board**
+  ([#5347](https://github.com/wekan/wekan/issues/5347) data symptom): `Card.copy()` re-pointed each subtask's
+  `parentId` to the copied card but left its `boardId`/`swimlaneId`/`listId` pointing at the **source** board — so a
+  cross-board copy created subtasks stranded on the original board whose parent lives on another board (and it mutated
+  the cached source docs in place). Copied subtasks are now re-homed onto the destination board/swimlane/list alongside
+  the copied parent, via a fresh object (no cache mutation). Cross-board copy regression in
+  `tests/playwright/specs/17-rest-api.e2e.js`. (This fixes the orphaned-cross-board-subtask data symptom noted in
+  #5347; the separate "Maximum call stack" error there is not yet root-caused — see the issue.)
 - [Error when clicking the notification icon](https://github.com/wekan/wekan/issues/5325),
   [#5325](https://github.com/wekan/wekan/issues/5325): a notification whose referenced activity no longer existed (its
   card/board was deleted) left an entry whose `activityObj` was null, and the notifications drawer dereferences it

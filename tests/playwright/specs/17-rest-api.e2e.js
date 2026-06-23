@@ -378,6 +378,38 @@ test.describe('REST API: data + permissions', () => {
   });
 
   // ---- #5166: copying a card cross-board re-homes its comments --------------
+  test('copying a card cross-board re-homes its subtasks onto the destination board', async ({ request, user, board }) => {
+    const srcListId = board.listIds[0];
+    const srcCardId = listCards(board.boardId, srcListId)[0]._id;
+
+    // A subtask is a card with parentId = the source card.
+    db.insertOne('cards', {
+      _id: db.uid('sub'), boardId: board.boardId, swimlaneId: board.swimlaneId,
+      listId: srcListId, parentId: srcCardId, title: 'subtask', sort: 0,
+      archived: false, createdAt: new Date(), dateLastActivity: new Date(),
+    });
+
+    const dest = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [['x']] });
+    try {
+      const res = await request.post(
+        `/api/boards/${board.boardId}/lists/${srcListId}/cards/${srcCardId}/copy`,
+        { headers: authHeaders(user.token, true), data: { toBoardId: dest.boardId, toSwimlaneId: dest.swimlaneId, toListId: dest.listIds[0] } },
+      );
+      expect(res.status()).toBe(200);
+      const newCardId = (await res.json())._id;
+
+      // The copied subtask is on the destination board, not the source board.
+      const copiedSubs = db.find('cards', { parentId: newCardId });
+      expect(copiedSubs.length).toBe(1);
+      expect(copiedSubs[0].boardId).toBe(dest.boardId);
+      expect(copiedSubs[0].boardId).not.toBe(board.boardId);
+      // The original subtask is untouched on the source board.
+      expect(db.find('cards', { parentId: srcCardId }).every(c => c.boardId === board.boardId)).toBe(true);
+    } finally {
+      db.cleanup({ boardIds: [dest.boardId] });
+    }
+  });
+
   test('#5166 copied comments get the destination boardId and keep their author', async ({ request, user, user2, board }) => {
     const srcListId = board.listIds[0];
     const srcCardId = listCards(board.boardId, srcListId)[0]._id;
