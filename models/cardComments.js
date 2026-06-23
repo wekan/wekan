@@ -126,8 +126,16 @@ CardComments.attachSchema(
 );
 
 CardComments.helpers({
-  copy(newCardId) {
+  copy(newCardId, newBoardId) {
     this.cardId = newCardId;
+    // #5166: when a card is copied to another board, the copied comments must
+    // belong to the destination board too. Without this they kept the source
+    // board's boardId, so permission checks (which key off the comment's
+    // boardId) and any board-scoped queries used the wrong board. The author
+    // (userId) is intentionally preserved.
+    if (newBoardId) {
+      this.boardId = newBoardId;
+    }
     delete this._id;
     return CardComments.insertAsync(this);
   },

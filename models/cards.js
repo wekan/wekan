@@ -959,10 +959,10 @@ Cards.helpers({
       await Cards.insertAsync(subtask);
     }
 
-    // copy card comments
+    // copy card comments (#5166: re-home them onto the destination board)
     const comments = await ReactiveCache.getCardComments({ cardId: oldId });
     for (const cmt of comments) {
-      await cmt.copy(_id);
+      await cmt.copy(_id, boardId);
     }
     // restore the id, otherwise new copies will fail
     this._id = oldId;

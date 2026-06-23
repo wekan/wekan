@@ -377,6 +377,49 @@ test.describe('REST API: data + permissions', () => {
     }
   });
 
+  // ---- #5166: copying a card cross-board re-homes its comments --------------
+  test('#5166 copied comments get the destination boardId and keep their author', async ({ request, user, user2, board }) => {
+    const srcListId = board.listIds[0];
+    const srcCardId = listCards(board.boardId, srcListId)[0]._id;
+
+    // A comment on the source card, authored by a DIFFERENT user.
+    const commentId = db.uid('cmt');
+    db.insertOne('card_comments', {
+      _id: commentId,
+      boardId: board.boardId,
+      cardId: srcCardId,
+      userId: user2.id,
+      text: 'original author comment',
+      createdAt: new Date(),
+      modifiedAt: new Date(),
+    });
+
+    // Destination board owned by the same user (so the copy has write access).
+    const dest = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [['x']] });
+    try {
+      const res = await request.post(
+        `/api/boards/${board.boardId}/lists/${srcListId}/cards/${srcCardId}/copy`,
+        {
+          headers: authHeaders(user.token, true),
+          data: { toBoardId: dest.boardId, toSwimlaneId: dest.swimlaneId, toListId: dest.listIds[0] },
+        },
+      );
+      expect(res.status()).toBe(200);
+      const newCardId = (await res.json())._id;
+      expect(newCardId).toBeTruthy();
+
+      // The copied comment belongs to the destination board, not the source —
+      // and its original author is preserved.
+      const copied = db.find('card_comments', { cardId: newCardId });
+      expect(copied.length).toBe(1);
+      expect(copied[0].boardId).toBe(dest.boardId);
+      expect(copied[0].boardId).not.toBe(board.boardId);
+      expect(copied[0].userId).toBe(user2.id);
+    } finally {
+      db.cleanup({ boardIds: [dest.boardId] });
+    }
+  });
+
   // ---- #5897: linked card -------------------------------------------------
   test('#5897 create a linked card referencing an existing card', async ({ request, user, board }) => {
     const sourceListId = board.listIds[0];

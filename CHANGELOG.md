@@ -70,6 +70,16 @@ This release fixes the following bugs:
   never match an undefined id — so the board was returned by the REST API but invisible in the browser. `owner` now
   falls back to the authenticated caller (`req.body.owner || req.userId`), mirroring the Meteor create method. REST +
   DB regression in `tests/playwright/specs/17-rest-api.e2e.js`.
+- [Copying a card to another board left its comments on the wrong board](https://github.com/wekan/wekan/issues/5166),
+  [#5166](https://github.com/wekan/wekan/issues/5166): `CardComments.copy()` cloned a comment but only changed its
+  `cardId`, so a card copied to another board produced comments that kept the **source** board's `boardId`. Comment
+  permission checks key off the comment's `boardId`, so edit/delete on a copied comment was validated against the wrong
+  board, and any board-scoped query saw it on the old board. `copy()` now also sets the destination `boardId` (the
+  author `userId` is intentionally preserved). Cross-board copy regression in
+  `tests/playwright/specs/17-rest-api.e2e.js`. *Note:* the related "wrong author shown" symptom is a separate display
+  issue — when a copied comment's author is **not a member of the destination board**, their user document isn't
+  published there, so the UI can't resolve the name; adding those users to the board resolves it. A broader fix
+  (publishing comment authors' minimal profile on boards where their comments appear) is left as a follow-up.
 
 and this issue is verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):
