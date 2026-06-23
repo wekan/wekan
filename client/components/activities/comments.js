@@ -108,7 +108,13 @@ Template.comment.events({
   },
   'click .js-delete-comment': Popup.afterConfirm('deleteComment', function () {
     const commentId = this._id;
-    CardComments.remove(commentId);
+    // #3252: only remove if the doc is still in the local cache. Under heavy
+    // archive/delete churn the comment can already be evicted from Minimongo,
+    // and CardComments.remove() of a missing _id throws "Removed nonexistent
+    // document" on the client.
+    if (commentId && CardComments.findOne(commentId)) {
+      CardComments.remove(commentId);
+    }
     Popup.back();
   }),
   'submit .js-edit-comment'(evt, tpl) {

@@ -80,6 +80,17 @@ This release fixes the following bugs:
   issue — when a copied comment's author is **not a member of the destination board**, their user document isn't
   published there, so the UI can't resolve the name; adding those users to the board resolves it. A broader fix
   (publishing comment authors' minimal profile on boards where their comments appear) is left as a follow-up.
+- [Exception "Removed nonexistent document" when deleting a card detail](https://github.com/wekan/wekan/issues/3252),
+  [#3252](https://github.com/wekan/wekan/issues/3252) (partial): deleting a comment or checklist/checklist-item could
+  throw `Removed nonexistent document` on the client. The delete handlers called `Collection.remove(_id)` directly, but
+  under heavy archive/delete churn the target doc can already have been evicted from the client's Minimongo cache, and
+  removing a missing `_id` throws. The comment / checklist / checklist-item delete handlers now check the doc still
+  exists in the local cache before removing it
+  (`client/components/activities/comments.js`, `client/components/cards/checklists.js`). The server-side
+  `before.remove` hooks were already hardened to guard + log instead of throwing. *Note:* this removes the thrown
+  client exception; the **high CPU on bulk delete** the issue also reports is separate reactivity/mergebox churn from
+  the cascade and remains a follow-up. (No automated regression — the eviction race is not deterministically
+  reproducible; the guard itself is a self-evident findOne-then-remove.)
 
 and this issue is verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):

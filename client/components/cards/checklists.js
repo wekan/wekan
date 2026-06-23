@@ -214,7 +214,9 @@ Template.checklists.events({
   'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {
     Popup.back();
     const item = this?.item || this;
-    if (item && item._id) {
+    // #3252: guard against removing a doc already evicted from Minimongo (heavy
+    // archive/delete churn), which throws "Removed nonexistent document".
+    if (item && item._id && ChecklistItems.findOne(item._id)) {
       ChecklistItems.remove(item._id);
     }
   }),
@@ -258,7 +260,8 @@ Template.checklistActionsPopup.events({
   'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
     Popup.back(2);
     const checklist = this.checklist;
-    if (checklist && checklist._id) {
+    // #3252: see js-delete-checklist-item — avoid "Removed nonexistent document".
+    if (checklist && checklist._id && Checklists.findOne(checklist._id)) {
       Checklists.remove(checklist._id);
     }
   }),
