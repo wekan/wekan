@@ -56,6 +56,12 @@ This release fixes the following bugs:
   `fieldNames.includes('boardId')`, so the object's missing `.includes` threw and the endpoint returned HTTP 500. The
   changed field names are now passed as an array (`['listId']`), matching the cross-board move path.
   Fixed in [69c899f1f](https://github.com/wekan/wekan/commit/69c899f1f99b0ea984d3b36f5d2a2aac67c4ff9a).
+- [Notification emails were sent in English despite the user's language setting](https://github.com/wekan/wekan/issues/5875),
+  [#5875](https://github.com/wekan/wekan/issues/5875): on the server only the default (English) translation bundle is
+  loaded at startup, so translating a notification to the user's language fell back to English because i18next never had
+  that language's bundle. Added `TAPi18n.ensureLanguageLoaded()` (loads the bundle on demand) and await it before
+  translating in the email notification, `EmailLocalization.sendEmail` and outgoing webhook paths.
+  Fixed in [22f996903](https://github.com/wekan/wekan/commit/22f996903b09d35e3aa959a9aa65b30204e12202).
 
 # v9.70 2026-06-23 WeKan ® release
 
