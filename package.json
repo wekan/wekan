@@ -22,6 +22,7 @@
   "scripts": {
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test:unit:node": "node tests/filenameSanitizer.test.cjs && node tests/cardBoardConsistency.test.cjs && node tests/restArrayParam.test.cjs && node tests/minicardLabelHeight.test.cjs && node tests/dateUtils.normalizeDigits.test.cjs && node tests/unit/resetPasswordEmail.test.js",
+    "test:unit:all": "npm run test:unit:node && node tests/cards.stickers.test.js && node tests/stickers.test.js && node tests/stickers.packs.test.js && node tests/linkCardPopup.test.js && node tests/trelloCreator.import.test.js && node tests/trelloImport.maplink.test.js && node tests/trelloImport.zip.test.js && node tests/wekanCreator.import.test.js && node tests/wekanCreator.inconsistent.test.js && node tests/unit/oauth2-admin-groups.test.js",
     "test:watch": "meteor test --driver-package meteortesting:mocha",
     "test:e2e": "node tests/e2e/list-regressions.js",
     "test:playwright": "cd tests/playwright && npm install && npx playwright test",
