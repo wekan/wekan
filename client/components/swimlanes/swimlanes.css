@@ -83,8 +83,15 @@
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu {
   position: absolute;
+  /* Stretch the menu to the full height of the swimlane header and lay the
+     buttons (collapse, swimlane menu, + new swimlane, drag handle) in a row that
+     is vertically centered — instead of anchoring them to the top with per-icon
+     top: calc(50% + Npx) hacks that centered against the menu's own height. */
   top: 0;
+  bottom: 0;
   inset-inline-start: 0;
+  display: flex;
+  align-items: center;
   padding: 0;
   margin: 0;
   font-size: 22px;
@@ -93,7 +100,6 @@
   pointer-events: auto;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu .js-open-swimlane-menu {
-  top: calc(50% + 6px);
   padding: 5px;
   display: inline-block;
   margin-inline-start: 30px;
@@ -107,20 +113,16 @@
   }
 }
 .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
-  top: calc(50% + 6px);
   padding: 5px;
   margin-inline-start: 20px;
   font-size: 22px;
   color: #a6a6a6;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
-  top: calc(50% + 6px);
   padding-inline-start: 5px;
   font-size: 22px;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-handle {
-  position: relative;
-  top: calc(50% + 2px);
   padding: 2px 5px;
   font-size: clamp(16px, 3vw, 20px);
   display: inline-block;
@@ -132,9 +134,7 @@
   line-height: 1.2;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
-  position: relative;
   padding: 2px 5px;
-  top: calc(50% + 2px);
   font-size: 24px;
   display: inline-block;
   vertical-align: middle;
