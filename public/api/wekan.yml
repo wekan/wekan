@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.70
+  version: v9.71
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6458,6 +6458,16 @@ definitions:
           - title
           - -sort
           - sort
+      allBoardsSortBy:
+        description: |
+           How the All Boards page is sorted for this user (#5799):
+           'custom' keeps the manual drag order (default), 'title-asc' / 'title-desc'
+           sort boards alphabetically by title.
+        type: string
+        enum:
+          - custom
+          - title-asc
+          - title-desc
       templatesBoardId:
         description: |
            Reference to the templates board
@@ -6488,6 +6498,18 @@ definitions:
         description: |
            User-specified flag for enabling auto-width for boards (false is the default).
            profile[boardId][listId] = constraint;
+        type: object
+      fixedListWidthBoards:
+        description: |
+           #5729 Per-user flag enabling "same width for all lists" (fixed width)
+           mode for a board (false is the default).
+           profile.fixedListWidthBoards[boardId] = true|false
+        type: object
+      fixedListWidths:
+        description: |
+           #5729 Per-user single width applied to every list of a board when fixed
+           width mode is enabled.
+           profile.fixedListWidths[boardId] = width
         type: object
       swimlaneHeights:
         description: |
@@ -6546,6 +6568,8 @@ definitions:
       - listWidths
       - listConstraints
       - autoWidthBoards
+      - fixedListWidthBoards
+      - fixedListWidths
       - swimlaneHeights
       - collapsedLists
       - collapsedSwimlanes
