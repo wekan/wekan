@@ -63,6 +63,16 @@ This release fixes the following bugs:
   Boards member column listed **all** member entries, so removed users still appeared as members. The report now
   filters to active members (`isActive !== false`). (The raw `GET /api/boards/:boardId` response intentionally still
   returns the full `members` array with each entry's `isActive` flag, so API consumers can filter as they need.)
+- [Could not remove a deleted user from a card's members](https://github.com/wekan/wekan/issues/4847),
+  [#4847](https://github.com/wekan/wekan/issues/4847) (card side): when a user account is deleted, its entry stays in a
+  card's `members`, rendering as a blank avatar. Clicking it opened the member popup, whose template dereferenced the
+  now-missing user document (`user.profile.fullname` / `user.username`) and failed to render — so there was no way to
+  remove the orphaned member. The popup now detects a missing user, shows a **"Deleted user"** entry with the raw id, and
+  keeps the **Remove from Card** control (the remove handler keys off the member's `userId`, not the user document), so
+  orphaned card members can be removed. (No automated regression — a self-evident Blaze template guard; the underlying
+  `unassignMember` removal already worked. The board-members *list* still hides such entries because `activeMembers()`
+  also intentionally filters members whose user doc is merely not-yet-loaded, so surfacing board-side orphans cleanly is
+  a separate follow-up.)
 
 and these issues are verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):

@@ -139,16 +139,26 @@ template(name="adminChangeAvatarPopup")
 template(name="cardMemberPopup")
   .board-member-menu
     .mini-profile-info
-      +userAvatar(userId=user._id showEdit=true)
-      .info
-        h3= user.profile.fullname
-        p.quiet @{{ user.username }}
+      if user
+        +userAvatar(userId=user._id showEdit=true)
+        .info
+          h3= user.profile.fullname
+          p.quiet @{{ user.username }}
+      else
+        //- #4847: the member's user account was deleted. Still show the entry
+        //- (with its id) and the remove control so the orphaned member can be
+        //- removed from the card — the remove handler keys off userId, not the
+        //- user document.
+        .info
+          h3 {{_ 'deleted-user'}}
+          p.quiet {{ userId }}
     ul.pop-over-list
       unless noRemove
         if currentUser.isNotCommentOnly
           if currentUser.isNotWorker
             li: a.js-remove-member {{_ 'remove-member-from-card'}}
 
-      if $eq currentUser._id user._id
-        with currentUser
-          li: a.js-edit-profile {{_ 'edit-profile'}}
+      if user
+        if $eq currentUser._id user._id
+          with currentUser
+            li: a.js-edit-profile {{_ 'edit-profile'}}
