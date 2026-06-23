@@ -43,6 +43,22 @@ them up next.
 
 # Upcoming WeKan ® release
 
+This release adds the following features:
+
+- [Sort, search and paginate the All Boards page](https://github.com/wekan/wekan/issues/5799),
+  [#5799](https://github.com/wekan/wekan/issues/5799): the All Boards page only offered the per-user manual drag order
+  with no obvious way to sort by name. Added a **Sort** button (Custom drag order / Title A→Z / Title Z→A, stored per
+  user), a **board-name search** box that spans every category (Starred, Templates, Remaining and all
+  (sub)workspaces), and **pagination of the board icons** — in the sorted modes the current page is computed on the
+  server (`getAllBoardsPage`) so only that page is rendered and the page scales to thousands of boards. The search box
+  and pagination controls are placed like Admin Panel > People. Custom (manual drag order) stays unpaginated so
+  drag-reordering keeps working. All server-side filtering/sorting resolves against the effective current user, so it
+  also works when a GlobalAdmin impersonates a user; added Playwright impersonation tests
+  (`tests/playwright/specs/38-impersonation.e2e.js`). Note: "Stop impersonating" is still a follow-up — impersonation
+  is connection-scoped and currently reverts on a full page reload.
+  Fixed in [f74ccbc8f](https://github.com/wekan/wekan/commit/f74ccbc8faf1c19f06775ca70306cf320e442dfb) and
+  [c1da7a4a3](https://github.com/wekan/wekan/commit/c1da7a4a332cd10bbd2ed3c93122fe0ea8864336).
+
 This release fixes the following bugs:
 
 - [Card labels took two lines / double height on minicards, wasting vertical space](https://github.com/wekan/wekan/issues/6424),
