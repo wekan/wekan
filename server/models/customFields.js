@@ -28,7 +28,12 @@ async function customFieldDeletion(userId, doc) {
 }
 
 async function customFieldEdit(userId, doc) {
-  const customFieldValue = (await ReactiveCache.getActivity({ customFieldId: doc._id })).value;
+  // #5390: deleting a custom field from a board ($pull boardIds) calls this; an
+  // activity may not exist (e.g. the field never had a value set), so guard the
+  // lookup instead of dereferencing `.value` on undefined, which threw and
+  // aborted the whole delete.
+  const activity = await ReactiveCache.getActivity({ customFieldId: doc._id });
+  const customFieldValue = activity ? activity.value : undefined;
   await Activities.insertAsync({
     userId,
     activityType: 'setCustomField',

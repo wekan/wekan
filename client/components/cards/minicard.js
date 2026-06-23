@@ -209,7 +209,11 @@ Template.minicard.helpers({
       // Show checklist if either:
       // 1. Board-wide setting is enabled, OR
       // 2. This specific checklist has the setting enabled
-      if (currentBoard.allowsChecklistAtMinicard || checklist.showChecklistAtMinicard) {
+      // #5565: use the same board field the sidebar toggle writes
+      // (`allowsChecklistsOnMinicard`); this previously checked a different,
+      // UI-less field (`allowsChecklistAtMinicard`), so the board toggle to show
+      // checklists on minicards had no effect.
+      if (currentBoard.allowsChecklistsOnMinicard || checklist.showChecklistAtMinicard) {
         visibleChecklists.push(checklist);
       }
     });

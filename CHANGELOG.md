@@ -93,6 +93,22 @@ This release fixes the following bugs:
   `.direct` for the checklist and its items (skipping the per-item activity hooks — pure churn for a wholesale copy) and
   sets `boardId` itself, the same approach as the `cardRemover` delete path. Copy regression (checklist + all items
   duplicated) in `tests/playwright/specs/17-rest-api.e2e.js`.
+- [Error when clicking the notification icon](https://github.com/wekan/wekan/issues/5325),
+  [#5325](https://github.com/wekan/wekan/issues/5325): a notification whose referenced activity no longer existed (its
+  card/board was deleted) left an entry whose `activityObj` was null, and the notifications drawer dereferences it
+  (`activity.user`, `activity._id`, …) — so one orphaned notification threw and broke the whole popup. `user.notifications()`
+  now drops entries whose activity can't be resolved. (No automated regression — an orphaned-notification state is not
+  cleanly reproducible in the harness; the fix is a self-evident filter.)
+- [Deleting a custom field from a board could throw](https://github.com/wekan/wekan/issues/5390),
+  [#5390](https://github.com/wekan/wekan/issues/5390): removing a (multi-board) custom field from one board runs a
+  `before.update` hook that logged a `setCustomField` activity by reading `(await getActivity({customFieldId})).value` —
+  with **no null guard**, so a field that never had a value set (no such activity) threw `Cannot read properties of
+  undefined` and aborted the removal. The lookup is now guarded. ([server/models/customFields.js](server/models/customFields.js))
+- [Board "show checklists on minicard" setting had no effect](https://github.com/wekan/wekan/issues/5565),
+  [#5565](https://github.com/wekan/wekan/issues/5565): the sidebar toggle writes `board.allowsChecklistsOnMinicard`, but
+  the minicard render checked a different, UI-less field (`board.allowsChecklistAtMinicard`), so enabling the board-wide
+  setting never showed checklists on minicards. The minicard now reads the field the toggle actually sets.
+  ([client/components/cards/minicard.js](client/components/cards/minicard.js))
 
 and these issues are verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):

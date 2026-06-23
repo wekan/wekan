@@ -1232,8 +1232,12 @@ Users.helpers({
         notification.activityObj = ReactiveMiniMongoIndex.getActivityWithId(notification.activity);
       }
     }
+    // #5325: drop notifications whose activity no longer exists (e.g. the card or
+    // board it referenced was deleted). The notifications drawer dereferences
+    // activityObj (activity.user, activity._id, …), so a single orphaned entry
+    // threw and broke the whole notifications popup.
     // newest first. don't use reverse() because it changes the array inplace, so sometimes the array is reversed twice and oldest items at top again
-    const ret = notifications.toReversed();
+    const ret = notifications.filter(notification => notification.activityObj).toReversed();
     return ret;
   },
 
