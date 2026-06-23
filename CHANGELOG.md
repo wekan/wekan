@@ -27,20 +27,6 @@ Versions:
 
 # Upcoming WeKan ® release
 
-<!-- WORKING NOTE (safe to delete at release) — session checkpoint.
-  * CI on main is FULLY GREEN (Playwright matrix chromium/firefox/webkit ×2 shards + Meteor unit + Puppeteer).
-  * Bug fixes this release (see entries below): #6412 #3907 #3897 #5886 #5892 #5798 #5997 #6420 #6419 (mobile)
-    #3745 #5874 (data loss) #4255 (archive scoping); verified-resolved #5808 #1389 #1289 #3826.
-  * Tooling: CI E2E resurrected (production-build, sharding, Puppeteer job); multi-forge mirroring in
-    rebuild-wekan.sh/.bat; Temml/docs work; drag-sort harness (tests/playwright/helpers/dragSort.js).
-  * Unit tests: npm run test:unit:node covers #6412 (filename truncation) and #5874 (cardBoardConsistency).
-  * Quarantined E2E (test.fixme): #5798 (CI-only flaky), 34:120 click-outside control.
-  * #3745 has no regression test on purpose — it's a subscription-timing race the pre-fix code would pass in fast
-    local/CI Playwright (invalid negative test, flaky on the fix); the fix is pure Blaze subscription-ready gating.
-  * Local commits #5874 + #4255 are NOT yet pushed — `git push origin main` is blocked by the harness (direct push
-    to the default branch needs explicit authorization). Push them (or open a PR) so CI runs.
--->
-
 This release adds the following updates and developer tooling:
 
 - **rebuild-wekan.sh / rebuild-wekan.bat: multi-forge mirroring.** Two new menu options: *Install forge CLI
@@ -189,53 +175,6 @@ and fixes the following bugs:
   (`getCurrentUser()?.isBoardAdmin()` / `?.isWorker()`), which is falsy for guests instead of throwing. Done:
   [commit fc0fe0b61](https://github.com/wekan/wekan/commit/fc0fe0b61).
 
-Data-loss issue triage (work in progress):
-
-- **[#3745](https://github.com/wekan/wekan/issues/3745) (change-parent picker empty on first board selection) — root
-  cause found & fixed.** `Template.cardMorePopup`'s `cards()` helper queried `ReactiveCache.getCards({ boardId })`
-  from client minimongo the instant a board was picked, before that board's card subscription had loaded, so the
-  parent-card list was empty the first time (and worked on reopen, once the data had arrived). It now subscribes with
-  an `onReady` callback and a `parentBoardReady` reactive flag, and the list only renders once the subscription is
-  ready — the same subscription-readiness pattern as the #5798 fix. (A scripted UI repro of the deeply-nested
-  change-parent popup is still pending; the fix targets the confirmed root cause.)
-- **[#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list whose cards have parents) —
-  could not reproduce; appears resolved.** Built a **drag-sort reproduction harness** (`tests/playwright/helpers/dragSort.js`)
-  that drives jQuery-UI sortable with a realistic stepped mouse gesture (Playwright's `dragTo()` does not trigger it),
-  and a regression spec (`tests/playwright/specs/37-card-drag-sort.e2e.js`). Dragging a sub-task card (one with a
-  `parentId`) to a new position in its list **persists** the new order both with a few cards and at 15 cards — it does
-  not revert. The harness also unblocks future drag-sort bug investigation (e.g. #5874).
-- Needs runtime reproduction before a safe fix (sort/move persistence or intermittent, no clear single root cause in
-  code): [#5874](https://github.com/wekan/wekan/issues/5874) (rare partial cross-board move),
-  [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
-  rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
-  user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
-- Appears already resolved in current code; re-test requested:
-  [#4255](https://github.com/wekan/wekan/issues/4255) — the `archivedBoards` publication now scopes the archive to
-  boards where the user is an admin member, so it no longer lists boards owned by others.
-- Needs specific infrastructure we cannot reproduce/verify here (left for environment owners):
-  [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
-  & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
-  (WebHooks), [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm).
-- Feature requests / behaviour-by-design rather than data-loss bugs:
-  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
-  [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138).
-
-Stops-Work issue triage (work in progress):
-
-- Appear already resolved in current code; re-test requested:
-  [#1289](https://github.com/wekan/wekan/issues/1289) (card with a deleted member user) — **verified via the Playwright
-  harness**: a card whose `members`/`assignees` reference a non-existent user renders its board minicard and opens the
-  card detail with **zero console errors**, so `userAvatar` null-guards missing users correctly;
-  [#1389](https://github.com/wekan/wekan/issues/1389) (edge-to-edge URL description — the card detail now has an
-  explicit edit control rather than relying on clicking the rendered text).
-- **[#5808](https://github.com/wekan/wekan/issues/5808) (bidirectional cross-board card link makes both cards hang on
-  open) — could not reproduce on current code; appears resolved.** A Playwright repro that creates two cards mutually
-  linked to each other (`type: cardType-linkedCard`, each `linkedId` pointing at the other, across two boards) opens
-  the card detail in ~1s with no errors and no redirect loop. The link only navigates on an explicit click of the
-  linked-card link, not on open, so there is no auto-bounce. Re-test requested on the reporter's (v7.91.0) data.
-- Feature request rather than a bug: [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to
-  the Admin role).
-
 - [Changed order of lists is not persisted](https://github.com/wekan/wekan/issues/5997),
   [#5997](https://github.com/wekan/wekan/issues/5997): the server side was verified working end-to-end (a DDP call to
   `updateListSort` reorders the `lists` collection and the `sort:1` query returns the new order), so the regression was
@@ -255,15 +194,6 @@ Stops-Work issue triage (work in progress):
   `Template.currentData()`) *after* `await tpl.board.getNextCardNumber()`, and Blaze's synchronous current-view context
   is lost across an `await`. The sort index is now computed before the await. Done:
   [commit 612ed3e51](https://github.com/wekan/wekan/commit/612ed3e51).
-- [Card activities jump to a recent date after changing the due date](https://github.com/wekan/wekan/issues/5757),
-  [#5757](https://github.com/wekan/wekan/issues/5757): appears already resolved in current code (reported on v7.88).
-  Activity `createdAt` is set once in the `Activities.before.insert` hook, no code path bulk-updates it, and the UI
-  renders `activity.createdAt` directly — so changing a due date inserts one new `a-dueAt` activity and cannot re-date
-  existing activities. Re-test requested.
-- [Linking two cards to each other across boards makes both inaccessible](https://github.com/wekan/wekan/issues/5808)
-  and [intermittent partial cross-board move](https://github.com/wekan/wekan/issues/5874): both need runtime
-  reproduction in a browser to pin down (this build environment is ARM and cannot run the bundled Chromium), so they
-  are left In Progress with their findings rather than a guessed fix.
 - [Lists do not collapse correctly with the Modern theme](https://github.com/wekan/wekan/issues/5892),
   [#5892](https://github.com/wekan/wekan/issues/5892): the list-width rework (#6409) added a persistent
   `.list[style*="--list-width"] { width: … !important }` rule that overrode the 30px collapsed width, so a list with a
@@ -274,6 +204,53 @@ Stops-Work issue triage (work in progress):
   variable, which resets on page reload, so the chosen sort reverted to the default. The sort is now persisted to
   `localStorage` and restored on load (sorting and the sort icon). Done:
   [commit 6aad946bc](https://github.com/wekan/wekan/commit/6aad946bc).
+- [Change card's parent shows no cards the first time you select a board](https://github.com/wekan/wekan/issues/3745),
+  [#3745](https://github.com/wekan/wekan/issues/3745): `Template.cardMorePopup`'s `cards()` helper queried
+  `ReactiveCache.getCards({ boardId })` from client minimongo the instant a board was picked, before that board's card
+  subscription had loaded, so the parent-card list was empty the first time (and only worked on reopen, once the data
+  had arrived). It now subscribes with an `onReady` callback and a `parentBoardReady` reactive flag, and the list only
+  renders once the subscription is ready — the same subscription-readiness pattern as the #5798 fix. Done:
+  [commit f999b9e74](https://github.com/wekan/wekan/commit/f999b9e74).
+
+and these issues are verified resolved in current code (could not reproduce / no error observed here; re-test on the
+reporter's data requested):
+
+- [#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list whose cards have parents): built a
+  **drag-sort reproduction harness** (`tests/playwright/helpers/dragSort.js`) that drives jQuery-UI sortable with a
+  realistic stepped mouse gesture (Playwright's `dragTo()` does not trigger it), plus a regression spec
+  (`tests/playwright/specs/37-card-drag-sort.e2e.js`). Dragging a sub-task card (one with a `parentId`) to a new
+  position in its list **persists** the new order both with a few cards and at 15 cards — it does not revert.
+- [#1289](https://github.com/wekan/wekan/issues/1289) (card with a deleted member user): verified via the Playwright
+  harness — a card whose `members`/`assignees` reference a non-existent user renders its board minicard and opens the
+  card detail with **zero console errors**, so `userAvatar` null-guards missing users correctly.
+- [#1389](https://github.com/wekan/wekan/issues/1389) (edge-to-edge URL makes the description uneditable): the card
+  detail has an explicit edit (pencil) control rather than relying on clicking the rendered text, so a full-width link
+  no longer blocks editing.
+- [#5808](https://github.com/wekan/wekan/issues/5808) (bidirectional cross-board card link makes both cards hang on
+  open): a Playwright repro that mutually links two cards across two boards opens the card detail in ~1s with no errors
+  and no redirect loop — the link only navigates on an explicit click, not on open, so there is no auto-bounce.
+- [#5757](https://github.com/wekan/wekan/issues/5757) (card activities jump to a recent date after changing the due
+  date): activity `createdAt` is set once in the `Activities.before.insert` hook, nothing bulk-updates it, and the UI
+  renders `activity.createdAt` directly — so changing a due date inserts one new `a-dueAt` activity and cannot re-date
+  existing ones.
+
+# TODO Later
+
+Carried to a future release — investigated this session but not finished, with findings recorded for whoever picks
+them up next.
+
+- **Need a runtime reproduction before a safe fix:**
+  [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
+  rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
+  user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
+- **Need specific infrastructure we cannot reproduce/verify here (left for environment owners):**
+  [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
+  & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
+  (WebHooks), [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm).
+- **Feature requests / behaviour-by-design rather than bugs:**
+  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
+  [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
+  [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
 # v9.67 2026-06-21 WeKan ® release
 
