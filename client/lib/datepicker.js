@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
+import { normalizeDigits } from '/imports/lib/dateUtils';
 
 // Helper to check if a date is valid
 function isValidDate(date) {
@@ -114,8 +115,9 @@ export function datePickerHelpers() {
 export function datePickerEvents({ storeDate, deleteDate }) {
   return {
     'change .js-date-field'(evt, tpl) {
-      // Native HTML date input validation
-      const dateValue = tpl.find('#date').value;
+      // Native HTML date input validation. Normalize any non-Latin digits
+      // (e.g. Persian/Arabic-Indic) so parsing works in those locales (#5752).
+      const dateValue = normalizeDigits(tpl.find('#date').value);
       if (dateValue) {
         // HTML date input format is always YYYY-MM-DD
         const dateObj = new Date(dateValue + 'T12:00:00');
@@ -127,8 +129,9 @@ export function datePickerEvents({ storeDate, deleteDate }) {
       }
     },
     'change .js-time-field'(evt, tpl) {
-      // Native HTML time input validation
-      const timeValue = tpl.find('#time').value;
+      // Native HTML time input validation. Normalize any non-Latin digits
+      // (e.g. Persian/Arabic-Indic) so parsing works in those locales (#5752).
+      const timeValue = normalizeDigits(tpl.find('#time').value);
       if (timeValue) {
         // HTML time input format is always HH:mm
         const timeObj = new Date(`1970-01-01T${timeValue}:00`);
@@ -142,8 +145,10 @@ export function datePickerEvents({ storeDate, deleteDate }) {
     'submit .edit-date'(evt, tpl) {
       evt.preventDefault();
 
-      const dateValue = evt.target.date.value;
-      const timeValue = evt.target.time.value || '12:00'; // Default to 12:00 if no time given
+      // Normalize any non-Latin digits (e.g. Persian/Arabic-Indic) before
+      // parsing so due/start/end dates work in those locales (#5752).
+      const dateValue = normalizeDigits(evt.target.date.value);
+      const timeValue = normalizeDigits(evt.target.time.value) || '12:00'; // Default to 12:00 if no time given
 
       if (!dateValue) {
         tpl.datePicker.error.set('invalid-date');

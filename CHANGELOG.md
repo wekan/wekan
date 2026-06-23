@@ -68,7 +68,14 @@ This release adds the following features:
 
 This release fixes the following bugs:
 
-- [Card labels took two lines / double height on minicards, wasting vertical space](https://github.com/wekan/wekan/issues/6424),
+- [Due date does not work when the language uses non-Latin (e.g. Persian/Farsi) digits](https://github.com/wekan/wekan/issues/5752),
+  [#5752](https://github.com/wekan/wekan/issues/5752): in locales such as Persian/Farsi or Arabic, dates and times can be
+  rendered with non-Latin digits (Persian/Extended Arabic-Indic ۰۱۲۳۴۵۶۷۸۹, U+06F0–U+06F9, or Arabic-Indic ٠١٢٣٤٥٦٧٨٩,
+  U+0660–U+0669). The native JavaScript `Date` constructor only understands ASCII digits, so any such string fails to
+  parse and produces an Invalid Date when setting/updating or comparing dates. Added a `normalizeDigits()` helper in
+  `imports/lib/dateUtils.js` that converts those non-Latin digits to ASCII, applied it at every date-string parse
+  boundary in `dateUtils.js` (via an internal `toDate()` wrapper) and in the date/time picker submit/change handlers in
+  `client/lib/datepicker.js`. The normal ASCII path is unchanged.
   [#6424](https://github.com/wekan/wekan/issues/6424): each label's name is rendered inside a `.viewer`, whose global
   `min-height: 2.5vh` (intended for the full content editor) forced every minicard label to roughly double height. The
   minicard text labels now reset that `min-height`, render the viewer/paragraph inline and stay on a single compact line.
