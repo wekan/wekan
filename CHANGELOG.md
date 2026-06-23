@@ -50,6 +50,12 @@ This release fixes the following bugs:
   `min-height: 2.5vh` (intended for the full content editor) forced every minicard label to roughly double height. The
   minicard text labels now reset that `min-height`, render the viewer/paragraph inline and stay on a single compact line.
   Fixed in [afbabccd2](https://github.com/wekan/wekan/commit/afbabccd2685af77ffddc1038f62823882615b74).
+- [REST API: moving a card to another list (PUT .../cards/:cardId with listId) returned HTTP 500 — "fieldNames.includes is not a function"](https://github.com/wekan/wekan/issues/6423),
+  [#6423](https://github.com/wekan/wekan/issues/6423): the list-move path called the `cardMove()` activity helper with
+  `{ fieldName: 'listId' }` (a plain object) as its `fieldNames` argument, but `cardMove()` does
+  `fieldNames.includes('boardId')`, so the object's missing `.includes` threw and the endpoint returned HTTP 500. The
+  changed field names are now passed as an array (`['listId']`), matching the cross-board move path.
+  Fixed in [69c899f1f](https://github.com/wekan/wekan/commit/69c899f1f99b0ea984d3b36f5d2a2aac67c4ff9a).
 
 # v9.70 2026-06-23 WeKan ® release
 
