@@ -34,6 +34,10 @@ const EmailLocalization = {
       lang = TAPi18n.getLanguage() || 'en';
     }
 
+    // #5875: ensure the chosen language's bundle is loaded on the server before
+    // translating, otherwise __() falls back to English.
+    await TAPi18n.ensureLanguageLoaded(lang);
+
     // Translate subject and text using the determined language
     const subject = TAPi18n.__(options.subject, options.params || {}, lang);
     let text = options.text;

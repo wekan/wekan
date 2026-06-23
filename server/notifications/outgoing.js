@@ -135,6 +135,9 @@ Meteor.methods({
         if (!user || typeof user.getLanguage !== 'function') {
           return;
         }
+        // #5875: load the recipient's language bundle on the server before
+        // translating, otherwise it falls back to English.
+        await TAPi18n.ensureLanguageLoaded(user.getLanguage());
         const descriptionText = TAPi18n.__(
           description,
           quoteParams,

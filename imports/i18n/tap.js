@@ -113,6 +113,16 @@ export const TAPi18n = {
     await this.i18n.changeLanguage(language);
     this.current.set(language);
   },
+  // Make sure the resource bundle for `language` is available before a
+  // synchronous __() call. On the server only the default (English) bundle is
+  // loaded at startup, so translating to a user's language (e.g. notification
+  // emails) otherwise silently fell back to English. See #5875.
+  async ensureLanguageLoaded(language) {
+    if (!language || !this.i18n) return;
+    if (!this.isLanguageSupported(language)) return;
+    if (this.i18n.hasResourceBundle(language, DEFAULT_NAMESPACE)) return;
+    await this.loadLanguage(language);
+  },
   // Return translation by key
   __(key, options, language) {
     this.current.dep.depend();

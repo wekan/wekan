@@ -7,7 +7,7 @@ import { Notifications } from '/server/notifications/notifications';
 
 // buffer each user's email text in a queue, then flush them in single email
 Meteor.startup(() => {
-  Notifications.subscribe('email', (user, title, description, params) => {
+  Notifications.subscribe('email', async (user, title, description, params) => {
     try {
       if (
         !user ||
@@ -18,6 +18,11 @@ Meteor.startup(() => {
         console.error('Invalid user helper surface for email notification:', user?._id);
         return;
       }
+
+      // #5875: the server only loads the English bundle at startup, so make sure
+      // the recipient's language is loaded before translating the subject/body —
+      // otherwise notification emails silently fall back to English.
+      await TAPi18n.ensureLanguageLoaded(user.getLanguage());
 
       // add quote to make titles easier to read in email text
       const quoteParams = { ...params };
