@@ -56,6 +56,20 @@ This release fixes the following bugs:
   edit cleanly. Pure logic in `models/lib/restArrayParam.js` with a Meteor-free Node unit test
   (`tests/restArrayParam.test.cjs`, `npm run test:unit:node`, incl. a **negative test** reproducing the old
   null-writing logic), plus a REST regression in `tests/playwright/specs/17-rest-api.e2e.js`.
+- [Can't create a card with no member via the REST API](https://github.com/wekan/wekan/issues/2875),
+  [#2875](https://github.com/wekan/wekan/issues/2875): the card-create endpoints (`POST .../cards` and
+  `POST .../cards/bulk`) wrote `req.body.members`/`assignees` straight to the insert with no normalization — the
+  create-side twin of #3697 — so a `null`/`""` payload persisted as `null` (breaking later UI editing). Both handlers
+  now run the same `coerceRestArrayParam` helper: the field is omitted when not provided (so the schema default `[]`
+  applies), any clear payload becomes `[]` (never null), and a single id is wrapped into an array. REST regression in
+  `tests/playwright/specs/17-rest-api.e2e.js`.
+- [Board created through the REST API shows in the API but not in the browser UI](https://github.com/wekan/wekan/issues/5650),
+  [#5650](https://github.com/wekan/wekan/issues/5650): `POST /api/boards` set the board's sole member's `userId` from
+  `req.body.owner` with no fallback, so a request that omits `owner` created a board whose only member had
+  `userId: undefined`. The board-list publication matches `members.$elemMatch: { userId, isActive: true }`, which can
+  never match an undefined id — so the board was returned by the REST API but invisible in the browser. `owner` now
+  falls back to the authenticated caller (`req.body.owner || req.userId`), mirroring the Meteor create method. REST +
+  DB regression in `tests/playwright/specs/17-rest-api.e2e.js`.
 
 and this issue is verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):

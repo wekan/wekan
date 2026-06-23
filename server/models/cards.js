@@ -802,8 +802,12 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     { sort: ['sort'] },
   );
   const checkUser = await ReactiveCache.getUser(req.body.authorId);
-  const members = req.body.members;
-  const assignees = req.body.assignees;
+  // #2875: normalize members/assignees so a card can be created with none, and so
+  // a `null`/`""` payload never persists as null (which breaks UI editing — see
+  // #3697). Omit the field entirely when not provided so the schema default ([])
+  // applies. Same coercion the card PUT handler uses.
+  const members = req.body.members !== undefined ? coerceRestArrayParam(req.body.members) : undefined;
+  const assignees = req.body.assignees !== undefined ? coerceRestArrayParam(req.body.assignees) : undefined;
   if (typeof checkUser !== 'undefined') {
     // Issue #5537: accept card dates on create. These schema fields are typed
     // as Date, so a raw request string is stripped by schema cleaning and the
@@ -913,8 +917,9 @@ WebApp.handlers.post(
         sort: baseSort + i,
         cardNumber: nextCardNumber,
         customFields: customFieldsArr,
-        members: input.members,
-        assignees: input.assignees,
+        // #2875: same normalization as the single-card create above.
+        members: input.members !== undefined ? coerceRestArrayParam(input.members) : undefined,
+        assignees: input.assignees !== undefined ? coerceRestArrayParam(input.assignees) : undefined,
       });
       const card = await ReactiveCache.getCard(id);
       await cardCreation(authorId, card);

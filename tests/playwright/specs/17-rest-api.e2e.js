@@ -293,6 +293,90 @@ test.describe('REST API: data + permissions', () => {
     expect(card.assignees).toEqual([]);
   });
 
+  // ---- #2875: create a card with no member over REST -----------------------
+  test('#2875 create a card with no / empty members stores [] not null', async ({ request, user, board }) => {
+    const listId = board.listIds[0];
+    const base = `/api/boards/${board.boardId}/lists/${listId}/cards`;
+
+    // No members field at all → schema default [] applies; card is created.
+    let res = await request.post(base, {
+      headers: authHeaders(user.token, true),
+      data: { authorId: user.id, swimlaneId: board.swimlaneId, title: 'No members' },
+    });
+    expect(res.status()).toBe(200);
+    let card = db.getCard((await res.json())._id);
+    expect(Array.isArray(card.members)).toBe(true);
+    expect(card.members).toEqual([]);
+
+    // Explicit null / "" clear to [] (never null), like the PUT handler (#3697).
+    for (const empty of [null, '']) {
+      res = await request.post(base, {
+        headers: authHeaders(user.token, true),
+        data: { authorId: user.id, swimlaneId: board.swimlaneId, title: `Empty ${empty}`, members: empty, assignees: empty },
+      });
+      expect(res.status()).toBe(200);
+      card = db.getCard((await res.json())._id);
+      expect(Array.isArray(card.members)).toBe(true);
+      expect(card.members).toEqual([]);
+      expect(card.members).not.toBe(null);
+      expect(Array.isArray(card.assignees)).toBe(true);
+      expect(card.assignees).toEqual([]);
+    }
+
+    // A single member id is wrapped into an array.
+    res = await request.post(base, {
+      headers: authHeaders(user.token, true),
+      data: { authorId: user.id, swimlaneId: board.swimlaneId, title: 'One member', members: user.id },
+    });
+    expect(res.status()).toBe(200);
+    expect(db.getCard((await res.json())._id).members).toEqual([user.id]);
+
+    // Bulk create with empty members likewise stores [].
+    res = await request.post(`${base}/bulk`, {
+      headers: authHeaders(user.token, true),
+      data: { authorId: user.id, swimlaneId: board.swimlaneId, cards: [{ title: 'Bulk no members', members: null }] },
+    });
+    expect(res.status()).toBe(200);
+    const bulkCards = listCards(board.boardId, listId).filter(c => c.title === 'Bulk no members');
+    expect(bulkCards.length).toBe(1);
+    expect(bulkCards[0].members).toEqual([]);
+  });
+
+  // ---- #5650: board created via REST is owned by (and visible to) caller ----
+  test('#5650 board created via REST without owner is owned by the caller', async ({ request, user }) => {
+    const created = [];
+    try {
+      // No `owner` in the body → must default to the authenticated caller, so the
+      // board's only member has a real userId and the boards publication can match
+      // it. Before the fix this stored userId=undefined, so the board existed via
+      // the API but was invisible in the browser UI.
+      let res = await request.post('/api/boards', {
+        headers: authHeaders(user.token, true),
+        data: { title: 'API board no owner' },
+      });
+      expect(res.status()).toBe(200);
+      const id1 = (await res.json())._id;
+      created.push(id1);
+      const board1 = db.getBoard(id1);
+      expect(board1.members.length).toBe(1);
+      expect(board1.members[0].userId).toBe(user.id);
+      expect(board1.members[0].isActive).toBe(true);
+      expect(board1.members[0].isAdmin).toBe(true);
+
+      // An explicit owner still works.
+      res = await request.post('/api/boards', {
+        headers: authHeaders(user.token, true),
+        data: { title: 'API board with owner', owner: user.id },
+      });
+      expect(res.status()).toBe(200);
+      const id2 = (await res.json())._id;
+      created.push(id2);
+      expect(db.getBoard(id2).members[0].userId).toBe(user.id);
+    } finally {
+      db.cleanup({ boardIds: created });
+    }
+  });
+
   // ---- #5897: linked card -------------------------------------------------
   test('#5897 create a linked card referencing an existing card', async ({ request, user, board }) => {
     const sourceListId = board.listIds[0];

@@ -710,7 +710,13 @@ WebApp.handlers.post('/api/boards', async function(req, res) {
       title: req.body.title,
       members: [
         {
-          userId: req.body.owner,
+          // #5650: fall back to the authenticated caller when `owner` is omitted.
+          // Without a valid userId the board's only member has userId=undefined,
+          // so the boards publication (members.$elemMatch:{userId,isActive:true})
+          // never matches the user — the board is returned by the REST API but is
+          // invisible in the browser UI. Mirrors the Meteor create method, which
+          // uses this.userId.
+          userId: req.body.owner || req.userId,
           isAdmin: req.body.isAdmin || true,
           isActive: req.body.isActive || true,
           isNoComments: req.body.isNoComments || false,
