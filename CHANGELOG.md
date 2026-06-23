@@ -83,6 +83,16 @@ This release fixes the following bugs:
   auto-selected when a board is chosen, and the popup's confirm ("link") button now falls back to creating a board-level
   link when a board is selected but the Card field is left blank (matching the previously-only-empty-board behaviour).
   Added `tests/linkCardPopup.test.js` covering the positive and negative cases.
+- [Internal Server Error (500) when attempting to reset a password](https://github.com/wekan/wekan/issues/5706),
+  [#5706](https://github.com/wekan/wekan/issues/5706): on the Forgot Password page, clicking "Email reset link" could
+  return a raw HTTP 500 instead of sending the reset email / showing success. This happens when the server's SMTP is not
+  configured (no `MAIL_URL` / `MAIL_FROM`, or a bad mail server): Meteor's `Email.sendAsync` throws, and the exception
+  propagated unhandled out of the `forgotPassword` method as an opaque 500. The reset-password / verify-email /
+  enroll-account email-template builders are now hardened so they never throw (guarded user name/language lookups and a
+  safe fallback if translation fails), and `Accounts.sendResetPasswordEmail` is wrapped so a send failure surfaces as a
+  clean `Meteor.Error('email-fail', ...)` instead of a 500. Note: this makes the failure graceful, but to actually
+  receive reset emails you must still configure SMTP (Admin Panel mail server, or `MAIL_URL` and `MAIL_FROM`). Logic
+  extracted to `server/lib/resetPasswordEmail.js` and unit-tested in `tests/unit/resetPasswordEmail.test.js`.
 - [Card labels took two lines / double height on minicards, wasting vertical space](https://github.com/wekan/wekan/issues/6424),
   [#6424](https://github.com/wekan/wekan/issues/6424): each label's name is rendered inside a `.viewer`, whose global
   `min-height: 2.5vh` (intended for the full content editor) forced every minicard label to roughly double height. The

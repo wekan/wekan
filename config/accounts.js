@@ -191,6 +191,16 @@ AccountsTemplates.configureRoute('changePwd', {
 });
 
 if (Meteor.isServer) {
+  // #5706: Internal Server Error (500) when attempting to reset a password.
+  // The reset-password email-template builders and the email send must never let
+  // an unhandled exception bubble up through Meteor's `forgotPassword` method (it
+  // surfaces to the client as an opaque HTTP 500). The pure helpers below are
+  // unit-tested in tests/unit/resetPasswordEmail.test.js.
+  const {
+    buildEmailTemplateField,
+    wrapSendResetPasswordEmail,
+  } = require('/server/lib/resetPasswordEmail');
+
   [
     'resetPassword-subject',
     'resetPassword-text',
@@ -200,16 +210,24 @@ if (Meteor.isServer) {
     'enrollAccount-text',
   ].forEach(str => {
     const [templateName, field] = str.split('-');
-    Accounts.emailTemplates[templateName][field] = (user, url) => {
-      return TAPi18n.__(
-        `email-${str}`,
-        {
-          url,
-          user: user.getName(),
-          siteName: Accounts.emailTemplates.siteName,
-        },
-        user.getLanguage(),
+    Accounts.emailTemplates[templateName][field] = (user, url) =>
+      buildEmailTemplateField(
+        str,
+        (key, params, language) => TAPi18n.__(key, params, language),
+        Accounts.emailTemplates.siteName,
+        user,
+        url,
       );
-    };
   });
+
+  // #5706: When SMTP is not configured (no MAIL_URL / MAIL_FROM, or a bad mail
+  // server), Meteor's `Email.sendAsync` throws. That exception otherwise propagates
+  // out of the `forgotPassword` method as a raw HTTP 500 ("Internal Server Error").
+  // Wrap the reset-password email send so the failure surfaces as a clean,
+  // actionable `Meteor.Error('email-fail', ...)` instead, matching how the rest of
+  // Wekan reports email failures (see server/models/users.js, settings.js).
+  Accounts.sendResetPasswordEmail = wrapSendResetPasswordEmail(
+    Accounts.sendResetPasswordEmail,
+    (code, message) => new Meteor.Error(code, message),
+  );
 }
