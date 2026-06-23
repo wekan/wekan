@@ -119,6 +119,22 @@
   margin-inline-end: 0.4vw;
   margin-bottom: 4px;
 }
+/* Keep text labels on a single compact line. The label name is rendered
+   inside a `.viewer`, whose global `min-height: 2.5vh` otherwise forces every
+   label to roughly double height on the minicard. */
+.minicard .minicard-labels .card-label {
+  min-height: 0;
+  padding: 1px 6px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.minicard .minicard-labels .card-label .viewer {
+  min-height: 0;
+  display: inline;
+}
+.minicard .minicard-labels .card-label .viewer p {
+  display: inline;
+}
 .minicard .minicard-labels-no-text {
   display: flex;
   flex-wrap: wrap;
