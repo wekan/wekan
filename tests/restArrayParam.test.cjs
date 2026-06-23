@@ -10,7 +10,7 @@
 // array. coerceRestArrayParam normalizes any payload into a clean String[].
 
 const assert = require('assert');
-const { coerceRestArrayParam } = require('../models/lib/restArrayParam');
+const { coerceRestArrayParam } = require('../server/lib/restArrayParam');
 
 let passed = 0;
 function test(name, fn) {

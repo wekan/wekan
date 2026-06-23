@@ -8,7 +8,8 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
 import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/restCardHelpers';
-const { coerceRestArrayParam } = require('/models/lib/restArrayParam');
+const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
+const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import Activities from '/models/activities';
@@ -23,7 +24,6 @@ import Cards, {
   cardMove,
   cardRemover,
   cardState,
-  enforceCardBoardConsistency,
   updateActivities,
 } from '/models/cards';
 import Lists from '/models/lists';
@@ -532,9 +532,40 @@ Cards.after.update(async function(userId, doc, fieldNames) {
   await cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId);
 });
 
-// #5874: keep a moved card's swimlane/list consistent with its destination
-// board. Registered first so the corrected modifier is what every later
-// before/after hook (and the persisted update) sees.
+// #5874: a cross-board move must never leave the card pointing at the *source*
+// board's swimlane/list. The move/copy dialog resolves its target board's
+// swimlanes/lists from the client cache, which can still be empty when the user
+// confirms, so it can send boardId=B while swimlaneId/listId still belong to
+// board A — leaving the card invisible on both boards (data loss). This guard
+// runs server-side (where the destination board's swimlanes/lists are always
+// available) and rewrites the modifier so the card's swimlane/list always belong
+// to the destination board, falling back to its default swimlane / first list.
+// Corrective only: a move whose targets already belong to the destination board
+// is left untouched. Server-only (uses the pure helper in server/lib).
+async function enforceCardBoardConsistency(doc, fieldNames, modifier) {
+  await applyCardBoardConsistency(doc, fieldNames, modifier, {
+    swimlaneBelongs: async (swimlaneId, boardId) =>
+      !!(await ReactiveCache.getSwimlane({ _id: swimlaneId, boardId })),
+    listBelongs: async (listId, boardId) =>
+      !!(await ReactiveCache.getList({ _id: listId, boardId })),
+    getDefaultSwimlaneId: async boardId => {
+      const board = await ReactiveCache.getBoard(boardId);
+      if (!board) return undefined;
+      const swimlane = await board.getDefaultSwimlineAsync();
+      return swimlane && swimlane._id;
+    },
+    getFirstListId: async boardId => {
+      const list = await ReactiveCache.getList(
+        { boardId, archived: false },
+        { sort: { sort: 1 } },
+      );
+      return list && list._id;
+    },
+  });
+}
+
+// Registered first so the corrected modifier is what every later before/after
+// hook (and the persisted update) sees.
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   await enforceCardBoardConsistency(doc, fieldNames, modifier);
 });

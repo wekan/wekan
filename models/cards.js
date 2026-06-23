@@ -51,7 +51,6 @@ import Checklists from '/models/checklists';
 import Lists from '/models/lists';
 import { debounce } from '/imports/lib/collectionHelpers';
 const { SimpleSchema } = require('/imports/simpleSchema');
-const { applyCardBoardConsistency } = require('/models/lib/cardBoardConsistency');
 
 const Cards = new Mongo.Collection('cards');
 
@@ -3094,41 +3093,6 @@ async function updateActivities(doc, fieldNames, modifier) {
   }
 }
 
-// #5874: a cross-board move must never leave the card pointing at the *source*
-// board's swimlane/list. The move/copy dialog resolves its target board's
-// swimlanes/lists from the client cache, which can still be empty when the user
-// confirms (the destination board's `publishComposite('board')` data has not
-// merged yet) — so it sends boardId=B while swimlaneId/listId still belong to
-// board A. The card then lives on board B but is invisible in every normal view
-// (it has no matching list/swimlane there) and clicking it reopens board A:
-// effectively data loss. This server-side guard runs on any boardId change and
-// rewrites the modifier so the card's swimlane/list always belong to the
-// destination board, falling back to that board's default swimlane and first
-// list. It is corrective only: a move whose targets already belong to the
-// destination board is left untouched. Runs server-side (registered in
-// server/models/cards.js), where the destination board's swimlanes/lists are
-// always available regardless of the client's cache state.
-async function enforceCardBoardConsistency(doc, fieldNames, modifier) {
-  await applyCardBoardConsistency(doc, fieldNames, modifier, {
-    swimlaneBelongs: async (swimlaneId, boardId) =>
-      !!(await ReactiveCache.getSwimlane({ _id: swimlaneId, boardId })),
-    listBelongs: async (listId, boardId) =>
-      !!(await ReactiveCache.getList({ _id: listId, boardId })),
-    getDefaultSwimlaneId: async boardId => {
-      const board = await ReactiveCache.getBoard(boardId);
-      if (!board) return undefined;
-      const swimlane = await board.getDefaultSwimlineAsync();
-      return swimlane && swimlane._id;
-    },
-    getFirstListId: async boardId => {
-      const list = await ReactiveCache.getList(
-        { boardId, archived: false },
-        { sort: { sort: 1 } },
-      );
-      return list && list._id;
-    },
-  });
-}
 
 async function cardMove(
   userId,
@@ -3507,7 +3471,6 @@ const addCronJob = debounce(
 
 export {
   updateActivities,
-  enforceCardBoardConsistency,
   cardMove,
   cardState,
   cardMembers,
