@@ -41,6 +41,16 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Card labels took two lines / double height on minicards, wasting vertical space](https://github.com/wekan/wekan/issues/6424),
+  [#6424](https://github.com/wekan/wekan/issues/6424): each label's name is rendered inside a `.viewer`, whose global
+  `min-height: 2.5vh` (intended for the full content editor) forced every minicard label to roughly double height. The
+  minicard text labels now reset that `min-height`, render the viewer/paragraph inline and stay on a single compact line.
+  Fixed in [e994caf98](https://github.com/wekan/wekan/commit/e994caf98ac57e2c9610615b11deef4296e2c693).
+
 # v9.70 2026-06-23 WeKan ® release
 
 This release fixes the following bugs:
