@@ -262,6 +262,9 @@ template(name="setListWidthPopup")
       a.js-toggle-auto-width(title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
         | {{#if isAutoWidth}}🗜️{{else}}📏{{/if}}
         span {{_ 'auto-list-width'}}
+    a.js-toggle-fixed-list-width(title="{{#if isFixedListWidth}}{{_ 'click-to-disable-fixed-list-width'}}{{else}}{{_ 'click-to-enable-fixed-list-width'}}{{/if}}")
+      | {{#if isFixedListWidth}}✅{{else}}⬜{{/if}}
+      span {{_ 'fixed-list-width'}}
     p.list-width-scope-note {{ listWidthScopeNote }}
 
 template(name="listWidthErrorPopup")

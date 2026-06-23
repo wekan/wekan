@@ -585,6 +585,37 @@ Meteor.methods({
     }
   },
 
+  // #5729 Enable/disable the per-user "same width for all lists" mode for a
+  // board. This is a personal viewer setting (like personal list widths), so any
+  // logged-in user may toggle it for any board they can view.
+  async setFixedListWidthEnabled(boardId, enabled) {
+    check(boardId, String);
+    check(enabled, Boolean);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
+    await user.setFixedListWidthEnabled(boardId, enabled);
+    return true;
+  },
+
+  // #5729 Set the single width applied to every list when fixed width mode is on.
+  async setFixedListWidth(boardId, width) {
+    check(boardId, String);
+    check(width, Number);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    if (width < 270) {
+      throw new Meteor.Error('invalid-width', 'Width must be >= 270');
+    }
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
+    await user.setFixedListWidth(boardId, width);
+    return true;
+  },
+
   async setZoomLevel(level) {
     check(level, Number);
     const user = await ReactiveCache.getCurrentUser();

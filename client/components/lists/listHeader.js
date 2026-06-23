@@ -520,9 +520,77 @@ function isPersonalListWidth(boardId) {
   return !!(board && board.allowsPersonalListWidth);
 }
 
+// #5729 Fixed (same) width for all lists is a per-viewer/per-board setting.
+// Logged-in users store it in their profile; anonymous (public board) users in
+// localStorage (mirrors the per-list anon storage in list.js).
+function readAnonFixedListWidthEnabled(boardId) {
+  try {
+    const stored = localStorage.getItem('wekan-fixed-list-width-enabled');
+    if (stored) {
+      const flags = JSON.parse(stored);
+      return flags[boardId] === true;
+    }
+  } catch (e) {
+    console.warn('Error reading fixed list width flag from localStorage:', e);
+  }
+  return false;
+}
+
+function readAnonFixedListWidth(boardId) {
+  try {
+    const stored = localStorage.getItem('wekan-fixed-list-width');
+    if (stored) {
+      const widths = JSON.parse(stored);
+      const w = widths[boardId];
+      if (typeof w === 'number' && w >= 270) return w;
+    }
+  } catch (e) {
+    console.warn('Error reading fixed list width from localStorage:', e);
+  }
+  return 272;
+}
+
+function isFixedListWidth(boardId) {
+  const user = ReactiveCache.getCurrentUser();
+  if (user) return !!user.isFixedListWidth(boardId);
+  return readAnonFixedListWidthEnabled(boardId);
+}
+
+function fixedListWidthValue(boardId) {
+  const user = ReactiveCache.getCurrentUser();
+  if (user) return user.getFixedListWidth(boardId);
+  return readAnonFixedListWidth(boardId);
+}
+
+function setAnonFixedListWidthEnabled(boardId, enabled) {
+  try {
+    const stored = localStorage.getItem('wekan-fixed-list-width-enabled');
+    const flags = stored ? JSON.parse(stored) : {};
+    flags[boardId] = !!enabled;
+    localStorage.setItem('wekan-fixed-list-width-enabled', JSON.stringify(flags));
+  } catch (e) {
+    console.warn('Error saving fixed list width flag to localStorage:', e);
+  }
+}
+
+function setAnonFixedListWidth(boardId, width) {
+  try {
+    const stored = localStorage.getItem('wekan-fixed-list-width');
+    const widths = stored ? JSON.parse(stored) : {};
+    widths[boardId] = width;
+    localStorage.setItem('wekan-fixed-list-width', JSON.stringify(widths));
+  } catch (e) {
+    console.warn('Error saving fixed list width to localStorage:', e);
+  }
+}
+
 Template.setListWidthPopup.helpers({
   listWidthValue() {
     const list = Template.currentData();
+    // #5729 In fixed width mode the input edits the single per-board value.
+    if (isFixedListWidth(list.boardId)) {
+      return fixedListWidthValue(list.boardId);
+    }
     const shared =
       typeof list.width === 'number' && list.width >= 270 ? list.width : 272;
     if (!isPersonalListWidth(list.boardId)) {
@@ -539,6 +607,10 @@ Template.setListWidthPopup.helpers({
 
   listWidthScopeNote() {
     const list = Template.currentData();
+    // #5729 In fixed width mode the note explains the all-lists behaviour.
+    if (isFixedListWidth(list.boardId)) {
+      return TAPi18n.__('fixed-list-width-note');
+    }
     return isPersonalListWidth(list.boardId)
       ? TAPi18n.__('list-width-personal-note')
       : TAPi18n.__('list-width-shared-note');
@@ -564,6 +636,12 @@ Template.setListWidthPopup.helpers({
     }
     return Utils.canModifyBoard();
   },
+
+  // #5729 Whether "same width for all lists" mode is on for the current viewer.
+  isFixedListWidth() {
+    const list = Template.currentData();
+    return isFixedListWidth(list.boardId);
+  },
 });
 
 Template.setListWidthPopup.events({
@@ -581,6 +659,24 @@ Template.setListWidthPopup.events({
     }
     Popup.back();
   },
+  // #5729 Toggle "same width for all lists" (fixed width) for the current
+  // viewer. Enabling it turns off auto-width (the two modes are exclusive).
+  'click .js-toggle-fixed-list-width'(event) {
+    event.preventDefault();
+    const list = Template.currentData();
+    const boardId = list.boardId;
+    const enabled = !isFixedListWidth(boardId);
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      if (enabled && isPersonalListWidth(boardId) && user.isAutoWidth(boardId)) {
+        user.toggleAutoWidth(boardId);
+      }
+      Meteor.call('setFixedListWidthEnabled', boardId, enabled);
+    } else {
+      setAnonFixedListWidthEnabled(boardId, enabled);
+    }
+    Popup.back();
+  },
   'click .list-width-apply'(event, tpl) {
     const list = Template.currentData();
     const boardId = list.boardId;
@@ -591,6 +687,16 @@ Template.setListWidthPopup.events({
       return;
     }
     const user = ReactiveCache.getCurrentUser();
+    // #5729 In fixed width mode the input applies to the single per-board value.
+    if (isFixedListWidth(boardId)) {
+      if (user) {
+        Meteor.call('setFixedListWidth', boardId, width);
+      } else {
+        setAnonFixedListWidth(boardId, width);
+      }
+      Popup.back();
+      return;
+    }
     if (isPersonalListWidth(boardId)) {
       if (user) {
         Meteor.call('applyListWidthToStorage', boardId, list._id, width, width);

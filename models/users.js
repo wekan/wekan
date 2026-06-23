@@ -564,6 +564,26 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.fixedListWidthBoards': {
+      /**
+       * #5729 Per-user flag enabling "same width for all lists" (fixed width)
+       * mode for a board (false is the default).
+       * profile.fixedListWidthBoards[boardId] = true|false
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
+    'profile.fixedListWidths': {
+      /**
+       * #5729 Per-user single width applied to every list of a board when fixed
+       * width mode is enabled.
+       * profile.fixedListWidths[boardId] = width
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.swimlaneHeights': {
       /**
        * User-specified heights of each swimlane (or nothing if default).
@@ -1046,6 +1066,19 @@ Users.helpers({
   isAutoWidth(boardId) {
     const { autoWidthBoards = {} } = this.profile || {};
     return autoWidthBoards[boardId] === true;
+  },
+
+  // #5729 "Same width for all lists" (fixed width) mode is per-user/per-board.
+  isFixedListWidth(boardId) {
+    const { fixedListWidthBoards = {} } = this.profile || {};
+    return fixedListWidthBoards[boardId] === true;
+  },
+
+  // #5729 The single width applied to every list when fixed width mode is on.
+  getFixedListWidth(boardId) {
+    const { fixedListWidths = {} } = this.profile || {};
+    const w = fixedListWidths[boardId];
+    return typeof w === 'number' && w >= 270 ? w : 272;
   },
 
   invitedBoards() {
@@ -1715,6 +1748,20 @@ Users.helpers({
     const { autoWidthBoards = {} } = this.profile || {};
     autoWidthBoards[boardId] = !autoWidthBoards[boardId];
     return await Users.updateAsync(this._id, { $set: { 'profile.autoWidthBoards': autoWidthBoards } });
+  },
+
+  // #5729 Enable/disable "same width for all lists" mode for a board.
+  async setFixedListWidthEnabled(boardId, enabled) {
+    const { fixedListWidthBoards = {} } = this.profile || {};
+    fixedListWidthBoards[boardId] = !!enabled;
+    return await Users.updateAsync(this._id, { $set: { 'profile.fixedListWidthBoards': fixedListWidthBoards } });
+  },
+
+  // #5729 Set the single width used by every list in fixed width mode.
+  async setFixedListWidth(boardId, width) {
+    const { fixedListWidths = {} } = this.profile || {};
+    fixedListWidths[boardId] = width;
+    return await Users.updateAsync(this._id, { $set: { 'profile.fixedListWidths': fixedListWidths } });
   },
 
   async toggleKeyboardShortcuts() {

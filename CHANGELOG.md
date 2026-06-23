@@ -58,6 +58,13 @@ This release adds the following features:
   is connection-scoped and currently reverts on a full page reload.
   Fixed in [f74ccbc8f](https://github.com/wekan/wekan/commit/f74ccbc8faf1c19f06775ca70306cf320e442dfb) and
   [c1da7a4a3](https://github.com/wekan/wekan/commit/c1da7a4a332cd10bbd2ed3c93122fe0ea8864336).
+- [Fixed (same) width for all lists](https://github.com/wekan/wekan/issues/5729),
+  [#5729](https://github.com/wekan/wekan/issues/5729): the Set width popup now has a "Same width for all lists" toggle.
+  When enabled, every list on the board renders at one shared width for the current viewer, and dragging the resize
+  handle of ANY list updates that single value so ALL lists change together. The setting is per-viewer/per-board and
+  works for both logged-in users (stored in `profile.fixedListWidthBoards` / `profile.fixedListWidths`) and anonymous
+  public-board users (stored in `localStorage` keys `wekan-fixed-list-width-enabled` / `wekan-fixed-list-width`).
+  Enabling fixed width turns off auto-width (the two modes are mutually exclusive); widths below 270px are rejected.
 
 This release fixes the following bugs:
 

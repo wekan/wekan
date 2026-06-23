@@ -54,8 +54,78 @@ function readAnonListWidth(boardId, listId) {
   return null;
 }
 
+// ---------------------------------------------------------------------------
+// #5729 Fixed (same) width for all lists.
+//
+// A per-viewer, per-board toggle that makes EVERY list render at a single
+// shared value, and makes dragging any list update that one value (so all lists
+// change together). Stored exactly like the personal width:
+//   * logged-in -> profile.fixedListWidthBoards / profile.fixedListWidths
+//   * anonymous  -> localStorage (mirrors readAnonListWidth)
+// ---------------------------------------------------------------------------
+function readAnonFixedListWidthEnabled(boardId) {
+  try {
+    const stored = localStorage.getItem('wekan-fixed-list-width-enabled');
+    if (stored) {
+      const flags = JSON.parse(stored);
+      return flags[boardId] === true;
+    }
+  } catch (e) {
+    console.warn('Error reading fixed list width flag from localStorage:', e);
+  }
+  return false;
+}
+
+function readAnonFixedListWidth(boardId) {
+  try {
+    const stored = localStorage.getItem('wekan-fixed-list-width');
+    if (stored) {
+      const widths = JSON.parse(stored);
+      const w = widths[boardId];
+      if (typeof w === 'number' && w >= MIN_LIST_WIDTH) return w;
+    }
+  } catch (e) {
+    console.warn('Error reading fixed list width from localStorage:', e);
+  }
+  return DEFAULT_LIST_WIDTH;
+}
+
+// Whether the current viewer has fixed width mode enabled for this board.
+function isFixedListWidth(boardId) {
+  const user = ReactiveCache.getCurrentUser();
+  if (user) {
+    return !!user.isFixedListWidth(boardId);
+  }
+  return readAnonFixedListWidthEnabled(boardId);
+}
+
+// The single width every list should use when fixed width mode is enabled.
+function fixedListWidthValue(boardId) {
+  const user = ReactiveCache.getCurrentUser();
+  if (user) {
+    return user.getFixedListWidth(boardId);
+  }
+  return readAnonFixedListWidth(boardId);
+}
+
+// Persist the single fixed width for the whole board (anon localStorage).
+function saveAnonFixedListWidth(boardId, width) {
+  try {
+    const stored = localStorage.getItem('wekan-fixed-list-width');
+    const widths = stored ? JSON.parse(stored) : {};
+    widths[boardId] = width;
+    localStorage.setItem('wekan-fixed-list-width', JSON.stringify(widths));
+  } catch (e) {
+    console.warn('Error saving fixed list width to localStorage:', e);
+  }
+}
+
 function effectiveListWidth(list) {
   if (!list) return DEFAULT_LIST_WIDTH;
+  // #5729 In fixed width mode every list renders at the single shared value.
+  if (isFixedListWidth(list.boardId)) {
+    return fixedListWidthValue(list.boardId);
+  }
   const shared =
     typeof list.width === 'number' && list.width >= MIN_LIST_WIDTH
       ? list.width
@@ -80,6 +150,9 @@ function effectiveListWidth(list) {
 function canResizeList(list) {
   if (!list) return false;
   if (effectiveAutoWidth(list.boardId)) return false;
+  // #5729 Fixed width is the viewer's own per-board setting, so any viewer
+  // (logged-in or anonymous) may drag-resize; the change applies to all lists.
+  if (isFixedListWidth(list.boardId)) return true;
   if (isPersonalListWidth(list.boardId)) return true;
   return Utils.canModifyBoard();
 }
@@ -90,6 +163,18 @@ function saveListWidth(list, width) {
   const boardId = list.boardId;
   const listId = list._id;
   const user = ReactiveCache.getCurrentUser();
+  // #5729 In fixed width mode, persist to the single per-board value instead of
+  // the per-list width, so EVERY list re-renders at the new width.
+  if (isFixedListWidth(boardId)) {
+    if (user) {
+      Meteor.call('setFixedListWidth', boardId, width, error => {
+        if (error) console.error('Error saving fixed list width:', error);
+      });
+    } else {
+      saveAnonFixedListWidth(boardId, width);
+    }
+    return;
+  }
   if (isPersonalListWidth(boardId)) {
     if (user) {
       Meteor.call('applyListWidthToStorage', boardId, listId, width, width);
