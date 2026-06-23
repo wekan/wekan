@@ -21,7 +21,7 @@
   },
   "scripts": {
     "test": "meteor test --once --driver-package meteortesting:mocha",
-    "test:unit:node": "node tests/filenameSanitizer.test.cjs && node tests/cardBoardConsistency.test.cjs && node tests/restArrayParam.test.cjs",
+    "test:unit:node": "node tests/filenameSanitizer.test.cjs && node tests/cardBoardConsistency.test.cjs && node tests/restArrayParam.test.cjs && node tests/minicardLabelHeight.test.cjs",
     "test:watch": "meteor test --driver-package meteortesting:mocha",
     "test:e2e": "node tests/e2e/list-regressions.js",
     "test:playwright": "cd tests/playwright && npm install && npx playwright test",
