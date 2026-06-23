@@ -94,6 +94,11 @@ reporter's data requested):
   not present in `users`): the importers already guard a missing user entry (skip the dangling member instead of
   dereferencing `undefined`) in `client/components/import/wekanMembersMapper.js`, `models/wekanmapper.js` and
   `models/wekanCreator.js`, with a dedicated test (`tests/wekanCreator.inconsistent.test.js`).
+- [#5411](https://github.com/wekan/wekan/issues/5411) (non-super-admin board admins could not see the add-member "+"):
+  the sidebar add-member button is gated on `currentUser.canInviteToBoard`, which returns `true` for any board admin
+  (`board.hasAdmin`), and the secure default invite roles include `board-admin`. So board admins (not just site admins)
+  see the "+". This was resolved by the "Allow Invite to Board" roles feature (commit c956ab5a4), which postdates the
+  report; a site admin can additionally let other board roles invite via Admin Panel → People → Roles.
 - [#5627](https://github.com/wekan/wekan/issues/5627) (rules not copied when creating a board from a template):
   `board.copy()` already copies the board's rules + triggers + actions (remapping `boardId` and the rule's
   `triggerId`/`actionId`); the report predates that code. Now covered by the #5592/#5627 copy regression in
