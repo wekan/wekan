@@ -251,6 +251,48 @@ test.describe('REST API: data + permissions', () => {
     expect(db.getCard(cardId).dueAt == null).toBe(true);
   });
 
+  // ---- #3697: clearing card members/assignees over REST stores [] not null --
+  test('#3697 clearing members via REST stores an array, never null', async ({ request, user, board }) => {
+    const listId = board.listIds[0];
+    const cardId = listCards(board.boardId, listId)[0]._id;
+    const base = `/api/boards/${board.boardId}/lists/${listId}/cards/${cardId}`;
+
+    // Set a member via card PUT.
+    let res = await request.put(base, {
+      headers: authHeaders(user.token, true),
+      data: { members: [user.id] },
+    });
+    expect(res.status()).toBe(200);
+    expect(db.getCard(cardId).members).toEqual([user.id]);
+
+    // Clearing with an empty string removes the last member and stores [] — the
+    // #3697 fix. Before, this was a no-op (truthiness guard) or stored null,
+    // which then broke editing the card's members in the UI.
+    res = await request.put(base, { headers: authHeaders(user.token, true), data: { members: '' } });
+    expect(res.status()).toBe(200);
+    let card = db.getCard(cardId);
+    expect(Array.isArray(card.members)).toBe(true);
+    expect(card.members).toEqual([]);
+    expect(card.members).not.toBe(null);
+
+    // Clearing with null likewise yields [] (not null).
+    await request.put(base, { headers: authHeaders(user.token, true), data: { members: [user.id] } });
+    res = await request.put(base, { headers: authHeaders(user.token, true), data: { members: null } });
+    expect(res.status()).toBe(200);
+    card = db.getCard(cardId);
+    expect(Array.isArray(card.members)).toBe(true);
+    expect(card.members).toEqual([]);
+
+    // Same guarantee for assignees.
+    await request.put(base, { headers: authHeaders(user.token, true), data: { assignees: [user.id] } });
+    expect(db.getCard(cardId).assignees).toEqual([user.id]);
+    res = await request.put(base, { headers: authHeaders(user.token, true), data: { assignees: '' } });
+    expect(res.status()).toBe(200);
+    card = db.getCard(cardId);
+    expect(Array.isArray(card.assignees)).toBe(true);
+    expect(card.assignees).toEqual([]);
+  });
+
   // ---- #5897: linked card -------------------------------------------------
   test('#5897 create a linked card referencing an existing card', async ({ request, user, board }) => {
     const sourceListId = board.listIds[0];

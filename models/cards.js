@@ -1486,7 +1486,9 @@ Cards.helpers({
         });
       }
     } else {
-      return this.members;
+      // #3697: heal legacy data where members was stored as null (older REST
+      // writes) so UI callers always get an array to edit.
+      return this.members || [];
     }
   },
 
@@ -1508,7 +1510,8 @@ Cards.helpers({
         });
       }
     } else {
-      return this.assignees;
+      // #3697: heal legacy data where assignees was stored as null.
+      return this.assignees || [];
     }
   },
 

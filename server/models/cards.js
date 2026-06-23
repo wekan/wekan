@@ -8,6 +8,7 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
 import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/restCardHelpers';
+const { coerceRestArrayParam } = require('/models/lib/restArrayParam');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import Activities from '/models/activities';
@@ -1127,22 +1128,20 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    if (req.body.members) {
-      let newmembers = req.body.members;
-      if (typeof newmembers === 'string') {
-        newmembers = newmembers === '' ? null : [newmembers];
-      }
+    // #3697: accept any "clear" payload (null / "" / [] / a single id) and always
+    // store a String[] — never null — so removing the last member/assignee over
+    // REST works and never leaves a value the UI cannot edit. Use `!== undefined`
+    // so an explicit null/"" clears instead of being skipped by a truthiness guard.
+    if (req.body.members !== undefined) {
+      const newmembers = coerceRestArrayParam(req.body.members);
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { members: newmembers } },
       );
       updated = true;
     }
-    if (req.body.assignees) {
-      let newassignees = req.body.assignees;
-      if (typeof newassignees === 'string') {
-        newassignees = newassignees === '' ? null : [newassignees];
-      }
+    if (req.body.assignees !== undefined) {
+      const newassignees = coerceRestArrayParam(req.body.assignees);
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { assignees: newassignees } },

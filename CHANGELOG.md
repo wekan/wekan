@@ -31,9 +31,7 @@ Carried to a future release — investigated this session but not finished, with
 them up next.
 
 - **Need a runtime reproduction before a safe fix:**
-  [#2292](https://github.com/wekan/wekan/issues/2292) (archive swimlane hides cards — reported on the long-since
-  rewritten v2.27 data model), [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a
-  user — no logs/repro), [#3697](https://github.com/wekan/wekan/issues/3697) (members uneditable after REST removal).
+  [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a user — no logs/repro).
 - **Need specific infrastructure we cannot reproduce/verify here (left for environment owners):**
   [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
   & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
@@ -42,6 +40,32 @@ them up next.
   [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
+
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Can't edit a card's members in the UI after removing them via the REST API](https://github.com/wekan/wekan/issues/3697),
+  [#3697](https://github.com/wekan/wekan/issues/3697): clearing a card's `members` (or `assignees`) over REST left the
+  field uneditable in the UI. The card PUT handler guarded with `if (req.body.members)` — falsy for the two natural
+  clear payloads (`null` and `""`) — so "remove the last member" was a silent no-op, and its string branch was written
+  to store `null` rather than `[]`; a card with `members: null` then breaks UI code that treats it as an array. The
+  handler now uses an `!== undefined` guard plus a shared coercion helper so any clear payload (`null` / `""` / `[]`)
+  stores a clean `String[]` (never null), a single id is wrapped into an array, and stray non-string entries are
+  dropped; `getMembers()`/`getAssignees()` also coerce a legacy `null` to `[]` on read so existing corrupted documents
+  edit cleanly. Pure logic in `models/lib/restArrayParam.js` with a Meteor-free Node unit test
+  (`tests/restArrayParam.test.cjs`, `npm run test:unit:node`, incl. a **negative test** reproducing the old
+  null-writing logic), plus a REST regression in `tests/playwright/specs/17-rest-api.e2e.js`.
+
+and this issue is verified resolved in current code (could not reproduce / no error observed here; re-test on the
+reporter's data requested):
+
+- [#2292](https://github.com/wekan/wekan/issues/2292) (archiving a swimlane appeared to delete all its cards):
+  `Swimlane.archive()` ([models/swimlanes.js](models/swimlanes.js)) only sets `archived: true` on the swimlane — it
+  does **not** touch or delete the cards, and `restore()` brings the swimlane and its cards back. While a swimlane is
+  archived its cards are merely hidden from the board view (board queries filter to `archived: false` swimlanes), not
+  lost — the v2.27-era cascade described in the report no longer happens. (A dedicated way to view an archived
+  swimlane's cards before restoring would be a separate UX improvement.)
 
 # v9.68 2026-06-23 WeKan ® release
 
