@@ -386,7 +386,7 @@ test.describe('REST API: data + permissions', () => {
     db.insertOne('cards', {
       _id: db.uid('sub'), boardId: board.boardId, swimlaneId: board.swimlaneId,
       listId: srcListId, parentId: srcCardId, title: 'subtask', sort: 0,
-      archived: false, createdAt: new Date(), dateLastActivity: new Date(),
+      userId: user.id, archived: false, createdAt: new Date(), dateLastActivity: new Date(),
     });
 
     const dest = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [['x']] });

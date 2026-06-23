@@ -45,6 +45,12 @@ them up next.
 
 This release fixes the following bugs:
 
+- **Copying a card to or from a board with no labels threw.** `Card.copy()`'s cross-board label-remap did
+  `oldBoard.labels.filter(...)` / `filterCopiedLabelIds(newBoard.labels, …)` without guarding a missing `labels` array.
+  Most boards always have default labels, but a board **created via the REST API** (`POST /api/boards`) has no `labels`
+  array — so copying a card to/from such a board (or copying the board itself, which copies its cards) threw
+  `Cannot read properties of undefined (reading 'filter')` and returned HTTP 500. Both label lookups now fall back to
+  `[]`. Cross-board copy regressions in `tests/playwright/specs/17-rest-api.e2e.js`.
 - [Copying a board did not copy its webhooks](https://github.com/wekan/wekan/issues/5592),
   [#5592](https://github.com/wekan/wekan/issues/5592): `board.copy()` duplicated swimlanes/lists/cards, custom fields
   and rules/triggers/actions, but had no loop for **Integrations** (outgoing webhooks), so a copied board lost all of

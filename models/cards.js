@@ -845,7 +845,10 @@ Cards.helpers({
     // differs from the source board
     if (this.boardId !== boardId) {
       const oldBoard = await ReactiveCache.getBoard(this.boardId);
-      const oldBoardLabels = oldBoard.labels;
+      // A board may have no `labels` array (e.g. one created via the REST API,
+      // which does not seed default labels) — guard so a cross-board copy does
+      // not throw "Cannot read properties of undefined (reading 'filter')".
+      const oldBoardLabels = (oldBoard && oldBoard.labels) || [];
 
       // Get old label names
       const oldCardLabels = oldBoardLabels.filter(label => {
@@ -856,7 +859,7 @@ Cards.helpers({
       // #2970: only map labels that exist by NAME on the destination board and
       // skip unnamed labels, otherwise every unnamed destination label would be
       // wrongly selected (mirrors the guard used by Cards.move()).
-      const newCardLabels = filterCopiedLabelIds(newBoard.labels, oldCardLabels);
+      const newCardLabels = filterCopiedLabelIds((newBoard && newBoard.labels) || [], oldCardLabels);
       // Assign onto `this` (the document actually inserted below), not the
       // shallow `cardData` copy, so the remapped labels are persisted — the
       // same way customFields is handled just below.
