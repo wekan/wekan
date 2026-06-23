@@ -76,6 +76,14 @@ This release fixes the following bugs:
   `imports/lib/dateUtils.js` that converts those non-Latin digits to ASCII, applied it at every date-string parse
   boundary in `dateUtils.js` (via an internal `toDate()` wrapper) and in the date/time picker submit/change handlers in
   `client/lib/datepicker.js`. The normal ASCII path is unchanged.
+- [Impossible to create a Link to a whole BOARD if that board already has cards](https://github.com/wekan/wekan/issues/5715),
+  [#5715](https://github.com/wekan/wekan/issues/5715): in the link-card popup, choosing a board used to auto-populate the
+  List/Card sub-selects, with no way to clear them, so once the chosen board had cards you could only link to a card and
+  no longer to the whole board. The Swimlane/List/Card selects now default to a blank "(none)" option and are no longer
+  auto-selected when a board is chosen, and the popup's confirm ("link") button now falls back to creating a board-level
+  link when a board is selected but the Card field is left blank (matching the previously-only-empty-board behaviour).
+  Added `tests/linkCardPopup.test.js` covering the positive and negative cases.
+- [Card labels took two lines / double height on minicards, wasting vertical space](https://github.com/wekan/wekan/issues/6424),
   [#6424](https://github.com/wekan/wekan/issues/6424): each label's name is rendered inside a `.viewer`, whose global
   `min-height: 2.5vh` (intended for the full content editor) forced every minicard label to roughly double height. The
   minicard text labels now reset that `min-height`, render the viewer/paragraph inline and stay on a single compact line.

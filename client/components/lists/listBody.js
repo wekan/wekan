@@ -756,11 +756,37 @@ Template.linkCardPopup.events({
     tpl.selectedListId.set($(evt.currentTarget).val());
   },
   async 'click .js-done'(evt, tpl) {
-    // LINK CARD
+    // LINK CARD (or, when no card is chosen, fall back to a board-level link
+    // so a whole board can be linked even when that board already has cards).
+    // https://github.com/wekan/wekan/issues/5715
     evt.stopPropagation();
     evt.preventDefault();
     const linkedId = $('.js-select-cards option:selected').val();
     if (!linkedId) {
+      const boardId = $('.js-select-boards option:selected').val();
+      // No board and no card selected: nothing to link.
+      if (!boardId) {
+        Popup.back();
+        return;
+      }
+      // A linkedBoard card for this board already exists; avoid duplicates.
+      if (ReactiveCache.getCard({ linkedId: boardId, archived: false })) {
+        Popup.back();
+        return;
+      }
+      const boardCardNumber = await tpl.board.getNextCardNumber();
+      const boardSortIndex = tpl.getSortIndex();
+      const boardCardId = Cards.insert({
+        title: $('.js-select-boards option:selected').text(), //dummy
+        listId: tpl.listId,
+        swimlaneId: tpl.swimlaneId,
+        boardId: tpl.boardId,
+        sort: boardSortIndex,
+        type: 'cardType-linkedBoard',
+        linkedId: boardId,
+        cardNumber: boardCardNumber,
+      });
+      Filter.addException(boardCardId);
       Popup.back();
       return;
     }
