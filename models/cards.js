@@ -3387,21 +3387,28 @@ async function cardCreation(userId, doc) {
 }
 
 async function cardRemover(userId, doc) {
-  await ChecklistItems.removeAsync({
-    cardId: doc._id,
-  });
-  await Checklists.removeAsync({
-    cardId: doc._id,
-  });
-  await Cards.removeAsync({
-    parentId: doc._id,
-  });
-  await CardComments.removeAsync({
-    cardId: doc._id,
-  });
-  await Attachments.removeAsync({
-    cardId: doc._id,
-  });
+  // Performance (#3252 / #5322): when a whole card is permanently deleted, remove
+  // its checklist items, checklists and comments with `.direct` so their
+  // per-document before.remove hooks do NOT run. Those hooks only log/clean up
+  // activities (e.g. a "removedChecklistItem" activity per item) — pure churn
+  // here, since the activities are not viewable once the card is gone — and
+  // firing them once per child is the main cause of the activity-insert /
+  // notification / publication storm (and high CPU) when deleting or archiving
+  // many cards at once. All of the card's activities are instead cleaned up in a
+  // single bulk operation below, which also removes the activities that were
+  // previously left orphaned on a card delete. The card's own `deleteCard`
+  // activity is inserted by Cards.before.remove AFTER this function runs, so it
+  // is preserved (and its outgoing-webhook still fires).
+  await ChecklistItems.direct.removeAsync({ cardId: doc._id });
+  await Checklists.direct.removeAsync({ cardId: doc._id });
+  await CardComments.direct.removeAsync({ cardId: doc._id });
+  await Activities.direct.removeAsync({ cardId: doc._id });
+  // Subcards go through the hooked remove so each subcard's own children cascade
+  // and its delete activity / webhook fire.
+  await Cards.removeAsync({ parentId: doc._id });
+  // Attachments keep the normal remove so the underlying file is deleted from the
+  // configured storage backend.
+  await Attachments.removeAsync({ cardId: doc._id });
 }
 
 const findDueCards = async days => {

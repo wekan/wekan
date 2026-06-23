@@ -420,6 +420,44 @@ test.describe('REST API: data + permissions', () => {
     }
   });
 
+  // ---- #3252/#5322: deleting a card cascades + clears its activities --------
+  test('#3252 deleting a card removes its children and clears its activities', async ({ request, user, board }) => {
+    const listId = board.listIds[0];
+    const cardId = listCards(board.boardId, listId)[0]._id;
+    const seed = (coll, extra) => {
+      const _id = db.uid('seed');
+      db.insertOne(coll, { _id, boardId: board.boardId, cardId, createdAt: new Date(), modifiedAt: new Date(), ...extra });
+      return _id;
+    };
+
+    const checklistId = seed('checklists', { title: 'CL' });
+    seed('checklistItems', { title: 'item', checklistId });
+    const commentId = seed('card_comments', { userId: user.id, text: 'hi' });
+    // Pre-existing activities for the card, like real create/comment activity.
+    seed('activities', { userId: user.id, activityType: 'addComment', commentId });
+    seed('activities', { userId: user.id, activityType: 'createCard' });
+
+    const res = await request.delete(
+      `/api/boards/${board.boardId}/lists/${listId}/cards/${cardId}`,
+      { headers: authHeaders(user.token, true), data: { authorId: user.id } },
+    );
+    expect(res.status()).toBe(200);
+
+    // Card and all of its children are gone.
+    expect(db.getCard(cardId)).toBe(null);
+    expect(db.find('checklists', { cardId }).length).toBe(0);
+    expect(db.find('checklistItems', { cardId }).length).toBe(0);
+    expect(db.find('card_comments', { cardId }).length).toBe(0);
+
+    // The card's pre-existing activities are cleaned up in one bulk op; only the
+    // deleteCard activity (kept for the outgoing webhook) remains. Before the fix
+    // the seeded activities survived (and per-child delete activities were added),
+    // so this also acts as the negative test.
+    const acts = db.find('activities', { cardId });
+    expect(acts.length).toBe(1);
+    expect(acts[0].activityType).toBe('deleteCard');
+  });
+
   // ---- #5897: linked card -------------------------------------------------
   test('#5897 create a linked card referencing an existing card', async ({ request, user, board }) => {
     const sourceListId = board.listIds[0];

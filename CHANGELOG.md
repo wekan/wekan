@@ -87,10 +87,21 @@ This release fixes the following bugs:
   removing a missing `_id` throws. The comment / checklist / checklist-item delete handlers now check the doc still
   exists in the local cache before removing it
   (`client/components/activities/comments.js`, `client/components/cards/checklists.js`). The server-side
-  `before.remove` hooks were already hardened to guard + log instead of throwing. *Note:* this removes the thrown
-  client exception; the **high CPU on bulk delete** the issue also reports is separate reactivity/mergebox churn from
-  the cascade and remains a follow-up. (No automated regression — the eviction race is not deterministically
-  reproducible; the guard itself is a self-evident findOne-then-remove.)
+  `before.remove` hooks were already hardened to guard + log instead of throwing. (No automated regression for the
+  thrown exception — the eviction race is not deterministically reproducible; the guard itself is a self-evident
+  findOne-then-remove.) The **high CPU on bulk delete** the issue also reports is reduced by the cascade change below;
+  the remaining cost is on the **archive** path (a bulk update, not a delete) and is a separate follow-up.
+- **Performance: deleting a card no longer fans out per-child activity churn** ([#3252](https://github.com/wekan/wekan/issues/3252),
+  [#5322](https://github.com/wekan/wekan/issues/5322)). `cardRemover` removed a card's checklist items, checklists and
+  comments with the hooked `removeAsync`, so collection-hooks fired each child's `before.remove` **once per document** —
+  every one doing a `getCard` and inserting an activity (e.g. a `removedChecklistItem` per item), which then triggered
+  the notification + publication observers. Deleting (or bulk-deleting) a card with many children produced an
+  activity-insert storm and pegged the CPU. `cardRemover` now removes those children with `.direct` (skipping the
+  per-child hooks — they only logged activities that are unviewable once the card is gone) and clears **all** of the
+  card's activities in a single bulk op, which also removes the activities that a delete previously left orphaned. The
+  `deleteCard` activity is still logged afterward (so the outgoing webhook fires), and attachments still go through the
+  normal remove so their files are deleted. Cascade + activity-cleanup regression (also a negative test) in
+  `tests/playwright/specs/17-rest-api.e2e.js`.
 
 and this issue is verified resolved in current code (could not reproduce / no error observed here; re-test on the
 reporter's data requested):
