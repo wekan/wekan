@@ -41,9 +41,9 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
-# Upcoming WeKan ® release
+# v9.72 2026-06-26 WeKan ® release
 
-This release adds the following changes:
+This release fixes the following bugs:
 
 - Fixed `api.py` `addcustomfieldtoboard` crashing on an empty `settings` argument. The CLI did
   `settings = str(json.loads(sys.argv[6]))`, so `json.loads('')` raised `JSONDecodeError` and
@@ -58,6 +58,8 @@ This release adds the following changes:
   while keeping the small-screen All Boards layout collapse so the left menu still stacks above
   the board grid on narrow screens.
   Fixed in [f7a2a3ace5ebc6ac2c8ecef10a2d0477ab7b3e2c](https://github.com/wekan/wekan/commit/f7a2a3ace5ebc6ac2c8ecef10a2d0477ab7b3e2c).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.71 2026-06-23 WeKan ® release
 
@@ -139,6 +141,8 @@ and fixes the following bugs:
   that language's bundle. Added `TAPi18n.ensureLanguageLoaded()` (loads the bundle on demand) and await it before
   translating in the email notification, `EmailLocalization.sendEmail` and outgoing webhook paths.
   Fixed in [22f996903](https://github.com/wekan/wekan/commit/22f996903b09d35e3aa959a9aa65b30204e12202).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.70 2026-06-23 WeKan ® release
 
@@ -250,6 +254,8 @@ reporter's data requested):
   fixed by migrating math rendering from `markdown-it-mathjax3` (which emitted both SVG and MathML) to **Temml**, which
   outputs MathML only (`packages/markdown/src/template-integration.js`).
 
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.69 2026-06-23 WeKan ® release
 
 This release fixes the following bugs:
@@ -321,6 +327,8 @@ reporter's data requested):
   archived its cards are merely hidden from the board view (board queries filter to `archived: false` swimlanes), not
   lost — the v2.27-era cascade described in the report no longer happens. (A dedicated way to view an archived
   swimlane's cards before restoring would be a separate UX improvement.)
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.68 2026-06-23 WeKan ® release
 
@@ -530,6 +538,8 @@ reporter's data requested):
   date): activity `createdAt` is set once in the `Activities.before.insert` hook, nothing bulk-updates it, and the UI
   renders `activity.createdAt` directly — so changing a due date inserts one new `a-dueAt` activity and cannot re-date
   existing ones.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.67 2026-06-21 WeKan ® release
 
