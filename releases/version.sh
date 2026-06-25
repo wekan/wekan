@@ -209,7 +209,7 @@ update_releases_node_versions() {
   echo "[DEBUG] Updating Node.js references in ${#files[@]} releases files..."
   local f
   for f in "${files[@]}"; do
-    # Update the explicit, stable Node.js dist path (e.g. nodejs.org/dist/v24.17.0).
+    # Update the explicit, stable Node.js dist path (e.g. nodejs.org/dist/v24.18.0).
     # The old floating `latest-v24.x/` path is intentionally NOT handled here: it
     # only ever holds the single newest v24 release, so a pinned filename under it
     # 404s once upstream advances — that is what broke the snap build. snapcraft.yaml

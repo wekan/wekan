@@ -47,9 +47,9 @@ echo ""
 
 echo "=== mongosh 2.8.2 (x64 for amd64/armhf/s390x/ppc64el via QEMU; arm64 native) ==="
 check "mongosh 2.8.2  x64 (amd64 + armhf/s390x/ppc64el via QEMU)" \
-  "https://downloads.mongodb.com/compass/mongosh-2.8.3-linux-x64.tgz"
+  "https://downloads.mongodb.com/compass/mongosh-2.9.0-linux-x64.tgz"
 check "mongosh 2.8.2  arm64" \
-  "https://downloads.mongodb.com/compass/mongosh-2.8.3-linux-arm64.tgz"
+  "https://downloads.mongodb.com/compass/mongosh-2.9.0-linux-arm64.tgz"
 echo ""
 
 echo "=== mongodb-database-tools 100.13.0 (x86_64 for amd64/armhf/s390x/ppc64el; arm64 native) ==="
@@ -61,13 +61,13 @@ echo ""
 
 echo "=== Node.js 24.17.0 (snap architectures with upstream Node builds) ==="
 check "Node.js 24.17.0  linux-x64     (amd64)" \
-  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-x64.tar.gz"
+  "https://nodejs.org/dist/v24.18.0/node-v24.18.0-linux-x64.tar.gz"
 check "Node.js 24.17.0  linux-arm64   (arm64)" \
-  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-arm64.tar.gz"
+  "https://nodejs.org/dist/v24.18.0/node-v24.18.0-linux-arm64.tar.gz"
 check "Node.js 24.17.0  linux-s390x   (s390x)" \
-  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-s390x.tar.gz"
+  "https://nodejs.org/dist/v24.18.0/node-v24.18.0-linux-s390x.tar.gz"
 check "Node.js 24.17.0  linux-ppc64le (ppc64el)" \
-  "https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-ppc64le.tar.gz"
+  "https://nodejs.org/dist/v24.18.0/node-v24.18.0-linux-ppc64le.tar.gz"
 echo ""
 
 echo "=== Results ==="
