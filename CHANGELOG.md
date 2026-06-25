@@ -41,6 +41,18 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release adds the following changes:
+
+- Fixed `api.py` `addcustomfieldtoboard` crashing on an empty `settings` argument. The CLI did
+  `settings = str(json.loads(sys.argv[6]))`, so `json.loads('')` raised `JSONDecodeError` and
+  the command aborted before sending the request (a bug api.py's own header comment flagged).
+  Empty settings now default to `{}` and are sent as valid JSON via `json.dumps` instead of
+  `str(dict)` (which produced invalid JSON with single quotes). Verified that both empty and
+  object settings (e.g. `{"currencyCode":"EUR"}`) create the custom field.
+  Fixed in [487cf3f96](https://github.com/wekan/wekan/commit/487cf3f9632d747665bd14e4a0e43159760a49c6).
+
 # v9.71 2026-06-23 WeKan ® release
 
 This release adds the following features:
