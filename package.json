@@ -51,7 +51,7 @@
     "@aws-sdk/client-s3": "^3.1071.0",
     "@azure/storage-blob": "^12.32.0",
     "@babel/parser": "^7.29.2",
-    "@babel/runtime": "^7.29.2",
+    "@babel/runtime": "^8.0.0",
     "@google-cloud/storage": "^7.21.0",
     "@meteorjs/reify": "^0.25.4",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
