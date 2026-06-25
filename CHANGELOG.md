@@ -52,6 +52,12 @@ This release adds the following changes:
   `str(dict)` (which produced invalid JSON with single quotes). Verified that both empty and
   object settings (e.g. `{"currencyCode":"EUR"}`) create the custom field.
   Fixed in [487cf3f96](https://github.com/wekan/wekan/commit/487cf3f9632d747665bd14e4a0e43159760a49c6).
+- [Mobile UI too large on iPhone 12 mini at All Boards and top bars](https://github.com/wekan/wekan/issues/6426),
+  [#6426](https://github.com/wekan/wekan/issues/6426): reverted the recent forced mobile/iPhone
+  2x/3x UI scaling rules that made All Boards and quick-access/header controls render oversized,
+  while keeping the small-screen All Boards layout collapse so the left menu still stacks above
+  the board grid on narrow screens.
+  Fixed in [a1784d36099db42e01d418e4da89c04b1b31bd59](https://github.com/wekan/wekan/commit/a1784d36099db42e01d418e4da89c04b1b31bd59).
 
 # v9.71 2026-06-23 WeKan ® release
 

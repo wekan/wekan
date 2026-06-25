@@ -1209,7 +1209,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   .iphone-device #header-quick-access,
   .iphone-device .wrapper ~ #header-quick-access,
   .iphone-device body:not(.board-view) #header-quick-access {
-    font-size: 1.2em !important;
+    font-size: 1em !important;
   }
   body:not(.board-view) #header-quick-access .fa,
   body:not(.board-view) #header-quick-access .icon,
@@ -1221,7 +1221,7 @@ body:not(.board-view) #header #header-main-bar h1 {
   .iphone-device .wrapper ~ #header-quick-access .icon,
   .iphone-device body:not(.board-view) #header-quick-access .fa,
   .iphone-device body:not(.board-view) #header-quick-access .icon {
-    font-size: 1.5em !important;
+    font-size: 1.2em !important;
   }
   /* Zoom (100%), drag-handle toggle and mobile/desktop toggle 30% smaller than
      the other quick-access controls at small width — for all browsers. */
