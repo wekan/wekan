@@ -265,10 +265,9 @@ if arguments == 10:
         boardid = sys.argv[3]
         name = sys.argv[4]
         type1 = sys.argv[5]
-        settings = str(json.loads(sys.argv[6]))
-        #  There is error: Settings must be object. So this does not work yet.
-        #settings = {'currencyCode': 'EUR'}
-        print(type(settings))
+        settings_arg = sys.argv[6]
+        # settings is optional; an empty arg -> {} (avoids json.loads('') crashing).
+        settings = json.loads(settings_arg) if settings_arg.strip() else {}
         showoncard = sys.argv[7]
         automaticallyoncard = sys.argv[8]
         showlabelonminicard = sys.argv[9]
@@ -276,7 +275,7 @@ if arguments == 10:
         customfieldtoboard = wekanurl + apiboards + boardid + s + cf
         # Add Custom Field to Board
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
-        post_data = {'authorId': '{}'.format(authorid), 'name': '{}'.format(name), 'type': '{}'.format(type1), 'settings': '{}'.format(settings), 'showoncard': '{}'.format(showoncard), 'automaticallyoncard': '{}'.format(automaticallyoncard), 'showlabelonminicard': '{}'.format(showlabelonminicard), 'showsumattopoflist': '{}'.format(showsumattopoflist)}
+        post_data = {'authorId': '{}'.format(authorid), 'name': '{}'.format(name), 'type': '{}'.format(type1), 'settings': json.dumps(settings), 'showoncard': '{}'.format(showoncard), 'automaticallyoncard': '{}'.format(automaticallyoncard), 'showlabelonminicard': '{}'.format(showlabelonminicard), 'showsumattopoflist': '{}'.format(showsumattopoflist)}
         body = requests.post(customfieldtoboard, data=post_data, headers=headers)
         print(body.text)
         # ------- ADD CUSTOM FIELD TO BOARD END -----------
