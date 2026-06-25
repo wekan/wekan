@@ -57,7 +57,7 @@ This release adds the following changes:
   2x/3x UI scaling rules that made All Boards and quick-access/header controls render oversized,
   while keeping the small-screen All Boards layout collapse so the left menu still stacks above
   the board grid on narrow screens.
-  Fixed in [a1784d36099db42e01d418e4da89c04b1b31bd59](https://github.com/wekan/wekan/commit/a1784d36099db42e01d418e4da89c04b1b31bd59).
+  Fixed in [f7a2a3ace5ebc6ac2c8ecef10a2d0477ab7b3e2c](https://github.com/wekan/wekan/commit/f7a2a3ace5ebc6ac2c8ecef10a2d0477ab7b3e2c).
 
 # v9.71 2026-06-23 WeKan ® release
 
