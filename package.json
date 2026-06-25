@@ -76,7 +76,7 @@
     "hotkeys-js": "^4.0.2",
     "i18next": "^25.10.4",
     "i18next-sprintf-postprocessor": "^0.2.2",
-    "jquery": "^3.7.1",
+    "jquery": "^4.0.0",
     "jquery-ui": "^1.14.2",
     "jszip": "^3.7.1",
     "limax": "^4.2.3",
