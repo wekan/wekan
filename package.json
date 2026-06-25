@@ -59,7 +59,7 @@
     "@textcomplete/contenteditable": "^0.1.13",
     "@textcomplete/core": "^0.1.13",
     "@textcomplete/textarea": "^0.1.13",
-    "@tweedegolf/sab-adapter-amazon-s3": "^1.0.20",
+    "@tweedegolf/sab-adapter-amazon-s3": "^3.0.4",
     "@tweedegolf/sab-adapter-azure-blob": "^3.0.2",
     "@tweedegolf/sab-adapter-google-cloud": "^3.0.2",
     "@wekanteam/dragscroll": "^0.0.9",
