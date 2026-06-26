@@ -73,6 +73,7 @@ This release fixes the following bugs:
   (`<body>` + `#content`), and the board-canvas routes (`board` / `board-short` / `card`) leave it
   off so their own `.board-canvas.dragscroll` keeps handling the drag. Login / Register keep their
   own enable/disable because they use `userFormsLayout` (no `#content`).
+  Fixed in [a4cce9a53](https://github.com/wekan/wekan/commit/a4cce9a53).
 
 # v9.72 2026-06-26 WeKan ® release
 
