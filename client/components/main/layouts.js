@@ -52,6 +52,13 @@ Template.userFormsLayout.onRendered(() => {
   // gesture works the same as on the board swimlanes view.
   enablePageDragscroll();
 
+  // Mark the auth pages so CSS can let <body> scroll as a normal document.
+  // body.mobile-mode locks <body> to position:fixed/100vh (an iOS board-view
+  // anti-bounce fix); without an inner #content scroller that traps these pages
+  // at viewport height, hiding the sign-up link / language selector below the
+  // form (and they sit behind the on-screen keyboard). See userForm.css.
+  document.body.classList.add('userform-layout');
+
   Meteor.call('getAuthenticationsEnabled', (_, result) => {
     let enabledAuthenticationMethods = ['password']; // we show/hide this based on isPasswordLoginEnabled
 
@@ -200,6 +207,7 @@ Template.userFormsLayout.onDestroyed(() => {
   // Stop drag-scrolling <body> after leaving login / register (e.g. once logged
   // in) so other layouts keep their normal behaviour.
   disablePageDragscroll();
+  document.body.classList.remove('userform-layout');
 });
 
 Template.userFormsLayout.helpers({

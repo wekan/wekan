@@ -113,12 +113,35 @@ body.mobile-mode .auth-layout .auth-dialog .at-form .password-input-container .p
   width: 100%;
   margin-top: 10px;
 }
+/* Auth pages (login / register) must scroll as a normal document on mobile so
+   the content below the form — the sign-up / sign-in link, legal notice and
+   language selector — is reachable, including when the on-screen keyboard is
+   open. body.mobile-mode otherwise locks <body> to position:fixed + 100vh (an
+   iOS board-view anti-bounce fix); the auth layout has no inner #content
+   scroller, so that lock traps the page at viewport height and the on-screen
+   keyboard hides the bottom. .userform-layout is added by userFormsLayout while
+   these pages are mounted (see layouts.js). */
+body.mobile-mode.userform-layout {
+  position: static !important;
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
+}
+
 @media screen and (max-width: 800px) {
   .auth-layout {
     width: 100%;
     height: 100%;
     margin: 0px;
     padding: 0px;
+  }
+  /* Let the auth layout/dialog grow to their content instead of being pinned to
+     the viewport height, so everything below the form scrolls into view. */
+  body.userform-layout .auth-layout {
+    height: auto;
+  }
+  body.userform-layout .auth-layout .auth-dialog {
+    height: auto;
   }
   .auth-layout .at-form-landing-logo {
     width: 125px;
