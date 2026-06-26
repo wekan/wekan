@@ -53,7 +53,7 @@ This release fixes the following bugs:
   neutralized to normal size too, and the iPhone-12-mini header blocks that had grown tall and
   wrapped (to fit the 3x text) are back to a compact single row. The #6419 mobile touch-target
   icon sizes in the card-details header are intentionally kept.
-  Fixed in [37ac65e37](https://github.com/wekan/wekan/commit/37ac65e37).
+  Fixed in [219ee659e](https://github.com/wekan/wekan/commit/219ee659e).
 - Drag-to-scroll (dragscroll) not working on the Login, Register and All Boards pages: the page
   helper tagged `<body>` with the `dragscroll` class, but on phones `body.mobile-mode` is
   `position: fixed` and the real scroll container becomes `#content`, so tagging only `<body>`
@@ -62,7 +62,7 @@ This release fixes the following bugs:
   scrolls — both `<body>` and `#content` when present — so only the overflowing one scrolls (no
   double-scroll). Touch one-finger scrolling (`dragscrollTouch.js`) already picks the nearest
   scrollable `.dragscroll` ancestor, so `#content` wins over `<body>` when both are tagged.
-  Fixed in [37ac65e37](https://github.com/wekan/wekan/commit/37ac65e37).
+  Fixed in [219ee659e](https://github.com/wekan/wekan/commit/219ee659e).
 - Drag-to-scroll now works on **every** whole-page layout in both mobile and desktop modes, not
   just All Boards / My Cards / Login / Register. It was wired into only those few templates, so
   Due Cards, Global Search, Public, Bookmarks, Broken Cards, Settings, People, Admin Reports,
@@ -73,7 +73,7 @@ This release fixes the following bugs:
   (`<body>` + `#content`), and the board-canvas routes (`board` / `board-short` / `card`) leave it
   off so their own `.board-canvas.dragscroll` keeps handling the drag. Login / Register keep their
   own enable/disable because they use `userFormsLayout` (no `#content`).
-  Fixed in [a4cce9a53](https://github.com/wekan/wekan/commit/a4cce9a53).
+  Fixed in [88f353dc1](https://github.com/wekan/wekan/commit/88f353dc1).
 - Login / Register pages not scrollable on phones — the sign-up / sign-in link, legal notice and
   language selector below the form were unreachable (and hidden behind the on-screen keyboard). On
   mobile, `body.mobile-mode` pins `<body>` to `position: fixed` + `height: 100vh` (an iOS
