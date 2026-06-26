@@ -63,6 +63,16 @@ This release fixes the following bugs:
   double-scroll). Touch one-finger scrolling (`dragscrollTouch.js`) already picks the nearest
   scrollable `.dragscroll` ancestor, so `#content` wins over `<body>` when both are tagged.
   Fixed in [37ac65e37](https://github.com/wekan/wekan/commit/37ac65e37).
+- Drag-to-scroll now works on **every** whole-page layout in both mobile and desktop modes, not
+  just All Boards / My Cards / Login / Register. It was wired into only those few templates, so
+  Due Cards, Global Search, Public, Bookmarks, Broken Cards, Settings, People, Admin Reports,
+  Attachments, Translation, Import, board Rules and the Not Found page had no page drag-scroll at
+  all. The per-template enable/disable calls (which also fought each other when navigating between
+  two non-board pages) were replaced by a single route-aware autorun in `defaultLayout` (the
+  persistent shell that owns `#content`): every non-board route tags the real scroll container
+  (`<body>` + `#content`), and the board-canvas routes (`board` / `board-short` / `card`) leave it
+  off so their own `.board-canvas.dragscroll` keeps handling the drag. Login / Register keep their
+  own enable/disable because they use `userFormsLayout` (no `#content`).
 
 # v9.72 2026-06-26 WeKan ® release
 

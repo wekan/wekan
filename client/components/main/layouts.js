@@ -314,6 +314,31 @@ Template.defaultLayout.onRendered(function () {
       }
     });
   });
+
+  // Drag-to-scroll for every whole-page layout rendered inside defaultLayout
+  // (All Boards, My Cards, Due Cards, Global Search, Public, Bookmarks, Broken
+  // Cards, Settings, People, Admin, Import, board Rules, …). These pages scroll
+  // <body> on desktop and #content in mobile mode (where <body> is
+  // position:fixed), so enablePageDragscroll() tags whichever element actually
+  // scrolls. The board-canvas pages are the exception: their own
+  // `.board-canvas.dragscroll` handles dragging, and the canvas does its own
+  // vertical/horizontal scroll, so page-level tagging is turned off there to
+  // avoid scrolling #content and the canvas at the same time. defaultLayout is
+  // persistent (only its `content` swaps), so this single autorun covers every
+  // route without per-template wiring. Login / Register use userFormsLayout and
+  // keep their own enable/disable. Works the same in mobile and desktop mode.
+  const boardCanvasRoutes = ['board', 'board-short', 'card'];
+  this.autorun(() => {
+    FlowRouter.watchPathChange();
+    const onBoardCanvas = boardCanvasRoutes.includes(FlowRouter.getRouteName());
+    Tracker.afterFlush(() => {
+      if (onBoardCanvas) {
+        disablePageDragscroll();
+      } else {
+        enablePageDragscroll();
+      }
+    });
+  });
 });
 
 async function authentication(event, templateInstance) {

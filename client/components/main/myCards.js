@@ -1,6 +1,5 @@
 import { CardSearchPaged } from '../../lib/cardSearch';
 import { Utils } from '/client/lib/utils';
-import { enablePageDragscroll, disablePageDragscroll } from '/client/lib/pageDragscroll';
 
 Template.myCardsHeaderBar.helpers({
   myCardsSort() {
@@ -41,15 +40,8 @@ Template.myCards.onCreated(function () {
   Meteor.subscribe('setting');
 });
 
-Template.myCards.onRendered(function () {
-  // My Cards renders into <body>'s page scroll area (.wrapper inside #content),
-  // so enable drag-to-scroll on <body> like the All Boards page does.
-  enablePageDragscroll();
-});
-
-Template.myCards.onDestroyed(function () {
-  disablePageDragscroll();
-});
+// Drag-to-scroll is handled centrally for all non-board pages by
+// defaultLayout's route-aware autorun (see client/components/main/layouts.js).
 
 Template.myCards.helpers({
   userId() {
