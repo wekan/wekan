@@ -74,6 +74,16 @@ This release fixes the following bugs:
   off so their own `.board-canvas.dragscroll` keeps handling the drag. Login / Register keep their
   own enable/disable because they use `userFormsLayout` (no `#content`).
   Fixed in [a4cce9a53](https://github.com/wekan/wekan/commit/a4cce9a53).
+- Login / Register pages not scrollable on phones — the sign-up / sign-in link, legal notice and
+  language selector below the form were unreachable (and hidden behind the on-screen keyboard). On
+  mobile, `body.mobile-mode` pins `<body>` to `position: fixed` + `height: 100vh` (an iOS
+  board-view anti-bounce fix), but the auth pages have no inner `#content` scroller and their
+  `.auth-layout`/`.auth-dialog` were sized to the viewport height, so the page was trapped at
+  100vh. `userFormsLayout` now tags `<body>` with `.userform-layout` while mounted, and CSS lets
+  those pages scroll as a normal document on mobile (`position: static; height: auto;
+  min-height: 100vh`) with the layout/dialog growing to their content. Scoped to
+  `.userform-layout` so the board-view mobile lock is unchanged.
+  Fixed in [4a7df3745](https://github.com/wekan/wekan/commit/4a7df3745).
 
 # v9.72 2026-06-26 WeKan ® release
 
