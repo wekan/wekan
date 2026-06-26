@@ -41,7 +41,7 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
-# Upcoming WeKan ® release
+# v9.73 2026-06-26 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -84,6 +84,8 @@ This release fixes the following bugs:
   min-height: 100vh`) with the layout/dialog growing to their content. Scoped to
   `.userform-layout` so the board-view mobile lock is unchanged.
   Fixed in [4a7df3745](https://github.com/wekan/wekan/commit/4a7df3745).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.72 2026-06-26 WeKan ® release
 
