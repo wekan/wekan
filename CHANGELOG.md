@@ -53,6 +53,7 @@ This release fixes the following bugs:
   neutralized to normal size too, and the iPhone-12-mini header blocks that had grown tall and
   wrapped (to fit the 3x text) are back to a compact single row. The #6419 mobile touch-target
   icon sizes in the card-details header are intentionally kept.
+  Fixed in [37ac65e37](https://github.com/wekan/wekan/commit/37ac65e37).
 - Drag-to-scroll (dragscroll) not working on the Login, Register and All Boards pages: the page
   helper tagged `<body>` with the `dragscroll` class, but on phones `body.mobile-mode` is
   `position: fixed` and the real scroll container becomes `#content`, so tagging only `<body>`
@@ -61,6 +62,7 @@ This release fixes the following bugs:
   scrolls — both `<body>` and `#content` when present — so only the overflowing one scrolls (no
   double-scroll). Touch one-finger scrolling (`dragscrollTouch.js`) already picks the nearest
   scrollable `.dragscroll` ancestor, so `#content` wins over `<body>` when both are tagged.
+  Fixed in [37ac65e37](https://github.com/wekan/wekan/commit/37ac65e37).
 
 # v9.72 2026-06-26 WeKan ® release
 
