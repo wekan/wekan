@@ -107,17 +107,17 @@
       overflow-y: scroll !important;
     }
 
-    /* Mobile - make all text 2x bigger inside #content by default (icons stay same size) */
+    /* Mobile - keep #content text at normal size (reverted #6426 oversizing) */
     @media screen and (max-width: 800px),
            screen and (max-device-width: 800px),
            screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
            screen and (max-width: 800px) and (orientation: portrait),
            screen and (max-width: 800px) and (orientation: landscape) {
       #content {
-        font-size: 2em !important; /* 2x bigger base font size for content area */
+        font-size: 1em !important; /* Normal size (reverted #6426 oversizing) */
       }
 
-      /* Make all text elements 2x bigger */
+      /* Keep all text elements at normal size */
       #content h1, #content h2, #content h3, #content h4, #content h5, #content h6,
       #content p, #content span, #content div, #content a, #content button,
       #content .minicard, #content .list-header-name, #content .board-header-btn,
@@ -186,7 +186,7 @@
 
     /* Fallback for iPhone devices using JavaScript detection */
     .iphone-device #content {
-      font-size: 2em !important; /* 2x bigger base font size for content area */
+      font-size: 1em !important; /* Normal size (reverted #6426 oversizing) */
     }
 
     .iphone-device #content h1, .iphone-device #content h2, .iphone-device #content h3, .iphone-device #content h4, .iphone-device #content h5, .iphone-device #content h6,
@@ -231,9 +231,9 @@
       font-size: 1em !important; /* Keep original icon size */
     }
 
-/* Mobile iPhone: scale card details text and icons to 2x */
+/* Mobile iPhone: keep card details text/icons at normal size (reverted #6426 oversizing) */
 body.mobile-mode.iphone-device .card-details {
-  font-size: 2em !important;
+  font-size: 1em !important;
 }
 body.mobile-mode.iphone-device .card-details .fa,
 body.mobile-mode.iphone-device .card-details .icon,

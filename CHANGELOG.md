@@ -41,6 +41,27 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Mobile UI still too large at All Boards / iPhone 12 mini](https://github.com/wekan/wekan/issues/6426),
+  [#6426](https://github.com/wekan/wekan/issues/6426): the first revert only cleaned
+  `boardsList.css`, leaving the same forced "2x/3x bigger on mobile" rules in `header.css`
+  (`#header-quick-access` logo/quick-access bar) and `boardBody.css` (`#content` — which the
+  All Boards list and popups render inside) and the iPhone card-details body text. Those are now
+  neutralized to normal size too, and the iPhone-12-mini header blocks that had grown tall and
+  wrapped (to fit the 3x text) are back to a compact single row. The #6419 mobile touch-target
+  icon sizes in the card-details header are intentionally kept.
+- Drag-to-scroll (dragscroll) not working on the Login, Register and All Boards pages: the page
+  helper tagged `<body>` with the `dragscroll` class, but on phones `body.mobile-mode` is
+  `position: fixed` and the real scroll container becomes `#content`, so tagging only `<body>`
+  could never scroll on those pages (Login/Register have no `#content` and correctly use
+  `<body>`). `enablePageDragscroll`/`disablePageDragscroll` now tag whichever element actually
+  scrolls — both `<body>` and `#content` when present — so only the overflowing one scrolls (no
+  double-scroll). Touch one-finger scrolling (`dragscrollTouch.js`) already picks the nearest
+  scrollable `.dragscroll` ancestor, so `#content` wins over `<body>` when both are tagged.
+
 # v9.72 2026-06-26 WeKan ® release
 
 This release fixes the following bugs:
