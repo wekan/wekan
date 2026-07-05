@@ -80,7 +80,7 @@ This release fixes the following CRITICAL SECURITY ISSUES of
     **4n207**.
   Thanks to 4n207 and xet7!
 
-- **[ExcelBleed](https://github.com/wekan/wekan/security/advisories/GHSA-mwq8-ccpm-r533) — broken access control in the Excel-export REST route lets any authenticated user export any private board**
+- **[ExcelBleed](https://github.com/wekan/wekan/commit/7bbd1a3fad5d868fd01d79b5908913e215698e8e) — broken access control in the Excel-export REST route lets any authenticated user export any private board**
   ([GHSA-mwq8-ccpm-r533](https://github.com/wekan/wekan/security/advisories/GHSA-mwq8-ccpm-r533),
   CWE-862 / CWE-639). Same un-awaited async-auth bug class as
   [BFLABleed](https://wekan.fi/hall-of-fame/bflableed/) (48 REST endpoints, v9.22),
