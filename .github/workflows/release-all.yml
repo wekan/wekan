@@ -22,7 +22,9 @@ name: Release All Platforms
 #              commits and pushes the bump to wekan/wekan main
 #   - prepare: tags the bumped main as v<new_version> and extracts release notes
 #   - website: updates the wekan/wekan.fi repo (install page + API docs) and pushes
-#   - charts:  updates and publishes the wekan/charts Helm chart and pushes
+#   - charts:  updates and publishes the wekan/charts Helm chart and pushes,
+#              only AFTER the `docker` job has published the image (skipped if
+#              docker fails)
 #   - build-*: builds the amd64 bundle (full Meteor 3 build), then rebuilds native
 #              modules for arm64 from that amd64 base
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
@@ -210,12 +212,14 @@ jobs:
           cd ..
           ./wekan/releases/release-website.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
 
-  # ─── 1c. Update and publish the Helm chart repo (parallel) ──────────────────
+  # ─── 1c. Update and publish the Helm chart repo (after docker) ──────────────
   # Bumps the WeKan version in wekan/charts, packages the chart and publishes it
-  # to the gh-pages Helm index, then pushes both branches. Runs in parallel with
-  # the platform builds; packaging the chart does not need the built artifacts.
+  # to the gh-pages Helm index, then pushes both branches. Runs only AFTER the
+  # `docker` job succeeds: the chart points users at the freshly published
+  # multi-arch image, so we don't advertise a new chart version until that image
+  # is actually on the registries. If `docker` fails, this job is skipped.
   charts:
-    needs: bump
+    needs: docker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wekan repo (for releases/release-charts.sh + version refs)

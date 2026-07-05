@@ -56,6 +56,15 @@ This release adds the following fixes:
   correct board id and slug are used.
   Thanks to titver968 and xet7.
 
+- **Release workflow: publish the Helm chart only after the Docker image is pushed**:
+  In `.github/workflows/release-all.yml` the `charts` job now depends on the `docker` job
+  (`needs: docker`) instead of running in parallel right after `bump`. GitHub Actions runs a job
+  only when all of its `needs` jobs succeed, so the wekan/charts Helm chart is published only after
+  the multi-arch image is live on Docker Hub / Quay.io / GHCR (and is skipped if `docker` fails).
+  This prevents ArtifactHub from scanning a freshly published chart whose image tag does not exist
+  yet and emailing the maintainer about the missing Docker image.
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.75 2026-07-05 WeKan ® release
