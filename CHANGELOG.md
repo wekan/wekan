@@ -45,7 +45,7 @@ them up next.
 
 This release adds the following fixes:
 
-- **[Fix notification emails linked to `/b/undefined/board/<cardId>` instead of the real board](https://github.com/wekan/wekan/commitf1fdaa470c34b44eb5ff0dfb0151bf5d262cc81d)**:
+- **[Fix notification emails linked to `/b/undefined/board/<cardId>` instead of the real board](https://github.com/wekan/wekan/commit/8b21158736f9e1360332903707c100bce3d6b164)**:
   On the server `ReactiveCache.getBoard()` is async and returns a Promise, but `Cards.board()` did not await it,
   so the synchronous `Card.originRelativeUrl()`/`absoluteUrl()` interpolated a Promise —
   `board._id` and `board.slug` were `undefined`, producing `/b/undefined/board/<cardId>` in
