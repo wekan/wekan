@@ -96,6 +96,24 @@ This release adds the following fixes:
   residual reactive re-render cost on very large boards is a separate performance topic.
   Thanks to mimZD and xet7.
 
+- **[Fix #5879: `DEFAULT_AUTHENTICATION_METHOD` env var ignored, and Admin Panel Layout save hanging](https://github.com/wekan/wekan/issues/5879)**:
+  Two related problems with the default login authentication method.
+  - **Env var ignored:** the stored setting was only ever seeded as `password` and
+    `DEFAULT_AUTHENTICATION_METHOD` was never applied, so operators setting it (e.g. Kubernetes/Helm
+    `DEFAULT_AUTHENTICATION_METHOD: ldap`) saw no effect. Startup now applies the env var
+    authoritatively: it seeds the value on a fresh install and, on existing installs, keeps the
+    stored `defaultAuthenticationMethod` in sync with the env var on every boot (the operator's env
+    is the source of truth), so the method can be configured entirely by env without the Admin Panel.
+    The value is normalized (trimmed + lower-cased), so `DEFAULT_AUTHENTICATION_METHOD=LDAP` works.
+  - **Layout save hanging / not persisting:** the authentication-method `<select>` is populated by an
+    async `Meteor.call`, so clicking **Admin Panel > Layout > Save** before it loaded sent an empty
+    value for the **required** `defaultAuthenticationMethod` field, which silently failed validation —
+    the save looked stuck and nothing changed. The save now falls back to the currently stored method
+    when the select is empty, so a real value is never overwritten by `''`.
+  Both paths share one pure helper (`resolveDefaultAuthenticationMethod`) that never resolves to an
+  empty string. Reported by joe-speedboat.
+  Thanks to joe-speedboat and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.75 2026-07-05 WeKan ® release

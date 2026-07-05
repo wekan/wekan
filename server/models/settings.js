@@ -14,6 +14,10 @@ import { sendJsonResult } from '/server/apiMiddleware';
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { SimpleSchema } = require('/imports/simpleSchema');
+const {
+  normalizeAuthenticationMethod,
+  resolveDefaultAuthenticationMethod,
+} = require('/models/lib/authenticationMethod');
 
 const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
@@ -115,6 +119,13 @@ function isApiEnabled() {
 Meteor.startup(async () => {
   await ensureIndex(Settings, { modifiedAt: -1 });
   const setting = await getReactiveCache().getCurrentSetting();
+  // #5879: honour the DEFAULT_AUTHENTICATION_METHOD env var. It used to be
+  // ignored (settings only ever seeded 'password'), so operators configuring it
+  // via Kubernetes/Helm saw no effect. When set it is authoritative, so the
+  // default login method can be configured by env without the Admin Panel.
+  const envDefaultAuthenticationMethod = normalizeAuthenticationMethod(
+    process.env.DEFAULT_AUTHENTICATION_METHOD,
+  );
   if (!setting) {
     const now = new Date();
     const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];
@@ -132,9 +143,19 @@ Meteor.startup(async () => {
       createdAt: now,
       modifiedAt: now,
       displayAuthenticationMethod: true,
-      defaultAuthenticationMethod: 'password',
+      defaultAuthenticationMethod:
+        resolveDefaultAuthenticationMethod(envDefaultAuthenticationMethod, undefined),
     };
     await Settings.insertAsync(defaultSetting);
+  } else if (
+    envDefaultAuthenticationMethod &&
+    setting.defaultAuthenticationMethod !== envDefaultAuthenticationMethod
+  ) {
+    // Existing install: keep the stored setting in sync with the env var so it
+    // wins on every startup (the operator's env is the source of truth).
+    await Settings.updateAsync(setting._id, {
+      $set: { defaultAuthenticationMethod: envDefaultAuthenticationMethod },
+    });
   }
   if (isSandstorm) {
     const newSetting = await getReactiveCache().getCurrentSetting();

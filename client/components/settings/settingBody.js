@@ -6,6 +6,7 @@ import AccessibilitySettings from '/models/accessibilitySettings';
 import AccountSettings from '/models/accountSettings';
 import Announcements from '/models/announcements';
 import Settings from '/models/settings';
+import { resolveDefaultAuthenticationMethod } from '/models/lib/authenticationMethod';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 // import {
 //   cronMigrationProgress,
@@ -803,7 +804,17 @@ Template.setting.events({
       $('input[name=hideBoardMemberList]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
-    const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
+    // #5879: the <select> options are populated by an async Meteor.call, so its
+    // value can still be '' / null when Save is clicked. Saving that empty value
+    // over the required `defaultAuthenticationMethod` string silently failed
+    // validation, so the Layout save looked like it hung / did nothing. Fall back
+    // to the currently stored method so a real value is never overwritten by ''.
+    const currentDefaultAuthenticationMethod =
+      ReactiveCache.getCurrentSetting()?.defaultAuthenticationMethod;
+    const defaultAuthenticationMethod = resolveDefaultAuthenticationMethod(
+      $('#defaultAuthenticationMethod').val(),
+      currentDefaultAuthenticationMethod,
+    );
     const spinnerName = ($('#spinnerName').val() || '').trim();
 
     try {
