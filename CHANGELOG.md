@@ -50,6 +50,14 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/574dd5bedd4f7c584b0fbbfaf57df86f286607fa).
   Thanks to xet7.
 
+- **[Retry snapcraft install in the release-all.yml snap job](https://github.com/wekan/wekan/commit/0d4e48ddd6b9ee086f0aa10d9f7c9893fe1637e4)**:
+  The v9.76 release's `snap` job failed at `sudo snap install snapcraft --classic` with
+  `error: cannot install "snapcraft": too many requests` — a transient Snap Store rate limit
+  (429-style throttle) that instantly failed the whole job before any build ran. The install now
+  retries up to 5 times with 30s backoff, so one store throttle no longer fails the release
+  (matching the `remote-build` retry already in the same job).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.76 2026-07-06 WeKan ® release
