@@ -1119,7 +1119,7 @@ This release fixes the following CRITICAL SECURITY ISSUE of [ChecklistBleed](htt
   working, and the server-side `moveChecklist` method (which bypasses allow/deny) is unchanged.
   A regression test (`server/lib/tests/checklistbleed.security.tests.js`) was added.
   Affected Wekan v9.62 and earlier.
-  Thanks to DavidCarliez, xet7 and Claude.
+  Thanks to DavidCarliez and xet7.
 
 and adds the following updates:
 
@@ -1133,7 +1133,7 @@ and adds the following updates:
   `require('/package.json')` resolves to), and a detection miss is now a warning that continues
   rather than a hard failure — only a confirmed version MISMATCH blocks the release, since
   `--build-arg VERSION` is the actual guarantee.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -1150,7 +1150,7 @@ This release adds the following features:
   version is there to the new one, with an assert so a miss fails loudly. Same
   self-healing fix applied to the local-flow copy in `releases/version.sh`. The
   live wekan.fi install page was also corrected to the current version.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 - [Make the remaining release version substitutions self-healing](https://github.com/wekan/wekan/commit/1e5ae8f64).
   Hardened the last `$OLD_VERSION`-anchored seds in `releases/version.sh` — the
@@ -1163,7 +1163,7 @@ This release adds the following features:
   `$OLD_NO_DOTS`-anchored fixup is dropped), and the Windows Offline.md doc links
   self-heal with a soft warning (cosmetic, so they must not fail the release).
   snapcraft.yaml and Offline.md were also corrected from their stale v9.57.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -1188,7 +1188,7 @@ This release adds the following features:
   `package.json` version does not match the release tag, before pushing a
   mislabeled image to the registries. Already-pushed v9.58–v9.61 images need a
   rebuild to carry their correct contents.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -1205,7 +1205,7 @@ This release adds the following features:
   out at all. Set `GH_REPO=${{ github.repository }}` on all three attach steps
   so `gh` targets `wekan/wekan` directly without git remote detection. The snap
   job is unaffected (it does a full checkout into the workspace root).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -1222,7 +1222,7 @@ This release adds the following features:
   armv7 device. The armv7l matrix entry is removed; extra-arch bundles are now
   s390x + ppc64le. armv7 was already excluded from the Docker image and snap,
   so those are unaffected.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 - [Release All Platforms: Move win64 and mac-arm64 into the post-release extra-platform phase](https://github.com/wekan/wekan/commit/32ddf29142c463e65028ebb81619c142ea37d27b).
   `build-win64` and `build-mac-arm64` were prerequisites of the `release` job,
@@ -1233,7 +1233,7 @@ This release adds the following features:
   Release via `gh release upload --clobber`. The core release now waits only on
   the amd64 + arm64 bundles. No build steps changed; only the dependency
   wiring, upload mechanism, and section grouping.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -1255,7 +1255,7 @@ This release adds the following features:
   groups each sub-schema's fields contiguously, so deeply nested objects emit
   distinct, valid sub-schemas. Output is unchanged for existing 1- and
   2-level schemas.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -1759,7 +1759,7 @@ This release fixes the following CRITICAL SECURITY ISSUE of [InputBleed](https:/
   Fixed by looping the tag-stripping replacement to a fixed point and then removing any
   remaining stray `<`/`>` characters, so neither a complete nor a partial tag can
   remain.
-  Thanks to GitHub CodeQL, xet7 and Claude.
+  Thanks to GitHub CodeQL and xet7.
 
 and fixes the following bugs:
 
@@ -1848,7 +1848,7 @@ and adds the following new features:
   Card, List, Swimlane or Due Date header to sort by it, click again to reverse, with
   an arrow showing the active column and direction. Search, sort and pagination run
   client-side over the board's already-loaded cards.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -1862,7 +1862,7 @@ and fixes the following bugs:
   `overflow-y: auto` scrollbar never appeared. Fixed by keeping the flex column layout
   (`display: flex; flex-direction: column`) instead of `display: block` during and after
   resize; the explicit inline width still pins the list width.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Login and register pages are now scrollable to the bottom of the form](https://github.com/wekan/wekan/commit/ad2b969eb5aeea535e0392c9cf81d32a79f11657):
   Tall authentication forms (many login methods, legal notice, language selector, etc.)
   could overflow the viewport without a reliable way to scroll to all fields. The auth
@@ -1874,7 +1874,7 @@ and fixes the following bugs:
   forced `overflow-y: scroll`, which left a non-draggable empty scrollbar track in
   Chromium and no scrollbar at all in Firefox when the form fit the viewport; using the
   default `overflow-y: auto` shows the scrollbar only when there is something to scroll.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Drag-to-scroll (dragscroll) now works on the All Boards, My Cards, Login and Register pages and in the board Lists view](https://github.com/wekan/wekan/commit/da93bfbca687e4ca9b1ed8798e9f07ec0d31bab7):
   Dragging empty space to scroll already worked on the board Swimlanes view but not on
   these pages. The dragscroll library scrolls whichever element carries the `dragscroll`
@@ -1887,7 +1887,7 @@ and fixes the following bugs:
   `.board-canvas` only received `dragscroll` when the board had swimlanes, so vertical
   drag-scroll failed on swimlane-less boards; the canvas now always carries the class.
   One-finger touch scrolling (client/lib/dragscrollTouch.js) covers these too.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -1899,7 +1899,7 @@ This release adds the following updates:
   `rebuild-wekan.sh` menu option 9 ("Run ALL tests") previously errored out with
   "Port 3000 is already in use" when a dev server was already running, forcing the
   user to stop it manually. It now detects and stops the existing Meteor dev server
-  before starting its own. Thanks to xet7 and Claude. Details:
+  before starting its own. Thanks to xet7. Details:
   - When port 3000 is busy, option 9 finds the existing Meteor dev server
     (`pgrep -f 'meteor run --port 3000'`) and sends it a normal `kill`, which also
     tears down the node child it spawned.
@@ -1910,7 +1910,7 @@ This release adds the following updates:
     abort; otherwise it reports "Port 3000 is now free" and starts its own server.
 - [Fix moving/copying a card silently failing with a 403 validation error](https://github.com/wekan/wekan/commit/7db02489202c560d227a476db24cd761c66a0a00):
   the move, copy, copy-many and convert-checklist-item card dialogs could leave a
-  card in its original list instead of moving it. Thanks to xet7 and Claude.
+  card in its original list instead of moving it. Thanks to xet7.
   Details:
   - Root cause: the dialog's "Done" handler read the target board/swimlane/list by
     scraping the DOM `<select>` elements. The reactive `boards()` helper can
@@ -1934,7 +1934,7 @@ This release adds the following updates:
 - [Developer test tooling: run all tests in parallel against a single dev server](https://github.com/wekan/wekan/commit/19fe2e2b6f21b5206e29dcd568576f001abbf37a):
   `rebuild-wekan.sh` and `rebuild-wekan.bat` now run all tests in parallel
   against a single dev server, and fix the WebKit/Docker permission fallout.
-  Thanks to xet7 and Claude. Details:
+  Thanks to xet7. Details:
   - "Run ALL tests" (menu option 9) now starts **one** WeKan server on
     http://localhost:3000 (using `.meteor/local`) and runs every test job
     concurrently with a live, refreshing progress display: import regression,
@@ -1961,63 +1961,62 @@ This release adds the following updates:
   the server, so they are now launched only after the server build is underway;
   the server builds alone and boots fast again, while they still run in parallel
   with the E2E and browser jobs. Applied to both `rebuild-wekan.sh` and
-  `rebuild-wekan.bat`. Thanks to xet7 and Claude.
+  `rebuild-wekan.bat`. Thanks to xet7.
 - [Fix #6380: login page missing username/password fields after upgrade](https://github.com/wekan/wekan/commit/8e70a2b6a95373125be222534cc2fd4da6c278e8):
   the password form is hidden by default in CSS and only revealed by JS when
   `isPasswordLoginEnabled` returns truthy; a slow/failed method call or a
   not-yet-rendered accounts form left the login without username and password
   fields. It now shows the form unless password login is explicitly disabled, and
-  waits for the form element to appear before showing it. Thanks to xet7 and
-  Claude.
+  waits for the form element to appear before showing it. Thanks to xet7.
 - [Fix #6381: make the card "Mark as complete" toggle configurable, hidden by default](https://github.com/wekan/wekan/commit/67d9de32db8829ae11ad654fee621162368eed36):
   a new board setting `allowsDueComplete` (off by default) controls whether the
   "Mark as complete" toggle is shown on cards, with a checkbox in the board Card
-  Settings popup to enable it per board. Thanks to xet7 and Claude.
+  Settings popup to enable it per board. Thanks to xet7.
 - [Fix #6382: stop the client auto-creating thousands of empty swimlanes](https://github.com/wekan/wekan/commit/dd7306d8de1f8c49d2f80b6cb6b49994e7a5a94d):
   `getDefaultSwimline()` inserted a swimlane whenever none was found, but on the
   client it runs inside reactive renders — for a board whose swimlanes were not
   yet loaded (e.g. the default subtasks board viewed via "All boards") every
   re-render inserted another empty swimlane (2008 in the report), freezing the
   browser. The default swimlane is now auto-created only on the server. Thanks to
-  xet7 and Claude.
+  xet7.
 - [Move/Copy/Convert card dialogs: bind swimlane and list select to live selection](https://github.com/wekan/wekan/commit/758f320969ccdbe2026cf1acb9d361906da3f76a):
   the swimlane and list `<select>` `selected` option in the move, copy, copy-many
   and convert-checklist-item card dialogs now follows the live selection instead
   of the last-confirmed option, so a Blaze reactive re-render can no longer
-  silently revert the user's in-progress choice. Thanks to xet7 and Claude.
+  silently revert the user's in-progress choice. Thanks to xet7.
 - [Playwright: probe browsers and skip ones that cannot launch on the host](https://github.com/wekan/wekan/commit/be44f9c3114fcef82847510058f8ccd014e32109):
   the test runner now probes each browser and skips any that cannot launch (e.g.
   the bundled WebKit needs old system libraries that newer Linux arm64 distros
   like Ubuntu 26.04 no longer ship), removing false WebKit failures locally while
   still running every browser on CI. Override with `WEKAN_PLAYWRIGHT_PROBE=1`/`0`.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [rebuild-wekan.sh: platform detection, Docker WebKit on Linux arm64, all browsers in ALL tests](https://github.com/wekan/wekan/commit/dac356ed061167cdf994bd9f82a849514922a92e):
   detect OS/arch (Linux amd64/arm64, macOS arm64); run the WebKit Playwright specs
   via the official Playwright Docker image on Linux arm64 where the bundled WebKit
   cannot launch natively; and run Chromium, Firefox and WebKit in the "Run ALL
-  tests" option. Thanks to xet7 and Claude.
+  tests" option. Thanks to xet7.
 - [rebuild-wekan.bat: Windows menu parity for building, running and testing WeKan](https://github.com/wekan/wekan/commit/d5e5df6549f0496e4eaa54675eee2392cbebdd8d):
   the Windows batch script now mirrors rebuild-wekan.sh's interactive menu so
   building, running and testing WeKan (Mocha, import regression, Node E2E and
   Playwright Chromium/Firefox/WebKit) works on Windows amd64/arm64 too. Thanks to
-  xet7 and Claude.
+  xet7.
 - [Bumped form-data from 2.5.5 to 2.5.6](https://github.com/wekan/wekan/pull/6375):
   security fix for the CRLF-injection issue (CVE-2026-12143, GHSA-hmw2-7cc7-3qxx)
   where CR/LF/`"` in multipart field names and filenames were not escaped. It is a
   transitive dependency (pulled in via `@google-cloud/storage`); lockfile-only
-  change. Thanks to Dependabot, xet7 and Claude.
+  change. Thanks to Dependabot and xet7.
 - [Bumped launch-editor from 2.13.2 to 2.14.1](https://github.com/wekan/wekan/pull/6376):
   a dev-only dependency (used by `webpack-dev-server` / `@rsdoctor/sdk`, not in the
-  production bundle); lockfile-only change. Thanks to Dependabot, xet7 and Claude.
+  production bundle); lockfile-only change. Thanks to Dependabot and xet7.
 - [Bumped docker/setup-buildx-action from 3 to 4](https://github.com/wekan/wekan/pull/6377):
   GitHub Actions workflow action update used by the Docker image build. Thanks to
-  Dependabot, xet7 and Claude.
+  Dependabot and xet7.
 - [Bumped azure/setup-helm from 4 to 5](https://github.com/wekan/wekan/pull/6378):
   GitHub Actions workflow action update used by the Helm chart release workflow.
-  Thanks to Dependabot, xet7 and Claude.
+  Thanks to Dependabot and xet7.
 - [Bumped dompurify from 3.4.6 to 3.4.9](https://github.com/wekan/wekan/pull/6379):
   update of the HTML sanitizer used to sanitize card descriptions, comments and
-  other rendered markdown (XSS protection). Thanks to Dependabot, xet7 and Claude.
+  other rendered markdown (XSS protection). Thanks to Dependabot and xet7.
 
 and adds the following new features:
 
@@ -2081,7 +2080,7 @@ and adds the following new features:
   dependency format, so a generic `{ "lines": [...] }` JSON interchange is
   documented for them. Documented in
   [Features/RedStrings](https://github.com/wekan/wekan/blob/main/docs/Features/RedStrings/RedStrings.md).
-  Fixes \#3392. Thanks to CodeFreezr, dbt4u, helioguardabaxo, xet7 and Claude.
+  Fixes \#3392. Thanks to CodeFreezr, dbt4u, helioguardabaxo and xet7.
 - [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
   Domain](https://github.com/wekan/wekan/commit/fc9e8674d89ec5b045f2e2c1b14fade9e92baf0d):
   a new admin-only "Shared templates" tab under Admin Panel → People lists users'
@@ -2094,7 +2093,7 @@ and adds the following new features:
   board. Covered by an e2e suite (`tests/playwright/specs/26-shared-templates.e2e.js`).
   Documented in
   [Features/Templates](https://github.com/wekan/wekan/blob/main/docs/Features/Templates.md#shared-templates-admin-view).
-  Fixes #3313. Thanks to xet7 and Claude.
+  Fixes #3313. Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -2102,12 +2101,12 @@ and fixes the following bugs:
   which made `helm install`/`upgrade` fail with `duplicate entries for key [name="MONGO_URL"]`
   when the default `env` list (which already includes `MONGO_URL`) was used. The chart now
   emits its computed `MONGO_URL` only when one is not already provided via `env` or `secretEnv`.
-  Fixes #6289. Thanks to the reporter, xet7 and Claude.
+  Fixes #6289. Thanks to the reporter and xet7.
 - [Fixed GFM strikethrough (`~~text~~`) no longer rendering in card descriptions](https://github.com/wekan/wekan/commit/92b0f96387c831839eb299a8feb00fe614419783):
   markdown-it renders `~~text~~` to `<s>…</s>`, but the DOMPurify allow-list did not
   include `s`/`del`/`strike`, so the sanitizer stripped the tag (keeping the bare text).
   Those inline tags are now allowed in both DOMPurify configs. Fixes #6008. Thanks to
-  Buo-ren Lin, xet7 and Claude.
+  Buo-ren Lin and xet7.
 - [Fixed the release pipeline's OpenAPI docs generator crashing on template-literal route
   paths](https://github.com/wekan/wekan/commit/17bb7c1264969a50f778452b37335599e3af0518),
   which failed the GitHub Actions "release-all" bump job (`AttributeError: 'NoneType'
@@ -2115,29 +2114,29 @@ and fixes the following bugs:
   such as `` `/api/boards/:boardId/export/${format}` ``. The generator now resolves such
   paths (a `${identifier}` becomes a `{identifier}` path parameter) and skips any route
   whose path cannot be resolved statically instead of aborting the whole release. Thanks
-  to xet7 and Claude.
+  to xet7.
 - [Fixed the Member Settings "Change Avatar" entry rendering in a different (uppercase-looking)
   style than the other menu items](https://github.com/wekan/wekan/commit/d241f9d8f6b20fb9bdc0f829a9ffb5f595c3b8bd):
   its label was mis-nested inside the `<i class="fa fa-picture-o">` icon element instead of
   being a sibling of it, so it inherited the FontAwesome icon font styling. The label now sits
-  directly under the menu link like every other entry. Thanks to xet7 and Claude.
+  directly under the menu link like every other entry. Thanks to xet7.
 - [Hardened the reactive `DataCache` teardown to re-check for dependents before stopping a
   still-used entry](https://github.com/wekan/wekan/commit/82192d04703c3b4bc09b7f28b8923d979c3b8831):
   the 60s teardown timeout could stop the computation and delete a value that a dependent
   re-attached to during the window, surfacing as a transient `undefined` (a contributor to the
-  "Board not found" flicker). Thanks to xet7 and Claude.
+  "Board not found" flicker). Thanks to xet7.
 - [Fixed board export error responses returning HTTP 200 with an empty body](https://github.com/wekan/wekan/commit/309425545ffa91747f1f8d7d8585ec04795e13bf):
   the export endpoints passed a bare number to `sendJsonResult`, which treats its argument as an
   options object, so 404/400/403/auth failures returned 200 with no body. They now return the
-  correct status code and a JSON error body. Thanks to xet7 and Claude.
+  correct status code and a JSON error body. Thanks to xet7.
 - [Fixed the board create/delete REST handlers masking errors as success](https://github.com/wekan/wekan/commit/29631f6f4b61fcf19ec1517a2ce335f3de7ac4b0):
   `POST /api/boards` and `DELETE /api/boards/:boardId` caught errors and returned `code: 200`
   with the error as data; they now report the real status code (so e.g. an unauthorized delete
-  returns a 4xx). Thanks to xet7 and Claude.
+  returns a 4xx). Thanks to xet7.
 - [Hardened board import against out-of-range swimlane/card colors](https://github.com/wekan/wekan/commit/5eeedf8744ce344e5258a2c26698b9af66c78142):
   like the earlier board-color fix, a card or swimlane color is now applied only when it is a
   recognized color value, so a foreign/old export carrying an unknown color can no longer fail
-  collection2 validation and abort the import. Thanks to xet7 and Claude.
+  collection2 validation and abort the import. Thanks to xet7.
 - Fixed the GitHub Actions **Playwright E2E** workflow so the Firefox and WebKit
   browsers can actually run
   ([Firefox/WebKit](https://github.com/wekan/wekan/commit/351da691381c197d2fdb35c8d5a5da6e514a4085),
@@ -2148,16 +2147,15 @@ and fixes the following bugs:
   headless on the Linux runner), and `mongosh` is now installed in the Playwright
   and Puppeteer-regression jobs (the e2e DB helpers shell out to it, which was
   failing with `spawnSync mongosh ENOENT`). `npm run test:playwright:all` got the
-  same `WEKAN_PLAYWRIGHT_ALL=1` fix. Thanks to xet7 and Claude.
+  same `WEKAN_PLAYWRIGHT_ALL=1` fix. Thanks to xet7.
 - [Translated the remaining untranslated English strings in the Finnish
   translation](https://github.com/wekan/wekan/commit/599687f507b5279156fe93c47a546ec74ba92fef)
   (`fi.i18n.json`) — the Shared Templates, card-dependency ("Red Strings") and
   dependency import/export strings — using the existing Finnish terminology.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
   - [Fix flaky Playwright card/board tests under the parallel run](https://github.com/wekan/wekan/commit/19fe2e2b6f21b5206e29dcd568576f001abbf37a):
   the new 3-browser parallel run surfaced three load-induced (not product)
-  failures that took DOM snapshots before the UI had settled. Thanks to xet7 and
-  Claude. Details:
+  failures that took DOM snapshots before the UI had settled. Thanks to xet7. Details:
   - `03-cards-operations` "move does not create duplicate cards" read the card
     titles immediately after the move and could catch the card mid-flight
     (already removed from the source list, not yet rendered in the target). It
@@ -2170,7 +2168,7 @@ and fixes the following bugs:
     slowest browser (WebKit) survives the contention of the 3-browser parallel
     run against one shared dev server, instead of failing in test setup.
 - [Build scripts: At tests option 9, run option 2 build if .build or node_modules missing](https://github.com/wekan/wekan/commit/9f2a81349f6edafc4784bb508afe2df016deaa17).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2211,7 +2209,7 @@ This release fixes the following CRITICAL SECURITY ISSUES of [ProxyBleed](https:
   documented in [Header-Login](https://github.com/wekan/wekan/blob/main/docs/Login/Header-Login.md),
   and the new env vars were added to `docker-compose.yml`, `start-wekan.sh`, `start-wekan.bat`,
   `Dockerfile`, `.devcontainer/Dockerfile`, `releases/virtualbox/start-wekan.sh` and the Snap config.
-  Affected Wekan v9.44 and earlier. Thanks to rz1027, xet7 and Claude.
+  Affected Wekan v9.44 and earlier. Thanks to rz1027 and xet7.
 
 and adds the following updates:
 
@@ -2452,7 +2450,7 @@ and fixes the following bugs:
     and the list-menu helper and a few card/list reads now poll/retry through a transient,
     pre-existing "Board not found" re-render that can briefly tear down the board view
     while its subscription settles.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Known issues / possible later fixes (not addressed in this release):
 
@@ -2486,7 +2484,7 @@ This release adds the following updates:
   talking to Launchpad after pushing the repo — unrelated to the build itself —
   which failed the whole release. The step now retries the remote build up to
   three times before giving up.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2507,7 +2505,7 @@ This release adds the following new features:
   automatically with `dir`. Horizontal-centering rules using
   `left: 50%` + `transform: translate(-50%, …)` were intentionally kept physical,
   since those already center correctly in both directions. The calendar view also
-  renders RTL. Thanks to xet7 and Claude.
+  renders RTL. Thanks to xet7.
 - Tests for the RTL UI. A fast, server-less `tests/rtl.test.js` (run with
   `node tests/rtl.test.js`) checks that exactly the expected languages are
   flagged `rtl: true`, that the direction helper maps each language to the right
@@ -2519,13 +2517,12 @@ This release adds the following new features:
   board view, card details, my-cards / due-cards / global-search, the admin
   settings page and the login page, that the direction is correct, the
   translated text is visible, and leading-edge content (the boards menu, the
-  first board list) sits on the correct side. Thanks to xet7 and Claude.
+  first board list) sits on the correct side. Thanks to xet7.
 - Fixed the "Meteor unit tests" CI job hanging until its 45-minute timeout. The
   workflow set `TEST_WATCH: '0'`, but meteortesting:mocha computes
   `testWatch: TEST_WATCH || …` and the string `'0'` is truthy in JavaScript, so
   it turned on watch mode and the process never exited. Removing the env var lets
-  `meteor test --once` finish and exit with the correct status. Thanks to xet7
-  and Claude.
+  `meteor test --once` finish and exit with the correct status. Thanks to xet7.
 - Fixed the GitHub Pages (docs) build failing with a Liquid syntax error. The
   webhook reference page `docs/Webhooks/Webhook-data.md` documents payloads full
   of `{{placeholder}}` tokens, and two had a typo (`{{swimlane-id}` with one
@@ -2533,7 +2530,7 @@ This release adds the following new features:
   pages (Webhook-data, Translations, Troubleshooting-Mail, Original-Positions)
   are now wrapped in `{% raw %}`/`{% endraw %}` so Jekyll emits the template
   tokens literally instead of trying to evaluate them — fixing the build and
-  making the placeholders render correctly. Thanks to xet7 and Claude.
+  making the placeholders render correctly. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2556,7 +2553,7 @@ This release adds the following new features:
   and out. The popup also has an "Open map links at" setting (OpenStreetMap by
   default) saved to the user profile, with the same region-grouped provider list,
   controlling which map service the location "Open in map" links use.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -2648,7 +2645,7 @@ This release adds the following new features:
     are no longer lost: their usernames are kept on the board, so an admin can
     map them to real users later in Admin Panel / People (Imported Usernames),
     without having to map everyone up front at import time.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - Board background images can now be stored in WeKan. A new `backgrounds` file
   storage directory is created alongside `attachments` and `avatars` (using the
   current default storage backend), and Board menu → Board backgrounds lets a
@@ -2656,14 +2653,14 @@ This release adds the following new features:
   download, and delete them. Board export now includes the board's background
   images and re-imports them, and a Trello board's background image is
   downloaded and stored on import (so it keeps working even if the original
-  Trello URL later changes). Thanks to xet7 and Claude.
+  Trello URL later changes). Thanks to xet7.
 - Stickers can be added to and removed from cards directly in WeKan, chosen from
   a set of Font Awesome icons similar to Trello's stickers (previously stickers
   only arrived via Trello import). The picker also includes every "mascot"
   (underlined) and "computer" (ringed) highlighted sticker that a Trello import
   can produce — generated from the same icon mapping the importer uses — so any
   imported sticker can also be added by hand. Stickers show on the minicard and
-  in the card detail. Thanks to xet7 and Claude.
+  in the card detail. Thanks to xet7.
 - The Trello-style "complete" checkbox (mark a card complete/incomplete,
   independent of the due date) is shown as an animated green checkbox to the
   left of the card title, both on the minicard and in the opened card, with
@@ -2674,7 +2671,7 @@ This release adds the following new features:
   green when no theme is set), so they always look identical. Subtask checkboxes
   and the card-detail custom-field checkbox now use the same animated checkbox as
   checklist items (they previously used static square icons), so every checkbox
-  on a card animates consistently. Thanks to xet7 and Claude.
+  on a card animates consistently. Thanks to xet7.
 - Cards can now have multiple locations, similar to multiple members. The card
   detail shows a Location section (after Labels and Stickers) listing each
   location with its name, address and an OpenStreetMap link, with an "Add
@@ -2687,18 +2684,18 @@ This release adds the following new features:
   "Open map links at" setting (OpenStreetMap by default, or Google/Bing/Apple
   Maps) saved to the user profile, controlling which map service the location
   "Open in map" links use.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - The opened card now docks to the top of the window, overlaying the global and
   board header bars, instead of opening downward from the clicked minicard, and
   it can be dragged all the way to the top without its top hiding behind those
   bars. (At 100% zoom the board wrapper no longer sets a `transform: scale(1)`,
   which had made it the containing block for the fixed card and trapped it below
-  the headers.) Thanks to xet7 and Claude.
+  the headers.) Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Fix Wrong card number after Import](https://github.com/wekan/wekan/commit/aabcaa658edc2135dfd035bedea186ddf6b26068).
-  Thanks to titver968, xet7 and Claude.
+  Thanks to titver968 and xet7.
 - [Fix Board Export/Import error](https://github.com/wekan/wekan/commit/68e0032c6d3b23a195b4051e2853465965e073dc).
   Fix import/clone of inconsistent board JSON so the newest WeKan can import
   board exports from any newer or older WeKan version. A syntactically valid
@@ -2715,7 +2712,7 @@ and fixes the following bugs:
   version-agnostic: it never reads `_format`, normalizes old `id` vs `_id`
   fields, and ignores the source `boardId`. Added `tests/wekanCreator.inconsistent.test.js`
   covering these cases.
-  Thanks to titver968, xet7 and Claude.
+  Thanks to titver968 and xet7.
 - Fix Trello import returning HTTP 500 on any card that has an attachment. A
   past refactor removed the `links` variable declaration but left its consumer
   in `models/trelloCreator.js`, so importing an attachment card threw
@@ -2723,13 +2720,13 @@ and fixes the following bugs:
   silently aborted importing the rest of the cards when one attachment URL was
   blocked (now `continue`), and Trello cards no longer all import as card
   number #0 (the Trello short number `idShort` is preserved).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - Fix attachments not importing from WeKan board JSON exports. The importer
   called the old Meteor-Files `Attachments.load/insert(..., cb, true)` API,
   which is a no-op on Meteor 3, so exported base64 attachments were silently
   dropped. It now inserts them with `Attachments.insertAsync`, and one failed
   attachment no longer aborts importing the rest of the cards.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2738,7 +2735,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release adds the following new features:
 
 - [Add pagination and search to Admin Panel / Reports. Fix pagination at Admin Panel / Organizations and Teams](https://github.com/wekan/wekan/commit/a12b3f2cb21a067f80269be2a5080ca91046707b).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2747,7 +2744,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release fixes the following bugs:
 
 - [Fix releasing Helm Charts](https://github.com/wekan/wekan/commit/21d18bddfb72543a812b516473a80ccf21dfda46).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2756,7 +2753,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release fixes the following bugs:
 
 - [Fix building Docker image](https://github.com/wekan/wekan/commit/8c0681d4cf020ff453959cf7ac8cb74e0a69f128).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2765,11 +2762,11 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release fixes the following bugs:
 
 - [Fix Docker image is broken](https://github.com/wekan/wekan/commit/108c33ab23d05ac586531c22e1fe4c4180546be9).
-  Thanks to titver968, planet-goldfish, xet7 and Claude.
+  Thanks to titver968, planet-goldfish and xet7.
 - [Fix Admin Panel/People View is broken](https://github.com/wekan/wekan/commit/bcf55bdc3a804e5fae34850c0fcbf03e48c2f466).
-  Thanks to titver968, xet7 and Claude.
+  Thanks to titver968 and xet7.
 - [Fix Incorrect link in invite email](https://github.com/wekan/wekan/commit/5844e20d5534d04dfefc4a965d93c55765bfc08e).
-  Thanks to sbaecker, xet7 and Claude.
+  Thanks to sbaecker and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2801,12 +2798,12 @@ This release fixes the following CRITICAL SECURITY ISSUES of [BoardBleed](https:
   `Swimlanes.deny` `update` rule on each collection that rejects any update whose modifier
   `$set`s a `boardId` on which the caller does not have write access, so a cross-board move is
   only allowed into a destination board where the user is an active write-capable member.
-  Affected Wekan v9.35 and earlier. Thanks to 0xzap, xet7 and Claude.
+  Affected Wekan v9.35 and earlier. Thanks to 0xzap and xet7.
 
 and adds the following updates:
 
 - [Update release website script version numbering](https://github.com/wekan/wekan/commit/39d84f8fe893f9d64c1424730e48c2ed00193e97).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2832,7 +2829,7 @@ This release fixes the following CRITICAL SECURITY ISSUES of [TokenBleed](https:
   (`models/export.js`, `models/exportExcel.js`, `models/exportExcelCard.js`, `models/exportPDF.js`,
   which were backstopped by `exporter.canExport()`) and in the checklist-create handler
   (`server/models/checklists.js`) was given the same await pass. Affected Wekan v9.35 and earlier.
-  Thanks to Zion Boggan, xet7 and Claude.
+  Thanks to Zion Boggan and xet7.
 
 and adds the following updates:
 
@@ -2845,7 +2842,7 @@ and adds the following updates:
 - Update release scripts, trying to fix GitHub Actions builds.
   [Part 1](https://github.com/wekan/wekan/commit/8f59d76a4e38429b434dc9e4be66a30ac1dc156e),
   [Part 2](https://github.com/wekan/wekan/commit/5357bb47c3cf09f60a9838aadb5d21e3895c4f39).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/447877733b40a085e347a9fd12ee09d8cb263d43).
   Thanks to developers of dependencies.
 
@@ -2854,11 +2851,11 @@ and fixes the following bugs:
 - [Fix Admin Panel / Reports icons and spacing](https://github.com/wekan/wekan/commit/77d60b21a1912cda81a6fa96449a8dd99761d5d7).
   Thanks to xet7.
 - [Fix MultiSelect, so that it's possible to click select checkbox or minicard to select](https://github.com/wekan/wekan/commit/9cc066041040074befcf3dea49e7ef37b22816cc).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Fix LDAP_SYNC_ADMIN_GROUPS](https://github.com/wekan/wekan/commit/3fe8f602c8c5ade128f5d7e439bff47f51a28045).
   so that admin status sync and group/role sync no longer require
   LDAP_GROUP_FILTER_ENABLE=true, which only controls the login restriction filter
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Expand and fix REST API](https://github.com/wekan/wekan/commit/d5f6aa196606f229c2c1871a56fb0549fbdab40e)
   (Admin API, board member, card field, card copy/move).
   REST routes live in `server/models/*.js` (using `WebApp.handlers.get/post/put/delete`),
@@ -2883,7 +2880,7 @@ and fixes the following bugs:
   `role` is present it wins over the individual flags; an unknown role returns 400.
   Members are identified by `userId` only. Wired into both
   `POST .../members/:userId/add` and `POST .../members/:memberId`.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Add/Remove board member to card as card member or card assignee.**
   Already exists via `PUT /api/boards/:boardId/lists/:listId/cards/:cardId` with
   `members` / `assignees` (array, or '' to clear). `api.py` now wraps these as
@@ -2895,7 +2892,7 @@ and fixes the following bugs:
   (`canAssignCardMember`) and rejects non-members with 400; removing a stale id is
   allowed. Wrapped in `api.py` as `addcardmember`/`removecardmember`/
   `addcardassignee`/`removecardassignee`.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Issue [#5897](https://github.com/wekan/wekan/issues/5897): Create Linked Card.**
   Linked cards reference another card; the data model uses `linkedId` /
   `type: 'cardType-linkedCard'`. Implemented by reusing the existing
@@ -2904,7 +2901,7 @@ and fixes the following bugs:
   instead of holding its own content. Linking across boards is allowed; the caller
   must have write access to the destination board and read access to the linked
   card's board (`checkBoardAccess`). Wrapped in `api.py` as `linkcard`.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Fix Issue [#5846](https://github.com/wekan/wekan/issues/5846): Add/Remove card
   dates (Received/Start/Due/End).** Setting dates already worked via `PUT` card with
   `receivedAt`, `startAt`, `dueAt`, `endAt`, but the handler only wrote a date when
@@ -2914,7 +2911,7 @@ and fixes the following bugs:
   empty string / `null` / `"null"` now `$unset`s the date and any other value sets
   it. `api.py` wraps this as `setcarddate ... DATETYPE [DATEVALUE]` (omit DATEVALUE,
   or pass an empty string, to clear).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Issue [#5819](https://github.com/wekan/wekan/issues/5819): Bulk add/remove labels
   with API, and BoardAdmin label management in the right sidebar Labels
   hamburger/trigram menu.**
@@ -2928,7 +2925,7 @@ and fixes the following bugs:
   Board label creation via `PUT /api/boards/:boardId/labels` is now gated to
   BoardAdmin (`allowIsBoardAdmin`); normal members can still apply existing labels
   to cards (including via the bulk endpoint). Still planned: the right-sidebar
-  Labels hamburger/trigram menu BoardAdmin-only UI. Thanks to xet7 and Claude.
+  Labels hamburger/trigram menu BoardAdmin-only UI. Thanks to xet7.
 - **Fix Issue [#5813](https://github.com/wekan/wekan/issues/5813): Card number is not
   unique when concurrently creating multiple cards via REST API; many cards got the
   same card number.** Root cause: `Board.getNextCardNumber()` (`models/boards.js`)
@@ -2944,7 +2941,7 @@ and fixes the following bugs:
   have gaps (deleting a card does not decrement the counter), which is intended.
   Numbering stays per-board. The client keeps the old max + 1 read (card numbers are
   not authoritative there; the server insert recomputes). See also #4743 below.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Copy/Move Swimlane/List/Card to the same or a different board, before/after a
   position counted (number of swimlanes/lists/cards) from the top-left.**
   Implemented: target position is a 0-based index counted from the top-left
@@ -2959,7 +2956,7 @@ and fixes the following bugs:
   `copyswimlane`/`moveswimlane`, `copylist`/`movelist`. NOTE: `List.move` merges
   into an existing same-titled list on the destination board when one exists (a
   pre-existing model behavior); same-board list move is a pure reposition.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Issue [#4815](https://github.com/wekan/wekan/issues/4815): API to get My Cards and
   Due Cards (also needs a user-scoped API).**
   The web UI already has My Cards and Due Cards views. Implemented: a single
@@ -2969,7 +2966,7 @@ and fixes the following bugs:
   minicard-like field set, sorted by due date. Wrapped in `api.py` as `mycards`.
   (Cross-user/admin querying, board filter and pagination were not requested for the
   first version; revisit if needed for users in very many boards.)
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Issue [#4811](https://github.com/wekan/wekan/issues/4811): After adding a card via
   the API, does the card count update properly?**
   To verify: `GET /api/boards/:boardId/cards_count` and
@@ -2986,7 +2983,7 @@ and fixes the following bugs:
   subset of the recognized keys and ignores unknown ones. Per-user card presentation
   settings are intentionally out of scope. Wrapped in `api.py` as `getcardsettings`/
   `setcardsetting`.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Fix Issue [#4743](https://github.com/wekan/wekan/issues/4743): Using the REST API
   to manipulate many cards crashes WeKan (100% CPU, server becomes
   unreachable/unusable, REST calls time out with HTTP 408).**
@@ -3010,7 +3007,7 @@ and fixes the following bugs:
   logging were considered but not chosen for now; the bulk endpoints plus the atomic
   card numbering are expected to remove the hot contention. Revisit rate limiting if
   storms persist.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Fix REST API auth bugs found by the new E2E tests: awaited the membership/admin
   checks and return explicit status codes (CWE-862).** Several auth helpers
   (`checkAdminOrCondition`, `checkUserId`) are async, so calling them without
@@ -3030,7 +3027,7 @@ and fixes the following bugs:
     and it plus `GET /api/user/cards` return explicit 401/403 instead of letting an
     auth helper throw (which, under Express 4, would otherwise leave the request
     hanging). These were all found by the new REST API E2E test below. Thanks to
-    xet7 and Claude.
+    xet7.
 - **End-to-end tests for the new REST API behavior and permissions.** A new
   Playwright spec `tests/playwright/specs/17-rest-api.e2e.js` exercises the new/changed
   endpoints against a running server (real Bearer-token auth → real HTTP request →
@@ -3054,9 +3051,9 @@ and fixes the following bugs:
   options. Playwright holds the browser-UI specs (01–16) and the API E2E spec (17);
   the fast unit/security/policy tests stay in the Mocha suite (`meteor test --once
   --driver-package meteortesting:mocha`).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Fix tests](https://github.com/wekan/wekan/commit/a532ee7f14726dbf1eec956978d08436d7c47550).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -3087,7 +3084,7 @@ This release adds the following [CRITICAL SECURITY FIXES](https://github.com/wek
   the export route uses before building/cloning the board, so cloning a board
   now requires the same read authorization as exporting it.
   CVSS 6.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N).
-  Thanks to dizconnectz for the coordinated disclosure, xet7 and Claude.
+  Thanks to dizconnectz for the coordinated disclosure and xet7.
 
 and, while fixing the above, the following similar authorization issues found by code review were fixed (the [CloneBleed](https://wekan.fi/hall-of-fame/clonebleed/) group):
 
@@ -3139,7 +3136,7 @@ and, while fixing the above, the following similar authorization issues found by
     to the caller — the same PositionHistoryBleed class fixed in v8.20/v8.21.
     All four now require board visibility (via the shared `isVisibleBy` guard)
     before reading or restoring position history scoped to a board.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 and, while auditing that client-side permission checks are also enforced server-side, the following gaps where the server did not re-verify a UI-gated permission were fixed:
 
@@ -3167,7 +3164,7 @@ and, while auditing that client-side permission checks are also enforced server-
     authenticated user could trigger the server to send an SMTP test (and have
     the server's SMTP error messages surfaced to them), although the UI gates it
     behind global admin. Now requires global admin.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 and, in the same access-control audit, the attachment write API was tightened:
 
@@ -3182,7 +3179,7 @@ and, in the same access-control audit, the attachment write API was tightened:
   admins still allowed); read operations (download / list / info) keep
   membership-level access. Added security tests in
   `server/lib/tests/attachmentApi.tests.js`.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 and adds the following new features:
 
@@ -3194,11 +3191,11 @@ and adds the following new features:
   stored on that backend, matching what Filesystem, MongoDB GridFS and S3 already
   offer. The count is read from the stored file metadata (fast, no cloud API
   calls). The S3 button was also moved up to sit directly under its "Read"
-  checkbox, so all backends are consistent. Thanks to Claude.
+  checkbox, so all backends are consistent. Thanks to xet7.
 - **[Admin Panel / Attachments: the MongoDB GridFS page notes how to make legacy files visible](https://github.com/wekan/wekan/commit/dca9427bfb58532778bc705e4c8c8014ba4b01ae).
   ** A translatable line under the "MongoDB GridFS Storage" title
   reminds admins: "To have attachments and avatars visible, move them from
-  CollectionFS to any other Storage." Thanks to Claude.
+  CollectionFS to any other Storage." Thanks to xet7.
 - **Admin Panel / Attachments: the Google Cloud Storage page now documents the
   required bucket permission.** A note under the "GCS Storage" title explains that
   the service account needs the **Storage Object Admin** role
@@ -3206,7 +3203,7 @@ and adds the following new features:
   Buckets → your bucket → Permissions → Grant access → add the service account →
   role "Storage Object Admin"), and that the bucket must exist in the same
   project — otherwise "Test connection" fails with `storage.objects.list denied`.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **Admin Panel / Attachments: a "Save" button next to the Enabled / Read toggles
   at the top of each cloud storage.** S3, Azure and Google Cloud Storage now have
   a Save button directly below the "[ ] Enabled  [ ] Read" row, so those toggles
@@ -3214,7 +3211,7 @@ and adds the following new features:
   page. It saves the same way as the existing bottom Save button — the server
   merges that provider's config and preserves secrets left blank — and the bottom
   Save button is kept. (Filesystem and GridFS have only a Read toggle, which
-  already saves the instant it is toggled, so they need no button.) Thanks to Claude.
+  already saves the instant it is toggled, so they need no button.) Thanks to xet7.
 - **Admin Panel / Attachments: bilingual, self-documenting cloud-storage fields
   (S3, Azure and Google Cloud Storage).** Each cloud-storage setting now guides
   the admin from top to bottom with both English and translated text, so it is
@@ -3235,7 +3232,7 @@ and adds the following new features:
   The provider field names, examples and menu paths are kept in English so they
   match what the Cloud Console actually shows, while the descriptions and menu
   paths are also translatable; section titles, the enable/read/force-path-style
-  checkboxes and the Test/Save buttons remain fully translated. Thanks to Claude.
+  checkboxes and the Test/Save buttons remain fully translated. Thanks to xet7.
 - **Admin Panel / Attachments / Move Attachment: "Repair file locations" button
   and a persistent "last move" message.** The new **Repair file locations** button
   scans all attachments and avatars and finds any whose recorded storage
@@ -3252,14 +3249,14 @@ and adds the following new features:
   summary. Separately, after a move finishes the page now keeps showing
   the last move operation — source → destination (scope) and the date/time as
   `YYYY-MM-DD HH:MM:SS` — so it is clear what was last done.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **SVG image uploads are now sanitized instead of rejected.** Uploaded SVGs
   (attachments and avatars) are cleaned in place in `onAfterUpload` via the new
   `models/lib/sanitizeSvg.js`, which removes JavaScript (`<script>`, inline
   `on*=` event handlers, `javascript:`/`vbscript:` URIs, `<foreignObject>` /
   `<iframe>` / `<object>` / `<embed>` and similar active content) and XML loops
   (`<!DOCTYPE>` / `<!ENTITY>` entity-expansion / XXE constructs and
-  `<?xml-stylesheet?>`), so SVG images can be uploaded safely. Thanks to Claude.
+  `<?xml-stylesheet?>`), so SVG images can be uploaded safely. Thanks to xet7.
 - **Unified attachment/avatar storage migration: move any → any.** Admin Panel /
   Attachments / Move Attachment can now move **Attachments, Avatars, or both**,
   from **any source to any destination** across Filesystem, Meteor-Files GridFS,
@@ -3269,18 +3266,18 @@ and adds the following new features:
   single run. All metadata is preserved (board / swimlane / list / card / user /
   uploaded date / name / type / size), attachment cover references
   (`cards.coverId`) are remapped when an id changes, and the legacy source is
-  deleted only after the new copy is verified. Thanks to Claude.
+  deleted only after the new copy is verified. Thanks to xet7.
 - **Legacy CollectionFS GridFS is now a first-class storage backend** (read,
   migrate-from, and export-to) for both attachments and avatars, via the new
   `models/lib/collectionFsStore.js` (binary keyed by `copies.<coll>.key` in the
-  `cfs_gridfs.<coll>` bucket, metadata in `cfs.<coll>.filerecord`). Thanks to Claude.
+  `cfs_gridfs.<coll>` bucket, metadata in `cfs.<coll>.filerecord`). Thanks to xet7.
 - **The storage strategy layer is now collection-aware.** `moveToStorage` and the
   GridFS/Cloud strategies previously hard-coded the `Attachments` collection, so
   moving avatars to GridFS/cloud would have updated the wrong collection. The
   factory now carries its collection (`Attachments` or `Avatars`), so **avatars
   can be stored in Meteor-Files GridFS and cloud**, not only on the filesystem.
   Attachment behavior is unchanged.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 and adds the following updates:
 
@@ -3296,7 +3293,7 @@ and adds the following updates:
   generator cannot auto-discover) are now documented in `openapi/extra_paths.yml`
   and injected into the generated docs, including their authentication and
   permission requirements.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 and adds the following fixes:
 
@@ -3309,7 +3306,7 @@ and adds the following fixes:
   primary is now compacted with `force: true` (secondaries are still compacted
   without it, so the primary stays available while they run), so the GridFS
   collections are actually rewritten and freed space is returned to the
-  filesystem. Thanks to Claude.
+  filesystem. Thanks to xet7.
 - **Admin Panel / Attachments: clearer cloud "Test connection" errors, and cloud
   config inputs are trimmed.** Testing an Azure/GCS/S3 connection used to report a
   single generic `Incomplete configuration or adapter not installed` even when the
@@ -3326,7 +3323,7 @@ and adds the following fixes:
   returns `Invalid URL` the message appends which field to check. In addition, all
   cloud-storage text fields are now trimmed when read from the form, so
   leading/trailing whitespace from copy-paste no longer produces an invalid URL.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **[Fixed moving attachments to S3](https://github.com/wekan/wekan/commit/a86a087915aac9d204e157b1a698091c079e04e6)
   (and other cloud storage) failing and crashing the server.**
   Uploading to S3 failed two ways, each of which crashed
@@ -3343,7 +3340,7 @@ and adds the following fixes:
   promise now never rejects — any failure is captured and exposed via
   `waitUntilStored()`, which `moveToStorage` checks inside a try/catch so a failed
   upload leaves the source file intact and is logged cleanly. (Files are moved one
-  at a time, so peak memory is one file.) Thanks to Claude.
+  at a time, so peak memory is one file.) Thanks to xet7.
 - **Fixed `TypeError: Cannot read properties of undefined (reading 'on')` when
   moving attachments between Meteor-Files/GridFS and Filesystem.** If a file's
   source binary was missing at its recorded location (e.g. a file left
@@ -3354,7 +3351,7 @@ and adds the following fixes:
   read/write stream, log a clear message (which file, version, from→to storage,
   and why), **skip that file and leave the source intact** so no data is lost,
   and continue with the rest. Use the new "Repair file locations" button to fix
-  the underlying inconsistent records. Thanks to Claude.
+  the underlying inconsistent records. Thanks to xet7.
 - **Fixed moving attachments/avatars from CollectionFS to Meteor-Files crashing
   the server, hanging the Admin Panel move at "File 1 / N", and leaving broken
   avatars.** Three problems in Admin Panel / Attachments / Move Attachment:
@@ -3383,7 +3380,7 @@ and adds the following fixes:
     be given their own avatar, never another user's.
   - **`ObjectID` deprecation warning** from `models/lib/grid/createObjectId.js`
     (`MongoInternals.NpmModule.ObjectID` → `ObjectId`).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Fix Dropdown list cannot be created with values](https://github.com/wekan/wekan/commit/e01f99eb52812df5e2754c193860002ec2716ecb).
   - **Fixed Dropdown custom field options not being addable / saving as empty.**
     Creating a "Dropdown" custom field showed the "List Options" box, but pressing
@@ -3396,7 +3393,7 @@ and adds the following fixes:
     the options were never rendered as inputs, `getDropdownItems()` then overwrote
     the ReactiveVar with the empty DOM on save and every entered value was dropped.
     Fixed by re-adding the missing `dropdownItems` helper (returning the ReactiveVar),
-    matching the pattern the other migrated templates already use. Thanks to Claude.
+    matching the pattern the other migrated templates already use. Thanks to xet7.
   - **Fixed `Exception in global helper _` when opening the Create Custom Field
     popup (and any translation containing a literal `%`).** i18n is configured with
     a global sprintf post-processor (`postProcess: ["sprintf"]`), so every
@@ -3408,7 +3405,7 @@ and adds the following fixes:
     stray `%`. `TAPi18n.__` now retries without the sprintf post-processor when it
     throws, returning the raw string (so `%{value}` is shown literally) instead of
     crashing.
-  Thanks to rouceto1, xet7 and Claude.
+  Thanks to rouceto1 and xet7.
 - [Fixed new checklists (and checklist items) on a newly added card not being visible until logout/login](https://github.com/wekan/wekan/commit/075e86b00e1f0dc0dea519acd37cece4d0a1fad3).
   The `board` publication batched checklists,
   checklist items, comments and attachments into board-level cursors filtered by
@@ -3433,7 +3430,7 @@ and adds the following fixes:
   children of the cards cursor. Assigned-only board members still only receive
   checklists for cards assigned to them (the board-level cursor falls back to the
   assigned cards' ids for those roles).
-  Thanks to ahlgrimma, xet7 and Claude.
+  Thanks to ahlgrimma and xet7.
 - [Fixed SyncedCron crash](https://github.com/wekan/wekan/commit/72767ad9a769fee2548f93bbd7174edd69995e97).
   **Fixed deleting archived lists (or many cards) crashing the server with
   `SyncedCron: Fatal error encountered (unhandledRejection): TypeError: Cannot
@@ -3458,7 +3455,7 @@ and adds the following fixes:
   `publishChekListCompleted` / `publishChekListUncompleted` / `commentCreation`
   helpers (matching the guards already present in
   `server/models/cardComments.js`).
-  Thanks to titver968, xet7 and Claude.
+  Thanks to titver968 and xet7.
 - **[Fixed upgrade crash](https://github.com/wekan/wekan/commit/39f3c89b0a11c5671b77d3a0b95200ac7256a4f1)
   `An error occurred when creating an index for collection
   "users": Topology is closed` / `MongoServerSelectionError: Server selection
@@ -3488,7 +3485,7 @@ and adds the following fixes:
     missing, and never throws — a single index problem is logged in English
     instead of taking the whole server down. All startup index creation across
     the model files was switched to it.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Fixed OpenAPI REST API documentation generation](https://github.com/wekan/wekan/commit/c71a97cba20247ce227a288fa74ef23cb3c4c83e),
   which had been broken
   since after WeKan v7.93 and only generated docs for the `login`/`register`
@@ -3502,11 +3499,11 @@ and adds the following fixes:
   `type: Array` SimpleSchema idiom, and `releases/rebuild-docs.sh` works directly
   with Python 3.12.x (PEP 668). The generated `public/api/wekan.yml` /
   `wekan.html` now cover the full API again (89 operations / 61 paths).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - **The attachment copy API now honours the admin "Admin Panel / Attachments"
   API transfer limits.** Copying an attachment creates a new attachment but
   skipped the `apiUploadBlocked` / `apiUploadMaxBytes` checks that upload
-  enforces; copy now respects them in both API implementations. Thanks to Claude.
+  enforces; copy now respects them in both API implementations. Thanks to xet7.
 - [Fixed Admin Panel / Attachments / Move Attachment doing nothing / crashing](https://github.com/wekan/wekan/commit/d30803276d6d06db44f65ee1fb583cc11aac8b7b).
   Several issues in the bulk move:
   - The GridFS source matcher required `meta.gridFsFileId` to be *absent*, but
@@ -3526,7 +3523,7 @@ and adds the following fixes:
   Attachments, which counted *every* attachment metadata document (so files on
   the Filesystem were wrongly reported as being in GridFS). It now counts only
   attachments actually stored in GridFS, consistent with the move tool. Also
-  renamed the mislabeled "Mongo-Files" column to "Meteor-Files". Thanks to Claude.
+  renamed the mislabeled "Mongo-Files" column to "Meteor-Files". Thanks to xet7.
 - **Read legacy CollectionFS attachments and avatars in place** (without
   migrating). The backward-compatibility layer
   (`models/lib/attachmentBackwardCompatibility.js`) was broken — it looked up the
@@ -3537,9 +3534,9 @@ and adds the following fixes:
   from the `cfs_gridfs.attachments` bucket, and legacy avatars
   (`/cfs/files/avatars/<id>` URLs) are served from the `cfs_gridfs.avatars`
   bucket instead of redirecting to a 404.
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 - [Ask to install npm dependencies before running tests](https://github.com/wekan/wekan/commit/b77b62bfa2e7a63fdd2d2d071693d5aa485a34c5).
-  Thanks to xet7 and Claude.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -3639,7 +3636,7 @@ This release fixes the following CRITICAL SECURITY ISSUES:
     v8.35/v8.36 `fetchSafe` delivery guard and the schema validator on
     client-side inserts/updates, webhook URLs are now validated on every write
     path and again at delivery.
-  Thanks to Claude.
+  Thanks to xet7.
 - [Fix GHSA-7w2h-g83c-jqrp: Authorization bypass in `copyBoard` DDP method allows any user to copy private boards (CWE-862)](https://github.com/wekan/wekan/commit/8940a103970c5da3f02b3615eef09fabfff421e3).
   The `copyBoard` Meteor method in `server/publications/boards.js`
   had no authorization check: any logged-in user
@@ -3675,7 +3672,7 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   `Meteor.callAsync` runs with `this.connection === null`, whereas a client call has a non-null
   connection, so each of the six methods now throws `not-authorized` when `this.connection !== null`.
   The legitimate OIDC login flow is unaffected.
-  Thanks to alexwaira for the coordinated disclosure, and Claude.
+  Thanks to alexwaira for the coordinated disclosure, and xet7.
 - [Fix GHSA-mp7g-hj5q-gxhq: OIDC Account Takeover via Unconditional Email-Based Account Merge in `Accounts.onCreateUser` hook (CWE-287)](https://github.com/wekan/wekan/commit/73204d4e0a7d77a1b186b3d76e8eaf2f3e7c9fd9).
   The `onCreateUser` hook in `server/models/users.js` unconditionally merged an incoming OIDC login
   into any existing Wekan account whose email **or** username matched the (attacker-controlled) OIDC
@@ -3689,7 +3686,7 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   provider must assert `email_verified=true`; otherwise the OIDC login is rejected with
   `oidc-email-already-in-use` instead of merging. The provider's `email_verified` claim is now
   captured into the OIDC service data in `packages/wekan-oidc/oidc_server.js`.
-  Thanks to alexwaira for the coordinated disclosure, and Claude.
+  Thanks to alexwaira for the coordinated disclosure, and xet7.
 - [Fix GHSA-6733-4wgq-8xvr: Read-only board members could create/modify/delete Custom Fields](https://github.com/wekan/wekan/commit/70db04a93fedabe40331f21f86e6bdc91625914e).
   (privilege escalation via read-level authz on write operations, CWE-862).
   All six mutating REST handlers in `server/models/customFields.js` (POST/PUT custom-fields,
@@ -3699,21 +3696,21 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   data via the REST API when `WITH_API=true`. Replaced the check with `checkBoardWriteAccess` in
   all six mutating handlers (the two GET handlers correctly stay on `checkBoardAccess`), mirroring
   `lists.js`/`swimlanes.js`/`cards.js`.
-  Thanks to Wernerina for the coordinated disclosure, and Claude.
+  Thanks to Wernerina for the coordinated disclosure, and xet7.
 - [Fix regression from the avatar RCE fix GHSA-35j7-h385-2q9g: external antivirus scanner broken (`asyncExec` undefined)](https://github.com/wekan/wekan/commit/8ea5a6a097f1b598688a94832e94bd1ec1b34cd6).
   The avatar RCE fix renamed `asyncExec` to `asyncExecFile` in `models/fileValidation.js`, but the
   admin-configured external scanner command line still called the now-undefined `asyncExec`, throwing
   `ReferenceError` (swallowed by the catch) and making every upload silently fail validation whenever
   an external scanner was configured. Restored a shell-based `asyncExec` used only for that
   admin-configured command line; MIME detection still uses the shell-free `asyncExecFile`.
-  Thanks to Claude.
+  Thanks to xet7.
 - [Fix CodeQL 68: Polynomial regex DoS in Jade parser](https://github.com/wekan/wekan/commit/ae671bc70a0b2e0bb0cdcf24130477a0dd72ea72).
-  Thanks to CodeQL and Claude.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 69: Polynomial regex DoS in Jade parser, part 2](https://github.com/wekan/wekan/commit/105199991f2944ac431906e5b5cbeb10de003870).
   Remove the redundant `$` anchor from the interpolation regex in `compiler.js` and bundled `jade.js`.
   The greedy `[\s\S]*` already matches to end of string, so dropping `$` keeps the same match
   while eliminating the backtracking that CodeQL alert `js/polynomial-redos` flagged.
-  Thanks to CodeQL and Claude.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 63: Incomplete string escaping or encoding in bundled `jade.js`](https://github.com/wekan/wekan/commit/b4b81684e0d28406c6499b9ba6bf33b301a3faa9).
   In uglify-js's `make_string` (bundled twice into jade's browser bundle), the chosen
   quote was escaped in a trailing `str.replace(/'/g, "\\'")` that CodeQL alert
@@ -3722,31 +3719,31 @@ This release fixes the following CRITICAL SECURITY ISSUES:
   local false positive, but the fix folds the quote escaping into that same pass
   (escaping both quotes), making the escaping atomic and complete while keeping the
   emitted string literals decode-equivalent.
-  Thanks to CodeQL and Claude.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 67: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/66d15f6ab0b3c42ae5de565490645d4c83f0a997).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 60: Useless regular-expression character escape](https://github.com/wekan/wekan/commit/fc76d0e5767f021cae3d466147e5f7695594ac8c).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 58: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/13f78f620709f16e753a0831faa7f98cfcf5c58e).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 57: Incomplete multi-character sanitization](https://github.com/wekan/wekan/commit/36274f35f4de10a9f271cb8fc1154499fe8a2415).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - Fix CodeQL 56: Incomplete string escaping or encoding](https://github.com/wekan/wekan/commit/c5e42607af5a0a396c0c85dba3652b8be28a2ff3).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 55: Incomplete string escaping or encoding](https://github.com/wekan/wekan/commit/50728616871b0db8e05d5391ea479ae8099236d1).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 48: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/b6564c81f1cbfc6bdf0b4bd72fc9a9ce36b36f6e).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 418: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/f882a14ee07e6fbef16594851a773275d6547dba).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 419: Clear-text logging of sensitive information](https://github.com/wekan/wekan/commit/6b923eb4c21ef66c2d4ff859ffed4293365aaf9f).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Delete calendar demos, so that CodeQL stops complaining](https://github.com/wekan/wekan/commit/d0b2b5201e8a43a067ca32b0cf6a542695213406).
   Thanks to xet7.
 - [Fix CodeQL 35: Insecure randomness](https://github.com/wekan/wekan/commit/358d893c3382ca90a408055713d9b6ffda73f33a).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 - [Fix CodeQL 417: Workflow does not contain permissions](https://github.com/wekan/wekan/commit/7836ce27e7d20a3db585c56a565423e4fcc00f0b).
-  Thanks to CodeQL and GitHub Copilot.
+  Thanks to CodeQL and xet7.
 
 and adds the following updates:
 
@@ -4032,7 +4029,7 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/09a5737e21661e66950086950d9f8646600f37ca).
   Thanks to developers of dependencies.
 - [Isolate Playwright from root node_modules to fix E2E Rspack bundling errors](https://github.com/wekan/wekan/pull/6344).
-  Thanks to GitHub Copilot.
+  Thanks to xet7.
 - [rebuild-wekan.sh: At macOS, add paths to Node.js 24.x](https://github.com/wekan/wekan/commit/7f1dd16dfcb844051c763f1dd5670a7a41921e2f).
   Thanks to xet7.
 - [Updated tests dependencies](https://github.com/wekan/wekan/commit/8e4404ab49037c6558e1789548d73138aab12412).
