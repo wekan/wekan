@@ -2,7 +2,7 @@
 
 For all code at WeKan GitHub Organization https://github.com/wekan
 
-- For pull requests, mention only human participants. Other intelligence is allowed, but not mentioned.
+- For pull requests, mention only those participants that are **human**.
 - All code in pull requests need to have permission already to add it to WeKan with MIT license, and will become MIT license.
 - For any dependencies, permissive licenses like https://copyfree.org are preferred
 - For anything currently that is non-permissive (like GPL, AGPL, SSPL), those will be replaced with permissive-licensed alternatives
