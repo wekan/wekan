@@ -106,6 +106,8 @@ and adds the following updates:
 
 - [Update to Meteor 3.5](https://github.com/wekan/wekan/commit/df3f519e99a6cf96bf947c72e0639988dc044740).
   Thanks to Meteor developers.
+- [Run all tests at parallel or sequential](https://github.com/wekan/wekan/commit/7d416cc7ccaf82876b052eeb621794f805e1e3d8).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
