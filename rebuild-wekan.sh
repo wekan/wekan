@@ -4,7 +4,8 @@ echo "Recommended for development: Newest Debian or Ubuntu amd64 based distro, d
 echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."
-echo "Note2: Console output is also logged to ../wekan-log.txt"
+echo "Note2: Console output is also logged to ../log/wekan-log.txt"
+echo "Note3: All logs this script produces go into the ../log/ directory."
 
 # Give the Meteor build tool and Node processes a larger heap so long
 # development sessions and test runs don't crash with
@@ -15,6 +16,10 @@ echo "Note2: Console output is also logged to ../wekan-log.txt"
 # and honor any value you already exported. Lower it if your machine has less RAM.
 export TOOL_NODE_FLAGS="${TOOL_NODE_FLAGS:---max-old-space-size=8192}"
 export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=8192}"
+
+# Every log this script writes goes into ../log/ (one directory up from the
+# repo). Create it up front so redirections never fail on a missing directory.
+mkdir -p ../log
 
 function pause(){
 	read -p "$*"
@@ -241,7 +246,7 @@ function run_pw_all_browser(){
 
 # Run Chromium, Firefox and WebKit suites concurrently against a WeKan server
 # that is already running on http://localhost:3000 (menu option 3). Each suite
-# streams to ../wekan-playwright-<browser>.log; once all finish we print each
+# streams to ../log/wekan-playwright-<browser>.log; once all finish we print each
 # log followed by a per-browser PASS/FAIL summary. Tests seed their own random
 # users/boards and clean up by id, so running the three browsers at once is safe.
 function run_playwright_parallel(){
@@ -259,16 +264,16 @@ function run_playwright_parallel(){
 	case "$INSTALL_DEPS" in [Yy]*) ( cd "$pwdir" && meteor npm install ) ;; esac
 
 	echo "Running Chromium, Firefox and WebKit Playwright suites sequentially (one browser at a time)."
-	echo "Live output goes to ../wekan-playwright-<browser>.log; a summary prints when all finish."
+	echo "Live output goes to ../log/wekan-playwright-<browser>.log; a summary prints when all finish."
 
 	# Run the three browser suites one after another rather than in parallel:
 	# running all three at once against a single dev server uses too much RAM and
 	# swap on lower-memory machines and may crash. Each browser still writes its
 	# own log and the combined summary is printed once all have finished.
 	local rc_chromium rc_firefox rc_webkit
-	( run_pw_all_browser chromium ) > ../wekan-playwright-chromium.log 2>&1; rc_chromium=$?
-	( run_pw_all_browser firefox  ) > ../wekan-playwright-firefox.log  2>&1; rc_firefox=$?
-	( run_pw_all_browser webkit   ) > ../wekan-playwright-webkit.log   2>&1; rc_webkit=$?
+	( run_pw_all_browser chromium ) > ../log/wekan-playwright-chromium.log 2>&1; rc_chromium=$?
+	( run_pw_all_browser firefox  ) > ../log/wekan-playwright-firefox.log  2>&1; rc_firefox=$?
+	( run_pw_all_browser webkit   ) > ../log/wekan-playwright-webkit.log   2>&1; rc_webkit=$?
 
 	local PW_FAILURES=""
 	SUMMARY=()
@@ -277,7 +282,7 @@ function run_playwright_parallel(){
 		browser="${entry%%:*}"; rest="${entry#*:}"; label="${rest%%:*}"; rc="${rest#*:}"
 		echo
 		echo "==================== Playwright $label output ===================="
-		cat "../wekan-playwright-${browser}.log" 2>/dev/null || true
+		cat "../log/wekan-playwright-${browser}.log" 2>/dev/null || true
 		local json="$pwdir/test-results/all-tests-${browser}.json"
 		local stats; stats="$(pw_stats_of "$json")"
 		if [ "$rc" -eq 0 ]; then record PASS "Playwright $label" "$stats"; else record FAIL "Playwright $label" "$stats"; fi
@@ -327,6 +332,224 @@ function run_playwright_single(){
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) meteor npm install ;; esac
 	meteor npm exec playwright test -- --project="$browser"
+}
+
+# Run the full test matrix (Mocha, import regression, Node E2E and the three
+# Playwright browser suites) against ONE WeKan server on http://localhost:3000,
+# then print a combined PASS/FAIL summary.
+#   $1 = "parallel"    -> start every job at once and show a live progress table.
+#                         Fast, but memory-hungry (fine on a 32 GB machine).
+#   $1 = "sequential"  -> run one job at a time to keep RAM/swap usage low on
+#                         smaller machines.
+function run_all_tests(){
+	local RUN_MODE="${1:-parallel}"
+	local modeword; [ "$RUN_MODE" = parallel ] && modeword="in parallel (concurrently)" || modeword="one at a time (sequential)"
+	# Tests need a built WeKan (and installed npm deps). If .build or
+	# node_modules is missing, build first (same steps as menu option 2),
+	# then continue with the tests.
+	if [ ! -d .build ] || [ ! -d node_modules ]; then
+		echo "No .build or node_modules directory found - building WeKan first (menu option 2)."
+		build_wekan
+	fi
+	if [ "$RUN_MODE" = parallel ]; then
+		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run IN PARALLEL (concurrently). Needs plenty of RAM (fine on 32 GB)."
+	else
+		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time)."
+	fi
+	echo "Mocha gets its own build dir (.meteor/local-test) so it runs at the same time as the :3000 server, which keeps .meteor/local."
+	SUMMARY=()
+	record() { SUMMARY+=("$1|$2|${3:-}"); }
+	label_of() { case "$1" in
+		mocha) echo "Mocha (server-side)" ;;
+		import) echo "Import regression" ;;
+		e2e) echo "Node E2E regressions" ;;
+		chromium) echo "Playwright Chromium" ;;
+		firefox) echo "Playwright Firefox" ;;
+		webkit) echo "Playwright WebKit" ;;
+	esac; }
+	ORIG_HOME="$HOME"
+	PW_FAILURES=""
+	TEST_SERVER_PID=""
+	STATDIR="$(mktemp -d)"
+	BPIDS=""
+	# Start one test job in the background: record its exit code in STATDIR/<key>
+	# and send all of its output to ../log/wekan-alltests-<key>.log. In "parallel"
+	# mode every job runs at once; in "sequential" mode we wait for each job to
+	# finish before starting the next, which keeps total RAM/swap usage low so the
+	# machine does not crash (the browser suites in particular are memory-hungry).
+	launch_job() {
+		local k="$1"
+		if [ "$RUN_MODE" = parallel ]; then
+			echo "==> Starting $(label_of "$k") (parallel) ... live output: ../log/wekan-alltests-$k.log"
+		else
+			echo "==> Running $(label_of "$k") (sequential) ... live output: ../log/wekan-alltests-$k.log"
+		fi
+		(
+			rc=0
+			case "$k" in
+				mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
+				import) node tests/wekanCreator.import.test.js || rc=$? ;;
+				e2e)    meteor npm run test:e2e || rc=$? ;;
+				*)      run_pw_all_browser "$k" || rc=$? ;;
+			esac
+			echo "$rc" > "$STATDIR/$k"
+		) > "../log/wekan-alltests-$k.log" 2>&1 &
+		local pid=$!
+		BPIDS="$BPIDS $pid"
+		# Sequential mode: block until this job finishes before starting the next.
+		[ "$RUN_MODE" = parallel ] || wait "$pid" 2>/dev/null || true
+	}
+
+	if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
+		echo "==> Port 3000 is already in use; stopping the existing Meteor dev server before starting our own."
+		# Kill the Meteor dev server(s) on :3000. pgrep matches the parent
+		# 'meteor run --port 3000' process; killing it also tears down the
+		# node child it spawned. Fall back to whatever is listening on the
+		# port (lsof/fuser) in case the process command line does not match.
+		OLD_PIDS="$(pgrep -f 'meteor run --port 3000' 2>/dev/null)"
+		if [ -n "$OLD_PIDS" ]; then
+			echo "    Killing existing Meteor PIDs:$(echo " $OLD_PIDS" | tr '\n' ' ')"
+			kill $OLD_PIDS 2>/dev/null
+		fi
+		# Wait for the port to actually free up, escalating to SIGKILL.
+		for i in $(seq 1 30); do
+			curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1 || break
+			if [ "$i" -eq 15 ]; then
+				echo "    Still in use after 15s; sending SIGKILL."
+				STUCK_PIDS="$(pgrep -f 'meteor run --port 3000' 2>/dev/null)"
+				[ -n "$STUCK_PIDS" ] && kill -9 $STUCK_PIDS 2>/dev/null
+				if command -v lsof >/dev/null 2>&1; then
+					LSOF_PIDS="$(lsof -ti tcp:3000 2>/dev/null)"
+					[ -n "$LSOF_PIDS" ] && kill -9 $LSOF_PIDS 2>/dev/null
+				elif command -v fuser >/dev/null 2>&1; then
+					fuser -k 3000/tcp >/dev/null 2>&1
+				fi
+			fi
+			printf '.'; sleep 1
+		done
+		echo
+		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
+			echo "ERROR: Port 3000 is still in use after attempting to stop the existing server. Stop it manually and retry."
+			rm -rf "$STATDIR"
+			return 1
+		fi
+		echo "    Port 3000 is now free."
+	fi
+
+	# Start the :3000 server FIRST and let it build alone. Mocha runs its own
+	# Meteor build (.meteor/local-test); launching it here would make two full
+	# builds compete for CPU/disk and starve the server, so it does not become
+	# ready until much later (a long line of dots). Once the server is ready the
+	# test jobs are launched (all at once in parallel mode, one at a time in
+	# sequential mode).
+	echo
+	echo "==> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor/local)"
+	DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../log/wekan-test-server.log 2>&1 &
+	TEST_SERVER_PID=$!
+	SERVER_READY=0
+	for i in $(seq 1 180); do
+		if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; break; fi
+		printf '.'; sleep 1
+	done
+	echo
+
+	# Mocha and the import regression do not need the :3000 server; launch them
+	# now (after the server build is past, so they no longer compete with it),
+	# then the E2E and browser jobs below.
+	echo "==> Launching Mocha (separate .meteor/local-test build, port 3100) and import regression, $modeword."
+	launch_job mocha
+	launch_job import
+
+	if [ "$SERVER_READY" -ne 1 ]; then
+		echo "FAIL: server did not become ready on http://localhost:3000 (see ../log/wekan-test-server.log)"
+		record FAIL "Server startup"
+		record SKIP "Node E2E regressions"
+		record SKIP "Playwright Chromium"
+		record SKIP "Playwright Firefox"
+		record SKIP "Playwright WebKit"
+		ALLKEYS="mocha import"
+	else
+		record PASS "Server startup"
+		# Server is up: add the server-facing jobs to the running set.
+		launch_job e2e
+		launch_job chromium
+		launch_job firefox
+		launch_job webkit
+		ALLKEYS="mocha import e2e chromium firefox webkit"
+	fi
+
+	# Live combined progress: one refreshing line per running job until all end.
+	BN="$(set -- $ALLKEYS; echo $#)"
+	echo "Results per job ([PASS]/[FAIL], checks passed / x failed); jobs run $modeword:"
+	for k in $ALLKEYS; do echo; done
+	while :; do
+		printf '\033[%dA' "$BN"
+		alldone=1
+		for k in $ALLKEYS; do
+			log="../log/wekan-alltests-$k.log"
+			ok=$(grep -c $'\xe2\x9c\x93' "$log" 2>/dev/null); ok=${ok:-0}
+			bad=$(grep -c $'\xe2\x9c\x98' "$log" 2>/dev/null); bad=${bad:-0}
+			if [ -f "$STATDIR/$k" ]; then
+				rc=$(cat "$STATDIR/$k" 2>/dev/null)
+				if [ "${rc:-1}" = "0" ]; then st="PASS"; else st="FAIL"; fi
+			else
+				st="RUN "; alldone=0
+			fi
+			printf '\033[K  [%-4s] %-22s ok:%s fail:%s\n' "$st" "$(label_of "$k")" "$ok" "$bad"
+		done
+		[ "$alldone" -eq 1 ] && break
+		sleep 1
+	done
+	for p in $BPIDS; do wait "$p" 2>/dev/null || true; done
+
+	# Roll the results into the summary (browsers carry pass/fail stats).
+	for k in $ALLKEYS; do
+		rc=$(cat "$STATDIR/$k" 2>/dev/null); rc=${rc:-1}
+		label="$(label_of "$k")"
+		case "$k" in
+			chromium|firefox|webkit)
+				json="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-${k}.json"
+				stats="$(pw_stats_of "$json")"
+				if [ "$rc" = "0" ]; then record PASS "$label" "$stats"; else record FAIL "$label" "$stats"; fi
+				fails="$(pw_failures_of "$json" "$label")"
+				[ -n "$fails" ] && PW_FAILURES="${PW_FAILURES}${fails}"$'\n'
+				;;
+			*)
+				if [ "$rc" = "0" ]; then record PASS "$label"; else record FAIL "$label"; fi
+				;;
+		esac
+	done
+	rm -rf "$STATDIR"
+
+	if [ -n "$TEST_SERVER_PID" ]; then
+		echo
+		echo "Stopping WeKan test server."
+		kill "$TEST_SERVER_PID" >/dev/null 2>&1 || true
+		wait "$TEST_SERVER_PID" >/dev/null 2>&1 || true
+	fi
+
+	echo
+	echo "==================== TEST SUMMARY ===================="
+	FAILED=0
+	for line in "${SUMMARY[@]}"; do
+		status="${line%%|*}"; rest="${line#*|}"; name="${rest%%|*}"; stats="${rest#*|}"
+		suffix=""
+		[ -n "$stats" ] && suffix="  ($stats)"
+		printf '  %-6s %s%s\n' "$status" "$name" "$suffix"
+		[ "$status" = "FAIL" ] && FAILED=1
+	done
+	echo "====================================================="
+	echo "(per-job logs: ../log/wekan-alltests-<mocha|import|e2e|chromium|firefox|webkit>.log ; server: ../log/wekan-test-server.log)"
+	if [ -n "$PW_FAILURES" ]; then
+		echo
+		echo "Failing Playwright tests:"
+		while IFS= read -r f; do
+			[ -n "$f" ] && printf '  FAIL  %s\n' "$f"
+		done <<< "$PW_FAILURES"
+		echo "(full output and traces in the per-browser logs; HTML report in tests/playwright/playwright-report)"
+		echo "====================================================="
+	fi
+	if [ "$FAILED" -eq 0 ]; then echo "RESULT: All tests passed."; else echo "RESULT: Some tests FAILED (see details above)."; fi
 }
 
 # ============================================================================
@@ -468,7 +691,7 @@ function mirror_forge(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests on http://localhost:3000 (start server, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)" "Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -540,9 +763,9 @@ do
 		ensure_rspack_public_dirs
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		# Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
+		# Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -552,8 +775,8 @@ do
 		ensure_rspack_public_dirs
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                # Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../wekan-log.txt
+                # Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -562,9 +785,9 @@ do
 		ensure_rspack_public_dirs
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
+		#Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee ../wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee ../log/wekan-log.txt
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -580,9 +803,9 @@ do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
+		#Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -598,9 +821,9 @@ do
                 #---------------------------------------------------------------------
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                #Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
+                #Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
                 #WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../wekan-log.txt
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -616,9 +839,9 @@ do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
+		#Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee ../wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee ../log/wekan-log.txt
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -630,200 +853,13 @@ do
                 break
                 ;;
 
-    "Run ALL tests on http://localhost:3000 (start server, progress + summary)")
-		# Tests need a built WeKan (and installed npm deps). If .build or
-		# node_modules is missing, build first (same steps as menu option 2),
-		# then continue with the tests.
-		if [ ! -d .build ] || [ ! -d node_modules ]; then
-			echo "No .build or node_modules directory found - building WeKan first (menu option 2)."
-			build_wekan
-		fi
-		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time)."
-		echo "Mocha gets its own build dir (.meteor/local-test) so it runs at the same time as the :3000 server, which keeps .meteor/local."
-		SUMMARY=()
-		record() { SUMMARY+=("$1|$2|${3:-}"); }
-		label_of() { case "$1" in
-			mocha) echo "Mocha (server-side)" ;;
-			import) echo "Import regression" ;;
-			e2e) echo "Node E2E regressions" ;;
-			chromium) echo "Playwright Chromium" ;;
-			firefox) echo "Playwright Firefox" ;;
-			webkit) echo "Playwright WebKit" ;;
-		esac; }
-		ORIG_HOME="$HOME"
-		PW_FAILURES=""
-		TEST_SERVER_PID=""
-		STATDIR="$(mktemp -d)"
-		BPIDS=""
-		# Run one test job to completion (SEQUENTIALLY, not in the background):
-		# record its exit code in STATDIR/<key> and send all of its output to
-		# ../wekan-alltests-<key>.log. Running the jobs one at a time instead of
-		# all at once keeps total RAM/swap usage low so the machine does not crash
-		# (the browser suites in particular are memory-hungry).
-		launch_job() {
-			local k="$1"
-			echo "==> Running $(label_of "$k") (sequential) ... live output: ../wekan-alltests-$k.log"
-			(
-				rc=0
-				case "$k" in
-					mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
-					import) node tests/wekanCreator.import.test.js || rc=$? ;;
-					e2e)    meteor npm run test:e2e || rc=$? ;;
-					*)      run_pw_all_browser "$k" || rc=$? ;;
-				esac
-				echo "$rc" > "$STATDIR/$k"
-			) > "../wekan-alltests-$k.log" 2>&1
-		}
+    "Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)")
+		run_all_tests parallel
+		break
+		;;
 
-		if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
-			echo "==> Port 3000 is already in use; stopping the existing Meteor dev server before starting our own."
-			# Kill the Meteor dev server(s) on :3000. pgrep matches the parent
-			# 'meteor run --port 3000' process; killing it also tears down the
-			# node child it spawned. Fall back to whatever is listening on the
-			# port (lsof/fuser) in case the process command line does not match.
-			OLD_PIDS="$(pgrep -f 'meteor run --port 3000' 2>/dev/null)"
-			if [ -n "$OLD_PIDS" ]; then
-				echo "    Killing existing Meteor PIDs:$(echo " $OLD_PIDS" | tr '\n' ' ')"
-				kill $OLD_PIDS 2>/dev/null
-			fi
-			# Wait for the port to actually free up, escalating to SIGKILL.
-			for i in $(seq 1 30); do
-				curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1 || break
-				if [ "$i" -eq 15 ]; then
-					echo "    Still in use after 15s; sending SIGKILL."
-					STUCK_PIDS="$(pgrep -f 'meteor run --port 3000' 2>/dev/null)"
-					[ -n "$STUCK_PIDS" ] && kill -9 $STUCK_PIDS 2>/dev/null
-					if command -v lsof >/dev/null 2>&1; then
-						LSOF_PIDS="$(lsof -ti tcp:3000 2>/dev/null)"
-						[ -n "$LSOF_PIDS" ] && kill -9 $LSOF_PIDS 2>/dev/null
-					elif command -v fuser >/dev/null 2>&1; then
-						fuser -k 3000/tcp >/dev/null 2>&1
-					fi
-				fi
-				printf '.'; sleep 1
-			done
-			echo
-			if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
-				echo "ERROR: Port 3000 is still in use after attempting to stop the existing server. Stop it manually and retry."
-				rm -rf "$STATDIR"
-				break
-			fi
-			echo "    Port 3000 is now free."
-		fi
-
-		# Start the :3000 server FIRST and let it build alone. Mocha runs its own
-		# Meteor build (.meteor/local-test); launching it here would make two full
-		# builds compete for CPU/disk and starve the server, so it does not become
-		# ready until much later (a long line of dots). Once the server is ready
-		# the test jobs run one at a time (sequentially), not in parallel.
-		echo
-		echo "==> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor/local)"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../wekan-test-server.log 2>&1 &
-		TEST_SERVER_PID=$!
-		SERVER_READY=0
-		for i in $(seq 1 180); do
-			if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; break; fi
-			printf '.'; sleep 1
-		done
-		echo
-
-		# Mocha and the import regression do not need the :3000 server; run them
-		# now (after the server build is past, so they no longer compete with it),
-		# then the E2E and browser jobs below, all one at a time (sequential).
-		echo "==> Running Mocha (separate .meteor/local-test build, port 3100) and import regression, one at a time (sequential)."
-		launch_job mocha
-		launch_job import
-
-		if [ "$SERVER_READY" -ne 1 ]; then
-			echo "FAIL: server did not become ready on http://localhost:3000 (see ../wekan-test-server.log)"
-			record FAIL "Server startup"
-			record SKIP "Node E2E regressions"
-			record SKIP "Playwright Chromium"
-			record SKIP "Playwright Firefox"
-			record SKIP "Playwright WebKit"
-			ALLKEYS="mocha import"
-		else
-			record PASS "Server startup"
-			# Server is up: add the server-facing jobs to the running set.
-			launch_job e2e
-			launch_job chromium
-			launch_job firefox
-			launch_job webkit
-			ALLKEYS="mocha import e2e chromium firefox webkit"
-		fi
-
-		# Live combined progress: one refreshing line per running job until all end.
-		BN="$(set -- $ALLKEYS; echo $#)"
-		echo "Results per job ([PASS]/[FAIL], checks passed / x failed); jobs run one at a time (sequential):"
-		for k in $ALLKEYS; do echo; done
-		while :; do
-			printf '\033[%dA' "$BN"
-			alldone=1
-			for k in $ALLKEYS; do
-				log="../wekan-alltests-$k.log"
-				ok=$(grep -c $'\xe2\x9c\x93' "$log" 2>/dev/null); ok=${ok:-0}
-				bad=$(grep -c $'\xe2\x9c\x98' "$log" 2>/dev/null); bad=${bad:-0}
-				if [ -f "$STATDIR/$k" ]; then
-					rc=$(cat "$STATDIR/$k" 2>/dev/null)
-					if [ "${rc:-1}" = "0" ]; then st="PASS"; else st="FAIL"; fi
-				else
-					st="RUN "; alldone=0
-				fi
-				printf '\033[K  [%-4s] %-22s ok:%s fail:%s\n' "$st" "$(label_of "$k")" "$ok" "$bad"
-			done
-			[ "$alldone" -eq 1 ] && break
-			sleep 1
-		done
-		for p in $BPIDS; do wait "$p" 2>/dev/null || true; done
-
-		# Roll the parallel results into the summary (browsers carry pass/fail stats).
-		for k in $ALLKEYS; do
-			rc=$(cat "$STATDIR/$k" 2>/dev/null); rc=${rc:-1}
-			label="$(label_of "$k")"
-			case "$k" in
-				chromium|firefox|webkit)
-					json="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-${k}.json"
-					stats="$(pw_stats_of "$json")"
-					if [ "$rc" = "0" ]; then record PASS "$label" "$stats"; else record FAIL "$label" "$stats"; fi
-					fails="$(pw_failures_of "$json" "$label")"
-					[ -n "$fails" ] && PW_FAILURES="${PW_FAILURES}${fails}"$'\n'
-					;;
-				*)
-					if [ "$rc" = "0" ]; then record PASS "$label"; else record FAIL "$label"; fi
-					;;
-			esac
-		done
-		rm -rf "$STATDIR"
-
-		if [ -n "$TEST_SERVER_PID" ]; then
-			echo
-			echo "Stopping WeKan test server."
-			kill "$TEST_SERVER_PID" >/dev/null 2>&1 || true
-			wait "$TEST_SERVER_PID" >/dev/null 2>&1 || true
-		fi
-
-		echo
-		echo "==================== TEST SUMMARY ===================="
-		FAILED=0
-		for line in "${SUMMARY[@]}"; do
-			status="${line%%|*}"; rest="${line#*|}"; name="${rest%%|*}"; stats="${rest#*|}"
-			suffix=""
-			[ -n "$stats" ] && suffix="  ($stats)"
-			printf '  %-6s %s%s\n' "$status" "$name" "$suffix"
-			[ "$status" = "FAIL" ] && FAILED=1
-		done
-		echo "====================================================="
-		echo "(per-job logs: ../wekan-alltests-<mocha|import|e2e|chromium|firefox|webkit>.log ; server: ../wekan-test-server.log)"
-		if [ -n "$PW_FAILURES" ]; then
-			echo
-			echo "Failing Playwright tests:"
-			while IFS= read -r f; do
-				[ -n "$f" ] && printf '  FAIL  %s\n' "$f"
-			done <<< "$PW_FAILURES"
-			echo "(full output and traces in the per-browser logs; HTML report in tests/playwright/playwright-report)"
-			echo "====================================================="
-		fi
-		if [ "$FAILED" -eq 0 ]; then echo "RESULT: All tests passed."; else echo "RESULT: Some tests FAILED (see details above)."; fi
+    "Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)")
+		run_all_tests sequential
 		break
 		;;
 
