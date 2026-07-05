@@ -43,7 +43,9 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUE of [DnsBleed](https://wekan.fi/hall-of-fame/dnsbleed/):
+This release fixes the following CRITICAL SECURITY ISSUES of
+[DnsBleed](https://wekan.fi/hall-of-fame/dnsbleed/) and
+[ExcelBleed](https://wekan.fi/hall-of-fame/excelbleed/):
 
 - **[DnsBleed](https://github.com/wekan/wekan/commit/ef845fe4a0adb82af436313310939cd48c0b1347) — SSRF filter bypass via DNS-resolving hostname in outgoing webhooks**
   ([GHSA-66m2-4wfr-c45p](https://github.com/wekan/wekan/security/advisories/GHSA-66m2-4wfr-c45p), CWE-918).
@@ -77,6 +79,28 @@ This release fixes the following CRITICAL SECURITY ISSUE of [DnsBleed](https://w
     been in place since v8.35/v8.36 (IntegrationBleed) and v9.32 (WebhookBleed). Reported by
     **4n207**.
   Thanks to 4n207 and xet7!
+
+- **[ExcelBleed](https://github.com/wekan/wekan/security/advisories/GHSA-mwq8-ccpm-r533) — broken access control in the Excel-export REST route lets any authenticated user export any private board**
+  ([GHSA-mwq8-ccpm-r533](https://github.com/wekan/wekan/security/advisories/GHSA-mwq8-ccpm-r533),
+  CWE-862 / CWE-639). Same un-awaited async-auth bug class as
+  [BFLABleed](https://wekan.fi/hall-of-fame/bflableed/) (48 REST endpoints, v9.22),
+  [CloneBleed](https://wekan.fi/hall-of-fame/clonebleed/) (un-awaited `allowIsBoardMemberByCard`,
+  v9.35) and [TokenBleed](https://wekan.fi/hall-of-fame/tokenbleed/).
+  `models/exportExcel.js` called its access-control guard
+  `exporterExcel.canExport(user)` **without `await`**. Because `canExport` is `async`, it returns a
+  Promise (always truthy), so `if (exporterExcel.canExport(user) || impersonateDone)` was always true
+  and `exporterExcel.build(res)` ran regardless of the guard's real result — any authenticated user
+  could download the full contents of any board (card titles + descriptions, lists, swimlanes,
+  members, metadata) via `GET /api/boards/:boardId/exportExcel`, including private boards they are not
+  a member of. The JSON export route (`/export`) was correctly awaited and returned 403 for the same
+  non-member.
+  - **Fixed** by awaiting the guard —
+    `if ((await exporterExcel.canExport(user)) || impersonateDone)` — matching every other export
+    route (`models/export.js`, `exportPDF.js`, `exportExcelCard.js`, `import.js`). The Excel-export
+    route was the lone remaining un-awaited `canExport` call site.
+  - Affected Wekan v9.57.0 (latest) and earlier; present at HEAD until this release. Reported by
+    **sec-reex** (defensive research, responsible disclosure, read-only PoC).
+  Thanks to sec-reex and xet7!
 
 and adds the following updates:
 
