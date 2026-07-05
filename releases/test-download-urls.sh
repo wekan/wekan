@@ -47,9 +47,9 @@ echo ""
 
 echo "=== mongosh 2.8.2 (x64 for amd64/armhf/s390x/ppc64el via QEMU; arm64 native) ==="
 check "mongosh 2.8.2  x64 (amd64 + armhf/s390x/ppc64el via QEMU)" \
-  "https://downloads.mongodb.com/compass/mongosh-2.9.0-linux-x64.tgz"
+  "https://downloads.mongodb.com/compass/mongosh-2.9.2-linux-x64.tgz"
 check "mongosh 2.8.2  arm64" \
-  "https://downloads.mongodb.com/compass/mongosh-2.9.0-linux-arm64.tgz"
+  "https://downloads.mongodb.com/compass/mongosh-2.9.2-linux-arm64.tgz"
 echo ""
 
 echo "=== mongodb-database-tools 100.13.0 (x86_64 for amd64/armhf/s390x/ppc64el; arm64 native) ==="

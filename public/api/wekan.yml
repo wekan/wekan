@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.73
+  version: v9.74
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -4688,6 +4688,13 @@ definitions:
         description: |
            Does the board allows checklists on minicard?
         type: boolean
+      allowsChecklistCountBadgeOnMinicard:
+        description: |
+           Does the board show the compact checklist item-count badge
+           (finished/total, e.g. "0/156") on minicards? Issue #6431: opt-in and
+           OFF by default so the (potentially expensive) checklist counting only
+           runs when this is enabled in Card Settings > Show on Minicard.
+        type: boolean
       allowsComments:
         description: |
            Does the board allows comments?
@@ -4712,9 +4719,25 @@ definitions:
         description: |
            Does the board allows cover attachment on minicard?
         type: boolean
+      allowsCoverAttachmentOnCard:
+        description: |
+           Does the board show the cover image on the opened card? Opt-in, OFF by
+           default (new Card Settings option).
+        type: boolean
       allowsBadgeAttachmentOnMinicard:
         description: |
            Does the board allows badge attachment on minicard?
+        type: boolean
+      allowsAttachmentCountOnCard:
+        description: |
+           Does the board show the attachment count on the opened card? Opt-in,
+           OFF by default (new Card Settings option).
+        type: boolean
+      allowsChecklistCountBadgeOnCard:
+        description: |
+           Does the board show the checklist item-count total (finished/total)
+           above all checklists on the opened card? Opt-in, OFF by default so the
+           checklist counting only runs when enabled (new Card Settings option).
         type: boolean
       allowsCardSortingByNumberOnMinicard:
         description: |
@@ -4948,13 +4971,17 @@ definitions:
       - allowsAttachmentsOnMinicard
       - allowsChecklists
       - allowsChecklistsOnMinicard
+      - allowsChecklistCountBadgeOnMinicard
       - allowsComments
       - allowsDescriptionTitle
       - allowsDescriptionTitleOnMinicard
       - allowsDescriptionText
       - allowsDescriptionTextOnMinicard
       - allowsCoverAttachmentOnMinicard
+      - allowsCoverAttachmentOnCard
       - allowsBadgeAttachmentOnMinicard
+      - allowsAttachmentCountOnCard
+      - allowsChecklistCountBadgeOnCard
       - allowsCardSortingByNumberOnMinicard
       - allowsCardNumber
       - allowsCardNumberOnMinicard
