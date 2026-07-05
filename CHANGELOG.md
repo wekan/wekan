@@ -108,6 +108,21 @@ and adds the following updates:
   Thanks to Meteor developers.
 - [Run all tests at parallel or sequential](https://github.com/wekan/wekan/commit/7d416cc7ccaf82876b052eeb621794f805e1e3d8).
   Thanks to xet7.
+- [Run all tests at parallel or sequential](https://github.com/wekan/wekan/commit/7d416cc7ccaf82876b052eeb621794f805e1e3d8).
+  Thanks to xet7.
+- [Script to be executeable](https://github.com/wekan/wekan/commit/267bfc72295839a8b846889703ca4874ffe35eb2).
+  Thanks to xet7.
+- [Update vscode sandbox](https://github.com/wekan/wekan/commit/4533268418f5d081fb70537d6311d4a6c4c94db8).
+  Thanks to xet7.
+
+and fixed the following bugs:
+
+- [Updated tests](https://github.com/wekan/wekan/commit/c997c12f88eb35834d4702e331fd65f753fa8260).
+  Thanks to xet7.
+- [Fix parallel tests](https://github.com/wekan/wekan/commit/36efd9c98871e4fa3f59a7d04981f542f7a32a04).
+  Thanks to xet7.
+- [Fix tests](https://github.com/wekan/wekan/commit/4eebdb4278190e4c4bfe5cbbf5cf13559d127a07).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
