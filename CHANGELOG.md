@@ -43,11 +43,10 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release includes the following fixes:
+This release adds the following fixes:
 
-- **Fix [#6427](https://github.com/wekan/wekan/issues/6427): notification emails linked to
-  `/b/undefined/board/<cardId>` instead of the real board.** On the server
-  `ReactiveCache.getBoard()` is async and returns a Promise, but `Cards.board()` did not await it,
+- **[Fix notification emails linked to `/b/undefined/board/<cardId>` instead of the real board](https://github.com/wekan/wekan/commitf1fdaa470c34b44eb5ff0dfb0151bf5d262cc81d)**:
+  On the server `ReactiveCache.getBoard()` is async and returns a Promise, but `Cards.board()` did not await it,
   so the synchronous `Card.originRelativeUrl()`/`absoluteUrl()` interpolated a Promise —
   `board._id` and `board.slug` were `undefined`, producing `/b/undefined/board/<cardId>` in
   card activity notification emails (the client UI was unaffected because `this.board()` is
@@ -55,6 +54,9 @@ This release includes the following fixes:
   already-resolved board and fall back to `this.boardId` (always available synchronously) when the
   board is a Promise, and by passing the awaited board from `server/models/activities.js` so the
   correct board id and slug are used.
+  Thanks to titver968 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.75 2026-07-05 WeKan ® release
 
@@ -90,6 +92,8 @@ This release fixes the following CRITICAL SECURITY ISSUE of
   - Affected Wekan v9.06 and earlier through the current release; fixed at the upcoming WeKan release.
     Reported by **DavidCarliez**.
   Thanks to DavidCarliez and xet7!
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.74 2026-07-05 WeKan ® release
 
