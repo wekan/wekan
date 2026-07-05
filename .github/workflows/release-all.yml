@@ -800,7 +800,20 @@ jobs:
           fetch-depth: 0
 
       - name: Install snapcraft
-        run: sudo snap install snapcraft --classic
+        # The Snap Store intermittently rejects the install with
+        # 'error: cannot install "snapcraft": too many requests' (a 429-style
+        # rate limit) that instantly fails the whole snap job before any build.
+        # Retry a few times so one transient store throttle does not fail the
+        # release (same spirit as the remote-build retry below).
+        run: |
+          set -uo pipefail
+          for i in 1 2 3 4 5; do
+            sudo snap install snapcraft --classic && exit 0
+            echo "snapcraft install attempt $i/5 failed (Snap Store throttle?); retrying in 30s..."
+            sleep 30
+          done
+          echo "::error::snapcraft install failed after 5 attempts (Snap Store rate limit)."
+          exit 1
 
       - name: Provide Launchpad credentials for remote-build
         env:
