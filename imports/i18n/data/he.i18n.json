@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "תמונת כותרת על כרטיסון",
   "badge-attachment-on-minicard": "כמות הצרופות בכרטיסון",
   "card-sorting-by-number-on-minicard": "מיון כרטיסים לפי מספר בכרטיסון",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "קידומת עם נתיב מלא",
   "prefix-with-parent": "קידומת עם הורה",
   "subtext-with-full-path": "טקסט סמוי עם נתיב מלא",

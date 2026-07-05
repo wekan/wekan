@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Зображення обкладинки на міні-картці",
   "badge-attachment-on-minicard": "Кількість вкладень на міні-картці",
   "card-sorting-by-number-on-minicard": "Сортування за номерами на міні-картці",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Префікс з повним шляхом",
   "prefix-with-parent": "Префікс з батьком",
   "subtext-with-full-path": "Підтекст з повним шляхом",

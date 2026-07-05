@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Imagen de portada de la minitarjeta",
   "badge-attachment-on-minicard": "Contador de adjuntos en la minitarjeta",
   "card-sorting-by-number-on-minicard": "Orden de tarjetas por número de minitarjeta",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Prefijo con ruta completa",
   "prefix-with-parent": "Prefijo con el padre",
   "subtext-with-full-path": "Subtexto con ruta completa",

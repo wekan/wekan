@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Minikartda örtük şəkli",
   "badge-attachment-on-minicard": "Minikartdakı qoşmaların sayı",
   "card-sorting-by-number-on-minicard": "Minikartda nömrəyə görə kartın çeşidlənməsi",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Tam yolu olan prefiks",
   "prefix-with-parent": "Valideyn ilə prefiks",
   "subtext-with-full-path": "Tam yolu olan alt mətn",

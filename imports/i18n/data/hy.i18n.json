@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Շապիկի պատկեր մինի քարտի վրա",
   "badge-attachment-on-minicard": "Մինի քարտի վրա հավելվածների քանակը",
   "card-sorting-by-number-on-minicard": "Քարտի տեսակավորում ըստ թվերի մինի քարտի վրա",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Նախածանց ամբողջական ճանապարհով",
   "prefix-with-parent": "Նախածանց ծնողի հետ",
   "subtext-with-full-path": "Ենթատեքստ՝ ամբողջական ճանապարհով",

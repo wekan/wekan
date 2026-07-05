@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "미니카드의 표지 이미지",
   "badge-attachment-on-minicard": "미니카드의 첨부파일 수",
   "card-sorting-by-number-on-minicard": "미니카드에서 숫자로 정렬된 카드",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "タイトルの前に親をフル表示",
   "prefix-with-parent": "タイトルの前に親を表示",
   "subtext-with-full-path": "タイトルの後ろに親をフル表示",

@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Llun clawr ar minicard",
   "badge-attachment-on-minicard": "Cyfrif yr atodiadau ar miniard",
   "card-sorting-by-number-on-minicard": "Didoli cardiau yn ôl rhif ar minicard",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Rhagddodiad gyda llwybr llawn",
   "prefix-with-parent": "Rhagddodiad gyda rhiant",
   "subtext-with-full-path": "Is-destun gyda llwybr llawn",

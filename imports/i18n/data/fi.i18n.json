@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Kansikuva minikortilla",
   "badge-attachment-on-minicard": "Liitteiden määrä minikortilla",
   "card-sorting-by-number-on-minicard": "Korttien lajittelu minikortin numeroiden mukaan",
+  "checklist-count-on-minicard": "Tarkistuslista kohteiden määrä (0/0) minikortilla",
   "prefix-with-full-path": "Etuliite koko polulla",
   "prefix-with-parent": "Etuliite ylätehtävällä",
   "subtext-with-full-path": "Aliteksti koko polulla",

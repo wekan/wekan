@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Minikarddaky suraty ýapyň",
   "badge-attachment-on-minicard": "Minikarddaky goşundylaryň sany",
   "card-sorting-by-number-on-minicard": "Kartany minikardda san boýunça tertiplemek",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Doly ýol bilen prefiks",
   "prefix-with-parent": "Ene-atasy bilen prefiks",
   "subtext-with-full-path": "Doly ýol bilen subtekst",

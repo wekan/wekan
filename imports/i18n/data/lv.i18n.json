@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Viršelio vaizdas mini kortelėje",
   "badge-attachment-on-minicard": "Minikortelėje esančių priedų skaičius",
   "card-sorting-by-number-on-minicard": "Kortelių rūšiavimas pagal numerį minikortelėje",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Priedēklis ar pilnu ceļu",
   "prefix-with-parent": "Priedēklis ar piederību",
   "subtext-with-full-path": "Apakšteksts ar pilnu ceļu",

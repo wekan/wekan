@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "كىچىك رەسىمدىكى رەسىمنى يېپىش",
   "badge-attachment-on-minicard": "كىچىك تىپتىكى قوشۇمچە ھۆججەتلەرنىڭ سانى",
   "card-sorting-by-number-on-minicard": "كىچىك تىپتىكى كارتا نومۇرى بويىچە كارتا رەتلەش",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "تولۇق يول بىلەن ئالدى قوشۇلغۇچى",
   "prefix-with-parent": "ئاتا-ئانا بىلەن قوشۇمچە",
   "subtext-with-full-path": "تولۇق يول بىلەن Subtext",

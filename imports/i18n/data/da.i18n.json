@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Omslagsbild på minikort",
   "badge-attachment-on-minicard": "Antal bilagor på minikort",
   "card-sorting-by-number-on-minicard": "Sortering av kort efter nummer på minikort",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Præfiks med fuld sti",
   "prefix-with-parent": "Præfiks med overordnede",
   "subtext-with-full-path": "Undertekst med fuld sti",

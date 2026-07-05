@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Cover image on minicard",
   "badge-attachment-on-minicard": "Count of attachments on minicard",
   "card-sorting-by-number-on-minicard": "Card sorting by number on minicard",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Prefix with full path",
   "prefix-with-parent": "Prefix with parent",
   "subtext-with-full-path": "Subtext with full path",

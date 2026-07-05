@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Picha ya jalada kwenye kadi ndogo",
   "badge-attachment-on-minicard": "Idadi ya viambatisho kwenye kadi ndogo",
   "card-sorting-by-number-on-minicard": "Kupanga kadi kwa nambari kwenye kadi ndogo",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Kiambishi awali chenye njia kamili",
   "prefix-with-parent": "Kiambishi awali na mzazi",
   "subtext-with-full-path": "Subtext na njia kamili",

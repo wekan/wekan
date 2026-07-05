@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "小卡片封面图片",
   "badge-attachment-on-minicard": "小卡片附件数量",
   "card-sorting-by-number-on-minicard": "卡片按小卡片编号排序",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "完整路径前缀",
   "prefix-with-parent": "上级前缀",
   "subtext-with-full-path": "子标题显示完整路径",

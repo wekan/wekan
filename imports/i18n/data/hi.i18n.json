@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "मिनीकार्ड पर कवर छवि",
   "badge-attachment-on-minicard": "मिनीकार्ड पर अटैचमेंट की गिनती",
   "card-sorting-by-number-on-minicard": "मिनीकार्ड पर संख्या के अनुसार कार्ड क्रमबद्ध करें",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Prefix साथ में full path",
   "prefix-with-parent": "Prefix साथ में parent",
   "subtext-with-full-path": "Subtext साथ में full path",

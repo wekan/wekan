@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "Обложка на миникарточке",
   "badge-attachment-on-minicard": "Количество вложений на миникарточке",
   "card-sorting-by-number-on-minicard": "Сортировка по номеру на мини-карточке",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "Cверху, полный путь",
   "prefix-with-parent": "Сверху, только имя",
   "subtext-with-full-path": "Cнизу, полный путь",

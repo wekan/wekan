@@ -974,6 +974,7 @@
   "cover-attachment-on-minicard": "عکس کاور بر روی مینی کارت",
   "badge-attachment-on-minicard": "شمارنده ضمائم بر روی مینی کارت",
   "card-sorting-by-number-on-minicard": "مرتب سازی کارت با شماره بر روی مینی کارت",
+  "checklist-count-on-minicard": "Checklist item count (0/0) on minicard",
   "prefix-with-full-path": "پیشوند با مسیر کامل",
   "prefix-with-parent": "پیشوند با خانواده",
   "subtext-with-full-path": "زیرنویس با مسیر کامل",
