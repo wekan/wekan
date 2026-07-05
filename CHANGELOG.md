@@ -125,11 +125,7 @@ and fixed the following bugs:
   Thanks to xet7.
 - [Fix tests](https://github.com/wekan/wekan/commit/4eebdb4278190e4c4bfe5cbbf5cf13559d127a07).
   Thanks to xet7.
-- [#6431](https://github.com/wekan/wekan/issues/6431) (open/done checklist item-count badge "0/156" gone from minicards
-  after upgrading from 8.x): restored as a new opt-in board setting "Checklist item count (0/0) on minicard"
-  (`allowsChecklistCountBadgeOnMinicard`) at Board Settings → Card Settings → Show on Minicard, OFF by default. When off,
-  the checklist counting does not run, so boards that do not use the badge spend no resources on it. This is separate from
-  the "Show Checklist at Minicard" feature that renders the full checklist inline.
+- [Board Settings / Card Settings / Checklist item count (0/0) on minicard. Default: Off](https://github.com/wekan/wekan/commit/bb440b0d7befa936e738a13267052d9a585b964a).
   Thanks to carl-unique and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
