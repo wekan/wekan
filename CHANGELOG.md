@@ -41,13 +41,13 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
-# Upcoming WeKan ® release
+# v9.75 2026-07-05 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of
 [ScannerBleed](https://wekan.fi/hall-of-fame/scannerbleed/):
 
-- **[ScannerBleed](https://github.com/wekan/wekan/security/advisories/GHSA-x3xm-pxrv-jg7p)
-  — shell injection (RCE) via a malicious upload filename in the external antivirus scanner command path**
+- **[ScannerBleed](https://github.com/wekan/wekan/commit/0137924d7ee0b28102f671e1badf5ed21d6ab22f):
+  shell injection (RCE) via a malicious upload filename in the external antivirus scanner command path**
   ([GHSA-x3xm-pxrv-jg7p](https://github.com/wekan/wekan/security/advisories/GHSA-x3xm-pxrv-jg7p),
   CWE-78 OS Command Injection). Same RCE class as
   [AvatarBleed](https://wekan.fi/hall-of-fame/avatarbleed/) (CVE-2026-52891, GHSA-35j7-h385-2q9g)
