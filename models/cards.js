@@ -1331,22 +1331,24 @@ Cards.helpers({
     return '';
   },
 
-  absoluteUrl() {
+  absoluteUrl(board) {
     // Built from the relative path instead of FlowRouter.url(): FlowRouter is
     // client-only and returns a generic link when called on the server (card
     // activity notification emails). Meteor.absoluteUrl() works on both sides
-    // and expects no leading slash.
-    const relativeUrl = this.originRelativeUrl();
+    // and expects no leading slash. On the server pass the already-awaited board
+    // (see originRelativeUrl) so the slug/boardId are not read off a Promise.
+    const relativeUrl = this.originRelativeUrl(board);
     if (!relativeUrl) return undefined;
     return Meteor.absoluteUrl(relativeUrl.replace(/^\//, ''));
   },
-  originRelativeUrl() {
-    const board = this.board();
-    if (!board) return undefined;
-    // Matches the 'card' route '/b/:boardId/:slug/:cardId' (config/router.js).
-    // swimlaneId/listId were only ever appended as query params the route
-    // ignores, so they are dropped here.
-    return `/b/${board._id}/${board.slug || 'board'}/${this._id}`;
+  originRelativeUrl(board) {
+    // On the server ReactiveCache.getBoard() (used by this.board()) is async and
+    // returns a Promise, so callers there (e.g. activity notification emails) must
+    // pass the already-awaited board. Without it we would interpolate a Promise and
+    // emit '/b/undefined/board/<cardId>' (issue #6427). buildCardRelativeUrl detects
+    // that case and falls back to this.boardId. See models/lib/cardUrl.js.
+    const { buildCardRelativeUrl } = require('./lib/cardUrl');
+    return buildCardRelativeUrl(this, board || this.board());
   },
 
   canBeRestored() {

@@ -41,6 +41,21 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release includes the following fixes:
+
+- **Fix [#6427](https://github.com/wekan/wekan/issues/6427): notification emails linked to
+  `/b/undefined/board/<cardId>` instead of the real board.** On the server
+  `ReactiveCache.getBoard()` is async and returns a Promise, but `Cards.board()` did not await it,
+  so the synchronous `Card.originRelativeUrl()`/`absoluteUrl()` interpolated a Promise —
+  `board._id` and `board.slug` were `undefined`, producing `/b/undefined/board/<cardId>` in
+  card activity notification emails (the client UI was unaffected because `this.board()` is
+  synchronous there). Fixed by making `Card.originRelativeUrl(board)`/`absoluteUrl(board)` accept an
+  already-resolved board and fall back to `this.boardId` (always available synchronously) when the
+  board is a Promise, and by passing the awaited board from `server/models/activities.js` so the
+  correct board id and slug are used.
+
 # v9.75 2026-07-05 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of

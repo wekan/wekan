@@ -137,7 +137,15 @@ Activities.after.insert(async (userId, doc) => {
       params.card = normalizeActivityText(card.title);
       title = 'act-withCardTitle';
       if (typeof card.absoluteUrl === 'function') {
-        params.url = card.absoluteUrl();
+        // Pass the already-awaited board: on the server card.board() returns an
+        // unawaited Promise, which produced '/b/undefined/board/<cardId>' in
+        // notification emails (issue #6427).
+        const cardBoard =
+          board && board._id === card.boardId
+            ? board
+            : (await ReactiveCache.getBoard(card.boardId)) ||
+              (await Boards.findOneAsync(card.boardId));
+        params.url = card.absoluteUrl(cardBoard);
       }
       params.cardId = activity.cardId;
     }
