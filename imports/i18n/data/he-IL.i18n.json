@@ -508,6 +508,7 @@
   "error-csv-schema": "קובץ ה־CSV(ערכים מופרדים בפסיקים)/TSV(ערכים מופרדים בטאבים) לא מכילים את המידע הנכון בצורה הנכונה",
   "error-import-empty-board": "This export contains no board content (no swimlanes, lists or cards). It may have been created by an older WeKan version with a known export bug. Please re-export the board with the current version and import the new file.",
   "error-list-doesNotExist": "רשימה זו לא קיימת",
+  "error-linked-card-not-allowed": "You can only link to a normal card. Linking to another linked card, or to a card that links back to this board, is not allowed because it would make the cards inaccessible.",
   "error-user-disabled": "This user account is disabled",
   "error-user-doesNotExist": "משתמש זה לא קיים",
   "error-user-notAllowSelf": "אינך יכול להזמין את עצמך",

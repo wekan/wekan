@@ -508,6 +508,7 @@
   "error-csv-schema": "Sizning CSV (vergul bilan ajratilgan qiymatlar)/TSV (tabdan ajratilgan qiymatlar) to'g'ri formatdagi tegishli ma'lumotlarni o'z ichiga olmaydi",
   "error-import-empty-board": "This export contains no board content (no swimlanes, lists or cards). It may have been created by an older WeKan version with a known export bug. Please re-export the board with the current version and import the new file.",
   "error-list-doesNotExist": "Bu roʻyxat mavjud emas",
+  "error-linked-card-not-allowed": "You can only link to a normal card. Linking to another linked card, or to a card that links back to this board, is not allowed because it would make the cards inaccessible.",
   "error-user-disabled": "This user account is disabled",
   "error-user-doesNotExist": "Bu foydalanuvchi mavjud emas",
   "error-user-notAllowSelf": "Siz o'zingizni taklif qila olmaysiz",

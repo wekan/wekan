@@ -508,6 +508,7 @@
   "error-csv-schema": "CSV (vergi bilen bölünen bahalar) / TSV (Tab-a bölünen bahalar) dogry maglumatlary dogry formatda öz içine almaýar",
   "error-import-empty-board": "This export contains no board content (no swimlanes, lists or cards). It may have been created by an older WeKan version with a known export bug. Please re-export the board with the current version and import the new file.",
   "error-list-doesNotExist": "Bu sanaw ýok",
+  "error-linked-card-not-allowed": "You can only link to a normal card. Linking to another linked card, or to a card that links back to this board, is not allowed because it would make the cards inaccessible.",
   "error-user-disabled": "This user account is disabled",
   "error-user-doesNotExist": "Bu ulanyjy ýok",
   "error-user-notAllowSelf": "Özüňizi çagyryp bilmersiňiz",

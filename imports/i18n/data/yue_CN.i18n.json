@@ -508,6 +508,7 @@
   "error-csv-schema": "您的 CSV（逗號分隔值）/TSV（製表符分隔值）未包含格式正確的正確訊息",
   "error-import-empty-board": "This export contains no board content (no swimlanes, lists or cards). It may have been created by an older WeKan version with a known export bug. Please re-export the board with the current version and import the new file.",
   "error-list-doesNotExist": "該列表不存在",
+  "error-linked-card-not-allowed": "You can only link to a normal card. Linking to another linked card, or to a card that links back to this board, is not allowed because it would make the cards inaccessible.",
   "error-user-disabled": "This user account is disabled",
   "error-user-doesNotExist": "該用戶不存在",
   "error-user-notAllowSelf": "您不能邀請自己",

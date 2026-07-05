@@ -508,6 +508,7 @@
   "error-csv-schema": "Din CSV (Comma Separated Values)/TSV (Tab Separated Values) indeholder ikke gyldig information i korrekt format",
   "error-import-empty-board": "Denne eksport indeholder intet tavleindhold (ingen svømmebaner, lister eller kort). Den kan være oprettet af en ældre WeKan-version med en kendt eksportfejl. Eksporter tavlen igen med den aktuelle version, og importer den nye fil.",
   "error-list-doesNotExist": "Listen findes ikke",
+  "error-linked-card-not-allowed": "You can only link to a normal card. Linking to another linked card, or to a card that links back to this board, is not allowed because it would make the cards inaccessible.",
   "error-user-disabled": "This user account is disabled",
   "error-user-doesNotExist": "Brugeren findes ikke",
   "error-user-notAllowSelf": "Du kan ikke invitere dig selv",

@@ -508,6 +508,7 @@
   "error-csv-schema": "سىزنىڭ CSV (پەش بىلەن ئايرىلغان قىممەت) / TSV (بەتكۈچ ئايرىلغان قىممەت) مۇۋاپىق ئۇچۇرلارنى توغرا فورماتقا ئۆز ئىچىگە ئالمايدۇ.",
   "error-import-empty-board": "This export contains no board content (no swimlanes, lists or cards). It may have been created by an older WeKan version with a known export bug. Please re-export the board with the current version and import the new file.",
   "error-list-doesNotExist": "بۇ تىزىملىك ​​مەۋجۇت ئەمەس",
+  "error-linked-card-not-allowed": "You can only link to a normal card. Linking to another linked card, or to a card that links back to this board, is not allowed because it would make the cards inaccessible.",
   "error-user-disabled": "This user account is disabled",
   "error-user-doesNotExist": "بۇ ئىشلەتكۈچى مەۋجۇت ئەمەس",
   "error-user-notAllowSelf": "ئۆزىڭىزنى تەكلىپ قىلالمايسىز",
