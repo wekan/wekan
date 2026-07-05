@@ -1,3 +1,6 @@
+// i18n (TAPi18n) is isomorphic and used on the server too, so run its tests here
+// as the old tests/main.js did (top-level import, no block import for swc/Meteor 3).
+import '/imports/i18n/i18n.test.js';
 import './utils.tests';
 import './users.security.tests';
 import './boards.security.tests';

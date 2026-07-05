@@ -1,11 +1,9 @@
 npm-packages/
 # Root tests/ holds Playwright specs, Node E2E and node-based unit tests - none
 # of it is Meteor code, and Meteor's file watcher otherwise churns on the
-# tests/playwright/test-results/ tree (inotify errors). Ignore everything under
-# root tests/ EXCEPT tests/main.js, which is meteor.testModule (see package.json)
-# and imports the server/client Mocha suites. Those suites live under
-# server/lib/tests/ and client/lib/tests/ - NOT under root tests/ - so a naked
-# "tests/" (which matches a dir named tests at any depth) must NOT be used here,
-# or it would hide them and `meteor test` would report "0 passing".
-/tests/*
-!/tests/main.js
+# tests/playwright/test-results/ tree (inotify errors). The leading slash anchors
+# this to the repo root only, so it does NOT match server/lib/tests/ or
+# client/lib/tests/ (the Mocha suites, loaded via meteor.testModule in
+# package.json). A naked "tests/" would match a dir named tests at any depth and
+# would hide those suites, making `meteor test` report "0 passing".
+/tests/
