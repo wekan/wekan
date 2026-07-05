@@ -113,7 +113,7 @@ This release adds the following fixes:
   Both paths share one pure helper (`resolveDefaultAuthenticationMethod`) that never resolves to an empty string.
   Thanks to joe-speedboat and xet7.
 
-- **[Fix #5808: linking a card to another linked card made both cards inaccessible](https://github.com/wekan/wekan/commit/fc7e91d7a92aa781503ab629ae26887f1bb4c291)**:
+- **[Fix #5808: linking a card to another linked card made both cards inaccessible](https://github.com/wekan/wekan/commit/878a24f586d698307bc3af1e65c903147f87a59a)**:
   The "Link to this card" target picker only excluded template cards, so an existing **linked** card
   (or a card that already links back to the current board) could be chosen as a link target. That
   builds a chain/cycle of `linkedId` pointers, but the card helpers
@@ -127,7 +127,7 @@ This release adds the following fixes:
   stops new inaccessible links; any already-created ones still need manual cleanup.
   Thanks to the reporter and xet7.
 
-- **[Fix the "Board not found" flicker (stale-while-revalidate for the client board cache)](https://github.com/wekan/wekan/commit/1b5397f7d460ffdff49b204f0e8fffc18af75f38)**:
+- **[Fix the "Board not found" flicker (stale-while-revalidate for the client board cache)](https://github.com/wekan/wekan/commit/d00dc6056b241b0b3e383bb5b4e75ba10ed78f56)**:
   While viewing a board, the board view could briefly flash the **"Board not found"** shell — and on
   WebKit throw a Blaze `Can't select in removed DomRange` error tearing down the card view. Root
   cause: the client board cache (`imports/lib/dataCache.js`) re-fetches its value inside a reactive
