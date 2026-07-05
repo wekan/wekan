@@ -41,6 +41,17 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- Updated Code of Conduct.
+  [Part 1](https://github.com/wekan/wekan/commit/209cb8b43d84f7382d181a9f5d1e96ff32f2634d),
+  [Part 2](https://github.com/wekan/wekan/commit/574dd5bedd4f7c584b0fbbfaf57df86f286607fa).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.76 2026-07-06 WeKan ® release
 
 This release adds the following fixes:
