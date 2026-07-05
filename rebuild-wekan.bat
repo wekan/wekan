@@ -190,6 +190,10 @@ REM ===========================================================================
 :test_all_parallel
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run IN PARALLEL (concurrently). Needs plenty of RAM (fine on 32 GB).
 echo Mocha uses its own build dir (.meteor\local-test) so it runs at the same time as the :3000 server, which keeps .meteor\local.
+echo Two Meteor instances run side by side:
+echo   Meteor #1 (.meteor\local)      - Node.js app :3000, MongoDB :3001 - serves Node E2E + Playwright browser tests
+echo   Meteor #2 (.meteor\local-test) - Node.js app :3100, MongoDB :3101 - runs the server-side Mocha tests
+echo   Import regression is a plain Node script (no Meteor, no MongoDB).
 curl -fsS http://127.0.0.1:3000 >nul 2>&1
 if not errorlevel 1 (
 	echo ERROR: Port 3000 is already in use. Stop any running dev server before running this option.
@@ -198,6 +202,7 @@ if not errorlevel 1 (
 
 set "FAILED=0"
 set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
+set "C_mocha=0" & set "C_import=0" & set "C_e2e=0" & set "C_browsers=0"
 REM Clear completion flags from any previous run.
 del /q ".done-mocha" ".done-import" ".done-e2e" ".done-browsers" 2>nul
 
@@ -248,8 +253,15 @@ echo Live progress (refreshes every few seconds) - RUN / PASS / FAIL per job:
 :wait_all
 call :jstate mocha
 call :jstate import
-if "!SERVER_READY!"=="1" ( call :jstate e2e & call :jstate browsers )
-echo   mocha=!S_mocha!  import=!S_import!  e2e=!S_e2e!  browsers=!S_browsers!
+call :jcount C_mocha check "..\log\wekan-alltests-mocha.log"
+call :jcount C_import check "..\log\wekan-alltests-import.log"
+if "!SERVER_READY!"=="1" (
+	call :jstate e2e
+	call :jstate browsers
+	call :jcount C_e2e e2e "..\log\wekan-alltests-e2e.log"
+	call :jcount C_browsers check "..\log\wekan-alltests-browsers.log"
+)
+echo   mocha [M2 :3100/db:3101] !S_mocha! tests:!C_mocha!  ^| import [no server] !S_import! tests:!C_import!  ^| e2e [M1 :3000/db:3001] !S_e2e! tests:!C_e2e!  ^| browsers [M1 :3000/db:3001] !S_browsers! tests:!C_browsers!
 set "ALLDONE=1"
 if not exist ".done-mocha" set "ALLDONE=0"
 if not exist ".done-import" set "ALLDONE=0"
@@ -274,11 +286,11 @@ if "!S_browsers!"=="FAIL" set "FAILED=1"
 
 echo.
 echo ==================== TEST SUMMARY ====================
-call :report "!S_mocha!"     "Mocha (server-side)"
-call :report "!S_import!"    "Import regression"
-if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" ) else ( call :report "FAIL" "Server startup" )
-call :report "!S_e2e!"       "Node E2E regressions"
-call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)"
+call :report "!S_mocha!"     "Mocha (server-side)"                  "[M2 :3100/db:3101] tests:!C_mocha!"
+call :report "!S_import!"    "Import regression"                    "[no server]        tests:!C_import!"
+if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" "[M1 :3000/db:3001]" ) else ( call :report "FAIL" "Server startup" "[M1 :3000/db:3001]" )
+call :report "!S_e2e!"       "Node E2E regressions"                 "[M1 :3000/db:3001] tests:!C_e2e!"
+call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)" "[M1 :3000/db:3001] tests:!C_browsers!"
 echo =====================================================
 echo (per-job logs: ..\log\wekan-alltests-^<mocha^|import^|e2e^|browsers^>.log ; server: ..\log\wekan-test-server.log)
 if "!FAILED!"=="0" ( echo RESULT: All tests passed. ) else ( echo RESULT: Some tests FAILED ^(see details above^). )
@@ -288,6 +300,10 @@ REM ===========================================================================
 :test_all_sequential
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time).
 echo Mocha uses its own build dir (.meteor\local-test) so it runs at the same time as the :3000 server, which keeps .meteor\local.
+echo Two Meteor instances are involved:
+echo   Meteor #1 (.meteor\local)      - Node.js app :3000, MongoDB :3001 - serves Node E2E + Playwright browser tests
+echo   Meteor #2 (.meteor\local-test) - Node.js app :3100, MongoDB :3101 - runs the server-side Mocha tests
+echo   Import regression is a plain Node script (no Meteor, no MongoDB).
 curl -fsS http://127.0.0.1:3000 >nul 2>&1
 if not errorlevel 1 (
 	echo ERROR: Port 3000 is already in use. Stop any running dev server before running this option.
@@ -296,6 +312,7 @@ if not errorlevel 1 (
 
 set "FAILED=0"
 set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
+set "C_mocha=0" & set "C_import=0" & set "C_e2e=0" & set "C_browsers=0"
 REM Clear completion flags from any previous run.
 del /q ".done-mocha" ".done-import" ".done-e2e" ".done-browsers" 2>nul
 
@@ -329,7 +346,7 @@ REM so the combined run does not exhaust RAM/swap and crash the machine. Mocha
 REM and the import regression do not need the :3000 server; E2E and the browser
 REM suites do. The browser suite runs all three browsers with --workers=1, i.e.
 REM one browser at a time.
-echo ==^> Running Mocha (separate .meteor\local-test build, port 3100).
+echo ==^> Running Mocha on Meteor #2 [Node.js :3100, MongoDB :3101] (separate .meteor\local-test build).
 pushd "%REPO%"
 set "METEOR_LOCAL_DIR=.meteor\local-test"
 call meteor test --once --driver-package meteortesting:mocha --port 3100 1>..\log\wekan-alltests-mocha.log 2>&1
@@ -337,19 +354,19 @@ if errorlevel 1 (set "S_mocha=FAIL") else (set "S_mocha=PASS")
 set "METEOR_LOCAL_DIR="
 popd
 
-echo ==^> Running import regression.
+echo ==^> Running import regression [plain Node, no Meteor / no MongoDB].
 pushd "%REPO%"
 call node tests\wekanCreator.import.test.js 1>..\log\wekan-alltests-import.log 2>&1
 if errorlevel 1 (set "S_import=FAIL") else (set "S_import=PASS")
 popd
 
 if "!SERVER_READY!"=="0" goto skip_server_jobs
-echo ==^> Running Node E2E regressions.
+echo ==^> Running Node E2E regressions on Meteor #1 [Node.js :3000, MongoDB :3001].
 pushd "%REPO%"
 call meteor npm run test:e2e 1>..\log\wekan-alltests-e2e.log 2>&1
 if errorlevel 1 (set "S_e2e=FAIL") else (set "S_e2e=PASS")
 popd
-echo ==^> Running Playwright Chromium, Firefox and WebKit one at a time ^(--workers=1^).
+echo ==^> Running Playwright Chromium, Firefox and WebKit one at a time ^(--workers=1^) on Meteor #1 [Node.js :3000, MongoDB :3001].
 pushd "%REPO%\tests\playwright"
 set "WEKAN_PLAYWRIGHT_ALL=1"
 call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 1>..\..\log\wekan-alltests-browsers.log 2>&1
@@ -373,13 +390,19 @@ if "!S_import!"=="FAIL" set "FAILED=1"
 if "!S_e2e!"=="FAIL" set "FAILED=1"
 if "!S_browsers!"=="FAIL" set "FAILED=1"
 
+REM Count passing tests per job from each log (advances shown in the summary).
+call :jcount C_mocha check "..\log\wekan-alltests-mocha.log"
+call :jcount C_import check "..\log\wekan-alltests-import.log"
+call :jcount C_e2e e2e "..\log\wekan-alltests-e2e.log"
+call :jcount C_browsers check "..\log\wekan-alltests-browsers.log"
+
 echo.
 echo ==================== TEST SUMMARY ====================
-call :report "!S_mocha!"     "Mocha (server-side)"
-call :report "!S_import!"    "Import regression"
-if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" ) else ( call :report "FAIL" "Server startup" )
-call :report "!S_e2e!"       "Node E2E regressions"
-call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)"
+call :report "!S_mocha!"     "Mocha (server-side)"                  "[M2 :3100/db:3101] tests:!C_mocha!"
+call :report "!S_import!"    "Import regression"                    "[no server]        tests:!C_import!"
+if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" "[M1 :3000/db:3001]" ) else ( call :report "FAIL" "Server startup" "[M1 :3000/db:3001]" )
+call :report "!S_e2e!"       "Node E2E regressions"                 "[M1 :3000/db:3001] tests:!C_e2e!"
+call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)" "[M1 :3000/db:3001] tests:!C_browsers!"
 echo =====================================================
 echo (per-job logs: ..\log\wekan-alltests-^<mocha^|import^|e2e^|browsers^>.log ; server: ..\log\wekan-test-server.log)
 if "!FAILED!"=="0" ( echo RESULT: All tests passed. ) else ( echo RESULT: Some tests FAILED ^(see details above^). )
@@ -635,10 +658,10 @@ popd
 exit /b %RC%
 
 :report
-REM %1 = status (PASS/FAIL/SKIP or empty), %2 = name
+REM %1 = status (PASS/FAIL/SKIP or empty), %2 = name, %3 = extra (port/tests, optional)
 set "ST=%~1"
 if "%ST%"=="" set "ST=----"
-echo   %ST%   %~2
+echo   %ST%   %~2   %~3
 exit /b 0
 
 :jstate
@@ -646,6 +669,20 @@ REM %1 = job key. Sets S_<key> to RUN / PASS / FAIL from .done-<key>.
 REM Called repeatedly by the :test_all poll loop and once more for the summary.
 if not exist ".done-%1" ( set "S_%1=RUN" & exit /b 0 )
 set /p "S_%1="<".done-%1"
+exit /b 0
+
+:jcount
+REM %1 = output var name, %2 = kind (check|e2e), %3 = log file.
+REM Counts passing tests in the log and stores the number in the named var:
+REM   check -> U+2713 marks (Playwright list, Mocha spec, import assertions)
+REM   e2e   -> "[wekan-e2e] ..." step lines from the Node E2E harness.
+REM Uses node (always present here) so Unicode counting is reliable on cmd.
+if not exist "%~3" ( set "%~1=0" & exit /b 0 )
+if /i "%~2"=="e2e" goto jcount_e2e
+for /f "usebackq delims=" %%n in (`node -e "let n=0;try{n=(require('fs').readFileSync(process.argv[1],'utf8').match(/\u2713/g)||[]).length}catch(e){}process.stdout.write(String(n))" "%~3"`) do set "%~1=%%n"
+exit /b 0
+:jcount_e2e
+for /f "usebackq delims=" %%n in (`node -e "let n=0;try{n=(require('fs').readFileSync(process.argv[1],'utf8').match(/\[wekan-e2e\]/g)||[]).length}catch(e){}process.stdout.write(String(n))" "%~3"`) do set "%~1=%%n"
 exit /b 0
 
 REM ===========================================================================

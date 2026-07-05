@@ -75,8 +75,8 @@ echo "Platform: $PLATFORM_OS $PLATFORM_ARCH"
 # Resolution order:
 #   1. WEKAN_PLAYWRIGHT_DOCKER=1 -> ALL browsers via Docker;  =0 -> ALL native.
 #   2. Per browser: WEKAN_CHROMIUM_DOCKER / WEKAN_FIREFOX_DOCKER / WEKAN_WEBKIT_DOCKER (1/0).
-#   3. Auto (default): only WebKit on Linux arm64 needs Docker; Chromium and
-#      Firefox run natively everywhere.
+#   3. Auto (default): on Linux arm64 ALL browsers (Chromium, Firefox, WebKit)
+#      go through Docker; on every other platform they run natively.
 function browser_needs_docker(){
 	local browser="$1"
 	case "${WEKAN_PLAYWRIGHT_DOCKER:-}" in
@@ -88,12 +88,16 @@ function browser_needs_docker(){
 		1) return 0 ;;
 		0) return 1 ;;
 	esac
-	# auto
-	if [ "$browser" = "webkit" ]; then
-		[ "$PLATFORM_OS" = "linux" ] && [ "$PLATFORM_ARCH" = "arm64" ]
-		return $?
+	# auto: the native Playwright browser binaries have no working runtime on
+	# Linux arm64 (missing system deps on distros like Asahi) - they SKIP every
+	# project with "browser cannot launch on this host", so Chromium and Firefox
+	# would exit immediately with no tests run. Route ALL three through the
+	# official Playwright Docker image there, which ships working browsers. On
+	# x86_64 Linux, macOS and Windows the native browsers work, so run natively.
+	if [ "$PLATFORM_OS" = "linux" ] && [ "$PLATFORM_ARCH" = "arm64" ]; then
+		return 0
 	fi
-	return 1   # chromium / firefox run natively by default
+	return 1
 }
 
 # Back-compat: existing callers/env (WEKAN_WEBKIT_DOCKER) keep working.
@@ -216,7 +220,7 @@ function pw_failures_of(){
 
 # Run one Playwright browser project for the "Run ALL tests" flow.
 # Writes test-results/all-tests-<browser>.json and returns playwright's exit code.
-# WebKit goes through Docker on Linux arm64 (see webkit_needs_docker).
+# On Linux arm64 every browser goes through Docker (see browser_needs_docker).
 function run_pw_all_browser(){
 	local browser="$1"
 	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
@@ -357,6 +361,10 @@ function run_all_tests(){
 		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time)."
 	fi
 	echo "Mocha gets its own build dir (.meteor/local-test) so it runs at the same time as the :3000 server, which keeps .meteor/local."
+	echo "Two Meteor instances run side by side:"
+	echo "  Meteor #1 (.meteor/local)      - Node.js app :3000, MongoDB :3001 - serves Node E2E + Playwright browser tests"
+	echo "  Meteor #2 (.meteor/local-test) - Node.js app :3100, MongoDB :3101 - runs the server-side Mocha tests"
+	echo "  Import regression is a plain Node script (no Meteor, no MongoDB)."
 	SUMMARY=()
 	record() { SUMMARY+=("$1|$2|${3:-}"); }
 	label_of() { case "$1" in
@@ -367,6 +375,36 @@ function run_all_tests(){
 		firefox) echo "Playwright Firefox" ;;
 		webkit) echo "Playwright WebKit" ;;
 	esac; }
+	# Which Meteor instance each job talks to, with the Node.js (app) port and the
+	# bundled MongoDB port (Meteor runs Mongo on app-port+1). The E2E and browser
+	# jobs use Meteor #1 (the :3000 dev server); Mocha runs its own Meteor #2 on
+	# :3100 (test build .meteor/local-test, Mongo :3101); the import test is a
+	# plain Node script and touches no server/DB.
+	port_of() { case "$1" in
+		mocha) echo "M2 node:3100 db:3101" ;;
+		import) echo "no server (node)" ;;
+		e2e|chromium|firefox|webkit) echo "M1 node:3000 db:3001" ;;
+	esac; }
+	# A live "tests passed" counter per job. Playwright (list reporter), Mocha
+	# (spec reporter) and the import test all print a U+2713 check mark per passing
+	# test/assertion; the Node E2E harness prints one "[wekan-e2e] ..." line per
+	# step. Both advance while the job runs.
+	count_pass() {
+		local n
+		case "$1" in
+			e2e) n=$(grep -c '\[wekan-e2e\]' "$2" 2>/dev/null) ;;
+			*)   n=$(grep -c $'\xe2\x9c\x93' "$2" 2>/dev/null) ;;
+		esac
+		echo "${n:-0}"
+	}
+	count_fail() {
+		local n
+		case "$1" in
+			e2e) n=$(grep -c 'wekan-e2e\] FAIL' "$2" 2>/dev/null) ;;
+			*)   n=$(grep -cE $'\xe2\x9c\x98|\xe2\x9c\x97' "$2" 2>/dev/null) ;;
+		esac
+		echo "${n:-0}"
+	}
 	ORIG_HOME="$HOME"
 	PW_FAILURES=""
 	TEST_SERVER_PID=""
@@ -480,22 +518,22 @@ function run_all_tests(){
 
 	# Live combined progress: one refreshing line per running job until all end.
 	BN="$(set -- $ALLKEYS; echo $#)"
-	echo "Results per job ([PASS]/[FAIL], checks passed / x failed); jobs run $modeword:"
+	echo "Results per job — [status] name (Meteor instance node/db ports) tests:passed fail:failed; jobs run $modeword:"
 	for k in $ALLKEYS; do echo; done
 	while :; do
 		printf '\033[%dA' "$BN"
 		alldone=1
 		for k in $ALLKEYS; do
 			log="../log/wekan-alltests-$k.log"
-			ok=$(grep -c $'\xe2\x9c\x93' "$log" 2>/dev/null); ok=${ok:-0}
-			bad=$(grep -c $'\xe2\x9c\x98' "$log" 2>/dev/null); bad=${bad:-0}
+			ok=$(count_pass "$k" "$log")
+			bad=$(count_fail "$k" "$log")
 			if [ -f "$STATDIR/$k" ]; then
 				rc=$(cat "$STATDIR/$k" 2>/dev/null)
 				if [ "${rc:-1}" = "0" ]; then st="PASS"; else st="FAIL"; fi
 			else
 				st="RUN "; alldone=0
 			fi
-			printf '\033[K  [%-4s] %-22s ok:%s fail:%s\n' "$st" "$(label_of "$k")" "$ok" "$bad"
+			printf '\033[K  [%-4s] %-22s %-22s tests:%-4s fail:%s\n' "$st" "$(label_of "$k")" "$(port_of "$k")" "$ok" "$bad"
 		done
 		[ "$alldone" -eq 1 ] && break
 		sleep 1
