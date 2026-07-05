@@ -168,6 +168,8 @@ and fixed the following bugs:
     `Cards.allow` / `Cards.deny`, already covered by the `cards security` tests) and were removed.
     Server-side Mocha is now 409 passing, 0 failing.
   Thanks to xet7.
+- [Fix translations at Login and Register pages](https://github.com/wekan/wekan/commit/b46d9588c7dc2d718e108972c97cbccadedb9b5f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
