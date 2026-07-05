@@ -9,6 +9,7 @@ import Swimlanes from '/models/swimlanes';
 import { Filter } from '/client/lib/filter';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
@@ -706,7 +707,10 @@ Template.linkCardPopup.helpers({
       archived: false,
       linkedId: { $nin: ownCardsIds },
       _id: { $nin: ownCardsIds },
-      type: { $nin: ['template-card'] },
+      // #5808: never offer an existing linked card/board as a link target —
+      // linking to one builds a chain of linkedId pointers that renders the
+      // card inaccessible. Only real cards may be linked.
+      type: { $nin: ['template-card', 'cardType-linkedCard', 'cardType-linkedBoard'] },
     };
     if (tpl.selectedBoardId.get()) selector.boardId = tpl.selectedBoardId.get();
     if (tpl.selectedSwimlaneId.get()) selector.swimlaneId = tpl.selectedSwimlaneId.get();
@@ -787,6 +791,17 @@ Template.linkCardPopup.events({
         cardNumber: boardCardNumber,
       });
       Filter.addException(boardCardId);
+      Popup.back();
+      return;
+    }
+    // #5808: refuse to link to a linked card/board or to a card that links back
+    // to this board — those build a chain/cycle of linkedId pointers that renders
+    // the cards inaccessible. The <select> already filters these out, but its
+    // options can be stale, so re-check the resolved target here.
+    const targetCard = ReactiveCache.getCard(linkedId);
+    const ownCardsIds = tpl.board.cards().map(card => card.getRealId());
+    if (!isLinkableCardTarget(targetCard, ownCardsIds)) {
+      alert(TAPi18n.__('error-linked-card-not-allowed'));
       Popup.back();
       return;
     }
