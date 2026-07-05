@@ -96,7 +96,7 @@ This release adds the following fixes:
   residual reactive re-render cost on very large boards is a separate performance topic.
   Thanks to mimZD and xet7.
 
-- **[Fix #5879: `DEFAULT_AUTHENTICATION_METHOD` env var ignored, and Admin Panel Layout save hanging](https://github.com/wekan/wekan/issues/5879)**:
+- **[Fix `DEFAULT_AUTHENTICATION_METHOD` env var ignored, and Admin Panel Layout save hanging](https://github.com/wekan/wekan/commit/d5596f05b7ee63a114d3479c34e930f0d9d5549c)**:
   Two related problems with the default login authentication method.
   - **Env var ignored:** the stored setting was only ever seeded as `password` and
     `DEFAULT_AUTHENTICATION_METHOD` was never applied, so operators setting it (e.g. Kubernetes/Helm
@@ -110,8 +110,7 @@ This release adds the following fixes:
     value for the **required** `defaultAuthenticationMethod` field, which silently failed validation —
     the save looked stuck and nothing changed. The save now falls back to the currently stored method
     when the select is empty, so a real value is never overwritten by `''`.
-  Both paths share one pure helper (`resolveDefaultAuthenticationMethod`) that never resolves to an
-  empty string. Reported by joe-speedboat.
+  Both paths share one pure helper (`resolveDefaultAuthenticationMethod`) that never resolves to an empty string.
   Thanks to joe-speedboat and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
