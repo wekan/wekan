@@ -65,6 +65,22 @@ This release adds the following fixes:
   yet and emailing the maintainer about the missing Docker image.
   Thanks to xet7.
 
+- **[Fix #6429: thousands of unsolicited empty "Default" swimlanes created on some boards](https://github.com/wekan/wekan/issues/6429)**:
+  `Board.getDefaultSwimline()`/`getDefaultSwimlineAsync()` self-heal a missing default swimlane by
+  reading the board's swimlanes and inserting one if none exist. That check-then-insert is a race:
+  concurrent or repeated server calls for a swimlane-less board each saw zero swimlanes and each
+  inserted a new one, so some boards accumulated 30 000+ empty "Default" swimlanes and became
+  unloadable (the `key 'default (en)' returned an object instead of string` log is a harmless i18n
+  side effect — the title correctly falls back to the string `Default`). Follow-up to the
+  client-side [#6382](https://github.com/wekan/wekan/issues/6382) fix, which only stopped the
+  browser from auto-creating them. Fixed by making the server self-heal **idempotent**: the default
+  swimlane is now upserted with a deterministic `_id` (`<boardId>-default`), so the `_id` unique
+  index guarantees at most one default swimlane per board no matter how many times, or how
+  concurrently, the getters run. `archived`/`type` are set explicitly in the `$setOnInsert` because
+  their schema autoValue/defaultValue only fire on insert, not upsert. Note: this prevents new
+  duplicates; boards that already accumulated thousands still need a one-off cleanup.
+  Thanks to brlin-tw and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.75 2026-07-05 WeKan ® release

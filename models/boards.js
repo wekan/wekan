@@ -1783,7 +1783,7 @@ Boards.helpers({
       if (existingSwimlanes.length > 0) {
         // Use the first existing swimlane
         result = existingSwimlanes[0];
-      } else if (Meteor.isServer) {
+      } else if (Meteor.isServer && this._id) {
         // Issue #6382: only the server may auto-create the default swimlane.
         // On the client this getter runs inside reactive render contexts; when a
         // board's swimlanes are not yet loaded/subscribed (e.g. the default
@@ -1791,16 +1791,49 @@ Boards.helpers({
         // empty and every re-render would insert another empty swimlane —
         // producing thousands of them and freezing the browser. The server
         // creates the default swimlane at board creation and self-heals here.
-        // Use fallback title if i18n is not available (e.g., during migration)
-        const title = getTranslatedString('default', 'Default');
-        Swimlanes.insert({
-          title: title,
-          boardId: this._id,
-        });
-        result = ReactiveCache.getSwimlane({ boardId: this._id });
+        // Issue #6429: self-heal via a DETERMINISTIC _id so concurrent/repeated
+        // calls are idempotent (see ensureDefaultSwimlaneId).
+        result = this.ensureDefaultSwimlaneId();
       }
     }
     return result;
+  },
+
+  // Deterministic _id for a board's auto-created default swimlane. Because _id
+  // carries a unique index, an upsert on it can create AT MOST ONE default
+  // swimlane per board, no matter how many times (or how concurrently) the
+  // self-heal runs — the fix for #6429 (a check-then-insert race in the getters
+  // below produced 30 000+ empty "Default" swimlanes on some boards).
+  defaultSwimlaneId() {
+    const { defaultSwimlaneId } = require('./lib/defaultSwimlane');
+    return defaultSwimlaneId(this._id);
+  },
+
+  ensureDefaultSwimlaneId() {
+    const defaultId = this.defaultSwimlaneId();
+    // Upsert keyed on the deterministic _id: concurrent self-heals collide on
+    // the _id unique index, so only one insert wins instead of racing the
+    // check-then-insert and each inserting a new swimlane.
+    Swimlanes.upsert({ _id: defaultId }, { $setOnInsert: this.defaultSwimlaneFields() });
+    return ReactiveCache.getSwimlane({ _id: defaultId });
+  },
+
+  async ensureDefaultSwimlaneIdAsync() {
+    const defaultId = this.defaultSwimlaneId();
+    await Swimlanes.upsertAsync(
+      { _id: defaultId },
+      { $setOnInsert: this.defaultSwimlaneFields() },
+    );
+    return ReactiveCache.getSwimlane({ _id: defaultId });
+  },
+
+  // Fields for an upsert-inserted default swimlane. archived/type must be set
+  // explicitly: their schema autoValue/defaultValue only fire on isInsert, not
+  // on the isUpsert path used here, so omitting them fails required validation.
+  defaultSwimlaneFields() {
+    const { defaultSwimlaneFields } = require('./lib/defaultSwimlane');
+    // Use fallback title if i18n is not available (e.g., during migration).
+    return defaultSwimlaneFields(this._id, getTranslatedString('default', 'Default'));
   },
 
   async getDefaultSwimlineAsync() {
@@ -1809,15 +1842,12 @@ Boards.helpers({
       const existingSwimlanes = await ReactiveCache.getSwimlanes({ boardId: this._id });
       if (existingSwimlanes.length > 0) {
         result = existingSwimlanes[0];
-      } else if (Meteor.isServer) {
+      } else if (Meteor.isServer && this._id) {
         // Issue #6382: never auto-create swimlanes from the client (see
         // getDefaultSwimline) — only the server may insert the default one.
-        const title = getTranslatedString('default', 'Default');
-        await Swimlanes.insertAsync({
-          title,
-          boardId: this._id,
-        });
-        result = await ReactiveCache.getSwimlane({ boardId: this._id });
+        // Issue #6429: idempotent deterministic-_id upsert instead of a racy
+        // check-then-insert that produced thousands of empty swimlanes.
+        result = await this.ensureDefaultSwimlaneIdAsync();
       }
     }
     return result;
