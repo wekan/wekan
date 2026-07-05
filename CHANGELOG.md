@@ -131,8 +131,8 @@ and fixed the following bugs:
   Thanks to xet7.
 - [Fix tests](https://github.com/wekan/wekan/commit/c48ecb1d88b3c2ba752c8f6ce7884743905d68fb).
   Thanks to xet7.
-- **[Playwright E2E: fixed three cross-process-contention flakes in the parallel run](https://github.com/wekan/wekan/commit/f5a4ece29431fc5e3f72986f089a2089e90599ae).** The
-  Chromium / Firefox / WebKit browser jobs run as separate processes against ONE shared server + DB,
+- **[Playwright E2E: fixed three cross-process-contention flakes in the parallel run](https://github.com/wekan/wekan/commit/f5a4ece29431fc5e3f72986f089a2089e90599ae).**
+  The Chromium / Firefox / WebKit browser jobs run as separate processes against ONE shared server + DB,
   so specs that used fixed identifiers or global cleanups raced each other:
   - `26-shared-templates.e2e.js` seeded a fixed email domain (`usera@acme-e2e.invalid`) in all three
     browsers, hitting `E11000 duplicate key` on the unique `emails.address` index. Now uses a
