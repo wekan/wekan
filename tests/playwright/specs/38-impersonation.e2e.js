@@ -34,9 +34,13 @@ const clientUserId = page => page.evaluate(() => Meteor.userId());
 test.describe('GlobalAdmin impersonation', () => {
   test.use({ storageState: undefined });
 
-  test.afterEach(() => {
-    // Clean up any impersonation audit records created by these tests.
-    db.deleteMany('impersonatedUsers', { reason: 'clickedImpersonate' });
+  test.afterEach(async ({ adminUser }) => {
+    // Clean up ONLY this test's impersonation audit records. adminUser.id is a
+    // random per-test id, so scoping the delete to it keeps concurrent browser
+    // processes (Chromium/Firefox/WebKit share one server+DB in the parallel
+    // run) from deleting each other's in-flight records — a global
+    // { reason: 'clickedImpersonate' } delete raced the audit-record poll below.
+    db.deleteMany('impersonatedUsers', { adminId: adminUser.id, reason: 'clickedImpersonate' });
   });
 
   test('admin impersonates a user; session + board data act as that user', async ({ page, adminUser, user, board }) => {

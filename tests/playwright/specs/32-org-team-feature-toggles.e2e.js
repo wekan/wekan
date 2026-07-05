@@ -32,6 +32,23 @@ function callMethod(page, name, ...args) {
 }
 
 test.describe('#4737/#5850 per-org/team feature toggle methods', () => {
+  // This spec exercises GLOBAL server mutations: setAllOrgsFeature /
+  // setAllTeamsFeature run Org/Team.updateAsync({}, ..., { multi: true }), i.e.
+  // they write EVERY org/team row. The parallel test run launches Chromium /
+  // Firefox / WebKit as separate processes against ONE shared server+DB, so two
+  // browsers running these bulk tests concurrently clobber each other's rows
+  // (one process sets all-true while another asserts all-false, and vice versa)
+  // — a race no amount of unique per-test data can fix. The methods are
+  // browser-agnostic, so we run this spec in a single project (Chromium) only;
+  // Firefox/WebKit skip it. That removes the cross-process contention while
+  // keeping full coverage of the server logic.
+  test.beforeEach(({ browserName }) => {
+    test.skip(
+      browserName !== 'chromium',
+      'server-method spec: single browser avoids cross-process global-write races',
+    );
+  });
+
   test('admin sets each per-org feature flag', async ({ page, adminUser }) => {
     const orgDisplayName = db.uid('FeatOrg');
     const orgId = db.uid('org');

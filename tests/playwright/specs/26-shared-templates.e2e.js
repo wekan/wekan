@@ -26,10 +26,21 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 test.describe('Admin – shared templates', () => {
   test.use({ storageState: undefined });
 
-  // Shared scope/group identifiers for the seeded users.
-  const ORG = { orgId: `e2e_org_${Date.now()}`, orgDisplayName: 'Acme Org' };
-  const TEAM = { teamId: `e2e_team_${Date.now()}`, teamDisplayName: 'Rocket Team' };
-  const DOMAIN = 'acme-e2e.invalid';
+  // Shared scope/group identifiers for the seeded users. Every value carries a
+  // random per-run token: the parallel run launches Chromium/Firefox/WebKit as
+  // separate processes against ONE server+DB, so a fixed email domain collided
+  // on the unique emails.address index (E11000) and identical template titles /
+  // group names bled between processes' admin views. Unique-per-run keeps each
+  // browser's fixtures isolated.
+  const RUN = db.uid('run');
+  const ORG = { orgId: `e2e_org_${RUN}`, orgDisplayName: `Acme Org ${RUN}` };
+  const TEAM = { teamId: `e2e_team_${RUN}`, teamDisplayName: `Rocket Team ${RUN}` };
+  const DOMAIN = `${RUN}.acme-e2e.invalid`;
+  const TPL = {
+    alpha: `Alpha Template Board ${RUN}`,
+    beta: `Beta Template Board ${RUN}`,
+    gamma: `Gamma Template Board ${RUN}`,
+  };
 
   let userA;
   let userB;
@@ -47,8 +58,8 @@ test.describe('Admin – shared templates', () => {
     db.setUserGroups({ userId: userB.id, orgs: [ORG], teams: [TEAM], email: `userb@${DOMAIN}` });
     db.setUserGroups({ userId: userEmpty.id, orgs: [ORG], teams: [TEAM], email: `empty@${DOMAIN}` });
 
-    db.seedTemplatesBoard({ ownerId: userA.id, templateTitles: ['Alpha Template Board'] });
-    db.seedTemplatesBoard({ ownerId: userB.id, templateTitles: ['Beta Template Board', 'Gamma Template Board'] });
+    db.seedTemplatesBoard({ ownerId: userA.id, templateTitles: [TPL.alpha] });
+    db.seedTemplatesBoard({ ownerId: userB.id, templateTitles: [TPL.beta, TPL.gamma] });
     // Empty Templates board (no shared template boards).
     db.seedTemplatesBoard({ ownerId: userEmpty.id, templateTitles: [] });
   });
@@ -97,15 +108,15 @@ test.describe('Admin – shared templates', () => {
     await expect(page.locator('.shared-templates-group h5', { hasText: ORG.orgDisplayName })).toBeVisible();
 
     // Non-empty users' template boards appear by name.
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Alpha Template Board' })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Beta Template Board' })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Gamma Template Board' })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.beta })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.gamma })).toBeVisible();
 
     // The empty user must NOT be listed.
     await expect(page.locator('.shared-templates-user', { hasText: userEmpty.username })).toHaveCount(0);
 
     // Links point at the template boards.
-    const href = await page.locator('a.js-shared-template-link', { hasText: 'Alpha Template Board' }).getAttribute('href');
+    const href = await page.locator('a.js-shared-template-link', { hasText: TPL.alpha }).getAttribute('href');
     expect(href).toMatch(/^\/b\//);
 
     // Screenshot for visual verification of grouped shared templates.
@@ -120,8 +131,8 @@ test.describe('Admin – shared templates', () => {
     await expect(scopeCheckbox(page, 'teams')).toHaveClass(/is-checked/);
 
     await expect(page.locator('.shared-templates-group h5', { hasText: TEAM.teamDisplayName })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Alpha Template Board' })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Beta Template Board' })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.beta })).toBeVisible();
   });
 
   test('checking Domains groups by email domain', async ({ page, adminUser }) => {
@@ -132,8 +143,8 @@ test.describe('Admin – shared templates', () => {
     await expect(scopeCheckbox(page, 'domains')).toHaveClass(/is-checked/);
 
     await expect(page.locator('.shared-templates-group h5', { hasText: DOMAIN })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Alpha Template Board' })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Gamma Template Board' })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.gamma })).toBeVisible();
   });
 
   test('unchecking a scope hides its results again', async ({ page, adminUser }) => {
@@ -142,7 +153,7 @@ test.describe('Admin – shared templates', () => {
 
     const orgToggle = page.locator('a.js-toggle-template-scope[data-scope="organizations"]');
     await orgToggle.click();
-    await expect(page.locator('a.js-shared-template-link', { hasText: 'Alpha Template Board' })).toBeVisible();
+    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
 
     // Uncheck — results disappear, the hint returns.
     await orgToggle.click();
