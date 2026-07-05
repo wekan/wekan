@@ -107,7 +107,16 @@ test.describe('Admin – user management', () => {
     );
     expect(createError).toBe(null);
 
-    const createdUser = db.findOne('users', { username: createdUsername }, { _id: 1 });
+    // setCreateUser's callback fires when the method returns, but the insert is
+    // not always visible to this separate direct-Mongo connection on the very
+    // next read - especially under the full parallel "Run ALL tests" load. Poll
+    // for the new user instead of reading exactly once.
+    let createdUser = null;
+    for (let i = 0; i < 30; i++) {
+      createdUser = db.findOne('users', { username: createdUsername }, { _id: 1 });
+      if (createdUser && createdUser._id) break;
+      await page.waitForTimeout(500);
+    }
     expect(createdUser?._id).toBeTruthy();
 
     const ap = new AdminPage(page);

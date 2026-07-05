@@ -1,8 +1,11 @@
 npm-packages/
-# Leading slash anchors this to the repo root only. Without it, "tests/" would
-# match every directory named "tests" at any depth (gitignore semantics) and
-# exclude server/lib/tests/ and client/lib/tests/ too - which hid all the
-# server-side Mocha *.tests.js suites from `meteor test` ("0 passing"). The
-# root tests/ dir (Playwright + Node E2E specs) is not Meteor code, so keep it
-# ignored - that also stops Meteor's file watcher churning on tests/playwright/test-results/.
-/tests/
+# Root tests/ holds Playwright specs, Node E2E and node-based unit tests - none
+# of it is Meteor code, and Meteor's file watcher otherwise churns on the
+# tests/playwright/test-results/ tree (inotify errors). Ignore everything under
+# root tests/ EXCEPT tests/main.js, which is meteor.testModule (see package.json)
+# and imports the server/client Mocha suites. Those suites live under
+# server/lib/tests/ and client/lib/tests/ - NOT under root tests/ - so a naked
+# "tests/" (which matches a dir named tests at any depth) must NOT be used here,
+# or it would hide them and `meteor test` would report "0 passing".
+/tests/*
+!/tests/main.js

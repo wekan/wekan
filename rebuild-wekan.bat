@@ -43,6 +43,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "PLATFORM_ARCH=arm64"
 if /i "%PROCESSOR_ARCHITEW6432%"=="ARM64" set "PLATFORM_ARCH=arm64"
 echo Platform: %PLATFORM_OS% %PLATFORM_ARCH%
 echo Repo: %REPO%
+echo Note: Dev-server console output is also logged to ..\log\wekan-log.log
 
 :menu
 echo.
@@ -135,7 +136,7 @@ REM ===========================================================================
 call :ensure_dirs
 call :set_dev_env
 set "ROOT_URL=http://localhost:3000"
-call meteor run --port 3000
+call :runlog --port 3000
 goto end
 
 :dev_trace
@@ -144,14 +145,14 @@ call :set_dev_env
 set "WARN_WHEN_USING_OLD_API=true"
 set "NODE_OPTIONS=--trace-warnings --max-old-space-size=8192"
 set "ROOT_URL=http://localhost:3000"
-call meteor run --port 3000
+call :runlog --port 3000
 goto end
 
 :dev_visualizer
 call :ensure_dirs
 call :set_dev_env
 set "ROOT_URL=http://localhost:3000"
-call meteor run --port 3000 --extra-packages bundle-visualizer --production
+call :runlog --port 3000 --extra-packages bundle-visualizer --production
 goto end
 
 :dev_currentip
@@ -160,7 +161,7 @@ call :detect_ip
 echo Your IP address is !IPADDRESS!
 call :set_dev_env
 set "ROOT_URL=http://!IPADDRESS!:3000"
-call meteor run --port 3000
+call :runlog --port 3000
 goto end
 
 :dev_currentip_mongo
@@ -170,7 +171,7 @@ echo Your IP address is !IPADDRESS!
 call :set_dev_env
 set "MONGO_URL=mongodb://127.0.0.1:27019/wekan"
 set "ROOT_URL=http://!IPADDRESS!:3000"
-call meteor run --port 3000
+call :runlog --port 3000
 goto end
 
 :dev_customip
@@ -183,7 +184,7 @@ set /p "PORT=Port: "
 echo ROOT_URL=http://%IPADDRESS%:%PORT%
 call :set_dev_env
 set "ROOT_URL=http://%IPADDRESS%:%PORT%"
-call meteor run --port %PORT%
+call :runlog --port %PORT%
 goto end
 
 REM ===========================================================================
@@ -637,6 +638,17 @@ set "DEBUG=true"
 set "WRITABLE_PATH=.."
 set "WITH_API=true"
 set "RICHER_CARD_COMMENT_EDITOR=false"
+exit /b 0
+
+:runlog
+REM Run "meteor run <args>" showing output live AND copying it to
+REM ..\log\wekan-log.log - the Windows equivalent of the .sh's
+REM "meteor run ... 2>&1 | tee ../log/wekan-log.log". cmd has no built-in tee,
+REM so pipe through PowerShell's Tee-Object. %* = all args forwarded to meteor.
+REM Note: PowerShell buffers the pipeline, so console output can appear in
+REM bursts; the full stream is always captured in the log file.
+if not exist "..\log" md "..\log"
+call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '..\log\wekan-log.log'"
 exit /b 0
 
 :detect_ip

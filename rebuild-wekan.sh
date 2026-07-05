@@ -4,7 +4,7 @@ echo "Recommended for development: Newest Debian or Ubuntu amd64 based distro, d
 echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."
-echo "Note2: Console output is also logged to ../log/wekan-log.txt"
+echo "Note2: Console output is also logged to ../log/wekan-log.log"
 echo "Note3: All logs this script produces go into the ../log/ directory."
 
 # Give the Meteor build tool and Node processes a larger heap so long
@@ -801,9 +801,9 @@ do
 		ensure_rspack_public_dirs
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		# Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
+		# Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -813,8 +813,8 @@ do
 		ensure_rspack_public_dirs
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                # Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
+                # Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=8192" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -823,9 +823,9 @@ do
 		ensure_rspack_public_dirs
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
+		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee ../log/wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee ../log/wekan-log.log
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -841,9 +841,9 @@ do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
+		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -859,9 +859,9 @@ do
                 #---------------------------------------------------------------------
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                #Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
+                #Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
                 #WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.txt
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee ../log/wekan-log.log
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -877,9 +877,9 @@ do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.txt at end of this line: 2>&1 | tee ../log/wekan-log.txt
+		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee ../log/wekan-log.txt
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee ../log/wekan-log.log
 		#---------------------------------------------------------------------
 		break
 		;;

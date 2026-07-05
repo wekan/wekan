@@ -93,9 +93,13 @@ async function waitForMeteor(page) {
     () =>
       typeof Meteor !== 'undefined' &&
       typeof Meteor.subscribe !== 'undefined',
-    // Generous: the client bundle is large and slower browsers (Firefox/WebKit)
-    // under CI load can take a while to execute it even after globalSetup warms
-    // the server. See the globalSetup warm-up in global-setup.js.
+    // 2nd arg is the (unused) page-function argument; the timeout MUST be the
+    // 3rd arg. Passing { timeout } as the 2nd arg silently falls back to the
+    // config actionTimeout (15s), which is too short for WebKit-in-Docker under
+    // the full parallel "Run ALL tests" load. Generous: the client bundle is
+    // large and slower browsers can take a while to execute it even after
+    // globalSetup warms the server. See global-setup.js.
+    undefined,
     { timeout: 60_000 },
   );
 }
