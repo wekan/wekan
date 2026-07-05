@@ -129,6 +129,8 @@ and fixed the following bugs:
   Thanks to carl-unique and xet7.
 - [Card Settings popup options combined to same lines, and added more options](https://github.com/wekan/wekan/commit/1e7de6d776571846be6c966d4583f4710b5e0b0d).
   Thanks to xet7.
+- [Fix tests](https://github.com/wekan/wekan/commit/c48ecb1d88b3c2ba752c8f6ce7884743905d68fb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
