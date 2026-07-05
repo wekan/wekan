@@ -1496,6 +1496,12 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return getMinicardSetting(currentBoard, 'allowsChecklistsOnMinicard', 'allowsChecklists', true);
   },
+  // #6431: compact checklist count badge on minicard, opt-in and OFF by default.
+  allowsChecklistCountBadgeOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsChecklistCountBadgeOnMinicard : false;
+  },
   allowsAttachments() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -1789,6 +1795,11 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsChecklistsOnMinicard;
     Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistsOnMinicard: newValue } });
+  },
+  'click .js-field-has-checklist-count-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsChecklistCountBadgeOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistCountBadgeOnMinicard: newValue } });
   },
   'click .js-field-has-attachments'(evt, tpl) {
     evt.preventDefault();

@@ -144,6 +144,14 @@ Template.minicard.helpers({
     const board = this.board();
     return getMinicardFlag(board, 'allowsSubtasksOnMinicard', 'allowsSubtasks', true);
   },
+  // #6431: compact checklist item-count badge (finished/total) on the minicard.
+  // Opt-in, OFF by default. Only a cheap boolean read here; the actual checklist
+  // counting (checklistFinishedCount/checklistItemCount) is gated behind this in
+  // the template, so a board with the badge off spends no resources counting.
+  showChecklistCountBadge() {
+    const board = this.board();
+    return !!(board && board.allowsChecklistCountBadgeOnMinicard);
+  },
 
   hiddenMinicardLabelText() {
     const currentUser = ReactiveCache.getCurrentUser();

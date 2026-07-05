@@ -569,6 +569,17 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsChecklistCountBadgeOnMinicard: {
+      /**
+       * Does the board show the compact checklist item-count badge
+       * (finished/total, e.g. "0/156") on minicards? Issue #6431: opt-in and
+       * OFF by default so the (potentially expensive) checklist counting only
+       * runs when this is enabled in Card Settings > Show on Minicard.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsComments: {
       /**
        * Does the board allows comments?

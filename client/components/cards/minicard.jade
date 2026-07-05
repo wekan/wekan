@@ -215,6 +215,15 @@ template(name="minicard")
               i.fa.fa-globe
             span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
             //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
+      //- #6431: compact checklist item-count badge (finished/total). The outer
+        guard is a cheap boolean, so when the setting is off the checklist
+        counting below never runs.
+      if showChecklistCountBadge
+        if checklists.length
+          .badge(class="{{#if checklistFinished}}is-finished{{/if}}" title="{{_ 'checklists'}}")
+            span.badge-icon
+              i.fa.fa-check-square-o
+            span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
       if currentBoard.allowsCardSortingByNumber
         if currentBoard.allowsCardSortingByNumberOnMinicard
           .badge
