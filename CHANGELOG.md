@@ -131,6 +131,43 @@ and fixed the following bugs:
   Thanks to xet7.
 - [Fix tests](https://github.com/wekan/wekan/commit/c48ecb1d88b3c2ba752c8f6ce7884743905d68fb).
   Thanks to xet7.
+- **[Playwright E2E: fixed three cross-process-contention flakes in the parallel run](https://github.com/wekan/wekan/commit/f5a4ece29431fc5e3f72986f089a2089e90599ae).** The
+  Chromium / Firefox / WebKit browser jobs run as separate processes against ONE shared server + DB,
+  so specs that used fixed identifiers or global cleanups raced each other:
+  - `26-shared-templates.e2e.js` seeded a fixed email domain (`usera@acme-e2e.invalid`) in all three
+    browsers, hitting `E11000 duplicate key` on the unique `emails.address` index. Now uses a
+    unique-per-run token for the org / team / domain and template titles.
+  - `38-impersonation.e2e.js` cleaned up with a global
+    `deleteMany({ reason: 'clickedImpersonate' })` that deleted another browser's in-flight audit
+    record mid-poll. Scoped the cleanup to the test's own `adminId`.
+  - `32-org-team-feature-toggles.e2e.js` exercises `setAllOrgsFeature` / `setAllTeamsFeature`, which
+    do a global `updateMany({})` across every org / team, so two browsers clobbered each other's
+    rows. These browser-agnostic server-method tests now run in a single project (Chromium);
+    Firefox / WebKit skip them.
+  Thanks to xet7.
+- **[Server-side Mocha suite: fixed a startup crash and the 44 latent failures it had been hiding](https://github.com/wekan/wekan/commit/b9f9390d04d2d8aa27236132784ec448209f17ae).**
+  - `imports/i18n/i18n.test.js` crashed the whole run at load: `chai` 6.x plugins (`sinon-chai`,
+    `chai-as-promised`) are ESM-only, so `use(require('sinon-chai'))` handed `chai.use()` a module
+    namespace instead of the plugin function ("fn is not a function"). Now imports the default export.
+  - That unmasked a second load crash — `PositionHistory.helpers is not a function`: the
+    `meteor test` entry (`server/lib/tests/index.js`) never ran the `.helpers` / `.attachSchema` shim
+    that `server/main.js` bootstraps, so the first model to call `Collection.helpers({...})` threw.
+    The shim is now imported first in the test entry.
+  - With the suite finally running, 44 server tests failed because `meteor test` only loads what the
+    specs import (not the app's `/server/imports`). The specs now import the files that register the
+    methods / globals under test (`cards.vote` / `cards.pokerVote`, `api.attachment.*`, `cloneBoard`,
+    `getBackgroundImageURL`, `applyListWidth`, `updateListSort`, `moveChecklist`,
+    `userPositionHistory.*`, `archiveBoard`, `sendSMTPTestEmail`, and the `Attachments` global).
+    Also fixed genuine test bugs: the `cards.vote` / `cards.pokerVote` specs were written
+    synchronously against async methods; the header-login trust specs restored env vars with
+    `process.env.X = undefined` (which stores the string `"undefined"` and shadowed the trusted-IP
+    allowlist, making every trusted source read as untrusted); the DnsBleed decimal-loopback matcher
+    assumed the integer host survived URL normalisation; and the dependencies-OpenAPI spec could not
+    locate its source file from the built bundle. The two `cards.archive` / `cards.move` specs tested
+    Meteor methods that do not exist (archive / move are Minimongo document helpers secured by
+    `Cards.allow` / `Cards.deny`, already covered by the `cards security` tests) and were removed.
+    Server-side Mocha is now 409 passing, 0 failing.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
