@@ -113,6 +113,36 @@ This release adds the following fixes:
   Both paths share one pure helper (`resolveDefaultAuthenticationMethod`) that never resolves to an empty string.
   Thanks to joe-speedboat and xet7.
 
+- **[Fix #5808: linking a card to another linked card made both cards inaccessible](https://github.com/wekan/wekan/commit/fc7e91d7a92aa781503ab629ae26887f1bb4c291)**:
+  The "Link to this card" target picker only excluded template cards, so an existing **linked** card
+  (or a card that already links back to the current board) could be chosen as a link target. That
+  builds a chain/cycle of `linkedId` pointers, but the card helpers
+  (`getTitle`/`getBoardTitle`/`getRealId`) resolve `linkedId` only **one hop**, so such a card
+  renders as an empty/broken pointer and becomes effectively inaccessible (the reported freeze). As
+  the reporter suggested, the fix **prevents the configuration** rather than allowing it: only a real
+  card — not a linked card/linked board, not one of the linking board's own cards, and not a card
+  that links back to one of them — may now be a link target. This is enforced both in the picker's
+  query and re-checked at creation time (the options can be stale), via the pure
+  `isLinkableCardTarget` guard, mirroring the existing #3328 parent/subtask cycle guard. Note: this
+  stops new inaccessible links; any already-created ones still need manual cleanup.
+  Thanks to the reporter and xet7.
+
+- **[Fix the "Board not found" flicker (stale-while-revalidate for the client board cache)](https://github.com/wekan/wekan/commit/1b5397f7d460ffdff49b204f0e8fffc18af75f38)**:
+  While viewing a board, the board view could briefly flash the **"Board not found"** shell — and on
+  WebKit throw a Blaze `Can't select in removed DomRange` error tearing down the card view. Root
+  cause: the client board cache (`imports/lib/dataCache.js`) re-fetches its value inside a reactive
+  computation, and when the board doc is momentarily absent from minimongo (a subscription stops and
+  restarts, so Meteor transiently removes the doc) the re-fetch returns `undefined` and that empty
+  value is surfaced immediately. It self-recovers when the subscription re-delivers the doc, so it
+  presents as a flicker — reliably reproduced only on Firefox/WebKit, where the reactive-render
+  timing hits the window (Chromium did not, which is why it surfaced as browser-specific Playwright
+  failures in `14-voting-watchers` and `24-feature-issues`). Fixed with an opt-in
+  **stale-while-revalidate** mode on `DataCache`, enabled only for `getBoard`: a transient miss over
+  an already-cached board keeps the last value and re-checks after a short delay, surfacing an empty
+  result only if the board is still gone then (a genuine deletion / access loss). First-ever loads
+  and caches that did not opt in are unchanged. Core decision extracted to the pure
+  `shouldDeferCacheMiss` helper with unit tests.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.75 2026-07-05 WeKan ® release
