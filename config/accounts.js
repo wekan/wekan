@@ -1,9 +1,28 @@
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
+// Readiness-aware, reactive translation — mirrors the `{{_}}` Blaze helper
+// (imports/i18n/blaze.js). A bare TAPi18n.__() returns the raw key on the initial
+// (English) render because the language bundle loads asynchronously, and it never
+// re-runs once ready. Depending on TAPi18n.current / TAPi18n.ready makes the
+// account-form labels/placeholders re-render as soon as i18n is loaded and on every
+// language change.
+function tr(key) {
+  TAPi18n.current.get();
+  TAPi18n.ready.get();
+  if (!TAPi18n.i18n || !TAPi18n.ready.get()) {
+    return key;
+  }
+  return TAPi18n.__(key);
+}
+
 const passwordField = AccountsTemplates.removeField('password');
 passwordField.autocomplete = 'current-password';
 passwordField.template = 'passwordInput';
+// Translate the field label/placeholder via WeKan i18n — see the note below the
+// addFields() call. Set before re-adding the field so it is present when useraccounts
+// registers it.
+passwordField.displayName = () => tr('password');
 const emailField = AccountsTemplates.removeField('email');
 
 // Don't add current_password to global fields - it should only be used for change password
@@ -75,7 +94,7 @@ AccountsTemplates.addFields([
   {
     _id: 'password_again',
     type: 'password',
-    displayName: 'Password (again)',
+    displayName: () => tr('password-again'),
     required: true,
     minLength: 6,
     autocomplete: 'new-password',
@@ -90,6 +109,57 @@ AccountsTemplates.addFields([
     template: 'invitationCode',
   },
 ]);
+
+// The sign-in / register form field labels and placeholders were rendered through
+// accounts-t9n (`T9n.get`), whose per-language coverage is incomplete, and
+// useraccounts' `getPlaceholder()` never invokes a function placeholder (unlike
+// `getDisplayName()`) — so several placeholders (Username, Email, Password
+// (again)) and the Email / Password (again) labels showed untranslated English.
+// Translate the account-form fields through WeKan's own i18n (TAPi18n) instead,
+// which has complete data/<lang>.i18n.json coverage.
+//
+// Password fields (password, password_again) use WeKan's passwordInput template,
+// which renders {{displayName}} for both its label and its placeholder. Their
+// field-level displayName functions (set above / in addFields) are invoked both by
+// getDisplayName() and by Blaze, so they translate regardless of when useraccounts
+// wires up per-template helpers. Username / email use the atTextInput override below.
+if (Meteor.isClient) {
+  const { Template } = require('meteor/templating');
+  const { T9n } = require('meteor/communitypackages:core');
+  // Fields WeKan translates itself (complete data/<lang>.i18n.json coverage), keyed
+  // by field id. Other account-form text inputs — notably the sign-in combined
+  // "username_and_email" field and current_password — keep their built-in
+  // accounts-t9n translation, because WeKan has no key for them and accounts-t9n
+  // already ships one (e.g. "usernameOrEmail").
+  const WEKAN_FIELD_KEY = { username: 'username', email: 'email' };
+  function fieldText(field, original) {
+    TAPi18n.current.get();
+    TAPi18n.ready.get();
+    const key = WEKAN_FIELD_KEY[field._id];
+    if (key && TAPi18n.i18n && TAPi18n.ready.get()) {
+      const translated = TAPi18n.__(key);
+      if (translated !== key) {
+        return translated;
+      }
+    }
+    // Fall back to useraccounts' own accounts-t9n translation. The field's
+    // displayName/placeholder is an accounts-t9n key (e.g. "usernameOrEmail").
+    return T9n.get(original, false);
+  }
+  // The unstyled package registers these helpers on Template.atTextInput at load
+  // time, so this app-startup override wins.
+  Template.atTextInput.helpers({
+    displayName() {
+      return fieldText(this, this.getDisplayName());
+    },
+    placeholder() {
+      if (!AccountsTemplates.options.showPlaceholders) {
+        return undefined;
+      }
+      return fieldText(this, this.getPlaceholder());
+    },
+  });
+}
 
 AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
