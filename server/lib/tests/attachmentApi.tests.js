@@ -8,6 +8,9 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
+// Register the api.attachment.* Meteor methods under test (the meteor-test entry
+// does not load app server code the way server/main.js → /server/imports does).
+import '/server/attachmentApi';
 
 describe('attachmentApi authentication', function() {
   let findOneStub, hashStub;

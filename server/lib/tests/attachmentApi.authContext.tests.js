@@ -15,6 +15,7 @@ describe('attachmentApi auth context', function () {
     HEADER_LOGIN_EMAIL: process.env.HEADER_LOGIN_EMAIL,
     HEADER_LOGIN_TRUSTED_IPS: process.env.HEADER_LOGIN_TRUSTED_IPS,
     HEADER_LOGIN_TRUSTED_IP: process.env.HEADER_LOGIN_TRUSTED_IP,
+    HEADER_LOGIN_TRUSTED_PROXIES: process.env.HEADER_LOGIN_TRUSTED_PROXIES,
   };
 
   afterEach(function () {
@@ -27,10 +28,16 @@ describe('attachmentApi auth context', function () {
       hashTokenStub = null;
     }
 
-    process.env.HEADER_LOGIN_ID = envBackup.HEADER_LOGIN_ID;
-    process.env.HEADER_LOGIN_EMAIL = envBackup.HEADER_LOGIN_EMAIL;
-    process.env.HEADER_LOGIN_TRUSTED_IPS = envBackup.HEADER_LOGIN_TRUSTED_IPS;
-    process.env.HEADER_LOGIN_TRUSTED_IP = envBackup.HEADER_LOGIN_TRUSTED_IP;
+    // Delete when the backup is undefined: `process.env.X = undefined` stores the
+    // truthy STRING "undefined", which then shadows the real value on the next
+    // test (isTrustedHeaderLoginSource checks TRUSTED_IP before TRUSTED_IPS).
+    for (const key of Object.keys(envBackup)) {
+      if (envBackup[key] === undefined) {
+        delete process.env[key];
+      } else {
+        process.env[key] = envBackup[key];
+      }
+    }
   });
 
   it('prefers req.userId when accounts-express already authenticated the request', async function () {
@@ -42,6 +49,10 @@ describe('attachmentApi auth context', function () {
     process.env.HEADER_LOGIN_ID = 'x-auth-user';
     process.env.HEADER_LOGIN_EMAIL = 'x-auth-email';
     process.env.HEADER_LOGIN_TRUSTED_IPS = '10.1.1.1';
+    // The request arrives via the local reverse proxy (socket peer 127.0.0.1),
+    // which must be an allowlisted proxy for the X-Forwarded-For client IP to be
+    // honoured (GHSA-jggc-qvfc-jr6x: XFF is ignored from non-proxy peers).
+    process.env.HEADER_LOGIN_TRUSTED_PROXIES = '127.0.0.1';
 
     findOneAsyncStub = sinon.stub(Meteor.users, 'findOneAsync');
     findOneAsyncStub.onFirstCall().resolves({ _id: 'header-user-id' });

@@ -1,10 +1,15 @@
 import { Tracker } from 'meteor/tracker';
 import { use, expect } from 'chai';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import chaiAsPromised from 'chai-as-promised';
 import { TAPi18n } from './tap';
 
-use(require('sinon-chai'));
-use(require('chai-as-promised'));
+// sinon-chai and chai-as-promised are ESM-only (chai 6.x); require() would hand
+// chai.use() the module namespace ({ default: fn }) instead of the plugin
+// function and throw "fn is not a function". Import the default export directly.
+use(sinonChai);
+use(chaiAsPromised);
 
 describe('TAPi18n', () => {
 

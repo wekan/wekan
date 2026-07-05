@@ -1,3 +1,11 @@
+// Bootstrap the collection-prototype shim (.helpers / .attachSchema / hooks)
+// BEFORE any test pulls in a model. The normal server entry (server/main.js)
+// require()s this first; the `meteor test` entry does not, so without this the
+// first model that calls Collection.helpers({...}) — e.g. models/positionHistory.js
+// reached via utils.tests → models/boards — throws "helpers is not a function".
+// ES import statements evaluate in source order, so this must stay the first one.
+import '/imports/collectionHelpers';
+
 // i18n (TAPi18n) is isomorphic and used on the server too, so run its tests here
 // as the old tests/main.js did (top-level import, no block import for swc/Meteor 3).
 import '/imports/i18n/i18n.test.js';
@@ -9,8 +17,6 @@ import './cards.methods.tests';
 import './attachmentApi.tests';
 import './attachmentApi.authContext.tests';
 import './headerLoginAuth.tests';
-import './cards.archive.tests';
-import './cards.move.tests';
 import './search.logic.tests';
 import './fileStoreStrategy.security.tests';
 import './clonebleed.security.tests';

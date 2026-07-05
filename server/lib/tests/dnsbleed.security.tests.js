@@ -187,7 +187,14 @@ describe('DnsBleed SSRF guard (GHSA-66m2-4wfr-c45p)', function () {
 
     it('rejects decimal-integer-encoded loopback (http://2130706433)', async function () {
       const spy = sinon.stub(dns.promises, 'lookup');
-      await expectReject(fetchSafe('http://2130706433/'), /decodes to blocked 127\.0\.0\.1/);
+      // Either block path is correct: the WHATWG URL parser normalises the
+      // integer host 2130706433 to 127.0.0.1, so the dotted-quad guard blocks it
+      // ("Blocked IP in URL: 127.0.0.1"); if a parser leaves it integer-encoded,
+      // the guard's own decimal decoder blocks it ("decodes to blocked 127.0.0.1").
+      await expectReject(
+        fetchSafe('http://2130706433/'),
+        /(decodes to blocked|Blocked IP in URL:)\s*127\.0\.0\.1/,
+      );
       expect(spy.called).to.equal(false);
     });
 

@@ -5,6 +5,13 @@ import path from 'path';
 import { expect } from 'chai';
 import { Random } from 'meteor/random';
 import { FileStoreStrategyFilesystem } from '/models/lib/fileStoreStrategy';
+import Attachments from '/models/attachments';
+
+// FileStoreStrategyFilesystem falls back to a bare global `Attachments` when no
+// collection is passed (models/lib/fileStoreStrategy.js). The app exposes model
+// collections as globals; the meteor-test module scope does not, so define it
+// here to avoid a ReferenceError when constructing the strategy.
+globalThis.Attachments = globalThis.Attachments || Attachments;
 
 function readStreamToString(stream) {
   return new Promise((resolve, reject) => {

@@ -35,13 +35,19 @@ describe('header login auth helpers', function () {
       insertUserDocStub = null;
     }
 
-    process.env.HEADER_LOGIN_ID = envBackup.HEADER_LOGIN_ID;
-    process.env.HEADER_LOGIN_EMAIL = envBackup.HEADER_LOGIN_EMAIL;
-    process.env.HEADER_LOGIN_FIRSTNAME = envBackup.HEADER_LOGIN_FIRSTNAME;
-    process.env.HEADER_LOGIN_LASTNAME = envBackup.HEADER_LOGIN_LASTNAME;
-    process.env.HEADER_LOGIN_TRUSTED_IP = envBackup.HEADER_LOGIN_TRUSTED_IP;
-    process.env.HEADER_LOGIN_TRUSTED_IPS = envBackup.HEADER_LOGIN_TRUSTED_IPS;
-    process.env.HEADER_LOGIN_TRUSTED_PROXIES = envBackup.HEADER_LOGIN_TRUSTED_PROXIES;
+    // Restore env vars. IMPORTANT: assigning `process.env.X = undefined` stores
+    // the STRING "undefined" (process.env coerces to string), which is truthy —
+    // and isTrustedHeaderLoginSource checks HEADER_LOGIN_TRUSTED_IP first
+    // (`TRUSTED_IP || TRUSTED_IPS`), so a leaked "undefined" shadowed the plural
+    // var later tests set and made every trusted source read as untrusted. Delete
+    // the var instead of stringifying undefined.
+    for (const key of Object.keys(envBackup)) {
+      if (envBackup[key] === undefined) {
+        delete process.env[key];
+      } else {
+        process.env[key] = envBackup[key];
+      }
+    }
   });
 
   it('reads mapped header name case-insensitively', function () {

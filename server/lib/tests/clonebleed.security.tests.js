@@ -6,6 +6,14 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Boards from '/models/boards';
 import Lists from '/models/lists';
 import { Exporter } from '/models/exporter';
+// Register the Meteor methods under test. The meteor-test entry only loads what
+// test files import; the app registers these via server/main.js → /server/imports.
+import '/models/import';            // cloneBoard
+import '/server/models/boards';     // getBackgroundImageURL
+import '/server/models/users';      // applyListWidth
+import '/server/models/lists';      // updateListSort
+import '/server/models/checklists'; // moveChecklist
+import '/server/models/userPositionHistory'; // userPositionHistory.*
 
 // Regression tests for the CloneBleed group of authorization fixes:
 // server-side methods whose access checks were missing or silently never ran.
@@ -126,9 +134,22 @@ describe('CloneBleed authorization', function() {
 
   describe('updateListSort (server/models/lists.js)', function() {
     const handler = () => Meteor.server.method_handlers['updateListSort'];
-    const writeMember = (userId) => ({
-      members: [{ userId, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isReadOnly: false, isReadAssignedOnly: false }],
-    });
+    // updateListSort gates on hasBoardWriteAccess, which (when the optional
+    // allowIsBoardMemberWithWriteAccess helper is not present) calls board
+    // predicate methods — so the mock must expose them, not just a members array.
+    const writeMember = (userId) => {
+      const members = [{ userId, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isReadOnly: false, isReadAssignedOnly: false }];
+      const flag = (id, key) => { const m = members.find(x => x.userId === id); return !!(m && m[key]); };
+      return {
+        members,
+        hasMember: id => members.some(m => m.userId === id && m.isActive),
+        hasNoComments: id => flag(id, 'isNoComments'),
+        hasCommentOnly: id => flag(id, 'isCommentOnly'),
+        hasWorker: id => flag(id, 'isWorker'),
+        hasReadOnly: id => flag(id, 'isReadOnly'),
+        hasReadAssignedOnly: id => flag(id, 'isReadAssignedOnly'),
+      };
+    };
 
     it('denies anonymous callers', async function() {
       let thrown;

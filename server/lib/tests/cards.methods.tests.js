@@ -4,6 +4,10 @@ import sinon from 'sinon';
 import { Meteor } from 'meteor/meteor';
 import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
+// The `meteor test` entry only loads what test files import; the app registers
+// these Meteor methods via server/main.js → /server/imports. Load the file that
+// registers cards.vote / cards.pokerVote so their handlers exist.
+import '/server/models/cards';
 
 // Helpers to access method handlers
 const voteHandler = () => Meteor.server.method_handlers['cards.vote'];
@@ -17,8 +21,9 @@ describe('cards methods security', function() {
   let updateStub;
 
   beforeEach(function() {
-    // Stub collection update to capture modifiers
-    updateStub = sinon.stub(Cards, 'update').returns(1);
+    // The cards.vote / cards.pokerVote methods persist via Cards.updateAsync
+    // (async server API), so stub that to capture modifiers.
+    updateStub = sinon.stub(Cards, 'updateAsync').resolves(1);
   });
 
   afterEach(function() {
@@ -28,7 +33,7 @@ describe('cards methods security', function() {
   });
 
   describe('cards.vote', function() {
-    it('denies non-member when allowNonBoardMembers=false', function() {
+    it('denies non-member when allowNonBoardMembers=false', async function() {
       const cardId = 'card1';
       const callerId = 'user-nonmember';
       const board = { hasMember: id => id === 'someone-else' };
@@ -37,12 +42,17 @@ describe('cards methods security', function() {
       ReactiveCache.getCard = () => card;
       ReactiveCache.getBoard = () => board;
 
-      const callMethod = () => voteHandler().call({ userId: callerId }, cardId, true);
-      expect(callMethod).to.throw();
+      let thrown;
+      try {
+        await voteHandler().call({ userId: callerId }, cardId, true);
+      } catch (error) {
+        thrown = error;
+      }
+      expect(thrown).to.exist;
       expect(updateStub.called).to.equal(false);
     });
 
-    it('allows non-member only for own userId when allowNonBoardMembers=true', function() {
+    it('allows non-member only for own userId when allowNonBoardMembers=true', async function() {
       const cardId = 'card2';
       const callerId = 'user-guest';
       const board = { hasMember: id => id === 'someone-else' };
@@ -51,7 +61,7 @@ describe('cards methods security', function() {
       ReactiveCache.getCard = () => card;
       ReactiveCache.getBoard = () => board;
 
-      voteHandler().call({ userId: callerId }, cardId, true);
+      await voteHandler().call({ userId: callerId }, cardId, true);
 
       expect(updateStub.calledOnce).to.equal(true);
       const [, modifier] = updateStub.getCall(0).args;
@@ -61,7 +71,7 @@ describe('cards methods security', function() {
       expect(modifier.$set.dateLastActivity).to.be.instanceOf(Date);
     });
 
-    it('ensures member votes only affect caller userId', function() {
+    it('ensures member votes only affect caller userId', async function() {
       const cardId = 'card3';
       const callerId = 'member1';
       const otherId = 'member2';
@@ -71,7 +81,7 @@ describe('cards methods security', function() {
       ReactiveCache.getCard = () => card;
       ReactiveCache.getBoard = () => board;
 
-      voteHandler().call({ userId: callerId }, cardId, true);
+      await voteHandler().call({ userId: callerId }, cardId, true);
 
       expect(updateStub.calledOnce).to.equal(true);
       const [, modifier] = updateStub.getCall(0).args;
@@ -82,7 +92,7 @@ describe('cards methods security', function() {
   });
 
   describe('cards.pokerVote', function() {
-    it('denies non-member when allowNonBoardMembers=false', function() {
+    it('denies non-member when allowNonBoardMembers=false', async function() {
       const cardId = 'card4';
       const callerId = 'nm';
       const board = { hasMember: id => id === 'someone-else' };
@@ -91,21 +101,36 @@ describe('cards methods security', function() {
       ReactiveCache.getCard = () => card;
       ReactiveCache.getBoard = () => board;
 
-      const callMethod = () => pokerVoteHandler().call({ userId: callerId }, cardId, 'five');
-      expect(callMethod).to.throw();
+      let thrown;
+      try {
+        await pokerVoteHandler().call({ userId: callerId }, cardId, 'five');
+      } catch (error) {
+        thrown = error;
+      }
+      expect(thrown).to.exist;
       expect(updateStub.called).to.equal(false);
     });
 
-    it('allows non-member only for own userId when allowNonBoardMembers=true', function() {
+    it('allows non-member only for own userId when allowNonBoardMembers=true', async function() {
       const cardId = 'card5';
       const callerId = 'guest';
       const board = { hasMember: id => id === 'someone-else' };
-      const card = { _id: cardId, boardId: 'board5', poker: { allowNonBoardMembers: true } };
+      // cards.pokerVote delegates modifier-building to the card's setPoker helper,
+      // then adds modifiedAt/dateLastActivity before Cards.updateAsync.
+      const card = {
+        _id: cardId,
+        boardId: 'board5',
+        poker: { allowNonBoardMembers: true },
+        setPoker: (userId, state) => ({
+          $addToSet: { [`poker.${state}`]: userId },
+          $pull: { 'poker.one': userId },
+        }),
+      };
 
       ReactiveCache.getCard = () => card;
       ReactiveCache.getBoard = () => board;
 
-      pokerVoteHandler().call({ userId: callerId }, cardId, 'eight');
+      await pokerVoteHandler().call({ userId: callerId }, cardId, 'eight');
 
       expect(updateStub.calledOnce).to.equal(true);
       const [, modifier] = updateStub.getCall(0).args;

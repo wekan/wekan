@@ -4,6 +4,10 @@ import sinon from 'sinon';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { allowIsAnyBoardMemberWithWriteAccess } from '/server/lib/utils';
+// Register the Meteor methods under test (meteor-test loads only what tests
+// import; the app registers these via server/main.js → /server/imports).
+import '/server/models/boards';   // archiveBoard
+import '/server/models/settings'; // sendSMTPTestEmail
 
 // Tests that client-side permission gates are also enforced server-side.
 // See the "client-side permissions verified server-side" audit.
