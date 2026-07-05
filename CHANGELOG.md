@@ -45,7 +45,7 @@ them up next.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [DnsBleed](https://wekan.fi/hall-of-fame/dnsbleed/):
 
-- **DnsBleed — SSRF filter bypass via DNS-resolving hostname in outgoing webhooks**
+- **[DnsBleed](https://github.com/wekan/wekan/commit/ef845fe4a0adb82af436313310939cd48c0b1347) — SSRF filter bypass via DNS-resolving hostname in outgoing webhooks**
   ([GHSA-66m2-4wfr-c45p](https://github.com/wekan/wekan/security/advisories/GHSA-66m2-4wfr-c45p), CWE-918).
   Incomplete-fix follow-up to [WebhookBleed](https://wekan.fi/hall-of-fame/webhookbleed/)
   ([GHSA-hc3x-hq3m-663q](https://github.com/wekan/wekan/security/advisories/GHSA-hc3x-hq3m-663q)) and
@@ -75,7 +75,10 @@ This release fixes the following CRITICAL SECURITY ISSUE of [DnsBleed](https://w
     is documented in code as a non-authoritative first-line UI check only.
   - Affected Wekan v8.36 and later (input-side string validator); the delivery-time SSRF boundary has
     been in place since v8.35/v8.36 (IntegrationBleed) and v9.32 (WebhookBleed). Reported by
-    **4n207**. Thanks to 4n207 and xet7!
+    **4n207**.
+  Thanks to 4n207 and xet7!
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.73 2026-06-26 WeKan ® release
 
