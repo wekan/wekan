@@ -21,110 +21,99 @@ import net from 'net';
 import http from 'http';
 import https from 'https';
 import { URL } from 'url';
+import { isIpBlocked } from '/models/lib/attachmentUrlValidation';
 
 // dns/promises is only a standalone sub-path from Node 15+; use dns.promises
 // for compatibility with the Node 14 runtime bundled in Meteor 2.x.
 const dnsPromises = dns.promises;
 
 // ─── Blocked-range helpers ────────────────────────────────────────────────────
+//
+// The authoritative block-list lives in models/lib/attachmentUrlValidation.js
+// (`isIpBlocked`) and is shared by both the input-time validator and this
+// delivery-time guard so the two can never drift apart. The two functions below
+// are kept only as backward-compatible, family-specific wrappers over that
+// single source of truth — do NOT reintroduce a private range list here.
 
 /**
  * Returns true if the IPv4 address belongs to a range that must never be
- * contacted from a server-side outgoing request.
+ * contacted from a server-side outgoing request. Thin wrapper over the shared
+ * `isIpBlocked`.
  *
  * @param {string} addr  Dotted-decimal IPv4 string, e.g. "192.168.1.1"
  * @returns {boolean}
  */
 export function isBlockedIPv4(addr) {
-  const blockedPatterns = [
-    /^127\./,                       // 127.0.0.0/8  — loopback
-    /^10\./,                        // 10.0.0.0/8   — private (RFC 1918)
-    /^172\.(1[6-9]|2\d|3[01])\./,  // 172.16.0.0/12 — private (RFC 1918)
-    /^192\.168\./,                  // 192.168.0.0/16 — private (RFC 1918)
-    /^0\./,                         // 0.0.0.0/8    — current network
-    /^169\.254\./,                  // 169.254.0.0/16 — link-local / AWS metadata
-    /^100\.(6[4-9]|[7-9]\d|1[01]\d|12[0-7])\./,  // 100.64.0.0/10 — shared address (RFC 6598)
-    /^192\.0\.0\./,                 // 192.0.0.0/24 — IETF protocol assignments
-    /^198\.18\./,                   // 198.18.0.0/15 — benchmarking
-    /^198\.19\./,                   // 198.18.0.0/15 — benchmarking (odd octet)
-    /^224\./,                       // 224.0.0.0/4  — multicast
-    /^240\./,                       // 240.0.0.0/4  — reserved
-    /^255\.255\.255\.255$/,         // broadcast
-  ];
-  return blockedPatterns.some(p => p.test(addr));
+  return net.isIPv4(addr) ? isIpBlocked(addr) : true;
 }
 
 /**
  * Returns true if the IPv6 address belongs to a range that must never be
- * contacted from a server-side outgoing request.
+ * contacted from a server-side outgoing request. Thin wrapper over the shared
+ * `isIpBlocked`.
  *
  * @param {string} addr  IPv6 string without surrounding brackets
  * @returns {boolean}
  */
 export function isBlockedIPv6(addr) {
-  const lower = addr.toLowerCase();
-  const blockedPatterns = [
-    /^::1$/,          // ::1/128 — loopback
-    /^::$/,           // unspecified address
-    /^fe80:/,         // fe80::/10 — link-local
-    /^fc00:/,         // fc00::/7  — unique local (fc)
-    /^fd/,            // fc00::/7  — unique local (fd)
-    /^64:ff9b:/,      // 64:ff9b::/96 — IPv4-mapped
-    /^::ffff:/,       // ::ffff:0:0/96 — IPv4-mapped loopback potential
-    /^2001:db8:/,     // 2001:db8::/32 — documentation
-    /^100::/,         // 100::/64 — discard (RFC 6666)
-  ];
-  return blockedPatterns.some(p => p.test(lower));
+  return net.isIPv6(addr) ? isIpBlocked(addr) : true;
 }
 
 // ─── DNS resolve + validate ───────────────────────────────────────────────────
 
 /**
  * Resolve the hostname exactly once, validate every returned IP against the
- * block-list, and return the first safe address.
+ * block-list, and return a single safe address to pin the connection to.
  *
  * If the caller already passed a raw IP (no DNS needed) it is validated and
  * returned directly.
  *
+ * Resolution goes through `dns.lookup({ all: true })` so BOTH address families
+ * (A + AAAA) are returned and checked — the same resolver call the input-time
+ * validator uses (models/lib/attachmentUrlValidation.js). The previous
+ * implementation resolved only A records (`dns.resolve4`), which left the
+ * delivery layer blind to AAAA: an IPv6-only internal target was merely
+ * fail-closed and legitimate IPv6 endpoints were unreachable. Validating with
+ * the shared `isIpBlocked` also keeps this block-list from drifting out of sync
+ * with the input-side one (root cause of GHSA-66m2-4wfr-c45p / DnsBleed).
+ *
  * @param {string} hostname
- * @returns {Promise<string>}  The pinned IPv4 address to dial
+ * @returns {Promise<string>}  The validated IP address to dial
  */
 async function resolveAndPin(hostname) {
-  if (net.isIPv4(hostname)) {
-    if (isBlockedIPv4(hostname)) {
-      throw new Error(`SSRF_GUARD: Blocked IPv4 in URL: ${hostname}`);
+  // Raw IP literal in the URL — validate directly, no DNS. IPv6 literals arrive
+  // bracketed from URL.hostname (e.g. "[::1]"), so strip brackets before the
+  // net.isIP() check. For a real hostname this is a no-op.
+  const cleanHost = hostname.replace(/^\[|\]$/g, '');
+  if (net.isIP(cleanHost)) {
+    if (isIpBlocked(cleanHost)) {
+      throw new Error(`SSRF_GUARD: Blocked IP in URL: ${cleanHost}`);
     }
-    return hostname;
+    return cleanHost;
   }
 
-  if (net.isIPv6(hostname)) {
-    // The URL class strips brackets, e.g. "[::1]" becomes "::1"
-    const cleanIp = hostname.replace(/^\[|\]$/g, '');
-    if (isBlockedIPv6(cleanIp)) {
-      throw new Error(`SSRF_GUARD: Blocked IPv6 in URL: ${cleanIp}`);
-    }
-    return cleanIp;
-  }
-
-  // Perform a single DNS A-record lookup and check every returned address.
-  let addresses;
+  // Resolve both address families once, then check every returned address.
+  let results;
   try {
-    addresses = await dnsPromises.resolve4(hostname);
+    results = await dnsPromises.lookup(cleanHost, { all: true });
   } catch (e) {
-    throw new Error(`SSRF_GUARD: DNS resolution failed for: ${hostname}`);
+    throw new Error(`SSRF_GUARD: DNS resolution failed for: ${cleanHost}`);
   }
 
-  if (!addresses || addresses.length === 0) {
-    throw new Error(`SSRF_GUARD: No DNS A-records returned for: ${hostname}`);
+  const addresses = (results || []).map(r => r.address);
+  if (addresses.length === 0) {
+    throw new Error(`SSRF_GUARD: No DNS records returned for: ${hostname}`);
   }
 
   for (const addr of addresses) {
-    if (isBlockedIPv4(addr)) {
-      throw new Error(`SSRF_GUARD: Blocked IPv4 ${addr} resolved for ${hostname}`);
+    if (isIpBlocked(addr)) {
+      throw new Error(`SSRF_GUARD: Blocked IP ${addr} resolved for ${hostname}`);
     }
   }
 
-  return addresses[0];
+  // Prefer an IPv4 address to pin/dial (widest compatibility); fall back to the
+  // first validated address for IPv6-only endpoints.
+  return addresses.find(a => net.isIPv4(a)) || addresses[0];
 }
 
 // ─── Public API ───────────────────────────────────────────────────────────────
@@ -160,19 +149,17 @@ export async function fetchSafe(rawUrl, options = {}) {
   const hostname = parsed.hostname;
 
   // Step 2 — reject raw private IPs directly in the URL
-  // (buildPinnedAgent also checks, but doing it here gives a clearer error
-  //  before we even attempt DNS)
-  if (net.isIPv4(hostname) && isBlockedIPv4(hostname)) {
-    throw new Error(`SSRF_GUARD: Blocked IPv4 in URL: ${hostname}`);
-  }
-  if (net.isIPv6(hostname)) {
-    const cleanIp = hostname.replace(/^\[|\]$/g, '');
-    if (isBlockedIPv6(cleanIp)) {
-      throw new Error(`SSRF_GUARD: Blocked IPv6 in URL: ${cleanIp}`);
-    }
+  // (resolveAndPin also checks, but doing it here gives a clearer error
+  //  before we even attempt DNS). IPv6 literals arrive bracketed from
+  //  URL.hostname, so strip brackets before the net.isIP() check.
+  const cleanHost = hostname.replace(/^\[|\]$/g, '');
+  if (net.isIP(cleanHost) && isIpBlocked(cleanHost)) {
+    throw new Error(`SSRF_GUARD: Blocked IP in URL: ${cleanHost}`);
   }
 
-  // Step 3 — detect decimal / octal / hex integer IP notation
+  // Step 3 — detect decimal integer IP notation, e.g. http://2130706433
+  // (dns.lookup below can also decode this via getaddrinfo, but an explicit,
+  //  deterministic reject here does not depend on resolver behaviour)
   if (/^\d+$/.test(hostname)) {
     const num = parseInt(hostname, 10);
     if (num >= 0 && num <= 0xffffffff) {
@@ -182,7 +169,7 @@ export async function fetchSafe(rawUrl, options = {}) {
         (num >>> 8)  & 0xff,
         num          & 0xff,
       ].join('.');
-      if (isBlockedIPv4(decoded)) {
+      if (isIpBlocked(decoded)) {
         throw new Error(
           `SSRF_GUARD: Decimal IP ${hostname} decodes to blocked ${decoded}`,
         );

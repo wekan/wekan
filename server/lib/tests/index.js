@@ -41,3 +41,4 @@ import './subtaskCreation.tests';
 import './deleteWebhookActivity.tests';
 import './webhookNonBlocking.tests';
 import './apiResponseHelpers.tests';
+import './dnsbleed.security.tests';

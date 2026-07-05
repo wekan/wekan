@@ -83,7 +83,7 @@ function isIpv6Blocked(ip) {
   return false;
 }
 
-function isIpBlocked(ip) {
+export function isIpBlocked(ip) {
   if (!netModule) {
     return false;
   }

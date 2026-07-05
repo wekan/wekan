@@ -42,10 +42,22 @@ Integrations.attachSchema(
       type: String,
     },
     url: {
-      // URL validation with SSRF protection
       /**
-       * URL validation regex (https://mathiasbynens.be/demo/url-regex)
-       * Includes validation to block private/loopback addresses and ensure safe protocols
+       * First-line, NON-AUTHORITATIVE SSRF check.
+       *
+       * This validator runs synchronously (isomorphically) and therefore CANNOT
+       * resolve DNS. It only rejects the obvious cases (bad protocol, literal
+       * private/loopback IPs, localhost) to give quick feedback in the UI. It is
+       * trivially bypassed by a public hostname that resolves to an internal IP
+       * (e.g. 169-254-169-254.nip.io), so it MUST NOT be relied on as the SSRF
+       * boundary — that was the root cause of GHSA-66m2-4wfr-c45p (DnsBleed).
+       *
+       * The authoritative, DNS-aware checks live server-side and validate the
+       * RESOLVED IP of every address family:
+       *   - input time: validateAttachmentUrl() at the REST write paths
+       *     (server/models/integrations.js POST/PUT), and
+       *   - delivery time: fetchSafe() (server/lib/ssrfGuard.js), which resolves
+       *     once, pins the connection to the validated IP and blocks redirects.
        */
       type: String,
       custom() {

@@ -41,6 +41,42 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUE of [DnsBleed](https://wekan.fi/hall-of-fame/dnsbleed/):
+
+- **DnsBleed — SSRF filter bypass via DNS-resolving hostname in outgoing webhooks**
+  ([GHSA-66m2-4wfr-c45p](https://github.com/wekan/wekan/security/advisories/GHSA-66m2-4wfr-c45p), CWE-918).
+  Incomplete-fix follow-up to [WebhookBleed](https://wekan.fi/hall-of-fame/webhookbleed/)
+  ([GHSA-hc3x-hq3m-663q](https://github.com/wekan/wekan/security/advisories/GHSA-hc3x-hq3m-663q)) and
+  [IntegrationBleed / RebindBleed](https://wekan.fi/hall-of-fame/integrationbleed/).
+  The synchronous URL validator on outgoing-webhook (board **Integrations**) URLs in
+  `models/integrations.js` blocks private/loopback/link-local IPs by regex-matching the URL
+  **hostname string** and never resolves DNS. A public hostname that resolves to a blocked address —
+  e.g. `169-254-169-254.nip.io` → `169.254.169.254` (cloud metadata), `127-0-0-1.nip.io` → `127.0.0.1`,
+  or any attacker-controlled domain with an A/AAAA record pointing at an internal IP — passes that
+  string blocklist. The report notes the underlying weakness: **string matching is not an SSRF
+  boundary** because it can't see the resolved IP.
+  - **The reported PoC was already blocked at delivery** by the earlier RebindBleed fix: outgoing
+    webhooks are sent through `fetchSafe` (`server/lib/ssrfGuard.js`), which resolves the hostname,
+    validates the resolved IP, pins the connection to it and blocks redirects — so
+    `169-254-169-254.nip.io` is rejected before any request is made. The REST write paths
+    (`POST`/`PUT /api/boards/:boardId/integrations`) were likewise already hardened in WebhookBleed to
+    run the DNS-aware `validateAttachmentUrl()` at input time.
+  - **This release completes the fix and removes the drift risk the advisory points at.** The
+    delivery guard previously resolved only IPv4 A-records (`dns.resolve4`), leaving it blind to AAAA
+    (an IPv6-only internal target was merely fail-closed, and legitimate IPv6 webhooks were
+    unreachable) and keeping a *second, less-complete* private-range block-list that could drift out
+    of sync with the input-time one. `fetchSafe` now resolves **both address families** via
+    `dns.lookup({ all: true })` — the same resolver call the input validator uses — and validates
+    every resolved IP through the single shared `isIpBlocked` block-list in
+    `models/lib/attachmentUrlValidation.js`. The three previously-separate block-lists (schema regex,
+    delivery guard, input validator) are now one source of truth, and the schema-level `url` validator
+    is documented in code as a non-authoritative first-line UI check only.
+  - Affected Wekan v8.36 and later (input-side string validator); the delivery-time SSRF boundary has
+    been in place since v8.35/v8.36 (IntegrationBleed) and v9.32 (WebhookBleed). Reported by
+    **4n207**. Thanks to 4n207 and xet7!
+
 # v9.73 2026-06-26 WeKan ® release
 
 This release fixes the following bugs:
