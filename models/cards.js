@@ -2496,10 +2496,18 @@ Cards.helpers({
       sort: this.sort,
     };
 
-    const mutatedFields = { boardId, swimlaneId, listId };
+    // #6430: only write the fields that actually change. Writing boardId on a
+    // same-board move (drag to another list) needlessly triggered the cross-board
+    // after/before hooks (checklist boardId re-sync multi-updates, consistency
+    // guard, denyCrossBoardMove DB lookup) and extra reactive invalidations,
+    // contributing to a ~1s card flicker on large boards. See lib/cardMoveModifier.
+    const { computeCardMoveModifier } = require('./lib/cardMoveModifier');
+    const mutatedFields = computeCardMoveModifier(this, { boardId, swimlaneId, listId, sort });
 
-    if (sort !== null) {
-      mutatedFields.sort = sort;
+    // A true no-op (e.g. a card dropped back in the same place) — skip the write
+    // so it does not run the move hooks/activities or trigger a reactive re-render.
+    if (Object.keys(mutatedFields).length === 0) {
+      return;
     }
 
     if (this.boardId !== boardId) {

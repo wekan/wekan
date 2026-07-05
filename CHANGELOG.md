@@ -81,6 +81,21 @@ This release adds the following fixes:
   duplicates; boards that already accumulated thousands still need a one-off cleanup.
   Thanks to brlin-tw and xet7.
 
+- **[Reduce card flicker on drag by only writing changed fields on a card move](https://github.com/wekan/wekan/issues/6430)** (#6430):
+  `Card.move()` wrote `boardId`/`swimlaneId`/`listId` into the update unconditionally, even for a
+  same-board drag to another list (the reported case). Keeping `boardId` in the `$set` on every drag
+  re-ran the `boardId`-gated `Cards.after.update` hook that re-syncs the card's checklists and
+  checklist items via `multi` updates, ran the cross-board consistency guard and the
+  `denyCrossBoardMove` deny-rule DB lookup, and invalidated more reactive dependents than
+  necessary — server work and reactivity churn that contributed to a ~1s card flicker on large
+  boards. `Card.move()` now writes **only the fields that actually change** (via the pure
+  `computeCardMoveModifier` helper) and skips the write entirely when a card is dropped back in the
+  same place, so a same-board move no longer touches boardId or the cross-board hooks. The
+  `moveCard`/`moveCardBoard` activity generators already re-check `doc.X !== oldX`, so trimming the
+  modifier does not drop any activity. Note: this reduces the drag-time work behind the flicker; the
+  residual reactive re-render cost on very large boards is a separate performance topic.
+  Thanks to mimZD and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.75 2026-07-05 WeKan ® release
