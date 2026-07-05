@@ -250,7 +250,7 @@ function run_pw_all_browser(){
 
 # Run Chromium, Firefox and WebKit suites concurrently against a WeKan server
 # that is already running on http://localhost:3000 (menu option 3). Each suite
-# streams to ../log/wekan-playwright-<browser>.log; once all finish we print each
+# streams to $RUN_LOGDIR/wekan-playwright-<browser>.log; once all finish we print each
 # log followed by a per-browser PASS/FAIL summary. Tests seed their own random
 # users/boards and clean up by id, so running the three browsers at once is safe.
 function run_playwright_parallel(){
@@ -267,17 +267,24 @@ function run_playwright_parallel(){
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) ( cd "$pwdir" && meteor npm install ) ;; esac
 
+	# This run's own ../log/<timestamp>/ dir, so logs are never overwritten.
+	local RUN_LOGDIR
+	RUN_LOGDIR="../log/$(date '+%Y-%m-%d_%H-%M-%S')"
+	mkdir -p "$RUN_LOGDIR"
+
 	echo "Running Chromium, Firefox and WebKit Playwright suites sequentially (one browser at a time)."
-	echo "Live output goes to ../log/wekan-playwright-<browser>.log; a summary prints when all finish."
+	echo "Live output goes to $RUN_LOGDIR/wekan-playwright-<browser>.log; a summary prints when all finish."
 
 	# Run the three browser suites one after another rather than in parallel:
 	# running all three at once against a single dev server uses too much RAM and
 	# swap on lower-memory machines and may crash. Each browser still writes its
 	# own log and the combined summary is printed once all have finished.
 	local rc_chromium rc_firefox rc_webkit
-	( run_pw_all_browser chromium ) > ../log/wekan-playwright-chromium.log 2>&1; rc_chromium=$?
-	( run_pw_all_browser firefox  ) > ../log/wekan-playwright-firefox.log  2>&1; rc_firefox=$?
-	( run_pw_all_browser webkit   ) > ../log/wekan-playwright-webkit.log   2>&1; rc_webkit=$?
+	local ts
+	# Logs go into this run's ../log/<timestamp>/ dir; the header records the datetime too.
+	ts="$(date '+%Y-%m-%d %H:%M:%S %Z')"; { echo "===== Playwright Chromium - test run started $ts ====="; echo; run_pw_all_browser chromium; } > $RUN_LOGDIR/wekan-playwright-chromium.log 2>&1; rc_chromium=$?
+	ts="$(date '+%Y-%m-%d %H:%M:%S %Z')"; { echo "===== Playwright Firefox - test run started $ts ====="; echo; run_pw_all_browser firefox;  } > $RUN_LOGDIR/wekan-playwright-firefox.log  2>&1; rc_firefox=$?
+	ts="$(date '+%Y-%m-%d %H:%M:%S %Z')"; { echo "===== Playwright WebKit - test run started $ts ====="; echo; run_pw_all_browser webkit;   } > $RUN_LOGDIR/wekan-playwright-webkit.log   2>&1; rc_webkit=$?
 
 	local PW_FAILURES=""
 	SUMMARY=()
@@ -286,7 +293,7 @@ function run_playwright_parallel(){
 		browser="${entry%%:*}"; rest="${entry#*:}"; label="${rest%%:*}"; rc="${rest#*:}"
 		echo
 		echo "==================== Playwright $label output ===================="
-		cat "../log/wekan-playwright-${browser}.log" 2>/dev/null || true
+		cat "$RUN_LOGDIR/wekan-playwright-${browser}.log" 2>/dev/null || true
 		local json="$pwdir/test-results/all-tests-${browser}.json"
 		local stats; stats="$(pw_stats_of "$json")"
 		if [ "$rc" -eq 0 ]; then record PASS "Playwright $label" "$stats"; else record FAIL "Playwright $label" "$stats"; fi
@@ -348,6 +355,14 @@ function run_playwright_single(){
 function run_all_tests(){
 	local RUN_MODE="${1:-parallel}"
 	local modeword; [ "$RUN_MODE" = parallel ] && modeword="in parallel (concurrently)" || modeword="one at a time (sequential)"
+	# Each run of "Run ALL tests" gets its own ../log/<timestamp>/ directory
+	# (stamped once, when the run starts), so logs are never overwritten and
+	# previous runs are kept.
+	local RUN_TS RUN_LOGDIR
+	RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
+	RUN_LOGDIR="../log/$RUN_TS"
+	mkdir -p "$RUN_LOGDIR"
+	echo "Logs for this run: $RUN_LOGDIR/  (previous runs are kept)"
 	# Tests need a built WeKan (and installed npm deps). If .build or
 	# node_modules is missing, build first (same steps as menu option 2),
 	# then continue with the tests.
@@ -411,27 +426,35 @@ function run_all_tests(){
 	STATDIR="$(mktemp -d)"
 	BPIDS=""
 	# Start one test job in the background: record its exit code in STATDIR/<key>
-	# and send all of its output to ../log/wekan-alltests-<key>.log. In "parallel"
+	# and send all of its output to $RUN_LOGDIR/wekan-alltests-<key>.log. In "parallel"
 	# mode every job runs at once; in "sequential" mode we wait for each job to
 	# finish before starting the next, which keeps total RAM/swap usage low so the
 	# machine does not crash (the browser suites in particular are memory-hungry).
 	launch_job() {
 		local k="$1"
 		if [ "$RUN_MODE" = parallel ]; then
-			echo "==> Starting $(label_of "$k") (parallel) ... live output: ../log/wekan-alltests-$k.log"
+			echo "==> Starting $(label_of "$k") (parallel) ... live output: $RUN_LOGDIR/wekan-alltests-$k.log"
 		else
-			echo "==> Running $(label_of "$k") (sequential) ... live output: ../log/wekan-alltests-$k.log"
+			echo "==> Running $(label_of "$k") (sequential) ... live output: $RUN_LOGDIR/wekan-alltests-$k.log"
 		fi
-		(
-			rc=0
-			case "$k" in
-				mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
-				import) node tests/wekanCreator.import.test.js || rc=$? ;;
-				e2e)    meteor npm run test:e2e || rc=$? ;;
-				*)      run_pw_all_browser "$k" || rc=$? ;;
-			esac
-			echo "$rc" > "$STATDIR/$k"
-		) > "../log/wekan-alltests-$k.log" 2>&1 &
+		# Each run writes into its own ../log/<timestamp>/ dir (RUN_LOGDIR), so
+		# previous runs are kept; the header/footer also record the datetime.
+		{
+			echo "===== $(label_of "$k") [$(port_of "$k")] - test run started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
+			echo
+			(
+				rc=0
+				case "$k" in
+					mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
+					import) node tests/wekanCreator.import.test.js || rc=$? ;;
+					e2e)    meteor npm run test:e2e || rc=$? ;;
+					*)      run_pw_all_browser "$k" || rc=$? ;;
+				esac
+				echo "$rc" > "$STATDIR/$k"
+			)
+			echo
+			echo "===== $(label_of "$k") - test run finished $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
+		} > "$RUN_LOGDIR/wekan-alltests-$k.log" 2>&1 &
 		local pid=$!
 		BPIDS="$BPIDS $pid"
 		# Sequential mode: block until this job finishes before starting the next.
@@ -482,7 +505,7 @@ function run_all_tests(){
 	# sequential mode).
 	echo
 	echo "==> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor/local)"
-	DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 > ../log/wekan-test-server.log 2>&1 &
+	{ echo "===== WeKan test server [node :3000 db :3001] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000; } > $RUN_LOGDIR/wekan-test-server.log 2>&1 &
 	TEST_SERVER_PID=$!
 	SERVER_READY=0
 	for i in $(seq 1 180); do
@@ -499,7 +522,7 @@ function run_all_tests(){
 	launch_job import
 
 	if [ "$SERVER_READY" -ne 1 ]; then
-		echo "FAIL: server did not become ready on http://localhost:3000 (see ../log/wekan-test-server.log)"
+		echo "FAIL: server did not become ready on http://localhost:3000 (see $RUN_LOGDIR/wekan-test-server.log)"
 		record FAIL "Server startup"
 		record SKIP "Node E2E regressions"
 		record SKIP "Playwright Chromium"
@@ -524,7 +547,7 @@ function run_all_tests(){
 		printf '\033[%dA' "$BN"
 		alldone=1
 		for k in $ALLKEYS; do
-			log="../log/wekan-alltests-$k.log"
+			log="$RUN_LOGDIR/wekan-alltests-$k.log"
 			ok=$(count_pass "$k" "$log")
 			bad=$(count_fail "$k" "$log")
 			if [ -f "$STATDIR/$k" ]; then
@@ -577,7 +600,7 @@ function run_all_tests(){
 		[ "$status" = "FAIL" ] && FAILED=1
 	done
 	echo "====================================================="
-	echo "(per-job logs: ../log/wekan-alltests-<mocha|import|e2e|chromium|firefox|webkit>.log ; server: ../log/wekan-test-server.log)"
+	echo "(per-job logs: $RUN_LOGDIR/wekan-alltests-<mocha|import|e2e|chromium|firefox|webkit>.log ; server: $RUN_LOGDIR/wekan-test-server.log)"
 	if [ -n "$PW_FAILURES" ]; then
 		echo
 		echo "Failing Playwright tests:"

@@ -204,6 +204,14 @@ if not errorlevel 1 (
 set "FAILED=0"
 set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
 set "C_mocha=0" & set "C_import=0" & set "C_e2e=0" & set "C_browsers=0"
+REM Each run gets its own ..\log\<timestamp>\ dir (stamped once at run start), so
+REM logs are never overwritten and previous runs are kept. PowerShell gives a
+REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
+REM from any job's working directory (e.g. the browser job runs in tests\playwright).
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "RUN_TS=%%i"
+set "RUN_LOGDIR=%REPO%\..\log\%RUN_TS%"
+if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
+echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
 del /q ".done-mocha" ".done-import" ".done-e2e" ".done-browsers" 2>nul
 
@@ -217,15 +225,15 @@ echo.
 call :set_dev_env
 echo ==^> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor\local)
 set "ROOT_URL=http://localhost:3000"
-start "WekanTestServer" /MIN /D "%REPO%" cmd /c "meteor run --port 3000 1>..\log\wekan-test-server.log 2>&1"
+start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [node :3000 db :3001] started: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-test-server.log 2>&1 & meteor run --port 3000 1>>%RUN_LOGDIR%\wekan-test-server.log 2>&1"
 
 REM Mocha and the import regression do not need the :3000 server; start them now
 REM (each in its own minimized window; /D sets the working dir so all paths are
 REM relative and space-safe). Each writes a log and, on exit, its return code to
 REM .done-<job>, which the poll loop below watches.
 echo ==^> Starting Mocha (separate .meteor\local-test build, port 3100) and import regression in parallel.
-start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& call meteor test --once --driver-package meteortesting:mocha --port 3100 1>..\log\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
-start "Wekan import" /MIN /D "%REPO%" cmd /c "call node tests\wekanCreator.import.test.js 1>..\log\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
+start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& (echo ===== Mocha [M2 node:3100 db:3101] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & call meteor test --once --driver-package meteortesting:mocha --port 3100 1>>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
+start "Wekan import" /MIN /D "%REPO%" cmd /c "(echo ===== Import regression [no server] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & call node tests\wekanCreator.import.test.js 1>>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
 
 set "SERVER_READY=0"
 for /l %%i in (1,1,180) do (
@@ -240,12 +248,12 @@ for /l %%i in (1,1,180) do (
 echo.
 
 if "!SERVER_READY!"=="0" (
-	echo FAIL: server did not become ready on http://localhost:3000 ^(see ..\log\wekan-test-server.log^)
+	echo FAIL: server did not become ready on http://localhost:3000 ^(see %RUN_LOGDIR%\wekan-test-server.log^)
 	set "S_e2e=SKIP" & set "S_browsers=SKIP" & set "FAILED=1"
 ) else (
 	echo ==^> Server is up: starting Node E2E and Playwright ^(Chromium + Firefox + WebKit, --workers=3^) in parallel.
-	start "Wekan e2e" /MIN /D "%REPO%" cmd /c "call meteor npm run test:e2e 1>..\log\wekan-alltests-e2e.log 2>&1 & if errorlevel 1 (echo FAIL>.done-e2e) else (echo PASS>.done-e2e)"
-	start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=3 --reporter=list 1>..\..\log\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
+	start "Wekan e2e" /MIN /D "%REPO%" cmd /c "(echo ===== Node E2E [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & call meteor npm run test:e2e 1>>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & if errorlevel 1 (echo FAIL>.done-e2e) else (echo PASS>.done-e2e)"
+	start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& (echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=3 --reporter=list 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
 )
 
 REM Live progress: re-print a status line every ~3s until all expected jobs
@@ -254,13 +262,13 @@ echo Live progress (refreshes every few seconds) - RUN / PASS / FAIL per job:
 :wait_all
 call :jstate mocha
 call :jstate import
-call :jcount C_mocha check "..\log\wekan-alltests-mocha.log"
-call :jcount C_import check "..\log\wekan-alltests-import.log"
+call :jcount C_mocha check "%RUN_LOGDIR%\wekan-alltests-mocha.log"
+call :jcount C_import check "%RUN_LOGDIR%\wekan-alltests-import.log"
 if "!SERVER_READY!"=="1" (
 	call :jstate e2e
 	call :jstate browsers
-	call :jcount C_e2e e2e "..\log\wekan-alltests-e2e.log"
-	call :jcount C_browsers check "..\log\wekan-alltests-browsers.log"
+	call :jcount C_e2e e2e "%RUN_LOGDIR%\wekan-alltests-e2e.log"
+	call :jcount C_browsers check "%RUN_LOGDIR%\wekan-alltests-browsers.log"
 )
 echo   mocha [M2 :3100/db:3101] !S_mocha! tests:!C_mocha!  ^| import [no server] !S_import! tests:!C_import!  ^| e2e [M1 :3000/db:3001] !S_e2e! tests:!C_e2e!  ^| browsers [M1 :3000/db:3001] !S_browsers! tests:!C_browsers!
 set "ALLDONE=1"
@@ -293,7 +301,7 @@ if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" "[M1 :3000/db:30
 call :report "!S_e2e!"       "Node E2E regressions"                 "[M1 :3000/db:3001] tests:!C_e2e!"
 call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)" "[M1 :3000/db:3001] tests:!C_browsers!"
 echo =====================================================
-echo (per-job logs: ..\log\wekan-alltests-^<mocha^|import^|e2e^|browsers^>.log ; server: ..\log\wekan-test-server.log)
+echo (per-job logs in: %RUN_LOGDIR%\  as wekan-alltests-^<mocha^|import^|e2e^|browsers^>.log and wekan-test-server.log)
 if "!FAILED!"=="0" ( echo RESULT: All tests passed. ) else ( echo RESULT: Some tests FAILED ^(see details above^). )
 goto end
 
@@ -314,6 +322,14 @@ if not errorlevel 1 (
 set "FAILED=0"
 set "S_mocha=RUN" & set "S_import=RUN" & set "S_e2e=RUN" & set "S_browsers=RUN"
 set "C_mocha=0" & set "C_import=0" & set "C_e2e=0" & set "C_browsers=0"
+REM Each run gets its own ..\log\<timestamp>\ dir (stamped once at run start), so
+REM logs are never overwritten and previous runs are kept. PowerShell gives a
+REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
+REM from any job's working directory (e.g. the browser job runs in tests\playwright).
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "RUN_TS=%%i"
+set "RUN_LOGDIR=%REPO%\..\log\%RUN_TS%"
+if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
+echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
 del /q ".done-mocha" ".done-import" ".done-e2e" ".done-browsers" 2>nul
 
@@ -326,7 +342,7 @@ echo.
 call :set_dev_env
 echo ==^> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor\local)
 set "ROOT_URL=http://localhost:3000"
-start "WekanTestServer" /MIN /D "%REPO%" cmd /c "meteor run --port 3000 1>..\log\wekan-test-server.log 2>&1"
+start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [node :3000 db :3001] started: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-test-server.log 2>&1 & meteor run --port 3000 1>>%RUN_LOGDIR%\wekan-test-server.log 2>&1"
 
 REM Wait for the :3000 server build to finish before running the jobs, so the
 REM heavy Meteor build is not competing for CPU/RAM with the test jobs.
@@ -350,33 +366,37 @@ REM one browser at a time.
 echo ==^> Running Mocha on Meteor #2 [Node.js :3100, MongoDB :3101] (separate .meteor\local-test build).
 pushd "%REPO%"
 set "METEOR_LOCAL_DIR=.meteor\local-test"
-call meteor test --once --driver-package meteortesting:mocha --port 3100 1>..\log\wekan-alltests-mocha.log 2>&1
+(echo ===== Mocha [M2 node:3100 db:3101] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1
+call meteor test --once --driver-package meteortesting:mocha --port 3100 1>>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1
 if errorlevel 1 (set "S_mocha=FAIL") else (set "S_mocha=PASS")
 set "METEOR_LOCAL_DIR="
 popd
 
 echo ==^> Running import regression [plain Node, no Meteor / no MongoDB].
 pushd "%REPO%"
-call node tests\wekanCreator.import.test.js 1>..\log\wekan-alltests-import.log 2>&1
+(echo ===== Import regression [no server] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1
+call node tests\wekanCreator.import.test.js 1>>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1
 if errorlevel 1 (set "S_import=FAIL") else (set "S_import=PASS")
 popd
 
 if "!SERVER_READY!"=="0" goto skip_server_jobs
 echo ==^> Running Node E2E regressions on Meteor #1 [Node.js :3000, MongoDB :3001].
 pushd "%REPO%"
-call meteor npm run test:e2e 1>..\log\wekan-alltests-e2e.log 2>&1
+(echo ===== Node E2E [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1
+call meteor npm run test:e2e 1>>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1
 if errorlevel 1 (set "S_e2e=FAIL") else (set "S_e2e=PASS")
 popd
 echo ==^> Running Playwright Chromium, Firefox and WebKit one at a time ^(--workers=1^) on Meteor #1 [Node.js :3000, MongoDB :3001].
 pushd "%REPO%\tests\playwright"
 set "WEKAN_PLAYWRIGHT_ALL=1"
-call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 1>..\..\log\wekan-alltests-browsers.log 2>&1
+(echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1
+call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1
 if errorlevel 1 (set "S_browsers=FAIL") else (set "S_browsers=PASS")
 popd
 goto server_jobs_done
 
 :skip_server_jobs
-echo FAIL: server did not become ready on http://localhost:3000 ^(see ..\log\wekan-test-server.log^)
+echo FAIL: server did not become ready on http://localhost:3000 ^(see %RUN_LOGDIR%\wekan-test-server.log^)
 set "S_e2e=SKIP" & set "S_browsers=SKIP" & set "FAILED=1"
 
 :server_jobs_done
@@ -392,10 +412,10 @@ if "!S_e2e!"=="FAIL" set "FAILED=1"
 if "!S_browsers!"=="FAIL" set "FAILED=1"
 
 REM Count passing tests per job from each log (advances shown in the summary).
-call :jcount C_mocha check "..\log\wekan-alltests-mocha.log"
-call :jcount C_import check "..\log\wekan-alltests-import.log"
-call :jcount C_e2e e2e "..\log\wekan-alltests-e2e.log"
-call :jcount C_browsers check "..\log\wekan-alltests-browsers.log"
+call :jcount C_mocha check "%RUN_LOGDIR%\wekan-alltests-mocha.log"
+call :jcount C_import check "%RUN_LOGDIR%\wekan-alltests-import.log"
+call :jcount C_e2e e2e "%RUN_LOGDIR%\wekan-alltests-e2e.log"
+call :jcount C_browsers check "%RUN_LOGDIR%\wekan-alltests-browsers.log"
 
 echo.
 echo ==================== TEST SUMMARY ====================
@@ -405,7 +425,7 @@ if "!SERVER_READY!"=="1" ( call :report "PASS" "Server startup" "[M1 :3000/db:30
 call :report "!S_e2e!"       "Node E2E regressions"                 "[M1 :3000/db:3001] tests:!C_e2e!"
 call :report "!S_browsers!"  "Playwright (Chromium+Firefox+WebKit)" "[M1 :3000/db:3001] tests:!C_browsers!"
 echo =====================================================
-echo (per-job logs: ..\log\wekan-alltests-^<mocha^|import^|e2e^|browsers^>.log ; server: ..\log\wekan-test-server.log)
+echo (per-job logs in: %RUN_LOGDIR%\  as wekan-alltests-^<mocha^|import^|e2e^|browsers^>.log and wekan-test-server.log)
 if "!FAILED!"=="0" ( echo RESULT: All tests passed. ) else ( echo RESULT: Some tests FAILED ^(see details above^). )
 goto end
 
