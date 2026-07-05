@@ -1502,6 +1502,22 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsChecklistCountBadgeOnMinicard : false;
   },
+  // #6431 follow-up: new opt-in (OFF by default) card-side options.
+  allowsChecklistCountBadgeOnCard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsChecklistCountBadgeOnCard : false;
+  },
+  allowsAttachmentCountOnCard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAttachmentCountOnCard : false;
+  },
+  allowsCoverAttachmentOnCard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCoverAttachmentOnCard : false;
+  },
   allowsAttachments() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -1800,6 +1816,21 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsChecklistCountBadgeOnMinicard;
     Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistCountBadgeOnMinicard: newValue } });
+  },
+  'click .js-field-has-checklist-count'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsChecklistCountBadgeOnCard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistCountBadgeOnCard: newValue } });
+  },
+  'click .js-field-has-attachment-count'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsAttachmentCountOnCard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsAttachmentCountOnCard: newValue } });
+  },
+  'click .js-field-has-cover-attachment-on-card'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsCoverAttachmentOnCard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCoverAttachmentOnCard: newValue } });
   },
   'click .js-field-has-attachments'(evt, tpl) {
     evt.preventDefault();

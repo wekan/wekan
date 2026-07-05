@@ -82,6 +82,14 @@ body.grey-icons-enabled .boardSubtaskSettingsPopup .materialCheckBox.is-checked 
   grid-template-columns: 1fr 1fr 2fr;
   gap: 10px;
   margin-bottom: 10px;
+  /* Keep the "Show on Card / Show on Minicard / Description" titles visible
+     while the rows below scroll (the popup scrolls in .pop-over .content-wrapper). */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  padding: 5px 0;
+  border-bottom: 2px solid #ddd;
 }
 
 .card-settings-row {

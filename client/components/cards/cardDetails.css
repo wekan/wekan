@@ -1087,3 +1087,14 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   line-height: 1;
   box-sizing: border-box;
 }
+
+/* #6431 follow-up: cover image on the opened card (Card Settings > Cover image
+   on card, opt-in). Mirrors the minicard cover but taller. */
+.card-details-cover {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 200px;
+  user-select: none;
+  margin: 8px 0;
+}

@@ -127,6 +127,8 @@ and fixed the following bugs:
   Thanks to xet7.
 - [Board Settings / Card Settings / Checklist item count (0/0) on minicard. Default: Off](https://github.com/wekan/wekan/commit/bb440b0d7befa936e738a13267052d9a585b964a).
   Thanks to carl-unique and xet7.
+- Card Settings popup options combined to same lines, and added more options.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

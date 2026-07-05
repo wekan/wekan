@@ -626,9 +626,37 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCoverAttachmentOnCard: {
+      /**
+       * Does the board show the cover image on the opened card? Opt-in, OFF by
+       * default (new Card Settings option).
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsBadgeAttachmentOnMinicard: {
       /**
        * Does the board allows badge attachment on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
+    allowsAttachmentCountOnCard: {
+      /**
+       * Does the board show the attachment count on the opened card? Opt-in,
+       * OFF by default (new Card Settings option).
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
+    allowsChecklistCountBadgeOnCard: {
+      /**
+       * Does the board show the checklist item-count total (finished/total)
+       * above all checklists on the opened card? Opt-in, OFF by default so the
+       * checklist counting only runs when enabled (new Card Settings option).
        */
       type: Boolean,
       defaultValue: false,

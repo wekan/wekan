@@ -112,6 +112,11 @@ template(name="cardDetails")
                 i.fa.fa-check
                 span {{_ 'upload-completed'}}
 
+    //- #6431 follow-up: cover image on the opened card (opt-in, OFF by default).
+    if currentBoard.allowsCoverAttachmentOnCard
+      if cover
+        .card-details-cover(style="background-image: url('{{cover.link 'original'}}');")
+
     .card-details-left
 
       .card-details-items
@@ -684,6 +689,14 @@ template(name="cardDetails")
         .card-checklist-attachmentGallery.card-checklists
           if currentBoard.allowsChecklists
             hr
+            //- Total checklist item count (finished/total) shown above all
+              checklists. The board flag is a cheap boolean, so when it is off
+              the checklist counting below is never evaluated.
+            if currentBoard.allowsChecklistCountBadgeOnCard
+              if checklists.length
+                h3.card-details-item-title
+                  i.fa.fa-check-square-o
+                  |  {{checklistFinishedCount}}/{{checklistItemCount}}
             +checklists(cardId = _id card = this)
           if currentBoard.allowsSubtasks
             hr
@@ -693,6 +706,8 @@ template(name="cardDetails")
           h3.card-details-item-title
             i.fa.fa-paperclip
             | {{_ 'attachments'}}
+            if currentBoard.allowsAttachmentCountOnCard
+              |  ({{attachments.length}})
           if Meteor.settings.public.attachmentsUploadMaxSize
             | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}}
             br

@@ -315,21 +315,12 @@ template(name="boardCardSettingsPopup")
         a.flex.js-field-has-creator(title="{{_ 'creator'}}" class="{{#if allowsCreator}}is-checked{{/if}}")
           i.fa(class="{{#if allowsCreator}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        span
-      .card-settings-column
-        span
-          i.fa.fa-user
-          | {{_ 'creator'}}
-    .card-settings-row
-      .card-settings-column
-        span
-      .card-settings-column
-        a.flex.js-field-has-creator-on-minicard(title="{{_ 'creator-on-minicard'}}" class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
+        a.flex.js-field-has-creator-on-minicard(title="{{_ 'creator'}}" class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
           i.fa(class="{{#if allowsCreatorOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           i.fa.fa-user
-          | {{_ 'creator-on-minicard'}}
+          | {{_ 'creator'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-assignee(title="{{_ 'assignee'}}" class="{{#if allowsAssignee}}is-checked{{/if}}")
@@ -369,27 +360,19 @@ template(name="boardCardSettingsPopup")
         a.flex.js-field-has-card-sorting-by-number(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
           i.fa(class="{{#if allowsCardSortingByNumber}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        span
+        a.flex.js-field-has-card-sorting-by-number-on-minicard(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCardSortingByNumberOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           i.fa.fa-sort-numeric-asc
           | {{_ 'card-sorting-by-number'}}
     .card-settings-row
       .card-settings-column
-        span
-      .card-settings-column
-        a.flex.js-field-has-card-sorting-by-number-on-minicard(title="{{_ 'card-sorting-by-number-on-minicard'}}" class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCardSortingByNumberOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-sort-numeric-asc
-          | {{_ 'card-sorting-by-number-on-minicard'}}
-    .card-settings-row
-      .card-settings-column
         a.flex.js-field-has-card-show-lists(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowLists}}is-checked{{/if}}")
           i.fa(class="{{#if allowsShowLists}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        span
+        a.flex.js-field-has-card-show-lists-on-minicard(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsShowListsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           i.fa.fa-list
@@ -405,16 +388,6 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-tag
           | {{_ 'labels'}}
-    .card-settings-row
-      .card-settings-column
-        span
-      .card-settings-column
-        a.flex.js-field-has-card-show-lists-on-minicard(title="{{_ 'card-show-lists-on-minicard'}}" class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsShowListsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-list
-          | {{_ 'card-show-lists-on-minicard'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")
@@ -464,13 +437,15 @@ template(name="boardCardSettingsPopup")
           | {{_ 'checklists'}}
     .card-settings-row
       .card-settings-column
+        a.flex.js-field-has-checklist-count(title="{{_ 'checklist-count'}}" class="{{#if allowsChecklistCountBadgeOnCard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsChecklistCountBadgeOnCard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        a.flex.js-field-has-checklist-count-on-minicard(title="{{_ 'checklist-count-on-minicard'}}" class="{{#if allowsChecklistCountBadgeOnMinicard}}is-checked{{/if}}")
+        a.flex.js-field-has-checklist-count-on-minicard(title="{{_ 'checklist-count'}}" class="{{#if allowsChecklistCountBadgeOnMinicard}}is-checked{{/if}}")
           i.fa(class="{{#if allowsChecklistCountBadgeOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           i.fa.fa-check-square-o
-          | {{_ 'checklist-count-on-minicard'}}
+          | {{_ 'checklist-count'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-subtasks(title="{{_ 'subtasks'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
@@ -495,24 +470,26 @@ template(name="boardCardSettingsPopup")
           | {{_ 'attachments'}}
     .card-settings-row
       .card-settings-column
-        span
+        a.flex.js-field-has-attachment-count(title="{{_ 'attachment-count'}}" class="{{#if allowsAttachmentCountOnCard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsAttachmentCountOnCard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        a.flex.js-field-has-badge-attachment-on-minicard(title="{{_ 'badge-attachment-on-minicard'}}" class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
+        a.flex.js-field-has-badge-attachment-on-minicard(title="{{_ 'attachment-count'}}" class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
           i.fa(class="{{#if allowsBadgeAttachmentOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           i.fa.fa-paperclip
-          | {{_ 'badge-attachment-on-minicard'}}
+          | {{_ 'attachment-count'}}
     .card-settings-row
       .card-settings-column
-        span
+        a.flex.js-field-has-cover-attachment-on-card(title="{{_ 'cover-image'}}" class="{{#if allowsCoverAttachmentOnCard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCoverAttachmentOnCard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        a.flex.js-field-has-cover-attachment-on-minicard(title="{{_ 'cover-attachment-on-minicard'}}" class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+        a.flex.js-field-has-cover-attachment-on-minicard(title="{{_ 'cover-image'}}" class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
           i.fa(class="{{#if allowsCoverAttachmentOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           i.fa.fa-picture-o
-          | {{_ 'cover-attachment-on-minicard'}}
+          | {{_ 'cover-image'}}
     //div.check-div
     //
       a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
