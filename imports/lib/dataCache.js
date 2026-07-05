@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
+const { shouldDeferCacheMiss } = require('./staleWhileRevalidate');
 
 class ReactiveValueCache {
   constructor(compare, shouldStop) {
@@ -58,6 +59,11 @@ class ReactiveValueCache {
     }
     return data;
   }
+
+  // Non-reactive read of the currently cached value (no dependency registered).
+  peek(key) {
+    return this.values[key];
+  }
 }
 
 class DataCache {
@@ -70,6 +76,8 @@ class DataCache {
     this.cache = new ReactiveValueCache(this.options.compare, () => false);
     this.timeouts = {};
     this.computations = {};
+    // Pending stale-while-revalidate re-checks, keyed like the cache.
+    this.staleTimers = {};
   }
 
   ensureComputation(key) {
@@ -82,11 +90,38 @@ class DataCache {
     }
     this.computations[key] = Tracker.nonreactive(() =>
       Tracker.autorun(() => {
-        this.cache.set(key, this.getData(key));
+        this.applyData(key, this.getData(key));
       }),
     );
 
     this.computations[key].onInvalidate(() => this.checkStop(key));
+  }
+
+  // Write a freshly-fetched value into the cache, honouring stale-while-revalidate.
+  // A transient miss (null/undefined while a value is still cached) is not written
+  // immediately: keep the last value and re-check after options.staleMs, so a board
+  // that momentarily vanishes from minimongo during a subscription re-settle does
+  // not flash the "Board not found" shell. A miss that is still a miss after the
+  // delay (genuine deletion / access loss) is then surfaced.
+  applyData(key, data) {
+    if (shouldDeferCacheMiss(this.options, data, this.cache.peek(key))) {
+      if (this.staleTimers[key]) {
+        return; // a re-check is already pending
+      }
+      this.staleTimers[key] = setTimeout(() => {
+        delete this.staleTimers[key];
+        const fresh = Tracker.nonreactive(() => this.getData(key));
+        this.cache.set(key, fresh);
+      }, this.options.staleMs || 1500);
+      return;
+    }
+    // Real value (or no cached value to preserve): resolve now, cancel any pending
+    // re-check — the live autorun already delivered a fresher value.
+    if (this.staleTimers[key]) {
+      clearTimeout(this.staleTimers[key]);
+      delete this.staleTimers[key];
+    }
+    this.cache.set(key, data);
   }
 
   checkStop(key) {
@@ -111,6 +146,10 @@ class DataCache {
       }
       this.computations[key].stop();
       delete this.computations[key];
+      if (this.staleTimers[key]) {
+        clearTimeout(this.staleTimers[key]);
+        delete this.staleTimers[key];
+      }
       this.cache.del(key);
     }, this.options.timeout);
   }

@@ -70,6 +70,13 @@ test.describe('Feature issues', () => {
 
       await bp.list(b.listIds[0]).locator('.js-list-move-right').click({ force: true });
 
+      // moveListBy swaps the two lists' sort values via two updateListSort calls,
+      // and the board reorders reactively. Observe the live reorder directly — do
+      // NOT reload here: moveListBy fires the two updateListSort calls without
+      // awaiting, so an immediate reload races them and can read a half-applied
+      // order (this test then saw "List C" first). The board-not-found flicker
+      // that used to crash this reorder on Firefox/WebKit is fixed at the source
+      // (getBoard stale-while-revalidate in imports/lib/dataCache.js).
       await expect.poll(async () =>
         (await bp.listTitles()).map(s => s.trim())[0],
       ).toBe(before[1]);

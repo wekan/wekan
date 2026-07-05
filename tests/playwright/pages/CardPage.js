@@ -87,8 +87,26 @@ class CardPage {
   // --- Actions menu ---
 
   async openActionsMenu() {
-    await this.root.locator('.js-open-card-details-menu').first().click();
-    await this.page.locator('.js-pop-over').waitFor();
+    const trigger = this.root.locator('.js-open-card-details-menu').first();
+    const popover = this.page.locator('.js-pop-over');
+    // The board can transiently re-render to a "board-not-found" shell while its
+    // subscription re-settles under the heavy all-parallel run (most visible in
+    // Firefox/WebKit), detaching the open card details — and this trigger —
+    // mid-interaction. Retry the open until the popup actually shows, mirroring
+    // BoardPage.openListMenu.
+    for (let attempt = 0; attempt < 4; attempt++) {
+      await this.root
+        .waitFor({ state: 'visible', timeout: 15_000 })
+        .catch(() => {});
+      try {
+        await trigger.click({ timeout: 5_000 });
+        await popover.waitFor({ state: 'visible', timeout: 5_000 });
+        return;
+      } catch (err) {
+        // card details re-rendered mid-interaction; loop and try again
+      }
+    }
+    await popover.waitFor({ timeout: 5_000 });
   }
 
   async clickAction(selector) {

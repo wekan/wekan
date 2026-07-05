@@ -367,14 +367,20 @@ const ReactiveCacheClient = {
   getBoard(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = { idOrFirstObjectSelector, options };
     if (!this.__board) {
-      this.__board = new DataCache((_idOrFirstObjectSelect) => {
-        const __select = EJSON.parse(_idOrFirstObjectSelect);
-        const _ret = Boards.findOne(
-          __select.idOrFirstObjectSelector,
-          __select.options,
-        );
-        return _ret;
-      });
+      this.__board = new DataCache(
+        (_idOrFirstObjectSelect) => {
+          const __select = EJSON.parse(_idOrFirstObjectSelect);
+          const _ret = Boards.findOne(
+            __select.idOrFirstObjectSelector,
+            __select.options,
+          );
+          return _ret;
+        },
+        // Keep the last board visible through a transient minimongo miss during a
+        // subscription re-settle instead of flashing the "Board not found" shell
+        // (and the WebKit Blaze "removed DomRange" crash). See dataCache.js.
+        { staleWhileRevalidate: true },
+      );
     }
     const ret = this.__board.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;

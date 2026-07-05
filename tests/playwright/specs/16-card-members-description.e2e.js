@@ -173,10 +173,13 @@ test.describe('Card members & description', () => {
 
     // Submit via button.primary.confirm
     await boardPage.locator('.add-controls button.primary.confirm').first().click();
-    await boardPage.waitForTimeout(800);
 
-    // New card should appear on the board
-    await expect(bp.minicard(listA, 'Playwright New Card')).toBeVisible({ timeout: 8_000 });
+    // New card should appear on the board. Card creation awaits an async card
+    // number allocation (board.getNextCardNumber) before the Cards.insert, so
+    // under the heavy all-parallel run — where WebKit shares the single dev
+    // server — the minicard can take several seconds to render. Use the suite's
+    // standard 15s budget (spec 24 uses the same) instead of a short 8s window.
+    await expect(bp.minicard(listA, 'Playwright New Card')).toBeVisible({ timeout: 15_000 });
 
     const critical = errors.filter(
       e => !e.includes('ResizeObserver') && !e.includes('Non-Error promise rejection'),
