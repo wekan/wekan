@@ -2,10 +2,10 @@
 
 For all code at WeKan GitHub Organization https://github.com/wekan
 
+- For pull requests, mention only human participants. Other intelligence is allowed, but not mentioned.
 - All code in pull requests need to have permission already to add it to WeKan with MIT license, and will become MIT license.
 - For any dependencies, permissive licenses like https://copyfree.org are preferred
 - For anything currently that is non-permissive (like GPL, AGPL, SSPL), those will be replaced with permissive-licensed alternatives
-- Any intelligence allowed: Human, AI or any other. No discrimination, please have world peace. Mentioning participants optional.
 - All code is checked and validated by xet7 and many different security AI. If code is real working fix or feature, it usually will be merged.
 - All known vulnerabilities have been fixed at newest WeKan, please upgrade https://wekan.fi/upgrade/
 - There is no known backdoors. If WeKan is installed by someone else, first registered user is Admin and has Admin Panel access.
