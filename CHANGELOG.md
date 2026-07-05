@@ -41,6 +41,41 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUE of
+[ScannerBleed](https://wekan.fi/hall-of-fame/scannerbleed/):
+
+- **[ScannerBleed](https://github.com/wekan/wekan/security/advisories/GHSA-x3xm-pxrv-jg7p)
+  — shell injection (RCE) via a malicious upload filename in the external antivirus scanner command path**
+  ([GHSA-x3xm-pxrv-jg7p](https://github.com/wekan/wekan/security/advisories/GHSA-x3xm-pxrv-jg7p),
+  CWE-78 OS Command Injection). Same RCE class as
+  [AvatarBleed](https://wekan.fi/hall-of-fame/avatarbleed/) (CVE-2026-52891, GHSA-35j7-h385-2q9g)
+  and its follow-up regression (CVE-2026-53447 / GHSA-qfqv-42qw-vvwh area), but in a code path that
+  was **never** covered by those fixes.
+  In `models/fileValidation.js`, when an admin has configured an external scanner (antivirus)
+  command line with a `{file}` placeholder, the uploaded file path was interpolated into the command
+  and run through `asyncExec` (`promisify(exec)`), which spawns `/bin/sh -c` and interprets **all**
+  shell metacharacters:
+  ```js
+  await asyncExec(externalCommandLine.replace("{file}", '"' + fileObj.path + '"'));
+  ```
+  Wrapping the path in double quotes is not a shell boundary — inside double quotes the shell still
+  expands `$(...)`, backticks and `\`, so a filename such as `` a`id`.png `` or `$(touch /tmp/pwn).png`
+  escaped the argument and executed as the Wekan server process. Any **authenticated** user who can
+  upload an attachment could trigger it, on servers that have an external scanner configured. Unlike
+  the sibling MIME-detection path (`detectMimeFromFile`, which already uses `execFile` with no shell)
+  and unlike the AvatarBleed fix (which strips non-alphanumeric characters from the filename), this
+  scanner path had **zero** sanitization.
+  - **Fixed** by POSIX single-quote-escaping the interpolated file path via a new `shellQuote()`
+    helper (wrap in single quotes, escape embedded `'` as `'\''`). Inside single quotes the shell
+    interprets no metacharacters, so a malicious filename can no longer break out of the argument or
+    inject commands, while the admin's arbitrary command line and the exact on-disk path are both
+    preserved. CVSS:3.1 9.9 Critical (AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H).
+  - Affected Wekan v9.06 and earlier through the current release; fixed at the upcoming WeKan release.
+    Reported by **DavidCarliez**.
+  Thanks to DavidCarliez and xet7!
+
 # v9.74 2026-07-05 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of

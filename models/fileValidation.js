@@ -14,6 +14,16 @@ if (Meteor.isServer) {
   asyncExec = promisify(exec);
 }
 
+// POSIX-safe shell quoting for a single argument.  Wraps the value in single
+// quotes and escapes any embedded single quote as '\'' .  Inside single quotes
+// the shell interprets no metacharacters ($ ` \ ; | & > < * ? ( ) etc.), so the
+// value cannot break out of the argument or inject additional commands.  This is
+// used for the file path interpolated into the admin-configured external scanner
+// command line, which is executed through /bin/sh (CWE-78 shell injection).
+function shellQuote(value) {
+  return "'" + String(value).replace(/'/g, "'\\''") + "'";
+}
+
 async function detectMimeFromFile(filePath) {
   if (!Meteor.isServer) return undefined;
 
@@ -140,7 +150,9 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
 
     // External scanner (e.g., antivirus) – expected to delete/quarantine bad files
     if (isValid && externalCommandLine) {
-      await asyncExec(externalCommandLine.replace("{file}", '"' + fileObj.path + '"'));
+      // Shell-quote the file path so a malicious filename cannot inject shell
+      // commands into the admin-configured scanner command line (CWE-78 RCE).
+      await asyncExec(externalCommandLine.replace("{file}", shellQuote(fileObj.path)));
       isValid = fs.existsSync(fileObj.path);
 
       if (!isValid) {
