@@ -114,6 +114,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Update vscode sandbox](https://github.com/wekan/wekan/commit/4533268418f5d081fb70537d6311d4a6c4c94db8).
   Thanks to xet7.
+- [Each run all tests now has logs at ../log/YYYY-MM-DD_HH-MM-SS/](https://github.com/wekan/wekan/commit/236fdf93381aed72f277be8203a9cd9512bc2092).
+  Thanks to xet7.
 
 and fixed the following bugs:
 
