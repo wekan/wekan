@@ -65,7 +65,7 @@ This release adds the following fixes:
   yet and emailing the maintainer about the missing Docker image.
   Thanks to xet7.
 
-- **[Fix #6429: thousands of unsolicited empty "Default" swimlanes created on some boards](https://github.com/wekan/wekan/issues/6429)**:
+- **[Fix thousands of unsolicited empty "Default" swimlanes created on some boards](https://github.com/wekan/wekan/commit/45fb54794755663307ef89636e2822ef9c65428d)**:
   `Board.getDefaultSwimline()`/`getDefaultSwimlineAsync()` self-heal a missing default swimlane by
   reading the board's swimlanes and inserting one if none exist. That check-then-insert is a race:
   concurrent or repeated server calls for a swimlane-less board each saw zero swimlanes and each
