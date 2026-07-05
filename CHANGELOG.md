@@ -78,6 +78,11 @@ This release fixes the following CRITICAL SECURITY ISSUE of [DnsBleed](https://w
     **4n207**.
   Thanks to 4n207 and xet7!
 
+and adds the following updates:
+
+- [Update to Meteor 3.5](https://github.com/wekan/wekan/commit/df3f519e99a6cf96bf947c72e0639988dc044740).
+  Thanks to Meteor developers.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.73 2026-06-26 WeKan ® release
