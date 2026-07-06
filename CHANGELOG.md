@@ -43,6 +43,21 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Fix can not add members to a Linked Card](https://github.com/wekan/wekan/commit/cb9c8973092df5aa3112d3d59e3da4d8793c628b)**:
+  A **linked card** (created by "Link card to this card") is only a placeholder on the board
+  that links it — its members are stored on the **real card** it points at (`linkedId`), which
+  lives on another board, and `Card.getMembers()` / `assignMember()` / `unassignMember()`
+  already read and write that real card. But the member **picker** listed the members of the
+  board you were *viewing* the linked card on, not the board the real card lives on. So on a
+  board that links a card from another board, the picker offered the wrong set of members and
+  toggling them did not behave as a consistent add/remove — "can not add members to the linked
+  card". The picker now resolves a linked card to its real card's board and offers *that*
+  board's active members (matching where the membership is actually stored), falling back to
+  the current board for normal cards or when the real card isn't loaded yet. Extracted the
+  target-card/target-board resolution into `models/lib/linkedCardMembers.js`, covered by
+  `tests/linkedCardMembers.test.cjs`.
+  Thanks to ITT5 and xet7.
+
 - **[Fix can't search numbers in custom fields](https://github.com/wekan/wekan/commit/001c258f967caa502bf1d1ebb147b8506596f4bf)**:
   Searching a board for the value of a **number** or **currency** custom field (e.g. a
   transaction number `2025001`, or a currency amount `123`) found nothing. Those field types
