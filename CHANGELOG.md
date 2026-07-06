@@ -39,11 +39,11 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
-# Upcoming WeKan release
+# Upcoming WeKan ® release
 
 This release fixes the following bugs:
 
-- **[Fix #5667: date-picker calendar stays fully visible when opened low on a scrolled page](https://github.com/wekan/wekan/issues/5667)**:
+- **[Fix date-picker calendar stays fully visible when opened low on a scrolled page](https://github.com/wekan/wekan/commit/7a0eb61c0a4d3ace60f95cfbda7c1d70dff665ef)**:
   Opening a date field (due/start/end date, or a date custom field) low on the screen showed the
   calendar popup extending past the visible area, and — because the pop-over is `position: absolute`
   (document coordinates) — scrolling to reach it moved the calendar along with the page, so the full
@@ -56,6 +56,8 @@ This release fixes the following bugs:
   scrolled the output is unchanged. Extracted the math into the pure, unit-tested
   `client/lib/popupOffset.js`, used by `client/lib/popup.js`. Covered by `tests/popupOffset.test.cjs`.
   Thanks to MarcusDger and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.79 2026-07-06 WeKan ® release
 
@@ -109,6 +111,8 @@ This release fixes the following bugs:
   leaves the spy intact), which is deterministic. Reproduced and verified with a standalone
   sinon/chai script.
   Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.78 2026-07-06 WeKan ® release
 
