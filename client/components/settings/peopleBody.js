@@ -14,6 +14,7 @@ import InviteToBoardRolesSettings, {
 const orgsPerPage = 25;
 const teamsPerPage = 25;
 const usersPerPage = 25;
+const domainsPerPage = 25;
 let userOrgsTeamsAction = ""; //poosible actions 'addOrg', 'addTeam', 'removeOrg' or 'removeTeam' when adding or modifying a user
 let selectedUserChkBoxUserIds = [];
 
@@ -28,9 +29,9 @@ Template.people.onCreated(function () {
   this.lockedUsersSetting = new ReactiveVar(false);
   this.rolesSetting = new ReactiveVar(false);
   this.templatesSetting = new ReactiveVar(false);
-  // #5850: Admin Panel > People > Domains tab.
+  // #5850: Admin Panel > People > Domains tab. The domains table itself
+  // (domainGeneral) now owns its data via getDomainsWithUserCountsPage.
   this.domainSetting = new ReactiveVar(false);
-  this.domains = new ReactiveVar([]);
   this.subscribe('inviteToBoardRolesSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
@@ -205,12 +206,9 @@ Template.people.onCreated(function () {
       this.templatesSetting.set('templates-setting' === targetID);
       this.domainSetting.set('domains-setting' === targetID);
 
-      // #5850: load the domains + per-domain user counts when the tab opens.
-      if ('domains-setting' === targetID) {
-        Meteor.call('getDomainsWithUserCounts', (err, res) => {
-          if (!err) this.domains.set(res || []);
-        });
-      }
+      // The Domains table (domainGeneral) now fetches its own single page from
+      // getDomainsWithUserCountsPage (server-side search / sort / pagination), so
+      // the parent no longer eagerly loads every domain into the browser.
 
       // When switching to locked users tab, refresh the locked users list
       if ('locked-users-setting' === targetID) {
@@ -291,9 +289,6 @@ Template.people.helpers({
   },
   domainSetting() {
     return Template.instance().domainSetting;
-  },
-  domainList() {
-    return Template.instance().domains.get();
   },
   orgList() {
     const tpl = Template.instance();
@@ -1895,5 +1890,98 @@ Template.settingsUserPopup.helpers({
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
+  },
+});
+
+// Admin Panel > People > Domains table. Self-contained (like the Board Table
+// view): it keeps its own search / sort / page state and fetches only ONE page
+// from the server method getDomainsWithUserCountsPage, so the whole domain list
+// is never loaded into the browser.
+Template.domainGeneral.onCreated(function () {
+  this.searchQuery = new ReactiveVar('');
+  this.sortField = new ReactiveVar('domain'); // domain | count
+  this.sortDirection = new ReactiveVar(1); // 1 ascending, -1 descending
+  this.page = new ReactiveVar(1);
+  this.pageData = new ReactiveVar({ rows: [], total: 0, totalPages: 1 });
+
+  this.autorun(() => {
+    const params = {
+      search: this.searchQuery.get(),
+      sortField: this.sortField.get(),
+      sortDirection: this.sortDirection.get(),
+      page: this.page.get(),
+      perPage: domainsPerPage,
+    };
+    Meteor.call('getDomainsWithUserCountsPage', params, (err, res) => {
+      if (!err && res) {
+        this.pageData.set(res);
+        // Server clamps the page into range; mirror that so the controls agree.
+        if (typeof res.page === 'number' && res.page !== this.page.get()) {
+          this.page.set(res.page);
+        }
+      }
+    });
+  });
+});
+
+Template.domainGeneral.helpers({
+  domainList() {
+    return Template.instance().pageData.get().rows;
+  },
+  currentPage() {
+    return Template.instance().page.get();
+  },
+  totalPages() {
+    return Template.instance().pageData.get().totalPages || 1;
+  },
+  hasPrevPage() {
+    return Template.instance().page.get() > 1;
+  },
+  hasNextPage() {
+    const tpl = Template.instance();
+    return tpl.page.get() < (tpl.pageData.get().totalPages || 1);
+  },
+  // Excel-like sort arrow on the active column, matching the Board Table view.
+  domainSortIndicator(field) {
+    const tpl = Template.instance();
+    if (tpl.sortField.get() !== field) return '';
+    return tpl.sortDirection.get() === 1 ? '▲' : '▼';
+  },
+});
+
+Template.domainGeneral.events({
+  'click .js-domain-search-button'(event, tpl) {
+    event.preventDefault();
+    tpl.searchQuery.set(tpl.$('.js-domain-search').val() || '');
+    tpl.page.set(1);
+  },
+  'keydown .js-domain-search'(event, tpl) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      tpl.searchQuery.set(tpl.$('.js-domain-search').val() || '');
+      tpl.page.set(1);
+    }
+  },
+  'click .js-domain-prev-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.page.get();
+    if (current > 1) tpl.page.set(current - 1);
+  },
+  'click .js-domain-next-page'(event, tpl) {
+    event.preventDefault();
+    const current = tpl.page.get();
+    if (current < (tpl.pageData.get().totalPages || 1)) tpl.page.set(current + 1);
+  },
+  'click .js-domain-sort'(event, tpl) {
+    event.preventDefault();
+    const field = event.currentTarget.dataset.sort;
+    if (!field) return;
+    if (tpl.sortField.get() === field) {
+      tpl.sortDirection.set(tpl.sortDirection.get() * -1);
+    } else {
+      tpl.sortField.set(field);
+      tpl.sortDirection.set(1);
+    }
+    tpl.page.set(1);
   },
 });

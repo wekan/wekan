@@ -122,7 +122,7 @@ template(name="people")
           else if templatesSetting.get
             +templatesGeneral
           else if domainSetting.get
-            +domainGeneral(domainList=domainList)
+            +domainGeneral
 
 
 template(name="orgGeneral")
@@ -239,11 +239,18 @@ template(name="selectAllUser")
   input.allUserChkBox(type="checkbox", id="chkSelectAll")
 
 template(name="domainGeneral")
+  .domain-controls
+    input.js-domain-search(type="text" placeholder="{{_ 'search'}}" aria-label="{{_ 'search'}}")
+    button.js-domain-search-button(type="button") {{_ 'search'}}
+  .domain-pagination
+    button.js-domain-prev-page(type="button" class="{{#unless hasPrevPage}}disabled{{/unless}}" aria-label="{{_ 'previous'}}") {{_ 'previous'}}
+    span.domain-page-info {{currentPage}} / {{totalPages}}
+    button.js-domain-next-page(type="button" class="{{#unless hasNextPage}}disabled{{/unless}}" aria-label="{{_ 'next'}}") {{_ 'next'}}
   table
     thead
       tr
-        th {{_ 'domain'}}
-        th {{_ 'domain-user-count'}}
+        th.js-domain-sort(scope="col" data-sort="domain") {{_ 'domain'}} {{domainSortIndicator 'domain'}}
+        th.js-domain-sort(scope="col" data-sort="count") {{_ 'domain-user-count'}} {{domainSortIndicator 'count'}}
     tbody
       if domainList.length
         each domainList

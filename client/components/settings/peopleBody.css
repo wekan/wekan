@@ -378,3 +378,62 @@ table td:first-child {
 .roles-settings .roles-description {
   margin-bottom: 1rem;
 }
+
+/* Admin Panel > People > Domains table: search + column sort + pagination,
+   matching the Board Table view / other admin tables. */
+.domain-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.domain-controls input.js-domain-search {
+  flex: 1 1 auto;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid #bbb;
+  border-radius: 0.4vw;
+}
+
+.domain-controls button.js-domain-search-button {
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.domain-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.domain-pagination button {
+  min-width: 32px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+
+.domain-pagination button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.domain-page-info {
+  min-width: 72px;
+  text-align: center;
+  color: #333;
+}
+
+th.js-domain-sort {
+  cursor: pointer;
+  user-select: none;
+}

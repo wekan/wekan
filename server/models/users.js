@@ -23,6 +23,7 @@ import Swimlanes from '/models/swimlanes';
 import Users, { allowedSortValues, allowedAllBoardsSortValues } from '/models/users';
 import { expiredNotificationActivityIds } from '/models/lib/notificationCleanup';
 import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
+import { paginateDomains } from '/models/lib/domainTablePage';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
@@ -1855,6 +1856,55 @@ Meteor.methods({
     return Object.keys(counts)
       .map(domain => ({ domain, count: counts[domain] }))
       .sort((a, b) => b.count - a.count || a.domain.localeCompare(b.domain));
+  },
+
+  // Paginated / searchable / column-sortable variant of getDomainsWithUserCounts
+  // for the Admin Panel Domains table. The aggregation still scans all users on
+  // the SERVER, but only one small page of rows is returned to the browser
+  // (matching the Board Table view). `paginateDomains` (pure, unit-tested) does
+  // the search + sort + slice; this method only does the auth check and the
+  // domain/count aggregation.
+  async getDomainsWithUserCountsPage(params = {}) {
+    check(params, Match.ObjectIncluding({
+      search: Match.Optional(String),
+      sortField: Match.Optional(String),
+      sortDirection: Match.Optional(Number),
+      page: Match.Optional(Number),
+      perPage: Match.Optional(Number),
+    }));
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const currentUser = await ReactiveCache.getUser(
+      { _id: this.userId },
+      { fields: { isAdmin: 1 } },
+    );
+    if (!currentUser || !currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+
+    const users = await Users.find({}, { fields: { emails: 1 } }).fetchAsync();
+    const counts = {};
+    for (const u of users) {
+      const addr = (u.emails && u.emails[0] && u.emails[0].address) || '';
+      const at = addr.lastIndexOf('@');
+      if (at === -1) continue;
+      const domain = addr.slice(at + 1).toLowerCase().trim();
+      if (!domain) continue;
+      counts[domain] = (counts[domain] || 0) + 1;
+    }
+    const rows = Object.keys(counts).map(domain => ({
+      domain,
+      count: counts[domain],
+    }));
+
+    return paginateDomains(rows, {
+      search: params.search,
+      sortField: params.sortField,
+      sortDirection: params.sortDirection,
+      page: params.page,
+      perPage: params.perPage,
+    });
   },
 
   // Feature #3313 "Shared templates": admin-only.

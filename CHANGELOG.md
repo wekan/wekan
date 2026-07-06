@@ -43,6 +43,18 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Admin Panel Domains table: pagination, column sort and search (like the Board Table view)](https://github.com/wekan/wekan/issues/5850)**:
+  The Admin Panel > People > Domains table loaded every domain (aggregated from all users) into the
+  browser at once, with a fixed order and no search. It now behaves like the Board Table view: the
+  server aggregates the domains and returns only one small page, so the whole list is never sent to
+  the browser. You can order by the Domain or Users column (click the header to toggle ascending /
+  descending, with a ▲/▼ indicator) and filter with a search box; prev/next controls page through the
+  results. The search + sort + slice runs in the new pure, unit-tested `models/lib/domainTablePage.js`
+  behind a new `getDomainsWithUserCountsPage` admin method (`server/models/users.js`), and the
+  `domainGeneral` template (`client/components/settings/peopleBody.{jade,js,css}`) is now
+  self-contained and fetches only the current page. Covered by `tests/domainTablePage.test.cjs`.
+  Thanks to xet7.
+
 - **[Verified and added a regression test for the board-invitation email language](https://github.com/wekan/wekan/commit/dfa6c78d4f032a698f6feaad189c86da903d27fb)**:
   Confirmed that a board-invitation email is localised in the existing recipient's own profile
   language, or — when the invitee is a new account created by the invite — in the inviter's profile
