@@ -30,8 +30,6 @@ Versions:
 Carried to a future release — investigated this session but not finished, with findings recorded for whoever picks
 them up next.
 
-- **Need a runtime reproduction before a safe fix:**
-  [#5730](https://github.com/wekan/wekan/issues/5730) (board vanished after adding a user — no logs/repro).
 - **Need specific infrastructure we cannot reproduce/verify here (left for environment owners):**
   [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
   & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
@@ -40,6 +38,31 @@ them up next.
   [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
+
+# Upcoming release
+
+This release adds the following updates:
+
+- **[Fix board disappeared after adding another user](https://github.com/wekan/wekan/commit/933aad87fca6fc8b17efce577127e0b1fddf17f2)**: 
+  A board admin adding another user could make the whole board silently vanish from a
+  user's board list, with no archive and "nothing out of order" in the logs. Root cause:
+  the `setBoardTeams` server method (used by the board Teams/Members management popups)
+  blindly overwrote the board's entire `members` array with a snapshot sent by the client.
+  When that client's board document was stale — e.g. a member had just been added via
+  `inviteUserToBoard` on the server and the change had not yet propagated to the client —
+  the overwrite dropped members, and in the worst case the board's own admin, so the board
+  no longer matched the board-list publication (which requires an active membership) and
+  disappeared. Because a wholesale `$set: { members }` never passes through
+  `foreachRemovedMember()`, no `removeBoardMember` activity was logged and no
+  card/watcher/star cleanup ran, which is why the logs looked normal. `setBoardTeams` now
+  reconciles against the authoritative server-side members instead of trusting the client
+  snapshot: it never drops an active admin, keeps every existing member the client still
+  lists, adds the members the client introduces, and only removes non-admin members the
+  client explicitly omitted (an intentional team-leave) — logging and cleaning up each such
+  removal so it is auditable rather than silent.
+  Thanks to DVNBLMHC and  xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.77 2026-07-06 WeKan ® release
 
