@@ -7,6 +7,7 @@ import { WekanCreator } from '/models/wekanCreator';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardAdmin, boardMemberRoleToFlags } from '/server/lib/utils';
+import { reconcileBoardTeamMembers } from '/models/lib/reconcileBoardTeamMembers';
 import { filterUserBoards } from '/server/lib/boardListFilter';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Actions from '/models/actions';
@@ -367,12 +368,60 @@ Meteor.methods({
       if (member.isReadAssignedOnly !== undefined) check(member.isReadAssignedOnly, Boolean);
     }
 
+    // #5730: setBoardTeams used to blindly overwrite board.members with the
+    // client-supplied `membersArray`. When the caller's board document was stale
+    // (e.g. a user had just been added via inviteUserToBoard on the server and
+    // that change had not yet propagated to the caller's client), the overwrite
+    // silently dropped members — and in the worst case the board's own admin —
+    // which made the whole board vanish from that user's board list. Because a
+    // wholesale `$set: { members }` never goes through foreachRemovedMember(),
+    // no removeBoardMember activity was logged and no card/watcher/star cleanup
+    // ran, so "the logs look normal and nothing seems to be out of order".
+    //
+    // Reconcile against the AUTHORITATIVE server-side members instead of trusting
+    // the client snapshot (see reconcileBoardTeamMembers for the full rationale):
+    //  - never drop an active admin (this is what made the board disappear),
+    //  - keep every existing member the client still lists,
+    //  - add the members the client introduces (team-derived users),
+    //  - only remove non-admin members the client explicitly omitted (an
+    //    intentional team-leave), logging + cleaning up each such removal below
+    //    so it is auditable rather than silent.
+    const { members: resultMembers, removedMemberIds } =
+      reconcileBoardTeamMembers(board.members, membersArray);
+
     await Boards.updateAsync(currBoardId, {
       $set: {
-        members: membersArray,
+        members: resultMembers,
         teams: boardTeamsArray,
       },
     });
+
+    // Run the same cleanup + audit trail that a normal member removal performs,
+    // so team-leave removals are not silent (see comment above).
+    for (const memberId of removedMemberIds) {
+      await Cards.updateAsync(
+        { boardId: currBoardId },
+        { $pull: { members: memberId, watchers: memberId } },
+        { multi: true },
+      );
+      await Lists.updateAsync(
+        { boardId: currBoardId },
+        { $pull: { watchers: memberId } },
+        { multi: true },
+      );
+      if (!board.isPublic()) {
+        await Users.updateAsync(memberId, {
+          $pull: { 'profile.starredBoards': currBoardId },
+        });
+      }
+      await Activities.insertAsync({
+        userId,
+        memberId,
+        type: 'member',
+        activityType: 'removeBoardMember',
+        boardId: currBoardId,
+      });
+    }
   },
 
   async setBoardDomains(boardDomainsArray, currBoardId) {
