@@ -10,6 +10,7 @@ import { Filter } from '/client/lib/filter';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
+import { listCardsSelector } from '/models/lib/swimlaneFilter';
 import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
@@ -339,19 +340,12 @@ Template.listBody.helpers({
     if (!sortBy) {
       sortBy = defaultSort;
     }
-    const selector = {
-      listId: Template.currentData()._id,
-      archived: false,
-    };
-    if (swimlaneId) {
-      // Fallback: also show cards with no swimlaneId (null/empty) so that
-      // pre-migration / orphaned cards are always visible without a DB migration.
-      selector.$or = [
-        { swimlaneId },
-        { swimlaneId: null },  // null covers null AND missing field
-        { swimlaneId: '' },    // empty string from shared-lists era
-      ];
-    }
+    // #6441: build the swimlane-membership fallback as a single `swimlaneId:
+    // { $in: [...] }` clause (via the shared, unit-tested helper) instead of a
+    // bare top-level `$or`, so it never competes with the board Filter's own
+    // top-level `$or` (labels/members/exceptions) and the label filter applies
+    // board-wide across every swimlane.
+    const selector = listCardsSelector(Template.currentData()._id, swimlaneId);
     const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), {
       // sort: ['sort'],
       sort: sortBy,

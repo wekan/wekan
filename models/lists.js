@@ -5,6 +5,7 @@ import { LIST_COLORS } from '/models/metadata/colors';
 import PositionHistory from './positionHistory';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
+import { listCardsSelector } from '/models/lib/swimlaneFilter';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Lists = new Mongo.Collection('lists');
@@ -298,20 +299,11 @@ Lists.helpers({
   },
 
   cards(swimlaneId) {
-    const selector = {
-      listId: this._id,
-      archived: false,
-    };
-    if (swimlaneId) {
-      // Fallback: also surface cards with no swimlaneId (null/empty) so that
-      // pre-migration / orphaned cards are always visible in every swimlane
-      // without requiring a database migration.
-      selector.$or = [
-        { swimlaneId },
-        { swimlaneId: null },  // null covers null AND missing field
-        { swimlaneId: '' },    // empty string from shared-lists era
-      ];
-    }
+    // #6441: express the swimlane-membership fallback as a single `swimlaneId:
+    // { $in: [...] }` clause (via the shared, unit-tested helper) instead of a
+    // bare top-level `$or`, so it never competes with the board Filter's own
+    // top-level `$or` when the two selectors are combined.
+    const selector = listCardsSelector(this._id, swimlaneId);
     const filterSelector =
       typeof Filter !== 'undefined' && typeof Filter.mongoSelector === 'function'
         ? Filter.mongoSelector(selector)
@@ -321,18 +313,8 @@ Lists.helpers({
   },
 
   cardsUnfiltered(swimlaneId) {
-    const selector = {
-      listId: this._id,
-      archived: false,
-    };
-    if (swimlaneId) {
-      // Same fallback as cards(): include orphaned cards with no swimlaneId.
-      selector.$or = [
-        { swimlaneId },
-        { swimlaneId: null },
-        { swimlaneId: '' },
-      ];
-    }
+    // Same swimlane-membership fallback as cards() (#6441), without the Filter.
+    const selector = listCardsSelector(this._id, swimlaneId);
     const ret = ReactiveCache.getCards(selector, { sort: ['sort'] });
     return ret;
   },
