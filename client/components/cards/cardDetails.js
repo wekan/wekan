@@ -51,6 +51,7 @@ import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
 import { uniqBy } from '/imports/lib/collectionHelpers';
+import { memberTargetBoardId } from '/models/lib/linkedCardMembers';
 import { UserAvatar } from '../users/userAvatar';
 import { Filter } from '/client/lib/filter';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
@@ -1657,7 +1658,25 @@ Template.cardLocationsPopup.events({
 });
 
 const filterMembers = (filterTerm) => {
-  let currBoard = Utils.getCurrentBoard();
+  // #5676: for a linked card the members live on the REAL card it points at,
+  // which may be on another board (that is what getMembers()/toggleMember() act
+  // on). Offer that board's members instead of the viewing board's, so the
+  // picker is consistent with where membership is actually stored. Falls back to
+  // the current board for normal cards or when the real card isn't loaded yet.
+  const card = getCurrentCardFromContext();
+  let currBoard = null;
+  if (card) {
+    const boardId = memberTargetBoardId(card, id => ReactiveCache.getCard(id));
+    if (boardId) {
+      currBoard = ReactiveCache.getBoard(boardId);
+    }
+  }
+  if (!currBoard) {
+    currBoard = Utils.getCurrentBoard();
+  }
+  if (!currBoard) {
+    return [];
+  }
   let members = currBoard.activeMembers();
 
   if (filterTerm) {
