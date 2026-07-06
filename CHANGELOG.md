@@ -39,9 +39,9 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
-# Upcoming WeKan ® release
+# v9.80 2026-07-06 WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
 
 - **[Admin Panel Domains table: pagination, column sort and search (like the Board Table view)](https://github.com/wekan/wekan/issues/5850)**:
   The Admin Panel > People > Domains table loaded every domain (aggregated from all users) into the
@@ -55,6 +55,8 @@ This release fixes the following bugs:
   self-contained and fetches only the current page. Covered by `tests/domainTablePage.test.cjs`.
   Thanks to xet7.
 
+and adds the following tests:
+
 - **[Verified and added a regression test for the board-invitation email language](https://github.com/wekan/wekan/commit/dfa6c78d4f032a698f6feaad189c86da903d27fb)**:
   Confirmed that a board-invitation email is localised in the existing recipient's own profile
   language, or — when the invitee is a new account created by the invite — in the inviter's profile
@@ -62,6 +64,8 @@ This release fixes the following bugs:
   the language choice is now extracted into the pure, unit-tested `models/lib/inviteEmailLanguage.js`
   used by `inviteUserToBoard`, and locked in by `tests/inviteEmailLanguage.test.cjs`.
   Thanks to xet7.
+
+and fixes the following bugs:
 
 - **[Linked-card minicard now shows the cover image of the real card](https://github.com/wekan/wekan/commit/9ef7f4a07a6b40a2582af24b27fe133119adcd18)**:
   A linked card (created by "Link card to this card") on one board did not show the cover image of
