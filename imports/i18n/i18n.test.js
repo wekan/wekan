@@ -73,19 +73,33 @@ describe('TAPi18n', () => {
 
   describe('.loadLanguage', () => {
 
-    beforeEach(() => {
-      sinon.stub(TAPi18n.i18n, 'addResourceBundle');
+    // Start each test from a FRESH i18next instance, then stub addResourceBundle
+    // on it. Two things made this suite flakily report "1 failing":
+    //   - stubbing the shared TAPi18n.i18n left state to leak between tests, so
+    //     the stub could end up on a different instance than loadLanguage() used
+    //     (its captured call count then read 0 -> "called exactly once" failure);
+    //   - asserting via sinon-chai (`expect(spy).to.be.calledOnceWith(...)`) runs
+    //     through chai-as-promised, which could evaluate the matcher AFTER the
+    //     outer afterEach ran `sinon.restore()` (-> "is not a spy").
+    // init() gives a clean instance (mirrors the reliable .setLanguage suite
+    // below), and sinon.assert.* is synchronous and never routed through
+    // chai-as-promised, so the checks are deterministic. init() calls
+    // addResourceBundle once for the default language, so we stub AFTER it.
+    let addResourceBundle;
+    beforeEach(async () => {
+      await TAPi18n.init();
+      addResourceBundle = sinon.stub(TAPi18n.i18n, 'addResourceBundle');
     });
 
     it('actually loads the language data', async () => {
       await TAPi18n.loadLanguage('fr');
-      expect(TAPi18n.i18n.addResourceBundle).to.be.calledOnceWith('fr');
-      expect(TAPi18n.i18n.addResourceBundle.firstCall.args[2]).to.have.property('accept');
+      sinon.assert.calledOnceWithMatch(addResourceBundle, 'fr');
+      expect(addResourceBundle.firstCall.args[2]).to.have.property('accept');
     });
 
     it('throws error if language is missing', async () => {
       await expect(TAPi18n.loadLanguage('miss')).to.be.rejectedWith('not supported');
-      expect(TAPi18n.i18n.addResourceBundle).to.not.be.called;
+      sinon.assert.notCalled(addResourceBundle);
     });
 
     // #5756: region/script-tagged and legacy underscore languages must register
@@ -94,29 +108,29 @@ describe('TAPi18n', () => {
     it('registers region-tagged languages (zh-CN) under the i18next lookup code', async () => {
       await TAPi18n.loadLanguage('zh-CN');
       const code = TAPi18n.toI18nCode('zh-CN');
-      expect(TAPi18n.i18n.addResourceBundle).to.be.calledOnceWith(code);
+      sinon.assert.calledOnceWithMatch(addResourceBundle, code);
       // The actual translation map (not an ES-module namespace) is registered.
-      expect(TAPi18n.i18n.addResourceBundle.firstCall.args[2]).to.have.property('accept');
+      expect(addResourceBundle.firstCall.args[2]).to.have.property('accept');
     });
 
     it('registers script-tagged languages (zh-Hans) under the i18next lookup code', async () => {
       await TAPi18n.loadLanguage('zh-Hans');
-      expect(TAPi18n.i18n.addResourceBundle).to.be.calledOnceWith(TAPi18n.toI18nCode('zh-Hans'));
-      expect(TAPi18n.i18n.addResourceBundle.firstCall.args[2]).to.have.property('accept');
+      sinon.assert.calledOnceWithMatch(addResourceBundle, TAPi18n.toI18nCode('zh-Hans'));
+      expect(addResourceBundle.firstCall.args[2]).to.have.property('accept');
     });
 
     it('converts legacy underscore tags (af_ZA) to a hyphenated i18next code', async () => {
       await TAPi18n.loadLanguage('af_ZA');
       const code = TAPi18n.toI18nCode('af_ZA');
       expect(code).to.not.contain('_');
-      expect(TAPi18n.i18n.addResourceBundle).to.be.calledOnceWith(code);
+      sinon.assert.calledOnceWithMatch(addResourceBundle, code);
     });
 
     it('does not unwrap the "default" translation key as an ES-module export', async () => {
       // The data files contain a key literally named "default" ("Default"),
       // which must survive loading and not be mistaken for an ESM namespace.
       await TAPi18n.loadLanguage('de');
-      const data = TAPi18n.i18n.addResourceBundle.firstCall.args[2];
+      const data = addResourceBundle.firstCall.args[2];
       expect(data).to.have.property('accept');
       expect(data.default).to.be.a('string');
     });
