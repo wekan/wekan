@@ -22,6 +22,7 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Users, { allowedSortValues, allowedAllBoardsSortValues } from '/models/users';
 import { expiredNotificationActivityIds } from '/models/lib/notificationCleanup';
+import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
@@ -832,6 +833,8 @@ Meteor.methods({
 
     const posAt = username.indexOf('@');
     let user = null;
+    // #5664: existing invitee => their own language; new invitee => inviter's.
+    let isNewUser = false;
     if (posAt >= 0) {
       user = await ReactiveCache.getUser({
         emails: { $elemMatch: { address: username } },
@@ -862,6 +865,7 @@ Meteor.methods({
       }
       Accounts.sendEnrollmentEmail(newUserId);
       user = await ReactiveCache.getUser(newUserId);
+      isNewUser = true;
     }
 
     // #6116: when the global admin setting is enabled, only allow adding a user
@@ -961,7 +965,13 @@ Meteor.methods({
         board: board.title,
         url: board.absoluteUrl(),
       };
-      const lang = user.getLanguage();
+      // #5664: pick the invite email's language — the existing recipient's own
+      // profile language, or (for a newly created invitee) the inviter's.
+      const lang = chooseInviteEmailLanguage({
+        isNewUser,
+        inviterLanguage: inviter.getLanguage(),
+        recipientLanguage: user.getLanguage(),
+      });
 
       if (typeof EmailLocalization !== 'undefined') {
         await EmailLocalization.sendEmail({

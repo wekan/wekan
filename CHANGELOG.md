@@ -43,6 +43,14 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Verified and added a regression test for the board-invitation email language](https://github.com/wekan/wekan/issues/5664)**:
+  Confirmed that a board-invitation email is localised in the existing recipient's own profile
+  language, or — when the invitee is a new account created by the invite — in the inviter's profile
+  language, defaulting to `en` (`en.i18n.json`) when none is set. The behaviour was already correct;
+  the language choice is now extracted into the pure, unit-tested `models/lib/inviteEmailLanguage.js`
+  used by `inviteUserToBoard`, and locked in by `tests/inviteEmailLanguage.test.cjs`.
+  Thanks to xet7.
+
 - **[Linked-card minicard now shows the cover image of the real card](https://github.com/wekan/wekan/commit/9ef7f4a07a6b40a2582af24b27fe133119adcd18)**:
   A linked card (created by "Link card to this card") on one board did not show the cover image of
   the real card it points at on another board, even though the card's other fields did. A linked
