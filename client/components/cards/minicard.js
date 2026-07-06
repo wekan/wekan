@@ -6,6 +6,7 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
 import ChecklistItems from '/models/checklistItems';
 import Cards from '/models/cards';
+import { resolveCoverId } from '/models/lib/linkedCardCover';
 import {
   parseChecklistItemTitles,
   buildChecklistItemPayload,
@@ -168,8 +169,12 @@ Template.minicard.helpers({
     }
   },
   cover() {
-    if (!this.coverId) return null;
-    const attachment = ReactiveCache.getAttachment(this.coverId);
+    // #5666: for a linked card the cover lives on the real card it points at, so
+    // resolve the cover id through it (mirroring getTitle/getDue/...); a plain
+    // card resolves to its own coverId.
+    const coverId = resolveCoverId(this, id => ReactiveCache.getCard(id));
+    if (!coverId) return null;
+    const attachment = ReactiveCache.getAttachment(coverId);
     if (!attachment) return null;
     const coverLink = typeof attachment.link === 'function' ? attachment.link() : '';
     if (!coverLink) return null;

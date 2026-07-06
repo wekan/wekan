@@ -28,6 +28,7 @@ import {
   TYPE_LINKED_CARD,
 } from '../config/const';
 import { CARD_COLORS } from '/models/metadata/colors';
+import { resolveCoverId } from '/models/lib/linkedCardCover';
 import {
   DEFAULT_DEPENDENCY_COLOR,
   DEFAULT_DEPENDENCY_ICON,
@@ -1171,8 +1172,12 @@ Cards.helpers({
   },
 
   cover() {
-    if (!this.coverId) return false;
-    const cover = ReactiveCache.getAttachment(this.coverId);
+    // #5666: resolve the cover id through the real card for linked cards (a
+    // linked card has no coverId of its own), matching the other linked-card
+    // getters; a plain card resolves to its own coverId.
+    const coverId = resolveCoverId(this, id => ReactiveCache.getCard(id));
+    if (!coverId) return false;
+    const cover = ReactiveCache.getAttachment(coverId);
     // if we return a cover before it is fully stored, we will get errors when we try to display it
     // todo XXX we could return a default "upload pending" image in the meantime?
     return cover && cover.link() && cover;

@@ -43,6 +43,19 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Fix #5666: linked-card minicard now shows the cover image of the real card](https://github.com/wekan/wekan/issues/5666)**:
+  A linked card (created by "Link card to this card") on one board did not show the cover image of
+  the real card it points at on another board, even though the card's other fields did. A linked
+  card is only a placeholder — its real content lives on the card at `linkedId` — and every other
+  minicard getter resolves through the real card (`getTitle`/`getReceived`/`getDue`/…), but the
+  cover helpers read `this.coverId` directly, and a linked card has no `coverId` of its own. The
+  real card's cover attachment is already published to the linking board (see the "linked cards" /
+  "attachments for linked cards" children of the `board` publication), so this was purely a
+  client-side resolution gap. `Card.cover()` and the minicard `cover()` helper now resolve the
+  cover id through the real card via the pure, unit-tested `models/lib/linkedCardCover.js`; normal
+  cards are unaffected. Covered by `tests/linkedCardCover.test.cjs`.
+  Thanks to 32Dexter and xet7.
+
 - **[Fix date-picker calendar stays fully visible when opened low on a scrolled page](https://github.com/wekan/wekan/commit/7a0eb61c0a4d3ace60f95cfbda7c1d70dff665ef)**:
   Opening a date field (due/start/end date, or a date custom field) low on the screen showed the
   calendar popup extending past the visible area, and — because the pop-over is `position: absolute`
