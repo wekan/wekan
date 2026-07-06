@@ -23,6 +23,7 @@ import { pullMemberById } from '/server/lib/removeMember';
 import getSlug from 'limax';
 import { findWhere, where, groupBy } from '/imports/lib/collectionHelpers';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
+import { buildCardSearchOr } from '/models/lib/cardSearch';
 const { SimpleSchema } = require('/imports/simpleSchema');
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -1618,13 +1619,9 @@ Boards.helpers({
       }
       const projection = { sort: { createdAt: -1 } };
 
-      const regex = new RegExp(term, 'i');
-
-      query.$or = [
-        { title: regex },
-        { description: regex },
-        { customFields: { $elemMatch: { value: regex } } },
-      ];
+      // #5680: build the $or so numeric custom fields (number / currency, stored
+      // as JS Numbers) match by value too — a regex alone only matches strings.
+      query.$or = buildCardSearchOr(term);
       ret = ReactiveCache.getCards(query, projection);
     }
     return ret;
