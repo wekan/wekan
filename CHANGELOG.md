@@ -39,6 +39,24 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan release
+
+This release fixes the following bugs:
+
+- **[Fix #5667: date-picker calendar stays fully visible when opened low on a scrolled page](https://github.com/wekan/wekan/issues/5667)**:
+  Opening a date field (due/start/end date, or a date custom field) low on the screen showed the
+  calendar popup extending past the visible area, and — because the pop-over is `position: absolute`
+  (document coordinates) — scrolling to reach it moved the calendar along with the page, so the full
+  calendar could never be seen (the workaround was to close it, drag the field to the center and
+  reopen). `Popup._getOffset` computed the space above/below the opener and the clamped `top` from
+  the opener's DOCUMENT offset mixed with the VIEWPORT height, ignoring the page scroll, so on a
+  scrolled page the anchored popup landed outside the visible viewport. The geometry now runs in
+  viewport coordinates (subtracting the page scroll) and clamps the popup fully within the visible
+  viewport, then converts back to document coordinates for the absolute style; when the page is not
+  scrolled the output is unchanged. Extracted the math into the pure, unit-tested
+  `client/lib/popupOffset.js`, used by `client/lib/popup.js`. Covered by `tests/popupOffset.test.cjs`.
+  Thanks to MarcusDger and xet7.
+
 # v9.79 2026-07-06 WeKan ® release
 
 This release fixes the following bugs:

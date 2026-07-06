@@ -4,6 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import { TAPi18n } from '/imports/i18n';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import { computePopupOffset } from '/client/lib/popupOffset';
 
 window.Popup = new (class {
   constructor() {
@@ -222,108 +223,33 @@ window.Popup = new (class {
     return () => {
       Utils.windowResizeDep.depend();
 
-      if (Utils.isMiniScreen()) return { left: 0, top: 0 };
+      // #5667: read the current page scroll and the opener's document offset,
+      // then delegate the geometry to the pure, unit-tested computePopupOffset.
+      // It lays the popup out in VIEWPORT coordinates — so a date-picker opened
+      // low on a scrolled page stays fully visible instead of extending past the
+      // visible area — and returns document coordinates for the absolute style.
+      const hasOpener = !!($element && $element.length);
+      const offset = hasOpener ? $element.offset() : null;
+      const opener = hasOpener
+        ? { top: offset.top, left: offset.left, height: $element.outerHeight() }
+        : null;
 
-      const viewportWidth = $(window).width();
-      const viewportHeight = $(window).height();
-      const viewportPadding = 10;
-      // Calculate actual popup width based on CSS: min(380px, 55vw)
-      const popupWidth = Math.min(380, viewportWidth * 0.55);
-
-      // Card details popup: dock it to the top of the viewport so it overlays
-      // the global and board header bars (its z-index already sits above them)
-      // instead of opening downward from the clicked minicard.
-      if (popupName === 'cardDetailsPopup') {
-        const cardWidth = Math.min(600, viewportWidth * 0.8);
-        const centeredLeft = (viewportWidth - cardWidth) / 2;
-        // top is forced to 0 in CSS (.pop-over[data-popup="cardDetailsPopup"])
-        // so the card overlays the header bars; use the full viewport height.
-        return {
-          left: Math.max(viewportPadding, centeredLeft),
-          top: 0,
-          maxHeight: viewportHeight,
-        };
-      }
-
-      // If the opener element is missing (e.g., programmatic open), fallback to viewport origin
-      if (!$element || $element.length === 0) {
-        return {
-          left: viewportPadding,
-          top: viewportPadding,
-          maxHeight: viewportHeight - viewportPadding * 2,
-        };
-      }
-
-      const offset = $element.offset();
-      const openerTop = offset.top;
-      const openerBottom = offset.top + $element.outerHeight();
-      const clampedLeft = Math.max(
-        viewportPadding,
-        Math.min(offset.left, viewportWidth - popupWidth - viewportPadding),
-      );
-
-      // Check if this is an admin panel edit popup
-      const isAdminEditPopup = $element.hasClass('edit-user') ||
-                              $element.hasClass('edit-org') ||
-                              $element.hasClass('edit-team');
-
-      if (isAdminEditPopup) {
-        // Center the popup horizontally and use full height
-        const centeredLeft = (viewportWidth - popupWidth) / 2;
-
-        return {
-          left: Math.max(viewportPadding, centeredLeft), // Ensure popup doesn't go off screen
-          top: viewportPadding, // Start from top with small margin
-          maxHeight: viewportHeight - viewportPadding * 2, // Use full height minus small margins
-        };
-      }
-
-      // Calculate available heights around the opener
-      const spaceBelow = viewportHeight - openerBottom - viewportPadding;
-      const spaceAbove = openerTop - viewportPadding;
-      const preferBelow = spaceBelow >= spaceAbove;
-
-      // For language popup, don't use dynamic height to avoid overlapping board
-      const isLanguagePopup = $element.hasClass('js-change-language');
-      let availableHeight;
-
-      if (isLanguagePopup) {
-        // For language popup, position content area below right vertical scrollbar
-        const languageTop = openerBottom;
-        const languageAvailable = Math.max(
-          0,
-          viewportHeight - languageTop - viewportPadding,
-        );
-        const calculatedHeight = Math.min(
-          languageAvailable,
-          viewportHeight * 0.5,
-        ); // Max 50% of viewport
-
-        return {
-          left: clampedLeft,
-          top: languageTop,
-          maxHeight: Math.max(calculatedHeight, 0),
-        };
-      } else {
-        // For other popups, choose the side with more space and keep popup fully in viewport.
-        if (preferBelow) {
-          availableHeight = Math.max(0, Math.min(spaceBelow, viewportHeight * 0.8));
-          return {
-            left: clampedLeft,
-            top: openerBottom,
-            maxHeight: availableHeight,
-          };
-        }
-
-        availableHeight = Math.max(0, Math.min(spaceAbove, viewportHeight * 0.8));
-        const top = Math.max(viewportPadding, openerTop - availableHeight);
-
-        return {
-          left: clampedLeft,
-          top,
-          maxHeight: availableHeight,
-        };
-      }
+      return computePopupOffset({
+        viewportWidth: $(window).width(),
+        viewportHeight: $(window).height(),
+        scrollTop: $(window).scrollTop() || 0,
+        scrollLeft: $(window).scrollLeft() || 0,
+        opener,
+        popupName,
+        isMiniScreen: Utils.isMiniScreen(),
+        isAdminEditPopup:
+          hasOpener &&
+          ($element.hasClass('edit-user') ||
+            $element.hasClass('edit-org') ||
+            $element.hasClass('edit-team')),
+        isLanguagePopup: hasOpener && $element.hasClass('js-change-language'),
+        viewportPadding: 10,
+      });
     };
   }
 
