@@ -39,6 +39,59 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan release
+
+This release fixes the following bugs:
+
+- **[Fix #6439: Custom (drag order) sort on All Boards page now reorders via drag-and-drop](https://github.com/wekan/wekan/commit/f8e31745d8104c58dc7bbcb4c1e4c615141a8e82)**:
+  On the All Boards page the jQuery-ui sortable that reordered boards in the "Custom (drag order)"
+  mode was removed when the page switched to HTML5 drag-and-drop for workspaces, and nothing
+  replaced it, so dragging a board showed a not-allowed cursor and never updated
+  `profile.boardSortIndex`. Added HTML5 `dragover`/`drop` reorder handlers on the board tiles in
+  `client/components/boards/boardsList.js` (active only in the custom sort mode), a
+  `setBoardSortIndexes` helper in `models/users.js` to persist the new order in one write, a
+  drop-hint style in `client/components/boards/boardsList.css`, and extracted the reorder
+  decision/index math into the pure, unit-tested `models/lib/boardSortReorder.js`. Covered by
+  `tests/boardSortReorder.test.cjs`.
+  Thanks to jullbo and xet7.
+
+- **[Fix #6440: '+' add-item button on minicard checklist does nothing](https://github.com/wekan/wekan/commit/dd90995db74593228d40bc504405620ec09c175d)**:
+  On the minicard the checklist add-item `<form>` is rendered inside the `a.minicard-wrapper`
+  anchor, so the native form `submit` event never reached the Blaze event map — the #5565
+  minicard-checklist work wired only a `submit .js-add-checklist-item` handler (which never fires
+  there) and gave the Save button no click handler, so clicking "+" Save did nothing. Added an
+  explicit `click .js-submit-add-checklist-item-form` handler in
+  `client/components/cards/minicard.js` (mirroring the working edit-item button) that inserts the
+  item, with the blank-input guard and title parsing extracted into the pure, Meteor-free
+  `models/lib/checklistItemTitles.js`. Card-detail checklists are unaffected. Covered by
+  `tests/checklistItemTitles.test.cjs`.
+  Thanks to jullbo and xet7.
+
+- **[Fix #6441: label filter now applies board-wide across all swimlanes](https://github.com/wekan/wekan/commit/9dca403782d476eb3c593fe614848ef02bb7f5a3)**:
+  A label filter hid non-matching cards in one swimlane (e.g. "Focus") but left another swimlane
+  (e.g. "Background") unfiltered. Each list scopes its cards to the current swimlane while also
+  showing shared/orphaned cards that have no swimlane; that fallback was written as a bare
+  top-level `$or`, which competes with the board Filter's own top-level `$or` (label/member
+  criteria) when the two selectors are combined — dropping the label criterion in every swimlane
+  except the default one. The swimlane-membership fallback is now a single
+  `swimlaneId: { $in: [id, null, ''] }` clause (the same form already used in `sidebarFilters.js`,
+  `cardDetails.js` and `dialogWithBoardSwimlaneList.js`), extracted to the pure, unit-tested
+  `models/lib/swimlaneFilter.js` and used by `client/components/lists/listBody.js` and
+  `models/lists.js`, so no second `$or` exists and the filter is always `$and`-combined and applied
+  board-wide. Covered by `tests/swimlaneFilter.test.cjs`.
+  Thanks to jullbo and xet7.
+
+- **[Fix flaky server-side Mocha test (i18n zh-CN "is not a spy")](https://github.com/wekan/wekan/commit/fc4eadedc9109602ee029b60c44eeda869aa98c3)**:
+  The server-side Mocha suite intermittently reported "1 failing" on the #5756
+  `imports/i18n/i18n.test.js` region-tag test with `TypeError: [Function] is not a spy`. The
+  assertion re-read `TAPi18n.i18n.addResourceBundle`, and the sinon-chai matcher (routed through
+  chai-as-promised) could evaluate after this suite's `afterEach` had already run
+  `sinon.restore()` — at which point the property is the original function, not the stub. The
+  `.loadLanguage` tests now assert on the captured stub reference (restore unwraps the property but
+  leaves the spy intact), which is deterministic. Reproduced and verified with a standalone
+  sinon/chai script.
+  Thanks to xet7.
+
 # v9.78 2026-07-06 WeKan ® release
 
 This release fixes the following bugs:
