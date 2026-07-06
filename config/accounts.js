@@ -300,4 +300,19 @@ if (Meteor.isServer) {
     Accounts.sendResetPasswordEmail,
     (code, message) => new Meteor.Error(code, message),
   );
+
+  // #5672: "Internal Server Error When Signing Up Despite Successful Account
+  // Creation". useraccounts' ATCreateUserServer creates the account and then
+  // calls Accounts.sendVerificationEmail(); when SMTP is not configured that
+  // send throws AFTER the user is inserted, so the createUser method returns a
+  // raw HTTP 500 even though the account exists and can sign in. The
+  // verification email is best-effort at sign-up, so swallow + log a transport
+  // failure (registration then completes and redirects to sign-in). An
+  // "already verified" error is re-thrown so ATResendVerificationEmail still
+  // reports it. Unit-tested in tests/verificationEmail.test.cjs.
+  const { wrapSendVerificationEmail } = require('/server/lib/verificationEmail');
+  Accounts.sendVerificationEmail = wrapSendVerificationEmail(
+    Accounts.sendVerificationEmail,
+    message => console.warn(message),
+  );
 }
