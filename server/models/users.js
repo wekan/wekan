@@ -21,6 +21,7 @@ import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Users, { allowedSortValues, allowedAllBoardsSortValues } from '/models/users';
+import { expiredNotificationActivityIds } from '/models/lib/notificationCleanup';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
@@ -1214,17 +1215,35 @@ const runNotificationCleanup = async function runNotificationCleanup() {
     process.env.NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE;
   const defaultRemoveAge = 2;
   const removeAge = parseInt(envRemoveAge, 10) || defaultRemoveAge;
+  const now = new Date();
 
-  for (const user of await ReactiveCache.getUsers()) {
-    if (!user.profile || !user.profile.notifications) continue;
-    for (const notification of user.profile.notifications) {
-      if (notification && notification.read) {
-        const removeDate = new Date(notification.read);
-        removeDate.setDate(removeDate.getDate() + removeAge);
-        if (removeDate <= new Date()) {
-          user.removeNotification(notification.activity);
-        }
-      }
+  // #5685: only scan users that actually have notifications, and prune each
+  // user's stale notifications in a SINGLE awaited `$pull … $in` instead of one
+  // un-awaited `removeNotification()` per entry. That collapses K Users-collection
+  // writes (and the K publication observer re-runs they triggered — the churn
+  // behind the "Removed nonexistent document" crash) into one.
+  const users = await ReactiveCache.getUsers({
+    'profile.notifications': { $exists: true, $ne: [] },
+  });
+  for (const user of users) {
+    const activityIds = expiredNotificationActivityIds(
+      user.profile && user.profile.notifications,
+      removeAge,
+      now,
+    );
+    if (activityIds.length === 0) continue;
+    try {
+      await Users.updateAsync(user._id, {
+        $pull: {
+          'profile.notifications': { activity: { $in: activityIds } },
+        },
+      });
+    } catch (error) {
+      console.error(
+        'Notification cleanup: failed to prune notifications for user',
+        user._id,
+        error,
+      );
     }
   }
 };
