@@ -41,7 +41,21 @@ them up next.
 
 # Upcoming release
 
-This release adds the following updates:
+This release fixes the following bugs:
+
+- **[Fix impossible to select another board in rules](https://github.com/wekan/wekan/issues/5698)**:
+  In the IFTTT-Rules "Move card to the board" and "Link card to the board" actions, the
+  board dropdown was empty for some users — the current board included — while colleagues
+  in the same company could pick boards normally. Root cause: the dropdown filtered the
+  (already access-scoped) client cache with `'members.userId': me`, i.e. it only kept boards
+  where the user has a *direct* member entry. A user who reaches a board through an
+  Organization, Team or email-domain share — but is not listed individually in
+  `board.members` — matched nothing, so the whole selector came up empty. The dropdown now
+  filters by the same visibility rule as `Boards.userBoards()` (public OR active member OR
+  active org OR active team OR active domain), so org/team/domain-shared boards appear too,
+  while archived boards, template containers, the user's templates board and internal helper
+  boards stay excluded.
+  Thanks to Augustin356 and xet7.
 
 - **[Fix board disappeared after adding another user](https://github.com/wekan/wekan/commit/933aad87fca6fc8b17efce577127e0b1fddf17f2)**: 
   A board admin adding another user could make the whole board silently vanish from a
@@ -60,7 +74,7 @@ This release adds the following updates:
   lists, adds the members the client introduces, and only removes non-admin members the
   client explicitly omitted (an intentional team-leave) — logging and cleaning up each such
   removal so it is auditable rather than silent.
-  Thanks to DVNBLMHC and  xet7.
+  Thanks to DVNBLMHC and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
