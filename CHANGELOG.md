@@ -43,7 +43,7 @@ them up next.
 
 This release fixes the following bugs:
 
-- **[Verified and added a regression test for the board-invitation email language](https://github.com/wekan/wekan/issues/5664)**:
+- **[Verified and added a regression test for the board-invitation email language](https://github.com/wekan/wekan/commit/dfa6c78d4f032a698f6feaad189c86da903d27fb)**:
   Confirmed that a board-invitation email is localised in the existing recipient's own profile
   language, or — when the invitee is a new account created by the invite — in the inviter's profile
   language, defaulting to `en` (`en.i18n.json`) when none is set. The behaviour was already correct;
