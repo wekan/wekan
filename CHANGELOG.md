@@ -43,6 +43,20 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Fix "Internal Server Error" when signing up despite the account being created](https://github.com/wekan/wekan/commit/b1b414e850c5494dd3849f8dab6db44fecef0196)**:
+  Registering a new account showed a red "Internal server error" on the sign-up form even
+  though the account was created and could sign in — which typically happens when SMTP is not
+  configured. Root cause: useraccounts' `ATCreateUserServer` creates the account and then
+  calls `Accounts.sendVerificationEmail()` (because `sendVerificationEmail: true`); when SMTP
+  is missing/misconfigured that send throws **after** the user row is inserted, and with no
+  try/catch the exception leaves the createUser method as an opaque HTTP 500. The verification
+  email is best-effort at sign-up, so `Accounts.sendVerificationEmail` is now wrapped to log
+  and swallow a transport failure — registration completes and redirects to sign-in — while an
+  "already verified" error is re-thrown so the resend-verification flow still reports it. This
+  mirrors the [#5706](https://github.com/wekan/wekan/issues/5706) reset-password hardening.
+  Covered by `tests/verificationEmail.test.cjs`.
+  Thanks to Firas-Git and xet7.
+
 - **[Fix can not add members to a Linked Card](https://github.com/wekan/wekan/commit/cb9c8973092df5aa3112d3d59e3da4d8793c628b)**:
   A **linked card** (created by "Link card to this card") is only a placeholder on the board
   that links it — its members are stored on the **real card** it points at (`linkedId`), which
