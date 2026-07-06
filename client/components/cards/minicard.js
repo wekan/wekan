@@ -6,6 +6,10 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
 import ChecklistItems from '/models/checklistItems';
 import Cards from '/models/cards';
+import {
+  parseChecklistItemTitles,
+  buildChecklistItemPayload,
+} from '/models/lib/checklistItemTitles';
 import { normalizeDependencies } from '/models/metadata/dependencies';
 
 function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
@@ -376,6 +380,28 @@ Template.minicardChecklist.helpers({
   },
 });
 
+// #6440: create the checklist item(s) for the minicard add-item form. Shared by
+// the Save-button click handler and the (rarely reached) form-submit handler.
+// The Save button needs an explicit click handler because the minicard — and so
+// the add-item <form> — is rendered inside the `a.minicard-wrapper` anchor, where
+// the native form `submit` event never reaches the Blaze event map; without this
+// the "+" add-item on the minicard did nothing. The blank-input guard and the
+// title parsing live in the pure, unit-tested models/lib/checklistItemTitles.js.
+function addMinicardChecklistItems(textarea, checklist) {
+  if (!textarea || !checklist) return;
+  const titles = parseChecklistItemTitles(textarea.value);
+  if (titles.length === 0) return;
+  const items = checklist.items();
+  const lastItem = items[items.length - 1] || null;
+  let sortIndex = Utils.calculateIndexData(lastItem, null).base;
+  titles.forEach(title => {
+    ChecklistItems.insert(buildChecklistItemPayload(title, checklist, sortIndex));
+    sortIndex += 1;
+  });
+  textarea.value = '';
+  textarea.focus();
+}
+
 Template.minicardChecklist.events({
   'click .js-convert-checklist-item-to-card'(event) {
     event.stopPropagation();
@@ -417,25 +443,26 @@ Template.minicardChecklist.events({
     }
     $form.find('.js-close-inlined-form').trigger('click');
   },
+  // #6440: explicit click handler for the minicard "+" add-item Save button.
+  // The native form `submit` event does not fire on the minicard (the form is
+  // inside the `a.minicard-wrapper` anchor), so — unlike card-detail — we cannot
+  // rely on `submit .js-add-checklist-item`. This mirrors the already-working
+  // `click .js-submit-edit-checklist-item-form` above.
+  'click .js-submit-add-checklist-item-form'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const $form = $(event.currentTarget).closest('form');
+    const textarea = $form.find('textarea.js-add-checklist-item')[0];
+    const formData = Blaze.getData($form[0]) || Template.currentData() || {};
+    addMinicardChecklistItems(textarea, formData.checklist);
+  },
+  // Kept for completeness (e.g. card-detail-style contexts); on the minicard this
+  // rarely fires, so the click handler above is the real path. See #6440.
   'submit .js-add-checklist-item'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-checklist-item');
-    if (!textarea) return;
-    const title = textarea.value.trim();
     const data = Template.currentData() || {};
-    const checklist = data.checklist;
-    if (!checklist || !title) return;
-    const items = checklist.items();
-    const lastItem = items[items.length - 1] || null;
-    const sortIndex = Utils.calculateIndexData(lastItem, null).base;
-    ChecklistItems.insert({
-      title,
-      checklistId: checklist._id,
-      cardId: checklist.cardId,
-      sort: sortIndex,
-    });
-    textarea.value = '';
-    textarea.focus();
+    addMinicardChecklistItems(textarea, data.checklist);
   },
   'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {
     Popup.back();
