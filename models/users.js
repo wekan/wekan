@@ -1744,6 +1744,13 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.boardSortIndex': mapping } });
   },
 
+  // #6439: persist a whole boardSortIndex mapping in one write. Used by the
+  // All Boards page after a drag-reorder recomputes the manual order.
+  async setBoardSortIndexes(mapping) {
+    const merged = Object.assign({}, (this.profile && this.profile.boardSortIndex) || {}, mapping || {});
+    return await Users.updateAsync(this._id, { $set: { 'profile.boardSortIndex': merged } });
+  },
+
   async toggleAutoWidth(boardId) {
     const { autoWidthBoards = {} } = this.profile || {};
     autoWidthBoards[boardId] = !autoWidthBoards[boardId];

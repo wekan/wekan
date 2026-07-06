@@ -1078,6 +1078,13 @@ body.grey-icons-enabled .checkmark-no-grey {
   margin: 8px; /* Space between board items */
 }
 
+/* #6439: highlight the board a dragged board will be dropped before, when
+   reordering in the Custom (drag order) sort mode. */
+.js-board.board-reorder-over {
+  outline: 2px dashed #3498db;
+  outline-offset: 2px;
+}
+
 /* Reset background for add-board button */
 .js-add-board {
   background-color: transparent !important;

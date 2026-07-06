@@ -6,6 +6,10 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import {
+  isDragReorderEnabled,
+  computeReorderedSortIndex,
+} from '/models/lib/boardSortReorder';
 
 // SubsManager removed for Meteor 3 migration
 
@@ -58,6 +62,15 @@ const DEFAULT_WORKSPACE_ICON = '📁';
 // #5799: how many board icons to show per page in the sorted (non-custom) modes.
 // Matches the Admin Panel > People page size.
 const BOARDS_PER_PAGE = 25;
+
+// #6439: the effective All Boards sort mode for the current user, defaulting to
+// 'custom' (manual drag order) when unknown. Used to gate board drag-reordering.
+function currentAllBoardsSortBy() {
+  const cu = ReactiveCache.getCurrentUser();
+  return cu && typeof cu.getAllBoardsSortBy === 'function'
+    ? cu.getAllBoardsSortBy()
+    : 'custom';
+}
 
 function getCurrentWorkspacesTree() {
   const currentUser = ReactiveCache.getCurrentUser();
@@ -973,6 +986,50 @@ Template.boardList.events({
     document.querySelectorAll('.workspace-node.board-drag-hint, .js-select-menu.board-drag-hint').forEach((el) => {
       el.classList.remove('board-drag-hint');
     });
+    document.querySelectorAll('.js-board.board-reorder-over').forEach((el) => {
+      el.classList.remove('board-reorder-over');
+    });
+  },
+  // #6439: reorder boards on the All Boards page by dropping one board onto
+  // another. Only active in the "custom" (manual drag order) sort mode — in the
+  // sorted modes the order comes from the title, so a board is not a valid drop
+  // target (which is why, before this, the browser showed the not-allowed cursor
+  // and nothing persisted). The reorder decision/index math lives in the pure,
+  // unit-tested models/lib/boardSortReorder.js.
+  'dragover .js-board'(evt, tpl) {
+    if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
+    // A multi-board drag is a share/assign gesture, not a reorder.
+    const dt = evt.originalEvent.dataTransfer;
+    if (dt && dt.getData('application/x-board-multi') === 'true') return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    if (dt) dt.dropEffect = 'move';
+    evt.currentTarget.classList.add('board-reorder-over');
+  },
+  'dragleave .js-board'(evt) {
+    evt.currentTarget.classList.remove('board-reorder-over');
+  },
+  'drop .js-board'(evt, tpl) {
+    if (!isDragReorderEnabled(currentAllBoardsSortBy())) return;
+    const dt = evt.originalEvent.dataTransfer;
+    if (dt && dt.getData('application/x-board-multi') === 'true') return;
+    const draggedId = dt ? dt.getData('text/plain') : '';
+    if (!draggedId) return;
+    evt.preventDefault();
+    evt.stopPropagation();
+    evt.currentTarget.classList.remove('board-reorder-over');
+    const targetId = this._id;
+    // Current display order of the board grid: the li.js-board carries the board
+    // id as its first class (see the .js-board template and #filterBtn handler).
+    const orderedIds = Array.from(tpl.findAll('.js-board'))
+      .map((el) => el.classList[0])
+      .filter(Boolean);
+    const mapping = computeReorderedSortIndex(orderedIds, draggedId, targetId);
+    if (!mapping) return;
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser && typeof currentUser.setBoardSortIndexes === 'function') {
+      currentUser.setBoardSortIndexes(mapping);
+    }
   },
   'click .js-clone-board'(evt) {
     if (confirm(TAPi18n.__('duplicate-board-confirm'))) {
