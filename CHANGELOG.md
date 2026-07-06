@@ -43,7 +43,7 @@ them up next.
 
 This release fixes the following bugs:
 
-- **[Fix #5666: linked-card minicard now shows the cover image of the real card](https://github.com/wekan/wekan/issues/5666)**:
+- **[Linked-card minicard now shows the cover image of the real card](https://github.com/wekan/wekan/commit/9ef7f4a07a6b40a2582af24b27fe133119adcd18)**:
   A linked card (created by "Link card to this card") on one board did not show the cover image of
   the real card it points at on another board, even though the card's other fields did. A linked
   card is only a placeholder — its real content lives on the card at `linkedId` — and every other
