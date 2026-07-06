@@ -43,6 +43,22 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Fix "Removed nonexistent document" crash during notification_cleanup](https://github.com/wekan/wekan/commit/2242da4176edcd7ed6bbdd779fe2bafab8457b7c)**:
+  The scheduled notification-tray cleanup logged `Exception in removed observeChanges
+  callback: Error: Removed nonexistent document …`. The crash itself came from the old
+  `cottz:publish-relations` package (since replaced by `reywood:publish-composite`), but the
+  cleanup that provoked it still fired one **un-awaited** `removeNotification()` per expired
+  notification — a separate `Users.update` `$pull` each time — so a user with K stale
+  notifications produced K writes to the Users collection, and every publication that
+  republishes user documents re-ran its observers K times in quick bursts (the churn that
+  surfaced the removed-document error), while any rejected write went unhandled. The cleanup
+  now scans only users that have notifications and prunes each user's stale notifications in a
+  single awaited `$pull … $in`. It also removes an activity's notifications only when *every*
+  entry for that activity is read and past its removal age (so a freshly re-created unread
+  notification sharing an activity id is not dropped), and guards missing/invalid `read`
+  timestamps. Covered by `tests/notificationCleanup.test.cjs`.
+  Thanks to xet7.
+
 - **[Fix impossible to select another board in rules](https://github.com/wekan/wekan/issues/5698)**:
   In the IFTTT-Rules "Move card to the board" and "Link card to the board" actions, the
   board dropdown was empty for some users — the current board included — while colleagues
