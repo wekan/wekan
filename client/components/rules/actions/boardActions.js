@@ -4,6 +4,7 @@ import Actions from '/models/actions';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import { Utils } from '/client/lib/utils';
+import { canSelectBoardInRules } from '/models/lib/rulesBoardSelector';
 
 Template.boardActions.onCreated(function () {
   this.subscribe('boards');
@@ -11,19 +12,30 @@ Template.boardActions.onCreated(function () {
 
 Template.boardActions.helpers({
   boards() {
-    const ret = ReactiveCache.getBoards(
-      {
-        archived: false,
-        'members.userId': Meteor.userId(),
-        _id: {
-          $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId(),
-        },
-      },
+    // #5698: don't restrict to boards where the user is a DIRECT member — that
+    // hid every board reached through an Organization / Team / email-domain
+    // share (the reporter's whole board dropdown was empty, current board
+    // included). Filter the already access-scoped client cache with the same
+    // visibility rule as Boards.userBoards() so org/team/domain boards show too.
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return [];
+    const ctx = {
+      userId: user._id,
+      orgIds: typeof user.orgIds === 'function' ? user.orgIds() : [],
+      teamIds: typeof user.teamIds === 'function' ? user.teamIds() : [],
+      emailDomains:
+        typeof user.emailDomains === 'function' ? user.emailDomains() : [],
+    };
+    const templatesBoardId = user.getTemplatesBoardId();
+    const boards = ReactiveCache.getBoards(
+      { archived: false },
       {
         sort: { sort: 1 /* boards default sorting */ },
       },
     );
-    return ret;
+    return boards.filter(board =>
+      canSelectBoardInRules(board, ctx, templatesBoardId),
+    );
   },
 
   loadingBoardsLabel() {
