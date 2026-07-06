@@ -43,6 +43,19 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Fix can't search numbers in custom fields](https://github.com/wekan/wekan/commit/001c258f967caa502bf1d1ebb147b8506596f4bf)**:
+  Searching a board for the value of a **number** or **currency** custom field (e.g. a
+  transaction number `2025001`, or a currency amount `123`) found nothing. Those field types
+  store their value as a JS **Number** (the inputs save `parseInt(...)` / `Number(...)`), but
+  `Board.searchCards()` only matched custom fields with `{ value: <regex> }` — and a MongoDB /
+  Minimongo regex only matches **string** values, so it silently skipped every numeric custom
+  field. The search now also adds an exact numeric-equality clause when the term is a plain
+  number (a comma is accepted as a decimal separator, matching the currency input), so numeric
+  custom fields match too; text/title/description matching is unchanged. Card search runs
+  against Minimongo on the client, which — like MongoDB — cannot regex a numeric field, so
+  equality is the correct cross-environment match. Covered by `tests/cardSearch.test.cjs`.
+  Thanks to MarcusDger and xet7.
+
 - **[Fix "Removed nonexistent document" crash during notification_cleanup](https://github.com/wekan/wekan/commit/2242da4176edcd7ed6bbdd779fe2bafab8457b7c)**:
   The scheduled notification-tray cleanup logged `Exception in removed observeChanges
   callback: Error: Removed nonexistent document …`. The crash itself came from the old
