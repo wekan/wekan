@@ -109,4 +109,26 @@ test('missing ids or non-array input yield no reorder', () => {
   assert.strictEqual(computeReorderedIds(null, 'A', 'B'), null);
 });
 
+// --- #6442 REGRESSION GUARD: the handler must feed REAL board ids -----------
+test('#6442: ordered ids read from the wrong DOM class (all "js-board") never reorder', () => {
+  // #6439 restored the drag preview but the drop still did nothing, because the
+  // drop handler built the current order from `el.classList[0]`. On
+  // `li.js-board(class="{{_id}} …")` Jade emits the literal `js-board` class
+  // FIRST, so classList[0] is "js-board" for every board — the dragged/target
+  // ids are never present, so this helper (correctly) returns null and nothing
+  // persists. The fix reads the _id from each board's Blaze data context.
+  const wrongOrder = ['js-board', 'js-board', 'js-board'];
+  assert.strictEqual(
+    computeReorderedSortIndex(wrongOrder, 'boardA', 'boardB'),
+    null,
+    'wrong-class extraction must not produce a mapping',
+  );
+  // With the REAL ids the same drop reorders as expected.
+  assert.deepStrictEqual(
+    computeReorderedSortIndex(['boardA', 'boardB', 'boardC'], 'boardC', 'boardA'),
+    { boardC: 0, boardA: 1, boardB: 2 },
+    'with real board ids the drop moves boardC before boardA',
+  );
+});
+
 console.log(`\n${passed} tests passed`);

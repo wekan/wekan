@@ -1019,10 +1019,15 @@ Template.boardList.events({
     evt.stopPropagation();
     evt.currentTarget.classList.remove('board-reorder-over');
     const targetId = this._id;
-    // Current display order of the board grid: the li.js-board carries the board
-    // id as its first class (see the .js-board template and #filterBtn handler).
+    // #6442: current display order of the board grid. Read each board's _id from
+    // its Blaze data context (the same source dragstart uses via `this._id`) —
+    // NOT el.classList[0]. On `li.js-board(class="{{_id}} …")` Jade emits the
+    // literal `js-board` class FIRST, so classList[0] is the string "js-board"
+    // for every board; the old code therefore produced ['js-board','js-board',…],
+    // computeReorderedSortIndex could not find the dragged/target ids among them,
+    // returned null, and the drop silently did nothing (board snapped back).
     const orderedIds = Array.from(tpl.findAll('.js-board'))
-      .map((el) => el.classList[0])
+      .map((el) => Blaze.getData(el)?._id)
       .filter(Boolean);
     const mapping = computeReorderedSortIndex(orderedIds, draggedId, targetId);
     if (!mapping) return;
