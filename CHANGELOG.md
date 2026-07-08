@@ -39,7 +39,7 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
-# Upcoming WeKan release
+# Upcoming WeKan ® release
 
 This release fixes the following bugs:
 
@@ -60,6 +60,8 @@ This release fixes the following bugs:
   methods plus the `listBody` `cardsWithLimit` render helper. Covered by new cases in
   `tests/swimlaneFilter.test.cjs` (18 assertions pass; the #6441 regression guards stay intact).
   Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.80 2026-07-06 WeKan ® release
 
