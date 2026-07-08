@@ -39,6 +39,28 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan release
+
+This release fixes the following bugs:
+
+- **[Fix #6443: cards on a deleted swimlane are invisible in swimlane view](https://github.com/wekan/wekan/commit/a37e7d1cc7e1a4541c498c974aa97b2e36136065)**:
+  On some old boards a swimlane was deleted while its cards kept the now-dangling `swimlaneId` (an
+  "orphaned" card), so those cards showed no content in swimlane mode even though they worked in list
+  mode. Cards with no swimlane at all (`null` / `''` / missing) already appear in every swimlane, but
+  an orphaned card matched no existing swimlane and so was visible in NO swimlane (while list view,
+  which applies no swimlane scope, still showed it) — exactly the reported symptom. The fix mirrors
+  the existing orphaned-**list** fallback (`Swimlanes.orphanedSwimlaneLists`, which surfaces orphaned
+  lists in the first swimlane) for **cards**: when a list's cards are fetched for the board's FIRST
+  swimlane, the swimlane-membership clause becomes a single `{ swimlaneId: { $nin: <otherSwimlaneIds> } }`
+  (everything not owned by another existing swimlane: own id, `null`/`''`, missing, or orphaned). It
+  stays a single field clause with no second `$or`, so the #6441 board-wide label filter still holds,
+  and orphaned cards appear once — in the first swimlane — without a database migration. Threaded
+  through the pure `models/lib/swimlaneFilter.js` helpers, the in-memory `filterCardsByListAndSwimlane`,
+  a new `List.orphanedCardsSwimlaneIds` helper and the `cards()`/`cardsUnfiltered()`/`allCards()` model
+  methods plus the `listBody` `cardsWithLimit` render helper. Covered by new cases in
+  `tests/swimlaneFilter.test.cjs` (18 assertions pass; the #6441 regression guards stay intact).
+  Thanks to xet7.
+
 # v9.80 2026-07-06 WeKan ® release
 
 This release adds the following new features:
