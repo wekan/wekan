@@ -12,30 +12,43 @@ import Triggers from '/models/triggers';
 // can be built entirely by dragging. Parameterized rules (specific list, label,
 // member, schedule time, …) are still created with the form builder on the
 // List view.
+// Each palette entry carries an i18n `labelKey` (translated at render time via
+// TAPi18n.__) instead of a hardcoded English string, so the whole workflow view
+// follows the UI language. `labelParams` is passed to TAPi18n.__ for labels that
+// need a placeholder (e.g. the scheduled time). Existing rule keys are reused
+// where they fit; workflow-only labels use new `r-w-*` keys (see en.i18n.json).
 const TRIGGER_PALETTE = [
-  { label: 'Card is created', doc: { activityType: 'createCard', listName: '*', swimlaneName: '*', cardTitle: '*', userId: '*' } },
-  { label: 'Card is moved', doc: { activityType: 'moveCard', listName: '*', oldListName: '*', swimlaneName: '*', cardTitle: '*', userId: '*' } },
-  { label: 'Card is archived', doc: { activityType: 'archivedCard', userId: '*' } },
-  { label: 'Card is unarchived', doc: { activityType: 'restoredCard', userId: '*' } },
-  { label: 'Any label is added', doc: { activityType: 'addedLabel', labelId: '*', userId: '*' } },
-  { label: 'Any label is removed', doc: { activityType: 'removedLabel', labelId: '*', userId: '*' } },
-  { label: 'A member is added', doc: { activityType: 'joinMember', username: '*', userId: '*' } },
-  { label: 'A member is removed', doc: { activityType: 'unjoinMember', username: '*', userId: '*' } },
-  { label: 'A checklist is added', doc: { activityType: 'addChecklist', checklistName: '*', userId: '*' } },
-  { label: 'An attachment is added', doc: { activityType: 'addAttachment', userId: '*' } },
-  { label: 'Every day at 09:00', doc: { activityType: 'scheduledTrigger', scheduleKind: 'calendar', scheduleType: 'daily', atTime: '09:00', listName: '*', swimlaneName: '*' } },
+  { labelKey: 'r-w-card-created', doc: { activityType: 'createCard', listName: '*', swimlaneName: '*', cardTitle: '*', userId: '*' } },
+  { labelKey: 'r-when-a-card-is-moved', doc: { activityType: 'moveCard', listName: '*', oldListName: '*', swimlaneName: '*', cardTitle: '*', userId: '*' } },
+  { labelKey: 'r-w-card-archived', doc: { activityType: 'archivedCard', userId: '*' } },
+  { labelKey: 'r-w-card-unarchived', doc: { activityType: 'restoredCard', userId: '*' } },
+  { labelKey: 'r-w-label-added', doc: { activityType: 'addedLabel', labelId: '*', userId: '*' } },
+  { labelKey: 'r-w-label-removed', doc: { activityType: 'removedLabel', labelId: '*', userId: '*' } },
+  { labelKey: 'r-w-member-added', doc: { activityType: 'joinMember', username: '*', userId: '*' } },
+  { labelKey: 'r-w-member-removed', doc: { activityType: 'unjoinMember', username: '*', userId: '*' } },
+  { labelKey: 'r-w-checklist-added', doc: { activityType: 'addChecklist', checklistName: '*', userId: '*' } },
+  { labelKey: 'r-w-attachment-added', doc: { activityType: 'addAttachment', userId: '*' } },
+  { labelKey: 'r-w-every-day-at', labelParams: { time: '09:00' }, doc: { activityType: 'scheduledTrigger', scheduleKind: 'calendar', scheduleType: 'daily', atTime: '09:00', listName: '*', swimlaneName: '*' } },
 ];
 
 const ACTION_PALETTE = [
-  { label: 'Move card to top', doc: { actionType: 'moveCardToTop', listName: '*', swimlaneName: '*' } },
-  { label: 'Move card to bottom', doc: { actionType: 'moveCardToBottom', listName: '*', swimlaneName: '*' } },
-  { label: 'Archive card', doc: { actionType: 'archive' } },
-  { label: 'Unarchive card', doc: { actionType: 'unarchive' } },
-  { label: 'Mark card complete', doc: { actionType: 'markCardComplete' } },
-  { label: 'Mark card incomplete', doc: { actionType: 'markCardIncomplete' } },
-  { label: 'Remove all members', doc: { actionType: 'removeMember', username: '*' } },
-  { label: 'Set received date to now', doc: { actionType: 'setDate', dateField: 'receivedAt' } },
+  { labelKey: 'r-d-move-to-top-gen', doc: { actionType: 'moveCardToTop', listName: '*', swimlaneName: '*' } },
+  { labelKey: 'r-d-move-to-bottom-gen', doc: { actionType: 'moveCardToBottom', listName: '*', swimlaneName: '*' } },
+  { labelKey: 'r-d-archive', doc: { actionType: 'archive' } },
+  { labelKey: 'r-d-unarchive', doc: { actionType: 'unarchive' } },
+  { labelKey: 'r-mark-complete', doc: { actionType: 'markCardComplete' } },
+  { labelKey: 'r-mark-incomplete', doc: { actionType: 'markCardIncomplete' } },
+  { labelKey: 'r-remove-all', doc: { actionType: 'removeMember', username: '*' } },
+  { labelKey: 'r-w-set-received-now', doc: { actionType: 'setDate', dateField: 'receivedAt' } },
 ];
+
+// Translate a palette entry's label for display / storage in the current UI
+// language (matches the classic Rules view, which also stores already-translated
+// description text at creation time).
+function paletteLabel(entry) {
+  if (!entry) return '';
+  return TAPi18n.__(entry.labelKey, entry.labelParams);
+}
 
 Template.rulesWorkflow.onCreated(function () {
   this.builderTrigger = new ReactiveVar(null);
@@ -52,24 +65,22 @@ Template.rulesWorkflow.helpers({
     return Utils.getCurrentBoard();
   },
   triggerPalette() {
-    return TRIGGER_PALETTE.map((t, idx) => ({ idx, label: t.label }));
+    return TRIGGER_PALETTE.map((t, idx) => ({ idx, label: paletteLabel(t) }));
   },
   actionPalette() {
-    return ACTION_PALETTE.map((a, idx) => ({ idx, label: a.label }));
+    return ACTION_PALETTE.map((a, idx) => ({ idx, label: paletteLabel(a) }));
   },
   builderTrigger() {
     return Template.instance().builderTrigger.get();
   },
   builderTriggerLabel() {
-    const t = Template.instance().builderTrigger.get();
-    return t ? t.label : '';
+    return paletteLabel(Template.instance().builderTrigger.get());
   },
   builderAction() {
     return Template.instance().builderAction.get();
   },
   builderActionLabel() {
-    const a = Template.instance().builderAction.get();
-    return a ? a.label : '';
+    return paletteLabel(Template.instance().builderAction.get());
   },
   createDisabled() {
     const tpl = Template.instance();
@@ -96,9 +107,11 @@ function persistRule(tpl) {
   if (!t || !a) return;
   const boardId = Session.get('currentBoard');
   const titleField = tpl.find('.js-workflow-rule-title');
-  const title = (titleField.value || '').trim() || `${t.label} → ${a.label}`;
-  const triggerId = Triggers.insert({ ...t.doc, boardId, desc: t.label });
-  const actionId = Actions.insert({ ...a.doc, boardId, desc: a.label });
+  const tLabel = paletteLabel(t);
+  const aLabel = paletteLabel(a);
+  const title = (titleField.value || '').trim() || `${tLabel} → ${aLabel}`;
+  const triggerId = Triggers.insert({ ...t.doc, boardId, desc: tLabel });
+  const actionId = Actions.insert({ ...a.doc, boardId, desc: aLabel });
   Rules.insert({ title, triggerId, actionId, boardId });
   tpl.builderTrigger.set(null);
   tpl.builderAction.set(null);
@@ -140,7 +153,7 @@ Template.rulesWorkflow.events({
     const a = ACTION_PALETTE[tpl.dragItem.idx];
     const boardId = Session.get('currentBoard');
     const oldActionId = rule.actionId;
-    const newActionId = Actions.insert({ ...a.doc, boardId, desc: a.label });
+    const newActionId = Actions.insert({ ...a.doc, boardId, desc: paletteLabel(a) });
     Rules.update(ruleId, { $set: { actionId: newActionId } });
     if (oldActionId) Actions.remove(oldActionId);
     tpl.dragItem = null;
