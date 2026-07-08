@@ -100,8 +100,15 @@ template(name="cardActions")
           option(value="receivedAt") {{_'r-df-received-at'}}
       div.trigger-dropdown
         input(id="reldate-days",type="number",value="0")
+      div.trigger-dropdown
+        select(id="reldate-unit")
+          option(value="minutes") {{_'r-unit-minutes'}}
+          option(value="hours") {{_'r-unit-hours'}}
+          option(value="days",selected="selected") {{_'r-unit-days'}}
+          option(value="weeks") {{_'r-unit-weeks'}}
+          option(value="months") {{_'r-unit-months'}}
       div.trigger-text
-        | {{_'r-days-after'}}
+        | {{_'r-later'}}
     div.trigger-button.js-set-reldate-action.js-goto-rules
       i.fa.fa-plus
 

@@ -238,12 +238,16 @@ Template.cardActions.events({
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const dateField = tpl.find('#reldate-datefield').value;
+    // `days` keeps its name for backward compatibility: it is the numeric
+    // amount, interpreted together with `unit` (minutes/hours/days/weeks/months).
     const days = parseInt(tpl.find('#reldate-days').value, 10) || 0;
+    const unit = tpl.find('#reldate-unit').value;
     const triggerId = Triggers.insert(trigger);
     const actionId = Actions.insert({
       actionType: 'setDateRelative',
       dateField,
       days,
+      unit,
       boardId,
       desc,
     });

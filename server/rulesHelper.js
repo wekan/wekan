@@ -7,6 +7,7 @@ import Cards from '/models/cards';
 import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import Swimlanes from '/models/swimlanes';
+import { relativeDateOffset } from '/models/lib/relativeDateOffset';
 
 async function withUserId(userId, fn) {
   if (userId && typeof DDP._CurrentMethodInvocation?.withValue === 'function') {
@@ -478,8 +479,10 @@ export const RulesHelper = {
       await card.setDueComplete(action.actionType === 'markCardComplete');
     }
     if (action.actionType === 'setDateRelative') {
-      const offsetMs = (parseInt(action.days, 10) || 0) * 24 * 60 * 60 * 1000;
-      const target = new Date(Date.now() + offsetMs);
+      // The numeric amount is stored in `days` (kept as the field name for
+      // backward compatibility with rules created before the unit selector).
+      // `unit` is optional: when absent (old rules) it defaults to days.
+      const target = relativeDateOffset(new Date(), action.days, action.unit);
       switch (action.dateField) {
         case 'startAt': card.setStart(target); break;
         case 'endAt': card.setEnd(target); break;
