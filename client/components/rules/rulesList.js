@@ -1,7 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import Actions from '/models/actions';
 import Rules from '/models/rules';
-import Triggers from '/models/triggers';
 
 function boardRuleIds() {
   const boardId = Session.get('currentBoard');
@@ -62,9 +60,10 @@ Template.rulesList.events({
     getSelected().forEach(ruleId => {
       const rule = ReactiveCache.getRule(ruleId);
       if (rule) {
-        Rules.remove(rule._id);
-        Actions.remove(rule.actionId);
-        Triggers.remove(rule.triggerId);
+        // Delete the rule + its trigger + action server-side (see
+        // server/rulesButton.js `rules.deleteRule`): three client-side
+        // Collection.remove() calls were rejected with 403 "Access denied".
+        Meteor.call('rules.deleteRule', rule._id);
       }
     });
     setSelected([]);

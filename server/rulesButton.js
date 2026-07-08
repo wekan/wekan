@@ -5,6 +5,7 @@ import { RulesHelper } from '/server/rulesHelper';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
+import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
 
 // Button rules are manual: a user clicks a card/board button and we run the
 // rule's action immediately. This method runs one button rule on demand.
@@ -86,5 +87,34 @@ Meteor.methods({
     }
     const ruleId = await Rules.insertAsync(ruleDoc);
     return { _id: ruleId, triggerId, actionId };
+  },
+
+  // Delete a rule (and its trigger + action) on the server in one call. The rule
+  // wizard/list/workflow views previously ran three client-side
+  // Collection.remove() calls; each is gated by a per-collection allow() rule
+  // that resolves the board from that document's own boardId. A Trigger/Action
+  // whose boardId does not resolve to a board (legacy docs, or docs not
+  // published to the client) made the allow rule return false and Meteor
+  // rejected the mutation with 403 "Access denied", failing the delete even for
+  // a board admin. Authorizing once here and removing all three docs server-side
+  // (which bypasses allow/deny) fixes that without loosening any permission.
+  async 'rules.deleteRule'(ruleId) {
+    check(ruleId, String);
+
+    const rule = await ReactiveCache.getRule(ruleId);
+    if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
+
+    const board = await ReactiveCache.getBoard(rule.boardId);
+    if (!board) throw new Meteor.Error('not-found', 'Board not found');
+
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!canDeleteBoardRule(board, this.userId, { isSiteAdmin: !!(user && user.isAdmin) })) {
+      throw new Meteor.Error('not-authorized', 'Must be a board admin');
+    }
+
+    await Rules.removeAsync(rule._id);
+    if (rule.triggerId) await Triggers.removeAsync(rule.triggerId);
+    if (rule.actionId) await Actions.removeAsync(rule.actionId);
+    return { _id: rule._id };
   },
 });

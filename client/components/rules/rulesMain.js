@@ -1,9 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Utils } from '/client/lib/utils';
-import Actions from '/models/actions';
-import Rules from '/models/rules';
-import Triggers from '/models/triggers';
 
 Template.rulesMain.onCreated(function () {
   this.rulesCurrentTab = new ReactiveVar('rulesList');
@@ -83,9 +80,12 @@ function sanitizeObject(obj) {
 Template.rulesMain.events({
   'click .js-delete-rule'() {
     const rule = Template.currentData();
-    Rules.remove(rule._id);
-    Actions.remove(rule.actionId);
-    Triggers.remove(rule.triggerId);
+    // Delete the rule + its trigger + action in one server call. Doing this
+    // client-side as three separate Collection.remove() calls failed with 403
+    // "Access denied" whenever a trigger/action document's boardId did not
+    // resolve to a board in the allow() rule; the method authorizes once and
+    // removes all three server-side.
+    Meteor.call('rules.deleteRule', rule._id);
   },
   'click .js-goto-trigger'(event, tpl) {
     event.preventDefault();

@@ -163,8 +163,9 @@ Template.rulesWorkflow.events({
     const ruleId = node && node.dataset.ruleId;
     const rule = ReactiveCache.getRule(ruleId);
     if (!rule) return;
-    Rules.remove(rule._id);
-    Actions.remove(rule.actionId);
-    Triggers.remove(rule.triggerId);
+    // Delete the rule + its trigger + action server-side (see
+    // server/rulesButton.js `rules.deleteRule`): three client-side
+    // Collection.remove() calls were rejected with 403 "Access denied".
+    Meteor.call('rules.deleteRule', rule._id);
   },
 });
