@@ -6,7 +6,7 @@ template(name="cardDetails")
   +attachmentViewer
 
   section.card-details.js-card-details.nodragscroll(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}' class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}' class='{{#if cardCollapsed}}card-details-collapsed{{/if}}'): .card-details-canvas
-    .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}')
+    .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}' style='{{colorStyle}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
       else
@@ -127,7 +127,7 @@ template(name="cardDetails")
               | {{_ 'labels'}}
             a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
               each labels
-                span.card-label(class="card-label-{{color}}" title=name)
+                span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
                   +viewer
                     = name
             if canModifyCard
@@ -1199,6 +1199,10 @@ template(name="setCardColorPopup")
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
               i.fa.fa-check
+    // #5514: native color wheel for picking a custom RGB / hex color
+    .color-wheel-wrap
+      label(for="cardColorWheel") {{_ 'custom-color'}}
+      input.js-card-color-wheel#cardColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
   button.primary.confirm.js-submit {{_ 'save'}}
   button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
 

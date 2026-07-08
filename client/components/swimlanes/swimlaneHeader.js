@@ -1,6 +1,7 @@
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { SWIMLANE_COLORS } from '/models/metadata/colors';
+import { isHexColor, toHex } from '/models/lib/contrastColor';
 import Swimlanes from '/models/swimlanes';
 import { Utils } from '/client/lib/utils';
 const { calculateIndexData } = Utils;
@@ -166,6 +167,10 @@ Template.setSwimlaneColorPopup.helpers({
   isSelected(color) {
     return Template.instance().currentColor.get() === color;
   },
+  // #5514: current color as a '#rrggbb' hex for the native color wheel <input>.
+  currentColorHex() {
+    return toHex(Template.instance().currentColor.get()) || '#0079bf';
+  },
 });
 
 Template.setSwimlaneColorPopup.events({
@@ -177,6 +182,13 @@ Template.setSwimlaneColorPopup.events({
   'click .js-palette-color'(event, tpl) {
     const paletteData = Blaze.getData(event.currentTarget);
     tpl.currentColor.set(paletteData?.color);
+  },
+  // #5514: picking from the native color wheel stores a custom hex.
+  'input .js-swimlane-color-wheel'(event, tpl) {
+    const value = event.currentTarget.value;
+    if (isHexColor(value)) {
+      tpl.currentColor.set(value);
+    }
   },
   async 'click .js-submit'(event, tpl) {
     event.preventDefault();

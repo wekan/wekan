@@ -3,7 +3,8 @@ template(name="minicard")
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{agingClass}}"
-    class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
+    class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}"
+    style="{{colorStyle}}")
     if canMoveCard
       if isTouchScreenOrShowDesktopDragHandles
         .handle
@@ -93,11 +94,11 @@ template(name="minicard")
         .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
           each labels
             unless hiddenMinicardLabelText
-              span.js-card-label.card-label(class="card-label-{{color}}" title=name)
+              span.js-card-label.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
                 +viewer
                   = name
             if hiddenMinicardLabelText
-              .minicard-label(class="card-label-{{color}}" title="{{name}}")
+              .minicard-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title="{{name}}")
 
     .minicard-custom-fields
       each customFieldsWD

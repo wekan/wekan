@@ -29,6 +29,27 @@ import {
   calendar,
 } from '/imports/lib/dateUtils';
 import { Utils } from '/client/lib/utils';
+import { isHexColor, contrastText } from '/models/lib/contrastColor';
+
+// #5514: a color (label / list / swimlane / card) may be either a named palette
+// color rendered via a CSS class (e.g. `card-label-green`) or a custom
+// '#rrggbb' hex chosen from the color wheel. For a hex value there is no CSS
+// class, so we emit an inline `background-color` plus an automatically readable
+// text `color` (contrastText). These helpers let templates keep the class path
+// for named colors and switch to inline styles for hex.
+
+// Class for a label chip: `card-label-<name>` for named colors, empty for hex.
+Blaze.registerHelper('labelColorClass', color =>
+  isHexColor(color) ? '' : `card-label-${color}`,
+);
+
+// Inline style for a label chip: background + readable text for a hex color,
+// empty for a named color (its CSS class already sets both).
+Blaze.registerHelper('labelColorStyle', color =>
+  isHexColor(color)
+    ? `background-color:${color};color:${contrastText(color)};`
+    : '',
+);
 
 Blaze.registerHelper('currentBoard', () => {
   const ret = Utils.getCurrentBoard();

@@ -46,7 +46,7 @@ template(name="addCardForm")
     if getLabels
       .minicard-labels
         each getLabels
-          .minicard-label(class="card-label-{{color}}" title="{{name}}")
+          .minicard-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title="{{name}}")
     textarea.minicard-composer-textarea.js-card-title(autofocus dir="auto")
     if members.get
       .minicard-members.js-minicard-composer-members

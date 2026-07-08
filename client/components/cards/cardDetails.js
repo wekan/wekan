@@ -50,6 +50,7 @@ import Users from '/models/users';
 import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
+import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { uniqBy } from '/imports/lib/collectionHelpers';
 import { memberTargetBoardId } from '/models/lib/linkedCardMembers';
 import { UserAvatar } from '../users/userAvatar';
@@ -2032,12 +2033,23 @@ Template.setCardColorPopup.helpers({
     }
     return tpl.currentColor.get() === color;
   },
+  // #5514: current color as a '#rrggbb' hex for the native color wheel <input>.
+  currentColorHex() {
+    return toHex(Template.instance().currentColor.get()) || '#0079bf';
+  },
 });
 
 Template.setCardColorPopup.events({
   'click .js-palette-color'(event, tpl) {
     const paletteData = Blaze.getData(event.currentTarget);
     tpl.currentColor.set(paletteData?.color);
+  },
+  // #5514: picking from the native color wheel stores a custom hex.
+  'input .js-card-color-wheel'(event, tpl) {
+    const value = event.currentTarget.value;
+    if (isHexColor(value)) {
+      tpl.currentColor.set(value);
+    }
   },
   async 'click .js-submit'(event, tpl) {
     event.preventDefault();

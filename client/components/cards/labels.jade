@@ -4,9 +4,12 @@ template(name="formLabel")
 
   label {{_ "select-color"}}
   .palette-colors: each labels
-    span.card-label.palette-color.js-palette-color(class="card-label-{{color}}")
+    span.card-label.palette-color.js-palette-color(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
       if(isSelected color)
         i.fa.fa-check
+  .color-wheel-wrap
+    label(for="labelColorWheel") {{_ 'custom-color'}}
+    input.js-label-color-wheel#labelColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
 
 template(name="createLabelPopup")
   form.create-label
@@ -31,8 +34,8 @@ template(name="cardLabelsPopup")
         a.card-label-edit-button.fa.fa-pencil.js-edit-label
         if isTouchScreenOrShowDesktopDragHandles
           span.fa.label-handle(class="fa-arrows" title="{{_ 'dragLabel'}}")
-        span.card-label.card-label-selectable.js-select-label.card-label-wrapper(class="card-label-{{color}}"
-          class="{{# if isLabelSelected ../_id }}active{{/if}}")
+        span.card-label.card-label-selectable.js-select-label.card-label-wrapper(class="{{labelColorClass color}}"
+          class="{{# if isLabelSelected ../_id }}active{{/if}}" style="{{labelColorStyle color}}")
             +viewer
               = name
             if(isLabelSelected ../_id)

@@ -1,7 +1,8 @@
 template(name="listHeader")
   .list-header.js-list-header.nodragscroll(
     class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
-    class=colorClass)
+    class=colorClass
+    style=colorStyle)
     //- #459: keyboard/screen-reader list reordering (visually hidden, focusable).
     .list-move-buttons.sr-only
       a.js-list-move-left(href="#" role="button" aria-label="{{_ 'move-list-left'}}") {{_ 'move-list-left'}}
@@ -279,6 +280,10 @@ template(name="setListColorPopup")
       span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
         if(isSelected color)
           i.fa.fa-check
+    // #5514: native color wheel for picking a custom RGB / hex color
+    .color-wheel-wrap
+      label(for="listColorWheel") {{_ 'custom-color'}}
+      input.js-list-color-wheel#listColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
 

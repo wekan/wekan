@@ -28,6 +28,7 @@ import {
   TYPE_LINKED_CARD,
 } from '../config/const';
 import { CARD_COLORS } from '/models/metadata/colors';
+import { isHexColor, contrastText } from '/models/lib/contrastColor';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
 import {
   DEFAULT_DEPENDENCY_COLOR,
@@ -132,7 +133,14 @@ Cards.attachSchema(
     color: {
       type: String,
       optional: true,
-      allowedValues: CARD_COLORS,
+      // #5514: accept a named palette color OR a custom '#rrggbb' hex chosen
+      // from the color wheel (instead of a fixed allowedValues enum).
+      custom() {
+        const v = this.value;
+        if (v === undefined || v === null || v === '') return undefined;
+        if (CARD_COLORS.includes(v) || isHexColor(v)) return undefined;
+        return 'notAllowed';
+      },
     },
     createdAt: {
       /**
@@ -1332,7 +1340,18 @@ Cards.helpers({
   },
 
   colorClass() {
-    if (this.color) return this.color;
+    // #5514: a custom '#rrggbb' hex has no CSS class (templates prepend
+    // `minicard-` / `card-details-`); it is applied inline via colorStyle().
+    if (this.color && !isHexColor(this.color)) return this.color;
+    return '';
+  },
+
+  colorStyle() {
+    // #5514: for a custom hex color, set the background inline plus an
+    // automatically readable text color. Empty for named colors.
+    if (isHexColor(this.color)) {
+      return `background-color:${this.color} !important;color:${contrastText(this.color)} !important;`;
+    }
     return '';
   },
 

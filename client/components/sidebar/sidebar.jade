@@ -823,7 +823,7 @@ template(name="labelsWidget")
       | {{_ 'labels'}}
     .board-widget-content
       each currentBoard.labels
-          a.card-label(class="card-label-{{color}}"
+          a.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}"
             class="{{#if currentUser.isNotCommentOnly}}{{#if currentUser.isNotWorker}}js-label{{/if}}{{/if}}")
             span.card-label-name
               +viewer

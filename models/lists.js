@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { LIST_COLORS } from '/models/metadata/colors';
+import { isHexColor, contrastText } from '/models/lib/contrastColor';
 import PositionHistory from './positionHistory';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -71,7 +72,12 @@ export function normalizeListColor(color) {
   if (typeof color !== 'string') {
     return '';
   }
-  return ALLOWED_LIST_COLOR_SET.has(color) ? color : '';
+  if (ALLOWED_LIST_COLOR_SET.has(color)) {
+    return color;
+  }
+  // #5514: also accept a custom '#rrggbb' hex chosen from the color wheel, so
+  // lists / swimlanes can store an arbitrary color alongside the named palette.
+  return isHexColor(color) ? color : '';
 }
 
 /**
@@ -216,7 +222,14 @@ Lists.attachSchema(
       type: String,
       optional: true,
       // silver is the default
-      allowedValues: LIST_COLORS,
+      // #5514: accept a named palette color OR a custom '#rrggbb' hex chosen
+      // from the color wheel (instead of a fixed allowedValues enum).
+      custom() {
+        const v = this.value;
+        if (v === undefined || v === null || v === '') return undefined;
+        if (LIST_COLORS.includes(v) || isHexColor(v)) return undefined;
+        return 'notAllowed';
+      },
     },
     type: {
       /**
@@ -389,7 +402,18 @@ Lists.helpers({
   },
 
   colorClass() {
-    if (this.color) return `list-header-${this.color}`;
+    // #5514: a custom '#rrggbb' hex has no CSS class; it is applied inline via
+    // colorStyle(). Named palette colors keep their `list-header-<name>` class.
+    if (this.color && !isHexColor(this.color)) return `list-header-${this.color}`;
+    return '';
+  },
+
+  colorStyle() {
+    // #5514: for a custom hex color, set the background inline plus an
+    // automatically readable text color. Empty for named colors.
+    if (isHexColor(this.color)) {
+      return `background-color:${this.color} !important;color:${contrastText(this.color)} !important;`;
+    }
     return '';
   },
 

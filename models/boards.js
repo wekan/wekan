@@ -11,6 +11,7 @@ import {
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
 import { BOARD_COLORS, LABEL_COLORS } from '/models/metadata/colors';
+import { isHexColor } from '/models/lib/contrastColor';
 import Actions from '/models/actions';
 import Cards from '/models/cards';
 import Integrations from '/models/integrations';
@@ -206,9 +207,17 @@ Boards.attachSchema(
        * `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`,
        * `slateblue`, `magenta`, `gold`, `navy`, `gray`,
        * `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
+       *
+       * Since #5514 a label color may also be a custom '#rrggbb' hex chosen
+       * from the color wheel, in addition to the named palette colors above.
        */
       type: String,
-      allowedValues: LABEL_COLORS,
+      custom() {
+        const v = this.value;
+        if (v === undefined || v === null || v === '') return undefined;
+        if (LABEL_COLORS.includes(v) || isHexColor(v)) return undefined;
+        return 'notAllowed';
+      },
     },
     // XXX We might want to maintain more informations under the member sub-
     // documents like de-normalized meta-data (the date the member joined the

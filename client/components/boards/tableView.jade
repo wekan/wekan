@@ -66,7 +66,7 @@ template(name="tableView")
                 td.table-view-cell-labels
                   .div
                     each label in row.labels
-                      span.card-label(class="card-label-{{label.color}}" title="{{label.name}}")
+                      span.card-label(class="{{labelColorClass label.color}}" style="{{labelColorStyle label.color}}" title="{{label.name}}")
                         +viewer
                           = label.name
                 if showReceivedColumn

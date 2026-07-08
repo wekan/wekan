@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { SWIMLANE_COLORS } from '/models/metadata/colors';
+import { isHexColor, contrastText } from '/models/lib/contrastColor';
 import PositionHistory from './positionHistory';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
@@ -79,7 +80,14 @@ Swimlanes.attachSchema(
       type: String,
       optional: true,
       // silver is the default
-      allowedValues: SWIMLANE_COLORS,
+      // #5514: accept a named palette color OR a custom '#rrggbb' hex chosen
+      // from the color wheel (instead of a fixed allowedValues enum).
+      custom() {
+        const v = this.value;
+        if (v === undefined || v === null || v === '') return undefined;
+        if (SWIMLANE_COLORS.includes(v) || isHexColor(v)) return undefined;
+        return 'notAllowed';
+      },
     },
     updatedAt: {
       /**
@@ -460,7 +468,19 @@ Swimlanes.helpers({
   },
 
   colorClass() {
-    if (this.color) return `swimlane-${this.color}`;
+    // #5514: a custom '#rrggbb' hex has no CSS class; it is applied inline via
+    // colorStyle(). Named palette colors keep using their `swimlane-<name>` class.
+    if (this.color && !isHexColor(this.color)) return `swimlane-${this.color}`;
+    return '';
+  },
+
+  colorStyle() {
+    // #5514: for a custom hex color, set the background inline plus an
+    // automatically readable text color (contrastText) so the header title
+    // stays visible. Empty for named colors (their CSS class sets both).
+    if (isHexColor(this.color)) {
+      return `background-color:${this.color} !important;color:${contrastText(this.color)} !important;`;
+    }
     return '';
   },
 

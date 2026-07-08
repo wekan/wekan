@@ -441,6 +441,7 @@
   "createCustomField": "Create Field",
   "createCustomFieldPopup-title": "Create Field",
   "current": "current",
+  "custom-color": "Custom color",
   "custom-field-delete-pop": "There is no undo. This will remove this custom field from all cards and destroy its history.",
   "custom-field-checkbox": "Checkbox",
   "custom-field-currency": "Currency",

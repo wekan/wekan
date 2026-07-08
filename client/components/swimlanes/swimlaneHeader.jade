@@ -1,5 +1,5 @@
 template(name="swimlaneHeader")
-  .swimlane-header-wrap.js-swimlane-header(class=colorClass title="{{_ 'rename'}}")
+  .swimlane-header-wrap.js-swimlane-header(class=colorClass style=colorStyle title="{{_ 'rename'}}")
     if this.isTemplateContainer
         +swimlaneFixedHeader(this)
     else
@@ -120,6 +120,10 @@ template(name="setSwimlaneColorPopup")
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
               i.fa.fa-check
+    // #5514: native color wheel for picking a custom RGB / hex color
+    .flush-left.color-wheel-wrap
+      label(for="swimlaneColorWheel") {{_ 'custom-color'}}
+      input.js-swimlane-color-wheel#swimlaneColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
     // Buttons aligned left too
     .flush-left
       button.primary.confirm.js-submit(style="margin-inline-start:0") {{_ 'save'}}

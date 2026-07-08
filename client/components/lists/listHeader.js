@@ -5,6 +5,7 @@ import dragscroll from '@wekanteam/dragscroll';
 import { BoardSwimlaneListDialog } from '/client/lib/dialogWithBoardSwimlaneList';
 import Cards from '/models/cards';
 import { LIST_COLORS } from '/models/metadata/colors';
+import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 
@@ -476,12 +477,23 @@ Template.setListColorPopup.helpers({
       return tpl.currentColor.get() === color;
     }
   },
+  // #5514: current color as a '#rrggbb' hex for the native color wheel <input>.
+  currentColorHex() {
+    return toHex(Template.instance().currentColor.get()) || '#0079bf';
+  },
 });
 
 Template.setListColorPopup.events({
   'click .js-palette-color'(event, tpl) {
     const paletteData = Blaze.getData(event.currentTarget);
     tpl.currentColor.set(paletteData?.color);
+  },
+  // #5514: picking from the native color wheel stores a custom hex.
+  'input .js-list-color-wheel'(event, tpl) {
+    const value = event.currentTarget.value;
+    if (isHexColor(value)) {
+      tpl.currentColor.set(value);
+    }
   },
   async 'submit form'(event, tpl) {
     event.preventDefault();

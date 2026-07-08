@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { LABEL_COLORS } from '/models/metadata/colors';
+import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 
@@ -28,6 +29,11 @@ Template.formLabel.helpers({
   isSelected(color) {
     return Template.instance().currentColor.get() === color;
   },
+  // #5514: current color as a '#rrggbb' hex for the color-wheel <input>, which
+  // only accepts hex. Named colors map to their palette hex; fall back to green.
+  currentColorHex() {
+    return toHex(Template.instance().currentColor.get()) || '#3cb500';
+  },
 });
 
 Template.formLabel.events({
@@ -35,6 +41,13 @@ Template.formLabel.events({
     const paletteData = Blaze.getData(event.currentTarget);
     const selectedColor = paletteData?.color || Template.currentData()?.color || getFallbackLabelColor();
     tpl.currentColor.set(selectedColor);
+  },
+  // #5514: picking a color from the native color wheel stores a custom hex.
+  'input .js-label-color-wheel'(event, tpl) {
+    const value = event.currentTarget.value;
+    if (isHexColor(value)) {
+      tpl.currentColor.set(value);
+    }
   },
 });
 
@@ -131,7 +144,16 @@ Template.createLabelPopup.events({
       ? selectedColorIcon.closest('.js-palette-color')
       : null;
     const selectedColorData = selectedPaletteNode && Blaze.getData(selectedPaletteNode);
-    const color = selectedColorData?.color || getFallbackLabelColor();
+    // #5514: a named swatch (has the check icon) wins; otherwise fall back to
+    // the custom color-wheel hex, then to the default palette color.
+    let color = selectedColorData?.color;
+    if (!color) {
+      const wheel = templateInstance.find('.js-label-color-wheel');
+      if (wheel && isHexColor(wheel.value)) {
+        color = wheel.value;
+      }
+    }
+    color = color || getFallbackLabelColor();
     board.addLabel(name, color);
     Popup.back();
   },
@@ -158,7 +180,16 @@ Template.editLabelPopup.events({
       ? selectedColorIcon.closest('.js-palette-color')
       : null;
     const selectedColorData = selectedPaletteNode && Blaze.getData(selectedPaletteNode);
-    const color = selectedColorData?.color || getFallbackLabelColor();
+    // #5514: a named swatch (has the check icon) wins; otherwise fall back to
+    // the custom color-wheel hex, then to the default palette color.
+    let color = selectedColorData?.color;
+    if (!color) {
+      const wheel = templateInstance.find('.js-label-color-wheel');
+      if (wheel && isHexColor(wheel.value)) {
+        color = wheel.value;
+      }
+    }
+    color = color || getFallbackLabelColor();
     board.editLabel(this._id, name, color);
     Popup.back();
   },

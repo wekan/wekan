@@ -1,3 +1,24 @@
+/* #5514: native color-wheel (custom RGB / hex) picker wrapper, shared by the
+   label / list / swimlane / card color popups. */
+.color-wheel-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 10px 0;
+}
+.color-wheel-wrap label {
+  margin: 0;
+}
+.color-wheel-wrap input[type="color"] {
+  width: 44px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
 .card-label {
   border: 1px solid #000;
   border-radius: 4px;

@@ -94,7 +94,7 @@ template(name="myCards")
                                 td
                                   .div
                                     each label in card.labelIds
-                                      span.card-label(class="card-label-{{labelColor board label}}" title=name)
+                                      span.card-label(class="{{labelColorClass (labelColor board label)}}" style="{{labelColorStyle (labelColor board label)}}" title=name)
                                         | {{labelName board label}}
                                 td
                                   if card.dueAt

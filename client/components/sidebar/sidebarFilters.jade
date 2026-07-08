@@ -29,7 +29,7 @@ template(name="filterSidebar")
     each currentBoard.labels
       li
         a.name.js-toggle-label-filter(data-filter-id="{{_id}}")
-          span.card-label.square(class="card-label-{{color}}")
+          span.card-label.square(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
           span.sidebar-list-item-description
             if name
               = name
@@ -188,7 +188,7 @@ template(name="multiselectionSidebar")
     each currentBoard.labels
       li
         a.name.js-toggle-label-multiselection
-          span.card-label.square(class="card-label-{{color}}")
+          span.card-label.square(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
           span.sidebar-list-item-description
             if name
               = name
