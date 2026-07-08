@@ -11,6 +11,7 @@ import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/
 const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
 const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
 import { titleChanged } from '/server/lib/titleChangeActivity';
+import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
@@ -648,6 +649,35 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
     boardId: doc.boardId,
     cardId: doc._id,
     cardTitle: newValue,
+    oldValue,
+    value: newValue,
+    listId: card.listId,
+    swimlaneId: card.swimlaneId,
+  });
+});
+
+// Issue #5482: adding or editing a card's description must log an activity so the
+// Activities.after.insert outgoing-webhook hook fires (like title/dueAt do). Fires
+// for both first-time set and later edits, but not for no-op / empty->empty saves.
+Cards.before.update(async (userId, doc, fieldNames, modifier) => {
+  if (!descriptionChanged(doc, modifier)) {
+    return;
+  }
+  const oldValue = doc.description || '';
+  const newValue = modifier.$set.description || '';
+  const card = await ReactiveCache.getCard(doc._id);
+  if (!card) {
+    console.warn('[Cards.before.update] Card not found for cardId:', doc._id, '— skipping description activity.');
+    return;
+  }
+  const user = await ReactiveCache.getUser(userId);
+  await Activities.insertAsync({
+    userId,
+    username: user && user.username,
+    activityType: 'a-changedDescription',
+    boardId: doc.boardId,
+    cardId: doc._id,
+    cardTitle: doc.title,
     oldValue,
     value: newValue,
     listId: card.listId,
