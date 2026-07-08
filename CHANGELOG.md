@@ -43,6 +43,20 @@ them up next.
 
 This release fixes the following bugs:
 
+- **[Fix #6442: All Boards "Custom (drag order)" — drop now persists the reorder](https://github.com/wekan/wekan/commit/457713968cf3c365899271606398b7796a7b07f4)**:
+  Follow-up to #6439, which restored the drag preview but left the drop a no-op: dragging a board on
+  the All Boards page in Custom (drag order) mode showed the dashed-border preview, but releasing it
+  snapped the board back without reordering. The drop handler built the current on-screen order from
+  `el.classList[0]` of each `.js-board`, but the item is `li.js-board(class="{{_id}} …")` and Jade
+  emits the literal `js-board` class FIRST, so `classList[0]` was the string `"js-board"` for every
+  board — never the board `_id`. The ordered ids were therefore `['js-board','js-board',…]`, the
+  (correct, unit-tested) `computeReorderedSortIndex` helper could not find the dragged/target ids
+  among them, returned `null`, and nothing was written to `profile.boardSortIndex`; the preview still
+  worked because it is driven by the `dragover` CSS class, independent of the id. The fix reads each
+  board's `_id` from its Blaze data context (the same source `dragstart` uses via `this._id`) instead
+  of the literal class, so the real display order reaches the reorder helper and the drop persists.
+  Guarded by a new case in `tests/boardSortReorder.test.cjs` (the wrong-class extraction yields no
+  mapping; real ids reorder). Thanks to jullbo and xet7.
 - **[Fix #6443: cards on a deleted swimlane are invisible in swimlane view](https://github.com/wekan/wekan/commit/a37e7d1cc7e1a4541c498c974aa97b2e36136065)**:
   On some old boards a swimlane was deleted while its cards kept the now-dangling `swimlaneId` (an
   "orphaned" card), so those cards showed no content in swimlane mode even though they worked in list
