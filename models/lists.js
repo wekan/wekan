@@ -21,10 +21,17 @@ const Lists = new Mongo.Collection('lists');
 //   the given value, OR the card has no swimlane at all (null / '' / missing),
 //   mirroring `cards()` so orphaned/pre-migration cards stay selectable in
 //   every swimlane.
-export function filterCardsByListAndSwimlane(cards, listId, swimlaneId) {
+// - #6443: when `otherSwimlaneIds` is provided (the board's OTHER swimlane ids,
+//   i.e. this is the FIRST swimlane), a card also matches when its swimlaneId is
+//   "orphaned" — a non-empty value that is not one of the board's existing
+//   swimlanes — so cards left pointing at a deleted swimlane stay visible. This
+//   mirrors swimlaneMembershipSelector's `$nin` branch: match everything not
+//   owned by another existing swimlane.
+export function filterCardsByListAndSwimlane(cards, listId, swimlaneId, otherSwimlaneIds) {
   if (!Array.isArray(cards)) {
     return [];
   }
+  const surfaceOrphaned = Array.isArray(otherSwimlaneIds);
   return cards.filter(card => {
     if (!card || card.listId !== listId) {
       return false;
@@ -33,6 +40,11 @@ export function filterCardsByListAndSwimlane(cards, listId, swimlaneId) {
       return true;
     }
     const cardSwimlaneId = card.swimlaneId;
+    if (surfaceOrphaned) {
+      // First swimlane: match unless the card belongs to another existing
+      // swimlane (own id, null/'', missing, or orphaned all pass).
+      return !otherSwimlaneIds.includes(cardSwimlaneId);
+    }
     return (
       cardSwimlaneId === swimlaneId ||
       cardSwimlaneId === null ||
@@ -298,12 +310,36 @@ Lists.helpers({
     }
   },
 
+  // #6443: the _ids of the board's OTHER non-archived swimlanes when `swimlaneId`
+  // is the board's FIRST swimlane, otherwise undefined. Passed to the card
+  // selector so orphaned cards (swimlaneId pointing at a deleted swimlane) are
+  // surfaced in the first swimlane — mirroring Swimlanes.orphanedSwimlaneLists.
+  orphanedCardsSwimlaneIds(swimlaneId) {
+    if (!swimlaneId) {
+      return undefined;
+    }
+    const swimlanes = ReactiveCache.getSwimlanes(
+      { boardId: this.boardId, archived: false },
+      { sort: ['sort'] },
+    );
+    // Only the first swimlane surfaces orphaned cards.
+    if (!swimlanes.length || swimlanes[0]._id !== swimlaneId) {
+      return undefined;
+    }
+    return swimlanes.map(s => s._id).filter(id => id !== swimlaneId);
+  },
+
   cards(swimlaneId) {
     // #6441: express the swimlane-membership fallback as a single `swimlaneId:
     // { $in: [...] }` clause (via the shared, unit-tested helper) instead of a
     // bare top-level `$or`, so it never competes with the board Filter's own
     // top-level `$or` when the two selectors are combined.
-    const selector = listCardsSelector(this._id, swimlaneId);
+    // #6443: also surface orphaned cards in the first swimlane.
+    const selector = listCardsSelector(
+      this._id,
+      swimlaneId,
+      this.orphanedCardsSwimlaneIds(swimlaneId),
+    );
     const filterSelector =
       typeof Filter !== 'undefined' && typeof Filter.mongoSelector === 'function'
         ? Filter.mongoSelector(selector)
@@ -313,8 +349,12 @@ Lists.helpers({
   },
 
   cardsUnfiltered(swimlaneId) {
-    // Same swimlane-membership fallback as cards() (#6441), without the Filter.
-    const selector = listCardsSelector(this._id, swimlaneId);
+    // Same swimlane-membership fallback as cards() (#6441/#6443), without the Filter.
+    const selector = listCardsSelector(
+      this._id,
+      swimlaneId,
+      this.orphanedCardsSwimlaneIds(swimlaneId),
+    );
     const ret = ReactiveCache.getCards(selector, { sort: ['sort'] });
     return ret;
   },
@@ -324,7 +364,12 @@ Lists.helpers({
     // When a swimlane context is given, scope the result to that swimlane
     // (plus orphaned cards) so "select all cards" stays contained within its
     // own swimlane. Without a swimlaneId, keep the historical list-wide result.
-    return filterCardsByListAndSwimlane(ret, this._id, swimlaneId);
+    return filterCardsByListAndSwimlane(
+      ret,
+      this._id,
+      swimlaneId,
+      this.orphanedCardsSwimlaneIds(swimlaneId),
+    );
   },
 
   board() {

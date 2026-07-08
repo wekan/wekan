@@ -47,6 +47,18 @@ function fieldMatches(cond, value) {
       }
       return list.includes(value);
     }
+    if ('$nin' in cond) {
+      // negation of $in (#6443 first-swimlane orphaned-card clause). A missing /
+      // null field matches $nin unless null/undefined is explicitly excluded.
+      const list = cond.$nin;
+      if (Array.isArray(value)) {
+        return !value.some(v => list.includes(v));
+      }
+      if (value === undefined || value === null) {
+        return !(list.includes(null) || list.includes(undefined));
+      }
+      return !list.includes(value);
+    }
   }
   return value === cond;
 }
@@ -177,6 +189,50 @@ test('archived cards never match the active-cards selector', () => {
   const sel = filteredListCardsSelector(LIST, FOCUS, labelFilterSelector(RECURRING));
   const card = { _id: 'c9', listId: LIST, archived: true, swimlaneId: FOCUS, labelIds: [RECURRING] };
   assert.ok(!docMatches(sel, card));
+});
+
+// --- #6443: orphaned-swimlane cards surface in the FIRST swimlane -----------
+// BACKGROUND is treated as the board's first swimlane; FOCUS is another
+// existing swimlane; DELETED is a swimlaneId that no longer exists (orphaned).
+const DELETED = 'swimlane-deleted';
+
+test('#6443: first-swimlane clause is a single $nin field clause (no $or)', () => {
+  const sel = swimlaneMembershipSelector(BACKGROUND, [FOCUS]);
+  assert.deepStrictEqual(sel, { swimlaneId: { $nin: [FOCUS] } });
+  assert.ok(!('$or' in sel), 'must NOT introduce a top-level $or (#6441)');
+});
+
+test('#6443: first swimlane surfaces own, shared AND orphaned cards; excludes other swimlanes', () => {
+  const sel = swimlaneMembershipSelector(BACKGROUND, [FOCUS]);
+  assert.ok(docMatches(sel, { swimlaneId: BACKGROUND }), 'own card');
+  assert.ok(docMatches(sel, { swimlaneId: null }), 'null/shared card');
+  assert.ok(docMatches(sel, { swimlaneId: '' }), 'empty/shared card');
+  assert.ok(docMatches(sel, {}), 'missing swimlaneId');
+  assert.ok(docMatches(sel, { swimlaneId: DELETED }), 'orphaned card (deleted swimlane) now visible');
+  assert.ok(!docMatches(sel, { swimlaneId: FOCUS }), 'card owned by another existing swimlane excluded');
+});
+
+test('#6443: a non-first swimlane does NOT show orphaned cards (own + shared only)', () => {
+  const sel = swimlaneMembershipSelector(FOCUS); // no otherSwimlaneIds passed
+  assert.ok(docMatches(sel, { swimlaneId: FOCUS }));
+  assert.ok(docMatches(sel, { swimlaneId: null }));
+  assert.ok(!docMatches(sel, { swimlaneId: DELETED }), 'orphaned card is not duplicated into non-first swimlanes');
+});
+
+test('#6443: single-swimlane board (otherSwimlaneIds = []) shows every card in that swimlane', () => {
+  const sel = swimlaneMembershipSelector(BACKGROUND, []);
+  assert.deepStrictEqual(sel, { swimlaneId: { $nin: [] } });
+  assert.ok(docMatches(sel, { swimlaneId: BACKGROUND }));
+  assert.ok(docMatches(sel, { swimlaneId: DELETED }), 'orphaned card visible on a single-swimlane board');
+  assert.ok(docMatches(sel, { swimlaneId: null }));
+});
+
+test('#6443: label filter still applies alongside the first-swimlane orphaned clause (no $or clash)', () => {
+  const sel = filteredListCardsSelector(LIST, BACKGROUND, labelFilterSelector(RECURRING), [FOCUS]);
+  const orphanLabelled = { _id: 'o1', listId: LIST, archived: false, swimlaneId: DELETED, labelIds: [RECURRING] };
+  const orphanUnlabelled = { _id: 'o2', listId: LIST, archived: false, swimlaneId: DELETED, labelIds: [] };
+  assert.ok(docMatches(sel, orphanLabelled), 'orphaned labelled card shown in the first swimlane');
+  assert.ok(!docMatches(sel, orphanUnlabelled), 'orphaned unlabelled card still hidden by the active label filter');
 });
 
 console.log(`\n${passed} tests passed`);

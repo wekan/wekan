@@ -29,19 +29,46 @@
 
 // The swimlane-membership clause for one swimlane. Returns an empty object when
 // no swimlane context is given (whole-list scope, unchanged behaviour).
-function swimlaneMembershipSelector(swimlaneId) {
+//
+// #6443 ("no swimlane"): on old boards a swimlane can be deleted while its cards
+// keep the now-dangling swimlaneId (an "orphaned" card), or a board can end up
+// with cards whose swimlaneId was never set. Cards with no swimlane (null / '' /
+// missing) already surface in every swimlane via the `$in` branch below, but an
+// orphaned card matches NO existing swimlane and so is invisible in swimlane view
+// (while still visible in list view, which applies no swimlane scope) — exactly
+// the reported symptom. This mirrors the orphaned-LIST fallback
+// (Swimlanes.orphanedSwimlaneLists): orphaned cards are surfaced in the FIRST
+// swimlane on the board, without a database migration.
+//
+// When `otherSwimlaneIds` is passed (an array of the _ids of the board's OTHER
+// existing swimlanes — i.e. this call is rendering the FIRST swimlane), the
+// clause becomes `{ swimlaneId: { $nin: otherSwimlaneIds } }`: it matches this
+// swimlane's own cards, shared cards (null / '' / missing) AND orphaned cards
+// (a swimlaneId pointing at a deleted swimlane), while still excluding cards that
+// belong to another existing swimlane. Crucially this is a SINGLE field clause
+// (no second `$or`), so it preserves the #6441 fix when combined with the board
+// Filter. Passing `otherSwimlaneIds` for non-first swimlanes is not done, so
+// orphaned cards appear once (in the first swimlane) rather than in every one.
+function swimlaneMembershipSelector(swimlaneId, otherSwimlaneIds) {
   if (!swimlaneId) return {};
+  if (Array.isArray(otherSwimlaneIds)) {
+    // First swimlane: everything in the list that is NOT owned by another
+    // existing swimlane (own id, null/'', missing, or orphaned).
+    return { swimlaneId: { $nin: otherSwimlaneIds } };
+  }
   // `$in` with null matches swimlaneId === null AND a missing swimlaneId field;
   // '' covers the empty-string value from the shared-lists era.
   return { swimlaneId: { $in: [swimlaneId, null, ''] } };
 }
 
 // Base (unfiltered) selector for the active cards of one list, optionally
-// scoped to one swimlane (plus orphaned/shared cards).
-function listCardsSelector(listId, swimlaneId) {
+// scoped to one swimlane (plus orphaned/shared cards). Pass `otherSwimlaneIds`
+// (the _ids of the board's other swimlanes) when building the FIRST swimlane's
+// selector so orphaned cards surface there — see swimlaneMembershipSelector.
+function listCardsSelector(listId, swimlaneId, otherSwimlaneIds) {
   return Object.assign(
     { listId, archived: false },
-    swimlaneMembershipSelector(swimlaneId),
+    swimlaneMembershipSelector(swimlaneId, otherSwimlaneIds),
   );
 }
 
@@ -60,9 +87,9 @@ function combineWithFilter(baseSelector, filterSelector) {
 // board Filter applied. `filterSelector` is the object produced by
 // Filter._getMongoSelector() (or Filter.mongoSelector() with no argument); pass
 // a falsy/empty value when no filter is active.
-function filteredListCardsSelector(listId, swimlaneId, filterSelector) {
+function filteredListCardsSelector(listId, swimlaneId, filterSelector, otherSwimlaneIds) {
   return combineWithFilter(
-    listCardsSelector(listId, swimlaneId),
+    listCardsSelector(listId, swimlaneId, otherSwimlaneIds),
     filterSelector,
   );
 }

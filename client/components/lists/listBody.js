@@ -345,7 +345,16 @@ Template.listBody.helpers({
     // bare top-level `$or`, so it never competes with the board Filter's own
     // top-level `$or` (labels/members/exceptions) and the label filter applies
     // board-wide across every swimlane.
-    const selector = listCardsSelector(Template.currentData()._id, swimlaneId);
+    // #6443: in the first swimlane also surface orphaned cards (a swimlaneId
+    // pointing at a deleted swimlane) so they are not invisible in swimlane view.
+    const list = Template.currentData();
+    const selector = listCardsSelector(
+      list._id,
+      swimlaneId,
+      list.orphanedCardsSwimlaneIds
+        ? list.orphanedCardsSwimlaneIds(swimlaneId)
+        : undefined,
+    );
     const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), {
       // sort: ['sort'],
       sort: sortBy,
