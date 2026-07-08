@@ -69,7 +69,8 @@ echo  18^) Check floating promises guard ^(@typescript-eslint/no-floating-promis
 echo  19^) Save Meteor dependency chain to ..\meteor-deps.txt
 echo  20^) Install forge CLI tools ^(gh, glab, tea, git-bug, forge^) for GitHub/GitLab/Codeberg/Forgejo/Gitea
 echo  21^) Mirror repo GitHub -^> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions ^(sync missing, convert CI^)
-echo  22^) Quit
+echo  22^) Count amount of tests by category
+echo  23^) Quit
 echo ==========================================================
 set "choice="
 set /p "choice=Please enter your choice: "
@@ -95,7 +96,8 @@ if "%choice%"=="18" goto check_floating
 if "%choice%"=="19" goto save_deps
 if "%choice%"=="20" goto install_forge_tools
 if "%choice%"=="21" goto mirror_forge
-if "%choice%"=="22" goto end
+if "%choice%"=="22" goto count_tests
+if "%choice%"=="23" goto end
 echo invalid option
 goto menu
 
@@ -716,6 +718,15 @@ exit /b 0
 :jcount_e2e
 for /f "usebackq delims=" %%n in (`node -e "let n=0;try{n=(require('fs').readFileSync(process.argv[1],'utf8').match(/\[wekan-e2e\]/g)||[]).length}catch(e){}process.stdout.write(String(n))" "%~3"`) do set "%~1=%%n"
 exit /b 0
+
+REM ===========================================================================
+:count_tests
+REM Print a Markdown table of Playwright e2e specs and their test counts.
+REM Area is derived from the filename; Tests counts test( / test.only( /
+REM test.skip( / test.fixme( lines but never test.describe(. Uses node
+REM (always present here) so the parsing matches rebuild-wekan.sh exactly.
+node -e "const fs=require('fs'),p=require('path');const d='tests/playwright/specs';let files=[];try{files=fs.readdirSync(d).filter(f=>f.endsWith('.e2e.js')).sort();}catch(e){console.log('Spec directory not found: '+d);process.exit(0);}console.log('| Spec | Area | Tests |');console.log('|------|------|-------|');let total=0;for(const f of files){const m=f.match(/^([0-9]+)/);const spec=m?m[1]:'';let area=f.replace(/^[0-9]+[-_]?/,'').replace(/\.e2e\.js$/,'').replace(/[-_]+/g,' ');area=area.charAt(0).toUpperCase()+area.slice(1);const src=fs.readFileSync(p.join(d,f),'utf8');const c=src.split(/\r?\n/).filter(l=>/(^|[^a-zA-Z.])test(\.(only|skip|fixme))?\s*\(/.test(l)).length;console.log('| '+spec+' | '+area+' | '+c+' |');total+=c;}console.log('');console.log('**Total: '+total+' tests**');"
+goto end
 
 REM ===========================================================================
 :end

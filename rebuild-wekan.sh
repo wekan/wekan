@@ -752,7 +752,7 @@ function mirror_forge(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)" "Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" "Quit")
+options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)" "Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" "Count amount of tests by category" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -1034,6 +1034,36 @@ do
 
     "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)")
 		mirror_forge
+		break
+		;;
+
+    "Count amount of tests by category")
+		SPECDIR="tests/playwright/specs"
+		if [ ! -d "$SPECDIR" ]; then
+			echo "Spec directory not found: $SPECDIR"
+			break
+		fi
+		echo "| Spec | Area | Tests |"
+		echo "|------|------|-------|"
+		total=0
+		for f in "$SPECDIR"/*.e2e.js; do
+			[ -e "$f" ] || continue
+			base=$(basename "$f")
+			# Spec number: leading digits of the filename
+			spec=$(printf '%s' "$base" | sed -E 's/^([0-9]+).*/\1/')
+			# Area: strip leading number and separator, strip .e2e.js,
+			# turn - and _ into spaces, capitalize the first letter.
+			area=$(printf '%s' "$base" \
+				| sed -E 's/^[0-9]+[-_]?//; s/\.e2e\.js$//; s/[-_]+/ /g' \
+				| awk '{ if (length($0) > 0) { $0 = toupper(substr($0,1,1)) substr($0,2) } print }')
+			# Tests: count test( / test.only( / test.skip( / test.fixme(
+			# calls, but never test.describe(
+			count=$(grep -cE '(^|[^a-zA-Z.])test(\.(only|skip|fixme))?[[:space:]]*\(' "$f")
+			echo "| $spec | $area | $count |"
+			total=$((total + count))
+		done
+		echo
+		echo "**Total: $total tests**"
 		break
 		;;
 
