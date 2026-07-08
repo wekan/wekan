@@ -741,12 +741,12 @@ template(name="cardDetails")
             i.fa.fa-history
             | {{ _ 'activities'}}
           if currentUser.isBoardMember
-            .material-toggle-switch(title="{{_ 'show-activities'}}")
-              if showActivities
-                input.toggle-switch(type="checkbox" id="toggleShowActivitiesCard" checked="checked")
-              else
-                input.toggle-switch(type="checkbox" id="toggleShowActivitiesCard")
-              label.toggle-label(for="toggleShowActivitiesCard")
+            if showActivities
+              a.activities-eye-toggle.js-toggle-show-activities-card(title="{{_ 'hide-activities'}}" aria-label="{{_ 'hide-activities'}}")
+                i.fa.fa-eye.eye-icon
+            else
+              a.activities-eye-toggle.js-toggle-show-activities-card(title="{{_ 'show-activities'}}" aria-label="{{_ 'show-activities'}}")
+                i.fa.fa-eye-slash.eye-slash-icon
 
       if currentUser.isBoardAdmin
         if isLoaded.get

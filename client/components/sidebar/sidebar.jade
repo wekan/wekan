@@ -55,9 +55,14 @@ template(name='homeSidebar')
       i.fa.fa-comment-o
       | {{_ 'activities'}}
 
-      a.flex.js-toggle-show-activities(title="{{_ 'show-activities'}}")
-        i.fa(class="{{#if showActivities}}fa-check{{else}}fa-square-o{{/if}}")
-        span {{_ 'show-activities'}}
+      if showActivities
+        a.flex.activities-eye-toggle.js-toggle-show-activities(title="{{_ 'hide-activities'}}" aria-label="{{_ 'hide-activities'}}")
+          i.fa.fa-eye.eye-icon
+          span {{_ 'hide-activities'}}
+      else
+        a.flex.activities-eye-toggle.js-toggle-show-activities(title="{{_ 'show-activities'}}" aria-label="{{_ 'show-activities'}}")
+          i.fa.fa-eye-slash.eye-slash-icon
+          span {{_ 'show-activities'}}
     +activities(mode="board")
 
 template(name="membersWidget")

@@ -15,6 +15,20 @@
 .reactions-popup .add-comment-reaction:hover {
   background-color: #b0c4de;
 }
+/* Eye / eye-slash icon toggle for showing/hiding activities. Open eye
+   (.eye-icon) = activities shown; crossed eye (.eye-slash-icon) = hidden.
+   Matches the password-visibility toggle used on the login/register pages. */
+.activities-eye-toggle {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  text-decoration: none;
+}
+.activities-eye-toggle .eye-icon,
+.activities-eye-toggle .eye-slash-icon {
+  line-height: 1;
+}
 .activities {
   clear: both;
 }

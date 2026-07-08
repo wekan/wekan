@@ -1047,7 +1047,7 @@ Template.cardDetails.events({
     const card = Template.currentData();
     await card.toggleHideCheckedChecklistItems();
   },
-  async 'change #toggleShowActivitiesCard'() {
+  async 'click .js-toggle-show-activities-card'() {
     const card = Template.currentData();
     await card.toggleShowActivities();
   },
