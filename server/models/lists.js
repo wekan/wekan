@@ -7,9 +7,10 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
-import Lists from '/models/lists';
+import Lists, { normalizeListColor } from '/models/lists';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { computeSortForIndex } from '/server/lib/utils';
+import { buildListPutUpdate } from '/models/lib/listApiUpdate';
 
 const hasBoardWriteAccess = (userId, board) => {
   if (!userId || !board) {
@@ -608,35 +609,23 @@ WebApp.handlers.put('/api/boards/:boardId/lists/:listId', async function(req, re
       return;
     }
 
-    if (req.body.title) {
-      const newTitle = req.body.title.length > 1000 ? req.body.title.substring(0, 1000) : req.body.title;
-      await Lists.direct.updateAsync(
-        { _id: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { title: newTitle } },
-      );
-      updated = true;
+    // #5396: edit a list's title/color (and starred/wipLimit) via the REST API,
+    // like cards can be edited. The color is validated with normalizeListColor
+    // (named palette color OR custom '#rrggbb' hex); a bad color is rejected
+    // with a clear 4xx rather than being silently stored as None. The pure
+    // field/validation logic lives in models/lib/listApiUpdate.js so it is unit
+    // testable without Meteor.
+    const { set, error } = buildListPutUpdate(req.body, normalizeListColor);
+
+    if (error) {
+      sendJsonResult(res, { code: 400, data: { error } });
+      return;
     }
 
-    if (req.body.color) {
+    if (Object.keys(set).length > 0) {
       await Lists.direct.updateAsync(
         { _id: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { color: req.body.color } },
-      );
-      updated = true;
-    }
-
-    if (req.body.hasOwnProperty('starred')) {
-      await Lists.direct.updateAsync(
-        { _id: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { starred: req.body.starred } },
-      );
-      updated = true;
-    }
-
-    if (req.body.wipLimit) {
-      await Lists.direct.updateAsync(
-        { _id: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { wipLimit: req.body.wipLimit } },
+        { $set: set },
       );
       updated = true;
     }

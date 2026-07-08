@@ -37,6 +37,8 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py lists BOARDID        # Lists of BOARDID
     python3 api.py list BOARDID LISTID  # Info of LISTID
     python3 api.py createlist BOARDID LISTTITLE # Create list
+    python3 api.py editlist BOARDID LISTID NEWLISTTITLE # Edit list title
+    python3 api.py editlistcolor BOARDID LISTID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Edit list color
     python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION
     python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION
         python3 api.py getcard BOARDID LISTID CARDID # Get card info
@@ -431,6 +433,49 @@ if arguments == 5:
         # ------- EDIT CARD COLOR END -----------
 
 if arguments >= 4:
+
+    if sys.argv[1] == 'editlist':
+
+        # ------- EDIT LIST START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        newlisttitle = sys.argv[4]
+        edlist = wekanurl + apiboards + boardid + s + l + s + listid
+        print(edlist)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'title': '{}'.format(newlisttitle)}
+        body = requests.put(edlist, data=put_data, headers=headers)
+        print("=== EDIT LIST ===\n")
+        body = requests.get(edlist, headers=headers)
+        data2 = body.text.replace('}', "}\n")
+        print(data2)
+        # ------- EDIT LIST END -----------
+
+    if sys.argv[1] == 'editlistcolor':
+
+        # ------- EDIT LIST COLOR START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        newcolor = sys.argv[4]
+
+        valid_colors = ['white', 'green', 'yellow', 'orange', 'red', 'purple', 'blue', 'sky', 'lime', 'pink', 'black',
+                    'silver', 'peachpuff', 'crimson', 'plum', 'darkgreen', 'slateblue', 'magenta', 'gold', 'navy',
+                    'gray', 'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo']
+
+        if newcolor not in valid_colors:
+            print("Invalid color. Choose a color from the list.")
+            sys.exit(1)
+
+        edlist = wekanurl + apiboards + boardid + s + l + s + listid
+        print(edlist)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'color': '{}'.format(newcolor)}
+        body = requests.put(edlist, data=put_data, headers=headers)
+        print("=== EDIT LIST COLOR ===\n")
+        body = requests.get(edlist, headers=headers)
+        data2 = body.text.replace('}', "}\n")
+        print(data2)
+        # ------- EDIT LIST COLOR END -----------
 
     if sys.argv[1] == 'newuser':
 
