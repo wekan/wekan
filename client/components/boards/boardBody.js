@@ -11,6 +11,7 @@ import Lists from '/models/lists';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import { Filter } from '/client/lib/filter';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndex } = Utils;
@@ -929,6 +930,11 @@ Template.calendarView.onRendered(function () {
   document.documentElement.dir = TAPi18n.getLanguageDirection();
 
   this.autorun(function () {
+    // #5656: refetch calendar events whenever the active board Filter changes
+    // so the Calendar view stays in sync with the other views. Reading the
+    // Filter's reactive state here establishes the dependency; the events()
+    // callback below applies the actual selector.
+    Filter.isActive();
     const calendarEl = document.getElementById('calendar-view');
     if (calendarEl && calendarEl._wekanCalendar) {
       calendarEl._wekanCalendar.refetchEvents();
@@ -1002,6 +1008,12 @@ Template.calendarView.helpers({
       isRTL: TAPi18n.isRTL(),
       events(fetchInfo, callback) {
         const currentBoard = Utils.getCurrentBoard();
+        // #5656: apply the active board Filter (member / assignee / due-date /
+        // label / custom-field) so the Calendar view shows the same scoped set
+        // of cards as the Board / Lists / Swimlanes views.
+        const filterSelector = Filter.isActive()
+          ? Filter._getMongoSelector()
+          : undefined;
         const events = [];
         const pushEvent = function (card, title, start, end, extraCls) {
           start = start || card.startAt;
@@ -1026,12 +1038,12 @@ Template.calendarView.helpers({
           });
         };
         currentBoard
-          .cardsInInterval(fetchInfo.start, fetchInfo.end)
+          .cardsInInterval(fetchInfo.start, fetchInfo.end, filterSelector)
           .forEach(function (card) {
             pushEvent(card);
           });
         currentBoard
-          .cardsDueInBetween(fetchInfo.start, fetchInfo.end)
+          .cardsDueInBetween(fetchInfo.start, fetchInfo.end, filterSelector)
           .forEach(function (card) {
             pushEvent(
               card,

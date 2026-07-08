@@ -22,6 +22,10 @@ import { Counters, incrementCounterAsync } from '/models/counters';
 import { pullMemberById } from '/server/lib/removeMember';
 import getSlug from 'limax';
 import { findWhere, where, groupBy } from '/imports/lib/collectionHelpers';
+import {
+  cardsDueInBetweenSelector,
+  cardsInIntervalSelector,
+} from '/models/lib/calendarFilter';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { buildCardSearchOr } from '/models/lib/cardSearch';
 const { SimpleSchema } = require('/imports/simpleSchema');
@@ -1906,44 +1910,23 @@ Boards.helpers({
     return await incrementCounterAsync(counterName);
   },
 
-  cardsDueInBetween(start, end) {
-    const ret = ReactiveCache.getCards({
-      boardId: this._id,
-      dueAt: { $gte: start, $lte: end },
-    });
+  // #5656: the Calendar view must honor the active board Filter (member /
+  // assignee / due-date / label / custom-field). `filterSelector` is the object
+  // produced by Filter._getMongoSelector() on the client (pass a falsy/empty
+  // value, e.g. from the server or when no filter is active). It is always
+  // ANDed in via combineWithFilter so it can never be overwritten by — nor
+  // collide with — the top-level `$or` these interval selectors use.
+  cardsDueInBetween(start, end, filterSelector) {
+    const ret = ReactiveCache.getCards(
+      cardsDueInBetweenSelector(this._id, start, end, filterSelector),
+    );
     return ret;
   },
 
-  cardsInInterval(start, end) {
-    const ret = ReactiveCache.getCards({
-      boardId: this._id,
-      $or: [
-        {
-          startAt: {
-            $lte: start,
-          },
-          endAt: {
-            $gte: start,
-          },
-        },
-        {
-          startAt: {
-            $lte: end,
-          },
-          endAt: {
-            $gte: end,
-          },
-        },
-        {
-          startAt: {
-            $gte: start,
-          },
-          endAt: {
-            $lte: end,
-          },
-        },
-      ],
-    });
+  cardsInInterval(start, end, filterSelector) {
+    const ret = ReactiveCache.getCards(
+      cardsInIntervalSelector(this._id, start, end, filterSelector),
+    );
     return ret;
   },
 
