@@ -41,6 +41,23 @@ them up next.
 
 # Upcoming WeKan ® release
 
+This release adds the following new features:
+
+- **[Feature #5621: Rules can set a date field to a custom time (value + minute/hour/day/week/month later)](https://github.com/wekan/wekan/commit/48b56bce939cbb0b133775e3574e61c5ad1a7a30)**:
+  The Rules "Set date relative to now" action previously only offset a date field (Start / Due / End /
+  Received) by a whole number of DAYS. It now has a unit selector, so a rule can set a date field to
+  now + `<value>` `<unit> later`, where the unit is minute(s) / hour(s) / day(s) / week(s) / month(s);
+  negative values move the date earlier. Months use a real calendar-month add (e.g. keeping the same
+  day-of-month) rather than a fixed 30-day approximation. Existing rules created before this change
+  have no stored unit and keep working exactly as before (no unit ⇒ days), so the change is fully
+  backward compatible. The offset math lives in a new pure, Meteor-free helper
+  `models/lib/relativeDateOffset.js` used by `server/rulesHelper.js` and covered by
+  `tests/relativeDateOffset.test.cjs` (15 assertions pass). Note that the related "overdue" Rules
+  trigger and the "set date field to now" action from the same feature request already existed in an
+  earlier release; this change adds only the missing custom-time unit selector. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 This release fixes the following bugs:
 
 - **[Fix #6442: All Boards "Custom (drag order)" — drop now persists the reorder](https://github.com/wekan/wekan/commit/457713968cf3c365899271606398b7796a7b07f4)**:
