@@ -60,6 +60,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following bugs:
 
+- **[Fix #5604: CSV export no longer crashes on boards with dangling references](https://github.com/wekan/wekan/commit/662f1baedd3e0649d70b31c28862dd073c15d76a)**: exporting a large/old board to CSV failed with "Couldn't download - Network issue" because Exporter.buildCsv read `.title`/`.username`/`.name` directly on the result of looking up a card's deleted list/swimlane/owner/member/assignee/label/customField by id, throwing "Cannot read property 'title' of undefined"; the per-card row builder is now a null-safe helper that emits a blank cell for missing references while keeping identical output for well-formed cards. Thanks to xet7.
 - **[Fix #5656: the Calendar view now honors the active board filters](https://github.com/wekan/wekan/commit/276ce546408986f466082f6242bbd071725e5e29)**: the Calendar view queried cards by board and date only and ignored the active Filter sidebar (member / assignee / due-date / label / custom-field), so it showed every card in the interval unlike the Board / Lists / Swimlanes views; it now ANDs the Filter selector into its query and refetches when the filter changes. Thanks to kerier and xet7.
 - **[Fix #6442: All Boards "Custom (drag order)" — drop now persists the reorder](https://github.com/wekan/wekan/commit/457713968cf3c365899271606398b7796a7b07f4)**:
   Follow-up to #6439, which restored the drag preview but left the drop a no-op: dragging a board on
