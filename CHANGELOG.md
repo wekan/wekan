@@ -43,6 +43,11 @@ them up next.
 
 This release adds the following new features:
 
+- **[Feature #5394: the Link-card popup's Cards dropdown is now sorted alphabetically](https://github.com/wekan/wekan/commit/32627a2bad09135d3c51fd605f3d53760da33057)**:
+  In the "Link to this card" popup, the Cards pull-down list is now sorted
+  alphabetically by card title (case-insensitive, locale/numeric aware)
+  instead of board sort order, so a card can be found on boards with many
+  cards. Thanks to xet7.
 - **[Feature #5396: edit Lists (title, color) via the REST API + api.py commands](https://github.com/wekan/wekan/commit/2419ed13c88d014771747c5bda0866106e6e0af8)**:
   Lists can now be edited through the REST API like cards can. The endpoint
   `PUT /api/boards/:boardId/lists/:listId` already accepted `title`, `color`,
