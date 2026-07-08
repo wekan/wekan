@@ -9,6 +9,7 @@ import { RulesHelper } from '/server/rulesHelper';
 import { Notifications } from '/server/notifications/notifications';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { safeDeliver } from '/server/lib/webhookGuard';
+import { labelDisplayName } from '/models/lib/labelDisplayName';
 
 function normalizeActivityText(value, fallback = '') {
   return typeof value === 'string' ? value : fallback;
@@ -288,17 +289,18 @@ Activities.after.insert(async (userId, doc) => {
     }
   }
 
-  if (activity.labelId) {
-    const label = await activity.label();
+  if (activity.labelId && board) {
+    // #5442: labels are embedded in the board document (not a separate
+    // collection), so resolve the label from the already-loaded board by id.
+    // The old activity.label() helper looked the id up in Cards and always
+    // returned undefined, so params.label was never set and the outgoing
+    // webhook / notification text showed a bare, generic "label" with no name.
+    // Fall back to the color (how the UI shows a nameless label), then the id,
+    // so the label token is never empty.
+    const label = board.getLabelById(activity.labelId);
     if (label) {
-      if (label.name) {
-        params.label = normalizeActivityText(label.name);
-      } else if (label.color) {
-        params.label = normalizeActivityText(label.color);
-      }
-      if (label._id) {
-        params.labelId = label._id;
-      }
+      params.label = normalizeActivityText(labelDisplayName(label), label._id);
+      params.labelId = label._id;
     }
   }
 
