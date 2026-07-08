@@ -24,6 +24,7 @@ import Users, { allowedSortValues, allowedAllBoardsSortValues } from '/models/us
 import { expiredNotificationActivityIds } from '/models/lib/notificationCleanup';
 import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
 import { paginateDomains } from '/models/lib/domainTablePage';
+import { orgsToAutoAddForEmail } from '/models/lib/orgAutoAddByDomain';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
@@ -1055,6 +1056,50 @@ Meteor.methods({
   },
 });
 
+// #5351: honour the Organization setting "Automatically add users with the
+// domain name". Each org may store a domain in `orgAutoAddUsersWithDomainName`;
+// when a new user signs up, every org whose configured domain matches the
+// domain part of the user's email(s) must gain that user as a member. The
+// membership shape is the same `{ orgId, orgDisplayName }` used everywhere else
+// (see editUser / admin People UI). This mutates `user.orgs` in place BEFORE the
+// document is inserted, so the membership is stored atomically with the user and
+// existing entries are never duplicated. Failures are logged, never fatal to
+// sign-up.
+const autoAddOrgsByDomain = async user => {
+  try {
+    const emails = Array.isArray(user.emails) ? user.emails : [];
+    if (!emails.length) return;
+
+    const orgs = await ReactiveCache.getOrgs({
+      orgAutoAddUsersWithDomainName: { $exists: true, $nin: [null, ''] },
+    });
+    if (!orgs || !orgs.length) return;
+
+    const seen = new Set(
+      (user.orgs || []).map(o => o && o.orgId).filter(Boolean),
+    );
+    const toAdd = [];
+    emails.forEach(e => {
+      orgsToAutoAddForEmail(e && e.address, orgs).forEach(orgId => {
+        if (seen.has(orgId)) return;
+        seen.add(orgId);
+        const org = orgs.find(o => o._id === orgId);
+        toAdd.push({
+          orgId,
+          orgDisplayName:
+            (org && (org.orgDisplayName || org.orgShortName)) || orgId,
+        });
+      });
+    });
+
+    if (toAdd.length) {
+      user.orgs = (user.orgs || []).concat(toAdd);
+    }
+  } catch (error) {
+    console.error('autoAddOrgsByDomain failed:', error);
+  }
+};
+
 Accounts.onCreateUser(async (options, user) => {
   const usersCursor = await ReactiveCache.getUsers({}, {}, true);
   const userCount = typeof usersCursor.countAsync === 'function' ? await usersCursor.countAsync() : usersCursor.count();
@@ -1152,7 +1197,10 @@ Accounts.onCreateUser(async (options, user) => {
       );
     }
 
-    if (!existingUser) return user;
+    if (!existingUser) {
+      await autoAddOrgsByDomain(user);
+      return user;
+    }
 
     const mergeExistingUsers =
       process.env.OAUTH2_MERGE_EXISTING_USERS === 'true' ||
@@ -1183,6 +1231,12 @@ Accounts.onCreateUser(async (options, user) => {
     user.createdThroughApi = true;
     return user;
   }
+
+  // #5351: auto-add this user to organizations whose configured domain matches
+  // their email domain. Applies to every non-admin sign-up path below (password
+  // registration, LDAP, invitation-code); admin-created users are handled above
+  // where the admin sets orgs explicitly.
+  await autoAddOrgsByDomain(user);
 
   const disableRegistration = (await ReactiveCache.getCurrentSetting()).disableRegistration;
   if (disableRegistration && options && options.ldap) {
