@@ -1039,6 +1039,51 @@ do
 
     "Count amount of tests by category")
 		SPECDIR="tests/playwright/specs"
+
+		# --- Category 1: Mocha (server + client, meteortesting:mocha) ---
+		# Count it( calls across the testModule trees, never describe().
+		mocha_count=0
+		for mf in client/lib/tests/*.tests.js server/lib/tests/*.tests.js imports/i18n/i18n.test.js; do
+			[ -e "$mf" ] || continue
+			c=$(grep -cE '(^|[^A-Za-z.])it[[:space:]]*\(' "$mf")
+			mocha_count=$((mocha_count + c))
+		done
+
+		# --- Category 2: Import regression (node tests/wekanCreator.import.test.js) ---
+		import_count=0
+		if [ -e tests/wekanCreator.import.test.js ]; then
+			import_count=$(grep -cE '^function test' tests/wekanCreator.import.test.js)
+		fi
+
+		# --- Category 3: Node E2E regressions (tests/e2e/list-regressions.js) ---
+		nodee2e_count=0
+		if [ -e tests/e2e/list-regressions.js ]; then
+			nodee2e_count=$(grep -cE "logStep\('Testing" tests/e2e/list-regressions.js)
+		fi
+
+		# --- Category 4: Playwright e2e specs (tests/playwright/specs/*.e2e.js) ---
+		pw_count=0
+		if [ -d "$SPECDIR" ]; then
+			for f in "$SPECDIR"/*.e2e.js; do
+				[ -e "$f" ] || continue
+				c=$(grep -cE '(^|[^a-zA-Z.])test(\.(only|skip|fixme))?[[:space:]]*\(' "$f")
+				pw_count=$((pw_count + c))
+			done
+		fi
+
+		grand_total=$((mocha_count + import_count + nodee2e_count + pw_count))
+
+		# --- Summary table by category ---
+		echo "| Category | Tests |"
+		echo "|----------|-------|"
+		echo "| Mocha (server + client, meteortesting:mocha) | $mocha_count |"
+		echo "| Import regression (tests/wekanCreator.import.test.js) | $import_count |"
+		echo "| Node E2E regressions (tests/e2e/list-regressions.js) | $nodee2e_count |"
+		echo "| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | $pw_count |"
+		echo "| **Total** | **$grand_total** |"
+		echo
+
+		# --- Detailed Playwright per-spec table ---
 		if [ ! -d "$SPECDIR" ]; then
 			echo "Spec directory not found: $SPECDIR"
 			break
