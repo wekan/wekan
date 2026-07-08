@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 const Papa = require('papaparse');
+const { buildCsvCardRow } = require('./lib/exporterCsvRow');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { 
@@ -316,107 +317,11 @@ export class Exporter {
     cardRows.push(columnHeaders);
 
     result.cards.forEach((card) => {
-      const currentRow = [];
-      currentRow.push(card.title);
-      currentRow.push(card.description);
-      currentRow.push(
-        result.lists.find(({ _id }) => _id === card.listId).title,
-      );
-      currentRow.push(
-        result.swimlanes.find(({ _id }) => _id === card.swimlaneId).title,
-      );
-      currentRow.push(
-        result.users.find(({ _id }) => _id === card.userId).username,
-      );
-      currentRow.push(card.requestedBy ? card.requestedBy : ' ');
-      currentRow.push(card.assignedBy ? card.assignedBy : ' ');
-      let usernames = '';
-      card.members.forEach((memberId) => {
-        const user = result.users.find(({ _id }) => _id === memberId);
-        usernames = `${usernames + user.username} `;
-      });
-      currentRow.push(usernames.trim());
-      let assignees = '';
-      card.assignees.forEach((assigneeId) => {
-        const user = result.users.find(({ _id }) => _id === assigneeId);
-        assignees = `${assignees + user.username} `;
-      });
-      currentRow.push(assignees.trim());
-      let labels = '';
-      card.labelIds.forEach((labelId) => {
-        const label = result.labels.find(({ _id }) => _id === labelId);
-        labels = `${labels + label.name}-${label.color} `;
-      });
-      currentRow.push(labels.trim());
-      currentRow.push(card.startAt ? new Date(card.startAt).toISOString() : ' ');
-      currentRow.push(card.dueAt ? new Date(card.dueAt).toISOString() : ' ');
-      currentRow.push(card.endAt ? new Date(card.endAt).toISOString() : ' ');
-      currentRow.push(card.isOvertime ? 'true' : 'false');
-      currentRow.push(card.spentTime);
-      currentRow.push(card.createdAt ? new Date(card.createdAt).toISOString() : ' ');
-      currentRow.push(card.modifiedAt ? new Date(card.modifiedAt).toISOString() : ' ');
-      currentRow.push(
-        card.dateLastActivity ? new Date(card.dateLastActivity).toISOString() : ' ',
-      );
-      if (card.vote && card.vote.question !== '') {
-        let positiveVoters = '';
-        let negativeVoters = '';
-        card.vote.positive.forEach((userId) => {
-          const user = result.users.find(({ _id }) => _id === userId);
-          positiveVoters = `${positiveVoters + user.username} `;
-        });
-        card.vote.negative.forEach((userId) => {
-          const user = result.users.find(({ _id }) => _id === userId);
-          negativeVoters = `${negativeVoters + user.username} `;
-        });
-        const votingResult = `${
-          card.vote.public
-            ? `yes-${
-                card.vote.positive.length
-              }-${positiveVoters.trimRight()}-no-${
-                card.vote.negative.length
-              }-${negativeVoters.trimRight()}`
-            : `yes-${card.vote.positive.length}-no-${card.vote.negative.length}`
-        }`;
-        currentRow.push(`${card.vote.question}-${votingResult}`);
-      } else {
-        currentRow.push(' ');
-      }
-      currentRow.push(card.archived ? 'true' : 'false');
-      //Custom fields
-      const customFieldValuesToPush = new Array(result.customFields.length);
-      card.customFields.forEach((field) => {
-        if (field.value !== null) {
-          if (customFieldMap[field._id].type === 'date') {
-            customFieldValuesToPush[customFieldMap[field._id].position] =
-              new Date(field.value).toISOString();
-          } else if (customFieldMap[field._id].type === 'dropdown') {
-            const dropdownOptions = result.customFields.find(
-              ({ _id }) => _id === field._id,
-            ).settings.dropdownItems;
-            const fieldObj = dropdownOptions.find(
-              ({ _id }) => _id === field.value,
-            );
-            const fieldValue = (fieldObj && fieldObj.name) || null;
-            customFieldValuesToPush[customFieldMap[field._id].position] =
-              fieldValue;
-          } else {
-            customFieldValuesToPush[customFieldMap[field._id].position] =
-              field.value;
-          }
-        }
-      });
-      for (
-        let valueIndex = 0;
-        valueIndex < customFieldValuesToPush.length;
-        valueIndex++
-      ) {
-        if (!(valueIndex in customFieldValuesToPush)) {
-          currentRow.push(' ');
-        } else {
-          currentRow.push(customFieldValuesToPush[valueIndex]);
-        }
-      }
+      // #5604: build the row via a null-safe helper so a card that references a
+      // deleted list/swimlane/owner/member/assignee/label/customField exports a
+      // blank cell instead of crashing the whole export with
+      // "Cannot read property 'title' of undefined".
+      const currentRow = buildCsvCardRow(card, result, customFieldMap);
       //cardRows.push([[currentRow]]);
       cardRows.push(currentRow);
     });
