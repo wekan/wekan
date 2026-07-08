@@ -508,7 +508,7 @@
   "error-csv-schema": "O CSV(Comma Separated Values)/TSV (Tab Separated Values) não inclui a informação adequada no formato correto",
   "error-import-empty-board": "Este arquivo exportado não contém nenhum conteúdo do quadro (sem raias, listas ou cartões). Ele pode ter sido criado por uma versão antiga do WeKan com um bug conhecido na exportação. Por favor, exporte o quadro novamente com a versão atual e importe o novo arquivo.",
   "error-list-doesNotExist": "Esta lista não existe",
-  "error-linked-card-not-allowed": "You can only link to a normal card. Linking to another linked card, or to a card that links back to this board, is not allowed because it would make the cards inaccessible.",
+  "error-linked-card-not-allowed": "Você só pode criar links para um cartão normal. Criar links para outro cartão vinculado ou para um cartão que retorne a este tabuleiro não é permitido, pois tornaria os cartões inacessíveis.",
   "error-user-disabled": "Esta conta de usuário está desativada.",
   "error-user-doesNotExist": "Este usuário não existe",
   "error-user-notAllowSelf": "Você não pode convidar a si mesmo",
