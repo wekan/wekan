@@ -43,6 +43,18 @@ them up next.
 
 This release adds the following new features:
 
+- **[Feature #5514: custom color-wheel (RGB/hex) picker with automatic readable text contrast](https://github.com/wekan/wekan/commit/491a371f5dbfe2d21ddbf5f451315c6f4f76e885)**:
+  The color pickers that previously offered only a fixed set of named colors now also include a native
+  color wheel (`<input type="color">`), so any `#rrggbb` color can be chosen. The wheel was added
+  alongside the existing swatches for card labels ("categories"), swimlanes ("tabs"), lists and cards.
+  The schema color fields accept a custom hex in addition to the named palette, and existing named-color
+  data keeps working; a stored hex is rendered with an inline `background-color` instead of the named
+  CSS class. A new pure, Meteor-free helper `models/lib/contrastColor.js` computes a readable text color
+  from sRGB relative luminance (white text on dark backgrounds, black on light), maps the named palette
+  to hex, and validates/normalizes hex; it is applied as an inline text color wherever a chosen color is
+  a background behind text (label chips, swimlane / list headers, minicard, card details header), so text
+  stays readable on any color. Covered by `tests/contrastColor.test.cjs` (20 assertions pass).
+  Thanks to Ruyeex and xet7.
 - **[Feature #5621: Rules can set a date field to a custom time (value + minute/hour/day/week/month later)](https://github.com/wekan/wekan/commit/48b56bce939cbb0b133775e3574e61c5ad1a7a30)**:
   The Rules "Set date relative to now" action previously only offset a date field (Start / Due / End /
   Received) by a whole number of DAYS. It now has a unit selector, so a rule can set a date field to
