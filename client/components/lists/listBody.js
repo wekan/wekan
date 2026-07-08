@@ -11,6 +11,7 @@ import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
+import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
 import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
@@ -720,7 +721,9 @@ Template.linkCardPopup.helpers({
     if (tpl.selectedListId.get()) selector.listId = tpl.selectedListId.get();
 
     const ret = ReactiveCache.getCards(selector, { sort: { sort: 1 } });
-    return ret;
+    // #5394: sort the Cards dropdown alphabetically by title
+    // (case-insensitive) so a card can be found on boards with many cards.
+    return sortCardsByTitle(ret);
   },
 
   isTitleDefault(title) {
