@@ -8,6 +8,8 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardAdmin, boardMemberRoleToFlags } from '/server/lib/utils';
 import { reconcileBoardTeamMembers } from '/models/lib/reconcileBoardTeamMembers';
+import { buildBoardLabel } from '/models/lib/restLabel';
+import { LABEL_COLORS } from '/models/metadata/colors';
 import { filterUserBoards } from '/server/lib/boardListFilter';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Actions from '/models/actions';
@@ -932,6 +934,10 @@ WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
     sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
     return;
   }
+  if (!board) {
+    sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+    return;
+  }
   const isBoardAdmin = allowIsBoardAdmin(req.userId, board);
   const isSiteAdmin = isBoardAdmin
     ? true
@@ -941,28 +947,40 @@ WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
     return;
   }
   try {
-    if (Object.prototype.hasOwnProperty.call(req.body, 'label')) {
-      const color = req.body.label.color;
-      const name = req.body.label.name;
-      const labelId = Random.id(6);
-      if (!board.getLabel(name, color)) {
-        await Boards.direct.updateAsync(
-          { _id: id },
-          { $push: { labels: { _id: labelId, name, color } } },
-        );
-        sendJsonResult(res, {
-          code: 200,
-          data: labelId,
-        });
-      } else {
-        sendJsonResult(res, {
-          code: 200,
-        });
-      }
+    // Issue #5510: always return a JSON response. buildBoardLabel normalizes the
+    // accepted request shapes and rejects bad input with a 4xx (rather than pushing
+    // a schema-invalid label or, when `label` was absent, never responding at all so
+    // the request hung until the client timed out).
+    const built = buildBoardLabel((req.body || {}).label, LABEL_COLORS);
+    if (!built.ok) {
+      sendJsonResult(res, {
+        code: built.status || 400,
+        data: { error: built.error },
+      });
+      return;
     }
+    const { name, color } = built;
+    const existing = board.getLabel(name, color);
+    if (existing) {
+      sendJsonResult(res, {
+        code: 200,
+        data: existing._id,
+      });
+      return;
+    }
+    const labelId = Random.id(6);
+    await Boards.direct.updateAsync(
+      { _id: id },
+      { $push: { labels: { _id: labelId, name, color } } },
+    );
+    sendJsonResult(res, {
+      code: 200,
+      data: labelId,
+    });
   } catch (error) {
     sendJsonResult(res, {
-      data: error,
+      code: error.statusCode || error.code || 500,
+      data: { error: error.reason || error.message || 'Error' },
     });
   }
 });
