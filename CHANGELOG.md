@@ -43,6 +43,17 @@ them up next.
 
 This release adds the following new features:
 
+- **[Feature #5396: edit Lists (title, color) via the REST API + api.py commands](https://github.com/wekan/wekan/commit/2419ed13c88d014771747c5bda0866106e6e0af8)**:
+  Lists can now be edited through the REST API like cards can. The endpoint
+  `PUT /api/boards/:boardId/lists/:listId` already accepted `title`, `color`,
+  `starred` and `wipLimit`, but the color was stored unvalidated; it now
+  validates the color with `normalizeListColor` (a named palette color or a
+  custom `#rrggbb` hex) and rejects an unknown color with a clear 400 instead
+  of silently storing None. The pure field/validation logic lives in a
+  Meteor-free helper `models/lib/listApiUpdate.js` and is unit tested in
+  `tests/listApiUpdate.test.cjs`. The `api.py` reference CLI gains two new
+  commands mirroring `editcard`/`editcardcolor`: `editlist BOARDID LISTID
+  NEWLISTTITLE` and `editlistcolor BOARDID LISTID COLOR`. Thanks to C0rn3j and xet7.
 - **[Feature #5514: custom color-wheel (RGB/hex) picker with automatic readable text contrast](https://github.com/wekan/wekan/commit/491a371f5dbfe2d21ddbf5f451315c6f4f76e885)**:
   The color pickers that previously offered only a fixed set of named colors now also include a native
   color wheel (`<input type="color">`), so any `#rrggbb` color can be chosen. The wheel was added
