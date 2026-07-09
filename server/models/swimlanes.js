@@ -176,8 +176,12 @@ WebApp.handlers.post('/api/boards/:boardId/swimlanes', async function(req, res) 
     const board = await ReactiveCache.getBoard(paramBoardId);
     // #3624: append reliably at max(existing sort)+1 (a plain count misordered
     // the new swimlane when sorts were non-contiguous), and honor an optional
-    // explicit `sort` from the request body.
-    const existingSorts = board.swimlanes().map(s => s.sort);
+    // explicit `sort` from the request body. board.swimlanes() is ASYNC on the
+    // server (ReactiveCache.getSwimlanes returns a Promise), so it must be
+    // awaited before mapping — the old `.length` read tolerated the Promise by
+    // silently yielding undefined, but `.map` on a Promise throws.
+    const existingSwimlanes = (await board.swimlanes()) || [];
+    const existingSorts = existingSwimlanes.map(s => s.sort);
     const id = await Swimlanes.insertAsync({
       title: req.body.title,
       boardId: paramBoardId,
