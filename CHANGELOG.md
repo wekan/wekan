@@ -78,6 +78,33 @@ This release fixes the following bugs:
   number with `weekNumberByFirstDay()` (in `models/lib/weekStart.js`) from the
   same firstDay used to lay out the grid, unit tested in
   `tests/weekStart.test.cjs`. Thanks to helioguardabaxo and xet7.
+- **[Fix #4653: LDAP username with a hyphen no longer becomes a dot](https://github.com/wekan/wekan/commit/a780c8b2a2c558a2b6e79f64b075007836af24d1)**:
+  With `LDAP_UTF8_NAMES_SLUGIFY` enabled, `limax(text, { separator: '.' })`
+  turned every non-alphanumeric run — hyphens included — into `.`, so an LDAP
+  username like `p.parta-partb` became `p.parta.partb` and the user could not
+  log in. The username is now slugified per hyphen-separated segment and
+  rejoined with `-`, preserving hyphens while still transliterating UTF-8. Pure
+  helper `packages/wekan-ldap/server/usernameSlug.js`, unit tested in
+  `tests/ldapUsernameSlug.test.cjs`. Thanks to RowhamD and xet7.
+- **[Fix #4236: Enter adds a new line in the card title, consistent with the description](https://github.com/wekan/wekan/commit/aa5241a1ef3a8611701d4fb28e5d5b9e67f74900)**:
+  The card title textarea submitted on plain Enter (only Shift+Enter made a new
+  line), unlike the description field which inserts a new line on Enter and
+  saves on Ctrl/Cmd+Enter. The title now uses the same shared, Meteor-free rule
+  `isSubmitKey()` (`models/lib/editorSubmitKey.js`): submit only on
+  Ctrl/Cmd+Enter, newline otherwise. Unit tested in
+  `tests/editorSubmitKey.test.cjs`. Thanks to listenerri and xet7.
+- **[Fix #4055: ISO week-number regression test (already correct in current code)](https://github.com/wekan/wekan/commit/4e9614894a3b8eb23286f834c6bc4183f861d7eb)**:
+  #4055 reported the week number was one/two weeks too high for 2021-10-25..31
+  (ISO week 43). That was the old moment-based math; the current native,
+  DST-safe `getISOWeek()` computes it correctly. Added
+  `tests/isoWeek.test.cjs` pinning the reported dates so it cannot regress.
+  Thanks to marcungeschikts and xet7.
+- **[Fix #4394: Register / Forgot Password links stay hidden after a failed login](https://github.com/wekan/wekan/commit/9e754e69b60509e3cb7abc9bef3bc61e27d3fa84)**:
+  Security. With registration / forgot-password disabled in the Admin Panel, the
+  links were hidden by a one-shot `.hide()` that a useraccounts form re-render
+  (e.g. an LDAP failed login) dropped, so the links reappeared. The disable
+  state is now a class on the stable `<body>` ancestor with matching CSS, so the
+  links are re-hidden on every re-render. Thanks to Alsterdetektive1 and xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
