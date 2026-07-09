@@ -212,22 +212,25 @@ This release fixes the following bugs:
   the composer now use `unicode-bidi: isolate`. Locked in (positive + negative)
   by `tests/minicardBidiIsolation.test.cjs`; browser RTL behaviour is covered by
   `tests/playwright/specs/18-rtl-layout.e2e.js`. Thanks to xet7.
-- **[Fix the Playwright CI test failures introduced by the #3624 and #4236 fixes above](https://github.com/wekan/wekan/commit/984ec160daec54b0e6b16cd15d89884f1c4fadf1)**:
+- **[Fix the Playwright CI test failures introduced by the #3624 and #4236 fixes above](https://github.com/wekan/wekan/commit/6a6db32884f68dadd5911ec3487225c908f40176)**:
   Two browser tests failed on Chromium, Firefox and WebKit after this release's
-  changes. (1) `23-rest-api-more.e2e.js:209` (swimlanes CRUD): the #3624 change
-  pulled `models/lib/swimlaneSort` in via a function-scoped
-  `require('/models/lib/swimlaneSort')`; unlike the file's top-level
-  app-absolute `import`s, that new module was not statically bundled, so
-  `POST /api/boards/:boardId/swimlanes` threw, was swallowed by its `try/catch`,
-  and returned an error object with no `_id` — the test then read `.title` off a
-  `null` swimlane. Fixed by importing `nextSwimlaneSort` at the top of
-  `server/models/swimlanes.js` (same convention as its other imports); the
-  behaviour is unchanged. (2) `02-cards-open-view.e2e.js:93` (editing the card
-  title): #4236 deliberately made plain Enter insert a newline in the card title
-  (Ctrl/Cmd+Enter saves), but the `CardPage` page object still saved with plain
-  Enter, so the title never persisted and the read timed out — updated to save
-  with `Control+Enter`. The server-side Mocha, import-regression and Node E2E
-  jobs were already green; this makes the Playwright jobs green too. Thanks to xet7.
+  changes. (1) `23-rest-api-more.e2e.js:209` (swimlanes CRUD): on the server
+  `ReactiveCache.getSwimlanes` is async, so `board.swimlanes()` returns a Promise
+  in the REST handler. The #3624 change read `board.swimlanes().map(s => s.sort)`;
+  `.map` on a Promise throws, so `POST /api/boards/:boardId/swimlanes` never ran
+  the insert, the error was swallowed by the handler's `try/catch` (returned as
+  200 with no `_id`), and the test read `.title` off a `null` swimlane. The old
+  `board.swimlanes().length` had tolerated the un-awaited Promise by silently
+  yielding `undefined` (so API-created swimlanes were stored with no sort at all —
+  the very #3624 symptom). Fixed by `await`ing `board.swimlanes()` before mapping,
+  which also gives API-created swimlanes a real `max(sort)+1` value.
+  (2) `02-cards-open-view.e2e.js:93` (editing the card title): #4236 deliberately
+  made plain Enter insert a newline in the card title (Ctrl/Cmd+Enter saves), but
+  the `CardPage` page object still saved with plain Enter, so the title never
+  persisted and the read timed out — updated to save with `Control+Enter`
+  ([`984ec16`](https://github.com/wekan/wekan/commit/984ec160daec54b0e6b16cd15d89884f1c4fadf1)).
+  The server-side Mocha, import-regression and Node E2E jobs were already green;
+  this makes the Playwright jobs green too. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
