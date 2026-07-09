@@ -106,38 +106,19 @@ Template.boardActions.events({
     const boardId = Session.get('currentBoard');
     const destBoardId = tpl.find('#board-id').value;
     const desc = Utils.getTriggerActionDesc(event, tpl);
-    if (actionSelected === 'top') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
-        actionType: 'moveCardToTop',
-        listName,
-        swimlaneName,
-        boardId: destBoardId,
-        desc,
-      });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
-    }
-    if (actionSelected === 'bottom') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
-        actionType: 'moveCardToBottom',
-        listName,
-        swimlaneName,
-        boardId: destBoardId,
-        desc,
-      });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
-    }
+    // #5536: create the rule on the server (see server/rulesButton.js →
+    // rules.createRule) instead of three optimistic client Collection.insert()
+    // calls. The optimistic writes landed in minimongo limbo once the wizard
+    // subscription stopped, so the cross-board move action rendered BLANK; and
+    // the client allow/deny rules rejected them outright for non-owner members.
+    // The action keeps its own destination `boardId` (the board to move to).
+    Meteor.call('rules.createRule', boardId, ruleName, trigger, {
+      actionType: actionSelected === 'bottom' ? 'moveCardToBottom' : 'moveCardToTop',
+      listName,
+      swimlaneName,
+      boardId: destBoardId,
+      desc,
+    });
   },
   'click .js-add-gen-move-action'(event, tpl) {
     const desc = Utils.getTriggerActionDesc(event, tpl);
@@ -203,19 +184,15 @@ Template.boardActions.events({
     const boardId = Session.get('currentBoard');
     const destBoardId = tpl.find('#board-id-link').value;
     const desc = Utils.getTriggerActionDesc(event, tpl);
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({
+    // #5536: create on the server so the cross-board link action does not land
+    // blank in minimongo limbo / get rejected by client allow/deny. The action
+    // keeps its own destination `boardId` (the board to link the card into).
+    Meteor.call('rules.createRule', boardId, ruleName, trigger, {
       actionType: 'linkCard',
       listName,
       swimlaneName,
       boardId: destBoardId,
       desc,
-    });
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
     });
   },
   'click .js-sort-list-action'(event, tpl) {

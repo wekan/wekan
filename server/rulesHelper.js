@@ -8,6 +8,30 @@ import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import Swimlanes from '/models/swimlanes';
 import { relativeDateOffset } from '/models/lib/relativeDateOffset';
+import { resolveRuleSwimlaneId, resolveRuleListId } from '/models/lib/ruleActionResolve';
+
+// #5536: robustly resolve a destination board's default swimlane, tolerating a
+// board that lacks a swimlane literally titled 'Default' (renamed/translated) or
+// has no swimlanes at all. Returns undefined instead of throwing; callers pass
+// the result to resolveRuleSwimlaneId() as the fallback candidate.
+async function getDestBoardDefaultSwimlane(boardId) {
+  const board = await ReactiveCache.getBoard(boardId);
+  if (!board) return undefined;
+  try {
+    if (typeof board.getDefaultSwimlineAsync === 'function') {
+      return await board.getDefaultSwimlineAsync();
+    }
+    if (typeof board.getDefaultSwimline === 'function') {
+      return board.getDefaultSwimline();
+    }
+  } catch (e) {
+    // ignore — fall through to a title-based lookup below
+  }
+  return (
+    (await ReactiveCache.getSwimlane({ title: 'Default', boardId })) ||
+    (await ReactiveCache.getSwimlane({ boardId }))
+  );
+}
 
 async function withUserId(userId, fn) {
   if (userId && typeof DDP._CurrentMethodInvocation?.withValue === 'function') {
@@ -154,7 +178,9 @@ export const RulesHelper = {
       let swimlaneId;
       if (action.swimlaneName === '*') {
         swimlane = await ReactiveCache.getSwimlane(card.swimlaneId);
-        if (boardId !== action.boardId) {
+        // #5536: only re-resolve by title across boards when we actually have a
+        // source swimlane — dereferencing `swimlane.title` on undefined crashed.
+        if (boardId !== action.boardId && swimlane) {
           swimlane = await ReactiveCache.getSwimlane({
             title: swimlane.title,
             boardId: action.boardId,
@@ -166,14 +192,14 @@ export const RulesHelper = {
           boardId: action.boardId,
         });
       }
-      if (swimlane === undefined) {
-        swimlaneId = (await ReactiveCache.getSwimlane({
-          title: 'Default',
-          boardId: action.boardId,
-        }))._id;
-      } else {
-        swimlaneId = swimlane._id;
-      }
+      // #5536: never dereference `._id` on a possibly-undefined 'Default'
+      // swimlane (destination boards can have a renamed/translated default, or
+      // none). Fall back to the board's real default swimlane; resolveRuleSwimlaneId
+      // returns '' rather than throwing an "Internal Server Error".
+      swimlaneId = resolveRuleSwimlaneId(
+        swimlane,
+        await getDestBoardDefaultSwimlane(action.boardId),
+      );
 
       if (action.actionType === 'moveCardToTop') {
         const minOrder = Math.min(
@@ -433,16 +459,12 @@ export const RulesHelper = {
         title: action.swimlaneName,
         boardId,
       });
-      if (list === undefined) {
-        listId = '';
-      } else {
-        listId = list._id;
-      }
-      if (swimlane === undefined) {
-        swimlaneId = (await ReactiveCache.getSwimlane({ title: 'Default', boardId }))._id;
-      } else {
-        swimlaneId = swimlane._id;
-      }
+      listId = resolveRuleListId(list);
+      // #5536: guard the 'Default'-swimlane fallback against undefined ._id.
+      swimlaneId = resolveRuleSwimlaneId(
+        swimlane,
+        await getDestBoardDefaultSwimlane(boardId),
+      );
       await Cards.insertAsync({
         title: substituteVars(action.cardName, ruleVars),
         listId,
@@ -454,22 +476,17 @@ export const RulesHelper = {
     if (action.actionType === 'linkCard') {
       const list = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
       const card = await ReactiveCache.getCard(activity.cardId);
-      let listId = '';
-      let swimlaneId = '';
       const swimlane = await ReactiveCache.getSwimlane({
         title: action.swimlaneName,
         boardId: action.boardId,
       });
-      if (list === undefined) {
-        listId = '';
-      } else {
-        listId = list._id;
-      }
-      if (swimlane === undefined) {
-        swimlaneId = (await ReactiveCache.getSwimlane({ title: 'Default', boardId: action.boardId }))._id;
-      } else {
-        swimlaneId = swimlane._id;
-      }
+      const listId = resolveRuleListId(list);
+      // #5536: guard the 'Default'-swimlane fallback against undefined ._id so a
+      // link-to-another-board rule cannot crash with an "Internal Server Error".
+      const swimlaneId = resolveRuleSwimlaneId(
+        swimlane,
+        await getDestBoardDefaultSwimlane(action.boardId),
+      );
       card.link(action.boardId, swimlaneId, listId);
     }
     if (

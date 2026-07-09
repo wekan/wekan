@@ -68,7 +68,11 @@ Meteor.methods({
     };
 
     const triggerId = await Triggers.insertAsync({ ...clean(trigger), boardId });
-    const actionId = await Actions.insertAsync({ ...clean(action), boardId });
+    // #5536: an action's own boardId is the DESTINATION board (e.g. "move card
+    // to board X" / "link card to board X"). Let it win over the source boardId
+    // so cross-board move/link rules created through this method keep their
+    // target — only fall back to the source board when the action omits one.
+    const actionId = await Actions.insertAsync({ boardId, ...clean(action) });
     const ruleDoc = {
       title: title || 'Rule',
       triggerId,
