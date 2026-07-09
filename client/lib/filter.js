@@ -19,8 +19,9 @@ import {
   now, 
   createDate, 
   fromNow, 
-  calendar 
+  calendar
 } from '/imports/lib/dateUtils';
+import { weekRange } from '/models/lib/weekStart';
 // Sidebar is imported late to avoid circular dependency (sidebar.js needs its
 // jade template loaded first, but router.js → filter.js would load it too early)
 let _Sidebar;
@@ -119,44 +120,33 @@ class DateFilter {
   // weeks up to today +/- offset. This considers the user's preferred
   // start of week day (as defined by Meteor).
   relativeWeek(offset, week) {
-    if (this._filterState == 'thisweek') {
+    // #4881: toggle per-week so clicking the same button again clears it, but
+    // clicking the OTHER week switches to it instead of just resetting (the old
+    // code reset on either state, so you could not go straight from "this week"
+    // to "next week").
+    const targetState = week === 'next' ? 'nextweek' : 'thisweek';
+    if (this._filterState === targetState) {
       this.reset();
       return;
     }
 
-    if (this._filterState == 'nextweek') {
-      this.reset();
-      return;
-    }
-
-    // getStartDayOfWeek returns the offset from Sunday of the user's
-    // preferred starting day of the week. This date should be added
-    // to the moment start of week to get the real start of week date.
-    // The default is 1, meaning Monday.
+    // #4881: the old window came from startOf(now(), 'week'), but native
+    // dateUtils.startOf() has no 'week' case, so it returned "now" unchanged and
+    // the window started at today + startDayOfWeek — i.e. it selected NEXT
+    // week's cards for "this week" and ignored the configured start weekday.
+    // weekRange() computes the correct window that CONTAINS today for the user's
+    // configured start day of week (0=Sunday..6=Saturday, default Monday).
     const currentUser = ReactiveCache.getCurrentUser();
     const weekStartDay = currentUser ? currentUser.getStartDayOfWeek() : 1;
+    const weekOffset = week === 'next' ? 1 : 0;
+    const { start: WeekStart, end: WeekEnd } = weekRange(now(), weekStartDay, weekOffset);
 
-    if (week === 'this') {
-      // Create week start and end dates
-      var WeekStart = startOf(add(startOf(now(), 'week'), weekStartDay, 'days'), 'day');
-      var WeekEnd = endOf(add(WeekStart, 6, 'days'), 'day');
-
-      this._updateState('thisweek');
-    } else if (week === 'next') {
-      // Create next week start and end dates
-      var WeekStart = startOf(add(startOf(now(), 'week'), weekStartDay + 7, 'days'), 'day');
-      var WeekEnd = endOf(add(WeekStart, 6, 'days'), 'day');
-
-     this._updateState('nextweek');
-    }
-
-    var startDate = WeekStart;
-    var endDate = WeekEnd;
+    this._updateState(targetState);
 
     if (offset >= 0) {
-      this._filter = { $gte: startDate, $lte: endDate };
+      this._filter = { $gte: WeekStart, $lte: WeekEnd };
     } else {
-      this._filter = { $lte: startDate, $gte: endDate };
+      this._filter = { $lte: WeekStart, $gte: WeekEnd };
     }
   }
 
