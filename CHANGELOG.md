@@ -94,6 +94,31 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan release
+
+This release fixes the following bugs:
+
+- **[Fix #3624 swimlane REST regression: await the async board.swimlanes()](https://github.com/wekan/wekan/commit/6a6db32884f68dadd5911ec3487225c908f40176)**:
+
+  The swimlanes CRUD e2e test (23-rest-api-more.e2e.js:209) regressed on all
+  browsers. Root cause: on the server ReactiveCache.getSwimlanes is async, so
+  board.swimlanes() returns a Promise in the REST handler. The #3624 change read
+  board.swimlanes().map(s => s.sort); .map on a Promise throws, the insert never
+  ran, the error was swallowed by the handler's catch (returned as 200 with no
+  _id), and the test read .title off a null swimlane.
+
+  The earlier "move the require to a top-level import" commit was not the real
+  cause (the same module.exports import pattern works server-side, e.g.
+  ruleDeletePermission in rulesButton.js). The actual fix is to await
+  board.swimlanes() before mapping. This also means API-created swimlanes now get
+  a real max(existing sort)+1 sort — previously the un-awaited `.length` yielded
+  undefined, so they were stored with no sort at all, which is the #3624 symptom.
+
+  Verified: the swimlane test passed in every kept local run through
+  2026-07-09_02-38-07 and failed starting 09-52-25 (right after the #3624 change),
+  confirming the regression window; the tests/swimlaneSort.test.cjs unit test
+  still passes.
+
 # v9.82 2026-07-09 WeKan ® release
 
 This release fixes the following bugs:
