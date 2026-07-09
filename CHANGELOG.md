@@ -47,10 +47,18 @@ them up next.
   and a lists/cards subscription for the dashboard, verified live so #4214 does not return),
   [#4822](https://github.com/wekan/wekan/issues/4822) (maximized card mis-positioned after scrolling in swimlanes view),
   [#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list full of subtask cards — drag-drop,
-  data-loss risk), [#5282](https://github.com/wekan/wekan/issues/5282) ("Removed nonexistent document" on attachment
-  delete — a publication/mergebox double-remove, same class as the fixed #5685, not the GridFS delete itself),
+  data-loss risk), [#5282](https://github.com/wekan/wekan/issues/5282) & [#3252](https://github.com/wekan/wekan/issues/3252)
+  ("Removed nonexistent document" on attachment / comment / checklist delete — a publication/mergebox double-remove, same
+  class as the fixed #5685, not the delete itself),
   [#4897](https://github.com/wekan/wekan/issues/4897) (OAuth2 users intermittently show stale/missing data — caching/
-  publication timing).
+  publication timing), [#3276](https://github.com/wekan/wekan/issues/3276) (excessive-time card colour does not refresh to
+  red until focus leaves the card — reactive re-render), [#3189](https://github.com/wekan/wekan/issues/3189) (Worker-role
+  user cannot re-assign a card to themselves after a prior assignee was removed — role/deny permission),
+  [#3576](https://github.com/wekan/wekan/issues/3576) (mobile back button after search returns to settings, not the board),
+  [#3453](https://github.com/wekan/wekan/issues/3453) (cross-board subtask full-path label vanishes after refresh — router),
+  [#3378](https://github.com/wekan/wekan/issues/3378) (SyncedCron "duplicate key" in cronHistory for notification_cleanup —
+  scheduler/dev-reload timing), [#3199](https://github.com/wekan/wekan/issues/3199) (Archive Restore/Delete links need
+  visual separation from neighbouring cards — CSS refinement).
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
