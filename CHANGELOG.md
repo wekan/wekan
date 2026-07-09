@@ -157,6 +157,12 @@ This release fixes the following bugs:
   falls back to the live comment text and then to an empty string — never
   "undefined". Pure helper `models/lib/commentActivity.js`, unit tested in
   `tests/commentActivity.test.cjs`. Thanks to janchuelo and xet7.
+- **[Fix #3624: new_swimlane REST API appends the swimlane last and accepts a sort](https://github.com/wekan/wekan/commit/04021f8c1df4b8e8f285a4cfffc03404ada4188e)**:
+  `POST /api/boards/:boardId/swimlanes` set the sort to the swimlane count, so a
+  new swimlane appeared FIRST when existing sort values were non-contiguous. It
+  now appends at max(existing sort)+1 and honors an optional explicit `sort` in
+  the body. Pure helper `models/lib/swimlaneSort.js`, unit tested in
+  `tests/swimlaneSort.test.cjs`. Thanks to tamasberesoebb and xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
