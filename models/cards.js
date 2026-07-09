@@ -2269,11 +2269,17 @@ Cards.helpers({
       }
     }
 
-    if (this.isLinkedBoard()) {
-      return Boards.updateAsync({ _id: this.linkedId }, { $set: { title: sanitizedTitle } });
-    } else {
-      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { title: sanitizedTitle } });
+    // #4249: also write the linking card's OWN title field (not only the linked
+    // target), so filter-by-title — which queries each card's own title — keeps
+    // matching a linked card after it is renamed.
+    const { computeTitleUpdateTargets } = require('./lib/linkedCardTitle');
+    const targets = computeTitleUpdateTargets(this);
+    let last;
+    for (const t of targets) {
+      const collection = t.collection === 'boards' ? Boards : Cards;
+      last = collection.updateAsync({ _id: t.id }, { $set: { title: sanitizedTitle } });
     }
+    return last;
   },
 
   getArchived() {
