@@ -58,7 +58,16 @@ them up next.
   [#3453](https://github.com/wekan/wekan/issues/3453) (cross-board subtask full-path label vanishes after refresh — router),
   [#3378](https://github.com/wekan/wekan/issues/3378) (SyncedCron "duplicate key" in cronHistory for notification_cleanup —
   scheduler/dev-reload timing), [#3199](https://github.com/wekan/wekan/issues/3199) (Archive Restore/Delete links need
-  visual separation from neighbouring cards — CSS refinement).
+  visual separation from neighbouring cards — CSS refinement),
+  [#3144](https://github.com/wekan/wekan/issues/3144) (archived-card activities render "undefined" in board settings —
+  the card lookup returns nothing once the card is archived/unpublished; needs the activity to carry a stored card title
+  or the feed to fall back to "{title} [archived]", verified live),
+  [#3114](https://github.com/wekan/wekan/issues/3114) (mobile card view stays open but blank after another client
+  deletes/moves the card — reactive close-on-remove), [#3037](https://github.com/wekan/wekan/issues/3037) (after moving a
+  card between boards via the REST API, opening it bounces back to the old board — the raw boardId/listId update does not
+  go through the full Card.move() re-home; the dedicated REST move/sort/date/archive path was fixed in #5398/#5399/#5537/
+  #5546, so use that rather than a raw field update), [#3070](https://github.com/wekan/wekan/issues/3070) (using a
+  template from Add Board / the top bar — issue body would not load; needs the app to reproduce).
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
@@ -76,6 +85,14 @@ them up next.
   request), [#4043](https://github.com/wekan/wekan/issues/4043) (invitation email occasionally sent without a valid
   code), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
+- **Needs a maintainer decision on the intended contract (partly already works):**
+  [#4912](https://github.com/wekan/wekan/issues/4912) (a global `act-editCard` webhook — card title/description edits
+  ALREADY reach the global webhook via `Activities.after.insert` as `act-a-changedTitle` / `act-a-changedDescription`
+  from #3619/#5482; a single consolidated `act-editCard` action needs a decision on which fields count and whether it
+  supplements or replaces the existing per-field events, to avoid duplicate webhook deliveries),
+  [#3113](https://github.com/wekan/wekan/issues/3113) (webhook `user` field shows the full name, not the username — the
+  same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
+  where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
 # Upcoming WeKan release
 
