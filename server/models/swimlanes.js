@@ -9,6 +9,7 @@ import Activities from '/models/activities';
 import Cards from '/models/cards';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { computeSortForIndex } from '/server/lib/utils';
+import { nextSwimlaneSort } from '/models/lib/swimlaneSort';
 
 Meteor.methods({
   async ensureDefaultSwimlane(boardId) {
@@ -176,7 +177,6 @@ WebApp.handlers.post('/api/boards/:boardId/swimlanes', async function(req, res) 
     // #3624: append reliably at max(existing sort)+1 (a plain count misordered
     // the new swimlane when sorts were non-contiguous), and honor an optional
     // explicit `sort` from the request body.
-    const { nextSwimlaneSort } = require('/models/lib/swimlaneSort');
     const existingSorts = board.swimlanes().map(s => s.sort);
     const id = await Swimlanes.insertAsync({
       title: req.body.title,

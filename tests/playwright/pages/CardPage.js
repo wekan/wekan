@@ -42,7 +42,10 @@ class CardPage {
     await this.root.locator('.js-card-title.js-open-inlined-form').click();
     const input = this.root.locator('.js-card-details-title textarea, .js-card-details-title input');
     await input.fill(newTitle);
-    await input.press('Enter');
+    // #4236: plain Enter now inserts a newline in the card title (consistent
+    // with the description field); Ctrl/Cmd+Enter saves. Control+Enter sends
+    // ctrlKey on every platform, which the save handler accepts.
+    await input.press('Control+Enter');
     await this.page.waitForTimeout(500);
   }
 
