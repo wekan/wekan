@@ -34,9 +34,39 @@ them up next.
   [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
   & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
   (WebHooks), [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm).
+- **LDAP security/config that needs a real LDAP directory to verify safely (an unverified auth change could lock users out):**
+  [#4419](https://github.com/wekan/wekan/issues/4419) (after password→LDAP migration the old local password still
+  works — the safe fix is a `validateLoginAttempt` hook that rejects password-service logins for `authenticationMethod:'ldap'`
+  users, or `$unset services.password` on migration; both must be tested against a directory before shipping),
+  [#4158](https://github.com/wekan/wekan/issues/4158) (LDAP_ENCRYPTION naming/docs: accept `starttls`/`true`, deprecate
+  `tls`/`ssl`, validate unknown values).
+- **Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here:**
+  [#4959](https://github.com/wekan/wekan/issues/4959) & [#4825](https://github.com/wekan/wekan/issues/4825) (per-list
+  card counts on the All Boards page — the `boardLists`/`boardMembers` helpers in `client/components/boards/boardsList.js`
+  were deliberately stubbed to `[]` to stop the #4214 "icons random dance"; re-enabling needs a non-reactive count source
+  and a lists/cards subscription for the dashboard, verified live so #4214 does not return),
+  [#4822](https://github.com/wekan/wekan/issues/4822) (maximized card mis-positioned after scrolling in swimlanes view),
+  [#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list full of subtask cards — drag-drop,
+  data-loss risk), [#5282](https://github.com/wekan/wekan/issues/5282) ("Removed nonexistent document" on attachment
+  delete — a publication/mergebox double-remove, same class as the fixed #5685, not the GridFS delete itself),
+  [#4897](https://github.com/wekan/wekan/issues/4897) (OAuth2 users intermittently show stale/missing data — caching/
+  publication timing).
+- **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
+  [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
+  when registration is disabled via `forbidClientAccountCreation`; it works by default),
+  [#4055](https://github.com/wekan/wekan/issues/4055) (ISO week number — the native DST-safe `getISOWeek()` is correct;
+  a regression test was added this release).
+- **Incomplete report (no reproduction details provided by the reporter):**
+  [#4593](https://github.com/wekan/wekan/issues/4593) (new team member permissions — issue body empty).
 - **Feature requests / behaviour-by-design rather than bugs:**
-  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843),
-  [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
+  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843)
+  (attachments added in comments not shown in the card attachment list),
+  [#3828](https://github.com/wekan/wekan/issues/3828) (board members seeing all cards on a board is by design — WeKan has
+  no per-card visibility model), [#3823](https://github.com/wekan/wekan/issues/3823),
+  [#3748](https://github.com/wekan/wekan/issues/3748) (linked cards mirror the original rather than owning their own
+  labels/custom fields), [#4023](https://github.com/wekan/wekan/issues/4023) (Japanese font alignment → per-board font
+  request), [#4043](https://github.com/wekan/wekan/issues/4043) (invitation email occasionally sent without a valid
+  code), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
 # Upcoming WeKan release
