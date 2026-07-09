@@ -171,6 +171,12 @@ This release fixes the following bugs:
   now appends at max(existing sort)+1 and honors an optional explicit `sort` in
   the body. Pure helper `models/lib/swimlaneSort.js`, unit tested in
   `tests/swimlaneSort.test.cjs`. Thanks to tamasberesoebb and xet7.
+- **[Fix #3185: copying a card (or template) now copies its subtasks' checklists](https://github.com/wekan/wekan/commit/fae7bcaa416d766c32d46b29b91e3fc6b7d022ce)**:
+  Copying a card inserted each subtask as a bare card document, so the subtasks'
+  checklists (and items) were dropped and the copied subtasks came out empty.
+  Card.copy() now copies each subtask's checklists onto the new subtask. Pure
+  helper `models/lib/subtaskCopy.js`, unit tested in `tests/subtaskCopy.test.cjs`.
+  Thanks to ramses345 and xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
