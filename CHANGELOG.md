@@ -119,6 +119,8 @@ This release fixes the following bugs:
   confirming the regression window; the tests/swimlaneSort.test.cjs unit test
   still passes.
 
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.82 2026-07-09 WeKan ® release
 
 This release fixes the following bugs:
