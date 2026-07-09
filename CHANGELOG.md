@@ -39,6 +39,46 @@ them up next.
   [#3823](https://github.com/wekan/wekan/issues/3823), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
 
+# Upcoming WeKan release
+
+This release fixes the following bugs:
+
+- **[Fix #5536: automated rule can now move/link a card to a different board](https://github.com/wekan/wekan/commit/18153cbc556823318a31766935dd3d718a88eaee)**:
+  The rules "move card to top/bottom of a list on another board" and "link
+  card to another board" actions failed for boards the rule creator did not
+  own. The action showed BLANK after creating the rule (the wizard's optimistic
+  client inserts landed in minimongo limbo / were rejected by allow-deny for
+  non-owner members) — these now create the rule through the server
+  `rules.createRule` method, keeping the action's destination boardId. And
+  execution crashed with an "Internal Server Error" because the destination
+  swimlane fallback dereferenced `._id` on a possibly-undefined swimlane titled
+  exactly `Default` (renamed/translated/deleted on the destination board);
+  resolution now uses the board's real default swimlane via a Meteor-free
+  resolver `models/lib/ruleActionResolve.js`, unit tested in
+  `tests/ruleActionResolve.test.cjs`. Thanks to DarthKillian and xet7.
+- **[Fix #4978: board background updates when switching boards via the favorites bar](https://github.com/wekan/wekan/commit/af6ed501c6f341c3c1fbceade704ef0ae69a5669)**:
+  Switching directly between two boards via the favorites bar reused the same
+  boardBody template instance, so the one-shot `setBackgroundImage()` in
+  onRendered never re-ran and the previous board's background stuck. It is now
+  applied inside a reactive autorun and clears any stale inline background when
+  the new board has no image. The decision is a Meteor-free helper
+  `models/lib/boardBackground.js`, unit tested in `tests/boardBackground.test.cjs`.
+  Thanks to dasarne and xet7.
+- **[Fix #4881: Due this week / next week filter respects the start day of week](https://github.com/wekan/wekan/commit/b4a83462c39fb4be2e1c33aa7c90e690abffc79e)**:
+  The "Due this week" filter selected next week's cards and ignored the
+  configured start weekday, because it derived its window from
+  `startOf(now(), 'week')` — which the native dateUtils never implemented, so
+  it returned the date unchanged. A new Meteor-free helper
+  `models/lib/weekStart.js` computes the correct week window for any start day
+  of week; the this/next-week buttons now toggle per week too. Unit tested in
+  `tests/weekStart.test.cjs`. Thanks to mimZD and xet7.
+- **[Fix #4946: calendar week numbers respect the defined start day of week](https://github.com/wekan/wekan/commit/9f9430595507d5e305f3919bd0d3f5298239e971)**:
+  In the Calendar view the week-number column was numbered from Sunday
+  regardless of the start-day-of-week setting. The calendar now computes the
+  number with `weekNumberByFirstDay()` (in `models/lib/weekStart.js`) from the
+  same firstDay used to lay out the grid, unit tested in
+  `tests/weekStart.test.cjs`. Thanks to helioguardabaxo and xet7.
+
 # v9.81 2026-07-09 WeKan ® release
 
 This release adds the following new features:
