@@ -83,14 +83,23 @@ Template.userFormsLayout.onRendered(() => {
       })();
     });
 
+    // #4394 (security): a one-shot $('.at-signup-link').hide() does not survive
+    // the useraccounts form re-rendering that happens after a failed login (e.g.
+    // an LDAP "User not Found") — the links were recreated without the inline
+    // display:none and reappeared even though registration / forgot-password
+    // were disabled in the Admin Panel. Toggle a class on the stable <body>
+    // ancestor and hide the links via CSS (userForm.css) so the rule keeps
+    // applying to every freshly re-rendered copy of the links.
     Meteor.call('isDisableRegistration', (_, result) => {
       if (result) {
+        document.body.classList.add('registration-disabled');
         $('.at-signup-link').hide();
       }
     });
 
     Meteor.call('isDisableForgotPassword', (_, result) => {
       if (result) {
+        document.body.classList.add('forgotpwd-disabled');
         $('.at-pwd-link').hide();
       }
     });

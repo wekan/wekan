@@ -98,6 +98,19 @@ body.mobile-mode .auth-layout .auth-dialog .at-form .password-input-container .p
   margin-top: 2vh;
   color: #4d4d4d;
 }
+/* #4394 (security): when registration / forgot-password are disabled in the
+   Admin Panel, keep the corresponding links hidden even after useraccounts
+   re-renders the form on a failed login. The class lives on the stable <body>
+   ancestor (set in layouts.js), so this rule re-hides every recreated copy of
+   the link — unlike a one-shot inline display:none that the re-render dropped. */
+body.registration-disabled .at-signup-link,
+body.registration-disabled .at-signUp {
+  display: none !important;
+}
+body.forgotpwd-disabled .at-pwd-link,
+body.forgotpwd-disabled .at-forgotPwd {
+  display: none !important;
+}
 .auth-layout .auth-dialog .at-form .at-signup-link .at-signUp,
 .auth-layout .auth-dialog .at-form .at-signin-link .at-signUp,
 .auth-layout .auth-dialog .at-form .at-forgotPwd .at-signUp,
