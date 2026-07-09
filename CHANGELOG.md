@@ -113,6 +113,13 @@ This release fixes the following bugs:
   self-referential defaults to the copy and clears the paired list id so it
   self-heals on the new board. Pure helper `models/lib/boardCopyDefaults.js`,
   unit tested in `tests/boardCopyDefaults.test.cjs`. Thanks to Xilef11 and xet7.
+- **[Fix #4249: filter by card title now works for renamed linked cards](https://github.com/wekan/wekan/commit/e089e176345452956889f709f0eb05b1687bec2c)**:
+  Renaming a linked card wrote the new title only to the linked target, leaving
+  the linking card's own title field stale; filter-by-title queries the own
+  field, so linked cards dropped out of title filters after a rename.
+  Card.setTitle() now also writes the linking card's own title. Pure helper
+  `models/lib/linkedCardTitle.js`, unit tested in
+  `tests/linkedCardTitle.test.cjs`. Thanks to Ben0it-T and xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
