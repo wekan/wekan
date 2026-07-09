@@ -94,7 +94,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# Upcoming WeKan release
+# v9.82 2026-07-09 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -228,6 +228,8 @@ This release fixes the following bugs:
   Enter, so the title never persisted and the read timed out — updated to save
   with `Control+Enter`. The server-side Mocha, import-regression and Node E2E
   jobs were already green; this makes the Playwright jobs green too. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.81 2026-07-09 WeKan ® release
 
