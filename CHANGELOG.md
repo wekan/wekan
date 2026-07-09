@@ -105,6 +105,14 @@ This release fixes the following bugs:
   (e.g. an LDAP failed login) dropped, so the links reappeared. The disable
   state is now a class on the stable `<body>` ancestor with matching CSS, so the
   links are re-hidden on every re-render. Thanks to Alsterdetektive1 and xet7.
+- **[Fix #4494: creating a board from a template no longer breaks subtasks](https://github.com/wekan/wekan/commit/032f06feb825ba62aebddfdc24f494812195542b)**:
+  A board created from a template inherited the template's
+  subtasksDefaultBoardId / dateSettingsDefaultBoardId; when those pointed at the
+  template board itself, subtasks created on the new board were dropped onto the
+  TEMPLATE board and linked back across boards. Board.copy() now repoints such
+  self-referential defaults to the copy and clears the paired list id so it
+  self-heals on the new board. Pure helper `models/lib/boardCopyDefaults.js`,
+  unit tested in `tests/boardCopyDefaults.test.cjs`. Thanks to Xilef11 and xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
