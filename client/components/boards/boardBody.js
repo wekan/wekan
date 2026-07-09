@@ -579,7 +579,15 @@ Template.boardBody.onRendered(function () {
   });
 
   dragscroll.reset();
-  Utils.setBackgroundImage();
+  // #4978: apply the board background inside a reactive autorun instead of a
+  // one-shot call. Switching directly between boards (e.g. the favorites bar)
+  // reuses this template instance and never re-fires onRendered, so the
+  // background used to stay on the previously shown board. Reading the current
+  // board inside setBackgroundImage() tracks both board switches and background
+  // edits; it performs no DB writes, so there is no autorun write loop.
+  this.autorun(() => {
+    Utils.setBackgroundImage();
+  });
 });
 
 Template.boardBody.onDestroyed(function () {

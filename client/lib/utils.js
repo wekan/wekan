@@ -4,16 +4,26 @@ import { Tracker } from 'meteor/tracker';
 import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imports/lib/collectionHelpers';
 import Settings from '/models/settings';
 import Users from '/models/users';
+import { computeBoardBackground } from '/models/lib/boardBackground';
 
 export const Utils = {
   async setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
-    if (currentBoard.backgroundImageURL !== undefined) {
-      $(".board-wrapper").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
-      $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
-      $(".minicard").css({"opacity": "0.9"});
-    } else if (currentBoard["background-color"]) {
-      await currentBoard.setColor(currentBoard["background-color"]);
+    const bg = computeBoardBackground(currentBoard);
+    const swimlaneSelector =
+      ".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body";
+    if (bg.type === "image") {
+      $(".board-wrapper").css({ "background": "url(" + bg.url + ")", "background-size": "cover" });
+      $(swimlaneSelector).css({ "background-color": "transparent" });
+      $(".minicard").css({ "opacity": "0.9" });
+    } else {
+      // #4978: clear any inline background left over from a previously shown
+      // board, so switching image -> color or image -> plain (e.g. via the
+      // favorites bar) actually removes the old image. The board's color, when
+      // any, is applied reactively via the `.board-wrapper` colorClass.
+      $(".board-wrapper").css({ "background": "", "background-size": "" });
+      $(swimlaneSelector).css({ "background-color": "" });
+      $(".minicard").css({ "opacity": "" });
     }
   },
   /** returns the current board id
