@@ -6,6 +6,7 @@ import '/client/lib/dragscrollTouch';
 import { boardConverter } from '/client/lib/boardConverter';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';
+import { weekNumberByFirstDay } from '/models/lib/weekStart';
 import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
@@ -973,6 +974,12 @@ Template.calendarView.helpers({
       editable: true,
       selectable: true,
       weekNumbers: true,
+      // #4946: FullCalendar's default weekNumberCalculation is locale-based
+      // (Sunday-anchored for many locales), so the week-number column ignored
+      // the user's start-day-of-week setting even though `firstDay` moved the
+      // grid. Compute the number from the SAME firstDay so the label matches the
+      // way the week is laid out.
+      weekNumberCalculation: date => weekNumberByFirstDay(date, firstDay),
       // Use non-localized AM/PM time format to avoid confusing notations like 上/下/中
       // Use full 'am'/'pm' instead of single-letter 'a'/'p' for clarity
       eventTimeFormat: {
