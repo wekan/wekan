@@ -50,6 +50,10 @@ CardComments.after.update(async (userId, doc) => {
     boardId: doc.boardId,
     cardId: doc.cardId,
     commentId: doc._id,
+    // #3606: store the comment text so the activity feed shows it instead of
+    // "undefined" (the id was passed before, and a deleted comment cannot be
+    // looked up live).
+    commentText: doc.text,
     listId: card.listId,
     swimlaneId: card.swimlaneId,
   });
@@ -67,6 +71,9 @@ CardComments.before.remove(async (userId, doc) => {
         boardId: doc.boardId,
         cardId: doc.cardId,
         commentId: doc._id,
+        // #3606: capture the text before the comment doc is removed, so the
+        // feed shows the deleted comment instead of "undefined".
+        commentText: doc.text,
         listId: card.listId,
         swimlaneId: card.swimlaneId,
       });

@@ -106,10 +106,10 @@ template(name="activity")
 
       //- comment activity ----------------------------------------------------
       if($eq activity.activityType 'deleteComment')
-        | {{{_ 'activity-deleteComment' activity.commentId}}}.
+        | {{{_ 'activity-deleteComment' (sanitize activity.commentDisplayText)}}}.
 
       if($eq activity.activityType 'editComment')
-        | {{{_ 'activity-editComment' activity.commentId}}}.
+        | {{{_ 'activity-editComment' (sanitize activity.commentDisplayText)}}}.
 
       if($eq activity.activityType 'addComment')
         | {{{_ 'activity-on' cardLink}}}

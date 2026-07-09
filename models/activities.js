@@ -46,6 +46,15 @@ Activities.helpers({
   comment() {
     return ReactiveCache.getCardComment(this.commentId);
   },
+  // #3606: text to show for editComment/deleteComment activities — the stored
+  // commentText, else the live comment's text, else '' (never "undefined").
+  commentDisplayText() {
+    const { commentActivityDisplayText } = require('./lib/commentActivity');
+    return commentActivityDisplayText({
+      commentText: this.commentText,
+      comment: this.comment(),
+    });
+  },
   attachment() {
     return ReactiveCache.getAttachment(this.attachmentId);
   },
