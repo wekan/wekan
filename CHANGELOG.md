@@ -177,6 +177,14 @@ This release fixes the following bugs:
   Card.copy() now copies each subtask's checklists onto the new subtask. Pure
   helper `models/lib/subtaskCopy.js`, unit tested in `tests/subtaskCopy.test.cjs`.
   Thanks to ramses345 and xet7.
+- **[Fix #5439: list scrollbar is always visible on desktop and mobile browsers](https://github.com/wekan/wekan/commit/82e0afa38f50223959cc3cc0091c52da7af93840)**:
+  List bodies used `overflow-y: auto`, so overlay scrollbars (macOS/iOS/Android/
+  Firefox) auto-hid. The list body now keeps a scrollbar visible across all
+  engines — `overflow-y: scroll`, `::-webkit-scrollbar` (Chrome/Safari/Edge/
+  mobile WebKit), `scrollbar-width`/`scrollbar-color` (Firefox/Gecko) and
+  `scrollbar-gutter: stable`. Cross-browser rules in `models/lib/scrollbarCss.js`,
+  applied in `client/components/lists/list.css`, unit tested (builder contract +
+  applied CSS, positive + negative) in `tests/scrollbarCss.test.cjs`. Thanks to xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
