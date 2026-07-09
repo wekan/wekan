@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.80
+  version: v9.81
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1957,11 +1957,6 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
-        - name: label
-          in: formData
-          description: the label value
-          type: string
-          required: true
         - name: board
           in: path
           description: the board value
@@ -2047,21 +2042,6 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
-        - name: title
-          in: formData
-          description: the title value
-          type: string
-          required: true
-        - name: color
-          in: formData
-          description: the color value
-          type: string
-          required: true
-        - name: wipLimit
-          in: formData
-          description: the wipLimit value
-          type: string
-          required: true
         - name: board
           in: path
           description: the board value
@@ -5037,8 +5017,10 @@ definitions:
            `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`,
            `slateblue`, `magenta`, `gold`, `navy`, `gray`,
            `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
+
+           Since #5514 a label color may also be a custom '#rrggbb' hex chosen
+           from the color wheel, in addition to the named palette colors above.
         type: string
-        enum:
     required:
       - _id
       - color
@@ -5225,7 +5207,6 @@ definitions:
         x-nullable: true
       color:
         type: string
-        enum:
         x-nullable: true
       createdAt:
         description: |
@@ -5857,7 +5838,6 @@ definitions:
         description: |
            the color of the list
         type: string
-        enum:
         x-nullable: true
       type:
         description: |
@@ -6156,7 +6136,6 @@ definitions:
         description: |
            the color of the swimlane
         type: string
-        enum:
         x-nullable: true
       updatedAt:
         description: |
