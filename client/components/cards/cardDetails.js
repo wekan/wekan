@@ -53,6 +53,7 @@ import { ALLOWED_COLORS } from '/config/const';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { uniqBy } from '/imports/lib/collectionHelpers';
 import { memberTargetBoardId } from '/models/lib/linkedCardMembers';
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { UserAvatar } from '../users/userAvatar';
 import { Filter } from '/client/lib/filter';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
@@ -1499,9 +1500,11 @@ Template.editCardTitleForm.events({
     Utils.showCopied(promise, $tooltip);
   },
   'keydown .js-edit-card-title'(event) {
-    // If enter key was pressed, submit the data
-    // Unless the shift key is also being pressed
-    if (event.keyCode === 13 && !event.shiftKey) {
+    // #4236: match the card description field — Ctrl/Cmd+Enter saves; plain
+    // Enter (and Shift+Enter) insert a new line instead of submitting. The old
+    // handler submitted on any Enter without Shift, so Enter could not add a
+    // newline in the title.
+    if (isSubmitKey(event)) {
       $('.js-submit-edit-card-title-form').click();
     }
   },
