@@ -1043,6 +1043,15 @@ Boards.helpers({
         },
     });
 
+    // #4494: repoint subtasks/date-settings defaults that referenced the source
+    // (template) board to this copy, so subtasks created on the new board are
+    // NOT dropped onto the template board.
+    const { remapCopiedBoardDefaults } = require('./lib/boardCopyDefaults');
+    const defaultsPatch = remapCopiedBoardDefaults(this, oldId, _id);
+    if (Object.keys(defaultsPatch).length > 0) {
+      await Boards.updateAsync(_id, { $set: defaultsPatch });
+    }
+
     // Copy all swimlanes in board. cardIdMap collects old card id -> new card
     // id so card-to-card dependencies (#3392 "Red Strings") can be remapped to
     // the copies once every card has been created.
