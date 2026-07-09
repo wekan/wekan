@@ -202,6 +202,16 @@ This release fixes the following bugs:
   `scrollbar-gutter: stable`. Cross-browser rules in `models/lib/scrollbarCss.js`,
   applied in `client/components/lists/list.css`, unit tested (builder contract +
   applied CSS, positive + negative) in `tests/scrollbarCss.test.cjs`. Thanks to xet7.
+- **[Fix #6444: RTL — typing a card title no longer garbles other lists' minicard titles](https://github.com/wekan/wekan/commit/3aaf8f9b6180661abb0a86becf15710fc6937ef8)**:
+  In an RTL language (e.g. Arabic) the board root is `dir="rtl"`, and both the
+  minicard title (a `dir="auto"` `.viewer`) and the add-card composer textarea
+  were `dir="auto"` with no bidi isolation, so they shared the surrounding
+  bidirectional context. Typing a strong RTL character into one list's composer
+  re-resolved that shared context and visibly reflowed the displayed minicard
+  titles of the OTHER lists (no data change, reverted on refresh). Each title and
+  the composer now use `unicode-bidi: isolate`. Locked in (positive + negative)
+  by `tests/minicardBidiIsolation.test.cjs`; browser RTL behaviour is covered by
+  `tests/playwright/specs/18-rtl-layout.e2e.js`. Thanks to xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
