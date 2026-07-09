@@ -1,6 +1,7 @@
 import { SyncedCron } from 'meteor/quave:synced-cron';
 import limax from 'limax';
 import LDAP from './ldap';
+import { slugifyPreservingHyphens } from './usernameSlug';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 
 Object.defineProperty(Object.prototype, "getLDAPValue", {
@@ -29,8 +30,10 @@ export function slug(text) {
   if (LDAP.settings_get('LDAP_UTF8_NAMES_SLUGIFY') !== true) {
     return text;
   }
-  text = limax(text, { separator: '.' });
-  return text.replace(/[^0-9a-z-_.]/g, '');
+  // #4653: slugify each hyphen-separated segment and rejoin with '-' so a
+  // username like "p.parta-partb" is NOT collapsed to "p.parta.partb" (limax's
+  // '.' separator would otherwise swallow the hyphen and break login).
+  return slugifyPreservingHyphens(text, part => limax(part, { separator: '.' }));
 }
 
 function templateVarHandler (variable, object) {
