@@ -736,8 +736,27 @@ form.inlined-form .list-composer {
   flex: 1 1 auto;
   flex-direction: column;
   display: flex;
-  overflow-y: auto;
+  /* #5439: always show a scrollbar on the list body across desktop and mobile
+     browsers (overlay scrollbars on macOS/iOS/Android/Firefox otherwise auto-
+     hide it). Keep these declarations in sync with models/lib/scrollbarCss.js
+     (alwaysVisibleScrollbarCss), which is unit tested. */
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.08);
+  scrollbar-gutter: stable;
   padding: 5px 11px;
+}
+.list-body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  -webkit-appearance: none;
+}
+.list-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.08);
+}
+.list-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 5px;
 }
 .list-body .minicards {
   flex-grow: 1;
