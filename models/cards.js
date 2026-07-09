@@ -967,15 +967,22 @@ Cards.helpers({
     // board left orphaned subtasks on the old board pointing at a parent on the
     // new board — and it mutated the cached source docs). Re-home them onto the
     // destination board alongside the copied parent.
+    const { buildCopiedSubtaskFields } = require('./lib/subtaskCopy');
     const subtasks = await ReactiveCache.getCards({ parentId: oldId });
     for (const subtask of subtasks) {
-      const copySubtask = Object.assign({}, subtask);
-      delete copySubtask._id;
-      copySubtask.parentId = _id;
-      copySubtask.boardId = boardId;
-      copySubtask.swimlaneId = swimlaneId;
-      copySubtask.listId = listId;
-      await Cards.insertAsync(copySubtask);
+      const copySubtask = buildCopiedSubtaskFields(subtask, {
+        newParentId: _id,
+        boardId,
+        swimlaneId,
+        listId,
+      });
+      const newSubtaskId = await Cards.insertAsync(copySubtask);
+      // #3185: copy the subtask's checklists (and their items) too — previously
+      // the subtask was inserted as a bare card, so it came out empty.
+      const subChecklists = await ReactiveCache.getChecklists({ cardId: subtask._id });
+      for (const ch of subChecklists) {
+        await ch.copy(newSubtaskId);
+      }
     }
 
     // copy card comments (#5166: re-home them onto the destination board)
