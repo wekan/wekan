@@ -183,6 +183,13 @@
 }
 .minicard .minicard-title {
   margin-inline-end: 1.5vw;
+  /* #6444: isolate each title's bidirectional context. The title is a
+     dir="auto" .viewer; under a global dir="rtl" document, non-isolated
+     dir="auto" runs share bidi state, so typing a strong RTL (e.g. Arabic)
+     character into another list's dir="auto" composer re-resolved the shared
+     context and visibly reflowed OTHER lists' minicard titles (no data change,
+     reverts on refresh). Isolation makes each title a self-contained run. */
+  unicode-bidi: isolate;
 }
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
@@ -448,6 +455,10 @@
   min-height: 50px;
   margin-bottom: 20px;
   overflow-y: auto;
+  /* #6444: isolate the composer's dir="auto" bidi run so typing a strong RTL
+     character here cannot perturb the rendering of the surrounding minicard
+     titles under a dir="rtl" document. */
+  unicode-bidi: isolate;
 }
 .parent-prefix {
   color: #b3b3b3;
