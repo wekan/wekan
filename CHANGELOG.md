@@ -150,6 +150,13 @@ This release fixes the following bugs:
   Card.setTitle() now also writes the linking card's own title. Pure helper
   `models/lib/linkedCardTitle.js`, unit tested in
   `tests/linkedCardTitle.test.cjs`. Thanks to Ben0it-T and xet7.
+- **[Fix #3606: activity feed no longer shows "edited/deleted comment undefined"](https://github.com/wekan/wekan/commit/4c721b997514d5e6659cf1725c719238d6db3e58)**:
+  The feed passed the comment id (absent on old activities, and gone for a
+  deleted comment) into the activity string. Edit/delete activities now store
+  the comment text and render it via `Activities.commentDisplayText()`, which
+  falls back to the live comment text and then to an empty string — never
+  "undefined". Pure helper `models/lib/commentActivity.js`, unit tested in
+  `tests/commentActivity.test.cjs`. Thanks to janchuelo and xet7.
 
 # v9.81 2026-07-09 WeKan ® release
 
