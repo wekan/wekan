@@ -12,6 +12,7 @@ import { Utils } from '/client/lib/utils';
 import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
 import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
+import { isLazyCards, BoardListCardCounts, windowCountId } from '/client/lib/lazyCards';
 import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
@@ -356,7 +357,21 @@ Template.listBody.helpers({
         ? list.orphanedCardsSwimlaneIds(swimlaneId)
         : undefined,
     );
-    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), {
+    const mongoSelector = Filter.mongoSelector(selector);
+    // Lazy card loading: the board publication ships no cards, so subscribe to
+    // just this list/swimlane window (grows with `limit` as the user scrolls)
+    // plus its reactive total count. Default mode keeps everything in minimongo
+    // already, so these subscriptions are skipped.
+    if (isLazyCards() && list.boardId) {
+      tpl.subscribe('boardCardsWindow', list.boardId, mongoSelector, sortBy, limit);
+      tpl.subscribe(
+        'boardListCardCount',
+        windowCountId(list._id, swimlaneId),
+        list.boardId,
+        mongoSelector,
+      );
+    }
+    const ret = ReactiveCache.getCards(mongoSelector, {
       // sort: ['sort'],
       sort: sortBy,
       limit,
@@ -367,6 +382,13 @@ Template.listBody.helpers({
   showSpinner(swimlaneId) {
     const tpl = Template.instance();
     const list = Template.currentData();
+    if (isLazyCards()) {
+      // In lazy mode minimongo only holds the loaded window, so the total comes
+      // from the server count published into BoardListCardCounts.
+      const countDoc = BoardListCardCounts.findOne(windowCountId(list._id, swimlaneId));
+      const total = countDoc ? countDoc.count : 0;
+      return total > tpl.cardlimit.get();
+    }
     return list.cards(swimlaneId).length > tpl.cardlimit.get();
   },
 

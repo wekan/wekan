@@ -7,6 +7,9 @@ Template.settingHeaderBar.helpers({
   isPeopleActive() {
     return FlowRouter.getRouteName() === 'people' ? 'active' : '';
   },
+  isFeaturesActive() {
+    return FlowRouter.getRouteName() === 'admin-features' ? 'active' : '';
+  },
   isAdminReportsActive() {
     return FlowRouter.getRouteName() === 'admin-reports' ? 'active' : '';
   },

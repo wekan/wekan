@@ -576,6 +576,30 @@ FlowRouter.route('/translation', {
   },
 });
 
+FlowRouter.route('/admin-features', {
+  name: 'admin-features',
+  triggersEnter: [
+    AccountsTemplates.ensureSignedIn,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentList', null);
+      Session.set('currentCard', null);
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
+
+      Filter.reset();
+      Session.set('sortBy', '');
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    this.render('defaultLayout', {
+      headerBar: 'settingHeaderBar',
+      content: 'adminFeatures',
+    });
+  },
+});
+
 FlowRouter.route('*', {
   action() {
     this.render('defaultLayout', { content: 'notFound' });
