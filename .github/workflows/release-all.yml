@@ -318,21 +318,20 @@ jobs:
           cd .build/bundle/programs/server
           npm install
 
-      - name: Download FerretDB binaries
+      - name: Download ferretdb.zip
         uses: actions/download-artifact@v8
         with:
-          name: ferretdb-binaries
-          path: ferretdb-bin
+          name: ferretdb-zip
 
       - name: Embed FerretDB (amd64) and launcher into the bundle
-        # Ships the FerretDB binary + self-contained launcher inside the amd64
-        # bundle so amd64 users can opt into FerretDB (WEKAN_DB=ferretdb). This
-        # amd64 bundle is also the base every Linux arch is derived from, so the
-        # arm64/ppc64le/s390x/riscv64 jobs just overwrite bundle/ferretdb with
-        # their own arch's binary and inherit this launcher. The Windows/macOS
-        # jobs (MongoDB-only) strip both back out.
+        # Take the amd64 FerretDB binary from the single-source ferretdb.zip and
+        # ship it + the self-contained launcher inside the amd64 bundle so amd64
+        # users can opt into FerretDB (WEKAN_DB=ferretdb). This amd64 bundle is the
+        # base every other Linux arch is derived from; those jobs overwrite
+        # bundle/ferretdb with their own arch's binary and inherit this launcher.
         run: |
-          cp ferretdb-bin/ferretdb-amd64 .build/bundle/ferretdb
+          unzip -o -j ferretdb.zip "ferretdb/amd64/ferretdb-amd64" -d .build/bundle
+          mv .build/bundle/ferretdb-amd64 .build/bundle/ferretdb
           chmod +x .build/bundle/ferretdb
           cp releases/ferretdb/start-wekan-ferretdb.sh .build/bundle/
           chmod +x .build/bundle/start-wekan-ferretdb.sh
@@ -389,17 +388,17 @@ jobs:
             node:${NODE_VERSION}-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
-      - name: Download FerretDB binaries
+      - name: Download ferretdb.zip
         uses: actions/download-artifact@v8
         with:
-          name: ferretdb-binaries
-          path: ferretdb-bin
+          name: ferretdb-zip
 
       - name: Embed FerretDB (arm64) into the bundle
         # The launcher (start-wekan-ferretdb.sh) is inherited from the amd64 base
-        # bundle; only the binary needs swapping to the arm64 build.
+        # bundle; only the binary needs swapping to the arm64 build from ferretdb.zip.
         run: |
-          cp ferretdb-bin/ferretdb-arm64 bundle/ferretdb
+          unzip -o -j ferretdb.zip "ferretdb/arm64/ferretdb-arm64" -d bundle
+          mv bundle/ferretdb-arm64 bundle/ferretdb
           chmod +x bundle/ferretdb
 
       - name: Create arm64 zip
@@ -418,6 +417,7 @@ jobs:
       - prepare
       - build-amd64
       - build-arm64
+      - build-ferretdb
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -428,15 +428,24 @@ jobs:
           pattern: bundle-*
           merge-multiple: true
 
+      - name: Download ferretdb.zip
+        uses: actions/download-artifact@v8
+        with:
+          name: ferretdb-zip
+
       - name: Create GitHub Release with all bundles
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.prepare.outputs.version }}
           name: v${{ needs.prepare.outputs.version }}
           body: ${{ needs.prepare.outputs.changelog }}
+          # ferretdb.zip carries the standalone FerretDB v1 (SQLite) binaries for
+          # every platform (see the build-ferretdb job); it is the single source
+          # every WeKan build takes its FerretDB binary from.
           files: |
             wekan-${{ needs.prepare.outputs.version }}-amd64.zip
             wekan-${{ needs.prepare.outputs.version }}-arm64.zip
+            ferretdb.zip
 
   # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le) ───────────
   # Every bundle below is built AFTER `release` and attaches its own .zip to the
@@ -448,7 +457,7 @@ jobs:
 
   # Build win64 bundle (rebuild native modules on Windows).
   build-win64:
-    needs: [prepare, build-amd64, release]
+    needs: [prepare, build-amd64, release, build-ferretdb]
     runs-on: windows-latest
     timeout-minutes: 60
     env:
@@ -478,9 +487,9 @@ jobs:
         shell: bash
         run: |
           7z x wekan-${VERSION}-amd64.zip
-          # Drop the Linux FerretDB binary + launcher inherited from the amd64 base
-          # bundle: this is the Windows build (MongoDB-only), so a linux-amd64
-          # ferretdb binary and a POSIX shell launcher have no place here.
+          # Drop the Linux FerretDB binary + POSIX launcher inherited from the
+          # amd64 base bundle; the Windows FerretDB binary (ferretdb.exe) is added
+          # from ferretdb.zip in a later step.
           rm -f bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan-ferretdb.sh
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
@@ -538,6 +547,25 @@ jobs:
           echo "=== bundle contents ==="
           ls -1 bundle/
 
+      - name: Download ferretdb.zip
+        uses: actions/download-artifact@v8
+        with:
+          name: ferretdb-zip
+
+      - name: Embed FerretDB (win64) into the bundle
+        shell: bash
+        # Take the Windows FerretDB binary from the single-source ferretdb.zip.
+        # Tolerant: if FerretDB did not compile for windows/amd64 it won't be in
+        # the zip, and the Windows bundle simply stays MongoDB-only.
+        run: |
+          if 7z e -y ferretdb.zip "ferretdb/win64/ferretdb-win64.exe" -obundle > /dev/null 2>&1 \
+             && [ -f bundle/ferretdb-win64.exe ]; then
+            mv bundle/ferretdb-win64.exe bundle/ferretdb.exe
+            echo "Embedded FerretDB win64 -> bundle/ferretdb.exe"
+          else
+            echo "No win64 FerretDB in ferretdb.zip; Windows bundle stays MongoDB-only."
+          fi
+
       - name: Create win64 zip
         shell: cmd
         run: 7z a wekan-%VERSION%-win64.zip bundle
@@ -560,7 +588,7 @@ jobs:
 
   # Build mac-arm64 bundle (rebuild native modules on Apple Silicon).
   build-mac-arm64:
-    needs: [prepare, build-amd64, release]
+    needs: [prepare, build-amd64, release, build-ferretdb]
     runs-on: macos-14   # macos-14 runners are Apple Silicon (arm64)
     timeout-minutes: 60
     env:
@@ -578,10 +606,10 @@ jobs:
       - name: Rebuild native modules for macOS arm64
         run: |
           unzip -q wekan-${VERSION}-amd64.zip
-          # Drop the Linux FerretDB binary + launcher inherited from the amd64 base
-          # bundle: this is the macOS build (MongoDB-only), so a linux-amd64
-          # ferretdb binary has no place here.
-          rm -f bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan-ferretdb.sh
+          # Replace the Linux FerretDB binary inherited from the amd64 base bundle
+          # with the macOS build (added from ferretdb.zip in a later step). The
+          # POSIX launcher start-wekan-ferretdb.sh works on macOS, so keep it.
+          rm -f bundle/ferretdb bundle/.ferretdb-default
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -601,6 +629,26 @@ jobs:
           npm install
           cd ../../..
 
+      - name: Download ferretdb.zip
+        uses: actions/download-artifact@v8
+        with:
+          name: ferretdb-zip
+
+      - name: Embed FerretDB (mac-arm64) into the bundle
+        # Take the macOS arm64 FerretDB binary from the single-source ferretdb.zip.
+        # Tolerant: if FerretDB did not compile for darwin/arm64 the mac bundle
+        # simply stays MongoDB-only (its launcher then just won't find ferretdb).
+        run: |
+          if unzip -o -j ferretdb.zip "ferretdb/mac-arm64/ferretdb-mac-arm64" -d bundle >/dev/null 2>&1 \
+             && [ -f bundle/ferretdb-mac-arm64 ]; then
+            mv bundle/ferretdb-mac-arm64 bundle/ferretdb
+            chmod +x bundle/ferretdb
+            echo "Embedded FerretDB mac-arm64 -> bundle/ferretdb"
+          else
+            echo "No mac-arm64 FerretDB in ferretdb.zip; macOS bundle stays MongoDB-only."
+            rm -f bundle/start-wekan-ferretdb.sh
+          fi
+
       - name: Create mac-arm64 zip
         run: zip -r wekan-${VERSION}-mac-arm64.zip bundle
 
@@ -618,19 +666,24 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
 
-  # ─── Build the bundled FerretDB v1 (SQLite) for every architecture ──────────
-  # WeKan normally uses MongoDB, but MongoDB Community only ships server binaries
-  # for amd64 and arm64. On every OTHER architecture that has a Node.js 24 build
-  # (ppc64le, s390x, riscv64) WeKan instead ships FerretDB — the wekan/FerretDB v1
-  # fork (https://github.com/wekan/FerretDB) with its embedded pure-Go SQLite
-  # backend, which speaks the MongoDB wire protocol on 127.0.0.1:27017.
+  # ─── Build the standalone FerretDB v1 (SQLite) binaries: ferretdb.zip ────────
+  # WeKan normally uses MongoDB, but MongoDB Community only ships amd64/arm64
+  # server binaries. On every other platform WeKan can instead use FerretDB v1
+  # (the wekan/FerretDB fork with its embedded pure-Go SQLite backend, which
+  # speaks the MongoDB wire protocol). Because that backend is pure Go
+  # (modernc.org/sqlite, CGO off), FerretDB cross-compiles statically for every
+  # platform Go + modernc support — far beyond the arches Node.js 24 ships — with
+  # NO QEMU. This job builds them all into a single ferretdb.zip:
   #
-  # We build it for ALL five arches (not just the MongoDB-less ones) so users on
-  # amd64/arm64 can opt into FerretDB too (WEKAN_DB=ferretdb / `snap set wekan
-  # database=ferretdb`). FerretDB has no cgo dependencies (modernc.org/sqlite), so
-  # it cross-compiles statically from the amd64 runner with CGO disabled — no QEMU
-  # needed. The binaries are consumed by build-amd64/build-arm64/build-extra-arches
-  # (embedded into each .zip next to main.js) and, via those zips, by the image.
+  #     ferretdb/<arch>/ferretdb-<arch>        (Linux/macOS/BSD; executable)
+  #     ferretdb/<arch>/ferretdb-<arch>.exe    (Windows only)
+  #     ferretdb/README.md                     (links to wekan/FerretDB)
+  #
+  # ferretdb.zip is attached to the GitHub Release, and every WeKan build (bundle
+  # .zip, snap, docker, win64, mac) takes its FerretDB binary from THIS zip, so
+  # there is a single source of truth for the FerretDB builds. Targets that a
+  # given platform can't compile (e.g. an arch modernc.org/sqlite has no port for)
+  # are skipped, so the zip ends up with exactly the platforms that build.
   build-ferretdb:
     needs: prepare
     runs-on: ubuntu-latest
@@ -640,29 +693,96 @@ jobs:
         with:
           go-version: '1.25'
 
-      - name: Cross-compile FerretDB v1 for all architectures
+      - name: Cross-compile FerretDB v1 for every supported platform
         run: |
           set -euo pipefail
           # Full clone (with tags) so `go run generate.go` — the exact thing
           # `task gen-version` runs — can `git describe` a real v1.x version into
           # build/version/version.txt; otherwise the binary panics at startup.
           git clone --branch main-v1 https://github.com/wekan/FerretDB.git ferretdb-src
-          cd ferretdb-src
-          ( cd build/version && go run generate.go )
-          echo "FerretDB version: $(cat build/version/version.txt)"
-          mkdir -p ../ferretdb-bin
-          # GOARCH names line up 1:1 with WeKan's arch names for these five.
-          for arch in amd64 arm64 ppc64le s390x riscv64; do
-            echo "Building ferretdb for linux/${arch} ..."
-            CGO_ENABLED=0 GOOS=linux GOARCH="${arch}" \
-              go build -trimpath -o "../ferretdb-bin/ferretdb-${arch}" ./cmd/ferretdb
+          ( cd ferretdb-src/build/version && go run generate.go )
+          FERRETDB_VERSION="$(cat ferretdb-src/build/version/version.txt)"
+          echo "FerretDB version: ${FERRETDB_VERSION}"
+
+          OUT="$(pwd)/ferretdb"
+          mkdir -p "$OUT"
+
+          # WeKan-style arch name + GOOS + GOARCH + GOARM. The .exe suffix is added
+          # only for Windows; every other platform's binary has no extension.
+          TARGETS=(
+            "amd64 linux amd64 "
+            "arm64 linux arm64 "
+            "armhf linux arm 7"
+            "armel linux arm 5"
+            "i386 linux 386 "
+            "ppc64le linux ppc64le "
+            "s390x linux s390x "
+            "riscv64 linux riscv64 "
+            "loong64 linux loong64 "
+            "win64 windows amd64 "
+            "win-arm64 windows arm64 "
+            "win32 windows 386 "
+            "mac-amd64 darwin amd64 "
+            "mac-arm64 darwin arm64 "
+            "freebsd-amd64 freebsd amd64 "
+            "freebsd-arm64 freebsd arm64 "
+          )
+          built=""
+          for t in "${TARGETS[@]}"; do
+            set -- $t
+            name="$1"; goos="$2"; goarch="$3"; goarm="${4:-}"
+            ext=""; [ "$goos" = windows ] && ext=".exe"
+            mkdir -p "$OUT/$name"
+            echo "Building ferretdb for $name (GOOS=$goos GOARCH=$goarch GOARM=$goarm) ..."
+            if ( cd ferretdb-src && CGO_ENABLED=0 GOOS="$goos" GOARCH="$goarch" GOARM="$goarm" \
+                   go build -trimpath -o "$OUT/$name/ferretdb-$name$ext" ./cmd/ferretdb ) 2>build.log; then
+              chmod +x "$OUT/$name/ferretdb-$name$ext"
+              built="$built $name"
+            else
+              echo "  -> skipped (does not compile on this platform):"; sed 's/^/     /' build.log || true
+              rm -rf "$OUT/$name"
+            fi
           done
-          ls -la ../ferretdb-bin
+          echo "Built FerretDB for:$built"
+
+          {
+            echo "# FerretDB v1 (SQLite) for WeKan"
+            echo
+            echo "FerretDB v1 binaries compiled from the WeKan fork:"
+            echo "https://github.com/wekan/FerretDB"
+            echo
+            echo "FerretDB is an open-source, MongoDB-compatible database. These builds use"
+            echo "the embedded pure-Go SQLite backend, so each binary is a single"
+            echo "self-contained MongoDB-compatible server that needs no external database."
+            echo "WeKan uses them where MongoDB Community has no server binary, and they can"
+            echo "be selected on any platform."
+            echo
+            echo "Version: ${FERRETDB_VERSION}"
+            echo
+            echo "## Layout"
+            echo
+            echo "    ferretdb/<arch>/ferretdb-<arch>        (Linux/macOS/BSD)"
+            echo "    ferretdb/<arch>/ferretdb-<arch>.exe    (Windows)"
+            echo
+            echo "Included in this build:${built}"
+            echo
+            echo "## Run"
+            echo
+            echo "    ferretdb-<arch> --handler=sqlite --sqlite-url=file:./ferretdb-sqlite/ \\"
+            echo "      --listen-addr=127.0.0.1:27017 --telemetry=disable"
+            echo
+            echo "Then point WeKan at it: MONGO_URL=mongodb://127.0.0.1:27017/wekan"
+            echo
+            echo "Telemetry is disabled by the flag above (FerretDB also honors DO_NOT_TRACK=1)."
+          } > "$OUT/README.md"
+
+          zip -r ferretdb.zip ferretdb
+          unzip -l ferretdb.zip
 
       - uses: actions/upload-artifact@v7
         with:
-          name: ferretdb-binaries
-          path: ferretdb-bin/ferretdb-*
+          name: ferretdb-zip
+          path: ferretdb.zip
           retention-days: 1
 
   # Extra-architecture Linux bundles (ppc64le, s390x, riscv64) — the arches that
@@ -760,20 +880,19 @@ jobs:
               npm install
             '
 
-      - name: Download FerretDB binaries
+      - name: Download ferretdb.zip
         uses: actions/download-artifact@v8
         with:
-          name: ferretdb-binaries
-          path: ferretdb-bin
+          name: ferretdb-zip
 
       - name: Embed FerretDB (${{ matrix.arch }}) into the bundle
         # These arches have no MongoDB server, so FerretDB is their default DB.
         # The launcher (start-wekan-ferretdb.sh) is inherited from the amd64 base
-        # bundle; swap in this arch's binary. A marker file makes FerretDB the
-        # default backend at runtime (see releases/ferretdb/start-wekan-ferretdb.sh
-        # and the Docker entrypoint).
+        # bundle; swap in this arch's binary from ferretdb.zip. A marker file makes
+        # FerretDB the default backend at runtime (see the launcher + Docker entrypoint).
         run: |
-          cp ferretdb-bin/ferretdb-${{ matrix.arch }} bundle/ferretdb
+          unzip -o -j ferretdb.zip "ferretdb/${{ matrix.arch }}/ferretdb-${{ matrix.arch }}" -d bundle
+          mv bundle/ferretdb-${{ matrix.arch }} bundle/ferretdb
           chmod +x bundle/ferretdb
           touch bundle/.ferretdb-default
 
