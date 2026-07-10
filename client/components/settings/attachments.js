@@ -269,6 +269,12 @@ Template.attachments.onCreated(function () {
   this.loading = new ReactiveVar(false);
   this.migrateStatus = new ReactiveVar(null);
   this.migratePoll = null;
+  this.backupStatus = new ReactiveVar(null);
+  this.backupList = new ReactiveVar(null);
+  this.backupSchedule = new ReactiveVar(null);
+  this.selectedBackup = new ReactiveVar('');
+  this.backupPoll = null;
+  Meteor.call('getBackupSchedule', (err, s) => { if (!err && s) this.backupSchedule.set(s); });
 
   this.autorun(() => {
     const ready = this.storageSettingsSubscription.ready();
@@ -285,6 +291,10 @@ Template.attachments.onDestroyed(function () {
   if (this.migratePoll) {
     Meteor.clearTimeout(this.migratePoll);
     this.migratePoll = null;
+  }
+  if (this.backupPoll) {
+    Meteor.clearTimeout(this.backupPoll);
+    this.backupPoll = null;
   }
 });
 
@@ -311,6 +321,16 @@ function startDbMigration(tpl, direction) {
       tpl.migrateStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
     } else {
       pollMigrateStatus(tpl);
+    }
+  });
+}
+
+function pollBackupStatus(tpl) {
+  Meteor.call('backupStatus', (err, status) => {
+    if (err || !status) return;
+    tpl.backupStatus.set(status);
+    if (status.running) {
+      tpl.backupPoll = Meteor.setTimeout(() => pollBackupStatus(tpl), 2000);
     }
   });
 }
@@ -348,6 +368,30 @@ Template.attachments.helpers({
     const s = Template.instance().migrateStatus.get();
     return !!(s && s.success === true);
   },
+  isBackupActive() {
+    return Template.instance().activeSection.get() === 'backup';
+  },
+  backupStatus() {
+    return Template.instance().backupStatus.get();
+  },
+  backupRunning() {
+    const s = Template.instance().backupStatus.get();
+    return !!(s && s.running);
+  },
+  backupSuccess() {
+    const s = Template.instance().backupStatus.get();
+    return !!(s && s.success === true && s.phase === 'completed');
+  },
+  backupList() {
+    return Template.instance().backupList.get();
+  },
+  scheduleOff() { const s = Template.instance().backupSchedule.get(); return !s || !s.frequency || s.frequency === 'off'; },
+  scheduleDaily() { const s = Template.instance().backupSchedule.get(); return !!(s && s.frequency === 'daily'); },
+  scheduleWeekly() { const s = Template.instance().backupSchedule.get(); return !!(s && s.frequency === 'weekly'); },
+  scheduleMonthly() { const s = Template.instance().backupSchedule.get(); return !!(s && s.frequency === 'monthly'); },
+  scheduleTime() { const s = Template.instance().backupSchedule.get(); return (s && s.time) || '04:00'; },
+  scheduleDow() { const s = Template.instance().backupSchedule.get(); return (s && s.dayOfWeek) || 'Sunday'; },
+  scheduleDom() { const s = Template.instance().backupSchedule.get(); return (s && s.dayOfMonth) || 1; },
   avatarsUploadBlocked() {
     const settings = Template.instance().attachmentStorageSettings.get();
     return settings?.limitSettings?.avatarsUploadBlocked === true;
@@ -618,6 +662,58 @@ Template.attachments.events({
   'click .js-migrate-to-mongodb'(event, tpl) {
     event.preventDefault();
     startDbMigration(tpl, 'toMongoDB');
+  },
+  'click .js-run-backup'(event, tpl) {
+    event.preventDefault();
+    const opts = {
+      attachments: tpl.$('.js-backup-attachments').is(':checked'),
+      avatars: tpl.$('.js-backup-avatars').is(':checked'),
+      data: tpl.$('.js-backup-data').is(':checked'),
+    };
+    const storage = tpl.$('.js-backup-storage').val() || 'filesystem';
+    tpl.backupStatus.set({ running: true, phase: 'starting' });
+    Meteor.call('runBackup', opts, storage, error => {
+      if (error) tpl.backupStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
+      else pollBackupStatus(tpl);
+    });
+  },
+  'click .js-save-backup-schedule'(event, tpl) {
+    event.preventDefault();
+    const schedule = {
+      enabled: (tpl.$('.js-backup-frequency').val() || 'off') !== 'off',
+      frequency: tpl.$('.js-backup-frequency').val() || 'off',
+      time: tpl.$('.js-backup-time').val() || '04:00',
+      dayOfWeek: tpl.$('.js-backup-dow').val() || 'Sunday',
+      dayOfMonth: parseInt(tpl.$('.js-backup-dom').val(), 10) || 1,
+      attachments: tpl.$('.js-backup-attachments').is(':checked'),
+      avatars: tpl.$('.js-backup-avatars').is(':checked'),
+      data: tpl.$('.js-backup-data').is(':checked'),
+      storage: tpl.$('.js-backup-storage').val() || 'filesystem',
+    };
+    Meteor.call('saveBackupSchedule', schedule, (error, saved) => {
+      if (!error && saved) tpl.backupSchedule.set(saved);
+    });
+  },
+  'click .js-list-backups'(event, tpl) {
+    event.preventDefault();
+    Meteor.call('listBackups', (error, list) => {
+      if (!error) tpl.backupList.set(list || []);
+    });
+  },
+  'change .js-backup-select'(event, tpl) {
+    tpl.selectedBackup.set($(event.currentTarget).val());
+  },
+  'click .js-restore-backup'(event, tpl) {
+    event.preventDefault();
+    const zipPath = tpl.selectedBackup.get();
+    if (!zipPath) { window.alert(TAPi18n.__('backup-restore-select-first')); return; }
+    const mode = tpl.$('.js-restore-mode').val() || 'add-missing';
+    if (!window.confirm(TAPi18n.__('backup-restore-confirm'))) return;
+    tpl.backupStatus.set({ running: true, phase: 'restore' });
+    Meteor.call('restoreBackup', zipPath, mode, error => {
+      if (error) tpl.backupStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
+      else pollBackupStatus(tpl);
+    });
   },
   'change select.js-attachment-limit-unit'(event, tpl) {
     const fieldName = event.currentTarget.dataset.field;

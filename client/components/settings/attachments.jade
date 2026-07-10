@@ -56,6 +56,11 @@ template(name="attachments")
                 span.emoji-icon
                 i.fa.fa-exchange
                 | {{_ 'database-migration'}}
+            li(class="{{#if isBackupActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="backup")
+                span.emoji-icon
+                i.fa.fa-archive
+                | {{_ 'backup'}}
 
         .main-body
           if loading.get
@@ -498,6 +503,82 @@ template(name="attachments")
                       p.form-text.text-danger {{migrateStatus.error}}
                     if migrateSuccess
                       p.form-text.text-success {{_ 'database-migration-done'}}
+
+          else if isBackupActive
+            ul#attachment-backup-setting.setting-detail
+              li
+                h3 {{_ 'backup'}}
+                .description {{_ 'backup-description'}}
+                .form-group
+                  label
+                    input.js-backup-attachments(type="checkbox" checked="checked")
+                    |  {{_ 'attachments'}}
+                  label
+                    input.js-backup-avatars(type="checkbox" checked="checked")
+                    |  {{_ 'avatars'}}
+                  label
+                    input.js-backup-data(type="checkbox" checked="checked")
+                    |  {{_ 'backup-data'}}
+                .form-group
+                  label {{_ 'backup-storage'}}
+                  select.wekan-form-control.js-backup-storage
+                    option(value="filesystem") {{_ 'filesystem-storage'}}
+                    option(value="s3") {{_ 's3-minio-storage'}}
+                    option(value="azure") {{_ 'azure-blob-storage'}}
+                    option(value="gcs") {{_ 'gcs-storage'}}
+                .form-group
+                  button.js-run-backup.btn.btn-primary(type="button" disabled=backupRunning) {{_ 'backup-now'}}
+                if backupStatus
+                  p.form-text {{_ 'database-migration-phase'}}: {{backupStatus.phase}} {{backupStatus.detail}}
+                  if backupStatus.error
+                    p.form-text.text-danger {{backupStatus.error}}
+                  if backupSuccess
+                    p.form-text.text-success {{_ 'backup-done'}}: {{backupStatus.file}}
+
+                h4 {{_ 'backup-schedule'}}
+                .form-group
+                  label {{_ 'backup-frequency'}}
+                  select.wekan-form-control.js-backup-frequency
+                    option(value="off" selected=scheduleOff) {{_ 'backup-frequency-off'}}
+                    option(value="daily" selected=scheduleDaily) {{_ 'backup-frequency-daily'}}
+                    option(value="weekly" selected=scheduleWeekly) {{_ 'backup-frequency-weekly'}}
+                    option(value="monthly" selected=scheduleMonthly) {{_ 'backup-frequency-monthly'}}
+                .form-group
+                  label {{_ 'backup-time'}}
+                  input.wekan-form-control.js-backup-time(type="time" value=scheduleTime)
+                .form-group
+                  label {{_ 'backup-day-of-week'}}
+                  input.wekan-form-control.js-backup-dow(type="text" value=scheduleDow placeholder="Sunday")
+                .form-group
+                  label {{_ 'backup-day-of-month'}}
+                  input.wekan-form-control.js-backup-dom(type="number" min="1" max="28" value=scheduleDom)
+                .form-group
+                  button.js-save-backup-schedule.btn.btn-primary(type="button") {{_ 'save'}}
+
+                h4 {{_ 'backup-restore'}}
+                .form-group
+                  button.js-list-backups.btn.btn-secondary(type="button") {{_ 'backup-list'}}
+                if backupList
+                  table.gridfs-stats-table
+                    tr
+                      th
+                      th {{_ 'backup-storage'}}
+                      th {{_ 'backup-datetime'}}
+                      th {{_ 'backup-path'}}
+                    each backupList
+                      tr
+                        td
+                          input.js-backup-select(type="radio" name="backup-select" value=path)
+                        td {{storage}}
+                        td {{datetime}}
+                        td {{path}}
+                  .form-group
+                    label {{_ 'backup-restore-mode'}}
+                    select.wekan-form-control.js-restore-mode
+                      option(value="add-missing") {{_ 'backup-restore-add-missing'}}
+                      option(value="replace-all") {{_ 'backup-restore-replace-all'}}
+                  .form-group
+                    button.js-restore-backup.btn.btn-warning(type="button" disabled=backupRunning) {{_ 'backup-restore'}}
 
 template(name="moveAttachments")
   .move-storage-form
