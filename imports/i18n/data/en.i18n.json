@@ -2051,8 +2051,6 @@
   "cpu-cores": "CPU Cores",
   "cpu-usage": "CPU Usage",
   "current-action": "Current Action",
-  "database-migration": "Database Migration",
-  "database-migration-description": "Updating database structure for improved functionality and performance. This process may take several minutes.",
   "database-migrations": "Database Migrations",
   "days-old": "Days Old",
   "duration": "Duration",
