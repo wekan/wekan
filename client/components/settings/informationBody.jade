@@ -30,14 +30,30 @@ template(name='statistics')
           th {{_ 'Node_version'}}
           td {{statistics.process.nodeVersion}}
         tr
+          th {{_ 'Database_type'}}
+          td {{statistics.mongo.databaseType}}
+        tr
           th {{_ 'MongoDB_version'}}
           td {{statistics.mongo.mongoVersion}}
+        tr
+          th {{_ 'Database_commit'}}
+          td {{statistics.mongo.databaseCommit}}
+        if statistics.mongo.ferretdbVersion
+          tr
+            th {{_ 'FerretDB_version'}}
+            td {{statistics.mongo.ferretdbVersion}}
+          tr
+            th {{_ 'FerretDB_commit'}}
+            td {{statistics.mongo.ferretdbCommit}}
         tr
           th {{_ 'MongoDB_storage_engine'}}
           td {{statistics.mongo.mongoStorageEngine}}
         tr
           th {{_ 'MongoDB_Oplog_enabled'}}
           td {{formatBoolean statistics.mongo.mongoOplogEnabled}}
+        tr
+          th {{_ 'Reactivity_mode'}}
+          td {{statistics.mongo.reactivity}}
         tr
           th {{_ 'OS_Type'}}
           td {{statistics.os.type}}

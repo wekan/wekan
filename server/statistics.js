@@ -63,34 +63,81 @@ Meteor.methods({
       statistics.meteor = {
         meteorVersion,
       };
-      let mongoVersion;
-      let mongoStorageEngine;
-      let mongoOplogEnabled;
+      // Database facts shown in Admin Panel / Version:
+      //  - databaseType: MongoDB or FerretDB (WeKan can run on either; FerretDB
+      //    v1 speaks the MongoDB wire protocol, so most of this looks the same).
+      //  - mongoVersion: the MongoDB-compatible (wire) version. FerretDB reports
+      //    one too, so WeKan/Meteor treat it like MongoDB.
+      //  - databaseCommit: the server's git commit (buildInfo.gitVersion).
+      //  - ferretdbVersion / ferretdbCommit: FerretDB's own version + commit,
+      //    only present when the server is FerretDB.
+      //  - mongoStorageEngine: WiredTiger for MongoDB; SQLite (or PostgreSQL) for
+      //    FerretDB.
+      //  - reactivity: how live updates reach clients right now — 'oplog' (Meteor
+      //    oplog tailing), 'changeStreams', or 'polling' (poll-and-diff, the
+      //    fallback FerretDB uses since it has no replica-set oplog).
+      let databaseType = 'MongoDB';
+      let mongoVersion = 'unknown';
+      let databaseCommit = 'unknown';
+      let ferretdbVersion;
+      let ferretdbCommit;
+      let mongoStorageEngine = 'unknown';
+      let mongoOplogEnabled = false;
+      let reactivity = 'polling';
       try {
         const { mongo } = MongoInternals.defaultRemoteCollectionDriver();
-        mongoOplogEnabled = Boolean(
-          mongo._oplogHandle && mongo._oplogHandle.onOplogEntry,
-        );
-        const { version, storageEngine } = await mongo.db.command({ serverStatus: 1 });
-        mongoVersion = version;
-        mongoStorageEngine = storageEngine.name;
-      } catch (e) {
-        try {
-          const { mongo } = MongoInternals.defaultRemoteCollectionDriver();
-          const { version } = await mongo.db.command({ buildinfo: 1 });
-          mongoVersion = version;
-          mongoStorageEngine = 'unknown';
-          mongoOplogEnabled = false;
-        } catch (e2) {
-          mongoVersion = 'unknown';
-          mongoStorageEngine = 'unknown';
-          mongoOplogEnabled = false;
+
+        // Reactivity driver: Meteor uses oplog tailing when an oplog handle is
+        // active, otherwise poll-and-diff. A change-streams driver (if ever used)
+        // is detected by its handle name.
+        const oplogHandle = mongo._oplogHandle;
+        mongoOplogEnabled = Boolean(oplogHandle && oplogHandle.onOplogEntry);
+        if (mongoOplogEnabled) {
+          const handleName = oplogHandle?.constructor?.name || '';
+          reactivity = /changestream/i.test(handleName) ? 'changeStreams' : 'oplog';
+        } else {
+          reactivity = 'polling';
         }
+
+        // buildInfo carries the version + git commit, and — when the server is
+        // FerretDB rather than MongoDB — a `ferretdb` sub-document with FerretDB's
+        // own version/commit.
+        const buildInfo = await mongo.db.command({ buildInfo: 1 });
+        mongoVersion = buildInfo.version || 'unknown';
+        databaseCommit = buildInfo.gitVersion || 'unknown';
+        if (buildInfo.ferretdb) {
+          databaseType = 'FerretDB';
+          ferretdbVersion = buildInfo.ferretdb.version || 'unknown';
+          ferretdbCommit =
+            buildInfo.ferretdb.commit || buildInfo.ferretdb.gitVersion || 'unknown';
+        }
+
+        // Storage engine: MongoDB reports it in serverStatus; FerretDB usually
+        // does not implement serverStatus fully, so fall back to a sensible label.
+        try {
+          const serverStatus = await mongo.db.command({ serverStatus: 1 });
+          if (serverStatus.storageEngine && serverStatus.storageEngine.name) {
+            mongoStorageEngine = serverStatus.storageEngine.name;
+          }
+        } catch (e) {
+          // FerretDB may not support serverStatus — ignore.
+        }
+        if (mongoStorageEngine === 'unknown' && databaseType === 'FerretDB') {
+          // WeKan bundles FerretDB with its embedded SQLite backend.
+          mongoStorageEngine = 'SQLite';
+        }
+      } catch (e) {
+        // Leave the defaults above (all 'unknown'/false/'polling').
       }
       statistics.mongo = {
+        databaseType,
         mongoVersion,
+        databaseCommit,
+        ferretdbVersion,
+        ferretdbCommit,
         mongoStorageEngine,
         mongoOplogEnabled,
+        reactivity,
       };
       const client = MongoInternals.defaultRemoteCollectionDriver()?.mongo?.client;
       const sessionsCount = client?.s?.activeSessions?.size;
