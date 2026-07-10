@@ -147,22 +147,23 @@ This release adds the following features and fixes:
   reactivity mechanism is currently in use — changeStreams / oplog / polling
   (FerretDB has no oplog, so it uses polling).
 
-- **[rebuild-all.yml: build standalone ferretdb.zip for all Go-cross-compilable architectures, single source for every WeKan build](https://github.com/wekan/wekan/commit/d5b8a7f3a9e558d4f24a77a9b92b0c89b6ba54af)**:
+- **[Standalone ferretdb.zip for all platforms, and rebuild-all.yml uses the prebuilt one from wekan/FerretDB releases](https://github.com/wekan/wekan/commit/7ce07467c07d262e056364392a4e4cc1f11f02ee)**:
 
-  A new build-ferretdb job cross-compiles FerretDB v1 (the wekan/FerretDB fork,
-  pure-Go SQLite backend, CGO off, no QEMU) for every platform Go and
-  modernc.org/sqlite support — far beyond the arches Node.js ships — and packs
-  them into `ferretdb.zip`:
+  FerretDB v1 (the wekan/FerretDB fork, pure-Go SQLite backend, CGO off, no QEMU)
+  is now cross-compiled for every platform Go and modernc.org/sqlite support — far
+  beyond the arches Node.js ships — and packed into a single `ferretdb.zip`:
 
       ferretdb/<arch>/ferretdb-<arch>        (Linux/macOS/BSD, executable)
       ferretdb/<arch>/ferretdb-<arch>.exe    (Windows only)
       ferretdb/README.md                     (links to https://github.com/wekan/FerretDB)
 
-  Targets that do not compile are skipped, so the zip holds exactly what builds.
-  `ferretdb.zip` is attached to the GitHub Release, and every WeKan build (the
-  bundle .zip for each arch, and via the bundle the Docker image and snap) now
-  takes its FerretDB binary from that same `ferretdb.zip` — one source of truth.
-  The Windows and macOS bundles now include FerretDB too.
+  That zip is produced and released in the wekan/FerretDB repo (by its `build.sh`,
+  which gained sequential and parallel "Build ferretdb.zip" menu options). The
+  WeKan release workflow no longer builds FerretDB with Go: it downloads the newest
+  `ferretdb.zip` from https://github.com/wekan/FerretDB/releases and every WeKan
+  build (the bundle .zip for each arch, and via the bundle the Docker image and
+  snap, including the Windows and macOS bundles) embeds its per-arch binary from
+  that one source. ferretdb.zip is not re-attached to the WeKan releases.
 
 - **[Fix #6445: dynamic-import chunks 404 under a sub-path (duplicated build-chunks/build-chunks/)](https://github.com/wekan/wekan/commit/473896e904431b1b6f2b0abc55d8cc85e30e44b2)**:
 
