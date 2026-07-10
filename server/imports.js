@@ -176,6 +176,7 @@ import '/server/methods/fixDuplicateLists';
 import '/server/methods/icsImport';
 import '/server/methods/lockedUsers';
 import '/server/methods/lockoutSettings';
+import '/server/methods/migrateTextDatabase';
 import '/server/methods/positionHistory';
 
 // ----------------------------------------------------------------------------

@@ -51,6 +51,11 @@ template(name="attachments")
                 span.emoji-icon
                 i.fa.fa-cloud
                 | {{_ 'gcs-storage'}}
+            li(class="{{#if isDatabaseMigrationActive}}active{{/if}}")
+              a.js-attachments-menu(data-id="database-migration")
+                span.emoji-icon
+                i.fa.fa-exchange
+                | {{_ 'database-migration'}}
 
         .main-body
           if loading.get
@@ -474,6 +479,25 @@ template(name="attachments")
                     p.form-text.text-success {{_ 'cloud-connection-success'}}
                   if cloudTestError.gcs
                     p.form-text.text-danger {{_ 'cloud-connection-failed'}}: {{cloudTestError.gcs}}
+
+          else if isDatabaseMigrationActive
+            ul#attachment-database-migration-setting.setting-detail
+              li
+                h3 {{_ 'database-migration'}}
+                .description {{_ 'database-migration-description'}}
+                .form-group
+                  button.js-migrate-to-ferretdb.btn.btn-primary(type="button" disabled=migrateRunning) {{_ 'database-migrate-to-ferretdb'}}
+                  button.js-migrate-to-mongodb.btn.btn-primary(type="button" disabled=migrateRunning) {{_ 'database-migrate-to-mongodb'}}
+                if migrateStatus
+                  .move-progress-section
+                    .move-progress-counter
+                      | {{_ 'database-migration-phase'}}: {{migrateStatus.phase}}
+                      if migrateStatus.collection
+                        |  — {{migrateStatus.collection}} ({{migrateStatus.collDone}}/{{migrateStatus.collTotal}}), {{migrateStatus.collectionsDone}}/{{migrateStatus.collectionsTotal}}
+                    if migrateStatus.error
+                      p.form-text.text-danger {{migrateStatus.error}}
+                    if migrateSuccess
+                      p.form-text.text-success {{_ 'database-migration-done'}}
 
 template(name="moveAttachments")
   .move-storage-form

@@ -267,6 +267,8 @@ Template.attachments.onCreated(function () {
   this.cloudTestResults = new ReactiveVar({});
   this.cloudTestErrors = new ReactiveVar({});
   this.loading = new ReactiveVar(false);
+  this.migrateStatus = new ReactiveVar(null);
+  this.migratePoll = null;
 
   this.autorun(() => {
     const ready = this.storageSettingsSubscription.ready();
@@ -278,6 +280,40 @@ Template.attachments.onCreated(function () {
     }
   });
 });
+
+Template.attachments.onDestroyed(function () {
+  if (this.migratePoll) {
+    Meteor.clearTimeout(this.migratePoll);
+    this.migratePoll = null;
+  }
+});
+
+// Text-data database migration (MongoDB <-> FerretDB v1 SQLite) helpers.
+function pollMigrateStatus(tpl) {
+  Meteor.call('migrateTextDatabaseStatus', (err, status) => {
+    if (err || !status) return;
+    tpl.migrateStatus.set(status);
+    if (status.running) {
+      tpl.migratePoll = Meteor.setTimeout(() => pollMigrateStatus(tpl), 2000);
+    }
+  });
+}
+
+function startDbMigration(tpl, direction) {
+  const which = direction === 'toFerretDB' ? 'FerretDB v1 (SQLite)' : 'MongoDB';
+  // eslint-disable-next-line no-alert
+  if (!window.confirm(TAPi18n.__('database-migration-confirm', { db: which }))) {
+    return;
+  }
+  tpl.migrateStatus.set({ running: true, phase: 'starting', direction });
+  Meteor.call('migrateTextDatabase', direction, error => {
+    if (error) {
+      tpl.migrateStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
+    } else {
+      pollMigrateStatus(tpl);
+    }
+  });
+}
 
 Template.attachments.helpers({
   loading() {
@@ -297,6 +333,20 @@ Template.attachments.helpers({
   },
   isGcsActive() {
     return Template.instance().activeSection.get() === 'gcs';
+  },
+  isDatabaseMigrationActive() {
+    return Template.instance().activeSection.get() === 'database-migration';
+  },
+  migrateStatus() {
+    return Template.instance().migrateStatus.get();
+  },
+  migrateRunning() {
+    const s = Template.instance().migrateStatus.get();
+    return !!(s && s.running);
+  },
+  migrateSuccess() {
+    const s = Template.instance().migrateStatus.get();
+    return !!(s && s.success === true);
   },
   avatarsUploadBlocked() {
     const settings = Template.instance().attachmentStorageSettings.get();
@@ -560,6 +610,14 @@ Template.attachments.events({
     }
 
     tpl.activeSection.set(targetID);
+  },
+  'click .js-migrate-to-ferretdb'(event, tpl) {
+    event.preventDefault();
+    startDbMigration(tpl, 'toFerretDB');
+  },
+  'click .js-migrate-to-mongodb'(event, tpl) {
+    event.preventDefault();
+    startDbMigration(tpl, 'toMongoDB');
   },
   'change select.js-attachment-limit-unit'(event, tpl) {
     const fieldName = event.currentTarget.dataset.field;
