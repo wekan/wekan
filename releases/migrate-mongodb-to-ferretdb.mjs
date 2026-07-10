@@ -170,6 +170,99 @@ function hasEnoughSpace(dir, neededBytes) {
   }
 }
 
+/** Free bytes available in `dir`, or Infinity if it can't be determined. */
+function freeBytes(dir) {
+  try {
+    const st = statfsSync(dir);
+    return Number(st.bavail) * Number(st.bsize);
+  } catch {
+    return Infinity;
+  }
+}
+
+// ── Resumable progress checkpoint (saved to WRITABLE_PATH) ───────────────────
+// The migration can take a long time and may be interrupted (snap refresh,
+// Sandstorm grain restart, power loss). We persist progress to WRITABLE_PATH so
+// a restart RESUMES instead of starting over: collections already fully copied
+// are skipped, and the progress dashboard is restored. copyCollection() already
+// upserts every document, so resuming is always safe.
+const CHECKPOINT_FILE = path.join(WRITABLE, 'migration-progress.json');
+const completedCollections = new Set();
+
+function saveCheckpoint() {
+  if (DRY_RUN) return;
+  try {
+    ensureDir(WRITABLE);
+    const tmp = CHECKPOINT_FILE + '.tmp';
+    fs.writeFileSync(tmp, JSON.stringify({
+      version: 1,
+      updatedAt: new Date().toISOString(),
+      phase: state.phase,
+      completedCollections: [...completedCollections],
+      collections: state.collections,
+      files: state.files,
+      success: state.success,
+      compacted: state.compacted === true,
+    }));
+    fs.renameSync(tmp, CHECKPOINT_FILE);   // atomic replace
+  } catch (err) {
+    pushError('checkpoint save: ' + err.message);
+  }
+}
+
+function loadCheckpoint() {
+  try {
+    if (!fs.existsSync(CHECKPOINT_FILE)) return;
+    const cp = JSON.parse(fs.readFileSync(CHECKPOINT_FILE, 'utf8'));
+    (cp.completedCollections || []).forEach(c => completedCollections.add(c));
+    if (cp.collections) Object.assign(state.collections, cp.collections);
+    if (cp.files) Object.assign(state.files, cp.files);
+    if (cp.compacted) state.compacted = true;
+    if (completedCollections.size > 0) {
+      state.resumed = true;
+      console.log(`[migrate] Resuming from checkpoint — ${completedCollections.size} collection(s) already migrated.`);
+    }
+  } catch (err) {
+    pushError('checkpoint load: ' + err.message);
+  }
+}
+
+// ── Compact the OLD MongoDB after a successful migration ─────────────────────
+// Once the text data is in FerretDB and files are on the filesystem, the old
+// MongoDB data files still hold all that (now-duplicated) data. Run `compact` on
+// each source collection so WiredTiger returns the freed space to the OS. This
+// runs ONCE (tracked by a `compacted` flag on the completion marker), and is
+// best-effort — compact is not critical and may be unsupported on some setups.
+async function compactSource(srcDb, markerColl) {
+  if (DRY_RUN) return;
+  const done = await markerColl.findOne({ _id: 'completed' }).catch(() => null);
+  if (done && done.compacted) { state.compacted = true; return; }
+
+  state.phase = 'compacting-source';
+  state.phase_detail = 'Reclaiming disk space in the old MongoDB (compact)…';
+  console.log('[migrate] Compacting source MongoDB collections to free disk space…');
+  const beforeFree = freeBytes(WRITABLE);
+  let names = [];
+  try { names = (await srcDb.listCollections().toArray()).map(c => c.name); } catch { /* ignore */ }
+  for (const n of names) {
+    try {
+      state.phase_detail = 'compact ' + n;
+      await srcDb.command({ compact: n, force: true });
+    } catch (err) {
+      // Best-effort: log and continue (compact can fail on views, capped colls, etc.)
+      pushError('compact ' + n + ': ' + err.message);
+    }
+  }
+  state.compacted = true;
+  await markerColl.updateOne(
+    { _id: 'completed' },
+    { $set: { compacted: true, compactedAt: new Date() } },
+  ).catch(() => {});
+  const reclaimed = freeBytes(WRITABLE) - beforeFree;
+  console.log(`[migrate] Compact done${Number.isFinite(reclaimed) ? ` (~${Math.round(reclaimed / 1048576)} MB freed)` : ''}.`);
+  saveCheckpoint();
+}
+
 /**
  * Produce a safe, cross-platform filename from a (potentially URL-encoded,
  * special-char-rich) original name.  The ObjectId prefix guarantees uniqueness.
@@ -362,6 +455,9 @@ async function copyCollection(srcDb, tgtDb, collName, transformer) {
 
 // ── Main migration logic ───────────────────────────────────────────────────
 async function run() {
+  // Resume from a previous interrupted run if a checkpoint exists in WRITABLE_PATH.
+  loadCheckpoint();
+
   // ── 0. Check if already migrated ────────────────────────────────────────
   state.phase = 'connecting';
   state.phase_detail = `source=${SOURCE_URL} target=${TARGET_URL}`;
@@ -414,6 +510,9 @@ async function run() {
     state.phase = 'already-migrated';
     state.phase_detail = 'Schema v' + marker.schemaVersion + ' already present in target';
     state.success = true;
+    // A previous boot already migrated attachments, avatars and text data:
+    // reclaim the old MongoDB disk space now (runs once, tracked by the marker).
+    try { await compactSource(srcDb, markerColl); } catch (e) { pushError('compact: ' + e.message); }
     state.finishedAt = new Date().toISOString();
     await srcClient.close();
     await tgtClient.close();
@@ -473,6 +572,11 @@ async function run() {
   state.phase = 'migrating-collections';
   for (const name of allColls) {
     if (gridFsCols.has(name)) continue; // handled in file phase
+    // Resume: skip collections a previous run already finished copying.
+    if (!process.env.FORCE_MIGRATE && completedCollections.has(name)) {
+      console.log(`[migrate] Skipping already-migrated collection: ${name}`);
+      continue;
+    }
 
     let transformer = null;
     if (name === 'boards') {
@@ -492,6 +596,8 @@ async function run() {
     state.phase_detail = name;
     console.log(`[migrate] Copying collection: ${name}`);
     await copyCollection(srcDb, tgtDb, name, transformer);
+    completedCollections.add(name);
+    saveCheckpoint();   // persist progress to WRITABLE_PATH after each collection
   }
 
   // ── 5. Also ensure boards without a swimlane have one in the target ────
@@ -641,7 +747,9 @@ async function run() {
   }
 
   await migrateGridFs('attachments', ATTACH_DIR, 'attachments');
+  saveCheckpoint();
   await migrateGridFs('avatars',     AVATAR_DIR, 'avatars');
+  saveCheckpoint();
 
   // Also migrate any attachments that are already in Meteor-Files format but stored
   // in GridFS (storage === 'gridfs') — move binary to filesystem and update record.
@@ -713,7 +821,11 @@ async function run() {
       },
       { upsert: true },
     );
+    saveCheckpoint();
   }
+
+  // ── 8b. Reclaim old MongoDB disk space now that everything is migrated ──
+  try { await compactSource(srcDb, markerColl); } catch (e) { pushError('compact: ' + e.message); }
 
   // ── 9. Ensure indexes on commonly-queried fields ───────────────────────
   if (!DRY_RUN) {
@@ -753,6 +865,7 @@ async function run() {
     console.log(`[migrate] ⚠ Migration done with ${totalErrors} error(s). See dashboard.`);
   }
   state.finishedAt = new Date().toISOString();
+  saveCheckpoint();
 
   // Keep HTTP server alive for 60 s so operators can read the final status
   setTimeout(() => process.exit(state.success ? 0 : 1), 60_000);
@@ -778,7 +891,14 @@ Files are written to:
   \$WRITABLE_PATH/files/attachments/
   \$WRITABLE_PATH/files/avatars/
 
-Idempotent: re-running after success is safe (marker in _wekan_migration).
+Resumable: progress is checkpointed to \$WRITABLE_PATH/migration-progress.json
+after every collection and file phase, so an interrupted migration (snap refresh,
+Sandstorm grain restart, power loss) RESUMES on restart instead of starting over.
+
+Idempotent: re-running after success is safe (marker in _wekan_migration). Once
+the migration has completed successfully, a later run reclaims the now-duplicated
+disk space in the OLD MongoDB by running \`compact\` on each source collection
+(best-effort, runs once — tracked by the marker's \`compacted\` flag).
 `);
   process.exit(0);
 }
