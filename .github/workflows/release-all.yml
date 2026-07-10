@@ -30,8 +30,9 @@ name: Release All Platforms
 #   - charts:  updates and publishes the wekan/charts Helm chart and pushes,
 #              only AFTER the `docker` job has published the image (skipped if
 #              docker fails)
-#   - build-ferretdb: cross-compiles the wekan/FerretDB v1 binary (static, pure-Go,
-#              CGO off, no QEMU) for all 5 arches; every bundle embeds its own
+#   - build-ferretdb: downloads the newest prebuilt ferretdb.zip from the
+#              wekan/FerretDB releases (FerretDB is built + released separately by
+#              its own build.sh — not compiled here); every bundle embeds its own
 #   - build-*: builds the amd64 bundle (full Meteor 3 build), then rebuilds native
 #              modules for arm64 from that amd64 base (each embeds its FerretDB)
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
@@ -428,24 +429,19 @@ jobs:
           pattern: bundle-*
           merge-multiple: true
 
-      - name: Download ferretdb.zip
-        uses: actions/download-artifact@v8
-        with:
-          name: ferretdb-zip
-
       - name: Create GitHub Release with all bundles
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.prepare.outputs.version }}
           name: v${{ needs.prepare.outputs.version }}
           body: ${{ needs.prepare.outputs.changelog }}
-          # ferretdb.zip carries the standalone FerretDB v1 (SQLite) binaries for
-          # every platform (see the build-ferretdb job); it is the single source
-          # every WeKan build takes its FerretDB binary from.
+          # ferretdb.zip is NOT attached here: it already lives on the
+          # wekan/FerretDB releases (https://github.com/wekan/FerretDB/releases),
+          # which is where the WeKan builds fetch it from. The per-arch FerretDB
+          # binaries are embedded inside each wekan-<version>-<arch>.zip bundle.
           files: |
             wekan-${{ needs.prepare.outputs.version }}-amd64.zip
             wekan-${{ needs.prepare.outputs.version }}-arm64.zip
-            ferretdb.zip
 
   # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le) ───────────
   # Every bundle below is built AFTER `release` and attaches its own .zip to the
@@ -666,117 +662,31 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
 
-  # ─── Build the standalone FerretDB v1 (SQLite) binaries: ferretdb.zip ────────
+  # ─── Fetch the prebuilt standalone FerretDB binaries: ferretdb.zip ───────────
   # WeKan normally uses MongoDB, but MongoDB Community only ships amd64/arm64
   # server binaries. On every other platform WeKan can instead use FerretDB v1
   # (the wekan/FerretDB fork with its embedded pure-Go SQLite backend, which
-  # speaks the MongoDB wire protocol). Because that backend is pure Go
-  # (modernc.org/sqlite, CGO off), FerretDB cross-compiles statically for every
-  # platform Go + modernc support — far beyond the arches Node.js 24 ships — with
-  # NO QEMU. This job builds them all into a single ferretdb.zip:
-  #
-  #     ferretdb/<arch>/ferretdb-<arch>        (Linux/macOS/BSD; executable)
-  #     ferretdb/<arch>/ferretdb-<arch>.exe    (Windows only)
-  #     ferretdb/README.md                     (links to wekan/FerretDB)
-  #
-  # ferretdb.zip is attached to the GitHub Release, and every WeKan build (bundle
-  # .zip, snap, docker, win64, mac) takes its FerretDB binary from THIS zip, so
-  # there is a single source of truth for the FerretDB builds. Targets that a
-  # given platform can't compile (e.g. an arch modernc.org/sqlite has no port for)
-  # are skipped, so the zip ends up with exactly the platforms that build.
+  # speaks the MongoDB wire protocol). FerretDB is built + released SEPARATELY in
+  # the wekan/FerretDB repo (its build.sh cross-compiles every platform into
+  # ferretdb.zip and it is attached to a GitHub Release there); this workflow does
+  # NOT build FerretDB with Go. Here we just download the newest released
+  # ferretdb.zip and republish it, so every WeKan build (bundle .zip, snap, docker,
+  # win64, mac) takes its FerretDB binary from that same single source. The zip
+  # layout is ferretdb/<arch>/ferretdb-<arch>[.exe] + ferretdb/README.md.
   build-ferretdb:
     needs: prepare
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
-      - uses: actions/setup-go@v5
-        with:
-          go-version: '1.25'
-
-      - name: Cross-compile FerretDB v1 for every supported platform
+      - name: Download the latest ferretdb.zip from wekan/FerretDB releases
         run: |
           set -euo pipefail
-          # Full clone (with tags) so `go run generate.go` — the exact thing
-          # `task gen-version` runs — can `git describe` a real v1.x version into
-          # build/version/version.txt; otherwise the binary panics at startup.
-          git clone --branch main-v1 https://github.com/wekan/FerretDB.git ferretdb-src
-          ( cd ferretdb-src/build/version && go run generate.go )
-          FERRETDB_VERSION="$(cat ferretdb-src/build/version/version.txt)"
-          echo "FerretDB version: ${FERRETDB_VERSION}"
-
-          OUT="$(pwd)/ferretdb"
-          mkdir -p "$OUT"
-
-          # WeKan-style arch name + GOOS + GOARCH + GOARM. The .exe suffix is added
-          # only for Windows; every other platform's binary has no extension.
-          TARGETS=(
-            "amd64 linux amd64 "
-            "arm64 linux arm64 "
-            "armhf linux arm 7"
-            "armel linux arm 5"
-            "i386 linux 386 "
-            "ppc64le linux ppc64le "
-            "s390x linux s390x "
-            "riscv64 linux riscv64 "
-            "loong64 linux loong64 "
-            "win64 windows amd64 "
-            "win-arm64 windows arm64 "
-            "win32 windows 386 "
-            "mac-amd64 darwin amd64 "
-            "mac-arm64 darwin arm64 "
-            "freebsd-amd64 freebsd amd64 "
-            "freebsd-arm64 freebsd arm64 "
-          )
-          built=""
-          for t in "${TARGETS[@]}"; do
-            set -- $t
-            name="$1"; goos="$2"; goarch="$3"; goarm="${4:-}"
-            ext=""; [ "$goos" = windows ] && ext=".exe"
-            mkdir -p "$OUT/$name"
-            echo "Building ferretdb for $name (GOOS=$goos GOARCH=$goarch GOARM=$goarm) ..."
-            if ( cd ferretdb-src && CGO_ENABLED=0 GOOS="$goos" GOARCH="$goarch" GOARM="$goarm" \
-                   go build -trimpath -o "$OUT/$name/ferretdb-$name$ext" ./cmd/ferretdb ) 2>build.log; then
-              chmod +x "$OUT/$name/ferretdb-$name$ext"
-              built="$built $name"
-            else
-              echo "  -> skipped (does not compile on this platform):"; sed 's/^/     /' build.log || true
-              rm -rf "$OUT/$name"
-            fi
-          done
-          echo "Built FerretDB for:$built"
-
-          {
-            echo "# FerretDB v1 (SQLite) for WeKan"
-            echo
-            echo "FerretDB v1 binaries compiled from the WeKan fork:"
-            echo "https://github.com/wekan/FerretDB"
-            echo
-            echo "FerretDB is an open-source, MongoDB-compatible database. These builds use"
-            echo "the embedded pure-Go SQLite backend, so each binary is a single"
-            echo "self-contained MongoDB-compatible server that needs no external database."
-            echo "WeKan uses them where MongoDB Community has no server binary, and they can"
-            echo "be selected on any platform."
-            echo
-            echo "Version: ${FERRETDB_VERSION}"
-            echo
-            echo "## Layout"
-            echo
-            echo "    ferretdb/<arch>/ferretdb-<arch>        (Linux/macOS/BSD)"
-            echo "    ferretdb/<arch>/ferretdb-<arch>.exe    (Windows)"
-            echo
-            echo "Included in this build:${built}"
-            echo
-            echo "## Run"
-            echo
-            echo "    ferretdb-<arch> --handler=sqlite --sqlite-url=file:./ferretdb-sqlite/ \\"
-            echo "      --listen-addr=127.0.0.1:27017 --telemetry=disable"
-            echo
-            echo "Then point WeKan at it: MONGO_URL=mongodb://127.0.0.1:27017/wekan"
-            echo
-            echo "Telemetry is disabled by the flag above (FerretDB also honors DO_NOT_TRACK=1)."
-          } > "$OUT/README.md"
-
-          zip -r ferretdb.zip ferretdb
+          # /releases/latest/download/<asset> always resolves to the asset on the
+          # newest (non-prerelease) release of wekan/FerretDB.
+          url="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb.zip"
+          echo "Downloading ${url} ..."
+          curl -fSL --retry 5 --retry-delay 10 -o ferretdb.zip "$url"
+          echo "=== ferretdb.zip contents ==="
           unzip -l ferretdb.zip
 
       - uses: actions/upload-artifact@v7
