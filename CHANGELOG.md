@@ -196,6 +196,16 @@ This release adds the following features and fixes:
   needed. The Docker image and snap, which have their own Node and entrypoint,
   strip the redundant bundled Node + launchers to stay small.
 
+- **[release-all.yml: add a build-sandstorm job that packs and attaches wekan-<version>.spk](https://github.com/wekan/wekan/commit/dbaae02ae7a7c40683b81b2942dad10060383d7b)**:
+
+  Adds Sandstorm packaging to the release workflow (mirroring
+  `releases/release-sandstorm.sh` + `install-sandstorm.sh`): it installs Meteor,
+  meteor-spk 0.6.0 and a dev Sandstorm, runs `meteor-spk pack` and attaches the
+  resulting `.spk` to the GitHub Release. Decoupled from the release job so it
+  never blocks it. Experimental in CI — Sandstorm needs unprivileged user
+  namespaces, and signing the `.spk` needs the app private key via the
+  `SANDSTORM_KEYRING` secret; `spk publish` and the scp upload stay manual.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
