@@ -388,9 +388,11 @@ This release adds the following features and fixes:
   for optional / performance / future tier-gated capabilities. ([client + Features](https://github.com/wekan/wekan/commit/b573a05be),
   [platform env](https://github.com/wekan/wekan/commit/afae09a29))
 
-  Lazy mode is opt-in and **experimental**: card counters, WIP limits and the
-  Calendar/Table/Gantt views currently reflect only the cards loaded so far, and
-  open boards must be reloaded after switching modes. Default `all` is unchanged.
+  Lazy mode is opt-in and **experimental**: card counters and WIP limits are
+  accurate (they read a server count for the list's exact selector), but the
+  Calendar/Table/Gantt views and multi-select currently reflect only the cards
+  loaded so far, and open boards must be reloaded after switching modes. Default
+  `all` is unchanged. ([accurate counters + WIP](https://github.com/wekan/wekan/commit/4966c8929))
 
 Thanks to xet7.
 
