@@ -15,3 +15,20 @@ WRITABLE_PATH="$SNAP_COMMON/files"
 mkdir -p "$WRITABLE_PATH/attachments"
 mkdir -p "$WRITABLE_PATH/avatars"
 chmod -R 777 "$WRITABLE_PATH"
+
+# Default NEW installs to FerretDB v1 (SQLite) on all platforms. This hook runs
+# only on a fresh install (upgrades run post-refresh instead), so existing
+# installs are never switched out from under their MongoDB data — bin/config's
+# default stays 'mongodb' for anyone who never picked a backend. Override any
+# time with:  snap set wekan database=mongodb
+if [ -z "$(snapctl get database 2>/dev/null || true)" ]; then
+    # Safety: if a previous install left MongoDB data in place, keep MongoDB so
+    # we never appear to lose it by starting an empty FerretDB instead.
+    if [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; then
+        echo "Existing MongoDB data found in $SNAP_COMMON; defaulting database to mongodb."
+        snapctl set database=mongodb
+    else
+        echo "Fresh install; defaulting database to ferretdb (FerretDB v1, SQLite)."
+        snapctl set database=ferretdb
+    fi
+fi

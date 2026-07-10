@@ -61,10 +61,20 @@ apps:
         command: ./bin/wekan-control
         daemon: simple
         plugs: [network, network-bind]
-        after: [mongodb]
+        after: [mongodb, ferretdb]
 
     mongodb:
         command: ./bin/mongodb-control
+        daemon: simple
+        plugs: [network, network-bind]
+
+    # Alternative MongoDB-compatible database: FerretDB v1 (the wekan/FerretDB
+    # fork) with its embedded SQLite backend. Only one of mongodb / ferretdb runs
+    # at a time; switch with `snap set wekan database=ferretdb` (the configure
+    # hook stops mongod and starts this, and vice-versa). The ferretdb binary is
+    # shipped inside the WeKan bundle (staged to $SNAP/ferretdb by the wekan part).
+    ferretdb:
+        command: ./bin/ferretdb-control
         daemon: simple
         plugs: [network, network-bind]
 

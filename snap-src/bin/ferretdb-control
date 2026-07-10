@@ -1,0 +1,55 @@
+#!/bin/bash
+
+if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
+  export PATH="${PATH/\/snap\/wekan\//\/snap\/$SNAP_INSTANCE_NAME\/}"
+fi
+
+# FerretDB Control Script
+# Starts FerretDB v1 (the wekan/FerretDB fork) with its embedded pure-Go SQLite
+# backend, which speaks the MongoDB wire protocol. It is the MongoDB-compatible
+# alternative database, selected with:  snap set wekan database=ferretdb
+#
+# Only one database runs at a time. This service starts FerretDB only when
+# `database` is set to ferretdb; otherwise it disables itself (mirroring how
+# mongodb-control handles DISABLE_MONGODB). The configure hook flips the two
+# services when the `database` setting changes.
+
+# get wekan/mongo settings
+echo "Reading snap settings..."
+source $SNAP/bin/wekan-read-settings
+
+if [ "ferretdb" != "${DATABASE}" ]; then
+    echo "database is '${DATABASE:-mongodb}', not 'ferretdb'. Disabling ferretdb service."
+    snapctl stop --disable ${SNAP_NAME}.ferretdb 2>/dev/null || true
+    exit 0
+fi
+
+# The FerretDB binary is shipped inside the WeKan bundle and staged to the snap
+# root by the wekan part (bundle/ferretdb -> $SNAP/ferretdb).
+FERRETDB_BIN="$SNAP/ferretdb"
+if [ ! -x "$FERRETDB_BIN" ]; then
+    echo "ERROR: FerretDB binary not found or not executable at $FERRETDB_BIN"
+    exit 1
+fi
+
+# FerretDB binds the same address WeKan's MONGO_URL points at (wekan-control
+# builds mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan), so no other setting
+# needs to change to switch backends.
+BIND_IP="${MONGODB_BIND_IP:-127.0.0.1}"
+PORT="${MONGODB_PORT:-27019}"
+
+# SQLite data lives in SNAP_COMMON so it survives snap refreshes.
+SQLITE_DIR="${SNAP_COMMON}/ferretdb-sqlite"
+mkdir -p "$SQLITE_DIR"
+
+# Telemetry off: --telemetry=disable both disables AND locks it (FerretDB won't
+# let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
+export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
+
+echo "Starting FerretDB v1 (SQLite) on ${BIND_IP}:${PORT} ..."
+echo "  SQLite data dir: ${SQLITE_DIR}"
+exec "$FERRETDB_BIN" \
+    --handler=sqlite \
+    --sqlite-url="file:${SQLITE_DIR}/" \
+    --listen-addr="${BIND_IP}:${PORT}" \
+    --telemetry=disable

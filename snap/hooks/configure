@@ -23,12 +23,25 @@ else
     snapctl stop --disable ${SNAP_NAME}.caddy 2>&1 || true
 fi
 
-value=$(snapctl get disable-mongodb)
-if [ "$value" = "true" ]; then
+# Database backend selection: mongodb (default) or ferretdb (FerretDB v1, SQLite).
+# Only one runs at a time; both bind the same port, so WeKan's MONGO_URL is
+# unchanged either way.
+database=$(snapctl get database)
+disable_mongodb=$(snapctl get disable-mongodb)
+if [ "$database" = "ferretdb" ]; then
+    # FerretDB selected: stop mongod, start FerretDB.
     snapctl stop --disable ${SNAP_NAME}.mongodb 2>&1 || true
+    snapctl start --enable ${SNAP_NAME}.ferretdb 2>&1 || true
+    snapctl restart ${SNAP_NAME}.ferretdb 2>&1 || true
 else
-    snapctl start --enable ${SNAP_NAME}.mongodb 2>&1 || true
-    snapctl restart ${SNAP_NAME}.mongodb 2>&1 || true
+    # MongoDB selected (default): stop FerretDB; honor disable-mongodb for mongod.
+    snapctl stop --disable ${SNAP_NAME}.ferretdb 2>&1 || true
+    if [ "$disable_mongodb" = "true" ]; then
+        snapctl stop --disable ${SNAP_NAME}.mongodb 2>&1 || true
+    else
+        snapctl start --enable ${SNAP_NAME}.mongodb 2>&1 || true
+        snapctl restart ${SNAP_NAME}.mongodb 2>&1 || true
+    fi
 fi
 
 # restart all services

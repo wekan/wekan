@@ -29,6 +29,27 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
+# If the FerretDB backend is selected, MongoDB must not run (FerretDB binds the
+# same port). Disable this service; ferretdb-control starts FerretDB instead.
+if [ "ferretdb" == "${DATABASE}" ]; then
+    echo "database is set to ferretdb. Stopping mongodb service."
+    snapctl stop --disable ${SNAP_NAME}.mongodb 2>/dev/null || true
+    exit 0
+fi
+
+# Disable mongosh usage analytics for every mongosh call below. mongosh phones
+# home anonymized analytics by default; the snap is strictly confined so the
+# global /etc/mongosh.conf is the host's (not ours to set) — instead point HOME
+# at a writable snap dir and persist "telemetry disabled" there once via the
+# official disableTelemetry() command. mongod itself has no phone-home telemetry
+# (Cloud Free Monitoring is opt-in and stays off unless a user enables it).
+export HOME="${SNAP_COMMON}/mongosh-home"
+mkdir -p "$HOME"
+if [ ! -f "$HOME/.telemetry-disabled" ]; then
+    "$SNAP/bin/mongosh" --nodb --quiet --eval "disableTelemetry()" >/dev/null 2>&1 || true
+    touch "$HOME/.telemetry-disabled"
+fi
+
 # make sure we have set minimum env variables for locale
 if [ -z "${LANG}" ]; then
     export LANG=en_US.UTF-8

@@ -20,7 +20,9 @@ elif [ "nill" != "$MONGODB_BIND_UNIX_SOCKET" ] && [ "x" != "x$MONGODB_BIND_UNIX_
 else
     [ "x" == "x$MONGODB_BIND_IP" ] && MONGODB_BIND_IP="127.0.0.1"
     export MONGO_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan"
-    if [ -z "$MONGO_OPLOG_URL" ]; then
+    # FerretDB v1 has no replica-set oplog, so only advertise MONGO_OPLOG_URL for
+    # real MongoDB; with FerretDB, WeKan falls back to polling automatically.
+    if [ -z "$MONGO_OPLOG_URL" ] && [ "ferretdb" != "${DATABASE}" ]; then
         export MONGO_OPLOG_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/local?replicaSet=rs0"
     fi
 fi
@@ -37,21 +39,43 @@ echo -e "Using WRITABLE_PATH: $WRITABLE_PATH"
 
 echo -e "MONGO_URL=$MONGO_URL"
 
-# Wait for MongoDB replica set primary to be ready before starting WeKan.
-# With changeStreams, Meteor requires the replica set primary to be elected.
-# Large databases can take minutes to replay the WiredTiger journal after a snap update.
-if [ "true" != "${DISABLE_MONGODB}" ]; then
+# mongosh (used for the readiness checks below) phones home anonymized analytics
+# by default; persist "telemetry disabled" into a writable snap dir once (the snap
+# is confined, so the global /etc/mongosh.conf is the host's, not ours). Use an
+# inline HOME for the checks so the WeKan node process is unaffected.
+MONGOSH_HOME="${SNAP_COMMON}/mongosh-home"
+mkdir -p "$MONGOSH_HOME"
+if [ ! -f "$MONGOSH_HOME/.telemetry-disabled" ]; then
+    HOME="$MONGOSH_HOME" "$SNAP/bin/mongosh" --nodb --quiet --eval "disableTelemetry()" >/dev/null 2>&1 || true
+    touch "$MONGOSH_HOME/.telemetry-disabled"
+fi
+MONGO_BIN="$SNAP/bin/mongosh"
+MONGO_PORT="${MONGODB_PORT:-27019}"
+MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
+
+if [ "ferretdb" = "${DATABASE}" ]; then
+    # FerretDB v1 has no replica set / oplog — just wait until it accepts
+    # connections, then start WeKan (which uses polling for reactivity).
+    echo "Waiting for FerretDB to accept connections on ${MONGO_HOST}:${MONGO_PORT}..."
+    until HOME="$MONGOSH_HOME" "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
+        --eval "try { quit(db.adminCommand({ping:1}).ok === 1 ? 0 : 1) } catch(e) { quit(1) }" \
+        >/dev/null 2>&1; do
+        echo "FerretDB not ready yet, retrying in 5 seconds..."
+        sleep 5
+    done
+    echo "FerretDB is ready."
+elif [ "true" != "${DISABLE_MONGODB}" ]; then
+    # Wait for MongoDB replica set primary to be ready before starting WeKan.
+    # With changeStreams, Meteor requires the replica set primary to be elected.
+    # Large databases can take minutes to replay the WiredTiger journal after a snap update.
     echo "Waiting for MongoDB replica set primary..."
-    MONGO_BIN="$SNAP/bin/mongosh"
-    MONGO_PORT="${MONGODB_PORT:-27019}"
-    MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
     # After WEKAN_DB_WAIT_TIMEOUT seconds (default 120) print the English upgrade
     # guidance once, then keep retrying (large databases can take minutes to
     # replay the WiredTiger journal after a snap update).
     WEKAN_DB_WAIT_TIMEOUT=${WEKAN_DB_WAIT_TIMEOUT:-120}
     db_waited=0
     db_hint_shown=false
-    until "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
+    until HOME="$MONGOSH_HOME" "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
         --eval "try { quit(rs.status().ok === 1 && rs.isMaster().ismaster ? 0 : 1) } catch(e) { quit(1) }" \
         >/dev/null 2>&1; do
         if [ "$db_hint_shown" != "true" ] && [ "$db_waited" -ge "$WEKAN_DB_WAIT_TIMEOUT" ]; then
