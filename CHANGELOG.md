@@ -98,7 +98,7 @@ them up next.
 
 This release adds the following features and fixes:
 
-- **[Fix rebuild-all.yml s390x build; add bundled FerretDB v1 for ppc64le, s390x, riscv64 and to the Docker image](https://github.com/wekan/wekan/commit/155286f490d842127eb6357771580394e88abae2)**:
+- **[Fix rebuild-all.yml s390x build; add bundled FerretDB v1 for ppc64le, s390x, riscv64 and to the Docker image](https://github.com/wekan/wekan/commit/0360ca1583b4b17b465ded20c4fd7560004aee47)**:
 
   The extra-arch bundle build ran `node:24-slim` under QEMU, but the official
   `node:24` image publishes no `linux/s390x` manifest (only amd64/arm64/ppc64le),
@@ -120,7 +120,7 @@ This release adds the following features and fixes:
   still not built: there is no Node.js 24 build for it anywhere, so nothing could
   run WeKan there regardless of RAM.
 
-- **[Snap: choose MongoDB or FerretDB v1 with "snap set wekan database=ferretdb"; FerretDB default for new installs; disable mongosh telemetry](https://github.com/wekan/wekan/commit/c9e9d6d7b6464eca8d26f8e0d352c25004e2794a)**:
+- **[Snap: choose MongoDB or FerretDB v1 with "snap set wekan database=ferretdb"; FerretDB default for new installs; disable mongosh telemetry](https://github.com/wekan/wekan/commit/598aa8dfa1cc406243e0db681573093d9db7783f)**:
 
   The WeKan snap gains a `database` setting (`mongodb` or `ferretdb`). A new
   `ferretdb` service runs FerretDB v1 (SQLite) on the same port MongoDB would
@@ -139,7 +139,7 @@ This release adds the following features and fixes:
   several times; it is now disabled so nothing phones home. mongod itself has no
   phone-home telemetry (Cloud Free Monitoring is opt-in and stays off).
 
-- **[Admin Panel / Version: show database type, version, commit, storage engine and reactivity mode](https://github.com/wekan/wekan/commit/6b798fbe1cf55474a379a9ed27fb722edab50fec)**:
+- **[Admin Panel / Version: show database type, version, commit, storage engine and reactivity mode](https://github.com/wekan/wekan/commit/d5c69e02595c9a4caf597496a4f1572064142b9f)**:
 
   Admin Panel / Version now shows whether WeKan is using MongoDB or FerretDB v1
   (SQLite), the MongoDB-compatible version and the server git commit, FerretDB's
@@ -147,7 +147,7 @@ This release adds the following features and fixes:
   reactivity mechanism is currently in use — changeStreams / oplog / polling
   (FerretDB has no oplog, so it uses polling).
 
-- **[Standalone ferretdb.zip for all platforms, and rebuild-all.yml uses the prebuilt one from wekan/FerretDB releases](https://github.com/wekan/wekan/commit/7ce07467c07d262e056364392a4e4cc1f11f02ee)**:
+- **[Standalone ferretdb.zip for all platforms, and rebuild-all.yml uses the prebuilt one from wekan/FerretDB releases](https://github.com/wekan/wekan/commit/3824066f7fb88acd66bc1f4c70350e8516f5f00b)**:
 
   FerretDB v1 (the wekan/FerretDB fork, pure-Go SQLite backend, CGO off, no QEMU)
   is now cross-compiled for every platform Go and modernc.org/sqlite support — far
@@ -165,7 +165,7 @@ This release adds the following features and fixes:
   snap, including the Windows and macOS bundles) embeds its per-arch binary from
   that one source. ferretdb.zip is not re-attached to the WeKan releases.
 
-- **[Fix #6445: dynamic-import chunks 404 under a sub-path (duplicated build-chunks/build-chunks/)](https://github.com/wekan/wekan/commit/473896e904431b1b6f2b0abc55d8cc85e30e44b2)**:
+- **[Fix #6445: dynamic-import chunks 404 under a sub-path (duplicated build-chunks/build-chunks/)](https://github.com/wekan/wekan/commit/dbca7cd72d4f9791ba109dc25d359cce1e849e3a)**:
 
   Under a sub-path deployment (ROOT_URL like `https://host/wekan`, usually behind
   a reverse proxy that strips the prefix), language selection and other
@@ -176,7 +176,7 @@ This release adds the following features and fixes:
   so rspack appended a second `build-chunks/`. It now sets the public path to just
   `<sub-path>/` and lets rspack add `build-chunks/` itself.
 
-- **[Add snapcraft-core24.yaml so the newest WeKan can be published to the Snap Stable channel](https://github.com/wekan/wekan/commit/64d3709e2e4456576721fed9ae32e0c115951025)**:
+- **[Add snapcraft-core24.yaml so the newest WeKan can be published to the Snap Stable channel](https://github.com/wekan/wekan/commit/3a968052b96d4778797e175ad17205260535cbbe)**:
 
   The main `snapcraft.yaml` uses `base: core26`, which (until core26 is released)
   needs `build-base: devel` + `grade: devel`, so it can only go to Snap Beta/Edge.
@@ -185,7 +185,7 @@ This release adds the following features and fixes:
   stable`), so the Snap Stable channel can finally be updated from the old 6.09
   snap. Only base/build-base/grade differ.
 
-- **[Self-contained release bundles: bundle Node.js + FerretDB + start-wekan.{sh,bat}](https://github.com/wekan/wekan/commit/4434cf57ff64e8a530580c2c8fb161cad58c3388)**:
+- **[Self-contained release bundles: bundle Node.js + FerretDB + start-wekan.{sh,bat}](https://github.com/wekan/wekan/commit/bfb3fd246bc348900fa1fbda732dcb80afb027d1)**:
 
   Each `wekan-<version>-<arch>.zip` is now fully offline. Its `bundle/` directory
   contains the WeKan server, a Node.js binary for that platform, a FerretDB v1
@@ -196,7 +196,7 @@ This release adds the following features and fixes:
   needed. The Docker image and snap, which have their own Node and entrypoint,
   strip the redundant bundled Node + launchers to stay small.
 
-- **[Standalone sandstorm.yml workflow to build + attach the .spk (Sandstorm removed from release-all.yml)](https://github.com/wekan/wekan/commit/6aaae9f03b541e051a9102e0400c338ea549fa2b)**:
+- **[Standalone sandstorm.yml workflow to build + attach the .spk (Sandstorm removed from release-all.yml)](https://github.com/wekan/wekan/commit/5757cfc8ca4f0757206e668f80f9b12d91bafb27)**:
 
   Sandstorm packaging (mirroring `releases/release-sandstorm.sh` +
   `install-sandstorm.sh`: installs Meteor, meteor-spk 0.6.0 and a dev Sandstorm,
@@ -209,7 +209,7 @@ This release adds the following features and fixes:
   needs unprivileged user namespaces, and signing the `.spk` needs the app private
   key via the `SANDSTORM_KEYRING` secret; `spk publish` / scp upload stay manual.
 
-- **[Migration: resumable progress in WRITABLE_PATH + compact the old MongoDB after success](https://github.com/wekan/wekan/commit/477ee907a5d794d00986fa5dadce775bc3e09fb4)**:
+- **[Migration: resumable progress in WRITABLE_PATH + compact the old MongoDB after success](https://github.com/wekan/wekan/commit/4c630d4ba87b3a6e582d0898179898416e6e9890)**:
 
   The MongoDB → FerretDB / GridFS → filesystem migrator (used by the Snap and
   Sandstorm migrations) now checkpoints progress to
@@ -221,7 +221,7 @@ This release adds the following features and fixes:
   (best-effort, once). The existing ROOT_URL progress dashboard and disk-space
   checks are kept, and the dashboard is restored from the checkpoint on resume.
 
-- **[Snap: migrate the Caddyfile from Caddy v1 to Caddy v2 format on upgrade](https://github.com/wekan/wekan/commit/3b635b0963c2cddfba9f3b90677fdc5f19214782)**:
+- **[Snap: migrate the Caddyfile from Caddy v1 to Caddy v2 format on upgrade](https://github.com/wekan/wekan/commit/748fd2d391ca3ae187c14c1676c682dbebf49eb8)**:
 
   When upgrading from an old WeKan snap, `$SNAP_COMMON/Caddyfile` may still be in
   Caddy v1 syntax, which Caddy 2 cannot parse (caddy would fail to start).
@@ -233,7 +233,7 @@ This release adds the following features and fixes:
   with `caddy adapt`, and only keeps a valid result — falling back to the shipped
   Caddy 2 template otherwise, so caddy always starts with valid config.
 
-- **[Rename docker-compose-ferretdb.yml to -v2-postgresql.yml and add -v1-sqlite.yml](https://github.com/wekan/wekan/commit/62726454b)**:
+- **[Rename docker-compose-ferretdb.yml to -v2-postgresql.yml and add -v1-sqlite.yml](https://github.com/wekan/wekan/commit/be5ddd77efdd03753acf73feb577ab615da7d3eb)**:
 
   `docker-compose-ferretdb.yml` (FerretDB 2 + PostgreSQL) is renamed to
   `docker-compose-ferretdb-v2-postgresql.yml`, and a new
@@ -246,7 +246,7 @@ This release adds the following features and fixes:
   at FerretDB, `MONGO_OPLOG_URL` is dropped and reactivity is polling, since
   FerretDB has no MongoDB change streams / replica-set oplog).
 
-- **[Snap: one-time MongoDB → FerretDB v1 migration on upgrade, with live progress at ROOT_URL](https://github.com/wekan/wekan/commit/4d2e2a0fee73d1853c31e068553e98f2d3a34a48)**:
+- **[Snap: one-time MongoDB → FerretDB v1 migration on upgrade, with live progress at ROOT_URL](https://github.com/wekan/wekan/commit/6ab29dc81e44c11a3c813d717090e418652b2599)**:
 
   On first boot after upgrading an old MongoDB-based WeKan snap, `mongodb-control`
   hands off to a new `migration-control` before starting mongod. It opens the
@@ -262,7 +262,7 @@ This release adds the following features and fixes:
   6.09/MongoDB-3.2 path needs testing on real 6.09 data; the arm64/MongoDB-7 path
   uses the already-bundled mongod 7.)
 
-- **[Snap: bundle migratemongo (MongoDB 3.2 binaries + old libraries + AVX wrappers) to read 6.09 data](https://github.com/wekan/wekan/commit/b896c6fecee7c7f15c33f6a211b38cee5dab1020)**:
+- **[Snap: bundle migratemongo (MongoDB 3.2 binaries + old libraries + AVX wrappers) to read 6.09 data](https://github.com/wekan/wekan/commit/dd4611e43f09aff2b793eb70b0dfd0138c39e87f)**:
 
   Per docs/Backup/Backup.md and https://github.com/wekan/migratemongo, running the
   old MongoDB tools/server in the snap needs `LC_ALL=C` and their libraries on
@@ -276,7 +276,7 @@ This release adds the following features and fixes:
   `migration-control` now reads the amd64 6.09 MongoDB 3.2 data with that mongod
   (old `LD_LIBRARY_PATH`) and the legacy `mongo` shell (mongosh cannot talk to 3.2).
 
-- **[Snap migration: read MongoDB 3.2 via migratemongo CLI (dump → restore into mongod 7), fix migrator NODE_PATH](https://github.com/wekan/wekan/commit/8271122fa2e63c05900c638a82dcff156c61711a)**:
+- **[Snap migration: read MongoDB 3.2 via migratemongo CLI (dump → restore into mongod 7), fix migrator NODE_PATH](https://github.com/wekan/wekan/commit/b99d21d9f19a867af74166732aaf18c59d52a1d0)**:
 
   The bundled Node MongoDB driver can't connect to a 3.2 server, and no single
   driver version spans 3.2 and MongoDB 7 / FerretDB — so rather than aliasing an
@@ -290,7 +290,7 @@ This release adds the following features and fixes:
   standalone migrator in `$SNAP/bin` could not resolve its `mongodb`/`bson`
   imports — `NODE_PATH` now points at the WeKan bundle's `node_modules`.
 
-- **[Snap migration: only MongoDB 3 migrates (mongo CLI read + Node driver insert), FerretDB SQLite at files/db](https://github.com/wekan/wekan/commit/841ea11c6bcd7e432376cbf19bfb11434a20fee6)**:
+- **[Snap migration: only MongoDB 3 migrates (mongo CLI read + Node driver insert), FerretDB SQLite at files/db](https://github.com/wekan/wekan/commit/02cf16d8c6a8941bbab3e7d07fdc952beb2395d8)**:
 
   Refines the snap migration to the intended design: a **MongoDB 7** database works
   with newest WeKan as-is and is **not** migrated; only the old 6.09 / MongoDB 3.2
@@ -304,7 +304,7 @@ This release adds the following features and fixes:
   (the `files/<name>` layout), across the snap, offline launchers, Docker entrypoint
   and the v1-sqlite compose.
 
-- **[Admin Panel / Attachments: migrate text data between MongoDB and FerretDB v1 (SQLite), both directions](https://github.com/wekan/wekan/commit/95ab3e442833affe0c1452f7660a61977cf92c4c)**:
+- **[Admin Panel / Attachments: migrate text data between MongoDB and FerretDB v1 (SQLite), both directions](https://github.com/wekan/wekan/commit/84fee7b660e365d900e1ac355d97fcccf3debc25)**:
 
   A new "Database migration" section in Admin Panel / Attachments with two buttons:
   migrate text-based data (everything except attachments/avatars, which stay on the
@@ -317,7 +317,7 @@ This release adds the following features and fixes:
   live; afterwards point `MONGO_URL` at the other database and restart (Snap:
   `snap set wekan database=ferretdb` / `=mongodb`). Admin-only.
 
-- **[Admin Panel / Attachments / Backup: scheduled backups streamed to storage, restore + list](https://github.com/wekan/wekan/commit/a2835c53c7338ecbef773fb063f99095482a9182)**:
+- **[Admin Panel / Attachments / Backup: scheduled backups streamed to storage, restore + list](https://github.com/wekan/wekan/commit/c7c8a200ff551f979fe6eeb30266d7c435cd7fa4)**:
 
   A new Backup section in Admin Panel / Attachments. Select any of **Attachments**,
   **Avatars**, **Data** (all text-based collections that are not attachments/avatars)
@@ -333,7 +333,7 @@ This release adds the following features and fixes:
   restore are not exercised end-to-end yet; jszip assembles the whole zip, so very
   large attachment sets use notable memory.)
 
-- **[Backup: switch from jszip to archiver+unzipper for low-memory streaming](https://github.com/wekan/wekan/commit/a291e3a9b)**:
+- **[Backup: switch from jszip to archiver+unzipper for low-memory streaming](https://github.com/wekan/wekan/commit/e39dcd4ebf19c4280cc8f48352e91b547c5ff673)**:
 
   Follow-up to the Backup section above: it no longer holds whole files or the
   whole zip in memory. The backup `.zip` is written with **archiver**, streaming
@@ -344,7 +344,7 @@ This release adds the following features and fixes:
   in 200-doc batches. A board with thousands of cards or a 5 GB attachment now
   backs up and restores with flat memory.
 
-- **[Stream board exports (JSON, CSV/TSV, Excel) with bounded memory](https://github.com/wekan/wekan/commit/d8b6efb10)**:
+- **[Stream board exports (JSON, CSV/TSV, Excel) with bounded memory](https://github.com/wekan/wekan/commit/41cd166358ea40a4517eddd02fe1913c22b7777b)**:
 
   The board export routes used to buffer the whole board in memory: the JSON
   export built one object with every card, comment, activity, checklist and
@@ -358,7 +358,7 @@ This release adds the following features and fixes:
   id→title map. Peak memory stays flat regardless of board size, and the JSON
   output is unchanged so import round-trips.
 
-- **[Export board to HTML .zip: stream to disk and include every card](https://github.com/wekan/wekan/commit/d272f39d3)**:
+- **[Export board to HTML .zip: stream to disk and include every card](https://github.com/wekan/wekan/commit/ae9be62ef31014f5f452d32808c55b96d4e97f54)**:
 
   The HTML export cloned the live DOM and built the whole `.zip` as an in-memory
   blob — but infinite scroll keeps only ~10 cards per list in the DOM, so most
@@ -368,7 +368,7 @@ This release adds the following features and fixes:
   straight to the chosen file via the File System Access API, chunk by chunk with
   backpressure (browsers without the API fall back to the previous blob download).
 
-- **[Lazy card loading for very large boards: CARDS_LOADING=all|lazy + Admin Panel / Features](https://github.com/wekan/wekan/commit/51d7ff889)**:
+- **[Lazy card loading for very large boards: CARDS_LOADING=all|lazy + Admin Panel / Features](https://github.com/wekan/wekan/commit/6f7ad270d124bf961b811743d1b78abf24f8f7e5)**:
 
   A board's `board` publication normally ships **every** non-archived card (with
   full fields, comments, attachments and checklists) into each viewer's minimongo.
@@ -385,14 +385,48 @@ This release adds the following features and fixes:
   This is set by the `CARDS_LOADING` env var (exposed in `docker-compose*.yml`,
   the bundle `start-wekan.sh`/`.bat`, and `snap set wekan cards-loading=lazy`) and
   also at runtime in a **new Admin Panel / Features** section — the intended home
-  for optional / performance / future tier-gated capabilities. ([client + Features](https://github.com/wekan/wekan/commit/b573a05be),
-  [platform env](https://github.com/wekan/wekan/commit/afae09a29))
+  for optional / performance / future tier-gated capabilities. ([client + Features](https://github.com/wekan/wekan/commit/09805a8a9185c41c84b2596e2854f209aecf2ac0),
+  [platform env](https://github.com/wekan/wekan/commit/f0d25a24314fe4f11bc01933fd6ebbac0d7fea25))
 
   Lazy mode is opt-in and **experimental**: card counters and WIP limits are
   accurate (they read a server count for the list's exact selector), but the
   Calendar/Table/Gantt views and multi-select currently reflect only the cards
   loaded so far, and open boards must be reloaded after switching modes. Default
-  `all` is unchanged. ([accurate counters + WIP](https://github.com/wekan/wekan/commit/4966c8929))
+  `all` is unchanged. ([accurate counters + WIP](https://github.com/wekan/wekan/commit/7d5f29e11479be6a3b8393c8817b30620e99a068))
+
+- **[Fix Transifex push: remove duplicate database-migration i18n keys](https://github.com/wekan/wekan/commit/4cbefed339d61b9ec10c1d1227c0b201d060dc77)**:
+
+  `en.i18n.json` had `database-migration` and `database-migration-description`
+  defined twice, so the Transifex source push failed with "Duplicate string key".
+  The later, unused copies ("Database Migration" / "Updating database structure…")
+  were removed, keeping the values the Admin Panel / Attachments migration UI
+  actually renders. JSON now parses with unique keys.
+
+- **[Finnish translations for the newest features](https://github.com/wekan/wekan/commit/43006f9025fd8770c59334189af6bb3b6786226c)**:
+
+  Translated the remaining English strings of the Upcoming features into Finnish
+  (`fi.i18n.json`), matching existing terminology: Admin Panel / Version
+  (database type, FerretDB/MongoDB version + commit, reactivity mode), Attachments
+  / Database migration, Features (card loading all/lazy), and Backup (schedule,
+  storage, restore, list). 44 keys; product names/acronyms kept as-is.
+
+- **[Unit + negative tests for the newest features](https://github.com/wekan/wekan/commit/d2ec3ee400192b65f87edc29dbe6c12eb0cd0401)**:
+
+  Extract the pure, security-/correctness-critical logic of the recent features
+  into Meteor-free `models/lib/*` modules (shared by production and tests) and add
+  plain-Node tests with positive and negative cases, wired into `test:unit:node`:
+  the windowed-card publication's `$where` selector safety, `CARDS_LOADING` mode
+  resolution + window-count id, the JSON export's streaming base64 chunker, and
+  the backup files-root + schedule-text helpers. 41 assertions, all passing.
+
+- **[docs: Design/Multiverse/Alternative-Architectures.md](https://github.com/wekan/wekan/commit/9828081c762fe180f01f1195351c0b1c2b95d59c)**:
+
+  Document which CPU architectures WeKan can run on and why (the limit is Node.js,
+  not FerretDB): the Node 24 / MongoDB / FerretDB v1 matrix, why armhf/armv7l/i386
+  are unsupported (Node dropped 32-bit) and loong64 is not buildable in CI (no
+  QEMU emulation / base image), the JavaScript-engine alternatives (Deno/Bun cover
+  fewer arches; QuickJS/JSC/SpiderMonkey/JVM run on 32-bit but cannot run Meteor),
+  and server-rewrite options (Go recommended, QuickJS niche, Tcl/Tk a poor fit).
 
 Thanks to xet7.
 
