@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 import { Readable } from 'stream';
-import archiver from 'archiver';
+import { ZipArchive } from 'archiver';
 import unzipper from 'unzipper';
 const { filesRootFrom, scheduleText } = require('/models/lib/backupPaths');
 
@@ -131,7 +131,9 @@ async function doBackup(opts, storageName) {
     const stamp = `${t.y}_${t.mo}_${t.da}-${t.h}_${t.mi}_${t.s}`;
     const key = `backup/${t.y}/${t.mo}/${t.da}/${t.h}_${t.mi}_${t.s}/backup.zip`;
 
-    const archive = archiver('zip', { zlib: { level: 6 } });
+    // archiver@8 is ESM: use the ZipArchive class instead of the old
+    // archiver('zip', …) factory (which no longer exists).
+    const archive = new ZipArchive({ zlib: { level: 6 } });
     archive.on('warning', err => { if (err && err.code !== 'ENOENT') setProgress({ error: String(err.message || err) }); });
 
     // Attach the destination BEFORE finalizing so nothing is buffered in RAM.
