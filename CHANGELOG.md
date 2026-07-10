@@ -333,6 +333,41 @@ This release adds the following features and fixes:
   restore are not exercised end-to-end yet; jszip assembles the whole zip, so very
   large attachment sets use notable memory.)
 
+- **[Backup: switch from jszip to archiver+unzipper for low-memory streaming](https://github.com/wekan/wekan/commit/a291e3a9b)**:
+
+  Follow-up to the Backup section above: it no longer holds whole files or the
+  whole zip in memory. The backup `.zip` is written with **archiver**, streaming
+  each attachment/avatar straight from disk and each text collection a document at
+  a time from a Mongo cursor as **NDJSON**, piped directly to the destination
+  (filesystem or S3/Azure/GCS streaming upload). Restore uses **unzipper**: each
+  file entry is piped to disk and each NDJSON data entry is applied line-by-line
+  in 200-doc batches. A board with thousands of cards or a 5 GB attachment now
+  backs up and restores with flat memory.
+
+- **[Stream board exports (JSON, CSV/TSV, Excel) with bounded memory](https://github.com/wekan/wekan/commit/d8b6efb10)**:
+
+  The board export routes used to buffer the whole board in memory: the JSON
+  export built one object with every card, comment, activity, checklist and
+  base64 attachment; CSV called that same builder; Excel additionally loaded data
+  it never renders and did O(n²) `find()` lookups. On large boards this peaked at
+  gigabytes and could exceed V8's max string length. Now the JSON export writes
+  the document straight to the response a card at a time from raw cursors
+  (attachments base64-encoded in aligned chunks), CSV streams one row per card
+  keeping only the small lookup tables in memory, and Excel uses the exceljs
+  streaming `WorkbookWriter`, committing each row and resolving card titles via an
+  id→title map. Peak memory stays flat regardless of board size, and the JSON
+  output is unchanged so import round-trips.
+
+- **[Export board to HTML .zip: stream to disk and include every card](https://github.com/wekan/wekan/commit/d272f39d3)**:
+
+  The HTML export cloned the live DOM and built the whole `.zip` as an in-memory
+  blob — but infinite scroll keeps only ~10 cards per list in the DOM, so most
+  cards were missing, and the archive was buffered whole in browser RAM. Every
+  list's card limit is now lifted so the entire board renders before the
+  snapshot, and the zip is written with JSZip's `generateInternalStream` piped
+  straight to the chosen file via the File System Access API, chunk by chunk with
+  backpressure (browsers without the API fall back to the previous blob download).
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
