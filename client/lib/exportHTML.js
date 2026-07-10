@@ -18,6 +18,84 @@ window.ExportHtml = Popup => {
     }
   };
 
+  // The board is rendered with infinite scroll — each list only keeps ~10 cards
+  // in the DOM (client/components/lists/listBody.js). A naive DOM-clone export
+  // would therefore drop every card past the fold. Before cloning we lift every
+  // list's `cardlimit` so the whole board renders, then wait for Blaze to flush.
+  const expandAllCardsForExport = async () => {
+    let changed = false;
+    Array.from(document.querySelectorAll('.list-body')).forEach(el => {
+      try {
+        let view = Blaze.getView(el);
+        while (view) {
+          if (view.template && view.template.viewName === 'Template.listBody' && view.templateInstance) {
+            const inst = view.templateInstance();
+            if (inst && inst.cardlimit && inst.cardlimit.get() < 1e6) {
+              inst.cardlimit.set(1e6); // render all cards in this list
+              changed = true;
+            }
+            break;
+          }
+          view = view.parentView;
+        }
+      } catch (e) { /* best effort per list */ }
+    });
+    if (changed) {
+      // Let the reactive re-render settle before we snapshot the DOM.
+      await new Promise(resolve => Tracker.afterFlush(() => setTimeout(resolve, 800)));
+    }
+  };
+
+  // Write the zip to disk WITHOUT holding the whole archive in memory. When the
+  // browser supports the File System Access API we pipe JSZip's internal stream
+  // straight to the chosen file, chunk by chunk, applying backpressure so a
+  // board with many attachments/covers never buffers the entire .zip in RAM.
+  // Older browsers fall back to the previous in-memory blob download.
+  const saveZipStreaming = async (zip, filename) => {
+    const genOpts = {
+      type: 'uint8array',
+      streamFiles: true,
+      compression: 'DEFLATE',
+      compressionOptions: { level: 6 },
+    };
+    if (typeof window.showSaveFilePicker === 'function') {
+      let handle = null;
+      try {
+        handle = await window.showSaveFilePicker({
+          suggestedName: filename,
+          types: [{ description: 'Zip archive', accept: { 'application/zip': ['.zip'] } }],
+        });
+      } catch (e) {
+        // User dismissed the save dialog — nothing to do.
+        if (e && e.name === 'AbortError') return;
+        handle = null; // any other failure → fall back to blob download
+      }
+      if (handle) {
+        const writable = await handle.createWritable();
+        await new Promise((resolve, reject) => {
+          const helper = zip.generateInternalStream(genOpts);
+          helper
+            .on('data', data => {
+              // Pause the zip stream until this chunk is flushed to disk.
+              helper.pause();
+              writable.write(data).then(() => helper.resume(), reject);
+            })
+            .on('error', reject)
+            .on('end', () => { writable.close().then(resolve, reject); })
+            .resume();
+        });
+        return;
+      }
+    }
+    // Fallback: build the blob in memory (older browsers only).
+    const content = await zip.generateAsync({
+      type: 'blob',
+      compression: 'DEFLATE',
+      compressionOptions: { level: 6 },
+    });
+    saveAs(content, filename);
+  };
+
   const getPageHtmlString = (clonedElement = null) => {
     const element = clonedElement || window.document.querySelector('html');
     return `<!doctype html>${element.outerHTML}`;
@@ -526,6 +604,10 @@ body { font-family: sans-serif !important; }
     const zipFilename = boardTitle || boardSlug;
     const zipDirName = zipFilename; // Directory name inside the ZIP
 
+    // Render EVERY card first (infinite scroll otherwise leaves most cards out
+    // of the DOM), then snapshot.
+    await expandAllCardsForExport();
+
     // Clone the HTML element to process for export without modifying live DOM
     const htmlElement = window.document.querySelector('html');
     const clonedHtmlElement = htmlElement.cloneNode(true);
@@ -549,8 +631,8 @@ body { font-family: sans-serif !important; }
 
     addBoardHTMLToZip(boardSlug, zip, clonedHtmlElement, zipDirName);
 
-    const content = await zip.generateAsync({ type: 'blob' });
-    saveAs(content, `${zipFilename}.zip`);
+    // Stream the .zip straight to disk (low memory) with a blob fallback.
+    await saveZipStreaming(zip, `${zipFilename}.zip`);
     // No page reload - impersonation session is preserved!
   };
 };
