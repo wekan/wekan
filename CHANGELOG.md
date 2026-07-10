@@ -301,6 +301,19 @@ This release adds the following features and fixes:
   (the `files/<name>` layout), across the snap, offline launchers, Docker entrypoint
   and the v1-sqlite compose.
 
+- **[Admin Panel / Attachments: migrate text data between MongoDB and FerretDB v1 (SQLite), both directions](https://github.com/wekan/wekan/commit/95ab3e442833affe0c1452f7660a61977cf92c4c)**:
+
+  A new "Database migration" section in Admin Panel / Attachments with two buttons:
+  migrate text-based data (everything except attachments/avatars, which stay on the
+  filesystem) **to FerretDB v1 (SQLite)** or **back to MongoDB**. WeKan is connected
+  to one database at a time, so the server opens a second driver connection to the
+  OTHER database (both speak the MongoDB wire protocol) and copies the text
+  collections into it, upserting by `_id` (idempotent). The target is
+  `WEKAN_FERRETDB_URL` (default `mongodb://127.0.0.1:27018/wekan`) or
+  `WEKAN_MONGODB_URL` (default `:27019`); both must be running. Progress is shown
+  live; afterwards point `MONGO_URL` at the other database and restart (Snap:
+  `snap set wekan database=ferretdb` / `=mongodb`). Admin-only.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
