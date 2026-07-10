@@ -196,15 +196,18 @@ This release adds the following features and fixes:
   needed. The Docker image and snap, which have their own Node and entrypoint,
   strip the redundant bundled Node + launchers to stay small.
 
-- **[release-all.yml: add a build-sandstorm job that packs and attaches wekan-<version>.spk](https://github.com/wekan/wekan/commit/dbaae02ae7a7c40683b81b2942dad10060383d7b)**:
+- **[Standalone sandstorm.yml workflow to build + attach the .spk (Sandstorm removed from release-all.yml)](https://github.com/wekan/wekan/commit/6aaae9f03b541e051a9102e0400c338ea549fa2b)**:
 
-  Adds Sandstorm packaging to the release workflow (mirroring
-  `releases/release-sandstorm.sh` + `install-sandstorm.sh`): it installs Meteor,
-  meteor-spk 0.6.0 and a dev Sandstorm, runs `meteor-spk pack` and attaches the
-  resulting `.spk` to the GitHub Release. Decoupled from the release job so it
-  never blocks it. Experimental in CI — Sandstorm needs unprivileged user
-  namespaces, and signing the `.spk` needs the app private key via the
-  `SANDSTORM_KEYRING` secret; `spk publish` and the scp upload stay manual.
+  Sandstorm packaging (mirroring `releases/release-sandstorm.sh` +
+  `install-sandstorm.sh`: installs Meteor, meteor-spk 0.6.0 and a dev Sandstorm,
+  runs `meteor-spk pack`) is **not tested well enough yet**, so it no longer runs
+  as part of a full release — the `build-sandstorm` job was removed from
+  `release-all.yml`. Instead a separate, manually-triggered `sandstorm.yml` builds
+  ONLY the `.spk` and uploads it as `wekan-sandstorm-YYYY_MM_DD-HH_MM_SS.spk` to the
+  newest WeKan GitHub Release (plus a workflow artifact), so it can be downloaded
+  and tested for errors without affecting releases. Experimental in CI — Sandstorm
+  needs unprivileged user namespaces, and signing the `.spk` needs the app private
+  key via the `SANDSTORM_KEYRING` secret; `spk publish` / scp upload stay manual.
 
 - **[Migration: resumable progress in WRITABLE_PATH + compact the old MongoDB after success](https://github.com/wekan/wekan/commit/477ee907a5d794d00986fa5dadce775bc3e09fb4)**:
 
@@ -313,6 +316,22 @@ This release adds the following features and fixes:
   `WEKAN_MONGODB_URL` (default `:27019`); both must be running. Progress is shown
   live; afterwards point `MONGO_URL` at the other database and restart (Snap:
   `snap set wekan database=ferretdb` / `=mongodb`). Admin-only.
+
+- **[Admin Panel / Attachments / Backup: scheduled backups streamed to storage, restore + list](https://github.com/wekan/wekan/commit/a2835c53c7338ecbef773fb063f99095482a9182)**:
+
+  A new Backup section in Admin Panel / Attachments. Select any of **Attachments**,
+  **Avatars**, **Data** (all text-based collections that are not attachments/avatars)
+  and a **storage** (filesystem, S3/MinIO, Azure, GCS). "Backup now" streams the
+  `.zip` **directly to the selected storage — no temp file, no extra disk** — as
+  `backup/YYYY/MM/DD/HH_MM_SS/backup.zip` containing
+  `YYYY_MM_DD-HH_MM_SS/{attachments,avatars,data/<collection>.json}` (filesystem pipes
+  to the file; S3 uses `@aws-sdk/lib-storage` streaming, Azure `uploadStream`, GCS
+  `createWriteStream`, with the cloud credentials from the storage tabs). A
+  **scheduler** (off/daily/weekly/monthly + time/day) runs backups via synced-cron.
+  **List backups** shows a table (storage, datetime, path); pick one and **Restore**
+  with "Add missing data only" or "Replace all data". Admin-only. (Cloud upload and
+  restore are not exercised end-to-end yet; jszip assembles the whole zip, so very
+  large attachment sets use notable memory.)
 
 Thanks to xet7.
 
