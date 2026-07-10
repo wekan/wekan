@@ -243,6 +243,22 @@ This release adds the following features and fixes:
   at FerretDB, `MONGO_OPLOG_URL` is dropped and reactivity is polling, since
   FerretDB has no MongoDB change streams / replica-set oplog).
 
+- **[Snap: one-time MongoDB → FerretDB v1 migration on upgrade, with live progress at ROOT_URL](https://github.com/wekan/wekan/commit/4d2e2a0fee73d1853c31e068553e98f2d3a34a48)**:
+
+  On first boot after upgrading an old MongoDB-based WeKan snap, `mongodb-control`
+  hands off to a new `migration-control` before starting mongod. It opens the
+  existing MongoDB data with the right bundled mongod — **mongod 7 for MongoDB 7
+  data (all arches, including the arm64 snaps already on newest WeKan)**, or a
+  bundled **old mongod 3.2 (amd64 only)** for WeKan 6.09 / MongoDB 3.2 data —
+  starts a temporary FerretDB v1 (SQLite), and runs the migrator, which moves text
+  data to FerretDB and **both CollectionFS GridFS and Meteor-Files GridFS
+  attachments+avatars to the filesystem**, shows a **live progress counter at
+  ROOT_URL**, checkpoints to `$SNAP_COMMON` (resumable), and compacts the old
+  MongoDB when done. It then switches the snap to `database=ferretdb`. Idempotent,
+  resumable, never deletes the source data, only switches on success. (The amd64
+  6.09/MongoDB-3.2 path bundles a 2016 mongod and needs testing on real 6.09 data;
+  the arm64/MongoDB-7 path uses the already-bundled mongod 7.)
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
