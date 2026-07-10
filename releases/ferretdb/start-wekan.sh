@@ -38,6 +38,10 @@ FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
 export PORT="${PORT:-8080}"
 export ROOT_URL="${ROOT_URL:-http://localhost:$PORT}"
 export MONGO_URL="${MONGO_URL:-mongodb://$FERRETDB_LISTEN_ADDR/wekan}"
+# Card loading: 'all' (default, every card into the browser) or 'lazy' (each list
+# loads only the visible cards on demand — for boards with thousands of cards).
+# Also changeable at runtime in Admin Panel / Features.
+export CARDS_LOADING="${CARDS_LOADING:-all}"
 
 # Store attachments and avatars on the filesystem (default), next to the DB.
 mkdir -p "$FILES/attachments" "$FILES/avatars" "$FERRETDB_SQLITE_DIR"

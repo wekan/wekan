@@ -8,6 +8,11 @@
       #---------------------------------------------
       export MONGO_URL='mongodb://127.0.0.1:27017/wekan'
       #---------------------------------------------
+      # Card loading: 'all' (default, every card into the browser) or 'lazy'
+      # (each list loads only visible cards on demand, for very large boards).
+      # Also changeable in Admin Panel / Features.
+      #export CARDS_LOADING=lazy
+      #---------------------------------------------
       # Production: https://example.com/wekan
       # Local: http://localhost:2000
       #export ipaddress=$(ifdata -pa eth0)

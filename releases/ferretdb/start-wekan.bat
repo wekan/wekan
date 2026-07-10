@@ -23,6 +23,10 @@ set "FERRETDB_SQLITE_DIR=%FILES%\db"
 if not defined PORT set "PORT=8080"
 if not defined ROOT_URL set "ROOT_URL=http://localhost:%PORT%"
 if not defined MONGO_URL set "MONGO_URL=mongodb://127.0.0.1:27017/wekan"
+REM  Card loading: "all" (default, every card into the browser) or "lazy" (each
+REM  list loads only the visible cards on demand, for very large boards). Also
+REM  changeable at runtime in Admin Panel / Features.
+if not defined CARDS_LOADING set "CARDS_LOADING=all"
 
 REM Store attachments and avatars on the filesystem (default), next to the DB.
 if not exist "%FILES%\attachments" mkdir "%FILES%\attachments"

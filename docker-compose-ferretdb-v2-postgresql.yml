@@ -230,6 +230,14 @@ services:
       # https://github.com/wekan/wekan/pull/2560
       - RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
+      # ==== CARD LOADING: all (default) or lazy ====
+      # 'all'  = load every card of a board into the browser (default).
+      # 'lazy' = each list loads only the cards currently visible
+      #          (infinite scroll) plus a live count, so boards with
+      #          thousands of cards use less memory/bandwidth.
+      # Also changeable at runtime in Admin Panel / Features.
+      - CARDS_LOADING=all
+      #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518
       - CARD_OPENED_WEBHOOK_ENABLED=false
