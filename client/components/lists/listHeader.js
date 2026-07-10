@@ -8,6 +8,7 @@ import { LIST_COLORS } from '/models/metadata/colors';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import { lazyListCardCount } from '/client/lib/lazyCards';
 
 let listsColors;
 Meteor.startup(() => {
@@ -60,24 +61,33 @@ Template.listHeader.helpers({
       swimlaneId = list.swimlaneId || '';
     }
 
-    const ret = list.cards(swimlaneId).length;
-    return ret;
+    // In lazy mode minimongo holds only the loaded window, so use the accurate
+    // server count for the same selector; fall back to the loaded length.
+    const lazyCount = lazyListCardCount(list, swimlaneId);
+    return lazyCount !== null ? lazyCount : list.cards(swimlaneId).length;
   },
 
   reachedWipLimit() {
     const list = Template.currentData();
-    return (
-      list.getWipLimit('enabled') &&
-      list.getWipLimit('value') <= list.cards().length
-    );
+    const lazyCount = lazyListCardCount(list, undefined);
+    const count = lazyCount !== null ? lazyCount : list.cards().length;
+    return list.getWipLimit('enabled') && list.getWipLimit('value') <= count;
   },
 
   exceededWipLimit() {
     const list = Template.currentData();
-    return (
-      list.getWipLimit('enabled') &&
-      list.getWipLimit('value') < list.cards().length
-    );
+    const lazyCount = lazyListCardCount(list, undefined);
+    const count = lazyCount !== null ? lazyCount : list.cards().length;
+    return list.getWipLimit('enabled') && list.getWipLimit('value') < count;
+  },
+
+  // Accurate whole-list card count (used by the badge visibility, WIP-limit
+  // number and pluralization in the template). In lazy mode `cards.length`
+  // (= list.cards().length) is only the loaded window, so prefer the server count.
+  cardsCountWhole() {
+    const list = Template.currentData();
+    const lazyCount = lazyListCardCount(list, undefined);
+    return lazyCount !== null ? lazyCount : list.cards().length;
   },
 
   showCardsCountForList(count) {
@@ -142,10 +152,9 @@ Template.listHeader.helpers({
 Template.listHeader.onCreated(function () {
   this.reachedWipLimit = function () {
     const list = Template.currentData();
-    return (
-      list.getWipLimit('enabled') &&
-      list.getWipLimit('value') <= list.cards().length
-    );
+    const lazyCount = lazyListCardCount(list, undefined);
+    const count = lazyCount !== null ? lazyCount : list.cards().length;
+    return list.getWipLimit('enabled') && list.getWipLimit('value') <= count;
   };
 });
 
@@ -306,11 +315,10 @@ Template.setWipLimitPopup.events({
   async 'click .js-enable-wip-limit'() {
     const list = Template.currentData();
     // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
-    if (
-      !list.getWipLimit('enabled') &&
-      list.getWipLimit('value') < list.cards().length
-    ) {
-      await list.setWipLimit(list.cards().length);
+    const lazyCount = lazyListCardCount(list, undefined);
+    const count = lazyCount !== null ? lazyCount : list.cards().length;
+    if (!list.getWipLimit('enabled') && list.getWipLimit('value') < count) {
+      await list.setWipLimit(count);
     }
     Meteor.call('enableWipLimit', list._id);
   },

@@ -1849,7 +1849,7 @@
   "cards-loading-all": "All cards (default)",
   "cards-loading-lazy": "Lazy (only visible cards)",
   "cards-loading-description": "How each board loads its cards. All cards: every card is loaded into the browser (simplest, all features work, but a board with thousands of cards sends a lot of data to each viewer). Lazy: each list loads only the cards currently visible (infinite scroll) plus a live count, so very large boards use less memory and bandwidth. Also set by the CARDS_LOADING environment variable.",
-  "cards-loading-lazy-note": "Lazy card loading is experimental: card counters, WIP limits, and the Calendar/Table/Gantt views reflect only the cards loaded so far. Reload open boards after changing this.",
+  "cards-loading-lazy-note": "Lazy card loading is experimental: card counters and WIP limits are accurate, but the Calendar/Table/Gantt views and multi-select reflect only the cards loaded so far. Reload open boards after changing this.",
   "backup": "Backup",
   "backup-description": "Back up Attachments, Avatars and/or Data (all text-based collections that are not attachments or avatars). The .zip is streamed directly to the selected storage — no temporary file — as backup/YYYY/MM/DD/HH_MM_SS/backup.zip, containing YYYY_MM_DD-HH_MM_SS/attachments, /avatars and /data. Cloud storages (S3/MinIO, Azure, GCS) use the credentials configured in their storage tabs.",
   "backup-data": "Data (text)",
