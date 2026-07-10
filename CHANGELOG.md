@@ -206,6 +206,18 @@ This release adds the following features and fixes:
   namespaces, and signing the `.spk` needs the app private key via the
   `SANDSTORM_KEYRING` secret; `spk publish` and the scp upload stay manual.
 
+- **[Migration: resumable progress in WRITABLE_PATH + compact the old MongoDB after success](https://github.com/wekan/wekan/commit/477ee907a5d794d00986fa5dadce775bc3e09fb4)**:
+
+  The MongoDB → FerretDB / GridFS → filesystem migrator (used by the Snap and
+  Sandstorm migrations) now checkpoints progress to
+  `$WRITABLE_PATH/migration-progress.json` after every collection and file phase,
+  so an interrupted migration (snap refresh, Sandstorm grain restart, power loss)
+  **resumes** on restart instead of starting over — skipping collections already
+  copied. Once migration has completed, a later boot reclaims the now-duplicated
+  disk space in the old MongoDB by running `compact` on each source collection
+  (best-effort, once). The existing ROOT_URL progress dashboard and disk-space
+  checks are kept, and the dashboard is restored from the checkpoint on resume.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
