@@ -8,6 +8,10 @@ fi
 source $SNAP/bin/wekan-read-settings
 
 if [ "$CADDY_ENABLED" = "true" ]; then
+    # If upgrading from an old WeKan snap, $SNAP_COMMON/Caddyfile may still be in
+    # Caddy v1 format, which Caddy 2 cannot parse. Migrate it to v2 first (no-op if
+    # already valid v2; backs up + validates + falls back to the shipped template).
+    CADDY="$SNAP/bin/caddy" bash "$SNAP/bin/migrate-caddyfile-v1-to-v2.sh" "$SNAP_COMMON/Caddyfile" || true
     # Use Caddy 2 command format
     # The 'host' option is no longer needed in Caddy 2
     # The 'agree' option is no longer needed as Caddy 2 doesn't prompt for EULA
