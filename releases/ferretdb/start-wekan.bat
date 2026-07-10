@@ -17,15 +17,17 @@ setlocal
 
 set "DIR=%~dp0"
 if not defined WRITABLE_PATH set "WRITABLE_PATH=%DIR%data"
-set "FERRETDB_SQLITE_DIR=%WRITABLE_PATH%\ferretdb-sqlite"
+REM Files layout: <files>\attachments, <files>\avatars, <files>\db (FerretDB SQLite).
+set "FILES=%WRITABLE_PATH%\files"
+set "FERRETDB_SQLITE_DIR=%FILES%\db"
 if not defined PORT set "PORT=8080"
 if not defined ROOT_URL set "ROOT_URL=http://localhost:%PORT%"
 if not defined MONGO_URL set "MONGO_URL=mongodb://127.0.0.1:27017/wekan"
 
-REM Store attachments and avatars on the filesystem (default), under WRITABLE_PATH.
-if not exist "%WRITABLE_PATH%\attachments" mkdir "%WRITABLE_PATH%\attachments"
-if not exist "%WRITABLE_PATH%\avatars"     mkdir "%WRITABLE_PATH%\avatars"
-if not exist "%FERRETDB_SQLITE_DIR%"        mkdir "%FERRETDB_SQLITE_DIR%"
+REM Store attachments and avatars on the filesystem (default), next to the DB.
+if not exist "%FILES%\attachments" mkdir "%FILES%\attachments"
+if not exist "%FILES%\avatars"     mkdir "%FILES%\avatars"
+if not exist "%FERRETDB_SQLITE_DIR%" mkdir "%FERRETDB_SQLITE_DIR%"
 
 REM FerretDB's SQLite URL needs forward slashes.
 set "FERRETDB_SQLITE_URL=file:%FERRETDB_SQLITE_DIR:\=/%/"

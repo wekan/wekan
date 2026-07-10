@@ -57,10 +57,10 @@ services:
           chmod +x "$$BIN"
           rm -f /tmp/ferretdb.zip
         fi
-        mkdir -p /data/sqlite
+        mkdir -p /data/files/db
         exec "$$BIN" \
           --handler=sqlite \
-          --sqlite-url=file:/data/sqlite/ \
+          --sqlite-url=file:/data/files/db/ \
           --listen-addr=0.0.0.0:27017 \
           --telemetry=disable
     volumes:

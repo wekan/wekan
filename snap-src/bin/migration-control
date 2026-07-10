@@ -1,26 +1,29 @@
 #!/bin/bash
 # ─────────────────────────────────────────────────────────────────────────────
-# One-time MongoDB → FerretDB v1 (SQLite) migration for the WeKan snap.
+# One-time MongoDB 3 → FerretDB v1 (SQLite) migration for the WeKan snap.
 #
-# Runs on startup (called by wekan-control) BEFORE WeKan starts. When upgrading
-# an old MongoDB-based WeKan snap to this FerretDB-based one, it:
-#   1. detects existing MongoDB data in $SNAP_COMMON,
-#   2. starts the right bundled mongod to read it — mongod 7 for MongoDB 7 data
-#      (all arches, incl. arm64), or the bundled old mongod 3.x for the amd64
-#      WeKan 6.09 (MongoDB 3.2) data,
-#   3. starts a temporary FerretDB v1 (SQLite),
-#   4. runs migrate-mongodb-to-ferretdb.mjs, which copies text data to FerretDB,
-#      moves attachments/avatars from GridFS to the filesystem, shows progress at
-#      ROOT_URL, checkpoints to $SNAP_COMMON (resumable), and compacts the old
-#      MongoDB when done,
-#   5. switches the snap to `database=ferretdb`.
+# Runs on startup (called by mongodb-control) BEFORE mongod starts. ONLY the old
+# WeKan 6.09 / MongoDB 3.2 (amd64) data needs migrating — a MongoDB 7 database
+# works with newest WeKan as-is and is left untouched.
 #
-# Safe: idempotent (a completion marker short-circuits it), resumable, never
-# deletes the source MongoDB data, and only switches to FerretDB on success.
+# Flow:
+#   1. If mongod 7 can open the existing $SNAP_COMMON data, it is MongoDB 6/7:
+#      no migration — keep MongoDB (just mark the check done and exit).
+#   2. Otherwise it is MongoDB 3.x: start migratemongo's mongod 3.2 to serve it,
+#      start a temporary FerretDB v1 (SQLite at <files>/db), and run the importer
+#      (migrate-mongo3-to-ferretdb.mjs). It reads the source with the legacy mongo
+#      CLI (mongoexport — the modern Node driver can't talk to 3.2) and inserts
+#      into FerretDB with the Node driver: text data streamed directly, and
+#      CollectionFS/Meteor-Files GridFS attachments+avatars extracted straight to
+#      <files>/attachments and <files>/avatars. NO mongodump/mongorestore and no
+#      intermediate MongoDB 7. Progress is shown at ROOT_URL.
+#   3. On success it switches the snap to database=ferretdb.
 #
-# IMPORTANT: This orchestration has NOT been exercised end-to-end against a real
-# 6.09 snap here. In particular, running the 2016-era mongod 3.2 binary on a
-# modern (core24) base may need extra runtime libraries. Test on a copy first.
+# Idempotent (completion marker), never deletes the source MongoDB data, only
+# switches on success.
+#
+# IMPORTANT: the amd64 6.09/MongoDB-3.2 path has NOT been exercised end-to-end
+# against a real 6.09 snap here — test on a copy first.
 # ─────────────────────────────────────────────────────────────────────────────
 set -u
 
@@ -29,49 +32,32 @@ if [[ "${PATH:-}" != *"${SNAP_INSTANCE_NAME:-wekan}"* ]]; then
 fi
 
 MARKER="$SNAP_COMMON/.migration-to-ferretdb-done"
-DBPATH="$SNAP_COMMON"                       # old snap's mongod --dbpath
-SRC_PORT=27099                              # temp source mongod
-TGT_PORT=27098                              # temp target FerretDB
+DBPATH="$SNAP_COMMON"                                  # old snap's mongod --dbpath
+FILES_DIR="$SNAP_COMMON/files"                         # attachments/, avatars/, db/
+SQLITE_DIR="$FILES_DIR/db"                             # FerretDB SQLite lives here
+SRC_PORT=27099                                         # temp source mongod
+TGT_PORT=27098                                         # temp target FerretDB
 NODE="$SNAP/bin/node"
-MIGRATOR="$SNAP/bin/migrate-mongodb-to-ferretdb.mjs"
+IMPORTER="$SNAP/bin/migrate-mongo3-to-ferretdb.mjs"
 FERRETDB="$SNAP/ferretdb"
-SQLITE_DIR="$SNAP_COMMON/ferretdb-sqlite"
 MONGOSH="$SNAP/bin/mongosh"
+MM="$SNAP/migratemongo"                                # MongoDB 3.2 tools (amd64)
+MM_LIB="$MM/lib/x86_64-linux-gnu"                      # old libs for those tools
+LOGF="$SNAP_COMMON/migration-mongod.log"
 
 log() { echo "[migration] $*"; }
 
-# Already migrated, or no tools to migrate with → nothing to do.
-[ -f "$MARKER" ] && { log "already migrated (marker present)."; exit 0; }
-# Only migrate if there is old MongoDB (WiredTiger) data present.
+[ -f "$MARKER" ] && { log "already handled (marker present)."; exit 0; }
 if [ ! -f "$DBPATH/WiredTiger" ] && ! ls "$DBPATH"/collection-*.wt >/dev/null 2>&1; then
   log "no existing MongoDB data in $DBPATH; nothing to migrate."
   touch "$MARKER" 2>/dev/null || true
   exit 0
-fi
-if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$MIGRATOR" ]; then
-  log "ERROR: migration tools missing (ferretdb/node/migrator); leaving MongoDB in place."
-  exit 0   # do not block WeKan; a mongod-based run can still work if configured
 fi
 
 export LC_ALL=C
 # Base library path so the snap's own mongod 7 + mongosh find their libraries
 # (docs/Backup/Backup.md: $SNAP/lib/<arch>-linux-gnu).
 export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:${LD_LIBRARY_PATH:-}"
-
-# The old MongoDB 3.2 binaries, the old libraries they need (libssl/libcrypto
-# 1.0.0, libpng12, libexpat) and the AVX QEMU wrappers come from the migratemongo
-# part (amd64 only): https://github.com/wekan/migratemongo
-MM="$SNAP/migratemongo"
-MM_LIB="$MM/lib/x86_64-linux-gnu"
-
-# ── Pick the mongod that can open the existing data ──────────────────────────
-# mongod 7 (mongosh) opens MongoDB 6/7 data — arm64 always lands here, and so do
-# amd64 snaps already on newest WeKan. For the amd64 WeKan 6.09 (MongoDB 3.2) data
-# mongod 7 refuses to start, so fall back to migratemongo's MongoDB 3.2 mongod
-# with its old libraries and the legacy `mongo` shell (mongosh cannot talk to 3.2).
-LOGF="$SNAP_COMMON/migration-mongod.log"
-SRC_SHELL="$MONGOSH"      # shell used to talk to / shut down the source mongod
-SRC_LDPREFIX=""           # extra LD_LIBRARY_PATH prefix for the old binaries
 
 start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be empty)
   LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" \
@@ -87,99 +73,66 @@ ready_via() {      # $1 = shell binary, $2 = LD_LIBRARY_PATH prefix
   done
   return 1
 }
-stop_source_mongod() {
-  LD_LIBRARY_PATH="${SRC_LDPREFIX:+$SRC_LDPREFIX:}$LD_LIBRARY_PATH" "$SRC_SHELL" \
-      --port "$SRC_PORT" --quiet \
+stop_via() {       # $1 = shell binary, $2 = LD_LIBRARY_PATH prefix
+  LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" --port "$SRC_PORT" --quiet \
       --eval 'db.getSiblingDB("admin").shutdownServer()' >/dev/null 2>&1 || true
   sleep 2
 }
 
-SRC_MONGOD=""
-log "Trying mongod 7 on the existing data ..."
+# ── MongoDB 6/7 data? Then NO migration is needed — keep using MongoDB. ───────
+log "Checking whether mongod 7 can open the existing data ..."
 if start_mongod "$SNAP/bin/mongod" "" && ready_via "$MONGOSH" ""; then
-  SRC_MONGOD="$SNAP/bin/mongod"; SRC_SHELL="$MONGOSH"; SRC_LDPREFIX=""
-  log "mongod 7 opened the data (MongoDB 6/7)."
-else
-  SRC_SHELL="$MONGOSH"; SRC_LDPREFIX=""; stop_source_mongod
-  if [ -x "$MM/bin/mongod" ]; then
-    log "mongod 7 could not open it; trying migratemongo (MongoDB 3.2, amd64) ..."
-    if start_mongod "$MM/bin/mongod" "$MM_LIB" && ready_via "$MM/bin/mongo" "$MM_LIB"; then
-      SRC_MONGOD="$MM/bin/mongod"; SRC_SHELL="$MM/bin/mongo"; SRC_LDPREFIX="$MM_LIB"
-      log "migratemongo mongod opened the data (MongoDB 3.2)."
-    else
-      SRC_SHELL="$MM/bin/mongo"; SRC_LDPREFIX="$MM_LIB"; stop_source_mongod
-    fi
-  fi
+  log "Data is MongoDB 6/7 — no migration needed; keeping MongoDB."
+  stop_via "$MONGOSH" ""
+  touch "$MARKER"
+  exit 0
 fi
+stop_via "$MONGOSH" ""
 
-if [ -z "$SRC_MONGOD" ]; then
-  log "ERROR: could not open the existing MongoDB data with any bundled mongod. See $LOGF ."
-  log "Leaving data in place and NOT switching to FerretDB."
+# ── Otherwise it is MongoDB 3.x: migrate to FerretDB via the migratemongo CLI. ─
+if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER" ]; then
+  log "ERROR: MongoDB 3.x data but migration tools missing"
+  log "  (migratemongo/ferretdb/node/importer). Leaving the MongoDB data in place."
   exit 0
 fi
 
-# ── If the source is MongoDB 3.2, hop it into a temporary MongoDB 7 ───────────
-# The bundled Node MongoDB driver cannot talk to a 3.2 server, so use the old
-# migratemongo mongodump (3.2) to dump the `wekan` database, then the snap's
-# modern mongorestore to load it into a fresh temporary mongod 7 (which the driver
-# CAN talk to). The migrator then reads that mongod 7 exactly like the arm64
-# MongoDB-7 case. Only the amd64 6.09/3.2 path takes this dump→restore hop.
-if [ "$SRC_MONGOD" = "$MM/bin/mongod" ]; then
-  DUMPDIR="$SNAP_COMMON/migration-dump"
-  MONGO7_DBPATH="$SNAP_COMMON/migration-mongo7"
-  rm -rf "$DUMPDIR" "$MONGO7_DBPATH"; mkdir -p "$DUMPDIR" "$MONGO7_DBPATH"
-
-  log "Source is MongoDB 3.2; dumping the 'wekan' database with migratemongo mongodump..."
-  if ! LD_LIBRARY_PATH="$MM_LIB:$LD_LIBRARY_PATH" "$MM/bin/mongodump" \
-        --port "$SRC_PORT" --db wekan --out "$DUMPDIR" >>"$LOGF" 2>&1; then
-    log "ERROR: mongodump of the MongoDB 3.2 data failed. See $LOGF ."
-    stop_source_mongod; exit 0
-  fi
-  stop_source_mongod          # done with the 3.2 server
-
-  log "Loading the dump into a temporary MongoDB 7 ..."
-  "$SNAP/bin/mongod" --dbpath "$MONGO7_DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
-       --logpath "$LOGF" --logappend --fork >/dev/null 2>&1
-  SRC_SHELL="$MONGOSH"; SRC_LDPREFIX=""      # SRC_PORT is now a mongod 7
-  if ! ready_via "$MONGOSH" ""; then
-    log "ERROR: temporary MongoDB 7 did not start. See $LOGF ."; exit 0
-  fi
-  if ! "$SNAP/bin/mongorestore" --port "$SRC_PORT" --noIndexRestore "$DUMPDIR" >>"$LOGF" 2>&1; then
-    log "ERROR: mongorestore into MongoDB 7 failed. See $LOGF ."; stop_source_mongod; exit 0
-  fi
-  rm -rf "$DUMPDIR"
-  log "Dump restored into MongoDB 7; the migrator will read it."
+log "Data is MongoDB 3.x; starting migratemongo mongod 3.2 to read it ..."
+if ! start_mongod "$MM/bin/mongod" "$MM_LIB" || ! ready_via "$MM/bin/mongo" "$MM_LIB"; then
+  log "ERROR: could not start migratemongo mongod on the MongoDB 3.x data. See $LOGF ."
+  stop_via "$MM/bin/mongo" "$MM_LIB"
+  exit 0
 fi
 
-# ── Start a temporary FerretDB (SQLite) as the migration target ──────────────
+# Temporary FerretDB v1 (SQLite at <files>/db) as the migration target.
 mkdir -p "$SQLITE_DIR"
 export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
 "$FERRETDB" --handler=sqlite --sqlite-url="file:$SQLITE_DIR/" \
             --listen-addr="127.0.0.1:$TGT_PORT" --telemetry=disable \
             >"$SNAP_COMMON/migration-ferretdb.log" 2>&1 &
-FERRET_PID=$!
-trap 'kill "$FERRET_PID" 2>/dev/null || true; stop_source_mongod' EXIT INT TERM
+FPID=$!
+trap 'kill "$FPID" 2>/dev/null || true; stop_via "$MM/bin/mongo" "$MM_LIB"' EXIT INT TERM
 
-# ── Run the migrator (progress served at ROOT_URL / PORT) ────────────────────
 WEKAN_PORT="${PORT:-8080}"
-log "Migrating MongoDB → FerretDB. Progress at ${ROOT_URL:-http://localhost:$WEKAN_PORT}"
-# NODE_PATH points at the WeKan bundle's node_modules so the standalone migrator
-# script can resolve its `mongodb` (driver) and `bson` imports inside the snap.
+log "Migrating MongoDB 3 → FerretDB (CLI read + driver insert). Progress at ${ROOT_URL:-http://localhost:$WEKAN_PORT}"
+# NODE_PATH lets the standalone importer resolve its `mongodb`/`bson` imports from
+# the WeKan bundle. MONGO_BIN_DIR/MONGO_LIB point at the migratemongo 3.2 tools.
 NODE_PATH="$SNAP/programs/server/node_modules" \
-SOURCE_MONGO_URL="mongodb://127.0.0.1:$SRC_PORT/wekan" \
+MONGO_BIN_DIR="$MM/bin" \
+MONGO_LIB="$MM_LIB" \
+SRC_PORT="$SRC_PORT" \
+SRC_DB="wekan" \
 TARGET_MONGO_URL="mongodb://127.0.0.1:$TGT_PORT/wekan" \
-WRITABLE_PATH="$SNAP_COMMON" \
+FILES_DIR="$FILES_DIR" \
 MIGRATION_PORT="$WEKAN_PORT" \
-  "$NODE" "$MIGRATOR"
+  "$NODE" "$IMPORTER"
 rc=$?
 
-# ── On success: switch the snap to FerretDB ──────────────────────────────────
 if [ "$rc" -eq 0 ]; then
   log "Migration succeeded. Switching database=ferretdb."
   touch "$MARKER"
   snapctl set database=ferretdb 2>/dev/null || true
 else
-  log "ERROR: migration failed (exit $rc). Will retry on next start; MongoDB data kept."
+  log "ERROR: migration failed (exit $rc). Will retry on next start; MongoDB 3 data kept."
 fi
 
 # temp FerretDB + source mongod are stopped by the EXIT trap.

@@ -29,14 +29,18 @@ NODE="$DIR/node"
 
 FERRETDB_BIN="$DIR/ferretdb"
 export WRITABLE_PATH="${WRITABLE_PATH:-$DIR/data}"
-FERRETDB_SQLITE_DIR="${FERRETDB_SQLITE_DIR:-$WRITABLE_PATH/ferretdb-sqlite}"
+# Files layout: <files>/attachments, <files>/avatars, <files>/db (FerretDB SQLite).
+# WeKan appends "files" to WRITABLE_PATH unless it already ends with it (matching
+# server/initializeDirs.js).
+case "$WRITABLE_PATH" in */files) FILES="$WRITABLE_PATH" ;; *) FILES="$WRITABLE_PATH/files" ;; esac
+FERRETDB_SQLITE_DIR="${FERRETDB_SQLITE_DIR:-$FILES/db}"
 FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
 export PORT="${PORT:-8080}"
 export ROOT_URL="${ROOT_URL:-http://localhost:$PORT}"
 export MONGO_URL="${MONGO_URL:-mongodb://$FERRETDB_LISTEN_ADDR/wekan}"
 
-# Store attachments and avatars on the filesystem (default), under WRITABLE_PATH.
-mkdir -p "$WRITABLE_PATH/attachments" "$WRITABLE_PATH/avatars" "$FERRETDB_SQLITE_DIR"
+# Store attachments and avatars on the filesystem (default), next to the DB.
+mkdir -p "$FILES/attachments" "$FILES/avatars" "$FERRETDB_SQLITE_DIR"
 
 # Backend selection: FerretDB by default. WEKAN_DB=mongodb (or a MONGO_URL pointed
 # at some other host) runs WeKan against that external database instead.

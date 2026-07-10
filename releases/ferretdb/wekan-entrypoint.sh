@@ -22,7 +22,11 @@ set -euo pipefail
 FERRETDB_BIN="/build/ferretdb"
 FERRETDB_MARKER="/build/.ferretdb-default"
 FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
-FERRETDB_SQLITE_DIR="${FERRETDB_SQLITE_DIR:-${WRITABLE_PATH:-/data}/ferretdb-sqlite}"
+# FerretDB SQLite lives at <files>/db, next to attachments/avatars. WeKan appends
+# "files" to WRITABLE_PATH unless it already ends with it (server/initializeDirs.js).
+_wp="${WRITABLE_PATH:-/data}"
+case "$_wp" in */files) _files="$_wp" ;; *) _files="$_wp/files" ;; esac
+FERRETDB_SQLITE_DIR="${FERRETDB_SQLITE_DIR:-$_files/db}"
 
 want_ferret=false
 case "${WEKAN_DB:-}" in

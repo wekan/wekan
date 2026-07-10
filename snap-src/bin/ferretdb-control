@@ -38,8 +38,10 @@ fi
 BIND_IP="${MONGODB_BIND_IP:-127.0.0.1}"
 PORT="${MONGODB_PORT:-27019}"
 
-# SQLite data lives in SNAP_COMMON so it survives snap refreshes.
-SQLITE_DIR="${SNAP_COMMON}/ferretdb-sqlite"
+# SQLite data lives next to attachments/avatars at $SNAP_COMMON/files/db (the
+# "files/<name>" layout), so it survives snap refreshes and is where the
+# MongoDB 3 → FerretDB migration (migration-control) wrote it.
+SQLITE_DIR="${SNAP_COMMON}/files/db"
 mkdir -p "$SQLITE_DIR"
 
 # Telemetry off: --telemetry=disable both disables AND locks it (FerretDB won't
