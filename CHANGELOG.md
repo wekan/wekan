@@ -230,6 +230,19 @@ This release adds the following features and fixes:
   with `caddy adapt`, and only keeps a valid result — falling back to the shipped
   Caddy 2 template otherwise, so caddy always starts with valid config.
 
+- **[Rename docker-compose-ferretdb.yml to -v2-postgresql.yml and add -v1-sqlite.yml](https://github.com/wekan/wekan/commit/802220055c814659419f6b2e998a8c6072983536)**:
+
+  `docker-compose-ferretdb.yml` (FerretDB 2 + PostgreSQL) is renamed to
+  `docker-compose-ferretdb-v2-postgresql.yml`, and a new
+  `docker-compose-ferretdb-v1-sqlite.yml` runs WeKan against FerretDB v1 with the
+  embedded SQLite backend — no PostgreSQL or MongoDB — fetching the v1 binary for
+  the container's architecture from the newest wekan/FerretDB release. Both
+  compose files now carry the FULL `wekan` service from `docker-compose.yml`
+  (every documented environment variable and feature); the only differences are
+  database-related (the `ferretdb` service replaces `mongodb`, `MONGO_URL` points
+  at FerretDB, `MONGO_OPLOG_URL` is dropped and reactivity is polling, since
+  FerretDB has no MongoDB change streams / replica-set oplog).
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
