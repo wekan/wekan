@@ -118,6 +118,39 @@ if [ -z "$SRC_MONGOD" ]; then
   exit 0
 fi
 
+# ── If the source is MongoDB 3.2, hop it into a temporary MongoDB 7 ───────────
+# The bundled Node MongoDB driver cannot talk to a 3.2 server, so use the old
+# migratemongo mongodump (3.2) to dump the `wekan` database, then the snap's
+# modern mongorestore to load it into a fresh temporary mongod 7 (which the driver
+# CAN talk to). The migrator then reads that mongod 7 exactly like the arm64
+# MongoDB-7 case. Only the amd64 6.09/3.2 path takes this dump→restore hop.
+if [ "$SRC_MONGOD" = "$MM/bin/mongod" ]; then
+  DUMPDIR="$SNAP_COMMON/migration-dump"
+  MONGO7_DBPATH="$SNAP_COMMON/migration-mongo7"
+  rm -rf "$DUMPDIR" "$MONGO7_DBPATH"; mkdir -p "$DUMPDIR" "$MONGO7_DBPATH"
+
+  log "Source is MongoDB 3.2; dumping the 'wekan' database with migratemongo mongodump..."
+  if ! LD_LIBRARY_PATH="$MM_LIB:$LD_LIBRARY_PATH" "$MM/bin/mongodump" \
+        --port "$SRC_PORT" --db wekan --out "$DUMPDIR" >>"$LOGF" 2>&1; then
+    log "ERROR: mongodump of the MongoDB 3.2 data failed. See $LOGF ."
+    stop_source_mongod; exit 0
+  fi
+  stop_source_mongod          # done with the 3.2 server
+
+  log "Loading the dump into a temporary MongoDB 7 ..."
+  "$SNAP/bin/mongod" --dbpath "$MONGO7_DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
+       --logpath "$LOGF" --logappend --fork >/dev/null 2>&1
+  SRC_SHELL="$MONGOSH"; SRC_LDPREFIX=""      # SRC_PORT is now a mongod 7
+  if ! ready_via "$MONGOSH" ""; then
+    log "ERROR: temporary MongoDB 7 did not start. See $LOGF ."; exit 0
+  fi
+  if ! "$SNAP/bin/mongorestore" --port "$SRC_PORT" --noIndexRestore "$DUMPDIR" >>"$LOGF" 2>&1; then
+    log "ERROR: mongorestore into MongoDB 7 failed. See $LOGF ."; stop_source_mongod; exit 0
+  fi
+  rm -rf "$DUMPDIR"
+  log "Dump restored into MongoDB 7; the migrator will read it."
+fi
+
 # ── Start a temporary FerretDB (SQLite) as the migration target ──────────────
 mkdir -p "$SQLITE_DIR"
 export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
@@ -130,6 +163,9 @@ trap 'kill "$FERRET_PID" 2>/dev/null || true; stop_source_mongod' EXIT INT TERM
 # ── Run the migrator (progress served at ROOT_URL / PORT) ────────────────────
 WEKAN_PORT="${PORT:-8080}"
 log "Migrating MongoDB → FerretDB. Progress at ${ROOT_URL:-http://localhost:$WEKAN_PORT}"
+# NODE_PATH points at the WeKan bundle's node_modules so the standalone migrator
+# script can resolve its `mongodb` (driver) and `bson` imports inside the snap.
+NODE_PATH="$SNAP/programs/server/node_modules" \
 SOURCE_MONGO_URL="mongodb://127.0.0.1:$SRC_PORT/wekan" \
 TARGET_MONGO_URL="mongodb://127.0.0.1:$TGT_PORT/wekan" \
 WRITABLE_PATH="$SNAP_COMMON" \
