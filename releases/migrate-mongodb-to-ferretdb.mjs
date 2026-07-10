@@ -81,7 +81,7 @@ const HTML_TEMPLATE = `<!DOCTYPE html><html lang="en"><head>
   th{color:#aaa;font-size:.85em}
   .phase{font-size:1.3em;margin:1em 0}
 </style></head><body>
-<h1>WeKan Migration: MongoDB → FerretDB + PostgreSQL</h1>
+<h1>WeKan Migration: MongoDB → FerretDB</h1>
 <div class="phase">Phase: <strong id="phase">…</strong> <span id="detail" style="color:#aaa"></span></div>
 <p>Started: __STARTED__  &nbsp; Elapsed: <span id="elapsed"></span></p>
 <div id="files_section">

@@ -168,6 +168,30 @@ parts:
             mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
             cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
 
+    # Old mongod (MongoDB 3.2, amd64 only), used ONLY to read the WeKan 6.09 snap's
+    # MongoDB 3.2 data during the one-time migration to FerretDB: migration-control
+    # falls back to $SNAP/bin/mongod-old when mongod 7 cannot open the data. arm64
+    # snaps run newest WeKan on MongoDB 7 (whose data mongod 7 reads directly), so
+    # no old mongod is staged there.
+    # NOTE: mongod 3.2 is a 2016 binary linked against old glibc/OpenSSL, so on a
+    # modern base it may need extra runtime libraries; this fallback is best-effort
+    # and must be tested against a real 6.09 data directory.
+    mongodb-old:
+        plugin: nil
+        override-build: |
+            set -eu
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64)
+                    wget -O mongodb-old.tgz "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.22.tgz"
+                    tar -xzf mongodb-old.tgz --strip-components=1
+                    mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
+                    cp -a bin/mongod "$SNAPCRAFT_PART_INSTALL/bin/mongod-old"
+                    ;;
+                *)
+                    echo "No old mongod for ${CRAFT_ARCH_BUILD_FOR}; MongoDB 7 (mongodb part) reads its data."
+                    ;;
+            esac
+
 
     wekan:
         source: .
@@ -250,6 +274,9 @@ parts:
             rm -f $SNAPCRAFT_PART_INSTALL/node \
                   $SNAPCRAFT_PART_INSTALL/start-wekan.sh \
                   $SNAPCRAFT_PART_INSTALL/start-wekan.bat
+            # Bundle the MongoDB -> FerretDB migrator (run by migration-control on
+            # first boot when upgrading from an old MongoDB-based snap).
+            cp releases/migrate-mongodb-to-ferretdb.mjs $SNAPCRAFT_PART_INSTALL/bin/
 
         organize:
             README: README.wekan

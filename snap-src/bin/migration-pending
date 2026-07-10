@@ -1,0 +1,15 @@
+#!/bin/bash
+# Exit 0 if a one-time MongoDB -> FerretDB v1 migration is pending for this snap,
+# else exit 1. "Pending" = existing MongoDB (WiredTiger) data is present in
+# $SNAP_COMMON, the migration has not completed yet, and the tools to do it
+# (ferretdb binary, bundled node, the migrator script) are all available.
+MARKER="$SNAP_COMMON/.migration-to-ferretdb-done"
+DBPATH="$SNAP_COMMON"
+[ -f "$MARKER" ] && exit 1
+[ -x "$SNAP/ferretdb" ] || exit 1
+[ -x "$SNAP/bin/node" ] || exit 1
+[ -f "$SNAP/bin/migrate-mongodb-to-ferretdb.mjs" ] || exit 1
+if [ -f "$DBPATH/WiredTiger" ] || ls "$DBPATH"/collection-*.wt >/dev/null 2>&1; then
+  exit 0
+fi
+exit 1

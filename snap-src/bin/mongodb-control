@@ -29,6 +29,19 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
+# First-boot migration: upgrading from an old MongoDB-based WeKan snap. Before
+# starting mongod normally, hand off to migration-control, which reads the
+# existing MongoDB data (mongod 7 for MongoDB 7 data — including the arm64 snaps
+# on newest WeKan; the bundled old mongod for amd64 6.09/MongoDB 3.2 data),
+# migrates text data to FerretDB v1 (SQLite) and CollectionFS/Meteor-Files GridFS
+# attachments+avatars to the filesystem (progress at ROOT_URL, resumable), then
+# switches the snap to database=ferretdb. It is idempotent and only switches on
+# success; if not pending it returns non-zero and mongod starts as usual.
+if bash "$SNAP/bin/migration-pending"; then
+    echo "MongoDB -> FerretDB migration pending; running migration-control..."
+    exec bash "$SNAP/bin/migration-control"
+fi
+
 # If the FerretDB backend is selected, MongoDB must not run (FerretDB binds the
 # same port). Disable this service; ferretdb-control starts FerretDB instead.
 if [ "ferretdb" == "${DATABASE}" ]; then
