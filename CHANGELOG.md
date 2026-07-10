@@ -94,6 +94,61 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following features and fixes:
+
+- **[Fix rebuild-all.yml s390x build; add bundled FerretDB v1 for ppc64le, s390x, riscv64 and to the Docker image](https://github.com/wekan/wekan/commit/155286f490d842127eb6357771580394e88abae2)**:
+
+  The extra-arch bundle build ran `node:24-slim` under QEMU, but the official
+  `node:24` image publishes no `linux/s390x` manifest (only amd64/arm64/ppc64le),
+  so the s390x leg failed with "no matching manifest for linux/s390x". The
+  emulated native-module rebuild now runs on an `ubuntu:26.04` base (which
+  publishes every arch) and installs Node.js from nodejs.org; riscv64 uses
+  unofficial-builds.nodejs.org (nodejs.org ships no riscv64).
+
+  MongoDB Community only ships amd64/arm64 server binaries, so on ppc64le, s390x
+  and riscv64 — the other architectures with a Node.js 24 build — WeKan now
+  bundles FerretDB v1 (the [wekan/FerretDB](https://github.com/wekan/FerretDB)
+  fork with its embedded pure-Go SQLite backend, which speaks the MongoDB wire
+  protocol) instead of requiring MongoDB. The FerretDB binary is cross-compiled
+  once for all five architectures (CGO off, static, no QEMU) and embedded in
+  every `.zip` next to `main.js`, so amd64/arm64 users can opt in too with
+  `WEKAN_DB=ferretdb`. The Docker image now covers all five architectures and
+  auto-starts FerretDB on the MongoDB-less ones. FerretDB telemetry is disabled
+  and locked (`--telemetry=disable`, plus `DO_NOT_TRACK`). armv7l/32-bit ARM is
+  still not built: there is no Node.js 24 build for it anywhere, so nothing could
+  run WeKan there regardless of RAM.
+
+- **[Snap: choose MongoDB or FerretDB v1 with "snap set wekan database=ferretdb"; FerretDB default for new installs; disable mongosh telemetry](https://github.com/wekan/wekan/commit/c9e9d6d7b6464eca8d26f8e0d352c25004e2794a)**:
+
+  The WeKan snap gains a `database` setting (`mongodb` or `ferretdb`). A new
+  `ferretdb` service runs FerretDB v1 (SQLite) on the same port MongoDB would
+  use, so `MONGO_URL` is unchanged; only one database runs at a time, and the
+  configure hook stops one and starts the other when the setting changes. Switch
+  with `snap set wekan database=ferretdb` (or back with `database=mongodb`).
+
+  New snap installs default to FerretDB on all platforms (via the install hook,
+  which runs only on fresh installs — upgrades keep MongoDB, and a pre-existing
+  MongoDB data directory is detected and kept so no data is lost). There is no
+  `snap install --db=ferretdb` flag (snapd has no custom install options); use
+  the two-step `snap install wekan --channel=latest/beta` then
+  `snap set wekan database=ferretdb`.
+
+  mongosh collects anonymized usage analytics by default and the snap invokes it
+  several times; it is now disabled so nothing phones home. mongod itself has no
+  phone-home telemetry (Cloud Free Monitoring is opt-in and stays off).
+
+- **[Admin Panel / Version: show database type, version, commit, storage engine and reactivity mode](https://github.com/wekan/wekan/commit/6b798fbe1cf55474a379a9ed27fb722edab50fec)**:
+
+  Admin Panel / Version now shows whether WeKan is using MongoDB or FerretDB v1
+  (SQLite), the MongoDB-compatible version and the server git commit, FerretDB's
+  own version and commit when FerretDB is in use, the storage engine, and which
+  reactivity mechanism is currently in use — changeStreams / oplog / polling
+  (FerretDB has no oplog, so it uses polling).
+
+Thanks to xet7.
+
 # v9.83 2026-07-09 WeKan ® release
 
 This release fixes the following bugs:
