@@ -9,6 +9,26 @@ if (Meteor.isServer) {
   const { sendJsonResult } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
 
+  // Stream a full board export straight to the response (a card/attachment at a
+  // time) instead of buffering the whole board object — see Exporter.buildStream.
+  async function streamJsonBoardExport(res, exporter) {
+    res.statusCode = 200;
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Content-Type', 'application/json');
+    try {
+      await exporter.buildStream(res);
+      res.end();
+    } catch (error) {
+      if (process.env.DEBUG === 'true') console.error('board export stream failed:', error);
+      // If we have not flushed any body yet the headers are still mutable, so we
+      // can return a clean JSON error; otherwise the partial body is already on
+      // the wire and all we can do is end it.
+      if (!res.headersSent) sendJsonResult(res, { code: 500, data: { error: 'Export failed' } });
+      else try { res.end(); } catch (_) {}
+    }
+  }
+
   // Build a Kanboard-style export object from a WeKan board: lists -> columns,
   // swimlanes -> swimlanes, cards -> tasks (this is the inverse of the Kanboard
   // importer, so a board round-trips through this format).
@@ -83,10 +103,7 @@ if (Meteor.isServer) {
     if (board.isPublic()) {
       // Public boards don't require authentication - skip hash operations
       const exporter = new Exporter(boardId, undefined, exportOptions);
-      sendJsonResult(res, {
-        code: 200,
-        data: await exporter.build(),
-      });
+      await streamJsonBoardExport(res, exporter);
       return;
     }
 
@@ -130,10 +147,7 @@ if (Meteor.isServer) {
         });
       }
 
-      sendJsonResult(res, {
-        code: 200,
-        data: await exporter.build(),
-      });
+      await streamJsonBoardExport(res, exporter);
     } else {
       // we could send an explicit error message, but on the other hand the only
       // way to get there is by hacking the UI so let's keep it raw.
@@ -398,7 +412,7 @@ if (Meteor.isServer) {
         // use Uint8Array to prevent from converting bytes to string
         res.write(new Uint8Array([0xEF, 0xBB, 0xBF]));
       }
-      res.write(await exporter.buildCsv(req.query.delimiter, 'en'));
+      await exporter.buildCsvStream(res, req.query.delimiter, 'en');
       res.end();
       return;
     }
@@ -471,7 +485,7 @@ if (Meteor.isServer) {
         // use Uint8Array to prevent from converting bytes to string
         res.write(new Uint8Array([0xEF, 0xBB, 0xBF]));
       }
-      res.write(await exporter.buildCsv(req.query.delimiter, userLanguage));
+      await exporter.buildCsvStream(res, req.query.delimiter, userLanguage);
       res.end();
     } else {
       res.writeHead(403);

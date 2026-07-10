@@ -249,6 +249,157 @@ export class Exporter {
     return result;
   }
 
+  // ───────────────────────────────────────────────────────────────────────────
+  // Streaming board export.
+  //
+  // build() assembles the ENTIRE board — every card, comment, activity,
+  // checklist, and base64-encoded attachment — into one object and then
+  // JSON.stringify's it. For a board with thousands of cards or a multi-GB
+  // attachment that peaks at gigabytes of RAM and can blow V8's max string
+  // length. buildStream() instead writes the same JSON document straight to the
+  // HTTP response, a document at a time from raw Mongo cursors, and encodes each
+  // attachment file to base64 in 3-byte-aligned chunks — so peak memory stays
+  // flat regardless of board size. The output is byte-for-byte the same shape
+  // build() produces (same `_format`, same keys), so import round-trips.
+  //
+  // Only used for the full board export (no single-attachment id); the
+  // single-attachment path stays on build() since it returns one small object.
+  // ───────────────────────────────────────────────────────────────────────────
+  async buildStream(res) {
+    const fs = Npm.require('fs');
+    // Static requires only — Meteor's bundler cannot resolve a dynamic
+    // require(`/models/${name}`) path.
+    const cardsRaw = require('/models/cards').default.rawCollection();
+    const listsRaw = require('/models/lists').default.rawCollection();
+    const swimlanesRaw = require('/models/swimlanes').default.rawCollection();
+    const customFieldsRaw = require('/models/customFields').default.rawCollection();
+    const cardCommentsRaw = require('/models/cardComments').default.rawCollection();
+    const activitiesRaw = require('/models/activities').default.rawCollection();
+    const checklistsRaw = require('/models/checklists').default.rawCollection();
+    const checklistItemsRaw = require('/models/checklistItems').default.rawCollection();
+    const rulesRaw = require('/models/rules').default.rawCollection();
+    const triggersRaw = require('/models/triggers').default.rawCollection();
+    const actionsRaw = require('/models/actions').default.rawCollection();
+    const usersRaw = require('/models/users').default.rawCollection();
+    const attachmentsRaw = require('/models/attachments').default.collection.rawCollection();
+
+    // write-with-backpressure: pause when the socket buffer is full.
+    const w = str => new Promise((resolve, reject) => {
+      if (res.write(str)) resolve();
+      else { res.once('drain', resolve); res.once('error', reject); }
+    });
+
+    const noBoardId = { projection: { boardId: 0 } };
+    const boardId = this._boardId;
+    const userIds = new Set();
+    const cardIds = [];
+
+    // Stream one collection's docs out as a JSON array value `"key":[ … ]`.
+    const streamArray = async (key, rawColl, selector, options = noBoardId, onDoc) => {
+      await w(`,${JSON.stringify(key)}:[`);
+      const cursor = rawColl.find(selector, options);
+      let i = 0;
+      for await (const doc of cursor) {
+        if (onDoc) onDoc(doc);
+        await w((i++ ? ',' : '') + JSON.stringify(doc));
+      }
+      await w(']');
+      return i;
+    };
+
+    // Open the object with the board's own fields + _format (board data is small).
+    const board = await ReactiveCache.getBoard(boardId, { fields: { stars: 0 } });
+    (board.members || []).forEach(m => userIds.add(m.userId));
+    const boardJson = JSON.stringify({ _format: 'wekan-board-1.0.0', ...board });
+    await w(boardJson.slice(0, -1)); // drop the trailing '}' to keep the object open
+
+    // Attachments — file bytes streamed as base64 in aligned chunks.
+    await w(`,"attachments":[`);
+    {
+      const cursor = attachmentsRaw.find({ 'meta.boardId': boardId });
+      let i = 0;
+      for await (const att of cursor) {
+        const head = {
+          _id: att._id,
+          cardId: att.meta && att.meta.cardId,
+          source: att.meta && att.meta.source,
+          name: att.name,
+          type: att.type,
+        };
+        // Open this attachment object; append "file" streamed if included.
+        const headJson = JSON.stringify(head);
+        await w((i++ ? ',' : '') + (this._excludeAttachments ? headJson : headJson.slice(0, -1)));
+        if (!this._excludeAttachments) {
+          await w(',"file":"');
+          const filePath = att.versions && att.versions.original && att.versions.original.path;
+          if (filePath && fs.existsSync(filePath)) {
+            await new Promise((resolve, reject) => {
+              const rs = fs.createReadStream(filePath);
+              let leftover = Buffer.alloc(0);
+              rs.on('data', chunk => {
+                rs.pause();
+                let buf = leftover.length ? Buffer.concat([leftover, chunk]) : chunk;
+                const usable = buf.length - (buf.length % 3); // base64 needs 3-byte groups
+                leftover = buf.subarray(usable);
+                const piece = usable ? buf.subarray(0, usable).toString('base64') : '';
+                (piece ? w(piece) : Promise.resolve()).then(() => rs.resume(), reject);
+              });
+              rs.on('end', () => { (leftover.length ? w(leftover.toString('base64')) : Promise.resolve()).then(resolve, reject); });
+              rs.on('error', reject);
+            });
+          }
+          await w('"}');
+        }
+      }
+    }
+    await w(']');
+
+    // Lists / swimlanes / custom fields (bounded, but streamed uniformly).
+    await streamArray('lists', listsRaw, { boardId }, noBoardId, d => userIds.add(d.userId));
+    await streamArray('swimlanes', swimlanesRaw, { boardId });
+    await streamArray('customFields', customFieldsRaw, { boardIds: boardId }, { projection: { boardIds: 0 } });
+
+    // Cards (non-linked, like build()) — collect ids + userIds as we go.
+    await streamArray('cards', cardsRaw, { boardId, linkedId: { $in: ['', null] } }, noBoardId, d => {
+      cardIds.push(d._id);
+      userIds.add(d.userId);
+      (d.members || []).forEach(id => userIds.add(id));
+    });
+
+    // Everything keyed by the card ids we just streamed.
+    await streamArray('comments', cardCommentsRaw, { cardId: { $in: cardIds } }, noBoardId, d => userIds.add(d.userId));
+    await streamArray('activities', activitiesRaw, { $or: [{ boardId }, { cardId: { $in: cardIds } }] }, noBoardId, d => userIds.add(d.userId));
+    await streamArray('checklists', checklistsRaw, { cardId: { $in: cardIds } }, {}, d => userIds.add(d.userId));
+    await streamArray('checklistItems', checklistItemsRaw, { cardId: { $in: cardIds } }, {});
+    await streamArray('subtaskItems', cardsRaw, { parentId: { $in: cardIds } }, {});
+
+    // Rules + their triggers/actions.
+    const ruleTriggerIds = [];
+    const ruleActionIds = [];
+    await streamArray('rules', rulesRaw, { boardId }, noBoardId, d => { if (d.triggerId) ruleTriggerIds.push(d.triggerId); if (d.actionId) ruleActionIds.push(d.actionId); });
+    await streamArray('triggers', triggersRaw, { _id: { $in: ruleTriggerIds } }, noBoardId);
+    await streamArray('actions', actionsRaw, { _id: { $in: ruleActionIds } }, noBoardId);
+
+    // Users last, once every referenced id has been collected.
+    await w(`,"users":[`);
+    {
+      const cursor = usersRaw.find(
+        { _id: { $in: Array.from(userIds).filter(Boolean) } },
+        { projection: { _id: 1, username: 1, 'profile.fullname': 1, 'profile.initials': 1, 'profile.avatarUrl': 1 } },
+      );
+      let i = 0;
+      for await (const user of cursor) {
+        if (user.profile && user.profile.avatarUrl) {
+          user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
+        }
+        await w((i++ ? ',' : '') + JSON.stringify(user));
+      }
+    }
+    await w(']');
+
+    await w('}'); // close the board object
+  }
+
   async buildCsv(userDelimiter = ',', userLanguage='en') {
     const result = await this.build();
     const columnHeaders = [];
@@ -327,6 +478,82 @@ export class Exporter {
     });
 
     return Papa.unparse(cardRows, papaconfig);
+  }
+
+  // Streaming CSV/TSV export. buildCsv() calls build(), which loads the ENTIRE
+  // board — including every base64 attachment — into memory just to emit card
+  // rows. buildCsvStream() instead keeps only the small lookup tables (lists,
+  // swimlanes, custom fields, labels, referenced users) in memory and streams
+  // the cards from a raw cursor, writing one CSV row at a time to `res`. Two
+  // cheap passes over the card cursor: pass 1 collects referenced user ids
+  // (strings only), pass 2 writes rows. Output matches buildCsv() exactly.
+  async buildCsvStream(res, userDelimiter = ',', userLanguage = 'en') {
+    const cardsRaw = require('/models/cards').default.rawCollection();
+    const cardSelector = { boardId: this._boardId, linkedId: { $in: ['', null] } };
+
+    const board = await ReactiveCache.getBoard(this._boardId);
+    const lookup = {
+      lists: await ReactiveCache.getLists({ boardId: this._boardId }),
+      swimlanes: await ReactiveCache.getSwimlanes({ boardId: this._boardId }),
+      customFields: await ReactiveCache.getCustomFields({ boardIds: this._boardId }),
+      labels: (board && board.labels) || [],
+      users: [],
+    };
+
+    const papaconfig = {
+      quotes: true, quoteChar: '"', escapeChar: '"', delimiter: userDelimiter,
+      header: false, newline: '\r\n', skipEmptyLines: false, escapeFormulae: true,
+    };
+    const w = str => new Promise((resolve, reject) => {
+      if (res.write(str)) resolve();
+      else { res.once('drain', resolve); res.once('error', reject); }
+    });
+    const writeRow = row => w(Papa.unparse([row], papaconfig) + papaconfig.newline);
+
+    // Header row + custom-field columns (same order as buildCsv).
+    const columnHeaders = [
+      'title','description','list','swimlane','owner','requested-by','assigned-by',
+      'members','assignee','labels','card-start','card-due','card-end','overtime-hours',
+      'spent-time-hours','createdAt','last-modified-at','last-activity','voting','archived',
+    ].map(k => TAPi18n.__(k, '', userLanguage));
+    const customFieldMap = {};
+    lookup.customFields.forEach((cf, i) => {
+      customFieldMap[cf._id] = { position: i, type: cf.type };
+      if (cf.type === 'dropdown') {
+        let options = '';
+        cf.settings.dropdownItems.forEach(item => { options = options === '' ? item.name : `${options}/${item.name}`; });
+        columnHeaders.push(`CustomField-${cf.name}-${cf.type}-${options}`);
+      } else if (cf.type === 'currency') {
+        columnHeaders.push(`CustomField-${cf.name}-${cf.type}-${cf.settings.currencyCode}`);
+      } else {
+        columnHeaders.push(`CustomField-${cf.name}-${cf.type}`);
+      }
+    });
+    await writeRow(columnHeaders);
+
+    // Pass 1 — collect referenced user ids (ids only, cheap).
+    const userIds = new Set();
+    {
+      const cursor = cardsRaw.find(cardSelector, { projection: { userId: 1, members: 1, assignees: 1, vote: 1 } });
+      for await (const c of cursor) {
+        if (c.userId) userIds.add(c.userId);
+        (c.members || []).forEach(id => userIds.add(id));
+        (c.assignees || []).forEach(id => userIds.add(id));
+        if (c.vote) { (c.vote.positive || []).forEach(id => userIds.add(id)); (c.vote.negative || []).forEach(id => userIds.add(id)); }
+      }
+    }
+    lookup.users = await ReactiveCache.getUsers(
+      { _id: { $in: Array.from(userIds).filter(Boolean) } },
+      { fields: { _id: 1, username: 1 } },
+    );
+
+    // Pass 2 — stream one row per card.
+    {
+      const cursor = cardsRaw.find(cardSelector);
+      for await (const card of cursor) {
+        await writeRow(buildCsvCardRow(card, lookup, customFieldMap));
+      }
+    }
   }
 
   async canExport(user) {
