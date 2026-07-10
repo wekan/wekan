@@ -185,24 +185,35 @@ apt-get update --assume-yes
 apt-get upgrade --assume-yes
 apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
-# Multi-arch mapping: Docker TARGETARCH -> Node.js arch name + WeKan bundle name
-# arm/v7 uses TARGETARCH=arm; armhf has no MongoDB Community -> uses FerretDB
+# Multi-arch mapping: Docker TARGETARCH -> Node.js arch name + WeKan bundle name.
+# amd64/arm64 have MongoDB Community; ppc64le/s390x/riscv64 have no MongoDB server
+# and ship FerretDB v1 instead (the ferretdb binary is baked into their .zip and
+# started by wekan-entrypoint.sh). riscv64's Node.js 24 comes from
+# unofficial-builds.nodejs.org (nodejs.org ships no riscv64). armv7l is excluded:
+# there is no Node.js 24 build for it anywhere.
+NODE_BASE="official"
 case "${TARGETARCH}" in
     "amd64")   NODE_ARCH="x64"     WEKAN_ARCH="amd64"   ;;
     "arm64")   NODE_ARCH="arm64"   WEKAN_ARCH="arm64"   ;;
-    "arm")     NODE_ARCH="armv7l"  WEKAN_ARCH="armhf"   ;;
     "ppc64le") NODE_ARCH="ppc64le" WEKAN_ARCH="ppc64le" ;;
     "s390x")   NODE_ARCH="s390x"   WEKAN_ARCH="s390x"   ;;
+    "riscv64") NODE_ARCH="riscv64" WEKAN_ARCH="riscv64" NODE_BASE="unofficial" ;;
     *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;;
 esac
 
-# Node.js Installation (official nodejs.org builds for Node 22)
+# Node.js installation. Official nodejs.org builds for amd64/arm64/ppc64le/s390x;
+# unofficial-builds.nodejs.org for riscv64 (nodejs.org ships no riscv64 binary).
 cd /tmp
-wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
-wget "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc"
-grep "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt.asc | shasum -a 256 -c -
+if [ "${NODE_BASE}" = "unofficial" ]; then
+    NODE_DIST="https://unofficial-builds.nodejs.org/download/release/${NODE_VERSION}"
+else
+    NODE_DIST="https://nodejs.org/dist/${NODE_VERSION}"
+fi
+wget "${NODE_DIST}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
+wget "${NODE_DIST}/SHASUMS256.txt"
+grep " node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz\$" SHASUMS256.txt | shasum -a 256 -c -
 tar xzf "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt.asc
+rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 
 # NPM configuration
@@ -247,10 +258,17 @@ mkdir -p /data
 chown wekan:wekan --recursive /data
 EOR
 
+# Database-backend selector entrypoint. Every arch's bundle now ships a FerretDB
+# binary (baked into the .zip and moved to /build/ferretdb above); this script
+# starts FerretDB v1 (SQLite) or leaves the DB external based on WEKAN_DB and the
+# /build/.ferretdb-default marker (present only on MongoDB-less arches). See
+# releases/ferretdb/wekan-entrypoint.sh.
+COPY --chmod=755 releases/ferretdb/wekan-entrypoint.sh /build/wekan-entrypoint.sh
+
 USER wekan
 ENV PORT=8080
 EXPOSE $PORT
 STOPSIGNAL SIGKILL
 WORKDIR /build
 
-CMD ["bash", "-c", "ulimit -s 65500; exec node main.js"]
+CMD ["bash", "/build/wekan-entrypoint.sh"]
