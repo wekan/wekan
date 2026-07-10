@@ -428,6 +428,15 @@ This release adds the following features and fixes:
   fewer arches; QuickJS/JSC/SpiderMonkey/JVM run on 32-bit but cannot run Meteor),
   and server-rewrite options (Go recommended, QuickJS niche, Tcl/Tk a poor fit).
 
+- **[Fix backup build: archiver@8 (ESM) + @aws-sdk/lib-storage dependency](https://github.com/wekan/wekan/commit/abe8af0788d15053770d9f008098ab62a8daf55e)**:
+
+  The Meteor/rspack build failed on `server/methods/backup.js`: `archiver@8` is now
+  pure ESM with no default export or `archiver('zip', …)` factory (it exports
+  classes), and the S3 streaming upload used `@aws-sdk/lib-storage`, which was not
+  a dependency. Use `import { ZipArchive } from 'archiver'` /
+  `new ZipArchive({ zlib: { level: 6 } })`, and add `@aws-sdk/lib-storage`
+  (pinned to `~3.1073.0` to match the installed `@aws-sdk/client-s3`).
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
