@@ -176,6 +176,26 @@ This release adds the following features and fixes:
   so rspack appended a second `build-chunks/`. It now sets the public path to just
   `<sub-path>/` and lets rspack add `build-chunks/` itself.
 
+- **[Add snapcraft-core24.yaml so the newest WeKan can be published to the Snap Stable channel](https://github.com/wekan/wekan/commit/64d3709e2e4456576721fed9ae32e0c115951025)**:
+
+  The main `snapcraft.yaml` uses `base: core26`, which (until core26 is released)
+  needs `build-base: devel` + `grade: devel`, so it can only go to Snap Beta/Edge.
+  `snapcraft-core24.yaml` builds the SAME newest WeKan (Meteor 3.5, Node.js 24,
+  FerretDB v1, MongoDB 7, Caddy 2) on `base: core24` (a released base, `grade:
+  stable`), so the Snap Stable channel can finally be updated from the old 6.09
+  snap. Only base/build-base/grade differ.
+
+- **[Self-contained release bundles: bundle Node.js + FerretDB + start-wekan.{sh,bat}](https://github.com/wekan/wekan/commit/4434cf57ff64e8a530580c2c8fb161cad58c3388)**:
+
+  Each `wekan-<version>-<arch>.zip` is now fully offline. Its `bundle/` directory
+  contains the WeKan server, a Node.js binary for that platform, a FerretDB v1
+  (SQLite) binary, and a `start-wekan.sh` (`start-wekan.bat` on Windows) that by
+  default runs WeKan on the bundled Node against the bundled FerretDB SQLite,
+  storing data and attachments/avatars on the filesystem under `WRITABLE_PATH`
+  (as in the Windows Offline guide) — no separate Node or database install
+  needed. The Docker image and snap, which have their own Node and entrypoint,
+  strip the redundant bundled Node + launchers to stay small.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
