@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
+const { hasWhere } = require('/models/lib/mongoSelectorSafety');
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Lazy (windowed) card loading — used only when CARDS_LOADING=lazy / Admin Panel
@@ -17,19 +18,8 @@ import Cards from '/models/cards';
 
 const MAX_WINDOW = 5000; // hard cap on how many cards one list window may request
 
-// Reject a selector that carries $where (server-side JS execution) anywhere in
-// its tree. The client-supplied selector is always ANDed with a server-forced
-// { boardId, archived } clause, so it can only ever match the board's own cards,
-// but $where must still be refused.
-function hasWhere(obj) {
-  if (!obj || typeof obj !== 'object') return false;
-  for (const key of Object.keys(obj)) {
-    if (key === '$where') return true;
-    const v = obj[key];
-    if (v && typeof v === 'object' && hasWhere(v)) return true;
-  }
-  return false;
-}
+// hasWhere() (reject a client selector carrying $where server-side JS execution)
+// is imported from /models/lib/mongoSelectorSafety so it can be unit-tested.
 
 async function boardVisibleTo(userId, boardId) {
   const board = await ReactiveCache.getBoard(boardId);

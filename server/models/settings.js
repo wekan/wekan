@@ -10,6 +10,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
+const { parseCardsLoadingEnv } = require('/models/lib/cardsLoading');
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -129,9 +130,7 @@ Meteor.startup(async () => {
   // CARDS_LOADING env: 'lazy' or 'all' (anything else / unset → undefined = leave
   // to the stored setting, defaulting to 'all'). Like DEFAULT_AUTHENTICATION_METHOD,
   // when the env var is set it is authoritative on every startup.
-  const envCardsLoading = ['all', 'lazy'].includes((process.env.CARDS_LOADING || '').toLowerCase())
-    ? process.env.CARDS_LOADING.toLowerCase()
-    : undefined;
+  const envCardsLoading = parseCardsLoadingEnv(process.env.CARDS_LOADING);
   if (!setting) {
     const now = new Date();
     const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];

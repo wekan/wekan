@@ -13,8 +13,9 @@
 //
 // Exposed to the client as Meteor.settings.public.cardsLoading so both the
 // publications (server) and the board rendering (client) agree on the mode.
+const { resolveCardsLoadingMode } = require('/models/lib/cardsLoading');
+
 Meteor.startup(() => {
   if (!Meteor.settings.public) Meteor.settings.public = {};
-  const mode = (process.env.CARDS_LOADING || '').toLowerCase();
-  Meteor.settings.public.cardsLoading = mode === 'lazy' ? 'lazy' : 'all';
+  Meteor.settings.public.cardsLoading = resolveCardsLoadingMode(process.env.CARDS_LOADING);
 });

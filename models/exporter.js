@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 const Papa = require('papaparse');
 const { buildCsvCardRow } = require('./lib/exporterCsvRow');
+const { encodeAligned, encodeFinal } = require('./lib/base64Chunk');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { 
@@ -338,13 +339,15 @@ export class Exporter {
               let leftover = Buffer.alloc(0);
               rs.on('data', chunk => {
                 rs.pause();
-                let buf = leftover.length ? Buffer.concat([leftover, chunk]) : chunk;
-                const usable = buf.length - (buf.length % 3); // base64 needs 3-byte groups
-                leftover = buf.subarray(usable);
-                const piece = usable ? buf.subarray(0, usable).toString('base64') : '';
-                (piece ? w(piece) : Promise.resolve()).then(() => rs.resume(), reject);
+                // Emit the 3-byte-aligned base64 prefix; carry 0-2 bytes over.
+                const r = encodeAligned(leftover, chunk);
+                leftover = r.leftover;
+                (r.piece ? w(r.piece) : Promise.resolve()).then(() => rs.resume(), reject);
               });
-              rs.on('end', () => { (leftover.length ? w(leftover.toString('base64')) : Promise.resolve()).then(resolve, reject); });
+              rs.on('end', () => {
+                const tail = encodeFinal(leftover);
+                (tail ? w(tail) : Promise.resolve()).then(resolve, reject);
+              });
               rs.on('error', reject);
             });
           }

@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Filter } from '/client/lib/filter';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
+const { windowCountId: windowCountIdImpl, resolveCardsLoadingMode } = require('/models/lib/cardsLoading');
 
 // Client-only mirror of the server `boardListCardCounts` docs published by the
 // 'boardListCardCount' publication (one doc per list/swimlane window, holding
@@ -17,16 +18,16 @@ export function cardsLoadingMode() {
   const fromDoc = setting && setting.cardsLoading;
   const fromEnv =
     Meteor.settings && Meteor.settings.public && Meteor.settings.public.cardsLoading;
-  return fromDoc || fromEnv || 'all';
+  return resolveCardsLoadingMode(fromDoc || fromEnv);
 }
 
 export function isLazyCards() {
   return cardsLoadingMode() === 'lazy';
 }
 
-// Stable id for one (list, swimlane) window's count doc.
+// Stable id for one (list, swimlane) window's count doc (shared, unit-tested).
 export function windowCountId(listId, swimlaneId) {
-  return `${listId}::${swimlaneId || ''}`;
+  return windowCountIdImpl(listId, swimlaneId);
 }
 
 // Accurate total card count for `list.cards(swimlaneId)` in lazy mode, where

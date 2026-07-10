@@ -10,6 +10,7 @@ import readline from 'readline';
 import { Readable } from 'stream';
 import archiver from 'archiver';
 import unzipper from 'unzipper';
+const { filesRootFrom, scheduleText } = require('/models/lib/backupPaths');
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments / Backup.
@@ -50,8 +51,7 @@ const FILE_COLLECTIONS = new Set([
 ]);
 
 function filesRoot() {
-  const base = process.env.WRITABLE_PATH || process.cwd();
-  return (base.endsWith('/files') || base.endsWith('\\files')) ? base : path.join(base, 'files');
+  return filesRootFrom(process.env.WRITABLE_PATH || process.cwd());
 }
 const attachmentsDir = () => path.join(filesRoot(), 'attachments');
 const avatarsDir = () => path.join(filesRoot(), 'avatars');
@@ -258,13 +258,6 @@ function findBackups(dir, out) {
 
 // ── synced-cron schedule ─────────────────────────────────────────────────────
 const CRON_NAME = 'WeKan Scheduled Backup';
-function scheduleText(s) {
-  const [hh, mm] = (s.time || '04:00').split(':');
-  const at = `at ${hh}:${mm}`;
-  if (s.frequency === 'weekly') return `on ${s.dayOfWeek || 'Sunday'} ${at}`;
-  if (s.frequency === 'monthly') return `on the ${s.dayOfMonth || 1} day of the month ${at}`;
-  return `every day ${at}`; // daily
-}
 function registerCron() {
   try { SyncedCron.remove(CRON_NAME); } catch (_) {}
   const s = BackupSettings.findOne({ _id: 'schedule' });
