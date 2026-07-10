@@ -256,8 +256,22 @@ This release adds the following features and fixes:
   ROOT_URL**, checkpoints to `$SNAP_COMMON` (resumable), and compacts the old
   MongoDB when done. It then switches the snap to `database=ferretdb`. Idempotent,
   resumable, never deletes the source data, only switches on success. (The amd64
-  6.09/MongoDB-3.2 path bundles a 2016 mongod and needs testing on real 6.09 data;
-  the arm64/MongoDB-7 path uses the already-bundled mongod 7.)
+  6.09/MongoDB-3.2 path needs testing on real 6.09 data; the arm64/MongoDB-7 path
+  uses the already-bundled mongod 7.)
+
+- **[Snap: bundle migratemongo (MongoDB 3.2 binaries + old libraries + AVX wrappers) to read 6.09 data](https://github.com/wekan/wekan/commit/b896c6fecee7c7f15c33f6a211b38cee5dab1020)**:
+
+  Per docs/Backup/Backup.md and https://github.com/wekan/migratemongo, running the
+  old MongoDB tools/server in the snap needs `LC_ALL=C` and their libraries on
+  `LD_LIBRARY_PATH` (`$SNAP/lib/<arch>-linux-gnu`), and the 2016 MongoDB 3.2
+  binaries additionally need old libraries (`libssl`/`libcrypto.so.1.0.0`,
+  `libpng12`, `libexpat`) that modern bases lack. A new `migratemongo` snapcraft
+  part (amd64) stages https://github.com/wekan/migratemongo at `$SNAP/migratemongo`
+  (its MongoDB 3.2 `bin/`, the old `lib/x86_64-linux-gnu/`, and the `avx/` QEMU
+  wrappers) — also filling in the `$SNAP/migratemongo/avx` path that
+  `mongodb-control`/`-backup`/`-restore` already referenced but was never bundled.
+  `migration-control` now reads the amd64 6.09 MongoDB 3.2 data with that mongod
+  (old `LD_LIBRARY_PATH`) and the legacy `mongo` shell (mongosh cannot talk to 3.2).
 
 Thanks to xet7.
 
