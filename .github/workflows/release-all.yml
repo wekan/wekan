@@ -683,6 +683,89 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
 
+  # Build the Sandstorm package (wekan-<version>.spk) and attach it to the Release.
+  # Mirrors releases/release-sandstorm.sh + releases/install-sandstorm.sh: it packs
+  # the app with meteor-spk (which traces the running Meteor app inside a Sandstorm
+  # sandbox), so this job installs Meteor, meteor-spk and a dev Sandstorm.
+  #
+  # EXPERIMENTAL in CI and decoupled from `release` (never blocks it):
+  #   * Sandstorm needs unprivileged user namespaces; GitHub's Ubuntu runners are
+  #     VMs that allow them, but this is the fragile part.
+  #   * `meteor-spk pack` SIGNS the .spk with the app's private key, which lives in
+  #     the Sandstorm keyring. Provide it as the SANDSTORM_KEYRING secret (base64 of
+  #     ~/.sandstorm/... sandstorm-keyring); without it packing an update fails.
+  #   * Publishing to the Sandstorm app market (`spk publish`) and the scp upload in
+  #     release-sandstorm.sh stay manual — this job only builds + attaches the .spk.
+  build-sandstorm:
+    needs: [prepare, release]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install system dependencies and Meteor
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip
+          if [ ! -f "$HOME/.meteor/meteor" ]; then curl https://install.meteor.com/ | sh; fi
+          echo "$HOME/.meteor" >> "$GITHUB_PATH"
+
+      - name: Install meteor-spk
+        # meteor-spk 0.6.0 is distributed by the WeKan project in projects.7z, exactly
+        # as releases/install-sandstorm.sh does.
+        run: |
+          cd "$HOME"
+          wget -q https://releases.wekan.team/dev/meteor-spk/projects.7z
+          7z x projects.7z >/dev/null
+          rm -f projects.7z
+          echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"
+
+      - name: Install Sandstorm (dev, unattended)
+        run: |
+          curl https://install.sandstorm.io | sudo bash -s -- -d
+
+      - name: Restore the Sandstorm signing keyring
+        # The app private key that signs the .spk (app id in sandstorm-pkgdef.capnp).
+        env:
+          SANDSTORM_KEYRING: ${{ secrets.SANDSTORM_KEYRING }}
+        run: |
+          if [ -n "${SANDSTORM_KEYRING:-}" ]; then
+            mkdir -p "$HOME/.sandstorm"
+            printf '%s' "$SANDSTORM_KEYRING" | base64 -d > "$HOME/.sandstorm/sandstorm-keyring"
+            chmod 600 "$HOME/.sandstorm/sandstorm-keyring"
+          else
+            echo "::warning::SANDSTORM_KEYRING secret not set; meteor-spk pack will fail to sign an update to the existing app id."
+          fi
+
+      - name: Install Meteor npm dependencies
+        run: |
+          (meteor update --npm 2>/dev/null || true) && meteor npm install
+
+      - name: Pack Sandstorm .spk
+        run: |
+          meteor-spk pack "wekan-${VERSION}.spk"
+          ls -la "wekan-${VERSION}.spk"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wekan-sandstorm-spk
+          path: wekan-${{ needs.prepare.outputs.version }}.spk
+          retention-days: 1
+
+      - name: Attach the .spk to the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload "v${VERSION}" "wekan-${VERSION}.spk" --clobber
+
   # ─── Fetch the prebuilt standalone FerretDB binaries: ferretdb.zip ───────────
   # WeKan normally uses MongoDB, but MongoDB Community only ships amd64/arm64
   # server binaries. On every other platform WeKan can instead use FerretDB v1
