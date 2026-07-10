@@ -218,6 +218,18 @@ This release adds the following features and fixes:
   (best-effort, once). The existing ROOT_URL progress dashboard and disk-space
   checks are kept, and the dashboard is restored from the checkpoint on resume.
 
+- **[Snap: migrate the Caddyfile from Caddy v1 to Caddy v2 format on upgrade](https://github.com/wekan/wekan/commit/3b635b0963c2cddfba9f3b90677fdc5f19214782)**:
+
+  When upgrading from an old WeKan snap, `$SNAP_COMMON/Caddyfile` may still be in
+  Caddy v1 syntax, which Caddy 2 cannot parse (caddy would fail to start).
+  `caddy-control` now runs a converter before `caddy run` when caddy is enabled:
+  a no-op if the file already parses as Caddy 2, otherwise it backs up the
+  original, converts the common v1 directives (`proxy / TARGET` →
+  `reverse_proxy TARGET`, drop the v1 `websocket`/`transparent` presets Caddy 2
+  does by default, `gzip` → `encode gzip`, strip the `http://` scheme), validates
+  with `caddy adapt`, and only keeps a valid result — falling back to the shipped
+  Caddy 2 template otherwise, so caddy always starts with valid config.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
