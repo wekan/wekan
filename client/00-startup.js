@@ -1,7 +1,13 @@
 // Fix dynamic-import chunk loading when Wekan runs under a sub-path (ROOT_URL includes a pathname,
-// e.g. https://example.com/wekan). Rspack uses __webpack_public_path__ to prefix chunk URLs; by
-// default it is set to /build-chunks/ (no context path). We update it here, at module evaluation
-// time, before any import() expression runs (those are deferred to Meteor.startup callbacks).
+// e.g. https://example.com/wekan). Rspack's runtime builds every chunk URL as
+// __webpack_public_path__ + chunkName, and the chunk name ALREADY includes the "build-chunks/"
+// prefix (its runtime does `u = e => "build-chunks/" + e + "." + hash + ".js"`). The default
+// public path is "/", so at the site root chunks correctly resolve to "/build-chunks/<chunk>".
+// Under a sub-path we must prefix that sub-path — but must NOT re-add "build-chunks/" ourselves,
+// or the URL becomes "/wekan/build-chunks/build-chunks/<chunk>" and 404s (issue #6445, which broke
+// the lazy-loaded language chunks). So set the public path to "<sub-path>/" and let rspack append
+// "build-chunks/" itself. Done here at module evaluation time, before any import() expression runs
+// (those are deferred to Meteor.startup callbacks).
 /* global __webpack_public_path__:writable */
 try {
   const _cfg = typeof window !== 'undefined' && window.__meteor_runtime_config__;
@@ -9,7 +15,7 @@ try {
   if (_rootUrl) {
     const _rootPath = new URL(_rootUrl).pathname.replace(/\/+$/, '');
     if (_rootPath && _rootPath !== '/') {
-      __webpack_public_path__ = _rootPath + '/build-chunks/';
+      __webpack_public_path__ = _rootPath + '/';
     }
   }
 } catch (_) {}
