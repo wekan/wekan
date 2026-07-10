@@ -111,6 +111,19 @@ This release adds the following features and fixes:
   source guard that fails if the synchronous server-forbidden API is
   reintroduced), wired into the `test:unit:node` suite.
 
+- **Fix flaky server-side Mocha i18n test (TAPi18n `.loadLanguage`)**:
+
+  The `.loadLanguage` suite stubbed `addResourceBundle` on the shared
+  `TAPi18n.i18n` singleton and asserted the call count. Because `loadLanguage()`
+  reads `this.i18n` late and each test re-`init()`s the singleton, cross-test
+  state could leave the stub watching a different i18next instance than the one
+  the bundle was registered on, so the count read 0 and the run intermittently
+  reported `expected addResourceBundle to be called once`. The tests now assert
+  on observable i18next state (`hasResourceBundle`/`getResourceBundle` under the
+  normalised `toI18nCode`), which is instance-agnostic and deterministic and
+  mirrors the reliable `.setLanguage` suite. Also stopped a leaked
+  `Tracker.autorun` in the `.getLanguage` reactive test (the cross-test hazard).
+
 - **[Fix rebuild-all.yml s390x build; add bundled FerretDB v1 for ppc64le, s390x, riscv64 and to the Docker image](https://github.com/wekan/wekan/commit/0360ca1583b4b17b465ded20c4fd7560004aee47)**:
 
   The extra-arch bundle build ran `node:24-slim` under QEMU, but the official

@@ -60,46 +60,55 @@ describe('TAPi18n', () => {
 
     it('is reactive', async () => {
       const tracked = [];
-      Tracker.autorun(() => {
+      // Stop the computation at the end: a leaked autorun keeps depending on
+      // TAPi18n.current and re-runs during every later test that switches
+      // language, which is exactly the kind of cross-test state that made this
+      // shared-singleton suite flaky.
+      const computation = Tracker.autorun(() => {
         tracked.push(TAPi18n.getLanguage());
       });
-      expect(tracked).to.have.members(['en']);
-      await TAPi18n.setLanguage('de');
-      Tracker.flush();
-      expect(tracked).to.have.members(['en', 'de']);
+      try {
+        expect(tracked).to.have.members(['en']);
+        await TAPi18n.setLanguage('de');
+        Tracker.flush();
+        expect(tracked).to.have.members(['en', 'de']);
+      } finally {
+        computation.stop();
+      }
     });
 
   });
 
   describe('.loadLanguage', () => {
 
-    // Start each test from a FRESH i18next instance, then stub addResourceBundle
-    // on it. Two things made this suite flakily report "1 failing":
-    //   - stubbing the shared TAPi18n.i18n left state to leak between tests, so
-    //     the stub could end up on a different instance than loadLanguage() used
-    //     (its captured call count then read 0 -> "called exactly once" failure);
-    //   - asserting via sinon-chai (`expect(spy).to.be.calledOnceWith(...)`) runs
-    //     through chai-as-promised, which could evaluate the matcher AFTER the
-    //     outer afterEach ran `sinon.restore()` (-> "is not a spy").
-    // init() gives a clean instance (mirrors the reliable .setLanguage suite
-    // below), and sinon.assert.* is synchronous and never routed through
-    // chai-as-promised, so the checks are deterministic. init() calls
-    // addResourceBundle once for the default language, so we stub AFTER it.
-    let addResourceBundle;
+    // Assert on OBSERVABLE i18next state (is the bundle registered, under which
+    // code, with what data) rather than on a sinon stub of addResourceBundle.
+    // Stubbing a method on the SHARED TAPi18n.i18n singleton made this suite
+    // flakily report "1 failing": if any cross-test operation replaced
+    // TAPi18n.i18n between the stub install and the assertion, loadLanguage()
+    // registered the bundle on a different instance than the one the stub was
+    // watching, so the recorded count read 0 ("expected addResourceBundle to be
+    // called once"). Reading the resulting bundle back is instance-agnostic and
+    // deterministic, and mirrors the reliable .setLanguage suite below. init()
+    // gives each test a clean instance with only the default language loaded.
     beforeEach(async () => {
       await TAPi18n.init();
-      addResourceBundle = sinon.stub(TAPi18n.i18n, 'addResourceBundle');
     });
+
+    // The translation map i18next stored for `language`, under the same
+    // normalised code loadLanguage() registers (and t() later looks up) it under.
+    const bundleFor = (language) =>
+      TAPi18n.i18n.getResourceBundle(TAPi18n.toI18nCode(language), 'translation');
 
     it('actually loads the language data', async () => {
       await TAPi18n.loadLanguage('fr');
-      sinon.assert.calledOnceWithMatch(addResourceBundle, 'fr');
-      expect(addResourceBundle.firstCall.args[2]).to.have.property('accept');
+      expect(TAPi18n.i18n.hasResourceBundle(TAPi18n.toI18nCode('fr'), 'translation')).to.be.true;
+      expect(bundleFor('fr')).to.have.property('accept');
     });
 
     it('throws error if language is missing', async () => {
       await expect(TAPi18n.loadLanguage('miss')).to.be.rejectedWith('not supported');
-      sinon.assert.notCalled(addResourceBundle);
+      expect(TAPi18n.i18n.hasResourceBundle('miss', 'translation')).to.be.false;
     });
 
     // #5756: region/script-tagged and legacy underscore languages must register
@@ -108,29 +117,31 @@ describe('TAPi18n', () => {
     it('registers region-tagged languages (zh-CN) under the i18next lookup code', async () => {
       await TAPi18n.loadLanguage('zh-CN');
       const code = TAPi18n.toI18nCode('zh-CN');
-      sinon.assert.calledOnceWithMatch(addResourceBundle, code);
+      expect(TAPi18n.i18n.hasResourceBundle(code, 'translation')).to.be.true;
       // The actual translation map (not an ES-module namespace) is registered.
-      expect(addResourceBundle.firstCall.args[2]).to.have.property('accept');
+      expect(bundleFor('zh-CN')).to.have.property('accept');
     });
 
     it('registers script-tagged languages (zh-Hans) under the i18next lookup code', async () => {
       await TAPi18n.loadLanguage('zh-Hans');
-      sinon.assert.calledOnceWithMatch(addResourceBundle, TAPi18n.toI18nCode('zh-Hans'));
-      expect(addResourceBundle.firstCall.args[2]).to.have.property('accept');
+      expect(TAPi18n.i18n.hasResourceBundle(TAPi18n.toI18nCode('zh-Hans'), 'translation')).to.be.true;
+      expect(bundleFor('zh-Hans')).to.have.property('accept');
     });
 
     it('converts legacy underscore tags (af_ZA) to a hyphenated i18next code', async () => {
       await TAPi18n.loadLanguage('af_ZA');
       const code = TAPi18n.toI18nCode('af_ZA');
       expect(code).to.not.contain('_');
-      sinon.assert.calledOnceWithMatch(addResourceBundle, code);
+      // Registered under the hyphenated code, never under the raw underscore tag.
+      expect(TAPi18n.i18n.hasResourceBundle(code, 'translation')).to.be.true;
+      expect(TAPi18n.i18n.hasResourceBundle('af_ZA', 'translation')).to.be.false;
     });
 
     it('does not unwrap the "default" translation key as an ES-module export', async () => {
       // The data files contain a key literally named "default" ("Default"),
       // which must survive loading and not be mistaken for an ESM namespace.
       await TAPi18n.loadLanguage('de');
-      const data = addResourceBundle.firstCall.args[2];
+      const data = bundleFor('de');
       expect(data).to.have.property('accept');
       expect(data.default).to.be.a('string');
     });
