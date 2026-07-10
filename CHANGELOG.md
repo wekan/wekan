@@ -287,6 +287,20 @@ This release adds the following features and fixes:
   standalone migrator in `$SNAP/bin` could not resolve its `mongodb`/`bson`
   imports — `NODE_PATH` now points at the WeKan bundle's `node_modules`.
 
+- **[Snap migration: only MongoDB 3 migrates (mongo CLI read + Node driver insert), FerretDB SQLite at files/db](https://github.com/wekan/wekan/commit/841ea11c6bcd7e432376cbf19bfb11434a20fee6)**:
+
+  Refines the snap migration to the intended design: a **MongoDB 7** database works
+  with newest WeKan as-is and is **not** migrated; only the old 6.09 / MongoDB 3.2
+  data is. `migration-control` now checks whether mongod 7 can open the data — if
+  so it keeps MongoDB; otherwise it migrates the 3.x data. It reads it with the
+  legacy `mongoexport` CLI (the Node driver can't talk to 3.2) and inserts into
+  FerretDB with the Node driver — text streamed directly, GridFS attachments+avatars
+  reassembled per-file straight to `files/attachments`/`files/avatars` — with **no
+  mongodump/mongorestore and no intermediate MongoDB 7** (which the earlier commit
+  used). FerretDB's SQLite now lives at `<files>/db`, next to attachments/avatars
+  (the `files/<name>` layout), across the snap, offline launchers, Docker entrypoint
+  and the v1-sqlite compose.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
