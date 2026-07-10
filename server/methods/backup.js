@@ -260,9 +260,9 @@ function findBackups(dir, out) {
 
 // ── synced-cron schedule ─────────────────────────────────────────────────────
 const CRON_NAME = 'WeKan Scheduled Backup';
-function registerCron() {
+async function registerCron() {
   try { SyncedCron.remove(CRON_NAME); } catch (_) {}
-  const s = BackupSettings.findOne({ _id: 'schedule' });
+  const s = await BackupSettings.findOneAsync({ _id: 'schedule' });
   if (!s || !s.enabled || !s.frequency || s.frequency === 'off') return;
   SyncedCron.add({
     name: CRON_NAME,
@@ -275,7 +275,7 @@ function registerCron() {
   });
   console.log('[backup] scheduled:', scheduleText(s));
 }
-Meteor.startup(() => { try { registerCron(); } catch (e) { console.error('[backup] cron init:', e); } });
+Meteor.startup(async () => { try { await registerCron(); } catch (e) { console.error('[backup] cron init:', e); } });
 
 async function requireAdmin() {
   const user = await ReactiveCache.getCurrentUser();
@@ -309,7 +309,7 @@ Meteor.methods({
   },
   async getBackupSchedule() {
     await requireAdmin();
-    return BackupSettings.findOne({ _id: 'schedule' }) || null;
+    return await BackupSettings.findOneAsync({ _id: 'schedule' }) || null;
   },
   async saveBackupSchedule(schedule) {
     await requireAdmin();
@@ -326,8 +326,8 @@ Meteor.methods({
       storage: schedule.storage || 'filesystem',
       updatedAt: new Date(),
     };
-    BackupSettings.upsert({ _id: 'schedule' }, doc);
-    registerCron();
+    await BackupSettings.upsertAsync({ _id: 'schedule' }, doc);
+    await registerCron();
     return doc;
   },
 });

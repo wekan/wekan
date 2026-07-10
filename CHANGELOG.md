@@ -98,6 +98,19 @@ them up next.
 
 This release adds the following features and fixes:
 
+- **Fix scheduled backup cron init crashing at server startup on Meteor 3**:
+
+  The scheduled-backup cron used Meteor's synchronous Mongo API
+  (`BackupSettings.findOne`/`upsert`), which Meteor 3 no longer allows on the
+  server — startup logged `findOne is not available on the server. Please use
+  findOneAsync() instead.` and the cron silently never registered, so scheduled
+  backups did not run. `registerCron()` is now `async` and uses `findOneAsync`,
+  the `getBackupSchedule`/`saveBackupSchedule` methods use `findOneAsync`/
+  `upsertAsync`, and every `registerCron()` caller awaits it. Added
+  `tests/backupCron.test.cjs` (positive + negative cron-registration tests and a
+  source guard that fails if the synchronous server-forbidden API is
+  reintroduced), wired into the `test:unit:node` suite.
+
 - **[Fix rebuild-all.yml s390x build; add bundled FerretDB v1 for ppc64le, s390x, riscv64 and to the Docker image](https://github.com/wekan/wekan/commit/0360ca1583b4b17b465ded20c4fd7560004aee47)**:
 
   The extra-arch bundle build ran `node:24-slim` under QEMU, but the official
