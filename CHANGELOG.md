@@ -368,6 +368,30 @@ This release adds the following features and fixes:
   straight to the chosen file via the File System Access API, chunk by chunk with
   backpressure (browsers without the API fall back to the previous blob download).
 
+- **[Lazy card loading for very large boards: CARDS_LOADING=all|lazy + Admin Panel / Features](https://github.com/wekan/wekan/commit/51d7ff889)**:
+
+  A board's `board` publication normally ships **every** non-archived card (with
+  full fields, comments, attachments and checklists) into each viewer's minimongo.
+  The list rendering is already infinite-scrolled (~10 cards per list in the DOM),
+  but the whole dataset still crosses the wire and sits in browser memory, so a
+  board with thousands of cards is heavy for every viewer.
+
+  A new **`CARDS_LOADING`** mode (`all` default, or `lazy`) makes each list load
+  only the cards it is about to render. In lazy mode the board publication ships
+  no cards; instead each list/swimlane subscribes to a windowed publication
+  (`boardCardsWindow`) for just its visible window — growing as you scroll — plus
+  a reactive total count (`boardListCardCount`) so it knows when more remain. The
+  window selector is ANDed with a server-forced board scope and refuses `$where`.
+  This is set by the `CARDS_LOADING` env var (exposed in `docker-compose*.yml`,
+  the bundle `start-wekan.sh`/`.bat`, and `snap set wekan cards-loading=lazy`) and
+  also at runtime in a **new Admin Panel / Features** section — the intended home
+  for optional / performance / future tier-gated capabilities. ([client + Features](https://github.com/wekan/wekan/commit/b573a05be),
+  [platform env](https://github.com/wekan/wekan/commit/afae09a29))
+
+  Lazy mode is opt-in and **experimental**: card counters, WIP limits and the
+  Calendar/Table/Gantt views currently reflect only the cards loaded so far, and
+  open boards must be reloaded after switching modes. Default `all` is unchanged.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
