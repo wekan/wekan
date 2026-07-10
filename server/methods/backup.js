@@ -6,26 +6,37 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { SyncedCron } from '/server/cron/syncedCron';
 import fs from 'fs';
 import path from 'path';
-import JSZip from 'jszip';
+import readline from 'readline';
+import { Readable } from 'stream';
+import archiver from 'archiver';
+import unzipper from 'unzipper';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments / Backup.
 //
 // Backs up any of: Attachments, Avatars, Data (text = all collections that are
 // NOT attachments/avatars) into
-//   <files>/backup/YYYY/MM/DD/HH_MM_SS/backup.zip
+//   backup/YYYY/MM/DD/HH_MM_SS/backup.zip
 // whose contents are
-//   YYYY_MM_DD-HH_MM_SS/attachments/…
-//   YYYY_MM_DD-HH_MM_SS/avatars/…
-//   YYYY_MM_DD-HH_MM_SS/data/<collection>.json   (EJSON)
+//   YYYY_MM_DD-HH_MM_SS/attachments/…            (files, streamed from disk)
+//   YYYY_MM_DD-HH_MM_SS/avatars/…                (files, streamed from disk)
+//   YYYY_MM_DD-HH_MM_SS/data/<collection>.ndjson (one EJSON document per line)
 //
-// Restore supports "add missing" (only insert documents / files not already
-// present) or "replace all". A schedule (daily / weekly / monthly) runs backups
-// via synced-cron. A storage name is recorded with each backup (filesystem is
-// implemented; cloud targets can be added later).
+// LOW MEMORY / STREAMING BY DESIGN — a board with thousands of cards or a 5 GB
+// attachment must not be loaded into RAM:
+//   * The zip is written with `archiver`, which STREAMS each attachment/avatar
+//     directly from disk (`archive.directory`) — never buffering a whole file.
+//   * Text data is streamed a DOCUMENT AT A TIME from a MongoDB cursor into the
+//     archive as NDJSON (one doc per line).
+//   * The archive is piped straight to the destination (a file, or an S3/Azure/GCS
+//     streaming upload) — no temp file, no whole-zip buffer.
+//   * Restore reads the zip with `unzipper` and streams each file entry straight
+//     to disk, and each data NDJSON entry LINE BY LINE into the database.
 //
-// NOTE: the whole backup is assembled with jszip; a very large attachment set
-// can use a lot of memory. Not exercised end-to-end here.
+// Restore supports "add missing" (only insert docs/files not already present) or
+// "replace all". A schedule (daily/weekly/monthly) runs backups via synced-cron.
+// The selected storage is where the .zip is streamed (filesystem is fully
+// implemented; the cloud upload paths are not exercised end-to-end here).
 // ─────────────────────────────────────────────────────────────────────────────
 
 const BackupSettings = new Mongo.Collection('backupSettings');
@@ -46,12 +57,31 @@ const attachmentsDir = () => path.join(filesRoot(), 'attachments');
 const avatarsDir = () => path.join(filesRoot(), 'avatars');
 const backupRoot = () => path.join(filesRoot(), 'backup');
 
-// Stream a zip Readable straight to a cloud provider (no temp file). Uses the
-// provider config saved in AttachmentStorageSettings.storageConfig. SDKs are
-// lazy-required so the server does not load them unless a cloud backup runs.
-// NOTE: cloud paths are best-effort and not exercised here — verify the config
-// field names against your storage settings.
-async function streamZipToCloud(zipStream, provider, key) {
+function pad(n) { return String(n).padStart(2, '0'); }
+function nowParts() {
+  const d = new Date();
+  return { y: d.getFullYear(), mo: pad(d.getMonth() + 1), da: pad(d.getDate()), h: pad(d.getHours()), mi: pad(d.getMinutes()), s: pad(d.getSeconds()) };
+}
+
+// Live progress the client polls.
+const progress = { running: false, phase: 'idle', detail: '', file: '', success: null, error: '' };
+function setProgress(p) { Object.assign(progress, p); }
+
+// Stream a MongoDB collection out as NDJSON (one EJSON document per line) — pulls
+// a document at a time from the cursor, so a collection with thousands of cards
+// never sits in RAM.
+async function* ndjsonOfCollection(db, coll) {
+  const cursor = db.collection(coll).find({});
+  for await (const doc of cursor) {
+    yield EJSON.stringify(doc) + '\n';
+  }
+  await cursor.close();
+}
+
+// Stream the archive straight to a cloud provider (no temp file). SDKs are
+// lazy-required. Returns { dest, promise } — the caller adds entries + finalizes,
+// then awaits the promise. NOTE: cloud paths are best-effort and not tested here.
+async function streamArchiveToCloud(archive, provider, key) {
   const AttachmentStorageSettings = (await import('/models/attachmentStorageSettings')).default;
   const settings = await AttachmentStorageSettings.findOneAsync({});
   const cfg = settings && settings.storageConfig && settings.storageConfig[provider];
@@ -66,8 +96,9 @@ async function streamZipToCloud(zipStream, provider, key) {
       forcePathStyle: cfg.forcePathStyle !== false,
       credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
     });
-    await new Upload({ client, params: { Bucket: cfg.bucket, Key: key, Body: zipStream, ContentType: 'application/zip' } }).done();
-    return `s3://${cfg.bucket}/${key}`;
+    // @aws-sdk/lib-storage streams the archive body as a multipart upload.
+    const up = new Upload({ client, params: { Bucket: cfg.bucket, Key: key, Body: archive, ContentType: 'application/zip' } });
+    return { dest: `s3://${cfg.bucket}/${key}`, promise: up.done() };
   }
   if (provider === 'azure') {
     const { BlobServiceClient, StorageSharedKeyCredential } = require('@azure/storage-blob');
@@ -75,8 +106,8 @@ async function streamZipToCloud(zipStream, provider, key) {
       ? BlobServiceClient.fromConnectionString(cfg.connectionString)
       : new BlobServiceClient(`https://${cfg.accountName}.blob.core.windows.net`,
           new StorageSharedKeyCredential(cfg.accountName, cfg.accountKey));
-    await svc.getContainerClient(cfg.bucket).getBlockBlobClient(key).uploadStream(zipStream);
-    return `azure://${cfg.bucket}/${key}`;
+    const blob = svc.getContainerClient(cfg.bucket).getBlockBlobClient(key);
+    return { dest: `azure://${cfg.bucket}/${key}`, promise: blob.uploadStream(archive) };
   }
   if (provider === 'gcs') {
     const { Storage } = require('@google-cloud/storage');
@@ -85,34 +116,12 @@ async function streamZipToCloud(zipStream, provider, key) {
       keyFilename: cfg.keyFilename || undefined,
       credentials: cfg.credentials ? (typeof cfg.credentials === 'string' ? JSON.parse(cfg.credentials) : cfg.credentials) : undefined,
     });
-    const file = storage.bucket(cfg.bucket).file(key);
-    await new Promise((resolve, reject) => {
-      zipStream.pipe(file.createWriteStream({ resumable: false, contentType: 'application/zip' }))
-        .on('finish', resolve).on('error', reject);
-    });
-    return `gcs://${cfg.bucket}/${key}`;
+    const ws = storage.bucket(cfg.bucket).file(key).createWriteStream({ resumable: false, contentType: 'application/zip' });
+    const promise = new Promise((resolve, reject) => { ws.on('finish', resolve); ws.on('error', reject); });
+    archive.pipe(ws);
+    return { dest: `gcs://${cfg.bucket}/${key}`, promise };
   }
   throw new Meteor.Error('bad-storage', `Unknown storage "${provider}".`);
-}
-
-function pad(n) { return String(n).padStart(2, '0'); }
-function nowParts() {
-  const d = new Date();
-  return { y: d.getFullYear(), mo: pad(d.getMonth() + 1), da: pad(d.getDate()), h: pad(d.getHours()), mi: pad(d.getMinutes()), s: pad(d.getSeconds()) };
-}
-
-// Live progress the client polls.
-const progress = { running: false, phase: 'idle', detail: '', file: '', success: null, error: '' };
-function setProgress(p) { Object.assign(progress, p); }
-
-// Recursively add a directory's files to a JSZip folder.
-function addDirToZip(zipFolder, dir) {
-  if (!fs.existsSync(dir)) return;
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) addDirToZip(zipFolder.folder(entry.name), full);
-    else if (entry.isFile()) zipFolder.file(entry.name, fs.readFileSync(full));
-  }
 }
 
 async function doBackup(opts, storageName) {
@@ -120,43 +129,45 @@ async function doBackup(opts, storageName) {
   try {
     const t = nowParts();
     const stamp = `${t.y}_${t.mo}_${t.da}-${t.h}_${t.mi}_${t.s}`;
+    const key = `backup/${t.y}/${t.mo}/${t.da}/${t.h}_${t.mi}_${t.s}/backup.zip`;
 
-    const zip = new JSZip();
-    const root = zip.folder(stamp);
-    if (opts.attachments) { setProgress({ phase: 'attachments' }); addDirToZip(root.folder('attachments'), attachmentsDir()); }
-    if (opts.avatars) { setProgress({ phase: 'avatars' }); addDirToZip(root.folder('avatars'), avatarsDir()); }
+    const archive = archiver('zip', { zlib: { level: 6 } });
+    archive.on('warning', err => { if (err && err.code !== 'ENOENT') setProgress({ error: String(err.message || err) }); });
+
+    // Attach the destination BEFORE finalizing so nothing is buffered in RAM.
+    setProgress({ phase: 'zipping', detail: storageName || 'filesystem' });
+    let dest;
+    let donePromise;
+    if (!storageName || storageName === 'filesystem') {
+      const dir = path.join(backupRoot(), String(t.y), t.mo, t.da, `${t.h}_${t.mi}_${t.s}`);
+      fs.mkdirSync(dir, { recursive: true });   // the final backup dir, not a temp dir
+      dest = path.join(dir, 'backup.zip');
+      const out = fs.createWriteStream(dest);
+      donePromise = new Promise((resolve, reject) => { out.on('close', resolve); out.on('error', reject); archive.on('error', reject); });
+      archive.pipe(out);
+      try { fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify({ stamp, storage: 'filesystem', opts })); } catch (_) {}
+    } else {
+      const cloud = await streamArchiveToCloud(archive, storageName, key);
+      dest = cloud.dest;
+      donePromise = cloud.promise;
+    }
+
+    // Add content — all streamed (directories from disk, data a doc at a time).
+    if (opts.attachments && fs.existsSync(attachmentsDir())) { setProgress({ phase: 'attachments' }); archive.directory(attachmentsDir(), `${stamp}/attachments`); }
+    if (opts.avatars && fs.existsSync(avatarsDir())) { setProgress({ phase: 'avatars' }); archive.directory(avatarsDir(), `${stamp}/avatars`); }
     if (opts.data) {
       setProgress({ phase: 'data' });
       const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
       const names = (await db.listCollections().toArray()).map(c => c.name)
         .filter(n => !FILE_COLLECTIONS.has(n) && !n.startsWith('system.'));
-      const dataF = root.folder('data');
       for (const n of names) {
         setProgress({ detail: 'data: ' + n });
-        const docs = await db.collection(n).find({}).toArray();
-        dataF.file(n + '.json', EJSON.stringify(docs));
+        archive.append(Readable.from(ndjsonOfCollection(db, n)), { name: `${stamp}/data/${n}.ndjson` });
       }
     }
 
-    // Stream the zip DIRECTLY to the selected storage — no temp file, no double
-    // disk usage. filesystem: pipe to the file. Cloud (s3/azure/gcs): stream to
-    // the provider (S3 lib-storage Upload / Azure uploadStream / GCS
-    // createWriteStream), keyed backup/YYYY/MM/DD/HH_MM_SS/backup.zip.
-    setProgress({ phase: 'zipping', detail: storageName || 'filesystem' });
-    const key = `backup/${t.y}/${t.mo}/${t.da}/${t.h}_${t.mi}_${t.s}/backup.zip`;
-    const zipStream = zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true, compression: 'DEFLATE' });
-    let dest;
-    if (!storageName || storageName === 'filesystem') {
-      const dir = path.join(backupRoot(), String(t.y), t.mo, t.da, `${t.h}_${t.mi}_${t.s}`);
-      fs.mkdirSync(dir, { recursive: true });   // the final backup dir, not a temp dir
-      dest = path.join(dir, 'backup.zip');
-      await new Promise((resolve, reject) => {
-        zipStream.pipe(fs.createWriteStream(dest)).on('finish', resolve).on('error', reject);
-      });
-      try { fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify({ stamp, storage: 'filesystem', opts })); } catch (_) {}
-    } else {
-      dest = await streamZipToCloud(zipStream, storageName, key);
-    }
+    await archive.finalize();
+    await donePromise;
     setProgress({ phase: 'completed', file: dest, success: true });
     return dest;
   } catch (e) {
@@ -167,43 +178,58 @@ async function doBackup(opts, storageName) {
   }
 }
 
+async function restoreDataLines(entryStream, coll, mode) {
+  const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+  const c = db.collection(coll);
+  if (mode === 'replace-all') { await c.deleteMany({}).catch(() => {}); }
+  const rl = readline.createInterface({ input: entryStream, crlfDelay: Infinity });
+  let batch = [];
+  const flush = async () => {
+    if (!batch.length) return;
+    if (mode === 'add-missing') {
+      for (const d of batch) { try { await c.insertOne(d); } catch (_) { /* already present */ } }
+    } else {
+      const ops = batch.map(d => ({ replaceOne: { filter: { _id: d._id }, replacement: d, upsert: true } }));
+      try { await c.bulkWrite(ops, { ordered: false }); } catch (_) {}
+    }
+    batch = [];
+  };
+  for await (const line of rl) {
+    const s = line.trim();
+    if (!s) continue;
+    try { batch.push(EJSON.parse(s)); } catch (_) { continue; }
+    if (batch.length >= 200) await flush();
+  }
+  await flush();
+}
+
 async function doRestore(zipPath, mode) {
   setProgress({ running: true, phase: 'restore', detail: zipPath, success: null, error: '' });
   try {
-    const buf = fs.readFileSync(zipPath);
-    const zip = await JSZip.loadAsync(buf);
-    const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
-    // Files: <stamp>/attachments/*, <stamp>/avatars/*
-    for (const [name, entry] of Object.entries(zip.files)) {
-      if (entry.dir) continue;
-      const rel = name.split('/').slice(1); // drop the <stamp> top folder
+    // unzipper.Open reads the central directory, then streams each entry on
+    // demand — a 5 GB attachment is piped straight to disk, never buffered.
+    const directory = await unzipper.Open.file(zipPath);
+    // Files first (attachments/avatars), then data.
+    for (const entry of directory.files) {
+      if (entry.type !== 'File') continue;
+      const rel = entry.path.split('/').slice(1); // drop the <stamp> top folder
       const kind = rel[0];
-      if (kind === 'attachments' || kind === 'avatars') {
-        const dest = path.join(kind === 'attachments' ? attachmentsDir() : avatarsDir(), ...rel.slice(1));
-        if (mode === 'add-missing' && fs.existsSync(dest)) continue;
-        fs.mkdirSync(path.dirname(dest), { recursive: true });
-        fs.writeFileSync(dest, await entry.async('nodebuffer'));
-      }
+      if (kind !== 'attachments' && kind !== 'avatars') continue;
+      const destPath = path.join(kind === 'attachments' ? attachmentsDir() : avatarsDir(), ...rel.slice(1));
+      if (mode === 'add-missing' && fs.existsSync(destPath)) continue;
+      fs.mkdirSync(path.dirname(destPath), { recursive: true });
+      setProgress({ detail: entry.path });
+      await new Promise((resolve, reject) => {
+        entry.stream().pipe(fs.createWriteStream(destPath)).on('finish', resolve).on('error', reject);
+      });
     }
-    // Data: <stamp>/data/<coll>.json (EJSON array)
-    for (const [name, entry] of Object.entries(zip.files)) {
-      if (entry.dir) continue;
-      const rel = name.split('/').slice(1);
-      if (rel[0] !== 'data' || !rel[1] || !rel[1].endsWith('.json')) continue;
-      const coll = rel[1].replace(/\.json$/, '');
+    for (const entry of directory.files) {
+      if (entry.type !== 'File') continue;
+      const rel = entry.path.split('/').slice(1);
+      if (rel[0] !== 'data' || !rel[1] || !rel[1].endsWith('.ndjson')) continue;
+      const coll = rel[1].replace(/\.ndjson$/, '');
       setProgress({ detail: 'data: ' + coll });
-      const docs = EJSON.parse(await entry.async('string'));
-      const c = db.collection(coll);
-      if (mode === 'replace-all') { await c.deleteMany({}).catch(() => {}); }
-      for (let i = 0; i < docs.length; i += 200) {
-        const batch = docs.slice(i, i + 200);
-        if (mode === 'add-missing') {
-          for (const d of batch) { try { await c.insertOne(d); } catch (_) { /* already present */ } }
-        } else {
-          const ops = batch.map(d => ({ replaceOne: { filter: { _id: d._id }, replacement: d, upsert: true } }));
-          try { await c.bulkWrite(ops, { ordered: false }); } catch (_) {}
-        }
-      }
+      await restoreDataLines(entry.stream(), coll, mode);
     }
     setProgress({ phase: 'completed', success: true });
   } catch (e) {
@@ -233,7 +259,6 @@ function findBackups(dir, out) {
 // ── synced-cron schedule ─────────────────────────────────────────────────────
 const CRON_NAME = 'WeKan Scheduled Backup';
 function scheduleText(s) {
-  // s: { frequency:'daily'|'weekly'|'monthly', time:'HH:MM', dayOfWeek, dayOfMonth }
   const [hh, mm] = (s.time || '04:00').split(':');
   const at = `at ${hh}:${mm}`;
   if (s.frequency === 'weekly') return `on ${s.dayOfWeek || 'Sunday'} ${at}`;
