@@ -147,6 +147,34 @@ This release adds the following features and fixes:
   reactivity mechanism is currently in use — changeStreams / oplog / polling
   (FerretDB has no oplog, so it uses polling).
 
+- **[rebuild-all.yml: build standalone ferretdb.zip for all Go-cross-compilable architectures, single source for every WeKan build](https://github.com/wekan/wekan/commit/d5b8a7f3a9e558d4f24a77a9b92b0c89b6ba54af)**:
+
+  A new build-ferretdb job cross-compiles FerretDB v1 (the wekan/FerretDB fork,
+  pure-Go SQLite backend, CGO off, no QEMU) for every platform Go and
+  modernc.org/sqlite support — far beyond the arches Node.js ships — and packs
+  them into `ferretdb.zip`:
+
+      ferretdb/<arch>/ferretdb-<arch>        (Linux/macOS/BSD, executable)
+      ferretdb/<arch>/ferretdb-<arch>.exe    (Windows only)
+      ferretdb/README.md                     (links to https://github.com/wekan/FerretDB)
+
+  Targets that do not compile are skipped, so the zip holds exactly what builds.
+  `ferretdb.zip` is attached to the GitHub Release, and every WeKan build (the
+  bundle .zip for each arch, and via the bundle the Docker image and snap) now
+  takes its FerretDB binary from that same `ferretdb.zip` — one source of truth.
+  The Windows and macOS bundles now include FerretDB too.
+
+- **[Fix #6445: dynamic-import chunks 404 under a sub-path (duplicated build-chunks/build-chunks/)](https://github.com/wekan/wekan/commit/473896e904431b1b6f2b0abc55d8cc85e30e44b2)**:
+
+  Under a sub-path deployment (ROOT_URL like `https://host/wekan`, usually behind
+  a reverse proxy that strips the prefix), language selection and other
+  lazy-loaded features failed with `ENOENT ... build-chunks/build-chunks/<id>.js`.
+  rspack's client runtime builds each chunk URL as public-path + chunk-name, and
+  the chunk name already carries the `build-chunks/` prefix, but
+  client/00-startup.js set the sub-path public path to `<sub-path>/build-chunks/`,
+  so rspack appended a second `build-chunks/`. It now sets the public path to just
+  `<sub-path>/` and lets rspack add `build-chunks/` itself.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
