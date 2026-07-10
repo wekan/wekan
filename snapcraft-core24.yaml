@@ -181,27 +181,34 @@ parts:
             mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
             cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
 
-    # Old mongod (MongoDB 3.2, amd64 only), used ONLY to read the WeKan 6.09 snap's
-    # MongoDB 3.2 data during the one-time migration to FerretDB: migration-control
-    # falls back to $SNAP/bin/mongod-old when mongod 7 cannot open the data. arm64
-    # snaps run newest WeKan on MongoDB 7 (whose data mongod 7 reads directly), so
-    # no old mongod is staged there.
-    # NOTE: mongod 3.2 is a 2016 binary linked against old glibc/OpenSSL, so on a
-    # modern base it may need extra runtime libraries; this fallback is best-effort
-    # and must be tested against a real 6.09 data directory.
-    mongodb-old:
+    # migratemongo: the WeKan 6.09 MongoDB 3.2 binaries (bin/), the old libraries
+    # they need (lib/x86_64-linux-gnu: libssl/libcrypto.so.1.0.0, libpng12,
+    # libexpat) and the AVX QEMU wrappers (avx/), from
+    # https://github.com/wekan/migratemongo . Staged at $SNAP/migratemongo — which
+    # mongodb-control / mongodb-backup / mongodb-restore already reference via
+    # $SNAP/migratemongo/avx, and which migration-control uses to read the 6.09
+    # MongoDB 3.2 data during the one-time migration to FerretDB (it runs
+    # $SNAP/migratemongo/bin/mongod with LD_LIBRARY_PATH set to the lib dir above,
+    # and the legacy $SNAP/migratemongo/bin/mongo shell for readiness — mongosh
+    # cannot talk to MongoDB 3.2).
+    #
+    # amd64 only: these are x86_64 MongoDB 3.2 binaries. arm64 snaps run newest
+    # WeKan on MongoDB 7, whose data mongod 7 reads directly.
+    migratemongo:
         plugin: nil
+        build-packages:
+            - git
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
                 amd64)
-                    wget -O mongodb-old.tgz "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.22.tgz"
-                    tar -xzf mongodb-old.tgz --strip-components=1
-                    mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
-                    cp -a bin/mongod "$SNAPCRAFT_PART_INSTALL/bin/mongod-old"
+                    git clone --depth 1 https://github.com/wekan/migratemongo.git "$SNAPCRAFT_PART_INSTALL/migratemongo"
+                    rm -rf "$SNAPCRAFT_PART_INSTALL/migratemongo/.git"
+                    chmod +x "$SNAPCRAFT_PART_INSTALL/migratemongo/bin/"* \
+                             "$SNAPCRAFT_PART_INSTALL/migratemongo/avx/"* 2>/dev/null || true
                     ;;
                 *)
-                    echo "No old mongod for ${CRAFT_ARCH_BUILD_FOR}; MongoDB 7 (mongodb part) reads its data."
+                    echo "migratemongo (MongoDB 3.2, x86_64) not staged for ${CRAFT_ARCH_BUILD_FOR}; arm64 uses MongoDB 7."
                     ;;
             esac
 

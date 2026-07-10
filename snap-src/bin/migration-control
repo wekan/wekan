@@ -54,51 +54,67 @@ if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$MIGRATOR" ]; then
 fi
 
 export LC_ALL=C
+# Base library path so the snap's own mongod 7 + mongosh find their libraries
+# (docs/Backup/Backup.md: $SNAP/lib/<arch>-linux-gnu).
 export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:${LD_LIBRARY_PATH:-}"
 
+# The old MongoDB 3.2 binaries, the old libraries they need (libssl/libcrypto
+# 1.0.0, libpng12, libexpat) and the AVX QEMU wrappers come from the migratemongo
+# part (amd64 only): https://github.com/wekan/migratemongo
+MM="$SNAP/migratemongo"
+MM_LIB="$MM/lib/x86_64-linux-gnu"
+
 # ── Pick the mongod that can open the existing data ──────────────────────────
-# mongod 7 opens MongoDB 6/7 data (arm64 always lands here). For the amd64 6.09
-# (MongoDB 3.2) data, mongod 7 refuses to start, so fall back to the bundled old
-# mongod ($SNAP/bin/mongod-old, amd64 only).
+# mongod 7 (mongosh) opens MongoDB 6/7 data — arm64 always lands here, and so do
+# amd64 snaps already on newest WeKan. For the amd64 WeKan 6.09 (MongoDB 3.2) data
+# mongod 7 refuses to start, so fall back to migratemongo's MongoDB 3.2 mongod
+# with its old libraries and the legacy `mongo` shell (mongosh cannot talk to 3.2).
 LOGF="$SNAP_COMMON/migration-mongod.log"
-start_mongod() {   # $1 = mongod binary
-  "$1" --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
-       --logpath "$LOGF" --logappend --fork >/dev/null 2>&1
+SRC_SHELL="$MONGOSH"      # shell used to talk to / shut down the source mongod
+SRC_LDPREFIX=""           # extra LD_LIBRARY_PATH prefix for the old binaries
+
+start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be empty)
+  LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" \
+    --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
+    --logpath "$LOGF" --logappend --fork >/dev/null 2>&1
 }
-mongod_ok() {
+ready_via() {      # $1 = shell binary, $2 = LD_LIBRARY_PATH prefix
   local i=0
   while [ $i -lt 20 ]; do
-    "$MONGOSH" --port "$SRC_PORT" --quiet --eval 'db.adminCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && return 0
+    LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" --port "$SRC_PORT" --quiet \
+        --eval 'db.adminCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && return 0
     i=$((i+1)); sleep 1
   done
   return 1
 }
-stop_mongod() {
-  "$MONGOSH" --port "$SRC_PORT" --quiet --eval 'db.getSiblingDB("admin").shutdownServer()' >/dev/null 2>&1 || true
+stop_source_mongod() {
+  LD_LIBRARY_PATH="${SRC_LDPREFIX:+$SRC_LDPREFIX:}$LD_LIBRARY_PATH" "$SRC_SHELL" \
+      --port "$SRC_PORT" --quiet \
+      --eval 'db.getSiblingDB("admin").shutdownServer()' >/dev/null 2>&1 || true
   sleep 2
 }
 
 SRC_MONGOD=""
 log "Trying mongod 7 on the existing data ..."
-if start_mongod "$SNAP/bin/mongod" && mongod_ok; then
-  SRC_MONGOD="$SNAP/bin/mongod"
+if start_mongod "$SNAP/bin/mongod" "" && ready_via "$MONGOSH" ""; then
+  SRC_MONGOD="$SNAP/bin/mongod"; SRC_SHELL="$MONGOSH"; SRC_LDPREFIX=""
   log "mongod 7 opened the data (MongoDB 6/7)."
 else
-  stop_mongod
-  if [ -x "$SNAP/bin/mongod-old" ]; then
-    log "mongod 7 could not open it; trying the bundled old mongod (MongoDB 3.x, amd64) ..."
-    if start_mongod "$SNAP/bin/mongod-old" && mongod_ok; then
-      SRC_MONGOD="$SNAP/bin/mongod-old"
-      log "old mongod opened the data (MongoDB 3.x)."
+  SRC_SHELL="$MONGOSH"; SRC_LDPREFIX=""; stop_source_mongod
+  if [ -x "$MM/bin/mongod" ]; then
+    log "mongod 7 could not open it; trying migratemongo (MongoDB 3.2, amd64) ..."
+    if start_mongod "$MM/bin/mongod" "$MM_LIB" && ready_via "$MM/bin/mongo" "$MM_LIB"; then
+      SRC_MONGOD="$MM/bin/mongod"; SRC_SHELL="$MM/bin/mongo"; SRC_LDPREFIX="$MM_LIB"
+      log "migratemongo mongod opened the data (MongoDB 3.2)."
     else
-      stop_mongod
+      SRC_SHELL="$MM/bin/mongo"; SRC_LDPREFIX="$MM_LIB"; stop_source_mongod
     fi
   fi
 fi
 
 if [ -z "$SRC_MONGOD" ]; then
-  log "ERROR: could not open the existing MongoDB data with any bundled mongod."
-  log "See $LOGF . Leaving data in place and NOT switching to FerretDB."
+  log "ERROR: could not open the existing MongoDB data with any bundled mongod. See $LOGF ."
+  log "Leaving data in place and NOT switching to FerretDB."
   exit 0
 fi
 
@@ -109,7 +125,7 @@ export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
             --listen-addr="127.0.0.1:$TGT_PORT" --telemetry=disable \
             >"$SNAP_COMMON/migration-ferretdb.log" 2>&1 &
 FERRET_PID=$!
-trap 'kill "$FERRET_PID" 2>/dev/null || true; stop_mongod' EXIT INT TERM
+trap 'kill "$FERRET_PID" 2>/dev/null || true; stop_source_mongod' EXIT INT TERM
 
 # ── Run the migrator (progress served at ROOT_URL / PORT) ────────────────────
 WEKAN_PORT="${PORT:-8080}"
