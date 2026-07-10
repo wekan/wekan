@@ -83,6 +83,14 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // How a board loads its cards: 'all' (default — every card into minimongo)
+    // or 'lazy' (only the visible per-list window, via a windowed publication).
+    // Seeded from the CARDS_LOADING env var; changeable in Admin Panel.
+    cardsLoading: {
+      type: String,
+      optional: true,
+      allowedValues: ['all', 'lazy'],
+    },
     hideBoardMemberList: {
       type: Boolean,
       optional: true,

@@ -126,6 +126,12 @@ Meteor.startup(async () => {
   const envDefaultAuthenticationMethod = normalizeAuthenticationMethod(
     process.env.DEFAULT_AUTHENTICATION_METHOD,
   );
+  // CARDS_LOADING env: 'lazy' or 'all' (anything else / unset → undefined = leave
+  // to the stored setting, defaulting to 'all'). Like DEFAULT_AUTHENTICATION_METHOD,
+  // when the env var is set it is authoritative on every startup.
+  const envCardsLoading = ['all', 'lazy'].includes((process.env.CARDS_LOADING || '').toLowerCase())
+    ? process.env.CARDS_LOADING.toLowerCase()
+    : undefined;
   if (!setting) {
     const now = new Date();
     const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];
@@ -145,6 +151,7 @@ Meteor.startup(async () => {
       displayAuthenticationMethod: true,
       defaultAuthenticationMethod:
         resolveDefaultAuthenticationMethod(envDefaultAuthenticationMethod, undefined),
+      cardsLoading: envCardsLoading || 'all',
     };
     await Settings.insertAsync(defaultSetting);
   } else if (
@@ -157,6 +164,22 @@ Meteor.startup(async () => {
       $set: { defaultAuthenticationMethod: envDefaultAuthenticationMethod },
     });
   }
+  // Existing install: when CARDS_LOADING is set it wins on startup; otherwise
+  // backfill a missing value so the Admin Panel control has something to show.
+  if (setting) {
+    if (envCardsLoading && setting.cardsLoading !== envCardsLoading) {
+      await Settings.updateAsync(setting._id, { $set: { cardsLoading: envCardsLoading } });
+    } else if (!setting.cardsLoading) {
+      await Settings.updateAsync(setting._id, { $set: { cardsLoading: 'all' } });
+    }
+  }
+  // Mirror the effective mode onto Meteor.settings.public so publications can read
+  // it synchronously; keep it in sync whenever an admin changes it in the UI.
+  {
+    const eff = await getReactiveCache().getCurrentSetting();
+    if (!Meteor.settings.public) Meteor.settings.public = {};
+    Meteor.settings.public.cardsLoading = (eff && eff.cardsLoading) || 'all';
+  }
   if (isSandstorm) {
     const newSetting = await getReactiveCache().getCurrentSetting();
     if (!process.env.MAIL_URL && newSetting.mailUrl()) {
@@ -167,6 +190,16 @@ Meteor.startup(async () => {
       : newSetting.mailServer.from;
   } else {
     Accounts.emailTemplates.from = process.env.MAIL_FROM;
+  }
+});
+
+// Keep the server-side effective card-loading mode in sync when an admin changes
+// it in Admin Panel / Features (publications read Meteor.settings.public.cardsLoading).
+// A page reload is needed for already-open boards to switch modes.
+Settings.after.update((userId, doc, fieldNames) => {
+  if (fieldNames.includes('cardsLoading')) {
+    if (!Meteor.settings.public) Meteor.settings.public = {};
+    Meteor.settings.public.cardsLoading = doc.cardsLoading || 'all';
   }
 });
 

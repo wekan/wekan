@@ -11,6 +11,13 @@ import Team from "../../models/team";
 import Attachments from '../../models/attachments';
 import Boards from '/models/boards';
 
+// When CARDS_LOADING=lazy (Admin Panel / Features), the board publication must
+// NOT ship every card / checklist into the client's minimongo — each list loads
+// its visible window on demand via the `boardCardsWindow` publication instead.
+// Default ('all') keeps the full behaviour below unchanged.
+const lazyCards = () =>
+  !!(Meteor.settings.public && Meteor.settings.public.cardsLoading === 'lazy');
+
 publishComposite('boards', function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
@@ -422,6 +429,9 @@ publishComposite('board', async function(boardId, isArchived) {
       // Cards
       {
         async find(board) {
+          // Lazy mode: cards (and their comments/attachments children) are
+          // published per visible window by `boardCardsWindow`, not here.
+          if (lazyCards()) return null;
           const cardSelector = {
             boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
             archived: isArchived,
@@ -468,6 +478,8 @@ publishComposite('board', async function(boardId, isArchived) {
       // per-card-id snapshot that goes stale.
       {
         async find(board) {
+          // Lazy mode: checklists are published per visible card by boardCardsWindow.
+          if (lazyCards()) return null;
           const boardIds = [board._id];
           if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           // Assigned-only members must not receive checklists for cards they are
@@ -491,6 +503,8 @@ publishComposite('board', async function(boardId, isArchived) {
       // ChecklistItems for the whole board — single cursor on denormalized boardId
       {
         async find(board) {
+          // Lazy mode: checklist items are published per visible card by boardCardsWindow.
+          if (lazyCards()) return null;
           const boardIds = [board._id];
           if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           if (thisUserId && board.members) {

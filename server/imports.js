@@ -151,6 +151,7 @@ import '/server/cronMigrationManager';
 // 7. Server — webhooks
 // ----------------------------------------------------------------------------
 import '/server/card-opened-webhook';
+import '/server/cards-loading';
 import '/server/cron/syncedCron';
 
 // ----------------------------------------------------------------------------
@@ -216,6 +217,7 @@ import '/server/publications/avatars';
 import '/server/publications/backgrounds';
 import '/server/publications/boards';
 import '/server/publications/cards';
+import '/server/publications/cardsWindow';
 import '/server/publications/cronJobs';
 import '/server/publications/cronMigrationStatus';
 import '/server/publications/customUI';
