@@ -240,6 +240,12 @@ rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 npm install --prefix ./bundle/programs/server
 mv /home/wekan/app/bundle /build
 
+# The .zip bundle now ships a self-contained launcher + its own Node.js for the
+# offline downloads; the Docker image installs its own Node and uses
+# wekan-entrypoint.sh, so drop the redundant bundled node + launchers (keeps
+# /build/ferretdb, which the entrypoint uses). Saves ~80 MB per arch.
+rm -f /build/node /build/start-wekan.sh /build/start-wekan.bat
+
 # Restore original tar
 mv $(which tar)~ $(which tar)
 

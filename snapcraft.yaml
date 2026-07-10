@@ -243,6 +243,13 @@ parts:
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
+            # The .zip bundle now ships a self-contained launcher + its own Node.js
+            # (for the offline downloads); the snap has its own node in bin/ and uses
+            # wekan-control, so drop the redundant bundled node + launchers. The
+            # bundled ferretdb is kept (ferretdb-control runs $SNAP/ferretdb).
+            rm -f $SNAPCRAFT_PART_INSTALL/node \
+                  $SNAPCRAFT_PART_INSTALL/start-wekan.sh \
+                  $SNAPCRAFT_PART_INSTALL/start-wekan.bat
 
         organize:
             README: README.wekan

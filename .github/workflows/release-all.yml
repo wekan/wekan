@@ -324,18 +324,25 @@ jobs:
         with:
           name: ferretdb-zip
 
-      - name: Embed FerretDB (amd64) and launcher into the bundle
-        # Take the amd64 FerretDB binary from the single-source ferretdb.zip and
-        # ship it + the self-contained launcher inside the amd64 bundle so amd64
-        # users can opt into FerretDB (WEKAN_DB=ferretdb). This amd64 bundle is the
-        # base every other Linux arch is derived from; those jobs overwrite
-        # bundle/ferretdb with their own arch's binary and inherit this launcher.
+      - name: Embed Node.js, FerretDB (amd64) and launcher into the bundle
+        # Make the release .zip self-contained (offline): bundle Node.js + FerretDB
+        # + a start-wekan.sh that runs WeKan on the bundled Node against the bundled
+        # FerretDB (SQLite) by default, storing files on the filesystem under
+        # WRITABLE_PATH. This amd64 bundle is the base every other Linux arch is
+        # derived from; those jobs overwrite bundle/node and bundle/ferretdb with
+        # their own arch's binaries and inherit this launcher.
         run: |
+          # Bundled Node.js: the runner's node (setup-node) is linux-x64 Node 24,
+          # matching this base bundle's arch.
+          cp -L "$(command -v node)" .build/bundle/node
+          chmod +x .build/bundle/node
+          # Bundled FerretDB (amd64) from the single-source ferretdb.zip.
           unzip -o -j ferretdb.zip "ferretdb/amd64/ferretdb-amd64" -d .build/bundle
           mv .build/bundle/ferretdb-amd64 .build/bundle/ferretdb
           chmod +x .build/bundle/ferretdb
-          cp releases/ferretdb/start-wekan-ferretdb.sh .build/bundle/
-          chmod +x .build/bundle/start-wekan-ferretdb.sh
+          # Self-contained launcher (defaults to FerretDB SQLite + WRITABLE_PATH).
+          cp releases/ferretdb/start-wekan.sh .build/bundle/
+          chmod +x .build/bundle/start-wekan.sh
 
       - name: Create amd64 zip
         run: |
@@ -394,10 +401,12 @@ jobs:
         with:
           name: ferretdb-zip
 
-      - name: Embed FerretDB (arm64) into the bundle
-        # The launcher (start-wekan-ferretdb.sh) is inherited from the amd64 base
-        # bundle; only the binary needs swapping to the arm64 build from ferretdb.zip.
+      - name: Embed Node.js + FerretDB (arm64) into the bundle
+        # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
+        # swap bundle/node (runner is arm64 -> linux-arm64 Node 24) and bundle/ferretdb.
         run: |
+          cp -L "$(command -v node)" bundle/node
+          chmod +x bundle/node
           unzip -o -j ferretdb.zip "ferretdb/arm64/ferretdb-arm64" -d bundle
           mv bundle/ferretdb-arm64 bundle/ferretdb
           chmod +x bundle/ferretdb
@@ -483,10 +492,10 @@ jobs:
         shell: bash
         run: |
           7z x wekan-${VERSION}-amd64.zip
-          # Drop the Linux FerretDB binary + POSIX launcher inherited from the
-          # amd64 base bundle; the Windows FerretDB binary (ferretdb.exe) is added
-          # from ferretdb.zip in a later step.
-          rm -f bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan-ferretdb.sh
+          # Drop the Linux node + FerretDB binaries + POSIX launcher inherited from
+          # the amd64 base bundle; the Windows node.exe, ferretdb.exe and
+          # start-wekan.bat are added in a later step.
+          rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -548,12 +557,19 @@ jobs:
         with:
           name: ferretdb-zip
 
-      - name: Embed FerretDB (win64) into the bundle
+      - name: Embed Node.js, FerretDB (win64) and launcher into the bundle
         shell: bash
-        # Take the Windows FerretDB binary from the single-source ferretdb.zip.
-        # Tolerant: if FerretDB did not compile for windows/amd64 it won't be in
-        # the zip, and the Windows bundle simply stays MongoDB-only.
+        # Make the Windows .zip self-contained: bundle node.exe (from the runner's
+        # win-x64 Node 24), ferretdb.exe (from the single-source ferretdb.zip) and
+        # start-wekan.bat. FerretDB embedding is tolerant: if it did not compile for
+        # windows/amd64 the bundle stays MongoDB-only (start-wekan.bat then won't
+        # find ferretdb.exe).
         run: |
+          # Bundled Node.js (win-x64 node.exe from setup-node).
+          NODE_SRC="$(command -v node)"
+          [ -f "$NODE_SRC" ] || NODE_SRC="${NODE_SRC}.exe"
+          cp "$NODE_SRC" bundle/node.exe
+          # Bundled FerretDB (win64).
           if 7z e -y ferretdb.zip "ferretdb/win64/ferretdb-win64.exe" -obundle > /dev/null 2>&1 \
              && [ -f bundle/ferretdb-win64.exe ]; then
             mv bundle/ferretdb-win64.exe bundle/ferretdb.exe
@@ -561,6 +577,8 @@ jobs:
           else
             echo "No win64 FerretDB in ferretdb.zip; Windows bundle stays MongoDB-only."
           fi
+          # Self-contained Windows launcher (defaults to FerretDB SQLite).
+          cp src/releases/ferretdb/start-wekan.bat bundle/
 
       - name: Create win64 zip
         shell: cmd
@@ -602,10 +620,10 @@ jobs:
       - name: Rebuild native modules for macOS arm64
         run: |
           unzip -q wekan-${VERSION}-amd64.zip
-          # Replace the Linux FerretDB binary inherited from the amd64 base bundle
-          # with the macOS build (added from ferretdb.zip in a later step). The
-          # POSIX launcher start-wekan-ferretdb.sh works on macOS, so keep it.
-          rm -f bundle/ferretdb bundle/.ferretdb-default
+          # Replace the Linux node + FerretDB binaries inherited from the amd64 base
+          # bundle with the macOS builds (added in a later step). The POSIX launcher
+          # start-wekan.sh works on macOS, so keep it.
+          rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -630,11 +648,14 @@ jobs:
         with:
           name: ferretdb-zip
 
-      - name: Embed FerretDB (mac-arm64) into the bundle
-        # Take the macOS arm64 FerretDB binary from the single-source ferretdb.zip.
-        # Tolerant: if FerretDB did not compile for darwin/arm64 the mac bundle
-        # simply stays MongoDB-only (its launcher then just won't find ferretdb).
+      - name: Embed Node.js + FerretDB (mac-arm64) into the bundle
+        # Bundle the macOS arm64 Node.js (runner's darwin-arm64 Node 24) and the
+        # macOS FerretDB binary from the single-source ferretdb.zip. FerretDB is
+        # tolerant: if it did not compile for darwin/arm64 the bundle stays
+        # MongoDB-only (start-wekan.sh then won't find ferretdb).
         run: |
+          cp -L "$(command -v node)" bundle/node
+          chmod +x bundle/node
           if unzip -o -j ferretdb.zip "ferretdb/mac-arm64/ferretdb-mac-arm64" -d bundle >/dev/null 2>&1 \
              && [ -f bundle/ferretdb-mac-arm64 ]; then
             mv bundle/ferretdb-mac-arm64 bundle/ferretdb
@@ -642,7 +663,7 @@ jobs:
             echo "Embedded FerretDB mac-arm64 -> bundle/ferretdb"
           else
             echo "No mac-arm64 FerretDB in ferretdb.zip; macOS bundle stays MongoDB-only."
-            rm -f bundle/start-wekan-ferretdb.sh
+            rm -f bundle/start-wekan.sh
           fi
 
       - name: Create mac-arm64 zip
@@ -788,6 +809,10 @@ jobs:
               export PATH=/opt/node/bin:$PATH
               node --version
               npm install
+              # Bundle the target-arch Node.js binary for the self-contained
+              # launcher. /bundle is the host bundle/ dir (see -v mount above).
+              cp /opt/node/bin/node /bundle/node
+              chmod +x /bundle/node
             '
 
       - name: Download ferretdb.zip
@@ -797,7 +822,7 @@ jobs:
 
       - name: Embed FerretDB (${{ matrix.arch }}) into the bundle
         # These arches have no MongoDB server, so FerretDB is their default DB.
-        # The launcher (start-wekan-ferretdb.sh) is inherited from the amd64 base
+        # The launcher (start-wekan.sh) is inherited from the amd64 base
         # bundle; swap in this arch's binary from ferretdb.zip. A marker file makes
         # FerretDB the default backend at runtime (see the launcher + Docker entrypoint).
         run: |
