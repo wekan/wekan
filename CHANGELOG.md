@@ -273,6 +273,20 @@ This release adds the following features and fixes:
   `migration-control` now reads the amd64 6.09 MongoDB 3.2 data with that mongod
   (old `LD_LIBRARY_PATH`) and the legacy `mongo` shell (mongosh cannot talk to 3.2).
 
+- **[Snap migration: read MongoDB 3.2 via migratemongo CLI (dump → restore into mongod 7), fix migrator NODE_PATH](https://github.com/wekan/wekan/commit/8271122fa2e63c05900c638a82dcff156c61711a)**:
+
+  The bundled Node MongoDB driver can't connect to a 3.2 server, and no single
+  driver version spans 3.2 and MongoDB 7 / FerretDB — so rather than aliasing an
+  EOL Node driver into `package.json`, the amd64 6.09/3.2 case uses the
+  migratemongo CLI: `migration-control` dumps the `wekan` database with the old
+  migratemongo `mongodump` (MongoDB 3.2, old libraries), then loads it into a fresh
+  temporary mongod 7 with the snap's modern `mongorestore`. The existing
+  driver-based migrator then reads that mongod 7 exactly like the arm64 MongoDB-7
+  case (both GridFS types → filesystem, text → FerretDB v1 SQLite); the MongoDB-7
+  path connects the driver directly, unchanged. Also fixes a real bug: the
+  standalone migrator in `$SNAP/bin` could not resolve its `mongodb`/`bson`
+  imports — `NODE_PATH` now points at the WeKan bundle's `node_modules`.
+
 Thanks to xet7.
 
 # v9.83 2026-07-09 WeKan ® release
