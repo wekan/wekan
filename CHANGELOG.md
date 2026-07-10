@@ -230,7 +230,7 @@ This release adds the following features and fixes:
   with `caddy adapt`, and only keeps a valid result — falling back to the shipped
   Caddy 2 template otherwise, so caddy always starts with valid config.
 
-- **[Rename docker-compose-ferretdb.yml to -v2-postgresql.yml and add -v1-sqlite.yml](https://github.com/wekan/wekan/commit/802220055c814659419f6b2e998a8c6072983536)**:
+- **[Rename docker-compose-ferretdb.yml to -v2-postgresql.yml and add -v1-sqlite.yml](https://github.com/wekan/wekan/commit/62726454b)**:
 
   `docker-compose-ferretdb.yml` (FerretDB 2 + PostgreSQL) is renamed to
   `docker-compose-ferretdb-v2-postgresql.yml`, and a new
