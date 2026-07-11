@@ -78,23 +78,29 @@ git clone git@github.com:YourGithubUsername/wekan.git
 
 cd wekan
 ```
-### 3. Select option 1 to install dependencies, and then Enter.
+### 3. Run the menu: Setup -> Install dependencies, Setup -> Build WeKan, Dev server -> localhost:3000
+
+`rebuild-wekan.sh` shows a two-level menu (`1) Setup 2) Dev server 3) Tests 4) Docker 5) Tools 6) Quit`); pick a category number, then the item number inside it.
+
 ```
+# Setup -> Install dependencies
 ./rebuild-wekan.sh
+1        # Setup
+1        # Install dependencies
 
-1
-
+# Setup -> Build WeKan
 ./rebuild-wekan.sh
+1        # Setup
+2        # Build WeKan
 
-2
-
+# Dev server -> localhost:3000
 ./rebuild-wekan.sh
-
-3
+2        # Dev server
+1        # localhost:3000
 ```
-That does: 1 install dependencies, 2 builds wekan, 3 starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically and reload webbroser. But, still sometimes, it may need stopping with Ctrl-c and full build with option 2.
+That does: **Setup -> Install dependencies** installs dependencies, **Setup -> Build WeKan** builds wekan, **Dev server -> localhost:3000** starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically and reload the web browser. But, still sometimes, it may need stopping with Ctrl-c and a full **Setup -> Build WeKan** again. If a dev server is already running on that port, the Dev server options stop it first and start a fresh one on the same port.
 
-And then [register and login](../Login/Adding-users.md) at http://localhost:4000
+And then [register and login](../Login/Adding-users.md) at http://localhost:3000
 
 ### OPTIONAL, NOT NEEDED: 5. Add new plugin package
 ```

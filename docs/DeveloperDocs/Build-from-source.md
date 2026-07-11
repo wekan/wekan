@@ -78,23 +78,40 @@ git clone git@github.com:YourGithubUsername/wekan.git
 
 cd wekan
 ```
-### 3. Select option 1 to install dependencies, and then Enter.
+### 3. Run the menu: Setup -> Install dependencies, then Setup -> Build WeKan, then Dev server -> localhost:3000
+
+`rebuild-wekan.sh` shows a two-level menu. The top level is:
+
 ```
-./rebuild-wekan.sh
-
-1
-
-./rebuild-wekan.sh
-
-2
-
-./rebuild-wekan.sh
-
-3
+1) Setup   2) Dev server   3) Tests   4) Docker   5) Tools   6) Quit
 ```
-That does: 1 install dependencies, 2 builds wekan, 3 starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically and reload webbroser. But, still sometimes, it may need stopping with Ctrl-c and full build with option 2.
 
-And then [register and login](../Login/Adding-users.md) at http://localhost:4000
+Pick a category number, then the item number inside it (each submenu also has a `Back` entry to return to the top level). To build from source and run it:
+
+```
+# Install dependencies: Setup -> Install dependencies
+./rebuild-wekan.sh
+1        # Setup
+1        # Install dependencies
+
+# Build WeKan: Setup -> Build WeKan
+./rebuild-wekan.sh
+1        # Setup
+2        # Build WeKan
+
+# Run in development mode: Dev server -> localhost:3000
+./rebuild-wekan.sh
+2        # Dev server
+1        # localhost:3000
+```
+
+The **Setup -> Build WeKan** step compiles WeKan, and **Dev server -> localhost:3000** starts it in development mode with the `meteor` command, so it detects file changes and tries to rebuild automatically and reload the web browser. Still, sometimes it may need stopping with Ctrl-c and a full **Setup -> Build WeKan** again.
+
+If a dev server is already running on that port, the **Dev server** options now stop it automatically and start a fresh server on the same port, so you don't have to kill the old `meteor` process yourself.
+
+The other **Dev server** options run WeKan the same way on different addresses/ports: `localhost:3000 + trace warnings`, `localhost:3000 + bundle visualizer`, `CURRENT-IP:3000`, `CURRENT-IP:3000 + MONGO_URL 27019`, and `CUSTOM-IP:PORT` (which asks you for the IP and port).
+
+And then [register and login](../Login/Adding-users.md) at http://localhost:3000
 
 ### OPTIONAL, NOT NEEDED: 5. Add new plugin package
 ```
@@ -145,19 +162,19 @@ Change to Meteor 3 branch:
 ```
 git checkout feature-meteor3
 ```
-Build wekan:
+Build wekan (Setup -> Build WeKan):
 ```
 ./rebuild-wekan.sh
-
-2
+1        # Setup
+2        # Build WeKan
 ```
 If there are errors, try to fix them.
 
-Or try to run wekan:
+Or try to run wekan (Dev server -> localhost:3000):
 ```
 ./rebuild-wekan.sh
-
-3
+2        # Dev server
+1        # localhost:3000
 ```
 # Updating
 

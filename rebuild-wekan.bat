@@ -748,8 +748,41 @@ REM "meteor run ... 2>&1 | tee ../log/wekan-log.log". cmd has no built-in tee,
 REM so pipe through PowerShell's Tee-Object. %* = all args forwarded to meteor.
 REM Note: PowerShell buffers the pipeline, so console output can appear in
 REM bursts; the full stream is always captured in the log file.
+REM Callers always pass "--port <PORT>" first, so %2 is the port: kill any
+REM Meteor dev server already listening there before starting a new one.
+call :kill_meteor_on_port %2
+if errorlevel 1 exit /b 1
 if not exist "..\log" md "..\log"
 call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '..\log\wekan-log.log'"
+exit /b 0
+
+:kill_meteor_on_port
+REM %1 = port. If something (a previously started Meteor dev server) is already
+REM listening on it, kill it so re-running a dev option always gives a fresh
+REM server instead of failing because the port is taken. Returns 1 if the port
+REM could not be freed, 0 otherwise (including when it was never in use).
+set "KILLPORT=%~1"
+if "%KILLPORT%"=="" exit /b 0
+curl -fsS http://127.0.0.1:%KILLPORT% >nul 2>&1
+if errorlevel 1 exit /b 0
+echo ==^> Port %KILLPORT% is already in use; stopping the existing Meteor dev server before starting a new one.
+for /f "tokens=5" %%p in ('netstat -ano ^| findstr /r /c:":%KILLPORT% .*LISTENING"') do (
+	echo     Killing PID %%p listening on port %KILLPORT%.
+	taskkill /F /T /PID %%p >nul 2>&1
+)
+REM Wait for the OS to release the port (up to ~15s).
+for /l %%i in (1,1,15) do (
+	curl -fsS http://127.0.0.1:%KILLPORT% >nul 2>&1
+	if errorlevel 1 goto :kill_meteor_on_port_free
+	>nul ping -n 2 127.0.0.1
+)
+:kill_meteor_on_port_free
+curl -fsS http://127.0.0.1:%KILLPORT% >nul 2>&1
+if not errorlevel 1 (
+	echo ERROR: Port %KILLPORT% is still in use after attempting to stop the existing server. Stop it manually and retry.
+	exit /b 1
+)
+echo     Port %KILLPORT% is now free.
 exit /b 0
 
 :detect_ip

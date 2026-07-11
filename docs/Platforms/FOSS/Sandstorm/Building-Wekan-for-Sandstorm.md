@@ -118,6 +118,8 @@ sudo kill -9 PID-NUMBER-HERE
 
 ## 11) Rebuild Wekan
 
+In the menu, pick **Setup -> Build WeKan** (press `1` then `2`):
+
 ```
 cd ~/repos
 ./rebuild-wekan.sh

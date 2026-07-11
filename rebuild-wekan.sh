@@ -37,6 +37,50 @@ function ensure_rspack_public_dirs(){
 	mkdir -p public/build-chunks public/build-assets
 }
 
+# Kill any Meteor dev server already listening on the given port before we start
+# a new one there. Used by all "Run Meteor for dev" menu options so that picking
+# a run option always gives you a fresh server instead of failing (or silently
+# doing nothing) because the port is taken. pgrep matches the parent
+# 'meteor run --port <port>' process; killing it also tears down the node child
+# it spawned. We fall back to whatever is listening on the port (lsof/fuser) in
+# case the process command line does not match. Escalates to SIGKILL if the port
+# does not free up. Returns 0 when the port is free (or was never in use), 1 if
+# it is still stuck afterwards.
+function kill_meteor_on_port(){
+	PORT="$1"
+	# Nothing listening on the port? Nothing to do.
+	curl -fsS "http://127.0.0.1:$PORT" >/dev/null 2>&1 || return 0
+	echo "==> Port $PORT is already in use; stopping the existing Meteor dev server before starting a new one."
+	OLD_PIDS="$(pgrep -f "meteor run --port $PORT" 2>/dev/null)"
+	if [ -n "$OLD_PIDS" ]; then
+		echo "    Killing existing Meteor PIDs:$(echo " $OLD_PIDS" | tr '\n' ' ')"
+		kill $OLD_PIDS 2>/dev/null
+	fi
+	# Wait for the port to actually free up, escalating to SIGKILL at 15s.
+	for i in $(seq 1 30); do
+		curl -fsS "http://127.0.0.1:$PORT" >/dev/null 2>&1 || break
+		if [ "$i" -eq 15 ]; then
+			echo "    Still in use after 15s; sending SIGKILL."
+			STUCK_PIDS="$(pgrep -f "meteor run --port $PORT" 2>/dev/null)"
+			[ -n "$STUCK_PIDS" ] && kill -9 $STUCK_PIDS 2>/dev/null
+			if command -v lsof >/dev/null 2>&1; then
+				LSOF_PIDS="$(lsof -ti tcp:$PORT 2>/dev/null)"
+				[ -n "$LSOF_PIDS" ] && kill -9 $LSOF_PIDS 2>/dev/null
+			elif command -v fuser >/dev/null 2>&1; then
+				fuser -k "$PORT/tcp" >/dev/null 2>&1
+			fi
+		fi
+		printf '.'; sleep 1
+	done
+	echo
+	if curl -fsS "http://127.0.0.1:$PORT" >/dev/null 2>&1; then
+		echo "ERROR: Port $PORT is still in use after attempting to stop the existing server. Stop it manually and retry."
+		return 1
+	fi
+	echo "    Port $PORT is now free."
+	return 0
+}
+
 # Build WeKan from scratch: reinstall npm deps and produce the .build directory.
 # Used by menu option 2 and auto-invoked by option 9 when .build is missing.
 # Also clears the rspack dev-build caches (_build and node_modules/.cache) so the
@@ -919,6 +963,7 @@ for _once in 1; do
 
     "Run Meteor for dev on http://localhost:3000")
 		ensure_rspack_public_dirs
+		kill_meteor_on_port 3000 || break
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
 		# Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
@@ -931,6 +976,7 @@ for _once in 1; do
 
     "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0")
 		ensure_rspack_public_dirs
+		kill_meteor_on_port 3000 || break
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
                 # Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
@@ -941,6 +987,7 @@ for _once in 1; do
 
     "Run Meteor for dev on http://localhost:3000 with bundle visualizer")
 		ensure_rspack_public_dirs
+		kill_meteor_on_port 3000 || break
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee ../log/wekan-log.log
@@ -952,6 +999,7 @@ for _once in 1; do
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000")
 		ensure_rspack_public_dirs
+		kill_meteor_on_port 3000 || break
 		if [[ "$OSTYPE" == "darwin"* ]]; then
 		  IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
 		else
@@ -970,6 +1018,7 @@ for _once in 1; do
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan")
 		ensure_rspack_public_dirs
+		kill_meteor_on_port 3000 || break
                 if [[ "$OSTYPE" == "darwin"* ]]; then
                   IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
                 else
@@ -994,6 +1043,7 @@ for _once in 1; do
 		echo "On what port you would like to run Wekan?"
 		read PORT
 		echo "ROOT_URL=http://$IPADDRESS:$PORT"
+		kill_meteor_on_port "$PORT" || break
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------

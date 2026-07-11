@@ -55,28 +55,32 @@ cd wekan
 
 Because it downgrades @meteorjs/rspack and breaks builds.
 
-### 3. Select option 1 to install dependencies, and then Enter.
+### 3. Install dependencies, build WeKan, and run the dev server
 
+`rebuild-wekan.sh` shows a two-level menu. The top level is `1) Setup 2) Dev server 3) Tests 4) Docker 5) Tools 6) Quit`; pick a category number, then the item number inside it (each submenu also has a `Back` entry).
 
 ```
+# Setup -> Install dependencies
 ./rebuild-wekan.sh
+1        # Setup
+1        # Install dependencies
 
-1
-
+# Setup -> Build WeKan
 ./rebuild-wekan.sh
+1        # Setup
+2        # Build WeKan
 
-2
-
+# Dev server -> localhost:3000
 ./rebuild-wekan.sh
-
-3
+2        # Dev server
+1        # localhost:3000
 ```
 That does:
-- 1 install dependencies,
-- 2 builds wekan
-- 3 starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically.
+- **Setup -> Install dependencies** installs dependencies,
+- **Setup -> Build WeKan** builds wekan,
+- **Dev server -> localhost:3000** starts wekan in development mode with command `meteor`, so it can detect if some file changes and try to rebuild automatically. If a dev server is already running on that port, it is stopped first and a fresh one started on the same port.
 
-And then [register and login](../Login/Adding-users.md) with webbrowser at http://localhost:4000
+And then [register and login](../Login/Adding-users.md) with webbrowser at http://localhost:3000
 
 ### 4. Make and test your changes
 
