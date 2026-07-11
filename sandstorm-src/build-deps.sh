@@ -67,6 +67,21 @@ for so in libstdc++.so.6 libgcc_s.so.1 libc.so.6 libm.so.6 libdl.so.2 \
   # existing destination (symlink included) first, then copy the host's real lib.
   [ -f "$src" ] && cp -fL --remove-destination "$src" "$DEPS/lib/x86_64-linux-gnu/$so"
 done
+# CRITICAL: the dynamic loader (ld-linux) MUST come from the SAME glibc as the
+# libc.so.6 copied above. libc and ld.so share a GLIBC_PRIVATE ABI: a glibc 2.39
+# libc.so.6 asks the loader for `_dl_audit_symbind_alt` (added to ld.so in glibc
+# 2.35). The meteor-spk 0.6.0 base ships an OLD ld-linux (glibc 2.31) at
+# /lib64/ld-linux-x86-64.so.2, so without this step node dies at startup with
+#   "libc.so.6: undefined symbol: _dl_audit_symbind_alt, version GLIBC_PRIVATE"
+# (HTTP-BRIDGE exit 127) and the grain never boots. Node's PT_INTERP is
+# /lib64/ld-linux-x86-64.so.2, so overwrite the base's loader with the host's.
+LOADER="$(readlink -f /lib64/ld-linux-x86-64.so.2 2>/dev/null || \
+          readlink -f "$HOSTLIB/ld-linux-x86-64.so.2")"
+[ -f "$LOADER" ] || { echo "host dynamic loader not found"; exit 1; }
+mkdir -p "$DEPS/lib64"
+cp -fL --remove-destination "$LOADER" "$DEPS/lib64/ld-linux-x86-64.so.2"
+# Also mirror it under lib/x86_64-linux-gnu in case anything resolves it there.
+cp -fL --remove-destination "$LOADER" "$DEPS/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
 # NOTE: if `meteor-spk pack` / `spk dev` later reports a missing library for node
 # or ferretdb, add it here (or use `spk dev` tracing to regenerate the tree).
 
@@ -102,6 +117,40 @@ cp -f "$REPO/snap-src/bin/migrate-mongo3-to-ferretdb.mjs"  "$DEPS/migrate-mongo3
 echo "==> [7/7] niscud + old node_modules kept for the niscu->3.0 stage:"
 ls -la "$DEPS/bin/niscud" "$DEPS/node_modules/mongodb" >/dev/null 2>&1 \
   && echo "    ok (present)" || echo "    WARNING: niscud/node_modules missing from base"
+
+echo "==> [verify] glibc: bundled libc.so.6 and ld-linux must match, and node must run under them"
+# Guards against the glibc drift that otherwise only surfaces as a grain
+# crash-loop ("undefined symbol: _dl_audit_symbind_alt, version GLIBC_PRIVATE").
+# glibc_ver extracts "X.Y" from a glibc .so run as an executable. libc.so.6 prints
+# "... stable release version X.Y." when run bare; ld-linux only prints its banner
+# with --version (bare it prints usage to stderr). Try --version first, fall back to
+# bare, and never fail the pipeline (|| true) so `set -e` + an empty match can't
+# abort the script — an empty result is handled explicitly by the check below.
+glibc_ver() {
+  { "$1" --version 2>/dev/null || "$1" 2>/dev/null || true; } \
+    | grep -oE 'version [0-9]+\.[0-9]+' | head -1 | awk '{print $2}' || true
+}
+LIBC_SO="$DEPS/lib/x86_64-linux-gnu/libc.so.6"
+LD_SO="$DEPS/lib64/ld-linux-x86-64.so.2"
+[ -f "$LIBC_SO" ] || { echo "    FAIL: $LIBC_SO missing"; exit 1; }
+[ -f "$LD_SO" ]   || { echo "    FAIL: $LD_SO missing (loader not bundled)"; exit 1; }
+LIBC_V="$(glibc_ver "$LIBC_SO")"
+LD_V="$(glibc_ver "$LD_SO")"
+echo "    libc.so.6 = glibc ${LIBC_V:-?} ; ld-linux = glibc ${LD_V:-?}"
+if [ -z "$LIBC_V" ] || [ -z "$LD_V" ] || [ "$LIBC_V" != "$LD_V" ]; then
+  echo "    FAIL: bundled libc.so.6 (${LIBC_V:-?}) and ld-linux (${LD_V:-?}) glibc versions differ."
+  echo "          The grain would crash-loop at node startup. Fix step [3/7] so both come"
+  echo "          from the same host glibc."
+  exit 1
+fi
+# Definitive check: run the bundled node THROUGH the bundled loader + libs, exactly
+# as the grain will. Catches any remaining missing/mismatched .so before packing.
+if ! "$LD_SO" --library-path "$DEPS/lib/x86_64-linux-gnu" "$DEPS/bin/node" --version >/dev/null 2>&1; then
+  echo "    FAIL: bundled node does not run under the bundled loader/libs:"
+  "$LD_SO" --library-path "$DEPS/lib/x86_64-linux-gnu" "$DEPS/bin/node" --version || true
+  exit 1
+fi
+echo "    ok: node runs under bundled glibc ${LIBC_V} (matches loader)"
 
 echo
 echo "Done. meteor-spk.deps assembled at: $DEPS"
