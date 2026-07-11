@@ -47,11 +47,13 @@ name: Release All Platforms
 #              never blocks it
 #   - docker:  builds and pushes the multi-arch image (amd64, arm64, ppc64le, s390x,
 #              riscv64) to Docker Hub, Quay.io, GHCR
-#   - snap:    builds the snap on Launchpad (amd64 + arm64) from the default
-#              core24 `grade: stable` snapcraft.yaml, pushes it to the Snap Store
-#              candidate + edge channels and attaches the .snap files to the GitHub
-#              Release. `snap set wekan database=ferretdb` switches the running
-#              backend to FerretDB v1 (snapcraft-core26.yaml is the core26 variant)
+#   - snap:    builds the snap on Launchpad from the default core24 `grade: stable`
+#              snapcraft.yaml (platforms: amd64, arm64, s390x, ppc64el, riscv64),
+#              pushes it to the Snap Store edge + beta channels and attaches the
+#              .snap files to the GitHub Release. Publishing to the stable channel is
+#              done MANUALLY later (core24 grade:stable allows it; core26 does not).
+#              `snap set wekan database=ferretdb` switches the running backend to
+#              FerretDB v1 (snapcraft-core26.yaml is the core26 variant)
 #
 # Required GitHub Secrets:
 #   GHCR_AUTH        - base64("username:token") for ghcr.io
@@ -1050,7 +1052,7 @@ jobs:
           echo "::error::Remote build failed after $attempts attempts (no wekan_${VERSION}_*.snap produced)." >&2
           exit 1
 
-      - name: Push snaps to the Snap Store (candidate + edge channels)
+      - name: Push snaps to the Snap Store (edge + beta channels)
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         run: |
@@ -1061,12 +1063,13 @@ jobs:
             echo "::error::No wekan_${VERSION}_*.snap files to upload."
             exit 1
           fi
-          # The default snapcraft.yaml is now the core24 `grade: stable` build, so
-          # it can be released to candidate (not possible with the core26 devel
-          # grade). Publish to candidate + edge.
+          # The default snapcraft.yaml is the core24 `grade: stable` build, so it
+          # CAN later be published to the stable channel — but that is done MANUALLY
+          # when it has proven stable enough. This automated release publishes only
+          # to edge + beta.
           for f in "${snaps[@]}"; do
-            echo "Uploading $f to the Snap Store (candidate,edge)..."
-            snapcraft upload --release=candidate,edge "$f"
+            echo "Uploading $f to the Snap Store (edge,beta)..."
+            snapcraft upload --release=edge,beta "$f"
           done
 
       - name: Attach snaps to the GitHub Release
