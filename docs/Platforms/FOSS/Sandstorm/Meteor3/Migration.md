@@ -20,7 +20,7 @@ built 2021‑10‑23). Its `meteor-spk.deps` payload is a 2015‑era design:
 |---|---|---|
 | `bin/node` | Node **14.17.5** (stock, from nodejs.org) | **Node 24.x** (Meteor 3.5) |
 | `bin/mongod` | MongoDB **3.0.7** (WiredTiger) | keep — read‑only migration source only |
-| `bin/niscud` | MongoDB **2.x** (Kenton's Niscu fork) | **drop** |
+| `bin/niscud` | MongoDB **2.x** (Kenton's Niscu fork) | keep (niscu→3.0 migration) |
 | `lib/` | glibc **2.31** (Ubuntu 20.04) | regenerate on 22.04 (glibc 2.35) for node24/ferretdb |
 | `start.js` | launches Mongo 3.0 + niscu→3.0 migration | rewrite for FerretDB |
 
@@ -88,6 +88,10 @@ Start from the 0.6.0 base, then:
 - **Replace** `bin/node` with **Node 24** — use the exact build from Meteor 3.5's dev bundle
   (`meteor node -e "console.log(process.version)"`) so native‑addon ABIs match the WeKan bundle.
 - **Keep** `bin/mongod` (3.0.7) — read‑only migration source.
+- **Keep** `bin/niscud` (MongoDB 2.x) **and** the old bundled `node_modules/{mongodb,bson,
+  mongodb-core,es6-promise,readable-stream}` — used by `start.js`'s **niscu → MongoDB 3.0**
+  stage (Stage 1) for very old grains. Migration support for old versions is permanent and is
+  not dropped. (0.6.0 already ships both; nothing extra to add.)
 - **Add** `migratemongo/bin/{mongoexport,mongo}` + `migratemongo/lib/` (the old glibc those
   3.x CLIs need). The importer reads the 3.0 data with these — the modern Node driver cannot
   speak to a 3.0/3.2 server. Reuse the same tools the snap's
@@ -98,9 +102,9 @@ Start from the 0.6.0 base, then:
 - **Add** `migrate-mongo3-to-ferretdb.mjs` — copy verbatim from
   [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs);
   it is entirely env/path‑driven and needs no changes.
-- **Drop** `bin/niscud` and the old `node_modules/{mongodb,bson,mongodb-core,es6-promise,readable-stream}`.
-  The importer resolves `mongodb`/`bson` from the WeKan bundle via
-  `NODE_PATH=<bundle>/programs/server/node_modules`.
+- The **importer** (Stage 2) resolves its `mongodb`/`bson` from the WeKan bundle via
+  `NODE_PATH=<bundle>/programs/server/node_modules` (the modern driver, separate process from
+  `start.js`, so it does not clash with the old driver Stage 1 uses).
 - **Regenerate `lib/`, `lib64/`, `usr/lib`** on Ubuntu 22.04/24.04 (glibc 2.35) for node24 +
   ferretdb. Keep the **old** libs separately under `migratemongo/lib` for mongod3/mongoexport
   (dual‑lib pattern, exactly as the snap does with `MM_LIB`).
@@ -118,7 +122,10 @@ amd64 only. (arm64 Sandstorm is out of scope here; the migratemongo 3.x binaries
 The canonical launcher is committed at
 [`sandstorm-src/start.js`](../../../../../sandstorm-src/start.js); the spk build copies it into
 `meteor-spk.deps/start.js`. It is a CJS launcher, spawned by the pkgdef as `... node start.js`.
-It migrates once if an old MongoDB 3.0 data dir is present, then runs WeKan on FerretDB.
+On first launch it runs the migration chain for whatever the grain holds —
+**niscu (2.x) → MongoDB 3.0** (Stage 1, the preserved legacy path, for very old grains) then
+**MongoDB 3.0 → FerretDB** (Stage 2) — then runs WeKan on FerretDB. Fresh grains and
+already-migrated grains skip straight to running on FerretDB.
 Migration logic is a re‑pathed port of the snap's
 [`migration-control`](../../../../../snap-src/bin/migration-control) +
 [`migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs).
@@ -343,15 +350,20 @@ and refreshes.
 
 ## 9. Build / CI ([.github/workflows/sandstorm.yml](../../../../../.github/workflows/sandstorm.yml))
 
-- Base the fork on **0.6.0** (has the 3.0 mongod) rather than 0.5.1.
-- Add a build step that assembles the modernized `meteor-spk.deps`: swap in node24, add
-  `ferretdb-amd64` (from `ferretdb.zip`), add `migratemongo/{bin,lib}` + `mongoexport`/`mongo`,
-  copy [`sandstorm-src/start.js`](../../../../../sandstorm-src/start.js) → `meteor-spk.deps/start.js`
+- **Base = upstream meteor‑spk 0.6.0**, downloaded from `https://dl.sandstorm.io/meteor-spk-0.6.0.tar.xz`.
+  It already contains `bin/mongod` (3.0.7), `bin/niscud` (2.x) and the old `node_modules` the
+  niscu→3.0 stage needs. **Nothing is needed from the old `projects.7z`** (it only holds
+  0.4.1/0.5.0/0.5.1, and its swapped node is ancient — we install Node 24 anyway). The dead
+  `releases.wekan.team/dev/meteor-spk/projects.7z` fetch is removed.
+- The assembly script ([`sandstorm-src/build-deps.sh`](../../../../../sandstorm-src/build-deps.sh))
+  modernizes `meteor-spk.deps`: swap in Node 24, add `ferretdb-amd64` (from `ferretdb.zip`), add
+  `migratemongo/{bin,lib}` (`mongoexport` + `mongo` + old libs), copy
+  [`sandstorm-src/start.js`](../../../../../sandstorm-src/start.js) → `meteor-spk.deps/start.js`
   and [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs)
-  → `meteor-spk.deps/`, drop `niscud`, and regenerate the lib tree with `gather-deps` on ubuntu‑24.04.
-- Publish the assembled `projects.7z` as a **GitHub release asset** on
-  [xet7/meteor-spk](https://github.com/xet7/meteor-spk) (it currently has none) and fetch from
-  there, with `releases.wekan.team` as fallback — so the build no longer depends on a single host.
+  → `meteor-spk.deps/`, **keep `niscud`**, and regenerate the lib tree with `gather-deps` on ubuntu‑24.04.
+- Fetch the extra binaries (Node 24, `ferretdb.zip`, migratemongo CLIs) from **GitHub release
+  assets** — `releases.wekan.team` no longer exists, so any required build files live on GitHub
+  releases (e.g. `wekan/wekan` or a dedicated release).
 
 ---
 
@@ -379,5 +391,5 @@ and refreshes.
   `__dirname` (so `bin/mongod`, `ferretdb`, `migratemongo/`, `main.js` are all relative to the
   launcher). Confirm from the packed spk that the added binaries land where `start.js` expects
   (e.g. `migratemongo/` and `ferretdb` at the mount root, CLIs under `migratemongo/bin`).
-- Whether to keep the migration `mongoexport` path or, long‑term, drop the whole 3.0 story once
-  no MongoDB‑3.0 grains remain in the wild.
+- Migration support from old versions (niscu 2.x and MongoDB 3.0) is **permanent** — it is not
+  dropped, so `niscud`, mongod 3.0 and the CLI-based importer stay in the package.

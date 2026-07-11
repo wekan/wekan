@@ -38,16 +38,17 @@ jobs:
       - name: Install system dependencies and Meteor
         run: |
           sudo apt-get update
-          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip
+          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git
           if [ ! -f "$HOME/.meteor/meteor" ]; then curl https://install.meteor.com/ | sh; fi
           echo "$HOME/.meteor" >> "$GITHUB_PATH"
 
-      - name: Install meteor-spk
+      - name: Assemble modern meteor-spk.deps (Node 24 + FerretDB + Mongo 3.x CLIs)
+        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
+        # niscud). build-deps.sh swaps in Node 24, adds FerretDB + the Mongo 3.x
+        # CLIs + the migration launcher/importer, and keeps niscud. No dependency
+        # on the retired releases.wekan.team or the old projects.7z.
         run: |
-          cd "$HOME"
-          wget -q https://releases.wekan.team/dev/meteor-spk/projects.7z
-          7z x projects.7z >/dev/null
-          rm -f projects.7z
+          bash sandstorm-src/build-deps.sh
           echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"
 
       - name: Install Sandstorm (dev, unattended)

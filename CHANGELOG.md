@@ -124,6 +124,21 @@ This release adds the following features and fixes:
   `sandstormDeleteRawMongo` ([server/methods/sandstormMigration.js](https://github.com/wekan/wekan/blob/main/server/methods/sandstormMigration.js));
   the migration importer now writes a `migration-status.json` the panel reads.
 
+- **Sandstorm: grain launcher + spk build tooling (Node 24 / FerretDB, no releases.wekan.team)**:
+
+  Added the grain launcher [sandstorm-src/start.js](https://github.com/wekan/wekan/blob/main/sandstorm-src/start.js):
+  on first launch it runs the migration chain for whatever an existing grain holds —
+  **niscu (MongoDB 2.x) → MongoDB 3.0** (the preserved legacy path for very old grains) then
+  **MongoDB 3.0 → FerretDB v1** — then runs WeKan (Node 24) on FerretDB. Migration support from
+  old versions is permanent (niscud + mongod 3.0 are kept). Added the deps-assembly script
+  [sandstorm-src/build-deps.sh](https://github.com/wekan/wekan/blob/main/sandstorm-src/build-deps.sh)
+  which builds a modern `meteor-spk.deps` on top of **upstream meteor-spk 0.6.0**
+  (`dl.sandstorm.io`) — swapping in Node 24, adding FerretDB + the Mongo 3.x CLIs + the
+  launcher/importer, keeping niscud — with extra binaries fetched from **GitHub releases**
+  (the retired `releases.wekan.team` / old `projects.7z` are no longer used). `sandstorm.yml`
+  now calls it, and `WRITABLE_PATH` in `sandstorm-pkgdef.capnp` is `/var/files`. Build/CI only —
+  not yet packed/tested end-to-end in a grain.
+
 # v9.84 2026-07-11 WeKan ® release
 
 This release adds the following features and fixes:
