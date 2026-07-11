@@ -139,6 +139,15 @@ This release fixes the following bugs:
   with `Identifier '__dirname' has already been declared` and the "Meteor unit
   tests" CI job died before any test ran. Drop the `__dirname` seed
   (`process.env.PWD` already reaches the repo root under `meteor test`). Thanks to xet7.
+- [Sandstorm .spk: point FerretDB state dir to writable /var so the grain starts](https://github.com/wekan/wekan/commit/1c28b40fd41acd9b9e21671548411f25e55464b8):
+  FerretDB persists a `state.json` (version/UUID) via its state provider even with
+  telemetry disabled, and its `--state-dir` defaults to `.` — which in a Sandstorm
+  grain is `/`, read-only. So FerretDB failed with `Failed to create state
+  provider: failed to persist state: open /state.json: read-only file system`,
+  exited (code 1), and the grain crash-looped. `sandstorm-src/start.js` now creates
+  `/var/ferretdb` and passes `--state-dir=/var/ferretdb` (plus `FERRETDB_STATE_DIR`)
+  in `startFerret()`, covering both the migration and steady-state FerretDB launches.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
