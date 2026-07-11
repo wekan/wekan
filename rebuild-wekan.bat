@@ -70,7 +70,11 @@ echo  19^) Save Meteor dependency chain to ..\meteor-deps.txt
 echo  20^) Install forge CLI tools ^(gh, glab, tea, git-bug, forge^) for GitHub/GitLab/Codeberg/Forgejo/Gitea
 echo  21^) Mirror repo GitHub -^> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions ^(sync missing, convert CI^)
 echo  22^) Count amount of tests by category
-echo  23^) Quit
+echo  23^) Start WeKan MongoDB Docker ^(docker-compose.yml^)
+echo  24^) Start WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
+echo  25^) Start WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
+echo  26^) Start WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
+echo  27^) Quit
 echo ==========================================================
 set "choice="
 set /p "choice=Please enter your choice: "
@@ -97,7 +101,11 @@ if "%choice%"=="19" goto save_deps
 if "%choice%"=="20" goto install_forge_tools
 if "%choice%"=="21" goto mirror_forge
 if "%choice%"=="22" goto count_tests
-if "%choice%"=="23" goto end
+if "%choice%"=="23" goto docker_mongodb
+if "%choice%"=="24" goto docker_ferretdb_v1
+if "%choice%"=="25" goto docker_ferretdb_v2
+if "%choice%"=="26" goto docker_multitenancy
+if "%choice%"=="27" goto end
 echo invalid option
 goto menu
 
@@ -731,6 +739,38 @@ REM   Playwright       test( / test.only( / test.skip( / test.fixme( lines per s
 REM Uses node (always present here) so parsing matches rebuild-wekan.sh exactly;
 REM findstr's limited regex engine cannot reproduce these expressions.
 node -e "const fs=require('fs'),p=require('path');function rd(f){try{return fs.readFileSync(f,'utf8');}catch(e){return null;}}function cnt(f,re){const s=rd(f);if(s===null)return null;return s.split(/\r?\n/).filter(l=>re.test(l)).length;}function ls(d,suf){try{return fs.readdirSync(d).filter(x=>x.endsWith(suf)).map(x=>p.join(d,x));}catch(e){return [];}}let mocha=0;const mfiles=[].concat(ls('client/lib/tests','.tests.js'),ls('server/lib/tests','.tests.js'),['imports/i18n/i18n.test.js']);for(const f of mfiles){const c=cnt(f,/(^|[^A-Za-z.])it\s*\(/);if(c!==null)mocha+=c;}let imp=cnt('tests/wekanCreator.import.test.js',/^function test/);if(imp===null)imp=0;let ne=cnt('tests/e2e/list-regressions.js',/logStep\('Testing/);if(ne===null)ne=0;const d='tests/playwright/specs';let files=[];try{files=fs.readdirSync(d).filter(f=>f.endsWith('.e2e.js')).sort();}catch(e){}let pw=0;const rows=[];for(const f of files){const m=f.match(/^([0-9]+)/);const spec=m?m[1]:'';let area=f.replace(/^[0-9]+[-_]?/,'').replace(/\.e2e\.js$/,'').replace(/[-_]+/g,' ');area=area.charAt(0).toUpperCase()+area.slice(1);const src=fs.readFileSync(p.join(d,f),'utf8');const c=src.split(/\r?\n/).filter(l=>/(^|[^a-zA-Z.])test(\.(only|skip|fixme))?\s*\(/.test(l)).length;rows.push('| '+spec+' | '+area+' | '+c+' |');pw+=c;}const gt=mocha+imp+ne+pw;console.log('| Category | Tests |');console.log('|----------|-------|');console.log('| Mocha (server + client, meteortesting:mocha) | '+mocha+' |');console.log('| Import regression (tests/wekanCreator.import.test.js) | '+imp+' |');console.log('| Node E2E regressions (tests/e2e/list-regressions.js) | '+ne+' |');console.log('| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | '+pw+' |');console.log('| **Total** | **'+gt+'** |');console.log('');console.log('| Spec | Area | Tests |');console.log('|------|------|-------|');for(const r of rows)console.log(r);console.log('');console.log('**Total: '+pw+' tests**');"
+goto end
+
+REM ===========================================================================
+:docker_mongodb
+echo Starting WeKan Docker: docker compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up -d
+echo Follow logs: docker compose -f docker-compose.yml logs -f
+echo Stop:        docker compose -f docker-compose.yml down
+goto end
+
+REM ===========================================================================
+:docker_ferretdb_v1
+echo Starting WeKan Docker: docker compose -f docker-compose-ferretdb-v1-sqlite.yml up -d
+docker compose -f docker-compose-ferretdb-v1-sqlite.yml up -d
+echo Follow logs: docker compose -f docker-compose-ferretdb-v1-sqlite.yml logs -f
+echo Stop:        docker compose -f docker-compose-ferretdb-v1-sqlite.yml down
+goto end
+
+REM ===========================================================================
+:docker_ferretdb_v2
+echo Starting WeKan Docker: docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d
+docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d
+echo Follow logs: docker compose -f docker-compose-ferretdb-v2-postgresql.yml logs -f
+echo Stop:        docker compose -f docker-compose-ferretdb-v2-postgresql.yml down
+goto end
+
+REM ===========================================================================
+:docker_multitenancy
+echo Starting WeKan Docker: docker compose -f docker-compose-multitenancy.yml up -d
+docker compose -f docker-compose-multitenancy.yml up -d
+echo Follow logs: docker compose -f docker-compose-multitenancy.yml logs -f
+echo Stop:        docker compose -f docker-compose-multitenancy.yml down
 goto end
 
 REM ===========================================================================
