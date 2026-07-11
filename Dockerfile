@@ -242,8 +242,10 @@ mv /home/wekan/app/bundle /build
 
 # The .zip bundle now ships a self-contained launcher + its own Node.js for the
 # offline downloads; the Docker image installs its own Node and uses
-# wekan-entrypoint.sh, so drop the redundant bundled node + launchers (keeps
-# /build/ferretdb, which the entrypoint uses). Saves ~80 MB per arch.
+# wekan-entrypoint.sh, so drop the redundant bundled node + launchers. Keeps
+# /build/ferretdb (used by the entrypoint) and the per-arch MongoDB Database Tools
+# (bsondump, mongodump, mongorestore, … from wekan/mongo-tools, embedded in the
+# bundle) for backup/restore inside the container. Saves ~80 MB per arch.
 rm -f /build/node /build/start-wekan.sh /build/start-wekan.bat
 
 # Restore original tar

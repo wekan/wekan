@@ -74,6 +74,17 @@ FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/
 curl -fsSL "$FERRETDB_URL" -o "$DEPS/ferretdb"
 chmod +x "$DEPS/ferretdb"
 
+echo "==> [4b/7] MongoDB Database Tools (amd64) at deps root"
+# Modern MongoDB Database Tools (backup/restore against FerretDB v1 / MongoDB 7),
+# per-arch from the wekan/mongo-tools fork — not from the MongoDB website. These
+# are separate from the legacy MongoDB 3.2 CLIs in migratemongo/ used for the
+# one-time MongoDB 3 -> FerretDB migration below.
+MONGOTOOLS_BASE="${MONGOTOOLS_BASE:-https://github.com/wekan/mongo-tools/releases/latest/download}"
+for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+  curl -fsSL "$MONGOTOOLS_BASE/$t-amd64" -o "$DEPS/$t"
+  chmod +x "$DEPS/$t"
+done
+
 echo "==> [5/7] Mongo 3.x CLIs (mongo + mongoexport) + their old libs -> migratemongo/"
 if [ ! -d "$OUT/migratemongo" ]; then
   git clone --depth 1 "$MIGRATEMONGO" "$OUT/migratemongo"

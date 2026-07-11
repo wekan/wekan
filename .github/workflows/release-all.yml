@@ -340,6 +340,14 @@ jobs:
           curl -fSL --retry 5 --retry-delay 10 -o .build/bundle/ferretdb \
             "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64"
           chmod +x .build/bundle/ferretdb
+          # Bundled MongoDB Database Tools (amd64) from wekan/mongo-tools (per-arch,
+          # no mongodb.com). This base amd64 bundle is inherited by the other Linux
+          # arches, which overwrite these with their own arch's tools below.
+          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fSL --retry 5 --retry-delay 10 -o ".build/bundle/$t" "$MT/$t-amd64"
+            chmod +x ".build/bundle/$t"
+          done
           # Self-contained launcher (defaults to FerretDB SQLite + WRITABLE_PATH).
           cp releases/ferretdb/start-wekan.sh .build/bundle/
           chmod +x .build/bundle/start-wekan.sh
@@ -406,6 +414,12 @@ jobs:
           curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
             "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64"
           chmod +x bundle/ferretdb
+          # Overwrite the inherited amd64 MongoDB Database Tools with arm64 ones.
+          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-arm64"
+            chmod +x "bundle/$t"
+          done
 
       - name: Create arm64 zip
         run: |
@@ -488,10 +502,12 @@ jobs:
         shell: bash
         run: |
           7z x wekan-${VERSION}-amd64.zip
-          # Drop the Linux node + FerretDB binaries + POSIX launcher inherited from
-          # the amd64 base bundle; the Windows node.exe, ferretdb.exe and
-          # start-wekan.bat are added in a later step.
+          # Drop the Linux node + FerretDB binaries + MongoDB Database Tools + POSIX
+          # launcher inherited from the amd64 base bundle; the Windows node.exe,
+          # ferretdb.exe, *.exe tools and start-wekan.bat are added in later steps.
           rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
+          rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -595,10 +611,12 @@ jobs:
       - name: Rebuild native modules for macOS arm64
         run: |
           unzip -q wekan-${VERSION}-amd64.zip
-          # Replace the Linux node + FerretDB binaries inherited from the amd64 base
-          # bundle with the macOS builds (added in a later step). The POSIX launcher
-          # start-wekan.sh works on macOS, so keep it.
+          # Replace the Linux node + FerretDB binaries + MongoDB Database Tools
+          # inherited from the amd64 base bundle with the macOS builds (added in a
+          # later step). The POSIX launcher start-wekan.sh works on macOS, so keep it.
           rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default
+          rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
+                bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -635,6 +653,13 @@ jobs:
             echo "No mac-arm64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
             rm -f bundle/start-wekan.sh
           fi
+          # macOS MongoDB Database Tools (mac-arm64) from wekan/mongo-tools; tolerant
+          # (skip any tool not built for macOS).
+          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-mac-arm64" \
+              && chmod +x "bundle/$t" || { rm -f "bundle/$t"; echo "No $t-mac-arm64; skipping"; }
+          done
 
       - name: Create mac-arm64 zip
         run: zip -r wekan-${VERSION}-mac-arm64.zip bundle
@@ -762,6 +787,12 @@ jobs:
           curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
             "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.arch }}"
           chmod +x bundle/ferretdb
+          # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
+          MT="https://github.com/wekan/mongo-tools/releases/latest/download"
+          for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-${{ matrix.arch }}"
+            chmod +x "bundle/$t"
+          done
           touch bundle/.ferretdb-default
 
       - name: Create ${{ matrix.arch }} zip

@@ -125,12 +125,17 @@ This release fixes the following bugs:
   MongoDB 3.2 `mongo` shell (migratemongo, amd64) stays for migration-time reads
   only. Thanks to xet7.
 - **MongoDB Database Tools now come from `wekan/mongo-tools`, not the MongoDB website**:
-  the snap `mongotools` part and the Windows bundle download per-arch
-  `<tool>-<arch>` binaries built by the [wekan/mongo-tools](https://github.com/wekan/mongo-tools)
+  every WeKan build downloads the per-arch `<tool>-<arch>` binaries (bsondump,
+  mongodump, mongoexport, mongofiles, mongoimport, mongorestore, mongostat,
+  mongotop) built by the [wekan/mongo-tools](https://github.com/wekan/mongo-tools)
   fork (pure Go, cross-compiled for every architecture) from its newest release,
-  replacing the `fastdl.mongodb.org` / `downloads.mongodb.com` downloads. The
+  replacing the `fastdl.mongodb.org` / `downloads.mongodb.com` downloads. They are
+  embedded in the Linux `.zip` bundles (amd64/arm64/s390x/ppc64le/riscv64) — and
+  therefore in the Docker image, which is built from those bundles — the Windows
+  and macOS bundles, the Snap (`mongotools` part), and the Sandstorm `.spk`. The
   MongoDB 7 server (mongod) is still fetched from MongoDB (amd64/arm64 only), since
-  MongoDB ships no server for the other architectures. Thanks to xet7.
+  MongoDB ships no server for the other architectures; the legacy MongoDB 3.2 CLIs
+  (migratemongo, amd64) remain only for the one-time MongoDB 3 migration. Thanks to xet7.
 - **Snap: the default `snapcraft.yaml` is now the `base: core24`, `grade: stable` build**:
   the previous `snapcraft.yaml` (core26, `grade: devel`) is renamed to
   `snapcraft-core26.yaml`, and the former `snapcraft-core24.yaml` becomes
