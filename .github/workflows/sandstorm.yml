@@ -73,16 +73,32 @@ jobs:
           fi
 
       - name: Install Meteor npm dependencies
+        # PUPPETEER_SKIP_DOWNLOAD: puppeteer is a devDependency used only by tests,
+        # not by the server, so it never belongs in the packed .spk. Skipping its
+        # Chromium download (~150 MB) avoids any risk of it bloating the build and
+        # speeds up CI.
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: '1'
         run: |
           (meteor update --npm 2>/dev/null || true) && meteor npm install
 
       - name: Build the Sandstorm .spk
         id: build
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: '1'
         run: |
           set -euo pipefail
           STAMP="$(date +'%Y_%m_%d-%H_%M_%S')"
           SPK="wekan-sandstorm-${STAMP}.spk"
           meteor-spk pack "$SPK"
+          # Report the packed size and warn if it exceeds Cloudflare's 100 MB upload
+          # cap (a proxied browser upload to a Cloudflare-fronted Sandstorm 413s above
+          # this; install via a DNS-only host / SSH tunnel, or trim further).
+          SPK_BYTES=$(stat -c%s "$SPK")
+          echo "Packed $SPK: $((SPK_BYTES/1024/1024)) MiB ($SPK_BYTES bytes)"
+          if [ "$SPK_BYTES" -gt $((100*1024*1024)) ]; then
+            echo "::warning::$SPK is $((SPK_BYTES/1024/1024)) MiB — over Cloudflare's 100 MB upload limit. Upload via a DNS-only host / SSH tunnel to Sandstorm, or trim the bundle further."
+          fi
           ls -la "$SPK"
           echo "spk=$SPK" >> "$GITHUB_OUTPUT"
 

@@ -107,6 +107,15 @@ This release fixes the following bugs:
   set. Now it writes `~/.sandstorm-keyring`, and — since the `.spk` cannot be signed
   without it — fails early with an actionable message when the secret is missing,
   instead of the cryptic later crash. Thanks to xet7.
+- **Sandstorm .spk: trim it back toward Cloudflare's 100 MB upload limit**. The
+  Sandstorm build no longer bundles the ~300 MB of modern MongoDB Database Tools
+  (wekan/mongo-tools) — they are unused in Sandstorm (grains back up/restore
+  themselves; the MongoDB 3 → FerretDB migration uses the legacy migratemongo CLIs
+  + the `.mjs` importer). Also set `PUPPETEER_SKIP_DOWNLOAD=1` for the Meteor build
+  (puppeteer is a test-only devDependency, so its ~150 MB Chromium never belongs in
+  the `.spk`), and the pack step now prints the `.spk` size and warns if it exceeds
+  100 MB. (The Database Tools remain in the WeKan `.zip` bundle / Docker / Snap,
+  which do use them.) Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
