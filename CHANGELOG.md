@@ -86,6 +86,21 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- **Sandstorm build: fixed "not writing through dangling symlink" that failed the
+  `sandstorm.yml` workflow at `sandstorm-src/build-deps.sh` step [3/7]**. The
+  meteor-spk 0.6.0 base ships some runtime libs in `meteor-spk.deps/lib` as
+  DANGLING symlinks (e.g. `libstdc++.so.6` → a library that no longer exists), so
+  refreshing them with the host's newer libs failed: `cp -fL` refuses to write
+  through a dangling destination symlink. Added `--remove-destination` so `cp`
+  deletes the existing destination (dangling symlink included) before copying the
+  host's real library. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.87 2026-07-11 WeKan ® release
 
 This release fixes the following bugs:

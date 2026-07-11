@@ -61,7 +61,11 @@ mkdir -p "$DEPS/lib/x86_64-linux-gnu"
 for so in libstdc++.so.6 libgcc_s.so.1 libc.so.6 libm.so.6 libdl.so.2 \
           libpthread.so.0 librt.so.1 libz.so.1; do
   src="$(readlink -f "$HOSTLIB/$so" 2>/dev/null || true)"
-  [ -f "$src" ] && cp -fL "$src" "$DEPS/lib/x86_64-linux-gnu/$so"
+  # --remove-destination: the meteor-spk 0.6.0 base ships some of these as
+  # DANGLING symlinks (e.g. libstdc++.so.6 -> a lib that no longer exists), and
+  # plain `cp -fL` refuses with "not writing through dangling symlink". Remove the
+  # existing destination (symlink included) first, then copy the host's real lib.
+  [ -f "$src" ] && cp -fL --remove-destination "$src" "$DEPS/lib/x86_64-linux-gnu/$so"
 done
 # NOTE: if `meteor-spk pack` / `spk dev` later reports a missing library for node
 # or ferretdb, add it here (or use `spk dev` tracing to regenerate the tree).
