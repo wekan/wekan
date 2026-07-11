@@ -570,11 +570,18 @@ Template.boardBody.onRendered(function () {
         $swimlanesDom.sortable('option', 'handle', '.swimlane-header');
       }
 
-      // Disable drag-dropping if the current user is not a board member
+      // #6446: enable swimlane drag-drop — which also carries moving cards BETWEEN
+      // swimlanes — for any board member with write access, not only board admins.
+      // The old !isBoardAdmin() check disabled this sortable for every non-admin, so
+      // a normal member could still move a card WITHIN a swimlane but not BETWEEN
+      // swimlanes (a card crossing swimlanes is received across this sortable), and
+      // could not reorder swimlanes. canModifyCard() is the client write-access
+      // predicate (board member, not comment-only / worker / read-only), matching
+      // the server's allowIsBoardMemberWithWriteAccess.
       $swimlanesDom.sortable(
         'option',
         'disabled',
-        !ReactiveCache.getCurrentUser()?.isBoardAdmin(),
+        !Utils.canModifyCard(),
       );
     }
   });

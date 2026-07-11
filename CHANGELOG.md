@@ -86,6 +86,21 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Normal users cannot move cards between swimlanes](https://github.com/wekan/wekan/issues/6446):
+  in the swimlanes view the `.js-swimlanes` sortable — which also carries moving a
+  card from one swimlane to another — was disabled for every non-admin
+  (`!isBoardAdmin()`), even though its own comment said it should be disabled only
+  for non-members. So ordinary board members could move a card within a swimlane
+  but not between swimlanes, and could not reorder swimlanes. Now it is disabled
+  only for users without write access (`!canModifyCard()`: comment-only, worker,
+  read-only), so board members can move cards between swimlanes again. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.86 2026-07-11 WeKan ® release
 
 This release fixes the following bugs:
