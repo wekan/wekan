@@ -98,6 +98,17 @@ them up next.
 
 This release adds the following features and fixes:
 
+- **Fix snap build failing on the `caddy` part (Cloudsmith unreachable on Launchpad)**:
+
+  The snap installed Caddy from the Cloudsmith apt repo
+  (`curl … dl.cloudsmith.io … | gpg --dearmor`), which fails on the Launchpad remote
+  builders — their network is restricted to a fetch proxy that can't reach Cloudsmith, so
+  `gpg` got no key (`no valid OpenPGP data found`) and the `caddy` `override-build` failed
+  with code 2 on both arches, all attempts. Both `snapcraft.yaml` and `snapcraft-core24.yaml`
+  now download the **official prebuilt Caddy static binary from GitHub releases** (per-arch,
+  latest stable with a pinned fallback) instead. WeKan uses only built-in Caddy directives,
+  so vanilla Caddy is sufficient — no apt repo, no `gpg`, no `xcaddy`/custom-module build.
+
 - **Fix Admin Panel / Version showing "MongoDB" when running on FerretDB**:
 
   The database detection only recognised a `buildInfo.ferretdb` sub-document, but the

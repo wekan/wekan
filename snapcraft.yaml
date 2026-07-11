@@ -298,31 +298,37 @@ parts:
     caddy:
         plugin: nil
         build-packages:
-            - debian-keyring
-            - debian-archive-keyring
-            - apt-transport-https
-            - gnupg
             - curl
         override-build: |
-            # Add Caddy repository
-            echo "Installing Caddy 2 from the official repository..."
-            curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /tmp/caddy-stable-archive-keyring.gpg
-            mkdir -p /etc/apt/keyrings
-            cp /tmp/caddy-stable-archive-keyring.gpg /etc/apt/keyrings/
-            echo "deb [signed-by=/etc/apt/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main" > /etc/apt/sources.list.d/caddy-stable.list
-            apt update
-            apt -y install caddy
+            set -eu
+            # Download the official prebuilt Caddy static binary from GitHub
+            # releases. WeKan uses only built-in Caddy directives (reverse_proxy,
+            # header, tls, redir, handle) — no third-party modules — so vanilla
+            # Caddy is sufficient and xcaddy is NOT needed. Fetched from GitHub
+            # because the Launchpad remote builders cannot reach the Cloudsmith
+            # apt repo (their network is restricted to a fetch proxy).
+            # Tracks the latest stable Caddy with a pinned fallback; set
+            # CADDY_VERSION explicitly for fully reproducible builds.
+            CADDY_VERSION="$(curl -fsSL https://api.github.com/repos/caddyserver/caddy/releases/latest | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1)"
+            [ -n "${CADDY_VERSION}" ] || CADDY_VERSION="2.8.4"
+            case "${CRAFT_ARCH_BUILD_FOR}" in
+                amd64) CADDY_ARCH=amd64 ;;
+                arm64) CADDY_ARCH=arm64 ;;
+                *) CADDY_ARCH="${CRAFT_ARCH_BUILD_FOR}" ;;
+            esac
+            echo "Downloading Caddy ${CADDY_VERSION} (linux/${CADDY_ARCH}) from GitHub releases..."
+            curl -fsSL -o /tmp/caddy.tar.gz \
+                "https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION}/caddy_${CADDY_VERSION}_linux_${CADDY_ARCH}.tar.gz"
+            mkdir -p /tmp/caddy-extract
+            tar -xzf /tmp/caddy.tar.gz -C /tmp/caddy-extract caddy
+
+            # Install the Caddy binary into the snap
+            mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+            install -m 0755 /tmp/caddy-extract/caddy $SNAPCRAFT_PART_INSTALL/bin/caddy
 
             # Display installed Caddy version for confirmation
             echo "Installed Caddy version:"
-            /usr/bin/caddy version
-
-            # Create directory structure in the snap
-            mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-
-            # Copy Caddy binary
-            cp /usr/bin/caddy $SNAPCRAFT_PART_INSTALL/bin/
-            chmod +x $SNAPCRAFT_PART_INSTALL/bin/caddy
+            $SNAPCRAFT_PART_INSTALL/bin/caddy version
 
             # Create license files manually since they don't exist in the package
             mkdir -p $SNAPCRAFT_PART_INSTALL/license
