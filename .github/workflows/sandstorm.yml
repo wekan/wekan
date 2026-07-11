@@ -15,6 +15,11 @@ name: Build Sandstorm .spk
 
 on:
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch, tag or SHA to build the .spk from (default: main)'
+        required: false
+        default: 'main'
 
 permissions:
   contents: write
@@ -29,11 +34,23 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: main
+          # Build the dispatched ref so a fix branch can be tested before it is
+          # merged to main; defaults to main for a plain `gh workflow run`.
+          ref: ${{ github.event.inputs.ref || 'main' }}
 
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
+
+      - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
+        # Ubuntu 24.04's AppArmor defaults kernel.apparmor_restrict_unprivileged_userns=1,
+        # which blocks the unprivileged user namespaces that the Sandstorm install and
+        # the spk supervisor rely on (the "fragile part" noted above). Relax it so
+        # `install.sandstorm.io` and meteor-spk can create sandboxes on the runner.
+        # `|| true`: on kernels/runners without these knobs, setting them is a no-op.
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+          sudo sysctl -w kernel.unprivileged_userns_clone=1 2>/dev/null || true
 
       - name: Install system dependencies and Meteor
         run: |
