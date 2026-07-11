@@ -180,6 +180,7 @@ import '/server/methods/lockedUsers';
 import '/server/methods/lockoutSettings';
 import '/server/methods/migrateTextDatabase';
 import '/server/methods/positionHistory';
+import '/server/methods/sandstormMigration';
 
 // ----------------------------------------------------------------------------
 // 11. Server — migrations

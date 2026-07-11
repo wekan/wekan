@@ -42,6 +42,9 @@ const SRC_DB        = process.env.SRC_DB || 'wekan';
 const TARGET_URL    = process.env.TARGET_MONGO_URL || 'mongodb://127.0.0.1:27098/wekan';
 const FILES_DIR     = process.env.FILES_DIR || path.join(process.env.WRITABLE_PATH || '/data', 'files');
 const PORT          = parseInt(process.env.MIGRATION_PORT || '8080', 10);
+// Optional: write the final migration state here as JSON so an admin UI can read
+// it later (e.g. WeKan on Sandstorm — Admin Panel / Attachments / Sandstorm).
+const STATUS_FILE   = process.env.STATUS_FILE || '';
 
 const ATTACH_DIR = path.join(FILES_DIR, 'attachments');
 const AVATAR_DIR = path.join(FILES_DIR, 'avatars');
@@ -104,6 +107,16 @@ function exportDocs(coll, query) {
 }
 
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
+// Persist the final state to STATUS_FILE (if set) so a later admin UI can show
+// whether the migration succeeded. Best-effort; never throws into the caller.
+function writeStatus() {
+  if (!STATUS_FILE) return;
+  try {
+    ensureDir(path.dirname(STATUS_FILE));
+    fs.writeFileSync(STATUS_FILE,
+      JSON.stringify({ ...state, finishedAt: new Date().toISOString() }, null, 2));
+  } catch (e) { err('writeStatus: ' + e.message); }
+}
 function hasSpace(dir, need) { try { const s = fs.statfsSync(dir); return Number(s.bavail) * Number(s.bsize) > need + 10 * 1048576; } catch { return true; } }
 
 async function run() {
@@ -185,7 +198,8 @@ async function run() {
   await client.close();
   state.phase = state.errors.length ? 'completed-with-errors' : 'completed';
   state.success = state.errors.length < 10;
+  writeStatus();
 }
 
 run().then(() => { setTimeout(() => process.exit(state.success ? 0 : 1), 60000); })
-     .catch(e => { err('Fatal: ' + e.stack); state.phase = 'error'; state.success = false; setTimeout(() => process.exit(1), 5000); });
+     .catch(e => { err('Fatal: ' + e.stack); state.phase = 'error'; state.success = false; writeStatus(); setTimeout(() => process.exit(1), 5000); });

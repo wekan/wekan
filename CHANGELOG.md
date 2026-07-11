@@ -111,6 +111,19 @@ This release adds the following features and fixes:
   raw-MongoDB disk usage, and a guarded delete-raw-MongoDB-files action). Implementation
   of the in-app pieces follows.
 
+- **Sandstorm: Admin Panel / Attachments / Sandstorm (migration status + free raw-MongoDB disk space)**:
+
+  Implemented the in-app pieces from the design above. When WeKan runs inside a
+  Sandstorm grain (`isSandstorm`), a new **Sandstorm** section appears in Admin
+  Panel / Attachments showing whether the one-time MongoDB 3 → FerretDB v1
+  migration succeeded, and the disk space the raw MongoDB 3 database files, the
+  FerretDB SQLite, and the attachments/avatars currently use inside the grain.
+  An admin can delete the now-redundant raw MongoDB files to free disk space —
+  guarded so it only runs after a confirmed-successful migration, behind a
+  confirmation. New admin-gated server methods `sandstormMigrationStatus` /
+  `sandstormDeleteRawMongo` ([server/methods/sandstormMigration.js](https://github.com/wekan/wekan/blob/main/server/methods/sandstormMigration.js));
+  the migration importer now writes a `migration-status.json` the panel reads.
+
 # v9.84 2026-07-11 WeKan ® release
 
 This release adds the following features and fixes:

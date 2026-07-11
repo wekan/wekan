@@ -61,6 +61,12 @@ template(name="attachments")
                 span.emoji-icon
                 i.fa.fa-archive
                 | {{_ 'backup'}}
+            if isSandstorm
+              li(class="{{#if isSandstormActive}}active{{/if}}")
+                a.js-attachments-menu(data-id="sandstorm")
+                  span.emoji-icon
+                  i.fa.fa-hdd-o
+                  | {{_ 'sandstorm-migration'}}
 
         .main-body
           if loading.get
@@ -579,6 +585,49 @@ template(name="attachments")
                       option(value="replace-all") {{_ 'backup-restore-replace-all'}}
                   .form-group
                     button.js-restore-backup.btn.btn-warning(type="button" disabled=backupRunning) {{_ 'backup-restore'}}
+
+          else if isSandstormActive
+            ul#attachment-sandstorm-setting.setting-detail
+              li
+                h3 {{_ 'sandstorm-migration'}}
+                .description {{_ 'sandstorm-migration-description'}}
+                if sandstormStatus
+                  .form-group
+                    strong {{_ 'sandstorm-migration-status'}}
+                    if sandstormStatus.migrationSuccess
+                      span.text-success  {{_ 'sandstorm-migration-success'}}
+                    else if sandstormStatus.migrationDone
+                      span.text-danger  {{_ 'sandstorm-migration-failed'}}
+                    else
+                      span.text-muted  {{_ 'sandstorm-migration-pending'}}
+                    if sandstormStatus.status
+                      p.form-text.text-muted {{_ 'database-migration-phase'}}: {{sandstormStatus.status.phase}}
+                  table.gridfs-stats-table
+                    tr
+                      th {{_ 'sandstorm-storage-item'}}
+                      th {{_ 'sandstorm-disk-usage'}}
+                    tr
+                      td {{_ 'sandstorm-raw-mongodb'}}
+                      td {{rawMongoSize}}
+                    tr
+                      td FerretDB (SQLite)
+                      td {{ferretSize}}
+                    tr
+                      td {{_ 'attachments'}}
+                      td {{attachmentsSize}}
+                    tr
+                      td {{_ 'avatars'}}
+                      td {{avatarsSize}}
+                  if sandstormStatus.rawMongoExists
+                    .form-group
+                      .description {{_ 'sandstorm-delete-raw-mongodb-description'}}
+                      button.js-sandstorm-delete-raw-mongodb.btn.btn-warning(type="button" disabled=sandstormDeleteDisabled) {{_ 'sandstorm-delete-raw-mongodb'}}
+                      if sandstormDeleteResult
+                        p.form-text.text-success {{_ 'sandstorm-raw-mongodb-deleted'}} ({{sandstormDeleteFreed}})
+                      if sandstormDeleteError
+                        p.form-text.text-danger {{sandstormDeleteError}}
+                else
+                  p.form-text.text-muted {{_ 'loading'}}
 
 template(name="moveAttachments")
   .move-storage-form

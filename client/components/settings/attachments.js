@@ -276,6 +276,20 @@ Template.attachments.onCreated(function () {
   this.backupPoll = null;
   Meteor.call('getBackupSchedule', (err, s) => { if (!err && s) this.backupSchedule.set(s); });
 
+  // Sandstorm: MongoDB 3 -> FerretDB migration status + raw-MongoDB disk usage.
+  this.sandstormStatus = new ReactiveVar(null);
+  this.sandstormDeleteResult = new ReactiveVar(null);
+  this.sandstormDeleteError = new ReactiveVar('');
+  // Fetch (once) when the Sandstorm tab is opened. Migration runs in start.js
+  // before the app boots, so the status is static by the time the UI is shown.
+  this.autorun(() => {
+    if (this.activeSection.get() === 'sandstorm') {
+      Meteor.call('sandstormMigrationStatus', (err, res) => {
+        if (!err && res) this.sandstormStatus.set(res);
+      });
+    }
+  });
+
   this.autorun(() => {
     const ready = this.storageSettingsSubscription.ready();
     if (ready) {
@@ -370,6 +384,51 @@ Template.attachments.helpers({
   },
   isBackupActive() {
     return Template.instance().activeSection.get() === 'backup';
+  },
+  isSandstorm() {
+    return !!(
+      Meteor.settings &&
+      Meteor.settings.public &&
+      Meteor.settings.public.sandstorm
+    );
+  },
+  isSandstormActive() {
+    return Template.instance().activeSection.get() === 'sandstorm';
+  },
+  sandstormStatus() {
+    return Template.instance().sandstormStatus.get();
+  },
+  rawMongoSize() {
+    const s = Template.instance().sandstormStatus.get();
+    return s ? filesize(s.rawMongoBytes || 0) : '';
+  },
+  ferretSize() {
+    const s = Template.instance().sandstormStatus.get();
+    return s ? filesize(s.ferretBytes || 0) : '';
+  },
+  attachmentsSize() {
+    const s = Template.instance().sandstormStatus.get();
+    return s ? filesize(s.attachmentsBytes || 0) : '';
+  },
+  avatarsSize() {
+    const s = Template.instance().sandstormStatus.get();
+    return s ? filesize(s.avatarsBytes || 0) : '';
+  },
+  sandstormDeleteDisabled() {
+    const s = Template.instance().sandstormStatus.get();
+    // Only allow deleting the raw MongoDB files after a confirmed-successful
+    // migration, and only while they still exist.
+    return !(s && s.migrationSuccess && s.rawMongoExists);
+  },
+  sandstormDeleteResult() {
+    return Template.instance().sandstormDeleteResult.get();
+  },
+  sandstormDeleteFreed() {
+    const r = Template.instance().sandstormDeleteResult.get();
+    return r ? filesize(r.freedBytes || 0) : '';
+  },
+  sandstormDeleteError() {
+    return Template.instance().sandstormDeleteError.get();
   },
   backupStatus() {
     return Template.instance().backupStatus.get();
@@ -654,6 +713,24 @@ Template.attachments.events({
     }
 
     tpl.activeSection.set(targetID);
+  },
+  'click .js-sandstorm-delete-raw-mongodb'(event, tpl) {
+    event.preventDefault();
+    if (!window.confirm(TAPi18n.__('sandstorm-delete-raw-mongodb-confirm'))) {
+      return;
+    }
+    tpl.sandstormDeleteError.set('');
+    Meteor.call('sandstormDeleteRawMongo', (error, result) => {
+      if (error) {
+        tpl.sandstormDeleteError.set(error.reason || error.message);
+        return;
+      }
+      tpl.sandstormDeleteResult.set(result);
+      // Refresh disk usage / status after deletion.
+      Meteor.call('sandstormMigrationStatus', (err, res) => {
+        if (!err && res) tpl.sandstormStatus.set(res);
+      });
+    });
   },
   'click .js-migrate-to-ferretdb'(event, tpl) {
     event.preventDefault();
