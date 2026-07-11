@@ -152,16 +152,16 @@ REM ===========================================================================
 :menu_docker
 echo.
 echo -- Docker: pick a backend --   ^(0 = Back^)
-echo   1^) MongoDB               ^(docker-compose.yml^)
-echo   2^) FerretDB v1 SQLite    ^(docker-compose-ferretdb-v1-sqlite.yml^)
-echo   3^) FerretDB v2 Postgres  ^(docker-compose-ferretdb-v2-postgresql.yml^)
-echo   4^) MongoDB Multitenancy  ^(docker-compose-multitenancy.yml^)
+echo   1^) FerretDB v1 SQLite ^(default^)  ^(docker-compose.yml^)
+echo   2^) MongoDB 7                     ^(docker-compose-mongodb-v7.yml^)
+echo   3^) FerretDB v2 Postgres          ^(docker-compose-ferretdb-v2-postgresql.yml^)
+echo   4^) MongoDB Multitenancy          ^(docker-compose-multitenancy.yml^)
 set "choice="
 set /p "choice=Backend: "
 if "%choice%"=="0" goto menu
 set "CF="
 if "%choice%"=="1" set "CF=docker-compose.yml"
-if "%choice%"=="2" set "CF=docker-compose-ferretdb-v1-sqlite.yml"
+if "%choice%"=="2" set "CF=docker-compose-mongodb-v7.yml"
 if "%choice%"=="3" set "CF=docker-compose-ferretdb-v2-postgresql.yml"
 if "%choice%"=="4" set "CF=docker-compose-multitenancy.yml"
 if not defined CF goto menu_docker

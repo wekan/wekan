@@ -920,8 +920,8 @@ choose() {
 
 # Docker submenu: pick a backend, then Start / Follow logs / Stop.
 # Returns 0 when an action ran, 1 on Back (so the caller re-shows the menu).
-DOCKER_DBS=("MongoDB|docker-compose.yml"
-            "FerretDB v1 (SQLite)|docker-compose-ferretdb-v1-sqlite.yml"
+DOCKER_DBS=("FerretDB v1 SQLite (default)|docker-compose.yml"
+            "MongoDB 7|docker-compose-mongodb-v7.yml"
             "FerretDB v2 (PostgreSQL)|docker-compose-ferretdb-v2-postgresql.yml"
             "MongoDB Multitenancy|docker-compose-multitenancy.yml")
 docker_menu() {

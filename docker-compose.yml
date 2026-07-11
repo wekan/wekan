@@ -1,278 +1,81 @@
-# Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
-#---------------------------------------------------------------------------------------------------------
-# ==== CREATING USERS AND LOGGING IN TO WEKAN ====
-# https://github.com/wekan/wekan/blob/main/docs/Login/Adding-users.md
-#---------------------------------------------------------------------------------------------------------
-# ==== FORGOT PASSWORD ====
-# https://github.com/wekan/wekan/blob/main/docs/Login/Forgot-Password.md
-#---------------------------------------------------------------------------------------------------------
-# ==== Upgrading Wekan to new version =====
-# NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
-#       see https://github.com/wekan/wekan/tree/main/docs/Backup
-# 1) Stop Wekan:
-#      docker compose stop
-# 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
-#      docker rm wekan-app
-# 3) Get newest docker-compose.yml from https://github.com/wekan/wekan to have correct image,
-#    for example: "image: quay.io/wekan/wekan" or version tag "image: quay.io/wekan/wekan:v4.52"
-# 4) Start Wekan:
-#      docker compose up -d
-#----------------------------------------------------------------------------------
-# ==== OPTIONAL: DEDICATED DOCKER USER ====
-# 1) Optionally create a dedicated user for Wekan, for example:
-#      sudo useradd -d /home/wekan -m -s /bin/bash wekan
-# 2) Add this user to the docker group, then logout+login or reboot:
-#      sudo usermod -aG docker wekan
-# 3) Then login as user wekan.
-# 4) Create this file /home/wekan/docker-compose.yml with your modifications.
-#----------------------------------------------------------------------------------
-# ==== RUN DOCKER AS SERVICE ====
-# 1a) Running Docker as service, on Systemd like Debian 9, Ubuntu 16.04, CentOS 7:
-#      sudo systemctl enable docker
-#      sudo systemctl start docker
-# 1b) Running Docker as service, on init.d like Debian 8, Ubuntu 14.04, CentOS 6:
-#      sudo update-rc.d docker defaults
-#      sudo service docker start
-# ----------------------------------------------------------------------------------
-# ==== USAGE OF THIS docker-compose.yml ====
-# 1) For seeing does Wekan work, try this and check with your web browser:
-#      docker compose up
-# 2) Stop Wekan and start Wekan in background:
-#     docker compose stop
-#     docker compose up -d
-# 3) See running Docker containers:
-#     docker ps
-# 4) Stop Docker containers:
-#     docker compose stop
-# ----------------------------------------------------------------------------------
-# ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
-# https://github.com/wekan/wekan/tree/main/docs/Backup
-# If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
-# 1) Going inside containers:
-#    a) Wekan app, does not contain data
-#         docker exec -it wekan-app bash
-#    b) MongoDB, contains all data
-#         docker exec -it wekan-db bash
-# 2) Copying database to outside of container:
-#      docker exec -it wekan-db bash
-#      cd /data
-#      mongodump
-#      exit
-#      docker cp wekan-db:/data/dump .
-# 3) Restoring database
-#      # 1) Stop wekan
-#             docker stop wekan-app
-#      # 2) Go inside database container
-#             docker exec -it wekan-db bash
-#      # 3) and data directory
-#             cd /data
-#      # 4) Remove previous dump
-#             rm -rf dump
-#      # 5) Exit db container
-#             exit
-#      # 6) Copy dump to inside docker container
-#             docker cp dump wekan-db:/data/
-#      # 7) Go inside database container
-#             docker exec -it wekan-db bash
-#      # 8) and data directory
-#             cd /data
-#      # 9) Restore
-#             mongorestore --drop
-#      # 10) Exit db container
-#             exit
-#      # 11) Start wekan
-#             docker start wekan-app
-#-------------------------------------------------------------------------
+# This docker-compose.yml uses FerretDB v1 with SQLite from
+# https://github.com/wekan/FerretDB by default.
+#
+# WeKan with FerretDB v1 + embedded SQLite (no PostgreSQL, no MongoDB)
+#
+# This is the DEFAULT WeKan compose file (docker-compose.yml): a light,
+# self-contained database — FerretDB v1 (the wekan/FerretDB fork,
+# https://github.com/wekan/FerretDB) with its embedded pure-Go SQLite backend,
+# which speaks the MongoDB wire protocol. There is no separate PostgreSQL or
+# MongoDB server — FerretDB stores everything in SQLite files on a volume, and
+# WeKan stores attachments/avatars on the filesystem.
+# For the classic MongoDB 7 option instead, see docker-compose-mongodb-v7.yml;
+# for the PostgreSQL-backed FerretDB 2 option, see
+# docker-compose-ferretdb-v2-postgresql.yml.
+#
+# The FerretDB binary is downloaded (once, then cached on the volume) from the
+# newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
+# The ferretdb.zip there contains ferretdb/<arch>/ferretdb-<arch> for every
+# platform; the container picks the binary matching its architecture (amd64,
+# arm64, ppc64le, s390x, riscv64, ...).
+#
+# Setup (this is the default docker-compose.yml, so no -f is needed):
+#   docker compose up -d
+#
+# To stop:
+#   docker compose stop
 
+version: '3.8'
 services:
 
-  #-------------------------------------------------------------------------------------
-  # ==== DATABASE: FerretDB 2 + PostgreSQL 16 ====
-  # FerretDB is a MongoDB-compatible proxy that stores data in PostgreSQL.
-  # It supports the full MongoDB wire protocol used by Meteor/WeKan,
-  # including OpLog via replication-set emulation (--replication-set-name=rs0).
-  #
-  # Upgrade path from MongoDB:
-  #   The wekan-migrate service below runs ONCE before wekan starts.
-  #   It copies all data from an existing MongoDB instance (if reachable at
-  #   SOURCE_MONGO_URL) to FerretDB, upgrades the schema to v8.43, and
-  #   moves GridFS / CollectionFS binary files to the filesystem.
-  #   Progress is visible in a browser while migration runs.
-  #
-  # If you are upgrading from a MongoDB-based install:
-  #   1. Keep your old MongoDB container running (or start it separately).
-  #   2. Set SOURCE_MONGO_URL in the wekan-migrate environment below.
-  #   3. Run:  docker compose up -d
-  #   4. Watch migration at http://localhost:8080/ until "completed".
-  #   5. Shut down old MongoDB once satisfied.
-  #
-  # If this is a fresh install, wekan-migrate exits instantly (nothing to migrate).
-  #-------------------------------------------------------------------------------------
-  #
-  #wekan-postgres:
-  #  image: postgres:16-alpine
-  #  container_name: wekan-postgres
-  #  restart: always
-  #  networks:
-  #    - wekan-tier
-  #  expose:
-  #    - 5432
-  #  environment:
-  #    - POSTGRES_DB=wekan
-  #    - POSTGRES_USER=wekan
-  #    - POSTGRES_PASSWORD=wekan
-  #    # Tune for a kanban workload (low connection count, moderate write rate)
-  #    - POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C
-  #  volumes:
-  #    - /etc/localtime:/etc/localtime:ro
-  #    - wekan-postgres:/var/lib/postgresql/data
-  #  healthcheck:
-  #    test: ["CMD-SHELL", "pg_isready -U wekan -d wekan"]
-  #    interval: 5s
-  #    timeout: 5s
-  #    retries: 10
-  #
-  #wekan-ferretdb:
-  #  image: ghcr.io/ferretdb/ferretdb:2
-  #  container_name: wekan-ferretdb
-  #  restart: always
-  #  networks:
-  #    - wekan-tier
-  #  expose:
-  #    - 27017
-  #  environment:
-  #    # FerretDB stores everything in PostgreSQL
-  #    - FERRETDB_POSTGRESQL_URL=postgresql://wekan:wekan@wekan-postgres:5432/wekan
-  #    # Emulate MongoDB replica-set for Meteor OpLog (real-time updates)
-  #    - FERRETDB_REPLICATION_SET_NAME=rs0
-  #    # Suppress verbose debug output
-  #    - FERRETDB_LOG_LEVEL=warn
-  #  depends_on:
-  #    wekan-postgres:
-  #      condition: service_healthy
-  #  healthcheck:
-  #    test: ["CMD", "ferretdb", "--version"]
-  #    interval: 5s
-  #    timeout: 5s
-  #    retries: 10
-  #
-  #-------------------------------------------------------------------------------------
-  # ==== MIGRATION SERVICE ====
-  # Runs once, before WeKan starts.  Exits 0 on success, 1 on fatal error.
-  # WeKan only starts after this service exits successfully
-  # (depends_on condition: service_completed_successfully).
-  #
-  # On a FRESH install (no SOURCE_MONGO_URL or source unreachable) it exits
-  # immediately — no penalty for new deployments.
-  #
-  # SOURCE_MONGO_URL: point to your old MongoDB container/host.
-  #   e.g.  mongodb://wekandb:27017/wekan
-  #         mongodb://192.168.1.10:27017/wekan
-  # Leave it unset or empty to skip migration.
-  #-------------------------------------------------------------------------------------
-  #wekan-migrate:
-  #  image: node:24.17.0-slim
-  #  container_name: wekan-migrate
-  #  restart: "no"
-  #  networks:
-  #    - wekan-tier
-  #  working_dir: /migrate
-  #  # Install the mongodb driver then run the migration script.
-  #  # npm ci is used if package-lock.json exists; npm install otherwise.
-  #  command: >
-  #    sh -c "
-  #      cd /migrate &&
-  #      npm install --omit=dev --prefer-offline 2>/dev/null || npm install --omit=dev &&
-  #      node migrate-mongodb-to-ferretdb.mjs
-  #    "
-  #  environment:
-  #    # ---- Source (old MongoDB) ----
-  #    # Set to your old MongoDB URL to trigger data migration.
-  #    # Leave empty for a fresh install (migration is skipped automatically).
-  #    - SOURCE_MONGO_URL=
-  #    #- SOURCE_MONGO_URL=mongodb://wekandb:27017/wekan
-  #
-  #    # ---- Target (FerretDB) ----
-  #    - TARGET_MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
-  #
-  #    # ---- File storage ----
-  #    # Must match the WRITABLE_PATH used by the wekan service.
-  #    - WRITABLE_PATH=/data
-  #
-  #    # ---- Progress dashboard ----
-  #    # Browse to http://localhost:8080/ while migration runs.
-  #    - MIGRATION_PORT=8080
-  #
-  #    # ---- Tuning (optional) ----
-  #    #- BATCH_SIZE=200
-  #    #- DRY_RUN=true          # Log only, no writes — useful for testing
-  #    #- FORCE_MIGRATE=true    # Re-run even if already marked complete
-  #  ports:
-  #    - 8080:8080
-  #  depends_on:
-  #    wekan-ferretdb:
-  #      condition: service_healthy
-  #  volumes:
-  #    - /etc/localtime:/etc/localtime:ro
-  #    - wekan-files:/data:rw
-  #    - ./releases:/migrate:ro
-
-  #-------------------------------------------------------------------------------------
-  # ==== LEGACY MONGODB (commented out) ====
-  # Uncomment to keep old MongoDB running alongside FerretDB during migration.
-  # After migration is verified, remove this block entirely.
-  #-------------------------------------------------------------------------------------
-  wekandb:
-    image: mongo:7
-    container_name: wekan-db
+  # FerretDB v1 with the embedded SQLite backend (MongoDB-compatible on :27017).
+  # A tiny Debian container fetches the wekan/FerretDB v1 release binary for its
+  # architecture (cached on the volume so restarts do not re-download) and runs it.
+  # SQLite data lives in /data/sqlite on the ferretdb-data volume.
+  ferretdb:
+    image: debian:bookworm-slim
+    container_name: wekan-ferretdb
     restart: always
-    #command: mongod --logpath /dev/null --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --quiet
-    #command: mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --quiet
-    command: >
-      sh -c '
-        mongod --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 --timeZoneInfo /usr/share/zoneinfo --setParameter logicalSessionRefreshMillis=900000 --setParameter localLogicalSessionTimeoutMinutes=45 --oplogSize 20480 --replSet rs0 --bind_ip_all --quiet &
-        until mongosh --host 127.0.0.1 --quiet --eval "
-          try {
-            const status = rs.status();
-            quit(status.ok === 1 ? 0 : 1);
-          } catch (e) {
-            if (
-              e.codeName === \"NotYetInitialized\" ||
-              e.message.includes(\"no replset config has been received\") ||
-              e.message.includes(\"not yet initialized\")
-            ) {
-              rs.initiate({
-                _id: \"rs0\",
-                members: [{ _id: 0, host: \"wekandb:27017\" }]
-              });
-              quit(1);
-            }
-            quit(1);
-          }
-        " >/dev/null 2>&1; do
-          sleep 2
-        done
-        wait
-      '
+    environment:
+      DO_NOT_TRACK: "1"
+      FERRETDB_TELEMETRY: disable
+      # Pin a specific release instead of the newest by setting e.g.
+      #   FERRETDB_RELEASE=download/v1.24.2
+      FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
+    command:
+      - sh
+      - -c
+      - |
+        set -eu
+        BIN=/data/bin/ferretdb
+        if [ ! -x "$$BIN" ]; then
+          echo "Fetching FerretDB v1 from the wekan/FerretDB release ..."
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends curl unzip ca-certificates >/dev/null
+          arch="$$(dpkg --print-architecture)"
+          case "$$arch" in ppc64el) arch=ppc64le ;; esac
+          mkdir -p /data/bin
+          curl -fSL --retry 5 -o /tmp/ferretdb.zip \
+            "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb.zip"
+          unzip -o -j /tmp/ferretdb.zip "ferretdb/$${arch}/ferretdb-$${arch}" -d /data/bin
+          mv "/data/bin/ferretdb-$${arch}" "$$BIN"
+          chmod +x "$$BIN"
+          rm -f /tmp/ferretdb.zip
+        fi
+        mkdir -p /data/files/db
+        exec "$$BIN" \
+          --handler=sqlite \
+          --sqlite-url=file:/data/files/db/ \
+          --listen-addr=0.0.0.0:27017 \
+          --telemetry=disable \
+          --log-level=error
+    volumes:
+      - ferretdb-data:/data
     networks:
       - wekan-tier
-    expose:
-      - 27017
-    # Healthcheck: report healthy only once the replica set has an elected
-    # primary, so the wekan app (depends_on: condition: service_healthy) does
-    # not start before MongoDB is ready and crash with "Topology is closed".
-    # start_period gives a large database time to replay its journal after an
-    # upgrade before failures are counted.
-    healthcheck:
-      test: ["CMD", "mongosh", "--host", "127.0.0.1", "--port", "27017", "--quiet", "--eval", "try { quit(rs.status().ok === 1 && db.hello().isWritablePrimary ? 0 : 1) } catch (e) { quit(1) }"]
-      interval: 10s
-      timeout: 10s
-      retries: 30
-      start_period: 60s
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - wekan-db:/data/db
-      - wekan-db-dump:/dump
+    # Expose only on localhost by default; remove to keep it internal to the network.
+    ports:
+      - 127.0.0.1:27017:27017
 
   wekan:
     #-------------------------------------------------------------------------------------
@@ -326,7 +129,9 @@ services:
       # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
       # Keep oplog/polling fallback available for deployments that cannot use Change Streams:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
-      - METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling
+      # FerretDB has no MongoDB change streams / replica-set oplog, so use polling:
+      - DEFAULT_METEOR_REACTIVITY_ORDER=polling
+      - METEOR_REACTIVITY_ORDER=polling
       - DDP_TRANSPORT=uws
       #- DDP_TRANSPORT=sockjs
       #-----------------------------------------------------------------
@@ -344,7 +149,7 @@ services:
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
       #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
-      - MONGO_URL=mongodb://wekandb:27017/wekan
+      - MONGO_URL=mongodb://ferretdb:27017/wekan
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -395,7 +200,7 @@ services:
       # FerretDB emulates OpLog via --replication-set-name=rs0.
       # HIGHLY RECOMMENDED — enables real-time DDP updates (sub-100ms latency).
       #- MONGO_OPLOG_URL=mongodb://wekan-ferretdb:27017/local?replicaSet=rs0
-      - MONGO_OPLOG_URL=mongodb://wekandb:27017/local?replicaSet=rs0
+      # MONGO_OPLOG_URL intentionally unset: FerretDB v1 has no replica-set oplog (WeKan uses polling).
       #---------------------------------------------------------------
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/edemaine/kadira-compose
@@ -984,8 +789,8 @@ services:
     # If you use FerretDB instead, comment out the wekandb block below and
     # uncomment the wekan-ferretdb block.
     depends_on:
-      wekandb:
-        condition: service_healthy
+      ferretdb:
+        condition: service_started
     #  wekan-migrate:
     #    condition: service_completed_successfully
     #  wekan-ferretdb:
@@ -993,92 +798,13 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-files:/data:rw
-    # Secrets are optional. Uncomment below and ensure files exist to use them.
-    #secrets:
-    #  - ldap_auth_password
-    #  - oauth2_secret
-    #  - mail_service_password
-    #  - mongo_password
-    #  - s3_secret
-
-#---------------------------------------------------------------------------------
-# ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
-#  When using Wekan both at office LAN and remote VPN:
-#    1) Have above Wekan docker container config with LAN IP address
-#    2) Copy all of above wekan container config below, look above of this part above and all config below it,
-#       before above depends_on: part:
-#
-#         wekan:
-#            #-------------------------------------------------------------------------------------
-#            # ==== MONGODB AND METEOR VERSION ====
-#            # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch, .....
-#
-#
-#       and change name to different name like wekan2 or wekanvpn, and change ROOT_URL to server VPN IP
-#       address.
-#    3) This way both Wekan containers can use same MongoDB database
-#       and see the same Wekan boards.
-#    4) You could also add 3rd Wekan container for 3rd network etc.
-# EXAMPLE:
-#  wekan2:
-#    ....COPY CONFIG FROM ABOVE TO HERE...
-#    environment:
-#      - ROOT_URL='http://10.10.10.10'
-#      ...COPY CONFIG FROM ABOVE TO HERE...
-#---------------------------------------------------------------------------------
-
-# OPTIONAL NGINX CONFIG FOR REVERSE PROXY
-#  nginx:
-#    image: nginx
-#    container_name: nginx
-#    restart: always
-#    networks:
-#      - wekan-tier
-#    depends_on:
-#      - wekan
-#    ports:
-#      - 80:80
-#      - 443:443
-#    volumes:
-#      - ./nginx/ssl:/etc/nginx/ssl/:ro
-#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-## Alternative volume config:
-##   volumes:
-##     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-##     - ./nginx/ssl/ssl.conf:/etc/nginx/conf.d/ssl/ssl.conf:ro
-##     - ./nginx/ssl/testvm-ehu.crt:/etc/nginx/conf.d/ssl/certs/mycert.crt:ro
-##     - ./nginx/ssl/testvm-ehu.key:/etc/nginx/conf.d/ssl/certs/mykey.key:ro
-##     - ./nginx/ssl/pphrase:/etc/nginx/conf.d/ssl/pphrase:ro
 
 volumes:
   wekan-files:
     driver: local
-  #wekan-postgres:
-  #  driver: local
-  # Legacy MongoDB volumes — kept so existing data survives until migration is done.
-  # Remove once migration is verified and old MongoDB is decommissioned.
-  wekan-db:
-    driver: local
-  wekan-db-dump:
+  ferretdb-data:
     driver: local
 
 networks:
   wekan-tier:
     driver: bridge
-
-# Docker Compose Secrets
-# Create secret files on the host system before running docker-compose up
-# Example: echo "your_password_here" > ldap_auth_password.txt
-# Then use: docker-compose up -d
-# Secrets are optional. Uncomment to enable and ensure files exist at provided paths.
-#secrets:
-#  ldap_auth_password:
-#    file: ./secrets/ldap_auth_password.txt
-#  oauth2_secret:
-#    file: ./secrets/oauth2_secret.txt
-#  mail_service_password:
-#    file: ./secrets/mail_service_password.txt
-#  mongo_password:
-#    file: ./secrets/mongo_password.txt
-#  s3_secret:
-#    file: ./secrets/s3_secret.txt

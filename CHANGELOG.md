@@ -98,6 +98,21 @@ them up next.
 
 This release adds the following features and fixes:
 
+- **Docker: FerretDB v1 + SQLite is now the default `docker-compose.yml`**:
+
+  The default database for `docker compose up -d` is now **FerretDB v1 with embedded
+  SQLite** (from https://github.com/wekan/FerretDB) — light and self-contained, no
+  separate database server. The compose files were renamed accordingly:
+  `docker-compose-ferretdb-v1-sqlite.yml` -> **`docker-compose.yml`** (the new default),
+  and the previous MongoDB default `docker-compose.yml` -> **`docker-compose-mongodb-v7.yml`**.
+  The other files are unchanged: `docker-compose-ferretdb-v2-postgresql.yml` (FerretDB 2
+  + PostgreSQL) and `docker-compose-multitenancy.yml` (MongoDB multitenancy). To use
+  MongoDB 7, run `docker compose -f docker-compose-mongodb-v7.yml up -d` or rename that
+  file to `docker-compose.yml`. `rebuild-wekan.sh` / `rebuild-wekan.bat` Docker menus now
+  list FerretDB v1 SQLite first (default) and point at the new filenames, the compose
+  files' own header comments were updated, and the Docker docs now describe which
+  compose file maps to which database.
+
 - **rebuild-wekan.sh / rebuild-wekan.bat: reorganized into category submenus + Docker start/logs/stop**:
 
   The long flat menu is now grouped into a short top-level menu — **Setup**,

@@ -1,3 +1,14 @@
+## WeKan Docker compose files (which database?)
+
+Since the default database changed, the compose files in https://github.com/wekan/wekan are:
+
+- **docker-compose.yml** — the default: **FerretDB v1 with embedded SQLite** (from https://github.com/wekan/FerretDB). Light and self-contained, no separate database server. Just `docker compose up -d`.
+- **docker-compose-mongodb-v7.yml** — the classic **MongoDB 7** setup. Use it with `docker compose -f docker-compose-mongodb-v7.yml up -d`, or rename/copy it to `docker-compose.yml`.
+- **docker-compose-ferretdb-v2-postgresql.yml** — **FerretDB 2 with PostgreSQL** (DocumentDB extension).
+- **docker-compose-multitenancy.yml** — MongoDB multitenancy setup.
+
+Note: the older instructions below were written for the MongoDB setup; where they say `docker-compose.yml` for MongoDB-specific things (and the `#L...` line-number links), they now refer to **docker-compose-mongodb-v7.yml**.
+
 ## Building custom Docker image
 
 This is only for developers. For normal users, do not add these options, just start with `docker compose up -d`

@@ -1,10 +1,10 @@
 # WeKan with FerretDB 2 + PostgreSQL (DocumentDB extension)
 #
-# Use this compose file instead of docker-compose.yml on platforms where
-# MongoDB Community Edition is not available, or when you prefer PostgreSQL
-# as the backing store. For a lighter, single-container, no-PostgreSQL option,
-# see docker-compose-ferretdb-v1-sqlite.yml (FerretDB v1 with the embedded
-# SQLite backend, using the wekan/FerretDB release binaries).
+# Use this compose file instead of the default docker-compose.yml when you
+# prefer PostgreSQL as the backing store. For the lighter, single-container,
+# no-PostgreSQL option, see the default docker-compose.yml (FerretDB v1 with the
+# embedded SQLite backend, using the wekan/FerretDB release binaries). For the
+# classic MongoDB 7 option, see docker-compose-mongodb-v7.yml.
 #
 # Supported on all platforms where Node.js 22 runs:
 #   linux/amd64, linux/arm64, linux/arm/v7, linux/ppc64le, linux/s390x

@@ -4,7 +4,7 @@
 
 ## WeKan
 
-- Alternatively, use wekan-app Docker container from https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose.yml
+- Alternatively, use the ready-made FerretDB 2 + PostgreSQL compose file from https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose-ferretdb-v2-postgresql.yml (the default docker-compose.yml uses FerretDB v1 with SQLite instead)
 
 ```
 git clone --branch main --depth 1 https://github.com/wekan/wekan.git
