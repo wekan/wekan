@@ -111,7 +111,16 @@ This release adds the following features and fixes:
   file to `docker-compose.yml`. `rebuild-wekan.sh` / `rebuild-wekan.bat` Docker menus now
   list FerretDB v1 SQLite first (default) and point at the new filenames, the compose
   files' own header comments were updated, and the Docker docs now describe which
-  compose file maps to which database.
+  compose file maps to which database. The Docker menus also gained a **Build from
+  source & start (up -d --build)** action per compose file, which builds the wekan-app
+  image from the local `Dockerfile` (tagged as the image the compose file references)
+  and starts that freshly built container instead of a possibly-stale prebuilt image —
+  useful when a change (e.g. the FerretDB Version-page detection) isn't in the pulled
+  image yet. Finally, the obsolete `version:` attribute (which Docker Compose v2 warns
+  about and ignores) was removed from all compose files (`docker-compose.yml`,
+  `docker-compose-mongodb-v7.yml`, `docker-compose-ferretdb-v2-postgresql.yml`,
+  `docker-compose-multitenancy.yml`, `.devcontainer/docker-compose.yml`, and the
+  ToroDB docs example).
 
 - **rebuild-wekan.sh / rebuild-wekan.bat: reorganized into category submenus + Docker start/logs/stop**:
 

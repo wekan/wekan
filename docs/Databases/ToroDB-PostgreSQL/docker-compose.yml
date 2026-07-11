@@ -1,5 +1,3 @@
-version: '2'
-
 # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
 #---------------------------------------------------------------------------------------------------------
 # ==== CREATING USERS AND LOGGING IN TO WEKAN ====

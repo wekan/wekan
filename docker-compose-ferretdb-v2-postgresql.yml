@@ -17,7 +17,6 @@
 # To stop:
 #   docker compose -f docker-compose-ferretdb-v2-postgresql.yml stop
 
-version: '3.8'
 services:
 
   # PostgreSQL 17 with the DocumentDB extension (FerretDB 2 backing store).

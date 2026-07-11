@@ -899,6 +899,26 @@ wekan_docker() {
 	$dc -f "$f" "$@"
 }
 
+# Build the wekan-app Docker image from the LOCAL source (the repo Dockerfile) and
+# tag it as the image the given compose file references, so a following `up -d`
+# runs your freshly built container instead of a possibly-stale prebuilt image
+# pulled from the registry. Use this when you changed WeKan source and want Docker
+# to run that change. $1 = compose file.
+wekan_docker_build_image() {
+	local f="$1"
+	if [ ! -f "$f" ]; then echo "Compose file not found: $f"; return 1; fi
+	if [ ! -f Dockerfile ]; then echo "Dockerfile not found in $(pwd) - run this from the repo root."; return 1; fi
+	# The wekan-app image tag this compose file uses (e.g. ghcr.io/wekan/wekan:latest).
+	local img
+	img="$(grep -E '^[[:space:]]*image:[[:space:]]*[^#].*wekan/wekan' "$f" | head -1 | sed -E 's/.*image:[[:space:]]*//; s/[[:space:]]*$//')"
+	[ -z "$img" ] && img="ghcr.io/wekan/wekan:latest"
+	echo "==> Building wekan-app image from local source, tagging it as: $img"
+	echo "    (equivalent to 'docker compose up -d --build'; the built image replaces the prebuilt one)"
+	docker build -t "$img" -f Dockerfile . || { echo "ERROR: Docker build failed."; return 1; }
+	echo "==> Build done: $img"
+	return 0
+}
+
 echo
 PS3='Please enter your choice: '
 
@@ -936,12 +956,13 @@ docker_menu() {
 	done
 	echo; echo "== $c: action =="
 	local act
-	select act in "Start (up -d)" "Follow logs (logs -f)" "Stop (down)" "Back"; do
+	select act in "Start (up -d)" "Build from source & start (up -d --build)" "Follow logs (logs -f)" "Stop (down)" "Back"; do
 		case $act in
-			"Start (up -d)")         wekan_docker "$file" up -d;   return 0 ;;
-			"Follow logs (logs -f)") wekan_docker "$file" logs -f; return 0 ;;
-			"Stop (down)")           wekan_docker "$file" down;    return 0 ;;
-			"Back")                  return 1 ;;
+			"Start (up -d)")                          wekan_docker "$file" up -d;   return 0 ;;
+			"Build from source & start (up -d --build)") wekan_docker_build_image "$file" && wekan_docker "$file" up -d; return 0 ;;
+			"Follow logs (logs -f)")                  wekan_docker "$file" logs -f; return 0 ;;
+			"Stop (down)")                            wekan_docker "$file" down;    return 0 ;;
+			"Back")                                   return 1 ;;
 		esac
 	done
 }

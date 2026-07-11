@@ -25,7 +25,6 @@
 # To stop:
 #   docker compose stop
 
-version: '3.8'
 services:
 
   # FerretDB v1 with the embedded SQLite backend (MongoDB-compatible on :27017).

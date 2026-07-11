@@ -36,8 +36,6 @@
 #   to a fresh value (5003, 5004, …). The MongoDB service and the
 #   reverse proxy in front of WeKan don't need any change.
 
-version: '3.8'
-
 services:
 
   # ---------------------------------------------------------------------

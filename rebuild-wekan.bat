@@ -168,18 +168,34 @@ if not defined CF goto menu_docker
 echo.
 echo -- Action --   ^(0 = Back^)
 echo   1^) Start ^(up -d^)
-echo   2^) Follow logs ^(logs -f^)
-echo   3^) Stop ^(down^)
+echo   2^) Build from source ^& start ^(up -d --build^)
+echo   3^) Follow logs ^(logs -f^)
+echo   4^) Stop ^(down^)
 set "choice="
 set /p "choice=Action: "
 if "%choice%"=="0" goto menu_docker
+if "%choice%"=="2" goto docker_build_start
 set "AC="
 if "%choice%"=="1" set "AC=up -d"
-if "%choice%"=="2" set "AC=logs -f"
-if "%choice%"=="3" set "AC=down"
+if "%choice%"=="3" set "AC=logs -f"
+if "%choice%"=="4" set "AC=down"
 if not defined AC goto menu_docker
 echo Running: docker compose -f %CF% %AC%
 docker compose -f %CF% %AC%
+goto end
+
+:docker_build_start
+REM Build the wekan-app image from the LOCAL source (repo Dockerfile) and tag it
+REM as the image the compose file references, so the following "up -d" runs your
+REM freshly built container instead of a possibly-stale prebuilt one. All WeKan
+REM compose files reference ghcr.io/wekan/wekan:latest.
+if not exist "%REPO%\Dockerfile" ( echo ERROR: Dockerfile not found in %REPO%. & goto end )
+set "WK_IMG=ghcr.io/wekan/wekan:latest"
+echo ==^> Building wekan-app image from local source, tagging it as: %WK_IMG%
+docker build -t %WK_IMG% -f "%REPO%\Dockerfile" "%REPO%"
+if errorlevel 1 ( echo ERROR: Docker build failed. & goto end )
+echo Running: docker compose -f %CF% up -d
+docker compose -f %CF% up -d
 goto end
 
 REM ===========================================================================
