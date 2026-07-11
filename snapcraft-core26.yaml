@@ -168,28 +168,11 @@ parts:
     # access (readiness, replica-set init, schema migration) uses the bundled
     # Node.js 24 + the `mongodb` driver via $SNAP/bin/db-eval (see snap-src/bin).
 
-    mongotools:
-        plugin: nil
-        # MongoDB Database Tools built by wekan/mongo-tools (pure Go, cross-compiled
-        # for every architecture), downloaded per-arch from that repo's newest
-        # release — no mongodb.com dependency, and available on all snap arches
-        # (amd64, arm64, s390x, ppc64el, riscv64).
-        override-build: |
-            set -eu
-            case "${CRAFT_ARCH_BUILD_FOR}" in
-                amd64)   TOOLS_ARCH="amd64" ;;
-                arm64)   TOOLS_ARCH="arm64" ;;
-                s390x)   TOOLS_ARCH="s390x" ;;
-                ppc64el) TOOLS_ARCH="ppc64le" ;;
-                riscv64) TOOLS_ARCH="riscv64" ;;
-                *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
-            esac
-            BASE="https://github.com/wekan/mongo-tools/releases/latest/download"
-            mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
-            for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
-                wget -O "$SNAPCRAFT_PART_INSTALL/bin/${tool}" "${BASE}/${tool}-${TOOLS_ARCH}"
-                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/${tool}"
-            done
+    # No separate mongotools part: the per-arch MongoDB Database Tools are already
+    # embedded in the wekan-<arch>.zip bundle (built from wekan/mongo-tools by
+    # release-all.yml) and the wekan part above moves them from the bundle into
+    # $SNAP/bin. This keeps the snap bundle-centric — every binary comes from the
+    # one wekan-<arch>.zip — and avoids downloading the tools twice.
 
     # migratemongo: the WeKan 6.09 MongoDB 3.2 binaries (bin/), the old libraries
     # they need (lib/x86_64-linux-gnu: libssl/libcrypto.so.1.0.0, libpng12,
@@ -245,21 +228,14 @@ parts:
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
-                amd64)
-                    WEKAN_ARCH="amd64"
-                    NODE_ARCH="x64"
-                    ;;
-                arm64)
-                    WEKAN_ARCH="arm64"
-                    NODE_ARCH="arm64"
-                    ;;
-                *)
-                    echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"
-                    exit 1
-                    ;;
+                amd64)   WEKAN_ARCH="amd64"   ;;
+                arm64)   WEKAN_ARCH="arm64"   ;;
+                s390x)   WEKAN_ARCH="s390x"   ;;
+                ppc64el) WEKAN_ARCH="ppc64le" ;;
+                riscv64) WEKAN_ARCH="riscv64" ;;
+                *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
             esac
             WEKAN_ZIP="wekan-9.85-${WEKAN_ARCH}.zip"
-            NODE_TAR="node-v24.17.0-linux-${NODE_ARCH}.tar.xz"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
@@ -286,24 +262,28 @@ parts:
             rm -rf node_modules
             npm install
             cd ../../../..
-            # Copy to Snap
-            #wget https://nodejs.org/dist/v24.17.0/node-v24.17.0-linux-x64.tar.xz
-            wget "https://nodejs.org/dist/v24.17.0/${NODE_TAR}"
-            tar -xf "${NODE_TAR}" "node-v24.17.0-linux-${NODE_ARCH}/bin/node"
-            rm "${NODE_TAR}"
-            mkdir $SNAPCRAFT_PART_INSTALL/bin
-            cp -p "node-v24.17.0-linux-${NODE_ARCH}/bin/node" $SNAPCRAFT_PART_INSTALL/bin/
-            rm -rf "node-v24.17.0-linux-${NODE_ARCH}"
+            # Copy to Snap. Use the bundle's OWN arch-correct Node.js: the
+            # wekan-<arch>.zip already ships the right node for this platform
+            # (nodejs.org for amd64/arm64/s390x/ppc64le, unofficial-builds.nodejs.org
+            # for riscv64), so the snap needs no separate node download and works on
+            # every arch the bundle is built for.
+            mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+            cp -p .build/bundle/node $SNAPCRAFT_PART_INSTALL/bin/node
+            chmod +x $SNAPCRAFT_PART_INSTALL/bin/node
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-            # The .zip bundle now ships a self-contained launcher + its own Node.js
-            # (for the offline downloads); the snap has its own node in bin/ and uses
-            # wekan-control, so drop the redundant bundled node + launchers. The
-            # bundled ferretdb is kept (ferretdb-control runs $SNAP/ferretdb).
+            # The snap uses its own bin/node (copied from the bundle above) and
+            # wekan-control, so drop the bundle's root-level node + self-contained
+            # launchers. Keep the bundle's ferretdb (ferretdb-control runs
+            # $SNAP/ferretdb) and move the bundle's per-arch MongoDB Database Tools
+            # into bin/ so the backup/restore scripts (which use $SNAP/bin) find them.
             rm -f $SNAPCRAFT_PART_INSTALL/node \
                   $SNAPCRAFT_PART_INSTALL/start-wekan.sh \
                   $SNAPCRAFT_PART_INSTALL/start-wekan.bat
+            for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+              [ -f "$SNAPCRAFT_PART_INSTALL/$t" ] && mv -f "$SNAPCRAFT_PART_INSTALL/$t" "$SNAPCRAFT_PART_INSTALL/bin/$t" || true
+            done
             # Bundle the MongoDB -> FerretDB migrator (run by migration-control on
             # first boot when upgrading from an old MongoDB-based snap).
             cp releases/migrate-mongodb-to-ferretdb.mjs $SNAPCRAFT_PART_INSTALL/bin/

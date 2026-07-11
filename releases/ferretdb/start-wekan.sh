@@ -56,22 +56,39 @@ case "${WEKAN_DB:-}" in
 esac
 case "$MONGO_URL" in *"$FERRETDB_LISTEN_ADDR"*) : ;; *) want_ferret=false ;; esac
 
-if [ "$want_ferret" = true ]; then
-  [ -x "$FERRETDB_BIN" ] || { echo "ERROR: bundled FerretDB not found at $FERRETDB_BIN" >&2; exit 1; }
-  export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
-  echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (data: $FERRETDB_SQLITE_DIR) ..."
-  "$FERRETDB_BIN" \
-    --handler=sqlite \
-    --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
-    --listen-addr="$FERRETDB_LISTEN_ADDR" \
-    --telemetry=disable \
-    --log-level=error &
-  FERRET_PID=$!
-  trap 'kill "$FERRET_PID" 2>/dev/null || true' EXIT INT TERM
-else
-  echo "Using external database at $MONGO_URL (not starting bundled FerretDB)."
-fi
+[ "$want_ferret" != true ] || [ -x "$FERRETDB_BIN" ] || {
+  echo "ERROR: bundled FerretDB not found at $FERRETDB_BIN" >&2; exit 1; }
 
 ulimit -s 65500 2>/dev/null || true
-echo "Starting WeKan on $ROOT_URL (port $PORT), files under $WRITABLE_PATH ..."
-exec "$NODE" "$DIR/main.js"
+
+# Run the bundled FerretDB (this platform's ./ferretdb) and WeKan (./main.js on
+# the bundled ./node) together in a restart loop: start FerretDB in the
+# background, run WeKan in the foreground, and if WeKan exits, stop FerretDB and
+# restart the whole stack. Ctrl-C stops both and exits.
+FERRET_PID=""
+stop_ferret() { [ -n "$FERRET_PID" ] && kill "$FERRET_PID" 2>/dev/null || true; }
+trap 'stop_ferret; exit 0' INT TERM
+
+while true; do
+  if [ "$want_ferret" = true ]; then
+    export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
+    echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (data: $FERRETDB_SQLITE_DIR) ..."
+    "$FERRETDB_BIN" \
+      --handler=sqlite \
+      --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
+      --listen-addr="$FERRETDB_LISTEN_ADDR" \
+      --telemetry=disable \
+      --log-level=error &
+    FERRET_PID=$!
+  else
+    echo "Using external database at $MONGO_URL (not starting bundled FerretDB)."
+  fi
+
+  echo "Starting WeKan on $ROOT_URL (port $PORT), files under $WRITABLE_PATH ..."
+  "$NODE" "$DIR/main.js" || true
+
+  stop_ferret
+  FERRET_PID=""
+  echo "WeKan exited; restarting in 3 seconds... (Ctrl-C to stop)"
+  sleep 3
+done

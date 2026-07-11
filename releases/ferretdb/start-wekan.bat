@@ -39,10 +39,21 @@ set "FERRETDB_SQLITE_URL=file:%FERRETDB_SQLITE_DIR:\=/%/"
 set "DO_NOT_TRACK=1"
 set "FERRETDB_TELEMETRY=disable"
 
+REM Run the bundled FerretDB (this platform's ferretdb.exe) and WeKan (main.js on
+REM the bundled node.exe) together in a restart loop: start FerretDB in the
+REM background, run WeKan in the foreground, and if WeKan exits, stop FerretDB and
+REM restart the whole stack. Close the window to stop both.
+:wekan_loop
 echo Starting bundled FerretDB v1 (SQLite) on 127.0.0.1:27017 (data: %FERRETDB_SQLITE_DIR%) ...
 start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 --telemetry=disable
 
 echo Starting WeKan on %ROOT_URL% (port %PORT%), files under %WRITABLE_PATH% ...
 "%DIR%node.exe" "%DIR%main.js"
+
+REM WeKan exited: stop FerretDB and restart the whole stack.
+taskkill /IM ferretdb.exe /F >NUL 2>NUL
+echo WeKan exited; restarting in 3 seconds... (close this window to stop)
+timeout /t 3 /nobreak >NUL
+goto wekan_loop
 
 endlocal
