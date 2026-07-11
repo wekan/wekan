@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.83
+  version: v9.84
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5994,6 +5994,12 @@ definitions:
         x-nullable: true
       hideCardCounterList:
         type: boolean
+        x-nullable: true
+      cardsLoading:
+        type: string
+        enum:
+          - all
+          - lazy
         x-nullable: true
       hideBoardMemberList:
         type: boolean
