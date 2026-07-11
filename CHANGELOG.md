@@ -102,6 +102,41 @@ This release fixes the following bugs:
 
 - [At default docker-compose.yml, changed DDP_TRANSPORT from uws to sockjs, because uws does not work at s390x](https://github.com/wekan/wekan/commit/aa5847f21561957216a34a7f6a61699f427971c8).
   Thanks to xet7.
+- **FerretDB v1 is now downloaded as an individual per-arch binary, not `ferretdb.zip`**:
+  the wekan/FerretDB release now attaches one `ferretdb-<arch>` (`.exe` on Windows)
+  asset per platform instead of a single multi-platform `ferretdb.zip`. Every WeKan
+  build path now downloads only the one binary for the platform it targets from
+  `https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-<arch>`:
+  `release-all.yml` (the amd64/arm64/win64/mac/ppc64le/s390x/riscv64 bundle jobs —
+  the separate `build-ferretdb` job and its `ferretdb-zip` artifact are removed),
+  the default `docker-compose.yml`, and the Sandstorm `sandstorm-src/build-deps.sh`.
+  FerretDB itself also moved its Go toolchain to 1.25.11 to clear the Quay.io
+  `stdlib` security advisories. Thanks to xet7.
+- **Drop the `mongosh` binary; use bundled Node.js 24 + the `mongodb` driver instead**:
+  WeKan no longer bundles or downloads the MongoDB Shell anywhere (snap, Windows
+  bundle). Every scripted database operation it was used for — readiness `ping`,
+  replica-set `initiate`/`status`, and the v8.43 schema migration — now runs
+  through the new `snap-src/bin/db-eval` (a tiny wrapper around the bundled Node.js
+  24 + the `mongodb` driver), so the snap control scripts (`wekan-control`,
+  `mongodb-control`, `migration-control`), the `start-wekan.sh`/`start-wekan.bat`
+  launchers, and the ported `migrate-schema-v843.mjs` are all mongosh-free. This
+  removes a large, CVE-prone binary and works identically on every architecture
+  (including s390x/ppc64le/riscv64, which have no prebuilt mongosh). The legacy
+  MongoDB 3.2 `mongo` shell (migratemongo, amd64) stays for migration-time reads
+  only. Thanks to xet7.
+- **MongoDB Database Tools now come from `wekan/mongo-tools`, not the MongoDB website**:
+  the snap `mongotools` part and the Windows bundle download per-arch
+  `<tool>-<arch>` binaries built by the [wekan/mongo-tools](https://github.com/wekan/mongo-tools)
+  fork (pure Go, cross-compiled for every architecture) from its newest release,
+  replacing the `fastdl.mongodb.org` / `downloads.mongodb.com` downloads. The
+  MongoDB 7 server (mongod) is still fetched from MongoDB (amd64/arm64 only), since
+  MongoDB ships no server for the other architectures. Thanks to xet7.
+- **Snap: the default `snapcraft.yaml` is now the `base: core24`, `grade: stable` build**:
+  the previous `snapcraft.yaml` (core26, `grade: devel`) is renamed to
+  `snapcraft-core26.yaml`, and the former `snapcraft-core24.yaml` becomes
+  `snapcraft.yaml`. Because the default is now stable-grade, `release-all.yml`
+  publishes the snap to the Snap **candidate + edge** channels (previously edge +
+  beta). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

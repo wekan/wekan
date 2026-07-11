@@ -4,7 +4,7 @@
 # Uses HTTP HEAD requests — nothing is downloaded.
 #
 # Summary of what the snap bundles per architecture:
-#   amd64, arm64        — MongoDB 7.x prebuilt native binary + mongosh + db-tools
+#   amd64, arm64        — MongoDB 7 server (amd64/arm64); mongo-tools + FerretDB from wekan forks (all arches)
 #   armhf, s390x, ppc64el — MongoDB 7.x amd64 binary run via qemu-x86_64-static
 #                           (MongoDB Community Edition has no prebuilt builds for these arches)
 # Note: on any platform whose CPU lacks instructions required by MongoDB (e.g. AVX),
@@ -45,18 +45,20 @@ echo "  NOTE  MongoDB Community has no prebuilt builds for s390x, ppc64le, or ar
 echo "        The amd64 binary above is also used on those arches via qemu-x86_64-static."
 echo ""
 
-echo "=== mongosh 2.8.2 (x64 for amd64/armhf/s390x/ppc64el via QEMU; arm64 native) ==="
-check "mongosh 2.8.2  x64 (amd64 + armhf/s390x/ppc64el via QEMU)" \
-  "https://downloads.mongodb.com/compass/mongosh-2.9.2-linux-x64.tgz"
-check "mongosh 2.8.2  arm64" \
-  "https://downloads.mongodb.com/compass/mongosh-2.9.2-linux-arm64.tgz"
+# mongosh is no longer used (WeKan uses the bundled Node.js + `mongodb` driver).
+
+echo "=== MongoDB Database Tools (wekan/mongo-tools, per-arch, newest release) ==="
+for a in amd64 arm64 s390x ppc64le riscv64; do
+  check "mongodump-$a (wekan/mongo-tools)" \
+    "https://github.com/wekan/mongo-tools/releases/latest/download/mongodump-$a"
+done
 echo ""
 
-echo "=== mongodb-database-tools 100.13.0 (x86_64 for amd64/armhf/s390x/ppc64el; arm64 native) ==="
-check "db-tools 100.13.0  x86_64 (amd64 + armhf/s390x/ppc64el via QEMU)" \
-  "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.17.0.tgz"
-check "db-tools 100.13.0  arm64" \
-  "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-arm64-100.17.0.tgz"
+echo "=== FerretDB v1 (wekan/FerretDB, per-arch, newest release) ==="
+for a in amd64 arm64 s390x ppc64le riscv64; do
+  check "ferretdb-$a (wekan/FerretDB)" \
+    "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-$a"
+done
 echo ""
 
 echo "=== Node.js 24.17.0 (snap architectures with upstream Node builds) ==="

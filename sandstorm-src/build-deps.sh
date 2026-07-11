@@ -14,7 +14,7 @@
 # Env (override as needed):
 #   OUT             work/output dir                    [$HOME/projects/meteor-spk]
 #   NODE_VERSION    Node major/exact to bundle         [24]  (match Meteor 3.5's node)
-#   FERRETDB_ZIP    URL of ferretdb.zip                [newest wekan/FerretDB release]
+#   FERRETDB_URL    URL of the ferretdb-amd64 binary   [newest wekan/FerretDB release]
 #   MIGRATEMONGO    git URL of the Mongo 3.x CLIs      [github.com/wekan/migratemongo]
 set -euo pipefail
 
@@ -67,12 +67,11 @@ done
 # or ferretdb, add it here (or use `spk dev` tracing to regenerate the tree).
 
 echo "==> [4/7] FerretDB v1 (amd64) at deps root"
-FERRETDB_ZIP="${FERRETDB_ZIP:-$(curl -fsSL https://api.github.com/repos/wekan/FerretDB/releases/latest \
-  | node -e 'const j=JSON.parse(require("fs").readFileSync(0));const a=(j.assets||[]).find(a=>a.name==="ferretdb.zip");console.log(a?a.browser_download_url:"")')}"
-[ -n "$FERRETDB_ZIP" ] || { echo "could not resolve ferretdb.zip URL; set FERRETDB_ZIP"; exit 1; }
-curl -fsSL "$FERRETDB_ZIP" -o "$OUT/ferretdb.zip"
-unzip -o -j "$OUT/ferretdb.zip" "ferretdb/amd64/ferretdb-amd64" -d "$DEPS"
-mv -f "$DEPS/ferretdb-amd64" "$DEPS/ferretdb"
+# Download only the amd64 binary from the newest wekan/FerretDB release (per-arch
+# assets, no ferretdb.zip). /releases/latest/download/<asset> resolves to the
+# newest non-prerelease release.
+FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64}"
+curl -fsSL "$FERRETDB_URL" -o "$DEPS/ferretdb"
 chmod +x "$DEPS/ferretdb"
 
 echo "==> [5/7] Mongo 3.x CLIs (mongo + mongoexport) + their old libs -> migratemongo/"

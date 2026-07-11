@@ -11,9 +11,11 @@ name: Release All Platforms
 # and arm64 (+ the win64/mac bundles). On every OTHER architecture that has a
 # Node.js 24 build — ppc64le, s390x, riscv64 — there is no MongoDB, so those
 # bundles ship FerretDB v1 instead: the wekan/FerretDB fork with its embedded
-# pure-Go SQLite backend, which speaks the MongoDB wire protocol. The FerretDB
-# binary is cross-compiled once (build-ferretdb) and baked into EVERY bundle, so
-# amd64/arm64 users can opt into it too (WEKAN_DB=ferretdb, `snap set wekan
+# pure-Go SQLite backend, which speaks the MongoDB wire protocol. FerretDB is
+# built + released SEPARATELY (wekan/FerretDB, its own build.sh) as individual
+# per-arch binaries; each bundle job downloads ONLY the ferretdb-<arch> binary for
+# the platform it targets and bakes it in, so amd64/arm64 users can opt into it
+# too (WEKAN_DB=ferretdb, `snap set wekan
 # database=ferretdb`, or Docker env). Whichever backend is chosen binds the same
 # MongoDB port, so MONGO_URL is unchanged. ppc64le/s390x/riscv64 are now covered
 # by the Docker image as well (self-contained, FerretDB auto-started). riscv64
@@ -30,11 +32,11 @@ name: Release All Platforms
 #   - charts:  updates and publishes the wekan/charts Helm chart and pushes,
 #              only AFTER the `docker` job has published the image (skipped if
 #              docker fails)
-#   - build-ferretdb: downloads the newest prebuilt ferretdb.zip from the
-#              wekan/FerretDB releases (FerretDB is built + released separately by
-#              its own build.sh — not compiled here); every bundle embeds its own
 #   - build-*: builds the amd64 bundle (full Meteor 3 build), then rebuilds native
-#              modules for arm64 from that amd64 base (each embeds its FerretDB)
+#              modules for arm64 from that amd64 base. Each bundle job downloads
+#              only the ferretdb-<arch> binary it needs from the newest wekan/FerretDB
+#              release (FerretDB is built + released separately by its own build.sh —
+#              not compiled here) and embeds it
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
 #              uploads the core wekan-<version>-{amd64,arm64}.zip bundles
 #   - build-win64 / build-mac-arm64 / build-extra-arches: built AFTER release, each
@@ -45,9 +47,11 @@ name: Release All Platforms
 #              never blocks it
 #   - docker:  builds and pushes the multi-arch image (amd64, arm64, ppc64le, s390x,
 #              riscv64) to Docker Hub, Quay.io, GHCR
-#   - snap:    builds the snap on Launchpad (amd64 + arm64), pushes it to the Snap
-#              Store and attaches the .snap files to the GitHub Release. `snap set
-#              wekan database=ferretdb` switches the running backend to FerretDB v1
+#   - snap:    builds the snap on Launchpad (amd64 + arm64) from the default
+#              core24 `grade: stable` snapcraft.yaml, pushes it to the Snap Store
+#              candidate + edge channels and attaches the .snap files to the GitHub
+#              Release. `snap set wekan database=ferretdb` switches the running
+#              backend to FerretDB v1 (snapcraft-core26.yaml is the core26 variant)
 #
 # Required GitHub Secrets:
 #   GHCR_AUTH        - base64("username:token") for ghcr.io
@@ -269,7 +273,7 @@ jobs:
   # The full Meteor build always runs here on x86_64; every other platform then
   # only rebuilds the native npm modules from this bundle.
   build-amd64:
-    needs: [prepare, build-ferretdb]
+    needs: [prepare]
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     env:
@@ -319,11 +323,6 @@ jobs:
           cd .build/bundle/programs/server
           npm install
 
-      - name: Download ferretdb.zip
-        uses: actions/download-artifact@v8
-        with:
-          name: ferretdb-zip
-
       - name: Embed Node.js, FerretDB (amd64) and launcher into the bundle
         # Make the release .zip self-contained (offline): bundle Node.js + FerretDB
         # + a start-wekan.sh that runs WeKan on the bundled Node against the bundled
@@ -336,9 +335,10 @@ jobs:
           # matching this base bundle's arch.
           cp -L "$(command -v node)" .build/bundle/node
           chmod +x .build/bundle/node
-          # Bundled FerretDB (amd64) from the single-source ferretdb.zip.
-          unzip -o -j ferretdb.zip "ferretdb/amd64/ferretdb-amd64" -d .build/bundle
-          mv .build/bundle/ferretdb-amd64 .build/bundle/ferretdb
+          # Bundled FerretDB (amd64): download only this arch's binary from the
+          # newest wekan/FerretDB release (per-arch assets, no ferretdb.zip).
+          curl -fSL --retry 5 --retry-delay 10 -o .build/bundle/ferretdb \
+            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64"
           chmod +x .build/bundle/ferretdb
           # Self-contained launcher (defaults to FerretDB SQLite + WRITABLE_PATH).
           cp releases/ferretdb/start-wekan.sh .build/bundle/
@@ -357,7 +357,7 @@ jobs:
 
   # ─── 3. Build arm64 bundle (rebuild native modules natively) ─────────────────
   build-arm64:
-    needs: [prepare, build-amd64, build-ferretdb]
+    needs: [prepare, build-amd64]
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 60
     env:
@@ -396,19 +396,15 @@ jobs:
             node:${NODE_VERSION}-slim \
             sh -c "apt-get update -qq && apt-get install -y -q build-essential python3 && npm install"
 
-      - name: Download ferretdb.zip
-        uses: actions/download-artifact@v8
-        with:
-          name: ferretdb-zip
-
       - name: Embed Node.js + FerretDB (arm64) into the bundle
         # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
         # swap bundle/node (runner is arm64 -> linux-arm64 Node 24) and bundle/ferretdb.
         run: |
           cp -L "$(command -v node)" bundle/node
           chmod +x bundle/node
-          unzip -o -j ferretdb.zip "ferretdb/arm64/ferretdb-arm64" -d bundle
-          mv bundle/ferretdb-arm64 bundle/ferretdb
+          # Download only the arm64 FerretDB binary from the newest wekan/FerretDB release.
+          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
+            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64"
           chmod +x bundle/ferretdb
 
       - name: Create arm64 zip
@@ -427,7 +423,6 @@ jobs:
       - prepare
       - build-amd64
       - build-arm64
-      - build-ferretdb
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -444,10 +439,11 @@ jobs:
           tag_name: v${{ needs.prepare.outputs.version }}
           name: v${{ needs.prepare.outputs.version }}
           body: ${{ needs.prepare.outputs.changelog }}
-          # ferretdb.zip is NOT attached here: it already lives on the
-          # wekan/FerretDB releases (https://github.com/wekan/FerretDB/releases),
-          # which is where the WeKan builds fetch it from. The per-arch FerretDB
-          # binaries are embedded inside each wekan-<version>-<arch>.zip bundle.
+          # FerretDB binaries are NOT attached here: the per-arch ferretdb-<arch>
+          # binaries live on the wekan/FerretDB releases
+          # (https://github.com/wekan/FerretDB/releases), which is where the WeKan
+          # builds fetch them from. Each wekan-<version>-<arch>.zip bundle embeds
+          # its own arch's FerretDB binary.
           files: |
             wekan-${{ needs.prepare.outputs.version }}-amd64.zip
             wekan-${{ needs.prepare.outputs.version }}-arm64.zip
@@ -462,7 +458,7 @@ jobs:
 
   # Build win64 bundle (rebuild native modules on Windows).
   build-win64:
-    needs: [prepare, build-amd64, release, build-ferretdb]
+    needs: [prepare, build-amd64, release]
     runs-on: windows-latest
     timeout-minutes: 60
     env:
@@ -518,64 +514,43 @@ jobs:
           rm -rf node_modules
           npm install
 
-      - name: Add MongoDB tools, mongosh and start-wekan.bat to the bundle
+      - name: Add MongoDB Database Tools to the bundle
         shell: bash
         run: |
           set -euo pipefail
-          # Use the same MongoDB tools/mongosh versions as the snap, which
-          # releases/version.sh keeps at the newest release for each bundle.
-          TOOLS_VER=$(grep -oE 'mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+' src/snapcraft.yaml \
-                       | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-          MONGOSH_VER=$(grep -oE 'mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux' src/snapcraft.yaml \
-                         | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-          echo "MongoDB Database Tools: $TOOLS_VER   mongosh: $MONGOSH_VER"
-
-          # MongoDB Database Tools (Windows): bsondump, mongodump, mongoexport,
-          # mongofiles, mongoimport, mongorestore, mongostat, mongotop.
-          TOOLS_DIR="mongodb-database-tools-windows-x86_64-${TOOLS_VER}"
-          curl -fL -o tools.zip \
-            "https://fastdl.mongodb.org/tools/db/${TOOLS_DIR}.zip"
-          7z x -y tools.zip > /dev/null
-          cp "${TOOLS_DIR}/bin/"*.exe bundle/
-
-          # mongosh (Windows): mongosh.exe + mongosh_crypt_v1.dll.
-          MONGOSH_DIR="mongosh-${MONGOSH_VER}-win32-x64"
-          curl -fL -o mongosh.zip \
-            "https://downloads.mongodb.com/compass/${MONGOSH_DIR}.zip"
-          7z x -y mongosh.zip > /dev/null
-          cp "${MONGOSH_DIR}/bin/mongosh.exe" bundle/
-          cp "${MONGOSH_DIR}/bin/mongosh_crypt_v1.dll" bundle/
-
-          # Windows launcher from the repo root.
-          cp src/start-wekan.bat bundle/
+          # MongoDB Database Tools (Windows) built by wekan/mongo-tools (pure Go),
+          # one <tool>-win64.exe per tool from that repo's newest release — no
+          # mongodb.com dependency. No mongosh: WeKan no longer bundles the MongoDB
+          # Shell; scripted DB access uses the bundled Node.js 24 + `mongodb` driver.
+          # (The Windows launcher, start-wekan.bat, is added by the FerretDB embed
+          # step below from releases/ferretdb/start-wekan.bat.)
+          BASE="https://github.com/wekan/mongo-tools/releases/latest/download"
+          for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+            curl -fL --retry 5 --retry-delay 10 -o "bundle/${tool}.exe" "${BASE}/${tool}-win64.exe"
+          done
 
           echo "=== bundle contents ==="
           ls -1 bundle/
 
-      - name: Download ferretdb.zip
-        uses: actions/download-artifact@v8
-        with:
-          name: ferretdb-zip
-
       - name: Embed Node.js, FerretDB (win64) and launcher into the bundle
         shell: bash
         # Make the Windows .zip self-contained: bundle node.exe (from the runner's
-        # win-x64 Node 24), ferretdb.exe (from the single-source ferretdb.zip) and
-        # start-wekan.bat. FerretDB embedding is tolerant: if it did not compile for
-        # windows/amd64 the bundle stays MongoDB-only (start-wekan.bat then won't
-        # find ferretdb.exe).
+        # win-x64 Node 24), ferretdb.exe (downloaded per-arch from the newest
+        # wekan/FerretDB release) and start-wekan.bat. FerretDB embedding is
+        # tolerant: if the win64 asset is missing the bundle stays MongoDB-only
+        # (start-wekan.bat then won't find ferretdb.exe).
         run: |
           # Bundled Node.js (win-x64 node.exe from setup-node).
           NODE_SRC="$(command -v node)"
           [ -f "$NODE_SRC" ] || NODE_SRC="${NODE_SRC}.exe"
           cp "$NODE_SRC" bundle/node.exe
-          # Bundled FerretDB (win64).
-          if 7z e -y ferretdb.zip "ferretdb/win64/ferretdb-win64.exe" -obundle > /dev/null 2>&1 \
-             && [ -f bundle/ferretdb-win64.exe ]; then
-            mv bundle/ferretdb-win64.exe bundle/ferretdb.exe
+          # Bundled FerretDB (win64): download only this arch's binary.
+          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb.exe \
+               "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe"; then
             echo "Embedded FerretDB win64 -> bundle/ferretdb.exe"
           else
-            echo "No win64 FerretDB in ferretdb.zip; Windows bundle stays MongoDB-only."
+            rm -f bundle/ferretdb.exe
+            echo "No win64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
           cp src/releases/ferretdb/start-wekan.bat bundle/
@@ -602,7 +577,7 @@ jobs:
 
   # Build mac-arm64 bundle (rebuild native modules on Apple Silicon).
   build-mac-arm64:
-    needs: [prepare, build-amd64, release, build-ferretdb]
+    needs: [prepare, build-amd64, release]
     runs-on: macos-14   # macos-14 runners are Apple Silicon (arm64)
     timeout-minutes: 60
     env:
@@ -643,26 +618,21 @@ jobs:
           npm install
           cd ../../..
 
-      - name: Download ferretdb.zip
-        uses: actions/download-artifact@v8
-        with:
-          name: ferretdb-zip
-
       - name: Embed Node.js + FerretDB (mac-arm64) into the bundle
         # Bundle the macOS arm64 Node.js (runner's darwin-arm64 Node 24) and the
-        # macOS FerretDB binary from the single-source ferretdb.zip. FerretDB is
-        # tolerant: if it did not compile for darwin/arm64 the bundle stays
-        # MongoDB-only (start-wekan.sh then won't find ferretdb).
+        # macOS FerretDB binary, downloaded per-arch from the newest wekan/FerretDB
+        # release. FerretDB is tolerant: if the mac-arm64 asset is missing the
+        # bundle stays MongoDB-only (start-wekan.sh then won't find ferretdb).
         run: |
           cp -L "$(command -v node)" bundle/node
           chmod +x bundle/node
-          if unzip -o -j ferretdb.zip "ferretdb/mac-arm64/ferretdb-mac-arm64" -d bundle >/dev/null 2>&1 \
-             && [ -f bundle/ferretdb-mac-arm64 ]; then
-            mv bundle/ferretdb-mac-arm64 bundle/ferretdb
+          if curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
+               "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64"; then
             chmod +x bundle/ferretdb
             echo "Embedded FerretDB mac-arm64 -> bundle/ferretdb"
           else
-            echo "No mac-arm64 FerretDB in ferretdb.zip; macOS bundle stays MongoDB-only."
+            rm -f bundle/ferretdb
+            echo "No mac-arm64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
             rm -f bundle/start-wekan.sh
           fi
 
@@ -683,39 +653,6 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: gh release upload "v${VERSION}" "wekan-${VERSION}-mac-arm64.zip" --clobber
 
-  # ─── Fetch the prebuilt standalone FerretDB binaries: ferretdb.zip ───────────
-  # WeKan normally uses MongoDB, but MongoDB Community only ships amd64/arm64
-  # server binaries. On every other platform WeKan can instead use FerretDB v1
-  # (the wekan/FerretDB fork with its embedded pure-Go SQLite backend, which
-  # speaks the MongoDB wire protocol). FerretDB is built + released SEPARATELY in
-  # the wekan/FerretDB repo (its build.sh cross-compiles every platform into
-  # ferretdb.zip and it is attached to a GitHub Release there); this workflow does
-  # NOT build FerretDB with Go. Here we just download the newest released
-  # ferretdb.zip and republish it, so every WeKan build (bundle .zip, snap, docker,
-  # win64, mac) takes its FerretDB binary from that same single source. The zip
-  # layout is ferretdb/<arch>/ferretdb-<arch>[.exe] + ferretdb/README.md.
-  build-ferretdb:
-    needs: prepare
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Download the latest ferretdb.zip from wekan/FerretDB releases
-        run: |
-          set -euo pipefail
-          # /releases/latest/download/<asset> always resolves to the asset on the
-          # newest (non-prerelease) release of wekan/FerretDB.
-          url="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb.zip"
-          echo "Downloading ${url} ..."
-          curl -fSL --retry 5 --retry-delay 10 -o ferretdb.zip "$url"
-          echo "=== ferretdb.zip contents ==="
-          unzip -l ferretdb.zip
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ferretdb-zip
-          path: ferretdb.zip
-          retention-days: 1
-
   # Extra-architecture Linux bundles (ppc64le, s390x, riscv64) — the arches that
   # have a Node.js 24 build but NO MongoDB server, so they ship FerretDB instead.
   # ppc64le and s390x use official nodejs.org binaries; riscv64 uses the
@@ -725,7 +662,7 @@ jobs:
   # an armv7 device, regardless of RAM. See https://nodejs.org/dist/latest-v24.x/
   # (no -linux-armv7l) and https://unofficial-builds.nodejs.org/ (riscv64 only).
   build-extra-arches:
-    needs: [prepare, build-amd64, release, build-ferretdb]
+    needs: [prepare, build-amd64, release]
     runs-on: ubuntu-24.04
     timeout-minutes: 300
     strategy:
@@ -815,19 +752,15 @@ jobs:
               chmod +x /bundle/node
             '
 
-      - name: Download ferretdb.zip
-        uses: actions/download-artifact@v8
-        with:
-          name: ferretdb-zip
-
       - name: Embed FerretDB (${{ matrix.arch }}) into the bundle
         # These arches have no MongoDB server, so FerretDB is their default DB.
-        # The launcher (start-wekan.sh) is inherited from the amd64 base
-        # bundle; swap in this arch's binary from ferretdb.zip. A marker file makes
-        # FerretDB the default backend at runtime (see the launcher + Docker entrypoint).
+        # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
+        # download only this arch's binary from the newest wekan/FerretDB release.
+        # A marker file makes FerretDB the default backend at runtime (see the
+        # launcher + Docker entrypoint).
         run: |
-          unzip -o -j ferretdb.zip "ferretdb/${{ matrix.arch }}/ferretdb-${{ matrix.arch }}" -d bundle
-          mv bundle/ferretdb-${{ matrix.arch }} bundle/ferretdb
+          curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb \
+            "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.arch }}"
           chmod +x bundle/ferretdb
           touch bundle/.ferretdb-default
 
@@ -1086,7 +1019,7 @@ jobs:
           echo "::error::Remote build failed after $attempts attempts (no wekan_${VERSION}_*.snap produced)." >&2
           exit 1
 
-      - name: Push snaps to the Snap Store (edge + beta channels)
+      - name: Push snaps to the Snap Store (candidate + edge channels)
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         run: |
@@ -1097,9 +1030,12 @@ jobs:
             echo "::error::No wekan_${VERSION}_*.snap files to upload."
             exit 1
           fi
+          # The default snapcraft.yaml is now the core24 `grade: stable` build, so
+          # it can be released to candidate (not possible with the core26 devel
+          # grade). Publish to candidate + edge.
           for f in "${snaps[@]}"; do
-            echo "Uploading $f to the Snap Store (edge,beta)..."
-            snapcraft upload --release=edge,beta "$f"
+            echo "Uploading $f to the Snap Store (candidate,edge)..."
+            snapcraft upload --release=candidate,edge "$f"
           done
 
       - name: Attach snaps to the GitHub Release

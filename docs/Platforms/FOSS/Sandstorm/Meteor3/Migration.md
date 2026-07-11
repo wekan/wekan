@@ -96,9 +96,9 @@ Start from the 0.6.0 base, then:
   3.x CLIs need). The importer reads the 3.0 data with these — the modern Node driver cannot
   speak to a 3.0/3.2 server. Reuse the same tools the snap's
   [`migratemongo`](https://github.com/wekan/migratemongo) provides (amd64, x86_64).
-- **Add** `ferretdb` — the `ferretdb-amd64` binary from `ferretdb.zip`
+- **Add** `ferretdb` — the `ferretdb-amd64` binary downloaded directly
   (newest release of [wekan/FerretDB](https://github.com/wekan/FerretDB/releases); the same
-  artifact `release-all.yml` unzips as `ferretdb/amd64/ferretdb-amd64`).
+  `ferretdb-amd64` asset `release-all.yml` embeds).
 - **Add** `migrate-mongo3-to-ferretdb.mjs` — copy verbatim from
   [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs);
   it is entirely env/path‑driven and needs no changes.
@@ -356,12 +356,12 @@ and refreshes.
   0.4.1/0.5.0/0.5.1, and its swapped node is ancient — we install Node 24 anyway). The dead
   `releases.wekan.team/dev/meteor-spk/projects.7z` fetch is removed.
 - The assembly script ([`sandstorm-src/build-deps.sh`](../../../../../sandstorm-src/build-deps.sh))
-  modernizes `meteor-spk.deps`: swap in Node 24, add `ferretdb-amd64` (from `ferretdb.zip`), add
+  modernizes `meteor-spk.deps`: swap in Node 24, add `ferretdb-amd64` (per-arch asset from the wekan/FerretDB release), add
   `migratemongo/{bin,lib}` (`mongoexport` + `mongo` + old libs), copy
   [`sandstorm-src/start.js`](../../../../../sandstorm-src/start.js) → `meteor-spk.deps/start.js`
   and [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs)
   → `meteor-spk.deps/`, **keep `niscud`**, and regenerate the lib tree with `gather-deps` on ubuntu‑24.04.
-- Fetch the extra binaries (Node 24, `ferretdb.zip`, migratemongo CLIs) from **GitHub release
+- Fetch the extra binaries (Node 24, `ferretdb-amd64`, migratemongo CLIs) from **GitHub release
   assets** — `releases.wekan.team` no longer exists, so any required build files live on GitHub
   releases (e.g. `wekan/wekan` or a dedicated release).
 

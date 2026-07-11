@@ -15,9 +15,8 @@
 #
 # The FerretDB binary is downloaded (once, then cached on the volume) from the
 # newest wekan/FerretDB release: https://github.com/wekan/FerretDB/releases
-# The ferretdb.zip there contains ferretdb/<arch>/ferretdb-<arch> for every
-# platform; the container picks the binary matching its architecture (amd64,
-# arm64, ppc64le, s390x, riscv64, ...).
+# Each platform is a separate ferretdb-<arch> asset there; the container downloads
+# only the one matching its architecture (amd64, arm64, ppc64le, s390x, riscv64, ...).
 #
 # Setup (this is the default docker-compose.yml, so no -f is needed):
 #   docker compose up -d
@@ -50,16 +49,14 @@ services:
         if [ ! -x "$$BIN" ]; then
           echo "Fetching FerretDB v1 from the wekan/FerretDB release ..."
           apt-get update -qq
-          apt-get install -y -qq --no-install-recommends curl unzip ca-certificates >/dev/null
+          apt-get install -y -qq --no-install-recommends curl ca-certificates >/dev/null
           arch="$$(dpkg --print-architecture)"
           case "$$arch" in ppc64el) arch=ppc64le ;; esac
           mkdir -p /data/bin
-          curl -fSL --retry 5 -o /tmp/ferretdb.zip \
-            "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb.zip"
-          unzip -o -j /tmp/ferretdb.zip "ferretdb/$${arch}/ferretdb-$${arch}" -d /data/bin
-          mv "/data/bin/ferretdb-$${arch}" "$$BIN"
+          # Download only this arch's binary (per-arch release assets, no ferretdb.zip).
+          curl -fSL --retry 5 -o "$$BIN" \
+            "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb-$${arch}"
           chmod +x "$$BIN"
-          rm -f /tmp/ferretdb.zip
         fi
         mkdir -p /data/files/db
         exec "$$BIN" \

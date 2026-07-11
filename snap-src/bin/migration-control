@@ -40,7 +40,8 @@ TGT_PORT=27098                                         # temp target FerretDB
 NODE="$SNAP/bin/node"
 IMPORTER="$SNAP/bin/migrate-mongo3-to-ferretdb.mjs"
 FERRETDB="$SNAP/ferretdb"
-MONGOSH="$SNAP/bin/mongosh"
+DB_EVAL="$SNAP/bin/db-eval"                            # Node + `mongodb` driver
+SRC_URL="mongodb://127.0.0.1:$SRC_PORT/?directConnection=true"
 MM="$SNAP/migratemongo"                                # MongoDB 3.2 tools (amd64)
 MM_LIB="$MM/lib/x86_64-linux-gnu"                      # old libs for those tools
 LOGF="$SNAP_COMMON/migration-mongod.log"
@@ -55,7 +56,7 @@ if [ ! -f "$DBPATH/WiredTiger" ] && ! ls "$DBPATH"/collection-*.wt >/dev/null 2>
 fi
 
 export LC_ALL=C
-# Base library path so the snap's own mongod 7 + mongosh find their libraries
+# Base library path so the snap's own mongod 7 finds its libraries
 # (docs/Backup/Backup.md: $SNAP/lib/<arch>-linux-gnu).
 export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:${LD_LIBRARY_PATH:-}"
 
@@ -64,7 +65,22 @@ start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be emp
     --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
     --logpath "$LOGF" --logappend --fork >/dev/null 2>&1
 }
-ready_via() {      # $1 = shell binary, $2 = LD_LIBRARY_PATH prefix
+# Readiness/shutdown for the modern mongod 7 use db-eval (Node + `mongodb` driver).
+ready_via_node() {
+  local i=0
+  while [ $i -lt 20 ]; do
+    "$DB_EVAL" ping "$SRC_URL" >/dev/null 2>&1 && return 0
+    i=$((i+1)); sleep 1
+  done
+  return 1
+}
+stop_via_node() {
+  "$DB_EVAL" shutdown "$SRC_URL" >/dev/null 2>&1 || true
+  sleep 2
+}
+# The legacy MongoDB 3.2 client (migratemongo `mongo`) still uses --eval: the
+# modern driver cannot speak to a 3.2 server, and mongosh is no longer bundled.
+ready_via() {      # $1 = shell binary (legacy mongo), $2 = LD_LIBRARY_PATH prefix
   local i=0
   while [ $i -lt 20 ]; do
     LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" --port "$SRC_PORT" --quiet \
@@ -73,7 +89,7 @@ ready_via() {      # $1 = shell binary, $2 = LD_LIBRARY_PATH prefix
   done
   return 1
 }
-stop_via() {       # $1 = shell binary, $2 = LD_LIBRARY_PATH prefix
+stop_via() {       # $1 = shell binary (legacy mongo), $2 = LD_LIBRARY_PATH prefix
   LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" --port "$SRC_PORT" --quiet \
       --eval 'db.getSiblingDB("admin").shutdownServer()' >/dev/null 2>&1 || true
   sleep 2
@@ -81,13 +97,13 @@ stop_via() {       # $1 = shell binary, $2 = LD_LIBRARY_PATH prefix
 
 # ── MongoDB 6/7 data? Then NO migration is needed — keep using MongoDB. ───────
 log "Checking whether mongod 7 can open the existing data ..."
-if start_mongod "$SNAP/bin/mongod" "" && ready_via "$MONGOSH" ""; then
+if start_mongod "$SNAP/bin/mongod" "" && ready_via_node; then
   log "Data is MongoDB 6/7 — no migration needed; keeping MongoDB."
-  stop_via "$MONGOSH" ""
+  stop_via_node
   touch "$MARKER"
   exit 0
 fi
-stop_via "$MONGOSH" ""
+stop_via_node
 
 # ── Otherwise it is MongoDB 3.x: migrate to FerretDB via the migratemongo CLI. ─
 if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER" ]; then

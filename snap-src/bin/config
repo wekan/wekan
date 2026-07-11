@@ -15,8 +15,8 @@ KEY_METEOR_REACTIVITY_ORDER='meteor-reactivity-order'
 # For multi-process / multi-tenant deployments on one host with network_mode: host,
 # also set a distinct Meteor.settings.packages['ddp-server'].uws.port per process.
 # See docs/Platforms/FOSS/Docker/Meteor3/multitenancy.md
-DESCRIPTION_DDP_TRANSPORT="DDP_TRANSPORT. Default: 'uws'. Alternative for maximum proxy compatibility: 'sockjs'"
-DEFAULT_DDP_TRANSPORT="uws"
+DESCRIPTION_DDP_TRANSPORT="DDP_TRANSPORT. Default: 'sockjs' (maximum proxy compatibility). Alternative: 'uws'."
+DEFAULT_DDP_TRANSPORT="sockjs"
 KEY_DDP_TRANSPORT='ddp-transport'
 #-----------------------------------------------------------------
 # ==== AWS S3 FOR FILES ====

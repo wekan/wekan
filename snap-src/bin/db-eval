@@ -1,0 +1,9 @@
+#!/bin/bash
+# db-eval — run the db-eval.mjs MongoDB/FerretDB admin helper with the bundled
+# Node.js and the WeKan bundle's node_modules on NODE_PATH, so the `mongodb`
+# driver resolves and no `mongosh` binary is needed. Replaces the former
+# `$SNAP/bin/mongosh --eval ...` calls in the snap control scripts.
+#
+# Usage: db-eval <command> <mongo-url> [host]   (see db-eval.mjs for commands)
+exec env NODE_PATH="$SNAP/programs/server/node_modules" \
+  "$SNAP/bin/node" "$SNAP/bin/db-eval.mjs" "$@"

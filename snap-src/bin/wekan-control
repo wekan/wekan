@@ -39,27 +39,22 @@ echo -e "Using WRITABLE_PATH: $WRITABLE_PATH"
 
 echo -e "MONGO_URL=$MONGO_URL"
 
-# mongosh (used for the readiness checks below) phones home anonymized analytics
-# by default; persist "telemetry disabled" into a writable snap dir once (the snap
-# is confined, so the global /etc/mongosh.conf is the host's, not ours). Use an
-# inline HOME for the checks so the WeKan node process is unaffected.
-MONGOSH_HOME="${SNAP_COMMON}/mongosh-home"
-mkdir -p "$MONGOSH_HOME"
-if [ ! -f "$MONGOSH_HOME/.telemetry-disabled" ]; then
-    HOME="$MONGOSH_HOME" "$SNAP/bin/mongosh" --nodb --quiet --eval "disableTelemetry()" >/dev/null 2>&1 || true
-    touch "$MONGOSH_HOME/.telemetry-disabled"
-fi
-MONGO_BIN="$SNAP/bin/mongosh"
+# The readiness checks below use db-eval (the bundled Node.js 24 + the `mongodb`
+# driver from the WeKan bundle), so there is no mongosh binary — nothing to install
+# and nothing phoning home. db-eval speaks the wire protocol to both FerretDB v1
+# and MongoDB 6/7.
+DB_EVAL="$SNAP/bin/db-eval"
 MONGO_PORT="${MONGODB_PORT:-27019}"
 MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
+# directConnection so admin commands reach this exact node (also before a replica
+# set is initiated).
+DB_URL="mongodb://${MONGO_HOST}:${MONGO_PORT}/?directConnection=true"
 
 if [ "ferretdb" = "${DATABASE}" ]; then
     # FerretDB v1 has no replica set / oplog — just wait until it accepts
     # connections, then start WeKan (which uses polling for reactivity).
     echo "Waiting for FerretDB to accept connections on ${MONGO_HOST}:${MONGO_PORT}..."
-    until HOME="$MONGOSH_HOME" "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
-        --eval "try { quit(db.adminCommand({ping:1}).ok === 1 ? 0 : 1) } catch(e) { quit(1) }" \
-        >/dev/null 2>&1; do
+    until "$DB_EVAL" ping "$DB_URL" >/dev/null 2>&1; do
         echo "FerretDB not ready yet, retrying in 5 seconds..."
         sleep 5
     done
@@ -75,9 +70,7 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
     WEKAN_DB_WAIT_TIMEOUT=${WEKAN_DB_WAIT_TIMEOUT:-120}
     db_waited=0
     db_hint_shown=false
-    until HOME="$MONGOSH_HOME" "$MONGO_BIN" --host "$MONGO_HOST" --port "$MONGO_PORT" --quiet \
-        --eval "try { quit(rs.status().ok === 1 && rs.isMaster().ismaster ? 0 : 1) } catch(e) { quit(1) }" \
-        >/dev/null 2>&1; do
+    until "$DB_EVAL" primary "$DB_URL" >/dev/null 2>&1; do
         if [ "$db_hint_shown" != "true" ] && [ "$db_waited" -ge "$WEKAN_DB_WAIT_TIMEOUT" ]; then
             echo ""
             echo "========================================================================"

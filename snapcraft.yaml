@@ -1,9 +1,23 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# snapcraft.yaml — the DEFAULT WeKan snap, built on `base: core24`.
+#
+# This is the file the release pipeline (.github/workflows/release-all.yml) and
+# releases/snap-build.sh use. It uses `base: core24`, a released base, so it can
+# be `grade: stable` and published to the Snap candidate + edge channels (and
+# stable). It ships the newest WeKan (Meteor 3.5, Node.js 24, FerretDB v1,
+# MongoDB 7, Caddy 2).
+#
+# snapcraft-core26.yaml is the SAME WeKan on `base: core26` (build-base: devel +
+# grade: devel), kept for testing the next base; because core26 is not yet a
+# stable base it can only go to Beta/Edge. Keep the two in sync — the only
+# intended differences are:
+#   base: core24 (not core26) · no build-base: devel · grade: stable
+# ─────────────────────────────────────────────────────────────────────────────
 name: wekan
 version: '9.85'
-base: core26
-build-base: devel
+base: core24
 confinement: strict
-grade: devel
+grade: stable
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
@@ -30,7 +44,7 @@ environment:
   SNAP_COMMON: "/var/snap/$SNAP_INSTANCE_NAME/common"
   SNAP: "/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
 
-# Use platforms instead of architectures for core26 base
+# core24 uses the platforms: key (snapcraft 8), same as core26.
 platforms:
   amd64:
     build-on: amd64
@@ -38,6 +52,19 @@ platforms:
   arm64:
     build-on: arm64
     build-for: arm64
+  # FerretDB-only arches: MongoDB ships no server for these, so the mongodb part
+  # produces no mongod and new installs default to FerretDB v1 (see snap/hooks/install
+  # and the mongodb part below). The MongoDB Database Tools (wekan/mongo-tools) and
+  # FerretDB v1 are available for all of them.
+  s390x:
+    build-on: s390x
+    build-for: s390x
+  ppc64el:
+    build-on: ppc64el
+    build-for: ppc64el
+  riscv64:
+    build-on: riscv64
+    build-for: riscv64
 
 plugs:
   mongodb-plug:
@@ -122,7 +149,10 @@ parts:
             case "${CRAFT_ARCH_BUILD_FOR}" in
                 amd64) MONGO_ARCH="x86_64" ;;
                 arm64) MONGO_ARCH="aarch64" ;;
-                *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
+                # FerretDB-only arches: MongoDB ships no server, so build no mongod.
+                # New installs default to FerretDB v1 (snap/hooks/install), and
+                # mongodb-control disables the mongodb service when database=ferretdb.
+                *) echo "No MongoDB server for ${CRAFT_ARCH_BUILD_FOR}; FerretDB-only arch, skipping mongod."; exit 0 ;;
             esac
             MONGO_URL="https://fastdl.mongodb.org/linux/mongodb-linux-${MONGO_ARCH}-ubuntu2204-7.0.34.tgz"
             wget -O mongodb.tgz "$MONGO_URL"
@@ -136,37 +166,32 @@ parts:
             - bin
             - usr
 
-    mongosh:
-        plugin: nil
-        #source: https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-x64.tgz
-        override-build: |
-            set -eu
-            case "${CRAFT_ARCH_BUILD_FOR}" in
-                amd64) MONGOSH_ARCH="x64" ;;
-                arm64) MONGOSH_ARCH="arm64" ;;
-                *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
-            esac
-            MONGOSH_URL="https://downloads.mongodb.com/compass/mongosh-2.8.2-linux-${MONGOSH_ARCH}.tgz"
-            wget -O mongosh.tgz "$MONGOSH_URL"
-            tar -xzf mongosh.tgz --strip-components=1
-            mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
-            cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
+    # No mongosh part: WeKan no longer bundles the MongoDB Shell. All scripted DB
+    # access (readiness, replica-set init, schema migration) uses the bundled
+    # Node.js 24 + the `mongodb` driver via $SNAP/bin/db-eval (see snap-src/bin).
 
     mongotools:
         plugin: nil
-        #source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.16.0.tgz
+        # MongoDB Database Tools built by wekan/mongo-tools (pure Go, cross-compiled
+        # for every architecture), downloaded per-arch from that repo's newest
+        # release — no mongodb.com dependency, and available on all snap arches
+        # (amd64, arm64, s390x, ppc64el, riscv64).
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
-                amd64) TOOLS_ARCH="x86_64" ;;
-                arm64) TOOLS_ARCH="arm64" ;;
+                amd64)   TOOLS_ARCH="amd64" ;;
+                arm64)   TOOLS_ARCH="arm64" ;;
+                s390x)   TOOLS_ARCH="s390x" ;;
+                ppc64el) TOOLS_ARCH="ppc64le" ;;
+                riscv64) TOOLS_ARCH="riscv64" ;;
                 *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
             esac
-            TOOLS_URL="https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-${TOOLS_ARCH}-100.16.0.tgz"
-            wget -O mongotools.tgz "$TOOLS_URL"
-            tar -xzf mongotools.tgz --strip-components=1
+            BASE="https://github.com/wekan/mongo-tools/releases/latest/download"
             mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
-            cp -a bin/* "$SNAPCRAFT_PART_INSTALL/bin/"
+            for tool in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
+                wget -O "$SNAPCRAFT_PART_INSTALL/bin/${tool}" "${BASE}/${tool}-${TOOLS_ARCH}"
+                chmod +x "$SNAPCRAFT_PART_INSTALL/bin/${tool}"
+            done
 
     # migratemongo: the WeKan 6.09 MongoDB 3.2 binaries (bin/), the old libraries
     # they need (lib/x86_64-linux-gnu: libssl/libcrypto.so.1.0.0, libpng12,
@@ -195,7 +220,7 @@ parts:
                              "$SNAPCRAFT_PART_INSTALL/migratemongo/avx/"* 2>/dev/null || true
                     ;;
                 *)
-                    echo "migratemongo (MongoDB 3.2, x86_64) not staged for ${CRAFT_ARCH_BUILD_FOR}; arm64 uses MongoDB 7."
+                    echo "migratemongo (MongoDB 3.2, x86_64) not staged for ${CRAFT_ARCH_BUILD_FOR}; arm64 uses MongoDB 7, other arches use FerretDB v1."
                     ;;
             esac
 
@@ -312,8 +337,11 @@ parts:
             CADDY_VERSION="$(curl -fsSL https://api.github.com/repos/caddyserver/caddy/releases/latest | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1)"
             [ -n "${CADDY_VERSION}" ] || CADDY_VERSION="2.8.4"
             case "${CRAFT_ARCH_BUILD_FOR}" in
-                amd64) CADDY_ARCH=amd64 ;;
-                arm64) CADDY_ARCH=arm64 ;;
+                amd64)   CADDY_ARCH=amd64 ;;
+                arm64)   CADDY_ARCH=arm64 ;;
+                s390x)   CADDY_ARCH=s390x ;;
+                ppc64el) CADDY_ARCH=ppc64le ;;   # Caddy uses ppc64le, not Debian's ppc64el
+                riscv64) CADDY_ARCH=riscv64 ;;
                 *) CADDY_ARCH="${CRAFT_ARCH_BUILD_FOR}" ;;
             esac
             echo "Downloading Caddy ${CADDY_VERSION} (linux/${CADDY_ARCH}) from GitHub releases..."

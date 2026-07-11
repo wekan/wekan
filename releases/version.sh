@@ -229,23 +229,21 @@ update_releases_node_versions() {
 
 update_releases_mongo_versions() {
   local mongo_ver="$1"
-  local mongosh_ver="$2"
-  local tools_ver="$3"
   local files=()
 
-  # Update only explicit MongoDB/mongosh/database-tools artifact references.
-  mapfile -t files < <(grep -RIlE 'mongodb-linux-|mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-|mongodb-database-tools-ubuntu(2204|2404)-' releases || true)
+  # Only the MongoDB 7 server (mongod) is version-managed now: mongosh is no longer
+  # bundled, and the MongoDB Database Tools come unversioned from the newest
+  # wekan/mongo-tools release, so neither is pinned in any releases/ file.
+  mapfile -t files < <(grep -RIlE 'mongodb-linux-' releases || true)
   if [ ${#files[@]} -eq 0 ]; then
-    echo "[DEBUG] No MongoDB artifact references found under releases/."
+    echo "[DEBUG] No MongoDB server artifact references found under releases/."
     return 0
   fi
 
-  echo "[DEBUG] Updating MongoDB artifact references in ${#files[@]} releases files..."
+  echo "[DEBUG] Updating MongoDB server references in ${#files[@]} releases files..."
   local f
   for f in "${files[@]}"; do
     sedi -E "s#(mongodb-linux-(x86_64|aarch64|\$\{MONGO_ARCH\})-ubuntu2204-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)#\1${mongo_ver}\3#g" "$f"
-    sedi -E "s#(mongosh-)[0-9]+\.[0-9]+\.[0-9]+(-linux-(x64|arm64|\$\{MONGOSH_ARCH\})\.tgz)#\1${mongosh_ver}\2#g" "$f"
-    sedi -E "s#(mongodb-database-tools-ubuntu(2204|2404)-(x86_64|arm64|\$\{TOOLS_ARCH\})-)[0-9]+\.[0-9]+\.[0-9]+(\.tgz)#\1${tools_ver}\4#g" "$f"
   done
 }
 
@@ -259,18 +257,14 @@ version_bump_logic() {
 
     NEW_NODE=$(latest_cached_version_by_pattern 'node-v*-linux-x64.tar.xz' 'node-v([0-9]+\.[0-9]+\.[0-9]+)-linux-x64\.tar\.xz') || true
     MONGO_VER=$(latest_cached_version_by_pattern 'mongodb-linux-x86_64-ubuntu2204-*.tgz' 'mongodb-linux-x86_64-ubuntu2204-([0-9]+\.[0-9]+\.[0-9]+)\.tgz') || true
-    MONGOSH_VER=$(latest_cached_version_by_pattern 'mongosh-*-linux-x64.tgz' 'mongosh-([0-9]+\.[0-9]+\.[0-9]+)-linux-x64\.tgz') || true
-    TOOLS_VER=$(latest_cached_version_by_pattern 'mongodb-database-tools-ubuntu2204-x86_64-*.tgz' 'mongodb-database-tools-ubuntu2204-x86_64-([0-9]+\.[0-9]+\.[0-9]+)\.tgz') || true
 
-    if [ -z "${NEW_NODE:-}" ] || [ -z "${MONGO_VER:-}" ] || [ -z "${MONGOSH_VER:-}" ] || [ -z "${TOOLS_VER:-}" ]; then
+    if [ -z "${NEW_NODE:-}" ] || [ -z "${MONGO_VER:-}" ]; then
       echo "Error: Missing one or more local dependency versions in $DOWNLOAD_DIR." >&2
       exit 1
     fi
 
     echo "Local Node.js detected: $NEW_NODE"
     echo "Local MongoDB detected: $MONGO_VER"
-    echo "Local mongosh detected: $MONGOSH_VER"
-    echo "Local mongodb-database-tools detected: $TOOLS_VER"
   else
     # 1. Fetch latest Node.js 24.x (shared by amd64+arm64)
     echo "[DEBUG] Fetching latest Node.js 24.x with amd64+arm64 availability..."
@@ -310,47 +304,11 @@ version_bump_logic() {
     fi
     echo "Latest common MongoDB detected: $MONGO_VER"
 
-    # 3. Detect latest mongosh available for both amd64 and arm64
-    echo "[DEBUG] Detecting latest mongosh for amd64+arm64..."
-    CURRENT_MONGOSH_VER=$(get_current_version_from_file snapcraft.yaml 'mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz' | sed -E 's/mongosh-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/')
-    MONGOSH_VER=$(latest_common_semver_by_probe \
-      "$CURRENT_MONGOSH_VER" \
-      6 \
-      120 \
-      'https://downloads.mongodb.com/compass/mongosh-%s-linux-x64.tgz' \
-      'https://downloads.mongodb.com/compass/mongosh-%s-linux-arm64.tgz') || true
-
-    if [ -z "${MONGOSH_VER:-}" ]; then
-      echo "[WARN] Could not probe newer mongosh version. Using current value from snapcraft.yaml." >&2
-      MONGOSH_VER="$CURRENT_MONGOSH_VER"
-    fi
-
-    if [ -z "$MONGOSH_VER" ]; then
-      echo "Error: Could not determine latest/common mongosh version." >&2
-      exit 1
-    fi
-    echo "Latest common mongosh detected: $MONGOSH_VER"
-
-    # 4. Detect latest mongodb-database-tools available for both amd64 and arm64
-    echo "[DEBUG] Detecting latest mongodb-database-tools for ubuntu2204 on amd64+arm64..."
-    CURRENT_TOOLS_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-\$\{TOOLS_ARCH\}-//')
-    TOOLS_VER=$(latest_common_semver_by_probe \
-      "$CURRENT_TOOLS_VER" \
-      8 \
-      180 \
-      'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-%s.tgz' \
-      'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-arm64-%s.tgz') || true
-
-    if [ -z "${TOOLS_VER:-}" ]; then
-      echo "[WARN] Could not probe newer mongodb-database-tools version. Using current value from snapcraft.yaml." >&2
-      TOOLS_VER="$CURRENT_TOOLS_VER"
-    fi
-
-    if [ -z "$TOOLS_VER" ]; then
-      echo "Error: Could not determine latest/common mongodb-database-tools version." >&2
-      exit 1
-    fi
-    echo "Latest common mongodb-database-tools detected: $TOOLS_VER"
+    # mongosh and the MongoDB Database Tools are no longer probed from mongodb.com:
+    # mongosh is not bundled anymore (WeKan uses the bundled Node.js + `mongodb`
+    # driver), and the Database Tools come from the wekan/mongo-tools fork's newest
+    # release (no version pinned in snapcraft.yaml). Only the MongoDB 7 server
+    # (mongod, amd64/arm64) is still version-managed here.
   fi
 
   # 5. Update dependency versions in snap files and Dockerfile
@@ -362,9 +320,7 @@ version_bump_logic() {
   update_releases_node_versions "$NEW_NODE"
 
   sedi -E "s|mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-7\.[0-9]+\.[0-9]+\.tgz|mongodb-linux-\${MONGO_ARCH}-ubuntu2204-${MONGO_VER}.tgz|g" snapcraft.yaml
-  sedi -E "s|mongosh-[0-9]+\.[0-9]+\.[0-9]+-linux-\$\{MONGOSH_ARCH\}\.tgz|mongosh-${MONGOSH_VER}-linux-\${MONGOSH_ARCH}.tgz|g" snapcraft.yaml
-  sedi -E "s|mongodb-database-tools-ubuntu2204-\$\{TOOLS_ARCH\}-[0-9]+\.[0-9]+\.[0-9]+\.tgz|mongodb-database-tools-ubuntu2204-\${TOOLS_ARCH}-${TOOLS_VER}.tgz|g" snapcraft.yaml
-  update_releases_mongo_versions "$MONGO_VER" "$MONGOSH_VER" "$TOOLS_VER"
+  update_releases_mongo_versions "$MONGO_VER"
 
   # 6. Update application versions (existing logic retained)
   NEW_NO_DOTS=$(echo "$NEW_VERSION" | tr -d '.')
@@ -473,11 +429,8 @@ version_bump_logic() {
     ensure_cache_or_download "mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz" "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz"
     ensure_cache_or_download "mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz" "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-${MONGO_VER}.tgz"
 
-    ensure_cache_or_download "mongosh-${MONGOSH_VER}-linux-x64.tgz" "https://downloads.mongodb.com/compass/mongosh-${MONGOSH_VER}-linux-x64.tgz"
-    ensure_cache_or_download "mongosh-${MONGOSH_VER}-linux-arm64.tgz" "https://downloads.mongodb.com/compass/mongosh-${MONGOSH_VER}-linux-arm64.tgz"
-
-    ensure_cache_or_download "mongodb-database-tools-ubuntu2204-x86_64-${TOOLS_VER}.tgz" "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-${TOOLS_VER}.tgz"
-    ensure_cache_or_download "mongodb-database-tools-ubuntu2204-arm64-${TOOLS_VER}.tgz" "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-arm64-${TOOLS_VER}.tgz"
+    # mongosh is no longer bundled; the MongoDB Database Tools come from the
+    # wekan/mongo-tools release, so nothing is fetched from mongodb.com for them.
   fi
 
   # 8. Update Wekan website (manual/local flow only; the remote flow handles the
@@ -519,8 +472,6 @@ version_bump_logic() {
   echo "Detected dependency versions:"
   echo "  Node.js:                $NEW_NODE"
   echo "  MongoDB (ubuntu2204):   $MONGO_VER"
-  echo "  mongosh:                $MONGOSH_VER"
-  echo "  mongodb-database-tools: $TOOLS_VER"
 }
 
 # --- MAIN BLOCK ---

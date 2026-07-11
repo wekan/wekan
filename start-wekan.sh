@@ -14,19 +14,26 @@
       # Change Streams require MongoDB to run as a replica set.
       # This checks if the replica set is already initialized, and if not, initializes it.
       # MongoDB must already be running at 127.0.0.1:27017.
-      if command -v mongosh > /dev/null 2>&1; then
+      # Replica-set init/readiness use db-eval (Node.js + the `mongodb` driver from
+      # node_modules) instead of mongosh, so no mongosh binary is required.
+      SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+      NODE_BIN="$(command -v node || true)"
+      DB_EVAL_JS="$SCRIPT_DIR/snap-src/bin/db-eval.mjs"
+      RS_URL="mongodb://127.0.0.1:27017/?directConnection=true"
+      db_eval() { NODE_PATH="$SCRIPT_DIR/node_modules" "$NODE_BIN" "$DB_EVAL_JS" "$@"; }
+      if [ -n "$NODE_BIN" ] && [ -f "$DB_EVAL_JS" ]; then
           echo "Checking MongoDB replica set status..."
-          if mongosh --port 27017 --quiet --eval 'rs.status().ok' 2>/dev/null | grep -q 1; then
+          if db_eval rs-conf-host "$RS_URL" 2>/dev/null | grep -q "^OK:"; then
               echo "Replica set already initialized."
           else
               echo "Initializing replica set rs0..."
-              mongosh --port 27017 --eval 'rs.initiate({_id: "rs0", members: [{_id: 0, host: "127.0.0.1:27017"}]})'
+              db_eval rs-initiate "$RS_URL" "127.0.0.1:27017" || true
               sleep 3
               echo "Replica set rs0 initialized."
           fi
           USE_CHANGE_STREAMS=true
       else
-          echo "mongosh not found. Skipping replica set initialization. Using polling."
+          echo "node/db-eval not found. Skipping replica set initialization. Using polling."
           USE_CHANGE_STREAMS=false
       fi
       #----------------------------------------------------------------------
@@ -35,12 +42,12 @@
       # otherwise the first index creation crashes with "Topology is closed".
       # After WEKAN_DB_WAIT_TIMEOUT seconds (default 120) the upgrade guidance
       # below is printed once (English only); WeKan keeps retrying after that.
-      if command -v mongosh > /dev/null 2>&1; then
+      if [ -n "$NODE_BIN" ] && [ -f "$DB_EVAL_JS" ]; then
           WEKAN_DB_WAIT_TIMEOUT=${WEKAN_DB_WAIT_TIMEOUT:-120}
           db_waited=0
           db_hint_shown=false
           echo "Waiting for MongoDB to be ready at 127.0.0.1:27017..."
-          until mongosh --port 27017 --quiet --eval 'try { quit(db.hello().isWritablePrimary ? 0 : 1) } catch (e) { quit(1) }' > /dev/null 2>&1; do
+          until db_eval primary "$RS_URL" > /dev/null 2>&1; do
               if [ "$db_hint_shown" != "true" ] && [ "$db_waited" -ge "$WEKAN_DB_WAIT_TIMEOUT" ]; then
                   echo ""
                   echo "========================================================================"

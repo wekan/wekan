@@ -38,14 +38,19 @@ REM # ) ELSE (
 SET USE_CHANGE_STREAMS=false
 
 ECHO Checking MongoDB replica set status...
-mongosh --port 27017 --quiet --eval "if (rs.status().ok === 1) { print('REPSET_OK'); }" 2>NUL | find "REPSET_OK" >NUL
+REM Replica-set init/readiness use db-eval (Node.js + the bundled `mongodb`
+REM driver) instead of mongosh, so no mongosh binary is required.
+SET "DB_EVAL_JS=%~dp0snap-src\bin\db-eval.mjs"
+SET "RS_URL=mongodb://127.0.0.1:27017/?directConnection=true"
+SET "NODE_PATH=%~dp0node_modules"
+node "%DB_EVAL_JS%" rs-conf-host "%RS_URL%" 2>NUL | find "OK:" >NUL
 IF %ERRORLEVEL% NEQ 0 (
    ECHO Initializing replica set rs0...
-   mongosh --port 27017 --quiet --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:27017'}]})" >NUL 2>NUL
+   node "%DB_EVAL_JS%" rs-initiate "%RS_URL%" "127.0.0.1:27017" >NUL 2>NUL
    timeout /t 3 /nobreak >NUL
 )
 
-mongosh --port 27017 --quiet --eval "if (rs.status().ok === 1) { print('REPSET_OK'); }" 2>NUL | find "REPSET_OK" >NUL
+node "%DB_EVAL_JS%" rs-conf-host "%RS_URL%" 2>NUL | find "OK:" >NUL
 IF %ERRORLEVEL% EQU 0 (
    ECHO Replica set rs0 is ready. Using oplog.
    SET USE_CHANGE_STREAMS=true
@@ -824,7 +829,7 @@ SET DB_WAITED=0
 SET DB_HINT_SHOWN=false
 ECHO Waiting for MongoDB to be ready at 127.0.0.1:27017...
 :wait_for_mongodb
-mongosh --port 27017 --quiet --eval "try { quit(db.hello().isWritablePrimary ? 0 : 1) } catch (e) { quit(1) }" >NUL 2>NUL
+node "%DB_EVAL_JS%" primary "%RS_URL%" >NUL 2>NUL
 IF %ERRORLEVEL% EQU 0 (
    ECHO MongoDB is ready.
    GOTO mongodb_ready

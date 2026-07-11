@@ -50,18 +50,10 @@ if [ "ferretdb" == "${DATABASE}" ]; then
     exit 0
 fi
 
-# Disable mongosh usage analytics for every mongosh call below. mongosh phones
-# home anonymized analytics by default; the snap is strictly confined so the
-# global /etc/mongosh.conf is the host's (not ours to set) — instead point HOME
-# at a writable snap dir and persist "telemetry disabled" there once via the
-# official disableTelemetry() command. mongod itself has no phone-home telemetry
-# (Cloud Free Monitoring is opt-in and stays off unless a user enables it).
-export HOME="${SNAP_COMMON}/mongosh-home"
-mkdir -p "$HOME"
-if [ ! -f "$HOME/.telemetry-disabled" ]; then
-    "$SNAP/bin/mongosh" --nodb --quiet --eval "disableTelemetry()" >/dev/null 2>&1 || true
-    touch "$HOME/.telemetry-disabled"
-fi
+# The replica-set setup below uses db-eval (the bundled Node.js 24 + the `mongodb`
+# driver), not mongosh, so there is no client telemetry to disable. mongod itself
+# has no phone-home telemetry (Cloud Free Monitoring is opt-in and stays off).
+DB_EVAL="$SNAP/bin/db-eval"
 
 # make sure we have set minimum env variables for locale
 if [ -z "${LANG}" ]; then
@@ -196,11 +188,13 @@ $SNAP/bin/mongod \
     --replSet rs0 --oplogSize 20480 --fork \
     --pidfilepath="$TEMP_PID_FILE"
 
-# Wait for MongoDB to accept connections (up to 30 s)
+# Wait for MongoDB to accept connections (up to 30 s). db-eval uses the bundled
+# Node.js + `mongodb` driver; directConnection reaches this node before the
+# replica set is initiated.
 echo "Waiting for MongoDB to accept connections on port ${_RS_PORT}..."
+_RS_URL="mongodb://127.0.0.1:${_RS_PORT}/?directConnection=true"
 _wait=0
-until $SNAP/bin/mongosh --port "${_RS_PORT}" --quiet \
-        --eval "db.adminCommand({ping:1})" >/dev/null 2>&1; do
+until "$DB_EVAL" ping "$_RS_URL" >/dev/null 2>&1; do
     _wait=$((_wait + 1))
     if [ $_wait -ge 30 ]; then
         echo "WARNING: MongoDB did not respond within 30 seconds"
@@ -209,45 +203,23 @@ until $SNAP/bin/mongosh --port "${_RS_PORT}" --quiet \
     sleep 1
 done
 
-# Check replica set status and current member host
-_rs_check=$($SNAP/bin/mongosh --port "${_RS_PORT}" --quiet --eval "
-    try {
-        var s = rs.status();
-        var c = rs.conf();
-        print('OK:' + c.members[0].host);
-    } catch(e) {
-        print('ERROR:' + e.message);
-    }
-" 2>/dev/null)
+# Check replica set status and current member host (prints OK:<host> or ERROR:<msg>)
+_rs_check=$("$DB_EVAL" rs-conf-host "$_RS_URL" 2>/dev/null)
 echo "Replica set check: ${_rs_check}"
 
 if echo "$_rs_check" | grep -q "^OK:"; then
     _current_member=$(echo "$_rs_check" | sed 's/^OK://')
     if [ "$_current_member" != "$RS_MEMBER_HOST" ]; then
         echo "Member host mismatch: current='${_current_member}', expected='${RS_MEMBER_HOST}'. Reconfiguring..."
-        $SNAP/bin/mongosh --port "${_RS_PORT}" --eval "
-            try {
-                rs.reconfig({_id:'rs0', members:[{_id:0, host:'${RS_MEMBER_HOST}'}]}, {force:true});
-                print('Replica set reconfigured successfully.');
-            } catch(e) { print('Reconfig error: ' + e.message); }
-        " 2>/dev/null || true
+        "$DB_EVAL" rs-reconfig "$_RS_URL" "$RS_MEMBER_HOST" 2>/dev/null || true
     else
         echo "Replica set config is valid."
     fi
 else
     # Not initialized or config is invalid — try initiate first, then reconfig
     echo "Replica set not ready. Initializing with member: ${RS_MEMBER_HOST}..."
-    $SNAP/bin/mongosh --port "${_RS_PORT}" --eval "
-        try {
-            rs.initiate({_id:'rs0', members:[{_id:0, host:'${RS_MEMBER_HOST}'}]});
-            print('Replica set initialized.');
-        } catch(e) {
-            try {
-                rs.reconfig({_id:'rs0', members:[{_id:0, host:'${RS_MEMBER_HOST}'}]}, {force:true});
-                print('Replica set reconfigured.');
-            } catch(e2) { print('Error: ' + e2.message); }
-        }
-    " 2>/dev/null || true
+    "$DB_EVAL" rs-initiate "$_RS_URL" "$RS_MEMBER_HOST" 2>/dev/null \
+        || "$DB_EVAL" rs-reconfig "$_RS_URL" "$RS_MEMBER_HOST" 2>/dev/null || true
 fi
 
 # Ensure init marker exists regardless of path taken above
@@ -256,8 +228,7 @@ fi
 # Shut down the temporary MongoDB process using its PID file so we only
 # kill this instance and never another parallel snap's mongod.
 echo "Stopping temporary MongoDB process..."
-$SNAP/bin/mongosh --port "${_RS_PORT}" --eval \
-    "db.getSiblingDB('admin').shutdownServer()" 2>/dev/null || true
+"$DB_EVAL" shutdown "$_RS_URL" 2>/dev/null || true
 sleep 2
 if [ -f "$TEMP_PID_FILE" ]; then
     kill "$(cat "$TEMP_PID_FILE")" 2>/dev/null || true
