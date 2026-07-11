@@ -153,10 +153,10 @@ bundle the snap's `wekan` part downloads, and staged to `$SNAP/ferretdb`
 
 ## Snap channels
 
-The default `snapcraft.yaml` is built on `base: core24` with `grade: stable`, so it
-can be published to the Snap **stable** channel — done manually once it is proven.
-The automated release workflow currently publishes it to the **edge** and **beta**
-channels.
+The default `snapcraft.yaml` is built on `base: core24`, which allows the
+**candidate** channel (core26 does not). The automated release workflow publishes
+it to the **candidate**, **beta**, and **edge** channels; the **stable** channel is
+published manually later, once it is proven.
 `snapcraft-core26.yaml` is the same WeKan on the newer `base: core26`
 (`build-base: devel`, `grade: devel`), kept for testing the next base; it can only
 go to Beta/Edge until core26 is a released stable base.

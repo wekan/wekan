@@ -2,11 +2,11 @@
 # snapcraft.yaml — the DEFAULT WeKan snap, built on `base: core24`.
 #
 # This is the file the release pipeline (.github/workflows/release-all.yml) and
-# releases/snap-build.sh use. It uses `base: core24`, a released base, so it is
-# `grade: stable` and CAN be published to the Snap stable channel — done MANUALLY
-# once it has proven stable enough. The automated release-all.yml workflow
-# currently publishes it only to the edge + beta channels. It ships the newest
-# WeKan (Meteor 3.5, Node.js 24, FerretDB v1, MongoDB 7, Caddy 2).
+# releases/snap-build.sh use. It uses `base: core24`, a released base, so it can be
+# published to the Snap candidate channel (which core26 cannot). The automated
+# release-all.yml workflow publishes it to the candidate + beta + edge channels;
+# the stable channel is published MANUALLY later, once it has proven stable enough.
+# It ships the newest WeKan (Meteor 3.5, Node.js 24, FerretDB v1, MongoDB 7, Caddy 2).
 #
 # snapcraft-core26.yaml is the SAME WeKan on `base: core26` (build-base: devel +
 # grade: devel), kept for testing the next base; because core26 is not yet a

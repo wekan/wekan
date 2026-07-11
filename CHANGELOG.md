@@ -140,10 +140,10 @@ This release fixes the following bugs:
   the previous `snapcraft.yaml` (core26, `grade: devel`) is renamed to
   `snapcraft-core26.yaml`, and the former `snapcraft-core24.yaml` becomes
   `snapcraft.yaml`. Because the default is `base: core24` (a released base), it can
-  be published to the Snap **stable** channel — done manually once it is proven
-  stable enough (core26 cannot be published to stable). The automated
-  `release-all.yml` workflow continues to publish the snap to the **edge + beta**
-  channels. Thanks to xet7.
+  be published to the Snap **candidate** channel, which core26 cannot. The automated
+  `release-all.yml` workflow publishes the snap to the **candidate + beta + edge**
+  channels; the **stable** channel is published manually later, once it is proven
+  stable enough. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
