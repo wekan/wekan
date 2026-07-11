@@ -59,11 +59,17 @@ jobs:
           SANDSTORM_KEYRING: ${{ secrets.SANDSTORM_KEYRING }}
         run: |
           if [ -n "${SANDSTORM_KEYRING:-}" ]; then
-            mkdir -p "$HOME/.sandstorm"
-            printf '%s' "$SANDSTORM_KEYRING" | base64 -d > "$HOME/.sandstorm/sandstorm-keyring"
-            chmod 600 "$HOME/.sandstorm/sandstorm-keyring"
+            # meteor-spk / spk read the app signing key from ~/.sandstorm-keyring —
+            # a FILE directly in $HOME (see the pack crash path
+            # "/home/runner/.sandstorm-keyring"). Write it exactly there, NOT to
+            # ~/.sandstorm/sandstorm-keyring, or `meteor-spk pack` aborts with
+            # "open(~/.sandstorm-keyring): No such file or directory".
+            printf '%s' "$SANDSTORM_KEYRING" | base64 -d > "$HOME/.sandstorm-keyring"
+            chmod 600 "$HOME/.sandstorm-keyring"
+            echo "Restored ~/.sandstorm-keyring ($(wc -c < "$HOME/.sandstorm-keyring") bytes)."
           else
-            echo "::warning::SANDSTORM_KEYRING secret not set; meteor-spk pack may fail to sign the app update."
+            echo "::error::SANDSTORM_KEYRING secret is not set. meteor-spk pack signs the .spk with the WeKan Sandstorm app's private key, which lives in this keyring, so packing cannot proceed without it. Add the base64 of your ~/.sandstorm-keyring file as the SANDSTORM_KEYRING repository secret (e.g. 'base64 -w0 ~/.sandstorm-keyring')."
+            exit 1
           fi
 
       - name: Install Meteor npm dependencies

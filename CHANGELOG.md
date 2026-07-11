@@ -98,6 +98,15 @@ This release fixes the following bugs:
   through a dangling destination symlink. Added `--remove-destination` so `cp`
   deletes the existing destination (dangling symlink included) before copying the
   host's real library. Thanks to xet7.
+- **Sandstorm build: write the signing keyring to the path `meteor-spk pack`
+  actually reads**. The `sandstorm.yml` "Restore the Sandstorm signing keyring"
+  step wrote the decoded `SANDSTORM_KEYRING` secret to `~/.sandstorm/sandstorm-keyring`,
+  but `meteor-spk` / `spk` read the app private key from `~/.sandstorm-keyring` (a
+  file directly in `$HOME`), so packing aborted with
+  `open(~/.sandstorm-keyring): No such file or directory` even when the secret was
+  set. Now it writes `~/.sandstorm-keyring`, and — since the `.spk` cannot be signed
+  without it — fails early with an actionable message when the secret is missing,
+  instead of the cryptic later crash. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
