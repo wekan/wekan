@@ -70,3 +70,10 @@ test-results/
 _build-local-test
 */build-assets-local-test
 */build-chunks-local-test
+
+# Local-only working copies used when building the Sandstorm .spk:
+#  - projects/ : unarchived meteor-spk fork (Node/Mongo/FerretDB binaries)
+#  - sandstorm/: clone of sandstorm-io/sandstorm (platform source, for reference)
+# These are large and machine-specific; never commit them.
+/projects/
+/sandstorm/
