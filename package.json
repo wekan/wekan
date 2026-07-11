@@ -79,7 +79,7 @@
     "filesize": "^11.0.13",
     "glob": "^13.0.6",
     "hotkeys-js": "^4.0.2",
-    "i18next": "^26.3.4",
+    "i18next": "^26.3.6",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "archiver": "^8.0.0",
     "jquery": "^3.7.1",
