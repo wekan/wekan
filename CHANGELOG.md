@@ -94,7 +94,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# Upcoming WeKan ® release
+# v9.85 2026-07-11 WeKan ® release
 
 This release adds the following features and fixes:
 
@@ -235,6 +235,10 @@ This release adds the following features and fixes:
   (the retired `releases.wekan.team` / old `projects.7z` are no longer used). `sandstorm.yml`
   now calls it, and `WRITABLE_PATH` in `sandstorm-pkgdef.capnp` is `/var/files`. Build/CI only —
   not yet packed/tested end-to-end in a grain.
+
+Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.84 2026-07-11 WeKan ® release
 
