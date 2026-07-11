@@ -116,6 +116,29 @@ This release fixes the following bugs:
   the `.spk`), and the pack step now prints the `.spk` size and warns if it exceeds
   100 MB. (The Database Tools remain in the WeKan `.zip` bundle / Docker / Snap,
   which do use them.) Thanks to xet7.
+- [Sandstorm .spk: bundle the matching glibc dynamic loader so grains start](https://github.com/wekan/wekan/commit/143607ef22ae91803cb611053fd4ce00754e7096):
+  the `.spk` bundled the host's new glibc `libc.so.6` (Ubuntu 24.04, glibc 2.39)
+  but kept the old glibc 2.31 `ld-linux` from the meteor-spk 0.6.0 base, so `node`
+  failed at startup with `libc.so.6: undefined symbol: _dl_audit_symbind_alt,
+  version GLIBC_PRIVATE` (HTTP-BRIDGE exit 127) and the grain crash-looped.
+  `sandstorm-src/build-deps.sh` now also copies the host's `ld-linux-x86-64.so.2`
+  so the loader and libc are the same glibc, and adds a `[verify]` gate that fails
+  the build if they differ or the bundled `node` cannot run under them — turning a
+  silent grain crash-loop into a loud build failure. Thanks to xet7.
+- [Sandstorm build workflow: enable unprivileged user namespaces and build the dispatched branch](https://github.com/wekan/wekan/commit/66d8706c4d2afab4d127f8c63e05d43407efaf30):
+  Ubuntu 24.04 defaults `kernel.apparmor_restrict_unprivileged_userns=1`, which
+  blocks the unprivileged user namespaces the Sandstorm install and the `spk`
+  supervisor rely on, so `sandstorm.yml` now relaxes it on the runner. A new `ref`
+  `workflow_dispatch` input also lets the workflow build a fix branch before it is
+  merged, instead of a hardcoded `main`. Thanks to xet7.
+- [Meteor unit tests: fix server-boot crash from `__dirname` in an ESM test file](https://github.com/wekan/wekan/commit/60116bc72f68c7bc0aa56a7d5700e33b98e870af):
+  `server/lib/tests/dependencies.openapi.tests.js` is an ES module that referenced
+  the bare `__dirname` global; under Node 24 / Meteor 3.5 the compiler injects
+  `const __dirname = fileURLToPath(import.meta.url)`, colliding with the `__dirname`
+  the CommonJS module wrapper already provides, so the server bundle failed to boot
+  with `Identifier '__dirname' has already been declared` and the "Meteor unit
+  tests" CI job died before any test ran. Drop the `__dirname` seed
+  (`process.env.PWD` already reaches the repo root under `meteor test`). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
