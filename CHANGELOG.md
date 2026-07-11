@@ -94,6 +94,23 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following features and fixes:
+
+- **Design doc: WeKan on Sandstorm (Meteor 3.5 / Node 24) with MongoDB 3 → FerretDB migration**:
+
+  Added [docs/Platforms/Sandstorm/Meteor3/Migration.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/Sandstorm/Meteor3/Migration.md)
+  describing how to build a modern Sandstorm `.spk` (Node 24, replacing meteor-spk
+  0.6.0's Node 14) that runs on FerretDB v1 (embedded SQLite) instead of MongoDB 3.0,
+  migrating an existing grain's MongoDB 3.0 data on first launch — reusing the snap's
+  proven `migrate-mongo3-to-ferretdb` logic (mongoexport read → FerretDB insert;
+  CollectionFS/Meteor-Files GridFS attachments+avatars → filesystem). Includes the
+  grain sandbox (seccomp) compatibility analysis, the rewritten `start.js`, and a new
+  `isSandstorm`-only Admin Panel / Attachments / Sandstorm section (migration status,
+  raw-MongoDB disk usage, and a guarded delete-raw-MongoDB-files action). Implementation
+  of the in-app pieces follows.
+
 # v9.84 2026-07-11 WeKan ® release
 
 This release adds the following features and fixes:
