@@ -440,9 +440,17 @@ version_bump_logic() {
     INSTALL_PAGE="../w/wekan.fi/install/index.html"
     METEOR_VER=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1 | sed 's/.*@//')
     NPM_VER=$(grep -o 'NPM_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
+    NODE_VER=$(grep -o 'NODE_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 
     (cd ../w/wekan.fi && git pull)
     sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VER</span>|g" "$INSTALL_PAGE"
+    sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VER</span>|g" "$INSTALL_PAGE"
+    # Node.js download URL paths: OFFICIAL nodejs.org (amd64/arm64/s390x/ppc64le)
+    # and UNOFFICIAL unofficial-builds.nodejs.org (riscv64). Keep them in sync with
+    # release-website.sh so the install links never go stale after a Node.js bump.
+    sedi -E "s#(nodejs\.org/dist/)v[0-9]+\.[0-9]+\.[0-9]+#\1${NODE_VER}#g" "$INSTALL_PAGE"
+    sedi -E "s#(unofficial-builds\.nodejs\.org/download/release/)v[0-9]+\.[0-9]+\.[0-9]+#\1${NODE_VER}#g" "$INSTALL_PAGE"
+    sedi -E "s#node-v[0-9]+\.[0-9]+\.[0-9]+-linux-#node-${NODE_VER}-linux-#g" "$INSTALL_PAGE"
     # Anchor on the version-number class, not on $OLD_VERSION, so a stale value on
     # the page still gets re-normalized to v$NEW_VERSION (see release-website.sh).
     sedi -E "s#(<span class=\"version-number\">)v[0-9][^<]*(</span>)#\1v${NEW_VERSION}\2#g" "$INSTALL_PAGE"

@@ -73,6 +73,18 @@ fi
 sedi "s|\(Meteor \)[^,]*,|\1${METEOR_VERSION},|g" $WEBDIR/install/index.html
 sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" $WEBDIR/install/index.html
 
+# Update the Node.js DOWNLOAD URL paths so the install page's links stay valid
+# after a Node.js version bump. The version appears both in the path (…/vX.Y.Z/)
+# and in the filename (node-vX.Y.Z-linux-<arch>.tar.*). Handle BOTH the OFFICIAL
+# nodejs.org build (amd64/arm64/s390x/ppc64le) and the UNOFFICIAL
+# unofficial-builds.nodejs.org build (riscv64, which nodejs.org has no binary for).
+# NODE_VERSION already includes the leading 'v' (e.g. v24.18.0). Patterns are
+# anchored to Node URLs/filenames, so no other version numbers are touched, and
+# they no-op if the page has no such links.
+sedi -E "s#(nodejs\.org/dist/)v[0-9]+\.[0-9]+\.[0-9]+#\1${NODE_VERSION}#g" $WEBDIR/install/index.html
+sedi -E "s#(unofficial-builds\.nodejs\.org/download/release/)v[0-9]+\.[0-9]+\.[0-9]+#\1${NODE_VERSION}#g" $WEBDIR/install/index.html
+sedi -E "s#node-v[0-9]+\.[0-9]+\.[0-9]+-linux-#node-${NODE_VERSION}-linux-#g" $WEBDIR/install/index.html
+
 # api/index.html
 #   The version appears in href attributes and as link text, e.g.:
 #     <a href="v8.42/">v8.42</a>
