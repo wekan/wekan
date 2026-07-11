@@ -62,7 +62,8 @@ services:
           --handler=sqlite \
           --sqlite-url=file:/data/files/db/ \
           --listen-addr=0.0.0.0:27017 \
-          --telemetry=disable
+          --telemetry=disable \
+          --log-level=error
     volumes:
       - ferretdb-data:/data
     networks:
@@ -116,6 +117,10 @@ services:
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
       - 80:8080
     environment:
+      - MONGODB_LOG_PATH=stderr
+      - MONGODB_LOG_TOPOLOGY=debug
+      - MONGODB_LOG_SERVER_SELECTION=debug
+      - MONGODB_LOG_CONNECTION=debug
       #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
       # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
       #- METEOR_REACTIVITY_ORDER=polling
@@ -124,6 +129,7 @@ services:
       # Keep oplog/polling fallback available for deployments that cannot use Change Streams:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
       # FerretDB has no MongoDB change streams / replica-set oplog, so use polling:
+      - DEFAULT_METEOR_REACTIVITY_ORDER=polling
       - METEOR_REACTIVITY_ORDER=polling
       - DDP_TRANSPORT=uws
       #- DDP_TRANSPORT=sockjs

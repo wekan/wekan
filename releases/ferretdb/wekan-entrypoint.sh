@@ -55,7 +55,8 @@ if [ "$want_ferret" = true ]; then
     --handler=sqlite \
     --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
     --listen-addr="$FERRETDB_LISTEN_ADDR" \
-    --telemetry=disable &
+    --telemetry=disable \
+    --log-level=error &
   FERRET_PID=$!
   trap 'kill "$FERRET_PID" 2>/dev/null || true' EXIT INT TERM
 fi

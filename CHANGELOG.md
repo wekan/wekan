@@ -98,6 +98,20 @@ them up next.
 
 This release adds the following features and fixes:
 
+- **FerretDB: quieter logs, and removed a dead MongoDB-driver-selection subsystem**:
+
+  On FerretDB (SQLite), the driver debug logs revealed a second, TLS-enabled Mongo
+  monitor connection retrying every ~0.5s and being rejected by the plaintext FerretDB
+  port, which FerretDB logged at WARN (`Connection stopped … invalid message length` /
+  `before secure TLS connection was established`) — harmless (WeKan runs fine on the real
+  plaintext connection) but very noisy. FerretDB is now started with `--log-level=error`
+  in all bundled launch points (Docker entrypoint, snap `ferretdb-control`, the release
+  `start-wekan.sh`, and the `docker-compose-ferretdb-v1-sqlite.yml` example), which drops
+  the per-connection WARN spam. Separately removed a **dead, unused "MongoDB Driver System"**
+  (`server/mongodb-driver-startup.js` + `models/lib/{meteorMongoIntegration,mongodbConnectionManager,mongodbDriverManager}.js`)
+  — an abandoned attempt to auto-detect MongoDB 3.0–8.0 and pick versioned driver packages
+  that were never even installed; WeKan uses the mongodb-7 driver via Meteor.
+
 - **Fix snap build failing on the `caddy` part (Cloudsmith unreachable on Launchpad)**:
 
   The snap installed Caddy from the Cloudsmith apt repo

@@ -54,4 +54,5 @@ exec "$FERRETDB_BIN" \
     --handler=sqlite \
     --sqlite-url="file:${SQLITE_DIR}/" \
     --listen-addr="${BIND_IP}:${PORT}" \
-    --telemetry=disable
+    --telemetry=disable \
+    --log-level=error
