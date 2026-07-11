@@ -52,7 +52,7 @@
     "style-loader": "^4.0.0"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1071.0",
+    "@aws-sdk/client-s3": "^3.1085.0",
     "@aws-sdk/lib-storage": "~3.1085.0",
     "@azure/storage-blob": "^12.33.0",
     "@babel/parser": "^7.29.2",
