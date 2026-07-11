@@ -97,7 +97,7 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
             echo "Attachments and avatars are stored ON DISK under WRITABLE_PATH, NOT"
             echo "in MongoDB, so when moving to a new server ALSO copy that whole"
             echo "directory (it contains 'files', 'attachments' and 'avatars'):"
-            echo "  - Snap:   /var/snap/wekan/common/files"
+            echo "  - Snap:   $SNAP_COMMON/files"
             echo "  - Docker: the 'wekan-files' volume mounted at /data"
             echo "  - Source: the WRITABLE_PATH you configured"
             echo ""

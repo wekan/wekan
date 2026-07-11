@@ -111,6 +111,15 @@ This release adds the following features and fixes:
   source guard that fails if the synchronous server-forbidden API is
   reintroduced), wired into the `test:unit:node` suite.
 
+- **Snap: show the correct writable path for parallel installs in backup instructions**:
+
+  The backup/migration help text printed by `wekan.help` hardcoded
+  `/var/snap/wekan/common/files`, which is wrong for a parallel snap install
+  (e.g. `wekan_customer`, whose data lives under `/var/snap/wekan_customer/common`).
+  It now prints `$SNAP_COMMON/files`, which snapd sets per instance. Display-only;
+  all functional snap paths already derive from `$SNAP_COMMON`/`$SNAP_DATA`, so
+  parallel installs were already fully supported.
+
 - **Fix flaky server-side Mocha i18n test (TAPi18n `.loadLanguage`)**:
 
   The `.loadLanguage` suite stubbed `addResourceBundle` on the shared
