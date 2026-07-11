@@ -115,13 +115,18 @@ amd64 only. (arm64 Sandstorm is out of scope here; the migratemongo 3.x binaries
 
 ## 5. `start.js` (rewritten launcher)
 
-CJS launcher, spawned by the pkgdef as `... node start.js`. It migrates once if an old
-MongoDB 3.0 data dir is present, then runs WeKan on FerretDB. Migration logic is a re‑pathed
-port of the snap's [`migration-control`](../../../../../snap-src/bin/migration-control) +
+The canonical launcher is committed at
+[`sandstorm-src/start.js`](../../../../../sandstorm-src/start.js); the spk build copies it into
+`meteor-spk.deps/start.js`. It is a CJS launcher, spawned by the pkgdef as `... node start.js`.
+It migrates once if an old MongoDB 3.0 data dir is present, then runs WeKan on FerretDB.
+Migration logic is a re‑pathed port of the snap's
+[`migration-control`](../../../../../snap-src/bin/migration-control) +
 [`migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs).
+All app-payload paths resolve from `__dirname` (the grain mount root), and it waits for
+mongod 3.0 to answer a ping before running the importer. Abridged shape:
 
 ```js
-// meteor-spk.deps/start.js
+// meteor-spk.deps/start.js  (see sandstorm-src/start.js for the full file)
 const { spawn, spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -240,6 +245,12 @@ at the end of `run()`.
 
 ## 7. Admin Panel / Attachments / **Sandstorm** (new, `isSandstorm` only)
 
+**Implemented** — server: [`server/methods/sandstormMigration.js`](../../../../../server/methods/sandstormMigration.js);
+client: the **Sandstorm** tab in [`client/components/settings/attachments.jade`](../../../../../client/components/settings/attachments.jade) /
+[`.js`](../../../../../client/components/settings/attachments.js); strings in
+[`imports/i18n/data/en.i18n.json`](../../../../../imports/i18n/data/en.i18n.json). The importer
+writes `migration-status.json` (STATUS_FILE) that the panel reads.
+
 When `isSandstorm === true` (`Meteor.settings.public.sandstorm`, see
 [models/settings.js](../../../../../models/settings.js#L19)), a new **Sandstorm** section appears
 in Admin Panel / Attachments (next to Backup), showing:
@@ -335,8 +346,9 @@ and refreshes.
 - Base the fork on **0.6.0** (has the 3.0 mongod) rather than 0.5.1.
 - Add a build step that assembles the modernized `meteor-spk.deps`: swap in node24, add
   `ferretdb-amd64` (from `ferretdb.zip`), add `migratemongo/{bin,lib}` + `mongoexport`/`mongo`,
-  add `migrate-mongo3-to-ferretdb.mjs`, drop `niscud`, and regenerate the lib tree with
-  `gather-deps` on ubuntu‑24.04.
+  copy [`sandstorm-src/start.js`](../../../../../sandstorm-src/start.js) → `meteor-spk.deps/start.js`
+  and [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs)
+  → `meteor-spk.deps/`, drop `niscud`, and regenerate the lib tree with `gather-deps` on ubuntu‑24.04.
 - Publish the assembled `projects.7z` as a **GitHub release asset** on
   [xet7/meteor-spk](https://github.com/xet7/meteor-spk) (it currently has none) and fetch from
   there, with `releases.wekan.team` as fallback — so the build no longer depends on a single host.
@@ -363,8 +375,9 @@ and refreshes.
 - FerretDB v1 SQLite filename: the backend manages files inside `--sqlite-url` dir; for db
   `wekan` it creates `wekan.sqlite` (plus metadata). Confirm the exact on‑disk name/layout for
   the disk‑usage display.
-- Exact bundle mount root in the grain (`__dirname` of `start.js`) — confirm from the packed
-  spk so `/bin/mongod` vs `<APPROOT>/…` references are correct (the current `start.js` uses
-  `/bin/mongod`).
+- Bundle mount root in the grain: `sandstorm-src/start.js` resolves app-payload paths from
+  `__dirname` (so `bin/mongod`, `ferretdb`, `migratemongo/`, `main.js` are all relative to the
+  launcher). Confirm from the packed spk that the added binaries land where `start.js` expects
+  (e.g. `migratemongo/` and `ferretdb` at the mount root, CLIs under `migratemongo/bin`).
 - Whether to keep the migration `mongoexport` path or, long‑term, drop the whole 3.0 story once
   no MongoDB‑3.0 grains remain in the wild.
