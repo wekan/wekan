@@ -105,11 +105,21 @@ Meteor.methods({
         const buildInfo = await mongo.db.command({ buildInfo: 1 });
         mongoVersion = buildInfo.version || 'unknown';
         databaseCommit = buildInfo.gitVersion || 'unknown';
-        if (buildInfo.ferretdb) {
+        // The wekan/FerretDB v1 fork reports a TOP-LEVEL `ferretdbVersion` string
+        // (e.g. "v1.24.2-60-gb5523566") plus `ferretdbFeatures`, and puts its own
+        // git commit in `gitVersion`. Upstream/other builds may instead use a
+        // `ferretdb` sub-document ({version, commit}). Detect either.
+        if (buildInfo.ferretdb || buildInfo.ferretdbVersion || buildInfo.ferretdbFeatures) {
           databaseType = 'FerretDB';
-          ferretdbVersion = buildInfo.ferretdb.version || 'unknown';
+          ferretdbVersion =
+            buildInfo.ferretdbVersion ||
+            (buildInfo.ferretdb && buildInfo.ferretdb.version) ||
+            'unknown';
           ferretdbCommit =
-            buildInfo.ferretdb.commit || buildInfo.ferretdb.gitVersion || 'unknown';
+            (buildInfo.ferretdb &&
+              (buildInfo.ferretdb.commit || buildInfo.ferretdb.gitVersion)) ||
+            buildInfo.gitVersion ||
+            'unknown';
         }
 
         // Storage engine: MongoDB reports it in serverStatus; FerretDB usually

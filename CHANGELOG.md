@@ -98,6 +98,16 @@ them up next.
 
 This release adds the following features and fixes:
 
+- **Fix Admin Panel / Version showing "MongoDB" when running on FerretDB**:
+
+  The database detection only recognised a `buildInfo.ferretdb` sub-document, but the
+  wekan/FerretDB v1 fork reports its identity as a **top-level `ferretdbVersion`** string
+  (e.g. `v1.24.2-60-gb5523566`) plus `ferretdbFeatures`, with its git commit in `gitVersion`.
+  So the Version page showed `Database type: MongoDB` and hid the FerretDB rows. Detection now
+  handles both shapes ([server/statistics.js](https://github.com/wekan/wekan/blob/main/server/statistics.js)),
+  so it shows `Database type: FerretDB`, the `FerretDB version` and `FerretDB commit` rows, and
+  the `SQLite` storage engine. (FerretDB v1's `version: 7.0.42` is the MongoDB version it emulates.)
+
 - **Design doc: WeKan on Sandstorm (Meteor 3.5 / Node 24) with MongoDB 3 → FerretDB migration**:
 
   Added [docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md)

@@ -384,9 +384,9 @@ and refreshes.
 
 ## 11. Open questions
 
-- FerretDB v1 SQLite filename: the backend manages files inside `--sqlite-url` dir; for db
-  `wekan` it creates `wekan.sqlite` (plus metadata). Confirm the exact on‑disk name/layout for
-  the disk‑usage display.
+- FerretDB v1 SQLite filename: **confirmed** — for db `wekan` the backend writes
+  `<sqlite-dir>/wekan.sqlite` (plus SQLite WAL sidecars `wekan.sqlite-shm` / `wekan.sqlite-wal`).
+  So the disk-usage sum of the `db/` dir already covers it.
 - Bundle mount root in the grain: `sandstorm-src/start.js` resolves app-payload paths from
   `__dirname` (so `bin/mongod`, `ferretdb`, `migratemongo/`, `main.js` are all relative to the
   launcher). Confirm from the packed spk that the added binaries land where `start.js` expects
