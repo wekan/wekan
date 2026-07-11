@@ -48,82 +48,137 @@ echo Note: Dev-server console output is also logged to ..\log\wekan-log.log
 :menu
 echo.
 echo ==================== WeKan ( Windows ) ====================
-echo   1^) Install WeKan dependencies
-echo   2^) Build WeKan
-echo   3^) Run Meteor for dev on http://localhost:3000
-echo   4^) Run Meteor for dev on http://localhost:3000 with trace warnings ^(old Meteor API warnings^)
-echo   5^) Run Meteor for dev on http://localhost:3000 with bundle visualizer
-echo   6^) Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000
-echo   7^) Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan
-echo   8^) Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT
-echo   9^) Run ALL tests in parallel on http://localhost:3000 ^(start server, jobs run concurrently, progress + summary^)
-echo  10^) Run ALL tests sequentially on http://localhost:3000 ^(start server, one job at a time, progress + summary^)
-echo  11^) Test Mocha unit + security + API-logic tests ^(server-side only, no browser^)
-echo  12^) Test import regression ^(tests\wekanCreator.import.test.js, fast, no server^)
-echo  13^) Test Node E2E regressions ^(tests\e2e\list-regressions.js, needs running server^)
-echo  14^) Test Playwright Chromium
-echo  15^) Test Playwright Firefox
-echo  16^) Test Playwright Webkit
-echo  17^) Test Playwright ALL browsers sequentially ^(Chromium + Firefox + WebKit, one at a time^), server already running on :3000
-echo  18^) Check floating promises guard ^(@typescript-eslint/no-floating-promises + auth await scan^)
-echo  19^) Save Meteor dependency chain to ..\meteor-deps.txt
-echo  20^) Install forge CLI tools ^(gh, glab, tea, git-bug, forge^) for GitHub/GitLab/Codeberg/Forgejo/Gitea
-echo  21^) Mirror repo GitHub -^> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions ^(sync missing, convert CI^)
-echo  22^) Count amount of tests by category
-echo  23^) Start WeKan MongoDB Docker ^(docker-compose.yml^)
-echo  24^) Follow logs WeKan MongoDB Docker ^(docker-compose.yml^)
-echo  25^) Stop WeKan MongoDB Docker ^(docker-compose.yml^)
-echo  26^) Start WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
-echo  27^) Follow logs WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
-echo  28^) Stop WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
-echo  29^) Start WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
-echo  30^) Follow logs WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
-echo  31^) Stop WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
-echo  32^) Start WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
-echo  33^) Follow logs WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
-echo  34^) Stop WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
-echo  35^) Quit
+echo   1^) Setup            ^(install dependencies, build^)
+echo   2^) Dev server       ^(meteor run variants^)
+echo   3^) Tests            ^(mocha, playwright, e2e, ...^)
+echo   4^) Docker           ^(start / follow logs / stop^)
+echo   5^) Tools            ^(save deps, forge tools, mirror^)
+echo   0^) Quit
 echo ==========================================================
 set "choice="
-set /p "choice=Please enter your choice: "
-
-if "%choice%"=="1"  goto install
-if "%choice%"=="2"  goto build
-if "%choice%"=="3"  goto dev_local
-if "%choice%"=="4"  goto dev_trace
-if "%choice%"=="5"  goto dev_visualizer
-if "%choice%"=="6"  goto dev_currentip
-if "%choice%"=="7"  goto dev_currentip_mongo
-if "%choice%"=="8"  goto dev_customip
-if "%choice%"=="9"  goto test_all_parallel
-if "%choice%"=="10" goto test_all_sequential
-if "%choice%"=="11" goto test_mocha
-if "%choice%"=="12" goto test_import
-if "%choice%"=="13" goto test_e2e
-if "%choice%"=="14" goto test_pw_chromium
-if "%choice%"=="15" goto test_pw_firefox
-if "%choice%"=="16" goto test_pw_webkit
-if "%choice%"=="17" goto test_pw_parallel
-if "%choice%"=="18" goto check_floating
-if "%choice%"=="19" goto save_deps
-if "%choice%"=="20" goto install_forge_tools
-if "%choice%"=="21" goto mirror_forge
-if "%choice%"=="22" goto count_tests
-if "%choice%"=="23" goto docker_mongodb_start
-if "%choice%"=="24" goto docker_mongodb_logs
-if "%choice%"=="25" goto docker_mongodb_stop
-if "%choice%"=="26" goto docker_ferretdb_v1_start
-if "%choice%"=="27" goto docker_ferretdb_v1_logs
-if "%choice%"=="28" goto docker_ferretdb_v1_stop
-if "%choice%"=="29" goto docker_ferretdb_v2_start
-if "%choice%"=="30" goto docker_ferretdb_v2_logs
-if "%choice%"=="31" goto docker_ferretdb_v2_stop
-if "%choice%"=="32" goto docker_multitenancy_start
-if "%choice%"=="33" goto docker_multitenancy_logs
-if "%choice%"=="34" goto docker_multitenancy_stop
-if "%choice%"=="35" goto end
+set /p "choice=Choose a category: "
+if "%choice%"=="1" goto menu_setup
+if "%choice%"=="2" goto menu_dev
+if "%choice%"=="3" goto menu_tests
+if "%choice%"=="4" goto menu_docker
+if "%choice%"=="5" goto menu_tools
+if "%choice%"=="0" goto end
 echo invalid option
 goto menu
+
+REM ===========================================================================
+:menu_setup
+echo.
+echo -- Setup --   ^(0 = Back^)
+echo   1^) Install dependencies
+echo   2^) Build WeKan
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" goto install
+if "%choice%"=="2" goto build
+if "%choice%"=="0" goto menu
+goto menu_setup
+
+REM ===========================================================================
+:menu_dev
+echo.
+echo -- Dev server --   ^(0 = Back^)
+echo   1^) localhost:3000
+echo   2^) localhost:3000 + trace warnings
+echo   3^) localhost:3000 + bundle visualizer
+echo   4^) CURRENT-IP:3000
+echo   5^) CURRENT-IP:3000 + MONGO_URL 27019
+echo   6^) CUSTOM-IP:PORT
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" goto dev_local
+if "%choice%"=="2" goto dev_trace
+if "%choice%"=="3" goto dev_visualizer
+if "%choice%"=="4" goto dev_currentip
+if "%choice%"=="5" goto dev_currentip_mongo
+if "%choice%"=="6" goto dev_customip
+if "%choice%"=="0" goto menu
+goto menu_dev
+
+REM ===========================================================================
+:menu_tests
+echo.
+echo -- Tests --   ^(0 = Back^)
+echo   1^) ALL tests, parallel
+echo   2^) ALL tests, sequential
+echo   3^) Mocha ^(server-side^)
+echo   4^) Import regression
+echo   5^) Node E2E regressions
+echo   6^) Playwright Chromium
+echo   7^) Playwright Firefox
+echo   8^) Playwright WebKit
+echo   9^) Playwright ALL browsers
+echo  10^) Floating-promises guard
+echo  11^) Count tests by category
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1"  goto test_all_parallel
+if "%choice%"=="2"  goto test_all_sequential
+if "%choice%"=="3"  goto test_mocha
+if "%choice%"=="4"  goto test_import
+if "%choice%"=="5"  goto test_e2e
+if "%choice%"=="6"  goto test_pw_chromium
+if "%choice%"=="7"  goto test_pw_firefox
+if "%choice%"=="8"  goto test_pw_webkit
+if "%choice%"=="9"  goto test_pw_parallel
+if "%choice%"=="10" goto check_floating
+if "%choice%"=="11" goto count_tests
+if "%choice%"=="0"  goto menu
+goto menu_tests
+
+REM ===========================================================================
+:menu_tools
+echo.
+echo -- Tools --   ^(0 = Back^)
+echo   1^) Save Meteor deps list
+echo   2^) Install forge CLI tools
+echo   3^) Mirror repo to forges
+set "choice="
+set /p "choice=Choose: "
+if "%choice%"=="1" goto save_deps
+if "%choice%"=="2" goto install_forge_tools
+if "%choice%"=="3" goto mirror_forge
+if "%choice%"=="0" goto menu
+goto menu_tools
+
+REM ===========================================================================
+:menu_docker
+echo.
+echo -- Docker: pick a backend --   ^(0 = Back^)
+echo   1^) MongoDB               ^(docker-compose.yml^)
+echo   2^) FerretDB v1 SQLite    ^(docker-compose-ferretdb-v1-sqlite.yml^)
+echo   3^) FerretDB v2 Postgres  ^(docker-compose-ferretdb-v2-postgresql.yml^)
+echo   4^) MongoDB Multitenancy  ^(docker-compose-multitenancy.yml^)
+set "choice="
+set /p "choice=Backend: "
+if "%choice%"=="0" goto menu
+set "CF="
+if "%choice%"=="1" set "CF=docker-compose.yml"
+if "%choice%"=="2" set "CF=docker-compose-ferretdb-v1-sqlite.yml"
+if "%choice%"=="3" set "CF=docker-compose-ferretdb-v2-postgresql.yml"
+if "%choice%"=="4" set "CF=docker-compose-multitenancy.yml"
+if not defined CF goto menu_docker
+echo.
+echo -- Action --   ^(0 = Back^)
+echo   1^) Start ^(up -d^)
+echo   2^) Follow logs ^(logs -f^)
+echo   3^) Stop ^(down^)
+set "choice="
+set /p "choice=Action: "
+if "%choice%"=="0" goto menu_docker
+set "AC="
+if "%choice%"=="1" set "AC=up -d"
+if "%choice%"=="2" set "AC=logs -f"
+if "%choice%"=="3" set "AC=down"
+if not defined AC goto menu_docker
+echo Running: docker compose -f %CF% %AC%
+docker compose -f %CF% %AC%
+goto end
 
 REM ===========================================================================
 :install
@@ -757,77 +812,6 @@ REM findstr's limited regex engine cannot reproduce these expressions.
 node -e "const fs=require('fs'),p=require('path');function rd(f){try{return fs.readFileSync(f,'utf8');}catch(e){return null;}}function cnt(f,re){const s=rd(f);if(s===null)return null;return s.split(/\r?\n/).filter(l=>re.test(l)).length;}function ls(d,suf){try{return fs.readdirSync(d).filter(x=>x.endsWith(suf)).map(x=>p.join(d,x));}catch(e){return [];}}let mocha=0;const mfiles=[].concat(ls('client/lib/tests','.tests.js'),ls('server/lib/tests','.tests.js'),['imports/i18n/i18n.test.js']);for(const f of mfiles){const c=cnt(f,/(^|[^A-Za-z.])it\s*\(/);if(c!==null)mocha+=c;}let imp=cnt('tests/wekanCreator.import.test.js',/^function test/);if(imp===null)imp=0;let ne=cnt('tests/e2e/list-regressions.js',/logStep\('Testing/);if(ne===null)ne=0;const d='tests/playwright/specs';let files=[];try{files=fs.readdirSync(d).filter(f=>f.endsWith('.e2e.js')).sort();}catch(e){}let pw=0;const rows=[];for(const f of files){const m=f.match(/^([0-9]+)/);const spec=m?m[1]:'';let area=f.replace(/^[0-9]+[-_]?/,'').replace(/\.e2e\.js$/,'').replace(/[-_]+/g,' ');area=area.charAt(0).toUpperCase()+area.slice(1);const src=fs.readFileSync(p.join(d,f),'utf8');const c=src.split(/\r?\n/).filter(l=>/(^|[^a-zA-Z.])test(\.(only|skip|fixme))?\s*\(/.test(l)).length;rows.push('| '+spec+' | '+area+' | '+c+' |');pw+=c;}const gt=mocha+imp+ne+pw;console.log('| Category | Tests |');console.log('|----------|-------|');console.log('| Mocha (server + client, meteortesting:mocha) | '+mocha+' |');console.log('| Import regression (tests/wekanCreator.import.test.js) | '+imp+' |');console.log('| Node E2E regressions (tests/e2e/list-regressions.js) | '+ne+' |');console.log('| Playwright e2e specs (tests/playwright/specs/*.e2e.js) | '+pw+' |');console.log('| **Total** | **'+gt+'** |');console.log('');console.log('| Spec | Area | Tests |');console.log('|------|------|-------|');for(const r of rows)console.log(r);console.log('');console.log('**Total: '+pw+' tests**');"
 goto end
 
-REM ===========================================================================
-:docker_mongodb_start
-echo Running: docker compose -f docker-compose.yml up -d
-docker compose -f docker-compose.yml up -d
-goto end
-
-REM ===========================================================================
-:docker_mongodb_logs
-echo Running: docker compose -f docker-compose.yml logs -f
-docker compose -f docker-compose.yml logs -f
-goto end
-
-REM ===========================================================================
-:docker_mongodb_stop
-echo Running: docker compose -f docker-compose.yml down
-docker compose -f docker-compose.yml down
-goto end
-
-REM ===========================================================================
-:docker_ferretdb_v1_start
-echo Running: docker compose -f docker-compose-ferretdb-v1-sqlite.yml up -d
-docker compose -f docker-compose-ferretdb-v1-sqlite.yml up -d
-goto end
-
-REM ===========================================================================
-:docker_ferretdb_v1_logs
-echo Running: docker compose -f docker-compose-ferretdb-v1-sqlite.yml logs -f
-docker compose -f docker-compose-ferretdb-v1-sqlite.yml logs -f
-goto end
-
-REM ===========================================================================
-:docker_ferretdb_v1_stop
-echo Running: docker compose -f docker-compose-ferretdb-v1-sqlite.yml down
-docker compose -f docker-compose-ferretdb-v1-sqlite.yml down
-goto end
-
-REM ===========================================================================
-:docker_ferretdb_v2_start
-echo Running: docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d
-docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d
-goto end
-
-REM ===========================================================================
-:docker_ferretdb_v2_logs
-echo Running: docker compose -f docker-compose-ferretdb-v2-postgresql.yml logs -f
-docker compose -f docker-compose-ferretdb-v2-postgresql.yml logs -f
-goto end
-
-REM ===========================================================================
-:docker_ferretdb_v2_stop
-echo Running: docker compose -f docker-compose-ferretdb-v2-postgresql.yml down
-docker compose -f docker-compose-ferretdb-v2-postgresql.yml down
-goto end
-
-REM ===========================================================================
-:docker_multitenancy_start
-echo Running: docker compose -f docker-compose-multitenancy.yml up -d
-docker compose -f docker-compose-multitenancy.yml up -d
-goto end
-
-REM ===========================================================================
-:docker_multitenancy_logs
-echo Running: docker compose -f docker-compose-multitenancy.yml logs -f
-docker compose -f docker-compose-multitenancy.yml logs -f
-goto end
-
-REM ===========================================================================
-:docker_multitenancy_stop
-echo Running: docker compose -f docker-compose-multitenancy.yml down
-docker compose -f docker-compose-multitenancy.yml down
-goto end
 
 REM ===========================================================================
 :end

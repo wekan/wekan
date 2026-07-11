@@ -763,11 +763,97 @@ wekan_docker() {
 
 echo
 PS3='Please enter your choice: '
-options=("Install WeKan dependencies" "Build WeKan" "Run Meteor for dev on http://localhost:3000" "Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:3000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)" "Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)" "Test Mocha unit + security + API-logic tests (server-side only, no browser)" "Test import regression (tests/wekanCreator.import.test.js, fast, no server)" "Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" "Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" "Test Playwright Chromium" "Test Playwright Firefox" "Test Playwright Webkit" "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" "Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" "Save Meteor dependency chain to ../meteor-deps.txt" "Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" "Count amount of tests by category" "Start WeKan MongoDB Docker (docker-compose.yml)" "Follow logs WeKan MongoDB Docker (docker-compose.yml)" "Stop WeKan MongoDB Docker (docker-compose.yml)" "Start WeKan FerretDB v1 SQLite Docker (docker-compose-ferretdb-v1-sqlite.yml)" "Follow logs WeKan FerretDB v1 SQLite Docker (docker-compose-ferretdb-v1-sqlite.yml)" "Stop WeKan FerretDB v1 SQLite Docker (docker-compose-ferretdb-v1-sqlite.yml)" "Start WeKan FerretDB v2 PostgreSQL Docker (docker-compose-ferretdb-v2-postgresql.yml)" "Follow logs WeKan FerretDB v2 PostgreSQL Docker (docker-compose-ferretdb-v2-postgresql.yml)" "Stop WeKan FerretDB v2 PostgreSQL Docker (docker-compose-ferretdb-v2-postgresql.yml)" "Start WeKan MongoDB Multitenancy Docker (docker-compose-multitenancy.yml)" "Follow logs WeKan MongoDB Multitenancy Docker (docker-compose-multitenancy.yml)" "Stop WeKan MongoDB Multitenancy Docker (docker-compose-multitenancy.yml)" "Quit")
 
-select opt in "${options[@]}"
-do
-    case $opt in
+# ── Menu: pick a category, then an action (the handlers below are unchanged) ──
+# choose <title> <"short|full"...>: show the short labels, set $opt to the chosen
+# leaf's full label (matching a case handler below), or "" when Back is chosen.
+choose() {
+	local shorts=() fulls=() it
+	for it in "$@"; do shorts+=("${it%%|*}"); fulls+=("${it#*|}"); done
+	echo; echo "== $1 =="; shorts=("${shorts[@]:1}"); fulls=("${fulls[@]:1}")
+	local c i
+	select c in "${shorts[@]}" "Back"; do
+		[ "$c" = "Back" ] && { opt=""; return; }
+		for i in "${!shorts[@]}"; do
+			[ "${shorts[$i]}" = "$c" ] && { opt="${fulls[$i]}"; return; }
+		done
+	done
+}
+
+# Docker submenu: pick a backend, then Start / Follow logs / Stop.
+# Returns 0 when an action ran, 1 on Back (so the caller re-shows the menu).
+DOCKER_DBS=("MongoDB|docker-compose.yml"
+            "FerretDB v1 (SQLite)|docker-compose-ferretdb-v1-sqlite.yml"
+            "FerretDB v2 (PostgreSQL)|docker-compose-ferretdb-v2-postgresql.yml"
+            "MongoDB Multitenancy|docker-compose-multitenancy.yml")
+docker_menu() {
+	local shorts=() files=() it
+	for it in "${DOCKER_DBS[@]}"; do shorts+=("${it%%|*}"); files+=("${it#*|}"); done
+	echo; echo "== Docker: pick a backend =="
+	local c i file=""
+	select c in "${shorts[@]}" "Back"; do
+		[ "$c" = "Back" ] && return 1
+		for i in "${!shorts[@]}"; do [ "${shorts[$i]}" = "$c" ] && file="${files[$i]}"; done
+		[ -n "$file" ] && break
+	done
+	echo; echo "== $c: action =="
+	local act
+	select act in "Start (up -d)" "Follow logs (logs -f)" "Stop (down)" "Back"; do
+		case $act in
+			"Start (up -d)")         wekan_docker "$file" up -d;   return 0 ;;
+			"Follow logs (logs -f)") wekan_docker "$file" logs -f; return 0 ;;
+			"Stop (down)")           wekan_docker "$file" down;    return 0 ;;
+			"Back")                  return 1 ;;
+		esac
+	done
+}
+
+opt=""
+while [ -z "$opt" ]; do
+	echo; echo "==================== WeKan ===================="
+	select cat in "Setup" "Dev server" "Tests" "Docker" "Tools" "Quit"; do
+		case $cat in
+			"Setup")
+				choose "Setup" \
+					"Install dependencies|Install WeKan dependencies" \
+					"Build WeKan|Build WeKan" ;;
+			"Dev server")
+				choose "Dev server" \
+					"localhost:3000|Run Meteor for dev on http://localhost:3000" \
+					"localhost:3000 + trace warnings|Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" \
+					"localhost:3000 + bundle visualizer|Run Meteor for dev on http://localhost:3000 with bundle visualizer" \
+					"CURRENT-IP:3000|Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" \
+					"CURRENT-IP:3000 + MONGO_URL 27019|Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" \
+					"CUSTOM-IP:PORT|Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" ;;
+			"Tests")
+				choose "Tests" \
+					"ALL tests, parallel|Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)" \
+					"ALL tests, sequential|Run ALL tests sequentially on http://localhost:3000 (start server, one job at a time, progress + summary)" \
+					"Mocha (server-side)|Test Mocha unit + security + API-logic tests (server-side only, no browser)" \
+					"Import regression|Test import regression (tests/wekanCreator.import.test.js, fast, no server)" \
+					"Node E2E regressions|Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" \
+					"Install Playwright browsers|Install Playwright browsers (Chromium, Firefox, WebKit; native and/or Docker)" \
+					"Playwright Chromium|Test Playwright Chromium" \
+					"Playwright Firefox|Test Playwright Firefox" \
+					"Playwright WebKit|Test Playwright Webkit" \
+					"Playwright ALL browsers|Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" \
+					"Floating-promises guard|Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" \
+					"Count tests by category|Count amount of tests by category" ;;
+			"Tools")
+				choose "Tools" \
+					"Save Meteor deps list|Save Meteor dependency chain to ../meteor-deps.txt" \
+					"Install forge CLI tools|Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" \
+					"Mirror repo to forges|Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" ;;
+			"Docker") if docker_menu; then exit 0; fi ;;
+			"Quit")   exit 0 ;;
+			*)        echo "invalid option" ;;
+		esac
+		break
+	done
+done
+
+for _once in 1; do
+    case "$opt" in
         "Install WeKan dependencies")
 
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -1123,61 +1209,5 @@ do
 		break
 		;;
 
-    "Start WeKan MongoDB Docker (docker-compose.yml)")
-		wekan_docker docker-compose.yml up -d
-		break
-		;;
-    "Follow logs WeKan MongoDB Docker (docker-compose.yml)")
-		wekan_docker docker-compose.yml logs -f
-		break
-		;;
-    "Stop WeKan MongoDB Docker (docker-compose.yml)")
-		wekan_docker docker-compose.yml down
-		break
-		;;
-
-    "Start WeKan FerretDB v1 SQLite Docker (docker-compose-ferretdb-v1-sqlite.yml)")
-		wekan_docker docker-compose-ferretdb-v1-sqlite.yml up -d
-		break
-		;;
-    "Follow logs WeKan FerretDB v1 SQLite Docker (docker-compose-ferretdb-v1-sqlite.yml)")
-		wekan_docker docker-compose-ferretdb-v1-sqlite.yml logs -f
-		break
-		;;
-    "Stop WeKan FerretDB v1 SQLite Docker (docker-compose-ferretdb-v1-sqlite.yml)")
-		wekan_docker docker-compose-ferretdb-v1-sqlite.yml down
-		break
-		;;
-
-    "Start WeKan FerretDB v2 PostgreSQL Docker (docker-compose-ferretdb-v2-postgresql.yml)")
-		wekan_docker docker-compose-ferretdb-v2-postgresql.yml up -d
-		break
-		;;
-    "Follow logs WeKan FerretDB v2 PostgreSQL Docker (docker-compose-ferretdb-v2-postgresql.yml)")
-		wekan_docker docker-compose-ferretdb-v2-postgresql.yml logs -f
-		break
-		;;
-    "Stop WeKan FerretDB v2 PostgreSQL Docker (docker-compose-ferretdb-v2-postgresql.yml)")
-		wekan_docker docker-compose-ferretdb-v2-postgresql.yml down
-		break
-		;;
-
-    "Start WeKan MongoDB Multitenancy Docker (docker-compose-multitenancy.yml)")
-		wekan_docker docker-compose-multitenancy.yml up -d
-		break
-		;;
-    "Follow logs WeKan MongoDB Multitenancy Docker (docker-compose-multitenancy.yml)")
-		wekan_docker docker-compose-multitenancy.yml logs -f
-		break
-		;;
-    "Stop WeKan MongoDB Multitenancy Docker (docker-compose-multitenancy.yml)")
-		wekan_docker docker-compose-multitenancy.yml down
-		break
-		;;
-
-    "Quit")
-		break
-		;;
-    *) echo invalid option;;
     esac
 done

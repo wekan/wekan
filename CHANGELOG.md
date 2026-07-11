@@ -98,14 +98,17 @@ them up next.
 
 This release adds the following features and fixes:
 
-- **rebuild-wekan.sh / rebuild-wekan.bat: menu options to Start / Follow logs / Stop the WeKan Docker version**:
+- **rebuild-wekan.sh / rebuild-wekan.bat: reorganized into category submenus + Docker start/logs/stop**:
 
-  Added **Start**, **Follow logs** and **Stop** menu entries for each compose
-  backend: MongoDB (`docker-compose.yml`), FerretDB v1 SQLite
-  (`docker-compose-ferretdb-v1-sqlite.yml`), FerretDB v2 PostgreSQL
-  (`docker-compose-ferretdb-v2-postgresql.yml`) and MongoDB Multitenancy
-  (`docker-compose-multitenancy.yml`). They run `docker compose -f <file> up -d`
-  / `logs -f` / `down`. The `.sh` auto-detects `docker compose` vs `docker-compose`.
+  The long flat menu is now grouped into a short top-level menu — **Setup**,
+  **Dev server**, **Tests**, **Docker**, **Tools**, **Quit** — each opening a small
+  submenu with `0) Back`, so you read only a handful of items at a time and labels
+  are shorter (the category provides the context). **Docker** is a two-stage submenu:
+  pick a backend (MongoDB `docker-compose.yml`, FerretDB v1 SQLite, FerretDB v2
+  PostgreSQL, MongoDB Multitenancy), then an action — **Start** (`up -d`),
+  **Follow logs** (`logs -f`) or **Stop** (`down`) — which removes the previous
+  repetition of 12 near-identical entries. The `.sh` auto-detects `docker compose`
+  vs legacy `docker-compose`. All existing actions are unchanged, just regrouped.
 
 - **FerretDB: quieter logs, and removed a dead MongoDB-driver-selection subsystem**:
 
