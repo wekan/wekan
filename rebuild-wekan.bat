@@ -71,10 +71,18 @@ echo  20^) Install forge CLI tools ^(gh, glab, tea, git-bug, forge^) for GitHub/
 echo  21^) Mirror repo GitHub -^> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions ^(sync missing, convert CI^)
 echo  22^) Count amount of tests by category
 echo  23^) Start WeKan MongoDB Docker ^(docker-compose.yml^)
-echo  24^) Start WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
-echo  25^) Start WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
-echo  26^) Start WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
-echo  27^) Quit
+echo  24^) Follow logs WeKan MongoDB Docker ^(docker-compose.yml^)
+echo  25^) Stop WeKan MongoDB Docker ^(docker-compose.yml^)
+echo  26^) Start WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
+echo  27^) Follow logs WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
+echo  28^) Stop WeKan FerretDB v1 SQLite Docker ^(docker-compose-ferretdb-v1-sqlite.yml^)
+echo  29^) Start WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
+echo  30^) Follow logs WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
+echo  31^) Stop WeKan FerretDB v2 PostgreSQL Docker ^(docker-compose-ferretdb-v2-postgresql.yml^)
+echo  32^) Start WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
+echo  33^) Follow logs WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
+echo  34^) Stop WeKan MongoDB Multitenancy Docker ^(docker-compose-multitenancy.yml^)
+echo  35^) Quit
 echo ==========================================================
 set "choice="
 set /p "choice=Please enter your choice: "
@@ -101,11 +109,19 @@ if "%choice%"=="19" goto save_deps
 if "%choice%"=="20" goto install_forge_tools
 if "%choice%"=="21" goto mirror_forge
 if "%choice%"=="22" goto count_tests
-if "%choice%"=="23" goto docker_mongodb
-if "%choice%"=="24" goto docker_ferretdb_v1
-if "%choice%"=="25" goto docker_ferretdb_v2
-if "%choice%"=="26" goto docker_multitenancy
-if "%choice%"=="27" goto end
+if "%choice%"=="23" goto docker_mongodb_start
+if "%choice%"=="24" goto docker_mongodb_logs
+if "%choice%"=="25" goto docker_mongodb_stop
+if "%choice%"=="26" goto docker_ferretdb_v1_start
+if "%choice%"=="27" goto docker_ferretdb_v1_logs
+if "%choice%"=="28" goto docker_ferretdb_v1_stop
+if "%choice%"=="29" goto docker_ferretdb_v2_start
+if "%choice%"=="30" goto docker_ferretdb_v2_logs
+if "%choice%"=="31" goto docker_ferretdb_v2_stop
+if "%choice%"=="32" goto docker_multitenancy_start
+if "%choice%"=="33" goto docker_multitenancy_logs
+if "%choice%"=="34" goto docker_multitenancy_stop
+if "%choice%"=="35" goto end
 echo invalid option
 goto menu
 
@@ -742,35 +758,75 @@ node -e "const fs=require('fs'),p=require('path');function rd(f){try{return fs.r
 goto end
 
 REM ===========================================================================
-:docker_mongodb
-echo Starting WeKan Docker: docker compose -f docker-compose.yml up -d
+:docker_mongodb_start
+echo Running: docker compose -f docker-compose.yml up -d
 docker compose -f docker-compose.yml up -d
-echo Follow logs: docker compose -f docker-compose.yml logs -f
-echo Stop:        docker compose -f docker-compose.yml down
 goto end
 
 REM ===========================================================================
-:docker_ferretdb_v1
-echo Starting WeKan Docker: docker compose -f docker-compose-ferretdb-v1-sqlite.yml up -d
+:docker_mongodb_logs
+echo Running: docker compose -f docker-compose.yml logs -f
+docker compose -f docker-compose.yml logs -f
+goto end
+
+REM ===========================================================================
+:docker_mongodb_stop
+echo Running: docker compose -f docker-compose.yml down
+docker compose -f docker-compose.yml down
+goto end
+
+REM ===========================================================================
+:docker_ferretdb_v1_start
+echo Running: docker compose -f docker-compose-ferretdb-v1-sqlite.yml up -d
 docker compose -f docker-compose-ferretdb-v1-sqlite.yml up -d
-echo Follow logs: docker compose -f docker-compose-ferretdb-v1-sqlite.yml logs -f
-echo Stop:        docker compose -f docker-compose-ferretdb-v1-sqlite.yml down
 goto end
 
 REM ===========================================================================
-:docker_ferretdb_v2
-echo Starting WeKan Docker: docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d
+:docker_ferretdb_v1_logs
+echo Running: docker compose -f docker-compose-ferretdb-v1-sqlite.yml logs -f
+docker compose -f docker-compose-ferretdb-v1-sqlite.yml logs -f
+goto end
+
+REM ===========================================================================
+:docker_ferretdb_v1_stop
+echo Running: docker compose -f docker-compose-ferretdb-v1-sqlite.yml down
+docker compose -f docker-compose-ferretdb-v1-sqlite.yml down
+goto end
+
+REM ===========================================================================
+:docker_ferretdb_v2_start
+echo Running: docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d
 docker compose -f docker-compose-ferretdb-v2-postgresql.yml up -d
-echo Follow logs: docker compose -f docker-compose-ferretdb-v2-postgresql.yml logs -f
-echo Stop:        docker compose -f docker-compose-ferretdb-v2-postgresql.yml down
 goto end
 
 REM ===========================================================================
-:docker_multitenancy
-echo Starting WeKan Docker: docker compose -f docker-compose-multitenancy.yml up -d
+:docker_ferretdb_v2_logs
+echo Running: docker compose -f docker-compose-ferretdb-v2-postgresql.yml logs -f
+docker compose -f docker-compose-ferretdb-v2-postgresql.yml logs -f
+goto end
+
+REM ===========================================================================
+:docker_ferretdb_v2_stop
+echo Running: docker compose -f docker-compose-ferretdb-v2-postgresql.yml down
+docker compose -f docker-compose-ferretdb-v2-postgresql.yml down
+goto end
+
+REM ===========================================================================
+:docker_multitenancy_start
+echo Running: docker compose -f docker-compose-multitenancy.yml up -d
 docker compose -f docker-compose-multitenancy.yml up -d
-echo Follow logs: docker compose -f docker-compose-multitenancy.yml logs -f
-echo Stop:        docker compose -f docker-compose-multitenancy.yml down
+goto end
+
+REM ===========================================================================
+:docker_multitenancy_logs
+echo Running: docker compose -f docker-compose-multitenancy.yml logs -f
+docker compose -f docker-compose-multitenancy.yml logs -f
+goto end
+
+REM ===========================================================================
+:docker_multitenancy_stop
+echo Running: docker compose -f docker-compose-multitenancy.yml down
+docker compose -f docker-compose-multitenancy.yml down
 goto end
 
 REM ===========================================================================
