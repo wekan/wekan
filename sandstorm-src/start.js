@@ -42,6 +42,7 @@ const NISCU_MARKER = '/var/journal';                           // presence ⇒ n
 const OLD_MONGO    = '/var/wiredTigerDb';                       // MongoDB 3.0 data dir
 const FILES_DIR    = '/var/files';                             // WRITABLE_PATH
 const SQLITE_DIR   = path.join(FILES_DIR, 'db');               // FerretDB SQLite dir
+const STATE_DIR    = '/var/ferretdb';                          // FerretDB process state (state.json)
 const MARKER       = '/var/.migration-to-ferretdb-done';       // FerretDB migration done
 const STATUS_FILE  = path.join(SQLITE_DIR, 'migration-status.json');
 const MIGRATE_LOG  = '/var/migration-mongod.log';
@@ -53,7 +54,7 @@ const SRC_PORT  = '4003';                                      // mongod 3.0 (mi
 const NISCU_PORT = '4004';                                     // niscud (niscu→3.0 source)
 
 function ensureDirs() {
-  for (const d of [FILES_DIR, SQLITE_DIR,
+  for (const d of [FILES_DIR, SQLITE_DIR, STATE_DIR,
                    path.join(FILES_DIR, 'attachments'),
                    path.join(FILES_DIR, 'avatars')]) {
     fs.mkdirSync(d, { recursive: true });
@@ -76,9 +77,15 @@ function sleep(sec) { spawnSync('/bin/sleep', [String(sec)]); }
 function startFerret(port) {
   return spawn(FERRETDB,
     ['--handler=sqlite', `--sqlite-url=file:${SQLITE_DIR}/`,
+     // FerretDB persists state.json via its state provider even with telemetry
+     // off; its --state-dir defaults to "." (= "/" in a grain, read-only), so
+     // point it at writable /var or it fails with "open /state.json: read-only
+     // file system" and the grain crash-loops.
+     `--state-dir=${STATE_DIR}`,
      `--listen-addr=127.0.0.1:${port}`, '--telemetry=disable'],
     { stdio: 'inherit',
-      env: { ...process.env, DO_NOT_TRACK: '1', FERRETDB_TELEMETRY: 'disable' } });
+      env: { ...process.env, DO_NOT_TRACK: '1', FERRETDB_TELEMETRY: 'disable',
+             FERRETDB_STATE_DIR: STATE_DIR } });
 }
 
 // Wait until a mongod (3.x) answers a ping via the legacy mongo shell.
