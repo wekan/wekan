@@ -131,8 +131,9 @@ services:
       # FerretDB has no MongoDB change streams / replica-set oplog, so use polling:
       - DEFAULT_METEOR_REACTIVITY_ORDER=polling
       - METEOR_REACTIVITY_ORDER=polling
-      - DDP_TRANSPORT=uws
-      #- DDP_TRANSPORT=sockjs
+      # uws does not work at s390x. sockjs works.
+      #- DDP_TRANSPORT=uws
+      - DDP_TRANSPORT=sockjs
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====
       - WRITABLE_PATH=/data
