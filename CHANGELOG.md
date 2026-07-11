@@ -100,7 +100,7 @@ This release adds the following features and fixes:
 
 - **Design doc: WeKan on Sandstorm (Meteor 3.5 / Node 24) with MongoDB 3 → FerretDB migration**:
 
-  Added [docs/Platforms/Sandstorm/Meteor3/Migration.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/Sandstorm/Meteor3/Migration.md)
+  Added [docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Sandstorm/Meteor3/Migration.md)
   describing how to build a modern Sandstorm `.spk` (Node 24, replacing meteor-spk
   0.6.0's Node 14) that runs on FerretDB v1 (embedded SQLite) instead of MongoDB 3.0,
   migrating an existing grain's MongoDB 3.0 data on first launch — reusing the snap's

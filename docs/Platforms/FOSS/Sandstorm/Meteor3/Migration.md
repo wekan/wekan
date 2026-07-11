@@ -96,7 +96,7 @@ Start from the 0.6.0 base, then:
   (newest release of [wekan/FerretDB](https://github.com/wekan/FerretDB/releases); the same
   artifact `release-all.yml` unzips as `ferretdb/amd64/ferretdb-amd64`).
 - **Add** `migrate-mongo3-to-ferretdb.mjs` — copy verbatim from
-  [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs);
+  [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs);
   it is entirely env/path‑driven and needs no changes.
 - **Drop** `bin/niscud` and the old `node_modules/{mongodb,bson,mongodb-core,es6-promise,readable-stream}`.
   The importer resolves `mongodb`/`bson` from the WeKan bundle via
@@ -117,8 +117,8 @@ amd64 only. (arm64 Sandstorm is out of scope here; the migratemongo 3.x binaries
 
 CJS launcher, spawned by the pkgdef as `... node start.js`. It migrates once if an old
 MongoDB 3.0 data dir is present, then runs WeKan on FerretDB. Migration logic is a re‑pathed
-port of the snap's [`migration-control`](../../../../snap-src/bin/migration-control) +
-[`migrate-mongo3-to-ferretdb.mjs`](../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs).
+port of the snap's [`migration-control`](../../../../../snap-src/bin/migration-control) +
+[`migrate-mongo3-to-ferretdb.mjs`](../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs).
 
 ```js
 // meteor-spk.deps/start.js
@@ -241,7 +241,7 @@ at the end of `run()`.
 ## 7. Admin Panel / Attachments / **Sandstorm** (new, `isSandstorm` only)
 
 When `isSandstorm === true` (`Meteor.settings.public.sandstorm`, see
-[models/settings.js](../../../../models/settings.js#L19)), a new **Sandstorm** section appears
+[models/settings.js](../../../../../models/settings.js#L19)), a new **Sandstorm** section appears
 in Admin Panel / Attachments (next to Backup), showing:
 
 1. **Migration status** — Success / Pending / Failed + timestamp and per‑collection / file
@@ -256,7 +256,7 @@ in Admin Panel / Attachments (next to Backup), showing:
 ### Server methods
 
 New file `server/methods/sandstormMigration.js` (server‑only; admin‑gated exactly like
-[`server/methods/backup.js`](../../../../server/methods/backup.js) via `ReactiveCache.getCurrentUser()` + `isAdmin`):
+[`server/methods/backup.js`](../../../../../server/methods/backup.js) via `ReactiveCache.getCurrentUser()` + `isAdmin`):
 
 ```js
 const OLD_MONGO = '/var/wiredTigerDb';
@@ -307,7 +307,7 @@ Meteor.methods({
 
 ### Client
 
-New tab in [client/components/settings/attachments.{jade,js}](../../../../client/components/settings/attachments.js),
+New tab in [client/components/settings/attachments.{jade,js}](../../../../../client/components/settings/attachments.js),
 rendered only when `isSandstorm`. Poll `sandstormMigrationStatus` (like the Backup tab polls
 `backupStatus`), render the status + a human‑readable size (`filesize`), and a
 **Delete raw MongoDB files** button behind a confirm dialog that calls `sandstormDeleteRawMongo`
@@ -319,7 +319,7 @@ and refreshes.
 
 ---
 
-## 8. pkgdef / env changes ([sandstorm-pkgdef.capnp](../../../../sandstorm-pkgdef.capnp))
+## 8. pkgdef / env changes ([sandstorm-pkgdef.capnp](../../../../../sandstorm-pkgdef.capnp))
 
 - `WRITABLE_PATH`: `/var/wekan-uploads` → **`/var/files`**.
 - Do **not** set `MONGO_URL` in `environ` (start.js sets it to the FerretDB port).
@@ -330,7 +330,7 @@ and refreshes.
 
 ---
 
-## 9. Build / CI ([.github/workflows/sandstorm.yml](../../../../.github/workflows/sandstorm.yml))
+## 9. Build / CI ([.github/workflows/sandstorm.yml](../../../../../.github/workflows/sandstorm.yml))
 
 - Base the fork on **0.6.0** (has the 3.0 mongod) rather than 0.5.1.
 - Add a build step that assembles the modernized `meteor-spk.deps`: swap in node24, add
