@@ -37,48 +37,142 @@ function ensure_rspack_public_dirs(){
 	mkdir -p public/build-chunks public/build-assets
 }
 
-# Kill any Meteor dev server already listening on the given port before we start
-# a new one there. Used by all "Run Meteor for dev" menu options so that picking
-# a run option always gives you a fresh server instead of failing (or silently
-# doing nothing) because the port is taken. pgrep matches the parent
-# 'meteor run --port <port>' process; killing it also tears down the node child
-# it spawned. We fall back to whatever is listening on the port (lsof/fuser) in
-# case the process command line does not match. Escalates to SIGKILL if the port
-# does not free up. Returns 0 when the port is free (or was never in use), 1 if
-# it is still stuck afterwards.
-function kill_meteor_on_port(){
-	PORT="$1"
-	# Nothing listening on the port? Nothing to do.
-	curl -fsS "http://127.0.0.1:$PORT" >/dev/null 2>&1 || return 0
-	echo "==> Port $PORT is already in use; stopping the existing Meteor dev server before starting a new one."
-	OLD_PIDS="$(pgrep -f "meteor run --port $PORT" 2>/dev/null)"
-	if [ -n "$OLD_PIDS" ]; then
-		echo "    Killing existing Meteor PIDs:$(echo " $OLD_PIDS" | tr '\n' ' ')"
-		kill $OLD_PIDS 2>/dev/null
+# The rspack dev-server port that `meteor run` starts alongside the app (see
+# rspack.config.js / @meteorjs/rspack: Meteor.devServerPort || 8080). It is the
+# same regardless of the app --port, and the rspack watcher is a separate process
+# that can outlive the meteor parent, so restarting a dev server must free this
+# port too or the new server dies with "Error: listen EADDRINUSE ... :8080".
+# Override RSPACK_DEV_PORT in the environment if you changed devServerPort.
+RSPACK_DEV_PORT="${RSPACK_DEV_PORT:-8080}"
+
+# All ports the dev/test servers in this script use: the dev app (3000) and its
+# bundled Mongo (3001), the Mocha test server (3100) and its Mongo (3101), a
+# Sandstorm standalone dev server (4000) and its Mongo (4001), and the rspack
+# dev server (8080). Used by the "Kill all dev servers" menu option.
+DEV_SERVER_PORTS="3000 3001 3100 3101 4000 4001 8080"
+
+# True (return 0) if something is LISTENING on TCP port $1. Checks the socket
+# directly (ss/lsof/fuser) rather than making an HTTP request, so it also detects
+# a server that is still building and not yet answering HTTP. Uses ss with an
+# exact source-port filter first (fast, Linux); lsof is given -nP so it never
+# blocks on host/port name resolution.
+function port_in_use(){
+	local p="$1"
+	if command -v ss >/dev/null 2>&1; then
+		[ -n "$(ss -ltnH "sport = :$p" 2>/dev/null)" ] && return 0
+		return 1
 	fi
-	# Wait for the port to actually free up, escalating to SIGKILL at 15s.
+	if command -v lsof >/dev/null 2>&1; then
+		lsof -nP -iTCP:"$p" -sTCP:LISTEN -t >/dev/null 2>&1 && return 0
+		return 1
+	fi
+	if command -v fuser >/dev/null 2>&1; then
+		fuser "$p/tcp" >/dev/null 2>&1 && return 0
+		return 1
+	fi
+	# Universal fallback (no external tools): try to open a TCP connection to the
+	# port with bash's /dev/tcp. Succeeds if something is listening there.
+	(exec 3<>"/dev/tcp/127.0.0.1/$p") 2>/dev/null && return 0
+	return 1
+}
+
+# Kill whatever is LISTENING on TCP port $1. Optional $2 = signal name (default
+# TERM; pass KILL to force). fuser is preferred on Linux (kills by port with no
+# PID parsing); lsof -nP is the macOS fallback.
+function free_tcp_port(){
+	local p="$1" sig="${2:-TERM}" pids
+	if command -v fuser >/dev/null 2>&1; then
+		fuser -k -"$sig" "$p/tcp" >/dev/null 2>&1
+	elif command -v lsof >/dev/null 2>&1; then
+		pids="$(lsof -nP -iTCP:"$p" -sTCP:LISTEN -t 2>/dev/null)"
+		[ -n "$pids" ] && kill -"$sig" $pids 2>/dev/null
+	fi
+	return 0
+}
+
+# Stop any Meteor dev server already running before we start a new one on the
+# same app port, so picking a "Run Meteor for dev" option always gives you a
+# fresh server instead of failing because a port is taken. Frees BOTH the app
+# port ($1) and the rspack dev-server port ($RSPACK_DEV_PORT): the rspack watcher
+# can outlive the meteor parent and keep holding 8080 even after the app port is
+# free, which is what makes a restart crash with EADDRINUSE :8080. Escalates to
+# SIGKILL if a port does not free up. Returns 0 when both ports are free (or were
+# never in use), 1 if one is still stuck.
+function kill_meteor_on_port(){
+	local app_port="$1" rspack_port="$RSPACK_DEV_PORT" i pids
+	# Nothing on either port? Nothing to do.
+	port_in_use "$app_port" || port_in_use "$rspack_port" || return 0
+	echo "==> A Meteor dev server is already running (app port $app_port, rspack dev-server port $rspack_port); stopping it before starting a new one."
+	# Kill the meteor parent for this app port and the rspack watcher (matched by
+	# its devServerPort env). Killing these tears down most of the process tree.
+	pids="$(pgrep -f "meteor run --port $app_port" 2>/dev/null; pgrep -f "devServerPort=$rspack_port" 2>/dev/null)"
+	if [ -n "$pids" ]; then
+		echo "    Killing Meteor/rspack PIDs:$(echo " $pids" | tr '\n' ' ')"
+		kill $pids 2>/dev/null
+	fi
+	# Free anything still holding either port.
+	free_tcp_port "$app_port"
+	free_tcp_port "$rspack_port"
+	# Wait for both ports to actually free up, escalating to SIGKILL at 15s.
 	for i in $(seq 1 30); do
-		curl -fsS "http://127.0.0.1:$PORT" >/dev/null 2>&1 || break
+		port_in_use "$app_port" || port_in_use "$rspack_port" || break
 		if [ "$i" -eq 15 ]; then
 			echo "    Still in use after 15s; sending SIGKILL."
-			STUCK_PIDS="$(pgrep -f "meteor run --port $PORT" 2>/dev/null)"
-			[ -n "$STUCK_PIDS" ] && kill -9 $STUCK_PIDS 2>/dev/null
-			if command -v lsof >/dev/null 2>&1; then
-				LSOF_PIDS="$(lsof -ti tcp:$PORT 2>/dev/null)"
-				[ -n "$LSOF_PIDS" ] && kill -9 $LSOF_PIDS 2>/dev/null
-			elif command -v fuser >/dev/null 2>&1; then
-				fuser -k "$PORT/tcp" >/dev/null 2>&1
-			fi
+			pkill -9 -f "meteor run --port $app_port" 2>/dev/null
+			pkill -9 -f "devServerPort=$rspack_port" 2>/dev/null
+			free_tcp_port "$app_port" KILL
+			free_tcp_port "$rspack_port" KILL
 		fi
 		printf '.'; sleep 1
 	done
 	echo
-	if curl -fsS "http://127.0.0.1:$PORT" >/dev/null 2>&1; then
-		echo "ERROR: Port $PORT is still in use after attempting to stop the existing server. Stop it manually and retry."
+	if port_in_use "$app_port" || port_in_use "$rspack_port"; then
+		echo "ERROR: Port $app_port or $rspack_port is still in use after attempting to stop the existing server. Stop it manually and retry."
 		return 1
 	fi
-	echo "    Port $PORT is now free."
+	echo "    Ports $app_port and $rspack_port are now free."
 	return 0
+}
+
+# Kill every dev/test server this script can start, freeing all $DEV_SERVER_PORTS
+# at once. For the "Kill all dev servers" menu option: a blunt "make my dev ports
+# free" that stops the dev app, the Mocha test server, the rspack watcher, and
+# their bundled Mongos regardless of which port each is on.
+function kill_all_dev_servers(){
+	echo "==> Killing any dev/test servers on ports: $DEV_SERVER_PORTS"
+	# Graceful first: kill the known dev processes by command line (works without
+	# lsof/fuser) so meteor can shut down cleanly. mongod is matched by Meteor's
+	# bundled '--replSet meteor' so we never touch a production/system Mongo. Then
+	# free any remaining port listeners as a bonus (no-op if lsof/fuser absent).
+	pkill -f 'meteor run --port'        2>/dev/null
+	pkill -f 'meteor test'              2>/dev/null
+	pkill -f 'rspack build --watch'     2>/dev/null
+	pkill -f 'mongod.*--replSet meteor' 2>/dev/null
+	local p i any
+	for p in $DEV_SERVER_PORTS; do free_tcp_port "$p"; done
+	# Wait for the ports to free, escalating to SIGKILL at 10s.
+	for i in $(seq 1 20); do
+		any=0
+		for p in $DEV_SERVER_PORTS; do port_in_use "$p" && any=1; done
+		[ "$any" -eq 0 ] && break
+		if [ "$i" -eq 10 ]; then
+			echo "    Still busy after 10s; sending SIGKILL."
+			pkill -9 -f 'meteor run --port'        2>/dev/null
+			pkill -9 -f 'meteor test'              2>/dev/null
+			pkill -9 -f 'rspack build --watch'     2>/dev/null
+			pkill -9 -f 'mongod.*--replSet meteor' 2>/dev/null
+			for p in $DEV_SERVER_PORTS; do free_tcp_port "$p" KILL; done
+		fi
+		printf '.'; sleep 1
+	done
+	echo
+	local stuck=""
+	for p in $DEV_SERVER_PORTS; do port_in_use "$p" && stuck="$stuck $p"; done
+	if [ -n "$stuck" ]; then
+		echo "    WARNING: still in use after trying to stop them:$stuck"
+	else
+		echo "    All dev server ports are now free: $DEV_SERVER_PORTS"
+	fi
 }
 
 # Build WeKan from scratch: reinstall npm deps and produce the .build directory.
@@ -868,7 +962,8 @@ while [ -z "$opt" ]; do
 					"localhost:3000 + bundle visualizer|Run Meteor for dev on http://localhost:3000 with bundle visualizer" \
 					"CURRENT-IP:3000|Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000" \
 					"CURRENT-IP:3000 + MONGO_URL 27019|Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" \
-					"CUSTOM-IP:PORT|Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" ;;
+					"CUSTOM-IP:PORT|Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" \
+					"Kill all dev servers|Kill all dev servers (free ports 3000/3001/3100/3101/4000/4001/8080)" ;;
 			"Tests")
 				choose "Tests" \
 					"ALL tests, parallel|Run ALL tests in parallel on http://localhost:3000 (start server, jobs run concurrently, progress + summary)" \
@@ -1051,6 +1146,11 @@ for _once in 1; do
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee ../log/wekan-log.log
 		#---------------------------------------------------------------------
+		break
+		;;
+
+    "Kill all dev servers (free ports 3000/3001/3100/3101/4000/4001/8080)")
+		kill_all_dev_servers
 		break
 		;;
 

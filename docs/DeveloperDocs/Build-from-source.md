@@ -107,9 +107,9 @@ Pick a category number, then the item number inside it (each submenu also has a 
 
 The **Setup -> Build WeKan** step compiles WeKan, and **Dev server -> localhost:3000** starts it in development mode with the `meteor` command, so it detects file changes and tries to rebuild automatically and reload the web browser. Still, sometimes it may need stopping with Ctrl-c and a full **Setup -> Build WeKan** again.
 
-If a dev server is already running on that port, the **Dev server** options now stop it automatically and start a fresh server on the same port, so you don't have to kill the old `meteor` process yourself.
+If a dev server is already running, the **Dev server** options now stop it automatically before starting a fresh one — freeing **both** the app port and the rspack dev server's port `8080` (a leftover rspack dev server on 8080 otherwise makes the new server crash with `Error: listen EADDRINUSE ... :8080`), so you don't have to kill the old processes yourself.
 
-The other **Dev server** options run WeKan the same way on different addresses/ports: `localhost:3000 + trace warnings`, `localhost:3000 + bundle visualizer`, `CURRENT-IP:3000`, `CURRENT-IP:3000 + MONGO_URL 27019`, and `CUSTOM-IP:PORT` (which asks you for the IP and port).
+The other **Dev server** options run WeKan the same way on different addresses/ports: `localhost:3000 + trace warnings`, `localhost:3000 + bundle visualizer`, `CURRENT-IP:3000`, `CURRENT-IP:3000 + MONGO_URL 27019`, and `CUSTOM-IP:PORT` (which asks you for the IP and port). There is also a **Kill all dev servers** option that frees every dev/test port the script uses at once (3000/3001, 3100/3101, 4000/4001 and 8080) — handy if a previous run left something behind.
 
 And then [register and login](../Login/Adding-users.md) at http://localhost:3000
 

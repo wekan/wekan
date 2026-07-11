@@ -110,23 +110,31 @@ This release adds the following features and fixes:
   repetition of 12 near-identical entries. The `.sh` auto-detects `docker compose`
   vs legacy `docker-compose`. All existing actions are unchanged, just regrouped.
 
-- **rebuild-wekan.sh / rebuild-wekan.bat: Dev server options now free a busy port
-  automatically, and docs updated for the new menu**:
+- **rebuild-wekan.sh / rebuild-wekan.bat: Dev server options now stop the previous
+  server (including the rspack :8080 dev server) before starting, plus a new "Kill
+  all dev servers" option, and docs updated for the new menu**:
 
   Every **Dev server** option (`localhost:3000`, `+ trace warnings`, `+ bundle
   visualizer`, `CURRENT-IP:3000`, `CURRENT-IP:3000 + MONGO_URL 27019`, and
-  `CUSTOM-IP:PORT`) now stops any Meteor dev server already listening on that port
-  before starting a fresh one, so re-running a dev option no longer fails (or
-  silently does nothing) because the port is taken — no need to hunt down and kill
-  the old `meteor` process yourself. It kills the matching `meteor run --port <port>`
-  process (falling back to `lsof`/`fuser` on `.sh`, `netstat`/`taskkill` on `.bat`),
-  waits for the port to free up, and escalates to SIGKILL if needed. The `.sh` adds a
-  reusable `kill_meteor_on_port` helper; the `.bat` funnels all six options through
-  its `:runlog` subroutine, which calls a new `:kill_meteor_on_port`. Also updated the
-  build-from-source docs (README.md, Build-from-source.md, Build-and-Create-Pull-Request.md,
-  Emoji.md, and the two Sandstorm developer docs) to the new two-level menu
-  (**Setup -> Install dependencies**, **Setup -> Build WeKan**, **Dev server ->
-  localhost:3000**) and fixed a stale dev-server port (`localhost:4000` -> `3000`).
+  `CUSTOM-IP:PORT`) now stops any Meteor dev server already running before starting a
+  fresh one, so re-running a dev option no longer fails because a port is taken — no
+  need to hunt down and kill the old processes yourself. Crucially it frees **both**
+  the app port **and the rspack dev-server port `8080`**: `meteor run` starts an rspack
+  dev server on 8080 that can outlive the `meteor` parent, and a leftover one made the
+  restart crash with `Error: listen EADDRINUSE ... :8080`. Port detection now checks the
+  listening socket directly (`ss`/`lsof`, with a bash `/dev/tcp` fallback that needs no
+  external tools, and `netstat` on `.bat`) instead of an HTTP probe, so it also catches
+  a server that is still building. A new **Dev server -> Kill all dev servers** option
+  frees every dev/test port the scripts use at once — the dev app (3000) and its Mongo
+  (3001), the Mocha test server (3100) and its Mongo (3101), a Sandstorm standalone dev
+  server (4000) and its Mongo (4001), and the rspack dev server (8080) — killing meteor,
+  the rspack watcher and Meteor's bundled `--replSet meteor` Mongos (never a
+  production/system Mongo). Both scripts escalate to SIGKILL if a port does not free up.
+  Also updated the build-from-source docs (README.md, Build-from-source.md,
+  Build-and-Create-Pull-Request.md, Emoji.md, and the two Sandstorm developer docs) to
+  the new two-level menu (**Setup -> Install dependencies**, **Setup -> Build WeKan**,
+  **Dev server -> localhost:3000**) and fixed a stale dev-server port
+  (`localhost:4000` -> `3000`).
 
 - **FerretDB: quieter logs, and removed a dead MongoDB-driver-selection subsystem**:
 

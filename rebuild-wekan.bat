@@ -89,6 +89,7 @@ echo   3^) localhost:3000 + bundle visualizer
 echo   4^) CURRENT-IP:3000
 echo   5^) CURRENT-IP:3000 + MONGO_URL 27019
 echo   6^) CUSTOM-IP:PORT
+echo   7^) Kill all dev servers ^(free ports 3000/3001/3100/3101/4000/4001/8080^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" goto dev_local
@@ -97,6 +98,7 @@ if "%choice%"=="3" goto dev_visualizer
 if "%choice%"=="4" goto dev_currentip
 if "%choice%"=="5" goto dev_currentip_mongo
 if "%choice%"=="6" goto dev_customip
+if "%choice%"=="7" goto dev_killall
 if "%choice%"=="0" goto menu
 goto menu_dev
 
@@ -266,6 +268,10 @@ echo ROOT_URL=http://%IPADDRESS%:%PORT%
 call :set_dev_env
 set "ROOT_URL=http://%IPADDRESS%:%PORT%"
 call :runlog --port %PORT%
+goto end
+
+:dev_killall
+call :kill_all_dev_servers
 goto end
 
 REM ===========================================================================
@@ -757,32 +763,88 @@ call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -F
 exit /b 0
 
 :kill_meteor_on_port
-REM %1 = port. If something (a previously started Meteor dev server) is already
-REM listening on it, kill it so re-running a dev option always gives a fresh
-REM server instead of failing because the port is taken. Returns 1 if the port
-REM could not be freed, 0 otherwise (including when it was never in use).
-set "KILLPORT=%~1"
-if "%KILLPORT%"=="" exit /b 0
-curl -fsS http://127.0.0.1:%KILLPORT% >nul 2>&1
-if errorlevel 1 exit /b 0
-echo ==^> Port %KILLPORT% is already in use; stopping the existing Meteor dev server before starting a new one.
-for /f "tokens=5" %%p in ('netstat -ano ^| findstr /r /c:":%KILLPORT% .*LISTENING"') do (
-	echo     Killing PID %%p listening on port %KILLPORT%.
-	taskkill /F /T /PID %%p >nul 2>&1
-)
-REM Wait for the OS to release the port (up to ~15s).
+REM %1 = app port. Frees BOTH the app port and the rspack dev-server port (8080),
+REM because "meteor run" starts an rspack dev server on 8080 (rspack.config.js:
+REM Meteor.devServerPort || 8080) that can outlive the meteor parent and would
+REM make the new server fail with "EADDRINUSE ... :8080". Returns 1 if a port
+REM could not be freed, 0 otherwise (including when neither was in use).
+set "APPPORT=%~1"
+if "%APPPORT%"=="" exit /b 0
+if not defined RSPACK_DEV_PORT set "RSPACK_DEV_PORT=8080"
+call :port_in_use %APPPORT%
+set "PIU_APP=%ERRORLEVEL%"
+call :port_in_use %RSPACK_DEV_PORT%
+set "PIU_RS=%ERRORLEVEL%"
+if "%PIU_APP%"=="1" if "%PIU_RS%"=="1" exit /b 0
+echo ==^> A Meteor dev server is already running ^(app port %APPPORT%, rspack dev-server port %RSPACK_DEV_PORT%^); stopping it before starting a new one.
+call :free_port %APPPORT%
+call :free_port %RSPACK_DEV_PORT%
+REM Wait for both ports to be released (up to ~15s).
 for /l %%i in (1,1,15) do (
-	curl -fsS http://127.0.0.1:%KILLPORT% >nul 2>&1
-	if errorlevel 1 goto :kill_meteor_on_port_free
+	call :port_in_use %APPPORT%
+	set "PIU_APP=!ERRORLEVEL!"
+	call :port_in_use %RSPACK_DEV_PORT%
+	set "PIU_RS=!ERRORLEVEL!"
+	if "!PIU_APP!"=="1" if "!PIU_RS!"=="1" goto :kmop_free
 	>nul ping -n 2 127.0.0.1
+	call :free_port %APPPORT%
+	call :free_port %RSPACK_DEV_PORT%
 )
-:kill_meteor_on_port_free
-curl -fsS http://127.0.0.1:%KILLPORT% >nul 2>&1
+:kmop_free
+call :port_in_use %APPPORT%
 if not errorlevel 1 (
-	echo ERROR: Port %KILLPORT% is still in use after attempting to stop the existing server. Stop it manually and retry.
+	echo ERROR: Port %APPPORT% is still in use after attempting to stop the existing server. Stop it manually and retry.
 	exit /b 1
 )
-echo     Port %KILLPORT% is now free.
+call :port_in_use %RSPACK_DEV_PORT%
+if not errorlevel 1 (
+	echo ERROR: Port %RSPACK_DEV_PORT% is still in use after attempting to stop the existing server. Stop it manually and retry.
+	exit /b 1
+)
+echo     Ports %APPPORT% and %RSPACK_DEV_PORT% are now free.
+exit /b 0
+
+:port_in_use
+REM %1 = port. Returns errorlevel 0 if something is LISTENING on that TCP port,
+REM else 1. Checks the socket directly (netstat), so it also detects a server
+REM that is still building and not yet answering HTTP.
+netstat -ano | findstr /r /c:":%~1 .*LISTENING" >nul 2>&1
+exit /b %ERRORLEVEL%
+
+:free_port
+REM %1 = port. Kill whatever is LISTENING on that TCP port (and its process tree).
+for /f "tokens=5" %%p in ('netstat -ano ^| findstr /r /c:":%~1 .*LISTENING"') do taskkill /F /T /PID %%p >nul 2>&1
+exit /b 0
+
+:kill_all_dev_servers
+REM Kill every dev/test server this script can start, freeing all dev/test ports
+REM at once: the dev app (3000) + its Mongo (3001), the Mocha test server (3100)
+REM + its Mongo (3101), a Sandstorm standalone dev server (4000) + its Mongo
+REM (4001), and the rspack dev server (8080). Used by the "Kill all dev servers"
+REM menu option.
+set "DEV_SERVER_PORTS=3000 3001 3100 3101 4000 4001 8080"
+echo ==^> Killing any dev/test servers on ports: %DEV_SERVER_PORTS%
+REM Best-effort by image name; the per-port free below does the real work and is
+REM narrow enough not to touch unrelated Node apps.
+taskkill /F /IM meteor.exe /T >nul 2>&1
+taskkill /F /IM mongod.exe /T >nul 2>&1
+for %%p in (%DEV_SERVER_PORTS%) do call :free_port %%p
+REM Wait for the ports to free (up to ~10s).
+for /l %%i in (1,1,10) do (
+	set "ANY=0"
+	for %%p in (%DEV_SERVER_PORTS%) do ( call :port_in_use %%p & if not errorlevel 1 set "ANY=1" )
+	if "!ANY!"=="0" goto :kads_done
+	>nul ping -n 2 127.0.0.1
+	for %%p in (%DEV_SERVER_PORTS%) do call :free_port %%p
+)
+:kads_done
+set "STUCK="
+for %%p in (%DEV_SERVER_PORTS%) do ( call :port_in_use %%p & if not errorlevel 1 set "STUCK=!STUCK! %%p" )
+if defined STUCK (
+	echo     WARNING: still in use after trying to stop them:!STUCK!
+) else (
+	echo     All dev server ports are now free: %DEV_SERVER_PORTS%
+)
 exit /b 0
 
 :detect_ip
