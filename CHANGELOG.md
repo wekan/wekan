@@ -94,6 +94,17 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+
+
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [At default docker-compose.yml, changed DDP_TRANSPORT from uws to sockjs, because uws does not work at s390x](https://github.com/wekan/wekan/commit/aa5847f21561957216a34a7f6a61699f427971c8).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.85 2026-07-11 WeKan ® release
 
 This release adds the following features and fixes:
