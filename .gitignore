@@ -71,11 +71,16 @@ _build-local-test
 */build-assets-local-test
 */build-chunks-local-test
 
-# Local-only working copies used when building the Sandstorm .spk:
-#  - projects/ : unarchived meteor-spk fork (Node/Mongo/FerretDB binaries)
-#  - sandstorm/: clone of sandstorm-io/sandstorm (platform source, for reference)
-#  - FerretDB/ : clone of wekan/FerretDB (for reference when debugging)
-# These are large and machine-specific; never commit them.
+# Local-only working copies: other wekan repos cloned under this repo for editing,
+# and build inputs. These are separate git repos / large machine-specific dirs;
+# never commit them.
+#  - projects/    : unarchived meteor-spk fork (Node/Mongo/FerretDB binaries)
+#  - sandstorm/   : clone of sandstorm-io/sandstorm (platform source, for reference)
+#  - FerretDB/    : clone of wekan/FerretDB
+#  - mongo-tools/ : clone of wekan/mongo-tools
+#  - mongosh/     : clone of wekan/mongosh
 /projects/
 /sandstorm/
 /FerretDB/
+/mongo-tools/
+/mongosh/
