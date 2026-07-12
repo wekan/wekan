@@ -486,6 +486,18 @@ if (isSandstorm && Meteor.isClient) {
     updateSandstormMetaData({ setTitle: document.title });
   });
 
+  // Sandstorm auto-logs the user in asynchronously via connection.setUserId()
+  // (which bypasses accounts-base's normal login flow, so no Accounts.onLogin
+  // fires). The home route's renderBoardList() runs once and, finding
+  // Meteor.userId() still null, redirects to the sign-in page ('atSignIn') — where
+  // the user is then stranded even though login completes moments later. Reactively
+  // bounce back to the boards list once the Sandstorm login lands.
+  Tracker.autorun(() => {
+    if (Meteor.userId() && FlowRouter.getRouteName() === 'atSignIn') {
+      FlowRouter.go('home');
+    }
+  });
+
   // Runtime redirection from the home page to the unique board -- since the
   // home page contains a list of a single board it's not worth to display.
   //
