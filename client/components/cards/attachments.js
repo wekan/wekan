@@ -432,11 +432,16 @@ export async function handleFileUpload(card, files) {
       fileName: fileName,
       meta: Utils.getCommonAttachmentMetaFrom(card),
       chunkSize: 'dynamic',
-      // Use HTTP transport instead of DDP so file chunks go over a dedicated
-      // fetch POST rather than flooding the WebSocket/DDP channel.  DDP
-      // upload causes repeated DDP reconnects in Safari, showing the
-      // "Loading, please wait" offline banner and stalling progress at ~95%.
-      transport: 'http',
+      // Use HTTP transport (a dedicated fetch POST per chunk) rather than DDP,
+      // which floods the WebSocket channel and causes repeated reconnects in
+      // Safari (the "Loading, please wait" offline banner, stalling at ~95%).
+      // EXCEPT on Sandstorm: the grain's sandstorm-http-bridge strips Meteor-Files'
+      // custom upload headers — x-start/x-mtok/x-chunkid/x-fileid/x-eof are not on
+      // Sandstorm's request-header whitelist — so the server never sees x-start,
+      // treats every request as a chunk continuation, and fails with "Can't
+      // continue upload, session expired" [408]. DDP uploads go over method calls
+      // (no custom HTTP headers), so they work through the bridge.
+      transport: Meteor.settings?.public?.sandstorm ? 'ddp' : 'http',
     };
     config.meta.fileId = fileId;
 
@@ -528,7 +533,9 @@ Template.previewClipboardImagePopup.events({
         meta: Utils.getCommonAttachmentMetaFrom(card),
         fileName: file.name || file.type.replace('image/', 'clipboard.'),
         chunkSize: 'dynamic',
-        transport: 'http',
+        // DDP on Sandstorm (its bridge strips Meteor-Files' x-* upload headers),
+        // HTTP elsewhere — see the note in the other upload handler above.
+        transport: Meteor.settings?.public?.sandstorm ? 'ddp' : 'http',
       };
       config.meta.fileId = fileId;
       const uploader = await Attachments.insertAsync(
