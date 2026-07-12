@@ -209,6 +209,13 @@ function runApp() {
   process.env.ROOT_URL      = process.env.ROOT_URL || `http://127.0.0.1:${APP_PORT}`;
   process.env.PORT          = APP_PORT;
   process.env.WRITABLE_PATH = FILES_DIR;
+  // Enable Sandstorm auth. The wekan-accounts-sandstorm package only sets
+  // __meteor_runtime_config__.SANDSTORM (which triggers the client's automatic
+  // header-based login) when process.env.SANDSTORM is set. Without it WeKan boots
+  // but every page shows "Must be logged in". Must be set BEFORE require('./main.js')
+  // so the package sees it at load. (Sandstorm context for app code is a separate
+  // flag, Meteor.settings.public.sandstorm, set via METEOR_SETTINGS in the pkgdef.)
+  process.env.SANDSTORM     = '1';
 
   console.log('** Starting WeKan on FerretDB ...');
   setTimeout(() => require('./main.js'), 1500);          // let FerretDB start listening
