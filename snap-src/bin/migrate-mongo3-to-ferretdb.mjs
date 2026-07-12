@@ -28,7 +28,11 @@
  *   MIGRATION_PORT    HTTP progress port                                [8080]
  */
 import { MongoClient } from 'mongodb';
-import { EJSON } from 'bson';
+// `bson` (as bundled in WeKan's server node_modules) is a CommonJS module, so under
+// Node 24's ESM loader it has no named `EJSON` export — importing { EJSON } throws
+// "Named export 'EJSON' not found". Import the default and destructure instead.
+import bson from 'bson';
+const { EJSON } = bson;
 import { spawnSync } from 'node:child_process';
 import http from 'node:http';
 import fs from 'node:fs';
