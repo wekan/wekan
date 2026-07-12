@@ -43,7 +43,18 @@ import { createRequire } from 'node:module';
 // undefined every way we tried it. WeKan's CURRENT bson and mongodb (with EJSON) live
 // under programs/server/npm/node_modules. Anchor requires inside that modern bundle
 // first, then fall back to the deps root, so we always get the EJSON-bearing versions.
-const anchors = ['programs/server/npm/node_modules/_.cjs', '_.cjs']
+// Anchor bases, modern-bundle first. The mongodb driver is NOT directly under
+// programs/server/npm/node_modules — Meteor nests it under the npm-mongo package
+// (…/meteor/npm-mongo/node_modules/mongodb, v6.x, which speaks OP_MSG that FerretDB
+// understands). bson IS directly under npm/node_modules. Resolving the driver from the
+// deps root instead picked up the ancient meteor-spk base mongodb (v2.x, legacy
+// OP_QUERY), and every insert into FerretDB then failed with "Unsupported OP_QUERY
+// command: update". Try the npm-mongo path first, then npm/node_modules, then the root.
+const anchors = [
+  'programs/server/npm/node_modules/meteor/npm-mongo/node_modules/_.cjs',
+  'programs/server/npm/node_modules/_.cjs',
+  '_.cjs',
+]
   .map(rel => { try { return createRequire(new URL(rel, import.meta.url)); } catch { return null; } })
   .filter(Boolean);
 function requireAny(spec) {
@@ -213,6 +224,9 @@ async function run() {
     state.success = false; state.phase = 'error'; return;
   }
   logline('EJSON resolved');
+  let drvVer = '?';
+  try { drvVer = requireAny('mongodb/package.json')?.version || '?'; } catch {}
+  logline('mongodb driver ' + drvVer + ' (must be 6.x for OP_MSG; 2.x speaks OP_QUERY which FerretDB rejects)');
   const ver = runTool(MONGOEXPORT, ['--version']);
   console.log('[migrate3] mongoexport --version -> ' + describe(ver));
   logline('mongoexport ready: ' + ((ver.stdout || '').split('\n')[0] || 'unknown'));
