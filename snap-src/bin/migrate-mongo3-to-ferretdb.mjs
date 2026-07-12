@@ -27,15 +27,19 @@
  *   FILES_DIR         files root (holds attachments/, avatars/, db/)
  *   MIGRATION_PORT    HTTP progress port                                [8080]
  */
-// Both `mongodb` and `bson`, as bundled in WeKan's server node_modules, are CommonJS
-// modules, so under Node 24's ESM loader they expose no named exports — importing
-// { MongoClient } / { EJSON } throws "Named export '…' not found. The requested module
-// is a CommonJS module". Import the default and destructure, as Node's own error
-// message advises.
+// `mongodb`, as bundled in WeKan's server node_modules, is a CommonJS module, so under
+// Node 24's ESM loader it exposes no named exports — importing { MongoClient } throws
+// "Named export 'MongoClient' not found. The requested module is a CommonJS module".
+// Import the default and destructure, as Node's own error message advises.
+//
+// EJSON is taken from the SAME mongodb default import rather than a separate `import
+// bson`: the mongodb driver bundles bson and re-exports EJSON (lib/bson.js), and it
+// reliably resolves via the importer's NODE_PATH — whereas a bare `bson` specifier did
+// not resolve to the EJSON-bearing copy in the grain's layout, leaving EJSON undefined
+// and every collection failing with "Cannot read properties of undefined (reading
+// 'parse')".
 import mongodbPkg from 'mongodb';
-const { MongoClient } = mongodbPkg;
-import bson from 'bson';
-const { EJSON } = bson;
+const { MongoClient, EJSON } = mongodbPkg;
 import { spawnSync } from 'node:child_process';
 import http from 'node:http';
 import fs from 'node:fs';
@@ -171,6 +175,10 @@ async function run() {
   // while the mongo shell on the same libs worked — so establish up front whether the
   // binary itself is broken (--version also dies → bundling/ABI problem) or only the
   // export invocation is (--version works → argument/runtime problem).
+  if (!EJSON || typeof EJSON.parse !== 'function') {
+    err('FATAL: EJSON.parse unavailable (mongodb driver did not re-export EJSON)');
+    state.success = false; state.phase = 'error'; return;
+  }
   const ver = runTool(MONGOEXPORT, ['--version']);
   console.log('[migrate3] mongoexport --version -> ' + describe(ver));
   logline('mongoexport ready: ' + ((ver.stdout || '').split('\n')[0] || 'unknown'));
