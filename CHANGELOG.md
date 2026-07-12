@@ -307,6 +307,22 @@ This release fixes the following bugs:
   never re-run. Restored v6.15's event-driven `FlowRouter.triggers.enter` (fresh
   entering path, order-independent) and kept a `watchPathChange()` autorun wrapped in
   `Meteor.startup` as a backup. Thanks to xet7.
+- [Sandstorm .spk: fix the MongoDB 3 → FerretDB migration of an existing grain](https://github.com/wekan/wekan/commit/3f5c70e6435c5305cb165eeb866fc1ac88f58dd0):
+  importing an old WeKan grain crash-looped in the one-time migration — mongod 3.0
+  forked and its child aborted with exit code 14. Two bugs. (1) *WiredTiger
+  cache_size=0G*: mongod 3.0 sizes its WiredTiger cache from detected RAM
+  (`RAM/2 − 1GB`), but inside a Sandstorm grain sandbox RAM detection returns 0, so it
+  computed `cache_size=0G` and WiredTiger refused to open (minimum is 1MB), logging
+  *"Value too small for key 'cache_size'"* / *"Fatal Assertion 28561"* to
+  `/var/migration-mongod.log` before aborting. Both mongod invocations (the niscu →
+  3.0 stage and the 3.0 → FerretDB stage) now pass an explicit
+  `--wiredTigerCacheSizeGB 0.25` (256 MB) so the cache size never depends on RAM
+  detection. The data itself is intact (the *"unclean shutdown"* notice is harmless —
+  WiredTiger recovers from the last checkpoint). (2) *Wrong source database*:
+  Sandstorm WeKan grains store their data in the Meteor-default database `meteor`, but
+  the importer was told `SRC_DB=wekan`, so even once mongod started it would have
+  exported zero collections; only the FerretDB *target* database is `wekan`. Thanks to
+  xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
