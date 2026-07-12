@@ -346,15 +346,20 @@ This release fixes the following bugs:
   GridFS extraction counts) with a spinner and an auto-updating timestamp, so it is
   clear what the migration is doing rather than sitting on *"(waiting…)"*. Thanks to
   xet7.
-- [Sandstorm/Snap migration: take EJSON from the mongodb driver, not a bare bson import](https://github.com/wekan/wekan/commit/b0703befd):
+- [Sandstorm/Snap migration: resolve bson/mongodb from the modern server bundle so EJSON exists](https://github.com/wekan/wekan/commit/beefe441d):
   once mongoexport connected, every collection failed with *"Cannot read properties of
-  undefined (reading 'parse')"* — `EJSON` was undefined. The importer runs with
-  `NODE_PATH=programs/server/node_modules`, but the EJSON-bearing `bson` (7.3.0) lives
-  under `programs/server/npm/node_modules`, so a bare `import bson` did not resolve to
-  it. The mongodb driver (which resolves fine — `MongoClient` works) bundles bson and
-  re-exports `EJSON`, so take `EJSON` from the same default import and drop the separate
-  `bson` dependency, with an upfront guard that fails loudly if `EJSON.parse` is ever
-  missing. Thanks to xet7.
+  undefined (reading 'parse')"* — `EJSON` was undefined. The importer script sits at the
+  deps root right next to the OLD meteor-spk 0.6.0 base `node_modules` (kept only for the
+  niscu → 3.0 stage): its `bson` is 1.x with no `EJSON` at all, and its `mongodb` is
+  ancient — it has `MongoClient` (so the connection worked) but no `EJSON` re-export. A
+  bare `import`/`require` from the script resolved those adjacent old copies, so every
+  way of reaching `EJSON` (bare `bson`, `mongodb.EJSON`) came back undefined. WeKan's
+  current `bson` 7.3 and mongodb driver (with `EJSON`) live under
+  `programs/server/npm/node_modules`; anchor `createRequire` inside that modern bundle
+  first (falling back to the deps root) and load both `mongodb` and `bson` through it —
+  which also moves the importer to the same modern mongodb driver the WeKan app uses
+  against FerretDB. An upfront guard fails loudly with a diagnostic list if `EJSON.parse`
+  is still unreachable. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
