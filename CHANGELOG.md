@@ -247,6 +247,15 @@ This release fixes the following bugs:
   login handshake (a DDP method call) never completed. A `WebApp.addRuntimeConfigHook`
   now rewrites `ROOT_URL` to the grain's real base URL (`X-Sandstorm-Base-Path`) per
   request, so DDP, dynamic imports and the Sandstorm auto-login work. Thanks to xet7.
+- [Sandstorm .spk: bounce from sign-in to the boards list once auto-login lands](https://github.com/wekan/wekan/commit/6f3174b23d7072a383703a5fe03711090fe9f844):
+  the Sandstorm login was actually succeeding (`Meteor.userId()` gets set), but the
+  grain stayed on the sign-in page. WeKan's home route checks `Meteor.userId()` once
+  and, because the Sandstorm header login is asynchronous and uses
+  `connection.setUserId()` (bypassing accounts-base, so `Accounts.onLogin` never
+  fires), finds it still null on first render and redirects to `atSignIn` — where the
+  user is stranded even after login completes. A Sandstorm-only reactive autorun now
+  sends the user from `atSignIn` back to `home` as soon as `Meteor.userId()` is set,
+  so the grain lands on the All Boards page. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
