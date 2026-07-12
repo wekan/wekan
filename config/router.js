@@ -10,6 +10,27 @@ import { Utils } from '/client/lib/utils';
 
 let previousPath;
 
+// On Sandstorm the grain is authenticated by the platform, not by a local WeKan
+// account. That login is delivered asynchronously over the DDP connection (via
+// connection.setUserId(), which — unlike a normal password login — does NOT set
+// Meteor.loggingIn()), so for the first moments after a grain opens Meteor.userId()
+// is still null even though the user is, and always will be, authenticated. There
+// is no local sign-in page in a grain. useraccounts' ensureSignedIn would bounce the
+// grain straight to the (nonexistent) atSignIn route on that brief null window,
+// stranding the user on a "Must be logged in" page instead of opening All Boards.
+const isSandstorm = Meteor.settings?.public?.sandstorm;
+
+// Drop-in replacement for AccountsTemplates.ensureSignedIn used as a route
+// triggersEnter: a no-op on Sandstorm (the platform guarantees authentication and
+// the route repopulates reactively once Meteor.userId() lands), and the normal
+// useraccounts guard everywhere else.
+function ensureSignedInUnlessSandstorm(context, redirect, stop) {
+  if (isSandstorm) {
+    return undefined;
+  }
+  return AccountsTemplates.ensureSignedIn(context, redirect, stop);
+}
+
 FlowRouter.triggers.exit([
   ({ path }) => {
     previousPath = path;
@@ -21,8 +42,11 @@ FlowRouter.triggers.exit([
 // redirected to; the chosen view is passed to boardList through the
 // `boardListMenu` Session value.
 function renderBoardList(ctx, menu) {
-  // Redirect to sign-in immediately if user is not logged in
-  if (!Meteor.userId()) {
+  // Redirect to sign-in immediately if user is not logged in — except on Sandstorm,
+  // where the platform authenticates asynchronously (see isSandstorm note above) and
+  // there is no sign-in page. There we render the All Boards list, which reactively
+  // fills in once the grain login lands, instead of bouncing to atSignIn.
+  if (!Meteor.userId() && !isSandstorm) {
     FlowRouter.go('atSignIn');
     return;
   }
@@ -48,7 +72,7 @@ function renderBoardList(ctx, menu) {
 
 FlowRouter.route('/', {
   name: 'home',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     renderBoardList(this, 'starred');
   },
@@ -56,7 +80,7 @@ FlowRouter.route('/', {
 
 FlowRouter.route('/templates', {
   name: 'allboards-templates',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     renderBoardList(this, 'templates');
   },
@@ -64,7 +88,7 @@ FlowRouter.route('/templates', {
 
 FlowRouter.route('/remaining', {
   name: 'allboards-remaining',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     renderBoardList(this, 'remaining');
   },
@@ -72,7 +96,7 @@ FlowRouter.route('/remaining', {
 
 FlowRouter.route('/public', {
   name: 'public',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
@@ -96,7 +120,7 @@ FlowRouter.route('/public', {
 
 FlowRouter.route('/accessibility', {
   name: 'accessibility',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
@@ -120,7 +144,7 @@ FlowRouter.route('/accessibility', {
 
 FlowRouter.route('/support', {
   name: 'support',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
@@ -144,7 +168,7 @@ FlowRouter.route('/support', {
 
 FlowRouter.route('/b/:id/:slug/rules', {
   name: 'board-rules',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action(params) {
     const currentBoard = params.id;
     Session.set('currentBoard', currentBoard);
@@ -272,7 +296,7 @@ FlowRouter.route('/shortcuts', {
 
 FlowRouter.route('/b/templates', {
   name: 'template-container',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
@@ -296,7 +320,7 @@ FlowRouter.route('/b/templates', {
 
 FlowRouter.route('/my-cards', {
   name: 'my-cards',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Filter.reset();
     Session.set('sortBy', '');
@@ -316,7 +340,7 @@ FlowRouter.route('/my-cards', {
 
 FlowRouter.route('/due-cards', {
   name: 'due-cards',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Filter.reset();
     Session.set('sortBy', '');
@@ -336,7 +360,7 @@ FlowRouter.route('/due-cards', {
 
 FlowRouter.route('/global-search', {
   name: 'global-search',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Filter.reset();
     Session.set('sortBy', '');
@@ -371,7 +395,7 @@ FlowRouter.route('/global-search', {
 // Mobile Bookmarks page
 FlowRouter.route('/bookmarks', {
   name: 'bookmarks',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Filter.reset();
     Session.set('sortBy', '');
@@ -409,7 +433,7 @@ FlowRouter.route('/broken-cards', {
 
 FlowRouter.route('/import/:source', {
   name: 'import',
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [ensureSignedInUnlessSandstorm],
   action(params) {
     if (Session.get('currentBoard')) {
       Session.set('fromBoard', Session.get('currentBoard'));
@@ -434,7 +458,7 @@ FlowRouter.route('/import/:source', {
 FlowRouter.route('/setting', {
   name: 'setting',
   triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
+    ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -459,7 +483,7 @@ FlowRouter.route('/setting', {
 FlowRouter.route('/information', {
   name: 'information',
   triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
+    ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -483,7 +507,7 @@ FlowRouter.route('/information', {
 FlowRouter.route('/people', {
   name: 'people',
   triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
+    ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -507,7 +531,7 @@ FlowRouter.route('/people', {
 FlowRouter.route('/admin-reports', {
   name: 'admin-reports',
   triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
+    ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -531,7 +555,7 @@ FlowRouter.route('/admin-reports', {
 FlowRouter.route('/attachments', {
   name: 'attachments',
   triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
+    ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -555,7 +579,7 @@ FlowRouter.route('/attachments', {
 FlowRouter.route('/translation', {
   name: 'translation',
   triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
+    ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -579,7 +603,7 @@ FlowRouter.route('/translation', {
 FlowRouter.route('/admin-features', {
   name: 'admin-features',
   triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
+    ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);

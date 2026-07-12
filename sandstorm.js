@@ -476,21 +476,40 @@ if (isSandstorm && Meteor.isClient) {
     return window.parent.postMessage(msg, '*');
   }
 
-  // Keep the Sandstorm shell's grain URL in sync with the in-app route. The global
-  // FlowRouter.triggers.enter callback does not fire reliably on client navigation
-  // in this flow-router-extra / Meteor 3 setup (so the grain URL stayed on the root
-  // even when switching boards), whereas a reactive autorun on watchPathChange()
-  // does — the same mechanism the setTitle sync below already relies on. The shell
-  // listens for this setPath message (see Sandstorm grain-client.js) and updates the
-  // grain URL to /grain/<id><path>.
-  Tracker.autorun(() => {
-    FlowRouter.watchPathChange();
-    const current = FlowRouter.current();
-    updateSandstormMetaData({ setPath: (current && current.path) || '/' });
-  });
+  // Keep the Sandstorm shell's grain URL in sync with the in-app route. The shell
+  // listens for a { setPath } postMessage and rewrites the outer grain URL to
+  // /grain/<id><path> via history.replaceState (see the setPath handler in
+  // sandstorm shell/imports/client/grain-client.js — it requires the path to start
+  // with "/"). Use TWO mechanisms for reliability:
+  //   1. FlowRouter.triggers.enter fires with the fresh entering path on every
+  //      navigation. This is exactly what the last working Sandstorm build (v6.15)
+  //      used, and it is event-driven so it does not depend on FlowRouter's reactive
+  //      internals being ready at module-load time.
+  //   2. A reactive autorun on watchPathChange() as a backup, wrapped in
+  //      Meteor.startup so FlowRouter is fully initialised before it establishes its
+  //      reactive dependency (a bare top-level autorun could run before FlowRouter's
+  //      path tracking was ready and then never re-run, leaving the grain URL stuck
+  //      on the root — the "URL doesn't update when switching boards" symptom).
+  FlowRouter.triggers.enter([
+    ({ path }) => {
+      updateSandstormMetaData({ setPath: path || '/' });
+    },
+  ]);
 
-  Tracker.autorun(() => {
-    updateSandstormMetaData({ setTitle: document.title });
+  Meteor.startup(() => {
+    Tracker.autorun(() => {
+      FlowRouter.watchPathChange();
+      const current = FlowRouter.current();
+      updateSandstormMetaData({ setPath: (current && current.path) || '/' });
+    });
+
+    // Reflect the page title into the Sandstorm shell too. Runs after startup and
+    // reactively on route change (watchPathChange) so the grain tab title tracks the
+    // current board; document.title itself is not a reactive source.
+    Tracker.autorun(() => {
+      FlowRouter.watchPathChange();
+      updateSandstormMetaData({ setTitle: document.title });
+    });
   });
 
   // Sandstorm auto-logs the user in asynchronously via connection.setUserId()
