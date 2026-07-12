@@ -222,6 +222,14 @@ This release fixes the following bugs:
   whose client `home` route renders the **All Boards** list, the right landing page
   for a multi-board grain. This also removes the last server-side redirect the
   browser was rejecting as a Corrupted Content Error. Thanks to xet7.
+- [Sandstorm .spk: don't auto-create a board; map grain permissions to global role](https://github.com/wekan/wekan/commit/8f11e8ac66d7348f62e8cf9278f4196b44c719b0):
+  a new grain/user no longer gets a hard-coded `sandstorm`/libreboard board
+  auto-created — WeKan on Sandstorm is multi-board now, so the user creates their own
+  boards from the All Boards page. `updateUserPermissions` previously added the user
+  as a member of that single board (which would now crash since the board no longer
+  exists); it now maps the grain's Sandstorm permissions to the user's **global**
+  WeKan role — `configure` (grain owner) becomes a WeKan admin, everyone else is a
+  regular user who can create and manage their own boards. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
