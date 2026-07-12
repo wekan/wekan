@@ -346,6 +346,15 @@ This release fixes the following bugs:
   GridFS extraction counts) with a spinner and an auto-updating timestamp, so it is
   clear what the migration is doing rather than sitting on *"(waiting…)"*. Thanks to
   xet7.
+- [Sandstorm/Snap migration: take EJSON from the mongodb driver, not a bare bson import](https://github.com/wekan/wekan/commit/b0703befd):
+  once mongoexport connected, every collection failed with *"Cannot read properties of
+  undefined (reading 'parse')"* — `EJSON` was undefined. The importer runs with
+  `NODE_PATH=programs/server/node_modules`, but the EJSON-bearing `bson` (7.3.0) lives
+  under `programs/server/npm/node_modules`, so a bare `import bson` did not resolve to
+  it. The mongodb driver (which resolves fine — `MongoClient` works) bundles bson and
+  re-exports `EJSON`, so take `EJSON` from the same default import and drop the separate
+  `bson` dependency, with an upfront guard that fails loudly if `EJSON.parse` is ever
+  missing. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
