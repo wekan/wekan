@@ -180,6 +180,13 @@ This release fixes the following bugs:
   removed `meteor/http` package, so `HTTP` was undefined. The collections (and
   `Accounts`) are now imported explicitly, and the obsolete `HTTP.methods` patch is
   removed. Thanks to xet7.
+- [Sandstorm .spk: use boolean index options so FerretDB accepts the users index](https://github.com/wekan/wekan/commit/975316f5cd6e81b6ea8ae6ede588d26055f9f649):
+  `wekan-accounts-sandstorm` created the unique index on `services.sandstorm.id`
+  with `{unique: 1, sparse: 1}`. Real MongoDB accepts the truthy `1`, but FerretDB
+  (used by the Sandstorm `.spk`) is strict and rejects it with `The field 'unique'
+  has value unique: 1, which is not convertible to bool`, crashing the grain at boot
+  during index creation. Now uses real booleans (`unique: true, sparse: true`).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
