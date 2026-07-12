@@ -316,8 +316,10 @@ This release fixes the following bugs:
   *"Value too small for key 'cache_size'"* / *"Fatal Assertion 28561"* to
   `/var/migration-mongod.log` before aborting. Both mongod invocations (the niscu →
   3.0 stage and the 3.0 → FerretDB stage) now pass an explicit
-  `--wiredTigerCacheSizeGB 0.25` (256 MB) so the cache size never depends on RAM
-  detection. The data itself is intact (the *"unclean shutdown"* notice is harmless —
+  `--wiredTigerCacheSizeGB 1` so the cache size never depends on RAM detection
+  (mongod 3.0.7 parses this option as an integer number of GB — a decimal like `0.25`
+  fails with `Bad digit "."` — and it is a cache cap, not a preallocation). The data
+  itself is intact (the *"unclean shutdown"* notice is harmless —
   WiredTiger recovers from the last checkpoint). (2) *Wrong source database*:
   Sandstorm WeKan grains store their data in the Meteor-default database `meteor`, but
   the importer was told `SRC_DB=wekan`, so even once mongod started it would have

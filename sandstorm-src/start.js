@@ -128,9 +128,12 @@ async function migrateNiscuToMongo3() {
      // Pin the WiredTiger cache. mongod 3.0 sizes it from detected RAM
      // (RAM/2 - 1GB), but inside a Sandstorm grain sandbox RAM detection returns
      // 0, so it computes cache_size=0G and WiredTiger aborts (minimum is 1MB) with
-     // "Fatal Assertion 28561". 0.25GB (256MB, the mongod minimum) is plenty for
-     // migration and never depends on RAM detection.
-     '--wiredTigerCacheSizeGB', '0.25',
+     // "Fatal Assertion 28561". mongod 3.0.7 parses this option as an integer
+     // number of GB (a decimal like 0.25 fails with 'Bad digit "."'), so pin it to
+     // 1 GB. It is a cache cap, not a preallocation, so a short migration of a
+     // normal-sized grain never actually uses that much; it just never depends on
+     // RAM detection.
+     '--wiredTigerCacheSizeGB', '1',
      '--wiredTigerEngineConfigString', 'log=(prealloc=false,file_max=200KB)',
      '--logpath', MIGRATE_LOG],
     { stdio: 'inherit', env: process.env });
@@ -160,12 +163,14 @@ function migrateMongo3ToFerret() {
   const started = spawnSync(MONGOD3,
     ['--dbpath', OLD_MONGO, '--bind_ip', '127.0.0.1', '--port', SRC_PORT,
      '--storageEngine', 'wiredTiger',
-     // Pin the WiredTiger cache to 256MB: in a Sandstorm grain sandbox mongod 3.0's
+     // Pin the WiredTiger cache to 1 GB: in a Sandstorm grain sandbox mongod 3.0's
      // RAM detection returns 0, so its default cache sizing computes cache_size=0G
      // and WiredTiger aborts with "Value too small for key 'cache_size'" /
      // "Fatal Assertion 28561", which is exactly why this migration crash-looped on
-     // an existing grain's data. See the niscu stage above for the same fix.
-     '--wiredTigerCacheSizeGB', '0.25',
+     // an existing grain's data. mongod 3.0.7 parses this option as an integer GB
+     // (0.25 fails to parse), and it is a cap not a preallocation. See the niscu
+     // stage above for the same fix.
+     '--wiredTigerCacheSizeGB', '1',
      '--fork', '--logpath', MIGRATE_LOG],
     { stdio: 'inherit', env: process.env });
   if (started.status !== 0 || !waitMongoReady(SRC_PORT)) {
