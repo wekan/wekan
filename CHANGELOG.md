@@ -237,6 +237,16 @@ This release fixes the following bugs:
   that when `process.env.SANDSTORM` is present — which nothing did. The launcher now
   sets `process.env.SANDSTORM = '1'` before loading the WeKan bundle, so the client
   auto-logs-in the Sandstorm user from the headers. Thanks to xet7.
+- [Sandstorm .spk: rewrite ROOT_URL per request to the grain URL (fixes login + CORS)](https://github.com/wekan/wekan/commit/d5f707fd37b63ff038f61d7aa1316d5800859b35):
+  WeKan loaded but stayed on "Must be logged in", and the console showed
+  `Cross-Origin Request Blocked … http://127.0.0.1:4000/__meteor__/dynamic-import/fetch`.
+  The launcher sets a fixed `ROOT_URL` (`http://127.0.0.1:4000`, the internal bridge
+  target), but Sandstorm serves each grain at a per-session host
+  (`ui-<hash>.<host>`), so the client sent its DDP connection and dynamic-import
+  fetches to `127.0.0.1:4000` — cross-origin and unreachable — and the header-based
+  login handshake (a DDP method call) never completed. A `WebApp.addRuntimeConfigHook`
+  now rewrites `ROOT_URL` to the grain's real base URL (`X-Sandstorm-Base-Path`) per
+  request, so DDP, dynamic imports and the Sandstorm auto-login work. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
