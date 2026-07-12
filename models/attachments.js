@@ -44,7 +44,12 @@ const computeAttachmentStoragePath = () => {
 const storagePath = Meteor.isServer ? computeAttachmentStoragePath() : 'assets/app/uploads/attachments';
 
 const Attachments = new FilesCollection({
-  debug: false, // Change to `true` for debugging
+  // TEMPORARY DIAGNOSTIC: enable verbose Meteor-Files logging on Sandstorm only, to
+  // trace the attachment upload "session expired" [408] issue in the grain (the
+  // upload start/createStream/observer/continueUpload path is logged to the grain
+  // debug log). Harmless and quiet everywhere else. Revert to `debug: false` once
+  // the upload is fixed.
+  debug: !!(Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm),
   collectionName: 'attachments',
   allowClientCode: true,
   storagePath: storagePath,
