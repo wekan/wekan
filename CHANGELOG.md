@@ -256,6 +256,14 @@ This release fixes the following bugs:
   user is stranded even after login completes. A Sandstorm-only reactive autorun now
   sends the user from `atSignIn` back to `home` as soon as `Meteor.userId()` is set,
   so the grain lands on the All Boards page. Thanks to xet7.
+- [Sandstorm .spk: keep the grain URL in sync with the in-app route](https://github.com/wekan/wekan/commit/68e59ab66f68d1c60bc10c954c50999809e5381b):
+  navigating between boards worked but the Sandstorm shell's grain URL never updated
+  (it stayed on the grain root), unlike standalone WeKan. The path was synced via a
+  global `FlowRouter.triggers.enter` callback, which does not fire reliably on client
+  navigation in this flow-router-extra / Meteor 3 setup; it is now synced from a
+  reactive `Tracker.autorun` on `FlowRouter.watchPathChange()` (the same mechanism
+  the title sync uses), so every route change updates the grain URL to
+  `/grain/<id><path>`. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
