@@ -27,19 +27,41 @@
  *   FILES_DIR         files root (holds attachments/, avatars/, db/)
  *   MIGRATION_PORT    HTTP progress port                                [8080]
  */
-// `mongodb`, as bundled in WeKan's server node_modules, is a CommonJS module, so under
-// Node 24's ESM loader it exposes no named exports — importing { MongoClient } throws
-// "Named export 'MongoClient' not found. The requested module is a CommonJS module".
-// Import the default and destructure, as Node's own error message advises.
-//
-// EJSON is taken from the SAME mongodb default import rather than a separate `import
-// bson`: the mongodb driver bundles bson and re-exports EJSON (lib/bson.js), and it
-// reliably resolves via the importer's NODE_PATH — whereas a bare `bson` specifier did
-// not resolve to the EJSON-bearing copy in the grain's layout, leaving EJSON undefined
-// and every collection failing with "Cannot read properties of undefined (reading
-// 'parse')".
-import mongodbPkg from 'mongodb';
-const { MongoClient, EJSON } = mongodbPkg;
+// mongodb and bson are CommonJS in WeKan's bundle. Under Node 24's ESM loader an
+// `import x from 'cjs'` default-interop gave objects that were missing EJSON entirely
+// (both `import bson`'s default and mongodb's re-export came back undefined, so every
+// collection failed with "Cannot read properties of undefined (reading 'parse')").
+// Use createRequire instead: CJS require returns the real module.exports (with the
+// getters/re-exports intact) and honors the importer's NODE_PATH, sidestepping all of
+// the ESM default-interop quirks.
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const mongodb = require('mongodb');
+const { MongoClient } = mongodb;
+
+// Resolve EJSON robustly across the grain's / snap's differing node_modules layouts.
+// Try the mongodb driver's own re-export first, then its bundled bson, then a bare
+// bson — returning the diagnostic list of what was tried if none has a .parse.
+function resolveEJSON() {
+  const tries = [];
+  const candidates = [
+    () => mongodb.EJSON,
+    () => require('mongodb/lib/bson.js').EJSON,
+    () => require('mongodb/lib/bson').EJSON,
+    () => require('bson').EJSON,
+    () => require('bson'),
+  ];
+  for (const get of candidates) {
+    try {
+      const e = get();
+      if (e && typeof e.parse === 'function') return { ejson: e };
+      tries.push('got ' + (e && typeof e) + ' without .parse');
+    } catch (err) { tries.push(err.code || err.message); }
+  }
+  return { ejson: null, tries };
+}
+const _ejson = resolveEJSON();
+const EJSON = _ejson.ejson;
 import { spawnSync } from 'node:child_process';
 import http from 'node:http';
 import fs from 'node:fs';
@@ -176,9 +198,10 @@ async function run() {
   // binary itself is broken (--version also dies → bundling/ABI problem) or only the
   // export invocation is (--version works → argument/runtime problem).
   if (!EJSON || typeof EJSON.parse !== 'function') {
-    err('FATAL: EJSON.parse unavailable (mongodb driver did not re-export EJSON)');
+    err('FATAL: EJSON.parse unavailable. Tried: ' + JSON.stringify(_ejson.tries));
     state.success = false; state.phase = 'error'; return;
   }
+  logline('EJSON resolved');
   const ver = runTool(MONGOEXPORT, ['--version']);
   console.log('[migrate3] mongoexport --version -> ' + describe(ver));
   logline('mongoexport ready: ' + ((ver.stdout || '').split('\n')[0] || 'unknown'));
