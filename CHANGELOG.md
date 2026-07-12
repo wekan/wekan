@@ -170,6 +170,16 @@ This release fixes the following bugs:
   arch never delays the release or the other arches. Each arch publishes to the
   Snap Store (candidate,beta,edge) and attaches to the GitHub Release the moment it
   finishes — all 5 arches still ship. Thanks to xet7.
+- [Sandstorm .spk: fix server-boot crashes from stale globals (Users, HTTP) in sandstorm.js](https://github.com/wekan/wekan/commit/60e40199c965460b95528ef9ea07281172c2d9b6):
+  once the capnp load was made non-fatal, the grain reached the rest of
+  `sandstorm.js` and hit two latent Meteor-2.x-isms the Meteor 3.x migration missed
+  (this file only runs on Sandstorm, so it was not exercised): it referenced the
+  `Users`/`Boards`/`Swimlanes`/`Activities` collections as implicit globals, but
+  those are now ES module default exports, so `Users.after.insert` threw
+  `Users is not defined` at boot; and it monkey-patched `HTTP.methods` from the
+  removed `meteor/http` package, so `HTTP` was undefined. The collections (and
+  `Accounts`) are now imported explicitly, and the obsolete `HTTP.methods` patch is
+  removed. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
