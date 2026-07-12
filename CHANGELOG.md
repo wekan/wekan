@@ -195,6 +195,16 @@ This release fixes the following bugs:
   `WebApp.rawHandlers` middleware now strips `Accept-Encoding` (it runs before
   Meteor's static/boilerplate serving) so responses go out uncompressed; bandwidth
   is a non-issue behind the local bridge. Thanks to xet7.
+- [Sandstorm .spk: bundle a modern sandstorm-http-bridge to fix "Corrupted Content"](https://github.com/wekan/wekan/commit/7f0706e45f26aa0937a15a2a8f7336df63830511):
+  the grain boots, but the page failed with a browser "Corrupted Content Error"
+  (`NS_ERROR_NET_CORRUPTED_CONTENT`) on WeKan's `/` redirect. The meteor-spk 0.6.0
+  base bundles an ancient (~2016) `sandstorm-http-bridge` that mangles responses
+  (it always advertises `Accept-Encoding: gzip` to the app and mishandles
+  redirect/encoding). `build-deps.sh` now overwrites the bundled
+  `/sandstorm-http-bridge` with the modern one from a Sandstorm install
+  (`/opt/sandstorm/latest/bin/sandstorm-http-bridge`; override with
+  `SANDSTORM_HTTP_BRIDGE`), and `sandstorm.yml` installs Sandstorm before assembling
+  the deps so the bridge is available on the CI runner. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
