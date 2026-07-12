@@ -2,6 +2,15 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Accounts } from 'meteor/accounts-base';
+// Collections became ES module default exports in the Meteor 3.x migration (they
+// used to be implicit globals). This file only runs on Sandstorm, so it was missed
+// and kept referencing the old globals — which now throw "Users is not defined" at
+// server boot. Import them explicitly.
+import Users from '/models/users';
+import Boards from '/models/boards';
+import Swimlanes from '/models/swimlanes';
+import Activities from '/models/activities';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -376,23 +385,13 @@ if (isSandstorm && Meteor.isServer) {
   });
   */
 
-  // Monkey patch to work around the problem described in
-  // https://github.com/sandstorm-io/meteor-accounts-sandstorm/pull/31
-  const _httpMethods = HTTP.methods;
-  HTTP.methods = newMethods => {
-    Object.keys(newMethods).forEach(key => {
-      if (newMethods[key].auth) {
-        newMethods[key].auth = async function() {
-          const sandstormID = this.req.headers['x-sandstorm-user-id'];
-          const user = await Meteor.users.findOneAsync({
-            'services.sandstorm.id': sandstormID,
-          });
-          return user && user._id;
-        };
-      }
-    });
-    _httpMethods(newMethods);
-  };
+  // NOTE: a legacy monkey patch of `HTTP.methods` (to inject Sandstorm auth into
+  // the old meteor/http server methods, working around
+  // https://github.com/sandstorm-io/meteor-accounts-sandstorm/pull/31) used to live
+  // here. The `meteor/http` package was removed in the Meteor 3.x migration, so
+  // `HTTP` is now undefined and the patch crashed the Sandstorm server at boot with
+  // "HTTP is not defined". WeKan's REST API no longer uses HTTP.methods (it uses
+  // WebApp/JsonRoutes with header-based auth), so the patch is obsolete and removed.
 }
 
 if (isSandstorm && Meteor.isClient) {
