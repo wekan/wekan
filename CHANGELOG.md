@@ -333,6 +333,19 @@ This release fixes the following bugs:
   `node_modules`, are CommonJS, so Node 24's ESM loader exposes no named exports on
   them. Import the default and destructure, as Node's own error message advises. Shared
   by the Snap MongoDB 3 → FerretDB migration too (same Node 24). Thanks to xet7.
+- [Sandstorm/Snap migration: connect mongoexport over IPv4 so it can read the old data](https://github.com/wekan/wekan/commit/6142396ae9f95872f5b2ff0e3ee889e519fd56e8):
+  with the importer finally running, every `mongoexport` of a source collection failed
+  — at first silently (its own `--quiet` flag suppressed the reason), and once that was
+  dropped the real error showed: *"error connecting to db server: no reachable
+  servers"*. `mongoexport` is a Go tool whose `--host` defaults to `localhost`, which
+  resolves to `::1` (IPv6) first, but the migration `mongod` listens only on
+  `--bind_ip 127.0.0.1` (IPv4); the mongo shell defaults its host to `127.0.0.1` and so
+  connected fine (it listed all 42 collections), which is why only the shell worked.
+  Pass `--host 127.0.0.1` explicitly. The one-time progress dashboard also now shows a
+  live Activity panel (mongoexport-ready line, per-collection export/insert counts,
+  GridFS extraction counts) with a spinner and an auto-updating timestamp, so it is
+  clear what the migration is doing rather than sitting on *"(waiting…)"*. Thanks to
+  xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
