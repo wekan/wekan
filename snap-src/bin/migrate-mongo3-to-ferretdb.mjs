@@ -64,8 +64,12 @@ const MONGO       = path.join(MONGO_BIN_DIR, 'mongo');
 const state = {
   startedAt: new Date().toISOString(), phase: 'starting', detail: '',
   collections: {}, files: { attachments: { done: 0, bytes: 0 }, avatars: { done: 0, bytes: 0 } },
-  errors: [], success: null,
+  log: [], errors: [], success: null,
 };
+// Rolling activity log so the dashboard shows what the migration is actually doing
+// (a few live lines), not just red errors after the fact. Mirrored to stdout so it
+// also lands in the Sandstorm grain log.
+function logline(m) { state.log.push(new Date().toISOString().slice(11, 19) + ' ' + String(m).slice(0, 200)); if (state.log.length > 40) state.log.shift(); console.log('[migrate3]', m); }
 function err(m) { state.errors.push(new Date().toISOString() + ' — ' + String(m).slice(0, 400)); if (state.errors.length > 200) state.errors.shift(); console.error('[migrate3]', m); }
 function esc(s) { return String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 http.createServer((req, res) => {
@@ -89,6 +93,7 @@ td,th{padding:3px 10px;border-bottom:1px solid #333;text-align:left}
 <h2>Files</h2><table><tr><th>Type</th><th>Files</th><th>MB</th></tr>
 <tr><td>attachments</td><td>${state.files.attachments.done}</td><td>${(state.files.attachments.bytes / 1048576).toFixed(1)}</td></tr>
 <tr><td>avatars</td><td>${state.files.avatars.done}</td><td>${(state.files.avatars.bytes / 1048576).toFixed(1)}</td></tr></table>
+<h2>Activity</h2><pre style="background:#000;color:#9f9;padding:8px;max-height:16em;overflow:auto;white-space:pre-wrap">${state.log.slice(-15).map(esc).join('\n') || '(waiting…)'}</pre>
 <h2>Errors</h2>${state.errors.slice(-15).reverse().map(e => `<div style="color:#f77">${esc(e)}</div>`).join('') || '<p>None</p>'}
 </body></html>`);
 }).listen(PORT, () => console.log(`[migrate3] progress at http://localhost:${PORT}`));
@@ -125,7 +130,12 @@ function listCollections() {
 
 // mongoexport a collection (optionally with a query) as Extended JSON lines.
 function exportDocs(coll, query) {
-  const args = ['--quiet', '--port', SRC_PORT, '--db', SRC_DB, '--collection', coll];
+  // NOTE: no --quiet here. mongoexport's --quiet suppresses ALL of its logging,
+  // including the actual failure reason on stderr — which is why every export
+  // previously failed with an empty stderr. Without it, a real failure prints e.g.
+  // "Failed: <reason>" to stderr (its normal progress "connected to:"/"exported N
+  // records" also go to stderr, so stdout stays clean Extended JSON either way).
+  const args = ['--port', SRC_PORT, '--db', SRC_DB, '--collection', coll];
   if (query) args.push('--query', query, '--sort', '{"n":1}');
   const r = runTool(MONGOEXPORT, args);
   if (r.status !== 0) { err(`mongoexport ${coll} failed: ` + describe(r)); return []; }
@@ -166,6 +176,7 @@ async function run() {
   const db = client.db(new URL(TARGET_URL.replace('mongodb://', 'http://')).pathname.slice(1) || 'wekan');
 
   const all = listCollections();
+  logline(`found ${all.length} source collections in db "${SRC_DB}"`);
   const gridFs = new Set(['cfs_gridfs.attachments.files', 'cfs_gridfs.attachments.chunks',
     'cfs_gridfs.avatars.files', 'cfs_gridfs.avatars.chunks']);
 
@@ -176,6 +187,7 @@ async function run() {
     state.detail = name;
     const docs = exportDocs(name);
     state.collections[name] = { total: docs.length, done: 0 };
+    if (docs.length) logline(`${name}: exported ${docs.length}, inserting…`);
     const coll = db.collection(name);
     for (let i = 0; i < docs.length; i += BATCH) {
       const chunk = docs.slice(i, i + BATCH);
@@ -183,6 +195,7 @@ async function run() {
       catch (e) { /* upsert one-by-one on conflict */ for (const d of chunk) { try { await coll.replaceOne({ _id: d._id }, d, { upsert: true }); } catch (e2) { err(`${name}/${d._id}: ${e2.message}`); } } }
       state.collections[name].done = Math.min(i + chunk.length, docs.length);
     }
+    if (docs.length) logline(`${name}: inserted ${state.collections[name].done}/${docs.length}`);
   }
 
   // ── GridFS attachments + avatars -> filesystem ──────────────────────────────
@@ -199,6 +212,7 @@ async function run() {
       if (gid) byGridId.set(String(gid), fr);
     }
     const gfFiles = exportDocs(filesColl);
+    logline(`${bucket}: ${gfFiles.length} GridFS files to extract -> ${destDir}`);
     for (const gf of gfFiles) {
       const fid = gf._id;
       const fr = byGridId.get(String(fid)) || {};
@@ -229,6 +243,7 @@ async function run() {
         }
       } catch (e) { err(`extract ${bucket}/${fid}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
     }
+    logline(`${bucket}: extracted ${state.files[key].done} files (${(state.files[key].bytes / 1048576).toFixed(1)} MB)`);
   }
 
   await client.close();
