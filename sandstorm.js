@@ -36,6 +36,19 @@ const sandstormBoard = {
 if (isSandstorm && Meteor.isServer) {
   const fs = require('fs');
 
+  // sandstorm-http-bridge historically advertises "Accept-Encoding: gzip" to the
+  // app regardless of what the browser actually sent, so Meteor serves gzip/brotli
+  // -encoded responses that the browser then fails to decode — the grain loads but
+  // the page shows "Corrupted Content Error" (NS_ERROR_NET_CORRUPTED_CONTENT).
+  // Strip Accept-Encoding on the way in so Meteor serves uncompressed responses;
+  // rawHandlers runs before Meteor's static/boilerplate middleware, and bandwidth
+  // is a non-issue behind the local bridge. (See Sandstorm CHANGELOG: "apps were
+  // always being told Accept-Encoding: gzip whether or not the client sent it".)
+  WebApp.rawHandlers.use((req, res, next) => {
+    delete req.headers['accept-encoding'];
+    next();
+  });
+
   // WeKan on Sandstorm runs behind sandstorm-http-bridge. Login and user identity
   // come from the X-Sandstorm-* HTTP headers (see the wekan-accounts-sandstorm
   // package) and need NO Cap'n Proto. Only the two advanced features below —
