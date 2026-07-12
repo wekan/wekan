@@ -159,6 +159,17 @@ This release fixes the following bugs:
   addon cannot load — the Powerbox identity-claim method and Sandstorm activity
   notifications — with a clear warning. They can be restored by rebuilding node-capnp
   for Node 24, or reimplemented over the bridge's HTTP/JSON API. Thanks to xet7.
+- [Snap release: build amd64+arm64 natively on GitHub, exotic arches non-blocking on Launchpad](https://github.com/wekan/wekan/commit/8549a62c85f43ad48e8f049eead64691c3f1dbf0):
+  the single snap job ran `snapcraft remote-build` for all 5 platforms on Launchpad
+  and blocked until the slowest resolved, so the release hung ~3.5h on riscv64's
+  Launchpad queue even though amd64+arm64 finished in minutes. It is now split in
+  two: `snap-native` builds amd64 (`ubuntu-24.04`) and arm64 (`ubuntu-24.04-arm`)
+  natively on GitHub runners via `snapcore/action-build`; `snap-launchpad` builds
+  s390x/ppc64el/riscv64 on Launchpad in a non-blocking (`continue-on-error`),
+  per-arch matrix (`remote-build --build-for <arch>`) so a slow or failed exotic
+  arch never delays the release or the other arches. Each arch publishes to the
+  Snap Store (candidate,beta,edge) and attaches to the GitHub Release the moment it
+  finishes — all 5 arches still ship. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
