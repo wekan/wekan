@@ -205,6 +205,15 @@ This release fixes the following bugs:
   (`/opt/sandstorm/latest/bin/sandstorm-http-bridge`; override with
   `SANDSTORM_HTTP_BRIDGE`), and `sandstorm.yml` installs Sandstorm before assembling
   the deps so the bridge is available on the CI runner. Thanks to xet7.
+- [Sandstorm .spk: fix the "/" redirect (malformed Location + Content-Length mismatch)](https://github.com/wekan/wekan/commit/ccdd1a0846ffed64546265c38263c7e1b8530480):
+  the grain's `/` served a broken `301`: the `Location` was `.../:6080board` because
+  `FlowRouter.path()` does not resolve on the server in Meteor 3.x (it returned the
+  bare route name `board`), and the response advertised `Content-Length: 90` while
+  sending an empty body — which the browser rejected as a "Corrupted Content Error"
+  (`NS_ERROR_NET_CORRUPTED_CONTENT`). The handler now builds the board path directly
+  (`/b/:id/:slug`) and sends a real HTML body (meta refresh + link) with a matching
+  `Content-Length`, so the redirect to the hard-coded Sandstorm board works. Thanks
+  to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
