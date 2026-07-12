@@ -294,46 +294,15 @@ if (isSandstorm && Meteor.isServer) {
     await Boards.updateAsync(sandstormBoard._id, modifier);
   }
 
-  WebApp.handlers.get('/', (req, res) => {
-    // Redirect the user to the hard-coded board. On the first launch the user
-    // will be redirected to the board before its creation. But that's not a
-    // problem thanks to the reactive board publication. We used to do this
-    // redirection on the client side but that was sometimes visible on loading,
-    // and the home page was accessible by pressing the back button of the
-    // browser, a server-side redirection solves both of these issues.
-    //
-    // XXX Maybe the sandstorm http-bridge could provide some kind of "home URL"
-    // in the manifest?
-    const base = (req.headers['x-sandstorm-base-path'] || '').replace(/\/$/, '');
-    const { _id, slug } = sandstormBoard;
-    // Build the board path directly (route 'board' = /b/:id/:slug, see
-    // config/router.js and models/boards.js). Do NOT use FlowRouter.path() here:
-    // FlowRouter is client-side routing and does not resolve on the server in
-    // Meteor 3.x — it returned the bare route name "board", producing a malformed
-    // Location like ".../:6080board".
-    const target = `${base}/b/${_id}/${slug}`;
-
-    // Send a real HTML body with a MATCHING Content-Length. The previous version
-    // did a bare 301 with an empty body, but the response advertised a non-zero
-    // Content-Length while sending 0 bytes, which the browser rejected as a
-    // "Corrupted Content Error" (NS_ERROR_NET_CORRUPTED_CONTENT). The meta refresh
-    // + link also act as a fallback if the Location header is ignored.
-    const esc = s => String(s).replace(/[&<>"]/g, c =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const body = Buffer.from(
-      `<!DOCTYPE html><html><head><meta charset="utf-8">` +
-        `<meta http-equiv="refresh" content="0; url=${esc(target)}">` +
-        `<title>WeKan</title></head><body>` +
-        `<a href="${esc(target)}">WeKan</a></body></html>`,
-      'utf8',
-    );
-    res.writeHead(302, {
-      Location: target,
-      'Content-Type': 'text/html; charset=utf-8',
-      'Content-Length': String(body.length),
-    });
-    res.end(body);
-  });
+  // NOTE: there used to be a WebApp.handlers.get('/') here that redirected the grain
+  // root to a single hard-coded board ('/b/sandstorm/libreboard'). WeKan on Sandstorm
+  // now supports MANY boards and no longer auto-creates that libreboard, so a
+  // redirect to it is wrong. Removing the handler lets '/' fall through to WeKan's
+  // normal serving, whose client route '/' ('home' in config/router.js) renders the
+  // All Boards list — exactly what a multi-board grain should open on. (It also
+  // avoids the Meteor-3.x server-side redirect bug: FlowRouter.path() does not
+  // resolve on the server, and a bare redirect with a mismatched Content-Length made
+  // the browser show a "Corrupted Content Error".)
 
   // On the first launch of the instance a user is automatically created thanks
   // to the `accounts-sandstorm` package. After its creation we insert the
