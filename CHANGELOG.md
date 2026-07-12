@@ -332,19 +332,22 @@ This release fixes the following bugs:
   `import { MongoClient } from 'mongodb'` each threw *"Named export '…' not found. The
   requested module is a CommonJS module"*. Both packages, as bundled in WeKan's server
   `node_modules`, are CommonJS, so Node 24's ESM loader exposes no named exports on
-  them. Import the default and destructure, as Node's own error message advises. Shared
-  by the Snap MongoDB 3 → FerretDB migration too (same Node 24). Thanks to xet7.
+  them. Import the default and destructure, as Node's own error message advises (bson in
+  the commit linked above; [mongodb in the same way](https://github.com/wekan/wekan/commit/50abd8f95)).
+  Shared by the Snap MongoDB 3 → FerretDB migration too (same Node 24). Thanks to xet7.
 - [Sandstorm/Snap migration: connect mongoexport over IPv4 so it can read the old data](https://github.com/wekan/wekan/commit/6142396ae9f95872f5b2ff0e3ee889e519fd56e8):
   with the importer finally running, every `mongoexport` of a source collection failed
-  — at first silently (its own `--quiet` flag suppressed the reason), and once that was
+  — at first silently (its own [`--quiet` flag suppressed the reason](https://github.com/wekan/wekan/commit/3076f2317)),
+  and once that was
   dropped the real error showed: *"error connecting to db server: no reachable
   servers"*. `mongoexport` is a Go tool whose `--host` defaults to `localhost`, which
   resolves to `::1` (IPv6) first, but the migration `mongod` listens only on
   `--bind_ip 127.0.0.1` (IPv4); the mongo shell defaults its host to `127.0.0.1` and so
   connected fine (it listed all 42 collections), which is why only the shell worked.
   Pass `--host 127.0.0.1` explicitly. The one-time progress dashboard also now shows a
-  live Activity panel (mongoexport-ready line, per-collection export/insert counts,
-  GridFS extraction counts) with a spinner and an auto-updating timestamp, so it is
+  live Activity panel (mongoexport-ready line, per-collection export/insert counts, GridFS
+  extraction counts) with a [spinner and an auto-updating timestamp](https://github.com/wekan/wekan/commit/62df99153),
+  so it is
   clear what the migration is doing rather than sitting on *"(waiting…)"*. Thanks to
   xet7.
 - [Sandstorm/Snap migration: resolve bson/mongodb from the modern server bundle so EJSON exists](https://github.com/wekan/wekan/commit/beefe441d):
@@ -356,7 +359,8 @@ This release fixes the following bugs:
   bare `import`/`require` from the script resolved those adjacent old copies, so every
   way of reaching `EJSON` (bare `bson`, `mongodb.EJSON`) came back undefined. WeKan's
   current `bson` 7.3 and mongodb driver (with `EJSON`) live under
-  `programs/server/npm/node_modules`; anchor `createRequire` inside that modern bundle
+  `programs/server/npm/node_modules`; [anchor `createRequire`](https://github.com/wekan/wekan/commit/0e0a8bbb3)
+  inside that modern bundle
   first (falling back to the deps root) and load both `mongodb` and `bson` through it —
   which also moves the importer to the same modern mongodb driver the WeKan app uses
   against FerretDB. An upfront guard fails loudly with a diagnostic list if `EJSON.parse`
