@@ -187,6 +187,14 @@ This release fixes the following bugs:
   has value unique: 1, which is not convertible to bool`, crashing the grain at boot
   during index creation. Now uses real booleans (`unique: true, sparse: true`).
   Thanks to xet7.
+- [Sandstorm .spk: strip Accept-Encoding so the grain doesn't serve corrupted (gzip) content](https://github.com/wekan/wekan/commit/013b6b5266be34326e36762b1a50e212237b109d):
+  the grain boots, but the page failed to load with a browser "Corrupted Content
+  Error" (`NS_ERROR_NET_CORRUPTED_CONTENT`). `sandstorm-http-bridge` advertises
+  `Accept-Encoding: gzip` to the app regardless of what the browser actually sent,
+  so Meteor served gzip/brotli-encoded responses the browser could not decode. A
+  `WebApp.rawHandlers` middleware now strips `Accept-Encoding` (it runs before
+  Meteor's static/boilerplate serving) so responses go out uncompressed; bandwidth
+  is a non-issue behind the local bridge. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
