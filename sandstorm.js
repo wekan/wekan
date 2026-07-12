@@ -476,11 +476,18 @@ if (isSandstorm && Meteor.isClient) {
     return window.parent.postMessage(msg, '*');
   }
 
-  FlowRouter.triggers.enter([
-    ({ path }) => {
-      updateSandstormMetaData({ setPath: path });
-    },
-  ]);
+  // Keep the Sandstorm shell's grain URL in sync with the in-app route. The global
+  // FlowRouter.triggers.enter callback does not fire reliably on client navigation
+  // in this flow-router-extra / Meteor 3 setup (so the grain URL stayed on the root
+  // even when switching boards), whereas a reactive autorun on watchPathChange()
+  // does — the same mechanism the setTitle sync below already relies on. The shell
+  // listens for this setPath message (see Sandstorm grain-client.js) and updates the
+  // grain URL to /grain/<id><path>.
+  Tracker.autorun(() => {
+    FlowRouter.watchPathChange();
+    const current = FlowRouter.current();
+    updateSandstormMetaData({ setPath: (current && current.path) || '/' });
+  });
 
   Tracker.autorun(() => {
     updateSandstormMetaData({ setTitle: document.title });
