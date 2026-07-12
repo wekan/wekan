@@ -74,11 +74,16 @@ http.createServer((req, res) => {
     .map(([n, c]) => `<tr><td>${esc(n)}</td><td>${c.done}</td><td>${c.total ?? '?'}</td></tr>`).join('');
   const color = state.success === true ? '#7f7' : state.success === false ? '#f77' : '#7bf';
   res.setHeader('content-type', 'text/html');
-  res.end(`<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=refresh content=3>
+  const running = state.success === null;
+  const spinner = running
+    ? '<span style="display:inline-block;width:1em;height:1em;border:3px solid #345;border-top-color:#7bf;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle"></span>'
+    : (state.success ? '✅' : '❌');
+  res.end(`<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=refresh content=2>
 <title>WeKan Migration</title><style>body{font-family:monospace;background:#111;color:#ddd;padding:1em 2em}
-td,th{padding:3px 10px;border-bottom:1px solid #333;text-align:left}</style></head><body>
-<h1 style="color:#7bf">WeKan Migration: MongoDB 3 &rarr; FerretDB v1 (SQLite)</h1>
-<p>Started ${state.startedAt}</p>
+td,th{padding:3px 10px;border-bottom:1px solid #333;text-align:left}
+@keyframes spin{to{transform:rotate(360deg)}}</style></head><body>
+<h1 style="color:#7bf">${spinner} WeKan Migration: MongoDB 3 &rarr; FerretDB v1 (SQLite)</h1>
+<p>Started ${state.startedAt} · updated ${new Date().toISOString()} · errors ${state.errors.length}</p>
 <p style="font-size:1.3em;color:${color}">Phase: <b>${esc(state.phase)}</b> ${esc(state.detail)}</p>
 <h2>Text collections</h2><table><tr><th>Collection</th><th>Inserted</th><th>Total</th></tr>${cols}</table>
 <h2>Files</h2><table><tr><th>Type</th><th>Files</th><th>MB</th></tr>
@@ -96,11 +101,25 @@ function runTool(bin, args) {
   return spawnSync(bin, args, { env, encoding: 'utf8', maxBuffer: 512 * 1024 * 1024 });
 }
 
+// Full diagnostic string for a spawnSync result. spawnSync sets `signal` when the
+// child is killed (e.g. SIGSEGV → status null, signal 'SIGSEGV', empty stderr — which
+// is exactly the "failed: undefined" we saw when only (stderr || error) was logged),
+// `error` when the spawn itself failed (ENOENT, EACCES), and status for a normal
+// non-zero exit. Include a stdout snippet since some Mongo tools print errors there.
+function describe(r) {
+  if (!r) return 'no spawn result';
+  const errStr = r.error ? (r.error.code || r.error.message) : '-';
+  const se = (r.stderr || '').trim().slice(0, 300);
+  const so = (r.stdout || '').trim().slice(0, 200);
+  return `status=${r.status} signal=${r.signal || '-'} error=${errStr}`
+    + ` stderr=${JSON.stringify(se)} stdout=${JSON.stringify(so)}`;
+}
+
 // List collection names in the source via the legacy mongo shell.
 function listCollections() {
   const r = runTool(MONGO, ['--quiet', '--port', SRC_PORT, SRC_DB,
     '--eval', 'db.getCollectionNames().join("\\n")']);
-  if (r.status !== 0) { err('mongo getCollectionNames failed: ' + (r.stderr || r.error)); return []; }
+  if (r.status !== 0) { err('mongo getCollectionNames failed: ' + describe(r)); return []; }
   return r.stdout.split('\n').map(s => s.trim()).filter(Boolean);
 }
 
@@ -109,7 +128,7 @@ function exportDocs(coll, query) {
   const args = ['--quiet', '--port', SRC_PORT, '--db', SRC_DB, '--collection', coll];
   if (query) args.push('--query', query, '--sort', '{"n":1}');
   const r = runTool(MONGOEXPORT, args);
-  if (r.status !== 0) { err(`mongoexport ${coll} failed: ` + (r.stderr || r.error)); return []; }
+  if (r.status !== 0) { err(`mongoexport ${coll} failed: ` + describe(r)); return []; }
   return r.stdout.split('\n').filter(Boolean).map(l => { try { return EJSON.parse(l); } catch (e) { err('parse ' + coll + ': ' + e.message); return null; } }).filter(Boolean);
 }
 
@@ -131,6 +150,16 @@ async function run() {
   if (!fs.existsSync(MONGOEXPORT) || !fs.existsSync(MONGO)) {
     err(`mongoexport/mongo not found in ${MONGO_BIN_DIR}`); state.success = false; state.phase = 'error'; return;
   }
+
+  // One-time probe: does mongoexport even run, and what is it? Every per-collection
+  // mongoexport failed with an empty stderr (a signal death, not an option error),
+  // while the mongo shell on the same libs worked — so establish up front whether the
+  // binary itself is broken (--version also dies → bundling/ABI problem) or only the
+  // export invocation is (--version works → argument/runtime problem).
+  const ver = runTool(MONGOEXPORT, ['--version']);
+  console.log('[migrate3] mongoexport --version -> ' + describe(ver));
+  const help = runTool(MONGOEXPORT, ['--help']);
+  console.log('[migrate3] mongoexport --help -> ' + describe(help));
 
   state.phase = 'connecting'; state.detail = 'FerretDB ' + TARGET_URL;
   const client = await MongoClient.connect(TARGET_URL);
