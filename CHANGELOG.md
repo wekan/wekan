@@ -214,6 +214,14 @@ This release fixes the following bugs:
   (`/b/:id/:slug`) and sends a real HTML body (meta refresh + link) with a matching
   `Content-Length`, so the redirect to the hard-coded Sandstorm board works. Thanks
   to xet7.
+- [Sandstorm .spk: open the grain on the All Boards page, not a hard-coded board](https://github.com/wekan/wekan/commit/b5945cf596be546b9440854ee9c39520c3c715c0):
+  WeKan on Sandstorm originally opened a single hard-coded board
+  (`/b/sandstorm/libreboard`) and redirected `/` to it. It now supports many boards
+  and that board is no longer the right destination, so the `WebApp.handlers.get("/")`
+  redirect is removed entirely — `/` now falls through to WeKan's normal serving,
+  whose client `home` route renders the **All Boards** list, the right landing page
+  for a multi-board grain. This also removes the last server-side redirect the
+  browser was rejecting as a Corrupted Content Error. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
