@@ -47,6 +47,25 @@ if (isSandstorm && Meteor.isServer) {
     next();
   });
 
+  // Rewrite ROOT_URL per request to the grain's ACTUAL URL. The launcher can only
+  // set a fixed ROOT_URL (http://127.0.0.1:4000 — the internal bridge target), but
+  // Sandstorm serves each grain at a per-session host (ui-<hash>.<host>) via
+  // sandstorm-http-bridge. Without this, the client would send its DDP connection
+  // and dynamic-import fetches to 127.0.0.1:4000 — cross-origin and unreachable from
+  // the browser — so dynamic imports fail with CORS errors and the login handshake
+  // never completes ("Must be logged in"). X-Sandstorm-Base-Path carries the grain's
+  // real base URL, so point ROOT_URL at it (and re-assert the SANDSTORM flag that
+  // triggers the client's header-based auto-login) in the runtime config sent to the
+  // client, so it talks to the same origin it loaded from.
+  WebApp.addRuntimeConfigHook(({ request, encodedCurrentConfig }) => {
+    const base = request.headers['x-sandstorm-base-path'];
+    if (!base) return undefined;
+    const config = WebApp.decodeRuntimeConfig(encodedCurrentConfig);
+    config.ROOT_URL = base.endsWith('/') ? base : base + '/';
+    config.SANDSTORM = true;
+    return WebApp.encodeRuntimeConfig(config);
+  });
+
   // WeKan on Sandstorm runs behind sandstorm-http-bridge. Login and user identity
   // come from the X-Sandstorm-* HTTP headers (see the wekan-accounts-sandstorm
   // package) and need NO Cap'n Proto. Only the two advanced features below —
