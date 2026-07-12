@@ -274,6 +274,21 @@ This release fixes the following bugs:
   find the session and returns 408. Attachment uploads now use `transport: 'ddp'` on
   Sandstorm (DDP method calls, no custom HTTP headers); HTTP transport is kept
   everywhere else. Thanks to xet7.
+- [Sandstorm .spk: authorize attachment/avatar downloads via X-Sandstorm-User-Id](https://github.com/wekan/wekan/commit/1ca7bd3bb6016f560aaa3f748bbb23cec514acf0):
+  once uploads worked, the uploaded image still showed as a broken thumbnail,
+  minicard cover and slideshow in the grain — the file was on disk but the download
+  returned HTTP 403. The download route (`server/routes/universalFileServer.js`)
+  authorizes files on private boards with a Meteor login token (Authorization /
+  X-Auth-Token / `authToken` query / `meteor_login_token` cookie), but Sandstorm has
+  none of these: authentication is via `connection.setUserId()` and the
+  `sandstorm-http-bridge` `X-Sandstorm-*` request headers, so `extractLoginToken()`
+  returned null and `isAuthorizedForBoard()` denied every request. Sandstorm already
+  gates grain access at the platform level, so any request that reaches WeKan is an
+  authenticated grain user — both `isAuthorizedForBoard()` and
+  `isAuthorizedForAvatar()` now allow when `Meteor.settings.public.sandstorm` is set
+  and the request carries the bridge-injected `X-Sandstorm-User-Id` header. Gating on
+  the setting means a spoofed header cannot bypass auth on non-Sandstorm deployments.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
