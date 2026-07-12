@@ -227,6 +227,9 @@ if (Meteor.isServer) {
     try {
       if (!avatar) return false;
 
+      // Sandstorm already gated grain access; trust the platform (see isSandstormRequest).
+      if (isSandstormRequest(req)) return true;
+
       // 1) Check explicit board context via query
       const q = parseQuery(req);
       const boardId = q.boardId || q.board || q.b;
@@ -332,6 +335,27 @@ if (Meteor.isServer) {
   }
 
   /**
+   * On Sandstorm, grain access is already gated by the Sandstorm platform: every
+   * request that reaches WeKan has been authorized by Sandstorm and carries the
+   * bridge-injected X-Sandstorm-User-Id header. There is no Meteor login token or
+   * cookie in that model (auth is via connection.setUserId() + X-Sandstorm-*
+   * headers), so the token-based board/avatar authorization below would always
+   * fail with 403 and images (attachment thumbnails, minicard covers, slideshow)
+   * would break. Trust the platform: an X-Sandstorm-User-Id header means an
+   * authenticated grain user. Thanks to xet7.
+   */
+  function isSandstormRequest(req) {
+    return !!(
+      Meteor.settings &&
+      Meteor.settings.public &&
+      Meteor.settings.public.sandstorm &&
+      req &&
+      req.headers &&
+      req.headers['x-sandstorm-user-id']
+    );
+  }
+
+  /**
    * Resolve a user from a raw login token string
    */
   async function getUserFromToken(rawToken) {
@@ -359,6 +383,8 @@ if (Meteor.isServer) {
   async function isAuthorizedForBoard(req, board) {
     try {
       if (!board) return false;
+      // Sandstorm already gated grain access; trust the platform (see isSandstormRequest).
+      if (isSandstormRequest(req)) return true;
       if (board.isPublic && board.isPublic()) return true;
       const token = extractLoginToken(req);
       const user = token ? await getUserFromToken(token) : null;
