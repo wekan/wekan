@@ -26,21 +26,45 @@ const sandstormBoard = {
 
 if (isSandstorm && Meteor.isServer) {
   const fs = require('fs');
-  const Capnp = Npm.require('capnp');
-  const Package = Capnp.importSystem('sandstorm/package.capnp');
-  const Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
-  const Identity = Capnp.importSystem('sandstorm/identity.capnp');
-  const SandstormHttpBridge = Capnp.importSystem(
-    'sandstorm/sandstorm-http-bridge.capnp',
-  ).SandstormHttpBridge;
+
+  // WeKan on Sandstorm runs behind sandstorm-http-bridge. Login and user identity
+  // come from the X-Sandstorm-* HTTP headers (see the wekan-accounts-sandstorm
+  // package) and need NO Cap'n Proto. Only the two advanced features below —
+  // Powerbox identity-claim (sandstormClaimIdentityRequest) and Sandstorm activity
+  // notifications (Activities.after.insert -> reportActivity) — use node-capnp
+  // (capnp.node). That native addon is currently built for an older Node ABI and
+  // fails to load on the bundled Node 24 (NODE_MODULE_VERSION mismatch,
+  // ERR_DLOPEN_FAILED), which previously crashed the whole grain on boot. Load it
+  // lazily and degrade gracefully instead: the grain boots and core WeKan (login +
+  // kanban) works; only powerbox invites and activity events are skipped until
+  // capnp is rebuilt for Node 24, or reimplemented over the bridge's HTTP/JSON API
+  // (see the Sandstorm CHANGELOG: use "Cap'n Proto APIs without Cap'n Proto").
+  let Capnp = null;
+  let Package, Powerbox, Identity, SandstormHttpBridge, bridgeConfig;
+  try {
+    Capnp = Npm.require('capnp');
+    Package = Capnp.importSystem('sandstorm/package.capnp');
+    Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
+    Identity = Capnp.importSystem('sandstorm/identity.capnp');
+    SandstormHttpBridge = Capnp.importSystem(
+      'sandstorm/sandstorm-http-bridge.capnp',
+    ).SandstormHttpBridge;
+    bridgeConfig = Capnp.parse(
+      Package.BridgeConfig,
+      fs.readFileSync('/sandstorm-http-bridge-config'),
+    );
+  } catch (e) {
+    Capnp = null;
+    console.error(
+      "** WeKan/Sandstorm: Cap'n Proto (capnp.node) unavailable — Powerbox " +
+        'identity-claim and activity notifications are disabled. Login and core ' +
+        'features still work via sandstorm-http-bridge headers. Reason:',
+      (e && e.message) || e,
+    );
+  }
 
   let httpBridge = null;
   let capnpConnection = null;
-
-  const bridgeConfig = Capnp.parse(
-    Package.BridgeConfig,
-    fs.readFileSync('/sandstorm-http-bridge-config'),
-  );
 
   function getHttpBridge() {
     if (!httpBridge) {
@@ -50,7 +74,8 @@ if (isSandstorm && Meteor.isServer) {
     return httpBridge;
   }
 
-  Meteor.methods({
+  // Powerbox identity-claim needs Cap'n Proto; only register it when capnp loaded.
+  if (Capnp) Meteor.methods({
     async sandstormClaimIdentityRequest(token, descriptor) {
       check(token, String);
       check(descriptor, String);
@@ -140,6 +165,9 @@ if (isSandstorm && Meteor.isServer) {
   }
 
   Meteor.startup(() => {
+    // Reporting activity to Sandstorm goes over the Cap'n Proto bridge session;
+    // without capnp there is no way to send it, so skip registering the hook.
+    if (!Capnp) return;
     Activities.after.insert(async (userId, doc) => {
       // HACK: We need the connection that's making the request in order to read the
       // Sandstorm session ID.
