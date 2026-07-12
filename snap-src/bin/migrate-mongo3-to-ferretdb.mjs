@@ -27,10 +27,13 @@
  *   FILES_DIR         files root (holds attachments/, avatars/, db/)
  *   MIGRATION_PORT    HTTP progress port                                [8080]
  */
-import { MongoClient } from 'mongodb';
-// `bson` (as bundled in WeKan's server node_modules) is a CommonJS module, so under
-// Node 24's ESM loader it has no named `EJSON` export — importing { EJSON } throws
-// "Named export 'EJSON' not found". Import the default and destructure instead.
+// Both `mongodb` and `bson`, as bundled in WeKan's server node_modules, are CommonJS
+// modules, so under Node 24's ESM loader they expose no named exports — importing
+// { MongoClient } / { EJSON } throws "Named export '…' not found. The requested module
+// is a CommonJS module". Import the default and destructure, as Node's own error
+// message advises.
+import mongodbPkg from 'mongodb';
+const { MongoClient } = mongodbPkg;
 import bson from 'bson';
 const { EJSON } = bson;
 import { spawnSync } from 'node:child_process';

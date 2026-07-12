@@ -325,14 +325,14 @@ This release fixes the following bugs:
   the importer was told `SRC_DB=wekan`, so even once mongod started it would have
   exported zero collections; only the FerretDB *target* database is `wekan`. Thanks to
   xet7.
-- [Sandstorm/Snap migration: import bson as a default (CommonJS) export under Node 24](https://github.com/wekan/wekan/commit/a5bcb2e27c070643f17c9ed62ca6284564da1c51):
+- [Sandstorm/Snap migration: import mongodb and bson as default (CommonJS) exports under Node 24](https://github.com/wekan/wekan/commit/a5bcb2e27c070643f17c9ed62ca6284564da1c51):
   with the WiredTiger cache fixed mongod 3.0 started and the migration importer ran,
-  but crashed immediately on `import { EJSON } from 'bson'` with *"Named export 'EJSON'
-  not found. The requested module 'bson' is a CommonJS module"*. `bson` (as bundled in
-  WeKan's server `node_modules`) is CommonJS, so Node 24's ESM loader exposes no named
-  exports on it. Import the default and destructure `EJSON` from it, as Node's own
-  error message advises. Shared by the Snap MongoDB 3 → FerretDB migration too (same
-  Node 24). Thanks to xet7.
+  but crashed immediately on its named imports — `import { EJSON } from 'bson'` and
+  `import { MongoClient } from 'mongodb'` each threw *"Named export '…' not found. The
+  requested module is a CommonJS module"*. Both packages, as bundled in WeKan's server
+  `node_modules`, are CommonJS, so Node 24's ESM loader exposes no named exports on
+  them. Import the default and destructure, as Node's own error message advises. Shared
+  by the Snap MongoDB 3 → FerretDB migration too (same Node 24). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
