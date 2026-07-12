@@ -135,7 +135,12 @@ function exportDocs(coll, query) {
   // previously failed with an empty stderr. Without it, a real failure prints e.g.
   // "Failed: <reason>" to stderr (its normal progress "connected to:"/"exported N
   // records" also go to stderr, so stdout stays clean Extended JSON either way).
-  const args = ['--port', SRC_PORT, '--db', SRC_DB, '--collection', coll];
+  // Force --host 127.0.0.1. The mongo shell defaults its host to 127.0.0.1 (so
+  // listCollections connects fine), but mongoexport (a Go tool) defaults to
+  // "localhost", which resolves to ::1 (IPv6) first — and the migration mongod only
+  // listens on --bind_ip 127.0.0.1 (IPv4), so mongoexport failed every collection
+  // with "error connecting to db server: no reachable servers".
+  const args = ['--host', '127.0.0.1', '--port', SRC_PORT, '--db', SRC_DB, '--collection', coll];
   if (query) args.push('--query', query, '--sort', '{"n":1}');
   const r = runTool(MONGOEXPORT, args);
   if (r.status !== 0) { err(`mongoexport ${coll} failed: ` + describe(r)); return []; }
@@ -168,8 +173,7 @@ async function run() {
   // export invocation is (--version works → argument/runtime problem).
   const ver = runTool(MONGOEXPORT, ['--version']);
   console.log('[migrate3] mongoexport --version -> ' + describe(ver));
-  const help = runTool(MONGOEXPORT, ['--help']);
-  console.log('[migrate3] mongoexport --help -> ' + describe(help));
+  logline('mongoexport ready: ' + ((ver.stdout || '').split('\n')[0] || 'unknown'));
 
   state.phase = 'connecting'; state.detail = 'FerretDB ' + TARGET_URL;
   const client = await MongoClient.connect(TARGET_URL);
@@ -187,7 +191,7 @@ async function run() {
     state.detail = name;
     const docs = exportDocs(name);
     state.collections[name] = { total: docs.length, done: 0 };
-    if (docs.length) logline(`${name}: exported ${docs.length}, inserting…`);
+    logline(`${name}: exported ${docs.length}${docs.length ? ', inserting…' : ''}`);
     const coll = db.collection(name);
     for (let i = 0; i < docs.length; i += BATCH) {
       const chunk = docs.slice(i, i + BATCH);
