@@ -957,11 +957,85 @@ jobs:
 
   # ─── 9. Build the snap on Launchpad, push to the store, attach to release ────
   # The snap's `wekan` part downloads wekan-<version>-<arch>.zip from the GitHub
-  # Release, so this job runs only after `release` has published those assets.
-  # `snapcraft remote-build` builds every platform listed in snapcraft.yaml
-  # (amd64 + arm64) on Launchpad.
-  snap:
+  # Release, so these jobs run only after `release` has published those assets.
+  #
+  # snap-native + snap-launchpad replace the old single `snap` job. The mainstream
+  # arches (amd64 + arm64) build NATIVELY on GitHub-hosted runners — fast, no
+  # Launchpad queue. The exotic arches (s390x, ppc64el, riscv64) have no native
+  # GitHub runners and snapcraft cannot cross-build, so they stay on Launchpad but
+  # in a NON-BLOCKING, per-arch matrix so a slow/failed arch (riscv64 queues for
+  # hours) never holds up the release or the other arches. Each arch publishes to
+  # the Snap Store (candidate + beta + edge) and attaches to the Release the moment
+  # it finishes — all 5 arches, published independently.
+  snap-native:
     needs: [prepare, release]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - name: Verify snapcraft.yaml version matches the release
+        # snapcraft.yaml's `version:` names the produced file (wekan_<version>_<arch>.snap).
+        # Assert it matches the tag so a stale version fails fast here.
+        run: |
+          set -euo pipefail
+          if ! grep -qxF "version: '${VERSION}'" snapcraft.yaml; then
+            echo "::error::snapcraft.yaml is not at version '${VERSION}' ($(grep -m1 '^version:' snapcraft.yaml)). The bump job (releases/version.sh) did not update the tagged commit."
+            exit 1
+          fi
+          echo "snapcraft.yaml is at version '${VERSION}'."
+
+      - name: Build the ${{ matrix.arch }} snap natively
+        # Runs on a native ${{ matrix.arch }} GitHub runner, so snapcraft builds the
+        # platform whose `build-on` matches this host — no Launchpad, no emulation.
+        id: build
+        uses: snapcore/action-build@v1
+
+      - name: Verify the built snap is ${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          snap="${{ steps.build.outputs.snap }}"
+          echo "Built: $snap"
+          case "$snap" in
+            *_${{ matrix.arch }}.snap) : ;;
+            *) echo "::error::Built snap '$snap' is not ${{ matrix.arch }}."; exit 1 ;;
+          esac
+
+      - name: Push ${{ matrix.arch }} to the Snap Store (candidate + beta + edge)
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: candidate,beta,edge
+
+      - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "v${VERSION}" "${{ steps.build.outputs.snap }}" --clobber
+
+  snap-launchpad:
+    needs: [prepare, release]
+    # continue-on-error: the exotic Launchpad arches must NOT hold up or fail the
+    # release. riscv64 in particular queues for hours / can time out; that must not
+    # turn the whole release red. fail-fast: false so one arch never cancels the
+    # others. Each leg publishes the moment it finishes.
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [s390x, ppc64el, riscv64]
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -973,11 +1047,8 @@ jobs:
           fetch-depth: 0
 
       - name: Install snapcraft
-        # The Snap Store intermittently rejects the install with
-        # 'error: cannot install "snapcraft": too many requests' (a 429-style
-        # rate limit) that instantly fails the whole snap job before any build.
-        # Retry a few times so one transient store throttle does not fail the
-        # release (same spirit as the remote-build retry below).
+        # The Snap Store intermittently rejects the install with a 429-style rate
+        # limit; retry so one transient throttle does not fail the build.
         run: |
           set -uo pipefail
           for i in 1 2 3 4 5; do
@@ -997,15 +1068,6 @@ jobs:
           chmod 600 ~/.local/share/snapcraft/launchpad-credentials
 
       - name: Verify snapcraft.yaml version matches the release
-        # The `bump` job (releases/version.sh) is the single source of truth for
-        # the snap version and updates snapcraft.yaml before the tag is created.
-        # snapcraft.yaml's `version:` names the produced files
-        # (wekan_<version>_<arch>.snap), so if a stale tag carried the wrong
-        # version the build would produce wekan_<old>_*.snap and the upload/attach
-        # globs (wekan_${VERSION}_*.snap) would match nothing — passing the literal
-        # glob to `snapcraft upload` ("is not a valid file", exit 64). Assert it
-        # here so that mismatch fails fast (before a ~20 min Launchpad build) with
-        # a clear pointer, instead of re-bumping the version inside this build job.
         run: |
           set -euo pipefail
           if ! grep -qxF "version: '${VERSION}'" snapcraft.yaml; then
@@ -1014,31 +1076,26 @@ jobs:
           fi
           echo "snapcraft.yaml is at version '${VERSION}'."
 
-      - name: Build snaps on Launchpad (amd64 + arm64)
-        # `snapcraft remote-build` is experimental and talks to Launchpad over
-        # HTTPS after pushing the whole repo; it intermittently dies with a
-        # transient TLS drop (e.g. "SSLEOFError: EOF occurred in violation of
-        # protocol", exit 70) that has nothing to do with the build itself.
-        # Retry a few times so one network hiccup doesn't fail the release.
+      - name: Build the ${{ matrix.arch }} snap on Launchpad
+        # --build-for ${{ matrix.arch }}: build ONLY this leg's arch so a slow/failed
+        # arch never blocks the others. remote-build can exit 0 without producing a
+        # .snap (it just downloads logs), so require the file. Retry a few times to
+        # survive transient TLS drops to Launchpad.
         run: |
           set -uo pipefail
           shopt -s nullglob
           attempts=3
           for i in $(seq 1 "$attempts"); do
-            echo "::group::Remote build attempt $i/$attempts"
-            snapcraft remote-build --launchpad-accept-public-upload && rc=0 || rc=$?
+            echo "::group::Remote build ${{ matrix.arch }} attempt $i/$attempts"
+            snapcraft remote-build --launchpad-accept-public-upload \
+              --build-for ${{ matrix.arch }} && rc=0 || rc=$?
             echo "::endgroup::"
-            # snapcraft remote-build can exit 0 even when the Launchpad build
-            # FAILED (it just downloads the build logs and produces no .snap), so
-            # don't trust the exit code alone — require that .snap files exist.
-            snaps=( wekan_${VERSION}_*.snap )
+            snaps=( wekan_${VERSION}_${{ matrix.arch }}.snap )
             if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
-              echo "Remote build succeeded on attempt $i: ${snaps[*]}"
+              echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]}"
               exit 0
             fi
             echo "Attempt $i: snapcraft exit=$rc, .snap files produced=${#snaps[@]}."
-            # Surface the Launchpad build logs so a real build failure is
-            # diagnosable here, instead of as a later cryptic upload error.
             for log in snapcraft-wekan-*.txt; do
               echo "::group::Launchpad build log: $log (last 150 lines)"
               tail -n 150 "$log"
@@ -1049,38 +1106,34 @@ jobs:
               sleep 60
             fi
           done
-          echo "::error::Remote build failed after $attempts attempts (no wekan_${VERSION}_*.snap produced)." >&2
+          echo "::error::Remote build ${{ matrix.arch }} failed after $attempts attempts (no wekan_${VERSION}_${{ matrix.arch }}.snap produced)." >&2
           exit 1
 
-      - name: Push snaps to the Snap Store (candidate + beta + edge channels)
+      - name: Push ${{ matrix.arch }} to the Snap Store (candidate + beta + edge)
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         run: |
           set -euo pipefail
           shopt -s nullglob
-          snaps=( wekan_${VERSION}_*.snap )
+          snaps=( wekan_${VERSION}_${{ matrix.arch }}.snap )
           if [ "${#snaps[@]}" -eq 0 ]; then
-            echo "::error::No wekan_${VERSION}_*.snap files to upload."
+            echo "::error::No wekan_${VERSION}_${{ matrix.arch }}.snap to upload."
             exit 1
           fi
-          # The default snapcraft.yaml is base: core24, which allows publishing to
-          # candidate (core26 does not). This automated release publishes to
-          # candidate + beta + edge. The stable channel is NOT published here — it
-          # is done MANUALLY once the build has proven stable enough.
+          # base: core24 allows publishing to candidate (core26 does not). Stable is
+          # published MANUALLY later, once the build has proven stable enough.
           for f in "${snaps[@]}"; do
             echo "Uploading $f to the Snap Store (candidate,beta,edge)..."
             snapcraft upload --release=candidate,beta,edge "$f"
           done
 
-      - name: Attach snaps to the GitHub Release
+      - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           shopt -s nullglob
-          snaps=( wekan_${VERSION}_*.snap )
-          if [ "${#snaps[@]}" -eq 0 ]; then
-            echo "::error::No wekan_${VERSION}_*.snap files to attach."
-            exit 1
+          snaps=( wekan_${VERSION}_${{ matrix.arch }}.snap )
+          if [ "${#snaps[@]}" -gt 0 ]; then
+            gh release upload "v${VERSION}" "${snaps[@]}" --clobber
           fi
-          gh release upload "v${VERSION}" "${snaps[@]}" --clobber
