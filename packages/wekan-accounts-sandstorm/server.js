@@ -48,7 +48,10 @@ if (__meteor_runtime_config__.SANDSTORM) {
 
   if (Package["accounts-base"]) {
     Meteor.startup(async () => {
-      await Meteor.users.createIndexAsync("services.sandstorm.id", {unique: 1, sparse: 1});
+      // FerretDB (used by the Sandstorm .spk) requires boolean index options and
+      // rejects unique/sparse: 1 with "not convertible to bool" (real MongoDB accepts
+      // the truthy 1). Use real booleans so the index creation works on both.
+      await Meteor.users.createIndexAsync("services.sandstorm.id", {unique: true, sparse: true});
     });
   }
 
