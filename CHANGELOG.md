@@ -148,6 +148,17 @@ This release fixes the following bugs:
   `/var/ferretdb` and passes `--state-dir=/var/ferretdb` (plus `FERRETDB_STATE_DIR`)
   in `startFerret()`, covering both the migration and steady-state FerretDB launches.
   Thanks to xet7.
+- [Sandstorm .spk: don't crash the grain when capnp.node can't load on Node 24](https://github.com/wekan/wekan/commit/f4f22bbe24e10659cc80cd1efeb6b4890b58ea49):
+  WeKan on Sandstorm bundles Node 24, but `capnp.node` (node-capnp) is built for an
+  older Node ABI (NODE_MODULE_VERSION 83 = Node 14), so `Npm.require('capnp')` in
+  `sandstorm.js` failed with `ERR_DLOPEN_FAILED` and crash-looped the whole grain on
+  boot. Cap'n Proto is now loaded lazily in a `try/catch` and degrades gracefully:
+  the grain boots and core WeKan works, because login and user identity come from
+  the sandstorm-http-bridge `X-Sandstorm-*` HTTP headers (`wekan-accounts-sandstorm`)
+  and need no Cap'n Proto. Only the two capnp-only features are skipped when the
+  addon cannot load — the Powerbox identity-claim method and Sandstorm activity
+  notifications — with a clear warning. They can be restored by rebuilding node-capnp
+  for Node 24, or reimplemented over the bridge's HTTP/JSON API. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
