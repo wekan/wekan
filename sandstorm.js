@@ -8,8 +8,6 @@ import { Accounts } from 'meteor/accounts-base';
 // and kept referencing the old globals — which now throw "Users is not defined" at
 // server boot. Import them explicitly.
 import Users from '/models/users';
-import Boards from '/models/boards';
-import Swimlanes from '/models/swimlanes';
 import Activities from '/models/activities';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
@@ -268,30 +266,14 @@ if (isSandstorm && Meteor.isServer) {
   });
 
   async function updateUserPermissions(userId, permissions) {
-    const isActive = permissions.indexOf('participate') > -1;
+    // Multi-board Sandstorm grain: there is no single hard-coded board to add the
+    // user to, so map the grain's Sandstorm permissions to the user's GLOBAL WeKan
+    // role instead. 'configure' (the grain owner / admin) becomes a WeKan admin;
+    // everyone else is a regular user who can create and manage their own boards.
+    // (Per-board membership is handled inside WeKan when a user creates/shares a
+    // board.)
     const isAdmin = permissions.indexOf('configure') > -1;
-    const isCommentOnly = false;
-    const isNoComments = false;
-    const isWorker = false;
-    const permissionDoc = {
-      userId,
-      isActive,
-      isAdmin,
-      isNoComments,
-      isCommentOnly,
-      isWorker,
-    };
-
-    const boardMembers = ReactiveCache.getBoard(sandstormBoard._id).members;
-    const memberIndex = boardMembers.map(x => x.userId).indexOf(userId);
-
-    let modifier;
-    if (memberIndex > -1)
-      modifier = { $set: { [`members.${memberIndex}`]: permissionDoc } };
-    else if (!isActive) modifier = {};
-    else modifier = { $push: { members: permissionDoc } };
-
-    await Boards.updateAsync(sandstormBoard._id, modifier);
+    await Users.updateAsync(userId, { $set: { isAdmin } });
   }
 
   // NOTE: there used to be a WebApp.handlers.get('/') here that redirected the grain
@@ -305,22 +287,14 @@ if (isSandstorm && Meteor.isServer) {
   // the browser show a "Corrupted Content Error".)
 
   // On the first launch of the instance a user is automatically created thanks
-  // to the `accounts-sandstorm` package. After its creation we insert the
-  // unique board document. Note that when the `Users.after.insert` hook is
-  // called, the user is inserted into the database but not connected. So
+  // to the `accounts-sandstorm` package. Note that when the `Users.after.insert`
+  // hook is called, the user is inserted into the database but not connected. So
   // despite the appearances `userId` is null in this block.
   Users.after.insert(async (userId, doc) => {
-    if (!ReactiveCache.getBoard(sandstormBoard._id)) {
-      await Boards.insertAsync(sandstormBoard, { validate: false });
-      await Swimlanes.insertAsync({
-        title: 'Default',
-        boardId: sandstormBoard._id,
-      });
-      await Activities.updateAsync(
-        { activityTypeId: sandstormBoard._id },
-        { $set: { userId: doc._id } },
-      );
-    }
+    // No board is auto-created for a new grain/user: WeKan on Sandstorm is
+    // multi-board now, and the user creates their own boards from the All Boards
+    // page. (Previously a single hard-coded 'sandstorm'/libreboard board was
+    // inserted here with a Default swimlane.)
 
     // We rely on username uniqueness for the user mention feature, but
     // Sandstorm doesn't enforce this property -- see #352. Our strategy to
