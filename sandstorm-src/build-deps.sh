@@ -118,6 +118,37 @@ echo "==> [7/7] niscud + old node_modules kept for the niscu->3.0 stage:"
 ls -la "$DEPS/bin/niscud" "$DEPS/node_modules/mongodb" >/dev/null 2>&1 \
   && echo "    ok (present)" || echo "    WARNING: niscud/node_modules missing from base"
 
+echo "==> [bridge] Replace the ancient bundled sandstorm-http-bridge with a modern one"
+# The meteor-spk 0.6.0 base bundles a ~2016 sandstorm-http-bridge (pkgdef argv
+# "/sandstorm-http-bridge"). Old bridges mangle some responses - e.g. they always
+# advertise "Accept-Encoding: gzip" to the app and mishandle redirect/encoding, so
+# the grain boots but the page fails with a browser "Corrupted Content Error"
+# (NS_ERROR_NET_CORRUPTED_CONTENT) on WeKan's "/" redirect. Overwrite the bundled
+# bridge with the modern one from a Sandstorm install (Sandstorm is amd64-only, so
+# a single binary covers it). Set SANDSTORM_HTTP_BRIDGE to override the source path.
+BRIDGE_SRC=""
+for p in "${SANDSTORM_HTTP_BRIDGE:-}" \
+         /opt/sandstorm/latest/bin/sandstorm-http-bridge \
+         /opt/sandstorm/sandstorm-http-bridge; do
+  [ -n "$p" ] && [ -x "$p" ] && BRIDGE_SRC="$p" && break
+done
+if [ -n "$BRIDGE_SRC" ]; then
+  # Replace every bundled copy under the deps, wherever meteor-spk sourced it, and
+  # ensure the one at the deps root (which maps to the grain's /sandstorm-http-bridge).
+  found=0
+  while IFS= read -r b; do
+    cp -fL --remove-destination "$BRIDGE_SRC" "$b"; chmod +x "$b"; found=1
+    echo "    replaced $b"
+  done < <(find "$DEPS" -name sandstorm-http-bridge -type f 2>/dev/null)
+  cp -fL --remove-destination "$BRIDGE_SRC" "$DEPS/sandstorm-http-bridge"
+  chmod +x "$DEPS/sandstorm-http-bridge"
+  echo "    installed modern bridge from $BRIDGE_SRC (existing copies replaced: $found)"
+else
+  echo "    WARNING: no modern sandstorm-http-bridge found (looked in /opt/sandstorm)."
+  echo "    Install Sandstorm on the build host, or set SANDSTORM_HTTP_BRIDGE=/path/to/sandstorm-http-bridge."
+  echo "    Keeping the base's ancient bridge - the grain may show 'Corrupted Content Error'."
+fi
+
 echo "==> [verify] glibc: bundled libc.so.6 and ld-linux must match, and node must run under them"
 # Guards against the glibc drift that otherwise only surfaces as a grain
 # crash-loop ("undefined symbol: _dl_audit_symbind_alt, version GLIBC_PRIVATE").

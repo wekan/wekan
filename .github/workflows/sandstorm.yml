@@ -59,17 +59,21 @@ jobs:
           if [ ! -f "$HOME/.meteor/meteor" ]; then curl https://install.meteor.com/ | sh; fi
           echo "$HOME/.meteor" >> "$GITHUB_PATH"
 
+      - name: Install Sandstorm (dev, unattended)
+        # Installed BEFORE assembling the deps: build-deps.sh's [bridge] step copies
+        # the modern /opt/sandstorm/latest/bin/sandstorm-http-bridge over the ancient
+        # bundled one, so the Sandstorm install must be in place first.
+        run: curl https://install.sandstorm.io | sudo bash -s -- -d
+
       - name: Assemble modern meteor-spk.deps (Node 24 + FerretDB + Mongo 3.x CLIs)
         # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
         # niscud). build-deps.sh swaps in Node 24, adds FerretDB + the Mongo 3.x
-        # CLIs + the migration launcher/importer, and keeps niscud. No dependency
+        # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
+        # modern sandstorm-http-bridge from the Sandstorm install above. No dependency
         # on the retired releases.wekan.team or the old projects.7z.
         run: |
           bash sandstorm-src/build-deps.sh
           echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"
-
-      - name: Install Sandstorm (dev, unattended)
-        run: curl https://install.sandstorm.io | sudo bash -s -- -d
 
       - name: Restore the Sandstorm signing keyring
         env:
