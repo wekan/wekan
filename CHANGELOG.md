@@ -264,6 +264,16 @@ This release fixes the following bugs:
   reactive `Tracker.autorun` on `FlowRouter.watchPathChange()` (the same mechanism
   the title sync uses), so every route change updates the grain URL to
   `/grain/<id><path>`. Thanks to xet7.
+- [Sandstorm .spk: upload attachments over DDP (bridge strips Meteor-Files' HTTP headers)](https://github.com/wekan/wekan/commit/dc8ff6e6ca3093298d5e07f2c8726f597d672449):
+  adding a file to a card in the grain failed with HTTP 400 `Can't continue upload,
+  session expired [408]` and the file silently disappeared. Meteor-Files' HTTP
+  upload signals the first chunk with an `x-start` header and tracks the session
+  with `x-mtok`/`x-chunkid`/`x-fileid`/`x-eof`, but Sandstorm's request-header
+  whitelist does not include them, so the `sandstorm-http-bridge` strips them — the
+  server never sees `x-start`, treats every request as a chunk continuation, cannot
+  find the session and returns 408. Attachment uploads now use `transport: 'ddp'` on
+  Sandstorm (DDP method calls, no custom HTTP headers); HTTP transport is kept
+  everywhere else. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
