@@ -125,6 +125,12 @@ async function migrateNiscuToMongo3() {
   spawnSync(MONGOD3,
     ['--fork', '--port', SRC_PORT, '--dbpath', OLD_MONGO, '--noauth',
      '--bind_ip', '127.0.0.1', '--storageEngine', 'wiredTiger',
+     // Pin the WiredTiger cache. mongod 3.0 sizes it from detected RAM
+     // (RAM/2 - 1GB), but inside a Sandstorm grain sandbox RAM detection returns
+     // 0, so it computes cache_size=0G and WiredTiger aborts (minimum is 1MB) with
+     // "Fatal Assertion 28561". 0.25GB (256MB, the mongod minimum) is plenty for
+     // migration and never depends on RAM detection.
+     '--wiredTigerCacheSizeGB', '0.25',
      '--wiredTigerEngineConfigString', 'log=(prealloc=false,file_max=200KB)',
      '--logpath', MIGRATE_LOG],
     { stdio: 'inherit', env: process.env });
@@ -153,7 +159,14 @@ function migrateMongo3ToFerret() {
   console.log('** WeKan: migrating MongoDB 3 -> FerretDB (one-time) ...');
   const started = spawnSync(MONGOD3,
     ['--dbpath', OLD_MONGO, '--bind_ip', '127.0.0.1', '--port', SRC_PORT,
-     '--storageEngine', 'wiredTiger', '--fork', '--logpath', MIGRATE_LOG],
+     '--storageEngine', 'wiredTiger',
+     // Pin the WiredTiger cache to 256MB: in a Sandstorm grain sandbox mongod 3.0's
+     // RAM detection returns 0, so its default cache sizing computes cache_size=0G
+     // and WiredTiger aborts with "Value too small for key 'cache_size'" /
+     // "Fatal Assertion 28561", which is exactly why this migration crash-looped on
+     // an existing grain's data. See the niscu stage above for the same fix.
+     '--wiredTigerCacheSizeGB', '0.25',
+     '--fork', '--logpath', MIGRATE_LOG],
     { stdio: 'inherit', env: process.env });
   if (started.status !== 0 || !waitMongoReady(SRC_PORT)) {
     console.error(`** Migration: could not start/reach mongod 3.0 on the old data (see ${MIGRATE_LOG}). Old data kept; retry next start.`);
@@ -168,7 +181,12 @@ function migrateMongo3ToFerret() {
       NODE_PATH:        NODE_MODULES,
       MONGO_BIN_DIR:    MM_BIN,
       MONGO_LIB:        MM_LIB,
-      SRC_PORT, SRC_DB: 'wekan',
+      // Sandstorm WeKan grains store their data in the Meteor-default database
+      // "meteor" (the niscu -> 3.0 stage above also reads/writes "meteor", and an
+      // existing grain's WiredTiger catalog shows meteor.* collections). Only the
+      // FerretDB *target* is "wekan". Reading SRC_DB 'wekan' here migrated zero
+      // documents from a real grain.
+      SRC_PORT, SRC_DB: 'meteor',
       TARGET_MONGO_URL: `mongodb://127.0.0.1:${DB_PORT}/wekan`,
       FILES_DIR,
       MIGRATION_PORT:   APP_PORT,        // progress dashboard shown at the grain URL
