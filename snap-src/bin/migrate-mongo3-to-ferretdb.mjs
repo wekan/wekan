@@ -35,27 +35,38 @@
 // getters/re-exports intact) and honors the importer's NODE_PATH, sidestepping all of
 // the ESM default-interop quirks.
 import { createRequire } from 'node:module';
-const require = createRequire(import.meta.url);
-const mongodb = require('mongodb');
+
+// This script sits at the deps root, right next to the OLD meteor-spk 0.6.0 base
+// node_modules (bson 1.x, which has no EJSON, and an ancient mongodb that has
+// MongoClient but no EJSON re-export) kept there only for the niscu->3.0 stage. A bare
+// require/import from here resolves those adjacent copies — which is why EJSON was
+// undefined every way we tried it. WeKan's CURRENT bson and mongodb (with EJSON) live
+// under programs/server/npm/node_modules. Anchor requires inside that modern bundle
+// first, then fall back to the deps root, so we always get the EJSON-bearing versions.
+const anchors = ['programs/server/npm/node_modules/_.cjs', '_.cjs']
+  .map(rel => { try { return createRequire(new URL(rel, import.meta.url)); } catch { return null; } })
+  .filter(Boolean);
+function requireAny(spec) {
+  for (const req of anchors) { try { return req(spec); } catch {} }
+  return null;
+}
+const mongodb = requireAny('mongodb') || {};
 const { MongoClient } = mongodb;
 
-// Resolve EJSON robustly across the grain's / snap's differing node_modules layouts.
-// Try the mongodb driver's own re-export first, then its bundled bson, then a bare
-// bson — returning the diagnostic list of what was tried if none has a .parse.
+// Resolve EJSON across the grain's / snap's differing node_modules layouts, modern
+// bundle first; return a diagnostic list of what each attempt yielded on failure.
 function resolveEJSON() {
   const tries = [];
   const candidates = [
+    () => requireAny('bson')?.EJSON,
     () => mongodb.EJSON,
-    () => require('mongodb/lib/bson.js').EJSON,
-    () => require('mongodb/lib/bson').EJSON,
-    () => require('bson').EJSON,
-    () => require('bson'),
+    () => requireAny('bson')?.BSON?.EJSON,
   ];
   for (const get of candidates) {
     try {
       const e = get();
       if (e && typeof e.parse === 'function') return { ejson: e };
-      tries.push('got ' + (e && typeof e) + ' without .parse');
+      tries.push('got ' + (e === undefined ? 'undefined' : typeof e) + ' without .parse');
     } catch (err) { tries.push(err.code || err.message); }
   }
   return { ejson: null, tries };
