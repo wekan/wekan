@@ -289,6 +289,24 @@ This release fixes the following bugs:
   and the request carries the bridge-injected `X-Sandstorm-User-Id` header. Gating on
   the setting means a spoofed header cannot bypass auth on non-Sandstorm deployments.
   Thanks to xet7.
+- [Sandstorm .spk: open All Boards (not sign-in) and keep the grain URL in sync](https://github.com/wekan/wekan/commit/3ab2b9dccbf3b32dd510d4634af88a1b9eb8513c):
+  two grain-navigation regressions against the last working Sandstorm build (v6.15).
+  (1) Opening a grain showed *"Must be logged in"* instead of the All Boards page: on
+  Sandstorm the platform authenticates the user asynchronously over DDP via
+  `connection.setUserId()`, which (unlike a password login) does not set
+  `Meteor.loggingIn()`, so `Meteor.userId()` is null for the first moments after the
+  grain opens — and useraccounts' `ensureSignedIn` trigger plus `renderBoardList()`
+  both bounced that brief null window to the `atSignIn` route, a sign-in page that
+  does not exist inside a grain. `config/router.js` now uses a Sandstorm-aware
+  `ensureSignedInUnlessSandstorm` wrapper (a no-op on Sandstorm) and
+  `renderBoardList()` no longer redirects on Sandstorm; the list renders and fills in
+  reactively once the login lands. (2) The Sandstorm shell's outer grain URL did not
+  update when switching boards — the shell rewrites `/grain/<id><path>` when the app
+  posts a `{ setPath }` message, but the sync was a bare top-level `Tracker.autorun`
+  that could run before flow-router-extra's reactive path tracking was ready and then
+  never re-run. Restored v6.15's event-driven `FlowRouter.triggers.enter` (fresh
+  entering path, order-independent) and kept a `watchPathChange()` autorun wrapped in
+  `Meteor.startup` as a backup. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
