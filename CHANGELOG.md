@@ -230,6 +230,13 @@ This release fixes the following bugs:
   exists); it now maps the grain's Sandstorm permissions to the user's **global**
   WeKan role — `configure` (grain owner) becomes a WeKan admin, everyone else is a
   regular user who can create and manage their own boards. Thanks to xet7.
+- [Sandstorm .spk: set SANDSTORM=1 so the header-based auto-login runs](https://github.com/wekan/wekan/commit/b0712e6656ce33bfe7c360547185fea04660c9f7):
+  WeKan loaded in the grain but every page showed "Must be logged in". The
+  `wekan-accounts-sandstorm` client only starts the automatic `X-Sandstorm-*` header
+  login when `__meteor_runtime_config__.SANDSTORM` is set, and the package only sets
+  that when `process.env.SANDSTORM` is present — which nothing did. The launcher now
+  sets `process.env.SANDSTORM = '1'` before loading the WeKan bundle, so the client
+  auto-logs-in the Sandstorm user from the headers. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
