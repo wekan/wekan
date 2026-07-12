@@ -318,7 +318,8 @@ This release fixes the following bugs:
   3.0 stage and the 3.0 → FerretDB stage) now pass an explicit
   `--wiredTigerCacheSizeGB 1` so the cache size never depends on RAM detection
   (mongod 3.0.7 parses this option as an integer number of GB — a decimal like `0.25`
-  fails with `Bad digit "."` — and it is a cache cap, not a preallocation). The data
+  fails with `Bad digit "."`, [fixed to `1`](https://github.com/wekan/wekan/commit/0804cd19e) —
+  and it is a cache cap, not a preallocation). The data
   itself is intact (the *"unclean shutdown"* notice is harmless —
   WiredTiger recovers from the last checkpoint). (2) *Wrong source database*:
   Sandstorm WeKan grains store their data in the Meteor-default database `meteor`, but
