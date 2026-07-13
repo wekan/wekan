@@ -88,7 +88,12 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Added docs about new Sandstorm WeKan](https://github.com/wekan/wekan/commit/9f23e6384bdfa5ca81be18e4f0426c347e9894eb).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - **Sandstorm build: fixed "not writing through dangling symlink" that failed the
   `sandstorm.yml` workflow at `sandstorm-src/build-deps.sh` step [3/7]**. The
