@@ -39,11 +39,12 @@ Cover image
 
 Download
 
-1. But, if you use CloudFlare, there may be 100 MB file size upload limit,
-   so you can not upload wekan.spk to your official Sandstorm install.
-   So then you need to wait when this has some more testing, and is
-   sometime added to official Sandstorm App Market.
-2. New experimental wekan.spk install file at WeKan 9.87 or newer
+1. Please wait before there is more testing of new version, and appears to Official Sandstorm Store.
+2. Currently newest at [Experimental Sanstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true)
+3. Later will be at [Official Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h)
+4. But, if you use CloudFlare, there may be 100 MB file size upload limit,
+   it prevents uploading wekan.spk as file to your Sandstorm.
+5. New experimental wekan.spk install file at WeKan 9.87 or newer
    at https://github.com/wekan/wekan/releases
 
 ### Sandstorm Radicale: Calendars and Contacts
@@ -185,7 +186,8 @@ Install to your own server. Automatic updates, tested before release. Sandstorm 
 
 ## Wekan App
 
-Wekan at [experimental](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true) or [official](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h) Sandstorm App Market. Note: Only use official. Experimental versions are broken.
+Wekan at [experimental](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true) or
+[official](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h) Sandstorm App Market. Note: Only use official. Experimental versions are broken.
 
 Newest Wekap app .spk file download at https://releases.wekan.team/sandstorm/
 
