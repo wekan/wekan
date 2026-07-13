@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Luo taulu",
   "home": "Koti",
   "import": "Tuo",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Esiinny käyttäjänä",
   "link": "Linkitä",
   "import-board": "tuo taulu",

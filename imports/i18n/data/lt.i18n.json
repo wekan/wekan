@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Sukurti lentą",
   "home": "Pradžia",
   "import": "Importuoti",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Apsimesti naudotoju",
   "link": "Nuoroda",
   "import-board": "importo lenta",

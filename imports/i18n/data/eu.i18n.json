@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Sortu arbela",
   "home": "Hasiera",
   "import": "Inportatu",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Impersonalizar",
   "link": "Esteka",
   "import-board": "inportatu arbela",

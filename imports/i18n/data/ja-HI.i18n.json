@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "ボードの作成",
   "home": "ホーム",
   "import": "インポート",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "このユーザーとして成り代わる",
   "link": "リンク",
   "import-board": "ボードをインポート",

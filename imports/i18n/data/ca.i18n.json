@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Crea tauler",
   "home": "Inici",
   "import": "importa",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Suplantar l'usuari",
   "link": "Enllaç",
   "import-board": "Importa tauler",

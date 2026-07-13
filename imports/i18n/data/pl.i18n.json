@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Utwórz tablicę",
   "home": "Strona główna",
   "import": "Importuj",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Wciel się w tego użytkownika",
   "link": "Podłącz",
   "import-board": "importuj tablice",

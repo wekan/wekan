@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Créer un tableau",
   "home": "Accueil",
   "import": "Importer",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Utilisateur usurpé",
   "link": "Lien",
   "import-board": "importer un tableau",

@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "បង្កើតក្រុមប្រឹក្សាភិបាល",
   "home": "ផ្ទះ",
   "import": "នាំចូល",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "ក្លែងបន្លំអ្នកប្រើប្រាស់",
   "link": "តំណភ្ជាប់",
   "import-board": "បន្ទះនាំចូល",

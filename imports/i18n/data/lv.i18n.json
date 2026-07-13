@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Izveidot dēli",
   "home": "Sākums",
   "import": "Importēt",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Uzdoties par lietotāju",
   "link": "Saite",
   "import-board": "Importēt dēli",

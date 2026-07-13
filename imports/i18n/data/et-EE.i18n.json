@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Loo juhatus",
   "home": "Kodu",
   "import": "Import",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Kasutajaks kehastumine",
   "link": "Link",
   "import-board": "impordikomisjon",

@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Create Board",
   "home": "Home",
   "import": "Import",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Impersonate user",
   "link": "Link",
   "import-board": "import board",

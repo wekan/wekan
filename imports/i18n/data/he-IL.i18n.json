@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "יצירת לוח",
   "home": "בית",
   "import": "יבוא",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "התחזות למשתמש",
   "link": "קישור",
   "import-board": "ייבוא לוח",

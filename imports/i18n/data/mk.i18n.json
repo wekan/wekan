@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Креирај Табло",
   "home": "Почетна",
   "import": "Импорт",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Увуци се у налог овог корисника",
   "link": "Врска",
   "import-board": "Импортирай Табло",

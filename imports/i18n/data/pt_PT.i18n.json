@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Criar Quadro",
   "home": "Início",
   "import": "Importar",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Personificar utilizador",
   "link": "Ligação",
   "import-board": "importar quadro",

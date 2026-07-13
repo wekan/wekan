@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Opret tavle",
   "home": "Hjem",
   "import": "Importér",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Log ind som bruger",
   "link": "Link",
   "import-board": "importer tavle",

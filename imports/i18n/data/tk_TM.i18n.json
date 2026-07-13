@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Tagtany dörediň",
   "home": "Öý",
   "import": "Import",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Şahsy ulanyjy",
   "link": "Baglanyşyk",
   "import-board": "import tagtasy",

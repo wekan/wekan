@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Opprett Tavle",
   "home": "Hjem",
   "import": "Importer",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Anonymiser Bruker",
   "link": "Lenke",
   "import-board": "Importer Tavle",

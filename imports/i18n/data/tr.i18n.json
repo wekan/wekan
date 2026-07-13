@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Pano Oluşturma",
   "home": "Ana Sayfa",
   "import": "İçeri aktar",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Kullanıcının kimliğine bürün",
   "link": "Bağlantı",
   "import-board": "panoyu içe aktar",

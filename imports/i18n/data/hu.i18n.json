@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Tábla létrehozása",
   "home": "Kezdőlap",
   "import": "Importálás",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Felhasználó személytelenítése",
   "link": "Link",
   "import-board": "tábla importálása",

@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Meitsje Board",
   "home": "Thús",
   "import": "Ymport",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Imitearje brûker",
   "link": "Link",
   "import-board": "ymportearje board",

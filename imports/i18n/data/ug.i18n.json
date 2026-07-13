@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "مۇدىرىيەت قۇرۇش",
   "home": "ئۆي",
   "import": "ئەكىرىش",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "ئىشلەتكۈچىگە تەقلىد قىلىش",
   "link": "ئۇلىنىش",
   "import-board": "ئىمپورت تاختىسى",

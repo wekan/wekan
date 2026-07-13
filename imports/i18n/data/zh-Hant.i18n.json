@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "建立看板",
   "home": "首頁",
   "import": "匯入",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "模擬使用者",
   "link": "連結",
   "import-board": "匯入看板",

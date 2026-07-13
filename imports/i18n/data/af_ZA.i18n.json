@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Skep bord",
   "home": "Tuis",
   "import": "Invoer",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Verpersoonlik gebruiker",
   "link": "Skakel",
   "import-board": "invoerbord",

@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "创建板",
   "home": "家",
   "import": "进口",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "冒充用户",
   "link": "关联",
   "import-board": "进口板",

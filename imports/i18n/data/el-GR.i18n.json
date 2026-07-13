@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Δημιουργία Πίνακα",
   "home": "Αρχική",
   "import": "Εισαγωγή",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Impersona utente",
   "link": "Σύνδεσμος",
   "import-board": "Εισαγωγή πίνακα",

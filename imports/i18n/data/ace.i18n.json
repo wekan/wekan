@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Buat Panel",
   "home": "Beranda",
   "import": "Impor",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Berlakon sebagai pengguna",
   "link": "Pautan",
   "import-board": "import papan",

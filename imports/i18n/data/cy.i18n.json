@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Creu Bwrdd",
   "home": "Cartref",
   "import": "Mewnforio",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Dynwared defnyddiwr",
   "link": "Cyswllt",
   "import-board": "bwrdd mewnforio",

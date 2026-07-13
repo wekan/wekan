@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Самбар үүсгэх",
   "home": "Главная",
   "import": "Импорт",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Деперсонифицировать пользователя",
   "link": "Ссылка",
   "import-board": "импортировать доску",

@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "ایجاد برد",
   "home": "خانه",
   "import": "وارد کردن",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "جعل هویت کاربر",
   "link": "ارتباط",
   "import-board": "وارد کردن برد",

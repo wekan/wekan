@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Bord aanmaken",
   "home": "Voorpagina",
   "import": "Importeer",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Doe als gebruiker",
   "link": "Link",
   "import-board": "Importeer bord",

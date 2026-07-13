@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Tạo Bảng",
   "home": "Trang Chủ",
   "import": "Nhập khẩu",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Mạo danh người dùng",
   "link": "Liên kết",
   "import-board": "nhập bảng",

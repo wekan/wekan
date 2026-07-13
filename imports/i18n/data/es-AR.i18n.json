@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "Crear Tablero",
   "home": "Inicio",
   "import": "Importar",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "Impersonalizar",
   "link": "Enlace",
   "import-board": "importar tablero",

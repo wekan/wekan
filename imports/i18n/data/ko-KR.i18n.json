@@ -588,6 +588,8 @@
   "headerBarCreateBoardPopup-title": "보드 생성",
   "home": "홈",
   "import": "가져오기",
+  "imported-member-no-account": "Imported member — no matching account yet",
+  "inactive-member": "Inactive member",
   "impersonate-user": "사용자 사칭",
   "link": "링크",
   "import-board": "보드 가져오기",
