@@ -192,7 +192,21 @@ function exportDocs(coll, query) {
   if (query) args.push('--query', query, '--sort', '{"n":1}');
   const r = runTool(MONGOEXPORT, args);
   if (r.status !== 0) { err(`mongoexport ${coll} failed: ` + describe(r)); return []; }
-  return r.stdout.split('\n').filter(Boolean).map(l => { try { return EJSON.parse(l); } catch (e) { err('parse ' + coll + ': ' + e.message); return null; } }).filter(Boolean);
+  return r.stdout.split('\n').filter(Boolean).map(l => { try { return EJSON.parse(legacyToV2(l)); } catch (e) { err('parse ' + coll + ': ' + e.message); return null; } }).filter(Boolean);
+}
+
+// mongo 3.x mongoexport emits LEGACY (v1) Extended JSON, which modern bson's
+// EJSON.parse rejects for binary: v1 is { "$binary": "<base64>", "$type": "00" } but
+// v2 (what EJSON.parse wants) is { "$binary": { "base64": "<b64>", "subType": "00" } }.
+// That mismatch is why every attachments.chunks doc failed with "Unexpected Binary
+// Extended JSON format". Rewrite the v1 binary shape to v2 before parsing. ObjectIds
+// ($oid) and dates ($date, incl. { $date: { $numberLong } }) are accepted by
+// EJSON.parse in both forms, so only binary needs translating.
+function legacyToV2(line) {
+  return line.replace(
+    /\{\s*"\$binary"\s*:\s*"([A-Za-z0-9+/=]*)"\s*,\s*"\$type"\s*:\s*"([0-9a-fA-F]{1,2})"\s*\}/g,
+    (_m, b64, t) => `{"$binary":{"base64":"${b64}","subType":"${t.toLowerCase().padStart(2, '0')}"}}`,
+  );
 }
 
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
@@ -237,8 +251,19 @@ async function run() {
 
   const all = listCollections();
   logline(`found ${all.length} source collections in db "${SRC_DB}"`);
-  const gridFs = new Set(['cfs_gridfs.attachments.files', 'cfs_gridfs.attachments.chunks',
-    'cfs_gridfs.avatars.files', 'cfs_gridfs.avatars.chunks']);
+  // GridFS chunk/file collections are NOT migrated as text — they are reassembled to
+  // files below. This covers BOTH storage layouts a grain can hold: CollectionFS
+  // (cfs_gridfs.<bucket>.{files,chunks}) and Meteor-Files' own GridFS buckets
+  // (<bucket>.{files,chunks}). Without excluding the latter, attachments.chunks was
+  // run through the text path and every binary chunk failed to parse. The <bucket>
+  // metadata collections themselves (attachments, avatars) STAY in the text migration.
+  const gridFs = new Set([
+    'cfs_gridfs.attachments.files', 'cfs_gridfs.attachments.chunks',
+    'cfs_gridfs.avatars.files', 'cfs_gridfs.avatars.chunks',
+    'attachments.files', 'attachments.chunks',
+    'avatars.files', 'avatars.chunks',
+    'cfs._tempstore.chunks', 'cfs_gridfs._tempstore.chunks', 'cfs_gridfs._tempstore.files',
+  ]);
 
   // ── text collections (everything except the GridFS chunk/file collections) ──
   state.phase = 'migrating-collections';
@@ -304,6 +329,56 @@ async function run() {
       } catch (e) { err(`extract ${bucket}/${fid}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
     }
     logline(`${bucket}: extracted ${state.files[key].done} files (${(state.files[key].bytes / 1048576).toFixed(1)} MB)`);
+  }
+
+  // ── Meteor-Files native GridFS buckets -> filesystem ────────────────────────
+  // Newer WeKan grains store attachments/avatars in Meteor-Files' own GridFS buckets
+  // (<bucket>.files + <bucket>.chunks) with the FilesCollection record living in the
+  // <bucket> collection itself (already migrated as text above). The GridFS file's
+  // metadata.fileId is that record's _id; its metadata.versionName is the version.
+  // Reassemble each file to disk, then repoint the record's versions.<v> at the file
+  // AND drop versions.<v>.meta.gridFsFileId — otherwise WeKan's getFileStrategy keeps
+  // choosing the GridFS backend (the data no longer lives there) and the image 404s.
+  for (const [bucket, destDir, key] of [['attachments', ATTACH_DIR, 'attachments'], ['avatars', AVATAR_DIR, 'avatars']]) {
+    const filesColl = `${bucket}.files`, chunksColl = `${bucket}.chunks`;
+    if (!all.includes(filesColl) || !all.includes(chunksColl)) continue;
+    state.detail = bucket + ' (meteor-files)';
+    const gfFiles = exportDocs(filesColl);
+    logline(`${bucket} (Meteor-Files GridFS): ${gfFiles.length} files to extract -> ${destDir}`);
+    for (const gf of gfFiles) {
+      const fid = gf._id;
+      const md = gf.metadata || {};
+      const recId = md.fileId || String(fid);
+      const versionName = md.versionName || 'original';
+      const name = String(gf.filename || recId).replace(/[/\\\0]/g, '_').slice(0, 180) || 'file';
+      const dest = path.join(destDir, `${recId}-${versionName}-${name}`);
+      const size = gf.length || 0;
+      if (!hasSpace(destDir, size)) { err(`disk full extracting ${name}`); continue; }
+      try {
+        const chunks = exportDocs(chunksColl, `{"files_id":${EJSON.stringify(fid)}}`);
+        const fd = fs.openSync(dest, 'w');
+        let written = 0;
+        for (const c of chunks) {
+          const data = c.data;
+          const buf = data && data.buffer ? Buffer.from(data.buffer) : Buffer.from(data || '', 'base64');
+          fs.writeSync(fd, buf); written += buf.length;
+        }
+        fs.closeSync(fd);
+        if (!written) { fs.unlinkSync(dest); err(`meteor-files ${bucket}/${recId}: 0 bytes (no chunks)`); continue; }
+        state.files[key].done++; state.files[key].bytes += written;
+        // Repoint the already-migrated FilesCollection record at the on-disk file.
+        await db.collection(bucket).updateOne({ _id: recId }, {
+          $set: {
+            [`versions.${versionName}.path`]: dest,
+            [`versions.${versionName}.storage`]: 'fs',
+            [`versions.${versionName}.size`]: written,
+            path: dest,
+          },
+          $unset: { [`versions.${versionName}.meta.gridFsFileId`]: '' },
+        });
+      } catch (e) { err(`meteor-files ${bucket}/${recId}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
+    }
+    logline(`${bucket} (Meteor-Files): extracted ${state.files[key].done} files total (${(state.files[key].bytes / 1048576).toFixed(1)} MB)`);
   }
 
   await client.close();
