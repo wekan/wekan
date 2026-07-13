@@ -365,6 +365,36 @@ This release fixes the following bugs:
   which also moves the importer to the same modern mongodb driver the WeKan app uses
   against FerretDB. An upfront guard fails loudly with a diagnostic list if `EJSON.parse`
   is still unreachable. Thanks to xet7.
+- [Sandstorm/Snap migration: insert into FerretDB with the modern mongodb driver (OP_MSG)](https://github.com/wekan/wekan/commit/cab231ee3):
+  text collections exported and *"inserted N/N"* was logged, but every document actually
+  failed with *"Unsupported OP_QUERY command: update"* — nothing reached FerretDB.
+  `requireAny('mongodb')` had resolved the ancient meteor-spk base driver (v2.x, at the
+  deps root) because the modern driver is not directly under
+  `programs/server/npm/node_modules` — Meteor nests it at
+  `…/meteor/npm-mongo/node_modules/mongodb` (v6.16). The 2.x driver speaks legacy
+  OP_QUERY, which FerretDB rejects; the 6.x driver speaks OP_MSG (the same driver the
+  WeKan app uses against FerretDB). Add the npm-mongo path as the first resolver anchor,
+  and log the resolved driver version. Thanks to xet7.
+- [Sandstorm/Snap migration: extract Meteor-Files GridFS attachments + parse legacy v1 binary](https://github.com/wekan/wekan/commit/3476cd17c):
+  with text migrating, attachments still produced 0 files and *"parse attachments.chunks:
+  Unexpected Binary Extended JSON format"*. Two causes. (1) mongo 3.x `mongoexport` writes
+  binary as legacy Extended JSON v1 `{"$binary":"<b64>","$type":"00"}`, but modern bson
+  `EJSON.parse` only accepts v2 `{"$binary":{"base64":…,"subType":…}}` — rewrite v1→v2 per
+  line before parsing. (2) The grain stores attachments in Meteor-Files' own GridFS buckets
+  (`attachments.files` + `attachments.chunks`, with the FilesCollection record in the
+  `attachments` collection), not CollectionFS's `cfs_gridfs.*`. Reassemble those buckets to
+  disk, link each GridFS file to its record via `metadata.fileId`/`versionName`, then repoint
+  the record's `versions.<v>` at the file and drop `versions.<v>.meta.gridFsFileId` —
+  otherwise WeKan's `getFileStrategy` keeps choosing the now-empty GridFS backend and the
+  image 404s. Verified end to end on a real grain: boards/cards/lists/swimlanes migrate and
+  all 3 attachments extract and display. Thanks to xet7.
+- [Sandstorm/Snap migration: auto-open All Boards after migrating, WeKan-themed dashboard](https://github.com/wekan/wekan/commit/b8bdbcd2d):
+  the one-time progress dashboard used to sit on the grain URL for 60s after completion,
+  forcing a manual reload to reach WeKan. On success the importer now hands off quickly and
+  the done page polls `/` until WeKan's app shell answers (riding out the brief
+  importer→WeKan port hand-off) and then opens All Boards, with the spinner still spinning so
+  it is clear the grain is still working. The dashboard is also recoloured to WeKan's
+  blue/white/grey. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
