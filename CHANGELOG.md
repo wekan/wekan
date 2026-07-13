@@ -90,6 +90,23 @@ them up next.
 
 This release adds the following updates:
 
+- **Sandstorm: the WeKan Admin Panel is now always available in a migrated grain,
+  not just a freshly created one**. On Sandstorm the grain owner (Sandstorm
+  `configure` permission) is mapped to a WeKan admin, which gates the Admin Panel
+  (and Admin Panel / Attachments / Sandstorm, used to delete leftover files after
+  a migration). A brand-new grain worked because `Users.after.insert` derives the
+  role for the new user, but a grain migrated from an older WeKan already contains
+  the user, so that insert hook never runs. Sandstorm auto-login uses
+  `connection.setUserId()` (bypassing accounts-base, so `Accounts.onLogin` never
+  fires), and the only remaining hook — an `observeChanges` on `services.sandstorm`
+  — fires solely when that field actually changes on login. When the migrated
+  user's stored permissions already equal the grain's current permissions, the
+  login `$set` is a no-op with no oplog entry, so the role was never derived and
+  the owner had no Admin Panel. WeKan now reconciles this at grain startup (a
+  migrated grain reboots once migration completes): every Sandstorm user whose
+  stored permissions include `configure` is granted WeKan admin. It only promotes,
+  never revokes, so a stale/empty stored permission set can never lock the owner
+  out. Thanks to xet7.
 - **Admin Panel / Version: show the MongoDB storage engine even with
   per-database credentials (no more "unknown")**. The storage engine was read
   only from the `serverStatus` command, which requires the cluster-level

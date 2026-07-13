@@ -354,6 +354,31 @@ if (isSandstorm && Meteor.isServer) {
   });
 
   Meteor.startup(async () => {
+    // Migrated grains: a user imported from an older WeKan Sandstorm grain already
+    // exists, so `Users.after.insert` never derives their WeKan admin role, and the
+    // observeChanges hook below only re-derives isAdmin when services.sandstorm
+    // actually CHANGES on login. Sandstorm auto-login uses connection.setUserId(),
+    // which bypasses accounts-base (no Accounts.onLogin fires); and when a migrated
+    // user's stored services.sandstorm.permissions already equals the grain's
+    // current permissions, the login `$set` is a no-op that produces no oplog entry,
+    // so the change hook never fires. Old WeKan on Sandstorm had no global Admin
+    // Panel, so such users have no isAdmin flag and the grain owner cannot reach
+    // Admin Panel / Attachments / Sandstorm to delete leftover files. Reconcile at
+    // boot (a migrated grain reboots once migration completes): grant WeKan admin to
+    // every Sandstorm user whose stored permissions include the grain-owner
+    // 'configure' capability. Promote only — never revoke admin here; that is the
+    // change hook's job on a real Sandstorm permission change, so a stale/empty
+    // stored permissions set can never lock the owner out of the Admin Panel.
+    const sandstormUsers = await Users.find(
+      { 'services.sandstorm.permissions': 'configure' },
+      { fields: { isAdmin: 1 } },
+    ).fetchAsync();
+    for (const user of sandstormUsers) {
+      if (!user.isAdmin) {
+        await Users.updateAsync(user._id, { $set: { isAdmin: true } });
+      }
+    }
+
     await Users.find().observeChangesAsync({
       async changed(userId, fields) {
         const sandstormData = (fields.services || {}).sandstorm || {};
