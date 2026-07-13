@@ -239,14 +239,37 @@ export class Exporter {
         'profile.avatarUrl': 1,
       },
     };
-    result.users = (await ReactiveCache.getUsers(byUserIds, userFields))
-      .map((user) => {
-        // user avatar is stored as a relative url, we export absolute
-        if ((user.profile || {}).avatarUrl) {
-          user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
+    // Export the original members with their username + fullname + initials + avatar,
+    // but NEVER any secret (the whitelist above already excludes passwords, emails and
+    // services). For each member whose avatar is a LOCAL WeKan file, embed the file
+    // itself as base64 so the original picture round-trips through export/import without
+    // the identity provider — this reads a local file (no outbound fetch), so it works
+    // inside a Sandstorm grain too, letting a board with many already-stored avatars be
+    // exported and re-imported with every member's picture intact.
+    const usersRaw = await ReactiveCache.getUsers(byUserIds, userFields);
+    result.users = [];
+    for (const user of usersRaw) {
+      const localUrl = ((user.profile || {}).avatarUrl) || '';
+      const m = localUrl.match(/\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\/([^/?#]+)/);
+      if (m && m[1]) {
+        const avatar = await ReactiveCache.getAvatar(m[1]);
+        if (avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path) {
+          const file = await getBase64DataAsync(avatar);
+          if (file) {
+            user.profile = user.profile || {};
+            user.profile.avatarFile = file;
+            user.profile.avatarFileName = avatar.name;
+            user.profile.avatarFileType = avatar.type;
+          }
         }
-        return user;
-      });
+      }
+      // user avatar is stored as a relative url, we export absolute (kept as a fallback
+      // reference; the embedded avatarFile above is the authoritative copy on import).
+      if ((user.profile || {}).avatarUrl) {
+        user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
+      }
+      result.users.push(user);
+    }
     return result;
   }
 
@@ -383,15 +406,35 @@ export class Exporter {
     await streamArray('triggers', triggersRaw, { _id: { $in: ruleTriggerIds } }, noBoardId);
     await streamArray('actions', actionsRaw, { _id: { $in: ruleActionIds } }, noBoardId);
 
-    // Users last, once every referenced id has been collected.
+    // Users last, once every referenced id has been collected. Only safe fields
+    // (username, fullname, initials, avatarUrl) — never passwords, emails or services.
+    // Each member whose avatar is a LOCAL WeKan file also carries the file itself as
+    // base64, so the original picture round-trips through export/import (and, since it
+    // reads a local file with no outbound fetch, works inside a Sandstorm grain).
     await w(`,"users":[`);
     {
+      const avatarsRaw = require('/models/avatars').default.collection.rawCollection();
       const cursor = usersRaw.find(
         { _id: { $in: Array.from(userIds).filter(Boolean) } },
         { projection: { _id: 1, username: 1, 'profile.fullname': 1, 'profile.initials': 1, 'profile.avatarUrl': 1 } },
       );
       let i = 0;
       for await (const user of cursor) {
+        const localUrl = (user.profile && user.profile.avatarUrl) || '';
+        const m = localUrl.match(/\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\/([^/?#]+)/);
+        if (m && m[1]) {
+          const avatar = await avatarsRaw.findOne({ _id: m[1] });
+          const p = avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path;
+          if (p) {
+            try {
+              const buf = fs.readFileSync(p);
+              user.profile = user.profile || {};
+              user.profile.avatarFile = buf.toString('base64');
+              user.profile.avatarFileName = avatar.name;
+              user.profile.avatarFileType = avatar.type;
+            } catch (e) { /* unreadable avatar file — export URL only */ }
+          }
+        }
         if (user.profile && user.profile.avatarUrl) {
           user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
         }
