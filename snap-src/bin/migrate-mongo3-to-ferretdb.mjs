@@ -124,26 +124,50 @@ http.createServer((req, res) => {
   if (req.url === '/json') { res.setHeader('content-type', 'application/json'); return res.end(JSON.stringify(state, null, 2)); }
   const cols = Object.entries(state.collections)
     .map(([n, c]) => `<tr><td>${esc(n)}</td><td>${c.done}</td><td>${c.total ?? '?'}</td></tr>`).join('');
-  const color = state.success === true ? '#7f7' : state.success === false ? '#f77' : '#7bf';
+  const color = state.success === true ? '#27ae60' : state.success === false ? '#c0392b' : '#2980b9';
   res.setHeader('content-type', 'text/html');
   const running = state.success === null;
-  const spinner = running
-    ? '<span style="display:inline-block;width:1em;height:1em;border:3px solid #345;border-top-color:#7bf;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle"></span>'
-    : (state.success ? '✅' : '❌');
-  res.end(`<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=refresh content=2>
-<title>WeKan Migration</title><style>body{font-family:monospace;background:#111;color:#ddd;padding:1em 2em}
-td,th{padding:3px 10px;border-bottom:1px solid #333;text-align:left}
-@keyframes spin{to{transform:rotate(360deg)}}</style></head><body>
-<h1 style="color:#7bf">${spinner} WeKan Migration: MongoDB 3 &rarr; FerretDB v1 (SQLite)</h1>
-<p>Started ${state.startedAt} · updated ${new Date().toISOString()} · errors ${state.errors.length}</p>
-<p style="font-size:1.3em;color:${color}">Phase: <b>${esc(state.phase)}</b> ${esc(state.detail)}</p>
+  const doneOk = state.success === true;
+  const spin = '<span style="display:inline-block;width:1em;height:1em;border:3px solid #d6e4ef;border-top-color:#2980b9;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle"></span>';
+  // Spinner keeps spinning through the hand-off to WeKan (running OR done-ok), so it is
+  // clear the grain is still working while it opens; a red ✗ only for failure.
+  const spinner = (running || doneOk) ? spin : '❌';
+  // While migrating, meta-refresh keeps the page live. Once it succeeds we DON'T
+  // meta-refresh (a refresh during the importer→WeKan port hand-off would hit a dead
+  // port and strand the user); instead a JS poller (below) waits out the gap and opens
+  // All Boards as soon as WeKan answers. On failure, keep refreshing so errors update.
+  const metaRefresh = doneOk ? '' : '<meta http-equiv=refresh content=2>';
+  const handoff = doneOk ? `<script>
+    (function poll(){
+      fetch('/', { cache: 'no-store' }).then(function(r){ return r.text(); }).then(function(t){
+        // WeKan is up once '/' is its app shell (has __meteor_runtime_config__) rather
+        // than this dashboard. Then open All Boards.
+        if (t.indexOf('__meteor_runtime_config__') !== -1 || t.indexOf('WeKan Migration') === -1) {
+          location.replace('/');
+        } else { setTimeout(poll, 1500); }
+      }).catch(function(){ setTimeout(poll, 1500); }); // connection gap during hand-off — retry
+    })();
+  </script>` : '';
+  res.end(`<!DOCTYPE html><html><head><meta charset=utf-8>${metaRefresh}
+<title>WeKan Migration</title><style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#eceff1;color:#2c3e50;padding:1.5em 2em;margin:0}
+h1{color:#2980b9;font-size:1.5em} h2{color:#2980b9;font-size:1.05em;margin:1.2em 0 .4em;border-bottom:2px solid #d6e4ef;padding-bottom:.2em}
+.card{background:#fff;border:1px solid #d6e4ef;border-radius:6px;padding:1em 1.4em;max-width:960px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+table{border-collapse:collapse;width:100%} td,th{padding:3px 10px;border-bottom:1px solid #e4e9ed;text-align:left} th{color:#5f6b76;font-weight:600}
+.muted{color:#7f8c9a;font-size:.9em}
+pre{background:#f4f6f8;color:#2c3e50;border:1px solid #dfe4e8;border-radius:4px;padding:8px;max-height:16em;overflow:auto;white-space:pre-wrap}
+@keyframes spin{to{transform:rotate(360deg)}}</style></head><body><div class="card">
+<h1>${spinner} WeKan Migration: MongoDB 3 &rarr; FerretDB v1 (SQLite)</h1>
+<p class="muted">Started ${state.startedAt} · updated ${new Date().toISOString()} · errors ${state.errors.length}</p>
+${doneOk ? '<p style="font-size:1.3em;color:#27ae60">✅ Migration complete — starting WeKan and opening All Boards…</p>' : ''}
+<p style="font-size:1.3em;color:${color}">Phase: <b>${esc(state.phase)}</b> ${esc(state.detail)}</p>${handoff}
 <h2>Text collections</h2><table><tr><th>Collection</th><th>Inserted</th><th>Total</th></tr>${cols}</table>
 <h2>Files</h2><table><tr><th>Type</th><th>Files</th><th>MB</th></tr>
 <tr><td>attachments</td><td>${state.files.attachments.done}</td><td>${(state.files.attachments.bytes / 1048576).toFixed(1)}</td></tr>
 <tr><td>avatars</td><td>${state.files.avatars.done}</td><td>${(state.files.avatars.bytes / 1048576).toFixed(1)}</td></tr></table>
-<h2>Activity</h2><pre style="background:#000;color:#9f9;padding:8px;max-height:16em;overflow:auto;white-space:pre-wrap">${state.log.slice(-15).map(esc).join('\n') || '(waiting…)'}</pre>
-<h2>Errors</h2>${state.errors.slice(-15).reverse().map(e => `<div style="color:#f77">${esc(e)}</div>`).join('') || '<p>None</p>'}
-</body></html>`);
+<h2>Activity</h2><pre>${state.log.slice(-15).map(esc).join('\n') || '(waiting…)'}</pre>
+<h2>Errors</h2>${state.errors.slice(-15).reverse().map(e => `<div style="color:#c0392b">${esc(e)}</div>`).join('') || '<p class="muted">None</p>'}
+</div></body></html>`);
 }).listen(PORT, () => console.log(`[migrate3] progress at http://localhost:${PORT}`));
 
 // ── run a mongo CLI tool with the old libraries on LD_LIBRARY_PATH ────────────
@@ -387,5 +411,11 @@ async function run() {
   writeStatus();
 }
 
-run().then(() => { setTimeout(() => process.exit(state.success ? 0 : 1), 60000); })
+run().then(() => {
+  // On success, exit soon so start.js can boot WeKan on this port — long enough
+  // (> the 2s dashboard refresh) for the browser to fetch the done page and start its
+  // poller, which then survives the hand-off gap and opens All Boards. On failure, stay
+  // up a minute so the admin can read the errors on the dashboard.
+  setTimeout(() => process.exit(state.success ? 0 : 1), state.success ? 5000 : 60000);
+})
      .catch(e => { err('Fatal: ' + e.stack); state.phase = 'error'; state.success = false; writeStatus(); setTimeout(() => process.exit(1), 5000); });
