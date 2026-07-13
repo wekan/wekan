@@ -33,7 +33,8 @@
     "test:playwright:ui": "cd tests/playwright && npx playwright test --ui",
     "test:playwright:all": "cd tests/playwright && WEKAN_PLAYWRIGHT_ALL=1 npx playwright test --project=chromium --project=firefox --project=webkit",
     "test:playwright:report": "cd tests/playwright && npx playwright show-report",
-    "playwright:install": "cd tests/playwright && npx playwright install --with-deps"
+    "playwright:install": "cd tests/playwright && npx playwright install --with-deps",
+    "postinstall": "node scripts/patch-yargs-dirname.cjs"
   },
   "devDependencies": {
     "@meteorjs/rspack": "^2.0.1",
