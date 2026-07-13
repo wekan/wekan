@@ -23,6 +23,8 @@ Migrating old MongoDB 3 data
 - If there is old WeKan data, it is automatically migrated when opening old WeKan grain.
   Attachments are migrated from MongoDB to files/attachments.
   Text data is migrated from MongoDB to SQLite at files/db/wekan.sqlite .
+- After migrating, you may get error, that browser can not open that page embedded to other page.
+  So you need to close WeKan grain and open it again. Sorry, trying to fix it later.
 
 After migrating, free some disk space
 
