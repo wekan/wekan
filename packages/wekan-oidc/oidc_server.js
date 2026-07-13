@@ -54,6 +54,10 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   serviceData.id = userinfo[process.env.OAUTH2_ID_MAP]; // || userinfo["id"];
   serviceData.username = userinfo[process.env.OAUTH2_USERNAME_MAP]; // || userinfo["uid"];
   serviceData.fullname = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
+  // Capture the provider's avatar. `picture` is a standard OpenID Connect claim (a URL);
+  // allow an override map for providers that use a different key. WeKan then localizes it
+  // into files/avatars (app board-open trigger) so it shows and is carried by export.
+  serviceData.picture = userinfo[process.env.OAUTH2_AVATAR_MAP || 'picture'] || userinfo['picture'] || null;
   serviceData.accessToken = accessToken;
   serviceData.expiresAt = expiresAt;
 
@@ -99,6 +103,7 @@ OAuth.registerService('oidc', 2, null, async function (query) {
 
   profile.name = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
   profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
+  if (serviceData.picture) profile.avatarUrl = serviceData.picture; // localized on board open
 
   if (process.env.OAUTH2_B2C_ENABLED  === 'true'  || process.env.OAUTH2_B2C_ENABLED  === true) {
     profile.email = userinfo["emails"][0];

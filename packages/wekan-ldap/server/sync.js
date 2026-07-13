@@ -281,6 +281,46 @@ export async function syncUserData(user, ldapUser) {
     }
   }
 
+  // Import the LDAP photo (jpegPhoto / thumbnailPhoto) as the user's WeKan avatar so it
+  // shows in WeKan and is carried by board export/import. The photo is binary, so store
+  // it as a self-contained data: URI in profile.avatarUrl (displays immediately, no
+  // coupling to app code from this package); the app's board-open trigger then copies it
+  // into a real files/avatars file via the SSRF-safe localizer and repoints avatarUrl.
+  // Only set it when the user does not already have a locally-stored WeKan avatar, so a
+  // user's own uploaded avatar is not clobbered on every login.
+  try {
+    const photo = getLdapPhotoBuffer(ldapUser);
+    if (photo && user && user._id) {
+      const current = (user.profile && user.profile.avatarUrl) || '';
+      const alreadyLocal = current.includes('/cdn/storage/avatars/') || current.includes('/cfs/files/avatars/');
+      if (!alreadyLocal) {
+        const dataUri = 'data:image/jpeg;base64,' + photo.toString('base64');
+        log_info('Syncing user LDAP avatar photo');
+        await Meteor.users.updateAsync({ _id: user._id }, { $set: { 'profile.avatarUrl': dataUri } });
+      }
+    }
+  } catch (e) {
+    log_debug('LDAP photo import skipped:', e && e.message);
+  }
+
+}
+
+// Extract the raw LDAP photo bytes (jpegPhoto / thumbnailPhoto) as a Buffer, tolerating
+// the different shapes ldapjs / the entry wrapper may produce (Buffer, array of Buffers,
+// { type:'Buffer', data:[…] }, or a base64 string). Returns a Buffer or null.
+function getLdapPhotoBuffer(ldapUser) {
+  const sources = [ldapUser && ldapUser._raw, ldapUser].filter(Boolean);
+  for (const src of sources) {
+    for (const key of ['jpegPhoto', 'thumbnailPhoto']) {
+      let v = src[key];
+      if (Array.isArray(v)) v = v[0];
+      if (!v) continue;
+      if (Buffer.isBuffer(v)) return v;
+      if (v && v.type === 'Buffer' && Array.isArray(v.data)) return Buffer.from(v.data);
+      if (typeof v === 'string' && v.length > 32) { try { return Buffer.from(v, 'base64'); } catch (e) { /* not base64 */ } }
+    }
+  }
+  return null;
 }
 
 export async function addLdapUser(ldapUser, username, password) {
