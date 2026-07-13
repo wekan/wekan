@@ -7,6 +7,7 @@ import Boards from '/models/boards';
 import { BOARD_COLORS, CARD_COLORS, SWIMLANE_COLORS } from '/models/metadata/colors';
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
+import { planImportedBoardMember } from '/models/lib/importedBoardMemberPlan';
 import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
 import ChecklistItems from '/models/checklistItems';
@@ -360,21 +361,11 @@ export class WekanCreator {
     // list but hold no permissions until reconciled — a wrong/auto mapping must never
     // silently grant board access. The importer stays the sole active admin.
     if (boardToImport.members) {
+      const importerId = Meteor.userId();
       boardToImport.members.forEach(wekanMember => {
-        const memberId = wekanMember.wekanId || wekanMember.userId || wekanMember.id;
-        if (
-          memberId &&
-          memberId !== Meteor.userId() &&
-          !boardToCreate.members.some(member => member.wekanId === memberId)
-        ) {
-          const mapped = !!wekanMember.wekanId; // true only when a real mapping was given
-          boardToCreate.members.push({
-            ...wekanMember,
-            userId: memberId,
-            wekanId: memberId,
-            isActive: mapped ? wekanMember.isActive !== false : false,
-            isAdmin: mapped ? !!wekanMember.isAdmin : false,
-          });
+        const entry = planImportedBoardMember(wekanMember, importerId);
+        if (entry && !boardToCreate.members.some(member => member.wekanId === entry.wekanId)) {
+          boardToCreate.members.push(entry);
         }
       });
     }

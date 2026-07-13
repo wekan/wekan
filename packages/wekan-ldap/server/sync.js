@@ -3,6 +3,7 @@ import limax from 'limax';
 import LDAP from './ldap';
 import { slugifyPreservingHyphens } from './usernameSlug';
 import { log_debug, log_info, log_warn, log_error } from './logger';
+import { getLdapPhotoBuffer } from './ldapPhoto';
 
 Object.defineProperty(Object.prototype, "getLDAPValue", {
   value: function (prop) {
@@ -303,24 +304,6 @@ export async function syncUserData(user, ldapUser) {
     log_debug('LDAP photo import skipped:', e && e.message);
   }
 
-}
-
-// Extract the raw LDAP photo bytes (jpegPhoto / thumbnailPhoto) as a Buffer, tolerating
-// the different shapes ldapjs / the entry wrapper may produce (Buffer, array of Buffers,
-// { type:'Buffer', data:[…] }, or a base64 string). Returns a Buffer or null.
-function getLdapPhotoBuffer(ldapUser) {
-  const sources = [ldapUser && ldapUser._raw, ldapUser].filter(Boolean);
-  for (const src of sources) {
-    for (const key of ['jpegPhoto', 'thumbnailPhoto']) {
-      let v = src[key];
-      if (Array.isArray(v)) v = v[0];
-      if (!v) continue;
-      if (Buffer.isBuffer(v)) return v;
-      if (v && v.type === 'Buffer' && Array.isArray(v.data)) return Buffer.from(v.data);
-      if (typeof v === 'string' && v.length > 32) { try { return Buffer.from(v, 'base64'); } catch (e) { /* not base64 */ } }
-    }
-  }
-  return null;
 }
 
 export async function addLdapUser(ldapUser, username, password) {

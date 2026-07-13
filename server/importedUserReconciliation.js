@@ -6,6 +6,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Activities from '/models/activities';
 import CardComments from '/models/cardComments';
+import { planReconciliation } from '/models/lib/importedUserReconciliationPlan';
 
 // ============================================================================
 // Imported-user reconciliation
@@ -82,26 +83,26 @@ async function deactivatePlaceholder(placeholderId) {
 // username, not itself, not another placeholder), else leave inactive. Returns a report.
 export async function reconcileImportedUsers() {
   if (!Meteor.isServer) return { merged: 0, deactivated: 0 };
-  const placeholders = await Users.find({ authenticationMethod: 'imported' }).fetchAsync();
-  let merged = 0;
-  let deactivated = 0;
-  for (const ph of placeholders) {
-    const real = ph.username
-      ? await Users.findOneAsync({
-          username: ph.username,
-          _id: { $ne: ph._id },
-          authenticationMethod: { $ne: 'imported' },
-        })
-      : null;
-    if (real) {
-      await mergeImportedUserInto(ph._id, real._id);
-      merged += 1;
-    } else {
-      await deactivatePlaceholder(ph._id);
-      deactivated += 1;
-    }
+  const placeholders = await Users.find(
+    { authenticationMethod: 'imported' },
+    { fields: { _id: 1, username: 1 } },
+  ).fetchAsync();
+  const usernames = placeholders.map(p => p.username).filter(Boolean);
+  const realUsers = usernames.length
+    ? await Users.find(
+        { username: { $in: usernames } },
+        { fields: { _id: 1, username: 1, authenticationMethod: 1 } },
+      ).fetchAsync()
+    : [];
+  // Decide merges/deactivations with the pure planner (unit-tested separately), then act.
+  const { merges, deactivations } = planReconciliation(placeholders, realUsers);
+  for (const { placeholderId, targetId } of merges) {
+    await mergeImportedUserInto(placeholderId, targetId);
   }
-  return { merged, deactivated, total: placeholders.length };
+  for (const placeholderId of deactivations) {
+    await deactivatePlaceholder(placeholderId);
+  }
+  return { merged: merges.length, deactivated: deactivations.length, total: placeholders.length };
 }
 
 if (Meteor.isServer) {

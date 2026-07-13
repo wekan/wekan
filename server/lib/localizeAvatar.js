@@ -2,7 +2,15 @@ import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Avatars from '/models/avatars';
 import dns from 'dns';
-import net from 'net';
+import {
+  isExternalAvatarUrl,
+  isBlockedIp,
+  decodeDataUri,
+  checkUrlHostSync,
+} from '/models/lib/avatarUrlSafety';
+
+// Re-export so existing importers of isExternalAvatarUrl keep working.
+export { isExternalAvatarUrl };
 
 // ============================================================================
 // Avatar localization
@@ -20,80 +28,23 @@ import net from 'net';
 // loopback, link-local or cloud-metadata address.
 // ============================================================================
 
-// A local, already-WeKan-served avatar. Matches both the universal short URL
-// (/cdn/storage/avatars/<id>) and the legacy CollectionFS one (/cfs/files/avatars/…),
-// with or without an origin/prefix in front.
-const LOCAL_AVATAR_RE = /\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\//i;
-
 // Cap the download so a hostile or broken URL cannot exhaust memory. Avatars are
 // tiny; WeKan's own avatar upload limit is ~72 KB, but allow some headroom for
 // provider images that WeKan may downscale later.
 const MAX_AVATAR_BYTES = 5 * 1024 * 1024;
 const FETCH_TIMEOUT_MS = 8000;
 
-export function isExternalAvatarUrl(url) {
-  if (!url || typeof url !== 'string') return false;
-  if (LOCAL_AVATAR_RE.test(url)) return false;
-  // data: URIs are already self-contained (not fetched over the network); treat
-  // them as external so they get materialised to a file too.
-  if (/^data:/i.test(url)) return true;
-  return /^https?:\/\//i.test(url);
-}
-
-// SSRF guard: reject any address that is not a normal public host.
-function isBlockedIp(ip) {
-  if (net.isIPv4(ip)) {
-    const p = ip.split('.').map(Number);
-    if (p[0] === 10) return true;                                  // 10.0.0.0/8
-    if (p[0] === 127) return true;                                 // loopback
-    if (p[0] === 0) return true;                                   // 0.0.0.0/8
-    if (p[0] === 169 && p[1] === 254) return true;                 // link-local + cloud metadata
-    if (p[0] === 172 && p[1] >= 16 && p[1] <= 31) return true;     // 172.16.0.0/12
-    if (p[0] === 192 && p[1] === 168) return true;                 // 192.168.0.0/16
-    if (p[0] === 100 && p[1] >= 64 && p[1] <= 127) return true;    // 100.64.0.0/10 CGNAT
-    if (p[0] >= 224) return true;                                  // multicast / reserved
-    return false;
-  }
-  if (net.isIPv6(ip)) {
-    const s = ip.toLowerCase();
-    if (s === '::1' || s === '::') return true;                    // loopback / unspecified
-    if (s.startsWith('fe80')) return true;                         // link-local
-    if (s.startsWith('fc') || s.startsWith('fd')) return true;     // unique local fc00::/7
-    if (s.startsWith('::ffff:')) return isBlockedIp(s.slice(7));   // IPv4-mapped
-    return false;
-  }
-  return true; // not a recognisable IP → be safe and block
-}
-
+// Full SSRF guard: synchronous protocol/IP-literal/localhost checks (shared, pure) plus
+// hostname DNS resolution that blocks if ANY resolved address is private/loopback.
 async function assertSafePublicUrl(url) {
-  let u;
-  try { u = new URL(url); } catch { throw new Error('invalid URL'); }
-  if (u.protocol !== 'http:' && u.protocol !== 'https:') {
-    throw new Error(`blocked protocol ${u.protocol}`);
-  }
-  const host = u.hostname.replace(/^\[|\]$/g, ''); // strip IPv6 brackets
-  if (net.isIP(host)) {
-    if (isBlockedIp(host)) throw new Error(`blocked address ${host}`);
-    return;
-  }
-  if (host === 'localhost' || host.endsWith('.localhost')) throw new Error('blocked host localhost');
-  // Resolve the hostname and block if ANY resolved address is private/loopback.
-  const addrs = await dns.promises.lookup(host, { all: true }).catch(() => []);
-  if (!addrs.length) throw new Error(`cannot resolve ${host}`);
+  const res = checkUrlHostSync(url);
+  if (!res.ok) throw new Error(res.reason);
+  if (!res.needsDnsCheck) return;
+  const addrs = await dns.promises.lookup(res.host, { all: true }).catch(() => []);
+  if (!addrs.length) throw new Error(`cannot resolve ${res.host}`);
   for (const a of addrs) {
-    if (isBlockedIp(a.address)) throw new Error(`blocked resolved address ${a.address} for ${host}`);
+    if (isBlockedIp(a.address)) throw new Error(`blocked resolved address ${a.address} for ${res.host}`);
   }
-}
-
-// Decode a data: URI into { buffer, type }.
-function decodeDataUri(url) {
-  const m = /^data:([^;,]*)(;base64)?,(.*)$/is.exec(url);
-  if (!m) throw new Error('invalid data URI');
-  const type = m[1] || 'application/octet-stream';
-  const buffer = m[2]
-    ? Buffer.from(m[3], 'base64')
-    : Buffer.from(decodeURIComponent(m[3]), 'utf8');
-  return { buffer, type };
 }
 
 // Fetch bytes for an avatar URL (or decode a data: URI), with SSRF guards, a
