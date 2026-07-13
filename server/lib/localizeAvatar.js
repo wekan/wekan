@@ -179,3 +179,28 @@ export async function localizeUserAvatarIfExternal(userOrId) {
   if (!isExternalAvatarUrl(url)) return null;
   return await localizeAvatarFromUrl(user._id, url);
 }
+
+// Guards against re-fetching the same user's avatar while a localization is already
+// running (e.g. rapid board re-subscribes), so a member's external avatar is copied
+// in at most once.
+const inProgress = new Set();
+
+// Localize every board member's external avatar. Best-effort, fire-and-forget: this
+// is the universal catch-all trigger — no matter how a member's avatar became external
+// (Sandstorm, LDAP, OAuth2/OIDC, a pasted URL), opening the board copies it into
+// WeKan's own files/avatars so it displays without the provider and is exportable.
+export async function localizeBoardMemberAvatars(boardId) {
+  if (!Meteor.isServer || !boardId) return;
+  const board = await ReactiveCache.getBoard(boardId);
+  if (!board || !Array.isArray(board.members)) return;
+  for (const m of board.members) {
+    const uid = m && m.userId;
+    if (!uid || inProgress.has(uid)) continue;
+    const user = await ReactiveCache.getUser(uid);
+    if (!user || !isExternalAvatarUrl(user.profile && user.profile.avatarUrl)) continue;
+    inProgress.add(uid);
+    try { await localizeUserAvatarIfExternal(user); }
+    catch (e) { if (process.env.DEBUG === 'true') console.warn('localizeBoardMemberAvatars:', uid, e.message); }
+    finally { inProgress.delete(uid); }
+  }
+}

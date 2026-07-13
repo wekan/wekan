@@ -10,6 +10,7 @@ import Org from "../../models/org";
 import Team from "../../models/team";
 import Attachments from '../../models/attachments';
 import Boards from '/models/boards';
+import { localizeBoardMemberAvatars } from '/server/lib/localizeAvatar';
 
 // When CARDS_LOADING=lazy (Admin Panel / Features), the board publication must
 // NOT ship every card / checklist into the client's minimongo — each list loads
@@ -344,6 +345,12 @@ Meteor.publish('archivedBoards', async function() {
 publishComposite('board', async function(boardId, isArchived) {
   check(boardId, String);
   check(isArchived, Boolean);
+
+  // Best-effort, fire-and-forget: copy any board member's external avatar (Sandstorm
+  // profile picture, LDAP/OAuth2/OIDC, a pasted URL) into WeKan's own files/avatars so
+  // it displays without the identity provider and is carried by board export/import.
+  // Idempotent (skips already-local avatars) and never blocks the publication.
+  localizeBoardMemberAvatars(boardId).catch(() => {});
 
   const thisUserId = this.userId;
   const $or = [{ permission: 'public' }];
