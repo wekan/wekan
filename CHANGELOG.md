@@ -86,7 +86,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# Upcoming WeKan ® release
+# v9.89 2026-07-13 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of
 [SortBleed](https://wekan.fi/hall-of-fame/sortbleed/):
@@ -120,9 +120,9 @@ This release fixes the following CRITICAL SECURITY ISSUE of
     board document. CVSS:3.1 8.8 High (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H).
   - Affected Wekan v9.85 and earlier through the current release; fixed at the upcoming WeKan release.
     Reported by **5ud0 / Tarmo Technologies**.
-  Thanks to 5ud0 / Tarmo Technologies and xet7!
+  Thanks to 5ud0 / Tarmo Technologies and xet7.
 
-This release adds the following updates:
+and adds the following updates:
 
 - Update Sandstorm WeKan info.
   [Part 1](https://github.com/wekan/wekan/commit/1bf68f54b29ab29a54abb90f777a88be4aa45d7e),
