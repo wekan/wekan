@@ -86,6 +86,15 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update Sandstorm WeKan info](https://github.com/wekan/wekan/commit/1bf68f54b29ab29a54abb90f777a88be4aa45d7e).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.88 2026-07-13 WeKan ® release
 
 This release adds the following new features:
