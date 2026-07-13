@@ -22,6 +22,9 @@ Boards.allow({
 });
 
 // All logged in users are allowed to reorder boards by dragging at All Boards page and Public Boards page.
+// SortBleed (GHSA-xm8x-c8wg-jhmf): canUpdateBoardSort only approves updates that
+// touch the 'sort' field and NOTHING else, so a board member can never smuggle a
+// members/permission/title change into the same modifier as sort.
 Boards.allow({
   update(userId, board, fieldNames) {
     return canUpdateBoardSort(userId, board, fieldNames);
@@ -43,6 +46,20 @@ Boards.deny({
 Boards.deny({
   update(userId, doc, fieldNames, modifier) {
     if (!(fieldNames || []).includes('members')) return false;
+
+    // Defense in depth (SortBleed, GHSA-xm8x-c8wg-jhmf): a wholesale
+    // `$set: { members: [...] }` rewrite bypasses the $pull check below, so it
+    // could drop the last active admin (evicting the legitimate owner). Reject
+    // any $set of the members array that does not keep at least one active
+    // admin, whenever the board currently has one.
+    const setMembers = modifier.$set && modifier.$set.members;
+    if (Array.isArray(setMembers)) {
+      const hadAdmin =
+        where(doc.members, { isActive: true, isAdmin: true }).length > 0;
+      const keepsAdmin =
+        where(setMembers, { isActive: true, isAdmin: true }).length > 0;
+      if (hadAdmin && !keepsAdmin) return true;
+    }
 
     // We only care in case of a $pull operation, ie remove a member
     const pullMembers = modifier.$pull && modifier.$pull.members;

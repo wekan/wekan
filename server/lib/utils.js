@@ -122,10 +122,22 @@ export async function allowIsBoardMemberByCard(userId, card) {
 // Policy: can a user update a board's 'sort' field?
 // Requirements:
 //  - user must be authenticated
-//  - update must include 'sort' field
+//  - update must touch ONLY the 'sort' field (nothing else)
 //  - user must be a member of the board
+//
+// Security (SortBleed, GHSA-xm8x-c8wg-jhmf): this rule is OR'd with the
+// admin-only `allowIsBoardAdmin` update rule (server/permissions/boards.js) so
+// that any board member can drag-reorder boards. Meteor applies the WHOLE
+// modifier once any allow rule approves and no deny rule rejects, and it does
+// NOT scope the approving rule to the field that satisfied it. If this helper
+// merely checked that 'sort' was AMONG the modified fields, a low-privilege
+// (comment-only / read-only) member could smuggle arbitrary board mutations
+// (members, permission, title, ...) into the same $set as sort and take over
+// the board. Requiring 'sort' to be the SOLE modified field means this rule can
+// never approve a modifier that also changes any other field.
 export function canUpdateBoardSort(userId, board, fieldNames) {
-  return !!userId && (fieldNames || []).includes('sort') && allowIsBoardMember(userId, board);
+  const fields = fieldNames || [];
+  return !!userId && fields.length === 1 && fields[0] === 'sort' && allowIsBoardMember(userId, board);
 }
 
 // Issue #5998: the REST board-member endpoints historically took eight separate

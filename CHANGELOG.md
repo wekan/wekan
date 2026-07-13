@@ -88,6 +88,40 @@ them up next.
 
 # Upcoming WeKan ® release
 
+This release fixes the following CRITICAL SECURITY ISSUE of
+[SortBleed](https://wekan.fi/hall-of-fame/sortbleed/):
+
+- **[SortBleed](https://github.com/wekan/wekan/security/advisories/GHSA-xm8x-c8wg-jhmf):
+  a low-privilege (comment-only / read-only) board member could escalate to board admin and take
+  over a private board via the board `sort` collection-allow rule**
+  ([GHSA-xm8x-c8wg-jhmf](https://github.com/wekan/wekan/security/advisories/GHSA-xm8x-c8wg-jhmf),
+  CWE-863 Incorrect Authorization, CWE-269 Improper Privilege Management). Same broken-access-control
+  class as [BoardBleed](https://wekan.fi/hall-of-fame/boardbleed/) (CVE-2026-55234) — a Meteor
+  collection allow-rule field conflation — but on the Board document itself. To support drag-to-reorder
+  on the All Boards / Public Boards pages, a second `Boards.allow({ update })` rule returned `true` for
+  any board member whenever the update touched the `sort` field. Meteor evaluates allow rules with OR
+  semantics and does **not** scope an approving rule to the field that satisfied it: once any allow
+  callback returns `true` and no deny callback returns `true`, the **entire** modifier is applied.
+  Because `canUpdateBoardSort` only checked that `sort` was **among** the modified fields (not that it
+  was the **only** one), a comment-only / read-only member could smuggle arbitrary board mutations into
+  the same `$set` as `sort` in a single unprivileged DDP `Boards.update` call:
+  `{$set: {sort: 99, members: [...only themselves as admin...], permission: 'public', title: '...'}}`.
+  The member could therefore make themselves board admin, flip a private board to public (world-readable
+  in Wekan), rename it, and evict the legitimate owner. The last-admin deny rule did not help because it
+  only inspected `$pull`, so a wholesale `$set` of the `members` array bypassed it entirely.
+  - **Fixed** by restricting `canUpdateBoardSort` (`server/lib/utils.js`) so the sort-reorder rule
+    approves an update **only** when `sort` is the sole modified field (`fieldNames` is exactly
+    `['sort']`) — it can no longer approve a modifier that also mutates `members`, `permission`, `title`
+    or anything else. As defense in depth, the last-admin deny rule (`server/permissions/boards.js`) now
+    also rejects a `$set` rewrite of the `members` array that would drop the last active admin, not just
+    a `$pull`. A regression test covers the multi-field smuggling case
+    (`server/lib/tests/boards.security.tests.js`). The legitimate All Boards drag-reorder is unaffected:
+    it persists the order per-user in `profile.boardSortIndex` (`Users.setBoardSortIndex`), not in the
+    board document. CVSS:3.1 8.8 High (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H).
+  - Affected Wekan v9.85 and earlier through the current release; fixed at the upcoming WeKan release.
+    Reported by **5ud0 / Tarmo Technologies**.
+  Thanks to 5ud0 / Tarmo Technologies and xet7!
+
 This release adds the following updates:
 
 - Update Sandstorm WeKan info.
