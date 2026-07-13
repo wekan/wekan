@@ -1353,6 +1353,22 @@ Boards.helpers({
     return [...filteredMembers].sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
   },
 
+  // Active members first (sorted as above), then the inactive/imported ones appended, so
+  // the sidebar member list shows EVERYONE and which are active vs not — imported
+  // placeholders and members deactivated by reconciliation (e.g. not in LDAP) stay
+  // visible (rendered distinguished by userAvatar) instead of silently disappearing.
+  membersForSidebar() {
+    const active = this.activeMembers();
+    const activeIds = new Set(active.map(m => m.userId));
+    const seen = new Set();
+    const inactive = (this.members || []).filter(m => {
+      if (m.isActive === true || activeIds.has(m.userId) || seen.has(m.userId)) return false;
+      seen.add(m.userId);
+      return ReactiveCache.getUser(m.userId) !== undefined;
+    });
+    return active.concat(inactive);
+  },
+
   activeOrgs() {
     return where(this.orgs, { isActive: true });
   },

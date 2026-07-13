@@ -11,9 +11,53 @@ Template.userAvatar.helpers({
       fields: {
         profile: 1,
         username: 1,
+        authenticationMethod: 1,
+        isActive: 1,
       },
     });
     return user;
+  },
+
+  // Distinguish, on the avatar itself, whether a real account backs this member:
+  //  - imported-member: an inert placeholder created by a board import that has not been
+  //    reconciled/mapped to a real account yet (dashed ring + "?" badge).
+  //  - inactive-member: deactivated on this board (e.g. a person not in LDAP after
+  //    reconciliation) (greyscale + dim).
+  // A placeholder is typically both. A real, active account gets neither.
+  memberAccountClass() {
+    const user = ReactiveCache.getUser(this.userId, {
+      fields: { authenticationMethod: 1, isActive: 1 },
+    });
+    if (!user) return '';
+    const classes = [];
+    if (user.authenticationMethod === 'imported') classes.push('imported-member');
+    let inactive = user.isActive === false;
+    if (!inactive) {
+      const board = Utils.getCurrentBoard && Utils.getCurrentBoard();
+      const m = board && Array.isArray(board.members)
+        ? board.members.find(x => x.userId === this.userId)
+        : null;
+      if (m && m.isActive === false) inactive = true;
+    }
+    if (inactive) classes.push('inactive-member');
+    return classes.join(' ');
+  },
+
+  isImportedMember() {
+    const user = ReactiveCache.getUser(this.userId, { fields: { authenticationMethod: 1 } });
+    return !!(user && user.authenticationMethod === 'imported');
+  },
+
+  isInactiveMember() {
+    const user = ReactiveCache.getUser(this.userId, { fields: { authenticationMethod: 1, isActive: 1 } });
+    if (!user) return false;
+    if (user.authenticationMethod === 'imported') return false; // shown via the imported badge
+    if (user.isActive === false) return true;
+    const board = Utils.getCurrentBoard && Utils.getCurrentBoard();
+    const m = board && Array.isArray(board.members)
+      ? board.members.find(x => x.userId === this.userId)
+      : null;
+    return !!(m && m.isActive === false);
   },
 
   avatarUrl() {

@@ -118,3 +118,42 @@
   height: clamp(40px, 5vw, 60px);
   margin-inline-end: 10px;
 }
+
+/* Account-status distinction on the avatar itself (see userAvatar.js
+   memberAccountClass / isImportedMember / isInactiveMember):
+   - imported-member: an un-reconciled board-import placeholder that is not yet mapped
+     to a real account — dashed ring + amber "?" corner badge.
+   - inactive-member: deactivated on this board (e.g. a person not in LDAP after
+     reconciliation) — greyscale + dimmed, grey corner badge.
+   A placeholder is usually both; a real, active account gets neither. */
+.member.imported-member .avatar {
+  border: 2px dashed #7f8c9a;
+  box-sizing: border-box;
+  opacity: 0.9;
+}
+.member.inactive-member .avatar {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+.member .member-account-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  min-width: 14px;
+  height: 14px;
+  line-height: 13px;
+  padding: 0 1px;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 0 1.5px #fff;
+  pointer-events: none;
+}
+.member .member-account-badge.imported {
+  background: #f39c12;
+}
+.member .member-account-badge.inactive {
+  background: #95a5a6;
+}

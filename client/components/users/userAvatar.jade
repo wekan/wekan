@@ -1,5 +1,5 @@
 template(name="userAvatar")
-  a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}}" title="{{#if userData}}{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}{{/if}}")
+  a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}} {{memberAccountClass}}" title="{{#if userData}}{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}{{#if isImportedMember}} — {{_ 'imported-member-no-account'}}{{else}}{{#if isInactiveMember}} — {{_ 'inactive-member'}}{{/if}}{{/if}}{{/if}}")
     if userData
       if userData.profile.avatarUrl
         img.avatar.avatar-image(src="{{avatarUrl}}" alt="")
@@ -7,6 +7,11 @@ template(name="userAvatar")
         +userAvatarInitials(userId=userData._id)
     else
       +userAvatarInitials(userId=this.userId)
+
+    if isImportedMember
+      span.member-account-badge.imported(title="{{_ 'imported-member-no-account'}}") ?
+    else if isInactiveMember
+      span.member-account-badge.inactive(title="{{_ 'inactive-member'}}")
 
     if showStatus
       span.member-presence-status(class=presenceStatusClassName)

@@ -85,7 +85,7 @@ template(name="membersWidget")
             +userAvatar(userId=currentBoard.userId showStatus=true)
             .clearfix
           else
-            each currentBoard.activeMembers
+            each currentBoard.membersForSidebar
               +userAvatar(userId=this.userId showStatus=true)
             if isSandstorm
               if currentUser.isBoardMember
