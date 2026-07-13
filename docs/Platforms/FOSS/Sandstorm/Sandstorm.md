@@ -2,6 +2,50 @@
 
 # Sandstorm at Debian and Ubuntu
 
+### New Sandstorm WeKan at 2026-07
+
+Backup your current Sandstorm first !
+
+1. Please first backup your Sandstorm https://docs.sandstorm.io/en/latest/administering/backups/
+2. Please first download all of your grains to .zip files from top menu row down arrow button, just in case.
+
+This new Sandstorm WeKan uses fork of FerretDB v1 SQLite at https://github.com/wekan/FerretDB
+
+- FerretDB is drop-in replacement for MongoDB 7 Server
+- FerretDB implements MongoDB 7 server wire protocol
+- FerretDB converts MongoDB Javascript queries to SQLite SQL queries
+- FerretDB saves data to SQLite database
+- Fork has additional MongoDB features
+- Fork is maintained by xet7
+
+Migrating old MongoDB 3 data
+
+- If there is old WeKan data, it is automatically migrated when opening old WeKan grain.
+  Attachments are migrated from MongoDB to files/attachments.
+  Text data is migrated from MongoDB to SQLite at files/db/wekan.sqlite .
+
+After migrating, free some disk space
+
+- If after migrating you would like to free disk space of WeKan grain
+  by deleting old MongoDB raw database files
+- At right top corner, click your WeKan username at WeKan board (not at Sandstorm black backround) /
+  Member Settings / Admin Panel / Attachments / Sandstorm / Delete raw MongoDB database files.
+
+Cover image
+
+- You can enable it for minicard and card at:
+  Right Sidebar/Board Settings/Card Settings/Cover Image
+  (at bottom of Card Settings list).
+
+Download
+
+1. But, if you use CloudFlare, there may be 100 MB file size upload limit,
+   so you can not upload wekan.spk to your official Sandstorm install.
+   So then you need to wait when this has some more testing, and is
+   sometime added to official Sandstorm App Market.
+2. New experimental wekan.spk install file at WeKan 9.87 or newer
+   at https://github.com/wekan/wekan/releases
+
 ### Sandstorm Radicale: Calendars and Contacts
 
 - 2025-08-05
