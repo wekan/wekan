@@ -26,6 +26,12 @@ Migrating old MongoDB 3 data
 - After migrating, you may get error, that browser can not open that page embedded to other page.
   So you need to close WeKan grain and open it again. Sorry, trying to fix it later.
 
+All Boards page
+
+- WeKan starts at All Boards page Favorites
+- All your boards are at first at Remaining, until you Star to have your board at Favorites
+- You can move boards from Remaining to your personal Workspaces or Sub-Workspaces
+
 After migrating, free some disk space
 
 - If after migrating you would like to free disk space of WeKan grain
