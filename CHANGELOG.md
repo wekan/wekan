@@ -412,6 +412,36 @@ and fixes the following bugs:
   importer→WeKan port hand-off) and then opens All Boards, with the spinner still spinning so
   it is clear the grain is still working. The dashboard is also recoloured to WeKan's
   blue/white/grey. Thanks to xet7.
+- **Avatars and original members now travel with a board (export/import), from every
+  identity source.** A board could be moved between servers (or imported into Sandstorm)
+  but member avatars vanished — they lived in Sandstorm / LDAP / OAuth2, not in WeKan —
+  and original members were collapsed onto the importing user by a mapping that could
+  attach the wrong person and leak board permissions. Now:
+  - [External avatars are localized into WeKan's own files/avatars](https://github.com/wekan/wekan/commit/ac8bedfef),
+    triggered when a board is opened and at login, from any source — Sandstorm profile
+    picture, LDAP [`jpegPhoto`/`thumbnailPhoto`](https://github.com/wekan/wekan/commit/c258d862d),
+    OAuth2/OIDC `picture` claim, gravatar or a pasted URL — every network fetch guarded
+    against SSRF (http/https only; no private, loopback, link-local or cloud-metadata
+    address; timeout + size + image-type caps). ([board-open trigger](https://github.com/wekan/wekan/commit/5a38ca3ca).
+    Inside a Sandstorm grain outbound fetch is sandboxed, so a still-external Sandstorm
+    picture is a best-effort no-op there — but any avatar that is already a local file
+    exports/imports fully, grain included.)
+  - [Board export embeds each member's local avatar file as base64](https://github.com/wekan/wekan/commit/92c769fd1)
+    alongside their username, fullname and initials — never passwords, emails or services.
+  - [Board import preserves the original members as inert placeholder users](https://github.com/wekan/wekan/commit/aff3017ff)
+    (`authenticationMethod:'imported'`, `loginDisabled`, `isActive:false`, no secrets),
+    reusing each original `_id` so card/comment/activity references resolve to the right
+    person with NO mapping at import time, and restores their avatar. The importer stays
+    the sole admin; imported members hold no permissions until reconciled.
+  - [Reconciliation maps placeholders to the valid accounts deliberately, later](https://github.com/wekan/wekan/commit/6985281d5):
+    an admin sweep merges each placeholder into a matching real account (provisioned by
+    LDAP/OIDC at login) by reassigning every reference, and leaves the rest inactive
+    (e.g. a person not in LDAP); a one-off admin merge is available too.
+  - [Avatars visibly distinguish account state](https://github.com/wekan/wekan/commit/fae20c8bc),
+    on card avatars and in the right-sidebar member list: a dashed ring + amber "?" badge
+    for un-reconciled imported placeholders, greyscale + dim for inactive members, and the
+    sidebar now lists everyone (active first, then inactive) instead of hiding inactive
+    members. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
