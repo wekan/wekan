@@ -92,7 +92,8 @@ This release adds the following updates:
 
 - Update Sandstorm WeKan info.
   [Part 1](https://github.com/wekan/wekan/commit/1bf68f54b29ab29a54abb90f777a88be4aa45d7e),
-  [Part 2](https://github.com/wekan/wekan/commit/ade9f16db459708200f4d7677c3877f1cdc837a4).
+  [Part 2](https://github.com/wekan/wekan/commit/ade9f16db459708200f4d7677c3877f1cdc837a4),
+  [Part 3](https://github.com/wekan/wekan/commit/0d90011affcf3789ed3ea820db5f3402ad1019b3).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
