@@ -7,3 +7,13 @@ npm-packages/
 # package.json). A naked "tests/" would match a dir named tests at any depth and
 # would hide those suites, making `meteor test` report "0 passing".
 /tests/
+
+# node_modules/i18next-sprintf-postprocessor ships a stray rollup.config.js (a build
+# config) that does require('yargs'). Since a devDependency (mongodb) pulled yargs 18
+# into node_modules, Meteor's bundler now follows that require and bundles yargs'
+# lib/platform-shims/esm.mjs, whose top-level `const __dirname = fileURLToPath(...)`
+# collides with the __dirname that Meteor's CommonJS module wrapper already provides,
+# crashing `meteor test` at boot with "Identifier '__dirname' has already been declared".
+# That build config is not part of the package's runtime entry (index.js -> dist/commonjs),
+# so exclude it from the bundle.
+/node_modules/i18next-sprintf-postprocessor/rollup.config.js
