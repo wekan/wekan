@@ -122,15 +122,46 @@ Meteor.methods({
             'unknown';
         }
 
-        // Storage engine: MongoDB reports it in serverStatus; FerretDB usually
-        // does not implement serverStatus fully, so fall back to a sensible label.
+        // Storage engine: MongoDB reports it in serverStatus. That command needs
+        // the cluster-level `clusterMonitor` role, which a per-database WeKan user
+        // (readWrite on the wekan db only, as in the FOSS/Docker/Meteor3 docs)
+        // does NOT have — so it is rejected and the engine stays 'unknown'.
         try {
           const serverStatus = await mongo.db.command({ serverStatus: 1 });
           if (serverStatus.storageEngine && serverStatus.storageEngine.name) {
             mongoStorageEngine = serverStatus.storageEngine.name;
           }
         } catch (e) {
-          // FerretDB may not support serverStatus — ignore.
+          // Not authorized (per-db credentials) or FerretDB has no serverStatus.
+        }
+        // Fallback that works with plain readWrite credentials: $collStats returns
+        // storageStats with a `wiredTiger` (or `inMemory`) sub-document naming the
+        // engine backing the collection, and requires only the collStats action
+        // that the read/readWrite roles already grant. Used when serverStatus was
+        // denied, so per-database MongoDB users still see the real engine instead
+        // of 'unknown'.
+        if (mongoStorageEngine === 'unknown' && databaseType === 'MongoDB') {
+          try {
+            const cols = await mongo.db
+              .listCollections({}, { nameOnly: true })
+              .toArray();
+            const target = cols
+              .map(c => c.name)
+              .find(n => n && !n.startsWith('system.'));
+            if (target) {
+              const stats = await mongo.db
+                .collection(target)
+                .aggregate([{ $collStats: { storageStats: {} } }])
+                .toArray();
+              const storageStats = stats[0] && stats[0].storageStats;
+              if (storageStats) {
+                if (storageStats.wiredTiger) mongoStorageEngine = 'wiredTiger';
+                else if (storageStats.inMemory) mongoStorageEngine = 'inMemory';
+              }
+            }
+          } catch (e) {
+            // collStats also unavailable — leave 'unknown'.
+          }
         }
         if (mongoStorageEngine === 'unknown' && databaseType === 'FerretDB') {
           // WeKan bundles FerretDB with its embedded SQLite backend.

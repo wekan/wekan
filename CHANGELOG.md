@@ -86,6 +86,24 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- **Admin Panel / Version: show the MongoDB storage engine even with
+  per-database credentials (no more "unknown")**. The storage engine was read
+  only from the `serverStatus` command, which requires the cluster-level
+  `clusterMonitor` role. A per-database WeKan user (`readWrite` on the `wekan`
+  database only, as in the `docs/Platforms/FOSS/Docker/Meteor3/` setup) is not
+  authorized to run it, so the command was rejected and the field stayed
+  `unknown`. WeKan now falls back to a `$collStats` aggregation (which needs only
+  the `collStats` action that `read`/`readWrite` already grant) and reads the
+  real engine — `wiredTiger` (or `inMemory`) — from `storageStats`. The MongoDB
+  compatible version and Database commit were already correct: they come from
+  `buildInfo`, which needs no special privileges. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.89 2026-07-13 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of
