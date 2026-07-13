@@ -310,6 +310,13 @@ if (isSandstorm && Meteor.isServer) {
   // hook is called, the user is inserted into the database but not connected. So
   // despite the appearances `userId` is null in this block.
   Users.after.insert(async (userId, doc) => {
+    // Only Sandstorm-authenticated users carry services.sandstorm; this hook derives
+    // the username/fullname/avatar/permissions from it. Imported placeholder members
+    // (and any other non-Sandstorm insert) have no services.sandstorm, so skip them —
+    // otherwise reading doc.services.sandstorm.preferredHandle throws and aborts the
+    // insert (e.g. when importing a board full of original members into a grain).
+    if (!doc || !doc.services || !doc.services.sandstorm) return;
+
     // No board is auto-created for a new grain/user: WeKan on Sandstorm is
     // multi-board now, and the user creates their own boards from the All Boards
     // page. (Previously a single hard-coded 'sandstorm'/libreboard board was

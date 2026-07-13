@@ -353,20 +353,29 @@ export class WekanCreator {
     if (boardToImport.backgroundImageURL && !boardToImport.backgroundImageId) {
       boardToCreate.backgroundImageURL = boardToImport.backgroundImageURL;
     }
-    // now add other members
+    // now add other members. Without an explicit (deliberate, later) mapping we keep
+    // each ORIGINAL member: the placeholder created in createPlaceholderUsers reuses the
+    // original _id, so use wekanId if a mapping exists, else the original id. Imported
+    // members are added inactive and non-admin so they are visible in the board's member
+    // list but hold no permissions until reconciled — a wrong/auto mapping must never
+    // silently grant board access. The importer stays the sole active admin.
     if (boardToImport.members) {
       boardToImport.members.forEach(wekanMember => {
-        // is it defined and do we already have it in our list?
+        const memberId = wekanMember.wekanId || wekanMember.userId || wekanMember.id;
         if (
-          wekanMember.wekanId &&
-          !boardToCreate.members.some(
-            member => member.wekanId === wekanMember.wekanId,
-          )
-        )
+          memberId &&
+          memberId !== Meteor.userId() &&
+          !boardToCreate.members.some(member => member.wekanId === memberId)
+        ) {
+          const mapped = !!wekanMember.wekanId; // true only when a real mapping was given
           boardToCreate.members.push({
             ...wekanMember,
-            userId: wekanMember.wekanId,
+            userId: memberId,
+            wekanId: memberId,
+            isActive: mapped ? wekanMember.isActive !== false : false,
+            isAdmin: mapped ? !!wekanMember.isAdmin : false,
           });
+        }
       });
     }
 
@@ -1143,6 +1152,13 @@ export class WekanCreator {
       const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
+    // Preserve the ORIGINAL members instead of mapping them onto existing accounts at
+    // import time (a wrong mapping attaches the wrong person and can leak board
+    // permissions). This creates an inert placeholder user for each original member,
+    // reusing the original _id so every card/comment/activity reference resolves to the
+    // right person, and restores their avatar. Deliberate mapping/merging to real
+    // accounts (and LDAP reconciliation) happens later, not here.
+    await this.createPlaceholderUsers(board);
     this.parseActivities(board);
     const boardId = await this.createBoardAndLabels(board);
     await this.createLists(board.lists, boardId);
@@ -1213,6 +1229,86 @@ export class WekanCreator {
   // user's importUsernames (so future imports auto-map); unmapped members'
   // usernames are stored on the board's importUsernames for an admin to assign
   // to real users later via the People panel.
+  // Pick a free username: keep the original if it is not taken, else suffix it so we
+  // never rename/steal a different existing account's username. The placeholder still
+  // keeps the original _id, so member references resolve to it regardless of username.
+  async _uniquePlaceholderUsername(base) {
+    const name = (String(base || '').trim()) || 'imported';
+    let candidate = name;
+    let n = 0;
+    // eslint-disable-next-line no-await-in-loop
+    while (await Meteor.users.findOneAsync({ username: candidate }, { fields: { _id: 1 } })) {
+      n += 1;
+      candidate = `${name}-${n}`;
+    }
+    return candidate;
+  }
+
+  // Create an inert placeholder user for each original member carried in board.users,
+  // reusing the original _id so all references resolve, and populate this.members as an
+  // identity map (id -> id) so _user() keeps the original person instead of collapsing
+  // to the importer. Placeholders cannot log in (loginDisabled), are inactive until
+  // reconciled (isActive:false), and carry no secrets. Their avatar file (embedded as
+  // base64 by the exporter) is restored to files/avatars. Server-only; best-effort.
+  async createPlaceholderUsers(board) {
+    if (!Meteor.isServer) return;
+    const users = Array.isArray(board.users) ? board.users : [];
+    let localizeAvatarFromBuffer = null;
+    try {
+      ({ localizeAvatarFromBuffer } = await import('/server/lib/localizeAvatar'));
+    } catch (e) { /* avatar restore unavailable; users still imported */ }
+
+    for (const u of users) {
+      if (!u || !u._id) continue;
+      const profile = u.profile || {};
+      let existing = await ReactiveCache.getUser(u._id);
+      if (!existing) {
+        const username = await this._uniquePlaceholderUsername(u.username || `imported-${u._id}`);
+        try {
+          // .direct bypasses the after.insert hooks (Sandstorm identity sync, the
+          // disableRegistration/invitation-code gate) that would otherwise reject or
+          // mis-handle a non-account placeholder.
+          await Users.direct.insertAsync({
+            _id: u._id,
+            username,
+            profile: {
+              fullname: profile.fullname || '',
+              initials: profile.initials || '',
+            },
+            authenticationMethod: 'imported',
+            loginDisabled: true,
+            isActive: false,
+            importedFromBoardId: board._id || null,
+            importedAt: new Date(),
+            createdAt: new Date(),
+            services: {},
+          });
+        } catch (e) {
+          // _id/username race: another concurrent insert won — carry on and use it.
+          if (process.env.DEBUG === 'true') console.warn('placeholder user insert:', u._id, e && e.message);
+        }
+      }
+
+      // Restore the original avatar file (base64) into files/avatars and set a local
+      // profile.avatarUrl, so the original member's picture shows and is exportable
+      // again — works on Sandstorm too (writes a local file, no fetch).
+      if (localizeAvatarFromBuffer && profile.avatarFile) {
+        try {
+          const buffer = Buffer.from(profile.avatarFile, 'base64');
+          await localizeAvatarFromBuffer(u._id, buffer, {
+            type: profile.avatarFileType || 'image/png',
+            name: profile.avatarFileName || `${u._id}.png`,
+          });
+        } catch (e) {
+          if (process.env.DEBUG === 'true') console.warn('placeholder avatar restore:', u._id, e && e.message);
+        }
+      }
+
+      // Identity mapping: keep the original member (do NOT remap to the importer).
+      this.members[u._id] = u._id;
+    }
+  }
+
   async recordImportedUsernames(board, boardId) {
     if (!Meteor.isServer) return;
     const usersById = {};
