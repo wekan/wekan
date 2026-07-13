@@ -17,7 +17,25 @@ const fs = require('fs');
 const path = require('path');
 const { expect } = require('chai');
 
-const repoRoot = path.resolve(__dirname, '..', '..', '..');
+// Find the repo root by walking up from process.cwd()/PWD, NOT from the bare `__dirname`
+// global: under `meteor test` referencing `__dirname` makes Meteor inject a
+// `const __dirname` that collides with the one its CommonJS module wrapper already
+// provides, crashing the whole server bundle at boot with "Identifier '__dirname' has
+// already been declared" (same fix as server/lib/tests/dependencies.openapi.tests.js).
+function findRepoRoot(marker) {
+  const seeds = [process.cwd(), process.env.PWD, process.env.OLDPWD].filter(Boolean);
+  for (const seed of seeds) {
+    let dir = seed;
+    for (let i = 0; i < 12; i += 1) {
+      try { fs.accessSync(path.join(dir, marker)); return dir; } catch (e) { /* walk up */ }
+      const parent = path.dirname(dir);
+      if (parent === dir) break;
+      dir = parent;
+    }
+  }
+  return process.cwd();
+}
+const repoRoot = findRepoRoot(path.join('client', 'components', 'rules', 'triggers', 'boardTriggers.jade'));
 const jadePath = path.join(
   repoRoot,
   'client',

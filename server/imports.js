@@ -292,6 +292,15 @@ import '/server/permissions/userPositionHistory';
 import '/server/permissions/users';
 
 // ----------------------------------------------------------------------------
+// External-avatar localization + imported-user reconciliation
+// ----------------------------------------------------------------------------
+// Register the Accounts.onLogin avatar-localization trigger and the imported-user
+// reconciliation Meteor methods. In mainModule mode a file that is not imported here is
+// never loaded, so its hooks/methods would silently never register.
+import '/server/avatarLocalizationOnLogin';
+import '/server/importedUserReconciliation';
+
+// ----------------------------------------------------------------------------
 // 17. Sandstorm integration
 // ----------------------------------------------------------------------------
 import '/sandstorm';

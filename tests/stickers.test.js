@@ -11,10 +11,25 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-const src = fs.readFileSync(
-  path.join(__dirname, '..', 'models', 'metadata', 'stickers.js'),
-  'utf8',
-);
+// Locate the source via a process.cwd()/PWD walk-up, NOT the bare `__dirname` global:
+// under `meteor test` referencing `__dirname` makes Meteor inject a `const __dirname`
+// that collides with the CommonJS module wrapper's, crashing the server bundle at boot
+// with "Identifier '__dirname' has already been declared".
+const STICKERS_REL = path.join('models', 'metadata', 'stickers.js');
+function findRepoRoot(marker) {
+  const seeds = [process.cwd(), process.env.PWD, process.env.OLDPWD].filter(Boolean);
+  for (const seed of seeds) {
+    let dir = seed;
+    for (let i = 0; i < 12; i += 1) {
+      try { fs.accessSync(path.join(dir, marker)); return dir; } catch (e) { /* walk up */ }
+      const parent = path.dirname(dir);
+      if (parent === dir) break;
+      dir = parent;
+    }
+  }
+  return process.cwd();
+}
+const src = fs.readFileSync(path.join(findRepoRoot(STICKERS_REL), STICKERS_REL), 'utf8');
 
 function parseArray(name) {
   const m = src.match(new RegExp(`${name} = \\[([\\s\\S]*?)\\]`));

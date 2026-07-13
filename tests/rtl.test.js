@@ -25,7 +25,25 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-const repoRoot = path.resolve(__dirname, '..');
+// Find the repo root by walking up from process.cwd()/PWD, NOT from the bare `__dirname`
+// global: this file is also loaded by `meteor test`, where referencing `__dirname` makes
+// Meteor inject a `const __dirname` that collides with the one its CommonJS module wrapper
+// already provides, crashing the whole server bundle at boot with "Identifier '__dirname'
+// has already been declared" (same fix as server/lib/tests/dependencies.openapi.tests.js).
+function findRepoRoot(marker) {
+  const seeds = [process.cwd(), process.env.PWD, process.env.OLDPWD].filter(Boolean);
+  for (const seed of seeds) {
+    let dir = seed;
+    for (let i = 0; i < 12; i += 1) {
+      try { fs.accessSync(path.join(dir, marker)); return dir; } catch (e) { /* walk up */ }
+      const parent = path.dirname(dir);
+      if (parent === dir) break;
+      dir = parent;
+    }
+  }
+  return process.cwd();
+}
+const repoRoot = findRepoRoot('imports/i18n/languages.js');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 
 // --- Parse the rtl flags straight out of languages.js -----------------------
