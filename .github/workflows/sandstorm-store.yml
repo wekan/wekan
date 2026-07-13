@@ -1,0 +1,145 @@
+name: Publish .spk to Sandstorm App Market
+
+# Manually triggered. Takes the Sandstorm .spk that sandstorm.yml already built and
+# attached to a WeKan GitHub Release, renames it to wekan-<VERSION>.spk (VERSION is the
+# WeKan release version, e.g. 9.88), and publishes it to the Sandstorm App Market with
+#   spk publish wekan-<VERSION>.spk
+# exactly like releases/release-sandstorm.sh does locally.
+#
+#   gh workflow run sandstorm-store.yml
+#   gh workflow run sandstorm-store.yml -f version=9.88
+#   gh workflow run sandstorm-store.yml -f version=9.88 -f tag=v9.88
+#
+# Needs SANDSTORM_KEYRING (base64 of ~/.sandstorm-keyring) — `spk publish` proves app
+# ownership with the WeKan Sandstorm app's private key from that keyring — and installs
+# Sandstorm + assembles meteor-spk the same way sandstorm.yml does, so `spk` is present.
+# It does NOT rebuild the .spk; it publishes the one already on the release.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'WeKan version for the store filename wekan-<VERSION>.spk (e.g. 9.88). Default: derived from the release tag.'
+        required: false
+        default: ''
+      tag:
+        description: 'Release tag whose .spk to publish (default: newest release).'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+
+jobs:
+  sandstorm-store:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+          sudo sysctl -w kernel.unprivileged_userns_clone=1 2>/dev/null || true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git
+
+      - name: Install Sandstorm (dev, unattended)
+        # Provides the `spk` command used to publish, and the sandstorm-http-bridge that
+        # build-deps.sh copies into the meteor-spk deps.
+        run: curl https://install.sandstorm.io | sudo bash -s -- -d
+
+      - name: Assemble modern meteor-spk.deps (same as sandstorm.yml)
+        run: |
+          bash sandstorm-src/build-deps.sh
+          echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"
+
+      - name: Restore the Sandstorm signing keyring
+        env:
+          SANDSTORM_KEYRING: ${{ secrets.SANDSTORM_KEYRING }}
+        run: |
+          if [ -n "${SANDSTORM_KEYRING:-}" ]; then
+            # spk publish reads the app signing key from ~/.sandstorm-keyring (a FILE in
+            # $HOME), same location meteor-spk pack uses.
+            printf '%s' "$SANDSTORM_KEYRING" | base64 -d > "$HOME/.sandstorm-keyring"
+            chmod 600 "$HOME/.sandstorm-keyring"
+            echo "Restored ~/.sandstorm-keyring ($(wc -c < "$HOME/.sandstorm-keyring") bytes)."
+          else
+            echo "::error::SANDSTORM_KEYRING secret is not set. 'spk publish' proves ownership of the WeKan Sandstorm app with the private key from this keyring, so publishing cannot proceed without it. Add the base64 of your ~/.sandstorm-keyring file as the SANDSTORM_KEYRING repository secret (e.g. 'base64 -w0 ~/.sandstorm-keyring')."
+            exit 1
+          fi
+
+      - name: Download the newest .spk from the WeKan release and name it wekan-<VERSION>.spk
+        id: fetch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          IN_TAG: ${{ github.event.inputs.tag }}
+          IN_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          set -euo pipefail
+
+          # 1) Which release to publish from.
+          TAG="${IN_TAG:-}"
+          if [ -z "$TAG" ]; then
+            TAG="$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || true)"
+          fi
+          if [ -z "${TAG:-}" ] || [ "$TAG" = "null" ]; then
+            echo "::error::No release found to publish the .spk from."
+            exit 1
+          fi
+
+          # 2) VERSION for the store filename wekan-<VERSION>.spk. Use the input, else
+          #    derive it from the tag (strip a leading 'v', e.g. v9.88 -> 9.88).
+          VERSION="${IN_VERSION:-}"
+          if [ -z "$VERSION" ]; then
+            VERSION="${TAG#v}"
+          fi
+          echo "Release: $TAG  ->  store filename: wekan-${VERSION}.spk"
+
+          # 3) Download the newest .spk asset on that release. sandstorm.yml attaches it
+          #    as wekan-sandstorm-YYYY_MM_DD-HH_MM_SS.spk; if several exist, take the
+          #    lexicographically-newest (the timestamp sorts chronologically).
+          ASSET="$(gh release view "$TAG" --json assets \
+            --jq '[.assets[].name | select(endswith(".spk"))] | sort | last' 2>/dev/null || true)"
+          if [ -z "${ASSET:-}" ] || [ "$ASSET" = "null" ]; then
+            echo "::error::Release $TAG has no .spk asset. Run sandstorm.yml first to build and attach one."
+            exit 1
+          fi
+          echo "Downloading .spk asset: $ASSET"
+          gh release download "$TAG" --pattern "$ASSET" --dir . --clobber
+
+          SPK="wekan-${VERSION}.spk"
+          mv -f "$ASSET" "$SPK"
+          ls -la "$SPK"
+          echo "spk=$SPK" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to the Sandstorm App Market
+        env:
+          SPK: ${{ steps.fetch.outputs.spk }}
+        run: |
+          set -euo pipefail
+          # Resolve the spk binary: prefer PATH, then the Sandstorm install location.
+          SPK_BIN="$(command -v spk || true)"
+          if [ -z "$SPK_BIN" ]; then
+            for c in /opt/sandstorm/latest/bin/spk /opt/sandstorm/spk /usr/local/bin/spk; do
+              [ -x "$c" ] && SPK_BIN="$c" && break
+            done
+          fi
+          if [ -z "$SPK_BIN" ]; then
+            echo "::error::Could not find the 'spk' command from the Sandstorm install."
+            exit 1
+          fi
+          echo "Publishing $SPK with $SPK_BIN ..."
+          # Same command as releases/release-sandstorm.sh: spk publish wekan-<VERSION>.spk
+          "$SPK_BIN" publish "$SPK"

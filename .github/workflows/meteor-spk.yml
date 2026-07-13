@@ -1,0 +1,107 @@
+name: Build meteor-spk bundle
+
+# Manually triggered. Assembles WeKan's modernized meteor-spk (the Sandstorm packaging
+# tool + its meteor-spk.deps: Node 24, FerretDB, the Mongo 3.x CLIs and the modern
+# sandstorm-http-bridge) and zips it as meteor-spk-YYYY-MM-DD_HH_MM_SS.zip — the same kind
+# of self-contained meteor-spk bundle that https://github.com/sandstorm-io/meteor-spk
+# releases, but with WeKan's Node 24 / FerretDB deps baked in. Download it to `meteor-spk
+# pack` WeKan (or any Meteor 3.x app) without re-running build-deps.sh each time.
+#
+#   gh workflow run meteor-spk.yml
+#
+# This only assembles + zips the tool; it does NOT pack or sign a WeKan .spk, so it needs
+# no SANDSTORM_KEYRING. The .spk itself is built by sandstorm.yml; the Sandstorm App
+# Market publish is done by sandstorm-store.yml.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch, tag or SHA to build the meteor-spk deps from (default: main)'
+        required: false
+        default: 'main'
+
+permissions:
+  contents: write
+
+env:
+  NODE_VERSION: '24'
+
+jobs:
+  meteor-spk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.ref || 'main' }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
+        # Same as sandstorm.yml: Ubuntu 24.04's AppArmor blocks the unprivileged user
+        # namespaces the Sandstorm install relies on; relax it so the install (whose
+        # sandstorm-http-bridge build-deps.sh copies in) can run on the runner.
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+          sudo sysctl -w kernel.unprivileged_userns_clone=1 2>/dev/null || true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git zip
+
+      - name: Install Sandstorm (dev, unattended)
+        # build-deps.sh's [bridge] step copies the modern
+        # /opt/sandstorm/latest/bin/sandstorm-http-bridge into the deps, so Sandstorm
+        # must be installed first — same ordering as sandstorm.yml.
+        run: curl https://install.sandstorm.io | sudo bash -s -- -d
+
+      - name: Assemble modern meteor-spk.deps (Node 24 + FerretDB + Mongo 3.x CLIs)
+        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io; build-deps.sh swaps in
+        # Node 24, FerretDB, the Mongo 3.x CLIs, the migration launcher/importer, keeps
+        # niscud, and swaps in the modern sandstorm-http-bridge. Produces
+        # $HOME/projects/meteor-spk/meteor-spk-0.6.0 (the meteor-spk tool + deps).
+        run: bash sandstorm-src/build-deps.sh
+
+      - name: Zip the meteor-spk bundle
+        id: zip
+        run: |
+          set -euo pipefail
+          STAMP="$(date +'%Y-%m-%d_%H_%M_%S')"
+          ZIP="meteor-spk-${STAMP}.zip"
+          BUNDLE_DIR="$HOME/projects/meteor-spk"
+          if [ ! -d "$BUNDLE_DIR/meteor-spk-0.6.0" ]; then
+            echo "::error::Expected meteor-spk bundle at $BUNDLE_DIR/meteor-spk-0.6.0 was not produced by build-deps.sh."
+            exit 1
+          fi
+          # Zip so it extracts to a top-level meteor-spk-0.6.0/ directory, like the
+          # upstream meteor-spk release archives. Exclude the base tarball build-deps.sh
+          # downloaded next to it.
+          ( cd "$BUNDLE_DIR" && zip -r -y -q "$GITHUB_WORKSPACE/$ZIP" meteor-spk-0.6.0 -x '*.tar.xz' )
+          ZIP_BYTES=$(stat -c%s "$GITHUB_WORKSPACE/$ZIP")
+          echo "Packed $ZIP: $((ZIP_BYTES/1024/1024)) MiB ($ZIP_BYTES bytes)"
+          ls -la "$GITHUB_WORKSPACE/$ZIP"
+          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.zip.outputs.zip }}
+          path: ${{ steps.zip.outputs.zip }}
+          retention-days: 7
+
+      - name: Upload the meteor-spk bundle to the newest WeKan release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TAG="$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || true)"
+          if [ -z "${TAG:-}" ] || [ "$TAG" = "null" ]; then
+            echo "::warning::No existing GitHub Release found; the meteor-spk bundle is available only as a workflow artifact."
+            exit 0
+          fi
+          echo "Uploading ${{ steps.zip.outputs.zip }} to the newest release: $TAG"
+          gh release upload "$TAG" "${{ steps.zip.outputs.zip }}" --clobber
