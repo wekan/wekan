@@ -680,7 +680,10 @@ function run_all_tests(){
 	# first rspack build. Show live progress instead: elapsed seconds + the newest
 	# build line from the log (=> Compiled Rspack..., => Started MongoDB, => Started
 	# your app, ...), refreshed in place on one line so it does not scroll.
-	echo "==> Building WeKan (first build can take minutes on ARM/VM). Live build log: $RUN_LOGDIR/wekan-test-server.log"
+	echo "==> Compiling the Meteor app for the :3000 test server (meteor run, .meteor/local)."
+	echo "    Tests run against a live WeKan; Meteor recompiles on start only for what changed"
+	echo "    since your last build (sources / node_modules), then caches it, so re-runs are faster."
+	echo "    On ARM/VM the first compile can take several minutes. Live build log: $RUN_LOGDIR/wekan-test-server.log"
 	server_wait_start=$(date +%s)
 	server_wait_max=1200   # give the first ARM/VM build up to 20 min before failing
 	el=0

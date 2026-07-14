@@ -896,7 +896,10 @@ REM connection for the whole build, freezing this loop. --connect-timeout/--max-
 REM make each poll return quickly (each iteration is then a few seconds; ~240 of them
 REM allow roughly 20 minutes for a slow first build before we give up).
 set "SERVER_READY=0"
-echo ==^> Building WeKan ^(first build can take minutes^); waiting for http://localhost:3000 ...
+echo ==^> Compiling the Meteor app for the :3000 test server ^(meteor run, .meteor\local^).
+echo     Tests run against a live WeKan; Meteor recompiles on start only for what changed since
+echo     your last build ^(sources / node_modules^), then caches it, so re-runs are faster.
+echo     On ARM/VM the first compile can take several minutes. Waiting for http://localhost:3000 ...
 echo     ^(watch the live build log in another window: type "%RUN_LOGDIR%\wekan-test-server.log"^)
 for /l %%i in (1,1,240) do (
 	if "!SERVER_READY!"=="0" (
