@@ -250,10 +250,9 @@ and fixes the following tests:
   looked like a hang. Audited both scripts and closed every gap:
   - **Server-start wait** (both "Run ALL tests" modes). While the `:3000` server came
     up, the readiness wait printed only dots. `.sh` now shows live progress (see the
-    `.build/bundle` item below, where it streams the boot log scrolling); `.bat` (still
-    on `meteor run`, where echoing arbitrary build lines is unsafe because they contain
-    `> < | &`) prints the elapsed seconds every ~10s and points at the live build log to
-    `type` in another window.
+    `.build/bundle` item below, where it streams the boot log scrolling); `.bat` prints a
+    check counter now and then and points at the live server log to `type` in another
+    window (on cmd, echoing arbitrary log lines is unsafe as they can contain `> < | &`).
   - **Fixed the readiness poll hanging so nothing showed for minutes** (the progress
     line froze at `[0s]`). The wait polled `curl http://127.0.0.1:3000/sign-in` with no
     timeout; Meteor binds the :3000 proxy early and accepts the TCP connection while the
@@ -278,7 +277,8 @@ and fixes the following tests:
     browser) already stream straight to the terminal, and the parallel-mode combined
     progress table is unchanged. Thanks to xet7.
 - **Test infrastructure: "Run ALL tests" reuses the precompiled `.build/bundle` for the
-  :3000 server instead of recompiling with `meteor run`** (`rebuild-wekan.sh`). Node E2E
+  :3000 server instead of recompiling with `meteor run`** (both `rebuild-wekan.sh` and
+  `rebuild-wekan.bat`). Node E2E
   and Playwright drive a live WeKan over HTTP; that server is now started from the
   production bundle you already built with `meteor build .build --directory` — `node
   main.js` boots in seconds with no recompile, using Meteor's bundled `node` and `mongod`
@@ -299,7 +299,10 @@ and fixes the following tests:
   one the Playwright / Node E2E tests seed into (`tests/playwright/helpers/db.js`,
   `tests/e2e/list-regressions.js`); an earlier `/wekan` name made the app read an empty
   database while the tests seeded a different one, so every seeded test failed until the
-  names were aligned. Thanks to xet7.
+  names were aligned. Both the Bash and the Windows batch runners now use this
+  bundle-based :3000 server (the `.bat` resolves Meteor's bundled `node` / `mongod` from
+  the dev_bundle, starts mongod in a minimized window, and stops it on exit only when it
+  started it). Thanks to xet7.
 
 and fixes the following bugs:
 

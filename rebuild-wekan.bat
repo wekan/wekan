@@ -293,11 +293,12 @@ goto end
 REM ===========================================================================
 :test_all_parallel
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run IN PARALLEL (concurrently). Needs plenty of RAM (fine on 32 GB).
-echo Mocha uses its own build dir (.meteor\local-test) so it runs at the same time as the :3000 server, which keeps .meteor\local.
-echo Two Meteor instances run side by side:
-echo   Meteor #1 (.meteor\local)      - Node.js app :3000, MongoDB :3001 - serves Node E2E + Playwright browser tests
-echo   Meteor #2 (.meteor\local-test) - Node.js app :3100, MongoDB :3101 - runs the server-side Mocha tests
-echo   Import regression is a plain Node script (no Meteor, no MongoDB).
+echo Two WeKan servers are involved:
+echo   :3000  - the PRECOMPILED .build\bundle run as a plain Node server (Meteor's mongod on :3001, db "meteor")
+echo            - serves Node E2E + Playwright browser tests. No recompile: your existing build is reused.
+echo   :3100  - Mocha via 'meteor test' (its own .meteor\local-test build; the in-process server-side tests
+echo            CANNOT run from a production bundle, so this one build is unavoidable).
+echo   Import regression is a plain Node script (no server, no MongoDB).
 curl -fsS http://127.0.0.1:3000 >nul 2>&1
 if not errorlevel 1 (
 	echo ERROR: Port 3000 is already in use. Stop any running dev server before running this option.
@@ -325,10 +326,7 @@ REM ready until much later (a long line of dots). Mocha and the import
 REM regression do not need the server, so we launch them once the server build
 REM is underway and they then run in parallel with the E2E and browser jobs.
 echo.
-call :set_dev_env
-echo ==^> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor\local)
-set "ROOT_URL=http://localhost:3000"
-start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [node :3000 db :3001] started: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-test-server.log 2>&1 & meteor run --port 3000 1>>%RUN_LOGDIR%\wekan-test-server.log 2>&1"
+call :start_bundle_server
 
 REM Mocha and the import regression do not need the :3000 server; start them now
 REM (each in its own minimized window; /D sets the working dir so all paths are
@@ -337,8 +335,6 @@ REM .done-<job>, which the poll loop below watches.
 echo ==^> Starting Mocha (separate .meteor\local-test build, port 3100) and import regression in parallel.
 start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& (echo ===== Mocha [M2 node:3100 db:3101] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & call meteor test --once --driver-package meteortesting:mocha --port 3100 1>>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
 start "Wekan import" /MIN /D "%REPO%" cmd /c "(echo ===== Import regression [no server] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & call node tests\wekanCreator.import.test.js 1>>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
-
-call :wait_server_ready
 
 if "!SERVER_READY!"=="0" (
 	echo FAIL: server did not become ready on http://localhost:3000 ^(see %RUN_LOGDIR%\wekan-test-server.log^)
@@ -377,8 +373,9 @@ if "!ALLDONE!"=="0" (
 )
 
 echo.
-echo Stopping WeKan test server.
+echo Stopping WeKan test server (bundle node :3000).
 taskkill /FI "WINDOWTITLE eq WekanTestServer*" /T /F >nul 2>&1
+if "!MONGOD_STARTED!"=="1" ( echo Stopping test MongoDB ^(mongod :3001^). & taskkill /FI "WINDOWTITLE eq WekanTestMongo*" /T /F >nul 2>&1 )
 
 REM Final pass/fail per job (RUN means it never wrote a flag = treat as FAIL).
 if "!S_mocha!"=="FAIL" set "FAILED=1"
@@ -401,11 +398,12 @@ goto end
 REM ===========================================================================
 :test_all_sequential
 echo Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time).
-echo Mocha uses its own build dir (.meteor\local-test) so it runs at the same time as the :3000 server, which keeps .meteor\local.
-echo Two Meteor instances are involved:
-echo   Meteor #1 (.meteor\local)      - Node.js app :3000, MongoDB :3001 - serves Node E2E + Playwright browser tests
-echo   Meteor #2 (.meteor\local-test) - Node.js app :3100, MongoDB :3101 - runs the server-side Mocha tests
-echo   Import regression is a plain Node script (no Meteor, no MongoDB).
+echo Two WeKan servers are involved (they do NOT run tests in parallel; the suites run one at a time):
+echo   :3000  - the PRECOMPILED .build\bundle run as a plain Node server (Meteor's mongod on :3001, db "meteor")
+echo            - serves Node E2E + Playwright browser tests. No recompile: your existing build is reused.
+echo   :3100  - Mocha via 'meteor test' (its own .meteor\local-test build; the in-process server-side tests
+echo            CANNOT run from a production bundle, so this one build is unavoidable).
+echo   Import regression is a plain Node script (no server, no MongoDB).
 curl -fsS http://127.0.0.1:3000 >nul 2>&1
 if not errorlevel 1 (
 	echo ERROR: Port 3000 is already in use. Stop any running dev server before running this option.
@@ -432,14 +430,7 @@ REM builds compete for CPU/disk and starve the server, so it does not become
 REM ready until much later (a long line of dots). Once the server is ready the
 REM test jobs run one at a time (sequentially), not in parallel.
 echo.
-call :set_dev_env
-echo ==^> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor\local)
-set "ROOT_URL=http://localhost:3000"
-start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [node :3000 db :3001] started: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-test-server.log 2>&1 & meteor run --port 3000 1>>%RUN_LOGDIR%\wekan-test-server.log 2>&1"
-
-REM Wait for the :3000 server build to finish before running the jobs, so the
-REM heavy Meteor build is not competing for CPU/RAM with the test jobs.
-call :wait_server_ready
+call :start_bundle_server
 
 REM Run each test job to completion, ONE AT A TIME (sequential, not in parallel),
 REM so the combined run does not exhaust RAM/swap and crash the machine. Mocha
@@ -478,8 +469,9 @@ set "S_e2e=SKIP" & set "S_browsers=SKIP" & set "FAILED=1"
 :server_jobs_done
 
 echo.
-echo Stopping WeKan test server.
+echo Stopping WeKan test server (bundle node :3000).
 taskkill /FI "WINDOWTITLE eq WekanTestServer*" /T /F >nul 2>&1
+if "!MONGOD_STARTED!"=="1" ( echo Stopping test MongoDB ^(mongod :3001^). & taskkill /FI "WINDOWTITLE eq WekanTestMongo*" /T /F >nul 2>&1 )
 
 REM Final pass/fail per job (RUN means it never wrote a flag = treat as FAIL).
 if "!S_mocha!"=="FAIL" set "FAILED=1"
@@ -883,36 +875,109 @@ for /f "usebackq delims=" %%n in (`node -e "let n=0;try{n=(require('fs').readFil
 exit /b 0
 
 :wait_server_ready
-REM Poll http://localhost:3000 for up to ~180s while the first Meteor/rspack build
-REM runs. Instead of a silent row of dots, print the elapsed seconds every ~10s so
-REM the build is visibly progressing, and point at the live build log. Sets
-REM SERVER_READY=1 as soon as :3000 answers. (The real per-step build output is in
-REM the log; on cmd we show elapsed time rather than echo arbitrary build lines,
-REM which can contain > < ^| ^& that echo would misinterpret.)
-REM IMPORTANT: use a curl timeout. Meteor binds the :3000 proxy EARLY and accepts
-REM the TCP connection while the app is still building, but only sends an HTTP reply
-REM once the build finishes. A plain curl (no timeout) would block on that first
-REM connection for the whole build, freezing this loop. --connect-timeout/--max-time
-REM make each poll return quickly (each iteration is then a few seconds; ~240 of them
-REM allow roughly 20 minutes for a slow first build before we give up).
+REM Poll http://localhost:3000 until the precompiled bundle server answers. It boots
+REM in seconds (no build), so this is usually quick; print a check counter now and then
+REM and point at the live server log. Sets SERVER_READY=1 as soon as :3000 answers.
+REM IMPORTANT: use a curl timeout so a slow boot never blocks the loop
+REM (--connect-timeout/--max-time make each poll return quickly; ~240 polls ~= 20 min).
 set "SERVER_READY=0"
-echo ==^> Compiling the Meteor app for the :3000 test server ^(meteor run, .meteor\local^).
-echo     Tests run against a live WeKan; Meteor recompiles on start only for what changed since
-echo     your last build ^(sources / node_modules^), then caches it, so re-runs are faster.
-echo     On ARM/VM the first compile can take several minutes. Waiting for http://localhost:3000 ...
-echo     ^(watch the live build log in another window: type "%RUN_LOGDIR%\wekan-test-server.log"^)
+echo ==^> Waiting for the WeKan test server on http://localhost:3000 ^(precompiled bundle boots in seconds^) ...
+echo     ^(live server log: type "%RUN_LOGDIR%\wekan-test-server.log" in another window^)
 for /l %%i in (1,1,240) do (
 	if "!SERVER_READY!"=="0" (
 		curl -fsS --connect-timeout 2 --max-time 4 http://127.0.0.1:3000/sign-in >nul 2>&1 && set "SERVER_READY=1"
 		if "!SERVER_READY!"=="0" (
 			set /a "_mod=%%i %% 6"
-			if "!_mod!"=="0" ( echo     ... still building ^(check %%i^); see the build log for the current step )
+			if "!_mod!"=="0" ( echo     ... still waiting ^(check %%i^); see the server log for details )
 			ping -n 2 127.0.0.1 >nul
 		)
 	)
 )
 echo.
-if "!SERVER_READY!"=="1" echo ==^> WeKan server is ready on http://localhost:3000.
+if "!SERVER_READY!"=="1" echo ==^> WeKan test server is ready on http://localhost:3000 ^(precompiled bundle, no rebuild^).
+exit /b 0
+
+:start_bundle_server
+REM Parity with rebuild-wekan.sh: run the :3000 test server from the PRECOMPILED
+REM .build\bundle (NOT `meteor run`), so Node E2E + Playwright reuse the WeKan you
+REM already built with `meteor build .build --directory` - no recompile. The bundle is
+REM a plain Node server, so it needs its own MongoDB (Meteor's bundled mongod on :3001,
+REM db name "meteor" to match what the tests seed) and its server npm deps installed
+REM once. Mocha still uses `meteor test` (its own build) - it cannot run from a bundle.
+REM Sets SERVER_READY (via :wait_server_ready) and MONGOD_STARTED (1 if this run started
+REM the mongod, so the caller only stops one it started).
+set "SERVER_READY=0"
+set "MONGOD_STARTED=0"
+
+REM 1) Ensure the bundle exists; build it once if missing.
+if not exist "%REPO%\.build\bundle\main.js" (
+	echo ==^> .build\bundle not found - building the WeKan bundle first ^(meteor build .build --directory^)...
+	pushd "%REPO%"
+	call meteor npm install
+	call meteor build .build --directory
+	popd
+)
+if not exist "%REPO%\.build\bundle\main.js" (
+	echo ERROR: .build\bundle\main.js is still missing after building. Aborting.
+	exit /b 1
+)
+
+REM 2) Resolve Meteor's bundled node (run the bundle with the node its native modules
+REM    were built against) and the sibling mongod under the same dev_bundle.
+set "NODE_BIN="
+for /f "usebackq delims=" %%i in (`meteor node -e "process.stdout.write(process.execPath)" 2^>nul`) do set "NODE_BIN=%%i"
+if not defined NODE_BIN (
+	echo ERROR: could not resolve Meteor's bundled node ^(meteor node^). Aborting.
+	exit /b 1
+)
+for %%i in ("%NODE_BIN%") do set "NODE_BIN_DIR=%%~dpi"
+for %%i in ("%NODE_BIN_DIR:~0,-1%") do set "DEV_BUNDLE=%%~dpi"
+set "MONGOD_BIN=%DEV_BUNDLE%mongodb\bin\mongod.exe"
+if not exist "%MONGOD_BIN%" (
+	echo ERROR: Meteor's bundled mongod not found at "%MONGOD_BIN%". Aborting.
+	exit /b 1
+)
+
+REM 3) Install the bundle server's npm deps once (native modules built for NODE_BIN).
+if not exist "%REPO%\.build\bundle\programs\server\node_modules" (
+	echo ==^> Installing .build\bundle\programs\server npm deps ^(one-time, for the bundle server^)...
+	pushd "%REPO%\.build\bundle\programs\server"
+	call meteor npm install
+	popd
+)
+
+REM 4) MongoDB on :3001 - reuse one already listening, else start Meteor's mongod.
+netstat -ano | findstr /r /c:":3001 .*LISTENING" >nul 2>&1
+if not errorlevel 1 (
+	echo ==^> Reusing the MongoDB already listening on :3001 ^(not started or stopped by this run^).
+) else (
+	for %%i in ("%REPO%\..\mongodb-test-3001") do set "DBPATH=%%~fi"
+	if not exist "!DBPATH!" md "!DBPATH!"
+	echo ==^> Starting MongoDB ^(Meteor's mongod^) on :3001, dbpath !DBPATH!.
+	start "WekanTestMongo" /MIN "%MONGOD_BIN%" --port 3001 --dbpath "!DBPATH!" --bind_ip 127.0.0.1 --logpath "%RUN_LOGDIR%\wekan-test-mongod.log"
+	set "MONGOD_STARTED=1"
+	echo     Giving mongod a few seconds to accept connections on :3001 ^(Meteor then retries as needed^) ...
+	ping -n 8 127.0.0.1 >nul
+)
+
+REM 5) Start the precompiled bundle as the :3000 server. Env is set in THIS scope so
+REM    the child inherits it (avoids nested quotes), then unset so it does not leak to
+REM    the Mocha/E2E jobs (which must NOT inherit MONGO_URL - Mocha uses its own :3101).
+REM    WRITABLE_PATH is absolute (the bundle's main.js may chdir into programs\server).
+for %%i in ("%REPO%\..") do set "WRITABLE_ABS=%%~fi"
+set "MONGO_URL=mongodb://127.0.0.1:3001/meteor"
+set "ROOT_URL=http://localhost:3000"
+set "PORT=3000"
+set "WRITABLE_PATH=%WRITABLE_ABS%"
+set "WITH_API=true"
+set "RICHER_CARD_COMMENT_EDITOR=false"
+set "DEFAULT_METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling"
+echo ==^> Starting the WeKan test server on http://localhost:3000 from .build\bundle ^(precompiled - no rebuild^).
+start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [bundle node :3000 db :3001/meteor] started: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-test-server.log 2>&1 & "%NODE_BIN%" "%REPO%\.build\bundle\main.js" 1>>%RUN_LOGDIR%\wekan-test-server.log 2>&1"
+set "MONGO_URL=" & set "ROOT_URL=" & set "PORT=" & set "WRITABLE_PATH=" & set "WITH_API=" & set "RICHER_CARD_COMMENT_EDITOR=" & set "DEFAULT_METEOR_REACTIVITY_ORDER="
+
+REM 6) Wait for :3000 to answer (bundle boots in seconds; curl-timeout poll).
+call :wait_server_ready
 exit /b 0
 
 :seq_run_wait
