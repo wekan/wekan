@@ -372,6 +372,18 @@ and fixes the following bugs:
   partially-migrated files to give the space back**, reports how many files were migrated
   before stopping, and shows **how much more disk space is required** to migrate them all.
   Thanks to xet7.
+- **Admin Panel / Features / Security: "Always show all code as plain text" did not take
+  effect (links stayed clickable, code stayed rendered)**. The setting is applied by the
+  inner `markdown` helper, which reads a `ReactiveVar` (`Markdown.alwaysShowCodeAsText`)
+  that only a separate startup autorun kept in sync. But the `mentions` viewer wrapper
+  re-renders whenever the settings doc changes (it reads it for "render links as plain
+  text"), and that re-render usually ran BEFORE the startup autorun updated the
+  ReactiveVar — so the markdown helper read the stale value and rendered normally, and
+  because `mentions` does not depend on that ReactiveVar it never re-rendered again (the
+  race persisted even after reload). Fixed by setting the flag inside the `mentions`
+  helper, from the same reactive `getCurrentSetting()` it already reads, right before it
+  renders the inner markdown — so the toggle now takes effect immediately in every
+  rich-text field (card titles, descriptions, comments, checklists). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
