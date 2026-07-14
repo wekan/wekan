@@ -186,6 +186,20 @@ and adds the following updates:
   bypass regression, the import/export privacy settings, and the impersonation report query
   are now registered. With all of the above, the server suite boots and runs clean:
   **450 passing, 0 failing** (411 before the three files were wired in). Thanks to xet7.
+- **Test infrastructure: `rebuild-wekan.sh` now shows live progress while "Run ALL
+  tests" runs** (menu options 1 parallel / 2 sequential). Two phases used to sit
+  silent for minutes, which looked like a hang:
+  - While the `:3000` WeKan server did its first rspack build, the readiness wait
+    printed only dots. It now shows an in-place line with the **elapsed seconds** and
+    the **newest build step** read from the server log (`=> Compiled Rspack…`,
+    `=> Started MongoDB`, `=> Started your app`, …), plus a "server ready after Ns"
+    line when it comes up — so the build is visibly progressing (CR-stripped and
+    truncated to the terminal width so it refreshes on one line).
+  - In **sequential** mode each job blocks until it finishes, so nothing showed while
+    a job built and ran. Each job now prints a live in-place counter (elapsed seconds
+    + tests passed / failed, from the existing `count_pass` / `count_fail` on the job
+    log) and a final PASS/FAIL line when it completes. The parallel-mode combined
+    progress table is unchanged. Thanks to xet7.
 - **Admin Panel / Features / Security: import/export privacy controls**. Six new
   optional toggles govern how boards and user data cross the WeKan boundary:
   - **Disable all import** / **Disable all export** — master switches that turn off
