@@ -338,17 +338,7 @@ echo ==^> Starting Mocha (separate .meteor\local-test build, port 3100) and impo
 start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& (echo ===== Mocha [M2 node:3100 db:3101] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & call meteor test --once --driver-package meteortesting:mocha --port 3100 1>>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
 start "Wekan import" /MIN /D "%REPO%" cmd /c "(echo ===== Import regression [no server] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & call node tests\wekanCreator.import.test.js 1>>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
 
-set "SERVER_READY=0"
-for /l %%i in (1,1,180) do (
-	if "!SERVER_READY!"=="0" (
-		curl -fsS http://127.0.0.1:3000/sign-in >nul 2>&1 && set "SERVER_READY=1"
-		if "!SERVER_READY!"=="0" (
-			<nul set /p "=."
-			ping -n 2 127.0.0.1 >nul
-		)
-	)
-)
-echo.
+call :wait_server_ready
 
 if "!SERVER_READY!"=="0" (
 	echo FAIL: server did not become ready on http://localhost:3000 ^(see %RUN_LOGDIR%\wekan-test-server.log^)
@@ -449,53 +439,36 @@ start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [
 
 REM Wait for the :3000 server build to finish before running the jobs, so the
 REM heavy Meteor build is not competing for CPU/RAM with the test jobs.
-set "SERVER_READY=0"
-for /l %%i in (1,1,180) do (
-	if "!SERVER_READY!"=="0" (
-		curl -fsS http://127.0.0.1:3000/sign-in >nul 2>&1 && set "SERVER_READY=1"
-		if "!SERVER_READY!"=="0" (
-			<nul set /p "=."
-			ping -n 2 127.0.0.1 >nul
-		)
-	)
-)
-echo.
+call :wait_server_ready
 
 REM Run each test job to completion, ONE AT A TIME (sequential, not in parallel),
 REM so the combined run does not exhaust RAM/swap and crash the machine. Mocha
 REM and the import regression do not need the :3000 server; E2E and the browser
 REM suites do. The browser suite runs all three browsers with --workers=1, i.e.
 REM one browser at a time.
-echo ==^> Running Mocha on Meteor #2 [Node.js :3100, MongoDB :3101] (separate .meteor\local-test build).
-pushd "%REPO%"
-set "METEOR_LOCAL_DIR=.meteor\local-test"
-(echo ===== Mocha [M2 node:3100 db:3101] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1
-call meteor test --once --driver-package meteortesting:mocha --port 3100 1>>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1
-if errorlevel 1 (set "S_mocha=FAIL") else (set "S_mocha=PASS")
-set "METEOR_LOCAL_DIR="
-popd
+REM Each job runs in its own minimized window (same proven start-commands as the
+REM parallel mode, writing a .done-<key> flag on exit) but ONE AT A TIME: after
+REM starting a job we poll :seq_run_wait, which prints a live pass counter every
+REM few seconds until that job's .done flag appears, before starting the next.
+REM cd to the repo so the relative .done-<key> flag checks resolve here.
+cd /d "%REPO%"
 
-echo ==^> Running import regression [plain Node, no Meteor / no MongoDB].
-pushd "%REPO%"
-(echo ===== Import regression [no server] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1
-call node tests\wekanCreator.import.test.js 1>>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1
-if errorlevel 1 (set "S_import=FAIL") else (set "S_import=PASS")
-popd
+echo ==^> Running Mocha on Meteor #2 [Node.js :3100, MongoDB :3101] (separate .meteor\local-test build). Full log: %RUN_LOGDIR%\wekan-alltests-mocha.log
+start "Wekan mocha" /MIN /D "%REPO%" cmd /c "set METEOR_LOCAL_DIR=.meteor\local-test&& (echo ===== Mocha [M2 node:3100 db:3101] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & call meteor test --once --driver-package meteortesting:mocha --port 3100 1>>%RUN_LOGDIR%\wekan-alltests-mocha.log 2>&1 & if errorlevel 1 (echo FAIL>.done-mocha) else (echo PASS>.done-mocha)"
+call :seq_run_wait mocha check C_mocha "%RUN_LOGDIR%\wekan-alltests-mocha.log"
+
+echo ==^> Running import regression [plain Node, no Meteor / no MongoDB]. Full log: %RUN_LOGDIR%\wekan-alltests-import.log
+start "Wekan import" /MIN /D "%REPO%" cmd /c "(echo ===== Import regression [no server] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & call node tests\wekanCreator.import.test.js 1>>%RUN_LOGDIR%\wekan-alltests-import.log 2>&1 & if errorlevel 1 (echo FAIL>.done-import) else (echo PASS>.done-import)"
+call :seq_run_wait import check C_import "%RUN_LOGDIR%\wekan-alltests-import.log"
 
 if "!SERVER_READY!"=="0" goto skip_server_jobs
-echo ==^> Running Node E2E regressions on Meteor #1 [Node.js :3000, MongoDB :3001].
-pushd "%REPO%"
-(echo ===== Node E2E [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1
-call meteor npm run test:e2e 1>>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1
-if errorlevel 1 (set "S_e2e=FAIL") else (set "S_e2e=PASS")
-popd
-echo ==^> Running Playwright Chromium, Firefox and WebKit one at a time ^(--workers=1^) on Meteor #1 [Node.js :3000, MongoDB :3001].
-pushd "%REPO%\tests\playwright"
-set "WEKAN_PLAYWRIGHT_ALL=1"
-(echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1
-call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1
-if errorlevel 1 (set "S_browsers=FAIL") else (set "S_browsers=PASS")
-popd
+echo ==^> Running Node E2E regressions on Meteor #1 [Node.js :3000, MongoDB :3001]. Full log: %RUN_LOGDIR%\wekan-alltests-e2e.log
+start "Wekan e2e" /MIN /D "%REPO%" cmd /c "(echo ===== Node E2E [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & call meteor npm run test:e2e 1>>%RUN_LOGDIR%\wekan-alltests-e2e.log 2>&1 & if errorlevel 1 (echo FAIL>.done-e2e) else (echo PASS>.done-e2e)"
+call :seq_run_wait e2e e2e C_e2e "%RUN_LOGDIR%\wekan-alltests-e2e.log"
+
+echo ==^> Running Playwright Chromium, Firefox and WebKit one at a time ^(--workers=1^) on Meteor #1 [Node.js :3000, MongoDB :3001]. Full log: %RUN_LOGDIR%\wekan-alltests-browsers.log
+start "Wekan browsers" /MIN /D "%REPO%\tests\playwright" cmd /c "set WEKAN_PLAYWRIGHT_ALL=1&& (echo ===== Playwright browsers [M1 node:3000 db:3001] test run: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & call meteor npm exec playwright test -- --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list 1>>%RUN_LOGDIR%\wekan-alltests-browsers.log 2>&1 & if errorlevel 1 (echo FAIL>..\..\.done-browsers) else (echo PASS>..\..\.done-browsers)"
+call :seq_run_wait browsers check C_browsers "%RUN_LOGDIR%\wekan-alltests-browsers.log"
 goto server_jobs_done
 
 :skip_server_jobs
@@ -907,6 +880,44 @@ for /f "usebackq delims=" %%n in (`node -e "let n=0;try{n=(require('fs').readFil
 exit /b 0
 :jcount_e2e
 for /f "usebackq delims=" %%n in (`node -e "let n=0;try{n=(require('fs').readFileSync(process.argv[1],'utf8').match(/\[wekan-e2e\]/g)||[]).length}catch(e){}process.stdout.write(String(n))" "%~3"`) do set "%~1=%%n"
+exit /b 0
+
+:wait_server_ready
+REM Poll http://localhost:3000 for up to ~180s while the first Meteor/rspack build
+REM runs. Instead of a silent row of dots, print the elapsed seconds every ~10s so
+REM the build is visibly progressing, and point at the live build log. Sets
+REM SERVER_READY=1 as soon as :3000 answers. (The real per-step build output is in
+REM the log; on cmd we show elapsed time rather than echo arbitrary build lines,
+REM which can contain > < ^| ^& that echo would misinterpret.)
+set "SERVER_READY=0"
+echo ==^> Building WeKan ^(first build can take minutes^); waiting for http://localhost:3000 ...
+echo     ^(watch the live build log in another window: type "%RUN_LOGDIR%\wekan-test-server.log"^)
+for /l %%i in (1,1,180) do (
+	if "!SERVER_READY!"=="0" (
+		curl -fsS http://127.0.0.1:3000/sign-in >nul 2>&1 && set "SERVER_READY=1"
+		if "!SERVER_READY!"=="0" (
+			set /a "_mod=%%i %% 10"
+			if "!_mod!"=="0" ( echo     ... still building, %%is elapsed )
+			ping -n 2 127.0.0.1 >nul
+		)
+	)
+)
+echo.
+if "!SERVER_READY!"=="1" echo ==^> WeKan server is ready on http://localhost:3000.
+exit /b 0
+
+:seq_run_wait
+REM Live progress for a sequential job that runs in its own minimized window and
+REM writes .done-<key> when finished. %1=key %2=count kind (check^|e2e) %3=count var
+REM %4=log file. Polls every few seconds, printing the running pass counter, then
+REM sets S_<key> from the .done flag. Only numbers + fixed labels are echoed (safe).
+:seq_run_wait_loop
+call :jcount %3 %2 "%~4"
+echo     %1: tests:!%3! ^(running^)
+if not exist ".done-%1" ( ping -n 4 127.0.0.1 >nul & goto seq_run_wait_loop )
+call :jstate %1
+call :jcount %3 %2 "%~4"
+echo     %1: !S_%1! tests:!%3!
 exit /b 0
 
 REM ===========================================================================

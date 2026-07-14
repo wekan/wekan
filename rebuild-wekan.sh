@@ -411,27 +411,38 @@ function run_playwright_parallel(){
 	mkdir -p "$RUN_LOGDIR"
 
 	echo "Running Chromium, Firefox and WebKit Playwright suites sequentially (one browser at a time)."
-	echo "Live output goes to $RUN_LOGDIR/wekan-playwright-<browser>.log; a summary prints when all finish."
+	echo "Each browser's output (Playwright 'list' reporter, one line per test) streams live below and is also saved to $RUN_LOGDIR/wekan-playwright-<browser>.log."
 
 	# Run the three browser suites one after another rather than in parallel:
 	# running all three at once against a single dev server uses too much RAM and
-	# swap on lower-memory machines and may crash. Each browser still writes its
-	# own log and the combined summary is printed once all have finished.
+	# swap on lower-memory machines and may crash. Each browser streams live via
+	# tee (so progress is visible while it runs) AND writes its own log; the
+	# combined summary is printed once all have finished.
 	local rc_chromium rc_firefox rc_webkit
 	local ts
-	# Logs go into this run's ../log/<timestamp>/ dir; the header records the datetime too.
-	ts="$(date '+%Y-%m-%d %H:%M:%S %Z')"; { echo "===== Playwright Chromium - test run started $ts ====="; echo; run_pw_all_browser chromium; } > $RUN_LOGDIR/wekan-playwright-chromium.log 2>&1; rc_chromium=$?
-	ts="$(date '+%Y-%m-%d %H:%M:%S %Z')"; { echo "===== Playwright Firefox - test run started $ts ====="; echo; run_pw_all_browser firefox;  } > $RUN_LOGDIR/wekan-playwright-firefox.log  2>&1; rc_firefox=$?
-	ts="$(date '+%Y-%m-%d %H:%M:%S %Z')"; { echo "===== Playwright WebKit - test run started $ts ====="; echo; run_pw_all_browser webkit;   } > $RUN_LOGDIR/wekan-playwright-webkit.log   2>&1; rc_webkit=$?
+	# Stream live to the console with tee while also saving to this run's
+	# ../log/<timestamp>/ dir. PIPESTATUS[0] is run_pw_all_browser's exit code (the
+	# left side of the pipe), not tee's, so the pass/fail result stays accurate.
+	for entry in "chromium:Chromium" "firefox:Firefox" "webkit:WebKit"; do
+		browser="${entry%%:*}"; label="${entry#*:}"
+		ts="$(date '+%Y-%m-%d %H:%M:%S %Z')"
+		echo
+		echo "==================== Playwright $label (live) ===================="
+		{ echo "===== Playwright $label - test run started $ts ====="; echo; run_pw_all_browser "$browser"; } 2>&1 | tee "$RUN_LOGDIR/wekan-playwright-${browser}.log"
+		local rc=${PIPESTATUS[0]}
+		case "$browser" in
+			chromium) rc_chromium=$rc ;;
+			firefox)  rc_firefox=$rc ;;
+			webkit)   rc_webkit=$rc ;;
+		esac
+	done
 
 	local PW_FAILURES=""
 	SUMMARY=()
 	record() { SUMMARY+=("$1|$2|${3:-}"); }
 	for entry in "chromium:Chromium:$rc_chromium" "firefox:Firefox:$rc_firefox" "webkit:WebKit:$rc_webkit"; do
 		browser="${entry%%:*}"; rest="${entry#*:}"; label="${rest%%:*}"; rc="${rest#*:}"
-		echo
-		echo "==================== Playwright $label output ===================="
-		cat "$RUN_LOGDIR/wekan-playwright-${browser}.log" 2>/dev/null || true
+		# Output already streamed live above; here we only compute the summary.
 		local json="$pwdir/test-results/all-tests-${browser}.json"
 		local stats; stats="$(pw_stats_of "$json")"
 		if [ "$rc" -eq 0 ]; then record PASS "Playwright $label" "$stats"; else record FAIL "Playwright $label" "$stats"; fi

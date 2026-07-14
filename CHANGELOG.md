@@ -186,19 +186,30 @@ and adds the following updates:
   bypass regression, the import/export privacy settings, and the impersonation report query
   are now registered. With all of the above, the server suite boots and runs clean:
   **450 passing, 0 failing** (411 before the three files were wired in). Thanks to xet7.
-- **Test infrastructure: `rebuild-wekan.sh` now shows live progress while "Run ALL
-  tests" runs** (menu options 1 parallel / 2 sequential). Two phases used to sit
-  silent for minutes, which looked like a hang:
-  - While the `:3000` WeKan server did its first rspack build, the readiness wait
-    printed only dots. It now shows an in-place line with the **elapsed seconds** and
-    the **newest build step** read from the server log (`=> Compiled Rspack…`,
-    `=> Started MongoDB`, `=> Started your app`, …), plus a "server ready after Ns"
-    line when it comes up — so the build is visibly progressing (CR-stripped and
-    truncated to the terminal width so it refreshes on one line).
-  - In **sequential** mode each job blocks until it finishes, so nothing showed while
-    a job built and ran. Each job now prints a live in-place counter (elapsed seconds
-    + tests passed / failed, from the existing `count_pass` / `count_fail` on the job
-    log) and a final PASS/FAIL line when it completes. The parallel-mode combined
+- **Test infrastructure: `rebuild-wekan.sh` and `rebuild-wekan.bat` now show live
+  progress in every test path**. Several places used to sit silent for minutes, which
+  looked like a hang. Audited both scripts and closed every gap:
+  - **Server first-build wait** (both "Run ALL tests" modes). While the `:3000` WeKan
+    server did its first rspack build, the readiness wait printed only dots. In
+    `.sh` it now shows an in-place line with the **elapsed seconds** and the **newest
+    build step** read from the server log (`=> Compiled Rspack…`, `=> Started MongoDB`,
+    `=> Started your app`, …; CR-stripped and truncated to the terminal width so it
+    refreshes on one line), plus a "server ready after Ns" line. In `.bat` (where echoing
+    arbitrary build lines is unsafe because they contain `> < | &`) it prints the elapsed
+    seconds every ~10s and points at the live build log to `type` in another window.
+  - **Sequential per-job** (menu option 2). Each job used to block/redirect to a log
+    with nothing on screen while it built and ran. Now each job reports live: `.sh`
+    prints an in-place counter (elapsed seconds + tests passed / failed, via the existing
+    `count_pass` / `count_fail`) and a final PASS/FAIL line; `.bat` runs each job in its
+    own minimized window (reusing the proven parallel start-commands + `.done-<key>`
+    flags) and polls a live pass counter until it finishes, one job at a time.
+  - **Playwright "ALL browsers" single menu item** (`.sh` option 10 /
+    `run_playwright_parallel`). It redirected each browser to a log and only dumped the
+    output after all finished. It now streams each browser's Playwright `list` reporter
+    live via `tee` (progress visible per test) while still saving the log;
+    `PIPESTATUS[0]` keeps the per-browser pass/fail accurate through the pipe.
+  - The single-suite menu items (Mocha, import regression, Node E2E, single Playwright
+    browser) already stream straight to the terminal, and the parallel-mode combined
     progress table is unchanged. Thanks to xet7.
 - **Admin Panel / Features / Security: import/export privacy controls**. Six new
   optional toggles govern how boards and user data cross the WeKan boundary:
