@@ -1,8 +1,13 @@
 import DOMPurify from 'dompurify';
 
-// Centralized secure DOMPurify configuration to prevent XSS and CSS injection attacks
-export function getSecureDOMPurifyConfig() {
-  return {
+// Centralized secure DOMPurify configuration to prevent XSS and CSS injection attacks.
+//
+// options.stripLinks — when true, anchor (<a>) tags are removed while their visible
+// text is kept (KEEP_CONTENT), so every link (both markdown links like
+// [label](url) and raw HTML <a href> tags) renders as plain, non-clickable text.
+// Used by the Admin Panel / Features "render links as plain text" toggle.
+export function getSecureDOMPurifyConfig(options = {}) {
+  const config = {
     // Allow common markdown elements including anchor tags
     ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 's', 'del', 'strike', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span'],
     // Allow safe attributes including href for anchor tags
@@ -122,11 +127,19 @@ export function getSecureDOMPurifyConfig() {
       }
     }
   };
+
+  if (options.stripLinks) {
+    // Forbid <a> but keep its inner text (KEEP_CONTENT is already true above), so
+    // links become plain, non-clickable text instead of clickable anchors.
+    config.FORBID_TAGS = config.FORBID_TAGS.concat(['a']);
+  }
+
+  return config;
 }
 
 // Convenience function for secure sanitization
-export function sanitizeHTML(html) {
-  return DOMPurify.sanitize(html, getSecureDOMPurifyConfig());
+export function sanitizeHTML(html, options = {}) {
+  return DOMPurify.sanitize(html, getSecureDOMPurifyConfig(options));
 }
 
 // Convenience function for sanitizing text (no HTML)

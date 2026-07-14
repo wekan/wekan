@@ -31,6 +31,14 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin Panel / Features: when true, all links (markdown [label](url) and raw
+    // HTML <a href> tags) are rendered as plain, non-clickable text in every rich
+    // text field. Default false keeps links clickable.
+    renderLinksAsPlainText: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     mailServer: {
       type: Object,
       optional: true,

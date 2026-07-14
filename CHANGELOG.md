@@ -90,6 +90,20 @@ them up next.
 
 This release adds the following updates:
 
+- **Admin Panel / Features: new optional "Render links as plain text" security
+  toggle**. When enabled, all links — both markdown links like `[label](url)` and
+  raw HTML `<a href>` tags — are always shown as plain, non-clickable text in every
+  rich text field (board and card titles, descriptions, comments, checklists,
+  etc.), so a link can never be clicked and cannot present misleading anchor text.
+  This is a hardening option on top of the existing XSS sanitization (which already
+  strips `javascript:`/`data:` schemes, event-handler attributes and dangerous
+  tags): it addresses [#6453](https://github.com/wekan/wekan/issues/6453), where a
+  board title could render as a clickable link. The toggle lives under Admin Panel /
+  Features / Security, is stored as the global `renderLinksAsPlainText` setting, and
+  defaults to off (links stay clickable). Implemented by forbidding the `<a>` tag
+  (while keeping its visible text) in the shared DOMPurify sanitizer used by the
+  rich text viewer, gated on the setting so toggling it re-renders reactively.
+  Thanks to bcook-konza and xet7.
 - **Sandstorm: the WeKan Admin Panel is now always available in a migrated grain,
   not just a freshly created one**. On Sandstorm the grain owner (Sandstorm
   `configure` permission) is mapped to a WeKan admin, which gates the Admin Panel

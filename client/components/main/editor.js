@@ -384,9 +384,15 @@ Blaze.Template.registerHelper(
   new Template('mentions', function() {
     const view = this;
     let content = Blaze.toHTML(view.templateContentBlock);
+    // Admin Panel / Features: when "render links as plain text" is enabled, every
+    // link (markdown [label](url) and raw HTML <a href>) is stripped to plain,
+    // non-clickable text everywhere rich text is shown. Reactive: toggling the
+    // setting re-renders viewers.
+    const setting = ReactiveCache.getCurrentSetting();
+    const stripLinks = !!(setting && setting.renderLinksAsPlainText);
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
-      return HTML.Raw(sanitizeHTML(content));
+      return HTML.Raw(sanitizeHTML(content, { stripLinks }));
     const knowedUsers = [...new Set([...currentBoard.members
       .filter(member => member.isActive)
       .map(member => {
@@ -440,7 +446,7 @@ Blaze.Template.registerHelper(
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
 
-    return HTML.Raw(sanitizeHTML(content));
+    return HTML.Raw(sanitizeHTML(content, { stripLinks }));
   }),
 );
 

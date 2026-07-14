@@ -16,6 +16,11 @@ template(name="adminFeatures")
                 span.emoji-icon
                 i.fa.fa-tachometer
                 | {{_ 'features-performance'}}
+            li(class="{{#if isSecurityActive}}active{{/if}}")
+              a.js-features-menu(data-id="security")
+                span.emoji-icon
+                i.fa.fa-shield
+                | {{_ 'features-security'}}
         .main-body
           if isPerformanceActive
             ul.setting-detail
@@ -30,3 +35,10 @@ template(name="adminFeatures")
                         option(value="{{value}}") {{_ label}}
                 p.description {{_ 'cards-loading-description'}}
                 p.description {{_ 'cards-loading-lazy-note'}}
+          if isSecurityActive
+            ul.setting-detail
+              li
+                a.flex.js-toggle-render-links-as-plain-text
+                  .materialCheckBox(class="{{#if renderLinksAsPlainText}}is-checked{{/if}}")
+                  span {{_ 'render-links-as-plain-text'}}
+                p.description {{_ 'render-links-as-plain-text-description'}}

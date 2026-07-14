@@ -15,12 +15,18 @@ Template.adminFeatures.helpers({
   isPerformanceActive() {
     return Template.instance().activePane.get() === 'performance';
   },
+  isSecurityActive() {
+    return Template.instance().activePane.get() === 'security';
+  },
   cardsLoadingOptions() {
     const current = (ReactiveCache.getCurrentSetting() || {}).cardsLoading || 'all';
     return [
       { value: 'all', label: 'cards-loading-all', selected: current === 'all' },
       { value: 'lazy', label: 'cards-loading-lazy', selected: current === 'lazy' },
     ];
+  },
+  renderLinksAsPlainText() {
+    return (ReactiveCache.getCurrentSetting() || {}).renderLinksAsPlainText;
   },
 });
 
@@ -33,6 +39,14 @@ Template.adminFeatures.events({
     const setting = ReactiveCache.getCurrentSetting();
     if (setting) {
       Settings.update(setting._id, { $set: { cardsLoading: value } });
+    }
+  },
+  'click .js-toggle-render-links-as-plain-text'() {
+    const setting = ReactiveCache.getCurrentSetting();
+    if (setting) {
+      Settings.update(setting._id, {
+        $set: { renderLinksAsPlainText: !setting.renderLinksAsPlainText },
+      });
     }
   },
 });
