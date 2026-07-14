@@ -131,6 +131,46 @@ and adds the following updates:
   description *change* — the before/after text as `oldValue` / `value` (previously
   only `timeValue`/`timeOldValue` were forwarded). New fields are additive, so
   existing webhook consumers are unaffected. Thanks to xet7.
+- **Test infrastructure: fix `meteor test` (Mocha, server-side) crashing at boot
+  with 0 tests run** (`scripts/patch-yargs-dirname.cjs`). The whole `yargs` package
+  is dragged into the Meteor **test** server bundle as a transitive devDependency,
+  and Meteor 3 wraps every module in a CommonJS function
+  `function(require, exports, module, __filename, __dirname){…}`. yargs (and its ESM
+  dependencies) ship native-ESM constructs that are illegal inside that wrapper and
+  crash the bundle before a single test runs:
+  - `import.meta.url` / `import.meta.resolve(…)` → "Cannot use 'import.meta' outside a module"
+  - `const __dirname = …` → "Identifier '__dirname' has already been declared"
+  - `const require = createRequire(import.meta.url)` (and the guarded bundler variant
+    `const require = createRequire ? createRequire(import.meta.url) : undefined`) →
+    "Identifier 'require' has already been declared"
+
+  A `postinstall` patch (`patch-yargs-dirname.cjs`) rewrites those constructs to the
+  wrapper's own `__filename` / `__dirname` / `require` (yargs is never executed here —
+  it only needs to *parse* as CommonJS). Getting the patch right took several iterations,
+  each of which failed in a way that looked like an unrelated source-level syntax error:
+  1. The patch expanded `import.meta.url` **before** stripping
+     `const require = createRequire(…)`. The expansion injected a `require('url')…`
+     call whose `)` then terminated the paren-naive `createRequire\([^)]*\)` match early,
+     leaving a dangling `.pathToFileURL(__filename).href))` — reify then died with
+     `SyntaxError: Unexpected token (19:33)` on the **generated** yargs `esm.mjs`, not on
+     any repo file. Diagnosing it required instrumenting reify's Babel parser in the
+     Meteor **dev_bundle** copy to dump the exact source string it was choking on, because
+     every scan of the repo's own `*.js` came back clean (the broken file was in
+     `node_modules`, was `.mjs`, and was *produced by the patch itself*). Fixed by
+     removing the `createRequire` line **before** expanding `import.meta.url`, plus a
+     repair rule that collapses any already-corrupted `…href))` leftover back to a marker.
+  2. Even parsing-clean, a **second** ESM shim (a yargs ESM dependency, not `yargs/`
+     itself, so `import.meta.url` was still unexpanded there) used the guarded ternary
+     `const require = createRequire ? createRequire(import.meta.url) : undefined;`, which
+     the direct `createRequire\(` matcher missed → at **boot** the wrapper crashed with
+     "Identifier 'require' has already been declared". Fixed by generalizing the removal
+     to line-wise `const require = …createRequire…;` (covers both forms) and broadening
+     the scan beyond `node_modules/yargs` to yargs's bundled ESM dependencies.
+
+  The patch is idempotent, best-effort (never fails an install), and re-runnable by hand
+  (`node scripts/patch-yargs-dirname.cjs`) to repair a `node_modules` tree left broken by
+  an older version. This is a pre-existing test-only build breakage (the yargs bundling
+  predates these fixes); production runtime bundles were never affected. Thanks to xet7.
 - **Admin Panel / Features / Security: import/export privacy controls**. Six new
   optional toggles govern how boards and user data cross the WeKan boundary:
   - **Disable all import** / **Disable all export** — master switches that turn off

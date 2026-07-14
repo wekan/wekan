@@ -51,3 +51,6 @@ import './deleteWebhookActivity.tests';
 import './webhookNonBlocking.tests';
 import './apiResponseHelpers.tests';
 import './dnsbleed.security.tests';
+import './fileValidationBypass.security.tests';
+import './importExportSecurity.tests';
+import './impersonationReportQuery.tests';

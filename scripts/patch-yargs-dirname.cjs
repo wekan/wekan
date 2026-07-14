@@ -41,7 +41,7 @@ function patchFile(file) {
   try { src = fs.readFileSync(file, 'utf8'); } catch (e) { return false; }
   // Also reprocess files a previous (buggy) run left in the broken state below.
   const hasBroken = src.includes(REQUIRE_MARKER + '.pathToFileURL');
-  if (!src.includes('import.meta') && !/const\s+require\s*=\s*createRequire\(/.test(src) && !/const\s+__dirname\b/.test(src) && !hasBroken) {
+  if (!src.includes('import.meta') && !/const\s+require\s*=\s*[^;\n]*createRequire/.test(src) && !/const\s+__dirname\b/.test(src) && !hasBroken) {
     return false;
   }
   let out = src;
@@ -57,10 +57,13 @@ function patchFile(file) {
     REQUIRE_MARKER,
   );
 
-  // Drop `const require = createRequire(…)` (collides with the wrapper's require)
-  // BEFORE expanding import.meta.url below: the import.meta.url replacement injects
-  // a `require('url')…` whose parens would otherwise break this paren-naive match.
-  out = out.replace(/const\s+require\s*=\s*createRequire\([^)]*\)\s*;?/g, REQUIRE_MARKER);
+  // Drop any top-level `const require = …createRequire…;` (collides with the
+  // wrapper's require). Covers both the direct form `const require =
+  // createRequire(import.meta.url)` and the guarded ternary bundlers emit,
+  // `const require = createRequire ? createRequire(import.meta.url) : undefined;`.
+  // Matched line-wise (`[^;\n]*`) and run BEFORE expanding import.meta.url below,
+  // so the injected `require('url')…` parens can never confuse this match.
+  out = out.replace(/const\s+require\s*=\s*[^;\n]*createRequire[^;\n]*;?/g, REQUIRE_MARKER);
 
   // import.meta.* → CommonJS-wrapper equivalents.
   out = out.replace(/fileURLToPath\(\s*import\.meta\.url\s*\)/g, '__filename');
@@ -79,13 +82,23 @@ function patchFile(file) {
   return false;
 }
 
-const YARGS = path.join('node_modules', 'yargs');
+// yargs itself is not the only offender: its ESM dependencies get bundled too and
+// ship the same wrapper-colliding constructs. `yargs-parser/build/lib/index.js`
+// uses the guarded `const require = createRequire ? … : undefined` shim, which
+// crashes the test server bundle at boot ("Identifier 'require' has already been
+// declared"). Scan yargs AND every yargs dependency package that actually contains
+// a collision pattern (the rest — cliui, escalade, string-width, y18n, … — are clean
+// today but are harmless to include if they gain one later).
+const ROOTS = ['yargs', 'yargs-parser', 'cliui', 'escalade', 'get-caller-file', 'require-directory', 'string-width', 'y18n']
+  .map(name => path.join('node_modules', name))
+  .filter(p => fs.existsSync(p));
 try {
-  if (!fs.existsSync(YARGS)) process.exit(0);
+  if (!ROOTS.length) process.exit(0);
+  const files = ROOTS.reduce((acc, r) => collect(r, acc), []);
   let n = 0;
-  for (const f of collect(YARGS, [])) { if (patchFile(f)) n += 1; }
+  for (const f of files) { if (patchFile(f)) n += 1; }
   if (n) console.log('patch-yargs-dirname: made', n, 'yargs file(s) Meteor CommonJS-wrapper safe');
-  const leftovers = collect(YARGS, []).filter(f => {
+  const leftovers = files.filter(f => {
     try { return /import\.meta/.test(fs.readFileSync(f, 'utf8')); } catch (e) { return false; }
   });
   if (leftovers.length) console.warn('patch-yargs-dirname: WARNING import.meta still in', leftovers.join(', '));
