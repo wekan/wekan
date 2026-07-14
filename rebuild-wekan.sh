@@ -738,8 +738,13 @@ function run_all_tests(){
 	# tests (which print their own output) start.
 	tail -n 0 -f "$RUN_LOGDIR/wekan-test-server.log" &
 	local TAIL_PID=$!
-	{ echo "===== WeKan test server [bundle node :3000 db :3001] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; \
-	  MONGO_URL="mongodb://127.0.0.1:3001/wekan" ROOT_URL="http://localhost:3000" PORT=3000 \
+	# DB name MUST be "meteor": that is what Meteor's built-in mongo used under the old
+	# `meteor run`, and the Playwright/E2E tests seed straight into
+	# mongodb://127.0.0.1:3001/meteor (tests/playwright/helpers/db.js). Using any other
+	# db name (e.g. /wekan) makes the app read an empty database while the tests seed a
+	# different one, so every test that needs seeded data fails.
+	{ echo "===== WeKan test server [bundle node :3000 db :3001/meteor] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; \
+	  MONGO_URL="mongodb://127.0.0.1:3001/meteor" ROOT_URL="http://localhost:3000" PORT=3000 \
 	  WRITABLE_PATH="$WRITABLE_ABS" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false \
 	  DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" \
 	  "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
