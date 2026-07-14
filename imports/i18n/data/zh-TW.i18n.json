@@ -1867,6 +1867,8 @@
   "features-security": "Security",
   "render-links-as-plain-text": "Render links as plain text",
   "render-links-as-plain-text-description": "When enabled, all links (both markdown links like [label](url) and raw HTML <a href> tags) are always shown as plain, non-clickable text in every rich text field (board and card titles, descriptions, comments, checklists, etc.). This prevents misleading clickable links. Default is off, so links stay clickable.",
+  "always-show-code-as-text": "Always show all code as plain text",
+  "always-show-code-as-text-description": "When enabled, rich text is never rendered as markdown or HTML: the entire source is always shown as plain text in every rich text field (board and card titles, descriptions, comments, checklists, etc.). This reveals hidden content — HTML comments (<!-- -->), the target of markdown links, JavaScript and any other code — so all code is always visible, not clickable, and not running. Default is off, so markdown is rendered normally.",
   "backup": "備份",
   "backup-description": "備份附件、大頭照或資料（所有非附件或大頭照的文字型資料集）。該 .zip 檔案將直接串流至選定的儲存空間（無需臨時檔案），檔案名稱為 backup/YYYY/MM/DD/HH_MM_SS/backup.zip，其中包含 YYYY_MM_DD-HH_MM_SS/attachments、/avatars 及 /data 目錄。雲端儲存服務 (S3/MinIO, Azure, GCS) 將使用其「儲存空間」分頁中設定的憑證。",
   "backup-data": "資料（文字）",

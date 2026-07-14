@@ -1867,6 +1867,8 @@
   "features-security": "Security",
   "render-links-as-plain-text": "Render links as plain text",
   "render-links-as-plain-text-description": "When enabled, all links (both markdown links like [label](url) and raw HTML <a href> tags) are always shown as plain, non-clickable text in every rich text field (board and card titles, descriptions, comments, checklists, etc.). This prevents misleading clickable links. Default is off, so links stay clickable.",
+  "always-show-code-as-text": "Always show all code as plain text",
+  "always-show-code-as-text-description": "When enabled, rich text is never rendered as markdown or HTML: the entire source is always shown as plain text in every rich text field (board and card titles, descriptions, comments, checklists, etc.). This reveals hidden content — HTML comments (<!-- -->), the target of markdown links, JavaScript and any other code — so all code is always visible, not clickable, and not running. Default is off, so markdown is rendered normally.",
   "backup": "Backup",
   "backup-description": "Faça backup de anexos, avatares e/ou dados (todas as coleções baseadas em texto que não sejam anexos ou avatares). O arquivo .zip é transmitido diretamente para o armazenamento selecionado — sem arquivo temporário — como backup/AAAA/MM/DD/HH_MM_SS/backup.zip, contendo as pastas AAAA_MM_DD-HH_MM_SS/attachments, /avatars e /data. Os armazenamentos em nuvem (S3/MinIO, Azure, GCS) usam as credenciais configuradas em suas respectivas abas de armazenamento.",
   "backup-data": "Dados (texto)",
