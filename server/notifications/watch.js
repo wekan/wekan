@@ -9,7 +9,7 @@ Meteor.methods({
     check(id, String);
     check(level, Match.OneOf(String, null));
 
-    // Admin Panel / Features / Notifications (GDPR #5820): the watch feature is
+    // Admin Panel / Features / Notifications (#5820): the watch feature is
     // disabled, so ignore any request to change a watch level.
     if (getFeatureFlags().disableWatch) {
       throw new Meteor.Error('error-watch-disabled');

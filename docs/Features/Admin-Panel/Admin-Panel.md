@@ -112,9 +112,10 @@ the client):
   importing / exporting (e.g. `käyttäjä1` in Finnish). Both export paths — the
   in-memory `build()` and the streaming `buildStream()` — are covered.
 
-### Notifications (GDPR)
+### Notifications
 
-Privacy controls requested for public-sector / GDPR deployments
+Privacy controls for deployments that must limit activity tracking, notifications
+or watching (e.g. to comply with local law or an organization's policy)
 ([#5820](https://github.com/wekan/wekan/issues/5820)), enforced server-side:
 
 - **Disable all activities** (`disableActivities`) — activity-feed entries are

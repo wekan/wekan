@@ -7,7 +7,7 @@ import { getFeatureFlags } from '/models/lib/featureFlags';
 // We use this publication to paginate for these two publications.
 
 Meteor.publish('activities', async function(kind, id, limit, showActivities) {
-  // Admin Panel / Features / Notifications (GDPR #5820): hide all activity-feed
+  // Admin Panel / Features / Notifications (#5820): hide all activity-feed
   // entries (existing and new) when activities are disabled.
   if (getFeatureFlags().disableActivities) {
     return this.ready();

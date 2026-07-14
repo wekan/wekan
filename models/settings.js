@@ -48,7 +48,7 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
-    // Admin Panel / Features / Notifications (GDPR, issue #5820).
+    // Admin Panel / Features / Notifications (issue #5820).
     // disableActivities: stop recording AND showing all activity-feed entries.
     // disableNotifications: never send watch notifications.
     // disableWatch: turn off the watch feature (users can still track via activities

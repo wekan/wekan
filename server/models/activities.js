@@ -56,7 +56,7 @@ Meteor.startup(async () => {
 });
 
 Activities.after.insert(async (userId, doc) => {
-  // Admin Panel / Features / Notifications (GDPR #5820): never send watch
+  // Admin Panel / Features / Notifications (#5820): never send watch
   // notifications when disabled. Activity recording (if enabled) is unaffected.
   if (getFeatureFlags().disableNotifications) {
     return;

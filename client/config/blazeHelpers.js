@@ -118,7 +118,7 @@ Blaze.registerHelper('exportDisabled', () =>
   !!(ReactiveCache.getCurrentSetting() || {}).disableAllExport,
 );
 
-// Admin Panel / Features / Notifications (GDPR #5820). Templates use these to hide
+// Admin Panel / Features / Notifications (#5820). Templates use these to hide
 // the activity feed and the watch controls when an admin has disabled them.
 Blaze.registerHelper('activitiesDisabled', () =>
   !!(ReactiveCache.getCurrentSetting() || {}).disableActivities,

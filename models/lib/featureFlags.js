@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import Settings from '/models/settings';
 
-// Synchronously-readable cache of the Admin Panel / Features / Notifications GDPR
+// Synchronously-readable cache of the Admin Panel / Features / Notifications
 // toggles (issue #5820). A collection `before.insert` hook (models/activities.js)
 // runs in a synchronous context and cannot await a Settings lookup, so the server
 // keeps this small cache up to date with a Settings observer and exposes it via a

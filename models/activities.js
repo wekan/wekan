@@ -83,7 +83,7 @@ Activities.before.update((userId, doc, fieldNames, modifier) => {
 });
 
 Activities.before.insert((userId, doc) => {
-  // Admin Panel / Features / Notifications (GDPR #5820): stop recording activities
+  // Admin Panel / Features / Notifications (#5820): stop recording activities
   // entirely when disabled. Returning false cancels the insert, so no activity-feed
   // entry is stored and the notification after.insert hook never fires.
   if (getFeatureFlags().disableActivities) {
