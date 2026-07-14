@@ -596,7 +596,25 @@ function run_all_tests(){
 		local pid=$!
 		BPIDS="$BPIDS $pid"
 		# Sequential mode: block until this job finishes before starting the next.
-		[ "$RUN_MODE" = parallel ] || wait "$pid" 2>/dev/null || true
+		# Instead of waiting silently, show a live in-place line (elapsed seconds +
+		# tests passed/failed so far, read from the job's log) so the console keeps
+		# moving while the job builds and runs; print a final status line when done.
+		if [ "$RUN_MODE" != parallel ]; then
+			local jlog="$RUN_LOGDIR/wekan-alltests-$k.log"
+			local jstart jel jok jbad jrc jst
+			jstart=$(date +%s)
+			while kill -0 "$pid" 2>/dev/null; do
+				jel=$(( $(date +%s) - jstart ))
+				jok=$(count_pass "$k" "$jlog"); jbad=$(count_fail "$k" "$jlog")
+				printf '\r\033[K    [%3ds] %-22s tests:%-4s fail:%s' "$jel" "$(label_of "$k")" "$jok" "$jbad"
+				sleep 1
+			done
+			wait "$pid" 2>/dev/null || true
+			jok=$(count_pass "$k" "$jlog"); jbad=$(count_fail "$k" "$jlog")
+			jrc=$(cat "$STATDIR/$k" 2>/dev/null); jrc=${jrc:-1}
+			[ "$jrc" = "0" ] && jst="PASS" || jst="FAIL"
+			printf '\r\033[K    [%-4s] %-22s tests:%-4s fail:%s\n' "$jst" "$(label_of "$k")" "$jok" "$jbad"
+		fi
 	}
 
 	if curl -fsS http://127.0.0.1:3000 >/dev/null 2>&1; then
@@ -646,11 +664,32 @@ function run_all_tests(){
 	{ echo "===== WeKan test server [node :3000 db :3001] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000; } > $RUN_LOGDIR/wekan-test-server.log 2>&1 &
 	TEST_SERVER_PID=$!
 	SERVER_READY=0
+	# The server (Meteor #1) builds in the background with its output redirected to
+	# the log below, so the console would otherwise sit silent for minutes during the
+	# first rspack build. Show live progress instead: elapsed seconds + the newest
+	# build line from the log (=> Compiled Rspack..., => Started MongoDB, => Started
+	# your app, ...), refreshed in place on one line so it does not scroll.
+	echo "==> Building WeKan (first build can take minutes on ARM/VM). Live build log: $RUN_LOGDIR/wekan-test-server.log"
+	server_wait_start=$(date +%s)
+	el=0
+	term_cols="${COLUMNS:-100}"
 	for i in $(seq 1 180); do
-		if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; break; fi
-		printf '.'; sleep 1
+		if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; fi
+		el=$(( $(date +%s) - server_wait_start ))
+		# Newest non-empty build line = the current build step. Strip embedded CRs
+		# (Meteor's spinner uses \r) and truncate to the terminal width so the
+		# in-place refresh never wraps onto a second line.
+		last="$(tr -d '\r' < "$RUN_LOGDIR/wekan-test-server.log" 2>/dev/null | grep -v '^[[:space:]]*$' | tail -1)"
+		last="${last#"${last%%[![:space:]]*}"}"
+		width=$(( term_cols - 14 )); [ "$width" -lt 20 ] && width=20
+		printf '\r\033[K  [%3ds] %.*s' "$el" "$width" "${last:-starting Meteor...}"
+		[ "$SERVER_READY" -eq 1 ] && break
+		sleep 1
 	done
-	echo
+	printf '\r\033[K'
+	if [ "$SERVER_READY" -eq 1 ]; then
+		echo "==> WeKan server ready on http://localhost:3000 after ${el}s."
+	fi
 
 	# Mocha and the import regression do not need the :3000 server; launch them
 	# now (after the server build is past, so they no longer compete with it),
