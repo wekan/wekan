@@ -579,52 +579,45 @@ function run_all_tests(){
 	# mode every job runs at once; in "sequential" mode we wait for each job to
 	# finish before starting the next, which keeps total RAM/swap usage low so the
 	# machine does not crash (the browser suites in particular are memory-hungry).
+	# The actual command for one job. Runs the suite and records its exit code in
+	# STATDIR/<key>. Header/footer record the datetime. Used by both modes below.
+	run_job_body() {
+		local k="$1"
+		echo "===== $(label_of "$k") [$(port_of "$k")] - test run started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
+		echo
+		local rc=0
+		case "$k" in
+			mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
+			import) node tests/wekanCreator.import.test.js || rc=$? ;;
+			e2e)    meteor npm run test:e2e || rc=$? ;;
+			*)      run_pw_all_browser "$k" || rc=$? ;;
+		esac
+		echo "$rc" > "$STATDIR/$k"
+		echo
+		echo "===== $(label_of "$k") - test run finished $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
+	}
 	launch_job() {
 		local k="$1"
+		local jlog="$RUN_LOGDIR/wekan-alltests-$k.log"
 		if [ "$RUN_MODE" = parallel ]; then
-			echo "==> Starting $(label_of "$k") (parallel) ... live output: $RUN_LOGDIR/wekan-alltests-$k.log"
+			# Parallel: run in the background to a log; the combined table below reads
+			# each log for the live pass/fail counts (many suites at once, so we cannot
+			# stream them all interleaved to one console).
+			echo "==> Starting $(label_of "$k") (parallel) ... live output: $jlog"
+			run_job_body "$k" > "$jlog" 2>&1 &
+			BPIDS="$BPIDS $!"
 		else
-			echo "==> Running $(label_of "$k") (sequential) ... live output: $RUN_LOGDIR/wekan-alltests-$k.log"
-		fi
-		# Each run writes into its own ../log/<timestamp>/ dir (RUN_LOGDIR), so
-		# previous runs are kept; the header/footer also record the datetime.
-		{
-			echo "===== $(label_of "$k") [$(port_of "$k")] - test run started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
-			echo
-			(
-				rc=0
-				case "$k" in
-					mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
-					import) node tests/wekanCreator.import.test.js || rc=$? ;;
-					e2e)    meteor npm run test:e2e || rc=$? ;;
-					*)      run_pw_all_browser "$k" || rc=$? ;;
-				esac
-				echo "$rc" > "$STATDIR/$k"
-			)
-			echo
-			echo "===== $(label_of "$k") - test run finished $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
-		} > "$RUN_LOGDIR/wekan-alltests-$k.log" 2>&1 &
-		local pid=$!
-		BPIDS="$BPIDS $pid"
-		# Sequential mode: block until this job finishes before starting the next.
-		# Instead of waiting silently, show a live in-place line (elapsed seconds +
-		# tests passed/failed so far, read from the job's log) so the console keeps
-		# moving while the job builds and runs; print a final status line when done.
-		if [ "$RUN_MODE" != parallel ]; then
-			local jlog="$RUN_LOGDIR/wekan-alltests-$k.log"
-			local jstart jel jok jbad jrc jst
-			jstart=$(date +%s)
-			while kill -0 "$pid" 2>/dev/null; do
-				jel=$(( $(date +%s) - jstart ))
-				jok=$(count_pass "$k" "$jlog"); jbad=$(count_fail "$k" "$jlog")
-				printf '\r\033[K    [%3ds] %-22s tests:%-4s fail:%s' "$jel" "$(label_of "$k")" "$jok" "$jbad"
-				sleep 1
-			done
-			wait "$pid" 2>/dev/null || true
-			jok=$(count_pass "$k" "$jlog"); jbad=$(count_fail "$k" "$jlog")
+			# Sequential: only one suite runs at a time, so stream its output STRAIGHT
+			# to the console (via tee, also saving the log) — you see every test tick by
+			# one-by-one as the reporter prints it, instead of just a counter. tee is on
+			# the right of the pipe, so run_job_body's exit code is captured in STATDIR.
+			echo "==> Running $(label_of "$k") (sequential) — streaming live below (also saved to $jlog):"
+			run_job_body "$k" 2>&1 | tee "$jlog"
+			local jrc jst jok jbad
 			jrc=$(cat "$STATDIR/$k" 2>/dev/null); jrc=${jrc:-1}
 			[ "$jrc" = "0" ] && jst="PASS" || jst="FAIL"
-			printf '\r\033[K    [%-4s] %-22s tests:%-4s fail:%s\n' "$jst" "$(label_of "$k")" "$jok" "$jbad"
+			jok=$(count_pass "$k" "$jlog"); jbad=$(count_fail "$k" "$jlog")
+			printf '    [%-4s] %-22s tests:%-4s fail:%s\n' "$jst" "$(label_of "$k")" "$jok" "$jbad"
 		fi
 	}
 

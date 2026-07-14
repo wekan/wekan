@@ -198,11 +198,12 @@ and adds the following updates:
     arbitrary build lines is unsafe because they contain `> < | &`) it prints the elapsed
     seconds every ~10s and points at the live build log to `type` in another window.
   - **Sequential per-job** (menu option 2). Each job used to block/redirect to a log
-    with nothing on screen while it built and ran. Now each job reports live: `.sh`
-    prints an in-place counter (elapsed seconds + tests passed / failed, via the existing
-    `count_pass` / `count_fail`) and a final PASS/FAIL line; `.bat` runs each job in its
-    own minimized window (reusing the proven parallel start-commands + `.done-<key>`
-    flags) and polls a live pass counter until it finishes, one job at a time.
+    with nothing on screen while it built and ran. Because only one suite runs at a
+    time in this mode, `.sh` now streams each suite's reporter output **straight to the
+    console** via `tee` (also saving the log), so you see every test tick by one-by-one
+    as Mocha / Playwright / the E2E harness prints it, then a final PASS/FAIL + count
+    line; `.bat` runs each job in its own minimized window (reusing the proven parallel
+    start-commands + `.done-<key>` flags) and polls a live pass counter, one at a time.
   - **Playwright "ALL browsers" single menu item** (`.sh` option 10 /
     `run_playwright_parallel`). It redirected each browser to a log and only dumped the
     output after all finished. It now streams each browser's Playwright `list` reporter
