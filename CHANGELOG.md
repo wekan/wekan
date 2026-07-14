@@ -212,6 +212,21 @@ and adds the following updates:
   - The single-suite menu items (Mocha, import regression, Node E2E, single Playwright
     browser) already stream straight to the terminal, and the parallel-mode combined
     progress table is unchanged. Thanks to xet7.
+- **Test infrastructure: "Run ALL tests" reuses the precompiled `.build/bundle` for the
+  :3000 server instead of recompiling with `meteor run`** (`rebuild-wekan.sh`). Node E2E
+  and Playwright drive a live WeKan over HTTP; that server is now started from the
+  production bundle you already built with `meteor build .build --directory` — `node
+  main.js` boots in seconds with no recompile, using Meteor's bundled `node` and `mongod`
+  (mongod on :3001, or an already-running MongoDB there is reused). Its one-time
+  `programs/server` npm install and its boot log now stream live (scrolling) so you can
+  see exactly what is happening. Two caveats that are inherent to Meteor and are called
+  out in the script: (1) the bundle is run **as-is**, so after changing source you must
+  rebuild it or the tests run old code; (2) the server-side **Mocha** suite still uses
+  `meteor test` (its own `.meteor/local-test` build) — the in-process unit/security tests
+  cannot run from a production bundle, so copying the bundle would not help them. In
+  **sequential** mode the suites run strictly one at a time, each streaming its own output,
+  and the parallel-only combined table is skipped (only the live WeKan server + MongoDB run
+  alongside — they are the system under test, not parallel test jobs). Thanks to xet7.
 - **Admin Panel / Features / Security: import/export privacy controls**. Six new
   optional toggles govern how boards and user data cross the WeKan boundary:
   - **Disable all import** / **Disable all export** — master switches that turn off

@@ -524,11 +524,12 @@ function run_all_tests(){
 	else
 		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time)."
 	fi
-	echo "Mocha gets its own build dir (.meteor/local-test) so it runs at the same time as the :3000 server, which keeps .meteor/local."
-	echo "Two Meteor instances run side by side:"
-	echo "  Meteor #1 (.meteor/local)      - Node.js app :3000, MongoDB :3001 - serves Node E2E + Playwright browser tests"
-	echo "  Meteor #2 (.meteor/local-test) - Node.js app :3100, MongoDB :3101 - runs the server-side Mocha tests"
-	echo "  Import regression is a plain Node script (no Meteor, no MongoDB)."
+	echo "Two WeKan servers are involved (they do NOT run tests in parallel unless you chose parallel):"
+	echo "  :3000  - the PRECOMPILED .build/bundle run as a plain Node server (Meteor's mongod on :3001)"
+	echo "           - serves Node E2E + Playwright browser tests. No recompile: your existing build is reused."
+	echo "  :3100  - Mocha via 'meteor test' (its own .meteor/local-test build; the in-process server-side tests"
+	echo "           CANNOT run from a production bundle, so this one build is unavoidable)."
+	echo "  Import regression is a plain Node script (no server, no MongoDB)."
 	SUMMARY=()
 	record() { SUMMARY+=("$1|$2|${3:-}"); }
 	label_of() { case "$1" in
@@ -572,6 +573,7 @@ function run_all_tests(){
 	ORIG_HOME="$HOME"
 	PW_FAILURES=""
 	TEST_SERVER_PID=""
+	MONGOD_PID=""
 	STATDIR="$(mktemp -d)"
 	BPIDS=""
 	# Start one test job in the background: record its exit code in STATDIR/<key>
@@ -657,53 +659,106 @@ function run_all_tests(){
 		echo "    Port 3000 is now free."
 	fi
 
-	# Start the :3000 server FIRST and let it build alone. Mocha runs its own
-	# Meteor build (.meteor/local-test); launching it here would make two full
-	# builds compete for CPU/disk and starve the server, so it does not become
-	# ready until much later (a long line of dots). Once the server is ready the
-	# test jobs are launched (all at once in parallel mode, one at a time in
-	# sequential mode).
+	# Start the :3000 test server from the PRECOMPILED .build/bundle (NOT `meteor run`)
+	# so Node E2E + Playwright reuse the WeKan you already built with
+	# `meteor build .build --directory` — no recompile. The bundle is a plain Node
+	# server, so it needs (1) its own MongoDB (we start Meteor's bundled mongod on
+	# :3001) and (2) its server npm deps installed once. Mocha (:3100) still uses
+	# `meteor test` below — its in-process tests cannot run from a production bundle.
 	echo
-	echo "==> Starting the single WeKan server on http://localhost:3000 (WITH_API=true, .meteor/local)"
-	{ echo "===== WeKan test server [node :3000 db :3001] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=uws DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000; } > $RUN_LOGDIR/wekan-test-server.log 2>&1 &
+	local BUNDLE_DIR=".build/bundle"
+	if [ ! -f "$BUNDLE_DIR/main.js" ]; then
+		echo "==> $BUNDLE_DIR/main.js not found — building WeKan first (meteor build .build --directory)."
+		build_wekan
+	fi
+	echo "NOTE: tests run the PRECOMPILED $BUNDLE_DIR as-is. After changing source code,"
+	echo "      rebuild it (Tools/menu 'build', i.e. meteor build .build --directory) or the"
+	echo "      tests will run the old code."
+
+	# Resolve Meteor's bundled node + mongod: run the bundle with the SAME node its
+	# native modules were built against, and reuse the mongod Meteor already ships.
+	local NODE_BIN DEV_BUNDLE MONGOD_BIN
+	NODE_BIN="$(meteor node -e 'process.stdout.write(process.execPath)' 2>/dev/null)"
+	if [ -n "$NODE_BIN" ] && [ -x "$NODE_BIN" ]; then
+		DEV_BUNDLE="$(dirname "$(dirname "$NODE_BIN")")"
+		MONGOD_BIN="$DEV_BUNDLE/mongodb/bin/mongod"
+	fi
+	[ -n "$NODE_BIN" ] && [ -x "$NODE_BIN" ] || NODE_BIN="$(command -v node)"
+	[ -n "$MONGOD_BIN" ] && [ -x "$MONGOD_BIN" ] || MONGOD_BIN="$(command -v mongod)"
+	if [ -z "$NODE_BIN" ]; then
+		echo "ERROR: could not find node (neither Meteor's dev_bundle nor system node)."; rm -rf "$STATDIR"; return 1
+	fi
+
+	# Install the bundle server's npm deps once (native modules compiled for NODE_BIN).
+	if [ ! -d "$BUNDLE_DIR/programs/server/node_modules" ]; then
+		echo "==> Installing $BUNDLE_DIR/programs/server npm deps (one-time, for the bundle server). Live output:"
+		( cd "$BUNDLE_DIR/programs/server" && meteor npm install ) 2>&1 | tee -a "$RUN_LOGDIR/wekan-test-server.log"
+		if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+			echo "ERROR: npm install in $BUNDLE_DIR/programs/server failed (see $RUN_LOGDIR/wekan-test-server.log)."; rm -rf "$STATDIR"; return 1
+		fi
+	fi
+
+	# MongoDB on :3001. Reuse one that is already listening (e.g. a dev server's mongo);
+	# otherwise start Meteor's bundled mongod with a persistent test dbpath.
+	if (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null; then
+		echo "==> Reusing the MongoDB already listening on :3001 (not started or stopped by this run)."
+	else
+		if [ -z "$MONGOD_BIN" ] || [ ! -x "$MONGOD_BIN" ]; then
+			echo "ERROR: nothing is listening on :3001 and no mongod was found (Meteor dev_bundle or PATH)."
+			echo "       Meteor's bundled mongod is normally at <dev_bundle>/mongodb/bin/mongod."; rm -rf "$STATDIR"; return 1
+		fi
+		local DBPATH="../mongodb-test-3001"
+		mkdir -p "$DBPATH"
+		echo "==> Starting MongoDB (Meteor's mongod) on :3001, dbpath $DBPATH."
+		{ echo "===== mongod :3001 - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; "$MONGOD_BIN" --port 3001 --dbpath "$DBPATH" --bind_ip 127.0.0.1 --nounixsocket; } > "$RUN_LOGDIR/wekan-test-mongod.log" 2>&1 &
+		MONGOD_PID=$!
+		local db_ready=0
+		for i in $(seq 1 60); do
+			if (exec 3<>/dev/tcp/127.0.0.1/3001) 2>/dev/null; then db_ready=1; break; fi
+			sleep 1
+		done
+		if [ "$db_ready" -ne 1 ]; then
+			echo "ERROR: MongoDB did not become ready on :3001 (see $RUN_LOGDIR/wekan-test-mongod.log)."
+			kill "$MONGOD_PID" >/dev/null 2>&1 || true; MONGOD_PID=""; rm -rf "$STATDIR"; return 1
+		fi
+	fi
+
+	# Start the precompiled bundle as the :3000 server. Use an ABSOLUTE WRITABLE_PATH
+	# (the bundle's main.js may chdir into programs/server, which would break a
+	# relative "..").
+	local WRITABLE_ABS; WRITABLE_ABS="$(cd .. 2>/dev/null && pwd)"
+	echo "==> Starting the WeKan test server on http://localhost:3000 from $BUNDLE_DIR (precompiled — no rebuild)."
+	echo "    Live server log follows (scrolling) until :3000 answers:"
+	echo "    -------------------------------------------------------------------"
+	: >> "$RUN_LOGDIR/wekan-test-server.log"
+	# Follow only NEW lines so you SEE the server boot output scroll by (Mongo connect,
+	# WeKan startup, "App running at ...", etc.) — real, visible progress instead of a
+	# single frozen summary line. The tail is stopped once :3000 answers, before the
+	# tests (which print their own output) start.
+	tail -n 0 -f "$RUN_LOGDIR/wekan-test-server.log" &
+	local TAIL_PID=$!
+	{ echo "===== WeKan test server [bundle node :3000 db :3001] - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; echo; \
+	  MONGO_URL="mongodb://127.0.0.1:3001/wekan" ROOT_URL="http://localhost:3000" PORT=3000 \
+	  WRITABLE_PATH="$WRITABLE_ABS" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false \
+	  DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" \
+	  "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
 	TEST_SERVER_PID=$!
+
 	SERVER_READY=0
-	# The server (Meteor #1) builds in the background with its output redirected to
-	# the log below, so the console would otherwise sit silent for minutes during the
-	# first rspack build. Show live progress instead: elapsed seconds + the newest
-	# build line from the log (=> Compiled Rspack..., => Started MongoDB, => Started
-	# your app, ...), refreshed in place on one line so it does not scroll.
-	echo "==> Compiling the Meteor app for the :3000 test server (meteor run, .meteor/local)."
-	echo "    Tests run against a live WeKan; Meteor recompiles on start only for what changed"
-	echo "    since your last build (sources / node_modules), then caches it, so re-runs are faster."
-	echo "    On ARM/VM the first compile can take several minutes. Live build log: $RUN_LOGDIR/wekan-test-server.log"
 	server_wait_start=$(date +%s)
-	server_wait_max=1200   # give the first ARM/VM build up to 20 min before failing
-	el=0
-	term_cols="${COLUMNS:-100}"
-	# IMPORTANT: use a curl timeout. Meteor binds the :3000 proxy EARLY and accepts
-	# the TCP connection while the app is still building, but does not send an HTTP
-	# response until the build finishes. A plain `curl` (no timeout) therefore blocks
-	# on that first connection for the whole build, so the loop never advances and the
-	# progress line freezes at [0s]. --connect-timeout/--max-time make each poll return
-	# quickly (not-ready during the build, ready once /sign-in actually answers).
+	server_wait_max=300
 	while :; do
 		if curl -fsS --connect-timeout 2 --max-time 4 http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; fi
-		el=$(( $(date +%s) - server_wait_start ))
-		# Newest non-empty build line = the current build step. Strip embedded CRs
-		# (Meteor's spinner uses \r) and truncate to the terminal width so the
-		# in-place refresh never wraps onto a second line.
-		last="$(tr -d '\r' < "$RUN_LOGDIR/wekan-test-server.log" 2>/dev/null | grep -v '^[[:space:]]*$' | tail -1)"
-		last="${last#"${last%%[![:space:]]*}"}"
-		width=$(( term_cols - 14 )); [ "$width" -lt 20 ] && width=20
-		printf '\r\033[K  [%3ds] %.*s' "$el" "$width" "${last:-starting Meteor...}"
 		[ "$SERVER_READY" -eq 1 ] && break
-		[ "$el" -ge "$server_wait_max" ] && break
+		[ "$(( $(date +%s) - server_wait_start ))" -ge "$server_wait_max" ] && break
 		sleep 1
 	done
-	printf '\r\033[K'
+	# Stop the live tail before running the tests (they print their own output).
+	kill "$TAIL_PID" >/dev/null 2>&1 || true
+	wait "$TAIL_PID" 2>/dev/null || true
+	echo "    -------------------------------------------------------------------"
 	if [ "$SERVER_READY" -eq 1 ]; then
-		echo "==> WeKan server ready on http://localhost:3000 after ${el}s."
+		echo "==> WeKan test server ready on http://localhost:3000 (precompiled bundle, no rebuild)."
 	fi
 
 	# Mocha and the import regression do not need the :3000 server; launch them
@@ -731,28 +786,33 @@ function run_all_tests(){
 		ALLKEYS="mocha import e2e chromium firefox webkit"
 	fi
 
-	# Live combined progress: one refreshing line per running job until all end.
-	BN="$(set -- $ALLKEYS; echo $#)"
-	echo "Results per job — [status] name (Meteor instance node/db ports) tests:passed fail:failed; jobs run $modeword:"
-	for k in $ALLKEYS; do echo; done
-	while :; do
-		printf '\033[%dA' "$BN"
-		alldone=1
-		for k in $ALLKEYS; do
-			log="$RUN_LOGDIR/wekan-alltests-$k.log"
-			ok=$(count_pass "$k" "$log")
-			bad=$(count_fail "$k" "$log")
-			if [ -f "$STATDIR/$k" ]; then
-				rc=$(cat "$STATDIR/$k" 2>/dev/null)
-				if [ "${rc:-1}" = "0" ]; then st="PASS"; else st="FAIL"; fi
-			else
-				st="RUN "; alldone=0
-			fi
-			printf '\033[K  [%-4s] %-22s %-22s tests:%-4s fail:%s\n' "$st" "$(label_of "$k")" "$(port_of "$k")" "$ok" "$bad"
+	# PARALLEL only: a live combined table, one refreshing line per concurrently
+	# running job, until all end. In SEQUENTIAL mode there is nothing to show here —
+	# each job already ran one-at-a-time and streamed its own output live, so we skip
+	# straight to the summary (keeping sequential simple: one thing at a time).
+	if [ "$RUN_MODE" = parallel ]; then
+		BN="$(set -- $ALLKEYS; echo $#)"
+		echo "Results per job — [status] name (server node/db ports) tests:passed fail:failed; jobs run $modeword:"
+		for k in $ALLKEYS; do echo; done
+		while :; do
+			printf '\033[%dA' "$BN"
+			alldone=1
+			for k in $ALLKEYS; do
+				log="$RUN_LOGDIR/wekan-alltests-$k.log"
+				ok=$(count_pass "$k" "$log")
+				bad=$(count_fail "$k" "$log")
+				if [ -f "$STATDIR/$k" ]; then
+					rc=$(cat "$STATDIR/$k" 2>/dev/null)
+					if [ "${rc:-1}" = "0" ]; then st="PASS"; else st="FAIL"; fi
+				else
+					st="RUN "; alldone=0
+				fi
+				printf '\033[K  [%-4s] %-22s %-22s tests:%-4s fail:%s\n' "$st" "$(label_of "$k")" "$(port_of "$k")" "$ok" "$bad"
+			done
+			[ "$alldone" -eq 1 ] && break
+			sleep 1
 		done
-		[ "$alldone" -eq 1 ] && break
-		sleep 1
-	done
+	fi
 	for p in $BPIDS; do wait "$p" 2>/dev/null || true; done
 
 	# Roll the results into the summary (browsers carry pass/fail stats).
@@ -776,9 +836,16 @@ function run_all_tests(){
 
 	if [ -n "$TEST_SERVER_PID" ]; then
 		echo
-		echo "Stopping WeKan test server."
+		echo "Stopping WeKan test server (bundle node :3000)."
 		kill "$TEST_SERVER_PID" >/dev/null 2>&1 || true
 		wait "$TEST_SERVER_PID" >/dev/null 2>&1 || true
+	fi
+	# Stop the mongod we started (leave a pre-existing/reused one alone: MONGOD_PID
+	# is only set when this run launched it).
+	if [ -n "$MONGOD_PID" ]; then
+		echo "Stopping test MongoDB (mongod :3001)."
+		kill "$MONGOD_PID" >/dev/null 2>&1 || true
+		wait "$MONGOD_PID" >/dev/null 2>&1 || true
 	fi
 
 	echo
