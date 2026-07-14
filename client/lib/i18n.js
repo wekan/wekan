@@ -56,15 +56,18 @@ Meteor.startup(async () => {
     navigator.userLanguage,
   ].filter(Boolean);
   if (language) {
-    // Try with potentially complex language tag
-    if (TAPi18n.isLanguageSupported(language)) {
-      TAPi18n.setLanguage(language);
-    } else if (language.includes('-')) {
-      // Fallback to a general language
-      const [general] = language.split('-');
-      if (TAPi18n.isLanguageSupported(general)) {
-        TAPi18n.setLanguage(general);
+    // Match the browser tag, then progressively strip trailing subtags until a supported
+    // language is found: e.g. 'zh-Hans-CN' -> 'zh-Hans', 'zh-Hant-TW' -> 'zh-Hant',
+    // 'ja-JP' -> 'ja-JP', bare 'zh' -> 'zh-Hans' (via alias). isLanguageSupported is
+    // case-insensitive, so 'zh-hant' / 'JA-JP' etc. also match.
+    let candidate = language;
+    while (candidate) {
+      if (TAPi18n.isLanguageSupported(candidate)) {
+        TAPi18n.setLanguage(candidate);
+        break;
       }
+      const cut = candidate.lastIndexOf('-');
+      candidate = cut > 0 ? candidate.slice(0, cut) : '';
     }
   }
 });

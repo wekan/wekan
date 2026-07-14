@@ -126,8 +126,8 @@ export default {
     rtl: false,
   },
   "cmn": {
-    code: "cn",
-    tag: "cnm",
+    code: "cmn",
+    tag: "cmn",
     name: "官話 / 官话",
     load: () => import('./data/cmn.i18n.json'),
     rtl: false,

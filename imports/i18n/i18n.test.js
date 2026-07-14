@@ -204,6 +204,71 @@ describe('TAPi18n', () => {
 
   });
 
+  describe('.resolveTag / case-insensitive detection (Japanese & Chinese variants)', () => {
+
+    beforeEach(async () => {
+      await TAPi18n.init();
+    });
+
+    it('resolveTag returns the canonical tag, case-insensitively', () => {
+      expect(TAPi18n.resolveTag('ja')).to.equal('ja');
+      expect(TAPi18n.resolveTag('ja-JP')).to.equal('ja-JP');
+      expect(TAPi18n.resolveTag('ja-jp')).to.equal('ja-JP');      // lowercase region
+      expect(TAPi18n.resolveTag('JA')).to.equal('ja');            // uppercase language
+      expect(TAPi18n.resolveTag('zh-Hant')).to.equal('zh-Hant');
+      expect(TAPi18n.resolveTag('zh-hant')).to.equal('zh-Hant');  // lowercase script
+      expect(TAPi18n.resolveTag('zh-CN')).to.equal('zh-CN');
+      // legacy underscore key matched from a browser hyphen tag (and vice versa)
+      expect(TAPi18n.resolveTag('af-ZA')).to.equal('af_ZA');
+      expect(TAPi18n.resolveTag('af_ZA')).to.equal('af_ZA');
+    });
+
+    it('resolveTag maps bare Chinese "zh" to Simplified (alias)', () => {
+      expect(TAPi18n.resolveTag('zh')).to.equal('zh-Hans');
+      expect(TAPi18n.resolveTag('ZH')).to.equal('zh-Hans');
+    });
+
+    it('resolveTag returns undefined for an unsupported language', () => {
+      expect(TAPi18n.resolveTag('not-a-real-lang')).to.equal(undefined);
+      expect(TAPi18n.resolveTag('')).to.equal(undefined);
+    });
+
+    it('isLanguageSupported is case-insensitive (and honours the zh alias)', () => {
+      expect(TAPi18n.isLanguageSupported('ja-jp')).to.be.true;
+      expect(TAPi18n.isLanguageSupported('ZH-HANT')).to.be.true;
+      expect(TAPi18n.isLanguageSupported('de')).to.be.true;
+      expect(TAPi18n.isLanguageSupported('zh')).to.be.true;
+      expect(TAPi18n.isLanguageSupported('xx-nope')).to.be.false;
+    });
+
+    it('each Japanese variant loads its own file under its own i18next code', async () => {
+      const has = (t) => TAPi18n.i18n.hasResourceBundle(TAPi18n.toI18nCode(t), 'translation');
+      await TAPi18n.setLanguage('ja');
+      expect(TAPi18n.getLanguage()).to.equal('ja');
+      expect(has('ja')).to.be.true;
+      await TAPi18n.setLanguage('ja-JP');
+      expect(TAPi18n.getLanguage()).to.equal('ja-JP');
+      expect(has('ja-JP')).to.be.true;
+      await TAPi18n.setLanguage('ja-Hira');
+      expect(TAPi18n.getLanguage()).to.equal('ja-Hira');
+      expect(has('ja-Hira')).to.be.true;
+    });
+
+    it('setLanguage normalises a case-insensitive tag to the canonical one', async () => {
+      await TAPi18n.setLanguage('ja-jp');
+      expect(TAPi18n.getLanguage()).to.equal('ja-JP');
+      await TAPi18n.setLanguage('zh-hant');
+      expect(TAPi18n.getLanguage()).to.equal('zh-Hant');
+    });
+
+    it('setLanguage("zh") selects Simplified Chinese (alias), not English', async () => {
+      await TAPi18n.setLanguage('zh');
+      expect(TAPi18n.getLanguage()).to.equal('zh-Hans');
+      expect(TAPi18n.i18n.hasResourceBundle(TAPi18n.toI18nCode('zh-Hans'), 'translation')).to.be.true;
+    });
+
+  });
+
   describe('.ensureLanguageLoaded (#5875)', () => {
 
     beforeEach(async () => {

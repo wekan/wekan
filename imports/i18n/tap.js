@@ -8,6 +8,12 @@ const DEFAULT_NAMESPACE = 'translation';
 const DEFAULT_LANGUAGE = 'en';
 const getTranslationCollection = () => require('/models/translation').default;
 
+// Base languages with no plain-code file of their own resolve to a sensible default
+// variant, so a browser reporting the bare code still gets that language, not English.
+// Chinese has only script/region files (zh-Hans, zh-Hant, zh-CN, …), so plain 'zh' maps
+// to Simplified. Keys are compared case-insensitively (see resolveTag).
+const LANGUAGE_ALIASES = { zh: 'zh-Hans' };
+
 // Map a Wekan language tag (the key/`tag` from languages.js, e.g. 'zh-CN',
 // 'zh-Hans', 'ar-DZ' or the legacy underscore form 'en_AU', 'af_ZA') to the
 // code i18next actually stores and looks translations up under.
@@ -70,8 +76,27 @@ export const TAPi18n = {
     await TAPi18n.loadLanguage(DEFAULT_LANGUAGE);
     this.ready.set(true);
   },
+  // Resolve an arbitrary language string to the canonical Wekan tag (a key in
+  // languages.js), CASE-INSENSITIVELY (e.g. 'zh-hant' -> 'zh-Hant', 'JA-JP' -> 'ja-JP'),
+  // applying LANGUAGE_ALIASES for bare base codes (e.g. 'zh' -> 'zh-Hans'). Returns the
+  // canonical tag, or undefined when the language is not supported.
+  resolveTag(language) {
+    if (!language) return undefined;
+    if (language in languages) return language; // fast path: exact canonical key
+    // Case-insensitive AND underscore<->hyphen-insensitive, so a region/script tagged
+    // language matches however the browser spells it (legacy 'af_ZA' vs browser 'af-ZA',
+    // 'zh-hant' vs 'zh-Hant', 'JA-JP' vs 'ja-JP').
+    const norm = String(language).toLowerCase().replace(/_/g, '-');
+    for (const key of Object.keys(languages)) {
+      if (key.toLowerCase().replace(/_/g, '-') === norm ||
+          String(languages[key].tag).toLowerCase().replace(/_/g, '-') === norm) return key;
+    }
+    const alias = LANGUAGE_ALIASES[norm];
+    if (alias && alias in languages) return alias;
+    return undefined;
+  },
   isLanguageSupported(language) {
-    return Object.values(languages).some(({ tag }) => tag === language);
+    return this.resolveTag(language) !== undefined;
   },
   getSupportedLanguages() {
     return Object.values(languages).map(({ name, code, tag, rtl }) => ({ name, code, tag, rtl }));
@@ -107,8 +132,11 @@ export const TAPi18n = {
     });
   },
   async loadLanguage(language) {
-    if (language in languages && 'load' in languages[language]) {
-      let data = await languages[language].load();
+    // Resolve to the canonical tag so a case-insensitive / aliased input (e.g. 'zh-hant',
+    // 'zh') still finds the right file and registers under the code i18next looks up.
+    const key = this.resolveTag(language);
+    if (key && 'load' in languages[key]) {
+      let data = await languages[key].load();
       // Dynamic `import()` of a JSON module can resolve to an ES-module
       // namespace ({ default: {...} }) rather than the bare object, depending on
       // the bundler/interop. Unwrap it so addResourceBundle receives the actual
@@ -130,10 +158,10 @@ export const TAPi18n = {
       }
 
       let custom_translations = [];
-      await this.loadTranslation(language);
+      await this.loadTranslation(key);
       const Translation = getTranslationCollection();
       const cursor = Translation.find(
-        { language },
+        { language: key },
         { fields: { text: true, translationText: true } },
       );
       custom_translations =
@@ -156,18 +184,21 @@ export const TAPi18n = {
 
       // Register the bundle under the code i18next will actually look it up
       // under, so storage and lookup agree for region/script/underscore tags.
-      this.i18n.addResourceBundle(this.toI18nCode(language), DEFAULT_NAMESPACE, data);
+      this.i18n.addResourceBundle(this.toI18nCode(key), DEFAULT_NAMESPACE, data);
     } else {
       throw new Error(`Language ${language} is not supported`);
     }
   },
   async setLanguage(language) {
-    await this.loadLanguage(language);
+    // Resolve to the canonical tag first, so the loaded file, the i18next code and the
+    // stored `current` all agree even for a case-insensitive / aliased input.
+    const key = this.resolveTag(language) || language;
+    await this.loadLanguage(key);
     // Switch i18next using the same normalised code the bundle is stored under.
-    await this.i18n.changeLanguage(this.toI18nCode(language));
-    // `current` keeps the original Wekan tag (used for the profile, the language
+    await this.i18n.changeLanguage(this.toI18nCode(key));
+    // `current` keeps the canonical Wekan tag (used for the profile, the language
     // picker and the reactive UI), not the i18next-internal code.
-    this.current.set(language);
+    this.current.set(key);
   },
   // Make sure the resource bundle for `language` is available before a
   // synchronous __() call. On the server only the default (English) bundle is
@@ -175,9 +206,10 @@ export const TAPi18n = {
   // emails) otherwise silently fell back to English. See #5875.
   async ensureLanguageLoaded(language) {
     if (!language || !this.i18n) return;
-    if (!this.isLanguageSupported(language)) return;
-    if (this.i18n.hasResourceBundle(this.toI18nCode(language), DEFAULT_NAMESPACE)) return;
-    await this.loadLanguage(language);
+    const key = this.resolveTag(language);
+    if (!key) return;
+    if (this.i18n.hasResourceBundle(this.toI18nCode(key), DEFAULT_NAMESPACE)) return;
+    await this.loadLanguage(key);
   },
   // Return translation by key
   __(key, options, language) {
