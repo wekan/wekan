@@ -159,18 +159,33 @@ and adds the following updates:
      `node_modules`, was `.mjs`, and was *produced by the patch itself*). Fixed by
      removing the `createRequire` line **before** expanding `import.meta.url`, plus a
      repair rule that collapses any already-corrupted `…href))` leftover back to a marker.
-  2. Even parsing-clean, a **second** ESM shim (a yargs ESM dependency, not `yargs/`
-     itself, so `import.meta.url` was still unexpanded there) used the guarded ternary
-     `const require = createRequire ? createRequire(import.meta.url) : undefined;`, which
-     the direct `createRequire\(` matcher missed → at **boot** the wrapper crashed with
-     "Identifier 'require' has already been declared". Fixed by generalizing the removal
-     to line-wise `const require = …createRequire…;` (covers both forms) and broadening
-     the scan beyond `node_modules/yargs` to yargs's bundled ESM dependencies.
+  2. With parsing fixed, a **second** ESM shim surfaced at boot — this time in a yargs
+     *dependency*, `node_modules/yargs-parser/build/lib/index.js` (not under
+     `node_modules/yargs`, so `import.meta.url` there was still unexpanded, a tell that
+     the old yargs-only scan had never touched it). Its line 30 used the guarded ternary
+     `const require = createRequire ? createRequire(import.meta.url) : undefined;`, whose
+     `createRequire ?` (space, not `(`) slipped past the direct `createRequire\(` matcher
+     → the leftover `const require` collided with the wrapper parameter and the server
+     bundle crashed at **boot** with "Identifier 'require' has already been declared".
+     Two changes fixed it: (a) generalize the removal (and its trigger) from
+     `const require = createRequire\(…\)` to a line-wise `const require = …createRequire…;`
+     so it matches both the direct call and the guarded-ternary form, running it *before*
+     the `import.meta.url` expansion so the injected `require('url')…` parens can never
+     confuse it; and (b) broaden the scan from just `node_modules/yargs` to yargs **and
+     its ESM dependency packages** (`yargs-parser` is the actual offender; cliui, escalade,
+     string-width, y18n, get-caller-file, require-directory are scanned too and are
+     harmless to include).
 
   The patch is idempotent, best-effort (never fails an install), and re-runnable by hand
   (`node scripts/patch-yargs-dirname.cjs`) to repair a `node_modules` tree left broken by
   an older version. This is a pre-existing test-only build breakage (the yargs bundling
-  predates these fixes); production runtime bundles were never affected. Thanks to xet7.
+  predates these fixes); production runtime bundles were never affected. Separately, three
+  server test files were present on disk but missing from the curated loader
+  `server/lib/tests/index.js` (which the `meteor test` entry imports explicitly rather than
+  by `*.tests.js` convention), so they had silently never run — the MimeBleed file-validation
+  bypass regression, the import/export privacy settings, and the impersonation report query
+  are now registered. With all of the above, the server suite boots and runs clean:
+  **450 passing, 0 failing** (411 before the three files were wired in). Thanks to xet7.
 - **Admin Panel / Features / Security: import/export privacy controls**. Six new
   optional toggles govern how boards and user data cross the WeKan boundary:
   - **Disable all import** / **Disable all export** — master switches that turn off
