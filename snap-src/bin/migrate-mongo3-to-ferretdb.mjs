@@ -444,10 +444,10 @@ function hasSpace(dir, need) { try { const s = fs.statfsSync(dir); return Number
 const IS_SANDSTORM = process.env.SANDSTORM === '1' || !!process.env.SANDSTORM_RAW_MONGO_PATH || (() => {
   try { return !!((JSON.parse(process.env.METEOR_SETTINGS || '{}').public) || {}).sandstorm; } catch { return false; }
 })();
-// Detect the Snap from its environment ($SNAP is set for every snap process). The
-// statfs-based free-space pre-checks are Snap-specific (a real filesystem whose size we
-// can read); we run them ONLY on the Snap. Sandstorm (and anything else) instead relies
-// on an actual write failure (ENOSPC/EDQUOT) to detect "out of space".
+// Detect the Snap from its environment ($SNAP is set for every snap process). Used only
+// for the platform log line — the free-space guards key off whether statfs actually
+// returns a figure (see updateDiskFree), so a Snap container where the size is not
+// available degrades to the same write-failure detection as Sandstorm.
 const IS_SNAP = !!(process.env.SNAP || process.env.SNAP_NAME);
 
 // Keep at least this much free while migrating. A FULL disk can corrupt the source
@@ -468,7 +468,13 @@ let _lastDiskCheck = 0;
 // so on Sandstorm (or anywhere non-Snap) we leave diskFree unknown and rely on write
 // failures (ENOSPC/EDQUOT) instead.
 function updateDiskFree(dir, force) {
-  if (!IS_SNAP) { state.diskFree = -1; return; }
+  // Never trust statfs inside a Sandstorm grain (it reports the host disk, not the grain's
+  // quota), so treat free space as unknown there. Everywhere else (Snap, containers) we
+  // ATTEMPT statfs — but if it is unavailable (a locked-down / older container where
+  // statfs fails), the catch leaves free space unknown and we fall back to detecting an
+  // actual write failure. Behaviour keys off whether free space is measurable, not the
+  // platform: whenever state.diskFree stays < 0 the free-space guards below are skipped.
+  if (IS_SANDSTORM) { state.diskFree = -1; return; }
   const now = Date.now();
   if (!force && now - _lastDiskCheck < 1000) return; // ~1 statfs/sec while streaming
   _lastDiskCheck = now;
@@ -481,10 +487,10 @@ function updateDiskFree(dir, force) {
 // Before writing a file, ensure room for it PLUS the margin; else STOP (not skip) so a
 // full disk can never corrupt MongoDB. Sets state.abort + a fatal error, returns false.
 function ensureDiskForFile(dir, need, name) {
-  if (!IS_SNAP) return true; // grain can't measure free space — rely on write failures
   updateDiskFree(dir, true);
   const free = state.diskFree;
-  if (free >= 0 && free < Number(need || 0) + DISK_MIN_FREE) {
+  if (free < 0) return true; // free space not measurable — rely on a write failure instead
+  if (free < Number(need || 0) + DISK_MIN_FREE) {
     flagDiskFull(`need ${(Number(need || 0) / 1048576).toFixed(0)} MB + ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin for "${name}", only ${(free / 1048576).toFixed(0)} MB free`);
     return false;
   }
@@ -525,7 +531,7 @@ function onDiskAbort() {
 
 async function run() {
   ensureDir(ATTACH_DIR); ensureDir(AVATAR_DIR);
-  logline(`Platform: ${IS_SNAP ? 'Snap (statfs free-space guard active)' : IS_SANDSTORM ? 'Sandstorm grain (no free-space API — stops on a write failure)' : 'other (relies on write failures for disk space)'}.`);
+  logline(`Platform: ${IS_SANDSTORM ? 'Sandstorm grain' : IS_SNAP ? 'Snap' : 'other'}. Free-space guard: ${IS_SANDSTORM ? 'off (grain has no free-space API)' : 'used only if statfs reports free space, otherwise stops on a write failure'}.`);
   updateDiskFree(FILES_DIR, true); // seed the free-space figure before the dashboard loads
   if (state.abort) { writeStatus(); return; } // already out of disk before we started
   if (!fs.existsSync(MONGOEXPORT) || !fs.existsSync(MONGO)) {
@@ -607,10 +613,11 @@ async function run() {
   // instead of extracting files until the disk fills (which could corrupt MongoDB).
   state.filesTotalBytes = fileColls.reduce((n, c) => n + sumBytes(c), 0);
   updateDiskFree(FILES_DIR, true);
-  logline(`Files to extract: ${state.current.total} (${(state.filesTotalBytes / 1048576).toFixed(0)} MB total)${state.diskFree >= 0 ? `; disk free ${(state.diskFree / 1048576).toFixed(0)} MB` : '; free space unknown (Sandstorm) — will stop on a write failure'}.`);
-  // Snap-only up-front check (Sandstorm cannot measure free space; it relies on write
-  // failures below). Stop before extracting anything if the volume cannot hold it all.
-  if (IS_SNAP && state.filesTotalBytes > 0 && state.diskFree >= 0 && state.diskFree < state.filesTotalBytes + DISK_MIN_FREE) {
+  logline(`Files to extract: ${state.current.total} (${(state.filesTotalBytes / 1048576).toFixed(0)} MB total)${state.diskFree >= 0 ? `; disk free ${(state.diskFree / 1048576).toFixed(0)} MB` : '; free space unknown — will stop on a write failure'}.`);
+  // Up-front check ONLY when free space is measurable (Snap with working statfs). When it
+  // is not (Sandstorm grain, or a container where statfs fails), skip this and rely on an
+  // actual write failure below. Stop before extracting anything if it cannot all fit.
+  if (state.filesTotalBytes > 0 && state.diskFree >= 0 && state.diskFree < state.filesTotalBytes + DISK_MIN_FREE) {
     state.abort = true; state.success = false; state.phase = 'error';
     state.additionalBytesNeeded = Math.max(0, state.filesTotalBytes + DISK_MIN_FREE - state.diskFree);
     err(`FATAL: not enough disk space to migrate all files: ${(state.filesTotalBytes / 1048576).toFixed(0)} MB of attachments/avatars must be extracted, only ${(state.diskFree / 1048576).toFixed(0)} MB free — need ${(state.additionalBytesNeeded / 1048576).toFixed(0)} MB more (incl. ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin). Stopped before extracting to avoid MongoDB data corruption.`);
