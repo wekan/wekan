@@ -33,13 +33,34 @@ function collect(dir, acc) {
   return acc;
 }
 
+// Marker left behind where a `const require = createRequire(…)` was removed.
+const REQUIRE_MARKER = '/* Meteor: use wrapper require */';
+
 function patchFile(file) {
   let src;
   try { src = fs.readFileSync(file, 'utf8'); } catch (e) { return false; }
-  if (!src.includes('import.meta') && !/const\s+require\s*=\s*createRequire\(/.test(src) && !/const\s+__dirname\b/.test(src)) {
+  // Also reprocess files a previous (buggy) run left in the broken state below.
+  const hasBroken = src.includes(REQUIRE_MARKER + '.pathToFileURL');
+  if (!src.includes('import.meta') && !/const\s+require\s*=\s*createRequire\(/.test(src) && !/const\s+__dirname\b/.test(src) && !hasBroken) {
     return false;
   }
   let out = src;
+
+  // Repair a previously-botched patch: an earlier version expanded `import.meta.url`
+  // INSIDE `createRequire(...)` before removing the createRequire call, so the
+  // paren-naive removal regex stopped at the first `)` of the injected
+  // `require('url')` and left a dangling `.pathToFileURL(__filename).href))` after
+  // the marker — an "Unexpected token" that crashed the test server bundle. Collapse
+  // that leftover back to just the marker.
+  out = out.replace(
+    /\/\* Meteor: use wrapper require \*\/\s*\.pathToFileURL\([^)]*\)\.href\)\)/g,
+    REQUIRE_MARKER,
+  );
+
+  // Drop `const require = createRequire(…)` (collides with the wrapper's require)
+  // BEFORE expanding import.meta.url below: the import.meta.url replacement injects
+  // a `require('url')…` whose parens would otherwise break this paren-naive match.
+  out = out.replace(/const\s+require\s*=\s*createRequire\([^)]*\)\s*;?/g, REQUIRE_MARKER);
 
   // import.meta.* → CommonJS-wrapper equivalents.
   out = out.replace(/fileURLToPath\(\s*import\.meta\.url\s*\)/g, '__filename');
@@ -47,9 +68,6 @@ function patchFile(file) {
   out = out.replace(/import\.meta\.dirname/g, '__dirname');
   out = out.replace(/import\.meta\.filename/g, '__filename');
   out = out.replace(/import\.meta\.url/g, "(require('url').pathToFileURL(__filename).href)");
-
-  // Drop `const require = createRequire(…)` (collides with the wrapper's require).
-  out = out.replace(/const\s+require\s*=\s*createRequire\([^)]*\)\s*;?/g, '/* Meteor: use wrapper require */');
 
   // If a file declares its own top-level `const __dirname`, rename every __dirname in it
   // (declaration + uses) so it cannot collide with the wrapper's __dirname parameter.
