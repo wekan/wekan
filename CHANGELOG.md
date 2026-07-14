@@ -189,14 +189,20 @@ and adds the following updates:
 - **Test infrastructure: `rebuild-wekan.sh` and `rebuild-wekan.bat` now show live
   progress in every test path**. Several places used to sit silent for minutes, which
   looked like a hang. Audited both scripts and closed every gap:
-  - **Server first-build wait** (both "Run ALL tests" modes). While the `:3000` WeKan
-    server did its first rspack build, the readiness wait printed only dots. In
-    `.sh` it now shows an in-place line with the **elapsed seconds** and the **newest
-    build step** read from the server log (`=> Compiled Rspack…`, `=> Started MongoDB`,
-    `=> Started your app`, …; CR-stripped and truncated to the terminal width so it
-    refreshes on one line), plus a "server ready after Ns" line. In `.bat` (where echoing
-    arbitrary build lines is unsafe because they contain `> < | &`) it prints the elapsed
-    seconds every ~10s and points at the live build log to `type` in another window.
+  - **Server-start wait** (both "Run ALL tests" modes). While the `:3000` server came
+    up, the readiness wait printed only dots. `.sh` now shows live progress (see the
+    `.build/bundle` item below, where it streams the boot log scrolling); `.bat` (still
+    on `meteor run`, where echoing arbitrary build lines is unsafe because they contain
+    `> < | &`) prints the elapsed seconds every ~10s and points at the live build log to
+    `type` in another window.
+  - **Fixed the readiness poll hanging so nothing showed for minutes** (the progress
+    line froze at `[0s]`). The wait polled `curl http://127.0.0.1:3000/sign-in` with no
+    timeout; Meteor binds the :3000 proxy early and accepts the TCP connection while the
+    app is still building but sends no HTTP response until it finishes, so `curl` blocked
+    on that first connection for the whole build and the loop never advanced. Added
+    `--connect-timeout 2 --max-time 4` so each poll returns quickly, and the wait is now
+    bounded by wall-clock time (`.sh` 1200s / `.bat` ~240 polls) rather than a fixed count
+    (also applied to the Playwright-ALL precheck).
   - **Sequential per-job** (menu option 2). Each job used to block/redirect to a log
     with nothing on screen while it built and ran. Because only one suite runs at a
     time in this mode, `.sh` now streams each suite's reporter output **straight to the
@@ -226,7 +232,10 @@ and adds the following updates:
   cannot run from a production bundle, so copying the bundle would not help them. In
   **sequential** mode the suites run strictly one at a time, each streaming its own output,
   and the parallel-only combined table is skipped (only the live WeKan server + MongoDB run
-  alongside — they are the system under test, not parallel test jobs). Thanks to xet7.
+  alongside — they are the system under test, not parallel test jobs). Before starting, the
+  run checks for the **`.build/bundle`** directory specifically (not just `.build`) and
+  builds it once with `meteor build .build --directory` if it is missing or incomplete, so
+  a first run with no bundle still works. Thanks to xet7.
 - **Admin Panel / Features / Security: import/export privacy controls**. Six new
   optional toggles govern how boards and user data cross the WeKan boundary:
   - **Disable all import** / **Disable all export** — master switches that turn off
