@@ -31,6 +31,11 @@ template(name="adminReports")
                 i.fa.fa-id-card-o
                 | {{_ 'cardsReportTitle'}}
 
+            li
+              a.js-report-impersonation(data-id="report-impersonation")
+                i.fa.fa-user-secret
+                | {{_ 'impersonationReportTitle'}}
+
         .main-body
           if loading.get
             +spinner
@@ -44,6 +49,8 @@ template(name="adminReports")
             +boardsReport(currentPage=boardsCurrentPage totalPages=boardsTotalPages hasPrevPage=hasBoardsPrevPage hasNextPage=hasBoardsNextPage)
           else if showCardsReport.get
             +cardsReport(currentPage=cardsCurrentPage totalPages=cardsTotalPages hasPrevPage=hasCardsPrevPage hasNextPage=hasCardsNextPage)
+          else if showImpersonationReport.get
+            +impersonationReport(currentPage=impersonationCurrentPage totalPages=impersonationTotalPages hasPrevPage=hasImpersonationPrevPage hasNextPage=hasImpersonationNextPage)
 
 
 template(name="brokenCardsReport")
@@ -155,6 +162,43 @@ template(name="cardsReport")
             td {{abbreviate card.list.title }}
             td {{userNames card.members }}
             td {{userNames card.assignees }}
+  else
+    div {{_ 'no-results' }}
+
+template(name="impersonationReport")
+  h1 {{_ 'impersonationReportTitle'}}
+  .admin-report-search
+    input.js-impersonation-search-input(type="text" placeholder="{{_ 'search'}}")
+    button.js-impersonation-search-button
+      i.fa.fa-search
+      | {{_ 'search'}}
+  .admin-report-pagination
+    button.js-impersonation-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
+      | &lt;
+    span.admin-report-page-info {{currentPage}} / {{totalPages}}
+    button.js-impersonation-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
+      | &gt;
+  if resultsCount
+    table.table
+      thead
+        tr
+          th {{_ 'date'}}
+          th {{_ 'impersonation-admin'}}
+          th {{_ 'impersonation-user'}}
+          th {{_ 'board'}}
+          th {{_ 'reason'}}
+      each row in results
+        tbody
+          tr
+            td {{ formatDate row.createdAt }}
+            td
+              if row.adminId
+                a.edit-user.js-impersonation-edit-user(data-user-id="{{ row.adminId }}") {{ userName row.adminId }}
+            td
+              if row.userId
+                a.edit-user.js-impersonation-edit-user(data-user-id="{{ row.userId }}") {{ userName row.userId }}
+            td {{ row.boardId }}
+            td {{ row.reason }}
   else
     div {{_ 'no-results' }}
 

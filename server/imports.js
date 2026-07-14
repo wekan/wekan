@@ -222,6 +222,7 @@ import '/server/publications/cardsWindow';
 import '/server/publications/cronJobs';
 import '/server/publications/cronMigrationStatus';
 import '/server/publications/customUI';
+import '/server/publications/impersonationReport';
 import '/server/publications/inviteToBoardRolesSettings';
 import '/server/publications/lockoutSettings';
 import '/server/publications/migrationProgress';
