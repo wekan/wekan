@@ -120,6 +120,60 @@ This release fixes the following CRITICAL SECURITY ISSUE of [MimeBleed](https://
     package for full content-based MIME detection (WeKan's official images already do).
   Thanks to HNUfwj and xet7.
 
+and adds the following new features:
+
+- **Admin Panel / Features / Security: import/export privacy controls**. Six new
+  optional toggles govern how boards and user data cross the WeKan boundary:
+  - **Disable all import** / **Disable all export** — master switches that turn off
+    every import / export feature (WeKan JSON, Trello, CSV/Excel, Jira, Kanboard,
+    NextCloud Deck, OpenProject, GitHub/GitLab/Gitea/Forgejo, board clone, and the
+    single-attachment export). The server rejects any such request, and the import /
+    export menu options are hidden in the UI.
+  - **Disable import avatars** / **Disable export avatars** — never carry avatars
+    (profile pictures) into / out of WeKan. Import covers WeKan JSON import, Trello
+    import and external identity-provider avatar sync on login (LDAP, OIDC/OAuth2),
+    gated at the single `localizeAvatarFromBuffer` choke point; export covers WeKan
+    JSON and CSV export.
+  - **Anonymize import users** / **Anonymize export users** — replace every user's
+    username, full name and initials with counter placeholders (user1, user2, ...),
+    drop their avatar, and rewrite `@username` mentions plus the requested-by /
+    assigned-by fields inside card and comment content, so the imported board /
+    exported file carries no real user identity. The placeholder word "user" follows
+    the language of the person importing/exporting (e.g. "käyttäjä1" in Finnish). Both
+    export paths are covered — the in-memory `build()` and the streaming
+    `buildStream()` (which does a lightweight id-only pre-scan so mentions streamed
+    before the users array still resolve to matching labels).
+
+  All six default to off (current behaviour). Enforcement lives server-side in the
+  Exporter, the WekanCreator import path and the avatar localizer, so it cannot be
+  bypassed from the client. Thanks to xet7.
+- **Admin Panel / Features / Security: new optional "Always show all code as plain
+  text" toggle**. When enabled, rich text is never rendered as markdown or HTML —
+  the entire source is shown as escaped plain text in every rich text field (board
+  and card titles, descriptions, comments, checklists, etc.), so hidden content is
+  always revealed: HTML comments (`<!-- -->`), the target URL inside a markdown
+  link, JavaScript and any other code. All code is always visible, not clickable,
+  and not running. This extends the existing invisiblebleed protection (which
+  already showed raw source for description-less markdown links) to all content.
+  The `wekan-markdown` package cannot import app code, so the setting is bridged to
+  the markdown renderer through a reactive flag on the exported `Markdown` object,
+  kept in sync by the rich text viewer. Stored as the global `alwaysShowCodeAsText`
+  setting; default off, so markdown renders normally. Thanks to xet7.
+- **Admin Panel / Features: new optional "Render links as plain text" security
+  toggle**. When enabled, all links — both markdown links like `[label](url)` and
+  raw HTML `<a href>` tags — are always shown as plain, non-clickable text in every
+  rich text field (board and card titles, descriptions, comments, checklists,
+  etc.), so a link can never be clicked and cannot present misleading anchor text.
+  This is a hardening option on top of the existing XSS sanitization (which already
+  strips `javascript:`/`data:` schemes, event-handler attributes and dangerous
+  tags): it addresses [#6453](https://github.com/wekan/wekan/issues/6453), where a
+  board title could render as a clickable link. The toggle lives under Admin Panel /
+  Features / Security, is stored as the global `renderLinksAsPlainText` setting, and
+  defaults to off (links stay clickable). Implemented by forbidding the `<a>` tag
+  (while keeping its visible text) in the shared DOMPurify sanitizer used by the
+  rich text viewer, gated on the setting so toggling it re-renders reactively.
+  Thanks to bcook-konza and xet7.
+
 and adds the following updates:
 
 - **Outgoing webhooks / notifications: include the card description**
@@ -131,6 +185,11 @@ and adds the following updates:
   description *change* — the before/after text as `oldValue` / `value` (previously
   only `timeValue`/`timeOldValue` were forwarded). New fields are additive, so
   existing webhook consumers are unaffected. Thanks to xet7.
+- [Update Sandstorm Docs about how to install newest test version](https://github.com/wekan/wekan/commit/422daa6a0c33a578ebd84a77e7a537caf73f2510).
+  Thanks to xet7.
+
+and fixes the following tests:
+
 - **Test infrastructure: fix `meteor test` (Mocha, server-side) crashing at boot
   with 0 tests run** (`scripts/patch-yargs-dirname.cjs`). The whole `yargs` package
   is dragged into the Meteor **test** server bundle as a transitive devDependency,
@@ -235,58 +294,15 @@ and adds the following updates:
   alongside — they are the system under test, not parallel test jobs). Before starting, the
   run checks for the **`.build/bundle`** directory specifically (not just `.build`) and
   builds it once with `meteor build .build --directory` if it is missing or incomplete, so
-  a first run with no bundle still works. Thanks to xet7.
-- **Admin Panel / Features / Security: import/export privacy controls**. Six new
-  optional toggles govern how boards and user data cross the WeKan boundary:
-  - **Disable all import** / **Disable all export** — master switches that turn off
-    every import / export feature (WeKan JSON, Trello, CSV/Excel, Jira, Kanboard,
-    NextCloud Deck, OpenProject, GitHub/GitLab/Gitea/Forgejo, board clone, and the
-    single-attachment export). The server rejects any such request, and the import /
-    export menu options are hidden in the UI.
-  - **Disable import avatars** / **Disable export avatars** — never carry avatars
-    (profile pictures) into / out of WeKan. Import covers WeKan JSON import, Trello
-    import and external identity-provider avatar sync on login (LDAP, OIDC/OAuth2),
-    gated at the single `localizeAvatarFromBuffer` choke point; export covers WeKan
-    JSON and CSV export.
-  - **Anonymize import users** / **Anonymize export users** — replace every user's
-    username, full name and initials with counter placeholders (user1, user2, ...),
-    drop their avatar, and rewrite `@username` mentions plus the requested-by /
-    assigned-by fields inside card and comment content, so the imported board /
-    exported file carries no real user identity. The placeholder word "user" follows
-    the language of the person importing/exporting (e.g. "käyttäjä1" in Finnish). Both
-    export paths are covered — the in-memory `build()` and the streaming
-    `buildStream()` (which does a lightweight id-only pre-scan so mentions streamed
-    before the users array still resolve to matching labels).
+  a first run with no bundle still works. The bundle server talks to the **`meteor`**
+  database on :3001 — the DB name Meteor's built-in mongo used under `meteor run` and the
+  one the Playwright / Node E2E tests seed into (`tests/playwright/helpers/db.js`,
+  `tests/e2e/list-regressions.js`); an earlier `/wekan` name made the app read an empty
+  database while the tests seeded a different one, so every seeded test failed until the
+  names were aligned. Thanks to xet7.
 
-  All six default to off (current behaviour). Enforcement lives server-side in the
-  Exporter, the WekanCreator import path and the avatar localizer, so it cannot be
-  bypassed from the client. Thanks to xet7.
-- **Admin Panel / Features / Security: new optional "Always show all code as plain
-  text" toggle**. When enabled, rich text is never rendered as markdown or HTML —
-  the entire source is shown as escaped plain text in every rich text field (board
-  and card titles, descriptions, comments, checklists, etc.), so hidden content is
-  always revealed: HTML comments (`<!-- -->`), the target URL inside a markdown
-  link, JavaScript and any other code. All code is always visible, not clickable,
-  and not running. This extends the existing invisiblebleed protection (which
-  already showed raw source for description-less markdown links) to all content.
-  The `wekan-markdown` package cannot import app code, so the setting is bridged to
-  the markdown renderer through a reactive flag on the exported `Markdown` object,
-  kept in sync by the rich text viewer. Stored as the global `alwaysShowCodeAsText`
-  setting; default off, so markdown renders normally. Thanks to xet7.
-- **Admin Panel / Features: new optional "Render links as plain text" security
-  toggle**. When enabled, all links — both markdown links like `[label](url)` and
-  raw HTML `<a href>` tags — are always shown as plain, non-clickable text in every
-  rich text field (board and card titles, descriptions, comments, checklists,
-  etc.), so a link can never be clicked and cannot present misleading anchor text.
-  This is a hardening option on top of the existing XSS sanitization (which already
-  strips `javascript:`/`data:` schemes, event-handler attributes and dangerous
-  tags): it addresses [#6453](https://github.com/wekan/wekan/issues/6453), where a
-  board title could render as a clickable link. The toggle lives under Admin Panel /
-  Features / Security, is stored as the global `renderLinksAsPlainText` setting, and
-  defaults to off (links stay clickable). Implemented by forbidding the `<a>` tag
-  (while keeping its visible text) in the shared DOMPurify sanitizer used by the
-  rich text viewer, gated on the setting so toggling it re-renders reactively.
-  Thanks to bcook-konza and xet7.
+and fixes the following bugs:
+
 - **Sandstorm: the WeKan Admin Panel is now always available in a migrated grain,
   not just a freshly created one**. On Sandstorm the grain owner (Sandstorm
   `configure` permission) is mapped to a WeKan admin, which gates the Admin Panel
@@ -315,8 +331,6 @@ and adds the following updates:
   real engine — `wiredTiger` (or `inMemory`) — from `storageStats`. The MongoDB
   compatible version and Database commit were already correct: they come from
   `buildInfo`, which needs no special privileges. Thanks to xet7.
-- [Update Sandstorm Docs about how to install newest test version](https://github.com/wekan/wekan/commit/422daa6a0c33a578ebd84a77e7a537caf73f2510).
-  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
