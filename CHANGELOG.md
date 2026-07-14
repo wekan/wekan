@@ -173,6 +173,29 @@ and adds the following new features:
   (while keeping its visible text) in the shared DOMPurify sanitizer used by the
   rich text viewer, gated on the setting so toggling it re-renders reactively.
   Thanks to bcook-konza and xet7.
+- **Snap / Sandstorm migration dashboard: live per-file progress and a disk-space safety
+  guard** (`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`). While a MongoDB 3 database's
+  attachments/avatars are migrated to the filesystem, the progress page now shows a **live
+  per-file progress bar** for the file currently being extracted — its name, size, "file N
+  of TOTAL", percent, and whether it is an **attachment or an avatar** (using WeKan's
+  existing translations in the viewer's browser language, with an English fallback; there
+  is no logged-in user during migration, so the browser's `Accept-Language` is used). Big
+  files no longer land in RAM: each GridFS file is **streamed chunk-by-chunk** straight to
+  disk (the old approach buffered the whole file through mongoexport's 512 MB stdout limit
+  and failed on large attachments). Because a full disk can corrupt the still-running
+  source MongoDB, the migration guards disk space **where it can measure it** (Snap with a
+  working `statfs`): it shows **remaining disk space**, checks the total size of all files
+  **up front** and stops before extracting if the volume cannot hold them, and stops
+  mid-run if free space drops below a safety margin (default 1 GB, `MIGRATION_MIN_FREE_BYTES`).
+  A Sandstorm grain cannot see its own free space or quota (its FUSE layer does not
+  implement `statfs` and `quotactl` is blocked — `statfs` on `/var` would report the *host*
+  disk, not the grain quota), and a locked-down Snap container may not report it either; in
+  those "unknown free space" cases the migration hides the space figures and instead treats
+  an actual **`ENOSPC`/`EDQUOT` write failure** as "out of space". On **any** such stop it
+  **deletes the partially-migrated files to free the space back**, reports how many files
+  were migrated before stopping, and shows how much more disk space is required to migrate
+  them all. Platform is detected from the environment (`$SNAP`; `SANDSTORM` /
+  `SANDSTORM_RAW_MONGO_PATH` / `METEOR_SETTINGS`). Thanks to xet7.
 
 and adds the following updates:
 
@@ -358,29 +381,8 @@ and fixes the following bugs:
   "Unsupported OP_QUERY" is never picked). The migration progress dashboard already
   answers on every URL (so reloading any board page during migration shows progress); on
   completion it now reloads the **same page you were on** instead of forcing All Boards.
-  The migration dashboard was also improved: it now shows a **live per-file progress bar**
-  for the file currently being extracted (file name, size, "file N of TOTAL", percent),
-  and whether it is an attachment or an avatar — using WeKan's existing translations in
-  the viewer's browser language (English fallback). Big files no longer land in RAM: each
-  GridFS file is **streamed chunk-by-chunk** straight to disk (the old approach buffered
-  the whole file through mongoexport's 512 MB stdout limit and failed on large
-  attachments). The dashboard shows **remaining disk space**, and — because a full disk
-  can corrupt the still-running source MongoDB — the migration now guards disk space: it
-  measures the total size of all attachments+avatars **up front** and stops immediately if
-  the volume cannot hold them, and also stops mid-run if free space falls below a safety
-  margin (default 1 GB, `MIGRATION_MIN_FREE_BYTES`). On such a stop it **deletes the
-  partially-migrated files to give the space back**, reports how many files were migrated
-  before stopping, and shows **how much more disk space is required** to migrate them all.
-  Those free-space checks only run **when the free space is actually measurable**. A
-  Sandstorm grain cannot see its own free space or quota (its FUSE layer does not implement
-  `statfs` and `quotactl` is blocked, per the Sandstorm source — `statfs` on the writable
-  `/var` would report the *host* disk, not the grain's quota), so on Sandstorm (detected
-  via `SANDSTORM` / `SANDSTORM_RAW_MONGO_PATH` / `METEOR_SETTINGS`) `statfs` is skipped
-  entirely. And even on the Snap, if the container cannot report free space (`statfs`
-  fails), it degrades the same way. In every "unknown free space" case the migration just
-  tries, hides the remaining-space figure and anything that needs it, and instead treats an
-  actual **`ENOSPC`/`EDQUOT` write failure** as "out of space" — running the same
-  stop-delete-and-report rollback. Thanks to xet7.
+  (The dashboard itself also gained live per-file progress and a disk-space safety guard —
+  see the new features above.) Thanks to xet7.
 - **Admin Panel / Features / Security: "Always show all code as plain text" did not take
   effect (links stayed clickable, code stayed rendered)**. The setting is applied by the
   inner `markdown` helper, which reads a `ReactiveVar` (`Markdown.alwaysShowCodeAsText`)
