@@ -65,6 +65,68 @@ prevents board admins from editing or deleting other users' comments — only a 
 author may edit or delete it. Enforced server-side. See
 [Comment replies and editing restriction](../Comment-Replies-And-Editing-Restriction.md).
 
+## Features tab
+
+**Admin Panel → Features** groups optional, instance-wide capabilities into
+categories in a side menu. Every toggle is a global setting, saved immediately when
+clicked, and defaults to **off** (current behaviour) unless noted.
+
+### Performance
+
+- **Card loading** — `all` (every card is loaded into the browser, the default) or
+  `lazy` (each list loads only the currently visible cards plus a live count, for
+  very large boards). Also set by the `CARDS_LOADING` environment variable.
+
+### Security
+
+Rich-text rendering hardening:
+
+- **Render links as plain text** (`renderLinksAsPlainText`) — all links (markdown
+  `[label](url)` and raw HTML `<a href>`) render as plain, non-clickable text in
+  every rich-text field (board and card titles, descriptions, comments, checklists,
+  …), so a link can never be clicked or hide a misleading target.
+- **Always show all code as plain text** (`alwaysShowCodeAsText`) — rich text is
+  never rendered as markdown/HTML; the whole source is shown escaped, revealing HTML
+  comments (`<!-- -->`), the target of markdown links, JavaScript and any other code.
+  All code stays visible, not clickable, not running.
+
+Import / export privacy (all enforced server-side, so they cannot be bypassed from
+the client):
+
+- **Disable all import** (`disableAllImport`) / **Disable all export**
+  (`disableAllExport`) — master switches that turn off every import / export feature
+  (WeKan JSON, Trello, CSV/Excel, Jira, Kanboard, NextCloud Deck, OpenProject,
+  GitHub/GitLab/Gitea/Forgejo, board clone, single-attachment export). The matching
+  import / export menu options are also hidden in the UI.
+- **Disable import avatars** (`disableImportAvatars`) — avatars are never imported,
+  from WeKan JSON import, Trello import, or external identity-provider sync on login
+  (LDAP, OIDC/OAuth2). Gated at the single `localizeAvatarFromBuffer` choke point.
+- **Disable export avatars** (`disableExportAvatars`) — avatars are never included
+  when exporting (WeKan JSON and CSV export).
+- **Anonymize import users** (`anonymizeImportUsers`) / **Anonymize export users**
+  (`anonymizeExportUsers`) — replace every user's username, full name and initials
+  with counter placeholders (`user1`, `user2`, …), drop their avatar, and rewrite
+  `@username` mentions plus the requested-by / assigned-by fields inside card and
+  comment content. The imported board / exported file then carries no real user
+  identity. The placeholder word "user" follows the language of the person
+  importing / exporting (e.g. `käyttäjä1` in Finnish). Both export paths — the
+  in-memory `build()` and the streaming `buildStream()` — are covered.
+
+### Notifications (GDPR)
+
+Privacy controls requested for public-sector / GDPR deployments
+([#5820](https://github.com/wekan/wekan/issues/5820)), enforced server-side:
+
+- **Disable all activities** (`disableActivities`) — activity-feed entries are
+  neither recorded nor shown anywhere (board sidebar and card activity tab). No
+  history of who did what is kept.
+- **Disable all notifications** (`disableNotifications`) — WeKan never sends watch
+  notifications for any activity. Activities can still be recorded (unless also
+  disabled); only the notifications are suppressed.
+- **Disable watch** (`disableWatch`) — the watch feature is turned off: users cannot
+  subscribe to boards, lists or cards, any watch-level change is rejected, and the
+  watch button is hidden.
+
 ## Sandstorm platform
 
 On Sandstorm, authentication (LDAP, passwordless email, SAML, GitHub and Google
