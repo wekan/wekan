@@ -45,6 +45,7 @@ SRC_URL="mongodb://127.0.0.1:$SRC_PORT/?directConnection=true"
 MM="$SNAP/migratemongo"                                # MongoDB 3.2 tools (amd64)
 MM_LIB="$MM/lib/x86_64-linux-gnu"                      # old libs for those tools
 LOGF="$SNAP_COMMON/migration-mongod.log"
+SRC_PIDFILE="$SNAP_COMMON/migration-src-mongod.pid"    # temp source mongod pid
 
 log() { echo "[migration] $*"; }
 
@@ -61,14 +62,35 @@ export LC_ALL=C
 export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:${LD_LIBRARY_PATH:-}"
 
 start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be empty)
+  rm -f "$SRC_PIDFILE"
+  # --pidfilepath records the forked daemon's PID so force_stop_src can kill
+  # exactly this temporary mongod before we hand back to the normal mongod start
+  # — otherwise a lingering probe mongod would still hold the WiredTiger dbpath
+  # lock and the real start would fail with "Unable to lock the lock file".
   LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" \
     --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
-    --logpath "$LOGF" --logappend --fork >/dev/null 2>&1
+    --logpath "$LOGF" --logappend --fork --pidfilepath "$SRC_PIDFILE" >/dev/null 2>&1
+}
+# Guarantee no temporary source mongod is left holding the dbpath lock.
+force_stop_src() {
+  if [ -f "$SRC_PIDFILE" ]; then
+    local p; p="$(cat "$SRC_PIDFILE" 2>/dev/null)"
+    if [ -n "$p" ]; then
+      kill "$p" 2>/dev/null || true
+      sleep 1
+      kill -9 "$p" 2>/dev/null || true
+    fi
+    rm -f "$SRC_PIDFILE"
+  fi
+  sleep 1
 }
 # Readiness/shutdown for the modern mongod 7 use db-eval (Node + `mongodb` driver).
 ready_via_node() {
+  # Up to 45s: a healthy MongoDB 6/7 database can need time to replay its journal
+  # / recover a large oplog on first open, and a false "not ready" here used to be
+  # misread as "this is MongoDB 3.x" (#6454).
   local i=0
-  while [ $i -lt 20 ]; do
+  while [ $i -lt 45 ]; do
     "$DB_EVAL" ping "$SRC_URL" >/dev/null 2>&1 && return 0
     i=$((i+1)); sleep 1
   done
@@ -95,30 +117,47 @@ stop_via() {       # $1 = shell binary (legacy mongo), $2 = LD_LIBRARY_PATH pref
   sleep 2
 }
 
+# Hand back to mongodb-control so mongod 7 starts NORMALLY in THIS service
+# activation. #6454: mongodb-control exec's this script, so any path that just
+# `exit`ed here left the MongoDB service with nothing running (and, with no marker,
+# looping forever). We instead set the marker (migration handled) and exec
+# mongodb-control, which — marker now present — skips migration and starts mongod 7
+# with its full startup path (30s wait + replica-set recovery), succeeding where a
+# short probe here may not. Never destroys data.
+fall_back_to_mongodb() {   # $1 = human-readable reason
+  log "$1"
+  log "Starting MongoDB 7 normally (no migration)."
+  force_stop_src
+  touch "$MARKER"
+  exec bash "$SNAP/bin/mongodb-control"
+}
+
 # ── MongoDB 6/7 data? Then NO migration is needed — keep using MongoDB. ───────
 log "Checking whether mongod 7 can open the existing data ..."
 if start_mongod "$SNAP/bin/mongod" "" && ready_via_node; then
-  log "Data is MongoDB 6/7 — no migration needed; keeping MongoDB."
   stop_via_node
-  touch "$MARKER"
-  exit 0
+  fall_back_to_mongodb "Data is MongoDB 6/7 — no migration needed; keeping MongoDB."
 fi
 stop_via_node
+force_stop_src
 
-# ── Otherwise it is MongoDB 3.x: migrate to FerretDB via the migratemongo CLI. ─
-if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER" ]; then
-  log "ERROR: MongoDB 3.x data but migration tools missing"
-  log "  (migratemongo/ferretdb/node/importer). Leaving the MongoDB data in place."
-  exit 0
+# The mongod-7 probe failed. That does NOT prove the data is MongoDB 3.x: a healthy
+# MongoDB 6/7 database can fail a short probe (journal recovery, a stale
+# mongod.lock, a slow disk, a large oplog). #6454: such databases were wrongly sent
+# down the 3.x path, which then also failed, and mongod never started. So only
+# migrate when we can POSITIVELY confirm the data is MongoDB 3.x — i.e. the bundled
+# mongod 3.2 can actually open it — otherwise fall back to a normal MongoDB 7 start.
+if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$MM/bin/mongo" ] || [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER" ]; then
+  fall_back_to_mongodb "Migration tools unavailable; cannot run the MongoDB 3 → FerretDB migration."
 fi
 
-log "Data is MongoDB 3.x; starting migratemongo mongod 3.2 to read it ..."
+log "mongod 7 could not open the data; checking whether it is MongoDB 3.x ..."
 if ! start_mongod "$MM/bin/mongod" "$MM_LIB" || ! ready_via "$MM/bin/mongo" "$MM_LIB"; then
-  log "ERROR: could not start migratemongo mongod on the MongoDB 3.x data. See $LOGF ."
   stop_via "$MM/bin/mongo" "$MM_LIB"
-  exit 0
+  fall_back_to_mongodb "Data is not readable as MongoDB 3.x either; not migrating."
 fi
 
+log "Confirmed MongoDB 3.x data; migrating to FerretDB via the migratemongo CLI ..."
 # Temporary FerretDB v1 (SQLite at <files>/db) as the migration target.
 mkdir -p "$SQLITE_DIR"
 export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
@@ -126,7 +165,7 @@ export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
             --listen-addr="127.0.0.1:$TGT_PORT" --telemetry=disable \
             >"$SNAP_COMMON/migration-ferretdb.log" 2>&1 &
 FPID=$!
-trap 'kill "$FPID" 2>/dev/null || true; stop_via "$MM/bin/mongo" "$MM_LIB"' EXIT INT TERM
+trap 'kill "$FPID" 2>/dev/null || true; stop_via "$MM/bin/mongo" "$MM_LIB"; force_stop_src' EXIT INT TERM
 
 WEKAN_PORT="${PORT:-8080}"
 log "Migrating MongoDB 3 → FerretDB (CLI read + driver insert). Progress at ${ROOT_URL:-http://localhost:$WEKAN_PORT}"

@@ -1683,6 +1683,25 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release adds the following updates:
 
+- **Snap: fix upgrade from an older WeKan snap failing with "could not start
+  migratemongo mongod on the MongoDB 3.x data" on a MongoDB 7 database**
+  ([#6454](https://github.com/wekan/wekan/issues/6454)). On first boot after an
+  upgrade the snap runs a one-time MongoDB 3 → FerretDB migration check. Its
+  detection was a false dichotomy: it probed whether the bundled mongod 7 could open
+  the existing data and, if that short probe failed for ANY reason (journal
+  recovery, a stale `mongod.lock`, a slow disk, a large oplog), it assumed the data
+  was MongoDB 3.x. A healthy MongoDB 7 database that failed the probe was then sent
+  down the 3.x path, where mongod 3.2 also could not open it — and because
+  `mongodb-control` `exec`s the migration script, mongod never started, so the whole
+  MongoDB service failed to activate and looped on every restart. Now the snap only
+  runs the 3.x migration when the data is **positively confirmed** as MongoDB 3.x
+  (the bundled mongod 3.2 can actually open it); in every other case — MongoDB 6/7,
+  data the probe could not read, or missing tools — it falls back to a normal
+  MongoDB 7 start in the same activation (with the full 30s wait + replica-set
+  recovery) instead of blocking. The mongod-7 readiness probe was also lengthened
+  (20s → 45s) so large databases needing recovery are not misread, and the temporary
+  probe mongod is now tracked by pidfile and force-stopped so it never leaves the
+  dbpath locked. The MongoDB data is never modified or deleted. Thanks to xet7.
 - Updated Code of Conduct.
   [Part 1](https://github.com/wekan/wekan/commit/209cb8b43d84f7382d181a9f5d1e96ff32f2634d),
   [Part 2](https://github.com/wekan/wekan/commit/574dd5bedd4f7c584b0fbbfaf57df86f286607fa).
