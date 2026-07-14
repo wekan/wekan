@@ -889,15 +889,21 @@ REM the build is visibly progressing, and point at the live build log. Sets
 REM SERVER_READY=1 as soon as :3000 answers. (The real per-step build output is in
 REM the log; on cmd we show elapsed time rather than echo arbitrary build lines,
 REM which can contain > < ^| ^& that echo would misinterpret.)
+REM IMPORTANT: use a curl timeout. Meteor binds the :3000 proxy EARLY and accepts
+REM the TCP connection while the app is still building, but only sends an HTTP reply
+REM once the build finishes. A plain curl (no timeout) would block on that first
+REM connection for the whole build, freezing this loop. --connect-timeout/--max-time
+REM make each poll return quickly (each iteration is then a few seconds; ~240 of them
+REM allow roughly 20 minutes for a slow first build before we give up).
 set "SERVER_READY=0"
 echo ==^> Building WeKan ^(first build can take minutes^); waiting for http://localhost:3000 ...
 echo     ^(watch the live build log in another window: type "%RUN_LOGDIR%\wekan-test-server.log"^)
-for /l %%i in (1,1,180) do (
+for /l %%i in (1,1,240) do (
 	if "!SERVER_READY!"=="0" (
-		curl -fsS http://127.0.0.1:3000/sign-in >nul 2>&1 && set "SERVER_READY=1"
+		curl -fsS --connect-timeout 2 --max-time 4 http://127.0.0.1:3000/sign-in >nul 2>&1 && set "SERVER_READY=1"
 		if "!SERVER_READY!"=="0" (
-			set /a "_mod=%%i %% 10"
-			if "!_mod!"=="0" ( echo     ... still building, %%is elapsed )
+			set /a "_mod=%%i %% 6"
+			if "!_mod!"=="0" ( echo     ... still building ^(check %%i^); see the build log for the current step )
 			ping -n 2 127.0.0.1 >nul
 		)
 	)

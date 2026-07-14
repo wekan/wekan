@@ -396,7 +396,7 @@ function run_playwright_parallel(){
 	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
 	ensure_test_results_writable
 
-	if ! curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then
+	if ! curl -fsS --connect-timeout 2 --max-time 4 http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then
 		echo "ERROR: WeKan does not appear to be running on http://localhost:3000."
 		echo "       Start it first with menu option 3, then re-run this option."
 		return 1
@@ -682,10 +682,17 @@ function run_all_tests(){
 	# your app, ...), refreshed in place on one line so it does not scroll.
 	echo "==> Building WeKan (first build can take minutes on ARM/VM). Live build log: $RUN_LOGDIR/wekan-test-server.log"
 	server_wait_start=$(date +%s)
+	server_wait_max=1200   # give the first ARM/VM build up to 20 min before failing
 	el=0
 	term_cols="${COLUMNS:-100}"
-	for i in $(seq 1 180); do
-		if curl -fsS http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; fi
+	# IMPORTANT: use a curl timeout. Meteor binds the :3000 proxy EARLY and accepts
+	# the TCP connection while the app is still building, but does not send an HTTP
+	# response until the build finishes. A plain `curl` (no timeout) therefore blocks
+	# on that first connection for the whole build, so the loop never advances and the
+	# progress line freezes at [0s]. --connect-timeout/--max-time make each poll return
+	# quickly (not-ready during the build, ready once /sign-in actually answers).
+	while :; do
+		if curl -fsS --connect-timeout 2 --max-time 4 http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then SERVER_READY=1; fi
 		el=$(( $(date +%s) - server_wait_start ))
 		# Newest non-empty build line = the current build step. Strip embedded CRs
 		# (Meteor's spinner uses \r) and truncate to the terminal width so the
@@ -695,6 +702,7 @@ function run_all_tests(){
 		width=$(( term_cols - 14 )); [ "$width" -lt 20 ] && width=20
 		printf '\r\033[K  [%3ds] %.*s' "$el" "$width" "${last:-starting Meteor...}"
 		[ "$SERVER_READY" -eq 1 ] && break
+		[ "$el" -ge "$server_wait_max" ] && break
 		sleep 1
 	done
 	printf '\r\033[K'
