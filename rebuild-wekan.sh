@@ -512,11 +512,12 @@ function run_all_tests(){
 	RUN_LOGDIR="../log/$RUN_TS"
 	mkdir -p "$RUN_LOGDIR"
 	echo "Logs for this run: $RUN_LOGDIR/  (previous runs are kept)"
-	# Tests need a built WeKan (and installed npm deps). If .build or
-	# node_modules is missing, build first (same steps as menu option 2),
-	# then continue with the tests.
-	if [ ! -d .build ] || [ ! -d node_modules ]; then
-		echo "No .build or node_modules directory found - building WeKan first (menu option 2)."
+	# Tests need a precompiled WeKan bundle (the :3000 test server runs it) and
+	# installed npm deps. Check for the .build/bundle directory specifically (not just
+	# .build): if the bundle is missing (never built, or a previous build failed),
+	# build it first with `meteor build .build --directory` before running any tests.
+	if [ ! -d .build/bundle ] || [ ! -d node_modules ]; then
+		echo "No .build/bundle or node_modules directory found - building the WeKan bundle first (meteor build .build --directory)."
 		build_wekan
 	fi
 	if [ "$RUN_MODE" = parallel ]; then
