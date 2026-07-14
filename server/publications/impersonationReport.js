@@ -1,26 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { impersonationQuery } from '/models/lib/impersonationReportQuery';
 
 // Admin Panel / Reports / Impersonation. Impersonation events are already written
 // to the impersonatedUsers collection whenever an admin impersonates a user (e.g.
 // to export a private board). This report lists them newest-first, with the same
-// server-side search + pagination the other admin reports use.
-
-// Build the Mongo query for the impersonation report: match the search term (if
-// any) against the admin/user/board ids and the reason, case-insensitively.
-function impersonationQuery(searchTerm) {
-  const query = {};
-  if (searchTerm) {
-    const rx = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-    query.$or = [
-      { adminId: rx },
-      { userId: rx },
-      { boardId: rx },
-      { attachmentId: rx },
-      { reason: rx },
-    ];
-  }
-  return query;
-}
+// server-side search + pagination the other admin reports use. The search-selector
+// builder lives in /models/lib/impersonationReportQuery so it can be unit-tested.
 
 Meteor.publish('impersonationReport', async function(searchTerm = '', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));

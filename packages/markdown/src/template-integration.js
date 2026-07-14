@@ -36,6 +36,10 @@ function escapeHtmlSource(unsafe) {
     .replace(/'/g, '&#39;');
 }
 
+// Exposed on the exported Markdown object so the "always show code as plain text"
+// escaper can be unit-tested (see client/lib/tests/alwaysShowCodeAsText.tests.js).
+Markdown.escapeHtmlSource = escapeHtmlSource;
+
 //import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
 // Static URL Scheme Listing
