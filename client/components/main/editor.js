@@ -383,12 +383,25 @@ Blaze.Template.registerHelper(
   'mentions',
   new Template('mentions', function() {
     const view = this;
+    // Admin Panel / Features / Security: read the setting FIRST (a reactive dependency
+    // of this viewer) and push the "always show all code as plain text" flag into the
+    // wekan-markdown package BEFORE rendering the inner markdown below. Doing it here —
+    // not only in the separate startup autorun — removes a re-render race: this viewer
+    // already re-renders whenever the setting doc changes (it reads it for stripLinks),
+    // and the inner markdown helper then reads the up-to-date flag in the SAME
+    // synchronous render, so toggling "always show all code as plain text" takes effect
+    // immediately. Without this the viewer could re-render (setting changed) BEFORE the
+    // startup autorun updated the flag, read the stale value, and never re-render again
+    // since it does not itself depend on that ReactiveVar.
+    const setting = ReactiveCache.getCurrentSetting();
+    if (typeof Markdown !== 'undefined' && Markdown.alwaysShowCodeAsText) {
+      Markdown.alwaysShowCodeAsText.set(!!(setting && setting.alwaysShowCodeAsText));
+    }
     let content = Blaze.toHTML(view.templateContentBlock);
     // Admin Panel / Features: when "render links as plain text" is enabled, every
     // link (markdown [label](url) and raw HTML <a href>) is stripped to plain,
     // non-clickable text everywhere rich text is shown. Reactive: toggling the
     // setting re-renders viewers.
-    const setting = ReactiveCache.getCurrentSetting();
     const stripLinks = !!(setting && setting.renderLinksAsPlainText);
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
