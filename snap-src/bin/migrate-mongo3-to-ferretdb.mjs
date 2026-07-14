@@ -228,19 +228,29 @@ function streamChunksToFile(chunksColl, fid, fd, onProgress) {
   return new Promise((resolve, reject) => {
     const child = spawn(MONGOEXPORT, args, { env });
     const rl = readline.createInterface({ input: child.stdout, crlfDelay: Infinity });
-    let written = 0, stderr = '', parseErr = null, rlClosed = false, exitCode = null, done = false;
+    let written = 0, stderr = '', parseErr = null, writeErr = null, rlClosed = false, exitCode = null, done = false;
     // fs.writeSync in the line handler is synchronous: it blocks the event loop per chunk
     // and so naturally back-pressures mongoexport, keeping memory bounded by design.
     rl.on('line', (line) => {
-      if (!line || parseErr) return;
+      if (!line || parseErr || writeErr || state.abort) return;
       let doc;
       try { doc = EJSON.parse(legacyToV2(line)); } catch (e) { parseErr = e; return; }
       const data = doc && doc.data;
       const buf = data && data.buffer ? Buffer.from(data.buffer) : Buffer.from(data || '', 'base64');
       if (buf.length) {
-        fs.writeSync(fd, buf); written += buf.length; try { onProgress(written); } catch {}
-        // onProgress refreshes free disk space; if it dropped below the margin, stop now:
-        // kill the exporter so we do not keep writing a volume that is nearly full.
+        try { fs.writeSync(fd, buf); }
+        catch (e) {
+          // A write failure is how we detect "out of space" on Sandstorm (where free
+          // space is not measurable). ENOSPC/EDQUOT → disk-full abort + rollback; any
+          // other write error fails just this file.
+          if (e && (e.code === 'ENOSPC' || e.code === 'EDQUOT')) flagDiskFull('write failed: ' + e.code);
+          else writeErr = e;
+          try { child.kill('SIGKILL'); } catch {}
+          return;
+        }
+        written += buf.length; try { onProgress(written); } catch {}
+        // onProgress refreshes free disk space (Snap); if it dropped below the margin,
+        // stop now: kill the exporter so we do not keep writing a nearly-full volume.
         if (state.abort) { try { child.kill('SIGKILL'); } catch {} }
       }
     });
@@ -249,9 +259,10 @@ function streamChunksToFile(chunksColl, fid, fd, onProgress) {
     const finish = () => {
       if (done || !rlClosed || exitCode === null) return;
       done = true;
-      // Disk-guard abort killed mongoexport on purpose: reject so the caller unlinks the
-      // partial file and stops (the fatal disk error is already recorded in state).
+      // Disk-guard/ENOSPC abort killed mongoexport on purpose: reject so the caller
+      // unlinks the partial file and stops (the fatal disk error is already in state).
       if (state.abort) return reject(new Error('aborted: not enough disk space'));
+      if (writeErr) return reject(writeErr); // non-space write error: fail just this file
       if (exitCode !== 0) return reject(new Error(`mongoexport ${chunksColl} exit ${exitCode}: ${stderr.trim().slice(0, 300)}`));
       if (parseErr) return reject(new Error(`chunk parse ${chunksColl}: ${parseErr.message}`));
       resolve(written);
@@ -317,9 +328,10 @@ http.createServer((req, res) => {
   let diskErrHtml = '';
   if (state.additionalBytesNeeded > 0 || state.rollback) {
     const rb = state.rollback || {};
+    const knownFree = state.diskFree >= 0;
     diskErrHtml = `<h2 style="color:#c0392b;border-color:#f5c6cb">⚠ Not enough disk space</h2>
-<p>Total ${esc(T.attachments)} + ${esc(T.avatars)}: <b>${mb(state.filesTotalBytes)} MB</b> · disk free: <b>${mb(state.diskFree)} MB</b></p>
-<p style="font-size:1.25em;color:#c0392b"><b>More disk space required: ${mb(state.additionalBytesNeeded)} MB</b></p>
+<p>Total ${esc(T.attachments)} + ${esc(T.avatars)}: <b>${mb(state.filesTotalBytes)} MB</b>${knownFree ? ` · disk free: <b>${mb(state.diskFree)} MB</b>` : ''}</p>
+<p style="font-size:1.25em;color:#c0392b"><b>${knownFree ? 'More disk space required' : 'Free space required for all files'}: ${mb(state.additionalBytesNeeded)} MB</b></p>
 <p class="muted">Migrated before stopping — ${esc(T.attachments)}: ${rb.migratedAttachments ?? state.files.attachments.done}, ${esc(T.avatars)}: ${rb.migratedAvatars ?? state.files.avatars.done}.${rb.deletedFiles ? ` Deleted ${rb.deletedFiles} partially-migrated files (freed ${mb(rb.freedBytes)} MB) so the volume is not left full.` : ''} Free up at least the amount above, then the migration retries automatically.</p>`;
   }
   res.end(`<!DOCTYPE html><html><head><meta charset=utf-8>${metaRefresh}
@@ -423,33 +435,57 @@ function writeStatus() {
 }
 function hasSpace(dir, need) { try { const s = fs.statfsSync(dir); return Number(s.bavail) * Number(s.bsize) > need + 10 * 1048576; } catch { return true; } }
 
+// Sandstorm grains run in a sandbox where the filesystem size/quota is NOT reliably
+// reported by statfs (it may show the host disk, not the grain's storage quota). So on
+// Sandstorm we do NOT pre-check or poll free space — we just try to migrate, and treat an
+// actual write failure (ENOSPC / EDQUOT) as "out of space": stop, delete what we wrote,
+// and show the disk-space error. Detected via the env that Sandstorm / WeKan-on-Sandstorm
+// sets (SANDSTORM=1, WeKan's SANDSTORM_RAW_MONGO_PATH, or METEOR_SETTINGS.public.sandstorm).
+const IS_SANDSTORM = process.env.SANDSTORM === '1' || !!process.env.SANDSTORM_RAW_MONGO_PATH || (() => {
+  try { return !!((JSON.parse(process.env.METEOR_SETTINGS || '{}').public) || {}).sandstorm; } catch { return false; }
+})();
+// Detect the Snap from its environment ($SNAP is set for every snap process). The
+// statfs-based free-space pre-checks are Snap-specific (a real filesystem whose size we
+// can read); we run them ONLY on the Snap. Sandstorm (and anything else) instead relies
+// on an actual write failure (ENOSPC/EDQUOT) to detect "out of space".
+const IS_SNAP = !!(process.env.SNAP || process.env.SNAP_NAME);
+
 // Keep at least this much free while migrating. A FULL disk can corrupt the source
 // MongoDB (which is still running as we read it), so we must never write the volume dry.
 const DISK_MIN_FREE = parseInt(process.env.MIGRATION_MIN_FREE_BYTES || String(1024 * 1048576), 10); // 1 GB
+
+// Flag "out of disk space" (once) so the file loop rolls back and stops. Used both by the
+// statfs guard (Snap) and by an ENOSPC/EDQUOT write failure (the only signal on Sandstorm).
+function flagDiskFull(detail) {
+  if (state.abort) return;
+  state.abort = true; state.success = false; state.phase = 'error';
+  err(`FATAL: not enough disk space${detail ? ' (' + detail + ')' : ''}. Stopping and deleting migrated attachments/avatars to free the space, to avoid MongoDB data corruption.`);
+}
 let _lastDiskCheck = 0;
 // Refresh state.diskFree (throttled) so the dashboard shows the current free space, and
-// ABORT the whole migration if it falls below the safety margin (do NOT keep writing).
+// ABORT if it falls below the safety margin (do NOT keep writing). Snap-only: a grain
+// cannot see its real free space/quota (statfs is unimplemented / shows the host disk),
+// so on Sandstorm (or anywhere non-Snap) we leave diskFree unknown and rely on write
+// failures (ENOSPC/EDQUOT) instead.
 function updateDiskFree(dir, force) {
+  if (!IS_SNAP) { state.diskFree = -1; return; }
   const now = Date.now();
   if (!force && now - _lastDiskCheck < 1000) return; // ~1 statfs/sec while streaming
   _lastDiskCheck = now;
   try { const s = fs.statfsSync(dir); state.diskFree = Number(s.bavail) * Number(s.bsize); }
   catch { state.diskFree = -1; return; }
-  if (state.diskFree >= 0 && state.diskFree < DISK_MIN_FREE && !state.abort) {
-    state.abort = true; state.success = false; state.phase = 'error';
-    err(`FATAL: disk almost full (${(state.diskFree / 1048576).toFixed(0)} MB free < ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin). Stopped to avoid MongoDB data corruption.`);
+  if (state.diskFree >= 0 && state.diskFree < DISK_MIN_FREE) {
+    flagDiskFull(`only ${(state.diskFree / 1048576).toFixed(0)} MB free < ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin`);
   }
 }
 // Before writing a file, ensure room for it PLUS the margin; else STOP (not skip) so a
 // full disk can never corrupt MongoDB. Sets state.abort + a fatal error, returns false.
 function ensureDiskForFile(dir, need, name) {
+  if (!IS_SNAP) return true; // grain can't measure free space — rely on write failures
   updateDiskFree(dir, true);
   const free = state.diskFree;
   if (free >= 0 && free < Number(need || 0) + DISK_MIN_FREE) {
-    if (!state.abort) {
-      state.abort = true; state.success = false; state.phase = 'error';
-      err(`FATAL: not enough disk space for "${name}" (need ${(Number(need || 0) / 1048576).toFixed(0)} MB + ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin, only ${(free / 1048576).toFixed(0)} MB free). Stopped to avoid MongoDB data corruption.`);
-    }
+    flagDiskFull(`need ${(Number(need || 0) / 1048576).toFixed(0)} MB + ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin for "${name}", only ${(free / 1048576).toFixed(0)} MB free`);
     return false;
   }
   return true;
@@ -489,6 +525,7 @@ function onDiskAbort() {
 
 async function run() {
   ensureDir(ATTACH_DIR); ensureDir(AVATAR_DIR);
+  logline(`Platform: ${IS_SNAP ? 'Snap (statfs free-space guard active)' : IS_SANDSTORM ? 'Sandstorm grain (no free-space API — stops on a write failure)' : 'other (relies on write failures for disk space)'}.`);
   updateDiskFree(FILES_DIR, true); // seed the free-space figure before the dashboard loads
   if (state.abort) { writeStatus(); return; } // already out of disk before we started
   if (!fs.existsSync(MONGOEXPORT) || !fs.existsSync(MONGO)) {
@@ -570,8 +607,10 @@ async function run() {
   // instead of extracting files until the disk fills (which could corrupt MongoDB).
   state.filesTotalBytes = fileColls.reduce((n, c) => n + sumBytes(c), 0);
   updateDiskFree(FILES_DIR, true);
-  logline(`Files to extract: ${state.current.total} (${(state.filesTotalBytes / 1048576).toFixed(0)} MB total); disk free ${(state.diskFree / 1048576).toFixed(0)} MB.`);
-  if (state.filesTotalBytes > 0 && state.diskFree >= 0 && state.diskFree < state.filesTotalBytes + DISK_MIN_FREE) {
+  logline(`Files to extract: ${state.current.total} (${(state.filesTotalBytes / 1048576).toFixed(0)} MB total)${state.diskFree >= 0 ? `; disk free ${(state.diskFree / 1048576).toFixed(0)} MB` : '; free space unknown (Sandstorm) — will stop on a write failure'}.`);
+  // Snap-only up-front check (Sandstorm cannot measure free space; it relies on write
+  // failures below). Stop before extracting anything if the volume cannot hold it all.
+  if (IS_SNAP && state.filesTotalBytes > 0 && state.diskFree >= 0 && state.diskFree < state.filesTotalBytes + DISK_MIN_FREE) {
     state.abort = true; state.success = false; state.phase = 'error';
     state.additionalBytesNeeded = Math.max(0, state.filesTotalBytes + DISK_MIN_FREE - state.diskFree);
     err(`FATAL: not enough disk space to migrate all files: ${(state.filesTotalBytes / 1048576).toFixed(0)} MB of attachments/avatars must be extracted, only ${(state.diskFree / 1048576).toFixed(0)} MB free — need ${(state.additionalBytesNeeded / 1048576).toFixed(0)} MB more (incl. ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin). Stopped before extracting to avoid MongoDB data corruption.`);
@@ -618,7 +657,7 @@ async function run() {
             meta: { ...(fr.meta || {}), source: 'cfs-cli-migration', originalFilename: name },
           }, { upsert: true });
         }
-      } catch (e) { err(`extract ${bucket}/${fid}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
+      } catch (e) { if (e && (e.code === 'ENOSPC' || e.code === 'EDQUOT')) flagDiskFull('write failed: ' + e.code); err(`extract ${bucket}/${fid}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
       finally { state.current.active = false; }
       if (state.abort) { onDiskAbort(); return; }
     }
@@ -668,7 +707,7 @@ async function run() {
           },
           $unset: { [`versions.${versionName}.meta.gridFsFileId`]: '' },
         });
-      } catch (e) { err(`meteor-files ${bucket}/${recId}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
+      } catch (e) { if (e && (e.code === 'ENOSPC' || e.code === 'EDQUOT')) flagDiskFull('write failed: ' + e.code); err(`meteor-files ${bucket}/${recId}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
       finally { state.current.active = false; }
       if (state.abort) { onDiskAbort(); return; }
     }

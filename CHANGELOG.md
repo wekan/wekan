@@ -371,7 +371,13 @@ and fixes the following bugs:
   margin (default 1 GB, `MIGRATION_MIN_FREE_BYTES`). On such a stop it **deletes the
   partially-migrated files to give the space back**, reports how many files were migrated
   before stopping, and shows **how much more disk space is required** to migrate them all.
-  Thanks to xet7.
+  Those statfs free-space checks are **Snap-specific** (detected via `$SNAP`): a Sandstorm
+  grain cannot see its own free space or quota (its FUSE layer does not implement `statfs`
+  and `quotactl` is blocked, per the Sandstorm source — `statfs` on the writable `/var`
+  would report the *host* disk, not the grain's quota). So on **Sandstorm** (detected via
+  `SANDSTORM` / `SANDSTORM_RAW_MONGO_PATH` / `METEOR_SETTINGS`) the migration simply tries,
+  and instead treats an actual **`ENOSPC`/`EDQUOT` write failure** as "out of space" —
+  running the same stop-delete-and-report rollback. Thanks to xet7.
 - **Admin Panel / Features / Security: "Always show all code as plain text" did not take
   effect (links stayed clickable, code stayed rendered)**. The setting is applied by the
   inner `markdown` helper, which reads a `ReactiveVar` (`Markdown.alwaysShowCodeAsText`)
