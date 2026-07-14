@@ -88,8 +88,7 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUE of
-[MimeBleed](https://wekan.fi/hall-of-fame/mimebleed/):
+This release fixes the following CRITICAL SECURITY ISSUE of [MimeBleed](https://wekan.fi/hall-of-fame/mimebleed/):
 
 - **[MimeBleed](https://github.com/wekan/wekan/security/advisories/GHSA-jhph-whx8-wq6p):
   file-upload MIME-type validation bypass → stored XSS on deployments without the
@@ -119,9 +118,9 @@ This release fixes the following CRITICAL SECURITY ISSUE of
   - Affected container deployments without the `file` binary and `WITH_API=true`;
     fixed at the upcoming WeKan release. Reported by **HNUfwj**. Also install the `file`
     package for full content-based MIME detection (WeKan's official images already do).
-  Thanks to HNUfwj and xet7!
+  Thanks to HNUfwj and xet7.
 
-This release adds the following updates:
+and adds the following updates:
 
 - **Outgoing webhooks / notifications: include the card description**
   ([#5143](https://github.com/wekan/wekan/issues/5143)). A card's description was
@@ -211,6 +210,8 @@ This release adds the following updates:
   real engine — `wiredTiger` (or `inMemory`) — from `storageStats`. The MongoDB
   compatible version and Database commit were already correct: they come from
   `buildInfo`, which needs no special privileges. Thanks to xet7.
+- [Update Sandstorm Docs about how to install newest test version](https://github.com/wekan/wekan/commit/422daa6a0c33a578ebd84a77e7a537caf73f2510).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
