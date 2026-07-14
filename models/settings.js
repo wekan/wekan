@@ -39,6 +39,15 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin Panel / Features: when true, rich text is never rendered as markdown or
+    // HTML — the entire raw source is shown as escaped plain text, so hidden links,
+    // HTML comments (<!-- -->), JavaScript and any other code are always visible,
+    // not clickable, and not running. Default false renders markdown normally.
+    alwaysShowCodeAsText: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     mailServer: {
       type: Object,
       optional: true,

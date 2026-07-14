@@ -90,6 +90,18 @@ them up next.
 
 This release adds the following updates:
 
+- **Admin Panel / Features / Security: new optional "Always show all code as plain
+  text" toggle**. When enabled, rich text is never rendered as markdown or HTML —
+  the entire source is shown as escaped plain text in every rich text field (board
+  and card titles, descriptions, comments, checklists, etc.), so hidden content is
+  always revealed: HTML comments (`<!-- -->`), the target URL inside a markdown
+  link, JavaScript and any other code. All code is always visible, not clickable,
+  and not running. This extends the existing invisiblebleed protection (which
+  already showed raw source for description-less markdown links) to all content.
+  The `wekan-markdown` package cannot import app code, so the setting is bridged to
+  the markdown renderer through a reactive flag on the exported `Markdown` object,
+  kept in sync by the rich text viewer. Stored as the global `alwaysShowCodeAsText`
+  setting; default off, so markdown renders normally. Thanks to xet7.
 - **Admin Panel / Features: new optional "Render links as plain text" security
   toggle**. When enabled, all links — both markdown links like `[label](url)` and
   raw HTML `<a href>` tags — are always shown as plain, non-clickable text in every

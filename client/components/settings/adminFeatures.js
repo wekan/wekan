@@ -28,6 +28,9 @@ Template.adminFeatures.helpers({
   renderLinksAsPlainText() {
     return (ReactiveCache.getCurrentSetting() || {}).renderLinksAsPlainText;
   },
+  alwaysShowCodeAsText() {
+    return (ReactiveCache.getCurrentSetting() || {}).alwaysShowCodeAsText;
+  },
 });
 
 Template.adminFeatures.events({
@@ -46,6 +49,14 @@ Template.adminFeatures.events({
     if (setting) {
       Settings.update(setting._id, {
         $set: { renderLinksAsPlainText: !setting.renderLinksAsPlainText },
+      });
+    }
+  },
+  'click .js-toggle-always-show-code-as-text'() {
+    const setting = ReactiveCache.getCurrentSetting();
+    if (setting) {
+      Settings.update(setting._id, {
+        $set: { alwaysShowCodeAsText: !setting.alwaysShowCodeAsText },
       });
     }
   },

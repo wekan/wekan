@@ -42,3 +42,8 @@ template(name="adminFeatures")
                   .materialCheckBox(class="{{#if renderLinksAsPlainText}}is-checked{{/if}}")
                   span {{_ 'render-links-as-plain-text'}}
                 p.description {{_ 'render-links-as-plain-text-description'}}
+              li
+                a.flex.js-toggle-always-show-code-as-text
+                  .materialCheckBox(class="{{#if alwaysShowCodeAsText}}is-checked{{/if}}")
+                  span {{_ 'always-show-code-as-text'}}
+                p.description {{_ 'always-show-code-as-text-description'}}

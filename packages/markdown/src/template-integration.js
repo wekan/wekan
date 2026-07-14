@@ -7,6 +7,7 @@ import { getSecureDOMPurifyConfig } from './secureDOMPurify';
 import { Blaze } from 'meteor/blaze';
 import { HTML } from 'meteor/htmljs';
 import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
 
 const Markdown = new MarkdownIt({
   html: true,
@@ -14,6 +15,26 @@ const Markdown = new MarkdownIt({
   typographer: true,
   breaks: true,
 });
+
+// Admin Panel / Features / Security bridge. This package cannot import app code,
+// so app code (client/components/main/editor.js) keeps this reactive flag in sync
+// with the `alwaysShowCodeAsText` setting. When true, the markdown helper never
+// renders markdown/HTML: it shows the entire raw source as escaped plain text, so
+// hidden links, HTML comments (<!-- -->), JavaScript and any other code are always
+// visible, not clickable, and not running.
+Markdown.alwaysShowCodeAsText = new ReactiveVar(false);
+
+// Escape every HTML-significant character so the raw source is shown literally.
+// DOMPurify alone is not enough here: it would strip tags like <script> rather
+// than display them, which would hide code instead of revealing it.
+function escapeHtmlSource(unsafe) {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 //import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
@@ -237,11 +258,21 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
   if (self.templateContentBlock) {
     text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
   }
-  if (text.includes("[]")) {
+  // Admin Panel / Features / Security: "show all code as plain text" forces the
+  // raw-source view for ALL content, not only for hidden markdown links.
+  const forceRawSource = Markdown.alwaysShowCodeAsText.get();
+  const hasHiddenLink = text.includes("[]");
+  if (forceRawSource || hasHiddenLink) {
     // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
-    // If markdown link does not have description, do not render markdown, instead show all of markdown source code using preformatted text.
-    // Also show html comments.
-    return HTML.Raw('<pre style="background-color: red;" title="Warning! Hidden markdown link description!" aria-label="Warning! Hidden markdown link description!">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;'), getSecureDOMPurifyConfig()) + '</pre>');
+    // Do not render markdown/HTML; show the whole source as escaped preformatted
+    // text so every tag, HTML comment (<!-- -->), link and any other code is
+    // visible, not clickable, and not running.
+    const escaped = escapeHtmlSource(text);
+    const style = hasHiddenLink ? ' style="background-color: red;"' : '';
+    const warn = hasHiddenLink
+      ? 'Warning! Hidden markdown link description!'
+      : 'Code shown as plain text';
+    return HTML.Raw('<pre' + style + ' title="' + warn + '" aria-label="' + warn + '">' + DOMPurify.sanitize(escaped, getSecureDOMPurifyConfig()) + '</pre>');
   } else {
     // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
     // If text does not have hidden markdown link, render all markdown.

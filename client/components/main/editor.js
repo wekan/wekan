@@ -479,3 +479,17 @@ Template.viewer.events({
     }
   },
 });
+
+// Admin Panel / Features / Security: keep the wekan-markdown package's
+// "show all code as plain text" flag in sync with the alwaysShowCodeAsText setting.
+// The package cannot import app code, so we push the setting into the reactive flag
+// it exposes on the exported Markdown object; the markdown helper reads it reactively
+// and shows the raw source (escaped, non-clickable, non-running) when enabled.
+Meteor.startup(() => {
+  Tracker.autorun(() => {
+    const setting = ReactiveCache.getCurrentSetting();
+    if (typeof Markdown !== 'undefined' && Markdown.alwaysShowCodeAsText) {
+      Markdown.alwaysShowCodeAsText.set(!!(setting && setting.alwaysShowCodeAsText));
+    }
+  });
+});
