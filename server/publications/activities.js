@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { getFeatureFlags } from '/models/lib/featureFlags';
 
 // We use activities fields at two different places:
 // 1. The board sidebar
@@ -6,6 +7,11 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // We use this publication to paginate for these two publications.
 
 Meteor.publish('activities', async function(kind, id, limit, showActivities) {
+  // Admin Panel / Features / Notifications (GDPR #5820): hide all activity-feed
+  // entries (existing and new) when activities are disabled.
+  if (getFeatureFlags().disableActivities) {
+    return this.ready();
+  }
   check(
     kind,
     Match.Where(x => {

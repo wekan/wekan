@@ -10,6 +10,7 @@ import { Notifications } from '/server/notifications/notifications';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { safeDeliver } from '/server/lib/webhookGuard';
 import { labelDisplayName } from '/models/lib/labelDisplayName';
+import { getFeatureFlags } from '/models/lib/featureFlags';
 
 function normalizeActivityText(value, fallback = '') {
   return typeof value === 'string' ? value : fallback;
@@ -55,6 +56,11 @@ Meteor.startup(async () => {
 });
 
 Activities.after.insert(async (userId, doc) => {
+  // Admin Panel / Features / Notifications (GDPR #5820): never send watch
+  // notifications when disabled. Activity recording (if enabled) is unaffected.
+  if (getFeatureFlags().disableNotifications) {
+    return;
+  }
   const activity = Activities._transform(doc);
   let participants = [];
   let watchers = [];

@@ -21,6 +21,11 @@ template(name="adminFeatures")
                 span.emoji-icon
                 i.fa.fa-shield
                 | {{_ 'features-security'}}
+            li(class="{{#if isNotificationsActive}}active{{/if}}")
+              a.js-features-menu(data-id="notifications")
+                span.emoji-icon
+                i.fa.fa-bell
+                | {{_ 'features-notifications'}}
         .main-body
           if isPerformanceActive
             ul.setting-detail
@@ -77,3 +82,20 @@ template(name="adminFeatures")
                   .materialCheckBox(class="{{#if anonymizeExportUsers}}is-checked{{/if}}")
                   span {{_ 'anonymize-export-users'}}
                 p.description {{_ 'anonymize-export-users-description'}}
+          if isNotificationsActive
+            ul.setting-detail
+              li
+                a.flex.js-toggle-disable-activities
+                  .materialCheckBox(class="{{#if disableActivities}}is-checked{{/if}}")
+                  span {{_ 'disable-activities'}}
+                p.description {{_ 'disable-activities-description'}}
+              li
+                a.flex.js-toggle-disable-notifications
+                  .materialCheckBox(class="{{#if disableNotifications}}is-checked{{/if}}")
+                  span {{_ 'disable-notifications'}}
+                p.description {{_ 'disable-notifications-description'}}
+              li
+                a.flex.js-toggle-disable-watch
+                  .materialCheckBox(class="{{#if disableWatch}}is-checked{{/if}}")
+                  span {{_ 'disable-watch'}}
+                p.description {{_ 'disable-watch-description'}}

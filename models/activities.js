@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
+import { getFeatureFlags } from '/models/lib/featureFlags';
 
 // Activities don't need a schema because they are always set from the a trusted
 // environment - the server - and there is no risk that a user change the logic
@@ -82,6 +83,12 @@ Activities.before.update((userId, doc, fieldNames, modifier) => {
 });
 
 Activities.before.insert((userId, doc) => {
+  // Admin Panel / Features / Notifications (GDPR #5820): stop recording activities
+  // entirely when disabled. Returning false cancels the insert, so no activity-feed
+  // entry is stored and the notification after.insert hook never fires.
+  if (getFeatureFlags().disableActivities) {
+    return false;
+  }
   doc.createdAt = new Date();
   doc.modifiedAt = doc.createdAt;
 });

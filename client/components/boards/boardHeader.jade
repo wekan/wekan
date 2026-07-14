@@ -23,15 +23,16 @@ template(name="boardHeaderBar")
                 i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
                 span {{_ currentBoard.permission}}
 
-              a.board-header-btn.js-watch-board(
-                title="{{_ watchLevel }}")
-                if $eq watchLevel "watching"
-                  i.fa.fa-eye
-                if $eq watchLevel "tracking"
-                  i.fa.fa-bell
-                if $eq watchLevel "muted"
-                  i.fa.fa-bell-slash
-                span {{_ watchLevel}}
+              unless watchDisabled
+                a.board-header-btn.js-watch-board(
+                  title="{{_ watchLevel }}")
+                  if $eq watchLevel "watching"
+                    i.fa.fa-eye
+                  if $eq watchLevel "tracking"
+                    i.fa.fa-bell
+                  if $eq watchLevel "muted"
+                    i.fa.fa-bell-slash
+                  span {{_ watchLevel}}
               a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
                 title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
                 i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
@@ -67,14 +68,15 @@ template(name="boardHeaderBar")
                 title="{{_ currentBoard.permission}}")
                 i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
 
-              a.board-header-btn.js-watch-board(
-                title="{{_ watchLevel }}")
-                if $eq watchLevel "watching"
-                  i.fa.fa-eye
-                if $eq watchLevel "tracking"
-                  i.fa.fa-bell
-                if $eq watchLevel "muted"
-                  i.fa.fa-bell-slash
+              unless watchDisabled
+                a.board-header-btn.js-watch-board(
+                  title="{{_ watchLevel }}")
+                  if $eq watchLevel "watching"
+                    i.fa.fa-eye
+                  if $eq watchLevel "tracking"
+                    i.fa.fa-bell
+                  if $eq watchLevel "muted"
+                    i.fa.fa-bell-slash
               a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
                 title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
                 i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")

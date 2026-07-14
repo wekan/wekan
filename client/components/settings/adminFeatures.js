@@ -18,6 +18,9 @@ Template.adminFeatures.helpers({
   isSecurityActive() {
     return Template.instance().activePane.get() === 'security';
   },
+  isNotificationsActive() {
+    return Template.instance().activePane.get() === 'notifications';
+  },
   cardsLoadingOptions() {
     const current = (ReactiveCache.getCurrentSetting() || {}).cardsLoading || 'all';
     return [
@@ -48,6 +51,15 @@ Template.adminFeatures.helpers({
   },
   anonymizeExportUsers() {
     return (ReactiveCache.getCurrentSetting() || {}).anonymizeExportUsers;
+  },
+  disableActivities() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableActivities;
+  },
+  disableNotifications() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableNotifications;
+  },
+  disableWatch() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableWatch;
   },
 });
 
@@ -93,5 +105,14 @@ Template.adminFeatures.events({
   },
   'click .js-toggle-anonymize-export-users'() {
     toggleSettingField('anonymizeExportUsers');
+  },
+  'click .js-toggle-disable-activities'() {
+    toggleSettingField('disableActivities');
+  },
+  'click .js-toggle-disable-notifications'() {
+    toggleSettingField('disableNotifications');
+  },
+  'click .js-toggle-disable-watch'() {
+    toggleSettingField('disableWatch');
   },
 });

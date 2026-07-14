@@ -48,6 +48,27 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin Panel / Features / Notifications (GDPR, issue #5820).
+    // disableActivities: stop recording AND showing all activity-feed entries.
+    // disableNotifications: never send watch notifications.
+    // disableWatch: turn off the watch feature (users can still track via activities
+    //   if activities are enabled, but cannot subscribe to watch notifications).
+    // All default false (current behaviour).
+    disableActivities: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    disableNotifications: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    disableWatch: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     // Admin Panel / Features: master switches that disable ALL export / ALL import
     // features (every format and endpoint). Default false (enabled).
     disableAllExport: {

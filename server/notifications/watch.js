@@ -1,12 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { getFeatureFlags } from '/models/lib/featureFlags';
 
 Meteor.methods({
   async watch(watchableType, id, level) {
     check(watchableType, String);
     check(id, String);
     check(level, Match.OneOf(String, null));
+
+    // Admin Panel / Features / Notifications (GDPR #5820): the watch feature is
+    // disabled, so ignore any request to change a watch level.
+    if (getFeatureFlags().disableWatch) {
+      throw new Meteor.Error('error-watch-disabled');
+    }
 
     const userId = this.userId;
 
