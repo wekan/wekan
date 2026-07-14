@@ -99,10 +99,11 @@ function free_tcp_port(){
 # SIGKILL if a port does not free up. Returns 0 when both ports are free (or were
 # never in use), 1 if one is still stuck.
 function kill_meteor_on_port(){
-	local app_port="$1" rspack_port="$RSPACK_DEV_PORT" i pids
-	# Nothing on either port? Nothing to do.
-	port_in_use "$app_port" || port_in_use "$rspack_port" || return 0
-	echo "==> A Meteor dev server is already running (app port $app_port, rspack dev-server port $rspack_port); stopping it before starting a new one."
+	local app_port="$1" rspack_port="$RSPACK_DEV_PORT" mongo_port=$(($1 + 1)) i pids
+	# Nothing on any of the three ports? Nothing to do. (Meteor runs its bundled
+	# MongoDB on app_port+1, so a leftover mongo there must be freed too.)
+	port_in_use "$app_port" || port_in_use "$rspack_port" || port_in_use "$mongo_port" || return 0
+	echo "==> A Meteor dev server is already running (app port $app_port, rspack dev-server port $rspack_port, MongoDB port $mongo_port); stopping it before starting a new one."
 	# Kill the meteor parent for this app port and the rspack watcher (matched by
 	# its devServerPort env). Killing these tears down most of the process tree.
 	pids="$(pgrep -f "meteor run --port $app_port" 2>/dev/null; pgrep -f "devServerPort=$rspack_port" 2>/dev/null)"
@@ -110,27 +111,33 @@ function kill_meteor_on_port(){
 		echo "    Killing Meteor/rspack PIDs:$(echo " $pids" | tr '\n' ' ')"
 		kill $pids 2>/dev/null
 	fi
-	# Free anything still holding either port.
+	# Free anything still holding any of the three ports. The bundled MongoDB on
+	# app_port+1 is commonly ORPHANED when the meteor parent is SIGKILLed (the mongo
+	# child survives and keeps the port), which then makes the next `meteor run` fail
+	# with "Unexpected mongo exit code 48 ... port was closed, or was already taken".
+	# Freeing app_port+1 here also clears a leftover standalone test mongod on :3001.
 	free_tcp_port "$app_port"
 	free_tcp_port "$rspack_port"
-	# Wait for both ports to actually free up, escalating to SIGKILL at 15s.
+	free_tcp_port "$mongo_port"
+	# Wait for all three ports to actually free up, escalating to SIGKILL at 15s.
 	for i in $(seq 1 30); do
-		port_in_use "$app_port" || port_in_use "$rspack_port" || break
+		port_in_use "$app_port" || port_in_use "$rspack_port" || port_in_use "$mongo_port" || break
 		if [ "$i" -eq 15 ]; then
 			echo "    Still in use after 15s; sending SIGKILL."
 			pkill -9 -f "meteor run --port $app_port" 2>/dev/null
 			pkill -9 -f "devServerPort=$rspack_port" 2>/dev/null
 			free_tcp_port "$app_port" KILL
 			free_tcp_port "$rspack_port" KILL
+			free_tcp_port "$mongo_port" KILL
 		fi
 		printf '.'; sleep 1
 	done
 	echo
-	if port_in_use "$app_port" || port_in_use "$rspack_port"; then
-		echo "ERROR: Port $app_port or $rspack_port is still in use after attempting to stop the existing server. Stop it manually and retry."
+	if port_in_use "$app_port" || port_in_use "$rspack_port" || port_in_use "$mongo_port"; then
+		echo "ERROR: Port $app_port, $rspack_port or $mongo_port is still in use after attempting to stop the existing server. Stop it manually and retry."
 		return 1
 	fi
-	echo "    Ports $app_port and $rspack_port are now free."
+	echo "    Ports $app_port, $rspack_port and $mongo_port are now free."
 	return 0
 }
 

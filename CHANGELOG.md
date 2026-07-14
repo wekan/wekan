@@ -303,6 +303,15 @@ and fixes the following tests:
   bundle-based :3000 server (the `.bat` resolves Meteor's bundled `node` / `mongod` from
   the dev_bundle, starts mongod in a minimized window, and stops it on exit only when it
   started it). Thanks to xet7.
+- **Test / dev infrastructure: starting a dev server now also frees the MongoDB port,
+  not just the app and rspack ports** (`rebuild-wekan.sh`, `kill_meteor_on_port`).
+  Picking a "Run Meteor for dev" option stops any server already on the app port, but it
+  only freed the app port (3000) and the rspack dev-server port (8080) — not Meteor's
+  bundled MongoDB on app-port+1 (3001). When the previous meteor parent is SIGKILLed its
+  mongo child is often orphaned and keeps holding 3001, so the new `meteor run` died with
+  `Unexpected mongo exit code 48 ... port was closed, or was already taken`. The stop step
+  now also frees app-port+1 (which additionally clears a leftover standalone test mongod
+  on :3001) and waits for all three ports before starting. Thanks to xet7.
 
 and fixes the following bugs:
 
