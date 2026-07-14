@@ -343,6 +343,22 @@ and fixes the following bugs:
   real engine — `wiredTiger` (or `inMemory`) — from `storageStats`. The MongoDB
   compatible version and Database commit were already correct: they come from
   `buildInfo`, which needs no special privileges. Thanks to xet7.
+- **Snap: MongoDB 3 → FerretDB migration failed with "EJSON.parse unavailable", and the
+  progress dashboard should stay on the page you were on**
+  (`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`). The migrator reads the 3.2 source with
+  the legacy CLI and inserts into FerretDB with the modern Node driver, which needs
+  WeKan's current `bson` (with EJSON) and `mongodb` v6 (OP_MSG). It anchored those
+  `require`s at paths relative to the script — but in the snap the script runs from
+  `$SNAP/bin/` while the bundle is at `$SNAP/programs/server/…` (one level up), so every
+  anchor resolved `$SNAP/bin/programs/server/…` (nonexistent) and fell through to the
+  ancient meteor-spk base `bson` 1.x that has no EJSON → `FATAL: EJSON.parse unavailable`
+  and the migration aborted. Now it builds candidate bundle roots from `$SNAP` (env) and
+  the script's parent directories and searches the known modern-bundle sub-paths under
+  each (npm-mongo's nested v6 driver first, so the ancient v2 that FerretDB rejects with
+  "Unsupported OP_QUERY" is never picked). The migration progress dashboard already
+  answers on every URL (so reloading any board page during migration shows progress); on
+  completion it now reloads the **same page you were on** instead of forcing All Boards.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

@@ -35,28 +35,44 @@
 // getters/re-exports intact) and honors the importer's NODE_PATH, sidestepping all of
 // the ESM default-interop quirks.
 import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
 
-// This script sits at the deps root, right next to the OLD meteor-spk 0.6.0 base
-// node_modules (bson 1.x, which has no EJSON, and an ancient mongodb that has
-// MongoClient but no EJSON re-export) kept there only for the niscu->3.0 stage. A bare
-// require/import from here resolves those adjacent copies — which is why EJSON was
-// undefined every way we tried it. WeKan's CURRENT bson and mongodb (with EJSON) live
-// under programs/server/npm/node_modules. Anchor requires inside that modern bundle
-// first, then fall back to the deps root, so we always get the EJSON-bearing versions.
-// Anchor bases, modern-bundle first. The mongodb driver is NOT directly under
-// programs/server/npm/node_modules — Meteor nests it under the npm-mongo package
-// (…/meteor/npm-mongo/node_modules/mongodb, v6.x, which speaks OP_MSG that FerretDB
-// understands). bson IS directly under npm/node_modules. Resolving the driver from the
-// deps root instead picked up the ancient meteor-spk base mongodb (v2.x, legacy
-// OP_QUERY), and every insert into FerretDB then failed with "Unsupported OP_QUERY
-// command: update". Try the npm-mongo path first, then npm/node_modules, then the root.
-const anchors = [
+// WeKan's CURRENT bson and mongodb (WITH EJSON, and the v6 driver that speaks OP_MSG)
+// live inside the Meteor bundle under programs/server/... . The OLD meteor-spk base
+// node_modules next to the tools has bson 1.x (no EJSON) and an ancient mongodb v2.x
+// (no EJSON re-export, legacy OP_QUERY) — anchoring there gave "EJSON.parse unavailable"
+// and, for inserts, "Unsupported OP_QUERY command: update". So we must anchor requires
+// inside the modern bundle.
+//
+// CRUCIAL: in the snap this script runs as $SNAP/bin/migrate-mongo3-to-ferretdb.mjs, but
+// the bundle is at $SNAP/programs/server/... — one level ABOVE bin/. Anchoring the
+// sub-paths relative to the script alone resolved $SNAP/bin/programs/server/... (which
+// does not exist) and fell through to the ancient base bson. Build candidate ROOTS from
+// $SNAP (env, the real bundle root in the snap) and the script's parent dirs, then try
+// the known modern-bundle sub-paths under each. Order matters: npm-mongo's nested
+// mongodb (v6) before the plain node_modules so we never pick up the ancient v2 driver.
+const rootURLs = [];
+const pushRoot = (u) => { if (u) { try { rootURLs.push(new URL(u)); } catch {} } };
+if (process.env.SNAP)        pushRoot(pathToFileURL(process.env.SNAP + '/'));
+if (process.env.BUNDLE_ROOT) pushRoot(pathToFileURL(process.env.BUNDLE_ROOT + '/'));
+if (process.env.NODE_PATH)   pushRoot(pathToFileURL(process.env.NODE_PATH.split(':')[0].replace(/\/programs\/server\/node_modules\/?$/, '') + '/'));
+pushRoot(new URL('../', import.meta.url));    // $SNAP  (this script is $SNAP/bin/<name>)
+pushRoot(new URL('./', import.meta.url));     // $SNAP/bin (if the bundle sits beside it)
+pushRoot(new URL('../../', import.meta.url)); // one more up, for other/older layouts
+// Sub-anchors inside a bundle root, modern first (the '_.cjs' basename need not exist —
+// createRequire only anchors resolution; require() then walks up node_modules).
+const subPaths = [
   'programs/server/npm/node_modules/meteor/npm-mongo/node_modules/_.cjs',
   'programs/server/npm/node_modules/_.cjs',
+  'programs/server/node_modules/_.cjs',
   '_.cjs',
-]
-  .map(rel => { try { return createRequire(new URL(rel, import.meta.url)); } catch { return null; } })
-  .filter(Boolean);
+];
+const anchors = [];
+for (const root of rootURLs) {
+  for (const sp of subPaths) {
+    try { anchors.push(createRequire(new URL(sp, root))); } catch {}
+  }
+}
 function requireAny(spec) {
   for (const req of anchors) { try { return req(spec); } catch {} }
   return null;
@@ -146,9 +162,11 @@ http.createServer((req, res) => {
       fetch('/', { cache: 'no-store' }).then(function(r){ return r.text(); }).then(function(t){
         // The app is up once '/' is its app shell (has __meteor_runtime_config__)
         // rather than this dashboard (a stable 'migration-dashboard' marker, which is
-        // independent of the product name shown). Then open All Boards.
+        // independent of the product name shown). Then reload the SAME page the user was
+        // on (e.g. the board URL they had open) instead of forcing All Boards, so they
+        // stay where they were before the migration dashboard took over.
         if (t.indexOf('__meteor_runtime_config__') !== -1 || t.indexOf('migration-dashboard') === -1) {
-          location.replace('/');
+          location.replace(location.pathname + location.search + location.hash);
         } else { setTimeout(poll, 1500); }
       }).catch(function(){ setTimeout(poll, 1500); }); // connection gap during hand-off — retry
     })();
