@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.89
+  version: v9.90
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5973,6 +5973,39 @@ definitions:
         type: boolean
         x-nullable: true
       disableForgotPassword:
+        type: boolean
+        x-nullable: true
+      renderLinksAsPlainText:
+        type: boolean
+        x-nullable: true
+      alwaysShowCodeAsText:
+        type: boolean
+        x-nullable: true
+      disableActivities:
+        type: boolean
+        x-nullable: true
+      disableNotifications:
+        type: boolean
+        x-nullable: true
+      disableWatch:
+        type: boolean
+        x-nullable: true
+      disableAllExport:
+        type: boolean
+        x-nullable: true
+      disableAllImport:
+        type: boolean
+        x-nullable: true
+      disableExportAvatars:
+        type: boolean
+        x-nullable: true
+      disableImportAvatars:
+        type: boolean
+        x-nullable: true
+      anonymizeExportUsers:
+        type: boolean
+        x-nullable: true
+      anonymizeImportUsers:
         type: boolean
         x-nullable: true
       mailServer:
