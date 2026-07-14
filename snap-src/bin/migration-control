@@ -1,26 +1,34 @@
 #!/bin/bash
 # ─────────────────────────────────────────────────────────────────────────────
-# One-time MongoDB 3 → FerretDB v1 (SQLite) migration for the WeKan snap.
+# One-time MongoDB → FerretDB v1 (SQLite) migration for the WeKan snap.
 #
-# Runs on startup (called by mongodb-control) BEFORE mongod starts. ONLY the old
-# WeKan 6.09 / MongoDB 3.2 (amd64) data needs migrating — a MongoDB 7 database
-# works with newest WeKan as-is and is left untouched.
+# Runs on startup (called by mongodb-control) BEFORE mongod starts. The WeKan snap
+# moves EVERY existing MongoDB database — MongoDB 3, MongoDB 7, or any other real
+# MongoDB — onto FerretDB (SQLite): text data into SQLite and the CollectionFS +
+# Meteor-Files GridFS attachments/avatars onto the filesystem. Afterwards MongoDB is
+# shut down and only WeKan (Node.js) + FerretDB (SQLite) run. The MongoDB version
+# only decides HOW the source is read.
 #
 # Flow:
-#   1. If mongod 7 can open the existing $SNAP_COMMON data, it is MongoDB 6/7:
-#      no migration — keep MongoDB (just mark the check done and exit).
-#   2. Otherwise it is MongoDB 3.x: start migratemongo's mongod 3.2 to serve it,
-#      start a temporary FerretDB v1 (SQLite at <files>/db), and run the importer
-#      (migrate-mongo3-to-ferretdb.mjs). It reads the source with the legacy mongo
-#      CLI (mongoexport — the modern Node driver can't talk to 3.2) and inserts
-#      into FerretDB with the Node driver: text data streamed directly, and
-#      CollectionFS/Meteor-Files GridFS attachments+avatars extracted straight to
-#      <files>/attachments and <files>/avatars. NO mongodump/mongorestore and no
-#      intermediate MongoDB 7. Progress is shown at ROOT_URL.
-#   3. On success it switches the snap to database=ferretdb.
+#   1. If the bundled mongod 7 can open the existing $SNAP_COMMON data, it is a
+#      modern MongoDB (6/7, incl. a DB earlier migrated up from 3.x). Keep that
+#      mongod running as the source and migrate with the modern driver importer
+#      (migrate-mongodb-to-ferretdb.mjs) into a temporary FerretDB v1 (SQLite at
+#      <files>/db), extracting GridFS files to <files>/attachments and
+#      <files>/avatars.
+#   2. Otherwise, if the bundled migratemongo mongod 3.2 can open it, it is old
+#      MongoDB 3.x: run migrate-mongo3-to-ferretdb.mjs, which reads the source with
+#      the legacy mongo CLI (mongoexport — the modern Node driver can't talk to 3.2)
+#      and inserts into FerretDB with the Node driver, extracting GridFS the same
+#      way. NO mongodump/mongorestore and no intermediate MongoDB 7.
+#   3. On success it switches the snap to database=ferretdb (MongoDB is then stopped
+#      and disabled by mongodb-control). Progress is shown at ROOT_URL.
+#   4. If neither mongod can open the data (unusual/corrupt) or the tools are
+#      missing, it falls back to a normal MongoDB start so the service is never left
+#      dead, and retries next boot.
 #
-# Idempotent (completion marker), never deletes the source MongoDB data, only
-# switches on success.
+# Idempotent (completion marker), never deletes or modifies the source MongoDB
+# data, only switches on success.
 #
 # IMPORTANT: the amd64 6.09/MongoDB-3.2 path has NOT been exercised end-to-end
 # against a real 6.09 snap here — test on a copy first.
@@ -38,7 +46,8 @@ SQLITE_DIR="$FILES_DIR/db"                             # FerretDB SQLite lives h
 SRC_PORT=27099                                         # temp source mongod
 TGT_PORT=27098                                         # temp target FerretDB
 NODE="$SNAP/bin/node"
-IMPORTER="$SNAP/bin/migrate-mongo3-to-ferretdb.mjs"
+IMPORTER="$SNAP/bin/migrate-mongo3-to-ferretdb.mjs"      # MongoDB 3.2 (legacy CLI)
+IMPORTER_MODERN="$SNAP/bin/migrate-mongodb-to-ferretdb.mjs"  # MongoDB 6/7 (driver)
 FERRETDB="$SNAP/ferretdb"
 DB_EVAL="$SNAP/bin/db-eval"                            # Node + `mongodb` driver
 SRC_URL="mongodb://127.0.0.1:$SRC_PORT/?directConnection=true"
@@ -117,57 +126,85 @@ stop_via() {       # $1 = shell binary (legacy mongo), $2 = LD_LIBRARY_PATH pref
   sleep 2
 }
 
-# Hand back to mongodb-control so mongod 7 starts NORMALLY in THIS service
-# activation. #6454: mongodb-control exec's this script, so any path that just
-# `exit`ed here left the MongoDB service with nothing running (and, with no marker,
-# looping forever). We instead set the marker (migration handled) and exec
-# mongodb-control, which — marker now present — skips migration and starts mongod 7
-# with its full startup path (30s wait + replica-set recovery), succeeding where a
-# short probe here may not. Never destroys data.
+WEKAN_PORT="${PORT:-8080}"
+
+# Start a temporary FerretDB v1 (SQLite at <files>/db) as the migration TARGET, and
+# arm an EXIT trap that stops it and the source mongod. $1 = the source-mongod stop
+# command to run in the trap.
+FPID=""
+start_target_ferretdb() {   # $1 = source-stop shell command
+  mkdir -p "$SQLITE_DIR"
+  export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
+  "$FERRETDB" --handler=sqlite --sqlite-url="file:$SQLITE_DIR/" \
+              --listen-addr="127.0.0.1:$TGT_PORT" --telemetry=disable \
+              >"$SNAP_COMMON/migration-ferretdb.log" 2>&1 &
+  FPID=$!
+  trap "kill \"$FPID\" 2>/dev/null || true; $1; force_stop_src" EXIT INT TERM
+}
+# On a successful migration: mark done and switch the snap to FerretDB. The MongoDB
+# source mongod (temporary) is stopped by the EXIT trap, and mongodb-control, seeing
+# database=ferretdb on the next activation, stops+disables the MongoDB service — so
+# afterwards only WeKan (Node.js) + FerretDB (SQLite) run.
+finish_success() {
+  log "Migration succeeded. Switching to FerretDB (SQLite); MongoDB will be shut down."
+  touch "$MARKER"
+  snapctl set database=ferretdb 2>/dev/null || true
+}
+# Last resort when the data can be read by neither mongod 7 nor mongod 3.2 (unusual /
+# corrupt), or the migration tools are missing: don't loop forever with nothing
+# running — hand back to mongodb-control (marker set) so mongod starts normally and
+# the admin can intervene. Data is never modified or deleted.
 fall_back_to_mongodb() {   # $1 = human-readable reason
   log "$1"
-  log "Starting MongoDB 7 normally (no migration)."
+  log "Starting MongoDB normally (no migration this run)."
   force_stop_src
   touch "$MARKER"
   exec bash "$SNAP/bin/mongodb-control"
 }
 
-# ── MongoDB 6/7 data? Then NO migration is needed — keep using MongoDB. ───────
+# ── Any modern MongoDB (6/7, incl. a DB earlier migrated from 3.x)? ───────────
+# The WeKan snap moves every existing MongoDB database — MongoDB 3, MongoDB 7, or any
+# other real MongoDB — onto FerretDB (SQLite): text data into SQLite and the
+# CollectionFS + Meteor-Files GridFS attachments/avatars onto the filesystem
+# (files/attachments, files/avatars). Version only decides HOW we read the source.
 log "Checking whether mongod 7 can open the existing data ..."
 if start_mongod "$SNAP/bin/mongod" "" && ready_via_node; then
-  stop_via_node
-  fall_back_to_mongodb "Data is MongoDB 6/7 — no migration needed; keeping MongoDB."
+  if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER_MODERN" ]; then
+    fall_back_to_mongodb "Migration tools unavailable; cannot migrate this modern MongoDB to FerretDB."
+  fi
+  log "Detected modern MongoDB (mongod 7 opened it). Migrating to FerretDB (SQLite) ..."
+  start_target_ferretdb "stop_via_node"
+  log "Migrating MongoDB → FerretDB (driver). Progress at ${ROOT_URL:-http://localhost:$WEKAN_PORT}"
+  # The modern importer reads the running source mongod with the `mongodb` driver and
+  # extracts GridFS files to WRITABLE_PATH/files/{attachments,avatars}. NODE_PATH lets
+  # it resolve its `mongodb`/`bson` imports from the WeKan bundle.
+  NODE_PATH="$SNAP/programs/server/node_modules" \
+  SOURCE_MONGO_URL="mongodb://127.0.0.1:$SRC_PORT/wekan?directConnection=true" \
+  TARGET_MONGO_URL="mongodb://127.0.0.1:$TGT_PORT/wekan" \
+  WRITABLE_PATH="$SNAP_COMMON" \
+  MIGRATION_PORT="$WEKAN_PORT" \
+    "$NODE" "$IMPORTER_MODERN"
+  rc=$?
+  if [ "$rc" -eq 0 ]; then finish_success
+  else log "ERROR: migration failed (exit $rc). Will retry on next start; MongoDB data kept."; fi
+  exit 0
 fi
 stop_via_node
 force_stop_src
 
-# The mongod-7 probe failed. That does NOT prove the data is MongoDB 3.x: a healthy
-# MongoDB 6/7 database can fail a short probe (journal recovery, a stale
-# mongod.lock, a slow disk, a large oplog). #6454: such databases were wrongly sent
-# down the 3.x path, which then also failed, and mongod never started. So only
-# migrate when we can POSITIVELY confirm the data is MongoDB 3.x — i.e. the bundled
-# mongod 3.2 can actually open it — otherwise fall back to a normal MongoDB 7 start.
+# ── Otherwise, old MongoDB 3.x? Read it with the bundled migratemongo 3.2 CLI. ─
 if [ ! -x "$MM/bin/mongod" ] || [ ! -x "$MM/bin/mongo" ] || [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER" ]; then
-  fall_back_to_mongodb "Migration tools unavailable; cannot run the MongoDB 3 → FerretDB migration."
+  fall_back_to_mongodb "Migration tools unavailable; cannot migrate MongoDB 3.x to FerretDB."
 fi
 
 log "mongod 7 could not open the data; checking whether it is MongoDB 3.x ..."
 if ! start_mongod "$MM/bin/mongod" "$MM_LIB" || ! ready_via "$MM/bin/mongo" "$MM_LIB"; then
   stop_via "$MM/bin/mongo" "$MM_LIB"
-  fall_back_to_mongodb "Data is not readable as MongoDB 3.x either; not migrating."
+  fall_back_to_mongodb "Data is not readable as modern MongoDB or MongoDB 3.x; not migrating."
 fi
 
-log "Confirmed MongoDB 3.x data; migrating to FerretDB via the migratemongo CLI ..."
-# Temporary FerretDB v1 (SQLite at <files>/db) as the migration target.
-mkdir -p "$SQLITE_DIR"
-export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
-"$FERRETDB" --handler=sqlite --sqlite-url="file:$SQLITE_DIR/" \
-            --listen-addr="127.0.0.1:$TGT_PORT" --telemetry=disable \
-            >"$SNAP_COMMON/migration-ferretdb.log" 2>&1 &
-FPID=$!
-trap 'kill "$FPID" 2>/dev/null || true; stop_via "$MM/bin/mongo" "$MM_LIB"; force_stop_src' EXIT INT TERM
-
-WEKAN_PORT="${PORT:-8080}"
+log "Detected MongoDB 3.x. Migrating to FerretDB (SQLite) via the migratemongo CLI ..."
+start_target_ferretdb "stop_via \"$MM/bin/mongo\" \"$MM_LIB\""
 log "Migrating MongoDB 3 → FerretDB (CLI read + driver insert). Progress at ${ROOT_URL:-http://localhost:$WEKAN_PORT}"
 # NODE_PATH lets the standalone importer resolve its `mongodb`/`bson` imports from
 # the WeKan bundle. MONGO_BIN_DIR/MONGO_LIB point at the migratemongo 3.2 tools.
@@ -182,13 +219,8 @@ MIGRATION_PORT="$WEKAN_PORT" \
   "$NODE" "$IMPORTER"
 rc=$?
 
-if [ "$rc" -eq 0 ]; then
-  log "Migration succeeded. Switching database=ferretdb."
-  touch "$MARKER"
-  snapctl set database=ferretdb 2>/dev/null || true
-else
-  log "ERROR: migration failed (exit $rc). Will retry on next start; MongoDB 3 data kept."
-fi
+if [ "$rc" -eq 0 ]; then finish_success
+else log "ERROR: migration failed (exit $rc). Will retry on next start; MongoDB 3 data kept."; fi
 
 # temp FerretDB + source mongod are stopped by the EXIT trap.
 exit 0

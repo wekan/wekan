@@ -1683,25 +1683,35 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release adds the following updates:
 
-- **Snap: fix upgrade from an older WeKan snap failing with "could not start
-  migratemongo mongod on the MongoDB 3.x data" on a MongoDB 7 database**
-  ([#6454](https://github.com/wekan/wekan/issues/6454)). On first boot after an
-  upgrade the snap runs a one-time MongoDB 3 → FerretDB migration check. Its
-  detection was a false dichotomy: it probed whether the bundled mongod 7 could open
-  the existing data and, if that short probe failed for ANY reason (journal
-  recovery, a stale `mongod.lock`, a slow disk, a large oplog), it assumed the data
-  was MongoDB 3.x. A healthy MongoDB 7 database that failed the probe was then sent
-  down the 3.x path, where mongod 3.2 also could not open it — and because
-  `mongodb-control` `exec`s the migration script, mongod never started, so the whole
-  MongoDB service failed to activate and looped on every restart. Now the snap only
-  runs the 3.x migration when the data is **positively confirmed** as MongoDB 3.x
-  (the bundled mongod 3.2 can actually open it); in every other case — MongoDB 6/7,
-  data the probe could not read, or missing tools — it falls back to a normal
-  MongoDB 7 start in the same activation (with the full 30s wait + replica-set
-  recovery) instead of blocking. The mongod-7 readiness probe was also lengthened
-  (20s → 45s) so large databases needing recovery are not misread, and the temporary
-  probe mongod is now tracked by pidfile and force-stopped so it never leaves the
-  dbpath locked. The MongoDB data is never modified or deleted. Thanks to xet7.
+- **Snap: migrate any existing MongoDB (3, 7, or other) to FerretDB (SQLite) on
+  upgrade, and fix the upgrade that failed with "could not start migratemongo mongod
+  on the MongoDB 3.x data"** ([#6454](https://github.com/wekan/wekan/issues/6454)).
+  The WeKan snap now moves EVERY existing MongoDB database onto FerretDB (SQLite) on
+  first boot after an upgrade — text data into SQLite and the CollectionFS +
+  Meteor-Files GridFS attachments/avatars onto the filesystem (files/attachments,
+  files/avatars) — then shuts MongoDB down so only WeKan (Node.js) + FerretDB
+  (SQLite) run. The MongoDB version only decides HOW the source is read: a modern
+  MongoDB (6/7) is read with the `mongodb` driver, old MongoDB 3.x with the bundled
+  migratemongo 3.2 CLI (mongoexport). This also fixes the reported failure: the old
+  check was a false dichotomy — it probed whether mongod 7 could open the data and,
+  if that short probe failed for ANY reason (journal recovery, a stale `mongod.lock`,
+  a slow disk, a large oplog), assumed the data was MongoDB 3.x; a healthy MongoDB 7
+  database then went down the 3.x path, mongod 3.2 also could not open it, and —
+  because `mongodb-control` `exec`s the migration script — mongod never started, so
+  the MongoDB service failed to activate and looped on every restart. Now a
+  mongod-7-openable database is migrated with the modern importer instead of being
+  misclassified; the mongod-7 readiness probe was lengthened (20s → 45s) so large
+  databases needing recovery are not misread; the temporary source mongod is tracked
+  by pidfile and force-stopped so it never leaves the dbpath locked; and if neither
+  mongod can open the data (unusual/corrupt) or the tools are missing, the snap falls
+  back to a normal MongoDB start (never leaving the service dead) and retries next
+  boot. The MongoDB data is never modified or deleted; the snap only switches to
+  FerretDB once the migration succeeds. Thanks to xet7.
+- **Migration dashboard: use the Admin Panel product name instead of "WeKan"**. If
+  the migrated database has a product name set in Admin Panel
+  (`settings.productName`), both the Snap and Sandstorm migration progress
+  dashboards now show that name and do not mention WeKan; otherwise they default to
+  WeKan. Thanks to xet7.
 - Updated Code of Conduct.
   [Part 1](https://github.com/wekan/wekan/commit/209cb8b43d84f7382d181a9f5d1e96ff32f2634d),
   [Part 2](https://github.com/wekan/wekan/commit/574dd5bedd4f7c584b0fbbfaf57df86f286607fa).
