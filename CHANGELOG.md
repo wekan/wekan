@@ -90,6 +90,15 @@ them up next.
 
 This release adds the following updates:
 
+- **Outgoing webhooks / notifications: include the card description**
+  ([#5143](https://github.com/wekan/wekan/issues/5143)). A card's description was
+  saved to the activity log (a `a-changedDescription` activity, #5482) but was never
+  put into the outgoing-webhook / notification payload, so integrations received an
+  event with no description text. The payload now carries `description` (the card's
+  current description, added only when non-empty) for every card event, and — for a
+  description *change* — the before/after text as `oldValue` / `value` (previously
+  only `timeValue`/`timeOldValue` were forwarded). New fields are additive, so
+  existing webhook consumers are unaffected. Thanks to xet7.
 - **Admin Panel / Features / Security: import/export privacy controls**. Six new
   optional toggles govern how boards and user data cross the WeKan boundary:
   - **Disable all import** / **Disable all export** — master switches that turn off

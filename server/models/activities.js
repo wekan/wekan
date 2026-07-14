@@ -155,6 +155,13 @@ Activities.after.insert(async (userId, doc) => {
         params.url = card.absoluteUrl(cardBoard);
       }
       params.cardId = activity.cardId;
+      // #5143: include the card description in the outgoing webhook / notification
+      // payload. Only add it when non-empty so an empty description doesn't add a
+      // noisy blank field.
+      const cardDescription = normalizeActivityText(card.description);
+      if (cardDescription) {
+        params.description = cardDescription;
+      }
     }
   }
 
@@ -315,6 +322,14 @@ Activities.after.insert(async (userId, doc) => {
   }
 
   ['timeValue', 'timeOldValue'].forEach((key) => {
+    const value = activity[key];
+    if (value) params[key] = value;
+  });
+
+  // #5143: forward the before/after text of a description change (activityType
+  // 'a-changedDescription' stores them on the activity as oldValue/value) so the
+  // outgoing webhook / notification carries the actual new (and previous) text.
+  ['value', 'oldValue'].forEach((key) => {
     const value = activity[key];
     if (value) params[key] = value;
   });
