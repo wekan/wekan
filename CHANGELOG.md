@@ -358,6 +358,19 @@ and fixes the following bugs:
   "Unsupported OP_QUERY" is never picked). The migration progress dashboard already
   answers on every URL (so reloading any board page during migration shows progress); on
   completion it now reloads the **same page you were on** instead of forcing All Boards.
+  The migration dashboard was also improved: it now shows a **live per-file progress bar**
+  for the file currently being extracted (file name, size, "file N of TOTAL", percent),
+  and whether it is an attachment or an avatar — using WeKan's existing translations in
+  the viewer's browser language (English fallback). Big files no longer land in RAM: each
+  GridFS file is **streamed chunk-by-chunk** straight to disk (the old approach buffered
+  the whole file through mongoexport's 512 MB stdout limit and failed on large
+  attachments). The dashboard shows **remaining disk space**, and — because a full disk
+  can corrupt the still-running source MongoDB — the migration now guards disk space: it
+  measures the total size of all attachments+avatars **up front** and stops immediately if
+  the volume cannot hold them, and also stops mid-run if free space falls below a safety
+  margin (default 1 GB, `MIGRATION_MIN_FREE_BYTES`). On such a stop it **deletes the
+  partially-migrated files to give the space back**, reports how many files were migrated
+  before stopping, and shows **how much more disk space is required** to migrate them all.
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
