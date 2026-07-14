@@ -24,6 +24,25 @@ function shellQuote(value) {
   return "'" + String(value).replace(/'/g, "'\\''") + "'";
 }
 
+// Dependency-free content sniff used as a fallback when the `file` binary is
+// unavailable (GHSA-jhph-whx8-wq6p). It looks for definitive HTML / SVG / XML /
+// script signatures — deliberately NOT looser event-handler heuristics — so it
+// does not misfire on a genuine binary upload (e.g. a real PNG) read as text. A
+// match forces the dangerous-content scan regardless of the client-supplied MIME
+// type, closing the spoofed-"image/png" stored-XSS bypass. Exported for testing.
+export function looksLikeDangerousMarkup(text) {
+  if (!text) return false;
+  if (/<\s*(script|html|svg|iframe|object|embed|foreignobject|meta\b)/i.test(text)) return true;
+  if (/^[\s﻿]*(<\?xml|<!doctype)/i.test(text)) return true;
+  if (/<!entity/i.test(text)) return true;
+  return false;
+}
+
+// Warn only once (per server process) that the `file` binary is unavailable, so
+// operators of minimal images notice that content-based MIME detection is degraded
+// without flooding the log on every upload.
+let fileBinaryUnavailableWarned = false;
+
 async function detectMimeFromFile(filePath) {
   if (!Meteor.isServer) return undefined;
 
@@ -35,7 +54,20 @@ async function detectMimeFromFile(filePath) {
     if (!mime) return undefined;
     return { mime };
   } catch (e) {
-    // Fall through to filename/type fallback handled by caller.
+    // The `file` command is missing (ENOENT, common on minimal Docker/Alpine
+    // images) or failed. GHSA-jhph-whx8-wq6p: previously this was silent and the
+    // caller then trusted the client-supplied MIME type, which let a spoofed
+    // "image/png" HTML file bypass the dangerous-content check (stored XSS). We
+    // now warn once, and the caller falls back to a dependency-free JS content
+    // sniff instead of trusting the client type.
+    if (!fileBinaryUnavailableWarned) {
+      fileBinaryUnavailableWarned = true;
+      console.warn(
+        "fileValidation: the 'file' command is unavailable (" +
+        ((e && (e.code || e.message)) || 'unknown error') +
+        "); falling back to JS content sniffing. Install the 'file' package for full MIME detection.",
+      );
+    }
   }
 
   return undefined;
@@ -113,6 +145,23 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
     const detectedMime = mimeTypeResult?.mime || (fileObj.type || '').toLowerCase();
     const baseMimeType = detectedMime.split('/', 1)[0] || '';
 
+    // GHSA-jhph-whx8-wq6p (CWE-434): when content-based detection via the `file`
+    // binary is unavailable, `detectedMime` above falls back to the CLIENT-supplied
+    // fileObj.type, which an attacker can spoof to "image/png" so the dangerous-MIME
+    // deny-list below is skipped and HTML+JS is stored (stored XSS). In exactly that
+    // case, sniff the real bytes for markup and force the dangerous-content scan
+    // when the content looks dangerous — never trusting the claimed type.
+    let contentLooksDangerous = false;
+    if (!mimeTypeResult) {
+      try {
+        const { text } = await readTextHead(fileObj.path, 65536);
+        contentLooksDangerous = looksLikeDangerousMarkup(text);
+      } catch (e) {
+        // Head unreadable — fail closed and force the scan below.
+        contentLooksDangerous = true;
+      }
+    }
+
     // Hard deny-list for obviously dangerous types which can be allowed if content is safe
     const dangerousMimes = new Set([
       'text/html',
@@ -123,7 +172,7 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
       'application/javascript',
       'text/javascript'
     ]);
-    if (dangerousMimes.has(detectedMime)) {
+    if (dangerousMimes.has(detectedMime) || contentLooksDangerous) {
       const allowedByContentScan = await checkDangerousMimeAllowance(detectedMime, fileObj.path, fileObj.size || 0);
       if (!allowedByContentScan) {
         console.log("Validation of uploaded file failed (dangerous MIME content): file " + fileObj.path + " - mimetype " + detectedMime);

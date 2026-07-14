@@ -88,6 +88,39 @@ them up next.
 
 # Upcoming WeKan ® release
 
+This release fixes the following CRITICAL SECURITY ISSUE of
+[MimeBleed](https://wekan.fi/hall-of-fame/mimebleed/):
+
+- **[MimeBleed](https://github.com/wekan/wekan/security/advisories/GHSA-jhph-whx8-wq6p):
+  file-upload MIME-type validation bypass → stored XSS on deployments without the
+  `file` binary**
+  ([GHSA-jhph-whx8-wq6p](https://github.com/wekan/wekan/security/advisories/GHSA-jhph-whx8-wq6p),
+  CWE-434 Unrestricted Upload of File with Dangerous Type). WeKan's upload validation
+  (`models/fileValidation.js`) detects a file's real MIME type by running the Unix
+  `file` command. On minimal Docker/Alpine images where `file` is not installed,
+  `detectMimeFromFile()` silently returned `undefined` and the code fell back to the
+  **client-supplied** `fileObj.type`. An authenticated board member (with `WITH_API=true`)
+  could therefore upload an HTML file containing JavaScript while setting
+  `fileType: "image/png"`: the spoofed type is not on the dangerous-MIME deny-list, so
+  the dangerous-content scan was skipped and the file was stored, yielding stored XSS
+  served under the WeKan origin (session theft / actions as the victim, including admin).
+  - **Fixed** so the client-supplied type can never gate the safety scan: when
+    content-based detection via `file` is unavailable, WeKan now falls back to a
+    **dependency-free JS content sniff** (`looksLikeDangerousMarkup()`) that inspects the
+    real bytes for HTML/SVG/XML/`<script>` signatures and forces the dangerous-content
+    scan regardless of the claimed MIME — so a spoofed `image/png` that is actually
+    HTML+JS is caught and rejected. The sniff only matches definitive markup signatures,
+    so genuine binary uploads (real PNG/JPEG/PDF, including large ones) are unaffected.
+    WeKan also now logs a one-time warning when the `file` command is missing (previously
+    the failure was silent). A regression test
+    (`server/lib/tests/fileValidationBypass.security.tests.js`) covers both the spoofed
+    dangerous uploads and safe binaries. CVSS:3.1 8.3 High
+    (AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:N).
+  - Affected container deployments without the `file` binary and `WITH_API=true`;
+    fixed at the upcoming WeKan release. Reported by **HNUfwj**. Also install the `file`
+    package for full content-based MIME detection (WeKan's official images already do).
+  Thanks to HNUfwj and xet7!
+
 This release adds the following updates:
 
 - **Outgoing webhooks / notifications: include the card description**
