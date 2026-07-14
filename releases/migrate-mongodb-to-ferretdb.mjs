@@ -59,6 +59,10 @@ const state = {
   finishedAt: null,
   success:   null,
   dryRun:    DRY_RUN,
+  // Product name shown on the dashboard. Defaults to WeKan, but if the migrated
+  // database has a product name set in Admin Panel (settings.productName), that is
+  // used instead and WeKan is not mentioned. Populated after the source connects.
+  product:   'WeKan',
 };
 
 function pushError(msg) {
@@ -70,7 +74,7 @@ function pushError(msg) {
 // ── HTTP progress server ───────────────────────────────────────────────────
 const HTML_TEMPLATE = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta http-equiv="refresh" content="3">
-<title>WeKan Migration Progress</title>
+<title>__PRODUCT__ Migration Progress</title>
 <style>
   body{font-family:monospace;background:#111;color:#ddd;padding:1em 2em}
   h1{color:#7bf}  .ok{color:#7f7}  .fail{color:#f77}  .warn{color:#fb7}
@@ -81,7 +85,7 @@ const HTML_TEMPLATE = `<!DOCTYPE html><html lang="en"><head>
   th{color:#aaa;font-size:.85em}
   .phase{font-size:1.3em;margin:1em 0}
 </style></head><body>
-<h1>WeKan Migration: MongoDB → FerretDB</h1>
+<h1>__PRODUCT__ Migration: MongoDB → FerretDB (SQLite)</h1>
 <div class="phase">Phase: <strong id="phase">…</strong> <span id="detail" style="color:#aaa"></span></div>
 <p>Started: __STARTED__  &nbsp; Elapsed: <span id="elapsed"></span></p>
 <div id="files_section">
@@ -124,6 +128,7 @@ function buildHtml() {
   if (state.success === false) phaseColor = ' class="fail"';
 
   return HTML_TEMPLATE
+    .replace(/__PRODUCT__/g, escHtml(state.product))
     .replace(/__STARTED__/g, state.startedAt)
     .replace('__FILES__',   fRows)
     .replace('__COLLS__',   colRows)
@@ -501,6 +506,16 @@ async function run() {
   const tgtDbName = new URL(TARGET_URL.replace('mongodb://', 'http://')).pathname.slice(1) || 'wekan';
   const srcDb = srcClient.db(srcDbName);
   const tgtDb = tgtClient.db(tgtDbName);
+
+  // If the migrated database has a product name set in Admin Panel, show that on
+  // the dashboard instead of "WeKan". Best-effort: any failure keeps the default.
+  try {
+    const s = await srcDb.collection('settings').findOne({ productName: { $type: 'string' } });
+    if (s && typeof s.productName === 'string' && s.productName.trim()) {
+      state.product = s.productName.trim();
+      console.log('[migrate] Using product name from Admin Panel settings:', state.product);
+    }
+  } catch (e) { /* keep default product name */ }
 
   // Check idempotency marker
   const markerColl = tgtDb.collection(MARKER_COLL);

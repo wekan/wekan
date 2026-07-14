@@ -113,6 +113,10 @@ const state = {
   startedAt: new Date().toISOString(), phase: 'starting', detail: '',
   collections: {}, files: { attachments: { done: 0, bytes: 0 }, avatars: { done: 0, bytes: 0 } },
   log: [], errors: [], success: null,
+  // Product name shown on the dashboard. Defaults to WeKan, but if the migrated
+  // database has a product name set in Admin Panel (settings.productName), that is
+  // used instead and WeKan is not mentioned. Populated early in run().
+  product: 'WeKan',
 };
 // Rolling activity log so the dashboard shows what the migration is actually doing
 // (a few live lines), not just red errors after the fact. Mirrored to stdout so it
@@ -140,16 +144,18 @@ http.createServer((req, res) => {
   const handoff = doneOk ? `<script>
     (function poll(){
       fetch('/', { cache: 'no-store' }).then(function(r){ return r.text(); }).then(function(t){
-        // WeKan is up once '/' is its app shell (has __meteor_runtime_config__) rather
-        // than this dashboard. Then open All Boards.
-        if (t.indexOf('__meteor_runtime_config__') !== -1 || t.indexOf('WeKan Migration') === -1) {
+        // The app is up once '/' is its app shell (has __meteor_runtime_config__)
+        // rather than this dashboard (a stable 'migration-dashboard' marker, which is
+        // independent of the product name shown). Then open All Boards.
+        if (t.indexOf('__meteor_runtime_config__') !== -1 || t.indexOf('migration-dashboard') === -1) {
           location.replace('/');
         } else { setTimeout(poll, 1500); }
       }).catch(function(){ setTimeout(poll, 1500); }); // connection gap during hand-off — retry
     })();
   </script>` : '';
   res.end(`<!DOCTYPE html><html><head><meta charset=utf-8>${metaRefresh}
-<title>WeKan Migration</title><style>
+<!--migration-dashboard-->
+<title>${esc(state.product)} Migration</title><style>
 body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#eceff1;color:#2c3e50;padding:1.5em 2em;margin:0}
 h1{color:#2980b9;font-size:1.5em} h2{color:#2980b9;font-size:1.05em;margin:1.2em 0 .4em;border-bottom:2px solid #d6e4ef;padding-bottom:.2em}
 .card{background:#fff;border:1px solid #d6e4ef;border-radius:6px;padding:1em 1.4em;max-width:960px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -157,9 +163,9 @@ table{border-collapse:collapse;width:100%} td,th{padding:3px 10px;border-bottom:
 .muted{color:#7f8c9a;font-size:.9em}
 pre{background:#f4f6f8;color:#2c3e50;border:1px solid #dfe4e8;border-radius:4px;padding:8px;max-height:16em;overflow:auto;white-space:pre-wrap}
 @keyframes spin{to{transform:rotate(360deg)}}</style></head><body><div class="card">
-<h1>${spinner} WeKan Migration: MongoDB 3 &rarr; FerretDB v1 (SQLite)</h1>
+<h1>${spinner} ${esc(state.product)} Migration: MongoDB 3 &rarr; FerretDB v1 (SQLite)</h1>
 <p class="muted">Started ${state.startedAt} · updated ${new Date().toISOString()} · errors ${state.errors.length}</p>
-${doneOk ? '<p style="font-size:1.3em;color:#27ae60">✅ Migration complete — starting WeKan and opening All Boards…</p>' : ''}
+${doneOk ? `<p style="font-size:1.3em;color:#27ae60">✅ Migration complete — starting ${esc(state.product)} and opening All Boards…</p>` : ''}
 <p style="font-size:1.3em;color:${color}">Phase: <b>${esc(state.phase)}</b> ${esc(state.detail)}</p>${handoff}
 <h2>Text collections</h2><table><tr><th>Collection</th><th>Inserted</th><th>Total</th></tr>${cols}</table>
 <h2>Files</h2><table><tr><th>Type</th><th>Files</th><th>MB</th></tr>
@@ -268,6 +274,14 @@ async function run() {
   const ver = runTool(MONGOEXPORT, ['--version']);
   console.log('[migrate3] mongoexport --version -> ' + describe(ver));
   logline('mongoexport ready: ' + ((ver.stdout || '').split('\n')[0] || 'unknown'));
+
+  // If the migrated database has a product name set in Admin Panel, show that on
+  // the dashboard instead of "WeKan". Best-effort: any failure keeps the default.
+  try {
+    const settingsDocs = exportDocs('settings');
+    const pn = settingsDocs.map(d => d && d.productName).find(v => typeof v === 'string' && v.trim());
+    if (pn) { state.product = pn.trim(); logline('Using product name from Admin Panel settings: ' + state.product); }
+  } catch (e) { /* keep default product name */ }
 
   state.phase = 'connecting'; state.detail = 'FerretDB ' + TARGET_URL;
   const client = await MongoClient.connect(TARGET_URL);
