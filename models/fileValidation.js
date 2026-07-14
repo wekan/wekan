@@ -33,7 +33,7 @@ function shellQuote(value) {
 export function looksLikeDangerousMarkup(text) {
   if (!text) return false;
   if (/<\s*(script|html|svg|iframe|object|embed|foreignobject|meta\b)/i.test(text)) return true;
-  if (/^[\s﻿]*(<\?xml|<!doctype)/i.test(text)) return true;
+  if (/^\s*(<\?xml|<!doctype)/i.test(text)) return true;
   if (/<!entity/i.test(text)) return true;
   return false;
 }

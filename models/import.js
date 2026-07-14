@@ -30,6 +30,12 @@ async function parseXlsxToRows(excelBase64) {
 
 Meteor.methods({
   async importBoard(board, data, importSource, currentBoard) {
+    // All check() calls must run BEFORE the first `await`: Meteor's
+    // audit-argument-checks tracks checked arguments on the current async context,
+    // and awaiting first makes later check()s (e.g. `board` in the switch below) not
+    // count — throwing "Did not check() all arguments". So check `board` up front
+    // here (the per-source switch still does its more specific check).
+    check(board, Match.OneOf(Object, Array));
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
