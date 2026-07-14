@@ -45,15 +45,25 @@ Cover image
   Right Sidebar/Board Settings/Card Settings/Cover Image
   (at bottom of Card Settings list).
 
-Download
+Download Official Version
 
-1. Please wait before there is more testing of new version, and appears to Official Sandstorm Store.
-2. Currently newest at [Experimental Sanstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true)
-3. Later will be at [Official Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h)
-4. But, if you use CloudFlare, there may be 100 MB file size upload limit,
-   it prevents uploading wekan.spk as file to your Sandstorm.
-5. New experimental wekan.spk install file at WeKan 9.87 or newer
-   at https://github.com/wekan/wekan/releases
+- [Official Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h)
+
+Download Newest Test Version
+
+1. Please backup first.
+2. Go to [Sandstorm Test App Loader](https://mnutt.github.io/sandstorm-test-app-loader/?spk_url=https%3A%2F%2Fgithub.com%2Fwekan%2Fwekan%2Freleases%2Fdownload%2Fv9.89%2Fwekan-sandstorm-2026_07_13-16_54_56.spk&package_id=1c39541fb4710bdb04a68d0b66e9d634)
+3. Copy newest wekan.spk URL from https://github.com/wekan/wekan/releases to Sandstorm Test App Loader page
+4. Write your Sandstorm Instance URL to Sandstorm Test Loader page
+5. Click Install
+6. Later, newest WeKan will also be added to [Experimental](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true)
+   and [Official](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h) Sandstorm Store.
+
+About CloudFlare and uploading wekan.spk file
+
+- If your Sandstorm you use CloudFlare, there may be 100 MB file size upload limit,
+  it prevents uploading wekan.spk as file to your Sandstorm
+- So instead use above Sandstorm Test App Loader to install Newest Test Version
 
 ### Sandstorm Radicale: Calendars and Contacts
 
