@@ -85,6 +85,13 @@ function extForType(type) {
 // local /cdn/storage/avatars/<id> URL. Returns the new local URL, or null.
 export async function localizeAvatarFromBuffer(userId, buffer, { type = 'image/png', name } = {}) {
   if (!Meteor.isServer || !userId || !buffer || !buffer.length) return null;
+  // Admin Panel / Features / Security: when import avatars is disabled, block every
+  // avatar-import path — this is the single choke point that WeKan JSON import, LDAP,
+  // OIDC/OAuth2 login sync and board-open localization all funnel through.
+  try {
+    const { getImportExportSecuritySettings } = require('/models/lib/importExportSecurity');
+    if ((await getImportExportSecuritySettings()).disableImportAvatars) return null;
+  } catch (e) { /* if the setting can't be read, fall through (default: allowed) */ }
   const ext = extForType(type);
   const fileName = (name && String(name).replace(/[^a-zA-Z0-9_.\-]/g, '_')) || `avatar.${ext}`;
   return await new Promise((resolve) => {

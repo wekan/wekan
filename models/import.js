@@ -8,6 +8,7 @@ import { KanboardCreator } from './kanboardCreator';
 import { EXTERNAL_PARSERS } from './lib/externalParsers';
 import { Exporter } from './exporter';
 import { getMembersToMap } from './wekanmapper';
+import { assertImportEnabled } from './lib/importExportSecurity';
 
 // Parse an uploaded .xlsx (base64) into the row-array shape the CsvCreator
 // consumes (board[0] is the header row). Excel import reuses the CSV creator.
@@ -32,6 +33,8 @@ Meteor.methods({
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
+    // Admin Panel / Features / Security: master switch to disable all import.
+    await assertImportEnabled();
     let creator;
     let importedBoard = board;
     switch (importSource) {
@@ -91,6 +94,11 @@ Meteor.methods({
   async cloneBoard(sourceBoardId, currentBoardId) {
     check(sourceBoardId, String);
     check(currentBoardId, Match.Maybe(String));
+
+    // Cloning reads a board (like export) and creates a new one (like import), so
+    // it is gated by the disable-all-import master switch (and, via Exporter.build,
+    // the disable-all-export switch).
+    await assertImportEnabled();
 
     // Authorization: a caller may only clone (which reads the entire board)
     // a source board they are allowed to see. Without this check any

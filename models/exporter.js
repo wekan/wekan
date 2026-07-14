@@ -2,6 +2,14 @@ import { ReactiveCache } from '/imports/reactiveCache';
 const Papa = require('papaparse');
 const { buildCsvCardRow } = require('./lib/exporterCsvRow');
 const { encodeAligned, encodeFinal } = require('./lib/base64Chunk');
+const {
+  getImportExportSecuritySettings,
+  assertExportEnabled,
+  anonymizedUserWord,
+  buildUserAnonymizationMap,
+  anonymizeUserDoc,
+  anonymizeBoardTextInPlace,
+} = require('./lib/importExportSecurity');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { 
@@ -39,9 +47,14 @@ export class Exporter {
     // without overflowing V8's max string length in JSON.stringify or loading
     // every attachment buffer into memory at once. Default false (full export).
     this._excludeAttachments = options.excludeAttachments === true;
+    // Language used for the anonymized user placeholder word ("user" -> user1,
+    // "käyttäjä" -> käyttäjä1). Defaults to English when the caller cannot supply
+    // the exporting user's language.
+    this._userLanguage = options.userLanguage || 'en';
   }
 
   async build() {
+    await assertExportEnabled();
     const fs = Npm.require('fs');
     const os = Npm.require('os');
     const path = Npm.require('path');
@@ -246,29 +259,44 @@ export class Exporter {
     // the identity provider — this reads a local file (no outbound fetch), so it works
     // inside a Sandstorm grain too, letting a board with many already-stored avatars be
     // exported and re-imported with every member's picture intact.
+    const security = await getImportExportSecuritySettings();
     const usersRaw = await ReactiveCache.getUsers(byUserIds, userFields);
     result.users = [];
     for (const user of usersRaw) {
-      const localUrl = ((user.profile || {}).avatarUrl) || '';
-      const m = localUrl.match(/\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\/([^/?#]+)/);
-      if (m && m[1]) {
-        const avatar = await ReactiveCache.getAvatar(m[1]);
-        if (avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path) {
-          const file = await getBase64DataAsync(avatar);
-          if (file) {
-            user.profile = user.profile || {};
-            user.profile.avatarFile = file;
-            user.profile.avatarFileName = avatar.name;
-            user.profile.avatarFileType = avatar.type;
+      if (security.disableExportAvatars) {
+        // Admin Panel / Features / Security: never carry avatars out of WeKan.
+        if (user.profile) delete user.profile.avatarUrl;
+      } else {
+        const localUrl = ((user.profile || {}).avatarUrl) || '';
+        const m = localUrl.match(/\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\/([^/?#]+)/);
+        if (m && m[1]) {
+          const avatar = await ReactiveCache.getAvatar(m[1]);
+          if (avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path) {
+            const file = await getBase64DataAsync(avatar);
+            if (file) {
+              user.profile = user.profile || {};
+              user.profile.avatarFile = file;
+              user.profile.avatarFileName = avatar.name;
+              user.profile.avatarFileType = avatar.type;
+            }
           }
         }
-      }
-      // user avatar is stored as a relative url, we export absolute (kept as a fallback
-      // reference; the embedded avatarFile above is the authoritative copy on import).
-      if ((user.profile || {}).avatarUrl) {
-        user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
+        // user avatar is stored as a relative url, we export absolute (kept as a fallback
+        // reference; the embedded avatarFile above is the authoritative copy on import).
+        if ((user.profile || {}).avatarUrl) {
+          user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
+        }
       }
       result.users.push(user);
+    }
+    if (security.anonymizeExportUsers) {
+      // Replace every exported user's identity (username/fullname/initials, and any
+      // avatar) with counter placeholders, and rewrite @username mentions + the
+      // requestedBy/assignedBy free-text fields in card and comment content.
+      const word = anonymizedUserWord(this._userLanguage);
+      const map = buildUserAnonymizationMap(result.users, word);
+      result.users.forEach(u => anonymizeUserDoc(u, map));
+      anonymizeBoardTextInPlace(result, map.byUsername);
     }
     return result;
   }
@@ -290,6 +318,7 @@ export class Exporter {
   // single-attachment path stays on build() since it returns one small object.
   // ───────────────────────────────────────────────────────────────────────────
   async buildStream(res) {
+    await assertExportEnabled();
     const fs = Npm.require('fs');
     // Static requires only — Meteor's bundler cannot resolve a dynamic
     // require(`/models/${name}`) path.
@@ -317,6 +346,34 @@ export class Exporter {
     const boardId = this._boardId;
     const userIds = new Set();
     const cardIds = [];
+
+    const security = await getImportExportSecuritySettings();
+
+    // Anonymization pre-scan: card/comment text is streamed BEFORE the users[]
+    // array, so to rewrite @username mentions we must know the anonymized labels
+    // up front. Collect every referenced userId (small projections only, so peak
+    // memory stays bounded — attachments are never loaded here), then build the
+    // same deterministic map the users[] emission uses at the end.
+    let anonMap = null;
+    if (security.anonymizeExportUsers) {
+      const preUserIds = new Set();
+      const board0 = await ReactiveCache.getBoard(boardId, { fields: { members: 1 } });
+      (board0.members || []).forEach(m => preUserIds.add(m.userId));
+      const preCardIds = [];
+      for await (const d of cardsRaw.find({ boardId, linkedId: { $in: ['', null] } }, { projection: { _id: 1, userId: 1, members: 1 } })) {
+        preCardIds.push(d._id);
+        if (d.userId) preUserIds.add(d.userId);
+        (d.members || []).forEach(id => preUserIds.add(id));
+      }
+      for await (const d of listsRaw.find({ boardId }, { projection: { userId: 1 } })) { if (d.userId) preUserIds.add(d.userId); }
+      for await (const d of cardCommentsRaw.find({ cardId: { $in: preCardIds } }, { projection: { userId: 1 } })) { if (d.userId) preUserIds.add(d.userId); }
+      for await (const d of activitiesRaw.find({ $or: [{ boardId }, { cardId: { $in: preCardIds } }] }, { projection: { userId: 1, memberId: 1 } })) { if (d.userId) preUserIds.add(d.userId); if (d.memberId) preUserIds.add(d.memberId); }
+      for await (const d of checklistsRaw.find({ cardId: { $in: preCardIds } }, { projection: { userId: 1 } })) { if (d.userId) preUserIds.add(d.userId); }
+      const preUsers = await usersRaw
+        .find({ _id: { $in: Array.from(preUserIds).filter(Boolean) } }, { projection: { _id: 1, username: 1 } })
+        .toArray();
+      anonMap = buildUserAnonymizationMap(preUsers, anonymizedUserWord(this._userLanguage));
+    }
 
     // Stream one collection's docs out as a JSON array value `"key":[ … ]`.
     const streamArray = async (key, rawColl, selector, options = noBoardId, onDoc) => {
@@ -385,15 +442,20 @@ export class Exporter {
     await streamArray('swimlanes', swimlanesRaw, { boardId });
     await streamArray('customFields', customFieldsRaw, { boardIds: boardId }, { projection: { boardIds: 0 } });
 
-    // Cards (non-linked, like build()) — collect ids + userIds as we go.
+    // Cards (non-linked, like build()) — collect ids + userIds as we go, and
+    // (when anonymizing) rewrite @mentions + requestedBy/assignedBy in each card.
     await streamArray('cards', cardsRaw, { boardId, linkedId: { $in: ['', null] } }, noBoardId, d => {
       cardIds.push(d._id);
       userIds.add(d.userId);
       (d.members || []).forEach(id => userIds.add(id));
+      if (anonMap) anonymizeBoardTextInPlace({ cards: [d] }, anonMap.byUsername);
     });
 
     // Everything keyed by the card ids we just streamed.
-    await streamArray('comments', cardCommentsRaw, { cardId: { $in: cardIds } }, noBoardId, d => userIds.add(d.userId));
+    await streamArray('comments', cardCommentsRaw, { cardId: { $in: cardIds } }, noBoardId, d => {
+      userIds.add(d.userId);
+      if (anonMap) anonymizeBoardTextInPlace({ comments: [d] }, anonMap.byUsername);
+    });
     await streamArray('activities', activitiesRaw, { $or: [{ boardId }, { cardId: { $in: cardIds } }] }, noBoardId, d => userIds.add(d.userId));
     await streamArray('checklists', checklistsRaw, { cardId: { $in: cardIds } }, {}, d => userIds.add(d.userId));
     await streamArray('checklistItems', checklistItemsRaw, { cardId: { $in: cardIds } }, {});
@@ -420,24 +482,31 @@ export class Exporter {
       );
       let i = 0;
       for await (const user of cursor) {
-        const localUrl = (user.profile && user.profile.avatarUrl) || '';
-        const m = localUrl.match(/\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\/([^/?#]+)/);
-        if (m && m[1]) {
-          const avatar = await avatarsRaw.findOne({ _id: m[1] });
-          const p = avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path;
-          if (p) {
-            try {
-              const buf = fs.readFileSync(p);
-              user.profile = user.profile || {};
-              user.profile.avatarFile = buf.toString('base64');
-              user.profile.avatarFileName = avatar.name;
-              user.profile.avatarFileType = avatar.type;
-            } catch (e) { /* unreadable avatar file — export URL only */ }
+        if (security.disableExportAvatars) {
+          // Admin Panel / Features / Security: never carry avatars out of WeKan.
+          if (user.profile) delete user.profile.avatarUrl;
+        } else {
+          const localUrl = (user.profile && user.profile.avatarUrl) || '';
+          const m = localUrl.match(/\/(?:cdn\/storage\/avatars|cfs\/files\/avatars)\/([^/?#]+)/);
+          if (m && m[1]) {
+            const avatar = await avatarsRaw.findOne({ _id: m[1] });
+            const p = avatar && avatar.versions && avatar.versions.original && avatar.versions.original.path;
+            if (p) {
+              try {
+                const buf = fs.readFileSync(p);
+                user.profile = user.profile || {};
+                user.profile.avatarFile = buf.toString('base64');
+                user.profile.avatarFileName = avatar.name;
+                user.profile.avatarFileType = avatar.type;
+              } catch (e) { /* unreadable avatar file — export URL only */ }
+            }
+          }
+          if (user.profile && user.profile.avatarUrl) {
+            user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
           }
         }
-        if (user.profile && user.profile.avatarUrl) {
-          user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
-        }
+        // Anonymize identity (and drop any avatar) using the pre-scan map.
+        if (anonMap) anonymizeUserDoc(user, anonMap);
         await w((i++ ? ',' : '') + JSON.stringify(user));
       }
     }

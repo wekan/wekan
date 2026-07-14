@@ -31,7 +31,33 @@ Template.adminFeatures.helpers({
   alwaysShowCodeAsText() {
     return (ReactiveCache.getCurrentSetting() || {}).alwaysShowCodeAsText;
   },
+  disableAllImport() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableAllImport;
+  },
+  disableAllExport() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableAllExport;
+  },
+  disableImportAvatars() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableImportAvatars;
+  },
+  disableExportAvatars() {
+    return (ReactiveCache.getCurrentSetting() || {}).disableExportAvatars;
+  },
+  anonymizeImportUsers() {
+    return (ReactiveCache.getCurrentSetting() || {}).anonymizeImportUsers;
+  },
+  anonymizeExportUsers() {
+    return (ReactiveCache.getCurrentSetting() || {}).anonymizeExportUsers;
+  },
 });
+
+// Toggle one boolean setting field, saving immediately.
+function toggleSettingField(field) {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (setting) {
+    Settings.update(setting._id, { $set: { [field]: !setting[field] } });
+  }
+}
 
 Template.adminFeatures.events({
   'click .js-features-menu'(event, tpl) {
@@ -45,19 +71,27 @@ Template.adminFeatures.events({
     }
   },
   'click .js-toggle-render-links-as-plain-text'() {
-    const setting = ReactiveCache.getCurrentSetting();
-    if (setting) {
-      Settings.update(setting._id, {
-        $set: { renderLinksAsPlainText: !setting.renderLinksAsPlainText },
-      });
-    }
+    toggleSettingField('renderLinksAsPlainText');
   },
   'click .js-toggle-always-show-code-as-text'() {
-    const setting = ReactiveCache.getCurrentSetting();
-    if (setting) {
-      Settings.update(setting._id, {
-        $set: { alwaysShowCodeAsText: !setting.alwaysShowCodeAsText },
-      });
-    }
+    toggleSettingField('alwaysShowCodeAsText');
+  },
+  'click .js-toggle-disable-all-import'() {
+    toggleSettingField('disableAllImport');
+  },
+  'click .js-toggle-disable-all-export'() {
+    toggleSettingField('disableAllExport');
+  },
+  'click .js-toggle-disable-import-avatars'() {
+    toggleSettingField('disableImportAvatars');
+  },
+  'click .js-toggle-disable-export-avatars'() {
+    toggleSettingField('disableExportAvatars');
+  },
+  'click .js-toggle-anonymize-import-users'() {
+    toggleSettingField('anonymizeImportUsers');
+  },
+  'click .js-toggle-anonymize-export-users'() {
+    toggleSettingField('anonymizeExportUsers');
   },
 });

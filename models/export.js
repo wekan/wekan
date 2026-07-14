@@ -137,6 +137,9 @@ if (Meteor.isServer) {
       user = await ReactiveCache.getUser({ _id: req.userId });
     }
 
+    // Anonymized user placeholders ("user1"/"käyttäjä1") follow the exporting
+    // user's language.
+    exportOptions.userLanguage = (user && user.profile && user.profile.language) || 'en';
     const exporter = new Exporter(boardId, undefined, exportOptions);
     if (await exporter.canExport(user) || impersonateDone) {
       if (impersonateDone && adminId) {

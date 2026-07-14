@@ -293,6 +293,12 @@ export async function inlineBoardBackground(board, key, token) {
 // maps a Trello member id to a WeKan user id. Best-effort: a failed download
 // never aborts the import.
 export async function inlineMemberAvatars(board, membersMapping, key, token) {
+  // Admin Panel / Features / Security: skip importing Trello member avatars when
+  // import avatars is disabled.
+  try {
+    const { getImportExportSecuritySettings } = require('/models/lib/importExportSecurity');
+    if ((await getImportExportSecuritySettings()).disableImportAvatars) return 0;
+  } catch (e) { /* fall through (default: allowed) */ }
   const mapping = membersMapping || {};
   let count = 0;
   for (const member of board.members || []) {

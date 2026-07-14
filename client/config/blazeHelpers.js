@@ -108,6 +108,16 @@ Blaze.registerHelper('currentUser', () => {
   return ret;
 });
 
+// Admin Panel / Features / Security master switches. Templates use these to hide
+// the import / export menu options when an admin has disabled all import / export.
+Blaze.registerHelper('importDisabled', () =>
+  !!(ReactiveCache.getCurrentSetting() || {}).disableAllImport,
+);
+
+Blaze.registerHelper('exportDisabled', () =>
+  !!(ReactiveCache.getCurrentSetting() || {}).disableAllExport,
+);
+
 Blaze.registerHelper('getUser', (userId) => ReactiveCache.getUser(userId));
 
 Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));

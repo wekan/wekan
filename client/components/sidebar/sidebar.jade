@@ -701,10 +701,11 @@ template(name="boardMenuPopup")
   hr
   ul.pop-over-list
     if withApi
-      li
-        a.js-export-board
-          i.fa.fa-upload
-          | {{_ 'export-board'}}
+      unless exportDisabled
+        li
+          a.js-export-board
+            i.fa.fa-upload
+            | {{_ 'export-board'}}
     if currentUser.isBoardAdmin
       li
         a.js-outgoing-webhooks

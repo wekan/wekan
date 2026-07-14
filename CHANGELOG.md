@@ -90,6 +90,31 @@ them up next.
 
 This release adds the following updates:
 
+- **Admin Panel / Features / Security: import/export privacy controls**. Six new
+  optional toggles govern how boards and user data cross the WeKan boundary:
+  - **Disable all import** / **Disable all export** — master switches that turn off
+    every import / export feature (WeKan JSON, Trello, CSV/Excel, Jira, Kanboard,
+    NextCloud Deck, OpenProject, GitHub/GitLab/Gitea/Forgejo, board clone, and the
+    single-attachment export). The server rejects any such request, and the import /
+    export menu options are hidden in the UI.
+  - **Disable import avatars** / **Disable export avatars** — never carry avatars
+    (profile pictures) into / out of WeKan. Import covers WeKan JSON import, Trello
+    import and external identity-provider avatar sync on login (LDAP, OIDC/OAuth2),
+    gated at the single `localizeAvatarFromBuffer` choke point; export covers WeKan
+    JSON and CSV export.
+  - **Anonymize import users** / **Anonymize export users** — replace every user's
+    username, full name and initials with counter placeholders (user1, user2, ...),
+    drop their avatar, and rewrite `@username` mentions plus the requested-by /
+    assigned-by fields inside card and comment content, so the imported board /
+    exported file carries no real user identity. The placeholder word "user" follows
+    the language of the person importing/exporting (e.g. "käyttäjä1" in Finnish). Both
+    export paths are covered — the in-memory `build()` and the streaming
+    `buildStream()` (which does a lightweight id-only pre-scan so mentions streamed
+    before the users array still resolve to matching labels).
+
+  All six default to off (current behaviour). Enforcement lives server-side in the
+  Exporter, the WekanCreator import path and the avatar localizer, so it cannot be
+  bypassed from the client. Thanks to xet7.
 - **Admin Panel / Features / Security: new optional "Always show all code as plain
   text" toggle**. When enabled, rich text is never rendered as markdown or HTML —
   the entire source is shown as escaped plain text in every rich text field (board

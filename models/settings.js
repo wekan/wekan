@@ -48,6 +48,51 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin Panel / Features: master switches that disable ALL export / ALL import
+    // features (every format and endpoint). Default false (enabled).
+    disableAllExport: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    disableAllImport: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    // Admin Panel / Features: when true, avatars (user profile pictures) are never
+    // included when EXPORTING a board (WeKan JSON / CSV export). Default false.
+    disableExportAvatars: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    // Admin Panel / Features: when true, avatars are never imported — from WeKan
+    // JSON import, Trello import, or external identity providers (LDAP/OIDC/OAuth2
+    // login avatar sync). Default false.
+    disableImportAvatars: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    // Admin Panel / Features: when true, user identity fields (username, fullname,
+    // initials) are replaced with counter placeholders (user1, user2, ...) as a
+    // board is EXPORTED, so exported data carries no real user identities. Default
+    // false exports real user data.
+    anonymizeExportUsers: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    // Admin Panel / Features: when true, user identity fields (username, fullname,
+    // initials) are replaced with counter placeholders (user1, user2, ...) as a
+    // board is IMPORTED, so the imported board carries no real user identities.
+    // Default false imports real user data.
+    anonymizeImportUsers: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     mailServer: {
       type: Object,
       optional: true,

@@ -8,6 +8,13 @@ import { BOARD_COLORS, CARD_COLORS, SWIMLANE_COLORS } from '/models/metadata/col
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { planImportedBoardMember } from '/models/lib/importedBoardMemberPlan';
+import {
+  getImportExportSecuritySettings,
+  anonymizedUserWord,
+  buildUserAnonymizationMap,
+  anonymizeUserDoc,
+  anonymizeBoardTextInPlace,
+} from '/models/lib/importExportSecurity';
 import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
 import ChecklistItems from '/models/checklistItems';
@@ -1143,6 +1150,10 @@ export class WekanCreator {
       const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
+    // Admin Panel / Features / Security: scrub the incoming board data BEFORE any
+    // placeholder user, card or comment is created, so every downstream step reads
+    // already-anonymized / avatar-free data.
+    await this.applyImportSecurity(board);
     // Preserve the ORIGINAL members instead of mapping them onto existing accounts at
     // import time (a wrong mapping attaches the wrong person and can leak board
     // permissions). This creates an inert placeholder user for each original member,
@@ -1233,6 +1244,47 @@ export class WekanCreator {
       candidate = `${name}-${n}`;
     }
     return candidate;
+  }
+
+  // Admin Panel / Features / Security: scrub the incoming board data in place.
+  //  - disableImportAvatars: drop every avatar carried in board.users so no avatar
+  //    is restored on import.
+  //  - anonymizeImportUsers: replace each imported user's username/fullname/initials
+  //    (and any avatar) with counter placeholders (user1, user2, ...) and rewrite
+  //    @username mentions + requestedBy/assignedBy in the imported card/comment text.
+  //    Because this runs before createPlaceholderUsers and member mapping, the
+  //    imported board is fully anonymized: placeholders are named user1/user2 and no
+  //    real account is auto-matched by the original username.
+  // The placeholder word is translated to the importing user's language.
+  async applyImportSecurity(board) {
+    if (!Meteor.isServer) return;
+    const security = await getImportExportSecuritySettings();
+    const users = Array.isArray(board.users) ? board.users : [];
+
+    if (security.disableImportAvatars) {
+      users.forEach(u => {
+        if (u && u.profile) {
+          delete u.profile.avatarFile;
+          delete u.profile.avatarFileName;
+          delete u.profile.avatarFileType;
+          delete u.profile.avatarUrl;
+        }
+      });
+    }
+
+    if (security.anonymizeImportUsers) {
+      let language = 'en';
+      try {
+        const uid = Meteor.userId();
+        if (uid) {
+          const currentUser = await ReactiveCache.getUser(uid);
+          language = (currentUser && currentUser.profile && currentUser.profile.language) || 'en';
+        }
+      } catch (e) { /* default to English */ }
+      const map = buildUserAnonymizationMap(users, anonymizedUserWord(language));
+      users.forEach(u => anonymizeUserDoc(u, map));
+      anonymizeBoardTextInPlace(board, map.byUsername);
+    }
   }
 
   // Create an inert placeholder user for each original member carried in board.users,

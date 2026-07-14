@@ -47,3 +47,33 @@ template(name="adminFeatures")
                   .materialCheckBox(class="{{#if alwaysShowCodeAsText}}is-checked{{/if}}")
                   span {{_ 'always-show-code-as-text'}}
                 p.description {{_ 'always-show-code-as-text-description'}}
+              li
+                a.flex.js-toggle-disable-all-import
+                  .materialCheckBox(class="{{#if disableAllImport}}is-checked{{/if}}")
+                  span {{_ 'disable-all-import'}}
+                p.description {{_ 'disable-all-import-description'}}
+              li
+                a.flex.js-toggle-disable-all-export
+                  .materialCheckBox(class="{{#if disableAllExport}}is-checked{{/if}}")
+                  span {{_ 'disable-all-export'}}
+                p.description {{_ 'disable-all-export-description'}}
+              li
+                a.flex.js-toggle-disable-import-avatars
+                  .materialCheckBox(class="{{#if disableImportAvatars}}is-checked{{/if}}")
+                  span {{_ 'disable-import-avatars'}}
+                p.description {{_ 'disable-import-avatars-description'}}
+              li
+                a.flex.js-toggle-disable-export-avatars
+                  .materialCheckBox(class="{{#if disableExportAvatars}}is-checked{{/if}}")
+                  span {{_ 'disable-export-avatars'}}
+                p.description {{_ 'disable-export-avatars-description'}}
+              li
+                a.flex.js-toggle-anonymize-import-users
+                  .materialCheckBox(class="{{#if anonymizeImportUsers}}is-checked{{/if}}")
+                  span {{_ 'anonymize-import-users'}}
+                p.description {{_ 'anonymize-import-users-description'}}
+              li
+                a.flex.js-toggle-anonymize-export-users
+                  .materialCheckBox(class="{{#if anonymizeExportUsers}}is-checked{{/if}}")
+                  span {{_ 'anonymize-export-users'}}
+                p.description {{_ 'anonymize-export-users-description'}}
