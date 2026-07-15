@@ -837,7 +837,16 @@ async function run() {
   // ── 4. Copy all plain collections ─────────────────────────────────────
   state.phase = 'migrating-collections';
   for (const name of allColls) {
-    if (gridFsCols.has(name)) continue; // handled in file phase
+    // FerretDB v1 rejects collection names containing a dot ("invalid key: '<name>' (key must
+    // not contain '.' sign)"), and NONE of WeKan's real data collections have a dot. Every
+    // DOTTED collection is a GridFS internals collection (<bucket>.files/.chunks, cfs_gridfs.*,
+    // cfs._tempstore.*), a CollectionFS filerecord (cfs.<bucket>.filerecord) or a system.*
+    // collection — GridFS binaries are extracted in the file phase, and CollectionFS
+    // filerecords become bare <bucket> records there too. So skip any dotted name here.
+    if (name.includes('.') || gridFsCols.has(name)) {
+      console.log(`[migrate] Skipping dotted/GridFS collection (handled in file phase): ${name}`);
+      continue;
+    }
     // Resume: skip collections a previous run already finished copying.
     if (!process.env.FORCE_MIGRATE && completedCollections.has(name)) {
       console.log(`[migrate] Skipping already-migrated collection: ${name}`);
@@ -851,12 +860,6 @@ async function run() {
       transformer = doc => upgradeList(doc, defaultSwimlaneIdFor);
     } else if (name === 'cards') {
       transformer = doc => upgradeCard(doc, listSwimlaneMap, defaultSwimlaneIdFor);
-    } else if (name === 'cfs.attachments.filerecord') {
-      // Convert CFS attachment records to Meteor-Files format.
-      // Actual binary data is handled in the file-extraction phase.
-      transformer = doc => cfsRecordToMeteorFile(doc, 'attachments', null);
-    } else if (name === 'cfs.avatars.filerecord') {
-      transformer = doc => cfsRecordToMeteorFile(doc, 'avatars', null);
     }
 
     state.phase_detail = name;
@@ -1027,21 +1030,20 @@ async function run() {
         state.files[fileStateKey].bytes += bytes;
         state.current.done = bytes;
 
-        // Update the Meteor-Files record in target to point to the new path
-        await tgtDb.collection(bucketName).updateOne(
-          { _id: record._id },
-          {
-            $set: {
-              path: fullPath,
-              'meta.originalFilename': originalName,
-              'meta.storedBasename':   basename,
-              'meta.source':           'cfs-migration',
-              'versions.original.path': fullPath,
-              'versions.original.storage': 'fs',
-            },
-          },
-          { upsert: false },
-        );
+        // CREATE the Meteor-Files record in the bare <bucket> collection from the CollectionFS
+        // filerecord, pointing at the on-disk file. The cfs.<bucket>.filerecord collection is
+        // NOT copied as text (FerretDB rejects its dotted name), so this is where the record is
+        // made. replaceOne(upsert:true) so it works whether or not one already exists.
+        const mfRecord = cfsRecordToMeteorFile(record, bucketName, basename);
+        mfRecord.path = fullPath;
+        mfRecord.size = bytes;
+        if (mfRecord.versions && mfRecord.versions.original) {
+          mfRecord.versions.original.path = fullPath;
+          mfRecord.versions.original.size = bytes;
+          mfRecord.versions.original.storage = 'fs';
+        }
+        mfRecord.meta = { ...(mfRecord.meta || {}), originalFilename: originalName, storedBasename: basename, source: 'cfs-migration' };
+        await tgtDb.collection(bucketName).replaceOne({ _id: record._id }, mfRecord, { upsert: true });
       } catch (err) {
         if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
         pushError(`GridFS extract ${bucketName}/${record._id}: ${err.message}`);

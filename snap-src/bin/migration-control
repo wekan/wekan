@@ -207,6 +207,17 @@ finish_success() {
   snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
   log "FerretDB (SQLite) service enabled and started; MongoDB service stopped and disabled."
 }
+# A FAILED migration may have written a PARTIAL FerretDB SQLite (some collections copied before
+# the error). Left in place it looks "non-empty" to ferretdb-has-data and would wrongly make the
+# snap use an incomplete FerretDB and disable MongoDB. On any failure, stop the temporary target
+# FerretDB and delete the partial SQLite so the snap cleanly stays on MongoDB and retries next
+# start. The source MongoDB data is never touched.
+discard_partial_ferretdb() {
+  [ -n "${FPID:-}" ] && kill "$FPID" 2>/dev/null || true
+  sleep 1
+  rm -rf "${SQLITE_DIR:?}/"* 2>/dev/null || true
+  log "Removed any partial FerretDB SQLite from $SQLITE_DIR; the snap stays on MongoDB."
+}
 # Last resort when the data can be read by neither mongod 7 nor mongod 3.2 (unusual /
 # corrupt), or the migration tools are missing: don't loop forever with nothing
 # running — hand back to mongodb-control (marker set) so mongod starts normally and
@@ -242,8 +253,11 @@ if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB
   MIGRATION_PORT="$WEKAN_PORT" \
     "$NODE" "$IMPORTER_MODERN"
   rc=$?
-  if [ "$rc" -eq 0 ]; then finish_success
-  else log "ERROR: migration failed (exit $rc). Will retry on next start; MongoDB data kept."; fi
+  if [ "$rc" -eq 0 ] && finish_success; then :
+  else
+    log "ERROR: migration did not complete (importer rc=$rc). MongoDB data kept; will retry on next start."
+    discard_partial_ferretdb
+  fi
   exit 0
 fi
 stop_via_node
@@ -276,8 +290,11 @@ MIGRATION_PORT="$WEKAN_PORT" \
   "$NODE" "$IMPORTER"
 rc=$?
 
-if [ "$rc" -eq 0 ]; then finish_success
-else log "ERROR: migration failed (exit $rc). Will retry on next start; MongoDB 3 data kept."; fi
+if [ "$rc" -eq 0 ] && finish_success; then :
+else
+  log "ERROR: migration did not complete (importer rc=$rc). MongoDB 3 data kept; will retry on next start."
+  discard_partial_ferretdb
+fi
 
 # temp FerretDB + source mongod are stopped by the EXIT trap.
 exit 0

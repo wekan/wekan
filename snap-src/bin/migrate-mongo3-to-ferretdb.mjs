@@ -602,7 +602,13 @@ async function run() {
   // ── text collections (everything except the GridFS chunk/file collections) ──
   state.phase = 'migrating-collections';
   for (const name of all) {
-    if (gridFs.has(name)) continue;
+    // FerretDB v1 rejects collection names containing a dot ("invalid key: '<name>' (key must
+    // not contain '.' sign)"), and NONE of WeKan's real data collections have a dot. Every
+    // DOTTED collection is a GridFS internals collection (<bucket>.files/.chunks, cfs_gridfs.*,
+    // cfs._tempstore.*), a CollectionFS filerecord (cfs.<bucket>.filerecord) or a system.*
+    // collection — all handled in the file phase (binaries + bare <bucket> records) or not
+    // needed. So skip any dotted name here (this also covers the whole gridFs set above).
+    if (name.includes('.') || gridFs.has(name)) continue;
     state.detail = name;
     const docs = exportDocs(name);
     state.collections[name] = { total: docs.length, done: 0 };

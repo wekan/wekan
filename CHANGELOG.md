@@ -162,6 +162,22 @@ and fixes the following bugs:
   immediately and drops to the MongoDB 3.2 reader instead of pinging a dead process for the full
   timeout. Matters across many unattended 6.09 → 9.x upgrades. Thanks to xet7.
 
+- **Snap: the MongoDB → FerretDB migration failed on GridFS collections and left a half-migrated
+  database behind** (`releases/migrate-mongodb-to-ferretdb.mjs`,
+  `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`, `snap-src/bin/migration-control`). FerretDB v1
+  rejects collection names containing a dot (*"invalid key: 'attachments.chunks' (key must not
+  contain '.' sign)"*), and the importers tried to copy the GridFS internals collections
+  (`attachments.chunks`, `attachments.files`, `avatars.*`, `cfs_gridfs.*`) and the CollectionFS
+  `cfs.<bucket>.filerecord` collections as **text**, so the migration aborted. Now the text phase
+  **skips every dotted collection** — none of WeKan's real data collections contain a dot, and
+  the dotted ones are all GridFS internals (extracted in the file phase), CollectionFS
+  filerecords (turned into bare `attachments`/`avatars` records in the file phase, now created
+  with an upsert) or `system.*` collections. And crucially, when a migration **fails partway** it
+  now **deletes the partial FerretDB SQLite** it wrote (`migration-control`'s
+  `discard_partial_ferretdb`): otherwise that non-empty-but-incomplete `files/db/wekan.sqlite`
+  looked "migrated" to the data check, so the snap disabled MongoDB and tried to serve an
+  incomplete FerretDB. Now a failed migration cleanly keeps MongoDB and retries. Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.92 2026-07-15 WeKan ® release
