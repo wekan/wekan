@@ -24,12 +24,69 @@
  *   DRY_RUN            false                            Log only, no writes
  */
 
-import { MongoClient, GridFSBucket, ObjectId } from 'mongodb';
+// Resolve the CURRENT mongodb driver (v6, OP_MSG) from WeKan's bundle. A plain
+// `import { MongoClient } from 'mongodb'` under Node 24's ESM loader can resolve the
+// ANCIENT meteor-spk base mongodb v2.x (legacy OP_QUERY, which FerretDB rejects with
+// "Unsupported OP_QUERY command: update") or fail default-interop entirely. So anchor a
+// createRequire inside the modern bundle exactly like migrate-mongo3-to-ferretdb.mjs:
+// build candidate ROOTS from $SNAP (env) and the script's parent dirs, then try the known
+// modern-bundle sub-paths under each (npm-mongo's nested mongodb v6 BEFORE the plain
+// node_modules so we never pick up the v2 driver). rootURLs is reused for i18n lookup.
+import { createRequire } from 'node:module';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { statfsSync } from 'node:fs';
+
+const rootURLs = [];
+const pushRoot = (u) => { if (u) { try { rootURLs.push(new URL(u)); } catch {} } };
+if (process.env.SNAP)        pushRoot(pathToFileURL(process.env.SNAP + '/'));
+if (process.env.BUNDLE_ROOT) pushRoot(pathToFileURL(process.env.BUNDLE_ROOT + '/'));
+if (process.env.NODE_PATH)   pushRoot(pathToFileURL(process.env.NODE_PATH.split(':')[0].replace(/\/programs\/server\/node_modules\/?$/, '') + '/'));
+pushRoot(new URL('../', import.meta.url));    // $SNAP  (this script is $SNAP/bin/<name>)
+pushRoot(new URL('./', import.meta.url));     // $SNAP/bin (if the bundle sits beside it)
+pushRoot(new URL('../../', import.meta.url)); // one more up, for other/older layouts
+const _subPaths = [
+  'programs/server/npm/node_modules/meteor/npm-mongo/node_modules/_.cjs',
+  'programs/server/npm/node_modules/_.cjs',
+  'programs/server/node_modules/_.cjs',
+  '_.cjs',
+];
+const _anchors = [];
+for (const root of rootURLs) {
+  for (const sp of _subPaths) {
+    try { _anchors.push(createRequire(new URL(sp, root))); } catch {}
+  }
+}
+// Also try a normal import specifier resolution as a last resort (dev / non-snap runs
+// where `mongodb` is a plain dependency on NODE_PATH).
+_anchors.push(createRequire(import.meta.url));
+function requireAny(spec) {
+  for (const req of _anchors) { try { return req(spec); } catch {} }
+  return null;
+}
+// Check every anchor and USE WHAT WORKS: a usable driver has MongoClient + GridFSBucket and
+// speaks OP_MSG (major >= 6, which FerretDB needs). Return the first v6+ driver found;
+// otherwise fall back to the highest-version module that at least exposes MongoClient, so we
+// still run (and log a warning) rather than crash. Records the version for a startup check.
+function resolveMongodb() {
+  let best = null, bestMajor = -1;
+  for (const req of _anchors) {
+    let mod; try { mod = req('mongodb'); } catch { continue; }
+    if (!mod || typeof mod.MongoClient !== 'function') continue;
+    let major = 0;
+    try { major = parseInt(String(req('mongodb/package.json')?.version || '0').split('.')[0], 10) || 0; } catch {}
+    if (typeof mod.GridFSBucket === 'function' && major >= 6) return { mod, major };
+    if (major > bestMajor) { best = mod; bestMajor = major; }
+  }
+  return best ? { mod: best, major: bestMajor } : { mod: {}, major: -1 };
+}
+const _resolvedDriver = resolveMongodb();
+const mongodb = _resolvedDriver.mod;
+const MONGODB_DRIVER_MAJOR = _resolvedDriver.major;
+const { MongoClient, GridFSBucket, ObjectId } = mongodb;
 
 // ── Configuration ──────────────────────────────────────────────────────────
 const SOURCE_URL   = process.env.SOURCE_MONGO_URL || process.env.MONGO_URL || 'mongodb://localhost:27017/wekan';
@@ -54,6 +111,16 @@ const state = {
     attachments: { total: 0, done: 0, skipped: 0, errors: 0, bytes: 0 },
     avatars:     { total: 0, done: 0, skipped: 0, errors: 0, bytes: 0 },
   },
+  // Live per-file progress for the file currently being extracted (name, size, bytes done,
+  // 1-based index across ALL files, total files) so the dashboard shows a progress BAR for a
+  // big file, not just a counter. kind: 'attachments' | 'avatars' (translated for the viewer).
+  current: { active: false, kind: '', name: '', size: 0, done: 0, index: 0, total: 0 },
+  // Live free disk space (bytes). Below the safety margin the migration ABORTS — a full disk
+  // can corrupt the source MongoDB, which is still running as we read it.
+  diskFree: -1, abort: false,
+  // Set when the migration STOPS for lack of disk space: total bytes for ALL files, how much
+  // MORE is required, and a rollback summary (partial files deleted to give the space back).
+  filesTotalBytes: 0, additionalBytesNeeded: 0, rollback: null,
   errors:    [],                   // up to 200 recent errors
   startedAt: new Date().toISOString(),
   finishedAt: null,
@@ -77,7 +144,7 @@ const HTML_TEMPLATE = `<!DOCTYPE html><html lang="en"><head>
 <title>__PRODUCT__ Migration Progress</title>
 <style>
   body{font-family:monospace;background:#111;color:#ddd;padding:1em 2em}
-  h1{color:#7bf}  .ok{color:#7f7}  .fail{color:#f77}  .warn{color:#fb7}
+  h1{color:#7bf}  h2{color:#7bf;font-size:1.05em}  .ok{color:#7f7}  .fail{color:#f77}  .warn{color:#fb7}
   .bar-wrap{background:#333;border-radius:4px;height:18px;width:100%;max-width:600px}
   .bar{background:#4a9;height:18px;border-radius:4px;transition:width .4s}
   table{border-collapse:collapse;width:100%}
@@ -87,7 +154,9 @@ const HTML_TEMPLATE = `<!DOCTYPE html><html lang="en"><head>
 </style></head><body>
 <h1>__PRODUCT__ Migration: MongoDB → FerretDB (SQLite)</h1>
 <div class="phase">Phase: <strong id="phase">…</strong> <span id="detail" style="color:#aaa"></span></div>
-<p>Started: __STARTED__  &nbsp; Elapsed: <span id="elapsed"></span></p>
+<p>Started: __STARTED__  &nbsp; Elapsed: <span id="elapsed"></span>__DISKFREE__</p>
+__DISKERR__
+__CURRENT__
 <div id="files_section">
   <h2>Files</h2>
   <table>
@@ -109,19 +178,52 @@ setInterval(()=>{
 </script>
 </body></html>`;
 
-function buildHtml() {
+function buildHtml(T) {
+  const mb = (n) => (Number(n || 0) / 1048576).toFixed(1);
   const colRows = Object.entries(state.collections).map(([name, c]) => {
     const pct = c.total > 0 ? Math.round(100 * c.done / c.total) : 0;
-    return `<tr><td>${name}</td><td><div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div>${pct}%</td>`
+    return `<tr><td>${escHtml(name)}</td><td><div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div>${pct}%</td>`
          + `<td>${c.done}</td><td>${c.total}</td><td class="${c.errors>0?'fail':''}">${c.errors}</td></tr>`;
   }).join('');
 
+  // Translate the file-type rows for the viewer's language.
+  const typeLabel = (t) => t === 'avatars' ? T.avatars : T.attachments;
   const fRows = Object.entries(state.files).map(([type, f]) =>
-    `<tr><td>${type}</td><td>${f.done}</td><td>${f.skipped}</td><td class="${f.errors>0?'fail':''}">${f.errors}</td><td>${(f.bytes/1024/1024).toFixed(2)} MB</td></tr>`
+    `<tr><td>${escHtml(typeLabel(type))}</td><td>${f.done}</td><td>${f.skipped}</td><td class="${f.errors>0?'fail':''}">${f.errors}</td><td>${mb(f.bytes)} MB</td></tr>`
   ).join('');
 
   const errHtml = state.errors.length === 0 ? '<p style="color:#aaa">None</p>'
     : state.errors.slice(-20).reverse().map(e => `<div class="fail">${e.ts} — ${escHtml(e.msg)}</div>`).join('');
+
+  // Live per-file progress bar for the file currently streaming to disk (e.g. a 5 GB
+  // attachment): translated kind, file name + size, "file N of TOTAL", and a % bar.
+  let currentHtml = '';
+  const cur = state.current;
+  if (cur && cur.active) {
+    const kindLabel = cur.kind === 'avatars' ? T.avatar : T.attachment;
+    const pct = cur.size > 0 ? Math.min(100, Math.floor((cur.done / cur.size) * 100)) : 0;
+    currentHtml = `<h2>${escHtml(kindLabel)}</h2>
+<p style="margin:.2em 0"><strong>${escHtml(cur.name || '')}</strong></p>
+<p style="color:#aaa;margin:.2em 0">${escHtml(T.file)} ${cur.index} ${escHtml(T.of)} ${cur.total} · ${escHtml(T.size)} ${mb(cur.size)} MB</p>
+<div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div>
+<p style="color:#aaa;margin:.3em 0">${mb(cur.done)} / ${mb(cur.size)} MB — ${pct}%</p>`;
+  }
+
+  // Disk-space error panel: total needed, how much MORE is required, and how many files were
+  // migrated (then deleted to free the space back) before stopping.
+  let diskErrHtml = '';
+  if (state.additionalBytesNeeded > 0 || state.rollback) {
+    const rb = state.rollback || {};
+    const knownFree = state.diskFree >= 0;
+    diskErrHtml = `<div style="border:1px solid #f77;border-radius:4px;padding:.6em 1em;margin:1em 0">
+<h2 class="fail" style="margin:.2em 0">⚠ Not enough disk space</h2>
+<p>${escHtml(T.attachments)} + ${escHtml(T.avatars)}: <strong>${mb(state.filesTotalBytes)} MB</strong>${knownFree ? ` · disk free: <strong>${mb(state.diskFree)} MB</strong>` : ''}</p>
+<p class="fail" style="font-size:1.2em">${knownFree ? 'More disk space required' : 'Free space required for all files'}: ${mb(state.additionalBytesNeeded)} MB</p>
+<p style="color:#aaa">Migrated before stopping — ${escHtml(T.attachments)}: ${rb.migratedAttachments ?? state.files.attachments.done}, ${escHtml(T.avatars)}: ${rb.migratedAvatars ?? state.files.avatars.done}.${rb.deletedFiles ? ` Deleted ${rb.deletedFiles} partially-migrated files (freed ${mb(rb.freedBytes)} MB) so the volume is not left full.` : ''} Free up at least the amount above; the migration retries automatically.</p>
+</div>`;
+  }
+
+  const diskFreeHtml = state.diskFree >= 0 ? `  &nbsp; Disk free: ${mb(state.diskFree)} MB` : '';
 
   let phaseColor = '';
   if (state.success === true) phaseColor = ' class="ok"';
@@ -130,6 +232,9 @@ function buildHtml() {
   return HTML_TEMPLATE
     .replace(/__PRODUCT__/g, escHtml(state.product))
     .replace(/__STARTED__/g, state.startedAt)
+    .replace('__DISKFREE__', diskFreeHtml)
+    .replace('__DISKERR__', diskErrHtml)
+    .replace('__CURRENT__', currentHtml)
     .replace('__FILES__',   fRows)
     .replace('__COLLS__',   colRows)
     .replace('__ERRORS__',  errHtml)
@@ -146,8 +251,11 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(state, null, 2));
   } else {
+    // Keep the free-space figure fresh while running, and translate to the viewer's language.
+    if (state.success === null) updateDiskFree(WRITABLE);
+    const T = loadLang(pickLang(req.headers['accept-language']));
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(buildHtml());
+    res.end(buildHtml(T));
   }
 });
 
@@ -183,6 +291,113 @@ function freeBytes(dir) {
   } catch {
     return Infinity;
   }
+}
+
+// ── i18n: translate a few dashboard words into the viewer's language ──────────
+// The dashboard runs standalone (WeKan is not up yet, no logged-in user), so use the
+// browser's Accept-Language and read the matching <lang>.i18n.json straight from WeKan's
+// own bundle (best-effort across known layouts), falling back to English.
+const I18N_KEYS = ['attachment', 'attachments', 'avatar', 'avatars', 'file', 'size', 'of', 'progress', 'complete'];
+const I18N_EN = { attachment: 'Attachment', attachments: 'Attachments', avatar: 'Avatar', avatars: 'Avatars', file: 'File', size: 'Size', of: 'of', progress: 'Progress', complete: 'Complete' };
+const _i18nCache = new Map();
+function i18nFileFor(lang) {
+  if (!/^[A-Za-z_-]{2,12}$/.test(lang || '')) return null;
+  const rels = [
+    `imports/i18n/data/${lang}.i18n.json`,
+    `programs/web.browser/app/imports/i18n/data/${lang}.i18n.json`,
+    `programs/web.browser.legacy/app/imports/i18n/data/${lang}.i18n.json`,
+    `programs/server/assets/app/imports/i18n/data/${lang}.i18n.json`,
+    `programs/server/assets/packages/wekan-i18n/data/${lang}.i18n.json`,
+  ];
+  for (const root of rootURLs) {
+    for (const rel of rels) {
+      try { const p = fileURLToPath(new URL(rel, root)); if (fs.existsSync(p)) return p; } catch {}
+    }
+  }
+  return null;
+}
+function loadLang(lang) {
+  if (_i18nCache.has(lang)) return _i18nCache.get(lang);
+  const map = { ...I18N_EN };
+  const p = i18nFileFor(lang);
+  if (p) { try { const j = JSON.parse(fs.readFileSync(p, 'utf8')); for (const k of I18N_KEYS) if (typeof j[k] === 'string' && j[k]) map[k] = j[k]; } catch {} }
+  _i18nCache.set(lang, map);
+  return map;
+}
+function pickLang(acceptLanguage) {
+  const tags = String(acceptLanguage || '').split(',').map(s => s.split(';')[0].trim()).filter(Boolean);
+  for (const tag of tags) {
+    for (const cand of [tag, tag.split('-')[0]]) { if (i18nFileFor(cand)) return cand; }
+  }
+  return 'en';
+}
+
+// ── disk-space guard: STOP + roll back (same policy as migrate-mongo3-to-ferretdb.mjs) ──
+// A full disk can corrupt the source MongoDB (still running as we read it), so we never
+// write the volume dry: we stop, delete the partially migrated attachments/avatars to free
+// the space back, and report how much MORE is needed. On Sandstorm (where free space is not
+// measurable) we cannot pre-check, so we detect an actual write failure (ENOSPC/EDQUOT).
+const IS_SANDSTORM = process.env.SANDSTORM === '1' || !!process.env.SANDSTORM_RAW_MONGO_PATH || (() => {
+  try { return !!((JSON.parse(process.env.METEOR_SETTINGS || '{}').public) || {}).sandstorm; } catch { return false; }
+})();
+const IS_SNAP = !!(process.env.SNAP || process.env.SNAP_NAME);
+const DISK_MIN_FREE = parseInt(process.env.MIGRATION_MIN_FREE_BYTES || String(1024 * 1048576), 10); // 1 GB
+function flagDiskFull(detail) {
+  if (state.abort) return;
+  state.abort = true; state.success = false; state.phase = 'error';
+  pushError(`FATAL: not enough disk space${detail ? ' (' + detail + ')' : ''}. Stopping and deleting migrated attachments/avatars to free the space, to avoid MongoDB data corruption.`);
+}
+let _lastDiskCheck = 0;
+function updateDiskFree(dir, force) {
+  // Never trust statfs inside a Sandstorm grain (it reports the host disk, not the grain's
+  // quota); elsewhere ATTEMPT it, and if unavailable leave free space unknown and rely on a
+  // write failure. Whenever state.diskFree stays < 0 the pre-check guards below are skipped.
+  if (IS_SANDSTORM) { state.diskFree = -1; return; }
+  const now = Date.now();
+  if (!force && now - _lastDiskCheck < 1000) return; // ~1 statfs/sec while streaming
+  _lastDiskCheck = now;
+  try { const s = statfsSync(dir); state.diskFree = Number(s.bavail) * Number(s.bsize); }
+  catch { state.diskFree = -1; return; }
+  if (state.diskFree >= 0 && state.diskFree < DISK_MIN_FREE) {
+    flagDiskFull(`only ${(state.diskFree / 1048576).toFixed(0)} MB free < ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin`);
+  }
+}
+// Before writing a file, ensure room for it PLUS the margin; else STOP (not skip). Returns false.
+function ensureDiskForFile(dir, need, name) {
+  updateDiskFree(dir, true);
+  const free = state.diskFree;
+  if (free < 0) return true; // free space not measurable — rely on a write failure instead
+  if (free < Number(need || 0) + DISK_MIN_FREE) {
+    flagDiskFull(`need ${(Number(need || 0) / 1048576).toFixed(0)} MB + ${(DISK_MIN_FREE / 1048576).toFixed(0)} MB margin for "${name}", only ${(free / 1048576).toFixed(0)} MB free`);
+    return false;
+  }
+  return true;
+}
+// Called once when the migration stops for lack of disk space: delete the attachments/avatars
+// this run wrote (an incomplete file migration is useless, and freeing the space keeps the
+// volume — and the running MongoDB — safe; the migration retries from scratch), then report
+// how many files were migrated and how much MORE space is needed for ALL files at once.
+let _abortHandled = false;
+function onDiskAbort() {
+  if (_abortHandled) return;
+  _abortHandled = true;
+  const migratedAttachments = state.files.attachments.done;
+  const migratedAvatars = state.files.avatars.done;
+  console.log('[migrate] Not enough disk space — deleting the partially migrated attachments/avatars to free the space back…');
+  let deletedFiles = 0, freedBytes = 0;
+  for (const dir of [ATTACH_DIR, AVATAR_DIR]) {
+    try {
+      for (const ent of fs.readdirSync(dir)) {
+        const p = path.join(dir, ent);
+        try { const st = fs.statSync(p); if (st.isFile()) { freedBytes += Number(st.size) || 0; fs.unlinkSync(p); deletedFiles++; } } catch {}
+      }
+    } catch {}
+  }
+  updateDiskFree(WRITABLE, true);
+  const freeNow = state.diskFree >= 0 ? state.diskFree : 0;
+  state.additionalBytesNeeded = Math.max(0, state.filesTotalBytes + DISK_MIN_FREE - freeNow);
+  state.rollback = { migratedAttachments, migratedAvatars, deletedFiles, freedBytes };
+  saveCheckpoint();
 }
 
 // ── Resumable progress checkpoint (saved to WRITABLE_PATH) ───────────────────
@@ -395,17 +610,30 @@ function cfsRecordToMeteorFile(doc, type /* 'attachments' | 'avatars' */, stored
  * Read one GridFS file by its ObjectId and stream it to destPath.
  * Returns the number of bytes written, or throws.
  */
-async function extractGridFsFile(bucket, fileId, destPath) {
+async function extractGridFsFile(bucket, fileId, destPath, onProgress) {
   return new Promise((resolve, reject) => {
-    const oid  = typeof fileId === 'string' ? new ObjectId(fileId) : fileId;
+    let oid;
+    try { oid = typeof fileId === 'string' ? new ObjectId(fileId) : fileId; } catch { oid = fileId; }
     const stream = bucket.openDownloadStream(oid);
     const out   = fs.createWriteStream(destPath);
-    let bytes = 0;
-    stream.on('data', chunk => { bytes += chunk.length; });
-    stream.on('error', reject);
-    out.on('error', reject);
+    let bytes = 0, settled = false;
+    const fail = (e) => { if (settled) return; settled = true; try { stream.destroy(); } catch {} try { out.destroy(); } catch {} reject(e); };
+    // Count bytes as they flow (pipe back-pressures, so downloaded ≈ written) and publish
+    // live per-file progress. If the disk poller flagged an abort, stop this file now.
+    stream.on('data', chunk => {
+      bytes += chunk.length;
+      if (onProgress) { try { onProgress(bytes); } catch {} }
+      if (state.abort) fail(new Error('aborted: not enough disk space'));
+    });
+    stream.on('error', fail);
+    out.on('error', (e) => {
+      // ENOSPC/EDQUOT is the only out-of-space signal where free space is not measurable
+      // (Sandstorm): trigger the disk-full abort + rollback.
+      if (e && (e.code === 'ENOSPC' || e.code === 'EDQUOT')) flagDiskFull('write failed: ' + e.code);
+      fail(e);
+    });
+    out.on('finish', () => { if (!settled) { settled = true; resolve(bytes); } });
     stream.pipe(out);
-    out.on('finish', () => resolve(bytes));
   });
 }
 
@@ -462,6 +690,19 @@ async function copyCollection(srcDb, tgtDb, collName, transformer) {
 async function run() {
   // Resume from a previous interrupted run if a checkpoint exists in WRITABLE_PATH.
   loadCheckpoint();
+
+  // Fail fast with a clear message if we could not resolve a usable modern mongodb driver
+  // from the bundle (see resolveMongodb): without MongoClient there is nothing to do, and a
+  // pre-v6 driver speaks OP_QUERY, which FerretDB rejects.
+  if (typeof MongoClient !== 'function') {
+    pushError('FATAL: could not resolve the mongodb driver (MongoClient) from the WeKan bundle.');
+    state.phase = 'error'; state.success = false; state.finishedAt = new Date().toISOString();
+    setTimeout(() => process.exit(1), 5000); return;
+  }
+  console.log('[migrate] mongodb driver major version:', MONGODB_DRIVER_MAJOR);
+  if (MONGODB_DRIVER_MAJOR >= 0 && MONGODB_DRIVER_MAJOR < 6) {
+    pushError(`WARNING: resolved mongodb driver v${MONGODB_DRIVER_MAJOR}; FerretDB needs v6+ (OP_MSG). Inserts may fail.`);
+  }
 
   // ── 0. Check if already migrated ────────────────────────────────────────
   state.phase = 'connecting';
@@ -694,9 +935,45 @@ async function run() {
   // ── 7. Extract GridFS / CollectionFS binary files to filesystem ─────────
   state.phase = 'migrating-files';
 
+  // Close both clients and exit (staying up 60 s so the dashboard's disk-space error can be
+  // read) when the file phase stops for lack of disk space.
+  const finishAbort = async () => {
+    state.finishedAt = new Date().toISOString();
+    try { await srcClient.close(); } catch {}
+    try { await tgtClient.close(); } catch {}
+    setTimeout(() => process.exit(1), 60_000);
+  };
+
+  // Measure up front how many files and how many BYTES must be extracted (both the
+  // CollectionFS GridFS files and the Meteor-Files-in-GridFS records), so the dashboard can
+  // show "file N of TOTAL" and a per-file bar, and so we can STOP before extracting anything
+  // if the volume cannot hold them all (a full disk can corrupt the still-running MongoDB).
+  let fileIndex = 0;
+  const cfsFileColls = ['attachments', 'avatars'].filter(b => allColls.includes(`cfs_gridfs.${b}.files`));
+  const mfColls      = ['attachments', 'avatars'].filter(c => allColls.includes(c));
+  for (const b of cfsFileColls) {
+    try { state.current.total += await srcDb.collection(`cfs_gridfs.${b}.files`).countDocuments(); } catch {}
+    try { const r = await srcDb.collection(`cfs_gridfs.${b}.files`).aggregate([{ $group: { _id: null, s: { $sum: '$length' } } }]).toArray(); state.filesTotalBytes += r.length ? Number(r[0].s) || 0 : 0; } catch {}
+  }
+  for (const c of mfColls) {
+    try { state.current.total += await srcDb.collection(c).countDocuments({ 'versions.original.storage': 'gridfs' }); } catch {}
+    try { const r = await srcDb.collection(c).aggregate([{ $match: { 'versions.original.storage': 'gridfs' } }, { $group: { _id: null, s: { $sum: '$versions.original.size' } } }]).toArray(); state.filesTotalBytes += r.length ? Number(r[0].s) || 0 : 0; } catch {}
+  }
+  updateDiskFree(WRITABLE, true);
+  console.log(`[migrate] Files to extract: ${state.current.total} (${(state.filesTotalBytes / 1048576).toFixed(0)} MB)${state.diskFree >= 0 ? `; disk free ${(state.diskFree / 1048576).toFixed(0)} MB` : '; free space unknown — will stop on a write failure'}.`);
+  // Up-front check ONLY when free space is measurable. If it will not all fit, stop before
+  // extracting anything so a full disk can never corrupt MongoDB.
+  if (!DRY_RUN && state.filesTotalBytes > 0 && state.diskFree >= 0 && state.diskFree < state.filesTotalBytes + DISK_MIN_FREE) {
+    state.abort = true; state.success = false; state.phase = 'error';
+    state.additionalBytesNeeded = Math.max(0, state.filesTotalBytes + DISK_MIN_FREE - state.diskFree);
+    pushError(`FATAL: not enough disk space to migrate all files: ${(state.filesTotalBytes / 1048576).toFixed(0)} MB of attachments/avatars must be extracted, only ${(state.diskFree / 1048576).toFixed(0)} MB free — need ${(state.additionalBytesNeeded / 1048576).toFixed(0)} MB more. Stopped before extracting to avoid MongoDB data corruption.`);
+    onDiskAbort();
+    await finishAbort();
+    return;
+  }
+
   async function migrateGridFs(bucketName, destDir, fileStateKey) {
     const filesCollName   = `cfs_gridfs.${bucketName}.files`;
-    const chunksCollName  = `cfs_gridfs.${bucketName}.chunks`;
     if (!allColls.includes(filesCollName)) return;
 
     state.phase_detail = `Extracting ${bucketName} files from GridFS…`;
@@ -717,24 +994,28 @@ async function run() {
       }
 
       const originalName = original.name || record.filename || String(record._id);
+      const size = original.size || 0;
       const { fullPath, basename } = uniqueFilePath(destDir, String(record._id), originalName);
 
-      if (!hasEnoughSpace(destDir, original.size || 0)) {
-        pushError(`Not enough disk space for ${originalName} (${original.size} bytes) — skipping`);
-        state.files[fileStateKey].errors++;
-        continue;
-      }
+      // STOP (not skip) if this file plus the safety margin will not fit: a full disk can
+      // corrupt the still-running source MongoDB. Roll back and report how much more is needed.
+      if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { await metaCursor.close(); onDiskAbort(); return; }
+
+      fileIndex++;
+      state.current = { active: true, kind: fileStateKey, name: originalName, size, done: 0, index: fileIndex, total: state.current.total };
 
       if (DRY_RUN) {
         state.files[fileStateKey].done++;
-        state.files[fileStateKey].bytes += original.size || 0;
+        state.files[fileStateKey].bytes += size;
+        state.current.active = false;
         continue;
       }
 
       try {
-        const bytes = await extractGridFsFile(bucket, gridFsId, fullPath);
+        const bytes = await extractGridFsFile(bucket, gridFsId, fullPath, (w) => { state.current.done = w; updateDiskFree(destDir); });
         state.files[fileStateKey].done++;
         state.files[fileStateKey].bytes += bytes;
+        state.current.done = bytes;
 
         // Update the Meteor-Files record in target to point to the new path
         await tgtDb.collection(bucketName).updateOne(
@@ -752,18 +1033,23 @@ async function run() {
           { upsert: false },
         );
       } catch (err) {
+        if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
         pushError(`GridFS extract ${bucketName}/${record._id}: ${err.message}`);
         state.files[fileStateKey].errors++;
         // Clean up partial file
         try { fs.unlinkSync(fullPath); } catch { /* ignore */ }
-      }
+      } finally { state.current.active = false; }
+
+      if (state.abort) { await metaCursor.close(); onDiskAbort(); return; }
     }
     await metaCursor.close();
   }
 
   await migrateGridFs('attachments', ATTACH_DIR, 'attachments');
+  if (state.abort) { await finishAbort(); return; }
   saveCheckpoint();
   await migrateGridFs('avatars',     AVATAR_DIR, 'avatars');
+  if (state.abort) { await finishAbort(); return; }
   saveCheckpoint();
 
   // Also migrate any attachments that are already in Meteor-Files format but stored
@@ -782,20 +1068,21 @@ async function run() {
       const gridFsId = doc.versions?.original?.meta?.gridFsFileId;
       if (!gridFsId) continue;
       const originalName = doc.name || String(doc._id);
+      const size = (doc.versions && doc.versions.original && doc.versions.original.size) || doc.size || 0;
       const { fullPath, basename } = uniqueFilePath(destDir, String(doc._id), originalName);
 
-      if (!hasEnoughSpace(destDir, doc.size || 0)) {
-        pushError(`Disk full — cannot move ${originalName}`);
-        state.files[fileStateKey].errors++;
-        continue;
-      }
+      if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { await cursor.close(); onDiskAbort(); await finishAbort(); return; }
 
-      if (DRY_RUN) { state.files[fileStateKey].done++; continue; }
+      fileIndex++;
+      state.current = { active: true, kind: fileStateKey, name: originalName, size, done: 0, index: fileIndex, total: state.current.total };
+
+      if (DRY_RUN) { state.files[fileStateKey].done++; state.current.active = false; continue; }
 
       try {
-        const bytes = await extractGridFsFile(bucket, gridFsId, fullPath);
+        const bytes = await extractGridFsFile(bucket, gridFsId, fullPath, (w) => { state.current.done = w; updateDiskFree(destDir); });
         state.files[fileStateKey].done++;
         state.files[fileStateKey].bytes += bytes;
+        state.current.done = bytes;
         await tgtDb.collection(collName).updateOne(
           { _id: doc._id },
           {
@@ -810,10 +1097,13 @@ async function run() {
           },
         );
       } catch (err) {
+        if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
         pushError(`Move GridFS→fs ${collName}/${doc._id}: ${err.message}`);
         state.files[fileStateKey].errors++;
         try { fs.unlinkSync(fullPath); } catch { /* ignore */ }
-      }
+      } finally { state.current.active = false; }
+
+      if (state.abort) { await cursor.close(); onDiskAbort(); await finishAbort(); return; }
     }
     await cursor.close();
   }

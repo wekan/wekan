@@ -108,6 +108,18 @@ This release fixes the following bugs:
   8 GB) so it leaves room for the target FerretDB and the importer running alongside it.
   Thanks to xet7.
 
+- **Snap: the MongoDB 6/7 → FerretDB importer now resolves the correct driver and matches
+  the MongoDB 3.2 importer's safety and dashboard** (`releases/migrate-mongodb-to-ferretdb.mjs`).
+  It now (a) resolves the `mongodb` driver by probing the WeKan bundle and **using whichever
+  actually works** — preferring a v6+ driver that exposes `GridFSBucket` and speaks OP_MSG,
+  because an older v2 driver's OP_QUERY is rejected by FerretDB ("Unsupported OP_QUERY command:
+  update"); and (b) gained the same disk-space guard and progress UI as
+  `migrate-mongo3-to-ferretdb.mjs`: it measures the total attachment/avatar size up front and
+  **stops before extracting** if it will not fit, and if space runs out mid-run it **stops,
+  deletes the partially-migrated files, and reports how much more disk is needed** (a full disk
+  can corrupt the still-running source MongoDB), shows a **live per-file progress bar**, and
+  **translates the dashboard into the browser's language**. Thanks to xet7.
+
 - **Snap: after a MongoDB → FerretDB migration, FerretDB never started and WeKan was stuck
   on "MongoDB not ready yet, retrying..."** (`snap-src/bin/migration-control`). The
   `wekan.ferretdb` service disables itself while `database` is `mongodb`; the migration
@@ -148,6 +160,15 @@ This release fixes the following bugs:
   enables + starts whichever DB service is configured (`snapctl start --enable` = `snap
   enable` + `snap start`, targeting the snap **instance** name so parallel snaps hit their
   own services). Thanks to xet7.
+
+- **Snap: WeKan never starts an EMPTY FerretDB while data still lives in MongoDB**
+  (`snap-src/bin/wekan-control`). On startup WeKan now checks what data actually exists on
+  disk — the FerretDB SQLite dir (`$SNAP_COMMON/files/db`) and the MongoDB WiredTiger data
+  (`$SNAP_COMMON`) — instead of trusting the `database` setting alone. If `database=ferretdb`
+  was selected (or forced) but the migration never ran, so the SQLite database is empty while
+  MongoDB still holds the data, WeKan **reverts to `database=mongodb`** and prints how to run
+  the migration, rather than starting an empty FerretDB that would look like all data was
+  lost. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
