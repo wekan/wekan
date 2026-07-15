@@ -104,6 +104,18 @@ This release fixes the following bugs:
   `sudo snap start --enable wekan.ferretdb && sudo snap stop --disable wekan.mongodb`.
   Thanks to xet7.
 
+- **Snap: WeKan now starts its database itself on startup instead of waiting forever for a
+  stopped one** (`snap-src/bin/wekan-control`). Previously the `wekan.wekan` service only
+  *waited* for whichever database `database` pointed at (`FerretDB not ready yet…` /
+  `MongoDB not ready yet…`) and never *started* a DB service, so if both `wekan.ferretdb`
+  and `wekan.mongodb` were stopped/disabled WeKan hung indefinitely. Now, on start, WeKan:
+  (1) if the migration-success marker `$SNAP_COMMON/.migration-to-ferretdb-done` is present,
+  forces `database=ferretdb`, enables + starts `wekan.ferretdb` and stops + disables
+  `wekan.mongodb` (self-healing the case where the migration's internal `snapctl set` never
+  re-ran the configure hook); and (2) before waiting, enables + starts whichever DB service
+  is configured (`snapctl start --enable` = `snap enable` + `snap start`, targeting the snap
+  **instance** name so parallel snaps hit their own services). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.91 2026-07-15 WeKan ® release

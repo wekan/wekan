@@ -7,6 +7,26 @@ fi
 # get wekan/mongo settings
 source $SNAP/bin/wekan-read-settings
 
+# Sibling snap service prefix ("wekan", or the instance name for a parallel install).
+WEKAN_SNAP_SVC="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+
+# If the MongoDB -> FerretDB migration already finished successfully, this marker is
+# present and the old MongoDB data now lives in FerretDB (SQLite); MongoDB must not be
+# used again. Force ferretdb mode and bring FerretDB up ourselves - in case the database
+# setting drifted back to mongodb, or the DB services were left stopped/disabled (the
+# migration's INTERNAL `snapctl set` does not re-run the configure hook that would have
+# flipped the services). This makes WeKan self-healing on start: it starts FerretDB
+# instead of waiting forever for a MongoDB that is gone.
+if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ]; then
+    if [ "ferretdb" != "$DATABASE" ]; then
+        echo "MongoDB -> FerretDB migration already finished; forcing database=ferretdb."
+        export DATABASE="ferretdb"
+        snapctl set database=ferretdb 2>/dev/null || true
+    fi
+    snapctl start --enable "${WEKAN_SNAP_SVC}.ferretdb" 2>/dev/null || true
+    snapctl stop --disable "${WEKAN_SNAP_SVC}.mongodb" 2>/dev/null || true
+fi
+
 export NODE_PATH=$SNAP/bin
 # Use user-provided MONGO_URL if set, otherwise build from components
 if [ -n "$MONGO_URL" ]; then
@@ -53,6 +73,11 @@ DB_URL="mongodb://${MONGO_HOST}:${MONGO_PORT}/?directConnection=true"
 if [ "ferretdb" = "${DATABASE}" ]; then
     # FerretDB v1 has no replica set / oplog — just wait until it accepts
     # connections, then start WeKan (which uses polling for reactivity).
+    # Make sure the FerretDB service is actually enabled and running first; if it was
+    # left stopped/disabled (failed migration hand-off, manual stop, crash) enable and
+    # start it now (snapctl start --enable = snap enable + snap start) so WeKan does not
+    # wait here forever.
+    snapctl start --enable "${WEKAN_SNAP_SVC}.ferretdb" 2>/dev/null || true
     echo "Waiting for FerretDB to accept connections on ${MONGO_HOST}:${MONGO_PORT}..."
     until "$DB_EVAL" ping "$DB_URL" >/dev/null 2>&1; do
         echo "FerretDB not ready yet, retrying in 5 seconds..."
@@ -60,6 +85,9 @@ if [ "ferretdb" = "${DATABASE}" ]; then
     done
     echo "FerretDB is ready."
 elif [ "true" != "${DISABLE_MONGODB}" ]; then
+    # Make sure the MongoDB service is enabled and running first; if it was left
+    # stopped/disabled, enable and start it now so WeKan does not wait here forever.
+    snapctl start --enable "${WEKAN_SNAP_SVC}.mongodb" 2>/dev/null || true
     # Wait for MongoDB replica set primary to be ready before starting WeKan.
     # With changeStreams, Meteor requires the replica set primary to be elected.
     # Large databases can take minutes to replay the WiredTiger journal after a snap update.
