@@ -18,7 +18,41 @@
 //   shutdown <url>            best-effort admin shutdownServer
 //   product-name <url>        print the Admin Panel product name (settings.productName), if set
 
-import { MongoClient } from 'mongodb';
+// Resolve the mongodb driver via createRequire (CommonJS), NOT a bare ESM
+// `import { MongoClient } from 'mongodb'`. Node's ESM loader IGNORES NODE_PATH, but the
+// db-eval wrapper sets NODE_PATH=$SNAP/programs/server/node_modules to point at the bundle's
+// driver — so the ESM import resolved nothing and db-eval exited BEFORE connecting. Every
+// ping/primary/rs-* check therefore "failed", which made mongod-7 migration readiness fall
+// back to MongoDB 3.2, made WeKan loop "MongoDB not ready" / "FerretDB not ready" forever, and
+// made replica-set setup fail. createRequire's require() DOES honor NODE_PATH and the bundle
+// layout; anchor inside the modern bundle (npm-mongo's v6 driver) first, then NODE_PATH/local.
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+
+const _roots = [];
+const _push = (u) => { if (u) { try { _roots.push(new URL(u)); } catch {} } };
+if (process.env.SNAP)      _push(pathToFileURL(process.env.SNAP + '/'));
+if (process.env.NODE_PATH) _push(pathToFileURL(process.env.NODE_PATH.split(':')[0].replace(/\/programs\/server\/node_modules\/?$/, '') + '/'));
+_push(new URL('../', import.meta.url)); // $SNAP, if this is $SNAP/bin/db-eval.mjs
+const _subPaths = [
+  'programs/server/npm/node_modules/meteor/npm-mongo/node_modules/_.cjs',
+  'programs/server/npm/node_modules/_.cjs',
+  'programs/server/node_modules/_.cjs',
+  '_.cjs',
+];
+const _reqs = [];
+for (const r of _roots) for (const sp of _subPaths) { try { _reqs.push(createRequire(new URL(sp, r))); } catch {} }
+// createRequire(import.meta.url) uses CommonJS resolution, which honors NODE_PATH and walks up
+// node_modules from this file — the reliable fallback.
+_reqs.push(createRequire(import.meta.url));
+let MongoClient;
+for (const req of _reqs) {
+  try { const m = req('mongodb'); if (m && typeof m.MongoClient === 'function') { MongoClient = m.MongoClient; break; } } catch {}
+}
+if (typeof MongoClient !== 'function') {
+  console.error('db-eval: FATAL — could not resolve the mongodb driver from the WeKan bundle.');
+  process.exit(1);
+}
 
 const [cmd, url, host] = process.argv.slice(2);
 if (!cmd || !url) {

@@ -90,6 +90,27 @@ them up next.
 
 This release fixes the following bugs:
 
+- **Snap: `db-eval` could not load the MongoDB driver, so EVERY database readiness check
+  silently failed** (`snap-src/bin/db-eval.mjs`; also `migrate-schema-v843.mjs`,
+  `migrate-gridfs-to-fs.mjs`). `db-eval` is the small Node helper the snap uses (instead of
+  `mongosh`) to check whether MongoDB/FerretDB is up, elect the replica-set primary, and run
+  the migration's mongod-7 readiness probe. It did `import { MongoClient } from 'mongodb'` and
+  the wrapper set `NODE_PATH=$SNAP/programs/server/node_modules` to point at the bundled
+  driver — **but Node's ESM loader ignores `NODE_PATH`** (that env var is honored only by the
+  CommonJS loader). So the import resolved nothing, `db-eval` exited **before ever opening a
+  connection**, and every `ping`/`primary`/`rs-*` check "failed." This was the single root
+  cause behind a whole family of symptoms: WeKan looping *"MongoDB not ready yet, retrying…"*
+  or *"FerretDB not ready yet…"* forever even though the database was running and listening;
+  replica-set initialisation failing; and — most damaging — the MongoDB → FerretDB migration
+  **falling back to MongoDB 3.2** because the mongod-7 readiness probe never connected (mongod
+  7 opened the data fine, but `db-eval` couldn't reach it, so migration-control wrongly
+  concluded "mongod 7 can't open this" and tried the 3.2 reader, which cannot read WiredTiger-7
+  files — producing no FerretDB SQLite). Proven by the migration source mongod log: mongod 7
+  reached `Waiting for connections` with **zero `Connection accepted`** before being killed by
+  the readiness timeout. Fixed by resolving the driver with `createRequire` (CommonJS, which
+  **does** honor `NODE_PATH` and the bundle layout), anchored inside the modern bundle. Thanks
+  to xet7.
+
 - **Snap: WeKan never started on a running MongoDB, looping "MongoDB not ready yet,
   retrying in 5 seconds..." forever, on any server with less than ~34 GB RAM**
   ([#6454](https://github.com/wekan/wekan/issues/6454), `snap-src/bin/mongodb-control`,

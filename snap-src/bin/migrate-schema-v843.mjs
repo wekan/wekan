@@ -24,7 +24,11 @@
  *   7. Writes a completion marker to _wekan_migration.
  */
 
-import { MongoClient, ObjectId } from 'mongodb';
+// Resolve the mongodb driver via createRequire (CommonJS): Node's ESM loader ignores
+// NODE_PATH, which this tool is documented to set, so a bare `import ... from 'mongodb'`
+// resolves nothing. createRequire's require() honors NODE_PATH and the node_modules walk.
+import { createRequire } from 'node:module';
+const { MongoClient, ObjectId } = createRequire(import.meta.url)('mongodb');
 
 const MONGO_URL = process.argv[2] || process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/wekan';
 const SCHEMA_VER = 843;

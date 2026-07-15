@@ -15,7 +15,11 @@
  *   WRITABLE_PATH     $SNAP_COMMON
  */
 
-import { MongoClient, GridFSBucket, ObjectId } from 'mongodb';
+// Resolve the mongodb driver via createRequire (CommonJS): Node's ESM loader ignores
+// NODE_PATH, which this tool is documented to set, so a bare `import ... from 'mongodb'`
+// resolves nothing. createRequire's require() honors NODE_PATH and the node_modules walk.
+import { createRequire } from 'node:module';
+const { MongoClient, GridFSBucket, ObjectId } = createRequire(import.meta.url)('mongodb');
 import fs from 'node:fs';
 import path from 'node:path';
 import { statfsSync } from 'node:fs';
