@@ -435,19 +435,27 @@ function writeStatus() {
 }
 function hasSpace(dir, need) { try { const s = fs.statfsSync(dir); return Number(s.bavail) * Number(s.bsize) > need + 10 * 1048576; } catch { return true; } }
 
-// Sandstorm grains run in a sandbox where the filesystem size/quota is NOT reliably
-// reported by statfs (it may show the host disk, not the grain's storage quota). So on
-// Sandstorm we do NOT pre-check or poll free space — we just try to migrate, and treat an
-// actual write failure (ENOSPC / EDQUOT) as "out of space": stop, delete what we wrote,
-// and show the disk-space error. Detected via the env that Sandstorm / WeKan-on-Sandstorm
-// sets (SANDSTORM=1, WeKan's SANDSTORM_RAW_MONGO_PATH, or METEOR_SETTINGS.public.sandstorm).
+// Platform note on measuring free disk space:
+//  - SNAP: statfs WORKS. statfs/statfs64/fstatfs/fstatfs64/statvfs/fstatvfs are all in
+//    snapd's DEFAULT seccomp allow-list (snapcore/snapd interfaces/seccomp/template.go),
+//    and a snap has no per-snap disk quota by default, so fs.statfsSync($SNAP_COMMON/…)
+//    returns the real host-filesystem free space the snap can use. quotactl is NOT in the
+//    allow-list, but we never call it; the one case it would matter (a snapd storage-quota
+//    group, enforced via project quotas invisible to statfs) is still caught by the
+//    ENOSPC/EDQUOT write-failure path below.
+//  - SANDSTORM: statfs is NOT reliable. A grain's FUSE filesystem does not implement statfs
+//    (it may report the host disk, not the grain's storage quota) and quotactl is blocked,
+//    so we do NOT pre-check or poll free space — we just try to migrate and treat an actual
+//    write failure (ENOSPC/EDQUOT) as "out of space": stop, delete what we wrote, show the
+//    disk-space error. Detected via the env Sandstorm / WeKan-on-Sandstorm sets (SANDSTORM=1,
+//    WeKan's SANDSTORM_RAW_MONGO_PATH, or METEOR_SETTINGS.public.sandstorm).
 const IS_SANDSTORM = process.env.SANDSTORM === '1' || !!process.env.SANDSTORM_RAW_MONGO_PATH || (() => {
   try { return !!((JSON.parse(process.env.METEOR_SETTINGS || '{}').public) || {}).sandstorm; } catch { return false; }
 })();
-// Detect the Snap from its environment ($SNAP is set for every snap process). Used only
-// for the platform log line — the free-space guards key off whether statfs actually
-// returns a figure (see updateDiskFree), so a Snap container where the size is not
-// available degrades to the same write-failure detection as Sandstorm.
+// Detect the Snap from its environment ($SNAP is set for every snap process). Used only for
+// the platform log line — the guards key off whether statfs actually returns a figure (see
+// updateDiskFree), so even a locked-down container where statfs fails degrades to the same
+// write-failure detection as Sandstorm.
 const IS_SNAP = !!(process.env.SNAP || process.env.SNAP_NAME);
 
 // Keep at least this much free while migrating. A FULL disk can corrupt the source
@@ -463,17 +471,20 @@ function flagDiskFull(detail) {
 }
 let _lastDiskCheck = 0;
 // Refresh state.diskFree (throttled) so the dashboard shows the current free space, and
-// ABORT if it falls below the safety margin (do NOT keep writing). Snap-only: a grain
-// cannot see its real free space/quota (statfs is unimplemented / shows the host disk),
-// so on Sandstorm (or anywhere non-Snap) we leave diskFree unknown and rely on write
-// failures (ENOSPC/EDQUOT) instead.
+// ABORT if it falls below the safety margin (do NOT keep writing). On a Snap, statfs is in
+// snapd's default seccomp allow-list and reports real free space, so this actively guards;
+// on Sandstorm (or anywhere statfs is unavailable) we leave diskFree unknown and rely on
+// ENOSPC/EDQUOT write failures instead.
 function updateDiskFree(dir, force) {
-  // Never trust statfs inside a Sandstorm grain (it reports the host disk, not the grain's
-  // quota), so treat free space as unknown there. Everywhere else (Snap, containers) we
-  // ATTEMPT statfs — but if it is unavailable (a locked-down / older container where
-  // statfs fails), the catch leaves free space unknown and we fall back to detecting an
-  // actual write failure. Behaviour keys off whether free space is measurable, not the
-  // platform: whenever state.diskFree stays < 0 the free-space guards below are skipped.
+  // statfs is allowed by snapd's default seccomp policy
+  // (snapcore/snapd interfaces/seccomp/template.go lists statfs/statfs64/fstatfs/…), so on a
+  // Snap fs.statfsSync returns the real host-filesystem free space (a snap has no per-snap
+  // quota by default). Inside a Sandstorm grain statfs is NOT reliable — FUSE does not
+  // implement it and quotactl is blocked — so treat free space as unknown there. Everywhere
+  // else we ATTEMPT statfs; if it is unavailable (a locked-down container), the catch leaves
+  // free space unknown and we fall back to write-failure detection. Behaviour keys off
+  // whether free space is measurable, not the platform: whenever state.diskFree stays < 0
+  // the free-space guards below are skipped.
   if (IS_SANDSTORM) { state.diskFree = -1; return; }
   const now = Date.now();
   if (!force && now - _lastDiskCheck < 1000) return; // ~1 statfs/sec while streaming

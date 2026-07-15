@@ -335,8 +335,14 @@ function pickLang(acceptLanguage) {
 // ── disk-space guard: STOP + roll back (same policy as migrate-mongo3-to-ferretdb.mjs) ──
 // A full disk can corrupt the source MongoDB (still running as we read it), so we never
 // write the volume dry: we stop, delete the partially migrated attachments/avatars to free
-// the space back, and report how much MORE is needed. On Sandstorm (where free space is not
-// measurable) we cannot pre-check, so we detect an actual write failure (ENOSPC/EDQUOT).
+// the space back, and report how much MORE is needed.
+// Platform note: on a SNAP statfs WORKS — statfs/statfs64/fstatfs/fstatfs64/statvfs/fstatvfs
+// are in snapd's DEFAULT seccomp allow-list (snapcore/snapd interfaces/seccomp/template.go),
+// and a snap has no per-snap disk quota by default, so statfsSync returns the real free
+// space. quotactl is NOT allowed, but we never call it; a snapd storage-quota group (project
+// quotas, invisible to statfs) is still caught by the ENOSPC/EDQUOT write-failure path. Inside
+// a SANDSTORM grain statfs is NOT reliable (FUSE doesn't implement it, quotactl is blocked),
+// so we cannot pre-check and rely purely on the write failure.
 const IS_SANDSTORM = process.env.SANDSTORM === '1' || !!process.env.SANDSTORM_RAW_MONGO_PATH || (() => {
   try { return !!((JSON.parse(process.env.METEOR_SETTINGS || '{}').public) || {}).sandstorm; } catch { return false; }
 })();
@@ -349,9 +355,11 @@ function flagDiskFull(detail) {
 }
 let _lastDiskCheck = 0;
 function updateDiskFree(dir, force) {
-  // Never trust statfs inside a Sandstorm grain (it reports the host disk, not the grain's
-  // quota); elsewhere ATTEMPT it, and if unavailable leave free space unknown and rely on a
-  // write failure. Whenever state.diskFree stays < 0 the pre-check guards below are skipped.
+  // Snap: statfs is allowed by snapd's default seccomp policy and returns real free space.
+  // Sandstorm: statfs is unreliable (FUSE unimplemented / quotactl blocked) — treat as
+  // unknown. Elsewhere ATTEMPT it; if it fails (locked-down container) leave free space
+  // unknown and rely on a write failure. Whenever state.diskFree stays < 0 the pre-check
+  // guards are skipped.
   if (IS_SANDSTORM) { state.diskFree = -1; return; }
   const now = Date.now();
   if (!force && now - _lastDiskCheck < 1000) return; // ~1 statfs/sec while streaming
