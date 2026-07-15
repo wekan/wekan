@@ -29,6 +29,18 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
+# The migration-success marker is AUTHORITATIVE: once the MongoDB -> FerretDB migration
+# has finished, the data lives in FerretDB (SQLite) and MongoDB must NOT run again (both
+# bind the same port). Even if the `database` setting was never flipped to ferretdb, repair
+# it and disable this service so ferretdb-control takes over. This runs BEFORE the
+# migration-pending check so a completed migration is never re-attempted.
+if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ]; then
+    echo "MongoDB -> FerretDB migration already finished; disabling mongodb service."
+    snapctl set database=ferretdb 2>/dev/null || true
+    snapctl stop --disable ${SNAP_NAME}.mongodb 2>/dev/null || true
+    exit 0
+fi
+
 # First-boot migration: upgrading from an old MongoDB-based WeKan snap. Before
 # starting mongod normally, hand off to migration-control, which reads the
 # existing MongoDB data (mongod 7 for MongoDB 7 data — including the arm64 snaps

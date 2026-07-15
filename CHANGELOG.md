@@ -100,21 +100,36 @@ This release fixes the following bugs:
   `finish_success` now performs the flip itself, exactly as the configure hook's ferretdb
   branch does: enable + start (and restart) `wekan.ferretdb`, then stop + disable
   `wekan.mongodb` — using the snap **instance** name so parallel snaps target their own
-  services. Immediate recovery on an already-migrated install:
-  `sudo snap start --enable wekan.ferretdb && sudo snap stop --disable wekan.mongodb`.
+  services. Immediate recovery on an already-migrated install — flip the setting so the
+  `configure` hook re-runs and enables + starts FerretDB and stops MongoDB (do **not** try
+  `snap start wekan.ferretdb` directly; while `database` is still `mongodb`, ferretdb-control
+  reads the setting and disables itself again — see the next entry):
+  `sudo snap set wekan database=ferretdb`.
+  Thanks to xet7.
+
+- **Snap: the migration-success marker is now authoritative, so FerretDB starts even if the
+  `database` setting was never flipped** (`snap-src/bin/ferretdb-control`,
+  `snap-src/bin/mongodb-control`, `snap-src/bin/wekan-control`). Every DB service keyed its
+  behaviour off the `database` setting alone: `ferretdb-control` logged *"database is
+  'mongodb', not 'ferretdb'. Disabling ferretdb service."* and self-disabled whenever the
+  setting still said `mongodb` — so on an already-migrated install `snap start
+  wekan.ferretdb` started and then immediately stopped itself, unfixable by hand without
+  first setting `database=ferretdb`. Now the marker
+  `$SNAP_COMMON/.migration-to-ferretdb-done` overrides the setting: when present,
+  `ferretdb-control` repairs `database=ferretdb` and keeps running instead of self-disabling;
+  `mongodb-control` disables itself (before the migration-pending check, so a finished
+  migration is never re-attempted); and `wekan-control` forces ferretdb and brings the
+  service up. WeKan thus recovers on its own after a migration whose setting flip was lost.
   Thanks to xet7.
 
 - **Snap: WeKan now starts its database itself on startup instead of waiting forever for a
   stopped one** (`snap-src/bin/wekan-control`). Previously the `wekan.wekan` service only
   *waited* for whichever database `database` pointed at (`FerretDB not ready yet…` /
   `MongoDB not ready yet…`) and never *started* a DB service, so if both `wekan.ferretdb`
-  and `wekan.mongodb` were stopped/disabled WeKan hung indefinitely. Now, on start, WeKan:
-  (1) if the migration-success marker `$SNAP_COMMON/.migration-to-ferretdb-done` is present,
-  forces `database=ferretdb`, enables + starts `wekan.ferretdb` and stops + disables
-  `wekan.mongodb` (self-healing the case where the migration's internal `snapctl set` never
-  re-ran the configure hook); and (2) before waiting, enables + starts whichever DB service
-  is configured (`snapctl start --enable` = `snap enable` + `snap start`, targeting the snap
-  **instance** name so parallel snaps hit their own services). Thanks to xet7.
+  and `wekan.mongodb` were stopped/disabled WeKan hung indefinitely. Now, before waiting, it
+  enables + starts whichever DB service is configured (`snapctl start --enable` = `snap
+  enable` + `snap start`, targeting the snap **instance** name so parallel snaps hit their
+  own services). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
