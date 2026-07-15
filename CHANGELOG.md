@@ -86,7 +86,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# Upcoming WeKan ® release
+# v9.93 2026-07-15 WeKan ® release
 
 This release adds the following new features:
 
@@ -110,7 +110,7 @@ This release adds the following new features:
   database is running (by `wekan-control` on startup and by the migration importers), so it is
   still available in maintenance mode when both databases are stopped. Thanks to xet7.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - **Snap: `db-eval` could not load the MongoDB driver, so EVERY database readiness check
   silently failed** (`snap-src/bin/db-eval.mjs`; also `migrate-schema-v843.mjs`,
