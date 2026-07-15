@@ -120,6 +120,19 @@ This release fixes the following bugs:
   can corrupt the still-running source MongoDB), shows a **live per-file progress bar**, and
   **translates the dashboard into the browser's language**. Thanks to xet7.
 
+- **Snap: verified the migration's disk-space guard actually works inside snap confinement**
+  (`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`, `releases/migrate-mongodb-to-ferretdb.mjs` —
+  comment/documentation only, no behaviour change). `statfs` (and `statfs64` / `fstatfs` /
+  `fstatfs64` / `statvfs` / `fstatvfs`) is in snapd's **default seccomp allow-list**
+  (`snapcore/snapd` → `interfaces/seccomp/template.go`), and a snap has no per-snap disk quota
+  by default, so the migration's free-space check (`statfsSync` on `$SNAP_COMMON/files`)
+  returns the real free space and its "stop before the disk fills" safety is fully active on
+  Snap. `quotactl` is **not** allowed, but the migration never calls it; the one case it would
+  matter — a snapd storage-quota group (project quotas invisible to `statfs`) — is still caught
+  by the `ENOSPC`/`EDQUOT` write-failure fallback. Only Sandstorm grains genuinely lack
+  `statfs` (FUSE does not implement it, `quotactl` blocked), where the guard already relies on
+  that write-failure fallback. Thanks to xet7.
+
 - **Snap: after a MongoDB → FerretDB migration, FerretDB never started and WeKan was stuck
   on "MongoDB not ready yet, retrying..."** (`snap-src/bin/migration-control`). The
   `wekan.ferretdb` service disables itself while `database` is `mongodb`; the migration
