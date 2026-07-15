@@ -86,6 +86,47 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- **Snap: the `database` setting is now authoritative, with a `snap run wekan.database
+  mongodb|ferretdb` command and no-downtime handling of a failed migration**
+  (`snap-src/bin/wekan-database`, `snap-src/bin/wekan-control`, `snap-src/bin/mongodb-control`,
+  `snap-src/bin/ferretdb-control`, `snap-src/bin/migration-control`, `snap-src/bin/migration-pending`).
+  Previously the control scripts **force-switched** to FerretDB whenever a `*.sqlite` file
+  existed, so `snap set wekan database=mongodb` would not stick and there was no way to keep
+  WeKan on MongoDB while fixing a migration — a failed migration meant downtime. Now the
+  `database` setting decides which database WeKan runs on, and **`snap run wekan.database
+  mongodb`** switches WeKan to MongoDB (and pauses auto-migration, `migrate=off`) while
+  **`snap run wekan.database ferretdb`** switches to the migrated FerretDB. Auto-migration can
+  be paused with `snap set wekan migrate=off` and, crucially, **a migration that FAILS now pauses
+  itself and hands back to MongoDB automatically** (`migration-control` `fail_and_run_mongodb`)
+  so WeKan keeps working on MongoDB instead of retrying-and-failing every start; re-run it with
+  `snap run wekan.migrate`. A successful migration also **restarts `wekan.wekan`** so it
+  reconnects to FerretDB. The only remaining auto-override is the safety guard that refuses to
+  start an empty FerretDB while MongoDB still holds data. Thanks to xet7.
+
+and fixes the following bugs:
+
+- **Snap: the MongoDB → FerretDB migration failed on GridFS collections and left a half-migrated
+  database behind** (`releases/migrate-mongodb-to-ferretdb.mjs`,
+  `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`, `snap-src/bin/migration-control`). FerretDB v1
+  rejects collection names containing a dot (*"invalid key: 'attachments.chunks' (key must not
+  contain '.' sign)"*), and the importers tried to copy the GridFS internals collections
+  (`attachments.chunks`, `attachments.files`, `avatars.*`, `cfs_gridfs.*`) and the CollectionFS
+  `cfs.<bucket>.filerecord` collections as **text**, so the migration aborted. Now the text phase
+  **skips every dotted collection** — none of WeKan's real data collections contain a dot, and
+  the dotted ones are all GridFS internals (extracted in the file phase), CollectionFS
+  filerecords (turned into bare `attachments`/`avatars` records in the file phase, now created
+  with an upsert) or `system.*` collections. And crucially, when a migration **fails partway** it
+  now **deletes the partial FerretDB SQLite** it wrote (`migration-control`'s
+  `discard_partial_ferretdb`): otherwise that non-empty-but-incomplete `files/db/wekan.sqlite`
+  looked "migrated" to the data check, so the snap disabled MongoDB and tried to serve an
+  incomplete FerretDB. Now a failed migration cleanly keeps MongoDB and retries. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.93 2026-07-15 WeKan ® release
 
 This release adds the following new features:
@@ -109,23 +150,6 @@ This release adds the following new features:
   name** if one is set (not "WeKan"): it is cached to `$SNAP_COMMON/.productname.txt` while a
   database is running (by `wekan-control` on startup and by the migration importers), so it is
   still available in maintenance mode when both databases are stopped. Thanks to xet7.
-
-- **Snap: the `database` setting is now authoritative, with a `snap run wekan.database
-  mongodb|ferretdb` command and no-downtime handling of a failed migration**
-  (`snap-src/bin/wekan-database`, `snap-src/bin/wekan-control`, `snap-src/bin/mongodb-control`,
-  `snap-src/bin/ferretdb-control`, `snap-src/bin/migration-control`, `snap-src/bin/migration-pending`).
-  Previously the control scripts **force-switched** to FerretDB whenever a `*.sqlite` file
-  existed, so `snap set wekan database=mongodb` would not stick and there was no way to keep
-  WeKan on MongoDB while fixing a migration — a failed migration meant downtime. Now the
-  `database` setting decides which database WeKan runs on, and **`snap run wekan.database
-  mongodb`** switches WeKan to MongoDB (and pauses auto-migration, `migrate=off`) while
-  **`snap run wekan.database ferretdb`** switches to the migrated FerretDB. Auto-migration can
-  be paused with `snap set wekan migrate=off` and, crucially, **a migration that FAILS now pauses
-  itself and hands back to MongoDB automatically** (`migration-control` `fail_and_run_mongodb`)
-  so WeKan keeps working on MongoDB instead of retrying-and-failing every start; re-run it with
-  `snap run wekan.migrate`. A successful migration also **restarts `wekan.wekan`** so it
-  reconnects to FerretDB. The only remaining auto-override is the safety guard that refuses to
-  start an empty FerretDB while MongoDB still holds data. Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -178,22 +202,6 @@ and fixes the following bugs:
   mongod has exited — e.g. mongod 7 cannot open old MongoDB 3.x data — it stops waiting
   immediately and drops to the MongoDB 3.2 reader instead of pinging a dead process for the full
   timeout. Matters across many unattended 6.09 → 9.x upgrades. Thanks to xet7.
-
-- **Snap: the MongoDB → FerretDB migration failed on GridFS collections and left a half-migrated
-  database behind** (`releases/migrate-mongodb-to-ferretdb.mjs`,
-  `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`, `snap-src/bin/migration-control`). FerretDB v1
-  rejects collection names containing a dot (*"invalid key: 'attachments.chunks' (key must not
-  contain '.' sign)"*), and the importers tried to copy the GridFS internals collections
-  (`attachments.chunks`, `attachments.files`, `avatars.*`, `cfs_gridfs.*`) and the CollectionFS
-  `cfs.<bucket>.filerecord` collections as **text**, so the migration aborted. Now the text phase
-  **skips every dotted collection** — none of WeKan's real data collections contain a dot, and
-  the dotted ones are all GridFS internals (extracted in the file phase), CollectionFS
-  filerecords (turned into bare `attachments`/`avatars` records in the file phase, now created
-  with an upsert) or `system.*` collections. And crucially, when a migration **fails partway** it
-  now **deletes the partial FerretDB SQLite** it wrote (`migration-control`'s
-  `discard_partial_ferretdb`): otherwise that non-empty-but-incomplete `files/db/wekan.sqlite`
-  looked "migrated" to the data check, so the snap disabled MongoDB and tried to serve an
-  incomplete FerretDB. Now a failed migration cleanly keeps MongoDB and retries. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
