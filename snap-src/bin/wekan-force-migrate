@@ -1,0 +1,45 @@
+#!/bin/bash
+# wekan-force-migrate — force a fresh MongoDB -> FerretDB migration.  `snap run wekan.migrate`
+#
+# Ignores the `database` setting and the migration marker, re-reads the existing MongoDB (3 or
+# 7) data, and migrates text + CollectionFS/Meteor-Files attachments + avatars to FerretDB
+# again. The source MongoDB data in $SNAP_COMMON is never modified or deleted.
+set -u
+COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+
+echo "Forcing a fresh MongoDB -> FerretDB migration."
+echo "Re-reads the existing MongoDB (3 or 7) data and migrates it to FerretDB again."
+echo ""
+
+# Don't fight maintenance mode (services are hand-managed there).
+if [ -f "$COMMON/.wekan-maintenance" ]; then
+    echo "Maintenance mode is ON — turn it off first:  snap run ${svc}.maintenance off"
+    exit 1
+fi
+
+# Stop everything so nothing holds the DB port or the mongod dbpath lock.
+snapctl stop "${svc}.wekan"     2>/dev/null || true
+snapctl stop "${svc}.ferretdb"  2>/dev/null || true
+snapctl stop "${svc}.mongodb"   2>/dev/null || true
+
+# Clear the "migration handled" marker so migration-control runs again, and remove any PARTIAL
+# FerretDB SQLite + resume checkpoint from a previous failed/aborted attempt so the retry
+# starts clean and mongodb-control does not mistake a partial DB for a finished migration.
+# The source MongoDB data (WiredTiger files in $COMMON) is NOT touched.
+rm -f "$COMMON/.migration-to-ferretdb-done"
+rm -f "$COMMON/migration-progress.json"
+rm -rf "${COMMON:?}/files/db/"* 2>/dev/null || true
+
+# Put the snap back on mongodb so the normal path (mongodb-control -> migration-control) runs;
+# migration-control detects MongoDB 3 or 7, migrates, and switches to ferretdb itself on success.
+snapctl set database=mongodb 2>/dev/null || true
+
+# Start MongoDB (runs migration-control now that the marker is gone and MongoDB data exists) and
+# WeKan (which serves the migration dashboard on the web port and connects when it finishes).
+snapctl start --enable "${svc}.mongodb" 2>/dev/null || true
+snapctl start --enable "${svc}.wekan"   2>/dev/null || true
+
+echo "Migration started. Watch progress:"
+echo "  snap logs -f ${svc}.mongodb"
+echo "  ...or open the WeKan URL in a browser for the live migration dashboard."

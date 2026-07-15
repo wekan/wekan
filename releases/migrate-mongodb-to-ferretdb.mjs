@@ -763,6 +763,8 @@ async function run() {
     if (s && typeof s.productName === 'string' && s.productName.trim()) {
       state.product = s.productName.trim();
       console.log('[migrate] Using product name from Admin Panel settings:', state.product);
+      // Cache it so the snap maintenance page can show it when both databases are stopped.
+      try { if (process.env.SNAP_COMMON) fs.writeFileSync(process.env.SNAP_COMMON + '/.productname.txt', state.product + '\n'); } catch {}
     }
   } catch (e) { /* keep default product name */ }
 

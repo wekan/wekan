@@ -1,0 +1,45 @@
+#!/bin/bash
+# wekan-maintenance — turn maintenance mode on/off.  `snap run wekan.maintenance on|off`
+#
+# Maintenance mode (a $SNAP_COMMON/.wekan-maintenance marker) makes the DB control scripts
+# NOT auto-disable/auto-migrate, so you can run MongoDB OR FerretDB by hand to reach the data
+# over the MongoDB wire protocol (port 27019), and makes WeKan serve an "under maintenance"
+# page on the web port instead of starting. MongoDB and FerretDB share port 27019, so run
+# only one of them at a time.
+set -u
+COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+MARKER="$COMMON/.wekan-maintenance"
+
+case "${1:-}" in
+  on)
+    touch "$MARKER"
+    echo "Maintenance mode ENABLED."
+    # Stop both databases so YOU control them by hand; (re)start WeKan so it serves the
+    # maintenance page on the web port.
+    snapctl stop "${svc}.mongodb"  2>/dev/null || true
+    snapctl stop "${svc}.ferretdb" 2>/dev/null || true
+    snapctl restart "${svc}.wekan" 2>/dev/null || true
+    echo ""
+    echo "The web port now shows an 'under maintenance' page for all URLs."
+    echo "Run ONE database by hand to access its data on the MongoDB wire protocol (port 27019):"
+    echo "  snap start ${svc}.mongodb     # the old MongoDB data"
+    echo "  snap start ${svc}.ferretdb    # the migrated FerretDB (SQLite) data"
+    echo "  (only one at a time — they share port 27019)"
+    echo "When finished:  snap run ${svc}.maintenance off"
+    ;;
+  off)
+    rm -f "$MARKER"
+    echo "Maintenance mode DISABLED. Returning to normal operation."
+    # Stop any hand-started database, then let the normal startup logic pick the right one
+    # (mongodb-control disables itself and hands off to FerretDB if the SQLite data exists).
+    snapctl stop "${svc}.mongodb"  2>/dev/null || true
+    snapctl stop "${svc}.ferretdb" 2>/dev/null || true
+    snapctl start --enable "${svc}.mongodb" 2>/dev/null || true
+    snapctl restart "${svc}.wekan" 2>/dev/null || true
+    ;;
+  *)
+    if [ -f "$MARKER" ]; then echo "Maintenance mode is currently: ON"; else echo "Maintenance mode is currently: OFF"; fi
+    echo "Usage: snap run ${svc}.maintenance on|off"
+    ;;
+esac

@@ -16,6 +16,7 @@
 //   rs-initiate <url> <host>  replSetInitiate rs0 with a single member <host>
 //   rs-reconfig <url> <host>  force replSetReconfig rs0 to a single member <host>
 //   shutdown <url>            best-effort admin shutdownServer
+//   product-name <url>        print the Admin Panel product name (settings.productName), if set
 
 import { MongoClient } from 'mongodb';
 
@@ -79,6 +80,19 @@ try {
       // The server drops the connection while shutting down, which surfaces as an
       // error here — that is the expected, successful path.
       try { await admin.command({ shutdown: 1 }); } catch { /* expected */ }
+      code = 0;
+      break;
+    }
+    case 'product-name': {
+      // Print the Admin Panel product name if set, so callers can cache it for the
+      // maintenance page (which runs when the database is stopped). Nothing printed if unset.
+      try {
+        const doc = await client.db('wekan').collection('settings')
+          .findOne({ productName: { $type: 'string' } });
+        if (doc && typeof doc.productName === 'string' && doc.productName.trim()) {
+          console.log(doc.productName.trim());
+        }
+      } catch { /* ignore — leave output empty */ }
       code = 0;
       break;
     }

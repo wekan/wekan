@@ -571,7 +571,12 @@ async function run() {
   try {
     const settingsDocs = exportDocs('settings');
     const pn = settingsDocs.map(d => d && d.productName).find(v => typeof v === 'string' && v.trim());
-    if (pn) { state.product = pn.trim(); logline('Using product name from Admin Panel settings: ' + state.product); }
+    if (pn) {
+      state.product = pn.trim();
+      logline('Using product name from Admin Panel settings: ' + state.product);
+      // Cache it so the snap maintenance page can show it when both databases are stopped.
+      try { if (process.env.SNAP_COMMON) fs.writeFileSync(process.env.SNAP_COMMON + '/.productname.txt', state.product + '\n'); } catch {}
+    }
   } catch (e) { /* keep default product name */ }
 
   state.phase = 'connecting'; state.detail = 'FerretDB ' + TARGET_URL;

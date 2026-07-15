@@ -18,6 +18,16 @@ fi
 echo "Reading snap settings..."
 source $SNAP/bin/wekan-read-settings
 
+# Maintenance mode: if $SNAP_COMMON/.wekan-maintenance exists, do NOT self-disable; start
+# FerretDB regardless of the `database` setting, so an admin can run FerretDB by hand
+# (`snap start wekan.ferretdb`) to reach the data over the MongoDB wire protocol. Toggle with
+# `snap run wekan.maintenance on|off`. FerretDB and MongoDB share port 27019 - run one at a time.
+WEKAN_MAINTENANCE="$SNAP_COMMON/.wekan-maintenance"
+if [ -f "$WEKAN_MAINTENANCE" ]; then
+    echo "MAINTENANCE MODE (.wekan-maintenance present): starting FerretDB directly, ignoring the"
+    echo "database setting. Stop with 'snap stop wekan.ferretdb'."
+fi
+
 # FerretDB (SQLite) DATA PRESENCE is authoritative: if a *.sqlite database exists in files/db,
 # the MongoDB -> FerretDB migration succeeded and FerretDB IS the database - even if the
 # `database` setting was never flipped to ferretdb (e.g. the migration's INTERNAL `snapctl set`
@@ -31,7 +41,7 @@ if ls "$SNAP_COMMON/files/db"/*.sqlite >/dev/null 2>&1 && [ "ferretdb" != "${DAT
     snapctl set database=ferretdb 2>/dev/null || true
 fi
 
-if [ "ferretdb" != "${DATABASE}" ]; then
+if [ ! -f "$WEKAN_MAINTENANCE" ] && [ "ferretdb" != "${DATABASE}" ]; then
     echo "database is '${DATABASE:-mongodb}', not 'ferretdb'. Disabling ferretdb service."
     snapctl stop --disable ${SNAP_NAME}.ferretdb 2>/dev/null || true
     exit 0

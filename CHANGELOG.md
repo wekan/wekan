@@ -165,6 +165,26 @@ This release fixes the following bugs:
   `files/db`**; an empty `files/db` means the migration did not succeed, so MongoDB starts
   normally and WeKan keeps working while the migration can be retried. Thanks to xet7.
 
+- **Snap: new `snap run wekan.migrate` command to force a fresh MongoDB → FerretDB migration**
+  (`snap-src/bin/wekan-force-migrate`, registered in `snapcraft.yaml`). Ignores the `database`
+  setting and the migration marker, removes any partial FerretDB SQLite + resume checkpoint,
+  then re-runs the migration so it re-reads the existing MongoDB (3 or 7) data and migrates
+  text + attachments + avatars to FerretDB again. The source MongoDB data is never modified or
+  deleted. Watch it with `snap logs -f wekan.mongodb` or the migration dashboard. Thanks to xet7.
+
+- **Snap: new maintenance mode (`snap run wekan.maintenance on|off`) so you can run MongoDB OR
+  FerretDB by hand for data access** (`snap-src/bin/wekan-maintenance`,
+  `snap-src/bin/wekan-maintenance-page.mjs`, and the DB control scripts). While the
+  `$SNAP_COMMON/.wekan-maintenance` marker is present, the control scripts do **not** auto-migrate
+  or auto-disable, so `snap start wekan.mongodb` (old MongoDB data) or `snap start wekan.ferretdb`
+  (migrated FerretDB SQLite data) stays up instead of shutting itself down — letting you reach the
+  data over the MongoDB wire protocol on port 27019 (one at a time; they share the port). WeKan
+  itself serves an **"under maintenance" page (HTTP 503) on the web port for all URLs** while
+  maintenance is on, so end users see a clear message. The page shows the **Admin Panel product
+  name** if one is set (not "WeKan"): it is cached to `$SNAP_COMMON/.productname.txt` while a
+  database is running (by `wekan-control` on startup and by the migration importers), so it is
+  still available in maintenance mode when both databases are stopped. Thanks to xet7.
+
 - **Snap: WeKan now starts its database itself on startup instead of waiting forever for a
   stopped one** (`snap-src/bin/wekan-control`). Previously the `wekan.wekan` service only
   *waited* for whichever database `database` pointed at (`FerretDB not ready yet…` /

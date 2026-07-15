@@ -10,6 +10,19 @@ source $SNAP/bin/wekan-read-settings
 # Sibling snap service prefix ("wekan", or the instance name for a parallel install).
 WEKAN_SNAP_SVC="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
 
+# Maintenance mode: if $SNAP_COMMON/.wekan-maintenance exists, do NOT start WeKan or touch the
+# databases. Instead serve an "under maintenance" page (HTTP 503) on the WeKan port for ALL
+# URLs, so end users see a maintenance message while an admin runs MongoDB or FerretDB by hand
+# (on DB port 27019) for data access over the MongoDB wire protocol. Toggle with
+# `snap run wekan.maintenance on|off`.
+if [ -f "$SNAP_COMMON/.wekan-maintenance" ]; then
+    echo "MAINTENANCE MODE (.wekan-maintenance present): serving the maintenance page instead of WeKan."
+    export PORT="${PORT:-80}"
+    # The maintenance page reads the product name from $SNAP_COMMON/.product-name (cached during
+    # normal operation) so it shows a custom Admin Panel product name, not "WeKan".
+    exec "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs"
+fi
+
 # ---------------------------------------------------------------------------------------
 # Decide which database to ACTUALLY use, based on what data exists on disk - not on the
 # `database` snap setting alone. That setting can be flipped to ferretdb before any data
@@ -187,6 +200,14 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
         db_waited=$((db_waited + 5))
     done
     echo "MongoDB replica set primary is ready."
+fi
+
+# Cache the Admin Panel product name to $SNAP_COMMON/.productname.txt while the database is up,
+# so the maintenance page can show a custom product name later when BOTH databases are stopped.
+# Best-effort; only overwrite when a non-empty name is returned (otherwise keep the last known).
+_pn="$("$DB_EVAL" product-name "$DB_URL" 2>/dev/null | head -n1)"
+if [ -n "$_pn" ]; then
+    printf '%s\n' "$_pn" > "$SNAP_COMMON/.productname.txt" 2>/dev/null || true
 fi
 
 APPLICATION_DIRECTORY=$SNAP

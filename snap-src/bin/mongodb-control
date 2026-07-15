@@ -23,6 +23,17 @@ echo "  mongodb-port: $(snapctl get mongodb-port 2>/dev/null || echo 'not set')"
 echo "  mongodb-bind-ip: $(snapctl get mongodb-bind-ip 2>/dev/null || echo 'not set')"
 echo "  mongodb-bind-unix-socket: $(snapctl get mongodb-bind-unix-socket 2>/dev/null || echo 'not set')"
 
+# Maintenance mode: if $SNAP_COMMON/.wekan-maintenance exists, skip ALL automatic migration
+# and service-disable logic below and just start mongod, so an admin can run MongoDB by hand
+# (`snap start wekan.mongodb`) to reach the data over the MongoDB wire protocol WITHOUT the
+# service shutting itself down. Toggle with `snap run wekan.maintenance on|off`. NOTE: MongoDB
+# and FerretDB share port 27019, so run only one of them at a time.
+WEKAN_MAINTENANCE="$SNAP_COMMON/.wekan-maintenance"
+if [ -f "$WEKAN_MAINTENANCE" ]; then
+    echo "MAINTENANCE MODE (.wekan-maintenance present): starting MongoDB directly, skipping"
+    echo "auto-migration and auto-disable. Stop with 'snap stop wekan.mongodb'."
+fi
+
 if [ "true" == "${DISABLE_MONGODB}" ]; then
     echo "mongodb is disabled. Stop service"
     snapctl stop --disable ${SNAP_NAME}.mongodb
@@ -38,7 +49,7 @@ fi
 # data - left WeKan with no database at all ("MongoDB not ready yet, retrying..." forever, and
 # mongodb refusing to stay up). An empty files/db means the migration did NOT succeed: fall
 # through so mongod starts normally. Runs BEFORE the migration-pending check.
-if ls "$SNAP_COMMON/files/db"/*.sqlite >/dev/null 2>&1; then
+if [ ! -f "$WEKAN_MAINTENANCE" ] && ls "$SNAP_COMMON/files/db"/*.sqlite >/dev/null 2>&1; then
     echo "FerretDB (SQLite) database present; MongoDB -> FerretDB migration is complete. Disabling mongodb service."
     snapctl set database=ferretdb 2>/dev/null || true
     snapctl stop --disable ${SNAP_NAME}.mongodb 2>/dev/null || true
@@ -53,14 +64,14 @@ fi
 # attachments+avatars to the filesystem (progress at ROOT_URL, resumable), then
 # switches the snap to database=ferretdb. It is idempotent and only switches on
 # success; if not pending it returns non-zero and mongod starts as usual.
-if bash "$SNAP/bin/migration-pending"; then
+if [ ! -f "$WEKAN_MAINTENANCE" ] && bash "$SNAP/bin/migration-pending"; then
     echo "MongoDB -> FerretDB migration pending; running migration-control..."
     exec bash "$SNAP/bin/migration-control"
 fi
 
 # If the FerretDB backend is selected, MongoDB must not run (FerretDB binds the
 # same port). Disable this service; ferretdb-control starts FerretDB instead.
-if [ "ferretdb" == "${DATABASE}" ]; then
+if [ ! -f "$WEKAN_MAINTENANCE" ] && [ "ferretdb" == "${DATABASE}" ]; then
     echo "database is set to ferretdb. Stopping mongodb service."
     snapctl stop --disable ${SNAP_NAME}.mongodb 2>/dev/null || true
     exit 0
