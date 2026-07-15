@@ -117,10 +117,20 @@ force_stop_src() {
 ready_via_node() {
   # Up to 45s: a healthy MongoDB 6/7 database can need time to replay its journal
   # / recover a large oplog on first open, and a false "not ready" here used to be
-  # misread as "this is MongoDB 3.x" (#6454).
-  local i=0
+  # misread as "this is MongoDB 3.x" (#6454). BUT fast-fail if the temporary mongod has
+  # already EXITED (e.g. mongod 7 cannot open old MongoDB 3.x data): keep waiting only while
+  # the process is alive, so a doomed probe drops straight to the 3.2 reader instead of
+  # pinging a dead process for the full timeout. (With --fork, start_mongod usually already
+  # returns non-zero when mongod cannot open the data; this also covers a mongod that started
+  # then died mid-probe.)
+  local i=0 p
   while [ $i -lt 45 ]; do
     "$DB_EVAL" ping "$SRC_URL" >/dev/null 2>&1 && return 0
+    p="$(cat "$SRC_PIDFILE" 2>/dev/null)"
+    if [ -n "$p" ] && ! kill -0 "$p" 2>/dev/null; then
+      log "Temporary mongod (pid $p) has exited — it could not open this data. Not waiting further; will try the MongoDB 3.x reader."
+      return 1
+    fi
     i=$((i+1)); sleep 1
   done
   return 1
