@@ -120,6 +120,7 @@ import '/config/search-const';
 // ----------------------------------------------------------------------------
 import '/server/00checkStartup';
 import '/server/accounts-common';
+import '/server/accounts-resume-login';
 import '/server/accounts-lockout-config';
 import '/server/authentication';
 import '/server/cors';

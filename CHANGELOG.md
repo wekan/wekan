@@ -86,6 +86,26 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan release
+
+This release fixes the following bugs:
+
+- **FerretDB: WeKan did not work after migrating to FerretDB — every logged-in browser was
+  logged out again and the database CPU was pinned at 100%** ([#6457](https://github.com/wekan/wekan/issues/6457),
+  `server/accounts-resume-login.js`, `server/imports.js`). Meteor's `accounts-base` "resume"
+  login handler projects one array element with the **positional operator**
+  (`{fields: {'services.resume.loginTokens.$': 1}}`), and FerretDB rejects that find with
+  *"Executor error during find command :: caused by :: positional operator '.$' couldn't find
+  a matching element in the array"* (code 51246). Resume is how an already-logged-in browser
+  re-authenticates on **every page load and every DDP reconnect**, so the throw logged the user
+  out, the client reconnected, resume threw again, and the retry loop pinned the FerretDB CPU —
+  the board looked broken right after a migration that had just taken hours. WeKan now replaces
+  that login handler with one that projects the whole (small) `loginTokens` array and picks the
+  matching token in JavaScript — which is what upstream already does in its own `$or` fallback
+  query, so nothing else about login behaviour changes. Thanks to markusst1982 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.94 2026-07-15 WeKan ® release
 
 This release adds the following new features:
