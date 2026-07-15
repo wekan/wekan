@@ -104,6 +104,40 @@ This release fixes the following bugs:
   matching token in JavaScript — which is what upstream already does in its own `$or` fallback
   query, so nothing else about login behaviour changes. Thanks to markusst1982 and xet7.
 
+- **Snap: a snap refresh during the MongoDB → FerretDB migration threw away hours of migration
+  progress** (`snap-src/bin/migration-control`, `releases/migrate-mongodb-to-ferretdb.mjs`,
+  `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`). A big migration can run for **5 hours**, so
+  being interrupted by a snap refresh, `snap stop` or a reboot is normal — but it was treated
+  as a *failure*: snapd's SIGTERM killed the importer, `migration-control` read its signal exit
+  code (143) as "the migration failed", and `fail_and_run_mongodb` **deleted the partial FerretDB
+  SQLite** and set `migrate=off`. Every refresh meant starting the whole migration from zero.
+  Now an interruption is distinguished from a failure (a SIGTERM/SIGINT trap, plus an importer
+  exit code >= 128) and **keeps** the partial database and the checkpoint, leaves auto-migration
+  on, and hands back to MongoDB so WeKan keeps working until the next start **resumes**. Thanks
+  to markusst1982 and xet7.
+
+- **Snap: an interrupted migration re-extracted every attachment, needing double the disk space**
+  (`releases/migrate-mongodb-to-ferretdb.mjs`, `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`).
+  Only fully-copied *collections* were checkpointed; the file phase started over, and because the
+  destination path was picked with a *"add a `_1`, `_2`, … counter while the file exists"* loop,
+  every already-extracted attachment was written a **second** time under a new name, orphaning
+  the first copy — so a resumed migration silently needed twice the disk the up-front space check
+  had budgeted for. Extracted files are now checkpointed individually (recorded only once the
+  bytes are on disk *and* the record points at them, and re-verified by size on resume, so a
+  half-written file is never mistaken for a finished one) and skipped when resuming, and the
+  destination path is deterministic — an existing file at that path can only be this record's own
+  partial extraction, so it is overwritten. The MongoDB 3 importer had no checkpoint at all and
+  now resumes collections and files the same way. Thanks to markusst1982 and xet7.
+
+- **Snap: discarding a partial FerretDB migration left the resume checkpoint behind, so the retry
+  could switch to a database missing most of its data** (`snap-src/bin/migration-control`). The
+  importer's checkpoint lists the collections it has already copied and lives in `$SNAP_COMMON`,
+  **not** in the SQLite directory that `discard_partial_ferretdb` wipes — so it survived. The next
+  migration then trusted it, skipped every "already migrated" collection, copied only the rest into
+  the now-empty database, and reported success — leaving the snap serving a FerretDB missing most
+  of its data. The checkpoint is only meaningful together with the SQLite it describes, so the two
+  are now always discarded together. Thanks to markusst1982 and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.94 2026-07-15 WeKan ® release

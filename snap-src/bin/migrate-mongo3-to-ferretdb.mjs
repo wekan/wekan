@@ -423,6 +423,67 @@ function legacyToV2(line) {
 }
 
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
+
+// ── Resumable progress checkpoint ────────────────────────────────────────────
+// This migration can run for hours, and being interrupted part-way (snap refresh to a
+// new revision, `snap stop`, reboot, power loss) is normal rather than exceptional.
+// Persist what is already in the target so the next start CONTINUES instead of redoing
+// everything — re-extracting gigabytes of unchanged attachments is the slowest part.
+//
+// The checkpoint describes the target FerretDB SQLite and the extracted files, and is
+// only valid together with them: migration-control deletes it whenever it discards a
+// partial SQLite, so a fresh migration never skips a collection that is not there.
+const CHECKPOINT_FILE = process.env.CHECKPOINT_FILE ||
+  path.join(process.env.SNAP_COMMON || path.dirname(FILES_DIR), 'migration-progress.json');
+const completedCollections = new Set();
+// key `${bucket}:${recordId}` -> { path, size }, written only once the file is complete
+// on disk AND its record in the target points at it, so a partial file is never "done".
+const completedFiles = new Map();
+let _lastCheckpointSave = 0;
+function saveCheckpoint(force) {
+  // Called per file; rewriting the whole JSON every time would be O(n²) over thousands
+  // of files. Throttle to ~1 write/2s — at worst an interruption re-does a file or two.
+  const now = Date.now();
+  if (!force && now - _lastCheckpointSave < 2000) return;
+  _lastCheckpointSave = now;
+  try {
+    ensureDir(path.dirname(CHECKPOINT_FILE));
+    const tmp = CHECKPOINT_FILE + '.tmp';
+    fs.writeFileSync(tmp, JSON.stringify({
+      version: 2, updatedAt: new Date().toISOString(), phase: state.phase,
+      completedCollections: [...completedCollections],
+      completedFiles: [...completedFiles].map(([k, v]) => [k, v]),
+      collections: state.collections, success: state.success,
+    }));
+    fs.renameSync(tmp, CHECKPOINT_FILE);   // atomic replace
+  } catch (e) { err('checkpoint save: ' + e.message); }
+}
+function loadCheckpoint() {
+  try {
+    if (!fs.existsSync(CHECKPOINT_FILE)) return;
+    const cp = JSON.parse(fs.readFileSync(CHECKPOINT_FILE, 'utf8'));
+    (cp.completedCollections || []).forEach(c => completedCollections.add(c));
+    (cp.completedFiles || []).forEach(([k, v]) => completedFiles.set(k, v));
+    if (cp.collections) Object.assign(state.collections, cp.collections);
+    // state.files counters are NOT restored: the file loops re-count every file they
+    // walk, skipped or extracted, so the dashboard totals stay exact despite throttling.
+    if (completedCollections.size || completedFiles.size) {
+      logline(`Resuming from checkpoint — ${completedCollections.size} collection(s) and ${completedFiles.size} file(s) already migrated; they are skipped.`);
+    }
+  } catch (e) { err('checkpoint load: ' + e.message); }
+}
+// A checkpointed file counts as done only while it is still on disk at the recorded
+// size — the disk-full rollback deletes extracted files, so re-check rather than trust.
+function alreadyExtracted(key) {
+  const prev = completedFiles.get(key);
+  if (!prev || !prev.path) return null;
+  try {
+    const st = fs.statSync(prev.path);
+    if (st.isFile() && Number(st.size) === Number(prev.size)) return prev;
+  } catch { /* missing — extract it again */ }
+  completedFiles.delete(key);
+  return null;
+}
 // Persist the final state to STATUS_FILE (if set) so a later admin UI can show
 // whether the migration succeeded. Best-effort; never throws into the caller.
 function writeStatus() {
@@ -542,6 +603,7 @@ function onDiskAbort() {
 
 async function run() {
   ensureDir(ATTACH_DIR); ensureDir(AVATAR_DIR);
+  loadCheckpoint();   // resume an interrupted migration instead of redoing it
   logline(`Platform: ${IS_SANDSTORM ? 'Sandstorm grain' : IS_SNAP ? 'Snap' : 'other'}. Free-space guard: ${IS_SANDSTORM ? 'off (grain has no free-space API)' : 'used only if statfs reports free space, otherwise stops on a write failure'}.`);
   updateDiskFree(FILES_DIR, true); // seed the free-space figure before the dashboard loads
   if (state.abort) { writeStatus(); return; } // already out of disk before we started
@@ -609,6 +671,10 @@ async function run() {
     // collection — all handled in the file phase (binaries + bare <bucket> records) or not
     // needed. So skip any dotted name here (this also covers the whole gridFs set above).
     if (name.includes('.') || gridFs.has(name)) continue;
+    // Copied in full by an earlier run that was interrupted — skip it. Without this a
+    // snap refresh part-way through meant exporting and re-inserting every collection
+    // from the beginning.
+    if (completedCollections.has(name)) { logline(`${name}: already migrated (checkpoint), skipping.`); continue; }
     state.detail = name;
     const docs = exportDocs(name);
     state.collections[name] = { total: docs.length, done: 0 };
@@ -621,6 +687,8 @@ async function run() {
       state.collections[name].done = Math.min(i + chunk.length, docs.length);
     }
     if (docs.length) logline(`${name}: inserted ${state.collections[name].done}/${docs.length}`);
+    completedCollections.add(name);
+    saveCheckpoint(true);   // a collection boundary is worth a guaranteed write
   }
 
   // ── GridFS attachments + avatars -> filesystem ──────────────────────────────
@@ -666,6 +734,14 @@ async function run() {
       const name = (original.name || gf.filename || String(fr._id || fid)).replace(/[/\\\0]/g, '_').slice(0, 180) || 'file';
       const dest = path.join(destDir, `${String(fr._id || fid)}-${name}`);
       const size = gf.length || original.size || 0;
+      // Extracted whole by an earlier, interrupted run: count it and move on.
+      const resumeKey = `${bucket}:${String(fr._id || fid)}`;
+      const alreadyDone = alreadyExtracted(resumeKey);
+      if (alreadyDone) {
+        fileIndex++;
+        state.files[key].done++; state.files[key].bytes += Number(alreadyDone.size) || 0;
+        continue;
+      }
       if (!ensureDiskForFile(destDir, size, name)) { onDiskAbort(); return; }
       // Stream the file from its chunks (sorted by n) straight to disk, one chunk at a
       // time (bounded RAM), publishing live per-file progress for the dashboard.
@@ -686,6 +762,9 @@ async function run() {
             meta: { ...(fr.meta || {}), source: 'cfs-cli-migration', originalFilename: name },
           }, { upsert: true });
         }
+        // Done only now: bytes on disk AND a record pointing at them.
+        completedFiles.set(resumeKey, { path: dest, size: written });
+        saveCheckpoint();
       } catch (e) { if (e && (e.code === 'ENOSPC' || e.code === 'EDQUOT')) flagDiskFull('write failed: ' + e.code); err(`extract ${bucket}/${fid}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
       finally { state.current.active = false; }
       if (state.abort) { onDiskAbort(); return; }
@@ -715,6 +794,13 @@ async function run() {
       const name = String(gf.filename || recId).replace(/[/\\\0]/g, '_').slice(0, 180) || 'file';
       const dest = path.join(destDir, `${recId}-${versionName}-${name}`);
       const size = gf.length || 0;
+      const resumeKey = `${bucket}.${versionName}:${recId}`;
+      const alreadyDone = alreadyExtracted(resumeKey);
+      if (alreadyDone) {
+        fileIndex++;
+        state.files[key].done++; state.files[key].bytes += Number(alreadyDone.size) || 0;
+        continue;
+      }
       if (!ensureDiskForFile(destDir, size, name)) { onDiskAbort(); return; }
       fileIndex++;
       state.current = { active: true, kind: key, name, size, done: 0, index: fileIndex, total: state.current.total };
@@ -736,6 +822,8 @@ async function run() {
           },
           $unset: { [`versions.${versionName}.meta.gridFsFileId`]: '' },
         });
+        completedFiles.set(resumeKey, { path: dest, size: written });
+        saveCheckpoint();
       } catch (e) { if (e && (e.code === 'ENOSPC' || e.code === 'EDQUOT')) flagDiskFull('write failed: ' + e.code); err(`meteor-files ${bucket}/${recId}: ${e.message}`); try { fs.unlinkSync(dest); } catch {} }
       finally { state.current.active = false; }
       if (state.abort) { onDiskAbort(); return; }
@@ -746,7 +834,21 @@ async function run() {
   await client.close();
   state.phase = state.errors.length ? 'completed-with-errors' : 'completed';
   state.success = state.errors.length < 10;
+  saveCheckpoint(true);
   writeStatus();
+}
+
+// Being stopped mid-migration (snap refresh, `snap stop`, reboot) is normal for a job
+// this long and is NOT a failure. Flush the checkpoint — routine saves are throttled —
+// and exit 128+signo, which migration-control reads as "interrupted: keep the partial
+// FerretDB and resume on the next start" rather than "failed: discard it".
+for (const [signal, signo] of [['SIGTERM', 15], ['SIGINT', 2]]) {
+  process.on(signal, () => {
+    logline(`${signal} — saving the checkpoint; the next start resumes from here.`);
+    state.phase = 'interrupted';
+    try { saveCheckpoint(true); } catch { /* exiting anyway */ }
+    process.exit(128 + signo);
+  });
 }
 
 run().then(() => {

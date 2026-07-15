@@ -405,30 +405,47 @@ function onDiskAbort() {
   const freeNow = state.diskFree >= 0 ? state.diskFree : 0;
   state.additionalBytesNeeded = Math.max(0, state.filesTotalBytes + DISK_MIN_FREE - freeNow);
   state.rollback = { migratedAttachments, migratedAvatars, deletedFiles, freedBytes };
-  saveCheckpoint();
+  saveCheckpoint(true);
 }
 
 // ── Resumable progress checkpoint (saved to WRITABLE_PATH) ───────────────────
-// The migration can take a long time and may be interrupted (snap refresh,
-// Sandstorm grain restart, power loss). We persist progress to WRITABLE_PATH so
-// a restart RESUMES instead of starting over: collections already fully copied
-// are skipped, and the progress dashboard is restored. copyCollection() already
+// The migration can take a long time — hours on a big instance — and may be
+// interrupted (snap refresh, Sandstorm grain restart, power loss). We persist
+// progress to WRITABLE_PATH so a restart RESUMES instead of starting over:
+// collections already fully copied are skipped, files already extracted are
+// skipped, and the progress dashboard is restored. copyCollection() already
 // upserts every document, so resuming is always safe.
+//
+// The checkpoint only describes the target SQLite and the extracted files, so it
+// must be deleted whenever those are (migration-control's
+// discard_partial_ferretdb does this) — a checkpoint outliving the data it
+// describes would make the next run skip collections that are no longer there.
 const CHECKPOINT_FILE = path.join(WRITABLE, 'migration-progress.json');
 const completedCollections = new Set();
+// key `${bucket}:${recordId}` -> { path, size } for every file already extracted and
+// recorded in the target. Written only AFTER the file is complete on disk and its
+// record points at it, so a half-written file is never treated as done.
+const completedFiles = new Map();
 
-function saveCheckpoint() {
+let _lastCheckpointSave = 0;
+function saveCheckpoint(force) {
   if (DRY_RUN) return;
+  // The file phase calls this per file; with thousands of files rewriting the whole
+  // JSON each time is O(n²). Throttle to ~1 write/2s. Losing the last couple of
+  // seconds of progress on an interruption only costs re-extracting a file or two.
+  const now = Date.now();
+  if (!force && now - _lastCheckpointSave < 2000) return;
+  _lastCheckpointSave = now;
   try {
     ensureDir(WRITABLE);
     const tmp = CHECKPOINT_FILE + '.tmp';
     fs.writeFileSync(tmp, JSON.stringify({
-      version: 1,
+      version: 2,
       updatedAt: new Date().toISOString(),
       phase: state.phase,
       completedCollections: [...completedCollections],
+      completedFiles: [...completedFiles].map(([k, v]) => [k, v]),
       collections: state.collections,
-      files: state.files,
       success: state.success,
       compacted: state.compacted === true,
     }));
@@ -443,16 +460,33 @@ function loadCheckpoint() {
     if (!fs.existsSync(CHECKPOINT_FILE)) return;
     const cp = JSON.parse(fs.readFileSync(CHECKPOINT_FILE, 'utf8'));
     (cp.completedCollections || []).forEach(c => completedCollections.add(c));
+    (cp.completedFiles || []).forEach(([k, v]) => completedFiles.set(k, v));
     if (cp.collections) Object.assign(state.collections, cp.collections);
-    if (cp.files) Object.assign(state.files, cp.files);
     if (cp.compacted) state.compacted = true;
-    if (completedCollections.size > 0) {
+    // state.files counters are deliberately NOT restored: the file loops re-count
+    // every file they walk, skipped or extracted, so the totals stay exact even
+    // though the checkpoint is only saved every couple of seconds.
+    if (completedCollections.size > 0 || completedFiles.size > 0) {
       state.resumed = true;
-      console.log(`[migrate] Resuming from checkpoint — ${completedCollections.size} collection(s) already migrated.`);
+      console.log(`[migrate] Resuming from checkpoint — ${completedCollections.size} collection(s) and ${completedFiles.size} file(s) already migrated.`);
     }
   } catch (err) {
     pushError('checkpoint load: ' + err.message);
   }
+}
+
+// A checkpointed file counts as done only if it is still on disk at the recorded size.
+// Guards against the file being removed or truncated between runs (e.g. the disk-full
+// rollback deletes extracted files), in which case we simply extract it again.
+function alreadyExtracted(key) {
+  const prev = completedFiles.get(key);
+  if (!prev || !prev.path) return null;
+  try {
+    const st = fs.statSync(prev.path);
+    if (st.isFile() && Number(st.size) === Number(prev.size)) return prev;
+  } catch { /* missing — re-extract */ }
+  completedFiles.delete(key);
+  return null;
 }
 
 // ── Compact the OLD MongoDB after a successful migration ─────────────────────
@@ -488,7 +522,7 @@ async function compactSource(srcDb, markerColl) {
   ).catch(() => {});
   const reclaimed = freeBytes(WRITABLE) - beforeFree;
   console.log(`[migrate] Compact done${Number.isFinite(reclaimed) ? ` (~${Math.round(reclaimed / 1048576)} MB freed)` : ''}.`);
-  saveCheckpoint();
+  saveCheckpoint(true);
 }
 
 /**
@@ -523,20 +557,21 @@ function sanitizeFilename(original) {
 }
 
 /**
- * Pick a collision-free path under dir.
- * Returns the full path and the relative basename used.
+ * The path a record's file is extracted to, derived only from the record's own _id and
+ * name. Returns the full path and the relative basename used.
+ *
+ * This is deterministic ON PURPOSE. It used to append a _1, _2, … counter while the
+ * candidate path existed, which is wrong for the only case that can actually produce a
+ * collision: idHex is the record's _id, so two different records never collide, and an
+ * existing file at this path is always THIS record extracted by an earlier, interrupted
+ * run. The counter turned every resume into a full second copy of every attachment —
+ * orphaning the first copy, and needing double the disk the up-front space check
+ * budgeted for. Completed files are skipped via the checkpoint before we get here, so a
+ * file still sitting at this path is a partial one and is meant to be overwritten.
  */
-function uniqueFilePath(dir, idHex, originalName) {
-  const safe = sanitizeFilename(originalName);
-  let base = `${idHex}_${safe}`;
-  let candidate = path.join(dir, base);
-  let counter = 0;
-  while (fs.existsSync(candidate)) {
-    counter++;
-    base = `${idHex}_${counter}_${safe}`;
-    candidate = path.join(dir, base);
-  }
-  return { fullPath: candidate, basename: base };
+function destFilePath(dir, idHex, originalName) {
+  const base = `${idHex}_${sanitizeFilename(originalName)}`;
+  return { fullPath: path.join(dir, base), basename: base };
 }
 
 // ── Schema upgrade helpers ─────────────────────────────────────────────────
@@ -866,7 +901,7 @@ async function run() {
     console.log(`[migrate] Copying collection: ${name}`);
     await copyCollection(srcDb, tgtDb, name, transformer);
     completedCollections.add(name);
-    saveCheckpoint();   // persist progress to WRITABLE_PATH after each collection
+    saveCheckpoint(true);   // persist progress to WRITABLE_PATH after each collection
   }
 
   // ── 5. Also ensure boards without a swimlane have one in the target ────
@@ -1008,7 +1043,19 @@ async function run() {
 
       const originalName = original.name || record.filename || String(record._id);
       const size = original.size || 0;
-      const { fullPath, basename } = uniqueFilePath(destDir, String(record._id), originalName);
+      const { fullPath, basename } = destFilePath(destDir, String(record._id), originalName);
+
+      // Extracted by an earlier run that was interrupted: count it and move on. This is
+      // what makes a resumed migration cheap — re-extracting gigabytes of unchanged
+      // attachments is the slowest part of the whole job.
+      const resumeKey = `${bucketName}:${record._id}`;
+      const done = alreadyExtracted(resumeKey);
+      if (done) {
+        fileIndex++;
+        state.files[fileStateKey].done++;
+        state.files[fileStateKey].bytes += Number(done.size) || 0;
+        continue;
+      }
 
       // STOP (not skip) if this file plus the safety margin will not fit: a full disk can
       // corrupt the still-running source MongoDB. Roll back and report how much more is needed.
@@ -1044,6 +1091,9 @@ async function run() {
         }
         mfRecord.meta = { ...(mfRecord.meta || {}), originalFilename: originalName, storedBasename: basename, source: 'cfs-migration' };
         await tgtDb.collection(bucketName).replaceOne({ _id: record._id }, mfRecord, { upsert: true });
+        // Only now is this file really done: bytes on disk AND a record pointing at them.
+        completedFiles.set(resumeKey, { path: fullPath, size: bytes });
+        saveCheckpoint();
       } catch (err) {
         if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
         pushError(`GridFS extract ${bucketName}/${record._id}: ${err.message}`);
@@ -1059,10 +1109,10 @@ async function run() {
 
   await migrateGridFs('attachments', ATTACH_DIR, 'attachments');
   if (state.abort) { await finishAbort(); return; }
-  saveCheckpoint();
+  saveCheckpoint(true);
   await migrateGridFs('avatars',     AVATAR_DIR, 'avatars');
   if (state.abort) { await finishAbort(); return; }
-  saveCheckpoint();
+  saveCheckpoint(true);
 
   // Also migrate any attachments that are already in Meteor-Files format but stored
   // in GridFS (storage === 'gridfs') — move binary to filesystem and update record.
@@ -1081,7 +1131,16 @@ async function run() {
       if (!gridFsId) continue;
       const originalName = doc.name || String(doc._id);
       const size = (doc.versions && doc.versions.original && doc.versions.original.size) || doc.size || 0;
-      const { fullPath, basename } = uniqueFilePath(destDir, String(doc._id), originalName);
+      const { fullPath, basename } = destFilePath(destDir, String(doc._id), originalName);
+
+      const resumeKey = `${collName}:${doc._id}`;
+      const done = alreadyExtracted(resumeKey);
+      if (done) {
+        fileIndex++;
+        state.files[fileStateKey].done++;
+        state.files[fileStateKey].bytes += Number(done.size) || 0;
+        continue;
+      }
 
       if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { await cursor.close(); onDiskAbort(); await finishAbort(); return; }
 
@@ -1108,6 +1167,8 @@ async function run() {
             },
           },
         );
+        completedFiles.set(resumeKey, { path: fullPath, size: bytes });
+        saveCheckpoint();
       } catch (err) {
         if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
         pushError(`Move GridFS→fs ${collName}/${doc._id}: ${err.message}`);
@@ -1138,7 +1199,7 @@ async function run() {
       },
       { upsert: true },
     );
-    saveCheckpoint();
+    saveCheckpoint(true);
   }
 
   // ── 8b. Reclaim old MongoDB disk space now that everything is migrated ──
@@ -1182,7 +1243,7 @@ async function run() {
     console.log(`[migrate] ⚠ Migration done with ${totalErrors} error(s). See dashboard.`);
   }
   state.finishedAt = new Date().toISOString();
-  saveCheckpoint();
+  saveCheckpoint(true);
 
   // Keep HTTP server alive for 60 s so operators can read the final status
   setTimeout(() => process.exit(state.success ? 0 : 1), 60_000);
@@ -1222,6 +1283,20 @@ disk space in the OLD MongoDB by running \`compact\` on each source collection
 
 if (process.argv.includes('--dry-run')) {
   process.env.DRY_RUN = 'true';
+}
+
+// Being stopped mid-migration (snap refresh, grain restart, `snap stop`) is normal for a
+// job this long, and must not be mistaken for a failure. Flush the checkpoint — routine
+// saves are throttled, so up to a couple of seconds of progress is otherwise re-done —
+// and exit with the conventional 128+signo, which migration-control reads as "interrupted,
+// keep the partial database and resume next start" rather than "failed, discard it".
+for (const [signal, signo] of [['SIGTERM', 15], ['SIGINT', 2]]) {
+  process.on(signal, () => {
+    console.log(`[migrate] ${signal} — saving the checkpoint; the next start resumes from here.`);
+    state.phase = 'interrupted';
+    try { saveCheckpoint(true); } catch { /* exiting anyway */ }
+    process.exit(128 + signo);
+  });
 }
 
 run().catch(err => {

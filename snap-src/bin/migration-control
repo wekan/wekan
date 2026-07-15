@@ -159,9 +159,37 @@ stop_via() {       # $1 = shell binary (legacy mongo), $2 = LD_LIBRARY_PATH pref
 WEKAN_PORT="${PORT:-8080}"
 
 # Start a temporary FerretDB v1 (SQLite at <files>/db) as the migration TARGET, and
-# arm an EXIT trap that stops it and the source mongod. $1 = the source-mongod stop
-# command to run in the trap.
+# arm the traps that stop it and the source mongod. $1 = the source-mongod stop command.
 FPID=""
+SRC_STOP_CMD=":"
+cleanup_all() {
+  [ -n "${FPID:-}" ] && kill "$FPID" 2>/dev/null || true
+  eval "$SRC_STOP_CMD" || true
+  force_stop_src
+}
+# SIGTERM/SIGINT means something STOPPED us — a snap refresh to a new revision, `snap
+# stop`, or a reboot — NOT a migration failure. A big migration can run for hours, so
+# being interrupted is normal and must cost as little as possible.
+#
+# Keep BOTH the partial FerretDB SQLite and the importer's checkpoint
+# ($SNAP_COMMON/migration-progress.json), so the next start RESUMES from the last
+# finished collection/file instead of redoing everything. Do NOT set migrate=off (this
+# was not a failure, so auto-migration must stay on), and do NOT run
+# fail_and_run_mongodb, which would delete exactly the progress we want to keep.
+#
+# Exiting here matters: without this trap, bash resumes at the line AFTER the importer
+# call once the handler returns, reads the importer's signal exit code (143) as a
+# failure, and discards the partial SQLite — throwing away hours of work on every snap
+# refresh. The source MongoDB data is untouched either way, and the snap is still on
+# database=mongodb (only finish_success switches it), so WeKan comes back up on MongoDB
+# and the migration continues on the next start.
+interrupted_keep_progress() {
+  trap - EXIT INT TERM     # this handler does the cleanup; do not run it twice
+  log "Interrupted (snap refresh, stop or reboot) — this is NOT a migration failure."
+  log "Keeping the partial FerretDB SQLite in $SQLITE_DIR and the checkpoint $SNAP_COMMON/migration-progress.json; the next start RESUMES from there instead of migrating everything again."
+  cleanup_all
+  exit 143
+}
 start_target_ferretdb() {   # $1 = source-stop shell command
   mkdir -p "$SQLITE_DIR"
   export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
@@ -169,7 +197,26 @@ start_target_ferretdb() {   # $1 = source-stop shell command
               --listen-addr="127.0.0.1:$TGT_PORT" --telemetry=disable \
               >"$SNAP_COMMON/migration-ferretdb.log" 2>&1 &
   FPID=$!
-  trap "kill \"$FPID\" 2>/dev/null || true; $1; force_stop_src" EXIT INT TERM
+  SRC_STOP_CMD="$1"
+  trap cleanup_all EXIT
+  trap interrupted_keep_progress INT TERM
+}
+# The importer exits >= 128 when a signal killed it (128 + signo: 143 = SIGTERM,
+# 130 = SIGINT, 137 = SIGKILL). Same situation as the trap above — snapd signals every
+# process in the service cgroup, so the importer can die this way even when bash's own
+# handler does not run. Treat it as an interruption, not a failure: keep the progress,
+# leave auto-migration on, and hand back to mongodb-control so WeKan keeps serving from
+# MongoDB until the next start continues the migration.
+resume_next_start() {   # $1 = importer exit code
+  log "Migration importer was killed by a signal (exit $1) — interrupted, not failed."
+  log "Keeping the partial FerretDB SQLite and the checkpoint; the next start resumes from there. Auto-migration stays ON."
+  # cleanup_all (not just force_stop_src): `exec` below replaces this shell, so the EXIT
+  # trap never runs and the temporary FerretDB would keep holding port $TGT_PORT and the
+  # SQLite. Stop it here, exactly as fail_and_run_mongodb does — only without deleting
+  # the migrated data.
+  trap - EXIT INT TERM
+  cleanup_all
+  exec bash "$SNAP/bin/mongodb-control"
 }
 # On a successful migration: mark done and switch the snap to FerretDB. The MongoDB
 # source mongod (temporary) is stopped by the EXIT trap, and mongodb-control, seeing
@@ -219,7 +266,15 @@ discard_partial_ferretdb() {
   [ -n "${FPID:-}" ] && kill "$FPID" 2>/dev/null || true
   sleep 1
   rm -rf "${SQLITE_DIR:?}/"* 2>/dev/null || true
-  log "Removed any partial FerretDB SQLite from $SQLITE_DIR; the snap stays on MongoDB."
+  # CRUCIAL: the importer's resume checkpoint lists the collections it has already
+  # copied, and lives in $SNAP_COMMON (NOT in $SQLITE_DIR), so the rm above does not
+  # touch it. Left behind next to a DELETED SQLite it becomes a lie: the retry would
+  # skip every "already migrated" collection, migrate only the rest into the empty
+  # database, and report success — leaving WeKan on a FerretDB missing most of its
+  # data. The checkpoint is only meaningful together with the SQLite it describes, so
+  # the two must always be discarded together.
+  rm -f "$SNAP_COMMON/migration-progress.json" "$SNAP_COMMON/migration-progress.json.tmp" 2>/dev/null || true
+  log "Removed any partial FerretDB SQLite from $SQLITE_DIR and the resume checkpoint; the snap stays on MongoDB and the next migration starts from the beginning."
 }
 # A migration FAILURE must NOT cause downtime. Delete any partial FerretDB SQLite, PAUSE
 # auto-migration (`migrate=off`) so it does not loop and re-hijack every start, and hand back to
@@ -269,6 +324,7 @@ if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB
     "$NODE" "$IMPORTER_MODERN"
   rc=$?
   if [ "$rc" -eq 0 ] && finish_success; then exit 0; fi
+  [ "$rc" -ge 128 ] && resume_next_start "$rc"
   log "ERROR: migration did not complete (importer rc=$rc). Keeping WeKan on MongoDB."
   fail_and_run_mongodb
 fi
@@ -304,6 +360,7 @@ rc=$?
 
 if [ "$rc" -eq 0 ] && finish_success; then :
 else
+  [ "$rc" -ge 128 ] && resume_next_start "$rc"
   log "ERROR: migration did not complete (importer rc=$rc). Keeping WeKan on MongoDB."
   fail_and_run_mongodb
 fi
