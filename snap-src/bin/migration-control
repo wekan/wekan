@@ -149,6 +149,19 @@ finish_success() {
   log "Migration succeeded. Switching to FerretDB (SQLite); MongoDB will be shut down."
   touch "$MARKER"
   snapctl set database=ferretdb 2>/dev/null || true
+  # CRUCIAL: an INTERNAL `snapctl set` does NOT re-run the configure hook, so we must flip
+  # the database services here ourselves — exactly as snap/hooks/configure's ferretdb
+  # branch does. Otherwise FerretDB (which disabled its own service while database=mongodb)
+  # is never enabled/started, MongoDB stays enabled, and WeKan is left with no database to
+  # talk to ("MongoDB not ready yet, retrying in 5 seconds..." forever). Enable+start
+  # FerretDB FIRST (so a DB is running before we stop MongoDB, and before disabling THIS
+  # service can terminate us). Use the instance name so parallel snaps (wekan_customer, …)
+  # target their own services.
+  local svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+  snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
+  snapctl restart "${svc}.ferretdb" 2>/dev/null || true
+  snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
+  log "FerretDB (SQLite) service enabled and started; MongoDB service stopped and disabled."
 }
 # Last resort when the data can be read by neither mongod 7 nor mongod 3.2 (unusual /
 # corrupt), or the migration tools are missing: don't loop forever with nothing

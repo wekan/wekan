@@ -159,6 +159,19 @@ and fixes the following bugs:
   completion it now reloads the **same page you were on** instead of forcing All Boards.
   (The dashboard itself also gained live per-file progress and a disk-space safety guard —
   see the new features above.) Thanks to xet7.
+- **Snap: after a MongoDB → FerretDB migration, FerretDB never started and WeKan was stuck
+  on "MongoDB not ready yet, retrying..."** (`snap-src/bin/migration-control`). The
+  `wekan.ferretdb` service disables itself while `database` is `mongodb`; the migration
+  then switches the snap with an **internal** `snapctl set database=ferretdb`, but an
+  internal `snapctl set` does **not** re-run the `configure` hook that flips the two
+  database services — so FerretDB was left *disabled* and MongoDB *enabled but stopped*,
+  leaving WeKan with no database (both bind the same port, so only one runs at a time).
+  `finish_success` now performs the flip itself, exactly as the configure hook's ferretdb
+  branch does: enable + start (and restart) `wekan.ferretdb`, then stop + disable
+  `wekan.mongodb` — using the snap **instance** name so parallel snaps target their own
+  services. Immediate recovery on an already-migrated install:
+  `sudo snap start --enable wekan.ferretdb && sudo snap stop --disable wekan.mongodb`.
+  Thanks to xet7.
 - **Admin Panel / Features / Security: "Always show all code as plain text" did not take
   effect (links stayed clickable, code stayed rendered)**. The setting is applied by the
   inner `markdown` helper, which reads a `ReactiveVar` (`Markdown.alwaysShowCodeAsText`)
