@@ -6,6 +6,11 @@
 MARKER="$SNAP_COMMON/.migration-to-ferretdb-done"
 DBPATH="$SNAP_COMMON"
 [ -f "$MARKER" ] && exit 1
+# Admin can pause auto-migration so WeKan keeps running on MongoDB while a migration is being
+# fixed: `snap set wekan migrate=off` (or `snap run wekan.database mongodb`). A migration that
+# FAILS also sets migrate=off automatically so it does not loop and cause downtime. Re-enable
+# and retry with `snap run wekan.migrate`.
+[ "$(snapctl get migrate 2>/dev/null)" = "off" ] && exit 1
 [ -x "$SNAP/ferretdb" ] || exit 1
 [ -x "$SNAP/bin/node" ] || exit 1
 [ -f "$SNAP/bin/migrate-mongodb-to-ferretdb.mjs" ] || exit 1

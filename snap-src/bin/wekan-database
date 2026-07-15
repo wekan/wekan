@@ -1,0 +1,42 @@
+#!/bin/bash
+# wekan-database — choose which database WeKan runs on.
+#   snap run wekan.database mongodb    -> run WeKan on MongoDB (and pause auto-migration)
+#   snap run wekan.database ferretdb   -> run WeKan on FerretDB (migrated SQLite)
+#   snap run wekan.database            -> show the current selection
+#
+# The `database` snap setting is authoritative (see wekan-control); this sets it and flips the
+# services so WeKan actually runs on the chosen database. Use `mongodb` to keep WeKan working on
+# MongoDB while a FerretDB migration is being fixed — this also pauses auto-migration
+# (migrate=off) so the next start does not switch back to a half-migrated FerretDB. Re-run the
+# migration any time with `snap run wekan.migrate`.
+set -u
+svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+
+case "${1:-}" in
+  mongodb)
+    snapctl set database=mongodb 2>/dev/null || true
+    snapctl set migrate=off 2>/dev/null || true
+    snapctl stop --disable "${svc}.ferretdb" 2>/dev/null || true
+    snapctl start --enable "${svc}.mongodb"  2>/dev/null || true
+    snapctl restart "${svc}.wekan" 2>/dev/null || true
+    echo "WeKan now uses MongoDB. Auto-migration is PAUSED (migrate=off) so it will not switch back."
+    echo "When you want to migrate to FerretDB again:  snap run ${svc}.migrate"
+    ;;
+  ferretdb)
+    if ! bash "$SNAP/bin/ferretdb-has-data"; then
+      echo "No FerretDB (SQLite) database found in ${SNAP_COMMON}/files/db — nothing to run on FerretDB yet."
+      echo "Migrate first:  snap run ${svc}.migrate   (then: snap run ${svc}.database ferretdb)"
+      exit 1
+    fi
+    snapctl set database=ferretdb 2>/dev/null || true
+    snapctl stop --disable "${svc}.mongodb"  2>/dev/null || true
+    snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
+    snapctl restart "${svc}.wekan" 2>/dev/null || true
+    echo "WeKan now uses FerretDB (SQLite)."
+    ;;
+  *)
+    echo "Current database: $(snapctl get database 2>/dev/null || true)"
+    echo "Auto-migration:   $([ "$(snapctl get migrate 2>/dev/null)" = off ] && echo 'off (paused)' || echo 'on')"
+    echo "Usage: snap run ${svc}.database mongodb|ferretdb"
+    ;;
+esac

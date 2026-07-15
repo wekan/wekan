@@ -123,6 +123,18 @@ apps:
         command: ./bin/mongodb-restore
         plugs: [network, network-bind]
 
+    migrate:
+        command: ./bin/wekan-force-migrate
+        plugs: [network, network-bind]
+
+    maintenance:
+        command: ./bin/wekan-maintenance
+        plugs: [network, network-bind]
+
+    database:
+        command: ./bin/wekan-database
+        plugs: [network, network-bind]
+
 
 parts:
     mongodb:

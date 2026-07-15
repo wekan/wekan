@@ -110,6 +110,23 @@ This release adds the following new features:
   database is running (by `wekan-control` on startup and by the migration importers), so it is
   still available in maintenance mode when both databases are stopped. Thanks to xet7.
 
+- **Snap: the `database` setting is now authoritative, with a `snap run wekan.database
+  mongodb|ferretdb` command and no-downtime handling of a failed migration**
+  (`snap-src/bin/wekan-database`, `snap-src/bin/wekan-control`, `snap-src/bin/mongodb-control`,
+  `snap-src/bin/ferretdb-control`, `snap-src/bin/migration-control`, `snap-src/bin/migration-pending`).
+  Previously the control scripts **force-switched** to FerretDB whenever a `*.sqlite` file
+  existed, so `snap set wekan database=mongodb` would not stick and there was no way to keep
+  WeKan on MongoDB while fixing a migration — a failed migration meant downtime. Now the
+  `database` setting decides which database WeKan runs on, and **`snap run wekan.database
+  mongodb`** switches WeKan to MongoDB (and pauses auto-migration, `migrate=off`) while
+  **`snap run wekan.database ferretdb`** switches to the migrated FerretDB. Auto-migration can
+  be paused with `snap set wekan migrate=off` and, crucially, **a migration that FAILS now pauses
+  itself and hands back to MongoDB automatically** (`migration-control` `fail_and_run_mongodb`)
+  so WeKan keeps working on MongoDB instead of retrying-and-failing every start; re-run it with
+  `snap run wekan.migrate`. A successful migration also **restarts `wekan.wekan`** so it
+  reconnects to FerretDB. The only remaining auto-override is the safety guard that refuses to
+  start an empty FerretDB while MongoDB still holds data. Thanks to xet7.
+
 and fixes the following bugs:
 
 - **Snap: `db-eval` could not load the MongoDB driver, so EVERY database readiness check

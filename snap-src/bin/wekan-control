@@ -24,59 +24,32 @@ if [ -f "$SNAP_COMMON/.wekan-maintenance" ]; then
 fi
 
 # ---------------------------------------------------------------------------------------
-# Decide which database to ACTUALLY use, based on what data exists on disk - not on the
-# `database` snap setting alone. That setting can be flipped to ferretdb before any data
-# has been migrated, and the migration's INTERNAL `snapctl set` does not re-run the
-# configure hook, so it can also be stale. Before committing to FerretDB we check:
-#   - FerretDB (SQLite) data: $SNAP_COMMON/files/db      (non-empty dir = FerretDB has data)
-#   - MongoDB (WiredTiger) data: $SNAP_COMMON            (WiredTiger / collection-*.wt files)
-#   - migration-success marker: $SNAP_COMMON/.migration-to-ferretdb-done
+# Which database does WeKan use? The `database` snap setting is AUTHORITATIVE:
+#   snap set wekan database=mongodb    -> WeKan runs on MongoDB
+#   snap set wekan database=ferretdb   -> WeKan runs on FerretDB (migrated SQLite)
+# So an admin can keep WeKan working on MongoDB while a FerretDB migration is being fixed -
+# there is NO forced auto-switch to FerretDB just because a SQLite file exists. A successful
+# migration sets database=ferretdb itself (migration-control's finish_success). The ONLY
+# override is the safety guard below: never start an EMPTY FerretDB while real data still
+# lives in MongoDB (that would look like all data was lost).
 # ---------------------------------------------------------------------------------------
 FERRETDB_SQLITE_DIR="$SNAP_COMMON/files/db"
-
-# FerretDB "has data" ONLY if a *.sqlite database file actually exists in files/db. This is
-# the authoritative signal that the MongoDB -> FerretDB migration SUCCEEDED. Do NOT trust the
-# .migration-to-ferretdb-done marker for this: that marker is also set when the migration
-# falls back to MongoDB (data unreadable / tools missing) or when there is nothing to migrate,
-# in which case files/db is EMPTY and FerretDB must not be used.
 ferretdb_has_data=false
-if bash "$SNAP/bin/ferretdb-has-data" "$FERRETDB_SQLITE_DIR"; then
-    ferretdb_has_data=true
-fi
-
+if bash "$SNAP/bin/ferretdb-has-data" "$FERRETDB_SQLITE_DIR"; then ferretdb_has_data=true; fi
 mongodb_has_data=false
-if [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; then
-    mongodb_has_data=true
-fi
-
+if [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; then mongodb_has_data=true; fi
 echo "Database selection: setting='${DATABASE:-mongodb}' ferretdb_has_data=${ferretdb_has_data} mongodb_has_data=${mongodb_has_data}"
 
-# If a FerretDB SQLite database exists, the migration succeeded and FerretDB is authoritative:
-# force ferretdb - in case the setting drifted back to mongodb, or the services were left
-# stopped/disabled (the migration's internal `snapctl set` does not re-run the configure hook
-# that flips them). This makes WeKan self-healing instead of waiting forever for a MongoDB
-# that is gone.
-if [ "$ferretdb_has_data" = "true" ] && [ "ferretdb" != "$DATABASE" ]; then
-    echo "FerretDB (SQLite) database present; forcing database=ferretdb."
-    export DATABASE="ferretdb"
-    snapctl set database=ferretdb 2>/dev/null || true
-fi
-
-# SAFETY: never start an EMPTY FerretDB while real data still lives in MongoDB. This is the
-# case where database=ferretdb was selected (or forced) but the migration never ran, so
-# there is no SQLite database yet - starting FerretDB would make WeKan look completely
-# wiped. Revert to MongoDB (which still has the data) and tell the user to migrate first.
+# SAFETY: never start an EMPTY FerretDB while real data still lives in MongoDB - that would
+# look like all data was lost. Revert to MongoDB (which still has the data) and tell the admin
+# to migrate first. Only fires when database=ferretdb AND no SQLite exists AND MongoDB has data.
 if [ "ferretdb" = "$DATABASE" ] && [ "$ferretdb_has_data" != "true" ] && [ "$mongodb_has_data" = "true" ]; then
     echo "========================================================================"
-    echo "WeKan: database=ferretdb, but the FerretDB SQLite database is empty/missing:"
+    echo "WeKan: database=ferretdb, but no FerretDB SQLite database exists in"
     echo "  $FERRETDB_SQLITE_DIR"
-    echo "and MongoDB (WiredTiger) data IS present in $SNAP_COMMON."
-    echo ""
-    echo "Refusing to start an EMPTY FerretDB - that would look like all data was lost."
-    echo "Reverting to database=mongodb so your existing data stays available."
-    echo ""
-    echo "To move this server to FerretDB, run the MongoDB -> FerretDB migration first"
-    echo "(it fills $FERRETDB_SQLITE_DIR and only switches to ferretdb on success)."
+    echo "while MongoDB data IS present. Refusing to start an EMPTY FerretDB - reverting to"
+    echo "database=mongodb so your data stays available. Run 'snap run wekan.migrate' to"
+    echo "migrate, or 'snap set wekan database=ferretdb' again once it is migrated."
     echo "========================================================================"
     export DATABASE="mongodb"
     snapctl set database=mongodb 2>/dev/null || true

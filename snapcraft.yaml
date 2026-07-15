@@ -134,6 +134,10 @@ apps:
         command: ./bin/wekan-maintenance
         plugs: [network, network-bind]
 
+    database:
+        command: ./bin/wekan-database
+        plugs: [network, network-bind]
+
 
 parts:
     mongodb:

@@ -205,7 +205,10 @@ finish_success() {
   snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
   snapctl restart "${svc}.ferretdb" 2>/dev/null || true
   snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
-  log "FerretDB (SQLite) service enabled and started; MongoDB service stopped and disabled."
+  # WeKan (wekan.wekan) was waiting for MongoDB (which is now gone); restart it so it re-reads
+  # database=ferretdb and connects to FerretDB, instead of waiting forever for MongoDB.
+  snapctl restart "${svc}.wekan" 2>/dev/null || true
+  log "FerretDB (SQLite) service enabled and started; MongoDB stopped/disabled; WeKan restarted onto FerretDB."
 }
 # A FAILED migration may have written a PARTIAL FerretDB SQLite (some collections copied before
 # the error). Left in place it looks "non-empty" to ferretdb-has-data and would wrongly make the
@@ -218,15 +221,27 @@ discard_partial_ferretdb() {
   rm -rf "${SQLITE_DIR:?}/"* 2>/dev/null || true
   log "Removed any partial FerretDB SQLite from $SQLITE_DIR; the snap stays on MongoDB."
 }
-# Last resort when the data can be read by neither mongod 7 nor mongod 3.2 (unusual /
-# corrupt), or the migration tools are missing: don't loop forever with nothing
-# running — hand back to mongodb-control (marker set) so mongod starts normally and
-# the admin can intervene. Data is never modified or deleted.
+# A migration FAILURE must NOT cause downtime. Delete any partial FerretDB SQLite, PAUSE
+# auto-migration (`migrate=off`) so it does not loop and re-hijack every start, and hand back to
+# mongodb-control to start MongoDB normally — so WeKan keeps working on MongoDB while the admin
+# fixes the problem and reruns `snap run wekan.migrate` (which re-enables migrate). The source
+# MongoDB data is never modified or deleted.
+fail_and_run_mongodb() {
+  discard_partial_ferretdb
+  snapctl set migrate=off 2>/dev/null || true
+  log "Auto-migration PAUSED (snap set wekan migrate=off) so WeKan keeps working on MongoDB."
+  log "Fix the problem, then retry with:  snap run wekan.migrate"
+  force_stop_src
+  exec bash "$SNAP/bin/mongodb-control"
+}
+# Last resort when the data can be read by neither mongod 7 nor mongod 3.2 (unusual / corrupt),
+# or the migration tools are missing: don't loop with nothing running — pause auto-migration and
+# hand back to mongodb-control so mongod starts normally. Data is never modified or deleted.
 fall_back_to_mongodb() {   # $1 = human-readable reason
   log "$1"
-  log "Starting MongoDB normally (no migration this run)."
+  log "Starting MongoDB normally (no migration this run). Pausing auto-migration (migrate=off)."
   force_stop_src
-  touch "$MARKER"
+  snapctl set migrate=off 2>/dev/null || true
   exec bash "$SNAP/bin/mongodb-control"
 }
 
@@ -253,12 +268,9 @@ if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB
   MIGRATION_PORT="$WEKAN_PORT" \
     "$NODE" "$IMPORTER_MODERN"
   rc=$?
-  if [ "$rc" -eq 0 ] && finish_success; then :
-  else
-    log "ERROR: migration did not complete (importer rc=$rc). MongoDB data kept; will retry on next start."
-    discard_partial_ferretdb
-  fi
-  exit 0
+  if [ "$rc" -eq 0 ] && finish_success; then exit 0; fi
+  log "ERROR: migration did not complete (importer rc=$rc). Keeping WeKan on MongoDB."
+  fail_and_run_mongodb
 fi
 stop_via_node
 force_stop_src
@@ -292,8 +304,8 @@ rc=$?
 
 if [ "$rc" -eq 0 ] && finish_success; then :
 else
-  log "ERROR: migration did not complete (importer rc=$rc). MongoDB 3 data kept; will retry on next start."
-  discard_partial_ferretdb
+  log "ERROR: migration did not complete (importer rc=$rc). Keeping WeKan on MongoDB."
+  fail_and_run_mongodb
 fi
 
 # temp FerretDB + source mongod are stopped by the EXIT trap.

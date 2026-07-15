@@ -34,6 +34,9 @@ rm -rf "${COMMON:?}/files/db/"* 2>/dev/null || true
 # Put the snap back on mongodb so the normal path (mongodb-control -> migration-control) runs;
 # migration-control detects MongoDB 3 or 7, migrates, and switches to ferretdb itself on success.
 snapctl set database=mongodb 2>/dev/null || true
+# Re-enable auto-migration (a previous failure, or `wekan.database mongodb`, may have paused it
+# with migrate=off) so migration-pending reports pending and migration-control runs.
+snapctl set migrate=on 2>/dev/null || true
 
 # Start MongoDB (runs migration-control now that the marker is gone and MongoDB data exists) and
 # WeKan (which serves the migration dashboard on the web port and connects when it finishes).
