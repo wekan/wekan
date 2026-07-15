@@ -86,6 +86,115 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- **Snap / Sandstorm migration dashboard: live per-file progress and a disk-space safety
+  guard** (`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`). While a MongoDB 3 database's
+  attachments/avatars are migrated to the filesystem, the progress page now shows a **live
+  per-file progress bar** for the file currently being extracted — its name, size, "file N
+  of TOTAL", percent, and whether it is an **attachment or an avatar** (using WeKan's
+  existing translations in the viewer's browser language, with an English fallback; there
+  is no logged-in user during migration, so the browser's `Accept-Language` is used). Big
+  files no longer land in RAM: each GridFS file is **streamed chunk-by-chunk** straight to
+  disk (the old approach buffered the whole file through mongoexport's 512 MB stdout limit
+  and failed on large attachments). Because a full disk can corrupt the still-running
+  source MongoDB, the migration guards disk space **where it can measure it** (Snap with a
+  working `statfs`): it shows **remaining disk space**, checks the total size of all files
+  **up front** and stops before extracting if the volume cannot hold them, and stops
+  mid-run if free space drops below a safety margin (default 1 GB, `MIGRATION_MIN_FREE_BYTES`).
+  A Sandstorm grain cannot see its own free space or quota (its FUSE layer does not
+  implement `statfs` and `quotactl` is blocked — `statfs` on `/var` would report the *host*
+  disk, not the grain quota), and a locked-down Snap container may not report it either; in
+  those "unknown free space" cases the migration hides the space figures and instead treats
+  an actual **`ENOSPC`/`EDQUOT` write failure** as "out of space". On **any** such stop it
+  **deletes the partially-migrated files to free the space back**, reports how many files
+  were migrated before stopping, and shows how much more disk space is required to migrate
+  them all. Platform is detected from the environment (`$SNAP`; `SANDSTORM` /
+  `SANDSTORM_RAW_MONGO_PATH` / `METEOR_SETTINGS`). Thanks to xet7.
+
+and adds the following updates:
+
+- **i18n: 10 more selectable languages, corrected native names, and a Transifex-pull safety
+  report**. Added `languages.js` picker entries for translation files that were pulled from
+  Transifex but had no entry (so they were never selectable): Català (Valencià), English
+  (Indonesia / Singapore / Turkey), Español (Colombia), Français (France), Português
+  (Portugal), Русский (Украина), Türkmençe (Türkmenistan) and 吴语（简体）. Fixed language
+  names that showed the English name instead of the native one: Welsh → **Cymraeg** (and
+  `cy-GB` → *Cymraeg (Y Deyrnas Unedig)*), Acehnese → **Bahsa Acèh**, and *Afrikaans (South
+  Africa)* → *Afrikaans (Suid-Afrika)*. Also, `releases/translations/pull-translations.sh`
+  now runs a new `report-english-regressions.mjs` after `tx pull` that lists any language
+  file where a previously-translated string reverted to the English source (untranslated on
+  Transifex), so the regression is visible instead of committed silently. Thanks to xet7.
+
+and fixes the following tests:
+
+- **Test / dev infrastructure: starting a dev server now also frees the MongoDB port,
+  not just the app and rspack ports** (`rebuild-wekan.sh`, `kill_meteor_on_port`).
+  Picking a "Run Meteor for dev" option stops any server already on the app port, but it
+  only freed the app port (3000) and the rspack dev-server port (8080) — not Meteor's
+  bundled MongoDB on app-port+1 (3001). When the previous meteor parent is SIGKILLed its
+  mongo child is often orphaned and keeps holding 3001, so the new `meteor run` died with
+  `Unexpected mongo exit code 48 ... port was closed, or was already taken`. The stop step
+  now also frees app-port+1 (which additionally clears a leftover standalone test mongod
+  on :3001) and waits for all three ports before starting. Thanks to xet7.
+
+and fixes the following bugs:
+
+- **Snap: MongoDB 3 → FerretDB migration failed with "EJSON.parse unavailable", and the
+  progress dashboard should stay on the page you were on**
+  (`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`). The migrator reads the 3.2 source with
+  the legacy CLI and inserts into FerretDB with the modern Node driver, which needs
+  WeKan's current `bson` (with EJSON) and `mongodb` v6 (OP_MSG). It anchored those
+  `require`s at paths relative to the script — but in the snap the script runs from
+  `$SNAP/bin/` while the bundle is at `$SNAP/programs/server/…` (one level up), so every
+  anchor resolved `$SNAP/bin/programs/server/…` (nonexistent) and fell through to the
+  ancient meteor-spk base `bson` 1.x that has no EJSON → `FATAL: EJSON.parse unavailable`
+  and the migration aborted. Now it builds candidate bundle roots from `$SNAP` (env) and
+  the script's parent directories and searches the known modern-bundle sub-paths under
+  each (npm-mongo's nested v6 driver first, so the ancient v2 that FerretDB rejects with
+  "Unsupported OP_QUERY" is never picked). The migration progress dashboard already
+  answers on every URL (so reloading any board page during migration shows progress); on
+  completion it now reloads the **same page you were on** instead of forcing All Boards.
+  (The dashboard itself also gained live per-file progress and a disk-space safety guard —
+  see the new features above.) Thanks to xet7.
+- **Admin Panel / Features / Security: "Always show all code as plain text" did not take
+  effect (links stayed clickable, code stayed rendered)**. The setting is applied by the
+  inner `markdown` helper, which reads a `ReactiveVar` (`Markdown.alwaysShowCodeAsText`)
+  that only a separate startup autorun kept in sync. But the `mentions` viewer wrapper
+  re-renders whenever the settings doc changes (it reads it for "render links as plain
+  text"), and that re-render usually ran BEFORE the startup autorun updated the
+  ReactiveVar — so the markdown helper read the stale value and rendered normally, and
+  because `mentions` does not depend on that ReactiveVar it never re-rendered again (the
+  race persisted even after reload). Fixed by setting the flag inside the `mentions`
+  helper, from the same reactive `getCurrentSetting()` it already reads, right before it
+  renders the inner markdown — so the toggle now takes effect immediately in every
+  rich-text field (card titles, descriptions, comments, checklists). Thanks to xet7.
+- **i18n: several languages fell back to English (or clobbered another language) because a
+  browser language string did not map to the right translation file**. Fixes:
+  - **Japanese `ja_JP` overwrote `ja`.** The Transifex `.tx/config` `lang_map` had
+    `ja_JP: ja`, writing Transifex's `ja_JP` into `imports/i18n/data/ja.i18n.json` — the
+    same file the real Japanese (`ja`) uses — so `tx pull -a -f` reverted Japanese to the
+    English source. Mapped to its own file (`ja_JP: ja-JP`); `ja`, `ja-JP` and `ja-Hira`
+    are now three separate files, matching `languages.js`.
+  - **Language matching is now case- and underscore/hyphen-insensitive** (requested):
+    `isLanguageSupported` and a new `TAPi18n.resolveTag()` map any input to the canonical
+    tag (`zh-hant` → `zh-Hant`, `JA-JP` → `ja-JP`, browser `af-ZA` → legacy key `af_ZA`);
+    `loadLanguage`/`setLanguage`/`ensureLanguageLoaded` resolve through it so the loaded
+    file, the i18next code and the stored current tag all agree.
+  - **Chinese: `zh-Hans-CN` / `zh-Hant-TW` (and bare `zh`) fell back to English.** Browser
+    detection now strips trailing subtags progressively (`zh-Hans-CN` → `zh-Hans`,
+    `zh-Hant-TW` → `zh-Hant`) instead of jumping to the first segment, and bare `zh` is
+    aliased to `zh-Hans` (Simplified). Each Chinese variant (`zh-CN`, `zh-TW`, `zh-HK`,
+    `zh-Hans`, `zh-Hant`, `zh-SG`) maps to its own file.
+  - **Mandarin (`cmn`) was unselectable** — its `tag` was the typo `cnm` (and `code` `cn`),
+    which mismatched `supportedLngs`; fixed to `cmn`.
+
+  Regression tests added in `imports/i18n/i18n.test.js`. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.90 2026-07-15 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUE of [MimeBleed](https://wekan.fi/hall-of-fame/mimebleed/):
@@ -173,29 +282,6 @@ and adds the following new features:
   (while keeping its visible text) in the shared DOMPurify sanitizer used by the
   rich text viewer, gated on the setting so toggling it re-renders reactively.
   Thanks to bcook-konza and xet7.
-- **Snap / Sandstorm migration dashboard: live per-file progress and a disk-space safety
-  guard** (`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`). While a MongoDB 3 database's
-  attachments/avatars are migrated to the filesystem, the progress page now shows a **live
-  per-file progress bar** for the file currently being extracted — its name, size, "file N
-  of TOTAL", percent, and whether it is an **attachment or an avatar** (using WeKan's
-  existing translations in the viewer's browser language, with an English fallback; there
-  is no logged-in user during migration, so the browser's `Accept-Language` is used). Big
-  files no longer land in RAM: each GridFS file is **streamed chunk-by-chunk** straight to
-  disk (the old approach buffered the whole file through mongoexport's 512 MB stdout limit
-  and failed on large attachments). Because a full disk can corrupt the still-running
-  source MongoDB, the migration guards disk space **where it can measure it** (Snap with a
-  working `statfs`): it shows **remaining disk space**, checks the total size of all files
-  **up front** and stops before extracting if the volume cannot hold them, and stops
-  mid-run if free space drops below a safety margin (default 1 GB, `MIGRATION_MIN_FREE_BYTES`).
-  A Sandstorm grain cannot see its own free space or quota (its FUSE layer does not
-  implement `statfs` and `quotactl` is blocked — `statfs` on `/var` would report the *host*
-  disk, not the grain quota), and a locked-down Snap container may not report it either; in
-  those "unknown free space" cases the migration hides the space figures and instead treats
-  an actual **`ENOSPC`/`EDQUOT` write failure** as "out of space". On **any** such stop it
-  **deletes the partially-migrated files to free the space back**, reports how many files
-  were migrated before stopping, and shows how much more disk space is required to migrate
-  them all. Platform is detected from the environment (`$SNAP`; `SANDSTORM` /
-  `SANDSTORM_RAW_MONGO_PATH` / `METEOR_SETTINGS`). Thanks to xet7.
 
 and adds the following updates:
 
@@ -210,17 +296,6 @@ and adds the following updates:
   existing webhook consumers are unaffected. Thanks to xet7.
 - [Update Sandstorm Docs about how to install newest test version](https://github.com/wekan/wekan/commit/422daa6a0c33a578ebd84a77e7a537caf73f2510).
   Thanks to xet7.
-- **i18n: 10 more selectable languages, corrected native names, and a Transifex-pull safety
-  report**. Added `languages.js` picker entries for translation files that were pulled from
-  Transifex but had no entry (so they were never selectable): Català (Valencià), English
-  (Indonesia / Singapore / Turkey), Español (Colombia), Français (France), Português
-  (Portugal), Русский (Украина), Türkmençe (Türkmenistan) and 吴语（简体）. Fixed language
-  names that showed the English name instead of the native one: Welsh → **Cymraeg** (and
-  `cy-GB` → *Cymraeg (Y Deyrnas Unedig)*), Acehnese → **Bahsa Acèh**, and *Afrikaans (South
-  Africa)* → *Afrikaans (Suid-Afrika)*. Also, `releases/translations/pull-translations.sh`
-  now runs a new `report-english-regressions.mjs` after `tx pull` that lists any language
-  file where a previously-translated string reverted to the English source (untranslated on
-  Transifex), so the regression is visible instead of committed silently. Thanks to xet7.
 
 and fixes the following tests:
 
@@ -337,15 +412,6 @@ and fixes the following tests:
   bundle-based :3000 server (the `.bat` resolves Meteor's bundled `node` / `mongod` from
   the dev_bundle, starts mongod in a minimized window, and stops it on exit only when it
   started it). Thanks to xet7.
-- **Test / dev infrastructure: starting a dev server now also frees the MongoDB port,
-  not just the app and rspack ports** (`rebuild-wekan.sh`, `kill_meteor_on_port`).
-  Picking a "Run Meteor for dev" option stops any server already on the app port, but it
-  only freed the app port (3000) and the rspack dev-server port (8080) — not Meteor's
-  bundled MongoDB on app-port+1 (3001). When the previous meteor parent is SIGKILLed its
-  mongo child is often orphaned and keeps holding 3001, so the new `meteor run` died with
-  `Unexpected mongo exit code 48 ... port was closed, or was already taken`. The stop step
-  now also frees app-port+1 (which additionally clears a leftover standalone test mongod
-  on :3001) and waits for all three ports before starting. Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -377,56 +443,6 @@ and fixes the following bugs:
   real engine — `wiredTiger` (or `inMemory`) — from `storageStats`. The MongoDB
   compatible version and Database commit were already correct: they come from
   `buildInfo`, which needs no special privileges. Thanks to xet7.
-- **Snap: MongoDB 3 → FerretDB migration failed with "EJSON.parse unavailable", and the
-  progress dashboard should stay on the page you were on**
-  (`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`). The migrator reads the 3.2 source with
-  the legacy CLI and inserts into FerretDB with the modern Node driver, which needs
-  WeKan's current `bson` (with EJSON) and `mongodb` v6 (OP_MSG). It anchored those
-  `require`s at paths relative to the script — but in the snap the script runs from
-  `$SNAP/bin/` while the bundle is at `$SNAP/programs/server/…` (one level up), so every
-  anchor resolved `$SNAP/bin/programs/server/…` (nonexistent) and fell through to the
-  ancient meteor-spk base `bson` 1.x that has no EJSON → `FATAL: EJSON.parse unavailable`
-  and the migration aborted. Now it builds candidate bundle roots from `$SNAP` (env) and
-  the script's parent directories and searches the known modern-bundle sub-paths under
-  each (npm-mongo's nested v6 driver first, so the ancient v2 that FerretDB rejects with
-  "Unsupported OP_QUERY" is never picked). The migration progress dashboard already
-  answers on every URL (so reloading any board page during migration shows progress); on
-  completion it now reloads the **same page you were on** instead of forcing All Boards.
-  (The dashboard itself also gained live per-file progress and a disk-space safety guard —
-  see the new features above.) Thanks to xet7.
-- **Admin Panel / Features / Security: "Always show all code as plain text" did not take
-  effect (links stayed clickable, code stayed rendered)**. The setting is applied by the
-  inner `markdown` helper, which reads a `ReactiveVar` (`Markdown.alwaysShowCodeAsText`)
-  that only a separate startup autorun kept in sync. But the `mentions` viewer wrapper
-  re-renders whenever the settings doc changes (it reads it for "render links as plain
-  text"), and that re-render usually ran BEFORE the startup autorun updated the
-  ReactiveVar — so the markdown helper read the stale value and rendered normally, and
-  because `mentions` does not depend on that ReactiveVar it never re-rendered again (the
-  race persisted even after reload). Fixed by setting the flag inside the `mentions`
-  helper, from the same reactive `getCurrentSetting()` it already reads, right before it
-  renders the inner markdown — so the toggle now takes effect immediately in every
-  rich-text field (card titles, descriptions, comments, checklists). Thanks to xet7.
-- **i18n: several languages fell back to English (or clobbered another language) because a
-  browser language string did not map to the right translation file**. Fixes:
-  - **Japanese `ja_JP` overwrote `ja`.** The Transifex `.tx/config` `lang_map` had
-    `ja_JP: ja`, writing Transifex's `ja_JP` into `imports/i18n/data/ja.i18n.json` — the
-    same file the real Japanese (`ja`) uses — so `tx pull -a -f` reverted Japanese to the
-    English source. Mapped to its own file (`ja_JP: ja-JP`); `ja`, `ja-JP` and `ja-Hira`
-    are now three separate files, matching `languages.js`.
-  - **Language matching is now case- and underscore/hyphen-insensitive** (requested):
-    `isLanguageSupported` and a new `TAPi18n.resolveTag()` map any input to the canonical
-    tag (`zh-hant` → `zh-Hant`, `JA-JP` → `ja-JP`, browser `af-ZA` → legacy key `af_ZA`);
-    `loadLanguage`/`setLanguage`/`ensureLanguageLoaded` resolve through it so the loaded
-    file, the i18next code and the stored current tag all agree.
-  - **Chinese: `zh-Hans-CN` / `zh-Hant-TW` (and bare `zh`) fell back to English.** Browser
-    detection now strips trailing subtags progressively (`zh-Hans-CN` → `zh-Hans`,
-    `zh-Hant-TW` → `zh-Hant`) instead of jumping to the first segment, and bare `zh` is
-    aliased to `zh-Hans` (Simplified). Each Chinese variant (`zh-CN`, `zh-TW`, `zh-HK`,
-    `zh-Hans`, `zh-Hant`, `zh-SG`) maps to its own file.
-  - **Mandarin (`cmn`) was unselectable** — its `tag` was the typo `cnm` (and `code` `cn`),
-    which mismatched `supportedLngs`; fixed to `cmn`.
-
-  Regression tests added in `imports/i18n/i18n.test.js`. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
