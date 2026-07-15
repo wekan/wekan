@@ -210,6 +210,17 @@ and adds the following updates:
   existing webhook consumers are unaffected. Thanks to xet7.
 - [Update Sandstorm Docs about how to install newest test version](https://github.com/wekan/wekan/commit/422daa6a0c33a578ebd84a77e7a537caf73f2510).
   Thanks to xet7.
+- **i18n: 10 more selectable languages, corrected native names, and a Transifex-pull safety
+  report**. Added `languages.js` picker entries for translation files that were pulled from
+  Transifex but had no entry (so they were never selectable): Català (Valencià), English
+  (Indonesia / Singapore / Turkey), Español (Colombia), Français (France), Português
+  (Portugal), Русский (Украина), Türkmençe (Türkmenistan) and 吴语（简体）. Fixed language
+  names that showed the English name instead of the native one: Welsh → **Cymraeg** (and
+  `cy-GB` → *Cymraeg (Y Deyrnas Unedig)*), Acehnese → **Bahsa Acèh**, and *Afrikaans (South
+  Africa)* → *Afrikaans (Suid-Afrika)*. Also, `releases/translations/pull-translations.sh`
+  now runs a new `report-english-regressions.mjs` after `tx pull` that lists any language
+  file where a previously-translated string reverted to the English source (untranslated on
+  Transifex), so the regression is visible instead of committed silently. Thanks to xet7.
 
 and fixes the following tests:
 
@@ -395,6 +406,27 @@ and fixes the following bugs:
   helper, from the same reactive `getCurrentSetting()` it already reads, right before it
   renders the inner markdown — so the toggle now takes effect immediately in every
   rich-text field (card titles, descriptions, comments, checklists). Thanks to xet7.
+- **i18n: several languages fell back to English (or clobbered another language) because a
+  browser language string did not map to the right translation file**. Fixes:
+  - **Japanese `ja_JP` overwrote `ja`.** The Transifex `.tx/config` `lang_map` had
+    `ja_JP: ja`, writing Transifex's `ja_JP` into `imports/i18n/data/ja.i18n.json` — the
+    same file the real Japanese (`ja`) uses — so `tx pull -a -f` reverted Japanese to the
+    English source. Mapped to its own file (`ja_JP: ja-JP`); `ja`, `ja-JP` and `ja-Hira`
+    are now three separate files, matching `languages.js`.
+  - **Language matching is now case- and underscore/hyphen-insensitive** (requested):
+    `isLanguageSupported` and a new `TAPi18n.resolveTag()` map any input to the canonical
+    tag (`zh-hant` → `zh-Hant`, `JA-JP` → `ja-JP`, browser `af-ZA` → legacy key `af_ZA`);
+    `loadLanguage`/`setLanguage`/`ensureLanguageLoaded` resolve through it so the loaded
+    file, the i18next code and the stored current tag all agree.
+  - **Chinese: `zh-Hans-CN` / `zh-Hant-TW` (and bare `zh`) fell back to English.** Browser
+    detection now strips trailing subtags progressively (`zh-Hans-CN` → `zh-Hans`,
+    `zh-Hant-TW` → `zh-Hant`) instead of jumping to the first segment, and bare `zh` is
+    aliased to `zh-Hans` (Simplified). Each Chinese variant (`zh-CN`, `zh-TW`, `zh-HK`,
+    `zh-Hans`, `zh-Hant`, `zh-SG`) maps to its own file.
+  - **Mandarin (`cmn`) was unselectable** — its `tag` was the typo `cnm` (and `code` `cn`),
+    which mismatched `supportedLngs`; fixed to `cmn`.
+
+  Regression tests added in `imports/i18n/i18n.test.js`. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
