@@ -1,4 +1,5 @@
 import {addGroupsWithAttributes, addEmail, changeFullname, changeUsername, oauth2AdminStatusFromGroups} from './loginHandler';
+import { assertOidcCodeNotReplayed } from './oidcCodeReplayGuard';
 import { fetch, Headers } from 'meteor/fetch';
 import { URLSearchParams } from 'meteor/url';
 import { Buffer } from 'node:buffer';
@@ -24,6 +25,13 @@ var userinfo = {};
 
 OAuth.registerService('oidc', 2, null, async function (query) {
   var debug = process.env.DEBUG === 'true';
+
+  // SECURITY (pentest finding, 2026-07): a captured /_oauth/oidc?state=...
+  // &code=... request could be replayed (e.g. via a proxy history entry)
+  // to mint a brand-new, fully valid Wekan session after the original user
+  // had already logged out. Reject a repeat before ever contacting the
+  // IdP, regardless of whether the IdP itself would tolerate the replay.
+  await assertOidcCodeNotReplayed(query, OidcConsumedCodes);
 
   var token = await getToken(query);
   if (debug) console.log('XXX: register token:', token);

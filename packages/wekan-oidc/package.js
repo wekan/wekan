@@ -19,6 +19,7 @@ Package.onUse(function(api) {
 
   api.addFiles(['oidc_configure.html', 'oidc_configure.js'], 'client');
 
+  api.addFiles('oidcCodeReplayGuard.js', 'server');
   api.addFiles('oidc_server.js', 'server');
   api.addFiles('oidc_client.js', 'client');
 });
