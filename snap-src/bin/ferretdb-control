@@ -18,14 +18,15 @@ fi
 echo "Reading snap settings..."
 source $SNAP/bin/wekan-read-settings
 
-# The migration-success marker is AUTHORITATIVE: once the MongoDB -> FerretDB migration
-# has finished, the data lives in FerretDB (SQLite) and FerretDB IS the database - even if
-# the `database` setting was never flipped to ferretdb (e.g. the migration's INTERNAL
-# `snapctl set` did not re-run the configure hook, so `snapctl get database` still returns
-# mongodb). Without this, every `snap start wekan.ferretdb` would read database=mongodb and
-# immediately self-disable below. Repair the setting and keep running instead.
-if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && [ "ferretdb" != "${DATABASE}" ]; then
-    echo "MongoDB -> FerretDB migration already finished; forcing database=ferretdb."
+# FerretDB (SQLite) DATA PRESENCE is authoritative: if a *.sqlite database exists in files/db,
+# the MongoDB -> FerretDB migration succeeded and FerretDB IS the database - even if the
+# `database` setting was never flipped to ferretdb (e.g. the migration's INTERNAL `snapctl set`
+# did not re-run the configure hook). Repair the setting and keep running instead of
+# self-disabling below. Do NOT key this off the .migration-to-ferretdb-done marker alone: that
+# marker is also set when the migration FALLS BACK to MongoDB with no FerretDB data, and
+# forcing ferretdb then would point WeKan at an empty database.
+if ls "$SNAP_COMMON/files/db"/*.sqlite >/dev/null 2>&1 && [ "ferretdb" != "${DATABASE}" ]; then
+    echo "FerretDB (SQLite) database present; forcing database=ferretdb."
     DATABASE="ferretdb"
     snapctl set database=ferretdb 2>/dev/null || true
 fi

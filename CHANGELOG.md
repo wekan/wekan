@@ -150,20 +150,20 @@ This release fixes the following bugs:
   `sudo snap set wekan database=ferretdb`.
   Thanks to xet7.
 
-- **Snap: the migration-success marker is now authoritative, so FerretDB starts even if the
-  `database` setting was never flipped** (`snap-src/bin/ferretdb-control`,
-  `snap-src/bin/mongodb-control`, `snap-src/bin/wekan-control`). Every DB service keyed its
-  behaviour off the `database` setting alone: `ferretdb-control` logged *"database is
-  'mongodb', not 'ferretdb'. Disabling ferretdb service."* and self-disabled whenever the
-  setting still said `mongodb` — so on an already-migrated install `snap start
-  wekan.ferretdb` started and then immediately stopped itself, unfixable by hand without
-  first setting `database=ferretdb`. Now the marker
-  `$SNAP_COMMON/.migration-to-ferretdb-done` overrides the setting: when present,
-  `ferretdb-control` repairs `database=ferretdb` and keeps running instead of self-disabling;
-  `mongodb-control` disables itself (before the migration-pending check, so a finished
-  migration is never re-attempted); and `wekan-control` forces ferretdb and brings the
-  service up. WeKan thus recovers on its own after a migration whose setting flip was lost.
-  Thanks to xet7.
+- **Snap: the presence of a FerretDB SQLite database — not the migration marker — now decides
+  whether to use FerretDB, so a FAILED migration no longer leaves the snap with no database**
+  (`snap-src/bin/ferretdb-control`, `snap-src/bin/mongodb-control`, `snap-src/bin/wekan-control`).
+  An earlier attempt keyed the "use FerretDB / disable MongoDB" decision off the
+  `$SNAP_COMMON/.migration-to-ferretdb-done` marker. But `migration-control` also writes that
+  marker when the migration **falls back** (data unreadable, tools missing) or when there is
+  nothing to migrate — with **no** FerretDB data produced. So on a server whose MongoDB → FerretDB
+  migration failed, `mongodb-control` saw the marker, logged *"migration already finished;
+  disabling mongodb service"* and disabled MongoDB, while FerretDB's SQLite was empty — leaving
+  WeKan with no database at all, looping *"MongoDB not ready yet, retrying…"* forever and refusing
+  to keep `wekan.mongodb` running. Now all three scripts decide from **actual data on disk**:
+  MongoDB is disabled / FerretDB is forced **only when a `*.sqlite` database exists in
+  `files/db`**; an empty `files/db` means the migration did not succeed, so MongoDB starts
+  normally and WeKan keeps working while the migration can be retried. Thanks to xet7.
 
 - **Snap: WeKan now starts its database itself on startup instead of waiting forever for a
   stopped one** (`snap-src/bin/wekan-control`). Previously the `wekan.wekan` service only
