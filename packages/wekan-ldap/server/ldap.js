@@ -420,7 +420,7 @@ export default class LDAP {
     // Escape the username to prevent LDAP injection
     const escapedUsername = escapedToHex(username);
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, escapedUsername).replace(/\\/g, "\\\\"),
+      filter: filter.join('').replace(/#{username}/g, escapedUsername),
       scope : 'sub',
     };
 
@@ -470,7 +470,7 @@ export default class LDAP {
     // Escape the username to prevent LDAP injection
     const escapedUsername = escapedToHex(username);
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, escapedUsername).replace(/\\/g, "\\\\"),
+      filter: filter.join('').replace(/#{username}/g, escapedUsername),
       scope : 'sub',
     };
 
