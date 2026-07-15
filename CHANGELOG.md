@@ -138,6 +138,11 @@ This release fixes the following bugs:
   of its data. The checkpoint is only meaningful together with the SQLite it describes, so the two
   are now always discarded together. Thanks to markusst1982 and xet7.
 
+- **Snap: releases are now published to the Snap Store `stable` channel automatically**
+  (`.github/workflows/release-all.yml`). Both snap jobs (native and Launchpad) pushed only to
+  `candidate`, `beta` and `edge`, and `stable` had to be released by hand afterwards. Both now
+  publish to `stable,candidate,beta,edge`. Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.94 2026-07-15 WeKan ® release
