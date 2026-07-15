@@ -166,6 +166,20 @@ start_target_ferretdb() {   # $1 = source-stop shell command
 # database=ferretdb on the next activation, stops+disables the MongoDB service — so
 # afterwards only WeKan (Node.js) + FerretDB (SQLite) run.
 finish_success() {
+  # VERIFY the migration actually produced a non-empty FerretDB SQLite database before
+  # switching. The importer returning 0 is not enough: if it wrote nothing (e.g. it connected
+  # but a bug left the target empty), switching would point WeKan at an EMPTY FerretDB. Require
+  # a *.sqlite file bigger than 0 bytes (ferretdb-has-data); the -wal/-shm sidecars are present
+  # too right after migration, so log them as extra confirmation. On failure, do NOT switch or
+  # mark done — keep the MongoDB data and let it retry on the next start.
+  if ! bash "$SNAP/bin/ferretdb-has-data" "$SQLITE_DIR"; then
+    log "ERROR: importer reported success but no non-empty FerretDB SQLite database exists in $SQLITE_DIR. NOT switching to FerretDB; MongoDB data kept; will retry next start."
+    return 1
+  fi
+  local sq wal
+  sq="$(ls -la "$SQLITE_DIR"/*.sqlite 2>/dev/null | head -n1)"
+  wal="$(ls "$SQLITE_DIR"/*.sqlite-wal 2>/dev/null | head -n1)"
+  log "FerretDB SQLite verified (${sq:-?})${wal:+; WAL log present}."
   log "Migration succeeded. Switching to FerretDB (SQLite); MongoDB will be shut down."
   touch "$MARKER"
   snapctl set database=ferretdb 2>/dev/null || true

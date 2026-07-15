@@ -49,8 +49,8 @@ fi
 # data - left WeKan with no database at all ("MongoDB not ready yet, retrying..." forever, and
 # mongodb refusing to stay up). An empty files/db means the migration did NOT succeed: fall
 # through so mongod starts normally. Runs BEFORE the migration-pending check.
-if [ ! -f "$WEKAN_MAINTENANCE" ] && ls "$SNAP_COMMON/files/db"/*.sqlite >/dev/null 2>&1; then
-    echo "FerretDB (SQLite) database present; MongoDB -> FerretDB migration is complete. Disabling mongodb service."
+if [ ! -f "$WEKAN_MAINTENANCE" ] && bash "$SNAP/bin/ferretdb-has-data"; then
+    echo "FerretDB (SQLite) database present and non-empty; MongoDB -> FerretDB migration is complete. Disabling mongodb service."
     snapctl set database=ferretdb 2>/dev/null || true
     snapctl stop --disable ${SNAP_NAME}.mongodb 2>/dev/null || true
     exit 0

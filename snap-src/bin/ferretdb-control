@@ -35,8 +35,8 @@ fi
 # self-disabling below. Do NOT key this off the .migration-to-ferretdb-done marker alone: that
 # marker is also set when the migration FALLS BACK to MongoDB with no FerretDB data, and
 # forcing ferretdb then would point WeKan at an empty database.
-if ls "$SNAP_COMMON/files/db"/*.sqlite >/dev/null 2>&1 && [ "ferretdb" != "${DATABASE}" ]; then
-    echo "FerretDB (SQLite) database present; forcing database=ferretdb."
+if bash "$SNAP/bin/ferretdb-has-data" && [ "ferretdb" != "${DATABASE}" ]; then
+    echo "FerretDB (SQLite) database present and non-empty; forcing database=ferretdb."
     DATABASE="ferretdb"
     snapctl set database=ferretdb 2>/dev/null || true
 fi

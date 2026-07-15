@@ -1,0 +1,22 @@
+#!/bin/bash
+# ferretdb-has-data — exit 0 if the FerretDB (SQLite) database exists AND actually has data.
+#
+# "Has data" = there is a *.sqlite file BIGGER THAN 0 BYTES in the FerretDB SQLite directory
+# (default $SNAP_COMMON/files/db). This — NOT the .migration-to-ferretdb-done marker, which is
+# also written when the migration falls back with no data — is what the snap uses to decide
+# whether to run FerretDB or MongoDB. A successful MongoDB -> FerretDB migration leaves a
+# non-empty <db>.sqlite (plus its -wal / -shm sidecar files); a failed/empty migration leaves
+# files/db empty or a 0-byte file.
+#
+# NOTE: we deliberately require only the .sqlite file and size > 0 here, NOT the -wal file:
+# SQLite in WAL mode may checkpoint and remove -wal/-shm when the last connection closes, so a
+# stopped FerretDB can legitimately have no -wal. The stronger "wal present too" check is done
+# once, right after migration, in migration-control's finish_success (where FerretDB has just
+# written the data and the WAL is present).
+#
+# Optional arg $1 overrides the directory to check.
+DBDIR="${1:-${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}/files/db}"
+for f in "$DBDIR"/*.sqlite; do
+    [ -f "$f" ] && [ -s "$f" ] && exit 0
+done
+exit 1

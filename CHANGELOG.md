@@ -184,7 +184,13 @@ This release fixes the following bugs:
   to keep `wekan.mongodb` running. Now all three scripts decide from **actual data on disk**:
   MongoDB is disabled / FerretDB is forced **only when a `*.sqlite` database exists in
   `files/db`**; an empty `files/db` means the migration did not succeed, so MongoDB starts
-  normally and WeKan keeps working while the migration can be retried. Thanks to xet7.
+  normally and WeKan keeps working while the migration can be retried. The check is a single
+  shared helper (`snap-src/bin/ferretdb-has-data`) that requires a `*.sqlite` file **bigger than
+  0 bytes**, not merely present, so a 0-byte stub never counts as "migrated". And
+  `migration-control`'s `finish_success` now **verifies that non-empty SQLite (with its WAL)
+  exists before switching to FerretDB** — if the importer returns success but wrote no data, the
+  snap keeps MongoDB and retries next start instead of switching to an empty database. Thanks to
+  xet7.
 
 - **Snap: new `snap run wekan.migrate` command to force a fresh MongoDB → FerretDB migration**
   (`snap-src/bin/wekan-force-migrate`, registered in `snapcraft.yaml`). Ignores the `database`

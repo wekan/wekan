@@ -40,7 +40,7 @@ FERRETDB_SQLITE_DIR="$SNAP_COMMON/files/db"
 # falls back to MongoDB (data unreadable / tools missing) or when there is nothing to migrate,
 # in which case files/db is EMPTY and FerretDB must not be used.
 ferretdb_has_data=false
-if ls "$FERRETDB_SQLITE_DIR"/*.sqlite >/dev/null 2>&1; then
+if bash "$SNAP/bin/ferretdb-has-data" "$FERRETDB_SQLITE_DIR"; then
     ferretdb_has_data=true
 fi
 
