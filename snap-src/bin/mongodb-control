@@ -120,6 +120,27 @@ echo "  MONGODB_PORT: ${MONGODB_PORT}"
 echo "  MONGODB_BIND_UNIX_SOCKET: ${MONGODB_BIND_UNIX_SOCKET:-not set}"
 echo "  BIND_OPTIONS: ${BIND_OPTIONS}"
 
+# WiredTiger cache size, RAM-aware. This was previously HARDCODED to 32 GB, which on any
+# box with less than ~34 GB RAM made mongod get OOM-killed shortly after startup: the
+# temporary mongod (used to initialise the replica set) died before it could be reached,
+# so the replica set was NEVER initiated, the final mongod ran with --replSet rs0 but no
+# config, no PRIMARY was ever elected, and WeKan looped "MongoDB not ready yet, retrying
+# in 5 seconds..." forever (issue #6454). Compute a safe value from MemTotal instead:
+# ~50% of (RAM - 1 GB) - the same formula mongod uses for its own default - never above
+# RAM, capped at 32 GB (the old value, kept as the ceiling for big servers), min 1 GB.
+# Override with the MONGODB_WIREDTIGER_CACHE_GB env var if you need a specific size.
+if [ -n "${MONGODB_WIREDTIGER_CACHE_GB}" ]; then
+    WT_CACHE_GB="${MONGODB_WIREDTIGER_CACHE_GB}"
+else
+    _mem_kb=$(awk '/^MemTotal:/{print $2}' /proc/meminfo 2>/dev/null)
+    [ -z "${_mem_kb}" ] && _mem_kb=2097152   # assume 2 GB if MemTotal is unreadable
+    _mem_gb=$(( _mem_kb / 1024 / 1024 ))
+    WT_CACHE_GB=$(( (_mem_gb - 1) / 2 ))
+    [ "${WT_CACHE_GB}" -lt 1 ]  && WT_CACHE_GB=1
+    [ "${WT_CACHE_GB}" -gt 32 ] && WT_CACHE_GB=32
+fi
+echo "  WiredTiger cache: ${WT_CACHE_GB} GB (RAM-aware; formerly hardcoded 32 GB - see #6454)"
+
 # Check if MongoDB is already running
 check_mongodb_running() {
     local port="${MONGODB_PORT}"
@@ -193,7 +214,7 @@ $SNAP/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
     --logappend $BIND_OPTIONS \
-    --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 \
+    --storageEngine wiredTiger --wiredTigerCacheSizeGB "${WT_CACHE_GB}" \
     --timeZoneInfo /usr/share/zoneinfo \
     --setParameter logicalSessionRefreshMillis=900000 \
     --setParameter localLogicalSessionTimeoutMinutes=45 \
@@ -208,8 +229,12 @@ _RS_URL="mongodb://127.0.0.1:${_RS_PORT}/?directConnection=true"
 _wait=0
 until "$DB_EVAL" ping "$_RS_URL" >/dev/null 2>&1; do
     _wait=$((_wait + 1))
-    if [ $_wait -ge 30 ]; then
-        echo "WARNING: MongoDB did not respond within 30 seconds"
+    # 90 s, not 30 s: a large production database can need more than 30 s to replay its
+    # WiredTiger journal on first open. If we gave up at 30 s we would skip the replica-set
+    # initialise/reconfig below, and the final mongod would then run with no elected PRIMARY
+    # — WeKan would loop "MongoDB not ready yet, retrying..." forever (#6454).
+    if [ $_wait -ge 90 ]; then
+        echo "WARNING: MongoDB did not respond within 90 seconds"
         break
     fi
     sleep 1
@@ -253,7 +278,7 @@ exec $SNAP/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
     --logappend $BIND_OPTIONS \
-    --storageEngine wiredTiger --wiredTigerCacheSizeGB 32 \
+    --storageEngine wiredTiger --wiredTigerCacheSizeGB "${WT_CACHE_GB}" \
     --timeZoneInfo /usr/share/zoneinfo \
     --setParameter logicalSessionRefreshMillis=900000 \
     --setParameter localLogicalSessionTimeoutMinutes=45 \

@@ -90,6 +90,24 @@ them up next.
 
 This release fixes the following bugs:
 
+- **Snap: WeKan never started on a running MongoDB, looping "MongoDB not ready yet,
+  retrying in 5 seconds..." forever, on any server with less than ~34 GB RAM**
+  ([#6454](https://github.com/wekan/wekan/issues/6454), `snap-src/bin/mongodb-control`,
+  `snap-src/bin/migration-control`). The WiredTiger cache size was **hardcoded to 32 GB**.
+  On a smaller box (e.g. 8 GB) mongod was OOM-killed seconds after it started — including
+  the *temporary* mongod that `mongodb-control` starts to initialise the replica set, which
+  died before it could be reached, so the replica set was **never initiated**. The final
+  mongod then ran with `--replSet rs0` but no config, **no PRIMARY was ever elected**, and
+  since Meteor requires the replica-set primary (change streams), `wekan-control` waited on
+  it forever. Fixes: (1) the cache size is now **RAM-aware** — ~50 % of (RAM − 1 GB), the
+  same formula mongod uses for its own default, capped at 32 GB, min 1 GB, overridable with
+  `MONGODB_WIREDTIGER_CACHE_GB`; (2) the temporary-mongod readiness wait is raised from 30 s
+  to 90 s so a large database that needs longer to replay its journal still gets its replica
+  set initialised; and (3) the temporary source mongod that the MongoDB → FerretDB migration
+  starts to *read* the data now uses a conservative RAM-aware cache (¼ of (RAM − 1 GB), cap
+  8 GB) so it leaves room for the target FerretDB and the importer running alongside it.
+  Thanks to xet7.
+
 - **Snap: after a MongoDB → FerretDB migration, FerretDB never started and WeKan was stuck
   on "MongoDB not ready yet, retrying..."** (`snap-src/bin/migration-control`). The
   `wekan.ferretdb` service disables itself while `database` is `mongodb`; the migration

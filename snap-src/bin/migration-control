@@ -70,7 +70,27 @@ export LC_ALL=C
 # (docs/Backup/Backup.md: $SNAP/lib/<arch>-linux-gnu).
 export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:${LD_LIBRARY_PATH:-}"
 
-start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be empty)
+# RAM-aware WiredTiger cache for the TEMPORARY source mongod we start to READ the existing
+# data during migration. mongod's own default (~50% of RAM) is too much HERE because the
+# target FerretDB and the Node importer run at the SAME time and also need RAM - and an
+# oversized cache is exactly what OOM-kills mongod on small boxes (#6454). Use a
+# conservative quarter of (RAM - 1 GB), min 1 GB, cap 8 GB. Override with
+# MIGRATION_MONGOD_CACHE_GB. (Applied only to the mongod 7 read below, which is
+# WiredTiger-only; the legacy mongod 3.2 read keeps its own RAM-aware default so the flag
+# can never clash with an MMAPv1 3.x dbpath.)
+if [ -n "${MIGRATION_MONGOD_CACHE_GB:-}" ]; then
+  SRC_WT_CACHE_GB="${MIGRATION_MONGOD_CACHE_GB}"
+else
+  _mem_kb=$(awk '/^MemTotal:/{print $2}' /proc/meminfo 2>/dev/null)
+  [ -z "${_mem_kb:-}" ] && _mem_kb=2097152   # assume 2 GB if MemTotal is unreadable
+  _mem_gb=$(( _mem_kb / 1024 / 1024 ))
+  SRC_WT_CACHE_GB=$(( (_mem_gb - 1) / 4 ))
+  [ "${SRC_WT_CACHE_GB}" -lt 1 ] && SRC_WT_CACHE_GB=1
+  [ "${SRC_WT_CACHE_GB}" -gt 8 ] && SRC_WT_CACHE_GB=8
+fi
+log "Temporary source mongod WiredTiger cache: ${SRC_WT_CACHE_GB} GB (RAM-aware; leaves room for FerretDB + importer)"
+
+start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be empty), $3 = extra args (optional)
   rm -f "$SRC_PIDFILE"
   # --pidfilepath records the forked daemon's PID so force_stop_src can kill
   # exactly this temporary mongod before we hand back to the normal mongod start
@@ -78,7 +98,7 @@ start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be emp
   # lock and the real start would fail with "Unable to lock the lock file".
   LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" \
     --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
-    --logpath "$LOGF" --logappend --fork --pidfilepath "$SRC_PIDFILE" >/dev/null 2>&1
+    --logpath "$LOGF" --logappend --fork --pidfilepath "$SRC_PIDFILE" ${3:-} >/dev/null 2>&1
 }
 # Guarantee no temporary source mongod is left holding the dbpath lock.
 force_stop_src() {
@@ -181,7 +201,7 @@ fall_back_to_mongodb() {   # $1 = human-readable reason
 # CollectionFS + Meteor-Files GridFS attachments/avatars onto the filesystem
 # (files/attachments, files/avatars). Version only decides HOW we read the source.
 log "Checking whether mongod 7 can open the existing data ..."
-if start_mongod "$SNAP/bin/mongod" "" && ready_via_node; then
+if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" && ready_via_node; then
   if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER_MODERN" ]; then
     fall_back_to_mongodb "Migration tools unavailable; cannot migrate this modern MongoDB to FerretDB."
   fi
