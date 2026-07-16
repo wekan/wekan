@@ -2,6 +2,7 @@ import { SyncedCron } from 'meteor/quave:synced-cron';
 import limax from 'limax';
 import LDAP from './ldap';
 import { slugifyPreservingHyphens } from './usernameSlug';
+import { parseGroupAllowlist, filterGroupsByAllowlist } from './groupAllowlist';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { getLdapPhotoBuffer } from './ldapPhoto';
 
@@ -17,15 +18,6 @@ Object.defineProperty(Object.prototype, "getLDAPValue", {
 
   enumerable: false
 });
-
-// #4737: parse a comma-separated LDAP group allowlist setting into a trimmed,
-// non-empty array. Returns [] when unset/empty, meaning "no restriction".
-function parseGroupAllowlist(value) {
-  if (typeof value !== 'string' || value.trim() === '') {
-    return [];
-  }
-  return value.split(',').map((s) => s.trim()).filter(Boolean);
-}
 
 export function slug(text) {
   if (LDAP.settings_get('LDAP_UTF8_NAMES_SLUGIFY') !== true) {
@@ -422,6 +414,27 @@ export async function importNewUsers(ldap) {
   log_info('Import finished. Users imported:', count);
 }
 
+// Invoke the app-side LDAP org/team sync in server context.
+// During login, Meteor.callAsync can inherit the client invocation context and
+// be rejected by the admin guard in setUserOrgsTeamsFromLdap. Calling the
+// method handler directly with connection:null uses the intended internal path.
+async function callLdapOrgTeamSyncInternal(userId, groupNames, asOrganization) {
+  const handlers = Meteor.server && Meteor.server.method_handlers;
+  const handler = handlers && handlers.setUserOrgsTeamsFromLdap;
+
+  if (typeof handler === 'function') {
+    const invocation = {
+      userId: null,
+      connection: null,
+      setUserId() { },
+      unblock() { },
+    };
+    return await handler.apply(invocation, [userId, groupNames, asOrganization]);
+  }
+
+  return await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, groupNames, asOrganization);
+}
+
 // #4737: optionally sync a user's LDAP groups as Wekan Organizations and/or
 // Teams. Opt-in via LDAP_SYNC_ORGANIZATIONS / LDAP_SYNC_TEAMS (default off). The
 // optional comma-separated allowlists LDAP_SYNC_ORGANIZATIONS_GROUPS /
@@ -445,17 +458,17 @@ export async function syncUserGroupsToOrgsTeams(ldap, ldapUser, userId) {
 
   if (syncOrgs) {
     const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS_GROUPS'));
-    const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+    const names = filterGroupsByAllowlist(userGroups, allow);
     if (names.length > 0) {
-      await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, names, true);
+      await callLdapOrgTeamSyncInternal(userId, names, true);
     }
   }
 
   if (syncTeams) {
     const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_TEAMS_GROUPS'));
-    const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+    const names = filterGroupsByAllowlist(userGroups, allow);
     if (names.length > 0) {
-      await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, names, false);
+      await callLdapOrgTeamSyncInternal(userId, names, false);
     }
   }
 }
