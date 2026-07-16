@@ -143,6 +143,21 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
+- **Subtasks: creating a subtask crashed with "Exception while invoking method 'addSubtaskCard'"**
+  ([#6456](https://github.com/wekan/wekan/issues/6456), `models/boards.js`,
+  `tests/subtasksDefaultBoard.test.cjs`). The lazily-creating getters for the default subtasks
+  helper board and its landing list still used the SYNC `Boards.insert` / `Swimlanes.insert` /
+  `Lists.insert` / `Boards.update` APIs, which Meteor 3 removed from the server — so the
+  `addSubtaskCard` method's async path crashed with *"insert is not available on the server.
+  Please use insertAsync() instead"* the first time a board needed its `^Board^` helper board
+  created (the list creator additionally read `getDefaultSwimline()._id`, which on the Meteor 3
+  server is a Promise, so it could never have worked). The sync getters are now PURE (no
+  creation — also matching the #3868/#2256 rule that only the server may create these), and the
+  server-side lazy creation lives in `getDefaultSubtasksBoardAsync`/`getDefaultSubtasksListAsync`
+  using the async APIs. The never-called date-settings twins, which had the same sync calls and
+  no server-only guard at all, are pure getters now too. With a regression test guarding that no
+  sync collection writes come back to `models/boards.js`. Thanks to sjohnen and xet7.
+
 - **GUI: the "More" menu of cards was completely empty, so cards could not be deleted from it**
   ([#6459](https://github.com/wekan/wekan/issues/6459),
   `npm-packages/meteor-jade-loader/lib/vendor/htmljs.js`, `client/components/lists/listHeader.jade`).

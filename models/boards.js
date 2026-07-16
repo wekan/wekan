@@ -1668,17 +1668,27 @@ Boards.helpers({
   // that belong to itself.
   getDefaultSubtasksBoardId() {
     // #3868 / #5788 / #2256: only the SERVER may auto-create the default
-    // subtasks board (+ its swimlane). On the client the board's
-    // subtasksDefaultBoardId can momentarily read as unset (e.g. the helper
-    // board is not in the published set "if you don't navigate through All
-    // Boards first"), and creating it client-side produced a new board/swimlane
-    // on every subtask creation. Server-authoritative creation happens once.
-    if (
-      Meteor.isServer &&
-      (this.subtasksDefaultBoardId === null ||
-        this.subtasksDefaultBoardId === undefined)
-    ) {
-      this.subtasksDefaultBoardId = Boards.insert({
+    // subtasks board (+ its swimlane) — and #6456: on Meteor 3 the server may
+    // not use the sync insert/update APIs either ("insert is not available on
+    // the server"), which made addSubtaskCard throw here. This is now a PURE
+    // getter; the server-side creation lives in getDefaultSubtasksBoardAsync
+    // (the only path the addSubtaskCard method uses).
+    return this.subtasksDefaultBoardId;
+  },
+
+  getDefaultSubtasksBoard() {
+    return ReactiveCache.getBoard(this.getDefaultSubtasksBoardId());
+  },
+
+  async getDefaultSubtasksBoardAsync() {
+    let boardId = this.getDefaultSubtasksBoardId();
+
+    // #6456: server-authoritative lazy creation, once, with the async APIs
+    // (the sync Boards.insert/Swimlanes.insert/Boards.update this used to rely
+    // on throw on the Meteor 3 server, so creating a subtask crashed with
+    // "Exception while invoking method 'addSubtaskCard'").
+    if (!boardId && Meteor.isServer) {
+      boardId = await Boards.insertAsync({
         title: `^${this.title}^`,
         permission: this.permission,
         members: sanitizeBoardMembers(this.members),
@@ -1690,25 +1700,14 @@ Boards.helpers({
         ),
       });
 
-      Swimlanes.insert({
+      await Swimlanes.insertAsync({
         title: getTranslatedString('default', 'Default'),
-        boardId: this.subtasksDefaultBoardId,
+        boardId,
       });
-      Boards.update(this._id, {
-        $set: {
-          subtasksDefaultBoardId: this.subtasksDefaultBoardId,
-        },
-      });
+      await this.setSubtasksDefaultBoardId(boardId);
+      this.subtasksDefaultBoardId = boardId;
     }
-    return this.subtasksDefaultBoardId;
-  },
 
-  getDefaultSubtasksBoard() {
-    return ReactiveCache.getBoard(this.getDefaultSubtasksBoardId());
-  },
-
-  async getDefaultSubtasksBoardAsync() {
-    const boardId = this.getDefaultSubtasksBoardId();
     if (!boardId) {
       return null;
     }
@@ -1722,32 +1721,13 @@ Boards.helpers({
 
   //Date Settings option such as received date, start date and so on.
   getDefaultDateSettingsBoardId() {
-    if (
-      this.dateSettingsDefaultBoardId === null ||
-      this.dateSettingsDefaultBoardId === undefined
-    ) {
-      this.dateSettingsDefaultBoardId = Boards.insert({
-        title: `^${this.title}^`,
-        permission: this.permission,
-        members: sanitizeBoardMembers(this.members),
-        color: this.color,
-        description: getTranslatedString(
-          'default-dates-board',
-          `Default dates board for ${this.title}`,
-          { board: this.title },
-        ),
-      });
-
-      Swimlanes.insert({
-        title: getTranslatedString('default', 'Default'),
-        boardId: this.dateSettingsDefaultBoardId,
-      });
-      Boards.update(this._id, {
-        $set: {
-          dateSettingsDefaultBoardId: this.dateSettingsDefaultBoardId,
-        },
-      });
-    }
+    // #6456 (same class): PURE getter. The lazy sync creation this used had
+    // BOTH bug classes — no Meteor.isServer guard (client-side creation on
+    // every reactive read, the #2256/#3868 duplicate-boards class) and the
+    // sync Boards.insert/Swimlanes.insert/Boards.update APIs that throw on the
+    // Meteor 3 server. Nothing in the codebase calls it today; if a feature
+    // needs the dates helper board again, add an async server-side ensure like
+    // getDefaultSubtasksBoardAsync.
     return this.dateSettingsDefaultBoardId;
   },
 
@@ -1756,21 +1736,10 @@ Boards.helpers({
   },
 
   getDefaultSubtasksListId() {
-    // #3868 / #5788 / #2256: server-only auto-creation of the default subtasks
-    // list (see getDefaultSubtasksBoardId) so the client cannot create
-    // duplicate lists when the field momentarily reads as unset.
-    if (
-      Meteor.isServer &&
-      (this.subtasksDefaultListId === null ||
-        this.subtasksDefaultListId === undefined)
-    ) {
-      this.subtasksDefaultListId = Lists.insert({
-        title: getTranslatedString('queue', 'Queue'),
-        boardId: this._id,
-        swimlaneId: this.getDefaultSwimline()._id, // Set default swimlane for subtasks list
-      });
-      this.setSubtasksDefaultListId(this.subtasksDefaultListId);
-    }
+    // #3868 / #5788 / #2256 / #6456: PURE getter — client-side creation
+    // duplicated lists, and the sync Lists.insert this used on the server
+    // throws on Meteor 3. Server-side creation lives in
+    // getDefaultSubtasksListAsync.
     return this.subtasksDefaultListId;
   },
 
@@ -1779,7 +1748,23 @@ Boards.helpers({
   },
 
   async getDefaultSubtasksListAsync() {
-    const listId = this.getDefaultSubtasksListId();
+    let listId = this.getDefaultSubtasksListId();
+
+    // #6456: server-authoritative lazy creation with the async APIs (the sync
+    // Lists.insert + getDefaultSwimline() this relied on throw on the Meteor 3
+    // server — getDefaultSwimline's sync ReactiveCache read even returns a
+    // Promise there, so .._id was never valid).
+    if (!listId && Meteor.isServer) {
+      const swimlane = await this.getDefaultSwimlineAsync();
+      listId = await Lists.insertAsync({
+        title: getTranslatedString('queue', 'Queue'),
+        boardId: this._id,
+        swimlaneId: swimlane ? swimlane._id : undefined, // Set default swimlane for subtasks list
+      });
+      await this.setSubtasksDefaultListId(listId);
+      this.subtasksDefaultListId = listId;
+    }
+
     if (!listId) {
       return null;
     }
@@ -1792,17 +1777,7 @@ Boards.helpers({
   },
 
   getDefaultDateSettingsListId() {
-    if (
-      this.dateSettingsDefaultListId === null ||
-      this.dateSettingsDefaultListId === undefined
-    ) {
-      this.dateSettingsDefaultListId = Lists.insert({
-        title: getTranslatedString('queue', 'Queue'),
-        boardId: this._id,
-        swimlaneId: this.getDefaultSwimline()._id, // Set default swimlane for date settings list
-      });
-      this.setDateSettingsDefaultListId(this.dateSettingsDefaultListId);
-    }
+    // #6456 (same class): PURE getter — see getDefaultDateSettingsBoardId.
     return this.dateSettingsDefaultListId;
   },
 
