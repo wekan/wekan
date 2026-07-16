@@ -179,12 +179,15 @@ Source). On Snap use the lower-case dash-separated equivalent (for example
 - `LDAP_SYNC_ORGANIZATIONS` (default `false`) — when `true`, a user's LDAP groups
   are synced into that user's Wekan **Organizations**.
 - `LDAP_SYNC_ORGANIZATIONS_GROUPS` (default empty) — comma-separated list of LDAP
-  group names to sync as Organizations. Leave empty to sync all of the user's
-  groups.
+  group names/patterns to sync as Organizations. Leave empty to sync all of the
+  user's groups. Supports wildcards: `*` (any number of characters) and `?`
+  (single character).
 - `LDAP_SYNC_TEAMS` (default `false`) — when `true`, a user's LDAP groups are
   synced into that user's Wekan **Teams**.
 - `LDAP_SYNC_TEAMS_GROUPS` (default empty) — comma-separated list of LDAP group
-  names to sync as Teams. Leave empty to sync all of the user's groups.
+  names/patterns to sync as Teams. Leave empty to sync all of the user's
+  groups. Supports wildcards: `*` (any number of characters) and `?` (single
+  character).
 
 Notes:
 

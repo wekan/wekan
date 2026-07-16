@@ -686,13 +686,15 @@ services:
       # When true, sync a user's LDAP groups as Wekan Organizations.
       #- LDAP_SYNC_ORGANIZATIONS=false
       #
-      # Comma separated allowlist of LDAP group names to sync as Organizations. Empty = all of the user's groups.
+      # Comma separated allowlist of LDAP group names/patterns to sync as Organizations.
+      # Wildcards supported: * (any chars), ? (single char). Empty = all of the user's groups.
       #- LDAP_SYNC_ORGANIZATIONS_GROUPS=
       #
       # When true, sync a user's LDAP groups as Wekan Teams.
       #- LDAP_SYNC_TEAMS=false
       #
-      # Comma separated allowlist of LDAP group names to sync as Teams. Empty = all of the user's groups.
+      # Comma separated allowlist of LDAP group names/patterns to sync as Teams.
+      # Wildcards supported: * (any chars), ? (single char). Empty = all of the user's groups.
       #- LDAP_SYNC_TEAMS_GROUPS=
       #---------------------------------------------------------------------
       # Login to LDAP automatically with HTTP header.

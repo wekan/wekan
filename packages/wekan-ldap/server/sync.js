@@ -2,6 +2,7 @@ import { SyncedCron } from 'meteor/quave:synced-cron';
 import limax from 'limax';
 import LDAP from './ldap';
 import { slugifyPreservingHyphens } from './usernameSlug';
+import { parseGroupAllowlist, filterGroupsByAllowlist } from './groupAllowlist';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { getLdapPhotoBuffer } from './ldapPhoto';
 
@@ -17,15 +18,6 @@ Object.defineProperty(Object.prototype, "getLDAPValue", {
 
   enumerable: false
 });
-
-// #4737: parse a comma-separated LDAP group allowlist setting into a trimmed,
-// non-empty array. Returns [] when unset/empty, meaning "no restriction".
-function parseGroupAllowlist(value) {
-  if (typeof value !== 'string' || value.trim() === '') {
-    return [];
-  }
-  return value.split(',').map((s) => s.trim()).filter(Boolean);
-}
 
 export function slug(text) {
   if (LDAP.settings_get('LDAP_UTF8_NAMES_SLUGIFY') !== true) {
@@ -466,7 +458,7 @@ export async function syncUserGroupsToOrgsTeams(ldap, ldapUser, userId) {
 
   if (syncOrgs) {
     const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS_GROUPS'));
-    const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+    const names = filterGroupsByAllowlist(userGroups, allow);
     if (names.length > 0) {
       await callLdapOrgTeamSyncInternal(userId, names, true);
     }
@@ -474,7 +466,7 @@ export async function syncUserGroupsToOrgsTeams(ldap, ldapUser, userId) {
 
   if (syncTeams) {
     const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_TEAMS_GROUPS'));
-    const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
+    const names = filterGroupsByAllowlist(userGroups, allow);
     if (names.length > 0) {
       await callLdapOrgTeamSyncInternal(userId, names, false);
     }
