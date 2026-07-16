@@ -19,6 +19,9 @@ Package.onUse(function(api) {
 
 	api.use('accounts-base', 'server');
 	api.use('accounts-password', 'server');
+	// DDP._CurrentMethodInvocation: server/sync.js clears the inherited login
+	// invocation context so the org/team sync method call is server-to-server.
+	api.use('ddp', 'server');
 	api.use('quave:synced-cron', 'server');
 	api.addFiles('client/loginHelper.js', 'client');
 

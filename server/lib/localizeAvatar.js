@@ -94,21 +94,21 @@ export async function localizeAvatarFromBuffer(userId, buffer, { type = 'image/p
   } catch (e) { /* if the setting can't be read, fall through (default: allowed) */ }
   const ext = extForType(type);
   const fileName = (name && String(name).replace(/[^a-zA-Z0-9_.\-]/g, '_')) || `avatar.${ext}`;
-    try {
+  try {
     const fileRef = await Avatars.writeAsync(
-        buffer,
-        { fileName, type, userId, meta: { source: 'localized-external' } },
-      true,
+      buffer,
+      { fileName, type, userId, meta: { source: 'localized-external' } },
+      true, // proceedAfterUpload → runs onAfterUpload (validation + setAvatarUrl)
     );
     if (!fileRef || !fileRef._id) {
       return null;
     }
     // onAfterUpload has set profile.avatarUrl asynchronously; report the id-based URL.
     return `/cdn/storage/avatars/${fileRef._id}`;
-    } catch (e) {
+  } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('localizeAvatar: write failed:', e.message);
     return null;
-    }
+  }
 }
 
 // Fetch an external avatar URL and store it locally for `userId`.

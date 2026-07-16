@@ -1,4 +1,5 @@
 import { SyncedCron } from 'meteor/quave:synced-cron';
+import { DDP } from 'meteor/ddp';
 import limax from 'limax';
 import LDAP from './ldap';
 import { slugifyPreservingHyphens } from './usernameSlug';
@@ -414,25 +415,19 @@ export async function importNewUsers(ldap) {
   log_info('Import finished. Users imported:', count);
 }
 
-// Invoke the app-side LDAP org/team sync in server context.
-// During login, Meteor.callAsync can inherit the client invocation context and
-// be rejected by the admin guard in setUserOrgsTeamsFromLdap. Calling the
-// method handler directly with connection:null uses the intended internal path.
+// #6461: invoke the app-side LDAP org/team sync as a true server-to-server call.
+// A plain Meteor.callAsync here would inherit the CURRENT method invocation —
+// the server's applyAsync copies its userId AND connection into the nested call
+// — and during login that is the client's `login` method call, so the admin
+// guard in setUserOrgsTeamsFromLdap saw a client connection with no logged-in
+// user yet and rejected the sync with 'forbidden'. Clearing the invocation
+// context makes applyAsync use userId:null/connection:null — the documented
+// internal path the method's guard allows — while still going through the
+// normal method dispatch (check() audits, EJSON argument cloning).
 async function callLdapOrgTeamSyncInternal(userId, groupNames, asOrganization) {
-  const handlers = Meteor.server && Meteor.server.method_handlers;
-  const handler = handlers && handlers.setUserOrgsTeamsFromLdap;
-
-  if (typeof handler === 'function') {
-    const invocation = {
-      userId: null,
-      connection: null,
-      setUserId() { },
-      unblock() { },
-    };
-    return await handler.apply(invocation, [userId, groupNames, asOrganization]);
-  }
-
-  return await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, groupNames, asOrganization);
+  return await DDP._CurrentMethodInvocation.withValue(undefined, () =>
+    Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, groupNames, asOrganization),
+  );
 }
 
 // #4737: optionally sync a user's LDAP groups as Wekan Organizations and/or

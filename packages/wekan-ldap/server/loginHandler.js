@@ -263,6 +263,5 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
   // #4737: sync LDAP groups as Organizations/Teams for the new user (default off).
   await syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, result.userId);
 
-
   return result;
 });

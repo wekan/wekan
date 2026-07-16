@@ -102,6 +102,36 @@ This release adds the following updates:
 - [Bump websocket-driver from 0.7.4 to 0.7.5](https://github.com/wekan/wekan/pull/6462).
   Thanks to dependabot.
 
+and fixes the following bugs:
+
+- **LDAP: group search filters were double-escaped and broke group filtering**
+  ([#6460](https://github.com/wekan/wekan/issues/6460),
+  [PR #6469](https://github.com/wekan/wekan/pull/6469), `packages/wekan-ldap/server/ldap.js`).
+  The group filter was post-processed with a global backslash-doubling replace, a leftover
+  workaround from the ldapjs era that predates the proper `escapedToHex` hex escaping. It turned
+  already-correct RFC 4515 escapes like `\5c` and `\28` (an AD DN with an escaped comma, a group
+  name with parentheses) into `\\5c`/`\\28`, which ldapts' strict filter parser rejects with
+  *"Invalid escaped hex character"* — so group filtering, admin-status sync and role sync failed
+  for exactly those directories. The redundant replace is removed; injection protection is
+  unchanged (`escapedToHex` still hex-escapes the username). Thanks to ChristianMa97.
+
+- **LDAP: enabling org/team sync made every LDAP login fail with 'forbidden'**
+  ([#6461](https://github.com/wekan/wekan/issues/6461),
+  [PR #6470](https://github.com/wekan/wekan/pull/6470), `packages/wekan-ldap/server/loginHandler.js`,
+  `packages/wekan-ldap/server/sync.js`). On the server, a nested `Meteor.callAsync` inherits the
+  current method invocation's `connection`, so when the login handler called the
+  `setUserOrgsTeamsFromLdap` method, its admin guard saw the client's `login` connection with no
+  logged-in user yet and rejected the sync — and the unhandled rejection failed the whole login.
+  (The nightly cron sync runs outside a method invocation, so it was unaffected — which is why
+  this hid.) The login-time sync call now clears the inherited invocation context so it is a true
+  server-to-server call, and org/team sync is additionally wrapped so an optional-enrichment
+  failure is logged instead of blocking login. The same PR also throws the account-creation error
+  from `addLdapUser` at the right point (it was previously used as a user object first), fixes
+  external-avatar localization to use `Avatars.writeAsync` (the callback-style `write` no longer
+  exists in ostrio:files 3.x, so localizing avatars silently did nothing), and adds `*`/`?`
+  wildcard support with unit tests to the `LDAP_SYNC_ORGANIZATIONS_GROUPS` /
+  `LDAP_SYNC_TEAMS_GROUPS` allowlists. Thanks to ChristianMa97 and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.95 2026-07-15 WeKan ® release
