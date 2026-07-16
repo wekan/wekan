@@ -2,6 +2,16 @@ import {slug, getLdapUsername, getLdapEmail, getLdapUserUniqueID, syncUserData, 
 import LDAP from './ldap';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 
+// Org/team sync is optional enrichment; failed sync must not block login.
+async function syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, userId) {
+  try {
+    await syncUserGroupsToOrgsTeams(ldap, ldapUser, userId);
+  } catch (error) {
+    const reason = error && (error.reason || error.message || error.error);
+    log_warn('LDAP org/team sync failed during login; continuing without org/team sync', reason);
+  }
+}
+
 function fallbackDefaultAccountSystem(bind, username, password) {
   if (typeof username === 'string') {
     if (username.indexOf('@') === -1) {
@@ -199,9 +209,9 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
     }
 
     // #4737: sync LDAP groups as Organizations/Teams at login too (default off).
-    await syncUserGroupsToOrgsTeams(ldap, ldapUser, user._id);
+    await syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, user._id);
 
-    await Meteor.users.updateAsync(user._id, update_data );
+    await Meteor.users.updateAsync({ _id: user._id }, update_data);
 
     await syncUserData(user, ldapUser);
 
@@ -229,6 +239,10 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
 
   const result = await addLdapUser(ldapUser, username, loginRequest.ldapPass);
 
+  if (result instanceof Error) {
+    throw result;
+  }
+
   if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
     log_debug('Updating admin status');
     const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
@@ -247,12 +261,8 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
   }
 
   // #4737: sync LDAP groups as Organizations/Teams for the new user (default off).
-  await syncUserGroupsToOrgsTeams(ldap, ldapUser, result.userId);
+  await syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, result.userId);
 
-
-  if (result instanceof Error) {
-    throw result;
-  }
 
   return result;
 });

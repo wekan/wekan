@@ -94,26 +94,21 @@ export async function localizeAvatarFromBuffer(userId, buffer, { type = 'image/p
   } catch (e) { /* if the setting can't be read, fall through (default: allowed) */ }
   const ext = extForType(type);
   const fileName = (name && String(name).replace(/[^a-zA-Z0-9_.\-]/g, '_')) || `avatar.${ext}`;
-  return await new Promise((resolve) => {
     try {
-      Avatars.write(
+    const fileRef = await Avatars.writeAsync(
         buffer,
         { fileName, type, userId, meta: { source: 'localized-external' } },
-        (writeErr, fileRef) => {
-          if (writeErr || !fileRef) {
-            if (process.env.DEBUG === 'true') console.warn('localizeAvatar: write failed:', writeErr && writeErr.message);
-            return resolve(null);
-          }
-          // onAfterUpload has set profile.avatarUrl asynchronously; report the id-based URL.
-          resolve(`/cdn/storage/avatars/${fileRef._id}`);
-        },
-        true, // proceedAfterUpload → runs onAfterUpload (validation + setAvatarUrl)
-      );
-    } catch (e) {
-      if (process.env.DEBUG === 'true') console.warn('localizeAvatar: write threw:', e.message);
-      resolve(null);
+      true,
+    );
+    if (!fileRef || !fileRef._id) {
+      return null;
     }
-  });
+    // onAfterUpload has set profile.avatarUrl asynchronously; report the id-based URL.
+    return `/cdn/storage/avatars/${fileRef._id}`;
+    } catch (e) {
+    if (process.env.DEBUG === 'true') console.warn('localizeAvatar: write failed:', e.message);
+    return null;
+    }
 }
 
 // Fetch an external avatar URL and store it locally for `userId`.

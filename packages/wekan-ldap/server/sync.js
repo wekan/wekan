@@ -422,6 +422,27 @@ export async function importNewUsers(ldap) {
   log_info('Import finished. Users imported:', count);
 }
 
+// Invoke the app-side LDAP org/team sync in server context.
+// During login, Meteor.callAsync can inherit the client invocation context and
+// be rejected by the admin guard in setUserOrgsTeamsFromLdap. Calling the
+// method handler directly with connection:null uses the intended internal path.
+async function callLdapOrgTeamSyncInternal(userId, groupNames, asOrganization) {
+  const handlers = Meteor.server && Meteor.server.method_handlers;
+  const handler = handlers && handlers.setUserOrgsTeamsFromLdap;
+
+  if (typeof handler === 'function') {
+    const invocation = {
+      userId: null,
+      connection: null,
+      setUserId() { },
+      unblock() { },
+    };
+    return await handler.apply(invocation, [userId, groupNames, asOrganization]);
+  }
+
+  return await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, groupNames, asOrganization);
+}
+
 // #4737: optionally sync a user's LDAP groups as Wekan Organizations and/or
 // Teams. Opt-in via LDAP_SYNC_ORGANIZATIONS / LDAP_SYNC_TEAMS (default off). The
 // optional comma-separated allowlists LDAP_SYNC_ORGANIZATIONS_GROUPS /
@@ -447,7 +468,7 @@ export async function syncUserGroupsToOrgsTeams(ldap, ldapUser, userId) {
     const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_ORGANIZATIONS_GROUPS'));
     const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
     if (names.length > 0) {
-      await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, names, true);
+      await callLdapOrgTeamSyncInternal(userId, names, true);
     }
   }
 
@@ -455,7 +476,7 @@ export async function syncUserGroupsToOrgsTeams(ldap, ldapUser, userId) {
     const allow = parseGroupAllowlist(LDAP.settings_get('LDAP_SYNC_TEAMS_GROUPS'));
     const names = allow.length ? userGroups.filter((g) => allow.includes(g)) : userGroups;
     if (names.length > 0) {
-      await Meteor.callAsync('setUserOrgsTeamsFromLdap', userId, names, false);
+      await callLdapOrgTeamSyncInternal(userId, names, false);
     }
   }
 }
