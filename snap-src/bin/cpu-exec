@@ -1,0 +1,112 @@
+#!/bin/bash
+# ─────────────────────────────────────────────────────────────────────────────
+# cpu-exec: run a binary directly when the CPU has every instruction-set
+# feature the binary needs, otherwise transparently re-run it through
+# qemu-user emulation (which implements the full modern instruction set).
+# General mechanism for ALL scripts, sandboxes, platforms and CPUs (#6458).
+#
+# Why: MongoDB >= 5.0 x86_64 binaries require AVX — on CPUs without it (old
+# Intel/AMD, and hypervisors/sandboxes that mask AVX: some QEMU/KVM/Proxmox
+# configurations, which is exactly the reported #6458 environment) mongod dies
+# instantly with SIGILL (exit 132). MongoDB >= 5 arm64 similarly requires
+# ARMv8.2-A (Raspberry Pi 4 and older are ARMv8.0). The snap's old
+# migratemongo/avx wrappers did this per-tool, amd64-only, and only for PATH
+# lookups — every script invoking $SNAP/bin/mongod by ABSOLUTE path bypassed
+# them. This helper replaces that with one general, explicit mechanism.
+#
+# Usage:
+#   cpu-exec [--features <arch>=<f1>[+<f2>...][,<arch>=...]] <binary> [args...]
+#
+#   --features declares the CPU features the binary needs, per architecture:
+#       cpu-exec --features x86_64=avx,aarch64=atomics mongod --dbpath ...
+#   Only the entry matching `uname -m` is checked (against /proc/cpuinfo
+#   flags/Features). No --features, an empty spec, or no entry for the current
+#   architecture means "no special requirements" — the binary is exec'd
+#   directly with zero overhead, so it is safe to route EVERY binary through
+#   cpu-exec. The WEKAN_REQUIRED_CPU_FEATURES environment variable, when set,
+#   overrides --features (same syntax).
+#
+#   Note: `aarch64=atomics` (LSE, ARMv8.1) is the practical /proc/cpuinfo
+#   proxy for MongoDB's ARMv8.2-A requirement — Cortex-A53/A72 (Raspberry Pi
+#   3/4) lack it, ARMv8.2-A cores have it.
+#
+# qemu-user lookup order (first executable wins):
+#   1. $WEKAN_QEMU_USER (explicit override)
+#   2. qemu-<arch> next to this script       (bundle .zip / Docker /build)
+#   3. $SNAP/qemu-<arch>, $SNAP/bin/qemu-<arch>
+#   4. $SNAP/migratemongo/avx/qemu-x86_64    (existing snap amd64 bundle)
+#   5. qemu-<arch> / qemu-<arch>-static on PATH
+# If none is found, a clear error is printed and the binary runs directly so
+# the real failure (SIGILL) surfaces in the logs instead of hiding.
+#
+# WEKAN_CPUINFO overrides the /proc/cpuinfo path (used by the unit tests).
+# ─────────────────────────────────────────────────────────────────────────────
+set -u
+
+FEATURES_SPEC=""
+if [ "${1:-}" = "--features" ]; then
+    FEATURES_SPEC="${2:-}"
+    shift 2
+fi
+[ -n "${WEKAN_REQUIRED_CPU_FEATURES:-}" ] && FEATURES_SPEC="${WEKAN_REQUIRED_CPU_FEATURES}"
+
+if [ $# -lt 1 ]; then
+    echo "Usage: cpu-exec [--features arch=feat1+feat2,arch2=...] <binary> [args...]" >&2
+    exit 64
+fi
+
+ARCH="$(uname -m)"
+CPUINFO="${WEKAN_CPUINFO:-/proc/cpuinfo}"
+
+# Pick this architecture's '+'-separated feature list out of the spec.
+required=""
+IFS=',' read -r -a _entries <<< "$FEATURES_SPEC"
+for _e in "${_entries[@]:-}"; do
+    case "$_e" in
+        "$ARCH"=*) required="${_e#*=}" ;;
+    esac
+done
+
+# Which of the required features is the CPU missing? x86 lists them on
+# "flags :" lines, ARM on "Features :" lines.
+missing=""
+if [ -n "$required" ] && [ -r "$CPUINFO" ]; then
+    IFS='+' read -r -a _feats <<< "$required"
+    for _f in "${_feats[@]:-}"; do
+        [ -z "$_f" ] && continue
+        grep -Eiq "^(flags|features)[[:space:]]*:.*[[:space:]]${_f}([[:space:]]|$)" "$CPUINFO" \
+            || missing="${missing} ${_f}"
+    done
+fi
+
+if [ -z "$missing" ]; then
+    exec "$@"
+fi
+
+# The CPU lacks something this binary needs: find a same-architecture
+# qemu-user to emulate the missing instructions.
+HERE="$(cd "$(dirname "$0")" 2>/dev/null && pwd)"
+QEMU=""
+for candidate in \
+    "${WEKAN_QEMU_USER:-}" \
+    "${HERE:+$HERE/qemu-$ARCH}" \
+    "${SNAP:+$SNAP/qemu-$ARCH}" \
+    "${SNAP:+$SNAP/bin/qemu-$ARCH}" \
+    "${SNAP:+$SNAP/migratemongo/avx/qemu-$ARCH}" \
+    "$(command -v "qemu-$ARCH" 2>/dev/null)" \
+    "$(command -v "qemu-$ARCH-static" 2>/dev/null)"; do
+    if [ -n "$candidate" ] && [ -x "$candidate" ]; then
+        QEMU="$candidate"
+        break
+    fi
+done
+
+if [ -n "$QEMU" ]; then
+    echo "cpu-exec: this CPU lacks${missing}; running $1 through qemu-user emulation ($QEMU)." >&2
+    echo "cpu-exec: emulation is slower — consider migrating to FerretDB (no special CPU features needed)." >&2
+    exec "$QEMU" "$@"
+fi
+
+echo "cpu-exec: ERROR: this CPU lacks${missing} and no qemu-user (qemu-$ARCH) was found;" >&2
+echo "cpu-exec: running $1 directly — expect SIGILL (Illegal instruction). Install qemu-user(-static) or migrate to FerretDB." >&2
+exec "$@"

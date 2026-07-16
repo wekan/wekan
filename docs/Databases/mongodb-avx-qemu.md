@@ -1,3 +1,32 @@
+## Built-in: WeKan cpu-exec runs binaries with qemu-user automatically
+
+Since WeKan 9.96 (issue [#6458](https://github.com/wekan/wekan/issues/6458)), WeKan ships a general
+`cpu-exec` helper on every Linux platform — in the Snap (`$SNAP/bin/cpu-exec`), in every
+`wekan-<version>-<arch>.zip` bundle (`bundle/cpu-exec`, next to a same-arch `qemu-<arch>` static
+binary), in the Docker image (`/build/cpu-exec`) and in the Sandstorm .spk. It checks
+`/proc/cpuinfo` for the CPU features a binary needs and, when one is missing, transparently re-runs
+the binary through qemu-user (which implements the full modern instruction set):
+
+```
+cpu-exec --features x86_64=avx,aarch64=atomics mongod --dbpath ...
+```
+
+- With no `--features` (or no entry for the current architecture) it is a plain `exec` — zero
+  overhead, safe for every binary.
+- `WEKAN_REQUIRED_CPU_FEATURES` (same syntax) overrides `--features`, so any script or user can
+  declare requirements without editing commands.
+- qemu-user lookup order: `$WEKAN_QEMU_USER`, `qemu-<arch>` next to cpu-exec (the bundle),
+  `$SNAP/qemu-<arch>`, the Snap's `migratemongo/avx/qemu-x86_64`, then `qemu-<arch>`/
+  `qemu-<arch>-static` on `$PATH` (install with `sudo apt install qemu-user-static`).
+- `aarch64=atomics` (LSE, ARMv8.1) is the practical `/proc/cpuinfo` proxy for MongoDB's ARMv8.2-A
+  requirement: Raspberry Pi 3/4 (Cortex-A53/A72) lack it, ARMv8.2-A cores have it.
+
+The Snap's `mongodb-control` and `migration-control` run every `mongod 7` invocation through
+cpu-exec, so WeKan's MongoDB works (slower) on CPUs without AVX — including hypervisors/sandboxes
+that mask AVX — and the MongoDB → FerretDB migration can read modern MongoDB data there too.
+FerretDB (pure Go + SQLite) needs no special CPU features and is the native-speed alternative:
+`snap run wekan.migrate`.
+
 ## Meteor podcast about using MongoDB at unsupported CPUs
 
 - https://www.youtube.com/watch?v=bnU9bUVeN04

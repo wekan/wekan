@@ -309,7 +309,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip
+          sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip qemu-user-static
 
       - uses: actions/setup-node@v6
         with:
@@ -361,6 +361,16 @@ jobs:
           # Self-contained launcher (defaults to FerretDB SQLite + WRITABLE_PATH).
           cp releases/ferretdb/start-wekan.sh .build/bundle/
           chmod +x .build/bundle/start-wekan.sh
+          # #6458: cpu-exec + same-arch qemu-user. cpu-exec runs any bundled
+          # binary that declares required CPU features (e.g. an external
+          # MongoDB 5+: AVX on x86_64) through qemu-user emulation on CPUs
+          # that lack them — including hypervisors that mask AVX. Every Linux
+          # bundle ships its own arch's qemu-user; other arches overwrite
+          # these below.
+          cp snap-src/bin/cpu-exec .build/bundle/cpu-exec
+          chmod +x .build/bundle/cpu-exec
+          cp /usr/bin/qemu-x86_64-static .build/bundle/qemu-x86_64
+          chmod +x .build/bundle/qemu-x86_64
 
       - name: Create amd64 zip
         run: |
@@ -384,7 +394,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential g++ make python3 curl unzip zip
+          sudo apt-get install -y build-essential g++ make python3 curl unzip zip qemu-user-static
 
       - name: Download amd64 bundle
         uses: actions/download-artifact@v8
@@ -430,6 +440,13 @@ jobs:
             curl -fSL --retry 5 --retry-delay 10 -o "bundle/$t" "$MT/$t-arm64"
             chmod +x "bundle/$t"
           done
+          # #6458: replace the inherited amd64 qemu-user with this arch's own
+          # (cpu-exec is a shell script and stays as inherited). qemu-aarch64
+          # lets ARMv8.0 hosts (Raspberry Pi 4 and older) run binaries that
+          # need ARMv8.2-A, like MongoDB 5+.
+          rm -f bundle/qemu-x86_64
+          cp /usr/bin/qemu-aarch64-static bundle/qemu-aarch64
+          chmod +x bundle/qemu-aarch64
 
       - name: Create arm64 zip
         run: |
@@ -518,6 +535,8 @@ jobs:
           rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default bundle/start-wekan.sh
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
                 bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
+          # Linux-only cpu-exec + qemu-user (#6458) make no sense on Windows.
+          rm -f bundle/cpu-exec bundle/qemu-x86_64
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
           # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
@@ -625,6 +644,9 @@ jobs:
           # inherited from the amd64 base bundle with the macOS builds (added in a
           # later step). The POSIX launcher start-wekan.sh works on macOS, so keep it.
           rm -f bundle/node bundle/ferretdb bundle/.ferretdb-default
+          # Linux-only cpu-exec + qemu-user (#6458): qemu-user does not exist for
+          # macOS (Apple Silicon needs no AVX emulation anyway).
+          rm -f bundle/cpu-exec bundle/qemu-x86_64
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
                 bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
@@ -785,6 +807,21 @@ jobs:
               # launcher. /bundle is the host bundle/ dir (see -v mount above).
               cp /opt/node/bin/node /bundle/node
               chmod +x /bundle/node
+              # #6458: replace the inherited amd64 qemu-user with THIS arch own
+              # same-arch qemu-user (from the target-arch distro, so it runs on
+              # this arch), used by bundle/cpu-exec to emulate CPU features a
+              # binary needs but the host CPU lacks. Tolerant: if the package
+              # is unavailable on this arch, the bundle just ships without it
+              # (cpu-exec then falls back to a system qemu-user, or reports).
+              rm -f /bundle/qemu-x86_64
+              if apt-get install -y -q qemu-user-static >/dev/null 2>&1 && \
+                 [ -x "/usr/bin/qemu-$(uname -m)-static" ]; then
+                cp "/usr/bin/qemu-$(uname -m)-static" "/bundle/qemu-$(uname -m)"
+                chmod +x "/bundle/qemu-$(uname -m)"
+                echo "Bundled qemu-$(uname -m) for cpu-exec."
+              else
+                echo "qemu-user-static not available for $(uname -m); bundle ships without a bundled qemu-user."
+              fi
             '
 
       - name: Embed FerretDB (${{ matrix.arch }}) into the bundle
@@ -864,7 +901,7 @@ jobs:
       - name: Install system dependencies and Meteor
         run: |
           sudo apt-get update
-          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git
+          sudo apt-get install -y p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git qemu-user-static
           if [ ! -f "$HOME/.meteor/meteor" ]; then curl https://install.meteor.com/ | sh; fi
           echo "$HOME/.meteor" >> "$GITHUB_PATH"
 

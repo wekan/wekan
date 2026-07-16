@@ -78,11 +78,19 @@ if [ "$want_ferret" = true ]; then
   export METEOR_POLLING_INTERVAL_MS="${METEOR_POLLING_INTERVAL_MS:-30000}"
 fi
 
+# #6458: $DIR/cpu-exec runs a binary through the bundled same-arch qemu-user
+# when the CPU lacks features the binary declares (WEKAN_REQUIRED_CPU_FEATURES,
+# e.g. "x86_64=avx" for an external MongoDB 5+). node and ferretdb are baseline
+# builds needing no special features, so with none declared this is a plain
+# exec — but every binary launch here is feature-safe on every platform.
+CPU_EXEC="$DIR/cpu-exec"
+[ -x "$CPU_EXEC" ] || CPU_EXEC=""
+
 while true; do
   if [ "$want_ferret" = true ]; then
     export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
     echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (data: $FERRETDB_SQLITE_DIR) ..."
-    "$FERRETDB_BIN" \
+    ${CPU_EXEC:+"$CPU_EXEC"} "$FERRETDB_BIN" \
       --handler=sqlite \
       --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
       --listen-addr="$FERRETDB_LISTEN_ADDR" \
@@ -94,7 +102,7 @@ while true; do
   fi
 
   echo "Starting WeKan on $ROOT_URL (port $PORT), files under $WRITABLE_PATH ..."
-  "$NODE" "$DIR/main.js" || true
+  ${CPU_EXEC:+"$CPU_EXEC"} "$NODE" "$DIR/main.js" || true
 
   stop_ferret
   FERRET_PID=""

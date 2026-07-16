@@ -90,13 +90,15 @@ else
 fi
 log "Temporary source mongod WiredTiger cache: ${SRC_WT_CACHE_GB} GB (RAM-aware; leaves room for FerretDB + importer)"
 
-start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be empty), $3 = extra args (optional)
+start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix (may be empty), $3 = extra args (optional), $4 = CPU feature spec for cpu-exec (optional)
   rm -f "$SRC_PIDFILE"
   # --pidfilepath records the forked daemon's PID so force_stop_src can kill
   # exactly this temporary mongod before we hand back to the normal mongod start
   # — otherwise a lingering probe mongod would still hold the WiredTiger dbpath
   # lock and the real start would fail with "Unable to lock the lock file".
-  LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" "$1" \
+  # #6458: cpu-exec runs the binary through qemu-user when the CPU lacks the
+  # features in $4 (e.g. AVX for mongod 7); with an empty $4 it is a plain exec.
+  LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" bash "$SNAP/bin/cpu-exec" --features "${4:-}" "$1" \
     --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
     --logpath "$LOGF" --logappend --fork --pidfilepath "$SRC_PIDFILE" ${3:-} >/dev/null 2>&1
 }
@@ -327,16 +329,16 @@ fail_3x_keep_progress() {   # $1 = importer exit code
 # CollectionFS + Meteor-Files GridFS attachments/avatars onto the filesystem
 # (files/attachments, files/avatars). Version only decides HOW we read the source.
 log "Checking whether mongod 7 can open the existing data ..."
-# #6458: MongoDB >= 5.0 x86_64 requires AVX. Without it the mongod 7 probe below
-# can only die with SIGILL, so skip it and go straight to the MongoDB 3.x reader —
-# the bundled 3.2 tools, the Node importer and FerretDB are all AVX-free, so the
-# migration itself works fine on such CPUs.
-HAVE_AVX=1
+# #6458: MongoDB >= 5.0 x86_64 requires AVX (arm64: ARMv8.2-A). Without them
+# the mongod 7 probe used to only SIGILL; cpu-exec now runs it through
+# qemu-user emulation instead, so a modern MongoDB 6/7 database can be READ
+# for migration on such CPUs too — slow, but this is a one-time read. (The
+# bundled 3.2 tools, the Node importer and FerretDB need no special features.)
+MONGOD7_CPU_FEATURES="x86_64=avx,aarch64=atomics"
 if [ "$(uname -m)" = "x86_64" ] && ! grep -qw avx /proc/cpuinfo 2>/dev/null; then
-  HAVE_AVX=0
-  log "CPU has no AVX support: skipping the mongod 7 probe (it would SIGILL); trying the MongoDB 3.x reader directly."
+  log "CPU has no AVX support: the mongod 7 probe runs through qemu-user emulation (slower)."
 fi
-if [ "$HAVE_AVX" = "1" ] && start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" && ready_via_node; then
+if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" "$MONGOD7_CPU_FEATURES" && ready_via_node; then
   if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER_MODERN" ]; then
     fall_back_to_mongodb "Migration tools unavailable; cannot migrate this modern MongoDB to FerretDB."
   fi

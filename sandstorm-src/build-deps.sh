@@ -113,6 +113,19 @@ chmod +x "$DEPS/migratemongo/bin/"*
 echo "==> [6/7] Launcher + importer"
 cp -f "$REPO/sandstorm-src/start.js"                       "$DEPS/start.js"
 cp -f "$REPO/snap-src/bin/migrate-mongo3-to-ferretdb.mjs"  "$DEPS/migrate-mongo3-to-ferretdb.mjs"
+# #6458: cpu-exec + qemu-user — run any binary that needs CPU features the
+# grain host lacks (e.g. AVX for MongoDB 5+) through qemu-user emulation.
+# The bundled mongod 3.0/niscud need no special features, so this is
+# future-proofing; tolerant when qemu-user-static is not installed.
+cp -f "$REPO/snap-src/bin/cpu-exec" "$DEPS/bin/cpu-exec"
+chmod +x "$DEPS/bin/cpu-exec"
+if [ -x /usr/bin/qemu-x86_64-static ]; then
+  cp -f /usr/bin/qemu-x86_64-static "$DEPS/bin/qemu-x86_64"
+  chmod +x "$DEPS/bin/qemu-x86_64"
+  echo "    bundled qemu-x86_64 for cpu-exec"
+else
+  echo "    qemu-user-static not installed; spk ships cpu-exec without a bundled qemu-user"
+fi
 
 echo "==> [7/7] niscud + old node_modules kept for the niscu->3.0 stage:"
 ls -la "$DEPS/bin/niscud" "$DEPS/node_modules/mongodb" >/dev/null 2>&1 \

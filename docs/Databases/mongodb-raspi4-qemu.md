@@ -1,3 +1,17 @@
+## Built-in: WeKan cpu-exec does this automatically
+
+Since WeKan 9.96, the manual wrapper below is built in: every Linux WeKan bundle/Snap/Docker
+image ships a general `cpu-exec` helper (plus a same-arch `qemu-<arch>` static binary in the
+bundles) that runs any binary through qemu-user automatically when the CPU lacks features the
+binary needs — e.g. MongoDB 5+ on Raspberry Pi 4 and older (ARMv8.0, no ARMv8.2-A):
+
+```
+cpu-exec --features x86_64=avx,aarch64=atomics mongod --config /etc/mongod.conf
+```
+
+See [mongodb-avx-qemu.md](mongodb-avx-qemu.md) for details. The manual steps below still work
+for a system-wide MongoDB outside WeKan.
+
 ## Meteor podcast about using MongoDB at unsupported CPUs 
 
 - https://www.youtube.com/watch?v=bnU9bUVeN04

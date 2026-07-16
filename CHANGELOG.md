@@ -102,6 +102,45 @@ This release adds the following updates:
 - [Bump websocket-driver from 0.7.4 to 0.7.5](https://github.com/wekan/wekan/pull/6462).
   Thanks to dependabot.
 
+- **New general `cpu-exec` + bundled qemu-user: every WeKan platform now runs binaries that need
+  missing CPU features through emulation automatically**
+  ([#6458](https://github.com/wekan/wekan/issues/6458), `snap-src/bin/cpu-exec`,
+  `snap-src/bin/mongodb-control`, `snap-src/bin/migration-control`, `.github/workflows/release-all.yml`,
+  `.github/workflows/sandstorm.yml`, `sandstorm-src/build-deps.sh`, `releases/ferretdb/start-wekan.sh`,
+  `releases/ferretdb/wekan-entrypoint.sh`, `docs/Databases/mongodb-avx-qemu.md`,
+  `docs/Databases/mongodb-raspi4-qemu.md`). The #6458 report turned out to run inside a hypervisor
+  that MASKS AVX — and the snap's old per-tool AVX wrappers (amd64-only, PATH-based) were bypassed
+  by every absolute-path `mongod` invocation. The new `cpu-exec` helper is one general mechanism
+  for all scripts, sandboxes, platforms and CPUs: `cpu-exec --features x86_64=avx,aarch64=atomics
+  <binary> [args]` checks `/proc/cpuinfo` and, when a required feature is missing, transparently
+  re-runs the binary through a same-architecture qemu-user (bundled first, then system); with no
+  declared features it is a plain zero-overhead exec, so every binary can be routed through it
+  (`WEKAN_REQUIRED_CPU_FEATURES` declares requirements externally). The Snap's mongodb-control and
+  migration-control now run every mongod 7 through it — so MongoDB works (slower) on CPUs without
+  AVX and the migration can READ modern MongoDB data there, with the FerretDB switch/migration
+  fallbacks unchanged; `aarch64=atomics` covers MongoDB's ARMv8.2-A requirement (Raspberry Pi 4
+  and older lack it). release-all.yml now ships `cpu-exec` plus this-arch's static qemu-user in
+  every Linux bundle .zip (amd64/arm64/ppc64le/s390x/riscv64 — stripped from the Windows/macOS
+  bundles, where qemu-user does not exist), which flows into the Docker image and the Snap
+  automatically, and the Sandstorm .spk gets both via build-deps.sh; the bundle launcher and
+  Docker entrypoint route node/ferretdb through it. Thanks to a1bert01 and xet7.
+
+- **Added regression tests, with negative cases, for all of the fixes below** (`tests/htmljsArrayContent.test.cjs`,
+  `tests/cardDescriptionDraft.test.cjs`, `tests/commentDraft.test.cjs`, `tests/attachmentDeleteGuard.test.cjs`,
+  `tests/ruleMoveAction.test.cjs`, `tests/snapMigrationRecovery.test.cjs`, `tests/ferretdbPolling.test.cjs`,
+  `tests/uiDensity.test.cjs`, `tests/cpuExec.test.cjs` — a BEHAVIORAL test that executes the real
+  cpu-exec against fake /proc/cpuinfo files and a fake qemu-user, covering direct exec, qemu fallback,
+  missing-qemu error, per-arch scoping and env overrides — wired into `test:unit:node` in
+  `package.json`; plus Go table tests in the wekan/FerretDB fork's
+  `internal/backends/sqlite/query_test.go`). The htmljs test exercises the vendored
+  compiler's Tag constructor directly (array content vs. attributes, #6459) and the draft tests run the real
+  extracted `normalize`/`normalizeTrigger` functions; the UI tests guard the #6465 density fixes in the repo's
+  CSS-guard style (base font 14px, card details docking right of the board instead of over its own card, compact
+  admin table headers, un-clipped zoom pill, one-click board settings cog). The FerretDB Go tests pin the SQLite
+  filter-pushdown semantics: which strings are pushdown-safe, exact WHERE/args for `_id` and top-level equality
+  filters, and that dotted paths, operators, non-strings and unsafe strings stay with the in-Go filter. Thanks
+  to xet7.
+
 and fixes the following bugs:
 
 - **GUI: the "More" menu of cards was completely empty, so cards could not be deleted from it**

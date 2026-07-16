@@ -196,21 +196,11 @@ trap cleanup EXIT
 # SQLite — no AVX needed; MongoDB 3.x data is read with the bundled 3.2 tools),
 # with a counter so a persistently failing migration cannot ping-pong forever.
 MONGOD_FAIL_COUNT_FILE="${SNAP_COMMON}/.mongod-start-failures"
-handle_mongod_start_failure() {
-    local rc="$1"
+# A COMPLETED FerretDB migration exists (marker + non-empty SQLite): switch the
+# snap to it and exit. (A PARTIAL migration — SQLite present but no marker — is
+# NOT switched to.) Returns 1 when there is no completed migration.
+switch_to_completed_ferretdb() {
     local svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
-    echo "ERROR: mongod failed to start (exit code ${rc})."
-    if [ "$rc" -eq 132 ]; then
-        echo "Exit 132 = SIGILL (Illegal instruction): MongoDB 5.0+ x86_64 binaries require a CPU"
-        echo "with AVX support, and this CPU has none — the bundled MongoDB 7 can never run here."
-        echo "FerretDB (pure Go + SQLite) has no AVX requirement and is the supported fallback."
-    fi
-    echo "Last mongod log lines:"
-    tail -n 5 "$MONGO_LOG_FILE" 2>/dev/null || true
-
-    # A COMPLETED FerretDB migration exists (marker + non-empty SQLite): the snap
-    # should be running FerretDB anyway — switch now instead of crash-looping.
-    # (A PARTIAL migration — SQLite present but no marker — is NOT switched to.)
     if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
        bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
         echo "A completed FerretDB migration exists; switching to database=ferretdb."
@@ -221,6 +211,21 @@ handle_mongod_start_failure() {
         snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
         exit 0
     fi
+    return 1
+}
+handle_mongod_start_failure() {
+    local rc="$1"
+    echo "ERROR: mongod failed to start (exit code ${rc})."
+    if [ "$rc" -eq 132 ]; then
+        echo "Exit 132 = SIGILL (Illegal instruction): MongoDB 5.0+ x86_64 binaries require a CPU"
+        echo "with AVX support (arm64: ARMv8.2-A), and this CPU has none — and no working"
+        echo "qemu-user was available to emulate it (see cpu-exec in the log above)."
+        echo "FerretDB (pure Go + SQLite) has no such CPU requirements and is the supported fallback."
+    fi
+    echo "Last mongod log lines:"
+    tail -n 5 "$MONGO_LOG_FILE" 2>/dev/null || true
+
+    switch_to_completed_ferretdb || true
 
     local fails=0
     [ -f "$MONGOD_FAIL_COUNT_FILE" ] && fails="$(cat "$MONGOD_FAIL_COUNT_FILE" 2>/dev/null || echo 0)"
@@ -246,11 +251,20 @@ handle_mongod_start_failure() {
     exit 1
 }
 
-# #6458: pre-flight AVX check — without AVX, starting mongod below would only
-# produce the SIGILL crash loop, so fail over right away with a clear message.
+# #6458: CPU features the bundled MongoDB 7 needs: AVX on x86_64 (missing on
+# old CPUs and on hypervisors/sandboxes that mask it — the #6458 report runs
+# inside QEMU without AVX), ARMv8.2-A on arm64 ('atomics'/LSE is the practical
+# /proc/cpuinfo proxy; Raspberry Pi 4 and older lack it). cpu-exec runs mongod
+# directly when the CPU has them and through qemu-user emulation when not —
+# the general mechanism replacing the old amd64-only PATH wrappers that every
+# absolute-path invocation bypassed.
+MONGOD_CPU_FEATURES="x86_64=avx,aarch64=atomics"
+CPU_EXEC="$SNAP/bin/cpu-exec"
 if [ "$(uname -m)" = "x86_64" ] && ! grep -qw avx /proc/cpuinfo 2>/dev/null; then
-    echo "ERROR: This x86_64 CPU has no AVX support; MongoDB 7 would exit with SIGILL."
-    handle_mongod_start_failure 132
+    echo "NOTE: This x86_64 CPU has no AVX. MongoDB 7 will run through qemu-user emulation (slower)."
+    echo "The native-speed alternative is FerretDB:  snap run wekan.migrate"
+    # If the FerretDB migration already completed, prefer it over emulation.
+    switch_to_completed_ferretdb || true
 fi
 
 # Check if MongoDB is already running
@@ -283,7 +297,7 @@ echo "Replica set member host: ${RS_MEMBER_HOST}"
 # MongoDB instances from other parallel snap installs.
 TEMP_PID_FILE="${SNAP_COMMON}/mongod-temp.pid"
 echo "Starting MongoDB temporarily to check replica set configuration..."
-$SNAP/bin/mongod \
+bash "$CPU_EXEC" --features "$MONGOD_CPU_FEATURES" $SNAP/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
     --logappend $BIND_OPTIONS \
@@ -294,9 +308,11 @@ $SNAP/bin/mongod \
     --replSet rs0 --oplogSize 20480 --fork \
     --pidfilepath="$TEMP_PID_FILE" \
     || handle_mongod_start_failure $?
-# ^ #6458/#6466: with --fork, mongod's parent only returns 0 once the child is up;
-# a SIGILL (no AVX) or "data files too recent" (3.x data) failure returns non-zero
-# and previously fell through to ~10 minutes of pinging a dead port, forever.
+# ^ #6458/#6466: cpu-exec runs mongod through qemu-user when the CPU lacks the
+# features it needs (AVX / ARMv8.2-A). And with --fork, mongod's parent only
+# returns 0 once the child is up; a SIGILL (no AVX, no qemu) or "data files too
+# recent" (3.x data) failure returns non-zero and previously fell through to
+# ~10 minutes of pinging a dead port, forever.
 
 # Wait for MongoDB to accept connections (up to 30 s). db-eval uses the bundled
 # Node.js + `mongodb` driver; directConnection reaches this node before the
@@ -358,7 +374,7 @@ sleep 1
 # incompatible data files — is caught below instead of snapd blindly restarting
 # this service into the same crash forever)
 _mongod_start_ts=$(date +%s)
-$SNAP/bin/mongod \
+bash "$CPU_EXEC" --features "$MONGOD_CPU_FEATURES" $SNAP/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
     --logappend $BIND_OPTIONS \

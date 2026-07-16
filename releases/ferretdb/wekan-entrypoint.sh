@@ -51,15 +51,32 @@ if [ "$want_ferret" = true ]; then
   # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
   export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
   echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR ..."
-  "$FERRETDB_BIN" \
-    --handler=sqlite \
-    --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
-    --listen-addr="$FERRETDB_LISTEN_ADDR" \
-    --telemetry=disable \
-    --log-level=error &
+  # #6458: /build/cpu-exec runs a binary through the bundled same-arch
+  # qemu-user when the CPU lacks features the binary declares (via
+  # WEKAN_REQUIRED_CPU_FEATURES, e.g. "x86_64=avx"). node and ferretdb are
+  # baseline builds needing no special features, so with none declared this is
+  # a plain exec — but every binary launch here is feature-safe.
+  if [ -x /build/cpu-exec ]; then
+    /build/cpu-exec "$FERRETDB_BIN" \
+      --handler=sqlite \
+      --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
+      --listen-addr="$FERRETDB_LISTEN_ADDR" \
+      --telemetry=disable \
+      --log-level=error &
+  else
+    "$FERRETDB_BIN" \
+      --handler=sqlite \
+      --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
+      --listen-addr="$FERRETDB_LISTEN_ADDR" \
+      --telemetry=disable \
+      --log-level=error &
+  fi
   FERRET_PID=$!
   trap 'kill "$FERRET_PID" 2>/dev/null || true' EXIT INT TERM
 fi
 
 ulimit -s 65500
+if [ -x /build/cpu-exec ]; then
+  exec /build/cpu-exec node /build/main.js
+fi
 exec node /build/main.js
