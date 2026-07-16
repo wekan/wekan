@@ -90,6 +90,15 @@ them up next.
 
 This release adds the following updates:
 
+- **Releases now include the Sandstorm .spk package** (`.github/workflows/release-all.yml`).
+  The release-all workflow got a new `build-sandstorm` job that runs after the GitHub Release
+  is created: it builds the Sandstorm package from the release tag with the same steps as the
+  standalone sandstorm.yml workflow and attaches `wekan-<version>-sandstorm.spk` to the
+  Release. The job is non-blocking (`continue-on-error`), so the experimental Sandstorm build
+  never fails or delays the rest of the release. The standalone sandstorm.yml workflow still
+  exists for building and testing the .spk on its own without doing a full release. Thanks
+  to xet7.
+
 - [Bump websocket-driver from 0.7.4 to 0.7.5](https://github.com/wekan/wekan/pull/6462).
   Thanks to dependabot.
 
