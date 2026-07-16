@@ -86,6 +86,15 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Bump websocket-driver from 0.7.4 to 0.7.5](https://github.com/wekan/wekan/pull/6462).
+  Thanks to dependabot.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.95 2026-07-15 WeKan ® release
 
 This release fixes the following bugs:
