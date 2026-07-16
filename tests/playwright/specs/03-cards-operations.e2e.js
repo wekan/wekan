@@ -50,8 +50,11 @@ test.describe('Cards – operations', () => {
     // After archiving, WeKan navigates to the board. Open the archives sidebar:
     // 1. Toggle sidebar open.
     await bp.openSidebar();
-    // 2. Open the board menu popup from inside the sidebar.
-    await boardPage.locator('.js-open-board-menu').click();
+    // 2. Open the board menu popup from inside the sidebar. Scope the locator
+    //    to the sidebar: #6465 added a second .js-open-board-menu (the
+    //    one-click cog in the board header), so the bare class locator matches
+    //    2 elements and trips Playwright's strict mode.
+    await boardPage.locator('.board-sidebar .js-open-board-menu').click();
     await boardPage.locator('.js-pop-over').waitFor();
     // 3. Click "Archived Items" — .js-open-archives is inside boardMenuPopup.
     await boardPage.locator('.js-pop-over .js-open-archives').click();

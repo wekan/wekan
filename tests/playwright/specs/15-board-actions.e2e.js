@@ -17,6 +17,26 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe('Board-level actions', () => {
+  test('#6465: board settings opens with ONE click from the header cog', async ({ boardPage, board }) => {
+    // The cog lives in the board header bar — no sidebar open needed anymore.
+    const headerCog = boardPage.locator('#header-main-bar .js-open-board-menu');
+    await expect(headerCog).toBeVisible();
+
+    // Negative: the popup must not be open before the click.
+    await expect(boardPage.locator('.js-pop-over')).not.toBeVisible();
+
+    await headerCog.click();
+    const popup = boardPage.locator('.js-pop-over');
+    await popup.waitFor();
+
+    // It is the real boardMenu popup: "Archived Items" lives inside it.
+    await expect(popup.locator('.js-open-archives')).toBeVisible();
+
+    // Close it again so later tests start from a clean header.
+    await boardPage.keyboard.press('Escape');
+    await expect(boardPage.locator('.js-pop-over')).not.toBeVisible({ timeout: 8_000 });
+  });
+
   test('star/unstar board button toggles active class without errors', async ({ boardPage, board }) => {
     const errors = [];
     boardPage.on('pageerror', e => errors.push(e.message));
