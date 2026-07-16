@@ -86,11 +86,13 @@ gosu wekan meteor npm install
 # forces `meteor build` to create them fresh instead of renaming/skipping
 # an existing one.
 find packages -mindepth 1 -maxdepth 1 -type d -exec rm -rf {}/.npm \;
-# Core packages' npm caches could be under either the per-project build
-# cache or this build user's global Meteor package cache depending on
-# version/config -- clear both rather than guess which one applies here.
-find .meteor/local -type d -path '*/.npm/package/node_modules' -prune -exec rm -rf {} \; 2>/dev/null || true
-find /home/wekan/.meteor -type d -path '*/.npm/package/node_modules' -prune -exec rm -rf {} \; 2>/dev/null || true
+# NOTE: a blanket wipe of every .npm cache under /home/wekan/.meteor was
+# tried here and reverted -- it also deletes npm caches meteor-tool's OWN
+# internal packages need to run the build at all (e.g. modules-runtime),
+# causing "ENOENT ... install/install.js" during `meteor build`. Only
+# target accounts-password's own cache specifically, the one package we
+# have confirmed evidence for (missing argon2).
+find /home/wekan/.meteor/packages/accounts-password -type d -path '*/.npm/package/node_modules' -prune -exec rm -rf {} \; 2>/dev/null || true
 
 gosu wekan meteor build .build --directory --platforms=web.browser
 find .build -maxdepth 3 -type f -name main.js -print
