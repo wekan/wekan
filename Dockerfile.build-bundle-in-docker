@@ -1,0 +1,173 @@
+FROM ubuntu:26.04 AS builder
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV BUILD_DEPS="apt-utils gnupg gosu wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 p7zip-full zip unzip unp"
+ENV PATH="/home/wekan/.meteor:/home/wekan/.npm-global/bin:/usr/local/bin:${PATH}"
+# Must track this repo's .meteor/release (currently METEOR@3.5, which needs
+# Node 20+). See the top-level Dockerfile for the versions this project is
+# actually tested against.
+ENV NODE_VERSION=v24.18.0
+ENV NPM_VERSION=11.12.1
+
+RUN <<EOR
+set -eux
+apt-get update --assume-yes
+apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
+useradd --user-group --system --create-home --home-dir /home/wekan wekan
+mkdir -p /home/wekan/.npm-global /home/wekan/app
+chown wekan:wekan /home/wekan /home/wekan/.npm-global /home/wekan/app
+
+cd /tmp
+wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz"
+wget "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt"
+grep " node-${NODE_VERSION}-linux-x64.tar.gz\$" SHASUMS256.txt | sha256sum -c -
+tar xzf "node-${NODE_VERSION}-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
+rm "node-${NODE_VERSION}-linux-x64.tar.gz" SHASUMS256.txt
+ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
+
+npm install -g npm@${NPM_VERSION}
+gosu wekan npm config set prefix /home/wekan/.npm-global
+# Meteor 3.x removed Fibers; the CLI itself (not a version pin) auto-selects
+# the meteor-tool build that matches this checkout's .meteor/release, so a
+# specific `meteor@x.y` pin here is not required for correctness -- pinning
+# to the latest published launcher just keeps the image reproducible.
+gosu wekan npm install -g @mapbox/node-pre-gyp node-gyp meteor@3.4.1 --unsafe-perm
+node --version
+npm --version
+gosu wekan meteor --version
+EOR
+
+WORKDIR /home/wekan/app
+COPY --chown=wekan:wekan . .
+
+RUN <<EOR
+set -eux
+rm -rf .git
+rm -rf .build/bundle node_modules .meteor/local .build
+
+# npm never installs a dependency's own devDependencies -- including for a
+# `file:` local dependency like "meteor-node-stubs": "file:npm-packages/
+# meteor-node-stubs" in this repo's package.json. That package's `prepare`
+# script (scripts/build-deps.js) needs its devDependency `rimraf`, which
+# is why the top-level `meteor npm install` below fails with "Cannot find
+# module 'rimraf'" even without --production. Install straight inside that
+# package first so `prepare` can resolve rimraf from its own node_modules.
+( cd npm-packages/meteor-node-stubs && gosu wekan npm install )
+
+# `meteor update --npm` (allowed to fail with || true, matching
+# rebuild-wekan.sh and the release-all.yml/sandstorm.yml CI workflows)
+# syncs npm-integrated Meteor packages -- notably @meteorjs/rspack@1.1.0 --
+# before the actual npm install. Skipping it is what caused the later
+# "Could not find rspack.config.js" failure even though that file exists
+# at the project root.
+(gosu wekan meteor update --npm || true)
+gosu wekan meteor npm install
+
+# BUILD (EXDEV workaround): `meteor npm install` above already
+# resolves each local package's own Npm.depends() into
+# packages/<name>/.npm/package/node_modules (e.g. wekan-accounts-cas has
+# its own Npm.depends()). When `meteor build` runs next, it re-checks
+# those directories and, if they already exist, takes an
+# "updateExistingNpmDirectory" path that renames the old copy aside
+# (node_modules -> node_modules.old-<pid>) before replacing it -- see
+# meteor-npm.js's updateDependencies/updateExistingNpmDirectory. Under
+# some Docker overlay filesystems that rename is only valid once both
+# paths are already in the topmost writable layer; a directory that still
+# needs "copy-up" cannot be renamed and fails with EXDEV. Deleting these
+# directories here forces `meteor build` to create them fresh instead of
+# renaming an existing one, sidestepping that code path entirely.
+find packages -mindepth 1 -maxdepth 1 -type d -exec rm -rf {}/.npm \;
+
+gosu wekan meteor build .build --directory --platforms=web.browser
+find .build -maxdepth 3 -type f -name main.js -print
+test -f .build/bundle/main.js
+rm -rf .build/bundle/programs/web.browser.legacy
+
+cd .build/bundle/programs/server
+rm -rf node_modules
+chmod u+w *.json
+gosu wekan meteor npm install --production
+if [ -d npm/node_modules/meteor/accounts-password ]; then
+  cd npm/node_modules/meteor/accounts-password
+  gosu wekan meteor npm remove bcrypt
+  gosu wekan meteor npm install bcrypt --production
+  # accounts-password also depends on argon2 (native module, alongside
+  # bcrypt) in this Meteor version. Same reason as bcrypt: reinstall it
+  # here so its native binary is actually built/fetched for the target
+  # platform, instead of whatever `meteor npm install --production` above
+  # left (or skipped) for it.
+  if grep -q '"argon2"' package.json 2>/dev/null; then
+    gosu wekan meteor npm remove argon2
+    gosu wekan meteor npm install argon2 --production
+  fi
+fi
+
+cd /home/wekan/app/.build/bundle
+find . -type d -name '*-garbage*' -prune -exec rm -rf {} +
+find . -name '*phantom*' -exec rm -rf {} +
+find . -name '.*.swp' -exec rm -f {} +
+find . -name '*.swp' -exec rm -f {} +
+find . -name 'test' -type d -exec rm -rf {} +
+find . -name 'tests' -type d -exec rm -rf {} +
+find . -name 'spec' -type d -exec rm -rf {} +
+find . -name 'specs' -type d -exec rm -rf {} +
+find . -name '*.md' -exec rm -f {} +
+find . -name 'LICENSE' -exec rm -f {} +
+find . -name 'README' -exec rm -f {} +
+EOR
+
+FROM ubuntu:26.04
+LABEL maintainer="wekan"
+LABEL org.opencontainers.image.ref.name="ubuntu"
+LABEL org.opencontainers.image.version="26.04"
+LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV RUNTIME_DEPS="ca-certificates wget"
+ENV \
+  DEBUG=false \
+  NODE_VERSION=v24.18.0 \
+  NPM_VERSION=11.12.1 \
+  WITH_API=true \
+  WRITABLE_PATH=/data \
+  S3=""
+
+RUN <<EOR
+set -eux
+useradd --user-group --system --home-dir /home/wekan wekan
+apt-get update --assume-yes
+apt-get install --assume-yes --no-install-recommends ${RUNTIME_DEPS}
+
+cd /tmp
+wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz"
+wget "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt"
+grep " node-${NODE_VERSION}-linux-x64.tar.gz\$" SHASUMS256.txt | sha256sum -c -
+tar xzf "node-${NODE_VERSION}-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
+rm "node-${NODE_VERSION}-linux-x64.tar.gz" SHASUMS256.txt
+ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
+npm install -g npm@${NPM_VERSION}
+
+mkdir -p /data
+chown wekan:wekan /data
+
+apt-get remove --purge --assume-yes ${RUNTIME_DEPS}
+npm uninstall -g npm
+apt-get autoremove --assume-yes
+apt-get clean --assume-yes
+rm -Rf /tmp/*
+rm -Rf /var/lib/apt/lists/*
+rm -Rf /var/cache/apt
+rm -Rf /usr/share/doc /usr/share/man /usr/share/locale
+EOR
+
+COPY --from=builder /home/wekan/app/.build/bundle /build
+
+USER wekan
+
+ENV PORT=8080
+EXPOSE $PORT
+
+WORKDIR /home/wekan/app
+CMD ["bash", "-c", "ulimit -s 65500; exec node /build/main.js"]
