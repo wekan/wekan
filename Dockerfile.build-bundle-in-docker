@@ -64,20 +64,33 @@ rm -rf .build/bundle node_modules .meteor/local .build
 (gosu wekan meteor update --npm || true)
 gosu wekan meteor npm install
 
-# BUILD (EXDEV workaround): `meteor npm install` above already
-# resolves each local package's own Npm.depends() into
-# packages/<name>/.npm/package/node_modules (e.g. wekan-accounts-cas has
-# its own Npm.depends()). When `meteor build` runs next, it re-checks
-# those directories and, if they already exist, takes an
-# "updateExistingNpmDirectory" path that renames the old copy aside
-# (node_modules -> node_modules.old-<pid>) before replacing it -- see
-# meteor-npm.js's updateDependencies/updateExistingNpmDirectory. Under
-# some Docker overlay filesystems that rename is only valid once both
-# paths are already in the topmost writable layer; a directory that still
-# needs "copy-up" cannot be renamed and fails with EXDEV. Deleting these
-# directories here forces `meteor build` to create them fresh instead of
-# renaming an existing one, sidestepping that code path entirely.
+# BUILD (EXDEV workaround): `meteor npm install` above already resolves
+# every package's Npm.depends() into a .npm/package/node_modules cache --
+# both this repo's own local packages (packages/<name>/.npm, e.g.
+# wekan-accounts-cas) AND Meteor's own core packages that declare native
+# npm deps (e.g. accounts-password depends on bcrypt/argon2/node-gyp-build
+# -- see meteor/meteor packages/accounts-password/package.js), cached
+# under this build user's Meteor package cache instead of the project
+# tree. When `meteor build` runs next, it re-checks EVERY such directory
+# and, if it already exists, takes an "updateExistingNpmDirectory" path
+# that renames the old copy aside (node_modules -> node_modules.old-<pid>)
+# before replacing it -- see meteor-npm.js's
+# updateDependencies/updateExistingNpmDirectory. Under some Docker overlay
+# filesystems that rename is only valid once both paths are already in
+# the topmost writable layer; a directory that still needs "copy-up"
+# cannot be renamed and fails with EXDEV -- and when that failure isn't
+# fatal for a given package, the npm install for it is silently skipped
+# instead (that's why argon2 was missing from accounts-password's
+# resolved package.json with no visible install error). Deleting every
+# such cache here -- both local packages and Meteor's own package cache --
+# forces `meteor build` to create them fresh instead of renaming/skipping
+# an existing one.
 find packages -mindepth 1 -maxdepth 1 -type d -exec rm -rf {}/.npm \;
+# Core packages' npm caches could be under either the per-project build
+# cache or this build user's global Meteor package cache depending on
+# version/config -- clear both rather than guess which one applies here.
+find .meteor/local -type d -path '*/.npm/package/node_modules' -prune -exec rm -rf {} \; 2>/dev/null || true
+find /home/wekan/.meteor -type d -path '*/.npm/package/node_modules' -prune -exec rm -rf {} \; 2>/dev/null || true
 
 gosu wekan meteor build .build --directory --platforms=web.browser
 find .build -maxdepth 3 -type f -name main.js -print
