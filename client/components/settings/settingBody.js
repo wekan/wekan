@@ -255,6 +255,14 @@ Template.setting.onCreated(function () {
   this.webhookSetting = new ReactiveVar(false);
   this.attachmentSettings = new ReactiveVar(false);
   this.attachmentStorageSettings = new ReactiveVar(null);
+  // #6473: real storage paths come from the server (WRITABLE_PATH does not
+  // exist in the browser's process.env, which always showed "/data").
+  this.storagePaths = new ReactiveVar(null);
+  Meteor.call('getAttachmentStoragePaths', (err, paths) => {
+    if (!err && paths) {
+      this.storagePaths.set(paths);
+    }
+  });
   this.attachmentLimitUnits = new ReactiveVar({
     attachmentsUploadMaxBytes: 'mb',
     attachmentsDownloadMaxBytes: 'mb',
@@ -393,18 +401,22 @@ Template.setting.helpers({
   },
 
   // Attachment settings helpers
+  // #6473: these come from the getAttachmentStoragePaths server method —
+  // WRITABLE_PATH is a server-side environment variable, so reading
+  // process.env here in the browser always produced the misleading "/data".
   filesystemPath() {
-    return process.env.WRITABLE_PATH || '/data';
+    const paths = Template.instance().storagePaths.get();
+    return paths ? paths.writablePath : '';
   },
 
   attachmentsPath() {
-    const writablePath = process.env.WRITABLE_PATH || '/data';
-    return `${writablePath}/attachments`;
+    const paths = Template.instance().storagePaths.get();
+    return paths ? paths.attachments : '';
   },
 
   avatarsPath() {
-    const writablePath = process.env.WRITABLE_PATH || '/data';
-    return `${writablePath}/avatars`;
+    const paths = Template.instance().storagePaths.get();
+    return paths ? paths.avatars : '';
   },
 
   gridfsEnabled() {

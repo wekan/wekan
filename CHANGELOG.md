@@ -86,6 +86,85 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- **Snap/Docker: after the MongoDB → FerretDB migration ALL CollectionFS-era attachments were
+  missing** ([#6473](https://github.com/wekan/wekan/issues/6473),
+  `releases/migrate-mongodb-to-ferretdb.mjs`, `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`,
+  `snap-src/bin/migrate-gridfs-to-fs.mjs`). Real CollectionFS (old WeKan's
+  `FS.Store.GridFS('attachments')`) stores each file's GridFS id at **`copies.<bucket>.key`**
+  (`copies.attachments.key` / `copies.avatars.key`) — but the importers only looked at
+  `original.gridFsFileId`, `gridFsFileId` and `copies.gridfs.key`, none of which exist in that
+  layout. So the modern importer "skipped" every file **silently** and the MongoDB 3.x importer
+  extracted the binaries but never created an attachment record (and the records it did create
+  lost their `meta.cardId`/`boardId`, which CollectionFS keeps at the record's TOP level — an
+  attachment without `meta.cardId` shows on no card). Either way the migration reported success
+  with zero attachments visible. A new shared `resolveCfsGridFsId()` resolves the id from all
+  four layouts (`original.gridFsFileId`, `gridFsFileId`, `copies.<bucket>.key`,
+  `copies.gridfs.key`, then any `copies.*.key`), the modern importer now **drives extraction
+  from `cfs_gridfs.<bucket>.files` itself** (so a missing/empty `cfs.<bucket>.filerecord`
+  collection no longer skips everything — binaries without a filerecord are still extracted to
+  disk), the mongo3 importer copies the top-level `boardId`/`cardId`/`listId`/`swimlaneId`/
+  `userId` into `meta`, and filerecords whose binary cannot be located are **reported as
+  errors** on the migration dashboard instead of being silently dropped. If you already
+  migrated and attachments are missing, run the migration again: `snap run wekan.migrate`
+  (the source MongoDB data was never modified). Behavioral positive/negative tests:
+  `tests/migrationAttachmentExtraction.test.cjs`. Thanks to mueschel and xet7.
+
+- **Snap/Docker: Meteor-Files attachments stored in GridFS without a `storage: 'gridfs'` flag
+  were left pointing at a GridFS that no longer exists after migration**
+  ([#6473](https://github.com/wekan/wekan/issues/6473), `releases/migrate-mongodb-to-ferretdb.mjs`,
+  `snap-src/bin/migrate-gridfs-to-fs.mjs`). WeKan's own `getFileStrategy` serves a version from
+  GridFS when its storage flag says `'gridfs'` **or** it carries a
+  `versions.*.meta.gridFsFileId` reference — those reference-only records worked fine on
+  MongoDB, but the migration's file phase only matched `versions.original.storage: 'gridfs'`,
+  so their binaries were never extracted and the record kept pointing into the void (404 after
+  the switch). The record scan now matches both forms (and every version, not just
+  `original`), and a **second, bucket-driven sweep** walks `<bucket>.files` by its
+  `metadata.fileId` back-reference (the way WeKan writes GridFS uploads), recovering binaries
+  even when the record's flags say nothing about GridFS. Any GridFS-flagged version whose
+  binary genuinely cannot be located is reported on the dashboard. Thanks to mueschel and xet7.
+
+- **Admin Panel > Attachments showed "/data" as the Filesystem Storage path on every
+  platform** ([#6473](https://github.com/wekan/wekan/issues/6473),
+  `client/components/settings/attachments.js`, `client/components/settings/settingBody.js`,
+  `server/models/attachmentStorageSettings.js`, `models/lib/attachmentStoragePath.js`). The
+  Blaze helpers computed the path from `process.env.WRITABLE_PATH` **in the browser**, where
+  `process.env` never has it, so the page always fell back to "/data" — a path that does not
+  exist on a Snap install (the real path is `/var/snap/wekan/common/files/attachments`),
+  sending admins hunting for a directory that was never there. The client now asks the server
+  via a new admin-only `getAttachmentStoragePaths` method, whose Snap-aware computation
+  (shared, dependency-free `models/lib/attachmentStoragePath.js` — WRITABLE_PATH already ends
+  in `/files` on Snap, `/files` is appended elsewhere) is also used for the settings document's
+  default filesystem path, which pointed at `/data/attachments` instead of
+  `/data/files/attachments` on Docker. Unit tests with negative cases:
+  `tests/attachmentStoragePath.test.cjs`. Thanks to mueschel and xet7.
+
+- **Snap: `snap run wekan.database ferretdb` looked like it re-ran the migration — it only
+  switches databases** ([#6473](https://github.com/wekan/wekan/issues/6473),
+  `snap-src/bin/wekan-database`). Running it while already on FerretDB printed "WeKan now uses
+  FerretDB (SQLite)." and users reasonably read that as "migration done" while their
+  attachments stayed missing. It now says when nothing was switched, states that the command
+  does NOT migrate data, and names the command that does: `snap run wekan.migrate`. Thanks to
+  mueschel and xet7.
+
+- **FerretDB (SQLite) rejected documents with literal dotted field names, silently dropping
+  them during migration** ([#6473](https://github.com/wekan/wekan/issues/6473),
+  [wekan/FerretDB](https://github.com/wekan/FerretDB) `internal/types/document_validation.go`).
+  MongoDB has accepted documents with literal `.` in field names since 3.6, and data migrated
+  from a real MongoDB can legitimately contain them — but FerretDB v1's document validation
+  rejected every such document (*"invalid key: … (key must not contain '.' sign)"*), and since
+  per-item migration errors are deliberately non-fatal (#6466), those documents simply went
+  missing. Fixed in the bundled wekan/FerretDB fork: dotted keys are stored and round-tripped
+  literally with MongoDB's own semantics (query/update paths still treat `.` as a path
+  separator), while the other key rules (`$` prefix, duplicates, UTF-8) still reject. Verified
+  end-to-end against a live FerretDB (SQLite): insert, nested `$set`, round-trip, and the
+  negative cases. Thanks to mueschel and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v9.96 2026-07-16 WeKan ® release
 
 This release adds the following updates:

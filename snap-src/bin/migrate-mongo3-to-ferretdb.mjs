@@ -424,6 +424,39 @@ function legacyToV2(line) {
 
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
 
+/**
+ * Resolve the GridFS ObjectId of a CollectionFS filerecord (#6473).
+ *
+ * Real CollectionFS (old WeKan, FS.Store.GridFS named after the bucket) stores
+ * the GridFS file id at `copies.<storeName>.key` where the store name equals
+ * the bucket name — `copies.attachments.key` / `copies.avatars.key`. The old
+ * lookup only tried `original.gridFsFileId`, `gridFsFileId` and
+ * `copies.gridfs.key`, NONE of which exist in that layout, so no filerecord was
+ * ever matched to its GridFS file: the binaries were extracted but no
+ * attachment record was created, and every attachment was missing (#6473).
+ * Try, in order:
+ *   1. original.gridFsFileId / gridFsFileId (newer intermediate layouts)
+ *   2. copies.<bucketName>.key              (real CollectionFS layout)
+ *   3. copies.gridfs.key                    (legacy fallback kept for safety)
+ *   4. the first copies.*.key found         (renamed stores)
+ * Returns null when the record carries no GridFS reference at all.
+ */
+function resolveCfsGridFsId(record, bucketName) {
+  if (!record || typeof record !== 'object') return null;
+  const original = record.original || {};
+  if (original.gridFsFileId) return original.gridFsFileId;
+  if (record.gridFsFileId) return record.gridFsFileId;
+  const copies = record.copies;
+  if (copies && typeof copies === 'object') {
+    if (copies[bucketName] && copies[bucketName].key) return copies[bucketName].key;
+    if (copies.gridfs && copies.gridfs.key) return copies.gridfs.key;
+    for (const copy of Object.values(copies)) {
+      if (copy && copy.key) return copy.key;
+    }
+  }
+  return null;
+}
+
 // ── Resumable progress checkpoint ────────────────────────────────────────────
 // This migration can run for hours, and being interrupted part-way (snap refresh to a
 // new revision, `snap stop`, reboot, power loss) is normal rather than exceptional.
@@ -721,12 +754,12 @@ async function run() {
     const filerecords = all.includes(`cfs.${bucket}.filerecord`) ? exportDocs(`cfs.${bucket}.filerecord`) : [];
     const byGridId = new Map();
     for (const fr of filerecords) {
-      const gid = (fr.original && fr.original.gridFsFileId) || fr.gridFsFileId ||
-        (fr.copies && fr.copies.gridfs && fr.copies.gridfs.key);
+      const gid = resolveCfsGridFsId(fr, bucket);
       if (gid) byGridId.set(String(gid), fr);
     }
     const gfFiles = exportDocs(filesColl);
     logline(`${bucket}: ${gfFiles.length} GridFS files to extract -> ${destDir}`);
+    let orphanFiles = 0;   // GridFS files with no filerecord (extracted, kept on disk)
     for (const gf of gfFiles) {
       const fid = gf._id;
       const fr = byGridId.get(String(fid)) || {};
@@ -754,13 +787,34 @@ async function run() {
         finally { fs.closeSync(fd); }
         state.current.done = written;
         state.files[key].done++; state.files[key].bytes += written;
-        // Meteor-Files record pointing at the filesystem path.
+        // Meteor-Files record pointing at the filesystem path. #6473: real
+        // CollectionFS filerecords keep boardId/cardId/... at the TOP level (not
+        // under meta), so copy them into meta explicitly — a record without
+        // meta.cardId is never shown on any card.
         if (fr._id) {
+          const frMeta = fr.meta || {};
           await db.collection(bucket).replaceOne({ _id: fr._id }, {
             _id: fr._id, name, size: written, path: dest,
-            versions: { original: { path: dest, storage: 'fs', size: written } },
-            meta: { ...(fr.meta || {}), source: 'cfs-cli-migration', originalFilename: name },
+            type: original.type || 'application/octet-stream',
+            versions: { original: { path: dest, storage: 'fs', size: written, type: original.type || 'application/octet-stream' } },
+            meta: {
+              ...frMeta,
+              boardId:    frMeta.boardId    || fr.boardId    || '',
+              cardId:     frMeta.cardId     || fr.cardId     || '',
+              listId:     frMeta.listId     || fr.listId     || '',
+              swimlaneId: frMeta.swimlaneId || fr.swimlaneId || '',
+              userId:     frMeta.userId     || fr.userId     || '',
+              source: 'cfs-cli-migration', originalFilename: name,
+              cfsOriginalId: String(fr._id),
+            },
+            userId: frMeta.userId || fr.userId || '',
+            collectionName: bucket,
           }, { upsert: true });
+        } else {
+          // No filerecord: there is no board/card to attach the file to, so no
+          // record is created — but the binary IS extracted and kept on disk
+          // instead of being silently lost.
+          orphanFiles++;
         }
         // Done only now: bytes on disk AND a record pointing at them.
         completedFiles.set(resumeKey, { path: dest, size: written });
@@ -769,6 +823,7 @@ async function run() {
       finally { state.current.active = false; }
       if (state.abort) { onDiskAbort(); return; }
     }
+    if (orphanFiles > 0) logline(`${bucket}: ${orphanFiles} GridFS file(s) had no CollectionFS filerecord; extracted without a database record.`);
     logline(`${bucket}: extracted ${state.files[key].done} files (${(state.files[key].bytes / 1048576).toFixed(1)} MB)`);
   }
 

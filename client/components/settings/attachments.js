@@ -234,6 +234,15 @@ Template.attachments.onCreated(function () {
   this.activeSection = new ReactiveVar('move');
   this.storageSettingsSubscription = Meteor.subscribe('attachmentStorageSettings');
   this.attachmentStorageSettings = new ReactiveVar(null);
+  // #6473: the real storage paths only exist on the SERVER (WRITABLE_PATH is a
+  // server environment variable — process.env in the browser never has it, so
+  // computing the path client-side always showed the misleading "/data").
+  this.storagePaths = new ReactiveVar(null);
+  Meteor.call('getAttachmentStoragePaths', (err, paths) => {
+    if (!err && paths) {
+      this.storagePaths.set(paths);
+    }
+  });
   this.attachmentLimitUnits = new ReactiveVar({
     attachmentsUploadMaxBytes: 'mb',
     attachmentsDownloadMaxBytes: 'mb',
@@ -537,16 +546,20 @@ Template.attachments.helpers({
   isS3Active() {
     return Template.instance().activeSection.get() === 's3';
   },
+  // #6473: these paths come from the getAttachmentStoragePaths server method —
+  // WRITABLE_PATH is a server-side environment variable, so reading
+  // process.env here in the browser always produced the misleading "/data".
   filesystemPath() {
-    return process.env.WRITABLE_PATH || '/data';
+    const paths = Template.instance().storagePaths.get();
+    return paths ? paths.writablePath : '';
   },
   attachmentsPath() {
-    const writablePath = process.env.WRITABLE_PATH || '/data';
-    return `${writablePath}/attachments`;
+    const paths = Template.instance().storagePaths.get();
+    return paths ? paths.attachments : '';
   },
   avatarsPath() {
-    const writablePath = process.env.WRITABLE_PATH || '/data';
-    return `${writablePath}/avatars`;
+    const paths = Template.instance().storagePaths.get();
+    return paths ? paths.avatars : '';
   },
   filesystemEnabled() {
     const tpl = Template.instance();

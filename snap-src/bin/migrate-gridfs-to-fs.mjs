@@ -54,6 +54,30 @@ function sanitizeFilename(name) {
   return name || 'file';
 }
 
+/**
+ * Resolve the GridFS ObjectId of a CollectionFS filerecord (#6473). Real
+ * CollectionFS (old WeKan, FS.Store.GridFS named after the bucket) stores it at
+ * `copies.<storeName>.key` where the store name equals the bucket name —
+ * `copies.attachments.key` / `copies.avatars.key`. The old lookup only tried
+ * `original.gridFsFileId`, which does not exist in that layout, so every
+ * CollectionFS attachment was silently skipped.
+ */
+function resolveCfsGridFsId(record, bucketName) {
+  if (!record || typeof record !== 'object') return null;
+  const original = record.original || {};
+  if (original.gridFsFileId) return original.gridFsFileId;
+  if (record.gridFsFileId) return record.gridFsFileId;
+  const copies = record.copies;
+  if (copies && typeof copies === 'object') {
+    if (copies[bucketName] && copies[bucketName].key) return copies[bucketName].key;
+    if (copies.gridfs && copies.gridfs.key) return copies.gridfs.key;
+    for (const copy of Object.values(copies)) {
+      if (copy && copy.key) return copy.key;
+    }
+  }
+  return null;
+}
+
 function uniquePath(dir, idHex, originalName) {
   const safe = sanitizeFilename(originalName);
   let base = `${idHex}_${safe}`;
@@ -104,12 +128,19 @@ async function migrateCollection(collName, destDir, bucketPrefix) {
   if (allColls.includes(`cfs.${collName}.filerecord`)) {
     const cursor = db.collection(`cfs.${collName}.filerecord`).find({});
     for await (const rec of cursor) {
-      sources.push({ id: rec._id, gridFsId: rec.original?.gridFsFileId, name: rec.original?.name });
+      // #6473: resolve the GridFS id from copies.<bucket>.key too (real
+      // CollectionFS layout), not just original.gridFsFileId.
+      sources.push({ id: rec._id, gridFsId: resolveCfsGridFsId(rec, collName), name: rec.original?.name });
     }
     await cursor.close();
   }
-  // Also handle Meteor-Files docs already in target that are marked storage:'gridfs'
-  const mfCursor = db.collection(collName).find({ 'versions.original.storage': 'gridfs' });
+  // Also handle Meteor-Files docs marked storage:'gridfs' OR carrying a
+  // meta.gridFsFileId reference (#6473: the same rule WeKan's getFileStrategy
+  // uses — records with only the reference were previously missed).
+  const mfCursor = db.collection(collName).find({ $or: [
+    { 'versions.original.storage': 'gridfs' },
+    { 'versions.original.meta.gridFsFileId': { $exists: true, $ne: null } },
+  ] });
   for await (const doc of mfCursor) {
     sources.push({ id: doc._id, gridFsId: doc.versions?.original?.meta?.gridFsFileId, name: doc.name });
   }

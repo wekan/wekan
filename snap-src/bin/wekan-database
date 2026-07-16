@@ -28,11 +28,20 @@ case "${1:-}" in
       echo "Migrate first:  snap run ${svc}.migrate   (then: snap run ${svc}.database ferretdb)"
       exit 1
     fi
-    snapctl set database=ferretdb 2>/dev/null || true
-    snapctl stop --disable "${svc}.mongodb"  2>/dev/null || true
-    snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
-    snapctl restart "${svc}.wekan" 2>/dev/null || true
-    echo "WeKan now uses FerretDB (SQLite)."
+    # #6473: users ran `wekan.database ferretdb` expecting it to re-run the
+    # migration — it only SWITCHES databases. Say so, and point at the command
+    # that actually re-migrates, so "still no attachments" has a next step.
+    if [ "$(snapctl get database 2>/dev/null)" = "ferretdb" ]; then
+      echo "WeKan is already using FerretDB (SQLite); nothing switched."
+    else
+      snapctl set database=ferretdb 2>/dev/null || true
+      snapctl stop --disable "${svc}.mongodb"  2>/dev/null || true
+      snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
+      snapctl restart "${svc}.wekan" 2>/dev/null || true
+      echo "WeKan now uses FerretDB (SQLite)."
+    fi
+    echo "Note: this command only selects the database, it does NOT migrate data."
+    echo "If data (for example attachments) is missing, re-run the full migration:  snap run ${svc}.migrate"
     ;;
   *)
     echo "Current database: $(snapctl get database 2>/dev/null || true)"

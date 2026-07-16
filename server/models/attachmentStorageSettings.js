@@ -15,6 +15,7 @@ import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { refreshCloudStorageFromSettings, testCloudConnection } from '/models/lib/cloudStorage';
+import { computeStoragePaths } from '/models/lib/attachmentStoragePath';
 
 // Secret fields per cloud provider — never published to the client and only
 // overwritten when a non-empty replacement value is supplied.
@@ -174,6 +175,21 @@ async function compactCollectionsOnNode(nodeDb, candidates, force = false) {
 }
 
 Meteor.methods({
+  // #6473: the Admin Panel > Attachments page used to render these paths from
+  // process.env.WRITABLE_PATH ON THE CLIENT, where process.env never has it, so
+  // it always showed "/data" — a path that does not exist on a Snap install.
+  // The client now asks the server for the real, Snap-aware paths.
+  async getAttachmentStoragePaths() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    return computeStoragePaths(process.env.WRITABLE_PATH);
+  },
+
   async getAttachmentStorageSettings() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');
@@ -193,7 +209,11 @@ Meteor.methods({
             enabled: true,
             read: true,
             write: true,
-            path: process.env.WRITABLE_PATH ? `${process.env.WRITABLE_PATH}/attachments` : '/data/attachments',
+            // #6473: the REAL storage path (Snap-aware: WRITABLE_PATH may already
+            // end in /files), not `${WRITABLE_PATH}/attachments`, which pointed
+            // at a directory that does not exist on Docker (/data/attachments
+            // instead of /data/files/attachments).
+            path: computeStoragePaths(process.env.WRITABLE_PATH).attachments,
           },
           gridfs: {
             enabled: true,

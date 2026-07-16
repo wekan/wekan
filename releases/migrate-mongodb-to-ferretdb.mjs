@@ -574,6 +574,38 @@ function destFilePath(dir, idHex, originalName) {
   return { fullPath: path.join(dir, base), basename: base };
 }
 
+/**
+ * Resolve the GridFS ObjectId of a CollectionFS filerecord (#6473).
+ *
+ * Real CollectionFS (old WeKan, FS.Store.GridFS named after the bucket) stores
+ * the GridFS file id at `copies.<storeName>.key` where the store name equals
+ * the bucket name — `copies.attachments.key` / `copies.avatars.key`. The old
+ * lookup only tried `original.gridFsFileId`, `gridFsFileId` and
+ * `copies.gridfs.key`, NONE of which exist in that layout, so every attachment
+ * was silently "skipped" and the migration still reported success — the exact
+ * "all attachments are missing" of #6473. Try, in order:
+ *   1. original.gridFsFileId / gridFsFileId (newer intermediate layouts)
+ *   2. copies.<bucketName>.key              (real CollectionFS layout)
+ *   3. copies.gridfs.key                    (legacy fallback kept for safety)
+ *   4. the first copies.*.key found         (renamed stores)
+ * Returns null when the record carries no GridFS reference at all.
+ */
+function resolveCfsGridFsId(record, bucketName) {
+  if (!record || typeof record !== 'object') return null;
+  const original = record.original || {};
+  if (original.gridFsFileId) return original.gridFsFileId;
+  if (record.gridFsFileId) return record.gridFsFileId;
+  const copies = record.copies;
+  if (copies && typeof copies === 'object') {
+    if (copies[bucketName] && copies[bucketName].key) return copies[bucketName].key;
+    if (copies.gridfs && copies.gridfs.key) return copies.gridfs.key;
+    for (const copy of Object.values(copies)) {
+      if (copy && copy.key) return copy.key;
+    }
+  }
+  return null;
+}
+
 // ── Schema upgrade helpers ─────────────────────────────────────────────────
 /**
  * During the copy phase we call this on every document of a given collection
@@ -1003,9 +1035,16 @@ async function run() {
     try { state.current.total += await srcDb.collection(`cfs_gridfs.${b}.files`).countDocuments(); } catch {}
     try { const r = await srcDb.collection(`cfs_gridfs.${b}.files`).aggregate([{ $group: { _id: null, s: { $sum: '$length' } } }]).toArray(); state.filesTotalBytes += r.length ? Number(r[0].s) || 0 : 0; } catch {}
   }
+  // #6473: a Meteor-Files version is in GridFS when its storage flag says so OR it
+  // carries a meta.gridFsFileId reference (the same rule WeKan's getFileStrategy
+  // uses) — records with only the reference used to be missed entirely.
+  const MF_GRIDFS_QUERY = { $or: [
+    { 'versions.original.storage': 'gridfs' },
+    { 'versions.original.meta.gridFsFileId': { $exists: true, $ne: null } },
+  ] };
   for (const c of mfColls) {
-    try { state.current.total += await srcDb.collection(c).countDocuments({ 'versions.original.storage': 'gridfs' }); } catch {}
-    try { const r = await srcDb.collection(c).aggregate([{ $match: { 'versions.original.storage': 'gridfs' } }, { $group: { _id: null, s: { $sum: '$versions.original.size' } } }]).toArray(); state.filesTotalBytes += r.length ? Number(r[0].s) || 0 : 0; } catch {}
+    try { state.current.total += await srcDb.collection(c).countDocuments(MF_GRIDFS_QUERY); } catch {}
+    try { const r = await srcDb.collection(c).aggregate([{ $match: MF_GRIDFS_QUERY }, { $group: { _id: null, s: { $sum: '$versions.original.size' } } }]).toArray(); state.filesTotalBytes += r.length ? Number(r[0].s) || 0 : 0; } catch {}
   }
   updateDiskFree(WRITABLE, true);
   console.log(`[migrate] Files to extract: ${state.current.total} (${(state.filesTotalBytes / 1048576).toFixed(0)} MB)${state.diskFree >= 0 ? `; disk free ${(state.diskFree / 1048576).toFixed(0)} MB` : '; free space unknown — will stop on a write failure'}.`);
@@ -1029,26 +1068,47 @@ async function run() {
 
     const bucket = new GridFSBucket(srcDb, { bucketName: `cfs_gridfs.${bucketName}` });
     const filesCol = srcDb.collection(filesCollName);
-    const metaCursor = srcDb.collection(`cfs.${bucketName}.filerecord`).find({});
 
     state.files[fileStateKey].total = await filesCol.countDocuments();
 
-    for await (const record of metaCursor) {
-      const original = record.original || {};
-      const gridFsId = original.gridFsFileId || record.gridFsFileId || (record.copies && record.copies.gridfs && record.copies.gridfs.key);
-      if (!gridFsId) {
-        state.files[fileStateKey].skipped++;
-        continue;
+    // #6473: join the CollectionFS filerecords (original name, board/card links)
+    // to the GridFS files by their RESOLVED GridFS id — but DRIVE the extraction
+    // from the GridFS files collection itself. The old loop iterated the
+    // filerecords and skipped any record whose GridFS id it could not resolve, so
+    // the id living at copies.<bucket>.key (the real CollectionFS layout) — or a
+    // missing cfs.<bucket>.filerecord collection — silently skipped EVERY file
+    // while the migration still reported success.
+    const recordByGridId = new Map();
+    let danglingRecords = 0;   // filerecords carrying no GridFS reference at all
+    if (allColls.includes(`cfs.${bucketName}.filerecord`)) {
+      const metaCursor = srcDb.collection(`cfs.${bucketName}.filerecord`).find({});
+      for await (const record of metaCursor) {
+        const gid = resolveCfsGridFsId(record, bucketName);
+        if (gid) recordByGridId.set(String(gid), record);
+        else danglingRecords++;
       }
+      await metaCursor.close();
+    }
+    if (danglingRecords > 0) {
+      pushError(`${bucketName}: ${danglingRecords} CollectionFS filerecord(s) carry no GridFS reference; their binaries cannot be located.`);
+      state.files[fileStateKey].errors += danglingRecords;
+    }
 
-      const originalName = original.name || record.filename || String(record._id);
-      const size = original.size || 0;
-      const { fullPath, basename } = destFilePath(destDir, String(record._id), originalName);
+    let orphanFiles = 0;   // GridFS files with no filerecord (extracted, kept on disk)
+    const gfCursor = filesCol.find({});
+    for await (const gf of gfCursor) {
+      const gridFsId = gf._id;
+      const record = recordByGridId.get(String(gridFsId)) || null;
+      const original = (record && record.original) || {};
+      const recordId = record ? String(record._id) : String(gridFsId);
+      const originalName = original.name || (record && record.filename) || gf.filename || recordId;
+      const size = gf.length || original.size || 0;
+      const { fullPath, basename } = destFilePath(destDir, recordId, originalName);
 
       // Extracted by an earlier run that was interrupted: count it and move on. This is
       // what makes a resumed migration cheap — re-extracting gigabytes of unchanged
       // attachments is the slowest part of the whole job.
-      const resumeKey = `${bucketName}:${record._id}`;
+      const resumeKey = `${bucketName}:${recordId}`;
       const done = alreadyExtracted(resumeKey);
       if (done) {
         fileIndex++;
@@ -1059,7 +1119,7 @@ async function run() {
 
       // STOP (not skip) if this file plus the safety margin will not fit: a full disk can
       // corrupt the still-running source MongoDB. Roll back and report how much more is needed.
-      if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { await metaCursor.close(); onDiskAbort(); return; }
+      if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { await gfCursor.close(); onDiskAbort(); return; }
 
       fileIndex++;
       state.current = { active: true, kind: fileStateKey, name: originalName, size, done: 0, index: fileIndex, total: state.current.total };
@@ -1077,34 +1137,45 @@ async function run() {
         state.files[fileStateKey].bytes += bytes;
         state.current.done = bytes;
 
-        // CREATE the Meteor-Files record in the bare <bucket> collection from the CollectionFS
-        // filerecord, pointing at the on-disk file. The cfs.<bucket>.filerecord collection is
-        // NOT copied as text (FerretDB rejects its dotted name), so this is where the record is
-        // made. replaceOne(upsert:true) so it works whether or not one already exists.
-        const mfRecord = cfsRecordToMeteorFile(record, bucketName, basename);
-        mfRecord.path = fullPath;
-        mfRecord.size = bytes;
-        if (mfRecord.versions && mfRecord.versions.original) {
-          mfRecord.versions.original.path = fullPath;
-          mfRecord.versions.original.size = bytes;
-          mfRecord.versions.original.storage = 'fs';
+        if (record) {
+          // CREATE the Meteor-Files record in the bare <bucket> collection from the CollectionFS
+          // filerecord, pointing at the on-disk file. The cfs.<bucket>.filerecord collection is
+          // NOT copied as text (FerretDB rejects its dotted name), so this is where the record is
+          // made. replaceOne(upsert:true) so it works whether or not one already exists.
+          const mfRecord = cfsRecordToMeteorFile(record, bucketName, basename);
+          mfRecord.path = fullPath;
+          mfRecord.size = bytes;
+          if (mfRecord.versions && mfRecord.versions.original) {
+            mfRecord.versions.original.path = fullPath;
+            mfRecord.versions.original.size = bytes;
+            mfRecord.versions.original.storage = 'fs';
+          }
+          mfRecord.meta = { ...(mfRecord.meta || {}), originalFilename: originalName, storedBasename: basename, source: 'cfs-migration' };
+          await tgtDb.collection(bucketName).replaceOne({ _id: record._id }, mfRecord, { upsert: true });
+        } else {
+          // No filerecord: there is no board/card to attach the file to, so no record is
+          // created — but the binary IS extracted and kept on disk (<gridFsId>_<name>)
+          // instead of being silently lost.
+          orphanFiles++;
         }
-        mfRecord.meta = { ...(mfRecord.meta || {}), originalFilename: originalName, storedBasename: basename, source: 'cfs-migration' };
-        await tgtDb.collection(bucketName).replaceOne({ _id: record._id }, mfRecord, { upsert: true });
-        // Only now is this file really done: bytes on disk AND a record pointing at them.
+        // Only now is this file really done: bytes on disk AND (when a filerecord
+        // exists) a record pointing at them.
         completedFiles.set(resumeKey, { path: fullPath, size: bytes });
         saveCheckpoint();
       } catch (err) {
         if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
-        pushError(`GridFS extract ${bucketName}/${record._id}: ${err.message}`);
+        pushError(`GridFS extract ${bucketName}/${recordId}: ${err.message}`);
         state.files[fileStateKey].errors++;
         // Clean up partial file
         try { fs.unlinkSync(fullPath); } catch { /* ignore */ }
       } finally { state.current.active = false; }
 
-      if (state.abort) { await metaCursor.close(); onDiskAbort(); return; }
+      if (state.abort) { await gfCursor.close(); onDiskAbort(); return; }
     }
-    await metaCursor.close();
+    await gfCursor.close();
+    if (orphanFiles > 0) {
+      console.log(`[migrate] ${bucketName}: ${orphanFiles} GridFS file(s) had no CollectionFS filerecord; extracted to ${destDir} without a database record.`);
+    }
   }
 
   await migrateGridFs('attachments', ATTACH_DIR, 'attachments');
@@ -1115,71 +1186,161 @@ async function run() {
   saveCheckpoint(true);
 
   // Also migrate any attachments that are already in Meteor-Files format but stored
-  // in GridFS (storage === 'gridfs') — move binary to filesystem and update record.
+  // in GridFS — move the binary to the filesystem and update the record. #6473: a
+  // version is in GridFS when its storage flag says 'gridfs' OR it carries a
+  // meta.gridFsFileId reference (the same rule WeKan's getFileStrategy uses to pick
+  // the read backend). The old query matched only storage === 'gridfs' on the
+  // 'original' version, so records carrying just the reference — which WORKED on
+  // MongoDB — were left pointing at a GridFS that does not exist in FerretDB. A
+  // second, bucket-driven pass then sweeps <bucket>.files by its metadata.fileId
+  // (the way WeKan writes GridFS uploads), so a binary is recovered even when its
+  // record's flags say nothing about GridFS.
   state.phase_detail = 'Migrating Meteor-Files GridFS records to filesystem…';
+  let mfAborted = false;
   for (const [collName, destDir, fileStateKey] of [
     ['attachments', ATTACH_DIR, 'attachments'],
     ['avatars',     AVATAR_DIR, 'avatars'],
   ]) {
+    if (mfAborted) break;
     if (!allColls.includes(collName)) continue;
     const col = srcDb.collection(collName);
-    const cursor = col.find({ 'versions.original.storage': 'gridfs' });
     const bucket = new GridFSBucket(srcDb, { bucketName: collName });
+    // Every (record, version) the record-driven pass walked this run — the bucket
+    // sweep must not double-count them.
+    const seenByRecordPass = new Set();
+    // GridFS-marked versions whose binary could not be located yet; the bucket
+    // sweep resolves them by metadata.fileId, anything left is reported.
+    const unresolved = new Set();
 
-    for await (const doc of cursor) {
-      const gridFsId = doc.versions?.original?.meta?.gridFsFileId;
-      if (!gridFsId) continue;
-      const originalName = doc.name || String(doc._id);
-      const size = (doc.versions && doc.versions.original && doc.versions.original.size) || doc.size || 0;
-      const { fullPath, basename } = destFilePath(destDir, String(doc._id), originalName);
+    const resumeKeyFor = (recordId, versionName) =>
+      versionName === 'original' ? `${collName}:${recordId}` : `${collName}.${versionName}:${recordId}`;
 
-      const resumeKey = `${collName}:${doc._id}`;
-      const done = alreadyExtracted(resumeKey);
-      if (done) {
-        fileIndex++;
-        state.files[fileStateKey].done++;
-        state.files[fileStateKey].bytes += Number(done.size) || 0;
-        continue;
-      }
-
-      if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { await cursor.close(); onDiskAbort(); await finishAbort(); return; }
+    // Extract one GridFS file and (when updateRecord) repoint the target record's
+    // version at the on-disk file. Returns false when the migration must stop.
+    const moveOne = async (recordId, versionName, gridFsId, originalName, size, updateRecord) => {
+      const idHex = versionName === 'original' ? String(recordId) : `${recordId}-${versionName}`;
+      const { fullPath, basename } = destFilePath(destDir, idHex, originalName);
+      if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { onDiskAbort(); return false; }
 
       fileIndex++;
       state.current = { active: true, kind: fileStateKey, name: originalName, size, done: 0, index: fileIndex, total: state.current.total };
 
-      if (DRY_RUN) { state.files[fileStateKey].done++; state.current.active = false; continue; }
+      if (DRY_RUN) { state.files[fileStateKey].done++; state.current.active = false; return true; }
 
       try {
         const bytes = await extractGridFsFile(bucket, gridFsId, fullPath, (w) => { state.current.done = w; updateDiskFree(destDir); });
         state.files[fileStateKey].done++;
         state.files[fileStateKey].bytes += bytes;
         state.current.done = bytes;
-        await tgtDb.collection(collName).updateOne(
-          { _id: doc._id },
-          {
-            $set: {
-              path: fullPath,
-              'meta.storedBasename': basename,
-              'meta.originalFilename': originalName,
-              'versions.original.path':    fullPath,
-              'versions.original.storage': 'fs',
-              'versions.original.meta':    {},
-            },
-          },
-        );
-        completedFiles.set(resumeKey, { path: fullPath, size: bytes });
+        if (updateRecord) {
+          const set = {
+            [`versions.${versionName}.path`]:    fullPath,
+            [`versions.${versionName}.storage`]: 'fs',
+            // Drop the version's meta (and with it gridFsFileId) — otherwise WeKan's
+            // getFileStrategy keeps choosing the GridFS backend, where the data no
+            // longer lives, and the download 404s.
+            [`versions.${versionName}.meta`]:    {},
+          };
+          if (versionName === 'original') {
+            set.path = fullPath;
+            set['meta.storedBasename'] = basename;
+            set['meta.originalFilename'] = originalName;
+          }
+          await tgtDb.collection(collName).updateOne({ _id: recordId }, { $set: set });
+        }
+        completedFiles.set(resumeKeyFor(recordId, versionName), { path: fullPath, size: bytes });
         saveCheckpoint();
       } catch (err) {
         if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
-        pushError(`Move GridFS→fs ${collName}/${doc._id}: ${err.message}`);
+        pushError(`Move GridFS→fs ${collName}/${recordId}: ${err.message}`);
         state.files[fileStateKey].errors++;
         try { fs.unlinkSync(fullPath); } catch { /* ignore */ }
       } finally { state.current.active = false; }
+      return !state.abort;
+    };
 
-      if (state.abort) { await cursor.close(); onDiskAbort(); await finishAbort(); return; }
+    // ── Pass A: record-driven (any version flagged gridfs or carrying gridFsFileId) ──
+    const cursor = col.find(MF_GRIDFS_QUERY);
+    for await (const doc of cursor) {
+      for (const [versionName, version] of Object.entries(doc.versions || {})) {
+        if (!version || typeof version !== 'object') continue;
+        const marked = version.storage === 'gridfs' || (version.meta && version.meta.gridFsFileId);
+        if (!marked) continue;
+
+        const resumeKey = resumeKeyFor(String(doc._id), versionName);
+        seenByRecordPass.add(resumeKey);
+        const done = alreadyExtracted(resumeKey);
+        if (done) {
+          fileIndex++;
+          state.files[fileStateKey].done++;
+          state.files[fileStateKey].bytes += Number(done.size) || 0;
+          continue;
+        }
+
+        const gridFsId = version.meta && version.meta.gridFsFileId;
+        if (!gridFsId) {
+          // Flagged as GridFS but carries no file id — the bucket sweep below can
+          // still find the binary by its metadata.fileId back-reference.
+          unresolved.add(resumeKey);
+          continue;
+        }
+        const originalName = doc.name || String(doc._id);
+        const size = version.size || doc.size || 0;
+        if (!await moveOne(String(doc._id), versionName, gridFsId, originalName, size, true)) {
+          await cursor.close(); mfAborted = true; break;
+        }
+      }
+      if (mfAborted) break;
     }
-    await cursor.close();
+    if (!mfAborted) await cursor.close();
+    if (mfAborted) break;
+
+    // ── Pass B: bucket-driven sweep of <bucket>.files by metadata.fileId ──
+    if (allColls.includes(`${collName}.files`)) {
+      const bfCursor = srcDb.collection(`${collName}.files`).find({});
+      for await (const gf of bfCursor) {
+        const md = gf.metadata || {};
+        const recordId = md.fileId ? String(md.fileId) : String(gf._id);
+        const versionName = md.versionName || 'original';
+        const resumeKey = resumeKeyFor(recordId, versionName);
+        // Pass A already handled+counted it — EXCEPT the unresolved ones (flagged
+        // gridfs but no gridFsFileId), which are exactly what this sweep recovers.
+        if (seenByRecordPass.has(resumeKey) && !unresolved.has(resumeKey)) continue;
+
+        const record = md.fileId ? await col.findOne({ _id: md.fileId }) : null;
+        const recVersion = record && record.versions && record.versions[versionName];
+        // The record's version already lives happily on the filesystem: this bucket
+        // file is a stale leftover of an earlier move — leave both alone.
+        if (recVersion && recVersion.storage === 'fs' && recVersion.path && fs.existsSync(recVersion.path)) continue;
+
+        const done = alreadyExtracted(resumeKey);
+        if (done) {
+          fileIndex++;
+          state.files[fileStateKey].done++;
+          state.files[fileStateKey].bytes += Number(done.size) || 0;
+          unresolved.delete(resumeKey);
+          continue;
+        }
+
+        const originalName = (record && record.name) || gf.filename || recordId;
+        const size = gf.length || 0;
+        // Work the up-front count could not know about (unresolved ones were counted).
+        if (!unresolved.has(resumeKey)) state.current.total++;
+        if (!await moveOne(recordId, versionName, gf._id, originalName, size, !!record)) {
+          await bfCursor.close(); mfAborted = true; break;
+        }
+        unresolved.delete(resumeKey);
+      }
+      if (!mfAborted) await bfCursor.close();
+      if (mfAborted) break;
+    }
+
+    if (unresolved.size > 0) {
+      pushError(`${collName}: ${unresolved.size} GridFS-flagged version(s) whose binary could not be located in ${collName}.files; they cannot be extracted.`);
+      state.files[fileStateKey].errors += unresolved.size;
+    }
   }
+  if (mfAborted) { onDiskAbort(); await finishAbort(); return; }
 
   // ── 8. Write completion marker ─────────────────────────────────────────
   if (!DRY_RUN) {
