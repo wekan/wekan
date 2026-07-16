@@ -197,6 +197,11 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
 }
 .board-sidebar.is-open {
   display: block;
+  /* #6465 follow-up: the card details window docks to the right edge with
+     z-index 2001 — the same place this sidebar opens. When the user opens the
+     sidebar, the sidebar must win, or its content (e.g. the archives
+     Restore/Delete links) sits unreachable UNDER the card window. */
+  z-index: 2002;
 }
 .board-widget h4 {
   margin: 5px 0;

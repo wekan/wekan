@@ -131,6 +131,30 @@ test('zoom pill fits inside the 28px quick-access row', () => {
   assert.ok(!pill[0].includes('0.5vh 1vw'));
 });
 
+// --- Right-docked card window must not trap the sidebar ---------------------------
+
+test('archiving/deleting a card closes its details window (openCards cleanup)', () => {
+  // #6465 follow-up: the right-docked window (z-index 2001) otherwise stays
+  // rendered over the archives sidebar, intercepting its Restore/Delete links.
+  const cardDetailsJs = read('client/components/cards/cardDetails.js');
+  const archive = cardDetailsJs.match(/'click \.js-archive':[\s\S]*?\n  \}\),/);
+  assert.ok(archive, 'archive handler found');
+  assert.ok(/Session\.set\('openCards',[\s\S]*?filter\(\(id\) => id !== card\._id\)/.test(archive[0]),
+    'archive must drop the card from openCards');
+  const del = cardDetailsJs.match(/'click \.js-delete': Popup\.afterConfirm\('cardDelete'[\s\S]*?\n  \}\),/);
+  assert.ok(del, 'delete handler found');
+  assert.ok(/Session\.set\('openCards',[\s\S]*?filter\(\(id\) => id !== card\._id\)/.test(del[0]),
+    'delete must drop the card from openCards');
+});
+
+test('an OPEN sidebar stacks above the right-docked card window', () => {
+  const sidebar = read('client/components/sidebar/sidebar.css');
+  const open = sidebar.match(/\.board-sidebar\.is-open \{[\s\S]*?\}/);
+  assert.ok(open, 'is-open rule found');
+  assert.ok(open[0].includes('z-index: 2002'),
+    'sidebar must beat the card window\'s z-index 2001 when the user opens it');
+});
+
 // --- One-click board settings + list link -----------------------------------------
 
 test('board header has a one-click board settings cog', () => {

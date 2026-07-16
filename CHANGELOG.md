@@ -244,8 +244,16 @@ and fixes the following bugs:
   ("Select all / Unselect all" header links are now compact icons and header cells may wrap); the
   zoom pill no longer renders cut off (fixed-pixel pill inside the 28px quick-access row); and
   board settings opens with ONE click from a new cog button in the board header (the sidebar path
-  still works). Note: a missing watch "eye" icon is the Admin Panel → Features → Notifications
-  "disable watch" setting, not a regression. Thanks to Mintyt, csonkaoszimt, micha141076 and xet7.
+  still works). Follow-ups caught by the Playwright suite: archiving or deleting a card now also
+  CLOSES its details window (the card id stayed in the openCards session list, so the right-docked
+  window kept rendering exactly over the archives sidebar and intercepted its Restore/Delete
+  clicks), and an OPEN sidebar now stacks above the card window (z-index 2002 vs 2001) so the
+  sidebar is always usable while a card is open. With Playwright coverage: a new spec proves board
+  settings opens in one click from the header cog (and that the popup closes again), and the
+  archives spec's board-menu click is scoped to the sidebar instance since the cog made the bare
+  class selector ambiguous. Note: a missing watch "eye" icon is the Admin Panel → Features →
+  Notifications "disable watch" setting, not a regression. Thanks to Mintyt, csonkaoszimt,
+  micha141076 and xet7.
 
 - **Snap: WeKan served "502 Bad Gateway" forever when mongod could not start — including on CPUs
   without AVX ("Illegal instruction")** ([#6458](https://github.com/wekan/wekan/issues/6458),

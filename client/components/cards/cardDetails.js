@@ -1487,6 +1487,15 @@ Template.cardDetailsActionsPopup.events({
     Popup.close();
     if (!card) return;
     await card.archive();
+    // #6465 follow-up: archiving must also CLOSE the card's details window.
+    // The card id stayed in the openCards session list, so the floating window
+    // kept rendering above the board — and, docked to the right edge, exactly
+    // over the archives sidebar someone restoring the card would open next,
+    // intercepting its Restore/Delete clicks.
+    Session.set('openCards', (Session.get('openCards') || []).filter((id) => id !== card._id));
+    if (Session.get('currentCard') === card._id) {
+      Session.set('currentCard', null);
+    }
     Utils.goBoardId(card.boardId);
   }),
   'click .js-more': Popup.open('cardMore'),
@@ -2237,6 +2246,12 @@ Template.cardMorePopup.events({
     // verify that there are no linked cards
     if (ReactiveCache.getCards({ linkedId: card._id }).length === 0) {
       Cards.remove(card._id);
+      // #6465 follow-up: like archiving, deleting must close the card's
+      // details window (drop it from the openCards session list).
+      Session.set('openCards', (Session.get('openCards') || []).filter((id) => id !== card._id));
+      if (Session.get('currentCard') === card._id) {
+        Session.set('currentCard', null);
+      }
     } else {
       // TODO: Maybe later we can list where the linked cards are.
       // Now here is popup with a hint that the card cannot be deleted

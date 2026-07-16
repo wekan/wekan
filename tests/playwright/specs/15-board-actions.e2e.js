@@ -32,8 +32,10 @@ test.describe('Board-level actions', () => {
     // It is the real boardMenu popup: "Archived Items" lives inside it.
     await expect(popup.locator('.js-open-archives')).toBeVisible();
 
-    // Close it again so later tests start from a clean header.
-    await boardPage.keyboard.press('Escape');
+    // Close it again so later tests start from a clean header. Use the
+    // popup's own X button (.js-close-pop-over, as 19-accessibility does) —
+    // a keyboard Escape proved unreliable here across engines.
+    await popup.locator('.js-close-pop-over').first().click();
     await expect(boardPage.locator('.js-pop-over')).not.toBeVisible({ timeout: 8_000 });
   });
 
