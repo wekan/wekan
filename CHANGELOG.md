@@ -130,9 +130,17 @@ This release adds the following updates:
   `tests/ruleMoveAction.test.cjs`, `tests/snapMigrationRecovery.test.cjs`, `tests/ferretdbPolling.test.cjs`,
   `tests/uiDensity.test.cjs`, `tests/cpuExec.test.cjs` — a BEHAVIORAL test that executes the real
   cpu-exec against fake /proc/cpuinfo files and a fake qemu-user, covering direct exec, qemu fallback,
-  missing-qemu error, per-arch scoping and env overrides — wired into `test:unit:node` in
-  `package.json`; plus Go table tests in the wekan/FerretDB fork's
-  `internal/backends/sqlite/query_test.go`). The htmljs test exercises the vendored
+  missing-qemu error, per-arch scoping and env overrides —, `tests/cpuExecWiring.test.cjs` — pins the
+  cpu-exec DELIVERY pipeline: every Linux bundle in release-all.yml embeds cpu-exec plus its own
+  arch's qemu-user (arm64/extra arches replace the inherited amd64 one, tolerantly), the Windows and
+  macOS bundles strip both, qemu-user-static is installed in every bundle-building job, the Sandstorm
+  .spk ships both via build-deps.sh, the Docker entrypoint and bundle launcher route ferretdb/node
+  through cpu-exec WITH direct-exec fallbacks for bundles that lack it, and the snap ships it via the
+  snap-src helpers part —, and `tests/subtasksDefaultBoard.test.cjs` (see the #6456 entry below), all
+  wired into `test:unit:node` in `package.json`; plus Go table tests in the wekan/FerretDB fork's
+  `internal/backends/sqlite/query_test.go` and the fork's integration-test fixes (OTel exporter
+  skipped with a single log line when no collector is listening, and valid span contexts without a
+  collector so `TestOtelComment` passes — details in the fork's own CHANGELOG Upcoming). The htmljs test exercises the vendored
   compiler's Tag constructor directly (array content vs. attributes, #6459) and the draft tests run the real
   extracted `normalize`/`normalizeTrigger` functions; the UI tests guard the #6465 density fixes in the repo's
   CSS-guard style (base font 14px, card details docking right of the board instead of over its own card, compact
