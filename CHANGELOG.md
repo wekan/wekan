@@ -136,7 +136,7 @@ This release adds the following updates:
   macOS bundles strip both, qemu-user-static is installed in every bundle-building job, the Sandstorm
   .spk ships both via build-deps.sh, the Docker entrypoint and bundle launcher route ferretdb/node
   through cpu-exec WITH direct-exec fallbacks for bundles that lack it, and the snap ships it via the
-  snap-src helpers part —, and `tests/subtasksDefaultBoard.test.cjs` (see the #6456 entry below), all
+  snap-src helpers part —, `tests/subtasksDefaultBoard.test.cjs` (see the #6456 entry below), and `tests/ferretdbHasData.test.cjs` — a BEHAVIORAL test executing the real snap-src/bin/ferretdb-has-data guard (the check that gates every switch to FerretDB) against crafted directories: non-empty .sqlite passes with no -wal sidecar required, while a 0-byte .sqlite from a failed migration, sidecar-only leftovers, a directory named *.sqlite, and empty/missing directories are all rejected — all
   wired into `test:unit:node` in `package.json`; plus Go table tests in the wekan/FerretDB fork's
   `internal/backends/sqlite/query_test.go` and the fork's integration-test fixes (OTel exporter
   skipped with a single log line when no collector is listening, and valid span contexts without a
