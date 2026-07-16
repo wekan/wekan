@@ -117,10 +117,16 @@
 }
 
 /* Force tables to always trigger horizontal scrolling */
-.setting-content .content-body .main-body table td,
-.setting-content .content-body .main-body table th {
+.setting-content .content-body .main-body table td {
   white-space: nowrap;
   min-width: 120px;
+}
+/* #6465: headers may wrap — nowrap on long header labels (e.g. the org/team
+   feature columns) blew the column widths up to the whole label length. */
+.setting-content .content-body .main-body table th {
+  white-space: normal;
+  min-width: 120px;
+  max-width: 240px;
 }
 
 /* Ensure there's enough content to trigger vertical scrolling */

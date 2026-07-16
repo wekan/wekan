@@ -157,8 +157,14 @@ input,
 select,
 textarea,
 button {
-  font: clamp(14px, 2.5vw, 18px) Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  line-height: 1.4;
+  /* #6465: back to the WeKan 6.09 desktop density. The clamp() introduced in
+     v7.98 (20e9cf114) and raised in v8.02 (67b078b80) resolved to 18px on any
+     window wider than 720px — +28.5% on EVERY font, input and button versus
+     6.09's 14px — which is the "everything is way too big" regression. Mobile
+     readability is handled by the mobile media queries, not by inflating the
+     desktop base font. */
+  font: 14px Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  line-height: 18px;
   color: #4d4d4d;
   /* Improve text rendering */
   -webkit-font-smoothing: antialiased;
@@ -217,8 +223,10 @@ body.mobile-mode #content {
   margin-top: 30vh;
 }
 #content > .wrapper {
-  margin-top: 1vh;
-  padding: 2vh 2vw;
+  /* #6465: 6.09 values; 2vh/2vw padding was ~21x38px on FullHD — the huge
+     empty header band on the All Boards page. */
+  margin-top: 10px;
+  padding: 15px;
 }
 #modal {
   position: absolute;
@@ -264,13 +272,15 @@ body.mobile-mode #content {
   float: inline-end;
   font-size: clamp(18px, 4vw, 24px);
 }
+/* #6465: heading sizes back to the 6.09 values (22/18/16px) — the vw clamps
+   resolved to 24/20/18px on desktop and compounded the density regression. */
 h1 {
-  font-size: clamp(18px, 4vw, 24px);
+  font-size: 22px;
   line-height: 1.2em;
   margin: 0 0 1vh;
 }
 h2 {
-  font-size: clamp(16px, 3.5vw, 20px);
+  font-size: 18px;
   line-height: 1.2em;
   margin: 0 0 0.8vh;
 }
@@ -278,7 +288,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: clamp(14px, 3vw, 18px);
+  font-size: 16px;
   line-height: 1.25em;
   margin: 0 0 0.6vh;
 }

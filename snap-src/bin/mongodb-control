@@ -184,6 +184,75 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# ── #6458/#6466: decide a real outcome when mongod cannot start ──────────────
+# mongod can be unable to start at all: SIGILL (exit 132) on x86_64 CPUs without
+# AVX (MongoDB >= 5.0 requires AVX — #6458), or "This version of MongoDB is too
+# recent to start up on the existing data files" when the data is still MongoDB
+# 3.x after a failed/paused migration (#6466). Previously the exit status of the
+# mongod fork was never checked: the script pinged a dead port for ~10 minutes,
+# snapd restarted the service, and the cycle repeated forever while WeKan served
+# 502 Bad Gateway. Instead: switch to a COMPLETED FerretDB migration if one
+# exists, else (re)run the MongoDB → FerretDB migration (FerretDB is pure Go +
+# SQLite — no AVX needed; MongoDB 3.x data is read with the bundled 3.2 tools),
+# with a counter so a persistently failing migration cannot ping-pong forever.
+MONGOD_FAIL_COUNT_FILE="${SNAP_COMMON}/.mongod-start-failures"
+handle_mongod_start_failure() {
+    local rc="$1"
+    local svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+    echo "ERROR: mongod failed to start (exit code ${rc})."
+    if [ "$rc" -eq 132 ]; then
+        echo "Exit 132 = SIGILL (Illegal instruction): MongoDB 5.0+ x86_64 binaries require a CPU"
+        echo "with AVX support, and this CPU has none — the bundled MongoDB 7 can never run here."
+        echo "FerretDB (pure Go + SQLite) has no AVX requirement and is the supported fallback."
+    fi
+    echo "Last mongod log lines:"
+    tail -n 5 "$MONGO_LOG_FILE" 2>/dev/null || true
+
+    # A COMPLETED FerretDB migration exists (marker + non-empty SQLite): the snap
+    # should be running FerretDB anyway — switch now instead of crash-looping.
+    # (A PARTIAL migration — SQLite present but no marker — is NOT switched to.)
+    if [ -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
+       bash "$SNAP/bin/ferretdb-has-data" "$SNAP_COMMON/files/db" 2>/dev/null; then
+        echo "A completed FerretDB migration exists; switching to database=ferretdb."
+        snapctl set database=ferretdb 2>/dev/null || true
+        snapctl start --enable "${svc}.ferretdb" 2>/dev/null || true
+        snapctl restart "${svc}.ferretdb" 2>/dev/null || true
+        snapctl restart "${svc}.wekan" 2>/dev/null || true
+        snapctl stop --disable "${svc}.mongodb" 2>/dev/null || true
+        exit 0
+    fi
+
+    local fails=0
+    [ -f "$MONGOD_FAIL_COUNT_FILE" ] && fails="$(cat "$MONGOD_FAIL_COUNT_FILE" 2>/dev/null || echo 0)"
+    case "$fails" in (*[!0-9]*|'') fails=0;; esac
+    fails=$((fails + 1))
+    echo "$fails" > "$MONGOD_FAIL_COUNT_FILE"
+
+    # MongoDB data that this mongod cannot serve: the only way forward is the
+    # MongoDB → FerretDB migration. Re-enable and run it now (it RESUMES from its
+    # checkpoint if one exists), unless it keeps failing too (counter guards
+    # against a migration↔mongod restart loop).
+    if [ "$fails" -le 3 ] && [ ! -f "$SNAP_COMMON/.migration-to-ferretdb-done" ] && \
+       { [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; }; then
+        echo "mongod cannot serve this data; running the MongoDB -> FerretDB migration instead (attempt ${fails}/3)."
+        snapctl set migrate=on 2>/dev/null || true
+        rm -f "${SNAP_COMMON}/mongodb.pid"
+        exec bash "$SNAP/bin/migration-control"
+    fi
+
+    echo "mongod cannot start, and the MongoDB -> FerretDB migration has not completed (attempt ${fails})."
+    echo "Fix the problem, then retry/resume the migration with:  snap run wekan.migrate"
+    echo "Diagnostics: ${MONGO_LOG_FILE} and ${SNAP_COMMON}/migration-*.log"
+    exit 1
+}
+
+# #6458: pre-flight AVX check — without AVX, starting mongod below would only
+# produce the SIGILL crash loop, so fail over right away with a clear message.
+if [ "$(uname -m)" = "x86_64" ] && ! grep -qw avx /proc/cpuinfo 2>/dev/null; then
+    echo "ERROR: This x86_64 CPU has no AVX support; MongoDB 7 would exit with SIGILL."
+    handle_mongod_start_failure 132
+fi
+
 # Check if MongoDB is already running
 if check_mongodb_running; then
     echo "MongoDB is already running. Exiting to prevent multiple instances."
@@ -223,7 +292,11 @@ $SNAP/bin/mongod \
     --setParameter logicalSessionRefreshMillis=900000 \
     --setParameter localLogicalSessionTimeoutMinutes=45 \
     --replSet rs0 --oplogSize 20480 --fork \
-    --pidfilepath="$TEMP_PID_FILE"
+    --pidfilepath="$TEMP_PID_FILE" \
+    || handle_mongod_start_failure $?
+# ^ #6458/#6466: with --fork, mongod's parent only returns 0 once the child is up;
+# a SIGILL (no AVX) or "data files too recent" (3.x data) failure returns non-zero
+# and previously fell through to ~10 minutes of pinging a dead port, forever.
 
 # Wait for MongoDB to accept connections (up to 30 s). db-eval uses the bundled
 # Node.js + `mongodb` driver; directConnection reaches this node before the
@@ -243,6 +316,9 @@ until "$DB_EVAL" ping "$_RS_URL" >/dev/null 2>&1; do
     fi
     sleep 1
 done
+# mongod is answering: clear the start-failure counter (see
+# handle_mongod_start_failure) so past failures don't count against future ones.
+[ $_wait -lt 90 ] && rm -f "$MONGOD_FAIL_COUNT_FILE"
 
 # Check replica set status and current member host (prints OK:<host> or ERROR:<msg>)
 _rs_check=$("$DB_EVAL" rs-conf-host "$_RS_URL" 2>/dev/null)
@@ -277,8 +353,12 @@ if [ -f "$TEMP_PID_FILE" ]; then
 fi
 sleep 1
 
-# Final start of MongoDB in foreground (this becomes the main process)
-exec $SNAP/bin/mongod \
+# Final start of MongoDB in foreground (this stays the main process; #6458/#6466:
+# not `exec` anymore, so an IMMEDIATE startup crash — SIGILL on non-AVX CPUs,
+# incompatible data files — is caught below instead of snapd blindly restarting
+# this service into the same crash forever)
+_mongod_start_ts=$(date +%s)
+$SNAP/bin/mongod \
     --dbpath="$MONGO_DATA_DIR" \
     --logpath="$MONGO_LOG_FILE" \
     --logappend $BIND_OPTIONS \
@@ -287,3 +367,9 @@ exec $SNAP/bin/mongod \
     --setParameter logicalSessionRefreshMillis=900000 \
     --setParameter localLogicalSessionTimeoutMinutes=45 \
     --replSet rs0 --oplogSize 20480
+_mongod_rc=$?
+if [ $_mongod_rc -ne 0 ] && [ $(( $(date +%s) - _mongod_start_ts )) -lt 15 ]; then
+    # Died within seconds of starting: a startup failure, not a normal shutdown.
+    handle_mongod_start_failure $_mongod_rc
+fi
+exit $_mongod_rc

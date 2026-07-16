@@ -159,6 +159,12 @@ template(name="boardHeaderBar")
                 i.fa.fa-times-thin
 
         .separator
+        //- #6465: one-click board settings — the boardMenu popup used to need
+        //- two clicks (open sidebar, then Boardeinstellungen). The click
+        //- handler already exists in boardHeader.js ('click .js-open-board-menu').
+        if currentUser.isBoardMember
+          a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
+            i.fa.fa-cog
         a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
           i.fa.fa-bars
 

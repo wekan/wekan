@@ -49,7 +49,14 @@ Template.attachmentGallery.events({
       if (card && card.coverId === this._id) {
         await card.unsetCover();
       }
-      await Attachments.removeAsync(this._id);
+      // #5282 (same class as #3252 for comments/checklists): only remove if the
+      // doc is still in the local cache. Under publication churn the attachment
+      // can already be evicted from Minimongo, and removing a missing _id
+      // throws "Removed nonexistent document" even though the delete itself
+      // succeeded on the server.
+      if (this._id && ReactiveCache.getAttachment(this._id)) {
+        await Attachments.removeAsync(this._id);
+      }
       Popup.back();
   }),
 });

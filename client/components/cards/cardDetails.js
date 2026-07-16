@@ -867,6 +867,12 @@ Template.cardDetails.events({
     // permission denial that otherwise vanished with no feedback.
     try {
       await card.setDescription(description);
+      // #6455: a successful save means there is no unsaved draft anymore.
+      // Clear the record explicitly instead of relying on the inlined form's
+      // close-time draft/description comparison, which can run before the
+      // updated description is visible and leave a stale "You have an unsaved
+      // description" warning behind.
+      UnsavedEdits.reset({ fieldName: 'cardDescription', docId: card._id });
     } catch (error) {
       alert(error?.reason || error?.message || 'Failed to save description');
     }
@@ -1367,10 +1373,24 @@ Template.inlinedCardDescription.onCreated(function () {
 
   this._close = (isReset = false) => {
     if (this.isOpen.get() && !isReset) {
-      const draft = (this._getValue() || '').trim();
+      // #6455: normalize BOTH sides the same way before comparing. The textarea
+      // value has per-line trailing whitespace stripped (_getValue), while
+      // getDescription() returns the raw stored text — or null for an empty
+      // description. Comparing them raw made the comparison permanently unequal
+      // for descriptions containing Markdown "  \n" hard breaks (or after
+      // emptying the description), re-creating the phantom draft on every save.
+      const normalize = (s) => (s || '').replaceAll(/[ \f\r\t\v]+$/gm, '').trim();
+      const draft = normalize(this._getValue());
       const card = getCurrentCardFromContext();
-      if (card && draft !== card.getDescription()) {
+      if (card && draft !== normalize(card.getDescription())) {
         UnsavedEdits.set(this._getUnsavedEditKey(), this._getValue());
+      } else {
+        // #6455: closing with the draft equal to the saved description must
+        // REMOVE any pre-existing unsaved-edits record. Previously this branch
+        // did nothing, so once a draft record existed, pressing Save ("View it"
+        // -> Save) could never clear the "You have an unsaved description"
+        // warning — only Discard could.
+        UnsavedEdits.reset(this._getUnsavedEditKey());
       }
     }
     this.isOpen.set(false);

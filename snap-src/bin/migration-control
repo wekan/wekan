@@ -239,6 +239,9 @@ finish_success() {
   log "FerretDB SQLite verified (${sq:-?})${wal:+; WAL log present}."
   log "Migration succeeded. Switching to FerretDB (SQLite); MongoDB will be shut down."
   touch "$MARKER"
+  # #6458/#6466: clear mongodb-control's start-failure counter — the migration
+  # completing is exactly the recovery those failures were counting toward.
+  rm -f "$SNAP_COMMON/.mongod-start-failures" 2>/dev/null || true
   snapctl set database=ferretdb 2>/dev/null || true
   # CRUCIAL: an INTERNAL `snapctl set` does NOT re-run the configure hook, so we must flip
   # the database services here ourselves — exactly as snap/hooks/configure's ferretdb
@@ -299,6 +302,24 @@ fall_back_to_mongodb() {   # $1 = human-readable reason
   snapctl set migrate=off 2>/dev/null || true
   exec bash "$SNAP/bin/mongodb-control"
 }
+# #6466: failure handler for the MongoDB 3.x branch. For a 3.x source there is NO
+# working MongoDB fallback: the only service mongod is 7.x, which cannot open 3.x
+# data files ("This version of MongoDB is too recent ... Try MongoDB 4.2 or
+# earlier"), so fail_and_run_mongodb used to delete the (possibly fully-copied)
+# FerretDB SQLite over a handful of per-item errors and then strand the snap in a
+# mongod crash loop serving 502 Bad Gateway. Instead: KEEP the partial FerretDB
+# SQLite and its checkpoint (they are consistent with each other and resume-safe),
+# leave auto-migration ON, and exit non-zero so snapd restarts the service and the
+# next start RESUMES the migration from the checkpoint. The source MongoDB data is
+# never modified either way.
+fail_3x_keep_progress() {   # $1 = importer exit code
+  log "ERROR: migration did not complete (importer rc=$1)."
+  log "MongoDB 7 cannot serve this MongoDB 3.x data, so there is no MongoDB fallback."
+  log "Keeping the partial FerretDB SQLite in $SQLITE_DIR and the checkpoint; the migration RESUMES from there on the next start, or run: snap run wekan.migrate"
+  trap - EXIT INT TERM
+  cleanup_all
+  exit 1
+}
 
 # ── Any modern MongoDB (6/7, incl. a DB earlier migrated from 3.x)? ───────────
 # The WeKan snap moves every existing MongoDB database — MongoDB 3, MongoDB 7, or any
@@ -306,7 +327,16 @@ fall_back_to_mongodb() {   # $1 = human-readable reason
 # CollectionFS + Meteor-Files GridFS attachments/avatars onto the filesystem
 # (files/attachments, files/avatars). Version only decides HOW we read the source.
 log "Checking whether mongod 7 can open the existing data ..."
-if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" && ready_via_node; then
+# #6458: MongoDB >= 5.0 x86_64 requires AVX. Without it the mongod 7 probe below
+# can only die with SIGILL, so skip it and go straight to the MongoDB 3.x reader —
+# the bundled 3.2 tools, the Node importer and FerretDB are all AVX-free, so the
+# migration itself works fine on such CPUs.
+HAVE_AVX=1
+if [ "$(uname -m)" = "x86_64" ] && ! grep -qw avx /proc/cpuinfo 2>/dev/null; then
+  HAVE_AVX=0
+  log "CPU has no AVX support: skipping the mongod 7 probe (it would SIGILL); trying the MongoDB 3.x reader directly."
+fi
+if [ "$HAVE_AVX" = "1" ] && start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" && ready_via_node; then
   if [ ! -x "$FERRETDB" ] || [ ! -x "$NODE" ] || [ ! -f "$IMPORTER_MODERN" ]; then
     fall_back_to_mongodb "Migration tools unavailable; cannot migrate this modern MongoDB to FerretDB."
   fi
@@ -361,8 +391,10 @@ rc=$?
 if [ "$rc" -eq 0 ] && finish_success; then :
 else
   [ "$rc" -ge 128 ] && resume_next_start "$rc"
-  log "ERROR: migration did not complete (importer rc=$rc). Keeping WeKan on MongoDB."
-  fail_and_run_mongodb
+  # #6466: NOT fail_and_run_mongodb — mongod 7 cannot serve this 3.x data, so that
+  # path stranded the snap in a mongod crash loop with 502s AND deleted the copied
+  # data. Keep the progress and resume on the next start instead.
+  fail_3x_keep_progress "$rc"
 fi
 
 # temp FerretDB + source mongod are stopped by the EXIT trap.

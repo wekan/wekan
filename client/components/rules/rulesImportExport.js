@@ -1,9 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Papa from 'papaparse';
-import Actions from '/models/actions';
-import Rules from '/models/rules';
-import Triggers from '/models/triggers';
 
 const RULES_FORMAT = 'wekan-rules-1.0.0';
 const STRIP_FIELDS = ['_id', 'boardId', 'createdAt', 'modifiedAt', 'updatedAt'];
@@ -33,14 +30,43 @@ function collectBoardRules(boardId) {
     .filter(Boolean);
 }
 
+// #6472: the trigger matcher (server/rulesHelper.js buildMatchingFieldsMap)
+// queries every matching field of the trigger type with {$in: [value, '*']} —
+// a trigger DOCUMENT that lacks one of those fields can never match. Hand-
+// written or third-party JSON often omits fields like userId, so default every
+// known matching field to the '*' wildcard when absent. Extra fields on
+// trigger types that do not use them are harmless (never queried).
+const TRIGGER_MATCHING_FIELDS = [
+  'userId', 'username', 'cardTitle', 'listName', 'oldListName',
+  'swimlaneName', 'checklistName', 'checklistItemName', 'labelId',
+  'attachmentName',
+];
+
+function normalizeTrigger(trigger) {
+  const out = { ...trigger };
+  TRIGGER_MATCHING_FIELDS.forEach(f => {
+    if (out[f] === undefined || out[f] === null || out[f] === '') out[f] = '*';
+  });
+  return out;
+}
+
 // Insert an array of {title, trigger, action} onto the given target board.
 function importRules(rulesArray, boardId) {
   let count = 0;
   (rulesArray || []).forEach(entry => {
     if (!entry || !entry.trigger || !entry.action) return;
-    const triggerId = Triggers.insert({ ...stripDoc(entry.trigger), boardId });
-    const actionId = Actions.insert({ ...stripDoc(entry.action), boardId });
-    Rules.insert({ title: entry.title || 'Imported rule', triggerId, actionId, boardId });
+    // #6472: create via the rules.createRule server method (like the rules
+    // wizard since #5536) instead of three optimistic client inserts — those
+    // are rejected by the board-admin-only allow() rules for non-admins and
+    // land in minimongo limbo: the imported rule LOOKS created but never
+    // exists on the server, so it silently does nothing until it vanishes.
+    Meteor.call(
+      'rules.createRule',
+      boardId,
+      entry.title || 'Imported rule',
+      normalizeTrigger(stripDoc(entry.trigger)),
+      stripDoc(entry.action),
+    );
     count += 1;
   });
   return count;

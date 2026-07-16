@@ -331,15 +331,25 @@ Lists.helpers({
     if (!swimlaneId) {
       return undefined;
     }
+    // Only the first swimlane surfaces orphaned cards.
+    const pick = (swimlanes) => {
+      if (!swimlanes || !swimlanes.length || swimlanes[0]._id !== swimlaneId) {
+        return undefined;
+      }
+      return swimlanes.map(s => s._id).filter(id => id !== swimlaneId);
+    };
     const swimlanes = ReactiveCache.getSwimlanes(
       { boardId: this.boardId, archived: false },
       { sort: ['sort'] },
     );
-    // Only the first swimlane surfaces orphaned cards.
-    if (!swimlanes.length || swimlanes[0]._id !== swimlaneId) {
-      return undefined;
+    // On the SERVER ReactiveCache.getSwimlanes returns a Promise; reading
+    // .length off it made this always return undefined there (the orphan
+    // fallback silently never applied server-side). Resolve it instead; the
+    // client path stays synchronous.
+    if (swimlanes && typeof swimlanes.then === 'function') {
+      return swimlanes.then(pick);
     }
-    return swimlanes.map(s => s._id).filter(id => id !== swimlaneId);
+    return pick(swimlanes);
   },
 
   cards(swimlaneId) {
@@ -348,28 +358,32 @@ Lists.helpers({
     // bare top-level `$or`, so it never competes with the board Filter's own
     // top-level `$or` when the two selectors are combined.
     // #6443: also surface orphaned cards in the first swimlane.
-    const selector = listCardsSelector(
-      this._id,
-      swimlaneId,
-      this.orphanedCardsSwimlaneIds(swimlaneId),
-    );
-    const filterSelector =
-      typeof Filter !== 'undefined' && typeof Filter.mongoSelector === 'function'
-        ? Filter.mongoSelector(selector)
-        : selector;
-    const ret = ReactiveCache.getCards(filterSelector, { sort: ['sort'] });
-    return ret;
+    const query = (orphanedIds) => {
+      const selector = listCardsSelector(this._id, swimlaneId, orphanedIds);
+      const filterSelector =
+        typeof Filter !== 'undefined' && typeof Filter.mongoSelector === 'function'
+          ? Filter.mongoSelector(selector)
+          : selector;
+      return ReactiveCache.getCards(filterSelector, { sort: ['sort'] });
+    };
+    const orphaned = this.orphanedCardsSwimlaneIds(swimlaneId);
+    if (orphaned && typeof orphaned.then === 'function') {
+      return orphaned.then(query); // server (async ReactiveCache)
+    }
+    return query(orphaned);
   },
 
   cardsUnfiltered(swimlaneId) {
     // Same swimlane-membership fallback as cards() (#6441/#6443), without the Filter.
-    const selector = listCardsSelector(
-      this._id,
-      swimlaneId,
-      this.orphanedCardsSwimlaneIds(swimlaneId),
-    );
-    const ret = ReactiveCache.getCards(selector, { sort: ['sort'] });
-    return ret;
+    const query = (orphanedIds) =>
+      ReactiveCache.getCards(listCardsSelector(this._id, swimlaneId, orphanedIds), {
+        sort: ['sort'],
+      });
+    const orphaned = this.orphanedCardsSwimlaneIds(swimlaneId);
+    if (orphaned && typeof orphaned.then === 'function') {
+      return orphaned.then(query); // server (async ReactiveCache)
+    }
+    return query(orphaned);
   },
 
   allCards(swimlaneId) {

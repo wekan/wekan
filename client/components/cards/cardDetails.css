@@ -129,50 +129,55 @@
   box-sizing: border-box;
 }
 
-/* Desktop mode: position card below board header */
+/* Desktop mode: position card below board header.
+   #6465: the floating window used to span nearly the whole board (insets
+   20px/20px from BOTH edges, top-left anchored) — right on top of the card it
+   belongs to, with big rounded borders. Dock it to the END edge (right in LTR)
+   like the classic 6.09 side panel instead: the board and the card stay
+   visible, and the drag handle still moves it anywhere. */
 body.desktop-mode .card-details:not(.card-details-popup) {
   position: fixed;
   width: auto;
   max-width: 800px;
   flex-basis: auto;
-  border-radius: 8px;
+  border-radius: 3px;
   z-index: 2001;
 }
 
 /* Default position for first card or when dragged */
 body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"]):not([style*="top"]) {
   top: 8px;
-  inset-inline-start: 20px;
-  inset-inline-end: 20px;
-  bottom: 20px;
+  inset-inline-start: auto;
+  inset-inline-end: 8px;
+  width: min(650px, 90vw);
+  bottom: 8px;
 }
 
-/* Stagger positions for multiple cards using nth-of-type */
+/* Stagger positions for multiple cards using nth-of-type (from the end edge) */
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(1) {
   top: 8px;
-  inset-inline-start: 20px;
+  inset-inline-end: 8px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(2) {
   top: 38px;
-  inset-inline-start: 50px;
+  inset-inline-end: 38px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(3) {
   top: 68px;
-  inset-inline-start: 80px;
+  inset-inline-end: 68px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(4) {
   top: 98px;
-  inset-inline-start: 110px;
+  inset-inline-end: 98px;
 }
 body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(5) {
   top: 128px;
-  inset-inline-start: 140px;
+  inset-inline-end: 128px;
 }
 
 /* For expanded cards, set dimensions */
 body.desktop-mode .card-details:not(.card-details-popup):not(.card-details-collapsed) {
-  inset-inline-end: 20px;
-  bottom: 20px;
+  bottom: 8px;
 }
 
 /* Collapsed card state - hide content and set height to title row only */
@@ -192,7 +197,9 @@ body.desktop-mode .card-details.card-details-collapsed {
 }
 .card-details .card-details-canvas {
   width: auto;
-  padding: 0 2.5vw;
+  /* #6465: fixed 20px as in 6.09 — 2.5vw was ~48px of white border per side
+     on a FullHD screen. */
+  padding: 0 20px;
 }
 .card-details .card-details-header {
   margin: 0 -20px 5px;
@@ -300,24 +307,13 @@ body.desktop-mode .card-details.card-details-collapsed {
   float: inline-end;
 }
 
-/* Unify all card text to match title size */
+/* #6465: the "unify all card text to match title size" block (v8.18) forced
+   EVERY element in card details to the base font size with line-height 1.5,
+   flattening the 6.09 hierarchy where labels/metadata were smaller than body
+   text — a big part of the "card window is WAAAY too big" complaint. Removed:
+   components keep their own sizes again. */
 .card-details {
   font-size: 1em;
-}
-.card-details p,
-.card-details span,
-.card-details div,
-.card-details a,
-.card-details label,
-.card-details input,
-.card-details textarea,
-.card-details select,
-.card-details button,
-.card-details .card-details-item-title,
-.card-details .card-label,
-.card-details .viewer {
-  font-size: inherit;
-  line-height: 1.5;
 }
 .card-details .card-details-header .card-details-watch {
   font-size: 17px;

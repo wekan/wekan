@@ -1239,7 +1239,14 @@ async function run() {
     console.log('[migrate] ✓ Migration completed successfully.');
   } else {
     state.phase   = 'completed-with-errors';
-    state.success = totalErrors < 10; // treat <10 isolated errors as success
+    // #6466: per-item errors (one unparsable document, one attachment/avatar that
+    // fails to extract) must NOT fail the whole migration — everything that DID
+    // copy is valid. The old `totalErrors < 10` threshold turned ten cosmetic
+    // per-item errors into a non-zero exit, which made the snap's
+    // migration-control discard the fully-copied FerretDB SQLite and leave WeKan
+    // serving 502 Bad Gateway. Fatal conditions (disk-full, unreachable
+    // source/target) already set state.success = false and never reach here.
+    if (state.success !== false) state.success = true;
     console.log(`[migrate] ⚠ Migration done with ${totalErrors} error(s). See dashboard.`);
   }
   state.finishedAt = new Date().toISOString();

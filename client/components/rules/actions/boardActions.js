@@ -134,7 +134,11 @@ Template.boardActions.events({
     // documents land in minimongo limbo when the wizard subscription stops.
     Meteor.call('rules.createRule', boardId, ruleName, trigger, {
       actionType,
-      listTitle: '*',
+      // #6472: was `listTitle: '*'` since the original rules implementation,
+      // but performAction reads action.listName/action.swimlaneName — so every
+      // generic "move to top/bottom" rule created by this wizard did nothing.
+      listName: '*',
+      swimlaneName: '*',
       boardId,
       desc,
     });

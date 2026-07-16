@@ -72,7 +72,12 @@ Meteor.methods({
     // to board X" / "link card to board X"). Let it win over the source boardId
     // so cross-board move/link rules created through this method keep their
     // target — only fall back to the source board when the action omits one.
-    const actionId = await Actions.insertAsync({ boardId, ...clean(action) });
+    // #6472: "omits" must include an EMPTY boardId (a not-yet-loaded board
+    // select posts ''), which the spread would otherwise let override the
+    // fallback and make every list lookup in the action fail silently.
+    const actionDoc = { boardId, ...clean(action) };
+    if (!actionDoc.boardId) actionDoc.boardId = boardId;
+    const actionId = await Actions.insertAsync(actionDoc);
     const ruleDoc = {
       title: title || 'Rule',
       triggerId,

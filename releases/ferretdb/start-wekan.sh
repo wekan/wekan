@@ -69,6 +69,15 @@ FERRET_PID=""
 stop_ferret() { [ -n "$FERRET_PID" ] && kill "$FERRET_PID" 2>/dev/null || true; }
 trap 'stop_ferret; exit 0' INT TERM
 
+# #6467/#6468: with FerretDB (no oplog) Meteor observes queries by POLLING, and
+# its defaults (re-poll 50 ms after any write, at least every 10 s) hammer the
+# database. Calmer polling defaults; other users' changes may take ~2 s extra to
+# appear. Overridable by exporting different values before running this script.
+if [ "$want_ferret" = true ]; then
+  export METEOR_POLLING_THROTTLE_MS="${METEOR_POLLING_THROTTLE_MS:-2000}"
+  export METEOR_POLLING_INTERVAL_MS="${METEOR_POLLING_INTERVAL_MS:-30000}"
+fi
+
 while true; do
   if [ "$want_ferret" = true ]; then
     export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable

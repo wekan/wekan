@@ -10,7 +10,61 @@ const commentFormIsOpen = new ReactiveVar(false);
 // Empty string means a new top-level comment.
 const replyToCommentId = new ReactiveVar('');
 
+// #5547: persist the comment draft (debounced) into UnsavedEdits while the user
+// types, so a comment in progress survives closing the card, clicking outside
+// it, or navigating away — the form prefills from {{getUnsavedValue
+// 'cardComment' ...}} on the next open. Historical note: the click-open flag
+// that armed the old escape-time draft save was removed in 2019 (3b3950369)
+// because the escape handler CLEARED the visible text; since then nothing saved
+// the draft at all, so any close of the card discarded the comment.
+let commentDraftTimer = null;
+let commentDraftPending = null; // { cardId, value }
+
+function commentDraftWrite({ cardId, value }) {
+  if (!cardId) return;
+  const draftKey = { fieldName: 'cardComment', docId: cardId };
+  if ((value || '').trim()) {
+    UnsavedEdits.set(draftKey, value);
+  } else {
+    UnsavedEdits.reset(draftKey);
+  }
+}
+
+function scheduleCommentDraftSave(cardId, value) {
+  commentDraftPending = { cardId, value };
+  if (commentDraftTimer) clearTimeout(commentDraftTimer);
+  commentDraftTimer = setTimeout(() => {
+    commentDraftTimer = null;
+    const pending = commentDraftPending;
+    commentDraftPending = null;
+    if (pending) commentDraftWrite(pending);
+  }, 300);
+}
+
+// Run a pending (debounced) save immediately — e.g. the card is closing.
+function flushCommentDraftSave() {
+  if (commentDraftTimer) {
+    clearTimeout(commentDraftTimer);
+    commentDraftTimer = null;
+  }
+  const pending = commentDraftPending;
+  commentDraftPending = null;
+  if (pending) commentDraftWrite(pending);
+}
+
+// Drop any pending save — the comment was submitted, so there is no draft.
+function cancelCommentDraftSave() {
+  if (commentDraftTimer) {
+    clearTimeout(commentDraftTimer);
+    commentDraftTimer = null;
+  }
+  commentDraftPending = null;
+}
+
 Template.commentForm.onDestroyed(function () {
+  // #5547: the card can close without the escape handler ever running (the X
+  // button, a route change); make sure the last keystrokes reach the draft.
+  flushCommentDraftSave();
   commentFormIsOpen.set(false);
   $('.note-popover').hide();
 });
@@ -28,6 +82,15 @@ Template.commentForm.helpers({
 });
 
 Template.commentForm.events({
+  // #5547: arm the escape handler below (it saves the draft and closes the
+  // form); this flag had no setter since 2019, so the handler never ran.
+  'focus .js-new-comment-input'() {
+    commentFormIsOpen.set(true);
+  },
+  // #5547: keep the draft continuously saved (debounced) while typing.
+  'input .js-new-comment-input'(evt) {
+    scheduleCommentDraftSave(Utils.getCurrentCardId(), evt.currentTarget.value);
+  },
   'submit .js-new-comment-form'(evt, tpl) {
     const input = tpl.$('.js-new-comment-input');
     const text = input.val().trim();
@@ -47,6 +110,13 @@ Template.commentForm.events({
         boardId,
         cardId,
         parentId: parentId || '',
+      });
+      // #5547: the comment is saved — cancel any debounced draft save still in
+      // flight and remove the stored draft so it does not resurface next open.
+      cancelCommentDraftSave();
+      UnsavedEdits.reset({
+        fieldName: 'cardComment',
+        docId: Utils.getCurrentCardId(),
       });
       replyToCommentId.set('');
       resetCommentInput(input);
@@ -159,13 +229,20 @@ EscapeActions.register(
       docId: Utils.getCurrentCardId(),
     };
     const commentInput = $('.js-new-comment-input');
-    const draft = commentInput.val().trim();
+    const draft = (commentInput.val() || '').trim();
+    cancelCommentDraftSave();
     if (draft) {
       UnsavedEdits.set(draftKey, draft);
     } else {
       UnsavedEdits.reset(draftKey);
     }
-    resetCommentInput(commentInput);
+    // #5547: do NOT clear the input — clearing it on every click outside the
+    // comment box is exactly the "comment text disappearing" bug that got this
+    // handler disarmed in 2019 (3b3950369). The draft is saved above; if the
+    // card stays open, the text stays visible; if the card closes, the next
+    // open prefills the form from the draft.
+    commentInput.blur();
+    commentFormIsOpen.set(false);
   },
   () => {
     return commentFormIsOpen.get();

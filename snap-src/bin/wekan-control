@@ -86,6 +86,20 @@ else
     fi
 fi
 
+# #6467/#6468: with FerretDB (no oplog) Meteor observes every query by POLLING.
+# The Meteor defaults are aggressive — re-poll every observed query 50 ms after
+# ANY write, and at least every 10 s — which multiplied into hundreds of
+# re-executed queries per second on an active board and pinned FerretDB's CPU.
+# Calmer defaults for the polling driver: re-poll at most every 2 s after a
+# write and every 30 s otherwise. Own writes still show instantly (Meteor
+# applies them to the local cache); this only delays seeing OTHER users' changes
+# by up to ~2 s. Both remain overridable via snap environment settings.
+if [ "ferretdb" = "${DATABASE}" ]; then
+    [ -z "${METEOR_POLLING_THROTTLE_MS}" ] && export METEOR_POLLING_THROTTLE_MS=2000
+    [ -z "${METEOR_POLLING_INTERVAL_MS}" ] && export METEOR_POLLING_INTERVAL_MS=30000
+    echo "FerretDB polling: METEOR_POLLING_THROTTLE_MS=${METEOR_POLLING_THROTTLE_MS} METEOR_POLLING_INTERVAL_MS=${METEOR_POLLING_INTERVAL_MS}"
+fi
+
 # If WRITABLE_PATH is not set, use $SNAP_COMMON/files
 # Wekan will store attachments there.
 if [ -z "$WRITABLE_PATH" ]; then

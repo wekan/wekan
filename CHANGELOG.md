@@ -104,6 +104,131 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
+- **GUI: the "More" menu of cards was completely empty, so cards could not be deleted from it**
+  ([#6459](https://github.com/wekan/wekan/issues/6459),
+  `npm-packages/meteor-jade-loader/lib/vendor/htmljs.js`, `client/components/lists/listHeader.jade`).
+  A WeKan-local vm-sandbox patch in the vendored jade compiler's htmljs made
+  `isConstructedObject(Array)` return `false` (upstream returns `true`), so a tag whose inline text
+  compiles to an ARRAY — the `label {{_ 'source-board'}}:` and `label {{_ 'parent-card'}}:` lines in
+  cardMorePopup — got its content array mis-assigned as the tag's *attributes*. At runtime Blaze then
+  found a template view object inside the attributes and threw *"The basic TransformingVisitor does
+  not support foreign objects in attributes"* on every render, killing the whole popup — including
+  the card Delete link. The tag constructor now treats an array first-argument as content, like
+  upstream htmljs. Also fixed the list "More" popup's copy-link input, which was always empty because
+  it referenced a `rootUrl` helper that does not exist (now `absoluteUrl`). Board and swimlane menus
+  intentionally offer archive (delete lives in Sidebar → Archive), so only the card menu was actually
+  broken. Thanks to thku and xet7.
+
+- **Cards: the "You have an unsaved description" warning could never be cleared by saving**
+  ([#6455](https://github.com/wekan/wekan/issues/6455), reincarnation of
+  [#1287](https://github.com/wekan/wekan/issues/1287), `client/components/cards/cardDetails.js`,
+  `client/components/cards/cardDescription.js`). Two bugs: closing the description editor only
+  *avoided adding* a draft when the text matched the saved description — it never *removed* a
+  pre-existing draft record, so once the warning appeared, "View it" → Save could not clear it, only
+  Discard could. And the comparison matched a per-line-whitespace-stripped draft against the raw
+  stored description (or `null` when empty), so descriptions with Markdown `"  "` hard-breaks
+  re-created a phantom draft on every save. Saving now removes the draft record explicitly, and both
+  sides of the comparison are normalized the same way. Thanks to C0rn3j and xet7.
+
+- **Comments: a comment being written was lost when the card was closed or a click landed outside
+  the card** ([#5547](https://github.com/wekan/wekan/issues/5547),
+  `client/components/activities/comments.js`). The comment-draft machinery existed (the form even
+  prefills from it) but had been disarmed since 2019: the escape handler that saved the draft was
+  gated on a "form is open" flag that nothing ever set — the setter was removed back then because the
+  handler also *cleared the visible text* on every outside click. Now the draft is saved continuously
+  (debounced) while typing and flushed when the form is torn down, submit removes the draft, and the
+  escape handler no longer clears the visible text — so an unfinished comment survives closing the
+  card, and reopening the card restores it into the form. Thanks to Finnlife, webenefits and xet7.
+
+- **Attachments: deleting an attachment could log a client-side "Removed nonexistent document"
+  exception even though the delete succeeded**
+  ([#5282](https://github.com/wekan/wekan/issues/5282),
+  `client/components/cards/attachments.js`). Same class as the fixed #3252 for comments and
+  checklists: under publication churn the attachment document can already be evicted from Minimongo
+  when the confirm handler runs, and removing a missing _id throws. The delete now only runs when
+  the document is still in the local cache — the comment/checklist guards' missing sibling. Thanks
+  to lupuszr and xet7.
+
+- **Rules: the "move card to top/bottom" actions did nothing**
+  ([#6472](https://github.com/wekan/wekan/issues/6472), `server/rulesHelper.js`,
+  `client/components/rules/actions/boardActions.js`, `client/components/rules/rulesImportExport.js`,
+  `server/rulesButton.js`, `models/lists.js`). A pile-up of five bugs, all silent because the
+  activity hook swallows rule-action errors: (1) an unresolved destination list (typo'd, renamed,
+  case-mismatched, or on another board) crashed on `list.cardsUnfiltered` — now it falls back to the
+  card's current list; (2) the classic rule wizard's generic "move to top/bottom" stored the field as
+  `listTitle`, which the rule engine never reads (`listName`) — so every such rule created from the
+  wizard has never worked; (3) an empty destination list made `Math.min()/Math.max()` of nothing
+  write a corrupt `sort: ±Infinity`; (4) the rules JSON/CSV import created rules with raw client
+  inserts that the board-admin-only allow rules reject into minimongo limbo — it now uses the same
+  `rules.createRule` server method as the wizard, and defaults missing trigger matching fields (e.g.
+  `userId`) to the `*` wildcard so hand-written JSON matches; (5) `rules.createRule` let an empty
+  `boardId: ''` from a not-yet-loaded board selector override the real board. Also fixed the
+  server-side orphaned-cards fallback in `List.cards()/cardsUnfiltered()`, which silently never
+  applied because an async lookup was read synchronously. Thanks to jmb26240 and xet7.
+
+- **GUI: desktop density regressions from the v7.98–v8.18 mobile UI work**
+  ([#6465](https://github.com/wekan/wekan/issues/6465), `client/components/main/layouts.css`,
+  `client/components/cards/cardDetails.css`, `client/components/main/header.css`,
+  `client/components/settings/peopleBody.jade`, `client/components/settings/settingBody.css`,
+  `client/components/boards/boardHeader.jade`). Restores the WeKan 6.09 desktop look users asked
+  for: the base font is back to 14px (the `clamp(...2.5vw...)` introduced in v7.98 and raised in
+  v8.02 resolved to 18px on any window wider than 720px — +28.5% on every font, button and input,
+  the "everything is way too big" complaint) and headings back to 22/18/16px; the card details
+  window no longer opens as a huge floating sheet ON TOP of its own card — it docks to the right
+  edge like the classic side panel (still movable by its drag handle), with 6.09's 20px content
+  padding instead of ~48px white borders, a 3px corner radius, and without the v8.18 rule that
+  forced ALL card text to the title's size; the All Boards page header band is back to 6.09's
+  compact padding; the Admin Panel Organizations/Teams tables no longer explode column widths
+  ("Select all / Unselect all" header links are now compact icons and header cells may wrap); the
+  zoom pill no longer renders cut off (fixed-pixel pill inside the 28px quick-access row); and
+  board settings opens with ONE click from a new cog button in the board header (the sidebar path
+  still works). Note: a missing watch "eye" icon is the Admin Panel → Features → Notifications
+  "disable watch" setting, not a regression. Thanks to Mintyt, csonkaoszimt, micha141076 and xet7.
+
+- **Snap: WeKan served "502 Bad Gateway" forever when mongod could not start — including on CPUs
+  without AVX ("Illegal instruction")** ([#6458](https://github.com/wekan/wekan/issues/6458),
+  [#6466](https://github.com/wekan/wekan/issues/6466), `snap-src/bin/mongodb-control`,
+  `snap-src/bin/migration-control`). MongoDB 5.0+ x86_64 binaries require AVX; on CPUs without it
+  mongod dies instantly with SIGILL (exit 132). mongodb-control never checked the mongod fork's
+  exit status: it pinged the dead port for ~10 minutes, snapd restarted the service, and the cycle
+  repeated forever — same limbo as when the data files are still MongoDB 3.x ("This version of
+  MongoDB is too recent"). Now there is an AVX pre-flight and the fork/final-start exit codes are
+  checked: if a COMPLETED FerretDB migration exists the snap switches to it; otherwise the
+  MongoDB → FerretDB migration is (re)run — FerretDB is pure Go + SQLite and the 3.x reader uses
+  the bundled MongoDB 3.2 tools, so neither needs AVX — with a 3-attempt counter so a persistently
+  failing migration cannot ping-pong, and clear log guidance (`snap run wekan.migrate`).
+  migration-control also skips the pointless mongod 7 probe when AVX is missing. Thanks to kiarn
+  and xet7.
+
+- **Snap: a migration that finished with a few per-item errors ("Avatars Errors") deleted the
+  fully-copied FerretDB database and left the snap serving 502 Bad Gateway**
+  ([#6466](https://github.com/wekan/wekan/issues/6466), `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`,
+  `releases/migrate-mongodb-to-ferretdb.mjs`, `snap-src/bin/migration-control`). Both importers
+  treated ≥10 logged errors of ANY kind as failure — but per-item errors (one document that fails
+  JSON parsing, one avatar that fails to extract) don't invalidate everything that DID copy. The
+  failure path then discarded the whole migrated SQLite, set `migrate=off`, and "fell back" to
+  MongoDB — impossible for a 6.09 upgrade, whose 3.x data files the bundled mongod 7 cannot open,
+  producing the reported endless `db-eval.mjs ping` loop and 502. Per-item errors are now logged
+  but non-fatal (only real failures — disk full, unreachable target/source — still fail), and a
+  failed 3.x-source migration keeps the partial FerretDB SQLite plus its checkpoint and RESUMES on
+  the next start instead of deleting hours of copied data. Thanks to Nissulya, S0QR2, lezioul,
+  usrflo and xet7.
+
+- **Snap/Bundle: FerretDB v1 pinned 250–400% CPU and boards took minutes to load after migration**
+  ([#6467](https://github.com/wekan/wekan/issues/6467),
+  [#6468](https://github.com/wekan/wekan/issues/6468), `snap-src/bin/wekan-control`,
+  `releases/ferretdb/start-wekan.sh`, and the wekan/FerretDB fork). Two sides. WeKan side: with
+  FerretDB there is no oplog, so Meteor observes every query by POLLING — and its defaults re-run
+  every observed query 50 ms after ANY write and at least every 10 s, which on an active board
+  multiplies into hundreds of full queries per second; with FerretDB the snap and the bundle
+  launcher now default to `METEOR_POLLING_THROTTLE_MS=2000` / `METEOR_POLLING_INTERVAL_MS=30000`
+  (overridable; own changes still appear instantly, other users' changes may take ~2 s longer).
+  FerretDB side (fork v1.28): real filter pushdown so `{boardId: X}` uses the SQLite expression
+  indexes instead of decoding the whole 53k-card collection per query, a connection pool cap of
+  2×CPUs (was 100 — dozens of concurrent full scans thrashing the pure-Go SQLite mutexes were the
+  reported 821k futex calls/30 s), and inserts no longer take the registry's global write lock.
+  Thanks to anlx-sw, markusst1982 and xet7.
+
 - **LDAP: group search filters were double-escaped and broke group filtering**
   ([#6460](https://github.com/wekan/wekan/issues/6460),
   [PR #6469](https://github.com/wekan/wekan/pull/6469), `packages/wekan-ldap/server/ldap.js`).

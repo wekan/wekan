@@ -208,7 +208,10 @@ template(name="listMorePopup")
       span {{_ 'link-list'}}
       = ' '
       i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-      input.inline-input(type="text" readonly value="{{ rootUrl }}")
+      //- #6459: was {{ rootUrl }}, a helper that does not exist anywhere, so the
+      //- link input was always empty. absoluteUrl resolves a URL via a card on
+      //- this list.
+      input.inline-input(type="text" readonly value="{{ absoluteUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ displayDate createdAt 'LLL' }}
     //unless currentUser.isWorker

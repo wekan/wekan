@@ -290,15 +290,19 @@ body:not(.board-view) #header #header-main-bar h1 {
 }
 
 /* Zoom Controls in Header */
+/* #6465: compact fixed-pixel pill. The vh/vw padding+shadow made the pill
+   taller than the 28px overflow-hidden quick-access row, so it rendered cut
+   off at every window size. */
 #header-quick-access .zoom-controls {
   display: flex;
   align-items: center;
-  gap: 0.5vw;
+  gap: 4px;
   background: rgba(255, 255, 255, 0.9);
-  padding: 0.5vh 1vw;
-  border-radius: 0.5vw;
-  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
-  margin: 0 1vw;
+  padding: 2px 8px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin: 0 8px;
+  max-height: 24px;
   float: inline-start;
 }
 

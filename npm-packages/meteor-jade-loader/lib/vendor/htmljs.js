@@ -408,7 +408,16 @@ var makeTagConstructor = function (tagName) {                                   
     var attrs = arguments.length && arguments[0];                                     // 19
     if (attrs && (typeof attrs === 'object')) {                                       // 20
       // Treat vanilla JS object as an attributes dictionary.                         // 21
-      if (! HTML.isConstructedObject(attrs)) {                                        // 22
+      // Patched (WeKan #6459): an ARRAY first argument is tag CONTENT, never an
+      // attributes dictionary. The vm-sandbox patch below made
+      // isConstructedObject(Array) === false (upstream htmljs returns true), so a
+      // tag whose inline text compiles to an array — e.g. the jade line
+      // `label {{_ 'source-board'}}:`, i.e. [TemplateTag, ":"] — got its content
+      // array assigned to instance.attrs. blaze-tools then serialized it as
+      // HTML.Attrs(...), and at runtime Blaze._expandAttributes threw "The basic
+      // TransformingVisitor does not support foreign objects in attributes",
+      // rendering the whole cardMorePopup (with the Delete option) empty.
+      if (! Array.isArray(attrs) && ! HTML.isConstructedObject(attrs)) {              // 22
         instance.attrs = attrs;                                                       // 23
         i++;                                                                          // 24
       } else if (attrs instanceof HTML.Attrs) {                                       // 25

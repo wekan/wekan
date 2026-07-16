@@ -833,7 +833,16 @@ async function run() {
 
   await client.close();
   state.phase = state.errors.length ? 'completed-with-errors' : 'completed';
-  state.success = state.errors.length < 10;
+  // #6466: per-item errors (a document that fails EJSON parse — "no valid json" —
+  // or a single attachment/avatar that fails to extract) must NOT fail the whole
+  // migration: everything that DID copy is valid and consistent. The old
+  // `state.errors.length < 10` threshold meant ten cosmetic per-item errors
+  // (e.g. the "Avatars Errors" list) exited non-zero, which made migration-control
+  // discard the fully-copied FerretDB SQLite and leave the snap serving 502 Bad
+  // Gateway forever. Genuinely fatal conditions (disk-full abort, unusable source
+  // tools, unreachable target) already returned early with state.success = false;
+  // reaching this point means the run completed.
+  if (state.success !== false) state.success = true;
   saveCheckpoint(true);
   writeStatus();
 }

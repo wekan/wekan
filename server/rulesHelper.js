@@ -157,7 +157,11 @@ export const RulesHelper = {
     ) {
       let list;
       let listId;
-      if (action.listName === '*') {
+      if (action.listName === '*' || !action.listName) {
+        // #6472: rules created by the classic wizard's generic "move to
+        // top/bottom" action stored the field as listTitle (never read here),
+        // so action.listName was undefined and the exact-title lookup below
+        // always failed. An unset listName means "the card's current list".
         list = await card.list();
         if (boardId !== action.boardId) {
           list = await ReactiveCache.getList({ title: list.title, boardId: action.boardId });
@@ -168,11 +172,22 @@ export const RulesHelper = {
           boardId: action.boardId,
         });
       }
-      if (list === undefined) {
-        listId = '';
-      } else {
-        listId = list._id;
+      // #6472: an unresolved list (typo'd/renamed/case-mismatched listName, or
+      // the list only exists on another board) crashed below on
+      // list.cardsUnfiltered — the error was swallowed by the activity hook, so
+      // the rule silently "did nothing". Fall back to the card's own list so
+      // moveCardToTop/Bottom still does the sensible thing within the card's
+      // current list.
+      let fellBackToCardList = false;
+      if (!list) {
+        console.warn(
+          `WeKan rule action ${action.actionType}: list "${action.listName}" not found on board ${action.boardId}; using the card's current list instead.`,
+        );
+        list = await card.list();
+        if (!list) return;
+        fellBackToCardList = true;
       }
+      listId = list._id;
 
       let swimlane;
       let swimlaneId;
@@ -201,16 +216,28 @@ export const RulesHelper = {
         await getDestBoardDefaultSwimlane(action.boardId),
       );
 
+      // #6472: the fallback list is on the CARD's board, so the move must stay
+      // there too — an action.boardId/swimlaneId from a different board would
+      // produce an inconsistent card. Also move within the card's own swimlane.
+      let destBoardId = action.boardId;
+      if (fellBackToCardList) {
+        destBoardId = list.boardId;
+        swimlaneId = card.swimlaneId;
+      }
+
+      // #6472: an empty destination (no cards in that list+swimlane yet) made
+      // Math.min()/Math.max() of no arguments return ±Infinity, writing a
+      // corrupt sort value; a non-finite stored sort would poison it again.
+      const destSorts = (await list.cardsUnfiltered(swimlaneId))
+        .map(c => c.sort)
+        .filter(Number.isFinite);
+
       if (action.actionType === 'moveCardToTop') {
-        const minOrder = Math.min(
-          ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
-        );
-        await withUserId(activity.userId, () => card.move(action.boardId, swimlaneId, listId, minOrder - 1));
+        const minOrder = destSorts.length ? Math.min(...destSorts) : 0;
+        await withUserId(activity.userId, () => card.move(destBoardId, swimlaneId, listId, minOrder - 1));
       } else {
-        const maxOrder = Math.max(
-          ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
-        );
-        await withUserId(activity.userId, () => card.move(action.boardId, swimlaneId, listId, maxOrder + 1));
+        const maxOrder = destSorts.length ? Math.max(...destSorts) : 0;
+        await withUserId(activity.userId, () => card.move(destBoardId, swimlaneId, listId, maxOrder + 1));
       }
     }
     if (action.actionType === 'sendEmail') {
