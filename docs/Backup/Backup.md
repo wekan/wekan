@@ -1,8 +1,11 @@
-[Sandstorm](../Platforms/FOSS/Sandstorm/Sandstorm.md) - [Sandstorm Backup](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
+# Backup Sandstorm
 
-# Related
+1. Please first backup your Sandstorm https://docs.sandstorm.io/en/latest/administering/backups/
+2. Please first download all of your grains to .zip files from top menu row down arrow button, just in case.
 
-[Transferring attachments from MongoDB to filesystem, and text from MongoDB to SQLite](https://github.com/wekan/minio-metadata)
+# Upgrade Sandstorm WeKan
+
+[Upgrade Sandstorm WeKan ](../Platforms/FOSS/Sandstorm/Sandstorm.md) 
 
 # Backup Docker
 

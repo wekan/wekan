@@ -1,13 +1,13 @@
 - At some cases [Hardened kernel may prevent creating new Wekan boards at Sandstorm](https://github.com/wekan/wekan/issues/1398)
 
-# Sandstorm at Debian and Ubuntu
-
-### New Sandstorm WeKan at 2026-07
-
-Backup your current Sandstorm first !
+## 1. Backup Sandstorm
 
 1. Please first backup your Sandstorm https://docs.sandstorm.io/en/latest/administering/backups/
 2. Please first download all of your grains to .zip files from top menu row down arrow button, just in case.
+
+## 2. Upgrade Sandstorm WeKan 
+
+Backup your Sandstorm first ! See above !
 
 This new Sandstorm WeKan uses fork of FerretDB v1 SQLite at https://github.com/wekan/FerretDB
 
