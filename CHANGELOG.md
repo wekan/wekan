@@ -195,6 +195,17 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Editing one checklist item and clicking another left BOTH edit forms open — and
+  submitting overwrote the new item's title with the previous item's text**
+  ([#2418](https://github.com/wekan/wekan/issues/2418), `client/lib/inlinedform.js`, new
+  `client/lib/inlinedFormManager.js`): since a 2021 change, the "close the previously opened
+  inline form" call was a silent no-op (the escape action is disabled for click execution),
+  and the submit handlers grab the template's FIRST textarea — with two forms open the wrong
+  form's text was saved. Subtasks reproduced the full bug; checklists' workaround corrupted
+  the open-form tracker so Escape closed the whole card pane. A small state manager restores
+  the single-open-form invariant (opening a form closes the previous one, without closing
+  popups — preserving the 2021 intent). Tests: `tests/inlinedFormSingleOpen.test.cjs`
+  (9, incl. the exact reported repro chain). Thanks to Beebo89 and xet7.
 - **Advanced Filter never matched date custom fields** ([#2989](https://github.com/wekan/wekan/issues/2989),
   `client/lib/filter.js`, new `imports/lib/advancedFilter.js`): the tokenizer treated every `/`
   as a regex delimiter even inside quotes, so `'Date de fin' == '06/04/2020'` broke tokenizing

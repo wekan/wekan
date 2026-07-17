@@ -16,6 +16,11 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Tracker } from 'meteor/tracker';
 import { EscapeActions } from '/client/lib/escapeActions';
+import {
+  openForm,
+  closeForm,
+  forgetForm,
+} from '/client/lib/inlinedFormManager';
 
 // We can only have one inlined form element opened at a time
 const currentlyOpenedForm = new ReactiveVar(null);
@@ -44,7 +49,9 @@ Template.inlinedForm.onRendered(function () {
 });
 
 Template.inlinedForm.onDestroyed(function () {
-  currentlyOpenedForm.set(null);
+  // Only reset the tracker if THIS instance is the tracked one; destroying
+  // an unrelated instance must not orphan another still-open form.
+  forgetForm(currentlyOpenedForm, this);
 });
 
 Template.inlinedForm.helpers({
@@ -55,14 +62,19 @@ Template.inlinedForm.helpers({
 
 Template.inlinedForm.events({
   'click .js-close-inlined-form'(evt, tpl) {
-    tpl.isOpen.set(false);
-    currentlyOpenedForm.set(null);
+    closeForm(currentlyOpenedForm, tpl);
   },
   'click .js-open-inlined-form'(evt, tpl) {
     evt.preventDefault();
     EscapeActions.clickExecute(evt.target, 'inlinedForm');
-    tpl.isOpen.set(true);
-    currentlyOpenedForm.set(tpl);
+    // #2418: clickExecute above does NOT close the previously opened form:
+    // the 'inlinedForm' escape action is registered with
+    // `enabledOnClick: false`, so click executions skip it. With the old
+    // form left open, submitting the new one located the wrong textarea
+    // (template-wide first match) and overwrote the item with the previous
+    // item's text. Close the previous form explicitly instead (this keeps
+    // popups open, which is why clickExecute replaced executeUpTo here).
+    openForm(currentlyOpenedForm, tpl);
   },
   'keydown form textarea'(evt, tpl) {
     if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
@@ -73,8 +85,7 @@ Template.inlinedForm.events({
     const data = Template.currentData();
     if (data.autoclose !== false) {
       Tracker.afterFlush(() => {
-        tpl.isOpen.set(false);
-        currentlyOpenedForm.set(null);
+        closeForm(currentlyOpenedForm, tpl);
       });
     }
   },
@@ -86,10 +97,7 @@ EscapeActions.register(
   () => {
     const form = currentlyOpenedForm.get();
     if (form) {
-      if (form.isOpen) {
-        form.isOpen.set(false);
-        currentlyOpenedForm.set(null);
-      }
+      closeForm(currentlyOpenedForm, form);
     }
   },
   () => {
