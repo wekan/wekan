@@ -67,8 +67,15 @@
   padding: 0;
   font-weight: bold;
   min-height: 33px;
+  height: auto;
   width: 100%;
-  overflow: hidden;
+  /* #6465: the gray swimlane header bar looked cut off at non-100% board zoom
+     (transform: scale on .board-wrapper). `overflow: hidden` clipped the header
+     to a slightly-too-short box once the scaled layout rounded, so the bar/text
+     appeared sliced. Let it grow to fit (height:auto + min-height floor) and not
+     clip vertically. Swimlane names are short, so dropping the ellipsis here is
+     fine; a long name wraps (word-wrap) instead of being cut. */
+  overflow: visible;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   word-wrap: break-word;

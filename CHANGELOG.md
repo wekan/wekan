@@ -217,6 +217,14 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
   remain useful for the separate "FerretDB genuinely not ready" case. Thanks to **uusijani**, **a1bert01** and
   **xet7**.
 
+- **Swimlane header bar no longer clips at non-100% board zoom**
+  ([#6465](https://github.com/wekan/wekan/issues/6465)). At e.g. 80% zoom (`transform: scale` on
+  `.board-wrapper`) the gray swimlane header (`.swimlane-header`) looked cut off: it had `overflow: hidden`
+  with a fixed `min-height`, so once the scaled layout rounded, the bar/text was sliced. The header now uses
+  `overflow: visible` + `height: auto` (keeping the `min-height` floor) so it grows to fit and cannot clip
+  vertically; short swimlane names are unaffected and a long name wraps instead of being cut. Thanks to
+  **csonkaoszimt** (report) and **xet7**.
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release
