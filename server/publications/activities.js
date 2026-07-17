@@ -5,6 +5,13 @@ import { getFeatureFlags } from '/models/lib/featureFlags';
 // 1. The board sidebar
 // 2. The card activity tab
 // We use this publication to paginate for these two publications.
+//
+// #2539 ("Load only visible activities etc"): this is already satisfied. Like the
+// visible-cards infinite scroll (#2144), activities are loaded progressively: the
+// client passes an increasing `limit` (page * activitiesPerPage) via loadNextPage,
+// and the publication below only ships the most-recent `limit` activities
+// (sort createdAt:-1). So a board with tens of thousands of activities never loads
+// them all at once, and no manual cleanup is required to keep the board fast.
 
 Meteor.publish('activities', async function(kind, id, limit, showActivities) {
   check(
