@@ -8,10 +8,10 @@ template(name="archivedBoards")
     each archivedBoards
       li.archived-lists-item
         div.board-header-btns
-          button.primary.board-header-btn.js-delete-board
+          button.primary.board-header-btn.js-delete-board(type="submit")
             i.fa.fa-trash
             | {{_ 'delete-board'}}
-          button.primary.board-header-btn.js-restore-board
+          button.primary.board-header-btn.js-restore-board(type="submit")
             i.fa.fa-undo
             | {{_ 'restore-board'}}
           = title
