@@ -12,6 +12,7 @@ import {
 } from '/config/const';
 import { BOARD_COLORS, LABEL_COLORS } from '/models/metadata/colors';
 import { isHexColor } from '/models/lib/contrastColor';
+import { isValidCustomColors } from '/models/lib/themeCategories';
 import Actions from '/models/actions';
 import Cards from '/models/cards';
 import Integrations from '/models/integrations';
@@ -424,6 +425,24 @@ Boards.attachSchema(
         if (this.isInsert && !this.isSet) {
           return BOARD_COLORS[0];
         }
+      },
+    },
+    customThemeColors: {
+      /**
+       * Optional custom colors for the "flat" (1 color) and "clear" (2 colors,
+       * a color slide) theme categories — see docs/Theme/Theme.md. Each entry is a
+       * #rrggbb hex validated on the server; dark/special themes never store these.
+       * Absent = the named `color` theme's stock colors.
+       */
+      type: Array,
+      optional: true,
+    },
+    'customThemeColors.$': {
+      type: String,
+      // Enforced on client AND server by collection2 — a value that is not a plain
+      // #rrggbb hex can never be stored, so there is no CSS-injection surface.
+      custom() {
+        return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
       },
     },
     backgroundImageURL: {
@@ -1973,8 +1992,16 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { description } });
   },
 
-  async setColor(color) {
-    return await Boards.updateAsync(this._id, { $set: { color } });
+  async setColor(color, customThemeColors) {
+    // docs/Theme/Theme.md: flat/clear themes may carry custom colors; validate the
+    // count + category here and store only when valid, else clear any previous set.
+    const modifier = { $set: { color } };
+    if (customThemeColors && isValidCustomColors(color, customThemeColors)) {
+      modifier.$set.customThemeColors = customThemeColors;
+    } else {
+      modifier.$unset = { customThemeColors: '' };
+    }
+    return await Boards.updateAsync(this._id, modifier);
   },
 
   async setBackgroundImageURL(backgroundImageURL) {

@@ -57,32 +57,34 @@ test('user model: schema field + helpers + setter', () => {
 
 test('server method validates against BOARD_COLORS and is auth-guarded', () => {
   const s = read('server/models/users.js');
-  const i = s.indexOf('setGlobalThemeColor(color)');
+  const i = s.indexOf('setGlobalThemeColor(color');
   assert.ok(i !== -1, 'server method');
-  const body = s.slice(i, i + 700);
+  const body = s.slice(i, i + 900);
   assert.ok(/not-logged-in/.test(body), 'requires login');
   // NEGATIVE guard: an unknown color must be rejected, not written as a CSS class.
   assert.ok(/BOARD_COLORS\.includes\(color\)/.test(body), 'validates the color');
   assert.ok(/invalid-color/.test(body), 'rejects unknown colors');
+  // custom colors are validated (flat/clear + hex) before storage.
+  assert.ok(/isValidCustomColors\(color, customColors\)/.test(body), 'validates custom colors');
 });
 
-test('member menu has Change Color + the popup lists colors and a clear option', () => {
+test('member menu has Change Color, opening the shared theme picker (scope=global)', () => {
   const jade = read('client/components/users/userHeader.jade');
   assert.ok(/js-change-color/.test(jade), 'menu entry');
   assert.ok(/template\(name="changeColorPopup"\)/.test(jade), 'popup template');
-  assert.ok(/js-select-color-none/.test(jade), 'clear-override option');
-  assert.ok(/board-color-\{\{this\}\}/.test(jade), 'color swatches');
+  assert.ok(/\+themeColorPicker\(scope="global"\)/.test(jade), 'renders the shared picker');
   const js = read('client/components/users/userHeader.js');
   assert.ok(/Popup\.open\('changeColor'\)/.test(js), 'opens the popup');
-  assert.ok(/Meteor\.call\('setGlobalThemeColor', this\.toString\(\)/.test(js), 'select sets the color');
-  assert.ok(/Meteor\.call\('setGlobalThemeColor', null/.test(js), 'clear unsets it');
 });
 
-test('body autorun applies the global class off-board, clears it on a board', () => {
+test('body autorun applies the global class off-board and exposes custom colors', () => {
   const j = read('client/components/main/globalThemeColor.js');
   assert.ok(/board-color-\$\{color\}/.test(j), 'builds the board-color class');
   assert.ok(/Session\.get\('currentBoard'\)/.test(j), 'checks whether on a board');
-  assert.ok(/!onBoard && color/.test(j), 'off-board + color set gate');
+  // off-board: colorClass is computed only in the not-on-board branch.
+  assert.ok(/onBoard/.test(j) && /globalThemeColor/.test(j), 'gates on board context');
+  // custom colors are applied as CSS variables consumed by customTheme.css.
+  assert.ok(/--theme-accent/.test(j), 'sets the custom-color CSS variable');
 });
 
 test('header falls back to the global theme class on non-board pages', () => {

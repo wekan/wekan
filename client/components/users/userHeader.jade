@@ -189,21 +189,9 @@ template(name="changeLanguagePopup")
 template(name="changeColorPopup")
   //- #5778: global theme color override, saved to the user profile. Works like
     Board Settings / Change Color, but applies to the whole UI (All Boards, Search,
-    Admin Panel, etc). The first entry clears the override (default appearance).
-  ul.pop-over-list
-    li(class="{{#if isNoneSelected}}active{{/if}}")
-      a.js-select-color-none
-        i.fa.fa-ban
-        | {{_ 'theme-default'}}
-        if isNoneSelected
-          i.fa.fa-check
-  .board-backgrounds-list.clearfix
-    each backgroundColors
-      .board-background-select.js-select-color
-        span.background-box(class="board-color-{{this}}")
-          span {{this}}
-          if isSelected
-            i.fa.fa-check
+    Admin Panel, etc). The shared picker (docs/Theme/Theme.md) offers category +
+    theme dropdowns and custom color wheels for flat/clear themes.
+  +themeColorPicker(scope="global")
 
 template(name="changeSettingsPopup")
   ul.pop-over-list

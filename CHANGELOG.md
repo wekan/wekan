@@ -95,6 +95,16 @@ This release adds the following updates:
 
 and adds the following features:
 
+- **Select Color redesign — theme categories + custom colors**
+  ([#5778](https://github.com/wekan/wekan/issues/5778), `docs/Theme/Theme.md`). Both the Board Settings and
+  Member Settings **Change Color** pickers now use **two-level dropdowns**: first pick a **category** (flat, clear,
+  dark, special), then the **theme** within it. For **flat** themes you can pick **1 custom color** and for **clear**
+  themes **2 custom colors** (a color slide / gradient) with the native **color wheel**; **dark** and **special**
+  themes are fixed (no custom colors). Custom colors are validated server-side as `#rrggbb` (no CSS-injection
+  surface), stored in `board.customThemeColors` / `profile.globalThemeCustomColors`, and applied as CSS variables
+  (`--theme-accent` / `--theme-accent-2`) that recolor the header, primary buttons and sidebar button. Also fixes the
+  global override autorun never having been loaded. Thanks to **xet7**.
+
 - **Global theme color — pick a theme (e.g. dark) for the whole UI**
   ([#5778](https://github.com/wekan/wekan/issues/5778)). The member menu has a new **Change Color** entry that
   works like Board Settings / Change Color, but is a **per-user global override** saved to your profile: the chosen

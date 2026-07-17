@@ -1,0 +1,31 @@
+//- Shared "Select Color" picker (docs/Theme/Theme.md), used by both Board Settings
+  and Member Settings. Two-level dropdowns (category -> theme); the native color
+  wheel(s) appear only for flat (1) and clear (2) categories. `data.scope` is
+  'board' or 'global'.
+template(name="themeColorPicker")
+  form.theme-color-picker.edit-label
+    if isGlobal
+      ul.pop-over-list
+        li(class="{{#if isNoneSelected}}active{{/if}}")
+          a.js-theme-none
+            i.fa.fa-ban
+            | {{_ 'theme-default'}}
+            if isNoneSelected
+              i.fa.fa-check
+    label(for="themeCategory") {{_ 'theme-category'}}
+    select.js-theme-category.wekan-form-control#themeCategory
+      each categories
+        option(value=key selected=selected) {{label}}
+    label(for="themeName") {{_ 'theme'}}
+    select.js-theme-color.wekan-form-control#themeName
+      each themes
+        option(value=color selected=selected) {{color}}
+    if showCustom
+      .color-wheel-wrap
+        label {{_ 'custom-color'}}
+        each customWheels
+          input.js-theme-wheel(type="color" data-index=index value=value title="{{_ 'custom-color'}}")
+    .theme-preview
+      span.background-box(class=previewClass style=previewStyle)
+        span {{_ 'preview'}}
+    button.primary.confirm.js-theme-save {{_ 'save'}}

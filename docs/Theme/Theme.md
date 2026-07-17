@@ -105,13 +105,22 @@ injection surface.
 
 ## 6. What is implemented now vs. next
 
-- **Implemented:** `models/lib/themeCategories.js` (the categorization + `categoryOf` /
-  `colorsInCategory` / `allowsCustomColor` / `customColorCount` / `isValidCustomColors`) and its
-  tests. This is the shared source of truth the picker and validation build on.
-- **Next (design above):** the two-level dropdown picker template shared by both popups; the
-  `customThemeColors` / `profile.globalThemeCustomColors` storage + server validation; and the
-  CSS-variable refactor of the flat/clear theme rules plus inline application. Reuse the #5514 color
-  wheel and the #5778 global-apply autorun.
+- **Implemented:**
+  - `models/lib/themeCategories.js` — the categorization + helpers + `isValidCustomColors` (tested).
+  - The shared **two-level dropdown picker** `client/components/main/themeColorPicker.{jade,js}`
+    (category → theme + custom color wheels for flat/clear), used by **both** Board Settings
+    (`boardChangeColorPopup`) and Member Settings (`changeColorPopup`) via `scope="board"|"global"`.
+  - **Storage + validation**: `board.customThemeColors` and `profile.globalThemeCustomColors`
+    (each a validated `#rrggbb` array), written by `board.setColor(color, custom)` and the
+    `setGlobalThemeColor(color, custom)` method, both gated by `isValidCustomColors`.
+  - **Custom-color application**: `globalThemeColor.js` sets `--theme-accent` / `--theme-accent-2`
+    on `:root` (board's colors when on a board, the user's global override otherwise) and toggles
+    the `has-custom-theme-color` / `has-custom-theme-slide` body classes; `customTheme.css` consumes
+    them to recolor the header bars, primary buttons, and sidebar button.
+- **Next (iterative):** broaden `customTheme.css` beyond the header/buttons to the full flat/clear
+  surface (minicards, pop-overs, board canvas), ideally by refactoring those theme rules to read the
+  `--theme-accent*` variables directly (§4) so custom colors cover everything a named theme does.
+  This part is CSS-heavy and best iterated in a running app.
 
 ## 7. Extension checklist (adding a theme color)
 

@@ -291,6 +291,20 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.globalThemeCustomColors': {
+      /**
+       * Custom colors for the global theme when it is a flat (1 color) or clear
+       * (2 colors) theme — see docs/Theme/Theme.md. Each is a validated #rrggbb hex.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.globalThemeCustomColors.$': {
+      type: String,
+      custom() {
+        return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
+      },
+    },
     'profile.dismissedAnnouncementVersion': {
       /**
        * version string of the global announcement the user has permanently
@@ -1906,6 +1920,11 @@ Users.helpers({
   // or null when unset.
   getGlobalThemeColor() {
     return (this.profile && this.profile.globalThemeColor) || null;
+  },
+
+  // The custom colors for a flat/clear global theme (docs/Theme/Theme.md), or [].
+  getGlobalThemeCustomColors() {
+    return (this.profile && this.profile.globalThemeCustomColors) || [];
   },
 
   // The CSS class the global override maps to, or '' when unset. Used by the header

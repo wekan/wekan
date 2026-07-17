@@ -1,24 +1,22 @@
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
+import { ReactiveCache } from '/imports/reactiveCache';
 
-// #5778: apply the user's optional GLOBAL theme color to the whole UI by putting a
-// `board-color-<name>` class on <body>, mirroring the per-board color mechanism.
-// This themes the pages that otherwise have no color — All Boards, Search All
-// Boards, Admin Panel, My Cards, Due Cards, etc. — so a user can pick e.g. a dark
-// theme everywhere.
+// #5778 + docs/Theme/Theme.md: apply the user's optional GLOBAL theme color to the
+// whole UI (All Boards, Search, Admin Panel, My Cards, etc.) via a `board-color-<name>`
+// class on <body>, and apply CUSTOM colors (flat = 1 accent, clear = 2 = a gradient)
+// as CSS variables consumed by customTheme.css.
 //
-// While the user is viewing a single board, that board's own Board Settings color
-// owns the page (it is applied to #header and cascades to the board content). We
-// therefore CLEAR the global <body> class on a board so the two color themes never
-// fight over the same elements; the global override resumes on every other page.
-// (The header template applies the global class itself on non-board pages via the
-// user's globalThemeColorClass helper, covering the #header-specific rules.)
+// While viewing a single board, that board's own color owns the page, so we do NOT
+// put the global color class on <body> there; but we DO expose the ACTIVE context's
+// custom colors (the board's when on a board, the user's global override otherwise)
+// so custom-colored boards and the custom global theme both render.
 
 Meteor.startup(() => {
   let appliedClass = null;
 
-  function apply(colorClass) {
+  function applyClass(colorClass) {
     if (colorClass === appliedClass) return;
     try {
       if (appliedClass) document.body.classList.remove(appliedClass);
@@ -29,10 +27,46 @@ Meteor.startup(() => {
     appliedClass = colorClass;
   }
 
+  function applyCustom(custom) {
+    try {
+      const root = document.documentElement;
+      const c1 = custom && custom[0];
+      const c2 = custom && custom[1];
+      if (c1) {
+        root.style.setProperty('--theme-accent', c1);
+        document.body.classList.add('has-custom-theme-color');
+      } else {
+        root.style.removeProperty('--theme-accent');
+        document.body.classList.remove('has-custom-theme-color');
+      }
+      if (c2) {
+        root.style.setProperty('--theme-accent-2', c2);
+        document.body.classList.add('has-custom-theme-slide');
+      } else {
+        root.style.removeProperty('--theme-accent-2');
+        document.body.classList.remove('has-custom-theme-slide');
+      }
+    } catch (_) {
+      // ignore
+    }
+  }
+
   Tracker.autorun(() => {
     const user = Meteor.user();
-    const color = user && user.profile && user.profile.globalThemeColor;
-    const onBoard = !!Session.get('currentBoard');
-    apply(!onBoard && color ? `board-color-${color}` : null);
+    const boardId = Session.get('currentBoard');
+    const onBoard = !!boardId;
+
+    let colorClass = null;
+    let custom = [];
+    if (onBoard) {
+      const board = ReactiveCache.getBoard(boardId);
+      custom = (board && board.customThemeColors) || [];
+    } else {
+      const color = user && user.profile && user.profile.globalThemeColor;
+      colorClass = color ? `board-color-${color}` : null;
+      custom = (user && user.profile && user.profile.globalThemeCustomColors) || [];
+    }
+    applyClass(colorClass);
+    applyCustom(custom);
   });
 });

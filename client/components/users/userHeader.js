@@ -4,7 +4,6 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import AccountSettings from '/models/accountSettings';
 import Users from '/models/users';
 import { Utils } from '/client/lib/utils';
-import { BOARD_COLORS } from '/models/metadata/colors';
 
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
@@ -416,38 +415,5 @@ Template.changeSettingsPopup.events({
   },
 });
 
-// #5778: global theme color override (Member Menu / Change Color). Mirrors the
-// Board Settings / Change Color popup, but persists to the user profile and applies
-// the color to the whole UI (see client/components/main/globalThemeColor.js).
-Template.changeColorPopup.helpers({
-  backgroundColors() {
-    return BOARD_COLORS;
-  },
-  isSelected() {
-    const user = ReactiveCache.getCurrentUser();
-    return !!user && user.getGlobalThemeColor() === Template.currentData().toString();
-  },
-  isNoneSelected() {
-    const user = ReactiveCache.getCurrentUser();
-    return !user || !user.getGlobalThemeColor();
-  },
-});
-
-Template.changeColorPopup.events({
-  'click .js-select-color'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    Meteor.call('setGlobalThemeColor', this.toString(), (err) => {
-      if (err && process.env.DEBUG === 'true') console.error('setGlobalThemeColor error', err);
-    });
-    Popup.back();
-  },
-  'click .js-select-color-none'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    Meteor.call('setGlobalThemeColor', null, (err) => {
-      if (err && process.env.DEBUG === 'true') console.error('setGlobalThemeColor error', err);
-    });
-    Popup.back();
-  },
-});
+// #5778 + docs/Theme/Theme.md: the Member Menu / Change Color popup renders the
+// shared themeColorPicker (scope="global"); all of its logic lives there.

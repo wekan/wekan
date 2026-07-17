@@ -1,0 +1,24 @@
+/* Custom theme colors (docs/Theme/Theme.md) — the flat/clear categories let the
+ * user pick their own colors, applied as CSS variables on :root by
+ * globalThemeColor.js and consumed here. This is the initial, highest-impact
+ * surface (the header bars, primary buttons, sidebar button); deeper theming can
+ * grow from here. dark/special themes never set these variables. */
+
+/* Flat: a single accent recolors the header bars and primary controls. The class
+ * lives on <body>; #header / #header-quick-access are descendants. */
+.has-custom-theme-color #header,
+.has-custom-theme-color #header-quick-access {
+  background: var(--theme-accent) !important;
+}
+
+.has-custom-theme-color button[type=submit].primary,
+.has-custom-theme-color input[type=submit].primary,
+.has-custom-theme-color .sidebar .sidebar-content .sidebar-btn {
+  background-color: var(--theme-accent) !important;
+}
+
+/* Clear: a two-color slide (gradient) across the header bars. */
+.has-custom-theme-slide #header,
+.has-custom-theme-slide #header-quick-access {
+  background: linear-gradient(135deg, var(--theme-accent), var(--theme-accent-2)) !important;
+}

@@ -148,13 +148,9 @@ template(name="boardDomainRow")
       text(x="50%" y="11" text-anchor="middle" dominant-baseline="middle" font-size="16")= domain
 
 template(name="boardChangeColorPopup")
-  .board-backgrounds-list.clearfix
-    each backgroundColors
-      .board-background-select.js-select-background
-        span.background-box(class="board-color-{{this}}")
-          span {{this}}
-          if isSelected
-            i.fa.fa-check
+  //- docs/Theme/Theme.md: category + theme dropdowns with custom color wheels for
+    the flat/clear categories, shared with Member Settings / Change Color.
+  +themeColorPicker(scope="board")
 
 template(name="boardBackgroundsPopup")
   .board-backgrounds-manage

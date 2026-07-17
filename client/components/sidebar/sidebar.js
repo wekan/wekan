@@ -11,7 +11,6 @@ import Attachments from '/models/attachments';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import Integrations from '/models/integrations';
 import Lists from '/models/lists';
-import { BOARD_COLORS } from '/models/metadata/colors';
 import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
@@ -967,25 +966,8 @@ function draggableMembersLabelsWidgets() {
 Template.membersWidget.onRendered(draggableMembersLabelsWidgets);
 Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
 
-Template.boardChangeColorPopup.helpers({
-  backgroundColors() {
-    return BOARD_COLORS;
-  },
-  isSelected() {
-    const currentBoard = Utils.getCurrentBoard();
-    return currentBoard.color === Template.currentData().toString();
-  },
-});
-
-Template.boardChangeColorPopup.events({
-  async 'click .js-select-background'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const currentBoard = Utils.getCurrentBoard();
-    const newColor = this.toString();
-    await currentBoard.setColor(newColor);
-  },
-});
+// docs/Theme/Theme.md: the board color popup now renders the shared themeColorPicker
+// (scope="board"); its logic lives in client/components/main/themeColorPicker.js.
 
 Template.boardChangeBackgroundImagePopup.events({
   async submit(event, tpl) {
