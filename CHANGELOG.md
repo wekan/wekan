@@ -86,67 +86,9 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# v9.99 2026-07-17 WeKan ® release
+# Upcoming WeKan ® release
 
-This release fixes the following BUG:
-
-- **LDAP connection leak: WeKan exhausted the directory server with "too many open connections"**
-  ([#6467](https://github.com/wekan/wekan/issues/6467), [#6469](https://github.com/wekan/wekan/issues/6469)).
-  Operators reported that after an update WeKan "dies really quickly", that restarting the server did not
-  help, and that it "kills our openldap server with too many open connections"; others saw logins hang for
-  minutes and then fail with *"Must be logged in"*. Root cause: every LDAP login attempt
-  (`packages/wekan-ldap/server/loginHandler.js`) and every background sync run
-  (`packages/wekan-ldap/server/sync.js`) created a fresh `new LDAP()` and called `connect()`, but the code
-  **never called `disconnect()` on any path** — success, failure, or fallback. Each login attempt (including
-  every *failed* one) and each background-sync tick (every minute by default) therefore leaked one socket to
-  the LDAP/AD server. Over time this grew without bound until the directory server hit its per-client
-  connection limit and started refusing connections, which took it — and, with it, every WeKan login — down.
-  - **Fixed** by guaranteeing the connection is always released:
-    - A small shared helper `packages/wekan-ldap/server/connectionGuard.js` (`runWithLdapDisconnect(ldap, fn)`)
-      runs the work and `disconnect()`s in a `finally`, on every exit path. The disconnect is best-effort and
-      never masks the original result or error.
-    - The LDAP login handler now runs its whole flow through `runWithLdapDisconnect`, so `connect()` is always
-      paired with a `disconnect()` — on a successful login, a thrown `Meteor.Error`, or a fallback to the
-      default account system.
-    - The background `sync()` releases its connection in a `finally`, and `importNewUsers()` disconnects only
-      the connection it opened itself (never a connection borrowed from `sync()`).
-    - The admin `ldap_test_connection` method (`packages/wekan-ldap/server/testConnection.js`), which had the
-      same leak, now disconnects on both the success and failure paths, so repeated "Test Connection" clicks
-      no longer leak either.
-    - `LDAP.disconnect()` is now a safe no-op when `connect()` was never reached, so cleanup can never throw.
-  - **Tests** (`tests/ldapConnectionRelease.test.cjs`, added to `test:unit:node`): behavioural coverage of the
-    guard (disconnects after success and returns the result; disconnects exactly once; disconnects *and*
-    re-throws when the work throws — the failed-login path that exhausted OpenLDAP), negative cases (a failing
-    disconnect never turns a success into a failure nor hides the real error; a missing/`null` ldap is
-    tolerated), plus source-level guards that the leak-prone call sites actually route through the guard and
-    that `connect()` lives inside the guarded region.
-  - Thanks to the reporting operators and **xet7** (fix).
-
-This release also updates the bundled FerretDB (see the fork's own CHANGELOG Upcoming): the SQLite backend
-connection pool no longer caps `MaxOpenConns` at 16, which had starved WeKan's cursor-heavy load and made
-boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](https://github.com/wekan/wekan/issues/6467),
-[#6469](https://github.com/wekan/wekan/issues/6469)).
-
-- **Snap: FerretDB never becoming ready made WeKan hang with no web port and no explanation**
-  ([#6476](https://github.com/wekan/wekan/issues/6476)). With `database=ferretdb`, `snap-src/bin/wekan-control`
-  waits for FerretDB to accept connections *before* starting WeKan — WeKan does not open its HTTP port until
-  the database answers. That wait loop had **no timeout and no diagnostics**: if FerretDB never started
-  listening (a crashed or CPU/architecture-incompatible per-arch binary, a locked or corrupt SQLite database,
-  or the FerretDB service left disabled by a failed migration hand-off), WeKan blocked there forever. The
-  service showed as `active`, but the port never opened and the only symptom was a silent
-  `FerretDB not ready yet, retrying in 5 seconds` repeating — exactly what #6476 reported (Apache proxy could
-  not connect to port 3333). The reporter's `wekan.log` stopped right after the startup env dump, confirming
-  control never reached `node main.js`.
-  - **Fixed** by mirroring the MongoDB branch: after `WEKAN_DB_WAIT_TIMEOUT` seconds (default 120,
-    overridable) the FerretDB wait loop now prints an actionable hint **once** and keeps retrying — pointing to
-    `snap logs <snap>.ferretdb` for the real error, naming the SQLite directory to check for locks/corruption,
-    the arch-mismatch (`exec format error`) case, the `snap start --enable <snap>.ferretdb` recovery, and the
-    `snap set <snap> database=mongodb` fallback to keep working meanwhile. This turns "port never opens, no
-    clue why" into a clear message. Regression test: `tests/ferretdbWaitTimeout.test.cjs`, including a negative
-    guard that the FerretDB wait is not a silent unbounded loop again.
-  - This is a robustness/diagnostics fix; the underlying reason FerretDB was not accepting connections is
-    environment-specific and lives in the FerretDB service log.
-  - Thanks to **uusijani** (report) and **xet7** (fix).
+This release includes the following changes:
 
 - **Snap release: build the exotic `ppc64el` and `s390x` snaps on GitHub Actions under QEMU instead of
   Launchpad.** The Launchpad `snapcraft remote-build` legs for these arches were ending in Launchpad state
@@ -215,7 +157,7 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
 
 - **#6476 root cause found — WeKan crash-looped after a FerretDB migration, so its web port never stayed
   open** ([#6476](https://github.com/wekan/wekan/issues/6476)). Follow-up to the snap wait-loop diagnostics
-  above: operator logs (uusijani, a1bert01) showed FerretDB *was* listening and WeKan *did* connect — then a
+  released in v9.99: operator logs (uusijani, a1bert01) showed FerretDB *was* listening and WeKan *did* connect — then a
   startup SyncedCron upsert hit a FerretDB error `table "accountslockout.connections_<hash>" already exists`,
   which became an *unhandledRejection* and exited the process; systemd restarted it in a tight loop (restart
   counter climbing to 99), so the HTTP port never came up. The real fix is in the **bundled FerretDB** (see the
@@ -232,6 +174,70 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
   `overflow: visible` + `height: auto` (keeping the `min-height` floor) so it grows to fit and cannot clip
   vertically; short swimlane names are unaffected and a long name wraps instead of being cut. Thanks to
   **csonkaoszimt** (report) and **xet7**.
+
+Thanks to above for their contributions.
+
+# v9.99 2026-07-17 WeKan ® release
+
+This release fixes the following BUG:
+
+- **LDAP connection leak: WeKan exhausted the directory server with "too many open connections"**
+  ([#6467](https://github.com/wekan/wekan/issues/6467), [#6469](https://github.com/wekan/wekan/issues/6469)).
+  Operators reported that after an update WeKan "dies really quickly", that restarting the server did not
+  help, and that it "kills our openldap server with too many open connections"; others saw logins hang for
+  minutes and then fail with *"Must be logged in"*. Root cause: every LDAP login attempt
+  (`packages/wekan-ldap/server/loginHandler.js`) and every background sync run
+  (`packages/wekan-ldap/server/sync.js`) created a fresh `new LDAP()` and called `connect()`, but the code
+  **never called `disconnect()` on any path** — success, failure, or fallback. Each login attempt (including
+  every *failed* one) and each background-sync tick (every minute by default) therefore leaked one socket to
+  the LDAP/AD server. Over time this grew without bound until the directory server hit its per-client
+  connection limit and started refusing connections, which took it — and, with it, every WeKan login — down.
+  - **Fixed** by guaranteeing the connection is always released:
+    - A small shared helper `packages/wekan-ldap/server/connectionGuard.js` (`runWithLdapDisconnect(ldap, fn)`)
+      runs the work and `disconnect()`s in a `finally`, on every exit path. The disconnect is best-effort and
+      never masks the original result or error.
+    - The LDAP login handler now runs its whole flow through `runWithLdapDisconnect`, so `connect()` is always
+      paired with a `disconnect()` — on a successful login, a thrown `Meteor.Error`, or a fallback to the
+      default account system.
+    - The background `sync()` releases its connection in a `finally`, and `importNewUsers()` disconnects only
+      the connection it opened itself (never a connection borrowed from `sync()`).
+    - The admin `ldap_test_connection` method (`packages/wekan-ldap/server/testConnection.js`), which had the
+      same leak, now disconnects on both the success and failure paths, so repeated "Test Connection" clicks
+      no longer leak either.
+    - `LDAP.disconnect()` is now a safe no-op when `connect()` was never reached, so cleanup can never throw.
+  - **Tests** (`tests/ldapConnectionRelease.test.cjs`, added to `test:unit:node`): behavioural coverage of the
+    guard (disconnects after success and returns the result; disconnects exactly once; disconnects *and*
+    re-throws when the work throws — the failed-login path that exhausted OpenLDAP), negative cases (a failing
+    disconnect never turns a success into a failure nor hides the real error; a missing/`null` ldap is
+    tolerated), plus source-level guards that the leak-prone call sites actually route through the guard and
+    that `connect()` lives inside the guarded region.
+  - Thanks to the reporting operators and **xet7** (fix).
+
+This release also updates the bundled FerretDB (see the fork's own CHANGELOG Upcoming): the SQLite backend
+connection pool no longer caps `MaxOpenConns` at 16, which had starved WeKan's cursor-heavy load and made
+boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](https://github.com/wekan/wekan/issues/6467),
+[#6469](https://github.com/wekan/wekan/issues/6469)).
+
+- **Snap: FerretDB never becoming ready made WeKan hang with no web port and no explanation**
+  ([#6476](https://github.com/wekan/wekan/issues/6476)). With `database=ferretdb`, `snap-src/bin/wekan-control`
+  waits for FerretDB to accept connections *before* starting WeKan — WeKan does not open its HTTP port until
+  the database answers. That wait loop had **no timeout and no diagnostics**: if FerretDB never started
+  listening (a crashed or CPU/architecture-incompatible per-arch binary, a locked or corrupt SQLite database,
+  or the FerretDB service left disabled by a failed migration hand-off), WeKan blocked there forever. The
+  service showed as `active`, but the port never opened and the only symptom was a silent
+  `FerretDB not ready yet, retrying in 5 seconds` repeating — exactly what #6476 reported (Apache proxy could
+  not connect to port 3333). The reporter's `wekan.log` stopped right after the startup env dump, confirming
+  control never reached `node main.js`.
+  - **Fixed** by mirroring the MongoDB branch: after `WEKAN_DB_WAIT_TIMEOUT` seconds (default 120,
+    overridable) the FerretDB wait loop now prints an actionable hint **once** and keeps retrying — pointing to
+    `snap logs <snap>.ferretdb` for the real error, naming the SQLite directory to check for locks/corruption,
+    the arch-mismatch (`exec format error`) case, the `snap start --enable <snap>.ferretdb` recovery, and the
+    `snap set <snap> database=mongodb` fallback to keep working meanwhile. This turns "port never opens, no
+    clue why" into a clear message. Regression test: `tests/ferretdbWaitTimeout.test.cjs`, including a negative
+    guard that the FerretDB wait is not a silent unbounded loop again.
+  - This is a robustness/diagnostics fix; the underlying reason FerretDB was not accepting connections is
+    environment-specific and lives in the FerretDB service log.
+  - Thanks to **uusijani** (report) and **xet7** (fix).
 
 Thanks to above for their contributions.
 
