@@ -171,6 +171,12 @@
   overflow: visible;
   height: auto;
   flex: 1;
+  /* Auto-filling columns so as many languages as possible are visible at once when
+     there is browser width; collapses to a single column on narrow windows. */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  align-content: start;
+  column-gap: 4px;
 }
 
 /* Ensure content div in language popup contains all items */
@@ -197,8 +203,10 @@
   top: auto !important;
   inset-inline-start: auto !important;
   inset-inline-end: 20px !important;
-  width: auto !important;
-  max-width: 450px !important;
+  /* Wide enough for multiple language columns when the browser is wide, but never
+     wider than ~90% of the viewport (falls back to a single narrow column). */
+  width: min(90vw, 1100px) !important;
+  max-width: 90vw !important;
   height: 100vh !important;
   max-height: 100vh !important;
   min-height: 300px !important;
