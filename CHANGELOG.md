@@ -195,6 +195,15 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Swimlanes jumped up and down when starting/ending a card drag**
+  ([#2877](https://github.com/wekan/wekan/issues/2877), `client/components/boards/boardBody.css`):
+  drag start hid every list's "+ Add Card" composer link with `display: none`, collapsing its
+  row — lists shrank, auto-height swimlanes shrank, and every swimlane below jumped up ~23px
+  (and back down on drop), shifting the drop target under the cursor mid-drag (root cause
+  proven by frame-diffing the issue's own GIF). The composer now hides with
+  `visibility: hidden`, keeping its layout box, so nothing moves; collapsed multi-selection
+  cards stay collapsed intentionally (they preview the post-drop list). Tests:
+  `tests/swimlaneDragJump.test.cjs` (8). Thanks to xet7.
 - **Dragging a card toward an off-screen list never auto-scrolled the board**
   ([#443](https://github.com/wekan/wekan/issues/443), `client/components/lists/list.js`, new
   `imports/lib/boardAutoScroll.js`): the horizontal auto-scroll targeted `.board-canvas`,

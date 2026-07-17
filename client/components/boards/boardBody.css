@@ -316,7 +316,19 @@ body.desktop-mode .board-wrapper .board-canvas .board-overlay {
   display: none !important;
   pointer-events: none !important;
 }
-.board-wrapper .board-canvas.is-dragging-active .open-minicard-composer,
+/* #2877 "Wekan swimlane jumps when moving card": while a card is dragged the
+   "+ Add Card" composer link is hidden, but hiding it with `display: none`
+   collapsed the bottom row of EVERY list at drag start (and restored it on
+   drop). With auto-height swimlanes the whole swimlane shrank/grew by the
+   composer's height, so all swimlanes below visibly jumped up and back down.
+   `visibility: hidden` hides the link just the same but keeps its box in the
+   layout, so nothing moves when a drag starts or ends. */
+.board-wrapper .board-canvas.is-dragging-active .open-minicard-composer {
+  visibility: hidden;
+}
+/* Checked cards of a multi-selection ARE the payload being dragged, so
+   removing them from the flow (showing the list as it will look after the
+   drop) is intentional — keep display: none here. */
 .board-wrapper .board-canvas.is-dragging-active .minicard-wrapper.is-checked {
   display: none;
 }
