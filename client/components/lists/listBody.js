@@ -13,6 +13,10 @@ import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
 import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
 import { isLazyCards, BoardListCardCounts, windowCountId } from '/client/lib/lazyCards';
+import {
+  mutationsChangeDragGeometry,
+  findActiveCardDrag,
+} from '/client/lib/cardDragGeometry';
 import autosize from 'autosize';
 
 // SubsManager removed for Meteor 3 migration
@@ -451,6 +455,80 @@ Template.listBody.events({
   submit(evt, tpl) {
     tpl.addCard(evt);
   },
+});
+
+// #2769 Card lands in the WRONG swimlane when it is dropped while a connected
+// list's layout changed mid-drag. jQuery UI sortable snapshots the geometry
+// of every connected `.js-minicards` container once at drag start
+// (_mouseStart runs refreshPositions() BEFORE the `start` callback) and only
+// re-snapshots after its own placeholder moves — never when Blaze mutates the
+// DOM. Two such mutations routinely happen during a drag: another user's
+// newly added card is reactively inserted into the target list (the issue's
+// "target column where a new card is being added"), and the dragging user's
+// own open add-card composer is closed by the `start` callback's
+// EscapeActions call, AFTER the snapshot. Every list/swimlane below the
+// change then shifts vertically while the cached rectangles stay put, so the
+// drop resolves against a stale map: the placeholder is parked in the
+// neighbouring swimlane's copy of the list (hence the reporter's "no drop
+// shadow in the target column") and the stop handler's
+// ui.item.parents('.swimlane') (client/components/lists/list.js) faithfully
+// persists that wrong swimlane.
+// Fix: watch each list's minicards for REAL DOM changes (Blaze insertions and
+// removals — not jQuery UI's own placeholder/helper churn, which the library
+// already follows with its own refresh) and re-cache the active drag's
+// geometry with sortable('refresh'). The decision helpers are pure and unit
+// tested in tests/cardDragGeometry.test.cjs.
+Template.listBody.onRendered(function () {
+  const minicardsEl = this.find('.js-minicards');
+  if (!minicardsEl || typeof MutationObserver === 'undefined') {
+    return;
+  }
+  this.dragGeometryRefreshQueued = false;
+  this.dragGeometryObserver = new MutationObserver(mutations => {
+    // Cheapest gate first: no drag helper on the page means no drag at all
+    // (this observer also fires on every ordinary reactive card update).
+    if (!document.getElementsByClassName('ui-sortable-helper').length) {
+      return;
+    }
+    if (!mutationsChangeDragGeometry(mutations)) {
+      return;
+    }
+    if (this.dragGeometryRefreshQueued) {
+      return;
+    }
+    this.dragGeometryRefreshQueued = true;
+    // Coalesce bursts (Blaze can insert several nodes per flush); by the time
+    // the timeout runs, this tick's layout is final and measurable.
+    setTimeout(() => {
+      this.dragGeometryRefreshQueued = false;
+      const active = findActiveCardDrag(
+        $('.js-minicards')
+          .toArray()
+          .map(el => $.data(el, 'ui-sortable')),
+      );
+      if (active) {
+        try {
+          // Re-collects the items of every connected container and re-measures
+          // all container rectangles, so the pointer is matched against the
+          // CURRENT layout for the rest of the drag.
+          active.refresh();
+        } catch (e) {
+          // A failed re-measure must never break the drag itself.
+        }
+      }
+    }, 0);
+  });
+  this.dragGeometryObserver.observe(minicardsEl, {
+    childList: true,
+    subtree: true,
+  });
+});
+
+Template.listBody.onDestroyed(function () {
+  if (this.dragGeometryObserver) {
+    this.dragGeometryObserver.disconnect();
+    this.dragGeometryObserver = null;
+  }
 });
 
 function toggleValueInReactiveArray(reactiveValue, value) {

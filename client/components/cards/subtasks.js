@@ -3,7 +3,10 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Cards from '/models/cards';
 import { Filter } from '/client/lib/filter';
 import { subtaskStatusLabel } from './subtaskStatusHelpers';
-import { subtaskNavTarget } from './subtaskViewHelpers';
+import {
+  subtaskNavTarget,
+  subtaskBoardNavTarget,
+} from './subtaskViewHelpers';
 import { Utils } from '/client/lib/utils';
 
 Template.subtasks.events({
@@ -125,20 +128,34 @@ Template.subtaskActionsPopup.events({
       const subtask = Template.currentData().subtask;
       // #3743: open the SUBTASK card itself, not the parent/current card.
       // subtaskNavTarget derives boardId/slug/cardId from the subtask only.
-      // #4762: it also returns undefined while the subtask's board is not
-      // loaded yet (ReactiveCache miss), mirroring js-go-to-subtask-board.
+      // #1853 / #4762: when the subtask's board (often a DIFFERENT deposit
+      // board) is not in minimongo yet, it falls back to the subtask's own
+      // boardId so the route loads the board — no TypeError, no dead button.
+      // It only returns undefined for a truly broken subtask document.
       const target = subtaskNavTarget(subtask);
       if (target) {
         FlowRouter.go('card', target);
+      } else {
+        // Broken subtask (no card id / board id): warn instead of throwing.
+        console.warn(
+          'Cannot view subtask: missing board/card id on subtask',
+          subtask && subtask._id,
+        );
       }
     }
   },
   'click .js-go-to-subtask-board'() {
     const subtask = Template.currentData().subtask;
-    const board = subtask.board();
-    if (board) {
+    // #1853: fall back to subtask.boardId when the board doc is not loaded.
+    const target = subtaskBoardNavTarget(subtask);
+    if (target) {
       Popup.close();
-      FlowRouter.go('board', { id: board._id, slug: board.slug });
+      FlowRouter.go('board', target);
+    } else {
+      console.warn(
+        'Cannot go to subtask board: missing board id on subtask',
+        subtask && subtask._id,
+      );
     }
   },
   'click .js-delete-subtask' : Popup.afterConfirm('subtaskDelete', async function () {

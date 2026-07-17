@@ -67,14 +67,27 @@ describe('subtaskNavTarget (#3743)', function() {
     expect(target.cardId).to.not.equal(parentCard._id);
   });
 
-  it('returns undefined when the subtask board is not loaded yet (#4762)', function() {
+  it('falls back to the subtask boardId when its board is not loaded (#1853/#4762)', function() {
+    // The deposit/target board is often ANOTHER board that is not in
+    // minimongo while the parent board is open; navigation must still work
+    // (the card route loads the board), it must not throw or no-op.
     const subtask = makeSubtask();
     subtask.board = () => undefined;
-    expect(subtaskNavTarget(subtask)).to.equal(undefined);
+    const target = subtaskNavTarget(subtask);
+    expect(target.boardId).to.equal('subtaskBoardId');
+    expect(target.slug).to.equal('board');
+    expect(target.cardId).to.equal('subtaskRealId');
   });
 
   it('returns undefined for a missing subtask', function() {
     expect(subtaskNavTarget(undefined)).to.equal(undefined);
     expect(subtaskNavTarget(null)).to.equal(undefined);
+  });
+
+  it('returns undefined for a broken subtask with no board reference at all', function() {
+    const subtask = makeSubtask();
+    subtask.board = () => undefined;
+    subtask.boardId = undefined;
+    expect(subtaskNavTarget(subtask)).to.equal(undefined);
   });
 });

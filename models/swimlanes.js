@@ -524,7 +524,22 @@ Swimlanes.helpers({
         await list.archive();
       }
     }
-    return await Swimlanes.updateAsync(this._id, { $set: { archived: true, archivedAt: new Date() } });
+    // #2292: archive the swimlane's cards WITH it, mirroring the card cascade
+    // of Lists.archive() (models/lists.js). Without this the cards stayed
+    // `archived: false` under an archived swimlane — invisible in every board
+    // view AND in the Archive sidebar, and reassigned to another swimlane by
+    // the startup rescue of #1959/#1971 (server/lib/schemaUpgradeSteps.js),
+    // so restoring the swimlane later found it empty. The swimlane's
+    // archivedAt is captured BEFORE the per-card archive() calls stamp each
+    // card's archivedAt, so restore() below can recognise the cards that were
+    // archived with the swimlane. Cards already archived by the user keep
+    // their own archivedAt (see models/lib/swimlaneArchive.js).
+    const { cardsToArchiveWithSwimlane } = require('./lib/swimlaneArchive');
+    const archivedAt = new Date();
+    for (const card of cardsToArchiveWithSwimlane(await this.allCards())) {
+      await card.archive();
+    }
+    return await Swimlanes.updateAsync(this._id, { $set: { archived: true, archivedAt } });
   },
 
   async restore() {
@@ -532,6 +547,15 @@ Swimlanes.helpers({
       for (const list of await this.myLists()) {
         await list.restore();
       }
+    }
+    // #2292: restore the cards that were archived WITH this swimlane by
+    // archive() above (their archivedAt is at/after the swimlane's),
+    // mirroring the card cascade of Lists.restore() (models/lists.js). Cards
+    // the user archived individually BEFORE archiving the swimlane stay
+    // archived (see models/lib/swimlaneArchive.js).
+    const { cardsToRestoreWithSwimlane } = require('./lib/swimlaneArchive');
+    for (const card of cardsToRestoreWithSwimlane(await this.allCards(), this.archivedAt)) {
+      await card.restore();
     }
     return await Swimlanes.updateAsync(this._id, { $set: { archived: false } });
   },

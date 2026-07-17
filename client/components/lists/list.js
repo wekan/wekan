@@ -447,6 +447,13 @@ Template.list.onRendered(function () {
     const currentBoardId = Tracker.nonreactive(() => {
       return Session.get('currentBoard');
     });
+    // #1554: reactive dependency so newly added / re-rendered minicards are
+    // (re)initialized as droppable for label/member drags. The dependency
+    // (Cards.find(...).fetch()) was dropped in 7673c77c5, so the autorun ran
+    // ONCE per list render and cards added afterwards silently rejected
+    // sidebar label/member drops until the board was re-entered. Re-running
+    // .droppable() on initialized elements is an idempotent option refresh.
+    ReactiveCache.getCards({ boardId: currentBoardId });
     Tracker.afterFlush(() => {
       $cards.find(itemsSelector).droppable({
         hoverClass: 'draggable-hover-card',

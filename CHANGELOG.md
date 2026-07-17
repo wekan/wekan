@@ -195,6 +195,64 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Dragging a card while someone added a card to the target list dropped it into the WRONG
+  swimlane** ([#2769](https://github.com/wekan/wekan/issues/2769), new
+  `client/lib/cardDragGeometry.js`, `client/components/lists/listBody.js`): jQuery UI sortable
+  snapshots container geometry at drag start; a mid-drag DOM insertion (another user's new
+  card, or the drag's own composer auto-close) shifted every swimlane below while the cached
+  rectangles stayed put — the drop landed in the neighbouring swimlane with no visible
+  placeholder. A MutationObserver now refreshes the active drag's geometry on real mid-drag
+  layout changes (sortable's own churn filtered out). Tests:
+  `tests/cardDragGeometry.test.cjs` (13). Thanks to hever and xet7.
+- **Board import lost card dates** ([#1992](https://github.com/wekan/wekan/issues/1992),
+  `models/wekanCreator.js`, new `models/lib/importedCardDates.js`): the importer derived
+  `createdAt` only from a `createCard` activity (absent in Sandstorm/pruned exports — dates
+  silently reset to import time) and never imported `receivedAt`/`endAt` at all. All five date
+  fields now restore with sane fallbacks (activity → the card's own exported date → import
+  time), and the card creator falls back to the exported userId. The missing-cards half of the
+  report was already fixed by 68e0032c6. Tests: `tests/importedCardDates.test.cjs` (13).
+  Thanks to xet7.
+- **Archiving a swimlane made its cards disappear — and restore brought back an empty
+  swimlane** ([#2292](https://github.com/wekan/wekan/issues/2292), `models/swimlanes.js`, new
+  `models/lib/swimlaneArchive.js`): only the swimlane document was flagged; its unarchived
+  cards became invisible everywhere (board views render unarchived swimlanes, Archive lists
+  archived docs). Archiving a swimlane now archives its cards (mirroring lists), and restore
+  brings back exactly the cards archived WITH it — individually archived cards stay archived.
+  Tests: `tests/archiveSwimlaneCards.test.cjs` (11). Thanks to Cactusbone and xet7.
+- **"Move/Copy selection to board" wrote `sort: NaN` to every card**
+  ([#2494](https://github.com/wekan/wekan/issues/2494), `imports/reactiveCache.js`): the
+  client-side `noCache` card lookup returned a PROMISE since the Meteor 3 port, so the max-sort
+  read was `undefined` and every moved card got NaN — cards appeared and disappeared and could
+  not be reordered. The uncached client path is synchronous minimongo again. Tests:
+  `tests/reactiveCacheNoCacheCard.test.cjs` (8, incl. a proof the pre-fix routing yields NaN).
+  Thanks to Vermeille and xet7.
+- **Subtask "View it" did nothing when the subtask lives on another board**
+  ([#1853](https://github.com/wekan/wekan/issues/1853),
+  `client/components/cards/subtaskViewHelpers.js`, `subtasks.js`): the original crash
+  (`board._id` of undefined) had become a silent no-op guard — when the deposit board is not
+  in minimongo the button just did nothing. Navigation now falls back to the subtask's own
+  boardId (the route loads the board), and truly broken subtasks warn instead of dying.
+  Tests: `tests/subtaskViewNavigation.test.cjs` (11). Thanks to Vanclief and xet7.
+- **Labels/members could not be dragged onto cards added after the board rendered**
+  ([#1554](https://github.com/wekan/wekan/issues/1554), `client/components/lists/list.js`):
+  the droppable-initializing autorun lost its reactive dependency in 7673c77c5 (2023), so it
+  ran once per list render and later-added minicards silently rejected sidebar drags until the
+  board was re-entered ("works after search-and-back"). Dependency restored via the
+  ReactiveCache. Tests: `tests/labelDragDroppable.test.cjs` (3). Thanks to Miffe and xet7.
+- **"Add filtered cards to selection" swept cards from OTHER boards into bulk actions**
+  ([#2306](https://github.com/wekan/wekan/issues/2306), `client/lib/filter.js`,
+  `client/lib/multiSelection.js`, new `models/lib/boardScopedSelection.js`): the filter
+  selector carried no boardId, and minimongo legitimately holds foreign-board cards (linked
+  boards, dialogs, notifications) — a bulk archive could silently mutate other boards. The
+  selection and its bulk-action selector are now board-scoped, and foreign ids are rejected at
+  insertion. Tests: `tests/boardScopedSelection.test.cjs` (17, incl. the exact reported
+  repro). Thanks to IcedQuinn and xet7.
+- **REST API: login tokens could never be revoked** ([#1437](https://github.com/wekan/wekan/issues/1437),
+  `server/apiAuthRoutes.js`, new `models/lib/apiLogout.js`): every `POST /users/login` minted
+  another ~90-day resume token with no way to invalidate any of them. New `POST /users/logout`
+  revokes the presented token (or all of the user's tokens with `{"all": true}`), always scoped
+  to the authenticated user. Tests: `tests/apiLogout.test.cjs` (12). Thanks to
+  ppouliot and xet7.
 - **Editing one checklist item and clicking another left BOTH edit forms open — and
   submitting overwrote the new item's title with the previous item's text**
   ([#2418](https://github.com/wekan/wekan/issues/2418), `client/lib/inlinedform.js`, new

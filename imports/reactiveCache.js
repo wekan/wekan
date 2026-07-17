@@ -1180,11 +1180,33 @@ const ReactiveCache = {
     }
   },
   getCard(idOrFirstObjectSelector = null, options = {}, noCache = false) {
-    if (Meteor.isServer || noCache === true) {
+    if (Meteor.isServer) {
       return ReactiveCacheServer.getCard(idOrFirstObjectSelector, options);
-    } else {
-      return ReactiveCacheClient.getCard(idOrFirstObjectSelector, options);
     }
+    if (noCache === true) {
+      // #2494 (cards sent to another board appear/disappear when reordering):
+      // on the CLIENT, `noCache` must bypass the DataCache but stay
+      // SYNCHRONOUS like every other client-side ReactiveCache getter.
+      // Routing it to the async ReactiveCacheServer.getCard returned a
+      // Promise; synchronous callers such as the multi-select "Move/Copy
+      // selection" max-sort lookup (client/components/sidebar/
+      // sidebarFilters.js getMaxSortForList) read `.sort` off that Promise,
+      // got `undefined`, and wrote `sort: NaN` to every card moved to the
+      // target list — the cards then landed at unpredictable positions,
+      // hid behind each other and could not be reordered. Minimongo's
+      // findOne is synchronous on the client, and callers that `await`
+      // this call (models/cards.js getSort, models/boards.js
+      // getNextCardNumber) work unchanged when given a plain document.
+      if (
+        idOrFirstObjectSelector === null ||
+        idOrFirstObjectSelector === undefined ||
+        idOrFirstObjectSelector === ''
+      ) {
+        return null;
+      }
+      return Cards.findOne(idOrFirstObjectSelector, options);
+    }
+    return ReactiveCacheClient.getCard(idOrFirstObjectSelector, options);
   },
   getCards(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {

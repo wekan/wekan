@@ -27,6 +27,8 @@ import {
   buildDateValueSelector,
 } from '/imports/lib/advancedFilter';
 import { weekRange } from '/models/lib/weekStart';
+import { Session } from 'meteor/session';
+import { boardScopedFilterSelector } from '/models/lib/boardScopedSelection';
 // Sidebar is imported late to avoid circular dependency (sidebar.js needs its
 // jade template loaded first, but router.js → filter.js would load it too early)
 let _Sidebar;
@@ -785,11 +787,23 @@ export const Filter = {
 
   mongoSelector(additionalSelector) {
     const filterSelector = this._getMongoSelector();
-    if (additionalSelector === undefined) return filterSelector;
-    else
-      return {
-        $and: [filterSelector, additionalSelector],
-      };
+    if (additionalSelector === undefined) {
+      // #2306: a call without an additional selector means "all cards
+      // matching the filter" (e.g. the filter sidebar's "To selection"
+      // button). The client cache may also hold cards from OTHER boards
+      // (a board being navigated away from, linked-board subscriptions,
+      // notifications, popup card data, ...), so scope the query to the
+      // board currently being viewed. Callers that pass an additional
+      // selector are already scoped to a list/swimlane/card of the current
+      // board.
+      return boardScopedFilterSelector(
+        filterSelector,
+        Session.get('currentBoard'),
+      );
+    }
+    return {
+      $and: [filterSelector, additionalSelector],
+    };
   },
 
   reset() {

@@ -7,6 +7,7 @@ const { Accounts } = require('meteor/accounts-base');
 const { WebApp } = require('meteor/webapp');
 const { check, Match } = require('meteor/check');
 const { sendJsonResult } = require('/server/apiMiddleware');
+const { buildLogoutPlan } = require('/models/lib/apiLogout');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -94,6 +95,60 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     res.end(
       JSON.stringify({
         error: error.error || error.message || 'Login failed',
+        reason: error.reason || error.message,
+      }),
+    );
+  }
+});
+
+// ---------------------------------------------------------------------------
+// POST /users/logout
+// Fixes #1437 ("Old tokens are not replaced or set invalid"): the API could
+// mint tokens via /users/login but never revoke them, so old/leaked tokens
+// stayed valid until their expiry. Authenticate with the token to revoke
+// (Authorization: Bearer <token>); by default only that token is removed.
+// Send { "all": true } in the body to revoke every login token of the user.
+// ---------------------------------------------------------------------------
+WebApp.handlers.options('/users/logout', function (req, res) {
+  sendJsonResult(res);
+});
+
+WebApp.handlers.post('/users/logout', async function (req, res) {
+  try {
+    // req.userId / req.authToken are set by the apiMiddleware bearer-token
+    // and authenticateByToken middleware (loaded above via require).
+    const hashedToken = req.authToken
+      ? Accounts._hashLoginToken(req.authToken)
+      : null;
+    const plan = buildLogoutPlan({
+      userId: req.userId,
+      hashedToken,
+      all: req.body && req.body.all,
+    });
+
+    if (!plan.ok) {
+      sendJsonResult(res, {
+        code: plan.status,
+        data: { error: plan.error, reason: plan.reason },
+      });
+      return;
+    }
+
+    await Meteor.users.updateAsync(plan.selector, plan.modifier);
+
+    sendJsonResult(res, {
+      data: {
+        message: plan.all
+          ? 'All login tokens have been invalidated.'
+          : "You've been logged out!",
+      },
+    });
+  } catch (error) {
+    res.statusCode = error.statusCode || 500;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(
+      JSON.stringify({
+        error: error.error || error.message || 'Logout failed',
         reason: error.reason || error.message,
       }),
     );

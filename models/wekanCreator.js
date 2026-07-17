@@ -8,6 +8,7 @@ import { BOARD_COLORS, CARD_COLORS, SWIMLANE_COLORS } from '/models/metadata/col
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { planImportedBoardMember } from '/models/lib/importedBoardMemberPlan';
+import { importedCardDates } from '/models/lib/importedCardDates';
 import {
   getImportExportSecuritySettings,
   anonymizedUserWord,
@@ -435,23 +436,36 @@ export class WekanCreator {
       if (!listId) {
         listId = await this._createDefaultList(boardId);
       }
+      // #1992: restore every card date carried in the export. createdAt
+      // prefers the export's createCard activity but falls back to the
+      // card's own createdAt (Sandstorm and old/pruned exports have no
+      // createCard activity, which used to reset the creation date to the
+      // import time); receivedAt and endAt were previously dropped entirely.
+      const cardDates = importedCardDates(
+        card,
+        this.createdAt.cards[card._id],
+        this._now(),
+      );
       const cardToCreate = {
         archived: card.archived,
         boardId,
         cardNumber: card.cardNumber || (await boardObj.getNextCardNumber()),
-        // very old boards won't have a creation activity so no creation date
-        createdAt: this._now(this.createdAt.cards[card._id]),
+        createdAt: cardDates.createdAt,
         dateLastActivity: this._now(),
         description: card.description,
         listId,
         swimlaneId: this.swimlanes[card.swimlaneId] || this._defaultSwimlaneId,
         sort: card.sort,
         title: card.title,
-        // we attribute the card to its creator if available
-        userId: this._user(this.createdBy.cards[card._id]),
+        // we attribute the card to its creator if available: the createCard
+        // activity's author when present, else the userId stored on the
+        // exported card itself (again, Sandstorm/old exports lack activities).
+        userId: this._user(this.createdBy.cards[card._id] || card.userId),
         isOvertime: card.isOvertime || false,
-        startAt: card.startAt ? this._now(card.startAt) : null,
-        dueAt: card.dueAt ? this._now(card.dueAt) : null,
+        receivedAt: cardDates.receivedAt,
+        startAt: cardDates.startAt,
+        dueAt: cardDates.dueAt,
+        endAt: cardDates.endAt,
         spentTime: card.spentTime || null,
       };
       // add labels
