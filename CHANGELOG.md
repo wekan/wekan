@@ -205,6 +205,18 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
     screen.
   Thanks to **csonkaoszimt** (report) and **xet7**.
 
+- **#6476 root cause found — WeKan crash-looped after a FerretDB migration, so its web port never stayed
+  open** ([#6476](https://github.com/wekan/wekan/issues/6476)). Follow-up to the snap wait-loop diagnostics
+  above: operator logs (uusijani, a1bert01) showed FerretDB *was* listening and WeKan *did* connect — then a
+  startup SyncedCron upsert hit a FerretDB error `table "accountslockout.connections_<hash>" already exists`,
+  which became an *unhandledRejection* and exited the process; systemd restarted it in a tight loop (restart
+  counter climbing to 99), so the HTTP port never came up. The real fix is in the **bundled FerretDB** (see the
+  fork's own CHANGELOG): `collectionCreate` now creates the table and its index with `IF NOT EXISTS`, so an
+  *orphaned* table (physical table on disk but no metadata row — left by an interrupted migration or a crash)
+  is re-adopted instead of crashing the upsert. The snap wait-loop timeout/diagnostics from the previous entry
+  remain useful for the separate "FerretDB genuinely not ready" case. Thanks to **uusijani**, **a1bert01** and
+  **xet7**.
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release
