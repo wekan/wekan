@@ -108,12 +108,11 @@ template(name="boardList")
               a.board-header-btn.js-multiselection-activate(
                 title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
                 class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
-                span.emoji-icon
-                  i.fa.fa-check-square-o
-              if BoardMultiSelection.isActive
-                a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-                  span.emoji-icon
-                    i.fa.fa-times
+                i.fa.fa-check-square-o
+                span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+                if BoardMultiSelection.isActive
+                  a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+                    i.fa.fa-times-thin
         if boardsPaginationActive
           .boards-pagination
             button.js-boards-prev-page(class="{{#if hasBoardsPrevPage}}{{else}}disabled{{/if}}")

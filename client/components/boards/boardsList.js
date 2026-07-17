@@ -1117,6 +1117,10 @@ Template.boardList.events({
   },
   'click .js-multiselection-reset'(evt) {
     evt.preventDefault();
+    // The reset X is now nested inside the activate button (matching the Swimlanes
+    // view), so stop the click from bubbling to js-multiselection-activate — which
+    // would otherwise immediately re-activate what we just disabled.
+    evt.stopPropagation();
     BoardMultiSelection.disable();
   },
   'click .js-toggle-board-multi-selection'(evt) {
