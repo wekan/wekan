@@ -331,6 +331,9 @@ Users.attachSchema(
       type: String,
       optional: true,
       custom() {
+        // Skip when unset: an optional field's custom() still runs on insert, and
+        // /regex/.test(undefined) would wrongly reject every user with no color set.
+        if (this.value === undefined || this.value === null || this.value === '') return undefined;
         return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
       },
     },
@@ -342,6 +345,7 @@ Users.attachSchema(
       type: String,
       optional: true,
       custom() {
+        if (this.value === undefined || this.value === null || this.value === '') return undefined;
         return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
       },
     },

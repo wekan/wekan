@@ -136,6 +136,15 @@ test('server setUiFontSize validates presets + supports unset', () => {
   assert.ok(/\$unset:\s*{\s*'profile\.uiFontSize'/.test(body), "default/null unsets size");
 });
 
+test('text/bg color schema custom() skips unset values (regression: user insert)', () => {
+  // The optional-field custom() runs on EVERY user insert; without an unset guard,
+  // /regex/.test(undefined) rejects every user with no color set (SyncedCron fatal
+  // ValidationError). Both validators must short-circuit when the value is absent.
+  const users = read('models/users.js');
+  const guards = users.match(/custom\(\)\s*{\s*\n\s*(?:\/\/[^\n]*\n\s*)*if \(this\.value === undefined \|\| this\.value === null \|\| this\.value === ''\) return undefined;/g) || [];
+  assert.ok(guards.length >= 2, 'uiTextColor + uiTextBgColor custom() both guard the unset case');
+});
+
 test('text/bg color: schema, wheels+reset, validated setter, applied as CSS vars', () => {
   const users = read('models/users.js');
   assert.ok(/'profile\.uiTextColor'/.test(users) && /'profile\.uiTextBgColor'/.test(users), 'schema fields');
