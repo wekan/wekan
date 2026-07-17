@@ -317,7 +317,7 @@
   min-width: 140px;
   /* Nudge the text down so it sits at the vertical middle of the field. */
   position: relative;
-  top: 6px;
+  top: 8px;
 }
 
 .boards-path-header .board-search .board-search-clear {
