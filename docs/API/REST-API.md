@@ -46,6 +46,14 @@ When calling a production Wekan server, ensure it is running via HTTPS and has a
 | `POST` | `/api/boards/:boardId/lists/:listId/cards` | [Add a card to a list, board, and swimlane.](Cards.md#add-card-to-list-board-swimlane) |
 | `PUT` | `/api/boards/:boardId/lists/:fromListId/cards/:cardId` | [Update a card.](Cards.md#update-a-card) |
 | `DELETE` | `/api/boards/:boardId/lists/:listId/cards/:cardId` | [Delete a card.](Cards.md#update-a-card) |
+### Rules (Board Automation / IFTTT)
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/boards/:boardId/rules` | [List all automation rules of a board.](Rules.md#list-rules) |
+| `GET` | `/api/boards/:boardId/rules/:ruleId` | [Get one rule with its trigger and action.](Rules.md#get-one-rule) |
+| `POST` | `/api/boards/:boardId/rules` | [Add an automation rule, e.g. add/remove a member when a card is moved to/from a list (#2674).](Rules.md#add-a-rule) |
+| `PUT` | `/api/boards/:boardId/rules/:ruleId` | [Edit a rule's title, trigger and/or action.](Rules.md#edit-a-rule) |
+| `DELETE` | `/api/boards/:boardId/rules/:ruleId` | [Remove a rule and its trigger and action.](Rules.md#delete-a-rule) |
 ### Board Domain Sharing
 | HTTP Method | Url | Short Description |
 | :--- | :--- | :--- |

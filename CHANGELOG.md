@@ -195,6 +195,32 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Board Rules: the Card Title Filter did nothing on several triggers — and rules created
+  via the REST API never fired at all** ([#2345](https://github.com/wekan/wekan/issues/2345),
+  [#2674](https://github.com/wekan/wekan/issues/2674),
+  `client/components/rules/triggers/boardTriggers.js`, `.jade`, `server/rulesHelper.js`,
+  `server/models/rules.js`, new `models/lib/ruleCardTitleFilter.js`, `docs/API/Rules.md`,
+  `docs/API/REST-API.md`, `api.py`): the generic moved/archive trigger builders never saved
+  the filter (and a trigger doc MISSING the field can never satisfy the matcher's `$in`, so
+  those rules fired for nothing); a set filter never showed in the rule details; archive
+  activities carry no card title so their filters compared against undefined; and REST-created
+  rules skipped the wildcard defaulting entirely — the exact "remove user when moved away"
+  rule from #2674 silently never ran. Filters are now stored (empty → `*`), shown in the rule
+  description, matched with the title resolved from the card when the activity lacks it,
+  legacy field-less triggers keep matching, the API normalizes missing matching fields to
+  wildcards and validates types, and the rule actions no longer crash on unresolvable
+  usernames or member-less cards. The Rules REST API is now documented (`docs/API/Rules.md`)
+  and listed in api.py's help with the #2674 two-rule example. Tests:
+  `tests/rulesCardTitleFilter.test.cjs` (12) and `tests/rulesApiTriggerNormalize.test.cjs`
+  (19). Thanks to InfoSec812, sfahrenholz and xet7.
+- **Sandstorm: username uniqueness probe was case-sensitive and raced concurrent logins**
+  ([#574](https://github.com/wekan/wekan/issues/574), `sandstorm.js`, new
+  `models/lib/sandstormUsername.js`): deriving `max`, `max1`, … from the preferred handle
+  matched exact case only (an existing `Max` did not stop a new `max`) and the check-then-set
+  window let a concurrent insert claim the name first, aborting the hook with E11000. The
+  probe is now an anchored, escaped, case-insensitive regex and the claim retries the next
+  number on a duplicate-key loss. Tests: `tests/sandstormUsername.test.cjs` (11). Thanks to
+  mitar and xet7.
 - **Inviting a second user whose email shares a local part failed with a bare "403"**
   ([#619](https://github.com/wekan/wekan/issues/619), `server/models/users.js`, new
   `models/lib/inviteeUsername.js`): inviting `cats@foo.com` creates user "cats"; inviting

@@ -9,6 +9,10 @@ import { Accounts } from 'meteor/accounts-base';
 // server boot. Import them explicitly.
 import Users from '/models/users';
 import Activities from '/models/activities';
+import {
+  claimUniqueUsername,
+  usernameCaseInsensitiveRegex,
+} from '/models/lib/sandstormUsername';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -326,29 +330,28 @@ if (isSandstorm && Meteor.isServer) {
     // Sandstorm doesn't enforce this property -- see #352. Our strategy to
     // generate unique usernames from the Sandstorm `preferredHandle` is to
     // append a number that we increment until we generate a username that no
-    // one already uses (eg, 'max', 'max1', 'max2').
-    function generateUniqueUsername(username, appendNumber) {
-      return username + String(appendNumber === 0 ? '' : appendNumber);
-    }
-
+    // one already uses (eg, 'max', 'max1', 'max2'). Meteor usernames are
+    // case-preserving but case-insensitively unique, so the probe uses an
+    // anchored case-insensitive regex (escaped, see #574), and the update is
+    // retried with the next number when a concurrent insert wins the race to
+    // the same name (unique-index duplicate-key error).
     const username = doc.services.sandstorm.preferredHandle;
-    let appendNumber = 0;
-    while (
-      await Meteor.users.findOneAsync({
-        _id: { $ne: doc._id },
-        username: generateUniqueUsername(username, appendNumber),
-      })
-    ) {
-      appendNumber += 1;
-    }
-
-    await Users.updateAsync(doc._id, {
-      $set: {
-        username: generateUniqueUsername(username, appendNumber),
-        'profile.fullname': doc.services.sandstorm.name,
-        'profile.avatarUrl': doc.services.sandstorm.picture,
-      },
-    });
+    await claimUniqueUsername(
+      username,
+      async candidate =>
+        !!(await Meteor.users.findOneAsync({
+          _id: { $ne: doc._id },
+          username: usernameCaseInsensitiveRegex(candidate),
+        })),
+      candidate =>
+        Users.updateAsync(doc._id, {
+          $set: {
+            username: candidate,
+            'profile.fullname': doc.services.sandstorm.name,
+            'profile.avatarUrl': doc.services.sandstorm.picture,
+          },
+        }),
+    );
 
     await updateUserPermissions(doc._id, doc.services.sandstorm.permissions);
   });

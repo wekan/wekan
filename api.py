@@ -132,6 +132,16 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py getcardsettings BOARDID # Get board-level card settings (allows* toggles, cardAging, cardAgingDays1/2/3)
     python3 api.py setcardsetting BOARDID KEY VALUE # Set one board card setting, e.g. allowsDueDate true, cardAging true, cardAgingDays1 5
 
+        Board Automation Rules API (IFTTT, Issue #2674):
+    python3 api.py listrules BOARDID # List automation rules of a board
+    python3 api.py getrule BOARDID RULEID # Get one rule with its trigger and action
+    python3 api.py addrule BOARDID TITLE TRIGGER_JSON ACTION_JSON # Add rule. Missing trigger matching fields default to the '*' wildcard
+    python3 api.py editrule BOARDID RULEID PATCH_JSON # Edit rule: {"title":..,"trigger":{..},"action":{..}}
+    python3 api.py removerule BOARDID RULEID # Remove rule (and its trigger + action)
+    # Example (Issue #2674) - add member when card moved TO list, remove member when moved AWAY FROM list:
+    #   python3 api.py addrule BOARDID 'Add on move to Doing' '{"activityType":"moveCard","listName":"Doing"}' '{"actionType":"addMember","username":"someuser"}'
+    #   python3 api.py addrule BOARDID 'Remove on move from Doing' '{"activityType":"moveCard","oldListName":"Doing"}' '{"actionType":"removeMember","username":"someuser"}'
+
   Admin API:
     python3 api.py newuser USERNAME EMAIL PASSWORD
 
@@ -1773,6 +1783,18 @@ if arguments >= 1:
 #   python3 api.py addrule BOARDID 'Archive after 90 days' \
 #     '{"activityType":"scheduledTrigger","scheduleKind":"aging","listName":"Completed","days":90,"atTime":"03:00"}' \
 #     '{"actionType":"archive"}'
+#
+# Example (Issue #2674 - add a user to the card when it is moved TO a list, and
+# remove the user again when the card is moved AWAY FROM that list). Trigger
+# matching fields that are omitted (userId, swimlaneName, cardTitle, and the
+# unused one of listName/oldListName) are stored as the '*' wildcard by the
+# server, so the rules fire for any user/swimlane/card title:
+#   python3 api.py addrule BOARDID 'Add member on move to Doing' \
+#     '{"activityType":"moveCard","listName":"Doing"}' \
+#     '{"actionType":"addMember","username":"someuser"}'
+#   python3 api.py addrule BOARDID 'Remove member on move from Doing' \
+#     '{"activityType":"moveCard","oldListName":"Doing"}' \
+#     '{"actionType":"removeMember","username":"someuser"}'
 
 if arguments >= 2 and sys.argv[1] == 'listrules':
     boardid = sys.argv[2]

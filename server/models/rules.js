@@ -3,6 +3,7 @@ import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TriggersDef } from '/server/triggersDef';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
@@ -28,6 +29,31 @@ function strip(doc) {
   Object.keys(doc || {}).forEach(k => {
     if (!STRIP.includes(k)) out[k] = doc[k];
   });
+  return out;
+}
+
+// #2674 ("Rule: remove USER from card when move"): the rule matcher
+// (server/rulesHelper.js buildMatchingFieldsMap) queries EVERY matching field
+// of the trigger's activityType with {$in: [<activity value>, '*']}. A Mongo
+// $in never matches a document that LACKS the field, so a trigger created over
+// REST without e.g. userId / listName / swimlaneName / cardTitle could never
+// match any activity and its rule silently never fired — exactly the "user is
+// added when the card moves to the list, but never removed when it moves away"
+// failure of #2674. The Rules UI wizard (sanitizeObject) and the rules JSON
+// import (normalizeTrigger) both default missing matching fields to the '*'
+// wildcard; do the same for API-created/edited triggers. Trigger kinds not
+// driven by activities (scheduledTrigger, button — not in TriggersDef) are
+// left untouched.
+function normalizeTriggerDoc(trigger) {
+  const out = { ...trigger };
+  const def = TriggersDef[out.activityType];
+  if (def) {
+    def.matchingFields.forEach(field => {
+      if (out[field] === undefined || out[field] === null || out[field] === '') {
+        out[field] = '*';
+      }
+    });
+  }
   return out;
 }
 
@@ -98,6 +124,11 @@ if (Meteor.isServer) {
    *
    * @description The trigger and action are embedded inline. See the Rules
    * documentation for the available trigger activityTypes and action actionTypes.
+   * Trigger matching fields that are omitted (e.g. userId, listName,
+   * swimlaneName, cardTitle) default to the '*' wildcard, so e.g. issue #2674's
+   * "remove a member when a card is moved away from a list" only needs
+   * trigger {activityType: 'moveCard', oldListName: '...'} and
+   * action {actionType: 'removeMember', username: '...'}.
    *
    * @param {string} boardId the board ID
    * @param {string} title the rule title
@@ -113,7 +144,16 @@ if (Meteor.isServer) {
       if (!trigger || !action) {
         throw new Meteor.Error('bad-request', 'trigger and action are required');
       }
-      const triggerId = await Triggers.insertAsync({ ...strip(trigger), boardId: paramBoardId });
+      if (!trigger.activityType) {
+        throw new Meteor.Error('bad-request', 'trigger.activityType is required');
+      }
+      if (!action.actionType) {
+        throw new Meteor.Error('bad-request', 'action.actionType is required');
+      }
+      const triggerId = await Triggers.insertAsync({
+        ...normalizeTriggerDoc(strip(trigger)),
+        boardId: paramBoardId,
+      });
       const actionId = await Actions.insertAsync({ ...strip(action), boardId: paramBoardId });
       const ruleId = await Rules.insertAsync({
         title: title || 'API rule',
@@ -133,7 +173,9 @@ if (Meteor.isServer) {
    * @summary Edit an automation rule
    *
    * @description Any of title, trigger and action may be supplied; the trigger
-   * and action documents are replaced ($set) when present.
+   * and action documents are replaced ($set) when present. A supplied trigger
+   * that includes an activityType gets its missing matching fields defaulted
+   * to the '*' wildcard, like on creation.
    *
    * @param {string} boardId the board ID
    * @param {string} ruleId the rule ID
@@ -157,7 +199,7 @@ if (Meteor.isServer) {
       }
       if (req.body.trigger) {
         await Triggers.updateAsync(rule.triggerId, {
-          $set: { ...strip(req.body.trigger), boardId: paramBoardId },
+          $set: { ...normalizeTriggerDoc(strip(req.body.trigger)), boardId: paramBoardId },
         });
       }
       if (req.body.action) {

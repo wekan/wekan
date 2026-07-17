@@ -9,6 +9,7 @@ import Checklists from '/models/checklists';
 import Swimlanes from '/models/swimlanes';
 import { relativeDateOffset } from '/models/lib/relativeDateOffset';
 import { resolveRuleSwimlaneId, resolveRuleListId } from '/models/lib/ruleActionResolve';
+import { cardTitleMatchList } from '/models/lib/ruleCardTitleFilter';
 
 // #5536: robustly resolve a destination board's default swimlane, tolerating a
 // board that lacks a swimlane literally titled 'Default' (renamed/translated) or
@@ -131,10 +132,27 @@ export const RulesHelper = {
           value = oldSwimlane.title;
         }
       }
-      let matchesList = [value, '*'];
-      if ((field === 'cardTitle') && (value !== undefined)) {
-        matchesList = value.split(/\W/).concat(matchesList);
+      if (field === 'cardTitle') {
+        // #2345: archivedCard/restoredCard activities carry no cardTitle, so a
+        // "when a card is archived" trigger with a title filter could never be
+        // enforced. Resolve the title from the activity's card instead.
+        if (value === undefined && activity.cardId) {
+          const card = await ReactiveCache.getCard(activity.cardId);
+          if (card) {
+            value = card.title;
+          }
+        }
+        // #2345: cardTitleMatchList() matches the exact title, its single
+        // words, the '*' wildcard, and null — the latter also matches trigger
+        // documents saved WITHOUT a cardTitle field (the old wizard's generic
+        // "when a card is moved" / archive triggers), which otherwise never
+        // satisfy a $in query and made those rules fire for nothing.
+        matchingMap[field] = {
+          $in: cardTitleMatchList(value),
+        };
+        continue;
       }
+      const matchesList = [value, '*'];
       matchingMap[field] = {
         $in: matchesList,
       };
@@ -385,19 +403,37 @@ export const RulesHelper = {
     if (action.actionType === 'removeLabel') {
       card.removeLabel(action.labelId);
     }
+    // #2674: resolve the username defensively for the member actions. A rule
+    // whose username no longer resolves (user renamed/deleted, or a typo in an
+    // API-created rule) crashed here on `undefined._id`; the activity hook
+    // swallows the error, so the rule silently "did nothing" — the classic
+    // "member is added on move-to but never removed on move-from" report. Warn
+    // instead of crashing, and await the writes so failures are not lost.
     if (action.actionType === 'addMember') {
-      const memberId = (await ReactiveCache.getUser({ username: action.username }))._id;
-      card.assignMember(memberId);
+      const member = await ReactiveCache.getUser({ username: action.username });
+      if (member) {
+        await card.assignMember(member._id);
+      } else {
+        console.warn(
+          `WeKan rule action addMember: user "${action.username}" not found; skipping.`,
+        );
+      }
     }
     if (action.actionType === 'removeMember') {
       if (action.username === '*') {
-        const members = card.members;
+        const members = card.members || [];
         for (let i = 0; i < members.length; i++) {
-          card.unassignMember(members[i]);
+          await card.unassignMember(members[i]);
         }
       } else {
-        const memberId = (await ReactiveCache.getUser({ username: action.username }))._id;
-        card.unassignMember(memberId);
+        const member = await ReactiveCache.getUser({ username: action.username });
+        if (member) {
+          await card.unassignMember(member._id);
+        } else {
+          console.warn(
+            `WeKan rule action removeMember: user "${action.username}" not found; skipping.`,
+          );
+        }
       }
     }
     // #5283: the checklist (and checklist item) may not exist on the card — guard

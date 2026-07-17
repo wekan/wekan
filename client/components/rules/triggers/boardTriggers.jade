@@ -106,6 +106,9 @@ template(name="boardCardTitlePopup")
     form
       label
         | {{_ 'boardCardTitlePopup-title'}}
-        input.js-card-filter-name(type="text" value=title autofocus)
+        //- #2345: cardTitleFilter is passed as the popup's data context by the
+        //- js-open-card-title-popup handler so reopening the popup shows the
+        //- filter that is already set (it used to always render empty).
+        input.js-card-filter-name(type="text" value=cardTitleFilter autofocus)
       input.js-card-filter-button.primary.wide(type="submit" value="{{_ 'set-filter'}}")
 
