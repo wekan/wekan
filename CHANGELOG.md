@@ -137,6 +137,14 @@ and adds the following features:
   planned rollout to other entities + the Recycle Bin / admin Delete table are in `docs/Features/Undo/Undo.md`.
   Thanks to **xet7**.
 
+- **Sandstorm: a single-board grain opens straight into that board again**
+  ([#2220](https://github.com/wekan/wekan/issues/2220)). When a Sandstorm grain has exactly **one** board, opening
+  it now redirects straight to that board — restoring the old "grain opens one board" behaviour — **without saving
+  anything**. If you have explicitly chosen a Home board it is honoured; if the grain has **many** boards and no
+  chosen Home board, it shows the All Boards page. Setting a Home board stays a separate, explicit action (the All
+  Boards home toggle). The decision is reactive, so it waits out Sandstorm's asynchronous grain login and board
+  loading before acting. Sandstorm only. Thanks to **xet7**.
+
 - **Choose a board that opens automatically after you log in**
   ([#2220](https://github.com/wekan/wekan/issues/2220)). On the All Boards page each board tile now has a
   **home** (house) toggle next to the star. Marking a board makes it your default "home" board: the next time

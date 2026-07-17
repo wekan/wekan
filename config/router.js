@@ -1,8 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { decideSandstormAutoOpen } from '/models/lib/sandstormAutoOpen';
 import Settings from '/models/settings';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Filter } from '/client/lib/filter';
@@ -93,10 +95,67 @@ function maybeRedirectToDefaultBoard() {
   return true;
 }
 
+// #2220 on Sandstorm: a grain historically opened straight into its single board.
+// Restore that convenience — reactively, because a grain's login (Meteor.userId())
+// and its boards subscription both arrive asynchronously after '/' first renders.
+// Runs at most once per page load (grain session): a saved Home board wins; else
+// exactly one board just opens (nothing saved — choosing a Home board is the separate
+// explicit All Boards toggle); else (zero or many boards, nothing saved) we stay on
+// the All Boards list. The decision itself is the pure, unit-tested
+// decideSandstormAutoOpen(). Sandstorm-only (see the isSandstorm gate in the route).
+let sandstormAutoOpenStarted = false;
+function startSandstormAutoOpen() {
+  if (sandstormAutoOpenStarted) return;
+  sandstormAutoOpenStarted = true;
+
+  const boardsHandle = Meteor.subscribe('boards');
+  Tracker.autorun(computation => {
+    const userReady = !!Meteor.userId();
+    const user = userReady ? ReactiveCache.getCurrentUser() : null;
+    const savedDefaultId = user && user.getDefaultBoardId && user.getDefaultBoardId();
+    const boardsReady = boardsHandle.ready();
+
+    let boardCount = 0;
+    let onlyBoardId;
+    if (userReady && boardsReady) {
+      const boards = ReactiveCache.getBoards({
+        archived: false,
+        type: 'board',
+        'members.userId': Meteor.userId(),
+      });
+      boardCount = boards.length;
+      if (boardCount === 1) onlyBoardId = boards[0]._id;
+    }
+
+    const decision = decideSandstormAutoOpen({
+      userReady,
+      savedDefaultId,
+      boardsReady,
+      boardCount,
+      onlyBoardId,
+    });
+
+    if (decision.action === 'wait') return; // inputs not ready — keep watching
+    if (decision.action === 'redirect') {
+      // Just open the board — nothing is persisted here.
+      const board = ReactiveCache.getBoard(decision.boardId);
+      FlowRouter.go('board', { id: decision.boardId, slug: (board && board.slug) || 'board' });
+    }
+    computation.stop(); // decided (redirected or staying) — done for this page load
+  });
+}
+
 FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
+    // On Sandstorm, render All Boards immediately and let the reactive auto-open
+    // (above) redirect once the grain login + boards have loaded, if appropriate.
+    if (isSandstorm) {
+      startSandstormAutoOpen();
+      renderBoardList(this, 'starred');
+      return;
+    }
     if (maybeRedirectToDefaultBoard()) return;
     renderBoardList(this, 'starred');
   },
