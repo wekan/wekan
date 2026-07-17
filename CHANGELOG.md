@@ -195,6 +195,17 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Cards could not be reordered by drag in lists full of subtask cards — with silent
+  data loss on multi-selection drops** ([#3826](https://github.com/wekan/wekan/issues/3826),
+  `server/models/cards.js`, `client/components/lists/list.js`, new
+  `models/lib/cardSortRepair.js`): `addSubtaskCard` inserted EVERY subtask card with the
+  constant `sort: -1`, so such lists contained only tied sorts; dropping between two equal
+  sorts computes a zero increment, the move modifier came out empty and the card snapped
+  back — and a multi-selection drop wrote the SAME sort to every selected card, permanently
+  destroying their order. Subtask cards now append with a unique sort, and the drop handler
+  detects degenerate (tied/inverted) gaps and repairs the siblings' sorts to a strict order
+  before recomputing the drop index. Tests: `tests/subtaskCardReorder.test.cjs` (14).
+  Thanks to jayki and xet7.
 - **Cross-board subtask full path disappeared after refresh**
   ([#3453](https://github.com/wekan/wekan/issues/3453), `server/publications/boards.js`, new
   `server/lib/subtaskAncestors.js`): the board publication shipped only the DIRECT parent

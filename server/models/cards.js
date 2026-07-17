@@ -95,6 +95,19 @@ Meteor.methods({
     const customFields = subtaskCustomFields(boardCustomFields);
 
     const cardNumber = await targetBoard.getNextCardNumber();
+    // #3826: a constant `sort: -1` made EVERY subtask card tie, so a list full
+    // of subtask cards could not be reordered by drag (no number lies strictly
+    // between two equal sorts; the computed index equalled the card's own sort
+    // and the move was discarded as a no-op). Append with a unique sort at the
+    // end of the target list instead — with the old all-ties data the cards
+    // effectively rendered in insertion order anyway, so the visible placement
+    // is unchanged while new subtasks no longer pile up duplicate sorts.
+    const lastCard = await Cards.findOneAsync(
+      { listId: targetList._id, archived: false },
+      { sort: { sort: -1 }, fields: { sort: 1 } },
+    );
+    const sort =
+      lastCard && Number.isFinite(lastCard.sort) ? lastCard.sort + 1 : 0;
     const _id = await Cards.insertAsync({
       title: trimmed,
       parentId: parentCardId,
@@ -104,7 +117,7 @@ Meteor.methods({
       customFields,
       listId: targetList._id,
       boardId: targetBoard._id,
-      sort: -1,
+      sort,
       swimlaneId,
       type: 'cardType-card',
       cardNumber,

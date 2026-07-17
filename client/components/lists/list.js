@@ -3,6 +3,11 @@ import { TAPi18n } from '/imports/i18n';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import Cards from '/models/cards';
+import {
+  isDegenerateSortGap,
+  computeRepairedDropIndex,
+} from '/models/lib/cardSortRepair';
 require('/client/lib/jquery-ui.js')
 
 const { calculateIndex } = Utils;
@@ -287,7 +292,35 @@ Template.list.onRendered(function () {
       const prevCardDom = ui.item.prev('.js-minicard').get(0);
       const nextCardDom = ui.item.next('.js-minicard').get(0);
       const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
-      const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
+      let sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
+
+      // #3826: cards created by the "add subtask" flow were all inserted with
+      // a constant sort of -1, so a list full of subtask cards contains only
+      // ties. No number lies strictly between two equal sorts, so
+      // calculateIndex returns base === neighbour sort with increment 0: the
+      // write is then discarded by Card.move()'s no-op guard and the card
+      // snaps back (and a multi-selection drop would give every selected card
+      // the SAME sort, losing their relative order). When the drop landed in
+      // such a degenerate gap, capture the target list's sibling cards in
+      // their current visual order (before sortable('cancel') reshuffles the
+      // DOM) so their sorts can be repaired below.
+      const prevCardData = prevCardDom ? Blaze.getData(prevCardDom) : null;
+      const nextCardData = nextCardDom ? Blaze.getData(nextCardDom) : null;
+      let orderedSiblingCards = null;
+      if (
+        isDegenerateSortGap(
+          prevCardData ? prevCardData.sort : null,
+          nextCardData ? nextCardData.sort : null,
+        )
+      ) {
+        orderedSiblingCards = ui.item
+          .parent()
+          .children(itemsSelector)
+          .not(ui.item)
+          .toArray()
+          .map(el => Blaze.getData(el))
+          .filter(Boolean);
+      }
       const listData = Blaze.getData(ui.item.parents('.list').get(0));
       const listId = listData._id;
       const currentBoard = Utils.getCurrentBoard();
@@ -313,6 +346,25 @@ Template.list.onRendered(function () {
       // DOM in its initial state. The card move is then handled reactively by
       // Blaze with the below query.
       $cards.sortable('cancel');
+
+      // #3826: the drop landed between two cards whose sorts do not strictly
+      // increase (duplicate -1 sorts from subtask creation, or legacy data).
+      // Repair the sibling sorts with the minimal bumps that make the visible
+      // order strictly increasing, then recompute the drop index from the
+      // repaired neighbours: base now falls strictly between them and the
+      // increment is strictly positive (distinct sorts for a multi-selection).
+      if (orderedSiblingCards && prevCardData && nextCardData) {
+        const repairedDrop = computeRepairedDropIndex(
+          orderedSiblingCards,
+          prevCardData,
+          nextCardData,
+          nCards,
+        );
+        repairedDrop.updates.forEach(u => {
+          Cards.update(u._id, { $set: { sort: u.sort } });
+        });
+        sortIndex = { base: repairedDrop.base, increment: repairedDrop.increment };
+      }
 
       if (MultiSelection.isActive()) {
         ReactiveCache.getCards(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
