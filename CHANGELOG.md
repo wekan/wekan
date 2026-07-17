@@ -195,6 +195,16 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Date pickers ignored the configured default time and stored 12:00**
+  ([#1502](https://github.com/wekan/wekan/issues/1502), `client/lib/datepicker.js`, new
+  `imports/lib/datePickerTime.js`): the due-date picker configures a 17:00 default (and
+  now() for received/start/end), but an inverted guard applied it only when the card ALREADY
+  had a date — exactly when it is unnecessary — so empty time fields fell back to a
+  hard-coded 12:00 on save. The default now pre-fills empty pickers and backs the submit
+  fallback; existing dates keep their own time. The issue's original AM/PM parse mismatch was
+  already resolved by the native date/time inputs (79b94824e). Tests:
+  `tests/datePickerDefaultTime.test.cjs` (10). Thanks to Vlasterx, saschafoerster,
+  suncobran and xet7.
 - **Dragging a card while someone added a card to the target list dropped it into the WRONG
   swimlane** ([#2769](https://github.com/wekan/wekan/issues/2769), new
   `client/lib/cardDragGeometry.js`, `client/components/lists/listBody.js`): jQuery UI sortable

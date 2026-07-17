@@ -3,11 +3,12 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { normalizeDigits } from '/imports/lib/dateUtils';
-
-// Helper to check if a date is valid
-function isValidDate(date) {
-  return date instanceof Date && !isNaN(date);
-}
+import {
+  isValidDate,
+  formatTime,
+  initialTimeValue,
+  fallbackSubmitTime,
+} from '/imports/lib/datePickerTime';
 
 // Format date as YYYY-MM-DD
 function formatDate(date) {
@@ -16,14 +17,6 @@ function formatDate(date) {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
-}
-
-// Format time as HH:mm
-function formatTime(date) {
-  if (!isValidDate(date)) return '';
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  return `${hours}:${minutes}`;
 }
 
 /**
@@ -53,18 +46,21 @@ export function setupDatePicker(tpl, { defaultTime = '1970-01-01 08:00:00', init
  */
 export function datePickerRendered(tpl) {
   const dp = tpl.datePicker;
-  if (isValidDate(dp.date.get())) {
-    const dateInput = tpl.find('#date');
-    const timeInput = tpl.find('#time');
+  const dateInput = tpl.find('#date');
+  const timeInput = tpl.find('#time');
 
-    if (dateInput) {
-      dateInput.value = formatDate(dp.date.get());
-    }
-    if (timeInput && !timeInput.value && dp.defaultTime) {
-      const defaultDate = new Date(dp.defaultTime);
-      timeInput.value = formatTime(defaultDate);
-    } else if (timeInput && isValidDate(dp.date.get())) {
-      timeInput.value = formatTime(dp.date.get());
+  if (dateInput && isValidDate(dp.date.get())) {
+    dateInput.value = formatDate(dp.date.get());
+  }
+  // Pre-fill the time input: an existing card date keeps its own time; a
+  // card without this date gets the configured default (e.g. 17:00 for due
+  // dates) instead of an empty field that would silently save as 12:00
+  // (#1502). The template already fills the input for existing dates, so
+  // only ever write into an empty input.
+  if (timeInput && !timeInput.value) {
+    const initial = initialTimeValue(dp.date.get(), dp.defaultTime);
+    if (initial) {
+      timeInput.value = initial;
     }
   }
 }
@@ -147,8 +143,12 @@ export function datePickerEvents({ storeDate, deleteDate }) {
 
       // Normalize any non-Latin digits (e.g. Persian/Arabic-Indic) before
       // parsing so due/start/end dates work in those locales (#5752).
+      // An empty time falls back to the popup's configured default time
+      // (e.g. 17:00 for due dates), then 12:00 (#1502).
       const dateValue = normalizeDigits(evt.target.date.value);
-      const timeValue = normalizeDigits(evt.target.time.value) || '12:00'; // Default to 12:00 if no time given
+      const timeValue =
+        normalizeDigits(evt.target.time.value) ||
+        fallbackSubmitTime(tpl.datePicker.defaultTime);
 
       if (!dateValue) {
         tpl.datePicker.error.set('invalid-date');
