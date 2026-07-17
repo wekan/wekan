@@ -86,7 +86,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# Upcoming WeKan ® release
+# v9.98 2026-07-17 WeKan ® release
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
