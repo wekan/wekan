@@ -213,6 +213,7 @@
   "board-open-and-move-between-remaining-and-workspaces": "Click to open board. Use drag handle to assign board to __workspaces__ (drop on workspace in sidebar).",
   "boardChangeColorPopup-title": "Change Board Background",
   "changeColorPopup-title": "Change Color",
+  "changeFontPopup-title": "Font",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Change color",
   "allBoardsChangeBackgroundImagePopup-title": "Change Background Image",
