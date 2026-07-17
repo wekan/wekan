@@ -195,6 +195,16 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Maximized card rendered at the wrong place after scrolling in Swimlanes view**
+  ([#4822](https://github.com/wekan/wekan/issues/4822), `client/components/cards/cardDetails.css`):
+  the legacy maximized-pane CSS had no `position` of its own, so the pane stayed an in-flow
+  item inside the scrolled board canvas (off-screen after scrolling down); the desktop-mode
+  floating-window rules also out-specified every maximize geometry rule, and inline drag
+  offsets survived maximizing. The maximized pane is now viewport-`fixed` with explicit insets
+  that beat both the floating-window rules and stale drag offsets (drag position is restored
+  on minimize), RTL-safe via logical properties. A cascade-resolver regression test pins the
+  behavior against the real stylesheet and fails on the pre-fix CSS:
+  `tests/maximizedCardPosition.test.cjs` (11 tests). Thanks to pravdomil and xet7.
 - **LDAP group filter locked out admins and rejected multiple groups**
   ([#4036](https://github.com/wekan/wekan/issues/4036), `packages/wekan-ldap/server/ldap.js`):
   with `LDAP_GROUP_FILTER_ENABLE=true`, only members of the single

@@ -180,6 +180,33 @@ body.desktop-mode .card-details:not(.card-details-popup):not(.card-details-colla
   bottom: 8px;
 }
 
+/* #4822: the MAXIMIZED card must be anchored to the VIEWPORT (position: fixed
+   with viewport insets), never laid out inside — or measured from — the
+   scrolled swimlane/board container. Historically the maximized pane was an
+   in-flow flex/float item of its swimlane, so after scrolling down in the
+   swimlanes view it rendered at the swimlane's position in the tall scrolled
+   canvas (off-screen) instead of over the viewport.
+   All four insets are !important for two reasons:
+   1. The floating-window rules above (top: 8px / inset-inline-end: 8px /
+      width: min(650px, 90vw), specificity up to 0,5,1) otherwise override the
+      lower-specificity .card-details-maximized geometry entirely, leaving the
+      Maximize button a no-op.
+   2. The drag handle writes inline left/top styles onto the card; a card that
+      was dragged and then maximized must not keep the stale dragged offsets
+      (an off-viewport inline top is exactly the "wrong place" of #4822).
+      Only !important declarations beat inline styles. */
+body.desktop-mode .card-details.card-details-maximized:not(.card-details-popup):not(.card-details-collapsed) {
+  position: fixed !important;
+  top: 8px !important;
+  inset-inline-start: 8px !important;
+  inset-inline-end: 8px !important;
+  bottom: 8px !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  resize: none;
+}
+
 /* Collapsed card state - hide content and set height to title row only */
 .card-details.card-details-collapsed .card-details-canvas > *:not(.card-details-header) {
   display: none !important;
@@ -442,6 +469,12 @@ body.desktop-mode .card-details.card-details-collapsed {
     flex-shrink: 0;
     flex-basis: calc(100% - 20px);
     will-change: flex-basis;
+    /* #4822: declare the position strategy explicitly. The maximized pane must
+       be fixed to the viewport in its own right — never an in-flow flex/float
+       item of the scrolled swimlane container, and never dependent on the
+       sibling .card-details rule (or the body.desktop-mode rules) happening to
+       supply position: fixed. */
+    position: fixed;
     overflow-y: auto;
     overflow-x: auto;
     background: #f7f7f7;
