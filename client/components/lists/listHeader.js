@@ -208,6 +208,20 @@ Template.listHeader.events({
     Utils.setListCollapseState(list, !status);
   },
   'click .js-open-list-menu': Popup.open('listAction'),
+  // #6465: open the inline Add List composer after this list. Record the
+  // swimlane it is displayed in (board-wide lists are not bound to one) so the
+  // new list is created in the right swimlane; the composer renders after this
+  // list in the DOM (right in LTR / left in RTL).
+  'click .js-add-list-here'(event) {
+    event.preventDefault();
+    const list = Template.currentData();
+    const swimlaneDom = $(event.currentTarget).closest('.js-swimlane');
+    const swimlaneId = swimlaneDom.length
+      ? swimlaneDom.attr('id').replace('swimlane-', '')
+      : null;
+    Session.set('wekan-add-list-swimlane', swimlaneId);
+    Session.set('wekan-add-list-after', list._id);
+  },
   'click .js-add-card.list-header-plus-top'(event) {
     const listDom = $(event.target).parents(
       `#js-list-${Template.currentData()._id}`,

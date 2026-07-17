@@ -101,6 +101,10 @@ template(name="listHeader")
                       i.fa.fa-plus
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
+                  //- #6465: far-right add-list button. Opens the inline Add List
+                  //- composer AFTER this list (right in LTR / left in RTL).
+                  a.js-add-list-here.list-header-plus-top(title="{{_ 'add-list'}}")
+                    i.fa.fa-plus-square-o
 
 template(name="editListTitleForm")
   .list-composer

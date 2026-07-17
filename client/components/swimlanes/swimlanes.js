@@ -714,6 +714,19 @@ Template.swimlane.helpers({
     }
     return combined;
   },
+  // #6465: the add-list composer is no longer a standing column. It opens AFTER a
+  // specific list when that list's header add-list button is clicked (the target
+  // list _id is kept in Session 'wekan-add-list-after'). Rendered after the list
+  // in the DOM, it appears to the RIGHT of the list in LTR and to the LEFT in RTL
+  // (the lists lane is a flex row that reverses under dir=rtl).
+  isAddListAfter(listId) {
+    return Session.get('wekan-add-list-after') === listId;
+  },
+  // Empty swimlane / empty board: there are no list headers to host the button,
+  // so offer the inline composer at the start.
+  swimlaneHasNoLists() {
+    return !this.myLists || this.myLists().length === 0;
+  },
   collapseSwimlane() {
     return Utils.getSwimlaneCollapseState(this);
   },
@@ -883,6 +896,44 @@ Template.addListForm.events({
   'click .js-list-template': Popup.open('searchElement'),
 });
 
+// #6465: the inline add-list composer that opens after a specific list (or at the
+// start of an empty swimlane). Its data context is the swimlane it creates the
+// list in; the target list (for positioning) is Session 'wekan-add-list-after'.
+Template.addListInline.onCreated(function () {
+  this.currentSwimlane = Template.currentData();
+});
+
+Template.addListInline.events({
+  async submit(evt, tpl) {
+    evt.preventDefault();
+    const titleInput = tpl.find('.list-name-input');
+    const title = titleInput?.value.trim();
+    if (!title) return;
+
+    try {
+      await Meteor.callAsync('createListAfter', {
+        title,
+        boardId: Session.get('currentBoard'),
+        // The header button records the swimlane the list is displayed in; the
+        // empty-swimlane composer falls back to its own swimlane data context.
+        swimlaneId: Session.get('wekan-add-list-swimlane') || tpl.currentSwimlane?._id,
+        // Position the new list right after the one whose header opened this
+        // composer (null for the empty-board/start case).
+        afterListId: Session.get('wekan-add-list-after') || null,
+        type: 'list',
+      });
+      titleInput.value = '';
+      titleInput.focus();
+    } catch (error) {
+      console.error('Failed to create list:', error);
+    }
+  },
+  'click .js-close-add-list-inline'() {
+    Session.set('wekan-add-list-after', null);
+    Session.set('wekan-add-list-swimlane', null);
+  },
+});
+
 Template.listsGroup.helpers({
   // Issue #6142: the add-list composer needs a swimlane as its data context
   // (it creates the list in that swimlane). In Lists mode the listsGroup data
@@ -893,6 +944,14 @@ Template.listsGroup.helpers({
     const swimlaneId = defaultSwimlaneIdForBoard(board);
     if (!swimlaneId) return null;
     return ReactiveCache.getSwimlane({ _id: swimlaneId });
+  },
+  // #6465: same add-list-after-a-list behaviour as the swimlanes view.
+  isAddListAfter(listId) {
+    return Session.get('wekan-add-list-after') === listId;
+  },
+  boardHasNoLists() {
+    const board = Template.currentData();
+    return !board || !board.lists || board.lists().length === 0;
   },
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);

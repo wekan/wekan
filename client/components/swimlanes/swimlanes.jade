@@ -15,12 +15,18 @@ template(name="swimlane")
           each lists
             +miniList(this)
       else
-        if currentUser.isBoardMember
-          unless currentUser.isCommentOnly
-            +addListForm
+        //- #6465: no standing Add List column. Empty swimlane gets the inline
+        //- composer at the start; otherwise it opens after a list via its header
+        //- add-list button (see isAddListAfter).
+        if swimlaneHasNoLists
+          if currentUser.isBoardMember
+            unless currentUser.isCommentOnly
+              +addListInline
         each lists
           if visible this
             +list(this)
+          if isAddListAfter _id
+            +addListInline
           if currentCardIsInThisList _id ../_id
             +cardDetails(currentCard)
 
@@ -38,14 +44,18 @@ template(name="listsGroup")
         each lists
           +miniList(this)
     else
-      //- Issue #6142: allow adding a list in Lists (board-view-lists) mode too.
-      if defaultSwimlane
-        if currentUser.isBoardMember
-          unless currentUser.isCommentOnly
-            +addListForm(defaultSwimlane)
+      //- #6465: Lists view — empty board gets the inline composer at the start;
+      //- otherwise it opens after a list via that list's header add-list button.
+      if boardHasNoLists
+        if defaultSwimlane
+          if currentUser.isBoardMember
+            unless currentUser.isCommentOnly
+              +addListInline(defaultSwimlane)
       each lists
         if visible this
           +list(this)
+        if isAddListAfter _id
+          +addListInline(defaultSwimlane)
         if currentCardIsInThisList _id null
           +cardDetails(currentCard)
 
@@ -76,6 +86,20 @@ template(name="addListForm")
           else
             a.open-list-composer.js-open-inlined-form(title="{{_ 'add-list'}}")
               i.fa.fa-plus
+
+//- #6465: always-open inline Add List composer, rendered AFTER a list (right in
+//- LTR / left in RTL, via the flex-row lists lane) when that list's header
+//- add-list button is clicked, or at the start of an empty swimlane/board.
+template(name="addListInline")
+  .list.list-composer.js-list-composer.js-add-list-inline(class="{{#if isMiniScreen}}mini-list{{/if}}")
+    .list-header-add
+      form.js-add-list-inline-form
+        input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+          autocomplete="off" autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.js-close-add-list-inline(title="{{_ 'close'}}")
+            i.fa.fa-times-thin
 
 template(name="moveSwimlanePopup")
   if currentUser
