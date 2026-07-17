@@ -181,6 +181,16 @@ await test('randomId produces Meteor-style 17-char ids', () => {
   assert.strictEqual(id.length, 17);
   assert.ok(/^[23456789A-HJKLMNP-Zabcdefghijkmnop-z]+$/.test(id));
   assert.notStrictEqual(randomId(), randomId());
+  // custom lengths still exact despite rejection resampling
+  assert.strictEqual(randomId(64).length, 64);
+});
+
+await test('negative: randomId uses rejection sampling, not biased modulo (CodeQL js/biased-cryptographic-random)', () => {
+  const src = read('server/lib/schemaUpgradeSteps.js');
+  const fn = src.match(/function randomId\([\s\S]*?\n\}/)[0];
+  assert.ok(fn.includes('256 % ID_CHARS.length'),
+    'bytes at/above the largest alphabet multiple must be rejected, or ids skew toward the first characters');
+  assert.ok(/if \(bytes\[i\] < limit\)/.test(fn), 'out-of-range bytes are resampled, never wrapped');
 });
 
 // ── swimlane-structure ────────────────────────────────────────────────────────

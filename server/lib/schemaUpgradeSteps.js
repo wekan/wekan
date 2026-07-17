@@ -69,9 +69,18 @@ const MARKER_ID = 'schema-upgrade';
 // so upgraded documents look exactly like app-created ones.
 const ID_CHARS = '23456789ABCDEFGHJKLMNPQRSTWXYZabcdefghijkmnopqrstuvwxyz';
 function randomId(len = 17) {
-  const bytes = crypto.randomBytes(len);
+  // Rejection sampling: 256 is not a multiple of ID_CHARS.length (55), so a
+  // plain `byte % 55` skews toward the first characters (CodeQL
+  // js/biased-cryptographic-random). Accept only bytes below the largest
+  // multiple of the alphabet size and resample the rest.
+  const limit = 256 - (256 % ID_CHARS.length);
   let out = '';
-  for (let i = 0; i < len; i++) out += ID_CHARS[bytes[i] % ID_CHARS.length];
+  while (out.length < len) {
+    const bytes = crypto.randomBytes(len - out.length);
+    for (let i = 0; i < bytes.length && out.length < len; i++) {
+      if (bytes[i] < limit) out += ID_CHARS[bytes[i] % ID_CHARS.length];
+    }
+  }
   return out;
 }
 
