@@ -1,13 +1,42 @@
-# Design: Per-group card History (view + restore)
+# Design: Universal change History (view + restore) — the basis for Undo/Redo
 
-Status: **Draft for approval** · Owner: xet7 · Related: card details view, `Activities`,
-`userPositionHistory`
+Status: **Draft for approval** · Owner: xet7 · Related: card details view, Member settings,
+`Activities`, `userPositionHistory`, `docs/Features/Undo/Undo.md`
 
-This document specifies the "History" feature requested for the card details view: each
-*group* on an open card gets a **History** option that opens a large popup with a searchable,
-paginated, per-contributor change log, and the ability to **restore** a previous change.
+This document specifies one unified **change-history** subsystem that records **every change a user
+makes**, keeps it **append-only**, and lets changes be **restored**. It is surfaced from **many menus**, but every one is the **same table + restore** over the **same
+store**, differing only by the **scope filter** it passes to `changeHistory.page`. A **History**
+option is added to each of these menus (and the pattern generalises to any future entity menu — the
+UI and method don't change, only the scope):
+
+| Menu / location | View shows the history of… | Scope filter | Section |
+| --- | --- | --- | --- |
+| Card group menu (open card) | that **group** on that card, with a per-contributor avatar list | `{ cardId, group }` | 7 |
+| Card menu (open card) | the **whole card** (all its groups) | `{ cardId }` | 7a |
+| Member settings menu | that **user's** own changes | `{ userId }` | 7a |
+| Board Settings | the whole **board** (all users/entities) | `{ boardId }` | 7a |
+| Swimlane menu | that **swimlane** and its contents | `{ scope:'swimlane', scopeId }` | 7a |
+| List menu | that **list** and its cards | `{ scope:'list', scopeId }` | 7a |
+| *(future)* Checklist menu, Attachment menu, … | that entity | `{ entityType, entityId }` | 7a |
+
+Scopes **nest**: a card's history ⊂ its list's ⊂ its swimlane's ⊂ the board's. Container scopes
+(board/swimlane/list/card) therefore mean "this entity **and its descendants**" — implemented as an
+OR over the relevant id columns (`boardId` / `swimlaneId` / `listId` / `cardId` / `entityId`), which
+is why the write side (section 5) stores all the applicable id columns on every row.
+
+Plus one keyboard front-end:
+
+- **Undo / Redo** — `Ctrl+Z` / `Ctrl+Y` = "restore the current user's most recent change from this
+  history" / "re-apply it". Undo/Redo is therefore **not a separate feature**; it is the keyboard
+  restore of the newest own change. (v1 undo/redo of *position moves* already shipped in #6478 via
+  `userPositionHistory`; this design **generalises** that to every change and merges the two.)
 
 It is a design doc only — no code is implied as final until this is approved.
+
+> **Scope change (this revision):** the earlier draft covered only card *groups*. Per request, the
+> model now records **every change** (all card fields/groups **and** board/list/swimlane/etc.
+> structural changes), per user, and adds the Member-settings per-user view. `userPositionHistory`
+> becomes a special case that this unified store supersedes.
 
 ---
 
@@ -77,74 +106,106 @@ Transifex; see the translation-pull auto-heal note in the changelog).
 
 ## 4. Data model
 
-New Mongo collection **`cardGroupHistory`** (append-only). One document per change:
+One new append-only Mongo collection **`changeHistory`** (working name) covering **every** change,
+whatever the entity. One document per change:
 
 ```js
 {
   _id,
-  boardId,          // for permission scoping + publications
-  cardId,           // the card this change belongs to
-  group,            // 'description' | 'labels' | 'members' | 'dates' | 'checklists' | ...
-  entityId,         // optional finer id (e.g. checklist item id, comment id, label id)
+  boardId,          // for permission scoping + publications (null for non-board changes, if any)
+  // What was changed — general, not card-only:
+  entityType,       // 'card' | 'list' | 'swimlane' | 'board' | 'checklist' | 'checklistItem'
+                    //   | 'comment' | 'attachment' | 'customField' | ...
+  entityId,         // the changed entity's _id
+  cardId,           // set when the change belongs to a card (drives the card-group view); optional
+  group,            // logical group for the card view: 'description' | 'labels' | 'members'
+                    //   | 'dates' | 'checklists' | 'title' | ...  (optional for non-card changes)
   changeType,       // 'added' | 'removed' | 'edited' | 'moved' | 'restored'
-  // Content for display + restore. Kept as structured values, not just strings.
-  previousContent,  // blackbox; may be null for 'added'
-  newContent,       // blackbox; may be null for 'removed'
-  userId,           // who made the change (the "source contributor")
-  createdAt,        // Date; formatted client-side with the card's date format
+  // Content for display + restore — structured, not just strings:
+  previousContent,  // blackbox; null for 'added'
+  newContent,       // blackbox; null for 'removed'
+  userId,           // WHO made the change — the axis the Member-settings view filters on
+  createdAt,        // Date; formatted client-side with the viewer's/card's date format
+  // Undo/redo stack (folds in #6478's userPositionHistory fields):
+  undone,           // Boolean — restored/undone, redoable until superseded
+  undoneAt,         // Date — orders the redo stack
+  batchId,          // groups a multi-entity change (e.g. multi-select move / multi-restore)
   // Restore provenance (set only when changeType === 'restored'):
-  restoredFromId,   // the cardGroupHistory _id whose content was restored
-  restoredByUserId, // === userId here; explicit for clarity
+  restoredFromId,   // the changeHistory _id whose content was restored
+  restoredByUserId, // who performed the restore
 }
 ```
 
 Notes:
 
-- **Append-only.** No update/remove method is exposed to clients. Cleanup (retention cap, à la
-  `userPositionHistory.cleanup`) is a server cron.
-- `previousContent`/`newContent` are `blackbox` objects so each group can store what it needs
-  (e.g. `{ text }` for description, `{ labelId }` for a label, `{ millis }` for a date).
-- Alternative considered: **extend `Activities`** with `previousContent`/`newContent`. Rejected for
-  v1 — `Activities` is deliberately schemaless/high-volume and drives notifications/webhooks;
-  overloading it risks those paths. A dedicated collection keeps concerns separate and lets us cap
-  retention independently.
+- **Append-only.** No client-exposed update/remove (except the internal `undone`/`undoneAt` flip for
+  the undo/redo stack). Retention cap via a server cron (à la `userPositionHistory.cleanup`).
+- `previousContent`/`newContent` are `blackbox` so each entity/group stores what it needs
+  (`{ text }` for description, `{ labelId }` for a label, `{ millis }` for a date, `{ sort,
+  swimlaneId, listId, boardId }` for a move, …).
+- **Supersedes `userPositionHistory`.** That collection's move rows map 1:1 onto this schema
+  (`entityType` card/list/swimlane, `changeType: 'moved'`, previous/new = the position). Migration:
+  keep `userPositionHistory` writing during transition, or one-time copy its rows in; the undo/redo
+  methods move to read `changeHistory`.
+- Alternative considered: **extend `Activities`** with before/after content. Rejected for v1 —
+  `Activities` is deliberately schemaless/high-volume and drives notifications/webhooks; overloading
+  it risks those paths. A dedicated collection keeps concerns separate and independently cappable.
 
-## 5. Write side (recording changes)
+## 5. Write side (recording every change)
 
-Record on the **server**, in each group's mutation path, capturing the value **before** and
-**after**. Concretely, a single helper:
+Record on the **server**, in **every** mutation path (not only card groups), capturing the value
+**before** and **after**. A single helper:
 
 ```js
-CardGroupHistory.record({ boardId, cardId, group, entityId, changeType, previousContent, newContent, userId });
+ChangeHistory.record({ boardId, entityType, entityId, cardId?, group?, changeType, previousContent, newContent, userId, batchId? });
 ```
 
-called from the existing setters/methods (e.g. `Cards.setDescription`, label add/remove, date
-setters, checklist/comment mutations). Best-effort (never fail the mutation if recording throws),
-mirroring the `userPositionHistory` card-move wiring — **and** note the lesson from that code: the
-helper **must be imported**, not referenced as an assumed global (the position-history guard
-`typeof UserPositionHistory !== 'undefined'` silently disabled recording — fixed in #6478).
+called from the existing setters/methods — card fields (`Cards.setDescription`, title, label
+add/remove, member/assignee add/remove, date setters, custom fields), card sub-entities
+(checklist/checklist-item, comment, attachment mutations), and **structural** changes (list/swimlane
+create/rename/move/archive, board-level changes). Position **moves** come in via the same helper
+(replacing `userPositionHistory.trackChange`).
 
-## 6. Read side (publications, pagination, search, per-user)
+- **Best-effort:** never fail the mutation if recording throws (try/catch).
+- **Import the collection** — do not reference it as an assumed global. The shipped position history
+  was inert precisely because its guard `typeof UserPositionHistory !== 'undefined'` was false
+  without an import (fixed in #6478). This is the single most important implementation lesson.
+- Consider a thin, central choke point: many mutations already emit an `Activity`; recording history
+  next to `Activities.insert` (with the extra before/after content) avoids sprinkling calls
+  everywhere. Evaluate during phase 1.
 
-Only the current page is loaded. A method (not a naive reactive publication of the whole log)
-returns a page:
+## 6. Read side (one paginated/searchable method for all three views)
+
+Only the current page is loaded. One method (not a naive reactive publication of the whole log)
+serves the card-group view, the per-user Member-settings view, and any filter combination:
 
 ```js
-Meteor.call('cardGroupHistory.page', {
-  cardId, group,
-  userId,        // optional: filter to one contributor (avatar click)
-  search,        // optional: matches changeType label + content text
-  page, pageSize // 1-based page, server clamps pageSize
+Meteor.call('changeHistory.page', {
+  // scope (any subset; container scopes match the entity AND its descendants):
+  scope,          // 'board' | 'swimlane' | 'list' | 'card' — the container kind
+  scopeId,        // that container's _id (boardId / swimlaneId / listId / cardId)
+  group,          // narrow a card scope to one group (card-group view)
+  userId,         // one contributor — Member view, or an avatar click within another scope
+  // list controls:
+  search,         // matches changeType label + content text
+  page, pageSize, // 1-based page, server clamps pageSize
 }) -> { rows, total, page, pageSize, contributors: [{ userId, count }] }
 ```
 
-- **Permission:** caller must have board-visible access (reuse `requireBoardVisible`).
+The server turns `{scope, scopeId}` into the id-column filter (`board`→`boardId`; `swimlane`→
+`swimlaneId` OR its lists'/cards' rows; `list`→`listId` OR its cards'; `card`→`cardId`), then applies
+`userId`/`group`/`search` on top. Member-settings view passes just `{ userId }` (optionally
+`+ scope:'board'` to limit to the current board).
+
+- **Permission:** caller must have board-visible access to the scoped board(s) (reuse
+  `requireBoardVisible`). The Member-settings view is scoped to boards the **caller** can see; it
+  never leaks a user's changes on boards the caller can't access.
 - **Search:** case-insensitive over the rendered change-type label and a text projection of
-  `newContent`/`previousContent`. (Same cross-environment caveat as card search: numeric/text.)
-- **contributors** powers the left-column avatar list (distinct `userId` + counts).
-- Pure, unit-testable helpers (mirroring `undoRedoSelection`): `paginate(rows, page, size)`,
-  `matchesSearch(row, term)`, `selectionToIds(selected)` — in `models/lib/…` with a
-  `tests/*.test.cjs`.
+  `newContent`/`previousContent` (same cross-environment numeric/text caveat as card search).
+- **contributors** powers the card view's left-column avatar list (distinct `userId` + counts);
+  unused when the view is already pinned to one `userId`.
+- Pure, unit-testable helpers (mirroring `models/lib/undoRedoSelection.js`): `paginate(rows, page,
+  size)`, `matchesSearch(row, term)`, `selectionToIds(selected)` — in `models/lib/…` with tests.
 
 ## 7. UI
 
@@ -165,6 +226,45 @@ Templates (Blaze/jade), all inside one popup opened from the group menu's **Hist
   top bar and columns mirror without duplicated markup. Verify live.
 - **Date format:** reuse the card's configured date format helper so the datetime column matches the
   rest of the card.
+
+## 7a. Scoped views (card / member / board / swimlane / list / …)
+
+Every non-card-group surface in the table above is **the same `historyTable`** with a different
+`changeHistory.page` scope; there is **one** implementation, parametrised by scope. They share the
+columns, search, pagination, RTL, and restore (+ dual re-logging) of section 7/8.
+
+- **Contributor avatars** (left column) appear whenever the scope can span more than one user —
+  card, board, swimlane, list. They are omitted for the Member view (already one user). Clicking an
+  avatar adds `{ userId }` to the current scope (that user's changes **within** this scope).
+- **Permission** per scope, reusing existing guards:
+  - card / swimlane / list → board-visible (write access to restore);
+  - board (Board Settings) → board **admin**;
+  - member (Member settings) → the user themselves, or an admin over boards the admin can see. A
+    Member view **never** leaks changes on boards the caller can't access.
+- **Nesting** (see the table note): container scopes match the entity **and its descendants** via an
+  OR over id columns, so a swimlane's view includes its lists'/cards' changes, etc.
+
+Concretely, adding "History" to a new menu = (1) a menu item that opens `historyPopup` with a scope,
+(2) — nothing else. No new method, table, or restore code.
+
+## 7c. Undo / Redo = restore the last own change
+
+`Ctrl+Z` / `Ctrl+Y` are the keyboard front-end to this history for the **current user on the current
+board**:
+
+- **Undo** = restore the caller's **most recent, not-yet-undone** `changeHistory` row (mark it
+  `undone`), for **any** `entityType`/`changeType` — not just moves.
+- **Redo** = re-apply the caller's **most-recently-undone** row.
+- A **new change clears the redo stack** (delete/flag this user+board's `undone` rows).
+
+This **generalises** the shipped #6478 methods: `userPositionHistory.undoLast/redoLast` become
+`changeHistory.undoLast/redoLast` reading the unified store; the selection rule stays the pure,
+tested `pickUndo`/`pickRedo`; the key bindings in `client/lib/keyboard.js` are unchanged. "Restore
+selected row" (History UI) and "undo last" (keyboard) are the **same operation** on the same data.
+
+> Undo restores content via the **same setters** as a normal edit (so validation/Activities run),
+> and the restore is itself appended to history (see section 8) — so undo is auditable and itself
+> undoable/redoable.
 
 ## 8. Restore
 
@@ -193,14 +293,23 @@ each knows how to re-apply its own `previousContent`.
 
 ## 10. Phasing (each phase verified live before the next)
 
-1. **Model + write helper** for ONE group (Description) + pure paging/search/selection helpers +
-   unit tests. Proves the end-to-end shape cheaply.
-2. **Read method** (`cardGroupHistory.page`) + the **viewer UI** (table, search, pagination,
-   avatars) for Description; LTR then RTL.
-3. **Restore** for Description (single + multi-select) with dual re-logging.
-4. **Roll out** to the remaining groups (labels, dates, members, checklists, subtasks, attachments,
-   comments, custom fields), one group per PR, reusing the shared helper + UI.
-5. **"History" menu item** wired into every group menu.
+1. **`changeHistory` model + write helper + pure helpers (paging/search/selection/pick undo-redo) +
+   unit tests.** Migrate the shipped position undo/redo onto it: point
+   `changeHistory.undoLast/redoLast` at the new store and record card/list/swimlane **moves** there
+   (this both proves the model and keeps #6478 working). Ctrl+Z/Ctrl+Y now read `changeHistory`.
+2. **First content group — Description:** record before/after on edit; **read method**
+   (`changeHistory.page`) + the **viewer UI** (table, search, pagination, avatars); LTR then RTL.
+   Ctrl+Z now also undoes a description edit.
+3. **Restore** UI for Description (single + multi-select) with dual re-logging (identical to the
+   keyboard undo path).
+4. **Member-settings "History"** (per-user) and **Board-settings "History"** (per-board) views —
+   both are just the same `changeHistory.page` method + `historyTable` UI with a different scope
+   (`{ userId }` vs `{ boardId }`), so they land together once step 3's table/restore exist.
+5. **Roll out** to every remaining group/entity (title, labels, dates, members/assignees, checklists,
+   subtasks, attachments, comments, custom fields, board/swimlane structural changes), one per PR,
+   reusing the shared write helper + `page` method + UI.
+6. **"History" menu item** wired into every card group menu (and the Member-settings menu from
+   step 4).
 
 ## 11. Open questions (need product decisions)
 
