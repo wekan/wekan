@@ -71,8 +71,8 @@ template(name="globalSearch")
           aria-label="{{_ 'globalSearch-title'}}"
           autofocus dir="auto"
         )
-        button.primary.js-new-search(type="submit" aria-label="{{_ 'globalSearch-title'}}")
-          span(aria-hidden="true") 🧹
+        button.primary.js-new-search(type="submit" aria-label="{{_ 'trello-clear-job'}}")
+          | {{_ 'trello-clear-job'}}
       if searching
         +spinner
       else if hasResults
