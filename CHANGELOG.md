@@ -95,6 +95,37 @@ This release adds the following updates:
 
 and adds the following features:
 
+- **All Boards & board header — many layout fixes**. A batch of UI polish:
+  - **Board header (Swimlanes / Lists view):** the right-sidebar **hamburger is always pinned to the right edge**
+    at every window width, with a small gap matching the top-bar user-name gap and no wasted space around it; the
+    duplicate **Board Settings cog was removed** (Board Settings is already reachable from the right sidebar).
+  - **All Boards page:** the empty grey band above the layout was removed; the **My Boards toolbar now wraps** so
+    Sort / Multi-Selection / Clear stay visible on narrow windows; the toolbar order is **Multi-Selection, then
+    Sort, then Search boards**; the **Multi-Selection button now looks like the one in the Swimlanes view** (icon +
+    label + nested reset); the **"+ Add Board" / "+ Add Template Container" tiles are the same height as board
+    icons**; the board-tile **drag handle sits at the right middle** with a transparent background (icon only); and
+    the search box + "+ Add …" text vertical alignment were tuned.
+  - **Top bar:** the **mobile/desktop toggle and zoom** controls swapped places (and are no longer hidden when the
+    logo is hidden). Thanks to **xet7**.
+
+- **Change Color / Select Color — visible swatches, applies everywhere, no Save button**
+  ([#5778](https://github.com/wekan/wekan/issues/5778)). Both the Board Settings and Member Settings color pickers
+  now show **visible color swatches grouped by category** (Flat / Clear / Dark / Special), with the category name
+  above each group, instead of hard-to-read dropdowns. Clicking a color **applies it immediately** (the Save
+  button is gone). The global override now themes the **whole UI including board pages** (not just All Boards /
+  Admin). Category titles are left-aligned, and the Member Settings Change Color popup now has a **title**. Thanks
+  to **xet7**.
+
+- **Fix: creating a user could fail after the Member Settings / Font color feature**
+  ([#4759](https://github.com/wekan/wekan/issues/4759)). The new `profile.uiTextColor` / `profile.uiTextBgColor`
+  schema fields ran their `#rrggbb` validator on **every** user insert, even when unset, so `check`/collection2
+  threw a `ValidationError` and blocked user creation (surfacing as a SyncedCron fatal error). The validators now
+  skip unset values. Thanks to **xet7**.
+
+- **Dev: `rebuild-wekan.sh` CURRENT-IP dev-server options no longer crash with "Invalid URL"**. The IP detection
+  is now subnet-agnostic (derived from the default route, with a `hostname -I` then `localhost` fallback), so it
+  can no longer produce `http://:3000`. Thanks to **xet7**.
+
 - **Member Settings / Font — pick a UI font and size**
   (part of [#4759](https://github.com/wekan/wekan/issues/4759)). The member menu has a new **Font** entry with a
   popup that offers a **dropdown of fonts detected as actually installed** in your browser (no free typing — labels are
@@ -145,13 +176,12 @@ and adds the following features:
   Boards home toggle). The decision is reactive, so it waits out Sandstorm's asynchronous grain login and board
   loading before acting. Sandstorm only. Thanks to **xet7**.
 
-- **Choose a board that opens automatically after you log in**
-  ([#2220](https://github.com/wekan/wekan/issues/2220)). On the All Boards page each board tile now has a
-  **home** (house) toggle next to the star. Marking a board makes it your default "home" board: the next time
-  you log in (or reload) you land straight on it instead of the All Boards page. Clicking the home icon again
-  clears it. It is stored per user (`profile.defaultBoardId`) via a `toggleDefaultBoard` method, and the
-  redirect fires **once per session** so clicking "All Boards" afterwards keeps you on the list. If the chosen
-  board was deleted or you lost access, it falls back to the All Boards page. Thanks to **xet7**.
+- **Choose a board that opens automatically after you log in — infrastructure, UI currently disabled**
+  ([#2220](https://github.com/wekan/wekan/issues/2220)). The per-user default "home" board and the once-per-session
+  login redirect are implemented (`profile.defaultBoardId`, honoured by the router and by the Sandstorm
+  single-board auto-open above). The board-tile **home (house) toggle on the All Boards page is currently hidden
+  and setting a home board from there is disabled** — the redirect infrastructure remains for a future re-enable.
+  Thanks to **xet7**.
 
 - **Add List moved from a standing column to a per-list header button**
   ([#6465](https://github.com/wekan/wekan/issues/6465)). The Swimlanes and Lists views no longer show a

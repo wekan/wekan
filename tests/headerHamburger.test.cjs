@@ -65,14 +65,9 @@ test('the hamburger lives in the right group in the board header', () => {
   assert.ok(rightAt !== -1 && hamburgerAt > rightAt, 'js-toggle-sidebar is inside the .right group');
 });
 
-test('board header shows icons only — button text labels always hidden, star count kept', () => {
-  // Unconditional (not a media query): the button labels are always hidden.
-  assert.ok(/#header #header-main-bar \.board-header-btn i\.fa \+ span:not\(\.board-star-counter\)\s*{\s*display:\s*none/.test(css),
-    'button texts hidden, star count kept');
-  // NEGATIVE guard: it is not gated behind a max-width media query anymore.
-  const rule = css.slice(css.indexOf('.board-header-btn i.fa + span:not(.board-star-counter)') - 200,
-    css.indexOf('.board-header-btn i.fa + span:not(.board-star-counter)'));
-  assert.ok(!/@media[^}]*$/.test(rule), 'not inside a media query');
+test('board header button text labels are NOT hidden (icons-only reverted)', () => {
+  assert.ok(!/board-header-btn i\.fa \+ span:not\(\.board-star-counter\)\s*{\s*display:\s*none/.test(css),
+    'no rule hiding the board-header button text labels');
 });
 
 console.log(`\nAll ${passed} header-hamburger tests passed`);

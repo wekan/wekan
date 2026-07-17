@@ -91,13 +91,6 @@
   margin-top: 1px;
   margin-inline-end: 10px;
 }
-/* Icons-only board header: never show the button text labels (Private, Muted,
-   Sort, Filter, Swimlanes, Multi-Selection, ...) — the icon conveys the action, and
-   this keeps everything on one line. The board title (h1) and the star count
-   (.board-star-counter) are not button labels and stay. */
-#header #header-main-bar .board-header-btn i.fa + span:not(.board-star-counter) {
-  display: none;
-}
 #header #header-main-bar .board-header-btn .board-header-btn-close {
   float: inline-end;
 }
