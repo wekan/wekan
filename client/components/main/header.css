@@ -68,6 +68,16 @@
   line-height: 28px;
   margin: 0 12px;
 }
+/* The sidebar hamburger sits at the far right; drop its wide 12px side margins so
+   there is no button-sized empty space to its left or right. The cog before it also
+   drops its right margin so the two sit snugly together at the edge. */
+#header #header-main-bar .board-header-btn.js-toggle-sidebar {
+  margin-inline-start: 2px;
+  margin-inline-end: 2px;
+}
+#header #header-main-bar .board-header-btn.js-open-board-menu {
+  margin-inline-end: 2px;
+}
 #header #header-main-bar .board-header-btn i.fa {
   float: inline-start;
   display: block;

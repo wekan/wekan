@@ -37,6 +37,15 @@ test('the right group (with the hamburger) is pinned to the right edge', () => {
   assert.ok(!/float:\s*inline-end/.test(right), 'no float-based right positioning');
 });
 
+test('the hamburger has no wide side margins (no button-sized empty space)', () => {
+  const ham = block('#header #header-main-bar .board-header-btn.js-toggle-sidebar');
+  assert.ok(/margin-inline-start:\s*2px/.test(ham), 'tight left margin');
+  assert.ok(/margin-inline-end:\s*2px/.test(ham), 'tight right margin');
+  // the preceding cog also tightens its right margin so they sit snugly
+  const cog = block('#header #header-main-bar .board-header-btn.js-open-board-menu');
+  assert.ok(/margin-inline-end:\s*2px/.test(cog), 'cog right margin tightened');
+});
+
 test('the hamburger lives in the right group in the board header', () => {
   const jade = read('client/components/boards/boardHeader.jade');
   const rightAt = jade.indexOf('.board-header-btns.right');
