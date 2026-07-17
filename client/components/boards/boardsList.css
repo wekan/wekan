@@ -517,13 +517,13 @@
   overflow: hidden;
   background-color: inherit; /* Inherit board color from parent li.js-board */
   color: #f6f6f6;
-  min-height: 100px;
+  min-height: 72px; /* #6465: thinner tiles so more boards fit in the overview */
   font-size: 16px;
   line-height: 22px;
   border-radius: 0; /* No border-radius - parent .js-board has it */
   display: block;
   font-weight: 700;
-  padding: 36px 8px 32px 8px; /* Top padding for drag handle, bottom for checkbox */
+  padding: 24px 8px 18px 8px; /* #6465: trimmed; top leaves room for the drag handle, bottom for the checkbox */
   margin: 0; /* No margin - moved to parent .js-board */
   position: relative;
   text-decoration: none;

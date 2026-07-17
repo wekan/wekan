@@ -656,8 +656,9 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-logged-in', 'User must be logged in');
     }
-    if (width < 270) {
-      throw new Meteor.Error('invalid-width', 'Width must be >= 270');
+    // #6465: keep in sync with MIN_LIST_WIDTH in models/lib/listWidth.js (200).
+    if (width < 200) {
+      throw new Meteor.Error('invalid-width', 'Width must be >= 200');
     }
     const user = await ReactiveCache.getCurrentUser();
     if (!user) return;

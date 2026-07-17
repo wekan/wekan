@@ -138,7 +138,7 @@
 body.desktop-mode .card-details:not(.card-details-popup) {
   position: fixed;
   width: auto;
-  max-width: 800px;
+  max-width: 520px; /* #6465: narrower dock (was 800px, ~1/4 screen) */
   flex-basis: auto;
   border-radius: 3px;
   z-index: 2001;
@@ -445,8 +445,8 @@ body.desktop-mode .card-details.card-details-collapsed {
 @media screen and (min-width: 801px) {
   .card-details {
     top: 97px;
-    inset-inline-start: calc(50% - (600px / 2));
-    width: 600px;
+    inset-inline-start: calc(50% - (520px / 2)); /* #6465: narrower card (was 600px) */
+    width: 520px;
     bottom: 0;
     position: fixed;
     resize: both;

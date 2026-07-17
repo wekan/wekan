@@ -190,6 +190,21 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
   including a negative control that the old target-only condition rebound a board-wide list. Thanks to the
   reporter and **xet7**.
 
+- **Denser default layout: thinner lists, board tiles and card dock**
+  ([#6465](https://github.com/wekan/wekan/issues/6465)). Several users reported the 9.x UI wastes space versus
+  the older 6.09 layout. Three density defaults were tightened (all overridable; a user's own customizations
+  are untouched):
+  - **List width** default 272 → **220px** (`models/lib/listWidth.js`, `models/lists.js`), with the minimum
+    270 → **200px** here and in the server check (`server/models/users.js`). Lists already all render the same
+    width by default (`resolveListWidth`), on private and public boards; they are now narrower so more fit on
+    screen. Test `tests/listWidthDefaults.test.cjs` updated.
+  - **Board tiles** on the All Boards page: `min-height` 100 → **72px** and vertical padding 36/32 →
+    **24/18px** (`client/components/boards/boardsList.css`), so more boards fit in the overview.
+  - **Card-detail right dock** narrowed from `max-width` 800 → **520px** (and the wide-screen centred variant
+    600 → 520px) in `client/components/cards/cardDetails.css`, so the opened card no longer takes ~1/4 of the
+    screen.
+  Thanks to **csonkaoszimt** (report) and **xet7**.
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release

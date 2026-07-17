@@ -23,10 +23,16 @@
 // imported by both the client width helpers and the user model helpers.
 
 // The one default width every list renders at when no customization exists.
-const DEFAULT_LIST_WIDTH = 272;
+// #6465: narrowed from 272 to 220 so more lists fit on screen by default (the
+// pre-9.x / 6.09 boards were noticeably thinner). All lists still render this
+// SAME width by default (resolveListWidth returns it for every uncustomized
+// list, on private and public boards); a user's own widths are unaffected.
+const DEFAULT_LIST_WIDTH = 220;
 // The minimum width a customized list may have (matches the resize handle,
-// the Set-Width popup validation and the server-side setFixedListWidth check).
-const MIN_LIST_WIDTH = 270;
+// the Set-Width popup validation and the server-side width check in
+// server/models/users.js). Lowered with the default so the smaller default is
+// itself valid and users can go narrower.
+const MIN_LIST_WIDTH = 200;
 
 // A width "counts" (may override the default) only when it is a real, finite
 // number within the allowed range.

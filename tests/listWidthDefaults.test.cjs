@@ -48,8 +48,9 @@ function test(name, fn) {
 test('there is a single sane default width (>= minimum)', () => {
   assert.strictEqual(typeof DEFAULT_LIST_WIDTH, 'number');
   assert.strictEqual(typeof MIN_LIST_WIDTH, 'number');
-  assert.strictEqual(DEFAULT_LIST_WIDTH, 272);
-  assert.strictEqual(MIN_LIST_WIDTH, 270);
+  // #6465: narrowed defaults so more lists fit on screen.
+  assert.strictEqual(DEFAULT_LIST_WIDTH, 220);
+  assert.strictEqual(MIN_LIST_WIDTH, 200);
   assert.ok(DEFAULT_LIST_WIDTH >= MIN_LIST_WIDTH);
 });
 
