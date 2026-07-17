@@ -5,7 +5,13 @@
   z-index: 17;
 }
 #header #header-main-bar {
-  height: 40px;
+  /* Flex row (was float-based) so the right button group — which ends with the
+     sidebar hamburger — is always pinned to the right edge at every window width,
+     instead of drifting to the middle as floats wrap. */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 40px;
   padding: 7px 10px 0;
 }
 #header #header-main-bar h1 {
@@ -39,15 +45,17 @@
   opacity: 0.9;
 }
 #header #header-main-bar .board-header-btns {
-  display: block;
+  /* Flex so the buttons inside each group lay out (their float is ignored inside a
+     flex container) and the groups themselves are flex items of the header bar. */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   margin-top: 3px;
   width: auto;
 }
-#header #header-main-bar .board-header-btns.left {
-  float: inline-start;
-}
 #header #header-main-bar .board-header-btns.right {
-  float: inline-end;
+  /* Always hug the right edge (and, if the row wraps, the right of its row). */
+  margin-inline-start: auto;
 }
 #header #header-main-bar .board-header-btn {
   border-radius: 3px;
