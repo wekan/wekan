@@ -678,7 +678,8 @@
   transform: translateY(-50%);
   font-size: 14px;
   color: #fff;
-  background: rgba(0,0,0,0.4);
+  /* Transparent background so only the drag-handle icon shows (not a box). */
+  background: transparent;
   border-radius: 4px;
   display: flex;
   align-items: center;

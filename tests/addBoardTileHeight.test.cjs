@@ -90,6 +90,7 @@ test('All Boards board tile drag handle is at the right middle', () => {
   assert.ok(/top:\s*50%/.test(blk) && /transform:\s*translateY\(-50%\)/.test(blk) && /inset-inline-end/.test(blk),
     'handle vertically centered on the right edge');
   assert.ok(!/left:\s*50%/.test(blk) && !/translateX/.test(blk), 'no longer top-centered');
+  assert.ok(/background:\s*transparent/.test(blk), 'transparent background — only the drag icon shows');
 });
 
 console.log(`\nAll ${passed} add-board tile-height tests passed`);
