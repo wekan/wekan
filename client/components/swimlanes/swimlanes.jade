@@ -21,7 +21,16 @@ template(name="swimlane")
         if swimlaneHasNoLists
           if currentUser.isBoardMember
             unless currentUser.isCommentOnly
-              +addListInline
+              //- #6465: an empty swimlane shows only a + button; the create-list
+              //- form appears only after it is clicked. (Non-empty swimlanes use
+              //- the per-list-header add-list button instead.)
+              if isEmptyAddListOpen _id
+                +addListInline
+              else
+                .list.list-composer.js-list-composer.js-empty-add-list-button(class="{{#if isMiniScreen}}mini-list{{/if}}")
+                  .list-header-add
+                    a.open-list-composer.js-open-empty-add-list(title="{{_ 'add-list'}}" data-swimlane="{{_id}}")
+                      i.fa.fa-plus
         each lists
           if visible this
             +list(this)
@@ -50,7 +59,15 @@ template(name="listsGroup")
         if defaultSwimlane
           if currentUser.isBoardMember
             unless currentUser.isCommentOnly
-              +addListInline(defaultSwimlane)
+              //- #6465: empty board shows only a + button; the create-list form
+              //- appears only after clicking it.
+              if isEmptyAddListOpen defaultSwimlane._id
+                +addListInline(defaultSwimlane)
+              else
+                .list.list-composer.js-list-composer.js-empty-add-list-button(class="{{#if isMiniScreen}}mini-list{{/if}}")
+                  .list-header-add
+                    a.open-list-composer.js-open-empty-add-list(title="{{_ 'add-list'}}" data-swimlane="{{defaultSwimlane._id}}")
+                      i.fa.fa-plus
       each lists
         if visible this
           +list(this)

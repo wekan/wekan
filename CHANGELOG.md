@@ -158,9 +158,12 @@ and adds the following features:
   permanent "Add List" composer column. Instead each list header has a far-right add-list button; clicking it
   opens the Add List composer as a column **immediately after that list** — which renders to the **right** of
   the list in LTR and to the **left** in RTL (the lists lane is a flex row that mirrors under `dir=rtl`). An
-  empty swimlane/board shows the composer at the start so the first list can still be added. *(First cut —
-  desktop/main views; the mini-screen composer path is unchanged. Needs live verification of styling, RTL and
-  the empty-board case.)* Thanks to **csonkaoszimt** (report) and **xet7**.
+  **empty** swimlane/board shows a **+ button**; the create-list form appears only after clicking it (when the
+  swimlane already has lists, the per-list header button is used instead). Also fixes the composer's Save button
+  doing nothing: the `createListAfter` method's `check()` used a non-`Optional` matcher for `nextListId`, so the
+  inline composer (which omits it) 400'd with "Match failed"; the omittable params are now `Match.Optional`.
+  *(First cut — desktop/main views; the mini-screen composer path is unchanged.)* Thanks to **csonkaoszimt**
+  (report) and **xet7**.
 
 - **Undo/redo for card, list and swimlane moves + confirmation before a high-impact list move on touch**
   ([#6478](https://github.com/wekan/wekan/issues/6478)). A user accidentally dragged a list into another

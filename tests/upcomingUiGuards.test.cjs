@@ -44,6 +44,18 @@ test('#6465: the standing leading Add List column is replaced by empty-state gat
     'non-mini branches gate the composer on the empty state');
 });
 
+test('#6465: empty swimlane/board shows a + button that reveals the form on click', () => {
+  const swim = read('client/components/swimlanes/swimlanes.jade');
+  // The empty state renders a + button; the composer appears only once it is open.
+  assert.ok(/js-open-empty-add-list/.test(swim), 'empty state shows a + button');
+  assert.ok(/if isEmptyAddListOpen[\s\S]{0,60}\+addListInline/.test(swim),
+    'the create-list form is gated behind isEmptyAddListOpen (revealed by the button)');
+  const js = read('client/components/swimlanes/swimlanes.js');
+  assert.ok(/isEmptyAddListOpen\(swimlaneId\)/.test(js), 'reveal helper');
+  assert.ok(/'click \.js-open-empty-add-list': openEmptyAddList/.test(js), 'button opens the composer');
+  assert.ok(/Session\.set\('wekan-add-list-empty'/.test(js), 'reveal is scoped to the clicked swimlane');
+});
+
 // --- #6465: minicard white-space + swimlane header clip CSS ---
 test('#6465: minicard title viewer no longer reserves empty height', () => {
   const css = read('client/components/cards/minicard.css');

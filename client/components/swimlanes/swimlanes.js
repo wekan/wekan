@@ -723,9 +723,14 @@ Template.swimlane.helpers({
     return Session.get('wekan-add-list-after') === listId;
   },
   // Empty swimlane / empty board: there are no list headers to host the button,
-  // so offer the inline composer at the start.
+  // so offer a + button that reveals the inline composer only when clicked.
   swimlaneHasNoLists() {
     return !this.myLists || this.myLists().length === 0;
+  },
+  // #6465: is the empty-state create-list form open for this swimlane? (Set by the
+  // + button; until then only the button shows.)
+  isEmptyAddListOpen(swimlaneId) {
+    return Session.get('wekan-add-list-empty') === swimlaneId;
   },
   collapseSwimlane() {
     return Utils.getSwimlaneCollapseState(this);
@@ -790,7 +795,19 @@ Template.swimlane.helpers({
   },
 });
 
+// #6465: open the empty-state create-list form for a swimlane (shared by the
+// Swimlanes and Lists views). Until clicked, an empty swimlane/board shows only the
+// + button; this reveals the inline composer, scoped to the clicked swimlane.
+function openEmptyAddList(event) {
+  event.preventDefault();
+  const swimlaneId = $(event.currentTarget).data('swimlane') || null;
+  Session.set('wekan-add-list-after', null);
+  Session.set('wekan-add-list-swimlane', swimlaneId);
+  Session.set('wekan-add-list-empty', swimlaneId);
+}
+
 Template.swimlane.events({
+  'click .js-open-empty-add-list': openEmptyAddList,
   // Click-and-drag action
   'mousedown .board-canvas'(evt, tpl) {
     const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
@@ -924,6 +941,9 @@ Template.addListInline.events({
       });
       titleInput.value = '';
       titleInput.focus();
+      // Empty-state flow: the swimlane now has a list, so drop the empty-composer
+      // flag — if it becomes empty again the + button (not the form) shows first.
+      Session.set('wekan-add-list-empty', null);
     } catch (error) {
       console.error('Failed to create list:', error);
     }
@@ -931,6 +951,7 @@ Template.addListInline.events({
   'click .js-close-add-list-inline'() {
     Session.set('wekan-add-list-after', null);
     Session.set('wekan-add-list-swimlane', null);
+    Session.set('wekan-add-list-empty', null);
   },
 });
 
@@ -952,6 +973,10 @@ Template.listsGroup.helpers({
   boardHasNoLists() {
     const board = Template.currentData();
     return !board || !board.lists || board.lists().length === 0;
+  },
+  // #6465: is the empty-board create-list form open? (Set by the + button.)
+  isEmptyAddListOpen(swimlaneId) {
+    return Session.get('wekan-add-list-empty') === swimlaneId;
   },
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
@@ -975,6 +1000,11 @@ Template.listsGroup.helpers({
     }
     return true;
   },
+});
+
+Template.listsGroup.events({
+  // #6465: empty board (Lists view) + button reveals the inline composer.
+  'click .js-open-empty-add-list': openEmptyAddList,
 });
 
 Template.listsGroup.onRendered(function () {

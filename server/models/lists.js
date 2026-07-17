@@ -154,13 +154,16 @@ Meteor.methods({
   },
 
   async createListAfter(params) {
+    // Match.Optional (not a bare Match.OneOf) so a caller may OMIT these keys — a
+    // missing object key throws "Match failed" for any non-Optional sub-pattern.
+    // The #6465 inline composer sends no nextListId, which previously 400'd here.
     check(params, {
       title: String,
       boardId: String,
-      swimlaneId: Match.OneOf(String, null, undefined),
-      afterListId: Match.OneOf(String, null, undefined),
-      nextListId: Match.OneOf(String, null, undefined),
-      type: Match.Maybe(String),
+      swimlaneId: Match.Optional(Match.OneOf(String, null)),
+      afterListId: Match.Optional(Match.OneOf(String, null)),
+      nextListId: Match.Optional(Match.OneOf(String, null)),
+      type: Match.Optional(String),
     });
 
     const {
