@@ -158,6 +158,14 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
   QEMU snap action does not support it) but now has a `timeout-minutes: 180` so a stuck build fails with a
   clear message instead of GitHub's silent 6-hour cancel. Thanks to **xet7**.
 
+- **Minicards no longer waste half their height on empty white space**
+  ([#6465](https://github.com/wekan/wekan/issues/6465)). The minicard title renders inside a `.viewer`, which
+  inherited the global `.viewer { min-height: 2.5vh }` (`client/components/main/layouts.css`); on tall screens
+  that reserved a tall empty band beneath a one-line title, so a large part of every minicard was blank. The
+  minicard title `.viewer` now sets `min-height: 0` (the same override already applied to the label `.viewer`),
+  so a minicard collapses to fit its content and more cards fit on screen without scrolling. Thanks to the
+  reporter and **xet7**.
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release

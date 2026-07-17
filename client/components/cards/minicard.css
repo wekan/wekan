@@ -203,6 +203,12 @@
   .minicard .minicard-title .viewer {
     display: block;
     word-wrap: break-word;
+    /* #6465: the minicard title renders inside a .viewer, which inherits the
+       global `.viewer { min-height: 2.5vh }` (layouts.css). On tall screens that
+       reserves a big empty band under a one-line title, so half of every
+       minicard was white space. Collapse it to fit the text (same fix already
+       applied to the label .viewer above). */
+    min-height: 0;
   }
 }
 .minicard .dates {
