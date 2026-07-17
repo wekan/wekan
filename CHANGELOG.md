@@ -86,6 +86,39 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+- **[EscapeBleed](https://wekan.fi/hall-of-fame/escapebleed/): incomplete string escaping when
+  building a regular expression** (GitHub CodeQL code scanning alert #423, rule
+  `js/incomplete-sanitization`, CWE-116 Improper Encoding or Escaping of Output;
+  `tests/maximizedCardPosition.test.cjs`). Code that turned a CSS declaration into a
+  `RegExp` escaped only parentheses (`str.replace(/[()]/g, '\\$&')`) instead of the full
+  regex metacharacter set — an input containing other metacharacters (including a backslash)
+  would not be escaped correctly, so the generated pattern could match the wrong thing.
+  - **Fixed** by escaping the complete metacharacter set
+    (`str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')`), matching the correct pattern already used
+    elsewhere in the tests. This is test-only code with a fixed, trusted input list, so there
+    was no injection exposure, but the incomplete escape was genuinely wrong.
+  - Thanks to **GitHub CodeQL** (code scanning alert #423) and **xet7** (fix).
+
+- **[RandomBleed](https://wekan.fi/hall-of-fame/randombleed/): biased random ids from a
+  cryptographically secure source** (GitHub CodeQL code scanning alert #422, rule
+  `js/biased-cryptographic-random`, CWE-1204 / weak randomness; `server/lib/schemaUpgradeSteps.js`).
+  The startup schema upgrade generates Meteor-style document ids with
+  `crypto.randomBytes(len)` mapped through `byte % ID_CHARS.length`. Because 256 is not a
+  multiple of the 55-character alphabet, that modulo skews generated ids toward the first 36
+  characters of the alphabet (each ~1.4% more likely than the rest) — reducing entropy of the
+  ids used for the swimlanes/lists/checklist-items the upgrade creates.
+  - **Fixed** with rejection sampling: bytes at or above the largest multiple of the alphabet
+    size (220) are discarded and resampled, so every character is exactly equally likely; ids
+    stay Meteor-style 17 characters (and exact-length for custom lengths). A negative
+    regression test pins that out-of-range bytes are never wrapped.
+  - Thanks to **GitHub CodeQL** (code scanning alert #422) and **xet7** (fix).
+
+Thanks to above for their contributions.
+
 # v9.97 2026-07-17 WeKan ® release
 
 This release adds the following new features:
