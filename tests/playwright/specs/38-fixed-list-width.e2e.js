@@ -25,7 +25,7 @@
  *   - "resizing one list" (the single shared value changing) updates ALL lists;
  *   - the anonymous localStorage model stores one shared width per board.
  * Negative:
- *   - a width < 270 is rejected and the stored value is unchanged;
+ *   - a width < 200 is rejected and the stored value is unchanged;
  *   - with fixed width OFF, per-list widths are independent (changing one list's
  *     width does NOT change the others);
  *   - an anonymous user's setting for one board does not leak to another board.
@@ -124,7 +124,7 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
     expect(widthsB[0]).not.toBe(widthsA[0]); // the change actually took effect
   });
 
-  test('logged-in NEGATIVE: width < 270 rejected; OFF means per-list widths are independent', async ({
+  test('logged-in NEGATIVE: width < 200 rejected; OFF means per-list widths are independent', async ({
     page,
     user,
     board,
@@ -137,14 +137,21 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
     await ddp(page, 'setFixedListWidth', [board.boardId, 320]);
     expect(profileFixed(user.id).widths[board.boardId]).toBe(320);
 
-    // NEGATIVE: a too-small width is rejected and the stored value is unchanged.
-    const bad = await ddp(page, 'setFixedListWidth', [board.boardId, 200]);
-    expect(bad.err, 'width < 270 must be rejected').not.toBeNull();
+    // NEGATIVE: a too-small width (below the 200 minimum, #6465) is rejected and
+    // the stored value is unchanged.
+    const bad = await ddp(page, 'setFixedListWidth', [board.boardId, 150]);
+    expect(bad.err, 'width < 200 must be rejected').not.toBeNull();
     expect(bad.err.error).toBe('invalid-width');
     expect(
       profileFixed(user.id).widths[board.boardId],
       'rejected width must not overwrite the stored value',
     ).toBe(320);
+
+    // POSITIVE: a width at/above the lowered 200 minimum (but below the old 270)
+    // is now accepted (#6465 narrowed the default/minimum).
+    const ok = await ddp(page, 'setFixedListWidth', [board.boardId, 210]);
+    expect(ok.err, 'width >= 200 must be accepted').toBeNull();
+    expect(profileFixed(user.id).widths[board.boardId]).toBe(210);
 
     // NEGATIVE: with fixed width OFF + personal widths on, per-list widths are
     // independent — setting ONE list's width must not change the others.
@@ -184,7 +191,7 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
 
     const result = await page.evaluate(
       ({ boardId, otherBoardId }) => {
-        const MIN = 270;
+        const MIN = 200;
 
         // --- save helpers (mirror list.js anonymous storage) ---
         function setEnabled(id, enabled) {
@@ -210,7 +217,7 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
             const w = JSON.parse(stored)[id];
             if (typeof w === 'number' && w >= MIN) return w;
           }
-          return 272; // default
+          return 220; // default
         }
 
         localStorage.removeItem('wekan-fixed-list-width-enabled');
@@ -238,6 +245,6 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
 
     // NEGATIVE: no leak to another board — still default off / default width.
     expect(result.enabledOther).toBe(false);
-    expect(result.widthOther).toBe(272);
+    expect(result.widthOther).toBe(220);
   });
 });
