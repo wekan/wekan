@@ -21,6 +21,12 @@ import path from 'node:path';
 const DATA_DIR = 'imports/i18n/data';
 const EN_FILE = path.join(DATA_DIR, 'en.i18n.json');
 
+// --files: machine-readable mode for the pull script's auto-heal loop. Print
+// ONLY the reverted language-file paths (one per line) to stdout, nothing else,
+// so the shell can `git checkout --` and re-push each. Exit 2 when there are
+// reverts (0 otherwise), like the human report.
+const filesMode = process.argv.slice(2).includes('--files');
+
 function parse(text) { try { return JSON.parse(text); } catch { return null; } }
 function readFile(p) { try { return parse(fs.readFileSync(p, 'utf8')); } catch { return null; } }
 function gitShow(ref, p) {
@@ -39,7 +45,7 @@ try {
 } catch { /* not a git repo / no git → nothing to compare */ }
 
 if (!changed.length) {
-  console.log('[i18n] No changed language files to check.');
+  if (!filesMode) console.log('[i18n] No changed language files to check.');
   process.exit(0);
 }
 
@@ -49,35 +55,72 @@ for (const f of changed) {
   const oldJson = before != null ? (parse(before) || {}) : {};
   const newJson = readFile(f);
   if (!newJson) continue;
+
   const regressed = [];
-  for (const key of Object.keys(newJson)) {
+  let otherChanges = 0;
+
+  // Walk every key touched by the pull (union of old and new).
+  for (const key of new Set([...Object.keys(oldJson), ...Object.keys(newJson)])) {
     const enV = en[key];
-    if (typeof enV !== 'string') continue;
     const oldV = oldJson[key];
     const newV = newJson[key];
-    // Previously a real translation (differed from English), now exactly the English source.
-    if (typeof oldV === 'string' && typeof newV === 'string' && oldV !== enV && newV === enV) {
+    if (oldV === newV) continue; // unchanged by the pull
+
+    // Revert-to-English: previously a real translation (differed from English),
+    // now exactly the English source.
+    if (
+      typeof enV === 'string' && typeof oldV === 'string' && typeof newV === 'string' &&
+      oldV !== enV && newV === enV
+    ) {
       regressed.push(key);
+      continue;
+    }
+
+    // Any OTHER change where the pull brought a real (non-English) value: a new
+    // or improved translation from Transifex that a whole-file `git checkout`
+    // would throw away. Its presence means this file is NOT purely a revert.
+    if (typeof newV === 'string' && newV !== enV) {
+      otherChanges += 1;
     }
   }
-  if (regressed.length) report.push({ file: f, keys: regressed });
+
+  if (regressed.length) report.push({ file: f, keys: regressed, otherChanges });
 }
 
 if (!report.length) {
-  console.log('[i18n] OK: no translations reverted to English after the pull.');
+  if (!filesMode) console.log('[i18n] OK: no translations reverted to English after the pull.');
   process.exit(0);
 }
 
 report.sort((a, b) => b.keys.length - a.keys.length);
+
+// A file is safe to auto-heal (whole-file `git checkout --` + force re-push) ONLY
+// when ALL of the pull's changes to it are reverts — i.e. it carries no other
+// real translation from Transifex that the checkout would discard.
+const healable = report.filter((r) => r.otherChanges === 0);
+
+if (filesMode) {
+  // Machine-readable: only the safe-to-auto-heal files, one path per line.
+  for (const r of healable) console.log(r.file);
+  process.exit(report.length ? 2 : 0);
+}
+
 console.log('\n[i18n] WARNING — these language files had translations REVERT to English after the pull');
 console.log('       (a previously-translated string is now exactly the English source, i.e. it is');
-console.log('       untranslated on Transifex). (Re)translate them on Transifex, or revert the file:\n');
+console.log('       untranslated on Transifex):\n');
 let total = 0;
 for (const r of report) {
   total += r.keys.length;
   const sample = r.keys.slice(0, 8).join(', ');
-  console.log(`  ${r.file}  —  ${r.keys.length} string(s): ${sample}${r.keys.length > 8 ? ', …' : ''}`);
+  const mixed = r.otherChanges > 0
+    ? `  [NOT auto-healed: also has ${r.otherChanges} non-revert change(s) — handle manually]`
+    : '';
+  console.log(`  ${r.file}  —  ${r.keys.length} string(s): ${sample}${r.keys.length > 8 ? ', …' : ''}${mixed}`);
 }
 console.log(`\n[i18n] ${report.length} language file(s), ${total} string(s) reverted to English.`);
+console.log(
+  `[i18n] ${healable.length} file(s) are safe to auto-restore (all changes are reverts); ` +
+  `${report.length - healable.length} also have other changes and are left for manual handling.`,
+);
 // Non-zero exit so the pull script / CI can notice, but do not treat it as a hard failure.
 process.exit(2);
