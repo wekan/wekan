@@ -94,6 +94,15 @@
   margin-top: 1px;
   margin-inline-end: 10px;
 }
+/* Board view: on windows too narrow for the button text labels (Private, Muted,
+   Sort, Multi-Selection, ...) to fit on one line, show ICONS ONLY — keeping the
+   board title and the buttons — instead of the labels wrapping to a second row.
+   The star count (a small number, not a text label) stays. */
+@media screen and (max-width: 1200px) {
+  #header #header-main-bar .board-header-btn i.fa + span:not(.board-star-counter) {
+    display: none;
+  }
+}
 #header #header-main-bar .board-header-btn .board-header-btn-close {
   float: inline-end;
 }
