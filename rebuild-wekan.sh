@@ -1251,9 +1251,9 @@ for _once in 1; do
 		ensure_rspack_public_dirs
 		kill_meteor_on_port 3000 || break
 		if [[ "$OSTYPE" == "darwin"* ]]; then
-		  IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
+		  IPADDRESS=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo localhost)
 		else
-		  IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
+		  IPADDRESS=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K[0-9.]+' | head -1 | grep . || hostname -I 2>/dev/null | awk '{print $1}' | grep . || echo localhost)
 		fi
 		echo "Your IP address is $IPADDRESS"
 		#---------------------------------------------------------------------
@@ -1270,9 +1270,9 @@ for _once in 1; do
 		ensure_rspack_public_dirs
 		kill_meteor_on_port 3000 || break
                 if [[ "$OSTYPE" == "darwin"* ]]; then
-                  IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
+                  IPADDRESS=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo localhost)
                 else
-                  IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
+                  IPADDRESS=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K[0-9.]+' | head -1 | grep . || hostname -I 2>/dev/null | awk '{print $1}' | grep . || echo localhost)
                 fi
                 echo "Your IP address is $IPADDRESS"
                 #---------------------------------------------------------------------
