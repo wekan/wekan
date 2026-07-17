@@ -389,37 +389,39 @@ Template.list.onRendered(function () {
       if (boardComponent) boardComponent.setIsDragging(false);
     },
     sort(event, ui) {
-      const $boardCanvas = $('.board-canvas');
-      const boardCanvas = $boardCanvas[0];
-
-      if (event.pageX < 10) { // scroll to the left
-        boardCanvas.scrollLeft -= 15;
-        ui.helper[0].offsetLeft -= 15;
+      // #443: the HORIZONTAL scroller is the .js-lists lane (.swimlane has
+      // overflow: auto), NOT .board-canvas, which only overflows vertically —
+      // the old code compared against a scrollLeftMax of 0 and never fired, so
+      // dragging a card toward an off-screen list never auto-scrolled the board.
+      const { computeEdgeScroll, findLaneUnderPointer } = require('/imports/lib/boardAutoScroll');
+      const lanes = document.querySelectorAll('.js-lists');
+      const rects = Array.prototype.map.call(lanes, el => el.getBoundingClientRect());
+      const laneIndex = findLaneUnderPointer(rects, event.clientX, event.clientY);
+      if (laneIndex !== -1) {
+        const nextLeft = computeEdgeScroll({
+          pointer: event.clientX,
+          lowEdge: rects[laneIndex].left,
+          highEdge: rects[laneIndex].right,
+          scrollPos: lanes[laneIndex].scrollLeft,
+          scrollSize: lanes[laneIndex].scrollWidth,
+          clientSize: lanes[laneIndex].clientWidth,
+        });
+        if (nextLeft !== null) lanes[laneIndex].scrollLeft = nextLeft;
       }
-      if (
-        event.pageX > boardCanvas.offsetWidth - 10 &&
-        boardCanvas.scrollLeft < $boardCanvas.data('scrollLeftMax') // don't scroll more than possible
-      ) { // scroll to the right
-        boardCanvas.scrollLeft += 15;
+      // vertical auto-scroll stays on the board canvas
+      const canvas = document.querySelector('.board-canvas');
+      if (canvas) {
+        const crect = canvas.getBoundingClientRect();
+        const nextTop = computeEdgeScroll({
+          pointer: event.clientY,
+          lowEdge: crect.top,
+          highEdge: crect.bottom,
+          scrollPos: canvas.scrollTop,
+          scrollSize: canvas.scrollHeight,
+          clientSize: canvas.clientHeight,
+        });
+        if (nextTop !== null) canvas.scrollTop = nextTop;
       }
-      if (
-        event.pageY > boardCanvas.offsetHeight - 10 &&
-        event.pageY + boardCanvas.scrollTop < $boardCanvas.data('scrollTopMax') // don't scroll more than possible
-      ) { // scroll to the bottom
-        boardCanvas.scrollTop += 15;
-      }
-      if (event.pageY < 10) { // scroll to the top
-        boardCanvas.scrollTop -= 15;
-      }
-    },
-    activate(event, ui) {
-      const $boardCanvas = $('.board-canvas');
-      const boardCanvas = $boardCanvas[0];
-      // scrollTopMax and scrollLeftMax only available at Firefox (https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTopMax)
-      // https://www.it-swarm.com.de/de/javascript/so-erhalten-sie-den-maximalen-dokument-scrolltop-wert/1069126844/
-      $boardCanvas.data('scrollTopMax', boardCanvas.scrollHeight - boardCanvas.clientTop);
-      // https://stackoverflow.com/questions/5138373/how-do-i-get-the-max-value-of-scrollleft/5704386#5704386
-      $boardCanvas.data('scrollLeftMax', boardCanvas.scrollWidth - boardCanvas.clientWidth);
     },
   });
 

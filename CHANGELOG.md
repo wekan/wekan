@@ -195,6 +195,15 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Dragging a card toward an off-screen list never auto-scrolled the board**
+  ([#443](https://github.com/wekan/wekan/issues/443), `client/components/lists/list.js`, new
+  `imports/lib/boardAutoScroll.js`): the horizontal auto-scroll targeted `.board-canvas`,
+  which only overflows vertically since the swimlane layout — its scrollLeftMax was always 0,
+  so the guard never fired and users had to drop on an intermediate list and scroll by hand.
+  Edge-proximity auto-scroll now drives the `.js-lists` lane actually under the pointer
+  (clamped, overshoot-safe), with vertical scrolling kept on the canvas. Tests:
+  `tests/boardAutoScroll.test.cjs` (15, incl. a proof the old no-overflow target could never
+  scroll). Thanks to anhenghuang, AlexanderS and xet7.
 - **Board Rules: the Card Title Filter did nothing on several triggers — and rules created
   via the REST API never fired at all** ([#2345](https://github.com/wekan/wekan/issues/2345),
   [#2674](https://github.com/wekan/wekan/issues/2674),
