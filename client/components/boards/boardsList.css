@@ -561,14 +561,17 @@
 }
 .board-list .js-add-board .label {
   font-weight: normal;
-  line-height: 56px;
-  min-height: 100px;
+  /* Match the board tiles (#6465 thinner tiles) so the grey "+ Add Board" /
+     "+ Add Template Container" box is the same height as a board icon:
+     same min-height, padding and line-height as .board-list-item above. */
+  line-height: 22px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #999; /* Darker background for better text contrast */
   border-radius: 3px;
-  padding: 36px 8px 32px 8px;
+  padding: 24px 8px 18px 8px;
   color: #fff; /* White text */
 }
 .board-list .js-add-board .label i {
