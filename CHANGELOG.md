@@ -127,6 +127,27 @@ connection pool no longer caps `MaxOpenConns` at 16, which had starved WeKan's c
 boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](https://github.com/wekan/wekan/issues/6467),
 [#6469](https://github.com/wekan/wekan/issues/6469)).
 
+- **Snap: FerretDB never becoming ready made WeKan hang with no web port and no explanation**
+  ([#6476](https://github.com/wekan/wekan/issues/6476)). With `database=ferretdb`, `snap-src/bin/wekan-control`
+  waits for FerretDB to accept connections *before* starting WeKan — WeKan does not open its HTTP port until
+  the database answers. That wait loop had **no timeout and no diagnostics**: if FerretDB never started
+  listening (a crashed or CPU/architecture-incompatible per-arch binary, a locked or corrupt SQLite database,
+  or the FerretDB service left disabled by a failed migration hand-off), WeKan blocked there forever. The
+  service showed as `active`, but the port never opened and the only symptom was a silent
+  `FerretDB not ready yet, retrying in 5 seconds` repeating — exactly what #6476 reported (Apache proxy could
+  not connect to port 3333). The reporter's `wekan.log` stopped right after the startup env dump, confirming
+  control never reached `node main.js`.
+  - **Fixed** by mirroring the MongoDB branch: after `WEKAN_DB_WAIT_TIMEOUT` seconds (default 120,
+    overridable) the FerretDB wait loop now prints an actionable hint **once** and keeps retrying — pointing to
+    `snap logs <snap>.ferretdb` for the real error, naming the SQLite directory to check for locks/corruption,
+    the arch-mismatch (`exec format error`) case, the `snap start --enable <snap>.ferretdb` recovery, and the
+    `snap set <snap> database=mongodb` fallback to keep working meanwhile. This turns "port never opens, no
+    clue why" into a clear message. Regression test: `tests/ferretdbWaitTimeout.test.cjs`, including a negative
+    guard that the FerretDB wait is not a silent unbounded loop again.
+  - This is a robustness/diagnostics fix; the underlying reason FerretDB was not accepting connections is
+    environment-specific and lives in the FerretDB service log.
+  - Thanks to **uusijani** (report) and **xet7** (fix).
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release

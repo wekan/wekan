@@ -132,9 +132,50 @@ if [ "ferretdb" = "${DATABASE}" ]; then
     # wait here forever.
     snapctl start --enable "${WEKAN_SNAP_SVC}.ferretdb" 2>/dev/null || true
     echo "Waiting for FerretDB to accept connections on ${MONGO_HOST}:${MONGO_PORT}..."
+    # #6476: after WEKAN_DB_WAIT_TIMEOUT seconds (default 120) print diagnostics
+    # once, then keep retrying. Without this the loop was silent and infinite:
+    # WeKan does NOT open its web port until FerretDB answers, so if FerretDB
+    # never starts listening (a crashed/incompatible per-arch binary, a locked or
+    # corrupt SQLite file, a failed migration hand-off) WeKan blocks HERE forever
+    # and the only symptom is "port not open, no clue why". Mirrors the MongoDB
+    # branch below.
+    WEKAN_DB_WAIT_TIMEOUT=${WEKAN_DB_WAIT_TIMEOUT:-120}
+    db_waited=0
+    db_hint_shown=false
     until "$DB_EVAL" ping "$DB_URL" >/dev/null 2>&1; do
+        if [ "$db_hint_shown" != "true" ] && [ "$db_waited" -ge "$WEKAN_DB_WAIT_TIMEOUT" ]; then
+            echo ""
+            echo "========================================================================"
+            echo "WeKan: FerretDB still not accepting connections on ${MONGO_HOST}:${MONGO_PORT}."
+            echo ""
+            echo "WeKan will NOT open its web port until FerretDB answers, so it is"
+            echo "waiting here. The FerretDB service can show as 'active' yet have"
+            echo "crashed or never started listening."
+            echo ""
+            echo "Check the FerretDB log for the real reason:"
+            echo "  snap logs ${WEKAN_SNAP_SVC}.ferretdb"
+            echo ""
+            echo "Common causes after a snap update:"
+            echo "  - the bundled FerretDB binary cannot run on this CPU/architecture"
+            echo "    ('exec format error' in the log) - report your 'snap version' and"
+            echo "    CPU architecture to WeKan."
+            echo "  - a locked or corrupt SQLite database under:"
+            echo "      $FERRETDB_SQLITE_DIR"
+            echo "  - FerretDB left disabled/stopped (a failed migration hand-off):"
+            echo "      snap start --enable ${WEKAN_SNAP_SVC}.ferretdb"
+            echo ""
+            echo "To keep working on MongoDB instead while this is sorted out:"
+            echo "  snap set ${SNAP_NAME:-wekan} database=mongodb"
+            echo ""
+            echo "Attachments and avatars are stored ON DISK under WRITABLE_PATH, NOT"
+            echo "in the database ($SNAP_COMMON/files), so they are safe."
+            echo "========================================================================"
+            echo ""
+            db_hint_shown=true
+        fi
         echo "FerretDB not ready yet, retrying in 5 seconds..."
         sleep 5
+        db_waited=$((db_waited + 5))
     done
     echo "FerretDB is ready."
     # #6473: SELF-HEALING attachments. Older MongoDB -> FerretDB migrations silently
