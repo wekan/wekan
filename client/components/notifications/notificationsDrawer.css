@@ -29,7 +29,7 @@ section#notifications-drawer .header .notification-menu-toggle {
   top: calc(50% - 12px);
   font-size: 20px;
   cursor: pointer;
-  color: #333;
+  color: #000; /* black hamburger menu */
   line-height: 24px;
 }
 section#notifications-drawer .header .notification-menu-toggle:hover {
@@ -89,12 +89,13 @@ section#notifications-drawer .header h5 {
 }
 section#notifications-drawer .header .close {
   position: absolute;
-  top: calc(50% - 12px);
-  inset-inline-end: 12px;
+  top: 8px;              /* aligned with the header top / "Notifications" text */
+  inset-inline-end: 4px; /* very near the right edge */
   font-size: 24px;
   height: 24px;
   line-height: 24px;
   opacity: 1;
+  color: #000;           /* black X */
 }
 
 section#notifications-drawer ul.notifications {
