@@ -148,6 +148,16 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
     environment-specific and lives in the FerretDB service log.
   - Thanks to **uusijani** (report) and **xet7** (fix).
 
+- **Snap release: build the exotic `ppc64el` and `s390x` snaps on GitHub Actions under QEMU instead of
+  Launchpad.** The Launchpad `snapcraft remote-build` legs for these arches were ending in Launchpad state
+  `Stopped` with no snap produced, yet `snapcraft remote-build` still exited 0; the job's name-only success
+  check then let an empty/stale file through and the upload died with `'wekan_<v>_<arch>.snap' is not a valid
+  file` (exit 64). They now build with `docker/setup-qemu-action` + `diddlesnaps/snapcraft-multiarch-action`
+  on a normal runner — fast, because the snap is bundle-centric (the `wekan` part only downloads the prebuilt
+  `wekan-<version>-<arch>.zip` and repackages it, no native compilation). `riscv64` stays on Launchpad (the
+  QEMU snap action does not support it) but now has a `timeout-minutes: 180` so a stuck build fails with a
+  clear message instead of GitHub's silent 6-hour cancel. Thanks to **xet7**.
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release
