@@ -52,4 +52,13 @@ test('the add-board grey tile matches the board tile box model (same height)', (
   assert.ok(!/padding:\s*36px/.test(add), 'no leftover 36px padding');
 });
 
+test('the empty .board-list-header dead-space band is gone', () => {
+  // It rendered nothing (leftover zoom-controls container) but reserved vertical
+  // grey space above the layout on the All Boards page.
+  const jade = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
+  assert.ok(!/board-list-header/.test(jade), 'empty header removed from the template');
+  assert.ok(!/\.board-list-header\s*{/.test(css), 'its dead CSS rule removed too');
+});
+
 console.log(`\nAll ${passed} add-board tile-height tests passed`);

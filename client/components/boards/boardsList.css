@@ -1,13 +1,5 @@
 @import url("../../../public/css/reset.css") print, screen;
 
-/* Board List Header with Zoom Controls */
-.board-list-header {
-  display: flex;
-  justify-content: center;
-  margin: 1vh 0 2vh 0;
-  padding: 1vh 0;
-}
-
 /* Two-column layout for All Boards */
 .boards-layout {
   display: grid;
