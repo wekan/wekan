@@ -178,6 +178,12 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
   they trace to FerretDB scanning `$regex`/`$in`/range queries that are not pushed down to SQLite, and need
   live reproduction — tracked separately.) Thanks to the reporter and **xet7**.
 
+  **Update:** the *slowness* of the label and title filters is addressed in the bundled FerretDB (see the
+  fork's own CHANGELOG): the SQLite backend now pushes `{labelIds: {$in: […]}}` (label filter) and a literal
+  `{title: {$regex: …}}` (title filter) down to SQLite instead of decoding + matching every card's sjson in Go,
+  so those filters no longer full-scan the whole board. Range/date filters are still evaluated in Go (their
+  JSON-text ordering can't be pushed down safely).
+
 - **A list no longer disappears from other swimlanes when you nudge it in swimlanes view**
   ([#6484](https://github.com/wekan/wekan/issues/6484)). A board-wide list has `swimlaneId === null` and renders
   under *every* swimlane. The list-drop handler in `client/components/swimlanes/swimlanes.js` computed
