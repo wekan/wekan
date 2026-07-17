@@ -125,7 +125,7 @@ template(name="boardList")
         ul.board-list.clearfix.js-boards.dragscroll(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
           li.js-add-board
             if isSelectedMenu 'templates'
-              a.board-list-item.label(title="{{_ 'add-template-container'}}")
+              a.board-list-item.label.is-template-container(title="{{_ 'add-template-container'}}")
                 span.emoji-icon
                   i.fa.fa-plus
                 | &nbsp;{{_ 'add-template-container'}}

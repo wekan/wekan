@@ -581,6 +581,11 @@
   padding: 18px 8px 24px 8px;
   color: #fff; /* White text */
 }
+/* "+ Add Template Container" text sits 2px lower than "+ Add Board" (same 42px
+   total vertical padding, so the tile height is unchanged). */
+.board-list .js-add-board .label.is-template-container {
+  padding: 20px 8px 22px 8px;
+}
 .board-list .js-add-board .label i {
   color: #fff; /* White icon */
 }
