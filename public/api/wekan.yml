@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.96
+  version: v9.97
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2958,6 +2958,11 @@ paths:
       description: |
         The trigger and action are embedded inline. See the Rules
          documentation for the available trigger activityTypes and action actionTypes.
+         Trigger matching fields that are omitted (e.g. userId, listName,
+         swimlaneName, cardTitle) default to the '*' wildcard, so e.g. issue #2674's
+         "remove a member when a card is moved away from a list" only needs
+         trigger {activityType: 'moveCard', oldListName: '...'} and
+         action {actionType: 'removeMember', username: '...'}.
       tags:
         - Rules
         - Rules
@@ -3050,7 +3055,9 @@ paths:
       summary: Edit an automation rule
       description: |
         Any of title, trigger and action may be supplied; the trigger
-         and action documents are replaced ($set) when present.
+         and action documents are replaced ($set) when present. A supplied trigger
+         that includes an activityType gets its missing matching fields defaulted
+         to the '*' wildcard, like on creation.
       tags:
         - Rules
         - Rules
