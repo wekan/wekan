@@ -252,6 +252,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  /* Wrap to a 2nd row on narrow windows so the search box and the Sort /
+     Multi-Selection / Clear buttons stay visible instead of overflowing. */
+  flex-wrap: wrap;
   padding: 12px 16px;
   margin-bottom: 16px;
   background: #f5f5f5;
@@ -265,6 +268,8 @@
   align-items: center;
   gap: 8px;
   flex: 1;
+  min-width: 0; /* allow shrinking so path-right can wrap below instead of overflowing */
+  flex-wrap: wrap; /* the multi-selection hint wraps under the title when tight */
 }
 
 .boards-path-header .multiselection-hint {
@@ -287,6 +292,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  /* Buttons (Sort / Multi-Selection / Clear) wrap among themselves too, so none
+     is ever cut off on a narrow window. */
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 /* #5799: board-name search box in the All Boards header */

@@ -52,6 +52,15 @@ test('the add-board grey tile matches the board tile box model (same height)', (
   assert.ok(!/padding:\s*36px/.test(add), 'no leftover 36px padding');
 });
 
+test('the My Boards bar wraps so Sort/Multi-Selection/Clear stay visible when narrow', () => {
+  // Without flex-wrap the search box + Sort / Multi-Selection / Clear buttons
+  // overflow (hide) on a narrow window instead of dropping to a second row.
+  const header = block('.boards-path-header');
+  assert.strictEqual(prop(header, 'flex-wrap'), 'wrap', 'the bar wraps');
+  const right = block('.boards-path-header .path-right');
+  assert.strictEqual(prop(right, 'flex-wrap'), 'wrap', 'the button group wraps too');
+});
+
 test('the empty .board-list-header dead-space band is gone', () => {
   // It rendered nothing (leftover zoom-controls container) but reserved vertical
   // grey space above the layout on the All Boards page.
