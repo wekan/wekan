@@ -195,6 +195,14 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Inviting a second user whose email shares a local part failed with a bare "403"**
+  ([#619](https://github.com/wekan/wekan/issues/619), `server/models/users.js`, new
+  `models/lib/inviteeUsername.js`): inviting `cats@foo.com` creates user "cats"; inviting
+  `cats@facebook.com` then crashed into Meteor's raw `403 Username already exists`. The
+  invitee's username now probes `cats`, `cats1`, `cats2`, … to the first free variant, and
+  exhaustion raises the translated `error-username-taken` instead of a number. Tests:
+  `tests/inviteeUsername.test.cjs` (11, incl. the literal reported scenario). Thanks to
+  lemoer and xet7.
 - **Date pickers ignored the configured default time and stored 12:00**
   ([#1502](https://github.com/wekan/wekan/issues/1502), `client/lib/datepicker.js`, new
   `imports/lib/datePickerTime.js`): the due-date picker configures a 17:00 default (and

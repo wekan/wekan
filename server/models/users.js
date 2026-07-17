@@ -905,7 +905,16 @@ Meteor.methods({
         throw new Meteor.Error('error-user-notCreated');
       }
       const email = username.toLowerCase();
-      username = email.substring(0, posAt);
+      // #619: the invitee's username is derived from the email local part; a
+      // collision with an existing user (e.g. cats@foo.com then
+      // cats@facebook.com) made Accounts.createUser throw a raw
+      // "403 Username already exists". Probe cats, cats1, cats2, ... instead.
+      const { deriveUniqueInviteeUsername } = require('/models/lib/inviteeUsername');
+      username = await deriveUniqueInviteeUsername(
+        email,
+        async candidate => !!(await ReactiveCache.getUser({ username: candidate })),
+      );
+      if (username === null) throw new Meteor.Error('error-username-taken');
       if (username.includes('/') || email.includes('/')) {
         return false;
       }
