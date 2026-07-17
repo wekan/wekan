@@ -41,6 +41,15 @@ UserPositionHistory.trackChange = async function(options) {
     throw new Meteor.Error('invalid-params', 'Missing required parameters');
   }
 
+  // #6478: a NEW real change invalidates the redo stack for this user+board, so
+  // an undone-then-superseded change can never be redone into stale state.
+  await UserPositionHistory.removeAsync({
+    userId,
+    boardId,
+    isCheckpoint: { $ne: true },
+    undone: true,
+  });
+
   const historyEntry = {
     userId,
     boardId,
@@ -147,6 +156,58 @@ Meteor.methods({
     }
 
     return await history.undo();
+  },
+
+  // #6478: undo the caller's most recent position change on this board (the
+  // Ctrl+Z / Undo path). Marks it undone so it can be redone until superseded.
+  async 'userPositionHistory.undoLast'(boardId) {
+    check(boardId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    await requireBoardVisible(this.userId, boardId);
+
+    const [entry] = await UserPositionHistory.find(
+      { userId: this.userId, boardId, isCheckpoint: { $ne: true }, undone: { $ne: true } },
+      { sort: { createdAt: -1 }, limit: 1 },
+    ).fetchAsync();
+    if (!entry) {
+      return { undone: false };
+    }
+
+    const doc = await UserPositionHistory.findOneAsync(entry._id);
+    await doc.undo();
+    await UserPositionHistory.updateAsync(entry._id, {
+      $set: { undone: true, undoneAt: new Date() },
+    });
+
+    return { undone: true, entityType: entry.entityType, entityId: entry.entityId };
+  },
+
+  // #6478: redo the caller's most-recently-undone change on this board (Ctrl+Y).
+  async 'userPositionHistory.redoLast'(boardId) {
+    check(boardId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    await requireBoardVisible(this.userId, boardId);
+
+    const [entry] = await UserPositionHistory.find(
+      { userId: this.userId, boardId, isCheckpoint: { $ne: true }, undone: true },
+      { sort: { undoneAt: -1 }, limit: 1 },
+    ).fetchAsync();
+    if (!entry) {
+      return { redone: false };
+    }
+
+    const doc = await UserPositionHistory.findOneAsync(entry._id);
+    await doc.redo();
+    await UserPositionHistory.updateAsync(entry._id, {
+      $set: { undone: false },
+      $unset: { undoneAt: '' },
+    });
+
+    return { redone: true, entityType: entry.entityType, entityId: entry.entityId };
   },
 
   async 'userPositionHistory.getRecent'(boardId, limit = 50) {

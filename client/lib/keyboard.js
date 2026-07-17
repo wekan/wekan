@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 import { Template } from 'meteor/templating';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -306,6 +307,27 @@ hotkeys('-', archiveCard);
 // Same as above, this time for Persian keyboard.
 // https://github.com/wekan/wekan/pull/5589#issuecomment-2516776519
 hotkeys('\xf7', archiveCard);
+
+// #6478: Undo / Redo the caller's last position change (card / list / swimlane
+// move) with Ctrl+Z / Ctrl+Y (also Cmd+Z / Cmd+Shift+Z on macOS). The hotkeys
+// filter above disables shortcuts inside inputs/textareas/contentEditable, so
+// native text undo/redo keeps working while typing. Only enabled for members who
+// can modify the board.
+function undoRedoLast(method) {
+  const boardId = Session.get('currentBoard');
+  if (!boardId || !Utils.canModifyBoard()) {
+    return;
+  }
+  Meteor.call(method, boardId, () => {});
+}
+hotkeys('ctrl+z, command+z', event => {
+  event.preventDefault();
+  undoRedoLast('userPositionHistory.undoLast');
+});
+hotkeys('ctrl+y, ctrl+shift+z, command+shift+z', event => {
+  event.preventDefault();
+  undoRedoLast('userPositionHistory.redoLast');
+});
 
 hotkeys('n', (event) => {
   event.preventDefault();

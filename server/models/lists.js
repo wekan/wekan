@@ -8,6 +8,7 @@ import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists, { normalizeListColor } from '/models/lists';
+import UserPositionHistory from '/models/userPositionHistory';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { computeSortForIndex } from '/server/lib/utils';
 import { buildListPutUpdate } from '/models/lib/listApiUpdate';
@@ -415,6 +416,15 @@ Meteor.methods({
       }
     }
 
+    // #6478: capture the pre-move position so the change is UNDOABLE. A list
+    // dragged to another swimlane (especially an accidental one on mobile) can be
+    // reverted from the position history, like card moves already are.
+    const previousState = {
+      sort: list.sort,
+      swimlaneId: list.swimlaneId,
+      boardId: list.boardId,
+    };
+
     await Lists.updateAsync(
       listId,
       {
@@ -424,6 +434,28 @@ Meteor.methods({
         },
       },
     );
+
+    // #6478: record the list move in the undo/redo position history (best-effort;
+    // never fail the reorder if history recording throws).
+    if (typeof UserPositionHistory !== 'undefined') {
+      try {
+        await UserPositionHistory.trackChange({
+          userId: this.userId,
+          boardId,
+          entityType: 'list',
+          entityId: listId,
+          actionType: 'move',
+          previousState,
+          newState: {
+            boardId,
+            swimlaneId: updateData.swimlaneId !== undefined ? updateData.swimlaneId : list.swimlaneId,
+            sort: updateData.sort !== undefined ? updateData.sort : list.sort,
+          },
+        });
+      } catch (e) {
+        console.warn('Failed to track list move in history:', e);
+      }
+    }
 
     return {
       success: true,

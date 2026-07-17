@@ -93,6 +93,25 @@ This release adds the following updates:
 - [Updated Sandstorm Backup docs](https://github.com/wekan/wekan/commit/50dd05ceee9aa954bb09c239ed057334de63015a).
   Thanks to robertdahlem and xet7.
 
+and adds the following features:
+
+- **Undo/redo for card, list and swimlane moves + confirmation before a high-impact list move on touch**
+  ([#6478](https://github.com/wekan/wekan/issues/6478)). A user accidentally dragged a list into another
+  swimlane on mobile — merging it with an existing list — and spent ~15 minutes recovering, because there was
+  no confirmation and no undo. Now:
+  - **Undo/Redo** with `Ctrl+Z` / `Ctrl+Y` (also `⌘Z` / `⌘⇧Z`) reverts/re-applies the last position change on
+    the board. The existing `userPositionHistory` collection already modelled this but was **not actually
+    recording** (its `trackChange` guard checked an un-imported global) and had no redo or key bindings. List
+    moves are now recorded (`server/models/lists.js` `updateListSort`), a symmetric `redo()` and an
+    `undone`/`undoneAt` redo-stack were added, `userPositionHistory.undoLast` / `redoLast` methods pick the
+    right change (a new action clears the redo stack), and the keyboard shortcuts are wired (disabled inside
+    inputs/textareas so native text undo still works). Selection logic is pure and unit-tested
+    (`models/lib/undoRedoSelection.js`, `tests/undoRedoSelection.test.cjs`).
+  - **Confirmation** before moving a list to a *different* swimlane on touch / small screens (the exact
+    accidental, card-re-homing action): a decline reverts the drag. Everyday same-swimlane reordering is
+    unaffected.
+  Thanks to **mueschel** (report) and **xet7**.
+
 and fixes the following bugs:
 
 - **Confirmation dialogs work again — removing a member from a board (and every other confirm dialog) no

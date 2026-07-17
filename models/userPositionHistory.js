@@ -136,6 +136,18 @@ UserPositionHistory.attachSchema(
       type: String,
       optional: true,
     },
+    // #6478 undo/redo stack: a change that has been undone can be redone until a
+    // NEW change is recorded (which clears the redo stack). undoneAt orders the
+    // redo stack (most-recently-undone is redone first).
+    undone: {
+      type: Boolean,
+      defaultValue: false,
+      optional: true,
+    },
+    undoneAt: {
+      type: Date,
+      optional: true,
+    },
   }),
 );
 
@@ -267,6 +279,74 @@ UserPositionHistory.helpers({
                 sort,
                 checklistId,
               },
+            });
+          }
+        }
+        break;
+      }
+    }
+  },
+
+  /**
+   * #6478: Redo this change — re-apply the NEW position after an undo. Mirrors
+   * undo() but restores the new* fields instead of the previous* ones.
+   */
+  async redo() {
+    if (!(await this.canUndo())) {
+      throw new Meteor.Error('cannot-redo', 'Entity no longer exists');
+    }
+
+    switch (this.entityType) {
+      case 'card': {
+        const card = await ReactiveCache.getCard(this.entityId);
+        if (card) {
+          await Cards.updateAsync(card._id, {
+            $set: {
+              boardId: this.newBoardId || card.boardId,
+              swimlaneId: this.newSwimlaneId || card.swimlaneId,
+              listId: this.newListId || card.listId,
+              sort: this.newSort !== undefined ? this.newSort : card.sort,
+            },
+          });
+        }
+        break;
+      }
+      case 'list': {
+        const list = await ReactiveCache.getList(this.entityId);
+        if (list) {
+          await Lists.updateAsync(list._id, {
+            $set: {
+              sort: this.newSort !== undefined ? this.newSort : list.sort,
+              swimlaneId: this.newSwimlaneId || list.swimlaneId,
+            },
+          });
+        }
+        break;
+      }
+      case 'swimlane': {
+        const swimlane = await ReactiveCache.getSwimlane(this.entityId);
+        if (swimlane) {
+          await Swimlanes.updateAsync(swimlane._id, {
+            $set: { sort: this.newSort !== undefined ? this.newSort : swimlane.sort },
+          });
+        }
+        break;
+      }
+      case 'checklist': {
+        const checklist = await ReactiveCache.getChecklist(this.entityId);
+        if (checklist) {
+          await Checklists.updateAsync(checklist._id, {
+            $set: { sort: this.newSort !== undefined ? this.newSort : checklist.sort },
+          });
+        }
+        break;
+      }
+      case 'checklistItem': {
+        if (typeof ChecklistItems !== 'undefined') {
+          const item = await ChecklistItems.findOneAsync(this.entityId);
+          if (item) {
+            await ChecklistItems.updateAsync(item._id, {
+              $set: { sort: this.newSort !== undefined ? this.newSort : item.sort },
             });
           }
         }

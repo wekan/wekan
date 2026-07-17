@@ -6,6 +6,7 @@ import { CSSEvents } from '/client/lib/cssEvents';
 import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import { TAPi18n } from '/imports/i18n';
 import { defaultSwimlaneIdForBoard } from '/client/components/lists/listAddHelpers';
 const { calculateIndex } = Utils;
 
@@ -91,6 +92,25 @@ function saveSorting(ui) {
 
   // If the list was dropped in a different swimlane, update the swimlaneId
   if (isDifferentSwimlane) {
+    // #6478: moving a list to a DIFFERENT swimlane is high-impact — it re-homes
+    // every card in the list — and is easy to trigger accidentally on touch (the
+    // reporter merged lists this way and needed ~15 min to recover). Confirm on
+    // touch/small screens before applying; on decline, revert the drag by
+    // re-rendering from the server and abort. (Ctrl+Z can also undo it after the
+    // fact — see userPositionHistory.undoLast.)
+    if (
+      (Utils.isMiniScreen() || Utils.isTouchScreenOrShowDesktopDragHandles()) &&
+      typeof window !== 'undefined' &&
+      typeof window.confirm === 'function' &&
+      // eslint-disable-next-line no-alert
+      !window.confirm(TAPi18n.__('confirm-move-list-to-swimlane'))
+    ) {
+      Meteor.subscribe('board', list.boardId, false);
+      $('.js-swimlane').each(function () {
+        $(this).addClass('dragscroll');
+      });
+      return;
+    }
     updateData.swimlaneId = targetSwimlaneId;
 
     // Move all cards in the list to the new swimlane
