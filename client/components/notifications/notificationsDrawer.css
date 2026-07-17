@@ -2,7 +2,8 @@ section#notifications-drawer {
   position: fixed;
   top: 48px;
   inset-inline-end: 0;
-  width: 400px;
+  width: 100vw;
+  max-width: 100vw;
   background-color: #fafafa;
   box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   border-radius: 2px;
@@ -17,19 +18,20 @@ section#notifications-drawer .header {
   position: fixed;
   top: 48px;
   inset-inline-end: 0;
-  width: calc(400px - 32px);
+  width: 100vw;
+  box-sizing: border-box;
   padding: 8px 16px;
   background: #ededed;
   border-bottom: 1px solid #dbdbdb;
   z-index: 2;
+  /* Flex row: hamburger (left), title (centre), X (right), all vertically centred. */
+  display: flex;
+  align-items: center;
 }
 section#notifications-drawer .header .notification-menu-toggle {
-  position: absolute;
-  inset-inline-start: 16px;
-  top: calc(50% - 12px);
   font-size: 20px;
   cursor: pointer;
-  color: #000; /* black hamburger menu */
+  color: #000 !important; /* black hamburger menu (override themed white link colour) */
   line-height: 24px;
 }
 section#notifications-drawer .header .notification-menu-toggle:hover {
@@ -84,18 +86,22 @@ section#notifications-drawer .header .notification-menu .menu-item .menu-icon {
   font-size: 16px;
 }
 section#notifications-drawer .header h5 {
+  flex: 1;            /* fill the middle so the title is centred, X sits at the right */
   text-align: center;
   margin: 0;
 }
 section#notifications-drawer .header .close {
-  position: absolute;
-  top: 8px;              /* aligned with the header top / "Notifications" text */
-  inset-inline-end: 4px; /* very near the right edge */
+  /* Flex item at the right edge, aligned with the title. */
+  margin-inline-start: 8px;
   font-size: 24px;
   height: 24px;
   line-height: 24px;
   opacity: 1;
-  color: #000;           /* black X */
+  color: #000 !important; /* black X (override themed white link colour) */
+}
+section#notifications-drawer .header .close i.fa,
+section#notifications-drawer .header .notification-menu-toggle i.fa {
+  color: inherit !important;
 }
 
 section#notifications-drawer ul.notifications {
