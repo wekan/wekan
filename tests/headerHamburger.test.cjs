@@ -49,8 +49,13 @@ test('the hamburger right gap matches the user-name gap (~8px), left is tight', 
   // raw stylesheet rather than a single-rule block.
   assert.ok(/header-user-bar-name[\s\S]{0,160}margin:\s*4px 8px 0 0/.test(css),
     'user name has an 8px right margin');
-  const cog = block('#header #header-main-bar .board-header-btn.js-open-board-menu');
-  assert.ok(/margin-inline-end:\s*2px/.test(cog), 'cog right margin tightened');
+});
+
+test('the board-settings cog is removed from the header (it is in the sidebar)', () => {
+  const jade = read('client/components/boards/boardHeader.jade');
+  assert.ok(!/js-open-board-menu/.test(jade), 'no cog in the board header');
+  const js = read('client/components/boards/boardHeader.js');
+  assert.ok(!/js-open-board-menu/.test(js), 'no dead cog handler in the board header');
 });
 
 test('the hamburger lives in the right group in the board header', () => {
