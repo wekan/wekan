@@ -37,11 +37,18 @@ test('the right group (with the hamburger) is pinned to the right edge', () => {
   assert.ok(!/float:\s*inline-end/.test(right), 'no float-based right positioning');
 });
 
-test('the hamburger has no wide side margins (no button-sized empty space)', () => {
+test('the hamburger right gap matches the user-name gap (~8px), left is tight', () => {
   const ham = block('#header #header-main-bar .board-header-btn.js-toggle-sidebar');
   assert.ok(/margin-inline-start:\s*2px/.test(ham), 'tight left margin');
-  assert.ok(/margin-inline-end:\s*2px/.test(ham), 'tight right margin');
-  // the preceding cog also tightens its right margin so they sit snugly
+  // 8px right edge gap = same as the top-bar user name.
+  assert.ok(/margin-inline-end:\s*8px/.test(ham), 'right gap matches the user name (8px)');
+  // The bar contributes no right padding, so the hamburger margin owns the gap.
+  const bar = block('#header #header-main-bar');
+  assert.ok(/padding:\s*7px 0 0 10px/.test(bar), 'no right padding on the bar');
+  // the user-name gap we are matching (sanity) — grouped selector, so match on the
+  // raw stylesheet rather than a single-rule block.
+  assert.ok(/header-user-bar-name[\s\S]{0,160}margin:\s*4px 8px 0 0/.test(css),
+    'user name has an 8px right margin');
   const cog = block('#header #header-main-bar .board-header-btn.js-open-board-menu');
   assert.ok(/margin-inline-end:\s*2px/.test(cog), 'cog right margin tightened');
 });

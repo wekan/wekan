@@ -12,7 +12,9 @@
   align-items: center;
   flex-wrap: wrap;
   min-height: 40px;
-  padding: 7px 10px 0;
+  /* No right padding: the right gap is owned by the hamburger's margin so it can
+     match the ~8px gap to the right of the top-bar user name. (top right bottom left) */
+  padding: 7px 0 0 10px;
 }
 #header #header-main-bar h1 {
   font-size: 20px;
@@ -73,7 +75,9 @@
    drops its right margin so the two sit snugly together at the edge. */
 #header #header-main-bar .board-header-btn.js-toggle-sidebar {
   margin-inline-start: 2px;
-  margin-inline-end: 2px;
+  /* 8px to the right edge — the same small gap as to the right of the user name in
+     the top bar (.header-user-bar-name margin-inline-end). */
+  margin-inline-end: 8px;
 }
 #header #header-main-bar .board-header-btn.js-open-board-menu {
   margin-inline-end: 2px;
