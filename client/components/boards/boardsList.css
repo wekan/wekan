@@ -576,9 +576,9 @@
   background-color: #999; /* Darker background for better text contrast */
   border-radius: 3px;
   /* Same total vertical padding as .board-list-item (42px -> same tile height),
-     but shifted 4px up (top 24->20, bottom 18->22) so the "+ Add Board" text sits
-     a little higher. */
-  padding: 20px 8px 22px 8px;
+     but shifted up (top 24->18, bottom 18->24) so the "+ Add Board" text sits
+     higher. */
+  padding: 18px 8px 24px 8px;
   color: #fff; /* White text */
 }
 .board-list .js-add-board .label i {
