@@ -144,3 +144,166 @@ non-checkpoint rows). Toggle via `Meteor.settings.public.enableHistoryCleanup`.
    try/catch.
 2. Ensure `undo()`/`redo()` and `canUndo()` handle the `entityType` (add a `case` if new).
 3. Nothing else — `undoLast`/`redoLast`, the redo-stack clearing, and the key bindings are generic.
+
+---
+
+# Soft delete (delete = mark, never destroy)
+
+Status: **Design (approved principle)** · Owner: xet7 · Related: #1023 ("undo button for deleted
+lists etc"), History.md, the `archived` flag, `userPositionHistory` (`actionType: 'delete'|'restore'`)
+
+> **Principle:** *Every* user-facing delete is a **soft delete** — it **marks** the document deleted
+> instead of removing it. There is **no permanent delete in ordinary use**. Physical removal exists
+> only behind **one narrow, guarded purge path** (below). This is the foundation that makes
+> **undoing a deletion** possible (#1023): if nothing is destroyed, anything can be restored.
+
+## 13. Why this exists / relation to undo & history
+
+Undo v1 (§1–§12) restores **positions**. It cannot bring back a **deleted** list/card/swimlane
+because the delete path physically `removeAsync`-es the rows — there is nothing left to restore. Soft
+delete closes that gap: a delete becomes a reversible state change, so:
+
+- **Undo of a delete** = clear the deleted mark (exactly like `undo()` clears a move), satisfying
+  **#1023**.
+- **History** (History.md) records the `delete` and `restore` events like any other change; the
+  `userPositionHistory` schema **already** allows `actionType: 'delete'|'restore'|'archive'`.
+- A **Recycle Bin** view can list soft-deleted items per board/user for explicit restore, independent
+  of the keyboard undo stack.
+
+## 14. `archived` vs `deleted` — two distinct states
+
+WeKan already has **archive** (`archived: true` + `archivedAt`) as a *user-visible, first-class*
+"put it aside" state with its own UI (the Archive). **Soft delete is a separate, deeper state** —
+"the user asked to delete this":
+
+| State        | Field(s)                    | Visible where                | Meaning                          |
+|--------------|-----------------------------|------------------------------|----------------------------------|
+| Active       | `deletedAt: null`           | Board                        | Normal                           |
+| Archived     | `archived: true`            | Archive view                 | Set aside, still "kept"          |
+| Soft-deleted | `deletedAt`, `deletedBy`    | Recycle Bin only             | Deleted, awaiting restore/purge  |
+
+Do **not** overload `archived` for delete — they have different UIs, different retention, and an item
+can be archived *and* then deleted. New fields on every soft-deletable collection:
+
+```
+deletedAt   (Date, default null)     // null = live; set = soft-deleted
+deletedBy   (String userId, optional)
+deleteBatchId (String, optional)     // groups a cascade (list + its cards) into one restorable unit
+```
+
+## 15. Scope — what gets soft delete, what is exempt
+
+**Soft-deletable (user content):** Boards, Swimlanes, Lists, Cards (incl. subtasks), Checklists,
+ChecklistItems, CardComments, Attachments, Rules/Triggers/Actions, Labels, CustomFields,
+Integrations, plus board-scoped settings the user can delete.
+
+**Exempt (transient / infrastructure — hard delete stays):** `SessionData`, the `CronJob*`
+collections, `TrelloImportJobs`, `InvitationCodes`, `UserPositionHistory`/`changeHistory` retention
+cron, and *cascade bookkeeping* like `Activities` cleanup. These are not user content; soft-deleting
+them would only bloat storage with no restore value. `log()`-style note: exemptions are **explicit**,
+not accidental — each exempt `removeAsync` should carry a short `// hard-delete OK: transient` comment
+so the audit is greppable.
+
+## 16. The one narrow purge path (the only permanent delete)
+
+Physical `removeAsync` of user content is allowed from **exactly two** places, both guarded and
+audited:
+
+1. **GDPR / account erasure** — deleting a user (`Users` erasure) may hard-delete or **anonymize**
+   that user's personal data. Legally required; cannot be soft-only, so it is **not** gated by the
+   toggle below.
+2. **Explicit Global-Admin "Permanently delete"** — an admin action on a soft-deleted item (or
+   "empty Recycle Bin") that consciously destroys it, **gated by an Admin Panel setting** (below).
+
+### 16a. Admin Panel / Features / Delete → "Enable permanent delete for Global Admin"
+
+Permanent delete of user content is **off by default**. A new toggle lives at **Admin Panel /
+Features / Delete**:
+
+```
+Admin Panel
+  └─ Features
+       └─ Delete
+            [ ] Enable permanent delete for Global Admin
+                (When off, nothing can be physically deleted from the Recycle Bin —
+                 all deletes stay soft/restorable. GDPR account erasure is unaffected.)
+```
+
+- Stored as a feature flag alongside the existing ones (`models/lib/featureFlags.js` /
+  `getFeatureFlags`, the same mechanism the activities publication reads), e.g.
+  `enablePermanentDelete` on `Settings`.
+- **Only a Global Admin** sees the "Permanently delete" / "Empty Recycle Bin" actions, and **only
+  when the flag is on**. Board admins never get it. Both the client (hide the action) and the server
+  (the `purge()` method re-checks `Meteor.user().isAdmin` **and** the flag) enforce it — client
+  hiding alone is not a guard.
+- The physical-delete helper (`purge()`) is the *only* code allowed to call `removeAsync` on user
+  content; it hard-fails unless `isAdmin && enablePermanentDelete`, and logs an audit `Activity`
+  (`activityType: 'permanentDelete'`).
+
+Everything else **must** soft-delete. To keep this enforceable:
+
+- Route user-content deletes through a single helper (§17), never a bare `removeAsync`.
+- **No time-based auto-purge.** Trash is emptied only by the flag-gated Global-Admin action or GDPR
+  erasure — the "one narrow purge path" decision, chosen over a retention-window auto-purge, so
+  nothing ever disappears on a timer.
+
+## 17. Mechanism — a `softRemove` helper + query default
+
+Replace user-content `removeAsync` call sites (see the ~40 sites in `models/` and `server/models/`)
+with a soft-delete helper that mirrors today's cascade but *marks* instead of destroys:
+
+```js
+// document method, e.g. on Lists / Cards / Swimlanes …
+async softRemove(userId, batchId) {
+  const at = /* server time */;
+  await this.collection.updateAsync(this._id, {
+    $set: { deletedAt: at, deletedBy: userId, deleteBatchId: batchId },
+  });
+  // cascade: soft-remove children with the SAME batchId (a list marks its cards, etc.)
+  // record history: UserPositionHistory.trackChange({ actionType: 'delete', … })
+}
+```
+
+Reads must hide soft-deleted docs **by default**. Two enforcement layers:
+
+- **Publications / server queries** add `deletedAt: null` to their selectors (a shared
+  `notDeleted(selector)` helper keeps this uniform and testable). The Recycle Bin publication is the
+  one place that *opts in* to `deletedAt: { $ne: null }`.
+- **Cascade & counts** (list card counts, board "N cards", exports) filter `deletedAt: null` too, so a
+  soft-deleted card doesn't inflate totals.
+
+Restore is the inverse: `$unset` the three fields for the whole `deleteBatchId` (so restoring a list
+brings back exactly the cards deleted with it, not ones deleted separately later).
+
+## 18. Undo/redo & History integration
+
+- **Undo of a delete:** `trackChange({ actionType: 'delete' })` on soft-remove; `undo()` gains a
+  `delete` case that clears the delete mark for the `deleteBatchId`; `redo()` re-applies it. This
+  extends the generic stack in §6 — `undoLast`/`redoLast` need no change.
+- **History:** delete/restore appear in History.md's unified feed with actor avatar + timestamp; the
+  Recycle Bin is essentially a History view filtered to `actionType: 'delete'` with a Restore button.
+
+## 19. Migration
+
+1. Add `deletedAt`/`deletedBy`/`deleteBatchId` to the soft-deletable schemas (nullable; no backfill
+   needed — absent ⇒ live).
+2. Introduce `notDeleted()` and `softRemove()` helpers; convert user-content `removeAsync` sites,
+   leaving exempt sites with an explicit `// hard-delete OK` comment.
+3. Add `deletedAt: null` to the affected publications/queries **in the same change** as each
+   conversion (a converted delete that publications don't filter would make "deleted" items still
+   show — the highest-risk step; do it collection-by-collection).
+4. Add the Recycle Bin view + the admin purge action + GDPR erasure purge.
+5. Wire `delete`/`restore` into undo and History.
+
+## 20. Risks / notes
+
+- **Storage growth** is accepted (the chosen trade for "never lose data"); the admin purge and GDPR
+  erasure are the only relief valves. Document this for operators.
+- **Query drift:** any *new* query that forgets `deletedAt: null` will leak deleted rows. The
+  `notDeleted()` helper + a source-guard test (grep that user-content publications include the filter)
+  mitigate this.
+- **Unique constraints / slugs:** a soft-deleted board/label still occupies its slug; decide whether
+  restore or a new item wins the name (recommend: soft-deleted items release user-facing uniqueness,
+  re-acquire on restore or get suffixed).
+- **Third-party storage (Attachments):** soft-deleting an attachment keeps the blob in S3/GridFS;
+  only the admin purge / GDPR erasure removes the physical bytes.
