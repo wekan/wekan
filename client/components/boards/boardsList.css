@@ -672,9 +672,10 @@
 .board-list .board-handle {
   position: absolute;
   padding: 4px 6px;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* Right middle of the tile (matches the mobile/small-screen handle position). */
+  top: 50%;
+  inset-inline-end: 6px;
+  transform: translateY(-50%);
   font-size: 14px;
   color: #fff;
   background: rgba(0,0,0,0.4);

@@ -82,4 +82,14 @@ test('All Boards path-right order: Multi-Selection, then Sort, then Search board
   assert.ok(sort < search, 'Search boards is to the right (after Multi-Selection and Sort)');
 });
 
+test('All Boards board tile drag handle is at the right middle', () => {
+  const c = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.css'), 'utf8');
+  const i = c.indexOf('.board-list .board-handle {');
+  const blk = c.slice(i, c.indexOf('}', i));
+  assert.ok(/top:\s*50%/.test(blk) && /transform:\s*translateY\(-50%\)/.test(blk) && /inset-inline-end/.test(blk),
+    'handle vertically centered on the right edge');
+  assert.ok(!/left:\s*50%/.test(blk) && !/translateX/.test(blk), 'no longer top-centered');
+});
+
 console.log(`\nAll ${passed} add-board tile-height tests passed`);
