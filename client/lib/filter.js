@@ -21,6 +21,11 @@ import {
   fromNow, 
   calendar
 } from '/imports/lib/dateUtils';
+import {
+  tokenizeAdvancedFilter,
+  parseAdvancedFilterDate,
+  buildDateValueSelector,
+} from '/imports/lib/advancedFilter';
 import { weekRange } from '/models/lib/weekStart';
 // Sidebar is imported late to avoid circular dependency (sidebar.js needs its
 // jade template loaded first, but router.js → filter.js would load it too early)
@@ -322,55 +327,9 @@ class AdvancedFilter {
   }
 
   _filterToCommands() {
-    const commands = [];
-    let current = '';
-    let string = false;
-    let regex = false;
-    let wasString = false;
-    let ignore = false;
-    for (let i = 0; i < this._filter.length; i++) {
-      const char = this._filter.charAt(i);
-      if (ignore) {
-        ignore = false;
-        current += char;
-        continue;
-      }
-      if (char === '/') {
-        string = !string;
-        if (string) regex = true;
-        current += char;
-        continue;
-      }
-      // eslint-disable-next-line quotes
-      if (char === "'") {
-        string = !string;
-        if (string) wasString = true;
-        continue;
-      }
-      if (char === '\\' && !string) {
-        ignore = true;
-        continue;
-      }
-      if (char === ' ' && !string) {
-        commands.push({
-          cmd: current,
-          string: wasString,
-          regex,
-        });
-        wasString = false;
-        current = '';
-        continue;
-      }
-      current += char;
-    }
-    if (current !== '') {
-      commands.push({
-        cmd: current,
-        string: wasString,
-        regex,
-      });
-    }
-    return commands;
+    // #2989: tokenizing lives in /imports/lib/advancedFilter.js so slashes
+    // inside quoted values (dates like '06/04/2020') stay literal strings.
+    return tokenizeAdvancedFilter(this._filter);
   }
 
   _fieldNameToId(field) {
@@ -395,6 +354,36 @@ class AdvancedFilter {
       }
     }
     return value;
+  }
+
+  // #2989: date custom fields store Date objects (the date picker calls
+  // card.setCustomField(id, date)), so comparing them against the typed
+  // string / parseInt() number can never match. When the field is date-typed
+  // and the value parses as a date, compare with a Date range instead.
+  // Returns the operator document for 'customFields.value', or null to fall
+  // back to the generic string/number selector.
+  _customFieldDateSelector(field, str, op) {
+    const found = ReactiveCache.getCustomField({
+      name: field,
+    });
+    if (!found || found.type !== 'date') return null;
+    // Disambiguate '06/04/2020' (both parts <= 12) with the user's date
+    // format preference: day-first formats (DD/MM/YYYY, DD.MM.YYYY) read it
+    // as 6 April, otherwise it is read month-first as 4 June.
+    let dayFirst = false;
+    try {
+      const user = ReactiveCache.getCurrentUser();
+      const dateFormat =
+        user && typeof user.getDateFormat === 'function'
+          ? user.getDateFormat()
+          : 'YYYY-MM-DD';
+      dayFirst = /^D/.test(dateFormat);
+    } catch (error) {
+      dayFirst = false;
+    }
+    const range = parseAdvancedFilterDate(str, { dayFirst });
+    if (!range) return null;
+    return buildDateValueSelector(op, range);
   }
 
   _arrayToSelector(commands) {
@@ -471,7 +460,11 @@ class AdvancedFilter {
             } else {
               commands[i] = {
                 'customFields._id': this._fieldNameToId(field),
-                'customFields.value': {
+                'customFields.value': this._customFieldDateSelector(
+                  field,
+                  str,
+                  commands[i].cmd,
+                ) || {
                   $in: [this._fieldValueToId(field, str), parseInt(str, 10)],
                 },
               };
@@ -500,7 +493,11 @@ class AdvancedFilter {
             } else {
               commands[i] = {
                 'customFields._id': this._fieldNameToId(field),
-                'customFields.value': {
+                'customFields.value': this._customFieldDateSelector(
+                  field,
+                  str,
+                  commands[i].cmd,
+                ) || {
                   $not: {
                     $in: [this._fieldValueToId(field, str), parseInt(str, 10)],
                   },
@@ -521,7 +518,11 @@ class AdvancedFilter {
             const str = commands[i + 1].cmd;
             commands[i] = {
               'customFields._id': this._fieldNameToId(field),
-              'customFields.value': {
+              'customFields.value': this._customFieldDateSelector(
+                field,
+                str,
+                commands[i].cmd,
+              ) || {
                 $gt: parseInt(str, 10),
               },
             };
@@ -540,7 +541,11 @@ class AdvancedFilter {
             const str = commands[i + 1].cmd;
             commands[i] = {
               'customFields._id': this._fieldNameToId(field),
-              'customFields.value': {
+              'customFields.value': this._customFieldDateSelector(
+                field,
+                str,
+                commands[i].cmd,
+              ) || {
                 $gte: parseInt(str, 10),
               },
             };
@@ -558,7 +563,11 @@ class AdvancedFilter {
             const str = commands[i + 1].cmd;
             commands[i] = {
               'customFields._id': this._fieldNameToId(field),
-              'customFields.value': {
+              'customFields.value': this._customFieldDateSelector(
+                field,
+                str,
+                commands[i].cmd,
+              ) || {
                 $lt: parseInt(str, 10),
               },
             };
@@ -577,7 +586,11 @@ class AdvancedFilter {
             const str = commands[i + 1].cmd;
             commands[i] = {
               'customFields._id': this._fieldNameToId(field),
-              'customFields.value': {
+              'customFields.value': this._customFieldDateSelector(
+                field,
+                str,
+                commands[i].cmd,
+              ) || {
                 $lte: parseInt(str, 10),
               },
             };

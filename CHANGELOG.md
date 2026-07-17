@@ -195,6 +195,15 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Advanced Filter never matched date custom fields** ([#2989](https://github.com/wekan/wekan/issues/2989),
+  `client/lib/filter.js`, new `imports/lib/advancedFilter.js`): the tokenizer treated every `/`
+  as a regex delimiter even inside quotes, so `'Date de fin' == '06/04/2020'` broke tokenizing
+  and the filter silently did nothing; and date custom fields store Date OBJECTS while the
+  selectors compared strings/parseInt — `==`/`<`/`>` could never match and `!=` matched
+  everything. Dates typed in the user's date format (day-first respected) now build half-open
+  Date-range selectors (`==` means "that day"), with the legacy behavior untouched for
+  non-date fields. Tests: `tests/advancedFilterDate.test.cjs` (14, incl. a proof the old
+  selector shape never matched a stored Date). Thanks to k1ng440 and xet7.
 - **Cards could not be reordered by drag in lists full of subtask cards — with silent
   data loss on multi-selection drops** ([#3826](https://github.com/wekan/wekan/issues/3826),
   `server/models/cards.js`, `client/components/lists/list.js`, new
