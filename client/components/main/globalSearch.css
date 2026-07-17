@@ -88,17 +88,9 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
-.board-color-belize.js-new-search {
-  background-color: #216694 !important;
-  color: #fff !important;
-  border: none !important;
-}
-.board-color-belize.js-new-search:hover {
-  background-color: #1a4d6a !important;
-}
-.board-color-belize.js-new-search:active {
-  background-color: #0d334d !important;
-}
+/* The new-search button uses the .primary button style, so it follows the theme
+   override colour (default blue #005377, or the board/global theme). The old
+   hardcoded belize (#216694) rules were removed. */
 .global-search-operator {
   font-family: Courier;
 }

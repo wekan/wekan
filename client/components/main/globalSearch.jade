@@ -71,7 +71,7 @@ template(name="globalSearch")
           aria-label="{{_ 'globalSearch-title'}}"
           autofocus dir="auto"
         )
-        button.js-new-search.board-color-belize(type="button" aria-label="{{_ 'globalSearch-title'}}" style="background: #216694 !important; background-color: #216694 !important; color: #fff !important; border: none !important;")
+        button.primary.js-new-search(type="submit" aria-label="{{_ 'globalSearch-title'}}")
           span(aria-hidden="true") 🧹
       if searching
         +spinner
