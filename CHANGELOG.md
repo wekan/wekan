@@ -166,6 +166,18 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
   so a minicard collapses to fit its content and more cards fit on screen without scrolling. Thanks to the
   reporter and **xet7**.
 
+- **"Filter by date → Overdue" no longer lists cards that have no due date**
+  ([#6483](https://github.com/wekan/wekan/issues/6483)). Cards without a date store the field as `null` (that
+  is exactly what the sidebar's *noDate* filter matches, `{dueAt: null}`). The comparison filters build
+  `{$lte: now}` (Overdue/past), `{$gte, $lte}` (today/this week/next week), and `$lte` **matches `null`** under
+  both FerretDB and minimongo — `null` sorts before any date and neither engine implements MongoDB's
+  type-bracketing — so Overdue selected every dateless card. `DateFilter._getMongoSelector` now adds `$ne: null`
+  to any comparison selector so only real dates match; the *noDate* filter (a bare `null`) is unchanged. Test:
+  `tests/filterDateNull.test.cjs`, with a negative control proving the old bare `{$lte: now}` matched `null`.
+  (The reported *slowness* of the date/title/label filters, and the title/label over-matching, are separate:
+  they trace to FerretDB scanning `$regex`/`$in`/range queries that are not pushed down to SQLite, and need
+  live reproduction — tracked separately.) Thanks to the reporter and **xet7**.
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release

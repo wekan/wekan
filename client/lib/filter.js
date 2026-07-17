@@ -185,6 +185,17 @@ class DateFilter {
 
   _getMongoSelector() {
     this._dep.depend();
+    // #6483: cards with NO due/end/received date store the field as null — that
+    // is exactly what the noDate filter matches ({dueAt: null}). A comparison
+    // filter such as Overdue/"past" is `{$lte: now}`, and `$lte` MATCHES null
+    // under FerretDB and minimongo (null sorts before dates; neither implements
+    // MongoDB's type-bracketing), so "Overdue" listed every card that has no due
+    // date at all. Require a real, non-null value for any comparison selector so
+    // only actual dates match. The noDate filter (this._filter === null) returns
+    // null unchanged and is unaffected.
+    if (this._filter && typeof this._filter === 'object') {
+      return { ...this._filter, $ne: null };
+    }
     return this._filter;
   }
 
