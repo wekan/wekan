@@ -33,17 +33,36 @@ test('picker shows visible swatches grouped by category, with a group-name heade
   assert.ok(/js-theme-wheel\(type="color"/.test(jade), 'native color wheel input');
 });
 
-test('picker logic: swatch click selects, category derived from color, saves per scope', () => {
+test('picker applies IMMEDIATELY on click (no Save button), per scope', () => {
   const js = read('client/components/main/themeColorPicker.js');
+  const jade = read('client/components/main/themeColorPicker.jade');
   assert.ok(/themeGroups\(\)/.test(js), 'builds category groups with labels');
+  // NEGATIVE guard: there is no Save button and no save handler.
+  assert.ok(!/js-theme-save/.test(jade) && !/js-theme-save/.test(js), 'no Save button/handler');
+  // clicking a swatch selects and applies immediately.
   assert.ok(/'click \.js-select-theme'/.test(js) && /tpl\.color\.set\(color\)/.test(js), 'swatch click sets color');
-  // custom-capability is derived from the SELECTED color's category (no dropdown state).
+  assert.ok(/'click \.js-select-theme'[\s\S]{0,200}applySelection\(tpl\)/.test(js), 'swatch click applies immediately');
+  // custom colors apply when the wheel is committed (change), not on every input.
+  assert.ok(/'change \.js-theme-wheel'[\s\S]{0,120}applySelection\(tpl\)/.test(js), 'wheel change applies');
+  // apply helper writes per scope: board.setColor vs the global method.
+  assert.ok(/b\.setColor\(color, custom\)/.test(js), 'board apply');
+  assert.ok(/Meteor\.call\('setGlobalThemeColor', color, custom/.test(js), 'global apply');
   assert.ok(/allowsCustomColor\(categoryOf\(cur\)\)/.test(js), 'custom gate uses the selected color');
-  // board scope writes board.setColor; global scope calls the method.
-  assert.ok(/b\.setColor\(color, custom\)/.test(js), 'board save');
-  assert.ok(/Meteor\.call\('setGlobalThemeColor', color, custom/.test(js), 'global save');
-  // NEGATIVE guard: only #rrggbb from the wheel is accepted.
   assert.ok(/isHexColor\(val\)/.test(js), 'wheel input validated as hex');
+});
+
+test('category titles are left-aligned and clear the floated swatches', () => {
+  const css = read('client/components/main/customTheme.css');
+  const i = css.indexOf('.theme-color-picker .theme-category-label');
+  assert.ok(i !== -1, 'label rule exists');
+  const blk = css.slice(i, css.indexOf('}', i));
+  assert.ok(/text-align:\s*left/.test(blk), 'titles at the left');
+  assert.ok(/clear:\s*both/.test(blk), 'clear floats so Clear/Dark/Special drop to their own line');
+});
+
+test('Member Settings Change Color popup has a title', () => {
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.ok(en['changeColorPopup-title'], 'changeColorPopup-title exists (popup shows a header)');
 });
 
 test('both popups render the shared picker with the right scope', () => {

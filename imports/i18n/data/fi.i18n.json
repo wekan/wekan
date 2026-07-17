@@ -212,6 +212,7 @@
   "board-drag-drop-reorder-or-click-open": "Järjestele taulu ikoneita vetämällä ja pudottamalla. Klikkaa taulu ikonia avataksesi taulun.",
   "board-open-and-move-between-remaining-and-workspaces": "Avaa taulu napsauttamalla. Vedä kahvaa määrittääksesi taulun __workspaces__ (pudota työtilaan sivupalkissa).",
   "boardChangeColorPopup-title": "Muokkaa taulun taustaa",
+  "changeColorPopup-title": "Vaihda väri",
   "boardChangeBackgroundImagePopup-title": "Vaihda taustakuva",
   "allBoardsChangeColorPopup-title": "Muokkaa väriä",
   "allBoardsChangeBackgroundImagePopup-title": "Vaihda taustakuva",

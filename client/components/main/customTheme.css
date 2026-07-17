@@ -27,9 +27,23 @@
  * colour swatches (docs/Theme/Theme.md). */
 .theme-color-picker .theme-category-group {
   margin-bottom: 8px;
+  clear: both; /* start below the previous group's floated swatches */
 }
 .theme-color-picker .theme-category-label {
+  display: block;
+  width: 100%;
+  clear: both;        /* drop below the previous group's floats... */
+  text-align: left;   /* ...so Flat/Clear/Dark/Special all sit at the left */
   font-weight: bold;
-  margin: 6px 0 2px;
+  margin: 2px 0 4px;
   text-transform: capitalize;
+}
+/* No empty band above the first (Flat) title. */
+.theme-color-picker .theme-category-group:first-child .theme-category-label {
+  margin-top: 0;
+}
+/* Tighten the Default (no override) row above the groups (Member Settings). */
+.theme-color-picker ul.pop-over-list {
+  margin: 0 0 4px;
+  padding: 0;
 }

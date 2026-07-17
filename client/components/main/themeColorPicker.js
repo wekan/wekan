@@ -108,14 +108,36 @@ function gatherCustom(tpl) {
   return wheels.length === n ? wheels : [];
 }
 
+// Apply the current selection immediately (no Save button): board scope writes
+// board.color, global scope calls setGlobalThemeColor. `color`/`custom` are read
+// from the reactive state so the same helper serves the swatch click and the wheel.
+function applySelection(tpl) {
+  const color = tpl.color.get() || colorsInCategory(THEME_CATEGORY_ORDER[0])[0];
+  const custom = gatherCustom(tpl);
+  if (tpl.scope === 'board') {
+    const b = Utils.getCurrentBoard();
+    if (b) {
+      Promise.resolve(b.setColor(color, custom)).catch(e => {
+        if (process.env.DEBUG === 'true') console.error('board setColor error', e);
+      });
+    }
+  } else {
+    Meteor.call('setGlobalThemeColor', color, custom, err => {
+      if (err && process.env.DEBUG === 'true') console.error('setGlobalThemeColor error', err);
+    });
+  }
+}
+
 Template.themeColorPicker.events({
-  // Pick a color by clicking its swatch.
+  // Clicking a color swatch applies that theme IMMEDIATELY (there is no Save button).
   'click .js-select-theme'(event, tpl) {
     const color = event.currentTarget.dataset.color;
     if (!color) return;
     tpl.color.set(color);
-    tpl.customColors.set([]); // reset custom colors when choosing a different swatch
+    tpl.customColors.set([]); // a fresh theme -> its stock colors
+    applySelection(tpl);
   },
+  // Live-update the preview while dragging the wheel...
   'input .js-theme-wheel'(event, tpl) {
     const idx = parseInt(event.currentTarget.dataset.index, 10);
     const val = event.currentTarget.value;
@@ -124,34 +146,21 @@ Template.themeColorPicker.events({
     cc[idx] = val;
     tpl.customColors.set(cc);
   },
-  async 'click .js-theme-save'(event, tpl) {
-    event.preventDefault();
-    const color = tpl.color.get() || colorsInCategory(THEME_CATEGORY_ORDER[0])[0];
-    const custom = gatherCustom(tpl);
-    if (tpl.scope === 'board') {
-      const b = Utils.getCurrentBoard();
-      if (b) {
-        try {
-          await b.setColor(color, custom);
-        } catch (e) {
-          if (process.env.DEBUG === 'true') console.error('board setColor error', e);
-        }
-      }
-    } else {
-      Meteor.call('setGlobalThemeColor', color, custom, err => {
-        if (err && process.env.DEBUG === 'true') console.error('setGlobalThemeColor error', err);
-      });
-    }
-    Popup.back();
+  // ...and apply the custom color when the wheel is committed (avoids spamming the
+  // server on every intermediate value during the drag).
+  'change .js-theme-wheel'(event, tpl) {
+    applySelection(tpl);
   },
+  // Clear the global override (Default) — applies immediately too.
   'click .js-theme-none'(event, tpl) {
     event.preventDefault();
+    tpl.color.set(null);
+    tpl.customColors.set([]);
     if (tpl.scope === 'board') {
       const b = Utils.getCurrentBoard();
       if (b) b.setColor(BOARD_COLORS[0], []);
     } else {
       Meteor.call('setGlobalThemeColor', null, null);
     }
-    Popup.back();
   },
 });

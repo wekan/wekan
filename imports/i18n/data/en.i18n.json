@@ -212,6 +212,7 @@
   "board-drag-drop-reorder-or-click-open": "Drag and drop to reorder board icons. Click board icon to open board.",
   "board-open-and-move-between-remaining-and-workspaces": "Click to open board. Use drag handle to assign board to __workspaces__ (drop on workspace in sidebar).",
   "boardChangeColorPopup-title": "Change Board Background",
+  "changeColorPopup-title": "Change Color",
   "boardChangeBackgroundImagePopup-title": "Change Background Image",
   "allBoardsChangeColorPopup-title": "Change color",
   "allBoardsChangeBackgroundImagePopup-title": "Change Background Image",
