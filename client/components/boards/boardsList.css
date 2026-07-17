@@ -315,6 +315,9 @@
   background: transparent;
   font-size: 14px;
   min-width: 140px;
+  /* Nudge the text down slightly so it sits at the vertical middle of the field. */
+  position: relative;
+  top: 2px;
 }
 
 .boards-path-header .board-search .board-search-clear {
