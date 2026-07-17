@@ -450,7 +450,8 @@ Template.changeFontPopup.helpers({
   },
   fontSizes() {
     const cur = Template.instance().selectedSize.get();
-    return UI_FONT_SIZES.map(s => ({
+    // Ordered by percent so the buttons read: smaller ... 100% (default) ... larger.
+    return [...UI_FONT_SIZES].sort((a, b) => a.percent - b.percent).map(s => ({
       key: s.key,
       label: TAPi18n.__(`font-size-${s.key}`),
       selected: s.key === cur,
@@ -486,13 +487,33 @@ Template.changeFontPopup.helpers({
   },
 });
 
+// Apply the current text/background colors immediately (no Save button).
+function applyUiColors(tpl) {
+  Meteor.call('setUiColors', tpl.textColor.get(), tpl.bgColor.get(), err => {
+    if (err && process.env.DEBUG === 'true') console.error('setUiColors error', err);
+  });
+}
+
 Template.changeFontPopup.events({
-  'change .js-ui-font'(event, tpl) {
-    tpl.selected.set(event.currentTarget.value || '');
+  // Click a font-name button -> apply that font immediately ('' = default/unset).
+  'click .js-ui-font-btn'(event, tpl) {
+    event.preventDefault();
+    const font = event.currentTarget.dataset.font || null;
+    tpl.selected.set(font || '');
+    Meteor.call('setUiFont', font, err => {
+      if (err && process.env.DEBUG === 'true') console.error('setUiFont error', err);
+    });
   },
-  'change .js-ui-font-size'(event, tpl) {
-    tpl.selectedSize.set(event.currentTarget.value || 'default');
+  // Click a size button -> apply that size immediately.
+  'click .js-ui-font-size-btn'(event, tpl) {
+    event.preventDefault();
+    const size = event.currentTarget.dataset.size || 'default';
+    tpl.selectedSize.set(size);
+    Meteor.call('setUiFontSize', size, err => {
+      if (err && process.env.DEBUG === 'true') console.error('setUiFontSize error', err);
+    });
   },
+  // Live-preview while dragging the wheel...
   'input .js-ui-text-color'(event, tpl) {
     const v = event.currentTarget.value;
     if (isHexColor6(v)) tpl.textColor.set(v);
@@ -501,27 +522,25 @@ Template.changeFontPopup.events({
     const v = event.currentTarget.value;
     if (isHexColor6(v)) tpl.bgColor.set(v);
   },
+  // ...and apply the color when the wheel is committed.
+  'change .js-ui-text-color'(event, tpl) {
+    const v = event.currentTarget.value;
+    if (isHexColor6(v)) tpl.textColor.set(v);
+    applyUiColors(tpl);
+  },
+  'change .js-ui-bg-color'(event, tpl) {
+    const v = event.currentTarget.value;
+    if (isHexColor6(v)) tpl.bgColor.set(v);
+    applyUiColors(tpl);
+  },
   'click .js-reset-text-color'(event, tpl) {
     event.preventDefault();
     tpl.textColor.set(null); // back to default
+    applyUiColors(tpl);
   },
   'click .js-reset-bg-color'(event, tpl) {
     event.preventDefault();
     tpl.bgColor.set(null);
-  },
-  'click .js-ui-font-save'(event, tpl) {
-    event.preventDefault();
-    const font = tpl.selected.get() || null; // '' -> null unsets the custom font
-    const size = tpl.selectedSize.get() || 'default'; // 'default' unsets the size
-    Meteor.call('setUiFont', font, err => {
-      if (err && process.env.DEBUG === 'true') console.error('setUiFont error', err);
-    });
-    Meteor.call('setUiFontSize', size, err => {
-      if (err && process.env.DEBUG === 'true') console.error('setUiFontSize error', err);
-    });
-    Meteor.call('setUiColors', tpl.textColor.get(), tpl.bgColor.get(), err => {
-      if (err && process.env.DEBUG === 'true') console.error('setUiColors error', err);
-    });
-    Popup.back();
+    applyUiColors(tpl);
   },
 });

@@ -1,3 +1,37 @@
+/* #4759: Member Settings / Font popup — a button per installed font (each shown in
+   its own font) and a row of size buttons (smaller ... 100% ... larger). Clicking a
+   button applies immediately. */
+.ui-font-buttons,
+.ui-font-size-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 2px 0 10px 0;
+}
+.ui-font-btn,
+.ui-font-size-btn {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.ui-font-btn:hover,
+.ui-font-size-btn:hover {
+  background: #f0f0f0;
+}
+.ui-font-btn.active,
+.ui-font-size-btn.active {
+  background: #2980b9;
+  border-color: #2980b9;
+  color: #fff;
+}
+
 /* #5514: native color-wheel (custom RGB / hex) picker wrapper, shared by the
    label / list / swimlane / card color popups. */
 .color-wheel-wrap {

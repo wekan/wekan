@@ -198,22 +198,23 @@ template(name="changeColorPopup")
   +themeColorPicker(scope="global")
 
 template(name="changeFontPopup")
-  //- #4759: pick a UI font that ALREADY EXISTS in this browser. The dropdown lists
-    only fonts detected as installed; labels are plain text (Blaze-escaped) — never
-    HTML/markdown — and the value is validated to a curated whitelist server-side.
-    The first option unsets any custom font (back to default).
+  //- #4759: pick a UI font that ALREADY EXISTS in this browser. One button per
+    detected font, each shown in its OWN font (names are plain text, Blaze-escaped,
+    validated to a curated whitelist server-side). Font size is a row of buttons
+    (smaller on the left, 100% in the middle, larger on the right). Clicking a font
+    or size applies it IMMEDIATELY (no Save button).
   form.change-font.edit-label
-    label(for="uiFontSelect") {{_ 'font'}}
-    select.js-ui-font.wekan-form-control#uiFontSelect
-      option(value="" selected=isNoneSelected) {{_ 'font-default'}}
+    label {{_ 'font'}}
+    .ui-font-buttons
+      a.ui-font-btn.js-ui-font-btn(data-font="" class="{{#if isNoneSelected}}active{{/if}}") {{_ 'font-default'}}
       each detectedFonts
-        option(value=name selected=selected style=optionStyle) {{name}}
-    //- #4759: named preset sizes only (no free number). "Default" unsets the size.
-    label(for="uiFontSizeSelect") {{_ 'font-size'}}
-    select.js-ui-font-size.wekan-form-control#uiFontSizeSelect
+        a.ui-font-btn.js-ui-font-btn(data-font="{{name}}" style="{{optionStyle}}" class="{{#if selected}}active{{/if}}") {{name}}
+    label {{_ 'font-size'}}
+    .ui-font-size-buttons
       each fontSizes
-        option(value=key selected=selected) {{label}}
+        a.ui-font-size-btn.js-ui-font-size-btn(data-size="{{key}}" class="{{#if selected}}active{{/if}}") {{label}}
     //- #4759: text + text-background color from a color wheel, each unsettable.
+    //- Applied immediately when the wheel is committed / reset.
     label {{_ 'text-color'}}
     .color-wheel-wrap
       input.js-ui-text-color(type="color" value=textColorHex title="{{_ 'text-color'}}")
@@ -223,7 +224,6 @@ template(name="changeFontPopup")
       input.js-ui-bg-color(type="color" value=bgColorHex title="{{_ 'text-background-color'}}")
       a.js-reset-bg-color(class="{{#unless hasBgColor}}disabled{{/unless}}") {{_ 'unset-color'}}
     .font-preview(style=previewStyle) {{_ 'font-preview-text'}}
-    button.primary.confirm.js-ui-font-save {{_ 'save'}}
 
 template(name="changeSettingsPopup")
   ul.pop-over-list

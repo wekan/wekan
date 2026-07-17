@@ -112,19 +112,22 @@ test('user model + server method: schema, getter, validated setter, unset', () =
   assert.ok(/\$unset:\s*{\s*'profile\.uiFont'/.test(body), 'null/empty unsets the custom font');
 });
 
-test('member menu Font entry + popup dropdown with an unset option', () => {
+test('member menu Font entry + font/size buttons that apply immediately', () => {
   const jade = read('client/components/users/userHeader.jade');
   assert.ok(/js-change-font/.test(jade), 'menu entry');
   assert.ok(/template\(name="changeFontPopup"\)/.test(jade), 'popup');
-  assert.ok(/js-ui-font\b/.test(jade), 'font dropdown');
-  assert.ok(/js-ui-font-size/.test(jade), 'font-size dropdown');
-  // the unset option (value="") must exist
-  assert.ok(/option\(value=""/.test(jade) && /font-default/.test(jade), 'unset custom font option');
+  // A button per font (each styled in its own font via optionStyle) + a size-button row.
+  assert.ok(/js-ui-font-btn\(data-font="\{\{name\}\}" style="\{\{optionStyle\}\}"/.test(jade), 'font-name buttons styled in their own font');
+  assert.ok(/js-ui-font-btn\(data-font=""/.test(jade), 'a default (unset) font button');
+  assert.ok(/js-ui-font-size-btn\(data-size="\{\{key\}\}"/.test(jade), 'font-size buttons');
+  // NEGATIVE guard: no dropdowns and no Save button anymore.
+  assert.ok(!/select\.js-ui-font/.test(jade) && !/js-ui-font-save/.test(jade), 'no dropdowns / Save button');
   const js = read('client/components/users/userHeader.js');
   assert.ok(/Popup\.open\('changeFont'\)/.test(js), 'opens the popup');
   assert.ok(/detectAvailableFonts\(\)/.test(js), 'lists only detected fonts');
-  assert.ok(/Meteor\.call\('setUiFont', font/.test(js), 'saves the font');
-  assert.ok(/Meteor\.call\('setUiFontSize', size/.test(js), 'saves the size');
+  // Clicking applies immediately.
+  assert.ok(/'click \.js-ui-font-btn'[\s\S]{0,220}Meteor\.call\('setUiFont', font/.test(js), 'font click applies immediately');
+  assert.ok(/'click \.js-ui-font-size-btn'[\s\S]{0,220}Meteor\.call\('setUiFontSize', size/.test(js), 'size click applies immediately');
 });
 
 test('server setUiFontSize validates presets + supports unset', () => {
