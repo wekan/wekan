@@ -88,7 +88,179 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- **Snap: SELF-HEALING attachments — the fixes below apply themselves automatically on
+  upgrade, no commands needed** ([#6473](https://github.com/wekan/wekan/issues/6473),
+  `snap-src/bin/attachment-repair` (new), `snap-src/bin/wekan-control`,
+  `snap-src/bin/migration-control`, `snap-src/bin/wekan-force-migrate`,
+  `releases/migrate-mongodb-to-ferretdb.mjs`, `snap-src/bin/migrate-mongo3-to-ferretdb.mjs`,
+  `snapcraft.yaml`, `snapcraft-core26.yaml`). The snap auto-refreshes on ~15k servers, so a fix
+  that needs `snap run wekan.migrate` typed by hand does not reach most of them — and a full
+  re-migration would be WRONG anyway, because it rebuilds FerretDB from the frozen MongoDB
+  source and would lose boards/cards users created on FerretDB since migrating. Instead, on
+  every start on FerretDB, `wekan-control` now launches `attachment-repair` in the
+  **background**: it starts a temporary source mongod (7.x or the bundled 3.2 reader — the
+  MongoDB data was never modified, so everything is recoverable) and runs the migration
+  importer in a new **incremental FILES_ONLY mode** that **checks what is already migrated
+  and migrates only what is missing**: text collections are never touched, every attachment/
+  avatar whose target record is on `fs` with the file actually on disk is verified and
+  skipped, records deleted by users since the migration are never resurrected, and only the
+  missing binaries/records are extracted — so on healthy servers the repair is a fast no-op
+  and on #6473-affected servers the attachments simply appear, live, while WeKan runs. It
+  runs **once** (marker `$SNAP_COMMON/.attachments-files-v2-done`; a fresh successful
+  migration pre-writes it, `snap run wekan.migrate` clears it, failures retry on the next
+  start without ever blocking WeKan from starting), and a manual
+  `snap run wekan.repair-attachments` command is registered too. The importer itself now
+  stamps the migration marker with `filesVersion` (currently 2) and, when it finds a marker
+  with an older `filesVersion` — or `FILES_ONLY=true` in the environment — automatically
+  switches to this incremental repair, so **Docker/source installs get the same self-healing**
+  by simply re-running the same importer command they migrated with. Verified end-to-end
+  against two live FerretDB instances with the real importer: a broken-migration target
+  (missing CollectionFS record, gridFsFileId-only record, marker without filesVersion) was
+  repaired — record re-created with its card linkage, binary extracted, record repointed —
+  while a board renamed on FerretDB after the migration stayed untouched, and the second run
+  exited immediately as already-migrated. Behavioral tests (positive + negative) drive the
+  real bash script with stubbed snap tooling: `tests/attachmentRepair.test.cjs`. Thanks to
+  mueschel and xet7.
+
+- **All platforms: startup schema upgrade — WeKan now CHECKS on start that data from EVERY old
+  WeKan version has been migrated to the newest database structure, and migrates only what is
+  missing** ([#6473](https://github.com/wekan/wekan/issues/6473) follow-up,
+  [#1959](https://github.com/wekan/wekan/issues/1959), [#1971](https://github.com/wekan/wekan/issues/1971),
+  `server/lib/schemaUpgradeSteps.js` (new), `server/startupSchemaUpgrade.js` (new),
+  `server/migrations/ensureValidSwimlaneIds.js`, `server/imports.js`). WeKan v0.9–v8.00 ran
+  startup migrations; v8.01 disabled them (large databases meant long downtime) in favour of
+  read-time compatibility — which covers the swimlane era but not everything, so text data
+  from old versions could sit invisible in the database. The new startup upgrade reinstates
+  the safety net without the downtime: **version-gated** (the `_wekan_migration` marker stores
+  the WeKan version and datetime of the previous successful re-check, so while the version is
+  unchanged a boot costs ONE `findOne` — a full re-check is mandatory only after a new WeKan
+  release, or `WEKAN_FORCE_SCHEMA_UPGRADE=true`; opt out with `WEKAN_SKIP_SCHEMA_UPGRADE=true`),
+  **non-blocking** (runs in the background, WeKan serves immediately), with a **live migration
+  dashboard at `/schema-upgrade-status`** on every platform that shows the Admin Panel product
+  name when one is set (not "WeKan") plus per-step progress, and **fast on big databases**
+  (bounded existence probes, `distinct()` set-joins instead of card scans, and server-side
+  `updateMany` batches instead of per-document round trips — thousands of cards never mean
+  thousands of queries). Steps, each verified against `git show v8.00:server/migrations.js`
+  and each idempotent: `archived-flag-backfill` (docs missing `archived` never match the
+  `archived: false` view queries — whole boards/lists/cards were invisible in the Swimlanes
+  and Lists views), `swimlane-structure` (every board gets a visible swimlane, every list/card
+  a `swimlaneId`, cards with a dangling `listId` are rescued to a visible list — and, fixing
+  #1959 and #1971, unarchived cards whose swimlane was DELETED, ARCHIVED or belongs to another
+  board are reassigned to the board's first visible swimlane, so everything is visible in both
+  the Swimlanes view and the Lists view; the card-insert hook now also validates
+  client-supplied swimlaneIds so new cards can never land under a deleted/archived swimlane
+  again), `checklist-items-embedded` (pre-v0.79 embedded `checklist.items[]` extracted to the
+  `ChecklistItems` collection — the text was in the database but never shown),
+  `customfields-boardIds` (pre-v2.49 scalar `boardId` → `boardIds` array — old custom field
+  definitions and their card values were orphaned), `board-allows-defaults` (the ~33
+  defaultValue-true `allows*` flags backfilled — a missing flag rendered as false and HID
+  existing descriptions/checklists/comments/attachments), `board-members-isactive` (members
+  without `isActive` were denied board access), `board-permission-lowercase` ('PUBLIC' boards
+  had silently become member-only), and `fs-path-heal` (filesystem attachments/avatars whose
+  recorded path predates the current WRITABLE_PATH layout — v6.10-18 `uploads/<coll>`,
+  v6.19-v8.4x `WRITABLE_PATH/<coll>`, CFS→ostrio temp files — are located and repointed/copied
+  into the current layout). A step that fails or leaves unresolved work never blocks WeKan
+  from starting and keeps the version un-stamped so the next boot re-checks. 36+ unit tests
+  with negative cases (`tests/schemaUpgradeSteps.test.cjs`), plus verified end-to-end against
+  a live FerretDB (SQLite) with old-shape seed data: all 8 steps migrate correctly and the
+  second boot is gated to a no-op. Thanks to mueschel and xet7.
+
+- **Migration speed: batched writes and preloaded lookups instead of per-document round trips**
+  (5-hour migrations reported; `releases/migrate-mongodb-to-ferretdb.mjs`). The text phase now
+  copies each batch with ONE unordered `insertMany` round trip (falling back to per-document
+  `replaceOne` upserts only for batches that hit duplicates on resumed/re-run migrations), and
+  the attachment/avatar phases preload the target's metadata records once per bucket instead
+  of one `findOne` per file (bounded: collections over 100k records fall back to per-file
+  lookups). The startup schema upgrade uses the same philosophy (`distinct()`/`updateMany`).
+  Thanks to mueschel and xet7.
+
+and fixes the following bugs:
+
+- **OAuth2/OIDC: `OAUTH2_LOGIN_STYLE=redirect` was ignored — a popup always opened**
+  ([#5695](https://github.com/wekan/wekan/issues/5695), `packages/wekan-oidc/oidc_client.js`,
+  `server/authentication.js`, `server/models/settings.js`, `client/components/main/layouts.js`).
+  The setting was stored correctly in the OIDC service configuration, but the login button
+  always passed `loginStyle: 'popup'`, and Meteor's `OAuth._loginStyle` gives the caller's
+  option precedence — so the admin's redirect setting silently lost on every login (and the
+  Meteor-internal `loginStyle` option even leaked into the provider's authorization URL). The
+  client now honors a configured `loginStyle: 'redirect'` over the button's generic popup
+  default (explicit caller choices still win; Safari-private-mode popup fallback kept) and no
+  longer leaks the option to the provider. Also repaired the existing
+  `OIDC_REDIRECTION_ENABLED=true` "go straight to the provider" feature, which was doubly
+  broken since the Meteor 3 port: `isOidcRedirectionEnabled` inspected a Promise (always
+  false), and the client handler assigned an undeclared variable (strict-mode ReferenceError).
+  Behavioral tests drive the real client code in a VM against Meteor's loginStyle precedence:
+  `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
+  xet7.
+
+- **LDAP background sync only worked once per user** ([#4654](https://github.com/wekan/wekan/issues/4654),
+  `packages/wekan-ldap/server/ldap.js`, `sync.js`, new `userIdFilter.js`): `getUserById` crashed or built the
+  invalid filter `(|(=user))` when `LDAP_UNIQUE_IDENTIFIER_FIELD` was unset/empty (it never consulted
+  `LDAP_USER_SEARCH_FIELD`, where the stored id actually comes from), and the username sync passed `$set` as
+  query OPTIONS to `findOneAsync` — logging "Syncing user username" while writing nothing. New shared
+  `buildUserIdFilter()` ORs across both configured fields, `idAttribute` is persisted on new LDAP users, and
+  the username sync actually updates. Tests: `tests/ldapUserIdFilter.test.cjs` (11). Thanks to fabianrbz and xet7.
+- **All Boards page: per-list card counts and member avatars never showed** ([#5174](https://github.com/wekan/wekan/issues/5174),
+  [#4825](https://github.com/wekan/wekan/issues/4825), new `models/lib/boardTileData.js`,
+  `server/publications/boards.js`, `client/components/boards/boardsList.js`, `.jade`): the helpers were stubbed
+  to `[]` to stop the #4214 reactive "icons dance", and the gating flags were never published. New non-reactive
+  `getAllBoardsTileData` method (one boards query, one lists query, one grouped card count) fetched once per
+  page visit; per-board "Show card count per list"/"Show Board members avatars" settings enforced strictly both
+  ways. Tests: `tests/boardTileData.test.cjs` (17). Thanks to mueschel, Miuler and xet7.
+- **Lists rendered with different widths by default** ([#5659](https://github.com/wekan/wekan/issues/5659),
+  new `models/lib/listWidth.js`, `client/components/lists/list.js`, `listHeader.js`, `models/users.js`): the
+  default width was duplicated in four resolution paths that disagreed (270 vs 272), so lists on the same
+  (public) board could differ with no customization. Single source of truth (272), all paths normalize
+  out-of-range values the same way; customized widths still win. Tests: `tests/listWidthDefaults.test.cjs` (12).
+  Thanks to butteredCat-2021 and xet7.
+- **Declining a board invitation kept the board active in the member's overview** ([#4730](https://github.com/wekan/wekan/issues/4730),
+  `server/models/boards.js`, new `models/lib/boardInvites.js`): the decline flow called `quitBoard` (deactivate)
+  then `acceptInvite`, which unconditionally REACTIVATED membership — it also let any removed member re-add
+  themselves. `quitBoard` now clears the pending invitation (and works for stale-invite-only users);
+  `acceptInvite` only activates when an invitation actually exists. Tests: `tests/boardInvites.test.cjs` (11).
+  Thanks to Griiimm and xet7.
+- **After migrating a user from password to LDAP, the old local password still logged in**
+  ([#4419](https://github.com/wekan/wekan/issues/4419), new `server/lib/ldapPasswordLoginGuard.js`,
+  `server/authentication.js`): a `validateLoginAttempt` hook now rejects password-service logins for
+  `authenticationMethod: 'ldap'` users while LDAP is enabled — respecting the `LDAP_LOGIN_FALLBACK=true`
+  feature, never touching other services or session resumes, and opt-out-able with
+  `LDAP_MIGRATION_ALLOW_PASSWORD_LOGIN=true` so no deployment is hard-locked. Tests:
+  `tests/ldapPasswordLoginGuard.test.cjs` (12). Thanks to preciousamorc and xet7.
+- **`LDAP_ENCRYPTION=true` (the documented value) silently connected WITHOUT encryption**
+  ([#4158](https://github.com/wekan/wekan/issues/4158), new `packages/wekan-ldap/server/encryptionSetting.js`,
+  `ldap.js`, `docs/Login/LDAP.md`): only the undocumented `ssl`/`tls` values did anything, and any other value
+  (including `true`, which JSON-parses to a boolean) meant silent plaintext. Now `true`→LDAPS,
+  `starttls`→STARTTLS, legacy `ssl`/`tls` keep their historical meanings with a deprecation notice, and unknown
+  values log a clear warning listing the accepted ones. Tests: `tests/ldapEncryptionSetting.test.cjs` (22).
+  Thanks to farwayer and xet7.
+- **OIDC login onto an existing account wiped the profile — avatars and templates disappeared**
+  ([#4560](https://github.com/wekan/wekan/issues/4560), `server/models/users.js`): the
+  `OAUTH2_MERGE_EXISTING_USERS` merge path replaced the whole `profile` with the OIDC-derived one, losing
+  `avatarUrl`, `templatesBoardId` (+ template swimlanes), language and preferences. The merge now preserves the
+  stored profile and only fills gaps/updates the asserted fullname; the fail-closed linking rules
+  (GHSA-mp7g-hj5q-gxhq) are untouched. Tests: `tests/oidcProfileMerge.test.cjs` (7, fails on pre-fix code).
+  Thanks to LeoLu-eng and xet7.
+
+- **OAuth2/OIDC: concurrent logins could contaminate each other's user data — users saw stale
+  or missing emails/username/teams, and the database could disagree with the UI**
+  ([#4897](https://github.com/wekan/wekan/issues/4897), `packages/wekan-oidc/oidc_server.js`,
+  `packages/wekan-oidc/loginHandler.js`). The OIDC server flow kept `profile`, `serviceData`
+  and `userinfo` as MODULE-SCOPE variables shared by every login of every user: fields the
+  current login did not overwrite leaked from the previous user's login (refreshToken,
+  whitelisted id-token claims, branch-dependent email), and because the handler awaits the
+  token/userinfo requests, two interleaved logins wrote into the SAME objects — a login could
+  complete carrying another user's id/email/username, updating the wrong user document. The
+  `PROPAGATE_OIDC_DATA` group/attribute path additionally ran on implicit GLOBALS
+  (`teamArray`, `isAdmin`, `user_email`, …) with awaits between assignment and use, so
+  concurrent logins could write one user's email/teams/admin flag onto another user's document
+  — real database corruption, matching the "web interface shows different data vs mongodb"
+  report. All login state is now per-login locals, the login handler compares actual values
+  (the old username/fullname comparisons compared a string to an object, always true), and a
+  regression test proves isolation under concurrent logins and fails against the pre-fix code:
+  `tests/oidcLoginStateIsolation.test.cjs` (11 tests, positive + negative). Thanks to
+  gerardo-junior and xet7.
 
 - **Snap/Docker: after the MongoDB → FerretDB migration ALL CollectionFS-era attachments were
   missing** ([#6473](https://github.com/wekan/wekan/issues/6473),

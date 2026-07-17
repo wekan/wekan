@@ -1171,31 +1171,30 @@ Template.modifyTeamsUsers.events({
     selectedEltValue = selectedElt.options[selectedElt.selectedIndex].text;
     selectedEltValueId = selectedElt.options[selectedElt.selectedIndex].value;
 
+    // #4593: `teams` is a forbidden field for direct client-side Users.update
+    // (see server/permissions/users.js: only the owner may update, and never
+    // `teams`), so the previous Users.update() calls here were silently denied
+    // by the server and the bulk team assignment never persisted — a user
+    // "added" to a team this way never saw the boards that team is assigned
+    // to. Use the admin-only `editUser` method instead, which persists the
+    // change and also grants the user membership of the boards the gained
+    // team is assigned to.
     if(document.getElementById('addAction').checked){
       for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
         currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
-        userTms = currentUser.teams;
-        if(userTms == undefined || userTms.length == 0){
-          userTms = [];
+        // Copy, so the cached minimongo document is not mutated in place.
+        userTms = (currentUser.teams || []).slice();
+        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+        if(currUserTeamIndex == -1){
           userTms.push({
             "teamId": selectedEltValueId,
             "teamDisplayName": selectedEltValue,
-          })
-        }
-        else if(userTms.length > 0)
-        {
-          currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
-          if(currUserTeamIndex == -1){
-            userTms.push({
-              "teamId": selectedEltValueId,
-              "teamDisplayName": selectedEltValue,
-            });
-          }
+          });
         }
 
-        Users.update(selectedUserChkBoxUserIds[i], {
-          $set:{
-            teams: userTms
+        Meteor.call('editUser', selectedUserChkBoxUserIds[i], { teams: userTms }, (error) => {
+          if (error) {
+            console.error('Error updating user teams:', error);
           }
         });
       }
@@ -1203,18 +1202,15 @@ Template.modifyTeamsUsers.events({
     else{
       for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
         currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
-        userTms = currentUser.teams;
-        if(userTms !== undefined || userTms.length > 0)
-        {
-          currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
-          if(currUserTeamIndex != -1){
-            userTms.splice(currUserTeamIndex, 1);
-          }
+        userTms = (currentUser.teams || []).slice();
+        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+        if(currUserTeamIndex != -1){
+          userTms.splice(currUserTeamIndex, 1);
         }
 
-        Users.update(selectedUserChkBoxUserIds[i], {
-          $set:{
-            teams: userTms
+        Meteor.call('editUser', selectedUserChkBoxUserIds[i], { teams: userTms }, (error) => {
+          if (error) {
+            console.error('Error updating user teams:', error);
           }
         });
       }

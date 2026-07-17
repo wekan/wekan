@@ -8,6 +8,11 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardAdmin, boardMemberRoleToFlags } from '/server/lib/utils';
 import { reconcileBoardTeamMembers } from '/models/lib/reconcileBoardTeamMembers';
+import {
+  isInvitedToBoard,
+  planQuitBoard,
+  planAcceptInvite,
+} from '/models/lib/boardInvites';
 import { buildBoardLabel } from '/models/lib/restLabel';
 import { LABEL_COLORS } from '/models/metadata/colors';
 import { filterUserBoards } from '/server/lib/boardListFilter';
@@ -204,12 +209,31 @@ Meteor.methods({
     }
 
     const userId = this.userId;
-    const index = board.memberIndex(userId);
-    if (index < 0) {
-      throw new Meteor.Error('error-board-notAMember');
+    const user = await ReactiveCache.getUser(userId);
+    // #4730: quitting (or declining an invitation to) a board must also clear
+    // the pending invitation, otherwise a follow-up acceptInvite call — the
+    // decline flow on the All Boards page issues one — re-activates the
+    // membership and the declined board stays in the personal overview. A user
+    // holding only a stale invitation (no member entry, e.g. after an admin
+    // removed them) may also quit: their invitation is cleared instead of
+    // throwing error-board-notAMember, so the board can always be removed
+    // from the personal overview.
+    const plan = planQuitBoard({
+      isMember: board.memberIndex(userId) >= 0,
+      isInvited: isInvitedToBoard(user && user.profile, boardId),
+    });
+    if (!plan.ok) {
+      throw new Meteor.Error(plan.error);
     }
 
-    await board.removeMember(userId);
+    if (plan.pullInvite) {
+      await Users.updateAsync(userId, {
+        $pull: { 'profile.invitedBoards': boardId },
+      });
+    }
+    if (plan.removeMember) {
+      await board.removeMember(userId);
+    }
     return true;
   },
 
@@ -218,6 +242,20 @@ Meteor.methods({
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('error-board-doesNotExist');
+    }
+
+    // #4730: only a user actually holding an invitation to this board may
+    // (re)activate their member entry. Previously this method set
+    // members.$.isActive = true unconditionally, which (a) re-activated the
+    // membership right after the decline flow's quitBoard call, so a declined
+    // board stayed in the personal overview, and (b) let a member an admin had
+    // removed re-add themselves by calling this method directly.
+    const user = await ReactiveCache.getUser(this.userId);
+    const plan = planAcceptInvite({
+      isInvited: isInvitedToBoard(user && user.profile, boardId),
+    });
+    if (!plan.ok) {
+      return false;
     }
 
     await Meteor.users.updateAsync(this.userId, {
@@ -238,6 +276,7 @@ Meteor.methods({
         },
       },
     );
+    return true;
   },
 
   async myLabelNames() {

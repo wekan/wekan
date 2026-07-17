@@ -241,6 +241,10 @@ finish_success() {
   log "FerretDB SQLite verified (${sq:-?})${wal:+; WAL log present}."
   log "Migration succeeded. Switching to FerretDB (SQLite); MongoDB will be shut down."
   touch "$MARKER"
+  # #6473: this migration ran with the CURRENT (fixed) file extraction, so the startup
+  # attachment-repair has nothing to do — mark it done up front. Keep the marker name in
+  # sync with attachment-repair and FILES_VERSION in migrate-mongodb-to-ferretdb.mjs.
+  touch "$SNAP_COMMON/.attachments-files-v2-done" 2>/dev/null || true
   # #6458/#6466: clear mongodb-control's start-failure counter — the migration
   # completing is exactly the recovery those failures were counting toward.
   rm -f "$SNAP_COMMON/.mongod-start-failures" 2>/dev/null || true

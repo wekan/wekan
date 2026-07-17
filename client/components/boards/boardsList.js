@@ -132,16 +132,6 @@ function saveWorkspace(workspaceId, { name, icon }) {
 }
 
 Template.boardList.helpers({
-  hideCardCounterList() {
-    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-       return Utils.isMiniScreen() && Session.get('currentBoard'); */
-    return true;
-  },
-  hideBoardMemberList() {
-    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-       return Utils.isMiniScreen() && Session.get('currentBoard'); */
-    return true;
-  },
   BoardMultiSelection() {
     return BoardMultiSelection;
   },
@@ -192,6 +182,15 @@ Template.boardList.onCreated(function () {
   this.shareableGroups = new ReactiveVar({ orgs: [], teams: [], domains: [] });
   Meteor.call('getMyShareableGroups', (err, res) => {
     if (!err && res) this.shareableGroups.set(res);
+  });
+  // #5174 / #4825: per-board tile data (per-list card counts + member ids) for
+  // the All Boards tiles, computed server-side and fetched exactly ONCE here —
+  // deliberately NOT inside an autorun and NOT from reactive getLists/getCards
+  // cursors, so the #4214 "icons random dance" (a reactive re-render loop on
+  // this page, which is why the old helpers were stubbed out) cannot return.
+  this.boardTileDataVar = new ReactiveVar({});
+  Meteor.call('getAllBoardsTileData', (err, res) => {
+    if (!err && res) this.boardTileDataVar.set(res);
   });
   let currUser = ReactiveCache.getCurrentUser();
   let userLanguage;
@@ -598,25 +597,32 @@ Template.boardList.helpers({
       .slice()
       .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
   },
+  // #5174 / #4825: the board tiles' per-list card-count line and member avatar
+  // row. Data comes from the one-shot getAllBoardsTileData method fetch in
+  // onCreated (see there) — NOT from reactive getLists/getCards cursors, which
+  // caused the #4214 "icons random dance" and got these helpers stubbed to []
+  // (hiding the counters/avatars for everyone). The show* helpers resolve the
+  // per-board opt-in flags (allowsCardCounterList / allowsBoardMemberList,
+  // board sidebar "Show at All Boards page"), strictly, server-side — so a
+  // board with the checkbox off (or never set) consistently shows nothing.
   boardLists(boardId) {
-    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-    const lists = ReactiveCache.getLists({ 'boardId': boardId, 'archived': false },{sort: ['sort','asc']});
-    const ret = lists.map(list => {
-      let cardCount = ReactiveCache.getCards({ 'boardId': boardId, 'listId': list._id }).length;
-      return `${list.title}: ${cardCount}`;
-    });
-    return ret;
-    */
-    return [];
+    const tile = (Template.instance().boardTileDataVar.get() || {})[boardId];
+    return (tile && tile.showLists && tile.lists) || [];
   },
 
   boardMembers(boardId) {
-    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-    const lists = ReactiveCache.getBoard(boardId)
-    const boardMembers = lists?.members.map(member => member.userId);
-    return boardMembers;
-    */
-    return [];
+    const tile = (Template.instance().boardTileDataVar.get() || {})[boardId];
+    return (tile && tile.showMembers && tile.memberIds) || [];
+  },
+
+  showCardCounterList(boardId) {
+    const tile = (Template.instance().boardTileDataVar.get() || {})[boardId];
+    return !!(tile && tile.showLists && tile.lists && tile.lists.length);
+  },
+
+  showBoardMemberList(boardId) {
+    const tile = (Template.instance().boardTileDataVar.get() || {})[boardId];
+    return !!(tile && tile.showMembers && tile.memberIds && tile.memberIds.length);
   },
 
   isStarred() {

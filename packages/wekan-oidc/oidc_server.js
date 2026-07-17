@@ -18,12 +18,22 @@ if (process.env.OAUTH2_CA_CERT !== undefined) {
 	console.log(e);
     }
 }
-var profile = {};
-var serviceData = {};
-var userinfo = {};
-
 OAuth.registerService('oidc', 2, null, async function (query) {
   var debug = process.env.DEBUG === 'true';
+
+  // #4897: these MUST be fresh per-login objects. They used to be module-level
+  // (`var serviceData = {}` etc. shared by every login of every user), so:
+  //   * fields a login did not overwrite leaked in from the PREVIOUS login of a
+  //     DIFFERENT user (e.g. refreshToken is only set when the provider sends
+  //     one, and idTokenWhitelistFields were Object.assign-ed cumulatively), and
+  //   * two logins running concurrently (this handler awaits the token,
+  //     userinfo and two Meteor.callAsync calls) interleaved writes to the SAME
+  //     object, so a user could intermittently be created/updated with another
+  //     user's id/email/username — the "web interface shows different data than
+  //     MongoDB" reports.
+  var profile = {};
+  var serviceData = {};
+  var userinfo = {};
 
   var token = await getToken(query);
   if (debug) console.log('XXX: register token:', token);
@@ -121,7 +131,8 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   //    therefore: keep admin privileges for wekan as before
   if(Array.isArray(serviceData.groups) && serviceData.groups.length && typeof serviceData.groups[0] === "string" )
   {
-    user = await Meteor.users.findOneAsync({'_id':  serviceData.id});
+    // #4897: `user` was an implicit global shared by concurrent logins.
+    const user = await Meteor.users.findOneAsync({'_id':  serviceData.id});
 
     serviceData.groups.forEach(function(groupName, i)
     {
@@ -373,8 +384,11 @@ Meteor.methods({
 
     var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
     if (propagateOidcData) {
-      users= Meteor.users;
-      user = await users.findOneAsync({'services.oidc.id':  userId});
+      // #4897: `users`/`user` were implicit globals shared by concurrent
+      // logins; between the awaits below another login could reassign `user`,
+      // so this login's email/fullname/username got written onto ANOTHER
+      // user's document. loginHandler.js now uses Meteor.users directly.
+      const user = await Meteor.users.findOneAsync({'services.oidc.id':  userId});
 
       if(user) {
         //updates/creates Groups and user admin privileges accordingly if not undefined

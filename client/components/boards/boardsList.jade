@@ -197,14 +197,19 @@ template(name="boardList")
                         span.board-list-item-name(title="{{boardOpenAndMoveHint}}")
                           +viewer
                             = title
+                        //- #5174 / #4825: the per-board allows* flags are
+                        //- resolved server-side into the one-shot tile data
+                        //- (the raw fields are not even published to this
+                        //- page), so the show* helpers below gate the whole
+                        //- block consistently for every board.
                         unless currentSetting.hideBoardMemberList
-                          if allowsBoardMemberList
+                          if showBoardMemberList _id
                             .minicard-members
                               each member in boardMembers _id
                                 a.name
                                   +userAvatar(userId=member noRemove=true)
                         unless currentSetting.hideCardCounterList
-                          if allowsCardCounterList
+                          if showCardCounterList _id
                             .minicard-lists.flex.flex-wrap
                               each list in boardLists _id
                                 .item

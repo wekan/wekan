@@ -195,6 +195,9 @@ import '/server/migrations/fixMissingListsMigration';
 import '/server/migrations/migrateAttachments';
 import '/server/migrations/restoreAllArchived';
 import '/server/migrations/restoreLostCards';
+// #6473: startup schema upgrade — checks what old-version data is already
+// migrated and migrates only the rest (all platforms, both databases).
+import '/server/startupSchemaUpgrade';
 
 // ----------------------------------------------------------------------------
 // 12. Server — notifications

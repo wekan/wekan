@@ -9,6 +9,13 @@ import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { lazyListCardCount } from '/client/lib/lazyCards';
+// #5659: single source of truth for the default/minimum list width, shared
+// with client/components/lists/list.js and models/users.js.
+import {
+  DEFAULT_LIST_WIDTH,
+  MIN_LIST_WIDTH,
+  normalizeListWidth,
+} from '/models/lib/listWidth';
 
 let listsColors;
 Meteor.startup(() => {
@@ -562,12 +569,12 @@ function readAnonFixedListWidth(boardId) {
     if (stored) {
       const widths = JSON.parse(stored);
       const w = widths[boardId];
-      if (typeof w === 'number' && w >= 270) return w;
+      if (typeof w === 'number' && w >= MIN_LIST_WIDTH) return w;
     }
   } catch (e) {
     console.warn('Error reading fixed list width from localStorage:', e);
   }
-  return 272;
+  return DEFAULT_LIST_WIDTH;
 }
 
 function isFixedListWidth(boardId) {
@@ -611,8 +618,7 @@ Template.setListWidthPopup.helpers({
     if (isFixedListWidth(list.boardId)) {
       return fixedListWidthValue(list.boardId);
     }
-    const shared =
-      typeof list.width === 'number' && list.width >= 270 ? list.width : 272;
+    const shared = normalizeListWidth(list.width);
     if (!isPersonalListWidth(list.boardId)) {
       return shared;
     }
@@ -620,7 +626,7 @@ Template.setListWidthPopup.helpers({
     if (user) {
       const widths = user.getListWidths();
       const w = widths[list.boardId] && widths[list.boardId][list._id];
-      return typeof w === 'number' && w >= 270 ? w : shared;
+      return normalizeListWidth(w, shared);
     }
     return shared;
   },
@@ -702,7 +708,7 @@ Template.setListWidthPopup.events({
     const boardId = list.boardId;
     const width = parseInt(tpl.$('.list-width-value').val(), 10);
 
-    if (!width || width < 270) {
+    if (!width || width < MIN_LIST_WIDTH) {
       tpl.$('.list-width-error').click();
       return;
     }

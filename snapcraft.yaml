@@ -130,6 +130,13 @@ apps:
         command: ./bin/wekan-force-migrate
         plugs: [network, network-bind]
 
+    # #6473: incremental attachment/avatar repair (runs automatically in the
+    # background on every start; this command is for running it by hand, e.g.
+    # after deleting $SNAP_COMMON/.attachments-files-v2-done).
+    repair-attachments:
+        command: ./bin/attachment-repair
+        plugs: [network, network-bind]
+
     maintenance:
         command: ./bin/wekan-maintenance
         plugs: [network, network-bind]

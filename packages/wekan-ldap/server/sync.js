@@ -246,7 +246,10 @@ export async function syncUserData(user, ldapUser) {
     const username = slug(getLdapUsername(ldapUser));
     if (user && user._id && username !== user.username) {
       log_info('Syncing user username', user.username, '->', username);
-      await Meteor.users.findOneAsync({ _id: user._id }, { $set: { username }});
+      // #4654: this was findOne/findOneAsync with the $set passed as the
+      // options argument, which performs no write — username changes in the
+      // directory were logged as synced but never saved.
+      await Meteor.users.updateAsync({ _id: user._id }, { $set: { username }});
     }
   }
 
@@ -338,10 +341,12 @@ export async function addLdapUser(ldapUser, username, password) {
     userObject.ldap = true;
     userObject._id = await Accounts.createUserAsync(userObject);
 
-    // Add the services.ldap identifiers
+    // Add the services.ldap identifiers. #4654: also persist idAttribute so
+    // the background sync (getUserById in ldap.js) can search by the exact
+    // attribute the id was taken from instead of guessing from settings.
     await Meteor.users.updateAsync({ _id:  userObject._id }, {
 		    $set: {
-		        'services.ldap': { id: uniqueId.value },
+		        'services.ldap': { id: uniqueId.value, idAttribute: uniqueId.attribute },
 		        'emails.0.verified': true,
 		        'authenticationMethod': 'ldap',
 		    }});

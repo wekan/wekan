@@ -25,6 +25,45 @@ import { expiredNotificationActivityIds } from '/models/lib/notificationCleanup'
 import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
 import { paginateDomains } from '/models/lib/domainTablePage';
 import { orgsToAutoAddForEmail } from '/models/lib/orgAutoAddByDomain';
+import {
+  gainedTeamIds,
+  newTeamBoardMemberEntry,
+  boardsToAddMemberTo,
+} from '/models/lib/teamBoardMemberSync';
+
+// #4593: when a team is assigned to a board (addBoardTeamPopup), every user in
+// the team at that moment is pushed into board.members as a normal member — but
+// a user added to the team afterwards never was, so they ended up with strictly
+// less authority than their teammates: the publications let them view the board
+// (teams.teamId match) while every interaction gate (board.hasMember,
+// allowIsBoardMember*, Attachments.protected, board.isVisibleBy for export)
+// only looks at board.members. This grants a user who just gained team(s) the
+// same normal membership on every board those teams are assigned to. Existing
+// member entries (even deactivated ones) are never touched, template boards are
+// skipped, and team REMOVAL intentionally does not remove board members (a
+// member may also have been invited individually; explicit cleanup remains the
+// board admin's removeBoardTeamPopup action). Failures are logged, never fatal
+// to the user update that triggered the sync.
+const addUserToTeamBoards = async (userId, oldTeams, newTeams) => {
+  try {
+    const gained = gainedTeamIds(oldTeams, newTeams);
+    if (!gained.length) return;
+    const boards = await ReactiveCache.getBoards(
+      { teams: { $elemMatch: { teamId: { $in: gained }, isActive: true } } },
+      { fields: { _id: 1, type: 1, teams: 1, members: 1 } },
+    );
+    for (const boardId of boardsToAddMemberTo(boards, userId, gained)) {
+      // Guarded push: never create a duplicate entry if the user became a
+      // member through another path between the read above and this write.
+      await Boards.updateAsync(
+        { _id: boardId, 'members.userId': { $ne: userId } },
+        { $push: { members: newTeamBoardMemberEntry(userId) } },
+      );
+    }
+  } catch (error) {
+    console.error('addUserToTeamBoards failed:', error);
+  }
+};
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
@@ -261,6 +300,12 @@ Meteor.methods({
     if (updateData.orgs !== undefined) updateObject.orgs = updateData.orgs;
 
     await Users.updateAsync(targetUserId, { $set: updateObject });
+
+    // #4593: a user who just gained team(s) must also gain membership of the
+    // boards those teams are assigned to, like the team's original members did.
+    if (updateData.teams !== undefined) {
+      await addUserToTeamBoards(targetUserId, targetUser.teams, updateData.teams);
+    }
   },
 
   async setListSortBy(value) {
@@ -698,6 +743,10 @@ Meteor.methods({
               teams: userTeamsArray,
             },
           });
+          // #4593: a user created directly into team(s) must gain membership of
+          // the boards those teams are assigned to, like the teams' existing
+          // members already have.
+          await addUserToTeamBoards(user._id, [], userTeamsArray);
         }
       }
     }
@@ -1219,7 +1268,25 @@ Accounts.onCreateUser(async (options, user) => {
     existingUser.services[service] = user.services[service];
     existingUser.emails = user.emails;
     existingUser.username = user.username;
-    existingUser.profile = user.profile;
+    // #4560 ("User Profile is reset when changing the authentication method
+    // from LDAP to OIDC"): merge the profile, do not replace it. The previous
+    // wholesale `existingUser.profile = user.profile` re-inserted the linked
+    // account with ONLY the freshly built OIDC profile (initials, fullname,
+    // boardView), wiping profile.avatarUrl, profile.templatesBoardId and the
+    // template swimlane ids, language, notification/preference fields, etc. —
+    // the reporter's "templates and avatars disappeared". Keep every existing
+    // profile field, fill gaps from the OIDC-derived profile, and take the
+    // provider's fullname/initials only when the provider actually asserted a
+    // fullname (otherwise user.profile.fullname is just a fallback to the
+    // username and must not overwrite a real stored name).
+    existingUser.profile = {
+      ...user.profile,
+      ...(existingUser.profile || {}),
+    };
+    if (user.services.oidc.fullname) {
+      existingUser.profile.fullname = user.profile.fullname;
+      existingUser.profile.initials = user.profile.initials;
+    }
     existingUser.authenticationMethod = user.authenticationMethod;
 
     await Meteor.users.removeAsync({ _id: user._id });

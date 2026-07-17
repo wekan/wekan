@@ -10,7 +10,13 @@ import Org from "../../models/org";
 import Team from "../../models/team";
 import Attachments from '../../models/attachments';
 import Boards from '/models/boards';
+import Cards from '/models/cards';
 import { localizeBoardMemberAvatars } from '/server/lib/localizeAvatar';
+import {
+  showsCardCounterList,
+  countCardsByListId,
+  buildBoardTileData,
+} from '/models/lib/boardTileData';
 
 // When CARDS_LOADING=lazy (Admin Panel / Features), the board publication must
 // NOT ship every card / checklist into the client's minimongo — each list loads
@@ -287,6 +293,105 @@ Meteor.methods({
     const start = (page - 1) * perPage;
     const ids = boards.slice(start, start + perPage).map(b => b._id);
     return { ids, total };
+  },
+
+  // #5174 / #4825 (follow-up to #4214): the data behind the All Boards board
+  // tiles — the per-list card-count line and the member avatar row. Computed
+  // ONCE per request, entirely server-side (one boards query, one lists query,
+  // one grouped card count), and returned as a plain map keyed by board id.
+  // The client stores it in a ReactiveVar it sets exactly once, instead of the
+  // old reactive getLists()/getCards() cursors inside the tile helpers that
+  // caused the "icons random dance" (#4214) and were therefore stubbed out —
+  // which in turn hid the counters/avatars for everyone.
+  //
+  // The per-board opt-in flags (allowsCardCounterList / allowsBoardMemberList,
+  // board sidebar "Show at All Boards page") are resolved here with strict
+  // semantics — missing flag means OFF — so every tile renders consistently
+  // (#4825). The Admin Panel hideCardCounterList / hideBoardMemberList
+  // settings remain enforced by the template on top of this.
+  async getAllBoardsTileData() {
+    const userId = this.userId;
+    if (!Match.test(userId, String) || !userId) {
+      return {};
+    }
+    const user = await ReactiveCache.getUser(userId);
+    if (!user) {
+      return {};
+    }
+
+    // Same visibility selector as getAllBoardsPage / the `boards` publication,
+    // restricted to real boards (template-container tiles never show these).
+    const selector = {
+      archived: false,
+      type: 'board',
+      $or: [
+        { permission: 'public' },
+        { members: { $elemMatch: { userId, isActive: true } } },
+        { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+        { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+        { domains: { $elemMatch: { domain: { $in: user.emailDomains() }, isActive: true } } },
+      ],
+    };
+
+    let boards = await ReactiveCache.getBoards(
+      selector,
+      {
+        fields: {
+          _id: 1,
+          members: 1,
+          allowsCardCounterList: 1,
+          allowsBoardMemberList: 1,
+        },
+      },
+      true,
+    );
+    boards = typeof boards.fetchAsync === 'function'
+      ? await boards.fetchAsync()
+      : (typeof boards.fetch === 'function' ? boards.fetch() : boards);
+
+    // Lists and card counts are only needed for boards that opted in to the
+    // card-counter line.
+    const countedBoardIds = boards
+      .filter(board => showsCardCounterList(board))
+      .map(board => board._id);
+
+    let lists = [];
+    const cardCounts = {};
+    if (countedBoardIds.length) {
+      lists = await ReactiveCache.getLists(
+        { boardId: { $in: countedBoardIds }, archived: false },
+        { fields: { _id: 1, boardId: 1, title: 1, sort: 1 } },
+        true,
+      );
+      lists = typeof lists.fetchAsync === 'function'
+        ? await lists.fetchAsync()
+        : (typeof lists.fetch === 'function' ? lists.fetch() : lists);
+
+      try {
+        // One grouped count for all boards on the page instead of a count per
+        // list (and instead of shipping every card to the client, which is
+        // what the old reactive helpers effectively did).
+        const rows = await Cards.rawCollection()
+          .aggregate([
+            { $match: { boardId: { $in: countedBoardIds }, archived: false } },
+            { $group: { _id: '$listId', n: { $sum: 1 } } },
+          ])
+          .toArray();
+        rows.forEach(row => {
+          if (row && row._id) cardCounts[row._id] = row.n;
+        });
+      } catch (error) {
+        // Aggregation may be unavailable on some storage backends; fall back
+        // to fetching only the cards' listId and folding in memory.
+        const cards = await Cards.find(
+          { boardId: { $in: countedBoardIds }, archived: false },
+          { fields: { listId: 1 } },
+        ).fetchAsync();
+        Object.assign(cardCounts, countCardsByListId(cards));
+      }
+    }
+
+    return buildBoardTileData(boards, lists, cardCounts);
   },
 });
 

@@ -210,6 +210,29 @@ async function getOrCreateRescuedSwimlane(boardId) {
   function addSwimlaneIdValidationHooks() {
     // Card insert hook
     Cards.before.insert(async function(userId, doc) {
+      // #1959/#1971: a client-supplied swimlaneId can point at a DELETED or
+      // ARCHIVED swimlane (adding cards in the Lists view reuses stale ids,
+      // and dragging re-assigns to a default swimlane that may be archived).
+      // Such cards exist but never render in the Swimlanes view. Validate the
+      // id and fall back to the board's first VISIBLE swimlane.
+      if (doc.swimlaneId) {
+        const valid = await Swimlanes.findOneAsync({
+          _id: doc.swimlaneId,
+          boardId: doc.boardId,
+          archived: false,
+        });
+        if (!valid) {
+          const fallback = await Swimlanes.findOneAsync({
+            boardId: doc.boardId,
+            type: { $ne: 'template-swimlane' },
+            archived: false,
+          }, { sort: { sort: 1 } });
+          if (fallback) {
+            console.warn(`Card insert pointed at a missing/archived swimlane ${doc.swimlaneId}; using ${fallback._id}`);
+            doc.swimlaneId = fallback._id;
+          }
+        }
+      }
       if (!doc.swimlaneId) {
         const board = await Boards.findOneAsync(doc.boardId);
         if (board) {

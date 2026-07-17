@@ -1,5 +1,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
+const {
+  shouldRejectPasswordLogin,
+  LDAP_PASSWORD_LOGIN_DISABLED_REASON,
+} = require('/server/lib/ldapPasswordLoginGuard');
+
 // Authentication helpers — exported for use by API routes and model files
 export const Authentication = {
   async checkUserId(userId) {
@@ -84,6 +89,31 @@ Meteor.startup(() => {
     return !user.loginDisabled;
   });
 
+  // #4419 (Severity:Security): after a user is migrated from local password
+  // login to LDAP (authenticationMethod: 'ldap'), the stale local password in
+  // services.password would otherwise still work. Reject password-service
+  // logins for LDAP users — but only while LDAP is actually enabled, never for
+  // other services ('ldap', 'resume', 'oidc', 'cas', 'saml', …), never when
+  // LDAP_LOGIN_FALLBACK=true (that feature intentionally routes LDAP logins
+  // through the password service), and never when the operator opted out with
+  // LDAP_MIGRATION_ALLOW_PASSWORD_LOGIN=true. Full decision logic and
+  // rationale live in server/lib/ldapPasswordLoginGuard.js.
+  Accounts.validateLoginAttempt(function(options) {
+    if (
+      shouldRejectPasswordLogin({
+        serviceName: options.type,
+        user: options.user,
+        env: process.env,
+      })
+    ) {
+      throw new Meteor.Error(
+        'ldap-password-login-disabled',
+        LDAP_PASSWORD_LOGIN_DISABLED_REASON,
+      );
+    }
+    return true;
+  });
+
   if (Meteor.isServer) {
     if (
       process.env.ORACLE_OIM_ENABLED === 'true' ||
@@ -94,7 +124,13 @@ Meteor.startup(() => {
         { service: 'oidc' },
         {
           $set: {
-            loginStyle: process.env.OAUTH2_LOGIN_STYLE || 'redirect',
+            // #5695: the client now honors a configured 'redirect' style, so
+            // the fallback here must stay 'popup' to keep popup the default
+            // behavior when OAUTH2_LOGIN_STYLE is not set.
+            loginStyle:
+              process.env.OAUTH2_LOGIN_STYLE === 'redirect'
+                ? 'redirect'
+                : 'popup',
             clientId: process.env.OAUTH2_CLIENT_ID,
             secret: process.env.OAUTH2_SECRET,
             serverUrl: process.env.OAUTH2_SERVER_URL,
@@ -116,7 +152,13 @@ Meteor.startup(() => {
         { service: 'oidc' },
         {
           $set: {
-            loginStyle: process.env.OAUTH2_LOGIN_STYLE || 'redirect',
+            // #5695: the client now honors a configured 'redirect' style, so
+            // the fallback here must stay 'popup' to keep popup the default
+            // behavior when OAUTH2_LOGIN_STYLE is not set.
+            loginStyle:
+              process.env.OAUTH2_LOGIN_STYLE === 'redirect'
+                ? 'redirect'
+                : 'popup',
             clientId: process.env.OAUTH2_CLIENT_ID,
             secret: process.env.OAUTH2_SECRET,
             serverUrl: process.env.OAUTH2_SERVER_URL,

@@ -114,6 +114,12 @@ const SRC_DB        = process.env.SRC_DB || 'wekan';
 const TARGET_URL    = process.env.TARGET_MONGO_URL || 'mongodb://127.0.0.1:27098/wekan';
 const FILES_DIR     = process.env.FILES_DIR || path.join(process.env.WRITABLE_PATH || '/data', 'files');
 const PORT          = parseInt(process.env.MIGRATION_PORT || '8080', 10);
+// #6473: FILES_ONLY=true = incremental attachment/avatar repair against an existing,
+// LIVE target (set by the snap's attachment-repair on startup): the text collections
+// are left completely untouched (users may have changed them since the original
+// migration), already-migrated files are verified and skipped, and only missing
+// binaries/records are migrated.
+const FILES_ONLY    = process.env.FILES_ONLY === 'true';
 // Optional: write the final migration state here as JSON so an admin UI can read
 // it later (e.g. WeKan on Sandstorm — Admin Panel / Attachments / Sandstorm).
 const STATUS_FILE   = process.env.STATUS_FILE || '';
@@ -357,6 +363,10 @@ ${currentHtml}
 <h2>Activity</h2><pre>${state.log.slice(-15).map(esc).join('\n') || '(waiting…)'}</pre>
 <h2>Errors</h2>${state.errors.slice(-15).reverse().map(e => `<div style="color:#c0392b">${esc(e)}</div>`).join('') || '<p class="muted">None</p>'}
 </div></body></html>`);
+}).on('error', (e) => {
+  // A background FILES_ONLY repair runs while WeKan itself owns the web port (#6473):
+  // the dashboard is a convenience — never crash the repair over EADDRINUSE.
+  console.log(`[migrate3] progress dashboard not available (${e.code || e.message}); continuing without it.`);
 }).listen(PORT, () => console.log(`[migrate3] progress at http://localhost:${PORT}`));
 
 // ── run a mongo CLI tool with the old libraries on LD_LIBRARY_PATH ────────────
@@ -695,6 +705,12 @@ async function run() {
   ]);
 
   // ── text collections (everything except the GridFS chunk/file collections) ──
+  // #6473: FILES_ONLY repair NEVER touches text collections — users may have
+  // added/changed boards and cards on FerretDB since the original migration, and
+  // re-copying from the frozen MongoDB source would overwrite or resurrect data.
+  if (FILES_ONLY) {
+    logline('FILES_ONLY: skipping text collections; incremental attachment/avatar repair only.');
+  } else {
   state.phase = 'migrating-collections';
   for (const name of all) {
     // FerretDB v1 rejects collection names containing a dot ("invalid key: '<name>' (key must
@@ -723,6 +739,7 @@ async function run() {
     completedCollections.add(name);
     saveCheckpoint(true);   // a collection boundary is worth a guaranteed write
   }
+  }   // end !FILES_ONLY (text collections)
 
   // ── GridFS attachments + avatars -> filesystem ──────────────────────────────
   state.phase = 'migrating-files';
@@ -774,6 +791,24 @@ async function run() {
         fileIndex++;
         state.files[key].done++; state.files[key].bytes += Number(alreadyDone.size) || 0;
         continue;
+      }
+      // #6473: ALREADY MIGRATED? Check the TARGET itself — record present, version on
+      // 'fs', file actually on disk. This makes the automatic startup repair
+      // INCREMENTAL: healthy installs verify-and-skip, only what is missing migrates.
+      if (fr._id) {
+        try {
+          const tgtRec = await db.collection(bucket).findOne({ _id: fr._id });
+          const tv = tgtRec && tgtRec.versions && tgtRec.versions.original;
+          if (tv && tv.storage === 'fs' && tv.path && fs.existsSync(tv.path)) {
+            fileIndex++;
+            state.files[key].done++; state.files[key].bytes += Number(tv.size) || 0;
+            let onDiskSize = Number(tv.size) || 0;
+            try { onDiskSize = fs.statSync(tv.path).size; } catch { /* keep record size */ }
+            completedFiles.set(resumeKey, { path: tv.path, size: onDiskSize });
+            saveCheckpoint();
+            continue;
+          }
+        } catch { /* fall through to extraction */ }
       }
       if (!ensureDiskForFile(destDir, size, name)) { onDiskAbort(); return; }
       // Stream the file from its chunks (sorted by n) straight to disk, one chunk at a
@@ -856,6 +891,24 @@ async function run() {
         state.files[key].done++; state.files[key].bytes += Number(alreadyDone.size) || 0;
         continue;
       }
+      // #6473: ALREADY MIGRATED? Verify against the TARGET record — version on 'fs'
+      // and the file on disk means nothing to do (incremental startup repair). And in
+      // FILES_ONLY mode a record DELETED from the target since the migration must not
+      // have its binary resurrected.
+      try {
+        const tgtRec = await db.collection(bucket).findOne({ _id: recId });
+        const tv = tgtRec && tgtRec.versions && tgtRec.versions[versionName];
+        if (tv && tv.storage === 'fs' && tv.path && fs.existsSync(tv.path)) {
+          fileIndex++;
+          state.files[key].done++; state.files[key].bytes += Number(tv.size) || 0;
+          let onDiskSize = Number(tv.size) || 0;
+          try { onDiskSize = fs.statSync(tv.path).size; } catch { /* keep record size */ }
+          completedFiles.set(resumeKey, { path: tv.path, size: onDiskSize });
+          saveCheckpoint();
+          continue;
+        }
+        if (FILES_ONLY && !tgtRec) continue;
+      } catch { /* fall through to extraction */ }
       if (!ensureDiskForFile(destDir, size, name)) { onDiskAbort(); return; }
       fileIndex++;
       state.current = { active: true, kind: key, name, size, done: 0, index: fileIndex, total: state.current.total };

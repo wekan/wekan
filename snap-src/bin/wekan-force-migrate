@@ -29,6 +29,9 @@ snapctl stop "${svc}.mongodb"   2>/dev/null || true
 # The source MongoDB data (WiredTiger files in $COMMON) is NOT touched.
 rm -f "$COMMON/.migration-to-ferretdb-done"
 rm -f "$COMMON/migration-progress.json"
+# #6473: a forced fresh migration re-does the file phase too, and finish_success
+# re-writes this marker — clear it so the startup attachment-repair state matches.
+rm -f "$COMMON/.attachments-files-v2-done"
 rm -rf "${COMMON:?}/files/db/"* 2>/dev/null || true
 
 # Put the snap back on mongodb so the normal path (mongodb-control -> migration-control) runs;

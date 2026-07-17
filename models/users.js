@@ -5,6 +5,14 @@ import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES_ID,
   INVITE_TO_BOARD_ROLES_DEFAULT,
 } from '/models/inviteToBoardRolesSettings';
+// #5659: the default/minimum list width must be the SAME on every resolution
+// path (it used to be 270 here but 272 in the client and the lists schema, so
+// lists could fall back to different "defaults" on public boards).
+import {
+  DEFAULT_LIST_WIDTH,
+  MIN_LIST_WIDTH,
+  normalizeListWidth,
+} from '/models/lib/listWidth';
 // import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
 const { SimpleSchema } = require('/imports/simpleSchema');
 const Users = Meteor.users;
@@ -1077,8 +1085,7 @@ Users.helpers({
   // #5729 The single width applied to every list when fixed width mode is on.
   getFixedListWidth(boardId) {
     const { fixedListWidths = {} } = this.profile || {};
-    const w = fixedListWidths[boardId];
-    return typeof w === 'number' && w >= 270 ? w : 272;
+    return normalizeListWidth(fixedListWidths[boardId]);
   },
 
   invitedBoards() {
@@ -1168,9 +1175,11 @@ Users.helpers({
   getListWidth(boardId, listId) {
     const listWidths = this.getListWidths();
     if (listWidths[boardId] && listWidths[boardId][listId]) {
-      return listWidths[boardId][listId];
+      // #5659: normalize so an out-of-range stored value can not make one
+      // list's width differ from the shared default everyone else sees.
+      return normalizeListWidth(listWidths[boardId][listId]);
     } else {
-      return 270; //TODO(mark-i-m): default?
+      return DEFAULT_LIST_WIDTH;
     }
   },
   getListConstraints() {
@@ -1451,7 +1460,7 @@ Users.helpers({
         if (widths[boardId] && widths[boardId][listId]) {
           const width = widths[boardId][listId];
           // Validate it's a valid number
-          if (validators.isValidNumber(width, 270, 1000)) {
+          if (validators.isValidNumber(width, MIN_LIST_WIDTH, 1000)) {
             return width;
           }
         }
@@ -1460,7 +1469,8 @@ Users.helpers({
       }
     }
 
-    return 270; // Return default width
+    // #5659: same default as every other width-resolution path.
+    return DEFAULT_LIST_WIDTH;
   },
 
   setListWidthToStorage(boardId, listId, width) {
@@ -1470,7 +1480,7 @@ Users.helpers({
     }
 
     // Validate width before storing
-    if (!validators.isValidNumber(width, 270, 1000)) {
+    if (!validators.isValidNumber(width, MIN_LIST_WIDTH, 1000)) {
       console.warn('Invalid list width:', width);
       return false;
     }

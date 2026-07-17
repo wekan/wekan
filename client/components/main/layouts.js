@@ -31,7 +31,10 @@ Template.userFormsLayout.onCreated(function () {
     Meteor.call('isOidcRedirectionEnabled', (_, result) => {
       if (result) {
         AccountsTemplates.options.socialLoginStyle = 'redirect';
-        options = {
+        // #5695: this is an ES module, so the body runs in strict mode and
+        // the previous undeclared `options = {...}` assignment threw a
+        // ReferenceError, breaking the OIDC_REDIRECTION_ENABLED auto-login.
+        const options = {
           loginStyle: AccountsTemplates.options.socialLoginStyle,
         };
         Meteor.loginWithOidc(options);

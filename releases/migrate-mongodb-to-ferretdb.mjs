@@ -99,6 +99,16 @@ const ATTACH_DIR   = path.join(WRITABLE, 'files', 'attachments');
 const AVATAR_DIR   = path.join(WRITABLE, 'files', 'avatars');
 const MARKER_COLL  = '_wekan_migration';   // written to target when done
 const SCHEMA_VER   = 843;                  // v8.43
+// #6473: version of the FILE (attachment/avatar) extraction logic. Bump this whenever a
+// file-phase bug fix means already-migrated installs must be RE-SCANNED: a marker whose
+// filesVersion is older than this triggers an automatic, incremental files-only REPAIR run
+// (text data is left alone; only binaries/records that are missing are migrated). v2 =
+// the #6473 fixes (copies.<bucket>.key resolution, files-collection-driven CFS extraction,
+// gridFsFileId-without-storage-flag matching, <bucket>.files sweep).
+const FILES_VERSION = 2;
+// Run ONLY the file phases against an existing target (set by the snap's
+// attachment-repair). Also turned on automatically when the marker's filesVersion is old.
+const FILES_ONLY   = process.env.FILES_ONLY === 'true';
 
 // ── Progress state (shared between HTTP server and migration logic) ─────────
 const state = {
@@ -259,9 +269,16 @@ const server = http.createServer((req, res) => {
   }
 });
 
+// A background repair run (#6473) starts while WeKan itself is coming up on the web
+// port, so the dashboard port can be taken (or 0 = ephemeral). Never crash over it —
+// the dashboard is a convenience, the migration/repair itself matters.
+server.on('error', (err) => {
+  console.log(`[migrate] Progress dashboard not available (${err.code || err.message}); continuing without it.`);
+});
 server.listen(PORT, () => {
-  console.log(`[migrate] Progress dashboard: http://localhost:${PORT}/`);
-  console.log(`[migrate] JSON status:        http://localhost:${PORT}/migration-status`);
+  const actualPort = server.address()?.port ?? PORT;
+  console.log(`[migrate] Progress dashboard: http://localhost:${actualPort}/`);
+  console.log(`[migrate] JSON status:        http://localhost:${actualPort}/migration-status`);
 });
 
 // ── Filesystem helpers ─────────────────────────────────────────────────────
@@ -614,11 +631,16 @@ function resolveCfsGridFsId(record, bucketName) {
  * Each transformer is pure: takes a doc, returns a doc (or null to skip).
  */
 function upgradeBoard(doc) {
+  // Only migrationVersion is stamped. The old comprehensiveMigrationCompleted /
+  // fixMissingListsCompleted stamps made WeKan's on-demand repair tools
+  // (fixMissingListsMigration, comprehensiveBoardMigration) permanently skip
+  // imported boards — while this importer covers LESS than those tools (e.g.
+  // cards with a dangling listId). The startup schema upgrade
+  // (server/lib/schemaUpgradeSteps.js) now rescues those on every platform,
+  // and the repair tools stay usable.
   return {
     ...doc,
     migrationVersion: SCHEMA_VER,
-    comprehensiveMigrationCompleted: true,
-    fixMissingListsCompleted:        true,
   };
 }
 
@@ -728,13 +750,23 @@ async function copyCollection(srcDb, tgtDb, collName, transformer) {
   const flush = async () => {
     if (batch.length === 0) return;
     if (!DRY_RUN) {
-      for (const doc of batch) {
-        try {
-          await tgt.replaceOne({ _id: doc._id }, doc, { upsert: true });
-          state.collections[collName].done++;
-        } catch (err) {
-          state.collections[collName].errors++;
-          pushError(`${collName}/${doc._id}: ${err.message}`);
+      // SPEED (#6473 follow-up: a big migration took 5 hours): ONE insertMany
+      // round trip per batch — the common case is a fresh, empty target where
+      // every insert succeeds. Only when the batch hits duplicates (a resumed
+      // or re-run migration) fall back to per-document replaceOne upserts for
+      // THIS batch, which also isolates any per-document error.
+      try {
+        await tgt.insertMany(batch, { ordered: false });
+        state.collections[collName].done += batch.length;
+      } catch {
+        for (const doc of batch) {
+          try {
+            await tgt.replaceOne({ _id: doc._id }, doc, { upsert: true });
+            state.collections[collName].done++;
+          } catch (err) {
+            state.collections[collName].errors++;
+            pushError(`${collName}/${doc._id}: ${err.message}`);
+          }
         }
       }
     } else {
@@ -835,48 +867,67 @@ async function run() {
     }
   } catch (e) { /* keep default product name */ }
 
-  // Check idempotency marker
+  // Check idempotency marker. #6473: the marker also carries filesVersion — the version
+  // of the FILE extraction logic that produced the target's attachments/avatars. A
+  // COMPLETED migration whose filesVersion is older than FILES_VERSION is not re-done:
+  // it gets an automatic, INCREMENTAL files-only REPAIR — the text data (which may have
+  // been changed by users since the migration) is never touched, and only binaries and
+  // records that are actually missing are migrated; everything already on disk and
+  // pointed at by its record is verified and skipped.
   const markerColl = tgtDb.collection(MARKER_COLL);
   const marker = await markerColl.findOne({ _id: 'completed' });
+  const filesCurrent = !!marker && (marker.filesVersion || 1) >= FILES_VERSION;
+  let repairMode = FILES_ONLY;
   if (marker && marker.schemaVersion >= SCHEMA_VER && !process.env.FORCE_MIGRATE) {
-    console.log('[migrate] Already migrated (schema v' + marker.schemaVersion + '). Exiting.');
-    state.phase = 'already-migrated';
-    state.phase_detail = 'Schema v' + marker.schemaVersion + ' already present in target';
-    state.success = true;
-    // A previous boot already migrated attachments, avatars and text data:
-    // reclaim the old MongoDB disk space now (runs once, tracked by the marker).
-    try { await compactSource(srcDb, markerColl); } catch (e) { pushError('compact: ' + e.message); }
-    state.finishedAt = new Date().toISOString();
-    await srcClient.close();
-    await tgtClient.close();
-    setTimeout(() => process.exit(0), 3000);
-    return;
+    if (filesCurrent && !FILES_ONLY) {
+      console.log('[migrate] Already migrated (schema v' + marker.schemaVersion + ', files v' + (marker.filesVersion || 1) + '). Exiting.');
+      state.phase = 'already-migrated';
+      state.phase_detail = 'Schema v' + marker.schemaVersion + ' already present in target';
+      state.success = true;
+      // A previous boot already migrated attachments, avatars and text data:
+      // reclaim the old MongoDB disk space now (runs once, tracked by the marker).
+      try { await compactSource(srcDb, markerColl); } catch (e) { pushError('compact: ' + e.message); }
+      state.finishedAt = new Date().toISOString();
+      await srcClient.close();
+      await tgtClient.close();
+      setTimeout(() => process.exit(0), 3000);
+      return;
+    }
+    repairMode = true;
+    console.log(`[migrate] Migration is complete (schema v${marker.schemaVersion}) but its file phase is v${marker.filesVersion || 1} < v${FILES_VERSION}: running an incremental files-only repair. Text data is left untouched; only missing attachments/avatars are migrated.`);
+  }
+  if (repairMode) {
+    state.phase = 'repairing-files';
+    state.phase_detail = 'Incremental attachment/avatar repair — text data untouched';
   }
 
   // ── 1. Build lookup maps needed for schema upgrades ────────────────────
-  state.phase = 'analyzing';
-  state.phase_detail = 'Building swimlane/list lookup maps…';
-  console.log('[migrate] Analyzing source schema…');
-
-  // boardId → first swimlaneId (for orphaned lists/cards)
+  // (skipped in repair mode: they only feed the text-copy transformers)
   const defaultSwimlaneIdFor = {};
-  const swimlaneCursor = srcDb.collection('swimlanes').find({ archived: false }, {
-    projection: { _id: 1, boardId: 1, sort: 1 }, sort: { sort: 1 },
-  });
-  for await (const sw of swimlaneCursor) {
-    if (!defaultSwimlaneIdFor[sw.boardId]) {
-      defaultSwimlaneIdFor[sw.boardId] = String(sw._id);
-    }
-  }
-  await swimlaneCursor.close();
-
-  // listId → swimlaneId  (so orphaned cards can inherit from their list)
   const listSwimlaneMap = {};
-  const listCursor = srcDb.collection('lists').find({}, { projection: { _id: 1, swimlaneId: 1 } });
-  for await (const ls of listCursor) {
-    listSwimlaneMap[String(ls._id)] = ls.swimlaneId || '';
+  if (!repairMode) {
+    state.phase = 'analyzing';
+    state.phase_detail = 'Building swimlane/list lookup maps…';
+    console.log('[migrate] Analyzing source schema…');
+
+    // boardId → first swimlaneId (for orphaned lists/cards)
+    const swimlaneCursor = srcDb.collection('swimlanes').find({ archived: false }, {
+      projection: { _id: 1, boardId: 1, sort: 1 }, sort: { sort: 1 },
+    });
+    for await (const sw of swimlaneCursor) {
+      if (!defaultSwimlaneIdFor[sw.boardId]) {
+        defaultSwimlaneIdFor[sw.boardId] = String(sw._id);
+      }
+    }
+    await swimlaneCursor.close();
+
+    // listId → swimlaneId  (so orphaned cards can inherit from their list)
+    const listCursor = srcDb.collection('lists').find({}, { projection: { _id: 1, swimlaneId: 1 } });
+    for await (const ls of listCursor) {
+      listSwimlaneMap[String(ls._id)] = ls.swimlaneId || '';
+    }
+    await listCursor.close();
   }
-  await listCursor.close();
 
   // ── 2. Ensure target filesystem directories exist ───────────────────────
   if (!DRY_RUN) {
@@ -902,6 +953,10 @@ async function run() {
   ]);
 
   // ── 4. Copy all plain collections ─────────────────────────────────────
+  // Repair mode NEVER touches text collections: users may have added/changed
+  // boards and cards on FerretDB since the original migration, and re-copying
+  // from the frozen MongoDB source would overwrite or resurrect data.
+  if (!repairMode) {
   state.phase = 'migrating-collections';
   for (const name of allColls) {
     // FerretDB v1 rejects collection names containing a dot ("invalid key: '<name>' (key must
@@ -935,8 +990,10 @@ async function run() {
     completedCollections.add(name);
     saveCheckpoint(true);   // persist progress to WRITABLE_PATH after each collection
   }
+  }   // end !repairMode (text collections)
 
   // ── 5. Also ensure boards without a swimlane have one in the target ────
+  if (!repairMode) {
   state.phase = 'ensuring-swimlanes';
   state.phase_detail = 'Creating default swimlanes for boards that have none…';
   if (!DRY_RUN) {
@@ -1011,9 +1068,10 @@ async function run() {
     }
     await orphanCursor.close();
   }
+  }   // end !repairMode (swimlane/orphan fixes)
 
   // ── 7. Extract GridFS / CollectionFS binary files to filesystem ─────────
-  state.phase = 'migrating-files';
+  state.phase = repairMode ? 'repairing-files' : 'migrating-files';
 
   // Close both clients and exit (staying up 60 s so the dashboard's disk-space error can be
   // read) when the file phase stops for lack of disk space.
@@ -1023,6 +1081,32 @@ async function run() {
     try { await tgtClient.close(); } catch {}
     setTimeout(() => process.exit(1), 60_000);
   };
+
+  // SPEED (#6473 follow-up): preload the TARGET's attachment/avatar metadata ONCE
+  // per bucket instead of one findOne round trip per file — per-document round
+  // trips were a main reason a big migration took 5 hours. The records are small
+  // metadata documents; a very large collection (>100k records) falls back to
+  // per-file lookups to bound memory.
+  const TGT_PRELOAD_LIMIT = 100_000;
+  const tgtRecCache = {};
+  async function getTgtRec(collName, id) {
+    if (tgtRecCache[collName] === undefined) {
+      tgtRecCache[collName] = null;
+      try {
+        const n = await tgtDb.collection(collName).countDocuments({});
+        if (n <= TGT_PRELOAD_LIMIT) {
+          const map = new Map();
+          const cur = tgtDb.collection(collName).find({}, { projection: { name: 1, versions: 1 } });
+          for await (const d of cur) map.set(String(d._id), d);
+          await cur.close();
+          tgtRecCache[collName] = map;
+        }
+      } catch { /* keep per-file lookups */ }
+    }
+    const map = tgtRecCache[collName];
+    if (map) return map.get(String(id)) || null;
+    try { return await tgtDb.collection(collName).findOne({ _id: id }); } catch { return null; }
+  }
 
   // Measure up front how many files and how many BYTES must be extracted (both the
   // CollectionFS GridFS files and the Meteor-Files-in-GridFS records), so the dashboard can
@@ -1049,8 +1133,11 @@ async function run() {
   updateDiskFree(WRITABLE, true);
   console.log(`[migrate] Files to extract: ${state.current.total} (${(state.filesTotalBytes / 1048576).toFixed(0)} MB)${state.diskFree >= 0 ? `; disk free ${(state.diskFree / 1048576).toFixed(0)} MB` : '; free space unknown — will stop on a write failure'}.`);
   // Up-front check ONLY when free space is measurable. If it will not all fit, stop before
-  // extracting anything so a full disk can never corrupt MongoDB.
-  if (!DRY_RUN && state.filesTotalBytes > 0 && state.diskFree >= 0 && state.diskFree < state.filesTotalBytes + DISK_MIN_FREE) {
+  // extracting anything so a full disk can never corrupt MongoDB. NOT in repair mode: there
+  // most (often all) files are already on disk and need no new space, so requiring room for
+  // the full set again would falsely abort healthy repairs — the per-file
+  // ensureDiskForFile() guard still protects every actual write.
+  if (!DRY_RUN && !repairMode && state.filesTotalBytes > 0 && state.diskFree >= 0 && state.diskFree < state.filesTotalBytes + DISK_MIN_FREE) {
     state.abort = true; state.success = false; state.phase = 'error';
     state.additionalBytesNeeded = Math.max(0, state.filesTotalBytes + DISK_MIN_FREE - state.diskFree);
     pushError(`FATAL: not enough disk space to migrate all files: ${(state.filesTotalBytes / 1048576).toFixed(0)} MB of attachments/avatars must be extracted, only ${(state.diskFree / 1048576).toFixed(0)} MB free — need ${(state.additionalBytesNeeded / 1048576).toFixed(0)} MB more. Stopped before extracting to avoid MongoDB data corruption.`);
@@ -1061,15 +1148,20 @@ async function run() {
 
   async function migrateGridFs(bucketName, destDir, fileStateKey) {
     const filesCollName   = `cfs_gridfs.${bucketName}.files`;
-    if (!allColls.includes(filesCollName)) return;
+    const haveBucket      = allColls.includes(filesCollName);
+    const haveFilerecords = allColls.includes(`cfs.${bucketName}.filerecord`);
+    // A CFS FileSystem-store database (ATTACHMENTS_STORE_PATH era, WeKan
+    // v3.12–v6.09) may have filerecords but NO cfs_gridfs collections at all —
+    // returning early here silently lost every such attachment.
+    if (!haveBucket && !haveFilerecords) return;
 
     state.phase_detail = `Extracting ${bucketName} files from GridFS…`;
-    console.log(`[migrate] Extracting GridFS bucket: ${bucketName} → ${destDir}`);
+    console.log(`[migrate] Extracting CollectionFS bucket: ${bucketName} → ${destDir}`);
 
-    const bucket = new GridFSBucket(srcDb, { bucketName: `cfs_gridfs.${bucketName}` });
-    const filesCol = srcDb.collection(filesCollName);
+    const filesCol = haveBucket ? srcDb.collection(filesCollName) : null;
+    const bucket = haveBucket ? new GridFSBucket(srcDb, { bucketName: `cfs_gridfs.${bucketName}` }) : null;
 
-    state.files[fileStateKey].total = await filesCol.countDocuments();
+    state.files[fileStateKey].total = haveBucket ? await filesCol.countDocuments() : 0;
 
     // #6473: join the CollectionFS filerecords (original name, board/card links)
     // to the GridFS files by their RESOLVED GridFS id — but DRIVE the extraction
@@ -1078,13 +1170,20 @@ async function run() {
     // the id living at copies.<bucket>.key (the real CollectionFS layout) — or a
     // missing cfs.<bucket>.filerecord collection — silently skipped EVERY file
     // while the migration still reported success.
+    //
+    // A key that is NOT a 24-hex ObjectId is a CFS **FileSystem store** key
+    // (ATTACHMENTS_STORE_PATH era): the value is the file's NAME on disk
+    // ("<collection>-<id>-<name>"), not a GridFS id — handled separately below.
+    const HEX24 = /^[0-9a-f]{24}$/i;
     const recordByGridId = new Map();
+    const fsStoreRecords = [];
     let danglingRecords = 0;   // filerecords carrying no GridFS reference at all
-    if (allColls.includes(`cfs.${bucketName}.filerecord`)) {
+    if (haveFilerecords) {
       const metaCursor = srcDb.collection(`cfs.${bucketName}.filerecord`).find({});
       for await (const record of metaCursor) {
         const gid = resolveCfsGridFsId(record, bucketName);
-        if (gid) recordByGridId.set(String(gid), record);
+        if (gid && HEX24.test(String(gid))) recordByGridId.set(String(gid), record);
+        else if (gid) fsStoreRecords.push({ record, key: String(gid) });
         else danglingRecords++;
       }
       await metaCursor.close();
@@ -1093,12 +1192,17 @@ async function run() {
       pushError(`${bucketName}: ${danglingRecords} CollectionFS filerecord(s) carry no GridFS reference; their binaries cannot be located.`);
       state.files[fileStateKey].errors += danglingRecords;
     }
+    state.current.total += fsStoreRecords.length;
+    state.files[fileStateKey].total += fsStoreRecords.length;
 
+    const matchedGridIds = new Set();   // hex filerecords whose GridFS file was found
     let orphanFiles = 0;   // GridFS files with no filerecord (extracted, kept on disk)
-    const gfCursor = filesCol.find({});
+    const gfCursor = haveBucket ? filesCol.find({}) : null;
+    if (gfCursor)
     for await (const gf of gfCursor) {
       const gridFsId = gf._id;
       const record = recordByGridId.get(String(gridFsId)) || null;
+      if (record) matchedGridIds.add(String(gridFsId));
       const original = (record && record.original) || {};
       const recordId = record ? String(record._id) : String(gridFsId);
       const originalName = original.name || (record && record.filename) || gf.filename || recordId;
@@ -1115,6 +1219,27 @@ async function run() {
         state.files[fileStateKey].done++;
         state.files[fileStateKey].bytes += Number(done.size) || 0;
         continue;
+      }
+
+      // #6473: ALREADY MIGRATED? Check the TARGET itself — record present, version on
+      // 'fs', file actually on disk. This is what makes the automatic startup repair
+      // INCREMENTAL: servers whose migration worked verify-and-skip every file quickly,
+      // and only what is genuinely missing gets migrated.
+      if (!DRY_RUN && record) {
+        try {
+          const tgtRec = await getTgtRec(bucketName, record._id);
+          const tv = tgtRec && tgtRec.versions && tgtRec.versions.original;
+          if (tv && tv.storage === 'fs' && tv.path && fs.existsSync(tv.path)) {
+            fileIndex++;
+            state.files[fileStateKey].done++;
+            state.files[fileStateKey].bytes += Number(tv.size) || 0;
+            let onDiskSize = Number(tv.size) || 0;
+            try { onDiskSize = fs.statSync(tv.path).size; } catch { /* keep record size */ }
+            completedFiles.set(resumeKey, { path: tv.path, size: onDiskSize });
+            saveCheckpoint();
+            continue;
+          }
+        } catch { /* fall through to extraction */ }
       }
 
       // STOP (not skip) if this file plus the safety margin will not fit: a full disk can
@@ -1172,9 +1297,109 @@ async function run() {
 
       if (state.abort) { await gfCursor.close(); onDiskAbort(); return; }
     }
-    await gfCursor.close();
+    if (gfCursor) await gfCursor.close();
     if (orphanFiles > 0) {
       console.log(`[migrate] ${bucketName}: ${orphanFiles} GridFS file(s) had no CollectionFS filerecord; extracted to ${destDir} without a database record.`);
+    }
+
+    // ── CFS FileSystem-store filerecords (ATTACHMENTS_STORE_PATH era, v3.12–v6.09) ──
+    // copies.<bucket>.key is the file's NAME under the CFS FileSystem store dir. Copy
+    // the binary into the current layout and create the Meteor-Files record.
+    let fsStoreMissing = 0;
+    for (const { record, key } of fsStoreRecords) {
+      const original = record.original || {};
+      const recordId = String(record._id);
+      const originalName = original.name || record.filename || recordId;
+      const resumeKey = `${bucketName}:${recordId}`;
+
+      const done = alreadyExtracted(resumeKey);
+      if (done) {
+        fileIndex++;
+        state.files[fileStateKey].done++;
+        state.files[fileStateKey].bytes += Number(done.size) || 0;
+        continue;
+      }
+      // Already migrated? (incremental repair — same check as the GridFS loop)
+      if (!DRY_RUN) {
+        try {
+          const tgtRec = await getTgtRec(bucketName, record._id);
+          const tv = tgtRec && tgtRec.versions && tgtRec.versions.original;
+          if (tv && tv.storage === 'fs' && tv.path && fs.existsSync(tv.path)) {
+            fileIndex++;
+            state.files[fileStateKey].done++;
+            state.files[fileStateKey].bytes += Number(tv.size) || 0;
+            let onDiskSize = Number(tv.size) || 0;
+            try { onDiskSize = fs.statSync(tv.path).size; } catch { /* keep record size */ }
+            completedFiles.set(resumeKey, { path: tv.path, size: onDiskSize });
+            saveCheckpoint();
+            continue;
+          }
+        } catch { /* fall through */ }
+      }
+
+      // Locate the binary: ATTACHMENTS_STORE_PATH (the env the old store used; the
+      // operator carries it over), an absolute key, or a cfs/files dir moved under
+      // WRITABLE_PATH.
+      const candidates = [];
+      if (path.isAbsolute(key)) candidates.push(key);
+      for (const dir of [process.env.ATTACHMENTS_STORE_PATH, process.env.AVATARS_STORE_PATH]) {
+        if (dir) candidates.push(path.join(dir, key));
+      }
+      candidates.push(path.join(WRITABLE, 'cfs', 'files', bucketName, key));
+      candidates.push(path.join(WRITABLE, 'files', 'cfs', bucketName, key));
+      let srcPath = null;
+      for (const c of candidates) {
+        try { if (fs.statSync(c).isFile()) { srcPath = c; break; } } catch { /* next */ }
+      }
+      if (!srcPath) { fsStoreMissing++; continue; }
+
+      const size = (() => { try { return fs.statSync(srcPath).size; } catch { return original.size || 0; } })();
+      const { fullPath, basename } = destFilePath(destDir, recordId, originalName);
+      if (!DRY_RUN && !ensureDiskForFile(destDir, size, originalName)) { onDiskAbort(); return; }
+
+      fileIndex++;
+      state.current = { active: true, kind: fileStateKey, name: originalName, size, done: 0, index: fileIndex, total: state.current.total };
+      if (DRY_RUN) {
+        state.files[fileStateKey].done++;
+        state.files[fileStateKey].bytes += size;
+        state.current.active = false;
+        continue;
+      }
+      try {
+        fs.copyFileSync(srcPath, fullPath);
+        state.files[fileStateKey].done++;
+        state.files[fileStateKey].bytes += size;
+        state.current.done = size;
+        const mfRecord = cfsRecordToMeteorFile(record, bucketName, basename);
+        mfRecord.path = fullPath;
+        mfRecord.size = size;
+        if (mfRecord.versions && mfRecord.versions.original) {
+          mfRecord.versions.original.path = fullPath;
+          mfRecord.versions.original.size = size;
+          mfRecord.versions.original.storage = 'fs';
+        }
+        mfRecord.meta = { ...(mfRecord.meta || {}), originalFilename: originalName, storedBasename: basename, source: 'cfs-migration' };
+        await tgtDb.collection(bucketName).replaceOne({ _id: record._id }, mfRecord, { upsert: true });
+        completedFiles.set(resumeKey, { path: fullPath, size });
+        saveCheckpoint();
+      } catch (err) {
+        if (err && (err.code === 'ENOSPC' || err.code === 'EDQUOT')) flagDiskFull('write failed: ' + err.code);
+        pushError(`CFS fs-store copy ${bucketName}/${recordId}: ${err.message}`);
+        state.files[fileStateKey].errors++;
+        try { fs.unlinkSync(fullPath); } catch { /* ignore */ }
+      } finally { state.current.active = false; }
+      if (state.abort) { onDiskAbort(); return; }
+    }
+    if (fsStoreMissing > 0) {
+      pushError(`${bucketName}: ${fsStoreMissing} CollectionFS FileSystem-store file(s) not found on disk — set ATTACHMENTS_STORE_PATH to the old store directory and re-run the repair.`);
+      state.files[fileStateKey].errors += fsStoreMissing;
+    }
+
+    // Hex filerecords whose GridFS binary no longer exists: report, never silently drop.
+    const missingBinaries = [...recordByGridId.keys()].filter(k => !matchedGridIds.has(k)).length;
+    if (missingBinaries > 0) {
+      pushError(`${bucketName}: ${missingBinaries} CollectionFS filerecord(s) reference a GridFS file that no longer exists; their binaries cannot be recovered.`);
+      state.files[fileStateKey].errors += missingBinaries;
     }
   }
 
@@ -1262,6 +1487,13 @@ async function run() {
     // ── Pass A: record-driven (any version flagged gridfs or carrying gridFsFileId) ──
     const cursor = col.find(MF_GRIDFS_QUERY);
     for await (const doc of cursor) {
+      // #6473: the SOURCE record is frozen (MongoDB is never modified), so on a
+      // re-run it stays flagged gridfs forever. Ask the TARGET what actually still
+      // needs doing — that is what makes the automatic startup repair incremental.
+      let tgtDoc = null;
+      if (!DRY_RUN) {
+        tgtDoc = await getTgtRec(collName, doc._id);
+      }
       for (const [versionName, version] of Object.entries(doc.versions || {})) {
         if (!version || typeof version !== 'object') continue;
         const marked = version.storage === 'gridfs' || (version.meta && version.meta.gridFsFileId);
@@ -1269,6 +1501,24 @@ async function run() {
 
         const resumeKey = resumeKeyFor(String(doc._id), versionName);
         seenByRecordPass.add(resumeKey);
+
+        // ALREADY MIGRATED: the target's version is on the filesystem and the file
+        // exists — verify-and-skip.
+        const tv = tgtDoc && tgtDoc.versions && tgtDoc.versions[versionName];
+        if (tv && tv.storage === 'fs' && tv.path && fs.existsSync(tv.path)) {
+          fileIndex++;
+          state.files[fileStateKey].done++;
+          state.files[fileStateKey].bytes += Number(tv.size) || 0;
+          let onDiskSize = Number(tv.size) || 0;
+          try { onDiskSize = fs.statSync(tv.path).size; } catch { /* keep record size */ }
+          completedFiles.set(resumeKey, { path: tv.path, size: onDiskSize });
+          saveCheckpoint();
+          continue;
+        }
+        // Repair mode: the record was DELETED in the target since the migration —
+        // do not resurrect its binary.
+        if (repairMode && !tgtDoc) continue;
+
         const done = alreadyExtracted(resumeKey);
         if (done) {
           fileIndex++;
@@ -1307,11 +1557,16 @@ async function run() {
         // gridfs but no gridFsFileId), which are exactly what this sweep recovers.
         if (seenByRecordPass.has(resumeKey) && !unresolved.has(resumeKey)) continue;
 
-        const record = md.fileId ? await col.findOne({ _id: md.fileId }) : null;
+        // Ask the TARGET (the live database — the source is frozen) what this
+        // record looks like now.
+        const record = md.fileId ? await getTgtRec(collName, md.fileId) : null;
         const recVersion = record && record.versions && record.versions[versionName];
         // The record's version already lives happily on the filesystem: this bucket
         // file is a stale leftover of an earlier move — leave both alone.
         if (recVersion && recVersion.storage === 'fs' && recVersion.path && fs.existsSync(recVersion.path)) continue;
+        // Repair mode: the record was DELETED in the target since the migration —
+        // do not resurrect its binary.
+        if (repairMode && md.fileId && !record) continue;
 
         const done = alreadyExtracted(resumeKey);
         if (done) {
@@ -1344,30 +1599,49 @@ async function run() {
 
   // ── 8. Write completion marker ─────────────────────────────────────────
   if (!DRY_RUN) {
-    await markerColl.replaceOne(
-      { _id: 'completed' },
-      {
-        _id:           'completed',
-        schemaVersion: SCHEMA_VER,
-        completedAt:   new Date(),
-        sourceUrl:     SOURCE_URL,
-        targetUrl:     TARGET_URL,
-        dryRun:        DRY_RUN,
-        collections:   Object.fromEntries(
-          Object.entries(state.collections).map(([k, v]) => [k, { done: v.done, errors: v.errors }])
-        ),
-        files: state.files,
-      },
-      { upsert: true },
-    );
-    saveCheckpoint(true);
+    if (repairMode) {
+      // #6473: an incremental repair only STAMPS the marker's filesVersion (plus the
+      // repair stats); the original migration record — collections copied, when, from
+      // where — must stay intact, and a repair must never fabricate a "completed"
+      // marker where none exists.
+      if (marker) {
+        await markerColl.updateOne(
+          { _id: 'completed' },
+          { $set: { filesVersion: FILES_VERSION, filesRepairedAt: new Date(), filesRepair: state.files } },
+        ).catch(e => pushError('marker filesVersion update: ' + e.message));
+      }
+      saveCheckpoint(true);
+    } else {
+      await markerColl.replaceOne(
+        { _id: 'completed' },
+        {
+          _id:           'completed',
+          schemaVersion: SCHEMA_VER,
+          filesVersion:  FILES_VERSION,
+          completedAt:   new Date(),
+          sourceUrl:     SOURCE_URL,
+          targetUrl:     TARGET_URL,
+          dryRun:        DRY_RUN,
+          collections:   Object.fromEntries(
+            Object.entries(state.collections).map(([k, v]) => [k, { done: v.done, errors: v.errors }])
+          ),
+          files: state.files,
+        },
+        { upsert: true },
+      );
+      saveCheckpoint(true);
+    }
   }
 
   // ── 8b. Reclaim old MongoDB disk space now that everything is migrated ──
-  try { await compactSource(srcDb, markerColl); } catch (e) { pushError('compact: ' + e.message); }
+  // (skipped in repair mode — compact already ran after the original migration)
+  if (!repairMode) {
+    try { await compactSource(srcDb, markerColl); } catch (e) { pushError('compact: ' + e.message); }
+  }
 
   // ── 9. Ensure indexes on commonly-queried fields ───────────────────────
-  if (!DRY_RUN) {
+  // (skipped in repair mode — they were created by the original migration)
+  if (!DRY_RUN && !repairMode) {
     state.phase = 'creating-indexes';
     state.phase_detail = 'Creating indexes on target…';
     try {
@@ -1397,7 +1671,9 @@ async function run() {
   if (totalErrors === 0) {
     state.phase   = 'completed';
     state.success = true;
-    console.log('[migrate] ✓ Migration completed successfully.');
+    console.log(repairMode
+      ? `[migrate] ✓ Attachment repair completed: ${state.files.attachments.done} attachments, ${state.files.avatars.done} avatars verified/migrated.`
+      : '[migrate] ✓ Migration completed successfully.');
   } else {
     state.phase   = 'completed-with-errors';
     // #6466: per-item errors (one unparsable document, one attachment/avatar that
@@ -1432,6 +1708,11 @@ Environment variables:
   BATCH_SIZE         Docs per write batch       (default: 200)
   DRY_RUN            true = no writes           (default: false)
   FORCE_MIGRATE      true = ignore done marker  (default: false)
+  FILES_ONLY         true = incremental attachment/avatar repair only: text
+                     data is left untouched, already-migrated files are
+                     verified and skipped, only missing binaries/records are
+                     migrated. Also turned on automatically when the target's
+                     migration marker has filesVersion < ${FILES_VERSION}.
 
 Files are written to:
   \$WRITABLE_PATH/files/attachments/

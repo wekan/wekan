@@ -298,6 +298,25 @@ textarea::-moz-placeholder {
   font-size: clamp(20px, 4vw, 26px);
   margin: 0.5vh 1.5vw;
 }
+/* CJK (Japanese/Chinese/Korean) labels contain no spaces, so browsers may
+   insert a line break between any two characters. In the narrow add-card /
+   edit footers this made short labels such as "追加" (Add) and "リンク"
+   (Link) wrap mid-word. `word-break: keep-all` forbids breaks inside CJK
+   words while leaving Latin wrapping behavior unchanged, and `flex-wrap`
+   lets the footer wrap between its links instead of inside them.
+   See https://github.com/wekan/wekan/issues/4023 */
+.edit-controls,
+.add-controls {
+  flex-wrap: wrap;
+  word-break: keep-all;
+}
+.edit-controls button[type=submit],
+.add-controls button[type=submit] {
+  white-space: nowrap;
+}
+.add-controls .quiet {
+  white-space: nowrap;
+}
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
   position: absolute;

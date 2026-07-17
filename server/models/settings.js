@@ -11,6 +11,12 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 const { parseCardsLoadingEnv } = require('/models/lib/cardsLoading');
+const {
+  normalizeInviteEmail,
+  isInvitationCodeSendable,
+  buildReinviteModifier,
+  shouldRemoveInvitationOnEmailFailure,
+} = require('/models/lib/invitationCodeEmail');
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -45,8 +51,17 @@ function loadOidcConfig(service) {
   return ServiceConfiguration.configurations.findOneAsync({ service });
 }
 
-async function sendInvitationEmail(_id) {
+async function sendInvitationEmail(_id, { isNewInvitation = true } = {}) {
   const icode = await getReactiveCache().getInvitationCode(_id);
+  // #4043: never send an invitation email without a code that will validate at
+  // sign-up (the sign-up lookup requires { code: <string>, valid: true }).
+  // Fail loudly instead of mailing a dead code.
+  if (!isInvitationCodeSendable(icode)) {
+    throw new Meteor.Error(
+      'invitation-code-invalid',
+      'Invitation email not sent: the invitation code is missing or no longer valid',
+    );
+  }
   const author = await getReactiveCache().getCurrentUser();
   try {
     const authorUser = await getReactiveCache().getUser(icode.authorId);
@@ -74,7 +89,12 @@ async function sendInvitationEmail(_id) {
       language: lang,
     });
   } catch (e) {
-    await InvitationCodes.removeAsync(_id);
+    // #4043: only roll back a code created by this very invite. A pre-existing
+    // invitation was already delivered in an earlier email; deleting it here
+    // would silently invalidate the code that email carries.
+    if (shouldRemoveInvitationOnEmailFailure({ isNewInvitation })) {
+      await InvitationCodes.removeAsync(_id);
+    }
     throw new Meteor.Error('email-fail', e.message);
   }
 }
@@ -230,7 +250,12 @@ Meteor.methods({
       throw new Meteor.Error('not-allowed');
     }
 
-    for (const email of emails) {
+    for (const rawEmail of emails) {
+      // #4043: store the invitee address lowercase — the sign-up form
+      // lowercases the typed address and MongoDB string matching is case
+      // sensitive, so a mixed-case invitation document never matches at
+      // registration ("The invitation code doesn't exist").
+      const email = normalizeInviteEmail(rawEmail);
       if (email && SimpleSchema.RegEx.Email.test(email)) {
         const userExist = await getReactiveCache().getUser({ email });
         if (userExist) {
@@ -243,12 +268,30 @@ Meteor.methods({
 
         const invitation = await getReactiveCache().getInvitationCode({ email });
         if (invitation) {
-          await InvitationCodes.updateAsync(invitation, {
-            $set: { boardsToBeInvited: boards },
-          });
-          await sendInvitationEmail(invitation._id);
+          // #4043: a re-invite must never re-send a stale code. When the
+          // stored invitation is no longer valid (or has no usable code), a
+          // fresh code overwrites it with valid restored to true, so the
+          // emailed code always passes the sign-up lookup
+          // { code, email, valid: true }.
+          const modifier = buildReinviteModifier(invitation, boards, () =>
+            getRandomNum(100000, 999999),
+          );
+          const updated = await InvitationCodes.updateAsync(
+            invitation._id,
+            modifier,
+          );
+          if (!updated) {
+            rc = -1;
+            throw new Meteor.Error(
+              'invitation-generated-fail',
+              'Failed to update invitation code',
+            );
+          }
+          await sendInvitationEmail(invitation._id, { isNewInvitation: false });
         } else {
-          const code = getRandomNum(100000, 999999);
+          // String(...) so the stored code always matches the (string) code
+          // typed into the sign-up form, without relying on schema autoConvert.
+          const code = String(getRandomNum(100000, 999999));
           const _id = await InvitationCodes.insertAsync({
             code,
             email,
@@ -397,11 +440,15 @@ Meteor.methods({
     return !(process.env.PASSWORD_LOGIN_ENABLED === 'false');
   },
 
-  isOidcRedirectionEnabled() {
-    return (
-      process.env.OIDC_REDIRECTION_ENABLED === 'true' &&
-      Object.keys(loadOidcConfig('oidc')).length > 0
-    );
+  // #5695: loadOidcConfig() returns a Promise since the Meteor 3 async
+  // migration (findOneAsync). Object.keys(<Promise>) is always [], so this
+  // method returned false even with OIDC_REDIRECTION_ENABLED=true and a
+  // configured oidc service, silently disabling the auto-redirect login.
+  // Await the config before inspecting it.
+  async isOidcRedirectionEnabled() {
+    if (process.env.OIDC_REDIRECTION_ENABLED !== 'true') return false;
+    const config = await loadOidcConfig('oidc');
+    return !!config && Object.keys(config).length > 0;
   },
 
   async getServiceConfiguration(service) {

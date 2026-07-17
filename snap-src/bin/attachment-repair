@@ -1,0 +1,193 @@
+#!/bin/bash
+# attachment-repair — automatic, incremental attachment/avatar repair (#6473).
+#
+# Older MongoDB → FerretDB migrations silently lost attachments (CollectionFS
+# copies.<bucket>.key was never resolved; Meteor-Files records carrying only a
+# gridFsFileId reference were skipped). The source MongoDB data was NEVER
+# modified, so everything is recoverable. This script runs in the BACKGROUND at
+# every WeKan start (wekan-control) when the snap is on FerretDB and, ONCE:
+#   1. starts a temporary source mongod (7.x, or the bundled 3.2 for old data)
+#      on port 27099 — read-only use, the data is never modified;
+#   2. runs the migration importer in FILES_ONLY mode against the LIVE FerretDB:
+#      text collections are left completely untouched, files already migrated
+#      are verified (record on 'fs' + file on disk) and skipped, and ONLY the
+#      missing attachments/avatars are migrated;
+#   3. on success writes $SNAP_COMMON/.attachments-files-v2-done so it never
+#      runs again ("v2" matches FILES_VERSION in migrate-mongodb-to-ferretdb.mjs
+#      — bump both together when a future file-phase fix needs a re-scan).
+# A failure leaves the marker absent, so the next start retries. WeKan starts
+# and serves normally the whole time; repaired attachments appear as they are
+# migrated (Meteor re-polls the queries).
+set -u
+
+COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
+MARKER="$COMMON/.attachments-files-v2-done"
+LOCK="$COMMON/.attachment-repair.pid"
+SRC_PORT="${REPAIR_SRC_PORT:-27099}"                    # temp source mongod (same as migration-control)
+SRC_PIDFILE="$COMMON/attachment-repair-mongod.pid"
+LOGF="$COMMON/attachment-repair-mongod.log"
+NODE="$SNAP/bin/node"
+DB_EVAL="$SNAP/bin/db-eval"
+IMPORTER_MODERN="$SNAP/bin/migrate-mongodb-to-ferretdb.mjs"
+IMPORTER_3="$SNAP/bin/migrate-mongo3-to-ferretdb.mjs"
+MM="$SNAP/migratemongo"                                 # MongoDB 3.2 tools (amd64)
+MM_LIB="$MM/lib/x86_64-linux-gnu"
+WAIT_SECS="${REPAIR_WAIT_SECS:-60}"                     # max wait for the live FerretDB
+
+log() { echo "[attachment-repair] $*"; }
+
+# ── Guards: run at most once, only when there is something to do ─────────────
+[ -f "$MARKER" ] && exit 0
+
+if [ -f "$COMMON/.wekan-maintenance" ]; then
+  log "maintenance mode is on; skipping."
+  exit 0
+fi
+
+# Only meaningful when WeKan runs on FerretDB. Before the switch, the normal
+# migration path (migration-control, with the fixed importers) covers files.
+if [ "$(snapctl get database 2>/dev/null)" != "ferretdb" ]; then
+  log "database is not ferretdb; nothing to repair yet."
+  exit 0
+fi
+
+if ! bash "$SNAP/bin/ferretdb-has-data"; then
+  log "no FerretDB (SQLite) data yet; skipping."
+  exit 0
+fi
+
+# No MongoDB source data left on this machine: there is nothing to repair FROM,
+# and never will be — mark done so this never probes again.
+if [ ! -f "$COMMON/WiredTiger" ] && ! ls "$COMMON"/collection-*.wt >/dev/null 2>&1; then
+  log "no MongoDB source data in $COMMON; nothing to repair. Marking done."
+  touch "$MARKER" 2>/dev/null || true
+  exit 0
+fi
+
+# Single instance across restarts (WeKan can be restarted while a repair runs).
+if [ -f "$LOCK" ]; then
+  p="$(cat "$LOCK" 2>/dev/null)"
+  if [ -n "$p" ] && kill -0 "$p" 2>/dev/null; then
+    log "a repair is already running (pid $p); skipping."
+    exit 0
+  fi
+fi
+echo $$ > "$LOCK"
+
+stop_src() {
+  if [ -f "$SRC_PIDFILE" ]; then
+    local p; p="$(cat "$SRC_PIDFILE" 2>/dev/null)"
+    if [ -n "$p" ]; then
+      "$DB_EVAL" shutdown "mongodb://127.0.0.1:$SRC_PORT/?directConnection=true" >/dev/null 2>&1 || true
+      sleep 1
+      kill "$p" 2>/dev/null || true
+      sleep 1
+      kill -9 "$p" 2>/dev/null || true
+    fi
+    rm -f "$SRC_PIDFILE"
+  fi
+}
+cleanup() { stop_src; rm -f "$LOCK"; }
+trap cleanup EXIT INT TERM
+
+# ── The LIVE FerretDB is the repair target ────────────────────────────────────
+# Same address wekan-control builds MONGO_URL from (defaults 127.0.0.1:27019).
+BIND_IP="${MONGODB_BIND_IP:-127.0.0.1}"
+DB_PORT="${MONGODB_PORT:-27019}"
+TARGET_URL="${REPAIR_TARGET_URL:-mongodb://$BIND_IP:$DB_PORT/wekan}"
+waited=0
+until "$DB_EVAL" ping "mongodb://$BIND_IP:$DB_PORT/?directConnection=true" >/dev/null 2>&1; do
+  waited=$((waited + 2))
+  if [ "$waited" -ge "$WAIT_SECS" ]; then
+    log "FerretDB not reachable on $BIND_IP:$DB_PORT after ${WAIT_SECS}s; will retry on the next start."
+    exit 1
+  fi
+  sleep 2
+done
+
+export LC_ALL=C
+export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:${LD_LIBRARY_PATH:-}"
+
+# RAM-aware WiredTiger cache for the temporary source mongod, like
+# migration-control: mongod's own ~50%-of-RAM default is too much next to the
+# running FerretDB + WeKan (#6454). Quarter of (RAM - 1 GB), min 1, cap 8.
+if [ -n "${MIGRATION_MONGOD_CACHE_GB:-}" ]; then
+  SRC_WT_CACHE_GB="${MIGRATION_MONGOD_CACHE_GB}"
+else
+  _mem_kb=$(awk '/^MemTotal:/{print $2}' /proc/meminfo 2>/dev/null)
+  [ -z "${_mem_kb:-}" ] && _mem_kb=2097152
+  _mem_gb=$(( _mem_kb / 1024 / 1024 ))
+  SRC_WT_CACHE_GB=$(( (_mem_gb - 1) / 4 ))
+  [ "${SRC_WT_CACHE_GB}" -lt 1 ] && SRC_WT_CACHE_GB=1
+  [ "${SRC_WT_CACHE_GB}" -gt 8 ] && SRC_WT_CACHE_GB=8
+fi
+
+# ── Start the temporary source mongod (7.x first, then the 3.2 reader) ───────
+start_mongod() {   # $1 = mongod binary, $2 = LD_LIBRARY_PATH prefix, $3 = extra args, $4 = cpu-exec features
+  rm -f "$SRC_PIDFILE"
+  LD_LIBRARY_PATH="${2:+$2:}$LD_LIBRARY_PATH" bash "$SNAP/bin/cpu-exec" --features "${4:-}" "$1" \
+    --dbpath "$COMMON" --bind_ip 127.0.0.1 --port "$SRC_PORT" \
+    --logpath "$LOGF" --logappend --fork --pidfilepath "$SRC_PIDFILE" ${3:-} >/dev/null 2>&1
+}
+ready_via_node() {
+  local i=0 p
+  while [ $i -lt 45 ]; do
+    "$DB_EVAL" ping "mongodb://127.0.0.1:$SRC_PORT/?directConnection=true" >/dev/null 2>&1 && return 0
+    p="$(cat "$SRC_PIDFILE" 2>/dev/null)"
+    if [ -n "$p" ] && ! kill -0 "$p" 2>/dev/null; then return 1; fi
+    i=$((i+1)); sleep 1
+  done
+  return 1
+}
+ready_via_legacy() {
+  local i=0
+  while [ $i -lt 20 ]; do
+    LD_LIBRARY_PATH="$MM_LIB:$LD_LIBRARY_PATH" "$MM/bin/mongo" --port "$SRC_PORT" --quiet \
+        --eval 'db.adminCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && return 0
+    i=$((i+1)); sleep 1
+  done
+  return 1
+}
+
+MONGOD7_CPU_FEATURES="x86_64=avx,aarch64=atomics"
+rc=1
+log "checking whether the source data opens with mongod 7 ..."
+if start_mongod "$SNAP/bin/mongod" "" "--wiredTigerCacheSizeGB ${SRC_WT_CACHE_GB}" "$MONGOD7_CPU_FEATURES" && ready_via_node; then
+  log "modern MongoDB source. Running the incremental FILES_ONLY repair against $TARGET_URL ..."
+  NODE_PATH="$SNAP/programs/server/node_modules" \
+  SOURCE_MONGO_URL="mongodb://127.0.0.1:$SRC_PORT/wekan?directConnection=true" \
+  TARGET_MONGO_URL="$TARGET_URL" \
+  WRITABLE_PATH="$COMMON" \
+  FILES_ONLY=true \
+  MIGRATION_PORT=0 \
+    "$NODE" "$IMPORTER_MODERN"
+  rc=$?
+else
+  stop_src
+  if [ -x "$MM/bin/mongod" ] && [ -x "$MM/bin/mongo" ] && [ -f "$IMPORTER_3" ] \
+      && start_mongod "$MM/bin/mongod" "$MM_LIB" "" "" && ready_via_legacy; then
+    log "MongoDB 3.x source. Running the incremental FILES_ONLY repair against $TARGET_URL ..."
+    NODE_PATH="$SNAP/programs/server/node_modules" \
+    MONGO_BIN_DIR="$MM/bin" \
+    MONGO_LIB="$MM_LIB" \
+    SRC_PORT="$SRC_PORT" \
+    SRC_DB="wekan" \
+    TARGET_MONGO_URL="$TARGET_URL" \
+    FILES_DIR="$COMMON/files" \
+    FILES_ONLY=true \
+    MIGRATION_PORT=0 \
+      "$NODE" "$IMPORTER_3"
+    rc=$?
+  else
+    log "the MongoDB source data opens with neither mongod 7 nor the bundled 3.2 reader; will retry on the next start."
+    exit 1
+  fi
+fi
+
+if [ "$rc" -eq 0 ]; then
+  log "repair completed. Marking done ($MARKER)."
+  touch "$MARKER" 2>/dev/null || true
+  exit 0
+fi
+log "repair did not complete (importer rc=$rc); will retry on the next start."
+exit 1

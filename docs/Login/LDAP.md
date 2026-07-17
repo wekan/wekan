@@ -385,7 +385,12 @@ services:
       # LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS : 
       # example : LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
       - LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
-      # LDAP_ENCRYPTION : If using LDAPS
+      # LDAP_ENCRYPTION : Connection encryption. Accepted values:
+      #   'true'     : LDAPS, TLS from the first byte (usually port 636)
+      #   'starttls' : connect unencrypted (usually port 389), then upgrade with STARTTLS
+      #   'false'    : no encryption (default; strongly advised against)
+      # Deprecated but still working: 'ssl' (same as 'true'), 'tls' (same as 'starttls').
+      # Any other value logs a warning and means no encryption.
       # example : LDAP_ENCRYPTION=true
       - LDAP_ENCRYPTION=false
       # LDAP_CA_CERT : The certification for the LDAPS server

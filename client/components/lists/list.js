@@ -19,9 +19,17 @@ const { calculateIndex } = Utils;
 //
 // The old per-list "min width / max width / automatic" knobs are gone — the
 // rendered width is now a single hard value (see list.jade).
+//
+// #5659: the default/minimum width and the resolution order live in ONE
+// Meteor-free module shared with models/users.js, so every path (member,
+// anonymous public-board visitor, fixed mode) falls back to the SAME default
+// and all lists render the same width when nothing is customized.
 // ---------------------------------------------------------------------------
-const DEFAULT_LIST_WIDTH = 272;
-const MIN_LIST_WIDTH = 270;
+import {
+  DEFAULT_LIST_WIDTH,
+  MIN_LIST_WIDTH,
+  resolveListWidth,
+} from '/models/lib/listWidth';
 
 function isPersonalListWidth(boardId) {
   const board = ReactiveCache.getBoard(boardId);
@@ -122,25 +130,28 @@ function saveAnonFixedListWidth(boardId, width) {
 
 function effectiveListWidth(list) {
   if (!list) return DEFAULT_LIST_WIDTH;
-  // #5729 In fixed width mode every list renders at the single shared value.
-  if (isFixedListWidth(list.boardId)) {
-    return fixedListWidthValue(list.boardId);
+  // #5659: all inputs are gathered here, but the fallback order and the ONE
+  // default width live in models/lib/listWidth.js (shared + unit tested).
+  const fixedEnabled = isFixedListWidth(list.boardId);
+  const personalMode = isPersonalListWidth(list.boardId);
+  let personalWidth = null;
+  if (personalMode) {
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      const widths = user.getListWidths();
+      personalWidth = widths[list.boardId] && widths[list.boardId][list._id];
+    } else {
+      personalWidth = readAnonListWidth(list.boardId, list._id);
+    }
   }
-  const shared =
-    typeof list.width === 'number' && list.width >= MIN_LIST_WIDTH
-      ? list.width
-      : DEFAULT_LIST_WIDTH;
-  if (!isPersonalListWidth(list.boardId)) {
-    return shared;
-  }
-  const user = ReactiveCache.getCurrentUser();
-  if (user) {
-    const widths = user.getListWidths();
-    const w = widths[list.boardId] && widths[list.boardId][list._id];
-    return typeof w === 'number' && w >= MIN_LIST_WIDTH ? w : shared;
-  }
-  const w = readAnonListWidth(list.boardId, list._id);
-  return w || shared;
+  return resolveListWidth({
+    // #5729 In fixed width mode every list renders at the single shared value.
+    fixedEnabled,
+    fixedWidth: fixedEnabled ? fixedListWidthValue(list.boardId) : null,
+    sharedWidth: list.width,
+    personalMode,
+    personalWidth,
+  });
 }
 
 // Can the current user change THIS list's width by dragging?

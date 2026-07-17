@@ -137,6 +137,14 @@ if [ "ferretdb" = "${DATABASE}" ]; then
         sleep 5
     done
     echo "FerretDB is ready."
+    # #6473: SELF-HEALING attachments. Older MongoDB -> FerretDB migrations silently
+    # lost attachments/avatars (CollectionFS copies.<bucket>.key was never resolved;
+    # gridFsFileId-only Meteor-Files records were skipped). The MongoDB source data
+    # was never modified, so everything is recoverable: run an automatic, INCREMENTAL
+    # files-only repair in the background — it verifies what is already migrated,
+    # migrates only what is missing, never touches text data, runs once (marker
+    # $SNAP_COMMON/.attachments-files-v2-done) and never blocks WeKan from starting.
+    bash "$SNAP/bin/attachment-repair" > "$SNAP_COMMON/attachment-repair.log" 2>&1 &
 elif [ "true" != "${DISABLE_MONGODB}" ]; then
     # Make sure the MongoDB service is enabled and running first; if it was left
     # stopped/disabled, enable and start it now so WeKan does not wait here forever.

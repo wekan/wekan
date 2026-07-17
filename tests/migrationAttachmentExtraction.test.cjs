@@ -124,10 +124,10 @@ test('modern importer drives CollectionFS extraction from cfs_gridfs.<bucket>.fi
   const fn = modern.match(/async function migrateGridFs\(bucketName, destDir, fileStateKey\) \{[\s\S]*?\n  \}/);
   assert.ok(fn, 'migrateGridFs found');
   // The loop must iterate the files collection, not the filerecords.
-  assert.ok(fn[0].includes('const gfCursor = filesCol.find({})'),
+  assert.ok(fn[0].includes('const gfCursor = haveBucket ? filesCol.find({}) : null'),
     'extraction is driven by the GridFS files collection');
   // The filerecord join must be optional (the collection can be missing).
-  assert.ok(fn[0].includes('if (allColls.includes(`cfs.${bucketName}.filerecord`))'),
+  assert.ok(fn[0].includes('if (haveFilerecords) {'),
     'a missing cfs.<bucket>.filerecord collection must not skip extraction');
   assert.ok(fn[0].includes('resolveCfsGridFsId(record, bucketName)'));
   // Orphan binaries (no filerecord) are still saved to disk, not dropped.
@@ -171,6 +171,24 @@ test('modern importer reports GridFS-flagged versions whose binary was never fou
   assert.ok(/unresolved\.size > 0/.test(modern), 'leftovers are reported, not silently dropped');
 });
 
+test('modern importer covers the CFS FileSystem-store era (ATTACHMENTS_STORE_PATH, v3.12-v6.09)', () => {
+  const fn = modern.match(/async function migrateGridFs\(bucketName, destDir, fileStateKey\) \{[\s\S]*?\n  \}/);
+  assert.ok(fn[0].includes('haveFilerecords'),
+    'a database with filerecords but NO cfs_gridfs collections must still be processed');
+  assert.ok(!/if \(!allColls\.includes\(filesCollName\)\) return;/.test(fn[0]),
+    'the CFS-bucket-only gate silently dropped every FileSystem-store attachment');
+  assert.ok(fn[0].includes('HEX24'), 'non-ObjectId keys are FILENAMES, not GridFS ids');
+  assert.ok(fn[0].includes('fsStoreRecords'), 'FileSystem-store filerecords are handled');
+  assert.ok(fn[0].includes('ATTACHMENTS_STORE_PATH'),
+    'the old store dir is searched via its historical env var');
+  assert.ok(fn[0].includes('fsStoreMissing'), 'unfound FS-store binaries are REPORTED');
+});
+
+test('modern importer reports CFS filerecords whose GridFS binary vanished', () => {
+  assert.ok(modern.includes('matchedGridIds'), 'hex filerecords are matched against actual GridFS files');
+  assert.ok(/missingBinaries > 0/.test(modern), 'unmatched ones are reported, never silently dropped');
+});
+
 // --- mongo3 importer: created records must be attached to their cards ----------
 
 const mongo3 = read(IMPORTERS.mongo3);
@@ -191,6 +209,15 @@ const g2f = read(IMPORTERS.gridfsToFs);
 
 test('migrate-gridfs-to-fs matches meta.gridFsFileId without a storage flag', () => {
   assert.ok(/\$or: \[[\s\S]*?'versions\.original\.storage': 'gridfs'[\s\S]*?'versions\.original\.meta\.gridFsFileId'/.test(g2f));
+});
+
+test('migrate-gridfs-to-fs reads each source from its OWN GridFS bucket', () => {
+  assert.ok(g2f.includes('extractFile(src.bucket'),
+    'Meteor-Files binaries live in <coll>, CFS binaries in cfs_gridfs.<coll> — one bucket for all extracted nothing');
+  assert.ok(g2f.includes('haveMfBucket'),
+    'a pure Meteor-Files database (no cfs_gridfs collections) must not be a silent no-op');
+  assert.ok(!/\{ skipped\+\+; continue; \}\s*\n?\s*$/m.test(g2f.split('for (const src of sources)')[1].split('\n').slice(0, 8).join('\n')),
+    'a GridFS-flagged record with no reference is reported as an error, not silently skipped');
 });
 
 // --- snap wekan-database: point lost users at the actual re-migration ----------

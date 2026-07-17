@@ -1,5 +1,18 @@
 import { Client } from 'ldapts';
 import { Log } from 'meteor/logging';
+import { normalizeLdapEncryption } from './encryptionSetting';
+import { buildUserIdFilter } from './userIdFilter';
+
+// #4158: warn about a deprecated/invalid LDAP_ENCRYPTION value only once per
+// distinct message, not on every single login attempt (LDAP instantiates a
+// new connection per login).
+const encryptionWarningsShown = new Set();
+function warnOnceAboutEncryption(warning) {
+  if (warning && !encryptionWarningsShown.has(warning)) {
+    encryptionWarningsShown.add(warning);
+    Log.warn(warning);
+  }
+}
 
 // copied from https://github.com/ldapjs/node-ldapjs/blob/a113953e0d91211eb945d2a3952c84b7af6de41c/lib/filters/index.js#L167
 function escapedToHex (str) {
@@ -53,7 +66,10 @@ export default class LDAP {
       timeout                            : this.constructor.settings_get('LDAP_TIMEOUT'),
       connect_timeout                    : this.constructor.settings_get('LDAP_CONNECT_TIMEOUT'),
       idle_timeout                       : this.constructor.settings_get('LDAP_IDLE_TIMEOUT'),
-      encryption                         : this.constructor.settings_get('LDAP_ENCRYPTION'),
+      // #4158: normalized to 'tls' (LDAPS), 'starttls' or 'off'. Accepts the
+      // documented 'true'/'starttls'/'false' plus the legacy 'ssl'/'tls'
+      // (deprecated but still working); anything else warns and means 'off'.
+      encryption                         : normalizeLdapEncryption(this.constructor.settings_get('LDAP_ENCRYPTION')).mode,
       ca_cert                            : this.constructor.settings_get('LDAP_CA_CERT'),
       reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') !== undefined ? this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') : true,
       Authentication                     : this.constructor.settings_get('LDAP_AUTHENTIFICATION'),
@@ -117,8 +133,14 @@ export default class LDAP {
       tlsOptions.ca = ca;
     }
 
+    // #4158: surface a deprecation notice for legacy values ('ssl', 'tls')
+    // and a clear warning for unknown values instead of failing silently.
+    warnOnceAboutEncryption(
+      normalizeLdapEncryption(this.constructor.settings_get('LDAP_ENCRYPTION')).warning,
+    );
+
     let url;
-    if (this.options.encryption === 'ssl') {
+    if (this.options.encryption === 'tls') {
       url = `ldaps://${this.options.host}:${this.options.port}`;
     } else {
       url = `ldap://${this.options.host}:${this.options.port}`;
@@ -133,7 +155,7 @@ export default class LDAP {
       strictDN      : false,
     };
 
-    if (this.options.encryption === 'ssl') {
+    if (this.options.encryption === 'tls') {
       clientOptions.tlsOptions = tlsOptions;
     }
 
@@ -141,7 +163,7 @@ export default class LDAP {
 
     this.client = new Client(clientOptions);
 
-    if (this.options.encryption === 'tls') {
+    if (this.options.encryption === 'starttls') {
       // Set host parameter for tls.connect which is used by starttls. This shouldn't be needed in newer nodejs versions (e.g v5.6.0).
       // https://github.com/RocketChat/Rocket.Chat/issues/2035
       tlsOptions.host = this.options.host;
@@ -322,16 +344,24 @@ export default class LDAP {
   async getUserById(id, attribute) {
     await this.bindIfNecessary();
 
-    const Unique_Identifier_Field = this.constructor.settings_get('LDAP_UNIQUE_IDENTIFIER_FIELD').split(',');
-
     const escapedValue = hexToLdapEscaped(id);
-    let filter;
 
-    if (attribute) {
-      filter = `(${attribute}=${escapedValue})`;
-    } else {
-      const filters = Unique_Identifier_Field.map((item) => `(${item}=${escapedValue})`);
-      filter = `(|${filters.join('')})`;
+    // #4654: the stored services.ldap.id may come from LDAP_UNIQUE_IDENTIFIER_FIELD
+    // or, when that is unset/empty, from LDAP_USER_SEARCH_FIELD (see
+    // getLdapUserUniqueID in sync.js), so search over both attribute lists.
+    // The old code read only LDAP_UNIQUE_IDENTIFIER_FIELD and crashed
+    // (undefined.split) or built the invalid filter "(|(=value))" when it was
+    // unset/empty, so background sync never updated existing users.
+    const filter = buildUserIdFilter(
+      attribute,
+      escapedValue,
+      this.constructor.settings_get('LDAP_UNIQUE_IDENTIFIER_FIELD'),
+      this.constructor.settings_get('LDAP_USER_SEARCH_FIELD'),
+    );
+
+    if (!filter) {
+      Log.error('Can\'t search user by id: neither LDAP_UNIQUE_IDENTIFIER_FIELD nor LDAP_USER_SEARCH_FIELD is configured');
+      return;
     }
 
     const searchOptions = {
@@ -463,7 +493,21 @@ export default class LDAP {
     }
 
     if (this.options.group_filter_group_id_attribute !== '') {
-      filter.push(`(${this.options.group_filter_group_id_attribute}=${this.options.group_filter_group_name})`);
+      // #4036: LDAP_GROUP_FILTER_GROUP_NAME accepts a comma-separated list, and
+      // members of LDAP_SYNC_ADMIN_GROUPS may also log in when admin sync is on
+      // (previously an admin only in the admin group was locked out entirely).
+      const names = String(this.options.group_filter_group_name || '')
+        .split(',').map((s) => s.trim()).filter(Boolean);
+      if (this.constructor.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
+        names.push(...String(this.constructor.settings_get('LDAP_SYNC_ADMIN_GROUPS') || '')
+          .split(',').map((s) => s.trim()).filter(Boolean));
+      }
+      const clauses = names.map((n) => `(${this.options.group_filter_group_id_attribute}=${n})`);
+      if (clauses.length === 1) {
+        filter.push(clauses[0]);
+      } else if (clauses.length > 1) {
+        filter.push(`(|${clauses.join('')})`);
+      }
     }
     filter.push(')');
 
