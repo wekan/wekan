@@ -392,7 +392,9 @@ test('cardDetails.css: desktop-mode maximized override exists with !important vi
   assert.ok(m, 'desktop-mode maximized rule exists');
   for (const decl of ['position: fixed', 'top: 8px', 'inset-inline-start: 8px', 'inset-inline-end: 8px', 'bottom: 8px']) {
     assert.ok(
-      new RegExp(`${decl.replace(/[()]/g, '\\$&')}\\s*!important`).test(m[1]),
+      // Escape ALL regex metacharacters (incl. backslash), not just parens —
+      // flagged by CodeQL js/incomplete-sanitization.
+      new RegExp(`${decl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*!important`).test(m[1]),
       `${decl} !important present`,
     );
   }
