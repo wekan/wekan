@@ -95,6 +95,16 @@ This release adds the following updates:
 
 and adds the following features:
 
+- **Global theme color — pick a theme (e.g. dark) for the whole UI**
+  ([#5778](https://github.com/wekan/wekan/issues/5778)). The member menu has a new **Change Color** entry that
+  works like Board Settings / Change Color, but is a **per-user global override** saved to your profile: the chosen
+  color theme applies to **every page** — All Boards, Search All Boards, Admin Panel, My Cards, Due Cards, etc. —
+  by adding a `board-color-<name>` class to `<body>` and the header. This makes it possible to use a **dark theme**
+  (`dark`, `midnight`, `moderndark`, `exodark`, `cleandark`) or any other theme everywhere. The first popup entry
+  clears the override (back to default). While you are on a specific board, that board's own color still wins, so the
+  two never clash. Stored as `profile.globalThemeColor` via a validated `setGlobalThemeColor` method. Thanks to
+  **xet7**.
+
 - **Soft delete — deleting a list is now reversible (delete = mark, never destroy)**
   ([#1023](https://github.com/wekan/wekan/issues/1023)). Deleting a list no longer destroys it: the list and its
   cards are **marked** deleted (`deletedAt`/`deletedBy`/`deleteBatchId`), hidden from the board, and recorded as a

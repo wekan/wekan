@@ -13,6 +13,7 @@ import { sendJsonResult } from '/server/apiMiddleware';
 import { boardMemberRoleToFlags, allowIsBoardAdmin } from '/server/lib/utils';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { BOARD_COLORS } from '/models/metadata/colors';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Avatars from '/models/avatars';
 import Boards from '/models/boards';
@@ -383,6 +384,27 @@ Meteor.methods({
 
     await Users.updateAsync(this.userId, { $set: { 'profile.GreyIcons': newValue } });
     return newValue;
+  },
+
+  // #5778: set (or clear, when null/'') the caller's global theme color override.
+  // Validated against the known board colors so a client cannot inject an arbitrary
+  // CSS class name.
+  async setGlobalThemeColor(color) {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    check(color, Match.OneOf(String, null, undefined));
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    if (color) {
+      if (!BOARD_COLORS.includes(color)) {
+        throw new Meteor.Error('invalid-color', 'Unknown theme color');
+      }
+      await Users.updateAsync(this.userId, { $set: { 'profile.globalThemeColor': color } });
+      return color;
+    }
+    await Users.updateAsync(this.userId, { $unset: { 'profile.globalThemeColor': '' } });
+    return null;
   },
 
   async toggleDesktopDragHandles() {

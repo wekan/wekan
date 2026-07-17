@@ -279,6 +279,18 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.globalThemeColor': {
+      /**
+       * #5778: optional per-user GLOBAL theme color override. When set to one of
+       * the board color names, that color theme is applied to the WHOLE UI (All
+       * Boards, Search, Admin Panel, My Cards, etc.) via a `board-color-<name>`
+       * class on <body> and the header — letting a user pick e.g. a dark theme
+       * everywhere. Absent = no override (default appearance). A specific board
+       * still shows its own Board Settings color while you are on that board.
+       */
+      type: String,
+      optional: true,
+    },
     'profile.dismissedAnnouncementVersion': {
       /**
        * version string of the global announcement the user has permanently
@@ -1888,6 +1900,26 @@ Users.helpers({
 
   async toggleGreyIcons(value = false) {
     return await Users.updateAsync(this._id, { $set: { 'profile.GreyIcons': !value } });
+  },
+
+  // #5778: the user's optional global theme color override (a board color name),
+  // or null when unset.
+  getGlobalThemeColor() {
+    return (this.profile && this.profile.globalThemeColor) || null;
+  },
+
+  // The CSS class the global override maps to, or '' when unset. Used by the header
+  // template on non-board pages and by the <body> autorun.
+  globalThemeColorClass() {
+    const color = this.getGlobalThemeColor();
+    return color ? `board-color-${color}` : '';
+  },
+
+  async setGlobalThemeColor(color) {
+    if (color) {
+      return await Users.updateAsync(this._id, { $set: { 'profile.globalThemeColor': color } });
+    }
+    return await Users.updateAsync(this._id, { $unset: { 'profile.globalThemeColor': '' } });
   },
 
   async setDismissedAnnouncementVersion(version) {
