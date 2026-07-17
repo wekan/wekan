@@ -88,7 +88,12 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release includes the following changes:
+This release adds the following updates:
+
+- [Updated Sandstorm Backup docs](https://github.com/wekan/wekan/commit/50dd05ceee9aa954bb09c239ed057334de63015a).
+  Thanks to robertdahlem and xet7.
+
+and fixes the following bugs:
 
 - **Moving a card between swimlanes is no longer broken when lists are long/overflowing**
   ([#6477](https://github.com/wekan/wekan/issues/6477)). Dragging a card from one swimlane to the SAME list in
