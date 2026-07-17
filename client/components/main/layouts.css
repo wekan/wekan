@@ -272,6 +272,22 @@ body.mobile-mode #content {
   float: inline-end;
   font-size: clamp(18px, 4vw, 24px);
 }
+/* Archived boards modal: full-width panel that extends to the bottom of the browser
+   window (so archived boards show full width with maximum vertical space). It is the
+   only modal that contains .archived-lists. */
+#modal .modal-content:has(.archived-lists) {
+  width: 96vw;
+  max-width: 96vw;
+  margin: 2vh auto 0; /* small top gap, no bottom margin -> reaches the window bottom */
+  min-height: calc(100vh - 2vh);
+  box-sizing: border-box;
+}
+/* Each archived board is a full-width row. */
+#modal .modal-content .archived-lists,
+#modal .modal-content .archived-lists .archived-lists-item {
+  width: 100%;
+  box-sizing: border-box;
+}
 /* #6465: heading sizes back to the 6.09 values (22/18/16px) — the vw clamps
    resolved to 24/20/18px on desktop and compounded the density regression. */
 h1 {
