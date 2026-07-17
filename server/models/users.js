@@ -1332,11 +1332,12 @@ Accounts.onCreateUser(async (options, user) => {
     boardView: 'board-view-swimlanes',
   };
 
-  Meteor.setTimeout(() => {
-    InvitationCodes.removeAsync({ _id: invitationCode._id }).catch(error => {
-      console.error('Failed to remove invitation code after signup:', error);
-    });
-  }, 200);
+  // #4043: do NOT delete the invitation code here — this hook runs BEFORE the
+  // account insert is committed, so a failed insert (duplicate username/email,
+  // validation error) used to destroy the code anyway and every retry got
+  // "The invitation code doesn't exist". Consumption is handled after a
+  // SUCCESSFUL insert by Users.after.insert, which marks the code used; and a
+  // re-invite now regenerates a stale code (models/lib/invitationCodeEmail.js).
   return user;
 });
 

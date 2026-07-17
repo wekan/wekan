@@ -195,6 +195,46 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **LDAP group filter locked out admins and rejected multiple groups**
+  ([#4036](https://github.com/wekan/wekan/issues/4036), `packages/wekan-ldap/server/ldap.js`):
+  with `LDAP_GROUP_FILTER_ENABLE=true`, only members of the single
+  `LDAP_GROUP_FILTER_GROUP_NAME` group could log in — an admin who was only in
+  `LDAP_SYNC_ADMIN_GROUPS` could not log in at all, and a comma-separated group list produced
+  the literal filter `(cn=A,B)` that matches nothing. The filter now ORs across every
+  comma-separated group name and, when admin sync is enabled, also admits the admin-sync
+  groups. Thanks to zeisss-mercedes and xet7.
+- **Board invitation emails could carry a dead invitation code — and signup then failed with
+  "The invitation code doesn't exist"** ([#4043](https://github.com/wekan/wekan/issues/4043),
+  `server/models/settings.js`, `server/models/users.js`, new `models/lib/invitationCodeEmail.js`):
+  re-inviting an unregistered user re-sent the SAME stale code (invalidated by an earlier
+  OAuth2 signup or deleted account) instead of regenerating it; a failed SMTP send deleted a
+  previously delivered, still-valid code; codes were mailed without checking they exist and
+  are valid; the invitee address was only lowercased client-side; and the signup hook deleted
+  the code BEFORE the account insert was committed, so a failed insert burned the code for
+  every retry. Re-invites now regenerate stale codes (still-valid ones are kept so earlier
+  emails keep working), sends fail loudly on unusable codes, rollback only removes codes the
+  failed send itself created, and consumption happens only after a successful signup. Tests:
+  `tests/invitationCodeEmail.test.cjs` (14). Thanks to jkoenig134 and xet7.
+- **Japanese/Chinese UI: the add-card button and footer links wrapped mid-word**
+  ([#4023](https://github.com/wekan/wekan/issues/4023), `client/components/forms/forms.css`):
+  CJK text has no spaces, so the narrow add-card composer footer broke 追加 / リンク / 検索 /
+  テンプレート between any two characters. The composer/edit footers now use
+  `word-break: keep-all` with `flex-wrap: wrap` (wrapping between links, never inside a word)
+  and `white-space: nowrap` on the button and each link group; Latin wrapping is unchanged and
+  the negative tests pin that no global word-break was introduced. Tests:
+  `tests/cjkLabelWrap.test.cjs` (9). Thanks to yuki-snow1823, Sylvain2703 and xet7.
+- **Users added to a team AFTER the team was assigned to a board never became board members —
+  and the Admin Panel bulk team add/remove silently did nothing**
+  ([#4593](https://github.com/wekan/wekan/issues/4593), `server/models/users.js`,
+  `client/components/settings/peopleBody.js`, new `models/lib/teamBoardMemberSync.js`):
+  assigning a team to a board snapshotted its then-current members, so later joiners could see
+  the board via publications but every authority gate (`hasMember`, card/list mutations,
+  attachment downloads, export) denied them; and the Admin Panel "Add/Remove team to selected
+  users" used a direct client-side `Users.update` that server permissions silently deny.
+  `editUser`/`createUser` now add new team members to all boards their teams are assigned to
+  (never touching existing member entries, skipping template boards), and the bulk actions go
+  through the admin `editUser` method. Tests: `tests/teamBoardMemberSync.test.cjs` (13).
+  Thanks to szymonsztuka and xet7.
 - **LDAP background sync only worked once per user** ([#4654](https://github.com/wekan/wekan/issues/4654),
   `packages/wekan-ldap/server/ldap.js`, `sync.js`, new `userIdFilter.js`): `getUserById` crashed or built the
   invalid filter `(|(=user))` when `LDAP_UNIQUE_IDENTIFIER_FIELD` was unset/empty (it never consulted
