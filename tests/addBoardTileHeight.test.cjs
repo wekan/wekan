@@ -40,11 +40,16 @@ test('the add-board grey tile matches the board tile box model (same height)', (
   const add = block('.board-list .js-add-board .label');
 
   const tileMinH = prop(tile, 'min-height');
-  const tilePad = prop(tile, 'padding');
+  // Total vertical padding (top+bottom) drives tile height; the add-board tile may
+  // split it differently (to nudge the text) as long as the SUM matches.
+  const vpad = blk => {
+    const p = prop(blk, 'padding').split(/\s+/).map(v => parseInt(v, 10));
+    return p[0] + (p[2] === undefined ? p[0] : p[2]); // top + bottom
+  };
 
   assert.strictEqual(tileMinH, '72px', 'board tile min-height (sanity)');
   assert.strictEqual(prop(add, 'min-height'), tileMinH, 'add-board min-height matches board tile');
-  assert.strictEqual(prop(add, 'padding'), tilePad, 'add-board vertical padding matches board tile');
+  assert.strictEqual(vpad(add), vpad(tile), 'add-board total vertical padding matches board tile (same height)');
 
   // NEGATIVE guard: the old oversized values must be gone.
   assert.ok(!/min-height:\s*100px/.test(add), 'no leftover 100px min-height');
