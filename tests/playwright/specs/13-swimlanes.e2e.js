@@ -89,7 +89,10 @@ test.describe('Swimlanes', () => {
     if (await plusBtn.count() > 0) {
       await plusBtn.click();
       const pop = boardPage.locator('.js-pop-over');
-      await pop.waitFor({ timeout: 6_000 });
+      // 15s (not 6s) to match the suite's standard popup-visibility wait: under the
+      // full parallel run this popup can take >6s to render on webkit, which flaked
+      // even though the popup opens fine (~3s) when the test runs in isolation.
+      await pop.waitFor({ timeout: 15_000 });
 
       // Click "Add Swimlane" inside the action popup
       const addSwimlaneLink = pop.locator('a.js-add-swimlane');
