@@ -31,6 +31,29 @@
   border-color: #2980b9;
   color: #fff;
 }
+/* The "Unset" colour reset links look like buttons. */
+.color-wheel-wrap .js-reset-text-color,
+.color-wheel-wrap .js-reset-bg-color {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.color-wheel-wrap .js-reset-text-color:hover,
+.color-wheel-wrap .js-reset-bg-color:hover {
+  background: #f0f0f0;
+}
+.color-wheel-wrap .js-reset-text-color.disabled,
+.color-wheel-wrap .js-reset-bg-color.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 /* #5514: native color-wheel (custom RGB / hex) picker wrapper, shared by the
    label / list / swimlane / card color popups. */
