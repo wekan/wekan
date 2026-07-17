@@ -178,6 +178,18 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
   they trace to FerretDB scanning `$regex`/`$in`/range queries that are not pushed down to SQLite, and need
   live reproduction — tracked separately.) Thanks to the reporter and **xet7**.
 
+- **A list no longer disappears from other swimlanes when you nudge it in swimlanes view**
+  ([#6484](https://github.com/wekan/wekan/issues/6484)). A board-wide list has `swimlaneId === null` and renders
+  under *every* swimlane. The list-drop handler in `client/components/swimlanes/swimlanes.js` computed
+  `isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId`, but `targetSwimlaneId` is
+  always the swimlane the list is shown under, and `originalSwimlaneId` is `null` for a board-wide list — so
+  **any** small drag made this true, which set `list.swimlaneId` *and* moved every card in the list to that one
+  swimlane. The list then vanished from all other swimlanes (recoverable only by restoring a backup). The
+  condition now also requires `originalSwimlaneId`, so board-wide lists stay board-wide on a reorder while a
+  genuinely swimlane-scoped list can still be moved between swimlanes. Test: `tests/listMoveSwimlane.test.cjs`,
+  including a negative control that the old target-only condition rebound a board-wide list. Thanks to the
+  reporter and **xet7**.
+
 Thanks to above for their contributions.
 
 # v9.98 2026-07-17 WeKan ® release

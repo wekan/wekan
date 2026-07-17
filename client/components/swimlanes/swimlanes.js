@@ -71,8 +71,23 @@ function saveSorting(ui) {
     sort: sortIndex.base,
   };
 
-  // Check if the list was dropped in a different swimlane
-  const isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId;
+  // Check if the list was dropped in a different swimlane.
+  //
+  // #6484: only rebind a list to a swimlane when it was ALREADY swimlane-scoped
+  // (originalSwimlaneId set) and actually crossed into a DIFFERENT swimlane. A
+  // board-wide list has swimlaneId === null / getEffectiveSwimlaneId() === null
+  // and renders under EVERY swimlane (see filterCardsByListAndSwimlane and
+  // currentListIsInThisSwimlane: a null swimlaneId matches every swimlane). Since
+  // targetSwimlaneId is ALWAYS the swimlane the list is shown under in swimlanes
+  // view, the old `targetSwimlaneId !== originalSwimlaneId` was true for ANY nudge
+  // of a board-wide list, so it set list.swimlaneId AND moved every card to that
+  // one swimlane — the list then vanished from all the other swimlanes. Requiring
+  // originalSwimlaneId keeps board-wide lists board-wide; genuinely
+  // swimlane-scoped lists can still be moved between swimlanes.
+  const isDifferentSwimlane =
+    originalSwimlaneId &&
+    targetSwimlaneId &&
+    targetSwimlaneId !== originalSwimlaneId;
 
   // If the list was dropped in a different swimlane, update the swimlaneId
   if (isDifferentSwimlane) {
