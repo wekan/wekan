@@ -119,6 +119,28 @@ Lists.attachSchema(
       type: Date,
       optional: true,
     },
+    // Soft delete (docs/Features/Undo/Undo.md): a deleted list is MARKED, never
+    // destroyed, so it can be restored/undone (#1023). `deletedAt: null` (or the
+    // field being absent) means the list is live; a Date means soft-deleted.
+    // deleteBatchId groups a list with the cards deleted alongside it, so restore
+    // brings back exactly that set. Distinct from `archived` (a visible "set aside"
+    // state with its own Archive UI).
+    deletedAt: {
+      // Absent (the default on insert) OR null both mean "live" — the
+      // `{ deletedAt: null }` render-path filter matches both, so no defaultValue
+      // is needed and none is set (a null default on a Date field would trip
+      // SimpleSchema type validation on every insert).
+      type: Date,
+      optional: true,
+    },
+    deletedBy: {
+      type: String,
+      optional: true,
+    },
+    deleteBatchId: {
+      type: String,
+      optional: true,
+    },
     boardId: {
       /**
        * the board associated to this list

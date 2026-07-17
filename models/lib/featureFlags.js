@@ -11,6 +11,10 @@ const flags = {
   disableActivities: false,
   disableNotifications: false,
   disableWatch: false,
+  // Admin Panel / Features / Delete: when true, a Global Admin may PHYSICALLY
+  // (permanently) delete soft-deleted content. Off by default — ordinary deletes
+  // are always soft. GDPR/account erasure is a separate path and ignores this.
+  enablePermanentDelete: false,
 };
 
 export function getFeatureFlags() {
@@ -22,6 +26,7 @@ function applyFields(fields) {
   if ('disableActivities' in fields) flags.disableActivities = !!fields.disableActivities;
   if ('disableNotifications' in fields) flags.disableNotifications = !!fields.disableNotifications;
   if ('disableWatch' in fields) flags.disableWatch = !!fields.disableWatch;
+  if ('enablePermanentDelete' in fields) flags.enablePermanentDelete = !!fields.enablePermanentDelete;
 }
 
 if (Meteor.isServer) {
@@ -30,7 +35,7 @@ if (Meteor.isServer) {
     // merges rather than replaces — correct for the single Settings document.
     await Settings.find(
       {},
-      { fields: { disableActivities: 1, disableNotifications: 1, disableWatch: 1 } },
+      { fields: { disableActivities: 1, disableNotifications: 1, disableWatch: 1, enablePermanentDelete: 1 } },
     ).observeChangesAsync({
       added(id, fields) { applyFields(fields); },
       changed(id, fields) { applyFields(fields); },
@@ -38,6 +43,7 @@ if (Meteor.isServer) {
         flags.disableActivities = false;
         flags.disableNotifications = false;
         flags.disableWatch = false;
+        flags.enablePermanentDelete = false;
       },
     });
   });

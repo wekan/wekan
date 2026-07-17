@@ -387,8 +387,10 @@ Template.listMorePopup.events({
         ],
       }).length === 0
     ) {
-      allCardIds.map(_id => Cards.remove(_id));
-      Lists.remove(list._id);
+      // Soft delete (docs/Features/Undo/Undo.md): mark the list + its cards deleted
+      // (server cascades) instead of destroying them, so the delete is restorable
+      // and undoable (#1023). Replaces the old hard Cards.remove / Lists.remove.
+      Meteor.call('lists.softRemove', list._id);
     } else {
       const message = `${TAPi18n.__(
         'delete-linked-cards-before-this-list',

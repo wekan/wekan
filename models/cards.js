@@ -89,6 +89,23 @@ Cards.attachSchema(
       type: Date,
       optional: true,
     },
+    // Soft delete (docs/Features/Undo/Undo.md): see the matching fields on Lists.
+    // A soft-deleted card is marked, not destroyed; deleteBatchId ties it to the
+    // list (or other cascade) it was deleted with, so restore is all-or-nothing.
+    deletedAt: {
+      // See Lists: absent-or-null both mean "live"; no null default (would trip
+      // SimpleSchema Date validation on insert).
+      type: Date,
+      optional: true,
+    },
+    deletedBy: {
+      type: String,
+      optional: true,
+    },
+    deleteBatchId: {
+      type: String,
+      optional: true,
+    },
     parentId: {
       /**
        * ID of the parent card

@@ -149,8 +149,21 @@ non-checkpoint rows). Toggle via `Meteor.settings.public.enableHistoryCleanup`.
 
 # Soft delete (delete = mark, never destroy)
 
-Status: **Design (approved principle)** · Owner: xet7 · Related: #1023 ("undo button for deleted
-lists etc"), History.md, the `archived` flag, `userPositionHistory` (`actionType: 'delete'|'restore'`)
+Status: **Lists implemented (v1) · rest design** · Owner: xet7 · Related: #1023 ("undo button for
+deleted lists etc"), History.md, the `archived` flag, `userPositionHistory`
+(`actionType: 'delete'|'restore'`)
+
+> **Implemented so far (v1):** deleting a **list** is now a soft delete — the list and its cards are
+> marked (`deletedAt`/`deletedBy`/`deleteBatchId`), hidden from the board, recorded as a reversible
+> `delete` in history, and restorable via `lists.restore` **or** undone with `Ctrl+Z`. This delivers
+> **#1023** for lists. Core pieces that are live: `models/lib/softDelete.js` (pure helpers +
+> `tests/softDelete.test.cjs`), the `enablePermanentDelete` feature flag + `Settings` field, the
+> `deletedAt/deletedBy/deleteBatchId` schema fields on Lists & Cards, `deletedAt: null` filtering on
+> the board/swimlane list render paths, the `lists.softRemove` / `lists.restore` / `lists.purge`
+> methods (purge gated by `canPurge`), the client + REST delete paths, and `undo()/redo()` handling
+> of `delete`/`restore`. **Still design:** extending the same pattern to swimlanes/boards/cards/
+> checklists/comments/attachments, the Recycle Bin UI, and the Admin Panel / Features / Delete table
+> (§16b–§16c).
 
 > **Principle:** *Every* user-facing delete is a **soft delete** — it **marks** the document deleted
 > instead of removing it. There is **no permanent delete in ordinary use**. Physical removal exists
@@ -239,6 +252,55 @@ Admin Panel
 - The physical-delete helper (`purge()`) is the *only* code allowed to call `removeAsync` on user
   content; it hard-fails unless `isAdmin && enablePermanentDelete`, and logs an audit `Activity`
   (`activityType: 'permanentDelete'`).
+
+### 16b. The Delete panel is a History-style category table
+
+**Admin Panel / Features / Delete** is not just the toggle — it renders a **History-design table**
+(same layout as History.md: paginated, searchable, actor avatar, timestamp, RTL-aware) that lists
+**everything currently soft-deleted, grouped by category**. It works whether or not permanent delete
+is enabled:
+
+- **Flag off:** the table is **read-only insight** — the admin can see what has been deleted (and how
+  much storage it holds) and could **Restore**, but the "Permanently delete" / "Empty" actions are
+  hidden/disabled.
+- **Flag on:** each row and each category header gains a **checkbox**; the Global Admin **selects
+  what to delete permanently** and confirms. Selection is per-row or whole-category ("select all in
+  *Cards*").
+
+Columns: category · title/description · board · deleted by (avatar) · deleted at · size · actions
+(Restore / Permanently delete). A server method `softDelete.listDeleted(category, boardId, page)`
+feeds it with the same pagination discipline as the activities feed (#2539) — only the visible page
+is loaded, so a huge trash never slows the panel.
+
+### 16c. GDPR categories — what a Global Admin may permanently delete, and what each purge must include
+
+The category table is organized around the data classes GDPR erasure and data-minimization actually
+require an operator to be able to remove. **Permanently deleting a category deletes the whole object
+graph below it** — a purge that leaves orphaned children behind is a data leak, so each category
+lists what *must* be included:
+
+| Category | What it is | A permanent delete MUST also remove |
+|----------|------------|-------------------------------------|
+| **User account (PII)** | A person's identity: profile (name, email, avatar), login/OAuth/LDAP identifiers, sessions, API tokens, notification/subscription rows | Their avatar blob; memberships stripped from every board; **authored content anonymized or reassigned** (comments/activities → "Deleted user") per the board owner's choice; personal settings, invitation codes, password-reset tokens |
+| **Boards** | A whole board | Its swimlanes, lists, cards (+ subtasks), checklists & items, card comments, labels, custom-field *values*, rules/triggers/actions, activities, and **all attachments' physical blobs** (S3/GridFS), board background images |
+| **Swimlanes / Lists** | A column or row | Their cards and everything under those cards (as in Boards), via the `deleteBatchId` cascade |
+| **Cards** | A single card (+ subtasks) | Its checklists & items, comments, activities, attachments (physical blobs), custom-field values, votes, time entries |
+| **Attachments** | Files | The **physical bytes** in the storage adapter (S3 / GCS / Azure / GridFS / filesystem), not just the metadata row |
+| **Comments & Activities** | Free-text that may contain PII | The rows themselves; referenced attachment blobs if any |
+| **Custom-field values** | Per-card values (may hold PII) | The values on cards; definitions remain unless the field itself is deleted |
+
+Rules for the purge implementation:
+
+- **Cascade completeness:** deleting a parent purges the entire subtree; never leave orphaned cards,
+  checklist items, comments, or (critically) **attachment blobs** — those live in external storage and
+  are the easiest thing to leak.
+- **PII beyond content:** account erasure must also clear the identity/auth surface (sessions, tokens,
+  OAuth/LDAP links, avatar), not only board content.
+- **Anonymize vs. delete:** for authored content that others still rely on (a comment thread), the
+  operator chooses **anonymize** (reassign to a tombstone "Deleted user", scrub the PII) instead of a
+  hard delete — GDPR is satisfied by removing the *personal data*, not necessarily the row.
+- **Audit, not silent:** every permanent delete writes an audit `Activity` (who, what category, how
+  many objects, when). The trash is never emptied on a timer.
 
 Everything else **must** soft-delete. To keep this enforceable:
 

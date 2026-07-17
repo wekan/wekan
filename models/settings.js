@@ -69,6 +69,15 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin Panel / Features / Delete (soft delete, docs/Features/Undo/Undo.md).
+    // When true, a Global Admin may PERMANENTLY (physically) delete soft-deleted
+    // content from the Delete panel's category table. Off by default — ordinary
+    // deletes are always soft/restorable, and GDPR/account erasure is separate.
+    enablePermanentDelete: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     // Admin Panel / Features: master switches that disable ALL export / ALL import
     // features (every format and endpoint). Default false (enabled).
     disableAllExport: {

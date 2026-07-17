@@ -95,6 +95,19 @@ This release adds the following updates:
 
 and adds the following features:
 
+- **Soft delete — deleting a list is now reversible (delete = mark, never destroy)**
+  ([#1023](https://github.com/wekan/wekan/issues/1023)). Deleting a list no longer destroys it: the list and its
+  cards are **marked** deleted (`deletedAt`/`deletedBy`/`deleteBatchId`), hidden from the board, and recorded as a
+  reversible change, so the whole list can be brought back with **`lists.restore`** or simply **`Ctrl+Z`** (undo).
+  This is the first slice of a general "no permanent delete in ordinary use" principle: physical deletion is limited
+  to GDPR/account erasure and an explicit **Global-Admin purge**, gated behind a new **Admin Panel / Features /
+  Delete → "Enable permanent delete for Global Admin"** toggle (off by default). Core pieces: `models/lib/softDelete.js`
+  (pure, unit-tested helpers), the `enablePermanentDelete` setting/feature-flag, soft-delete schema fields on Lists &
+  Cards, `deletedAt: null` filtering on the board/swimlane list render paths, `lists.softRemove`/`lists.restore`/
+  `lists.purge` (purge gated by `canPurge`), and `undo()`/`redo()` handling of `delete`/`restore`. Design and the
+  planned rollout to other entities + the Recycle Bin / admin Delete table are in `docs/Features/Undo/Undo.md`.
+  Thanks to **xet7**.
+
 - **Choose a board that opens automatically after you log in**
   ([#2220](https://github.com/wekan/wekan/issues/2220)). On the All Boards page each board tile now has a
   **home** (house) toggle next to the star. Marking a board makes it your default "home" board: the next time

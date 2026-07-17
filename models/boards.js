@@ -1222,6 +1222,7 @@ Boards.helpers({
       {
         boardId: this._id,
         archived: false,
+        deletedAt: null, // soft delete: hide deleted lists (docs/Features/Undo/Undo.md)
       },
       { sort: sortKey },
     );
@@ -1231,6 +1232,7 @@ Boards.helpers({
     return ReactiveCache.getLists(
       {
         boardId: this._id,
+        deletedAt: null, // soft delete: hide deleted lists
       },
       { sort: { sort: 1 } }
     );
@@ -1240,7 +1242,7 @@ Boards.helpers({
    * @returns Document the last list
    */
   getLastList() {
-    const ret = ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
+    const ret = ReactiveCache.getList({ boardId: this._id, deletedAt: null }, { sort: { sort: 'desc' } });
     return ret;
   },
 
@@ -1248,6 +1250,7 @@ Boards.helpers({
     return ReactiveCache.getLists({
       boardId: this._id,
       archived: false,
+      deletedAt: null,
       sort: { $eq: null },
     });
   },

@@ -395,6 +395,7 @@ Swimlanes.helpers({
       {
         boardId: this.boardId,
         //archived: false,
+        deletedAt: null, // soft delete: hide deleted lists (docs/Features/Undo/Undo.md)
       },
       { sort: ['sort'] },
     );
@@ -415,6 +416,7 @@ Swimlanes.helpers({
           { swimlaneId: '' },     // empty string from old shared-lists era
         ],
         archived: false,
+        deletedAt: null, // soft delete: hide deleted lists
       },
       { sort: ['sort'] },
     );

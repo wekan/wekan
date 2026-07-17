@@ -12,6 +12,9 @@ import UserPositionHistory from '/models/userPositionHistory';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { computeSortForIndex } from '/server/lib/utils';
 import { buildListPutUpdate } from '/models/lib/listApiUpdate';
+import { Random } from 'meteor/random';
+import { getFeatureFlags } from '/models/lib/featureFlags';
+import { softDeleteSet, restoreModifier, canPurge } from '/models/lib/softDelete';
 
 const hasBoardWriteAccess = (userId, board) => {
   if (!userId || !board) {
@@ -32,7 +35,124 @@ const hasBoardWriteAccess = (userId, board) => {
   );
 };
 
+// Soft delete (docs/Features/Undo/Undo.md): mark a list — and cascade-mark its live
+// cards with the SAME deleteBatchId — instead of destroying them, and record a
+// reversible 'delete' in position history. Restore/undo is all-or-nothing per batch.
+// Shared by the `lists.softRemove` method and the REST DELETE endpoint. Returns the
+// batchId. Best-effort history: a recording failure never fails the delete.
+async function softRemoveList({ userId, list }) {
+  const at = new Date();
+  const batchId = Random.id();
+  await Cards.updateAsync(
+    { listId: list._id, boardId: list.boardId, deletedAt: null },
+    { $set: softDeleteSet(userId, batchId, at) },
+    { multi: true },
+  );
+  await Lists.updateAsync(list._id, { $set: softDeleteSet(userId, batchId, at) });
+  try {
+    await UserPositionHistory.trackChange({
+      userId,
+      boardId: list.boardId,
+      entityType: 'list',
+      entityId: list._id,
+      actionType: 'delete',
+      previousState: { swimlaneId: list.swimlaneId, sort: list.sort, boardId: list.boardId },
+      newState: { deletedAt: at },
+      batchId,
+    });
+  } catch (e) {
+    // best-effort: never fail the delete because history recording failed
+  }
+  return batchId;
+}
+
 Meteor.methods({
+  // Soft-delete a list (the ordinary "Delete list" action). Marks it + its cards
+  // deleted; restorable from the Recycle Bin / undo. Idempotent.
+  async 'lists.softRemove'(listId) {
+    check(listId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const list = await Lists.findOneAsync(listId);
+    if (!list) {
+      throw new Meteor.Error('not-found', 'List not found');
+    }
+    const board = await ReactiveCache.getBoard(list.boardId);
+    if (!hasBoardWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized', 'You cannot modify this board.');
+    }
+    if (list.deletedAt) {
+      return { deleted: true, batchId: list.deleteBatchId }; // already soft-deleted
+    }
+    const batchId = await softRemoveList({ userId: this.userId, list });
+    return { deleted: true, batchId };
+  },
+
+  // Restore a soft-deleted list and every card deleted alongside it (same batch).
+  async 'lists.restore'(listId) {
+    check(listId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const list = await Lists.findOneAsync(listId);
+    if (!list) {
+      throw new Meteor.Error('not-found', 'List not found');
+    }
+    const board = await ReactiveCache.getBoard(list.boardId);
+    if (!hasBoardWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized', 'You cannot modify this board.');
+    }
+    const batchId = list.deleteBatchId;
+    await Lists.updateAsync(list._id, restoreModifier());
+    if (batchId) {
+      await Cards.updateAsync({ deleteBatchId: batchId }, restoreModifier(), { multi: true });
+    }
+    try {
+      await UserPositionHistory.trackChange({
+        userId: this.userId,
+        boardId: list.boardId,
+        entityType: 'list',
+        entityId: list._id,
+        actionType: 'restore',
+        previousState: { deletedAt: list.deletedAt },
+        newState: { deletedAt: null },
+        batchId,
+      });
+    } catch (e) {
+      // best-effort
+    }
+    return { restored: true };
+  },
+
+  // PERMANENTLY delete a soft-deleted list + its batch cards. The ONLY physical
+  // list delete in ordinary use — gated on Global Admin AND the Admin Panel /
+  // Features / Delete "Enable permanent delete" flag (models/lib/softDelete canPurge).
+  async 'lists.purge'(listId) {
+    check(listId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = await Meteor.users.findOneAsync(this.userId);
+    const flags = getFeatureFlags();
+    if (!canPurge(user, flags.enablePermanentDelete)) {
+      throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
+    }
+    const list = await Lists.findOneAsync(listId);
+    if (!list) {
+      throw new Meteor.Error('not-found', 'List not found');
+    }
+    if (!list.deletedAt) {
+      throw new Meteor.Error('not-deleted', 'Only soft-deleted lists can be permanently deleted.');
+    }
+    const batchId = list.deleteBatchId;
+    if (batchId) {
+      await Cards.removeAsync({ deleteBatchId: batchId });
+    }
+    await Lists.removeAsync({ _id: list._id });
+    return { purged: true };
+  },
+
   async createListAfter(params) {
     check(params, {
       title: String,
@@ -678,7 +798,11 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
       await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-    await Lists.removeAsync({ _id: paramListId, boardId: paramBoardId });
+    // Soft delete (docs/Features/Undo/Undo.md): mark deleted + cascade, don't destroy.
+    const list = await Lists.findOneAsync({ _id: paramListId, boardId: paramBoardId });
+    if (list && !list.deletedAt) {
+      await softRemoveList({ userId: req.userId, list });
+    }
     sendJsonResult(res, { code: 200, data: { _id: paramListId } });
   } catch (error) {
     sendJsonResult(res, { code: 200, data: error });

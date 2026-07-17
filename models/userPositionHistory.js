@@ -196,11 +196,54 @@ UserPositionHistory.helpers({
   },
 
   /**
+   * Soft-delete apply/undo helper (docs/Features/Undo/Undo.md). Marks
+   * (`deleted=true`) or restores (`deleted=false`) the entity AND its cascade,
+   * using the history entry's `batchId` as the canonical group so repeated
+   * undo/redo cycles stay consistent. v1 wires lists (+ their cards); other entity
+   * types are no-ops here (their delete paths are not yet soft).
+   */
+  async _applyDeleted(deleted) {
+    if (this.entityType !== 'list') return;
+    const list = await ReactiveCache.getList(this.entityId);
+    if (!list) return;
+    const batchId = this.batchId || list.deleteBatchId || this.entityId;
+
+    if (deleted) {
+      const at = new Date();
+      const set = { deletedAt: at, deleteBatchId: batchId };
+      if (this.userId) set.deletedBy = this.userId;
+      await Lists.updateAsync(list._id, { $set: set });
+      // Re-mark the list's currently-live cards under the canonical batch.
+      await Cards.updateAsync(
+        { listId: list._id, boardId: list.boardId, deletedAt: null },
+        { $set: set },
+        { multi: true },
+      );
+    } else {
+      // Restore: $unset all three fields (setting a Date to null trips schema).
+      const unset = { $unset: { deletedAt: '', deletedBy: '', deleteBatchId: '' } };
+      await Lists.updateAsync(list._id, unset);
+      await Cards.updateAsync({ deleteBatchId: batchId }, unset, { multi: true });
+    }
+  },
+
+  /**
    * Undo this change
    */
   async undo() {
     if (!(await this.canUndo())) {
       throw new Meteor.Error('cannot-undo', 'Entity no longer exists');
+    }
+
+    // Soft delete: undo of a 'delete' RESTORES the entity (+ batch); undo of a
+    // 'restore' re-deletes it. (docs/Features/Undo/Undo.md)
+    if (this.actionType === 'delete') {
+      await this._applyDeleted(false);
+      return;
+    }
+    if (this.actionType === 'restore') {
+      await this._applyDeleted(true);
+      return;
     }
 
     const userId = this.userId;
@@ -294,6 +337,16 @@ UserPositionHistory.helpers({
   async redo() {
     if (!(await this.canUndo())) {
       throw new Meteor.Error('cannot-redo', 'Entity no longer exists');
+    }
+
+    // Soft delete: redo of a 'delete' re-deletes; redo of a 'restore' restores.
+    if (this.actionType === 'delete') {
+      await this._applyDeleted(true);
+      return;
+    }
+    if (this.actionType === 'restore') {
+      await this._applyDeleted(false);
+      return;
     }
 
     switch (this.entityType) {
