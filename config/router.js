@@ -70,10 +70,34 @@ function renderBoardList(ctx, menu) {
   });
 }
 
+// #2220: on the FIRST landing on '/' this session (i.e. right after login), send
+// the user to their chosen default "home" board. Only once per session, so a
+// later click on "All Boards" stays on the list, and the choice is honoured again
+// on the next login / full reload. Returns true when it redirected.
+function maybeRedirectToDefaultBoard() {
+  if (Session.get('defaultBoardRedirectDone')) return false;
+  Session.set('defaultBoardRedirectDone', true);
+
+  if (!Meteor.userId()) return false;
+  const user = ReactiveCache.getCurrentUser();
+  const boardId = user && user.getDefaultBoardId && user.getDefaultBoardId();
+  if (!boardId) return false;
+
+  // Redirect by id right away — at login the board's own subscription may not have
+  // loaded yet, so use its real slug when it happens to be cached and a harmless
+  // placeholder otherwise (the board route resolves by :id). If the board was
+  // deleted / access was removed, the board route degrades gracefully and the
+  // "All Boards" link still works (this only redirects once per session).
+  const board = ReactiveCache.getBoard(boardId);
+  FlowRouter.go('board', { id: boardId, slug: (board && board.slug) || 'board' });
+  return true;
+}
+
 FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
+    if (maybeRedirectToDefaultBoard()) return;
     renderBoardList(this, 'starred');
   },
 });

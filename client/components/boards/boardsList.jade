@@ -228,6 +228,12 @@ template(name="boardList")
                       title="{{_ 'star-board-title'}}")
                       span.emoji-icon
                         i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+                    //- #2220: mark this board as the one that opens after login.
+                    a.js-set-default-board(
+                      class="{{#if isDefaultBoard}}is-default-board-active{{else}}is-not-default-board-active{{/if}}"
+                      title="{{#if isDefaultBoard}}{{_ 'unset-default-board-title'}}{{else}}{{_ 'set-default-board-title'}}{{/if}}")
+                      span.emoji-icon
+                        i.fa.fa-home
 
 template(name="boardsSortPopup")
   ul.pop-over-list

@@ -468,6 +468,14 @@ Users.attachSchema(
     'profile.starredBoards.$': {
       type: String,
     },
+    'profile.defaultBoardId': {
+      /**
+       * #2220: the board that opens automatically after logging in (the user's
+       * "home" board). Empty/unset means land on the All Boards page as before.
+       */
+      type: String,
+      optional: true,
+    },
     'profile.icode': {
       /**
        * icode
@@ -1069,6 +1077,15 @@ Users.helpers({
   hasStarred(boardId) {
     const { starredBoards = [] } = this.profile || {};
     return starredBoards.includes(boardId);
+  },
+
+  // #2220: the user's default "home" board opened after login.
+  getDefaultBoardId() {
+    return (this.profile && this.profile.defaultBoardId) || null;
+  },
+
+  isDefaultBoard(boardId) {
+    return this.getDefaultBoardId() === boardId;
   },
 
   isAutoWidth(boardId) {
@@ -1746,6 +1763,15 @@ Users.helpers({
   async toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
     return await Users.updateAsync(this._id, { [queryKind]: { 'profile.starredBoards': boardId } });
+  },
+
+  // #2220: toggle this board as the user's default "home" board (opened after
+  // login). Clicking the current default clears it (back to the All Boards page).
+  async toggleDefaultBoard(boardId) {
+    if (this.isDefaultBoard(boardId)) {
+      return await Users.updateAsync(this._id, { $unset: { 'profile.defaultBoardId': '' } });
+    }
+    return await Users.updateAsync(this._id, { $set: { 'profile.defaultBoardId': boardId } });
   },
 
   async setBoardSortIndex(boardId, sortIndex) {

@@ -789,6 +789,8 @@
   "sidebar-close": "Close Sidebar",
   "signupPopup-title": "Create an Account",
   "star-board-title": "Click to star this board. It will show up at top of your boards list.",
+  "set-default-board-title": "Click to open this board automatically after you log in.",
+  "unset-default-board-title": "This board opens after you log in. Click to stop opening it automatically.",
   "starred-boards": "Starred Boards",
   "starred-boards-description": "Starred boards show up at the top of your boards list.",
   "subscribe": "Subscribe",

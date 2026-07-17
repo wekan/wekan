@@ -95,6 +95,14 @@ This release adds the following updates:
 
 and adds the following features:
 
+- **Choose a board that opens automatically after you log in**
+  ([#2220](https://github.com/wekan/wekan/issues/2220)). On the All Boards page each board tile now has a
+  **home** (house) toggle next to the star. Marking a board makes it your default "home" board: the next time
+  you log in (or reload) you land straight on it instead of the All Boards page. Clicking the home icon again
+  clears it. It is stored per user (`profile.defaultBoardId`) via a `toggleDefaultBoard` method, and the
+  redirect fires **once per session** so clicking "All Boards" afterwards keeps you on the list. If the chosen
+  board was deleted or you lost access, it falls back to the All Boards page. Thanks to **xet7**.
+
 - **Add List moved from a standing column to a per-list header button**
   ([#6465](https://github.com/wekan/wekan/issues/6465)). The Swimlanes and Lists views no longer show a
   permanent "Add List" composer column. Instead each list header has a far-right add-list button; clicking it

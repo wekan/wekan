@@ -629,6 +629,11 @@ Template.boardList.helpers({
     const user = ReactiveCache.getCurrentUser();
     return user && user.hasStarred(this._id);
   },
+  // #2220: is this the board that opens after login?
+  isDefaultBoard() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isDefaultBoard(this._id);
+  },
   isAdministrable() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isBoardAdmin(this._id);
@@ -914,6 +919,15 @@ Template.boardList.events({
     const boardId = this._id;
     if (boardId) {
       Meteor.call('toggleBoardStar', boardId);
+    }
+  },
+  // #2220: toggle this board as the default board opened after login.
+  'click .js-set-default-board'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const boardId = this._id;
+    if (boardId) {
+      Meteor.call('toggleDefaultBoard', boardId);
     }
   },
   // HTML5 DnD from boards to spaces
