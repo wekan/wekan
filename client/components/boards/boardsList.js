@@ -629,11 +629,6 @@ Template.boardList.helpers({
     const user = ReactiveCache.getCurrentUser();
     return user && user.hasStarred(this._id);
   },
-  // #2220: is this the board that opens after login?
-  isDefaultBoard() {
-    const user = ReactiveCache.getCurrentUser();
-    return user && user.isDefaultBoard(this._id);
-  },
   isAdministrable() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isBoardAdmin(this._id);
@@ -921,15 +916,8 @@ Template.boardList.events({
       Meteor.call('toggleBoardStar', boardId);
     }
   },
-  // #2220: toggle this board as the default board opened after login.
-  'click .js-set-default-board'(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const boardId = this._id;
-    if (boardId) {
-      Meteor.call('toggleDefaultBoard', boardId);
-    }
-  },
+  // #2220 Home-board toggle is disabled: setting a default board from the All
+  // Boards tiles is intentionally removed (no js-set-default-board handler).
   // HTML5 DnD from boards to spaces
   // #5850: drag a (template) board onto an Org/Team/Domain target to share it.
   'dragover .js-share-target'(evt) {
