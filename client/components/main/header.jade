@@ -24,11 +24,13 @@ template(name="header")
           div#headerIsSettingDatabaseCallDone
             img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
 
-        // Zoom controls - always visible
-        .zoom-controls
-          span.zoom-level.js-zoom-level-click(title="{{_ 'click-to-change-zoom'}}")
-            span.zoom-display {{zoomLevel}}%
-            input.zoom-input.js-zoom-input(type="number" value=zoomLevel min="50" max="300" step="10" style="display: none;")
+      // Mobile/desktop mode toggle (swapped with zoom)
+      .mobile-mode-toggle
+        a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
+          i.mobile-icon(class="{{#if mobileMode}}active{{/if}}")
+            i.fa.fa-mobile
+          i.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}")
+            i.fa.fa-desktop
 
       // Drag handles toggle - between zoom and mobile mode toggle
       a.board-header-btn.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}")
@@ -78,12 +80,11 @@ template(name="header")
       //
         i.fa.fa-plus(title="Create a new board")
 
-      .mobile-mode-toggle
-        a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
-          i.mobile-icon(class="{{#if mobileMode}}active{{/if}}")
-            i.fa.fa-mobile
-          i.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}")
-            i.fa.fa-desktop
+      // Zoom controls (swapped with the mobile/desktop toggle)
+      .zoom-controls
+        span.zoom-level.js-zoom-level-click(title="{{_ 'click-to-change-zoom'}}")
+          span.zoom-display {{zoomLevel}}%
+          input.zoom-input.js-zoom-input(type="number" value=zoomLevel min="50" max="300" step="10" style="display: none;")
 
       // Notifications
       +notifications

@@ -70,4 +70,16 @@ test('the empty .board-list-header dead-space band is gone', () => {
   assert.ok(!/\.board-list-header\s*{/.test(css), 'its dead CSS rule removed too');
 });
 
+test('All Boards path-right order: Multi-Selection, then Sort, then Search boards', () => {
+  const jade = fs.readFileSync(
+    path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
+  const seg = jade.slice(jade.indexOf('.path-right'), jade.indexOf('.path-right') + 1600);
+  const ms = seg.indexOf('js-multiselection-activate');
+  const sort = seg.indexOf('js-open-boards-sort');
+  const search = seg.indexOf('js-board-search-input');
+  assert.ok(ms !== -1 && sort !== -1 && search !== -1, 'all three present');
+  assert.ok(ms < sort, 'Multi-Selection is left of Sort');
+  assert.ok(sort < search, 'Search boards is to the right (after Multi-Selection and Sort)');
+});
+
 console.log(`\nAll ${passed} add-board tile-height tests passed`);
