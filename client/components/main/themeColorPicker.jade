@@ -1,7 +1,8 @@
 //- Shared "Select Color" picker (docs/Theme/Theme.md), used by both Board Settings
-  and Member Settings. Two-level dropdowns (category -> theme); the native color
-  wheel(s) appear only for flat (1) and clear (2) categories. `data.scope` is
-  'board' or 'global'.
+  and Member Settings. Colors are shown as VISIBLE swatches grouped by category, with
+  the category name as a header above each group; the native color wheel(s) appear
+  for the flat (1) / clear (2) categories once such a color is selected. `data.scope`
+  is 'board' or 'global'.
 template(name="themeColorPicker")
   form.theme-color-picker.edit-label
     if isGlobal
@@ -12,20 +13,22 @@ template(name="themeColorPicker")
             | {{_ 'theme-default'}}
             if isNoneSelected
               i.fa.fa-check
-    label(for="themeCategory") {{_ 'theme-category'}}
-    select.js-theme-category.wekan-form-control#themeCategory
-      each categories
-        option(value=key selected=selected) {{label}}
-    label(for="themeName") {{_ 'theme'}}
-    select.js-theme-color.wekan-form-control#themeName
-      each themes
-        option(value=color selected=selected) {{color}}
+    each themeGroups
+      .theme-category-group
+        .theme-category-label {{label}}
+        .board-backgrounds-list.clearfix
+          each colors
+            .board-background-select.js-select-theme(data-color="{{name}}")
+              span.background-box(class="board-color-{{name}}")
+                span {{name}}
+                if selected
+                  i.fa.fa-check
     if showCustom
       .color-wheel-wrap
         label {{_ 'custom-color'}}
         each customWheels
-          input.js-theme-wheel(type="color" data-index=index value=value title="{{_ 'custom-color'}}")
-    .theme-preview
-      span.background-box(class=previewClass style=previewStyle)
-        span {{_ 'preview'}}
+          input.js-theme-wheel(type="color" data-index="{{index}}" value="{{value}}" title="{{_ 'custom-color'}}")
+      .theme-preview
+        span.background-box(class="{{previewClass}}" style="{{previewStyle}}")
+          span {{_ 'preview'}}
     button.primary.confirm.js-theme-save {{_ 'save'}}

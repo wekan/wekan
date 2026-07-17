@@ -5,7 +5,7 @@ template(name="header")
     Reddit "subreddit" bar.
     The first link goes to the boards page.
   if currentUser
-    #header-quick-access(class="{{#if currentBoard}}{{currentBoard.colorClass}}{{else}}{{currentUser.globalThemeColorClass}}{{/if}}" role="navigation" aria-label="{{_ 'all-boards'}}")
+    #header-quick-access(class="{{#if currentUser.globalThemeColorClass}}{{currentUser.globalThemeColorClass}}{{else}}{{currentBoard.colorClass}}{{/if}}" role="navigation" aria-label="{{_ 'all-boards'}}")
       // Home icon - always at left side of logo
       span.home-icon.allBoards
         a(href="{{pathFor 'home'}}")
@@ -95,7 +95,7 @@ template(name="header")
 
       +headerUserBar
 
-  #header(class="{{#if currentBoard}}{{currentBoard.colorClass}}{{else}}{{currentUser.globalThemeColorClass}}{{/if}}")
+  #header(class="{{#if currentUser.globalThemeColorClass}}{{currentUser.globalThemeColorClass}}{{else}}{{currentBoard.colorClass}}{{/if}}")
     //-
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.

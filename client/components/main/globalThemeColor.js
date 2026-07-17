@@ -53,20 +53,22 @@ Meteor.startup(() => {
 
   Tracker.autorun(() => {
     const user = Meteor.user();
-    const boardId = Session.get('currentBoard');
-    const onBoard = !!boardId;
+    const globalColor = user && user.profile && user.profile.globalThemeColor;
 
-    let colorClass = null;
-    let custom = [];
-    if (onBoard) {
-      const board = ReactiveCache.getBoard(boardId);
-      custom = (board && board.customThemeColors) || [];
-    } else {
-      const color = user && user.profile && user.profile.globalThemeColor;
-      colorClass = color ? `board-color-${color}` : null;
-      custom = (user && user.profile && user.profile.globalThemeCustomColors) || [];
+    if (globalColor) {
+      // #5778: a global override wins EVERYWHERE — including board pages. The header
+      // and .board-wrapper also prefer it (see header.jade / boardBody.jade), so the
+      // whole UI takes the chosen theme; unset it to return to per-board colors.
+      applyClass(`board-color-${globalColor}`);
+      applyCustom((user && user.profile && user.profile.globalThemeCustomColors) || []);
+      return;
     }
-    applyClass(colorClass);
-    applyCustom(custom);
+
+    // No global override: on a board expose that board's own custom colors (its color
+    // class already lives on .board-wrapper/#header); off a board, apply nothing.
+    const boardId = Session.get('currentBoard');
+    const board = boardId ? ReactiveCache.getBoard(boardId) : null;
+    applyClass(null);
+    applyCustom((board && board.customThemeColors) || []);
   });
 });

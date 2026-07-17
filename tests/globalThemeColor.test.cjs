@@ -77,22 +77,24 @@ test('member menu has Change Color, opening the shared theme picker (scope=globa
   assert.ok(/Popup\.open\('changeColor'\)/.test(js), 'opens the popup');
 });
 
-test('body autorun applies the global class off-board and exposes custom colors', () => {
+test('body autorun applies the global override EVERYWHERE (wins over board color)', () => {
   const j = read('client/components/main/globalThemeColor.js');
-  assert.ok(/board-color-\$\{color\}/.test(j), 'builds the board-color class');
-  assert.ok(/Session\.get\('currentBoard'\)/.test(j), 'checks whether on a board');
-  // off-board: colorClass is computed only in the not-on-board branch.
-  assert.ok(/onBoard/.test(j) && /globalThemeColor/.test(j), 'gates on board context');
-  // custom colors are applied as CSS variables consumed by customTheme.css.
+  assert.ok(/board-color-\$\{globalColor\}/.test(j), 'builds the board-color class from the global override');
+  // A set global override returns early -> applied regardless of board context.
+  assert.ok(/if \(globalColor\)/.test(j), 'global override wins everywhere');
+  // Falls back to the current board custom colors only when there is NO global.
+  assert.ok(/Session\.get\('currentBoard'\)/.test(j) && /customThemeColors/.test(j), 'board fallback when unset');
   assert.ok(/--theme-accent/.test(j), 'sets the custom-color CSS variable');
 });
 
-test('header falls back to the global theme class on non-board pages', () => {
+test('header + board-wrapper prefer the global theme class when set', () => {
   const h = read('client/components/main/header.jade');
-  // Both the quick-access bar and the main header use the board color when on a
-  // board, else the user global override.
-  const matches = h.match(/else\}\}\{\{currentUser\.globalThemeColorClass\}\}/g) || [];
-  assert.ok(matches.length >= 2, 'both #header and #header-quick-access fall back');
+  // #header and #header-quick-access use the global override first, board color else.
+  const headerMatches = h.match(/if currentUser\.globalThemeColorClass\}\}\{\{currentUser\.globalThemeColorClass\}\}\{\{else\}\}\{\{currentBoard\.colorClass\}\}/g) || [];
+  assert.ok(headerMatches.length >= 2, 'both #header and #header-quick-access prefer the global override');
+  const bb = read('client/components/boards/boardBody.jade');
+  assert.ok(/if currentUser\.globalThemeColorClass\}\}\{\{currentUser\.globalThemeColorClass\}\}\{\{else\}\}\{\{currentBoard\.colorClass\}\}/.test(bb),
+    '.board-wrapper prefers the global override too (so board content is themed)');
 });
 
 test('i18n has the new strings', () => {

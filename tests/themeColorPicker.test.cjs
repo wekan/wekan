@@ -22,18 +22,23 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-test('shared picker template has category + theme dropdowns and custom wheels', () => {
+test('picker shows visible swatches grouped by category, with a group-name header', () => {
   const jade = read('client/components/main/themeColorPicker.jade');
-  assert.ok(/js-theme-category/.test(jade), 'category dropdown');
-  assert.ok(/js-theme-color/.test(jade), 'theme dropdown');
+  assert.ok(/each themeGroups/.test(jade), 'iterates category groups');
+  assert.ok(/theme-category-label \{\{label\}\}/.test(jade), 'category name shown above each group');
+  assert.ok(/js-select-theme\(data-color="\{\{name\}\}"\)/.test(jade), 'clickable color swatches');
+  assert.ok(/board-color-\{\{name\}\}/.test(jade), 'swatch shows the actual color');
+  assert.ok(/span \{\{name\}\}/.test(jade), 'swatch shows the color name');
   assert.ok(/if showCustom/.test(jade), 'wheels gated on custom-capable category');
   assert.ok(/js-theme-wheel\(type="color"/.test(jade), 'native color wheel input');
 });
 
-test('picker logic: repopulates themes by category, gates wheels, saves per scope', () => {
+test('picker logic: swatch click selects, category derived from color, saves per scope', () => {
   const js = read('client/components/main/themeColorPicker.js');
-  assert.ok(/colorsInCategory\(cat\)\[0\]/.test(js), 'category change picks first theme');
-  assert.ok(/allowsCustomColor/.test(js) && /customColorCount/.test(js), 'uses category rules');
+  assert.ok(/themeGroups\(\)/.test(js), 'builds category groups with labels');
+  assert.ok(/'click \.js-select-theme'/.test(js) && /tpl\.color\.set\(color\)/.test(js), 'swatch click sets color');
+  // custom-capability is derived from the SELECTED color's category (no dropdown state).
+  assert.ok(/allowsCustomColor\(categoryOf\(cur\)\)/.test(js), 'custom gate uses the selected color');
   // board scope writes board.setColor; global scope calls the method.
   assert.ok(/b\.setColor\(color, custom\)/.test(js), 'board save');
   assert.ok(/Meteor\.call\('setGlobalThemeColor', color, custom/.test(js), 'global save');

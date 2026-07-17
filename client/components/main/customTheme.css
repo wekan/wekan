@@ -22,3 +22,14 @@
 .has-custom-theme-slide #header-quick-access {
   background: linear-gradient(135deg, var(--theme-accent), var(--theme-accent-2)) !important;
 }
+
+/* Select Color picker: category groups with a visible name above each group of
+ * colour swatches (docs/Theme/Theme.md). */
+.theme-color-picker .theme-category-group {
+  margin-bottom: 8px;
+}
+.theme-color-picker .theme-category-label {
+  font-weight: bold;
+  margin: 6px 0 2px;
+  text-transform: capitalize;
+}
