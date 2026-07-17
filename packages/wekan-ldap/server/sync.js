@@ -4,6 +4,7 @@ import limax from 'limax';
 import LDAP from './ldap';
 import { slugifyPreservingHyphens } from './usernameSlug';
 import { parseGroupAllowlist, filterGroupsByAllowlist } from './groupAllowlist';
+import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { getLdapPhotoBuffer } from './ldapPhoto';
 
@@ -368,56 +369,68 @@ export async function importNewUsers(ldap) {
     return;
   }
 
+  // #6467/#6469: when called standalone (no shared connection passed in),
+  // importNewUsers owns the connection it opens and must release it. When the
+  // background sync() passes in its own `ldap`, ownership stays with sync() (it
+  // disconnects in its finally), so we must NOT close a borrowed connection.
+  let ownConnection = false;
   if (!ldap) {
     ldap = new LDAP();
     await ldap.connect();
+    ownConnection = true;
   }
 
-  let count = 0;
-  const ldapUsers = await ldap.searchUsers('*');
+  try {
+    let count = 0;
+    const ldapUsers = await ldap.searchUsers('*');
 
-  for (const ldapUser of ldapUsers) {
-    count++;
+    for (const ldapUser of ldapUsers) {
+      count++;
 
-    const uniqueId = getLdapUserUniqueID(ldapUser);
-    // Look to see if user already exists
-    const userQuery = {
-      'services.ldap.id': uniqueId.value,
-    };
-
-    log_debug('userQuery', userQuery);
-
-    let username;
-    if (LDAP.settings_get('LDAP_USERNAME_FIELD') !== '') {
-      username = slug(getLdapUsername(ldapUser));
-    }
-
-    // Add user if it was not added before
-    let user = await Meteor.users.findOneAsync(userQuery);
-
-    if (!user && username && LDAP.settings_get('LDAP_MERGE_EXISTING_USERS') === true) {
+      const uniqueId = getLdapUserUniqueID(ldapUser);
+      // Look to see if user already exists
       const userQuery = {
-        username,
+        'services.ldap.id': uniqueId.value,
       };
 
-      log_debug('userQuery merge', userQuery);
+      log_debug('userQuery', userQuery);
 
-      user = await Meteor.users.findOneAsync(userQuery);
-      if (user) {
-        await syncUserData(user, ldapUser);
+      let username;
+      if (LDAP.settings_get('LDAP_USERNAME_FIELD') !== '') {
+        username = slug(getLdapUsername(ldapUser));
+      }
+
+      // Add user if it was not added before
+      let user = await Meteor.users.findOneAsync(userQuery);
+
+      if (!user && username && LDAP.settings_get('LDAP_MERGE_EXISTING_USERS') === true) {
+        const userQuery = {
+          username,
+        };
+
+        log_debug('userQuery merge', userQuery);
+
+        user = await Meteor.users.findOneAsync(userQuery);
+        if (user) {
+          await syncUserData(user, ldapUser);
+        }
+      }
+
+      if (!user) {
+        await addLdapUser(ldapUser, username);
+      }
+
+      if (count % 100 === 0) {
+        log_info('Import running. Users imported until now:', count);
       }
     }
 
-    if (!user) {
-      await addLdapUser(ldapUser, username);
-    }
-
-    if (count % 100 === 0) {
-      log_info('Import running. Users imported until now:', count);
+    log_info('Import finished. Users imported:', count);
+  } finally {
+    if (ownConnection) {
+      await ldap.disconnect();
     }
   }
-
-  log_info('Import finished. Users imported:', count);
 }
 
 // #6461: invoke the app-side LDAP org/team sync as a true server-to-server call.
@@ -568,6 +581,13 @@ async function sync() {
   } catch (error) {
     log_error(error);
     return error;
+  } finally {
+    // #6467/#6469: the background sync runs on a cron (every minute by default)
+    // and each run opened a new LDAP connection; without this finally every run
+    // leaked a connection to the directory server, so a long-running WeKan
+    // steadily exhausted the LDAP/AD server's connection limit even with nobody
+    // logging in. Release it on every exit path.
+    await ldap.disconnect();
   }
   return true;
 }

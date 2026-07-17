@@ -1,4 +1,5 @@
 import LDAP from './ldap';
+import { runWithLdapDisconnect } from './connectionGuard';
 
 Meteor.methods({
   async ldap_test_connection() {
@@ -22,18 +23,27 @@ Meteor.methods({
       await ldap.connect();
     } catch (error) {
       console.log(error);
+      // #6467/#6469: release anything opened before rethrowing, so a failed
+      // "Test Connection" does not leak a socket to the directory server.
+      if (ldap) {
+        await ldap.disconnect();
+      }
       throw new Meteor.Error(error.message);
     }
 
-    try {
-      await ldap.bindIfNecessary();
-    } catch (error) {
-      throw new Meteor.Error(error.name || error.message);
-    }
+    // #6467/#6469: always disconnect the test connection (success or failure),
+    // otherwise repeated admin "Test Connection" clicks leak connections too.
+    return await runWithLdapDisconnect(ldap, async () => {
+      try {
+        await ldap.bindIfNecessary();
+      } catch (error) {
+        throw new Meteor.Error(error.name || error.message);
+      }
 
-    return {
-      message: 'Connection_success',
-      params: [],
-    };
+      return {
+        message: 'Connection_success',
+        params: [],
+      };
+    });
   },
 });

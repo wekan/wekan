@@ -86,6 +86,49 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following BUG:
+
+- **LDAP connection leak: WeKan exhausted the directory server with "too many open connections"**
+  ([#6467](https://github.com/wekan/wekan/issues/6467), [#6469](https://github.com/wekan/wekan/issues/6469)).
+  Operators reported that after an update WeKan "dies really quickly", that restarting the server did not
+  help, and that it "kills our openldap server with too many open connections"; others saw logins hang for
+  minutes and then fail with *"Must be logged in"*. Root cause: every LDAP login attempt
+  (`packages/wekan-ldap/server/loginHandler.js`) and every background sync run
+  (`packages/wekan-ldap/server/sync.js`) created a fresh `new LDAP()` and called `connect()`, but the code
+  **never called `disconnect()` on any path** — success, failure, or fallback. Each login attempt (including
+  every *failed* one) and each background-sync tick (every minute by default) therefore leaked one socket to
+  the LDAP/AD server. Over time this grew without bound until the directory server hit its per-client
+  connection limit and started refusing connections, which took it — and, with it, every WeKan login — down.
+  - **Fixed** by guaranteeing the connection is always released:
+    - A small shared helper `packages/wekan-ldap/server/connectionGuard.js` (`runWithLdapDisconnect(ldap, fn)`)
+      runs the work and `disconnect()`s in a `finally`, on every exit path. The disconnect is best-effort and
+      never masks the original result or error.
+    - The LDAP login handler now runs its whole flow through `runWithLdapDisconnect`, so `connect()` is always
+      paired with a `disconnect()` — on a successful login, a thrown `Meteor.Error`, or a fallback to the
+      default account system.
+    - The background `sync()` releases its connection in a `finally`, and `importNewUsers()` disconnects only
+      the connection it opened itself (never a connection borrowed from `sync()`).
+    - The admin `ldap_test_connection` method (`packages/wekan-ldap/server/testConnection.js`), which had the
+      same leak, now disconnects on both the success and failure paths, so repeated "Test Connection" clicks
+      no longer leak either.
+    - `LDAP.disconnect()` is now a safe no-op when `connect()` was never reached, so cleanup can never throw.
+  - **Tests** (`tests/ldapConnectionRelease.test.cjs`, added to `test:unit:node`): behavioural coverage of the
+    guard (disconnects after success and returns the result; disconnects exactly once; disconnects *and*
+    re-throws when the work throws — the failed-login path that exhausted OpenLDAP), negative cases (a failing
+    disconnect never turns a success into a failure nor hides the real error; a missing/`null` ldap is
+    tolerated), plus source-level guards that the leak-prone call sites actually route through the guard and
+    that `connect()` lives inside the guarded region.
+  - Thanks to the reporting operators and **xet7** (fix).
+
+This release also updates the bundled FerretDB (see the fork's own CHANGELOG Upcoming): the SQLite backend
+connection pool no longer caps `MaxOpenConns` at 16, which had starved WeKan's cursor-heavy load and made
+boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](https://github.com/wekan/wekan/issues/6467),
+[#6469](https://github.com/wekan/wekan/issues/6469)).
+
+Thanks to above for their contributions.
+
 # v9.98 2026-07-17 WeKan ® release
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:

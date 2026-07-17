@@ -548,6 +548,13 @@ export default class LDAP {
   async disconnect() {
     this.connected    = false;
     this.domainBinded = false;
+    // #6467/#6469: disconnect() is now called in a finally on every login and
+    // sync exit path, including paths where connect() was never reached or
+    // failed early. Guard against a missing client so releasing the connection
+    // is always a safe no-op and can never throw over the original result.
+    if (!this.client) {
+      return;
+    }
     Log.info('Disconecting');
     try {
       await this.client.unbind();
