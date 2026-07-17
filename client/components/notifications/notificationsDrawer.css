@@ -91,7 +91,10 @@ section#notifications-drawer .header h5 {
   margin: 0;
 }
 section#notifications-drawer .header .close {
-  /* Flex item at the right edge, aligned with the title. */
+  /* Flex item at the right edge, aligned with the title. position: static cancels
+     the GLOBAL `.close { position: absolute; top: 5px }` rule (boardBody.css) that
+     otherwise pulls the X out of the header row and drops it below the title. */
+  position: static;
   margin-inline-start: 8px;
   font-size: 24px;
   height: 24px;
