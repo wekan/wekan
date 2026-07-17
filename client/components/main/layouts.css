@@ -278,8 +278,13 @@ body.mobile-mode #content {
 #modal .modal-content:has(.archived-lists) {
   width: 96vw;
   max-width: 96vw;
-  margin: 2vh auto 0; /* small top gap, no bottom margin -> reaches the window bottom */
-  min-height: calc(100vh - 2vh);
+  /* The header bar(s) sit above the modal (higher z-index), so start the archive
+     panel BELOW them — otherwise its top (and the close X) is hidden under the top
+     header bar. ~96px clears both the quick-access bar and the board header bar; on
+     the All Boards page (one bar) this leaves a small top gap. Then extend to the
+     bottom of the browser window. */
+  margin: 96px auto 0;
+  min-height: calc(100vh - 106px);
   box-sizing: border-box;
 }
 /* Each archived board is a full-width row. */
