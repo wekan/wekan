@@ -173,7 +173,7 @@ and fixes the following bugs:
   reporter and **xet7**.
 
 - **"Filter by date → Overdue" no longer lists cards that have no due date**
-  ([#6483](https://github.com/wekan/wekan/issues/6483)). Cards without a date store the field as `null` (that
+  (reported by email). Cards without a date store the field as `null` (that
   is exactly what the sidebar's *noDate* filter matches, `{dueAt: null}`). The comparison filters build
   `{$lte: now}` (Overdue/past), `{$gte, $lte}` (today/this week/next week), and `$lte` **matches `null`** under
   both FerretDB and minimongo — `null` sorts before any date and neither engine implements MongoDB's
@@ -193,7 +193,7 @@ and fixes the following bugs:
   are pruned.
 
 - **A list no longer disappears from other swimlanes when you nudge it in swimlanes view**
-  ([#6484](https://github.com/wekan/wekan/issues/6484)). A board-wide list has `swimlaneId === null` and renders
+  (reported by email). A board-wide list has `swimlaneId === null` and renders
   under *every* swimlane. The list-drop handler in `client/components/swimlanes/swimlanes.js` computed
   `isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId`, but `targetSwimlaneId` is
   always the swimlane the list is shown under, and `originalSwimlaneId` is `null` for a board-wide list — so
