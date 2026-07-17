@@ -361,6 +361,8 @@
   "font-size-large": "Large",
   "font-size-larger": "Larger",
   "font-size-largest": "Largest",
+  "text-color": "Text color",
+  "text-background-color": "Text background color",
   "changeAvatarPopup-title": "Change Avatar",
   "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
   "deleteAvatarPopup-title": "Delete Avatar?",

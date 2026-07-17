@@ -15,6 +15,8 @@ const {
   UI_FONT_SIZE_KEYS,
   isKnownFontSize,
   fontSizeValue,
+  isHexColor6,
+  colorValue,
 } = require('../models/lib/uiFonts.js');
 
 let passed = 0;
@@ -79,6 +81,18 @@ test('font sizes: named presets only, default/unknown apply nothing', () => {
   assert.ok(/^\d+%$/.test(fontSizeValue('smaller')));
 });
 
+test('text/bg colors: strict #rrggbb only, else nothing applied', () => {
+  assert.strictEqual(isHexColor6('#0a1b2c'), true);
+  assert.strictEqual(isHexColor6('#fff'), false);        // short
+  assert.strictEqual(isHexColor6('red'), false);         // name
+  assert.strictEqual(isHexColor6('#0a1b2c; }'), false);  // css break-out
+  assert.strictEqual(isHexColor6(''), false);
+  assert.strictEqual(isHexColor6(null), false);
+  assert.strictEqual(colorValue('#0a1b2c'), '#0a1b2c');
+  assert.strictEqual(colorValue('nope'), ''); // negative -> nothing applied
+  assert.strictEqual(colorValue(null), '');
+});
+
 // --- source guards: the feature is wired end-to-end ---
 const fs = require('fs');
 const path = require('path');
@@ -120,6 +134,27 @@ test('server setUiFontSize validates presets + supports unset', () => {
   const body = s.slice(i, i + 900);
   assert.ok(/isKnownFontSize\(size\)/.test(body) && /invalid-font-size/.test(body), 'validates preset');
   assert.ok(/\$unset:\s*{\s*'profile\.uiFontSize'/.test(body), "default/null unsets size");
+});
+
+test('text/bg color: schema, wheels+reset, validated setter, applied as CSS vars', () => {
+  const users = read('models/users.js');
+  assert.ok(/'profile\.uiTextColor'/.test(users) && /'profile\.uiTextBgColor'/.test(users), 'schema fields');
+  assert.ok(/getUiTextColor\(\)/.test(users) && /getUiTextBgColor\(\)/.test(users), 'getters');
+  const jade = read('client/components/users/userHeader.jade');
+  assert.ok(/js-ui-text-color\(type="color"/.test(jade) && /js-ui-bg-color\(type="color"/.test(jade), 'color wheels');
+  assert.ok(/js-reset-text-color/.test(jade) && /js-reset-bg-color/.test(jade), 'unset buttons');
+  const js = read('client/components/users/userHeader.js');
+  assert.ok(/Meteor\.call\('setUiColors', tpl\.textColor\.get\(\), tpl\.bgColor\.get\(\)/.test(js), 'saves both colors');
+  assert.ok(/textColor\.set\(null\)/.test(js) && /bgColor\.set\(null\)/.test(js), 'reset unsets');
+  const s = read('server/models/users.js');
+  const i = s.indexOf('setUiColors(textColor, bgColor)');
+  assert.ok(i !== -1, 'server method');
+  assert.ok(/isHexColor6\(textColor\)/.test(s.slice(i, i + 700)), 'validates hex');
+  const jj = read('client/components/main/uiFont.js');
+  assert.ok(/--wekan-ui-text-color/.test(jj) && /--wekan-ui-bg-color/.test(jj), 'applies color vars');
+  const css = read('client/components/main/uiFont.css');
+  assert.ok(/color: var\(--wekan-ui-text-color\)/.test(css) && /background-color: var\(--wekan-ui-bg-color\)/.test(css),
+    'css consumes color vars');
 });
 
 test('font detector uses the whitelist + canvas width comparison', () => {

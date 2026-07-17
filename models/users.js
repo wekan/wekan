@@ -323,6 +323,28 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.uiTextColor': {
+      /**
+       * Member Settings / Font / Color (#4759): custom UI text color, chosen from a
+       * color wheel. A validated #rrggbb hex; absent = default text color.
+       */
+      type: String,
+      optional: true,
+      custom() {
+        return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
+      },
+    },
+    'profile.uiTextBgColor': {
+      /**
+       * Member Settings / Font / Color (#4759): custom UI text background color.
+       * A validated #rrggbb hex; absent = default (transparent) background.
+       */
+      type: String,
+      optional: true,
+      custom() {
+        return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
+      },
+    },
     'profile.dismissedAnnouncementVersion': {
       /**
        * version string of the global announcement the user has permanently
@@ -1953,6 +1975,14 @@ Users.helpers({
   // #4759: the user's chosen UI font-size preset key, or null (default size).
   getUiFontSize() {
     return (this.profile && this.profile.uiFontSize) || null;
+  },
+
+  // #4759: custom UI text color / text background color (hex), or null when unset.
+  getUiTextColor() {
+    return (this.profile && this.profile.uiTextColor) || null;
+  },
+  getUiTextBgColor() {
+    return (this.profile && this.profile.uiTextBgColor) || null;
   },
 
   // The CSS class the global override maps to, or '' when unset. Used by the header

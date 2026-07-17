@@ -6,7 +6,7 @@ import Users from '/models/users';
 import { Utils } from '/client/lib/utils';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { detectAvailableFonts } from '/client/lib/fontDetector';
-import { fontFamilyValue, fontSizeValue, UI_FONT_SIZES } from '/models/lib/uiFonts';
+import { fontFamilyValue, fontSizeValue, UI_FONT_SIZES, isHexColor6, colorValue } from '/models/lib/uiFonts';
 
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
@@ -430,6 +430,9 @@ Template.changeFontPopup.onCreated(function () {
   this.available = detectAvailableFonts(); // ordered subset of the curated whitelist
   this.selected = new ReactiveVar((user && user.getUiFont && user.getUiFont()) || '');
   this.selectedSize = new ReactiveVar((user && user.getUiFontSize && user.getUiFontSize()) || 'default');
+  // null = use default (unset); a hex string = custom color.
+  this.textColor = new ReactiveVar((user && user.getUiTextColor && user.getUiTextColor()) || null);
+  this.bgColor = new ReactiveVar((user && user.getUiTextBgColor && user.getUiTextBgColor()) || null);
 });
 
 Template.changeFontPopup.helpers({
@@ -453,12 +456,33 @@ Template.changeFontPopup.helpers({
       selected: s.key === cur,
     }));
   },
-  // Preview reflects both the chosen font and the chosen size.
+  // Wheel <input type=color> needs a hex value even when unset — show a sensible
+  // default so the wheel opens somewhere reasonable.
+  textColorHex() {
+    return Template.instance().textColor.get() || '#000000';
+  },
+  bgColorHex() {
+    return Template.instance().bgColor.get() || '#ffffff';
+  },
+  hasTextColor() {
+    return !!Template.instance().textColor.get();
+  },
+  hasBgColor() {
+    return !!Template.instance().bgColor.get();
+  },
+  // Preview reflects the chosen font, size, text color and background color.
   previewStyle() {
     const tpl = Template.instance();
     const family = fontFamilyValue(tpl.selected.get());
     const size = fontSizeValue(tpl.selectedSize.get());
-    return `${family ? `font-family: ${family};` : ''}${size ? `font-size: ${size};` : ''}`;
+    const color = colorValue(tpl.textColor.get());
+    const bg = colorValue(tpl.bgColor.get());
+    return [
+      family && `font-family: ${family};`,
+      size && `font-size: ${size};`,
+      color && `color: ${color};`,
+      bg && `background-color: ${bg};`,
+    ].filter(Boolean).join('');
   },
 });
 
@@ -469,6 +493,22 @@ Template.changeFontPopup.events({
   'change .js-ui-font-size'(event, tpl) {
     tpl.selectedSize.set(event.currentTarget.value || 'default');
   },
+  'input .js-ui-text-color'(event, tpl) {
+    const v = event.currentTarget.value;
+    if (isHexColor6(v)) tpl.textColor.set(v);
+  },
+  'input .js-ui-bg-color'(event, tpl) {
+    const v = event.currentTarget.value;
+    if (isHexColor6(v)) tpl.bgColor.set(v);
+  },
+  'click .js-reset-text-color'(event, tpl) {
+    event.preventDefault();
+    tpl.textColor.set(null); // back to default
+  },
+  'click .js-reset-bg-color'(event, tpl) {
+    event.preventDefault();
+    tpl.bgColor.set(null);
+  },
   'click .js-ui-font-save'(event, tpl) {
     event.preventDefault();
     const font = tpl.selected.get() || null; // '' -> null unsets the custom font
@@ -478,6 +518,9 @@ Template.changeFontPopup.events({
     });
     Meteor.call('setUiFontSize', size, err => {
       if (err && process.env.DEBUG === 'true') console.error('setUiFontSize error', err);
+    });
+    Meteor.call('setUiColors', tpl.textColor.get(), tpl.bgColor.get(), err => {
+      if (err && process.env.DEBUG === 'true') console.error('setUiColors error', err);
     });
     Popup.back();
   },

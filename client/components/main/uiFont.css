@@ -18,3 +18,23 @@ body.has-ui-font .wekan-form-control {
 body.has-ui-font-size {
   font-size: var(--wekan-ui-font-size) !important;
 }
+
+/* Text color (#4759): the variable is a validated hex set by uiFont.js. Icon fonts
+ * keep their own color rules; this recolors ordinary UI text + form controls. */
+body.has-ui-text-color,
+body.has-ui-text-color button,
+body.has-ui-text-color input,
+body.has-ui-text-color textarea,
+body.has-ui-text-color select,
+body.has-ui-text-color .wekan-form-control {
+  color: var(--wekan-ui-text-color) !important;
+}
+
+/* Text background color (#4759). */
+body.has-ui-bg-color,
+body.has-ui-bg-color input,
+body.has-ui-bg-color textarea,
+body.has-ui-bg-color select,
+body.has-ui-bg-color .wekan-form-control {
+  background-color: var(--wekan-ui-bg-color) !important;
+}

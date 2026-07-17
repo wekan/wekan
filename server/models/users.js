@@ -15,7 +15,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { isValidCustomColors } from '/models/lib/themeCategories';
-import { isKnownFont, isKnownFontSize } from '/models/lib/uiFonts';
+import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Avatars from '/models/avatars';
 import Boards from '/models/boards';
@@ -459,6 +459,34 @@ Meteor.methods({
     }
     await Users.updateAsync(this.userId, { $unset: { 'profile.uiFontSize': '' } });
     return null;
+  },
+
+  // #4759: set (or clear) the caller's custom UI text color and text background
+  // color. Each is validated as #rrggbb hex; a null/empty/invalid value unsets that
+  // color (back to default). Only strict hex ever reaches a CSS value.
+  async setUiColors(textColor, bgColor) {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    check(textColor, Match.OneOf(String, null, undefined));
+    check(bgColor, Match.OneOf(String, null, undefined));
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const $set = {};
+    const $unset = {};
+    if (isHexColor6(textColor)) $set['profile.uiTextColor'] = textColor;
+    else $unset['profile.uiTextColor'] = '';
+    if (isHexColor6(bgColor)) $set['profile.uiTextBgColor'] = bgColor;
+    else $unset['profile.uiTextBgColor'] = '';
+
+    const modifier = {};
+    if (Object.keys($set).length) modifier.$set = $set;
+    if (Object.keys($unset).length) modifier.$unset = $unset;
+    await Users.updateAsync(this.userId, modifier);
+    return {
+      textColor: $set['profile.uiTextColor'] || null,
+      bgColor: $set['profile.uiTextBgColor'] || null,
+    };
   },
 
   async toggleDesktopDragHandles() {

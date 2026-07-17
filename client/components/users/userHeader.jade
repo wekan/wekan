@@ -213,6 +213,15 @@ template(name="changeFontPopup")
     select.js-ui-font-size.wekan-form-control#uiFontSizeSelect
       each fontSizes
         option(value=key selected=selected) {{label}}
+    //- #4759: text + text-background color from a color wheel, each unsettable.
+    label {{_ 'text-color'}}
+    .color-wheel-wrap
+      input.js-ui-text-color(type="color" value=textColorHex title="{{_ 'text-color'}}")
+      a.js-reset-text-color(class="{{#unless hasTextColor}}disabled{{/unless}}") {{_ 'unset-color'}}
+    label {{_ 'text-background-color'}}
+    .color-wheel-wrap
+      input.js-ui-bg-color(type="color" value=bgColorHex title="{{_ 'text-background-color'}}")
+      a.js-reset-bg-color(class="{{#unless hasBgColor}}disabled{{/unless}}") {{_ 'unset-color'}}
     .font-preview(style=previewStyle) {{_ 'font-preview-text'}}
     button.primary.confirm.js-ui-font-save {{_ 'save'}}
 

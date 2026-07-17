@@ -95,6 +95,20 @@ function fontSizeValue(key) {
   return `${s.percent}%`;
 }
 
+// Member Settings / Font / Color (#4759): the text color and text background color
+// are free choices from a color wheel, so they are validated as #rrggbb hex (not a
+// whitelist). Only a strict hex passes, so there is no CSS-injection surface.
+const HEX6_RE = /^#[0-9a-fA-F]{6}$/;
+
+function isHexColor6(value) {
+  return typeof value === 'string' && HEX6_RE.test(value);
+}
+
+// The color if it is a valid hex, else '' (apply nothing / default).
+function colorValue(value) {
+  return isHexColor6(value) ? value : '';
+}
+
 module.exports = {
   UI_FONTS,
   SAFE_FONT_RE,
@@ -105,4 +119,6 @@ module.exports = {
   UI_FONT_SIZE_KEYS,
   isKnownFontSize,
   fontSizeValue,
+  isHexColor6,
+  colorValue,
 };

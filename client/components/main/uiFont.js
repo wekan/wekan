@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
-import { fontFamilyValue, fontSizeValue } from '/models/lib/uiFonts';
+import { fontFamilyValue, fontSizeValue, colorValue } from '/models/lib/uiFonts';
 
 // #4759: apply the user's chosen UI font AND font-size preset to the whole UI by
 // setting CSS variables on :root and toggling marker classes on <body> (uiFont.css
@@ -28,5 +28,7 @@ Meteor.startup(() => {
     const profile = (user && user.profile) || {};
     toggle('--wekan-ui-font', 'has-ui-font', fontFamilyValue(profile.uiFont));
     toggle('--wekan-ui-font-size', 'has-ui-font-size', fontSizeValue(profile.uiFontSize));
+    toggle('--wekan-ui-text-color', 'has-ui-text-color', colorValue(profile.uiTextColor));
+    toggle('--wekan-ui-bg-color', 'has-ui-bg-color', colorValue(profile.uiTextBgColor));
   });
 });
