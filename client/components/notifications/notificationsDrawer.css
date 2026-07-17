@@ -85,6 +85,13 @@ section#notifications-drawer .header .notification-menu .menu-item .menu-icon {
   margin-inline-end: 8px;
   font-size: 16px;
 }
+/* Menu-item icons (envelope / copy / trash / check) black. */
+section#notifications-drawer .header .notification-menu .menu-item .menu-icon,
+section#notifications-drawer .header .notification-menu .menu-item .menu-icon i.fa,
+section#notifications-drawer .header .notification-menu .menu-item .check-icon,
+section#notifications-drawer .header .notification-menu .menu-item .check-icon i.fa {
+  color: #000 !important;
+}
 section#notifications-drawer .header h5 {
   flex: 1;            /* fill the middle so the title is centred, X sits at the right */
   text-align: center;
