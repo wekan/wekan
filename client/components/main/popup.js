@@ -9,7 +9,13 @@ Popup.template.events({
     Popup.close();
   },
   'click .js-confirm'() {
-    this.__afterConfirmAction.call(this);
+    // #6479: the action is stored on the Popup instance (see Popup.afterConfirm),
+    // not on this data context, so a re-rendered/immutable context can't lose it.
+    // Fall back to the legacy per-context field for any external caller.
+    const action = Popup._afterConfirmAction || this.__afterConfirmAction;
+    if (typeof action === 'function') {
+      action.call(this);
+    }
   },
   // #5942: On mobile/touch, tapping inside the card-detail sub-popups (assign
   // user / set due date) made the popup DISAPPEAR. The document-level

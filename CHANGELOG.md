@@ -95,6 +95,17 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
+- **Confirmation dialogs work again — removing a member from a board (and every other confirm dialog) no
+  longer does nothing** ([#6479](https://github.com/wekan/wekan/issues/6479)). Clicking a `.js-confirm` button
+  (e.g. "Remove Member") silently did nothing. `Popup.afterConfirm()` stashed the pending action AS A FIELD ON
+  THE BLAZE DATA CONTEXT and the confirm button read it back as `this.__afterConfirmAction` — but the context is
+  a ReactiveCache/Minimongo document (a board member sub-doc), and Blaze re-renders the confirmation popup with
+  a fresh/immutable copy of that context, so the field was gone by the time the button was clicked. The action
+  is now stored on the Popup INSTANCE (`Popup._afterConfirmAction`), which survives the re-render; it is still
+  invoked with the confirmation popup's own data context as `this`, so `this.userId` and friends keep working.
+  Covered by `tests/popupAfterConfirm.test.cjs` (with a negative case reproducing the old context-mutation
+  failure). Thanks to **mueschel** (report) and **xet7**.
+
 - **Moving a card between swimlanes is no longer broken when lists are long/overflowing**
   ([#6477](https://github.com/wekan/wekan/issues/6477)). Dragging a card from one swimlane to the SAME list in
   another swimlane dropped it back in the *source* swimlane, especially with long lists that overflow. The card

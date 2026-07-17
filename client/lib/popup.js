@@ -136,7 +136,16 @@ window.Popup = new (class {
 
     return function(evt, tpl) {
       const context = (this.currentData && this.currentData()) || this;
-      context.__afterConfirmAction = action;
+      // #6479: store the pending confirm action on the Popup instance, NOT on the
+      // Blaze data context. The old code stashed it as a field on the context and
+      // the confirm button read it back as `this.__afterConfirmAction`; but the
+      // context is a ReactiveCache/Minimongo document (e.g. a board member sub-doc),
+      // and once Blaze re-renders the confirmation popup with a fresh/immutable copy
+      // of that context the field is gone, so clicking "Remove member" (and every
+      // other confirm dialog) silently did nothing. The instance field survives the
+      // re-render; the action is still invoked with the confirmation popup's own data
+      // context as `this`, so `this.userId` etc. keep working.
+      self._afterConfirmAction = action;
       self.open(name).call(context, evt, tpl);
     };
   }
