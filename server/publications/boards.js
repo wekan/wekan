@@ -12,6 +12,7 @@ import Attachments from '../../models/attachments';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import { localizeBoardMemberAvatars } from '/server/lib/localizeAvatar';
+import { collectAncestorIds } from '/server/lib/subtaskAncestors';
 import {
   showsCardCounterList,
   countCardsByListId,
@@ -655,7 +656,21 @@ publishComposite('board', async function(boardId, isArchived) {
           const parentIds = cards.filter(c => c.parentId).map(c => c.parentId);
           if (parentIds.length === 0) return null;
 
-          return await ReactiveCache.getCards({ _id: { $in: parentIds } }, {}, true);
+          // #3453: the 'prefix-with-full-path' subtask setting renders the
+          // WHOLE ancestor chain (models/cards.js parentString()), and the
+          // ancestors of a cross-board subtask live on the parent board, so
+          // they are not covered by any other cursor of this publication.
+          // Publishing only the direct parents truncated the path after a hard
+          // refresh — walk every level so the full path survives F5.
+          const ancestorIds = await collectAncestorIds(parentIds, ids =>
+            ReactiveCache.getCards(
+              { _id: { $in: ids } },
+              { fields: { _id: 1, parentId: 1 } },
+              false,
+            ),
+          );
+
+          return await ReactiveCache.getCards({ _id: { $in: ancestorIds } }, {}, true);
         }
       },
       // Linked cards (cardType-linkedCard)

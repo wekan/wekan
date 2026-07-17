@@ -5,6 +5,7 @@ import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imp
 import Settings from '/models/settings';
 import Users from '/models/users';
 import { computeBoardBackground } from '/models/lib/boardBackground';
+import { buildCardAttachmentMeta } from '/models/lib/attachmentMeta';
 
 export const Utils = {
   async setBackgroundImage(url) {
@@ -595,18 +596,14 @@ export const Utils = {
       })
     );
   },
+  // Shared by every card attachment upload path — the card Attachments popup,
+  // the clipboard upload AND images uploaded inside card comments through the
+  // rich text editor (client/components/main/editor.js). Keeping the meta
+  // identical (same meta.cardId) is what makes comment attachments appear in
+  // the card's Attachments list (#3843); the actual logic lives in
+  // models/lib/attachmentMeta.js so it can be unit tested.
   getCommonAttachmentMetaFrom(card) {
-    const meta = {};
-    if (card.isLinkedCard()) {
-      meta.boardId = ReactiveCache.getCard(card.linkedId).boardId;
-      meta.cardId = card.linkedId;
-    } else {
-      meta.boardId = card.boardId;
-      meta.swimlaneId = card.swimlaneId;
-      meta.listId = card.listId;
-      meta.cardId = card._id;
-    }
-    return meta;
+    return buildCardAttachmentMeta(card, id => ReactiveCache.getCard(id));
   },
   // Collection helpers (replacing underscore.js)
   findWhere,

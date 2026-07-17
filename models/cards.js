@@ -1299,51 +1299,20 @@ Cards.helpers({
 
   // customFields with definitions
   customFieldsWD() {
-    // get all definitions
+    // get all definitions attached to this card's CURRENT board
     const definitions = ReactiveCache.getCustomFields({
       boardIds: { $in: [this.boardId] },
     });
     if (!definitions) {
       return {};
     }
-    // match right definition to each field
-    if (!this.customFields) return [];
-    const ret = this.customFields.map(customField => {
-      const definition = definitions.find(definition => {
-        return definition._id === customField._id;
-      });
-      if (!definition) {
-        return {};
-      }
-      //search for "True Value" which is for DropDowns other then the Value (which is the id)
-      let trueValue = customField.value;
-      if (
-        definition.settings.dropdownItems &&
-        definition.settings.dropdownItems.length > 0
-      ) {
-        for (let i = 0; i < definition.settings.dropdownItems.length; i++) {
-          if (definition.settings.dropdownItems[i]._id === customField.value) {
-            trueValue = definition.settings.dropdownItems[i].name;
-          }
-        }
-      }
-      return {
-        _id: customField._id,
-        value: customField.value,
-        trueValue,
-        definition,
-      };
-    });
-    // at linked cards custom fields definition is not found
-    ret.sort(
-      (a, b) =>
-        a.definition !== undefined &&
-        b.definition !== undefined &&
-        a.definition.name !== undefined &&
-        b.definition.name !== undefined &&
-        a.definition.name.localeCompare(b.definition.name),
-    );
-    return ret;
+    // #3748: entries whose definition is not attached to THIS board are
+    // skipped — on a cross-board linked card the customFields snapshot copied
+    // by Cards.link() references the ORIGINAL board's definitions, and the old
+    // `{}` placeholders rendered phantom empty rows in the card details and
+    // threw in the cardCustomField getTemplate helper.
+    const { buildCustomFieldsWD } = require('./lib/customFieldsWD');
+    return buildCustomFieldsWD(this.customFields, definitions);
   },
 
   colorClass() {

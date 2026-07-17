@@ -16,23 +16,27 @@ template(name="archivesSidebar")
                       | -
                       a.js-delete-all-cards {{_ 'delete-all'}}
           each archivedCards
-            .minicard-wrapper.js-minicard
-              +minicard(this)
-            if currentUser.isBoardMember
-              unless isWorker
-                unless currentUser.isReadOnly
-                  unless currentUser.isReadAssignedOnly
-                    p.quiet
-                      if this.archivedAt
-                        | {{_ 'archived-at' }}
-                        |  | {{ displayDate this.archivedAt 'LLL' }}
-                        br
-                      a.js-restore-card {{_ 'restore'}}
-                      if currentUser.isBoardAdmin
-                        | -
-                        a.js-delete-card {{_ 'delete'}}
-              if cardIsInArchivedList
-                p.quiet.small ({{_ 'warn-list-archived'}})
+            //- #3199: keep each archived card and ITS Restore/Delete links in
+            //- one wrapper so the links visually group with the card above
+            //- them instead of floating ambiguously between two cards.
+            .archived-card-item
+              .minicard-wrapper.js-minicard
+                +minicard(this)
+              if currentUser.isBoardMember
+                unless isWorker
+                  unless currentUser.isReadOnly
+                    unless currentUser.isReadAssignedOnly
+                      p.quiet
+                        if this.archivedAt
+                          | {{_ 'archived-at' }}
+                          |  | {{ displayDate this.archivedAt 'LLL' }}
+                          br
+                        a.js-restore-card {{_ 'restore'}}
+                        if currentUser.isBoardAdmin
+                          | -
+                          a.js-delete-card {{_ 'delete'}}
+                if cardIsInArchivedList
+                  p.quiet.small ({{_ 'warn-list-archived'}})
           else
             p.no-items-message {{_ 'no-archived-cards'}}
 

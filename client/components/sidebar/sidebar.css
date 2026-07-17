@@ -259,6 +259,23 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
   z-index: 0;
   inset-inline-start: 5px;
 }
+/* #3199: In the Archive sidebar's Cards tab each card's Restore/Delete links
+   used to sit BETWEEN two archived cards with near-equal spacing, so users
+   could not tell which card they belonged to. Group each card with its own
+   links: no gap between the card and its links, and a clear separator gap
+   below the whole group before the next card. Spacing-only, so it works in
+   every board color/theme; logical properties keep it RTL-safe. */
+.archived-card-item {
+  margin-block-end: 1.6em;
+}
+.archived-card-item .minicard-wrapper {
+  margin-bottom: 0;
+}
+.archived-card-item p.quiet {
+  margin-block-start: 2px;
+  margin-block-end: 0;
+  padding-inline-start: 4px;
+}
 .archived-lists .archived-lists-item {
   border-top: 1px solid #ccc;
   clear: both;

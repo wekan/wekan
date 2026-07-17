@@ -195,6 +195,39 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Cross-board subtask full path disappeared after refresh**
+  ([#3453](https://github.com/wekan/wekan/issues/3453), `server/publications/boards.js`, new
+  `server/lib/subtaskAncestors.js`): the board publication shipped only the DIRECT parent
+  cards, while the full-path label walks the whole ancestor chain client-side — after F5 the
+  grandparents were missing from minimongo and the path truncated/vanished. The publication
+  now walks and publishes the full ancestor chain (batched per level, cycle-safe, tolerant of
+  deleted ancestors). Tests: `tests/subtaskAncestors.test.cjs` (11). Thanks to
+  MPeti1 and xet7.
+- **Linked cards: phantom empty custom-field rows and a template TypeError on every render**
+  (from [#3748](https://github.com/wekan/wekan/issues/3748), `models/cards.js`, new
+  `models/lib/customFieldsWD.js`): a linked card keeps the ORIGINAL board's custom-field
+  snapshot; unresolvable definitions rendered as empty `{}` placeholders — a phantom row per
+  entry and `Cannot read properties of undefined (reading 'type')` from the card details
+  template (also reachable on normal cards with deleted definitions). Unmatched entries are
+  now skipped. The rest of #3748 is by design: linked cards are pointers that mirror the
+  original; label/custom-field ids are board-scoped, and name-based inheritance is the COPY
+  feature. Tests: `tests/customFieldsWD.test.cjs` (9). Thanks to peterbecich and xet7.
+- **Archive sidebar: Restore/Delete links floated ambiguously between two archived cards**
+  ([#3199](https://github.com/wekan/wekan/issues/3199),
+  `client/components/sidebar/sidebarArchives.jade`, `sidebar.css`): each card and its links
+  were loose siblings with near-equal spacing above and below, so the links seemed to belong
+  to the card underneath. Each archived card is now grouped with its own links in one
+  container with a clear separator gap below (RTL-safe logical properties, theme-neutral).
+  Tests: `tests/archiveLinkGrouping.test.cjs` (9). Thanks to fxkr and xet7.
+- **Attachments uploaded inside card comments: listing in the card's Attachments section is
+  now guaranteed and regression-locked** ([#3843](https://github.com/wekan/wekan/issues/3843),
+  new `models/lib/attachmentMeta.js`, `client/lib/utils.js`): the rich comment editor already
+  uploads into the same Attachments collection with the same card meta as the Attachments
+  popup, so they DO list — but nothing pinned that invariant and the meta was built in two
+  places. One shared, null-safe builder now feeds both paths, with tests pinning that gallery
+  queries key on `meta.cardId` with no source filter (and that board backgrounds stay
+  excluded). Tests: `tests/commentAttachmentsList.test.cjs` (12). Thanks to
+  jghaanstra and xet7.
 - **Maximized card rendered at the wrong place after scrolling in Swimlanes view**
   ([#4822](https://github.com/wekan/wekan/issues/4822), `client/components/cards/cardDetails.css`):
   the legacy maximized-pane CSS had no `position` of its own, so the pane stayed an in-flow
