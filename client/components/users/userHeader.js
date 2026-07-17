@@ -81,9 +81,6 @@ Template.memberMenuPopup.events({
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
-  'click .js-notifications-drawer-toggle'() {
-    Session.set('showNotificationsDrawer', !Session.get('showNotificationsDrawer'));
-  },
   'click .js-toggle-grey-icons'(event) {
     event.preventDefault();
     const currentUser = ReactiveCache.getCurrentUser();

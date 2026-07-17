@@ -44,10 +44,7 @@ template(name="memberMenuPopup")
         a.board-header-btn.js-open-archived-board
           i.fa.fa-archive
           span {{_ 'archives'}}
-      li
-        a.js-notifications-drawer-toggle
-          i.fa.fa-bell
-          | {{_ 'notifications'}}
+      //- Notifications removed from the member menu: same as the header bell icon.
       if currentSetting.customHelpLinkUrl
         li
           a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
