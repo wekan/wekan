@@ -28,6 +28,7 @@ import '/client/components/main/accessibility.css';
 import '/client/components/main/brokenCards.css';
 import '/client/components/main/customTheme.css';
 import '/client/components/main/dueCards.css';
+import '/client/components/main/uiFont.css';
 import '/client/components/main/editor.css';
 import '/client/components/main/fonts.css';
 import '/client/components/main/globalSearch.css';

@@ -95,6 +95,15 @@ This release adds the following updates:
 
 and adds the following features:
 
+- **Member Settings / Font — pick a UI font and size**
+  (part of [#4759](https://github.com/wekan/wekan/issues/4759)). The member menu has a new **Font** entry with a
+  popup that offers a **dropdown of fonts detected as actually installed** in your browser (no free typing — labels are
+  plain text, never HTML/markdown) plus a **Font size** dropdown of sensible presets (Smaller … Largest; not a typed
+  number). Both have a **Default** option that unsets the custom choice. The values are validated server-side against a
+  curated whitelist / preset list (no CSS-injection surface — only a known font name and a preset percentage ever reach
+  the DOM) and applied UI-wide via CSS variables. Stored as `profile.uiFont` / `profile.uiFontSize`. (Only the font
+  selection part of #4759; the issue asks for more, so it stays open.) Thanks to **xet7**.
+
 - **Select Color redesign — theme categories + custom colors**
   ([#5778](https://github.com/wekan/wekan/issues/5778), `docs/Theme/Theme.md`). Both the Board Settings and
   Member Settings **Change Color** pickers now use **two-level dropdowns**: first pick a **category** (flat, clear,

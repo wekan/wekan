@@ -4,6 +4,9 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import AccountSettings from '/models/accountSettings';
 import Users from '/models/users';
 import { Utils } from '/client/lib/utils';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { detectAvailableFonts } from '/client/lib/fontDetector';
+import { fontFamilyValue, fontSizeValue, UI_FONT_SIZES } from '/models/lib/uiFonts';
 
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
@@ -73,6 +76,7 @@ Template.memberMenuPopup.events({
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-color': Popup.open('changeColor'),
+  'click .js-change-font': Popup.open('changeFont'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
@@ -417,3 +421,64 @@ Template.changeSettingsPopup.events({
 
 // #5778 + docs/Theme/Theme.md: the Member Menu / Change Color popup renders the
 // shared themeColorPicker (scope="global"); all of its logic lives there.
+
+// #4759: Member Menu / Font. A dropdown of fonts detected as installed in this
+// browser; the value is stored to the profile and validated server-side. The first
+// option unsets the custom font.
+Template.changeFontPopup.onCreated(function () {
+  const user = ReactiveCache.getCurrentUser();
+  this.available = detectAvailableFonts(); // ordered subset of the curated whitelist
+  this.selected = new ReactiveVar((user && user.getUiFont && user.getUiFont()) || '');
+  this.selectedSize = new ReactiveVar((user && user.getUiFontSize && user.getUiFontSize()) || 'default');
+});
+
+Template.changeFontPopup.helpers({
+  detectedFonts() {
+    const tpl = Template.instance();
+    const sel = tpl.selected.get();
+    return tpl.available.map(name => ({
+      name,
+      selected: name === sel,
+      optionStyle: `font-family: "${name}", sans-serif;`,
+    }));
+  },
+  isNoneSelected() {
+    return !Template.instance().selected.get();
+  },
+  fontSizes() {
+    const cur = Template.instance().selectedSize.get();
+    return UI_FONT_SIZES.map(s => ({
+      key: s.key,
+      label: TAPi18n.__(`font-size-${s.key}`),
+      selected: s.key === cur,
+    }));
+  },
+  // Preview reflects both the chosen font and the chosen size.
+  previewStyle() {
+    const tpl = Template.instance();
+    const family = fontFamilyValue(tpl.selected.get());
+    const size = fontSizeValue(tpl.selectedSize.get());
+    return `${family ? `font-family: ${family};` : ''}${size ? `font-size: ${size};` : ''}`;
+  },
+});
+
+Template.changeFontPopup.events({
+  'change .js-ui-font'(event, tpl) {
+    tpl.selected.set(event.currentTarget.value || '');
+  },
+  'change .js-ui-font-size'(event, tpl) {
+    tpl.selectedSize.set(event.currentTarget.value || 'default');
+  },
+  'click .js-ui-font-save'(event, tpl) {
+    event.preventDefault();
+    const font = tpl.selected.get() || null; // '' -> null unsets the custom font
+    const size = tpl.selectedSize.get() || 'default'; // 'default' unsets the size
+    Meteor.call('setUiFont', font, err => {
+      if (err && process.env.DEBUG === 'true') console.error('setUiFont error', err);
+    });
+    Meteor.call('setUiFontSize', size, err => {
+      if (err && process.env.DEBUG === 'true') console.error('setUiFontSize error', err);
+    });
+    Popup.back();
+  },
+});

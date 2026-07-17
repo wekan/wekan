@@ -305,6 +305,24 @@ Users.attachSchema(
         return /^#[0-9a-fA-F]{6}$/.test(this.value) ? undefined : 'notAHexColor';
       },
     },
+    'profile.uiFont': {
+      /**
+       * Member Settings / Font (#4759): the user's chosen UI font — one of the
+       * curated UI_FONTS (models/lib/uiFonts.js) detected as installed in their
+       * browser. Plain text, validated on the server; absent = default font.
+       */
+      type: String,
+      optional: true,
+    },
+    'profile.uiFontSize': {
+      /**
+       * Member Settings / Font / Size (#4759): a named preset size key (one of
+       * UI_FONT_SIZES, e.g. 'large'), never a free number. Absent / 'default' =
+       * the stock size. Validated on the server.
+       */
+      type: String,
+      optional: true,
+    },
     'profile.dismissedAnnouncementVersion': {
       /**
        * version string of the global announcement the user has permanently
@@ -1925,6 +1943,16 @@ Users.helpers({
   // The custom colors for a flat/clear global theme (docs/Theme/Theme.md), or [].
   getGlobalThemeCustomColors() {
     return (this.profile && this.profile.globalThemeCustomColors) || [];
+  },
+
+  // #4759: the user's chosen UI font (a curated font name), or null when unset.
+  getUiFont() {
+    return (this.profile && this.profile.uiFont) || null;
+  },
+
+  // #4759: the user's chosen UI font-size preset key, or null (default size).
+  getUiFontSize() {
+    return (this.profile && this.profile.uiFontSize) || null;
   },
 
   // The CSS class the global override maps to, or '' when unset. Used by the header

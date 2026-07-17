@@ -32,6 +32,7 @@ import '/client/components/main/globalSearch.js';
 import '/client/components/main/header.js';
 import '/client/components/main/globalThemeColor.js';
 import '/client/components/main/themeColorPicker.js';
+import '/client/components/main/uiFont.js';
 import '/client/components/main/layouts.js';
 import '/client/components/main/myCards.js';
 import '/client/components/main/popup.js';

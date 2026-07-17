@@ -15,6 +15,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { isValidCustomColors } from '/models/lib/themeCategories';
+import { isKnownFont, isKnownFontSize } from '/models/lib/uiFonts';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Avatars from '/models/avatars';
 import Boards from '/models/boards';
@@ -416,6 +417,47 @@ Meteor.methods({
     await Users.updateAsync(this.userId, {
       $unset: { 'profile.globalThemeColor': '', 'profile.globalThemeCustomColors': '' },
     });
+    return null;
+  },
+
+  // #4759: set (or clear, when null/'') the caller's UI font. Validated against the
+  // curated whitelist (models/lib/uiFonts.js) so no arbitrary string can reach a CSS
+  // font-family — the value is only ever a known, safe font name.
+  async setUiFont(font) {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    check(font, Match.OneOf(String, null, undefined));
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    if (font) {
+      if (!isKnownFont(font)) {
+        throw new Meteor.Error('invalid-font', 'Unknown font');
+      }
+      await Users.updateAsync(this.userId, { $set: { 'profile.uiFont': font } });
+      return font;
+    }
+    await Users.updateAsync(this.userId, { $unset: { 'profile.uiFont': '' } });
+    return null;
+  },
+
+  // #4759: set (or clear) the caller's UI font-size preset. Validated against the
+  // named presets (no free numbers); 'default'/null/'' unsets (stock size).
+  async setUiFontSize(size) {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    check(size, Match.OneOf(String, null, undefined));
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    if (size && size !== 'default') {
+      if (!isKnownFontSize(size)) {
+        throw new Meteor.Error('invalid-font-size', 'Unknown font size');
+      }
+      await Users.updateAsync(this.userId, { $set: { 'profile.uiFontSize': size } });
+      return size;
+    }
+    await Users.updateAsync(this.userId, { $unset: { 'profile.uiFontSize': '' } });
     return null;
   },
 

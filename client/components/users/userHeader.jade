@@ -84,6 +84,10 @@ template(name="memberMenuPopup")
           i.fa.fa-paint-brush
           | {{_ 'change-color'}}
       li
+        a.js-change-font
+          i.fa.fa-font
+          | {{_ 'change-font'}}
+      li
         a.js-change-avatar
           i.fa.fa-picture-o
           | {{_ 'change-avatar'}}
@@ -192,6 +196,25 @@ template(name="changeColorPopup")
     Admin Panel, etc). The shared picker (docs/Theme/Theme.md) offers category +
     theme dropdowns and custom color wheels for flat/clear themes.
   +themeColorPicker(scope="global")
+
+template(name="changeFontPopup")
+  //- #4759: pick a UI font that ALREADY EXISTS in this browser. The dropdown lists
+    only fonts detected as installed; labels are plain text (Blaze-escaped) — never
+    HTML/markdown — and the value is validated to a curated whitelist server-side.
+    The first option unsets any custom font (back to default).
+  form.change-font.edit-label
+    label(for="uiFontSelect") {{_ 'font'}}
+    select.js-ui-font.wekan-form-control#uiFontSelect
+      option(value="" selected=isNoneSelected) {{_ 'font-default'}}
+      each detectedFonts
+        option(value=name selected=selected style=optionStyle) {{name}}
+    //- #4759: named preset sizes only (no free number). "Default" unsets the size.
+    label(for="uiFontSizeSelect") {{_ 'font-size'}}
+    select.js-ui-font-size.wekan-form-control#uiFontSizeSelect
+      each fontSizes
+        option(value=key selected=selected) {{label}}
+    .font-preview(style=previewStyle) {{_ 'font-preview-text'}}
+    button.primary.confirm.js-ui-font-save {{_ 'save'}}
 
 template(name="changeSettingsPopup")
   ul.pop-over-list

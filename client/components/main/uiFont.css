@@ -1,0 +1,20 @@
+/* Member Settings / Font (#4759): apply the user's chosen UI font. The class lives
+ * on <body> and the --wekan-ui-font variable is set by uiFont.js only for a
+ * validated, whitelisted font. Form controls are listed explicitly because their
+ * UA default font-family does not inherit. Icon fonts (Font Awesome etc.) set their
+ * own font-family on the element, so they are unaffected. */
+body.has-ui-font,
+body.has-ui-font button,
+body.has-ui-font input,
+body.has-ui-font textarea,
+body.has-ui-font select,
+body.has-ui-font .wekan-form-control {
+  font-family: var(--wekan-ui-font) !important;
+}
+
+/* Font size preset (#4759): scale the root font size. Elements using relative units
+ * (em/rem/%) scale with it; the variable is a percentage set by uiFont.js only for a
+ * known preset. 'default'/unset removes it. */
+body.has-ui-font-size {
+  font-size: var(--wekan-ui-font-size) !important;
+}
