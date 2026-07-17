@@ -394,6 +394,7 @@ Template.list.onRendered(function () {
       // the old code compared against a scrollLeftMax of 0 and never fired, so
       // dragging a card toward an off-screen list never auto-scrolled the board.
       const { computeEdgeScroll, findLaneUnderPointer } = require('/imports/lib/boardAutoScroll');
+      let scrolled = false;
       const lanes = document.querySelectorAll('.js-lists');
       const rects = Array.prototype.map.call(lanes, el => el.getBoundingClientRect());
       const laneIndex = findLaneUnderPointer(rects, event.clientX, event.clientY);
@@ -406,7 +407,10 @@ Template.list.onRendered(function () {
           scrollSize: lanes[laneIndex].scrollWidth,
           clientSize: lanes[laneIndex].clientWidth,
         });
-        if (nextLeft !== null) lanes[laneIndex].scrollLeft = nextLeft;
+        if (nextLeft !== null) {
+          lanes[laneIndex].scrollLeft = nextLeft;
+          scrolled = true;
+        }
       }
       // vertical auto-scroll stays on the board canvas
       const canvas = document.querySelector('.board-canvas');
@@ -420,7 +424,23 @@ Template.list.onRendered(function () {
           scrollSize: canvas.scrollHeight,
           clientSize: canvas.clientHeight,
         });
-        if (nextTop !== null) canvas.scrollTop = nextTop;
+        if (nextTop !== null) {
+          canvas.scrollTop = nextTop;
+          scrolled = true;
+        }
+      }
+      // #6477: after an auto-scroll, jQuery UI sortable's cached container/item
+      // geometry is STALE — it snapshots positions at drag start and on its own
+      // placeholder moves, never on our manual scroll here. With long/overflowing
+      // lists (exactly what triggers auto-scroll) the drop then resolved against a
+      // stale map and parked the placeholder in the WRONG swimlane's copy of the
+      // list, so a card dragged between swimlanes snapped back into its source
+      // swimlane (the stop handler's ui.item.parents('.swimlane') faithfully
+      // persisted it). Re-cache positions so the placeholder and drop resolve
+      // against the scrolled layout. Complements the DOM-mutation refresh in
+      // listBody.js (#2769), which does not fire on scroll.
+      if (scrolled) {
+        $cards.sortable('refreshPositions');
       }
     },
   });

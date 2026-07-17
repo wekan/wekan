@@ -90,6 +90,18 @@ them up next.
 
 This release includes the following changes:
 
+- **Moving a card between swimlanes is no longer broken when lists are long/overflowing**
+  ([#6477](https://github.com/wekan/wekan/issues/6477)). Dragging a card from one swimlane to the SAME list in
+  another swimlane dropped it back in the *source* swimlane, especially with long lists that overflow. The card
+  sortable's `sort` handler auto-scrolls the board (#443) by setting `.js-lists` `scrollLeft` / `.board-canvas`
+  `scrollTop`, but jQuery UI sortable caches container/item geometry at drag start and only re-caches on its own
+  placeholder moves — never on our manual scroll. Long lists are exactly what triggers auto-scroll, so the drop
+  resolved against a stale geometry map and the stop handler's `ui.item.parents('.swimlane')` persisted the
+  wrong swimlane. Fixed by re-caching positions (`sortable('refreshPositions')`) whenever the sort handler
+  actually scrolled — complementing the #2769 DOM-mutation refresh in `listBody.js`, which does not fire on
+  scroll. Source-guarded by `tests/cardDragSwimlaneScrollRefresh.test.cjs`. Thanks to **mueschel** (report) and
+  **xet7**.
+
 - **Snap release: build the exotic `ppc64el` and `s390x` snaps on GitHub Actions under QEMU instead of
   Launchpad.** The Launchpad `snapcraft remote-build` legs for these arches were ending in Launchpad state
   `Stopped` with no snap produced, yet `snapcraft remote-build` still exited 0; the job's name-only success
