@@ -209,6 +209,8 @@ template(name="changeFontPopup")
       a.ui-font-btn.js-ui-font-btn(data-font="" class="{{#if isNoneSelected}}active{{/if}}") {{_ 'font-default'}}
       each detectedFonts
         a.ui-font-btn.js-ui-font-btn(data-font="{{name}}" style="{{optionStyle}}" class="{{#if selected}}active{{/if}}") {{name}}
+    //- Preview (pangram + numbers) right below the font-name buttons.
+    .font-preview(style=previewStyle) {{_ 'font-preview-text'}}
     label {{_ 'font-size'}}
     .ui-font-size-buttons
       each fontSizes
@@ -223,7 +225,6 @@ template(name="changeFontPopup")
     .color-wheel-wrap
       input.js-ui-bg-color(type="color" value=bgColorHex title="{{_ 'text-background-color'}}")
       a.js-reset-bg-color(class="{{#unless hasBgColor}}disabled{{/unless}}") {{_ 'unset-color'}}
-    .font-preview(style=previewStyle) {{_ 'font-preview-text'}}
 
 template(name="changeSettingsPopup")
   ul.pop-over-list
