@@ -195,6 +195,17 @@ and fixes the following bugs:
   `tests/oauth2LoginStyle.test.cjs` (12 tests, positive + negative). Thanks to ArturRuta and
   xet7.
 
+- **Deleting a user left "ghost users" on boards and cards**
+  ([#1289](https://github.com/wekan/wekan/issues/1289), `models/users.js`, new
+  `models/lib/userDeletionCleanup.js`): every deletion path (admin method, self-service
+  delete, `DELETE /api/users/:userId`) removed only the user document, leaving dangling
+  references — empty-avatar board members that could not be removed, stale card
+  members/assignees/watchers, orphaned avatar files — reproducible for 8 years. A server-side
+  `Users.after.remove` hook now prunes `boards.members/watchers`,
+  `cards.members/assignees/watchers`, `lists.watchers` and the user's avatar files on every
+  deletion path; activities and comments are deliberately kept for history (their rendering
+  is already null-guarded). Tests: `tests/userDeletionCleanup.test.cjs` (6). Thanks to
+  chotaire and xet7.
 - **Swimlanes jumped up and down when starting/ending a card drag**
   ([#2877](https://github.com/wekan/wekan/issues/2877), `client/components/boards/boardBody.css`):
   drag start hid every list's "+ Add Card" composer link with `display: none`, collapsing its

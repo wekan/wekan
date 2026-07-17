@@ -1959,6 +1959,42 @@ Users.helpers({
 });
 
 if (Meteor.isServer) {
+  // #1289 ("Error after deleting a user"): deleting a user (Admin Panel
+  // `removeUser` method, self-service account delete, or
+  // DELETE /api/users/:userId) removed only the users document and left
+  // dangling references everywhere — "ghost" board members with empty
+  // avatars, stale card members/assignees and watcher entries — that
+  // previously had to be cleaned up by hand or by editing the database.
+  // This after.remove hook runs for every deletion path (they all go through
+  // Users.removeAsync / Meteor.users.removeAsync on this same collection) and
+  // prunes those references. Activities/comments are intentionally kept so
+  // history stays readable; see models/lib/userDeletionCleanup.js.
+  const {
+    buildUserDeletionCleanupPlan,
+    applyUserDeletionCleanup,
+  } = require('/models/lib/userDeletionCleanup');
+  Users.after.remove(async function(currentUserId, doc) {
+    try {
+      const plan = buildUserDeletionCleanupPlan(doc && doc._id);
+      if (!plan) return;
+      await applyUserDeletionCleanup(plan, {
+        boards: Boards,
+        // Required lazily: cards/lists/avatars are not imported at the top of
+        // this shared model, and avatars.js must only resolve server-side
+        // config when actually needed here.
+        cards: require('/models/cards').default,
+        lists: require('/models/lists').default,
+        avatars: require('/models/avatars').default,
+      });
+    } catch (error) {
+      console.error(
+        '[userDeletionCleanup] Failed to prune references of deleted user',
+        doc && doc._id,
+        error,
+      );
+    }
+  });
+
   Meteor.methods({
     // Permanently dismiss the current global announcement for the logged-in
     // user (#6051). The version is computed server-side from the current
