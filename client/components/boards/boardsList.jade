@@ -75,13 +75,9 @@ template(name="boardList")
       .boards-right-grid
         .boards-path-header
           .path-left
-            span.path-icon.emoji-icon {{currentMenuPath.icon}}
-            span.path-text {{currentMenuPath.text}}
-            if BoardMultiSelection.isActive
-              span.multiselection-hint
-                span.emoji-icon
-                  i.fa.fa-thumb-tack
-                |  {{_ 'multi-selection-active'}}
+            span.path-title
+              span.path-icon.emoji-icon {{currentMenuPath.icon}}
+              span.path-text {{currentMenuPath.text}}
           .path-right
             //- Order (left -> right): Multi-Selection, Sort, Search boards.
             if canModifyBoards
@@ -94,14 +90,22 @@ template(name="boardList")
                   span.emoji-icon
                     i.fa.fa-clipboard
                   span {{_ 'duplicate-board'}}
-              a.board-header-btn.js-multiselection-activate(
-                title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
-                class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
-                i.fa.fa-check-square-o
-                span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+              //- Multi-Selection button, with the "click checkboxes" hint stacked
+                directly BELOW it (own column) instead of beside the path title.
+              .multiselection-group
+                a.board-header-btn.js-multiselection-activate(
+                  title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
+                  class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
+                  i.fa.fa-check-square-o
+                  span {{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+                  if BoardMultiSelection.isActive
+                    a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+                      i.fa.fa-times-thin
                 if BoardMultiSelection.isActive
-                  a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-                    i.fa.fa-times-thin
+                  span.multiselection-hint
+                    span.emoji-icon
+                      i.fa.fa-thumb-tack
+                    |  {{_ 'multi-selection-active'}}
             a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
               span.emoji-icon
                 i.fa.fa-sort-alpha-asc

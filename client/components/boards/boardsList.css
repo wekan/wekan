@@ -272,6 +272,23 @@
   flex-wrap: wrap; /* the multi-selection hint wraps under the title when tight */
 }
 
+/* Keep the folder icon and the menu title (e.g. "Remaining") on ONE line, the
+   title to the RIGHT of the icon — never let flex-wrap stack them vertically. */
+.boards-path-header .path-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Multi-Selection button with its hint stacked underneath (own column). */
+.boards-path-header .multiselection-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
 .boards-path-header .multiselection-hint {
   background: #FFF3CD;
   color: #856404;
@@ -307,6 +324,9 @@
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
+  /* Roughly half the previous width; the input flexes to fill what's left. */
+  width: 300px;
+  max-width: 100%;
 }
 
 .boards-path-header .board-search input {
@@ -314,7 +334,8 @@
   outline: none;
   background: transparent;
   font-size: 14px;
-  min-width: 140px;
+  flex: 1 1 auto;
+  min-width: 0;
   /* Nudge the text down so it sits at the vertical middle of the field. */
   position: relative;
   top: 8px;
