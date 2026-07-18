@@ -223,9 +223,11 @@ describe('TAPi18n', () => {
       expect(TAPi18n.resolveTag('af_ZA')).to.equal('af_ZA');
     });
 
-    it('resolveTag maps bare Chinese "zh" to Simplified (alias)', () => {
-      expect(TAPi18n.resolveTag('zh')).to.equal('zh-Hans');
-      expect(TAPi18n.resolveTag('ZH')).to.equal('zh-Hans');
+    it('resolveTag maps bare Chinese "zh" to its own registered (Simplified) entry', () => {
+      // 'zh' is now a registered language of its own (generic Simplified Chinese),
+      // so it resolves to itself rather than aliasing to 'zh-Hans'.
+      expect(TAPi18n.resolveTag('zh')).to.equal('zh');
+      expect(TAPi18n.resolveTag('ZH')).to.equal('zh');
     });
 
     it('resolveTag returns undefined for an unsupported language', () => {
@@ -233,7 +235,7 @@ describe('TAPi18n', () => {
       expect(TAPi18n.resolveTag('')).to.equal(undefined);
     });
 
-    it('isLanguageSupported is case-insensitive (and honours the zh alias)', () => {
+    it('isLanguageSupported is case-insensitive (and knows the registered zh entry)', () => {
       expect(TAPi18n.isLanguageSupported('ja-jp')).to.be.true;
       expect(TAPi18n.isLanguageSupported('ZH-HANT')).to.be.true;
       expect(TAPi18n.isLanguageSupported('de')).to.be.true;
@@ -261,10 +263,10 @@ describe('TAPi18n', () => {
       expect(TAPi18n.getLanguage()).to.equal('zh-Hant');
     });
 
-    it('setLanguage("zh") selects Simplified Chinese (alias), not English', async () => {
+    it('setLanguage("zh") selects generic (Simplified) Chinese, not English', async () => {
       await TAPi18n.setLanguage('zh');
-      expect(TAPi18n.getLanguage()).to.equal('zh-Hans');
-      expect(TAPi18n.i18n.hasResourceBundle(TAPi18n.toI18nCode('zh-Hans'), 'translation')).to.be.true;
+      expect(TAPi18n.getLanguage()).to.equal('zh');
+      expect(TAPi18n.i18n.hasResourceBundle(TAPi18n.toI18nCode('zh'), 'translation')).to.be.true;
     });
 
   });

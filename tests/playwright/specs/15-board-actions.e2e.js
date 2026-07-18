@@ -17,15 +17,20 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe('Board-level actions', () => {
-  test('#6465: board settings opens with ONE click from the header cog', async ({ boardPage, board }) => {
-    // The cog lives in the board header bar — no sidebar open needed anymore.
-    const headerCog = boardPage.locator('#header-main-bar .js-open-board-menu');
-    await expect(headerCog).toBeVisible();
+  test('board settings (board menu) opens from the right sidebar', async ({ boardPage, board }) => {
+    // The header Board Settings cog was removed (it is already in the right
+    // sidebar). Open the sidebar from the header hamburger if needed, then open
+    // the board menu (cog) that lives inside it.
+    const boardMenuBtn = boardPage.locator('.board-sidebar .js-open-board-menu');
+    if (!(await boardMenuBtn.isVisible().catch(() => false))) {
+      await boardPage.locator('.js-toggle-sidebar').first().click();
+    }
+    await boardMenuBtn.waitFor();
 
     // Negative: the popup must not be open before the click.
     await expect(boardPage.locator('.js-pop-over')).not.toBeVisible();
 
-    await headerCog.click();
+    await boardMenuBtn.click();
     const popup = boardPage.locator('.js-pop-over');
     await popup.waitFor();
 

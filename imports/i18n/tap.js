@@ -8,11 +8,12 @@ const DEFAULT_NAMESPACE = 'translation';
 const DEFAULT_LANGUAGE = 'en';
 const getTranslationCollection = () => require('/models/translation').default;
 
-// Base languages with no plain-code file of their own resolve to a sensible default
+// Base codes with no registered entry of their own resolve to a sensible default
 // variant, so a browser reporting the bare code still gets that language, not English.
-// Chinese has only script/region files (zh-Hans, zh-Hant, zh-CN, …), so plain 'zh' maps
-// to Simplified. Keys are compared case-insensitively (see resolveTag).
-const LANGUAGE_ALIASES = { zh: 'zh-Hans', wuu: 'wuu-Hans' };
+// 'zh' now has its own registered entry (generic Simplified Chinese, zh.i18n.json),
+// so no alias is needed for it; 'wuu' (Wu Chinese) has only the wuu-Hans file, so a
+// bare 'wuu' maps to it. Keys are compared case-insensitively (see resolveTag).
+const LANGUAGE_ALIASES = { wuu: 'wuu-Hans' };
 
 // Map a Wekan language tag (the key/`tag` from languages.js, e.g. 'zh-CN',
 // 'zh-Hans', 'ar-DZ' or the legacy underscore form 'en_AU', 'af_ZA') to the
