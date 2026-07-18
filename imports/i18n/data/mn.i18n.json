@@ -734,6 +734,7 @@
   "members": "Гишүүд",
   "menu": "Меню",
   "move-selection": "Переместить выделение",
+  "copy-selection": "Копировать выделение",
   "moveCardPopup-title": "Переместить карточку",
   "moveListPopup-title": "Жагсаалт зөөх",
   "moveCardToBottom-title": "Переместить вниз",

@@ -734,6 +734,7 @@
   "members": "Liikmed",
   "menu": "Menüü",
   "move-selection": "Liikumise valik",
+  "copy-selection": "Kopeerimise valik",
   "moveCardPopup-title": "Liikumiskaart",
   "moveListPopup-title": "Liiguta nimekiri",
   "moveCardToBottom-title": "Liigu allapoole",

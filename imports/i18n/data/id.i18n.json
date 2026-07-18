@@ -734,6 +734,7 @@
   "members": "Daftar Anggota",
   "menu": "Menu",
   "move-selection": "Pindahkan yang dipilih",
+  "copy-selection": "Salin yang dipilih",
   "moveCardPopup-title": "Pindahkan kartu",
   "moveListPopup-title": "Pindahkan Daftar",
   "moveCardToBottom-title": "Pindahkan ke bawah",

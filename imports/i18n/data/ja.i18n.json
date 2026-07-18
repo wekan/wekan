@@ -734,6 +734,7 @@
   "members": "メンバー",
   "menu": "メニュー",
   "move-selection": "選択したものを移動",
+  "copy-selection": "選択したものをコピー",
   "moveCardPopup-title": "カードの移動",
   "moveListPopup-title": "リストを移動",
   "moveCardToBottom-title": "最下部に移動",

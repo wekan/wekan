@@ -734,6 +734,7 @@
   "members": "Mitglieder",
   "menu": "Menü",
   "move-selection": "Auswahl verschieben",
+  "copy-selection": "Auswahl kopieren",
   "moveCardPopup-title": "Karte verschieben",
   "moveListPopup-title": "Déplacer la liste",
   "moveCardToBottom-title": "Ans Ende verschieben",

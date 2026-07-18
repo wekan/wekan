@@ -734,6 +734,7 @@
   "members": "Μέλη",
   "menu": "Μενού",
   "move-selection": "Μετακίνηση επιλογής",
+  "copy-selection": "Αντιγραφή επιλογής",
   "moveCardPopup-title": "Μετακίνηση Κάρτας",
   "moveListPopup-title": "Déplacer la liste",
   "moveCardToBottom-title": "Μετακίνηση στην Αρχή",

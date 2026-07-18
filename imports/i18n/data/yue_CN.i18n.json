@@ -734,6 +734,7 @@
   "members": "會員",
   "menu": "選單",
   "move-selection": "移動選擇",
+  "copy-selection": "複製選擇",
   "moveCardPopup-title": "移動卡",
   "moveListPopup-title": "移動清單",
   "moveCardToBottom-title": "移至底部",

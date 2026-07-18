@@ -734,6 +734,7 @@
   "members": "Membroj",
   "menu": "Menuo",
   "move-selection": "Movi elekton",
+  "copy-selection": "Kopiön elekton",
   "moveCardPopup-title": "Movi karton",
   "moveListPopup-title": "Déplacer la liste",
   "moveCardToBottom-title": "Movi suben",

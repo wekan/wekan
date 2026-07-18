@@ -734,6 +734,7 @@
   "members": "멤버",
   "menu": "메뉴",
   "move-selection": "선택 항목 이동",
+  "copy-selection": "선택 항목 복사",
   "moveCardPopup-title": "카드 이동",
   "moveListPopup-title": "목록 이동",
   "moveCardToBottom-title": "최하단으로 이동",

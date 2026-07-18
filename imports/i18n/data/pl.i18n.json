@@ -734,6 +734,7 @@
   "members": "Użytkownicy",
   "menu": "Menu",
   "move-selection": "Przenieś zaznaczone",
+  "copy-selection": "Kopiuj zaznaczone",
   "moveCardPopup-title": "Przenieś kartę",
   "moveListPopup-title": "Przenieś listę",
   "moveCardToBottom-title": "Przenieś na koniec",

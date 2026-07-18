@@ -734,6 +734,7 @@
   "members": "Korisnici",
   "menu": "Мени",
   "move-selection": "Премести изабрано",
+  "copy-selection": "Копирај изабрано",
   "moveCardPopup-title": "Премести предмет",
   "moveListPopup-title": "Premjesti listu",
   "moveCardToBottom-title": "Премести на дно",

@@ -734,6 +734,7 @@
   "members": "Користувачі",
   "menu": "Меню",
   "move-selection": "Перенести вибране",
+  "copy-selection": "Копіювати вибране",
   "moveCardPopup-title": "Перемістити картку",
   "moveListPopup-title": "Перемістити список",
   "moveCardToBottom-title": "Перемістити на низ",

@@ -734,6 +734,7 @@
   "members": "Membros",
   "menu": "Menú",
   "move-selection": "Mover selección",
+  "copy-selection": "Copiar selección",
   "moveCardPopup-title": "Mover tarxeta",
   "moveListPopup-title": "Mover Lista",
   "moveCardToBottom-title": "Mover abaixo de todo",

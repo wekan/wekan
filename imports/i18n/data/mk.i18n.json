@@ -734,6 +734,7 @@
   "members": "Членови",
   "menu": "Меню",
   "move-selection": "Премести избраното",
+  "copy-selection": "Копирај го избраното",
   "moveCardPopup-title": "Премести картата",
   "moveListPopup-title": "Помести листа",
   "moveCardToBottom-title": "Премести в края",

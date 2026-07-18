@@ -734,6 +734,7 @@
   "members": "Membri",
   "menu": "Menú",
   "move-selection": "Sposta elementi selezionati",
+  "copy-selection": "Copiază elementele selectate",
   "moveCardPopup-title": "Sposta scheda",
   "moveListPopup-title": "Sposta la lista",
   "moveCardToBottom-title": "Sposta in fondo",

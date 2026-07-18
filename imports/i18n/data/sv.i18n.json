@@ -734,6 +734,7 @@
   "members": "Medlemmar",
   "menu": "Meny",
   "move-selection": "Flytta vald",
+  "copy-selection": "Kopiera vald",
   "moveCardPopup-title": "Flytta kort",
   "moveListPopup-title": "Flytta lista",
   "moveCardToBottom-title": "Flytta längst ner",

@@ -734,6 +734,7 @@
   "members": "Medlemmer",
   "menu": "Meny",
   "move-selection": "Flytt valgte",
+  "copy-selection": "Kopier valgte",
   "moveCardPopup-title": "Flytt Kort",
   "moveListPopup-title": "Flytt liste",
   "moveCardToBottom-title": "Flytt til bunnen",

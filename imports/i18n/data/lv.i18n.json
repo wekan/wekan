@@ -734,6 +734,7 @@
   "members": "Dalībnieki",
   "menu": "Izvēlne",
   "move-selection": "Pārvietot atzīmēto",
+  "copy-selection": "Kopēt atzīmēto",
   "moveCardPopup-title": "Pārvietot kartiņu",
   "moveListPopup-title": "Perkelti sąrašą",
   "moveCardToBottom-title": "Pārvietot uz apakšu",

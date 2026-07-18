@@ -734,6 +734,7 @@
   "members": "Člani",
   "menu": "Meni",
   "move-selection": "Premakni izbiro",
+  "copy-selection": "Kopiraj izbiro",
   "moveCardPopup-title": "Premakni kartico",
   "moveListPopup-title": "Premakni seznam",
   "moveCardToBottom-title": "Premakni na dno",

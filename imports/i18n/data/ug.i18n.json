@@ -734,6 +734,7 @@
   "members": "ئەزالار",
   "menu": "تىزىملىك",
   "move-selection": "تاللاشنى يۆتكەڭ",
+  "copy-selection": "تاللاشنى كۆچۈرۈڭ",
   "moveCardPopup-title": "كارتا يۆتكەش",
   "moveListPopup-title": "يۆتكەش تىزىملىكى",
   "moveCardToBottom-title": "ئاستىغا يۆتكەڭ",

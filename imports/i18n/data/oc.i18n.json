@@ -734,6 +734,7 @@
   "members": "Participants",
   "menu": "Menut",
   "move-selection": "Bolegar la seleccion",
+  "copy-selection": "Copiar la seleccion",
   "moveCardPopup-title": "Bolegar la carta",
   "moveListPopup-title": "Déplacer la liste",
   "moveCardToBottom-title": "Bolegar cap al bas",

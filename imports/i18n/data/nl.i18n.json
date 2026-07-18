@@ -734,6 +734,7 @@
   "members": "Leden",
   "menu": "Menu",
   "move-selection": "Verplaats selectie",
+  "copy-selection": "Kopieer selectie",
   "moveCardPopup-title": "Verplaats kaart",
   "moveListPopup-title": "Verplaats Lijst",
   "moveCardToBottom-title": "Verplaats naar beneden",

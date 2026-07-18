@@ -734,6 +734,7 @@
   "members": "წევრები",
   "menu": "მენიუ",
   "move-selection": "მონიშნულის მოძრაობა",
+  "copy-selection": "მონიშნულის კოპირება",
   "moveCardPopup-title": "ბარათის გადატანა",
   "moveListPopup-title": "სიის გადატანა",
   "moveCardToBottom-title": "ქვევით ჩამოწევა",

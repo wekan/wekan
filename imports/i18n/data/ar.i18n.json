@@ -734,6 +734,7 @@
   "members": "أعضاء",
   "menu": "القائمة",
   "move-selection": "حرکت مورد انتخابی",
+  "copy-selection": "نسخ العنصر المختار",
   "moveCardPopup-title": "نقل البطاقة",
   "moveListPopup-title": "نقل القائمة",
   "moveCardToBottom-title": "التحرك إلى القاع",

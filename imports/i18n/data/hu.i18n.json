@@ -734,6 +734,7 @@
   "members": "Tagok",
   "menu": "Menü",
   "move-selection": "Kijelölés áthelyezése",
+  "copy-selection": "Kijelölés másolása",
   "moveCardPopup-title": "Kártya áthelyezése",
   "moveListPopup-title": "Lista áthelyezése",
   "moveCardToBottom-title": "Áthelyezés az aljára",

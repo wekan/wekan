@@ -734,6 +734,7 @@
   "members": "Անդամներ",
   "menu": "Մենյու",
   "move-selection": "Տեղափոխել ընտրությունը",
+  "copy-selection": "Պատճենել ընտրությունը",
   "moveCardPopup-title": "Տեղափոխել քարտը",
   "moveListPopup-title": "Տեղափոխել ցուցակը",
   "moveCardToBottom-title": "Տեղափոխեք դեպի ներքև",

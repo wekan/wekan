@@ -734,6 +734,7 @@
   "members": "nariai",
   "menu": "Meniu",
   "move-selection": "Perkelti pasirinkimą",
+  "copy-selection": "Kopijuoti pasirinkimą",
   "moveCardPopup-title": "Perkelti kortelę",
   "moveListPopup-title": "Perkelti sąrašą",
   "moveCardToBottom-title": "Perkelti į apačią",

@@ -734,6 +734,7 @@
   "members": "חברים",
   "menu": "תפריט",
   "move-selection": "העברת בחירה",
+  "copy-selection": "העתקת בחירה",
   "moveCardPopup-title": "העברת כרטיס",
   "moveListPopup-title": "העברת רשימה",
   "moveCardToBottom-title": "העברה לתחתית הרשימה",

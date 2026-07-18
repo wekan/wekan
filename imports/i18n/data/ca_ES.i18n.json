@@ -734,6 +734,7 @@
   "members": "Membres",
   "menu": "Menú",
   "move-selection": "Mou la selecció",
+  "copy-selection": "Copia la selecció",
   "moveCardPopup-title": "Moure fitxa",
   "moveListPopup-title": "Mou la llista",
   "moveCardToBottom-title": "Mou a la part inferior",

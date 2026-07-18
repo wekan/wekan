@@ -734,6 +734,7 @@
   "members": "Lede",
   "menu": "Spyskaart",
   "move-selection": "Skuif seleksie",
+  "copy-selection": "Kopieer seleksie",
   "moveCardPopup-title": "Beweeg kaart",
   "moveListPopup-title": "Skuif Lys",
   "moveCardToBottom-title": "Skuif na onder",

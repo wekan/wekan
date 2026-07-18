@@ -734,6 +734,7 @@
   "members": "成員",
   "menu": "選單",
   "move-selection": "移動選取的項目",
+  "copy-selection": "複製選取的項目",
   "moveCardPopup-title": "移動卡片",
   "moveListPopup-title": "移動清單",
   "moveCardToBottom-title": "移至最下面",
