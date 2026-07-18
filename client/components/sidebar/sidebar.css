@@ -29,6 +29,16 @@
 .sidebar .sidebar-content {
   padding: 0 12px;
 }
+/* Sidebar text inputs (Filter List by Title, Filter by card title, advanced
+   filter, etc.) fill the padded content width, so there is equal empty space on
+   both sides (the .sidebar-content 12px padding) instead of the browser's
+   default narrow width that left a large gap on the right. box-sizing keeps the
+   border inside the width so it never overflows the panel. */
+.sidebar .sidebar-content input[type="text"],
+.sidebar .sidebar-content input[type="search"] {
+  width: 100%;
+  box-sizing: border-box;
+}
 .sidebar .sidebar-content .hide-btn {
   display: none;
 }
@@ -191,7 +201,12 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
 }
 .board-sidebar {
   display: none;
-  width: 30vw;
+  /* Keep a sensible sidebar width at every screen size. A bare 30vw scaled with
+     the viewport, so on very wide screens it grew to ~double the intended width
+     while looking right only at mid widths; clamp keeps the mid-width look and
+     caps it (and floors it) instead of scaling without bound. Phones (<800px)
+     are handled by the 100vw rule in the media query below. */
+  width: clamp(320px, 30vw, 560px);
   z-index: 100;
   transition: top 0.1s, right 0.1s, width 0.1s;
 }
