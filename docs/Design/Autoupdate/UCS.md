@@ -245,7 +245,7 @@ is safe.
 ## See also
 
 - [docs/Platforms/FOSS/UCS/UCS.md](../../Platforms/FOSS/UCS/UCS.md) — the user-facing UCS page.
-- [Snap.md](Snap.md) — the snap build that already runs the same MongoDB→FerretDB migration.
+- [Snap-Core.md](Forks/Snap-Core.md) — the snap build that already runs the same MongoDB→FerretDB migration.
 - [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md) — the same "push to a downstream repo + publish"
   pattern for variant snaps.
 - [Linux.md](OS/Linux.md) — Docker in the broader Linux update picture.

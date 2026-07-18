@@ -54,7 +54,7 @@ From `.github/workflows/release-all.yml`:
   `release: stable,candidate,beta,edge`.
 - The snap is built by `snapcore/action-build@v1` (amd64/arm64 native) — see the
   `snap-native` job. (ppc64el/s390x/riscv64 go via QEMU/Launchpad; see
-  [Snap.md](Snap.md).)
+  [Snap-Core.md](Forks/Snap-Core.md).)
 - Cross-repo pushes already exist: the secret **`WEKAN_REPO_TOKEN`** (a GitHub PAT
   with write access to *other* `wekan/*` repos) is used to check out and push to the
   website/charts repos. The variant repos will reuse this exact pattern.
@@ -245,6 +245,6 @@ Snap Store listing. `version:` stays as the shared WeKan version.
 
 ## See also
 
-- [Snap.md](Snap.md) — snap multi-arch
+- [Snap-Core.md](Forks/Snap-Core.md) — snap multi-arch
   build constraints (core24 vs the QEMU action).
 - [Linux.md](OS/Linux.md) — Snap in the broader Linux update picture.

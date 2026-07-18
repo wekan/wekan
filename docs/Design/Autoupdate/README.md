@@ -60,7 +60,7 @@ applicability.
 
 | Topic | Doc |
 |---|---|
-| Snap multi-arch build constraints (core24 vs QEMU action) | [Snap.md](Snap.md) |
+| Snap multi-arch build constraints (core24 vs QEMU action) | [Snap-Core.md](Forks/Snap-Core.md) |
 | Releasing the `wekan-ondra` / `wekan-gantt-gpl` snaps from release-all.yml | [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md) |
 | Releasing the Docker-based UCS App Center app (MongoDB 3.x → FerretDB migration) | [UCS.md](UCS.md) |
 | WeKan for Nextcloud — ExApp build, App Store publishing, AI/Deck/SSO integrations | [Nextcloud.md](Nextcloud.md) |
