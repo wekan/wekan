@@ -426,10 +426,47 @@ function exportDocs(coll, query) {
 // ($oid) and dates ($date, incl. { $date: { $numberLong } }) are accepted by
 // EJSON.parse in both forms, so only binary needs translating.
 function legacyToV2(line) {
-  return line.replace(
+  return sanitizeNonFinite(line.replace(
     /\{\s*"\$binary"\s*:\s*"([A-Za-z0-9+/=]*)"\s*,\s*"\$type"\s*:\s*"([0-9a-fA-F]{1,2})"\s*\}/g,
     (_m, b64, t) => `{"$binary":{"base64":"${b64}","subType":"${t.toLowerCase().padStart(2, '0')}"}}`,
-  );
+  ));
+}
+
+// mongo 3.x mongoexport can emit non-finite doubles as the BARE tokens NaN,
+// Infinity, +Infinity and -Infinity (e.g. a card's "sort":+Infinity or an
+// activity's "value":NaN). Those are NOT valid JSON, so EJSON.parse throws
+// "Unexpected token 'N'/'+'" and the WHOLE document is dropped — which is why
+// boards/cards went missing after an otherwise "successful" migration (#6481).
+// Rewrite each bare token, ONLY where it is a JSON value (outside string
+// literals), to the canonical EJSON v2 double form
+// {"$numberDouble":"NaN"|"Infinity"|"-Infinity"} that EJSON.parse accepts, so the
+// document migrates instead of being lost. A string that merely contains the text
+// "NaN"/"Infinity", and ordinary negative numbers like -5, are left untouched.
+export function sanitizeNonFinite(line) {
+  if (line.indexOf('NaN') === -1 && line.indexOf('Infinity') === -1) return line;
+  let out = '', inStr = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (inStr) {
+      out += c;
+      if (c === '\\') { out += line[i + 1] || ''; i++; continue; } // keep escaped char verbatim
+      if (c === '"') inStr = false;
+      continue;
+    }
+    if (c === '"') { inStr = true; out += c; continue; }
+    if (c === 'N' || c === 'I' || c === '+' || c === '-') {
+      const m = /^(NaN|[+-]?Infinity)/.exec(line.slice(i));
+      if (m) {
+        const tok = m[1];
+        const val = tok === 'NaN' ? 'NaN' : (tok[0] === '-' ? '-Infinity' : 'Infinity');
+        out += `{"$numberDouble":"${val}"}`;
+        i += tok.length - 1;
+        continue;
+      }
+    }
+    out += c;
+  }
+  return out;
 }
 
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
