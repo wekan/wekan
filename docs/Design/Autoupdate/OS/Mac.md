@@ -136,5 +136,5 @@ The macOS analogue of Windows Intune/SCCM/PDQ — the most Snap-like *fleet* aut
 ## See also
 
 - Windows equivalent: [Windows.md](Windows.md)
-- Linux Snap auto-refresh & multi-arch snap builds: [Snap.md](Snap.md)
-- macOS install docs: [Mac.md](../../Platforms/Propietary/Mac/Mac.md)
+- Linux Snap auto-refresh & multi-arch snap builds: [Snap.md](../Snap.md)
+- macOS install docs: [Mac.md](../../../Platforms/Propietary/Mac/Mac.md)

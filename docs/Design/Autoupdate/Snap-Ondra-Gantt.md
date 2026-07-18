@@ -219,4 +219,4 @@ Snap Store listing. `version:` stays as the shared WeKan version.
 
 - [Snap.md](Snap.md) — snap multi-arch
   build constraints (core24 vs the QEMU action).
-- [Linux.md](Linux.md) — Snap in the broader Linux update picture.
+- [Linux.md](OS/Linux.md) — Snap in the broader Linux update picture.

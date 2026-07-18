@@ -82,7 +82,7 @@ image; the desktop app is **Electron**.
 
 - **WeKan already ships a Snap** — `snapd` auto-refresh gives Linux users Snap-like
   background updates for free (this is the reference implementation). See the
-  multi-arch snap-build notes: [Snap.md](Snap.md).
+  multi-arch snap-build notes: [Snap.md](../Snap.md).
 - **Desktop Electron auto-update on Linux:** ship an **AppImage** built by
   electron-builder (electron-updater self-updates it), or a **Flatpak** on Flathub.
 - **Server:** the normal path is **Docker** (pull a new image) or from source — outside
