@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Vumela abasebenzisi ukuthi bazisuse ngokwabo i-akhawunti yabo",
   "hide-minicard-label-text": "Fihla umbhalo welebula yekhadi elincane",
   "show-desktop-drag-handles": "Bonisa izibambi zokuhudula zedeskithophu",
+  "drag-to-resize-sidebar": "Kokodza u shandukisa vhuhulwane ha bara ya thungo",
   "submit-on-enter": "Vhulunga vhaṅwaledzi nga Enter",
   "submit-on-enter-description": "Musi zwo vulwa, u puṱedza Enter zwi vhulunga ṱhoho ya khennde, ṱhaluso na vhaṅwe vhaṅwaledzi vha nga ngomu; Shift+Enter i engedza mutaladzi muswa. Musi zwo valwa, Ctrl/Cmd+Enter zwi a vhulunga, Enter i engedza mutaladzi muswa.",
   "assignee": "Onikezwayo",

@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "ਉਪਭੋਗਤਾਵਾਂ ਨੂੰ ਉਹਨਾਂ ਦੇ ਖਾਤੇ ਨੂੰ ਖੁਦ ਮਿਟਾਉਣ ਦੀ ਆਗਿਆ ਦਿਓ",
   "hide-minicard-label-text": "ਮਿਨੀਕਾਰਡ ਲੇਬਲ ਟੈਕਸਟ ਨੂੰ ਲੁਕਾਓ",
   "show-desktop-drag-handles": "ਡੈਸਕਟਾਪ ਡਰੈਗ ਹੈਂਡਲ ਦਿਖਾਓ",
+  "drag-to-resize-sidebar": "ਸਾਈਡਬਾਰ ਦਾ ਆਕਾਰ ਬਦਲਣ ਲਈ ਖਿੱਚੋ",
   "submit-on-enter": "Enter ਨਾਲ ਸੰਪਾਦਕ ਦਾਖ਼ਲ ਕਰੋ",
   "submit-on-enter-description": "ਜਦੋਂ ਚਾਲੂ ਹੋਵੇ, Enter ਦਬਾਉਣ ਨਾਲ ਕਾਰਡ ਦਾ ਸਿਰਲੇਖ, ਵੇਰਵਾ ਅਤੇ ਹੋਰ ਇਨਲਾਈਨ ਸੰਪਾਦਕ ਸੰਭਾਲੇ ਜਾਂਦੇ ਹਨ; Shift+Enter ਨਵੀਂ ਲਾਈਨ ਜੋੜਦਾ ਹੈ। ਜਦੋਂ ਬੰਦ ਹੋਵੇ, Ctrl/Cmd+Enter ਸੰਭਾਲਦਾ ਹੈ ਅਤੇ Enter ਨਵੀਂ ਲਾਈਨ ਜੋੜਦਾ ਹੈ।",
   "assignee": "ਸੌਂਪਣ ਵਾਲਾ",

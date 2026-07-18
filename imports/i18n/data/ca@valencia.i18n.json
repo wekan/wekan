@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Permet als usuaris eliminar el seu compte ells mateixos",
   "hide-minicard-label-text": "Amaga el text de l'etiqueta de la minifitxa",
   "show-desktop-drag-handles": "Mostra les nanses d'arrossegament de l'escriptori",
+  "drag-to-resize-sidebar": "Arrossega per canviar l'amplària de la barra lateral",
   "submit-on-enter": "Envia els editors amb Enter",
   "submit-on-enter-description": "Quan està activat, prémer Enter guarda el títol de la targeta, la descripció i altres editors en línia; Shift+Enter inserix una línia nova. Quan està desactivat, Ctrl/Cmd+Enter guarda i Enter inserix una línia nova.",
   "assignee": "Assignat",

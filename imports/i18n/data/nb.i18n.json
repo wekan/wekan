@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Tillat brukere å slette egen konto",
   "hide-minicard-label-text": "Skjul tekst på etikett",
   "show-desktop-drag-handles": "Vis ikon for flytting av kort",
+  "drag-to-resize-sidebar": "Dra for å endre størrelse på sidepanelet",
   "submit-on-enter": "Send inn redigering med Enter",
   "submit-on-enter-description": "Når på lagrer Enter kortets tittel, beskrivelse og andre innebygde redigeringsfelt; Shift+Enter setter inn en ny linje. Når av lagrer Ctrl/Cmd+Enter, og Enter setter inn en ny linje.",
   "assignee": "Tildelt",

@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "İstifadəçilərə öz hesablarını silmək imkanı verin",
   "hide-minicard-label-text": "Minikart etiket mətnini gizlədin",
   "show-desktop-drag-handles": "İş masasının sürükləmə tutacaqlarını göstərin",
+  "drag-to-resize-sidebar": "Yan panelin enini dəyişmək üçün sürüşdürün",
   "submit-on-enter": "Redaktorları Enter ilə göndər",
   "submit-on-enter-description": "Aktiv olduqda Enter kartın başlığını, təsvirini və digər sətiriçi redaktorları saxlayır; Shift+Enter yeni sətir əlavə edir. Deaktiv olduqda Ctrl/Cmd+Enter saxlayır, Enter isə yeni sətir əlavə edir.",
   "assignee": "Təyinatçı",

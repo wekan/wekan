@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Benarkan pengguna untuk hapuskan akaun mereka sendiri",
   "hide-minicard-label-text": "Sembunyikan teks label kartu mini",
   "show-desktop-drag-handles": "Tampilkan gagang seret desktop",
+  "drag-to-resize-sidebar": "Seuret keu ubah leubar sidebar",
   "submit-on-enter": "Kirém editor ngon Enter",
   "submit-on-enter-description": "Watèe hidup, teugom Enter geupeusimpan judul kartu, deskripsi ngon editor inline laén; Shift+Enter geutamah baréh barô. Watèe mati, Ctrl/Cmd+Enter geupeusimpan dan Enter geutamah baréh barô.",
   "assignee": "Penerima tugas",

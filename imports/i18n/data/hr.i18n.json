@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Дозволи сарадницима да сами испишу свој налог из јединственог регистра",
   "hide-minicard-label-text": "Сакриј натпис на налепници",
   "show-desktop-drag-handles": "Прикажи ручке за повлачење на радној површини",
+  "drag-to-resize-sidebar": "Povucite za promjenu veličine bočne trake",
   "submit-on-enter": "Spremi uređivače tipkom Enter",
   "submit-on-enter-description": "Kada je uključeno, pritisak na Enter sprema naslov kartice, opis i druge umetnute uređivače; Shift+Enter umeće novi redak. Kada je isključeno, Ctrl/Cmd+Enter sprema, a Enter umeće novi redak.",
   "assignee": "Пуномоћник",

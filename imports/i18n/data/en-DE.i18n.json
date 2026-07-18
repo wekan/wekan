@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Allow users to self delete their account",
   "hide-minicard-label-text": "Hide minicard label text",
   "show-desktop-drag-handles": "Show desktop drag handles",
+  "drag-to-resize-sidebar": "Drag to resize sidebar",
   "submit-on-enter": "Submit editors with Enter",
   "submit-on-enter-description": "When on, pressing Enter saves the card title, description and other inline editors; Shift+Enter inserts a new line. When off, Ctrl/Cmd+Enter saves and Enter inserts a new line.",
   "assignee": "Assignee",

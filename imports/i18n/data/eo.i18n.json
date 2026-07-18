@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Permitir a los usuarios eliminar su cuenta",
   "hide-minicard-label-text": "Ocultar el texto de la etiqueta de la minitarjeta",
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
+  "drag-to-resize-sidebar": "Trenu por regrandigi flankan panelon",
   "submit-on-enter": "Sendi redaktilojn per Enter",
   "submit-on-enter-description": "Kiam ŝaltita, premo de Enter konservas la titolon de la karto, la priskribon kaj aliajn enliniajn redaktilojn; Shift+Enter enmetas novan linion. Kiam malŝaltita, Ctrl/Cmd+Enter konservas kaj Enter enmetas novan linion.",
   "assignee": "Asignado",

@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Tillåt användare att själv ta bort sina konton",
   "hide-minicard-label-text": "Dölj etikett för minikort",
   "show-desktop-drag-handles": "Visa greppytor i desktop",
+  "drag-to-resize-sidebar": "Dra för att ändra storlek på sidofältet",
   "submit-on-enter": "Skicka redigerare med Enter",
   "submit-on-enter-description": "När det är på sparar Enter kortets titel, beskrivning och andra inbäddade redigerare; Shift+Enter infogar en ny rad. När det är av sparar Ctrl/Cmd+Enter och Enter infogar en ny rad.",
   "assignee": "Tilldelad till",

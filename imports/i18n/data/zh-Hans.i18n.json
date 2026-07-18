@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "允许用户自行删除其帐户",
   "hide-minicard-label-text": "隐藏迷你卡片标签文本",
   "show-desktop-drag-handles": "显示桌面拖放手柄",
+  "drag-to-resize-sidebar": "拖动以调整侧栏宽度",
   "submit-on-enter": "按 Enter 提交编辑器",
   "submit-on-enter-description": "开启后，按 Enter 保存卡片标题、描述及其他内嵌编辑器；Shift+Enter 插入新行。关闭后，Ctrl/Cmd+Enter 保存，Enter 插入新行。",
   "assignee": "被指派人",

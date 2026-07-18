@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "ユーザー自身のアカウント削除を許可",
   "hide-minicard-label-text": "ミニカードのラベル名を隠す",
   "show-desktop-drag-handles": "デスクトップへのドラッグハンドルを表示",
+  "drag-to-resize-sidebar": "ドラッグしてサイドバーのサイズを変更",
   "submit-on-enter": "Enter でエディターを送信",
   "submit-on-enter-description": "オンの場合、Enter を押すとカードのタイトル、説明、その他のインラインエディターが保存され、Shift+Enter で改行します。オフの場合、Ctrl/Cmd+Enter で保存し、Enter で改行します。",
   "assignee": "担当者",

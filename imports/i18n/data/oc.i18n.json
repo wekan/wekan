@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Cacher l'étiquette de la mini-carte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
+  "drag-to-resize-sidebar": "Rossegatz per redimensionar la barra laterala",
   "submit-on-enter": "Mandar los editors amb Enter",
   "submit-on-enter-description": "Quand es activat, quichar Enter enregistra lo títol de la carta, la descripcion e los autres editors en linha; Shift+Enter inserís una linha novèla. Quand es desactivat, Ctrl/Cmd+Enter enregistra e Enter inserís una linha novèla.",
   "assignee": "Intervenant",

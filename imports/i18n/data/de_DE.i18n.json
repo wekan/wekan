@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Erlaube Benutzern ihr Benutzerkonto selbst zu löschen",
   "hide-minicard-label-text": "Labeltext auf Minikarte ausblenden",
   "show-desktop-drag-handles": "Desktop-Ziehpunkte anzeigen",
+  "drag-to-resize-sidebar": "Zum Ändern der Seitenleistenbreite ziehen",
   "submit-on-enter": "Editoren mit Enter absenden",
   "submit-on-enter-description": "Wenn aktiviert, speichert das Drücken von Enter den Kartentitel, die Beschreibung und andere Inline-Editoren; Shift+Enter fügt eine neue Zeile ein. Wenn deaktiviert, speichert Ctrl/Cmd+Enter und Enter fügt eine neue Zeile ein.",
   "assignee": "Zugewiesen",

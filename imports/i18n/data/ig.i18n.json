@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Kwe ka ndị ọrụ ihichapụ akaụntụ ha n'onwe ha",
   "hide-minicard-label-text": "Zoo ederede akara obere kaadị",
   "show-desktop-drag-handles": "Gosi aka ịdọrọ desktọpụ",
+  "drag-to-resize-sidebar": "Dọrọ iji gbanwee nha bar akụkụ",
   "submit-on-enter": "Ziga ndị nchịkọta site na Enter",
   "submit-on-enter-description": "Mgbe ọ gbanyere, ịpị Enter na-echekwa isiokwu kaadị, nkọwa na ndị nchịkọta ozugbo ndị ọzọ; Shift+Enter na-etinye ahịrị ọhụrụ. Mgbe ọ gbanyụrụ, Ctrl/Cmd+Enter na-echekwa, Enter na-etinye ahịrị ọhụrụ.",
   "assignee": "Onye ọrụ",

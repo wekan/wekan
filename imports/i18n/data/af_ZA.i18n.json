@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Laat gebruikers toe om hul rekening self uit te vee",
   "hide-minicard-label-text": "Versteek minikaart-etiketteks",
   "show-desktop-drag-handles": "Wys lessenaar sleephandvatsels",
+  "drag-to-resize-sidebar": "Sleep om die sybalk se breedte te verander",
   "submit-on-enter": "Dien redigeerders in met Enter",
   "submit-on-enter-description": "Wanneer aan, stoor Enter die kaart se titel, beskrywing en ander inlynredigeerders; Shift+Enter voeg 'n nuwe reël in. Wanneer af, stoor Ctrl/Cmd+Enter en voeg Enter 'n nuwe reël in.",
   "assignee": "Gevolmagtigde",

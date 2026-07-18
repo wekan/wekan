@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Engedje a felhasználóknak, hogy maguk töröljék a fiókjukat",
   "hide-minicard-label-text": "Rejtse el a Címke szövegét a mini Kártyákon",
   "show-desktop-drag-handles": "Mutassa a fogd-és-vidd eseményeket",
+  "drag-to-resize-sidebar": "Húzással átméretezheti az oldalsávot",
   "submit-on-enter": "Szerkesztők beküldése Enter billentyűvel",
   "submit-on-enter-description": "Bekapcsolva az Enter lenyomása menti a kártya címét, leírását és más beágyazott szerkesztőket; a Shift+Enter új sort szúr be. Kikapcsolva a Ctrl/Cmd+Enter ment, az Enter pedig új sort szúr be.",
   "assignee": "Felelős",

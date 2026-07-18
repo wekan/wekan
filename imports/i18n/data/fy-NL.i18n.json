@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Lit brûkers har akkount sels wiskje",
   "hide-minicard-label-text": "Ferbergje minicard label tekst",
   "show-desktop-drag-handles": "Toan buroblêd slepehandgrepen",
+  "drag-to-resize-sidebar": "Sleep om de sydbalke fan grutte te feroarjen",
   "submit-on-enter": "Bewurkers yntsjinje mei Enter",
   "submit-on-enter-description": "As dit oanstiet, bewarret it drukken op Enter de kaarttitel, beskriuwing en oare ynline bewurkers; Shift+Enter foeget in nije rigel ta. As it útstiet, bewarret Ctrl/Cmd+Enter en foeget Enter in nije rigel ta.",
   "assignee": "Oanwêzige",

@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Caniatáu i ddefnyddwyr ddileu eu cyfrif eu hunain",
   "hide-minicard-label-text": "Cuddio testun label miniard",
   "show-desktop-drag-handles": "Dangos dolenni llusgo bwrdd gwaith",
+  "drag-to-resize-sidebar": "Llusgwch i newid lled y bar ochr",
   "submit-on-enter": "Cyflwyno golygyddion gydag Enter",
   "submit-on-enter-description": "Pan fydd ymlaen, mae pwyso Enter yn cadw teitl y cerdyn, y disgrifiad a golygyddion mewnol eraill; mae Shift+Enter yn mewnosod llinell newydd. Pan fydd i ffwrdd, mae Ctrl/Cmd+Enter yn cadw ac mae Enter yn mewnosod llinell newydd.",
   "assignee": "Aseinai",

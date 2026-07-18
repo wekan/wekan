@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Kullanıcılara hesaplarını silmek için izin ver.",
   "hide-minicard-label-text": "Mini kart etiklerini gizle",
   "show-desktop-drag-handles": "Masaüstü sürükleme tutamaçlarını göster",
+  "drag-to-resize-sidebar": "Kenar çubuğunu yeniden boyutlandırmak için sürükleyin",
   "submit-on-enter": "Düzenleyicileri Enter ile gönder",
   "submit-on-enter-description": "Açıkken Enter'a basmak kart başlığını, açıklamayı ve diğer satır içi düzenleyicileri kaydeder; Shift+Enter yeni satır ekler. Kapalıyken Ctrl/Cmd+Enter kaydeder ve Enter yeni satır ekler.",
   "assignee": "Atanan",

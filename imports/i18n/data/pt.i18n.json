@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Permitir aos utilizadores apagar as suas próprias contas",
   "hide-minicard-label-text": "Ocultar texto da etiqueta dos mini-cartões",
   "show-desktop-drag-handles": "Mostrar alças de arrasto do desktop",
+  "drag-to-resize-sidebar": "Arraste para redimensionar a barra lateral",
   "submit-on-enter": "Enviar editores com Enter",
   "submit-on-enter-description": "Quando ativado, pressionar Enter salva o título do cartão, a descrição e outros editores em linha; Shift+Enter insere uma nova linha. Quando desativado, Ctrl/Cmd+Enter salva e Enter insere uma nova linha.",
   "assignee": "Responsável",

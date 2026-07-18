@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Vumela abasebenzisi ukuthi bazisuse ngokwabo i-akhawunti yabo",
   "hide-minicard-label-text": "Fihla umbhalo welebula yekhadi elincane",
   "show-desktop-drag-handles": "Bonisa izibambi zokuhudula zedeskithophu",
+  "drag-to-resize-sidebar": "Hudula ukulungisa ubungako bebha yaseceleni",
   "submit-on-enter": "Thumela abahleli nge-Enter",
   "submit-on-enter-description": "Uma kuvuliwe, ukucindezela u-Enter kulondoloza isihloko sekhadi, incazelo nabanye abahleli abangaphakathi; Shift+Enter ifaka umugqa omusha. Uma kuvaliwe, Ctrl/Cmd+Enter iyalondoloza futhi u-Enter ifaka umugqa omusha.",
   "assignee": "Onikezwayo",

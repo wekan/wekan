@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Permitir aos utilizadores apagar as suas próprias contas",
   "hide-minicard-label-text": "Ocultar texto da etiqueta dos mini-cartões",
   "show-desktop-drag-handles": "Mostrar alças de arrasto do desktop",
+  "drag-to-resize-sidebar": "Arrastra para redimensionar a barra lateral",
   "submit-on-enter": "Enviar os editores con Enter",
   "submit-on-enter-description": "Cando está activado, premer Enter garda o título da tarxeta, a descrición e outros editores en liña; Shift+Enter insire unha nova liña. Cando está desactivado, Ctrl/Cmd+Enter garda e Enter insire unha nova liña.",
   "assignee": "Responsável",

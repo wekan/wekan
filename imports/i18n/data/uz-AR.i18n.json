@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Foydalanuvchilarga o'z hisoblarini o'chirishga ruxsat bering",
   "hide-minicard-label-text": "Minikarta yorlig'i matnini yashirish",
   "show-desktop-drag-handles": "Ish stoli sudrab tortish tutqichlarini ko'rsatish",
+  "drag-to-resize-sidebar": "Yon panel oʻlchamini oʻzgartirish uchun torting",
   "submit-on-enter": "Муҳаррирларни Enter билан сақлаш",
   "submit-on-enter-description": "Ёқилганда Enter тугмаси карта сарлавҳаси, тавсифи ва бошқа ички муҳаррирларни сақлайди; Shift+Enter янги қатор қўшади. Ўчирилганда Ctrl/Cmd+Enter сақлайди, Enter эса янги қатор қўшади.",
   "assignee": "Tayinlovchi",

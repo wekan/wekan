@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Permetti agli utenti di cancellare il loro profilo",
   "hide-minicard-label-text": "Nascondi etichetta minicard",
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento del desktop",
+  "drag-to-resize-sidebar": "Σύρετε για αλλαγή του πλάτους της πλαϊνής μπάρας",
   "submit-on-enter": "Υποβολή επεξεργαστών με Enter",
   "submit-on-enter-description": "Όταν είναι ενεργό, το πάτημα του Enter αποθηκεύει τον τίτλο της κάρτας, την περιγραφή και άλλους ενσωματωμένους επεξεργαστές· το Shift+Enter εισάγει νέα γραμμή. Όταν είναι ανενεργό, το Ctrl/Cmd+Enter αποθηκεύει και το Enter εισάγει νέα γραμμή.",
   "assignee": "Assegnatario",

@@ -1291,6 +1291,7 @@
   "accounts-allowUserDelete": "Permitir a los usuarios eliminar su cuenta",
   "hide-minicard-label-text": "Ezkutatu minitxartelaren etiketaren testua",
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
+  "drag-to-resize-sidebar": "Arrastatu alboko barra tamainaz aldatzeko",
   "submit-on-enter": "Bidali editoreak Enter sakatuz",
   "submit-on-enter-description": "Aktibatuta dagoenean, Enter sakatzeak txartelaren izenburua, deskribapena eta lerroko beste editoreak gordetzen ditu; Shift+Enter-ek lerro berri bat txertatzen du. Desaktibatuta dagoenean, Ctrl/Cmd+Enter-ek gordetzen du eta Enter-ek lerro berri bat txertatzen du.",
   "assignee": "Asignado",
