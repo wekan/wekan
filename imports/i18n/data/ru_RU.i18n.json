@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Разрешить пользователям удалять собственные аккаунты",
   "hide-minicard-label-text": "Скрыть текст меток на карточках",
   "show-desktop-drag-handles": "Показать ярлыки для перетаскивания",
+  "submit-on-enter": "Отправлять редакторы клавишей Enter",
+  "submit-on-enter-description": "Когда включено, нажатие Enter сохраняет заголовок карточки, описание и другие встроенные редакторы; Shift+Enter вставляет новую строку. Когда выключено, Ctrl/Cmd+Enter сохраняет, а Enter вставляет новую строку.",
   "assignee": "Исполнитель",
   "assignees": "Исполнители",
   "cardAssigneesPopup-title": "Исполнитель",

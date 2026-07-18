@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Cacher l'étiquette de la mini-carte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
+  "submit-on-enter": "Kas an editerien gant Enter",
+  "submit-on-enter-description": "Pa vez gweredekaet, Enter a enrolla titl ar gartenn, an deskrivadur hag an editerien enlinenn all; Shift+Enter a ouzhpenn ul linenn nevez. Pa vez diweredekaet, Ctrl/Cmd+Enter a enrolla hag Enter a ouzhpenn ul linenn nevez.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "cardAssigneesPopup-title": "Personne assignée",

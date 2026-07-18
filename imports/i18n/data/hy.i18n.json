@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Թույլ տվեք օգտվողներին ինքնուրույն ջնջել իրենց հաշիվը",
   "hide-minicard-label-text": "Թաքցնել մինի քարտի պիտակի տեքստը",
   "show-desktop-drag-handles": "Ցույց տալ աշխատասեղանի քաշման բռնակները",
+  "submit-on-enter": "Հաստատել խմբագրիչները Enter-ով",
+  "submit-on-enter-description": "Միացված վիճակում Enter սեղմելը պահպանում է քարտի վերնագիրը, նկարագրությունը և այլ ներդրված խմբագրիչներ. Shift+Enter-ը ավելացնում է նոր տող։ Անջատված վիճակում Ctrl/Cmd+Enter-ը պահպանում է, իսկ Enter-ը ավելացնում է նոր տող։",
   "assignee": "Հանձնարարող",
   "assignees": "Հանձնարարվածներ",
   "cardAssigneesPopup-title": "Հանձնարարող",

@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Дазволіць карыстальнікам самастойна выдаляць свой акаўнт",
   "hide-minicard-label-text": "Схаваць тэкст меткі на мінікартцы",
   "show-desktop-drag-handles": "Паказваць настольныя ручкі перацягвання",
+  "submit-on-enter": "Адпраўляць рэдактары клавішай Enter",
+  "submit-on-enter-description": "Калі ўключана, націск Enter захоўвае назву карткі, апісанне і іншыя ўбудаваныя рэдактары; Shift+Enter дадае новы радок. Калі выключана, Ctrl/Cmd+Enter захоўвае, а Enter дадае новы радок.",
   "assignee": "Прызначаны",
   "assignees": "Прызначаныя",
   "cardAssigneesPopup-title": "Прызначаны",

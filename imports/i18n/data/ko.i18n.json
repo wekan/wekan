@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "ユーザー自身のアカウント削除を許可",
   "hide-minicard-label-text": "ミニカードのラベル名を隠す",
   "show-desktop-drag-handles": "デスクトップへのドラッグハンドルを表示",
+  "submit-on-enter": "Enter로 편집기 제출",
+  "submit-on-enter-description": "켜면 Enter를 누를 때 카드 제목, 설명 및 기타 인라인 편집기가 저장되고, Shift+Enter는 새 줄을 삽입합니다. 끄면 Ctrl/Cmd+Enter로 저장하고 Enter는 새 줄을 삽입합니다.",
   "assignee": "担当者",
   "assignees": "담당자",
   "cardAssigneesPopup-title": "担当者",

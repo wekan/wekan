@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Cacher l'étiquette de la mini-carte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
+  "submit-on-enter": "ⴰⵣⵏ ⵉⵎⵙⵖⴰⵍ ⵙ Enter",
+  "submit-on-enter-description": "ⵎⴽ ⵉⵍⵍⴰ, ⴰⵙⵙⵉⴹⵏ ⵏ Enter ⵉⵜⵜⴰⵊⵊⴰ ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ, ⴰⴳⵍⴰⵎ ⴷ ⵉⵎⵙⵖⴰⵍ ⵢⴰⴹⵏⵉⵏ; Shift+Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ. ⵎⴽ ⵓⵔ ⵉⵍⵍⵉ, Ctrl/Cmd+Enter ⵉⵜⵜⴰⵊⵊⴰ, Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "cardAssigneesPopup-title": "Personne assignée",

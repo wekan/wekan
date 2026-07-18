@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Leiskite vartotojams patiems ištrinti savo paskyrą",
   "hide-minicard-label-text": "Slėpti mini kortelės etiketės tekstą",
   "show-desktop-drag-handles": "Rodyti darbalaukio vilkimo rankenas",
+  "submit-on-enter": "Pateikti redaktorius klavišu Enter",
+  "submit-on-enter-description": "Kai įjungta, paspaudus Enter išsaugomas kortelės pavadinimas, aprašymas ir kiti įterptiniai redaktoriai; Shift+Enter įterpia naują eilutę. Kai išjungta, Ctrl/Cmd+Enter išsaugo, o Enter įterpia naują eilutę.",
   "assignee": "Perėmėjas",
   "assignees": "Perėmėjai",
   "cardAssigneesPopup-title": "Perėmėjas",

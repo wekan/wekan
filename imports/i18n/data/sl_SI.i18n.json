@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Dovoli uporabnikom, da sami izbrišejo svoj račun",
   "hide-minicard-label-text": "Skrij besedilo oznak na karticah",
   "show-desktop-drag-handles": "Pokaži ročke za povleko na namizju",
+  "submit-on-enter": "Pošlji urejevalnike s tipko Enter",
+  "submit-on-enter-description": "Ko je vklopljeno, pritisk na Enter shrani naslov kartice, opis in druge vgrajene urejevalnike; Shift+Enter vstavi novo vrstico. Ko je izklopljeno, Ctrl/Cmd+Enter shrani, Enter pa vstavi novo vrstico.",
   "assignee": "Dodeljen član",
   "assignees": "Dodeljene osebe",
   "cardAssigneesPopup-title": "Dodeljen član",

@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Permetti agli utenti di cancellare il loro profilo",
   "hide-minicard-label-text": "Nascondi etichetta minicard",
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento del desktop",
+  "submit-on-enter": "Salva gli editor con Enter",
+  "submit-on-enter-description": "Se attivo, premendo Enter si salvano il titolo della scheda, la descrizione e altri editor in linea; Shift+Enter inserisce una nuova riga. Se disattivo, Ctrl/Cmd+Enter salva ed Enter inserisce una nuova riga.",
   "assignee": "Assegnatario",
   "assignees": "Assignees",
   "cardAssigneesPopup-title": "Assegnatario",

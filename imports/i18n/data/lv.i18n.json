@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Ļaut lietotājiem dzēst savus kontus",
   "hide-minicard-label-text": "Slēpt birku tekstu mini kartiņā",
   "show-desktop-drag-handles": "Rādīt darba virsmas vilkšanas simbolus",
+  "submit-on-enter": "Iesniegt redaktorus ar Enter",
+  "submit-on-enter-description": "Kad ieslēgts, nospiežot Enter tiek saglabāts kartītes nosaukums, apraksts un citi iegultie redaktori; Shift+Enter ievieto jaunu rindu. Kad izslēgts, Ctrl/Cmd+Enter saglabā, un Enter ievieto jaunu rindu.",
   "assignee": "Īpašnieks",
   "assignees": "Perėmėjai",
   "cardAssigneesPopup-title": "Īpašnieks",

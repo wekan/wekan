@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Дозволи сарадницима да сами испишу свој налог из јединственог регистра",
   "hide-minicard-label-text": "Сакриј натпис на налепници",
   "show-desktop-drag-handles": "Прикажи ручке за повлачење на радној површини",
+  "submit-on-enter": "Изпращане на редакторите с Enter",
+  "submit-on-enter-description": "Когато е включено, натискането на Enter запазва заглавието на картата, описанието и другите вградени редактори; Shift+Enter вмъква нов ред. Когато е изключено, Ctrl/Cmd+Enter запазва, а Enter вмъква нов ред.",
   "assignee": "Пуномоћник",
   "assignees": "Отговорници",
   "cardAssigneesPopup-title": "Коме се даје пуномоћ",

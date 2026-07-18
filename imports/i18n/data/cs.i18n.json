@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Dovolit uživatelům smazat vlastní účet",
   "hide-minicard-label-text": "Skrýt text popisku minikarty",
   "show-desktop-drag-handles": "Zobrazit okraje pro přesun plochy",
+  "submit-on-enter": "Odesílat editory klávesou Enter",
+  "submit-on-enter-description": "Když je zapnuto, stisknutím Enter uložíte název karty, popis a další vložené editory; Shift+Enter vloží nový řádek. Když je vypnuto, ukládá Ctrl/Cmd+Enter a Enter vloží nový řádek.",
   "assignee": "Řešitel",
   "assignees": "Řešitelé",
   "cardAssigneesPopup-title": "Řešitel",

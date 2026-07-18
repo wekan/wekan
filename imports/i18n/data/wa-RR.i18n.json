@@ -1291,6 +1291,8 @@
   "accounts-allowUserDelete": "Tuguti an mga tagagamit ha pagpara han ira kalugaringon nga account",
   "hide-minicard-label-text": "Itago an teksto han label han minicard",
   "show-desktop-drag-handles": "Ipakita an mga desktop drag handle",
+  "submit-on-enter": "I-save an editor pinaagi han Enter",
+  "submit-on-enter-description": "Kon nakabuhat, an pagpindot han Enter nagtitipig han titulo han karta, deskripsyon ngan iba nga inline nga editor; Shift+Enter nagdudugang hin bag-o nga linya. Kon nakapatay, Ctrl/Cmd+Enter an nagtitipig ngan Enter nagdudugang hin bag-o nga linya.",
   "assignee": "Gin-asignaran",
   "assignees": "Mga Gin-asignaran",
   "cardAssigneesPopup-title": "Gin-asignaran",

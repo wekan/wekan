@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "વપરાશકર્તાઓને તેમના એકાઉન્ટને સ્વયં કાઢી નાખવાની મંજૂરી આપો",
   "hide-minicard-label-text": "મિનીકાર્ડ લેબલ ટેક્સ્ટ છુપાવો",
   "show-desktop-drag-handles": "ડેસ્કટોપ ડ્રેગ હેન્ડલ્સ બતાવો",
+  "submit-on-enter": "Enter से संपादक सबमिट करें",
+  "submit-on-enter-description": "चालू होने पर, Enter दबाने से कार्ड का शीर्षक, विवरण और अन्य इनलाइन संपादक सहेजे जाते हैं; Shift+Enter नई पंक्ति जोड़ता है। बंद होने पर, Ctrl/Cmd+Enter सहेजता है और Enter नई पंक्ति जोड़ता है।",
   "assignee": "સોંપનાર",
   "assignees": "સોંપણીઓ",
   "cardAssigneesPopup-title": "સોંપનાર",

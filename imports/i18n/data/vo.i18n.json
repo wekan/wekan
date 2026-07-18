@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Cacher l'étiquette de la mini-carte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
+  "submit-on-enter": "Savön redakömapaods me Enter",
+  "submit-on-enter-description": "Ven pö, klidam Enter savon karta-titoli, beskribi e redakömapaodis votik in lien; Shift+Enter läükon lini nulik. Ven öf, Ctrl/Cmd+Enter savon e Enter läükon lini nulik.",
   "assignee": "Intervenant",
   "assignees": "Intervenants",
   "cardAssigneesPopup-title": "Intervenant",

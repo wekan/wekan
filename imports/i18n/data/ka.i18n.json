@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Разрешить пользователям удалять собственные аккаунты",
   "hide-minicard-label-text": "Скрыть текст меток на карточках",
   "show-desktop-drag-handles": "Показать ярлыки для перетаскивания",
+  "submit-on-enter": "რედაქტორების გაგზავნა Enter-ით",
+  "submit-on-enter-description": "ჩართვისას Enter-ის დაჭერა ინახავს ბარათის სათაურს, აღწერას და სხვა ჩაშენებულ რედაქტორებს; Shift+Enter ამატებს ახალ ხაზს. გამორთვისას Ctrl/Cmd+Enter ინახავს, ხოლო Enter ამატებს ახალ ხაზს.",
   "assignee": "Исполнитель",
   "assignees": "პასუხისმგებლები",
   "cardAssigneesPopup-title": "Исполнитель",

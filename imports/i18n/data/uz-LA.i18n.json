@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Foydalanuvchilarga o'z hisoblarini o'chirishga ruxsat bering",
   "hide-minicard-label-text": "Minikarta yorlig'i matnini yashirish",
   "show-desktop-drag-handles": "Ish stoli sudrab tortish tutqichlarini ko'rsatish",
+  "submit-on-enter": "Tahrirlagichlarni Enter bilan saqlash",
+  "submit-on-enter-description": "Yoqilganda Enter tugmasi karta sarlavhasi, tavsifi va boshqa ichki tahrirlagichlarni saqlaydi; Shift+Enter yangi qator qo‘shadi. O‘chirilganda Ctrl/Cmd+Enter saqlaydi, Enter esa yangi qator qo‘shadi.",
   "assignee": "Tayinlovchi",
   "assignees": "Tayinlovchilar",
   "cardAssigneesPopup-title": "Tayinlovchi",

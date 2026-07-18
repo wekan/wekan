@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Ulanyjylara hasabyny özbaşdak pozmaga rugsat beriň",
   "hide-minicard-label-text": "Minikard belliginiň tekstini gizläň",
   "show-desktop-drag-handles": "Iş stolunyň süýrüji tutawaçlaryny görkeziň",
+  "submit-on-enter": "Redaktorlary Enter bilen ugrat",
+  "submit-on-enter-description": "Işjeňleşdirilende, Enter basmak kartanyň adyny, düşündirişini we beýleki içki redaktorlary saklaýar; Shift+Enter täze setir goşýar. Öçürilende, Ctrl/Cmd+Enter saklaýar we Enter täze setir goşýar.",
   "assignee": "Bellenen",
   "assignees": "Bellenenler",
   "cardAssigneesPopup-title": "Bellenen",

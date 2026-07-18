@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "允许用户自行删除其帐户",
   "hide-minicard-label-text": "隐藏迷你卡标签文本",
   "show-desktop-drag-handles": "显示桌面拖动手柄",
+  "submit-on-enter": "用 Enter 保存编辑器",
+  "submit-on-enter-description": "开着个辰光,揿 Enter 会得保存卡片标题、描述搭仔其他内嵌编辑器;Shift+Enter 加一记新行。关脱个辰光,Ctrl/Cmd+Enter 保存,Enter 加新行。",
   "assignee": "受让人",
   "assignees": "受让人",
   "cardAssigneesPopup-title": "受让人",

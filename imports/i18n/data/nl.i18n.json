@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Sta gebruikers toe om hun eigen account te verwijderen",
   "hide-minicard-label-text": "Verberg minikaart labeltekst",
   "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad",
+  "submit-on-enter": "Editors verzenden met Enter",
+  "submit-on-enter-description": "Indien ingeschakeld slaat Enter de kaarttitel, beschrijving en andere inline-editors op; Shift+Enter voegt een nieuwe regel in. Indien uitgeschakeld slaat Ctrl/Cmd+Enter op en voegt Enter een nieuwe regel in.",
   "assignee": "Toegewezen aan",
   "assignees": "Toegewezen personen",
   "cardAssigneesPopup-title": "Toegewezen aan",

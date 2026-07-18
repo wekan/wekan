@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Benarkan pengguna untuk hapuskan akaun mereka sendiri",
   "hide-minicard-label-text": "Sembunyikan teks label kartu mini",
   "show-desktop-drag-handles": "Tampilkan gagang seret desktop",
+  "submit-on-enter": "Kirim editor dengan Enter",
+  "submit-on-enter-description": "Saat aktif, menekan Enter menyimpan judul kartu, deskripsi, dan editor sebaris lainnya; Shift+Enter menyisipkan baris baru. Saat nonaktif, Ctrl/Cmd+Enter menyimpan dan Enter menyisipkan baris baru.",
   "assignee": "Penerima tugas",
   "assignees": "Penerima tugas",
   "cardAssigneesPopup-title": "Penerima tugas",

@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Gba awọn olumulo laaye lati pa akọọlẹ wọn rẹ funrararẹ",
   "hide-minicard-label-text": "Tọju ọrọ aami kaadi minikaadi",
   "show-desktop-drag-handles": "Ṣe afihan awọn ọwọ fa tabili tabili",
+  "submit-on-enter": "Fi awọn olootu silẹ pẹlu Enter",
+  "submit-on-enter-description": "Nigbati o ba wa lori, titẹ Enter fi akọle kaadi, apejuwe ati awọn olootu inu miiran pamọ; Shift+Enter fi laini tuntun sii. Nigbati o ba wa ni pipa, Ctrl/Cmd+Enter fipamọ, Enter si fi laini tuntun sii.",
   "assignee": "Ayanfunni",
   "assignees": "Awọn ayanfunni",
   "cardAssigneesPopup-title": "Ayanfunni",

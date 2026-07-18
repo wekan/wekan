@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Vumela abasebenzisi ukuba bazicime iakhawunti yabo",
   "hide-minicard-label-text": "Fihla itekisi yeleyibhile encinci",
   "show-desktop-drag-handles": "Bonisa iziphatho zotsalo kwidesktop",
+  "submit-on-enter": "Ngenisa abahleli nge-Enter",
+  "submit-on-enter-description": "Xa ivuliwe, ukucofa u-Enter kugcina isihloko sekhadi, inkcazo kunye nabanye abahleli abangaphakathi; Shift+Enter ifaka umgca omtsha. Xa icimile, Ctrl/Cmd+Enter iyagcina kwaye u-Enter ufaka umgca omtsha.",
   "assignee": "Owabelweyo",
   "assignees": "Abathunyiweyo",
   "cardAssigneesPopup-title": "Owabelweyo",

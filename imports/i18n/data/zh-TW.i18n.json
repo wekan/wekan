@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "允許用戶自行刪除其帳戶",
   "hide-minicard-label-text": "隱藏迷你卡片標籤內文",
   "show-desktop-drag-handles": "顯示桌面拖曳工具",
+  "submit-on-enter": "按 Enter 提交編輯器",
+  "submit-on-enter-description": "開啟後，按 Enter 儲存卡片標題、描述及其他內嵌編輯器；Shift+Enter 插入新行。關閉後，Ctrl/Cmd+Enter 儲存，Enter 插入新行。",
   "assignee": "承辦人",
   "assignees": "承辦人",
   "cardAssigneesPopup-title": "承辦人",

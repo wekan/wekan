@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Benarkan pengguna untuk hapuskan akaun mereka sendiri",
   "hide-minicard-label-text": "Sembunyikan teks label kadmini",
   "show-desktop-drag-handles": "Tunjukkan pemegang seret desktop",
+  "submit-on-enter": "Hantar editor dengan Enter",
+  "submit-on-enter-description": "Apabila dihidupkan, menekan Enter menyimpan tajuk kad, penerangan dan editor sebaris lain; Shift+Enter memasukkan baris baharu. Apabila dimatikan, Ctrl/Cmd+Enter menyimpan dan Enter memasukkan baris baharu.",
   "assignee": "Penerima Tugas",
   "assignees": "Penerima Tugas",
   "cardAssigneesPopup-title": "Penerima Tugas",

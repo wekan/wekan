@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Ruhusu watumiaji kufuta akaunti zao wenyewe",
   "hide-minicard-label-text": "Ficha maandishi ya lebo ya kadi ndogo",
   "show-desktop-drag-handles": "Onyesha vishikizo vya kukokota vya eneo-kazi",
+  "submit-on-enter": "Wasilisha wahariri kwa Enter",
+  "submit-on-enter-description": "Ikiwashwa, kubonyeza Enter huhifadhi kichwa cha kadi, maelezo na wahariri wengine wa ndani; Shift+Enter huingiza mstari mpya. Ikizimwa, Ctrl/Cmd+Enter huhifadhi na Enter huingiza mstari mpya.",
   "assignee": "Mkabidhiwa",
   "assignees": "Waliokabidhiwa",
   "cardAssigneesPopup-title": "Mkabidhiwa",

@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Cho phép người dùng tự xóa tài khoản của họ",
   "hide-minicard-label-text": "Ẩn nhãn minicard",
   "show-desktop-drag-handles": "Hiển thị nút kéo thả trên Desktop",
+  "submit-on-enter": "Lưu trình soạn thảo bằng phím Enter",
+  "submit-on-enter-description": "Khi bật, nhấn Enter sẽ lưu tiêu đề thẻ, mô tả và các trình soạn thảo nội tuyến khác; Shift+Enter thêm một dòng mới. Khi tắt, Ctrl/Cmd+Enter để lưu và Enter để thêm dòng mới.",
   "assignee": "Người được giao",
   "assignees": "Người được giao",
   "cardAssigneesPopup-title": "Người được giao",

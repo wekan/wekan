@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Permetti agli utenti di cancellare il loro profilo",
   "hide-minicard-label-text": "Nascondi etichetta minicard",
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento del desktop",
+  "submit-on-enter": "Trimite editoarele cu Enter",
+  "submit-on-enter-description": "Când este activat, apăsarea Enter salvează titlul cardului, descrierea și alte editoare inline; Shift+Enter inserează o linie nouă. Când este dezactivat, Ctrl/Cmd+Enter salvează, iar Enter inserează o linie nouă.",
   "assignee": "Assegnatario",
   "assignees": "Intervenants",
   "cardAssigneesPopup-title": "Assegnatario",

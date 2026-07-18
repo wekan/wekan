@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Разрешить пользователям удалять собственные аккаунты",
   "hide-minicard-label-text": "Скрыть текст меток на карточках",
   "show-desktop-drag-handles": "Показать ярлыки для перетаскивания",
+  "submit-on-enter": "Enter товчоор засварыг илгээх",
+  "submit-on-enter-description": "Асаалттай үед Enter дарахад картын гарчиг, тайлбар болон бусад засварыг хадгална; Shift+Enter шинэ мөр оруулна. Унтраалттай үед Ctrl/Cmd+Enter хадгалж, Enter шинэ мөр оруулна.",
   "assignee": "Исполнитель",
   "assignees": "Хариуцагчид",
   "cardAssigneesPopup-title": "Исполнитель",

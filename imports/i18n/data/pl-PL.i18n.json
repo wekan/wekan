@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Pozwól użytkownikom na usuwanie własnych kont",
   "hide-minicard-label-text": "Ukryj opisy etykiet minikart",
   "show-desktop-drag-handles": "Pokaż przeciągnięcia na pulpit",
+  "submit-on-enter": "Zatwierdzaj edytory klawiszem Enter",
+  "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł karty, opis i inne edytory wbudowane; Shift+Enter wstawia nowy wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowy wiersz.",
   "assignee": "Przypisani",
   "assignees": "Przypisani",
   "cardAssigneesPopup-title": "Przypisani",

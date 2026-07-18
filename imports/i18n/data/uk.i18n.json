@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Дозволити користувачам видаляти свої облікові записи",
   "hide-minicard-label-text": "Сховати текст мітки міні-картки",
   "show-desktop-drag-handles": "Показати ручки перетягування на робочому столі",
+  "submit-on-enter": "Зберігати редактори клавішею Enter",
+  "submit-on-enter-description": "Коли ввімкнено, натискання Enter зберігає назву картки, опис та інші вбудовані редактори; Shift+Enter додає новий рядок. Коли вимкнено, Ctrl/Cmd+Enter зберігає, а Enter додає новий рядок.",
   "assignee": "Виконавець",
   "assignees": "Виконавці",
   "cardAssigneesPopup-title": "Виконавець",

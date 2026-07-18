@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Tillad brugere at slette deres egen konto",
   "hide-minicard-label-text": "Skjul etiketteteksten for minikort",
   "show-desktop-drag-handles": "Vis trække-håndtag for skrivebord",
+  "submit-on-enter": "Send editorer med Enter",
+  "submit-on-enter-description": "Når slået til gemmer et tryk på Enter kortets titel, beskrivelse og andre indbyggede editorer; Shift+Enter indsætter en ny linje. Når slået fra gemmer Ctrl/Cmd+Enter, og Enter indsætter en ny linje.",
   "assignee": "Tildelt til",
   "assignees": "Tilldelade",
   "cardAssigneesPopup-title": "Tildelt til",

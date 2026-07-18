@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "לאפשר למשתמשים למחוק את החשבונות של עצמם",
   "hide-minicard-label-text": "הסתרת טקסט התווית של כרטיסון",
   "show-desktop-drag-handles": "הצגת ידיות גרירה של שולחן העבודה",
+  "submit-on-enter": "שליחת עורכים באמצעות Enter",
+  "submit-on-enter-description": "כאשר מופעל, לחיצה על Enter שומרת את כותרת הכרטיס, התיאור ועורכים מוטבעים אחרים; Shift+Enter מוסיף שורה חדשה. כאשר כבוי, Ctrl/Cmd+Enter שומר ו-Enter מוסיף שורה חדשה.",
   "assignee": "גורם אחראי",
   "assignees": "גורמים אחראים",
   "cardAssigneesPopup-title": "גורם אחראי",

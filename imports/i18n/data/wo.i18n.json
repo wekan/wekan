@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Cacher l'étiquette de la mini-carte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
+  "submit-on-enter": "Denc ay bindkat ak Enter",
+  "submit-on-enter-description": "Bu doon dox, bësal Enter dana denc tur wu kart bi, melokaan mi ak yeneen bindkat yu nekk ci biir; Shift+Enter dana yokk benn liñ bu bees. Bu doon dee, Ctrl/Cmd+Enter dana denc te Enter dana yokk benn liñ bu bees.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "cardAssigneesPopup-title": "Personne assignée",

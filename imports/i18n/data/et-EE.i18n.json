@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Võimaldab kasutajatel ise oma konto kustutada",
   "hide-minicard-label-text": "Peida minikaardi sildi tekst",
   "show-desktop-drag-handles": "Näita töölaua lohistuskäepidemeid",
+  "submit-on-enter": "Salvesta redaktorid klahviga Enter",
+  "submit-on-enter-description": "Kui see on sees, salvestab Enter kaardi pealkirja, kirjelduse ja muud reasisesed redaktorid; Shift+Enter lisab uue rea. Kui see on väljas, salvestab Ctrl/Cmd+Enter ja Enter lisab uue rea.",
   "assignee": "Vastuvõtja",
   "assignees": "Vastutajad",
   "cardAssigneesPopup-title": "Vastuvõtja",

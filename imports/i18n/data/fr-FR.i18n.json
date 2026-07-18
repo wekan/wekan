@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Cacher l'étiquette de la mini-carte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
+  "submit-on-enter": "Valider les éditeurs avec Enter",
+  "submit-on-enter-description": "Lorsque cette option est activée, appuyer sur Enter enregistre le titre de la carte, la description et les autres éditeurs en ligne ; Shift+Enter insère une nouvelle ligne. Lorsqu'elle est désactivée, Ctrl/Cmd+Enter enregistre et Enter insère une nouvelle ligne.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "cardAssigneesPopup-title": "Personne assignée",

@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Cho phép người dùng tự xóa tài khoản của họ",
   "hide-minicard-label-text": "Ẩn nhãn minicard",
   "show-desktop-drag-handles": "Hiển thị nút kéo thả trên Desktop",
+  "submit-on-enter": "ส่งตัวแก้ไขด้วย Enter",
+  "submit-on-enter-description": "เมื่อเปิดใช้งาน การกด Enter จะบันทึกชื่อการ์ด คำอธิบาย และตัวแก้ไขในบรรทัดอื่น ๆ ส่วน Shift+Enter จะขึ้นบรรทัดใหม่ เมื่อปิดใช้งาน Ctrl/Cmd+Enter จะบันทึก และ Enter จะขึ้นบรรทัดใหม่",
   "assignee": "Người được giao",
   "assignees": "ผู้รับผิดชอบ",
   "cardAssigneesPopup-title": "Người được giao",

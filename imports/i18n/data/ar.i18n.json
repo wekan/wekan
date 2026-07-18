@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "به کاربران اجازه دهید خودشان اکانتشان را حذف کنند",
   "hide-minicard-label-text": "مخفی کردن اسم لیبل مینی کارت",
   "show-desktop-drag-handles": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
+  "submit-on-enter": "إرسال المحررات بالضغط على Enter",
+  "submit-on-enter-description": "عند التفعيل، يؤدي الضغط على Enter إلى حفظ عنوان البطاقة ووصفها والمحررات المضمّنة الأخرى؛ ويُدرج Shift+Enter سطراً جديداً. عند التعطيل، يحفظ Ctrl/Cmd+Enter ويُدرج Enter سطراً جديداً.",
   "assignee": "محول‌شده",
   "assignees": "المكلَّفون",
   "cardAssigneesPopup-title": "محول‌شده",
