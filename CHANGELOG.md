@@ -111,7 +111,8 @@ and adds the following features:
   [Part 8](https://github.com/wekan/wekan/commit/97feb986a88f2f6128fd6bf74be922bed83c104e),
   [Part 9](https://github.com/wekan/wekan/commit/91ccef062b5ec866aec8ac4660235e46e14e55ab),
   [Part 10](https://github.com/wekan/wekan/commit/219011e5eb3ef3994a074fed9cc441faa734fada),
-  [Part 11](https://github.com/wekan/wekan/commit/d55c5e2c3cd544c0ad94538b689b63fe50cd6a41).
+  [Part 11](https://github.com/wekan/wekan/commit/d55c5e2c3cd544c0ad94538b689b63fe50cd6a41),
+  [Part 12](https://github.com/wekan/wekan/commit/c00f24d668df1bfc1979a37172dadc1f2d9a77e4).
 
 - **All Boards & board header — many layout fixes**. A batch of UI polish:
   - **Board header (Swimlanes / Lists view):** the right-sidebar **hamburger is always pinned to the right edge**
