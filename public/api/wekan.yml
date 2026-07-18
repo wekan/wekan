@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v9.99
+  version: v10.00
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -4588,6 +4588,17 @@ definitions:
            The color of the board.
         type: string
         enum:
+      customThemeColors:
+        description: |
+           Optional custom colors for the "flat" (1 color) and "clear" (2 colors,
+           a color slide) theme categories — see docs/Theme/Theme.md. Each entry is a
+           #rrggbb hex validated on the server; dark/special themes never store these.
+           Absent = the named `color` theme's stock colors.
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       backgroundImageURL:
         description: |
            The background image URL of the board.
@@ -5132,6 +5143,8 @@ definitions:
       - isActive
   BoardsImportusernames:
     type: object
+  BoardsCustomthemecolors:
+    type: object
   CardComments:
     type: object
     description:  A comment on a card
@@ -5186,6 +5199,15 @@ definitions:
       archivedAt:
         description: |
            latest archiving date
+        type: string
+        x-nullable: true
+      deletedAt:
+        type: string
+        x-nullable: true
+      deletedBy:
+        type: string
+        x-nullable: true
+      deleteBatchId:
         type: string
         x-nullable: true
       parentId:
@@ -5811,6 +5833,15 @@ definitions:
            latest archiving date
         type: string
         x-nullable: true
+      deletedAt:
+        type: string
+        x-nullable: true
+      deletedBy:
+        type: string
+        x-nullable: true
+      deleteBatchId:
+        type: string
+        x-nullable: true
       boardId:
         description: |
            the board associated to this list
@@ -5853,7 +5884,8 @@ definitions:
       width:
         description: |
            The width of the list in pixels (100-1000).
-           Default width is 272 pixels.
+           #6465: default width is 220 pixels (was 272) so more lists fit on
+           screen; kept in sync with DEFAULT_LIST_WIDTH in models/lib/listWidth.js.
         type: number
         x-nullable: true
     required:
@@ -5995,6 +6027,9 @@ definitions:
         type: boolean
         x-nullable: true
       disableWatch:
+        type: boolean
+        x-nullable: true
+      enablePermanentDelete:
         type: boolean
         x-nullable: true
       disableAllExport:
@@ -6379,6 +6414,45 @@ definitions:
         description: |
            per-user preference to render unicode icons in grey
         type: boolean
+      globalThemeColor:
+        description: |
+           #5778: optional per-user GLOBAL theme color override. When set to one of
+           the board color names, that color theme is applied to the WHOLE UI (All
+           Boards, Search, Admin Panel, My Cards, etc.) via a `board-color-<name>`
+           class on <body> and the header — letting a user pick e.g. a dark theme
+           everywhere. Absent = no override (default appearance). A specific board
+           still shows its own Board Settings color while you are on that board.
+        type: string
+      globalThemeCustomColors:
+        description: |
+           Custom colors for the global theme when it is a flat (1 color) or clear
+           (2 colors) theme — see docs/Theme/Theme.md. Each is a validated #rrggbb hex.
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      uiFont:
+        description: |
+           Member Settings / Font (#4759): the user's chosen UI font — one of the
+           curated UI_FONTS (models/lib/uiFonts.js) detected as installed in their
+           browser. Plain text, validated on the server; absent = default font.
+        type: string
+      uiFontSize:
+        description: |
+           Member Settings / Font / Size (#4759): a named preset size key (one of
+           UI_FONT_SIZES, e.g. 'large'), never a free number. Absent / 'default' =
+           the stock size. Validated on the server.
+        type: string
+      uiTextColor:
+        description: |
+           Member Settings / Font / Color (#4759): custom UI text color, chosen from a
+           color wheel. A validated #rrggbb hex; absent = default text color.
+        type: string
+      uiTextBgColor:
+        description: |
+           Member Settings / Font / Color (#4759): custom UI text background color.
+           A validated #rrggbb hex; absent = default (transparent) background.
+        type: string
       dismissedAnnouncementVersion:
         description: |
            version string of the global announcement the user has permanently
@@ -6485,6 +6559,11 @@ definitions:
         items:
           type: string
           x-nullable: true
+      defaultBoardId:
+        description: |
+           #2220: the board that opens automatically after logging in (the user's
+           "home" board). Empty/unset means land on the All Boards page as before.
+        type: string
       icode:
         description: |
            icode
@@ -6681,6 +6760,8 @@ definitions:
       - address
       - verified
   UsersProfileEmailbuffer:
+    type: object
+  UsersProfileGlobalthemecustomcolors:
     type: object
   UsersProfileBoardworkspacestree:
     type: object
