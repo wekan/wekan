@@ -1,6 +1,6 @@
 ## Build from source on Mac
 
-[Build from source on Mac](../../Propietary/Mac.md)
+[Build from source on Mac](../../Propietary/Mac/Mac.md)
 
 ## Build from source on VirtualBox
 

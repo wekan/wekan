@@ -41,7 +41,7 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 ## Requirements
 
 - 64bit: Linux [Snap](https://github.com/wekan/wekan-snap/wiki/Install) or [Sandstorm](https://sandstorm.io) /
-  [Mac](../Platforms/Propietary/Mac.md) / [Windows](../Platforms/Propietary/Windows/Install-Wekan-from-source-on-Windows.md).
+  [Mac](../Platforms/Propietary/Mac/Mac.md) / [Windows](../Platforms/Propietary/Windows/Install-Wekan-from-source-on-Windows.md).
   [More Platforms](../Platforms/FOSS/Platforms.md). [ARM progress](https://github.com/wekan/wekan/issues/1053#issuecomment-410919264).
 - 1 GB RAM minimum free for Wekan. Production server should have miminum total 4 GB RAM.
   For thousands of users, for example with [Docker](../../docker-compose.yml): 3 frontend servers,

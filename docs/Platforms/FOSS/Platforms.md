@@ -54,7 +54,7 @@ Keep backups, Docker is more complex than others above. Use only if you have tim
 
 * [Docker](Docker)
   * [Windows](../Propietary/Windows/Windows.md) + build from source
-  * [Mac](../Propietary/Mac.md)
+  * [Mac](../Propietary/Mac/Mac.md)
   * [SLES 64bit](Docker/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1.md)
 * [Proxy](https://github.com/wekan/wekan/issues/1480)
 

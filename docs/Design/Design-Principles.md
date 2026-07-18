@@ -21,7 +21,7 @@
       - https://wekan.fi/install/
       - [Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md) 
     - Windows [Offline](../Platforms/Propietary/Windows/Offline.md)
-    - Mac [Mac](../Platforms/Propietary/Mac.md)
+    - Mac [Mac](../Platforms/Propietary/Mac/Mac.md)
 - Not like other software:
   - But note that design of all software changes often, when they are in active development.
 - Not bad parts of Trello:

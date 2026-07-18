@@ -1,6 +1,6 @@
 NOTE: If you use MongoDB Snap package below, most likely it works with many distro versions, like newest distros also. But if installing without Snap from https://www.mongodb.com/try/download/community , those packages are not for so many distros and versions.
 
-This page is NOT only about Raspberry Pi. This page IS about install without container for ANY Linux/BSD/[macOS](../../Propietary/Mac.md)/[Windows](../../Propietary/Windows/Offline.md) using CPU of amd64/arm64/s390x/ppc64le.
+This page is NOT only about Raspberry Pi. This page IS about install without container for ANY Linux/BSD/[macOS](../../Propietary/Mac/Mac.md)/[Windows](../../Propietary/Windows/Offline.md) using CPU of amd64/arm64/s390x/ppc64le.
 
 WeKan only requires:
 - WeKan bundle .zip file of Javascript etc for that CPU. Only difference per CPU is that fibers package is compiled for that CPU. Those .zip files are built this way, for example:
