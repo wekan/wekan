@@ -763,6 +763,16 @@ Meteor.methods({
     }
   },
 
+  // Persist the right board sidebar width (px) for a logged-in user. Anonymous
+  // users on public boards keep it in localStorage on the client instead.
+  async setSidebarWidth(width) {
+    check(width, Number);
+    const user = await ReactiveCache.getCurrentUser();
+    if (user) {
+      await user.setSidebarWidth(width);
+    }
+  },
+
   // #5729 Enable/disable the per-user "same width for all lists" mode for a
   // board. This is a personal viewer setting (like personal list widths), so any
   // logged-in user may toggle it for any board they can view.

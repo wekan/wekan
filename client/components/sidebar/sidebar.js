@@ -138,7 +138,137 @@ Template.sidebar.onCreated(function() {
   };
 });
 
+// ── Right sidebar drag-to-resize (desktop only) ──────────────────────────────
+// Drag the sidebar's left edge to change its width, like resizing a spreadsheet
+// column (mirrors the list resize in client/components/lists/list.js). The width
+// is saved to the user profile for logged-in users, or browser localStorage for
+// anonymous users on a public board. On phones the sidebar stays full width.
+const MIN_SIDEBAR_WIDTH = 280;
+const SIDEBAR_WIDTH_STORAGE_KEY = 'wekan-sidebar-width';
+const isMobileSidebar = () => window.innerWidth <= 800;
+const maxSidebarWidth = () =>
+  Math.max(MIN_SIDEBAR_WIDTH, Math.min(900, window.innerWidth - 80));
+
+function readSavedSidebarWidth() {
+  const user = ReactiveCache.getCurrentUser();
+  if (user) return user.getSidebarWidth();
+  try {
+    const v = window.localStorage.getItem(SIDEBAR_WIDTH_STORAGE_KEY);
+    return v ? parseInt(v, 10) : undefined;
+  } catch (e) {
+    return undefined;
+  }
+}
+
+function saveSidebarWidth(width) {
+  const user = ReactiveCache.getCurrentUser();
+  if (user) {
+    Meteor.call('setSidebarWidth', width, err => {
+      if (err) console.error('Error saving sidebar width:', err);
+    });
+  } else {
+    try {
+      window.localStorage.setItem(SIDEBAR_WIDTH_STORAGE_KEY, String(width));
+    } catch (e) {
+      /* localStorage unavailable (private mode) — width just isn't persisted */
+    }
+  }
+}
+
+function applySavedSidebarWidth($sidebar) {
+  // On phones the sidebar is full width (a !important CSS rule), so never set an
+  // inline width there; clear any leftover so shrinking desktop -> mobile works.
+  if (isMobileSidebar()) {
+    $sidebar[0].style.removeProperty('width');
+    return;
+  }
+  const w = readSavedSidebarWidth();
+  if (typeof w === 'number' && w >= MIN_SIDEBAR_WIDTH) {
+    $sidebar[0].style.width = `${Math.min(w, maxSidebarWidth())}px`;
+  } else {
+    $sidebar[0].style.removeProperty('width'); // fall back to the CSS clamp
+  }
+}
+
+Template.sidebar.onRendered(function() {
+  const tpl = this;
+  const $sidebar = tpl.$('.board-sidebar');
+  const $handle = tpl.$('.js-sidebar-resize-handle');
+  if (!$sidebar.length || !$handle.length) return;
+
+  // Apply the saved width when the current user (and thus the saved value)
+  // resolves, and re-apply on window resize so crossing the mobile breakpoint
+  // clears/restores the inline width.
+  tpl.autorun(() => {
+    ReactiveCache.getCurrentUser(); // reactive dependency on login state
+    applySavedSidebarWidth($sidebar);
+  });
+  const onWinResize = () => applySavedSidebarWidth($sidebar);
+  window.addEventListener('resize', onWinResize);
+
+  let isResizing = false;
+  let startX = 0;
+  let startWidth = 0;
+  let lastWidth = 0;
+
+  const getPageX = (e) => {
+    const oe = e.originalEvent || e;
+    if (oe.touches && oe.touches.length) return oe.touches[0].pageX;
+    if (oe.changedTouches && oe.changedTouches.length) return oe.changedTouches[0].pageX;
+    return e.pageX;
+  };
+  // Direction: the sidebar docks to the logical inline-end. In LTR that is the
+  // right, so its left-edge handle widens the panel when dragged left; RTL puts
+  // the panel on the left, mirroring the direction.
+  const isRtl = () =>
+    (document.documentElement.getAttribute('dir') || document.dir) === 'rtl';
+
+  const startResize = (e) => {
+    if (isMobileSidebar()) return; // no resize on phones
+    isResizing = true;
+    startX = getPageX(e);
+    startWidth = $sidebar.outerWidth();
+    lastWidth = startWidth;
+    $('body').addClass('sidebar-resizing-active');
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const doResize = (e) => {
+    if (!isResizing) return;
+    const delta = (startX - getPageX(e)) * (isRtl() ? -1 : 1);
+    const w = Math.max(MIN_SIDEBAR_WIDTH, Math.min(maxSidebarWidth(), startWidth + delta));
+    lastWidth = w;
+    $sidebar[0].style.width = `${w}px`;
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const stopResize = (e) => {
+    if (!isResizing) return;
+    isResizing = false;
+    $('body').removeClass('sidebar-resizing-active');
+    saveSidebarWidth(Math.round(lastWidth));
+    if (e && e.preventDefault) e.preventDefault();
+  };
+
+  $handle.on('mousedown', startResize);
+  $(document).on('mousemove', doResize);
+  $(document).on('mouseup', stopResize);
+  // Native touch API so { passive: false } applies and preventDefault works.
+  $handle[0].addEventListener('touchstart', startResize, { passive: false });
+  document.addEventListener('touchmove', doResize, { passive: false });
+  document.addEventListener('touchend', stopResize, { passive: false });
+
+  tpl._sidebarResizeCleanup = () => {
+    window.removeEventListener('resize', onWinResize);
+    $(document).off('mousemove', doResize);
+    $(document).off('mouseup', stopResize);
+    document.removeEventListener('touchmove', doResize);
+    document.removeEventListener('touchend', stopResize);
+  };
+});
+
 Template.sidebar.onDestroyed(function() {
+  if (this._sidebarResizeCleanup) this._sidebarResizeCleanup();
   clearSidebarInstance(this);
   Sidebar = null;
 });

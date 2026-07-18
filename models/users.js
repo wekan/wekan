@@ -632,6 +632,14 @@ Users.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    'profile.sidebarWidth': {
+      /**
+       * User-specified width (px) of the right board sidebar, set by dragging its
+       * left edge (desktop only; mobile is always full width). Unset = CSS default.
+       */
+      type: Number,
+      optional: true,
+    },
     'profile.listWidths': {
       /**
        * User-specified width of each list (or nothing if default).
@@ -1267,6 +1275,14 @@ Users.helpers({
   getListWidths() {
     const { listWidths = {}, } = this.profile || {};
     return listWidths;
+  },
+  // Right board sidebar width (px), or undefined for the CSS default. Set by
+  // dragging the sidebar's left edge (desktop only).
+  getSidebarWidth() {
+    return (this.profile || {}).sidebarWidth;
+  },
+  async setSidebarWidth(width) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.sidebarWidth': width } });
   },
   getListWidth(boardId, listId) {
     const listWidths = this.getListWidths();

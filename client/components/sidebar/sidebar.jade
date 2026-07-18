@@ -1,5 +1,9 @@
 template(name="sidebar")
   .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}} {{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}")
+    //- Drag the sidebar's LEFT edge to resize its width (desktop only; hidden on
+      mobile where the sidebar is full width). Saved to the user profile (or
+      localStorage for anonymous users on a public board).
+    .sidebar-resize-handle.js-sidebar-resize-handle.nodragscroll(title="{{_ 'drag-to-resize-sidebar'}}")
     //a.sidebar-tongue.js-toggle-sidebar(
     //
       class="{{#if isTongueHidden}}is-hidden{{/if}}",
