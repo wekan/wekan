@@ -86,6 +86,45 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds a new developer documentation set and release automation.
+
+It adds the following documentation, a new `docs/Design/Autoupdate/` set describing
+how software is installed and updated — manually and automatically (Snap-like) — on
+every operating system, and how to release WeKan to more platforms:
+
+- [Added why the ppc64el/s390x snap builds fail on core24 (the QEMU multiarch action caps at core22), moved to Autoupdate/Forks/Snap-Core.md](https://github.com/wekan/wekan/commit/742fc9221a6671dbf072e06a15cd3fd8bf409f32).
+  Thanks to xet7.
+- [Added Windows install/update platform comparison (manual vs automatic, like Snap)](https://github.com/wekan/wekan/commit/3bfc6cce56e167e0b61ea674cd5e13b51c81092c).
+  Thanks to xet7.
+- [Added macOS install/update platform comparison](https://github.com/wekan/wekan/commit/2a878d55e7d4cf04ba5896e87e6f49ab338dda69).
+  Thanks to xet7.
+- [Added per-OS install/update comparison docs for all operating systems (Linux, BSD, Haiku, Amiga, RISC OS, Solaris/illumos, AIX, HP-UX, OpenVMS, z/OS, ArcaOS, ReactOS, FreeDOS, Plan 9, Redox, SerenityOS, Android, iOS, ChromeOS, HarmonyOS, Ubuntu Touch, Sailfish, postmarketOS, KaiOS, Tizen, webOS and TV/streaming OSes), plus the Snap-Ondra-Gantt.md variant-snap spec](https://github.com/wekan/wekan/commit/cf1823b510b4abd67c8c32f605ddcfc956ea8802).
+  Thanks to xet7.
+- [Added UCS.md: releasing the Docker WeKan UCS App Center app with automatic MongoDB 3.x to FerretDB v1 SQLite migration](https://github.com/wekan/wekan/commit/58c0e6d1f8bfabc624c870c9e91c6a54f0877cda).
+  Thanks to xet7.
+- [Added Nextcloud.md: building WeKan as a Nextcloud ExApp, App Store publishing, and AI (Task Processing API) / Deck / OIDC SSO integrations](https://github.com/wekan/wekan/commit/8ae0ee54460444f6517fbe5a63f6ba143d5b6277).
+  Thanks to xet7.
+
+and the following documentation reorganization:
+
+- [Moved Mac.md into docs/Platforms/Propietary/Mac/ and updated all links](https://github.com/wekan/wekan/commit/8cf7dd68cc3a6cf16362dc58ba789cff1d361564).
+  Thanks to xet7.
+- [Moved the auto-update dev docs into docs/Design/Autoupdate/](https://github.com/wekan/wekan/commit/48a60a1141cafdb077239f619b8d03fb4d1f8a97).
+  Thanks to xet7.
+- [Moved the per-OS comparison docs into Autoupdate/OS/](https://github.com/wekan/wekan/commit/c1ffed59a7a54bc3b28d94a243522eee20d0b791).
+  Thanks to xet7.
+- [Moved Autoupdate/Snap.md to Autoupdate/Forks/Snap-Core.md and repointed links](https://github.com/wekan/wekan/commit/cf55da122ac31ae14c17780ea027c119e00f3abf).
+  Thanks to xet7.
+
+and the following release automation:
+
+- [Added guarded snap-variants / ucs / nextcloud publish jobs to release-all.yml (dormant until their secrets are set, so ordinary releases are unaffected)](https://github.com/wekan/wekan/commit/2054ea2b54a193b9e53267b3dc3fbe15056c9e1e).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.01 2026-07-18 WeKan ® release
 
 This release adds the following features:
