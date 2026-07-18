@@ -306,7 +306,7 @@ and fixes the following bugs:
   - [Updates](https://github.com/wekan/wekan/commit/861ded439e08dfe16e65f19a3e150d83bbd8286f)
   - [Updated ChangeLog](https://github.com/wekan/wekan/commit/66a2f8ddc8f4bc95fe08478f1d0eeda08f87cf82)
 
-Thanks to above for their contributions.
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.99 2026-07-17 WeKan ® release
 
@@ -370,7 +370,7 @@ boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](
     environment-specific and lives in the FerretDB service log.
   - Thanks to **uusijani** (report) and **xet7** (fix).
 
-Thanks to above for their contributions.
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.98 2026-07-17 WeKan ® release
 
@@ -403,7 +403,7 @@ This release fixes the following SECURITY ISSUES found by GitHub CodeQL code sca
     regression test pins that out-of-range bytes are never wrapped.
   - Thanks to **GitHub CodeQL** (code scanning alert #422) and **xet7** (fix).
 
-Thanks to above for their contributions.
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v9.97 2026-07-17 WeKan ® release
 
