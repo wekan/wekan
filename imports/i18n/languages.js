@@ -930,6 +930,13 @@ export default {
     load: () => import('./data/yue_CN.i18n.json'),
     rtl: false,
   },
+  "zh": {
+    code: "zh",
+    tag: "zh",
+    name: "中文",
+    load: () => import('./data/zh.i18n.json'),
+    rtl: false,
+  },
   "zh-CN": {
     code: "zh",
     tag: "zh-CN",
