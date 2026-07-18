@@ -90,256 +90,221 @@ them up next.
 
 This release adds the following updates:
 
-- [Updated Sandstorm Backup docs](https://github.com/wekan/wekan/commit/50dd05ceee9aa954bb09c239ed057334de63015a).
-  Thanks to robertdahlem and xet7.
+- [Updated Sandstorm Backup docs](https://github.com/wekan/wekan/commit/50dd05ceee9aa954bb09c239ed057334de63015a). Thanks to robertdahlem and xet7.
 
 and adds the following features:
 
 - **WeKan has been translated to 154 languages. Thanks to xet7.** Every language file in
   `imports/i18n/data/` is now filled in (previously most were largely English). Each language matches its own
   existing terminology as a glossary plus standard Kanban terms; product/brand names, acronyms, placeholders and
-  markup are preserved; regional variants were seeded from their base language; and Wu Chinese (`wuu-Hans`) and
-  generic Chinese (`zh`) were registered so all languages are browser-detectable and visible in the Change Language
-  popup. `releases/translations-push-all-translations.sh` force-pushes every language to Transifex.
-  [Part 1](https://github.com/wekan/wekan/commit/a9f2e9f50cbb55eb865478ac14ce2ac1d80b5913),
-  [Part 2](https://github.com/wekan/wekan/commit/63bda22faacd430f4680c9cbe0ce521129096a5e),
-  [Part 3](https://github.com/wekan/wekan/commit/7691829cdb293796eab7794eae6c0cb4ec829e6b),
-  [Part 4](https://github.com/wekan/wekan/commit/ea4a10c212c8037b833ece0010032f6a8d52b9a8),
-  [Part 5](https://github.com/wekan/wekan/commit/c795d13450fc7fea5f9cc55fbdc1ac843aeafb6d),
-  [Part 6](https://github.com/wekan/wekan/commit/75ec34e83726f7792240edef70de59648c96ef35),
-  [Part 7](https://github.com/wekan/wekan/commit/a184a3a717331239f38203fc56ed78cc9a04f11e),
-  [Part 8](https://github.com/wekan/wekan/commit/97feb986a88f2f6128fd6bf74be922bed83c104e),
-  [Part 9](https://github.com/wekan/wekan/commit/91ccef062b5ec866aec8ac4660235e46e14e55ab),
-  [Part 10](https://github.com/wekan/wekan/commit/219011e5eb3ef3994a074fed9cc441faa734fada),
-  [Part 11](https://github.com/wekan/wekan/commit/d55c5e2c3cd544c0ad94538b689b63fe50cd6a41),
-  [Part 12](https://github.com/wekan/wekan/commit/c00f24d668df1bfc1979a37172dadc1f2d9a77e4).
+  markup are preserved; regional variants were seeded from their base language; and a few wrong ones were corrected
+  (Wu Chinese `wuu-Hans` was registered; the `wa-RR` file is Waray/`war`, not a Walloon variant, so it was
+  re-translated; Wolof/Malay display names were fixed) so that **all languages are browser-detectable and visible in
+  the Change Language popup**. `releases/translations/push-all-translations.sh` force-pushes every language to
+  Transifex. Commits:
+  - [Finnish: translate newest UI strings (theme, font, size, colors, Sandstorm)](https://github.com/wekan/wekan/commit/061eba8b7aa4c96e356c46c0e47fb22b1b773f8d)
+  - [i18n: translate new admin/import-export strings to Finnish](https://github.com/wekan/wekan/commit/687a4af8617c0b06f98e20b283b0a2fd329a76a3)
+  - [releases: add translations-push-all-translations.sh (force-push all languages)](https://github.com/wekan/wekan/commit/a9f2e9f50cbb55eb865478ac14ce2ac1d80b5913)
+  - [i18n: translate untranslated strings (wave 1: zh-TW, pt-BR, da, he, sv)](https://github.com/wekan/wekan/commit/63bda22faacd430f4680c9cbe0ce521129096a5e)
+  - [i18n: translate untranslated strings (wave 2: 15 major languages)](https://github.com/wekan/wekan/commit/7691829cdb293796eab7794eae6c0cb4ec829e6b)
+  - [i18n: seed 32 regional variants from their translated base languages](https://github.com/wekan/wekan/commit/ea4a10c212c8037b833ece0010032f6a8d52b9a8)
+  - [i18n: seed close-relative lects as baselines (cmn, wuu, yue, ja-Hira, vls, ary)](https://github.com/wekan/wekan/commit/c795d13450fc7fea5f9cc55fbdc1ac843aeafb6d)
+  - [i18n: register generic Chinese (zh) so it is selectable and browser-detectable](https://github.com/wekan/wekan/commit/75ec34e83726f7792240edef70de59648c96ef35)
+  - [i18n: translate untranslated strings (wave 4: 15 languages + 9 variants)](https://github.com/wekan/wekan/commit/a184a3a717331239f38203fc56ed78cc9a04f11e)
+  - [i18n: translate untranslated strings (wave 5: 15 languages + 5 variants)](https://github.com/wekan/wekan/commit/97feb986a88f2f6128fd6bf74be922bed83c104e)
+  - [i18n: translate untranslated strings (wave 6: 15 languages + 2 variants)](https://github.com/wekan/wekan/commit/91ccef062b5ec866aec8ac4660235e46e14e55ab)
+  - [i18n: translate untranslated strings (wave 7, final: 14 languages + 5 variants)](https://github.com/wekan/wekan/commit/219011e5eb3ef3994a074fed9cc441faa734fada)
+  - [WeKan has been translated to 154 languages](https://github.com/wekan/wekan/commit/01d55828d23a645e1c8a841bb4e6357223399d47)
+  - [i18n: register wuu-Hans, fix Wolof/Malay names, add wuu browser alias](https://github.com/wekan/wekan/commit/d55c5e2c3cd544c0ad94538b689b63fe50cd6a41)
+  - [Changelog: WeKan translated to 154 languages, with commit links](https://github.com/wekan/wekan/commit/5b3394af2f3fad92286260d8e94158988e2f3196)
+  - [Moved translation script to correct directory. Thanks to xet7](https://github.com/wekan/wekan/commit/95552881fc7e7256edadf51aa84b6b4436cb0e24)
+  - [i18n: fix wa-RR — translate as Waray (war), not Walloon](https://github.com/wekan/wekan/commit/c00f24d668df1bfc1979a37172dadc1f2d9a77e4)
+  - [Changelog: add Part 12 (Waray wa-RR fix) to the 154-languages entry](https://github.com/wekan/wekan/commit/2cf878215d5cb09f8bfa7f8368e9cc36be3931d3)
+  - [releases: fix push-all-translations.sh cd depth for its translations/ location](https://github.com/wekan/wekan/commit/2be92538391e1e2b92c87ab4e2217ce2e9e39ec0)
 
-- **All Boards & board header — many layout fixes**. A batch of UI polish:
-  - **Board header (Swimlanes / Lists view):** the right-sidebar **hamburger is always pinned to the right edge**
-    at every window width, with a small gap matching the top-bar user-name gap and no wasted space around it; the
-    duplicate **Board Settings cog was removed** (Board Settings is already reachable from the right sidebar).
-  - **All Boards page:** the empty grey band above the layout was removed; the **My Boards toolbar now wraps** so
-    Sort / Multi-Selection / Clear stay visible on narrow windows; the toolbar order is **Multi-Selection, then
-    Sort, then Search boards**; the **Multi-Selection button now looks like the one in the Swimlanes view** (icon +
-    label + nested reset); the **"+ Add Board" / "+ Add Template Container" tiles are the same height as board
-    icons**; the board-tile **drag handle sits at the right middle** with a transparent background (icon only); and
-    the search box + "+ Add …" text vertical alignment were tuned.
-  - **Top bar:** the **mobile/desktop toggle and zoom** controls swapped places (and are no longer hidden when the
-    logo is hidden). Thanks to **xet7**.
+- **Member menu / Change Color — global theme override, visible swatches, applies everywhere, no Save button**
+  ([#5778](https://github.com/wekan/wekan/issues/5778), `docs/Theme/Theme.md`). The member menu gets a **Change
+  Color** entry that works like Board Settings / Change Color but is a **per-user global override** saved to your
+  profile, so the chosen theme applies to the **whole UI** — All Boards, Search, Admin Panel, My Cards, Due Cards
+  and board pages — via a `board-color-<name>` class on `<body>`/header (while you are on a board, that board's own
+  color still wins). This makes a **dark theme everywhere** possible. **Done differently from the first cut:** the
+  picker was initially built as **two-level dropdowns** (category then theme); that was replaced by **visible color
+  swatches grouped by category** (Flat / Clear / Dark / Special, category name above each group), and the **Save
+  button was removed — clicking a swatch applies immediately**. **Flat** themes allow **1 custom color** and
+  **clear** themes **2** (a gradient) via the native color wheel; **dark**/**special** are fixed. Custom colors are
+  validated server-side as `#rrggbb` and applied as CSS variables (`--theme-accent` / `--theme-accent-2`). Category
+  titles are left-aligned and the popup has a title. Thanks to **xet7**. Commits:
+  - [Member Menu / Change Color: global per-user theme override (#5778)](https://github.com/wekan/wekan/commit/eab1546b885336502549d9c4fcc45feec661310a)
+  - [Select Color: theme categories core + design doc (docs/Theme/Theme.md)](https://github.com/wekan/wekan/commit/49285dad1950a3019972dbf08d40201b256719ca)
+  - [Select Color: two-level dropdown picker + custom colors (#5778)](https://github.com/wekan/wekan/commit/d0a1e43f364d8ad0caef725e5d48db507887a962)
+  - [Select Color: global override applies everywhere + visible grouped swatches (#5778)](https://github.com/wekan/wekan/commit/1cd32001d474bed977d56ff0fdbcfbc090191974)
+  - [Change Color popup: immediate apply (no Save), left-aligned titles, title, spacing](https://github.com/wekan/wekan/commit/772ae061f109478a875fc6e570f0afe26e572148)
+  - [Change Color popup: remove the "Preview" text from the custom-color preview swatch](https://github.com/wekan/wekan/commit/0f87c3bf8b33241927ff5437c222907986ab37df)
 
-- **Change Color / Select Color — visible swatches, applies everywhere, no Save button**
-  ([#5778](https://github.com/wekan/wekan/issues/5778)). Both the Board Settings and Member Settings color pickers
-  now show **visible color swatches grouped by category** (Flat / Clear / Dark / Special), with the category name
-  above each group, instead of hard-to-read dropdowns. Clicking a color **applies it immediately** (the Save
-  button is gone). The global override now themes the **whole UI including board pages** (not just All Boards /
-  Admin). Category titles are left-aligned, and the Member Settings Change Color popup now has a **title**. Thanks
-  to **xet7**.
+- **Member Settings / Font — pick an installed UI font, size and text colors**
+  (part of [#4759](https://github.com/wekan/wekan/issues/4759)). A new **Font** member-menu entry lets you choose a
+  UI font that **already exists in your browser** (canvas-detected; names are plain text, never HTML/markdown,
+  validated server-side against a curated whitelist — only a known font name and a preset percentage ever reach the
+  DOM), a font **size**, and custom **text** and **text-background** colors (each unsettable). **Done differently
+  from the first cut:** the font and size were first built as **dropdowns**; that was replaced by **buttons** — one
+  **font-name button per detected font, each rendered in its own font**, and a row of **size buttons** (smaller …
+  100% in the middle … larger) — that **apply immediately on click** (no Save). A **preview pangram** shows below
+  the font buttons, the **Unset** links are styled as buttons, and the popup has a title. Stored as `profile.uiFont`
+  / `profile.uiFontSize` / `profile.uiTextColor` / `profile.uiTextBgColor`. (Only the font part of #4759, so the
+  issue stays open.) Thanks to **xet7**. Commits:
+  - [Member Settings / Font: pick an installed font + preset size (#4759)](https://github.com/wekan/wekan/commit/3c9524f61a43cbf92f856f0fb2ff1f9b291d4e05)
+  - [Member Settings / Font / Color: custom text + background color (#4759)](https://github.com/wekan/wekan/commit/22c7d5376bcf7990890c7254c80c1e2dfd9e419c)
+  - [Fix #4759 regression: uiTextColor/uiTextBgColor custom() rejected every user insert](https://github.com/wekan/wekan/commit/437c64c9a0c05dbf3d12a8e45e0b8281f3c326e6)
+  - [Member Settings / Font popup: add a title (changeFontPopup-title)](https://github.com/wekan/wekan/commit/969f96d74219061e05093d5dff7061a684d22f65)
+  - [Member Settings / Font: font-name + size buttons, immediate apply (no dropdowns)](https://github.com/wekan/wekan/commit/bd8e417be18837b2e4600b3b25fa605a83910a2f)
+  - [Member Settings / Font: show the preview pangram below the font-name buttons](https://github.com/wekan/wekan/commit/aa15e726829a8e070634d7c04698bd251f817f08)
+  - [Font popup: style the "Unset" colour reset links as buttons](https://github.com/wekan/wekan/commit/3d190ca0222d657827ed03993ba542279148482a)
 
-- **Fix: creating a user could fail after the Member Settings / Font color feature**
-  ([#4759](https://github.com/wekan/wekan/issues/4759)). The new `profile.uiTextColor` / `profile.uiTextBgColor`
-  schema fields ran their `#rrggbb` validator on **every** user insert, even when unset, so `check`/collection2
-  threw a `ValidationError` and blocked user creation (surfacing as a SyncedCron fatal error). The validators now
-  skip unset values. Thanks to **xet7**.
+- **Soft delete + Undo/Redo + change-History — deleting is reversible, and moves can be undone**
+  ([#1023](https://github.com/wekan/wekan/issues/1023), [#6478](https://github.com/wekan/wekan/issues/6478),
+  `docs/Features/Undo/Undo.md`). Deleting a **list** no longer destroys it: the list and its cards are **marked**
+  deleted (`deletedAt`/`deletedBy`/`deleteBatchId`), hidden from the board, and restorable via **`lists.restore`**
+  or **`Ctrl+Z`** — the first slice of a general "no permanent delete in ordinary use" principle (physical deletion
+  limited to GDPR/account erasure and an explicit Global-Admin purge behind an off-by-default **Admin Panel /
+  Features / Delete** flag). Card/list/swimlane **moves** are now undoable/redoable with `Ctrl+Z` / `Ctrl+Y` (the
+  `userPositionHistory` collection was silently **not recording** — its guard checked an un-imported global — and had
+  no redo or key bindings; all fixed, selection logic unit-tested). Design unifies this into one universal
+  change-History with scoped views. Activities were confirmed to already load progressively. Thanks to **xet7**.
+  Commits:
+  - [Soft delete for lists: delete = mark, restorable + undoable (#1023)](https://github.com/wekan/wekan/commit/46924985f88b473e054158ecae68af6d7cce3556)
+  - [Undo docs: soft-delete design (delete = mark, never destroy)](https://github.com/wekan/wekan/commit/58344db0d7e3ed9e4f8ca638e0b3e00d2813ac63)
+  - [#6478: undo/redo for card/list/swimlane moves + confirm high-impact list move on touch](https://github.com/wekan/wekan/commit/4ca33d29f78bd81cecc931faa5164f862823ad52)
+  - [Docs: design for per-group card History (view + restore)](https://github.com/wekan/wekan/commit/3d1276fc1fbd063f1c7b79467b788f13a5e62435)
+  - [Docs: undo/redo + high-impact confirmation feature doc](https://github.com/wekan/wekan/commit/f3354f5cc8577cda46d2789230e8d30939bd927d)
+  - [Docs: unify undo/redo into one universal change-History (every change) with many scoped views](https://github.com/wekan/wekan/commit/9be41ab34b1bd596a82b95f088e49e94da8b988c)
+  - [Activities already load progressively (infinite scroll), like visible cards](https://github.com/wekan/wekan/commit/e246403bb6969f402e066d01e256e2c56f10ff1c)
 
-- **Dev: `rebuild-wekan.sh` CURRENT-IP dev-server options no longer crash with "Invalid URL"**. The IP detection
-  is now subnet-agnostic (derived from the default route, with a `hostname -I` then `localhost` fallback), so it
-  can no longer produce `http://:3000`. Thanks to **xet7**.
-
-- **Member Settings / Font — pick a UI font and size**
-  (part of [#4759](https://github.com/wekan/wekan/issues/4759)). The member menu has a new **Font** entry with a
-  popup that offers a **dropdown of fonts detected as actually installed** in your browser (no free typing — labels are
-  plain text, never HTML/markdown) plus a **Font size** dropdown of sensible presets (Smaller … Largest; not a typed
-  number). Both have a **Default** option that unsets the custom choice. The values are validated server-side against a
-  curated whitelist / preset list (no CSS-injection surface — only a known font name and a preset percentage ever reach
-  the DOM) and applied UI-wide via CSS variables. Stored as `profile.uiFont` / `profile.uiFontSize`. (Only the font
-  selection part of #4759; the issue asks for more, so it stays open.) Thanks to **xet7**.
-
-- **Select Color redesign — theme categories + custom colors**
-  ([#5778](https://github.com/wekan/wekan/issues/5778), `docs/Theme/Theme.md`). Both the Board Settings and
-  Member Settings **Change Color** pickers now use **two-level dropdowns**: first pick a **category** (flat, clear,
-  dark, special), then the **theme** within it. For **flat** themes you can pick **1 custom color** and for **clear**
-  themes **2 custom colors** (a color slide / gradient) with the native **color wheel**; **dark** and **special**
-  themes are fixed (no custom colors). Custom colors are validated server-side as `#rrggbb` (no CSS-injection
-  surface), stored in `board.customThemeColors` / `profile.globalThemeCustomColors`, and applied as CSS variables
-  (`--theme-accent` / `--theme-accent-2`) that recolor the header, primary buttons and sidebar button. Also fixes the
-  global override autorun never having been loaded. Thanks to **xet7**.
-
-- **Global theme color — pick a theme (e.g. dark) for the whole UI**
-  ([#5778](https://github.com/wekan/wekan/issues/5778)). The member menu has a new **Change Color** entry that
-  works like Board Settings / Change Color, but is a **per-user global override** saved to your profile: the chosen
-  color theme applies to **every page** — All Boards, Search All Boards, Admin Panel, My Cards, Due Cards, etc. —
-  by adding a `board-color-<name>` class to `<body>` and the header. This makes it possible to use a **dark theme**
-  (`dark`, `midnight`, `moderndark`, `exodark`, `cleandark`) or any other theme everywhere. The first popup entry
-  clears the override (back to default). While you are on a specific board, that board's own color still wins, so the
-  two never clash. Stored as `profile.globalThemeColor` via a validated `setGlobalThemeColor` method. Thanks to
-  **xet7**.
-
-- **Soft delete — deleting a list is now reversible (delete = mark, never destroy)**
-  ([#1023](https://github.com/wekan/wekan/issues/1023)). Deleting a list no longer destroys it: the list and its
-  cards are **marked** deleted (`deletedAt`/`deletedBy`/`deleteBatchId`), hidden from the board, and recorded as a
-  reversible change, so the whole list can be brought back with **`lists.restore`** or simply **`Ctrl+Z`** (undo).
-  This is the first slice of a general "no permanent delete in ordinary use" principle: physical deletion is limited
-  to GDPR/account erasure and an explicit **Global-Admin purge**, gated behind a new **Admin Panel / Features /
-  Delete → "Enable permanent delete for Global Admin"** toggle (off by default). Core pieces: `models/lib/softDelete.js`
-  (pure, unit-tested helpers), the `enablePermanentDelete` setting/feature-flag, soft-delete schema fields on Lists &
-  Cards, `deletedAt: null` filtering on the board/swimlane list render paths, `lists.softRemove`/`lists.restore`/
-  `lists.purge` (purge gated by `canPurge`), and `undo()`/`redo()` handling of `delete`/`restore`. Design and the
-  planned rollout to other entities + the Recycle Bin / admin Delete table are in `docs/Features/Undo/Undo.md`.
-  Thanks to **xet7**.
-
-- **Sandstorm: a single-board grain opens straight into that board again**
-  ([#2220](https://github.com/wekan/wekan/issues/2220)). When a Sandstorm grain has exactly **one** board, opening
-  it now redirects straight to that board — restoring the old "grain opens one board" behaviour — **without saving
-  anything**. If you have explicitly chosen a Home board it is honoured; if the grain has **many** boards and no
-  chosen Home board, it shows the All Boards page. Setting a Home board stays a separate, explicit action (the All
-  Boards home toggle). The decision is reactive, so it waits out Sandstorm's asynchronous grain login and board
-  loading before acting. Sandstorm only. Thanks to **xet7**.
-
-- **Choose a board that opens automatically after you log in — infrastructure, UI currently disabled**
-  ([#2220](https://github.com/wekan/wekan/issues/2220)). The per-user default "home" board and the once-per-session
-  login redirect are implemented (`profile.defaultBoardId`, honoured by the router and by the Sandstorm
-  single-board auto-open above). The board-tile **home (house) toggle on the All Boards page is currently hidden
-  and setting a home board from there is disabled** — the redirect infrastructure remains for a future re-enable.
-  Thanks to **xet7**.
+- **Home board — set a board that opens automatically after login**
+  ([#2220](https://github.com/wekan/wekan/issues/2220)). A per-user default "home" board (`profile.defaultBoardId`)
+  opens automatically after login on **all deployments** (a once-per-session router redirect), and on **Sandstorm** a
+  grain with exactly one board again opens straight into it (**without saving anything**; a saved Home board wins, a
+  many-board grain with no choice shows All Boards). You **set the Home board from the All Boards page via
+  Multi-Selection**: turn Multi-Selection on, select a board, and click the **home** action in the new
+  **"Selected:"** row (which also has a **star** action); the Home board then shows a **home badge** and sits at the
+  **top of Starred**. **Done differently:** the earlier per-board-tile home toggle was hidden, but setting a Home
+  board was brought back through the Multi-Selection "Selected:" action — so the feature is **available, not
+  disabled, and not Sandstorm-only** — and the initial Sandstorm "save the single-board choice" was changed to
+  **no-save**. Thanks to **xet7**. Commits:
+  - [Feature #2220: mark a board to open automatically after login (home board)](https://github.com/wekan/wekan/commit/e8ced84172ec7950800becfee9860c33e964034e)
+  - [Sandstorm: auto-open a single-board grain (no save) (#2220)](https://github.com/wekan/wekan/commit/9a0c0613a5909f9a37f6afb20890894b8e5082bd)
+  - [All Boards: hide Home-board icons and disable setting a Home board (#2220)](https://github.com/wekan/wekan/commit/ac20cd64424ebe356fcd7ccb3a4f60370580e7a3)
+  - [All Boards: "Selected:" star/home actions + Home board badge (#2220)](https://github.com/wekan/wekan/commit/d67d27f0d872c4fc6e990262d3d3577a28783eee)
+  - [Tests: cover the remaining Upcoming changes (#2220 default board, #6465 UI, #6478 confirm)](https://github.com/wekan/wekan/commit/8287865b238f3ed90e60e4624e98b383e896beee)
 
 - **Add List moved from a standing column to a per-list header button**
-  ([#6465](https://github.com/wekan/wekan/issues/6465)). The Swimlanes and Lists views no longer show a
-  permanent "Add List" composer column. Instead each list header has a far-right add-list button; clicking it
-  opens the Add List composer as a column **immediately after that list** — which renders to the **right** of
-  the list in LTR and to the **left** in RTL (the lists lane is a flex row that mirrors under `dir=rtl`). An
-  **empty** swimlane/board shows a **+ button**; the create-list form appears only after clicking it (when the
-  swimlane already has lists, the per-list header button is used instead). Also fixes the composer's Save button
-  doing nothing: the `createListAfter` method's `check()` used a non-`Optional` matcher for `nextListId`, so the
-  inline composer (which omits it) 400'd with "Match failed"; the omittable params are now `Match.Optional`.
-  *(First cut — desktop/main views; the mini-screen composer path is unchanged.)* Thanks to **csonkaoszimt**
-  (report) and **xet7**.
+  ([#6465](https://github.com/wekan/wekan/issues/6465)). The Swimlanes/Lists views no longer show a permanent "Add
+  List" composer column; each list header has a far-right add-list button that opens the composer as a column
+  **immediately after that list** (right in LTR, left in RTL), and an **empty** swimlane/board shows a **+** button.
+  Also fixes the composer's Save doing nothing (`createListAfter`'s `check()` used a non-`Optional` matcher for
+  `nextListId`, so the inline composer 400'd with "Match failed"). *(First cut — desktop/main views.)* Thanks to
+  **csonkaoszimt** (report) and **xet7**. Commits:
+  - [#6465: Add List as a per-list header button + inline composer, not a standing column](https://github.com/wekan/wekan/commit/765d04bf7c678a9f28b663beadae7b07fd79f339)
+  - [Fix add-list: Save did nothing (Match failed) + empty-swimlane + button (#6465)](https://github.com/wekan/wekan/commit/0535215225a41bfe16d936a9a1b447fc77f9122e)
 
-- **Undo/redo for card, list and swimlane moves + confirmation before a high-impact list move on touch**
-  ([#6478](https://github.com/wekan/wekan/issues/6478)). A user accidentally dragged a list into another
-  swimlane on mobile — merging it with an existing list — and spent ~15 minutes recovering, because there was
-  no confirmation and no undo. Now:
-  - **Undo/Redo** with `Ctrl+Z` / `Ctrl+Y` (also `⌘Z` / `⌘⇧Z`) reverts/re-applies the last position change on
-    the board. The existing `userPositionHistory` collection already modelled this but was **not actually
-    recording** (its `trackChange` guard checked an un-imported global) and had no redo or key bindings. List
-    moves are now recorded (`server/models/lists.js` `updateListSort`), a symmetric `redo()` and an
-    `undone`/`undoneAt` redo-stack were added, `userPositionHistory.undoLast` / `redoLast` methods pick the
-    right change (a new action clears the redo stack), and the keyboard shortcuts are wired (disabled inside
-    inputs/textareas so native text undo still works). Selection logic is pure and unit-tested
-    (`models/lib/undoRedoSelection.js`, `tests/undoRedoSelection.test.cjs`).
-  - **Confirmation** before moving a list to a *different* swimlane on touch / small screens (the exact
-    accidental, card-re-homing action): a decline reverts the drag. Everyday same-swimlane reordering is
-    unaffected.
-  Thanks to **mueschel** (report) and **xet7**.
+- **All Boards, board header, top bar and popups — a large batch of layout/theming polish.** Highlights: the
+  right-sidebar **hamburger is pinned to the right edge** at every width with an ~8px gap, and the duplicate **Board
+  Settings cog was removed**; the All Boards **My Boards toolbar wraps** (order Multi-Selection then Sort then
+  Search), the **Multi-Selection button matches the Swimlanes view**, the empty grey band was removed, **"+ Add …"
+  tiles match board-tile height**, the board-tile **drag handle sits at the right middle** (transparent, icon only),
+  and the **search box is half width** with the multi-selection hint beneath it; the **mobile/desktop toggle and
+  zoom** swapped places; the **Change Language** popup shows **multiple columns**; the **Change Avatar** upload
+  button and the **Search All Boards** / **Archived boards** buttons follow the **theme colors**; the **Archived
+  boards modal** is full width and starts below the header; the **Notifications drawer** is full width with a black
+  hamburger + X and black menu icons; and the member menu's duplicate **Notifications** entry was removed. **Done
+  differently:** an "icons only — always hide button text labels" board-header change was tried and then
+  **reverted**, so button **text labels stay**. Thanks to **xet7**. Commits:
+  - [Board header: keep the sidebar hamburger pinned to the right edge at all widths](https://github.com/wekan/wekan/commit/7718118654f35a214ea5f9b2147642eabf4a6702)
+  - [Board header: remove empty space around the sidebar hamburger button](https://github.com/wekan/wekan/commit/e33e50d9c84cc9125ac6e8d5e491a7419bbae883)
+  - [Board header: hamburger right gap matches the user-name gap (~8px)](https://github.com/wekan/wekan/commit/bd72f5d64c58ad0861f370a17969f6ee482c466c)
+  - [Board header: hide button text labels on narrow windows (icons only)](https://github.com/wekan/wekan/commit/cfd53cc9698bbc759bef55152ea8f74ca00f3afc)
+  - [Board header: remove the Board Settings cog (it is already in the right sidebar)](https://github.com/wekan/wekan/commit/68723ff43b324dda1b584e5ba4eb5d90d0490124)
+  - [Board header: icons only — always hide button text labels](https://github.com/wekan/wekan/commit/97b0240ca4bb5f2bf02020e94eb6d7ffc278acd9)
+  - [Revert board-header icons-only; update CHANGELOG Upcoming with newest changes](https://github.com/wekan/wekan/commit/834698bb5e3e926213676e499bf4338713bc43da)
+  - [Header/All Boards: reorder Multi-Selection/Sort/Search and swap mobile-toggle/zoom](https://github.com/wekan/wekan/commit/15e756f4e0b265a020b659fea2dc3339b2c2e767)
+  - [All Boards: + Add Board / + Add Template Container tile same height as board icons](https://github.com/wekan/wekan/commit/10085615179dbdd56bd5d630ee526e82a1451ef6)
+  - [All Boards: remove empty .board-list-header dead grey space above the layout](https://github.com/wekan/wekan/commit/1312fefb1234d6fcdcda930d93fd189e57befd37)
+  - [All Boards: My Boards bar wraps so Sort/Multi-Selection/Clear stay visible](https://github.com/wekan/wekan/commit/7699cc1e90f18b599f294fba774403f3b17e3749)
+  - [All Boards: Multi-Selection button looks the same as in Swimlanes View](https://github.com/wekan/wekan/commit/c6aa769bc0a8b01706e0f45a19b8ba8c66c77498)
+  - [All Boards: move board tile drag handle to the right middle](https://github.com/wekan/wekan/commit/aafe71fd191a8633012d838d00aa96abd3f092a2)
+  - [All Boards: transparent board tile drag-handle background (icon only)](https://github.com/wekan/wekan/commit/197254fe16c2dd2c266f2a1797d80feffccfc914)
+  - [All Boards: vertically center the Search boards input text](https://github.com/wekan/wekan/commit/035195f2b4b7a8601964d54645ec7d139e65dd41)
+  - [All Boards: move the Search boards input text 4px further down (top: 6px)](https://github.com/wekan/wekan/commit/cb80198d9748b2fbd7dee392e235f882785420c7)
+  - [All Boards: move the Search boards input text 2px further down (top: 8px)](https://github.com/wekan/wekan/commit/c21edb160bddfb2a9e635d5c2154c037dc464698)
+  - [All Boards: move "+ Add Board" text 4px up (keep tile height)](https://github.com/wekan/wekan/commit/3f5173b9602e14de3201ebc0052b2751e522f100)
+  - [All Boards: move "+ Add Board" text 2px further up (padding 18/8/24/8)](https://github.com/wekan/wekan/commit/519c04b8ef46497d526f4586432b132887335487)
+  - [All Boards: move "+ Add Template Container" text 2px down (separate from Add Board)](https://github.com/wekan/wekan/commit/cd7f9f7bc9e48c6f54b007deec13194b90d4d33b)
+  - [All Boards: half-width search, hint below Multi-Selection, title beside icon](https://github.com/wekan/wekan/commit/3736f8431a4b0b8224c0b7315ac8e596aa4426fa)
+  - [Change Language popup: show languages in multiple columns when there is width](https://github.com/wekan/wekan/commit/fc0649a756d0f6e6caf2feef659786a9908397b1)
+  - [Change Avatar popup: Upload button uses theme colors (blue bg, white text)](https://github.com/wekan/wekan/commit/08a2e5525e8e7b099d766643b09616e75f750fc9)
+  - [Archived boards modal: full width + extends to the bottom of the window](https://github.com/wekan/wekan/commit/b027594ca8ad6d9f781214e8c26aac572ed20c25)
+  - [Archived boards modal: start below the header bar so its top is visible](https://github.com/wekan/wekan/commit/1c8ba2afc3a51d5a0b71f5777d1e189dca5525e4)
+  - [Archived boards: Restore/Delete buttons follow the theme override colors](https://github.com/wekan/wekan/commit/4dc09c62b9719cbb3dd126420239f7d9da5bea55)
+  - [Search All Boards: new-search button follows theme override colors](https://github.com/wekan/wekan/commit/98a03bf045668a95f58ae2cfe15f6d39591c89de)
+  - [Search All Boards: label the clear button "Clear" using existing trello-clear-job key](https://github.com/wekan/wekan/commit/a4cc0c2182b9c4da74325bb5e21d7f13f64e9484)
+  - [Member menu: remove the Notifications entry (duplicates the header bell icon)](https://github.com/wekan/wekan/commit/8cb4050cf21a1fce10c08872cb8f4a4bb270565b)
+  - [Notifications drawer header: black X + hamburger, X near the top-right edge](https://github.com/wekan/wekan/commit/8dd6bd9db5a8f427f6863f033e7236ae80ead336)
+  - [Notifications drawer: full width + robust flex header (black hamburger + X)](https://github.com/wekan/wekan/commit/c87b4cb5103aa2e010f0c40b0554e4cf84126059)
+  - [Notifications drawer: fix X position — cancel the global absolute .close rule](https://github.com/wekan/wekan/commit/5e014d0967ec8d622857348a264f3522a7e9769d)
+  - [Notifications menu: make the dropdown item icons black](https://github.com/wekan/wekan/commit/01088ea9d4583301446cb021ecd8772e4d3cde6d)
+
+- **Denser default layout: thinner lists, board tiles and card dock; taller-looking minicards**
+  ([#6465](https://github.com/wekan/wekan/issues/6465)). List width default 272 to **220px** (minimum 270 to
+  **200px**), All Boards board tiles min-height 100 to **72px**, and the card-detail right dock max-width 800 to
+  **520px** — all overridable, user customizations untouched. Minicards no longer reserve a tall empty band under a
+  one-line title (the title viewer gets `min-height: 0`), and the swimlane header no longer clips at non-100% zoom.
+  Thanks to **csonkaoszimt** (report) and **xet7**. Commits:
+  - [#6465: denser defaults - thinner lists (220px), board tiles and card dock (520px)](https://github.com/wekan/wekan/commit/99299c2a91827f88f0bf091e810b8ce9d6211784)
+  - [Fix #6465: minicards wasted half their height on empty white space](https://github.com/wekan/wekan/commit/a76f7d28e33f79b79f89eebffcb2a2946205f5f0)
+  - [#6465: swimlane header bar no longer clips at non-100% board zoom](https://github.com/wekan/wekan/commit/7b7fada1b89fa21e35ebaeca26d3f85299afb33d)
+  - [Test: update fixed-list-width e2e for the lowered 200px minimum (#6465)](https://github.com/wekan/wekan/commit/ae29555862089cd85111aa417a892888d48124bd)
 
 and fixes the following bugs:
 
-- **Confirmation dialogs work again — removing a member from a board (and every other confirm dialog) no
-  longer does nothing** ([#6479](https://github.com/wekan/wekan/issues/6479)). Clicking a `.js-confirm` button
-  (e.g. "Remove Member") silently did nothing. `Popup.afterConfirm()` stashed the pending action AS A FIELD ON
-  THE BLAZE DATA CONTEXT and the confirm button read it back as `this.__afterConfirmAction` — but the context is
-  a ReactiveCache/Minimongo document (a board member sub-doc), and Blaze re-renders the confirmation popup with
-  a fresh/immutable copy of that context, so the field was gone by the time the button was clicked. The action
-  is now stored on the Popup INSTANCE (`Popup._afterConfirmAction`), which survives the re-render; it is still
-  invoked with the confirmation popup's own data context as `this`, so `this.userId` and friends keep working.
-  Covered by `tests/popupAfterConfirm.test.cjs` (with a negative case reproducing the old context-mutation
-  failure). Thanks to **mueschel** (report) and **xet7**.
+- [Confirmation dialogs work again](https://github.com/wekan/wekan/commit/f6f021f8cc8de452593f499e1306dca021679325) — clicking any `.js-confirm` button (e.g. "Remove Member") did
+  nothing because `Popup.afterConfirm()` stashed the pending action on the Blaze **data context** (an immutable
+  Minimongo doc that Blaze re-creates on re-render); it is now stored on the Popup **instance**
+  ([#6479](https://github.com/wekan/wekan/issues/6479)). Thanks to **mueschel** (report) and **xet7**.
+- [Moving a card between swimlanes is no longer broken with long lists](https://github.com/wekan/wekan/commit/6d5a594b0709ad3456f91afc31d821304539a262) — jQuery UI sortable cached
+  geometry at drag-start and never re-cached on WeKan's manual auto-scroll, so the drop re-homed the card in the
+  source swimlane; fixed with `sortable('refreshPositions')` after a scroll
+  ([#6477](https://github.com/wekan/wekan/issues/6477)). Thanks to **mueschel** (report) and **xet7**.
+- [Filter by date -> Overdue no longer lists cards with no due date](https://github.com/wekan/wekan/commit/b1d33c536239d45ae5df6139beb6b5548f7e03c0) — `$lte`/range selectors
+  matched `null` under both FerretDB and minimongo; `DateFilter._getMongoSelector` now adds `$ne: null` (reported by
+  email). Thanks to the reporter and **xet7**.
+- [A board-wide list no longer disappears from other swimlanes when nudged](https://github.com/wekan/wekan/commit/c29cf3b985abb670222ec25c76a055e0ff9ba53a) — the drop handler
+  treated any small drag of a board-wide list (`swimlaneId === null`) as a swimlane change; it now also requires an
+  original swimlane (reported by email). Thanks to the reporter and **xet7**.
 
-- **Moving a card between swimlanes is no longer broken when lists are long/overflowing**
-  ([#6477](https://github.com/wekan/wekan/issues/6477)). Dragging a card from one swimlane to the SAME list in
-  another swimlane dropped it back in the *source* swimlane, especially with long lists that overflow. The card
-  sortable's `sort` handler auto-scrolls the board (#443) by setting `.js-lists` `scrollLeft` / `.board-canvas`
-  `scrollTop`, but jQuery UI sortable caches container/item geometry at drag start and only re-caches on its own
-  placeholder moves — never on our manual scroll. Long lists are exactly what triggers auto-scroll, so the drop
-  resolved against a stale geometry map and the stop handler's `ui.item.parents('.swimlane')` persisted the
-  wrong swimlane. Fixed by re-caching positions (`sortable('refreshPositions')`) whenever the sort handler
-  actually scrolled — complementing the #2769 DOM-mutation refresh in `listBody.js`, which does not fire on
-  scroll. Source-guarded by `tests/cardDragSwimlaneScrollRefresh.test.cjs`. Thanks to **mueschel** (report) and
-  **xet7**.
+- **FerretDB (bundled) — #6476 crash-loop root cause fixed, and label/title/date filters pushed down to SQLite**
+  ([#6476](https://github.com/wekan/wekan/issues/6476)). A startup SyncedCron upsert hit an orphaned-table error
+  (`table "…connections_<hash>" already exists`) that became an unhandledRejection and crash-looped WeKan so its
+  port never opened; the bundled FerretDB now creates tables/indexes with `IF NOT EXISTS`. It also pushes label
+  (`$in`), title (`$regex`) and `dueAt` range filters down to SQLite instead of scanning every card in Go. (Details
+  in the fork's own CHANGELOG.) Thanks to **uusijani**, **a1bert01** and **xet7**. Changelog commits:
+  - [Changelog: #6476 real root cause (FerretDB orphaned-table crash loop) and the bundled FerretDB fix](https://github.com/wekan/wekan/commit/41c747ef5f7e3fac4ae37714e65e1f7b4703ab80)
+  - [Changelog: bundled FerretDB now pushes label ($in) and title ($regex) filters down](https://github.com/wekan/wekan/commit/b29a47778ffb3025d8c26d67427e022a6a137076)
+  - [Changelog: bundled FerretDB now pushes date range filters down too](https://github.com/wekan/wekan/commit/5730f7dcc54e551ca5b4cc6ede307ebe7e078310)
 
-- **Snap release: build the exotic `ppc64el` and `s390x` snaps on GitHub Actions under QEMU instead of
-  Launchpad.** The Launchpad `snapcraft remote-build` legs for these arches were ending in Launchpad state
-  `Stopped` with no snap produced, yet `snapcraft remote-build` still exited 0; the job's name-only success
-  check then let an empty/stale file through and the upload died with `'wekan_<v>_<arch>.snap' is not a valid
-  file` (exit 64). They now build with `docker/setup-qemu-action` + `diddlesnaps/snapcraft-multiarch-action`
-  on a normal runner — fast, because the snap is bundle-centric (the `wekan` part only downloads the prebuilt
-  `wekan-<version>-<arch>.zip` and repackages it, no native compilation). `riscv64` stays on Launchpad (the
-  QEMU snap action does not support it) but now has a `timeout-minutes: 180` so a stuck build fails with a
-  clear message instead of GitHub's silent 6-hour cancel. Thanks to **xet7**.
+- **Snap release, CI and dev tooling.** The exotic `ppc64el`/`s390x` snaps now build on **GitHub Actions under
+  QEMU** instead of Launchpad (which returned exit 0 with no artifact); `rebuild-wekan.sh` CURRENT-IP detection is
+  subnet-agnostic (no more `http://:3000`); and the **Playwright E2E workflow was disabled**. Commits:
+  - [Snap release: build ppc64el and s390x under QEMU on GitHub Actions, not Launchpad](https://github.com/wekan/wekan/commit/d7f36d70a04ee96669d75c2dea675cf7e7b76d7a)
+  - [rebuild-wekan.sh: robust CURRENT-IP detection (fix http://:3000 Invalid URL)](https://github.com/wekan/wekan/commit/c6f960bbe10d5ff36a92314c0a21380e914a89e3)
+  - [ci: disable Playwright E2E Tests workflow](https://github.com/wekan/wekan/commit/ef81c25232c7f5f26b6b33d9e9b945b8e769dd35)
 
-- **Minicards no longer waste half their height on empty white space**
-  ([#6465](https://github.com/wekan/wekan/issues/6465)). The minicard title renders inside a `.viewer`, which
-  inherited the global `.viewer { min-height: 2.5vh }` (`client/components/main/layouts.css`); on tall screens
-  that reserved a tall empty band beneath a one-line title, so a large part of every minicard was blank. The
-  minicard title `.viewer` now sets `min-height: 0` (the same override already applied to the label `.viewer`),
-  so a minicard collapses to fit its content and more cards fit on screen without scrolling. Thanks to the
-  reporter and **xet7**.
-
-- **"Filter by date → Overdue" no longer lists cards that have no due date**
-  (reported by email). Cards without a date store the field as `null` (that
-  is exactly what the sidebar's *noDate* filter matches, `{dueAt: null}`). The comparison filters build
-  `{$lte: now}` (Overdue/past), `{$gte, $lte}` (today/this week/next week), and `$lte` **matches `null`** under
-  both FerretDB and minimongo — `null` sorts before any date and neither engine implements MongoDB's
-  type-bracketing — so Overdue selected every dateless card. `DateFilter._getMongoSelector` now adds `$ne: null`
-  to any comparison selector so only real dates match; the *noDate* filter (a bare `null`) is unchanged. Test:
-  `tests/filterDateNull.test.cjs`, with a negative control proving the old bare `{$lte: now}` matched `null`.
-  (The reported *slowness* of the date/title/label filters, and the title/label over-matching, are separate:
-  they trace to FerretDB scanning `$regex`/`$in`/range queries that are not pushed down to SQLite, and need
-  live reproduction — tracked separately.) Thanks to the reporter and **xet7**.
-
-  **Update:** the *slowness* of the label, title AND date filters is addressed in the bundled FerretDB (see the
-  fork's own CHANGELOG): the SQLite backend now pushes `{labelIds: {$in: […]}}` (label), a literal
-  `{title: {$regex: …}}` (title) and numeric/date ranges `{dueAt: {$lte: …}}` / `{$gte: …, $lte: …}` (date)
-  down to SQLite instead of decoding + matching every card's sjson in Go, so none of those filters full-scan
-  the whole board any more. Dates are pushed via SQLite's `->>` accessor (numeric comparison of the stored
-  millis); it is verified end-to-end that an in-range card is returned while null/missing/out-of-range dates
-  are pruned.
-
-- **A list no longer disappears from other swimlanes when you nudge it in swimlanes view**
-  (reported by email). A board-wide list has `swimlaneId === null` and renders
-  under *every* swimlane. The list-drop handler in `client/components/swimlanes/swimlanes.js` computed
-  `isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId`, but `targetSwimlaneId` is
-  always the swimlane the list is shown under, and `originalSwimlaneId` is `null` for a board-wide list — so
-  **any** small drag made this true, which set `list.swimlaneId` *and* moved every card in the list to that one
-  swimlane. The list then vanished from all other swimlanes (recoverable only by restoring a backup). The
-  condition now also requires `originalSwimlaneId`, so board-wide lists stay board-wide on a reorder while a
-  genuinely swimlane-scoped list can still be moved between swimlanes. Test: `tests/listMoveSwimlane.test.cjs`,
-  including a negative control that the old target-only condition rebound a board-wide list. Thanks to the
-  reporter and **xet7**.
-
-- **Denser default layout: thinner lists, board tiles and card dock**
-  ([#6465](https://github.com/wekan/wekan/issues/6465)). Several users reported the 9.x UI wastes space versus
-  the older 6.09 layout. Three density defaults were tightened (all overridable; a user's own customizations
-  are untouched):
-  - **List width** default 272 → **220px** (`models/lib/listWidth.js`, `models/lists.js`), with the minimum
-    270 → **200px** here and in the server check (`server/models/users.js`). Lists already all render the same
-    width by default (`resolveListWidth`), on private and public boards; they are now narrower so more fit on
-    screen. Test `tests/listWidthDefaults.test.cjs` updated.
-  - **Board tiles** on the All Boards page: `min-height` 100 → **72px** and vertical padding 36/32 →
-    **24/18px** (`client/components/boards/boardsList.css`), so more boards fit in the overview.
-  - **Card-detail right dock** narrowed from `max-width` 800 → **520px** (and the wide-screen centred variant
-    600 → 520px) in `client/components/cards/cardDetails.css`, so the opened card no longer takes ~1/4 of the
-    screen.
-  Thanks to **csonkaoszimt** (report) and **xet7**.
-
-- **#6476 root cause found — WeKan crash-looped after a FerretDB migration, so its web port never stayed
-  open** ([#6476](https://github.com/wekan/wekan/issues/6476)). Follow-up to the snap wait-loop diagnostics
-  released in v9.99: operator logs (uusijani, a1bert01) showed FerretDB *was* listening and WeKan *did* connect — then a
-  startup SyncedCron upsert hit a FerretDB error `table "accountslockout.connections_<hash>" already exists`,
-  which became an *unhandledRejection* and exited the process; systemd restarted it in a tight loop (restart
-  counter climbing to 99), so the HTTP port never came up. The real fix is in the **bundled FerretDB** (see the
-  fork's own CHANGELOG): `collectionCreate` now creates the table and its index with `IF NOT EXISTS`, so an
-  *orphaned* table (physical table on disk but no metadata row — left by an interrupted migration or a crash)
-  is re-adopted instead of crashing the upsert. The snap wait-loop timeout/diagnostics from the previous entry
-  remain useful for the separate "FerretDB genuinely not ready" case. Thanks to **uusijani**, **a1bert01** and
-  **xet7**.
-
-- **Swimlane header bar no longer clips at non-100% board zoom**
-  ([#6465](https://github.com/wekan/wekan/issues/6465)). At e.g. 80% zoom (`transform: scale` on
-  `.board-wrapper`) the gray swimlane header (`.swimlane-header`) looked cut off: it had `overflow: hidden`
-  with a fixed `min-height`, so once the scaled layout rounded, the bar/text was sliced. The header now uses
-  `overflow: visible` + `height: auto` (keeping the `min-height` floor) so it grows to fit and cannot clip
-  vertically; short swimlane names are unaffected and a long name wraps instead of being cut. Thanks to
-  **csonkaoszimt** (report) and **xet7**.
+- **Changelog, docs and test housekeeping.** Commits:
+  - [Changelog: move post-v9.99 changes to an Upcoming section above v9.99](https://github.com/wekan/wekan/commit/c4784225d51f2d13f2f50b2fe172cb156feab861)
+  - [Updated ChangeLog](https://github.com/wekan/wekan/commit/26319c974b180cc2a59b55705bc5d5128f23f438)
+  - [Changelog: drop bogus #6483/#6484 issue links (those bugs were reported by email)](https://github.com/wekan/wekan/commit/e9e70717445afbf124fe5c536f4199ef97d8ff5b)
+  - [Updates](https://github.com/wekan/wekan/commit/176c5ef2d8a31f85cb41e52a85003e3560e818cc)
+  - [Test: de-flake webkit swimlane-add popup wait (6s -> 15s)](https://github.com/wekan/wekan/commit/8aacc2236052108576e9b0e1ac0ca68f9339463e)
+  - [Updates](https://github.com/wekan/wekan/commit/861ded439e08dfe16e65f19a3e150d83bbd8286f)
+  - [Updated ChangeLog](https://github.com/wekan/wekan/commit/66a2f8ddc8f4bc95fe08478f1d0eeda08f87cf82)
 
 Thanks to above for their contributions.
 
