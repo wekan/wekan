@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.00
+  version: v10.01
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6410,6 +6410,12 @@ definitions:
         description: |
            does the user want to show desktop drag handles?
         type: boolean
+      submitOnEnter:
+        description: |
+           per-user preference: in multi-line editors (card title/description and
+           other inlined forms) submit on plain Enter (Shift+Enter for a newline)
+           instead of the default Ctrl/Cmd+Enter. Off by default. See #4236/#6480.
+        type: boolean
       GreyIcons:
         description: |
            per-user preference to render unicode icons in grey
@@ -6615,6 +6621,11 @@ definitions:
         description: |
            Reference to the board templates swimlane Id
         type: string
+      sidebarWidth:
+        description: |
+           User-specified width (px) of the right board sidebar, set by dragging its
+           left edge (desktop only; mobile is always full width). Unset = CSS default.
+        type: number
       listWidths:
         description: |
            User-specified width of each list (or nothing if default).
