@@ -322,6 +322,10 @@ Template.changeLanguagePopup.events({
 });
 
 Template.changeSettingsPopup.helpers({
+  isSubmitOnEnter() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser ? currentUser.hasSubmitOnEnter() : false;
+  },
   rescueCardDescription() {
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
@@ -379,6 +383,12 @@ Template.changeSettingsPopup.events({
       window.localStorage.removeItem('showDesktopDragHandles');
     } else {
       window.localStorage.setItem('showDesktopDragHandles', 'true');
+    }
+  },
+  'click .js-toggle-submit-on-enter'() {
+    // Saved to the user profile (Member Settings only; requires a logged-in user).
+    if (ReactiveCache.getCurrentUser()) {
+      Meteor.call('toggleSubmitOnEnter');
     }
   },
   'click .js-rescue-card-description'() {

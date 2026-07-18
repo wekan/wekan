@@ -1418,7 +1418,10 @@ Template.inlinedCardDescription.events({
     tpl.isOpen.set(true);
   },
   'keydown form textarea'(evt, tpl) {
-    if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
+    // Ctrl/Cmd+Enter submits by default; plain Enter when the user enabled
+    // "submit on Enter" in Member Settings (Shift+Enter then makes a newline).
+    const submitOnEnter = !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.();
+    if (isSubmitKey(evt, { submitOnEnter })) {
       tpl.find('button[type=submit]').click();
     }
   },
@@ -1529,11 +1532,12 @@ Template.editCardTitleForm.events({
     Utils.showCopied(promise, $tooltip);
   },
   'keydown .js-edit-card-title'(event) {
-    // #4236: match the card description field — Ctrl/Cmd+Enter saves; plain
-    // Enter (and Shift+Enter) insert a new line instead of submitting. The old
-    // handler submitted on any Enter without Shift, so Enter could not add a
-    // newline in the title.
-    if (isSubmitKey(event)) {
+    // #4236: by default Ctrl/Cmd+Enter saves; plain Enter (and Shift+Enter)
+    // insert a new line. A user who turns on "submit on Enter" in Member
+    // Settings gets plain Enter to save (Shift+Enter for a newline) instead —
+    // the pre-#4236 fast title-editing workflow (#6480 email feedback).
+    const submitOnEnter = !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.();
+    if (isSubmitKey(event, { submitOnEnter })) {
       $('.js-submit-edit-card-title-form').click();
     }
   },

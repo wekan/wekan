@@ -272,6 +272,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.submitOnEnter': {
+      /**
+       * per-user preference: in multi-line editors (card title/description and
+       * other inlined forms) submit on plain Enter (Shift+Enter for a newline)
+       * instead of the default Ctrl/Cmd+Enter. Off by default. See #4236/#6480.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.GreyIcons': {
       /**
        * per-user preference to render unicode icons in grey
@@ -1407,6 +1416,11 @@ Users.helpers({
   hasShowDesktopDragHandles() {
     const profile = this.profile || {};
     return profile.showDesktopDragHandles || false;
+  },
+
+  hasSubmitOnEnter() {
+    const profile = this.profile || {};
+    return profile.submitOnEnter || false;
   },
 
   hasGreyIcons() {

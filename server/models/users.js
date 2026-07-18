@@ -494,6 +494,16 @@ Meteor.methods({
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
   },
 
+  // Per-user "submit editors on plain Enter" preference (Member Settings).
+  // Off by default; when on, plain Enter submits and Shift+Enter is a newline.
+  async toggleSubmitOnEnter() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    const current = !!((user.profile || {}).submitOnEnter);
+    await Users.updateAsync(this.userId, { $set: { 'profile.submitOnEnter': !current } });
+  },
+
   async createWorkspace(params) {
     check(params, Object);
     const { parentId = null, name } = params;

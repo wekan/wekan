@@ -231,6 +231,12 @@ template(name="changeSettingsPopup")
         | {{_ 'show-desktop-drag-handles'}}
         if isShowDesktopDragHandles
           i.fa.fa-check
+    li
+      a.js-toggle-submit-on-enter(title="{{_ 'submit-on-enter-description'}}")
+        i.fa.fa-level-down
+        | {{_ 'submit-on-enter'}}
+        if isSubmitOnEnter
+          i.fa.fa-check
     unless currentUser.isWorker
       li
         label.bold.clear

@@ -1290,6 +1290,8 @@
   "accounts-allowUserDelete": "Salli käyttäjien poistaa tilinsä itse",
   "hide-minicard-label-text": "Piilota minikortin nimilappu teksti",
   "show-desktop-drag-handles": "Näytä työpöydän vedon kahvat",
+  "submit-on-enter": "Lähetä editorit Enterillä",
+  "submit-on-enter-description": "Kun päällä, Enter tallentaa kortin otsikon, kuvauksen ja muut sisäiset editorit; Vaihto+Enter lisää rivinvaihdon. Kun pois, Ctrl/Cmd+Enter tallentaa ja Enter lisää rivinvaihdon.",
   "assignee": "Käsittelijä",
   "assignees": "Käsittelijät",
   "cardAssigneesPopup-title": "Käsittelijä",

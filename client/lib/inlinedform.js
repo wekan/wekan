@@ -16,6 +16,8 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Tracker } from 'meteor/tracker';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { ReactiveCache } from '/imports/reactiveCache';
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import {
   openForm,
   closeForm,
@@ -77,7 +79,10 @@ Template.inlinedForm.events({
     openForm(currentlyOpenedForm, tpl);
   },
   'keydown form textarea'(evt, tpl) {
-    if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
+    // Ctrl/Cmd+Enter submits by default; a user who enabled "submit on Enter"
+    // in Member Settings submits on plain Enter (Shift+Enter for a newline).
+    const submitOnEnter = !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.();
+    if (isSubmitKey(evt, { submitOnEnter })) {
       tpl.find('button[type=submit]').click();
     }
   },

@@ -56,4 +56,31 @@ test('NEGATIVE: null / undefined event does not throw and does not submit', () =
   assert.strictEqual(isSubmitKey(undefined), false);
 });
 
+// --- Per-user opt-in setting (Member Settings): submitOnEnter -----------------
+// When the user turns on "submit on Enter", plain Enter submits and Shift+Enter
+// makes a newline. Default (off) keeps the #4236 Ctrl/Cmd+Enter behaviour above.
+test('submitOnEnter: plain Enter submits', () => {
+  assert.strictEqual(isSubmitKey({ keyCode: 13 }, { submitOnEnter: true }), true);
+  assert.strictEqual(isSubmitKey({ key: 'Enter' }, { submitOnEnter: true }), true);
+});
+
+test('submitOnEnter: Ctrl/Cmd+Enter still submits', () => {
+  assert.strictEqual(isSubmitKey({ keyCode: 13, ctrlKey: true }, { submitOnEnter: true }), true);
+  assert.strictEqual(isSubmitKey({ keyCode: 13, metaKey: true }, { submitOnEnter: true }), true);
+});
+
+test('submitOnEnter NEGATIVE: Shift+Enter does NOT submit (it is a newline)', () => {
+  assert.strictEqual(isSubmitKey({ keyCode: 13, shiftKey: true }, { submitOnEnter: true }), false);
+});
+
+test('submitOnEnter NEGATIVE: a non-Enter key never submits', () => {
+  assert.strictEqual(isSubmitKey({ keyCode: 65 }, { submitOnEnter: true }), false);
+});
+
+test('submitOnEnter defaults off: explicit false and omitted both require Ctrl/Cmd', () => {
+  assert.strictEqual(isSubmitKey({ keyCode: 13 }, { submitOnEnter: false }), false);
+  assert.strictEqual(isSubmitKey({ keyCode: 13 }, {}), false);
+  assert.strictEqual(isSubmitKey({ keyCode: 13 }), false);
+});
+
 console.log(`\n${passed} tests passed`);
