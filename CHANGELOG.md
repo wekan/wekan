@@ -95,6 +95,24 @@ This release adds the following updates:
 
 and adds the following features:
 
+- **WeKan has been translated to 154 languages. Thanks to xet7.** Every language file in
+  `imports/i18n/data/` is now filled in (previously most were largely English). Each language matches its own
+  existing terminology as a glossary plus standard Kanban terms; product/brand names, acronyms, placeholders and
+  markup are preserved; regional variants were seeded from their base language; and Wu Chinese (`wuu-Hans`) and
+  generic Chinese (`zh`) were registered so all languages are browser-detectable and visible in the Change Language
+  popup. `releases/translations-push-all-translations.sh` force-pushes every language to Transifex.
+  [Part 1](https://github.com/wekan/wekan/commit/a9f2e9f50cbb55eb865478ac14ce2ac1d80b5913),
+  [Part 2](https://github.com/wekan/wekan/commit/63bda22faacd430f4680c9cbe0ce521129096a5e),
+  [Part 3](https://github.com/wekan/wekan/commit/7691829cdb293796eab7794eae6c0cb4ec829e6b),
+  [Part 4](https://github.com/wekan/wekan/commit/ea4a10c212c8037b833ece0010032f6a8d52b9a8),
+  [Part 5](https://github.com/wekan/wekan/commit/c795d13450fc7fea5f9cc55fbdc1ac843aeafb6d),
+  [Part 6](https://github.com/wekan/wekan/commit/75ec34e83726f7792240edef70de59648c96ef35),
+  [Part 7](https://github.com/wekan/wekan/commit/a184a3a717331239f38203fc56ed78cc9a04f11e),
+  [Part 8](https://github.com/wekan/wekan/commit/97feb986a88f2f6128fd6bf74be922bed83c104e),
+  [Part 9](https://github.com/wekan/wekan/commit/91ccef062b5ec866aec8ac4660235e46e14e55ab),
+  [Part 10](https://github.com/wekan/wekan/commit/219011e5eb3ef3994a074fed9cc441faa734fada),
+  [Part 11](https://github.com/wekan/wekan/commit/d55c5e2c3cd544c0ad94538b689b63fe50cd6a41).
+
 - **All Boards & board header — many layout fixes**. A batch of UI polish:
   - **Board header (Swimlanes / Lists view):** the right-sidebar **hamburger is always pinned to the right edge**
     at every window width, with a small gap matching the top-bar user-name gap and no wasted space around it; the
