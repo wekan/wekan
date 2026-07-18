@@ -86,6 +86,51 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following features:
+
+- **Member Settings — optional "Submit editors with Enter"**. A new per-user setting in the Member Settings
+  (Change Settings) popup, saved to `profile.submitOnEnter` and **off by default**: when on, plain **Enter** saves
+  the card title, description and other inline editors and **Shift+Enter** inserts a new line; when off, behaviour is
+  unchanged (Ctrl/Cmd+Enter saves). This restores the fast Enter-to-save workflow for users who prefer it without
+  regressing #4236. [Setting](https://github.com/wekan/wekan/commit/bb6b0d5477368a97ba5cc1c01bdb598dcbe68cd2), [translated to all languages](https://github.com/wekan/wekan/commit/b8bb00465037389eb5829157441f2b75819353d9). Thanks to **xet7**.
+
+- **Right board sidebar — drag the edge to resize its width** (desktop). Drag the sidebar's edge like a spreadsheet
+  column; the width is saved to `profile.sidebarWidth` for logged-in users and to browser `localStorage` for
+  anonymous users on a public board, then re-applied on load. The handle uses logical positioning, so in LTR it is
+  the left edge of the right-docked sidebar and in RTL the right edge of the left-docked sidebar (drag direction
+  inverts); on phones the sidebar stays full width. [Feature](https://github.com/wekan/wekan/commit/354b7804b577c2ca92b479b7bd2ef595cc9212d3),
+  [tooltip translated to all languages](https://github.com/wekan/wekan/commit/1284afc588d6a52f89fdbb80d6f6ede9bc6bdfeb). Thanks to **xet7**.
+
+and fixes the following bugs:
+
+- **Upgrade migration no longer drops cards/activities whose exported data holds `NaN` or `Infinity`**
+  ([#6481](https://github.com/wekan/wekan/issues/6481)). mongo 3.x `mongoexport` emits non-finite doubles as the bare
+  tokens `NaN`/`+Infinity` (e.g. a card's `"sort":+Infinity`, an activity's `"value":NaN`), which are not valid JSON,
+  so `EJSON.parse` threw and the whole document was dropped — leaving boards/cards missing after an otherwise
+  "successful" 6.09 → 10.x migration. Those bare tokens are now rewritten (outside string literals) to the canonical
+  EJSON `{"$numberDouble":"…"}` form so the document migrates instead of being lost. [Fix](https://github.com/wekan/wekan/commit/e0991d6602c915e13d77776af36ecac410965909). Thanks to
+  **Nissulya** and **xet7**.
+
+- **Add List — the inline composer's previous options are back**
+  ([#6465](https://github.com/wekan/wekan/issues/6465)). The per-list-header inline Add List composer had been
+  reduced to just a title input; the **"add after which list" position selector** (pre-selecting the list whose
+  header opened it) and the **"or template"** link are restored. [Fix](https://github.com/wekan/wekan/commit/b71461d90c6a7d9ef9a835cf151181e15c84526d). Thanks to **csonkaoszimt**
+  and **xet7**.
+
+- **Right sidebar width no longer doubles on wide screens, and its input fields fill the width**. The sidebar used
+  `width: 30vw`, so it grew unbounded on very wide screens (looking right only at mid widths); it is now clamped. The
+  filter text inputs (Filter List by Title, Filter by card title, …) had no width and rendered narrow with a big gap
+  on the right; they now fill the padded content width with equal spacing on both sides.
+  [Fix](https://github.com/wekan/wekan/commit/b8a21e4ce3acca427a25f11bcb8c0fdf6bc26ee3). Thanks to **xet7**.
+
+- **The Multi-Selection sidebar "Copy selection" button showed its raw translation key**. The `copy-selection` key
+  was missing from every language file — including the English source — so i18next had no value to fall back to. It
+  was added ("Copy selection") and translated to all languages. [Fix](https://github.com/wekan/wekan/commit/72042b7d796ce66c9f9da637c90e84493b67b3c1). Thanks to **xet7**.
+
+Thanks to above for their contributions.
+
 # v10.00 2026-07-18 WeKan ® release
 
 This release adds the following updates:
