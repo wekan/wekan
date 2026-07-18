@@ -129,6 +129,12 @@ and fixes the following bugs:
   was missing from every language file — including the English source — so i18next had no value to fall back to. It
   was added ("Copy selection") and translated to all languages. [Fix](https://github.com/wekan/wekan/commit/72042b7d796ce66c9f9da637c90e84493b67b3c1). Thanks to **xet7**.
 
+- **Follow-up fixes surfaced by the full test run.** Now that generic Chinese (`zh`) is its own registered language,
+  a bare `zh` browser tag resolves to that entry (Simplified Chinese) instead of the old `zh → zh-Hans` alias, which
+  is removed; and the board-actions end-to-end test opens the board menu from the right sidebar (the header Board
+  Settings cog was removed). [Fix](https://github.com/wekan/wekan/commit/08cfe2d7881aee399dd0e0a05629096e3027b9b2).
+  Thanks to **xet7**.
+
 Thanks to above for their contributions.
 
 # v10.00 2026-07-18 WeKan ® release
