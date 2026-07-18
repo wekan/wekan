@@ -12,7 +12,7 @@ const getTranslationCollection = () => require('/models/translation').default;
 // variant, so a browser reporting the bare code still gets that language, not English.
 // Chinese has only script/region files (zh-Hans, zh-Hant, zh-CN, …), so plain 'zh' maps
 // to Simplified. Keys are compared case-insensitively (see resolveTag).
-const LANGUAGE_ALIASES = { zh: 'zh-Hans' };
+const LANGUAGE_ALIASES = { zh: 'zh-Hans', wuu: 'wuu-Hans' };
 
 // Map a Wekan language tag (the key/`tag` from languages.js, e.g. 'zh-CN',
 // 'zh-Hans', 'ar-DZ' or the legacy underscore form 'en_AU', 'af_ZA') to the

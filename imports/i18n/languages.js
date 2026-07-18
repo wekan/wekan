@@ -583,14 +583,14 @@ export default {
   "ms": {
     code: "ms",
     tag: "ms",
-    name: "بهاس ملايو",
+    name: "Bahasa Melayu",
     load: () => import('./data/ms.i18n.json'),
     rtl: false, // Malesia on nykyään LTR (Latinalainen Rumi)
   },
   "ms-MY": {
     code: "ms",
     tag: "ms-MY",
-    name: "بهاس ملايو (Malaysia)",
+    name: "Bahasa Melayu (Malaysia)",
     load: () => import('./data/ms-MY.i18n.json'),
     rtl: false,
   },
@@ -891,7 +891,7 @@ export default {
   "wo": {
     code: "wo",
     tag: "wo",
-    name: "ولوفل",
+    name: "Wolof",
     load: () => import('./data/wo.i18n.json'),
     rtl: false,
   },
@@ -928,6 +928,13 @@ export default {
     tag: "yue_CN",
     name: "廣東話",
     load: () => import('./data/yue_CN.i18n.json'),
+    rtl: false,
+  },
+  "wuu-Hans": {
+    code: "wuu",
+    tag: "wuu-Hans",
+    name: "吴语",
+    load: () => import('./data/wuu-Hans.i18n.json'),
     rtl: false,
   },
   "zh": {
