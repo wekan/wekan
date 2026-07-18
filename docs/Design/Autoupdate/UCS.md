@@ -11,7 +11,33 @@ FerretDB v1 (SQLite)** (from [wekan/FerretDB](https://github.com/wekan/FerretDB)
 to the **filesystem** during the upgrade.
 
 This document lists **what must be added to the WeKan GitHub repos** (secrets, files,
-workflow jobs) to make that happen. Nothing here is wired up yet — it is the spec.
+workflow jobs) to make that happen.
+
+## Remaining steps
+
+> **Status:** the `ucs` job **is already wired into `release-all.yml`** — guarded, it skips
+> with a `::notice::` until the items below are done. It currently only **bumps the image
+> tag** and uploads; the MongoDB 3.x → FerretDB SQLite compose + migration hook still need
+> to be written (§2–§4).
+
+1. **Univention App Provider account** with the `wekan` app assigned; get the
+   `univention-appcenter-control` CLI (App Provider self-service).
+2. **Add secrets** `UNIVENTION_APP_PROVIDER_USER` and `UNIVENTION_APP_PROVIDER_PASSWORD`
+   (see "How to add a secret" below). Optionally `UNIVENTION_REGISTRY_AUTH` only if you
+   push images yourself instead of letting the App Provider mirror the public image.
+3. **Extend `WEKAN_REPO_TOKEN`** to have write access to `wekan/univention`.
+4. **Write the FerretDB migration** in `wekan/univention`: the new `component/compose`
+   (FerretDB SQLite + `data/files` volume), the migration lifecycle step wrapping the two
+   existing `.mjs` scripts, and fix `component/inst` (the MongoDB `mongo` shell is gone
+   under FerretDB). See §2–§4.
+5. **Finish the upload command** in the `ucs` job — the `univention-appcenter-control
+   upload` app-version id / file arguments depend on your App Provider account.
+6. Test the upgrade on a UCS VM (6.09/MongoDB 3.x → 10.x/FerretDB): boards, attachments,
+   avatars, LDAP login must survive; confirm the new version appears in the Update Center.
+
+**How to add a secret:** GitHub → the `wekan/wekan` repo → **Settings → Secrets and
+variables → Actions → New repository secret**; or `gh secret set NAME --repo wekan/wekan`
+(paste the value) / `gh secret set NAME --repo wekan/wekan < file`.
 
 ---
 

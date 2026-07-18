@@ -12,7 +12,35 @@ snap it should also, for each variant repo
    **stable, candidate, beta, edge** — automatically, on every WeKan release.
 
 This document lists **exactly which keys/secrets must be added** and the **workflow
-changes** required. Nothing here is wired up yet — it is the spec.
+changes** required.
+
+## Remaining steps
+
+> **Status:** the `snap-variants` job **is already wired into `release-all.yml`** — it is
+> guarded and skips with a `::notice::` until the items below are done, so it never breaks
+> an ordinary release.
+
+1. **Register the snap names** (one-time, on the machine holding the WeKan Snap Store
+   account): `snapcraft register wekan-ondra` and `snapcraft register wekan-gantt-gpl`.
+2. **Create/confirm** the GitHub repos `wekan/wekan-ondra` and `wekan/wekan-gantt-gpl`
+   (each is overwritten with the newest `wekan` code on every release — make sure nothing
+   unique lives only there).
+3. **Re-export Snap Store credentials** covering all three names, then update `SNAP_AUTH`:
+   ```sh
+   snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl \
+     --acls package_access,package_push,package_release,package_update snap-auth.txt
+   gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt
+   ```
+4. **Extend `WEKAN_REPO_TOKEN`** to have write access to the two variant repos (add them
+   to the token's repo scope; the stored secret value stays the same).
+5. Done — the next release publishes both variant snaps to stable/candidate/beta/edge.
+
+**How to add/update a secret:** GitHub → the `wekan/wekan` repo → **Settings → Secrets and
+variables → Actions → New repository secret**; or the CLI `gh secret set NAME --repo
+wekan/wekan` (paste the value) or `gh secret set NAME --repo wekan/wekan < file`.
+
+The reference details (name registration, ACLs, the workflow job, snapcraft.yaml edits)
+are in §1–§7 below.
 
 ---
 

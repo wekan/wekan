@@ -3,11 +3,35 @@
 What must be added to the WeKan GitHub repos so that WeKan's GitHub Actions can build a
 **Nextcloud-deployable** WeKan (using WeKan's existing Docker image), how to **publish it
 to the Nextcloud App Store**, and what **integrations** are possible (local AI, Deck,
-SSO, email, …). Nothing here is wired up yet — it is the spec.
+SSO, email, …).
 
 WeKan already publishes public Docker images from release-all.yml's `docker` job —
 `wekanteam/wekan`, `quay.io/wekan/wekan`, `ghcr.io/wekan/wekan` — and already ships OIDC
 support (`packages/wekan-oidc/`), both of which the Nextcloud paths below build on.
+
+## Remaining steps
+
+> **Status:** the `nextcloud` job **is already wired into `release-all.yml`** — guarded, it
+> skips with a `::notice::` until the items below are done, so it never breaks a release.
+
+1. **Create the ExApp repo `wekan/nextcloud`**: `appinfo/info.xml` with the
+   `<external-app>` block, the Node **AppAPI-handshake wrapper** (`/heartbeat`, `/enabled`,
+   `/init`, `AUTHORIZATION-APP-API` → WeKan user mapping), and a `Dockerfile` (WeKan +
+   embedded FerretDB SQLite). See §A1–A3.
+2. **Get the app signing certificate**: generate a key + CSR, PR the CSR to
+   `nextcloud/app-certificate-requests`, receive `wekan.crt`; then **register** the app at
+   `apps.nextcloud.com/developer/apps/new`. See §B2–B3.
+3. **Add secrets** `NEXTCLOUD_APP_PRIVATE_KEY`, `NEXTCLOUD_APP_PUBLIC_CRT`,
+   `NEXTCLOUD_APPSTORE_TOKEN`; **extend `WEKAN_REPO_TOKEN`** to `wekan/nextcloud`.
+4. **Require HaRP** deploy daemon + Nextcloud 30/31+ (WebSocket/DDP) in the app docs; the
+   old proxy/Docker-Socket-Proxy can't carry WeKan's realtime.
+5. Test-deploy the ExApp on a Nextcloud + HaRP instance: OIDC login, DDP realtime,
+   attachments, and an AI `taskprocessing` call.
+
+**How to add a secret:** GitHub → the `wekan/wekan` repo → **Settings → Secrets and
+variables → Actions → New repository secret**; or `gh secret set NAME --repo wekan/wekan`
+(paste the value) / `gh secret set NAME --repo wekan/wekan < file`. For the private key:
+`gh secret set NEXTCLOUD_APP_PRIVATE_KEY --repo wekan/wekan < ~/.nextcloud/certificates/wekan.key`.
 
 ---
 
