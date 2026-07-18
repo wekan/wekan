@@ -67,7 +67,7 @@ that by providing one-click installation on various platforms.
 
 - WeKan ® is used in [most countries of the world](https://snapcraft.io/wekan).
 - WeKan ® largest user has 30k users using WeKan ® in their company.
-- WeKan ® has been [translated](https://app.transifex.com/wekan/) to about 105 languages.
+- WeKan ® has been [translated](https://app.transifex.com/wekan/) to 154 languages.
 - [Features][features]: WeKan ® has real-time user interface.
 - [Platforms](https://wekan.fi/install/): WeKan ® supports many platforms.
   WeKan ® is critical part of new platforms Wekan is currently being integrated to.
