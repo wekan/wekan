@@ -106,6 +106,14 @@ template(name="boardList")
                     span.emoji-icon
                       i.fa.fa-thumb-tack
                     |  {{_ 'multi-selection-active'}}
+                  //- "Selected:" actions on the multi-selected boards: star them,
+                    or set one as the Home board (opened after login, #2220).
+                  .selected-actions
+                    span.selected-label {{_ 'selected-label'}}
+                    a.selected-action.js-star-selected(title="{{_ 'set-selected-starred'}}")
+                      i.fa.fa-star
+                    a.selected-action.js-home-selected(title="{{_ 'set-selected-home'}}")
+                      i.fa.fa-home
             a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
               span.emoji-icon
                 i.fa.fa-sort-alpha-asc
@@ -191,6 +199,11 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                    //- #2220: the Home board (opened after login) is badged with a
+                      home icon at the top centre of its tile.
+                    if isDefaultBoard
+                      span.board-home-badge(title="{{_ 'home-board-badge'}}")
+                        i.fa.fa-home
                     span.board-handle.nodragscroll(title="{{boardWorkspaceDragHint}}")
                       span.emoji-icon
                         i.fa.fa-arrows

@@ -289,6 +289,27 @@
   gap: 4px;
 }
 
+/* "Selected:" actions row (star / home) below the Multi-Selection button. */
+.boards-path-header .selected-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.boards-path-header .selected-label {
+  font-size: 13px;
+  color: #333;
+}
+.boards-path-header .selected-action {
+  cursor: pointer;
+  color: #333;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.boards-path-header .selected-action:hover {
+  color: #2980b9;
+}
+
 .boards-path-header .multiselection-hint {
   background: #FFF3CD;
   color: #856404;
@@ -553,6 +574,20 @@
   position: relative;
   text-decoration: none;
   word-wrap: break-word;
+}
+
+/* #2220: Home-board badge — a home icon centred at the top of the board tile. */
+.board-list .board-home-badge {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
 }
 
 .board-list .board-list-item > .js-open-board {

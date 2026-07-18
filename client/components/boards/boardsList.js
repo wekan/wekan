@@ -542,6 +542,21 @@ Template.boardList.helpers({
     const boards = ReactiveCache.getBoards(query, {});
     const currentUser = ReactiveCache.getCurrentUser();
 
+    // #2220: the Home board (opened after login) always appears FIRST in the
+    // Starred view, even when it has not been explicitly starred.
+    const withHomeFirst = (arr) => {
+      if (tpl.selectedMenu.get() !== 'starred') return arr;
+      if ((tpl.boardSearchVar.get() || '').trim()) return arr;
+      const homeId =
+        currentUser && typeof currentUser.getDefaultBoardId === 'function'
+          ? currentUser.getDefaultBoardId()
+          : null;
+      if (!homeId) return arr;
+      const homeBoard = ReactiveCache.getBoard(homeId);
+      if (!homeBoard || homeBoard.archived) return arr;
+      return [homeBoard, ...arr.filter((b) => b && b._id !== homeId)];
+    };
+
     // #5799: in a sorted (non-custom) mode the server already computed the
     // current page (filtered by menu/search and sorted), so render exactly that
     // ordered page of board icons. Custom (manual drag order) falls through to
@@ -552,9 +567,11 @@ Template.boardList.helpers({
         : 'custom';
     if (sortMode !== 'custom') {
       const paged = tpl.pagedBoardsVar.get();
-      return (paged.ids || [])
-        .map((id) => ReactiveCache.getBoard(id))
-        .filter(Boolean);
+      return withHomeFirst(
+        (paged.ids || [])
+          .map((id) => ReactiveCache.getBoard(id))
+          .filter(Boolean),
+      );
     }
 
     let list = boards;
@@ -591,11 +608,11 @@ Template.boardList.helpers({
     }
 
     if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
-      return currentUser.sortBoardsForUser(list);
+      return withHomeFirst(currentUser.sortBoardsForUser(list));
     }
-    return list
-      .slice()
-      .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    return withHomeFirst(
+      list.slice().sort((a, b) => (a.title || '').localeCompare(b.title || '')),
+    );
   },
   // #5174 / #4825: the board tiles' per-list card-count line and member avatar
   // row. Data comes from the one-shot getAllBoardsTileData method fetch in
@@ -628,6 +645,11 @@ Template.boardList.helpers({
   isStarred() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.hasStarred(this._id);
+  },
+  // #2220: is this the user's Home board (the one opened after login)?
+  isDefaultBoard() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isDefaultBoard(this._id);
   },
   isAdministrable() {
     const user = ReactiveCache.getCurrentUser();
@@ -916,8 +938,29 @@ Template.boardList.events({
       Meteor.call('toggleBoardStar', boardId);
     }
   },
-  // #2220 Home-board toggle is disabled: setting a default board from the All
-  // Boards tiles is intentionally removed (no js-set-default-board handler).
+  // "Selected:" star action: star every multi-selected board that isn't yet
+  // starred (so it becomes Starred, never toggled back off by this button).
+  'click .js-star-selected'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const user = ReactiveCache.getCurrentUser();
+    BoardMultiSelection.getSelectedBoardIds().forEach((id) => {
+      if (user && !user.hasStarred(id)) {
+        Meteor.call('toggleBoardStar', id);
+      }
+    });
+  },
+  // #2220 "Selected:" home action: set the first selected board as the Home
+  // board (opened after login). Clicking it again when it is already Home clears
+  // it (toggle), matching toggleDefaultBoard.
+  'click .js-home-selected'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const ids = BoardMultiSelection.getSelectedBoardIds();
+    if (ids.length) {
+      Meteor.call('toggleDefaultBoard', ids[0]);
+    }
+  },
   // HTML5 DnD from boards to spaces
   // #5850: drag a (template) board onto an Org/Team/Domain target to share it.
   'dragover .js-share-target'(evt) {
