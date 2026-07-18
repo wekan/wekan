@@ -62,6 +62,7 @@ applicability.
 |---|---|
 | Snap multi-arch build constraints (core24 vs QEMU action) | [Snap.md](Snap.md) |
 | Releasing the `wekan-ondra` / `wekan-gantt-gpl` snaps from release-all.yml | [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md) |
+| Releasing the Docker-based UCS App Center app (MongoDB 3.x → FerretDB migration) | [UCS.md](UCS.md) |
 
 ---
 
