@@ -113,10 +113,23 @@ template(name="addListInline")
       form.js-add-list-inline-form
         input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
           autocomplete="off" autofocus)
+        //- #6465 follow-up: restore the previous "add after which list"
+        //- position selector, pre-selecting the list whose header button opened
+        //- this composer, so the position can still be chosen explicitly.
+        if swimlaneLists.length
+          | {{_ 'add-after-list'}}
+          select.list-position-input.full-line
+            each swimlaneLists
+              option(value="{{_id}}" selected="{{#if isDefaultAfterList _id}}selected{{/if}}") {{title}}
         .edit-controls.clearfix
           button.primary.confirm(type="submit") {{_ 'save'}}
           a.js-close-add-list-inline(title="{{_ 'close'}}")
             i.fa.fa-times-thin
+          unless currentBoard.isTemplatesBoard
+            unless currentBoard.isTemplateBoard
+              span.quiet
+                | {{_ 'or'}}
+                a.js-list-template {{_ 'template'}}
 
 template(name="moveSwimlanePopup")
   if currentUser

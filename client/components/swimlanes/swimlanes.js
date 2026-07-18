@@ -920,12 +920,47 @@ Template.addListInline.onCreated(function () {
   this.currentSwimlane = Template.currentData();
 });
 
+Template.addListInline.helpers({
+  // #6465 follow-up: the lists of the swimlane this composer opens in, so the
+  // "add after which list" position selector (restored) can be shown.
+  swimlaneLists() {
+    const swimlaneId =
+      Session.get('wekan-add-list-swimlane') ||
+      Template.instance().currentSwimlane?._id;
+    if (!swimlaneId) return [];
+    return ReactiveCache.getLists(
+      { swimlaneId, archived: false },
+      { sort: { sort: 1 } },
+    );
+  },
+  // Pre-select the list whose header add-list button opened this composer.
+  isDefaultAfterList(listId) {
+    return Session.get('wekan-add-list-after') === listId;
+  },
+});
+
 Template.addListInline.events({
   async submit(evt, tpl) {
     evt.preventDefault();
     const titleInput = tpl.find('.list-name-input');
     const title = titleInput?.value.trim();
     if (!title) return;
+
+    // Position: honour the explicit "add after list" selector when present
+    // (its options mirror the swimlane's lists, defaulting to the one whose
+    // header opened this composer), and derive nextListId from the following
+    // option so the new list is inserted between them. Fall back to the header
+    // button's target (Session) for the empty-board/start case.
+    const positionInput = tpl.find('.list-position-input');
+    let afterListId;
+    let nextListId = null;
+    if (positionInput && positionInput.value) {
+      afterListId = positionInput.value.trim();
+      const next = positionInput.options[positionInput.selectedIndex + 1];
+      nextListId = next ? next.value : null;
+    } else {
+      afterListId = Session.get('wekan-add-list-after') || null;
+    }
 
     try {
       await Meteor.callAsync('createListAfter', {
@@ -934,9 +969,8 @@ Template.addListInline.events({
         // The header button records the swimlane the list is displayed in; the
         // empty-swimlane composer falls back to its own swimlane data context.
         swimlaneId: Session.get('wekan-add-list-swimlane') || tpl.currentSwimlane?._id,
-        // Position the new list right after the one whose header opened this
-        // composer (null for the empty-board/start case).
-        afterListId: Session.get('wekan-add-list-after') || null,
+        afterListId,
+        nextListId,
         type: 'list',
       });
       titleInput.value = '';
@@ -948,6 +982,8 @@ Template.addListInline.events({
       console.error('Failed to create list:', error);
     }
   },
+  // Restore the "or template" option: create the list from a template.
+  'click .js-list-template': Popup.open('searchElement'),
   'click .js-close-add-list-inline'() {
     Session.set('wekan-add-list-after', null);
     Session.set('wekan-add-list-swimlane', null);
