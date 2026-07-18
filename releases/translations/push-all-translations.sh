@@ -20,7 +20,8 @@ set -e
 
 # Move to the repo root regardless of where this is invoked from, so ../tx and
 # the imports/ paths resolve the same way as the other translation scripts.
-cd "$(dirname "$0")/.."
+# This script lives in releases/translations/, so the repo root is two levels up.
+cd "$(dirname "$0")/../.."
 
 if [ ! -x ../tx ]; then
   echo "[i18n] ../tx (Transifex CLI) not found next to the repo. Aborting."
