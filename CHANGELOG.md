@@ -148,6 +148,13 @@ and adds the following updates:
 
 and fixes the following bugs:
 
+- [Fix "Did not check() all arguments" server-log spam from the Admin Panel →
+  Problems detail pages: the eventLogCount/eventLogPage methods awaited the admin
+  check before check()ing their arguments, so a non-admin call (or one before
+  admin status resolved) made Meteor's audit-argument-checks mask the real error.
+  check() now runs first in every argument-taking event-log
+  method](https://github.com/wekan/wekan/commit/7da21c46b).
+  Thanks to xet7.
 - [Fix MongoDB 3.x → FerretDB v1 migration failing on non-finite numbers: cards
   whose `sort` was ±Infinity or NaN (written by old WeKan before #6472) were
   rejected by FerretDB/SQLite ("infinity values are not allowed") and dropped,
