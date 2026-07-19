@@ -100,11 +100,24 @@ test('every FerretDB launch path keeps polling as the reactivity fallback (oplog
     'releases/ferretdb/wekan-entrypoint.sh',
     'releases/ferretdb/start-wekan.bat',
     'docker-compose.yml',
+    'sandstorm-src/start.js',
   ]) {
     const src = read(f);
     assert.ok(/METEOR_REACTIVITY_ORDER[^\n]*oplog,polling/.test(src),
       `${f} must set METEOR_REACTIVITY_ORDER to oplog,polling (polling fallback)`);
   }
+});
+
+// ── Sandstorm (defaults to FerretDB) enables the OpLog like the other platforms ──
+test('Sandstorm launcher runs steady-state FerretDB with the OpLog + reactivity fallback', () => {
+  const src = read('sandstorm-src/start.js');
+  // steady-state instance gets the oplog; the migration target does NOT
+  assert.ok(/startFerret\(DB_PORT, \{ oplog: true \}\)/.test(src), 'steady-state FerretDB enables oplog');
+  assert.ok(/opts\.oplog && FERRET_OPLOG\) args\.push\(`--repl-set-name=/.test(src), 'repl-set-name gated on oplog opt');
+  assert.ok(/MONGO_OPLOG_URL[\s\S]*local\?replicaSet=/.test(src), 'points WeKan at the oplog');
+  // the migration-target startFerret call must stay oplog-free (no { oplog: true })
+  assert.ok(/startFerret\(DB_PORT\);\s*\/\/ the PERMANENT SQLite dir/.test(src),
+    'the migration-target FerretDB must not enable the oplog');
 });
 test('kill-switch path (WEKAN_FERRETDB_OPLOG=false) selects polling-only reactivity', () => {
   for (const f of ['snap-src/bin/wekan-control', 'releases/ferretdb/start-wekan.sh', 'releases/ferretdb/wekan-entrypoint.sh']) {

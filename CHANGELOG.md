@@ -132,9 +132,11 @@ and adds the following updates:
   hello handshake), so every FerretDB launch path starts ferretdb with
   --repl-set-name=rs0 and points WeKan at it via MONGO_OPLOG_URL, and Meteor
   TAILS the OpLog instead of polling. OpLog is used ONLY when tailing actually
-  works: every FerretDB launch path sets METEOR_REACTIVITY_ORDER=oplog,polling, so
-  Meteor falls back to polling if the OpLog cannot be established (a broken/absent
-  OpLog never blocks startup). Kill-switch WEKAN_FERRETDB_OPLOG=false reverts to
+  works: every platform that defaults to FerretDB — Snap, Sandstorm, the Docker
+  image/compose and the prebuilt bundle — starts ferretdb with --repl-set-name and
+  sets METEOR_REACTIVITY_ORDER=oplog,polling, so Meteor falls back to polling if the
+  OpLog cannot be established (a broken/absent OpLog never blocks startup).
+  Kill-switch WEKAN_FERRETDB_OPLOG=false reverts to
   polling only. Admin Panel → Version shows which driver is actually live
   ("Reactivity mode") next to the configured METEOR_REACTIVITY_ORDER and
   DDP_TRANSPORT, so you can confirm OpLog came up rather than fell back. Also

@@ -53,6 +53,15 @@ const DB_PORT   = '4001';                                      // FerretDB stead
 const SRC_PORT  = '4003';                                      // mongod 3.0 (migration source)
 const NISCU_PORT = '4004';                                     // niscud (niscu→3.0 source)
 
+// #6480/#6481: FerretDB v1 ships an OpLog (auto-created capped local.oplog.rs +
+// replica-set hello handshake). Run the STEADY-STATE FerretDB with a replica-set
+// name and point WeKan at it so Meteor tails the OpLog instead of poll-and-diff.
+// Polling stays the fallback (METEOR_REACTIVITY_ORDER=oplog,polling → OpLog only
+// when tailing works). WEKAN_FERRETDB_OPLOG=false forces polling only. The
+// transient migration-target FerretDB above stays OpLog-free (no --repl-set-name).
+const FERRET_OPLOG  = process.env.WEKAN_FERRETDB_OPLOG !== 'false';
+const REPL_SET_NAME = process.env.WEKAN_FERRETDB_REPL_SET || 'rs0';
+
 function ensureDirs() {
   for (const d of [FILES_DIR, SQLITE_DIR, STATE_DIR,
                    path.join(FILES_DIR, 'attachments'),
@@ -74,15 +83,18 @@ function oldLibEnv() {
 
 function sleep(sec) { spawnSync('/bin/sleep', [String(sec)]); }
 
-function startFerret(port) {
-  return spawn(FERRETDB,
-    ['--handler=sqlite', `--sqlite-url=file:${SQLITE_DIR}/`,
+function startFerret(port, opts = {}) {
+  const args = ['--handler=sqlite', `--sqlite-url=file:${SQLITE_DIR}/`,
      // FerretDB persists state.json via its state provider even with telemetry
      // off; its --state-dir defaults to "." (= "/" in a grain, read-only), so
      // point it at writable /var or it fails with "open /state.json: read-only
      // file system" and the grain crash-loops.
      `--state-dir=${STATE_DIR}`,
-     `--listen-addr=127.0.0.1:${port}`, '--telemetry=disable'],
+     `--listen-addr=127.0.0.1:${port}`, '--telemetry=disable'];
+  // Only the steady-state instance enables the OpLog; the migration target does
+  // not, so bulk inserts are not slowed by oplog recording.
+  if (opts.oplog && FERRET_OPLOG) args.push(`--repl-set-name=${REPL_SET_NAME}`);
+  return spawn(FERRETDB, args,
     { stdio: 'inherit',
       env: { ...process.env, DO_NOT_TRACK: '1', FERRETDB_TELEMETRY: 'disable',
              FERRETDB_STATE_DIR: STATE_DIR } });
@@ -221,7 +233,7 @@ async function migrateIfNeeded() {
 }
 
 function runApp() {
-  const ferret = startFerret(DB_PORT);                   // steady-state DB
+  const ferret = startFerret(DB_PORT, { oplog: true });  // steady-state DB, OpLog on
   ferret.on('exit', code => {                            // if the DB dies, restart the grain
     console.error(`** FerretDB exited (code ${code}); stopping grain.`);
     process.exit(code || 1);
@@ -229,6 +241,17 @@ function runApp() {
   process.on('exit', () => { try { ferret.kill(); } catch (_) {} });
 
   process.env.MONGO_URL     = `mongodb://127.0.0.1:${DB_PORT}/wekan`;
+  // Prefer OpLog tailing, fall back to polling if it does not come up (OpLog only
+  // when it works). Admin Panel → Version shows the live Reactivity mode.
+  if (FERRET_OPLOG) {
+    process.env.MONGO_OPLOG_URL = process.env.MONGO_OPLOG_URL ||
+      `mongodb://127.0.0.1:${DB_PORT}/local?replicaSet=${REPL_SET_NAME}`;
+    process.env.METEOR_REACTIVITY_ORDER = process.env.METEOR_REACTIVITY_ORDER || 'oplog,polling';
+    process.env.DEFAULT_METEOR_REACTIVITY_ORDER = process.env.DEFAULT_METEOR_REACTIVITY_ORDER || 'oplog,polling';
+  } else {
+    process.env.METEOR_REACTIVITY_ORDER = process.env.METEOR_REACTIVITY_ORDER || 'polling';
+    process.env.DEFAULT_METEOR_REACTIVITY_ORDER = process.env.DEFAULT_METEOR_REACTIVITY_ORDER || 'polling';
+  }
   process.env.ROOT_URL      = process.env.ROOT_URL || `http://127.0.0.1:${APP_PORT}`;
   process.env.PORT          = APP_PORT;
   process.env.WRITABLE_PATH = FILES_DIR;
