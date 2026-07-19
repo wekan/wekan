@@ -130,6 +130,13 @@ a filename is shown, uploaded, served, or migrated. Design:
   corrected extension, folded homoglyphs, capped length), saves the corrected name at
   the destination, and disambiguates a same-name / different-content collision with
   increasing numbering (`document.pdf`, `document-1.pdf`, …).
+- **Every sanitization is logged to Admin Panel / Problems** — whenever a filename or
+  file required sanitization (on upload, migration, the existing-file corrector, or
+  viewing), the Security report records WHEN, WHO originally uploaded it (clickable
+  username column), FOR WHAT REASON (URL-encoding, invisible characters,
+  typosquatting look-alikes, the exploit kind such as JavaScript code / XML code /
+  XML loop, wrong file type, filename too long), the filename ("from" → "to"), and
+  WHERE it was uploaded (board › swimlane › list › card, plus organization and team).
 
 # v10.03 2026-07-19 WeKan ® release
 

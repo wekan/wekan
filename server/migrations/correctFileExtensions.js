@@ -29,13 +29,23 @@ async function correctBatch(collection, factory, limit) {
   for (const fileObj of docs) {
     result.checked++;
     try {
-      const { name, changed } = await correctedNameForStoredFile(fileObj, factory);
+      const { name, changed, detectedMime } = await correctedNameForStoredFile(fileObj, factory);
       if (changed && name) {
+        const from = fileObj.name;
         rename(fileObj, name, factory);
         result.corrected++;
         if (result.examples.length < 20) {
-          result.examples.push({ from: fileObj.name, to: name });
+          result.examples.push({ from, to: name });
         }
+        // Log to Admin Panel / Problems: who uploaded, why, when, where.
+        try {
+          const { sanitizationReasons } = require('/models/lib/uploadFileName');
+          await require('/server/lib/filenameSanitizeLog').logFilenameSanitized({
+            fileObj, source: 'existingFileCorrection',
+            reasons: sanitizationReasons(from, detectedMime || fileObj.type, name),
+            from, to: name,
+          });
+        } catch (e) { /* best effort */ }
       }
     } catch (error) {
       result.errors++;

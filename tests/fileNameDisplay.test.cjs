@@ -19,6 +19,7 @@ const {
   hasInvisibleChars,
   decodeFileNameSafe,
   stripExploitPatterns,
+  classifyExploitKinds,
   cleanFileName,
   sanitizeDownloadFileName,
 } = require('../imports/lib/fileNameDisplay.js');
@@ -93,6 +94,17 @@ check('stripExploitPatterns removes tags, PIs, CDATA, templates, dangerous URIs'
   assert.strictEqual(stripExploitPatterns('${process}'), '');
   assert.strictEqual(stripExploitPatterns('<![CDATA[x]]>'), '');
   assert.ok(!/javascript:/i.test(stripExploitPatterns('javascript:alert(1)')));
+});
+
+check('classifyExploitKinds names the exploit kind (for the Problems log)', () => {
+  assert.deepStrictEqual(classifyExploitKinds('<!DOCTYPE x><!ENTITY y>'), ['XML loop (billion laughs)']);
+  assert.deepStrictEqual(classifyExploitKinds('<?xml version="1.0"?>'), ['XML code']);
+  assert.deepStrictEqual(classifyExploitKinds('<script>alert(1)</script>'), ['JavaScript code']);
+  assert.deepStrictEqual(classifyExploitKinds('onerror=alert(1)'), ['JavaScript code']);
+  assert.deepStrictEqual(classifyExploitKinds('<?php echo 1;?>'), ['server-side code (PHP/ASP)']);
+  assert.deepStrictEqual(classifyExploitKinds('a{{7*7}}'), ['template injection']);
+  assert.deepStrictEqual(classifyExploitKinds('<b>hi</b>'), ['HTML code']);
+  assert.deepStrictEqual(classifyExploitKinds('clean.png'), []);
 });
 
 check('sanitizeDownloadFileName never returns empty', () => {

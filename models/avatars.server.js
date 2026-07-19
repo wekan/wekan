@@ -81,7 +81,13 @@ Avatars.onAfterUpload = async function (fileObj) {
   // DOCTYPE/ENTITY (XML loop) constructs from SVG avatars, so safe SVGs are
   // accepted instead of rejected. Same general function used for attachments.
   const { sanitizeUploadedFileExploits } = require('./lib/sanitizeUploadedFile');
-  sanitizeUploadedFileExploits(fileObj);
+  if (sanitizeUploadedFileExploits(fileObj)) {
+    try {
+      await require('/server/lib/filenameSanitizeLog').logContentSanitized({
+        fileObj, source: 'avatarUpload',
+      });
+    } catch (e) { /* best effort */ }
+  }
 
   await Avatars.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions } });
 
@@ -93,13 +99,21 @@ Avatars.onAfterUpload = async function (fileObj) {
     // extension to match the real detected file type — capped to a portable
     // length. (isFileValid already rejected exploit-looking filenames above.)
     try {
-      const { sanitizeUploadFileName } = require('./lib/uploadFileName');
+      const { sanitizeUploadFileName, sanitizationReasons } = require('./lib/uploadFileName');
       const { detectStoredFileMime } = require('./lib/fileTypeCorrection');
       const detectedMime = await detectStoredFileMime(fileObj, fileStoreStrategyFactory);
-      const correctedName = sanitizeUploadFileName(fileObj.name, detectedMime || fileObj.type);
-      if (correctedName && correctedName !== fileObj.name) {
+      const originalName = fileObj.name;
+      const correctedName = sanitizeUploadFileName(originalName, detectedMime || fileObj.type);
+      if (correctedName && correctedName !== originalName) {
         rename(fileObj, correctedName, fileStoreStrategyFactory);
         fileObj.name = correctedName;
+        try {
+          await require('/server/lib/filenameSanitizeLog').logFilenameSanitized({
+            fileObj, source: 'avatarUpload',
+            reasons: sanitizationReasons(originalName, detectedMime || fileObj.type, correctedName),
+            from: originalName, to: correctedName,
+          });
+        } catch (e) { /* best effort */ }
       }
     } catch (error) {
       console.error('[Avatars.onAfterUpload] filename hardening failed:', error);

@@ -109,6 +109,22 @@ function normalizeConfusables(name) {
   return n;
 }
 
+// Classify WHAT KIND of exploit markup a string contains, as human-readable labels
+// for the Admin Panel → Problems log (e.g. "JavaScript code", "XML loop (billion
+// laughs)"). Order matters: the most specific kinds are checked before the generic
+// "HTML code" fallback. Returns [] when nothing dangerous is present.
+function classifyExploitKinds(text) {
+  const s = String(text == null ? '' : text);
+  const kinds = [];
+  if (/<!doctype|<!entity/i.test(s)) kinds.push('XML loop (billion laughs)');
+  if (/<\?xml|<!\[cdata|<\?xml-stylesheet/i.test(s)) kinds.push('XML code');
+  if (/<\s*script\b|javascript:|vbscript:|\son\w+\s*=|^on\w+\s*=/i.test(s)) kinds.push('JavaScript code');
+  if (/<\?php|<\?=|<%/i.test(s)) kinds.push('server-side code (PHP/ASP)');
+  if (/\{\{[\s\S]*?\}\}|\$\{[\s\S]*?\}/.test(s)) kinds.push('template injection');
+  if (kinds.length === 0 && /<[^>]+>|[<>]/.test(s)) kinds.push('HTML code');
+  return kinds;
+}
+
 // The general filename DISPLAY function: decoded, normalized (NFKC + confusable
 // homoglyphs folded), invisible chars removed, exploit markup removed, whitespace
 // collapsed. Used everywhere a filename is shown.
@@ -132,6 +148,8 @@ module.exports = {
   hasInvisibleChars,
   decodeFileNameSafe,
   stripExploitPatterns,
+  classifyExploitKinds,
+  normalizeConfusables,
   cleanFileName,
   sanitizeDownloadFileName,
 };

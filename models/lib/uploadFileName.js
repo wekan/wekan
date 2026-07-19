@@ -9,7 +9,13 @@
 // models/fileValidation.js and models/attachments.server.js / avatars.server.js.
 
 const mime = require('mime-types');
-const { decodeFileNameSafe, cleanFileName } = require('/imports/lib/fileNameDisplay');
+const {
+  decodeFileNameSafe,
+  cleanFileName,
+  hasInvisibleChars,
+  normalizeConfusables,
+  classifyExploitKinds,
+} = require('/imports/lib/fileNameDisplay');
 
 // Maximum number of CHARACTERS (code points, not bytes) allowed in a stored
 // filename. Chosen so the name fits any operating system and filesystem WeKan
@@ -117,10 +123,44 @@ function numberedName(name, index) {
   return truncateFilenameChars(base + '-' + index + ext);
 }
 
+// Explain, in human-readable terms for the Admin Panel → Problems log, WHY a
+// filename required sanitization: which reasons applied (URL-encoding, invisible
+// characters, typosquatting look-alikes, a specific exploit KIND, the wrong file
+// type/extension, an over-long name, or an empty name). Computed from the ORIGINAL
+// name (+ the type-detected MIME and the corrected result). Returns [] when the
+// name was already clean.
+function sanitizationReasons(originalName, mimeType, correctedName) {
+  const reasons = [];
+  const raw = String(originalName == null ? '' : originalName);
+  const decoded = decodeFileNameSafe(raw);
+  const corrected = String(correctedName == null ? '' : correctedName);
+
+  if (decoded !== raw) reasons.push('URL-encoded name');
+  if (hasInvisibleChars(decoded)) reasons.push('invisible characters');
+  if (normalizeConfusables(decoded) !== decoded) reasons.push('typosquatting (look-alike characters)');
+  for (const kind of classifyExploitKinds(decoded)) reasons.push('exploit: ' + kind);
+
+  const cleaned = cleanFileName(decoded);
+  if (cleaned === '') {
+    reasons.push('empty name, generated from file type');
+  } else if (Array.from(cleaned).length > MAX_FILENAME_CHARS) {
+    reasons.push('filename too long');
+  }
+
+  const dot = s => { const i = String(s).lastIndexOf('.'); return i > 0 ? String(s).slice(i).toLowerCase() : ''; };
+  const oldExt = dot(decoded);
+  const newExt = dot(corrected);
+  if (oldExt !== newExt) {
+    reasons.push('wrong file type (' + (oldExt || '(none)') + ' → ' + (newExt || '(none)') + ')');
+  }
+  return reasons;
+}
+
 module.exports = {
   MAX_FILENAME_CHARS,
   truncateFilenameChars,
   numberedName,
+  sanitizationReasons,
   baseNameForMime,
   extensionForMime,
   filenameLooksLikeExploit,

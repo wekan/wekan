@@ -1,14 +1,22 @@
-export const httpStreamOutput = function(readStream, name, http, downloadFlag, cacheControl) {
+export const httpStreamOutput = function(readStream, name, http, downloadFlag, cacheControl, fileObj) {
     // Sanitize known exploits from EXISTING files on the fly, straight from the
     // storage backend, without buffering whole files: the sanitizer sniffs the
     // start of the stream and only rewrites documents that begin like dangerous
     // markup (SVG/XML with <script>, an <!DOCTYPE/<!ENTITY XML loop, inline event
     // handlers, ...); everything else streams through unchanged. See
-    // models/lib/serveFileSanitizer.js.
+    // models/lib/serveFileSanitizer.js. When it DOES rewrite something, log it to
+    // Admin Panel / Problems with the uploader + location context (viewing path).
     let outStream = readStream;
     try {
       const { createServeSanitizer } = require('./serveFileSanitizer');
-      const sanitizer = createServeSanitizer(name);
+      const onSanitized = kinds => {
+        try {
+          require('/server/lib/filenameSanitizeLog').logContentSanitized({
+            fileObj: fileObj || { name }, source: 'fileView', kinds,
+          });
+        } catch (e) { /* best effort */ }
+      };
+      const sanitizer = createServeSanitizer(name, onSanitized);
       readStream.on('error', err => sanitizer.destroy(err));
       outStream = readStream.pipe(sanitizer);
     } catch (e) {

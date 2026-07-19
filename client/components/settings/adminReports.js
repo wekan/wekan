@@ -609,9 +609,23 @@ Template.eventStreamReport.helpers({
     if (!at) return '';
     try { return new Date(at).toISOString().replace('T', ' ').slice(0, 19); } catch (e) { return String(at); }
   },
+  // The user who triggered the event (e.g. who uploaded a sanitized file). Empty
+  // for events with no associated user.
+  userName(userId) {
+    if (!userId) return '';
+    return ReactiveCache.getUser(userId)?.username || userId;
+  },
 });
 
 Template.eventStreamReport.events({
+  // Clicking the uploader opens the same "Edit user" popup as Admin Panel / People.
+  'click .js-event-edit-user'(event) {
+    event.preventDefault();
+    const userId = event.currentTarget.getAttribute('data-user-id');
+    if (userId) {
+      Popup.open('editUser').call({ userId }, event);
+    }
+  },
   'input .js-event-search'(event, tmpl) {
     tmpl.search.set(event.currentTarget.value.trim());
     tmpl.page.set(1);

@@ -31,6 +31,7 @@ const {
   extensionForMime,
   filenameLooksLikeExploit,
   sanitizeUploadFileName,
+  sanitizationReasons,
 } = require('../models/lib/uploadFileName.js');
 
 let passed = 0;
@@ -105,6 +106,20 @@ check('filenameLooksLikeExploit rejects exploit-looking names (negative tests)',
   assert.strictEqual(filenameLooksLikeExploit('onerror=alert(1).png'), true);
   assert.strictEqual(filenameLooksLikeExploit('shell.php\u0000.jpg'), true);   // null byte
   assert.strictEqual(filenameLooksLikeExploit('../../etc/passwd'), true);      // path traversal
+});
+
+check('sanitizationReasons explains WHY a name was sanitized (for the Problems log)', () => {
+  assert.deepStrictEqual(sanitizationReasons('evil' + ZW + '.png', 'image/png', 'evil.png'),
+    ['invisible characters']);
+  assert.deepStrictEqual(sanitizationReasons('report.txt', 'application/pdf', 'report.pdf'),
+    ['wrong file type (.txt → .pdf)']);
+  assert.deepStrictEqual(sanitizationReasons('pаypal.exe', 'application/octet-stream', 'paypal.exe'),
+    ['typosquatting (look-alike characters)']);
+  assert.deepStrictEqual(sanitizationReasons('x'.repeat(40) + '.pdf', 'application/pdf', 'x'.repeat(25) + '.pdf'),
+    ['filename too long']);
+  const doctype = sanitizationReasons('a<!DOCTYPE y>.svg', 'image/svg+xml', 'a.svg');
+  assert.ok(doctype.includes('exploit: XML loop (billion laughs)'));
+  assert.deepStrictEqual(sanitizationReasons('clean.png', 'image/png', 'clean.png'), []);
 });
 
 console.log(`\nuploadFileName: ${passed} checks passed`);

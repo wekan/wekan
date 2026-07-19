@@ -243,7 +243,7 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
     let ret = false;
     if (readStream) {
       ret = true;
-      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl);
+      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
     }
 
     return ret;
@@ -576,7 +576,7 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
     let ret = false;
     if (readStream) {
       ret = true;
-      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl);
+      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
     }
     return ret;
   }
@@ -797,6 +797,11 @@ export const moveToStorage = async function(fileObj, storageDestination, fileSto
     if (sanitizeUploadedFileExploits(fileObj)) {
       await collection.updateAsync({ _id: fileObj._id }, { $set: { versions: fileObj.versions } })
         .catch(error => console.error('Failed to persist sanitized versions before move:', error));
+      try {
+        await require('/server/lib/filenameSanitizeLog').logContentSanitized({
+          fileObj, source: 'storageMigration',
+        });
+      } catch (e) { /* best effort */ }
     }
   } catch (error) {
     console.error('[moveToStorage] content exploit sanitize failed (continuing):', error);
@@ -810,7 +815,8 @@ export const moveToStorage = async function(fileObj, storageDestination, fileSto
   // name is saved as the filename at the destination.
   try {
     const { finalizeStoredFileName } = require('./fileTypeCorrection');
-    const { name: finalName, changed } = await finalizeStoredFileName(collection, fileObj, fileStoreStrategyFactory);
+    const originalName = fileObj.name;
+    const { name: finalName, changed, detectedMime } = await finalizeStoredFileName(collection, fileObj, fileStoreStrategyFactory);
     if (changed && finalName) {
       const lastDot = finalName.lastIndexOf('.');
       const extension = lastDot === -1 ? '' : finalName.substring(lastDot + 1).toLowerCase();
@@ -819,6 +825,15 @@ export const moveToStorage = async function(fileObj, storageDestination, fileSto
         extension,
         extensionWithDot: extension ? `.${extension}` : '',
       } }).catch(error => console.error('Failed to persist migrated attachment name:', error));
+      // Log to Admin Panel / Problems: who uploaded, why it was sanitized, when.
+      try {
+        const { sanitizationReasons } = require('./uploadFileName');
+        await require('/server/lib/filenameSanitizeLog').logFilenameSanitized({
+          fileObj, source: 'storageMigration',
+          reasons: sanitizationReasons(originalName, detectedMime || fileObj.type, finalName),
+          from: originalName, to: finalName,
+        });
+      } catch (e) { /* best effort */ }
       fileObj.name = finalName;
     }
   } catch (error) {

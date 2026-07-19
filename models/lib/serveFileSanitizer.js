@@ -25,6 +25,7 @@
 
 const { Transform } = require('stream');
 const { sanitizeSvgContent } = require('./sanitizeSvg');
+const { classifyExploitKinds } = require('/imports/lib/fileNameDisplay');
 
 const SNIFF_BYTES = 8192;                    // enough to see the document start
 const MAX_SANITIZE_BYTES = 8 * 1024 * 1024;  // only buffer/sanitize small text files
@@ -51,12 +52,21 @@ function safeSanitize(text) {
 }
 
 // Build a Transform stream that sanitizes a served file on the fly (see file docs).
-function createServeSanitizer(name) {
+// onSanitized(kinds) is called once, if provided, when the stream actually rewrote
+// dangerous content — with the classified exploit kinds — so the caller can log it.
+function createServeSanitizer(name, onSanitized) {
   let decided = false;
   let sanitizing = false;
   let overflow = false;
+  let notified = false;
   let head = Buffer.alloc(0);
   let buffered = Buffer.alloc(0);
+
+  const notify = text => {
+    if (notified || typeof onSanitized !== 'function') return;
+    notified = true;
+    try { onSanitized(classifyExploitKinds(text)); } catch (e) { /* logging must not break the stream */ }
+  };
 
   return new Transform({
     transform(chunk, enc, cb) {
@@ -98,6 +108,7 @@ function createServeSanitizer(name) {
         // The whole file was smaller than SNIFF_BYTES.
         const text = head ? head.toString('utf8') : '';
         if (headLooksDangerous(text)) {
+          notify(text);
           this.push(Buffer.from(safeSanitize(text), 'utf8'));
         } else if (head) {
           this.push(head);
@@ -106,7 +117,9 @@ function createServeSanitizer(name) {
         return;
       }
       if (sanitizing && !overflow && buffered) {
-        this.push(Buffer.from(safeSanitize(buffered.toString('utf8')), 'utf8'));
+        const text = buffered.toString('utf8');
+        notify(text);
+        this.push(Buffer.from(safeSanitize(text), 'utf8'));
       }
       cb();
     },

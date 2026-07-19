@@ -122,6 +122,28 @@ source after the write is confirmed).
 **Correct existing extensions** (`correctFileExtensions.run`, admin-only, bounded): for each file →
 `correctedNameForStoredFile` (general detector) → `rename` if changed.
 
+## 3a. Admin Panel → Problems logging
+
+Every time a filename or file **required sanitization** — on upload, migration, the
+existing-file corrector, or viewing/serving — it is recorded to the **Security**
+event stream (`action:'sanitized'`), the same log the `action:'blocked'` upload
+rejections already use. Each row carries:
+
+- **when** — the event timestamp (`at`);
+- **who** — the original uploader (`userId`), shown as a clickable username column
+  in the report;
+- **for what reason** — the precise reasons from `sanitizationReasons()`: URL-encoded
+  name, invisible characters, **typosquatting (look-alike characters)**, the specific
+  **exploit kind** (`JavaScript code`, `XML code`, **`XML loop (billion laughs)`**,
+  server-side PHP/ASP, template injection, HTML code), **wrong file type**
+  (`.txt → .png`), **filename too long**, or empty-name-generated;
+- **the filename** — `"from" → "to"`;
+- **where** — board › swimlane › list › card, plus the board's **organization(s)**
+  and **team(s)** (`server/lib/fileContext.js`).
+
+Catalog keys: `file.sanitize` (name), `file.content` (content exploit removed),
+`file.malware` (EICAR). Logging is best-effort and never breaks the upload/view path.
+
 ## 4. Security notes
 
 - Display sanitization is **defense in depth**, not the only boundary — Blaze escaping, the download

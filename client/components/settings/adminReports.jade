@@ -275,6 +275,7 @@ template(name="eventStreamReport")
             th {{_ 'event-severity'}}
             th {{_ 'event-action'}}
             th {{_ 'event-source'}}
+            th {{_ 'username'}}
             th {{_ 'event-detail'}}
         tbody
           each row in rows
@@ -285,6 +286,9 @@ template(name="eventStreamReport")
               td.admin-event-sev(data-sev="{{row.severity}}") {{row.severity}}
               td {{row.action}}
               td {{row.source}}
+              td
+                if row.userId
+                  a.edit-user.js-event-edit-user(data-user-id="{{ row.userId }}") {{ userName row.userId }}
               td.admin-event-detail {{row.detail}}
     else
       p {{_ 'no-new-problems'}}

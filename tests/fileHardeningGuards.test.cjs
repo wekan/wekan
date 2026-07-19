@@ -86,4 +86,26 @@ check('detector streams only a small header to temp and always deletes it', () =
   assert.ok(/unlink\(tempPath\)/.test(s) && /finally/.test(s), 'temp file always deleted');
 });
 
+check('filename/content sanitization is logged to Admin Panel / Problems with context', () => {
+  // Catalog keys for the sanitized events + EICAR malware.
+  const cat = read('models/lib/securityCategories.js');
+  assert.ok(/'file\.sanitize'/.test(cat) && /'file\.content'/.test(cat) && /'file\.malware'/.test(cat));
+  // The logger records who (userId) + why + where (board/swimlane/list/card/org/team).
+  const log = read('server/lib/filenameSanitizeLog.js');
+  assert.ok(/logFilenameSanitized/.test(log) && /logContentSanitized/.test(log));
+  assert.ok(/resolveFileContext/.test(log) && /action: 'sanitized'/.test(log));
+  const ctx = read('server/lib/fileContext.js');
+  assert.ok(/boardTitle/.test(ctx) && /swimlaneTitle/.test(ctx) && /cardTitle/.test(ctx), 'board/swimlane/card');
+  assert.ok(/orgNames/.test(ctx) && /teamNames/.test(ctx) && /uploaderName/.test(ctx) && /uploadedAt/.test(ctx),
+    'org/team/uploader/when');
+  // Wired at every fix point: upload, migration, existing-file, and viewing.
+  assert.ok(/logFilenameSanitized|logContentSanitized/.test(read('models/attachments.server.js')), 'attachment upload');
+  assert.ok(/logFilenameSanitized|logContentSanitized/.test(read('models/avatars.server.js')), 'avatar upload');
+  assert.ok(/logFilenameSanitized|logContentSanitized/.test(read('models/lib/fileStoreStrategy.js')), 'migration');
+  assert.ok(/logFilenameSanitized/.test(read('server/migrations/correctFileExtensions.js')), 'existing-file');
+  assert.ok(/logContentSanitized/.test(read('models/lib/httpStream.js')), 'viewing/serve');
+  // The report shows the uploader column.
+  assert.ok(/js-event-edit-user/.test(read('client/components/settings/adminReports.jade')), 'uploader column in report');
+});
+
 console.log(`\nfileHardeningGuards: ${passed} checks passed`);

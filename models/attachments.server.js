@@ -119,6 +119,12 @@ Attachments.onAfterUpload = async function (fileObj) {
     } catch (error) {
       console.error('[onAfterUpload] Failed to persist sanitized versions:', error);
     }
+    // Log to Admin Panel / Problems: who uploaded, what was removed, when, where.
+    try {
+      await require('/server/lib/filenameSanitizeLog').logContentSanitized({
+        fileObj, source: 'attachmentUpload',
+      });
+    } catch (e) { /* best effort */ }
   }
 
   // Filename hardening for EVERY upload, on all storage backends:
@@ -138,10 +144,20 @@ Attachments.onAfterUpload = async function (fileObj) {
     }
     const { detectStoredFileMime } = require('./lib/fileTypeCorrection');
     const detectedMime = await detectStoredFileMime(fileObj, fileStoreStrategyFactory);
-    const correctedName = sanitizeUploadFileName(fileObj.name, detectedMime || fileObj.type);
-    if (correctedName && correctedName !== fileObj.name) {
+    const originalName = fileObj.name;
+    const correctedName = sanitizeUploadFileName(originalName, detectedMime || fileObj.type);
+    if (correctedName && correctedName !== originalName) {
       rename(fileObj, correctedName, fileStoreStrategyFactory);
       fileObj.name = correctedName;
+      // Log to Admin Panel / Problems: who uploaded, why, when, where.
+      try {
+        const { sanitizationReasons } = require('./lib/uploadFileName');
+        await require('/server/lib/filenameSanitizeLog').logFilenameSanitized({
+          fileObj, source: 'attachmentUpload',
+          reasons: sanitizationReasons(originalName, detectedMime || fileObj.type, correctedName),
+          from: originalName, to: correctedName,
+        });
+      } catch (e) { /* best effort */ }
     }
   } catch (error) {
     console.error('[onAfterUpload] filename hardening failed:', error);

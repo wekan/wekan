@@ -182,7 +182,7 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
       const { text: malwareHead } = await readTextHead(fileObj.path, 65536);
       if (looksLikeMalwareTestFile(malwareHead)) {
         console.log('Validation of uploaded file failed (known virus test file): ' + fileObj.path);
-        logUploadBlock('malware.testfile', 'rejected known virus test file (EICAR)');
+        logUploadBlock('file.malware', 'rejected known virus test file (EICAR)');
         return false;
       }
     } catch (e) {
