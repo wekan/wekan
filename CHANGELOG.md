@@ -128,6 +128,29 @@ and adds the following updates:
 - [Updated SECURITY.md](https://github.com/wekan/wekan/commit/eebccaf291c2751154f127095d5b7610399f0f2d).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix MongoDB 3.x → FerretDB v1 migration failing on non-finite numbers: cards
+  whose `sort` was ±Infinity or NaN (written by old WeKan before #6472) were
+  rejected by FerretDB/SQLite ("infinity values are not allowed") and dropped,
+  so boards stayed stuck on the loading spinner. The migration now clamps every
+  non-finite double to a finite 0 before insert, and a new `nonfinite-sort-repair`
+  startup schema-upgrade step heals the same corruption in an already-running
+  database (MongoDB or FerretDB)](https://github.com/wekan/wekan/commit/2f7b49d8def4bb03d233b83671ac6c78308124ea).
+  Thanks to Nissulya and xet7.
+- [Fix LDAP `mail` → `email` field mapping returning undefined (regression since
+  the ldapjs → ldapts move): the sync read the mapped attribute case-sensitively
+  while the rest of wekan-ldap reads it case-insensitively, so a directory that
+  returns the attribute with a different case synced no email address. It is now
+  read via getLDAPValue() like everywhere else](https://github.com/wekan/wekan/commit/2f7b49d8def4bb03d233b83671ac6c78308124ea).
+  Thanks to Nissulya and xet7.
+- [Fix a memory/listener leak in board and CSV export: each write paused on
+  socket backpressure leaked one 'error' listener on the response
+  ("MaxListenersExceededWarning: 11 error listeners added to [ServerResponse]"),
+  which on a large export grew unbounded. Both listeners are now removed once the
+  write settles](https://github.com/wekan/wekan/commit/2f7b49d8def4bb03d233b83671ac6c78308124ea).
+  Thanks to uusijani and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.02 2026-07-19 WeKan ® release
