@@ -59,6 +59,41 @@
   text-align: center;
 }
 
+/* Files report: a board-view-style filter toggle (outlined, fills with the theme
+   accent when active) that lists only filenames containing invisible characters;
+   the clear "x" shows while it is active so it doubles as remove-filter. */
+.admin-report-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--theme-accent, #01628c);
+  background: transparent;
+  color: var(--theme-accent, #01628c);
+  border-radius: 0.4vw;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.admin-report-filter.active {
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+}
+
+/* Legend at the far right of the controls row: red = the filename hides
+   invisible characters (matches the red filenames in the table). */
+.admin-report-legend {
+  color: #c0392b;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+/* A filename with invisible / control / bidi characters is shown in red. */
+.filename-invisible {
+  color: #c0392b;
+  font-weight: bold;
+}
+
 /* Problems page: menu separator between the event streams (Summary/Security/
    Speed/Tests) and the moved report items, and the read-only event table. */
 .admin-reports-content .side-menu .admin-reports-separator hr {

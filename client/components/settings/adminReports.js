@@ -8,6 +8,7 @@ import Cards from '/models/cards';
 import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 const { filesize } = require('filesize');
+const { decodeFileNameSafe, hasInvisibleChars } = require('/imports/lib/fileNameDisplay');
 
 // --- Shared helper functions (formerly AdminReport base class methods) ---
 
@@ -57,7 +58,7 @@ const REPORTS_PER_PAGE = 25;
 // single loadReport() drive all of them the same way.
 function reportConfig(tmpl) {
   return {
-    'report-files': { page: tmpl.filesPage, count: tmpl.filesCount, search: tmpl.filesSearch, pub: 'attachmentsList', countMethod: 'getAttachmentsReportCount' },
+    'report-files': { page: tmpl.filesPage, count: tmpl.filesCount, search: tmpl.filesSearch, pub: 'attachmentsList', countMethod: 'getAttachmentsReportCount', extraArgs: () => [tmpl.filesInvisibleOnly.get()] },
     'report-rules': { page: tmpl.rulesPage, count: tmpl.rulesCount, search: tmpl.rulesSearch, pub: 'rulesReport', countMethod: 'getRulesReportCount' },
     'report-boards': { page: tmpl.boardsPage, count: tmpl.boardsCount, search: tmpl.boardsSearch, pub: 'boardsReport', countMethod: 'getBoardsReportCount' },
     'report-cards': { page: tmpl.cardsPage, count: tmpl.cardsCount, search: tmpl.cardsSearch, pub: 'cardsReport', countMethod: 'getCardsReportCount' },
@@ -101,6 +102,9 @@ Template.adminReports.onCreated(function () {
   this.boardsSearch = new ReactiveVar('');
   this.cardsSearch = new ReactiveVar('');
   this.impersonationSearch = new ReactiveVar('');
+  // Files report: when true, list ONLY filenames that contain invisible /
+  // control / bidi characters (server-side filter). Toggled by the filter button.
+  this.filesInvisibleOnly = new ReactiveVar(false);
 
   // (Re)subscribe the given report for its current page and refresh its total
   // count. Server-side search + limit/skip means only the matching page ever
@@ -120,10 +124,13 @@ Template.adminReports.onCreated(function () {
     const searchTerm = cfg.search.get();
     const limit = REPORTS_PER_PAGE;
     const skip = (cfg.page.get() - 1) * REPORTS_PER_PAGE;
-    this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, () => {
+    // Per-report extra publication/count arguments (e.g. the files report's
+    // "invisible characters only" filter). Empty for reports that take none.
+    const extra = cfg.extraArgs ? cfg.extraArgs() : [];
+    this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, ...extra, () => {
       this.loading.set(false);
     });
-    Meteor.call(cfg.countMethod, searchTerm, (error, count) => {
+    Meteor.call(cfg.countMethod, searchTerm, ...extra, (error, count) => {
       if (error) {
         console.error(`Failed to load ${cfg.countMethod}:`, error);
         return;
@@ -180,6 +187,7 @@ Template.adminReports.helpers({
   },
 
   // --- Pagination helpers, passed down into each report sub-template ---
+  filesInvisibleActive() { return Template.instance().filesInvisibleOnly.get(); },
   filesCurrentPage() { return Template.instance().filesPage.get(); },
   filesTotalPages() { return Math.max(1, Math.ceil((Template.instance().filesCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasFilesPrevPage() { return Template.instance().filesPage.get() > 1; },
@@ -268,6 +276,12 @@ Template.adminReports.events({
 
   // --- Search (one input + button per report, mirrors the People panel) ---
   'keydown .js-files-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-files', '.js-files-search-input'); },
+  'click .js-files-invisible-filter'(event, tmpl) {
+    event.preventDefault();
+    tmpl.filesInvisibleOnly.set(!tmpl.filesInvisibleOnly.get());
+    tmpl.filesPage.set(1);          // a different result set: start at page 1
+    tmpl.loadReport('report-files');
+  },
   'keydown .js-rules-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-rules', '.js-rules-search-input'); },
   'keydown .js-boards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-boards', '.js-boards-search-input'); },
   'keydown .js-cards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-cards', '.js-cards-search-input'); },
@@ -389,6 +403,17 @@ Template.filesReport.helpers({
   },
   resultsCount() {
     return collectionResultsCount(Attachments);
+  },
+  // A percent-encoded name (e.g. "%D0%93%D1%80") is URL-decoded for display when
+  // it decodes cleanly. Blaze `{{ }}` HTML-escapes the result, so the filename is
+  // ALWAYS shown as plain text — never rendered as markdown or HTML.
+  displayFileName(name) {
+    return decodeFileNameSafe(name);
+  },
+  // True when the (decoded) filename hides invisible/control/bidi characters, so
+  // the template can show it in red.
+  fileNameHasInvisible(name) {
+    return hasInvisibleChars(decodeFileNameSafe(name));
   },
   fileSize(size) {
     return fileSizeHelper(size);

@@ -73,7 +73,7 @@ template(name="adminReports")
           else if showBrokenCardsReport.get
             +brokenCardsReport
           else if showFilesReport.get
-            +filesReport(currentPage=filesCurrentPage totalPages=filesTotalPages hasPrevPage=hasFilesPrevPage hasNextPage=hasFilesNextPage)
+            +filesReport(currentPage=filesCurrentPage totalPages=filesTotalPages hasPrevPage=hasFilesPrevPage hasNextPage=hasFilesNextPage invisibleActive=filesInvisibleActive)
           else if showRulesReport.get
             +rulesReport(currentPage=rulesCurrentPage totalPages=rulesTotalPages hasPrevPage=hasRulesPrevPage hasNextPage=hasRulesNextPage)
           else if showBoardsReport.get
@@ -125,12 +125,18 @@ template(name="filesReport")
   h1 {{_ 'filesReportTitle'}}
   .admin-report-controls
     input.js-files-search-input(type="search" placeholder="{{_ 'search'}}")
+    button.js-files-invisible-filter.admin-report-filter(class="{{#if invisibleActive}}active{{/if}}" title="{{_ 'filter-invisible-filenames'}}")
+      i.fa.fa-filter
+      | {{_ 'filter-invisible-filenames'}}
+      if invisibleActive
+        i.fa.fa-times.admin-report-filter-clear
     .admin-report-pagination
       button.js-files-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
         | &lt;
       span.admin-report-page-info {{currentPage}} / {{totalPages}}
       button.js-files-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
         | &gt;
+    span.admin-report-legend {{_ 'filename-invisible-legend'}}
   if resultsCount
     table
       thead
@@ -145,7 +151,8 @@ template(name="filesReport")
       each att in results
         tbody
           tr
-            td {{ att.name }}
+            td
+              span(class="{{#if fileNameHasInvisible att.name}}filename-invisible{{/if}}") {{ displayFileName att.name }}
             td.right {{ fileSize att.size }}
             td {{ att.type }}
             td {{ att._id }}

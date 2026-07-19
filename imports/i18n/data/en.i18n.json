@@ -1590,6 +1590,8 @@
   "creator": "Creator",
   "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Files Report",
+  "filter-invisible-filenames": "Only filenames with invisible characters",
+  "filename-invisible-legend": "Red: filename has invisible characters",
   "reports": "Reports",
   "problems": "Problems",
   "securityReportTitle": "Security",
