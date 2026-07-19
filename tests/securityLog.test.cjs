@@ -87,9 +87,17 @@ check('the banner is included at the top of the Admin Panel', () => {
   assert.ok(/\+adminProblemBanner/.test(read('client/components/settings/settingHeader.jade')));
   const js = read('client/components/settings/adminProblemBanner.js');
   assert.ok(/eventLogProblemAreas/.test(js) && /acknowledgeEventLog/.test(js));
-  assert.ok(/js-ack-problems/.test(read('client/components/settings/adminProblemBanner.jade')));
   const feat = read('client/features/settings.js');
   assert.ok(/adminProblemBanner\.jade/.test(feat) && /adminProblemBanner\.js/.test(feat), 'must be imported');
+});
+check('the banner is a checkbox list with ONE acknowledge button', () => {
+  const jade = read('client/components/settings/adminProblemBanner.jade');
+  assert.ok(/input\.js-problem-check\(type="checkbox"/.test(jade), 'each area has a checkbox');
+  assert.ok((jade.match(/js-ack-checked/g) || []).length === 1, 'exactly one acknowledge button');
+  const js = read('client/components/settings/adminProblemBanner.js');
+  assert.ok(/js-problem-check:checked/.test(js), 'button acknowledges the checked streams');
+  // acknowledge lives ONLY in the banner — the method accepts an array of streams
+  assert.ok(/Match\.OneOf\(String, \[String\]\)/.test(read('models/eventLog.js')));
 });
 
 console.log(`\nsecurityLog: ${passed} checks passed`);

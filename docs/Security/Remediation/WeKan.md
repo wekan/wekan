@@ -242,6 +242,11 @@ li a.js-report-speed(data-id="report-speed")        i.fa.fa-tachometer  {{_ 'spe
 li a.js-report-tests(data-id="report-tests")        i.fa.fa-flask       {{_ 'testsReportTitle'}}
 ```
 
+Acknowledging problems happens **only** at the Admin Panel top banner (a checkbox list of
+problem areas + one Acknowledge button; see `client/components/settings/adminProblemBanner`),
+which resets the per-stream new-problem count. The Reports pages themselves are **read-only**
+(no acknowledge control) — they show the full history and summary.
+
 Each report body follows [History.md](../../Features/History/History.md) §1:
 
 - **Summary panel** (top / left): the grouped-count result (§5) — total, per-category

@@ -2,8 +2,10 @@ template(name="adminProblemBanner")
   if hasProblems
     .admin-problem-banner(role="status" aria-live="polite")
       each area in areas
-        .admin-problem-item
+        label.admin-problem-item
+          input.js-problem-check(type="checkbox" data-stream="{{area.stream}}")
           i.fa.fa-exclamation-triangle
           span.admin-problem-path {{_ 'admin-panel'}} → {{_ 'reports'}} → {{areaLabel area.stream}}
           span.admin-problem-count {{area.count}} {{_ 'new-problems'}}
-          a.js-ack-problems.primary(data-stream="{{area.stream}}") {{_ 'acknowledge'}}
+      .admin-problem-actions
+        button.js-ack-checked.primary {{_ 'acknowledge'}}

@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 // ============================================================================
@@ -76,14 +76,20 @@ if (Meteor.isServer) {
       return areas;
     },
 
-    // Admin-only: mark the newest problems in a stream as seen (resets its count).
-    async acknowledgeEventLog(stream) {
-      check(stream, String);
+    // Admin-only: mark the newest problems in the given stream(s) as seen
+    // (resets each one's count). Accepts a single stream or an array, so the
+    // Admin Panel banner can acknowledge all checked areas with one button.
+    async acknowledgeEventLog(streams) {
+      check(streams, Match.OneOf(String, [String]));
       await requireAdmin(this);
-      if (!EVENT_STREAMS.includes(stream)) {
-        throw new Meteor.Error('invalid-stream', 'Unknown event stream');
+      const list = Array.isArray(streams) ? streams : [streams];
+      const now = new Date();
+      for (const stream of list) {
+        if (!EVENT_STREAMS.includes(stream)) {
+          throw new Meteor.Error('invalid-stream', 'Unknown event stream');
+        }
+        await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: now } });
       }
-      await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: new Date() } });
       return true;
     },
   });

@@ -41,8 +41,13 @@ Template.adminProblemBanner.helpers({
 });
 
 Template.adminProblemBanner.events({
-  'click .js-ack-problems'(event, templateInstance) {
-    const stream = event.currentTarget.getAttribute('data-stream');
-    Meteor.call('acknowledgeEventLog', stream, () => templateInstance.reload());
+  // The ONLY place problems are acknowledged: the top banner. Acknowledge every
+  // checked area in one call; the Reports pages themselves are read-only.
+  'click .js-ack-checked'(event, templateInstance) {
+    const streams = Array.from(templateInstance.findAll('.js-problem-check:checked'))
+      .map(el => el.getAttribute('data-stream'))
+      .filter(Boolean);
+    if (!streams.length) return;
+    Meteor.call('acknowledgeEventLog', streams, () => templateInstance.reload());
   },
 });
