@@ -1,71 +1,39 @@
 // ============================================================================
 // WeKan speed / performance event logger  (docs/Security/Remediation/WeKan.md §9)
 // ----------------------------------------------------------------------------
-// Records performance problems that are NOT auto-remediated (a slow method/
-// request, an oversized publication, a big board, repeated full scans, …) to
-//   <filesRoot>/speed/YYYY-MM/DD/HH_MM_SS/wekan-speed-log.txt
-//   <filesRoot>/speed/YYYY-MM/DD/HH_MM_SS/wekan-speed-summary.txt
-// It reuses the security logger's pure helpers (same line format, disk-space
-// guard, dated run dir, tally/summary) and is likewise best-effort/non-throwing.
-// This file lives under server/ so it is server-only.
+// Records performance problems NOT auto-remediated (slow method/request,
+// oversized publication, big board, repeated full scans) — and problems FerretDB
+// reports back to WeKan — as documents in the existing WeKan database
+// (models/eventLog.js, stream:'speed') via a normal Meteor JavaScript query.
+// Best-effort, never throws. Server-only.
 // ============================================================================
 
-import fs from 'fs';
-import path from 'path';
-const {
-  MIN_WRITE_BYTES, runDirFor, formatLine, tallyAdd, renderSummary, hasEnoughDiskSpace,
-} = require('/models/lib/securityLogFormat');
-
-const RUN_DATE = new Date();
-const RUN_STARTED_ISO = RUN_DATE.toISOString();
-let runDir;
-const tally = { total: 0, dropped: 0, byCategory: {}, bySeverity: {}, byAction: {} };
-
-function ensureRunDir() {
-  if (runDir !== undefined) return runDir;
-  const dir = runDirFor('speed', RUN_DATE);
-  try {
-    if (!hasEnoughDiskSpace(dir, MIN_WRITE_BYTES)) { runDir = null; return null; }
-    fs.mkdirSync(dir, { recursive: true });
-    runDir = dir;
-  } catch (e) {
-    runDir = null;
-    if (process.env.DEBUG === 'true') console.warn('speedLog: cannot create run dir:', e && e.message);
-  }
-  return runDir;
-}
+import EventLog from '/models/eventLog';
+const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 
 // Record one performance event. Never throws.
-//   { category:'slow-method', severity:'medium', action:'detected',
-//     source:'ddp.method:cardsLoad', detail:'2.4s > 2s threshold' }
+//   record({ category:'slow-method', severity:'medium', source:'ddp.method:cardsLoad',
+//            detail:'2.4s > 2s threshold' })
+// FerretDB-reported problems use source 'ferretdb'/'sqlite.*' (WeKan saves them here).
 export function record(evt = {}) {
   try {
-    const meta = {
+    const doc = {
+      stream: 'speed',
+      at: new Date(),
+      severity: evt.severity || 'low',
       category: evt.category || 'performance',
       bleed: evt.bleed || 'SlowBleed',
-      severity: evt.severity || 'low',
       action: evt.action || 'detected',
       source: evt.source || '',
       cwe: evt.cwe || '',
-      userId: evt.userId,
-      detail: evt.detail,
+      detail: sanitizeDetail(evt.detail),
     };
-    const dir = ensureRunDir();
-    if (!dir) { tally.dropped += 1; return; }
-    const line = formatLine({ ...meta, at: new Date().toISOString() }) + '\n';
-    if (!hasEnoughDiskSpace(dir, Buffer.byteLength(line) + MIN_WRITE_BYTES)) { tally.dropped += 1; return; }
-    fs.appendFileSync(path.join(dir, 'wekan-speed-log.txt'), line);
-    tallyAdd(tally, meta);
-    fs.writeFileSync(
-      path.join(dir, 'wekan-speed-summary.txt'),
-      renderSummary(tally, { title: 'WeKan speed summary', startedAt: RUN_STARTED_ISO, updatedAt: new Date().toISOString() }),
-    );
+    if (evt.userId || evt.userid) doc.userId = String(evt.userId || evt.userid);
+    const p = EventLog.insertAsync(doc);
+    if (p && typeof p.catch === 'function') p.catch(() => {});
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('speedLog.record failed:', e && e.message);
   }
 }
 
-export function currentRunDir() { return ensureRunDir(); }
-export function currentTally() { return tally; }
-
-export default { record, currentRunDir, currentTally };
+export default { record };

@@ -7,12 +7,14 @@ This is the FerretDB (v1, SQLite backend — the `wekan/FerretDB` fork on `main-
 [WeKan.md](WeKan.md). It specifies, for the database process:
 
 1. **Automatic remediation** of security and performance problems it can handle itself.
-2. **Logging** of each event, with **counts per category** and a **summary**.
-3. The shared on-disk layout under `WRITABLE_PATH/files/`, but with **`ferretdb-*.txt`** filenames.
+2. **Reporting** each such event to WeKan, which records it.
 
-FerretDB is Go, so the logger is a small Go package; the events are surfaced in WeKan's
-**Admin Panel → Reports → Security / Speed** (WeKan reads the shared directory — see
-[WeKan.md](WeKan.md) §8), so there is **no separate UI here**.
+Crucially, **FerretDB does NOT write to any database or file itself.** It surfaces a problem to
+WeKan (as an error/warning on the operation, or via its log stream), and **WeKan records it into the
+`eventlog` collection with a normal Meteor JavaScript query** ([WeKan.md](WeKan.md) §3). This keeps
+storage DB-agnostic — the feature works identically whether WeKan runs on FerretDB or MongoDB — and
+there is **no separate FerretDB UI or logger DB**; events appear in WeKan's
+**Admin Panel → Reports → Security / Speed**.
 
 ---
 
@@ -34,60 +36,39 @@ Performance categories (the bigger part): see §5.
 
 ---
 
-## 2. On-disk layout (shared with WeKan)
+## 2. How FerretDB reports problems to WeKan (no DB writes by FerretDB)
 
-Same root and dated-run directory as [WeKan.md](WeKan.md) §3
-(`WRITABLE_PATH/files/`), only the filenames differ so the two processes never clash:
+FerretDB must not create files or open its own log database. Instead it **returns the problem to
+WeKan**, and WeKan saves it:
 
-```
-<WRITABLE_PATH>/files/security/2026-07/19/14_03_22/ferretdb-log.txt
-<WRITABLE_PATH>/files/security/2026-07/19/14_03_22/ferretdb-summary.txt
-<WRITABLE_PATH>/files/speed/2026-07/19/14_03_22/ferretdb-speed-log.txt
-<WRITABLE_PATH>/files/speed/2026-07/19/14_03_22/ferretdb-speed-summary.txt
-```
+- **On an operation error** (e.g. `SQLITE_BUSY` exhausted, an orphaned-table adopt, a rejected
+  name): FerretDB returns a normal MongoDB-wire error/warning to WeKan. WeKan's DB-call sites catch
+  it and call `securityLog.record(...)` / `speedLog.record(...)`, which insert into `eventlog`
+  (source `ferretdb`/`sqlite.*`).
+- **On a slow statement**: the slow-query WARN already added for #6480
+  (`internal/util/fsql`, `FERRETDB_SLOW_QUERY_THRESHOLD`) is emitted to FerretDB's log stream; a
+  thin WeKan-side ingestor (or the operation's own timing) turns it into a `speedLog.record(...)`
+  with `source:'sqlite.query'` and a short statement-shape detail.
 
-- `WRITABLE_PATH` is read from the environment (FerretDB is started by WeKan/the snap with the
-  same `WRITABLE_PATH`); if unset, fall back to the SQLite data directory's parent, else the CWD.
-- The **run directory is created once at process start** (UTC).
-- Filenames are `ferretdb-log.txt` / `ferretdb-summary.txt` (and `ferretdb-speed-*`), so WeKan's
-  Security/Speed reports read **both** `wekan-*.txt` and `ferretdb-*.txt` from the same directory.
+So every FerretDB event ends up as a document in the **same `eventlog` collection** WeKan writes
+(rows labelled by `source` = `sqlite…`/`ferretdb…` vs WeKan's `localizeAvatar`/`setAvatarUrl`),
+shown on WeKan's one Reports screen. No `statfs` file guard and no separate summary are needed —
+storage and counting are the WeKan DB's job (WeKan.md §3, §5).
 
-### Disk-space guard (required, Go)
+## 3. The reporting surface in FerretDB (no logger package)
 
-`hasEnoughDiskSpace(dir, needBytes)` uses `golang.org/x/sys/unix.Statfs` (or `syscall.Statfs`) and
-requires `Bavail * Bsize > needBytes + 16 MiB`. On low space the logger **drops the event** and
-increments a `dropped` counter surfaced in the summary — it never blocks a query. This mirrors the
-`statfs` free-space check already used in `migrate-gridfs-to-fs.mjs` on the WeKan side.
+There is **no `seclog` Go package and no SQLite log file**. FerretDB only needs to make each
+problem *observable* to WeKan; the recording is WeKan's job. Concretely:
 
----
+- Keep returning precise, classifiable **errors/warnings** on the wire for the remediation points
+  in §4 (orphan-table adopt, non-finite sanitize, name reject, pool contention, busy-timeout wait),
+  so WeKan can attribute and record them.
+- Keep the **slow-query WARN** (`internal/util/fsql`) and, where cheap, add a short structured field
+  (statement shape, elapsed ms) to make WeKan-side ingestion trivial. **Never** log document
+  contents or credentials — only a classification and timing.
 
-## 3. Logger package
-
-`internal/util/seclog/seclog.go` (new), a tiny package with a process-global logger:
-
-```go
-seclog.Record(seclog.Event{
-    Category: "query-abuse",     // general category (§1)
-    Bleed:    "SlowQueryBleed",  // a *Bleed-style name; generic if none in hall-of-fame
-    Severity: "medium",          // info|low|medium|high|critical
-    Action:   "detected",        // remediated|blocked|detected
-    Source:   "sqlite.query",
-    Detail:   "full-collection scan on cards (no pushdown), 1.8s",
-})
-```
-
-- Line format identical to [WeKan.md](WeKan.md) §4 (tab-separated, one line, `Detail` truncated to
-  500 chars, newlines stripped, **never** logs document contents / credentials).
-- Counts per category kept in memory (guarded by a `sync.Mutex`); `ferretdb-summary.txt` rewritten
-  after each event with the same shape as [WeKan.md](WeKan.md) §5 but headed
-  `FerretDB security summary …`.
-- Emitting is **best-effort and non-blocking**: a background buffered channel + single writer
-  goroutine, so recording never adds latency to a query. On channel-full, drop + count.
-
-The logger is also given a `slog.Logger` so the same events appear in FerretDB's normal log stream
-(alongside the slow-query WARN added for #6480).
-
----
+WeKan maps these to `eventlog` documents via the category catalog
+(`models/lib/securityCategories.js`) using `source:'sqlite.*'`.
 
 ## 4. Security remediation points → logger
 
@@ -115,10 +96,11 @@ Each is a place where FerretDB **already** does the safe thing (mostly shipped f
 - Filter pushdown (`$in`/`$regex`/ranges) turning WeKan's whole-collection scans into indexed
   lookups; bounded warm connection pool; unlimited open connections to avoid cursor starvation.
 
-**Detected-but-not-auto-fixed → `ferretdb-speed-log.txt`:**
+**Detected-but-not-auto-fixed → reported to WeKan, which records a `speed` event (source `sqlite.*`):**
 
 - A statement at or above `FERRETDB_SLOW_QUERY_THRESHOLD` (default 1s) — the existing slow-query
-  WARN (`internal/util/fsql`) also calls `seclog`/`speedlog.Record({category:'slow-query', …})`.
+  WARN (`internal/util/fsql`) is surfaced to WeKan, which records a `speed` event
+  (`category:'slow-query'`, `source:'sqlite.query'`).
 - A query that could **not** be pushed down and fell back to a full scan + in-Go filter
   (`category:'no-pushdown'`).
 - WAL file growth beyond a threshold, or a checkpoint taking too long
@@ -132,7 +114,7 @@ per category, summarized like [WeKan.md](WeKan.md) §5, and shown in WeKan's **R
 
 ## 6. Tests & negative tests
 
-- Go unit tests for `seclog`: the dated-path builder, the `Statfs` disk-space guard (low space →
+- Go tests assert the remediation paths return the precise, classifiable errors WeKan keys on (
   drop + counter), the summary tally (counts per category/`Bleed`/severity), `Detail`
   truncation/newline-stripping, and the non-blocking drop-on-full-channel path. Negative tests:
   malformed event, oversize detail, unwritable directory (no panic, event dropped).
@@ -147,9 +129,8 @@ per category, summarized like [WeKan.md](WeKan.md) §5, and shown in WeKan's **R
 ## 7. Relationship to WeKan.md
 
 - Same directory tree and disk-space discipline; different filename prefix (`ferretdb-`).
-- WeKan's **Reports → Security / Speed** read every `*-log.txt` / `*-summary.txt` in the current
-  run directory, so **one** admin screen shows both processes, each row labeled by `source`
-  (`wekan…` vs `sqlite…`).
+- WeKan's **Reports → Security / Speed / Tests** read the one `eventlog` collection, so **one** admin
+  screen shows both processes, each row labelled by `source` (`wekan…` vs `sqlite…`/`ferretdb…`).
 - Category/`*Bleed` naming is shared; FerretDB adds a few DB-specific generic names
   (`OrphanTableBleed`, `NonFiniteBleed`, `SlowQueryBleed`) that do not (yet) have hall-of-fame
   pages — the Report shows the general category alongside them.

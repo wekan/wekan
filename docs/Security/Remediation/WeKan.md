@@ -8,12 +8,13 @@ This document specifies one subsystem that, for **every vulnerability class and 
 performance problem** WeKan can detect at runtime:
 
 1. **Remediates automatically** where possible (block / sanitize / pin / rate-limit / tune).
-2. **Logs** each event to a text log, with **counts per category** and a **summary**.
+2. **Logs** each event into the existing WeKan database, with **counts per category** and a **summary**.
 3. **Surfaces** it in **Admin Panel → Reports → Security** and **→ Speed**, using the same
    table + search + pagination design as [History.md](../../Features/History/History.md).
 
-It is a design doc only; the sibling [FerretDB.md](FerretDB.md) covers the Go side. The two
-share the same on-disk layout under `WRITABLE_PATH/files/`.
+It is a design doc only; the sibling [FerretDB.md](FerretDB.md) covers FerretDB. Both write to the
+same `eventlog` collection in the existing WeKan database (FerretDB reports problems to WeKan, which
+records them — §7), so it works the same on FerretDB and MongoDB.
 
 ---
 
@@ -22,17 +23,15 @@ share the same on-disk layout under `WRITABLE_PATH/files/`.
 - Audit WeKan (and FerretDB, see the sibling doc) for **all possible vulnerabilities**; add
   **tests and negative tests** for each.
 - Add **automatic protection/remediation** for all possible vulnerabilities.
-- **Log** each with a **count per category** and a **summary**, using **general vulnerability
-  names** and the **`*Bleed` names already in
+- **Log** each into the existing WeKan database with a **count per category** and a **summary**,
+  using **general vulnerability names** and the **`*Bleed` names already in
   [hall-of-fame/index.html](https://wekan.fi/hall-of-fame/)**.
-- Write the security log to
-  **`WRITABLE_PATH/files/security/YYYY-MM/DD/HH_MM_SS/wekan-log.txt`** and
-  **`wekan-summary.txt`** in the same directory.
-- **Check there is enough disk space** before writing any of these.
+- **Do not create new files or databases** under `WRITABLE_PATH` — use the existing WeKan DB via
+  normal Meteor JavaScript queries (works on FerretDB, MongoDB, …).
 - Add **Admin Panel → Reports → Security** showing summary + details of these logs (pagination
   etc., History.md design).
 - Add **automatic remediation of all possible performance problems**; anything not
-  auto-remediated is logged/summarized under **`WRITABLE_PATH/files/speed/…`** and shown in
+  auto-remediated is logged/summarized in the existing WeKan database and shown in
   **Admin Panel → Reports → Speed** (same design).
 
 ---
@@ -45,51 +44,66 @@ share the same on-disk layout under `WRITABLE_PATH/files/`.
                                         │
                                         ▼  emit SecurityEvent { category, bleed, severity, action, source, detail }
                                  securityLog.record()
-                                        │  (disk-space check → append)
+                                        │  EventLog.insertAsync(...)  (Meteor JS query, fire-and-forget)
                                         ▼
-      WRITABLE_PATH/files/security/YYYY-MM/DD/HH_MM_SS/wekan-log.txt      (one event per line)
-      WRITABLE_PATH/files/security/YYYY-MM/DD/HH_MM_SS/wekan-summary.txt  (counts per category + totals)
+      existing WeKan database → collection `eventlog` (stream:'security')
                                         │
-                                        ▼  read back, paginate
+                                        ▼  find({stream}).sort({at:-1}).skip().limit() · grouped count (summary)
              Admin Panel → Reports → Security  (summary panel + details table)
 ```
 
-The **speed** path is identical with `speedLog.record()` and `WRITABLE_PATH/files/speed/…`.
+The **speed** and **tests** paths are identical with `speedLog.record()` /
+`testLog.recordFailure()`, inserting into the same `eventlog` collection with
+`stream:'speed'` / `stream:'tests'`.
 
-Both loggers live in **`server/lib/securityLog.js`** and **`server/lib/speedLog.js`** (server
-only), and are the single choke point every guard funnels through — the same way
+The three loggers live in **`server/lib/securityLog.js`**, **`server/lib/speedLog.js`** and
+**`server/lib/testLog.js`** (server only), each a thin wrapper that inserts one document into the
+**`eventlog`** collection (**`models/eventLog.js`**) with a Meteor JS query. They are the single
+choke point every guard (and the test reporter) funnels through — the same way
 `localizeAvatarFromBuffer` is the single avatar-import choke point today.
 
 ---
 
-## 3. On-disk layout
+## 3. Storage — the existing WeKan database (NO new files/DBs)
 
-`filesRoot = filesRootFrom(process.env.WRITABLE_PATH || process.cwd())` (the same root
-attachments/avatars use). A **new dated run-directory is created once per server start**
-(timestamp = process start), so a run's events stay together and a busy server does not create
-thousands of directories:
+Events are stored **in the existing WeKan database** as documents in one Meteor collection —
+**no new files, no new `.sqlite`, nothing extra under `WRITABLE_PATH/files/`**. WeKan's database
+is MongoDB or FerretDB (whose engine is the existing `wekan.sqlite`); either way it is reached the
+normal Meteor way (`Mongo.Collection`), so this is exactly how the other Admin Reports already
+work.
 
+One collection, **`eventlog`** (`models/eventLog.js`), with a `stream` discriminator so the three
+Reports share it:
+
+```js
+// models/eventLog.js — one document per event
+{
+  _id,
+  stream:   'security' | 'speed' | 'tests',
+  at:       Date,           // server time
+  severity: 'info'|'low'|'medium'|'high'|'critical',
+  category: String,         // general class (ssrf, xss, authz, slow-method, test-failure, …)
+  bleed:    String,         // hall-of-fame *Bleed name (or a generic one)
+  action:   String,         // blocked|remediated|sanitized|rate-limited|detected|failed
+  source:   String,         // guard/module/test name
+  cwe:      String,
+  userId:   String | null,
+  detail:   String,         // short, sanitized (§4)
+}
 ```
-<filesRoot>/security/2026-07/19/14_03_22/wekan-log.txt
-<filesRoot>/security/2026-07/19/14_03_22/wekan-summary.txt
-<filesRoot>/speed/2026-07/19/14_03_22/wekan-speed-log.txt
-<filesRoot>/speed/2026-07/19/14_03_22/wekan-speed-summary.txt
-```
 
-- `YYYY-MM` / `DD` / `HH_MM_SS` are UTC of the run start.
-- `wekan-log.txt` — **append-only**, one event per line (see §4). Human-readable and
-  grep-friendly; the Report parses it back.
-- `wekan-summary.txt` — rewritten (atomically) after each event with the current counts
-  (see §5). Small and cheap to render in the Report.
+Indexes (via `ensureIndex`, like the rest of WeKan): `{ stream: 1, at: -1 }` for the paginated
+Report, `{ stream: 1, category: 1 }` for the summary. The **summary** is a Mongo aggregation /
+grouped count and the **details** a `find({stream}).sort({at:-1}).skip().limit()` — the same
+server-paginated pattern the existing reports use, so pagination and counts are the database's job.
 
-### Disk-space guard (required)
+### Bounded growth (no disk-space file check needed)
 
-Before creating a directory or appending, `hasEnoughDiskSpace(dir, needBytes)` uses
-`fs.statfsSync(dir)` and requires `bavail * bsize > needBytes + SAFETY_MARGIN` (16 MiB). If
-space is low the logger **drops the event** (never throws into the caller's request path) and
-increments an in-memory `dropped` counter that the summary reports (`# dropped (low disk): N`).
-The migration tooling already uses this `statfsSync` pattern
-(`snap-src/bin/migrate-gridfs-to-fs.mjs`).
+Because events live in the WeKan DB (not a growing file we manage), there is no `statfs` file
+guard. Instead the collection is **capped by policy**: a light retention (`eventlog` keeps the
+newest **N per stream**, default 100000, trimmed on insert or by the existing cron) so it cannot
+grow without bound. `record()` is still **best-effort and never throws** into the caller — an
+insert failure is swallowed (fire-and-forget `insertAsync().catch()`).
 
 ---
 
@@ -109,39 +123,42 @@ securityLog.record({
 });
 ```
 
-Log line (tab-separated, single line, values sanitized to one line each):
+`record()` builds one document and stores it with `EventLog.insertAsync({...})` — a normal Meteor
+query, so it works identically on FerretDB or MongoDB. `at` is filled server-side.
 
-```
-2026-07-19T14:03:59.123Z  high  ssrf  RedirectBleed  blocked  localizeAvatar  CWE-918  user:abc123  redirect to 127.0.0.1 refused
-```
-
-Rules: the logger **truncates `detail` to 500 chars and strips newlines**, and never logs
-tokens, passwords, raw request bodies or full attacker payloads — only a classification and a
-short reason (defence against the log itself becoming an exfiltration/log-injection sink).
+Rules: the logger **truncates `detail` to 500 chars and strips control characters**, and never
+stores tokens, passwords, raw request bodies or full attacker payloads — only a classification
+and a short reason (defence against the log becoming an exfiltration sink). Fields are stored as
+document values via the Meteor query, never concatenated into any query string.
 
 ---
 
-## 5. Counts per category & the summary file
+## 5. Counts per category & the summary (a query, not a file)
 
-The logger keeps an in-memory tally `{ [category]: { total, byBleed, bySeverity, byAction } }`
-plus grand totals, and rewrites `wekan-summary.txt` after each event:
+The summary is computed **from the `eventlog` collection** with grouped counts (a Mongo
+aggregation on `EventLog.rawCollection()`, or a few `find().countAsync()` calls), always consistent
+with the details:
+
+```js
+EventLog.rawCollection().aggregate([
+  { $match: { stream } },
+  { $group: { _id: { category: '$category', bleed: '$bleed' }, n: { $sum: 1 } } },
+  { $sort: { n: -1 } },
+]);
+// severity / action / grand total are the same, grouped by those fields (or $match+countAsync)
+```
+
+The Report renders this as a summary panel (both the **general category** and the **`*Bleed`
+breakdown**, as requested):
 
 ```
-WeKan security summary — run started 2026-07-19T14:03:22Z — updated 2026-07-19T14:05:10Z
 Total events: 42   (blocked 39, remediated 2, detected 1)   dropped (low disk): 0
-
-By category (general name → count):
-  ssrf ................. 18   [RedirectBleed 7, LiveBleed 9, DnsBleed 2]
-  xss .................. 11   [SourceBleed 6, InputBleed 3, MimeBleed 2]
-  authz ................  7   [ImpersonateBleed 4, SortBleed 2, BoardBleed 1]
-  auth-race ...........   3   [CasBleed 3]
-  spoofing ............   2   [MetricsBleed 2]
-  weak-random / brute .   1   [InviteBleed 1]
-
-By severity: critical 0, high 30, medium 9, low 3, info 0
+By category:  ssrf 18 [RedirectBleed 7, LiveBleed 9, DnsBleed 2] · xss 11 [SourceBleed 6, …] · authz 7 [ImpersonateBleed 4, …]
+By severity:  critical 0, high 30, medium 9, low 3, info 0
 ```
 
-Both the general category and the `*Bleed` breakdown are shown, as requested.
+`dropped (low disk)` is the store's in-memory counter (§3). Optional time filters are just
+`WHERE at >= ?`.
 
 ---
 
@@ -213,35 +230,38 @@ bytes), and `action` distinguishes a hard **rejection** (`blocked`) from a **san
 
 ---
 
-## 8. Admin Panel → Reports → Security & Speed
+## 8. Admin Panel → Reports → Security, Speed & Tests
 
 Extends the existing `client/components/settings/adminReports.{jade,js,css}`, which already has a
 side-menu + server-paginated report pattern (`reportConfig` → `{ page, count, search, pub,
-countMethod }`). Add two entries:
+countMethod }`). Add three entries:
 
 ```
-li a.js-report-security(data-id="report-security")  i.fa.fa-shield  {{_ 'securityReportTitle'}}
+li a.js-report-security(data-id="report-security")  i.fa.fa-shield      {{_ 'securityReportTitle'}}
 li a.js-report-speed(data-id="report-speed")        i.fa.fa-tachometer  {{_ 'speedReportTitle'}}
+li a.js-report-tests(data-id="report-tests")        i.fa.fa-flask       {{_ 'testsReportTitle'}}
 ```
 
 Each report body follows [History.md](../../Features/History/History.md) §1:
 
-- **Summary panel** (top / left): the parsed `wekan-summary.txt` — total, per-category counts
-  (general name + `*Bleed` breakdown), per-severity.
+- **Summary panel** (top / left): the grouped-count result (§5) — total, per-category
+  counts (general name + `*Bleed` breakdown), per-severity.
 - **Details table** (right, same layout as History): **select checkbox · category/Bleed ·
   severity · action · source · datetime**, with **Search** (left), **pagination** (middle) above
-  it. **Server-side pagination** — only the current page is read from the log file.
+  it. **Server-side pagination** — a single `find({stream}).sort({at:-1}).skip().limit()` per page.
 - **RTL** mirrors the layout, exactly as History specifies.
 
-Server side (admin-only, mirrors the other reports):
+Server side (admin-only, mirrors the other reports) — the reports **read the SQLite DBs**, not
+text files:
 
-- Publication `securityReport` / method `getSecurityReportCount` — read the current run's
-  `wekan-log.txt` (and optionally older run-dirs), filter by search, return the requested page.
-- `speedReport` / `getSpeedReportCount` — same over the speed logs.
-- Both **admin-gated** (`currentUser.isAdmin`), never exposing the raw files over HTTP.
+- Publications `securityReport` / `speedReport` / `testsReport` publish
+  `EventLog.find({ stream, <search> }, { sort:{at:-1}, skip, limit })` for the current page, and
+  count methods `getSecurityReportCount(...)` etc. return the total + the grouped summary — exactly
+  the `{ page, count, search, pub, countMethod }` shape the existing reports use.
+- All **admin-gated** (`currentUser.isAdmin`); the `eventlog` collection is only published to admins.
 
-New i18n keys: `securityReportTitle`, `speedReportTitle`, `security-summary`,
-`speed-summary`, plus column headers (reuse History's where possible).
+New i18n keys: `securityReportTitle`, `speedReportTitle`, `testsReportTitle`, plus column
+headers (reuse History's where possible).
 
 ---
 
@@ -263,24 +283,50 @@ FerretDB-side performance remediation (SQLite pragmas, slow-query WARN) is in
 
 ---
 
+## 9b. Tests logging (`eventlog`, `stream:'tests'`)
+
+The **third stream** logs **test failures** — "anything that would fail some existing WeKan
+test". It uses the same `events` schema and the same disk-space discipline, in the
+`eventlog` collection (`stream:'tests'`), via `server/lib/testLog.js`.
+
+- **What is a "test event":** every **failing** existing test (and, optionally, an error/timeout)
+  during a run of `rebuild-wekan.sh` / `npm run test:unit:node` / mocha / Playwright. Passing
+  tests are not logged (only failures, so the report is a defect list, not noise).
+- **How it is captured:** a thin **reporter** records one event per failure:
+  - `category = 'test-failure'` (or `'test-error'` / `'test-timeout'`),
+  - `bleed = 'TestBleed'` (generic; no hall-of-fame page — the report shows the general category),
+  - `action = 'failed'`, `severity` from the suite (unit=`medium`, security=`high`, e2e=`low`),
+  - `source = "<file>:<test name>"`, `detail = <first line of the assertion/error message>`
+    (sanitized, ≤500 chars — never the full stack or secret values).
+  - The **node** `.test.cjs` guards call `testLog.record()` from their failure branch; **mocha**
+    tests use a small custom reporter (`onFail → testLog.record`); **Playwright** uses a reporter
+    hook. A wrapper in `rebuild-wekan.sh` can also parse each suite's summary and insert failures,
+    so the collection is populated even when a runner cannot `require` the logger (it then inserts
+    through the running WeKan server's method instead).
+- **Report:** Admin Panel → Reports → **Tests** shows the same summary + paginated details
+  (which tests failed, how often, newest first), so a maintainer sees the current failing set and
+  the failure counts per suite/category without re-reading raw CI logs.
+
+---
+
 ## 10. Tests & negative tests
 
 - Source-guard `tests/*.test.cjs` (node, no DB) asserting each remediation is present and each
   vulnerable pattern absent — extending `tests/securityMeifukun.test.cjs`.
-- Unit tests for the **logger logic** (pure, node-testable): the dated-path builder, the
-  disk-space guard (`hasEnoughDiskSpace` with a mocked `statfs`), the summary tally
-  (counts per category / `*Bleed` / severity), `detail` truncation/newline-stripping, and the
-  log-line parser used by the Report — with **negative tests** (low disk → drop + counter;
-  malformed line → skipped; oversize detail → truncated).
-- Where a full Meteor/DB run is needed (allow-rule authz, rate-limit), the existing
-  `server/**/tests/*.security.tests.js` mocha pattern (e.g. `dnsbleed.security.tests.js`) is
-  extended.
-- Each test is run/validated (mirror script where no runtime), per the project rule.
+- Unit tests for the **pure logic** (node-testable): `sanitizeDetail` truncation/control-stripping
+  and the category catalog — with **negative tests** (oversize detail → truncated; unknown key →
+  generic); plus source-guards that the loggers insert into `eventlog` and touch no filesystem.
+- Collection integration test (with a running Meteor/Mongo or FerretDB): insert events, assert the
+  grouped summary and the `find().sort().skip().limit()` page match; assert `record()` never throws
+  even if the insert is rejected (fire-and-forget).
+- The **tests stream** is dogfooded: the node `.test.cjs` failure branch calls `testLog.record`,
+  so a run that has failures populates `eventlog` (`stream:'tests'`).
+- Each test is run/validated (Python mirror where no node/SQLite runtime), per the project rule.
 
 ---
 
 ## 11. Out of scope / follow-ups
 
-- Rotating/retention policy for old run-dirs (a future `securityLog.prune(olderThanDays)`).
+- Rotating/retention: a cron trims `eventlog` to the newest N per stream (`remove` older docs).
 - Shipping logs to an external SIEM (kept local by design).
 - FerretDB internals — see [FerretDB.md](FerretDB.md).
