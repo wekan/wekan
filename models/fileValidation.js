@@ -73,6 +73,14 @@ async function detectMimeFromFile(filePath) {
   return undefined;
 }
 
+// Record an upload rejection to the Admin Panel security log (server-only,
+// best-effort — never breaks validation). See docs/Security/Remediation/WeKan.md.
+function logUploadBlock(key, detail) {
+  try {
+    require('/server/lib/securityLog').record({ key, action: 'blocked', source: 'fileValidation', detail });
+  } catch (e) { /* logging must never break validation */ }
+}
+
 export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, externalCommandLine) {
   let isValid = true;
   // Always validate uploads. The previous migration flag disabled validation and enabled XSS.
@@ -176,6 +184,7 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
       const allowedByContentScan = await checkDangerousMimeAllowance(detectedMime, fileObj.path, fileObj.size || 0);
       if (!allowedByContentScan) {
         console.log("Validation of uploaded file failed (dangerous MIME content): file " + fileObj.path + " - mimetype " + detectedMime);
+        logUploadBlock('xss.mime', 'rejected dangerous upload content (' + detectedMime + ')');
         return false;
       }
     }
@@ -188,12 +197,14 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
 
       if (!isValid) {
         console.log("Validation of uploaded file failed: file " + fileObj.path + " - mimetype " + detectedMime);
+        logUploadBlock('file.mime', 'upload mime type not allowed (' + detectedMime + ')');
       }
     }
 
     // Size check
     if (isValid && sizeAllowed && fileObj.size > sizeAllowed) {
       console.log("Validation of uploaded file failed: file " + fileObj.path + " - size " + fileObj.size);
+      logUploadBlock('file.size', 'upload over size limit (' + fileObj.size + ' > ' + sizeAllowed + ')');
       isValid = false;
     }
 

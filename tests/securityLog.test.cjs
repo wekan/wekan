@@ -111,4 +111,21 @@ check('Summary page is a checkbox list with ONE acknowledge button', () => {
   assert.ok(/Match\.OneOf\(String, \[String\]\)/.test(read('models/eventLog.js')));
 });
 
+// ── more remediation points wired to the security log ──────────────────────
+check('upload rejections are logged (fileValidation)', () => {
+  const src = read('models/fileValidation.js');
+  assert.ok(/logUploadBlock\('xss\.mime'/.test(src), 'dangerous-content rejection logged');
+  assert.ok(/logUploadBlock\('file\.mime'/.test(src), 'mime-not-allowed rejection logged');
+  assert.ok(/logUploadBlock\('file\.size'/.test(src), 'oversize rejection logged');
+});
+check('forged X-Forwarded-For denial is logged (metrics)', () => {
+  const src = read('models/server/metrics.js');
+  assert.ok(/key: 'spoofing\.xff'/.test(src) && /x-forwarded-for/.test(src));
+});
+check('export authorization denials are logged (export.js)', () => {
+  const src = read('models/export.js');
+  assert.ok(/key: 'authz\.export'/.test(src), 'export denial keyed authz.export');
+  assert.ok((src.match(/logExportDenied\(\);/g) || []).length >= 4, 'all export denial paths logged');
+});
+
 console.log(`\nsecurityLog: ${passed} checks passed`);

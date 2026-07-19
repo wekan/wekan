@@ -9,6 +9,17 @@ if (Meteor.isServer) {
   const { sendJsonResult } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
 
+  // Record an export authorization denial to the Admin Panel security log
+  // (best-effort, never breaks the response). See docs/Security/Remediation/WeKan.md.
+  function logExportDenied() {
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.export', action: 'blocked', source: 'export',
+        detail: 'export denied (no board visibility)',
+      });
+    } catch (e) { /* logging must never break the response */ }
+  }
+
   // Stream a full board export straight to the response (a card/attachment at a
   // time) instead of buffering the whole board object — see Exporter.buildStream.
   async function streamJsonBoardExport(res, exporter) {
@@ -154,6 +165,7 @@ if (Meteor.isServer) {
     } else {
       // we could send an explicit error message, but on the other hand the only
       // way to get there is by hacking the UI so let's keep it raw.
+      logExportDenied();
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   });
@@ -204,6 +216,7 @@ if (Meteor.isServer) {
     if (await exporter.canExport(user)) {
       sendJsonResult(res, { code: 200, data: await buildKanboardExport(boardId) });
     } else {
+      logExportDenied();
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   });
@@ -249,6 +262,7 @@ if (Meteor.isServer) {
     if (await exporter.canExport(user)) {
       await respond();
     } else {
+      logExportDenied();
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   }
@@ -361,6 +375,7 @@ if (Meteor.isServer) {
       } else {
         // we could send an explicit error message, but on the other hand the only
         // way to get there is by hacking the UI so let's keep it raw.
+        logExportDenied();
         sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
       }
     },

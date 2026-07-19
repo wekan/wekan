@@ -239,6 +239,16 @@ Meteor.startup(() => {
         res.writeHead(200); // HTTP status
         res.end(metricsRes);
       } else {
+        // If the request carried an X-Forwarded-For header but was still denied,
+        // that is a likely forged-whitelisted-IP attempt (MetricsBleed) — record it.
+        if (req.headers['x-forwarded-for']) {
+          try {
+            require('/server/lib/securityLog').record({
+              key: 'spoofing.xff', action: 'blocked', source: 'metrics',
+              detail: 'denied /metrics with X-Forwarded-For present (socket ' + (req.socket && req.socket.remoteAddress) + ')',
+            });
+          } catch (e) { /* logging must never break the endpoint */ }
+        }
         res.writeHead(401); // HTTP status
         res.end(
           'IpAddress: ' +
