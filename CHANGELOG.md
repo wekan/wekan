@@ -139,8 +139,10 @@ and adds the following updates:
   Thanks to xet7.
 - [Admin Panel → Files report: URL-encoded filenames (e.g. "%D0%93%D1%80") are
   decoded for display, filenames are always shown as plain text (never markdown/
-  HTML), names hiding invisible/zero-width/bidi characters are shown in red with a
-  legend, and a filter lists only those names](https://github.com/wekan/wekan/commit/657c4948f).
+  HTML), a name hiding invisible/zero-width/bidi characters gets a red warning
+  triangle on the left and each invisible character is replaced inline by its red
+  Unicode name (e.g. "evil[U+200B ZERO WIDTH SPACE].png"), and a filter lists only
+  such names](https://github.com/wekan/wekan/commit/a4aa2f877).
   Thanks to xet7.
 - [Removed clickable column-header sorting from the board Table view and the Admin
   Panel → People → Domains table; both now show a stable fixed order (and keep
