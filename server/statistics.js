@@ -179,6 +179,15 @@ Meteor.methods({
         mongoStorageEngine,
         mongoOplogEnabled,
         reactivity,
+        // Configured environment (what was REQUESTED) shown next to `reactivity`
+        // (what is actually LIVE): the driver priority order Meteor tries
+        // left-to-right (OpLog only when tailing works, else polling) and the DDP
+        // transport. Empty env shows as '(unset)'.
+        reactivityOrder:
+          process.env.METEOR_REACTIVITY_ORDER ||
+          process.env.DEFAULT_METEOR_REACTIVITY_ORDER ||
+          '(unset)',
+        ddpTransport: process.env.DDP_TRANSPORT || '(unset)',
       };
       const client = MongoInternals.defaultRemoteCollectionDriver()?.mongo?.client;
       const sessionsCount = client?.s?.activeSessions?.size;

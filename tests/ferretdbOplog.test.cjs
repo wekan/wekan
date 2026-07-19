@@ -123,6 +123,18 @@ test('Version page detects + shows the live reactivity driver (oplog vs polling)
   assert.ok(/statistics\.mongo\.reactivity/.test(jade), 'Version page shows Reactivity mode');
   assert.ok(/statistics\.mongo\.mongoOplogEnabled/.test(jade), 'Version page shows Oplog enabled');
 });
+test('Version page also returns + shows the configured REACTIVITY_ORDER and DDP_TRANSPORT env', () => {
+  const stats = read('server/statistics.js');
+  assert.ok(/reactivityOrder:\s*\n?\s*process\.env\.METEOR_REACTIVITY_ORDER/.test(stats),
+    'getStatistics returns METEOR_REACTIVITY_ORDER (server function, not a public var)');
+  assert.ok(/ddpTransport:\s*process\.env\.DDP_TRANSPORT/.test(stats),
+    'getStatistics returns DDP_TRANSPORT');
+  const jade = read('client/components/settings/informationBody.jade');
+  assert.ok(/statistics\.mongo\.reactivityOrder/.test(jade), 'Version page shows Reactivity order');
+  assert.ok(/statistics\.mongo\.ddpTransport/.test(jade), 'Version page shows DDP transport');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.ok(en.Reactivity_order && en.DDP_transport, 'i18n keys exist');
+});
 
 // ── NEGATIVE: the migration's transient ferretdb must NOT enable the oplog ───
 test('NEGATIVE: migration-control does not add --repl-set-name (transient bulk target)', () => {
