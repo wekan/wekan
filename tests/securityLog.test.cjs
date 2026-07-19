@@ -91,6 +91,22 @@ check('eventLog defines acks collection + admin methods', () => {
   assert.ok(/user\.isAdmin/.test(src), 'methods must be admin-gated');
   assert.ok(/\$gt: ack\.at/.test(src), 'count must be events newer than the ack');
 });
+check('argument-taking methods check() every arg BEFORE requireAdmin (audit-argument-checks)', () => {
+  // Meteor's audit-argument-checks reports "Did not check() all arguments"
+  // (masking the real error) if a method throws — e.g. requireAdmin for a
+  // non-admin — before check()ing its arguments. Every method that takes
+  // arguments must call check() first.
+  const src = read('models/eventLog.js');
+  for (const sig of ['eventLogCount(stream, search)', 'eventLogPage(stream, limit, skip, search)', 'acknowledgeEventLog(streams)']) {
+    const start = src.indexOf('async ' + sig);
+    assert.ok(start >= 0, `method ${sig} must exist`);
+    const body = src.slice(start, start + 400);
+    const firstCheck = body.indexOf('check(');
+    const firstAdmin = body.indexOf('requireAdmin(');
+    assert.ok(firstCheck >= 0 && firstCheck < firstAdmin,
+      `${sig}: check() must come before requireAdmin()`);
+  }
+});
 check('Admin Panel has a Problems button (right of Info) and no Reports button', () => {
   const jade = read('client/components/settings/settingHeader.jade');
   assert.ok(/setting-header-btn\.problems/.test(jade), 'Problems button present');

@@ -108,19 +108,23 @@ if (Meteor.isServer) {
     // Admin-only, READ-ONLY: total count of events in a stream (optional search),
     // for the Security/Speed/Tests detail pages' pagination.
     async eventLogCount(stream, search) {
-      await requireAdmin(this);
+      // check() every argument BEFORE any await/throw: Meteor's
+      // audit-argument-checks otherwise reports "Did not check() all arguments"
+      // (masking the real error) when requireAdmin throws for a non-admin call.
       check(stream, String);
       check(search, Match.Optional(String));
+      await requireAdmin(this);
       return EventLog.find(streamSelector(stream, search)).countAsync();
     },
 
     // Admin-only, READ-ONLY: one page of a stream's events, newest first.
     async eventLogPage(stream, limit, skip, search) {
-      await requireAdmin(this);
+      // check() every argument BEFORE requireAdmin (see eventLogCount).
       check(stream, String);
       check(limit, Number);
       check(skip, Number);
       check(search, Match.Optional(String));
+      await requireAdmin(this);
       return EventLog.find(streamSelector(stream, search), {
         sort: { at: -1 },
         limit: Math.max(1, Math.min(200, limit)),
