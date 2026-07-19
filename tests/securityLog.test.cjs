@@ -45,6 +45,14 @@ check('sanitizeDetail handles null/undefined', () => {
   assert.strictEqual(fmt.sanitizeDetail(null), '');
   assert.strictEqual(fmt.sanitizeDetail(undefined), '');
 });
+check('sanitizeDetail on control-chars-only yields empty (negative)', () => {
+  assert.strictEqual(fmt.sanitizeDetail('\n\t\r\x00\x1f\x7f'), '');
+  assert.strictEqual(fmt.sanitizeDetail('   '), '');
+});
+check('categoryFor never crashes on empty/undefined key (negative)', () => {
+  assert.strictEqual(cats.categoryFor('').bleed, 'Generic');
+  assert.strictEqual(cats.categoryFor(undefined).category, 'unknown');
+});
 check('securityLogFormat has NO file/path/sqlite helpers (DB-only storage)', () => {
   const src = read('models/lib/securityLogFormat.js');
   assert.ok(!/dbPathFor|filesRoot|EVENTS_SCHEMA|statfs|\.sqlite/.test(src), 'must not reference files/sqlite');
