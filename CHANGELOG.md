@@ -125,6 +125,23 @@ and adds the following new features:
 
 and adds the following updates:
 
+- [Reworked the Admin Panel → Problems pagination tables (Files/Rules/Boards/
+  Cards/Impersonation and the Security/Speed/Tests event tables): the search field
+  and pagination controls now sit in one row (pagination on the right, RTL-aware),
+  the redundant Search button is gone (typing + Enter searches), and the controls
+  follow the current theme — they use var(--theme-accent), so Member Settings →
+  Change color recolors them](https://github.com/wekan/wekan/commit/4f1afed25).
+  Thanks to xet7.
+- [Made buttons follow the theme: the global button base and the primary buttons
+  (forms.css) plus the admin and People-panel buttons now use var(--theme-accent,
+  <original>), so a Change-color theme override recolors buttons across the app
+  while the default look is unchanged](https://github.com/wekan/wekan/commit/c94c313a7).
+  Thanks to xet7.
+- [Admin Panel → Files report: URL-encoded filenames (e.g. "%D0%93%D1%80") are
+  decoded for display, filenames are always shown as plain text (never markdown/
+  HTML), names hiding invisible/zero-width/bidi characters are shown in red with a
+  legend, and a filter lists only those names](https://github.com/wekan/wekan/commit/657c4948f).
+  Thanks to xet7.
 - [Enabled FerretDB OpLog tailing by default so Meteor stops poll-and-diff, the
   main fix for FerretDB sitting at 100–390% CPU on busy boards. With FerretDB
   there is no MongoDB oplog, so Meteor re-ran every live query on a timer;
@@ -148,6 +165,18 @@ and adds the following updates:
 
 and fixes the following bugs:
 
+- [Fix the Admin Panel → Problems → Cards report spinning while it loaded on big
+  sites: it paginates, but sorted by an unindexed { boardId, sort }, so every page
+  full-sorted all cards (11761+) in memory. It now sorts by the existing
+  { boardId, createdAt } index, so one page is a bounded index scan; also added a
+  { stream, at } index for the Security/Speed/Tests
+  tables](https://github.com/wekan/wekan/commit/fab8c1035).
+  Thanks to xet7.
+- [Fix the Admin Panel → Translation page loading the ENTIRE Translations
+  collection at once: it subscribed with a hardcoded limit of 0 (= no limit). It
+  now uses the infinite-scroll window, loading a page at a
+  time](https://github.com/wekan/wekan/commit/e88665316).
+  Thanks to xet7.
 - [Fix "Did not check() all arguments" server-log spam from the Admin Panel →
   Problems detail pages: the eventLogCount/eventLogPage methods awaited the admin
   check before check()ing their arguments, so a non-admin call (or one before
