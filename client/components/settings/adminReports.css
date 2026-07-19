@@ -1,60 +1,51 @@
 /* Search + pagination controls for the admin report tabs (files, rules,
    boards, cards). Styled to match the admin People panel (peopleBody.css). */
 
-.admin-report-search {
+/* One controls row per report: the search field on the left, the pagination
+   controls pushed to the right (margin-inline-start:auto mirrors automatically in
+   RTL). No separate Search button — typing + Enter searches. The controls use the
+   theme accent (Member Settings → Change color sets --theme-accent on :root),
+   falling back to WeKan blue when no custom theme is chosen. */
+.admin-report-controls {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  height: 34px;
   margin-bottom: 12px;
 }
 
-.admin-report-search input {
-  flex: 1;
+.admin-report-controls input {
+  flex: 0 1 320px;
   max-width: 320px;
   padding: 0 8px;
   height: 34px;
 }
 
-.admin-report-search button {
-  min-width: 90px;
-  height: 34px;
-  background: #01628c;
-  color: #fff;
-  border: none;
-  border-radius: 0.4vw;
-  cursor: pointer;
-  padding: 0 12px;
-}
-
-.admin-report-search button:hover {
-  background: #005377;
-}
-
-.admin-report-search button:active {
-  background: #004766;
-}
-
 .admin-report-pagination {
+  margin-inline-start: auto; /* push pagination to the end of the controls row */
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 12px;
 }
 
 .admin-report-pagination button {
   min-width: 32px;
   height: 30px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: 1px solid var(--theme-accent, #01628c);
+  background: transparent;
+  color: var(--theme-accent, #01628c);
   border-radius: 0.4vw;
   cursor: pointer;
 }
 
+.admin-report-pagination button:hover:not(.disabled) {
+  background: var(--theme-accent, #01628c);
+  color: #fff;
+}
+
 .admin-report-pagination button.active {
-  background: #01628c;
-  border-color: #01628c;
+  background: var(--theme-accent, #01628c);
+  border-color: var(--theme-accent, #01628c);
   color: #fff;
 }
 
@@ -66,7 +57,6 @@
 .admin-report-page-info {
   min-width: 72px;
   text-align: center;
-  color: #333;
 }
 
 /* Problems page: menu separator between the event streams (Summary/Security/
@@ -82,13 +72,24 @@
   gap: 10px;
   margin-bottom: 8px;
 }
+.admin-event-controls input {
+  flex: 0 1 320px;
+  max-width: 320px;
+  height: 34px;
+  padding: 0 8px;
+}
 .admin-event-controls .admin-event-pagination {
   margin-inline-start: auto;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.admin-event-controls .admin-event-pagination a { cursor: pointer; }
+.admin-event-controls .admin-event-pagination a {
+  cursor: pointer;
+  color: var(--theme-accent, #01628c);
+  font-weight: bold;
+  padding: 0 6px;
+}
 .admin-event-controls .admin-event-pagination a.disabled { opacity: 0.4; pointer-events: none; }
 table.admin-event-table { width: 100%; border-collapse: collapse; }
 table.admin-event-table th, table.admin-event-table td {

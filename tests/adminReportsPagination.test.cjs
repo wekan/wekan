@@ -40,4 +40,38 @@ check('eventlog has a {stream,at} index so Security/Speed/Tests pages stay fast'
   assert.ok(/ensureIndex\(EventLogAcks, \{ stream: 1 \}\)/.test(src));
 });
 
+// ── no redundant Search button; pagination on the right of the search field ──
+check('report tables have no Search button (Enter searches) and a single controls row', () => {
+  const jade = read('client/components/settings/adminReports.jade');
+  assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');
+  // each of the 5 reports uses one .admin-report-controls row (search + pagination)
+  assert.strictEqual((jade.match(/\.admin-report-controls/g) || []).length, 5);
+  assert.ok(!/\.admin-report-search\b/.test(jade), 'the old two-block layout must be gone');
+  const js = read('client/components/settings/adminReports.js');
+  assert.ok(!/-search-button'\(event, tmpl\)/.test(js), 'dead search-button handlers removed');
+  assert.ok(/keydown \.js-cards-search-input/.test(js), 'Enter-to-search kept');
+});
+check('pagination controls sit at the end of the row (right; RTL-mirrored)', () => {
+  const css = read('client/components/settings/adminReports.css');
+  assert.ok(/\.admin-report-pagination\s*\{[^}]*margin-inline-start:\s*auto/.test(css),
+    'pagination must be pushed to the end of the controls row');
+});
+
+// ── theme colors: controls follow --theme-accent (Member change-color override) ──
+check('report + event pagination controls use var(--theme-accent)', () => {
+  const css = read('client/components/settings/adminReports.css');
+  assert.ok(/\.admin-report-pagination button\s*\{[^}]*var\(--theme-accent/.test(css),
+    'report pagination buttons must use the theme accent');
+  assert.ok(/\.admin-event-pagination a\s*\{[^}]*var\(--theme-accent/.test(css),
+    'event-stream pagination links must use the theme accent');
+  assert.ok(!/#bbb|background:\s*#fff/.test(css), 'no hardcoded grey/white in the report controls');
+});
+check('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () => {
+  const css = read('client/components/settings/peopleBody.css');
+  for (const sel of ['people', 'org', 'team', 'domain']) {
+    const m = new RegExp('\\.' + sel + '-pagination button\\s*\\{[^}]*var\\(--theme-accent');
+    assert.ok(m.test(css), `${sel}-pagination button must use the theme accent`);
+  }
+});
+
 console.log(`\n${passed} passed`);

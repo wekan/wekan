@@ -223,15 +223,16 @@ table td:first-child {
 .people-pagination button {
   min-width: 32px;
   height: 30px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: 1px solid var(--theme-accent, #01628c);
+  background: transparent;
+  color: var(--theme-accent, #01628c);
   border-radius: 0.4vw;
   cursor: pointer;
 }
 
 .people-pagination button.active {
-  background: #01628c;
-  border-color: #01628c;
+  background: var(--theme-accent, #01628c);
+  border-color: var(--theme-accent, #01628c);
   color: #fff;
 }
 
@@ -256,15 +257,16 @@ table td:first-child {
 .org-pagination button {
   min-width: 32px;
   height: 30px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: 1px solid var(--theme-accent, #01628c);
+  background: transparent;
+  color: var(--theme-accent, #01628c);
   border-radius: 0.4vw;
   cursor: pointer;
 }
 
 .org-pagination button.active {
-  background: #01628c;
-  border-color: #01628c;
+  background: var(--theme-accent, #01628c);
+  border-color: var(--theme-accent, #01628c);
   color: #fff;
 }
 
@@ -289,15 +291,16 @@ table td:first-child {
 .team-pagination button {
   min-width: 32px;
   height: 30px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: 1px solid var(--theme-accent, #01628c);
+  background: transparent;
+  color: var(--theme-accent, #01628c);
   border-radius: 0.4vw;
   cursor: pointer;
 }
 
 .team-pagination button.active {
-  background: #01628c;
-  border-color: #01628c;
+  background: var(--theme-accent, #01628c);
+  border-color: var(--theme-accent, #01628c);
   color: #fff;
 }
 
@@ -416,8 +419,9 @@ table td:first-child {
   min-width: 32px;
   height: 30px;
   padding: 0 10px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: 1px solid var(--theme-accent, #01628c);
+  background: transparent;
+  color: var(--theme-accent, #01628c);
   border-radius: 0.4vw;
   cursor: pointer;
 }

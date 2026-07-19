@@ -267,15 +267,10 @@ Template.adminReports.events({
   'click .js-impersonation-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-impersonation'); },
 
   // --- Search (one input + button per report, mirrors the People panel) ---
-  'click .js-files-search-button'(event, tmpl) { runSearch(tmpl, 'report-files', '.js-files-search-input'); },
   'keydown .js-files-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-files', '.js-files-search-input'); },
-  'click .js-rules-search-button'(event, tmpl) { runSearch(tmpl, 'report-rules', '.js-rules-search-input'); },
   'keydown .js-rules-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-rules', '.js-rules-search-input'); },
-  'click .js-boards-search-button'(event, tmpl) { runSearch(tmpl, 'report-boards', '.js-boards-search-input'); },
   'keydown .js-boards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-boards', '.js-boards-search-input'); },
-  'click .js-cards-search-button'(event, tmpl) { runSearch(tmpl, 'report-cards', '.js-cards-search-input'); },
   'keydown .js-cards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-cards', '.js-cards-search-input'); },
-  'click .js-impersonation-search-button'(event, tmpl) { runSearch(tmpl, 'report-impersonation', '.js-impersonation-search-input'); },
   'keydown .js-impersonation-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-impersonation', '.js-impersonation-search-input'); },
 });
 
