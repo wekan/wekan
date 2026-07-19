@@ -1,30 +1,15 @@
 import { Template } from 'meteor/templating';
 
-const {
-  fileNameSegments,
-  hasInvisibleChars,
-  decodeFileNameSafe,
-  fileNamePlain,
-  sanitizeDownloadFileName,
-} = require('/imports/lib/fileNameDisplay');
+const { cleanFileName, sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 
-// The reusable +safeFilename(name=...) template reads `this.name`.
-Template.safeFilename.helpers({
-  fnHasInvisible() {
-    return hasInvisibleChars(decodeFileNameSafe(this.name));
-  },
-  fnSegments() {
-    return fileNameSegments(this.name);
-  },
-});
-
-// Global helpers usable in ANY template:
-//   {{filenamePlain name}}    -> decoded name, invisible chars shown as [U+XXXX NAME]
-//                                (plain string — for title="" / alt / JS text)
-//   {{downloadFilename name}} -> decoded name with invisible chars REMOVED
-//                                (for the download="" attribute / saved file name)
+// Global helpers for showing filenames safely EVERYWHERE (card attachments, admin
+// panel, etc.). No template needed — a filename is always shown as a plain, clean
+// string:
+//   {{cleanFilename name}}    -> URL-decoded, invisible chars removed, exploit
+//                                markup (HTML/JS/XML) removed, whitespace collapsed
+//   {{downloadFilename name}} -> the same, but never empty (falls back to "download")
 if (!Template.__safeFilenameHelpersRegistered) {
-  Template.registerHelper('filenamePlain', name => fileNamePlain(name));
+  Template.registerHelper('cleanFilename', name => cleanFileName(name));
   Template.registerHelper('downloadFilename', name => sanitizeDownloadFileName(name));
   Template.__safeFilenameHelpersRegistered = true;
 }

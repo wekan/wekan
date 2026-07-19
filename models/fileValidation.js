@@ -38,6 +38,19 @@ export function looksLikeDangerousMarkup(text) {
   return false;
 }
 
+// Detect known "virus test" files that must be refused like real malware even
+// though they are harmless. The EICAR standard antivirus test file is the
+// canonical example: any real scanner flags it, so WeKan blocks it too (so an
+// operator can verify upload scanning works, and so a genuine scanner downstream
+// is never handed it). Matches the stable EICAR marker and its exact signature
+// prefix. Exported for testing.
+export function looksLikeMalwareTestFile(text) {
+  if (!text) return false;
+  if (text.indexOf('EICAR-STANDARD-ANTIVIRUS-TEST-FILE') !== -1) return true;
+  if (/X5O!P%@AP\[4\\PZX54\(P\^\)7CC\)7\}\$EICAR/.test(text)) return true;
+  return false;
+}
+
 // Warn only once (per server process) that the `file` binary is unavailable, so
 // operators of minimal images notice that content-based MIME detection is degraded
 // without flooding the log on every upload.
@@ -81,7 +94,17 @@ function logUploadBlock(key, detail) {
   } catch (e) { /* logging must never break validation */ }
 }
 
+const { filenameLooksLikeExploit } = require('./lib/uploadFileName');
+
 export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, externalCommandLine) {
+  // Reject uploads whose FILENAME itself looks like an exploit: HTML/script
+  // markup, an XML doctype/entity (billion-laughs), template-injection payloads,
+  // php/asp tags, javascript:/data: URIs, inline event handlers, null bytes or
+  // path traversal. (File CONTENT is validated separately below.)
+  if (filenameLooksLikeExploit(fileObj && fileObj.name)) {
+    logUploadBlock('file.name', 'rejected exploit-looking filename');
+    return false;
+  }
   let isValid = true;
   // Always validate uploads. The previous migration flag disabled validation and enabled XSS.
   try {
@@ -152,6 +175,19 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
     const mimeTypeResult = await detectMimeFromFile(fileObj.path);
     const detectedMime = mimeTypeResult?.mime || (fileObj.type || '').toLowerCase();
     const baseMimeType = detectedMime.split('/', 1)[0] || '';
+
+    // Reject known virus TEST files (EICAR) — harmless but must be blocked like
+    // real malware. Sniff a small head; the EICAR file is tiny.
+    try {
+      const { text: malwareHead } = await readTextHead(fileObj.path, 65536);
+      if (looksLikeMalwareTestFile(malwareHead)) {
+        console.log('Validation of uploaded file failed (known virus test file): ' + fileObj.path);
+        logUploadBlock('malware.testfile', 'rejected known virus test file (EICAR)');
+        return false;
+      }
+    } catch (e) {
+      // Head unreadable — the checks below still apply.
+    }
 
     // GHSA-jhph-whx8-wq6p (CWE-434): when content-based detection via the `file`
     // binary is unavailable, `detectedMime` above falls back to the CLIENT-supplied

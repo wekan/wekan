@@ -1,117 +1,137 @@
 'use strict';
 
-// Safe filename display for the Admin Panel → Problems → Files report.
-// Isomorphic (server builds the invisible-char query, client detects + decodes).
+// Filename safety helpers, isomorphic (used by client display, server download
+// headers, and server upload hardening).
 //
-// - decodeFileNameSafe: percent-encoded names (e.g. "%D0%93%D1%80" -> "Гр") are
-//   URL-decoded when they look encoded AND decode cleanly; otherwise returned
-//   unchanged. Filenames are ALWAYS shown as plain text by the caller (Blaze
-//   `{{ }}` HTML-escapes; never rendered as markdown/HTML).
-// - hasInvisibleChars: true when the (decoded) name contains a genuinely
-//   invisible / format / control character often used to spoof filenames — the
-//   report shows those names in red. Ordinary spaces and CJK/Hangul text are NOT
-//   flagged.
+// The general display function is cleanFileName(): every filename shown anywhere
+// in WeKan is URL-decoded, has all invisible/format characters removed, and has
+// any HTML/script/XML/template-injection markup stripped out — so what is shown is
+// always a plain, safe, readable name. (Blaze `{{ }}` also HTML-escapes, so a name
+// is never rendered as markup; this additionally removes the markup text itself.)
 
 // C0/C1 controls, NBSP, soft hyphen, Arabic letter mark, Mongolian vowel
 // separator, zero-width + bidi controls, line/paragraph separators, word-joiner
-// group, BOM, and interlinear annotation marks. Deliberately EXCLUDES the normal
-// space (0x20) and the ideographic space (U+3000) so legitimate names are safe.
+// group, BOM, and interlinear annotation marks. Excludes the normal space (0x20)
+// and the ideographic space (U+3000) so legitimate names are safe.
 const INVISIBLE_CHARS_SOURCE =
   '[\\u0000-\\u001F\\u007F-\\u009F\\u00A0\\u00AD\\u061C\\u180E' +
   '\\u200B-\\u200F\\u2028\\u2029\\u202A-\\u202E\\u2060-\\u2064\\u2066-\\u206F' +
   '\\uFEFF\\uFFF9-\\uFFFB]';
 
 const INVISIBLE_CHARS_REGEX = new RegExp(INVISIBLE_CHARS_SOURCE);
+const INVISIBLE_CHARS_GLOBAL = new RegExp(INVISIBLE_CHARS_SOURCE, 'g');
 
 function hasInvisibleChars(s) {
   return typeof s === 'string' && INVISIBLE_CHARS_REGEX.test(s);
 }
 
+// URL-decode a percent-encoded name (e.g. "%D0%93%D1%80" -> "Гр") when it looks
+// encoded AND decodes cleanly; otherwise return it unchanged.
 function decodeFileNameSafe(name) {
   if (typeof name !== 'string' || name.indexOf('%') === -1) return name;
   if (!/%[0-9A-Fa-f]{2}/.test(name)) return name;
   try {
     return decodeURIComponent(name);
   } catch (e) {
-    // Malformed percent-encoding — leave the original untouched.
-    return name;
+    return name; // malformed percent-encoding — leave as-is
   }
 }
 
-// Human-readable Unicode names for the invisible characters we flag. Anything not
-// listed (rare C0/C1 controls) falls back to just its "U+XXXX" code point.
-const INVISIBLE_CHAR_NAMES = {
-  0x00: 'NULL', 0x09: 'TAB', 0x0a: 'LINE FEED', 0x0b: 'VERTICAL TAB',
-  0x0c: 'FORM FEED', 0x0d: 'CARRIAGE RETURN', 0x1b: 'ESCAPE', 0x7f: 'DELETE',
-  0xa0: 'NO-BREAK SPACE', 0xad: 'SOFT HYPHEN', 0x061c: 'ARABIC LETTER MARK',
-  0x180e: 'MONGOLIAN VOWEL SEPARATOR',
-  0x200b: 'ZERO WIDTH SPACE', 0x200c: 'ZERO WIDTH NON-JOINER',
-  0x200d: 'ZERO WIDTH JOINER', 0x200e: 'LEFT-TO-RIGHT MARK',
-  0x200f: 'RIGHT-TO-LEFT MARK', 0x2028: 'LINE SEPARATOR',
-  0x2029: 'PARAGRAPH SEPARATOR', 0x202a: 'LEFT-TO-RIGHT EMBEDDING',
-  0x202b: 'RIGHT-TO-LEFT EMBEDDING', 0x202c: 'POP DIRECTIONAL FORMATTING',
-  0x202d: 'LEFT-TO-RIGHT OVERRIDE', 0x202e: 'RIGHT-TO-LEFT OVERRIDE',
-  0x2060: 'WORD JOINER', 0x2061: 'FUNCTION APPLICATION',
-  0x2062: 'INVISIBLE TIMES', 0x2063: 'INVISIBLE SEPARATOR',
-  0x2064: 'INVISIBLE PLUS', 0x2066: 'LEFT-TO-RIGHT ISOLATE',
-  0x2067: 'RIGHT-TO-LEFT ISOLATE', 0x2068: 'FIRST STRONG ISOLATE',
-  0x2069: 'POP DIRECTIONAL ISOLATE', 0xfeff: 'ZERO WIDTH NO-BREAK SPACE (BOM)',
-  0xfff9: 'INTERLINEAR ANNOTATION ANCHOR',
-  0xfffa: 'INTERLINEAR ANNOTATION SEPARATOR',
-  0xfffb: 'INTERLINEAR ANNOTATION TERMINATOR',
+// Remove exploit-looking markup from a filename so the shown name is plain text:
+// HTML/XML tags (incl. <script>, <svg>, <!ENTITY> billion-laughs, <!DOCTYPE>),
+// php/asp processing instructions, CDATA, template-injection payloads, and
+// dangerous URI schemes.
+function stripExploitPatterns(s) {
+  return String(s == null ? '' : s)
+    .replace(/<\?[\s\S]*?(\?>|$)/g, '')                 // <?php … ?> / <?xml … ?>
+    .replace(/<!\[[\s\S]*?(\]>|$)/g, '')                // <![CDATA[ … ]]>
+    .replace(/\{\{[\s\S]*?\}\}|\$\{[\s\S]*?\}|<%[\s\S]*?%>/g, '') // template injection
+    .replace(/<[^>]*>?/g, '')                           // any HTML/XML tag (incl. unclosed)
+    .replace(/(javascript|vbscript|data)\s*:/gi, '')    // dangerous URI schemes
+    .replace(/[<>]/g, '');                              // any stray angle brackets
+}
+
+// Confusable homoglyphs: characters from other scripts (mainly Cyrillic and
+// Greek) that look identical or nearly identical to a common ASCII letter and
+// are abused for typosquatting — e.g. a Cyrillic "а" (U+0430) inside
+// "pаypal.exe", which reads as "paypal" but is a different string. Each maps to
+// the standard ASCII letter it imitates.
+const CONFUSABLES = {
+  // Cyrillic lowercase
+  'а': 'a', 'е': 'e', 'о': 'o', 'р': 'p', 'с': 'c',
+  'у': 'y', 'х': 'x', 'ѕ': 's', 'і': 'i', 'ј': 'j',
+  'һ': 'h', 'ԁ': 'd', 'ӏ': 'l', 'ɡ': 'g', 'ı': 'i',
+  // Cyrillic uppercase
+  'А': 'A', 'В': 'B', 'Е': 'E', 'К': 'K', 'М': 'M',
+  'Н': 'H', 'О': 'O', 'Р': 'P', 'С': 'C', 'Т': 'T',
+  'У': 'Y', 'Х': 'X', 'Ѕ': 'S', 'І': 'I', 'Ј': 'J',
+  'Ӏ': 'I', 'Ԛ': 'Q', 'Ԝ': 'W',
+  // Greek lowercase
+  'α': 'a', 'ο': 'o', 'ν': 'v', 'ρ': 'p',
+  // Greek uppercase (visually identical to Latin capitals)
+  'Α': 'A', 'Β': 'B', 'Ε': 'E', 'Ζ': 'Z', 'Η': 'H',
+  'Ι': 'I', 'Κ': 'K', 'Μ': 'M', 'Ν': 'N', 'Ο': 'O',
+  'Ρ': 'P', 'Τ': 'T', 'Υ': 'Y', 'Χ': 'X',
 };
 
-// Describe one invisible code point, e.g. "U+200B ZERO WIDTH SPACE".
-function describeInvisibleChar(cp) {
-  const hex = 'U+' + cp.toString(16).toUpperCase().padStart(4, '0');
-  const name = INVISIBLE_CHAR_NAMES[cp];
-  return name ? hex + ' ' + name : hex;
+const NON_ASCII_GLOBAL = /[^\u0000-\u007F]/g;
+const NON_ASCII_TEST = /[^\u0000-\u007F]/;
+
+// Rough "is this a letter" test for a non-ASCII character (excludes punctuation,
+// symbols and the CJK space) so genuine non-Latin scripts can be weighed against
+// Latin letters below.
+function isNonAsciiLetter(ch) {
+  return /[À-ɏͰ-ϿЀ-ӿ԰-῿぀-퟿]/.test(ch);
 }
 
-// Split a (decoded) filename into display segments: runs of visible text, and one
-// segment per invisible character carrying its bracketed description. The caller
-// renders visible segments normally and invisible ones in red (as plain text —
-// nothing is ever rendered as HTML/markdown).
-function fileNameSegments(name) {
-  const decoded = decodeFileNameSafe(name);
-  const segments = [];
-  let buf = '';
-  for (const ch of String(decoded)) {
-    if (INVISIBLE_CHARS_REGEX.test(ch)) {
-      if (buf) { segments.push({ invisible: false, text: buf }); buf = ''; }
-      segments.push({ invisible: true, text: '[' + describeInvisibleChar(ch.codePointAt(0)) + ']' });
-    } else {
-      buf += ch;
-    }
+// Normalize a name to generally-used characters:
+//   1. Unicode NFKC — folds compatibility variants (fullwidth "ＡＢＣ", ligatures
+//      "ﬁ", circled/enclosed forms, etc.) into their canonical characters.
+//   2. Confusable folding — replaces disguised homoglyphs (Cyrillic/Greek letters
+//      that imitate ASCII) with the ASCII letter they imitate, but ONLY inside a
+//      predominantly-Latin name (the typosquatting case). A genuinely non-Latin
+//      name (e.g. an all-Cyrillic or all-Greek filename) has no Latin majority
+//      and is returned untouched, so real names in other scripts are preserved.
+function normalizeConfusables(name) {
+  const s = String(name == null ? '' : name);
+  let n = typeof s.normalize === 'function' ? s.normalize('NFKC') : s;
+  if (!NON_ASCII_TEST.test(n)) return n; // pure ASCII: nothing to fold
+  // Weigh Latin vs non-Latin letters over the BASE name only (excluding the
+  // extension) — a Latin extension like ".txt" must not tip a genuinely non-Latin
+  // name (e.g. Cyrillic "Гр.txt") into being folded to look-alike Latin.
+  const dot = n.lastIndexOf('.');
+  const base = dot > 0 ? n.slice(0, dot) : n;
+  const latin = (base.match(/[A-Za-z]/g) || []).length;
+  const nonLatin = (base.match(NON_ASCII_GLOBAL) || []).filter(isNonAsciiLetter).length;
+  if (latin > 0 && latin >= nonLatin) {
+    n = n.replace(NON_ASCII_GLOBAL, ch => CONFUSABLES[ch] || ch);
   }
-  if (buf) segments.push({ invisible: false, text: buf });
-  return segments;
+  return n;
 }
 
-// Plain-text display name (no colouring): the decoded name with each invisible
-// character replaced by its bracketed "[U+XXXX NAME]". Suitable for a title=""
-// attribute or JS-set text where per-character colouring is not possible.
-function fileNamePlain(name) {
-  return fileNameSegments(name).map(seg => seg.text).join('');
+// The general filename DISPLAY function: decoded, normalized (NFKC + confusable
+// homoglyphs folded), invisible chars removed, exploit markup removed, whitespace
+// collapsed. Used everywhere a filename is shown.
+function cleanFileName(name) {
+  let n = decodeFileNameSafe(String(name == null ? '' : name));
+  n = normalizeConfusables(n);
+  n = n.replace(INVISIBLE_CHARS_GLOBAL, '');
+  n = stripExploitPatterns(n);
+  return n.replace(/\s+/g, ' ').trim();
 }
 
-// The name to use when DOWNLOADING a file: URL-decoded and with every invisible
-// character REMOVED, so the saved file has a clean, unambiguous name. Never empty.
+// The name to use when DOWNLOADING a file: the cleaned name, never empty.
 function sanitizeDownloadFileName(name) {
-  const decoded = decodeFileNameSafe(name);
-  if (typeof decoded !== 'string') return 'download';
-  const cleaned = decoded.replace(new RegExp(INVISIBLE_CHARS_SOURCE, 'g'), '').trim();
-  return cleaned || 'download';
+  return cleanFileName(name) || 'download';
 }
 
 module.exports = {
   INVISIBLE_CHARS_SOURCE,
   INVISIBLE_CHARS_REGEX,
-  INVISIBLE_CHAR_NAMES,
+  INVISIBLE_CHARS_GLOBAL,
   hasInvisibleChars,
   decodeFileNameSafe,
-  describeInvisibleChar,
-  fileNameSegments,
-  fileNamePlain,
+  stripExploitPatterns,
+  cleanFileName,
   sanitizeDownloadFileName,
 };

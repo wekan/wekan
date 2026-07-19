@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { isFileValid } from './fileValidation';
-import { isSvgFile, sanitizeSvgFileSync } from './lib/sanitizeSvg';
 import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
@@ -103,31 +102,49 @@ Attachments.storagePath = function () {
 };
 
 Attachments.onAfterUpload = async function (fileObj) {
-  // Sanitize SVG uploads in place before they are validated or moved to any
-  // storage backend. This strips scripts, event handlers, javascript: URIs and
-  // XML DOCTYPE/ENTITY (XML loop) constructs, so SVG images can be uploaded
-  // safely instead of being rejected. Runs for every upload regardless of the
-  // configured storage backend.
-  if (isSvgFile(fileObj.type, fileObj.name)) {
-    let svgSanitized = false;
-    Object.keys(fileObj.versions).forEach(versionName => {
-      const version = fileObj.versions[versionName];
-      const newSize = sanitizeSvgFileSync(version && version.path);
-      if (newSize !== null) {
-        version.size = newSize;
-        svgSanitized = true;
-      }
-    });
-    if (svgSanitized) {
-      try {
-        await Attachments.updateAsync(
-          { _id: fileObj._id },
-          { $set: { versions: fileObj.versions } },
-        );
-      } catch (error) {
-        console.error('[onAfterUpload] Failed to persist sanitized SVG versions:', error);
-      }
+  // Detect and sanitize known exploits from the uploaded file IN PLACE, while it
+  // is still on the local filesystem staging area and BEFORE it is validated or
+  // moved to any final storage backend (filesystem final location, S3, GridFS...).
+  // Today this strips scripts, event handlers, javascript: URIs and XML
+  // DOCTYPE/ENTITY (XML loop / billion-laughs) constructs from SVG uploads, so SVG
+  // images upload safely instead of being rejected. General for every upload,
+  // regardless of the configured storage backend.
+  const { sanitizeUploadedFileExploits } = require('./lib/sanitizeUploadedFile');
+  if (sanitizeUploadedFileExploits(fileObj)) {
+    try {
+      await Attachments.updateAsync(
+        { _id: fileObj._id },
+        { $set: { versions: fileObj.versions } },
+      );
+    } catch (error) {
+      console.error('[onAfterUpload] Failed to persist sanitized versions:', error);
     }
+  }
+
+  // Filename hardening for EVERY upload, on all storage backends:
+  //   1. Reject a filename that itself looks like an exploit (HTML/JS/XML/etc.).
+  //   2. Normalize + correct the stored name: URL-decode, fold confusable
+  //      homoglyphs, remove invisible characters, strip exploit markup, and fix
+  //      the EXTENSION to match the real detected file type — so double-clicking
+  //      the downloaded file opens the right application — capped to a portable
+  //      length. Uses the general, storage-agnostic detector (streams only a
+  //      small header to WRITABLE_PATH/files/temp, then deletes it).
+  try {
+    const { filenameLooksLikeExploit, sanitizeUploadFileName } = require('./lib/uploadFileName');
+    if (filenameLooksLikeExploit(fileObj.name)) {
+      console.log('[onAfterUpload] rejected exploit-looking filename:', fileObj._id);
+      await Attachments.removeAsync(fileObj._id);
+      return;
+    }
+    const { detectStoredFileMime } = require('./lib/fileTypeCorrection');
+    const detectedMime = await detectStoredFileMime(fileObj, fileStoreStrategyFactory);
+    const correctedName = sanitizeUploadFileName(fileObj.name, detectedMime || fileObj.type);
+    if (correctedName && correctedName !== fileObj.name) {
+      rename(fileObj, correctedName, fileStoreStrategyFactory);
+      fileObj.name = correctedName;
+    }
+  } catch (error) {
+    console.error('[onAfterUpload] filename hardening failed:', error);
   }
 
   // Get default storage backend from settings

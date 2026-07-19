@@ -1,11 +1,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { isFileValid } from './fileValidation';
-import { isSvgFile, sanitizeSvgFileSync } from './lib/sanitizeSvg';
 import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
-import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs, FileStoreStrategyCloud, STORAGE_NAME_FILESYSTEM } from '/models/lib/fileStoreStrategy';
+import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs, FileStoreStrategyCloud, STORAGE_NAME_FILESYSTEM, rename } from '/models/lib/fileStoreStrategy';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
 import Avatars, { normalizeRemovedFiles, setAvatarsUploadSize } from './avatars';
 
@@ -76,24 +75,36 @@ Avatars.onAfterUpload = async function (fileObj) {
     fileObj.versions[versionName].storage = STORAGE_NAME_FILESYSTEM;
   });
 
-  // Sanitize SVG avatars in place (strip scripts, event handlers, javascript:
-  // URIs and XML DOCTYPE/ENTITY constructs) before validation so safe SVGs are
-  // accepted instead of rejected.
-  if (isSvgFile(fileObj.type, fileObj.name)) {
-    Object.keys(fileObj.versions).forEach(versionName => {
-      const version = fileObj.versions[versionName];
-      const newSize = sanitizeSvgFileSync(version && version.path);
-      if (newSize !== null) {
-        version.size = newSize;
-      }
-    });
-  }
+  // Detect and sanitize known exploits from the uploaded avatar IN PLACE, on the
+  // local filesystem staging area and BEFORE validation or any move to final
+  // storage: strip scripts, event handlers, javascript: URIs and XML
+  // DOCTYPE/ENTITY (XML loop) constructs from SVG avatars, so safe SVGs are
+  // accepted instead of rejected. Same general function used for attachments.
+  const { sanitizeUploadedFileExploits } = require('./lib/sanitizeUploadedFile');
+  sanitizeUploadedFileExploits(fileObj);
 
   await Avatars.updateAsync({ _id: fileObj._id }, { $set: { "versions": fileObj.versions } });
 
   const isValid = await isFileValid(fileObj, avatarsUploadMimeTypes, avatarsUploadSize, avatarsUploadExternalProgram);
 
   if (isValid) {
+    // Normalize + correct the stored avatar filename: URL-decode, fold confusable
+    // homoglyphs, remove invisible characters, strip exploit markup, and fix the
+    // extension to match the real detected file type — capped to a portable
+    // length. (isFileValid already rejected exploit-looking filenames above.)
+    try {
+      const { sanitizeUploadFileName } = require('./lib/uploadFileName');
+      const { detectStoredFileMime } = require('./lib/fileTypeCorrection');
+      const detectedMime = await detectStoredFileMime(fileObj, fileStoreStrategyFactory);
+      const correctedName = sanitizeUploadFileName(fileObj.name, detectedMime || fileObj.type);
+      if (correctedName && correctedName !== fileObj.name) {
+        rename(fileObj, correctedName, fileStoreStrategyFactory);
+        fileObj.name = correctedName;
+      }
+    } catch (error) {
+      console.error('[Avatars.onAfterUpload] filename hardening failed:', error);
+    }
+
     // Set avatar URL using universal URL generator (URL-agnostic)
     const universalUrl = generateUniversalAvatarUrl(fileObj._id);
 

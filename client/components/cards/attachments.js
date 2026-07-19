@@ -6,7 +6,7 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
 import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
-const { fileNamePlain } = require('/imports/lib/fileNameDisplay');
+const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 import { formatDateTime } from '/imports/lib/dateUtils';
 import { EscapeActions } from '/client/lib/escapeActions';
 
@@ -149,10 +149,9 @@ function openAttachmentViewer(attachmentId) {
       break;
   }
 
-  // Show the decoded name with invisible characters named (plain text; .text()
-  // escapes, so never HTML). The viewer title is a single element, so we use the
-  // plain description form rather than the coloured +safeFilename segments.
-  $('#attachment-name').text(fileNamePlain(attachment.name));
+  // Show the cleaned name: URL-decoded, homoglyphs folded, invisible characters
+  // and exploit markup removed (plain text; .text() escapes, so never HTML).
+  $('#attachment-name').text(cleanFileName(attachment.name));
   $('#viewer-overlay').removeClass('hidden');
 }
 

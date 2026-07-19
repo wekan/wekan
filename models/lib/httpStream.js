@@ -1,14 +1,31 @@
 export const httpStreamOutput = function(readStream, name, http, downloadFlag, cacheControl) {
-    readStream.on('data', data => {
+    // Sanitize known exploits from EXISTING files on the fly, straight from the
+    // storage backend, without buffering whole files: the sanitizer sniffs the
+    // start of the stream and only rewrites documents that begin like dangerous
+    // markup (SVG/XML with <script>, an <!DOCTYPE/<!ENTITY XML loop, inline event
+    // handlers, ...); everything else streams through unchanged. See
+    // models/lib/serveFileSanitizer.js.
+    let outStream = readStream;
+    try {
+      const { createServeSanitizer } = require('./serveFileSanitizer');
+      const sanitizer = createServeSanitizer(name);
+      readStream.on('error', err => sanitizer.destroy(err));
+      outStream = readStream.pipe(sanitizer);
+    } catch (e) {
+      console.error('serveFileSanitizer unavailable, streaming file as-is:', e);
+      outStream = readStream;
+    }
+
+    outStream.on('data', data => {
       http.response.write(data);
     });
 
-    readStream.on('end', () => {
+    outStream.on('end', () => {
       // don't pass parameters to end() or it will be attached to the file's binary stream
       http.response.end();
     });
 
-    readStream.on('error', (err) => {
+    outStream.on('error', (err) => {
       console.error(`Download stream error for file '${name}':`, err);
       http.response.statusCode = 404;
       http.response.end('not found');

@@ -57,7 +57,7 @@ const REPORTS_PER_PAGE = 25;
 // single loadReport() drive all of them the same way.
 function reportConfig(tmpl) {
   return {
-    'report-files': { page: tmpl.filesPage, count: tmpl.filesCount, search: tmpl.filesSearch, pub: 'attachmentsList', countMethod: 'getAttachmentsReportCount', extraArgs: () => [tmpl.filesInvisibleOnly.get()] },
+    'report-files': { page: tmpl.filesPage, count: tmpl.filesCount, search: tmpl.filesSearch, pub: 'attachmentsList', countMethod: 'getAttachmentsReportCount' },
     'report-rules': { page: tmpl.rulesPage, count: tmpl.rulesCount, search: tmpl.rulesSearch, pub: 'rulesReport', countMethod: 'getRulesReportCount' },
     'report-boards': { page: tmpl.boardsPage, count: tmpl.boardsCount, search: tmpl.boardsSearch, pub: 'boardsReport', countMethod: 'getBoardsReportCount' },
     'report-cards': { page: tmpl.cardsPage, count: tmpl.cardsCount, search: tmpl.cardsSearch, pub: 'cardsReport', countMethod: 'getCardsReportCount' },
@@ -101,9 +101,6 @@ Template.adminReports.onCreated(function () {
   this.boardsSearch = new ReactiveVar('');
   this.cardsSearch = new ReactiveVar('');
   this.impersonationSearch = new ReactiveVar('');
-  // Files report: when true, list ONLY filenames that contain invisible /
-  // control / bidi characters (server-side filter). Toggled by the filter button.
-  this.filesInvisibleOnly = new ReactiveVar(false);
 
   // (Re)subscribe the given report for its current page and refresh its total
   // count. Server-side search + limit/skip means only the matching page ever
@@ -123,13 +120,10 @@ Template.adminReports.onCreated(function () {
     const searchTerm = cfg.search.get();
     const limit = REPORTS_PER_PAGE;
     const skip = (cfg.page.get() - 1) * REPORTS_PER_PAGE;
-    // Per-report extra publication/count arguments (e.g. the files report's
-    // "invisible characters only" filter). Empty for reports that take none.
-    const extra = cfg.extraArgs ? cfg.extraArgs() : [];
-    this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, ...extra, () => {
+    this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, () => {
       this.loading.set(false);
     });
-    Meteor.call(cfg.countMethod, searchTerm, ...extra, (error, count) => {
+    Meteor.call(cfg.countMethod, searchTerm, (error, count) => {
       if (error) {
         console.error(`Failed to load ${cfg.countMethod}:`, error);
         return;
@@ -186,7 +180,6 @@ Template.adminReports.helpers({
   },
 
   // --- Pagination helpers, passed down into each report sub-template ---
-  filesInvisibleActive() { return Template.instance().filesInvisibleOnly.get(); },
   filesCurrentPage() { return Template.instance().filesPage.get(); },
   filesTotalPages() { return Math.max(1, Math.ceil((Template.instance().filesCount.get() || 0) / REPORTS_PER_PAGE)); },
   hasFilesPrevPage() { return Template.instance().filesPage.get() > 1; },
@@ -275,12 +268,6 @@ Template.adminReports.events({
 
   // --- Search (one input + button per report, mirrors the People panel) ---
   'keydown .js-files-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-files', '.js-files-search-input'); },
-  'click .js-files-invisible-filter'(event, tmpl) {
-    event.preventDefault();
-    tmpl.filesInvisibleOnly.set(!tmpl.filesInvisibleOnly.get());
-    tmpl.filesPage.set(1);          // a different result set: start at page 1
-    tmpl.loadReport('report-files');
-  },
   'keydown .js-rules-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-rules', '.js-rules-search-input'); },
   'keydown .js-boards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-boards', '.js-boards-search-input'); },
   'keydown .js-cards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-cards', '.js-cards-search-input'); },
@@ -398,8 +385,9 @@ function switchMenu(event, tmpl) {
 
 Template.filesReport.helpers({
   results() {
-    // The filename cell renders via the reusable +safeFilename component
-    // (URL-decode + red warning + inline invisible-character names).
+    // The filename cell renders via the global {{cleanFilename}} helper: the name
+    // is URL-decoded, homoglyphs are folded, and invisible / exploit characters
+    // are removed, so it is always shown as a plain, readable name.
     return collectionResults(Attachments, { name: 1 });
   },
   resultsCount() {

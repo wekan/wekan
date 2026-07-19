@@ -29,6 +29,7 @@ export {
 // module so they can be unit tested directly with Node. See
 // models/lib/filenameSanitizer.js (#6412).
 const { sanitizeFilename } = require('./filenameSanitizer');
+const { hasEnoughDiskSpace } = require('./diskSpace');
 
 function normalizeForCompare(inputPath) {
   const normalized = path.resolve(inputPath);
@@ -783,17 +784,54 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
  *   Existing callers may ignore the return value (fire-and-forget); the
  *   server-side bulk move job awaits it to move attachments sequentially.
  */
-export const moveToStorage = function(fileObj, storageDestination, fileStoreStrategyFactory) {
-  // SECURITY: Sanitize filename to prevent path traversal attacks
-  // This ensures any malicious names already in the database are cleaned up
-  const safeName = sanitizeFilename(fileObj.name);
-  if (safeName !== fileObj.name) {
-    // Update the database with the sanitized name
-    (fileStoreStrategyFactory.collection || Attachments).updateAsync({ _id: fileObj._id }, { $set: { name: safeName } }).catch(error => {
-      console.error('Failed to persist sanitized attachment name:', error);
-    });
-    // Update the local object for use in this function
-    fileObj.name = safeName;
+export const moveToStorage = async function(fileObj, storageDestination, fileStoreStrategyFactory) {
+  const collection = fileStoreStrategyFactory.collection || Attachments;
+
+  // When migrating/moving a file, sanitize known exploits from its CONTENT with the
+  // same general function used on upload (strip JavaScript + XML-loop DOCTYPE/ENTITY
+  // from SVG), so the sanitized bytes are what get written to the destination. Runs
+  // in place on the local filesystem source (the common migration direction); the
+  // serve-time sanitizer is the backstop for files still on a remote backend.
+  try {
+    const { sanitizeUploadedFileExploits } = require('./sanitizeUploadedFile');
+    if (sanitizeUploadedFileExploits(fileObj)) {
+      await collection.updateAsync({ _id: fileObj._id }, { $set: { versions: fileObj.versions } })
+        .catch(error => console.error('Failed to persist sanitized versions before move:', error));
+    }
+  } catch (error) {
+    console.error('[moveToStorage] content exploit sanitize failed (continuing):', error);
+  }
+
+  // When migrating/moving a file to its destination storage, fix the filename with
+  // the SAME general function used on upload: detect the real file type and correct
+  // the extension, strip invisible/exploit characters, fold confusable homoglyphs,
+  // cap the length to a portable maximum, keep it path-safe, and disambiguate a
+  // different-content same-name collision with increasing numbering. The corrected
+  // name is saved as the filename at the destination.
+  try {
+    const { finalizeStoredFileName } = require('./fileTypeCorrection');
+    const { name: finalName, changed } = await finalizeStoredFileName(collection, fileObj, fileStoreStrategyFactory);
+    if (changed && finalName) {
+      const lastDot = finalName.lastIndexOf('.');
+      const extension = lastDot === -1 ? '' : finalName.substring(lastDot + 1).toLowerCase();
+      await collection.updateAsync({ _id: fileObj._id }, { $set: {
+        name: finalName,
+        extension,
+        extensionWithDot: extension ? `.${extension}` : '',
+      } }).catch(error => console.error('Failed to persist migrated attachment name:', error));
+      fileObj.name = finalName;
+    }
+  } catch (error) {
+    // Never block a move because name-finalization failed; fall back to the basic
+    // path-traversal sanitizer so a malicious stored name is still cleaned up.
+    console.error('[moveToStorage] filename finalization failed, using basic sanitizer:', error);
+    const safeName = sanitizeFilename(fileObj.name);
+    if (safeName !== fileObj.name) {
+      collection.updateAsync({ _id: fileObj._id }, { $set: { name: safeName } }).catch(e => {
+        console.error('Failed to persist sanitized attachment name:', e);
+      });
+      fileObj.name = safeName;
+    }
   }
 
   const versionPromises = Object.keys(fileObj.versions).map(versionName => new Promise(resolve => {
@@ -812,6 +850,24 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
     const readStream = strategyRead.getReadStream();
 
     const filePath = strategyWrite.getNewPath(fileStoreStrategyFactory.storagePath);
+
+    // Before writing to local-disk (filesystem) storage, make sure there is enough
+    // free space for this version — so a large move cannot fill the disk. When the
+    // platform does not expose free-space info (e.g. a sandbox), hasEnoughDiskSpace
+    // returns true and we proceed with chunked streaming, relying on the write-error
+    // handler below to stop and remove any partial output. Never delete the source.
+    if (strategyWrite.getStorageName() === STORAGE_NAME_FILESYSTEM) {
+      const versionSize = (fileObj.versions[versionName] && fileObj.versions[versionName].size) || fileObj.size || 0;
+      if (!hasEnoughDiskSpace(fileStoreStrategyFactory.storagePath, versionSize)) {
+        console.error(
+          '[moveToStorage] not enough free disk space to move attachment',
+          fileObj._id, `version "${versionName}" (${versionSize} bytes) — skipping, source left intact.`,
+        );
+        resolve();
+        return;
+      }
+    }
+
     const writeStream = strategyWrite.getWriteStream(filePath);
 
     // The source binary may be missing at its recorded location (e.g. a file left
@@ -880,6 +936,14 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
 
     const fail = (error, label) => {
       console.error(`[${label}]: `, error, fileObj._id);
+      // Stop streaming immediately and remove the partial output we already wrote,
+      // so a failed move never leaves a half-written destination file behind. Only
+      // the destination is removed (filesystem); the SOURCE is always left intact.
+      try { readStream.destroy(); } catch (e) { /* ignore */ }
+      try { writeStream.destroy(); } catch (e) { /* ignore */ }
+      if (strategyWrite.getStorageName() === STORAGE_NAME_FILESYSTEM) {
+        fs.promises.unlink(filePath).catch(() => {}); // remove partial destination
+      }
       if (!settled) {
         settled = true;
         resolve();
@@ -914,6 +978,20 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
 
 export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFactory) {
   const newCard = await ReactiveCache.getCard(newCardId);
+
+  // Sanitize known exploits from the source content, and fix + sanitize the copied
+  // filename with the same general upload function (fold homoglyphs, strip
+  // invisible/exploit chars, correct the extension for the type, cap the length).
+  try {
+    const { sanitizeUploadedFileExploits } = require('./sanitizeUploadedFile');
+    sanitizeUploadedFileExploits(fileObj);
+  } catch (e) { /* best effort */ }
+  let copyName = fileObj.name;
+  try {
+    const { sanitizeUploadFileName } = require('./uploadFileName');
+    copyName = sanitizeUploadFileName(fileObj.name, fileObj.type) || fileObj.name;
+  } catch (e) { /* keep original name on failure */ }
+
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const readStream = strategyRead.getReadStream();
@@ -934,13 +1012,17 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
       return;
     }
 
-    writeStream.on('error', error => {
-      console.error('[writeStream error]: ', error, fileObj._id);
-    });
+    // On any error, stop streaming and remove the partial temp file so a failed
+    // copy never leaves a half-written file behind (the source is untouched).
+    const cleanupPartial = (error, label) => {
+      console.error(`[${label}]: `, error, fileObj._id);
+      try { readStream.destroy(); } catch (e) { /* ignore */ }
+      try { writeStream.destroy(); } catch (e) { /* ignore */ }
+      fs.promises.unlink(tempPath).catch(() => {});
+    };
 
-    readStream.on('error', error => {
-      console.error('[readStream error]: ', error, fileObj._id);
-    });
+    writeStream.on('error', error => cleanupPartial(error, 'writeStream error'));
+    readStream.on('error', error => cleanupPartial(error, 'readStream error'));
 
     // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
     readStream.on('end', () => {
@@ -948,7 +1030,7 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
       (fileStoreStrategyFactory.collection || Attachments).addFile(
         tempPath,
         {
-          fileName: fileObj.name,
+          fileName: copyName,
           type: fileObj.type,
           meta: {
             boardId: newCard.boardId,

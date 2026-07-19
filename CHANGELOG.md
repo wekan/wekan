@@ -86,6 +86,51 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds one unified, safe **filename handling** subsystem, used everywhere
+a filename is shown, uploaded, served, or migrated. Design:
+[docs/Features/Filename/Filename.md](https://github.com/wekan/wekan/blob/main/docs/Features/Filename/Filename.md).
+
+- **Filenames are always shown clean** — everywhere (card attachments, admin Files
+  report, download headers) a name is URL-decoded, normalized to generally-used
+  characters (Unicode NFKC plus **confusable-homoglyph folding**, so a typosquatting
+  name like a Cyrillic-`а` `pаypal.exe` is shown as `paypal.exe`), has invisible /
+  control / bidi characters removed, and has HTML/JS/XML/template-injection markup
+  stripped out. A genuinely non-Latin name (all-Cyrillic, Greek, CJK, …) is
+  preserved. One general `cleanFileName()` function via `{{cleanFilename}}` /
+  `{{downloadFilename}}`. The earlier invisible-character filter button, red warning
+  triangle, inline descriptions and legend are removed.
+- **Uploads are hardened** (attachments and avatars, all storage backends): a
+  filename that looks like an exploit (HTML/JS, XML doctype/entity, template
+  injection, php/asp, `javascript:`/`data:` URIs, inline handlers, null byte, path
+  traversal) is rejected; known virus **test files (EICAR)** are rejected; the stored
+  name has invisible characters removed and the **extension corrected to the real
+  detected file type** (so double-clicking the downloaded file opens the right
+  application — a PNG named `foo.txt` becomes `foo.png`); an empty name becomes a
+  type-based name (`image.png`, `document.docx`, …); and the length is capped to a
+  portable maximum (30 characters, classic Amiga OS FFS) preserving the extension.
+- **Known exploits are removed from file content** — SVG JavaScript and XML-loop
+  (billion-laughs) DOCTYPE/ENTITY constructs are stripped in place at the staging
+  location before the file is promoted to the default storage (filesystem, S3,
+  GridFS), and the temporary file is deleted after storing.
+- **Existing files are handled too** — their extension can be corrected by streaming
+  only a small header to `WRITABLE_PATH/files/temp`, detecting the type, then
+  deleting the temp file (an admin-only, bounded batch corrector reusing the general
+  detector); and when an existing file is served it is sanitized on the fly straight
+  from storage, sniffing the start of the stream and rewriting only documents that
+  begin like dangerous markup (e.g. the start of an XML-loop tag), streaming
+  everything else through unchanged.
+- **Storage moves are safe** — before writing to filesystem storage WeKan checks for
+  enough free disk space (falling back to small-RAM chunked streaming when free-space
+  info is unavailable) and, on any write error, stops immediately and removes the
+  partial output while leaving the source intact.
+- **Migrations fix filenames** — moving/migrating a file sanitizes its content,
+  fixes + sanitizes the filename with the same general function (detected type,
+  corrected extension, folded homoglyphs, capped length), saves the corrected name at
+  the destination, and disambiguates a same-name / different-content collision with
+  increasing numbering (`document.pdf`, `document-1.pdf`, …).
+
 # v10.03 2026-07-19 WeKan ® release
 
 This release fixes the following CRITICAL VULNERABILITIES, all reported by meifukun:

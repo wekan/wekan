@@ -62,20 +62,20 @@ template(name="attachmentGallery")
         .attachment-thumbnail-container.open-preview(data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
           if link
             if(isImage)
-              img.attachment-thumbnail(src="{{link}}" title="{{filenamePlain name}}")
+              img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}")
             else if($eq extension 'svg')
-              img.attachment-thumbnail(src="{{link}}" title="{{filenamePlain name}}" type="image/svg+xml")
+              img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}" type="image/svg+xml")
             else if($eq extension 'mp3')
-              video.attachment-thumbnail(title="{{filenamePlain name}}")
+              video.attachment-thumbnail(title="{{cleanFilename name}}")
                 source(src="{{link}}" type="audio/mpeg")
             else if($eq extension 'ogg')
-              video.attachment-thumbnail(title="{{filenamePlain name}}")
+              video.attachment-thumbnail(title="{{cleanFilename name}}")
                 source(src="{{link}}" type="video/ogg")
             else if($eq extension 'webm')
-              video.attachment-thumbnail(title="{{filenamePlain name}}")
+              video.attachment-thumbnail(title="{{cleanFilename name}}")
                 source(src="{{link}}" type="video/webm")
             else if($eq extension 'mp4')
-              video.attachment-thumbnail(title="{{filenamePlain name}}")
+              video.attachment-thumbnail(title="{{cleanFilename name}}")
                 source(src="{{link}}" type="video/mp4")
             else
               span.attachment-thumbnail-text= extension
@@ -83,8 +83,7 @@ template(name="attachmentGallery")
         .attachment-details-container
           .attachment-details
             div
-              b
-                +safeFilename(name=name)
+              b {{ cleanFilename name }}
               span.file-size ({{fileSize size}})
             if uploaderName
               div.attachment-uploader {{uploaderName}}

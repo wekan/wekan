@@ -4,10 +4,10 @@
  * Spec 41 — newest Admin Panel features (this release)
  *
  * Covers, as UI + negative tests:
- *  - Files report: URL-encoded filenames are decoded for display; names hiding
- *    invisible characters are flagged red (.filename-invisible); the invisible-only
- *    filter lists only those; there is NO Search button and the search field +
- *    pagination controls are present.
+ *  - Files report: every filename is shown as a clean name — URL-decoded,
+ *    confusable homoglyphs folded, invisible + exploit characters removed — via the
+ *    global {{cleanFilename}} helper; there is NO Search button and the search field
+ *    + pagination controls are present. (No filter button / warning / legend.)
  *  - Version (Information) page: shows the live Reactivity mode plus the configured
  *    METEOR_REACTIVITY_ORDER and DDP_TRANSPORT rows.
  *  - Board Table view: column headers are NOT clickable-sortable (removed).
@@ -23,7 +23,7 @@ const ZW = '\u200b'; // zero-width space (escape sequence — no literal invisib
 test.describe('Admin – newest features', () => {
   test.use({ storageState: undefined });
 
-  test('Files report decodes URL-encoded names, flags + filters invisible-char names, no Search button', async ({ page, adminUser }) => {
+  test('Files report shows clean filenames (decoded, homoglyphs folded, invisible/exploit removed), no Search button', async ({ page, adminUser }) => {
     // Seed a board + card owned by the admin so the attachments are "accessible"
     // (the report restricts to attachments on cards the user can see).
     const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Files Board', cardTitlesPerList: [['FilesCard']] });
@@ -33,6 +33,8 @@ test.describe('Admin – newest features', () => {
       { _id: 'e2e-att-normal', name: 'normal-file.png', size: 10, type: 'image/png', meta },
       { _id: 'e2e-att-encoded', name: '%D0%93%D1%80.png', size: 20, type: 'image/png', meta }, // -> "Гр.png"
       { _id: 'e2e-att-invisible', name: 'evil' + ZW + '.png', size: 30, type: 'image/png', meta },
+      { _id: 'e2e-att-homoglyph', name: 'pаypal.png', size: 40, type: 'image/png', meta }, // Cyrillic a
+      { _id: 'e2e-att-exploit', name: '<script>x</script>note.png', size: 50, type: 'image/png', meta },
     ]);
 
     await loginWithToken(page, adminUser.id, adminUser.token);
@@ -47,31 +49,24 @@ test.describe('Admin – newest features', () => {
     await expect(table.getByText('Гр.png')).toBeVisible();
     await expect(table.getByText('%D0%93%D1%80')).toHaveCount(0);
 
-    // The invisible-char name gets ONE red warning triangle, and the invisible
-    // character is replaced inline by its (red) Unicode name — not a whole red
-    // string.
-    await expect(page.locator('.filename-invisible-warning')).toHaveCount(1);
-    await expect(page.locator('.invisible-char-desc')).toContainText('ZERO WIDTH SPACE');
-    // The visible parts of that name are still shown as plain text.
-    await expect(table.getByText('evil', { exact: false })).toBeVisible();
+    // Invisible character is REMOVED — the clean "evil.png" is shown, and the old
+    // red warning / inline description elements no longer exist.
+    await expect(table.getByText('evil.png', { exact: false })).toBeVisible();
+    await expect(page.locator('.filename-invisible-warning')).toHaveCount(0);
+    await expect(page.locator('.invisible-char-desc')).toHaveCount(0);
+    await expect(page.locator('.js-files-invisible-filter')).toHaveCount(0);
+    await expect(page.locator('.admin-report-legend')).toHaveCount(0);
+
+    // Confusable homoglyph is folded to plain Latin ("paypal.png").
+    await expect(table.getByText('paypal.png', { exact: false })).toBeVisible();
+    // Exploit markup is stripped from the shown name.
+    await expect(table.getByText('note.png', { exact: false })).toBeVisible();
+    await expect(table.getByText('<script>')).toHaveCount(0);
 
     // NO Search button; the search field + pagination controls ARE present.
     await expect(page.locator('button.js-files-search-button')).toHaveCount(0);
     await expect(page.locator('input.js-files-search-input')).toBeVisible();
     await expect(page.locator('.admin-report-pagination')).toBeVisible();
-    // Legend explaining the red colour is present.
-    await expect(page.locator('.admin-report-legend')).toBeVisible();
-
-    // Filter to only invisible-character filenames: the normal + decoded names go away.
-    await page.locator('.js-files-invisible-filter').click();
-    await page.waitForTimeout(800);
-    await expect(page.locator('.filename-invisible-warning')).toHaveCount(1);
-    await expect(table.getByText('normal-file.png')).toHaveCount(0);
-
-    // NEGATIVE: turn the filter back off — the non-invisible names return.
-    await page.locator('.js-files-invisible-filter').click();
-    await page.waitForTimeout(800);
-    await expect(table.getByText('normal-file.png')).toBeVisible();
   });
 
   test('Version page shows Reactivity mode + configured REACTIVITY_ORDER and DDP_TRANSPORT', async ({ page, adminUser }) => {
