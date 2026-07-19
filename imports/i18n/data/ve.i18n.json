@@ -937,6 +937,8 @@
   "FerretDB_version": "Vheshini ya FerretDB",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Modo ya reactivity (changeStreams / oplog / polling)",
+  "Reactivity_order": "Landulano ya reactivity (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "Transport ya DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Vheshini i tshimbidzanaho na MongoDB",
   "MongoDB_storage_engine": "Injini yokugcina ye-MongoDB",
   "MongoDB_Oplog_enabled": "I-MongoDB Oplog inikwe amandla",

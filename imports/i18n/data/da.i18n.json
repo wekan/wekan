@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB-version",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reaktivitetstilstand (changeStreams / oplog / polling)",
+  "Reactivity_order": "Reaktivitetsrækkefølge (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "DDP-transport (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB-kompatibel version",
   "MongoDB_storage_engine": "Lagringsmotor for MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog er slået til",

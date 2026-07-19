@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB хувилбар",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Реактив горим (changeStreams / oplog / polling)",
+  "Reactivity_order": "Реактив дараалал (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "DDP дамжуулалт (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB-тэй нийцтэй хувилбар",
   "MongoDB_storage_engine": "Движок хранилища MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog включен",

@@ -937,6 +937,8 @@
   "FerretDB_version": "Phiên bản FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Chế độ phản ứng (changeStreams / oplog / polling)",
+  "Reactivity_order": "Thứ tự phản ứng (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "Truyền tải DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Phiên bản tương thích MongoDB",
   "MongoDB_storage_engine": "Mesin penyimpanan MongoDb",
   "MongoDB_Oplog_enabled": "Oplog MongoDB dihidupkan",

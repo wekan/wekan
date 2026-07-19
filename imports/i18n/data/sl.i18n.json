@@ -937,6 +937,8 @@
   "FerretDB_version": "Različica FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Način reaktivnosti (changeStreams / oplog / polling)",
+  "Reactivity_order": "Vrstni red reaktivnosti (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "Prenos DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Različica, združljiva z MongoDB",
   "MongoDB_storage_engine": "MongoDB механизам за складиштење",
   "MongoDB_Oplog_enabled": "MongoDB Oplog omogočen",

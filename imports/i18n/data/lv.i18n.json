@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB versija",
   "FerretDB_commit": "FerretDB revīzija",
   "Reactivity_mode": "Reaktivitātes režīms (changeStreams / oplog / polling)",
+  "Reactivity_order": "Reaktivitātes secība (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "DDP transports (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB saderīgā versija",
   "MongoDB_storage_engine": "MongoDB dzinis",
   "MongoDB_Oplog_enabled": "MongoDB Oplog iespējots",

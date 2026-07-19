@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB نەشرى",
   "FerretDB_commit": "FerretDB commit ى",
   "Reactivity_mode": "Reactivity ھالىتى (changeStreams / oplog / polling)",
+  "Reactivity_order": "ئىنكاسچانلىق تەرتىپى (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "DDP توشۇش (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB بىلەن ماس نەشرى",
   "MongoDB_storage_engine": "MongoDB ساقلاش ماتورى",
   "MongoDB_Oplog_enabled": "MongoDB Oplog قوزغىتىلدى",

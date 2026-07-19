@@ -937,6 +937,8 @@
   "FerretDB_version": "Toleo la FerretDB",
   "FerretDB_commit": "Commit ya FerretDB",
   "Reactivity_mode": "Hali ya uitikaji (changeStreams / oplog / polling)",
+  "Reactivity_order": "Mpangilio wa uitikaji (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "Usafirishaji wa DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Toleo linalooana na MongoDB",
   "MongoDB_storage_engine": "Injini ya kuhifadhi ya MongoDB",
   "MongoDB_Oplog_enabled": "Oplog ya MongoDB imewezeshwa",

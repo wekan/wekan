@@ -937,6 +937,8 @@
   "FerretDB_version": "Έκδοση FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Λειτουργία αντιδραστικότητας (changeStreams / oplog / polling)",
+  "Reactivity_order": "Σειρά αντιδραστικότητας (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "Μεταφορά DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Συμβατή έκδοση MongoDB",
   "MongoDB_storage_engine": "Storage engine di MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog ενεργοποιημένο",

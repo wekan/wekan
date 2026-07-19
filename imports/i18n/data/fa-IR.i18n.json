@@ -937,6 +937,8 @@
   "FerretDB_version": "نسخه FerretDB",
   "FerretDB_commit": "کامیت FerretDB",
   "Reactivity_mode": "حالت واکنش‌گرایی (changeStreams / oplog / polling)",
+  "Reactivity_order": "ترتیب واکنش‌پذیری (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "انتقال DDP (DDP_TRANSPORT)",
   "MongoDB_version": "نسخه سازگار با MongoDB",
   "MongoDB_storage_engine": "موتور ذخیره سازی MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog فعال است",

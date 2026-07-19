@@ -937,6 +937,8 @@
   "FerretDB_version": "Fersiwn FerretDB",
   "FerretDB_commit": "Ymrwymiad FerretDB",
   "Reactivity_mode": "Modd adweithedd (changeStreams / oplog / polling)",
+  "Reactivity_order": "Trefn adweithedd (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "Cludiant DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Fersiwn cydnaws â MongoDB",
   "MongoDB_storage_engine": "Peiriant storio MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog wedi'i alluogi",

@@ -937,6 +937,8 @@
   "FerretDB_version": "גרסת FerretDB",
   "FerretDB_commit": "Commit של FerretDB",
   "Reactivity_mode": "מצב תגובתיות (changeStreams / oplog / polling)",
+  "Reactivity_order": "סדר תגובתיות (METEOR_REACTIVITY_ORDER)",
+  "DDP_transport": "תעבורת DDP (DDP_TRANSPORT)",
   "MongoDB_version": "גרסה תואמת MongoDB",
   "MongoDB_storage_engine": "מנוע אחסון MongoDB",
   "MongoDB_Oplog_enabled": "יומן הפעילות (Oplog) של MongoDB פעיל",
