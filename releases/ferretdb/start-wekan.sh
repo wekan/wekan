@@ -69,13 +69,26 @@ FERRET_PID=""
 stop_ferret() { [ -n "$FERRET_PID" ] && kill "$FERRET_PID" 2>/dev/null || true; }
 trap 'stop_ferret; exit 0' INT TERM
 
-# #6467/#6468: with FerretDB (no oplog) Meteor observes queries by POLLING, and
-# its defaults (re-poll 50 ms after any write, at least every 10 s) hammer the
-# database. Calmer polling defaults; other users' changes may take ~2 s extra to
-# appear. Overridable by exporting different values before running this script.
+# #6480/#6481: FerretDB v1 now ships an OpLog (auto-created capped local.oplog.rs
+# + replica-set hello handshake — the ferretdb below is launched with
+# --repl-set-name). By default WeKan's Meteor TAILS the OpLog instead of
+# poll-and-diff, the main fix for FerretDB's high CPU on busy boards. Set
+# WEKAN_FERRETDB_OPLOG=false to force the old polling-only behaviour.
+# The polling settings remain the FALLBACK for queries Meteor cannot observe via
+# the OpLog. #6467/#6468: Meteor's defaults (re-poll 50 ms after any write, at
+# least every 10 s) hammer the database; calmer defaults re-poll at most every
+# 2 s / 30 s. Overridable by exporting different values before running this script.
+WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
+WEKAN_FERRETDB_REPL_SET="${WEKAN_FERRETDB_REPL_SET:-rs0}"
+FERRET_REPL_ARG=""
 if [ "$want_ferret" = true ]; then
   export METEOR_POLLING_THROTTLE_MS="${METEOR_POLLING_THROTTLE_MS:-2000}"
   export METEOR_POLLING_INTERVAL_MS="${METEOR_POLLING_INTERVAL_MS:-30000}"
+  if [ "$WEKAN_FERRETDB_OPLOG" = true ]; then
+    FERRET_REPL_ARG="--repl-set-name=$WEKAN_FERRETDB_REPL_SET"
+    export MONGO_OPLOG_URL="${MONGO_OPLOG_URL:-mongodb://$FERRETDB_LISTEN_ADDR/local?replicaSet=$WEKAN_FERRETDB_REPL_SET}"
+    echo "FerretDB OpLog tailing enabled: MONGO_OPLOG_URL=$MONGO_OPLOG_URL"
+  fi
 fi
 
 # #6458: $DIR/cpu-exec runs a binary through the bundled same-arch qemu-user
@@ -94,6 +107,7 @@ while true; do
       --handler=sqlite \
       --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
       --listen-addr="$FERRETDB_LISTEN_ADDR" \
+      ${FERRET_REPL_ARG:+"$FERRET_REPL_ARG"} \
       --telemetry=disable \
       --log-level=error &
     FERRET_PID=$!

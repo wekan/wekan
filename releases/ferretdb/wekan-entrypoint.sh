@@ -47,10 +47,20 @@ if [ "$want_ferret" = true ]; then
   fi
   export MONGO_URL="${MONGO_URL:-mongodb://$FERRETDB_LISTEN_ADDR/wekan}"
   mkdir -p "$FERRETDB_SQLITE_DIR"
+  # #6480/#6481: FerretDB v1 now ships an OpLog (auto-created capped
+  # local.oplog.rs + replica-set hello handshake), launched below with
+  # --repl-set-name. By default WeKan's Meteor TAILS the OpLog instead of
+  # poll-and-diff — the main fix for FerretDB's high CPU on busy boards. Set
+  # WEKAN_FERRETDB_OPLOG=false to force the old polling-only behaviour.
+  WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
+  REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
+  if [ "$WEKAN_FERRETDB_OPLOG" = "true" ]; then
+    export MONGO_OPLOG_URL="${MONGO_OPLOG_URL:-mongodb://$FERRETDB_LISTEN_ADDR/local?replicaSet=$REPL_SET_NAME}"
+  fi
   # Telemetry off: --telemetry=disable both disables AND locks it (FerretDB won't
   # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
   export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
-  echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR ..."
+  echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (replSet $REPL_SET_NAME, OpLog enabled) ..."
   # #6458: /build/cpu-exec runs a binary through the bundled same-arch
   # qemu-user when the CPU lacks features the binary declares (via
   # WEKAN_REQUIRED_CPU_FEATURES, e.g. "x86_64=avx"). node and ferretdb are
@@ -61,6 +71,7 @@ if [ "$want_ferret" = true ]; then
       --handler=sqlite \
       --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
       --listen-addr="$FERRETDB_LISTEN_ADDR" \
+      --repl-set-name="$REPL_SET_NAME" \
       --telemetry=disable \
       --log-level=error &
   else
@@ -68,6 +79,7 @@ if [ "$want_ferret" = true ]; then
       --handler=sqlite \
       --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
       --listen-addr="$FERRETDB_LISTEN_ADDR" \
+      --repl-set-name="$REPL_SET_NAME" \
       --telemetry=disable \
       --log-level=error &
   fi

@@ -7,7 +7,12 @@ import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { getSidebarInstance } from '/client/features/sidebar/service';
 
-const activitiesPerPage = 500;
+// #6480/#6481: 500 was far more than the sidebar/card activity feed ever shows
+// at once, and with FerretDB (no oplog) every live cursor is re-run on a timer —
+// so a 500-row activities cursor was re-fetched and re-diffed on every poll for
+// each open board/card. 50 covers the visible feed; infinite scroll still pulls
+// the next page on demand (the server cursor is index-bounded either way).
+const activitiesPerPage = 50;
 
 Template.activities.onCreated(function () {
   // Register with sidebar so it can call loadNextPage on us

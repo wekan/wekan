@@ -62,11 +62,18 @@ mkdir -p "$SQLITE_DIR"
 # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
 export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
 
-echo "Starting FerretDB v1 (SQLite) on ${BIND_IP}:${PORT} ..."
+# #6480/#6481: run with a replica-set name so FerretDB v1 auto-creates the capped
+# local.oplog.rs and advertises the replica-set hello handshake. That lets WeKan's
+# Meteor TAIL the OpLog instead of poll-and-diff (the main fix for FerretDB's high
+# CPU on busy boards). Harmless when unused; overridable via WEKAN_FERRETDB_REPL_SET.
+REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
+
+echo "Starting FerretDB v1 (SQLite) on ${BIND_IP}:${PORT} (replSet ${REPL_SET_NAME}, OpLog enabled) ..."
 echo "  SQLite data dir: ${SQLITE_DIR}"
 exec "$FERRETDB_BIN" \
     --handler=sqlite \
     --sqlite-url="file:${SQLITE_DIR}/" \
     --listen-addr="${BIND_IP}:${PORT}" \
+    --repl-set-name="${REPL_SET_NAME}" \
     --telemetry=disable \
     --log-level=error

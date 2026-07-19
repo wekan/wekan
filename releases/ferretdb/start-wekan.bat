@@ -23,6 +23,17 @@ set "FERRETDB_SQLITE_DIR=%FILES%\db"
 if not defined PORT set "PORT=8080"
 if not defined ROOT_URL set "ROOT_URL=http://localhost:%PORT%"
 if not defined MONGO_URL set "MONGO_URL=mongodb://127.0.0.1:27017/wekan"
+REM  #6480/#6481: FerretDB v1 now ships an OpLog (started below with
+REM  --repl-set-name), so by default WeKan's Meteor TAILS the OpLog instead of
+REM  poll-and-diff (fixes high FerretDB CPU on busy boards). Set
+REM  WEKAN_FERRETDB_OPLOG=false to force the old polling-only behaviour.
+if not defined WEKAN_FERRETDB_OPLOG set "WEKAN_FERRETDB_OPLOG=true"
+if not defined WEKAN_FERRETDB_REPL_SET set "WEKAN_FERRETDB_REPL_SET=rs0"
+set "FERRET_REPL_ARG="
+if /I "%WEKAN_FERRETDB_OPLOG%"=="true" (
+  set "FERRET_REPL_ARG=--repl-set-name=%WEKAN_FERRETDB_REPL_SET%"
+  if not defined MONGO_OPLOG_URL set "MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=%WEKAN_FERRETDB_REPL_SET%"
+)
 REM  Card loading: "all" (default, every card into the browser) or "lazy" (each
 REM  list loads only the visible cards on demand, for very large boards). Also
 REM  changeable at runtime in Admin Panel / Features.
@@ -45,7 +56,7 @@ REM background, run WeKan in the foreground, and if WeKan exits, stop FerretDB a
 REM restart the whole stack. Close the window to stop both.
 :wekan_loop
 echo Starting bundled FerretDB v1 (SQLite) on 127.0.0.1:27017 (data: %FERRETDB_SQLITE_DIR%) ...
-start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 --telemetry=disable
+start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 %FERRET_REPL_ARG% --telemetry=disable
 
 echo Starting WeKan on %ROOT_URL% (port %PORT%), files under %WRITABLE_PATH% ...
 "%DIR%node.exe" "%DIR%main.js"

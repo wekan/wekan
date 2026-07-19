@@ -86,18 +86,28 @@ else
     fi
 fi
 
-# #6467/#6468: with FerretDB (no oplog) Meteor observes every query by POLLING.
-# The Meteor defaults are aggressive — re-poll every observed query 50 ms after
-# ANY write, and at least every 10 s — which multiplied into hundreds of
-# re-executed queries per second on an active board and pinned FerretDB's CPU.
-# Calmer defaults for the polling driver: re-poll at most every 2 s after a
-# write and every 30 s otherwise. Own writes still show instantly (Meteor
-# applies them to the local cache); this only delays seeing OTHER users' changes
-# by up to ~2 s. Both remain overridable via snap environment settings.
+# #6480/#6481: FerretDB v1 now ships an OpLog (auto-created capped local.oplog.rs
+# + replica-set hello handshake — see bin/ferretdb-control, which launches with
+# --repl-set-name). So by default WeKan's Meteor TAILS the OpLog instead of
+# poll-and-diff, which is the main fix for FerretDB's high CPU on busy boards.
+# Enabled by default; set WEKAN_FERRETDB_OPLOG=false (snap set) to force the old
+# polling-only behaviour if OpLog tailing ever misbehaves.
+#
+# The polling settings below still apply as the FALLBACK for the queries Meteor
+# cannot observe through the OpLog (and when OpLog is disabled). #6467/#6468: the
+# Meteor defaults (re-poll 50 ms after any write, at least every 10 s) hammered
+# FerretDB; calmer defaults re-poll at most every 2 s / 30 s. Own writes still
+# show instantly (local cache); only OTHER users' changes wait up to ~2 s.
 if [ "ferretdb" = "${DATABASE}" ]; then
+    WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
+    if [ "true" = "${WEKAN_FERRETDB_OPLOG}" ] && [ -z "${MONGO_OPLOG_URL}" ]; then
+        REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
+        export MONGO_OPLOG_URL="mongodb://${MONGODB_BIND_IP:-127.0.0.1}:${MONGODB_PORT:-27019}/local?replicaSet=${REPL_SET_NAME}"
+        echo "FerretDB OpLog tailing enabled: MONGO_OPLOG_URL=${MONGO_OPLOG_URL}"
+    fi
     [ -z "${METEOR_POLLING_THROTTLE_MS}" ] && export METEOR_POLLING_THROTTLE_MS=2000
     [ -z "${METEOR_POLLING_INTERVAL_MS}" ] && export METEOR_POLLING_INTERVAL_MS=30000
-    echo "FerretDB polling: METEOR_POLLING_THROTTLE_MS=${METEOR_POLLING_THROTTLE_MS} METEOR_POLLING_INTERVAL_MS=${METEOR_POLLING_INTERVAL_MS}"
+    echo "FerretDB polling fallback: METEOR_POLLING_THROTTLE_MS=${METEOR_POLLING_THROTTLE_MS} METEOR_POLLING_INTERVAL_MS=${METEOR_POLLING_INTERVAL_MS}"
 fi
 
 # If WRITABLE_PATH is not set, use $SNAP_COMMON/files
