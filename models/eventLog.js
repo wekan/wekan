@@ -59,10 +59,22 @@ if (Meteor.isServer) {
     return user;
   }
 
+  // Build a read-only find selector for one stream, with an optional
+  // case-insensitive search across the text columns.
+  function streamSelector(stream, search) {
+    const selector = { stream };
+    if (search) {
+      const rx = { $regex: String(search).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' };
+      selector.$or = [{ category: rx }, { bleed: rx }, { source: rx }, { detail: rx }];
+    }
+    return selector;
+  }
+
   Meteor.methods({
     // Admin-only: for each stream, the count of events NEWER than its
     // acknowledgment. Returns only streams with count > 0, so the Admin Panel
-    // banner shows exactly the problem areas that need attention.
+    // "Problems" button (red) and the Summary page show exactly what needs
+    // attention.
     async eventLogProblemAreas() {
       await requireAdmin(this);
       const areas = [];
@@ -91,6 +103,29 @@ if (Meteor.isServer) {
         await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: now } });
       }
       return true;
+    },
+
+    // Admin-only, READ-ONLY: total count of events in a stream (optional search),
+    // for the Security/Speed/Tests detail pages' pagination.
+    async eventLogCount(stream, search) {
+      await requireAdmin(this);
+      check(stream, String);
+      check(search, Match.Optional(String));
+      return EventLog.find(streamSelector(stream, search)).countAsync();
+    },
+
+    // Admin-only, READ-ONLY: one page of a stream's events, newest first.
+    async eventLogPage(stream, limit, skip, search) {
+      await requireAdmin(this);
+      check(stream, String);
+      check(limit, Number);
+      check(skip, Number);
+      check(search, Match.Optional(String));
+      return EventLog.find(streamSelector(stream, search), {
+        sort: { at: -1 },
+        limit: Math.max(1, Math.min(200, limit)),
+        skip: Math.max(0, skip),
+      }).fetchAsync();
     },
   });
 }

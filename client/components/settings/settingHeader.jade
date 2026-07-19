@@ -2,8 +2,6 @@ template(name="settingHeaderBar")
   h1.header-setting-menu
     span {{_ 'admin-panel'}}
 
-  +adminProblemBanner
-
   .setting-header-btns.left
     if currentUser
       a.setting-header-btn.settings(class=isSettingsActive href="{{pathFor 'setting'}}")
@@ -21,11 +19,6 @@ template(name="settingHeaderBar")
         i.fa.fa-flask
         span {{_ 'features'}}
 
-      a.setting-header-btn.informations(class=isAdminReportsActive href="{{pathFor 'admin-reports'}}")
-        span.emoji-icon
-        i.fa.fa-file-text-o
-        span {{_ 'reports'}}
-
       a.setting-header-btn.informations(class=isAttachmentsActive href="{{pathFor 'attachments'}}")
         span.emoji-icon
         i.fa.fa-paperclip
@@ -40,6 +33,11 @@ template(name="settingHeaderBar")
         span.emoji-icon
         i.fa.fa-info-circle
         span {{_ 'info'}}
+
+      a.setting-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'admin-reports'}}")
+        span.emoji-icon
+        i.fa.fa-exclamation-triangle
+        span {{_ 'problems'}}
 
     else
       a.setting-header-btn.js-log-in(

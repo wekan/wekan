@@ -79,22 +79,33 @@ check('no new files/DBs are created under WRITABLE_PATH', () => {
 check('eventLog defines acks collection + admin methods', () => {
   const src = read('models/eventLog.js');
   assert.ok(/new Mongo\.Collection\('eventlogAcks'\)/.test(src));
-  assert.ok(/eventLogProblemAreas\(\)/.test(src) && /acknowledgeEventLog\(stream\)/.test(src));
+  assert.ok(/eventLogProblemAreas\(\)/.test(src) && /acknowledgeEventLog\(streams\)/.test(src));
   assert.ok(/user\.isAdmin/.test(src), 'methods must be admin-gated');
   assert.ok(/\$gt: ack\.at/.test(src), 'count must be events newer than the ack');
 });
-check('the banner is included at the top of the Admin Panel', () => {
-  assert.ok(/\+adminProblemBanner/.test(read('client/components/settings/settingHeader.jade')));
-  const js = read('client/components/settings/adminProblemBanner.js');
-  assert.ok(/eventLogProblemAreas/.test(js) && /acknowledgeEventLog/.test(js));
-  const feat = read('client/features/settings.js');
-  assert.ok(/adminProblemBanner\.jade/.test(feat) && /adminProblemBanner\.js/.test(feat), 'must be imported');
+check('Admin Panel has a Problems button (right of Info) and no Reports button', () => {
+  const jade = read('client/components/settings/settingHeader.jade');
+  assert.ok(/setting-header-btn\.problems/.test(jade), 'Problems button present');
+  assert.ok(/problemsClass/.test(jade), 'red-when-problems class');
+  assert.ok(!/isAdminReportsActive/.test(jade) && !/'reports'/.test(jade), 'Reports button removed');
+  const hjs = read('client/components/settings/settingHeader.js');
+  assert.ok(/eventLogProblemAreas/.test(hjs) && /has-problems/.test(hjs), 'header polls problems + red class');
 });
-check('the banner is a checkbox list with ONE acknowledge button', () => {
-  const jade = read('client/components/settings/adminProblemBanner.jade');
+check('Problems page: Summary/Security/Speed/Tests menu + read-only stream table', () => {
+  const rj = read('client/components/settings/adminReports.jade');
+  for (const id of ['report-summary','report-security','report-speed','report-tests']) {
+    assert.ok(new RegExp('js-'+id.replace('report-','report-')).test(rj), id+' menu entry');
+  }
+  assert.ok(/\+problemsSummary/.test(rj) && /\+eventStreamReport/.test(rj), 'summary + stream views');
+  const rjs = read('client/components/settings/adminReports.js');
+  assert.ok(/eventLogPage/.test(rjs) && /eventLogCount/.test(rjs), 'stream table reads via methods');
+  assert.ok(!/js-ack/.test(rj), 'no acknowledge control on the report pages (read-only)');
+});
+check('Summary page is a checkbox list with ONE acknowledge button', () => {
+  const jade = read('client/components/settings/problemsSummary.jade');
   assert.ok(/input\.js-problem-check\(type="checkbox"/.test(jade), 'each area has a checkbox');
   assert.ok((jade.match(/js-ack-checked/g) || []).length === 1, 'exactly one acknowledge button');
-  const js = read('client/components/settings/adminProblemBanner.js');
+  const js = read('client/components/settings/problemsSummary.js');
   assert.ok(/js-problem-check:checked/.test(js), 'button acknowledges the checked streams');
   // acknowledge lives ONLY in the banner — the method accepts an array of streams
   assert.ok(/Match\.OneOf\(String, \[String\]\)/.test(read('models/eventLog.js')));

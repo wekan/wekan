@@ -1,9 +1,11 @@
 import { TAPi18n } from '/imports/i18n';
 
-// Admin Panel top banner: shows, per problem area (Reports → Security / Speed /
-// Tests), the menu path and the count of NEW (unacknowledged) problems, each with
-// an Acknowledge button that zeroes the count and removes the info from the top.
-// Design: docs/Security/Remediation/WeKan.md. Data comes from the admin-only
+// Admin Panel → Problems → Summary page: a checkbox list of problem areas
+// (Security / Speed / Tests) with each area's menu path and its count of NEW
+// (unacknowledged) problems, plus ONE Acknowledge button that acknowledges every
+// checked area. This is the ONLY place problems are acknowledged — the Security /
+// Speed / Tests detail pages are read-only.
+// Design: docs/Security/Remediation/WeKan.md. Data: the admin-only
 // eventLogProblemAreas / acknowledgeEventLog methods (models/eventLog.js).
 
 const STREAM_LABEL_KEY = {
@@ -12,7 +14,7 @@ const STREAM_LABEL_KEY = {
   tests: 'testsReportTitle',
 };
 
-Template.adminProblemBanner.onCreated(function () {
+Template.problemsSummary.onCreated(function () {
   this.areas = new ReactiveVar([]);
   this.reload = () => {
     Meteor.call('eventLogProblemAreas', (err, res) => {
@@ -20,15 +22,14 @@ Template.adminProblemBanner.onCreated(function () {
     });
   };
   this.reload();
-  // Light poll so a newly-detected problem shows without a page reload.
   this.timer = Meteor.setInterval(this.reload, 30000);
 });
 
-Template.adminProblemBanner.onDestroyed(function () {
+Template.problemsSummary.onDestroyed(function () {
   if (this.timer) Meteor.clearInterval(this.timer);
 });
 
-Template.adminProblemBanner.helpers({
+Template.problemsSummary.helpers({
   areas() {
     return Template.instance().areas.get();
   },
@@ -40,9 +41,7 @@ Template.adminProblemBanner.helpers({
   },
 });
 
-Template.adminProblemBanner.events({
-  // The ONLY place problems are acknowledged: the top banner. Acknowledge every
-  // checked area in one call; the Reports pages themselves are read-only.
+Template.problemsSummary.events({
   'click .js-ack-checked'(event, templateInstance) {
     const streams = Array.from(templateInstance.findAll('.js-problem-check:checked'))
       .map(el => el.getAttribute('data-stream'))

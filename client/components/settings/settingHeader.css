@@ -109,3 +109,15 @@
   cursor: pointer;
   white-space: nowrap;
 }
+
+/* Problems button turns red when there are new (unacknowledged) Security/Speed/
+   Tests problems (settingHeader.js problemsClass). */
+.setting-header-btn.problems.has-problems,
+.setting-header-btn.problems.has-problems:hover {
+  background-color: #c0392b;
+  color: #fff;
+}
+.setting-header-btn.problems.has-problems i,
+.setting-header-btn.problems.has-problems span {
+  color: #fff;
+}

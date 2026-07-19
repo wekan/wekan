@@ -1,0 +1,16 @@
+template(name="problemsSummary")
+  .global-search-results-list-wrapper
+    h1 {{_ 'summary'}}
+    if hasProblems
+      p {{_ 'problems-summary-help'}}
+      .admin-problem-banner
+        each area in areas
+          label.admin-problem-item
+            input.js-problem-check(type="checkbox" data-stream="{{area.stream}}")
+            i.fa.fa-exclamation-triangle
+            span.admin-problem-path {{_ 'admin-panel'}} → {{_ 'problems'}} → {{areaLabel area.stream}}
+            span.admin-problem-count {{area.count}} {{_ 'new-problems'}}
+        .admin-problem-actions
+          button.js-ack-checked.primary {{_ 'acknowledge'}}
+    else
+      p {{_ 'no-new-problems'}}

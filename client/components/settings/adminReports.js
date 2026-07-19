@@ -67,6 +67,11 @@ function reportConfig(tmpl) {
 
 Template.adminReports.onCreated(function () {
   this.subscription = null;
+  // Problems page opens on the Summary tab (the acknowledge checkbox list).
+  this.showSummary = new ReactiveVar(true);
+  this.showSecurity = new ReactiveVar(false);
+  this.showSpeed = new ReactiveVar(false);
+  this.showTests = new ReactiveVar(false);
   this.showFilesReport = new ReactiveVar(false);
   this.showBrokenCardsReport = new ReactiveVar(false);
   this.showOrphanedFilesReport = new ReactiveVar(false);
@@ -137,6 +142,18 @@ Template.adminReports.onCreated(function () {
 });
 
 Template.adminReports.helpers({
+  showSummary() {
+    return Template.instance().showSummary;
+  },
+  showSecurity() {
+    return Template.instance().showSecurity;
+  },
+  showSpeed() {
+    return Template.instance().showSpeed;
+  },
+  showTests() {
+    return Template.instance().showTests;
+  },
   showFilesReport() {
     return Template.instance().showFilesReport;
   },
@@ -205,6 +222,18 @@ Template.adminReports.helpers({
 });
 
 Template.adminReports.events({
+  'click a.js-report-summary'(event) {
+    switchMenu(event, Template.instance());
+  },
+  'click a.js-report-security'(event) {
+    switchMenu(event, Template.instance());
+  },
+  'click a.js-report-speed'(event) {
+    switchMenu(event, Template.instance());
+  },
+  'click a.js-report-tests'(event) {
+    switchMenu(event, Template.instance());
+  },
   'click a.js-report-broken'(event) {
     switchMenu(event, Template.instance());
   },
@@ -285,6 +314,10 @@ function switchMenu(event, tmpl) {
   const target = $(event.target);
   if (!target.hasClass('active')) {
     tmpl.loading.set(true);
+    tmpl.showSummary.set(false);
+    tmpl.showSecurity.set(false);
+    tmpl.showSpeed.set(false);
+    tmpl.showTests.set(false);
     tmpl.showFilesReport.set(false);
     tmpl.showBrokenCardsReport.set(false);
     tmpl.showOrphanedFilesReport.set(false);
@@ -301,7 +334,21 @@ function switchMenu(event, tmpl) {
     const targetID = target.data('id');
     tmpl.activeReport.set(targetID);
 
-    if ('report-broken' === targetID) {
+    // Summary + the Security/Speed/Tests streams load their own data (via methods,
+    // not a subscription), so just show them and clear the spinner.
+    if ('report-summary' === targetID) {
+      tmpl.showSummary.set(true);
+      tmpl.loading.set(false);
+    } else if ('report-security' === targetID) {
+      tmpl.showSecurity.set(true);
+      tmpl.loading.set(false);
+    } else if ('report-speed' === targetID) {
+      tmpl.showSpeed.set(true);
+      tmpl.loading.set(false);
+    } else if ('report-tests' === targetID) {
+      tmpl.showTests.set(true);
+      tmpl.loading.set(false);
+    } else if ('report-broken' === targetID) {
       tmpl.showBrokenCardsReport.set(true);
       tmpl.subscription = Meteor.subscribe(
         'brokenCards',
@@ -514,5 +561,68 @@ Template.brokenCardsReport.events({
   'click .js-previous-page'(evt, tpl) {
     evt.preventDefault();
     tpl.search.previousPage();
+  },
+});
+
+// --- Read-only event stream report (Security / Speed / Tests) ---
+// Reads the eventlog collection through the admin-only eventLogPage/eventLogCount
+// methods and shows a paginated, searchable, READ-ONLY table (no acknowledge —
+// that lives only on the Summary page). See docs/Security/Remediation/WeKan.md.
+const EVENTS_PER_PAGE = 25;
+
+function eventStreamTitleKey(stream) {
+  return { security: 'securityReportTitle', speed: 'speedReportTitle', tests: 'testsReportTitle' }[stream] || 'summary';
+}
+
+Template.eventStreamReport.onCreated(function () {
+  this.stream = this.data.stream;
+  this.page = new ReactiveVar(1);
+  this.total = new ReactiveVar(0);
+  this.rows = new ReactiveVar([]);
+  this.search = new ReactiveVar('');
+  this.load = () => {
+    const stream = this.stream;
+    const search = this.search.get();
+    const page = this.page.get();
+    Meteor.call('eventLogCount', stream, search, (err, count) => {
+      if (!err) this.total.set(count || 0);
+    });
+    Meteor.call('eventLogPage', stream, EVENTS_PER_PAGE, (page - 1) * EVENTS_PER_PAGE, search, (err, rows) => {
+      if (!err) this.rows.set(Array.isArray(rows) ? rows : []);
+    });
+  };
+  this.load();
+});
+
+Template.eventStreamReport.helpers({
+  rows() { return Template.instance().rows.get(); },
+  rowCount() { return (Template.instance().rows.get() || []).length; },
+  currentPage() { return Template.instance().page.get(); },
+  totalPages() { return Math.max(1, Math.ceil(Template.instance().total.get() / EVENTS_PER_PAGE)); },
+  searchTerm() { return Template.instance().search.get(); },
+  streamTitle() { return TAPi18n.__(eventStreamTitleKey(Template.instance().stream)); },
+  prevDisabled() { return Template.instance().page.get() <= 1 ? 'disabled' : ''; },
+  nextDisabled() {
+    const t = Template.instance();
+    return t.page.get() >= Math.max(1, Math.ceil(t.total.get() / EVENTS_PER_PAGE)) ? 'disabled' : '';
+  },
+  formatAt(at) {
+    if (!at) return '';
+    try { return new Date(at).toISOString().replace('T', ' ').slice(0, 19); } catch (e) { return String(at); }
+  },
+});
+
+Template.eventStreamReport.events({
+  'input .js-event-search'(event, tmpl) {
+    tmpl.search.set(event.currentTarget.value.trim());
+    tmpl.page.set(1);
+    tmpl.load();
+  },
+  'click .js-event-prev'(event, tmpl) {
+    if (tmpl.page.get() > 1) { tmpl.page.set(tmpl.page.get() - 1); tmpl.load(); }
+  },
+  'click .js-event-next'(event, tmpl) {
+    const totalPages = Math.max(1, Math.ceil(tmpl.total.get() / EVENTS_PER_PAGE));
+    if (tmpl.page.get() < totalPages) { tmpl.page.set(tmpl.page.get() + 1); tmpl.load(); }
   },
 });

@@ -7,6 +7,29 @@ template(name="adminReports")
         .side-menu
           ul
             li
+              a.js-report-summary(data-id="report-summary")
+                i.fa.fa-list
+                | {{_ 'summary'}}
+
+            li
+              a.js-report-security(data-id="report-security")
+                i.fa.fa-shield
+                | {{_ 'securityReportTitle'}}
+
+            li
+              a.js-report-speed(data-id="report-speed")
+                i.fa.fa-tachometer
+                | {{_ 'speedReportTitle'}}
+
+            li
+              a.js-report-tests(data-id="report-tests")
+                i.fa.fa-flask
+                | {{_ 'testsReportTitle'}}
+
+            li.admin-reports-separator
+              hr
+
+            li
               a.js-report-broken(data-id="report-broken")
                 i.fa.fa-chain-broken
                 | {{_ 'broken-cards'}}
@@ -39,6 +62,14 @@ template(name="adminReports")
         .main-body
           if loading.get
             +spinner
+          else if showSummary.get
+            +problemsSummary
+          else if showSecurity.get
+            +eventStreamReport(stream="security")
+          else if showSpeed.get
+            +eventStreamReport(stream="speed")
+          else if showTests.get
+            +eventStreamReport(stream="tests")
           else if showBrokenCardsReport.get
             +brokenCardsReport
           else if showFilesReport.get
@@ -239,3 +270,36 @@ template(name="boardsReport")
             td {{teams board.teams }}
   else
     div {{_ 'no-results' }}
+
+template(name="eventStreamReport")
+  .global-search-results-list-wrapper
+    h1 {{streamTitle}}
+    .admin-event-controls
+      input.js-event-search(type="search" placeholder="{{_ 'search'}}" value="{{searchTerm}}")
+      span.admin-event-pagination
+        a.js-event-prev(class="{{prevDisabled}}") ‹
+        span.admin-event-page {{currentPage}} / {{totalPages}}
+        a.js-event-next(class="{{nextDisabled}}") ›
+    if rowCount
+      table.admin-event-table
+        thead
+          tr
+            th {{_ 'event-datetime'}}
+            th {{_ 'event-category'}}
+            th {{_ 'event-bleed'}}
+            th {{_ 'event-severity'}}
+            th {{_ 'event-action'}}
+            th {{_ 'event-source'}}
+            th {{_ 'event-detail'}}
+        tbody
+          each row in rows
+            tr
+              td.admin-event-at {{formatAt row.at}}
+              td {{row.category}}
+              td {{row.bleed}}
+              td.admin-event-sev(data-sev="{{row.severity}}") {{row.severity}}
+              td {{row.action}}
+              td {{row.source}}
+              td.admin-event-detail {{row.detail}}
+    else
+      p {{_ 'no-new-problems'}}

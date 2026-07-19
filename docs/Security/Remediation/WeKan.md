@@ -230,43 +230,56 @@ bytes), and `action` distinguishes a hard **rejection** (`blocked`) from a **san
 
 ---
 
-## 8. Admin Panel → Reports → Security, Speed & Tests
+## 8. Admin Panel → Problems (menu restructuring)
 
-Extends the existing `client/components/settings/adminReports.{jade,js,css}`, which already has a
-side-menu + server-paginated report pattern (`reportConfig` → `{ page, count, search, pub,
-countMethod }`). Add three entries:
+The Admin Panel 2nd header bar gains a **Problems** button placed to the **right of the Info
+(version) button** (rightmost), with a **warning icon** (`fa-exclamation-triangle`). When there
+are any new (unacknowledged) problems it is shown with a **red background**
+(`settingHeader.js` polls `eventLogProblemAreas`; the `has-problems` class → red). The old
+**Reports** button is **removed** — its page is reused as the Problems page. Opening the Admin
+Panel still starts on **Settings** (unchanged), not Problems.
+
+The Problems page is the existing `client/components/settings/adminReports.{jade,js,css}` with a
+left menu whose **top** entries are the event streams and whose **lower** entries are the moved
+former-Reports items:
 
 ```
-li a.js-report-security(data-id="report-security")  i.fa.fa-shield      {{_ 'securityReportTitle'}}
-li a.js-report-speed(data-id="report-speed")        i.fa.fa-tachometer  {{_ 'speedReportTitle'}}
-li a.js-report-tests(data-id="report-tests")        i.fa.fa-flask       {{_ 'testsReportTitle'}}
+Problems (left menu)
+  Summary      ← the acknowledge checkbox list (problemsSummary)
+  Security     ← read-only event table (eventStreamReport stream=security)
+  Speed        ← read-only event table
+  Tests        ← read-only event table
+  ── separator ──
+  Broken Cards · Files · Rules · Boards · Cards · Impersonation   (moved from Reports)
 ```
 
-Acknowledging problems happens **only** at the Admin Panel top banner (a checkbox list of
-problem areas + one Acknowledge button; see `client/components/settings/adminProblemBanner`),
-which resets the per-stream new-problem count. The Reports pages themselves are **read-only**
-(no acknowledge control) — they show the full history and summary.
+- **Summary** (`problemsSummary`, the page opens here): a **checkbox list** of problem areas with
+  each area's menu path + new-problem count and **one Acknowledge button** that acknowledges every
+  checked area. **This is the ONLY place problems are acknowledged.**
+- **Security / Speed / Tests** (`eventStreamReport`): **read-only** paginated, searchable tables of
+  that stream's events (datetime · category · Bleed · severity · action · source · detail), read
+  through the admin-only `eventLogPage` / `eventLogCount` methods
+  (`find({stream, <search>}).sort({at:-1}).skip().limit()`). No acknowledge control here.
+- The moved report items keep their existing publications/pagination unchanged.
 
-Each report body follows [History.md](../../Features/History/History.md) §1:
+Acknowledging problems happens **only** on the **Summary** page
+(`client/components/settings/problemsSummary`) — the checkbox list + one Acknowledge button,
+which resets the per-stream new-problem count (and clears the red on the Problems button). The
+Security/Speed/Tests pages are **read-only**.
 
-- **Summary panel** (top / left): the grouped-count result (§5) — total, per-category
-  counts (general name + `*Bleed` breakdown), per-severity.
-- **Details table** (right, same layout as History): **select checkbox · category/Bleed ·
-  severity · action · source · datetime**, with **Search** (left), **pagination** (middle) above
-  it. **Server-side pagination** — a single `find({stream}).sort({at:-1}).skip().limit()` per page.
-- **RTL** mirrors the layout, exactly as History specifies.
+Server side (admin-only, all reading the `eventlog` collection — no SQLite files, no publications
+that leak non-admin data):
 
-Server side (admin-only, mirrors the other reports) — the reports **read the SQLite DBs**, not
-text files:
+- `eventLogProblemAreas()` — per stream, the count of events newer than its ack; drives the
+  Summary checkboxes and the red Problems button.
+- `acknowledgeEventLog(streams)` — upsert the ack timestamp for one or many streams.
+- `eventLogCount(stream, search)` and `eventLogPage(stream, limit, skip, search)` — the read-only
+  Security/Speed/Tests tables (newest first, server-side search + skip/limit).
+- All **admin-gated** (`user.isAdmin`).
 
-- Publications `securityReport` / `speedReport` / `testsReport` publish
-  `EventLog.find({ stream, <search> }, { sort:{at:-1}, skip, limit })` for the current page, and
-  count methods `getSecurityReportCount(...)` etc. return the total + the grouped summary — exactly
-  the `{ page, count, search, pub, countMethod }` shape the existing reports use.
-- All **admin-gated** (`currentUser.isAdmin`); the `eventlog` collection is only published to admins.
-
-New i18n keys: `securityReportTitle`, `speedReportTitle`, `testsReportTitle`, plus column
-headers (reuse History's where possible).
+New i18n keys: `problems`, `summary`, `securityReportTitle`, `speedReportTitle`,
+`testsReportTitle`, `new-problems`, `acknowledge`, `no-new-problems`, `problems-summary-help`,
+and the `event-*` column headers.
 
 ---
 

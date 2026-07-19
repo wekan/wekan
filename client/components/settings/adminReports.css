@@ -68,3 +68,33 @@
   text-align: center;
   color: #333;
 }
+
+/* Problems page: menu separator between the event streams (Summary/Security/
+   Speed/Tests) and the moved report items, and the read-only event table. */
+.admin-reports-content .side-menu .admin-reports-separator hr {
+  margin: 6px 0;
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,0.15);
+}
+.admin-event-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.admin-event-controls .admin-event-pagination {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-event-controls .admin-event-pagination a { cursor: pointer; }
+.admin-event-controls .admin-event-pagination a.disabled { opacity: 0.4; pointer-events: none; }
+table.admin-event-table { width: 100%; border-collapse: collapse; }
+table.admin-event-table th, table.admin-event-table td {
+  text-align: start; padding: 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.08); vertical-align: top;
+}
+table.admin-event-table .admin-event-at { white-space: nowrap; }
+table.admin-event-table .admin-event-sev[data-sev="high"],
+table.admin-event-table .admin-event-sev[data-sev="critical"] { color: #c0392b; font-weight: bold; }
+table.admin-event-table .admin-event-detail { word-break: break-word; }
