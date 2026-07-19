@@ -51,6 +51,12 @@ function assertSafeAvatarUrl(avatarUrl) {
   const scheme = m ? m[1].toLowerCase() : '';
   if (scheme === 'http' || scheme === 'https') return;
   if (scheme === 'data' && /^data:image\//i.test(avatarUrl)) return;
+  try {
+    require('/server/lib/securityLog').record({
+      key: 'file.avatar-url', action: 'blocked', source: 'setAvatarUrl',
+      detail: `rejected avatar url scheme "${scheme || '(none)'}"`,
+    });
+  } catch (e) { /* logging must never break the guard */ }
   throw new Meteor.Error(
     'invalid-avatar-url',
     'Avatar URL must be an http(s) URL, a data:image URI, or a local path',

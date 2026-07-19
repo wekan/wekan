@@ -174,6 +174,12 @@ async function downloadAttachmentBase64(url, key, token) {
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attachment URL during live Trello import:', url, '-', validation.reason);
       }
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'ssrf.attachment', action: 'blocked', source: 'trelloLiveImport.attachment',
+          detail: `blocked attachment url (${validation.reason})`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
       return null;
     }
     const res = await trelloFetch(url, {

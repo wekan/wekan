@@ -76,6 +76,16 @@ async function fetchAvatarBytes(url) {
     return { buffer: Buffer.from(ab), type };
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('localizeAvatar: fetch failed for', url, '-', e.message);
+    // Record only genuine SSRF rejections (blocked IP / refused redirect /
+    // disallowed protocol), not ordinary network/404 failures.
+    if (/SSRF_GUARD|blocked|redirect|not allowed|private|loopback|metadata/i.test(e && e.message || '')) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'ssrf.redirect', action: 'blocked', source: 'localizeAvatar',
+          detail: `avatar fetch blocked (${e.message})`,
+        });
+      } catch (_) { /* logging must never break the guard */ }
+    }
     return null;
   }
 }
