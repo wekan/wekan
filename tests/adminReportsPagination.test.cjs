@@ -101,4 +101,17 @@ check('Translation page subscribes with a bounded window, not limit 0 (whole col
     'the limit-0 (= no limit = whole collection) load must be gone');
 });
 
+// ── over-fetch: Board Archive → Boards is now server-side paginated ─────────
+check('archivedBoards is server-side paginated with BOTH search and pagination controls', () => {
+  const pub = read('server/publications/boards.js');
+  assert.ok(/publish\('archivedBoards', async function\(searchTerm = '', limit = \d+, skip = 0\)/.test(pub),
+    'archivedBoards must take searchTerm + limit/skip');
+  assert.ok(/getArchivedBoardsCount\(searchTerm/.test(pub), 'count method takes searchTerm');
+  const js = read('client/components/boards/boardArchive.js');
+  assert.ok(/subscribe\('archivedBoards', searchTerm, ARCHIVED_BOARDS_PER_PAGE, skip\)/.test(js), 'client subscribes one page with search');
+  const jade = read('client/components/boards/boardArchive.jade');
+  assert.ok(/js-archived-boards-search/.test(jade), 'search box present');
+  assert.ok(/js-archived-boards-prev-page/.test(jade) && /js-archived-boards-next-page/.test(jade), 'prev/next controls');
+});
+
 console.log(`\n${passed} passed`);

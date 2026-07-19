@@ -396,27 +396,30 @@ Meteor.methods({
   },
 });
 
-Meteor.publish('archivedBoards', async function() {
+// The user's active-admin archived boards. #4255: only boards the user can
+// actually delete (hasAdmin -> isActive && isAdmin). Paginated (limit/skip) so a
+// long-lived instance's archive never loads every archived board at once.
+function archivedBoardsSelector(userId, searchTerm) {
+  const selector = {
+    archived: true,
+    type: { $nin: ['template-container', 'template-board'] },
+    members: { $elemMatch: { userId, isActive: true, isAdmin: true } },
+  };
+  if (searchTerm) {
+    selector.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+  return selector;
+}
+
+Meteor.publish('archivedBoards', async function(searchTerm = '', limit = 30, skip = 0) {
   const userId = this.userId;
   if (!Match.test(userId, String)) return [];
+  check(searchTerm, Match.OneOf(String, null, undefined));
+  check(limit, Number);
+  check(skip, Match.OneOf(Number, null, undefined));
 
   const ret = await ReactiveCache.getBoards(
-    {
-      archived: true,
-      type: { $nin: ['template-container', 'template-board'] },
-      // #4255: only publish archived boards the user can actually delete.
-      // Boards.remove is gated by hasAdmin(), which requires an ACTIVE admin
-      // member (isActive: true && isAdmin: true). Matching that here — rather
-      // than isAdmin alone — stops the archive from listing boards whose delete
-      // then fails with "remove failed: Access denied" (an inactive admin).
-      members: {
-         $elemMatch: {
-           userId,
-           isActive: true,
-           isAdmin: true,
-         },
-       },
-    },
+    archivedBoardsSelector(userId, searchTerm),
     {
       fields: {
         _id: 1,
@@ -428,10 +431,21 @@ Meteor.publish('archivedBoards', async function() {
         archivedAt: 1,
       },
       sort: { archivedAt: -1, modifiedAt: -1 },
+      limit,
+      skip: skip || 0,
     },
     true,
   );
   return ret;
+});
+
+Meteor.methods({
+  async getArchivedBoardsCount(searchTerm = '') {
+    if (!Match.test(this.userId, String)) return 0;
+    check(searchTerm, Match.OneOf(String, null, undefined));
+    const cursor = await ReactiveCache.getBoards(archivedBoardsSelector(this.userId, searchTerm), {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+  },
 });
 
 // OPTIMIZED BOARD PUBLICATION
