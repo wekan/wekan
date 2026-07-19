@@ -937,6 +937,8 @@
   "FerretDB_version": "Vheshini ya FerretDB",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Modo ya reactivity (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Madzina a faela ane maḽeḓa a sa vhonalaho fhedzi",
+  "filename-invisible-legend": "Tswuku: dzina ḽa faela ḽi na maḽeḓa a sa vhonalaho",
   "Reactivity_order": "Landulano ya reactivity (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Transport ya DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Vheshini i tshimbidzanaho na MongoDB",

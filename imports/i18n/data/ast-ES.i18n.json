@@ -937,6 +937,8 @@
   "FerretDB_version": "Versión de FerretDB",
   "FerretDB_commit": "Commit de FerretDB",
   "Reactivity_mode": "Mou de reactividá (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Namái nomes de ficheru con caráuteres invisibles",
+  "filename-invisible-legend": "Coloráu: el nome de ficheru tien caráuteres invisibles",
   "Reactivity_order": "Orde de reactividá (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Tresporte DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Versión compatible de MongoDB",

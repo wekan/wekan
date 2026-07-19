@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB верзија",
   "FerretDB_commit": "FerretDB комит",
   "Reactivity_mode": "Режим реактивности (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Само називи датотека са невидљивим знаковима",
+  "filename-invisible-legend": "Црвено: назив датотеке садржи невидљиве знакове",
   "Reactivity_order": "Редослед реактивности (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP транспорт (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB компатибилна верзија",

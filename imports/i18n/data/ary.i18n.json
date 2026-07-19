@@ -937,6 +937,8 @@
   "FerretDB_version": "إصدار FerretDB",
   "FerretDB_commit": "commit الخاص بـ FerretDB",
   "Reactivity_mode": "وضع التفاعلية ‏(changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "غير سميات الملفات اللي فيهم حروف خفية",
+  "filename-invisible-legend": "أحمر: سمية الملف فيها حروف خفية",
   "Reactivity_order": "ترتيب التفاعلية (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "نقل DDP (DDP_TRANSPORT)",
   "MongoDB_version": "الإصدار المتوافق مع MongoDB",

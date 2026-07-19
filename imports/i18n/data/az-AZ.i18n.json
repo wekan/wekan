@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB versiyası",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reaktivlik rejimi (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Yalnız görünməz simvolları olan fayl adları",
+  "filename-invisible-legend": "Qırmızı: fayl adında görünməz simvollar var",
   "Reactivity_order": "Reaktivlik sırası (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP nəqliyyatı (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB uyğun versiyası",

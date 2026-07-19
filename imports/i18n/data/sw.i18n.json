@@ -937,6 +937,8 @@
   "FerretDB_version": "Toleo la FerretDB",
   "FerretDB_commit": "Commit ya FerretDB",
   "Reactivity_mode": "Hali ya uitikaji (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Majina ya faili yenye herufi zisizoonekana pekee",
+  "filename-invisible-legend": "Nyekundu: jina la faili lina herufi zisizoonekana",
   "Reactivity_order": "Mpangilio wa uitikaji (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Usafirishaji wa DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Toleo linalooana na MongoDB",

@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB 버전",
   "FerretDB_commit": "FerretDB 커밋",
   "Reactivity_mode": "반응성 모드 (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "보이지 않는 문자가 포함된 파일 이름만",
+  "filename-invisible-legend": "빨강: 파일 이름에 보이지 않는 문자가 있습니다",
   "Reactivity_order": "반응성 순서 (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP 전송 (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB 호환 버전",

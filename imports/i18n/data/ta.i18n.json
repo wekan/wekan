@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB பதிப்பு",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "வினைத்திறன் பயன்முறை (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "கண்ணுக்குத் தெரியாத எழுத்துகள் உள்ள கோப்புப் பெயர்கள் மட்டும்",
+  "filename-invisible-legend": "சிவப்பு: கோப்புப் பெயரில் கண்ணுக்குத் தெரியாத எழுத்துகள் உள்ளன",
   "Reactivity_order": "வினைத்திறன் வரிசை (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP கடத்தல் (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB இணக்கமான பதிப்பு",

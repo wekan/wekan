@@ -937,6 +937,8 @@
   "FerretDB_version": "Ẹya FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Ipo ifaseyin (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Àwọn orúkọ fáìlì tí ó ní àwọn àmì àìríran nìkan",
+  "filename-invisible-legend": "Pupa: orúkọ fáìlì ní àwọn àmì àìríran",
   "Reactivity_order": "Ètò ìdáhùnpadà (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Ìgbé DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Ẹya ti o baamu MongoDB",

@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB 版本",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "反應模式 (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "只顯示含有隱藏字元的檔名",
+  "filename-invisible-legend": "紅色：檔名含有隱藏字元",
   "Reactivity_order": "回應順序 (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP 傳輸 (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB 相容版本",

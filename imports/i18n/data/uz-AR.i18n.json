@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB نسخه‌سی",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "ری‌اکتیولیک رجیمی (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "فقط کورینمس بلگیلی فایل نەملری",
+  "filename-invisible-legend": "قیزیل: فایل نەمیده کورینمس بلگیلر بار",
   "Reactivity_order": "Reaktivlik tartibi (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP transporti (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB بیلن ماس نسخه",

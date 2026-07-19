@@ -937,6 +937,8 @@
   "FerretDB_version": "Nsụgharị FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Ọnọdụ nzaghachi (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Naanị aha faịlụ nwere mkpụrụedemede a na-adịghị ahụ anya",
+  "filename-invisible-legend": "Uhie: aha faịlụ nwere mkpụrụedemede a na-adịghị ahụ anya",
   "Reactivity_order": "Usoro mmeghachi (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Njem DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Nsụgharị dabara MongoDB",

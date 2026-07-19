@@ -937,6 +937,8 @@
   "FerretDB_version": "גרסת FerretDB",
   "FerretDB_commit": "Commit של FerretDB",
   "Reactivity_mode": "מצב תגובתיות (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "רק שמות קבצים עם תווים בלתי נראים",
+  "filename-invisible-legend": "אדום: שם הקובץ מכיל תווים בלתי נראים",
   "Reactivity_order": "סדר תגובתיות (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "תעבורת DDP (DDP_TRANSPORT)",
   "MongoDB_version": "גרסה תואמת MongoDB",

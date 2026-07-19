@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB versioon",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reaktiivsuse režiim (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Ainult failinimed nähtamatute märkidega",
+  "filename-invisible-legend": "Punane: failinimes on nähtamatuid märke",
   "Reactivity_order": "Reaktiivsuse järjekord (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP transport (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB-ga ühilduv versioon",

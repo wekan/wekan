@@ -937,6 +937,8 @@
   "FerretDB_version": "Έκδοση FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Λειτουργία αντιδραστικότητας (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Μόνο ονόματα αρχείων με αόρατους χαρακτήρες",
+  "filename-invisible-legend": "Κόκκινο: το όνομα αρχείου έχει αόρατους χαρακτήρες",
   "Reactivity_order": "Σειρά αντιδραστικότητας (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Μεταφορά DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Συμβατή έκδοση MongoDB",

@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB వెర్షన్",
   "FerretDB_commit": "FerretDB కమిట్",
   "Reactivity_mode": "రియాక్టివిటీ మోడ్ (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "అదృశ్య అక్షరాలు ఉన్న ఫైల్ పేర్లు మాత్రమే",
+  "filename-invisible-legend": "ఎరుపు: ఫైల్ పేరులో అదృశ్య అక్షరాలు ఉన్నాయి",
   "Reactivity_order": "రియాక్టివిటీ క్రమం (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP రవాణా (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB అనుకూల వెర్షన్",

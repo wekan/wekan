@@ -937,6 +937,8 @@
   "FerretDB_version": "Version bu FerretDB",
   "FerretDB_commit": "Commit bu FerretDB",
   "Reactivity_mode": "Anamu reactivity (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Turi fiise yu am karakteer yu ñuul di gisul rekk",
+  "filename-invisible-legend": "Xonq: turu fiise bi am na karakteer yu ñuul di gisul",
   "Reactivity_order": "Toftalu reaktiwite (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Transport bu DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Version bu dëppoo ak MongoDB",

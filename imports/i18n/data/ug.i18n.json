@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB نەشرى",
   "FerretDB_commit": "FerretDB commit ى",
   "Reactivity_mode": "Reactivity ھالىتى (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "پەقەت كۆرۈنمەيدىغان ھەرپلىرى بار ھۆججەت ئىسىملىرى",
+  "filename-invisible-legend": "قىزىل: ھۆججەت ئىسمىدا كۆرۈنمەيدىغان ھەرپلەر بار",
   "Reactivity_order": "ئىنكاسچانلىق تەرتىپى (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP توشۇش (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB بىلەن ماس نەشرى",

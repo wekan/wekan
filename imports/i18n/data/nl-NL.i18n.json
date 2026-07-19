@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB version",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reactiviteitsmodus (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Alleen bestandsnamen met onzichtbare tekens",
+  "filename-invisible-legend": "Rood: bestandsnaam bevat onzichtbare tekens",
   "Reactivity_order": "Reactiviteitsvolgorde (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP-transport (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB-compatibele versie",

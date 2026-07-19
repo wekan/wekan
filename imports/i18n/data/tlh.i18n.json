@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB version",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "jangchuq mIw (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "So'lu'bogh ngutlhmey ghajbogh De' pongmey neH",
+  "filename-invisible-legend": "Doq: So'lu'bogh ngutlhmey ghaj De' pong",
   "Reactivity_order": "jangwI' mIw (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP qengwI' (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB rurbogh version",

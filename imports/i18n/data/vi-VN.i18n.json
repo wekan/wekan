@@ -937,6 +937,8 @@
   "FerretDB_version": "Phiên bản FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Chế độ phản ứng (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Chỉ tên tệp có ký tự vô hình",
+  "filename-invisible-legend": "Đỏ: tên tệp có ký tự vô hình",
   "Reactivity_order": "Thứ tự phản ứng (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Truyền tải DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Phiên bản tương thích MongoDB",

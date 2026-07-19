@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB ਵਰਜ਼ਨ",
   "FerretDB_commit": "FerretDB ਕਮਿੱਟ",
   "Reactivity_mode": "ਰਿਐਕਟੀਵਿਟੀ ਮੋਡ (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "ਸਿਰਫ਼ ਅਦਿੱਖ ਅੱਖਰਾਂ ਵਾਲੇ ਫਾਈਲ ਨਾਮ",
+  "filename-invisible-legend": "ਲਾਲ: ਫਾਈਲ ਨਾਮ ਵਿੱਚ ਅਦਿੱਖ ਅੱਖਰ ਹਨ",
   "Reactivity_order": "ਰੀਐਕਟੀਵਿਟੀ ਕ੍ਰਮ (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP ਟਰਾਂਸਪੋਰਟ (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB ਅਨੁਕੂਲ ਵਰਜ਼ਨ",

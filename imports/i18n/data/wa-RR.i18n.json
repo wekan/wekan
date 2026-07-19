@@ -937,6 +937,8 @@
   "FerretDB_version": "Bersyon han FerretDB",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reactivity mode (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Rén k' les nos d' fitchî avou des caractères nén veyåves",
+  "filename-invisible-legend": "Rodje: li no do fitchî a des caractères nén veyåves",
   "Reactivity_order": "Ôre di reyaktivité (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Transpôrt DDP (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB compatible nga bersyon",

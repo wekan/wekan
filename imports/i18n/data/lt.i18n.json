@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB versija",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reaktyvumo režimas (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Tik failų vardai su nematomais simboliais",
+  "filename-invisible-legend": "Raudona: failo varde yra nematomų simbolių",
   "Reactivity_order": "Reaktyvumo tvarka (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP transportas (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB suderinama versija",

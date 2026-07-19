@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB version",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Regivamamod (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Te filanems labü litans nelogädovik",
+  "filename-invisible-legend": "Ledik: filanem labon litans nelogädovik",
   "Reactivity_order": "Reagüreediko (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Fövüköm DDP (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB-kompatiblik version",

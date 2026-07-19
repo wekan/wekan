@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB સંસ્કરણ",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reactivity મોડ (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "ફક્ત અદૃશ્ય અક્ષરોવાળા ફાઇલનામ",
+  "filename-invisible-legend": "લાલ: ફાઇલનામમાં અદૃશ્ય અક્ષરો છે",
   "Reactivity_order": "પ્રતિક્રિયાત્મકતા ક્રમ (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP પરિવહન (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB સુસંગત સંસ્કરણ",

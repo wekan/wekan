@@ -937,6 +937,8 @@
   "FerretDB_version": "Versi FerretDB",
   "FerretDB_commit": "Commit FerretDB",
   "Reactivity_mode": "Mod kereaktifan (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Hanya nama fail dengan aksara tidak kelihatan",
+  "filename-invisible-legend": "Merah: nama fail mempunyai aksara tidak kelihatan",
   "Reactivity_order": "Susunan kereaktifan (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Pengangkutan DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Versi serasi MongoDB",

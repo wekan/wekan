@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB 版本",
   "FerretDB_commit": "FerretDB 提交",
   "Reactivity_mode": "响应式模式（changeStreams / oplog / polling）",
+  "filter-invisible-filenames": "仅包含不可见字符的文件名",
+  "filename-invisible-legend": "红色：文件名包含不可见字符",
   "Reactivity_order": "响应式顺序 (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP 传输 (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB 兼容版本",

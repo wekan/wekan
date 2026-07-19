@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB-versio",
   "FerretDB_commit": "FerretDB-commit",
   "Reactivity_mode": "Reaktiveca reĝimo (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Nur dosiernomoj kun nevideblaj signoj",
+  "filename-invisible-legend": "Ruĝa: dosiernomo havas nevideblajn signojn",
   "Reactivity_order": "Ordo de reagemo (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP-transporto (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB-kongrua versio",

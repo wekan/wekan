@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB version",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "Reactivity mode (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "តែឈ្មោះឯកសារដែលមានតួអក្សរមើលមិនឃើញ",
+  "filename-invisible-legend": "ក្រហម៖ ឈ្មោះឯកសារមានតួអក្សរមើលមិនឃើញ",
   "Reactivity_order": "លំដាប់ភាពប្រតិកម្ម (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "ការបញ្ជូន DDP (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB compatible version",

@@ -937,6 +937,8 @@
   "FerretDB_version": "Inguqulelo ye-FerretDB",
   "FerretDB_commit": "I-commit ye-FerretDB",
   "Reactivity_mode": "Imowudi ye-Reactivity (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Amagama eefayile aneempawu ezingabonakaliyo kuphela",
+  "filename-invisible-legend": "Bomvu: igama lefayile linempawu ezingabonakaliyo",
   "Reactivity_order": "Ulandelelwano lokusabela (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Uthutho lwe-DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Inguqulelo ehambelanayo ne-MongoDB",

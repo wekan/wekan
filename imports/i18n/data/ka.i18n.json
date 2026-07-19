@@ -937,6 +937,8 @@
   "FerretDB_version": "FerretDB ვერსია",
   "FerretDB_commit": "FerretDB commit",
   "Reactivity_mode": "რეაქტიულობის რეჟიმი (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "მხოლოდ უხილავი სიმბოლოების შემცველი ფაილების სახელები",
+  "filename-invisible-legend": "წითელი: ფაილის სახელი შეიცავს უხილავ სიმბოლოებს",
   "Reactivity_order": "რეაქტიულობის რიგი (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP ტრანსპორტი (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB თავსებადი ვერსია",

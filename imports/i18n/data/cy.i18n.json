@@ -937,6 +937,8 @@
   "FerretDB_version": "Fersiwn FerretDB",
   "FerretDB_commit": "Ymrwymiad FerretDB",
   "Reactivity_mode": "Modd adweithedd (changeStreams / oplog / polling)",
+  "filter-invisible-filenames": "Dim ond enwau ffeiliau â nodau anweledig",
+  "filename-invisible-legend": "Coch: mae gan yr enw ffeil nodau anweledig",
   "Reactivity_order": "Trefn adweithedd (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Cludiant DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Fersiwn cydnaws â MongoDB",
