@@ -90,7 +90,7 @@ them up next.
 
 Adds a **CPU-usage monitor + governor** and a unified, safe **filename handling**
 subsystem. Designs:
-[docs/Features/CPU/CPU.md](https://github.com/wekan/wekan/blob/main/docs/Features/CPU/CPU.md),
+[docs/Features/CPU-usage/CPU-usage.md](https://github.com/wekan/wekan/blob/main/docs/Features/CPU-usage/CPU-usage.md),
 [docs/Features/Filename/Filename.md](https://github.com/wekan/wekan/blob/main/docs/Features/Filename/Filename.md).
 
 - **CPU usage: Admin Panel / Problems / CPU usage** — WeKan now watches system-wide
@@ -101,7 +101,10 @@ subsystem. Designs:
   three consecutive samples each way) prevents flapping. A governor (`pauseIfBusy()`)
   lets long batch operations slow down and yield the CPU to other software while the
   machine is busy — wired into the existing-file extension corrector, and tunable via
-  `WEKAN_CPU_*` environment variables.
+  `WEKAN_CPU_*` environment variables. The report also records **what automatic
+  mitigation was taken** (e.g. slowing down the current operation, which also lowers
+  FerretDB query load) and **whether it helped** — comparing CPU before vs. after
+  slowing down to show whether pausing noticeably lowered CPU usage.
 
 - **Filenames are always shown clean** — everywhere (card attachments, admin Files
   report, download headers) a name is URL-decoded, normalized to generally-used

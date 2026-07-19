@@ -18,6 +18,9 @@ machine is already busy.
    what WeKan/FerretDB were doing at the time.
 3. Record **only the START and END** of each high-CPU period, so the report never
    floods with rows.
+4. When CPU is high, also write **what automatic mitigation was taken** (e.g. slowing
+   down the current WeKan/FerretDB operation) and **whether it helped noticeably** —
+   i.e. when WeKan/FerretDB pauses, does CPU usage actually go lower.
 
 ## 2. Design
 
@@ -53,6 +56,21 @@ high-CPU period, and resolves immediately otherwise. Batch loops `await
 pauseIfBusy()` between items so they yield the CPU under load without slowing the
 common (idle) case. Wired into the file-extension corrector; the same helper can be
 added to other batch jobs (migrations, bulk moves).
+
+### Mitigation logging + effectiveness
+
+During a high-CPU period, once the governor has actually paused a governed operation,
+the monitor writes **one** `rate-limited` row saying what mitigation was taken —
+`slowing down "<activity>" — pausing 200ms between steps to yield the CPU (this also
+lowers FerretDB query load)` — and remembers the CPU% at that moment. It then tracks
+the lowest CPU% seen afterwards. The `end` row reports the **effect**: `slowed down
+"<activity>" (paused N times, Xs total). After slowing down, CPU went A% → B% —
+noticeably lower (about -Z points)` (or `not noticeably lower`). When no governed
+operation was running to slow down, the `end` row says so honestly. This keeps each
+episode to at most three rows: **start**, **mitigation taken**, **end (with effect)**.
+
+The effect is a correlation over the sampling window (a short pause on a 5s window is
+a coarse signal), reported as observed — not a controlled measurement.
 
 ### Report
 

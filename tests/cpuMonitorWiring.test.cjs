@@ -37,6 +37,15 @@ check('the detail says what WeKan was doing during high CPU', () => {
   assert.ok(/currentActivity/.test(m) && /load/.test(m), 'includes activity label + load average');
 });
 
+check('logs the automatic mitigation taken and whether it lowered CPU', () => {
+  const m = read('server/lib/cpuMonitor.js');
+  assert.ok(/action: 'rate-limited'/.test(m), 'writes a "mitigation taken" row');
+  assert.ok(/automatic mitigation: slowing down/.test(m), 'says what was slowed down');
+  assert.ok(/mitigationSummary/.test(m), 'end row reports mitigation effect');
+  assert.ok(/mitigationStartPct/.test(m) && /minPctAfterMitigation/.test(m), 'measures CPU before vs after');
+  assert.ok(/noticeably lower/.test(m), 'states whether pausing helped');
+});
+
 check('CPU usage report is wired into Admin Panel / Problems', () => {
   assert.ok(/'security', 'speed', 'tests', 'cpu'/.test(read('models/eventLog.js')), 'cpu event stream registered');
   const jade = read('client/components/settings/adminReports.jade');

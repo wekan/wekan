@@ -39,6 +39,24 @@ let lastCpu = null;      // { idle, total } snapshot for the next delta
 let lastPct = 0;         // most recent system CPU%
 let currentActivity = '';// coarse "what WeKan is doing" label set by hot operations
 
+// Per-high-period mitigation bookkeeping (reset on each 'start'). Tracks whether
+// the governor actually slowed anything down, and whether that visibly lowered CPU.
+let periodPauseCount = 0;        // how many times pauseIfBusy() paused this period
+let periodPausedMs = 0;          // total governor pause time this period
+let periodActivity = '';         // what WeKan was doing when the period started
+let mitigationLogged = false;    // the "mitigation taken" row was written once
+let mitigationStartPct = null;   // CPU% at the moment slowing-down began
+let minPctAfterMitigation = null;// lowest CPU% seen after slowing-down began
+
+function resetPeriodMitigation() {
+  periodPauseCount = 0;
+  periodPausedMs = 0;
+  periodActivity = currentActivity;
+  mitigationLogged = false;
+  mitigationStartPct = null;
+  minPctAfterMitigation = null;
+}
+
 // Aggregate idle/total jiffies across all cores.
 function cpuTotals() {
   const cpus = os.cpus() || [];
@@ -80,6 +98,9 @@ export function isHighCpu() {
 export function pauseIfBusy(ms) {
   if (!tracker.isHigh()) return Promise.resolve();
   const delay = Number.isFinite(ms) ? ms : PAUSE_MS;
+  // Count the mitigation so the report can say what was done and whether it helped.
+  periodPauseCount += 1;
+  periodPausedMs += delay;
   return new Promise(resolve => setTimeout(resolve, delay));
 }
 
@@ -91,6 +112,22 @@ function activitySnapshot(pct, load, cores) {
   ];
   if (currentActivity) parts.push(`WeKan: ${currentActivity}`);
   return parts.join(', ');
+}
+
+// Describe, for the 'end' row, what automatic mitigation was applied during the
+// high-CPU period and whether it visibly helped (did CPU drop after slowing down).
+function mitigationSummary() {
+  if (!mitigationLogged) {
+    return 'automatic mitigation: none applied (no governed WeKan operation was running to slow down)';
+  }
+  const start = mitigationStartPct == null ? 0 : mitigationStartPct;
+  const low = minPctAfterMitigation == null ? start : minPctAfterMitigation;
+  const dropped = Math.max(0, start - low);
+  const helped = dropped >= 10; // a ≥10-point drop is treated as a noticeable effect
+  const secs = Math.round(periodPausedMs / 1000);
+  return `automatic mitigation: slowed down "${periodActivity || 'WeKan operations'}" ` +
+    `(paused ${periodPauseCount} times, ${secs}s total). After slowing down, CPU went ${start}% → ${low}% — ` +
+    (helped ? `noticeably lower (about -${dropped} points)` : 'not noticeably lower');
 }
 
 if (Meteor.isServer && ENABLED) {
@@ -107,7 +144,9 @@ if (Meteor.isServer && ENABLED) {
         const cores = (os.cpus() || []).length;
         const now = Date.now();
         const res = tracker.update(pct, now);
+
         if (res.event === 'start') {
+          resetPeriodMitigation();
           record({
             action: 'detected',
             severity: pct >= 95 ? 'high' : 'medium',
@@ -120,8 +159,27 @@ if (Meteor.isServer && ENABLED) {
             severity: 'info',
             at: new Date(now),
             detail: `high CPU usage ended after ${secs}s (peak ${res.peak}%, back under ${LOW_PCT}%): ` +
-              activitySnapshot(pct, load, cores),
+              activitySnapshot(pct, load, cores) + ' | ' + mitigationSummary(),
           });
+        }
+
+        // While high: once the governor has actually slowed something down, write a
+        // single "automatic mitigation taken" row, then track whether CPU drops.
+        if (tracker.isHigh()) {
+          if (!mitigationLogged && periodPauseCount > 0) {
+            mitigationLogged = true;
+            mitigationStartPct = pct;
+            minPctAfterMitigation = pct;
+            const what = periodActivity || currentActivity || 'WeKan operations';
+            record({
+              action: 'rate-limited',
+              severity: 'info',
+              detail: `automatic mitigation: slowing down "${what}" — pausing ${PAUSE_MS}ms between steps to ` +
+                `yield the CPU (this also lowers FerretDB query load). CPU at slow-down start: ${pct}%.`,
+            });
+          } else if (mitigationLogged && pct < minPctAfterMitigation) {
+            minPctAfterMitigation = pct;
+          }
         }
       } catch (e) {
         if (process.env.DEBUG === 'true') console.warn('cpuMonitor sample failed:', e && e.message);
