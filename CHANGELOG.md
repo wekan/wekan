@@ -131,8 +131,13 @@ and adds the following updates:
   FerretDB v1 now ships an OpLog (auto-created capped local.oplog.rs + replica-set
   hello handshake), so every FerretDB launch path starts ferretdb with
   --repl-set-name=rs0 and points WeKan at it via MONGO_OPLOG_URL, and Meteor
-  TAILS the OpLog instead of polling. Kill-switch WEKAN_FERRETDB_OPLOG=false
-  reverts to polling; the calmer polling defaults remain as the fallback. Also
+  TAILS the OpLog instead of polling. OpLog is used ONLY when tailing actually
+  works: every FerretDB launch path sets METEOR_REACTIVITY_ORDER=oplog,polling, so
+  Meteor falls back to polling if the OpLog cannot be established (a broken/absent
+  OpLog never blocks startup). Kill-switch WEKAN_FERRETDB_OPLOG=false reverts to
+  polling only. Admin Panel → Version shows which driver is actually live
+  ("Reactivity mode") next to the configured METEOR_REACTIVITY_ORDER and
+  DDP_TRANSPORT, so you can confirm OpLog came up rather than fell back. Also
   trimmed the client activity feed page from 500 to 50 rows (infinite scroll
   still loads more on demand)](https://github.com/wekan/wekan/commit/1039b2e3286135a1749aeab9526b52d40fb82e43).
   Thanks to uusijani, Nissulya and xet7.
