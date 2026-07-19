@@ -12,10 +12,28 @@ async function loginWithToken(page, userId, token) {
   await waitForMeteor(page);
 
   const result = await page.evaluate(
-    async ({ tok, expectedId }) =>
+    ({ tok, expectedId }) =>
       new Promise(resolve => {
         Meteor.loginWithToken(tok, err => {
-          resolve({ error: err ? (err.reason || err.message) : null, userId: Meteor.userId() });
+          if (err) {
+            resolve({ error: err.reason || err.message, userId: Meteor.userId() });
+            return;
+          }
+          // Meteor.userId() can lag the loginWithToken callback (the reactive
+          // login state updates a tick later), which made the assertion below
+          // flaky ("Unexpected userId after login"). Poll until it settles on the
+          // expected id, or give up after a short timeout so a genuine mismatch
+          // still surfaces.
+          const deadline = Date.now() + 5000;
+          const tick = () => {
+            const uid = Meteor.userId();
+            if (uid === expectedId || Date.now() > deadline) {
+              resolve({ error: null, userId: uid });
+            } else {
+              setTimeout(tick, 50);
+            }
+          };
+          tick();
         });
       }),
     { tok: token, expectedId: userId },
