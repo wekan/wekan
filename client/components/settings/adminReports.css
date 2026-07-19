@@ -88,18 +88,8 @@
   white-space: nowrap;
 }
 
-/* A filename hiding invisible characters gets a red warning triangle on the left,
-   and each invisible character is replaced inline by its (red) Unicode name. The
-   visible parts of the filename keep the normal text colour. */
-.filename-invisible-warning {
-  color: #c0392b;
-  margin-inline-end: 5px;
-}
-.invisible-char-desc {
-  color: #c0392b;
-  font-weight: bold;
-  white-space: nowrap;
-}
+/* Filename invisible-character warning + inline names are styled globally by the
+   reusable +safeFilename component (client/components/main/safeFilename.css). */
 
 /* Problems page: menu separator between the event streams (Summary/Security/
    Speed/Tests) and the moved report items, and the read-only event table. */

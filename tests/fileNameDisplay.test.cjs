@@ -12,7 +12,8 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 const { hasInvisibleChars, decodeFileNameSafe, INVISIBLE_CHARS_SOURCE,
-  fileNameSegments, describeInvisibleChar } = require('../imports/lib/fileNameDisplay.js');
+  fileNameSegments, describeInvisibleChar, fileNamePlain, sanitizeDownloadFileName } =
+  require('../imports/lib/fileNameDisplay.js');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -61,6 +62,41 @@ check('fileNameSegments splits visible runs from named invisible characters', ()
   // percent-encoded is decoded first, and a clean name has one visible segment.
   assert.deepStrictEqual(fileNameSegments('%D0%93%D1%80.png'),
     [{ invisible: false, text: 'Гр.png' }]);
+});
+
+check('fileNamePlain: decoded name, invisible chars named inline (plain string)', () => {
+  assert.strictEqual(fileNamePlain('normal.png'), 'normal.png');
+  assert.strictEqual(fileNamePlain('%D0%93%D1%80.png'), 'Гр.png');
+  assert.strictEqual(fileNamePlain('evil' + ZW + '.png'), 'evil[U+200B ZERO WIDTH SPACE].png');
+});
+
+check('sanitizeDownloadFileName: decodes + REMOVES invisible chars, never empty', () => {
+  assert.strictEqual(sanitizeDownloadFileName('normal.png'), 'normal.png');
+  assert.strictEqual(sanitizeDownloadFileName('%D0%93%D1%80.png'), 'Гр.png'); // decoded, clean
+  assert.strictEqual(sanitizeDownloadFileName('evil' + ZW + '.png'), 'evil.png'); // invisible removed
+  // NEGATIVE: an all-invisible or empty name falls back to "download".
+  assert.strictEqual(sanitizeDownloadFileName(ZW + ZW), 'download');
+  assert.strictEqual(sanitizeDownloadFileName(''), 'download');
+  assert.strictEqual(sanitizeDownloadFileName(null), 'download');
+});
+
+// ── the reusable +safeFilename component + downloads are used everywhere ─────
+check('reusable +safeFilename component + global helpers exist and are used', () => {
+  const j = read('client/components/main/safeFilename.jade');
+  assert.ok(/template\(name="safeFilename"\)/.test(j) && /filename-invisible-warning/.test(j) && /invisible-char-desc/.test(j));
+  const js = read('client/components/main/safeFilename.js');
+  assert.ok(/registerHelper\('filenamePlain'/.test(js) && /registerHelper\('downloadFilename'/.test(js), 'global helpers registered');
+  assert.ok(/\+safeFilename\(name=att\.name\)/.test(read('client/components/settings/adminReports.jade')), 'Files report uses it');
+  const cards = read('client/components/cards/attachments.jade');
+  assert.ok(/\+safeFilename\(name=name\)/.test(cards), 'card attachment name uses it');
+  assert.ok(/download="\{\{downloadFilename name\}\}"/.test(cards), 'download uses the clean name');
+  assert.ok(/title="\{\{filenamePlain name\}\}"/.test(cards), 'thumbnail title uses the decoded plain name');
+});
+
+check('download routes sanitize the Content-Disposition filename (decode + strip invisible)', () => {
+  for (const f of ['server/routes/universalFileServer.js', 'server/routes/legacyAttachments.js']) {
+    assert.ok(/sanitizeDownloadFileName/.test(read(f)), `${f} must sanitize the download name`);
+  }
 });
 
 check('describeInvisibleChar names known chars and falls back to U+XXXX', () => {

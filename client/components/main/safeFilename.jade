@@ -1,0 +1,13 @@
+//- General, reusable filename display: URL-decoded, with a red warning triangle
+//- to the left when the name hides invisible characters, and each invisible
+//- character replaced inline by its red Unicode name. Everything is escaped plain
+//- text ({{ }}) — a filename is never rendered as markdown/HTML. Use anywhere:
+//-   +safeFilename(name=att.name)
+template(name="safeFilename")
+  if fnHasInvisible
+    i.fa.fa-exclamation-triangle.filename-invisible-warning(title="{{_ 'filename-invisible-legend'}}")
+  each seg in fnSegments
+    if seg.invisible
+      span.invisible-char-desc {{ seg.text }}
+    else
+      span {{ seg.text }}

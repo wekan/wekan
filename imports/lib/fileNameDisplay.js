@@ -88,6 +88,22 @@ function fileNameSegments(name) {
   return segments;
 }
 
+// Plain-text display name (no colouring): the decoded name with each invisible
+// character replaced by its bracketed "[U+XXXX NAME]". Suitable for a title=""
+// attribute or JS-set text where per-character colouring is not possible.
+function fileNamePlain(name) {
+  return fileNameSegments(name).map(seg => seg.text).join('');
+}
+
+// The name to use when DOWNLOADING a file: URL-decoded and with every invisible
+// character REMOVED, so the saved file has a clean, unambiguous name. Never empty.
+function sanitizeDownloadFileName(name) {
+  const decoded = decodeFileNameSafe(name);
+  if (typeof decoded !== 'string') return 'download';
+  const cleaned = decoded.replace(new RegExp(INVISIBLE_CHARS_SOURCE, 'g'), '').trim();
+  return cleaned || 'download';
+}
+
 module.exports = {
   INVISIBLE_CHARS_SOURCE,
   INVISIBLE_CHARS_REGEX,
@@ -96,4 +112,6 @@ module.exports = {
   decodeFileNameSafe,
   describeInvisibleChar,
   fileNameSegments,
+  fileNamePlain,
+  sanitizeDownloadFileName,
 };

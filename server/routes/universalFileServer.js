@@ -14,6 +14,7 @@ import { STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreConstants';
 import { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments.server';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.server';
+const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 import Boards from '/models/boards';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import fs from 'fs';
@@ -413,9 +414,10 @@ if (Meteor.isServer) {
       return 'download';
     }
 
-    // First, remove any control characters (0x00-0x1F, 0x7F) that would break HTTP headers
-    // This includes newlines, carriage returns, tabs, and other control chars
-    let sanitized = filename.replace(/[\x00-\x1F\x7F]/g, '');
+    // Decode a URL-encoded name and REMOVE all invisible/format characters (incl.
+    // control chars, zero-width, bidi, BOM) so the downloaded file gets a clean,
+    // unambiguous name — matching how filenames are shown in the UI.
+    let sanitized = sanitizeDownloadFileName(filename);
 
     // If the filename is all ASCII printable characters (0x20-0x7E), use it directly
     if (/^[\x20-\x7E]*$/.test(sanitized)) {

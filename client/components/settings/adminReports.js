@@ -8,7 +8,6 @@ import Cards from '/models/cards';
 import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 const { filesize } = require('filesize');
-const { decodeFileNameSafe, hasInvisibleChars, fileNameSegments } = require('/imports/lib/fileNameDisplay');
 
 // --- Shared helper functions (formerly AdminReport base class methods) ---
 
@@ -399,16 +398,9 @@ function switchMenu(event, tmpl) {
 
 Template.filesReport.helpers({
   results() {
-    // Enrich each attachment with the plain-text display segments and an
-    // invisible-character flag, so the template can render a red warning triangle
-    // and replace each invisible character inline with its (red) name. A
-    // percent-encoded name (e.g. "%D0%93%D1%80") is URL-decoded first; everything
-    // is rendered as plain text (Blaze `{{ }}` escapes — never markdown/HTML).
-    return collectionResults(Attachments, { name: 1 }).map(att => ({
-      ...att,
-      hasInvisible: hasInvisibleChars(decodeFileNameSafe(att.name)),
-      nameSegments: fileNameSegments(att.name),
-    }));
+    // The filename cell renders via the reusable +safeFilename component
+    // (URL-decode + red warning + inline invisible-character names).
+    return collectionResults(Attachments, { name: 1 });
   },
   resultsCount() {
     return collectionResultsCount(Attachments);
