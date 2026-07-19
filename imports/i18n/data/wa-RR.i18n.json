@@ -2243,5 +2243,21 @@
   "log": "Log",
   "logout": "Gumawas",
   "server": "Server",
-  "protocol": "Protokol"
+  "protocol": "Protokol",
+  "problems": "Problinmes",
+  "summary": "Racourti",
+  "securityReportTitle": "Såvrité",
+  "speedReportTitle": "Vitesse",
+  "testsReportTitle": "Sayes",
+  "new-problems": "noveas problinmes",
+  "acknowledge": "Ricnoxhe",
+  "no-new-problems": "Nou novea problinme.",
+  "problems-summary-help": "Clitchîz les payis d' problinme ki vs avoz corwaitî, poy clitchîz so Ricnoxhe po rmete a zero leu conte di noveas problinmes.",
+  "event-datetime": "Date et eure",
+  "event-category": "Categoreye",
+  "event-bleed": "No",
+  "event-severity": "Grandeu",
+  "event-action": "Accion",
+  "event-source": "Sourdant",
+  "event-detail": "Detay"
 }
