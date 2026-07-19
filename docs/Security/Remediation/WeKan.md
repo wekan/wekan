@@ -307,9 +307,17 @@ The **third stream** logs **test failures** — "anything that would fail some e
 test". It uses the same `events` schema and the same disk-space discipline, in the
 `eventlog` collection (`stream:'tests'`), via `server/lib/testLog.js`.
 
-- **What is a "test event":** every **failing** existing test (and, optionally, an error/timeout)
-  during a run of `rebuild-wekan.sh` / `npm run test:unit:node` / mocha / Playwright. Passing
-  tests are not logged (only failures, so the report is a defect list, not noise).
+- **No Playwright dependency:** WeKan must NOT require Playwright to be installed. The Tests
+  stream only logs failures **detectable without a browser/Playwright** — the runtime self-checks
+  (below) and the unit/mocha suites. Browser-only end-to-end (Playwright) failures are out of
+  scope here; no runtime code imports Playwright (asserted by `tests/securityLog.test.cjs`).
+- **Runtime self-checks (`server/lib/selfChecks.js`):** at startup (and via an admin-only
+  `runSelfChecks` method) WeKan runs cheap invariants that a unit test would assert — a database
+  round-trip, `WRITABLE_PATH/files` writable — and records any failure to the Tests stream. These
+  need no browser, so an admin sees real problems in Problems → Tests without any test run.
+- **What is a "test event":** every **failing** self-check, plus (when the non-Playwright unit/
+  mocha suites run) each failing test. Passing checks are not logged (only failures, so the report
+  is a defect list, not noise).
 - **How it is captured:** a thin **reporter** records one event per failure:
   - `category = 'test-failure'` (or `'test-error'` / `'test-timeout'`),
   - `bleed = 'TestBleed'` (generic; no hall-of-fame page — the report shows the general category),

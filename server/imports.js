@@ -78,6 +78,7 @@ import '/models/server/ExporterExcelCard';
 import '/models/server/ExporterExcel';
 import '/models/server/metrics';
 import '/server/lib/speedMiddleware';
+import '/server/lib/selfChecks';
 import '/server/models/actions';
 import '/server/models/activities';
 import '/server/models/attachmentStorageSettings';

@@ -135,4 +135,28 @@ check('slow HTTP requests are recorded to the speed stream', () => {
   assert.ok(/import '\/server\/lib\/speedMiddleware'/.test(read('server/imports.js')), 'must be loaded');
 });
 
+check('runtime self-checks feed the Tests stream WITHOUT Playwright', () => {
+  const src = read('server/lib/selfChecks.js');
+  assert.ok(/runSelfChecks/.test(src) && /recordFailure/.test(src), 'records failures to the Tests stream');
+  assert.ok(/database-roundtrip/.test(src) && /writable-path/.test(src), 'has runtime checks');
+  assert.ok(/user\.isAdmin/.test(src), 'on-demand method is admin-gated');
+  assert.ok(!/require\(['"]playwright|from ['"]playwright/.test(src), 'self-checks never import Playwright');
+  assert.ok(/import '\/server\/lib\/selfChecks'/.test(read('server/imports.js')), 'must be loaded');
+});
+check('WeKan runtime code never imports Playwright', () => {
+  for (const dir of ['server', 'models', 'imports']) {
+    const walk = (d) => {
+      for (const e of fs.readdirSync(path.join(__dirname, '..', d), { withFileTypes: true })) {
+        const rel = path.join(d, e.name);
+        if (e.isDirectory()) { if (!/tests?$|playwright/.test(e.name)) walk(rel); continue; }
+        if (/\.(js|jade)$/.test(e.name)) {
+          assert.ok(!/require\(['"]playwright|from ['"]playwright/.test(read(rel)),
+            `${rel} must not import playwright`);
+        }
+      }
+    };
+    walk(dir);
+  }
+});
+
 console.log(`\nsecurityLog: ${passed} checks passed`);
