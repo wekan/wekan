@@ -50,6 +50,16 @@ EventLogAcks.attachSchema(
 export const EVENT_STREAMS = ['security', 'speed', 'tests'];
 
 if (Meteor.isServer) {
+  // The Security/Speed/Tests report pages filter by `stream` and sort by `at`
+  // descending (streamSelector + eventLogPage). This compound index makes that a
+  // bounded index scan instead of a full-collection scan + in-memory sort as the
+  // event log grows, keeping the paginated tables fast.
+  const { ensureIndex } = require('/server/lib/mongoStartup');
+  Meteor.startup(async () => {
+    await ensureIndex(EventLog, { stream: 1, at: -1 });
+    await ensureIndex(EventLogAcks, { stream: 1 });
+  });
+
   async function requireAdmin(context) {
     const uid = context.userId;
     const user = uid && (await Meteor.users.findOneAsync(uid));

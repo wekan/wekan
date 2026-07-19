@@ -476,7 +476,8 @@ Template.boardsReport.helpers({
 
 Template.cardsReport.helpers({
   results() {
-    return collectionResults(Cards, { boardId: 1, sort: 1 });
+    // Match the server publication's index-backed sort (see cards.js).
+    return collectionResults(Cards, { boardId: 1, createdAt: -1 });
   },
   resultsCount() {
     return collectionResultsCount(Cards);

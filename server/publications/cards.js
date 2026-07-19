@@ -1118,7 +1118,11 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
 
   const cards = await ReactiveCache.getCards(
     query,
-    { sort: { boardId: 1, sort: 1 }, limit, skip: skip || 0 },
+    // Sort by the EXISTING { boardId:1, createdAt:-1 } index (see
+    // server/models/cards.js) so one page is a bounded index scan. The old
+    // { boardId:1, sort:1 } sort had no index, so every page load full-sorted all
+    // cards in memory — the Admin Panel → Problems → Cards spinner on big sites.
+    { sort: { boardId: 1, createdAt: -1 }, limit, skip: skip || 0 },
     true,
   );
 
