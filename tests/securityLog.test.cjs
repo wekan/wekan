@@ -128,4 +128,11 @@ check('export authorization denials are logged (export.js)', () => {
   assert.ok((src.match(/logExportDenied\(\);/g) || []).length >= 4, 'all export denial paths logged');
 });
 
+check('slow HTTP requests are recorded to the speed stream', () => {
+  const src = read('server/lib/speedMiddleware.js');
+  assert.ok(/WEKAN_SLOW_REQUEST_MS/.test(src) && /category: 'slow-request'/.test(src));
+  assert.ok(/speedRecord/.test(src) && /WebApp\.handlers\.use/.test(src));
+  assert.ok(/import '\/server\/lib\/speedMiddleware'/.test(read('server/imports.js')), 'must be loaded');
+});
+
 console.log(`\nsecurityLog: ${passed} checks passed`);
