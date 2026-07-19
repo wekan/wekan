@@ -10,8 +10,19 @@ because WeKan is NOT Big Tech. WeKan is FLOSS.
 - **Report**: Click "New draft security advisory" at [WeKan Security Advisories](https://github.com/wekan/wekan/security/advisories).
   More info at [GitHub Docs about reporting privately](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/report-privately).
 - **Proof of Concept (PoC)**: If possible, include a fix or a reproduction script/code.
-- **If GitHub does not work**: Please send report to **security@wekan.fi**
-- **Optional Email Encryption**: An optional PGP key is available at [security-at-wekan.fi.asc](security-at-wekan.fi.asc).
+- DO NOT EMAIL [security@wekan.fi](security-at-wekan.fi.asc), because:
+  - Email is NOT secure or private.
+  - Using GitHub directly verifies that:
+    - You are:
+      - Saving my time by filling all details at GitHub, so that I can easily click request CVE at GitHub
+      - A correct GitHub user
+      - Really reading this SECURITY.md
+      - Knowing what you are doing
+    - You are not:
+      - Someone that tries to waste my time
+      - Trying to impersonate as some other GitHub user
+      - Spammer
+      - Bot
 
 ### 2. WeKan Security Team:
 
@@ -23,30 +34,26 @@ because WeKan is NOT Big Tech. WeKan is FLOSS.
 
 ### 3. Post-Release and Public Disclosure:
 
-- Publicity: If you publish blog posts, give talks, or write articles about the
-  reported vulnerabilities, please send the links to us. We will link them
-  to your entry in the [Hall of Fame](https://wekan.fi/hall-of-fame/) for additional context.
 - Advisories reported at GitHub are listed at [WeKan Security Advisories](https://github.com/wekan/wekan/security/advisories).
-
-## How Should Reports Be Formatted?
-
-```
-Name: %name
-Twitter: %twitter
-Bug type: %bugtype
-Domain: %domain
-Severity: %severity
-URL: %url
-PoC: %poc
-CVSS (optional): %cvss
-CWSS (optional): %cwss
-```
+- DO NOT EMAIL [security@wekan.fi](security-at-wekan.fi.asc), because:
+  - Email is NOT secure or private.
+  - Using GitHub directly verifies that:
+    - You are:
+      - Saving my time by filling all details at GitHub, so that I can easily click request CVE at GitHub
+      - A correct GitHub user
+      - Really reading this SECURITY.md
+      - Knowing what you are doing
+    - You are not:
+      - Someone that tries to waste my time
+      - Trying to impersonate as some other GitHub user
+      - Spammer
+      - Bot
 
 ## Who can participate in the program
 
 Anyone who reports a unique security issue in scope and does not disclose it to
-a third party before we have patched and updated may be upon their approval
-added to the WeKan Hall of Fame https://wekan.fi/hall-of-fame/
+a third party before we have patched, and is able to add
+"New draft security advisory" at [WeKan Security Advisories](https://github.com/wekan/wekan/security/advisories).
 
 ## Which domains are in scope?
 
