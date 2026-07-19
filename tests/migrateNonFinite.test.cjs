@@ -12,6 +12,12 @@
 // so the document migrates instead of being lost. Strings that merely contain
 // the text "NaN"/"Infinity", and ordinary negative numbers, must be untouched.
 //
+// FOLLOW-UP (#6481): once parseable, the value is still a JS Infinity/NaN, which
+// FerretDB then REFUSES to insert ("infinity values are not allowed") — the exact
+// second-round error the reporter hit. clampNonFinite() walks the parsed document
+// and resets every non-finite number to a finite 0 so the document actually lands
+// in FerretDB/SQLite. Finite numbers, strings and BSON wrappers stay untouched.
+//
 // Run: node tests/migrateNonFinite.test.cjs
 
 const assert = require('assert');
@@ -57,6 +63,25 @@ function sanitizeNonFinite(line) {
 // downstream JSON.parse (used here as a proxy for EJSON.parse succeeding) works.
 function parses(line) {
   try { JSON.parse(sanitizeNonFinite(line)); return true; } catch { return false; }
+}
+
+// Mirrors clampNonFinite() in snap-src/bin/migrate-mongo3-to-ferretdb.mjs.
+function clampNonFinite(value) {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i++) value[i] = clampNonFinite(value[i]);
+    return value;
+  }
+  if (value && typeof value === 'object') {
+    if (value._bsontype === 'Double' && typeof value.value === 'number' && !Number.isFinite(value.value)) {
+      value.value = 0;
+      return value;
+    }
+    if (value._bsontype) return value;
+    for (const k of Object.keys(value)) value[k] = clampNonFinite(value[k]);
+    return value;
+  }
+  return value;
 }
 
 console.log('migrateNonFinite:');
@@ -116,6 +141,45 @@ test('NEGATIVE: a line with no special tokens is returned unchanged (fast path)'
   assert.strictEqual(sanitizeNonFinite(s), s);
 });
 
+// ── clampNonFinite (#6481 follow-up: FerretDB rejects non-finite doubles) ─────
+test('clampNonFinite: a bare Infinity sort becomes finite 0 (the FerretDB-insert case)', () => {
+  const doc = clampNonFinite(JSON.parse(sanitizeNonFinite('{"title":"R","sort":+Infinity,"x":2}')));
+  // sanitizeNonFinite turned +Infinity into {"$numberDouble":"Infinity"}; JSON.parse
+  // (proxy for EJSON.parse) yields an object here, but the real bson EJSON.parse
+  // yields a JS Infinity — covered by the direct-number cases below.
+  assert.deepStrictEqual(doc, { title: 'R', sort: { $numberDouble: 'Infinity' }, x: 2 });
+});
+
+test('clampNonFinite: Infinity / -Infinity / NaN numbers -> 0', () => {
+  assert.strictEqual(clampNonFinite(Infinity), 0);
+  assert.strictEqual(clampNonFinite(-Infinity), 0);
+  assert.strictEqual(clampNonFinite(NaN), 0);
+});
+
+test('clampNonFinite: nested + arrays clamped, finite values preserved', () => {
+  const out = clampNonFinite({ sort: Infinity, value: NaN, ok: 5, neg: -3.5, arr: [Infinity, 1, -Infinity], sub: { a: NaN, b: 2 } });
+  assert.deepStrictEqual(out, { sort: 0, value: 0, ok: 5, neg: -3.5, arr: [0, 1, 0], sub: { a: 0, b: 2 } });
+});
+
+test('clampNonFinite: a bson Double wrapping Infinity is clamped in place', () => {
+  const doc = { sort: { _bsontype: 'Double', value: Infinity } };
+  clampNonFinite(doc);
+  assert.strictEqual(doc.sort.value, 0);
+});
+
+test('NEGATIVE: clampNonFinite leaves finite numbers, strings and BSON wrappers untouched', () => {
+  const oid = { _bsontype: 'ObjectId', id: 'abc' };
+  const date = { _bsontype: 'Date', valueOf: () => 1 };
+  const doc = { n: 0, big: 1e300, s: 'Infinity', oid, date, d: { _bsontype: 'Double', value: 3.5 } };
+  const out = clampNonFinite(doc);
+  assert.strictEqual(out.n, 0);
+  assert.strictEqual(out.big, 1e300);
+  assert.strictEqual(out.s, 'Infinity', 'a string is never clamped');
+  assert.strictEqual(out.oid, oid, 'ObjectId wrapper untouched');
+  assert.strictEqual(out.date, date, 'Date wrapper untouched');
+  assert.strictEqual(out.d.value, 3.5, 'finite Double untouched');
+});
+
 // Source guard: the real migration must call the sanitizer and emit $numberDouble.
 test('source: migrate-mongo3-to-ferretdb.mjs sanitizes non-finite doubles', () => {
   const src = fs.readFileSync(
@@ -125,6 +189,15 @@ test('source: migrate-mongo3-to-ferretdb.mjs sanitizes non-finite doubles', () =
   assert.ok(/legacyToV2\([\s\S]*?sanitizeNonFinite/.test(src) ||
             /sanitizeNonFinite\(line\.replace/.test(src),
     'legacyToV2 must run the input through sanitizeNonFinite');
+});
+
+// Source guard: and it must clamp non-finite doubles to finite before insert.
+test('source: migrate-mongo3-to-ferretdb.mjs clamps non-finite doubles before insert', () => {
+  const src = fs.readFileSync(
+    path.join(__dirname, '..', 'snap-src', 'bin', 'migrate-mongo3-to-ferretdb.mjs'), 'utf8');
+  assert.ok(/export function clampNonFinite/.test(src), 'clampNonFinite() must exist');
+  assert.ok(/clampNonFinite\(EJSON\.parse\(legacyToV2/.test(src),
+    'exportDocs must clamp each parsed document before it is inserted');
 });
 
 console.log(`\n${passed} passed`);

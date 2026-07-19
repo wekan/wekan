@@ -46,6 +46,11 @@
 //                            isActiveMember()
 //   board-permission-lowercase lowercase-board-permission: 'PUBLIC' boards
 //                            silently became member-only
+//   nonfinite-sort-repair    ±Infinity/NaN `sort` values (pre-#6472) break card
+//                            ordering (board stuck on the spinner) and are
+//                            rejected by FerretDB ("infinity values are not
+//                            allowed"), aborting MongoDB->FerretDB migration ->
+//                            reset to a finite 0
 //   fs-path-heal             filesystem attachments/avatars whose recorded
 //                            path predates the current WRITABLE_PATH layout
 //                            (v6.10-18 uploads/<coll>, v6.19-v8.4x
@@ -138,6 +143,20 @@ const BOARD_ALLOWS_TRUE_DEFAULTS = [
 ];
 
 const MISSING_OR_EMPTY = { $in: [null, ''] };   // matches missing, null and ''
+
+// #6481: match documents whose numeric `sort` is non-finite (+Infinity,
+// -Infinity or NaN). A finite double satisfies BOTH bounds; +Inf fails $lte,
+// -Inf fails $gte and NaN fails both, so the $nor selects exactly the non-finite
+// numeric sorts. Crucially the predicate uses only FINITE literals
+// (Number.MAX_VALUE), because FerretDB rejects Infinity/NaN even inside a query
+// filter — so this is safe to run against FerretDB/SQLite as well as MongoDB.
+const MAX_FINITE = 1.7976931348623157e308; // Number.MAX_VALUE
+const NON_FINITE_SORT = {
+  sort: { $type: 'number' },
+  $nor: [{ sort: { $gte: -MAX_FINITE, $lte: MAX_FINITE } }],
+};
+// Collections that carry a numeric `sort` used for ordering.
+const SORTED_COLLECTIONS = ['cards', 'lists', 'swimlanes', 'checklists', 'checklistItems'];
 
 // ── individual steps ─────────────────────────────────────────────────────────
 // Each step: { name, check(db,ctx) -> boolean (work exists),
@@ -563,6 +582,33 @@ const steps = [
       let fixed = 0;
       for (const [from, to] of [['PUBLIC', 'public'], ['Public', 'public'], ['PRIVATE', 'private'], ['Private', 'private']]) {
         const r = await db.collection('boards').updateMany({ permission: from }, { $set: { permission: to } });
+        fixed += (r && r.modifiedCount) || 0;
+      }
+      return { fixed, unresolved: 0 };
+    },
+  },
+
+  {
+    // #6481: repair non-finite numeric `sort` values (±Infinity / NaN) written
+    // by old WeKan versions before #6472 guarded the rule-move sort math
+    // (Math.min/Math.max of an empty list returns ±Infinity). A corrupt sort
+    // breaks client-side card ordering — a board can hang forever on the
+    // loading spinner — and is REJECTED outright by FerretDB/SQLite ("invalid
+    // value { sort: +Inf } (infinity values are not allowed)"), which aborted
+    // MongoDB->FerretDB migrations part-way through the cards collection. Reset
+    // every non-finite sort to 0: a valid, renderable value (ties break by _id,
+    // and the user can re-sort). Idempotent and cheap once healed.
+    name: 'nonfinite-sort-repair',
+    async check(db) {
+      for (const coll of SORTED_COLLECTIONS) {
+        if (await db.collection(coll).findOne(NON_FINITE_SORT, { projection: { _id: 1 } })) return true;
+      }
+      return false;
+    },
+    async run(db) {
+      let fixed = 0;
+      for (const coll of SORTED_COLLECTIONS) {
+        const r = await db.collection(coll).updateMany(NON_FINITE_SORT, { $set: { sort: 0 } });
         fixed += (r && r.modifiedCount) || 0;
       }
       return { fixed, unresolved: 0 };

@@ -33,6 +33,7 @@ const {
   randomId,
   versionNeedsHeal,
   MARKER_ID,
+  steps,
 } = require('../server/lib/schemaUpgradeSteps');
 
 let passed = 0;
@@ -66,6 +67,14 @@ function matchCond(value, cond) {
       if (!Array.isArray(value)) return false;
       return value.some(el => matches(el, cond.$elemMatch));
     }
+    // numeric type/range (nonfinite-sort-repair). Multiple ops AND together.
+    if ('$type' in cond || '$gte' in cond || '$lte' in cond) {
+      let ok = true;
+      if ('$type' in cond) ok = ok && (cond.$type === 'number' ? typeof value === 'number' : false);
+      if ('$gte' in cond) ok = ok && (typeof value === 'number' && value >= cond.$gte);
+      if ('$lte' in cond) ok = ok && (typeof value === 'number' && value <= cond.$lte);
+      return ok;
+    }
     throw new Error('fake db: unsupported operator in ' + JSON.stringify(cond));
   }
   return String(value) === String(cond) || value === cond;
@@ -74,6 +83,10 @@ function matches(doc, filter) {
   for (const [key, cond] of Object.entries(filter || {})) {
     if (key === '$or') {
       if (!cond.some(sub => matches(doc, sub))) return false;
+      continue;
+    }
+    if (key === '$nor') {
+      if (cond.some(sub => matches(doc, sub))) return false;
       continue;
     }
     if (!matchCond(getPath(doc, key), cond)) return false;
@@ -533,6 +546,86 @@ await test('board-permission-lowercase: PUBLIC boards become public again (batch
   assert.ok(res.ran.includes('board-permission-lowercase'));
   assert.strictEqual(db._dump('boards')[0].permission, 'public');
   assert.strictEqual(db._dump('boards')[1].permission, 'private', 'already-lowercase untouched');
+});
+
+// ── nonfinite-sort-repair (#6481) ────────────────────────────────────────────
+// The global fakeDb JSON-clones documents, which turns Infinity/NaN into null,
+// so build a NON-cloning db here to keep the non-finite sorts intact and drive
+// the step object directly (it uses only findOne + updateMany).
+function liveSortDb(initial) {
+  const data = new Map(Object.entries(initial));
+  return {
+    collection(name) {
+      if (!data.has(name)) data.set(name, []);
+      const arr = data.get(name);
+      return {
+        async findOne(filter) { return arr.find(d => matches(d, filter)) || null; },
+        async updateMany(filter, update) {
+          let n = 0;
+          for (const d of arr) if (matches(d, filter)) { applyUpdate(d, update); n++; }
+          return { modifiedCount: n };
+        },
+      };
+    },
+    _dump: name => data.get(name) || [],
+  };
+}
+const sortStep = steps.find(s => s.name === 'nonfinite-sort-repair');
+
+await test('nonfinite-sort-repair: +Inf / -Inf / NaN sorts reset to 0, finite ones untouched', async () => {
+  const cards = [
+    { _id: 'c1', sort: Infinity },
+    { _id: 'c2', sort: -Infinity },
+    { _id: 'c3', sort: NaN },
+    { _id: 'c4', sort: 5 },        // finite -> keep
+    { _id: 'c5', sort: 0 },        // finite -> keep
+    { _id: 'c6' },                 // missing sort -> not numeric, ignore
+    { _id: 'c7', sort: 'x' },      // non-numeric -> ignore
+  ];
+  const db = liveSortDb({ cards });
+  assert.strictEqual(await sortStep.check(db), true, 'non-finite sorts are detected');
+  const res = await sortStep.run(db);
+  assert.strictEqual(res.fixed, 3, 'exactly the three non-finite cards are repaired');
+  const by = id => cards.find(c => c._id === id);
+  assert.strictEqual(by('c1').sort, 0);
+  assert.strictEqual(by('c2').sort, 0);
+  assert.strictEqual(by('c3').sort, 0);
+  assert.strictEqual(by('c4').sort, 5, 'finite sort left as-is');
+  assert.strictEqual(by('c5').sort, 0);
+  assert.strictEqual(by('c6').sort, undefined, 'missing sort not invented');
+  assert.strictEqual(by('c7').sort, 'x', 'non-numeric sort not touched');
+  // idempotent: a second run finds nothing to do
+  assert.strictEqual(await sortStep.check(db), false);
+});
+
+await test('nonfinite-sort-repair: repairs every sorted collection (lists/swimlanes/checklists/checklistItems)', async () => {
+  const db = liveSortDb({
+    lists: [{ _id: 'l1', sort: Infinity }],
+    swimlanes: [{ _id: 's1', sort: NaN }],
+    checklists: [{ _id: 'k1', sort: -Infinity }],
+    checklistItems: [{ _id: 'i1', sort: Infinity }, { _id: 'i2', sort: 2 }],
+  });
+  const res = await sortStep.run(db);
+  assert.strictEqual(res.fixed, 4);
+  assert.strictEqual(db._dump('lists')[0].sort, 0);
+  assert.strictEqual(db._dump('swimlanes')[0].sort, 0);
+  assert.strictEqual(db._dump('checklists')[0].sort, 0);
+  assert.strictEqual(db._dump('checklistItems')[0].sort, 0);
+  assert.strictEqual(db._dump('checklistItems')[1].sort, 2);
+});
+
+await test('negative: nonfinite-sort-repair does not run on healthy finite sorts', async () => {
+  const db = liveSortDb({ cards: [{ _id: 'c1', sort: 0 }, { _id: 'c2', sort: 1e300 }, { _id: 'c3', sort: -1e300 }] });
+  assert.strictEqual(await sortStep.check(db), false);
+  const res = await sortStep.run(db);
+  assert.strictEqual(res.fixed, 0);
+});
+
+await test('negative: the non-finite predicate uses only finite literals (FerretDB rejects Infinity/NaN in filters)', () => {
+  const src = read('server/lib/schemaUpgradeSteps.js');
+  const block = src.slice(src.indexOf('const NON_FINITE_SORT'), src.indexOf('const SORTED_COLLECTIONS'));
+  assert.ok(!/Infinity|NaN/.test(block), 'predicate must not embed Infinity/NaN literals');
+  assert.ok(/\$type/.test(block) && /\$nor/.test(block), 'matches non-finite numeric sorts via $type + $nor bounds');
 });
 
 // ── fs-path-heal ─────────────────────────────────────────────────────────────

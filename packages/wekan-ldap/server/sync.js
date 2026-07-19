@@ -154,20 +154,30 @@ export function getDataToSyncUserData(ldapUser, user) {
     Object.entries(fieldMap).forEach(function([ldapField, userField]) {
 		    log_debug(`Mapping field ${ldapField} -> ${userField}`);
       switch (userField) {
-      case 'email':
-        if (!ldapUser.hasOwnProperty(ldapField)) {
+      case 'email': {
+        // #6481: read the mapped LDAP attribute case-insensitively via
+        // getLDAPValue, the same accessor used everywhere else (getLdapEmail,
+        // getLdapUsername, ...). The old `ldapUser.hasOwnProperty(ldapField)` /
+        // `ldapUser[ldapField]` was case-SENSITIVE, so a fieldmap of `mail`
+        // against an LDAP/AD server that returns the attribute as `Mail` (or any
+        // other casing) yielded `email: undefined` even though the attribute was
+        // present. This worked on older WeKan (ldapjs lowercased keys) and broke
+        // after the move to ldapts, which preserves the server's attribute case.
+        const ldapValue = ldapUser.getLDAPValue(ldapField);
+        if (ldapValue === undefined || ldapValue === null || ldapValue === '') {
           log_debug(`user does not have attribute: ${ ldapField }`);
           return;
         }
 
-        if (typeof ldapUser[ldapField] === 'object' && ldapUser[ldapField] !== null) {
-          Array.from(ldapUser[ldapField]).forEach(function(item) {
+        if (typeof ldapValue === 'object') {
+          Array.from(ldapValue).forEach(function(item) {
             emailList.push({ address: item, verified: true });
           });
         } else {
-          emailList.push({ address: ldapUser[ldapField], verified: true });
+          emailList.push({ address: ldapValue, verified: true });
         }
         break;
+      }
 
       default:
         const [outerKey, innerKeys] = userField.split(/\.(.+)/);
@@ -321,8 +331,9 @@ export async function addLdapUser(ldapUser, username, password) {
     } else {
       userObject.email = userData.emails[0].address;
     }
-  } else if (ldapUser.mail && ldapUser.mail.indexOf('@') > -1) {
-    userObject.email = ldapUser.mail;
+  } else if (ldapUser.getLDAPValue('mail') && String(ldapUser.getLDAPValue('mail')).indexOf('@') > -1) {
+    // #6481: case-insensitive, matching the fieldmap path above.
+    userObject.email = ldapUser.getLDAPValue('mail');
   } else if (LDAP.settings_get('LDAP_DEFAULT_DOMAIN') !== '') {
     userObject.email = `${ username || uniqueId.value }@${ LDAP.settings_get('LDAP_DEFAULT_DOMAIN') }`;
   } else {

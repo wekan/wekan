@@ -37,6 +37,30 @@ import {
 
 //const stringify = require('csv-stringify');
 
+// Write a chunk to the HTTP response, pausing on backpressure. #6480: the naive
+// `res.once('drain', resolve); res.once('error', reject)` leaks one 'error'
+// listener on the ServerResponse per backpressured write (the 'drain' listener
+// self-removes when it fires, but the paired 'error' listener never does), which
+// on a large export raised Node's "MaxListenersExceededWarning: 11 error
+// listeners added to [ServerResponse]" and left listeners accumulating for the
+// life of the socket. Always remove BOTH listeners once either settles.
+export function writeWithBackpressure(res, str) {
+  return new Promise((resolve, reject) => {
+    if (res.write(str)) {
+      resolve();
+      return;
+    }
+    const cleanup = () => {
+      res.removeListener('drain', onDrain);
+      res.removeListener('error', onError);
+    };
+    const onDrain = () => { cleanup(); resolve(); };
+    const onError = err => { cleanup(); reject(err); };
+    res.once('drain', onDrain);
+    res.once('error', onError);
+  });
+}
+
 // exporter maybe is broken since Gridfs introduced, add fs and path
 export class Exporter {
   constructor(boardId, attachmentId, options = {}) {
@@ -337,10 +361,7 @@ export class Exporter {
     const attachmentsRaw = require('/models/attachments').default.collection.rawCollection();
 
     // write-with-backpressure: pause when the socket buffer is full.
-    const w = str => new Promise((resolve, reject) => {
-      if (res.write(str)) resolve();
-      else { res.once('drain', resolve); res.once('error', reject); }
-    });
+    const w = str => writeWithBackpressure(res, str);
 
     const noBoardId = { projection: { boardId: 0 } };
     const boardId = this._boardId;
@@ -619,10 +640,7 @@ export class Exporter {
       quotes: true, quoteChar: '"', escapeChar: '"', delimiter: userDelimiter,
       header: false, newline: '\r\n', skipEmptyLines: false, escapeFormulae: true,
     };
-    const w = str => new Promise((resolve, reject) => {
-      if (res.write(str)) resolve();
-      else { res.once('drain', resolve); res.once('error', reject); }
-    });
+    const w = str => writeWithBackpressure(res, str);
     const writeRow = row => w(Papa.unparse([row], papaconfig) + papaconfig.newline);
 
     // Header row + custom-field columns (same order as buildCsv).

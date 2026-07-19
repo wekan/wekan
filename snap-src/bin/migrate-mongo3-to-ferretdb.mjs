@@ -415,7 +415,7 @@ function exportDocs(coll, query) {
   if (query) args.push('--query', query, '--sort', '{"n":1}');
   const r = runTool(MONGOEXPORT, args);
   if (r.status !== 0) { err(`mongoexport ${coll} failed: ` + describe(r)); return []; }
-  return r.stdout.split('\n').filter(Boolean).map(l => { try { return EJSON.parse(legacyToV2(l)); } catch (e) { err('parse ' + coll + ': ' + e.message); return null; } }).filter(Boolean);
+  return r.stdout.split('\n').filter(Boolean).map(l => { try { return clampNonFinite(EJSON.parse(legacyToV2(l))); } catch (e) { err('parse ' + coll + ': ' + e.message); return null; } }).filter(Boolean);
 }
 
 // mongo 3.x mongoexport emits LEGACY (v1) Extended JSON, which modern bson's
@@ -467,6 +467,35 @@ export function sanitizeNonFinite(line) {
     out += c;
   }
   return out;
+}
+
+// FerretDB/SQLite — unlike MongoDB — cannot store non-finite doubles AT ALL:
+// inserting one fails with "invalid value { sort: +Inf } (infinity values are
+// not allowed)" and aborts that document (#6481, follow-up). sanitizeNonFinite()
+// above only makes the bare mongoexport tokens PARSE; the parsed value is still a
+// JS Infinity/NaN (or a bson Double wrapping one), which the driver then refuses
+// to insert. So after parsing, clamp every non-finite number in the document to a
+// finite 0 — a safe default for the fields this actually hits (a card's `sort`,
+// an activity's numeric `value`). The document then migrates instead of being
+// dropped. Mutates and returns the same object (documents are freshly parsed, so
+// in-place mutation is safe). BSON wrapper instances (ObjectId, Binary, Date, …)
+// are left untouched except a Double whose value is non-finite.
+export function clampNonFinite(value) {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i++) value[i] = clampNonFinite(value[i]);
+    return value;
+  }
+  if (value && typeof value === 'object') {
+    if (value._bsontype === 'Double' && typeof value.value === 'number' && !Number.isFinite(value.value)) {
+      value.value = 0;
+      return value;
+    }
+    if (value._bsontype) return value; // other BSON types carry no non-finite doubles
+    for (const k of Object.keys(value)) value[k] = clampNonFinite(value[k]);
+    return value;
+  }
+  return value;
 }
 
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
