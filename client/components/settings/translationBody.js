@@ -31,7 +31,10 @@ Template.translation.onCreated(function () {
   this.autorun(() => {
     const limitTranslations = this.page.get() * translationsPerPage;
 
-    this.subscribe('translation', this.findTranslationsOptions.get(), 0, () => {
+    // #perf: pass the infinite-scroll window (not 0). A hardcoded 0 meant
+    // Mongo `limit: 0` = NO limit, so the Admin Panel → Translation page loaded
+    // the ENTIRE Translations collection (all strings × all languages) at once.
+    this.subscribe('translation', this.findTranslationsOptions.get(), limitTranslations, () => {
       this.loadNextPageLocked = false;
       const nextPeakBefore = this.infiniteScrolling.getNextPeak();
       this.calculateNextPeak();

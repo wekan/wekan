@@ -74,4 +74,13 @@ check('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () =>
   }
 });
 
+// ── over-fetch: Translation page must not load the whole collection ─────────
+check('Translation page subscribes with a bounded window, not limit 0 (whole collection)', () => {
+  const js = read('client/components/settings/translationBody.js');
+  assert.ok(/subscribe\('translation',[^,]+,\s*limitTranslations/.test(js),
+    'must pass the infinite-scroll window limit');
+  assert.ok(!/subscribe\('translation',[^,]+,\s*0\b/.test(js),
+    'the limit-0 (= no limit = whole collection) load must be gone');
+});
+
 console.log(`\n${passed} passed`);
