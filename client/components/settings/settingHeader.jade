@@ -2,6 +2,8 @@ template(name="settingHeaderBar")
   h1.header-setting-menu
     span {{_ 'admin-panel'}}
 
+  +adminProblemBanner
+
   .setting-header-btns.left
     if currentUser
       a.setting-header-btn.settings(class=isSettingsActive href="{{pathFor 'setting'}}")

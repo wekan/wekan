@@ -23,6 +23,8 @@ import '/client/components/settings/migrationProgress.js';
 import '/client/components/settings/peopleBody.js';
 import '/client/components/settings/settingBody.js';
 import '/client/components/settings/settingHeader.js';
+import '/client/components/settings/adminProblemBanner.jade';
+import '/client/components/settings/adminProblemBanner.js';
 import '/client/components/settings/translationBody.js';
 
 import '/client/components/settings/attachments.css';

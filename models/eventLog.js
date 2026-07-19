@@ -1,4 +1,6 @@
 import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 // ============================================================================
@@ -31,5 +33,60 @@ EventLog.attachSchema(
     detail:   { type: String, optional: true },
   }),
 );
+
+// Per-stream acknowledgment: when an admin clicks "Acknowledge" for a problem
+// area, we upsert { stream, at:now } here. The new-problem count for a stream is
+// the number of eventlog docs newer than its ack `at` — so acknowledging zeroes
+// the count and removes the info from the top of the Admin Panel.
+export const EventLogAcks = new Mongo.Collection('eventlogAcks');
+
+EventLogAcks.attachSchema(
+  new SimpleSchema({
+    stream: { type: String },
+    at: { type: Date },
+  }),
+);
+
+export const EVENT_STREAMS = ['security', 'speed', 'tests'];
+
+if (Meteor.isServer) {
+  async function requireAdmin(context) {
+    const uid = context.userId;
+    const user = uid && (await Meteor.users.findOneAsync(uid));
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin only');
+    }
+    return user;
+  }
+
+  Meteor.methods({
+    // Admin-only: for each stream, the count of events NEWER than its
+    // acknowledgment. Returns only streams with count > 0, so the Admin Panel
+    // banner shows exactly the problem areas that need attention.
+    async eventLogProblemAreas() {
+      await requireAdmin(this);
+      const areas = [];
+      for (const stream of EVENT_STREAMS) {
+        const ack = await EventLogAcks.findOneAsync({ stream });
+        const selector = { stream };
+        if (ack && ack.at) selector.at = { $gt: ack.at };
+        const count = await EventLog.find(selector).countAsync();
+        if (count > 0) areas.push({ stream, count });
+      }
+      return areas;
+    },
+
+    // Admin-only: mark the newest problems in a stream as seen (resets its count).
+    async acknowledgeEventLog(stream) {
+      check(stream, String);
+      await requireAdmin(this);
+      if (!EVENT_STREAMS.includes(stream)) {
+        throw new Meteor.Error('invalid-stream', 'Unknown event stream');
+      }
+      await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: new Date() } });
+      return true;
+    },
+  });
+}
 
 export default EventLog;

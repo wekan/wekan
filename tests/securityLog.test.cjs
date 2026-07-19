@@ -75,4 +75,21 @@ check('no new files/DBs are created under WRITABLE_PATH', () => {
     'the node:sqlite eventStore must be gone');
 });
 
+// ── Admin Panel problem banner (per-area new-problem counts + acknowledge) ──
+check('eventLog defines acks collection + admin methods', () => {
+  const src = read('models/eventLog.js');
+  assert.ok(/new Mongo\.Collection\('eventlogAcks'\)/.test(src));
+  assert.ok(/eventLogProblemAreas\(\)/.test(src) && /acknowledgeEventLog\(stream\)/.test(src));
+  assert.ok(/user\.isAdmin/.test(src), 'methods must be admin-gated');
+  assert.ok(/\$gt: ack\.at/.test(src), 'count must be events newer than the ack');
+});
+check('the banner is included at the top of the Admin Panel', () => {
+  assert.ok(/\+adminProblemBanner/.test(read('client/components/settings/settingHeader.jade')));
+  const js = read('client/components/settings/adminProblemBanner.js');
+  assert.ok(/eventLogProblemAreas/.test(js) && /acknowledgeEventLog/.test(js));
+  assert.ok(/js-ack-problems/.test(read('client/components/settings/adminProblemBanner.jade')));
+  const feat = read('client/features/settings.js');
+  assert.ok(/adminProblemBanner\.jade/.test(feat) && /adminProblemBanner\.js/.test(feat), 'must be imported');
+});
+
 console.log(`\nsecurityLog: ${passed} checks passed`);

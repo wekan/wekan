@@ -76,3 +76,36 @@
 .iphone-device #header-quick-access .setting-header-btns .setting-header-btn i.fa {
   font-size: 18px !important;
 }
+
+/* Admin Panel problem banner (Reports → Security/Speed/Tests new-problem info).
+   Design: docs/Security/Remediation/WeKan.md. Shown under the settingHeaderBar h1;
+   each area names its menu path + new count and has an Acknowledge button. */
+.admin-problem-banner {
+  margin: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.admin-problem-banner .admin-problem-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #fdecea;
+  color: #611a15;
+  border: 1px solid #f5c6cb;
+}
+.admin-problem-banner .admin-problem-item .fa-exclamation-triangle {
+  color: #c0392b;
+}
+.admin-problem-banner .admin-problem-path {
+  font-weight: bold;
+}
+.admin-problem-banner .admin-problem-count {
+  margin-inline-start: auto;
+}
+.admin-problem-banner .js-ack-problems {
+  cursor: pointer;
+  white-space: nowrap;
+}
