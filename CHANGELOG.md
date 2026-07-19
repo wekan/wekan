@@ -123,6 +123,17 @@ and the following release automation:
 - [Added guarded snap-variants / ucs / nextcloud publish jobs to release-all.yml (dormant until their secrets are set, so ordinary releases are unaffected)](https://github.com/wekan/wekan/commit/2054ea2b54a193b9e53267b3dc3fbe15056c9e1e).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Upgraded filesize from 11.0.17 to 11.0.22](https://github.com/wekan/wekan/commit/ccb7a8e91c2b1e3fe3e8db86007cc3f92d11f85a).
+  Thanks to dependabot.
+- [Upgraded dompurify from 3.4.11 to 3.4.12](https://github.com/wekan/wekan/commit/963f72ac88df708d225cd756aec1408a114d77c7).
+  Thanks to dependabot.
+- [Upgraded @aws-sdk/client-s3 from 3.1085.0 to 3.1090.0](https://github.com/wekan/wekan/commit/144bed0eda0a860acbfa44e4036bbd784c17f8fc).
+  Thanks to dependabot.
+- [Upgraded actions/setup-node from 6 to 7](https://github.com/wekan/wekan/commit/1f11ad26027aed362b3dfc23126ef7af88a01b01).
+  Thanks to dependabot.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.01 2026-07-18 WeKan ® release
