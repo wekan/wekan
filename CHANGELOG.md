@@ -116,6 +116,13 @@ The OIDC login shared-serviceData race from the same report was already fixed ea
 (#4897 moved the per-login `profile`/`serviceData`/`userinfo` objects inside the OAuth
 callback); the new source-guard test verifies it stays that way. Thanks to meifukun and xet7.
 
+and adds the following new features:
+
+- [Added an automatic security/speed/tests remediation-logging subsystem (design docs docs/Security/Remediation/WeKan.md and FerretDB.md). WeKan's runtime guards (SSRF, upload/avatar rejection and sanitization, forged X-Forwarded-For, export authz, invite rate-limit, …) now record each block/sanitize/remediate event into the existing WeKan database (a single `eventlog` collection, stream security/speed/tests) via normal Meteor JavaScript queries — no new files or databases under WRITABLE_PATH, so it works the same on FerretDB and MongoDB. FerretDB reports its problems to WeKan, which records them. Events use general category names plus the hall-of-fame *Bleed names](https://github.com/wekan/wekan/commit/1d82ef8eae344ca0565d0858fc697f470e471dd7).
+  Thanks to xet7.
+- [Added Admin Panel → Problems (a new button on the 2nd header bar to the right of the Info/version button, with a warning icon that turns red when there are new problems). The old Reports button is removed and its page becomes the Problems page: a left menu with Summary, Security, Speed and Tests above the moved Broken Cards/Files/Rules/Boards/Cards/Impersonation reports. Summary is a checkbox list of problem areas with one Acknowledge button (the only place to acknowledge, which resets the per-area new-problem count); Security/Speed/Tests are read-only, paginated, searchable event tables](https://github.com/wekan/wekan/commit/0085f7fbfa81e820ce0736dd28b2b0786ac6e41c).
+  Thanks to xet7.
+
 and adds the following updates:
 
 - [Updated SECURITY.md](https://github.com/wekan/wekan/commit/eebccaf291c2751154f127095d5b7610399f0f2d).
