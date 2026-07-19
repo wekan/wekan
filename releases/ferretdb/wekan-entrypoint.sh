@@ -56,6 +56,15 @@ if [ "$want_ferret" = true ]; then
   REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
   if [ "$WEKAN_FERRETDB_OPLOG" = "true" ]; then
     export MONGO_OPLOG_URL="${MONGO_OPLOG_URL:-mongodb://$FERRETDB_LISTEN_ADDR/local?replicaSet=$REPL_SET_NAME}"
+    # Prefer OpLog but ALWAYS keep polling as the final fallback: Meteor uses
+    # OpLog only when tailing actually works, otherwise polling — a broken/absent
+    # OpLog never stops WeKan starting. Admin Panel / Version ("Reactivity mode")
+    # shows which one is live.
+    export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
+    export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-oplog,polling}"
+  else
+    export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-polling}"
+    export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-polling}"
   fi
   # Telemetry off: --telemetry=disable both disables AND locks it (FerretDB won't
   # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.

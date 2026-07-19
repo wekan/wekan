@@ -88,6 +88,42 @@ test('windows start-wekan.bat sets MONGO_OPLOG_URL under the kill-switch', () =>
   assert.ok(/MONGO_OPLOG_URL=mongodb:\/\/127\.0\.0\.1:27017\/local\?replicaSet=/.test(src));
 });
 
+// ── OpLog only when it works: polling must be the final reactivity fallback ──
+// Meteor tries the drivers in METEOR_REACTIVITY_ORDER left-to-right and uses
+// OpLog only when tailing actually works, else polling — so a broken/absent
+// OpLog never stops WeKan starting. Every FerretDB launch path must keep polling
+// last (like the MongoDB "changeStreams,oplog,polling" default).
+test('every FerretDB launch path keeps polling as the reactivity fallback (oplog,polling)', () => {
+  for (const f of [
+    'snap-src/bin/wekan-control',
+    'releases/ferretdb/start-wekan.sh',
+    'releases/ferretdb/wekan-entrypoint.sh',
+    'releases/ferretdb/start-wekan.bat',
+    'docker-compose.yml',
+  ]) {
+    const src = read(f);
+    assert.ok(/METEOR_REACTIVITY_ORDER[^\n]*oplog,polling/.test(src),
+      `${f} must set METEOR_REACTIVITY_ORDER to oplog,polling (polling fallback)`);
+  }
+});
+test('kill-switch path (WEKAN_FERRETDB_OPLOG=false) selects polling-only reactivity', () => {
+  for (const f of ['snap-src/bin/wekan-control', 'releases/ferretdb/start-wekan.sh', 'releases/ferretdb/wekan-entrypoint.sh']) {
+    const src = read(f);
+    assert.ok(/METEOR_REACTIVITY_ORDER="\$\{METEOR_REACTIVITY_ORDER:-polling\}"/.test(src),
+      `${f} must fall to polling-only when OpLog is disabled`);
+  }
+});
+
+// ── Admin Panel / Version reports whether OpLog or polling is actually live ──
+test('Version page detects + shows the live reactivity driver (oplog vs polling)', () => {
+  const stats = read('server/statistics.js');
+  assert.ok(/mongo\._oplogHandle/.test(stats), 'detects the live oplog handle');
+  assert.ok(/reactivity = .*oplog|reactivity = 'polling'/.test(stats), 'reports oplog/changeStreams/polling');
+  const jade = read('client/components/settings/informationBody.jade');
+  assert.ok(/statistics\.mongo\.reactivity/.test(jade), 'Version page shows Reactivity mode');
+  assert.ok(/statistics\.mongo\.mongoOplogEnabled/.test(jade), 'Version page shows Oplog enabled');
+});
+
 // ── NEGATIVE: the migration's transient ferretdb must NOT enable the oplog ───
 test('NEGATIVE: migration-control does not add --repl-set-name (transient bulk target)', () => {
   const src = read('snap-src/bin/migration-control');

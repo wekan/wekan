@@ -33,6 +33,14 @@ set "FERRET_REPL_ARG="
 if /I "%WEKAN_FERRETDB_OPLOG%"=="true" (
   set "FERRET_REPL_ARG=--repl-set-name=%WEKAN_FERRETDB_REPL_SET%"
   if not defined MONGO_OPLOG_URL set "MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=%WEKAN_FERRETDB_REPL_SET%"
+  REM  Prefer OpLog but ALWAYS keep polling as the final fallback: Meteor uses
+  REM  OpLog only when tailing works, otherwise polling. Admin Panel / Version
+  REM  ("Reactivity mode") shows which one is live.
+  if not defined METEOR_REACTIVITY_ORDER set "METEOR_REACTIVITY_ORDER=oplog,polling"
+  if not defined DEFAULT_METEOR_REACTIVITY_ORDER set "DEFAULT_METEOR_REACTIVITY_ORDER=oplog,polling"
+) else (
+  if not defined METEOR_REACTIVITY_ORDER set "METEOR_REACTIVITY_ORDER=polling"
+  if not defined DEFAULT_METEOR_REACTIVITY_ORDER set "DEFAULT_METEOR_REACTIVITY_ORDER=polling"
 )
 REM  Card loading: "all" (default, every card into the browser) or "lazy" (each
 REM  list loads only the visible cards on demand, for very large boards). Also

@@ -87,7 +87,16 @@ if [ "$want_ferret" = true ]; then
   if [ "$WEKAN_FERRETDB_OPLOG" = true ]; then
     FERRET_REPL_ARG="--repl-set-name=$WEKAN_FERRETDB_REPL_SET"
     export MONGO_OPLOG_URL="${MONGO_OPLOG_URL:-mongodb://$FERRETDB_LISTEN_ADDR/local?replicaSet=$WEKAN_FERRETDB_REPL_SET}"
-    echo "FerretDB OpLog tailing enabled: MONGO_OPLOG_URL=$MONGO_OPLOG_URL"
+    # Prefer OpLog but ALWAYS keep polling as the final fallback: Meteor uses
+    # OpLog only when tailing actually works, otherwise polling — a broken/absent
+    # OpLog never stops WeKan starting. Admin Panel / Version ("Reactivity mode")
+    # shows which one is live.
+    export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
+    export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-oplog,polling}"
+    echo "FerretDB OpLog enabled (polling fallback): MONGO_OPLOG_URL=$MONGO_OPLOG_URL METEOR_REACTIVITY_ORDER=$METEOR_REACTIVITY_ORDER"
+  else
+    export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-polling}"
+    export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-polling}"
   fi
 fi
 

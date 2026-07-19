@@ -100,14 +100,27 @@ fi
 # show instantly (local cache); only OTHER users' changes wait up to ~2 s.
 if [ "ferretdb" = "${DATABASE}" ]; then
     WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
-    if [ "true" = "${WEKAN_FERRETDB_OPLOG}" ] && [ -z "${MONGO_OPLOG_URL}" ]; then
-        REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
-        export MONGO_OPLOG_URL="mongodb://${MONGODB_BIND_IP:-127.0.0.1}:${MONGODB_PORT:-27019}/local?replicaSet=${REPL_SET_NAME}"
-        echo "FerretDB OpLog tailing enabled: MONGO_OPLOG_URL=${MONGO_OPLOG_URL}"
+    if [ "true" = "${WEKAN_FERRETDB_OPLOG}" ]; then
+        if [ -z "${MONGO_OPLOG_URL}" ]; then
+            REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
+            export MONGO_OPLOG_URL="mongodb://${MONGODB_BIND_IP:-127.0.0.1}:${MONGODB_PORT:-27019}/local?replicaSet=${REPL_SET_NAME}"
+        fi
+        # Prefer OpLog but ALWAYS keep polling as the final fallback: Meteor tries
+        # the drivers in METEOR_REACTIVITY_ORDER left-to-right and uses OpLog only
+        # when OpLog tailing actually works, otherwise polling — so a broken/absent
+        # OpLog never stops WeKan from starting. Admin Panel / Version ("Reactivity
+        # mode") shows which one is live.
+        export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
+        export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-oplog,polling}"
+        echo "FerretDB OpLog enabled (polling fallback): MONGO_OPLOG_URL=${MONGO_OPLOG_URL} METEOR_REACTIVITY_ORDER=${METEOR_REACTIVITY_ORDER}"
+    else
+        export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-polling}"
+        export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-polling}"
+        echo "FerretDB OpLog disabled (WEKAN_FERRETDB_OPLOG=false): polling only"
     fi
     [ -z "${METEOR_POLLING_THROTTLE_MS}" ] && export METEOR_POLLING_THROTTLE_MS=2000
     [ -z "${METEOR_POLLING_INTERVAL_MS}" ] && export METEOR_POLLING_INTERVAL_MS=30000
-    echo "FerretDB polling fallback: METEOR_POLLING_THROTTLE_MS=${METEOR_POLLING_THROTTLE_MS} METEOR_POLLING_INTERVAL_MS=${METEOR_POLLING_INTERVAL_MS}"
+    echo "FerretDB polling settings: METEOR_POLLING_THROTTLE_MS=${METEOR_POLLING_THROTTLE_MS} METEOR_POLLING_INTERVAL_MS=${METEOR_POLLING_INTERVAL_MS}"
 fi
 
 # If WRITABLE_PATH is not set, use $SNAP_COMMON/files
