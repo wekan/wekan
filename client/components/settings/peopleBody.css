@@ -38,7 +38,7 @@ table tr:nth-child(even) {
 }
 .ext-box button {
   min-width: 90px;
-  background: #01628c;
+  background: var(--theme-accent, #01628c);
   color: #fff;
   border: none;
   border-radius: 0.4vw;
@@ -47,11 +47,11 @@ table tr:nth-child(even) {
 }
 
 .ext-box button:hover {
-  background: #005377;
+  background: var(--theme-accent, #005377);
 }
 
 .ext-box button:active {
-  background: #004766;
+  background: var(--theme-accent, #004766);
 }
 .content-wrapper {
   margin-top: 10px;
@@ -93,30 +93,30 @@ table td:first-child {
   min-width: auto;
 }
 #divAddOrRemoveTeam {
-  background: #01628c;
+  background: var(--theme-accent, #01628c);
   display: none;
 }
 #addOrRemoveTeam {
-  background: #01628c;
+  background: var(--theme-accent, #01628c);
   color: #fff;
 }
 #addOrRemoveTeam:hover {
-  background: #005377;
+  background: var(--theme-accent, #005377);
 }
 #divAddOrRemoveTeamContainer {
   display: none;
   margin: auto;
   width: 50%;
-  border: 3px solid #01628c;
+  border: 3px solid var(--theme-accent, #01628c);
   padding: 10px;
 }
 #cancelBtn {
   margin-inline-start: 5% !important;
-  background: #01628c;
+  background: var(--theme-accent, #01628c);
   color: #fff;
 }
 #cancelBtn:hover {
-  background: #005377;
+  background: var(--theme-accent, #005377);
 }
 #deleteAction {
   margin-inline-start: 5% !important;
@@ -150,7 +150,7 @@ table td:first-child {
 .unlock-all-btn {
   margin-top: 20px;
   margin-inline-start: 15px;
-  background-color: #01628c;
+  background-color: var(--theme-accent, #01628c);
   color: #fff;
   border: none;
   border-radius: 0.4vw;
@@ -164,7 +164,7 @@ table td:first-child {
 }
 
 .unlock-all-btn:hover {
-  background-color: #005377;
+  background-color: var(--theme-accent, #005377);
 }
 
 .unlock-all-btn .fa {
@@ -185,7 +185,7 @@ table td:first-child {
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #01628c;
+  background-color: var(--theme-accent, #01628c);
   color: white;
   padding: 10px 20px;
   border-radius: 4px;
@@ -206,7 +206,7 @@ table td:first-child {
 }
 
 .text-green {
-  color: #01628c;
+  color: var(--theme-accent, #01628c);
 }
 
 .js-toggle-lock-status {

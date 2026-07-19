@@ -137,19 +137,19 @@
 
 /* Admin panel buttons should use theme darker color */
 .setting-content .content-body .main-body .setting-detail button.btn {
-  background: #005377;
+  background: var(--theme-accent, #005377);
   color: #fff;
   border: none;
 }
 
 .setting-content .content-body .main-body .setting-detail button.btn:hover,
 .setting-content .content-body .main-body .setting-detail button.btn:focus {
-  background: #004766;
+  background: var(--theme-accent, #004766);
   color: #fff;
 }
 
 .setting-content .content-body .main-body .setting-detail button.btn:active {
-  background: #01628c;
+  background: var(--theme-accent, #01628c);
   color: #fff;
 }
 
