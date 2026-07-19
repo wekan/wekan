@@ -125,6 +125,17 @@ and adds the following new features:
 
 and adds the following updates:
 
+- [Enabled FerretDB OpLog tailing by default so Meteor stops poll-and-diff, the
+  main fix for FerretDB sitting at 100–390% CPU on busy boards. With FerretDB
+  there is no MongoDB oplog, so Meteor re-ran every live query on a timer;
+  FerretDB v1 now ships an OpLog (auto-created capped local.oplog.rs + replica-set
+  hello handshake), so every FerretDB launch path starts ferretdb with
+  --repl-set-name=rs0 and points WeKan at it via MONGO_OPLOG_URL, and Meteor
+  TAILS the OpLog instead of polling. Kill-switch WEKAN_FERRETDB_OPLOG=false
+  reverts to polling; the calmer polling defaults remain as the fallback. Also
+  trimmed the client activity feed page from 500 to 50 rows (infinite scroll
+  still loads more on demand)](https://github.com/wekan/wekan/commit/1039b2e3286135a1749aeab9526b52d40fb82e43).
+  Thanks to uusijani, Nissulya and xet7.
 - [Updated SECURITY.md](https://github.com/wekan/wekan/commit/eebccaf291c2751154f127095d5b7610399f0f2d).
   Thanks to xet7.
 
