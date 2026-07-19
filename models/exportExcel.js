@@ -92,7 +92,7 @@ runOnServer(function() {
     }
 
     const exporterExcel = new ExporterExcel(boardId, userLanguage);
-    if ((await exporterExcel.canExport(user)) || impersonateDone) {
+    if ((await exporterExcel.canExport(user))) {
       if (impersonateDone) {
         await ImpersonatedUsers.insertAsync({
           adminId: adminId,

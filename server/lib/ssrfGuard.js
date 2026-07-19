@@ -223,6 +223,11 @@ export async function fetchSafe(rawUrl, options = {}) {
         const body = Buffer.concat(chunks);
         resolve({
           status: res.statusCode,
+          // `ok` and `arrayBuffer()` mirror the WHATWG fetch Response so callers
+          // that download binary bodies (avatar localization, Trello attachment
+          // import) can use fetchSafe as a drop-in. `headers` stays the Node
+          // lowercased-object form (read as res.headers['content-type']).
+          ok: res.statusCode >= 200 && res.statusCode < 300,
           headers: res.headers,
           json: () => {
             try {
@@ -232,6 +237,9 @@ export async function fetchSafe(rawUrl, options = {}) {
             }
           },
           text: () => Promise.resolve(body.toString('utf8')),
+          arrayBuffer: () => Promise.resolve(
+            body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength),
+          ),
         });
       });
       res.on('error', reject);

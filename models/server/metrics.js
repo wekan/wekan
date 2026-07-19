@@ -9,6 +9,34 @@ function acceptedIpAddress(ipAddress) {
   );
 }
 
+// Resolve the client IP used for the METRICS_ACCEPTED_IP_ADDRESS allowlist.
+//
+// Security fix (reported by meifukun): the endpoint previously trusted the
+// client-supplied `X-Forwarded-For` header UNCONDITIONALLY, so anyone who could
+// reach /metrics directly could send `X-Forwarded-For: <whitelisted-ip>` and pass
+// the allowlist. By default we now use ONLY the real socket peer address.
+//
+// Operators genuinely behind reverse proxies can opt back in with
+// METRICS_TRUST_PROXY set to the number of trusted proxy hops (e.g. `1`). The
+// client IP is then read from the Nth position from the RIGHT of the XFF chain —
+// the address your own proxy appended, which a client cannot forge — so a forged
+// left-most entry is ignored.
+function metricsClientIp(req) {
+  const remote = req.socket.remoteAddress;
+  const trust = process.env.METRICS_TRUST_PROXY;
+  if (!trust || trust === 'false' || trust === '0') {
+    return remote;
+  }
+  const xff = req.headers['x-forwarded-for'];
+  if (!xff) return remote;
+  const list = String(xff).split(',').map(s => s.trim()).filter(Boolean);
+  if (!list.length) return remote;
+  const hops = parseInt(trust, 10);
+  const n = Number.isInteger(hops) && hops > 0 ? hops : 1;
+  const idx = list.length - n;
+  return idx >= 0 ? list[idx] : remote;
+}
+
 function accessToken(req) {
   const valid_token = process.env.METRICS_ACCESS_TOKEN;
   let token;
@@ -64,14 +92,10 @@ const getBoards = async (boardIds) => {
 Meteor.startup(() => {
   WebApp.handlers.use('/metrics', async (req, res, next) => {
     try {
-      const ipAddress =
-        req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-      // if(process.env.TRUST_PROXY_FORXARD)
-      // {
-      //   const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-      // }else{
-      //   const ipAddress = req.socket.remoteAddress
-      // }
+      // Client-supplied X-Forwarded-For is trusted ONLY when METRICS_TRUST_PROXY
+      // is set (see metricsClientIp); by default the real socket address is used
+      // so a forged XFF cannot bypass METRICS_ACCEPTED_IP_ADDRESS.
+      const ipAddress = metricsClientIp(req);
 
       // List of trusted ip adress will be found in environment variable "METRICS_ACCEPTED_IP_ADDRESS" (separeted with commas)
       if (acceptedIpAddress(ipAddress) || (accessToken(req))) {

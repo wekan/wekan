@@ -9,6 +9,7 @@ import Boards from '/models/boards';
 import Avatars from '/models/avatars';
 import TrelloImportJobs from '/models/trelloImportJobs';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
+import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
 
 // Server-only collection holding each user's saved Trello API key + token.
 // It is defined here (not under /models) and never published, so the
@@ -162,6 +163,19 @@ async function trelloGet(path, key, token, params = {}) {
 
 async function downloadAttachmentBase64(url, key, token) {
   try {
+    // SSRF fix (reported by meifukun): att.url comes from the Trello API response
+    // and is attacker-controlled (a board owner sets link-attachment URLs on their
+    // own board), and the fetched body is stored and readable back through the
+    // attachment API. The offline JSON import already gates every attachment on
+    // validateAttachmentUrl; the live path did not. Block loopback / private /
+    // link-local / cloud-metadata URLs here too, before any request is made.
+    const validation = await validateAttachmentUrl(url);
+    if (!validation.valid) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Blocked attachment URL during live Trello import:', url, '-', validation.reason);
+      }
+      return null;
+    }
     const res = await trelloFetch(url, {
       headers: { Authorization: authHeader(key, token) },
     });
@@ -257,6 +271,14 @@ export async function inlineBoardBackground(board, key, token) {
   if (!url || !/^https?:\/\//i.test(url)) {
     return;
   }
+  // SSRF fix (reported by meifukun): block loopback/private/metadata background URLs.
+  const bgValidation = await validateAttachmentUrl(url);
+  if (!bgValidation.valid) {
+    if (process.env.DEBUG === 'true') {
+      console.warn('Blocked Trello background URL during live import:', url, '-', bgValidation.reason);
+    }
+    return;
+  }
   const tryFetch = async withAuth => {
     const options = withAuth
       ? { headers: { Authorization: authHeader(key, token) } }
@@ -315,6 +337,14 @@ export async function inlineMemberAvatars(board, membersMapping, key, token) {
       const imgUrl = /\.(png|jpe?g|gif)$/i.test(member.avatarUrl)
         ? member.avatarUrl
         : `${member.avatarUrl}/170.png`;
+      // SSRF fix (reported by meifukun): block loopback/private/metadata avatar URLs.
+      const avValidation = await validateAttachmentUrl(imgUrl);
+      if (!avValidation.valid) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Blocked Trello avatar URL during live import:', imgUrl, '-', avValidation.reason);
+        }
+        continue;
+      }
       // Trello avatars are public (S3); try without auth, fall back to OAuth.
       let res = await fetch(imgUrl);
       if (!res.ok) {

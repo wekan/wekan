@@ -234,7 +234,13 @@ Template.activity.helpers({
   sourceLink() {
     const source = this.activity.source;
     if (source) {
-      if (source.url) {
+      // XSS fix (reported by meifukun): source.url is imported from an external
+      // board (e.g. a Trello board's `url`) and was rendered as an <a href> with
+      // no scheme check, so a `javascript:` (or data:/vbscript:) URL executed in
+      // the board admin's session on click and could exfiltrate Meteor.loginToken.
+      // Only render a link for an http(s) URL; otherwise show the plain (sanitized)
+      // source name with no href.
+      if (source.url && /^https?:\/\//i.test(String(source.url))) {
         return Blaze.toHTML(
           HTML.A(
             {
@@ -243,9 +249,8 @@ Template.activity.helpers({
             sanitizeHTML(source.system),
           ),
         );
-      } else {
-        return sanitizeHTML(source.system);
       }
+      return sanitizeHTML(source.system);
     }
     return null;
   },

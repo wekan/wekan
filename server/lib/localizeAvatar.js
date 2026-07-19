@@ -53,14 +53,22 @@ async function fetchAvatarBytes(url) {
   try {
     if (/^data:/i.test(url)) return decodeDataUri(url);
     await assertSafePublicUrl(url);
+    // SSRF fix (reported by meifukun): the previous native fetch() used
+    // redirect:'follow', so a public URL that passed assertSafePublicUrl could
+    // 302 to http://127.0.0.1/… (or a private/metadata address) and the server
+    // followed it. fetchSafe() resolves DNS once, PINS the connection to the
+    // validated IP (no DNS-rebinding window) and REJECTS every redirect, so the
+    // redirect-bypass is closed. It is imported lazily to keep this module usable
+    // on the client bundle path that re-exports isExternalAvatarUrl.
+    const { fetchSafe } = require('/server/lib/ssrfGuard');
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
     let res;
     try {
-      res = await fetch(url, { redirect: 'follow', signal: controller.signal });
+      res = await fetchSafe(url, { signal: controller.signal });
     } finally { clearTimeout(timer); }
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const type = (res.headers.get('content-type') || '').split(';')[0].trim() || 'image/png';
+    const type = ((res.headers && res.headers['content-type']) || '').split(';')[0].trim() || 'image/png';
     if (!/^image\//i.test(type)) throw new Error(`not an image (${type})`);
     const ab = await res.arrayBuffer();
     if (ab.byteLength > MAX_AVATAR_BYTES) throw new Error('avatar too large');

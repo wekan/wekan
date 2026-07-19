@@ -103,7 +103,7 @@ runOnServer(function() {
       paramListId,
       paramCardId,
     );
-    if (await exporterCardPDF.canExport(user) || impersonateDone) {
+    if (await exporterCardPDF.canExport(user)) {
       if (impersonateDone) {
         await ImpersonatedUsers.insertAsync({
           adminId: adminId,

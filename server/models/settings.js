@@ -29,10 +29,16 @@ const {
 const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 
-function getRandomNum(min, max) {
-  const range = max - min;
-  const rand = Math.random();
-  return min + Math.round(rand * range);
+// Security fix (reported by meifukun): invitation codes used to be a 6-digit
+// Math.random() value — a ~900,000 keyspace from a NON-cryptographic RNG, with no
+// effective throttling on the sign-up validation — so an attacker who knew a
+// pending invitee's email could brute-force the code and take the invited account
+// (and its private boards). Generate a cryptographically secure 128-bit code
+// instead, which cannot be guessed regardless of retry rate. (A DDPRateLimiter
+// rule is added in server/models/users.js as defence in depth.)
+function generateInvitationCode() {
+  const crypto = require('crypto');
+  return crypto.randomBytes(16).toString('base64url');
 }
 
 function getEnvVar(name) {
@@ -274,7 +280,7 @@ Meteor.methods({
           // emailed code always passes the sign-up lookup
           // { code, email, valid: true }.
           const modifier = buildReinviteModifier(invitation, boards, () =>
-            getRandomNum(100000, 999999),
+            generateInvitationCode(),
           );
           const updated = await InvitationCodes.updateAsync(
             invitation._id,
@@ -291,7 +297,7 @@ Meteor.methods({
         } else {
           // String(...) so the stored code always matches the (string) code
           // typed into the sign-up form, without relying on schema autoConvert.
-          const code = String(getRandomNum(100000, 999999));
+          const code = generateInvitationCode();
           const _id = await InvitationCodes.insertAsync({
             code,
             email,

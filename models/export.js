@@ -141,7 +141,7 @@ if (Meteor.isServer) {
     // user's language.
     exportOptions.userLanguage = (user && user.profile && user.profile.language) || 'en';
     const exporter = new Exporter(boardId, undefined, exportOptions);
-    if (await exporter.canExport(user) || impersonateDone) {
+    if (await exporter.canExport(user)) {
       if (impersonateDone && adminId) {
         await ImpersonatedUsers.insertAsync({
           adminId: adminId,
@@ -345,7 +345,7 @@ if (Meteor.isServer) {
       }
 
       const exporter = new Exporter(boardId, attachmentId);
-      if (await exporter.canExport(user) || impersonateDone) {
+      if (await exporter.canExport(user)) {
         if (impersonateDone) {
           await ImpersonatedUsers.insertAsync({
             adminId: adminId,
@@ -455,7 +455,7 @@ if (Meteor.isServer) {
     }
 
     const exporter = new Exporter(boardId);
-    if (await exporter.canExport(user) || impersonateDone) {
+    if (await exporter.canExport(user)) {
       if (impersonateDone) {
         let exportType = 'exportCSV';
         if( req.query.delimiter == "\t" ) {

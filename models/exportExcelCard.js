@@ -116,7 +116,7 @@ runOnServer(function() {
         : null;
 
       const exporter = new ExporterExcelCard(boardId, paramListId, paramCardId, userLanguage, fields, dateFormat);
-      if ((await exporter.canExport(user)) || impersonateDone) {
+      if ((await exporter.canExport(user))) {
         if (impersonateDone) {
           await ImpersonatedUsers.insertAsync({
             adminId,

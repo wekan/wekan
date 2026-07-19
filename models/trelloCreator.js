@@ -291,7 +291,12 @@ export class TrelloCreator {
       source: {
         id: trelloBoard.id,
         system: 'Trello',
-        url: trelloBoard.url,
+        // XSS fix (reported by meifukun): only persist an http(s) source URL.
+        // trelloBoard.url is attacker-controlled (a javascript: URL in the
+        // imported board), and the activity sidebar renders it as a link — so a
+        // hostile scheme must never reach the database (defence in depth with the
+        // render-time scheme check in activities.js).
+        url: /^https?:\/\//i.test(String(trelloBoard.url || '')) ? trelloBoard.url : undefined,
       },
       // We attribute the import to current user,
       // not the author from the original object.

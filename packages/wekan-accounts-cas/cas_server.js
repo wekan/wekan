@@ -114,7 +114,6 @@ class CAS {
 ////// END OF CAS MODULE
 
 let _casCredentialTokens = {};
-let _userData = {};
 
 //RoutePolicy.declare('/_cas/', 'network');
 
@@ -185,8 +184,12 @@ const casValidate = (req, ticket, token, service, callback) => {
       if (status) {
         console.log(`accounts-cas: user validated ${userData.id}
           (${JSON.stringify(userData)})`);
-        _casCredentialTokens[token] = { id: userData.id };
-        _userData = userData;
+        // Account-takeover fix (reported by meifukun): bind the validated CAS
+        // user data to THIS credential token instead of a single module-global
+        // (`_userData`). Two concurrent CAS logins used to race — one validation
+        // overwrote the shared `_userData`, so an attacker completing their own
+        // login read the victim's data and received the victim's WeKan session.
+        _casCredentialTokens[token] = { id: userData.id, userData: userData };
       } else {
         console.log("accounts-cas: unable to validate " + ticket);
       }
@@ -212,6 +215,11 @@ const casValidate = (req, ticket, token, service, callback) => {
 
   const result = _retrieveCredential(options.cas.credentialToken);
 
+  // Read the CAS attributes that were validated for THIS token (not a shared
+  // global), so concurrent logins can never cross identities. See the fix note
+  // where _casCredentialTokens[token] is populated.
+  const userData = (result && result.userData) || {};
+
   const attrs = Meteor.settings.cas.attributes || {};
   // CAS keys
   const fn = attrs.firstname || 'cas:givenName';
@@ -226,20 +234,20 @@ const casValidate = (req, ticket, token, service, callback) => {
       console.log(`CAS fields : id:"${uid}", firstname:"${fn}", lastname:"${ln}", mail:"${mail}"`);
     }
   }
-  const name = full ? _userData[full] : _userData[fn] + ' ' +  _userData[ln];
+  const name = full ? userData[full] : userData[fn] + ' ' +  userData[ln];
   // https://docs.meteor.com/api/accounts.html#Meteor-users
   options = {
     // _id: Meteor.userId()
-    username: _userData[uid], // Unique name
+    username: userData[uid], // Unique name
     emails: [
-      { address: _userData[mail], verified: true }
+      { address: userData[mail], verified: true }
     ],
     createdAt: new Date(),
     profile: {
       // The profile is writable by the user by default.
       name: name,
       fullname : name,
-      email : _userData[mail]
+      email : userData[mail]
     },
     active: true,
     globalRoles: ['user']

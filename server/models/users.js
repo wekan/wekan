@@ -16,6 +16,46 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { isValidCustomColors } from '/models/lib/themeCategories';
 import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+
+// Security (reported by meifukun): defence-in-depth throttle on account creation
+// so invitation-code sign-up (and any other registration) attempts cannot be
+// hammered. The invitation code itself is now a 128-bit CSPRNG value (see
+// server/models/settings.js generateInvitationCode) so it is not brute-forceable;
+// this rule additionally bounds abuse — at most 10 createUser attempts per 60s per
+// client address.
+if (Meteor.isServer) {
+  DDPRateLimiter.addRule(
+    {
+      type: 'method',
+      name: 'createUser',
+      clientAddress() {
+        return true;
+      },
+    },
+    10,
+    60 * 1000,
+  );
+}
+
+// Security (reported by meifukun): profile.avatarUrl is rendered as an <img src>
+// and, once external, is fetched by the server for localization. Only accept an
+// http(s) URL, a data:image URI, an empty value (clearing), or a WeKan-local
+// relative path (e.g. /cdn/storage/avatars/…). Reject javascript:, data:text/html,
+// file:, protocol-relative //host and every other active/foreign scheme at write
+// time so a hostile scheme can never be stored.
+function assertSafeAvatarUrl(avatarUrl) {
+  if (avatarUrl === '') return;
+  if (avatarUrl.startsWith('/') && !avatarUrl.startsWith('//')) return;
+  const m = /^([a-z][a-z0-9+.\-]*):/i.exec(avatarUrl);
+  const scheme = m ? m[1].toLowerCase() : '';
+  if (scheme === 'http' || scheme === 'https') return;
+  if (scheme === 'data' && /^data:image\//i.test(avatarUrl)) return;
+  throw new Meteor.Error(
+    'invalid-avatar-url',
+    'Avatar URL must be an http(s) URL, a data:image URI, or a local path',
+  );
+}
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Avatars from '/models/avatars';
 import Boards from '/models/boards';
@@ -328,6 +368,7 @@ Meteor.methods({
   async setAvatarUrl(avatarUrl) {
     check(avatarUrl, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    assertSafeAvatarUrl(avatarUrl);
     await Users.updateAsync(this.userId, { $set: { 'profile.avatarUrl': avatarUrl } });
   },
 
@@ -341,6 +382,7 @@ Meteor.methods({
     }
     const targetUser = await Users.findOneAsync(targetUserId);
     if (!targetUser) throw new Meteor.Error('user-not-found', 'Target user not found');
+    assertSafeAvatarUrl(avatarUrl);
     await Users.updateAsync(targetUserId, { $set: { 'profile.avatarUrl': avatarUrl } });
   },
 
