@@ -142,6 +142,11 @@ and adds the following updates:
   HTML), names hiding invisible/zero-width/bidi characters are shown in red with a
   legend, and a filter lists only those names](https://github.com/wekan/wekan/commit/657c4948f).
   Thanks to xet7.
+- [Removed clickable column-header sorting from the board Table view and the Admin
+  Panel → People → Domains table; both now show a stable fixed order (and keep
+  their search + pagination). Sorting a server-paginated table means sorting the
+  whole set, which fights the per-page perf fix](https://github.com/wekan/wekan/commit/db68996cc).
+  Thanks to xet7.
 - [Enabled FerretDB OpLog tailing by default so Meteor stops poll-and-diff, the
   main fix for FerretDB sitting at 100–390% CPU on busy boards. With FerretDB
   there is no MongoDB oplog, so Meteor re-ran every live query on a timer;
@@ -176,6 +181,10 @@ and fixes the following bugs:
   collection at once: it subscribed with a hardcoded limit of 0 (= no limit). It
   now uses the infinite-scroll window, loading a page at a
   time](https://github.com/wekan/wekan/commit/e88665316).
+  Thanks to xet7.
+- [Fix the Board Archive → Boards list loading every archived board at once: it now
+  pages server-side (30 per page) with a search box and prev/next controls, so only
+  the current page is loaded](https://github.com/wekan/wekan/commit/da99baf68).
   Thanks to xet7.
 - [Fix "Did not check() all arguments" server-log spam from the Admin Panel →
   Problems detail pages: the eventLogCount/eventLogPage methods awaited the admin
