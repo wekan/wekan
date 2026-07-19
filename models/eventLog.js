@@ -47,7 +47,7 @@ EventLogAcks.attachSchema(
   }),
 );
 
-export const EVENT_STREAMS = ['security', 'speed', 'tests'];
+export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu'];
 
 if (Meteor.isServer) {
   // The Security/Speed/Tests report pages filter by `stream` and sort by `at`

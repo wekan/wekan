@@ -88,9 +88,20 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release adds one unified, safe **filename handling** subsystem, used everywhere
-a filename is shown, uploaded, served, or migrated. Design:
+Adds a **CPU-usage monitor + governor** and a unified, safe **filename handling**
+subsystem. Designs:
+[docs/Features/CPU/CPU.md](https://github.com/wekan/wekan/blob/main/docs/Features/CPU/CPU.md),
 [docs/Features/Filename/Filename.md](https://github.com/wekan/wekan/blob/main/docs/Features/Filename/Filename.md).
+
+- **CPU usage: Admin Panel / Problems / CPU usage** — WeKan now watches system-wide
+  CPU usage (measured across all cores, so it includes WeKan, FerretDB and every
+  other process). When usage stays high it records the START and END of the period
+  (only those two rows per episode, never a flood), with the duration, peak, system
+  load and what WeKan was doing at the time. Hysteresis (enter at 85%, leave at 70%,
+  three consecutive samples each way) prevents flapping. A governor (`pauseIfBusy()`)
+  lets long batch operations slow down and yield the CPU to other software while the
+  machine is busy — wired into the existing-file extension corrector, and tunable via
+  `WEKAN_CPU_*` environment variables.
 
 - **Filenames are always shown clean** — everywhere (card attachments, admin Files
   report, download headers) a name is URL-decoded, normalized to generally-used

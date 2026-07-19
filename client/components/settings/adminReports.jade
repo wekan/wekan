@@ -26,6 +26,11 @@ template(name="adminReports")
                 i.fa.fa-flask
                 | {{_ 'testsReportTitle'}}
 
+            li
+              a.js-report-cpu(data-id="report-cpu")
+                i.fa.fa-tachometer
+                | {{_ 'cpuReportTitle'}}
+
             li.admin-reports-separator
               hr
 
@@ -70,6 +75,8 @@ template(name="adminReports")
             +eventStreamReport(stream="speed")
           else if showTests.get
             +eventStreamReport(stream="tests")
+          else if showCpu.get
+            +eventStreamReport(stream="cpu")
           else if showBrokenCardsReport.get
             +brokenCardsReport
           else if showFilesReport.get

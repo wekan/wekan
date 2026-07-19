@@ -26,8 +26,14 @@ async function correctBatch(collection, factory, limit) {
   const cursor = collection.find({}, { limit });
   const docs = await cursor.fetchAsync();
 
+  // Governor: label the activity and yield the CPU between files when the machine
+  // is already busy, so this batch never starves other software (see cpuMonitor).
+  let cpu;
+  try { cpu = require('/server/lib/cpuMonitor'); cpu.setActivity('correcting file extensions'); } catch (e) { /* optional */ }
+
   for (const fileObj of docs) {
     result.checked++;
+    if (cpu) { try { await cpu.pauseIfBusy(); } catch (e) { /* best effort */ } }
     try {
       const { name, changed, detectedMime } = await correctedNameForStoredFile(fileObj, factory);
       if (changed && name) {
@@ -52,6 +58,7 @@ async function correctBatch(collection, factory, limit) {
       console.error('[correctFileExtensions] failed for', fileObj && fileObj._id, error);
     }
   }
+  if (cpu) { try { cpu.setActivity(''); } catch (e) { /* best effort */ } }
   return result;
 }
 

@@ -72,6 +72,7 @@ Template.adminReports.onCreated(function () {
   this.showSecurity = new ReactiveVar(false);
   this.showSpeed = new ReactiveVar(false);
   this.showTests = new ReactiveVar(false);
+  this.showCpu = new ReactiveVar(false);
   this.showFilesReport = new ReactiveVar(false);
   this.showBrokenCardsReport = new ReactiveVar(false);
   this.showOrphanedFilesReport = new ReactiveVar(false);
@@ -154,6 +155,9 @@ Template.adminReports.helpers({
   showTests() {
     return Template.instance().showTests;
   },
+  showCpu() {
+    return Template.instance().showCpu;
+  },
   showFilesReport() {
     return Template.instance().showFilesReport;
   },
@@ -232,6 +236,9 @@ Template.adminReports.events({
     switchMenu(event, Template.instance());
   },
   'click a.js-report-tests'(event) {
+    switchMenu(event, Template.instance());
+  },
+  'click a.js-report-cpu'(event) {
     switchMenu(event, Template.instance());
   },
   'click a.js-report-broken'(event) {
@@ -313,6 +320,7 @@ function switchMenu(event, tmpl) {
     tmpl.showSecurity.set(false);
     tmpl.showSpeed.set(false);
     tmpl.showTests.set(false);
+    tmpl.showCpu.set(false);
     tmpl.showFilesReport.set(false);
     tmpl.showBrokenCardsReport.set(false);
     tmpl.showOrphanedFilesReport.set(false);
@@ -342,6 +350,9 @@ function switchMenu(event, tmpl) {
       tmpl.loading.set(false);
     } else if ('report-tests' === targetID) {
       tmpl.showTests.set(true);
+      tmpl.loading.set(false);
+    } else if ('report-cpu' === targetID) {
+      tmpl.showCpu.set(true);
       tmpl.loading.set(false);
     } else if ('report-broken' === targetID) {
       tmpl.showBrokenCardsReport.set(true);
@@ -570,7 +581,7 @@ Template.brokenCardsReport.events({
 const EVENTS_PER_PAGE = 25;
 
 function eventStreamTitleKey(stream) {
-  return { security: 'securityReportTitle', speed: 'speedReportTitle', tests: 'testsReportTitle' }[stream] || 'summary';
+  return { security: 'securityReportTitle', speed: 'speedReportTitle', tests: 'testsReportTitle', cpu: 'cpuReportTitle' }[stream] || 'summary';
 }
 
 Template.eventStreamReport.onCreated(function () {
