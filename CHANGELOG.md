@@ -88,7 +88,35 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL VULNERABILITIES, all reported by meifukun:
+[RedirectBleed](https://wekan.fi/hall-of-fame/redirectbleed/),
+[SourceBleed](https://wekan.fi/hall-of-fame/sourcebleed/),
+[LiveBleed](https://wekan.fi/hall-of-fame/livebleed/),
+[CasBleed](https://wekan.fi/hall-of-fame/casbleed/),
+[MetricsBleed](https://wekan.fi/hall-of-fame/metricsbleed/),
+[ImpersonateBleed](https://wekan.fi/hall-of-fame/impersonatebleed/) and
+[InviteBleed](https://wekan.fi/hall-of-fame/invitebleed/):
+
+- [Fix RedirectBleed: avatar localization validated only the original host and then followed redirects with native fetch, so a public avatar URL could 302 to a loopback/private/metadata address (SSRF). Avatars are now fetched via the DNS-pinned, redirect-rejecting fetchSafe, and profile.avatarUrl is scheme-validated (http/https/data:image/local) at write time](https://github.com/wekan/wekan/commit/1669a1af196ba48395e01376b3a0fc784ad42cc3).
+  Thanks to meifukun and xet7.
+- [Fix SourceBleed: a Trello board imported with a javascript: url was stored as an activity source.url and rendered as a clickable activity-sidebar link, so a board admin clicking it ran attacker JavaScript (stored XSS, Meteor.loginToken theft). Only http(s) source URLs are now stored and linked](https://github.com/wekan/wekan/commit/1669a1af196ba48395e01376b3a0fc784ad42cc3).
+  Thanks to meifukun and xet7.
+- [Fix LiveBleed: the live Trello import fetched attacker-controlled attachment/background/avatar URLs with bare fetch (no SSRF guard) and stored the response for read-back through the attachment API (non-blind SSRF). Every live-import download is now gated by validateAttachmentUrl, matching the offline import path](https://github.com/wekan/wekan/commit/1669a1af196ba48395e01376b3a0fc784ad42cc3).
+  Thanks to meifukun and xet7.
+- [Fix CasBleed: CAS login stored validated user data in a module-global (_userData) shared across concurrent logins, so two logins could race and issue an attacker a session for a victim's account. The user data is now bound per credential token](https://github.com/wekan/wekan/commit/1669a1af196ba48395e01376b3a0fc784ad42cc3).
+  Thanks to meifukun and xet7.
+- [Fix MetricsBleed: the /metrics endpoint trusted a client-supplied X-Forwarded-For header unconditionally, so anyone could forge a whitelisted IP and read operational metrics. XFF is now trusted only when METRICS_TRUST_PROXY is set (parsed spoof-resistantly from the right); otherwise the real socket address is used](https://github.com/wekan/wekan/commit/1669a1af196ba48395e01376b3a0fc784ad42cc3).
+  Thanks to meifukun and xet7.
+- [Fix ImpersonateBleed: several board export endpoints treated any historical ImpersonatedUsers record as an authorization bypass (canExport || impersonateDone), so a demoted former admin could export private boards forever. The impersonation bypass is removed; export requires real board visibility (canExport) only](https://github.com/wekan/wekan/commit/1669a1af196ba48395e01376b3a0fc784ad42cc3).
+  Thanks to meifukun and xet7.
+- [Fix InviteBleed: invitation registration used a 6-digit Math.random() code (~900k keyspace) with no throttling, brute-forceable to hijack an invited account and its private boards. Codes are now a 128-bit crypto.randomBytes value and account creation is rate-limited (DDPRateLimiter)](https://github.com/wekan/wekan/commit/1669a1af196ba48395e01376b3a0fc784ad42cc3).
+  Thanks to meifukun and xet7.
+
+The OIDC login shared-serviceData race from the same report was already fixed earlier
+(#4897 moved the per-login `profile`/`serviceData`/`userinfo` objects inside the OAuth
+callback); the new source-guard test verifies it stays that way. Thanks to meifukun and xet7.
+
+and adds the following updates:
 
 - [Updated SECURITY.md](https://github.com/wekan/wekan/commit/eebccaf291c2751154f127095d5b7610399f0f2d).
   Thanks to xet7.
