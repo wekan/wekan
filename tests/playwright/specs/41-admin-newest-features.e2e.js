@@ -47,8 +47,13 @@ test.describe('Admin – newest features', () => {
     await expect(table.getByText('Гр.png')).toBeVisible();
     await expect(table.getByText('%D0%93%D1%80')).toHaveCount(0);
 
-    // The invisible-char name is flagged red (exactly one such name here).
-    await expect(page.locator('.filename-invisible')).toHaveCount(1);
+    // The invisible-char name gets ONE red warning triangle, and the invisible
+    // character is replaced inline by its (red) Unicode name — not a whole red
+    // string.
+    await expect(page.locator('.filename-invisible-warning')).toHaveCount(1);
+    await expect(page.locator('.invisible-char-desc')).toContainText('ZERO WIDTH SPACE');
+    // The visible parts of that name are still shown as plain text.
+    await expect(table.getByText('evil', { exact: false })).toBeVisible();
 
     // NO Search button; the search field + pagination controls ARE present.
     await expect(page.locator('button.js-files-search-button')).toHaveCount(0);
@@ -60,7 +65,7 @@ test.describe('Admin – newest features', () => {
     // Filter to only invisible-character filenames: the normal + decoded names go away.
     await page.locator('.js-files-invisible-filter').click();
     await page.waitForTimeout(800);
-    await expect(page.locator('.filename-invisible')).toHaveCount(1);
+    await expect(page.locator('.filename-invisible-warning')).toHaveCount(1);
     await expect(table.getByText('normal-file.png')).toHaveCount(0);
 
     // NEGATIVE: turn the filter back off — the non-invisible names return.

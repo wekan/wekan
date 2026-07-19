@@ -38,9 +38,62 @@ function decodeFileNameSafe(name) {
   }
 }
 
+// Human-readable Unicode names for the invisible characters we flag. Anything not
+// listed (rare C0/C1 controls) falls back to just its "U+XXXX" code point.
+const INVISIBLE_CHAR_NAMES = {
+  0x00: 'NULL', 0x09: 'TAB', 0x0a: 'LINE FEED', 0x0b: 'VERTICAL TAB',
+  0x0c: 'FORM FEED', 0x0d: 'CARRIAGE RETURN', 0x1b: 'ESCAPE', 0x7f: 'DELETE',
+  0xa0: 'NO-BREAK SPACE', 0xad: 'SOFT HYPHEN', 0x061c: 'ARABIC LETTER MARK',
+  0x180e: 'MONGOLIAN VOWEL SEPARATOR',
+  0x200b: 'ZERO WIDTH SPACE', 0x200c: 'ZERO WIDTH NON-JOINER',
+  0x200d: 'ZERO WIDTH JOINER', 0x200e: 'LEFT-TO-RIGHT MARK',
+  0x200f: 'RIGHT-TO-LEFT MARK', 0x2028: 'LINE SEPARATOR',
+  0x2029: 'PARAGRAPH SEPARATOR', 0x202a: 'LEFT-TO-RIGHT EMBEDDING',
+  0x202b: 'RIGHT-TO-LEFT EMBEDDING', 0x202c: 'POP DIRECTIONAL FORMATTING',
+  0x202d: 'LEFT-TO-RIGHT OVERRIDE', 0x202e: 'RIGHT-TO-LEFT OVERRIDE',
+  0x2060: 'WORD JOINER', 0x2061: 'FUNCTION APPLICATION',
+  0x2062: 'INVISIBLE TIMES', 0x2063: 'INVISIBLE SEPARATOR',
+  0x2064: 'INVISIBLE PLUS', 0x2066: 'LEFT-TO-RIGHT ISOLATE',
+  0x2067: 'RIGHT-TO-LEFT ISOLATE', 0x2068: 'FIRST STRONG ISOLATE',
+  0x2069: 'POP DIRECTIONAL ISOLATE', 0xfeff: 'ZERO WIDTH NO-BREAK SPACE (BOM)',
+  0xfff9: 'INTERLINEAR ANNOTATION ANCHOR',
+  0xfffa: 'INTERLINEAR ANNOTATION SEPARATOR',
+  0xfffb: 'INTERLINEAR ANNOTATION TERMINATOR',
+};
+
+// Describe one invisible code point, e.g. "U+200B ZERO WIDTH SPACE".
+function describeInvisibleChar(cp) {
+  const hex = 'U+' + cp.toString(16).toUpperCase().padStart(4, '0');
+  const name = INVISIBLE_CHAR_NAMES[cp];
+  return name ? hex + ' ' + name : hex;
+}
+
+// Split a (decoded) filename into display segments: runs of visible text, and one
+// segment per invisible character carrying its bracketed description. The caller
+// renders visible segments normally and invisible ones in red (as plain text —
+// nothing is ever rendered as HTML/markdown).
+function fileNameSegments(name) {
+  const decoded = decodeFileNameSafe(name);
+  const segments = [];
+  let buf = '';
+  for (const ch of String(decoded)) {
+    if (INVISIBLE_CHARS_REGEX.test(ch)) {
+      if (buf) { segments.push({ invisible: false, text: buf }); buf = ''; }
+      segments.push({ invisible: true, text: '[' + describeInvisibleChar(ch.codePointAt(0)) + ']' });
+    } else {
+      buf += ch;
+    }
+  }
+  if (buf) segments.push({ invisible: false, text: buf });
+  return segments;
+}
+
 module.exports = {
   INVISIBLE_CHARS_SOURCE,
   INVISIBLE_CHARS_REGEX,
+  INVISIBLE_CHAR_NAMES,
   hasInvisibleChars,
   decodeFileNameSafe,
+  describeInvisibleChar,
+  fileNameSegments,
 };

@@ -152,7 +152,13 @@ template(name="filesReport")
         tbody
           tr
             td
-              span(class="{{#if fileNameHasInvisible att.name}}filename-invisible{{/if}}") {{ displayFileName att.name }}
+              if att.hasInvisible
+                i.fa.fa-exclamation-triangle.filename-invisible-warning(title="{{_ 'filename-invisible-legend'}}")
+              each seg in att.nameSegments
+                if seg.invisible
+                  span.invisible-char-desc {{ seg.text }}
+                else
+                  span {{ seg.text }}
             td.right {{ fileSize att.size }}
             td {{ att.type }}
             td {{ att._id }}

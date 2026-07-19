@@ -8,7 +8,7 @@ import Cards from '/models/cards';
 import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 const { filesize } = require('filesize');
-const { decodeFileNameSafe, hasInvisibleChars } = require('/imports/lib/fileNameDisplay');
+const { decodeFileNameSafe, hasInvisibleChars, fileNameSegments } = require('/imports/lib/fileNameDisplay');
 
 // --- Shared helper functions (formerly AdminReport base class methods) ---
 
@@ -399,21 +399,19 @@ function switchMenu(event, tmpl) {
 
 Template.filesReport.helpers({
   results() {
-    return collectionResults(Attachments, { name: 1 });
+    // Enrich each attachment with the plain-text display segments and an
+    // invisible-character flag, so the template can render a red warning triangle
+    // and replace each invisible character inline with its (red) name. A
+    // percent-encoded name (e.g. "%D0%93%D1%80") is URL-decoded first; everything
+    // is rendered as plain text (Blaze `{{ }}` escapes — never markdown/HTML).
+    return collectionResults(Attachments, { name: 1 }).map(att => ({
+      ...att,
+      hasInvisible: hasInvisibleChars(decodeFileNameSafe(att.name)),
+      nameSegments: fileNameSegments(att.name),
+    }));
   },
   resultsCount() {
     return collectionResultsCount(Attachments);
-  },
-  // A percent-encoded name (e.g. "%D0%93%D1%80") is URL-decoded for display when
-  // it decodes cleanly. Blaze `{{ }}` HTML-escapes the result, so the filename is
-  // ALWAYS shown as plain text — never rendered as markdown or HTML.
-  displayFileName(name) {
-    return decodeFileNameSafe(name);
-  },
-  // True when the (decoded) filename hides invisible/control/bidi characters, so
-  // the template can show it in red.
-  fileNameHasInvisible(name) {
-    return hasInvisibleChars(decodeFileNameSafe(name));
   },
   fileSize(size) {
     return fileSizeHelper(size);
