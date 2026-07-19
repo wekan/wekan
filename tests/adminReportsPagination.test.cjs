@@ -74,6 +74,24 @@ check('People/Org/Team/Domain pagination buttons use var(--theme-accent)', () =>
   }
 });
 
+// ── column-header sorting removed everywhere ────────────────────────────────
+check('clickable column-header sorting is removed from the board Table view', () => {
+  const jade = read('client/components/boards/tableView.jade');
+  const js = read('client/components/boards/tableView.js');
+  assert.ok(!/js-table-view-sort/.test(jade) && !/js-table-view-sort/.test(js), 'no sortable headers/handler');
+  assert.ok(!/sortField|sortDirection|sortIndicator/.test(js), 'sort state/helper removed');
+});
+check('clickable column-header sorting is removed from the Admin Domains table', () => {
+  const jade = read('client/components/settings/peopleBody.jade');
+  const js = read('client/components/settings/peopleBody.js');
+  assert.ok(!/js-domain-sort/.test(jade) && !/js-domain-sort/.test(js), 'no sortable headers/handler');
+  assert.ok(!/domainSortIndicator/.test(js), 'sort indicator removed');
+  // the server method no longer takes sort params
+  const srv = read('server/models/users.js');
+  const m = srv.slice(srv.indexOf('getDomainsWithUserCountsPage'), srv.indexOf('getDomainsWithUserCountsPage') + 900);
+  assert.ok(!/sortField|sortDirection/.test(m), 'server method drops sort params (fixed order)');
+});
+
 // ── over-fetch: Translation page must not load the whole collection ─────────
 check('Translation page subscribes with a bounded window, not limit 0 (whole collection)', () => {
   const js = read('client/components/settings/translationBody.js');

@@ -1895,16 +1895,12 @@ Template.settingsUserPopup.helpers({
 // is never loaded into the browser.
 Template.domainGeneral.onCreated(function () {
   this.searchQuery = new ReactiveVar('');
-  this.sortField = new ReactiveVar('domain'); // domain | count
-  this.sortDirection = new ReactiveVar(1); // 1 ascending, -1 descending
   this.page = new ReactiveVar(1);
   this.pageData = new ReactiveVar({ rows: [], total: 0, totalPages: 1 });
 
   this.autorun(() => {
     const params = {
       search: this.searchQuery.get(),
-      sortField: this.sortField.get(),
-      sortDirection: this.sortDirection.get(),
       page: this.page.get(),
       perPage: domainsPerPage,
     };
@@ -1937,12 +1933,6 @@ Template.domainGeneral.helpers({
     const tpl = Template.instance();
     return tpl.page.get() < (tpl.pageData.get().totalPages || 1);
   },
-  // Excel-like sort arrow on the active column, matching the Board Table view.
-  domainSortIndicator(field) {
-    const tpl = Template.instance();
-    if (tpl.sortField.get() !== field) return '';
-    return tpl.sortDirection.get() === 1 ? '▲' : '▼';
-  },
 });
 
 Template.domainGeneral.events({
@@ -1967,17 +1957,5 @@ Template.domainGeneral.events({
     event.preventDefault();
     const current = tpl.page.get();
     if (current < (tpl.pageData.get().totalPages || 1)) tpl.page.set(current + 1);
-  },
-  'click .js-domain-sort'(event, tpl) {
-    event.preventDefault();
-    const field = event.currentTarget.dataset.sort;
-    if (!field) return;
-    if (tpl.sortField.get() === field) {
-      tpl.sortDirection.set(tpl.sortDirection.get() * -1);
-    } else {
-      tpl.sortField.set(field);
-      tpl.sortDirection.set(1);
-    }
-    tpl.page.set(1);
   },
 });

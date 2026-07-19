@@ -14,8 +14,6 @@ const rowsPerPage = 25;
 
 Template.tableView.onCreated(function () {
   this.searchQuery = new ReactiveVar('');
-  this.sortField = new ReactiveVar('card'); // card | list | swimlane | due
-  this.sortDirection = new ReactiveVar(1); // 1 ascending, -1 descending
   this.page = new ReactiveVar(1);
   this.filteredRows = new ReactiveVar([]);
 
@@ -30,8 +28,6 @@ Template.tableView.onCreated(function () {
     }
 
     const query = this.searchQuery.get().trim().toLowerCase();
-    const field = this.sortField.get();
-    const direction = this.sortDirection.get();
 
     const rows = [];
     board.cards().forEach(card => {
@@ -75,39 +71,11 @@ Template.tableView.onCreated(function () {
       });
     }
 
-    // Map a date sort field to the matching row property.
-    const dateFieldProp = {
-      received: 'receivedAt',
-      start: 'startAt',
-      due: 'dueAt',
-      end: 'endAt',
-    };
-
-    filtered = filtered.slice().sort((a, b) => {
-      const dateProp = dateFieldProp[field];
-      if (dateProp) {
-        // Cards without the date sort last, regardless of direction.
-        const av = a[dateProp] ? new Date(a[dateProp]).getTime() : Infinity;
-        const bv = b[dateProp] ? new Date(b[dateProp]).getTime() : Infinity;
-        return (av - bv) * direction;
-      }
-      let av;
-      let bv;
-      if (field === 'list') {
-        av = a.listTitle;
-        bv = b.listTitle;
-      } else if (field === 'swimlane') {
-        av = a.swimlaneTitle;
-        bv = b.swimlaneTitle;
-      } else {
-        av = a.title;
-        bv = b.title;
-      }
-      return (
-        av.localeCompare(bv, undefined, { numeric: true, sensitivity: 'base' }) *
-        direction
-      );
-    });
+    // Fixed order: by card title, ascending. (Column-header click-to-sort was
+    // removed; the Table view now always shows this stable order.)
+    filtered = filtered.slice().sort((a, b) =>
+      a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }),
+    );
 
     this.filteredRows.set(filtered);
   });
@@ -172,13 +140,6 @@ Template.tableView.helpers({
     const board = Utils.getCurrentBoard();
     return !!board && (board.allowsEndDate || board.allowsEndDateOnMinicard);
   },
-
-  // Excel-like sort arrow shown on the active sort column header.
-  sortIndicator(field) {
-    const tpl = Template.instance();
-    if (tpl.sortField.get() !== field) return '';
-    return tpl.sortDirection.get() === 1 ? '▲' : '▼';
-  },
 });
 
 Template.tableView.events({
@@ -210,19 +171,6 @@ Template.tableView.events({
     );
     const current = tpl.page.get();
     if (current < totalPages) tpl.page.set(current + 1);
-  },
-
-  'click .js-table-view-sort'(event, tpl) {
-    event.preventDefault();
-    const field = event.currentTarget.dataset.sort;
-    if (!field) return;
-    if (tpl.sortField.get() === field) {
-      tpl.sortDirection.set(tpl.sortDirection.get() * -1);
-    } else {
-      tpl.sortField.set(field);
-      tpl.sortDirection.set(1);
-    }
-    tpl.page.set(1);
   },
 
   // Clicking the leftmost "Edit" link opens the Card Details popup on top of the

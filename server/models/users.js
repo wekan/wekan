@@ -2186,8 +2186,6 @@ Meteor.methods({
   async getDomainsWithUserCountsPage(params = {}) {
     check(params, Match.ObjectIncluding({
       search: Match.Optional(String),
-      sortField: Match.Optional(String),
-      sortDirection: Match.Optional(Number),
       page: Match.Optional(Number),
       perPage: Match.Optional(Number),
     }));
@@ -2217,10 +2215,9 @@ Meteor.methods({
       count: counts[domain],
     }));
 
+    // Fixed order (domain ascending) — column-header sorting was removed.
     return paginateDomains(rows, {
       search: params.search,
-      sortField: params.sortField,
-      sortDirection: params.sortDirection,
       page: params.page,
       perPage: params.perPage,
     });

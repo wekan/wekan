@@ -437,7 +437,3 @@ table td:first-child {
   color: #333;
 }
 
-th.js-domain-sort {
-  cursor: pointer;
-  user-select: none;
-}

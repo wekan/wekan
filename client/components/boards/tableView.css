@@ -63,18 +63,6 @@
   color: #333;
 }
 
-/* Sortable column headers (Excel-like): clickable, with a sort-direction
-   arrow appended by the sortIndicator helper. */
-.my-cards-board-table th.js-table-view-sort {
-  cursor: pointer;
-  user-select: none;
-  white-space: nowrap;
-}
-
-.my-cards-board-table th.js-table-view-sort:hover {
-  color: #01628c;
-}
-
 /* Leftmost "Edit" cell: an Edit link (pencil icon + text) styled like the one
    on the Admin Panel / People page, opening the card when clicked. */
 .my-cards-board-table td.table-view-cell-edit {

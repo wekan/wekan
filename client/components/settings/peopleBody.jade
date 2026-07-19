@@ -261,8 +261,8 @@ template(name="domainGeneral")
   table
     thead
       tr
-        th.js-domain-sort(scope="col" data-sort="domain") {{_ 'domain'}} {{domainSortIndicator 'domain'}}
-        th.js-domain-sort(scope="col" data-sort="count") {{_ 'domain-user-count'}} {{domainSortIndicator 'count'}}
+        th(scope="col") {{_ 'domain'}}
+        th(scope="col") {{_ 'domain-user-count'}}
     tbody
       if domainList.length
         each domainList

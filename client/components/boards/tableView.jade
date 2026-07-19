@@ -18,21 +18,21 @@ template(name="tableView")
         thead
           tr
             th(scope="col")
-            th.js-table-view-sort(scope="col" data-sort="card") {{_ "card"}} {{sortIndicator 'card'}}
-            th.js-table-view-sort(scope="col" data-sort="list") {{_ "list"}} {{sortIndicator 'list'}}
-            th.js-table-view-sort(scope="col" data-sort="swimlane") {{_ "swimlane"}} {{sortIndicator 'swimlane'}}
+            th(scope="col") {{_ "card"}}
+            th(scope="col") {{_ "list"}}
+            th(scope="col") {{_ "swimlane"}}
             unless isMiniScreen
               th(scope="col") {{_ "assignees"}}
               th(scope="col") {{_ "members"}}
               th(scope="col") {{_ "labels"}}
               if showReceivedColumn
-                th.js-table-view-sort(scope="col" data-sort="received") {{_ "card-received"}} {{sortIndicator 'received'}}
+                th(scope="col") {{_ "card-received"}}
               if showStartColumn
-                th.js-table-view-sort(scope="col" data-sort="start") {{_ "card-start"}} {{sortIndicator 'start'}}
+                th(scope="col") {{_ "card-start"}}
               if showDueColumn
-                th.js-table-view-sort(scope="col" data-sort="due") {{_ "card-due"}} {{sortIndicator 'due'}}
+                th(scope="col") {{_ "card-due"}}
               if showEndColumn
-                th.js-table-view-sort(scope="col" data-sort="end") {{_ "card-end"}} {{sortIndicator 'end'}}
+                th(scope="col") {{_ "card-end"}}
         tbody
           each row in rows
             tr
