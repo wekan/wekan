@@ -72,6 +72,26 @@ episode to at most three rows: **start**, **mitigation taken**, **end (with effe
 The effect is a correlation over the sampling window (a short pause on a 5s window is
 a coarse signal), reported as observed — not a controlled measurement.
 
+### Asking FerretDB to slow down (cross-process)
+
+FerretDB is the other big CPU user on the same host, and WeKan cannot pause
+FerretDB's internal work from the outside — so the **wekan/FerretDB v1 fork adds a
+custom `wekanThrottle` command** (`FerretDB/internal/handler/`). When WeKan detects
+high CPU it calls it (`server/lib/ferretdbGovernor.js`), which:
+
+1. **asks what FerretDB is doing** — the response includes `commandsProcessed`, a
+   running count of commands handled (higher = busier), logged as FerretDB's activity;
+2. **asks FerretDB to slow down** — for `durationMs`, FerretDB pauses `slowDownMs`
+   (default 5ms, env `WEKAN_FERRETDB_SLOWDOWN_MS`) before every command in its
+   dispatch path, lowering its CPU use and yielding to other software.
+
+The throttle **self-expires** on the FerretDB side (max 5 min), so a WeKan crash can
+never leave FerretDB permanently slow; WeKan renews it every sample while CPU stays
+high and calls it again with a zero duration (resume) when the period ends. The ask,
+FerretDB's reported activity, and the resume are all written to the CPU usage log.
+On plain MongoDB or an older FerretDB without the command, the call fails once and is
+never retried (best-effort, no effect).
+
 ### Report
 
 The `cpu` value is added to `EVENT_STREAMS` (`models/eventLog.js`); the report reuses

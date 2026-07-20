@@ -24,6 +24,7 @@ const LOW_PCT = intEnv('WEKAN_CPU_LOW_PERCENT', 70);
 const ENTER_SAMPLES = intEnv('WEKAN_CPU_HIGH_SAMPLES', 3);
 const EXIT_SAMPLES = intEnv('WEKAN_CPU_LOW_SAMPLES', 3);
 const PAUSE_MS = intEnv('WEKAN_CPU_PAUSE_MS', 200);
+const FERRET_SLOWDOWN_MS = intEnv('WEKAN_FERRETDB_SLOWDOWN_MS', 5);
 const ENABLED = String(process.env.WEKAN_CPU_MONITOR || 'true').toLowerCase() !== 'false';
 
 function intEnv(name, fallback) {
@@ -48,6 +49,8 @@ let mitigationLogged = false;    // the "mitigation taken" row was written once
 let mitigationStartPct = null;   // CPU% at the moment slowing-down began
 let minPctAfterMitigation = null;// lowest CPU% seen after slowing-down began
 
+let ferretGovernActive = false; // true once FerretDB has been asked to slow down
+
 function resetPeriodMitigation() {
   periodPauseCount = 0;
   periodPausedMs = 0;
@@ -55,6 +58,47 @@ function resetPeriodMitigation() {
   mitigationLogged = false;
   mitigationStartPct = null;
   minPctAfterMitigation = null;
+  ferretGovernActive = false;
+}
+
+// Ask FerretDB what it is doing and to slow down, and log its response on its own
+// 'cpu' row. Fire-and-forget (async, best-effort); does nothing on plain MongoDB or
+// an older FerretDB without the wekanThrottle command.
+function governFerretStart(pct) {
+  try {
+    const { slowDownFerretDb } = require('/server/lib/ferretdbGovernor');
+    const { record } = require('/server/lib/cpuLog');
+    Promise.resolve(slowDownFerretDb(FERRET_SLOWDOWN_MS, INTERVAL_MS * 3)).then(resp => {
+      if (!resp) return; // not a FerretDB with governor support
+      ferretGovernActive = true;
+      record({
+        action: 'rate-limited',
+        severity: 'info',
+        detail: `high CPU (${pct}%): asked FerretDB to slow down (${resp.slowDownMs}ms before each command ` +
+          `for ${Math.round((resp.durationMs || 0) / 1000)}s to yield CPU). FerretDB activity: ` +
+          `${resp.commandsProcessed} commands processed so far (higher = busier). FerretDB throttled: ${resp.throttled}.`,
+      });
+    }).catch(() => {});
+  } catch (e) { /* best effort */ }
+}
+
+// Keep FerretDB's self-expiring throttle alive while CPU stays high (silent).
+function governFerretRenew() {
+  if (!ferretGovernActive) return;
+  try {
+    const { slowDownFerretDb } = require('/server/lib/ferretdbGovernor');
+    Promise.resolve(slowDownFerretDb(FERRET_SLOWDOWN_MS, INTERVAL_MS * 3)).catch(() => {});
+  } catch (e) { /* best effort */ }
+}
+
+// Ask FerretDB to resume full speed when the high-CPU period ends.
+function governFerretEnd() {
+  if (!ferretGovernActive) return;
+  ferretGovernActive = false;
+  try {
+    const { resumeFerretDb } = require('/server/lib/ferretdbGovernor');
+    Promise.resolve(resumeFerretDb()).catch(() => {});
+  } catch (e) { /* best effort */ }
 }
 
 // Aggregate idle/total jiffies across all cores.
@@ -152,14 +196,20 @@ if (Meteor.isServer && ENABLED) {
             severity: pct >= 95 ? 'high' : 'medium',
             detail: `high CPU usage started (>= ${HIGH_PCT}%): ${activitySnapshot(pct, load, cores)}`,
           });
+          // Ask FerretDB (the other big CPU user on this host) what it is doing and
+          // to slow down; the response is logged on its own row.
+          governFerretStart(pct);
         } else if (res.event === 'end') {
           const secs = Math.round((res.durationMs || 0) / 1000);
+          const askedFerret = ferretGovernActive;
+          governFerretEnd(); // ask FerretDB to resume full speed
           record({
             action: 'remediated',
             severity: 'info',
             at: new Date(now),
             detail: `high CPU usage ended after ${secs}s (peak ${res.peak}%, back under ${LOW_PCT}%): ` +
-              activitySnapshot(pct, load, cores) + ' | ' + mitigationSummary(),
+              activitySnapshot(pct, load, cores) + ' | ' + mitigationSummary() +
+              (askedFerret ? ' | asked FerretDB to resume normal speed' : ''),
           });
         }
 
@@ -180,6 +230,8 @@ if (Meteor.isServer && ENABLED) {
           } else if (mitigationLogged && pct < minPctAfterMitigation) {
             minPctAfterMitigation = pct;
           }
+          // Keep FerretDB's self-expiring throttle alive for the whole high period.
+          governFerretRenew();
         }
       } catch (e) {
         if (process.env.DEBUG === 'true') console.warn('cpuMonitor sample failed:', e && e.message);

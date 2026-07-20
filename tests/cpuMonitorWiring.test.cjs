@@ -46,6 +46,18 @@ check('logs the automatic mitigation taken and whether it lowered CPU', () => {
   assert.ok(/noticeably lower/.test(m), 'states whether pausing helped');
 });
 
+check('on high CPU, WeKan asks FerretDB what it is doing and to slow down, and logs it', () => {
+  const g = read('server/lib/ferretdbGovernor.js');
+  assert.ok(/wekanThrottle/.test(g), 'calls the custom FerretDB wekanThrottle command');
+  assert.ok(/export function slowDownFerretDb/.test(g) && /export function resumeFerretDb/.test(g),
+    'slow-down + resume');
+  const m = read('server/lib/cpuMonitor.js');
+  assert.ok(/governFerretStart/.test(m) && /governFerretEnd/.test(m), 'wired into start/end');
+  assert.ok(/asked FerretDB to slow down/.test(m), 'logs what FerretDB was asked');
+  assert.ok(/commandsProcessed/.test(m), 'logs FerretDB activity');
+  assert.ok(/asked FerretDB to resume/.test(m), 'logs resume when CPU drops');
+});
+
 check('CPU usage report is wired into Admin Panel / Problems', () => {
   assert.ok(/'security', 'speed', 'tests', 'cpu'/.test(read('models/eventLog.js')), 'cpu event stream registered');
   const jade = read('client/components/settings/adminReports.jade');
