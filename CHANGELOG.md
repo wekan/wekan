@@ -86,6 +86,26 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# v10.06 2026-07-20 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: force `changeStreams` out of the reactivity order for FerretDB on all
+  platforms, not only the snap. FerretDB v1 does not implement MongoDB change
+  streams, so a `$changeStream` aggregate returns "not implemented" and Meteor
+  busy-loops retrying it (high FerretDB CPU, cards not opening). The snap fix
+  already stripped `changeStreams` from `METEOR_REACTIVITY_ORDER`; the same strip
+  is now applied to the remaining FerretDB run-paths — the standalone FerretDB
+  release `start-wekan.sh`, the FerretDB Docker image `wekan-entrypoint.sh`, and
+  the Windows `start-wekan.bat` — so `changeStreams` can never enter the order
+  however it was passed in (OpLog + polling only). The Docker compose files
+  already hardcode safe values, and the real-MongoDB `start-wekan.sh` /
+  `start-wekan.bat` are unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/3efd96368fc5902b1e3ab14e5ded688994ac95c8).
+  Thanks to uusijani, mueschel and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.05 2026-07-20 WeKan ® release
 
 This release fixes the following bugs:
