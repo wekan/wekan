@@ -924,4 +924,49 @@ Meteor.methods({
 
     return board.copy();
   },
+
+  // Board status for the sidebar Status popup: accurate counts computed on the
+  // server (so they are correct even in lazy mode, where the client's minimongo
+  // only holds the visible card window), plus this board's effective card-loading
+  // mode (lazy vs eager). Any board member (visible board) may read it.
+  async boardStatus(boardId) {
+    check(boardId, String);
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const boardIds = [board._id];
+    if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
+
+    const cards = await Cards.find({ boardId: { $in: boardIds }, archived: false }).countAsync();
+    const archivedCards = await Cards.find({ boardId: { $in: boardIds }, archived: true }).countAsync();
+    const swimlanes = (await ReactiveCache.getSwimlanes({ boardId: board._id, archived: false })).length;
+    const lists = (await ReactiveCache.getLists({ boardId: board._id, archived: false })).length;
+    const customFields = (await ReactiveCache.getCustomFields({ boardIds: { $in: [board._id] } })).length;
+    const labels = (board.labels || []).length;
+    const members = (board.members || []).filter(m => m.isActive !== false).length;
+
+    // Time-spent summary, in the style of the general task time reports: sum the
+    // spentTime over the active cards that have any logged, how many cards that is,
+    // and how many are flagged overtime. Only cards WITH time are fetched (spentTime
+    // > 0), so this stays cheap even on a large board.
+    const timeCards = await Cards.find(
+      { boardId: { $in: boardIds }, archived: false, spentTime: { $gt: 0 } },
+      { fields: { spentTime: 1, isOvertime: 1 } },
+    ).fetchAsync();
+    const timeSpentTotal = timeCards.reduce((sum, c) => sum + (Number(c.spentTime) || 0), 0);
+    const cardsWithTimeSpent = timeCards.length;
+    const overtimeCards = timeCards.filter(c => c.isOvertime).length;
+
+    const mode = globalCardsMode();
+    const lazy =
+      mode === 'lazy' ||
+      (mode !== 'all' &&
+        effectiveBoardCardsMode('auto', cards, globalLazyThreshold()) === 'lazy');
+
+    return {
+      mode, lazy, swimlanes, lists, cards, archivedCards, labels, members, customFields,
+      timeSpentTotal, cardsWithTimeSpent, overtimeCards,
+    };
+  },
 });

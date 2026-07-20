@@ -222,6 +222,21 @@ This release also fixes reported problems from **v10.03**:
   `onReady` callback, so if a report publication errored on the server the report was
   stuck showing the loading spinner forever with no feedback. They now also handle
   `onStop`: the spinner clears and, on a real error, the message is surfaced.
+- **Board Settings → Status** — a new read-only **Board status** popup (board right
+  sidebar → Board menu → Board status) shows this board's card-loading mode (lazy vs
+  all, and whether it was chosen automatically), its counts (swimlanes, lists, cards,
+  archived cards, labels, members, custom fields) and a **time-spent summary** in the
+  style of the task time reports (total hours logged, cards with time, overtime
+  cards). Counts are computed on the server so they are accurate even in lazy mode
+  (where the browser only holds the visible card window). The popup is larger than a
+  normal pop-over and its text can be selected and copied with the mouse. Design:
+  [docs/Features/Board/Sidebar/Status.md](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Sidebar/Status.md).
+- **Admin Panel → Problems monitors reorganized in docs**, and new **RAM usage** and
+  **Disk usage** designs — the docs for the Problems reports now live under
+  [docs/Features/Admin-Panel/Problems/](https://github.com/wekan/wekan/tree/main/docs/Features/Admin-Panel/Problems);
+  RAM-usage and Disk-usage are new design specs (log how much RAM+swap / disk is used
+  and record only the start and end of each sustained high-usage period, mirroring the
+  CPU-usage monitor).
 
 # v10.03 2026-07-19 WeKan ® release
 
