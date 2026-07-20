@@ -178,6 +178,14 @@ and fixes the following bugs:
   match a missing field unless null is in the list, so the rule silently never fired;
   null is now included for every field, like the cardTitle handling (#6491)](https://github.com/wekan/wekan/commit/e6b001320c27a11fdbd15e17f2ad230bdeab2290).
   Thanks to xet7.
+- [Fix: FerretDB high CPU and cards not opening — FerretDB v1 does not implement
+  MongoDB change streams, but the snap default reactivity order put `changeStreams`
+  first, so Meteor issued $changeStream aggregates that FerretDB rejected thousands of
+  times per second (a busy-loop pinning FerretDB CPU at 100-390% — the "aggregate=…"
+  that dominated the operations summary — and starving board/card loading so cards
+  would not open). The snap now forces `changeStreams` out of the reactivity order for
+  FerretDB (oplog + polling only); real MongoDB is unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/2c63ea5a68a6a624637baf965cd6fcc3648b693f).
+  Thanks to uusijani, mueschel and xet7.
 - [Fix: admin reports load on FerretDB — the paginated report publications returned a
   sorted+limited live cursor, whose limited live observe hangs on FerretDB's OpLog, so
   the report was stuck on the loading spinner; they now publish the page manually so
