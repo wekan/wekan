@@ -575,30 +575,15 @@ publishComposite('board', async function(boardId, isArchived) {
 
           return await ReactiveCache.getCards(cardSelector, {}, true);
         },
-        // Comments and attachments are published as CHILDREN of the cards
-        // cursor so they react to newly added cards (publish-composite runs them
-        // per card as it appears). Checklists and checklist items are instead
-        // published below as single board-level cursors filtered by their
-        // denormalized boardId — same reactivity for new cards, but one cursor
-        // per collection instead of one per card. (They used to be batched at
-        // board level with a static `cardId: { $in: cardIds }` snapshot that did
-        // not react to new cards, so a new checklist on a new card only appeared
-        // after logout/login.)
-        children: [
-          // CardComments for each card
-          {
-            async find(card) {
-              return await ReactiveCache.getCardComments({ cardId: card._id }, {}, true);
-            }
-          },
-          // Attachments for each card
-          {
-            async find(card) {
-              const result = await ReactiveCache.getAttachments({ 'meta.cardId': card._id }, {}, true);
-              return result.cursor || result;
-            }
-          },
-        ]
+        // NOTE: CardComments and Attachments are NOT published as per-card children
+        // here. Doing so opened ONE live cursor per card (an N+1) — on a board with
+        // many cards that multiplied live observers, and under FerretDB's poll-and-diff
+        // that pinned FerretDB/SQLite CPU and made boards take minutes to open (#6480).
+        // They are instead published below as single board-level cursors on their
+        // denormalized boardId / meta.boardId — exactly like checklists and checklist
+        // items — which still react to newly added cards (a new card's comment/
+        // attachment carries the board id) but open ONE cursor per collection instead
+        // of one per card.
       },
       // Checklists for the whole board — a single cursor on the denormalized
       // boardId, so checklists on newly added cards publish reactively without a
@@ -647,6 +632,58 @@ publishComposite('board', async function(boardId, isArchived) {
             }
           }
           return await ReactiveCache.getChecklistItems({ boardId: { $in: boardIds } }, {}, true);
+        }
+      },
+      // CardComments for the whole board — a single cursor on the denormalized
+      // boardId (indexed), replacing the former one-cursor-per-card N+1 (#6480). New
+      // cards' comments still publish reactively because they carry the board's id.
+      {
+        async find(board) {
+          // Lazy mode: comments are published per visible card by boardCardsWindow.
+          if (lazyCards()) return null;
+          const boardIds = [board._id];
+          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
+          // Assigned-only members must only receive comments for cards assigned to
+          // them; boardId alone cannot express that, so fall back to the assigned
+          // cards' ids for those members (same as checklists above).
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              const cards = await ReactiveCache.getCards(
+                { boardId: { $in: boardIds }, archived: isArchived, assignees: { $in: [thisUserId] } },
+                { fields: { _id: 1 } },
+                false,
+              );
+              const cardIds = (cards || []).map(c => c._id);
+              return await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true);
+            }
+          }
+          return await ReactiveCache.getCardComments({ boardId: { $in: boardIds } }, {}, true);
+        }
+      },
+      // Attachments for the whole board — a single cursor on the denormalized
+      // meta.boardId (indexed), replacing the former one-cursor-per-card N+1 (#6480).
+      {
+        async find(board) {
+          // Lazy mode: attachments are published per visible card by boardCardsWindow.
+          if (lazyCards()) return null;
+          const boardIds = [board._id];
+          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              const cards = await ReactiveCache.getCards(
+                { boardId: { $in: boardIds }, archived: isArchived, assignees: { $in: [thisUserId] } },
+                { fields: { _id: 1 } },
+                false,
+              );
+              const cardIds = (cards || []).map(c => c._id);
+              const scoped = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true);
+              return scoped.cursor || scoped;
+            }
+          }
+          const result = await ReactiveCache.getAttachments({ 'meta.boardId': { $in: boardIds } }, {}, true);
+          return result.cursor || result;
         }
       },
       // Parent cards (for subtasks)

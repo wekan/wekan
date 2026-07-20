@@ -506,6 +506,11 @@ Meteor.startup(async () => {
   await ensureIndex(Cards, { updatedAt: 1, deleted: 1 });
   await ensureIndex(Cards, { boardId: 1, createdAt: -1 });
   await ensureIndex(Cards, { boardId: 1, listId: 1 });
+  // The board publication's main card cursor filters { boardId, archived }; without
+  // archived in the index FerretDB/SQLite could only use the boardId prefix and then
+  // scanned archived, which on boards with years of archived+active cards burned CPU
+  // and caused SQLITE_BUSY (#6480). This compound index covers that filter.
+  await ensureIndex(Cards, { boardId: 1, archived: 1 });
   await ensureIndex(Cards, { parentId: 1 });
   Meteor.defer(() => {
     addCronJob();

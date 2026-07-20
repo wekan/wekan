@@ -32,6 +32,10 @@ async function commentCreation(userId, doc) {
 Meteor.startup(async () => {
   await ensureIndex(CardComments, { modifiedAt: -1 });
   await ensureIndex(CardComments, { cardId: 1, createdAt: -1 });
+  // The board publication now publishes all of a board's comments with one cursor on
+  // the denormalized boardId (replacing a per-card N+1, #6480); index it so that
+  // board-level query is not a full collection scan.
+  await ensureIndex(CardComments, { boardId: 1 });
 });
 
 CardComments.after.insert(async (userId, doc) => {

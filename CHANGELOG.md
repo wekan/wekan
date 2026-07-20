@@ -169,6 +169,48 @@ subsystem. Designs:
   XML loop, wrong file type, filename too long), the filename ("from" → "to"), and
   WHERE it was uploaded (board › swimlane › list › card, plus organization and team).
 
+This release also fixes reported problems from **v10.03**:
+
+- **Fix: opening a board no longer pins FerretDB CPU / takes minutes**
+  ([#6480](https://github.com/wekan/wekan/issues/6480)). The `board` publication
+  opened **one live CardComments cursor and one Attachments cursor per card**, so a
+  board with many cards spun up thousands of live observers; under FerretDB's
+  poll-and-diff that pinned FerretDB/SQLite CPU (170–300 %) and made boards take
+  minutes to open. Comments and attachments are now published with a **single
+  board-level cursor each**, on their denormalized `boardId` / `meta.boardId` (exactly
+  like checklists) — one cursor per collection instead of one per card, still reacting
+  to newly added cards. Added the supporting indexes so those board-level queries are
+  not full scans: `cards {boardId, archived}` (the board card filter), `cardComments
+  {boardId}`, and `attachments {meta.boardId}`. Best paired with the bundled FerretDB
+  v1.33.0+, whose OpLog-by-default stops Meteor's poll-and-diff entirely and whose
+  SQLite pragmas (`busy_timeout` 30 s, WAL, `synchronous=normal`, cache/mmap) further
+  cut CPU and `SQLITE_BUSY`.
+- **CPU usage: surface FerretDB's own process CPU**
+  ([#6480](https://github.com/wekan/wekan/issues/6480)). "Admin Panel → Problems → CPU
+  usage" could stay empty even while FerretDB pegged the machine, because both WeKan
+  and FerretDB only measured **system-wide** CPU: on a many-core host FerretDB at
+  170–300 % (2–3 cores) is only ~40–75 % system-wide, below the high-CPU threshold.
+  FerretDB now reports its **own process CPU%** (100 % = one core) in the `throttle`
+  response, and WeKan surfaces it: high-CPU rows include FerretDB's process CPU, and a
+  new **watch** (a pure status read that never slows FerretDB down, so it cannot make a
+  slow board load worse) records a start/end episode when FerretDB alone monopolises
+  cores even though the system-wide percentage stays moderate. Tunable via
+  `WEKAN_FERRETDB_WATCH_PERCENT` / `WEKAN_FERRETDB_PROC_HIGH_PERCENT`.
+- **Fix: removing a member from a board now visibly works**
+  ([#6479](https://github.com/wekan/wekan/issues/6479)). Removing a member kept the
+  entry with `isActive:false` (#5122, for role history / re-activation), but the board
+  sidebar's member list still rendered inactive entries with no clear distinction, so
+  "Remove from board" looked like it did nothing — the avatar stayed. The sidebar list
+  now shows only active members (plus imported placeholders pending reconciliation);
+  removed members disappear from it immediately. Removed people still show greyed where
+  they remain referenced (e.g. as a card assignee) via the existing `inactive-member`
+  avatar styling.
+- **Admin reports never get stuck on the loading spinner** — the paginated admin
+  reports (Files, Rules, Boards, Cards, Impersonation) only handled the subscription
+  `onReady` callback, so if a report publication errored on the server the report was
+  stuck showing the loading spinner forever with no feedback. They now also handle
+  `onStop`: the spinner clears and, on a real error, the message is surfaced.
+
 # v10.03 2026-07-19 WeKan ® release
 
 This release fixes the following CRITICAL VULNERABILITIES, all reported by meifukun:

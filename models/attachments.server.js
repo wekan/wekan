@@ -431,6 +431,10 @@ Meteor.methods({
 
 Meteor.startup(async () => {
   await ensureIndex(Attachments, { 'meta.cardId': 1 });
+  // The board publication now publishes all of a board's attachments with one cursor
+  // on the denormalized meta.boardId (replacing a per-card N+1, #6480); index it so
+  // that board-level query is not a full collection scan.
+  await ensureIndex(Attachments, { 'meta.boardId': 1 });
 
   // Ensure standard GridFS index on attachments.chunks for efficient chunk lookups.
   // Without this, queries like find({files_id: ObjectId}) do full collection scans.
