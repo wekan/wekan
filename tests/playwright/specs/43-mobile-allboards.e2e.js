@@ -38,13 +38,29 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       await expect(tiles.first()).toBeVisible({ timeout: 15_000 });
       expect(await tiles.count()).toBeGreaterThanOrEqual(4);
 
-      // At least 2 per row: the first two tiles share a row (same top) with the
-      // second to the right of the first.
-      const b0 = await tiles.nth(0).boundingBox();
-      const b1 = await tiles.nth(1).boundingBox();
-      expect(b0 && b1).toBeTruthy();
-      expect(Math.abs(b0.y - b1.y)).toBeLessThan(b0.height / 2);
-      expect(b1.x).toBeGreaterThan(b0.x);
+      // At least 2 per row. Measure EVERY tile in the list (including the leading
+      // "+ Add board" tile, which occupies the first grid cell and offsets the
+      // first two boards onto different rows), then cluster tiles by their top
+      // and assert the top row holds >=2 tiles at two distinct x columns. This
+      // verifies the 2-column grid directly, without assuming which board lands
+      // where.
+      const allTiles = page.locator('ul.board-list li');
+      const count = await allTiles.count();
+      const boxes = [];
+      for (let i = 0; i < count; i++) {
+        const bb = await allTiles.nth(i).boundingBox();
+        if (bb) boxes.push(bb);
+      }
+      expect(boxes.length).toBeGreaterThanOrEqual(4);
+      const rowH = Math.min(...boxes.map(b => b.height));
+      const top = Math.min(...boxes.map(b => b.y));
+      const firstRow = boxes.filter(b => Math.abs(b.y - top) < rowH / 2);
+      // Two or more tiles share the top row...
+      expect(firstRow.length).toBeGreaterThanOrEqual(2);
+      // ...at two or more distinct x positions (real columns, not overlap).
+      const xs = [...new Set(firstRow.map(b => Math.round(b.x)))].sort((a, b) => a - b);
+      expect(xs.length).toBeGreaterThanOrEqual(2);
+      expect(xs[1]).toBeGreaterThan(xs[0]);
 
       // The list is a bounded, scrollable container (content overflows its box).
       const list = page.locator('ul.board-list');
