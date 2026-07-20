@@ -86,22 +86,10 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# v10.06 2026-07-20 WeKan ® release
+# v10.07 2026-07-20 WeKan ® release
 
 This release fixes the following bugs:
 
-- [Fix: force `changeStreams` out of the reactivity order for FerretDB on all
-  platforms, not only the snap. FerretDB v1 does not implement MongoDB change
-  streams, so a `$changeStream` aggregate returns "not implemented" and Meteor
-  busy-loops retrying it (high FerretDB CPU, cards not opening). The snap fix
-  already stripped `changeStreams` from `METEOR_REACTIVITY_ORDER`; the same strip
-  is now applied to the remaining FerretDB run-paths — the standalone FerretDB
-  release `start-wekan.sh`, the FerretDB Docker image `wekan-entrypoint.sh`, and
-  the Windows `start-wekan.bat` — so `changeStreams` can never enter the order
-  however it was passed in (OpLog + polling only). The Docker compose files
-  already hardcode safe values, and the real-MongoDB `start-wekan.sh` /
-  `start-wekan.bat` are unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/0376665882267d0e77116a1182010a4f35882a3f).
-  Thanks to uusijani, mueschel and xet7.
 - [Fix: the Files admin report (Admin Panel / Reports / Files) showed only its
   controls and never listed any files. Its rows and count were read from the
   ostrio FilesCollection wrapper, whose FilesCursor does not reliably re-run in a
@@ -126,6 +114,26 @@ This release fixes the following bugs:
   them lets the bounded height take effect and the two-column list
   scrolls](https://github.com/wekan/wekan/commit/fd55cee87c77241896f2eda4513139117e250ccd).
   Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
+# v10.06 2026-07-20 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: force `changeStreams` out of the reactivity order for FerretDB on all
+  platforms, not only the snap. FerretDB v1 does not implement MongoDB change
+  streams, so a `$changeStream` aggregate returns "not implemented" and Meteor
+  busy-loops retrying it (high FerretDB CPU, cards not opening). The snap fix
+  already stripped `changeStreams` from `METEOR_REACTIVITY_ORDER`; the same strip
+  is now applied to the remaining FerretDB run-paths — the standalone FerretDB
+  release `start-wekan.sh`, the FerretDB Docker image `wekan-entrypoint.sh`, and
+  the Windows `start-wekan.bat` — so `changeStreams` can never enter the order
+  however it was passed in (OpLog + polling only). The Docker compose files
+  already hardcode safe values, and the real-MongoDB `start-wekan.sh` /
+  `start-wekan.bat` are unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/0376665882267d0e77116a1182010a4f35882a3f).
+  Thanks to uusijani, mueschel and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
