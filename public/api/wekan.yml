@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v10.03
+  version: v10.04
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6584,6 +6584,7 @@ definitions:
           - board-view-cal
           - board-view-gantt
           - board-view-table
+          - board-view-stats
       listSortBy:
         description: |
            default sort list for user
