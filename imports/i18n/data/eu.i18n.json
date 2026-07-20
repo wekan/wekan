@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Segurtasuna",
   "speedReportTitle": "Abiadura",
   "testsReportTitle": "Probak",
+  "cpuReportTitle": "CPU erabilera",
   "new-problems": "arazo berri",
   "acknowledge": "Berretsi",
   "no-new-problems": "Ez dago arazo berririk.",

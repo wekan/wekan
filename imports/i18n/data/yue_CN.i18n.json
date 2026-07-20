@@ -2253,6 +2253,7 @@
   "securityReportTitle": "安全",
   "speedReportTitle": "速度",
   "testsReportTitle": "測試",
+  "cpuReportTitle": "CPU使用率",
   "new-problems": "個新問題",
   "acknowledge": "確認",
   "no-new-problems": "冇新問題。",

@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Ukhuseleko",
   "speedReportTitle": "Isantya",
   "testsReportTitle": "Iimvavanyo",
+  "cpuReportTitle": "Ukusetyenziswa kwe-CPU",
   "new-problems": "iingxaki ezintsha",
   "acknowledge": "Vuma",
   "no-new-problems": "Akukho zingxaki zintsha.",

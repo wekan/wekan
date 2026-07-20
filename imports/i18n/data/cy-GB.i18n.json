@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Diogelwch",
   "speedReportTitle": "Cyflymder",
   "testsReportTitle": "Profion",
+  "cpuReportTitle": "Defnydd CPU",
   "new-problems": "problemau newydd",
   "acknowledge": "Cydnabod",
   "no-new-problems": "Dim problemau newydd.",

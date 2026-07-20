@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Turvalisus",
   "speedReportTitle": "Kiirus",
   "testsReportTitle": "Testid",
+  "cpuReportTitle": "Protsessori kasutus",
   "new-problems": "uut probleemi",
   "acknowledge": "Kinnita",
   "no-new-problems": "Uusi probleeme pole.",

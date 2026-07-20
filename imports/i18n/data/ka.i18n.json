@@ -2253,6 +2253,7 @@
   "securityReportTitle": "უსაფრთხოება",
   "speedReportTitle": "სიჩქარე",
   "testsReportTitle": "ტესტები",
+  "cpuReportTitle": "CPU-ს გამოყენება",
   "new-problems": "ახალი პრობლემა",
   "acknowledge": "დადასტურება",
   "no-new-problems": "ახალი პრობლემები არ არის.",

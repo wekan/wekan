@@ -2253,6 +2253,7 @@
   "securityReportTitle": "الأمان",
   "speedReportTitle": "السرعة",
   "testsReportTitle": "الاختبارات",
+  "cpuReportTitle": "استخدام المعالج",
   "new-problems": "مشاكل جديدة",
   "acknowledge": "إقرار",
   "no-new-problems": "لا توجد مشاكل جديدة.",

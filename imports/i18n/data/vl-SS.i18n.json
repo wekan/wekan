@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Beveiliging",
   "speedReportTitle": "Snelheid",
   "testsReportTitle": "Tests",
+  "cpuReportTitle": "CPU usage",
   "new-problems": "nieuwe problemen",
   "acknowledge": "Bevestigen",
   "no-new-problems": "Geen nieuwe problemen.",

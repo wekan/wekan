@@ -55,7 +55,44 @@ check('on high CPU, WeKan asks FerretDB what it is doing and to slow down, and l
   assert.ok(/governFerretStart/.test(m) && /governFerretEnd/.test(m), 'wired into start/end');
   assert.ok(/asked FerretDB to slow down/.test(m), 'logs what FerretDB was asked');
   assert.ok(/commandsProcessed/.test(m), 'logs FerretDB activity');
-  assert.ok(/asked FerretDB to resume/.test(m), 'logs resume when CPU drops');
+  assert.ok(/asked FerretDB to resume/.test(m), 'FerretDB resumes when CPU drops');
+});
+
+check('the FerretDB slow-down escalates until CPU has headroom, then holds', () => {
+  const m = read('server/lib/cpuMonitor.js');
+  assert.ok(/governFerretAdjust/.test(m), 'adaptive adjust each sample');
+  assert.ok(/FERRET_SLOWDOWN_MAX_MS/.test(m) && /CPU_TARGET_PCT/.test(m), 'escalation cap + headroom target');
+  assert.ok(/increased FerretDB slow-down/.test(m), 'logs each increase of the delay');
+  assert.ok(/enough CPU is now free for other processes/.test(m), 'logs when the target is reached');
+  assert.ok(/did not free enough CPU/.test(m), 'logs when even max delay is not enough');
+  assert.ok(/\* 2/.test(m), 'delay increases (doubles) between operations');
+});
+
+check('WeKan rate-limits asks, times out, backs off, and logs the outage start→end', () => {
+  const m = read('server/lib/cpuMonitor.js');
+  assert.ok(/FERRET_ASK_MIN_INTERVAL_MS/.test(m), 'minimum gap between FerretDB asks (no flooding)');
+  assert.ok(/ferretDbInCooldown/.test(m), 'does not ask while backing off');
+  assert.ok(/became unresponsive/.test(m), 'logs when FerretDB stops answering (with start time)');
+  assert.ok(/ferretUnavailableSince/.test(m), 'remembers when unresponsiveness started');
+  assert.ok(/responded again/.test(m), 'logs recovery');
+  assert.ok(/unresponsive \$\{fmtAt\(since\)\} → \$\{fmtAt\(new Date\(\)\)\}/.test(m), 'recovery row reports start→end span');
+  assert.ok(/operationsSummary/.test(m), 'recovery row includes what FerretDB was doing');
+  const g = read('server/lib/ferretdbGovernor.js');
+  assert.ok(/withTimeout/.test(g) && /COMMAND_TIMEOUT_MS/.test(g), 'per-call timeout');
+  assert.ok(/COOLDOWN_MS/.test(g) && /cooldownUntil/.test(g), 'cooldown back-off after failure');
+  assert.ok(/export function ferretDbInCooldown/.test(g) && /export function ferretDbUnavailable/.test(g), 'state accessors');
+});
+
+check('FerretDB self-regulates its own CPU and reports its operations summary', () => {
+  const s = read('FerretDB/internal/handler/selfregulate.go');
+  assert.ok(/nextAutoSlowdown/.test(s) && /autoSlowdownMs/.test(s), 'autonomous delay decision');
+  assert.ok(/procStatCPU/.test(s) && /\/proc\/stat/.test(s), 'measures host CPU itself');
+  assert.ok(/runSelfRegulation/.test(s), 'background loop');
+  const t = read('FerretDB/internal/handler/throttle.go');
+  assert.ok(/effectiveDelay/.test(t) && /autoSlowdownMs/.test(t), 'effective delay = max(client, self-regulated)');
+  assert.ok(/commandSummary/.test(t) && /commandCounts/.test(t), 'per-command summary of what FerretDB is doing');
+  const mt = read('FerretDB/internal/handler/msg_throttle.go');
+  assert.ok(/operationsSummary/.test(mt), 'summary returned in the throttle response');
 });
 
 check('CPU usage report is wired into Admin Panel / Problems', () => {

@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Securitate",
   "speedReportTitle": "Viteză",
   "testsReportTitle": "Teste",
+  "cpuReportTitle": "Utilizare CPU",
   "new-problems": "probleme noi",
   "acknowledge": "Confirmă",
   "no-new-problems": "Nicio problemă nouă.",

@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Keamanan",
   "speedReportTitle": "Laju",
   "testsReportTitle": "Ujian",
+  "cpuReportTitle": "CPU usage",
   "new-problems": "masalah barô",
   "acknowledge": "Akui",
   "no-new-problems": "Hana masalah barô.",

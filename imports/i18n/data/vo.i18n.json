@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Söod",
   "speedReportTitle": "Spid",
   "testsReportTitle": "Vitots",
+  "cpuReportTitle": "CPU usage",
   "new-problems": "säkäds nulik",
   "acknowledge": "Zesümön",
   "no-new-problems": "Nö säkäds nulik.",

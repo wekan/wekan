@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Sicherheit",
   "speedReportTitle": "Geschwindigkeit",
   "testsReportTitle": "Tests",
+  "cpuReportTitle": "CPU-Auslastung",
   "new-problems": "neue Probleme",
   "acknowledge": "Bestätigen",
   "no-new-problems": "Keine neuen Probleme.",

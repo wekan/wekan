@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Аюулгүй байдал",
   "speedReportTitle": "Хурд",
   "testsReportTitle": "Тестүүд",
+  "cpuReportTitle": "CPU ашиглалт",
   "new-problems": "шинэ асуудал",
   "acknowledge": "Хүлээн зөвшөөрөх",
   "no-new-problems": "Шинэ асуудал байхгүй.",

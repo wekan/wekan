@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Hub",
   "speedReportTitle": "Do",
   "testsReportTitle": "teSmey",
+  "cpuReportTitle": "CPU usage",
   "new-problems": "Qaghmey chu'",
   "acknowledge": "yaj",
   "no-new-problems": "Qaghmey chu' tu'lu'be'.",

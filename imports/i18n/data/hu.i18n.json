@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Biztonság",
   "speedReportTitle": "Sebesség",
   "testsReportTitle": "Tesztek",
+  "cpuReportTitle": "CPU-használat",
   "new-problems": "új probléma",
   "acknowledge": "Nyugtázás",
   "no-new-problems": "Nincsenek új problémák.",

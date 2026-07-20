@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Sauga",
   "speedReportTitle": "Greitis",
   "testsReportTitle": "Testai",
+  "cpuReportTitle": "CPU naudojimas",
   "new-problems": "naujų problemų",
   "acknowledge": "Patvirtinti",
   "no-new-problems": "Naujų problemų nėra.",

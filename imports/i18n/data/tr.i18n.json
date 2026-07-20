@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Güvenlik",
   "speedReportTitle": "Hız",
   "testsReportTitle": "Testler",
+  "cpuReportTitle": "İşlemci kullanımı",
   "new-problems": "yeni sorun",
   "acknowledge": "Onayla",
   "no-new-problems": "Yeni sorun yok.",

@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Tietoturva",
   "speedReportTitle": "Nopeus",
   "testsReportTitle": "Testit",
+  "cpuReportTitle": "Suorittimen käyttö",
   "new-problems": "uutta ongelmaa",
   "acknowledge": "Kuittaa",
   "no-new-problems": "Ei uusia ongelmia.",

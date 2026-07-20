@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Drošība",
   "speedReportTitle": "Ātrums",
   "testsReportTitle": "Testi",
+  "cpuReportTitle": "CPU lietojums",
   "new-problems": "jaunas problēmas",
   "acknowledge": "Apstiprināt",
   "no-new-problems": "Nav jaunu problēmu.",

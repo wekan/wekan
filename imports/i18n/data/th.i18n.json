@@ -2253,6 +2253,7 @@
   "securityReportTitle": "ความปลอดภัย",
   "speedReportTitle": "ความเร็ว",
   "testsReportTitle": "การทดสอบ",
+  "cpuReportTitle": "การใช้งาน CPU",
   "new-problems": "ปัญหาใหม่",
   "acknowledge": "รับทราบ",
   "no-new-problems": "ไม่มีปัญหาใหม่.",

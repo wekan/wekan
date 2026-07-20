@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Անվտանգություն",
   "speedReportTitle": "Արագություն",
   "testsReportTitle": "Թեստեր",
+  "cpuReportTitle": "Պրոցեսորի օգտագործում",
   "new-problems": "նոր խնդիրներ",
   "acknowledge": "Հաստատել",
   "no-new-problems": "Նոր խնդիրներ չկան։",

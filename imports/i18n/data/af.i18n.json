@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Sekuriteit",
   "speedReportTitle": "Spoed",
   "testsReportTitle": "Toetse",
+  "cpuReportTitle": "CPU-gebruik",
   "new-problems": "nuwe probleme",
   "acknowledge": "Erken",
   "no-new-problems": "Geen nuwe probleme nie.",

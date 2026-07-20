@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Bezpečnosť",
   "speedReportTitle": "Rýchlosť",
   "testsReportTitle": "Testy",
+  "cpuReportTitle": "Využitie CPU",
   "new-problems": "nových problémov",
   "acknowledge": "Potvrdiť",
   "no-new-problems": "Žiadne nové problémy.",

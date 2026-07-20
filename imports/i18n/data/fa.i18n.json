@@ -2253,6 +2253,7 @@
   "securityReportTitle": "امنیت",
   "speedReportTitle": "سرعت",
   "testsReportTitle": "آزمون‌ها",
+  "cpuReportTitle": "استفاده از پردازنده",
   "new-problems": "مشکل جدید",
   "acknowledge": "تأیید",
   "no-new-problems": "مشکل جدیدی وجود ندارد.",

@@ -2253,6 +2253,7 @@
   "securityReportTitle": "सुरक्षा",
   "speedReportTitle": "गति",
   "testsReportTitle": "परीक्षण",
+  "cpuReportTitle": "सीपीयू उपयोग",
   "new-problems": "नई समस्याएँ",
   "acknowledge": "स्वीकार करें",
   "no-new-problems": "कोई नई समस्या नहीं।",

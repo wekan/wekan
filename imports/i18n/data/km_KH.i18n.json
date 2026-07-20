@@ -2253,6 +2253,7 @@
   "securityReportTitle": "សុវត្ថិភាព",
   "speedReportTitle": "ល្បឿន",
   "testsReportTitle": "ការធ្វើតេស្ត",
+  "cpuReportTitle": "ការប្រើប្រាស់ CPU",
   "new-problems": "បញ្ហាថ្មី",
   "acknowledge": "ទទួលស្គាល់",
   "no-new-problems": "គ្មានបញ្ហាថ្មីទេ។",

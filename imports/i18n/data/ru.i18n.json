@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Безопасность",
   "speedReportTitle": "Скорость",
   "testsReportTitle": "Тесты",
+  "cpuReportTitle": "Использование ЦП",
   "new-problems": "новых проблем",
   "acknowledge": "Подтвердить",
   "no-new-problems": "Новых проблем нет.",

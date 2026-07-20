@@ -2253,6 +2253,7 @@
   "securityReportTitle": "பாதுகாப்பு",
   "speedReportTitle": "வேகம்",
   "testsReportTitle": "சோதனைகள்",
+  "cpuReportTitle": "CPU பயன்பாடு",
   "new-problems": "புதிய சிக்கல்கள்",
   "acknowledge": "ஒப்புக்கொள்",
   "no-new-problems": "புதிய சிக்கல்கள் இல்லை.",

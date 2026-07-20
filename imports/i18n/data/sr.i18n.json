@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Безбедност",
   "speedReportTitle": "Брзина",
   "testsReportTitle": "Тестови",
+  "cpuReportTitle": "Употреба процесора",
   "new-problems": "нових проблема",
   "acknowledge": "Потврди",
   "no-new-problems": "Нема нових проблема.",

@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Bảo mật",
   "speedReportTitle": "Tốc độ",
   "testsReportTitle": "Kiểm thử",
+  "cpuReportTitle": "Mức sử dụng CPU",
   "new-problems": "sự cố mới",
   "acknowledge": "Xác nhận",
   "no-new-problems": "Không có sự cố mới.",

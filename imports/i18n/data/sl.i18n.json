@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Varnost",
   "speedReportTitle": "Hitrost",
   "testsReportTitle": "Testi",
+  "cpuReportTitle": "Uporaba procesorja",
   "new-problems": "novih težav",
   "acknowledge": "Potrdi",
   "no-new-problems": "Ni novih težav.",

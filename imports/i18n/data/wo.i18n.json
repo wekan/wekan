@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Kaaraange",
   "speedReportTitle": "Gaaw",
   "testsReportTitle": "Saytu",
+  "cpuReportTitle": "CPU usage",
   "new-problems": "jafe-jafe yu bees",
   "acknowledge": "Nangu",
   "no-new-problems": "Amul jafe-jafe yu bees.",

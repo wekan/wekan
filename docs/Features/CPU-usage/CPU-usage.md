@@ -82,15 +82,49 @@ high CPU it calls it (`server/lib/ferretdbGovernor.js`), which:
 1. **asks what FerretDB is doing** — the response includes `commandsProcessed`, a
    running count of commands handled (higher = busier), logged as FerretDB's activity;
 2. **asks FerretDB to slow down** — for `durationMs`, FerretDB pauses `slowDownMs`
-   (default 5ms, env `WEKAN_FERRETDB_SLOWDOWN_MS`) before every command in its
-   dispatch path, lowering its CPU use and yielding to other software.
+   before every command in its dispatch path, lowering its CPU use and yielding to
+   other software.
+
+**Adaptive feedback loop (increasing delays until there is headroom).** Because
+only WeKan measures the host CPU, WeKan drives the escalation and FerretDB applies
+it. The first request uses a small delay (`WEKAN_FERRETDB_SLOWDOWN_MS`, default 5ms).
+Then, **each sample while the system CPU is still at/above the headroom target**
+(`WEKAN_CPU_TARGET_PERCENT`, default = the leave-high threshold 70%), WeKan
+**doubles** the delay FerretDB adds between operations — 5 → 10 → 20 → … up to
+`WEKAN_FERRETDB_SLOWDOWN_MAX_MS` (default 200ms). As soon as CPU **drops below the
+target** (enough CPU is free for other processes), WeKan stops escalating and just
+**holds** the current delay. Every step is written to the CPU usage log:
+
+- each increase — `CPU still X% (target < 70%): increased FerretDB slow-down A → B ms`;
+- success — `CPU dropped to X% (< target 70%) after slowing FerretDB to B ms/op —
+  enough CPU is now free for other processes`;
+- the honest failure case — if even the maximum delay does not free enough CPU, one
+  `slowing FerretDB did not free enough CPU — the load is (partly) elsewhere` line, so
+  the admin knows FerretDB was not the culprit.
 
 The throttle **self-expires** on the FerretDB side (max 5 min), so a WeKan crash can
-never leave FerretDB permanently slow; WeKan renews it every sample while CPU stays
-high and calls it again with a zero duration (resume) when the period ends. The ask,
-FerretDB's reported activity, and the resume are all written to the CPU usage log.
-On plain MongoDB or an older FerretDB without the command, the call fails once and is
-never retried (best-effort, no effect).
+never leave FerretDB permanently slow. On plain MongoDB or an older FerretDB without
+the command, the call fails once and is never retried (best-effort, no effect).
+
+**FerretDB self-regulates too (so it works even if WeKan is starved).** WeKan can
+only measure the host CPU and send requests if it has CPU time itself — which it may
+not, under load. So FerretDB **also** samples the host CPU (`/proc/stat`) on its own
+and, when it is too high, adds an increasing delay before each command until CPU
+recovers, independent of WeKan. The delay FerretDB applies is `max(WeKan-requested,
+FerretDB-self-regulated)`. WeKan reads FerretDB's `autoSlowDownMs` and `hostCpuPercent`
+from the throttle response and includes them in the log, and FerretDB also returns an
+`operationsSummary` (its busiest commands, e.g. `find=12000, update=340, …`) so the
+log shows what FerretDB was doing.
+
+**WeKan does not flood the log or hammer FerretDB.** WeKan still samples CPU locally
+every `WEKAN_CPU_SAMPLE_INTERVAL_MS`, but it only **talks to FerretDB at most once per
+`WEKAN_FERRETDB_ASK_INTERVAL_MS`** (default 30 s) — FerretDB self-regulates in
+between. Every call has a **timeout** (`WEKAN_FERRETDB_TIMEOUT_MS`, default 2 s); if
+FerretDB does not answer, WeKan records the moment it **became unresponsive**, then
+**backs off** for `WEKAN_FERRETDB_COOLDOWN_MS` (default 60 s) instead of retrying, so
+it lets FerretDB recover. When FerretDB answers again, WeKan writes one recovery row
+with the full **unresponsive span (start → end)**, the current CPU, and FerretDB's
+status + operations summary.
 
 ### Report
 
@@ -110,6 +144,17 @@ the Admin Panel → Problems side menu.
 | `WEKAN_CPU_HIGH_SAMPLES` | `3` | consecutive high samples before a `start` |
 | `WEKAN_CPU_LOW_SAMPLES` | `3` | consecutive low samples before an `end` |
 | `WEKAN_CPU_PAUSE_MS` | `200` | governor pause length while busy |
+| `WEKAN_CPU_TARGET_PERCENT` | `70` | headroom target — escalate FerretDB's delay until CPU drops below this |
+| `WEKAN_FERRETDB_SLOWDOWN_MS` | `5` | first FerretDB per-operation delay |
+| `WEKAN_FERRETDB_SLOWDOWN_MAX_MS` | `200` | cap on the escalated FerretDB delay |
+| `WEKAN_FERRETDB_ASK_INTERVAL_MS` | `30000` | min gap between calls to FerretDB (no log flooding) |
+| `WEKAN_FERRETDB_TIMEOUT_MS` | `2000` | per-call timeout when FerretDB is unresponsive |
+| `WEKAN_FERRETDB_COOLDOWN_MS` | `60000` | back-off after a failed/timed-out call, letting FerretDB recover |
+
+FerretDB's own self-regulation is tuned on the FerretDB side with
+`FERRETDB_CPU_SELF_REGULATE` (default on), `FERRETDB_CPU_HIGH_PERCENT` (85),
+`FERRETDB_CPU_TARGET_PERCENT` (70), `FERRETDB_CPU_SLOWDOWN_MS` (5),
+`FERRETDB_CPU_SLOWDOWN_MAX_MS` (200) and `FERRETDB_CPU_INTERVAL_MS` (5000).
 
 ## 4. Tests
 

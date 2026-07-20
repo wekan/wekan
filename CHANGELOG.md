@@ -105,14 +105,23 @@ subsystem. Designs:
   mitigation was taken** (e.g. slowing down the current operation, which also lowers
   FerretDB query load) and **whether it helped** — comparing CPU before vs. after
   slowing down to show whether pausing noticeably lowered CPU usage.
-- **CPU usage: ask FerretDB to slow down** — because FerretDB is the other big CPU
-  user on the same host, on high CPU WeKan now asks FerretDB (via a custom
-  `throttle` command added to the bundled FerretDB v1 fork) what it is
-  doing and to slow down: FerretDB reports a running command count (how busy it is)
-  and, for a short self-expiring window, pauses a few ms before each command to yield
-  the CPU. The request, FerretDB's reported activity, and the resume-when-recovered
-  are all written to the CPU usage log. Tunable via `WEKAN_FERRETDB_SLOWDOWN_MS`; a
-  no-op on plain MongoDB.
+- **CPU usage: ask FerretDB to slow down (adaptive) + FerretDB self-regulation** —
+  because FerretDB is the other big CPU user on the same host, on high CPU WeKan asks
+  FerretDB (via the bundled fork's `throttle` command) what it is doing and to slow
+  down, running a **feedback loop**: each check while CPU stays high it **increases**
+  (doubles) the delay FerretDB adds between operations, up to a cap, until CPU drops
+  below a headroom target (enough CPU free for other processes), then holds; if even
+  the maximum delay does not free enough CPU it logs that FerretDB was not the cause.
+  Because WeKan itself may be too CPU-starved to measure or ask, **FerretDB also
+  self-regulates on its own** (samples the host CPU and adds its own increasing
+  delay); WeKan reads and logs FerretDB's self-regulated delay, its measured CPU, and
+  an `operationsSummary` of what FerretDB has been doing. WeKan **does not flood the
+  log or hammer FerretDB**: it talks to FerretDB at most once every 30 s, every call
+  has a timeout, and a non-answer starts a cooldown (WeKan records when FerretDB
+  **became unresponsive** and, on recovery, logs the full **start → end span**). All
+  of this goes to Admin Panel → Problems → CPU usage. Tunable via `WEKAN_CPU_*` /
+  `WEKAN_FERRETDB_*` (and `FERRETDB_CPU_*` on the FerretDB side); a no-op on plain
+  MongoDB. The report title is translated to all languages.
 
 - **Filenames are always shown clean** — everywhere (card attachments, admin Files
   report, download headers) a name is URL-decoded, normalized to generally-used

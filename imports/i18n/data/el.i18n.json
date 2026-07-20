@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Ασφάλεια",
   "speedReportTitle": "Ταχύτητα",
   "testsReportTitle": "Έλεγχοι",
+  "cpuReportTitle": "Χρήση CPU",
   "new-problems": "νέα προβλήματα",
   "acknowledge": "Επιβεβαίωση",
   "no-new-problems": "Δεν υπάρχουν νέα προβλήματα.",

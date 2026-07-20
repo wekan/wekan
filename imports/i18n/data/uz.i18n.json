@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Xavfsizlik",
   "speedReportTitle": "Tezlik",
   "testsReportTitle": "Testlar",
+  "cpuReportTitle": "Protsessor yuklamasi",
   "new-problems": "yangi muammolar",
   "acknowledge": "Tasdiqlash",
   "no-new-problems": "Yangi muammolar yo'q.",

@@ -24,7 +24,17 @@ const LOW_PCT = intEnv('WEKAN_CPU_LOW_PERCENT', 70);
 const ENTER_SAMPLES = intEnv('WEKAN_CPU_HIGH_SAMPLES', 3);
 const EXIT_SAMPLES = intEnv('WEKAN_CPU_LOW_SAMPLES', 3);
 const PAUSE_MS = intEnv('WEKAN_CPU_PAUSE_MS', 200);
-const FERRET_SLOWDOWN_MS = intEnv('WEKAN_FERRETDB_SLOWDOWN_MS', 5);
+const FERRET_SLOWDOWN_MS = intEnv('WEKAN_FERRETDB_SLOWDOWN_MS', 5);         // first FerretDB delay
+const FERRET_SLOWDOWN_MAX_MS = intEnv('WEKAN_FERRETDB_SLOWDOWN_MAX_MS', 200); // escalation cap
+// Recovery target: while the system stays at/above this, keep increasing the
+// FerretDB delay; once it drops below, there is enough headroom for other
+// processes and we stop escalating. Defaults to the leave-high threshold.
+const CPU_TARGET_PCT = intEnv('WEKAN_CPU_TARGET_PERCENT', LOW_PCT);
+// Minimum gap between calls to FerretDB, so the CPU-usage log is not flooded and an
+// already-busy FerretDB is not hammered. WeKan still samples CPU every INTERVAL_MS
+// (a cheap local read); it just talks to FerretDB at most this often. FerretDB
+// self-regulates on its own between WeKan's calls.
+const FERRET_ASK_MIN_INTERVAL_MS = intEnv('WEKAN_FERRETDB_ASK_INTERVAL_MS', 30000);
 const ENABLED = String(process.env.WEKAN_CPU_MONITOR || 'true').toLowerCase() !== 'false';
 
 function intEnv(name, fallback) {
@@ -49,7 +59,17 @@ let mitigationLogged = false;    // the "mitigation taken" row was written once
 let mitigationStartPct = null;   // CPU% at the moment slowing-down began
 let minPctAfterMitigation = null;// lowest CPU% seen after slowing-down began
 
-let ferretGovernActive = false; // true once FerretDB has been asked to slow down
+let ferretGovernActive = false;  // true once FerretDB has been asked to slow down
+let ferretSlowdownMs = 0;        // current per-command delay requested of FerretDB
+let ferretTargetReached = false; // CPU has dropped below the headroom target once
+let ferretCapWarned = false;     // the "max delay not enough" line was written once
+let lastFerretAskAt = 0;         // epoch ms of the last call to FerretDB (rate-limit)
+let ferretUnavailableLogged = false; // "not responding, backing off" written once
+let ferretUnavailableSince = null;   // Date when FerretDB became unresponsive
+
+// The throttle window we request must outlive the gap between our (rate-limited)
+// asks, so the throttle stays in effect between them.
+const FERRET_ASK_DURATION_MS = Math.max(INTERVAL_MS * 3, FERRET_ASK_MIN_INTERVAL_MS * 2);
 
 function resetPeriodMitigation() {
   periodPauseCount = 0;
@@ -59,35 +79,125 @@ function resetPeriodMitigation() {
   mitigationStartPct = null;
   minPctAfterMitigation = null;
   ferretGovernActive = false;
+  ferretSlowdownMs = 0;
+  ferretTargetReached = false;
+  ferretCapWarned = false;
+  lastFerretAskAt = 0;
+  // NOTE: ferretUnavailableLogged / ferretUnavailableSince are intentionally NOT
+  // reset here — a FerretDB outage can span multiple high-CPU periods, and we want
+  // the recovery row to report the full start→end span.
 }
 
-// Ask FerretDB what it is doing and to slow down, and log its response on its own
-// 'cpu' row. Fire-and-forget (async, best-effort); does nothing on plain MongoDB or
-// an older FerretDB without the throttle command.
+// Format a timestamp for the log (UTC, second precision).
+function fmtAt(d) {
+  try { return new Date(d).toISOString().replace('T', ' ').slice(0, 19); } catch (e) { return String(d); }
+}
+
+// Handle a FerretDB response (or the lack of one). On no answer, log ONCE that we
+// are backing off (noting the start time); on the answer after an outage, log the
+// full unresponsive span (start → end) plus the current CPU and FerretDB status.
+// Returns true if FerretDB answered.
+function handleFerretResponse(resp, pct, record) {
+  const gov = require('/server/lib/ferretdbGovernor');
+  if (!resp) {
+    if (gov.ferretDbUnavailable() && !ferretUnavailableLogged) {
+      ferretUnavailableLogged = true;
+      ferretUnavailableSince = new Date(); // note WHEN the outage started
+      record({
+        action: 'detected',
+        severity: 'medium',
+        at: ferretUnavailableSince,
+        detail: `FerretDB became unresponsive (CPU ${pct}%) — WeKan is backing off and will re-check ` +
+          `when it recovers (FerretDB self-regulates its own CPU in the meantime).`,
+      });
+    }
+    return false;
+  }
+  if (ferretUnavailableLogged) {
+    // Recovered: report the full unresponsive span (start → end) and what FerretDB
+    // had been doing while we could not reach it.
+    const since = ferretUnavailableSince;
+    const secs = since ? Math.round((Date.now() - since.getTime()) / 1000) : 0;
+    const span = since ? `unresponsive ${fmtAt(since)} → ${fmtAt(new Date())} (${secs}s)` : 'recovered';
+    const summary = resp.operationsSummary ? `; busiest operations: ${resp.operationsSummary}` : '';
+    ferretUnavailableLogged = false;
+    ferretUnavailableSince = null;
+    record({
+      action: 'remediated',
+      severity: 'info',
+      detail: `FerretDB responded again (CPU ${pct}%): ${span}. ${resp.commandsProcessed} commands ` +
+        `processed total; self-regulating at ${resp.autoSlowDownMs || 0}ms/op (its own CPU reading ` +
+        `${resp.hostCpuPercent || 0}%)${summary}.`,
+    });
+  }
+  return true;
+}
+
+// Ask FerretDB what it is doing and to slow down (the FIRST, smallest delay), and
+// log its response on its own 'cpu' row. Fire-and-forget (async, best-effort); does
+// nothing on plain MongoDB or an older FerretDB without the throttle command.
 function governFerretStart(pct) {
   try {
     const { slowDownFerretDb } = require('/server/lib/ferretdbGovernor');
     const { record } = require('/server/lib/cpuLog');
-    Promise.resolve(slowDownFerretDb(FERRET_SLOWDOWN_MS, INTERVAL_MS * 3)).then(resp => {
-      if (!resp) return; // not a FerretDB with governor support
+    ferretSlowdownMs = FERRET_SLOWDOWN_MS;
+    lastFerretAskAt = Date.now();
+    Promise.resolve(slowDownFerretDb(ferretSlowdownMs, FERRET_ASK_DURATION_MS)).then(resp => {
+      if (!handleFerretResponse(resp, pct, record)) return;
       ferretGovernActive = true;
       record({
         action: 'rate-limited',
         severity: 'info',
         detail: `high CPU (${pct}%): asked FerretDB to slow down (${resp.slowDownMs}ms before each command ` +
-          `for ${Math.round((resp.durationMs || 0) / 1000)}s to yield CPU). FerretDB activity: ` +
-          `${resp.commandsProcessed} commands processed so far (higher = busier). FerretDB throttled: ${resp.throttled}.`,
+          `to yield CPU). FerretDB activity: ${resp.commandsProcessed} commands processed (higher = busier); ` +
+          `self-regulating at ${resp.autoSlowDownMs || 0}ms/op (its own CPU reading ${resp.hostCpuPercent || 0}%).`,
       });
     }).catch(() => {});
   } catch (e) { /* best effort */ }
 }
 
-// Keep FerretDB's self-expiring throttle alive while CPU stays high (silent).
-function governFerretRenew() {
+// Adaptive feedback, RATE-LIMITED so the log is not flooded and a busy FerretDB is
+// not hammered: at most once per FERRET_ASK_MIN_INTERVAL_MS (and never while backing
+// off), increase the delay FerretDB adds between operations until the system CPU
+// drops below the headroom target, then hold. If even the maximum delay does not
+// free enough CPU, that is logged too (FerretDB was not the cause).
+function governFerretAdjust(pct) {
   if (!ferretGovernActive) return;
   try {
-    const { slowDownFerretDb } = require('/server/lib/ferretdbGovernor');
-    Promise.resolve(slowDownFerretDb(FERRET_SLOWDOWN_MS, INTERVAL_MS * 3)).catch(() => {});
+    const gov = require('/server/lib/ferretdbGovernor');
+    const { record } = require('/server/lib/cpuLog');
+
+    if (gov.ferretDbInCooldown()) return;                          // backing off — do not ask
+    if (Date.now() - lastFerretAskAt < FERRET_ASK_MIN_INTERVAL_MS) return; // not too often
+    lastFerretAskAt = Date.now();
+
+    // Decide the next requested delay (escalate / warn-at-cap / headroom-reached).
+    let logEvent = null;
+    if (pct >= CPU_TARGET_PCT) {
+      const next = Math.min(FERRET_SLOWDOWN_MAX_MS, Math.max(1, ferretSlowdownMs) * 2);
+      if (next > ferretSlowdownMs) {
+        const prev = ferretSlowdownMs;
+        ferretSlowdownMs = next;
+        logEvent = { action: 'rate-limited', severity: 'info',
+          detail: `CPU still ${pct}% (target < ${CPU_TARGET_PCT}%): increased FerretDB slow-down ` +
+            `${prev}ms → ${ferretSlowdownMs}ms between operations to free more CPU for other processes.` };
+      } else if (!ferretCapWarned) {
+        ferretCapWarned = true;
+        logEvent = { action: 'detected', severity: 'medium',
+          detail: `CPU still ${pct}% at FerretDB's maximum slow-down (${ferretSlowdownMs}ms/op): ` +
+            `slowing FerretDB did not free enough CPU — the load is (partly) elsewhere.` };
+      }
+    } else if (!ferretTargetReached) {
+      ferretTargetReached = true;
+      logEvent = { action: 'remediated', severity: 'info',
+        detail: `CPU dropped to ${pct}% (< target ${CPU_TARGET_PCT}%) after slowing FerretDB to ` +
+          `${ferretSlowdownMs}ms/op — enough CPU is now free for other processes.` };
+    }
+
+    Promise.resolve(gov.slowDownFerretDb(ferretSlowdownMs, FERRET_ASK_DURATION_MS)).then(resp => {
+      if (!handleFerretResponse(resp, pct, record)) return;
+      if (logEvent) record(logEvent);
+    }).catch(() => {});
   } catch (e) { /* best effort */ }
 }
 
@@ -95,6 +205,7 @@ function governFerretRenew() {
 function governFerretEnd() {
   if (!ferretGovernActive) return;
   ferretGovernActive = false;
+  ferretSlowdownMs = 0;
   try {
     const { resumeFerretDb } = require('/server/lib/ferretdbGovernor');
     Promise.resolve(resumeFerretDb()).catch(() => {});
@@ -230,8 +341,9 @@ if (Meteor.isServer && ENABLED) {
           } else if (mitigationLogged && pct < minPctAfterMitigation) {
             minPctAfterMitigation = pct;
           }
-          // Keep FerretDB's self-expiring throttle alive for the whole high period.
-          governFerretRenew();
+          // Adaptive: increase FerretDB's per-operation delay until CPU drops below
+          // the headroom target, then hold; also renews the self-expiring throttle.
+          governFerretAdjust(pct);
         }
       } catch (e) {
         if (process.env.DEBUG === 'true') console.warn('cpuMonitor sample failed:', e && e.message);

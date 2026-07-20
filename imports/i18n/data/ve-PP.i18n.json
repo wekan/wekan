@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Tsireledzo",
   "speedReportTitle": "Luvhilo",
   "testsReportTitle": "Milingo",
+  "cpuReportTitle": "CPU usage",
   "new-problems": "vhuleme vhuswa",
   "acknowledge": "Ṱanganedza",
   "no-new-problems": "A hu na vhuleme vhuswa.",

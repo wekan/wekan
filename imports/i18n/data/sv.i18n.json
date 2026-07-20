@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Säkerhet",
   "speedReportTitle": "Hastighet",
   "testsReportTitle": "Tester",
+  "cpuReportTitle": "CPU-användning",
   "new-problems": "nya problem",
   "acknowledge": "Bekräfta",
   "no-new-problems": "Inga nya problem.",

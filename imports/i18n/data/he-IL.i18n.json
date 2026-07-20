@@ -2253,6 +2253,7 @@
   "securityReportTitle": "אבטחה",
   "speedReportTitle": "מהירות",
   "testsReportTitle": "בדיקות",
+  "cpuReportTitle": "שימוש במעבד",
   "new-problems": "בעיות חדשות",
   "acknowledge": "אישור",
   "no-new-problems": "אין בעיות חדשות.",

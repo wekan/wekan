@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Keamanan",
   "speedReportTitle": "Kecepatan",
   "testsReportTitle": "Pengujian",
+  "cpuReportTitle": "Penggunaan CPU",
   "new-problems": "masalah baru",
   "acknowledge": "Konfirmasi",
   "no-new-problems": "Tidak ada masalah baru.",

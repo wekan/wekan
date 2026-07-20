@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Seguretat",
   "speedReportTitle": "Velocitat",
   "testsReportTitle": "Tèsts",
+  "cpuReportTitle": "Utilizacion del processor",
   "new-problems": "problèmas novèls",
   "acknowledge": "Acusar recepcion",
   "no-new-problems": "Cap de problèma novèl.",

@@ -2253,6 +2253,7 @@
   "securityReportTitle": "Sigurnost",
   "speedReportTitle": "Brzina",
   "testsReportTitle": "Testovi",
+  "cpuReportTitle": "Upotreba CPU-a",
   "new-problems": "novih problema",
   "acknowledge": "Potvrdi",
   "no-new-problems": "Nema novih problema.",
