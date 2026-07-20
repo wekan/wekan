@@ -137,7 +137,7 @@ test.describe('Boards – user membership', () => {
     await bp.openSidebar();
 
     // The member's avatar (userAvatar renders a.js-member with the username in title).
-    const memberAvatar = boardPage.locator(`.membersWidget a.js-member[title*="${user2.username}"]`);
+    const memberAvatar = boardPage.locator(`.board-sidebar a.js-member[title*="${user2.username}"]`);
     await expect(memberAvatar).toBeVisible({ timeout: 10_000 });
 
     // Open the member menu and click "Remove from board".
@@ -174,7 +174,7 @@ test.describe('Boards – user membership', () => {
     await bp.openSidebar();
 
     // Open the board OWNER's member menu as the non-admin user2.
-    const ownerAvatar = page.locator(`.membersWidget a.js-member[title*="${user.username}"]`).first();
+    const ownerAvatar = page.locator(`.board-sidebar a.js-member[title*="${user.username}"]`).first();
     await expect(ownerAvatar).toBeVisible({ timeout: 10_000 });
     await ownerAvatar.click();
     await page.locator('.js-pop-over').waitFor({ timeout: 10_000 });

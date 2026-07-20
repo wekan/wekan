@@ -53,7 +53,13 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
     return this.ready();
   }
 
-  const ret = (await ReactiveCache.getAttachments(
+  // Publish the page MANUALLY (fetch + this.added + this.ready) instead of returning
+  // a live cursor. A returned cursor with sort+limit makes Meteor set up a LIMITED
+  // live observe, which hangs on FerretDB's oplog for this query — the subscription
+  // then never becomes ready and the Files report is stuck on the loading spinner
+  // forever. This admin report re-subscribes on every page/search change, so it does
+  // not need live reactivity; a one-shot fetch guarantees `ready` fires.
+  const docs = await ReactiveCache.getAttachments(
     query,
     {
       fields: {
@@ -71,9 +77,13 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
       limit,
       skip: skip || 0,
     },
-    true,
-  )).cursor;
-  return ret;
+    false,
+  );
+  for (const doc of docs || []) {
+    const { _id, ...fields } = doc;
+    this.added('attachments', _id, fields);
+  }
+  this.ready();
 });
 
 Meteor.methods({
