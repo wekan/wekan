@@ -238,6 +238,8 @@ This release also fixes reported problems from **v10.03**:
   and record only the start and end of each sustained high-usage period, mirroring the
   CPU-usage monitor).
 
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.03 2026-07-19 WeKan ® release
 
 This release fixes the following CRITICAL VULNERABILITIES, all reported by meifukun:
