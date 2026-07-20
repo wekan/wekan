@@ -63,7 +63,7 @@ and the banner reappears for everyone.
 A board setting **"Restrict comment editing"** (`restrictCommentEditing`, default off)
 prevents board admins from editing or deleting other users' comments — only a comment's
 author may edit or delete it. Enforced server-side. See
-[Comment replies and editing restriction](../Comment-Replies-And-Editing-Restriction.md).
+[Comment replies and editing restriction](../Cards/Comment-Replies-And-Editing-Restriction.md).
 
 ## Features tab
 

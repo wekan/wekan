@@ -194,7 +194,7 @@ Developer applications | Yes, using REST API | Yes | Yes
 Authorized OAuth applications | No, REST API [login as admin to get Bearer token](../API/REST-API.md#example-call---as-form-data) | Yes | Yes
 Webhooks | Yes, per board or global at Admin Panel | Yes | Yes
 Zapier (IFTTT like workflow automation with 500+ websites) | Yes | Yes | $ Yes
-Integrated IFTTT | [Yes](../Features/IFTTT/IFTTT.md) | No | No
+Integrated IFTTT | [Yes](../Features/Automation/IFTTT/IFTTT.md) | No | No
 
 ## Basic features: Email and Notifications
 

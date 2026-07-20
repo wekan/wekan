@@ -487,7 +487,7 @@ other applications
 [03:32:50] <ajay> i am want to integrate it in QGIS for task management
 [03:33:01] <ajay> *i want
 ```
-A: Use [Wekan REST API](../API/REST-API.md). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md) to send data to some Incoming Webhook. There is also [IFTTT Rules](../Features/IFTTT/IFTTT.md) for some automations.
+A: Use [Wekan REST API](../API/REST-API.md). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md) to send data to some Incoming Webhook. There is also [IFTTT Rules](../Features/Automation/IFTTT/IFTTT.md) for some automations.
 
 ***
 

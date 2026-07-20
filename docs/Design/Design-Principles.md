@@ -31,7 +31,7 @@
 - Some good parts of Trello:
   - Import from Trello
   - Shortcuts https://github.com/wekan/wekan/issues/1878
-  - IFTTT Rules like Trello Butler [IFTTT](../Features/IFTTT/IFTTT.md)
+  - IFTTT Rules like Trello Butler [IFTTT](../Features/Automation/IFTTT/IFTTT.md)
   - Progress bar of checklist
 - Some good parts of Jira:
   - Multiple assignees

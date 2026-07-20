@@ -91,7 +91,7 @@ Related, for creating apps to other appstores: [Browser compatibility matrix](Br
 
 2. PWABuilder has about 100+ downloadable icons etc webmanifest requirements like is at [public](../../public)
 
-3. Clone WeKan repo, add favicons etc from step 2 to wekan/public/ , and build WeKan bundle from source like at [Emoji](../Features/Emoji.md) . Note: Currently WeKan does not have feature for custom favicons, it would require a lot of work for 100+ favicons etc customizations.
+3. Clone WeKan repo, add favicons etc from step 2 to wekan/public/ , and build WeKan bundle from source like at [Emoji](../Features/Editor/Emoji.md) . Note: Currently WeKan does not have feature for custom favicons, it would require a lot of work for 100+ favicons etc customizations.
 
 4. Run bundle at server like [Offline](../Platforms/Propietary/Windows/Offline.md) or [Raspberry Pi](../Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
 

@@ -22,7 +22,7 @@
 
 ## Gantt
 
-[How to use Gantt](../../../Features/Gantt.md)
+[How to use Gantt](../../../Features/Reports/Gantt.md)
 
 UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://github.com/wekan/wekan/issues/2870#issuecomment-954598565).
 

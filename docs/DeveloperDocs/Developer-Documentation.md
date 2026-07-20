@@ -22,7 +22,7 @@ Please read the meteor style guide before making any significant contribution.
 
 ## Building code and submitting pull request
 
-- [Building code and submitting pull request](../Features/Emoji.md#how-you-could-add-another-plugin)
+- [Building code and submitting pull request](../Features/Editor/Emoji.md#how-you-could-add-another-plugin)
 - When you start `meteor` command, it watches for changes to files in wekan directory and subdirectories, and if it detects changed code, it starts rebuilding bundle and then reloads webbrowser after that automatically
 - Also look at meteor changelog mentioned new feature `hot reload` how that could make reloading faster
 

@@ -8,55 +8,55 @@ is documented yet — contributions are welcome.
 
 ## Kanban basics
 
-- [Boards](Boards/Boards.md) — board list, star/watch, board menu, restore archived
+- [Boards](Board/Boards/Boards.md) — board list, star/watch, board menu, restore archived
   boards, full-screen / standalone app mode.
 - [Lists](Lists/Lists.md) — add, archive, restore and delete lists.
 - [Cards](Cards/Cards.md) — description, labels, checklists, attachments, comments,
   markdown, dates, drag-and-drop images, multi-selection, filtered views.
-- [Swimlanes](Swimlanes.md)
-- [WIP Limits](WipLimit/WipLimit.md)
+- [Swimlanes](Board/Swimlanes.md)
+- [WIP Limits](Lists/WipLimit/WipLimit.md)
 - [Members and Permissions](Members/Members.md)
-- [Templates](Templates.md)
-- [Shared Templates (Admin view)](Templates.md#shared-templates-admin-view)
-- [Archive and Delete](Archive-and-Delete.md)
+- [Templates](Board/Templates.md)
+- [Shared Templates (Admin view)](Board/Templates.md#shared-templates-admin-view)
+- [Archive and Delete](Board/Archive-and-Delete.md)
 - [Keyboard Shortcuts](Keyboard-Shortcuts/Keyboard-Shortcuts.md)
 - [Accessibility](Accessibility/Accessibility.md)
-- [Rules (Automation)](Rules/Rules.md)
-- [Card Dependencies — "Red Strings" / PI Program Board](RedStrings/RedStrings.md)
+- [Rules (Automation)](Automation/Rules/Rules.md)
+- [Card Dependencies — "Red Strings" / PI Program Board](Editor/RedStrings/RedStrings.md)
 
 ## Card content and formatting
 
-- [Card Cover Image](Cover/Cover.md)
-- [Stickers](Stickers/Stickers.md)
-- [Card Locations](Locations/Locations.md)
-- [Attachments and File Storage](Attachments/Attachments.md)
-- [Board Background Images](Board-Backgrounds/Board-Backgrounds.md)
-- [Custom Fields](CustomFields/CustomFields.md)
-- [Subtasks](Subtasks.md)
-- [Linked Cards](Linked-Cards.md)
-- [Markdown](Markdown/Markdown.md), [Emoji](Emoji.md), [Multiline](Multiline.md),
-  [Numbered text](Numbered-text.md), [LaTeX](LaTeX.md)
+- [Card Cover Image](Cards/Cover/Cover.md)
+- [Stickers](Cards/Stickers/Stickers.md)
+- [Card Locations](Cards/Locations/Locations.md)
+- [Attachments and File Storage](Cards/Attachments/Attachments.md)
+- [Board Background Images](Board/Board-Backgrounds/Board-Backgrounds.md)
+- [Custom Fields](Cards/CustomFields/CustomFields.md)
+- [Subtasks](Cards/Subtasks.md)
+- [Linked Cards](Cards/Linked-Cards.md)
+- [Markdown](Editor/Markdown/Markdown.md), [Emoji](Editor/Emoji.md), [Multiline](Editor/Multiline.md),
+  [Numbered text](Editor/Numbered-text.md), [LaTeX](Editor/LaTeX.md)
 - [Drag and Drop on Mobile and Desktop](../DragDrop/Drag-Drop.md)
-- [Right-to-Left (RTL) UI](RTL/RTL.md)
+- [Right-to-Left (RTL) UI](Editor/RTL/RTL.md)
 
 ## Planning and time
 
 - [Due Date](../Date/Due-Date.md)
 - [Time Tracking](../Date/Time-Tracking.md)
 - [Calendar](../Date/Calendar.md)
-- [Gantt Chart](Gantt.md)
-- [Planning Poker](Planning-Poker.md)
-- [Burndown and Velocity Chart](Burndown-and-Velocity-Chart.md)
+- [Gantt Chart](Reports/Gantt.md)
+- [Planning Poker](Cards/Planning-Poker.md)
+- [Burndown and Velocity Chart](Reports/Burndown-and-Velocity-Chart.md)
 
 ## Administration
 
 - [Authentication, Admin Panel and SMTP Settings](Admin-Panel/Admin-Panel.md)
-- [Allow private boards only: Disable Public Boards](Allow-private-boards-only.md)
+- [Allow private boards only: Disable Public Boards](Admin-Panel/Allow-private-boards-only.md)
 - [Login / Authentication methods](../README.md#LoginAuth) — LDAP, OAuth2, SAML,
   Keycloak, Google, Azure, and more.
-- [Metrics](Metrics.md), [Logs](Logs.md), [Stats](Stats/Stats.md)
+- [Metrics](Reports/Metrics.md), [Logs](Troubleshooting/Logs.md), [Stats](Reports/Stats/Stats.md)
 - [Cleanup](Cleanup/Cleanup.md)
-- [Python based features](Python.md)
+- [Python based features](Editor/Python.md)
 
 ## Import and Export
 
@@ -74,7 +74,7 @@ is documented yet — contributions are welcome.
 - [Webhooks](../Webhooks/Receiving-Webhooks.md) — per-board events; configure at the
   board right sidebar / Board Settings / Webhooks. See also
   [Outgoing Webhook to Discord/Slack/Rocket.Chat](../Webhooks/Discord/Outgoing-Webhook-to-Discord.md).
-- [IFTTT](IFTTT/IFTTT.md)
+- [IFTTT](Automation/IFTTT/IFTTT.md)
 - [Integrations](../ImportExport/Integrations.md)
 
 ## Translations

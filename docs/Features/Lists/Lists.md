@@ -57,6 +57,6 @@ now has one clear width (fixed or auto) that reliably persists across reloads.
 
 ## Related
 
-- [WIP Limits](../WipLimit/WipLimit.md)
-- [Swimlanes](../Swimlanes.md)
-- [Archive and Delete](../Archive-and-Delete.md)
+- [WIP Limits](WipLimit/WipLimit.md)
+- [Swimlanes](../Board/Swimlanes.md)
+- [Archive and Delete](../Board/Archive-and-Delete.md)

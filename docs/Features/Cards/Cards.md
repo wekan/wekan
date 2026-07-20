@@ -12,8 +12,8 @@ a lot of detail.
 - Comments
 - Members and assignees
 - Due/start/end/received dates
-- Stickers ([Stickers](../Stickers/Stickers.md))
-- Locations ([Card Locations](../Locations/Locations.md))
+- Stickers ([Stickers](Stickers/Stickers.md))
+- Locations ([Card Locations](Locations/Locations.md))
 - A Trello-style "complete" checkbox (see below)
 - Custom fields, subtasks, votes, and more
 
@@ -102,14 +102,14 @@ Filter the board by member, label, due date, and more to focus on a subset of ca
 
 ## Related
 
-- [Linked Cards](../Linked-Cards.md)
-- [Card Cover Image](../Cover/Cover.md)
-- [Stickers](../Stickers/Stickers.md)
-- [Card Locations](../Locations/Locations.md)
-- [Attachments and File Storage](../Attachments/Attachments.md)
-- [Custom Fields](../CustomFields/CustomFields.md)
-- [Subtasks](../Subtasks.md)
-- [Templates](../Templates.md)
-- [Markdown](../Markdown/Markdown.md), [Emoji](../Emoji.md), [Multiline](../Multiline.md), [Numbered text](../Numbered-text.md), [LaTeX](../LaTeX.md)
+- [Linked Cards](Linked-Cards.md)
+- [Card Cover Image](Cover/Cover.md)
+- [Stickers](Stickers/Stickers.md)
+- [Card Locations](Locations/Locations.md)
+- [Attachments and File Storage](Attachments/Attachments.md)
+- [Custom Fields](CustomFields/CustomFields.md)
+- [Subtasks](Subtasks.md)
+- [Templates](../Board/Templates.md)
+- [Markdown](../Editor/Markdown/Markdown.md), [Emoji](../Editor/Emoji.md), [Multiline](../Editor/Multiline.md), [Numbered text](../Editor/Numbered-text.md), [LaTeX](../Editor/LaTeX.md)
 - [Due Date](../../Date/Due-Date.md), [Time Tracking](../../Date/Time-Tracking.md)
 - [Drag and Drop on Mobile and Desktop](../../DragDrop/Drag-Drop.md)

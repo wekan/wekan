@@ -50,7 +50,7 @@ await Email.sendAsync({
 
 ## Debugging your SMTP mail server
 
-If you can't get your email server working with smtp/stmps or MAIL_SERVICE, look is there more config options for your email server at https://nodemailer.com docs, and add new issue about your email server to https://github.com/wekan/wekan/issues or [pull request](../Features/Emoji.md#how-you-could-add-another-plugin).
+If you can't get your email server working with smtp/stmps or MAIL_SERVICE, look is there more config options for your email server at https://nodemailer.com docs, and add new issue about your email server to https://github.com/wekan/wekan/issues or [pull request](../Features/Editor/Emoji.md#how-you-could-add-another-plugin).
 
 For example, for https://nodemailer.com/smtp/ 
 

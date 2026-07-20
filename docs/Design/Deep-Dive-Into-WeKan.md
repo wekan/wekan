@@ -48,17 +48,17 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
   - Board Icons, Swimlanes, Lists, Cards, Checklists, Checklist Items
   - Drag handles, per screen [Drag Drop](../DragDrop/Drag-Drop.md)
 - Some features similar to Trello and Jira. Some features not in Trello and Jira.
-- IFTTT Rules like Trello Butler [IFTTT](../Features/IFTTT/IFTTT.md) , translated to all supported languages. Trello Butler is only In English.
+- IFTTT Rules like Trello Butler [IFTTT](../Features/Automation/IFTTT/IFTTT.md) , translated to all supported languages. Trello Butler is only In English.
 - Many Assignees like in Jira.
 - Change background image and Card Cover. Change Theme. Change color of Boards, Swimlane, List, Card, Label.
-- Markdown at: Board name and description, Swimlane, List, Card title and description, Checklist and Checklist Item, Subtask title,  [Wekan Markdown](../Features/Markdown/Markdown.md)
-- Emoji [Emoji](../Features/Emoji.md)
+- Markdown at: Board name and description, Swimlane, List, Card title and description, Checklist and Checklist Item, Subtask title,  [Wekan Markdown](../Features/Editor/Markdown/Markdown.md)
+- Emoji [Emoji](../Features/Editor/Emoji.md)
 - MathML
 - Preview card attachment image and PDF
 - Show Start at End Dates of card at Calendar of Swimlanes/Lists/Calendar dropdown menu
 - Custom Fields [Custom Fields](../API/Custom-Fields.md)
-- Subtasks [Subtasks](../Features/Subtasks.md)
-- Planning Poker / Scrum Poker at Card [Planning Poker](../Features/Planning-Poker.md) . No other card games yet ;)
+- Subtasks [Subtasks](../Features/Cards/Subtasks.md)
+- Planning Poker / Scrum Poker at Card [Planning Poker](../Features/Cards/Planning-Poker.md) . No other card games yet ;)
 - For board actions, like move card etc, Per Board and Global Outgoing and 2-way webhooks to Chat (RocketChat, Slack, Discord etc), NodeRED, or PHP webhook receiver like https://github.com/wekan/webhook 
 - At top right username menu:
   - Search All Boards, with search options
@@ -69,7 +69,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
   - Filter cards, by user etc
   - Multi-Selection, checkmark and drag many cards at once
   - Sort current board
-- Python and PHP based additional features [Python](../Features/Python.md)
+- Python and PHP based additional features [Python](../Features/Editor/Python.md)
 - Admin Panel:
   - Organizations/Teams/People. Impersonate User, logged to database when someone uses that feature.
   - Customize Translations [Customize Translations](../Translations/Customize-Translations.md)

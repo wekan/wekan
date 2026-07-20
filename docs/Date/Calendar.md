@@ -20,4 +20,4 @@ https://user-images.githubusercontent.com/70445835/184324324-b4bd466e-6873-4eef-
 
 * [Calendar issues](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+calendar+label%3AFeature%3ACalendar-view)
 * [Time Tracking](Time-Tracking.md)
-* [Gantt Chart](../Features/Gantt.md)
+* [Gantt Chart](../Features/Reports/Gantt.md)

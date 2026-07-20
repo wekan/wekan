@@ -5716,7 +5716,7 @@ and adds the following new features:
   relation type); Kendis/piplanning.io (and GitHub/GitLab) have no public
   dependency format, so a generic `{ "lines": [...] }` JSON interchange is
   documented for them. Documented in
-  [Features/RedStrings](https://github.com/wekan/wekan/blob/main/docs/Features/RedStrings/RedStrings.md).
+  [Features/RedStrings](https://github.com/wekan/wekan/blob/main/docs/Features/Editor/RedStrings/RedStrings.md).
   Fixes \#3392. Thanks to CodeFreezr, dbt4u, helioguardabaxo and xet7.
 - [Added an Admin Panel "Shared templates" view grouped by Organization / Team / email
   Domain](https://github.com/wekan/wekan/commit/fc9e8674d89ec5b045f2e2c1b14fade9e92baf0d):
@@ -5729,7 +5729,7 @@ and adds the following new features:
   the user's orgs/teams/email domains; the boards are shown as links into each template
   board. Covered by an e2e suite (`tests/playwright/specs/26-shared-templates.e2e.js`).
   Documented in
-  [Features/Templates](https://github.com/wekan/wekan/blob/main/docs/Features/Templates.md#shared-templates-admin-view).
+  [Features/Templates](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Templates.md#shared-templates-admin-view).
   Fixes #3313. Thanks to xet7.
 
 and fixes the following bugs:
@@ -5935,7 +5935,7 @@ and adds the following new features:
   - Added a Rules e2e test suite (`tests/playwright/specs/20-rules.e2e.js`, covering
     the fullscreen page, creating event rules, import/export, selecting rules, the
     workflow view and board buttons) and docs
-    ([Features/Rules](https://github.com/wekan/wekan/blob/main/docs/Features/Rules/Rules.md),
+    ([Features/Rules](https://github.com/wekan/wekan/blob/main/docs/Features/Automation/Rules/Rules.md),
     updated IFTTT page).
 - [Added **Jira import**](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f) ("All Boards → New → Import → From Jira"): import boards from
   a Jira Cloud REST issue-search JSON, similar to the Trello importer. Jira statuses

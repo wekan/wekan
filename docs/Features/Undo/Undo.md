@@ -1,7 +1,7 @@
 # Feature: Undo / Redo (position moves) + high-impact confirmation
 
 Status: **Implemented (v1)** in #6478 · Owner: xet7 · Related: `userPositionHistory`,
-card/list/swimlane drag-and-drop, `docs/Features/History/History.md`
+card/list/swimlane drag-and-drop, `docs/Features/Reports/History/History.md`
 
 This documents the undo/redo feature **shipped in v1** for #6478 ("UI: Confirmation for actions with
 impact") — which covers **position moves** (card / list / swimlane) only.
@@ -12,7 +12,7 @@ impact") — which covers **position moves** (card / list / swimlane) only.
 > a separate feature** — `Ctrl+Z`/`Ctrl+Y` simply restore the current user's most recent change from
 > that history, for **any** change type, and `userPositionHistory` is superseded by the unified
 > `changeHistory` store. The single source of truth for that direction is
-> **`docs/Features/History/History.md`**; this doc describes the current v1 (positions) and the
+> **`docs/Features/Reports/History/History.md`**; this doc describes the current v1 (positions) and the
 > migration path. See History.md §7c (Undo/Redo) and §10 (phasing: position undo/redo migrates onto
 > `changeHistory` first).
 
@@ -123,7 +123,7 @@ non-checkpoint rows). Toggle via `Meteor.settings.public.enableHistoryCleanup`.
 ## 10. Limitations / not in v1
 
 - Undo/redo covers **position moves only** — not text edits, labels, members, dates, etc. Those need
-  before/after content versioning (see `docs/Features/History/History.md`).
+  before/after content versioning (see `docs/Features/Reports/History/History.md`).
 - No on-screen Undo/Redo **buttons** yet (keyboard only) — a board-header control + a post-move
   "Undo" toast are natural follow-ups.
 - Swimlane-move recording is modelled but the reorder path is not yet wired.

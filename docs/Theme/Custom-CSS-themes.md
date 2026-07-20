@@ -1,5 +1,5 @@
 Here is how to build wekan code and add your new theme with code changes and send as pull request:
-[Emoji](../Features/Emoji.md#how-you-could-add-another-plugin)
+[Emoji](../Features/Editor/Emoji.md#how-you-could-add-another-plugin)
 
 Here is how some have sent previous themes to Wekan, what code changes they made:
 https://github.com/wekan/wekan/pulls?q=is%3Apr+is%3Aclosed+theme

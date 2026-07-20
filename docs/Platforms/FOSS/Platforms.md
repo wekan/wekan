@@ -12,7 +12,7 @@ Only newest Wekan is supported. Please check you are running newest Wekan, becau
 * [Settings](../../Webserver/Settings.md)
 * [Email](../../Email/Troubleshooting-Mail.md)
 * **[Backup and Restore](../../Backup/Backup.md) <=== VERY CRITICAL. DO AUTOMATICALLY OFTEN !!**
-* [Logs and Stats](../../Features/Logs.md)
+* [Logs and Stats](../../Features/Troubleshooting/Logs.md)
 * [Wekan bug reports and feature requests](https://github.com/wekan/wekan/issues)
 * [Proxy](https://github.com/wekan/wekan/issues/1480)
 

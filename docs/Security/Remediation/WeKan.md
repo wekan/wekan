@@ -1,7 +1,7 @@
 # Design: WeKan automatic security & speed remediation, logging and reports
 
 Status: **Design for approval** · Owner: xet7 · Related: [FerretDB.md](FerretDB.md),
-[History.md](../../Features/History/History.md) (the Reports UI pattern),
+[History.md](../../Features/Reports/History/History.md) (the Reports UI pattern),
 [hall-of-fame](https://wekan.fi/hall-of-fame/).
 
 This document specifies one subsystem that, for **every vulnerability class and every
@@ -10,7 +10,7 @@ performance problem** WeKan can detect at runtime:
 1. **Remediates automatically** where possible (block / sanitize / pin / rate-limit / tune).
 2. **Logs** each event into the existing WeKan database, with **counts per category** and a **summary**.
 3. **Surfaces** it in **Admin Panel → Reports → Security** and **→ Speed**, using the same
-   table + search + pagination design as [History.md](../../Features/History/History.md).
+   table + search + pagination design as [History.md](../../Features/Reports/History/History.md).
 
 It is a design doc only; the sibling [FerretDB.md](FerretDB.md) covers FerretDB. Both write to the
 same `eventlog` collection in the existing WeKan database (FerretDB reports problems to WeKan, which
