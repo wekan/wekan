@@ -27,8 +27,12 @@ test.describe('Admin – newest features', () => {
     // Seed a board + card owned by the admin so the attachments are "accessible"
     // (the report restricts to attachments on cards the user can see).
     const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Files Board', cardTitlesPerList: [['FilesCard']] });
-    const cardId = await db.findCardIdByTitle('FilesCard');
+    const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'FilesCard' });
     const meta = { boardId: board.boardId, cardId };
+    const attachmentIds = ['e2e-att-normal', 'e2e-att-encoded', 'e2e-att-invisible', 'e2e-att-homoglyph', 'e2e-att-exploit'];
+    // Idempotent seed: clear any leftovers from a previous run (or another browser
+    // project sharing this DB) so insertMany never hits an E11000 duplicate _id.
+    await db.deleteMany('attachments', { _id: { $in: attachmentIds } });
     await db.insertMany('attachments', [
       { _id: 'e2e-att-normal', name: 'normal-file.png', size: 10, type: 'image/png', meta },
       { _id: 'e2e-att-encoded', name: '%D0%93%D1%80.png', size: 20, type: 'image/png', meta }, // -> "Гр.png"
