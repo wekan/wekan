@@ -86,6 +86,28 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# v10.05 2026-07-20 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: FerretDB high CPU and cards not opening — FerretDB v1 does not implement
+  MongoDB change streams, but the snap default reactivity order put `changeStreams`
+  first, so Meteor issued $changeStream aggregates that FerretDB rejected thousands of
+  times per second (a busy-loop pinning FerretDB CPU at 100-390% — the "aggregate=…"
+  that dominated the operations summary — and starving board/card loading so cards
+  would not open). The snap now forces `changeStreams` out of the reactivity order for
+  FerretDB (oplog + polling only); real MongoDB is unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/383b3dd432194d157c84b5ed30972098883cd2fd).
+  Thanks to uusijani, mueschel and xet7.
+- [Fix: switching the board view now persists — the setBoardView method did not await
+  the profile write, so the client reloaded before it was saved (and a rejected write
+  was invisible), making view switching (e.g. to the new Statistics view) unreliable;
+  and All Boards on phones now lays the board icons out as a real 2-column CSS grid so
+  at least 2 show per row, where the earlier float rule did not (#6488)](https://github.com/wekan/wekan/commit/f79c320d121b6f59265a1180d555c6e376255d97).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.04 2026-07-20 WeKan ® release
 
 This release adds the following new features:
@@ -178,14 +200,6 @@ and fixes the following bugs:
   match a missing field unless null is in the list, so the rule silently never fired;
   null is now included for every field, like the cardTitle handling (#6491)](https://github.com/wekan/wekan/commit/e6b001320c27a11fdbd15e17f2ad230bdeab2290).
   Thanks to xet7.
-- [Fix: FerretDB high CPU and cards not opening — FerretDB v1 does not implement
-  MongoDB change streams, but the snap default reactivity order put `changeStreams`
-  first, so Meteor issued $changeStream aggregates that FerretDB rejected thousands of
-  times per second (a busy-loop pinning FerretDB CPU at 100-390% — the "aggregate=…"
-  that dominated the operations summary — and starving board/card loading so cards
-  would not open). The snap now forces `changeStreams` out of the reactivity order for
-  FerretDB (oplog + polling only); real MongoDB is unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/2c63ea5a68a6a624637baf965cd6fcc3648b693f).
-  Thanks to uusijani, mueschel and xet7.
 - [Fix: admin reports load on FerretDB — the paginated report publications returned a
   sorted+limited live cursor, whose limited live observe hangs on FerretDB's OpLog, so
   the report was stuck on the loading spinner; they now publish the page manually so
