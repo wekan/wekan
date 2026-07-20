@@ -1903,6 +1903,7 @@
   "features": "Features",
   "features-performance": "Ukusebenza",
   "cards-loading": "Ukulayisha kwekhadi",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Wonke amakhadi (okuzenzakalelayo)",
   "cards-loading-lazy": "Ivila (amakhadi abonakalayo kuphela)",
   "cards-loading-description": "Indlela ibhodi ngalinye elilayisha ngayo amakhadi alo. Wonke amakhadi: ikhadi ngalinye liyalayishwa kwisiphequluli (okulula kunazo zonke, zonke izici ziyasebenza, kodwa ibhodi elinamakhadi ayizinkulungwane lithumela idatha eningi kumbukeli ngamunye). Ivila: uhlu ngalunye lulayisha kuphela amakhadi abonakalayo manje (ukuskrola okungenamkhawulo) kanye nenani eliphilayo, ngakho amabhodi amakhulu kakhulu asebenzisa inkumbulo ne-bandwidth encane. Kusethwa nayi-CARDS_LOADING environment variable.",

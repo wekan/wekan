@@ -1903,6 +1903,7 @@
   "features": "Funcionalidades",
   "features-performance": "Desempenho",
   "cards-loading": "Carregamento de cartões",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Todos os cartões (predefinição)",
   "cards-loading-lazy": "Lazy (apenas cartões visíveis)",
   "cards-loading-description": "Como cada quadro carrega os seus cartões. Todos os cartões: cada cartão é carregado no navegador (o mais simples, todas as funcionalidades funcionam, mas um quadro com milhares de cartões envia muitos dados a cada visualizador). Lazy: cada lista carrega apenas os cartões atualmente visíveis (deslocamento infinito) mais uma contagem em tempo real, para que quadros muito grandes usem menos memória e largura de banda. Também definido pela variável de ambiente CARDS_LOADING.",

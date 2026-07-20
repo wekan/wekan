@@ -1903,6 +1903,7 @@
   "features": "Ezaugarriak",
   "features-performance": "Errendimendua",
   "cards-loading": "Txartelen kargatzea",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Txartel guztiak (lehenetsia)",
   "cards-loading-lazy": "Alferra (ikusgai dauden txartelak soilik)",
   "cards-loading-description": "Nola kargatzen dituen arbel bakoitzak bere txartelak. Txartel guztiak: txartel bakoitza nabigatzailean kargatzen da (sinpleena, funtzio guztiek funtzionatzen dute, baina milaka txartel dituen arbel batek datu asko bidaltzen dizkio ikustaile bakoitzari). Alferra: zerrenda bakoitzak une honetan ikusgai dauden txartelak soilik kargatzen ditu (korritze infinitua) eta zuzeneko kopuru bat, beraz arbel oso handiek memoria eta banda-zabalera gutxiago erabiltzen dute. CARDS_LOADING ingurune-aldagaiak ere ezartzen du.",

@@ -1903,6 +1903,7 @@
   "features": "Značajke",
   "features-performance": "Performanse",
   "cards-loading": "Učitavanje kartica",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Sve kartice (zadano)",
   "cards-loading-lazy": "Lijeno (samo vidljive kartice)",
   "cards-loading-description": "Kako svaka ploča učitava svoje kartice. Sve kartice: svaka kartica učitava se u preglednik (najjednostavnije, sve značajke rade, ali ploča s tisućama kartica šalje puno podataka svakom pregledniku). Lijeno: svaka lista učitava samo trenutačno vidljive kartice (beskonačno klizanje) plus broj uživo, tako da vrlo velike ploče koriste manje memorije i propusnosti. Također se postavlja varijablom okoline CARDS_LOADING.",

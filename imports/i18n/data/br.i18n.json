@@ -1903,6 +1903,7 @@
   "features": "Arc'hweladurioù",
   "features-performance": "Performañs",
   "cards-loading": "Kargañ ar c'hartennoù",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "An holl gartennoù (dre ziouer)",
   "cards-loading-lazy": "Diwezhek (nemet ar c'hartennoù gwelus)",
   "cards-loading-description": "Penaos e karg pep taolenn he c'hartennoù. An holl gartennoù: karget eo pep kartenn er merdeer (eeunañ, an holl arc'hweladurioù a labour, met un daolenn gant miliadoù kartennoù a gas kalz roadennoù da bep gweler). Diwezhek: pep roll a garg nemet ar c'hartennoù gwelus bremañ (dibunañ diwar-benn) gant un niver bev, neuze e implij an taolennoù bras-tre nebeutoc'h a vemor ha bandwidth. Termenet ivez gant an argemmenn endro CARDS_LOADING.",

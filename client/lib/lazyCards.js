@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
-import { ReactiveCache } from '/imports/reactiveCache';
 import { Filter } from '/client/lib/filter';
+import { Utils } from '/client/lib/utils';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
 const { windowCountId: windowCountIdImpl, resolveCardsLoadingMode } = require('/models/lib/cardsLoading');
 
@@ -10,19 +10,39 @@ const { windowCountId: windowCountIdImpl, resolveCardsLoadingMode } = require('/
 // in). Only used in lazy card-loading mode.
 export const BoardListCardCounts = new Mongo.Collection('boardListCardCounts');
 
+// Client-only mirror of the per-board `boardCardLoadingModes` docs published by
+// the 'boardCardsLoadingMode' publication: { _id: boardId, lazy: bool }. In 'auto'
+// mode this is how the client learns whether a given board loads lazily (by size),
+// so client rendering agrees with the server board publication per board. #6480.
+export const BoardCardLoadingModes = new Mongo.Collection('boardCardLoadingModes');
+
 // Effective card-loading mode. Prefers the admin Setting doc (reactive, so an
 // Admin Panel change is picked up), falls back to the public env value, then to
 // 'all'. See server/cards-loading.js and Admin Panel / Features.
 export function cardsLoadingMode() {
-  const setting = ReactiveCache.getCurrentSetting();
-  const fromDoc = setting && setting.cardsLoading;
+  // Card loading is not an admin toggle: the mode comes from the CARDS_LOADING env
+  // var (default 'auto'), mirrored to Meteor.settings.public by the server. 'auto'
+  // then decides per board by size (see isLazyCards / the boardCardLoadingModes flag).
   const fromEnv =
     Meteor.settings && Meteor.settings.public && Meteor.settings.public.cardsLoading;
-  return resolveCardsLoadingMode(fromDoc || fromEnv);
+  return resolveCardsLoadingMode(fromEnv);
 }
 
-export function isLazyCards() {
-  return cardsLoadingMode() === 'lazy';
+// Whether the given board (default: the current board) loads lazily. In 'auto'
+// mode this is decided PER BOARD by size on the server and delivered via the
+// `boardCardLoadingModes` flag; explicit 'all'/'lazy' apply globally. When the flag
+// has not arrived yet in 'auto' mode we default to EAGER, so small boards keep the
+// unchanged full-featured path and only a confirmed-big board switches to windows.
+export function isLazyCards(boardId) {
+  const bid = boardId || (Utils && Utils.getCurrentBoardId && Utils.getCurrentBoardId());
+  if (bid) {
+    const doc = BoardCardLoadingModes.findOne(bid);
+    if (doc) return !!doc.lazy;
+  }
+  const mode = cardsLoadingMode();
+  if (mode === 'lazy') return true;
+  if (mode === 'all') return false;
+  return false; // 'auto', flag not yet known -> eager until the board is confirmed big
 }
 
 // Stable id for one (list, swimlane) window's count doc (shared, unit-tested).
@@ -39,7 +59,7 @@ export function windowCountId(listId, swimlaneId) {
 // list.cards() runs against minimongo, the server count is exactly the accurate
 // version of whatever list.cards(swimlaneId).length would report.
 export function lazyListCardCount(list, swimlaneId) {
-  if (!isLazyCards() || !list || !list.boardId) return null;
+  if (!list || !list.boardId || !isLazyCards(list.boardId)) return null;
   const selector = listCardsSelector(
     list._id,
     swimlaneId,

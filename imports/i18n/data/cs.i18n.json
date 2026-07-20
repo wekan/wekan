@@ -1903,6 +1903,7 @@
   "features": "Funkce",
   "features-performance": "Výkon",
   "cards-loading": "Načítání karet",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Všechny karty (výchozí)",
   "cards-loading-lazy": "Líné (pouze viditelné karty)",
   "cards-loading-description": "Jak každé tablo načítá své karty. Všechny karty: každá karta se načte do prohlížeče (nejjednodušší, fungují všechny funkce, ale tablo s tisíci karet odešle mnoho dat každému uživateli). Líné: každý seznam načte pouze aktuálně viditelné karty (nekonečné posouvání) plus živý počet, takže velmi velká tabla využívají méně paměti a šířky pásma. Nastavuje se také proměnnou prostředí CARDS_LOADING.",

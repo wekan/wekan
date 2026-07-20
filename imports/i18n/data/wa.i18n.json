@@ -1903,6 +1903,7 @@
   "features": "Fonccionålités",
   "features-performance": "Performance",
   "cards-loading": "Tcherdjaedje des cåtes",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Totes les cåtes (prémetou)",
   "cards-loading-lazy": "Fwinieus (seulmint les cåtes veyåves)",
   "cards-loading-description": "Comint ki tchaeke tåvlea tchedje ses cåtes. Totes les cåtes: tchaeke cåte est tcherdjeye e l' betchteu (li pus simpe, totes les fonccionålités rotèt, mins on tåvlea avou des meyes di cåtes evoye bråmint des dnêyes a tchaeke ridant). Fwinieus: tchaeke djîveye ni tchedje ki les cåtes veyåves po l' moumint (rôlaedje sins fén) avou on conte en dircé, çou ki fwait k' les foirt grands tåvleas eployèt moens di memwere et di lårdjeu di bande. Metou eto pa l' variåve d' evironmint CARDS_LOADING.",

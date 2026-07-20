@@ -1903,6 +1903,7 @@
   "features": "Funcționalități",
   "features-performance": "Performanță",
   "cards-loading": "Încărcarea cardurilor",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Toate cardurile (implicit)",
   "cards-loading-lazy": "Leneșă (doar cardurile vizibile)",
   "cards-loading-description": "Cum își încarcă fiecare panou cardurile. Toate cardurile: fiecare card este încărcat în browser (cel mai simplu, toate funcțiile merg, dar un panou cu mii de carduri trimite multe date fiecărui vizualizator). Leneșă: fiecare listă încarcă doar cardurile vizibile în prezent (derulare infinită) plus un contor live, astfel încât panourile foarte mari folosesc mai puțină memorie și lățime de bandă. Setat și de variabila de mediu CARDS_LOADING.",

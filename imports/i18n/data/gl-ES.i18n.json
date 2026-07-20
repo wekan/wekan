@@ -1903,6 +1903,7 @@
   "features": "Funcionalidades",
   "features-performance": "Rendemento",
   "cards-loading": "Carga de cartões",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Todos os cartões (predeterminado)",
   "cards-loading-lazy": "Perezosa (só os cartões visibles)",
   "cards-loading-description": "Como carga cada quadro os seus cartões. Todos os cartões: todos os cartões cárganse no navegador (o máis sinxelo, todas as funcionalidades funcionan, pero un quadro con miles de cartões envía moitos datos a cada visualizador). Perezosa: cada lista carga só os cartões visibles nese momento (desprazamento infinito) máis un reconto en tempo real, así que os quadros moi grandes usan menos memoria e ancho de banda. Tamén se establece coa variable de contorno CARDS_LOADING.",

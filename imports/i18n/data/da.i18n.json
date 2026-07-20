@@ -1903,6 +1903,7 @@
   "features": "Funktioner",
   "features-performance": "Ydeevne",
   "cards-loading": "Indlæsning af kort",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Alle kort (standard)",
   "cards-loading-lazy": "Doven (kun synlige kort)",
   "cards-loading-description": "Hvordan hver tavle indlæser sine kort. Alle kort: hvert kort indlæses i browseren (enklest, alle funktioner virker, men en tavle med tusindvis af kort sender meget data til hver seer). Doven: hver liste indlæser kun de kort, der er synlige lige nu (uendelig rulning) plus et live-antal, så meget store tavler bruger mindre hukommelse og båndbredde. Angives også af miljøvariablen CARDS_LOADING.",

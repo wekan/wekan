@@ -1903,6 +1903,7 @@
   "features": "功能",
   "features-performance": "性能",
   "cards-loading": "卡片加载",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "所有卡片（默认）",
   "cards-loading-lazy": "懒加载（仅可见卡片）",
   "cards-loading-description": "每个看板如何加载其卡片。所有卡片：每张卡片都加载到浏览器中（最简单，所有功能都可用，但拥有数千张卡片的看板会向每个查看者发送大量数据）。懒加载：每个列表仅加载当前可见的卡片（无限滚动）以及一个实时计数，因此非常大的看板占用更少的内存和带宽。也可通过 CARDS_LOADING 环境变量设置。",

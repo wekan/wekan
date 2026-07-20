@@ -1903,6 +1903,7 @@
   "features": "Features",
   "features-performance": "Performance",
   "cards-loading": "Card loading",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "All cards (default)",
   "cards-loading-lazy": "Lazy (only visible cards)",
   "cards-loading-description": "How each board loads its cards. All cards: every card is loaded into the browser (simplest, all features work, but a board with thousands of cards sends a lot of data to each viewer). Lazy: each list loads only the cards currently visible (infinite scroll) plus a live count, so very large boards use less memory and bandwidth. Also set by the CARDS_LOADING environment variable.",

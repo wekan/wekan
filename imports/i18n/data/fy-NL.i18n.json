@@ -1903,6 +1903,7 @@
   "features": "Funksjes",
   "features-performance": "Prestaasjes",
   "cards-loading": "Kaarten lade",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Alle kaarten (standert)",
   "cards-loading-lazy": "Lazy (allinnich sichtbere kaarten)",
   "cards-loading-description": "Hoe't elk board syn kaarten laadt. Alle kaarten: elke kaart wurdt yn de browser laden (ienfâldichst, alle funksjes wurkje, mar in board mei tûzenen kaarten stjoert in soad data nei elke sjogger). Lazy: elke list laadt allinnich de op it stuit sichtbere kaarten (oneinich skrolle) plus in live telling, sadat hiel grutte boards minder ûnthâld en bânbreedte brûke. Ek ynsteld troch de omjouwingsfariabele CARDS_LOADING.",

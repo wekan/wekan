@@ -1903,6 +1903,7 @@
   "features": "Carauterístiques",
   "features-performance": "Rindimientu",
   "cards-loading": "Carga de tarjetes",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Toles tarjetes (por defeutu)",
   "cards-loading-lazy": "Perezosa (namás les tarjetes visibles)",
   "cards-loading-description": "Cómo carga cada tablero les sos tarjetes. Toles tarjetes: cada tarjeta cárgase nel navegador (lo más senciello, tolo funciona, pero un tablero con miles de tarjetes unvía munchos datos a cada espeutador). Perezosa: cada lista carga namás les tarjetes visibles nesi momentu (desplazamientu infinitu) más una cuenta en direuto, asina los tableros bien grandes usen menos memoria y anchu de banda. Tamién se define cola variable d'entornu CARDS_LOADING.",

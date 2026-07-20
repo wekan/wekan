@@ -1903,6 +1903,7 @@
   "features": "Funktionen",
   "features-performance": "Leistung",
   "cards-loading": "Kartenladen",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Alle Karten (Standard)",
   "cards-loading-lazy": "Verzögert (nur sichtbare Karten)",
   "cards-loading-description": "Wie jedes Board seine Karten lädt. Alle Karten: Jede Karte wird in den Browser geladen (am einfachsten, alle Funktionen funktionieren, aber ein Board mit Tausenden von Karten sendet viele Daten an jeden Betrachter). Verzögert: Jede Liste lädt nur die aktuell sichtbaren Karten (unendliches Scrollen) plus eine Live-Anzahl, sodass sehr große Boards weniger Speicher und Bandbreite verbrauchen. Wird auch durch die Umgebungsvariable CARDS_LOADING festgelegt.",

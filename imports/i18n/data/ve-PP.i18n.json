@@ -1903,6 +1903,7 @@
   "features": "Ominazused",
   "features-performance": "Produktivižuz",
   "cards-loading": "Kartoiden ladind",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Kaik kartad (alolane)",
   "cards-loading-lazy": "Lašk (vaiše nägujad kartad)",
   "cards-loading-description": "Kut joka laud ladib ičeze kartad. Kaik kartad: jogahine kart ladidas selaimha (kaikuten kebn, kaik ominazused rabotaba, no laud tuhanziden kartoidenke oigendab äi andmusid jogahižele kacujale). Lašk: joka list ladib vaiše nügüd' nägujad kartad (loppmatoi skrolind) i elävan lugun, muga lujas sured laudad kävutaba vähemba muštad i kaistandan tilad. Sädas mugažo CARDS_LOADING-ümbristön muuttujal.",

@@ -1903,6 +1903,7 @@
   "features": "Funktsioonid",
   "features-performance": "Jõudlus",
   "cards-loading": "Kaartide laadimine",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Kõik kaardid (vaikimisi)",
   "cards-loading-lazy": "Laisk (ainult nähtavad kaardid)",
   "cards-loading-description": "Kuidas iga tahvel oma kaarte laadib. Kõik kaardid: iga kaart laaditakse brauserisse (lihtsaim, kõik funktsioonid töötavad, kuid tuhandete kaartidega tahvel saadab igale vaatajale palju andmeid). Laisk: iga nimekiri laadib ainult hetkel nähtavad kaardid (lõputu kerimine) pluss elav loendur, seega väga suured tahvlid kasutavad vähem mälu ja ribalaiust. Määratakse ka keskkonnamuutujaga CARDS_LOADING.",

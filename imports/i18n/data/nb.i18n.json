@@ -1903,6 +1903,7 @@
   "features": "Funksjoner",
   "features-performance": "Ytelse",
   "cards-loading": "Kortinnlasting",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Alle kort (standard)",
   "cards-loading-lazy": "Lat (bare synlige kort)",
   "cards-loading-description": "Hvordan hver tavle laster inn kortene sine. Alle kort: hvert kort lastes inn i nettleseren (enklest, alle funksjoner virker, men en tavle med tusenvis av kort sender mye data til hver seer). Lat: hver liste laster bare inn kortene som for øyeblikket er synlige (uendelig rulling) pluss en sanntidsteller, slik at svært store tavler bruker mindre minne og båndbredde. Kan også angis med miljøvariabelen CARDS_LOADING.",

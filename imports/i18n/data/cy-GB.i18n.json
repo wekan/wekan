@@ -1903,6 +1903,7 @@
   "features": "Nodweddion",
   "features-performance": "Perfformiad",
   "cards-loading": "Llwytho cardiau",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Pob cerdyn (rhagosodedig)",
   "cards-loading-lazy": "Diog (cardiau gweladwy yn unig)",
   "cards-loading-description": "Sut mae pob bwrdd yn llwytho ei gardiau. Pob cerdyn: llwythir pob cerdyn i'r porwr (symlaf, mae pob nodwedd yn gweithio, ond mae bwrdd â miloedd o gardiau yn anfon llawer o ddata at bob gwyliwr). Diog: mae pob rhestr yn llwytho dim ond y cardiau sy'n weladwy ar hyn o bryd (sgrolio diddiwedd) yn ogystal â chyfrif byw, felly mae byrddau mawr iawn yn defnyddio llai o gof a lled band. Gosodir hefyd gan y newidyn amgylchedd CARDS_LOADING.",

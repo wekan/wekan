@@ -1903,6 +1903,7 @@
   "features": "Mga Feature",
   "features-performance": "Performance",
   "cards-loading": "Pagload han card",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Ngatanan nga card (default)",
   "cards-loading-lazy": "Lazy (an nakikita la nga card)",
   "cards-loading-description": "Kon paonan-o an kada board nagload han iya mga card. Ngatanan nga card: an kada card gin-loload ngadto ha browser (pinakasimple, naglalampos an ngatanan nga feature, kundi an board nga may liboan nga card nagpapadara hin damu nga datos ha kada nagtan-aw). Lazy: an kada lista nagload la han mga card nga yana nakikita (infinite scroll) upod an live nga ihap, salit an daku nga board naggagamit hin gutiay nga memorya ngan bandwidth. Gintatakda liwat han CARDS_LOADING nga environment variable.",

@@ -1903,6 +1903,7 @@
   "features": "Funcionalitats",
   "features-performance": "Rendiment",
   "cards-loading": "Càrrega de fitxes",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Totes les fitxes (per defecte)",
   "cards-loading-lazy": "Diferida (només les fitxes visibles)",
   "cards-loading-description": "Com carrega cada tauler les seves fitxes. Totes les fitxes: cada fitxa es carrega al navegador (el més senzill, totes les funcionalitats funcionen, però un tauler amb milers de fitxes envia moltes dades a cada visor). Diferida: cada llista carrega només les fitxes actualment visibles (desplaçament infinit) més un recompte en viu, de manera que els taulers molt grans fan servir menys memòria i amplada de banda. També s'estableix amb la variable d'entorn CARDS_LOADING.",

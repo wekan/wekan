@@ -1903,6 +1903,7 @@
   "features": "Funkcioj",
   "features-performance": "Efikeco",
   "cards-loading": "Karta ŝargado",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Ĉiuj kartoj (defaŭlta)",
   "cards-loading-lazy": "Prokrasta (nur videblaj kartoj)",
   "cards-loading-description": "Kiel ĉiu tabulo ŝargas siajn kartojn. Ĉiuj kartoj: ĉiu karto estas ŝargita en la retumilon (plej simpla, ĉiuj funkcioj funkcias, sed tabulo kun miloj da kartoj sendas multe da datumoj al ĉiu spektanto). Prokrasta: ĉiu listo ŝargas nur la nune videblajn kartojn (senfina rulumado) plus vivan nombron, do tre grandaj tabuloj uzas malpli da memoro kaj bendolarĝo. Ankaŭ agordebla per la media variablo CARDS_LOADING.",

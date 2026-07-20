@@ -1903,6 +1903,7 @@
   "features": "Özellikler",
   "features-performance": "Performans",
   "cards-loading": "Kart yükleme",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Tüm kartlar (varsayılan)",
   "cards-loading-lazy": "Tembel (yalnızca görünür kartlar)",
   "cards-loading-description": "Her panonun kartlarını nasıl yüklediği. Tüm kartlar: her kart tarayıcıya yüklenir (en basit, tüm özellikler çalışır, ancak binlerce kartlı bir pano her görüntüleyene çok fazla veri gönderir). Tembel: her liste yalnızca şu anda görünür olan kartları yükler (sonsuz kaydırma) artı canlı bir sayı, böylece çok büyük panolar daha az bellek ve bant genişliği kullanır. CARDS_LOADING ortam değişkeni ile de ayarlanır.",

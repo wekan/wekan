@@ -1903,6 +1903,7 @@
   "features": "Fonctionnalités",
   "features-performance": "Performances",
   "cards-loading": "Chargement des cartes",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Toutes les cartes (par défaut)",
   "cards-loading-lazy": "Différé (uniquement les cartes visibles)",
   "cards-loading-description": "Comment chaque tableau charge ses cartes. Toutes les cartes : chaque carte est chargée dans le navigateur (le plus simple, toutes les fonctionnalités marchent, mais un tableau avec des milliers de cartes envoie beaucoup de données à chaque visiteur). Différé : chaque liste ne charge que les cartes actuellement visibles (défilement infini) plus un décompte en direct, de sorte que les très grands tableaux utilisent moins de mémoire et de bande passante. Défini aussi par la variable d'environnement CARDS_LOADING.",

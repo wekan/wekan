@@ -1903,6 +1903,7 @@
   "features": "Fitur",
   "features-performance": "Performa",
   "cards-loading": "Muat kad",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Mandum kad (default)",
   "cards-loading-lazy": "Lazy (cuma kad nyang deuh)",
   "cards-loading-description": "Pakriban tiep papan muat kad jih. Mandum kad: tiep kad geumuat u browser (paleng mudah, mandum fitur jalan, tapi papan ngon riboe kad kirem le that data u tiep ureueng kalon). Lazy: tiep senarai muat cuma kad nyang deuh jinoe (scroll hana putoh) ngon jumlah langsong, jadi papan rayeuk that pakee kureueng memori dan bandwidth. Geuatur cit le variabel lingkungan CARDS_LOADING.",

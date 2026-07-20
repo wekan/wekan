@@ -1903,6 +1903,7 @@
   "features": "Fitur",
   "features-performance": "Performa",
   "cards-loading": "Pemuatan kartu",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Semua kartu (bawaan)",
   "cards-loading-lazy": "Lazy (hanya kartu yang terlihat)",
   "cards-loading-description": "Bagaimana setiap papan memuat kartunya. Semua kartu: setiap kartu dimuat ke browser (paling sederhana, semua fitur berfungsi, tetapi papan dengan ribuan kartu mengirim banyak data ke setiap penampil). Lazy: setiap daftar hanya memuat kartu yang saat ini terlihat (infinite scroll) plus penghitung langsung, sehingga papan yang sangat besar menggunakan lebih sedikit memori dan bandwidth. Juga diatur oleh variabel lingkungan CARDS_LOADING.",

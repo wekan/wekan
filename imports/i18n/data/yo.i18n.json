@@ -1903,6 +1903,7 @@
   "features": "Awọn ẹya",
   "features-performance": "Iṣẹ",
   "cards-loading": "Ikojọpọ kaadi",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Gbogbo awọn kaadi (aiyipada)",
   "cards-loading-lazy": "Ọlẹ (awọn kaadi ti o han nikan)",
   "cards-loading-description": "Bii igbimọ kọọkan ṣe kojọpọ awọn kaadi rẹ. Gbogbo awọn kaadi: a kojọ kaadi kọọkan sinu ẹrọ aṣawakiri (rọrun julọ, gbogbo awọn ẹya ṣiṣẹ, ṣugbọn igbimọ pẹlu ẹgbẹẹgbẹrun awọn kaadi fi data pupọ ranṣẹ si oluwo kọọkan). Ọlẹ: atokọ kọọkan kojọ awọn kaadi ti o han lọwọlọwọ nikan (yiyi ailopin) pẹlu iye laaye, nitorina awọn igbimọ nla lo iranti ati bandiwidi kere. Tun ṣeto nipasẹ oniyipada agbegbe CARDS_LOADING.",

@@ -1903,6 +1903,7 @@
   "features": "Funktioner",
   "features-performance": "Prestanda",
   "cards-loading": "Kortladdning",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Alla kort (standard)",
   "cards-loading-lazy": "Lat (endast synliga kort)",
   "cards-loading-description": "Hur varje tavla laddar sina kort. Alla kort: varje kort laddas in i webbläsaren (enklast, alla funktioner fungerar, men en tavla med tusentals kort skickar mycket data till varje betraktare). Lat: varje lista laddar endast de kort som för tillfället är synliga (oändlig rullning) plus en liveräkning, så mycket stora tavlor använder mindre minne och bandbredd. Ställs även in av miljövariabeln CARDS_LOADING.",

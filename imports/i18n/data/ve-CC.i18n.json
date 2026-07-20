@@ -1903,6 +1903,7 @@
   "features": "Funzionalità",
   "features-performance": "Prestazioni",
   "cards-loading": "Caricamento de le schede",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Tute le schede (predefinìo)",
   "cards-loading-lazy": "Lazy (soło le schede visibili)",
   "cards-loading-description": "Come che ogni bacheca ła carga le so schede. Tute le schede: ogni scheda ła vien cargà inte'l browser (el pì semplice, tute le funzionalità va, ma na bacheca co migliaia de schede ła manda tanti dati a ogni spetador). Lazy: ogni lista ła carga soło le schede corentemente visibili (scroll infinito) pì na conta łive, cussì le bacheche molto grandi le dopara manco memoria e banda. Impostà anca da la variabile de ambiente CARDS_LOADING.",

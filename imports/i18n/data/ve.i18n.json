@@ -1903,6 +1903,7 @@
   "features": "Zwiitwa",
   "features-performance": "Kushumele",
   "cards-loading": "U layishwa ha khaḓi",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Makhaḓi oṱhe (mvelaphanḓa)",
   "cards-loading-lazy": "Lazy (makhaḓi a vhonalaho fhedzi)",
   "cards-loading-description": "Nḓila ine bodo ḽiṅwe na ḽiṅwe ḽa layisha makhaḓi aḽo. Makhaḓi oṱhe: khaḓi ḽiṅwe na ḽiṅwe ḽi layishelwa kha buraweza (zwa u leluwa, zwiitwa zwoṱhe zwi a shuma, fhedzi bodo ḽi re na maḓana a makhaḓi ḽi rumela data nnzhi kha muvhoni muṅwe na muṅwe). Lazy: mutevhe muṅwe na muṅwe u layisha fhedzi makhaḓi a vhonalaho zwino (infinite scroll) na muvhalo u tshilaho, ngauralo mabodo mahulwane vhukuma a shumisa memori na bandwidth i ṱhukhu. Zwi dovha zwa vhewa nga CARDS_LOADING environment variable.",

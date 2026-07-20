@@ -1903,6 +1903,7 @@
   "features": "Ciri",
   "features-performance": "Prestasi",
   "cards-loading": "Pemuatan kad",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Semua kad (lalai)",
   "cards-loading-lazy": "Malas (kad kelihatan sahaja)",
   "cards-loading-description": "Cara setiap papan memuatkan kadnya. Semua kad: setiap kad dimuatkan ke dalam pelayar (paling ringkas, semua ciri berfungsi, tetapi papan dengan beribu-ribu kad menghantar banyak data kepada setiap penonton). Malas: setiap senarai memuatkan hanya kad yang kelihatan pada masa ini (tatal tak terhingga) berserta kiraan langsung, jadi papan yang sangat besar menggunakan kurang memori dan lebar jalur. Turut ditetapkan oleh pemboleh ubah persekitaran CARDS_LOADING.",

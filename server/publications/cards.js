@@ -113,6 +113,66 @@ Meteor.publish('card', async function(cardId) {
   return ret;
 });
 
+// Live children (comments, attachments, checklists, checklist items) of a SINGLE
+// open card. In lazy (windowed) card loading the board/window publications only
+// ship the children of cards in the visible window, so an open card that scrolled
+// out of — or was just added to — a window could otherwise miss its own live data.
+// The card detail view subscribes to this so an open card is ALWAYS complete and
+// reactive, independent of the window. Cheap: one card's children only.
+publishComposite('openCardData', async function(cardId) {
+  check(cardId, String);
+
+  const userId = this.userId;
+  const card = await ReactiveCache.getCard({ _id: cardId });
+  if (!card || !card.boardId) {
+    return { find() { return []; } };
+  }
+
+  const board = await ReactiveCache.getBoard({ _id: card.boardId });
+  if (!board || !board.isVisibleBy({ _id: userId })) {
+    return { find() { return []; } };
+  }
+
+  // Respect assigned-only board permissions, like the 'card' publication above.
+  if (userId && board.members) {
+    const member = findWhere(board.members, { userId, isActive: true });
+    if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+      if (!card.assignees || !card.assignees.includes(userId)) {
+        return { find() { return []; } };
+      }
+    }
+  }
+
+  return {
+    async find() {
+      return await ReactiveCache.getCards({ _id: cardId }, { fields: { _id: 1 } }, true);
+    },
+    children: [
+      {
+        async find(c) {
+          return await ReactiveCache.getCardComments({ cardId: c._id }, {}, true);
+        },
+      },
+      {
+        async find(c) {
+          const result = await ReactiveCache.getAttachments({ 'meta.cardId': c._id }, {}, true);
+          return result.cursor || result;
+        },
+      },
+      {
+        async find(c) {
+          return await ReactiveCache.getChecklists({ cardId: c._id }, {}, true);
+        },
+      },
+      {
+        async find(c) {
+          return await ReactiveCache.getChecklistItems({ cardId: c._id }, {}, true);
+        },
+      },
+    ],
+  };
+});
+
 /** publish all data which is necessary to display card details as popup
  * @returns array of cursors
  */

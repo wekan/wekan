@@ -1903,6 +1903,7 @@
   "features": "Kenmerke",
   "features-performance": "Werkverrigting",
   "cards-loading": "Kaartlaai",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Alle kaarte (verstek)",
   "cards-loading-lazy": "Lui (slegs sigbare kaarte)",
   "cards-loading-description": "Hoe elke bord sy kaarte laai. Alle kaarte: elke kaart word in die blaaier gelaai (eenvoudigste, alle kenmerke werk, maar 'n bord met duisende kaarte stuur baie data na elke kyker). Lui: elke lys laai slegs die kaarte wat tans sigbaar is (oneindige rol) plus 'n lewende telling, so baie groot borde gebruik minder geheue en bandwydte. Word ook deur die CARDS_LOADING-omgewingsveranderlike gestel.",

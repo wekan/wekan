@@ -1903,6 +1903,7 @@
   "features": "Aýratynlyklar",
   "features-performance": "Öndürijilik",
   "cards-loading": "Kartoçka ýüklemek",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Ähli kartoçkalar (deslapky)",
   "cards-loading-lazy": "Ýalta (diňe görünýän kartoçkalar)",
   "cards-loading-description": "Her tagta öz kartoçkalaryny nädip ýükleýär. Ähli kartoçkalar: her kartoçka brauzere ýüklenýär (iň ýönekeý, ähli aýratynlyklar işleýär, ýöne müňlerçe kartoçkaly tagta her görüjä köp maglumat iberýär). Ýalta: her sanaw diňe häzir görünýän kartoçkalary ýükleýär (çäksiz aýlaw) we janly san, şonuň üçin örän uly tagtalar az ýat we zolak giňligini ulanýar. Şeýle hem CARDS_LOADING gurşaw üýtgeýjisi bilen düzülýär.",

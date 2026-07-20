@@ -1903,6 +1903,7 @@
   "features": "Foncionalitats",
   "features-performance": "Performància",
   "cards-loading": "Cargament de las cartas",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Totas las cartas (per defaut)",
   "cards-loading-lazy": "Peresós (pas que las cartas visiblas)",
   "cards-loading-description": "Cossí cada tablèu carga sas cartas. Totas las cartas : cada carta es cargada dins lo navigador (lo mai simple, totas las foncionalitats fonccionan, mas un tablèu amb de milièrs de cartas manda fòrça donadas a cada visitaire). Peresós : cada tièra carga pas que las cartas actualament visiblas (desfilament infinit) mai un comptatge en dirècte, doncas los tablèus fòrça grands utilizan mens de memòria e de benda passanta. Tanben definit per la variabla d'environament CARDS_LOADING.",

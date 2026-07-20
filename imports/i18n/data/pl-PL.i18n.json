@@ -1903,6 +1903,7 @@
   "features": "Funkcje",
   "features-performance": "Wydajność",
   "cards-loading": "Ładowanie kart",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Wszystkie karty (domyślnie)",
   "cards-loading-lazy": "Leniwe (tylko widoczne karty)",
   "cards-loading-description": "Jak każda tablica ładuje swoje karty. Wszystkie karty: każda karta jest ładowana do przeglądarki (najprostsze, wszystkie funkcje działają, ale tablica z tysiącami kart wysyła dużo danych do każdego przeglądającego). Leniwe: każda lista ładuje tylko aktualnie widoczne karty (nieskończone przewijanie) plus licznik na żywo, dzięki czemu bardzo duże tablice zużywają mniej pamięci i przepustowości. Ustawiane także przez zmienną środowiskową CARDS_LOADING.",

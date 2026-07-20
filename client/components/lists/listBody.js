@@ -366,7 +366,7 @@ Template.listBody.helpers({
     // just this list/swimlane window (grows with `limit` as the user scrolls)
     // plus its reactive total count. Default mode keeps everything in minimongo
     // already, so these subscriptions are skipped.
-    if (isLazyCards() && list.boardId) {
+    if (list.boardId && isLazyCards(list.boardId)) {
       tpl.subscribe('boardCardsWindow', list.boardId, mongoSelector, sortBy, limit);
       tpl.subscribe(
         'boardListCardCount',

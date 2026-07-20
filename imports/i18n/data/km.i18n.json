@@ -1903,6 +1903,7 @@
   "features": "លក្ខណៈពិសេស",
   "features-performance": "ដំណើរការ",
   "cards-loading": "ការផ្ទុកកាត",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "កាតទាំងអស់ (លំនាំដើម)",
   "cards-loading-lazy": "យឺត (តែកាតដែលមើលឃើញ)",
   "cards-loading-description": "របៀបដែលក្តារនីមួយៗផ្ទុកកាតរបស់វា។ កាតទាំងអស់៖ រាល់កាតត្រូវបានផ្ទុកចូលកម្មវិធីរុករក (សាមញ្ញបំផុត លក្ខណៈពិសេសទាំងអស់ដំណើរការ ប៉ុន្តែក្តារដែលមានកាតរាប់ពាន់ផ្ញើទិន្នន័យច្រើនទៅអ្នកមើលម្នាក់ៗ)។ យឺត៖ បញ្ជីនីមួយៗផ្ទុកតែកាតដែលកំពុងមើលឃើញ (infinite scroll) បូកនឹងចំនួនផ្ទាល់ ដូច្នេះក្តារធំៗប្រើអង្គចងចាំ និងbandwidth តិចជាង។ ក៏កំណត់ដោយ CARDS_LOADING environment variable ផងដែរ។",

@@ -1903,6 +1903,7 @@
   "features": "Xususiyatlar",
   "features-performance": "Unumdorlik",
   "cards-loading": "Karta yuklash",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Barcha kartalar (standart)",
   "cards-loading-lazy": "Yalqov (faqat koʻrinadigan kartalar)",
   "cards-loading-description": "Har bir kengash oʻz kartalarini qanday yuklaydi. Barcha kartalar: har bir karta brauzerga yuklanadi (eng oddiy, barcha xususiyatlar ishlaydi, lekin minglab kartali kengash har bir koʻruvchiga koʻp maʼlumot yuboradi). Yalqov: har bir roʻyxat faqat hozirda koʻrinadigan kartalarni yuklaydi (cheksiz aylantirish) hamda jonli hisob, shuning uchun juda katta kengashlar kamroq xotira va oʻtkazuvchanlikdan foydalanadi. CARDS_LOADING muhit oʻzgaruvchisi bilan ham oʻrnatiladi.",

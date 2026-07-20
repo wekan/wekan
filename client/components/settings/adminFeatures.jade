@@ -31,15 +31,7 @@ template(name="adminFeatures")
             ul.setting-detail
               li.layout-form
                 .title {{_ 'cards-loading'}}
-                .form-group
-                  select#cards-loading.js-cards-loading
-                    each cardsLoadingOptions
-                      if this.selected
-                        option(value="{{value}}" selected) {{_ label}}
-                      else
-                        option(value="{{value}}") {{_ label}}
                 p.description {{_ 'cards-loading-description'}}
-                p.description {{_ 'cards-loading-lazy-note'}}
           if isSecurityActive
             ul.setting-detail
               li

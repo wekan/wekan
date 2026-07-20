@@ -1903,6 +1903,7 @@
   "features": "Xüsusiyyətlər",
   "features-performance": "Performans",
   "cards-loading": "Kart yüklənməsi",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Bütün kartlar (defolt)",
   "cards-loading-lazy": "Tənbəl (yalnız görünən kartlar)",
   "cards-loading-description": "Hər lövhənin kartlarını necə yüklədiyi. Bütün kartlar: hər kart brauzerə yüklənir (ən sadə, bütün funksiyalar işləyir, lakin minlərlə kartı olan lövhə hər izləyiciyə çoxlu məlumat göndərir). Tənbəl: hər siyahı yalnız hazırda görünən kartları (sonsuz sürüşdürmə) və canlı sayı yükləyir, beləliklə çox böyük lövhələr daha az yaddaş və bant genişliyi istifadə edir. Həmçinin CARDS_LOADING mühit dəyişəni ilə təyin olunur.",

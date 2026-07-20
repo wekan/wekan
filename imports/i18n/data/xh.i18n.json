@@ -1903,6 +1903,7 @@
   "features": "Iimpawu",
   "features-performance": "Ukusebenza",
   "cards-loading": "Ukulayisha ikhadi",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Onke amakhadi (okumiselweyo)",
   "cards-loading-lazy": "I-Lazy (amakhadi abonakalayo kuphela)",
   "cards-loading-description": "Indlela ibhodi nganye elayisha ngayo amakhadi ayo. Onke amakhadi: ikhadi ngalinye lilayishwa kwibrawza (elula, zonke iimpawu ziyasebenza, kodwa ibhodi enamawaka amakhadi ithumela idatha eninzi kumbukeli ngamnye). I-Lazy: uluhlu ngalunye lulayisha kuphela amakhadi abonakalayo ngoku (i-scroll engenasiphelo) kunye nenani eliphilayo, ngoko iibhodi ezinkulu kakhulu zisebenzisa imemori ne-bandwidth encinci. Kwakhona imiselwa yi-CARDS_LOADING environment variable.",

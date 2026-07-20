@@ -1903,6 +1903,7 @@
   "features": "Funkcie",
   "features-performance": "Výkon",
   "cards-loading": "Načítavanie kariet",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Všetky karty (predvolené)",
   "cards-loading-lazy": "Lenivé (len viditeľné karty)",
   "cards-loading-description": "Ako každá nástenka načítava svoje karty. Všetky karty: každá karta sa načíta do prehliadača (najjednoduchšie, fungujú všetky funkcie, ale nástenka s tisíckami kariet odošle každému divákovi veľa dát). Lenivé: každý zoznam načíta len momentálne viditeľné karty (nekonečné posúvanie) plus živý počet, takže veľmi veľké nástenky používajú menej pamäte a šírky pásma. Nastavuje sa aj premennou prostredia CARDS_LOADING.",

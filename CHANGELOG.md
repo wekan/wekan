@@ -185,6 +185,18 @@ This release also fixes reported problems from **v10.03**:
   v1.33.0+, whose OpLog-by-default stops Meteor's poll-and-diff entirely and whose
   SQLite pragmas (`busy_timeout` 30 s, WAL, `synchronous=normal`, cache/mmap) further
   cut CPU and `SQLITE_BUSY`.
+- **Automatic adaptive card loading (big boards load lazily)**
+  ([#6480](https://github.com/wekan/wekan/issues/6480)). Card loading is no longer an
+  admin toggle — WeKan decides **per board by size**: a board over the threshold
+  (default 500 cards, `CARDS_LOADING_LAZY_THRESHOLD`) loads only the cards currently
+  visible (infinite-scroll windows) plus a live count, so very large boards stay fast
+  and light; smaller boards keep loading every card (the simple, fully-featured path,
+  unchanged). The server computes the mode per board and publishes it so client
+  rendering agrees. Windowed comments/attachments/checklists are now published with
+  **one cursor per window** instead of one per card (the same N+1 fix as eager mode),
+  and an **open card always subscribes to its own live comments/attachments/checklists**
+  (`openCardData`), so it is complete even when it is outside — or just added to — a
+  window. Operators can still force a mode with `CARDS_LOADING=all|lazy|auto`.
 - **CPU usage: surface FerretDB's own process CPU**
   ([#6480](https://github.com/wekan/wekan/issues/6480)). "Admin Panel → Problems → CPU
   usage" could stay empty even while FerretDB pegged the machine, because both WeKan

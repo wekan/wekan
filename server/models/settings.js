@@ -10,7 +10,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-const { parseCardsLoadingEnv } = require('/models/lib/cardsLoading');
+const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
   normalizeInviteEmail,
   isInvitationCodeSendable,
@@ -176,7 +176,6 @@ Meteor.startup(async () => {
       displayAuthenticationMethod: true,
       defaultAuthenticationMethod:
         resolveDefaultAuthenticationMethod(envDefaultAuthenticationMethod, undefined),
-      cardsLoading: envCardsLoading || 'all',
     };
     await Settings.insertAsync(defaultSetting);
   } else if (
@@ -189,21 +188,17 @@ Meteor.startup(async () => {
       $set: { defaultAuthenticationMethod: envDefaultAuthenticationMethod },
     });
   }
-  // Existing install: when CARDS_LOADING is set it wins on startup; otherwise
-  // backfill a missing value so the Admin Panel control has something to show.
-  if (setting) {
-    if (envCardsLoading && setting.cardsLoading !== envCardsLoading) {
-      await Settings.updateAsync(setting._id, { $set: { cardsLoading: envCardsLoading } });
-    } else if (!setting.cardsLoading) {
-      await Settings.updateAsync(setting._id, { $set: { cardsLoading: 'all' } });
-    }
-  }
-  // Mirror the effective mode onto Meteor.settings.public so publications can read
-  // it synchronously; keep it in sync whenever an admin changes it in the UI.
+  // Card loading is NOT an admin-configurable toggle: WeKan always adapts per board
+  // ('auto' — big boards load lazily, small boards eagerly, #6480). Only the
+  // CARDS_LOADING env var can force 'all'/'lazy'/'auto' for operators; there is no
+  // stored setting. Mirror the effective mode + the lazy threshold onto
+  // Meteor.settings.public so publications (server) and rendering (client) can read
+  // them synchronously.
   {
-    const eff = await getReactiveCache().getCurrentSetting();
     if (!Meteor.settings.public) Meteor.settings.public = {};
-    Meteor.settings.public.cardsLoading = (eff && eff.cardsLoading) || 'all';
+    Meteor.settings.public.cardsLoading = envCardsLoading || 'auto';
+    Meteor.settings.public.cardsLoadingLazyThreshold =
+      cardsLoadingLazyThreshold(process.env.CARDS_LOADING_LAZY_THRESHOLD);
   }
   if (isSandstorm) {
     const newSetting = await getReactiveCache().getCurrentSetting();
@@ -215,16 +210,6 @@ Meteor.startup(async () => {
       : newSetting.mailServer.from;
   } else {
     Accounts.emailTemplates.from = process.env.MAIL_FROM;
-  }
-});
-
-// Keep the server-side effective card-loading mode in sync when an admin changes
-// it in Admin Panel / Features (publications read Meteor.settings.public.cardsLoading).
-// A page reload is needed for already-open boards to switch modes.
-Settings.after.update((userId, doc, fieldNames) => {
-  if (fieldNames.includes('cardsLoading')) {
-    if (!Meteor.settings.public) Meteor.settings.public = {};
-    Meteor.settings.public.cardsLoading = doc.cardsLoading || 'all';
   }
 });
 

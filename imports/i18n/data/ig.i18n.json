@@ -1903,6 +1903,7 @@
   "features": "Features",
   "features-performance": "Arụmọrụ",
   "cards-loading": "Ntinye kaadị",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Kaadị niile (ọnọdụ)",
   "cards-loading-lazy": "Umengwụ (naanị kaadị a na-ahụ)",
   "cards-loading-description": "Otu bọọdụ ọ bụla si ebudata kaadị ya. Kaadị niile: a na-ebudata kaadị ọ bụla n'ime ihe nchọgharị (kacha mfe, atụmatụ niile na-arụ ọrụ, mana bọọdụ nwere ọtụtụ puku kaadị na-eziga nnukwu data na onye nlele ọ bụla). Umengwụ: ndepụta ọ bụla na-ebudata naanị kaadị a na-ahụ ugbu a (mkpuchi enweghị ngwụcha) na ọnụọgụ dị ndụ, ya mere bọọdụ buru ibu na-eji ntcheta na bandwidth pere mpe. E dobekwara site na WEKAN_CARDS_LOADING mgbanwe gburugburu.",

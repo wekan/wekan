@@ -1903,6 +1903,7 @@
   "features": "Funkcijas",
   "features-performance": "Veiktspēja",
   "cards-loading": "Kartiņu ielāde",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Visas kartiņas (noklusējums)",
   "cards-loading-lazy": "Slinkā (tikai redzamās kartiņas)",
   "cards-loading-description": "Kā katrs dēlis ielādē savas kartiņas. Visas kartiņas: katra kartiņa tiek ielādēta pārlūkprogrammā (vienkāršākais, visas funkcijas darbojas, bet dēlis ar tūkstošiem kartiņu nosūta daudz datu katram skatītājam). Slinkā: katrs saraksts ielādē tikai pašlaik redzamās kartiņas (bezgalīga ritināšana) plus dzīvu skaitītāju, tāpēc ļoti lieli dēļi izmanto mazāk atmiņas un joslas platuma. Iestata arī vides mainīgais CARDS_LOADING.",

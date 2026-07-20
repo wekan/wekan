@@ -63,6 +63,7 @@ import {
   getCurrentCardIdFromContext,
   getCurrentCardFromContext,
 } from '/client/lib/currentCard';
+import { isLazyCards } from '/client/lib/lazyCards';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { CSSEvents } from '/client/lib/cssEvents';
 import { UnsavedEdits } from '/client/lib/unsavedEdits';
@@ -372,6 +373,19 @@ Template.cardDetails.onCreated(function () {
     const board = Utils.getCurrentBoard();
     if (board && board._id) {
       Meteor.subscribe('legacyBoardAttachments', board._id);
+    }
+  });
+
+  // In lazy (windowed) card loading the board/window publications only ship the
+  // children of cards in the visible window, so an open card that scrolled out of
+  // — or was just added to — a window could miss its own comments/attachments/
+  // checklists. Subscribe to the open card's OWN live children so the card detail
+  // is always complete and reactive, independent of the window (#6480). No-op in
+  // 'all' mode, where the board publication already ships everything.
+  this.autorun(() => {
+    const cardId = Session.get('currentCard');
+    if (cardId && isLazyCards()) {
+      Meteor.subscribe('openCardData', cardId);
     }
   });
 });

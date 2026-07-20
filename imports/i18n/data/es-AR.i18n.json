@@ -1903,6 +1903,7 @@
   "features": "Funciones",
   "features-performance": "Rendimiento",
   "cards-loading": "Carga de tarjetas",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Todas las tarjetas (predeterminado)",
   "cards-loading-lazy": "Diferida (solo tarjetas visibles)",
   "cards-loading-description": "Cómo carga cada tablero sus tarjetas. Todas las tarjetas: cada tarjeta se carga en el navegador (lo más simple, todas las funciones funcionan, pero un tablero con miles de tarjetas envía muchos datos a cada visor). Diferida: cada lista carga solo las tarjetas actualmente visibles (desplazamiento infinito) más un recuento en vivo, de modo que los tableros muy grandes usan menos memoria y ancho de banda. También se establece con la variable de entorno CARDS_LOADING.",

@@ -18,13 +18,21 @@ import {
   countCardsByListId,
   buildBoardTileData,
 } from '/models/lib/boardTileData';
+const {
+  effectiveBoardCardsMode,
+  DEFAULT_LAZY_THRESHOLD,
+} = require('/models/lib/cardsLoading');
 
-// When CARDS_LOADING=lazy (Admin Panel / Features), the board publication must
-// NOT ship every card / checklist into the client's minimongo — each list loads
-// its visible window on demand via the `boardCardsWindow` publication instead.
-// Default ('all') keeps the full behaviour below unchanged.
-const lazyCards = () =>
-  !!(Meteor.settings.public && Meteor.settings.public.cardsLoading === 'lazy');
+// Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
+// minimongo; 'lazy' ships none (each list loads its visible window via the
+// `boardCardsWindow` publication); 'auto' (default) decides PER BOARD by size (big
+// boards lazy, small boards eager). See models/lib/cardsLoading.js.
+const globalCardsMode = () =>
+  (Meteor.settings.public && Meteor.settings.public.cardsLoading) || 'auto';
+const globalLazyThreshold = () => {
+  const n = Number(Meteor.settings.public && Meteor.settings.public.cardsLoadingLazyThreshold);
+  return Number.isFinite(n) && n >= 0 ? n : DEFAULT_LAZY_THRESHOLD;
+};
 
 publishComposite('boards', function() {
   const userId = this.userId;
@@ -499,6 +507,23 @@ publishComposite('board', async function(boardId, isArchived) {
     $or.push({ 'domains.domain': { $in: emailDomains } });
   }
 
+  // Per-board adaptive card-loading decision. In 'auto' mode we count this board's
+  // (non-archived) cards ONCE and decide lazy vs eager from the threshold; the
+  // several child cursors below all read this memoized result so they agree. In
+  // explicit 'all'/'lazy' mode the count is never taken.
+  let _boardCardCount = null;
+  const boardIsLazy = async board => {
+    const mode = globalCardsMode();
+    if (mode === 'lazy') return true;
+    if (mode === 'all') return false;
+    if (_boardCardCount === null) {
+      _boardCardCount = await Cards.find(
+        { boardId: { $in: [board._id, board.subtasksDefaultBoardId] }, archived: isArchived },
+      ).countAsync();
+    }
+    return effectiveBoardCardsMode('auto', _boardCardCount, globalLazyThreshold()) === 'lazy';
+  };
+
   return {
     async find() {
       return await ReactiveCache.getBoards(
@@ -558,7 +583,7 @@ publishComposite('board', async function(boardId, isArchived) {
         async find(board) {
           // Lazy mode: cards (and their comments/attachments children) are
           // published per visible window by `boardCardsWindow`, not here.
-          if (lazyCards()) return null;
+          if (await boardIsLazy(board)) return null;
           const cardSelector = {
             boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
             archived: isArchived,
@@ -591,7 +616,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           // Lazy mode: checklists are published per visible card by boardCardsWindow.
-          if (lazyCards()) return null;
+          if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
           if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           // Assigned-only members must not receive checklists for cards they are
@@ -616,7 +641,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           // Lazy mode: checklist items are published per visible card by boardCardsWindow.
-          if (lazyCards()) return null;
+          if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
           if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           if (thisUserId && board.members) {
@@ -640,7 +665,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           // Lazy mode: comments are published per visible card by boardCardsWindow.
-          if (lazyCards()) return null;
+          if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
           if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           // Assigned-only members must only receive comments for cards assigned to
@@ -666,7 +691,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           // Lazy mode: attachments are published per visible card by boardCardsWindow.
-          if (lazyCards()) return null;
+          if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
           if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           if (thisUserId && board.members) {

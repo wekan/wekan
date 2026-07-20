@@ -73,6 +73,9 @@ Template.board.onCreated(function () {
     }
 
     const handle = Meteor.subscribe('board', currentBoardId, false);
+    // Learn this board's card-loading mode (lazy vs eager) so 'auto' can decide
+    // per board by size; the flag drives isLazyCards(boardId). #6480.
+    Meteor.subscribe('boardCardsLoadingMode', currentBoardId);
     const ready = handle.ready();
     this.isBoardReady.set(ready);
 

@@ -1903,6 +1903,7 @@
   "features": "Funkciók",
   "features-performance": "Teljesítmény",
   "cards-loading": "Kártyák betöltése",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Az összes kártya (alapértelmezett)",
   "cards-loading-lazy": "Lusta (csak a látható kártyák)",
   "cards-loading-description": "Hogyan tölti be minden tábla a kártyáit. Az összes kártya: minden kártya betöltődik a böngészőbe (a legegyszerűbb, minden funkció működik, de egy több ezer kártyát tartalmazó tábla sok adatot küld minden megtekintőnek). Lusta: minden lista csak az éppen látható kártyákat tölti be (végtelen görgetés), plusz egy élő számlálót, így a nagyon nagy táblák kevesebb memóriát és sávszélességet használnak. A CARDS_LOADING környezeti változóval is beállítható.",

@@ -1903,6 +1903,7 @@
   "features": "Funkcije",
   "features-performance": "Zmogljivost",
   "cards-loading": "Nalaganje kartic",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Vse kartice (privzeto)",
   "cards-loading-lazy": "Leno (samo vidne kartice)",
   "cards-loading-description": "Kako vsaka tabla naloži svoje kartice. Vse kartice: vsaka kartica je naložena v brskalnik (najpreprosteje, delujejo vse funkcije, vendar tabla s tisoči kartic pošlje veliko podatkov vsakemu gledalcu). Leno: vsak seznam naloži samo trenutno vidne kartice (neskončno drsenje) plus živo število, tako da zelo velike table porabijo manj pomnilnika in pasovne širine. Nastavljivo tudi z okoljsko spremenljivko CARDS_LOADING.",

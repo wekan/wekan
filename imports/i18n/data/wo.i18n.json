@@ -1903,6 +1903,7 @@
   "features": "Feem yi",
   "features-performance": "Doxin",
   "cards-loading": "Yebu kart",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Kart yépp (défo)",
   "cards-loading-lazy": "Lazy (kart yi feeñ rekk)",
   "cards-loading-description": "Ni tablo bu nekk di yebe kart-am yi. Kart yépp: kart bu nekk ñu koy yeb ci navigateur (gën a yomb, feature yépp dañuy dox, waaye tablo bu am junni-junni kart day yónnee données yu bare ci ku ko xool bu nekk). Lazy: liis bu nekk day yeb kart yi feeñ rekk (défilement bu àpp du am) ak benn lim bu dund, kon tablo yu réy lool dañuy jëfandikoo mémoire ak bande passante yu néew. Ñu koy tegal it ak variable CARDS_LOADING.",

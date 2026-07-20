@@ -21,13 +21,6 @@ Template.adminFeatures.helpers({
   isNotificationsActive() {
     return Template.instance().activePane.get() === 'notifications';
   },
-  cardsLoadingOptions() {
-    const current = (ReactiveCache.getCurrentSetting() || {}).cardsLoading || 'all';
-    return [
-      { value: 'all', label: 'cards-loading-all', selected: current === 'all' },
-      { value: 'lazy', label: 'cards-loading-lazy', selected: current === 'lazy' },
-    ];
-  },
   renderLinksAsPlainText() {
     return (ReactiveCache.getCurrentSetting() || {}).renderLinksAsPlainText;
   },
@@ -74,13 +67,6 @@ function toggleSettingField(field) {
 Template.adminFeatures.events({
   'click .js-features-menu'(event, tpl) {
     tpl.activePane.set(event.currentTarget.dataset.id);
-  },
-  'change .js-cards-loading'(event) {
-    const value = event.currentTarget.value === 'lazy' ? 'lazy' : 'all';
-    const setting = ReactiveCache.getCurrentSetting();
-    if (setting) {
-      Settings.update(setting._id, { $set: { cardsLoading: value } });
-    }
   },
   'click .js-toggle-render-links-as-plain-text'() {
     toggleSettingField('renderLinksAsPlainText');

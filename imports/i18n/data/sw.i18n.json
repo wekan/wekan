@@ -1903,6 +1903,7 @@
   "features": "Vipengele",
   "features-performance": "Utendaji",
   "cards-loading": "Upakiaji wa kadi",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Kadi zote (chaguomsingi)",
   "cards-loading-lazy": "Uvivu (kadi zinazoonekana pekee)",
   "cards-loading-description": "Jinsi kila bodi inavyopakia kadi zake. Kadi zote: kila kadi hupakiwa kwenye kivinjari (rahisi zaidi, vipengele vyote hufanya kazi, lakini bodi yenye maelfu ya kadi hutuma data nyingi kwa kila mtazamaji). Uvivu: kila orodha hupakia tu kadi zinazoonekana kwa sasa (usogezaji usio na mwisho) pamoja na idadi ya moja kwa moja, hivyo bodi kubwa sana hutumia kumbukumbu na bandwidth kidogo. Pia huwekwa na kigezo cha mazingira cha CARDS_LOADING.",

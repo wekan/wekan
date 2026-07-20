@@ -1903,6 +1903,7 @@
   "features": "機能",
   "features-performance": "パフォーマンス",
   "cards-loading": "カードの読み込み",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "すべてのカード(デフォルト)",
   "cards-loading-lazy": "遅延(表示されているカードのみ)",
   "cards-loading-description": "各ボードがカードをどのように読み込むか。すべてのカード: すべてのカードがブラウザに読み込まれます(最もシンプルで、すべての機能が動作しますが、数千枚のカードがあるボードは各閲覧者に大量のデータを送信します)。遅延: 各リストは現在表示されているカードのみ(無限スクロール)とライブカウントを読み込むため、非常に大きなボードでもメモリと帯域幅の使用が抑えられます。CARDS_LOADING 環境変数でも設定できます。",

@@ -1903,6 +1903,7 @@
   "features": "laHmey",
   "features-performance": "Do",
   "cards-loading": "navmey Suq",
+  "cards-loading-auto": "Automatic (lazy only for big boards)",
   "cards-loading-all": "Hoch navmey (motlh)",
   "cards-loading-lazy": "Lazy (leghlu'bogh navmey neH)",
   "cards-loading-description": "chay' navmeyDaj Suq Hoch raS. Hoch navmey: browser-Daq Suqlu' Hoch nav (nap, Hoch laH vang, 'ach navmey SaDmey ghajbogh raS law' De' ngeH). Lazy: DaH leghlu'bogh navmey neH Suq Hoch tetlh (scroll Hutlh veH) 'ej yIntaHbogh mI'. CARDS_LOADING environment variable-mo' je cherlu'.",
