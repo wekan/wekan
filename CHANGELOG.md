@@ -114,6 +114,14 @@ This release fixes the following bugs:
   them lets the bounded height take effect and the two-column list
   scrolls](https://github.com/wekan/wekan/commit/fd55cee87c77241896f2eda4513139117e250ccd).
   Thanks to xet7.
+- [Verified that list widths on public boards (#5659) are fixed: uncustomized
+  lists render the one shared default width for logged-out public-board visitors
+  and members alike, board-wide widths apply to everyone, and anonymous viewers
+  customize via localStorage. The `listWidthDefaults.test.cjs` regression test
+  existed but was never wired into `npm run test:unit:node`, so it did not run; it
+  is now wired in so the fix stays
+  verified](https://github.com/wekan/wekan/commit/d0d73ca923488be2e5377a3a474d4886d81e42ce).
+  Thanks to NadavTasher and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
