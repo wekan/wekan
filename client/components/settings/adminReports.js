@@ -412,10 +412,18 @@ Template.filesReport.helpers({
     // The filename cell renders via the global {{cleanFilename}} helper: the name
     // is URL-decoded, homoglyphs are folded, and invisible / exploit characters
     // are removed, so it is always shown as a plain, readable name.
-    return collectionResults(Attachments, { name: 1 });
+    //
+    // Read the UNDERLYING minimongo collection (Attachments.collection), not the
+    // ostrio FilesCollection wrapper. The 'attachmentsList' publication delivers
+    // the page via this.added('attachments', ...); a plain Mongo.Collection cursor
+    // reacts to those adds and yields plain docs, whereas the ostrio FilesCursor
+    // (Attachments.find()) does not reliably re-run in a Blaze helper — so the
+    // count stayed 0 and the report table never appeared. This matches how the
+    // rest of the codebase reads attachments reactively (e.g. sidebar, backgrounds).
+    return collectionResults(Attachments.collection, { name: 1 });
   },
   resultsCount() {
-    return collectionResultsCount(Attachments);
+    return collectionResultsCount(Attachments.collection);
   },
   fileSize(size) {
     return fileSizeHelper(size);
