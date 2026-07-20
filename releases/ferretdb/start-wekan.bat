@@ -42,6 +42,19 @@ if /I "%WEKAN_FERRETDB_OPLOG%"=="true" (
   if not defined METEOR_REACTIVITY_ORDER set "METEOR_REACTIVITY_ORDER=polling"
   if not defined DEFAULT_METEOR_REACTIVITY_ORDER set "DEFAULT_METEOR_REACTIVITY_ORDER=polling"
 )
+REM  FerretDB (v1 SQLite fork) does NOT implement MongoDB change streams: a
+REM  $changeStream aggregate returns "not implemented" and Meteor busy-loops
+REM  retrying it (high FerretDB CPU, cards never open). Force changeStreams out
+REM  of the reactivity order however it was passed in (done at top level, not in
+REM  the parentheses above, so each set sees the previous line's result).
+set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStreams,=%"
+set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:,changeStreams=%"
+set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStreams=%"
+set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStream,=%"
+set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:,changeStream=%"
+set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStream=%"
+if not defined METEOR_REACTIVITY_ORDER set "METEOR_REACTIVITY_ORDER=oplog,polling"
+if "%METEOR_REACTIVITY_ORDER%"=="" set "METEOR_REACTIVITY_ORDER=oplog,polling"
 REM  Card loading: "all" (default, every card into the browser) or "lazy" (each
 REM  list loads only the visible cards on demand, for very large boards). Also
 REM  changeable at runtime in Admin Panel / Features.

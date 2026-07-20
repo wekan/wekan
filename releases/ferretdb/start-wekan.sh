@@ -91,12 +91,24 @@ if [ "$want_ferret" = true ]; then
     # OpLog only when tailing actually works, otherwise polling — a broken/absent
     # OpLog never stops WeKan starting. Admin Panel / Version ("Reactivity mode")
     # shows which one is live.
-    export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
-    export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-oplog,polling}"
+    # FerretDB (v1 SQLite fork) does NOT implement MongoDB change streams: a
+    # $changeStream aggregate returns "not implemented" and Meteor busy-loops
+    # retrying it (high FerretDB CPU, cards never open). Force changeStreams out
+    # of the reactivity order no matter how it was passed in, keeping oplog,polling.
+    _reactivity="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
+    _reactivity="$(printf '%s' "${_reactivity}" | tr ',' '\n' | grep -vixE 'changeStreams?' | tr '\n' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')"
+    [ -z "${_reactivity}" ] && _reactivity="oplog,polling"
+    export METEOR_REACTIVITY_ORDER="${_reactivity}"
+    export DEFAULT_METEOR_REACTIVITY_ORDER="oplog,polling"
     echo "FerretDB OpLog enabled (polling fallback): MONGO_OPLOG_URL=$MONGO_OPLOG_URL METEOR_REACTIVITY_ORDER=$METEOR_REACTIVITY_ORDER"
   else
-    export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-polling}"
-    export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-polling}"
+    # FerretDB has no change streams; polling-only here, but still strip any
+    # changeStreams that was passed in so it can never enter the order.
+    _reactivity="${METEOR_REACTIVITY_ORDER:-polling}"
+    _reactivity="$(printf '%s' "${_reactivity}" | tr ',' '\n' | grep -vixE 'changeStreams?' | tr '\n' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')"
+    [ -z "${_reactivity}" ] && _reactivity="polling"
+    export METEOR_REACTIVITY_ORDER="${_reactivity}"
+    export DEFAULT_METEOR_REACTIVITY_ORDER="polling"
   fi
 fi
 
