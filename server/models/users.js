@@ -869,7 +869,11 @@ Meteor.methods({
     check(view, String);
     const user = await ReactiveCache.getCurrentUser();
     if (!user) throw new Meteor.Error('not-authorized', 'Must be logged in');
-    user.setBoardView(view);
+    // Must be awaited: the helper returns Users.updateAsync(...), so without await the
+    // method resolves (and the client reloads) before profile.boardView is written —
+    // and a rejected schema/write never surfaces. This made switching the board view
+    // (e.g. to the new Statistics view) unreliable.
+    await user.setBoardView(view);
   },
 
   async setCreateUser(

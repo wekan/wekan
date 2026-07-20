@@ -885,20 +885,25 @@ body.grey-icons-enabled .checkmark-no-grey {
 
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .board-list.mobile-view {
+  /* #6488: a real 2-column grid — robust regardless of float support or how narrow
+     the boards column is (at least 2 board icons per row on phones). */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
   height: calc(100vh - 120px);
-  overflow-y: scroll !important;
+  overflow-y: auto !important;
   overflow-x: hidden;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   margin: 0;
   scrollbar-width: auto !important;
   scrollbar-color: #888 #f1f1f1;
 }
 .board-list.mobile-view li {
-  width: 50%; /* #6488: at least 2 board icons per row on phones */
-  float: inline-start;
+  width: auto; /* the grid controls the column width */
+  float: none;
   display: block;
-  margin-bottom: 1rem;
-  padding-inline-end: 40px; /* Space for drag handle */
+  margin-bottom: 0.5rem;
+  padding-inline-end: 32px; /* Space for drag handle */
 }
 .board-list.mobile-view .board-list-item {
   overflow: visible;
@@ -1002,6 +1007,9 @@ body.grey-icons-enabled .checkmark-no-grey {
     gap: 8px;
   }
   .board-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -1009,11 +1017,11 @@ body.grey-icons-enabled .checkmark-no-grey {
     margin: 0;
   }
   .board-list li {
-    width: 50%; /* at least 2 board icons per row on phones */
-    float: inline-start;
+    width: auto; /* the grid controls the column width */
+    float: none;
     display: block;
-    margin-bottom: 1rem;
-    padding-inline-end: 40px; /* Space for drag handle */
+    margin-bottom: 0.5rem;
+    padding-inline-end: 32px; /* Space for drag handle */
   }
   .board-list .board-list-item {
     overflow: visible;
@@ -1058,9 +1066,14 @@ body.grey-icons-enabled .checkmark-no-grey {
 }
 /* Very small screens - still keep at least 2 board icons per row (#6488). */
 @media screen and (max-width: 360px) {
+  .board-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px;
+  }
   .board-list li {
-    width: 50% !important;
-    float: inline-start !important;
+    width: auto !important;
+    float: none !important;
     display: block !important;
   }
   .board-list .board-handle {
