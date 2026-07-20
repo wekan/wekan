@@ -91,28 +91,34 @@ Meteor.publish('rulesReport', async function(searchTerm = '', limit, skip = 0) {
     query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   }
 
+  // Publish the page MANUALLY (fetch + this.added + this.ready). Returning a sorted+
+  // limited cursor makes Meteor set up a LIMITED live observe, which hangs on
+  // FerretDB's OpLog for this query, so the subscription never becomes ready and the
+  // report is stuck on the loading spinner forever (same as attachmentsList). This
+  // admin report re-subscribes on every page/search change, so it needs no live cursor.
   const rules = await ReactiveCache.getRules(
     query,
     { sort: { boardId: 1 }, limit, skip: skip || 0 },
-    true,
+    false,
   );
   const actionIds = [];
   const triggerIds = [];
   const boardIds = [];
-
   rules.forEach(rule => {
     actionIds.push(rule.actionId);
     triggerIds.push(rule.triggerId);
     boardIds.push(rule.boardId);
   });
 
-  const ret = [
-    rules,
-    await ReactiveCache.getActions({ _id: { $in: actionIds } }, {}, true),
-    await ReactiveCache.getTriggers({ _id: { $in: triggerIds } }, {}, true),
-    await ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { title: 1 } }, true),
-  ];
-  return ret;
+  const actions = await ReactiveCache.getActions({ _id: { $in: actionIds } }, {}, false);
+  const triggers = await ReactiveCache.getTriggers({ _id: { $in: triggerIds } }, {}, false);
+  const boards = await ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { title: 1 } }, false);
+
+  for (const doc of rules) { const { _id, ...fields } = doc; this.added('rules', _id, fields); }
+  for (const doc of actions) { const { _id, ...fields } = doc; this.added('actions', _id, fields); }
+  for (const doc of triggers) { const { _id, ...fields } = doc; this.added('triggers', _id, fields); }
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  this.ready();
 });
 
 Meteor.methods({

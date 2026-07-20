@@ -222,12 +222,15 @@ This release also fixes reported problems from **v10.03**:
   `onReady` callback, so if a report publication errored on the server the report was
   stuck showing the loading spinner forever with no feedback. They now also handle
   `onStop`: the spinner clears and, on a real error, the message is surfaced.
-- **Fix: admin Files report loads on FerretDB** — the `attachmentsList` publication
-  returned a sorted, limited live cursor; Meteor sets up a *limited live observe* for
-  that, which hangs on FerretDB's OpLog for this query, so the subscription never
-  became ready and the report was stuck on the spinner forever. It now publishes the
-  page manually (fetch + `this.added` + `this.ready`) so `ready` always fires — the
-  report re-subscribes on every page/search change, so it does not need a live cursor.
+- **Fix: admin reports load on FerretDB** — the paginated report publications
+  (`attachmentsList`, `rulesReport`, `boardsReport`, `cardsReport`,
+  `impersonationReport`) returned a sorted, limited live cursor; Meteor sets up a
+  *limited live observe* for that, which hangs on FerretDB's OpLog for the query, so
+  the subscription never became ready and the report was stuck on the loading spinner
+  forever. They now publish the page manually (fetch + `this.added` + `this.ready`) so
+  `ready` always fires — the reports re-subscribe on every page/search change, so they
+  do not need a live cursor. Covered by a Playwright test that opens each report and
+  asserts it loads.
 - **Board Settings → Status** — a new read-only **Board status** popup (board right
   sidebar → Board menu → Board status) shows this board's card-loading mode (lazy vs
   all, and whether it was chosen automatically), its counts (swimlanes, lists, cards,

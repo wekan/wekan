@@ -15,7 +15,11 @@ Meteor.publish('impersonationReport', async function(searchTerm = '', limit, ski
     return this.ready();
   }
 
-  // Newest first, one page at a time (server-side limit/skip).
+  // Newest first, one page at a time (server-side limit/skip). Publish the page
+  // MANUALLY (fetch + this.added + this.ready): a returned sorted+limited cursor
+  // triggers a LIMITED live observe that hangs on FerretDB's OpLog, leaving the
+  // report stuck on the loading spinner (same as attachmentsList). The report re-
+  // subscribes on every page/search change, so it needs no live cursor.
   const rows = await ReactiveCache.getImpersonatedUsers(
     impersonationQuery(searchTerm),
     { sort: { createdAt: -1 }, limit, skip: skip || 0 },
@@ -31,33 +35,30 @@ Meteor.publish('impersonationReport', async function(searchTerm = '', limit, ski
     if (r.userId) userIds.push(r.userId);
   });
 
-  return [
-    await ReactiveCache.getImpersonatedUsers(
-      impersonationQuery(searchTerm),
-      { sort: { createdAt: -1 }, limit, skip: skip || 0 },
-      true,
-    ),
-    await ReactiveCache.getUsers(
-      { _id: { $in: [...new Set(userIds)] } },
-      {
-        fields: {
-          username: 1,
-          'profile.fullname': 1,
-          'profile.initials': 1,
-          'profile.avatarUrl': 1,
-          isAdmin: 1,
-          emails: 1,
-          createdAt: 1,
-          loginDisabled: 1,
-          authenticationMethod: 1,
-          importUsernames: 1,
-          orgs: 1,
-          teams: 1,
-        },
+  const users = await ReactiveCache.getUsers(
+    { _id: { $in: [...new Set(userIds)] } },
+    {
+      fields: {
+        username: 1,
+        'profile.fullname': 1,
+        'profile.initials': 1,
+        'profile.avatarUrl': 1,
+        isAdmin: 1,
+        emails: 1,
+        createdAt: 1,
+        loginDisabled: 1,
+        authenticationMethod: 1,
+        importUsernames: 1,
+        orgs: 1,
+        teams: 1,
       },
-      true,
-    ),
-  ];
+    },
+    false,
+  );
+
+  for (const doc of rows) { const { _id, ...fields } = doc; this.added('impersonatedUsers', _id, fields); }
+  for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
+  this.ready();
 });
 
 Meteor.methods({

@@ -84,6 +84,30 @@ test.describe('Admin – newest features', () => {
     await expect(body).toContainText('DDP_TRANSPORT');
   });
 
+  test('Rules/Boards/Cards/Impersonation reports load without hanging (manual publish on FerretDB)', async ({ page, adminUser }) => {
+    // Give the Boards/Cards reports some data; Rules/Impersonation have none and must
+    // still become READY and show their (empty) report, not hang on the spinner.
+    await db.seedBoard({ ownerId: adminUser.id, title: 'Report Data Board', cardTitlesPerList: [['RCard']] });
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.goto(`${BASE_URL}/admin-reports`, { waitUntil: 'networkidle' });
+
+    // #6480: these report publications returned sorted+limited live cursors, whose
+    // LIMITED live observe hangs on FerretDB's OpLog — the subscription never became
+    // ready and the report was stuck on the loading spinner. Each report's template
+    // (with its search input) only renders once the subscription is ready, so a
+    // visible search input proves the spinner cleared and the report loaded.
+    const reports = [
+      { link: 'a.js-report-rules', search: 'input.js-rules-search-input' },
+      { link: 'a.js-report-boards', search: 'input.js-boards-search-input' },
+      { link: 'a.js-report-cards', search: 'input.js-cards-search-input' },
+      { link: 'a.js-report-impersonation', search: 'input.js-impersonation-search-input' },
+    ];
+    for (const r of reports) {
+      await page.locator(r.link).click();
+      await expect(page.locator(r.search)).toBeVisible({ timeout: 15_000 });
+    }
+  });
+
   test('NEGATIVE: board Table view column headers are not clickable-sortable', async ({ page, adminUser }) => {
     await db.seedBoard({ ownerId: adminUser.id, title: 'Table View Board', cardTitlesPerList: [['TVCard']] });
     await loginWithToken(page, adminUser.id, adminUser.token);

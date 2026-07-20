@@ -136,6 +136,10 @@ Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) 
     query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   }
 
+  // Publish the page MANUALLY (fetch + this.added + this.ready): a returned sorted+
+  // limited cursor triggers a LIMITED live observe that hangs on FerretDB's OpLog,
+  // leaving the report stuck on the loading spinner (same as attachmentsList). The
+  // report re-subscribes on every page/search change, so it needs no live cursor.
   const boards = await ReactiveCache.getBoards(
     query,
     {
@@ -159,7 +163,7 @@ Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) 
       limit,
       skip: skip || 0,
     },
-    true,
+    false,
   );
 
   const userIds = [];
@@ -183,13 +187,15 @@ Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) 
     }
   })
 
-  const ret = [
-    boards,
-    await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
-    await ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, true),
-    await ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
-  ]
-  return ret;
+  const users = await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, false);
+  const teams = await ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, false);
+  const orgs = await ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, false);
+
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
+  for (const doc of teams) { const { _id, ...fields } = doc; this.added('team', _id, fields); }
+  for (const doc of orgs) { const { _id, ...fields } = doc; this.added('org', _id, fields); }
+  this.ready();
 });
 
 Meteor.methods({

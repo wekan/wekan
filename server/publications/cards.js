@@ -1176,6 +1176,10 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
     query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   }
 
+  // Publish the page MANUALLY (fetch + this.added + this.ready): a returned sorted+
+  // limited cursor triggers a LIMITED live observe that hangs on FerretDB's OpLog,
+  // leaving the report stuck on the loading spinner (same as attachmentsList). The
+  // report re-subscribes on every page/search change, so it needs no live cursor.
   const cards = await ReactiveCache.getCards(
     query,
     // Sort by the EXISTING { boardId:1, createdAt:-1 } index (see
@@ -1183,7 +1187,7 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
     // { boardId:1, sort:1 } sort had no index, so every page load full-sorted all
     // cards in memory — the Admin Panel → Problems → Cards spinner on big sites.
     { sort: { boardId: 1, createdAt: -1 }, limit, skip: skip || 0 },
-    true,
+    false,
   );
 
   const boardIds = new Set();
@@ -1198,13 +1202,17 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
     (card.assignees || []).forEach(userId => userIds.add(userId));
   });
 
-  return [
-    cards,
-    await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, true),
-    await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, true),
-    await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, true),
-    await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }, { fields: Users.safeFields }, true),
-  ];
+  const boards = await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, false);
+  const lists = await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, false);
+  const swimlanes = await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, false);
+  const users = await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }, { fields: Users.safeFields }, false);
+
+  for (const doc of cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
+  for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
+  for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
+  this.ready();
 });
 
 Meteor.methods({
