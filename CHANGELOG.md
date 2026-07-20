@@ -90,7 +90,7 @@ them up next.
 
 Adds a **CPU-usage monitor + governor** and a unified, safe **filename handling**
 subsystem. Designs:
-[docs/Features/CPU-usage/CPU-usage.md](https://github.com/wekan/wekan/blob/main/docs/Features/CPU-usage/CPU-usage.md),
+[docs/Features/Admin-Panel/Problems/CPU-usage.md](https://github.com/wekan/wekan/blob/main/docs/Features/Admin-Panel/Problems/CPU-usage.md),
 [docs/Features/Filename/Filename.md](https://github.com/wekan/wekan/blob/main/docs/Features/Filename/Filename.md).
 
 - **CPU usage: Admin Panel / Problems / CPU usage** — WeKan now watches system-wide

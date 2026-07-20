@@ -73,9 +73,11 @@ clicked, and defaults to **off** (current behaviour) unless noted.
 
 ### Performance
 
-- **Card loading** — `all` (every card is loaded into the browser, the default) or
-  `lazy` (each list loads only the currently visible cards plus a live count, for
-  very large boards). Also set by the `CARDS_LOADING` environment variable.
+- **Card loading** — automatic, no toggle. WeKan decides **per board by size**: a
+  board over the threshold (default 500 cards, `CARDS_LOADING_LAZY_THRESHOLD`) loads
+  only the currently visible cards (infinite-scroll windows) plus a live count, so
+  very large boards stay fast; smaller boards load every card (simple, fully
+  featured). Operators can still force a mode with `CARDS_LOADING=all|lazy|auto`.
 
 ### Security
 
@@ -127,6 +129,20 @@ or watching (e.g. to comply with local law or an organization's policy)
 - **Disable watch** (`disableWatch`) — the watch feature is turned off: users cannot
   subscribe to boards, lists or cards, any watch-level change is rejected, and the
   watch button is hidden.
+
+## Problems
+
+**Admin Panel → Problems** collects instance health reports. Each is a paginated,
+searchable, read-only event stream that records only what matters (e.g. the start and
+end of a problem period), so it never floods:
+
+- [CPU usage](Problems/CPU-usage.md) — sustained high system-wide CPU periods, what
+  WeKan/FerretDB were doing, the automatic mitigation taken and whether it helped.
+  **Implemented.**
+- [RAM usage](Problems/RAM-usage.md) — sustained high RAM + swap usage periods (start
+  and end), with how much RAM/swap was used. **Design.**
+- [Disk usage](Problems/Disk-usage.md) — sustained high disk-usage periods per watched
+  filesystem (start and end), with used/free space. **Design.**
 
 ## Sandstorm platform
 
