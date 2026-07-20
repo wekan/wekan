@@ -171,6 +171,12 @@ subsystem. Designs:
 
 This release also fixes reported problems from **v10.03**:
 
+- **Fix: Rules → Workflow view can create rules again**
+  ([#6489](https://github.com/wekan/wekan/issues/6489)). `rulesWorkflow.js` used
+  `TAPi18n` without importing it, so building a rule (drag a trigger + action, click
+  "Add Rule") threw `ReferenceError: TAPi18n is not defined` in `paletteLabel()` and
+  the click handler aborted before saving — creating a rule silently did nothing.
+  Added the missing `import { TAPi18n } from '/imports/i18n';`.
 - **Fix: opening a board no longer pins FerretDB CPU / takes minutes**
   ([#6480](https://github.com/wekan/wekan/issues/6480)). The `board` publication
   opened **one live CardComments cursor and one Attachments cursor per card**, so a

@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import Actions from '/models/actions';
 import Rules from '/models/rules';
