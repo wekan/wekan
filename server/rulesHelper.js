@@ -152,7 +152,14 @@ export const RulesHelper = {
         };
         continue;
       }
-      const matchesList = [value, '*'];
+      // #6491: a trigger that OMITS a field (or stores it as null) means "any value"
+      // for it — the user did not restrict it. A moveCard trigger, for example, has no
+      // `oldListName` (the wizard chooses a destination list, not a source), so the
+      // matching map's `{ oldListName: { $in: [value, '*'] } }` never matched it and
+      // the rule silently never fired. A `$in` that includes `null` ALSO matches a
+      // document missing that field, so add `null` here — exactly like the cardTitle
+      // handling above (#2345) does via cardTitleMatchList().
+      const matchesList = [value, '*', null];
       matchingMap[field] = {
         $in: matchesList,
       };
