@@ -110,12 +110,25 @@ if [ "ferretdb" = "${DATABASE}" ]; then
         # when OpLog tailing actually works, otherwise polling — so a broken/absent
         # OpLog never stops WeKan from starting. Admin Panel / Version ("Reactivity
         # mode") shows which one is live.
-        export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
-        export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-oplog,polling}"
+        #
+        # #6492: FerretDB v1 does NOT implement MongoDB change streams. If Meteor is
+        # told to try `changeStreams` (the snap's general default is
+        # "changeStreams,oplog,polling", so METEOR_REACTIVITY_ORDER arrives already
+        # set here and the `:-oplog,polling` fallback would NOT apply), it issues
+        # $changeStream aggregates that FerretDB rejects as "not implemented" thousands
+        # of times per second — a busy-loop that pins FerretDB CPU (100–390%) and
+        # stalls board/card loading. So force `changeStreams` OUT of the order for
+        # FerretDB, whatever it was set to, leaving oplog + polling.
+        _reactivity="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
+        _reactivity="$(printf '%s' "${_reactivity}" | tr ',' '\n' | grep -vixE 'changeStreams?' | tr '\n' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')"
+        [ -z "${_reactivity}" ] && _reactivity="oplog,polling"
+        export METEOR_REACTIVITY_ORDER="${_reactivity}"
+        export DEFAULT_METEOR_REACTIVITY_ORDER="oplog,polling"
         echo "FerretDB OpLog enabled (polling fallback): MONGO_OPLOG_URL=${MONGO_OPLOG_URL} METEOR_REACTIVITY_ORDER=${METEOR_REACTIVITY_ORDER}"
     else
-        export METEOR_REACTIVITY_ORDER="${METEOR_REACTIVITY_ORDER:-polling}"
-        export DEFAULT_METEOR_REACTIVITY_ORDER="${DEFAULT_METEOR_REACTIVITY_ORDER:-polling}"
+        # Polling only — never change streams (FerretDB does not implement them, #6492).
+        export METEOR_REACTIVITY_ORDER="polling"
+        export DEFAULT_METEOR_REACTIVITY_ORDER="polling"
         echo "FerretDB OpLog disabled (WEKAN_FERRETDB_OPLOG=false): polling only"
     fi
     [ -z "${METEOR_POLLING_THROTTLE_MS}" ] && export METEOR_POLLING_THROTTLE_MS=2000
