@@ -90,13 +90,14 @@ them up next.
 
 This release fixes the following bugs:
 
-- [Fix: the Files admin report (Admin Panel / Reports / Files) showed only its
-  controls and never listed any files. Its rows and count were read from the
-  ostrio FilesCollection wrapper, whose FilesCursor does not reliably re-run in a
-  Blaze helper when the paginated `attachmentsList` publication delivers the page,
-  so the count stayed 0 and the table never rendered. It now reads the underlying
-  reactive `Attachments.collection`, the same pattern the rest of the codebase uses
-  for attachment reads](https://github.com/wekan/wekan/commit/5b4443df23e42c11c73da1f664fc1d30daf59948).
+- [Files admin report (Admin Panel / Reports / Files): read the underlying
+  reactive `Attachments.collection` (with a safe fallback that never throws out of
+  the Blaze helper) instead of the ostrio FilesCollection wrapper, whose FilesCursor
+  does not reliably re-run in a helper. This is a robustness/reactivity improvement;
+  the report still does not list seeded attachments in the Playwright test, which
+  points at the `attachmentsList` publication returning no rows — still under
+  investigation, not yet
+  resolved](https://github.com/wekan/wekan/commit/5b4443df23e42c11c73da1f664fc1d30daf59948).
   Thanks to xet7.
 - [Fix: the Statistics board view never rendered. `statsView.jade` / `.js` / `.css`
   were not imported anywhere in the client build, so the `statsView` Blaze template
