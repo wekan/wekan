@@ -121,8 +121,21 @@ Template.adminReports.onCreated(function () {
     const searchTerm = cfg.search.get();
     const limit = REPORTS_PER_PAGE;
     const skip = (cfg.page.get() - 1) * REPORTS_PER_PAGE;
-    this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, () => {
-      this.loading.set(false);
+    this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, {
+      onReady: () => {
+        this.loading.set(false);
+      },
+      // A publication that errors (or is stopped) must never leave the report
+      // stuck on the loading spinner forever: clear the spinner and, on a real
+      // error, surface it. Without this an admin only ever saw an endless spinner
+      // whenever a report subscription failed on the server.
+      onStop: (error) => {
+        if (error) {
+          console.error(`Report subscription '${cfg.pub}' failed:`, error);
+          this.error.set(error.reason || error.message || String(error));
+        }
+        this.loading.set(false);
+      },
     });
     Meteor.call(cfg.countMethod, searchTerm, (error, count) => {
       if (error) {
