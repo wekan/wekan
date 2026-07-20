@@ -15,7 +15,7 @@
 #   base: core24 (not core26) · no build-base: devel · grade: stable
 # ─────────────────────────────────────────────────────────────────────────────
 name: wekan
-version: '10.05'
+version: '10.06'
 base: core24
 confinement: strict
 grade: stable
@@ -257,13 +257,13 @@ parts:
                 riscv64) WEKAN_ARCH="riscv64" ;;
                 *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
             esac
-            WEKAN_ZIP="wekan-10.05-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-10.06-${WEKAN_ARCH}.zip"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v10.05/wekan-10.05-amd64.zip
-            wget "https://github.com/wekan/wekan/releases/download/v10.05/${WEKAN_ZIP}"
+            #wget https://github.com/wekan/wekan/releases/download/v10.06/wekan-10.06-amd64.zip
+            wget "https://github.com/wekan/wekan/releases/download/v10.06/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
             # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
