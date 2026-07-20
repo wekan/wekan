@@ -35,6 +35,16 @@ const CPU_TARGET_PCT = intEnv('WEKAN_CPU_TARGET_PERCENT', LOW_PCT);
 // (a cheap local read); it just talks to FerretDB at most this often. FerretDB
 // self-regulates on its own between WeKan's calls.
 const FERRET_ASK_MIN_INTERVAL_MS = intEnv('WEKAN_FERRETDB_ASK_INTERVAL_MS', 30000);
+// FerretDB process-CPU watch. System-wide CPU% hides a single process pegging a few
+// cores on a many-core host: FerretDB at 300% (3 cores) is only 75% system-wide on a
+// 4-core box, so it never crosses HIGH_PCT and "Problems / CPU usage" stayed empty
+// even though FerretDB was the problem (#6480). When system CPU is in a WATCH band
+// (elevated but below HIGH), WeKan asks FerretDB for its own process CPU% (a pure
+// status read — slowDownMs 0, so it does NOT slow FerretDB down and cannot make an
+// already-slow board load worse) and, if FerretDB alone is pegging cores, records a
+// start/end episode attributing the CPU to FerretDB regardless of the host-wide %.
+const FERRET_WATCH_PCT = intEnv('WEKAN_FERRETDB_WATCH_PERCENT', 60);
+const FERRET_PROC_HIGH_PCT = intEnv('WEKAN_FERRETDB_PROC_HIGH_PERCENT', 150);
 const ENABLED = String(process.env.WEKAN_CPU_MONITOR || 'true').toLowerCase() !== 'false';
 
 function intEnv(name, fallback) {
@@ -66,6 +76,11 @@ let ferretCapWarned = false;     // the "max delay not enough" line was written 
 let lastFerretAskAt = 0;         // epoch ms of the last call to FerretDB (rate-limit)
 let ferretUnavailableLogged = false; // "not responding, backing off" written once
 let ferretUnavailableSince = null;   // Date when FerretDB became unresponsive
+
+// FerretDB process-CPU watch bookkeeping (independent of the system-wide high period).
+let ferretProcHigh = false;          // FerretDB process CPU is currently over the bar
+let ferretProcHighSince = null;      // when it went over
+let lastFerretWatchAt = 0;           // epoch ms of the last watch-band status read
 
 // The throttle window we request must outlive the gap between our (rate-limited)
 // asks, so the throttle stays in effect between them.
@@ -126,7 +141,8 @@ function handleFerretResponse(resp, pct, record) {
       action: 'remediated',
       severity: 'info',
       detail: `FerretDB responded again (CPU ${pct}%): ${span}. ${resp.commandsProcessed} commands ` +
-        `processed total; self-regulating at ${resp.autoSlowDownMs || 0}ms/op (its own CPU reading ` +
+        `processed total; FerretDB process CPU ${resp.processCpuPercent || 0}% (100% = one core); ` +
+        `self-regulating at ${resp.autoSlowDownMs || 0}ms/op (its own host CPU reading ` +
         `${resp.hostCpuPercent || 0}%)${summary}.`,
     });
   }
@@ -150,7 +166,8 @@ function governFerretStart(pct) {
         severity: 'info',
         detail: `high CPU (${pct}%): asked FerretDB to slow down (${resp.slowDownMs}ms before each command ` +
           `to yield CPU). FerretDB activity: ${resp.commandsProcessed} commands processed (higher = busier); ` +
-          `self-regulating at ${resp.autoSlowDownMs || 0}ms/op (its own CPU reading ${resp.hostCpuPercent || 0}%).`,
+          `FerretDB process CPU ${resp.processCpuPercent || 0}% (100% = one core); self-regulating at ` +
+          `${resp.autoSlowDownMs || 0}ms/op (its own host CPU reading ${resp.hostCpuPercent || 0}%).`,
       });
     }).catch(() => {});
   } catch (e) { /* best effort */ }
@@ -209,6 +226,55 @@ function governFerretEnd() {
   try {
     const { resumeFerretDb } = require('/server/lib/ferretdbGovernor');
     Promise.resolve(resumeFerretDb()).catch(() => {});
+  } catch (e) { /* best effort */ }
+}
+
+// Watch for FerretDB monopolising a few cores while the host-wide % stays under the
+// HIGH threshold (the many-core blind spot behind "Problems shows nothing"). Runs only
+// OUTSIDE a system-wide high period, rate-limited, as a PURE STATUS read (slowDownMs 0
+// — it never throttles FerretDB, so it cannot make an already-slow board load worse).
+// Opens a start episode when FerretDB's own process CPU crosses the bar and closes it
+// on recovery. Best-effort; no-op on plain MongoDB / older FerretDB.
+function governFerretProcWatch(pct, load, cores) {
+  try {
+    if (Date.now() - lastFerretWatchAt < FERRET_ASK_MIN_INTERVAL_MS) return;
+    lastFerretWatchAt = Date.now();
+    const gov = require('/server/lib/ferretdbGovernor');
+    const { record } = require('/server/lib/cpuLog');
+    if (typeof gov.ferretDbInCooldown === 'function' && gov.ferretDbInCooldown()) return;
+
+    // Pure status read: slowDownMs 0 / durationMs 0 => FerretDB is NOT slowed down.
+    Promise.resolve(gov.slowDownFerretDb(0, 0)).then(resp => {
+      if (!resp) return;
+      const proc = Number(resp.processCpuPercent) || 0;
+      if (proc >= FERRET_PROC_HIGH_PCT) {
+        if (!ferretProcHigh) {
+          ferretProcHigh = true;
+          ferretProcHighSince = new Date();
+          const summary = resp.operationsSummary ? `; busiest operations: ${resp.operationsSummary}` : '';
+          record({
+            action: 'detected',
+            severity: proc >= cores * 90 ? 'high' : 'medium',
+            at: ferretProcHighSince,
+            detail: `FerretDB is using ${proc}% CPU (100% = one core; this host has ${cores} cores) while ` +
+              `host-wide CPU is only ${pct}% — FerretDB alone is monopolising the machine, which the ` +
+              `host-wide percentage hides. ${resp.commandsProcessed} commands processed total` + summary +
+              `. FerretDB self-regulates at ${resp.autoSlowDownMs || 0}ms/op.`,
+          });
+        }
+      } else if (ferretProcHigh) {
+        ferretProcHigh = false;
+        const since = ferretProcHighSince;
+        const secs = since ? Math.round((Date.now() - since.getTime()) / 1000) : 0;
+        const span = since ? ` (${fmtAt(since)} → ${fmtAt(new Date())}, ${secs}s)` : '';
+        ferretProcHighSince = null;
+        record({
+          action: 'remediated',
+          severity: 'info',
+          detail: `FerretDB process CPU back to ${proc}% (host-wide ${pct}%)${span}.`,
+        });
+      }
+    }).catch(() => {});
   } catch (e) { /* best effort */ }
 }
 
@@ -344,6 +410,12 @@ if (Meteor.isServer && ENABLED) {
           // Adaptive: increase FerretDB's per-operation delay until CPU drops below
           // the headroom target, then hold; also renews the self-expiring throttle.
           governFerretAdjust(pct);
+        } else if (pct >= FERRET_WATCH_PCT || ferretProcHigh) {
+          // Not a system-wide high period, but the host is busy enough that FerretDB
+          // might be monopolising a few cores (invisible in the host-wide %). Check its
+          // own process CPU — and keep checking while an episode is open so it is closed
+          // when FerretDB calms down.
+          governFerretProcWatch(pct, load, cores);
         }
       } catch (e) {
         if (process.env.DEBUG === 'true') console.warn('cpuMonitor sample failed:', e && e.message);
