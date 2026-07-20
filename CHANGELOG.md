@@ -107,7 +107,7 @@ subsystem. Designs:
   slowing down to show whether pausing noticeably lowered CPU usage.
 - **CPU usage: ask FerretDB to slow down** — because FerretDB is the other big CPU
   user on the same host, on high CPU WeKan now asks FerretDB (via a custom
-  `wekanThrottle` command added to the bundled wekan/FerretDB v1 fork) what it is
+  `throttle` command added to the bundled FerretDB v1 fork) what it is
   doing and to slow down: FerretDB reports a running command count (how busy it is)
   and, for a short self-expiring window, pauses a few ms before each command to yield
   the CPU. The request, FerretDB's reported activity, and the resume-when-recovered

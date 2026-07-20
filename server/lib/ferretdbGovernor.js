@@ -2,8 +2,8 @@
 // WeKan → FerretDB CPU governor bridge.
 // ----------------------------------------------------------------------------
 // When WeKan detects that the host CPU is high (WeKan and FerretDB share the
-// machine), it asks FerretDB — via the custom `wekanThrottle` command added to the
-// wekan/FerretDB v1 fork — (1) what it is doing (a running command count = how
+// machine), it asks FerretDB — via the general `throttle` command added to the
+// bundled FerretDB v1 fork — (1) what it is doing (a running command count = how
 // busy it is) and (2) to slow down for a while (pause a few ms before each
 // command, lowering FerretDB's CPU use). The throttle self-expires on the FerretDB
 // side, so a WeKan crash can never leave FerretDB permanently slow.
@@ -14,7 +14,7 @@
 
 import { MongoInternals } from 'meteor/mongo';
 
-// null = unknown (try once), true/false = whether FerretDB supports wekanThrottle.
+// null = unknown (try once), true/false = whether FerretDB supports the throttle command.
 let supported = null;
 
 function rawDb() {
@@ -34,7 +34,7 @@ async function requestThrottle(slowDownMs, durationMs) {
   if (!db || typeof db.command !== 'function') return null;
   try {
     const res = await db.command({
-      wekanThrottle: 1,
+      throttle: 1,
       slowDownMs: Math.max(0, Math.round(slowDownMs) || 0),
       durationMs: Math.max(0, Math.round(durationMs) || 0),
     });
@@ -44,7 +44,7 @@ async function requestThrottle(slowDownMs, durationMs) {
     // CommandNotFound / not FerretDB / driver gone — remember and stop trying.
     supported = false;
     if (process.env.DEBUG === 'true') {
-      console.warn('ferretdbGovernor: wekanThrottle unavailable:', e && e.message);
+      console.warn('ferretdbGovernor: throttle command unavailable:', e && e.message);
     }
     return null;
   }

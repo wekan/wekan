@@ -48,7 +48,7 @@ check('logs the automatic mitigation taken and whether it lowered CPU', () => {
 
 check('on high CPU, WeKan asks FerretDB what it is doing and to slow down, and logs it', () => {
   const g = read('server/lib/ferretdbGovernor.js');
-  assert.ok(/wekanThrottle/.test(g), 'calls the custom FerretDB wekanThrottle command');
+  assert.ok(/throttle: 1/.test(g), 'calls the general FerretDB throttle command');
   assert.ok(/export function slowDownFerretDb/.test(g) && /export function resumeFerretDb/.test(g),
     'slow-down + resume');
   const m = read('server/lib/cpuMonitor.js');

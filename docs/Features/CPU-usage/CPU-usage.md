@@ -76,7 +76,7 @@ a coarse signal), reported as observed — not a controlled measurement.
 
 FerretDB is the other big CPU user on the same host, and WeKan cannot pause
 FerretDB's internal work from the outside — so the **wekan/FerretDB v1 fork adds a
-custom `wekanThrottle` command** (`FerretDB/internal/handler/`). When WeKan detects
+general `throttle` command** (`FerretDB/internal/handler/`). When WeKan detects
 high CPU it calls it (`server/lib/ferretdbGovernor.js`), which:
 
 1. **asks what FerretDB is doing** — the response includes `commandsProcessed`, a

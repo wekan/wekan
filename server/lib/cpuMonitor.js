@@ -63,7 +63,7 @@ function resetPeriodMitigation() {
 
 // Ask FerretDB what it is doing and to slow down, and log its response on its own
 // 'cpu' row. Fire-and-forget (async, best-effort); does nothing on plain MongoDB or
-// an older FerretDB without the wekanThrottle command.
+// an older FerretDB without the throttle command.
 function governFerretStart(pct) {
   try {
     const { slowDownFerretDb } = require('/server/lib/ferretdbGovernor');
