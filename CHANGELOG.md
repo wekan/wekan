@@ -90,22 +90,36 @@ them up next.
 
 This release fixes the following bugs:
 
-- [Files admin report (Admin Panel / Reports / Files): read the underlying
-  reactive `Attachments.collection` (with a safe fallback that never throws out of
-  the Blaze helper) instead of the ostrio FilesCollection wrapper, whose FilesCursor
-  does not reliably re-run in a helper. This is a robustness/reactivity improvement;
-  the report still does not list seeded attachments in the Playwright test, which
-  points at the `attachmentsList` publication returning no rows — still under
-  investigation, not yet
-  resolved](https://github.com/wekan/wekan/commit/5b4443df23e42c11c73da1f664fc1d30daf59948).
+- [Verified that list widths on public boards (#5659) are fixed: uncustomized
+  lists render the one shared default width for logged-out public-board visitors
+  and members alike, board-wide widths apply to everyone, and anonymous viewers
+  customize via localStorage. The `listWidthDefaults.test.cjs` regression test
+  existed but was never wired into `npm run test:unit:node`, so it did not run; it
+  is now wired in so the fix stays
+  verified](https://github.com/wekan/wekan/commit/88642c3bd439c816e783f62281b651d6839a04a4).
+  Thanks to NadavTasher and xet7.
+- [Files admin report follow-up: made the `filesReport` helpers defensive so a
+  throwing data helper can no longer blank the whole report, and corrected the
+  v10.07 changelog claim — the report still does not list its attachments in the
+  Playwright test, which points at the `attachmentsList` publication returning no
+  rows and is still under
+  investigation](https://github.com/wekan/wekan/commit/7d6fbc04e253f9750ded49e3cc62e6c774435a26).
   Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
+# v10.07 2026-07-20 WeKan ® release
+
+This release fixes the following bugs:
+
 - [Fix: the Statistics board view never rendered. `statsView.jade` / `.js` / `.css`
   were not imported anywhere in the client build, so the `statsView` Blaze template
   was never registered — switching a board to the Statistics view left the board
   canvas empty (the header still showed "Statistics", which only reflects the saved
   board view). The three files are now imported alongside the other board views, so
   the view renders its board counts and time
-  summary](https://github.com/wekan/wekan/commit/07b74812a9c980a9f7950e17d15c945d14352352).
+  summary](https://github.com/wekan/wekan/commit/616304e2d0f043afbd03cd5d2af52ca7eeb79361).
   Thanks to xet7.
 - [Fix: on phones the All Boards list grew to the full height of all its boards
   instead of staying a bounded, scrollable region, so boards below the fold were
@@ -113,16 +127,13 @@ This release fixes the following bugs:
   leftover `.board-list.mobile-view` rules (`min-height: 100vh` and a phantom
   `::after`) re-introduced the exact bug an earlier fix removed elsewhere; removing
   them lets the bounded height take effect and the two-column list
-  scrolls](https://github.com/wekan/wekan/commit/fd55cee87c77241896f2eda4513139117e250ccd).
+  scrolls](https://github.com/wekan/wekan/commit/6ca11cdf8360f8f777fbe9fed22c027d934191cd).
   Thanks to xet7.
-- [Verified that list widths on public boards (#5659) are fixed: uncustomized
-  lists render the one shared default width for logged-out public-board visitors
-  and members alike, board-wide widths apply to everyone, and anonymous viewers
-  customize via localStorage. The `listWidthDefaults.test.cjs` regression test
-  existed but was never wired into `npm run test:unit:node`, so it did not run; it
-  is now wired in so the fix stays
-  verified](https://github.com/wekan/wekan/commit/d0d73ca923488be2e5377a3a474d4886d81e42ce).
-  Thanks to NadavTasher and xet7.
+- [Files admin report (Admin Panel / Reports / Files): read the underlying reactive
+  `Attachments.collection` instead of the ostrio FilesCollection wrapper, whose
+  FilesCursor does not reliably re-run in a Blaze
+  helper](https://github.com/wekan/wekan/commit/5b4443df23e42c11c73da1f664fc1d30daf59948).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
