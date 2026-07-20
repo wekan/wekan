@@ -1383,12 +1383,22 @@ Boards.helpers({
     const active = this.activeMembers();
     const activeIds = new Set(active.map(m => m.userId));
     const seen = new Set();
-    const inactive = (this.members || []).filter(m => {
+    // #6479: a REMOVED member (isActive:false) must NOT appear in the sidebar member
+    // list. removeMember keeps the entry with isActive:false (#5122: role history /
+    // re-activation), so if the sidebar showed inactive members too, "Remove from
+    // board" looked like it did nothing — the avatar stayed. The only inactive entries
+    // still worth showing here are imported placeholders pending reconciliation
+    // (authenticationMethod:'imported'); a plain removed account is hidden. Removed
+    // members remain visible (greyed) where they are still referenced, e.g. as a card
+    // assignee, via the userAvatar 'inactive-member' styling — just not as current
+    // board members in this list.
+    const placeholders = (this.members || []).filter(m => {
       if (m.isActive === true || activeIds.has(m.userId) || seen.has(m.userId)) return false;
       seen.add(m.userId);
-      return ReactiveCache.getUser(m.userId) !== undefined;
+      const user = ReactiveCache.getUser(m.userId);
+      return !!user && user.authenticationMethod === 'imported';
     });
-    return active.concat(inactive);
+    return active.concat(placeholders);
   },
 
   activeOrgs() {
