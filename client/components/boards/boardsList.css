@@ -894,11 +894,11 @@ body.grey-icons-enabled .checkmark-no-grey {
   scrollbar-color: #888 #f1f1f1;
 }
 .board-list.mobile-view li {
-  width: 100%;
-  float: none;
+  width: 50%; /* #6488: at least 2 board icons per row on phones */
+  float: inline-start;
   display: block;
   margin-bottom: 1rem;
-  padding-inline-end: 50px; /* Space for drag handle */
+  padding-inline-end: 40px; /* Space for drag handle */
 }
 .board-list.mobile-view .board-list-item {
   overflow: visible;

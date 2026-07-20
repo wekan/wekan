@@ -48,42 +48,49 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
 
-  const query = await attachmentsReportQuery(this.userId, searchTerm);
-  if (!query) {
-    return this.ready();
-  }
-
   // Publish the page MANUALLY (fetch + this.added + this.ready) instead of returning
   // a live cursor. A returned cursor with sort+limit makes Meteor set up a LIMITED
   // live observe, which hangs on FerretDB's oplog for this query — the subscription
   // then never becomes ready and the Files report is stuck on the loading spinner
   // forever. This admin report re-subscribes on every page/search change, so it does
   // not need live reactivity; a one-shot fetch guarantees `ready` fires.
-  const docs = await ReactiveCache.getAttachments(
-    query,
-    {
-      fields: {
-        _id: 1,
-        name: 1,
-        size: 1,
-        type: 1,
-        meta: 1,
-        path: 1,
-        versions: 1,
-      },
-      sort: {
-        name: 1,
-      },
-      limit,
-      skip: skip || 0,
-    },
-    false,
-  );
-  for (const doc of docs || []) {
-    const { _id, ...fields } = doc;
-    this.added('attachments', _id, fields);
+  //
+  // The whole body is wrapped so `this.ready()` ALWAYS runs (in `finally`): if the
+  // fetch throws, the report shows its empty state instead of hanging. No server-side
+  // `sort` is used — the ostrio `attachments` collection has no index on `name`, and
+  // the client re-sorts the page by name for display anyway (collectionResults).
+  try {
+    const query = await attachmentsReportQuery(this.userId, searchTerm);
+    if (query) {
+      const docs = await ReactiveCache.getAttachments(
+        query,
+        {
+          fields: {
+            _id: 1,
+            name: 1,
+            size: 1,
+            type: 1,
+            meta: 1,
+            path: 1,
+            versions: 1,
+          },
+          limit,
+          skip: skip || 0,
+        },
+        false,
+      );
+      for (const doc of docs || []) {
+        const { _id, ...fields } = doc;
+        this.added('attachments', _id, fields);
+      }
+    }
+  } catch (e) {
+    if (process.env.DEBUG === 'true') {
+      console.error('attachmentsList publish failed:', e && e.message);
+    }
+  } finally {
+    this.ready();
   }
-  this.ready();
 });
 
 Meteor.methods({

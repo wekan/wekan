@@ -110,10 +110,13 @@ test.describe('Admin – newest features', () => {
 
   test('Board Statistics view renders full-width with board counts and selectable text', async ({ page, adminUser }) => {
     const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Stats Board', cardTitlesPerList: [['S1'], ['S2']] });
-    // Select the Statistics board view for this user (boardView is a per-user setting).
-    db.updateOne('users', { _id: adminUser.id }, { $set: { 'profile.boardView': 'board-view-stats' } });
     await loginWithToken(page, adminUser.id, adminUser.token);
     await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'networkidle' });
+
+    // Switch to the Statistics view through the board-view switcher (this sets the
+    // per-user boardView and reloads); more robust than pre-seeding the profile.
+    await page.locator('.js-toggle-board-view').click({ timeout: 15_000 });
+    await page.locator('.js-open-stats-view').click();
 
     const stats = page.locator('.stats-view');
     await expect(stats).toBeVisible({ timeout: 15_000 });

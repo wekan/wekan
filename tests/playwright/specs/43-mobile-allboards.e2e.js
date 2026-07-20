@@ -22,7 +22,7 @@ test.describe('All Boards – phone viewport (#6488)', () => {
 
   test('board icons show at least 2 per row and the list scrolls', async ({ page, adminUser }) => {
     const boards = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 12; i++) {
       boards.push(await db.seedBoard({ ownerId: adminUser.id, title: `MobileBoard ${i}` }));
     }
     try {
