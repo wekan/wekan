@@ -177,6 +177,14 @@ This release also fixes reported problems from **v10.03**:
   "Add Rule") threw `ReferenceError: TAPi18n is not defined` in `paletteLabel()` and
   the click handler aborted before saving — creating a rule silently did nothing.
   Added the missing `import { TAPi18n } from '/imports/i18n';`.
+- **Fix: Rules list — delete and "View rule" act on the clicked rule**
+  ([#6490](https://github.com/wekan/wekan/issues/6490)). The Delete and View buttons
+  live in the `rulesList` child template's `each`, but their handlers are on the
+  parent `rulesMain` and used `Template.currentData()`, which returned the parent's
+  data context, not the clicked rule. So the rule id resolved to null — deleting a
+  rule failed with `Match error: Expected string, got null`, and "View rule" always
+  opened the same (first) rule. The buttons now carry an explicit `data-rule-id` and
+  the handlers read it, so both act on the rule that was actually clicked.
 - **Fix: opening a board no longer pins FerretDB CPU / takes minutes**
   ([#6480](https://github.com/wekan/wekan/issues/6480)). The `board` publication
   opened **one live CardComments cursor and one Attachments cursor per card**, so a

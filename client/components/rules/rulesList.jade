@@ -30,14 +30,14 @@ template(name="rulesList")
             else
               = title
           div.rules-btns-group
-            button.primary.wide.js-goto-details(type="submit")
+            button.primary.wide.js-goto-details(type="submit" data-rule-id="{{_id}}")
               i.fa.fa-eye
               | {{_ 'r-view-rule'}}
             if canAdmin
-              button.primary.wide.js-edit-rule(type="submit")
+              button.primary.wide.js-edit-rule(type="submit" data-rule-id="{{_id}}")
                 i.fa.fa-pencil
                 | {{_ 'r-edit-rule'}}
-              button.primary.wide.js-delete-rule(type="submit")
+              button.primary.wide.js-delete-rule(type="submit" data-rule-id="{{_id}}")
                 i.fa.fa-trash
                 | {{_ 'r-delete-rule'}}
       else

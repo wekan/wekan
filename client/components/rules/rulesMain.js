@@ -78,14 +78,20 @@ function sanitizeObject(obj) {
 }
 
 Template.rulesMain.events({
-  'click .js-delete-rule'() {
-    const rule = Template.currentData();
+  'click .js-delete-rule'(event) {
+    // #6490: the button lives in the rulesList child template's `each`, but this
+    // handler is on the parent rulesMain, so Template.currentData() returned the
+    // PARENT's data context (not the clicked rule) — the rule id resolved to null,
+    // so delete failed server-side with "Match error: Expected string, got null".
+    // Read the rule id from the button's explicit data-rule-id instead.
+    const ruleId = event.currentTarget.getAttribute('data-rule-id');
+    if (!ruleId) return;
     // Delete the rule + its trigger + action in one server call. Doing this
     // client-side as three separate Collection.remove() calls failed with 403
     // "Access denied" whenever a trigger/action document's boardId did not
     // resolve to a board in the allow() rule; the method authorizes once and
     // removes all three server-side.
-    Meteor.call('rules.deleteRule', rule._id);
+    Meteor.call('rules.deleteRule', ruleId);
   },
   'click .js-goto-trigger'(event, tpl) {
     event.preventDefault();
@@ -141,8 +147,12 @@ Template.rulesMain.events({
   },
   'click .js-goto-details'(event, tpl) {
     event.preventDefault();
-    const rule = Template.currentData();
-    tpl.ruleId.set(rule._id);
+    // #6490: same as delete — Template.currentData() returned the parent context
+    // here, so "View rule" always opened the same (first) rule regardless of which
+    // one was clicked. Read the clicked rule's id from its data-rule-id.
+    const ruleId = event.currentTarget.getAttribute('data-rule-id');
+    if (!ruleId) return;
+    tpl.ruleId.set(ruleId);
     tpl.rulesCurrentTab.set('ruleDetails');
   },
 });
