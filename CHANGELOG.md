@@ -88,192 +88,108 @@ them up next.
 
 # Upcoming WeKan ® release
 
-Adds a **CPU-usage monitor + governor** and a unified, safe **filename handling**
-subsystem. Designs:
-[docs/Features/Admin-Panel/Problems/CPU-usage.md](https://github.com/wekan/wekan/blob/main/docs/Features/Admin-Panel/Problems/CPU-usage.md),
-[docs/Features/Filename/Filename.md](https://github.com/wekan/wekan/blob/main/docs/Features/Filename/Filename.md).
+This release adds the following new features:
 
-- **CPU usage: Admin Panel / Problems / CPU usage** — WeKan now watches system-wide
-  CPU usage (measured across all cores, so it includes WeKan, FerretDB and every
-  other process). When usage stays high it records the START and END of the period
-  (only those two rows per episode, never a flood), with the duration, peak, system
-  load and what WeKan was doing at the time. Hysteresis (enter at 85%, leave at 70%,
-  three consecutive samples each way) prevents flapping. A governor (`pauseIfBusy()`)
-  lets long batch operations slow down and yield the CPU to other software while the
-  machine is busy — wired into the existing-file extension corrector, and tunable via
-  `WEKAN_CPU_*` environment variables. The report also records **what automatic
-  mitigation was taken** (e.g. slowing down the current operation, which also lowers
-  FerretDB query load) and **whether it helped** — comparing CPU before vs. after
-  slowing down to show whether pausing noticeably lowered CPU usage.
-- **CPU usage: ask FerretDB to slow down (adaptive) + FerretDB self-regulation** —
-  because FerretDB is the other big CPU user on the same host, on high CPU WeKan asks
-  FerretDB (via the bundled fork's `throttle` command) what it is doing and to slow
-  down, running a **feedback loop**: each check while CPU stays high it **increases**
-  (doubles) the delay FerretDB adds between operations, up to a cap, until CPU drops
-  below a headroom target (enough CPU free for other processes), then holds; if even
-  the maximum delay does not free enough CPU it logs that FerretDB was not the cause.
-  Because WeKan itself may be too CPU-starved to measure or ask, **FerretDB also
-  self-regulates on its own** (samples the host CPU and adds its own increasing
-  delay); WeKan reads and logs FerretDB's self-regulated delay, its measured CPU, and
-  an `operationsSummary` of what FerretDB has been doing. WeKan **does not flood the
-  log or hammer FerretDB**: it talks to FerretDB at most once every 30 s, every call
-  has a timeout, and a non-answer starts a cooldown (WeKan records when FerretDB
-  **became unresponsive** and, on recovery, logs the full **start → end span**). All
-  of this goes to Admin Panel → Problems → CPU usage. Tunable via `WEKAN_CPU_*` /
-  `WEKAN_FERRETDB_*` (and `FERRETDB_CPU_*` on the FerretDB side); a no-op on plain
-  MongoDB. The report title is translated to all languages.
+- [Safe filename handling everywhere: attachment and avatar names are always shown
+  clean — URL-decoded, normalized to generally-used characters (Unicode NFKC plus
+  confusable-homoglyph folding, so a typosquatting `pаypal.exe` with a Cyrillic `а` is
+  shown as `paypal.exe`), invisible/control/bidi characters removed and HTML/JS/XML
+  markup stripped. Uploads are hardened (exploit and EICAR virus-test filenames
+  rejected, extension corrected to the real detected type, length capped to a portable
+  30 chars), SVG JavaScript and XML-loop content is sanitized at a staging path before
+  storage, existing files can be corrected/sanitized on the fly, storage moves check
+  free disk space, and migrations fix + disambiguate names. One general `cleanFileName`
+  function via `{{cleanFilename}}` / `{{downloadFilename}}`. Design at
+  docs/Features/Filename/Filename.md](https://github.com/wekan/wekan/commit/81dbecfb8719ff99dac367e9921e44282c8b3ded).
+  Thanks to xet7.
+- [Log every filename/content sanitization to Admin Panel / Problems: whenever a name
+  or file required sanitization (upload, migration, existing-file corrector, viewing),
+  the Security report records WHEN, WHO uploaded it, FOR WHAT REASON (URL-encoding,
+  invisible characters, typosquatting, the exploit kind such as JavaScript / XML code /
+  XML loop, wrong file type, too long), the filename from → to, and WHERE (board ›
+  swimlane › list › card, plus organization and team)](https://github.com/wekan/wekan/commit/fdb683892d11ec1ab2b2c75fa865ac2abea6bfe4).
+  Thanks to xet7.
+- [CPU-usage monitor + governor + Admin Panel / Problems / CPU usage report: watch
+  system-wide CPU, record only the START and END of each sustained high-CPU period
+  with what WeKan/FerretDB were doing, the automatic mitigation taken and whether it
+  helped; a governor pauses long batch operations to yield the CPU. On high CPU WeKan
+  asks the bundled FerretDB (via its `throttle` command) to slow down in an adaptive
+  feedback loop, FerretDB also self-regulates on its own and reports its own process
+  CPU% so a core-peg is visible even when system-wide CPU looks moderate. Design at
+  docs/Features/Admin-Panel/Problems/CPU-usage.md](https://github.com/wekan/wekan/commit/1c636f09b35eb48f777bef847f4df5f40c0df969).
+  Thanks to xet7.
+- [Automatic adaptive card loading (no admin toggle): WeKan decides per board by size —
+  a board over the threshold (default 500 cards, `CARDS_LOADING_LAZY_THRESHOLD`) loads
+  only the visible cards (infinite-scroll windows) plus a live count, so very large
+  boards stay fast; smaller boards keep loading every card. The board publication also
+  publishes comments/attachments with one board-level cursor instead of one per card
+  (an N+1 that pinned FerretDB CPU), with supporting indexes](https://github.com/wekan/wekan/commit/96c7faa87254529cf2531ff2c6027efd136ee753).
+  Thanks to xet7.
+- [Statistics board view (Finnish: Tilastot): a full-width board view alongside
+  Swimlanes / Lists / Calendar / Gantt / Table showing the board's card-loading mode,
+  counts (swimlanes, lists, cards, archived cards, labels, members, custom fields) and
+  a time-spent summary; counts come from the server so they are accurate even in lazy
+  mode, and its text can be selected and copied with mouse or finger. Design at
+  docs/Features/Board/Sidebar/Status.md](https://github.com/wekan/wekan/commit/3aefa94a66dd9542e690bccd5aedac73d8a50c11).
+  Thanks to xet7.
+- [Admin Panel / Problems documentation reorganized under Admin-Panel/Problems/ with new
+  RAM-usage and Disk-usage design specs (log how much RAM+swap / disk is used and record
+  only the start and end of each sustained high-usage period, mirroring the CPU-usage
+  monitor)](https://github.com/wekan/wekan/commit/f306061273e12958d715452f27d19c8001925a2c).
+  Thanks to xet7.
+- [Admin Panel report improvements: paginated, searchable report tables (Files, Rules,
+  Boards, Cards, Impersonation) that load one page at a time via index-backed sorts
+  instead of the whole collection, theme-following buttons, and the Files report shows
+  every filename decoded and cleaned](https://github.com/wekan/wekan/commit/dd21cfdc0519bb433737976ea3155f9db18143e0).
+  Thanks to xet7.
+- [Organize docs/Features into categories (Admin-Panel, Board, Cards, Editor, Reports,
+  Automation, Lists, Troubleshooting) and update all links](https://github.com/wekan/wekan/commit/54cc0ec614fcbb2abf059dd07b75894cf7ea4fe6).
+  Thanks to xet7.
 
-- **Filenames are always shown clean** — everywhere (card attachments, admin Files
-  report, download headers) a name is URL-decoded, normalized to generally-used
-  characters (Unicode NFKC plus **confusable-homoglyph folding**, so a typosquatting
-  name like a Cyrillic-`а` `pаypal.exe` is shown as `paypal.exe`), has invisible /
-  control / bidi characters removed, and has HTML/JS/XML/template-injection markup
-  stripped out. A genuinely non-Latin name (all-Cyrillic, Greek, CJK, …) is
-  preserved. One general `cleanFileName()` function via `{{cleanFilename}}` /
-  `{{downloadFilename}}`. The earlier invisible-character filter button, red warning
-  triangle, inline descriptions and legend are removed.
-- **Uploads are hardened** (attachments and avatars, all storage backends): a
-  filename that looks like an exploit (HTML/JS, XML doctype/entity, template
-  injection, php/asp, `javascript:`/`data:` URIs, inline handlers, null byte, path
-  traversal) is rejected; known virus **test files (EICAR)** are rejected; the stored
-  name has invisible characters removed and the **extension corrected to the real
-  detected file type** (so double-clicking the downloaded file opens the right
-  application — a PNG named `foo.txt` becomes `foo.png`); an empty name becomes a
-  type-based name (`image.png`, `document.docx`, …); and the length is capped to a
-  portable maximum (30 characters, classic Amiga OS FFS) preserving the extension.
-- **Known exploits are removed from file content** — SVG JavaScript and XML-loop
-  (billion-laughs) DOCTYPE/ENTITY constructs are stripped in place at the staging
-  location before the file is promoted to the default storage (filesystem, S3,
-  GridFS), and the temporary file is deleted after storing.
-- **Existing files are handled too** — their extension can be corrected by streaming
-  only a small header to `WRITABLE_PATH/files/temp`, detecting the type, then
-  deleting the temp file (an admin-only, bounded batch corrector reusing the general
-  detector); and when an existing file is served it is sanitized on the fly straight
-  from storage, sniffing the start of the stream and rewriting only documents that
-  begin like dangerous markup (e.g. the start of an XML-loop tag), streaming
-  everything else through unchanged.
-- **Storage moves are safe** — before writing to filesystem storage WeKan checks for
-  enough free disk space (falling back to small-RAM chunked streaming when free-space
-  info is unavailable) and, on any write error, stops immediately and removes the
-  partial output while leaving the source intact.
-- **Migrations fix filenames** — moving/migrating a file sanitizes its content,
-  fixes + sanitizes the filename with the same general function (detected type,
-  corrected extension, folded homoglyphs, capped length), saves the corrected name at
-  the destination, and disambiguates a same-name / different-content collision with
-  increasing numbering (`document.pdf`, `document-1.pdf`, …).
-- **Every sanitization is logged to Admin Panel / Problems** — whenever a filename or
-  file required sanitization (on upload, migration, the existing-file corrector, or
-  viewing), the Security report records WHEN, WHO originally uploaded it (clickable
-  username column), FOR WHAT REASON (URL-encoding, invisible characters,
-  typosquatting look-alikes, the exploit kind such as JavaScript code / XML code /
-  XML loop, wrong file type, filename too long), the filename ("from" → "to"), and
-  WHERE it was uploaded (board › swimlane › list › card, plus organization and team).
+and fixes the following bugs:
 
-This release also fixes reported problems from **v10.03**:
+- [Fix: removing a member from a board now visibly works — the sidebar member list kept
+  showing removed members (removeMember keeps the entry with isActive:false), so
+  "Remove from board" looked like it did nothing; the list now shows only active members
+  (#6479)](https://github.com/wekan/wekan/commit/4a3800973a3f93321a7c2f92ade95d91ffb29153).
+  Thanks to mueschel and xet7.
+- [Fix: opening a board no longer pins FerretDB CPU / takes minutes — the board
+  publication opened one live comments cursor and one attachments cursor per card (an
+  N+1 that pinned FerretDB/SQLite CPU), now one board-level cursor each plus indexes;
+  FerretDB also reports its own process CPU% so Problems shows a core-peg (#6480)](https://github.com/wekan/wekan/commit/5d56af56cd419ef09b69ed9cdcbdb30ad1b56ba1).
+  Thanks to mueschel and xet7.
+- [Fix: All Boards on mobile is scrollable again and shows at least 2 board icons per
+  row — the list was forced min-height:100vh so it grew to fit and was clipped by the
+  overflow:hidden wrapper; it now has a bounded height + overflow-y:auto, and the left
+  menu is narrowed so the boards get room (#6488)](https://github.com/wekan/wekan/commit/b4fd7d851f887930c0640a687847bf49223ee2ab).
+  Thanks to mimZD and xet7.
+- [Fix: Rules → Workflow view can create rules again — rulesWorkflow.js used TAPi18n
+  without importing it, so building a rule threw ReferenceError and the Add Rule handler
+  aborted before saving (#6489)](https://github.com/wekan/wekan/commit/e424fb1bba82d168afa6e0cafae57a4fb4ad6b58).
+  Thanks to xet7.
+- [Fix: Rules list — Delete and "View rule" act on the clicked rule, not the first — the
+  buttons live in the rulesList child template but their handlers on the parent
+  rulesMain used Template.currentData(), so the rule id was null (delete failed with
+  "Match failed", View always opened the first rule); the buttons now carry an explicit
+  data-rule-id (#6490)](https://github.com/wekan/wekan/commit/25f9b468256279d8f483657372e70da379c9e604).
+  Thanks to xet7.
+- [Fix: a rule's action never executed even though its trigger matched — the trigger
+  match required fields a moveCard trigger omits (oldListName), and a Mongo $in does not
+  match a missing field unless null is in the list, so the rule silently never fired;
+  null is now included for every field, like the cardTitle handling (#6491)](https://github.com/wekan/wekan/commit/e6b001320c27a11fdbd15e17f2ad230bdeab2290).
+  Thanks to xet7.
+- [Fix: admin reports load on FerretDB — the paginated report publications returned a
+  sorted+limited live cursor, whose limited live observe hangs on FerretDB's OpLog, so
+  the report was stuck on the loading spinner; they now publish the page manually so
+  ready always fires](https://github.com/wekan/wekan/commit/dded8ed47695092a698ab3e34a8abc5c6f567607).
+  Thanks to xet7.
+- [Fix: the paginated admin reports never get stuck on the loading spinner if a report
+  subscription fails — they now handle onStop, clearing the spinner and surfacing the
+  error](https://github.com/wekan/wekan/commit/5949e85cfd9996651e1844fa6238d5a0f2da793e).
+  Thanks to xet7.
 
-- **Fix: All Boards scrolls on mobile + at least 2 board icons per row**
-  ([#6488](https://github.com/wekan/wekan/issues/6488)). On phones the board list
-  could not be scrolled — the CSS forced it `min-height:100vh` (plus a phantom
-  `::after`), so it grew to fit every board and, clipped by the `overflow:hidden`
-  wrapper, boards below the fold were unreachable. It now has a bounded height and
-  `overflow-y:auto`, so it scrolls (natively on iOS and via the touch-drag handler
-  elsewhere, which only engages once the content overflows). The mobile layout also
-  keeps the menu on the left with the board icons on the right and shows **at least 2
-  board icons per row** (the left menu is narrowed so the boards get the room), e.g.
-  on an iPhone 12 mini. Covered by a phone-viewport Playwright test.
-- **Fix: Rules → Workflow view can create rules again**
-  ([#6489](https://github.com/wekan/wekan/issues/6489)). `rulesWorkflow.js` used
-  `TAPi18n` without importing it, so building a rule (drag a trigger + action, click
-  "Add Rule") threw `ReferenceError: TAPi18n is not defined` in `paletteLabel()` and
-  the click handler aborted before saving — creating a rule silently did nothing.
-  Added the missing `import { TAPi18n } from '/imports/i18n';`.
-- **Fix: Rules list — delete and "View rule" act on the clicked rule**
-  ([#6490](https://github.com/wekan/wekan/issues/6490)). The Delete and View buttons
-  live in the `rulesList` child template's `each`, but their handlers are on the
-  parent `rulesMain` and used `Template.currentData()`, which returned the parent's
-  data context, not the clicked rule. So the rule id resolved to null — deleting a
-  rule failed with `Match error: Expected string, got null`, and "View rule" always
-  opened the same (first) rule. The buttons now carry an explicit `data-rule-id` and
-  the handlers read it, so both act on the rule that was actually clicked.
-- **Fix: opening a board no longer pins FerretDB CPU / takes minutes**
-  ([#6480](https://github.com/wekan/wekan/issues/6480)). The `board` publication
-  opened **one live CardComments cursor and one Attachments cursor per card**, so a
-  board with many cards spun up thousands of live observers; under FerretDB's
-  poll-and-diff that pinned FerretDB/SQLite CPU (170–300 %) and made boards take
-  minutes to open. Comments and attachments are now published with a **single
-  board-level cursor each**, on their denormalized `boardId` / `meta.boardId` (exactly
-  like checklists) — one cursor per collection instead of one per card, still reacting
-  to newly added cards. Added the supporting indexes so those board-level queries are
-  not full scans: `cards {boardId, archived}` (the board card filter), `cardComments
-  {boardId}`, and `attachments {meta.boardId}`. Best paired with the bundled FerretDB
-  v1.33.0+, whose OpLog-by-default stops Meteor's poll-and-diff entirely and whose
-  SQLite pragmas (`busy_timeout` 30 s, WAL, `synchronous=normal`, cache/mmap) further
-  cut CPU and `SQLITE_BUSY`.
-- **Automatic adaptive card loading (big boards load lazily)**
-  ([#6480](https://github.com/wekan/wekan/issues/6480)). Card loading is no longer an
-  admin toggle — WeKan decides **per board by size**: a board over the threshold
-  (default 500 cards, `CARDS_LOADING_LAZY_THRESHOLD`) loads only the cards currently
-  visible (infinite-scroll windows) plus a live count, so very large boards stay fast
-  and light; smaller boards keep loading every card (the simple, fully-featured path,
-  unchanged). The server computes the mode per board and publishes it so client
-  rendering agrees. Windowed comments/attachments/checklists are now published with
-  **one cursor per window** instead of one per card (the same N+1 fix as eager mode),
-  and an **open card always subscribes to its own live comments/attachments/checklists**
-  (`openCardData`), so it is complete even when it is outside — or just added to — a
-  window. Operators can still force a mode with `CARDS_LOADING=all|lazy|auto`.
-- **CPU usage: surface FerretDB's own process CPU**
-  ([#6480](https://github.com/wekan/wekan/issues/6480)). "Admin Panel → Problems → CPU
-  usage" could stay empty even while FerretDB pegged the machine, because both WeKan
-  and FerretDB only measured **system-wide** CPU: on a many-core host FerretDB at
-  170–300 % (2–3 cores) is only ~40–75 % system-wide, below the high-CPU threshold.
-  FerretDB now reports its **own process CPU%** (100 % = one core) in the `throttle`
-  response, and WeKan surfaces it: high-CPU rows include FerretDB's process CPU, and a
-  new **watch** (a pure status read that never slows FerretDB down, so it cannot make a
-  slow board load worse) records a start/end episode when FerretDB alone monopolises
-  cores even though the system-wide percentage stays moderate. Tunable via
-  `WEKAN_FERRETDB_WATCH_PERCENT` / `WEKAN_FERRETDB_PROC_HIGH_PERCENT`.
-- **Fix: removing a member from a board now visibly works**
-  ([#6479](https://github.com/wekan/wekan/issues/6479)). Removing a member kept the
-  entry with `isActive:false` (#5122, for role history / re-activation), but the board
-  sidebar's member list still rendered inactive entries with no clear distinction, so
-  "Remove from board" looked like it did nothing — the avatar stayed. The sidebar list
-  now shows only active members (plus imported placeholders pending reconciliation);
-  removed members disappear from it immediately. Removed people still show greyed where
-  they remain referenced (e.g. as a card assignee) via the existing `inactive-member`
-  avatar styling.
-- **Admin reports never get stuck on the loading spinner** — the paginated admin
-  reports (Files, Rules, Boards, Cards, Impersonation) only handled the subscription
-  `onReady` callback, so if a report publication errored on the server the report was
-  stuck showing the loading spinner forever with no feedback. They now also handle
-  `onStop`: the spinner clears and, on a real error, the message is surfaced.
-- **Fix: admin reports load on FerretDB** — the paginated report publications
-  (`attachmentsList`, `rulesReport`, `boardsReport`, `cardsReport`,
-  `impersonationReport`) returned a sorted, limited live cursor; Meteor sets up a
-  *limited live observe* for that, which hangs on FerretDB's OpLog for the query, so
-  the subscription never became ready and the report was stuck on the loading spinner
-  forever. They now publish the page manually (fetch + `this.added` + `this.ready`) so
-  `ready` always fires — the reports re-subscribe on every page/search change, so they
-  do not need a live cursor. Covered by a Playwright test that opens each report and
-  asserts it loads.
-- **Statistics board view (Tilastot)** — a new full-width board **view** alongside
-  Swimlanes / Lists / Calendar / Gantt / Table (in the board-view switcher) that shows
-  this board's card-loading mode (lazy vs all, and whether it was chosen
-  automatically), its counts (swimlanes, lists, cards, archived cards, labels,
-  members, custom fields) and a **time-spent summary** in the style of the task time
-  reports (total hours logged, cards with time, overtime cards). Counts are computed
-  on the server so they are accurate even in lazy mode (where the browser only holds
-  the visible card window). Renders full width like the other views, and its text can
-  be selected and copied with the mouse (drag) or finger (long-press). "Statistics" is
-  translated to all languages (Finnish "Tilastot"). Design:
-  [docs/Features/Board/Sidebar/Status.md](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Sidebar/Status.md).
-- **Admin Panel → Problems monitors reorganized in docs**, and new **RAM usage** and
-  **Disk usage** designs — the docs for the Problems reports now live under
-  [docs/Features/Admin-Panel/Problems/](https://github.com/wekan/wekan/tree/main/docs/Features/Admin-Panel/Problems);
-  RAM-usage and Disk-usage are new design specs (log how much RAM+swap / disk is used
-  and record only the start and end of each sustained high-usage period, mirroring the
-  CPU-usage monitor).
-
-Thanks to above GitHub users for their contributions and translators for their translations.
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v10.03 2026-07-19 WeKan ® release
 
