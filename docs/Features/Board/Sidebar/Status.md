@@ -1,12 +1,15 @@
-# Board Settings → Status
+# Board view: Statistics (Tilastot)
 
-Status: **Implemented** · Owner: xet7 · Related: `client/components/sidebar/sidebar.js`
-(`boardStatusPopup`), `client/components/sidebar/sidebar.jade`,
+Status: **Implemented** · Owner: xet7 · Related:
+`client/components/boards/statsView.jade` / `.js` / `.css`,
+`client/components/boards/boardHeader.*` (view switcher),
+`client/components/boards/boardBody.*` (view rendering),
 `server/publications/boards.js` (`boardStatus` method).
 
-A read-only **Status** popup for a board, reached from the **board right sidebar →
-Board menu (cog) → Board status**. It gives a quick, at-a-glance summary of the board:
-how it loads, how big it is, and how much time has been logged on it.
+**Statistics** is a full-width board **view** — alongside Swimlanes, Lists, Calendar,
+Gantt and Table in the board-view switcher (the caret menu in the board header). It
+shows the board's status at a glance and renders full width like the other board
+views (Finnish: **Tilastot**).
 
 ## What it shows
 
@@ -33,10 +36,11 @@ it stays cheap even on a large board). Any member who can see the board can open
 
 ## Usability
 
-- The popup is intentionally **larger** than a normal WeKan pop-over and its text is
-  **selectable** with the mouse, so any value (e.g. a count or the total hours) can be
-  highlighted and copied.
-- It is read-only: opening it never changes the board.
+- Full width, like the other board views. Its text is **selectable** with the mouse
+  (drag) and on touch (long-press), so any value (e.g. a count or the total hours) can
+  be highlighted and copied — the view stops pointer/touch events from reaching the
+  board canvas's drag-to-scroll so native selection works.
+- Read-only: opening it never changes the board.
 
 ## Related
 

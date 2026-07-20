@@ -231,14 +231,16 @@ This release also fixes reported problems from **v10.03**:
   `ready` always fires — the reports re-subscribe on every page/search change, so they
   do not need a live cursor. Covered by a Playwright test that opens each report and
   asserts it loads.
-- **Board Settings → Status** — a new read-only **Board status** popup (board right
-  sidebar → Board menu → Board status) shows this board's card-loading mode (lazy vs
-  all, and whether it was chosen automatically), its counts (swimlanes, lists, cards,
-  archived cards, labels, members, custom fields) and a **time-spent summary** in the
-  style of the task time reports (total hours logged, cards with time, overtime
-  cards). Counts are computed on the server so they are accurate even in lazy mode
-  (where the browser only holds the visible card window). The popup is larger than a
-  normal pop-over and its text can be selected and copied with the mouse. Design:
+- **Statistics board view (Tilastot)** — a new full-width board **view** alongside
+  Swimlanes / Lists / Calendar / Gantt / Table (in the board-view switcher) that shows
+  this board's card-loading mode (lazy vs all, and whether it was chosen
+  automatically), its counts (swimlanes, lists, cards, archived cards, labels,
+  members, custom fields) and a **time-spent summary** in the style of the task time
+  reports (total hours logged, cards with time, overtime cards). Counts are computed
+  on the server so they are accurate even in lazy mode (where the browser only holds
+  the visible card window). Renders full width like the other views, and its text can
+  be selected and copied with the mouse (drag) or finger (long-press). "Statistics" is
+  translated to all languages (Finnish "Tilastot"). Design:
   [docs/Features/Board/Sidebar/Status.md](https://github.com/wekan/wekan/blob/main/docs/Features/Board/Sidebar/Status.md).
 - **Admin Panel → Problems monitors reorganized in docs**, and new **RAM usage** and
   **Disk usage** designs — the docs for the Problems reports now live under

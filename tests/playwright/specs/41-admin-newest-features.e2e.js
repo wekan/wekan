@@ -108,6 +108,26 @@ test.describe('Admin – newest features', () => {
     }
   });
 
+  test('Board Statistics view renders full-width with board counts and selectable text', async ({ page, adminUser }) => {
+    const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Stats Board', cardTitlesPerList: [['S1'], ['S2']] });
+    // Select the Statistics board view for this user (boardView is a per-user setting).
+    db.updateOne('users', { _id: adminUser.id }, { $set: { 'profile.boardView': 'board-view-stats' } });
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'networkidle' });
+
+    const stats = page.locator('.stats-view');
+    await expect(stats).toBeVisible({ timeout: 15_000 });
+    // Shows the board title and both sections (status + time summary), with counts
+    // resolved from the server boardStatus method (not the '…' loading placeholder).
+    await expect(stats).toContainText('Stats Board');
+    await expect(stats.locator('.stats-view-table')).toHaveCount(2);
+    await expect(stats).toContainText('Lists');
+    await expect(stats.locator('.stats-view-value').first()).not.toHaveText('…', { timeout: 15_000 });
+    // The text is selectable (not user-select:none) so values can be copied.
+    const userSelect = await stats.evaluate(el => getComputedStyle(el).userSelect);
+    expect(['text', 'auto']).toContain(userSelect);
+  });
+
   test('NEGATIVE: board Table view column headers are not clickable-sortable', async ({ page, adminUser }) => {
     await db.seedBoard({ ownerId: adminUser.id, title: 'Table View Board', cardTitlesPerList: [['TVCard']] });
     await loginWithToken(page, adminUser.id, adminUser.token);

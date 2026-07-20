@@ -1,0 +1,45 @@
+template(name="statsView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{ boardTitle }}
+      .stats-view-section
+        h2.stats-view-heading {{_ 'board-status'}}
+        table.stats-view-table
+          tbody
+            tr
+              td.stats-view-label {{_ 'board-status-loading-mode'}}
+              td.stats-view-value {{ loadingModeLabel }}
+            tr
+              td.stats-view-label {{_ 'swimlanes'}}
+              td.stats-view-value {{ swimlaneCount }}
+            tr
+              td.stats-view-label {{_ 'lists'}}
+              td.stats-view-value {{ listCount }}
+            tr
+              td.stats-view-label {{_ 'cards'}}
+              td.stats-view-value {{ cardCount }}
+            tr
+              td.stats-view-label {{_ 'card-archived'}}
+              td.stats-view-value {{ archivedCardCount }}
+            tr
+              td.stats-view-label {{_ 'labels'}}
+              td.stats-view-value {{ labelCount }}
+            tr
+              td.stats-view-label {{_ 'members'}}
+              td.stats-view-value {{ memberCount }}
+            tr
+              td.stats-view-label {{_ 'custom-fields'}}
+              td.stats-view-value {{ customFieldCount }}
+      .stats-view-section
+        h2.stats-view-heading {{_ 'board-status-time-summary'}}
+        table.stats-view-table
+          tbody
+            tr
+              td.stats-view-label {{_ 'board-status-time-spent-total'}}
+              td.stats-view-value {{ timeSpentTotal }}
+            tr
+              td.stats-view-label {{_ 'board-status-cards-with-time'}}
+              td.stats-view-value {{ cardsWithTimeSpent }}
+            tr
+              td.stats-view-label {{_ 'board-status-overtime-cards'}}
+              td.stats-view-value {{ overtimeCards }}

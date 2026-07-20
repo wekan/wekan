@@ -1,0 +1,55 @@
+/* Board "Statistics" view — full width, like the other board views. Its text is
+   selectable so any value can be highlighted and copied. */
+.stats-view {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.stats-view-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.stats-view-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.stats-view-section {
+  margin-bottom: 28px;
+}
+
+.stats-view-heading {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 2px solid #dbdbdb;
+  padding-bottom: 4px;
+}
+
+.stats-view-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-view-table td {
+  padding: 8px 4px;
+  border-bottom: 1px solid #eee;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.stats-view-table .stats-view-label {
+  color: #666;
+  width: 60%;
+}
+
+.stats-view-table .stats-view-value {
+  font-weight: bold;
+  text-align: right;
+}

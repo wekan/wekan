@@ -131,6 +131,8 @@ template(name="boardHeaderBar")
               i.fa.fa-bar-chart
             if $eq boardView 'board-view-table'
               i.fa.fa-table
+            if $eq boardView 'board-view-stats'
+              i.fa.fa-pie-chart
             span
               if $eq boardView 'board-view-swimlanes'
                 | {{_ 'swimlanes'}}
@@ -142,6 +144,8 @@ template(name="boardHeaderBar")
                 | {{_ 'gantt'}}
               if $eq boardView 'board-view-table'
                 | {{_ 'board-view-table'}}
+              if $eq boardView 'board-view-stats'
+                | {{_ 'board-view-stats'}}
         a.board-header-btn.js-toggle-dependencies(
             title="{{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}"
             class="{{#if currentBoard.showDependencies}}emphasis{{/if}}")
@@ -250,6 +254,13 @@ template(name="boardChangeViewPopup")
           i.fa.fa-table
           | {{_ 'board-view-table'}}
           if $eq Utils.boardView "board-view-table"
+            i.fa.fa-check
+    li
+      with "board-view-stats"
+        a.js-open-stats-view
+          i.fa.fa-pie-chart
+          | {{_ 'board-view-stats'}}
+          if $eq Utils.boardView "board-view-stats"
             i.fa.fa-check
 
 template(name="createBoard")

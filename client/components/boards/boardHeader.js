@@ -248,6 +248,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-table');
     Popup.back();
   },
+  'click .js-open-stats-view'() {
+    Utils.setBoardView('board-view-stats');
+    Popup.back();
+  },
 });
 
 // Shared setup for all create board popups

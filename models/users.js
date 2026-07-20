@@ -574,6 +574,7 @@ Users.attachSchema(
         'board-view-cal',
         'board-view-gantt',
         'board-view-table',
+        'board-view-stats',
       ],
     },
     'profile.listSortBy': {

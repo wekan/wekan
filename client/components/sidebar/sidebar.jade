@@ -657,10 +657,6 @@ template(name="outgoingWebhooksPopup")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
-    li
-      a.js-board-status(title="{{_ 'board-status'}}")
-        i.fa.fa-info-circle
-        | {{_ 'board-status'}}
     if currentUser.isBoardAdmin
       li
         a.js-open-rules-view(title="{{_ 'rules'}}")
@@ -738,46 +734,6 @@ template(name="boardMenuPopup")
           a.js-archive-board
             i.fa.fa-archive
             | {{_ 'archive-board'}}
-
-template(name="boardStatusPopup")
-  .board-status-popup
-    h3.board-status-heading {{_ 'board-status'}}
-    ul.board-status-list
-      li
-        span.board-status-label {{_ 'board-status-loading-mode'}}
-        span.board-status-value {{ loadingModeLabel }}
-      li
-        span.board-status-label {{_ 'swimlanes'}}
-        span.board-status-value {{ swimlaneCount }}
-      li
-        span.board-status-label {{_ 'lists'}}
-        span.board-status-value {{ listCount }}
-      li
-        span.board-status-label {{_ 'cards'}}
-        span.board-status-value {{ cardCount }}
-      li
-        span.board-status-label {{_ 'card-archived' }}
-        span.board-status-value {{ archivedCardCount }}
-      li
-        span.board-status-label {{_ 'labels'}}
-        span.board-status-value {{ labelCount }}
-      li
-        span.board-status-label {{_ 'members'}}
-        span.board-status-value {{ memberCount }}
-      li
-        span.board-status-label {{_ 'custom-fields'}}
-        span.board-status-value {{ customFieldCount }}
-    h3.board-status-heading {{_ 'board-status-time-summary'}}
-    ul.board-status-list
-      li
-        span.board-status-label {{_ 'board-status-time-spent-total'}}
-        span.board-status-value {{ timeSpentTotal }}
-      li
-        span.board-status-label {{_ 'board-status-cards-with-time'}}
-        span.board-status-value {{ cardsWithTimeSpent }}
-      li
-        span.board-status-label {{_ 'board-status-overtime-cards'}}
-        span.board-status-value {{ overtimeCards }}
 
 template(name="exportBoardPopup")
   ul.pop-over-list

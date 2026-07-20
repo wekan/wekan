@@ -52,6 +52,8 @@ template(name="boardBody")
           +ganttView
         else if isViewTable
           +tableView
+        else if isViewStats
+          +statsView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

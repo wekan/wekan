@@ -465,7 +465,6 @@ Template.memberPopup.helpers({
 
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
-  'click .js-board-status': Popup.open('boardStatus'),
   'click .js-open-rules-view'() {
     const currentBoard = Utils.getCurrentBoard();
     Popup.back();
@@ -580,56 +579,6 @@ Template.boardMenuPopup.helpers({
   exportFilename() {
     const boardId = Session.get('currentBoard');
     return `export-board-${boardId}.json`;
-  },
-});
-
-// Board Settings → Status: accurate counts + this board's card-loading mode +
-// a time-spent summary, all computed on the server (correct even in lazy mode,
-// where minimongo only holds the visible card window).
-Template.boardStatusPopup.onCreated(function() {
-  this.status = new ReactiveVar(null);
-  const boardId = Session.get('currentBoard');
-  if (boardId) {
-    Meteor.call('boardStatus', boardId, (err, res) => {
-      if (!err && res) this.status.set(res);
-    });
-  }
-});
-
-// Read one numeric field from the resolved board status, or a placeholder while it
-// is still loading. Standalone (not a helper) because a Blaze helper's `this` is the
-// data context, not the helpers object.
-function boardStatusNum(key) {
-  const s = Template.instance().status.get();
-  return s ? (s[key] || 0) : '…';
-}
-
-Template.boardStatusPopup.helpers({
-  loadingModeLabel() {
-    const s = Template.instance().status.get();
-    if (!s) return '…';
-    // Show what is actually in effect for THIS board (lazy vs all), plus the
-    // configured mode when it is the adaptive default.
-    const inEffect = s.lazy
-      ? TAPi18n.__('cards-loading-lazy')
-      : TAPi18n.__('cards-loading-all');
-    return s.mode === 'auto' ? `${inEffect} (${TAPi18n.__('cards-loading-auto')})` : inEffect;
-  },
-  swimlaneCount() { return boardStatusNum('swimlanes'); },
-  listCount() { return boardStatusNum('lists'); },
-  cardCount() { return boardStatusNum('cards'); },
-  archivedCardCount() { return boardStatusNum('archivedCards'); },
-  labelCount() { return boardStatusNum('labels'); },
-  memberCount() { return boardStatusNum('members'); },
-  customFieldCount() { return boardStatusNum('customFields'); },
-  cardsWithTimeSpent() { return boardStatusNum('cardsWithTimeSpent'); },
-  overtimeCards() { return boardStatusNum('overtimeCards'); },
-  timeSpentTotal() {
-    const s = Template.instance().status.get();
-    if (!s) return '…';
-    // Match the task time reports: a plain hours total (0 when nothing is logged).
-    const n = Number(s.timeSpentTotal) || 0;
-    return `${n} h`;
   },
 });
 
