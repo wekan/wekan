@@ -995,26 +995,32 @@ body.grey-icons-enabled .checkmark-no-grey {
        screen and (max-width: 800px) and (orientation: portrait),
        screen and (max-width: 800px) and (orientation: landscape),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  /* #6488 + mobile layout: keep the left menu on the left but narrow (so the boards
+     get room), and show the board icons on the right at least 2 per row. */
+  .boards-layout {
+    grid-template-columns: minmax(84px, 30%) 1fr;
+    gap: 8px;
+  }
   .board-list {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 1rem;
+    padding: 0 0.25rem;
     margin: 0;
   }
   .board-list li {
-    width: 100%;
-    float: none;
+    width: 50%; /* at least 2 board icons per row on phones */
+    float: inline-start;
     display: block;
     margin-bottom: 1rem;
-    padding-inline-end: 50px; /* Space for drag handle */
+    padding-inline-end: 40px; /* Space for drag handle */
   }
   .board-list .board-list-item {
     overflow: visible;
     height: 8rem;
     width: 100%;
     margin: 0;
-    padding-inline-end: 50px; /* Ensure content doesn't overlap with drag handle */
+    padding-inline-end: 40px; /* Ensure content doesn't overlap with drag handle */
   }
 
   .board-list .board-list-item .details {
@@ -1050,11 +1056,11 @@ body.grey-icons-enabled .checkmark-no-grey {
     background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
   }
 }
-/* Very small screens - ensure one board per row */
+/* Very small screens - still keep at least 2 board icons per row (#6488). */
 @media screen and (max-width: 360px) {
   .board-list li {
-    width: 100% !important;
-    float: none !important;
+    width: 50% !important;
+    float: inline-start !important;
     display: block !important;
   }
   .board-list .board-handle {
@@ -1220,12 +1226,17 @@ body.grey-icons-enabled .checkmark-no-grey {
   }
 
   .board-list {
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;
-    height: calc(100vh - 120px); /* Ensure there's content to scroll */
+    /* #6488: a BOUNDED height so the boards overflow and scroll. The old rule set
+       min-height:100vh (plus a phantom ::after), which grew the list to fit all its
+       content — so nothing overflowed and, clipped by the overflow:hidden wrapper,
+       boards below the fold were unreachable. */
+    height: calc(100vh - 120px);
+    max-height: calc(100vh - 120px);
   }
 
   /* Force scrollbar to always be visible */
@@ -1262,14 +1273,8 @@ body.grey-icons-enabled .checkmark-no-grey {
   .board-list {
     scrollbar-gutter: stable;
     scrollbar-width: auto !important;
-    min-height: 100vh; /* Force content to be tall enough to scroll */
-  }
-
-  /* Ensure there's always content to scroll */
-  .board-list::after {
-    content: '';
-    display: block;
-    height: 100px;
+    /* NOTE: no min-height/::after here — the bounded height above is what makes the
+       list scroll; forcing it 100vh tall would defeat that (see #6488). */
   }
 
   /* Ensure only one scrollbar is visible */

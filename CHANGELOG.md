@@ -171,6 +171,16 @@ subsystem. Designs:
 
 This release also fixes reported problems from **v10.03**:
 
+- **Fix: All Boards scrolls on mobile + at least 2 board icons per row**
+  ([#6488](https://github.com/wekan/wekan/issues/6488)). On phones the board list
+  could not be scrolled — the CSS forced it `min-height:100vh` (plus a phantom
+  `::after`), so it grew to fit every board and, clipped by the `overflow:hidden`
+  wrapper, boards below the fold were unreachable. It now has a bounded height and
+  `overflow-y:auto`, so it scrolls (natively on iOS and via the touch-drag handler
+  elsewhere, which only engages once the content overflows). The mobile layout also
+  keeps the menu on the left with the board icons on the right and shows **at least 2
+  board icons per row** (the left menu is narrowed so the boards get the room), e.g.
+  on an iPhone 12 mini. Covered by a phone-viewport Playwright test.
 - **Fix: Rules → Workflow view can create rules again**
   ([#6489](https://github.com/wekan/wekan/issues/6489)). `rulesWorkflow.js` used
   `TAPi18n` without importing it, so building a rule (drag a trigger + action, click
