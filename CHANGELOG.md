@@ -102,6 +102,14 @@ This release fixes the following bugs:
   already hardcode safe values, and the real-MongoDB `start-wekan.sh` /
   `start-wekan.bat` are unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/3efd96368fc5902b1e3ab14e5ded688994ac95c8).
   Thanks to uusijani, mueschel and xet7.
+- [Fix: the Files admin report (Admin Panel / Reports / Files) showed only its
+  controls and never listed any files. Its rows and count were read from the
+  ostrio FilesCollection wrapper, whose FilesCursor does not reliably re-run in a
+  Blaze helper when the paginated `attachmentsList` publication delivers the page,
+  so the count stayed 0 and the table never rendered. It now reads the underlying
+  reactive `Attachments.collection`, the same pattern the rest of the codebase uses
+  for attachment reads](https://github.com/wekan/wekan/commit/2d0360284cd8dc142718433d61e36b33635e518e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
