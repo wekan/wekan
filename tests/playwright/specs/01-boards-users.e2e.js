@@ -126,6 +126,63 @@ test.describe('Boards – user membership', () => {
     }
   });
 
+  // #6479: the existing "can remove a member" test above only checks the DB, which is
+  // why the bug shipped — removeMember correctly set isActive:false, but the sidebar
+  // still rendered the removed member's avatar, so removal looked like it did nothing.
+  // This test asserts the UI: the avatar must disappear from the sidebar member list.
+  test('#6479: removing a member hides them from the sidebar member list, not just the DB', async ({ boardPage, board, user2 }) => {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    await boardPage.reload({ waitUntil: 'networkidle' });
+    const bp = new BoardPage(boardPage);
+    await bp.openSidebar();
+
+    // The member's avatar (userAvatar renders a.js-member with the username in title).
+    const memberAvatar = boardPage.locator(`.membersWidget a.js-member[title*="${user2.username}"]`);
+    await expect(memberAvatar).toBeVisible({ timeout: 10_000 });
+
+    // Open the member menu and click "Remove from board".
+    await memberAvatar.click();
+    const removeLink = boardPage.locator('.js-pop-over a.js-remove-member');
+    await expect(removeLink).toBeVisible({ timeout: 10_000 });
+    await removeLink.click();
+
+    // Confirm (removeMemberPopup: button.js-confirm.negate.full).
+    const confirm = boardPage.locator('.js-pop-over button.js-confirm');
+    await expect(confirm).toBeVisible({ timeout: 10_000 });
+    await confirm.click();
+
+    // The fix: the avatar disappears from the sidebar (removal is visible, not just DB).
+    await expect(memberAvatar).toHaveCount(0, { timeout: 10_000 });
+
+    // And the member entry is deactivated (kept with isActive:false per #5122).
+    await expect
+      .poll(() => {
+        const boardDoc = db.getBoard(board.boardId);
+        const m = boardDoc?.members?.find(x => x.userId === user2.id);
+        return !!(m && m.isActive === false);
+      }, { timeout: 10_000 })
+      .toBe(true);
+  });
+
+  // NEGATIVE (#6479): a plain (non-admin) board member must not be offered a way to
+  // remove other members — the "Remove from board" link is admin-only.
+  test('#6479 NEGATIVE: a non-admin member is not offered a remove option', async ({ page, board, user, user2 }) => {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id, isAdmin: false });
+    await loginWithToken(page, user2.id, user2.token);
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'networkidle' });
+    const bp = new BoardPage(page);
+    await bp.openSidebar();
+
+    // Open the board OWNER's member menu as the non-admin user2.
+    const ownerAvatar = page.locator(`.membersWidget a.js-member[title*="${user.username}"]`).first();
+    await expect(ownerAvatar).toBeVisible({ timeout: 10_000 });
+    await ownerAvatar.click();
+    await page.locator('.js-pop-over').waitFor({ timeout: 10_000 });
+
+    // No "Remove from board" for a non-admin.
+    await expect(page.locator('.js-pop-over a.js-remove-member')).toHaveCount(0);
+  });
+
   test('board renders all three seeded lists without freezing', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const count = await bp.allLists().count();
