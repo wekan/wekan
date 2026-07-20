@@ -62,10 +62,25 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       expect(xs.length).toBeGreaterThanOrEqual(2);
       expect(xs[1]).toBeGreaterThan(xs[0]);
 
-      // The list is a bounded, scrollable container (content overflows its box).
+      // The list must be a BOUNDED, scrollable container so boards below the fold
+      // are reachable (not clipped by the surrounding overflow:hidden). Assert the
+      // invariant the CSS guarantees — a scroll container whose height is bounded
+      // to the viewport — instead of requiring the current board count to overflow
+      // it (which depends on exact tile height vs viewport and is flaky). An
+      // unbounded list that grew to fit all its boards fails clientHeight<=viewport.
       const list = page.locator('ul.board-list');
-      const scrollable = await list.evaluate(el => el.scrollHeight > el.clientHeight + 4);
-      expect(scrollable).toBe(true);
+      const m = await list.evaluate(el => ({
+        overflowY: getComputedStyle(el).overflowY,
+        clientHeight: el.clientHeight,
+        scrollHeight: el.scrollHeight,
+        viewport: window.innerHeight,
+      }));
+      expect(['auto', 'scroll']).toContain(m.overflowY);
+      expect(m.clientHeight).toBeLessThanOrEqual(m.viewport);
+      // When there are more boards than fit, the bounded box actually scrolls.
+      if (m.scrollHeight > m.viewport) {
+        expect(m.scrollHeight).toBeGreaterThan(m.clientHeight + 4);
+      }
     } finally {
       boards.forEach(b => db.cleanup({ boardIds: [b.boardId] }));
     }
