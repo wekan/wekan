@@ -100,7 +100,7 @@ This release fixes the following bugs:
   the Windows `start-wekan.bat` — so `changeStreams` can never enter the order
   however it was passed in (OpLog + polling only). The Docker compose files
   already hardcode safe values, and the real-MongoDB `start-wekan.sh` /
-  `start-wekan.bat` are unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/3efd96368fc5902b1e3ab14e5ded688994ac95c8).
+  `start-wekan.bat` are unchanged (#6492, #6493, #6480)](https://github.com/wekan/wekan/commit/0376665882267d0e77116a1182010a4f35882a3f).
   Thanks to uusijani, mueschel and xet7.
 - [Fix: the Files admin report (Admin Panel / Reports / Files) showed only its
   controls and never listed any files. Its rows and count were read from the
@@ -108,7 +108,23 @@ This release fixes the following bugs:
   Blaze helper when the paginated `attachmentsList` publication delivers the page,
   so the count stayed 0 and the table never rendered. It now reads the underlying
   reactive `Attachments.collection`, the same pattern the rest of the codebase uses
-  for attachment reads](https://github.com/wekan/wekan/commit/2d0360284cd8dc142718433d61e36b33635e518e).
+  for attachment reads](https://github.com/wekan/wekan/commit/5b4443df23e42c11c73da1f664fc1d30daf59948).
+  Thanks to xet7.
+- [Fix: the Statistics board view never rendered. `statsView.jade` / `.js` / `.css`
+  were not imported anywhere in the client build, so the `statsView` Blaze template
+  was never registered — switching a board to the Statistics view left the board
+  canvas empty (the header still showed "Statistics", which only reflects the saved
+  board view). The three files are now imported alongside the other board views, so
+  the view renders its board counts and time
+  summary](https://github.com/wekan/wekan/commit/07b74812a9c980a9f7950e17d15c945d14352352).
+  Thanks to xet7.
+- [Fix: on phones the All Boards list grew to the full height of all its boards
+  instead of staying a bounded, scrollable region, so boards below the fold were
+  clipped by the surrounding `overflow:hidden` and could not be reached. Two
+  leftover `.board-list.mobile-view` rules (`min-height: 100vh` and a phantom
+  `::after`) re-introduced the exact bug an earlier fix removed elsewhere; removing
+  them lets the bounded height take effect and the two-column list
+  scrolls](https://github.com/wekan/wekan/commit/fd55cee87c77241896f2eda4513139117e250ccd).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
