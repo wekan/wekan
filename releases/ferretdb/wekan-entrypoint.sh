@@ -81,6 +81,15 @@ if [ "$want_ferret" = true ]; then
   # Telemetry off: --telemetry=disable both disables AND locks it (FerretDB won't
   # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
   export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
+  # #6492: reset the simulated OpLog (the transient `local` database) before starting
+  # FerretDB so a bloated/corrupt OpLog can never persist and drive FerretDB CPU to
+  # 300%+. Boards/cards live in wekan.sqlite, NOT local.sqlite, so this is safe;
+  # FerretDB recreates a fresh, correctly-capped OpLog. Set
+  # WEKAN_FERRETDB_RESET_OPLOG=false to keep the existing OpLog.
+  if [ "${WEKAN_FERRETDB_RESET_OPLOG:-true}" = "true" ] && [ -n "$FERRETDB_SQLITE_DIR" ]; then
+    rm -f "$FERRETDB_SQLITE_DIR/local.sqlite" "$FERRETDB_SQLITE_DIR/local.sqlite-wal" \
+          "$FERRETDB_SQLITE_DIR/local.sqlite-shm" "$FERRETDB_SQLITE_DIR/local.sqlite-journal"
+  fi
   echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (replSet $REPL_SET_NAME, OpLog enabled) ..."
   # #6458: /build/cpu-exec runs a binary through the bundled same-arch
   # qemu-user when the CPU lacks features the binary declares (via

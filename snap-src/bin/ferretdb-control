@@ -68,6 +68,22 @@ export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
 # CPU on busy boards). Harmless when unused; overridable via WEKAN_FERRETDB_REPL_SET.
 REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
 
+# #6492: reset the FerretDB simulated OpLog on start. FerretDB v1's SQLite OpLog
+# (local.oplog.rs, stored in the `local` database = local.sqlite) is not reliably
+# capped, so over time it BLOATS or CORRUPTS; Meteor then busy-polls it and FerretDB
+# CPU pegs at 300%+ even when idle (reporters confirmed that deleting local.sqlite*
+# drops CPU straight back to ~10%). The `local` database is transient SYSTEM data —
+# the OpLog + replica-set metadata, NOT user data (boards/cards live in wekan.sqlite)
+# — so discarding it is safe: FerretDB recreates a fresh, correctly-capped OpLog from
+# --repl-set-name below, and Meteor re-tails it from the start. This prevents a
+# corrupt/bloated OpLog from ever persisting across a restart. Set
+# WEKAN_FERRETDB_RESET_OPLOG=false to keep the existing OpLog instead.
+if [ "${WEKAN_FERRETDB_RESET_OPLOG:-true}" = "true" ] && [ -n "${SQLITE_DIR}" ]; then
+    echo "Resetting FerretDB OpLog (local database) to prevent bloat/corruption ..."
+    rm -f "${SQLITE_DIR}/local.sqlite" "${SQLITE_DIR}/local.sqlite-wal" \
+          "${SQLITE_DIR}/local.sqlite-shm" "${SQLITE_DIR}/local.sqlite-journal"
+fi
+
 echo "Starting FerretDB v1 (SQLite) on ${BIND_IP}:${PORT} (replSet ${REPL_SET_NAME}, OpLog enabled) ..."
 echo "  SQLite data dir: ${SQLITE_DIR}"
 exec "$FERRETDB_BIN" \
