@@ -86,7 +86,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# v10.10 2026-07-21 WeKan ® release
+# v10.11 2026-07-21 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -121,6 +121,28 @@ This release fixes the following bugs:
   startup; covered by wiring/ordering
   tests](https://github.com/wekan/wekan/commit/547566654119e017126bbe4d61affc8e7ea9cb45).
   Thanks to xet7.
+- [The recovery maintenance page now works the same on ALL FerretDB v1 platforms
+  (#6492). Besides the in-app spinner (which shows once Meteor serves the client),
+  every launch path now also serves a tiny standalone "recovering your data" page
+  (HTTP 503) on the web port for the brief window while a just-restored FerretDB
+  comes back up and before the app is up — so users never hit a bare connection
+  error: the snap reuses `wekan-maintenance-page.mjs` with a recovery wording, and
+  the bundled release/Docker paths serve the portable `recovery-bridge.mjs`. The
+  bridge is time-bounded (`WEKAN_RECOVERY_BRIDGE_SECONDS`, default 20s) so it can
+  never block WeKan from starting, hands straight over to the in-app spinner, and
+  is skipped if its page or the marker is absent. Only the server clears the
+  `RECOVERY_IN_PROGRESS` marker (after a real health probe), so the spinner behaves
+  identically everywhere; tests enforce the bridge stays bounded and no launch
+  script deletes the marker](https://github.com/wekan/wekan/commit/31c0bcafa723797c2990e773c165fb48d38fd15f).
+  Thanks to bluetopaz1204, mueschel and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
+# v10.10 2026-07-21 WeKan ® release
+
+This release fixes the following bugs:
+
 - [Fix: high FerretDB CPU (300%+, even idle) from a bloated or corrupt simulated
   OpLog (#6492). FerretDB v1's SQLite OpLog (`local.oplog.rs`, in the `local`
   database = `local.sqlite`) is not reliably capped, so it grows/corrupts over time
@@ -172,20 +194,6 @@ This release fixes the following bugs:
   toggle maintenance for a server-initiated re-migration. The status publication is
   public while the toggle method is admin-only, enforced by
   tests](https://github.com/wekan/wekan/commit/f404e38f97c7668c805075e71b2609755831f6b2).
-  Thanks to bluetopaz1204, mueschel and xet7.
-- [The recovery maintenance page now works the same on ALL FerretDB v1 platforms
-  (#6492). Besides the in-app spinner (which shows once Meteor serves the client),
-  every launch path now also serves a tiny standalone "recovering your data" page
-  (HTTP 503) on the web port for the brief window while a just-restored FerretDB
-  comes back up and before the app is up — so users never hit a bare connection
-  error: the snap reuses `wekan-maintenance-page.mjs` with a recovery wording, and
-  the bundled release/Docker paths serve the portable `recovery-bridge.mjs`. The
-  bridge is time-bounded (`WEKAN_RECOVERY_BRIDGE_SECONDS`, default 20s) so it can
-  never block WeKan from starting, hands straight over to the in-app spinner, and
-  is skipped if its page or the marker is absent. Only the server clears the
-  `RECOVERY_IN_PROGRESS` marker (after a real health probe), so the spinner behaves
-  identically everywhere; tests enforce the bridge stays bounded and no launch
-  script deletes the marker](https://github.com/wekan/wekan/commit/31c0bcafa723797c2990e773c165fb48d38fd15f).
   Thanks to bluetopaz1204, mueschel and xet7.
 - [Fix: on the phone All Boards layout, board titles were cut off the right edge and
   workspace names were hard-cut in the narrow menu. The board column now shrinks to
