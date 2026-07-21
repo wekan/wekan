@@ -68,6 +68,26 @@ export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
 # CPU on busy boards). Harmless when unused; overridable via WEKAN_FERRETDB_REPL_SET.
 REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
 
+# #6492 safety: keep a rotating backup of the TEXT-DATA database (wekan.sqlite*) in a
+# "backup" subfolder of the same data dir, so a known copy is ready to restore if the
+# live database is ever detected corrupt. Made at rest, BEFORE FerretDB opens the
+# files. This only ever COPIES from the live database — it is never moved or deleted —
+# and it copies only wekan.sqlite* (attachments and avatars live on the filesystem and
+# are left as-is). The previous backup generation is kept under backup/prev, so a bad
+# copy never overwrites the last good one on its own. Set WEKAN_SQLITE_BACKUP=false to
+# disable.
+if [ "${WEKAN_SQLITE_BACKUP:-true}" = "true" ] && [ -n "${SQLITE_DIR}" ] && [ -f "${SQLITE_DIR}/wekan.sqlite" ]; then
+    _bk="${SQLITE_DIR}/backup"
+    mkdir -p "${_bk}"
+    if [ -f "${_bk}/wekan.sqlite" ]; then
+        rm -rf "${_bk}/prev"
+        mkdir -p "${_bk}/prev"
+        cp -f "${_bk}"/wekan.sqlite* "${_bk}/prev/" 2>/dev/null || true
+    fi
+    cp -f "${SQLITE_DIR}"/wekan.sqlite* "${_bk}/" 2>/dev/null || true
+    echo "Backed up text-data database (wekan.sqlite*) to ${_bk} (previous kept in ${_bk}/prev)."
+fi
+
 # #6492: reset the FerretDB simulated OpLog on start. FerretDB v1's SQLite OpLog
 # (local.oplog.rs, stored in the `local` database = local.sqlite) is not reliably
 # capped, so over time it BLOATS or CORRUPTS; Meteor then busy-polls it and FerretDB

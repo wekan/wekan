@@ -123,6 +123,22 @@ CPU_EXEC="$DIR/cpu-exec"
 while true; do
   if [ "$want_ferret" = true ]; then
     export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
+    # #6492 safety: rotating backup of the TEXT-DATA database (wekan.sqlite*) into a
+    # "backup" subfolder of the same data dir, so a known copy is ready to restore if
+    # the live database is ever detected corrupt. Made at rest, before FerretDB opens
+    # the files. Only ever COPIES from the live database (never moved/deleted) and only
+    # wekan.sqlite* (attachments/avatars live on the filesystem). The previous backup
+    # is kept under backup/prev. Set WEKAN_SQLITE_BACKUP=false to disable.
+    if [ "${WEKAN_SQLITE_BACKUP:-true}" = "true" ] && [ -n "$FERRETDB_SQLITE_DIR" ] && [ -f "$FERRETDB_SQLITE_DIR/wekan.sqlite" ]; then
+      _bk="$FERRETDB_SQLITE_DIR/backup"
+      mkdir -p "$_bk"
+      if [ -f "$_bk/wekan.sqlite" ]; then
+        rm -rf "$_bk/prev"; mkdir -p "$_bk/prev"
+        cp -f "$_bk"/wekan.sqlite* "$_bk/prev/" 2>/dev/null || true
+      fi
+      cp -f "$FERRETDB_SQLITE_DIR"/wekan.sqlite* "$_bk/" 2>/dev/null || true
+      echo "Backed up text-data database (wekan.sqlite*) to $_bk (previous kept in $_bk/prev)."
+    fi
     # #6492: reset the simulated OpLog (the transient `local` database) before each
     # FerretDB start so a bloated/corrupt OpLog can never persist and drive FerretDB
     # CPU to 300%+. Boards/cards live in wekan.sqlite, NOT local.sqlite, so this is
