@@ -90,6 +90,13 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Fix: on phone-sized touch screens the All Boards page put the board icons BELOW
+  the left menu and search bar (a single stacked column), and because dragscroll
+  does not work over the menu / search area you could not drag-scroll down to the
+  boards below the fold. The board icons now stay in their own column on the RIGHT
+  (narrow left menu, boards right) in both mobile and desktop mode, with the board
+  list keeping its own scroll](https://github.com/wekan/wekan/commit/23551a7cab2083186fdfbbf279a965c80b8b0398).
+  Thanks to xet7.
 - [Verified that list widths on public boards (#5659) are fixed: uncustomized
   lists render the one shared default width for logged-out public-board visitors
   and members alike, board-wide widths apply to everyone, and anonymous viewers
