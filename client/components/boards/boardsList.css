@@ -1223,6 +1223,19 @@ body.grey-icons-enabled .checkmark-no-grey {
     height: 100vh;
   }
 
+  /* The left menu (Starred / Templates / Remaining / Workspaces / Add board) is its
+     own vertical scroll area, so when it is taller than the screen you can drag-scroll
+     down to its lower items — the board icons already scroll in their own column on the
+     right. Both columns are reachable in LTR and RTL: the grid columns and the logical
+     inline borders mirror automatically, so in RTL the menu is on the right and the
+     boards on the left. */
+  .boards-left-menu {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 120px);
+  }
+
   .board-list {
     overflow-y: auto !important;
     overflow-x: hidden !important;

@@ -90,6 +90,17 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       if (m.scrollHeight > m.viewport) {
         expect(m.scrollHeight).toBeGreaterThan(m.clientHeight + 4);
       }
+
+      // The left menu is its own bounded scroll area too, so a tall menu's lower
+      // items (many workspaces) can be drag-scrolled to instead of being clipped by
+      // the fixed-height wrapper.
+      const menu = await page.locator('.boards-left-menu').evaluate(el => ({
+        overflowY: getComputedStyle(el).overflowY,
+        clientHeight: el.clientHeight,
+        viewport: window.innerHeight,
+      }));
+      expect(['auto', 'scroll']).toContain(menu.overflowY);
+      expect(menu.clientHeight).toBeLessThanOrEqual(menu.viewport);
     } finally {
       boards.forEach(b => db.cleanup({ boardIds: [b.boardId] }));
     }
