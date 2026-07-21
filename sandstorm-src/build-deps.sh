@@ -112,6 +112,7 @@ chmod +x "$DEPS/migratemongo/bin/"*
 
 echo "==> [6/7] Launcher + importer"
 cp -f "$REPO/sandstorm-src/start.js"                       "$DEPS/start.js"
+cp -f "$REPO/sandstorm-src/migration-bridge.js"            "$DEPS/migration-bridge.js"
 cp -f "$REPO/snap-src/bin/migrate-mongo3-to-ferretdb.mjs"  "$DEPS/migrate-mongo3-to-ferretdb.mjs"
 # #6458: cpu-exec + qemu-user — run any binary that needs CPU features the
 # grain host lacks (e.g. AVX for MongoDB 5+) through qemu-user emulation.

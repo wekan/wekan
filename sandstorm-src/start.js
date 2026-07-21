@@ -34,6 +34,7 @@ const MM_LIB       = path.join(APPROOT, 'migratemongo/lib');    // old glibc for
 const MONGO_CLI    = path.join(MM_BIN, 'mongo');
 const FERRETDB     = path.join(APPROOT, 'ferretdb');           // FerretDB v1 (Go, SQLite)
 const IMPORTER     = path.join(APPROOT, 'migrate-mongo3-to-ferretdb.mjs');
+const BRIDGE       = path.join(APPROOT, 'migration-bridge.js'); // "please wait" page on APP_PORT
 const NODE_MODULES = path.join(APPROOT, 'programs/server/node_modules');
 
 // Writable grain state (only /var is writable in a grain).
@@ -82,6 +83,36 @@ function oldLibEnv() {
 }
 
 function sleep(sec) { spawnSync('/bin/sleep', [String(sec)]); }
+
+// ── "please wait" bridge on APP_PORT ─────────────────────────────────────────
+// Sandstorm frames the grain, proxying to APP_PORT via /sandstorm-http-bridge. Any
+// moment nothing is bound there — during first-launch migration and the handoff to
+// WeKan — the browser shows "This page can not be displayed embedded in another page"
+// (see docs/Platforms/FOSS/Sandstorm/Sandstorm.md). Keep a tiny child-process server
+// answering on APP_PORT across those windows so the grain stays framed until WeKan is
+// up. A CHILD process (not in-process) is required: start.js runs the migration with
+// blocking spawnSync, so it could not service an in-process server nor release its
+// listening socket before the importer / Meteor bind APP_PORT — killing a child is a
+// definitive socket close. Best-effort: never blocks or crashes startup.
+let bridge = null;
+function startBridge(message) {
+  if (bridge || !fs.existsSync(BRIDGE)) return;          // already up, or not bundled
+  try {
+    bridge = spawn(NODE, [BRIDGE], {
+      stdio: 'inherit',
+      env: { ...process.env, PORT: APP_PORT, BRIDGE_MESSAGE: message || '' },
+    });
+    bridge.on('error', () => {});                        // a bridge failure must not break startup
+    bridge.on('exit', () => { bridge = null; });
+  } catch (_) { bridge = null; }
+}
+function stopBridge() {
+  if (!bridge) return;
+  try { bridge.kill('SIGTERM'); } catch (_) {}
+  bridge = null;
+  sleep(1);                                              // let the OS release APP_PORT before the next listener binds it
+}
+process.on('exit', () => { if (bridge) { try { bridge.kill('SIGKILL'); } catch (_) {} } });
 
 function startFerret(port, opts = {}) {
   const args = ['--handler=sqlite', `--sqlite-url=file:${SQLITE_DIR}/`,
@@ -192,6 +223,9 @@ function migrateMongo3ToFerret() {
   }
 
   const ferret = startFerret(DB_PORT);   // the PERMANENT SQLite dir (no temp/switch)
+  // The importer binds APP_PORT itself for its own progress dashboard
+  // (MIGRATION_PORT below), so release our please-wait bridge first.
+  stopBridge();
   const rc = spawnSync(NODE, [IMPORTER], {
     stdio: 'inherit',
     env: { ...process.env,
@@ -212,6 +246,8 @@ function migrateMongo3ToFerret() {
 
   try { ferret.kill(); } catch (_) {}
   stopMongo(SRC_PORT);
+  // The importer's dashboard is gone; bridge the handoff until WeKan binds APP_PORT.
+  startBridge('Finishing up — starting WeKan…');
 
   if (rc === 0) {
     fs.writeFileSync(MARKER, new Date().toISOString());  // never re-migrate; old data KEPT
@@ -264,10 +300,17 @@ function runApp() {
   process.env.SANDSTORM     = '1';
 
   console.log('** Starting WeKan on FerretDB ...');
-  setTimeout(() => require('./main.js'), 1500);          // let FerretDB start listening
+  setTimeout(() => {
+    stopBridge();                                        // release APP_PORT so Meteor can bind it
+    require('./main.js');
+  }, 1500);                                              // let FerretDB start listening
 }
 
 ensureDirs();
+// Show the please-wait page on APP_PORT from the very start so the grain is never an
+// unframable connection-refused error, whether this launch migrates data or not.
+const willMigrate = !fs.existsSync(MARKER) && (haveNiscuData() || haveMongo3Data());
+startBridge(willMigrate ? 'WeKan is migrating your data…' : 'WeKan is starting…');
 migrateIfNeeded()
   .then(runApp)
   .catch(e => { console.error('** Fatal during migration:', e && e.stack || e); process.exit(1); });

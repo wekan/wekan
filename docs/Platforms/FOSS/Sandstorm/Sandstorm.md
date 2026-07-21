@@ -23,8 +23,13 @@ Migrating old MongoDB 3 data
 - If there is old WeKan data, it is automatically migrated when opening old WeKan grain.
   Attachments are migrated from MongoDB to files/attachments.
   Text data is migrated from MongoDB to SQLite at files/db/wekan.sqlite .
-- After migrating, you may get error, that browser can not open that page embedded to other page.
-  So you need to close WeKan grain and open it again. Sorry, trying to fix it later.
+- During migration and startup the grain now shows a "please wait" page that refreshes
+  automatically and opens WeKan as soon as it is ready. Previously, while nothing was
+  listening on the grain's app port, the browser showed an error that the page can not
+  be opened embedded in another page, and you had to close the grain and open it again;
+  a small bridge server on the app port (`sandstorm-src/migration-bridge.js`, run by the
+  grain launcher across the whole migration and handoff) now keeps the grain framed so
+  that error no longer appears.
 
 All Boards page
 
