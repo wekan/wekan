@@ -86,7 +86,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# v10.11 2026-07-21 WeKan ® release
+# Upcoming WeKan ® release
 
 This release fixes the following bugs:
 
@@ -99,8 +99,16 @@ This release fixes the following bugs:
   card with attachments that aborted the card's Tracker recompute so the card would
   not open. `client/features/main.js` now imports `safeFilename.js` so the helpers are
   registered at startup; guarded by a
-  test](https://github.com/wekan/wekan/commit/4347589793e93f0407b90cb4c6c11103c1be70e0).
+  test](https://github.com/wekan/wekan/commit/a82bb351e40f3a82af9d1373dd49f40494e25067).
   Thanks to mueschel, brlin-tw and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
+# v10.11 2026-07-21 WeKan ® release
+
+This release fixes the following bugs:
+
 - [Fix: FerretDB high CPU that continued even with no clients connected (#6498).
   Meteor tails the OpLog (`local.oplog.rs`) with a tailable+awaitData cursor that
   starts at boot and runs with no clients; on FerretDB v1 that tail was re-running
