@@ -64,6 +64,11 @@ template(name="adminReports")
                 i.fa.fa-user-secret
                 | {{_ 'impersonationReportTitle'}}
 
+            li
+              a.js-report-recovery(data-id="report-recovery")
+                i.fa.fa-medkit
+                | {{_ 'recoveryReportTitle'}}
+
         .main-body
           if loading.get
             +spinner
@@ -89,6 +94,8 @@ template(name="adminReports")
             +cardsReport(currentPage=cardsCurrentPage totalPages=cardsTotalPages hasPrevPage=hasCardsPrevPage hasNextPage=hasCardsNextPage)
           else if showImpersonationReport.get
             +impersonationReport(currentPage=impersonationCurrentPage totalPages=impersonationTotalPages hasPrevPage=hasImpersonationPrevPage hasNextPage=hasImpersonationNextPage)
+          else if showRecoveryReport.get
+            +recoveryReport(currentPage=recoveryCurrentPage totalPages=recoveryTotalPages hasPrevPage=hasRecoveryPrevPage hasNextPage=hasRecoveryNextPage)
 
 
 template(name="brokenCardsReport")
@@ -227,6 +234,37 @@ template(name="impersonationReport")
             td {{ row.reason }}
   else
     div {{_ 'no-results' }}
+
+template(name="recoveryReport")
+  h1 {{_ 'recoveryReportTitle'}}
+  p.quiet {{_ 'recovery-report-desc'}}
+  .admin-report-controls
+    input.js-recovery-search-input(type="search" placeholder="{{_ 'search'}}")
+    .admin-report-pagination
+      button.js-recovery-prev-page(class="{{#if hasPrevPage}}{{else}}disabled{{/if}}")
+        | &lt;
+      span.admin-report-page-info {{currentPage}} / {{totalPages}}
+      button.js-recovery-next-page(class="{{#if hasNextPage}}{{else}}disabled{{/if}}")
+        | &gt;
+  if resultsCount
+    table.table
+      thead
+        tr
+          th {{_ 'date'}}
+          th {{_ 'recovery-event'}}
+          th {{_ 'recovery-severity'}}
+          th {{_ 'recovery-db'}}
+          th {{_ 'recovery-detail'}}
+      each row in results
+        tbody
+          tr(class="{{ severityClass row.severity }}")
+            td {{ formatDate row.createdAt }}
+            td {{ row.type }}
+            td {{ row.severity }}
+            td {{ row.db }}
+            td {{ row.detail }}
+  else
+    div {{_ 'recovery-no-events'}}
 
 template(name="boardsReport")
   h1 {{_ 'boardsReportTitle'}}

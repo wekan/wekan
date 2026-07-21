@@ -123,6 +123,36 @@ CPU_EXEC="$DIR/cpu-exec"
 while true; do
   if [ "$want_ferret" = true ]; then
     export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
+    # #6492 recovery: perform a REQUESTED restore before FerretDB opens the files, when
+    # the live database has been detected corrupt (WEKAN_FORCE_RESTORE env or a
+    # RESTORE_REQUESTED marker containing backup/prev/remigrate). Copies a known-good
+    # backup INTO the live database (dropping stale WAL side-files); backups are never
+    # deleted and the main wekan.sqlite is only overwritten, never removed. Recorded for
+    # Admin Panel / Problems / Recovery.
+    _restore_mode="${WEKAN_FORCE_RESTORE:-}"
+    if [ -z "$_restore_mode" ] && [ -f "$FERRETDB_SQLITE_DIR/RESTORE_REQUESTED" ]; then
+      _restore_mode="$(head -n1 "$FERRETDB_SQLITE_DIR/RESTORE_REQUESTED" 2>/dev/null | tr -cd 'a-z')"
+    fi
+    if [ -n "$_restore_mode" ] && [ -n "$FERRETDB_SQLITE_DIR" ]; then
+      _rbk="$FERRETDB_SQLITE_DIR/backup"; _rsrc=""
+      case "$_restore_mode" in
+        backup) [ -f "$_rbk/wekan.sqlite" ] && _rsrc="$_rbk" ;;
+        prev)   [ -f "$_rbk/prev/wekan.sqlite" ] && _rsrc="$_rbk/prev" ;;
+      esac
+      _ts="$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')"
+      if [ -n "$_rsrc" ]; then
+        rm -f "$FERRETDB_SQLITE_DIR/wekan.sqlite-wal" "$FERRETDB_SQLITE_DIR/wekan.sqlite-shm"
+        cp -f "$_rsrc"/wekan.sqlite* "$FERRETDB_SQLITE_DIR/" 2>/dev/null || true
+        printf '{"type":"restore-%s","db":"wekan","severity":"warning","source":"startup","detail":"Restored wekan.sqlite from a backup copy","ts":"%s"}\n' \
+          "$_restore_mode" "$_ts" >> "$FERRETDB_SQLITE_DIR/recovery-events.jsonl" 2>/dev/null || true
+        echo "Recovery: restored text-data database from $_rsrc."
+      elif [ "$_restore_mode" = "remigrate" ]; then
+        printf '{"type":"remigrate","db":"wekan","severity":"warning","source":"startup","detail":"Re-migration of text data from MongoDB requested","ts":"%s"}\n' \
+          "$_ts" >> "$FERRETDB_SQLITE_DIR/recovery-events.jsonl" 2>/dev/null || true
+        echo "Recovery: re-migration from MongoDB requested."
+      fi
+      rm -f "$FERRETDB_SQLITE_DIR/RESTORE_REQUESTED"
+    fi
     # #6492 safety: rotating backup of the TEXT-DATA database (wekan.sqlite*) into a
     # "backup" subfolder of the same data dir, so a known copy is ready to restore if
     # the live database is ever detected corrupt. Made at rest, before FerretDB opens
@@ -138,6 +168,8 @@ while true; do
       fi
       cp -f "$FERRETDB_SQLITE_DIR"/wekan.sqlite* "$_bk/" 2>/dev/null || true
       echo "Backed up text-data database (wekan.sqlite*) to $_bk (previous kept in $_bk/prev)."
+      printf '{"type":"backup-created","db":"wekan","severity":"info","source":"startup","detail":"Backed up wekan.sqlite to backup/","ts":"%s"}\n' \
+        "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')" >> "$FERRETDB_SQLITE_DIR/recovery-events.jsonl" 2>/dev/null || true
     fi
     # #6492: reset the simulated OpLog (the transient `local` database) before each
     # FerretDB start so a bloated/corrupt OpLog can never persist and drive FerretDB

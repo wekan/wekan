@@ -7,6 +7,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
+import RecoveryEvents from '/models/recoveryEvents';
 const { filesize } = require('filesize');
 
 // --- Shared helper functions (formerly AdminReport base class methods) ---
@@ -62,6 +63,7 @@ function reportConfig(tmpl) {
     'report-boards': { page: tmpl.boardsPage, count: tmpl.boardsCount, search: tmpl.boardsSearch, pub: 'boardsReport', countMethod: 'getBoardsReportCount' },
     'report-cards': { page: tmpl.cardsPage, count: tmpl.cardsCount, search: tmpl.cardsSearch, pub: 'cardsReport', countMethod: 'getCardsReportCount' },
     'report-impersonation': { page: tmpl.impersonationPage, count: tmpl.impersonationCount, search: tmpl.impersonationSearch, pub: 'impersonationReport', countMethod: 'getImpersonationReportCount' },
+    'report-recovery': { page: tmpl.recoveryPage, count: tmpl.recoveryCount, search: tmpl.recoverySearch, pub: 'recoveryReport', countMethod: 'getRecoveryReportCount' },
   };
 }
 
@@ -80,6 +82,7 @@ Template.adminReports.onCreated(function () {
   this.showCardsReport = new ReactiveVar(false);
   this.showBoardsReport = new ReactiveVar(false);
   this.showImpersonationReport = new ReactiveVar(false);
+  this.showRecoveryReport = new ReactiveVar(false);
   this.sessionId = SessionData.getSessionId();
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
@@ -91,17 +94,20 @@ Template.adminReports.onCreated(function () {
   this.boardsPage = new ReactiveVar(1);
   this.cardsPage = new ReactiveVar(1);
   this.impersonationPage = new ReactiveVar(1);
+  this.recoveryPage = new ReactiveVar(1);
   this.filesCount = new ReactiveVar(0);
   this.rulesCount = new ReactiveVar(0);
   this.boardsCount = new ReactiveVar(0);
   this.cardsCount = new ReactiveVar(0);
   this.impersonationCount = new ReactiveVar(0);
+  this.recoveryCount = new ReactiveVar(0);
   // Current search term per report (empty string = no filter).
   this.filesSearch = new ReactiveVar('');
   this.rulesSearch = new ReactiveVar('');
   this.boardsSearch = new ReactiveVar('');
   this.cardsSearch = new ReactiveVar('');
   this.impersonationSearch = new ReactiveVar('');
+  this.recoverySearch = new ReactiveVar('');
 
   // (Re)subscribe the given report for its current page and refresh its total
   // count. Server-side search + limit/skip means only the matching page ever
@@ -192,6 +198,9 @@ Template.adminReports.helpers({
   showImpersonationReport() {
     return Template.instance().showImpersonationReport;
   },
+  showRecoveryReport() {
+    return Template.instance().showRecoveryReport;
+  },
   loading() {
     return Template.instance().loading;
   },
@@ -236,6 +245,14 @@ Template.adminReports.helpers({
     const tpl = Template.instance();
     return tpl.impersonationPage.get() < Math.max(1, Math.ceil((tpl.impersonationCount.get() || 0) / REPORTS_PER_PAGE));
   },
+
+  recoveryCurrentPage() { return Template.instance().recoveryPage.get(); },
+  recoveryTotalPages() { return Math.max(1, Math.ceil((Template.instance().recoveryCount.get() || 0) / REPORTS_PER_PAGE)); },
+  hasRecoveryPrevPage() { return Template.instance().recoveryPage.get() > 1; },
+  hasRecoveryNextPage() {
+    const tpl = Template.instance();
+    return tpl.recoveryPage.get() < Math.max(1, Math.ceil((tpl.recoveryCount.get() || 0) / REPORTS_PER_PAGE));
+  },
 });
 
 Template.adminReports.events({
@@ -272,6 +289,9 @@ Template.adminReports.events({
   'click a.js-report-impersonation'(event) {
     switchMenu(event, Template.instance());
   },
+  'click a.js-report-recovery'(event) {
+    switchMenu(event, Template.instance());
+  },
 
   // --- Pagination controls (buttons live inside the report sub-templates,
   // their clicks bubble up to this parent template) ---
@@ -285,6 +305,8 @@ Template.adminReports.events({
   'click .js-cards-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-cards'); },
   'click .js-impersonation-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-impersonation'); },
   'click .js-impersonation-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-impersonation'); },
+  'click .js-recovery-prev-page'(event, tmpl) { goPrevPage(event, tmpl, 'report-recovery'); },
+  'click .js-recovery-next-page'(event, tmpl) { goNextPage(event, tmpl, 'report-recovery'); },
 
   // --- Search (one input + button per report, mirrors the People panel) ---
   'keydown .js-files-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-files', '.js-files-search-input'); },
@@ -292,6 +314,7 @@ Template.adminReports.events({
   'keydown .js-boards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-boards', '.js-boards-search-input'); },
   'keydown .js-cards-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-cards', '.js-cards-search-input'); },
   'keydown .js-impersonation-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-impersonation', '.js-impersonation-search-input'); },
+  'keydown .js-recovery-search-input'(event, tmpl) { if (event.keyCode === 13 && !event.shiftKey) runSearch(tmpl, 'report-recovery', '.js-recovery-search-input'); },
 });
 
 function goPrevPage(event, tmpl, reportId) {
@@ -338,6 +361,7 @@ function switchMenu(event, tmpl) {
     tmpl.showBrokenCardsReport.set(false);
     tmpl.showOrphanedFilesReport.set(false);
     tmpl.showRulesReport.set(false);
+    tmpl.showRecoveryReport.set(false);
     tmpl.showBoardsReport.set(false);
     tmpl.showCardsReport.set(false);
     tmpl.showImpersonationReport.set(false);
@@ -401,6 +425,11 @@ function switchMenu(event, tmpl) {
       tmpl.impersonationPage.set(1);
       tmpl.impersonationSearch.set('');
       tmpl.loadReport('report-impersonation');
+    } else if ('report-recovery' === targetID) {
+      tmpl.showRecoveryReport.set(true);
+      tmpl.recoveryPage.set(1);
+      tmpl.recoverySearch.set('');
+      tmpl.loadReport('report-recovery');
     }
   }
 }
@@ -563,6 +592,25 @@ Template.impersonationReport.events({
     if (userId) {
       Popup.open('editUser').call({ userId }, event);
     }
+  },
+});
+
+// --- recoveryReport template (#6492) ---
+
+Template.recoveryReport.helpers({
+  results() {
+    // Publication paginates + sorts newest-first; mirror that sort. RecoveryEvents is
+    // a plain Mongo.Collection, so its cursor reacts to the published page.
+    return collectionResults(RecoveryEvents, { createdAt: -1 });
+  },
+  resultsCount() {
+    return collectionResultsCount(RecoveryEvents);
+  },
+  formatDate(date) {
+    return date ? new Date(date).toLocaleString() : '';
+  },
+  severityClass(severity) {
+    return `recovery-severity-${severity || 'info'}`;
   },
 });
 

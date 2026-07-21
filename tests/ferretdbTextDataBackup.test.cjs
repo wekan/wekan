@@ -30,8 +30,11 @@ const SCRIPTS = [
   'releases/ferretdb/wekan-entrypoint.sh',
 ];
 
-// The live database file (the top-level one, not a backup subfolder copy).
-const LIVE_RE = /\$\{?(SQLITE_DIR|FERRETDB_SQLITE_DIR)\}?\/wekan\.sqlite/;
+// The live MAIN database file (the top-level one, not a backup subfolder copy, and not
+// the -wal/-shm side files). A restore legitimately drops the stale -wal/-shm and
+// overwrites the main file by COPY; what must never happen is rm/mv of the main
+// wekan.sqlite itself — the "(?!-)" excludes the -wal/-shm side files.
+const LIVE_RE = /\$\{?(SQLITE_DIR|FERRETDB_SQLITE_DIR)\}?\/wekan\.sqlite(?!-)/;
 
 for (const rel of SCRIPTS) {
   const src = read(rel);
@@ -76,6 +79,28 @@ for (const rel of SCRIPTS) {
           !/rm\s+-[a-z]*r[a-z]*\s+["']?\$?\{?(SQLITE_DIR|FERRETDB_SQLITE_DIR)\}?["']?\s*$/.test(t),
           `rm must not remove the whole data dir: ${t}`,
         );
+      }
+    }
+  });
+
+  test(`${rel}: restore copies a backup INTO the live db, request-gated, no backup deleted`, () => {
+    // Restore copies from the chosen backup source into the live data dir.
+    assert.ok(
+      /cp -f "\$\{?_rsrc\}?"\/wekan\.sqlite\* "\$\{?(SQLITE_DIR|FERRETDB_SQLITE_DIR)\}?\/"/.test(src),
+      'restore must copy the backup INTO the live database dir',
+    );
+    // A restore is only ever REQUESTED (env or marker), never automatic guesswork.
+    assert.ok(
+      /WEKAN_FORCE_RESTORE/.test(src) && /RESTORE_REQUESTED/.test(src),
+      'restore must be request-gated (WEKAN_FORCE_RESTORE / RESTORE_REQUESTED)',
+    );
+    // NEGATIVE: no rm/mv may target a backup copy's wekan.sqlite — the backups that
+    // recovery depends on must never be destroyed.
+    for (const line of lines) {
+      const t = line.trim();
+      if (t.startsWith('#')) continue;
+      if (/\b(rm|mv)\b/.test(t) && /(_rbk|_bk|_rsrc)/.test(t)) {
+        assert.ok(!/wekan\.sqlite/.test(t), `rm/mv must never target a backup copy: ${t}`);
       }
     }
   });

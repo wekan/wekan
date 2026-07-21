@@ -231,6 +231,8 @@ import '/server/publications/cronJobs';
 import '/server/publications/cronMigrationStatus';
 import '/server/publications/customUI';
 import '/server/publications/impersonationReport';
+import '/server/publications/recoveryReport';
+import '/server/recovery';
 import '/server/publications/inviteToBoardRolesSettings';
 import '/server/publications/lockoutSettings';
 import '/server/publications/migrationProgress';
