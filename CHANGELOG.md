@@ -90,6 +90,18 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Fix: board/JSON import "Assign members" — typed suggestions appeared but could
+  not be selected, so a migrated board's members could not be mapped to existing
+  WeKan users (neither clicking nor Enter did anything). The "Select member" popup
+  mapped `Template.currentData().__originalId`, a field never set on the search
+  results (they are plain user documents with `_id`), so it mapped `undefined` and
+  silently did nothing. It now maps the clicked result by its `_id`, and Enter
+  selects the first (highlighted) result so a name can be assigned by keyboard.
+  Member mapping stays optional — the step-1 "import without mapping" and the
+  in-step "skip mapping" buttons import immediately (unmapped members default to
+  the current user). Guarded by a
+  test](https://github.com/wekan/wekan/commit/8db9c183a7928ecee4ee014ba477171f4f1e1dae).
+  Thanks to xet7.
 - [Fix: cards not opening — clicking a card did nothing (#6493). The global
   `cleanFilename` / `downloadFilename` template helpers (which show every filename
   safely) are registered by `client/components/main/safeFilename.js`, but that module
