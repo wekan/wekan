@@ -18,16 +18,28 @@ function searchRegex(term) {
 // read that does not resolve would leave the whole report stuck on the loading
 // spinner (subscription never ready). Raw async fetches always resolve.
 async function accessibleCardIds(userId) {
+  // Avoid `$elemMatch` on `members`: some FerretDB v1 builds (e.g. the one bundled
+  // before the fork moved past upstream v1.24) reject `{members:{$elemMatch:{userId,
+  // isActive:true}}}` with "(BadValue) unknown operator: userId", which — swallowed by
+  // the publish's catch below — made this report silently return nothing (#Files
+  // report). Match "the user is a member" by the dotted path (works on every FerretDB
+  // build) and then confirm in JS that the user's OWN member entry is active, which
+  // preserves the exact per-element semantics `$elemMatch` gives. A given userId
+  // appears in at most one member entry, so this is equivalent.
   const boards = await Boards.find(
     {
       $or: [
         { permission: 'public' },
-        { members: { $elemMatch: { userId, isActive: true } } },
+        { 'members.userId': userId },
       ],
     },
-    { fields: { _id: 1 } },
+    { fields: { _id: 1, permission: 1, members: 1 } },
   ).fetchAsync();
-  const boardIds = boards.map(board => board._id);
+  const boardIds = boards
+    .filter(board =>
+      board.permission === 'public' ||
+      (board.members || []).some(m => m.userId === userId && m.isActive))
+    .map(board => board._id);
 
   if (boardIds.length === 0) {
     return [];
