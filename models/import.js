@@ -9,6 +9,15 @@ import { EXTERNAL_PARSERS } from './lib/externalParsers';
 import { Exporter } from './exporter';
 import { getMembersToMap } from './wekanmapper';
 import { assertImportEnabled } from './lib/importExportSecurity';
+import { withDeadline } from './lib/withDeadline';
+
+// Hard deadline for a single board import, so a stalled/hung import can never leave the
+// client's spinner running forever — the method returns a timeout error instead.
+// Tunable via WEKAN_IMPORT_TIMEOUT_MS (0/invalid disables the deadline).
+function importDeadlineMs() {
+  const ms = parseInt(process.env.WEKAN_IMPORT_TIMEOUT_MS, 10);
+  return Number.isFinite(ms) ? ms : 120000;
+}
 
 // Parse an uploaded .xlsx (base64) into the row-array shape the CsvCreator
 // consumes (board[0] is the header row). Excel import reuses the CSV creator.
@@ -91,7 +100,16 @@ Meteor.methods({
     // 2. check parameters are ok from a business point of view (exist &
     // authorized) nothing to check, everyone can import boards in their account
 
-    // 3. create all elements
+    // 3. create all elements, bounded by a hard deadline on the server so a hung
+    // import (e.g. a database operation that never returns) surfaces a timeout error
+    // to the client instead of spinning forever. The client also runs its own watchdog.
+    if (Meteor.isServer) {
+      return await withDeadline(
+        creator.create(importedBoard, currentBoard),
+        importDeadlineMs(),
+        () => new Meteor.Error('import-timeout', 'Import took too long and was aborted'),
+      );
+    }
     return await creator.create(importedBoard, currentBoard);
   },
 });

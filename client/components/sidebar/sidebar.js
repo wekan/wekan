@@ -460,6 +460,12 @@ Template.memberPopup.helpers({
   isInvited() {
     return ReactiveCache.getUser(this.userId).isInvitedTo(Session.get('currentBoard'));
   },
+  // A virtual (placeholder) member created by a board import — can be mapped to an
+  // existing real board user from this popup.
+  isImportedMember() {
+    const user = ReactiveCache.getUser(this.userId);
+    return !!user && user.authenticationMethod === 'imported';
+  },
 });
 
 
@@ -588,6 +594,7 @@ Template.memberPopup.events({
     Popup.back();
   },
   'click .js-change-role': Popup.open('changePermissions'),
+  'click .js-map-imported-member': Popup.open('mapImportedMember'),
   'click .js-remove-member': Popup.afterConfirm('removeMember', async function() {
     // This works from removing member from board, card members and assignees.
     const boardId = Session.get('currentBoard');
@@ -609,6 +616,41 @@ Template.memberPopup.events({
     });
   }),
 
+});
+
+// Existing REAL (non-imported), active members of the current board that a virtual
+// (placeholder) member can be mapped onto. Excludes imported placeholders and the
+// placeholder itself, so a mapping never creates a new member or maps to another virtual
+// user — which, with the board-admin gate and unchanged target role, makes it impossible
+// to gain privileges via mapping.
+function importedMapTargets(placeholderId) {
+  const board = Utils.getCurrentBoard();
+  if (!board) return [];
+  return (board.activeMembers() || [])
+    .map(m => ReactiveCache.getUser(m.userId))
+    .filter(u => u && u._id !== placeholderId && u.authenticationMethod !== 'imported');
+}
+
+Template.mapImportedMemberPopup.helpers({
+  mapTargets() {
+    return importedMapTargets(this.userId);
+  },
+  hasMapTargets() {
+    return importedMapTargets(this.userId).length > 0;
+  },
+});
+
+Template.mapImportedMemberPopup.events({
+  'click .js-pick-map-target'(event) {
+    const targetId = event.currentTarget.dataset.id;
+    const placeholderId = this.userId;
+    const boardId = Session.get('currentBoard');
+    if (targetId && placeholderId && boardId) {
+      Meteor.call('mapImportedBoardMember', boardId, placeholderId, targetId, () => {
+        Popup.back();
+      });
+    }
+  },
 });
 
 Template.removeMemberPopup.helpers({

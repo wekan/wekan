@@ -7,6 +7,7 @@ import Cards from '/models/cards';
 import Activities from '/models/activities';
 import CardComments from '/models/cardComments';
 import { planReconciliation } from '/models/lib/importedUserReconciliationPlan';
+import { planBoardMemberMapping } from '/models/lib/boardMemberMapPlan';
 
 // ============================================================================
 // Imported-user reconciliation
@@ -68,6 +69,69 @@ export async function mergeImportedUserInto(placeholderId, targetId) {
   return { ok: true, mergedInto: targetId };
 }
 
+// Board-scoped mapping of one imported VIRTUAL (placeholder) member to an existing REAL
+// user on the SAME board, done by a board admin from the sidebar member-avatar popup.
+// Unlike mergeImportedUserInto (global, site-admin-only), this only ever touches the one
+// board and can never grant privileges: the target must already be an active real member
+// of the board and keeps their own role (see models/lib/boardMemberMapPlan.js). The
+// placeholder's work ON THIS BOARD (card membership/assignment, activities, comments) is
+// reassigned to the target, and the placeholder is removed from this board's members.
+// Server-only.
+export async function mapImportedBoardMemberInto(boardId, placeholderId, targetId, callerId) {
+  if (!Meteor.isServer) return { ok: false };
+
+  const board = await ReactiveCache.getBoard(boardId);
+  if (!board) throw new Meteor.Error('no-board', 'board does not exist');
+
+  const caller = await ReactiveCache.getUser(callerId);
+  const placeholder = await ReactiveCache.getUser(placeholderId);
+  const target = await ReactiveCache.getUser(targetId);
+
+  const plan = planBoardMemberMapping({
+    members: board.members || [],
+    placeholderId,
+    targetId,
+    callerId,
+    placeholderIsImported: !!placeholder && placeholder.authenticationMethod === 'imported',
+    targetIsImported: !target || target.authenticationMethod === 'imported',
+    callerIsSiteAdmin: !!(caller && caller.isAdmin),
+  });
+  if (!plan.ok) {
+    throw new Meteor.Error(plan.error || 'not-authorized');
+  }
+
+  // Reassign the placeholder's references, scoped to THIS board only.
+  for (const field of ['members', 'assignees']) {
+    const cards = await Cards.find({ boardId, [field]: placeholderId }).fetchAsync();
+    for (const c of cards) {
+      const arr = Array.from(
+        new Set((c[field] || []).map(id => (id === placeholderId ? targetId : id))),
+      );
+      await Cards.direct.updateAsync(c._id, { $set: { [field]: arr } });
+    }
+  }
+  await Activities.direct.updateAsync(
+    { boardId, userId: placeholderId }, { $set: { userId: targetId } }, { multi: true },
+  );
+  await CardComments.direct.updateAsync(
+    { boardId, userId: placeholderId }, { $set: { userId: targetId } }, { multi: true },
+  );
+
+  // Drop the placeholder from this board's members (target keeps their own role).
+  await Boards.direct.updateAsync(boardId, { $set: { members: plan.newMembers } });
+
+  // If the placeholder is no longer a member of any board, remove the now-orphaned
+  // virtual user so it does not linger; otherwise leave it for its other boards.
+  const stillMember = await Boards.find(
+    { 'members.userId': placeholderId }, { fields: { _id: 1 } },
+  ).fetchAsync();
+  if (stillMember.length === 0 && placeholder && placeholder.authenticationMethod === 'imported') {
+    await Users.direct.removeAsync(placeholderId);
+  }
+
+  return { ok: true, mappedInto: targetId };
+}
+
 // Deactivate a placeholder and all its board memberships (used when no valid account
 // matches — e.g. the person is not in LDAP).
 async function deactivatePlaceholder(placeholderId) {
@@ -120,6 +184,18 @@ if (Meteor.isServer) {
       const user = await ReactiveCache.getUser(this.userId);
       if (!user || !user.isAdmin) throw new Meteor.Error('not-authorized');
       return await mergeImportedUserInto(placeholderId, targetId);
+    },
+    // Board-scoped: a board admin maps one imported VIRTUAL member of a board to an
+    // existing REAL, active member of the SAME board (from the sidebar avatar popup).
+    // Authorization and the no-escalation guarantee are enforced in
+    // planBoardMemberMapping (called inside mapImportedBoardMemberInto): the target keeps
+    // their own role, and only board admins (or site admins) may map.
+    async mapImportedBoardMember(boardId, placeholderId, targetId) {
+      check(boardId, String);
+      check(placeholderId, String);
+      check(targetId, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+      return await mapImportedBoardMemberInto(boardId, placeholderId, targetId, this.userId);
     },
   });
 }

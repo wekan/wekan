@@ -173,7 +173,11 @@ function assignBoardToNamedWorkspace(boardId, wsName, parentId = null) {
 
 Template.import.onCreated(function () {
   this.error = new ReactiveVar('');
-  this.steps = ['importTextarea', 'importMapMembers'];
+  // Import never asks for member mapping up front: every imported member is brought
+  // in as a virtual (placeholder) user carrying its avatar / username / full name,
+  // and a board admin maps a virtual member to an existing board user later from the
+  // sidebar member-avatar popup. So there is a single step; import runs immediately.
+  this.steps = ['importTextarea'];
   this._currentStepIndex = new ReactiveVar(0);
   this.importedData = new ReactiveVar();
   this.membersToMap = new ReactiveVar([]);
@@ -311,15 +315,10 @@ Template.import.onCreated(function () {
   };
 
   this.finishImport = async () => {
-    const membersMapping = this.membersToMap.get();
+    // No import-time member mapping: every imported member becomes a virtual
+    // (placeholder) user. Mapping a virtual member to an existing board user is done
+    // later from the board sidebar (privilege-bounded), so pass an empty mapping.
     const mappingById = {};
-    if (membersMapping) {
-      membersMapping.forEach(member => {
-        if (member.wekanId) {
-          mappingById[member.id] = member.wekanId;
-        }
-      });
-    }
     const importedData = this.importedData.get();
 
     // Trello: import over HTTP (see postTrelloImport) so the realtime DDP
@@ -353,8 +352,18 @@ Template.import.onCreated(function () {
       return;
     }
 
-    // wekan / csv: unchanged DDP import.
+    // wekan / csv: DDP import, guarded by a client-side watchdog so a stalled or
+    // hung import can never leave the spinner running forever — if the method has not
+    // answered in WEKAN_IMPORT_TIMEOUT_MS (default 2 min) we surface a timeout error
+    // and clear the spinner. The server bounds the import itself too (see importBoard).
     this.membersToMap.set([]);
+    let settled = false;
+    const timeoutMs = parseInt(window.WEKAN_IMPORT_TIMEOUT_MS, 10) || 120000;
+    const watchdog = Meteor.setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      this.setError('import-timeout');
+    }, timeoutMs);
     Meteor.call(
       'importBoard',
       importedData,
@@ -362,6 +371,9 @@ Template.import.onCreated(function () {
       this.importSource,
       Session.get('fromBoard'),
       (err, res) => {
+        if (settled) return; // already timed out
+        settled = true;
+        Meteor.clearTimeout(watchdog);
         if (err) {
           this.setError(err.error);
         } else {
