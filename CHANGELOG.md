@@ -90,6 +90,19 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Fix: high FerretDB CPU (300%+, even idle) from a bloated or corrupt simulated
+  OpLog (#6492). FerretDB v1's SQLite OpLog (`local.oplog.rs`, in the `local`
+  database = `local.sqlite`) is not reliably capped, so it grows/corrupts over time
+  and Meteor busy-polls it — a reporter confirmed that deleting `local.sqlite*` drops
+  CPU straight back to ~10%. The `local` database is transient system data (the OpLog
+  + replica-set metadata), NOT user data (boards/cards/attachments live in
+  `wekan.sqlite`), so every FerretDB launch path (snap, bundled release, Docker) now
+  resets ONLY the `local` database on start — FerretDB recreates a fresh, correctly
+  capped OpLog — so a corrupt/bloated OpLog can never persist across a restart.
+  Guarded by `WEKAN_FERRETDB_RESET_OPLOG` (default on; set false to keep the OpLog),
+  and a test enforces that the reset never touches
+  `wekan.sqlite`](https://github.com/wekan/wekan/commit/d5ef331bf26cadec7504cb7cbd67b82538c1305f).
+  Thanks to bluetopaz1204, mueschel and xet7.
 - [Fix: on the phone All Boards layout, board titles were cut off the right edge and
   workspace names were hard-cut in the narrow menu. The board column now shrinks to
   its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
