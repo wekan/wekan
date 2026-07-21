@@ -142,6 +142,20 @@ This release fixes the following bugs:
   public while the toggle method is admin-only, enforced by
   tests](https://github.com/wekan/wekan/commit/f404e38f97c7668c805075e71b2609755831f6b2).
   Thanks to bluetopaz1204, mueschel and xet7.
+- [The recovery maintenance page now works the same on ALL FerretDB v1 platforms
+  (#6492). Besides the in-app spinner (which shows once Meteor serves the client),
+  every launch path now also serves a tiny standalone "recovering your data" page
+  (HTTP 503) on the web port for the brief window while a just-restored FerretDB
+  comes back up and before the app is up — so users never hit a bare connection
+  error: the snap reuses `wekan-maintenance-page.mjs` with a recovery wording, and
+  the bundled release/Docker paths serve the portable `recovery-bridge.mjs`. The
+  bridge is time-bounded (`WEKAN_RECOVERY_BRIDGE_SECONDS`, default 20s) so it can
+  never block WeKan from starting, hands straight over to the in-app spinner, and
+  is skipped if its page or the marker is absent. Only the server clears the
+  `RECOVERY_IN_PROGRESS` marker (after a real health probe), so the spinner behaves
+  identically everywhere; tests enforce the bridge stays bounded and no launch
+  script deletes the marker](https://github.com/wekan/wekan/commit/31c0bcafa723797c2990e773c165fb48d38fd15f).
+  Thanks to bluetopaz1204, mueschel and xet7.
 - [Fix: on the phone All Boards layout, board titles were cut off the right edge and
   workspace names were hard-cut in the narrow menu. The board column now shrinks to
   its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
