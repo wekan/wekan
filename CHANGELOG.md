@@ -86,6 +86,20 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# v10.10 2026-07-21 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: on the phone All Boards layout, board titles were cut off the right edge and
+  workspace names were hard-cut in the narrow menu. The board column now shrinks to
+  its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
+  drag handle is smaller so more of the title shows, and workspace names truncate with
+  an ellipsis instead of mid-word](https://github.com/wekan/wekan/commit/576f44ff592cdae7d3bae65f0486a33d248f1980).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.09 2026-07-21 WeKan ® release
 
 This release fixes the following bugs:
@@ -99,12 +113,6 @@ This release fixes the following bugs:
   scrolled down to. In RTL languages the layout mirrors automatically (menu on the
   right, boards on the left) via the direction-aware grid and logical
   borders](https://github.com/wekan/wekan/commit/b3d0eb33fe3a7528ef802e7addc7df70c5abdcf1).
-  Thanks to xet7.
-- [Fix: on that phone All Boards layout, board titles were cut off the right edge and
-  workspace names were hard-cut in the narrow menu. The board column now shrinks to
-  its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
-  drag handle is smaller so more of the title shows, and workspace names truncate with
-  an ellipsis instead of mid-word](https://github.com/wekan/wekan/commit/f43fbad75c1bfa34592a20565e0dc2b78d2497e6).
   Thanks to xet7.
 - [Fix: the Files admin report (Admin Panel / Reports / Files) was stuck on the
   loading spinner and never listed its files. An `await` in the `attachmentsList`
