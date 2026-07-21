@@ -109,15 +109,16 @@ This release fixes the following bugs:
   verified](https://github.com/wekan/wekan/commit/88642c3bd439c816e783f62281b651d6839a04a4).
   Thanks to NadavTasher and xet7.
 - [Fix: the Files admin report (Admin Panel / Reports / Files) was stuck on the
-  loading spinner and never listed its files. The `attachmentsList` publication
-  fetched through the ostrio FilesCollection cursor, which — when that returns no
-  rows — falls back to an old-CFS backward-compatibility lookup that can hang;
-  because the hang is inside the publish body, `this.ready()` never fired and the
-  subscription never became ready. It now queries the plain `Attachments.collection`
-  directly in both the publication and the count method, which returns the page and
-  always completes, so the report renders its table. The client helpers are also
-  defensive so a data error can never blank the
-  report](https://github.com/wekan/wekan/commit/21079d9f8877f97044b010795361e6d0357458be).
+  loading spinner and never listed its files. An `await` in the `attachmentsList`
+  publication never resolved (a ReactiveCache read / the ostrio FilesCollection
+  cursor's old-CFS backward-compatibility fallback), so `this.ready()` never ran and
+  the subscription never became ready — and the report template only renders once
+  ready. The publication now signals readiness UP FRONT (then streams the page rows,
+  which appear reactively), and computes its data by querying the Boards / Cards /
+  `Attachments.collection` collections directly with `fetchAsync` instead of through
+  ReactiveCache, so it always resolves. The client helpers are also defensive so a
+  data error can never blank the
+  report](https://github.com/wekan/wekan/commit/00ad2c5a688d500e3a22f43b0625498234ef0f6c).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
