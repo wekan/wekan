@@ -120,6 +120,9 @@ check('global filename helpers registered and used across the UI', () => {
   const js = read('client/components/main/safeFilename.js');
   assert.ok(/registerHelper\('cleanFilename'/.test(js) && /registerHelper\('downloadFilename'/.test(js),
     'cleanFilename + downloadFilename helpers registered');
+  const clientMain = read('client/features/main.js');
+  assert.ok(/import ['"]\/client\/components\/main\/safeFilename\.js['"]/.test(clientMain),
+    'filename helpers loaded by the explicit client bootstrap');
   const cards = read('client/components/cards/attachments.jade');
   assert.ok(/\{\{ cleanFilename name \}\}/.test(cards), 'card attachment name uses cleanFilename');
   assert.ok(/download="\{\{downloadFilename name\}\}"/.test(cards), 'download uses the clean name');

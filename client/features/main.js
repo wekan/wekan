@@ -38,6 +38,7 @@ import '/client/components/main/layouts.js';
 import '/client/components/main/myCards.js';
 import '/client/components/main/popup.js';
 import '/client/components/main/recoveryMaintenance.js';
+import '/client/components/main/safeFilename.js';
 import '/client/components/main/spinner.js';
 import '/client/components/main/support.js';
 
