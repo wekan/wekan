@@ -90,6 +90,20 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Fix: on Sandstorm, the browser error that a page "can not be displayed embedded
+  in another page" after a grain's first-launch data migration. The grain launcher
+  migrates the old MongoDB data to FerretDB v1 (SQLite) before starting WeKan, and
+  while nothing was listening on the grain's app port (during migration and the
+  handoff to WeKan) `sandstorm-http-bridge` returned connection-refused, so the
+  browser showed the framed-grain error and the user had to close and reopen the
+  grain. The launcher now runs a tiny child-process bridge that answers the app
+  port with an auto-refreshing "please wait" page across the whole migration and
+  handoff — yielding the port to the migration importer's own progress dashboard
+  and releasing it just before WeKan binds it — so the grain stays framed until
+  WeKan is up. Best-effort (guarded, killed on grain exit) so it never breaks grain
+  startup; covered by wiring/ordering
+  tests](https://github.com/wekan/wekan/commit/547566654119e017126bbe4d61affc8e7ea9cb45).
+  Thanks to xet7.
 - [Fix: high FerretDB CPU (300%+, even idle) from a bloated or corrupt simulated
   OpLog (#6492). FerretDB v1's SQLite OpLog (`local.oplog.rs`, in the `local`
   database = `local.sqlite`) is not reliably capped, so it grows/corrupts over time
