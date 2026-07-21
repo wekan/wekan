@@ -103,6 +103,19 @@ This release fixes the following bugs:
   and a test enforces that the reset never touches
   `wekan.sqlite`](https://github.com/wekan/wekan/commit/d5ef331bf26cadec7504cb7cbd67b82538c1305f).
   Thanks to bluetopaz1204, mueschel and xet7.
+- [Safety measures against SQLite corruption/bloat (#6492). (1) Before FerretDB opens
+  its files, every launch path keeps a rotating backup of the text-data database
+  (`wekan.sqlite*`) in a `backup/` subfolder of the same data dir, so a known copy is
+  ready to restore if the live database is ever detected corrupt — it only ever COPIES
+  the live database (never moves/deletes it), keeps the previous generation under
+  `backup/prev`, and does not copy attachments/avatars (they live on the filesystem);
+  disable with `WEKAN_SQLITE_BACKUP=false`. (2) The bundled FerretDB fork now
+  automatically DETECTS corruption (a fast `quick_check` on every database open, logged
+  prominently) and automatically REPAIRS bloat (`VACUUM` when a file is large and its
+  free pages dominate), and caps the OpLog small (16 MiB) — see the FerretDB CHANGELOG.
+  Both WeKan safety scripts are covered by tests that enforce they never destroy the
+  live text data](https://github.com/wekan/wekan/commit/7e3ed298c71c4c5f30c84e67c841d964c386ca62).
+  Thanks to bluetopaz1204, mueschel and xet7.
 - [Fix: on the phone All Boards layout, board titles were cut off the right edge and
   workspace names were hard-cut in the narrow menu. The board column now shrinks to
   its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
