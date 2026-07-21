@@ -70,6 +70,18 @@ services:
           --repl-set-name=rs0 \
           --telemetry=disable \
           --log-level=error
+    # Healthy only once FerretDB is actually accepting connections on 27017 — i.e.
+    # AFTER the first-run binary download (apt-get + curl) has finished and the server
+    # is listening. WeKan's depends_on: condition: service_healthy waits for this, so it
+    # never starts against a not-yet-ready database (which showed up as the browser
+    # getting "Connection reset by peer" on a fresh `docker compose up`). bash + /dev/tcp
+    # needs no extra tools in debian-slim. start_period covers a slow first download.
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/27017' 2>/dev/null"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+      start_period: 30s
     volumes:
       - ferretdb-data:/data
     networks:
@@ -799,7 +811,7 @@ services:
     # uncomment the wekan-ferretdb block.
     depends_on:
       ferretdb:
-        condition: service_started
+        condition: service_healthy
     #  wekan-migrate:
     #    condition: service_completed_successfully
     #  wekan-ferretdb:
