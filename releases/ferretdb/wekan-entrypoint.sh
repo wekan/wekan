@@ -166,6 +166,24 @@ if [ "$want_ferret" = true ]; then
   trap 'kill "$FERRET_PID" 2>/dev/null || true' EXIT INT TERM
 fi
 
+# #6492: if a recovery is in progress, briefly serve the static "recovering data" page
+# on the web port while the just-restored FerretDB comes back up, then start WeKan (whose
+# in-app recovery spinner, driven by the same RECOVERY_IN_PROGRESS marker, then takes over
+# until the server has verified the database healthy and cleared the marker). Bounded so
+# it can never block WeKan, and skipped if its page or the marker is absent.
+if [ -f "$FERRETDB_SQLITE_DIR/RECOVERY_IN_PROGRESS" ] && [ -f /build/recovery-bridge.mjs ]; then
+  _rgrace="${WEKAN_RECOVERY_BRIDGE_SECONDS:-20}"
+  echo "Recovery in progress: bridging with the recovery page for up to ${_rgrace}s before starting WeKan."
+  PORT="${PORT:-8080}" PRODUCT_NAME="${PRODUCT_NAME:-WeKan}" node /build/recovery-bridge.mjs &
+  _rpid=$!
+  _rw=0
+  while [ -f "$FERRETDB_SQLITE_DIR/RECOVERY_IN_PROGRESS" ] && [ "$_rw" -lt "$_rgrace" ]; do
+    sleep 2; _rw=$((_rw + 2))
+  done
+  kill "$_rpid" 2>/dev/null || true
+  wait "$_rpid" 2>/dev/null || true
+fi
+
 ulimit -s 65500
 if [ -x /build/cpu-exec ]; then
   exec /build/cpu-exec node /build/main.js

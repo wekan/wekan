@@ -194,6 +194,24 @@ while true; do
     echo "Using external database at $MONGO_URL (not starting bundled FerretDB)."
   fi
 
+  # #6492: if a recovery is in progress, briefly serve the static "recovering data" page
+  # on $PORT while the just-restored FerretDB comes back up, then start WeKan (whose
+  # in-app recovery spinner, driven by the same RECOVERY_IN_PROGRESS marker, then takes
+  # over until the server has verified the database healthy and cleared the marker). The
+  # bridge is time-bounded so it can never block WeKan, and is skipped if its page or the
+  # marker is absent.
+  if [ -f "$FERRETDB_SQLITE_DIR/RECOVERY_IN_PROGRESS" ] && [ -f "$DIR/recovery-bridge.mjs" ]; then
+    _rgrace="${WEKAN_RECOVERY_BRIDGE_SECONDS:-20}"
+    echo "Recovery in progress: bridging with the recovery page for up to ${_rgrace}s before starting WeKan."
+    PORT="$PORT" PRODUCT_NAME="${PRODUCT_NAME:-WeKan}" "$NODE" "$DIR/recovery-bridge.mjs" &
+    _rpid=$!
+    _rw=0
+    while [ -f "$FERRETDB_SQLITE_DIR/RECOVERY_IN_PROGRESS" ] && [ "$_rw" -lt "$_rgrace" ]; do
+      sleep 2; _rw=$((_rw + 2))
+    done
+    kill "$_rpid" 2>/dev/null || true
+    wait "$_rpid" 2>/dev/null || true
+  fi
   echo "Starting WeKan on $ROOT_URL (port $PORT), files under $WRITABLE_PATH ..."
   ${CPU_EXEC:+"$CPU_EXEC"} "$NODE" "$DIR/main.js" || true
 

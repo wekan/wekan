@@ -282,6 +282,31 @@ if [ -n "$_pn" ]; then
     printf '%s\n' "$_pn" > "$SNAP_COMMON/.productname.txt" 2>/dev/null || true
 fi
 
+# #6492: if a data recovery is in progress (ferretdb-control wrote this marker during a
+# restore/re-migrate of the text-data database), serve the standalone recovery page on
+# the web port for a SHORT grace window while the just-restored FerretDB comes back up,
+# then start WeKan. WeKan itself then shows the in-app recovery spinner (driven by the
+# same marker) until it has health-probed the database and cleared the marker — so the
+# user sees a continuous maintenance UI and never a bare connection error. The static
+# page here is only a brief bridge; it is time-bounded so it can never block WeKan (the
+# server, not this script, clears the marker). Reuses wekan-maintenance-page.mjs with a
+# "recovering data" wording.
+RECOVERY_MARKER="$SNAP_COMMON/files/db/RECOVERY_IN_PROGRESS"
+if [ -f "$RECOVERY_MARKER" ]; then
+    _rgrace="${WEKAN_RECOVERY_BRIDGE_SECONDS:-20}"
+    echo "RECOVERY IN PROGRESS ($RECOVERY_MARKER present): bridging with the recovery page for up to ${_rgrace}s before starting WeKan."
+    WEKAN_MAINTENANCE_REASON=recovery "$SNAP/bin/node" "$SNAP/bin/wekan-maintenance-page.mjs" &
+    _mp_pid=$!
+    _rwait=0
+    while [ -f "$RECOVERY_MARKER" ] && [ "$_rwait" -lt "$_rgrace" ]; do
+        sleep 2
+        _rwait=$((_rwait + 2))
+    done
+    kill "$_mp_pid" 2>/dev/null || true
+    wait "$_mp_pid" 2>/dev/null || true
+    echo "Starting WeKan; its in-app recovery spinner takes over until the database is verified healthy."
+fi
+
 APPLICATION_DIRECTORY=$SNAP
 APPLICATION_START=main.js
 cd $APPLICATION_DIRECTORY

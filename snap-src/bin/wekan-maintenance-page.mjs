@@ -24,10 +24,20 @@ function resolveProduct() {
 }
 const PRODUCT = resolveProduct();
 
+// #6492: when wekan-control serves this page during a data recovery it sets
+// WEKAN_MAINTENANCE_REASON=recovery, so show a "recovering your data" wording instead
+// of the generic "under maintenance".
+const IS_RECOVERY = process.env.WEKAN_MAINTENANCE_REASON === 'recovery';
+const TITLE_WORD = IS_RECOVERY ? 'Recovering data' : 'Maintenance';
+const HEADING = IS_RECOVERY ? `${PRODUCT} is recovering your data` : `${PRODUCT} is under maintenance`;
+const BODY = IS_RECOVERY
+  ? 'Your data is being restored. The service will return automatically when recovery finishes.'
+  : 'The service is temporarily unavailable while maintenance is in progress.';
+
 const HTML = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="30">
-<title>${PRODUCT} — Maintenance</title>
+<title>${PRODUCT} — ${TITLE_WORD}</title>
 <style>
   :root{color-scheme:light dark}
   body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;
@@ -45,8 +55,8 @@ const HTML = `<!DOCTYPE html><html lang="en"><head>
   @keyframes s{to{transform:rotate(360deg)}}
 </style></head><body>
 <div class="card">
-  <h1><span class="spin"></span>${PRODUCT} is under maintenance</h1>
-  <p>The service is temporarily unavailable while maintenance is in progress.</p>
+  <h1><span class="spin"></span>${HEADING}</h1>
+  <p>${BODY}</p>
   <p class="muted">This page refreshes automatically. Please try again shortly.</p>
 </div></body></html>`;
 

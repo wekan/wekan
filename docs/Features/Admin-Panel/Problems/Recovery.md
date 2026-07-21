@@ -55,6 +55,31 @@ the integrity result and what backups / MongoDB are available, it chooses the
 least-invasive recovery — latest good backup → previous backup → re-migrate → (else)
 manual. It never chooses anything destructive unless the database is **known corrupt**.
 
+### What users see during a recovery
+
+Recovery must never look like a broken site. Two layers cover the whole window, on
+**every** FerretDB v1 platform (snap, bundled release, Docker):
+
+- **In-app maintenance spinner (all platforms).** When a recovery is in progress the
+  server publishes a *public* status document — everyone, including logged-out users on
+  the sign-in page, sees it — that drives a full-screen overlay with a spinner in both
+  the app and sign-in layouts. The launch scripts write a `RECOVERY_IN_PROGRESS` marker
+  when they restore/re-migrate; the server keeps the spinner up until it has
+  health-probed the database (a real read), then **clears the marker** and hides the
+  spinner — or, if it still cannot read, keeps the spinner and records that manual
+  recovery is required. Admins can also toggle it for a server-initiated re-migration.
+  Because the *server* owns clearing the marker, the spinner behaves identically on all
+  platforms.
+- **Static bridge page (before the app is up).** For the brief window while a
+  just-restored FerretDB comes back up and before Meteor can serve the client, the
+  launch scripts serve a tiny standalone "recovering your data" page (HTTP 503) on the
+  web port so users never hit a bare connection error: the snap reuses
+  `wekan-maintenance-page.mjs` (with a recovery wording), and the release/Docker paths
+  serve the portable `releases/ferretdb/recovery-bridge.mjs`. The bridge is
+  **time-bounded** (`WEKAN_RECOVERY_BRIDGE_SECONDS`, default 20s) and is only a visual
+  bridge — it can never block WeKan from starting, and it hands straight over to the
+  in-app spinner above. It is skipped cleanly if its page file or the marker is absent.
+
 ## Admin Panel → Problems → Recovery
 
 The startup scripts append one JSON line per action to `recovery-events.jsonl` in the
