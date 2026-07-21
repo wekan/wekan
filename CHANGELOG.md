@@ -98,12 +98,16 @@ This release fixes the following bugs:
   is now wired in so the fix stays
   verified](https://github.com/wekan/wekan/commit/88642c3bd439c816e783f62281b651d6839a04a4).
   Thanks to NadavTasher and xet7.
-- [Files admin report follow-up: made the `filesReport` helpers defensive so a
-  throwing data helper can no longer blank the whole report, and corrected the
-  v10.07 changelog claim — the report still does not list its attachments in the
-  Playwright test, which points at the `attachmentsList` publication returning no
-  rows and is still under
-  investigation](https://github.com/wekan/wekan/commit/7d6fbc04e253f9750ded49e3cc62e6c774435a26).
+- [Fix: the Files admin report (Admin Panel / Reports / Files) was stuck on the
+  loading spinner and never listed its files. The `attachmentsList` publication
+  fetched through the ostrio FilesCollection cursor, which — when that returns no
+  rows — falls back to an old-CFS backward-compatibility lookup that can hang;
+  because the hang is inside the publish body, `this.ready()` never fired and the
+  subscription never became ready. It now queries the plain `Attachments.collection`
+  directly in both the publication and the count method, which returns the page and
+  always completes, so the report renders its table. The client helpers are also
+  defensive so a data error can never blank the
+  report](https://github.com/wekan/wekan/commit/21079d9f8877f97044b010795361e6d0357458be).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
