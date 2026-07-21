@@ -90,6 +90,17 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Fix: cards not opening — clicking a card did nothing (#6493). The global
+  `cleanFilename` / `downloadFilename` template helpers (which show every filename
+  safely) are registered by `client/components/main/safeFilename.js`, but that module
+  was never imported on the client, so the helpers were never registered. Every
+  template using `{{cleanFilename name}}` — card attachment thumbnails and the admin
+  Files report — then threw "No such function: cleanFilename" during render, and on a
+  card with attachments that aborted the card's Tracker recompute so the card would
+  not open. `client/features/main.js` now imports `safeFilename.js` so the helpers are
+  registered at startup; guarded by a
+  test](https://github.com/wekan/wekan/commit/4347589793e93f0407b90cb4c6c11103c1be70e0).
+  Thanks to mueschel, brlin-tw and xet7.
 - [Fix: FerretDB high CPU that continued even with no clients connected (#6498).
   Meteor tails the OpLog (`local.oplog.rs`) with a tailable+awaitData cursor that
   starts at boot and runs with no clients; on FerretDB v1 that tail was re-running
