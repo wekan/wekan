@@ -1,4 +1,6 @@
 import Attachments from '/models/attachments';
+import Boards from '/models/boards';
+import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
 
 // Escape a user-supplied search string so it is matched literally (and
@@ -10,22 +12,32 @@ function searchRegex(term) {
 // Card ids the given user is allowed to see attachments for. Shared by the
 // paginated 'attachmentsList' publication and its matching count method so the
 // total and the published page are always computed over the same set.
+//
+// Query the model collections DIRECTLY with fetchAsync, NOT ReactiveCache: the
+// Files report publication must always reach this.ready(), and a ReactiveCache
+// read that does not resolve would leave the whole report stuck on the loading
+// spinner (subscription never ready). Raw async fetches always resolve.
 async function accessibleCardIds(userId) {
-  const userBoards = (await ReactiveCache.getBoards({
-    $or: [
-      { permission: 'public' },
-      { members: { $elemMatch: { userId, isActive: true } } }
-    ]
-  })).map(board => board._id);
+  const boards = await Boards.find(
+    {
+      $or: [
+        { permission: 'public' },
+        { members: { $elemMatch: { userId, isActive: true } } },
+      ],
+    },
+    { fields: { _id: 1 } },
+  ).fetchAsync();
+  const boardIds = boards.map(board => board._id);
 
-  if (userBoards.length === 0) {
+  if (boardIds.length === 0) {
     return [];
   }
 
-  return (await ReactiveCache.getCards({
-    boardId: { $in: userBoards },
-    archived: false
-  })).map(card => card._id);
+  const cards = await Cards.find(
+    { boardId: { $in: boardIds }, archived: false },
+    { fields: { _id: 1 } },
+  ).fetchAsync();
+  return cards.map(card => card._id);
 }
 
 // Build the attachments query for the report: restricted to accessible cards,
@@ -48,28 +60,27 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
 
-  // Publish the page MANUALLY (fetch + this.added + this.ready) instead of returning
-  // a live cursor. A returned cursor with sort+limit makes Meteor set up a LIMITED
-  // live observe, which hangs on FerretDB's oplog for this query — the subscription
-  // then never becomes ready and the Files report is stuck on the loading spinner
-  // forever. This admin report re-subscribes on every page/search change, so it does
-  // not need live reactivity; a one-shot fetch guarantees `ready` fires.
+  // Publish the page MANUALLY (this.added + this.ready) instead of returning a live
+  // cursor. A returned cursor with sort+limit makes Meteor set up a LIMITED live
+  // observe, which hangs on FerretDB's oplog for this query — the subscription then
+  // never becomes ready and the Files report is stuck on the loading spinner. This
+  // admin report re-subscribes on every page/search change, so it needs no live
+  // reactivity.
   //
-  // The whole body is wrapped so `this.ready()` ALWAYS runs (in `finally`): if the
-  // fetch throws, the report shows its empty state instead of hanging. No server-side
-  // `sort` is used — the ostrio `attachments` collection has no index on `name`, and
-  // the client re-sorts the page by name for display anyway (collectionResults).
+  // Signal readiness UP FRONT: the report template only renders once the subscription
+  // is ready, so calling this.ready() first guarantees the spinner clears no matter
+  // what the fetch below does (previous versions hung on an await before reaching
+  // this.ready() in a `finally`, leaving the report stuck on the spinner forever). The
+  // page rows are then streamed with this.added and appear reactively in the table.
+  this.ready();
   try {
     const query = await attachmentsReportQuery(this.userId, searchTerm);
     if (query) {
-      // Query the plain Mongo collection DIRECTLY (Attachments.collection), NOT
+      // Query the plain Mongo collection directly (Attachments.collection), NOT
       // ReactiveCache.getAttachments(): the latter fetches through the ostrio
-      // FilesCollection cursor, and when that returns nothing (e.g. rows that lack
-      // the ostrio file structure) it falls back to
-      // getAttachmentsWithBackwardCompatibility(), whose old-CFS lookups can hang —
-      // so this.ready() in the `finally` never runs and the Files report is stuck on
-      // the loading spinner. A direct find on the same 'attachments' collection
-      // returns the page and always completes.
+      // FilesCollection cursor and falls back to getAttachmentsWithBackwardCompatibility(),
+      // whose old-CFS lookups can hang. A direct find on the 'attachments' collection
+      // returns the page and always resolves.
       const cursor = Attachments.collection.find(query, {
         fields: { _id: 1, name: 1, size: 1, type: 1, meta: 1, path: 1, versions: 1 },
         limit,
@@ -86,8 +97,6 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
     if (process.env.DEBUG === 'true') {
       console.error('attachmentsList publish failed:', e && e.message);
     }
-  } finally {
-    this.ready();
   }
 });
 
