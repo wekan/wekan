@@ -100,6 +100,12 @@ This release fixes the following bugs:
   right, boards on the left) via the direction-aware grid and logical
   borders](https://github.com/wekan/wekan/commit/b3d0eb33fe3a7528ef802e7addc7df70c5abdcf1).
   Thanks to xet7.
+- [Fix: on that phone All Boards layout, board titles were cut off the right edge and
+  workspace names were hard-cut in the narrow menu. The board column now shrinks to
+  its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
+  drag handle is smaller so more of the title shows, and workspace names truncate with
+  an ellipsis instead of mid-word](https://github.com/wekan/wekan/commit/f43fbad75c1bfa34592a20565e0dc2b78d2497e6).
+  Thanks to xet7.
 - [Fix: the Files admin report (Admin Panel / Reports / Files) was stuck on the
   loading spinner and never listed its files. An `await` in the `attachmentsList`
   publication never resolved (a ReactiveCache read / the ostrio FilesCollection
