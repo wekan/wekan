@@ -8,14 +8,17 @@
 # published on your machine — GitHub Actions does it all, in parallel.
 #
 # Usage:
-#   1. Add the new release section to CHANGELOG.md (e.g. "# v9.36 2026-06-10").
-#   2. Run:
-#        ./releases/release-all.sh                 # versions read from CHANGELOG.md
-#      or override explicitly:
+#   1. Add your changes under a "# Upcoming WeKan ® release" section in CHANGELOG.md.
+#   2. Run (NO version number needed):
+#        ./releases/release-all.sh
+#      The script renames "# Upcoming ..." to the next version (the same increment as
+#      the last release) dated today. You can still override explicitly:
 #        ./releases/release-all.sh 9.35 9.36       # PREVIOUS NEW
 #
 # What this script does locally (the only local steps):
-#   1. Determines PREVIOUS and NEW version (from CHANGELOG.md, or from args).
+#   1. Determines PREVIOUS and NEW version automatically: renames the "# Upcoming
+#      WeKan ® release" heading to the next version, or (if already renamed) uses the
+#      newest release heading. An explicit "PREVIOUS NEW" pair overrides this.
 #   2. Commits and pushes pending changes (your CHANGELOG.md edit) to main so the
 #      workflow can read them.
 #   3. Triggers .github/workflows/release-all.yml.
@@ -46,20 +49,59 @@ ensure_tools git gh
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_DIR"
 
-# ── Determine PREVIOUS (OLD) and NEW version ────────────────────────────────
-# Explicit args win; otherwise read the top two "# v<x> <date>" headings from
-# CHANGELOG.md (newest first).
+# ── Version helpers ─────────────────────────────────────────────────────────
+# WeKan versions are NN.MM with a 2-digit minor. Encode NN.MM as the integer
+# NN*100+MM so the release-to-release step (normally +1) can be measured and
+# re-applied, and a minor of 99 rolls into the next major (9.99 -> 10.00).
+wekan_enc() { local v="${1#v}"; local M="${v%%.*}"; local m="${v#*.}"; m="${m%%.*}"; echo $(( 10#$M * 100 + 10#$m )); }
+wekan_dec() { printf '%d.%02d' $(( $1 / 100 )) $(( $1 % 100 )); }
+
+# The RELEASED versions from CHANGELOG.md ("# vNN.MM <date> ..." headings), newest
+# first. The "# Upcoming ..." heading has no version, so it is skipped.
+mapfile -t RELEASED < <(grep -oE '^# v[0-9]+\.[0-9]+ ' CHANGELOG.md | grep -oE '[0-9]+\.[0-9]+')
+
+# ── Determine PREVIOUS (OLD) and NEW version — no version argument needed ────
+# Explicit args still win. Otherwise:
+#   * if there is a "# Upcoming WeKan ® release" section, RENAME it to the next
+#     version (the same increment as the last release) dated today; OLD = newest
+#     release, NEW = that next version.
+#   * if there is NO Upcoming section, the newest heading is already the prepared
+#     release, so use it as NEW (checked to be the expected increment of OLD, and
+#     referenced by a recent commit, so an old entry is never re-released).
 if [ -n "${1:-}" ] && [ -n "${2:-}" ]; then
   OLD="${1#v}"
   NEW="${2#v}"
-else
-  mapfile -t RELEASE_LINES < <(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2)
-  NEW=$(echo "${RELEASE_LINES[0]:-}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
-  OLD=$(echo "${RELEASE_LINES[1]:-}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
-  if [ -z "$NEW" ] || [ -z "$OLD" ]; then
-    echo "Error: could not detect both NEW and PREVIOUS version from CHANGELOG.md." >&2
-    echo "Add a '# v<new> <YYYY-MM-DD>' heading, or pass versions: $0 9.35 9.36" >&2
+elif grep -qE '^# Upcoming WeKan' CHANGELOG.md; then
+  OLD="${RELEASED[0]:-}"
+  if [ -z "$OLD" ]; then
+    echo "Error: no released '# vNN.MM <date>' heading found in CHANGELOG.md." >&2
     exit 1
+  fi
+  STEP=1
+  if [ -n "${RELEASED[1]:-}" ]; then
+    STEP=$(( $(wekan_enc "${RELEASED[0]}") - $(wekan_enc "${RELEASED[1]}") ))
+    [ "$STEP" -le 0 ] && STEP=1
+  fi
+  NEW="$(wekan_dec $(( $(wekan_enc "$OLD") + STEP )) )"
+  DATE="$(date +%F)"
+  echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
+  _tmp="$(mktemp)"
+  sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
+else
+  NEW="${RELEASED[0]:-}"
+  OLD="${RELEASED[1]:-}"
+  if [ -z "$NEW" ] || [ -z "$OLD" ]; then
+    echo "Error: could not detect NEW and PREVIOUS version from CHANGELOG.md" >&2
+    echo "(no '# Upcoming WeKan ® release' section, and fewer than two '# vNN.MM' releases)." >&2
+    echo "Add an Upcoming section (preferred) or pass versions: $0 9.35 9.36" >&2
+    exit 1
+  fi
+  EXPECTED="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
+  if [ "$NEW" != "$EXPECTED" ]; then
+    echo "Note: newest CHANGELOG version v$NEW is not the +1 increment (v$EXPECTED) of the previous v$OLD; proceeding anyway."
+  fi
+  if git log -15 --format='%s' 2>/dev/null | grep -qF "$NEW"; then
+    echo "    (v$NEW is referenced in a recent commit — treating it as the prepared release.)"
   fi
 fi
 
