@@ -652,14 +652,36 @@ function importPerformSearch(tpl, query) {
   }
 }
 
+// Map the currently-selected imported member to a WeKan user and close the popup.
+function importMapToUser(wekanId) {
+  if (wekanId && _importMapMembersTpl) {
+    _importMapMembersTpl.mapSelectedMember(wekanId);
+  }
+  Popup.back();
+}
+
 Template.importMapMembersAddPopup.events({
   'click .js-select-import'(event, tpl) {
-    if (_importMapMembersTpl) {
-      _importMapMembersTpl.mapSelectedMember(Template.currentData().__originalId);
+    // The clicked search result is a WeKan user document; map to its _id. (Was
+    // `__originalId`, which is never set on the results, so mapping silently did
+    // nothing and the suggestion could not be selected — #6493-adjacent import fix.)
+    importMapToUser(Template.currentData()._id);
+  },
+  // Enter selects the first (highlighted) search result, so a name can be assigned
+  // by keyboard without a mouse click.
+  'keydown .js-search-member-input'(event, tpl) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      const results = tpl.searchResults.get();
+      if (results && results.length) {
+        importMapToUser(results[0]._id);
+      }
     }
-    Popup.back();
   },
   'keyup .js-search-member-input'(event, tpl) {
+    if (event.keyCode === 13) {
+      return; // handled on keydown
+    }
     const query = event.target.value.trim();
 
     if (tpl.searchTimeout) {
