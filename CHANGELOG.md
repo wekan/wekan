@@ -86,6 +86,20 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release updates dependencies:
+
+- [Bump fast-uri from 3.1.2 to 3.1.4
+  (#6502)](https://github.com/wekan/wekan/commit/780636742).
+  Thanks to dependabot and xet7.
+- [Bump linkify-it from 5.0.1 to 5.0.2
+  (#6501)](https://github.com/wekan/wekan/commit/08fa72faf).
+  Thanks to dependabot and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v10.12 2026-07-21 WeKan ® release
 
 This release fixes the following bugs:
