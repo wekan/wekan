@@ -131,6 +131,7 @@
   border-radius: 4px;
   cursor: pointer;
   flex: 1;
+  min-width: 0; /* allow the workspace name inside to shrink + ellipsis */
   text-decoration: none;
 }
 
@@ -156,6 +157,12 @@
 
 .workspace-node .workspace-name {
   flex: 1;
+  /* Let the name shrink inside the narrow left menu and truncate with an ellipsis
+     ("Roadmap…") instead of being hard-cut mid-word ("Ro"). */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .workspace-node .workspace-count {
@@ -245,6 +252,12 @@
 
 .boards-right-grid {
   min-height: 200px;
+  /* The right column is a 1fr grid item of .boards-layout; grid items default to
+     min-width:auto and will NOT shrink below their content's intrinsic width, so on
+     narrow (phone) screens the board tiles pushed this column wider than the viewport
+     and the board titles were cut off on the right. min-width:0 lets the 1fr column
+     shrink to its track so the board list fits and the titles stay visible. */
+  min-width: 0;
 }
 
 .boards-path-header {
@@ -910,11 +923,14 @@ body.grey-icons-enabled .checkmark-no-grey {
   height: 8rem;
   width: 100%;
   margin: 0;
-  padding-inline-end: 50px; /* Ensure content doesn't overlap with drag handle */
+  /* Keep clear of the drag handle, but only as much as the (smaller) handle needs —
+     on a ~2-per-row phone column the tile is narrow, so an oversized reserve hid most
+     of the board title. */
+  padding-inline-end: 30px;
 }
 
 .board-list.mobile-view .board-list-item .details {
-  padding-inline-end: 50px; /* Extra space for drag handle */
+  padding-inline-end: 30px; /* room for the drag handle */
   width: 100%;
   box-sizing: border-box;
 }
@@ -925,16 +941,16 @@ body.grey-icons-enabled .checkmark-no-grey {
 }
 .board-list.mobile-view .board-handle {
   position: absolute;
-  padding: 7px;
+  padding: 5px;
   top: 50%;
   transform: translateY(-50%);
-  inset-inline-end: 10px;
-  font-size: 24px;
+  inset-inline-end: 6px;
+  font-size: 16px;
   color: #fff;
   background: rgba(0,0,0,0.3);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
