@@ -116,6 +116,21 @@ This release fixes the following bugs:
   Both WeKan safety scripts are covered by tests that enforce they never destroy the
   live text data](https://github.com/wekan/wekan/commit/7e3ed298c71c4c5f30c84e67c841d964c386ca62).
   Thanks to bluetopaz1204, mueschel and xet7.
+- [Automatic recovery/remediation for the SQLite text data, with an Admin Panel /
+  Problems / **Recovery** report (#6492). A pure, unit-tested decision helper
+  (`decideRecovery`) picks the least-invasive recovery when the database is KNOWN
+  corrupt — latest good backup → previous backup → re-migrate text data from MongoDB →
+  (else) manual — and never acts on a healthy/unknown database. On request
+  (`WEKAN_FORCE_RESTORE` env or a `RESTORE_REQUESTED` marker) the startup scripts
+  restore a known-good backup INTO the live database before FerretDB opens it (backups
+  are never deleted, the main `wekan.sqlite` is only overwritten, attachments/avatars on
+  the filesystem are untouched). Every safety action is recorded and shown newest-first
+  in the new admin-only Recovery report (readies up front so it can't hang), and admins
+  can record a manual event. Covered by unit tests (decision logic, JSONL parser, search
+  selector) and wiring/negative tests (report is admin-gated; restore never destroys the
+  live data or a backup); documented in
+  `docs/Features/Admin-Panel/Problems/Recovery.md`](https://github.com/wekan/wekan/commit/b408c55249437bf99045f4e0cc7ab6823824449d).
+  Thanks to bluetopaz1204, mueschel and xet7.
 - [Fix: on the phone All Boards layout, board titles were cut off the right edge and
   workspace names were hard-cut in the narrow menu. The board column now shrinks to
   its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
