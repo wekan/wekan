@@ -98,6 +98,7 @@ if [ "$want_ferret" = true ]; then
       prev)   [ -f "$_rbk/prev/wekan.sqlite" ] && _rsrc="$_rbk/prev" ;;
     esac
     _ts="$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')"
+    printf 'recovery %s\n' "$_restore_mode" > "$FERRETDB_SQLITE_DIR/RECOVERY_IN_PROGRESS" 2>/dev/null || true
     if [ -n "$_rsrc" ]; then
       rm -f "$FERRETDB_SQLITE_DIR/wekan.sqlite-wal" "$FERRETDB_SQLITE_DIR/wekan.sqlite-shm"
       cp -f "$_rsrc"/wekan.sqlite* "$FERRETDB_SQLITE_DIR/" 2>/dev/null || true

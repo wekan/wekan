@@ -1,0 +1,38 @@
+/* #6492 full-page maintenance spinner shown while a data recovery is in progress. */
+.recovery-maintenance-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000; /* above modals, popups and the board canvas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 30, 45, 0.92);
+  color: #fff;
+  text-align: center;
+  padding: 24px;
+}
+
+.recovery-maintenance-box {
+  max-width: 520px;
+}
+
+.recovery-maintenance-box .sk-spinner {
+  margin: 0 auto 24px;
+}
+
+.recovery-maintenance-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 12px;
+  color: #fff;
+}
+
+.recovery-maintenance-message {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+.recovery-maintenance-note {
+  font-size: 13px;
+  opacity: 0.8;
+}

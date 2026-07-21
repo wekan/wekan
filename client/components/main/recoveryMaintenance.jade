@@ -1,0 +1,9 @@
+template(name="recoveryMaintenance")
+  if isMaintenanceActive
+    .recovery-maintenance-overlay(role="alertdialog" aria-live="assertive" aria-label="{{_ 'recovery-maintenance-title'}}")
+      .recovery-maintenance-box
+        +spinner
+        h1.recovery-maintenance-title {{_ 'recovery-maintenance-title'}}
+        if maintenanceMessage
+          p.recovery-maintenance-message {{ maintenanceMessage }}
+        p.recovery-maintenance-note.quiet {{_ 'recovery-maintenance-note'}}

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import RecoveryEvents from '/models/recoveryEvents';
+import RecoveryStatus from '/models/recoveryStatus';
 import { parseRecoveryEventsJsonl } from '/models/lib/recoveryEventsJsonl';
 
 // #6492 Recovery / Remediation bridge.
@@ -66,9 +67,74 @@ async function importRecoveryEventsFromFile() {
   }
 }
 
+// recoveryInProgressMarkerPath: the marker the startup scripts write while a restore or
+// re-migration is running; its presence at startup means recovery is (or just was) in
+// progress, so the maintenance spinner is shown until the database is confirmed healthy.
+export function recoveryInProgressMarkerPath(env = process.env) {
+  const dir = env.WEKAN_FERRETDB_SQLITE_DIR || env.FERRETDB_SQLITE_DIR || env.WEKAN_SQLITE_DIR;
+  return dir ? path.join(dir, 'RECOVERY_IN_PROGRESS') : null;
+}
+
+// probeDatabaseHealthy: a cheap, best-effort read that a broken database fails. Returns
+// true when the database serves a basic query.
+async function probeDatabaseHealthy() {
+  try {
+    const Settings = require('/models/settings').default;
+    await Settings.find({}, { fields: { _id: 1 }, limit: 1 }).fetchAsync();
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    importRecoveryEventsFromFile().catch(() => {});
+  Meteor.startup(async () => {
+    // Import any recovery events the startup scripts logged.
+    await importRecoveryEventsFromFile().catch(() => {});
+
+    // If a recovery was in progress (marker present), keep the maintenance spinner up
+    // until we confirm the database serves reads, then clear it. If it still cannot
+    // serve reads, leave the spinner on and flag that manual recovery is required.
+    let marker = null;
+    try {
+      marker = recoveryInProgressMarkerPath();
+    } catch (e) {
+      marker = null;
+    }
+
+    let inProgress = false;
+    try {
+      inProgress = !!marker && fs.existsSync(marker);
+    } catch (e) {
+      inProgress = false;
+    }
+
+    if (!inProgress) {
+      await RecoveryStatus.setMaintenance(false, '');
+      return;
+    }
+
+    await RecoveryStatus.setMaintenance(true, 'Recovering data, please wait…');
+
+    if (await probeDatabaseHealthy()) {
+      await RecoveryEvents.record(RecoveryEvents.types.INTEGRITY_OK, {
+        db: 'wekan', detail: 'Database healthy after recovery', source: 'server',
+      });
+      try {
+        fs.unlinkSync(marker);
+      } catch (e) {
+        // best-effort
+      }
+      await RecoveryStatus.setMaintenance(false, '');
+    } else {
+      await RecoveryEvents.record(RecoveryEvents.types.MANUAL_REQUIRED, {
+        db: 'wekan',
+        severity: 'error',
+        detail: 'Database still not serving reads after recovery; manual recovery required',
+        source: 'server',
+      });
+      // Leave the maintenance spinner on.
+    }
   });
 
   Meteor.methods({
@@ -84,6 +150,20 @@ if (Meteor.isServer) {
       }
 
       return RecoveryEvents.record(type, { detail: detail || undefined, source: 'manual' });
+    },
+
+    // Admin-only: turn the recovery maintenance spinner on/off (e.g. before/after a
+    // manual recovery, or a server-initiated re-migration).
+    async setRecoveryMaintenance(active, message) {
+      check(active, Boolean);
+      check(message, Match.OneOf(String, null, undefined));
+
+      const user = await Meteor.userAsync();
+      if (!user || !user.isAdmin) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      return RecoveryStatus.setMaintenance(active, message || '');
     },
   });
 }

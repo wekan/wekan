@@ -23,6 +23,7 @@ template(name="main")
       //link(rel="stylesheet" type="text/css" class="__meteor-css__" href="css/html5-default-theme.css")
 
 template(name="userFormsLayout")
+  +recoveryMaintenance
   section.auth-layout
     if currentSetting.hideLogo
       h1.at-form-landing-logo
@@ -84,6 +85,7 @@ template(name="userFormsLayout")
     br
 
 template(name="defaultLayout")
+  +recoveryMaintenance
   a.skip-link(href="#content") {{_ 'skip-to-content'}}
   +header
   #content(role="main" tabindex="-1")

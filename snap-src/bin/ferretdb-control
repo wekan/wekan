@@ -88,6 +88,9 @@ if [ -n "${_restore_mode}" ] && [ -n "${SQLITE_DIR}" ]; then
         prev)   [ -f "${_rbk}/prev/wekan.sqlite" ] && _rsrc="${_rbk}/prev" ;;
     esac
     _ts="$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')"
+    # Mark recovery in progress so the WeKan server shows a maintenance spinner until it
+    # confirms the database is healthy again (the server clears this marker).
+    printf 'recovery %s\n' "${_restore_mode}" > "${SQLITE_DIR}/RECOVERY_IN_PROGRESS" 2>/dev/null || true
     if [ -n "${_rsrc}" ]; then
         rm -f "${SQLITE_DIR}/wekan.sqlite-wal" "${SQLITE_DIR}/wekan.sqlite-shm"
         cp -f "${_rsrc}"/wekan.sqlite* "${SQLITE_DIR}/" 2>/dev/null || true

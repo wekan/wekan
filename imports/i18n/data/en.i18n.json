@@ -1614,6 +1614,8 @@
   "recovery-db": "Database",
   "recovery-detail": "Detail",
   "recovery-no-events": "No recovery events recorded. The database is healthy.",
+  "recovery-maintenance-title": "Recovering your data",
+  "recovery-maintenance-note": "Please wait — this page will continue automatically when recovery finishes.",
   "reason": "Reason",
   "copy-swimlane": "Copy Swimlane",
   "copySwimlanePopup-title": "Copy Swimlane",
