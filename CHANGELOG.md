@@ -131,6 +131,17 @@ This release fixes the following bugs:
   live data or a backup); documented in
   `docs/Features/Admin-Panel/Problems/Recovery.md`](https://github.com/wekan/wekan/commit/b408c55249437bf99045f4e0cc7ab6823824449d).
   Thanks to bluetopaz1204, mueschel and xet7.
+- [While a data recovery is in progress, WeKan now shows a full-page **maintenance
+  spinner** instead of errors or half-loaded data (#6492). A public status document
+  (everyone, including logged-out users on the sign-in page, sees it) drives a
+  full-screen overlay in both the app and sign-in layouts. The startup scripts mark
+  recovery in progress when they restore/re-migrate; the server keeps the spinner up
+  until it verifies the database serves reads, then clears it — or, if it still cannot
+  read, keeps the spinner and records that manual recovery is required. Admins can also
+  toggle maintenance for a server-initiated re-migration. The status publication is
+  public while the toggle method is admin-only, enforced by
+  tests](https://github.com/wekan/wekan/commit/f404e38f97c7668c805075e71b2609755831f6b2).
+  Thanks to bluetopaz1204, mueschel and xet7.
 - [Fix: on the phone All Boards layout, board titles were cut off the right edge and
   workspace names were hard-cut in the narrow menu. The board column now shrinks to
   its track (min-width:0) so the tiles and titles fit on screen, the mobile tile's
