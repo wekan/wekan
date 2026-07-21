@@ -90,6 +90,23 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Fix: FerretDB high CPU that continued even with no clients connected (#6498).
+  Meteor tails the OpLog (`local.oplog.rs`) with a tailable+awaitData cursor that
+  starts at boot and runs with no clients; on FerretDB v1 that tail was re-running
+  its query every 10 ms (~100 scans/second, forever), pinning CPU. This is a
+  distinct cause from the OpLog bloat capped in the earlier fix — it is the tail's
+  poll rate, not the OpLog size. The bundled FerretDB fork now polls awaitData at a
+  calmer 500 ms (still within the 1 s await budget, so reactivity latency stays low;
+  tunable with `FERRETDB_TAILABLE_AWAIT_POLL_MS`), cutting idle tail load ~50x — see
+  the FerretDB CHANGELOG. FerretDB OpLog stays ON by default (a reporter confirmed
+  the earlier CPU fix worked), so this only makes the default mode cheap at idle.
+  Additionally, for anyone who explicitly turns the OpLog OFF
+  (`WEKAN_FERRETDB_OPLOG=false`), every launcher (snap, bundled release, Docker,
+  Sandstorm) now also clears `MONGO_OPLOG_URL` in that polling-only branch, because
+  merely having it set makes Meteor tail the OpLog regardless of the reactivity
+  order — so polling-only is now truly tail-free. Covered by
+  tests](https://github.com/wekan/wekan/commit/a4c57cf77570ec4a0d7ae1a8d099e1cc6fef1751).
+  Thanks to Alishara, bluetopaz1204, mueschel and xet7.
 - [Fix: on Sandstorm, the browser error that a page "can not be displayed embedded
   in another page" after a grain's first-launch data migration. The grain launcher
   migrates the old MongoDB data to FerretDB v1 (SQLite) before starting WeKan, and
