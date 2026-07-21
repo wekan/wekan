@@ -62,23 +62,21 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
   try {
     const query = await attachmentsReportQuery(this.userId, searchTerm);
     if (query) {
-      const docs = await ReactiveCache.getAttachments(
-        query,
-        {
-          fields: {
-            _id: 1,
-            name: 1,
-            size: 1,
-            type: 1,
-            meta: 1,
-            path: 1,
-            versions: 1,
-          },
-          limit,
-          skip: skip || 0,
-        },
-        false,
-      );
+      // Query the plain Mongo collection DIRECTLY (Attachments.collection), NOT
+      // ReactiveCache.getAttachments(): the latter fetches through the ostrio
+      // FilesCollection cursor, and when that returns nothing (e.g. rows that lack
+      // the ostrio file structure) it falls back to
+      // getAttachmentsWithBackwardCompatibility(), whose old-CFS lookups can hang —
+      // so this.ready() in the `finally` never runs and the Files report is stuck on
+      // the loading spinner. A direct find on the same 'attachments' collection
+      // returns the page and always completes.
+      const cursor = Attachments.collection.find(query, {
+        fields: { _id: 1, name: 1, size: 1, type: 1, meta: 1, path: 1, versions: 1 },
+        limit,
+        skip: skip || 0,
+      });
+      const docs =
+        typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
       for (const doc of docs || []) {
         const { _id, ...fields } = doc;
         this.added('attachments', _id, fields);
@@ -103,7 +101,9 @@ Meteor.methods({
     if (!query) {
       return 0;
     }
-    const cursor = (await ReactiveCache.getAttachments(query, {}, true)).cursor;
+    // Count on the plain collection directly (same reason as the publish above:
+    // avoid the ostrio cursor / backward-compatibility path).
+    const cursor = Attachments.collection.find(query);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });
