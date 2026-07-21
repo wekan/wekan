@@ -88,6 +88,20 @@ test('windows start-wekan.bat sets MONGO_OPLOG_URL under the kill-switch', () =>
   assert.ok(/MONGO_OPLOG_URL=mongodb:\/\/127\.0\.0\.1:27017\/local\?replicaSet=/.test(src));
 });
 
+test('#6498: polling mode UNSETS MONGO_OPLOG_URL so Meteor never tails the OpLog', () => {
+  // Merely having MONGO_OPLOG_URL set makes Meteor start an OpLog tail at boot that
+  // polls FerretDB continuously (high CPU even with no clients), regardless of the
+  // reactivity order. So the WEKAN_FERRETDB_OPLOG=false / polling-only branch of every
+  // launcher must actively clear it — not merely avoid setting it.
+  for (const rel of ['snap-src/bin/wekan-control', 'releases/ferretdb/start-wekan.sh', 'releases/ferretdb/wekan-entrypoint.sh']) {
+    const src = read(rel);
+    assert.ok(/\n\s*unset MONGO_OPLOG_URL\b/.test(src), `${rel} unsets MONGO_OPLOG_URL in polling mode`);
+    assert.ok(/#6498/.test(src), `${rel} references #6498`);
+  }
+  const st = read('sandstorm-src/start.js');
+  assert.ok(/delete process\.env\.MONGO_OPLOG_URL/.test(st), 'sandstorm start.js clears MONGO_OPLOG_URL in polling mode');
+});
+
 // ── OpLog only when it works: polling must be the final reactivity fallback ──
 // Meteor tries the drivers in METEOR_REACTIVITY_ORDER left-to-right and uses
 // OpLog only when tailing actually works, else polling — so a broken/absent

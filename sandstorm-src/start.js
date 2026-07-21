@@ -285,6 +285,10 @@ function runApp() {
     process.env.METEOR_REACTIVITY_ORDER = process.env.METEOR_REACTIVITY_ORDER || 'oplog,polling';
     process.env.DEFAULT_METEOR_REACTIVITY_ORDER = process.env.DEFAULT_METEOR_REACTIVITY_ORDER || 'oplog,polling';
   } else {
+    // #6498: also clear MONGO_OPLOG_URL — merely having it set makes Meteor start an
+    // OpLog tail at boot that polls FerretDB continuously (high CPU even with no
+    // clients), regardless of the reactivity order. Clearing it makes polling-only real.
+    delete process.env.MONGO_OPLOG_URL;
     process.env.METEOR_REACTIVITY_ORDER = process.env.METEOR_REACTIVITY_ORDER || 'polling';
     process.env.DEFAULT_METEOR_REACTIVITY_ORDER = process.env.DEFAULT_METEOR_REACTIVITY_ORDER || 'polling';
   }

@@ -104,6 +104,10 @@ if [ "$want_ferret" = true ]; then
   else
     # FerretDB has no change streams; polling-only here, but still strip any
     # changeStreams that was passed in so it can never enter the order.
+    # #6498: also UNSET MONGO_OPLOG_URL — merely having it set makes Meteor start an
+    # OpLog tail at boot that polls FerretDB continuously (high CPU even with no
+    # clients), regardless of the reactivity order. Clearing it makes polling-only real.
+    unset MONGO_OPLOG_URL
     _reactivity="${METEOR_REACTIVITY_ORDER:-polling}"
     _reactivity="$(printf '%s' "${_reactivity}" | tr ',' '\n' | grep -vixE 'changeStreams?' | tr '\n' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')"
     [ -z "${_reactivity}" ] && _reactivity="polling"
