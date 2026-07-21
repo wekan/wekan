@@ -94,8 +94,11 @@ This release fixes the following bugs:
   the left menu and search bar (a single stacked column), and because dragscroll
   does not work over the menu / search area you could not drag-scroll down to the
   boards below the fold. The board icons now stay in their own column on the RIGHT
-  (narrow left menu, boards right) in both mobile and desktop mode, with the board
-  list keeping its own scroll](https://github.com/wekan/wekan/commit/23551a7cab2083186fdfbbf279a965c80b8b0398).
+  (narrow left menu, boards right) in both mobile and desktop mode, and BOTH columns
+  are their own drag-scrollable areas — a tall left menu and the boards can each be
+  scrolled down to. In RTL languages the layout mirrors automatically (menu on the
+  right, boards on the left) via the direction-aware grid and logical
+  borders](https://github.com/wekan/wekan/commit/b3d0eb33fe3a7528ef802e7addc7df70c5abdcf1).
   Thanks to xet7.
 - [Verified that list widths on public boards (#5659) are fixed: uncustomized
   lists render the one shared default width for logged-out public-board visitors
