@@ -90,6 +90,24 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Import always creates virtual users; map to real users later from the board
+  sidebar; imports can no longer hang. Board import no longer asks for member
+  mapping up front — every imported member is brought in as a virtual (placeholder)
+  user carrying its avatar, username and full name, added to the board inactive with
+  no permissions, and import runs immediately (single step, nothing to get stuck on).
+  Mapping a virtual member to an existing user is a deliberate, later action by a
+  board admin from the sidebar member-avatar popup ("Map to existing user"), and
+  cannot be used to gain privileges: it only maps a virtual member onto an existing
+  ACTIVE, REAL member of the SAME board and never changes that member's role (no new
+  membership, nothing escalated); it reassigns that virtual member's
+  cards/comments/activity on the board to the target and removes the placeholder.
+  Automatic hang mitigation bounds every import so it can never spin forever — a
+  client watchdog surfaces a timeout (and clears the spinner) and the server bounds
+  the import with the same deadline (`WEKAN_IMPORT_TIMEOUT_MS`, default 2 min) via a
+  new generic `withDeadline` wrapper. Covered by unit tests (no-escalation + auth
+  matrix, the deadline wrapper) and wiring
+  tests](https://github.com/wekan/wekan/commit/c0a1a27847f4e8928da175831d5c75b49fe6f3aa).
+  Thanks to xet7.
 - [Fix: board/JSON import "Assign members" — typed suggestions appeared but could
   not be selected, so a migrated board's members could not be mapped to existing
   WeKan users (neither clicking nor Enter did anything). The "Select member" popup
