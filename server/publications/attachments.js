@@ -75,6 +75,15 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
   this.ready();
   try {
     const query = await attachmentsReportQuery(this.userId, searchTerm);
+    if (process.env.DEBUG === 'true') {
+      // Diagnostic: distinguishes "no accessible cards" (query === null) from
+      // "accessible cards but no matching attachments" (query set, 0 docs).
+      console.log(
+        '[attachmentsList] userId=%s query=%s',
+        this.userId,
+        query ? JSON.stringify(query) : 'null (user has no accessible cards)',
+      );
+    }
     if (query) {
       // Query the plain Mongo collection directly (Attachments.collection), NOT
       // ReactiveCache.getAttachments(): the latter fetches through the ostrio
@@ -88,15 +97,18 @@ Meteor.publish('attachmentsList', async function(searchTerm = '', limit, skip = 
       });
       const docs =
         typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
+      if (process.env.DEBUG === 'true') {
+        console.log('[attachmentsList] matched %d attachment(s)', (docs || []).length);
+      }
       for (const doc of docs || []) {
         const { _id, ...fields } = doc;
         this.added('attachments', _id, fields);
       }
     }
   } catch (e) {
-    if (process.env.DEBUG === 'true') {
-      console.error('attachmentsList publish failed:', e && e.message);
-    }
+    // NEVER swallow this silently: a hidden throw here surfaces as an empty Files
+    // report with no clue in the logs (which is exactly how this hid for so long).
+    console.error('[attachmentsList] publish failed:', (e && e.stack) || e);
   }
 });
 

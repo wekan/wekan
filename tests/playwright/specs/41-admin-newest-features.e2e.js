@@ -28,6 +28,9 @@ test.describe('Admin – newest features', () => {
     // (the report restricts to attachments on cards the user can see).
     const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Files Board', cardTitlesPerList: [['FilesCard']] });
     const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'FilesCard' });
+    // Seed sanity: the attachments' meta.cardId is this id; if it were null the report
+    // could never match them, so fail here with a clear message instead of "no table".
+    expect(cardId, 'seed: findCardIdByTitle must return the seeded card id').toBeTruthy();
     const meta = { boardId: board.boardId, cardId };
     const attachmentIds = ['e2e-att-normal', 'e2e-att-encoded', 'e2e-att-invisible', 'e2e-att-homoglyph', 'e2e-att-exploit'];
     // Idempotent seed: clear any leftovers from a previous run (or another browser
@@ -44,6 +47,18 @@ test.describe('Admin – newest features', () => {
     await loginWithToken(page, adminUser.id, adminUser.token);
     await page.goto(`${BASE_URL}/admin-reports`, { waitUntil: 'networkidle' });
     await page.locator('a.js-report-files').click();
+
+    // Localize any failure: ask the SERVER directly whether it counts the seeded
+    // attachments (this method runs the SAME accessibleCardIds + meta.cardId query the
+    // report publication uses). If this is >= 5 but the table is still missing, it is a
+    // client-render problem; if it is 0 (or an error), the server query is the problem —
+    // so the failure message points straight at the layer instead of just "no table".
+    const serverCount = await page.evaluate(async () => {
+      try { return await window.Meteor.callAsync('getAttachmentsReportCount', ''); }
+      catch (e) { return `error: ${(e && e.message) || e}`; }
+    });
+    expect(serverCount, 'server getAttachmentsReportCount must see the seeded attachments')
+      .toBeGreaterThanOrEqual(5);
 
     // The report renders our attachments.
     const table = page.locator('table').first();
