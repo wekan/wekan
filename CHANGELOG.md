@@ -86,7 +86,7 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# v10.08 2026-07-21 WeKan ® release
+# v10.09 2026-07-21 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -100,14 +100,6 @@ This release fixes the following bugs:
   right, boards on the left) via the direction-aware grid and logical
   borders](https://github.com/wekan/wekan/commit/b3d0eb33fe3a7528ef802e7addc7df70c5abdcf1).
   Thanks to xet7.
-- [Verified that list widths on public boards (#5659) are fixed: uncustomized
-  lists render the one shared default width for logged-out public-board visitors
-  and members alike, board-wide widths apply to everyone, and anonymous viewers
-  customize via localStorage. The `listWidthDefaults.test.cjs` regression test
-  existed but was never wired into `npm run test:unit:node`, so it did not run; it
-  is now wired in so the fix stays
-  verified](https://github.com/wekan/wekan/commit/88642c3bd439c816e783f62281b651d6839a04a4).
-  Thanks to NadavTasher and xet7.
 - [Fix: the Files admin report (Admin Panel / Reports / Files) was stuck on the
   loading spinner and never listed its files. An `await` in the `attachmentsList`
   publication never resolved (a ReactiveCache read / the ostrio FilesCollection
@@ -120,6 +112,22 @@ This release fixes the following bugs:
   data error can never blank the
   report](https://github.com/wekan/wekan/commit/00ad2c5a688d500e3a22f43b0625498234ef0f6c).
   Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
+# v10.08 2026-07-21 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Verified that list widths on public boards (#5659) are fixed: uncustomized
+  lists render the one shared default width for logged-out public-board visitors
+  and members alike, board-wide widths apply to everyone, and anonymous viewers
+  customize via localStorage. The `listWidthDefaults.test.cjs` regression test
+  existed but was never wired into `npm run test:unit:node`, so it did not run; it
+  is now wired in so the fix stays
+  verified](https://github.com/wekan/wekan/commit/88642c3bd439c816e783f62281b651d6839a04a4).
+  Thanks to NadavTasher and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their
 translations.
