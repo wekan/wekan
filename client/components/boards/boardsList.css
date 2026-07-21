@@ -1090,20 +1090,16 @@ body.grey-icons-enabled .checkmark-no-grey {
        screen and (max-width: 800px) and (orientation: portrait),
        screen and (max-width: 800px) and (orientation: landscape),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  /* Stack the two-column All Boards layout on small screens. The fixed
-     "260px 1fr" grid had no mobile collapse, so on narrow non-iPhone browsers
-     (Fairphone Firefox ESR / Ubuntu Touch Morph, narrow desktop) it overflowed
-     and the left menu (Starred / Templates / Remaining / Workspaces / + Add
-     board) was clipped. Width-based, so it applies to every browser. */
+  /* #6488: KEEP the two-column layout (narrow left menu, board icons on the RIGHT)
+     on small touch screens — do NOT stack the boards below the menu. Stacking pushed
+     the board icons under the menu + search bar, and dragscroll does not work over
+     the menu / search area, so boards below the fold were unreachable (you could not
+     drag-scroll down to them). The narrow minmax() menu set in the block above
+     already prevents the old fixed-260px overflow that used to clip the left menu, so
+     collapsing to one column is no longer needed. The board list stays in its own
+     right-hand column with its own overflow-y:auto scroll. */
   .boards-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .boards-left-menu {
-    border-inline-end: none !important;
-    border-bottom: 1px solid #e0e0e0;
-    padding-inline-end: 0 !important;
-    padding-bottom: 12px;
+    grid-template-columns: minmax(84px, 30%) 1fr !important;
   }
 }
 .AllBoardTeamsOrgs {

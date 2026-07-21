@@ -62,13 +62,22 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       expect(xs.length).toBeGreaterThanOrEqual(2);
       expect(xs[1]).toBeGreaterThan(xs[0]);
 
+      // Layout: the board list sits to the RIGHT of the left menu (side-by-side), NOT
+      // stacked below it. Stacking pushed the boards under the menu + search bar, and
+      // since dragscroll does not work over that area you could not drag-scroll down
+      // to the boards. The board list's left edge must be at/after the menu's right.
+      const list = page.locator('ul.board-list');
+      const menuBox = await page.locator('.boards-left-menu').boundingBox();
+      const listBox = await list.boundingBox();
+      expect(menuBox && listBox).toBeTruthy();
+      expect(listBox.x).toBeGreaterThanOrEqual(menuBox.x + menuBox.width - 2);
+
       // The list must be a BOUNDED, scrollable container so boards below the fold
       // are reachable (not clipped by the surrounding overflow:hidden). Assert the
       // invariant the CSS guarantees — a scroll container whose height is bounded
       // to the viewport — instead of requiring the current board count to overflow
       // it (which depends on exact tile height vs viewport and is flaky). An
       // unbounded list that grew to fit all its boards fails clientHeight<=viewport.
-      const list = page.locator('ul.board-list');
       const m = await list.evaluate(el => ({
         overflowY: getComputedStyle(el).overflowY,
         clientHeight: el.clientHeight,

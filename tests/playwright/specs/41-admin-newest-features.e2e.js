@@ -129,7 +129,12 @@ test.describe('Admin – newest features', () => {
     await expect(stats).toContainText('Lists');
     await expect(stats.locator('.stats-view-value').first()).not.toHaveText('…', { timeout: 15_000 });
     // The text is selectable (not user-select:none) so values can be copied.
-    const userSelect = await stats.evaluate(el => getComputedStyle(el).userSelect);
+    // WebKit exposes the computed value as `webkitUserSelect` (the unprefixed
+    // `userSelect` is undefined there), so read both.
+    const userSelect = await stats.evaluate(el => {
+      const s = getComputedStyle(el);
+      return s.userSelect || s.webkitUserSelect;
+    });
     expect(['text', 'auto']).toContain(userSelect);
   });
 
