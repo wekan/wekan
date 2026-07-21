@@ -90,6 +90,28 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Fix: Docker fresh `docker compose up` showed "Connection reset by peer" and never
+  loaded (#6500). The compose ferretdb service downloads its binary on first run, so
+  it is not listening for a while after its container starts, but WeKan's
+  `depends_on` used `condition: service_started` (waits only for the container to
+  start, not for the database to accept connections) — so WeKan started against a
+  not-yet-ready database and failed. A healthcheck (a dependency-free bash `/dev/tcp`
+  probe of `127.0.0.1:27017`, with a `start_period` that covers a slow first
+  download) is added to the ferretdb service and WeKan now waits for
+  `condition: service_healthy`, matching the intent already documented in the
+  compose file](https://github.com/wekan/wekan/commit/930da57fd).
+  Thanks to youhajjioui and xet7.
+- [Fix: the admin Files report showed "No results" on FerretDB (every attachment was
+  hidden). Reproduced against a real FerretDB with the Mongo driver: older FerretDB
+  v1 builds reject `{members:{$elemMatch:{userId,isActive:true}}}` with "(BadValue)
+  unknown operator: userId", and `accessibleCardIds` used exactly that query while
+  the publication's catch swallowed the error, so the report silently returned
+  nothing. It now matches board membership by the dotted path `{'members.userId':
+  userId}` (which works on every FerretDB build) and confirms the user's own member
+  entry is active in JS, preserving the exact `$elemMatch` semantics; the publication
+  also no longer swallows query errors
+  silently](https://github.com/wekan/wekan/commit/80e87f27b).
+  Thanks to xet7.
 - [Import always creates virtual users; map to real users later from the board
   sidebar; imports can no longer hang. Board import no longer asks for member
   mapping up front — every imported member is brought in as a virtual (placeholder)
