@@ -43,9 +43,14 @@ test.describe('Card & list features', () => {
     await boardPage.locator('.js-add-location').click();
     const pop = boardPage.locator('.js-pop-over');
     await pop.waitFor({ timeout: 10_000 });
-    await pop.locator('.js-location-name').fill('WeKan HQ');
     await pop.locator('.js-location-latitude').fill('60.17');
     await pop.locator('.js-location-longitude').fill('24.94');
+    // Fill the name LAST and confirm it stuck before submitting. On WebKit the popup
+    // can reactively re-render just after opening and wipe the first-filled field —
+    // the name was previously filled first and lost (lat/lng, filled after, survived),
+    // so the location saved with coordinates but no name.
+    await pop.locator('.js-location-name').fill('WeKan HQ');
+    await expect(pop.locator('.js-location-name')).toHaveValue('WeKan HQ');
     await pop.locator('.js-submit-location').click();
 
     // The location appears in the card's Location section.
