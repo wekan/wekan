@@ -144,4 +144,24 @@ check('the old invisible-character filter / warning / legend are fully removed',
   assert.ok(!/invisibleOnly/.test(pub), 'publication no longer takes invisibleOnly');
 });
 
+// #6493: the {{cleanFilename}} / {{downloadFilename}} global helpers are registered by
+// client/components/main/safeFilename.js. That module must be IMPORTED on the client, or
+// the helpers are never registered and every template using them (card attachment
+// thumbnails, the admin Files report) throws "No such function: cleanFilename" during
+// render — which aborted card rendering (cards would not open).
+check('safeFilename helper module is imported on the client (registers cleanFilename)', () => {
+  const reg = read('client/components/main/safeFilename.js');
+  assert.ok(/registerHelper\('cleanFilename'/.test(reg), 'safeFilename registers cleanFilename');
+  assert.ok(/registerHelper\('downloadFilename'/.test(reg), 'safeFilename registers downloadFilename');
+
+  const main = read('client/features/main.js');
+  assert.ok(/import\s+'\/client\/components\/main\/safeFilename\.js'/.test(main),
+    'client/features/main.js must import safeFilename.js so the helpers are registered');
+
+  // The helpers are actually used in templates — guard that the usage still exists so
+  // this test stays meaningful.
+  const att = read('client/components/cards/attachments.jade');
+  assert.ok(/cleanFilename/.test(att), 'card attachments template uses cleanFilename');
+});
+
 console.log(`\nfileNameDisplay: ${passed} checks passed`);
