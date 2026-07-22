@@ -1818,25 +1818,24 @@ Boards.helpers({
   },
 
   getDefaultSwimline() {
-    let result = ReactiveCache.getSwimlane({ boardId: this._id });
-    if (result === undefined) {
-      // Check if any swimlane exists for this board to avoid duplicates
-      const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId: this._id });
-      if (existingSwimlanes.length > 0) {
-        // Use the first existing swimlane
-        result = existingSwimlanes[0];
-      } else if (Meteor.isServer && this._id) {
-        // Issue #6382: only the server may auto-create the default swimlane.
-        // On the client this getter runs inside reactive render contexts; when a
-        // board's swimlanes are not yet loaded/subscribed (e.g. the default
-        // subtasks board viewed via "All boards"), getSwimlanes() is transiently
-        // empty and every re-render would insert another empty swimlane —
-        // producing thousands of them and freezing the browser. The server
-        // creates the default swimlane at board creation and self-heals here.
-        // Issue #6429: self-heal via a DETERMINISTIC _id so concurrent/repeated
-        // calls are idempotent (see ensureDefaultSwimlaneId).
-        result = this.ensureDefaultSwimlaneId();
-      }
+    // Issue #1971: pick a NON-archived swimlane so a card added in List view
+    // never lands in an archived (invisible-in-swimlane-view) swimlane. The pure
+    // pickDefaultSwimlane helper prefers the first active swimlane, falling back
+    // to the first one only when every swimlane is archived (so callers reading
+    // ._id never crash).
+    const { pickDefaultSwimlane } = require('./lib/defaultSwimlane');
+    let result = pickDefaultSwimlane(ReactiveCache.getSwimlanes({ boardId: this._id }));
+    if (result === undefined && Meteor.isServer && this._id) {
+      // Issue #6382: only the server may auto-create the default swimlane. On
+      // the client this getter runs inside reactive render contexts; when a
+      // board's swimlanes are not yet loaded/subscribed (e.g. the default
+      // subtasks board viewed via "All boards"), getSwimlanes() is transiently
+      // empty and every re-render would insert another empty swimlane —
+      // producing thousands of them and freezing the browser. The server
+      // creates the default swimlane at board creation and self-heals here.
+      // Issue #6429: self-heal via a DETERMINISTIC _id so concurrent/repeated
+      // calls are idempotent (see ensureDefaultSwimlaneId).
+      result = this.ensureDefaultSwimlaneId();
     }
     return result;
   },
@@ -1879,18 +1878,17 @@ Boards.helpers({
   },
 
   async getDefaultSwimlineAsync() {
-    let result = await ReactiveCache.getSwimlane({ boardId: this._id });
-    if (result === undefined) {
-      const existingSwimlanes = await ReactiveCache.getSwimlanes({ boardId: this._id });
-      if (existingSwimlanes.length > 0) {
-        result = existingSwimlanes[0];
-      } else if (Meteor.isServer && this._id) {
-        // Issue #6382: never auto-create swimlanes from the client (see
-        // getDefaultSwimline) — only the server may insert the default one.
-        // Issue #6429: idempotent deterministic-_id upsert instead of a racy
-        // check-then-insert that produced thousands of empty swimlanes.
-        result = await this.ensureDefaultSwimlaneIdAsync();
-      }
+    // Issue #1971: prefer a NON-archived swimlane (see getDefaultSwimline).
+    const { pickDefaultSwimlane } = require('./lib/defaultSwimlane');
+    let result = pickDefaultSwimlane(
+      await ReactiveCache.getSwimlanes({ boardId: this._id }),
+    );
+    if (result === undefined && Meteor.isServer && this._id) {
+      // Issue #6382: never auto-create swimlanes from the client (see
+      // getDefaultSwimline) — only the server may insert the default one.
+      // Issue #6429: idempotent deterministic-_id upsert instead of a racy
+      // check-then-insert that produced thousands of empty swimlanes.
+      result = await this.ensureDefaultSwimlaneIdAsync();
     }
     return result;
   },

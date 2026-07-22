@@ -16,6 +16,7 @@ const assert = require('assert');
 const {
   defaultSwimlaneId,
   defaultSwimlaneFields,
+  pickDefaultSwimlane,
 } = require('../models/lib/defaultSwimlane');
 
 let passed = 0;
@@ -132,6 +133,57 @@ test('NEGATIVE: deterministic-id upsert and old random-insert diverge under the 
   assert.strictEqual(fixed.countForBoard(BOARD), 1);
   assert.strictEqual(buggy.countForBoard(BOARD), 500);
   assert.notStrictEqual(fixed.countForBoard(BOARD), buggy.countForBoard(BOARD));
+});
+
+// --- #1971: pickDefaultSwimlane skips ARCHIVED swimlanes --------------------
+// Bug: adding a card in List view assigned it to the first swimlane even when
+// that swimlane was archived, so the card was invisible in Swimlane view.
+const sl = (id, archived) => ({ _id: id, boardId: BOARD, archived: !!archived });
+
+test('#1971: the reported case — default archived, active swimlanes exist -> first ACTIVE one', () => {
+  // Default swimlane "Project" archived; "Project2"/"Project3" active.
+  const swimlanes = [sl('project', true), sl('project2', false), sl('project3', false)];
+  assert.strictEqual(pickDefaultSwimlane(swimlanes)._id, 'project2',
+    'must skip the archived swimlane and pick the first active one');
+});
+
+test('#1971: an active first swimlane is returned unchanged (no behaviour change)', () => {
+  const swimlanes = [sl('default', false), sl('other', false)];
+  assert.strictEqual(pickDefaultSwimlane(swimlanes)._id, 'default');
+});
+
+test('#1971: a swimlane with no archived field counts as active', () => {
+  assert.strictEqual(pickDefaultSwimlane([{ _id: 'a', boardId: BOARD }])._id, 'a');
+});
+
+test('#1971: when EVERY swimlane is archived, fall back to the first (never null/crash)', () => {
+  // Callers read `._id`, so returning undefined here would crash; the server
+  // self-heals a fresh default only when there are NO swimlanes at all.
+  const swimlanes = [sl('a', true), sl('b', true)];
+  assert.strictEqual(pickDefaultSwimlane(swimlanes)._id, 'a');
+});
+
+test('#1971 negative: no swimlanes at all -> undefined (server then self-heals a default)', () => {
+  assert.strictEqual(pickDefaultSwimlane([]), undefined);
+  assert.strictEqual(pickDefaultSwimlane(null), undefined);
+  assert.strictEqual(pickDefaultSwimlane(undefined), undefined);
+});
+
+test('#1971 negative: skips null/undefined entries when choosing the active swimlane', () => {
+  const swimlanes = [null, sl('archived', true), undefined, sl('live', false)];
+  assert.strictEqual(pickDefaultSwimlane(swimlanes)._id, 'live');
+});
+
+// --- source guard: getDefaultSwimline routes through pickDefaultSwimlane -----
+test('#1971 source guard: boards.js getDefaultSwimline uses pickDefaultSwimlane', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'models', 'boards.js'), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+  const uses = (src.match(/pickDefaultSwimlane\(/g) || []).length;
+  assert.ok(uses >= 2, 'both getDefaultSwimline and getDefaultSwimlineAsync must use it');
+  assert.ok(!/getSwimlane\(\{ boardId: this\._id \}\)/.test(src),
+    'the unfiltered single-swimlane fetch (could return an archived one) must be gone');
 });
 
 console.log(`\n${passed} passing`);

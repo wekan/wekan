@@ -34,4 +34,21 @@ function defaultSwimlaneFields(boardId, title) {
   };
 }
 
-module.exports = { defaultSwimlaneId, defaultSwimlaneFields };
+// Choose a board's default swimlane from its list of swimlanes (#1971). Prefer
+// the first NON-archived swimlane so a card added in List view never lands in an
+// archived swimlane (which is invisible in Swimlane view — the reported bug).
+// If every swimlane is archived, fall back to the first one (matching the old
+// non-null behaviour, so callers that read `._id` never crash). Returns
+// undefined only when the board has no swimlanes at all, which is the single
+// case where the server self-heals a fresh default (#6382/#6429).
+function pickDefaultSwimlane(swimlanes) {
+  if (!Array.isArray(swimlanes) || swimlanes.length === 0) return undefined;
+  const active = swimlanes.find(s => s && !s.archived);
+  return active || swimlanes[0];
+}
+
+module.exports = {
+  defaultSwimlaneId,
+  defaultSwimlaneFields,
+  pickDefaultSwimlane,
+};
