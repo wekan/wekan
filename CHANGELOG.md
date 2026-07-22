@@ -119,7 +119,7 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
-# Upcoming WeKan ® release
+# v10.26 2026-07-22 WeKan ® release
 
 This release fixes the following bugs:
 
