@@ -115,6 +115,28 @@ This release fixes the following SECURITY ISSUES found by GitHub CodeQL code sca
     with no runtime exposure, but the no-op was removed for correctness.
   - Thanks to **GitHub CodeQL** (code scanning alert #424) and **xet7** (fix).
 
+This release also resolves the following GitHub Dependabot alerts in the **rspack build-toolchain
+dev dependencies**, without touching the rspack major version so builds are unaffected (both
+packages enter only via `@rspack/dev-server` — the `rspack serve` dev server — and are not used by
+`meteor build`):
+
+- **webpack-dev-server 5.2.5 → 5.2.6** (npm `overrides`): fixes
+  [CVE-2026-14631](https://github.com/wekan/wekan/security/dependabot/113) (DoS via a malformed
+  Host/Origin header, alert #113) and
+  [CVE-2026-14620](https://github.com/wekan/wekan/security/dependabot/114) (CSRF via the internal
+  `/webpack-dev-server/open-editor` and `/invalidate` endpoints, alert #114). Patch release in the
+  same major line.
+- **http-proxy-middleware 2.0.9 → 2.0.10** (npm `overrides`): fixes
+  [CVE-2026-55602](https://github.com/wekan/wekan/security/dependabot/107) (a host+path router key
+  matched by unanchored substring, so a crafted Host header could route to an unintended backend,
+  alert #107). Patch release in the same major line.
+- The lock resolves with only those two entries changed; `@rspack/cli` and `@rspack/core` stay at
+  1.7.11. `elliptic` (alert #55, CVE-2025-14505) is left pinned because no fixed version is
+  published upstream (latest is still 6.6.1, dev-only, Low). The `@rspack/cli` 1→2 (PR #6497) and
+  `@babel/parser` 7→8 (PR #6484, a runtime dependency) major bumps are deferred pending build/
+  runtime testing.
+- Thanks to **GitHub Dependabot** and **xet7**.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.13 2026-07-22 WeKan ® release
