@@ -556,12 +556,45 @@ body { font-family: sans-serif !important; }
               // Get all text content from the card
               const allText = this.textContent.trim();
 
-              // Show modal with card details
-              modal.innerHTML = '<button style="position:absolute;top:10px;right:10px;padding:5px 10px;background:#f0f0f0;border:1px solid #ccc;border-radius:4px;cursor:pointer;">Close</button>';
-              modal.querySelector('button').onclick = () => { modal.style.display = 'none'; document.body.style.overflow = 'auto'; };
+              // Show modal with card details. Build it with DOM nodes and assign
+              // the card title/body through textContent — NEVER innerHTML. Those
+              // values come from .textContent, which DECODES HTML entities, so a
+              // card title holding entity-encoded markup (e.g.
+              // "&lt;img src=x onerror=...&gt;") decodes to a live tag; assigning it
+              // to innerHTML would re-parse and execute it — a stored XSS that fires
+              // when a recipient clicks the card in the exported HTML
+              // (GHSA-8r5p-4q9j-f5jx). textContent inserts them as inert text.
+              while (modal.firstChild) { modal.removeChild(modal.firstChild); }
+
+              const closeBtn = document.createElement('button');
+              closeBtn.textContent = 'Close';
+              closeBtn.style.cssText = 'position:absolute;top:10px;right:10px;padding:5px 10px;background:#f0f0f0;border:1px solid #ccc;border-radius:4px;cursor:pointer;';
+              closeBtn.onclick = () => { modal.style.display = 'none'; document.body.style.overflow = 'auto'; };
+              modal.appendChild(closeBtn);
 
               const content = document.createElement('div');
-              content.innerHTML = '<h2 style="margin-bottom:10px;">' + titleText + '</h2><hr style="margin:10px 0;"><div style="white-space:pre-wrap;word-wrap:break-word;font-family:sans-serif;font-size:13px;max-height:400px;overflow-y:auto;line-height:1.4;">' + allText + '</div><p style="color:#666;font-size:12px;margin-top:20px;"><em>Card #' + this.dataset.cardIndex + ' from exported board</em></p>';
+
+              const titleEl = document.createElement('h2');
+              titleEl.style.marginBottom = '10px';
+              titleEl.textContent = titleText;
+              content.appendChild(titleEl);
+
+              const hr = document.createElement('hr');
+              hr.style.margin = '10px 0';
+              content.appendChild(hr);
+
+              const bodyEl = document.createElement('div');
+              bodyEl.style.cssText = 'white-space:pre-wrap;word-wrap:break-word;font-family:sans-serif;font-size:13px;max-height:400px;overflow-y:auto;line-height:1.4;';
+              bodyEl.textContent = allText;
+              content.appendChild(bodyEl);
+
+              const footEl = document.createElement('p');
+              footEl.style.cssText = 'color:#666;font-size:12px;margin-top:20px;';
+              const footEm = document.createElement('em');
+              footEm.textContent = 'Card #' + this.dataset.cardIndex + ' from exported board';
+              footEl.appendChild(footEm);
+              content.appendChild(footEl);
+
               modal.appendChild(content);
 
               modal.style.display = 'block';
