@@ -3,6 +3,18 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import i18next from 'i18next';
 import sprintf from 'i18next-sprintf-postprocessor';
 import languages from './languages';
+import { unwrapI18nModule, promiseWithTimeout } from './loadHelpers';
+// #6503: STATICALLY bundle the default English translations. Every other
+// language still loads lazily via `import('./data/<tag>.i18n.json')`, but the
+// default must never depend on a dynamic import: if dynamic import() is broken
+// (e.g. a stale snap client bundle after a refresh), the UI would otherwise be
+// stuck showing raw i18n keys forever. With English in the main bundle the UI is
+// always readable and `TAPi18n.ready` always resolves.
+import enData from './data/en.i18n.json';
+
+// How long to wait for the default language's dynamic load before falling back
+// to the bundled English so readiness is never blocked by a hung import (#6503).
+const DEFAULT_LANGUAGE_LOAD_TIMEOUT_MS = 10000;
 
 const DEFAULT_NAMESPACE = 'translation';
 const DEFAULT_LANGUAGE = 'en';
@@ -73,8 +85,35 @@ export const TAPi18n = {
       },
       resources: {},
     });
-    // Load the current language data
-    await TAPi18n.loadLanguage(DEFAULT_LANGUAGE);
+    // Register the STATICALLY bundled English first, so the default language is
+    // available even if dynamic import() is broken (#6503). This guarantees a
+    // readable UI and that readiness below is never at the mercy of a lazy chunk.
+    try {
+      this.i18n.addResourceBundle(
+        this.toI18nCode(DEFAULT_LANGUAGE),
+        DEFAULT_NAMESPACE,
+        unwrapI18nModule(enData),
+      );
+    } catch (e) {
+      if (Meteor.isClient) console.error('TAPi18n.init: failed to register bundled English', e);
+    }
+
+    // Then load the current language data the normal way (this also layers any
+    // custom DB translations on top of the built-in English). A failed or HUNG
+    // dynamic import must never leave i18n permanently unready — bound it with a
+    // timeout and swallow the error; the bundled English above still applies.
+    try {
+      await promiseWithTimeout(
+        TAPi18n.loadLanguage(DEFAULT_LANGUAGE),
+        DEFAULT_LANGUAGE_LOAD_TIMEOUT_MS,
+        'TAPi18n: default language load timed out',
+      );
+    } catch (e) {
+      if (Meteor.isClient) {
+        console.error('TAPi18n.init: default language dynamic load failed; using bundled English', e);
+      }
+    }
+    // ALWAYS reached now, in every path, so the UI never gets stuck on raw keys.
     this.ready.set(true);
   },
   // Resolve an arbitrary language string to the canonical Wekan tag (a key in
@@ -137,26 +176,13 @@ export const TAPi18n = {
     // 'zh') still finds the right file and registers under the code i18next looks up.
     const key = this.resolveTag(language);
     if (key && 'load' in languages[key]) {
-      let data = await languages[key].load();
       // Dynamic `import()` of a JSON module can resolve to an ES-module
       // namespace ({ default: {...} }) rather than the bare object, depending on
-      // the bundler/interop. Unwrap it so addResourceBundle receives the actual
-      // translation map (#5756).
-      //
-      // NB: the translation data ITSELF contains a key literally named
-      // "default" (value "Default"/"Standard"), so we must NOT unwrap on the
-      // mere presence of a `default` property. Only unwrap a genuine ES-module
-      // namespace, identified by its `__esModule` / Symbol.toStringTag marker
-      // and a `default` that is the real (object) translation map.
-      const isModuleNamespace =
-        data &&
-        typeof data === 'object' &&
-        (data.__esModule === true || data[Symbol.toStringTag] === 'Module') &&
-        data.default &&
-        typeof data.default === 'object';
-      if (isModuleNamespace) {
-        data = data.default;
-      }
+      // the bundler/interop. unwrapI18nModule unwraps a genuine module namespace
+      // (identified by __esModule / Symbol.toStringTag) but NOT a plain object
+      // that merely has a "default" key — the translation data itself contains a
+      // literal "default" key (#5756). Shared with init()'s bundled English.
+      let data = unwrapI18nModule(await languages[key].load());
 
       let custom_translations = [];
       await this.loadTranslation(key);
