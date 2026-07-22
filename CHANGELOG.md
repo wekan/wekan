@@ -135,7 +135,7 @@ This release fixes the following bugs:
   `cards.js`; the lazy card-window selector is also flattened out of a top-level `$and` (which
   FerretDB does not push down) so `boardId`/`archived` push down too. The FerretDB v1 fork is
   hardened separately so a mixed `$in` (including `null`) uses the index instead of full-scanning
-  ](https://github.com/wekan/wekan/commit/0b809bccd).
+  ](https://github.com/wekan/wekan/commit/a51afa5a1).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
