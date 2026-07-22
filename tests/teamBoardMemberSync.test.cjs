@@ -186,4 +186,39 @@ test('malformed boards/args yield an empty result without throwing', () => {
   );
 });
 
+// --- #4593 WIRING: the helper must actually be called on every team change -----
+// The pure helper above is only useful if the server methods that CHANGE a
+// user's teams invoke it. Guard both call sites so the fix cannot silently
+// regress (e.g. a refactor dropping the call, which would reopen #4593).
+const fs = require('fs');
+const path = require('path');
+const usersSrc = fs.readFileSync(
+  path.join(__dirname, '..', 'server', 'models', 'users.js'),
+  'utf8',
+);
+
+test('#4593 wiring: editUser adds the user to their newly-gained teams\' boards', () => {
+  const start = usersSrc.indexOf('async editUser(');
+  assert.ok(start > -1, 'editUser method must exist');
+  const body = usersSrc.slice(start, start + 2000);
+  assert.ok(/updateData\.teams !== undefined/.test(body),
+    'editUser must detect a teams change');
+  assert.ok(/addUserToTeamBoards\(targetUserId, targetUser\.teams, updateData\.teams\)/.test(body),
+    'editUser must call addUserToTeamBoards with the old and new teams');
+});
+
+test('#4593 wiring: creating a user directly into team(s) also adds their boards', () => {
+  // The admin "add user" path that seeds teams must propagate board membership too.
+  assert.ok(/addUserToTeamBoards\(user\._id, \[\], userTeamsArray\)/.test(usersSrc),
+    'the create-with-teams path must call addUserToTeamBoards');
+});
+
+test('#4593 wiring: addUserToTeamBoards routes through the tested helper', () => {
+  const start = usersSrc.indexOf('const addUserToTeamBoards =');
+  assert.ok(start > -1, 'addUserToTeamBoards must be defined');
+  const body = usersSrc.slice(start, start + 700);
+  assert.ok(/boardsToAddMemberTo|gainedTeamIds|teamBoardMemberSync/.test(body),
+    'addUserToTeamBoards must use the teamBoardMemberSync helper (the tested decision logic)');
+});
+
 console.log(`\n${passed} tests passed`);
