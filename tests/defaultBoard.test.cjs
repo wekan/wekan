@@ -92,14 +92,19 @@ test('router redirects to the default board ONCE per session (login), not every 
   assert.ok(/getDefaultBoardId\(\)/.test(r) && /FlowRouter\.go\('board'/.test(r), 'redirects to the board');
 });
 
-test('the Home-board tile toggle is DISABLED (icon hidden, no set handler)', () => {
-  // Setting a Home board from the All Boards tiles is intentionally disabled: the
-  // fa-home toggle element and its click handler must not be rendered/wired.
+test('the per-TILE Home-board toggle is disabled, but the "Selected:" home action sets it (#2220)', () => {
+  // Setting a Home board from an individual All Boards tile is intentionally
+  // disabled (the fa-home per-tile toggle element and its click handler are not
+  // rendered/wired). Since d67d27f0d, the Home board is instead set from the
+  // "Selected:" bulk action (js-home-selected), which DOES call toggleDefaultBoard.
   const jade = read('client/components/boards/boardsList.jade');
-  assert.ok(!/a\.js-set-default-board\(/.test(jade), 'no rendered home-board toggle element');
+  assert.ok(!/a\.js-set-default-board\(/.test(jade), 'no rendered per-tile home-board toggle element');
   const js = read('client/components/boards/boardsList.js');
-  assert.ok(!/'click \.js-set-default-board'/.test(js), 'no set-default-board click handler');
-  assert.ok(!/Meteor\.call\('toggleDefaultBoard'/.test(js), 'the tile no longer calls toggleDefaultBoard');
+  assert.ok(!/'click \.js-set-default-board'/.test(js), 'no per-tile set-default-board click handler');
+  // The "Selected:" home action is the supported way to set/clear the Home board.
+  assert.ok(/'click \.js-home-selected'/.test(js), 'the "Selected:" home action handler exists');
+  assert.ok(/Meteor\.call\('toggleDefaultBoard'/.test(js),
+    'the "Selected:" home action toggles the default board');
 });
 
 console.log(`\nAll ${passed} default-board (#2220) tests passed`);
