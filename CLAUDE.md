@@ -27,6 +27,44 @@ author, and the entire "Making a release" / publishing flow) applies only in mai
 mode. The rest (translation policy, CHANGELOG structure, tests, validating from code) is
 good practice for everyone.
 
+## Process: "Fix open issues"
+
+When asked to fix an open issue (one issue at a time):
+
+1. **Read the whole issue** — the description AND all comments (e.g.
+   `gh issue view <n> --comments`, or the GitHub API `.../issues/<n>/comments`).
+2. **If it is a bug, first check whether it is already fixed** in the current WeKan
+   AND FerretDB source code (read the actual code, not just changelogs). It may have
+   been fixed already.
+3. **If it is NOT fixed yet, fix it**, using the newest documentation and issues of
+   the dependencies involved, checking where the newest MAINTAINED dependency lives and
+   reading its source and issues:
+   - Meteor 3 docs — https://docs.meteor.com/
+   - Meteor 3 source + issues — https://github.com/meteor/meteor/issues
+   - other Meteor software docs/code (e.g. Rocket.Chat) for how they solved it
+   - Meteor forums — https://forums.meteor.com
+   - AtmosphereJS — https://atmospherejs.com/ ; Packosphere — https://packosphere.com/
+   - Meteor Community Packages — https://github.com/meteor-community-packages
+   - Meteor-Files — https://github.com/veliovgroup/Meteor-Files
+   - npm — https://www.npmjs.com
+4. **After fixing, add tests** — unit tests, negative tests, and UI tests where
+   appropriate — and **run the new tests to verify they pass** (see Tests / the sandbox
+   build+test instructions in `docs/Security/Sandboxes/vscode/README.md`).
+5. **Commit** (maintainer only — when the current git user is `Lauri Ojansivu
+   <x@xet7.org>`), with no "Co-Authored" / AI trailer, a message body ending:
+
+   ```
+   Thanks to (GitHub nickname of the issue creator) and xet7 !
+
+   Fixes #1234,
+   ```
+6. **If the bug is already fixed**, still add a commit that CLOSES the issue (a commit
+   whose message ends `Fixes #1234,`), noting where/when it was fixed.
+
+Fix from source and test — do not guess. If the environment cannot run the relevant
+test (e.g. Docker is unavailable in this sandbox), reproduce as closely as possible
+from source and say clearly what was and was not verified.
+
 ## Translations (Transifex ↔ machine translations)
 
 WeKan translations live in `imports/i18n/data/<lang>.i18n.json` (flat

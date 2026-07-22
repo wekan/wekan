@@ -399,3 +399,103 @@ export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cach
 /home/wekan/.meteor/meteor npm --prefix tests/playwright install mongosh
 /home/wekan/.meteor/meteor npm --prefix tests/playwright exec playwright test -- --project=chromium
 ```
+
+## 15) From-scratch toolchain in `.tools/` — VERSION-MATCHED build + test (verified)
+
+When a sandbox has NO pre-installed `.tools/` Node and no `~/.meteor` (a bare box, any
+Linux arch), install everything into the repo-local `.tools/` directory yourself. Both
+`.tools/` and `.build*` are in `.gitignore`, so nothing here is ever committed.
+
+IMPORTANT — use the SAME versions WeKan/FerretDB use, not whatever is newest:
+
+- Node.js: the exact `NODE_VERSION` from `Dockerfile` (currently `v24.18.0`).
+- npm: the `NPM_VERSION` from `Dockerfile` (currently `11.12.1`; the npm bundled with the
+  pinned Node is acceptable if pinning fails).
+- Meteor: the release in `.meteor/release` (currently `METEOR@3.5`).
+- Go (for FerretDB ONLY): the NEWEST Go release (`https://go.dev/VERSION?m=text`) — this
+  is intentionally newer than `FerretDB/build.sh`'s pinned `GO_VERSION`.
+
+Detect the arch (`uname -m` → `x86_64`=`x64`/`amd64`, `aarch64`=`arm64`) and pick the
+matching tarballs.
+
+```bash
+cd /home/wekan/repos/wekan          # your repo path
+mkdir -p .tools && cd .tools
+A=arm64                              # or x64 for Node / amd64 for Go on x86_64
+# Node — EXACT Dockerfile NODE_VERSION:
+curl -fsSL -o node.tar.xz "https://nodejs.org/dist/v24.18.0/node-v24.18.0-linux-$A.tar.xz"
+tar xf node.tar.xz && rm node.tar.xz
+# Go — NEWEST release, for building FerretDB:
+curl -fsSL -o go.tar.gz "https://go.dev/dl/$(curl -fsSL https://go.dev/VERSION?m=text|head -1).linux-$A.tar.gz"
+tar xf go.tar.gz && rm go.tar.gz
+cd ..
+export PATH="$PWD/.tools/node-v24.18.0-linux-$A/bin:$PWD/.tools/go/bin:$PATH"
+node -v && go version
+# Meteor — the release from .meteor/release, installed under HOME=.tools so it never
+# touches a read-only ~/.meteor:
+HOME="$PWD/.tools" sh -c 'curl -fsSL "https://install.meteor.com/?release=3.5" | sh'
+export PATH="$PWD/.tools/.meteor:$PATH"
+```
+
+### Build FerretDB + run its full unit test suite (verified: all pass)
+
+```bash
+cd /home/wekan/repos/wekan/FerretDB
+export GOROOT="$PWD/../.tools/go" GOPATH="$PWD/../.tools/gopath" \
+       GOCACHE="$PWD/../.tools/gocache" GOMODCACHE="$PWD/../.tools/gomodcache" \
+       GOFLAGS=-mod=mod PATH="$PWD/../.tools/go/bin:$PATH"
+( cd build/version && go run generate.go )          # stamps the version (or --version panics)
+go build -o bin/ferretdb ./cmd/ferretdb              # -> FerretDB/bin/ferretdb
+go test -short -tags=ferretdb_debug ./internal/... ./cmd/...   # all packages: ok
+```
+
+### Build the WeKan bundle to `.build/bundle` (verified)
+
+```bash
+cd /home/wekan/repos/wekan
+export HOME="$PWD/.tools" PATH="$PWD/.tools/node-v24.18.0-linux-arm64/bin:$PWD/.tools/.meteor:$PATH"
+export TOOL_NODE_FLAGS="--max-old-space-size=8192" NODE_OPTIONS="--max-old-space-size=8192"
+meteor npm install
+meteor build .build --directory                      # -> .build/bundle/main.js
+npm install --prefix .build/bundle/programs/server   # server deps, needed to RUN the bundle
+```
+
+### Run the WeKan unit tests (verified)
+
+```bash
+cd /home/wekan/repos/wekan
+export PATH="$PWD/.tools/node-v24.18.0-linux-arm64/bin:$PATH"
+npm run test:unit:node        # plain-node .cjs unit + negative tests (no DB/browser)
+```
+
+For the Playwright UI tests, follow sections 9–14 above (they need a running WeKan app +
+`mongosh` for DB seeding).
+
+### Run the built bundle against FerretDB (what the Docker image does)
+
+```bash
+cd /home/wekan/repos/wekan; T="$PWD/.tools"; D="$PWD/.test-writable"
+mkdir -p "$D/db" "$D/files/attachments" "$D/files/avatars"
+# 1) FerretDB first (SQLite, replica-set so the OpLog exists):
+DO_NOT_TRACK=1 ./FerretDB/bin/ferretdb --handler=sqlite --sqlite-url="file:$D/db/" \
+  --listen-addr=127.0.0.1:27017 --repl-set-name=rs0 --state-dir="$D" \
+  --telemetry=disable --log-level=error &
+# 2) THEN WeKan (starting it before FerretDB is ready crashes on the users index —
+#    "Topology is closed" — see #6500):
+PATH="$T/node-v24.18.0-linux-arm64/bin:$PATH" MONGO_URL="mongodb://127.0.0.1:27017/wekan" \
+  METEOR_REACTIVITY_ORDER="oplog,polling" \
+  MONGO_OPLOG_URL="mongodb://127.0.0.1:27017/local?replicaSet=rs0" \
+  PORT=8080 ROOT_URL="http://localhost:8080" WRITABLE_PATH="$D" \
+  node .build/bundle/main.js
+# -> http://localhost:8080 serves once startup finishes (~10-30s).
+```
+
+### Docker is NOT available inside this Flatpak sandbox
+
+`docker` / `docker-compose` / `podman` are not present in the VSCode Flatpak sandbox, so
+`docker compose up` cannot be run here. To reproduce a `docker-compose.yml`-style setup,
+run FerretDB and the bundle manually as shown above (the compose `ferretdb` service just
+downloads and runs the same `ferretdb-<arch>` binary; the `wekan` service just runs the
+same bundle). The Docker-only startup race in #6500 (WeKan starting before FerretDB is
+ready) is fixed in `docker-compose.yml` with a ferretdb healthcheck + `depends_on:
+condition: service_healthy`; when running manually, always start FerretDB first.
