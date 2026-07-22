@@ -132,7 +132,7 @@ This release fixes the following bugs:
   DataCache and Tracker computation were rebuilt on EVERY reactive read, churning computations
   app-wide and racing Blaze's view teardown into an infinite reactive loop + removed-DomRange crash.
   Every other getter creates its DataCache once; these two now do the same, returning a stable value
-  until the setting / user exists](https://github.com/wekan/wekan/commit/00ef255b0).
+  until the setting / user exists](https://github.com/wekan/wekan/commit/72768e05f).
   Thanks to AmigaAbattoir and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
@@ -173,7 +173,7 @@ This release fixes the following bugs:
   virtual (placeholder) users (mapped to an existing user by username where one matches), so board
   membership and authorship keep the original person instead of collapsing onto the importer. Covers
   the single-board Trello JSON import, the Trello API import, and the WeKan JSON import
-  ](https://github.com/wekan/wekan/commit/eb80ee69f).
+  ](https://github.com/wekan/wekan/commit/0e0391f6c).
   Thanks to AmigaAbattoir and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
