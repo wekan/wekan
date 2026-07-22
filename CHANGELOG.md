@@ -86,6 +86,24 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+- **i18n never gets stuck showing raw translation keys if a dynamic language import fails**
+  (related to [#6503](https://github.com/wekan/wekan/issues/6503)). `TAPi18n.init()` awaited a
+  dynamic `import('./data/en.i18n.json')` and only marked i18n ready afterwards, so if that lazy
+  chunk hung or failed — e.g. a stale snap client bundle after a refresh — the whole UI showed raw
+  keys (like `changeLanguagePopup-title`) forever with no recovery. The default English is now
+  statically bundled and registered first (the UI is always readable), and the dynamic load is
+  bounded by a timeout so readiness is reached in every path. Note: this hardens the raw-key
+  symptom; the dead OIDC/Register buttons in that report point to a stale dynamic-import bundle
+  cache on the snap (a hard reload / clean snap rebuild is the confirming test), not a change in
+  WeKan's login code (which is unchanged between 10.11 and 10.13). Thanks to **Alishara** and
+  **xet7**.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.15 2026-07-22 WeKan ® release
 
 This release fixes the following bugs:
