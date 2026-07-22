@@ -127,6 +127,21 @@ All publishing / release steps below are maintainer-only. Contributors never run
   WeKan and run tests.
 - Add tests, negative tests and UI tests for all new features and fixes that do not yet
   have tests. When adding a test, run or validate it and fix it until it works.
+- **"Check newest test logs":** test logs are written outside this repo, in
+  `../log/<datetime>/` (one directory per run, e.g. `../log/2026-07-21_20-58-09/`). The
+  newest datetime directory is the latest run. Each holds the Playwright per-browser
+  logs (`wekan-alltests-chromium.log`, `-firefox.log`, `-webkit.log`), the mocha/unit
+  log (`wekan-alltests-mocha.log`), the e2e/import logs, and `wekan-test-server.log`
+  (the WeKan test server + database output). "Check the newest test logs" means: open
+  the most recent `../log/<datetime>/` and read those.
+
+## Environment
+
+- The editor (VSCode) runs inside a **Flatpak sandbox**, launched by
+  `docs/Security/Sandboxes/vscode/vscode-sandbox.sh`. What the sandbox allows/blocks and
+  how it is set up is documented in `docs/Security/Sandboxes/vscode/README.md` in that
+  same directory — read it when something behaves differently than a normal host (file
+  access, network, running services).
 
 ### Always validate from the actual code
 
