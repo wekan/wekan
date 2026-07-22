@@ -16,9 +16,13 @@ changes** required.
 
 ## Remaining steps
 
-> **Status:** the `snap-variants` job **is already wired into `release-all.yml`** — it is
-> guarded and skips with a `::notice::` until the items below are done, so it never breaks
-> an ordinary release.
+> **Status:** the `snap-variants` job **is wired into `release-all.yml`** but is currently
+> **hard-disabled** with `if: ${{ false }}` (it was grouped with the failing snap
+> exotic-arch jobs). It is also internally **guarded** — even with the `if` removed it skips
+> with a `::notice::` until the items below are done — so it never breaks an ordinary
+> release. To actually publish the variant snaps you need **both**: (a) complete steps 1–4
+> below, **and** (b) remove the `if: ${{ false }}` line from the `snap-variants` job in
+> `release-all.yml` (see step 5).
 
 1. **Register the snap names** (one-time, on the machine holding the WeKan Snap Store
    account): `snapcraft register wekan-ondra` and `snapcraft register wekan-gantt-gpl`.
@@ -31,9 +35,35 @@ changes** required.
      --acls package_access,package_push,package_release,package_update snap-auth.txt
    gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt
    ```
-4. **Extend `WEKAN_REPO_TOKEN`** to have write access to the two variant repos (add them
-   to the token's repo scope; the stored secret value stays the same).
-5. Done — the next release publishes both variant snaps to stable/candidate/beta/edge.
+4. **Extend `WEKAN_REPO_TOKEN`** so it can push the newest `wekan` code into the two
+   variant repos. **The stored secret value never changes** — you only widen the token's
+   repo scope on GitHub, so there is **no** `gh secret set WEKAN_REPO_TOKEN` step. How you
+   do it depends on the token type:
+
+   - **Classic PAT (scope `repo`)** — already covers *every* org repo its owner can write
+     to, so there is usually **nothing to change on the token**. Just make sure the two
+     repos exist (step 2) and the token owner (the WeKan account) has **Write** (or Admin)
+     on both — automatic if they are a `wekan` org owner/admin, otherwise add them as a
+     collaborator with Write. Do **not** re-store the secret.
+   - **Fine-grained PAT** — only reaches **explicitly selected** repos, so you must edit it:
+     GitHub → account **Settings → Developer settings → Personal access tokens →
+     Fine-grained tokens** → open the token used as `WEKAN_REPO_TOKEN` → **Repository
+     access** → *Only select repositories* → add `wekan-ondra` and `wekan-gantt-gpl` (or
+     *All repositories*) → confirm **Permissions → Repository permissions → Contents:
+     Read and write** → **Update token**. The token string is unchanged, so the secret is
+     not re-stored.
+   - **Deploy-key alternative** — instead of widening one PAT, add a **write deploy key**
+     to each variant repo and store the private keys as `ONDRA_DEPLOY_KEY` /
+     `GANTT_DEPLOY_KEY` (more secrets, but each is scoped to exactly one repo). See §2.
+
+   Verify the scope is right with a throwaway push, e.g.
+   `git push https://x-access-token:<token>@github.com/wekan/wekan-ondra HEAD:refs/heads/scope-test`
+   should succeed (not 403); then delete the test branch.
+5. **Re-enable the job** — remove the `if: ${{ false }}` line from the `snap-variants` job
+   in `.github/workflows/release-all.yml`. With steps 1–4 done and the `if` removed, the
+   next release publishes both variant snaps to stable/candidate/beta/edge. (If the store
+   ACL or repo token is still missing, the job skips itself with a `::notice::` rather than
+   failing the release.)
 
 **How to add/update a secret:** GitHub → the `wekan/wekan` repo → **Settings → Secrets and
 variables → Actions → New repository secret**; or the CLI `gh secret set NAME --repo
@@ -235,10 +265,13 @@ Snap Store listing. `version:` stays as the shared WeKan version.
 - [ ] `snapcraft register wekan-ondra` and `snapcraft register wekan-gantt-gpl` (§1a)
 - [ ] Re-export `SNAP_AUTH` with ACL for all three names — or add `SNAP_AUTH_ONDRA` /
       `SNAP_AUTH_GANTT` (§1b, §2)
-- [ ] Extend `WEKAN_REPO_TOKEN` scope to include both variant repos — or add per-repo
-      deploy keys (§1c, §2)
+- [ ] Extend `WEKAN_REPO_TOKEN` scope to include both variant repos — classic `repo` PAT
+      needs nothing changed (just org write access); fine-grained PAT must add the two repos
+      with Contents: Read/Write — or add per-repo deploy keys. The secret value is unchanged
+      either way (§1c, §2, Remaining step 4)
 - [ ] Confirm the two variant repos hold nothing that must survive the overwrite (§1c)
-- [ ] Add the `snap-variants` job to `release-all.yml` (§3)
+- [ ] The `snap-variants` job is already in `release-all.yml` (§3) — **remove its
+      `if: ${{ false }}` line** to re-enable it (Remaining step 5)
 - [ ] Run one release and verify both snaps appear at
       `https://snapcraft.io/wekan-ondra` and `https://snapcraft.io/wekan-gantt-gpl`
       in all four channels
