@@ -20,8 +20,13 @@
 
 const assert = require('assert');
 
-// The vendored file is a sloppy-mode IIFE that publishes onto a `Package`
-// global (creating it when missing) — exactly how the jade loader consumes it.
+// The vendored file is a sloppy-mode IIFE that publishes onto a `Package` global,
+// but it FIRST reads Package.meteor.Meteor and Package.tracker.{Tracker,Deps} at the
+// top — before its own `if (typeof Package === 'undefined') Package = {}` — so provide
+// a minimal Package global here; the file then publishes Package.htmljs onto it.
+global.Package = global.Package || {};
+global.Package.meteor = global.Package.meteor || { Meteor: {} };
+global.Package.tracker = global.Package.tracker || { Tracker: {}, Deps: {} };
 require('../npm-packages/meteor-jade-loader/lib/vendor/htmljs.js');
 const HTML = global.Package.htmljs.HTML;
 

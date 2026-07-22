@@ -132,8 +132,15 @@ test('loginHandler runs the whole login flow through runWithLdapDisconnect', () 
   assert.ok(loginHandler.includes("from './connectionGuard'"),
     'loginHandler must import the connection guard');
 
-  const wrapIdx = loginHandler.indexOf('runWithLdapDisconnect(ldap');
-  const connectIdx = loginHandler.indexOf('ldap.connect()');
+  // Strip comments first: a comment that MENTIONS ldap.connect() (e.g. "the
+  // connection opened by ldap.connect() below") appears before the actual guarded
+  // call and would otherwise be mistaken for the call itself, failing this check
+  // even though the code is correct.
+  const code = loginHandler
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\/\/[^\n]*/g, '');
+  const wrapIdx = code.indexOf('runWithLdapDisconnect(ldap');
+  const connectIdx = code.indexOf('ldap.connect()');
 
   assert.ok(wrapIdx !== -1, 'loginHandler must wrap the flow in runWithLdapDisconnect');
   assert.ok(connectIdx !== -1, 'loginHandler must still connect');

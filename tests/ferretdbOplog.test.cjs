@@ -136,7 +136,10 @@ test('Sandstorm launcher runs steady-state FerretDB with the OpLog + reactivity 
 test('kill-switch path (WEKAN_FERRETDB_OPLOG=false) selects polling-only reactivity', () => {
   for (const f of ['snap-src/bin/wekan-control', 'releases/ferretdb/start-wekan.sh', 'releases/ferretdb/wekan-entrypoint.sh']) {
     const src = read(f);
-    assert.ok(/METEOR_REACTIVITY_ORDER="\$\{METEOR_REACTIVITY_ORDER:-polling\}"/.test(src),
+    // Both forms select polling-only: wekan-control forces "polling" (the kill-switch
+    // means polling, period), while the release scripts default to polling but let an
+    // explicit METEOR_REACTIVITY_ORDER override it (`${...:-polling}`). Accept either.
+    assert.ok(/METEOR_REACTIVITY_ORDER="(\$\{METEOR_REACTIVITY_ORDER:-polling\}|polling)"/.test(src),
       `${f} must fall to polling-only when OpLog is disabled`);
   }
 });
