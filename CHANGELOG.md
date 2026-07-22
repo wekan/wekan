@@ -86,6 +86,22 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+- [Add-card: pressing Tab no longer loses the typed card text. The add-card form's Tab handler is
+  a deliberate power feature — Tab jumps to the next column's add-card form so cards can be added
+  across columns quickly — but it opened that next form while abandoning whatever was typed in the
+  current one, so pressing Tab mid-entry silently lost the card text (the card appeared to "move to
+  the next column" with no content). It now submits the current card first (only when the textarea
+  has non-whitespace content, so Tab in an empty box does not create a blank card), then jumps to
+  the next column's form — preserving both the content and the column-jump feature
+  (#1195)](https://github.com/wekan/wekan/commit/50a44243a).
+  Thanks to callahad and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.17 2026-07-22 WeKan ® release
 
 This release fixes the following bug:
