@@ -160,6 +160,13 @@ Meteor.methods({
     check(value, Boolean);
     if (await callerIsAdmin(this.userId)) {
       await Org.updateAsync(org, { $set: { orgPropagateMembersToBoards: value } });
+      // #4737/#5850: actually ACT on the flag. Turning it on adds this org's
+      // members to the boards that list the org (add-only). Previously the flag
+      // was stored but nothing ever propagated (the method had no caller).
+      if (value === true) {
+        const { propagateGroupMembersToBoards } = require('/server/propagateOrgTeamMembers');
+        await propagateGroupMembersToBoards('org', org);
+      }
     }
   },
 
