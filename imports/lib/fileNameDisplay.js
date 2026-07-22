@@ -42,13 +42,26 @@ function decodeFileNameSafe(name) {
 // php/asp processing instructions, CDATA, template-injection payloads, and
 // dangerous URI schemes.
 function stripExploitPatterns(s) {
-  return String(s == null ? '' : s)
-    .replace(/<\?[\s\S]*?(\?>|$)/g, '')                 // <?php … ?> / <?xml … ?>
-    .replace(/<!\[[\s\S]*?(\]>|$)/g, '')                // <![CDATA[ … ]]>
-    .replace(/\{\{[\s\S]*?\}\}|\$\{[\s\S]*?\}|<%[\s\S]*?%>/g, '') // template injection
-    .replace(/<[^>]*>?/g, '')                           // any HTML/XML tag (incl. unclosed)
-    .replace(/(javascript|vbscript|data)\s*:/gi, '')    // dangerous URI schemes
-    .replace(/[<>]/g, '');                              // any stray angle brackets
+  // Apply the removals REPEATEDLY until the string stops changing (a fixpoint).
+  // A single pass can splice two surviving fragments into a NEW dangerous token —
+  // e.g. "<scr<x>ipt>" or "<scr{{y}}ipt>" become "<script>" after the inner part is
+  // removed — which is the js/incomplete-multi-character-sanitization weakness
+  // (CodeQL: the result "may still contain <script"). Looping removes any token that
+  // an earlier removal reveals. Each replacement only ever DELETES text, so the string
+  // strictly shrinks and the loop always terminates.
+  let out = String(s == null ? '' : s);
+  let prev;
+  do {
+    prev = out;
+    out = out
+      .replace(/<\?[\s\S]*?(\?>|$)/g, '')               // <?php … ?> / <?xml … ?>
+      .replace(/<!\[[\s\S]*?(\]>|$)/g, '')              // <![CDATA[ … ]]>
+      .replace(/\{\{[\s\S]*?\}\}|\$\{[\s\S]*?\}|<%[\s\S]*?%>/g, '') // template injection
+      .replace(/<[^>]*>?/g, '')                         // any HTML/XML tag (incl. unclosed)
+      .replace(/(javascript|vbscript|data)\s*:/gi, '')  // dangerous URI schemes
+      .replace(/[<>]/g, '');                            // any stray angle brackets
+  } while (out !== prev);
+  return out;
 }
 
 // Confusable homoglyphs: characters from other scripts (mainly Cyrillic and
