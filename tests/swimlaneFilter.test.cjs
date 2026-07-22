@@ -88,9 +88,11 @@ const BACKGROUND = 'swimlane-background';
 const LIST = 'list-1';
 
 // --- swimlaneMembershipSelector ---------------------------------------------
-test('swimlaneMembershipSelector uses a single $in clause, not a top-level $or', () => {
+test('a NON-first swimlane clause is a single own-swimlane match (no $or)', () => {
   const sel = swimlaneMembershipSelector(BACKGROUND);
-  assert.deepStrictEqual(sel, { swimlaneId: { $in: [BACKGROUND, null, ''] } });
+  // Doubled-cards fix: a non-first swimlane matches ONLY its own cards; shared
+  // cards (null/'') surface once, in the first swimlane (the $nin branch).
+  assert.deepStrictEqual(sel, { swimlaneId: BACKGROUND });
   assert.ok(!('$or' in sel), 'must NOT introduce a top-level $or (#6441)');
 });
 
@@ -99,12 +101,12 @@ test('swimlaneMembershipSelector is empty without a swimlane context', () => {
   assert.deepStrictEqual(swimlaneMembershipSelector(''), {});
 });
 
-test('the swimlane clause matches the swimlane plus orphaned/shared cards', () => {
+test('a non-first swimlane clause matches ONLY its own cards, not shared/orphaned', () => {
   const sel = swimlaneMembershipSelector(BACKGROUND);
   assert.ok(docMatches(sel, { swimlaneId: BACKGROUND }));
-  assert.ok(docMatches(sel, { swimlaneId: null }));
-  assert.ok(docMatches(sel, { swimlaneId: '' }));
-  assert.ok(docMatches(sel, {}), 'missing swimlaneId is treated as orphaned');
+  assert.ok(!docMatches(sel, { swimlaneId: null }), 'shared card surfaces in the FIRST swimlane, not here');
+  assert.ok(!docMatches(sel, { swimlaneId: '' }), 'empty/shared surfaces in the first swimlane');
+  assert.ok(!docMatches(sel, {}), 'missing swimlaneId surfaces in the first swimlane');
   assert.ok(!docMatches(sel, { swimlaneId: FOCUS }), 'other swimlane excluded');
 });
 
@@ -162,15 +164,22 @@ test('#6441: matching result is identical across swimlanes for the same card', (
   });
 });
 
-test('#6441: an orphaned (no swimlane) card is filtered consistently in every swimlane', () => {
+test('shared/orphaned (no-swimlane) cards surface ONCE, in the first swimlane (not every)', () => {
+  // Doubled-cards fix: previously these matched in EVERY swimlane; now a non-first
+  // swimlane does not show them, and the first swimlane shows them once. The label
+  // filter still applies (an unlabelled card is hidden even in the first swimlane).
   const orphanLabelled = { _id: 'c7', listId: LIST, archived: false }; // no swimlaneId, no labels
   const orphanWithLabel = { _id: 'c8', listId: LIST, archived: false, labelIds: [RECURRING] };
 
+  // NON-first swimlanes: shared cards are not shown (no duplication).
   [FOCUS, BACKGROUND].forEach(swimlaneId => {
     const sel = filteredListCardsSelector(LIST, swimlaneId, labelFilterSelector(RECURRING));
-    assert.ok(!docMatches(sel, orphanLabelled), `orphaned unlabelled card hidden in ${swimlaneId}`);
-    assert.ok(docMatches(sel, orphanWithLabel), `orphaned labelled card shown in ${swimlaneId}`);
+    assert.ok(!docMatches(sel, orphanWithLabel), `shared card NOT in non-first swimlane ${swimlaneId}`);
   });
+  // FIRST swimlane (otherSwimlaneIds passed): shown once, still filtered by label.
+  const firstSel = filteredListCardsSelector(LIST, BACKGROUND, labelFilterSelector(RECURRING), [FOCUS]);
+  assert.ok(docMatches(firstSel, orphanWithLabel), 'shared labelled card shown once in the first swimlane');
+  assert.ok(!docMatches(firstSel, orphanLabelled), 'unlabelled shared card still hidden by the label filter');
 });
 
 // --- do not regress other filter types --------------------------------------
@@ -212,10 +221,11 @@ test('#6443: first swimlane surfaces own, shared AND orphaned cards; excludes ot
   assert.ok(!docMatches(sel, { swimlaneId: FOCUS }), 'card owned by another existing swimlane excluded');
 });
 
-test('#6443: a non-first swimlane does NOT show orphaned cards (own + shared only)', () => {
+test('a non-first swimlane shows ONLY its own cards (shared + orphaned surface once, in the first)', () => {
   const sel = swimlaneMembershipSelector(FOCUS); // no otherSwimlaneIds passed
   assert.ok(docMatches(sel, { swimlaneId: FOCUS }));
-  assert.ok(docMatches(sel, { swimlaneId: null }));
+  assert.ok(!docMatches(sel, { swimlaneId: null }), 'shared card is NOT duplicated into non-first swimlanes');
+  assert.ok(!docMatches(sel, { swimlaneId: '' }), 'empty/shared card not duplicated here');
   assert.ok(!docMatches(sel, { swimlaneId: DELETED }), 'orphaned card is not duplicated into non-first swimlanes');
 });
 

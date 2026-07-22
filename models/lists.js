@@ -18,10 +18,12 @@ const Lists = new Mongo.Collection('lists');
 //
 // - When `swimlaneId` is undefined (no swimlane context), every card in the
 //   list is returned (preserves the historical "select all in list" behavior).
-// - When `swimlaneId` is provided, a card matches when its `swimlaneId` equals
-//   the given value, OR the card has no swimlane at all (null / '' / missing),
-//   mirroring `cards()` so orphaned/pre-migration cards stay selectable in
-//   every swimlane.
+// - When `swimlaneId` is provided (a NON-first swimlane), a card matches only
+//   when its `swimlaneId` equals the given value. Shared / pre-migration cards
+//   (swimlaneId null / '' / missing) are NOT surfaced here — they surface once,
+//   in the FIRST swimlane (the otherSwimlaneIds branch), so a card is never
+//   selected in more than one swimlane (mirrors swimlaneMembershipSelector; the
+//   "doubled cards" fix).
 // - #6443: when `otherSwimlaneIds` is provided (the board's OTHER swimlane ids,
 //   i.e. this is the FIRST swimlane), a card also matches when its swimlaneId is
 //   "orphaned" — a non-empty value that is not one of the board's existing
@@ -46,12 +48,9 @@ export function filterCardsByListAndSwimlane(cards, listId, swimlaneId, otherSwi
       // swimlane (own id, null/'', missing, or orphaned all pass).
       return !otherSwimlaneIds.includes(cardSwimlaneId);
     }
-    return (
-      cardSwimlaneId === swimlaneId ||
-      cardSwimlaneId === null ||
-      cardSwimlaneId === undefined ||
-      cardSwimlaneId === ''
-    );
+    // NON-first swimlane: ONLY its own cards — shared cards surface once, in the
+    // first swimlane above.
+    return cardSwimlaneId === swimlaneId;
   });
 }
 

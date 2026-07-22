@@ -52,13 +52,21 @@
 function swimlaneMembershipSelector(swimlaneId, otherSwimlaneIds) {
   if (!swimlaneId) return {};
   if (Array.isArray(otherSwimlaneIds)) {
-    // First swimlane: everything in the list that is NOT owned by another
-    // existing swimlane (own id, null/'', missing, or orphaned).
+    // FIRST swimlane: everything in the list NOT owned by another existing
+    // swimlane — its own cards, shared cards (null/''/missing) AND orphaned cards
+    // (a swimlaneId pointing at a deleted swimlane). This is where shared/orphaned
+    // cards surface — ONCE.
     return { swimlaneId: { $nin: otherSwimlaneIds } };
   }
-  // `$in` with null matches swimlaneId === null AND a missing swimlaneId field;
-  // '' covers the empty-string value from the shared-lists era.
-  return { swimlaneId: { $in: [swimlaneId, null, ''] } };
+  // NON-first swimlane: ONLY its own cards. Shared cards (null/'') are NOT
+  // surfaced here — they appear once, in the FIRST swimlane above — so a card is
+  // never shown in more than one swimlane. Previously this was
+  // `{ swimlaneId: { $in: [swimlaneId, null, ''] } }`, which put every shared /
+  // pre-migration card (swimlaneId null) into EVERY swimlane, so on a multi-
+  // swimlane board those cards appeared once per swimlane — the reported "doubled
+  // cards". Still a single field clause (no second $or), so the #6441 board-wide
+  // filter fix is preserved.
+  return { swimlaneId };
 }
 
 // Base (unfiltered) selector for the active cards of one list, optionally
