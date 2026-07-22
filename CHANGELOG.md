@@ -71,7 +71,11 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   drop into a list when it is scrolled to the bottom — drag-drop/scroll),
   [#1942](https://github.com/wekan/wekan/issues/1942) (a card linked from board A into board B shows a
   blank view / freezes when the viewer has no rights on board A — the linked-card open resolves the real
-  card the viewer cannot see; needs a runtime permission + reactive-close-on-no-access fix verified live).
+  card the viewer cannot see; needs a runtime permission + reactive-close-on-no-access fix verified live),
+  [#6430](https://github.com/wekan/wekan/issues/6430) (~1s card flicker when dragging to another list on
+  LARGE boards — a drag/reactivity re-render; xet7 already reduced it in commit 2e7c4ed but the reporter
+  says it persists, so it needs a large board in a browser to profile; related to the #6480 adaptive card
+  loading and #5421).
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
@@ -92,7 +96,11 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   decision @xet7 raised, not a clear bug),
   [#1995](https://github.com/wekan/wekan/issues/1995) (edit description/etc. directly on a linked card —
   by design a linked card mirrors the original rather than owning its own fields, so this is a feature
-  request, same class as #3748).
+  request, same class as #3748),
+  [#5323](https://github.com/wekan/wekan/issues/5323) (notification/webhook reminder on a card's due date
+  with a per-board offset — labelled Feature; the built-in due-date reminder already exists
+  (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`, improved in #3192), so the remaining ask is the per-board offset
+  UI + a webhook reminder, a feature).
 - **Needs a maintainer decision on the intended contract (partly already works):**
   [#4912](https://github.com/wekan/wekan/issues/4912) (a global `act-editCard` webhook — card title/description edits
   ALREADY reach the global webhook via `Activities.after.insert` as `act-a-changedTitle` / `act-a-changedDescription`
