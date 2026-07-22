@@ -128,6 +128,30 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Swimlanes view: a shared card no longer appears in every swimlane ("doubled cards"). A card with
+  no swimlane (`swimlaneId` null / '' — a shared / pre-migration card) was surfaced in EVERY
+  swimlane, so on a board with several swimlanes the same card rendered once per swimlane (and the
+  extra DOM contributed to the search hang / can't-scroll on big boards). A non-first swimlane now
+  shows only its own cards; shared and orphaned cards surface ONCE, in the first swimlane, so a card
+  is never shown in more than one swimlane. Board-wide label filtering (#6441) is
+  preserved](https://github.com/wekan/wekan/commit/646a3fc19).
+  Thanks to xet7.
+
+- [Repair for boards where a list "disappeared" from swimlanes (the #6484 corruption). The #6484 bug
+  — nudging a board-wide list in swimlanes view bound it to one swimlane and moved its cards there,
+  so it vanished from the other swimlanes — was fixed in code, but boards already hit keep the
+  wrongly-set `list.swimlaneId`. A new board-admin method `repairBoardWideLists(boardId)` clears
+  those lists back to board-wide (rendered under every swimlane); it is idempotent and scoped to the
+  one board. (Cards the bug moved into one swimlane are not restored — recover those from a backup.)
+  ](https://github.com/wekan/wekan/commit/a15363373).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.21 2026-07-22 WeKan ® release
 
 This release adds the following features:
