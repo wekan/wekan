@@ -26,33 +26,6 @@ const specialHandleNames = specialHandles.map(m => m.username);
 
 Template.editor.onRendered(function () {
     const tpl = this;
-    // Start: Copy <pre> code https://github.com/wekan/wekan/issues/5149
-    // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
-    //       - Also this same TODO below at event, if someone gets it working.
-    var copy = function(target) {
-      var textArea = document.createElement('textarea');
-      textArea.setAttribute('style','width:1px;border:0;opacity:0;');
-      document.body.appendChild(textArea);
-      textArea.value = target.innerHTML;
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-    }
-    var pres = document.querySelectorAll(".viewer > pre");
-    pres.forEach(function(pre){
-      var button = document.createElement("a");
-      button.className = "fa fa-copy btn btn-sm right";
-      // TODO: Translate text 'Copy text to clipboard'
-      button.setAttribute('title','Copy text to clipboard');
-      button.innerHTML = '';
-      pre.parentNode.insertBefore(button, pre);
-      button.addEventListener('click', function(e){
-        e.preventDefault();
-        copy(pre.childNodes[0]);
-      })
-    })
-    // End: Copy <pre> code
-
     const textareaSelector = 'textarea';
     const mentions = [
       // User mentions
@@ -333,10 +306,9 @@ Template.editor.events({
       const $editor = tpl.$('textarea.editor');
       $editor[0].value = converter.convert($editor[0].value);
     },
-    // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
-    //'click .js-close-inlined-form'(event) {
-    //  Utils.copyPre();
-    //},
+    // #5149: the code-block copy button is now (re)added by Template.viewer
+    // .onRendered for every viewer render, so it no longer needs to be poked
+    // after closing the inline editor.
 });
 
 import DOMPurify from 'dompurify';
@@ -463,6 +435,54 @@ Blaze.Template.registerHelper(
     return HTML.Raw(sanitizeHTML(content, { stripLinks }));
   }),
 );
+
+// #5149: copy a code block to the clipboard from the read-only card viewer.
+// Copy the RAW text (textContent) of the <pre> — the previous version copied the
+// HTML-escaped innerHTML of the first child node (often the wrong content or
+// undefined) via a one-time global `document.querySelectorAll('.viewer > pre')`
+// in Template.editor.onRendered, which decorated only whichever viewers happened
+// to be on the page at that instant ("works sporadically") and lost the button
+// after editing. Decorating in Template.viewer.onRendered runs for EVERY viewer
+// (description, checklist item, comment) and again on every re-render, and is
+// de-duplicated so re-renders never stack multiple buttons.
+function copyCodeBlockText(text) {
+  const value = typeof text === 'string' ? text : '';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(value).catch(() => fallbackCopyText(value));
+  } else {
+    fallbackCopyText(value);
+  }
+}
+function fallbackCopyText(value) {
+  const textArea = document.createElement('textarea');
+  textArea.setAttribute('style', 'position:fixed;top:0;left:0;width:1px;height:1px;border:0;opacity:0;');
+  textArea.value = value;
+  document.body.appendChild(textArea);
+  textArea.select();
+  try { document.execCommand('copy'); } catch (e) { /* clipboard unavailable */ }
+  document.body.removeChild(textArea);
+}
+
+Template.viewer.onRendered(function () {
+  const title = TAPi18n.__('copy-text-to-clipboard');
+  this.$('pre').each(function () {
+    const pre = this;
+    // De-dup: skip a <pre> that already has its copy button in front of it.
+    const prev = pre.previousElementSibling;
+    if (prev && prev.classList && prev.classList.contains('js-copy-code')) {
+      return;
+    }
+    const button = document.createElement('a');
+    button.className = 'fa fa-copy btn btn-sm right js-copy-code';
+    button.setAttribute('href', '#');
+    button.setAttribute('title', title);
+    pre.parentNode.insertBefore(button, pre);
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      copyCodeBlockText(pre.textContent);
+    });
+  });
+});
 
 Template.viewer.events({
   // Viewer sometimes have click-able wrapper around them (for instance to edit
