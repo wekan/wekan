@@ -130,7 +130,39 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 # Upcoming WeKan ® release
 
+This release adds the following features:
+
+- [Admin Panel / Problems "Status" overview + `snap run wekan.problems`. Problems / Summary now shows
+  everything in progress (database text migration, board data-repair, recovery, cron migration,
+  attachment migration), detected problems (broken cards), and a login-page checklist of the causes
+  that make the login page show "Must be logged in" or sit on the logo + "Loading, please wait."
+  spinner (a migration/repair running, wrong/unset ROOT_URL, LDAP, Sandstorm). The same overview is
+  available WITHOUT the Admin Panel from the server command line — `snap run wekan.problems` (with
+  `migrations` / `login` / `broken-cards` / `cpu` sub-commands) — so an admin with only server access
+  can read it. Migration/repair progress is persisted to the database so a separate process can see
+  it. Docs: `docs/Features/Admin-Panel/Problems/`
+  ](https://github.com/wekan/wekan/commit/968d21c86).
+  Thanks to xet7.
+
+- [Shared board data-repairs run on board open, on server startup, AND during the MongoDB <-> FerretDB
+  v1 (SQLite) text migration — shown in one blue, Product-name-branded progress dashboard. Beyond the
+  #6484 list-unbind, the shared set now also fixes cards with no swimlane and orphaned cards whose
+  swimlane was deleted (invisible cards), reassigning them to the board's first swimlane. The repairs
+  run SERVER-SIDE and do not depend on a user watching a progress page: a version-gated background
+  pass runs once at startup, board open repairs per board, and the database migration repairs the live
+  data before copying so the migrated copy is clean too. The progress dashboard is mounted app-wide
+  (board + Admin Panel), styled in WeKan blue (#2980b9), and branded with the configured Product name
+  ](https://github.com/wekan/wekan/commit/3356e55c7).
+  Thanks to xet7.
+
 This release fixes the following bugs:
+
+- [Fix #6504: a rule that moves a card to another board failed with "newBoard.getNextCardNumber is not
+  a function". On the server `ReactiveCache.getBoard()` is async; the cross-board branch of
+  `Cards.move()` used it without `await`, so the destination board was a Promise (its methods missing)
+  and label carry-over from the source board was silently dropped. Both `getBoard()` calls are now
+  awaited (same fix as PR #6505)](https://github.com/wekan/wekan/commit/113f3d9a9).
+  Thanks to ChristianMa97 and xet7.
 
 - [Swimlanes view: a shared card no longer appears in every swimlane ("doubled cards"). A card with
   no swimlane (`swimlaneId` null / '' — a shared / pre-migration card) was surfaced in EVERY
