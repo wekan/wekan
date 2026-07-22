@@ -11,30 +11,35 @@
 # After pulling, find the language files where a previously-translated string
 # reverted to English (untranslated on Transifex). Needs node + git.
 if command -v node >/dev/null 2>&1; then
-  # Human-readable report for the log (also flags files that are NOT auto-healed
-  # because they carry other, non-revert changes from Transifex).
+  # Human-readable report for the log (which strings reverted to English on the pull).
   node releases/translations/report-english-regressions.mjs || true
 
-  # Auto-heal, but ONLY files whose changes are ENTIRELY reverts (the --files
-  # mode already excludes any file that also has a real new/updated translation
-  # from Transifex, which a whole-file checkout would throw away). For each such
-  # file: restore the committed translations with `git checkout --`, then force
-  # push them back to Transifex (force, or the push is skipped by the timestamp
-  # guard) so they stop reverting on future pulls.
-  reverted=$(node releases/translations/report-english-regressions.mjs --files 2>/dev/null)
-  if [ -n "$reverted" ]; then
-    echo "$reverted" | while IFS= read -r f; do
-      [ -n "$f" ] || continue
-      lang=$(basename "$f" .i18n.json)
-      echo "[i18n] auto-heal: git checkout HEAD -- $f  &&  push $lang back to Transifex"
-      # Restore from HEAD explicitly (the version the detector compared against),
-      # not the index, so a staged change can't restore the wrong content.
-      git checkout HEAD -- "$f"
+  # Per-KEY merge — the policy: never overwrite a human translation with a machine
+  # (English) one, but always keep the newest Transifex translations. For every
+  # language file and every string key:
+  #   - Transifex has a real translation        -> keep it (newest human translation);
+  #   - the pull reverted it to English but a    -> restore the committed translation
+  #     human translation was committed             (works even in files that ALSO got
+  #                                                  real new Transifex translations,
+  #                                                  which the old whole-file restore
+  #                                                  had to skip and thus lost);
+  #   - no translation anywhere (untranslated    -> leave the English placeholder, the
+  #     on Transifex AND never committed)            ONLY case a machine translation is
+  #                                                  used, so a separate machine-
+  #                                                  translation step can fill just those
+  #                                                  and can never clobber a human one.
+  # The script prints each restored language code; push those back to Transifex (force,
+  # or the timestamp guard skips it) so they stop reverting on future pulls.
+  restored_langs=$(node releases/translations/merge-translations.mjs)
+  if [ -n "$restored_langs" ]; then
+    echo "$restored_langs" | while IFS= read -r lang; do
+      [ -n "$lang" ] || continue
+      echo "[i18n] push restored $lang back to Transifex (so it stops reverting)"
       ../tx push -t -l "$lang" -f
     done
   fi
 else
-  echo "[i18n] node not found - skipping the English-regression report."
+  echo "[i18n] node not found - skipping the merge + English-regression report."
 fi
 
 # https://developers.transifex.com/docs/cli
