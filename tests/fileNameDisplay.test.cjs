@@ -96,6 +96,29 @@ check('stripExploitPatterns removes tags, PIs, CDATA, templates, dangerous URIs'
   assert.ok(!/javascript:/i.test(stripExploitPatterns('javascript:alert(1)')));
 });
 
+// Completeness (CodeQL js/incomplete-multi-character-sanitization, alert #426): the
+// output must NEVER contain "<script", an angle bracket, or a surviving handler,
+// for closed, UNCLOSED, and SPLICED tags — the tag strip is a single replacement
+// looped to a fixpoint, then any stray angle bracket is dropped.
+check('stripExploitPatterns is complete for unclosed and spliced tags', () => {
+  const nasty = [
+    '<script',                    // unclosed: no '>' to match the tag regex
+    '<script src=x',              // unclosed with attrs
+    '<scr<x>ipt>alert(1)',        // inner removal must not re-form <script>
+    '<scr<script>ipt>',           // classic splice
+    '<<script>>',                 // doubled brackets
+    '<img src=x onerror=alert(1)>',
+    'a<b>c<d',                    // mixed closed + trailing unclosed
+    '<%= evil %>',                // ASP template
+  ];
+  for (const s of nasty) {
+    const out = stripExploitPatterns(s);
+    assert.ok(!out.includes('<'), `no '<' left in ${JSON.stringify(out)} (from ${JSON.stringify(s)})`);
+    assert.ok(!out.includes('>'), `no '>' left in ${JSON.stringify(out)} (from ${JSON.stringify(s)})`);
+    assert.ok(!/<script/i.test(out), `no '<script' in ${JSON.stringify(out)}`);
+  }
+});
+
 check('classifyExploitKinds names the exploit kind (for the Problems log)', () => {
   assert.deepStrictEqual(classifyExploitKinds('<!DOCTYPE x><!ENTITY y>'), ['XML loop (billion laughs)']);
   assert.deepStrictEqual(classifyExploitKinds('<?xml version="1.0"?>'), ['XML code']);

@@ -42,26 +42,38 @@ function decodeFileNameSafe(name) {
 // php/asp processing instructions, CDATA, template-injection payloads, and
 // dangerous URI schemes.
 function stripExploitPatterns(s) {
-  // Apply the removals REPEATEDLY until the string stops changing (a fixpoint).
-  // A single pass can splice two surviving fragments into a NEW dangerous token —
-  // e.g. "<scr<x>ipt>" or "<scr{{y}}ipt>" become "<script>" after the inner part is
-  // removed — which is the js/incomplete-multi-character-sanitization weakness
-  // (CodeQL: the result "may still contain <script"). Looping removes any token that
-  // an earlier removal reveals. Each replacement only ever DELETES text, so the string
-  // strictly shrinks and the loop always terminates.
   let out = String(s == null ? '' : s);
   let prev;
+
+  // 1. Remove template-injection / processing-instruction / CDATA tokens WITH
+  //    their inner content, looped to a fixpoint so a token an earlier removal
+  //    reveals (e.g. "<scr{{y}}ipt>" -> "<script>") is removed too. Each pass only
+  //    deletes text, so the string strictly shrinks and the loop terminates.
   do {
     prev = out;
     out = out
-      .replace(/<\?[\s\S]*?(\?>|$)/g, '')               // <?php … ?> / <?xml … ?>
-      .replace(/<!\[[\s\S]*?(\]>|$)/g, '')              // <![CDATA[ … ]]>
-      .replace(/\{\{[\s\S]*?\}\}|\$\{[\s\S]*?\}|<%[\s\S]*?%>/g, '') // template injection
-      .replace(/<[^>]*>?/g, '')                         // any HTML/XML tag (incl. unclosed)
-      .replace(/(javascript|vbscript|data)\s*:/gi, '')  // dangerous URI schemes
-      .replace(/[<>]/g, '');                            // any stray angle brackets
+      .replace(/<\?[\s\S]*?(\?>|$)/g, '')                           // <?php … ?> / <?xml … ?>
+      .replace(/<!\[[\s\S]*?(\]>|$)/g, '')                          // <![CDATA[ … ]]>
+      .replace(/\{\{[\s\S]*?\}\}|\$\{[\s\S]*?\}|<%[\s\S]*?%>/g, ''); // template injection
   } while (out !== prev);
-  return out;
+
+  // 2. Strip HTML/XML tags. Loop a SINGLE tag replacement to a fixed point, so a
+  //    tag spliced together by an earlier removal (e.g. "<scr<x>ipt>" -> "<script>")
+  //    is removed too — the incomplete-multi-character-sanitization weakness
+  //    (CodeQL js/incomplete-multi-character-sanitization: "may still contain
+  //    <script"). This is the same complete pattern as client/lib/importDependencies.js
+  //    stripHtml(): loop `replace(/<[^>]*>/g, '')` until it stops matching, then (step 3)
+  //    drop any stray angle bracket so an UNCLOSED tag (no '>', e.g. a trailing
+  //    "<script") cannot survive either.
+  do {
+    prev = out;
+    out = out.replace(/<[^>]*>/g, '');
+  } while (out !== prev);
+
+  // 3. Remove dangerous URI schemes and any remaining stray angle bracket.
+  return out
+    .replace(/(javascript|vbscript|data)\s*:/gi, '') // dangerous URI schemes
+    .replace(/[<>]/g, '');                            // any stray angle bracket
 }
 
 // Confusable homoglyphs: characters from other scripts (mainly Cyrillic and
