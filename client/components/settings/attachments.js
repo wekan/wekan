@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
+import { migrationProgressManager } from '/client/components/settings/migrationProgress';
 
 // DOM field ids per cloud provider, used to read the admin form on save/test.
 const CLOUD_FIELD_IDS = {
@@ -322,10 +323,61 @@ Template.attachments.onDestroyed(function () {
 });
 
 // Text-data database migration (MongoDB <-> FerretDB v1 SQLite) helpers.
+
+// Mirror the polled DB-migration status into the shared blue, Product-name-branded
+// migration-progress dashboard, so the same overlay shows for an Admin Panel
+// database migration as for a board-open repair. The migration has two phases the
+// server reports: `repairing` (board data-repairs on the live DB) then `migrating`
+// (copying collections); map them to the two dashboard steps.
+function driveMigrationDashboard(tpl, status) {
+  if (!status) return;
+  const done = status.phase === 'completed' || status.success === true;
+  const failed = status.phase === 'error' || status.success === false;
+  if (done) {
+    if (tpl._migrationDashboard) { migrationProgressManager.completeMigration(); tpl._migrationDashboard = false; }
+    return;
+  }
+  if (failed) {
+    if (tpl._migrationDashboard) {
+      migrationProgressManager.failMigration({ message: status.error || 'Database migration failed' });
+      tpl._migrationDashboard = false;
+    }
+    return;
+  }
+  if (!tpl._migrationDashboard) {
+    migrationProgressManager.startMigration();
+    tpl._migrationDashboard = true;
+  }
+  if (status.phase === 'repairing') {
+    const bt = status.boardsTotal || 0;
+    const bd = status.boardsDone || 0;
+    const stepPct = bt ? Math.round((bd / bt) * 100) : 0;
+    migrationProgressManager.updateProgress({
+      overallProgress: Math.round(stepPct * 0.4), // repair is the first ~40%
+      currentStep: 1, totalSteps: 2,
+      stepName: 'repair_board_data', stepProgress: stepPct,
+      stepStatus: `${bd}/${bt} boards`,
+      stepDetails: status.repaired || undefined,
+    });
+  } else {
+    const ct = status.collectionsTotal || 0;
+    const cd = status.collectionsDone || 0;
+    const stepPct = ct ? Math.round((cd / ct) * 100) : 0;
+    migrationProgressManager.updateProgress({
+      overallProgress: 40 + Math.round(stepPct * 0.6), // copy is the last ~60%
+      currentStep: 2, totalSteps: 2,
+      stepName: 'copy_collections', stepProgress: stepPct,
+      stepStatus: status.collection || status.phase || 'migrating',
+      stepDetails: { collection: status.collection, done: status.collDone, total: status.collTotal },
+    });
+  }
+}
+
 function pollMigrateStatus(tpl) {
   Meteor.call('migrateTextDatabaseStatus', (err, status) => {
     if (err || !status) return;
     tpl.migrateStatus.set(status);
+    driveMigrationDashboard(tpl, status);
     if (status.running) {
       tpl.migratePoll = Meteor.setTimeout(() => pollMigrateStatus(tpl), 2000);
     }
@@ -339,9 +391,13 @@ function startDbMigration(tpl, direction) {
     return;
   }
   tpl.migrateStatus.set({ running: true, phase: 'starting', direction });
+  migrationProgressManager.startMigration();
+  tpl._migrationDashboard = true;
   Meteor.call('migrateTextDatabase', direction, error => {
     if (error) {
       tpl.migrateStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
+      migrationProgressManager.failMigration({ message: error.reason || error.message });
+      tpl._migrationDashboard = false;
     } else {
       pollMigrateStatus(tpl);
     }

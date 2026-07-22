@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
 import { MongoClient } from 'mongodb';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { repairAllBoards } from '/server/lib/repairBoardData';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments: migrate the TEXT-based data (everything that is NOT
@@ -34,11 +35,15 @@ const FILE_COLLECTIONS = new Set([
 
 const BATCH = 200;
 
-// Shared progress the client polls via migrateTextDatabaseStatus().
+// Shared progress the client polls via migrateTextDatabaseStatus(). The client
+// mirrors this into the shared blue, Product-name-branded migration-progress
+// dashboard (client/components/settings/migrationProgress). The `repair*` fields
+// track the board data-repairs run on the live database before the copy.
 const progress = {
   running: false, direction: '', phase: 'idle',
   collection: '', collDone: 0, collTotal: 0,
   collectionsDone: 0, collectionsTotal: 0,
+  boardsDone: 0, boardsTotal: 0, repaired: null,
   startedAt: null, finishedAt: null, success: null, error: '',
 };
 
@@ -58,6 +63,7 @@ async function copyTextData(direction) {
   progress.phase = 'connecting';
   progress.collection = ''; progress.collDone = 0; progress.collTotal = 0;
   progress.collectionsDone = 0; progress.collectionsTotal = 0;
+  progress.boardsDone = 0; progress.boardsTotal = 0; progress.repaired = null;
   progress.startedAt = new Date().toISOString();
   progress.finishedAt = null; progress.success = null; progress.error = '';
 
@@ -65,6 +71,17 @@ async function copyTextData(direction) {
   const targetUrl = targetUrlFor(direction);
   let client;
   try {
+    // First repair the LIVE (source) database so the copy carries clean data into
+    // the target. Same shared repair set as board open (#6484 list-unbind +
+    // missing-swimlane / orphaned cards). Idempotent, so it is safe either
+    // direction. Failures per board are logged and skipped inside repairAllBoards.
+    progress.phase = 'repairing';
+    await repairAllBoards((done, total, totals) => {
+      progress.boardsDone = done;
+      progress.boardsTotal = total;
+      progress.repaired = { ...totals };
+    });
+
     client = await MongoClient.connect(targetUrl);
     const tgtDb = client.db(
       new URL(targetUrl.replace('mongodb://', 'http://')).pathname.slice(1) || 'wekan',

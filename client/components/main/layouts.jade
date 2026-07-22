@@ -86,6 +86,9 @@ template(name="userFormsLayout")
 
 template(name="defaultLayout")
   +recoveryMaintenance
+  //- Shared migration / board-repair progress dashboard. Mounted app-wide so it
+  //- shows for both a board-open repair AND an Admin Panel database migration.
+  +migrationProgress
   a.skip-link(href="#content") {{_ 'skip-to-content'}}
   +header
   #content(role="main" tabindex="-1")

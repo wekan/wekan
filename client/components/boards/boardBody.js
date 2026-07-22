@@ -27,20 +27,22 @@ Template.board.onCreated(function () {
   // Kept for the template/jade which still references it; conversion is a no-op.
   this.isConverting = new ReactiveVar(false);
   this._swimlaneCreated = new Set(); // boards where a default swimlane was ensured
-  this._listRepairChecked = new Set(); // boards whose #6484 list-repair was checked
+  this._listRepairChecked = new Set(); // boards whose data-repair was checked
 
-  // #6484: when a board opens, detect whether it has lists wrongly bound to a
-  // swimlane (the "nudging a list hid it from other swimlanes" corruption, which
-  // makes a list DISAPPEAR from the other swimlanes) and, if so and the viewer is
-  // a board admin, repair them — showing the shared migration-progress modal.
-  // Checked once per board, fire-and-forget so it never blocks rendering.
-  this.maybeRepairBoardWideLists = (boardId) => {
+  // When a board opens, detect whether it needs the shared data-repairs (the same
+  // set run during the MongoDB <-> SQLite migration): #6484 lists wrongly bound to
+  // a swimlane (a list DISAPPEARS from the other swimlanes), cards with no
+  // swimlane, and orphaned cards whose swimlane was deleted (invisible cards). If
+  // anything needs fixing and the viewer is a board admin, repair it — showing the
+  // shared blue, Product-name-branded migration-progress dashboard. Checked once
+  // per board, fire-and-forget so it never blocks rendering.
+  this.maybeRepairBoard = (boardId) => {
     if (!boardId || this._listRepairChecked.has(boardId)) {
       return;
     }
     this._listRepairChecked.add(boardId);
-    Meteor.call('boardListRepairNeeded', boardId, (err, res) => {
-      if (err || !res || !res.needsRepair || !res.canRepair) {
+    Meteor.call('boardRepairNeeded', boardId, (err, res) => {
+      if (err || !res || !res.total || !res.canRepair) {
         return; // nothing to fix, or the viewer is not a board admin
       }
       migrationProgressManager.startMigration();
@@ -48,13 +50,16 @@ Template.board.onCreated(function () {
         overallProgress: 20,
         currentStep: 1,
         totalSteps: 1,
-        stepName: 'repairBoardWideLists',
+        stepName: 'repair_board_data',
         stepProgress: 20,
         stepStatus: 'running',
-        stepDetails: { lists: res.needsRepair },
+        stepDetails: {
+          lists: res.listsUnbound,
+          cards: res.cardsAssigned + res.cardsRescued,
+        },
         boardId,
       });
-      Meteor.call('repairBoardWideLists', boardId, (err2) => {
+      Meteor.call('repairBoardData', boardId, (err2) => {
         if (err2) {
           this._listRepairChecked.delete(boardId); // allow a retry
           migrationProgressManager.failMigration(err2);
@@ -122,8 +127,8 @@ Template.board.onCreated(function () {
       // id and the subscription's ready state — not on the swimlane data that
       // ensureDefaultSwimlane reads — which would otherwise cause extra re-runs.
       Tracker.nonreactive(() => this.ensureDefaultSwimlane(currentBoardId));
-      // #6484: also detect + repair swimlane-bound lists once the board is ready.
-      Tracker.nonreactive(() => this.maybeRepairBoardWideLists(currentBoardId));
+      // Also detect + run the shared board data-repairs once the board is ready.
+      Tracker.nonreactive(() => this.maybeRepairBoard(currentBoardId));
     }
   });
 });

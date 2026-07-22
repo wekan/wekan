@@ -1,8 +1,5 @@
 template(name="board")
 
-  //- #6484: shown only while a board-open list-repair migration runs (isMigrating).
-  +migrationProgress
-
   if isConverting
     +boardConversionProgress
   else if isBoardReady
