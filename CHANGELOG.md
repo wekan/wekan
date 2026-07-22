@@ -148,6 +148,20 @@ This release adds the following features:
 
 This release fixes the following bugs:
 
+- [FerretDB high CPU: run FerretDB standalone (no OpLog) by default. Several sites reported the
+  `ferretdb` process pegging ~2 CPU cores for a long time while the WeKan `node` process sat idle —
+  pages taking 5+ minutes, All Boards counts stuck at 0, raw i18n keys, and the login page showing
+  "Must be logged in" or a stuck "Loading, please wait." spinner. That idle-node / pegged-ferretdb
+  split is the signature of an OpLog tail: Meteor holds a tailable cursor on `local.oplog.rs` and
+  FerretDB re-scans it server-side. `wekan-control` already defaulted to polling-only, but
+  `ferretdb-control` passed `--repl-set-name` unconditionally, so FerretDB always maintained the
+  capped OpLog even when WeKan would not tail it. It now runs STANDALONE in the default polling mode
+  and enables the replica set / OpLog only when `wekan-ferretdb-oplog=true`. Opting into OpLog is also
+  cheaper now on the FerretDB v1 fork side (the `{ts: {$gt}}` tail filter is pushed down to SQL and the
+  OpLog Timestamp is indexed). See `docs/Features/Admin-Panel/Problems/Migrations.md`
+  ](https://github.com/wekan/wekan/commit/fae1ccd17).
+  Thanks to xet7.
+
 - [Fix #6504: a rule that moves a card to another board failed with "newBoard.getNextCardNumber is not
   a function". On the server `ReactiveCache.getBoard()` is async; the cross-board branch of
   `Cards.move()` used it without `await`, so the destination board was a Promise (its methods missing)
