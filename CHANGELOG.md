@@ -86,8 +86,7 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   no per-card visibility model), [#3823](https://github.com/wekan/wekan/issues/3823),
   [#3748](https://github.com/wekan/wekan/issues/3748) (linked cards mirror the original rather than owning their own
   labels/custom fields), [#4023](https://github.com/wekan/wekan/issues/4023) (Japanese font alignment → per-board font
-  request), [#4043](https://github.com/wekan/wekan/issues/4043) (invitation email occasionally sent without a valid
-  code), [#3138](https://github.com/wekan/wekan/issues/3138),
+  request), [#3138](https://github.com/wekan/wekan/issues/3138),
   [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role),
   [#5081](https://github.com/wekan/wekan/issues/5081) (redesign the owner/member/assignee avatar layout
   on mini cards — a UI proposal; @xet7 asked for a PR),
