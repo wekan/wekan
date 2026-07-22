@@ -86,6 +86,22 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+- **Due-date reminder mail: honour a midnight reminder hour and notify card assignees**
+  ([#3192](https://github.com/wekan/wekan/issues/3192)). Two bugs kept due-date reminders from
+  reaching people: the reminder hour was parsed as `parseInt(NOTIFY_DUE_AT_HOUR_OF_DAY) || 8`, so a
+  configured hour of `0` (midnight) silently became 8 (0 is falsy), and a due-card activity only
+  notified the card's creator and members — a user *assigned* the card but not a member was never
+  told about it. Midnight is now honoured (and out-of-range hours rejected), and assignees are
+  included in the notification participants (still gated by each user's board tracking level). The
+  built-in reminder still requires `NOTIFY_DUE_DAYS_BEFORE_AND_AFTER` to be set. Thanks to
+  **SirConfigMgr** and **xet7**.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.16 2026-07-22 WeKan ® release
 
 This release fixes the following bugs:
