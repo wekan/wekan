@@ -88,7 +88,20 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+- **FerretDB now defaults to polling-only on all platforms, fixing high FerretDB CPU**
+  ([#6503](https://github.com/wekan/wekan/issues/6503)). FerretDB v1 can tail an OpLog for
+  real-time updates, but on its SQLite backend Meteor's tailable+`awaitData` OpLog tail keeps
+  FerretDB CPU pinned (reporters saw ~190–390% even when idle; a 2-core VPS maxed out and WeKan got
+  stuck on the loading spinner), and a struggling tail also shows up in the log as `oplog catching
+  up took too long`, stalling board and login loading. Even with the FerretDB-side mitigations the
+  peg persisted on real deployments, while polling-only reliably drops CPU to ~10%. So polling is
+  now the default on every launcher (snap, bundle, Docker/compose, Windows, Sandstorm);
+  `WEKAN_FERRETDB_OPLOG` defaults to `false`. The OpLog remains available as opt-in
+  (`WEKAN_FERRETDB_OPLOG=true`, or on snap `snap set wekan wekan-ferretdb-oplog=true`). The calmer
+  polling throttle and SQLite pragma tuning keep poll-and-diff cheap. Thanks to **xet7** and the
+  FerretDB high-CPU reporters.
 
 - **i18n never gets stuck showing raw translation keys if a dynamic language import fails**
   (related to [#6503](https://github.com/wekan/wekan/issues/6503)). `TAPi18n.init()` awaited a
@@ -99,8 +112,9 @@ This release fixes the following bug:
   bounded by a timeout so readiness is reached in every path. Note: this hardens the raw-key
   symptom; the dead OIDC/Register buttons in that report point to a stale dynamic-import bundle
   cache on the snap (a hard reload / clean snap rebuild is the confirming test), not a change in
-  WeKan's login code (which is unchanged between 10.11 and 10.13). Thanks to **Alishara** and
-  **xet7**.
+  WeKan's login code (which is unchanged between 10.11 and 10.13) — and the FerretDB polling-only
+  default above also removes the `oplog catching up took too long` stalls that make the login page
+  slow to become interactive. Thanks to **Alishara** and **xet7**.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
