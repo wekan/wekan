@@ -109,6 +109,32 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release adds the following features:
+
+- [Card links keep working after the card is moved to another board. A card URL is
+  `/b/:boardId/:slug/:cardId`; after moving the card the link opened the old board and found
+  nothing. The card route now resolves the card's CURRENT board via the permission-checked `card`
+  publication and, if it differs, redirects there — so a link stays valid across board moves as
+  long as the viewer has access to the destination board (like Trello). If the user cannot see the
+  card's new board, the URL's board is kept; a redirect loop / stale navigation is guarded against
+  (#4758)](https://github.com/wekan/wekan/commit/191f82739).
+  Thanks to Robdebert and xet7.
+
+This release fixes the following bugs:
+
+- [Copy-code-block button in the card viewer is now reliable. It previously ran once with a global
+  query, so it decorated only whichever code blocks were on the page at that instant ("works
+  sporadically"), was lost after editing, and copied the HTML-escaped inner markup (wrong content).
+  It is now added per viewer in `Template.viewer.onRendered` (so every description / checklist item
+  / comment gets it and it is restored on re-render), de-duplicated, copies the RAW code text via
+  the async Clipboard API (with a fallback), and the button title is translated
+  (#5149)](https://github.com/wekan/wekan/commit/27201f642).
+  Thanks to C0rn3j and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.20 2026-07-22 WeKan ® release
 
 This release fixes the following bug:
