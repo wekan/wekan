@@ -102,7 +102,7 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
-# Upcoming WeKan ® release
+# v10.20 2026-07-22 WeKan ® release
 
 This release fixes the following bug:
 
