@@ -150,6 +150,16 @@ This release fixes the following bugs:
   ](https://github.com/wekan/wekan/commit/a15363373).
   Thanks to xet7.
 
+- [Opening a board now auto-detects the #6484 corruption and repairs it. On board open, a cheap
+  `boardListRepairNeeded` check reports whether any list is wrongly bound to a swimlane; if so and the
+  viewer is a board admin, `repairBoardWideLists` runs automatically while a progress modal is shown,
+  then completes. The check runs once per board, fire-and-forget, and never blocks rendering. The
+  migration-progress modal is now branded with the configured Product name (Admin Panel / Settings /
+  Layout / Product name), falling back to WeKan when none is set, so every migration reusing the modal
+  shows the admin's Product name instead of the hard-coded brand
+  ](https://github.com/wekan/wekan/commit/f279abe67).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.21 2026-07-22 WeKan ® release
