@@ -15,6 +15,7 @@ import { buildListPutUpdate } from '/models/lib/listApiUpdate';
 import { Random } from 'meteor/random';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { softDeleteSet, restoreModifier, canPurge } from '/models/lib/softDelete';
+import { listsToUnbind } from '/models/lib/listUnbindRepair';
 
 const hasBoardWriteAccess = (userId, board) => {
   if (!userId || !board) {
@@ -482,6 +483,36 @@ Meteor.methods({
     }
 
     await list.toggleSoftLimit(!(await list.getWipLimit('soft')));
+  },
+
+  // #6484 repair: restore board-wide lists that were wrongly bound to a single
+  // swimlane (so they "disappeared" from the other swimlanes) by clearing their
+  // swimlaneId back to null. Run deliberately by a board admin on an affected
+  // board. Idempotent: lists already board-wide are left untouched. Returns the
+  // number of lists un-bound. Note this repairs the LIST binding only; cards the
+  // same bug moved into one swimlane are not restored (recover those from a
+  // backup) since their intended swimlane cannot be known.
+  async repairBoardWideLists(boardId) {
+    check(boardId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasAdmin(this.userId)) {
+      throw new Meteor.Error('not-authorized', 'You must be a board admin to repair this board.');
+    }
+    // Include swimlane-scoped lists regardless of archived state; only the
+    // swimlaneId is being cleared.
+    const lists = await ReactiveCache.getLists({ boardId });
+    const ids = listsToUnbind(lists);
+    if (ids.length > 0) {
+      await Lists.direct.updateAsync(
+        { _id: { $in: ids }, boardId },
+        { $set: { swimlaneId: null } },
+        { multi: true },
+      );
+    }
+    return { repaired: ids.length };
   },
 
   async myLists() {
