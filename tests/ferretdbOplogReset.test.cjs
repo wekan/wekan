@@ -52,13 +52,17 @@ for (const rel of SCRIPTS) {
   });
 
   test(`${rel}: NEGATIVE — never deletes user data (wekan.sqlite)`, () => {
-    // The whole point: user data must be untouched. No rm may target wekan.sqlite,
-    // and no rm may wipe the whole SQLite data dir.
+    // The whole point: the user-data FILE must be untouched. No rm may target the
+    // bare `wekan.sqlite` data file (or a `wekan.sqlite*` glob), and no rm may wipe
+    // the whole SQLite data dir. Removing the TRANSIENT WAL/SHM/journal sidecars
+    // (`wekan.sqlite-wal` / `-shm` / `-journal`) is SAFE and expected — e.g. before
+    // copying a backup over the data file — so those are allowed (matched by the
+    // `(?!-)` negative lookahead: `wekan.sqlite` NOT followed by a `-<suffix>`).
     const rmLines = src.split('\n').filter(l => /\brm\b/.test(l));
     for (const line of rmLines) {
       assert.ok(
-        !/wekan\.sqlite/.test(line),
-        `rm must never target wekan.sqlite: ${line.trim()}`,
+        !/wekan\.sqlite(?!-)/.test(line),
+        `rm must never target the wekan.sqlite data file (sidecars -wal/-shm are ok): ${line.trim()}`,
       );
       // No `rm -rf` of the SQLite dir itself (would delete wekan.sqlite too).
       assert.ok(
