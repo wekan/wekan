@@ -13,6 +13,7 @@ import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
 import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
 import { labelMatchesTerm } from '/models/lib/labelAutocomplete';
+import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import { isLazyCards, BoardListCardCounts, windowCountId } from '/client/lib/lazyCards';
 import {
   mutationsChangeDragGeometry,
@@ -641,7 +642,11 @@ Template.addCardForm.onRendered(function () {
           callback(
             $.map(currentBoard.activeMembers(), member => {
               const user = ReactiveCache.getUser(member.userId);
-              return user.username.indexOf(term) === 0 ? user : null;
+              // #5116 follow-up: match case-INSENSITIVELY as a substring of the
+              // username OR full name (was user.username.indexOf(term) === 0,
+              // which was case-sensitive, prefix-only, username-only and threw
+              // when getUser() returned null). Shared with the editor '@' mention.
+              return memberMatchesTerm(user, term) ? user : null;
             }),
           );
         },

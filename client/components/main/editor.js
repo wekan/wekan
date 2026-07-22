@@ -3,6 +3,7 @@ import { findWhere } from '/imports/lib/collectionHelpers';
 import { TAPi18n } from '/imports/i18n';
 import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
+import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import autosize from 'autosize';
 var converter = require('@wekanteam/html-to-markdown');
 
@@ -59,14 +60,14 @@ Template.editor.onRendered(function () {
         match: /\B@([\w.-]*)$/,
         search(term, callback) {
           const currentBoard = Utils.getCurrentBoard();
-          const searchTerm = term.toLowerCase();
+          // Shared with the add-card '@' mention (models/lib/memberAutocomplete):
+          // case-insensitive substring match on username OR full name, and safe
+          // when getUser() returns null (previously threw on user.username).
           const users = currentBoard
             .activeMembers()
             .map(member => {
               const user = ReactiveCache.getUser(member.userId);
-              const username = user.username.toLowerCase();
-              const fullName = user.profile && user.profile !== undefined && user.profile.fullname ? user.profile.fullname.toLowerCase() : "";
-              return username.includes(searchTerm) || fullName.includes(searchTerm) ? user : null;
+              return memberMatchesTerm(user, term) ? user : null;
             })
             .filter(Boolean);
           // Order: 1. Users, 2. Card-specific options, 3. Board-wide options
