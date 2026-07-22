@@ -12,6 +12,7 @@ import { Utils } from '/client/lib/utils';
 import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
 import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
+import { labelMatchesTerm } from '/models/lib/labelAutocomplete';
 import { isLazyCards, BoardListCardCounts, windowCountId } from '/client/lib/lazyCards';
 import {
   mutationsChangeDragGeometry,
@@ -667,10 +668,10 @@ Template.addCardForm.onRendered(function () {
               if (label.name == undefined) {
                 label.name = "";
               }
-              if (
-                label.name.indexOf(term) > -1 ||
-                label.color.indexOf(term) > -1
-              ) {
+              // #5116: match case-INSENSITIVELY so "#test" suggests "Testing"
+              // (was label.name.indexOf(term), which never matched a differently
+              // cased label). Matches name or color, like the shared helper.
+              if (labelMatchesTerm(label, term)) {
                 return label;
               }
               return null;
