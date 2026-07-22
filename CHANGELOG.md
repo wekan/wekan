@@ -90,6 +90,15 @@ them up next.
 
 This release fixes the following bugs:
 
+- [Admin Panel: the per-org/team "Propagate Members To Boards" flag now actually propagates.
+  `orgPropagateMembersToBoards` / `teamPropagateMembersToBoards` were stored and shown in the Admin
+  Panel, but the method that acts on them had no caller anywhere — dead code — so turning the flag
+  on did nothing. Turning the flag on now adds that org/team's members to the boards that list it
+  (strictly add-only; existing board members are never removed or modified; template boards are
+  skipped), via a pure, unit-tested `models/lib/propagateMembers.js`
+  (#4737, #5850)](https://github.com/wekan/wekan/commit/68c041f7a).
+  Thanks to xet7.
+
 - [A user added to a team AFTER it was assigned to a board now gains membership on that board.
   Assigning a team to a board adds the team's current users to the board's members, but a user
   added to the team afterwards only got read visibility (via the publications) while every
