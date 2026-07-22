@@ -23,11 +23,11 @@ set "FERRETDB_SQLITE_DIR=%FILES%\db"
 if not defined PORT set "PORT=8080"
 if not defined ROOT_URL set "ROOT_URL=http://localhost:%PORT%"
 if not defined MONGO_URL set "MONGO_URL=mongodb://127.0.0.1:27017/wekan"
-REM  #6480/#6481: FerretDB v1 now ships an OpLog (started below with
-REM  --repl-set-name), so by default WeKan's Meteor TAILS the OpLog instead of
-REM  poll-and-diff (fixes high FerretDB CPU on busy boards). Set
-REM  WEKAN_FERRETDB_OPLOG=false to force the old polling-only behaviour.
-if not defined WEKAN_FERRETDB_OPLOG set "WEKAN_FERRETDB_OPLOG=true"
+REM  #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (started below with
+REM  --repl-set-name), but on the SQLite backend the tail keeps FerretDB CPU
+REM  pinned (~190-390% even idle) and stalls loading, so the DEFAULT is now
+REM  POLLING ONLY. Opt into OpLog tailing with WEKAN_FERRETDB_OPLOG=true.
+if not defined WEKAN_FERRETDB_OPLOG set "WEKAN_FERRETDB_OPLOG=false"
 if not defined WEKAN_FERRETDB_REPL_SET set "WEKAN_FERRETDB_REPL_SET=rs0"
 set "FERRET_REPL_ARG="
 if /I "%WEKAN_FERRETDB_OPLOG%"=="true" (

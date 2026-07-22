@@ -86,20 +86,22 @@ else
     fi
 fi
 
-# #6480/#6481: FerretDB v1 now ships an OpLog (auto-created capped local.oplog.rs
-# + replica-set hello handshake — see bin/ferretdb-control, which launches with
-# --repl-set-name). So by default WeKan's Meteor TAILS the OpLog instead of
-# poll-and-diff, which is the main fix for FerretDB's high CPU on busy boards.
-# Enabled by default; set WEKAN_FERRETDB_OPLOG=false (snap set) to force the old
-# polling-only behaviour if OpLog tailing ever misbehaves.
+# #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (auto-created capped
+# local.oplog.rs + replica-set hello handshake — see bin/ferretdb-control), but
+# on the SQLite backend Meteor's tailable+awaitData OpLog tail keeps FerretDB CPU
+# pinned (reporters saw ~190–390% even idle; deleting local.sqlite* dropped it to
+# ~10%), and a struggling tail also shows up as "oplog catching up took too long"
+# and stalls board/login loading. So the DEFAULT is now POLLING ONLY. With the
+# calmer polling defaults (#6467/#6468) and the SQLite pragma tuning, poll-and-diff
+# is cheap. Opt into OpLog tailing with WEKAN_FERRETDB_OPLOG=true (snap set) if you
+# specifically want it and have verified it stays calm on your data.
 #
-# The polling settings below still apply as the FALLBACK for the queries Meteor
-# cannot observe through the OpLog (and when OpLog is disabled). #6467/#6468: the
-# Meteor defaults (re-poll 50 ms after any write, at least every 10 s) hammered
-# FerretDB; calmer defaults re-poll at most every 2 s / 30 s. Own writes still
-# show instantly (local cache); only OTHER users' changes wait up to ~2 s.
+# The polling settings below apply either way (they are also the OpLog fallback).
+# #6467/#6468: the Meteor defaults (re-poll 50 ms after any write, at least every
+# 10 s) hammered FerretDB; calmer defaults re-poll at most every 2 s / 30 s. Own
+# writes still show instantly (local cache); only OTHER users' changes wait ~2 s.
 if [ "ferretdb" = "${DATABASE}" ]; then
-    WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
+    WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-false}"
     if [ "true" = "${WEKAN_FERRETDB_OPLOG}" ]; then
         if [ -z "${MONGO_OPLOG_URL}" ]; then
             REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"

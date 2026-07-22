@@ -47,12 +47,13 @@ if [ "$want_ferret" = true ]; then
   fi
   export MONGO_URL="${MONGO_URL:-mongodb://$FERRETDB_LISTEN_ADDR/wekan}"
   mkdir -p "$FERRETDB_SQLITE_DIR"
-  # #6480/#6481: FerretDB v1 now ships an OpLog (auto-created capped
-  # local.oplog.rs + replica-set hello handshake), launched below with
-  # --repl-set-name. By default WeKan's Meteor TAILS the OpLog instead of
-  # poll-and-diff — the main fix for FerretDB's high CPU on busy boards. Set
-  # WEKAN_FERRETDB_OPLOG=false to force the old polling-only behaviour.
-  WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
+  # #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (auto-created capped
+  # local.oplog.rs + replica-set hello handshake), but on the SQLite backend the
+  # tailable+awaitData tail keeps FerretDB CPU pinned (~190–390% even idle) and a
+  # struggling tail shows as "oplog catching up took too long" and stalls loading,
+  # so the DEFAULT is now POLLING ONLY. Opt into OpLog tailing with
+  # WEKAN_FERRETDB_OPLOG=true if you specifically want it.
+  WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-false}"
   REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
   if [ "$WEKAN_FERRETDB_OPLOG" = "true" ]; then
     export MONGO_OPLOG_URL="${MONGO_OPLOG_URL:-mongodb://$FERRETDB_LISTEN_ADDR/local?replicaSet=$REPL_SET_NAME}"

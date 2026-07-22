@@ -142,13 +142,15 @@ services:
       # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
       # Keep oplog/polling fallback available for deployments that cannot use Change Streams:
       # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
-      # wekan/wekan#6480/#6481: FerretDB v1 now ships an OpLog (the ferretdb service
-      # above runs with --repl-set-name=rs0), so prefer OpLog tailing and fall back
-      # to polling — this is the main fix for FerretDB's high CPU on busy boards.
-      # FerretDB has no MongoDB change streams. To force polling only, set both to
-      # `polling` and comment out MONGO_OPLOG_URL below.
-      - DEFAULT_METEOR_REACTIVITY_ORDER=oplog,polling
-      - METEOR_REACTIVITY_ORDER=oplog,polling
+      # wekan/wekan#6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (the ferretdb
+      # service above runs with --repl-set-name=rs0), but on the SQLite backend the
+      # tailable+awaitData OpLog tail keeps FerretDB CPU pinned (~190–390% even idle)
+      # and a struggling tail shows as "oplog catching up took too long" and stalls
+      # loading, so the DEFAULT here is now POLLING ONLY. FerretDB has no MongoDB
+      # change streams. To opt INTO OpLog tailing, set both to `oplog,polling` and
+      # uncomment MONGO_OPLOG_URL in the wekan service below.
+      - DEFAULT_METEOR_REACTIVITY_ORDER=polling
+      - METEOR_REACTIVITY_ORDER=polling
       # uws does not work at s390x. sockjs works.
       #- DDP_TRANSPORT=uws
       - DDP_TRANSPORT=sockjs
@@ -215,11 +217,14 @@ services:
       #   - Latency from 50ms to 2000ms
       # Must configure MongoDB replica set first
       # See: https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
-      # FerretDB v1 emulates the OpLog via --repl-set-name=rs0 (set on the ferretdb
-      # service above). This enables real-time DDP updates and stops the poll-and-diff
-      # CPU burn (wekan/wekan#6480/#6481). To force polling only, comment this out and
-      # set METEOR_REACTIVITY_ORDER=polling above.
-      - MONGO_OPLOG_URL=mongodb://ferretdb:27017/local?replicaSet=rs0
+      # FerretDB v1 CAN emulate the OpLog via --repl-set-name=rs0 (set on the
+      # ferretdb service above), but on the SQLite backend the tail keeps FerretDB
+      # CPU pinned and stalls loading (wekan/wekan#6503), so it is DISABLED by
+      # default here. Merely SETTING MONGO_OPLOG_URL makes Meteor start an OpLog
+      # tail regardless of the reactivity order (#6498), so it is commented out.
+      # To opt INTO OpLog tailing, uncomment the next line AND set
+      # METEOR_REACTIVITY_ORDER=oplog,polling above.
+      #- MONGO_OPLOG_URL=mongodb://ferretdb:27017/local?replicaSet=rs0
       #---------------------------------------------------------------
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/edemaine/kadira-compose

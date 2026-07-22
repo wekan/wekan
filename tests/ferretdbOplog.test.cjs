@@ -1,15 +1,17 @@
 'use strict';
 
-// Guards for the FerretDB OpLog + data-reduction changes (#6480/#6481).
+// Guards for the FerretDB OpLog + data-reduction changes (#6503/#6480/#6481).
 //
-// With FerretDB there is no MongoDB oplog, so Meteor observed every live query by
-// poll-and-diff, pinning FerretDB CPU at 100-390% on busy boards. FerretDB v1 now
-// ships an OpLog (auto-created capped local.oplog.rs + replica-set hello
-// handshake), so every FerretDB launch path must (a) start ferretdb with
-// --repl-set-name so the OpLog exists and the server advertises the replica set,
-// and (b) point WeKan at it via MONGO_OPLOG_URL so Meteor TAILS the OpLog instead
-// of polling — with a WEKAN_FERRETDB_OPLOG kill-switch back to polling. Also
-// asserts the oversized activity page was trimmed.
+// FerretDB v1 CAN tail an OpLog (auto-created capped local.oplog.rs + replica-set
+// hello handshake), but on the SQLite backend the tailable+awaitData tail pins
+// FerretDB CPU (~190-390% even idle) and a struggling tail stalls loading
+// ("oplog catching up took too long"), so #6503 makes POLLING the DEFAULT on every
+// platform. The OpLog machinery still EXISTS and is opt-in via
+// WEKAN_FERRETDB_OPLOG=true. These guards assert: (a) the default is polling only
+// (WEKAN_FERRETDB_OPLOG defaults false; docker-compose reactivity is `polling` and
+// MONGO_OPLOG_URL is commented out); (b) when opted in, ferretdb still launches
+// with --repl-set-name and WeKan is pointed at MONGO_OPLOG_URL with polling as the
+// fallback; and (c) the oversized activity page was trimmed.
 //
 // Run: node tests/ferretdbOplog.test.cjs
 
@@ -58,33 +60,42 @@ test('windows start-wekan.bat passes a repl-set arg to ferretdb.exe', () => {
   assert.ok(/ferretdb\.exe.*%FERRET_REPL_ARG%/.test(src), 'passes it on the ferretdb.exe line');
 });
 
-// ── WeKan points at the OpLog by default (with a kill-switch) ────────────────
-test('snap wekan-control sets MONGO_OPLOG_URL for FerretDB, gated by WEKAN_FERRETDB_OPLOG', () => {
+// ── #6503: FerretDB is POLLING ONLY by default; OpLog is opt-in ──────────────
+test('snap wekan-control: polling-only default for FerretDB, OpLog opt-in', () => {
   const src = read('snap-src/bin/wekan-control');
-  assert.ok(/WEKAN_FERRETDB_OPLOG:-true/.test(src), 'OpLog on by default');
-  assert.ok(/export MONGO_OPLOG_URL="mongodb:\/\/.*\/local\?replicaSet=/.test(src), 'sets oplog url to local?replicaSet');
-  assert.ok(/"true" = "\$\{WEKAN_FERRETDB_OPLOG\}"/.test(src), 'kill-switch check present');
+  assert.ok(/WEKAN_FERRETDB_OPLOG:-false/.test(src), 'OpLog OFF by default (polling only)');
+  assert.ok(/export MONGO_OPLOG_URL="mongodb:\/\/.*\/local\?replicaSet=/.test(src), 'still sets oplog url when opted in');
+  assert.ok(/"true" = "\$\{WEKAN_FERRETDB_OPLOG\}"/.test(src), 'opt-in check present');
 });
-test('bundle start-wekan.sh sets MONGO_OPLOG_URL by default, kill-switch WEKAN_FERRETDB_OPLOG', () => {
+test('snap config registers wekan-ferretdb-oplog (default false, snap set toggle)', () => {
+  const src = read('snap-src/bin/config');
+  assert.ok(/\bWEKAN_FERRETDB_OPLOG\b/.test(src.match(/keys="[^"]*"/)[0]), 'listed in the settings keys');
+  assert.ok(/DEFAULT_WEKAN_FERRETDB_OPLOG="false"/.test(src), 'defaults to false (polling)');
+  assert.ok(/KEY_WEKAN_FERRETDB_OPLOG="wekan-ferretdb-oplog"/.test(src), 'snap set key is wekan-ferretdb-oplog');
+});
+test('bundle start-wekan.sh: polling-only default, OpLog opt-in via WEKAN_FERRETDB_OPLOG=true', () => {
   const src = read('releases/ferretdb/start-wekan.sh');
-  assert.ok(/WEKAN_FERRETDB_OPLOG="\$\{WEKAN_FERRETDB_OPLOG:-true\}"/.test(src), 'default true');
+  assert.ok(/WEKAN_FERRETDB_OPLOG="\$\{WEKAN_FERRETDB_OPLOG:-false\}"/.test(src), 'default false');
   assert.ok(/export MONGO_OPLOG_URL="\$\{MONGO_OPLOG_URL:-mongodb:\/\/\$FERRETDB_LISTEN_ADDR\/local\?replicaSet=/.test(src));
 });
-test('docker wekan-entrypoint.sh sets MONGO_OPLOG_URL, kill-switch present', () => {
+test('docker wekan-entrypoint.sh: polling-only default, OpLog opt-in', () => {
   const src = read('releases/ferretdb/wekan-entrypoint.sh');
-  assert.ok(/WEKAN_FERRETDB_OPLOG="\$\{WEKAN_FERRETDB_OPLOG:-true\}"/.test(src), 'default true');
+  assert.ok(/WEKAN_FERRETDB_OPLOG="\$\{WEKAN_FERRETDB_OPLOG:-false\}"/.test(src), 'default false');
   assert.ok(/export MONGO_OPLOG_URL="\$\{MONGO_OPLOG_URL:-mongodb:\/\/\$FERRETDB_LISTEN_ADDR\/local\?replicaSet=/.test(src));
 });
-test('docker-compose prefers oplog reactivity + sets MONGO_OPLOG_URL (uncommented)', () => {
+test('docker-compose: polling-only reactivity by default + MONGO_OPLOG_URL commented out', () => {
   const src = read('docker-compose.yml');
-  assert.ok(/METEOR_REACTIVITY_ORDER=oplog,polling/.test(src), 'reactivity prefers oplog then polling');
-  // the MONGO_OPLOG_URL line must be active (not commented out)
-  assert.ok(/\n\s*- MONGO_OPLOG_URL=mongodb:\/\/ferretdb:27017\/local\?replicaSet=rs0/.test(src),
-    'MONGO_OPLOG_URL must be an active env line, not commented');
+  assert.ok(/METEOR_REACTIVITY_ORDER=polling/.test(src), 'reactivity is polling by default');
+  // the MONGO_OPLOG_URL line must NOT be active (commented out for polling-only)
+  assert.ok(!/\n\s*- MONGO_OPLOG_URL=mongodb:\/\/ferretdb:27017/.test(src),
+    'MONGO_OPLOG_URL must NOT be an active env line');
+  assert.ok(/#\s*-\s*MONGO_OPLOG_URL=mongodb:\/\/ferretdb:27017\/local\?replicaSet=rs0/.test(src),
+    'the opt-in MONGO_OPLOG_URL line is present but commented');
 });
-test('windows start-wekan.bat sets MONGO_OPLOG_URL under the kill-switch', () => {
+test('windows start-wekan.bat: polling-only default, OpLog opt-in', () => {
   const src = read('releases/ferretdb/start-wekan.bat');
-  assert.ok(/WEKAN_FERRETDB_OPLOG%"=="true"/.test(src), 'gated on the kill-switch');
+  assert.ok(/set "WEKAN_FERRETDB_OPLOG=false"/.test(src), 'default false');
+  assert.ok(/WEKAN_FERRETDB_OPLOG%"=="true"/.test(src), 'opt-in branch gated on =true');
   assert.ok(/MONGO_OPLOG_URL=mongodb:\/\/127\.0\.0\.1:27017\/local\?replicaSet=/.test(src));
 });
 
@@ -107,7 +118,7 @@ test('#6498: polling mode UNSETS MONGO_OPLOG_URL so Meteor never tails the OpLog
 // OpLog only when tailing actually works, else polling — so a broken/absent
 // OpLog never stops WeKan starting. Every FerretDB launch path must keep polling
 // last (like the MongoDB "changeStreams,oplog,polling" default).
-test('every FerretDB launch path keeps polling as the reactivity fallback (oplog,polling)', () => {
+test('every FerretDB launch path always has polling (as the default or the OpLog fallback)', () => {
   for (const f of [
     'snap-src/bin/wekan-control',
     'releases/ferretdb/start-wekan.sh',
@@ -117,8 +128,10 @@ test('every FerretDB launch path keeps polling as the reactivity fallback (oplog
     'sandstorm-src/start.js',
   ]) {
     const src = read(f);
-    assert.ok(/METEOR_REACTIVITY_ORDER[^\n]*oplog,polling/.test(src),
-      `${f} must set METEOR_REACTIVITY_ORDER to oplog,polling (polling fallback)`);
+    // Default is now polling-only (METEOR_REACTIVITY_ORDER=polling); the opt-in
+    // OpLog branch keeps polling last (oplog,polling). Both contain "polling".
+    assert.ok(/METEOR_REACTIVITY_ORDER[^\n]*polling/.test(src),
+      `${f} must keep polling available in METEOR_REACTIVITY_ORDER`);
   }
 });
 

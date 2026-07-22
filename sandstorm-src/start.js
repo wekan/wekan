@@ -54,13 +54,14 @@ const DB_PORT   = '4001';                                      // FerretDB stead
 const SRC_PORT  = '4003';                                      // mongod 3.0 (migration source)
 const NISCU_PORT = '4004';                                     // niscud (niscu→3.0 source)
 
-// #6480/#6481: FerretDB v1 ships an OpLog (auto-created capped local.oplog.rs +
-// replica-set hello handshake). Run the STEADY-STATE FerretDB with a replica-set
-// name and point WeKan at it so Meteor tails the OpLog instead of poll-and-diff.
-// Polling stays the fallback (METEOR_REACTIVITY_ORDER=oplog,polling → OpLog only
-// when tailing works). WEKAN_FERRETDB_OPLOG=false forces polling only. The
-// transient migration-target FerretDB above stays OpLog-free (no --repl-set-name).
-const FERRET_OPLOG  = process.env.WEKAN_FERRETDB_OPLOG !== 'false';
+// #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (auto-created capped
+// local.oplog.rs + replica-set hello handshake), but on the SQLite backend the
+// tailable+awaitData tail keeps FerretDB CPU pinned (~190–390% even idle) and a
+// struggling tail shows as "oplog catching up took too long" and stalls loading,
+// so the DEFAULT is now POLLING ONLY. Opt into OpLog tailing with
+// WEKAN_FERRETDB_OPLOG=true. The transient migration-target FerretDB above stays
+// OpLog-free (no --repl-set-name) regardless.
+const FERRET_OPLOG  = process.env.WEKAN_FERRETDB_OPLOG === 'true';
 const REPL_SET_NAME = process.env.WEKAN_FERRETDB_REPL_SET || 'rs0';
 
 function ensureDirs() {

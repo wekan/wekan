@@ -69,16 +69,16 @@ FERRET_PID=""
 stop_ferret() { [ -n "$FERRET_PID" ] && kill "$FERRET_PID" 2>/dev/null || true; }
 trap 'stop_ferret; exit 0' INT TERM
 
-# #6480/#6481: FerretDB v1 now ships an OpLog (auto-created capped local.oplog.rs
-# + replica-set hello handshake — the ferretdb below is launched with
-# --repl-set-name). By default WeKan's Meteor TAILS the OpLog instead of
-# poll-and-diff, the main fix for FerretDB's high CPU on busy boards. Set
-# WEKAN_FERRETDB_OPLOG=false to force the old polling-only behaviour.
-# The polling settings remain the FALLBACK for queries Meteor cannot observe via
-# the OpLog. #6467/#6468: Meteor's defaults (re-poll 50 ms after any write, at
-# least every 10 s) hammer the database; calmer defaults re-poll at most every
-# 2 s / 30 s. Overridable by exporting different values before running this script.
-WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
+# #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (auto-created capped
+# local.oplog.rs + replica-set hello handshake), but on the SQLite backend the
+# tailable+awaitData OpLog tail keeps FerretDB CPU pinned (reporters saw ~190–390%
+# even idle) and a struggling tail shows as "oplog catching up took too long" and
+# stalls loading, so the DEFAULT is now POLLING ONLY. Opt into OpLog tailing with
+# WEKAN_FERRETDB_OPLOG=true if you specifically want it.
+# The polling settings apply either way. #6467/#6468: Meteor's defaults (re-poll
+# 50 ms after any write, at least every 10 s) hammer the database; calmer defaults
+# re-poll at most every 2 s / 30 s. Overridable by exporting values before running.
+WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-false}"
 WEKAN_FERRETDB_REPL_SET="${WEKAN_FERRETDB_REPL_SET:-rs0}"
 FERRET_REPL_ARG=""
 if [ "$want_ferret" = true ]; then
