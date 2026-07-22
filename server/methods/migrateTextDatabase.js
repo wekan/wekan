@@ -3,6 +3,7 @@ import { MongoInternals } from 'meteor/mongo';
 import { MongoClient } from 'mongodb';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { repairAllBoards } from '/server/lib/repairBoardData';
+import { setTextMigrationStatus } from '/server/lib/systemStatus';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments: migrate the TEXT-based data (everything that is NOT
@@ -66,6 +67,7 @@ async function copyTextData(direction) {
   progress.boardsDone = 0; progress.boardsTotal = 0; progress.repaired = null;
   progress.startedAt = new Date().toISOString();
   progress.finishedAt = null; progress.success = null; progress.error = '';
+  await setTextMigrationStatus(progress);
 
   const srcDb = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
   const targetUrl = targetUrlFor(direction);
@@ -76,10 +78,12 @@ async function copyTextData(direction) {
     // missing-swimlane / orphaned cards). Idempotent, so it is safe either
     // direction. Failures per board are logged and skipped inside repairAllBoards.
     progress.phase = 'repairing';
+    await setTextMigrationStatus(progress);
     await repairAllBoards((done, total, totals) => {
       progress.boardsDone = done;
       progress.boardsTotal = total;
       progress.repaired = { ...totals };
+      if (done === total || done % 25 === 0) setTextMigrationStatus(progress);
     });
 
     client = await MongoClient.connect(targetUrl);
@@ -92,6 +96,7 @@ async function copyTextData(direction) {
       .filter(n => !FILE_COLLECTIONS.has(n) && !n.startsWith('system.'));
     progress.collectionsTotal = names.length;
     progress.phase = 'migrating';
+    await setTextMigrationStatus(progress);
 
     for (const name of names) {
       progress.collection = name;
@@ -99,6 +104,7 @@ async function copyTextData(direction) {
       const tgt = tgtDb.collection(name);
       progress.collTotal = await src.countDocuments().catch(() => 0);
       progress.collDone = 0;
+      await setTextMigrationStatus(progress);
 
       const cursor = src.find({});
       let batch = [];
@@ -130,6 +136,7 @@ async function copyTextData(direction) {
     if (client) { try { await client.close(); } catch (_) {} }
     progress.running = false;
     progress.finishedAt = new Date().toISOString();
+    await setTextMigrationStatus(progress);
   }
 }
 

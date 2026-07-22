@@ -1,0 +1,16 @@
+#!/bin/bash
+# wekan-problems — print the Admin Panel / Problems "Status" overview as text, so an
+# admin with server (snap) access can see problems, migrations and repairs WITHOUT
+# Admin Panel access. Runs wekan-problems.mjs with the bundled Node.js and the WeKan
+# bundle's node_modules on NODE_PATH so the `mongodb` driver resolves (same pattern
+# as db-eval).
+#
+# Usage:
+#   snap run wekan.problems                 # full overview
+#   snap run wekan.problems migrations      # only migrations/repairs in progress
+#   snap run wekan.problems login           # only the "Must be logged in" checks
+#   snap run wekan.problems broken-cards    # only the broken-cards count
+#   snap run wekan.problems cpu             # machine CPU load / core count
+#   snap run wekan.problems help
+exec env NODE_PATH="$SNAP/programs/server/node_modules" \
+  "$SNAP/bin/node" "$SNAP/bin/wekan-problems.mjs" "$@"

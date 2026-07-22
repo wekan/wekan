@@ -145,6 +145,14 @@ apps:
         command: ./bin/wekan-database
         plugs: [network, network-bind]
 
+    # Print the Admin Panel / Problems "Status" overview as text (problems,
+    # migrations and repairs in progress, plus the login-page "Must be logged in"
+    # checks) so an admin with only server (snap) access can see it WITHOUT Admin
+    # Panel access. Sub-commands: migrations | login | broken-cards | cpu | help.
+    problems:
+        command: ./bin/wekan-problems
+        plugs: [network, network-bind]
+
 
 parts:
     mongodb:

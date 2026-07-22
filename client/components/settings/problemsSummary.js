@@ -16,9 +16,16 @@ const STREAM_LABEL_KEY = {
 
 Template.problemsSummary.onCreated(function () {
   this.areas = new ReactiveVar([]);
+  // Status overview: everything in progress (migrations / repairs) + detected
+  // problems (broken cards, login-page "Must be logged in" causes). Same data as
+  // `snap run wekan.problems`.
+  this.status = new ReactiveVar(null);
   this.reload = () => {
     Meteor.call('eventLogProblemAreas', (err, res) => {
       if (!err) this.areas.set(Array.isArray(res) ? res : []);
+    });
+    Meteor.call('systemStatusReport', (err, res) => {
+      if (!err) this.status.set(res || null);
     });
   };
   this.reload();
@@ -38,6 +45,18 @@ Template.problemsSummary.helpers({
   },
   areaLabel(stream) {
     return TAPi18n.__(STREAM_LABEL_KEY[stream] || stream);
+  },
+  statusOverview() {
+    const s = Template.instance().status.get();
+    return s && s.overview ? s.overview : null;
+  },
+  inProgress() {
+    const s = Template.instance().status.get();
+    return s && s.overview ? s.overview.inProgress : [];
+  },
+  statusProblems() {
+    const s = Template.instance().status.get();
+    return s && s.overview ? s.overview.problems : [];
   },
 });
 

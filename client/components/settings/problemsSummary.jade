@@ -1,6 +1,32 @@
 template(name="problemsSummary")
   .global-search-results-list-wrapper
     h1 {{_ 'summary'}}
+
+    //- Status overview: migrations / repairs in progress + detected problems.
+    //- Same data as `snap run wekan.problems`.
+    if statusOverview
+      h2 {{_ 'problems-status-title'}}
+      if statusOverview.anyInProgress
+        p {{_ 'problems-in-progress-help'}}
+        .admin-problem-banner
+          each item in inProgress
+            .admin-problem-item
+              i.fa.fa-spinner.fa-spin
+              span.admin-problem-path {{item.message}}
+      else
+        p {{_ 'problems-none-in-progress'}}
+      if statusOverview.anyProblems
+        .admin-problem-banner
+          each problem in statusProblems
+            .admin-problem-item
+              i.fa.fa-exclamation-triangle
+              span.admin-problem-path {{problem.title}}
+              if problem.count
+                span.admin-problem-count {{problem.count}}
+              br
+              span.quiet {{problem.detail}}
+
+    h2 {{_ 'problems'}}
     if hasProblems
       p {{_ 'problems-summary-help'}}
       .admin-problem-banner
