@@ -93,6 +93,21 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+- [Public read-only boards: list dragging is disabled for anonymous / not-logged-in users. On a
+  public board opened while logged out, lists could still be dragged (the reorder was denied
+  server-side and snapped back, but the drag itself made mobile left/right scrolling almost
+  impossible). Already fixed — every list sortable is `disabled: !Utils.canModifyBoard()`, and
+  canModifyBoard() requires an active, non-read-only board member, so an anonymous user can never
+  drag lists; this release adds a unit guard so it cannot regress
+  (#1158)](https://github.com/wekan/wekan/commit/e999aa013).
+  Thanks to GenericUK and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.19 2026-07-22 WeKan ® release
 
 This release fixes the following bug:
