@@ -86,6 +86,21 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+- **Case-insensitive `@` member autocomplete in the card title**
+  ([#5116](https://github.com/wekan/wekan/issues/5116) follow-up). The add-card-title `@` member
+  mention matched with `user.username.indexOf(term) === 0` — case-sensitive, prefix-only,
+  username-only, and it threw when the user lookup returned `null`. So `@ann` did not suggest
+  `Anna`, `@Anna` did not match username `anna`, and a full-name search never matched. Both the
+  add-card and the card description/comment editor `@` mentions now share a pure, unit-tested
+  `models/lib/memberAutocomplete.js` that matches the term case-insensitively as a substring of the
+  username or full name, and is null-safe. Thanks to **rjl9** and **xet7**.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.14 2026-07-22 WeKan ® release
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
