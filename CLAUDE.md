@@ -120,6 +120,23 @@ machine (or English) one, but always take the newest translations from Transifex
   `Thanks to (issue creator's GitHub nickname) and xet7.`, and the section ends with
   `Thanks to above GitHub users for their contributions and translators for their
   translations.`
+- **`# TODO Later` section** — a triage backlog near the TOP of `CHANGELOG.md` (above the
+  version sections), for open issues that were **investigated but not fixed here**, each
+  recorded with a concrete REASON so whoever picks it up next knows why. Use it when working
+  through open issues (the "Fix open issues" process): for each issue, either **fix it** (commit
+  ending `Fixes #NNNN,`), **close it** if already fixed in current code (commit `Close #NNNN` /
+  `Fixes #NNNN,`), or — when it can't be fixed/verified in this environment — **add it to `TODO
+  Later` under the matching category with the reason**. Group issues by category bullet, e.g.:
+  *Need specific infrastructure / a running server stack* (LDAP/WebHooks/Sandstorm/proxy —
+  environment owners), *Need the running app to reproduce/verify* (runtime UI / publication /
+  mergebox / router state, not unit-testable), *Already correct in the current code* (verified by
+  reading; could not reproduce), *Feature requests / behaviour-by-design rather than bugs*, and
+  *Needs a maintainer decision on the intended contract*. Each entry is a normal issue link
+  `[#NNNN](https://github.com/wekan/wekan/issues/NNNN) (one-line reason)` — issue links here, NOT
+  commit links (nothing was committed). **Keep it current:** when an issue in `TODO Later` gets
+  fixed, REMOVE it from the list (its fix commit's `Fixes #NNNN` closes it); do not leave fixed
+  issues in the backlog. This is the only CHANGELOG place that uses issue links and lives above
+  the releases; everything else uses the per-release commit-link bullets above.
 - FerretDB Upcoming structure — `### New Features 🎉`, `### Fixed 🐛`, `### Other Changes
   🤖`; entries end `... by @xet7. Thanks to xet7.`
 - Word-wrap both CHANGELOGs at ~80 chars, but never break a long link across lines (a
