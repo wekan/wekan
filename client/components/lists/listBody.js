@@ -581,6 +581,15 @@ Template.addCardForm.onCreated(function () {
     } else if (evt.keyCode === 9) {
       // Prevent custom focus movement on Tab key for accessibility
       // evt.preventDefault();
+      // #1195: Tab opens the NEXT column's add-card form, but it used to abandon
+      // whatever was typed in THIS one — silently losing the card's content. Submit
+      // the current card first (when the textarea has non-whitespace content) so it
+      // is saved to this list, then move on to the next column's form.
+      const $currentForm = $(evt.currentTarget).closest('form');
+      const typed = $currentForm.find('textarea').val();
+      if (typeof typed === 'string' && typed.trim() !== '') {
+        $currentForm.find('button[type=submit]').click();
+      }
       const isReverse = evt.shiftKey;
       const list = $(`#js-list-${Template.currentData().listId}`);
       const listSelector = '.js-list:not(.js-list-composer)';
