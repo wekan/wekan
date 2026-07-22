@@ -139,7 +139,16 @@ Activities.after.insert(async (userId, doc) => {
   if (activity.cardId) {
     const card = (await activity.card()) || (await Cards.findOneAsync(activity.cardId));
     if (card) {
-      participants = [...new Set([...participants, card.userId, ...(card.members || [])])];
+      // #3192: include the card's ASSIGNEES as participants too, not just its
+      // creator and members — a user assigned a card (e.g. one with a due date)
+      // must be notified about it. Participants are still gated downstream by the
+      // board tracking level, so this does not notify anyone who is not tracking.
+      participants = [...new Set([
+        ...participants,
+        card.userId,
+        ...(card.members || []),
+        ...(card.assignees || []),
+      ])];
       watchers = [...new Set([...watchers, ...(card.watchers || [])])];
       params.card = normalizeActivityText(card.title);
       title = 'act-withCardTitle';

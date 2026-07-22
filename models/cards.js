@@ -3468,24 +3468,18 @@ const findDueCards = async days => {
 };
 const addCronJob = debounce(
   function findDueCardsDebounced() {
+    const { parseNotifyDueDays, parseNotifyDueHour } = require('/models/lib/dueNotificationConfig');
     const envValue = process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER;
     if (!envValue) {
       return;
     }
-    const notifydays = envValue
-      .split(',')
-      .map(value => {
-        const iValue = parseInt(value, 10);
-        // Allow -14..14: positive = days before due, 0 = due today, negative = days past due
-        if (isNaN(iValue) || iValue < -14 || iValue > 14) {
-          return false;
-        }
-        return iValue;
-      })
-      .filter(v => v !== false);
-    const notifyitvl = process.env.NOTIFY_DUE_AT_HOUR_OF_DAY; //passed in the itvl has to be a number standing for the hour of current time
-    const defaultitvl = 8; // default every morning at 8am, if the passed env variable has parsing error use default
-    const itvl = parseInt(notifyitvl, 10) || defaultitvl;
+    // -14..14: positive = days before due, 0 = due today, negative = days past due.
+    const notifydays = parseNotifyDueDays(envValue);
+    const defaultitvl = 8; // default every morning at 8am if the env var is missing/invalid
+    // #3192: parseNotifyDueHour keeps a configured hour of 0 (midnight) instead of
+    // the old `parseInt(..) || 8` that turned the falsy 0 into 8, and rejects
+    // out-of-range hours.
+    const itvl = parseNotifyDueHour(process.env.NOTIFY_DUE_AT_HOUR_OF_DAY, defaultitvl);
     const scheduler = (job => () => {
       const now = new Date();
       const hour = 3600 * 1e3;
