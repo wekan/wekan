@@ -88,7 +88,19 @@ them up next.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+- [A user added to a team AFTER it was assigned to a board now gains membership on that board.
+  Assigning a team to a board adds the team's current users to the board's members, but a user
+  added to the team afterwards only got read visibility (via the publications) while every
+  authority gate — `board.hasMember()`, the board permission checks, protected-attachment access,
+  and export visibility — looks at `board.members`, so the late-joining team member had strictly
+  less authority than the team's original members. Already fixed in current WeKan
+  (`addUserToTeamBoards` + the pure `models/lib/teamBoardMemberSync.js`, called from both the admin
+  People-panel `editUser` path and the create-user-with-teams path); this release adds source
+  guards so the wiring cannot silently regress
+  (#4593)](https://github.com/wekan/wekan/commit/a673a0c99).
+  Thanks to mianbaoshumoon and xet7.
 
 - [Add-card: pressing Tab no longer loses the typed card text. The add-card form's Tab handler is
   a deliberate power feature — Tab jumps to the next column's add-card form so cards can be added
