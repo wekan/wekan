@@ -19,64 +19,71 @@ Versions:
 
 # TODO Later
 
-Carried to a future release — investigated this session but not finished, with findings recorded for whoever picks
-them up next.
+Carried to a future release — investigated but not finished, with findings recorded for whoever picks
+them up next. Entries that have since been FIXED are removed from this list as they are handled (their
+fixes carry `Fixes #NNNN` and close on push): e.g. #4560/#4419/#4158 (LDAP, in the startup-upgrade
+batch), #4825/#4897 (All Boards/OAuth2 data), #4822 (maximized card position), #3826 (subtask drag
+reorder), #5282/#5547 (mergebox/features batch), #3453/#3199/#3843 (linked-card/archive/comment
+attachments), #4593 (late-joining team member board membership) and #3037 (REST card board-move).
 
-- **Need specific infrastructure we cannot reproduce/verify here (left for environment owners):**
-  [#4560](https://github.com/wekan/wekan/issues/4560) (LDAP→OIDC), [#3707](https://github.com/wekan/wekan/issues/3707)
-  & [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575)
-  (WebHooks), [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm).
-- **LDAP security/config that needs a real LDAP directory to verify safely (an unverified auth change could lock users out):**
-  [#4419](https://github.com/wekan/wekan/issues/4419) (after password→LDAP migration the old local password still
-  works — the safe fix is a `validateLoginAttempt` hook that rejects password-service logins for `authenticationMethod:'ldap'`
-  users, or `$unset services.password` on migration; both must be tested against a directory before shipping),
-  [#4158](https://github.com/wekan/wekan/issues/4158) (LDAP_ENCRYPTION naming/docs: accept `starttls`/`true`, deprecate
-  `tls`/`ssl`, validate unknown values).
+- **Need specific infrastructure / a running server stack we cannot reproduce here (left for
+  environment owners):**
+  [#3707](https://github.com/wekan/wekan/issues/3707) & [#3700](https://github.com/wekan/wekan/issues/3700)
+  (LDAP), [#3575](https://github.com/wekan/wekan/issues/3575) (WebHooks),
+  [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm),
+  [#1094](https://github.com/wekan/wekan/issues/1094) (Winston logger and the database do not work at
+  the same time — needs the running server/log stack to reproduce),
+  [#2445](https://github.com/wekan/wekan/issues/2445) (cannot enter an e-mail in Profile settings —
+  environment-specific, no repro on a clean install).
 - **Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here:**
-  [#4959](https://github.com/wekan/wekan/issues/4959) & [#4825](https://github.com/wekan/wekan/issues/4825) (per-list
-  card counts on the All Boards page — the `boardLists`/`boardMembers` helpers in `client/components/boards/boardsList.js`
-  were deliberately stubbed to `[]` to stop the #4214 "icons random dance"; re-enabling needs a non-reactive count source
-  and a lists/cards subscription for the dashboard, verified live so #4214 does not return),
-  [#4822](https://github.com/wekan/wekan/issues/4822) (maximized card mis-positioned after scrolling in swimlanes view),
-  [#3826](https://github.com/wekan/wekan/issues/3826) (cannot reorder cards in a list full of subtask cards — drag-drop,
-  data-loss risk), [#5282](https://github.com/wekan/wekan/issues/5282) & [#3252](https://github.com/wekan/wekan/issues/3252)
-  ("Removed nonexistent document" on attachment / comment / checklist delete — a publication/mergebox double-remove, same
-  class as the fixed #5685, not the delete itself),
-  [#4897](https://github.com/wekan/wekan/issues/4897) (OAuth2 users intermittently show stale/missing data — caching/
-  publication timing), [#3276](https://github.com/wekan/wekan/issues/3276) (excessive-time card colour does not refresh to
-  red until focus leaves the card — reactive re-render), [#3189](https://github.com/wekan/wekan/issues/3189) (Worker-role
-  user cannot re-assign a card to themselves after a prior assignee was removed — role/deny permission),
-  [#3576](https://github.com/wekan/wekan/issues/3576) (mobile back button after search returns to settings, not the board),
-  [#3453](https://github.com/wekan/wekan/issues/3453) (cross-board subtask full-path label vanishes after refresh — router),
-  [#3378](https://github.com/wekan/wekan/issues/3378) (SyncedCron "duplicate key" in cronHistory for notification_cleanup —
-  scheduler/dev-reload timing), [#3199](https://github.com/wekan/wekan/issues/3199) (Archive Restore/Delete links need
-  visual separation from neighbouring cards — CSS refinement),
-  [#3144](https://github.com/wekan/wekan/issues/3144) (archived-card activities render "undefined" in board settings —
-  the card lookup returns nothing once the card is archived/unpublished; needs the activity to carry a stored card title
-  or the feed to fall back to "{title} [archived]", verified live),
-  [#3114](https://github.com/wekan/wekan/issues/3114) (mobile card view stays open but blank after another client
-  deletes/moves the card — reactive close-on-remove), [#3037](https://github.com/wekan/wekan/issues/3037) (after moving a
-  card between boards via the REST API, opening it bounces back to the old board — the raw boardId/listId update does not
-  go through the full Card.move() re-home; the dedicated REST move/sort/date/archive path was fixed in #5398/#5399/#5537/
-  #5546, so use that rather than a raw field update), [#3070](https://github.com/wekan/wekan/issues/3070) (using a
-  template from Add Board / the top bar — issue body would not load; needs the app to reproduce).
+  [#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the All Boards page — the
+  `boardLists`/`boardMembers` helpers in `client/components/boards/boardsList.js` were deliberately stubbed
+  to `[]` to stop the #4214 "icons random dance"; re-enabling needs a non-reactive count source and a
+  lists/cards subscription for the dashboard, verified live so #4214 does not return),
+  [#3252](https://github.com/wekan/wekan/issues/3252) ("Removed nonexistent document" on attachment /
+  comment / checklist delete — a publication/mergebox double-remove, same class as the fixed #5685, not
+  the delete itself), [#3276](https://github.com/wekan/wekan/issues/3276) (excessive-time card colour does
+  not refresh to red until focus leaves the card — reactive re-render),
+  [#3189](https://github.com/wekan/wekan/issues/3189) (Worker-role user cannot re-assign a card to
+  themselves after a prior assignee was removed — role/deny permission),
+  [#3576](https://github.com/wekan/wekan/issues/3576) (mobile back button after search returns to settings,
+  not the board — router), [#3378](https://github.com/wekan/wekan/issues/3378) (SyncedCron "duplicate key"
+  in cronHistory for notification_cleanup — scheduler/dev-reload timing),
+  [#3144](https://github.com/wekan/wekan/issues/3144) (archived-card activities render "undefined" in board
+  settings — the card lookup returns nothing once the card is archived/unpublished; needs the activity to
+  carry a stored card title or the feed to fall back to "{title} [archived]", verified live),
+  [#3114](https://github.com/wekan/wekan/issues/3114) (mobile card view stays open but blank after another
+  client deletes/moves the card — reactive close-on-remove),
+  [#3070](https://github.com/wekan/wekan/issues/3070) (using a template from Add Board / the top bar — a
+  deleted template still lists / custom fields not copied; needs the app to reproduce),
+  [#1658](https://github.com/wekan/wekan/issues/1658) (activity list not showing in cards — a v1.01-era
+  report; the activity feed has been rewritten since, so it needs live confirmation on current code),
+  [#1946](https://github.com/wekan/wekan/issues/1946) (linked-card member avatars go grey after refresh —
+  the linked card's real members live on ANOTHER board, so their avatar user docs are not published to the
+  viewing board; the fix is a publication/subscription change verified live),
+  [#5052](https://github.com/wekan/wekan/issues/5052) (.eml attachment download returns 401 on copied
+  boards — a runtime download-auth/session issue; the file-serving code has been fully rewritten since the
+  2023 report, so it needs live re-confirmation), [#5421](https://github.com/wekan/wekan/issues/5421)
+  (moving a card fast — drag/reactivity glitch), [#761](https://github.com/wekan/wekan/issues/761) (cannot
+  drop into a list when it is scrolled to the bottom — drag-drop/scroll).
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
   [#4055](https://github.com/wekan/wekan/issues/4055) (ISO week number — the native DST-safe `getISOWeek()` is correct;
-  a regression test was added this release).
-- **Incomplete report (no reproduction details provided by the reporter):**
-  [#4593](https://github.com/wekan/wekan/issues/4593) (new team member permissions — issue body empty).
+  a regression test was added).
 - **Feature requests / behaviour-by-design rather than bugs:**
-  [#5547](https://github.com/wekan/wekan/issues/5547), [#3843](https://github.com/wekan/wekan/issues/3843)
-  (attachments added in comments not shown in the card attachment list),
   [#3828](https://github.com/wekan/wekan/issues/3828) (board members seeing all cards on a board is by design — WeKan has
   no per-card visibility model), [#3823](https://github.com/wekan/wekan/issues/3823),
   [#3748](https://github.com/wekan/wekan/issues/3748) (linked cards mirror the original rather than owning their own
   labels/custom fields), [#4023](https://github.com/wekan/wekan/issues/4023) (Japanese font alignment → per-board font
   request), [#4043](https://github.com/wekan/wekan/issues/4043) (invitation email occasionally sent without a valid
   code), [#3138](https://github.com/wekan/wekan/issues/3138),
-  [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role).
+  [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete to the Admin role),
+  [#5081](https://github.com/wekan/wekan/issues/5081) (redesign the owner/member/assignee avatar layout
+  on mini cards — a UI proposal; @xet7 asked for a PR),
+  [#1213](https://github.com/wekan/wekan/issues/1213) (copy-card resets comment authorship/date — the
+  visible card items are activities recorded as the copying user at copy time; changing this is a design
+  decision @xet7 raised, not a clear bug).
 - **Needs a maintainer decision on the intended contract (partly already works):**
   [#4912](https://github.com/wekan/wekan/issues/4912) (a global `act-editCard` webhook — card title/description edits
   ALREADY reach the global webhook via `Activities.after.insert` as `act-a-changedTitle` / `act-a-changedDescription`
