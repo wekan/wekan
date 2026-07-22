@@ -118,7 +118,7 @@ check('Admin Panel has a Problems button (right of Info) and no Reports button',
 check('Problems page: Summary/Security/Speed/Tests menu + read-only stream table', () => {
   const rj = read('client/components/settings/adminReports.jade');
   for (const id of ['report-summary','report-security','report-speed','report-tests']) {
-    assert.ok(new RegExp('js-'+id.replace('report-','report-')).test(rj), id+' menu entry');
+    assert.ok(new RegExp('js-' + id).test(rj), id + ' menu entry');
   }
   assert.ok(/\+problemsSummary/.test(rj) && /\+eventStreamReport/.test(rj), 'summary + stream views');
   const rjs = read('client/components/settings/adminReports.js');
