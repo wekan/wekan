@@ -91,12 +91,15 @@ them up next.
 This release fixes the following bugs:
 
 - **Cards added in List view no longer land in an archived swimlane**
-  ([#1971](https://github.com/wekan/wekan/issues/1971)). When a board's first/default swimlane was
-  archived, adding a card in List view assigned it to that archived swimlane, so the card was
-  invisible in Swimlane view (visible only in List view until the swimlane was unarchived).
-  `Board.getDefaultSwimline()` now prefers a NON-archived swimlane via a pure, unit-tested
-  `pickDefaultSwimlane()` helper (falling back to the first only when every swimlane is archived).
-  Thanks to **rangersdo** and **xet7**.
+  ([#1971](https://github.com/wekan/wekan/issues/1971),
+  [#1959](https://github.com/wekan/wekan/issues/1959)). When a board's first/default swimlane was
+  archived or deleted, adding a card in List view — or dragging a card to another list — assigned
+  it to that archived/deleted swimlane, so the card was invisible in Swimlane view (visible only in
+  List view until the swimlane was restored). `Board.getDefaultSwimline()` now prefers a
+  NON-archived swimlane via a pure, unit-tested `pickDefaultSwimlane()` helper (falling back to the
+  first only when every swimlane is archived); cards already orphaned by a swimlane deletion keep
+  surfacing in the first swimlane via the #6443 fallback. Thanks to **rangersdo**, **hnb1** and
+  **xet7**.
 
 - **Case-insensitive `@` member autocomplete in the card title**
   ([#5116](https://github.com/wekan/wekan/issues/5116) follow-up). The add-card-title `@` member
