@@ -119,6 +119,27 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix boards that loaded their lists/columns but never their CARDS on FerretDB v1 (SQLite) (10.22:
+  pages took minutes, columns appeared, cards never did). Every board card query used
+  `{ boardId: { $in: [board._id, board.subtasksDefaultBoardId] } }`, and `subtasksDefaultBoardId`
+  defaults to `null`; on FerretDB a `$in` containing `null` does not push down at all, so the WHERE
+  was dropped and the whole `cards` collection was full-scanned and decoded on every poll-and-diff
+  cycle (across ~7 card cursors per board open), while lists/swimlanes used a plain `boardId`
+  equality that stayed index-backed. A new `models/lib/boardCardScope.js` builds the scope WITHOUT
+  null (a plain equality — an index seek — when only the board is in scope, else an all-string
+  `$in`), applied to every card-scope site in `server/publications/boards.js`, `cardsWindow.js` and
+  `cards.js`; the lazy card-window selector is also flattened out of a top-level `$and` (which
+  FerretDB does not push down) so `boardId`/`archived` push down too. The FerretDB v1 fork is
+  hardened separately so a mixed `$in` (including `null`) uses the index instead of full-scanning
+  ](https://github.com/wekan/wekan/commit/0b809bccd).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.24 2026-07-22 WeKan ® release
 
 This release fixes the following bugs:
