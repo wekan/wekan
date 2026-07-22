@@ -682,11 +682,16 @@ function importMapToUser(wekanId) {
 }
 
 Template.importMapMembersAddPopup.events({
-  'click .js-select-import'(event, tpl) {
-    // The clicked search result is a WeKan user document; map to its _id. (Was
-    // `__originalId`, which is never set on the results, so mapping silently did
-    // nothing and the suggestion could not be selected — #6493-adjacent import fix.)
-    importMapToUser(Template.currentData()._id);
+  'click .js-select-import'(event) {
+    // Map to the WeKan user _id carried on the .js-select-import anchor's data-id.
+    // Reading it from the anchor (event.currentTarget) is robust to the click
+    // landing on a child node (the avatar or the name span), where
+    // Template.currentData() is undefined and `.­_id` threw "Cannot read properties
+    // of undefined (reading '_id')" (#6508). (`data-id` is set to {{_id}} in the
+    // template; the earlier fix from `__originalId` to `_id` was correct but read
+    // the wrong context.)
+    const id = event.currentTarget.getAttribute('data-id');
+    if (id) importMapToUser(id);
   },
   // Enter selects the first (highlighted) search result, so a name can be assigned
   // by keyboard without a mouse click.

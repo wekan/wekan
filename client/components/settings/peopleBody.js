@@ -1376,15 +1376,20 @@ Template.editUserPopup.events({
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
     const isChangeInitials = initials.length > 0;
-    const isChangeEmailVerified = verified !== user.emails[0].verified;
 
-    // If previously email address has not been set, it is undefined,
-    // check for undefined, and allow adding email address.
+    // An imported (placeholder) user, and some SSO users, have NO `emails` array at
+    // all, so `user.emails[0]` threw "Cannot read properties of undefined (reading
+    // '0')" when an admin gave such a user an email in Admin Panel / People (#6508).
+    // Read the primary email defensively (missing array OR empty array).
+    const primaryEmail =
+      Array.isArray(user.emails) && user.emails.length ? user.emails[0] : null;
+    const isChangeEmailVerified =
+      verified !== (primaryEmail ? primaryEmail.verified : undefined);
+
+    // If no email was set before, allow adding one (compare against `false`).
     const isChangeEmail =
       email.toLowerCase() !==
-      (typeof user.emails !== 'undefined'
-        ? user.emails[0].address.toLowerCase()
-        : false);
+      (primaryEmail ? primaryEmail.address.toLowerCase() : false);
 
     // Build user teams list
     let userTeamsList = userTeams.split(",");

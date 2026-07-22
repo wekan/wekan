@@ -30,9 +30,12 @@ test('selecting a searched user maps its _id (not the never-set __originalId)', 
   // The click handler maps the clicked user document by _id.
   const clickIdx = js.indexOf("'click .js-select-import'");
   assert.ok(clickIdx > -1, 'the select-import click handler exists');
-  const clickBlock = js.slice(clickIdx, clickIdx + 600);
+  const clickBlock = js.slice(clickIdx, clickIdx + 1000);
   assert.ok(/mapSelectedMember|importMapToUser/.test(clickBlock), 'the click maps the selected member');
-  assert.ok(/Template\.currentData\(\)\._id/.test(js), 'maps the search result by its _id');
+  // #6508: read the _id from the anchor's data-id (robust to a click on a child
+  // node), not Template.currentData() which is undefined there and threw.
+  assert.ok(/getAttribute\('data-id'\)/.test(clickBlock), 'maps the search result by its data-id');
+  assert.ok(!/Template\.currentData\(\)\._id/.test(js), 'must not read _id from Template.currentData() (child-click undefined)');
 });
 
 test('Enter selects the first search result (keyboard, no mouse needed)', () => {
