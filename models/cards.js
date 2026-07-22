@@ -2534,13 +2534,13 @@ Cards.helpers({
     }
 
     if (this.boardId !== boardId) {
-      const oldBoard = ReactiveCache.getBoard(this.boardId);
+      const oldBoard = await ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = Array.isArray(oldBoard?.labels) ? oldBoard.labels : [];
       const oldCardLabels = oldBoardLabels.filter(label => {
           return (this.labelIds || []).includes(label._id);
         }).map(x => x.name);
 
-      const newBoard = ReactiveCache.getBoard(boardId);
+      const newBoard = await ReactiveCache.getBoard(boardId);
       if (!newBoard) {
         throw new Meteor.Error('board-not-found', 'Destination board not found while moving card.');
       }
