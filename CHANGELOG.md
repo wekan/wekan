@@ -141,7 +141,7 @@ This release adds the following features:
   `migrations` / `login` / `broken-cards` / `cpu` sub-commands) — so an admin with only server access
   can read it. Migration/repair progress is persisted to the database so a separate process can see
   it. Docs: `docs/Features/Admin-Panel/Problems/`
-  ](https://github.com/wekan/wekan/commit/968d21c86).
+  ](https://github.com/wekan/wekan/commit/5a1c9a61e).
   Thanks to xet7.
 
 - [Shared board data-repairs run on board open, on server startup, AND during the MongoDB <-> FerretDB
@@ -152,7 +152,7 @@ This release adds the following features:
   pass runs once at startup, board open repairs per board, and the database migration repairs the live
   data before copying so the migrated copy is clean too. The progress dashboard is mounted app-wide
   (board + Admin Panel), styled in WeKan blue (#2980b9), and branded with the configured Product name
-  ](https://github.com/wekan/wekan/commit/3356e55c7).
+  ](https://github.com/wekan/wekan/commit/136a14c88).
   Thanks to xet7.
 
 This release fixes the following bugs:
@@ -161,7 +161,7 @@ This release fixes the following bugs:
   a function". On the server `ReactiveCache.getBoard()` is async; the cross-board branch of
   `Cards.move()` used it without `await`, so the destination board was a Promise (its methods missing)
   and label carry-over from the source board was silently dropped. Both `getBoard()` calls are now
-  awaited (same fix as PR #6505)](https://github.com/wekan/wekan/commit/113f3d9a9).
+  awaited (same fix as PR #6505)](https://github.com/wekan/wekan/commit/a4460b3f6).
   Thanks to ChristianMa97 and xet7.
 
 - [Swimlanes view: a shared card no longer appears in every swimlane ("doubled cards"). A card with
@@ -170,7 +170,7 @@ This release fixes the following bugs:
   extra DOM contributed to the search hang / can't-scroll on big boards). A non-first swimlane now
   shows only its own cards; shared and orphaned cards surface ONCE, in the first swimlane, so a card
   is never shown in more than one swimlane. Board-wide label filtering (#6441) is
-  preserved](https://github.com/wekan/wekan/commit/646a3fc19).
+  preserved](https://github.com/wekan/wekan/commit/c90d6eaa4).
   Thanks to xet7.
 
 - [Repair for boards where a list "disappeared" from swimlanes (the #6484 corruption). The #6484 bug
@@ -179,7 +179,7 @@ This release fixes the following bugs:
   wrongly-set `list.swimlaneId`. A new board-admin method `repairBoardWideLists(boardId)` clears
   those lists back to board-wide (rendered under every swimlane); it is idempotent and scoped to the
   one board. (Cards the bug moved into one swimlane are not restored — recover those from a backup.)
-  ](https://github.com/wekan/wekan/commit/a15363373).
+  ](https://github.com/wekan/wekan/commit/d35532f0f).
   Thanks to xet7.
 
 - [Opening a board now auto-detects the #6484 corruption and repairs it. On board open, a cheap
@@ -189,7 +189,7 @@ This release fixes the following bugs:
   migration-progress modal is now branded with the configured Product name (Admin Panel / Settings /
   Layout / Product name), falling back to WeKan when none is set, so every migration reusing the modal
   shows the admin's Product name instead of the hard-coded brand
-  ](https://github.com/wekan/wekan/commit/f279abe67).
+  ](https://github.com/wekan/wekan/commit/f559b751b).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
