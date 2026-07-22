@@ -174,6 +174,23 @@ test('#1971 negative: skips null/undefined entries when choosing the active swim
   assert.strictEqual(pickDefaultSwimlane(swimlanes)._id, 'live');
 });
 
+// --- #1959: same root cause as #1971 (card invisible when its swimlane is
+// deleted). New cards AND the List-view card drop resolve the target swimlane
+// through getDefaultSwimline (now non-archived), and pre-existing orphaned cards
+// surface in the first swimlane via #6443's orphanedCardsSwimlaneIds. -----------
+test('#1959 wiring: List-view card drop resolves the swimlane via getDefaultSwimline', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const list = fs.readFileSync(
+    path.join(__dirname, '..', 'client', 'components', 'lists', 'list.js'), 'utf8');
+  assert.ok(/getDefaultSwimline\(\)\._id/.test(list),
+    'the card-drop handler must resolve the default swimlane (now archived-skipping)');
+  // #6443 orphaned-card surfacing that keeps already-orphaned cards visible.
+  const lists = fs.readFileSync(path.join(__dirname, '..', 'models', 'lists.js'), 'utf8');
+  assert.ok(/orphanedCardsSwimlaneIds\(swimlaneId\)/.test(lists),
+    'orphaned cards (deleted swimlaneId) must still surface in the first swimlane');
+});
+
 // --- source guard: getDefaultSwimline routes through pickDefaultSwimlane -----
 test('#1971 source guard: boards.js getDefaultSwimline uses pickDefaultSwimlane', () => {
   const fs = require('fs');
