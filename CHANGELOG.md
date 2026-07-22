@@ -132,7 +132,7 @@ This release adds the following features:
   (#4758)](https://github.com/wekan/wekan/commit/191f82739).
   Thanks to Robdebert and xet7.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [Copy-code-block button in the card viewer is now reliable. It previously ran once with a global
   query, so it decorated only whichever code blocks were on the page at that instant ("works
