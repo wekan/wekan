@@ -119,6 +119,22 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix #6508: two crashes in the import "map users later" workflow. (A) In the import "map members"
+  step, clicking a searched user threw `Cannot read properties of undefined (reading '_id')` — the
+  handler read `Template.currentData()._id`, which is undefined when the click lands on a child of
+  the row (the avatar or the name span); it now reads the user id from the row's `data-id`. (B) In
+  Admin Panel / People, saving an imported (placeholder) user as an active person with an email
+  threw `Cannot read properties of undefined (reading '0')` because the submit handler read
+  `user.emails[0]` and an imported placeholder (and some SSO) user has no `emails` array; the primary
+  email is now read defensively](https://github.com/wekan/wekan/commit/7b62cd4e6).
+  Thanks to AmigaAbattoir and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.26 2026-07-22 WeKan ® release
 
 This release fixes the following bugs:
