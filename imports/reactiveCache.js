@@ -1041,7 +1041,17 @@ const ReactiveCacheClient = {
     return ret;
   },
   getCurrentSetting() {
-    if (!this.__currentSetting || !this.__currentSetting.get()) {
+    // #6507: create the DataCache ONCE (like every other getter above), keyed on
+    // `!this.__currentSetting` only. The old guard ALSO rebuilt it whenever the cached
+    // value was FALSY (it OR-ed a check on the getter result), so on a fresh install
+    // with no Settings document (or any moment the setting is briefly absent) a new
+    // DataCache — and a new Tracker.autorun — was built on EVERY reactive read. That
+    // continuous create/teardown churned computations app-wide and raced Blaze's
+    // view teardown, producing an infinite reactive loop and the "Cannot read
+    // properties of undefined (reading 'remove')" crash (the removed-DomRange class
+    // the getBoard staleWhileRevalidate comment above also guards against). Returning
+    // a stable null until the document exists is correct and loop-free.
+    if (!this.__currentSetting) {
       this.__currentSetting = new DataCache(() => {
         const _ret = Settings.findOne();
         return _ret;
@@ -1051,7 +1061,10 @@ const ReactiveCacheClient = {
     return ret;
   },
   getCurrentUser() {
-    if (!this.__currentUser || !this.__currentUser.get()) {
+    // #6507: same fix as getCurrentSetting — create the DataCache once. The old
+    // guard rebuilt it on every read while Meteor.user() was null (before login
+    // lands / a fresh install), thrashing computations and crashing Blaze teardown.
+    if (!this.__currentUser) {
       this.__currentUser = new DataCache(() => {
         const _ret = Meteor.user();
         return _ret;
