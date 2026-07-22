@@ -86,6 +86,21 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bug:
+
+- [Moving a card between boards via the REST API now works (and is unit-tested). Editing only the
+  raw `boardId`/`listId` left the card half-moved so opening it bounced back to the old board; the
+  supported way is the edit-card API's `newBoardId` + `newSwimlaneId` + `newListId`, which the
+  handler recognises as a full board move — it validates the destination list and swimlane belong
+  to the destination board and re-homes the card through `cardMove()` (updating board, swimlane and
+  list together). A partial set is intentionally NOT treated as a board move, so a card is never
+  half-moved (#3037)](https://github.com/wekan/wekan/commit/fbe548ec8).
+  Thanks to rptl and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.18 2026-07-22 WeKan ® release
 
 This release fixes the following bugs:
