@@ -105,6 +105,7 @@
       "glob": "$glob"
     },
     "uuid": "^14.0.0",
-    "webpack-dev-server": "^5.2.5"
+    "webpack-dev-server": "^5.2.6",
+    "http-proxy-middleware": "^2.0.10"
   }
 }
