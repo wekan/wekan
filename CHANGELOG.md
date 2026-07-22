@@ -137,6 +137,15 @@ packages enter only via `@rspack/dev-server` — the `rspack serve` dev server �
   runtime testing.
 - Thanks to **GitHub Dependabot** and **xet7**.
 
+This release also fixes the following bug:
+
+- **Case-insensitive `#` label autocomplete in the card title**
+  ([#5116](https://github.com/wekan/wekan/issues/5116)). Typing `#test` in the add-card /
+  edit-card-title field did not suggest a label named `Testing` — the label search matched with a
+  case-sensitive `label.name.indexOf(term)`, so only `#Test` matched. The match now lowercases both
+  the typed term and the label name/color (matching the `@` member autocomplete), extracted into a
+  pure, unit-tested `models/lib/labelAutocomplete.js`. Thanks to **rjl9** and **xet7**.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.13 2026-07-22 WeKan ® release
