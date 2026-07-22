@@ -428,9 +428,15 @@ export const RulesHelper = {
     }
     if (action.actionType === 'removeMember') {
       if (action.username === '*') {
-        const members = card.members || [];
-        for (let i = 0; i < members.length; i++) {
-          await card.unassignMember(members[i]);
+        // #2674: "remove every member" must iterate the card's ASSIGNEES — the
+        // same collection assignMember/unassignMember act on (addMember above
+        // uses card.assignMember). It previously read card.members, so it never
+        // removed anyone the rule had added and "remove all" appeared to do
+        // nothing. Snapshot the ids first: unassignMember $pulls from assignees.
+        const assignees =
+          (typeof card.getAssignees === 'function' ? card.getAssignees() : card.assignees) || [];
+        for (let i = 0; i < assignees.length; i++) {
+          await card.unassignMember(assignees[i]);
         }
       } else {
         const member = await ReactiveCache.getUser({ username: action.username });
