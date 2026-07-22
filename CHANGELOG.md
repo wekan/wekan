@@ -119,6 +119,43 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following CRITICAL VULNERABILITIES:
+
+- **[ExportBleed](https://wekan.fi/hall-of-fame/exportbleed/): stored XSS in HTML board exports
+  through a card-title second parse** (CWE-79 Cross-site Scripting; GitHub Security Advisory
+  GHSA-8r5p-4q9j-f5jx, severity High; `client/lib/exportHTML.js`). A board member could store
+  entity-encoded markup in a card title (e.g. `&lt;img src=x onerror=...&gt;`). It stays inert on
+  the live board — Blaze escapes it and the `+viewer` sanitizer neutralizes handlers, keeping the
+  entity payload as text — but the exported `index.html` embedded a card-click handler that read
+  the card title/body via `.textContent` (which DECODES HTML entities) and then concatenated those
+  values into `content.innerHTML`. That SECOND parse revived the tag and ran it when a recipient
+  clicked the card in the export, disclosing all data in that document (including cards added AFTER
+  the attacker's board membership was removed).
+  - **Fixed** by building the modal with DOM nodes and assigning the card title/body through
+    `textContent`, never `innerHTML`, so they are inserted as inert text
+    ([commit](https://github.com/wekan/wekan/commit/2d32e3462)).
+  - Thanks to **koyokr** (report) and **xet7** (fix).
+
+- **[SpliceBleed](https://wekan.fi/hall-of-fame/splicebleed/) follow-up: incomplete
+  multi-character sanitization re-flagged in the filename markup strip** (GitHub CodeQL code
+  scanning alert #426, rule `js/incomplete-multi-character-sanitization`, CWE-116 Improper Encoding
+  or Escaping of Output; `imports/lib/fileNameDisplay.js`). The SpliceBleed fix (#425) looped a
+  CHAIN of six replaces to a fixpoint — runtime-safe, but CodeQL (a local check) could not
+  attribute the fixpoint to the individual `<[^>]*>?` tag replace, so it kept flagging it ("this
+  string may still contain `<script`").
+  - **Fixed** by restructuring to the proven-complete pattern used by
+    `client/lib/importDependencies.js` `stripHtml()` (which cleared the sibling alert #421): remove
+    template/PI/CDATA tokens (looped), then strip HTML/XML tags with a SINGLE
+    `replace(/<[^>]*>/g, '')` looped to a fixed point, then drop any stray angle bracket so even an
+    unclosed tag (a trailing `<script`) cannot survive. Behaviour is unchanged, and Blaze `{{ }}`
+    still HTML-escapes every rendered filename, so this stays defence-in-depth
+    ([commit](https://github.com/wekan/wekan/commit/e7159d337)).
+  - Thanks to **GitHub CodeQL** (code scanning alert #426) and **xet7** (fix).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.22 2026-07-22 WeKan ® release
 
 This release adds the following features:
