@@ -119,6 +119,24 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix #6507: on a fresh install the Admin panel would not open, the title bar sometimes failed to
+  load or showed "You are not authorized to view this page", and the browser console looped
+  `Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'remove')`.
+  `ReactiveCacheClient.getCurrentSetting()` / `getCurrentUser()` guarded their DataCache with
+  `!this.__x || !this.__x.get()` — so while the Settings document did not exist yet (a fresh
+  install) or `Meteor.user()` was briefly null (right after the first admin logs in), a brand-new
+  DataCache and Tracker computation were rebuilt on EVERY reactive read, churning computations
+  app-wide and racing Blaze's view teardown into an infinite reactive loop + removed-DomRange crash.
+  Every other getter creates its DataCache once; these two now do the same, returning a stable value
+  until the setting / user exists](https://github.com/wekan/wekan/commit/00ef255b0).
+  Thanks to AmigaAbattoir and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.25 2026-07-22 WeKan ® release
 
 This release fixes the following bugs:
