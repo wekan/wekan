@@ -130,7 +130,7 @@ This release fixes the following bugs:
   Admin Panel / People, saving an imported (placeholder) user as an active person with an email
   threw `Cannot read properties of undefined (reading '0')` because the submit handler read
   `user.emails[0]` and an imported placeholder (and some SSO) user has no `emails` array; the primary
-  email is now read defensively](https://github.com/wekan/wekan/commit/7b62cd4e6).
+  email is now read defensively](https://github.com/wekan/wekan/commit/2f07b2933).
   Thanks to AmigaAbattoir and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
