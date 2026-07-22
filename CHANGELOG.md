@@ -86,6 +86,37 @@ them up next.
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
 
+# Upcoming WeKan ® release
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+- **[SpliceBleed](https://wekan.fi/hall-of-fame/splicebleed/): incomplete multi-character
+  sanitization when stripping exploit markup from a filename** (GitHub CodeQL code scanning
+  alert #425, rule `js/incomplete-multi-character-sanitization`, CWE-116 Improper Encoding or
+  Escaping of Output; `imports/lib/fileNameDisplay.js`). `stripExploitPatterns()` removed
+  HTML/script/XML/template markup from a shown filename in a single pass — so an input crafted
+  with nested or interleaved fragments (for example `<scr<x>ipt>` or `<scr{{y}}ipt>`) could have
+  its inner part removed and the two surviving outer fragments SPLICED together into a fresh
+  `<script>` token that the single pass no longer re-examined (CodeQL: "this string may still
+  contain `<script`").
+  - **Fixed** by applying the removals REPEATEDLY until the string stops changing (a fixpoint
+    loop). Each pass only ever deletes text, so the string strictly shrinks and the loop always
+    terminates; any dangerous token an earlier removal reveals is then removed too. Blaze `{{ }}`
+    already HTML-escapes every rendered filename, so this is defence-in-depth on the displayed
+    text rather than a live XSS, but the incomplete single-pass strip was genuinely wrong.
+  - Thanks to **GitHub CodeQL** (code scanning alert #425) and **xet7** (fix).
+
+- **[IdentityBleed](https://wekan.fi/hall-of-fame/identitybleed/): identity string replacement
+  (a no-op `replace`)** (GitHub CodeQL code scanning alert #424, rule `js/identity-replacement`,
+  CWE-116 Improper Encoding or Escaping of Output; `tests/securityLog.test.cjs`). A test built a
+  menu-id regex with `id.replace('report-', 'report-')` — replacing a substring with itself, a
+  no-op that CodeQL flags because it is almost always a mistake for a real transformation.
+  - **Fixed** by dropping the dead `replace` and matching `'js-' + id` directly. Test-only code
+    with no runtime exposure, but the no-op was removed for correctness.
+  - Thanks to **GitHub CodeQL** (code scanning alert #424) and **xet7** (fix).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.13 2026-07-22 WeKan ® release
 
 This release updates dependencies:
