@@ -5,6 +5,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { decideSandstormAutoOpen } from '/models/lib/sandstormAutoOpen';
+import { cardBoardRedirectTarget } from '/models/lib/cardLinkRedirect';
 import Settings from '/models/settings';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Filter } from '/client/lib/filter';
@@ -272,6 +273,40 @@ FlowRouter.route('/b/:id/:slug/rules', {
 });
 
 // Card route MUST be registered BEFORE board route so it matches first
+// #4758: keep a card link working after the card is moved to another board. The
+// URL carries the OLD board, which no longer contains the card, so resolve the
+// card's CURRENT board via the permission-checked `card` publication and, if it
+// differs, redirect there. When the user cannot see the card's new board (or it
+// is gone) the subscription yields nothing and we stay on the URL's board. A
+// single pending check at a time; the probe subscription is released once the
+// board's own subscription owns the card.
+let movedCardCheck = null;
+function maybeRedirectMovedCard(urlBoardId, cardId) {
+  if (movedCardCheck) {
+    movedCardCheck.computation.stop();
+    movedCardCheck.sub.stop();
+    movedCardCheck = null;
+  }
+  if (!cardId) return;
+  const sub = Meteor.subscribe('card', cardId);
+  const computation = Tracker.autorun(c => {
+    if (!sub.ready()) return;
+    c.stop();
+    const target = cardBoardRedirectTarget(urlBoardId, ReactiveCache.getCard(cardId));
+    Meteor.defer(() => { try { sub.stop(); } catch (e) {} });
+    movedCardCheck = null;
+    if (target && FlowRouter.getParam('cardId') === cardId) {
+      const board = ReactiveCache.getBoard(target);
+      FlowRouter.go('card', {
+        boardId: target,
+        slug: (board && board.slug) || 'board',
+        cardId,
+      });
+    }
+  });
+  movedCardCheck = { computation, sub };
+}
+
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action(params) {
@@ -279,6 +314,8 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Session.set('currentCard', params.cardId);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
+    // #4758: if the card was moved to another board, redirect to its current one.
+    maybeRedirectMovedCard(params.boardId, params.cardId);
 
     // In desktop mode, add to openCards array to support multiple cards
     const isMobile = Utils.getMobileMode();
