@@ -62,11 +62,26 @@ mkdir -p "$SQLITE_DIR"
 # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
 export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
 
-# #6480/#6481: run with a replica-set name so FerretDB v1 auto-creates the capped
-# local.oplog.rs and advertises the replica-set hello handshake. That lets WeKan's
-# Meteor TAIL the OpLog instead of poll-and-diff (the main fix for FerretDB's high
-# CPU on busy boards). Harmless when unused; overridable via WEKAN_FERRETDB_REPL_SET.
+# #6480/#6481: a replica-set name makes FerretDB v1 auto-create the capped
+# local.oplog.rs and advertise the replica-set hello handshake, so WeKan's Meteor
+# CAN tail the OpLog. But the OpLog is only useful when WeKan is ACTUALLY tailing it
+# (WEKAN_FERRETDB_OPLOG=true). In the default polling-only mode (wekan/wekan#6503)
+# maintaining the OpLog is pure overhead: a second write per mutation, a
+# once-a-minute capped-cleanup ticker, and — worst — a leftover tailable cursor
+# whose SQLite awaitData re-scan can peg FerretDB CPU (300%+) even while node is
+# idle. So enable the replica set / OpLog ONLY in OpLog mode; in polling-only mode
+# run FerretDB STANDALONE, with no OpLog at all. This matches the WEKAN_FERRETDB_OPLOG
+# gate in wekan-control (which unsets MONGO_OPLOG_URL in the same mode), so neither
+# side keeps an OpLog alive by default. Repl-set name overridable via
+# WEKAN_FERRETDB_REPL_SET.
 REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
+if [ "true" = "${WEKAN_FERRETDB_OPLOG:-false}" ]; then
+    REPL_SET_ARGS=(--repl-set-name="${REPL_SET_NAME}")
+    OPLOG_MODE="OpLog enabled (replSet ${REPL_SET_NAME})"
+else
+    REPL_SET_ARGS=()
+    OPLOG_MODE="polling only (standalone, no OpLog)"
+fi
 
 # #6492 recovery: perform a REQUESTED restore of the text-data database BEFORE FerretDB
 # opens the files, when the live database has been detected corrupt. Triggered by the
@@ -146,12 +161,12 @@ if [ "${WEKAN_FERRETDB_RESET_OPLOG:-true}" = "true" ] && [ -n "${SQLITE_DIR}" ];
           "${SQLITE_DIR}/local.sqlite-shm" "${SQLITE_DIR}/local.sqlite-journal"
 fi
 
-echo "Starting FerretDB v1 (SQLite) on ${BIND_IP}:${PORT} (replSet ${REPL_SET_NAME}, OpLog enabled) ..."
+echo "Starting FerretDB v1 (SQLite) on ${BIND_IP}:${PORT} (${OPLOG_MODE}) ..."
 echo "  SQLite data dir: ${SQLITE_DIR}"
 exec "$FERRETDB_BIN" \
     --handler=sqlite \
     --sqlite-url="file:${SQLITE_DIR}/" \
     --listen-addr="${BIND_IP}:${PORT}" \
-    --repl-set-name="${REPL_SET_NAME}" \
+    "${REPL_SET_ARGS[@]}" \
     --telemetry=disable \
     --log-level=error

@@ -54,3 +54,32 @@ minutes, All Boards counts stay `0`, raw i18n keys appear), the FerretDB v1
 **MongoDB** and switching to it (`snap set wekan database=mongodb`) removes that
 bottleneck for a heavy instance. First check that a migration/repair is not simply
 still running (`snap run wekan.problems`).
+
+## FerretDB reactivity mode (polling vs OpLog) — the usual CPU cause
+
+FerretDB v1 has no real replica-set OpLog; WeKan can either **poll** it
+(poll-and-diff) or **tail a simulated OpLog**. The snap default (since v10.16) is
+**polling only** — it keeps FerretDB CPU low. The `ferretdb` process pegging ~2
+cores for a long time while the WeKan `node` process is nearly idle is the
+signature of an **OpLog tail**: Meteor holds a tailable cursor on `local.oplog.rs`
+and FerretDB re-scans it server-side. Two guards now prevent this by default:
+
+- **`wekan-control`** clears `MONGO_OPLOG_URL` in polling mode, so node never tails.
+- **`ferretdb-control`** enables the replica set / OpLog **only** when
+  `wekan-ferretdb-oplog=true`; in the default polling mode FerretDB runs
+  **standalone**, so no OpLog is maintained and nothing can spin on tailing it.
+
+So if you see the pegged-`ferretdb` / idle-`node` pattern, check the setting and
+force polling:
+
+```
+snap get wekan wekan-ferretdb-oplog     # expect: false
+snap set wekan wekan-ferretdb-oplog=false
+snap restart wekan.wekan wekan.ferretdb
+```
+
+Admin Panel → Version → **Reactivity mode** shows which is live (`polling` vs
+`oplog`). Opting into OpLog (`=true`) is now also cheaper on the FerretDB side: the
+`{ts: {$gt}}` tail filter is pushed down to SQL and the OpLog's Timestamp is
+indexed, so an idle tail is an index range scan instead of a whole-collection
+re-decode on every poll.
