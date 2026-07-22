@@ -1026,6 +1026,11 @@ export class TrelloCreator {
       const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
+    // #6506: bring every imported member in as its own user (mapped to an existing
+    // account or a virtual placeholder) BEFORE creating the board, so board members,
+    // card authors, comments and activities keep the original person instead of
+    // collapsing onto the importer.
+    await this.createPlaceholderUsers(board);
     this.parseActions(board.actions);
     const boardId = await this.createBoardAndLabels(board);
     // Create the default swimlane first so lists can be attached to it (see
@@ -1039,6 +1044,79 @@ export class TrelloCreator {
     await this.recordImportedUsernames(board, boardId);
     // XXX add members
     return boardId;
+  }
+
+  // Pick a free username: keep the original if it is not taken, else suffix it so we
+  // never rename/steal a different existing account's username.
+  async _uniquePlaceholderUsername(base) {
+    const name = (String(base || '').trim()) || 'imported';
+    let candidate = name;
+    let n = 0;
+    // eslint-disable-next-line no-await-in-loop
+    while (await Meteor.users.findOneAsync({ username: candidate }, { fields: { _id: 1 } })) {
+      n += 1;
+      candidate = `${name}-${n}`;
+    }
+    return candidate;
+  }
+
+  // #6506: for every Trello member NOT already mapped (by the map-members step or the
+  // API importer's buildMembersMapping), either map it to an EXISTING WeKan user with
+  // the same username / recorded importUsername, or create an inert virtual
+  // (placeholder) user carrying the original username / full name. This keeps imported
+  // authorship on the original person instead of the importing user, for BOTH the
+  // Trello JSON import and the Trello API (all-boards) import. Placeholders cannot log
+  // in (loginDisabled), are inactive until reconciled (isActive:false) and carry no
+  // secrets. Server-only; best-effort so one bad member never fails the import.
+  async createPlaceholderUsers(board) {
+    if (!Meteor.isServer) return;
+    for (const member of board.members || []) {
+      if (!member || !member.id) continue;
+      if (this.members[member.id]) continue; // already mapped to an existing user
+
+      if (member.username) {
+        const existing =
+          (await ReactiveCache.getUser({ username: member.username })) ||
+          (await ReactiveCache.getUser({ importUsernames: member.username }));
+        if (existing) {
+          this.members[member.id] = existing._id;
+          continue;
+        }
+      }
+
+      // Reuse the Trello member id as the WeKan user _id so every reference resolves.
+      const existingById = await ReactiveCache.getUser(member.id);
+      if (!existingById) {
+        const username = await this._uniquePlaceholderUsername(
+          member.username || member.fullName || `imported-${member.id}`,
+        );
+        try {
+          // .direct bypasses the after.insert hooks (Sandstorm identity sync, the
+          // registration/invitation gate) that would reject a non-account placeholder.
+          await Users.direct.insertAsync({
+            _id: member.id,
+            username,
+            profile: {
+              fullname: member.fullName || '',
+              initials: String(member.initials || '').slice(0, 4),
+            },
+            authenticationMethod: 'imported',
+            loginDisabled: true,
+            isActive: false,
+            importUsernames: member.username ? [member.username] : [],
+            importedFromBoardId: board.id || null,
+            importedAt: new Date(),
+            createdAt: new Date(),
+            services: {},
+          });
+        } catch (e) {
+          if (process.env.DEBUG === 'true') {
+            console.warn('trello placeholder user insert:', member.id, e && e.message);
+          }
+        }
+      }
+      this.members[member.id] = member.id;
+    }
   }
 
   // Keep the original Trello usernames so user mapping can happen later:

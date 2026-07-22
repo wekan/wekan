@@ -173,11 +173,13 @@ function assignBoardToNamedWorkspace(boardId, wsName, parentId = null) {
 
 Template.import.onCreated(function () {
   this.error = new ReactiveVar('');
-  // Import never asks for member mapping up front: every imported member is brought
-  // in as a virtual (placeholder) user carrying its avatar / username / full name,
-  // and a board admin maps a virtual member to an existing board user later from the
-  // sidebar member-avatar popup. So there is a single step; import runs immediately.
-  this.steps = ['importTextarea'];
+  // #6506: import shows the "map members" step so imported members can be mapped to
+  // EXISTING WeKan users (auto-suggested by username). It is OPTIONAL — a Skip button
+  // (and the textarea "import without mapping" button) bypasses it. Whatever is not
+  // mapped is brought in as a virtual (placeholder) user carrying its username / full
+  // name — NOT collapsed onto the importing user — and a board admin can still map a
+  // virtual member to an existing user later from the sidebar member-avatar popup.
+  this.steps = ['importTextarea', 'importMapMembers'];
   this._currentStepIndex = new ReactiveVar(0);
   this.importedData = new ReactiveVar();
   this.membersToMap = new ReactiveVar([]);
@@ -315,10 +317,17 @@ Template.import.onCreated(function () {
   };
 
   this.finishImport = async () => {
-    // No import-time member mapping: every imported member becomes a virtual
-    // (placeholder) user. Mapping a virtual member to an existing board user is done
-    // later from the board sidebar (privilege-bounded), so pass an empty mapping.
+    // #6506: build the member mapping from the (optional) map-members step —
+    // { importedMemberId: existingWekanUserId } for members the user mapped (or that
+    // auto-matched by username). Members left unmapped, or skipped entirely, are sent
+    // WITHOUT an entry: the server creator brings them in as virtual (placeholder)
+    // users instead of collapsing them onto the importing user.
     const mappingById = {};
+    (this.membersToMap.get() || []).forEach(member => {
+      if (member && member.id && member.wekanId) {
+        mappingById[member.id] = member.wekanId;
+      }
+    });
     const importedData = this.importedData.get();
 
     // Trello: import over HTTP (see postTrelloImport) so the realtime DDP

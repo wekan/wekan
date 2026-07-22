@@ -30,7 +30,7 @@ test('selecting a searched user maps its _id (not the never-set __originalId)', 
   // The click handler maps the clicked user document by _id.
   const clickIdx = js.indexOf("'click .js-select-import'");
   assert.ok(clickIdx > -1, 'the select-import click handler exists');
-  const clickBlock = js.slice(clickIdx, clickIdx + 300);
+  const clickBlock = js.slice(clickIdx, clickIdx + 600);
   assert.ok(/mapSelectedMember|importMapToUser/.test(clickBlock), 'the click maps the selected member');
   assert.ok(/Template\.currentData\(\)\._id/.test(js), 'maps the search result by its _id');
 });

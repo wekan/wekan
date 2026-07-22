@@ -1317,6 +1317,10 @@ export class WekanCreator {
 
     for (const u of users) {
       if (!u || !u._id) continue;
+      // #6506: a member the map-members step mapped to an EXISTING WeKan user is
+      // already in this.members (id -> real user id); keep that and do NOT create a
+      // placeholder or overwrite it with the identity mapping below.
+      if (this.members[u._id]) continue;
       const profile = u.profile || {};
       let existing = await ReactiveCache.getUser(u._id);
       if (!existing) {

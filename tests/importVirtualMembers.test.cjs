@@ -1,12 +1,13 @@
 'use strict';
 
-// Wiring guards for the "import always creates virtual users, map later" feature:
-//   - Import never asks for member mapping up front (single step, empty mapping), so
-//     every imported member is brought in as a virtual (placeholder) user.
+// Wiring guards for import member handling:
+//   - #6506: import shows the OPTIONAL "map members" step so imported members can be
+//     mapped to existing WeKan users; members left unmapped (or skipped) are brought in
+//     as virtual (placeholder) users, NOT collapsed onto the importing user.
 //   - Import is bounded by a hang-mitigation watchdog (client + server) so it can never
 //     spin forever.
-//   - A board admin maps a virtual member to an existing real board user LATER from the
-//     sidebar member-avatar popup, via a board-scoped, no-escalation server method.
+//   - A board admin can also map a virtual member to an existing real board user LATER
+//     from the sidebar member-avatar popup, via a board-scoped, no-escalation method.
 //
 // Run: node tests/importVirtualMembers.test.cjs
 
@@ -20,13 +21,34 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 console.log('importVirtualMembers:');
 
-test('import runs immediately with no member-mapping step', () => {
+test('#6506: import shows the map-members step and builds the mapping from it', () => {
   const js = read('client/components/import/import.js');
-  assert.ok(/this\.steps = \['importTextarea'\]/.test(js), 'only the textarea step remains (no importMapMembers step)');
-  // finishImport must not build a mapping from membersToMap — every member is virtual.
+  assert.ok(/this\.steps = \['importTextarea', 'importMapMembers'\]/.test(js),
+    'the wizard includes the importMapMembers step again');
+  // finishImport builds the mapping from the members the user mapped (member.wekanId).
   const fi = js.slice(js.indexOf('this.finishImport'));
-  assert.ok(/const mappingById = \{\};/.test(fi), 'finishImport passes an empty membersMapping');
-  assert.ok(!/membersMapping\.forEach/.test(fi), 'no per-member wekanId mapping is applied at import');
+  assert.ok(/this\.membersToMap\.get\(\)/.test(fi) && /member\.wekanId/.test(fi),
+    'finishImport builds membersMapping from the mapped members');
+  assert.ok(/mappingById\[member\.id\] = member\.wekanId/.test(fi),
+    'each mapped member maps its imported id to the chosen existing user');
+  // The skip button and the textarea "without mapping" button both still bypass it.
+  assert.ok(/js-import-skip-mapping/.test(js) && /js-import-without-mapping/.test(js),
+    'skip / import-without-mapping remain available');
+});
+
+test('#6506: unmapped Trello members become virtual users (both JSON and API import)', () => {
+  const tc = read('models/trelloCreator.js');
+  assert.ok(/async createPlaceholderUsers\(board\)/.test(tc), 'trelloCreator creates placeholder users');
+  assert.ok(/await this\.createPlaceholderUsers\(board\)/.test(tc), 'create() runs it before building the board');
+  // Unmapped members map to an existing user by username, else a virtual placeholder.
+  assert.ok(/if \(this\.members\[member\.id\]\) continue;/.test(tc), 'already-mapped members are kept');
+  assert.ok(/ReactiveCache\.getUser\(\{ username: member\.username \}\)/.test(tc), 'auto-maps by username');
+  assert.ok(/loginDisabled: true/.test(tc) && /isActive: false/.test(tc) && /authenticationMethod: 'imported'/.test(tc),
+    'placeholders are inert imported users');
+  // wekanCreator keeps an explicit UI mapping instead of overwriting it with a placeholder.
+  const wc = read('models/wekanCreator.js');
+  assert.ok(/if \(this\.members\[u\._id\]\) continue;/.test(wc),
+    'wekanCreator does not clobber an explicit mapping with the identity placeholder');
 });
 
 test('import is bounded by a client-side watchdog (no infinite spinner)', () => {
