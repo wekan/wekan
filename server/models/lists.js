@@ -485,13 +485,35 @@ Meteor.methods({
     await list.toggleSoftLimit(!(await list.getWipLimit('soft')));
   },
 
+  // #6484 detection: does this board have lists wrongly bound to a swimlane (so
+  // they "disappeared" from other swimlanes)? Called cheaply when a board opens.
+  // Returns { needsRepair: <count of bound lists>, canRepair: <viewer is a board
+  // admin> } so the client can auto-run repairBoardWideLists (below) with a
+  // progress modal only when there is something to fix and the user may fix it.
+  async boardListRepairNeeded(boardId) {
+    check(boardId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in.');
+    }
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasMember(this.userId)) {
+      throw new Meteor.Error('not-authorized', 'You must be a board member.');
+    }
+    const lists = await ReactiveCache.getLists({ boardId });
+    return {
+      needsRepair: listsToUnbind(lists).length,
+      canRepair: board.hasAdmin(this.userId) === true,
+    };
+  },
+
   // #6484 repair: restore board-wide lists that were wrongly bound to a single
   // swimlane (so they "disappeared" from the other swimlanes) by clearing their
-  // swimlaneId back to null. Run deliberately by a board admin on an affected
-  // board. Idempotent: lists already board-wide are left untouched. Returns the
-  // number of lists un-bound. Note this repairs the LIST binding only; cards the
-  // same bug moved into one swimlane are not restored (recover those from a
-  // backup) since their intended swimlane cannot be known.
+  // swimlaneId back to null. Run by a board admin (deliberately, or auto on board
+  // open when boardListRepairNeeded reports needsRepair). Idempotent: lists
+  // already board-wide are left untouched. Returns the number of lists un-bound.
+  // Note this repairs the LIST binding only; cards the same bug moved into one
+  // swimlane are not restored (recover those from a backup) since their intended
+  // swimlane cannot be known.
   async repairBoardWideLists(boardId) {
     check(boardId, String);
     if (!this.userId) {

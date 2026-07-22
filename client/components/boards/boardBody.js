@@ -13,6 +13,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import { Filter } from '/client/lib/filter';
+import { migrationProgressManager } from '/client/components/settings/migrationProgress';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndex } = Utils;
@@ -26,6 +27,43 @@ Template.board.onCreated(function () {
   // Kept for the template/jade which still references it; conversion is a no-op.
   this.isConverting = new ReactiveVar(false);
   this._swimlaneCreated = new Set(); // boards where a default swimlane was ensured
+  this._listRepairChecked = new Set(); // boards whose #6484 list-repair was checked
+
+  // #6484: when a board opens, detect whether it has lists wrongly bound to a
+  // swimlane (the "nudging a list hid it from other swimlanes" corruption, which
+  // makes a list DISAPPEAR from the other swimlanes) and, if so and the viewer is
+  // a board admin, repair them — showing the shared migration-progress modal.
+  // Checked once per board, fire-and-forget so it never blocks rendering.
+  this.maybeRepairBoardWideLists = (boardId) => {
+    if (!boardId || this._listRepairChecked.has(boardId)) {
+      return;
+    }
+    this._listRepairChecked.add(boardId);
+    Meteor.call('boardListRepairNeeded', boardId, (err, res) => {
+      if (err || !res || !res.needsRepair || !res.canRepair) {
+        return; // nothing to fix, or the viewer is not a board admin
+      }
+      migrationProgressManager.startMigration();
+      migrationProgressManager.updateProgress({
+        overallProgress: 20,
+        currentStep: 1,
+        totalSteps: 1,
+        stepName: 'repairBoardWideLists',
+        stepProgress: 20,
+        stepStatus: 'running',
+        stepDetails: { lists: res.needsRepair },
+        boardId,
+      });
+      Meteor.call('repairBoardWideLists', boardId, (err2) => {
+        if (err2) {
+          this._listRepairChecked.delete(boardId); // allow a retry
+          migrationProgressManager.failMigration(err2);
+          return;
+        }
+        migrationProgressManager.completeMigration();
+      });
+    });
+  };
 
   // Ensure a board has at least one swimlane. Guarded to run once per board and
   // fire-and-forget so it never blocks rendering. The board is marked
@@ -84,6 +122,8 @@ Template.board.onCreated(function () {
       // id and the subscription's ready state — not on the swimlane data that
       // ensureDefaultSwimlane reads — which would otherwise cause extra re-runs.
       Tracker.nonreactive(() => this.ensureDefaultSwimlane(currentBoardId));
+      // #6484: also detect + repair swimlane-bound lists once the board is ready.
+      Tracker.nonreactive(() => this.maybeRepairBoardWideLists(currentBoardId));
     }
   });
 });

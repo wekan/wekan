@@ -5,6 +5,7 @@
 
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { productNameOrDefault } from '/models/lib/productName';
 
 // Reactive variables for migration progress
 export const migrationProgress = new ReactiveVar(0);
@@ -131,6 +132,13 @@ export const migrationProgressManager = new MigrationProgressManager();
 Template.migrationProgress.helpers({
   isMigrating() {
     return isMigrating.get();
+  },
+
+  // The configured Product name (Admin Panel / Settings / Layout / Product name)
+  // so the migration modal is branded with it instead of the hard-coded WeKan.
+  productName() {
+    const setting = ReactiveCache.getCurrentSetting();
+    return productNameOrDefault(setting && setting.productName);
   },
 
   overallProgress() {

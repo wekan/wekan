@@ -56,4 +56,39 @@ check('server method repairBoardWideLists is admin-gated and clears swimlaneId',
     'must scope the update to this board only');
 });
 
+// ── detection method: board opens -> does it need repair? ───────────────────
+check('server method boardListRepairNeeded is board-member gated, reports need + admin', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'server', 'models', 'lists.js'), 'utf8');
+  const start = src.indexOf('async boardListRepairNeeded(');
+  assert.ok(start > -1, 'boardListRepairNeeded method must exist');
+  const body = src.slice(start, start + 800);
+  assert.ok(/board\.hasMember\(this\.userId\)/.test(body), 'must require a board member');
+  assert.ok(/needsRepair: listsToUnbind\(lists\)\.length/.test(body),
+    'needsRepair must be the count from the tested helper');
+  assert.ok(/canRepair: board\.hasAdmin\(this\.userId\)/.test(body),
+    'canRepair must reflect board-admin so the client only auto-repairs when allowed');
+});
+
+// ── client: on board open, detect + repair with the migration-progress modal ─
+check('#6484: the board detects + repairs on open and shows migration progress', () => {
+  const js = fs.readFileSync(
+    path.join(__dirname, '..', 'client', 'components', 'boards', 'boardBody.js'), 'utf8');
+  assert.ok(/maybeRepairBoardWideLists\(currentBoardId\)/.test(js),
+    'the board-ready autorun must run the repair check on open');
+  const start = js.indexOf('this.maybeRepairBoardWideLists =');
+  const body = js.slice(start, start + 1200);
+  assert.ok(/Meteor\.call\('boardListRepairNeeded', boardId/.test(body), 'must detect via the method');
+  assert.ok(/res\.needsRepair.*res\.canRepair|res\.canRepair/.test(body),
+    'must only proceed when a repair is needed AND the viewer may repair');
+  assert.ok(/migrationProgressManager\.startMigration\(\)/.test(body),
+    'must show the shared migration-progress modal');
+  assert.ok(/Meteor\.call\('repairBoardWideLists', boardId/.test(body), 'must run the repair');
+  assert.ok(/completeMigration\(\)/.test(body) && /failMigration/.test(body),
+    'must complete / fail the progress modal');
+  assert.ok(/_listRepairChecked/.test(body), 'must check once per board (guarded)');
+  const jade = fs.readFileSync(
+    path.join(__dirname, '..', 'client', 'components', 'boards', 'boardBody.jade'), 'utf8');
+  assert.ok(/\+migrationProgress/.test(jade), 'the board template must render +migrationProgress');
+});
+
 console.log(`\nlistUnbindRepair: ${passed} checks passed`);
