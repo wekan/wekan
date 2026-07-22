@@ -39,6 +39,15 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   Apache reverse proxy — an Apache proxy-configuration concern, not reproducible from WeKan code
   alone; needs the reporter's proxy setup to investigate).
 - **Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here:**
+  [#6503](https://github.com/wekan/wekan/issues/6503) (OIDC + Register buttons dead in the 10.13 snap —
+  PARTLY fixed: the raw i18n key `changeLanguagePopup-title` (i18n now statically bundles English +
+  bounds the dynamic language load with a timeout, so it never sticks on raw keys) and the `oplog
+  catching up took too long` stalls (FerretDB now defaults to polling-only) are both fixed in v10.16+.
+  The remaining dead OIDC/Register buttons are NOT a source regression — the login code is byte-identical
+  between 10.11 and 10.13 — the diagnosis is a stale dynamic-import bundle cache on the snap after the
+  refresh, so there is no code fix; it needs the reporter to confirm on a clean ≥10.16 install with a
+  hard reload / cleared site data, and if it still repros, the browser console + Network tab (a
+  failed/pending `/dynamic-import` fetch or an unhandled `TAPi18n.init` rejection) to pin it),
   [#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the All Boards page — the
   `boardLists`/`boardMembers` helpers in `client/components/boards/boardsList.js` were deliberately stubbed
   to `[]` to stop the #4214 "icons random dance"; re-enabling needs a non-reactive count source and a
