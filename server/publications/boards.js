@@ -22,6 +22,7 @@ const {
   effectiveBoardCardsMode,
   DEFAULT_LAZY_THRESHOLD,
 } = require('/models/lib/cardsLoading');
+const { boardCardScope } = require('/models/lib/boardCardScope');
 
 // Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
 // minimongo; 'lazy' ships none (each list loads its visible window via the
@@ -524,7 +525,7 @@ publishComposite('board', async function(boardId, isArchived) {
     if (mode === 'all') return false;
     if (_boardCardCount === null) {
       _boardCardCount = await Cards.find(
-        { boardId: { $in: [board._id, board.subtasksDefaultBoardId] }, archived: isArchived },
+        { ...boardCardScope(board), archived: isArchived },
       ).countAsync();
     }
     return effectiveBoardCardsMode('auto', _boardCardCount, globalLazyThreshold()) === 'lazy';
@@ -591,7 +592,7 @@ publishComposite('board', async function(boardId, isArchived) {
           // published per visible window by `boardCardsWindow`, not here.
           if (await boardIsLazy(board)) return null;
           const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            ...boardCardScope(board),
             archived: isArchived,
           };
 
@@ -721,7 +722,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            ...boardCardScope(board),
             archived: isArchived,
           };
 
@@ -759,7 +760,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            ...boardCardScope(board),
             archived: isArchived,
           };
 
@@ -783,7 +784,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            ...boardCardScope(board),
             archived: isArchived,
           };
 
@@ -807,7 +808,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            ...boardCardScope(board),
             archived: isArchived,
           };
 
@@ -832,7 +833,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            ...boardCardScope(board),
             archived: isArchived,
           };
 
@@ -856,7 +857,7 @@ publishComposite('board', async function(boardId, isArchived) {
       {
         async find(board) {
           const cardSelector = {
-            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            ...boardCardScope(board),
             archived: isArchived,
           };
 

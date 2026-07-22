@@ -78,6 +78,7 @@ import { QueryErrors, QueryParams, Query } from '/config/query-classes';
 import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
+const { boardCardScope } = require('/models/lib/boardCardScope');
 
 Meteor.publish('card', async function(cardId) {
   check(cardId, String);
@@ -261,7 +262,7 @@ Meteor.publish('archiveSidebar', async function(boardId, activeTab = 'cards', ca
   }
 
   const cardSelector = {
-    boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+    ...boardCardScope(board),
     archived: true,
   };
 

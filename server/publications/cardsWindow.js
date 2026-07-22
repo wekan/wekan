@@ -3,6 +3,7 @@ import { publishComposite } from 'meteor/reywood:publish-composite';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 const { hasWhere } = require('/models/lib/mongoSelectorSafety');
+const { boardCardScope } = require('/models/lib/boardCardScope');
 const {
   effectiveBoardCardsMode,
   DEFAULT_LAZY_THRESHOLD,
@@ -48,8 +49,22 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
   const safe = hasWhere(cardSelector) ? { _id: { $in: [] } } : cardSelector;
   const sortOpt = sort || { sort: 1 };
 
-  // The window's card selector, ANDed with the board scope.
-  const windowSel = board => ({ $and: [safe, { boardId: board._id, archived: false }] });
+  // The window's card selector, scoped to the board. Merge the board scope with the
+  // client selector at the TOP level (rather than wrapping both in a `$and`) so
+  // `boardId`/`archived` push down to FerretDB v1 (SQLite)'s index: FerretDB does NOT
+  // push down a top-level `$and`, so the wrapped form full-scanned the whole `cards`
+  // table on every poll and the window never became ready — cards never loaded on a
+  // big (lazy) board (10.22). Merging is EXACTLY equivalent to the `$and` as long as
+  // the client selector has no own `boardId`/`archived` key (it does not — it is a
+  // per-list listId + swimlane selector); if it ever did, fall back to `$and` so the
+  // semantics stay correct. The in-Go filter remains the authority either way.
+  const safeCollides =
+    Object.prototype.hasOwnProperty.call(safe, 'boardId') ||
+    Object.prototype.hasOwnProperty.call(safe, 'archived');
+  const windowSel = board =>
+    safeCollides
+      ? { $and: [safe, { boardId: board._id, archived: false }] }
+      : { ...safe, boardId: board._id, archived: false };
 
   // The ids of the cards in this window. Used to publish the window's comments,
   // attachments, checklists and checklist items with ONE cursor each
@@ -179,7 +194,7 @@ Meteor.publish('boardCardsLoadingMode', async function(boardId) {
     const t = Number(Meteor.settings.public && Meteor.settings.public.cardsLoadingLazyThreshold);
     const threshold = Number.isFinite(t) && t >= 0 ? t : DEFAULT_LAZY_THRESHOLD;
     const count = await Cards.find(
-      { boardId: { $in: [board._id, board.subtasksDefaultBoardId] }, archived: false },
+      { ...boardCardScope(board), archived: false },
     ).countAsync();
     lazy = effectiveBoardCardsMode('auto', count, threshold) === 'lazy';
   }
