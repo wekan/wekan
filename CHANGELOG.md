@@ -119,6 +119,26 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix #6506: board import shows the "map members" step again, and unmapped members become virtual
+  users instead of the importer. A regression in v10.12 dropped the `importMapMembers` step from the
+  import wizard and sent an empty member mapping, so the map-users screen never appeared and every
+  imported card / member / comment was assigned to the importing user even when that person already
+  existed in WeKan. The (auto-suggesting) map-members step is restored and stays OPTIONAL (a Skip
+  button and the textarea "import without mapping" button bypass it); `finishImport` builds the
+  mapping from the members the user mapped. Members left unmapped — or skipped, including the Trello
+  API all-boards background import which has no interactive step — are now brought in as inert
+  virtual (placeholder) users (mapped to an existing user by username where one matches), so board
+  membership and authorship keep the original person instead of collapsing onto the importer. Covers
+  the single-board Trello JSON import, the Trello API import, and the WeKan JSON import
+  ](https://github.com/wekan/wekan/commit/eb80ee69f).
+  Thanks to AmigaAbattoir and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.23 2026-07-22 WeKan ® release
 
 This release fixes the following CRITICAL VULNERABILITIES:
