@@ -34,7 +34,10 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   [#1094](https://github.com/wekan/wekan/issues/1094) (Winston logger and the database do not work at
   the same time — needs the running server/log stack to reproduce),
   [#2445](https://github.com/wekan/wekan/issues/2445) (cannot enter an e-mail in Profile settings —
-  environment-specific, no repro on a clean install).
+  environment-specific, no repro on a clean install),
+  [#3001](https://github.com/wekan/wekan/issues/3001) (manipulated headers / high traffic behind an
+  Apache reverse proxy — an Apache proxy-configuration concern, not reproducible from WeKan code
+  alone; needs the reporter's proxy setup to investigate).
 - **Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here:**
   [#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the All Boards page — the
   `boardLists`/`boardMembers` helpers in `client/components/boards/boardsList.js` were deliberately stubbed
@@ -65,7 +68,10 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   boards — a runtime download-auth/session issue; the file-serving code has been fully rewritten since the
   2023 report, so it needs live re-confirmation), [#5421](https://github.com/wekan/wekan/issues/5421)
   (moving a card fast — drag/reactivity glitch), [#761](https://github.com/wekan/wekan/issues/761) (cannot
-  drop into a list when it is scrolled to the bottom — drag-drop/scroll).
+  drop into a list when it is scrolled to the bottom — drag-drop/scroll),
+  [#1942](https://github.com/wekan/wekan/issues/1942) (a card linked from board A into board B shows a
+  blank view / freezes when the viewer has no rights on board A — the linked-card open resolves the real
+  card the viewer cannot see; needs a runtime permission + reactive-close-on-no-access fix verified live).
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
@@ -83,7 +89,10 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   on mini cards — a UI proposal; @xet7 asked for a PR),
   [#1213](https://github.com/wekan/wekan/issues/1213) (copy-card resets comment authorship/date — the
   visible card items are activities recorded as the copying user at copy time; changing this is a design
-  decision @xet7 raised, not a clear bug).
+  decision @xet7 raised, not a clear bug),
+  [#1995](https://github.com/wekan/wekan/issues/1995) (edit description/etc. directly on a linked card —
+  by design a linked card mirrors the original rather than owning its own fields, so this is a feature
+  request, same class as #3748).
 - **Needs a maintainer decision on the intended contract (partly already works):**
   [#4912](https://github.com/wekan/wekan/issues/4912) (a global `act-editCard` webhook — card title/description edits
   ALREADY reach the global webhook via `Activities.after.insert` as `act-a-changedTitle` / `act-a-changedDescription`
