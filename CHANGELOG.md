@@ -90,6 +90,13 @@ them up next.
 
 This release fixes the following bugs:
 
+- **Rules: the "remove all members" action now actually removes the card's assignees**
+  ([#2674](https://github.com/wekan/wekan/issues/2674)). The rule member actions act on a card's
+  assignees (`addMember`→`assignMember`, `removeMember`→`unassignMember`), but the "remove every
+  member" wildcard branch iterated `card.members` — a different collection — so it removed nobody a
+  rule had assigned. It now iterates the card's assignees. Thanks to **sfahrenholz**, **mweiss237**
+  and **xet7**.
+
 - **Cards added in List view no longer land in an archived swimlane**
   ([#1971](https://github.com/wekan/wekan/issues/1971),
   [#1959](https://github.com/wekan/wekan/issues/1959)). When a board's first/default swimlane was
