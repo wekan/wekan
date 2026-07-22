@@ -108,6 +108,16 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   [#3113](https://github.com/wekan/wekan/issues/3113) (webhook `user` field shows the full name, not the username — the
   same `params.user` feeds both the e-mail notification text, where the full name is intended, and the webhook payload,
   where a username is expected; the safe change is to ADD a `username` field to the webhook rather than repurpose `user`).
+- **Deferred pending a security decision:**
+  Syntax/color highlighting for code blocks in the card viewer (`+viewer`,
+  [#5149](https://github.com/wekan/wekan/issues/5149) also asked for it). It IS possible — set
+  MarkdownIt's `highlight` option with a highlighter (e.g. `highlight.js`) and ship a theme — BUT the
+  viewer's DOMPurify (`packages/markdown/src/secureDOMPurify.js`) deliberately strips EVERY `class`
+  and `id` attribute (in `FORBID_ATTR` plus a hook, "for CSS injection" safety), so a highlighter's
+  `<span class="hljs-...">` output would have its classes removed and NO colour would survive. Enabling
+  it therefore requires carefully relaxing the sanitizer to allow a TIGHT allowlist of `hljs-*` /
+  `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
+  decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
 # Upcoming WeKan ® release
 
