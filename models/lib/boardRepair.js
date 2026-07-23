@@ -7,17 +7,25 @@
 // the plan.
 //
 // Repairs planned:
-//   * #6484 list-unbind — a board-wide list (swimlaneId null) that was wrongly
-//     bound to a single swimlane, so it "disappeared" from the other swimlanes;
-//     its swimlaneId is cleared back to null. (models/lib/listUnbindRepair.js)
 //   * missing-swimlane cards — a card with no swimlaneId (null / '' / missing),
 //     which never renders in the Swimlanes view; assigned to the first swimlane.
 //   * orphaned cards — a card whose swimlaneId points at a swimlane that no longer
 //     exists on the board (deleted swimlane), so the card is invisible; reassigned
 //     to the first swimlane. (An ARCHIVED swimlane still exists, so cards on it are
 //     left alone — that is not an orphan.)
-
-const { listsToUnbind } = require('./listUnbindRepair');
+//
+// NOT repaired automatically anymore: list-unbind. #6515 — a list with a
+// swimlaneId is NOT necessarily #6484 corruption; PER-SWIMLANE lists (a list that
+// belongs to one swimlane, rendered only there via swimlaneLists()) are a
+// legitimate board layout, and a set swimlaneId is indistinguishable from a
+// #6484-corrupted board-wide list at the data level. So the automatic repair
+// (run on startup AND on board open for every board) must NEVER clear a list's
+// swimlaneId — doing so silently unbound every per-swimlane list on upgrade, so
+// all lists rendered in every swimlane. The #6484 CODE bug that could wrongly
+// bind a board-wide list is already fixed, and an admin can still deliberately
+// un-bind a specific board with the explicit repairBoardWideLists method
+// (server/models/lists.js). `listsUnbind` is kept in the plan shape (always empty)
+// so downstream counters are unchanged.
 
 function planBoardRepair(swimlanes, lists, cards) {
   const swimlaneIds = new Set(
@@ -26,8 +34,9 @@ function planBoardRepair(swimlanes, lists, cards) {
       .map(s => s._id),
   );
 
-  // #6484: lists wrongly bound to a swimlane -> clear back to board-wide (null).
-  const listsUnbind = listsToUnbind(lists);
+  // #6515: never auto-unbind lists — a set swimlaneId is a legitimate per-swimlane
+  // list, not necessarily corruption. Always empty here.
+  const listsUnbind = [];
 
   const cardsMissing = []; // no swimlaneId at all
   const cardsOrphaned = []; // swimlaneId points at a swimlane not on the board

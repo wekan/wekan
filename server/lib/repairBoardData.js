@@ -54,14 +54,10 @@ export async function runBoardRepair(boardId) {
   const counts = repairCounts(plan);
   if (counts.total === 0) return counts;
 
-  // #6484: un-bind board-wide lists (clear swimlaneId to null).
-  if (plan.listsUnbind.length > 0) {
-    await Lists.direct.updateAsync(
-      { _id: { $in: plan.listsUnbind }, boardId },
-      { $set: { swimlaneId: null } },
-      { multi: true },
-    );
-  }
+  // #6515: the automatic repair no longer clears list swimlaneIds — a per-swimlane
+  // list (a set swimlaneId) is legitimate and indistinguishable from #6484
+  // corruption, so plan.listsUnbind is always empty here. Deliberate per-board
+  // un-binding stays available via the admin repairBoardWideLists method.
 
   // Missing-swimlane and orphaned cards -> the board's first swimlane, so they
   // become visible again in the Swimlanes view.

@@ -17,9 +17,12 @@ const S = id => ({ _id: id, boardId: 'B' });
 const L = (id, swimlaneId) => ({ _id: id, boardId: 'B', swimlaneId });
 const C = (id, swimlaneId) => ({ _id: id, boardId: 'B', swimlaneId });
 
-check('plans #6484 list-unbind (lists bound to a swimlane -> cleared)', () => {
+check('#6515: per-swimlane lists are NOT auto-unbound (a set swimlaneId is legitimate)', () => {
+  // A list with a swimlaneId is a legitimate per-swimlane list, indistinguishable
+  // from #6484 corruption at the data level, so the automatic repair must never
+  // clear it (that silently unbound every per-swimlane list on upgrade).
   const plan = planBoardRepair([S('s1')], [L('a', 's1'), L('b', null)], []);
-  assert.deepStrictEqual(plan.listsUnbind, ['a']);
+  assert.deepStrictEqual(plan.listsUnbind, []);
 });
 
 check('missing-swimlane cards (null / "" / missing) are collected', () => {
@@ -48,14 +51,14 @@ check('a card on an existing (even archived) swimlane is NOT orphaned', () => {
   assert.deepStrictEqual(plan.cardsMissing, []);
 });
 
-check('repairCounts flattens a plan and totals it', () => {
+check('repairCounts flattens a plan and totals it (lists never auto-unbound, #6515)', () => {
   const plan = planBoardRepair(
     [S('s1')],
-    [L('a', 's1')],
+    [L('a', 's1')], // a per-swimlane list — NOT unbound
     [C('c1', null), C('c2', 'gone'), C('c3', 's1')],
   );
   assert.deepStrictEqual(repairCounts(plan), {
-    listsUnbound: 1, cardsAssigned: 1, cardsRescued: 1, total: 3,
+    listsUnbound: 0, cardsAssigned: 1, cardsRescued: 1, total: 2,
   });
 });
 
@@ -77,7 +80,8 @@ check('server lib repairBoardData clears lists + reassigns cards, idempotent', (
   const src = fs.readFileSync(
     path.join(__dirname, '..', 'server', 'lib', 'repairBoardData.js'), 'utf8');
   assert.ok(/planBoardRepair\(swimlanes, lists, cards\)/.test(src), 'must use the planner');
-  assert.ok(/\$set: \{ swimlaneId: null \}/.test(src), '#6484: must clear bound lists to null');
+  assert.ok(!/\$set: \{ swimlaneId: null \}/.test(src),
+    '#6515: the automatic repair must NOT clear list swimlaneIds (per-swimlane lists are legitimate)');
   assert.ok(/cardsMissing\.concat\(plan\.cardsOrphaned\)/.test(src),
     'must fix both missing and orphaned cards');
   assert.ok(/firstSwimlaneId\(boardId\)/.test(src), 'must reassign fixed cards to the first swimlane');
