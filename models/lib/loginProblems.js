@@ -23,7 +23,7 @@ function loginProblemChecks(env) {
   //    drops, which is why this is surfaced here.
   checks.push({
     id: 'migration-in-progress',
-    title: 'A migration or repair is in progress',
+    title: 'Migration or repair',
     severity: e.migrationActive ? 'warning' : 'ok',
     ok: !e.migrationActive,
     detail: e.migrationActive
@@ -35,7 +35,7 @@ function loginProblemChecks(env) {
   const rootUrl = typeof e.rootUrl === 'string' ? e.rootUrl.trim() : '';
   checks.push({
     id: 'root-url',
-    title: 'ROOT_URL is set',
+    title: 'ROOT_URL',
     severity: rootUrl ? 'ok' : 'error',
     ok: !!rootUrl,
     detail: rootUrl

@@ -77,14 +77,14 @@ function loginChecks(inProgressMessages) {
   const checks = [];
   checks.push({
     ok: !active, severity: active ? 'warning' : 'ok',
-    title: 'A migration or repair is in progress',
+    title: 'Migration or repair',
     detail: active
       ? `Logins may be slow, show "Must be logged in", or sit on a "Loading, please wait" spinner until this finishes and CPU drops. ${inProgressMessages.join('; ')}`
       : 'No migration or repair is currently running.',
   });
   checks.push({
     ok: !!rootUrl, severity: rootUrl ? 'ok' : 'error',
-    title: 'ROOT_URL is set',
+    title: 'ROOT_URL',
     detail: rootUrl
       ? `ROOT_URL=${rootUrl} — must match the exact URL users open, or DDP login never completes.`
       : 'ROOT_URL is not set. Set it to the exact URL users open, or DDP login never completes.',
