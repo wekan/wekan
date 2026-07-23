@@ -156,6 +156,19 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release updates the following dependencies:
+
+- The bundled FerretDB v1 fork now creates the OpLog `ts` index on the PostgreSQL, MySQL
+  and SAP HANA backends too (previously only SQLite), so an idle Meteor OpLog tail resumes
+  with an index range scan instead of re-scanning the whole capped collection on every
+  poll. Best-effort per backend, with a descriptive log if a live engine rejects the index
+  syntax (see the FerretDB fork changelog). Ships with the bundled FerretDB update. Thanks
+  to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.29 2026-07-23 WeKan ® release
 
 This release adds the following new features:
