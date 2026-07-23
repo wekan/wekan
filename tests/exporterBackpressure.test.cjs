@@ -98,10 +98,13 @@ await test('a write that does NOT backpressure registers no listeners at all', a
 // the leaky inline `once('drain', resolve); once('error', reject)` pattern.
 await test('source: exporter.js uses writeWithBackpressure and drops the leaky pattern', () => {
   const src = fs.readFileSync(path.join(__dirname, '..', 'models', 'exporter.js'), 'utf8');
-  assert.ok(/export function writeWithBackpressure/.test(src), 'helper must exist');
-  assert.ok(/removeListener\('drain'/.test(src) && /removeListener\('error'/.test(src),
+  // Strip line comments so the guard matches only real code, not the doc comment that
+  // quotes the old leaky pattern to explain why the helper replaced it.
+  const code = src.replace(/\/\/[^\n]*/g, '');
+  assert.ok(/export function writeWithBackpressure/.test(code), 'helper must exist');
+  assert.ok(/removeListener\('drain'/.test(code) && /removeListener\('error'/.test(code),
     'helper must remove both listeners on settle');
-  assert.ok(!/once\('drain',\s*resolve\)\s*;\s*res\.once\('error',\s*reject\)/.test(src),
+  assert.ok(!/once\('drain',\s*resolve\)\s*;\s*res\.once\('error',\s*reject\)/.test(code),
     'the leaky inline once(drain)/once(error) pattern must be gone');
   // both writers delegate to the helper
   assert.ok((src.match(/writeWithBackpressure\(res,\s*str\)/g) || []).length >= 2,

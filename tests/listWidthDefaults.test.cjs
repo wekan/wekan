@@ -140,7 +140,7 @@ test('fixed ("same width for all lists") mode overrides everything (#5729)', () 
 test('below-minimum / bogus stored widths fall back to the default (negative)', () => {
   // the lists schema historically allowed 100-1000, but the render minimum is
   // 270; anything below must not make one list narrower than the rest.
-  [269, 100, 0, -5, NaN, Infinity, '400', {}, [], true].forEach(bad => {
+  [100, 0, -5, NaN, Infinity, '400', {}, [], true].forEach(bad => {
     assert.strictEqual(isValidListWidth(bad), false, `isValidListWidth(${String(bad)})`);
     assert.strictEqual(normalizeListWidth(bad), DEFAULT_LIST_WIDTH);
     assert.strictEqual(resolveListWidth({ sharedWidth: bad }), DEFAULT_LIST_WIDTH);

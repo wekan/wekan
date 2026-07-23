@@ -50,9 +50,20 @@ function streamHeaderToTemp(readStream, tempPath, maxBytes = HEADER_BYTES) {
       if (done) return;
       done = true;
       try { readStream.destroy(); } catch (e) { /* ignore */ }
+      // Remove the partial header file only AFTER the write stream has fully closed, then
+      // reject. fs.createWriteStream opens the file asynchronously, so unlinking before the
+      // stream closes could race the open and leave the partial file behind — a caller that
+      // checks for the temp file right after the rejection would still see it.
+      let settled = false;
+      const removeAndReject = () => {
+        if (settled) return;
+        settled = true;
+        fs.promises.unlink(tempPath).catch(() => {}).finally(() => reject(err));
+      };
+      if (writeStream.destroyed) { removeAndReject(); return; }
+      writeStream.once('close', removeAndReject);
       try { writeStream.destroy(); } catch (e) { /* ignore */ }
-      fs.promises.unlink(tempPath).catch(() => {}); // remove partial header
-      reject(err);
+      setTimeout(removeAndReject, 200); // fallback if 'close' never fires
     };
 
     const finish = () => {

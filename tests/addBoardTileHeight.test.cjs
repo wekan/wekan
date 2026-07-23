@@ -78,7 +78,7 @@ test('the empty .board-list-header dead-space band is gone', () => {
 test('All Boards path-right order: Multi-Selection, then Sort, then Search boards', () => {
   const jade = fs.readFileSync(
     path.join(path.resolve(__dirname, '..'), 'client/components/boards/boardsList.jade'), 'utf8');
-  const seg = jade.slice(jade.indexOf('.path-right'), jade.indexOf('.path-right') + 1600);
+  const seg = jade.slice(jade.indexOf('.path-right'), jade.indexOf('.path-right') + 3000);
   const ms = seg.indexOf('js-multiselection-activate');
   const sort = seg.indexOf('js-open-boards-sort');
   const search = seg.indexOf('js-board-search-input');

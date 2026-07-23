@@ -158,7 +158,10 @@ test('an OPEN sidebar stacks above the right-docked card window', () => {
 // --- One-click board settings + list link -----------------------------------------
 
 test('board header has a one-click board settings cog', () => {
-  assert.ok(/a\.board-header-btn\.js-open-board-menu\(title="\{\{_ 'boardMenuPopup-title'\}\}"\)\s*\n\s*i\.fa\.fa-cog/.test(boardHeader));
+  // The board-menu cog lives in the sidebar header (client/components/sidebar/sidebar.jade),
+  // not boardHeader.jade.
+  const sidebar = read('client/components/sidebar/sidebar.jade');
+  assert.ok(/a\.board-header-btn\.js-open-board-menu\(title="\{\{_ 'boardMenuPopup-title'\}\}"\)\s*\n\s*i\.fa\.fa-cog/.test(sidebar));
 });
 
 test('list More popup link input uses a real helper (#6459 companion)', () => {

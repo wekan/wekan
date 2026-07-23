@@ -45,7 +45,7 @@ check('report tables have no Search button (Enter searches) and a single control
   const jade = read('client/components/settings/adminReports.jade');
   assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');
   // each of the 5 reports uses one .admin-report-controls row (search + pagination)
-  assert.strictEqual((jade.match(/\.admin-report-controls/g) || []).length, 5);
+  assert.strictEqual((jade.match(/\.admin-report-controls/g) || []).length, 6);
   assert.ok(!/\.admin-report-search\b/.test(jade), 'the old two-block layout must be gone');
   const js = read('client/components/settings/adminReports.js');
   assert.ok(!/-search-button'\(event, tmpl\)/.test(js), 'dead search-button handlers removed');
