@@ -183,18 +183,47 @@ This release fixes the following bugs:
   board stayed on the spinner, the top bar was missing and the board went blank grey after
   login. It reproduced on the official root-domain `boards.wekan.team` and on plain Docker
   with no reverse proxy (`ROOT_URL=http://neptun:4001`), so it was a global build bug, not a
-  reverse-proxy / sub-path issue. `collectionHelpers` (the first such file) was fixed to use
-  `export {}`, and then a transitive walk from `client/main.js` found and converted EVERY
-  remaining client-reachable CommonJS helper (~55 files under `models/lib`, `client/lib`,
+  reverse-proxy / sub-path issue. [`collectionHelpers` (the first such file) was fixed to
+  use `export {}`](https://github.com/wekan/wekan/commit/e62c77575297319cb967b031bafa91421424abe9),
+  and then a transitive walk from `client/main.js` found and converted EVERY remaining
+  client-reachable CommonJS helper (~55 files under `models/lib`, `client/lib`,
   `imports/lib`, `imports/`) from `module.exports = { … }` to `export { … }`, so nothing in
-  the client bundle assigns `module.exports` any more. Server-only helpers (the `server/lib`
-  files Meteor never ships to the client, and the `fs`-using file-storage helpers) stay
-  CommonJS. Their plain-Node `.cjs` unit tests now use `await import(…js)`; the full
-  `tests/*.test.cjs` suite has no new failures. This is NOT an rspack version regression —
-  the lockfile has pinned `@rspack/core ~1.7.x` since v8.40, unchanged between the working
-  v10.17 and the broken v10.27 — so the rspack deps are also pinned to exact versions to
-  prevent future drift](https://github.com/wekan/wekan/commit/8d1fae4f7d8a1ebf9a5aa850c8ef2bc475ab0a8e).
+  the client bundle assigns `module.exports` any more — done in
+  [two](https://github.com/wekan/wekan/commit/8d1fae4f7d8a1ebf9a5aa850c8ef2bc475ab0a8e)
+  [parts](https://github.com/wekan/wekan/commit/d6908cf4183eecbe8a8a0a54ebbdc660e3c83e54).
+  Server-only helpers (the `server/lib` files Meteor never ships to the client, and the
+  `fs`-using file-storage helpers) stay CommonJS. Their plain-Node `.cjs` unit tests now use
+  `await import(…js)`; the full `tests/*.test.cjs` suite has no new failures. This is NOT an
+  rspack version regression — the lockfile has pinned `@rspack/core ~1.7.x` since v8.40,
+  unchanged between the working v10.17 and the broken v10.27.
   Thanks to mueschel, jullbo, akshat-goel, AmigaAbattoir and xet7.
+
+- [Removed the unused `jam:offline` / `jam:method` / `jam:pub-sub` packages. Once the client
+  booted (after the ES-module fix above), `jam:offline`'s startup sync threw
+  `can't access property "remove", localCollections[name] is undefined` — it tried to
+  reconcile a collection the client never registered, because WeKan uses no `jam:offline`
+  `.keep()` and no `jam:method` / `jam:pub-sub` APIs anywhere. These were already removed
+  once for the same reason and had been re-added; the offline-warning UI uses
+  `Meteor.status()`, so it is unaffected](https://github.com/wekan/wekan/commit/b9873564a8a1755cfe412543d11a9ce2f03f4faa).
+  Thanks to xet7.
+
+- [Fixed six pre-existing plain-Node unit-test failures that surfaced while verifying the
+  ES-module conversion: five were stale source-guards (a slice window too small, a regex
+  matching a pattern quoted in a comment, a moved template button, a widened valid-width
+  range, a report-controls count that grew) and one was a real cleanup race —
+  `streamHeaderToTemp` unlinked its partial temp file fire-and-forget while the write
+  stream was still opening, so a caller could see the file after the rejection; it now
+  removes the file only after the stream
+  closes](https://github.com/wekan/wekan/commit/52325228f8a1fa0b91aa9bc2d0de8f3fd05a8917).
+  Thanks to xet7.
+
+This release updates the following dependencies:
+
+- [Pinned `@rspack/core`, `@rspack/cli` and `@meteorjs/rspack` to exact versions (removing
+  the `^` caret ranges) so a fresh `npm install` cannot silently drift the bundler to a
+  newer release that changes CommonJS/ES-module handling and breaks the client
+  build](https://github.com/wekan/wekan/commit/eca452d6745e48c8d18917cf0d49fa2fa761c1dd).
+  Thanks to xet7.
 
 This release has the following developer-tooling fix:
 
