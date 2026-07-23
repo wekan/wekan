@@ -75,7 +75,16 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   [#6430](https://github.com/wekan/wekan/issues/6430) (~1s card flicker when dragging to another list on
   LARGE boards — a drag/reactivity re-render; xet7 already reduced it in commit 2e7c4ed but the reporter
   says it persists, so it needs a large board in a browser to profile; related to the #6480 adaptive card
-  loading and #5421).
+  loading and #5421),
+  [#6511](https://github.com/wekan/wekan/issues/6511) (board loads but shows NO cards; console
+  `Error: No such template: swimlane` on 10.28 — previously `Bad index in range.removeMember`, which the
+  card-sort `_id` tiebreaker in this release addressed. `swimlane` is a CORE Blaze template
+  (`client/components/swimlanes/swimlanes.jade`, included statically as `+swimlane` in
+  `client/components/boards/boardBody.jade`), so it lives in the MAIN bundle — not a lazy `build-chunks/`
+  chunk — yet Blaze's `lookupTemplate` reports it missing at render time. The report is a `/wekan`
+  SUB-PATH deployment showing `wss://…/wekan/sockjs/…/websocket 400 Bad Request` plus wasm/source-map
+  errors, which points at the reverse-proxy WebSocket upgrade / sub-path bundle delivery rather than a
+  WeKan source bug; needs the reporter's proxy config and a live board to reproduce).
 - **Already correct in the current code (could not reproduce; endpoint/logic verified by reading):**
   [#4774](https://github.com/wekan/wekan/issues/4774) (`POST /users/register` is a native handler that returns 403 only
   when registration is disabled via `forbidClientAccountCreation`; it works by default),
