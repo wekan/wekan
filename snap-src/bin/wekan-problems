@@ -12,5 +12,16 @@
 #   snap run wekan.problems broken-cards    # only the broken-cards count
 #   snap run wekan.problems cpu             # machine CPU load / core count
 #   snap run wekan.problems help
+
+# Load the snap settings so the login-page checks see the SAME configuration WeKan
+# runs with — ROOT_URL, LDAP_ENABLE, DATABASE, etc. Without this the command reads an
+# empty process.env and always reported ROOT_URL as "not set" even after
+# `snap set wekan root-url=...` (wekan/wekan feedback). wekan-read-settings exports
+# each key; suppress its per-key echo so it doesn't pollute the report.
+if [ -r "$SNAP/bin/wekan-read-settings" ]; then
+  # shellcheck disable=SC1091
+  . "$SNAP/bin/wekan-read-settings" >/dev/null 2>&1 || true
+fi
+
 exec env NODE_PATH="$SNAP/programs/server/node_modules" \
   "$SNAP/bin/node" "$SNAP/bin/wekan-problems.mjs" "$@"
