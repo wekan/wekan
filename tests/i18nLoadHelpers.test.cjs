@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Unit + negative tests for the i18n loader helpers (imports/i18n/loadHelpers.js),
 // the robustness guards behind #6503 (a hung/failed dynamic language import must
@@ -9,7 +10,7 @@ const assert = require('assert');
 const {
   unwrapI18nModule,
   promiseWithTimeout,
-} = require('../imports/i18n/loadHelpers');
+} = await import('../imports/i18n/loadHelpers.js');
 
 let passed = 0;
 const pending = [];
@@ -92,3 +93,5 @@ Promise.all(pending).then(() => {
   console.error('FAILED:', err && err.message);
   process.exit(1);
 });
+
+})().catch(e => { console.error(e); process.exit(1); });

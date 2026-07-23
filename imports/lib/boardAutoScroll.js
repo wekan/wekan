@@ -130,7 +130,7 @@ function findLaneUnderPointer(laneRects, pointerX, pointerY) {
   return -1;
 }
 
-module.exports = {
+export {
   EDGE_SIZE,
   SCROLL_STEP,
   computeEdgeScroll,

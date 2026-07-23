@@ -24,4 +24,4 @@ function cardBoardRedirectTarget(urlBoardId, card) {
   return card.boardId;
 }
 
-module.exports = { cardBoardRedirectTarget };
+export { cardBoardRedirectTarget };

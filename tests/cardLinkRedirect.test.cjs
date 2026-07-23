@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Unit tests for the #4758 card-link redirect decision
 // (models/lib/cardLinkRedirect.js): a card link keeps working after the card is
@@ -7,7 +8,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { cardBoardRedirectTarget } = require('../models/lib/cardLinkRedirect');
+const { cardBoardRedirectTarget } = await import('../models/lib/cardLinkRedirect.js');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -60,3 +61,5 @@ check('router wires the redirect via the card publication (permission-checked)',
 });
 
 console.log(`\ncardLinkRedirect: ${passed} checks passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

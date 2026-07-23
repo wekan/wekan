@@ -96,7 +96,7 @@ function findActiveCardDrag(instances) {
   return null;
 }
 
-module.exports = {
+export {
   nodeChangesDragGeometry,
   mutationsChangeDragGeometry,
   findActiveCardDrag,

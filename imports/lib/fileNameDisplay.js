@@ -166,7 +166,7 @@ function sanitizeDownloadFileName(name) {
   return cleanFileName(name) || 'download';
 }
 
-module.exports = {
+export {
   INVISIBLE_CHARS_SOURCE,
   INVISIBLE_CHARS_REGEX,
   INVISIBLE_CHARS_GLOBAL,

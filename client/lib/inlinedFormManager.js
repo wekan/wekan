@@ -74,4 +74,4 @@ function forgetForm(tracker, form) {
   }
 }
 
-module.exports = { openForm, closeForm, forgetForm };
+export { openForm, closeForm, forgetForm };

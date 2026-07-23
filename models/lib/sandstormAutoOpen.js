@@ -53,4 +53,4 @@ function decideSandstormAutoOpen(input) {
   return { action: 'stay' };
 }
 
-module.exports = { decideSandstormAutoOpen };
+export { decideSandstormAutoOpen };

@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the DataCache stale-while-revalidate
 // decision — the board-not-found flicker fix.
@@ -13,7 +14,7 @@
 // only apply when the owning cache opted in.
 
 const assert = require('assert');
-const { shouldDeferCacheMiss } = require('../imports/lib/staleWhileRevalidate');
+const { shouldDeferCacheMiss } = await import('../imports/lib/staleWhileRevalidate.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -60,3 +61,5 @@ test('NEGATIVE: a falsy-but-present cached value (0 / "") is still preserved', (
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

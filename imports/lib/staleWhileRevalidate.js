@@ -25,4 +25,4 @@ function shouldDeferCacheMiss(options, newData, cachedValue) {
   );
 }
 
-module.exports = { shouldDeferCacheMiss };
+export { shouldDeferCacheMiss };

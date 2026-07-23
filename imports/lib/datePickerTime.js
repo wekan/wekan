@@ -56,7 +56,7 @@ function fallbackSubmitTime(defaultTime) {
   return defaultTimeValue(defaultTime) || '12:00';
 }
 
-module.exports = {
+export {
   isValidDate,
   formatTime,
   initialTimeValue,

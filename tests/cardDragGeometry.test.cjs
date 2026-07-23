@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the #2769 drag-geometry helpers.
 // Run: ELECTRON_RUN_AS_NODE=1 <node> tests/cardDragGeometry.test.cjs
@@ -26,7 +27,7 @@ const {
   nodeChangesDragGeometry,
   mutationsChangeDragGeometry,
   findActiveCardDrag,
-} = require('../client/lib/cardDragGeometry');
+} = await import('../client/lib/cardDragGeometry.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -171,3 +172,5 @@ test('listBody.js wires the observer to the helpers and refreshes the active dra
 });
 
 console.log(`\n${passed} passing`);
+
+})().catch(e => { console.error(e); process.exit(1); });

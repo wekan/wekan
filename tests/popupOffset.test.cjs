@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no DOM/Meteor) for the popup positioning geometry.
 // Run: node tests/popupOffset.test.cjs
@@ -12,7 +13,7 @@
 // staying byte-identical to the old behaviour when the page is not scrolled.
 
 const assert = require('assert');
-const { computePopupOffset } = require('../client/lib/popupOffset');
+const { computePopupOffset } = await import('../client/lib/popupOffset.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -160,3 +161,5 @@ test('maxHeight is never negative for an opener above the viewport', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

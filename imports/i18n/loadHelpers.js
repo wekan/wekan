@@ -47,4 +47,4 @@ function promiseWithTimeout(promise, ms, timeoutMessage) {
   });
 }
 
-module.exports = { unwrapI18nModule, promiseWithTimeout };
+export { unwrapI18nModule, promiseWithTimeout };

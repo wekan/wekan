@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no DOM/Meteor) for the inlined-form open/close state
 // transitions used by client/lib/inlinedform.js.
@@ -21,7 +22,7 @@ const {
   openForm,
   closeForm,
   forgetForm,
-} = require('../client/lib/inlinedFormManager');
+} = await import('../client/lib/inlinedFormManager.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -162,3 +163,5 @@ test('NEGATIVE: closeForm tolerates null/malformed forms without throwing', () =
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });

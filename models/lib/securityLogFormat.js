@@ -18,4 +18,4 @@ function sanitizeDetail(s) {
   return out;
 }
 
-module.exports = { MAX_DETAIL, sanitizeDetail };
+export { MAX_DETAIL, sanitizeDetail };

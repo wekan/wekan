@@ -43,4 +43,4 @@ function categoryFor(key) {
   return Object.assign({}, DEFAULT, CATALOG[key] || {});
 }
 
-module.exports = { CATALOG, categoryFor };
+export { CATALOG, categoryFor };

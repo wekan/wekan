@@ -115,4 +115,4 @@ function computePopupOffset(params) {
   return { left: clampedLeft, top: topVp + scrollTop, maxHeight };
 }
 
-module.exports = { computePopupOffset };
+export { computePopupOffset };

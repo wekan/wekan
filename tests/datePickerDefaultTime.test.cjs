@@ -1,4 +1,5 @@
 'use strict';
+(async () => {
 
 // Plain-Node unit test (no Meteor) for the date-picker default-time logic.
 // Run: ELECTRON_RUN_AS_NODE=1 <node> tests/datePickerDefaultTime.test.cjs
@@ -16,7 +17,7 @@ const {
   formatTime,
   initialTimeValue,
   fallbackSubmitTime,
-} = require('../imports/lib/datePickerTime');
+} = await import('../imports/lib/datePickerTime.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -84,3 +85,5 @@ test('NEGATIVE: without (or with a broken) default the legacy 12:00 remains', ()
 });
 
 console.log(`\n${passed} tests passed`);
+
+})().catch(e => { console.error(e); process.exit(1); });
