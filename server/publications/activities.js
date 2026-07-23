@@ -74,9 +74,14 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
     }
   }
 
+  // Keep the board/card scope and the activityType at the TOP level (not wrapped in
+  // a `$and`) so both push down to FerretDB v1 (SQLite)'s index instead of forcing a
+  // full-collection scan on every poll — the same reason the card window was
+  // flattened (10.22). The two keys are distinct, so the merged object is exactly
+  // equivalent to the `$and`.
   const selector = showActivities
     ? { [`${kind}Id`]: { $in: linkedElmtId } }
-    : { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] };
+    : { activityType: 'addComment', [`${kind}Id`]: { $in: linkedElmtId } };
 
   const ret = await ReactiveCache.getActivities(selector,
     {
