@@ -233,7 +233,7 @@ This release fixes the following bugs:
   closes](https://github.com/wekan/wekan/commit/52325228f8a1fa0b91aa9bc2d0de8f3fd05a8917).
   Thanks to xet7.
 
-This release updates the following dependencies:
+and updates the following dependencies:
 
 - [Pinned `@rspack/core`, `@rspack/cli` and `@meteorjs/rspack` to exact versions (removing
   the `^` caret ranges) so a fresh `npm install` cannot silently drift the bundler to a
@@ -241,7 +241,7 @@ This release updates the following dependencies:
   build](https://github.com/wekan/wekan/commit/eca452d6745e48c8d18917cf0d49fa2fa761c1dd).
   Thanks to xet7.
 
-This release has the following developer-tooling fix:
+and has the following developer-tooling fix:
 
 - [`rebuild-wekan.sh` can now stop a running dev server on a minimal Linux that has neither
   `fuser` (psmisc) nor `lsof` installed: `free_tcp_port` gained an `ss` fallback that parses
@@ -251,7 +251,7 @@ This release has the following developer-tooling fix:
   and the dev server could not restart](https://github.com/wekan/wekan/commit/d61eba49f1fc3fb992a0cc0e9860e983fbdfd833).
   Thanks to xet7.
 
-This release improves the translation workflow:
+and improves the translation workflow:
 
 - [Fix #6494 (Transifex human translations were overwritten and the fetch was omitted):
   removed the external machine-translation service (`machine-translate.mjs`, which called
@@ -313,7 +313,7 @@ This release updates the following dependencies:
   syntax (see the FerretDB fork changelog). Ships with the bundled FerretDB update. Thanks
   to xet7.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [Fixed a stale `#5623` "select all cards scoped to swimlane" unit test that failed after
   the doubled-cards render fix: shared/orphaned cards (no swimlane, or a deleted swimlane)
@@ -347,7 +347,7 @@ This release adds the following new features:
   Transifex](https://github.com/wekan/wekan/commit/cbfe3600fc5602ebe64ffc35f77c9fe05c1d73e5).
   Thanks to xet7.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [`snap run wekan.problems` now loads the snap settings before its checks, so ROOT_URL /
   LDAP and the other login-page checks read the SAME configuration WeKan runs with.
@@ -479,7 +479,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v10.23 2026-07-22 WeKan ® release
 
-This release fixes the following CRITICAL VULNERABILITIES:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 - **[ExportBleed](https://wekan.fi/hall-of-fame/exportbleed/): stored XSS in HTML board exports
   through a card-title second parse** (CWE-79 Cross-site Scripting; GitHub Security Advisory
@@ -541,7 +541,7 @@ This release adds the following features:
   ](https://github.com/wekan/wekan/commit/136a14c88).
   Thanks to xet7.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [FerretDB high CPU: run FerretDB standalone (no OpLog) by default. Several sites reported the
   `ferretdb` process pegging ~2 CPU cores for a long time while the WeKan `node` process sat idle —
@@ -799,7 +799,7 @@ This release fixes the following SECURITY ISSUES found by GitHub CodeQL code sca
     with no runtime exposure, but the no-op was removed for correctness.
   - Thanks to **GitHub CodeQL** (code scanning alert #424) and **xet7** (fix).
 
-This release also resolves the following GitHub Dependabot alerts in the **rspack build-toolchain
+and resolves the following GitHub Dependabot alerts in the **rspack build-toolchain
 dev dependencies**, without touching the rspack major version so builds are unaffected (both
 packages enter only via `@rspack/dev-server` — the `rspack serve` dev server — and are not used by
 `meteor build`):
@@ -821,7 +821,7 @@ packages enter only via `@rspack/dev-server` — the `rspack serve` dev server �
   runtime testing.
 - Thanks to **GitHub Dependabot** and **xet7**.
 
-This release also fixes the following bug:
+and fixes the following bug:
 
 - [Case-insensitive `#` label autocomplete in the card title. Typing `#test` in the add-card /
   edit-card-title field did not suggest a label named `Testing` — the label search matched with a
@@ -1750,7 +1750,7 @@ This release fixes the following BUG:
     that `connect()` lives inside the guarded region.
   - Thanks to the reporting operators and **xet7** (fix).
 
-This release also updates the bundled FerretDB (see the fork's own CHANGELOG Upcoming): the SQLite backend
+and updates the bundled FerretDB (see the fork's own CHANGELOG Upcoming): the SQLite backend
 connection pool no longer caps `MaxOpenConns` at 16, which had starved WeKan's cursor-heavy load and made
 boards take minutes to load and logins fail with *"Must be logged in"* ([#6467](https://github.com/wekan/wekan/issues/6467),
 [#6469](https://github.com/wekan/wekan/issues/6469)).

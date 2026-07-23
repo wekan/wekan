@@ -139,13 +139,31 @@ pushed to Transifex as if it were human.
 - During development, add entries under a new `# Upcoming WeKan ® release` section above
   the newest release (FerretDB uses `## Upcoming FerretDB release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
-- WeKan Upcoming structure — CRITICAL VULNERABILITIES first (link to
-  `https://wekan.fi/hall-of-fame/...bleed/`), then new features, then updates
-  (`Thanks to dependabot.`), then bug fixes; each bullet is
+- WeKan Upcoming structure — CRITICAL SECURITY ISSUES first, then new features, then
+  updates (`Thanks to dependabot.`), then bug fixes; each bullet is
   `- [desc](https://github.com/wekan/wekan/commit/...).` followed by
   `Thanks to (issue creator's GitHub nickname) and xet7.`, and the section ends with
   `Thanks to above GitHub users for their contributions and translators for their
   translations.`
+- **Subsection headers read as ONE flowing sentence.** The FIRST subsection of a release
+  starts with `This release ` (e.g. `This release fixes the following bugs:`); every LATER
+  subsection in the SAME release starts with a lowercase `and ` instead of repeating
+  `This release ` — e.g.
+  `This release fixes the following bugs:` … `and updates the following dependencies:` …
+  `and has the following developer-tooling fix:` … `and improves the translation workflow:`
+  … then the closing `Thanks to above GitHub users …` line. A release with only one
+  subsection just keeps its single `This release …:` header. Use `and adds the following
+  new features:`, `and fixes the following bugs:`, `and updates the following
+  dependencies:`, etc., matching the verb to the subsection.
+- **CRITICAL security header — match the previous releases' wording.** A security release
+  leads with `This release fixes the following CRITICAL SECURITY ISSUE of
+  [Name](https://wekan.fi/hall-of-fame/namebleed/):` for a single named *Bleed, or
+  `This release fixes the following CRITICAL SECURITY ISSUES:` for several — NOT
+  `CRITICAL VULNERABILITIES`. Each security bullet still links its own
+  `https://wekan.fi/hall-of-fame/...bleed/`. CodeQL-only releases use the established
+  `This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:`.
+  Because CRITICAL comes first, it keeps the `This release ` prefix; a following non-security
+  subsection becomes `and …` per the rule above.
 - **`# TODO Later` section** — a triage backlog near the TOP of `CHANGELOG.md` (above the
   version sections), for open issues that were **investigated but not fixed here**, each
   recorded with a concrete REASON so whoever picks it up next knows why. Use it when working
