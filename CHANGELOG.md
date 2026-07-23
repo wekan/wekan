@@ -49,7 +49,11 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `currentUser` stays null. The operational fix is to set ROOT_URL to the exact external URL and restart;
   the diagnostic itself is already improved by the `wekan.problems` settings-loading fix in this release
   (so it reports the real value). Needs live confirmation that login + header recover once ROOT_URL is
-  set — not reproducible in the sandbox without the running snap and a browser).
+  set — not reproducible in the sandbox without the running snap and a browser),
+  [#6500](https://github.com/wekan/wekan/issues/6500) (Docker `latest` does not load in the browser on a
+  fresh `docker compose up -d` — "Connection reset by peer"; xet7 is actively fixing the bundled FerretDB
+  Docker startup, and MongoDB / other backends work as a workaround, so this needs the running Docker
+  stack to reproduce, not source-verifiable here).
 - **Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here:**
   [#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the All Boards page — the
   `boardLists`/`boardMembers` helpers in `client/components/boards/boardsList.js` were deliberately stubbed
@@ -96,7 +100,13 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   chunk — yet Blaze's `lookupTemplate` reports it missing at render time. The report is a `/wekan`
   SUB-PATH deployment showing `wss://…/wekan/sockjs/…/websocket 400 Bad Request` plus wasm/source-map
   errors, which points at the reverse-proxy WebSocket upgrade / sub-path bundle delivery rather than a
-  WeKan source bug; needs the reporter's proxy config and a live board to reproduce).
+  WeKan source bug; needs the reporter's proxy config and a live board to reproduce),
+  [#6509](https://github.com/wekan/wekan/issues/6509) (fresh v10.27 on FerretDB v2 + PostgreSQL: a new
+  board's lists/cards do not appear until reload, and an imported board shows lists but no cards, with
+  `Cannot read properties of undefined (reading 'remove')` — the same Blaze ordered-diff reactive-render
+  class as #6511, which the v10.28 card-sort `_id` tiebreaker targeted; not closed because the
+  identical-signature #6511 reporter says it persists on 10.28, so it needs a live board to confirm
+  whether the tiebreaker resolves it on FerretDB v2 / PostgreSQL).
 - **In-progress dev work carried forward (FerretDB v1 fork backend parity — not an issue, recorded so
   the next session can resume):** the OpLog `ts` index + declared-index usability across the
   PostgreSQL / MySQL / SAP HANA backends. DONE so far: range (`$gt/$gte/$lt/$lte`) and `$in` pushdown are
