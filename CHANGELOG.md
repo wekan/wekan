@@ -165,6 +165,28 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix #6511 (and the v10.30–10.31 Docker / Sandstorm / production "board maintenance
+  spinner", missing top user/settings bar, and login-form-not-rendering reports): the whole
+  client broke with `Uncaught Error: ES Modules may not assign module.exports or exports.*`
+  followed by `Error: No such template: swimlane`. `imports/collectionHelpers.js` — a
+  side-effect shim imported FIRST in `client/main.js` — ended with `module.exports = {}`
+  while referencing the Meteor pseudo-global `Package` bare; the client rspack build's
+  ProvidePlugin rewrites `Package` into an injected ESM `import`, marking the file an ES
+  module, and an ES module that assigns `module.exports` throws at evaluation time. That
+  threw before any template registered, so Blaze reported "No such template" for `swimlane`
+  / `notifications` / `headerUserBar`, the board stayed on the spinner, the top bar was
+  missing and the login form did not render. It reproduced on the official root-domain
+  `boards.wekan.team` too, so it was a global build bug, not a reverse-proxy / sub-path
+  issue. The shim now uses `export {}` instead of
+  `module.exports = {}`](https://github.com/wekan/wekan/commit/e62c77575297319cb967b031bafa91421424abe9).
+  Thanks to mueschel, jullbo, akshat-goel and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.31 2026-07-23 WeKan ® release
 
 This release fixes the following bugs:
