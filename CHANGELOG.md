@@ -100,7 +100,11 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   chunk — yet Blaze's `lookupTemplate` reports it missing at render time. The report is a `/wekan`
   SUB-PATH deployment showing `wss://…/wekan/sockjs/…/websocket 400 Bad Request` plus wasm/source-map
   errors, which points at the reverse-proxy WebSocket upgrade / sub-path bundle delivery rather than a
-  WeKan source bug; needs the reporter's proxy config and a live board to reproduce),
+  WeKan source bug; needs the reporter's proxy config and a live board to reproduce. Reinforced by
+  #6515's secondary symptom (`No such template: notifications` on 10.28): a SECOND core template, also
+  correctly defined in the main bundle and statically included, reported missing at render time on a
+  different deployment — two distinct templates failing this way is a client-bundle delivery / init
+  problem on those deployments, not a per-template source bug),
   [#6509](https://github.com/wekan/wekan/issues/6509) (fresh v10.27 on FerretDB v2 + PostgreSQL: a new
   board's lists/cards do not appear until reload, and an imported board shows lists but no cards, with
   `Cannot read properties of undefined (reading 'remove')` — the same Blaze ordered-diff reactive-render
