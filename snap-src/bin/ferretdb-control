@@ -52,6 +52,47 @@ fi
 BIND_IP="${MONGODB_BIND_IP:-127.0.0.1}"
 PORT="${MONGODB_PORT:-27019}"
 
+# Storage backend. Default 'sqlite' (embedded, zero-dependency). 'postgresql' / 'mysql'
+# run FerretDB against an EXTERNAL database YOU host (the snap bundles no server):
+#   snap set wekan wekan-ferretdb-handler=postgresql \
+#            wekan-ferretdb-url="postgres://user:pass@HOST:5432/ferretdb"
+# Meteor still tails the OpLog on any backend when WEKAN_FERRETDB_OPLOG=true (the
+# reactivity code is backend-agnostic). The SQLite-file steps further below (rotating
+# backup, restore, reset-oplog) apply ONLY to the sqlite backend, so this branch execs
+# FerretDB directly and skips them.
+FERRETDB_HANDLER="${WEKAN_FERRETDB_HANDLER:-sqlite}"
+if [ "sqlite" != "${FERRETDB_HANDLER}" ]; then
+    case "${FERRETDB_HANDLER}" in
+        postgresql) URL_FLAG="--postgresql-url"; DEFAULT_URL="postgres://127.0.0.1:5432/ferretdb" ;;
+        mysql)      URL_FLAG="--mysql-url";      DEFAULT_URL="mysql://127.0.0.1:3306/ferretdb" ;;
+        hana)       URL_FLAG="--hana-url";       DEFAULT_URL="" ;;  # best-effort; set wekan-ferretdb-url
+        *)
+            echo "ERROR: unsupported wekan-ferretdb-handler '${FERRETDB_HANDLER}' (use sqlite, postgresql, mysql or hana)."
+            exit 1
+            ;;
+    esac
+    DB_URL="${WEKAN_FERRETDB_URL:-$DEFAULT_URL}"
+
+    # Same OpLog gate as the sqlite path: create the replica set / OpLog only when the
+    # admin opts in (wekan-ferretdb-oplog=true); otherwise run standalone (polling).
+    if [ "true" = "${WEKAN_FERRETDB_OPLOG:-false}" ]; then
+        REPL_SET_ARGS=(--repl-set-name="${WEKAN_FERRETDB_REPL_SET:-rs0}")
+        OPLOG_MODE="OpLog enabled (replSet ${WEKAN_FERRETDB_REPL_SET:-rs0})"
+    else
+        REPL_SET_ARGS=()
+        OPLOG_MODE="polling only (no OpLog)"
+    fi
+
+    echo "Starting FerretDB v1 (${FERRETDB_HANDLER}) on ${BIND_IP}:${PORT} -> external ${DB_URL} (${OPLOG_MODE}) ..."
+    exec "$FERRETDB_BIN" \
+        --handler="${FERRETDB_HANDLER}" \
+        "${URL_FLAG}=${DB_URL}" \
+        --listen-addr="${BIND_IP}:${PORT}" \
+        "${REPL_SET_ARGS[@]}" \
+        --telemetry=disable \
+        --log-level=error
+fi
+
 # SQLite data lives next to attachments/avatars at $SNAP_COMMON/files/db (the
 # "files/<name>" layout), so it survives snap refreshes and is where the
 # MongoDB 3 → FerretDB migration (migration-control) wrote it.
