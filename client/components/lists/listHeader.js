@@ -61,11 +61,22 @@ Template.listHeader.helpers({
     }
   },
 
-  cardsCount() {
+  cardsCount(containerSwimlaneId) {
     const list = Template.currentData();
     let swimlaneId = '';
     if (Utils.boardView() === 'board-view-swimlanes') {
-      swimlaneId = list.swimlaneId || '';
+      // Scope the count to the swimlane this header is rendered IN — the SAME id
+      // the card body uses (listBody.jade `idOrNull ../../_id`) — passed from
+      // listHeader.jade as `../../_id`. A SHARED list (empty swimlaneId) renders
+      // under every swimlane, so scoping by the list's OWN swimlaneId (== '' for a
+      // shared list) reported the whole-list count in every swimlane while the
+      // cards rendered below were swimlane-scoped — e.g. "5 Cards" over an empty
+      // second swimlane. Fall back to the list's own binding when no container id
+      // is provided (older callers / non-swimlane include paths).
+      swimlaneId =
+        typeof containerSwimlaneId === 'string' && containerSwimlaneId
+          ? containerSwimlaneId
+          : list.swimlaneId || '';
     }
 
     // In lazy mode minimongo holds only the loaded window, so use the accurate
