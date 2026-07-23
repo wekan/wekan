@@ -177,6 +177,16 @@ This release updates the following dependencies:
   syntax (see the FerretDB fork changelog). Ships with the bundled FerretDB update. Thanks
   to xet7.
 
+This release fixes the following bugs:
+
+- [Fixed a stale `#5623` "select all cards scoped to swimlane" unit test that failed after
+  the doubled-cards render fix: shared/orphaned cards (no swimlane, or a deleted swimlane)
+  now surface ONCE in the FIRST swimlane, so the helper returns them only when the first
+  swimlane's other-swimlane ids are passed; the test still asserted the old behaviour. The
+  test now covers both the first-swimlane (own + orphaned) and non-first-swimlane (own
+  only) contracts; no runtime code change](https://github.com/wekan/wekan/commit/50a7c8fe59c900036460ca778e222baeef7dcca1).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.29 2026-07-23 WeKan ® release
