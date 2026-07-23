@@ -604,7 +604,25 @@ Template.boardBody.onRendered(function () {
   });
 
   this.autorun(() => {
-    // Always reset dragscroll on view switch
+    // Re-attach mouse dragscroll whenever the set of rendered `.dragscroll`
+    // containers can change. The @wekanteam/dragscroll mouse handler is attached
+    // PER element inside reset(), so it must be re-run after the DOM changes;
+    // only dragscrollTouch (delegated on `document`) covers reactively-added
+    // nodes, and that is touch-only. Previously this autorun's only reactive deps
+    // were the touch/permission reads below, so mouse drag-scrolling stayed dead
+    // when swimlanes/lists rendered AFTER onRendered — adaptive lazy card loading
+    // (#6480), the on-open data-repair adding a default swimlane (#6484), or a
+    // board switch that reuses this template instance without re-firing onRendered
+    // (see the #4978 note below) — leaving lower swimlanes unreachable by drag on
+    // touchpad/mouse. Reading the board view + swimlanes + lists here establishes
+    // those dependencies so reset() re-runs when the containers change. None of
+    // these reads write to the DB, so there is no autorun write loop.
+    const dragscrollBoard = Utils.getCurrentBoard();
+    if (dragscrollBoard) {
+      Utils.boardView();
+      dragscrollBoard.swimlanes();
+      dragscrollBoard.draggableLists();
+    }
     dragscroll.reset();
 
     if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
