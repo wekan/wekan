@@ -179,21 +179,32 @@ This release fixes the following bugs:
   away](https://github.com/wekan/wekan/commit/79410e73d067723a23d6f5b58f0ad34bdd509db4).
   Thanks to xet7.
 
-- [Fix #6511 (and the v10.30–10.31 Docker / Sandstorm / production "board maintenance
-  spinner", missing top user/settings bar, and login-form-not-rendering reports): the whole
-  client broke with `Uncaught Error: ES Modules may not assign module.exports or exports.*`
-  followed by `Error: No such template: swimlane`. `imports/collectionHelpers.js` — a
-  side-effect shim imported FIRST in `client/main.js` — ended with `module.exports = {}`
-  while referencing the Meteor pseudo-global `Package` bare; the client rspack build's
-  ProvidePlugin rewrites `Package` into an injected ESM `import`, marking the file an ES
-  module, and an ES module that assigns `module.exports` throws at evaluation time. That
-  threw before any template registered, so Blaze reported "No such template" for `swimlane`
-  / `notifications` / `headerUserBar`, the board stayed on the spinner, the top bar was
-  missing and the login form did not render. It reproduced on the official root-domain
-  `boards.wekan.team` too, so it was a global build bug, not a reverse-proxy / sub-path
-  issue. The shim now uses `export {}` instead of
+- [Fix #6511 and #6514 (and the v10.30–10.31 Docker / Sandstorm / production "board
+  maintenance spinner", missing top user/settings bar, and login-form-not-rendering
+  reports): the whole client broke with `Uncaught Error: ES Modules may not assign
+  module.exports or exports.*` followed by `Error: No such template: swimlane` /
+  `notifications` / `boardButtons`. `imports/collectionHelpers.js` — a side-effect shim
+  imported FIRST in `client/main.js` — ended with `module.exports = {}` while referencing
+  the Meteor pseudo-global `Package` bare; the client rspack build's ProvidePlugin rewrites
+  `Package` into an injected ESM `import`, marking the file an ES module, and an ES module
+  that assigns `module.exports` throws at evaluation time. That threw before any template
+  registered, so Blaze reported "No such template" for the board and header templates, the
+  board stayed on the spinner, the top bar was missing and the board went blank grey after
+  login. It reproduced on the official root-domain `boards.wekan.team` and on plain Docker
+  with no reverse proxy (`ROOT_URL=http://neptun:4001`), so it was a global build bug, not a
+  reverse-proxy / sub-path issue. The shim now uses `export {}` instead of
   `module.exports = {}`](https://github.com/wekan/wekan/commit/e62c77575297319cb967b031bafa91421424abe9).
-  Thanks to mueschel, jullbo, akshat-goel and xet7.
+  Thanks to mueschel, jullbo, akshat-goel, AmigaAbattoir and xet7.
+
+This release has the following developer-tooling fix:
+
+- [`rebuild-wekan.sh` can now stop a running dev server on a minimal Linux that has neither
+  `fuser` (psmisc) nor `lsof` installed: `free_tcp_port` gained an `ss` fallback that parses
+  the owning pid from `ss -ltnpH "sport = :PORT"` and kills it. Previously it did nothing on
+  such a host — while `port_in_use` (which uses `ss`) kept reporting the port busy — so the
+  menu failed with "Port 3000, 8080 or 3001 is still in use … Stop it manually and retry"
+  and the dev server could not restart](https://github.com/wekan/wekan/commit/d61eba49f1fc3fb992a0cc0e9860e983fbdfd833).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
