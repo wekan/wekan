@@ -235,6 +235,21 @@ This release has the following developer-tooling fix:
   and the dev server could not restart](https://github.com/wekan/wekan/commit/d61eba49f1fc3fb992a0cc0e9860e983fbdfd833).
   Thanks to xet7.
 
+This release improves the translation workflow:
+
+- [Fix #6494 (Transifex human translations were overwritten and the fetch was omitted):
+  removed the external machine-translation service (`machine-translate.mjs`, which called
+  LibreTranslate/DeepL and needed a `WEKAN_MT_URL` / `WEKAN_MT_API_KEY`). Remaining strings
+  that are untranslated everywhere are now translated DIRECTLY (no external service, key or
+  password), using each language's existing translations and general kanban terminology as
+  the reference, and applied with a new `fill-translations.mjs` that writes ONLY into
+  English-placeholder keys — so a fill can never overwrite a human translation. The pull
+  always fetches the newest Transifex translations first and `merge-translations.mjs`
+  keeps/restores the human ones, restoring the two-way process; `verify-human-preference.mjs`
+  proves both directions with 10
+  cases](https://github.com/wekan/wekan/commit/4146c5374).
+  Thanks to s2ldan and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v10.31 2026-07-23 WeKan ® release
