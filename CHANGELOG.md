@@ -98,21 +98,26 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   identical-signature #6511 reporter says it persists on 10.28, so it needs a live board to confirm
   whether the tiebreaker resolves it on FerretDB v2 / PostgreSQL).
 - **In-progress dev work carried forward (FerretDB v1 fork backend parity — not an issue, recorded so
-  the next session can resume):** the OpLog `ts` index + declared-index usability across the
-  PostgreSQL / MySQL / SAP HANA backends. DONE so far: range (`$gt/$gte/$lt/$lte`) and `$in` pushdown are
-  implemented and unit-tested on sqlite/postgresql/mysql/hana, the external-DB snap launcher
-  (`wekan-ferretdb-handler` / `wekan-ferretdb-url`) is in, and `ROADMAP.md` + `docs/pushdown.md` are
-  updated. NEXT: add the oplog `ts` index in each backend's `metadata/registry.go` `collectionCreate`,
-  special-cased for `local.oplog.rs`, best-effort with a descriptive WARN log naming the backend + SQL +
-  error if creation fails (per xet7's instruction to ship it blind with descriptive errors). Authoritative
-  syntax already web-searched: PostgreSQL btree `CREATE INDEX … (((_jsonb->>'ts')::numeric))` — matches
-  the fork's range-pushdown expression byte-for-byte so it will actually be used; MySQL needs a functional
-  index on a CAST (`… ((CAST(_ferretdb_sjson->>'$.ts' AS DECIMAL(65,10))))`) because a JSON expression
-  cannot be indexed directly, and the range pushdown expression must be aligned to that CAST for the
-  optimizer to use it; SAP HANA DocStore uses `CREATE HASH INDEX` on the collection. Also pending: assess
-  MariaDB vs the mysql backend. VERIFICATION BOUNDARY: the sandbox can only run/EXPLAIN the SQLite backend;
-  the PostgreSQL/MySQL/HANA index usability must be confirmed with live `EXPLAIN` on each engine by the
-  maintainer.
+  the next session can resume):** declared-index usability across the PostgreSQL / MySQL / MariaDB /
+  SAP HANA backends. DONE: range (`$gt/$gte/$lt/$lte`) and `$in` pushdown are implemented and
+  unit-tested on sqlite/postgresql/mysql/hana; the external-DB snap launcher
+  (`wekan-ferretdb-handler` / `wekan-ferretdb-url`) is in; `ROADMAP.md` + `docs/pushdown.md` are
+  updated; the OpLog `ts` index is now created best-effort in each backend's `collectionCreate`
+  (postgresql btree `(((_jsonb->>'ts')::numeric))`, mysql functional
+  `((CAST(_ferretdb_sjson->>'$.ts' AS DECIMAL(65,10))))` with a **MariaDB fallback** to a
+  `STORED` generated column on that CAST + a column index since MariaDB has no functional key parts,
+  hana a DocStore index) with a descriptive WARN log on failure; and the **MariaDB-vs-mysql-backend
+  assessment is done** (MariaDB speaks the MySQL wire protocol and the backend does not gate on
+  vendor/version — the `json` column, `->`/`->>`/`JSON_CONTAINS`/`JSON_TYPE`, the generated-`STORED`
+  index workaround, `EXPLAIN FORMAT=JSON` and `information_schema` all work on MariaDB 10.2+; the
+  functional ts index was the one concrete break, now fixed; every pushdown is a superset with an
+  in-Go re-filter so results stay correct regardless). VERIFICATION BOUNDARY / NEXT: the sandbox can
+  only run/EXPLAIN the SQLite backend, so the maintainer must confirm on live PostgreSQL / MySQL /
+  MariaDB / SAP HANA that the range pushdown expression MATCHES the indexed expression and the
+  optimizer actually USES the index (today the mysql pushdown compares `col->'$.ts'` while the index
+  is on `CAST(col->>'$.ts' AS DECIMAL)`, so the pushdown likely needs to emit the same CAST), plus
+  whether MariaDB's `JSON_TYPE` returns the same `INTEGER`/`DOUBLE`/`DECIMAL` tokens — all
+  correctness-neutral (only selectivity), verifiable only with live `EXPLAIN` on each engine.
 - **Fill the remaining untranslated strings directly, no external service — not an issue, deferred
   because bug fixes are more important than translations (recorded so the next session can resume):**
   after the #6494 fix the translation tooling is safe and ready, but the strings themselves are not yet
