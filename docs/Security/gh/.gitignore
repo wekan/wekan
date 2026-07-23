@@ -1,0 +1,4 @@
+# Downloaded security reports describe unfixed vulnerabilities - never commit
+# them to a public repo. The script also writes a `*` .gitignore into the
+# reports root on every run; this one covers the default location.
+reports/
