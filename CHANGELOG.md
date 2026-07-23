@@ -123,6 +123,14 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
 
 This release fixes the following bugs:
 
+- Opening a card no longer takes ~40 seconds on FerretDB v1 (SQLite). A card's attachments are
+  looked up with the dotted key `{'meta.cardId': ...}`, which the bundled FerretDB dropped from the
+  WHERE (it skipped any dotted-path key), so it full-scanned the whole `attachments` collection with
+  a per-row decode on every poll while a card was open — slow card content and high idle CPU. The
+  FerretDB v1 fork now pushes down a dotted-path equality/`$in` as the nested `->` expression that
+  matches the existing `meta.cardId` index (see the FerretDB fork changelog). Ships with the bundled
+  FerretDB update. Thanks to xet7.
+
 - [Activity feed pushes down on FerretDB: the comment-only feed selected activities with a top-level
   `$and`, which FerretDB v1 (SQLite) does not push down, so the activities collection was
   full-scanned on every poll (slow board/card history on a big board). The scope and `activityType`
