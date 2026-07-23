@@ -183,6 +183,17 @@ This release updates the following dependencies:
 
 This release fixes the following bugs:
 
+- [Fix #6512: after a successful login or register, go straight to the All Boards page
+  instead of landing back on the login layout that shows only the language selector
+  ("Vaihda kieltä") until a manual reload. `onSubmitHook` navigated home immediately, but
+  the home route's sign-in guard checks `Meteor.userId()` non-reactively and bounced back
+  to sign-in while the userId was still propagating (a tick after login); the same guard
+  also stranded a returning user during auto-login from a stored token. `onSubmitHook` now
+  waits reactively for `Meteor.userId()` before navigating (with a timeout fallback), and
+  the All Boards guard no longer bounces while a login is in progress
+  (`Meteor.loggingIn()`)](https://github.com/wekan/wekan/commit/3c6d2b54e388f1c7d455f1f16d15bdd6369d7355).
+  Thanks to akshat-goel and xet7.
+
 - [Fix #6515: the startup / board-open board repair no longer unbinds per-swimlane lists.
   `repairBoardsOnStartup` ran the shared repair over every board and cleared `swimlaneId`
   to `null` on EVERY list that had one — treating any swimlane-bound list as #6484
