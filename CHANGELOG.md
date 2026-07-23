@@ -177,6 +177,91 @@ attachments), #4593 (late-joining team member board membership) and #3037 (REST 
   `language-*` classes on `<span>` inside `pre>code` only, which is a security trade-off xet7 has not
   decided on yet (adds a dependency + loosens the XSS sanitizer + needs a browser build to verify).
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Admin Panel → Problems → Summary now has a Repair button for "Broken cards N". The page
+  reported the count and told the admin to "run the repair migration", but there was no
+  button anywhere to run one — and no repair in the app could actually clear that count.
+  `countBrokenCards()` counts every card missing a `boardId` OR a `swimlaneId` OR a
+  `listId`, while `repairAllBoards()` walks only NON-ARCHIVED boards and only ever sets
+  `swimlaneId`, so three kinds of counted card could never be repaired by anything: cards
+  on an archived board, cards with a missing `listId`, and cards with no `boardId` at all.
+  The new admin-only `repairBrokenCards` method runs the standard per-board pass and then
+  closes those gaps, assigning the affected cards to their board's first usable
+  list/swimlane (creating a default one when the board has none) and resolving each board's
+  defaults once rather than once per card. Cards with no `boardId` cannot be placed on any
+  board — guessing would drop a user's card onto an unrelated board — so they are reported
+  as unfixable and left alone, never deleted, instead of leaving a count that never reaches
+  zero unexplained. What counts as broken now lives in ONE pure module used by both the
+  count and the repair, so they can no longer drift apart, with unit and negative tests for
+  the rule](https://github.com/wekan/wekan/commit/44b20e593).
+  Thanks to xet7.
+
+- [Admin Panel → Problems → CPU usage now shows the CURRENT CPU usage between the page
+  title and the Search box. The page listed only PAST high-CPU periods, so it could not
+  answer "what is the CPU doing right now?" — the one question an admin opens it to ask.
+  The new line shows the system CPU percentage, core count, 1/5/15 minute load average and
+  the coarse "what WeKan is doing" label, refreshed every 5 seconds and outlined in red
+  while the monitor considers the CPU sustainedly high. It reads the same sample the
+  monitor writes its event rows from, so the header and the rows below it can never
+  disagree, and with the background monitor disabled (`WEKAN_CPU_MONITOR=false`) it
+  measures between calls using a separate baseline instead of always reading
+  0%](https://github.com/wekan/wekan/commit/e7f485a88).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Admin Panel report styles were never loaded, so every report's prev/next pagination
+  button rendered with a black background. `client/components/settings/adminReports.css`
+  was not imported anywhere, and `package.json` sets `meteor.mainModule`, which disables
+  Meteor's eager loading — a CSS file that nothing imports is simply not in the bundle. The
+  buttons fell through to the global `button { background: var(--theme-accent, #000) }` in
+  `forms.css`, which is BLACK when no custom theme colour is set. All prev/next controls in
+  WeKan (admin reports, People/Org/Team/Domain, All Boards, board Table view, cron tables)
+  now share one themed stylesheet that also covers `:focus` and `:active` — `forms.css`
+  styles those at a specificity equal to or higher than a plain `.some-pagination button`
+  rule, so even a loaded stylesheet lost as soon as the button was clicked and pressing
+  "next" left it dark grey until it lost focus. Disabled is now the same themed outline
+  faded rather than a grey block, and the "3 / 42" page info inherits the surrounding text
+  colour instead of a hard-coded `#333` that vanishes on dark
+  backgrounds](https://github.com/wekan/wekan/commit/5af48abd0).
+  Thanks to xet7.
+
+- [Admin Panel → Problems → Cards report loads and pages faster. The report already
+  paginated server-side (25 rows per page via limit/skip), so it never loaded all cards
+  into the browser, but the `cardsReport` publication sent WHOLE card documents —
+  description, customFields, vote/poker sub-documents, every date field — when the table
+  renders only six columns, so a 25-row page could be hundreds of kilobytes on boards with
+  long descriptions; it now projects only the six columns shown. And every prev/next click
+  re-ran the report's count method as well as re-subscribing, paying for a full collection
+  count plus a second server round trip even though the total cannot change just because
+  you moved to the next page; opening a report and searching in it now recount, plain
+  paging does not. Both changes also apply to the files, rules, boards, impersonation and
+  recovery reports, which share the same loader](https://github.com/wekan/wekan/commit/b0407209c).
+  Thanks to xet7.
+
+and has the following developer-tooling addition:
+
+- [Added `docs/Security/gh/pull-security-reports.sh`, which downloads every security and
+  code-quality report GitHub exposes for a repo — open AND closed — into a timestamped run
+  directory with one subdirectory per category of the GitHub Security tab
+  (CodeQuality/StandardFindings, CodeQuality/AIFindings, CodeScanning,
+  Dependabot/Vulnerabilities, Dependabot/Malware, SecretScanning, Advisories,
+  DependencyGraph), each split into `open/` and `closed/`, as raw JSON plus readable
+  per-rule / per-file / per-severity text summaries. Each category is fetched ONCE with no
+  state filter and split locally, so open + closed are a partition of one snapshot rather
+  than two requests taken at different moments, and a failing endpoint is recorded and
+  skipped instead of aborting the run. The live credential the secret-scanning API returns
+  is deleted before anything is written, and the reports directory is gitignored because
+  these files describe unfixed vulnerabilities. Needed because the VSCode Flatpak sandbox
+  has neither `gh` nor network access to
+  api.github.com](https://github.com/wekan/wekan/commit/896918215).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v10.33 2026-07-23 WeKan ® release
 
 This release adds the following updates:
